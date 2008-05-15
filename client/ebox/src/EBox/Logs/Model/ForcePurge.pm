@@ -36,7 +36,6 @@ use EBox::Logs::Model::ConfigureLogDataTable;
 
 # Core modules
 use Error qw(:try);
-use Clone qw(clone);
 
 # Group: Public methods
 

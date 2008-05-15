@@ -1,4 +1,4 @@
-AC_INIT([ebox-dns], [0.11.100])
+AC_INIT([ebox-dns], [0.12])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/DNS.pm.in])

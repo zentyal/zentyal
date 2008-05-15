@@ -30,6 +30,10 @@ use base 'EBox::Types::Abstract';
 use EBox;
 use EBox::Exceptions::Internal;
 
+# Dependencies
+use Clone;
+use Perl6::Junction qw(none);
+
 # It's a package global
 our $AUTOLOAD;
 
@@ -56,6 +60,40 @@ sub new
 
         bless($self, $class);
         return $self;
+}
+
+# Method: clone
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::clone>
+#
+sub clone
+{
+    my ($self) = @_;
+
+    my $clonedType = {};
+    bless($clonedType, ref($self));
+
+    my @suspectedAttrs = qw(model row subtypes);
+    foreach my $key (keys %{$self}) {
+        if ( $key eq none(@suspectedAttrs) ) {
+            $clonedType->{$key} = Clone::clone($self->{$key});
+        }
+    }
+    # Just copy the reference
+    foreach my $suspectedAttr (@suspectedAttrs[0 .. 1]) {
+        if ( exists $self->{$suspectedAttr} ) {
+            $clonedType->{$suspectedAttr} = $self->{$suspectedAttr};
+        }
+    }
+    # Clone subtypes by calling its method clone
+    foreach my $subtype (@{$self->subtypes()}) {
+        push(@{$clonedType->{'subtypes'}}, $subtype->clone());
+    }
+
+    return $clonedType;
+
 }
 
 sub subtype
@@ -118,8 +156,14 @@ sub unique
 {
 	my ($self) = @_;
 
-	# So far we do not check if it is unique
-	return 0;
+        my @subtypes = @{$self->{'subtypes'}};
+        foreach my $subtype (@subtypes) {
+            unless ( $subtype->unique() ) {
+                return 0;
+            }
+        }
+
+        return 1;
 }
 
 

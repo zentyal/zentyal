@@ -1,3 +1,20 @@
+<%doc>
+  Stub template file to dump the configuration file for a domain zone
+
+Parameters:
+
+  domain - hash containing the following information:
+
+      name - String the domain's name
+      hosts - Array ref containing hash refs with the following elements:
+         ip   - String the IP address for that host
+         name - String the host's name
+         aliases - Array ref containing hash refs with the following elements:
+             name - String the alias' name
+      mailExchangers - Array ref containing hash refs with the following elements:
+         hostName - String the host's name which is a mail exchanger
+         preference - Int the preference number for that MX record
+</%doc>
 <%args>
 	%domain
 </%args>
@@ -16,15 +33,29 @@ $TTL 3D
 		NS	ns.<% $domain{'name'} %>.	;nameserver
 ;
 ns		A	127.0.0.1
-%	my @hosts = @{$domain{'hosts'}};
-%	if(@hosts != 0) {
-%		foreach my $host (@hosts) {
+<%perl>
+	my @hosts = @{$domain{'hosts'}};
+	if(@hosts != 0) {
+		foreach my $host (@hosts) {
+</%perl>
 <% $host->{'name'} %>		A	<% $host->{'ip'} %>
-%			my @aliases = @{$host->{'aliases'}};
-%			if (@aliases != 0) {
-%				foreach my $alias (@aliases) {
+<%perl>
+			my @aliases = @{$host->{'aliases'}};
+			if (@aliases != 0) {
+				foreach my $alias (@aliases) {
+</%perl>
 <% $alias->{'name'} %>		CNAME	<% $host->{'name'} %>
-%				}
-%			}
-%		}
-%	}
+<%perl>
+				}
+			}
+		}
+	}
+        my @mxRRs = @{$domain{'mailExchangers'}};
+        if (@mxRRs > 0 ) {
+                foreach my $mxRR (@mxRRs) {
+</%perl>
+@               MX      <% $mxRR->{'preference'} %> <% $mxRR->{'hostName'} %>
+<%perl>
+                }
+        }
+</%perl>

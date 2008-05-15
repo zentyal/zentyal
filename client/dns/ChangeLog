@@ -1,3 +1,7 @@
+0.12
+	+ Added Mail Exchanger model to introduce MX records in domains.
+	+ Added mail exchanger model related methods to the exposed API.
+	+ Updated remainder models to use lastest types HostIP and DomainName
 0.11.100
 	+ add isRunning and enableService to set firewall properly
 	+ onInstall() functionality moved to migration script
@@ -39,7 +43,7 @@
 0.7	
 	* First public release
 0.6
-	* API documented using natarualdocs
+	* API documented using naturaldocs
 	* Update install and depends
 0.5.2
 	* Fix some packaging issues

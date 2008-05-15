@@ -30,7 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Types::Text;
+use EBox::Types::DomainName;
 use EBox::Types::HasMany;
 use EBox::Sudo;
 
@@ -59,7 +59,7 @@ sub _table
     my @tableHead = 
         ( 
 
-            new EBox::Types::Text
+            new EBox::Types::DomainName
                             (
                                 'fieldName' => 'domain',
                                 'printableName' => __('Domain'),
@@ -73,9 +73,17 @@ sub _table
                                 'printableName' => __('Hostnames'),
                                 'foreignModel' => 'HostnameTable',
                                 'view' => '/ebox/DNS/View/HostnameTable',
-                                'backView' => '/ebox/DNS/View/HostnameTable',
+                                'backView' => '/ebox/DNS/View/DomainTable',
                                 'size' => '1',
-                             )
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'mailExchangers',
+                                'printableName' => __('Mail Exchangers'),
+                                'foreignModel' => 'MailExchanger',
+                                'view' => '/ebox/DNS/View/MailExchanger',
+                                'backView' => '/ebox/DNS/View/DomainTable',
+                             ),
           );
 
     my $dataTable = 
@@ -93,17 +101,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-# Method: validateRow
-#
-#      Override <EBox::Model::DataTable::validateRow> method
-#
-sub validateRow()
-{
-    my ($self, $action, %param) = @_;
-
-		checkDomainName($param{'domain'}, __("Domain name"));
 }
 
 # Method: addDomain

@@ -30,9 +30,9 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Types::Boolean;
 
 # Dependencies
+use Clone;
 use Error qw(:try);
 use POSIX qw(ceil);
-use Clone qw(clone);
 use Perl6::Junction qw(all any);
 
 use strict;
@@ -125,6 +125,9 @@ sub table
       for my $field (@{$self->{'table'}->{'tableDescription'}}) {
       	my $name = $field->fieldName();
 	$self->{'table'}->{'tableDescriptionByName'}->{$name} = $field;
+        # Set the model here to allow types have the model from the
+        # addition as well
+        $field->setModel($self);
       }
       # Some default values
       unless (defined($self->{'table'}->{'class'})) {
@@ -716,7 +719,7 @@ sub addRow
 
         my $userData = {};
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
-		my $data = clone($type);
+		my $data = $type->clone();
 		$data->setMemValue(\%params);
                 $userData->{$data->fieldName()} = $data;
 	}
@@ -855,7 +858,7 @@ sub row
 	my $gconfData = $gconfmod->hash_from_dir("$dir/$id");
 	$row->{'readOnly'} = $gconfData->{'readOnly'};
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
-		my $data = clone($type);
+		my $data = $type->clone();
 		$data->setRow($row);
 		$data->setModel($self);
 		$data->restoreFromHash($gconfData);
@@ -1186,7 +1189,7 @@ sub setRow
 
 	my $changedData;
 	for (my $i = 0; $i < @newValues ; $i++) {
-		my $newData = clone($newValues[$i]);
+		my $newData = $newValues[$i]->clone();
 		$newData->setMemValue(\%params);
 
 		$changedData->{$newData->fieldName()} = $newData;
@@ -2323,6 +2326,8 @@ sub findId
 
   }
 
+sub DESTROY { ; }
+
 # Method: AUTOLOAD
 #
 #       Autoload function called whenever a method is undefined for
@@ -2406,10 +2411,7 @@ sub AUTOLOAD
 
       $methodName =~ s/.*:://;
 
-      # Ignore DESTROY callings (the Perl destructor)
-      if ( $methodName eq 'DESTROY') {
-          return;
-      } elsif ( $methodName eq 'domain' ) {
+      if ( $methodName eq 'domain' ) {
           return $self->{gconfmodule}->domain();
       }
 
@@ -2761,20 +2763,20 @@ sub _find
 
 sub _checkFieldIsUnique
 {
-	my ($self, $newData) = @_;
+    my ($self, $newData) = @_;
 
-        # Call _rows instead of rows because of deep recursion
-        my $rows = $self->_rows();
-        foreach my $row (@{$rows}) {
-            my $rowField = $row->{'valueHash'}->{$newData->fieldName()};
-            if ( $newData->isEqualTo($rowField) ) {
-                throw EBox::Exceptions::DataExists(
-                                      'data'  => $newData->printableName(),
-                                      'value' => $newData->printableValue(),
-                                                  );
-            }
+    # Call _rows instead of rows because of deep recursion
+    my $rows = $self->_rows();
+    foreach my $row (@{$rows}) {
+        my $rowField = $row->{'valueHash'}->{$newData->fieldName()};
+        if ( $newData->isEqualTo($rowField) ) {
+            throw EBox::Exceptions::DataExists(
+                'data'  => $newData->printableName(),
+                'value' => $newData->printableValue(),
+               );
         }
-	return 0;
+    }
+    return 0;
 }
 
 # Check the new row to add/set is unique, it ignores enabled parameter
@@ -3470,7 +3472,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 
       my ($self, $action, $methodName, $oldParamsRef) = @_;
 
-      my $paramsRef = clone($oldParamsRef);
+      my $paramsRef = Clone::clone($oldParamsRef);
 
       # Delete the action from the name
       my $first = ( $methodName =~ s/^$action// );
@@ -3480,8 +3482,8 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
       my $submodels = $self->_subModelFields();
 
       if ( defined ( $subModelInMethod ) and defined ( $submodels )) {
-          # Turn into lower case
-          $subModelInMethod = "\L$subModelInMethod";
+          # Turn into lower case the first letter
+          $subModelInMethod = lcfirst($subModelInMethod);
           if ( $subModelInMethod eq any(@{$submodels}) ) {
               # Remove one parameter, since the index is used
               shift ( @{$paramsRef} );
@@ -3629,7 +3631,7 @@ sub _fillTypes
           if ( exists $params->{$fieldName} ) {
               my $field = $self->fieldHeader($fieldName);
               my $paramValue = $params->{$fieldName};
-              my $newType = clone($field);
+              my $newType = $field->clone();
               $newType->setValue($paramValue);
               $filledTypes->{$fieldName} = $newType;
           }
@@ -3659,7 +3661,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
       my ($self, $subModelFieldName, $subModelRows, $id) = @_;
 
       my $hasManyField = $self->fieldHeader($subModelFieldName);
-      my $userField = clone($hasManyField);
+      my $userField = $hasManyField->clone();
       my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
@@ -3706,7 +3708,7 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
       my ($self, $subModelFieldName, $subModelRows, $id) = @_;
 
       my $hasManyField = $self->fieldHeader($subModelFieldName);
-      my $userField = clone($hasManyField);
+      my $userField = $hasManyField->clone();
       my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
@@ -3745,7 +3747,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 
       my ($self, $action, $methodName, $origParamsRef) = @_;
 
-      my $paramsRef = clone($origParamsRef);
+      my $paramsRef = Clone::clone($origParamsRef);
 
       $methodName =~ s/^$action//;
 
@@ -3755,10 +3757,11 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
       # Let's go along the method name delTableToTableToTable
       my $model = $self;
       foreach my $subModelField (@modelNames[1 .. @modelNames - 1]) {
-          $subModelField = "\L$subModelField";
+          # Turn to lower case the first letter
+          $subModelField = lcfirst($subModelField);
           # Get the has many field
           my $hasManyField = $model->fieldHeader($subModelField);
-          my $userField = clone($hasManyField);
+          my $userField = $hasManyField->clone();
           # Get the identifier to set the directory
           my $id = $self->_autoloadGetId($model, $paramsRef);
           # Remove an index to get the model

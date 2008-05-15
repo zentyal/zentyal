@@ -30,7 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Types::Text;
+use EBox::Types::DomainName;
 use EBox::Sudo;
 
 use Net::IP;
@@ -56,7 +56,7 @@ sub _table
     my @tableHead = 
         ( 
 
-            new EBox::Types::Text
+            new EBox::Types::DomainName
                             (
                                 'fieldName' => 'alias',
                                 'printableName' => __('Alias'),
@@ -81,17 +81,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-# Method: validateRow
-#
-#      Override <EBox::Model::DataTable::validateRow> method
-#
-sub validateRow()
-{
-    my ($self, $action, %param) = @_;
-
-		checkDomainName($param{'alias'}, __("Alias name"));
 }
 
 1;

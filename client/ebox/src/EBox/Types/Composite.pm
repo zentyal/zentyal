@@ -34,6 +34,10 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Exceptions::Internal;
 
+# Dependencies
+use Clone;
+use Perl6::Junction qw(none);
+
 # Group: Public methods
 
 # Constructor: new
@@ -67,6 +71,40 @@ sub new
 
         bless($self, $class);
         return $self;
+}
+
+# Method: clone
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::clone>
+#
+sub clone
+{
+    my ($self) = @_;
+
+    my $clonedType = {};
+    bless($clonedType, ref($self));
+
+    my @suspectedAttrs = qw(model row types);
+    foreach my $key (keys %{$self}) {
+        if ( $key eq none(@suspectedAttrs) ) {
+            $clonedType->{$key} = Clone::clone($self->{$key});
+        }
+    }
+    # Just copy the reference to the suspected attributes
+    foreach my $suspectedAttr (@suspectedAttrs[0 .. 1]) {
+        if ( exists $self->{$suspectedAttr} ) {
+            $clonedType->{$suspectedAttr} = $self->{$suspectedAttr};
+        }
+    }
+    # Clone types by calling its method clone
+    foreach my $subtype (@{$self->types()}) {
+        push(@{$clonedType->{types}}, $subtype->clone());
+    }
+
+    return $clonedType;
+
 }
 
 # Method: fields

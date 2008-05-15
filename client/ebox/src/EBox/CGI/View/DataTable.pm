@@ -114,7 +114,7 @@ sub _fillTypes
 	my %params;
         my $cgiParams = $self->paramsAsHash();
 	foreach my $field (@{$tableDesc}) {
-            my $instancedType = Clone::clone($field);
+            my $instancedType = $field->clone();
             $instancedType->setValue($cgiParams->{$instancedType->fieldName()});
             $params{$field->fieldName()} = $instancedType;
 	}

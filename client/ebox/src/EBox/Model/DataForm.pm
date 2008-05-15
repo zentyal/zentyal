@@ -37,8 +37,8 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
+use Clone;
 use Error qw(:try);
-use Clone qw(clone);
 
 # Group: Public methods
 
@@ -297,7 +297,7 @@ sub setRow
 
       my $changedData;
       for (my $i = 0; $i < @newValues ; $i++) {
-          my $newData = clone($newValues[$i]);
+          my $newData = $newValues[$i]->clone();
           $newData->setMemValue(\%params);
 
           $changedData->{$newData->fieldName()} = $newData;
@@ -734,7 +734,7 @@ sub _addRow
       my @userData;
       my $userData;
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = clone($type);
+          my $data = $type->clone();
           $data->setMemValue(\%params);
 
           push (@userData, $data);
@@ -895,7 +895,7 @@ sub _row
       my $gconfData = $gconfmod->hash_from_dir("$dir");
       $row->{'readOnly'} = $gconfData->{'readOnly'};
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = clone($type);
+          my $data = $type->clone();
           $data->restoreFromHash($gconfData);
           $data->setRow($row);
           $data->setModel($self);
@@ -945,7 +945,7 @@ sub _defaultRow
       my @values = ();
 
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = clone($type);
+          my $data = $type->clone();
 
           if ($data->type() eq 'union') {
             # FIXME: Check if we can avoid this

@@ -19,7 +19,7 @@
 #
 #   This class inherits from <EBox::Model::DataTable> and represents the
 #   object table which basically contains domains names and a reference
-#   to a member <EBox::DNS::Model::HostnameTable>
+#   to a member <EBox::DNS::Model::DomainTable>
 #
 #   
 package EBox::DNS::Model::HostnameTable;
@@ -30,8 +30,9 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Types::Text;
+use EBox::Types::DomainName;
 use EBox::Types::HasMany;
+use EBox::Types::HostIP;
 use EBox::Sudo;
 
 use EBox::Model::ModelManager;
@@ -58,8 +59,7 @@ sub _table
 {
     my @tableHead = 
         ( 
-
-            new EBox::Types::Text
+            new EBox::Types::DomainName
                             (
                                 'fieldName' => 'hostname',
                                 'printableName' => __('Hostname'),
@@ -67,7 +67,7 @@ sub _table
                                 'unique' => 1,
                                 'editable' => 1
                              ),
-            new EBox::Types::Text
+            new EBox::Types::HostIP
                             (
                                 'fieldName' => 'ipaddr',
                                 'printableName' => __('IP Address'),
@@ -101,18 +101,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-# Method: validateRow
-#
-#      Override <EBox::Model::DataTable::validateRow> method
-#
-sub validateRow()
-{
-    my ($self, $action, %param) = @_;
-
-		checkDomainName($param{'hostname'}, __("Domain name"));
-		checkIP($param{'ipaddr'}, __("IP address"));
 }
 
 # Method: addHostname
@@ -163,4 +151,5 @@ sub addHostname
        $aliasModel->addRow('alias' => $alias);
    }
 }
+
 1;

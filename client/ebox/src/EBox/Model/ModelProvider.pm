@@ -209,6 +209,7 @@ sub _exposedMethods
 
   }
 
+sub DESTROY { ; }
 
 # Method: AUTOLOAD
 #
@@ -232,11 +233,6 @@ sub AUTOLOAD
       my $methodName = our $AUTOLOAD;
 
       $methodName =~ s/.*:://;
-
-      # Ignore DESTROY callings
-      if ( $methodName eq 'DESTROY' ) {
-          return;
-      }
 
       my $exposedMethods = $self->_exposedMethods();
       if ( exists $exposedMethods->{$methodName} ) {

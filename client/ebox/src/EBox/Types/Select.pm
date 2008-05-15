@@ -152,7 +152,7 @@ sub foreignModel
     my $foreignModel = $self->{'foreignModel'};
 
     return undef unless (defined($foreignModel));
-    my $model = &$foreignModel;
+    my $model = &$foreignModel($self);
     return $model;
 
 }
@@ -249,10 +249,46 @@ sub _paramIsSet
 
   }
 
+# Method: _setValue
+#
+#       Set the value for the select. It allows to the select not only
+#       use default options using populate function but also a field
+#       from the foreign model indicating the printable value or the
+#       row identifier
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setValue>
+#
+sub _setValue
+{
+    my ($self, $value) = @_;
+
+    my $params;
+    my $mappedValue = $value;
+    if ( defined($self->foreignModel()) ) {
+        # Map the given printable value to the real value to store in
+        # GConf
+        my $options = $self->_optionsFromForeignModel();
+        foreach my $option (@{$options}) {
+            if ( $option->{printableValue} eq $value ) {
+                $mappedValue = $option->{value};
+                last;
+            } elsif ( $option->{value} eq $value ) {
+                last;
+            }
+        }
+    }
+    $params = { $self->fieldName() => $mappedValue };
+
+    $self->setMemValue($params);
+
+}
+
 # Group: Private helper functions
 
-# Method: _addOptionsFromForeignModel
-#   
+# Method: _optionsFromForeignModel
+#
 #   (PRIVATE)
 #
 #   This method is used to fetch options values from a foreign model
@@ -267,7 +303,6 @@ sub _optionsFromForeignModel
     my $field = $self->{'foreignField'};
 
     return unless (defined($model) and defined($field));
-	
 
     return $model->optionsFromForeignModel($field);
 }

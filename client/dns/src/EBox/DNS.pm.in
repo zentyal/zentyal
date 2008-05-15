@@ -91,7 +91,8 @@ sub modelClasses
                             domain      => 'ebox-dns',
                             directory   => 'enableForm',
                            ],
-            }
+            },
+            'EBox::DNS::Model::MailExchanger',
            ];
 }
 
@@ -128,10 +129,19 @@ sub _exposedMethods
                             indexes  => [ 'domain', 'hostname' ],
                             selector => [ 'ipaddr' ]
                           },
-         'getHostName' => { action   => 'get',
+         'changeName'  => { action   => 'set',
                             path     => [ 'DomainTable', 'hostnames' ],
                             indexes  => [ 'domain', 'hostname' ],
+                            selector => [ 'hostname' ]
                           },
+         'getHostNameByName' => { action   => 'get',
+                                  path     => [ 'DomainTable', 'hostnames' ],
+                                  indexes  => [ 'domain', 'hostname' ],
+                                },
+         'getHostNameByIP' => { action  => 'get',
+                                path    => [ 'DomainTable', 'hostnames' ],
+                                indexes => [ 'domain', 'ipaddr' ],
+                              },
          'removeHostName' => { action => 'del',
                                path   => [ 'DomainTable', 'hostnames' ],
                                indexes => [ 'domain', 'hostname' ],
@@ -149,6 +159,20 @@ sub _exposedMethods
                             indexes  => [ 'domain', 'hostname', 'alias' ],
                             selector => [ 'alias' ],
                           },
+         'addMailExchanger' => { action  => 'add',
+                                 path    => [ 'DomainTable', 'mailExchangers' ],
+                                 indexes => [ 'domain' ],
+                               },
+         # Both last two methods are only working with custom MX records
+         'changeMXPreference' => { action  => 'set',
+                                   path    => [ 'DomainTable', 'mailExchangers' ],
+                                   indexes => [ 'domain', 'hostName' ],
+                                   selector => [ 'preference' ]
+                                 },
+         'removeMailExchanger' => { action  => 'del',
+                                    path    => [ 'DomainTable', 'mailExchangers' ],
+                                    indexes => [ 'domain', 'hostName' ],
+                                  },
          );
 
       return \%exposedMethods;
@@ -189,8 +213,11 @@ sub addDomain
 # 	returns an array with all domain names
 #
 # Returns:
-# 	an array ref
-# 	
+#
+# 	Array ref - containing hash refs with the following elements:
+#
+#           name - String the domain's name
+#
 sub domains
 {
 	my $self = shift;
@@ -210,7 +237,7 @@ sub domains
 	return \@array;
 }
 
-# Method: hostnames
+# Method: _hostnames
 # 	returns an array with all hostname structure
 #
 # Parameters:
@@ -223,7 +250,7 @@ sub domains
 #		'ip': ip address of hostname
 #		'aliases': an array ref returned by <EBox::DNS::aliases> method.
 # 	
-sub hostnames
+sub _hostnames
 {
 	my ($self, $data) = @_;
 	my @array;
@@ -240,6 +267,37 @@ sub hostnames
 	}
 
 	return \@array;
+}
+
+# Method: _formatMailExchangers
+#
+#       Format the mail exchangers to write configuration settings
+#       properly. That is, custom MX records appends a full stop after
+#       the type value.
+#
+# Parameters:
+#
+#       mailExchangers - array ref containing the hash refs with the
+#       following elements:
+#
+#            hostName - String the host's name
+#            id - String the row identifier
+#            preference - Int the preference attribute
+#            ownerDomain - if the hostname owns to the same domain.
+#            custom - if the hostname is a foreign one
+#
+sub _formatMailExchangers
+{
+    my ($self, $mailExchangers) = @_;
+
+    foreach my $mx (@{$mailExchangers}) {
+        if ( $mx->{custom} ) {
+            unless ( $mx->{hostName} =~ m:\.$: ) {
+                $mx->{hostName} .= '.';
+            }
+        }
+    }
+
 }
 
 # Method: getHostnames
@@ -272,7 +330,7 @@ sub getHostnames
     $hostnameModel->setDirectory($domainModel->directory()
                                  . "/keys/$domainRowId/hostnames");
 
-    return $self->hostnames($hostnameModel->printableValueRows());
+    return $self->_hostnames($hostnameModel->printableValueRows());
 
 }
 
@@ -304,28 +362,80 @@ sub aliases
 	return \@array;
 }
 
-# Method: completeDomain
-# 	returns a structure with all necesary data to build bind db config files
+# Method: findAlias
+#
+#       Return the hostname which the alias refers to given a domain
 #
 # Parameters:
-# 	domain name
+#
+#       domainName - String the domain name
+#
+#       alias - String the alias name
 #
 # Returns:
-#		structure data with:
-#		
+#
+#       String - the hostname which the alias refers to
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#       argument is missing
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the domain does
+#       not exist or the alias does not exist
+#
+sub findAlias
+{
+    my ($self, $domainName, $alias) = @_;
+
+    $domainName or throw EBox::Exceptions::MissingArgument('domainName');
+    $alias or throw EBox::Exceptions::MissingArgument('alias');
+
+    my $domModel = $self->model('DomainTable');
+    $domModel->{cachedVersion} = 0;
+    my $row = $domModel->find(domain => $domainName);
+    unless ( defined($row)) {
+        throw EBox::Exceptions::DataNotFound(data => 'domain',
+                                             value => $domainName);
+    }
+    foreach my $hostnameRow (@{$row->{hostnames}->{values}}) {
+        my $aliasMatched = grep { $_->{alias} eq $alias } @{$hostnameRow->{alias}->{values}};
+        if ( $aliasMatched ) {
+            return $hostnameRow->{hostname};
+        }
+    }
+    throw EBox::Exceptions::DataNotFound(data  => 'alias',
+                                         value => $alias);
+
+}
+
+# Method: _completeDomain
+#
+# 	Return a structure with all required data to build bind db config files
+#
+# Parameters:
+#
+# 	domain - String the domain's name
+#
+# Returns:
+#
+#	hash ref - structure data with:
+#
 #		'name': domain name
-#		'hosts': an array ref returned by <EBox::DNS::hostnames> method.
-# 	
-sub completeDomain # (domain)
+#		'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
+#
+sub _completeDomain # (domain)
 {
 	my ($self, $domain) = @_;
-	my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
+	my $model = $self->model('DomainTable');
 	my $domdata;
 
 	my $row = $model->find(domain => $domain->{'name'});
 	$domdata->{'name'} = $domain->{'name'};
-	$domdata->{'hosts'} = $self->hostnames($row->{'hostnames'}->{'values'});
-	
+	$domdata->{'hosts'} = $self->_hostnames($row->{'hostnames'}->{'values'});
+        $self->_formatMailExchangers($row->{'mailExchangers'}->{'values'});
+        $domdata->{'mailExchangers'} = $row->{'mailExchangers'}->{'values'};
+
 	return $domdata;
 }
 
@@ -413,7 +523,7 @@ sub updateReversedData
 # 	files.
 #
 # Parameters:
-# 	array ref structure returned by <EBox::DNS::completeDomain>
+# 	array ref structure returned by <EBox::DNS::_completeDomain>
 #
 # Returns:
 # 	array ref structure data with:
@@ -487,15 +597,15 @@ sub usedFiles
 	my @domainData;
 	foreach my $domain (@domains)
 	{
-		my $domdata = $self->completeDomain($domain);
+		my $domdata = $self->_completeDomain($domain);
 		push(@domainData, $domdata);
 		my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
-		push (@{$files}, 
-						{
-							 'file' => $file,
-							 'module' => 'dns',
-							 'reason' => __x('configuration file for zone {zone}', zone => $file )
-						});
+		push (@{$files},
+                      {
+                          'file' => $file,
+                          'module' => 'dns',
+                          'reason' => __x('configuration file for zone {zone}', zone => $file )
+                      });
 
 	}
 
@@ -504,13 +614,12 @@ sub usedFiles
 	foreach my $reversedDataItem(@{$reversedData})
 	{
 		my $file = BIND9CONFDIR . "/db." . $reversedDataItem->{'groupip'};
-		push (@{$files}, 
-						{
-							 'file' => $file,
-							 'module' => 'dns',
-							 'reason' => __x('configuration file for reverse resolution zone {zone}', zone => $file )
-						});
-
+		push (@{$files},
+                      {
+                          'file' => $file,
+                          'module' => 'dns',
+                          'reason' => __x('configuration file for reverse resolution zone {zone}', zone => $file )
+                      });
 
 	}
 
@@ -616,7 +725,7 @@ sub _regenConfig
 {
 	my $self = shift;
 
-	$self->_setBindConf;
+	$self->_setBindConf();
 	$self->_doDaemon();
 }
 
@@ -645,7 +754,7 @@ sub _setBindConf
 	my @domainData;
 	foreach my $domain (@domains)
 	{
-		my $domdata = $self->completeDomain($domain);
+		my $domdata = $self->_completeDomain($domain);
 		push(@domainData, $domdata);
 
 		my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
@@ -669,7 +778,7 @@ sub _setBindConf
 	push(@array, 'domains' => \@domains);
 	push(@array, 'inaddrs' => \@inaddrs);
 	$self->writeConfFile(BIND9CONFLOCALFILE, 
-				"dns/named.conf.local.mas", 
+				"dns/named.conf.local.mas",
 				\@array);
 }
 

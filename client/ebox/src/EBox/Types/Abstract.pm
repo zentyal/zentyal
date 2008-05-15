@@ -30,6 +30,7 @@ use strict;
 use warnings;
 
 use EBox;
+use Perl6::Junction qw(none);
 
 # Group: Public methods
 
@@ -56,6 +57,35 @@ sub new
         return $self;
 }
 
+# Method: clone
+#
+#     Clone the current type safely
+#
+# Returns:
+#
+#     <EBox::Types::Abstract> - the cloned object
+#
+sub clone
+{
+    my ($self) = @_;
+
+    my $clonedType = {};
+    bless($clonedType, ref($self));
+
+    my @suspectedAttrs = qw(model row);
+    foreach my $key (keys %{$self}) {
+        if ( $key eq none(@suspectedAttrs) ) {
+            $clonedType->{$key} = Clone::clone($self->{$key});
+        }
+    }
+    # Just copy the reference
+    foreach my $suspectedAttr (@suspectedAttrs) {
+        if ( exists $self->{$suspectedAttr} ) {
+            $clonedType->{$suspectedAttr} = $self->{$suspectedAttr};
+        }
+    }
+    return $clonedType;
+}
 
 sub type
 {

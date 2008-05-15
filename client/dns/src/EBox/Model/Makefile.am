@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/DNS/Model
 
 nobase_perl_DATA = AliasTable.pm  DomainTable.pm  HostnameTable.pm \
-		   DNSComposite.pm EnableFormDNS.pm
+		   DNSComposite.pm EnableFormDNS.pm MailExchanger.pm
 
 DISTCLEANFILES = 
 
