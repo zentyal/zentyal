@@ -2285,7 +2285,8 @@ sub findAllValue
 # Method: findId
 #
 #	Return the first row identifier which matches the value of the
-#	given field against the data returned by the method value()
+#	given field against the data returned by the method value() or
+#	the method printableValue()
 #
 # Parameters:
 #
@@ -2318,8 +2319,14 @@ sub findId
 
       foreach my $row (@{$rows}) {
           my $values = $row->{'plainValueHash'};
-          next unless $values->{$fieldName} eq $value;
-          return $row->{'id'};
+          my $printableValues = $row->{'printableValueHash'};
+          if ( (defined($values->{$fieldName}) and $values->{$fieldName} eq $value)
+               or
+               (defined($printableValues->{$fieldName})
+                and $printableValues->{$fieldName} eq $value)
+              ) {
+              return $row->{'id'};
+          }
       }
 
       return undef;

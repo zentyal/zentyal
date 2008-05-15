@@ -24,6 +24,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Model::ModelManager;
 
 use constant TYPE => 'model';
 
@@ -327,7 +328,7 @@ sub _callExposedMethod
 #      if ( @{$paramsRef} > 1 ) {
       unless ( ref ( $paramsRef->[0] ) ) {
           if ( defined ( $paramsRef->[0] )) {
-              @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
+              @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0], scalar(@indexes));
               # Remove the index param if any
               shift ( @{$paramsRef} );
           }

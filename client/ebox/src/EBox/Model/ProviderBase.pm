@@ -148,8 +148,8 @@ sub _populate
       # construct instance
       my $instance =  $self->_newInstance($type, $class, @constructionParams);
       
-      $name = $instance->name; # XXX remove when nameFromClass its changed to
-                               # name 
+      $name = $instance->name(); # XXX remove when nameFromClass its changed to
+                                 # name
 
       $self->{$type}->{$name} =  {
 				  $defaultIndex =>  $instance,
