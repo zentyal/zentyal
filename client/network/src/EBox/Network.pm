@@ -1,5 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
-# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2007-2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -42,6 +42,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
 use EBox::Summary::Composite;
 use EBox::Summary::Module;
@@ -147,7 +148,41 @@ sub modelClasses
 # 	  'EBox::Network::Model::ByteRateSettings',
 # 	  'EBox::Network::Model::ByteRateGraph',
 # 	  'EBox::Network::Model::ByteRateGraphControl',
+          'EBox::Network::Model::StaticRoute',
 	 ];
+}
+
+
+# Method: _exposedMethods
+#
+#
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::_exposedMethods>
+#
+# Returns:
+#
+#      hash ref - the list of the exposes method in a hash ref every
+#      component
+#
+sub _exposedMethods
+{
+    my %exposedMethods =
+      (
+       'addRoute' => { action => 'add',
+                       path   => [ 'StaticRoute' ],
+                     },
+       'delRoute' => { action  => 'del',
+                       path    => [ 'StaticRoute' ],
+                       indexes => [ 'network' ],
+                   },
+       'changeGateway' => { action  => 'set',
+                            path    => [ 'StaticRoute' ],
+                            indexes => [ 'network' ],
+                            selector => [ 'gateway' ],
+                          },
+      );
+    return \%exposedMethods;
 }
 
 
@@ -1373,7 +1408,8 @@ sub ifaceNetmask # (interface)
 		return $self->get_string("interfaces/$name/netmask");
 	} elsif ($self->ifaceMethod($name) eq 'dhcp') {
 		if (iface_is_up($name)) {
-			return iface_netmask($name);
+			#return iface_netmask($name);
+                    return (values %{iface_addresses_with_netmask($name)})[0]
 		}
 	}
 	return undef;
@@ -1529,70 +1565,104 @@ sub gateway
 
 # Method: routes
 #
-#   	Returns the configured routes
-# 
+#   	Return the configured static routes
+#
 # Returns:
-#   
-# 	array ref - each element contains a hash with keys 'network' and 
-# 	'gateway', where network is an IP block in CIDR format and gateway 
-# 	is an ip address.
+#
+# 	array ref - each element contains a hash ref with keys:
+#
+#          network - an IP block in CIDR format
+#          gateway - an IP address
+#
 sub routes
 {
-	my $self = shift;
-	#my @routes = @{$order->list};
-	#my @array = ();
-	#foreach (@routes) {
-	#	push(@array, $self->hash_from_dir($_));
-	#}
-	return $self->array_from_dir('routes');
-	#return \@array;
+#	my $self = shift;
+#	#my @routes = @{$order->list};
+#	#my @array = ();
+#	#foreach (@routes) {
+#	#	push(@array, $self->hash_from_dir($_));
+#	#}
+#	return $self->array_from_dir('routes');
+#	#return \@array;
+    my ($self) = @_;
+
+    my $staticRouteModel = $self->model('StaticRoute');
+
+    return $staticRouteModel->printableValueRows();
+
 }
 
 # Method: addRoute
 #
-#   	Add a route
+#   	Add a static route
 #
 # Parameters:
 #
 #   	ip - the destination network (CIDR format)
 #   	mask - network mask
 #   	gateway - router for the given network
-#	 
-sub addRoute # (ip, mask, gateway) 
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataExists> - thrown if the route does
+#       already exists
+#
+#       <EBox::Exceptions::External> - thrown if the gateway is not
+#       reachable
+#
+#sub addRoute # (ip, mask, gateway) 
+#{
+#	my ($self, $ip, $mask, $gw) = @_;
+#
+#	checkCIDR("$ip/$mask", __("network address"));
+#	checkIP($gw, __("ip address"));
+#	$self->gatewayReachable($gw, __("Gateway"));
+#
+#	$ip = ip_network($ip, mask_from_bits($mask));
+#	if ($self->_alreadyInRoute($ip, $mask)) {
+#		throw EBox::Exceptions::DataExists('data' => 'network route',
+#						  'value' => "$ip/$mask");
+#	}
+#
+#	my $id = $self->get_unique_id("r","routes");
+#
+#	$self->set_string("routes/$id/ip", $ip);
+#	$self->set_int("routes/$id/mask", $mask);
+#	$self->set_string("routes/$id/gateway", $gw);
+#}
+#
+# Method: gatewayDeleted
+#
+#    Mark an interface as changed for a route delete. The selected
+#    interface to be restarted must be the one which the gateway is
+#    in.
+#
+# Parameters:
+#
+#    gateway - String the gateway IP address
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#    argument is missing
+#
+sub gatewayDeleted
 {
-	my ($self, $ip, $mask, $gw) = @_;
+    my ($self, $gw) = @_;
 
-	checkCIDR("$ip/$mask", __("network address"));
-	checkIP($gw, __("ip address"));
-	$self->_gwReachable($gw, __("Gateway"));
+    $gw or throw EBox::Exceptions::MissingArgument('gateway');
 
-	$ip = ip_network($ip, mask_from_bits($mask));
-	if ($self->_alreadyInRoute($ip, $mask)) {
-		throw EBox::Exceptions::DataExists('data' => 'network route',
-						  'value' => "$ip/$mask");
-	}
+    foreach my $iface (@{$self->allIfaces()}) {
+        my $host = $self->ifaceAddress($iface);
+        my $mask = $self->ifaceNetmask($iface);
+        my $meth = $self->ifaceMethod($iface);
+        (defined($meth) eq 'static') or next;
+        (defined($host) and defined($mask)) or next;
+        if (isIPInNetwork($host,$mask,$gw)) {
+            $self->_setChanged($iface);
+        }
+    }
 
-	my $id = $self->get_unique_id("r","routes");
-
-	$self->set_string("routes/$id/ip", $ip);
-	$self->set_int("routes/$id/mask", $mask);
-	$self->set_string("routes/$id/gateway", $gw);
-}
-
-sub _markIfaceForRoute # (gateway)
-{
-	my ($self, $gw) = @_;
-
-	foreach my $iface (@{$self->allIfaces()}) {
-		my $host = $self->ifaceAddress($iface);
-		my $mask = $self->ifaceNetmask($iface);
-		my $meth = $self->ifaceMethod($iface);
-		(defined($meth) eq 'static') or next;
-		(defined($host) and defined($mask)) or next;
-		if (isIPInNetwork($host,$mask,$gw)) {
-			$self->_setChanged($iface);
-		}
-	}
 }
 
 # Method: delRoute
@@ -1604,19 +1674,19 @@ sub _markIfaceForRoute # (gateway)
 #   	ip - the destination network 
 #   	mask - network mask
 #
-sub delRoute # (ip, mask) 
-{
-	my ($self, $ip, $mask) = @_;
-
-	my @routes = $self->all_dirs("routes");
-	foreach (@routes) {
-		($self->get_string("$_/ip") eq $ip) or next;
-		($self->get_int("$_/mask") eq $mask) or next;
-		$self->_markIfaceForRoute($self->get_string("$_/gateway"));
-		$self->delete_dir("$_");
-		return;
-	}
-}
+#sub delRoute # (ip, mask) 
+#{
+#	my ($self, $ip, $mask) = @_;
+#
+#	my @routes = $self->all_dirs("routes");
+#	foreach (@routes) {
+#		($self->get_string("$_/ip") eq $ip) or next;
+#		($self->get_int("$_/mask") eq $mask) or next;
+#		$self->gatewayDeleted($self->get_string("$_/gateway"));
+#		$self->delete_dir("$_");
+#		return;
+#	}
+#}
 
 #returns true if the interface has been marked as changed
 sub _hasChanged # (interface)
@@ -1745,13 +1815,14 @@ sub generateInterfaces
 	$manager->updateFileDigest('network', $file);
 }
 
+# Generate the static routes from routes() with "ip" command
 sub _generateRoutes
 {
-	my $self = shift;
-        my @routes = @{$self->routes};
+	my ($self) = @_;
+        my @routes = @{$self->routes()};
         (@routes) or return;
 	foreach (@routes) {
-		my $net = $_->{ip} . "/" . $_->{mask};
+		my $net = $_->{network};
 		my $router = $_->{gateway};
 		if (route_is_up($net, $router)) {
 			root("/sbin/ip route del $net via $router");
@@ -2058,47 +2129,72 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 	return 1;
 }
 
-sub _gwReachable # (address, name?)
+# Method: gatewayReachable
+#
+#       Check if a given gateway address is reachable with the current
+#       network configuration
+#
+# Parameters:
+#
+#       gw - String the IP address for the gateway
+#
+#       name - String A name to be shown if exception is launched. If
+#       no given, then an exception is not launched. *(Optional)*
+#       Default value: undef
+#
+# Returns:
+#
+#       Boolean - if name is not present, indicate whether the given
+#       gateway is reachable or not
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#       argument is missing
+#
+#       <EBox::Exceptions::External> - thrown if name is supplied and
+#       the gateway is not reachable
+#
+sub gatewayReachable
 {
-	my $self = shift;
-	my $gw   = shift;
-	my $name = shift;
+    my ($self, $gw, $name) = @_;
 
-	my $reachableByNoStaticIface = undef;
+    $gw or throw EBox::Exceptions::MissingArgument('gw');
 
-	my $cidr_gw = "$gw/32";
-	foreach my $iface (@{$self->allIfaces()}) {
-		my $host = $self->ifaceAddress($iface);
-		my $mask = $self->ifaceNetmask($iface);
+    my $reachableByNoStaticIface = undef;
 
-		(defined($host) and defined($mask)) or next;
+    my $cidr_gw = "$gw/32";
+    foreach my $iface (@{$self->allIfaces()}) {
+        my $host = $self->ifaceAddress($iface);
+        my $mask = $self->ifaceNetmask($iface);
 
-		checkIPNetmask($gw, $mask) or next;
+        (defined($host) and defined($mask)) or next;
 
-		if (isIPInNetwork($host,$mask,$cidr_gw)) {
-		  my $meth = $self->ifaceMethod($iface);
-		  if ($meth ne 'static') {
-		    $reachableByNoStaticIface = $iface;
-		    next; 
-		  }
+        checkIPNetmask($gw, $mask) or next;
 
-		  return 1;
-		}
-	}
+        if (isIPInNetwork($host,$mask,$cidr_gw)) {
+            my $meth = $self->ifaceMethod($iface);
+            if ($meth ne 'static') {
+                $reachableByNoStaticIface = $iface;
+                next; 
+            }
 
-	if ($name) {
-	  if (not $reachableByNoStaticIface) {
+            return 1;
+        }
+    }
+
+    if ($name) {
+        if (not $reachableByNoStaticIface) {
 	    throw EBox::Exceptions::External(
-					     __x("Gateway {gw} not reachable", gw => $gw));
-	  }
-	  else {
-	    throw EBox::Exceptions::External(
-					     __x("Gateway {gw} must be reacheable by a static interface. Currently is reacheable by {iface} which is not static", gw => $gw, iface => $reachableByNoStaticIface) );
-	  }
-
+                __x("Gateway {gw} not reachable", gw => $gw));
         } else {
-		return undef;
-	}
+	    throw EBox::Exceptions::External(
+                __x("Gateway {gw} must be reacheable by a static interface. Currently is reacheable by {iface} which is not static", gw => $gw, iface => $reachableByNoStaticIface) );
+        }
+
+    } else {
+        return undef;
+    }
 }
 
 sub _alreadyInRoute # (ip, mask) 
@@ -2430,7 +2526,7 @@ sub menu
 					  'text' => __('Interfaces')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/DNS',
 					  'text' => 'DNS'));
-	$folder->add(new EBox::Menu::Item('url' => 'Network/Routes',
+	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
 					  'text' => __('Routes')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
 					  'text' => __('Diagnosis')));

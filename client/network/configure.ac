@@ -63,6 +63,7 @@ src/EBox/Network/Composite/Makefile
 src/EBox/Network/Report/Makefile
 src/EBox/Network/Report/t/Makefile
 src/EBox/Network/Report/ByteRate/Makefile
+src/EBox/t/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile

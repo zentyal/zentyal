@@ -1,3 +1,6 @@
+0.12
+	+ Become static routes a model with three methods exposed
+	+ Remove usage of a deprecated method
 O.11.100
 	+ Disable network traffic monitor due to a bug in perl and RRDs module
 	+ Use /etc/network/interfaces and not /var/lib/ebox/tmp/interfaces

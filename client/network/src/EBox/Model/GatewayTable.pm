@@ -164,7 +164,7 @@ sub validateRow()
 
 	my $network = EBox::Global->modInstance('network');
 	checkIP($params{'ip'}, __("ip address"));
-	$network->_gwReachable($params{'ip'}, 'LaunchException');
+	$network->gatewayReachable($params{'ip'}, 'LaunchException');
 
 	return unless ($params{'default'});
 
