@@ -1,3 +1,10 @@
+0.11.101
+	+ Bugfix: Fix memory leak in models while cloning types. Now
+	cloning is controlled by clone method in types
+	+ Bugfix: Union type now checks for its uniqueness
+	+ DESTROY is not an autoloaded method anymore
+	+ HasOne fields now may set printable value from the foreign field
+	to set its value
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
 	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks
