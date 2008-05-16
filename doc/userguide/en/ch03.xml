@@ -255,7 +255,7 @@
 
 	    <para>
 	      A typical configuration could be as follows: you have
-	      two gateways configurated where one has the double rate
+	      two gateways configured where one has the double rate
 	      capacity (A) than the other one (B). Thus you may want
 	      to balance traffic in 2:1 proportion, that is, gateway A
 	      will deliver the double traffic than B. To achieve so,
@@ -348,5 +348,38 @@
 	    </para>
 	  </section>
 	</section>
+
+        <section id="sect-routes">
+          <!-- Network->Routes -->
+          <title>Routes</title>
+          
+          <para>
+            In advanced configurations, defining a set of <link
+            linkend="sect-gateways">gateways</link> and <link
+            linkend="sect-multigateway-rules">rules</link> to
+            applied them is not sufficient. The user defined <xref
+            linkend="route-example"/> may help:
+            </para>
+            <example id="route-example">
+              <title>Static route use case</title>
+              <para><quote>
+                I have some machines that are on the outside,
+                connected to the external LAN of the ebox and I would
+                like all users who connect to VPN server to connect to
+                those machines via the VPN tunnel.
+              </quote></para>
+            </example>
+            <para>In those cases, we may use
+            static routes. This table specifies those
+            <guilabel>networks</guilabel> whose traffic is
+            redirected to a fixed <guilabel>gateway</guilabel>, which
+            must be reachable from eBox host. Each route must have an
+            unique network to route. Moreover, an optional
+            <guilabel>description</guilabel> is provided to allow
+            administrator to add information to the route and ease so the
+            maintenance.
+          </para>
+        </section>
+
 
 </chapter>
