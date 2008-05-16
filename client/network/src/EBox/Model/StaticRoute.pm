@@ -143,6 +143,7 @@ sub _table
                                                . 'through one of the network interfaces '
                                                . 'currently configured'),
                        printableRowName   => __('static route'),
+                       sortedBy           => 'gateway',
                      };
 
       return $dataTable;

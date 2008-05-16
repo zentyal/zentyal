@@ -3,7 +3,7 @@
 templatedir = @TEMPLATESPATH@/network
 
 template_DATA = confirm.mas confirmremove.mas dns.mas ifaces.mas iftabs.mas \
-	routes.mas diag.mas gwrules.mas
+	diag.mas gwrules.mas
 
 EXTRA_DIST = $(template_DATA)
 
