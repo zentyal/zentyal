@@ -149,6 +149,7 @@ sub modelClasses
 # 	  'EBox::Network::Model::ByteRateGraph',
 # 	  'EBox::Network::Model::ByteRateGraphControl',
           'EBox::Network::Model::StaticRoute',
+          'EBox::Network::Model::DNSResolver',
 	 ];
 }
 
@@ -176,11 +177,23 @@ sub _exposedMethods
                        path    => [ 'StaticRoute' ],
                        indexes => [ 'network' ],
                    },
-       'changeGateway' => { action  => 'set',
-                            path    => [ 'StaticRoute' ],
-                            indexes => [ 'network' ],
+       'changeGateway' => { action   => 'set',
+                            path     => [ 'StaticRoute' ],
+                            indexes  => [ 'network' ],
                             selector => [ 'gateway' ],
                           },
+       'addNS'    => { action => 'add',
+                       path   => [ 'DNSResolver' ],
+                     },
+       'setNS'    => { action   => 'set',
+                       path     => [ 'DNSResolver' ],
+                       indexes  => [ 'position' ],
+                       selector => [ 'nameserver' ],
+                     },
+       'removeNS' => { action  => 'del',
+                       path    => [ 'DNSResolver' ],
+                       indexes => [ 'position' ],
+                     },
       );
     return \%exposedMethods;
 }
@@ -1481,16 +1494,17 @@ sub ifaceBroadcast # (interface)
 	return undef;
 }
 
-# Method: nameservers 
-#	
-#	Returns a list of the configured name servers
+# Method: nameservers
+#
+#	Return a list of the configured name servers
 #
 #  Returns:
 #
-#	an array ref - each element contains a string holding the nameserver
+#	Array ref - each element contains a string holding the nameserver
+#
 sub nameservers
 {
-	my $self = shift;
+	my ($self) = @_;
 	my @array = ();
 	foreach (1..2) {
 		my $server = $self->get_string("nameserver" . $_);
@@ -1498,19 +1512,27 @@ sub nameservers
 		push(@array, $server);
 	}
 	return \@array;
+#         my $resolverModel = $self->model('DNSResolver');
+#         my $rows = $resolverModel->printableValueRows();
+#         @array = map { $_->{nameserver} } @{$rows};
+#         return \@array;
 }
 
 # Method: nameserverOne
-#	
-#	Returns the primary nameserver's IP address 
+#
+#	Return the primary nameserver's IP address
 #
 #  Returns:
 #
-#	string - nameserver's IP address	
+#	String - nameserver's IP address
+#
 sub nameserverOne
 {
-	my $self = shift;
+	my ($self) = @_;
 	return $self->get_string("nameserver1");
+#         my $nss = $self->nameservers();
+#         return $nss->[0] if (scalar(@{$nss}) >= 1);
+#         return undef;
 }
 
 # Method: nameserverTwo
@@ -1524,6 +1546,9 @@ sub nameserverTwo
 {
 	my $self = shift;
 	return $self->get_string("nameserver2");
+#         my $nss = $self->nameservers();
+#         return $nss->[1] if (scalar(@{$nss}) >= 2);
+#         return undef;
 }
 
 # Method: setNameservers
@@ -1545,6 +1570,19 @@ sub setNameservers # (one, two)
 		(length($_) == 0) or checkIP($_, __("IP address"));
 		$self->set_string("nameserver$i", $_);
 	}
+#         my $nss = $self->nameservers();
+#         my $nNSS = scalar(@{$nss});
+#         for(my $idx = 0; $idx < @dns; $idx++) {
+#             my $newNS = $dns[$idx];
+#             if ( $nSS - 1 <= $idx ) {
+#                 # There is a nameserver
+#                 $self->setNS($idx, $newNS);
+#             } else {
+#                 # Add a new one
+#                 $self->addNS(nameserver => $newNS);
+#             }
+#         }
+
 }
 
 # Method: gateway
@@ -1744,6 +1782,7 @@ sub _setChanged # (interface)
 	}
 }
 
+# Generate the '/etc/resolv.conf' configuration file
 sub _generateResolver
 {
 	my $self = shift;

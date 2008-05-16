@@ -33,6 +33,8 @@ BEGIN {
 my $netMod = EBox::Global->modInstance('network');
 isa_ok( $netMod, 'EBox::Network');
 
+# Static route model
+diag('Testing EBox::Network::Model::StaticRoute model');
 my $addedId;
 ok( $addedId = $netMod->addRoute( network => '1.1.0.0/24',
                                   gateway => '10.0.0.1',
@@ -56,4 +58,28 @@ lives_ok {
 
 cmp_ok( @{$netMod->routes()}, '==', $nRoutes - 1,
         'The route was deleted correctly');
+
+# DNS resolver model
+diag('Testing EBox::Network::Model::DNSResolver model');
+my $addedId;
+ok( $addedId = $netMod->addNS(nameserver => '10.0.0.1'),
+    'Adding a NS resolver');
+
+my $nNSs;
+lives_ok {
+    $nNSs = @{$netMod->nameservers()};
+} 'Getting the nameservers';
+
+cmp_ok( $nNSs, '>=', 1, 'NS resolver added correctly');
+
+lives_ok {
+    $netMod->setNS(0, '10.0.0.2');
+} 'Updating the currently new Nameserver';
+
+lives_ok {
+    $netMod->removeNS(0);
+} 'Remove the added nameserver';
+
+cmp_ok( @{$netMod->nameservers()}, '==', $nNSs - 1,
+        'The NS resolver was removed correctly');
 

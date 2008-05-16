@@ -69,6 +69,8 @@ sub _importStaticRoutes
         my $networkIP = $route->{ip};
         my $networkMask = $route->{mask};
         my $gatewayIP = $route->{gateway};
+        # Logging
+        EBox::info("Migrating route $networkIP/$networkMask => $gatewayIP to StaticRoute model");
 
         my $newRouteKey = ROUTES_MODEL_NAME . "/keys/$routeId";
 
