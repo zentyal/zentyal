@@ -139,7 +139,7 @@ sub _table
                        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                        tableDescription   => \@tableDesc,
                        class              => 'dataTable',
-                       help               => __('All routers you enter here must be reachable '
+                       help               => __('All gateways you enter here must be reachable '
                                                . 'through one of the network interfaces '
                                                . 'currently configured'),
                        printableRowName   => __('static route'),
