@@ -1506,16 +1506,16 @@ sub nameservers
 {
 	my ($self) = @_;
 	my @array = ();
-	foreach (1..2) {
-		my $server = $self->get_string("nameserver" . $_);
-		(defined($server) and ($server ne '')) or next;
-		push(@array, $server);
-	}
-	return \@array;
-#         my $resolverModel = $self->model('DNSResolver');
-#         my $rows = $resolverModel->printableValueRows();
-#         @array = map { $_->{nameserver} } @{$rows};
-#         return \@array;
+# 	foreach (1..2) {
+# 		my $server = $self->get_string("nameserver" . $_);
+# 		(defined($server) and ($server ne '')) or next;
+# 		push(@array, $server);
+# 	}
+# 	return \@array;
+        my $resolverModel = $self->model('DNSResolver');
+        my $rows = $resolverModel->printableValueRows();
+        @array = map { $_->{nameserver} } @{$rows};
+        return \@array;
 }
 
 # Method: nameserverOne
@@ -1526,62 +1526,69 @@ sub nameservers
 #
 #	String - nameserver's IP address
 #
+#       empty string - if there is not primary nameserver
+#
 sub nameserverOne
 {
 	my ($self) = @_;
-	return $self->get_string("nameserver1");
-#         my $nss = $self->nameservers();
-#         return $nss->[0] if (scalar(@{$nss}) >= 1);
-#         return undef;
+#	return $self->get_string("nameserver1");
+        my $nss = $self->nameservers();
+        return $nss->[0] if (scalar(@{$nss}) >= 1);
+        return '';
 }
 
 # Method: nameserverTwo
-#	
-#	Returns the secondary nameserver's IP address 
+#
+#	Return the secondary nameserver's IP address
 #
 #  Returns:
 #
-#	string - nameserver's IP address	
+#	string - nameserver's IP address
+#
+#       empty string - if there is not secondary nameserver
+#
 sub nameserverTwo
 {
 	my $self = shift;
-	return $self->get_string("nameserver2");
-#         my $nss = $self->nameservers();
-#         return $nss->[1] if (scalar(@{$nss}) >= 2);
-#         return undef;
+#	return $self->get_string("nameserver2");
+        my $nss = $self->nameservers();
+        return $nss->[1] if (scalar(@{$nss}) >= 2);
+        return '';
 }
 
 # Method: setNameservers
-#	
-#	Sets the nameservers
 #
-#   Paramaters:
+#	Set a set of name server resolvers
 #
-#	one - primary nameserver
-#	two - secondary nameserver
-sub setNameservers # (one, two) 
+# Parameters:
+#
+#       array - a list of IP addresses which are the name server
+#       resolvers
+#
+sub setNameservers # (one, two)
 {
 	my ($self, @dns) = @_;
-	my @nameservers = ();
-	my $i = 0;
-	foreach (@dns) {
-		$i++;
-		($i < 3) or last;
-		(length($_) == 0) or checkIP($_, __("IP address"));
-		$self->set_string("nameserver$i", $_);
-	}
-#         my $nss = $self->nameservers();
-#         my $nNSS = scalar(@{$nss});
-#         for(my $idx = 0; $idx < @dns; $idx++) {
-#             my $newNS = $dns[$idx];
-#             if ( $nSS - 1 <= $idx ) {
-#                 # There is a nameserver
-#                 $self->setNS($idx, $newNS);
-#             } else {
-#                 # Add a new one
-#                 $self->addNS(nameserver => $newNS);
-#             }
-#         }
+# 	my @nameservers = ();
+# 	my $i = 0;
+# 	foreach (@dns) {
+# 		$i++;
+# 		($i < 3) or last;
+# 		(length($_) == 0) or checkIP($_, __("IP address"));
+# 		$self->set_string("nameserver$i", $_);
+# 	}
+        my $nss = $self->nameservers();
+        my $resolverModel = $self->model('DNSResolver');
+        my $nNSS = scalar(@{$nss});
+        for(my $idx = 0; $idx < @dns; $idx++) {
+            my $newNS = $dns[$idx];
+            if ( $idx <= $nNSS - 1) {
+                # There is a nameserver
+                $self->setNS($idx, $newNS);
+            } else {
+                # Add a new one
+                $resolverModel->addDNSResolver(nameserver => $newNS);
+            }
+        }
 
 }
 

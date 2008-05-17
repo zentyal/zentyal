@@ -109,12 +109,7 @@ foreach my $iface (get_interfaces) {
 
 
 my @dns    = get_dns();
-for (0..2) {
-	unless ($dns[$_]){
-		$dns[$_] = "";
-	}
-}
-$network->setNameservers($dns[0], $dns[1], $dns[2]);
+$network->setNameservers(@dns);
 $network->saveConfig();
 #root("/bin/cp " . INTERFACES . " " . EBox::Config::tmp . "interfaces");
 #root("/bin/chown ebox.ebox " . EBox::Config::tmp . "interfaces");

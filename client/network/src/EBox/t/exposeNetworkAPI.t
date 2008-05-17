@@ -22,7 +22,7 @@ use lib '../../';
 
 use EBox::Global;
 
-use Test::More qw(no_plan);
+use Test::More tests => 18;
 use Test::Exception;
 
 BEGIN {
@@ -76,10 +76,24 @@ lives_ok {
     $netMod->setNS(0, '10.0.0.2');
 } 'Updating the currently new Nameserver';
 
+cmp_ok( $netMod->nameserverOne(), 'eq', '10.0.0.2',
+        'Updated was done correctly');
+
+lives_ok {
+    $netMod->setNameservers('10.0.0.1', '10.0.0.3', '10.0.0.4');
+} 'Setting whole bunch of NS resolvers';
+
+cmp_ok( $netMod->nameserverTwo(), 'eq', '10.0.0.3',
+       'Nameserver two was set correctly');
+
 lives_ok {
     $netMod->removeNS(0);
 } 'Remove the added nameserver';
 
-cmp_ok( @{$netMod->nameservers()}, '==', $nNSs - 1,
+cmp_ok( @{$netMod->nameservers()}, '==', $nNSs + 1,
         'The NS resolver was removed correctly');
 
+lives_ok {
+    $netMod->removeNS(0);
+    $netMod->removeNS(0);
+} 'Cleaning up the ns resolvers array';
