@@ -794,8 +794,15 @@ sub addTypedRow
           $data = undef;
       }
 
+      # Insert the element in order
       if ($self->table()->{'order'}) {
-          $self->_insertPos($id, 0);
+          my $pos = 0;
+          if ( $self->insertPosition() eq 'front' ) {
+              $pos = 0;
+          } elsif ( $self->insertPosition() eq 'back' ) {
+              $pos = $#{$self->order()};
+          }
+          $self->_insertPos($id, $pos);
       }
 
       $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
@@ -1749,13 +1756,34 @@ sub menuNamespace
 #     identifier
 #
 sub order
-  {
+{
 
     my ($self) = @_;
 
     return $self->{'gconfmodule'}->get_list( $self->{'order'} );
 
-  }
+}
+
+# Method: insertPosition
+#
+#     Get the insert order position. It makes sense only if the table
+#     is ordered, that is, the order field is set.
+#
+#     Default value: front
+#
+# Returns:
+#
+#     'back' - if the element is inserted at the end of the model
+#
+#     'front' - so the element is inserted at the beginning of the model
+#
+sub insertPosition
+{
+    my ($self) = @_;
+
+    return $self->table()->{'insertPosition'};
+
+}
 
 # Method: rowUnique
 #
@@ -2907,7 +2935,8 @@ sub _checkRowExist
 	}
 }
 
-sub _insertPos
+# Insert the id element in selected position
+sub _insertPos #(id, position)
 {
 	my ($self, $id, $pos) = @_;
 
