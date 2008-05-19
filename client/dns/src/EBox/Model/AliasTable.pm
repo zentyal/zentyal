@@ -66,11 +66,36 @@ sub new
 #
 sub validateTypedRow
 {
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if ( exists $changedFields->{alias} ) {
+        # Check there is no A RR in the domain with the same name
+        my $newAlias = $changedFields->{alias}->value();
+        my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+        my $dir = $self->directory();
+        my ($domainId) = $dir =~ m:keys/(.*?)/:;
+        my $domRow = $domainModel->row($domainId)->{printableValueHash};
+        my $hostnameMatched = grep { $_->{hostname} eq $newAlias } @{$domRow->{hostnames}->{values}};
+        if ( $hostnameMatched ) {
+            throw EBox::Exceptions::External(__x('There is a hostname with the same name "{name}" '
+                                                 . 'in the same domain',
+                                                 name     => $newAlias));
+        }
+    }
+
 }
 
+# Group: Protected methods
+
+# Method: _table
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::_table>
+#
 sub _table
 {
-    my @tableHead = 
+    my @tableHead =
         ( 
 
             new EBox::Types::DomainName

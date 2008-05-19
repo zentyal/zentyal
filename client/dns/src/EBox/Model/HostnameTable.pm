@@ -121,7 +121,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     if ( exists $changedFields->{hostname} ) {
-        # Check there is no CNAME RR in the domain with the same 
+        # Check there is no CNAME RR in the domain with the same name
         my $newHostName = $changedFields->{hostname}->value();
         my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
         my $dir = $self->directory();
