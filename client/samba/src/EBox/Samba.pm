@@ -1241,6 +1241,9 @@ sub  _dumpSharesFiles
     push @dirs, $share;
   }
 
+  # escape directories
+  @dirs = map {  "'$_'" } @dirs;
+
   if (@dirs > 0) {
     my $tarFile = $self->_sharesFilesArchive($dir);
     
