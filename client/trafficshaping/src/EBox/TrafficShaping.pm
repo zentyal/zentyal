@@ -132,12 +132,12 @@ sub actions
 	{
 		'action' => __('Add iptables rules to mangle table'),
 		'reason' => __('To mark packets with different priorities and rates'),
-		'module' => 'trafficshping'
+		'module' => 'trafficshaping'
 	},
     {
 		'action' => __('Add tc rules'),
 		'reason' => __('To implement the traffic shaping rules'),
-		'module' => 'trafficshping'
+		'module' => 'trafficshaping'
 	}
     ];
 }

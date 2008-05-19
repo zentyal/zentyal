@@ -28,11 +28,11 @@ use Tree;
 
 use lib '../../..';
 
-diag ( 'Starting tc default tree structure test' );
 
 # Create a default builder and dump tc commands
 BEGIN {
-  use_ok( 'EBox::TrafficShaping::TreeBuilder::Default' )
+ diag ( 'Starting tc default tree structure test' );
+ use_ok( 'EBox::TrafficShaping::TreeBuilder::Default' )
     or die;
 }
 
