@@ -1121,30 +1121,12 @@ sub sharedDirectories
   my $users = EBox::Global->modInstance('users');
   defined $users or throw EBox::Exceptions::Internal('Cannot get users and groups module');
 
-  my $allUsersWoHomedir = all($self->_usersWoHomedir());
-
-  my @homedirs = map {  
-                          $_->{homeDirectory}
-                } 
-                grep {
-		    $_->{user} ne $allUsersWoHomedir
-		}
-               $users->users();
-
+  my @homedirs = map {  $_->{homeDirectory}} $users->users();
   push @dirs, @homedirs;
   
   return \@dirs;
 }
 
-
-
-sub _usersWoHomedir
-{
-    my ($self) = @_;
-
-    return qw(ebox-samba-admin);
-
-}
 
 sub basePath
 {
