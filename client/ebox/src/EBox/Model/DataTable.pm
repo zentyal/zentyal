@@ -800,7 +800,7 @@ sub addTypedRow
           if ( $self->insertPosition() eq 'front' ) {
               $pos = 0;
           } elsif ( $self->insertPosition() eq 'back' ) {
-              $pos = $#{$self->order()};
+              $pos = $#{$self->order()} + 1;
           }
           $self->_insertPos($id, $pos);
       }
@@ -2935,7 +2935,8 @@ sub _checkRowExist
 	}
 }
 
-# Insert the id element in selected position
+# Insert the id element in selected position, if the position is the
+# last + 1 is inserted after the last one
 sub _insertPos #(id, position)
 {
 	my ($self, $id, $pos) = @_;
@@ -2948,7 +2949,7 @@ sub _insertPos #(id, position)
 		push (@order, $id);
 	} elsif ($pos == 0) {
 		@order = ($id, @order);
-	} elsif ($pos == (@order - 1)) {
+	} elsif ($pos == @order) {
 		push (@order, $id);
 	} else {
 		splice (@order, $pos, 1, ($id, $order[$pos]));
