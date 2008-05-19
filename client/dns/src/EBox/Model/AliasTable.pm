@@ -40,6 +40,8 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
+# Group: Public methods
+
 sub new 
 {
     my $class = shift;
@@ -49,6 +51,21 @@ sub new
     bless($self, $class);
 
     return $self;
+}
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::validateTypedRow>
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if there is a hostname with
+#    the same name of this added/edited alias within the same domain
+#
+sub validateTypedRow
+{
 }
 
 sub _table

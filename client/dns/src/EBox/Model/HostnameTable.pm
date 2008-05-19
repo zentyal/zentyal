@@ -14,14 +14,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #   EBox::DNS::Model::HostnameTable
 #
-#   This class inherits from <EBox::Model::DataTable> and represents the
-#   object table which basically contains domains names and a reference
-#   to a member <EBox::DNS::Model::DomainTable>
+#   This class inherits from <EBox::Model::DataTable> and represents
+#   the host names (A resource records) in a domain and a set of alias
+#   described in <EBox::Network::Model::AliasTable>
 #
-#   
 package EBox::DNS::Model::HostnameTable;
 
 use EBox::Global;
@@ -44,6 +43,8 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
+# Group: Public methods
+
 sub new 
 {
     my $class = shift;
@@ -53,54 +54,6 @@ sub new
     bless($self, $class);
 
     return $self;
-}
-
-sub _table
-{
-    my @tableHead = 
-        ( 
-            new EBox::Types::DomainName
-                            (
-                                'fieldName' => 'hostname',
-                                'printableName' => __('Hostname'),
-                                'size' => '20',
-                                'unique' => 1,
-                                'editable' => 1
-                             ),
-            new EBox::Types::HostIP
-                            (
-                                'fieldName' => 'ipaddr',
-                                'printableName' => __('IP Address'),
-                                'size' => '20',
-                                'unique' => 1,
-                                'editable' => 1
-                             ),
-            new EBox::Types::HasMany
-                            (
-                                'fieldName' => 'alias',
-                                'printableName' => __('Alias'),
-                                'foreignModel' => 'AliasTable',
-                                'view' => '/ebox/DNS/View/AliasTable',
-                                'backView' => '/ebox/DNS/View/AliasTable',
-                                'size' => '1',
-                             )
-          );
-
-    my $dataTable = 
-        {
-            'tableName' => 'HostnameTable',
-            'printableTableName' => __('Hostnames'),
-            'automaticRemove' => 1,
-            'defaultController' => '/ebox/Dns/Controller/HostnameTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'help' => __('Hostnames'),
-            'printableRowName' => __('hostname'),
-            'sortedBy' => 'hostname',
-        };
-
-    return $dataTable;
 }
 
 # Method: addHostname
@@ -151,5 +104,97 @@ sub addHostname
        $aliasModel->addRow('alias' => $alias);
    }
 }
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::validateTypedRow>
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if there is an alias with
+#    the same name for other hostname within the same domain
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if ( exists $changedFields->{hostname} ) {
+        # Check there is no CNAME RR in the domain with the same 
+        my $newHostName = $changedFields->{hostname}->value();
+        my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+        my $dir = $self->directory();
+        my ($domainId) = $dir =~ m:keys/(.*?)/:;
+        my $domRow = $domainModel->row($domainId)->{printableValueHash};
+        foreach my $hostNameRow (@{$domRow->{hostnames}->{values}}) {
+            my $aliasMatched = grep { $_->{alias} eq $newHostName } @{$hostNameRow->{alias}->{values}};
+            if ( $aliasMatched ) {
+                throw EBox::Exceptions::External(__x('There is an alias with the same name "{name}" '
+                                                     . 'for "{hostname}" in the same domain',
+                                                     name     => $newHostName,
+                                                     hostname => $hostNameRow->{hostname}));
+            }
+        }
+    }
+
+
+}
+# Group: Protected methods
+
+# Method: _table
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::_table>
+#
+sub _table
+{
+    my @tableHead = 
+        ( 
+            new EBox::Types::DomainName
+                            (
+                                'fieldName' => 'hostname',
+                                'printableName' => __('Hostname'),
+                                'size' => '20',
+                                'unique' => 1,
+                                'editable' => 1
+                             ),
+            new EBox::Types::HostIP
+                            (
+                                'fieldName' => 'ipaddr',
+                                'printableName' => __('IP Address'),
+                                'size' => '20',
+                                'unique' => 1,
+                                'editable' => 1
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'alias',
+                                'printableName' => __('Alias'),
+                                'foreignModel' => 'AliasTable',
+                                'view' => '/ebox/DNS/View/AliasTable',
+                                'backView' => '/ebox/DNS/View/AliasTable',
+                                'size' => '1',
+                             )
+          );
+
+    my $dataTable = 
+        {
+            'tableName' => 'HostnameTable',
+            'printableTableName' => __('Hostnames'),
+            'automaticRemove' => 1,
+            'defaultController' => '/ebox/Dns/Controller/HostnameTable',
+            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+            'tableDescription' => \@tableHead,
+            'class' => 'dataTable',
+            'help' => __('Hostnames'),
+            'printableRowName' => __('hostname'),
+            'sortedBy' => 'hostname',
+        };
+
+    return $dataTable;
+}
+
 
 1;
