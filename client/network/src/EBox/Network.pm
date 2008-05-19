@@ -2570,7 +2570,7 @@ sub menu
 
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
 					  'text' => __('Interfaces')));
-	$folder->add(new EBox::Menu::Item('url' => 'Network/DNS',
+	$folder->add(new EBox::Menu::Item('url' => 'Network/View/DNSResolver',
 					  'text' => 'DNS'));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
 					  'text' => __('Routes')));

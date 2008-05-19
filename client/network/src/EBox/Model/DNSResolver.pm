@@ -96,6 +96,7 @@ sub _table
                                               'may cause this settings to be overriden.'),
                      printableRowName   => __('name server'),
                      order              => 1,
+                     insertPosition     => 'back',
                     };
 
       return $dataTable;
