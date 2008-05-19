@@ -8,6 +8,8 @@
 	+ findId now searchs as well using printableValue
 	+ Bugfix. Minor bug found when key is an IP address in autoloaded
 	methods
+	+ Ordered tables may insert values at the beginning or the end of
+	the table by "insertPosition" attribute
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
 	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks
