@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Samba CGI rootTests
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Samba
 
-nobase_perl_DATA = Samba.pm SambaFirewall.pm SambaLdapUser.pm
+nobase_perl_DATA = ImportFromLdif.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

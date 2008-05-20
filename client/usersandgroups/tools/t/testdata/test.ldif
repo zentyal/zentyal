@@ -1,0 +1,380 @@
+dn: dc=ebox
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: warp
+dc: ebox
+structuralObjectClass: organization
+entryUUID: a88878f2-b45f-102c-8e8c-3346359f5867
+creatorsName: cn=admin,dc=ebox
+modifiersName: cn=admin,dc=ebox
+createTimestamp: 20080512110939Z
+modifyTimestamp: 20080512110939Z
+entryCSN: 20080512110939.267534Z#000000#000#000000
+
+dn: cn=admin,dc=ebox
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword:: e2NyeXB0fUE4R0FjWFlGMmloalU=
+structuralObjectClass: organizationalRole
+entryUUID: a889ffe2-b45f-102c-8e8d-3346359f5867
+creatorsName: cn=admin,dc=ebox
+modifiersName: cn=admin,dc=ebox
+createTimestamp: 20080512110939Z
+modifyTimestamp: 20080512110939Z
+entryCSN: 20080512110939.277768Z#000000#000#000000
+
+dn: ou=Users,dc=ebox
+ou: Users
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: a8c00dda-b45f-102c-8091-914a0d9dc6f0
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110939Z
+entryCSN: 20080512110939.631978Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110939Z
+
+dn: ou=Groups,dc=ebox
+ou: Groups
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: a8c18eda-b45f-102c-8092-914a0d9dc6f0
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110939Z
+entryCSN: 20080512110939.641886Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110939Z
+
+dn: cn=__USERS__,ou=Groups,dc=ebox
+cn: __USERS__
+gidNumber: 1901
+objectClass: posixGroup
+structuralObjectClass: posixGroup
+entryUUID: a8c3a652-b45f-102c-8093-914a0d9dc6f0
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110939Z
+description: All users
+entryCSN: 20080512110939.661838Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110939Z
+
+dn: cn=Domain Admins,ou=Groups,dc=ebox
+cn: Domain Admins
+gidNumber: 512
+sambaGroupType: 2
+displayName: Domain Admins
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0bf51c6-b45f-102c-91a1-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-512
+entryCSN: 20080512111005.686139Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111005Z
+
+dn: cn=Domain Users,ou=Groups,dc=ebox
+cn: Domain Users
+gidNumber: 513
+sambaGroupType: 2
+displayName: Domain Users
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c4034c-b45f-102c-91a2-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-513
+memberUid: baboon
+memberUid: mandrill
+entryCSN: 20080514084726.551326Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080514084726Z
+
+dn: cn=Domain Guests,ou=Groups,dc=ebox
+cn: Domain Guests
+gidNumber: 514
+sambaGroupType: 2
+displayName: Domain Guests
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c4f2b6-b45f-102c-91a3-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-514
+entryCSN: 20080512111005.693857Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111005Z
+
+dn: cn=Domain Computers,ou=Groups,dc=ebox
+cn: Domain Computers
+gidNumber: 544
+sambaGroupType: 2
+displayName: Domain Computers
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c5d97e-b45f-102c-91a4-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-544
+entryCSN: 20080512111005.697597Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111005Z
+
+dn: cn=Administrators,ou=Groups,dc=ebox
+cn: Administrators
+gidNumber: 544
+sambaSID: S-1-5-32-544
+sambaGroupType: 5
+displayName: Administrators
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c6bace-b45f-102c-91a5-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.097551Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: cn=Account Operators,ou=Groups,dc=ebox
+cn: Account Operators
+gidNumber: 548
+sambaSID: S-1-5-32-548
+sambaGroupType: 5
+displayName: Account Operators
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c797be-b45f-102c-91a6-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.103208Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: cn=Print Operators,ou=Groups,dc=ebox
+cn: Print Operators
+gidNumber: 550
+sambaSID: S-1-5-32-550
+sambaGroupType: 5
+displayName: Print Operators
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c8771a-b45f-102c-91a7-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.108926Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: cn=Backup Operators,ou=Groups,dc=ebox
+cn: Backup Operators
+gidNumber: 551
+sambaSID: S-1-5-32-551
+sambaGroupType: 5
+displayName: Backup Operators
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0c95324-b45f-102c-91a8-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.114559Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: cn=Replicators,ou=Groups,dc=ebox
+cn: Replicators
+gidNumber: 552
+sambaSID: S-1-5-32-552
+sambaGroupType: 5
+displayName: Replicators
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: b0ca300a-b45f-102c-91a9-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.120214Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: ou=Computers,dc=ebox
+ou: Computers
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: b0cafd96-b45f-102c-91aa-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.125476Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: ou=Idmap,dc=ebox
+ou: Idmap
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: b0cbcdf2-b45f-102c-91ab-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512110953Z
+entryCSN: 20080512110953.130810Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512110953Z
+
+dn: sambaDomainName=EBOX,dc=ebox
+sambaDomainName: EBOX
+sambaSID: S-1-5-21-3818554400-921237426-3143208535
+uidNumber: 2000
+gidNumber: 2000
+objectClass: sambaDomain
+objectClass: sambaUnixIdPool
+structuralObjectClass: sambaDomain
+entryUUID: c1aac65a-b45f-102c-91af-c118709e3c0b
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512111021Z
+sambaPwdHistoryLength: 0
+entryCSN: 20080512111118.778198Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111118Z
+
+dn: ou=postfix,dc=ebox
+ou: postfix
+objectClass: top
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: cdeca938-b45f-102c-90c9-9badff05b752
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512111042Z
+entryCSN: 20080512111042.000016Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111042Z
+
+dn: ou=vdomains,ou=postfix,dc=ebox
+ou: vdomains
+objectClass: top
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: cdf0fe98-b45f-102c-90ca-9badff05b752
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512111042Z
+entryCSN: 20080512111042.028463Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111042Z
+
+dn: ou=mailalias,ou=postfix,dc=ebox
+ou: mailalias
+objectClass: top
+objectClass: organizationalUnit
+structuralObjectClass: organizationalUnit
+entryUUID: cdf17b34-b45f-102c-90cb-9badff05b752
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080512111042Z
+entryCSN: 20080512111042.031655Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080512111042Z
+
+dn: uid=baboon,ou=Users,dc=ebox
+cn: baboon
+uid: baboon
+sn: ea
+uidNumber: 2001
+gidNumber: 1901
+userPassword:: YQ==
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: sambaSamAccount
+structuralObjectClass: inetOrgPerson
+entryUUID: 2bd48210-b5db-102c-95ee-a5883ff7f5be
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080514082618Z
+description: ea
+sambaPwdCanChange: 0
+sambaLogoffTime: 2147483647
+sambaLogonTime: 0
+sambaAcctFlags: [U]
+sambaHomeDrive: H:
+sambaKickoffTime: 2147483647
+sambaPasswordHistory: 00000000000000000000000000000000000000000000000000000000
+sambaPwdLastSet: 1210753579
+sambaPwdMustChange: 2147483647
+sambaHomePath: \\EBOX-SMB3\homes\baboon
+sambaPrimaryGroupSID: S-1-5-21-3818554400-921237426-3143208535-513
+sambaLMPassword: 7584248B8D2C9F9EAAD3B435B51404EE
+sambaNTPassword: 186CB09181E2C2ECAAC768C47C729904
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-5002
+homeDirectory: /home/samba/users/baboon
+entryCSN: 20080514082619.462263Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080514082619Z
+
+dn: uid=mandrill,ou=Users,dc=ebox
+cn: mandrill
+uid: mandrill
+sn: a
+uidNumber: 2002
+gidNumber: 1901
+userPassword:: YQ==
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: sambaSamAccount
+structuralObjectClass: inetOrgPerson
+entryUUID: 1f4f646c-b5de-102c-95ef-a5883ff7f5be
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080514084726Z
+description: a
+sambaPwdCanChange: 0
+sambaLogoffTime: 2147483647
+sambaLogonTime: 0
+sambaAcctFlags: [U]
+sambaHomeDrive: H:
+sambaKickoffTime: 2147483647
+sambaPasswordHistory: 00000000000000000000000000000000000000000000000000000000
+sambaPwdLastSet: 1210754846
+sambaPwdMustChange: 2147483647
+sambaHomePath: \\EBOX-SMB3\homes\mandrill
+sambaPrimaryGroupSID: S-1-5-21-3818554400-921237426-3143208535-513
+sambaLMPassword: 7584248B8D2C9F9EAAD3B435B51404EE
+sambaNTPassword: 186CB09181E2C2ECAAC768C47C729904
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-5004
+homeDirectory: /home/samba/users/mandrill
+entryCSN: 20080514084726.503919Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080514084726Z
+
+dn: cn=monos,ou=Groups,dc=ebox
+cn: monos
+gidNumber: 2001
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: eboxGroup
+structuralObjectClass: posixGroup
+entryUUID: 2c8f241e-b5de-102c-95f0-a5883ff7f5be
+creatorsName: cn=admin,dc=ebox
+createTimestamp: 20080514084748Z
+sambaSID: S-1-5-21-3818554400-921237426-3143208535-5003
+sambaGroupType: 2
+displayName: monos
+description: grupo monos
+memberUid: mandrill
+memberUid: baboon
+entryCSN: 20080514084805.667588Z#000000#000#000000
+modifiersName: cn=admin,dc=ebox
+modifyTimestamp: 20080514084805Z
+

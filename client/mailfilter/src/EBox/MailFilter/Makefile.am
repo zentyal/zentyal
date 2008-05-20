@@ -3,7 +3,7 @@ SUBDIRS = ClamAV SpamAssassin  FileFilter  t
 
 perldir = @PERLPATH@/EBox/MailFilter
 
-nobase_perl_DATA = ClamAV.pm SpamAssassin.pm  VDomainsLdap.pm FirewallHelper.pm  FileFilter.pm  Test.pm  
+nobase_perl_DATA = ClamAV.pm SpamAssassin.pm  VDomainsLdap.pm FirewallHelper.pm  FileFilter.pm  Test.pm  ImportFromLdif.pm
 
 DISTCLEANFILES = 
 

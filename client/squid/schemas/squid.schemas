@@ -21,17 +21,6 @@
                   <locale name="C"/>
               </schema>
 
-             <schema>
-                  <key>/schemas/ebox/modules/squid/tables_are_populated</key>
-                  <applyto>/ebox/modules/squid/tables_are_populated</applyto>
-                  <owner>ebox</owner>
-                  <type>int</type>
-                  <list_type>string</list_type>
-                  <default>0</default>
-                  <locale name="C">
-                      <long>Flag to show wether the tables are already populated or not. Is a integer instead of boolean to allow multiple versions of new data tables</long>
-	          </locale>
-              </schema>
         </schemalist>
 
 </gconfschemafile>

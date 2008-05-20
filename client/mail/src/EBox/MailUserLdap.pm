@@ -225,7 +225,13 @@ sub existsUserLdapValue () { #uid, ldap value
 
 	my $result = $self->{ldap}->search(\%args);
 
-	return ($result->count() > 0);
+	foreach my $entry ($result->entries()) {
+	    if (defined ($entry->get_value($value))) {
+		return 1;
+	    }
+	}
+
+	return undef;
 }
 
 
@@ -660,6 +666,7 @@ sub _accountAddOn
 sub _setUserAccountWithMdQuota
 {
   my ($self, $dn, $mdsize) = @_;
+  defined $mdsize  or $mdsize = 0;
 
   unless (isAPositiveNumber($mdsize)) {
     throw EBox::Exceptions::InvalidData(
@@ -693,12 +700,12 @@ sub _userWithMdQuotaLdapAttrs
   my ($self, $username) = @_;
 
   # to be sure we check for the presence of mdQuota related attributes even when
-  # quota is not available bz the attriubte may be from a previous installation
+  # quota is not available bz the attribute may be from a previous installation
   # via backup  or postfix upgrade
 
-  my $value =  $self->existsUserLdapValue($username, "userMaildirSize");
+  my $attrExists =  $self->existsUserLdapValue($username, "userMaildirSize");
 
-  if (not defined $value) {
+  if (not  $attrExists) {
     # attribute deos not exist so nothing to delete
     return ();
   }

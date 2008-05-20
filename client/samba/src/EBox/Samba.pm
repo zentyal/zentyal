@@ -1083,14 +1083,15 @@ sub _dumpSharesTree
 	$gid = $stat->gid;
       }
       else {
-	EBox::warn("Can not stat directory $share. This directory will be ignored");
+	EBox::warn("Cannot stat directory $share. This directory will be ignored");
       }
     }
     (defined $share) and (defined $permissions) ? "$share:$uid:$gid:$permissions" : ();
   } @{ $sambaLdapUser->sharedDirectories() };
 
 
-  write_file($self->_sharesTreeFile($dir), "@shares");
+  my $sharesTreeData = join "\n",  @shares;
+  write_file($self->_sharesTreeFile($dir), $sharesTreeData);
 }
 
 sub _loadSharesTree
@@ -1098,18 +1099,25 @@ sub _loadSharesTree
   my ($self, $dir) = @_;
 
   my $contents = read_file($self->_sharesTreeFile($dir));
-  my @shares = split '\s+', $contents;
+
+  my @shares = split "\n", $contents; 
+
+  if (not @shares) {
+      # maybe the file is in the old format. It will have problems with spaces
+      # in directory names
+      @shares = split '\s+', $contents;
+  } 
 
 
   foreach my $dirInfo (@shares) {
     my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
     
     if (!-d $dir) {
-      EBox::Sudo::root("/bin/mkdir -p  $dir");
+      EBox::Sudo::root("/bin/mkdir -p  '$dir'");
     }
 
-    EBox::Sudo::root("/bin/chmod $perm $dir"); # restore permissions
-    EBox::Sudo::root("/bin/chown $uid.$gid $dir");
+    EBox::Sudo::root("/bin/chmod $perm '$dir'"); # restore permissions
+    EBox::Sudo::root("/bin/chown $uid.$gid '$dir'");
 
   } 
 }
@@ -1379,15 +1387,11 @@ sub _findLeftoverSharedDirectories
   my $sharedDirs = $sambaLdapUser->sharedDirectories();
   return () if @{ $sharedDirs } == 0;
 
-#  my $allShareDirs =  all(@{ $sharedDirs }) ;
-
 
   my $usersDir =  $sambaLdapUser->usersPath();
   push @leftovers, $self->_findLeftoversInDir($usersDir, $sharedDirs);
-# push @leftovers, $self->_findLeftoversInDir($usersDir, $allShareDirs);
 
   my $groupsDir = $sambaLdapUser->groupsPath();
-#  push @leftovers, $self->_findLeftoversInDir($groupsDir, $allShareDirs);
   push @leftovers, $self->_findLeftoversInDir($groupsDir, $sharedDirs);
 
   EBox::info("Leftovers shared directories found: @leftovers") if @leftovers > 0;
@@ -1397,7 +1401,6 @@ sub _findLeftoverSharedDirectories
 
 sub _findLeftoversInDir
 {
-#  my ($self, $dir, $allShareDirs) = @_;
   my ($self, $dir, $sharedDirs) = @_;
   my $allShareDirs =  all(@{ $sharedDirs }) ;
 

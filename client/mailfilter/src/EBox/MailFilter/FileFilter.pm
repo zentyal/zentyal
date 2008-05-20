@@ -43,7 +43,7 @@ sub extensions
 # Parameters:
 #
 # 	  - extension
-#         - allwoed 
+#         - allowed 
 sub setExtension
 {
   my ($self, $extension, $allowed) = @_;

@@ -12,6 +12,8 @@
 </%args>
 <%init>
 use EBox::Gettext;
+
+my $menuIndex = $menu - 1;
 </%init>
 % if (@components > 0) {
 %    if ($menu > scalar @components) {   
@@ -19,7 +21,7 @@ use EBox::Gettext;
 %    }
 
   <& /mail/menutabs.mas, selected => $menu, vdomain => $vdomain, components => \@components &>
-      <& $components[$menu]->{'path'}, @{ $components[$menu-1]->{'params'}  } &>
+      <& $components[$menuIndex]->{'path'}, @{ $components[$menuIndex]->{'params'}  } &>
 
 % }
 % else {

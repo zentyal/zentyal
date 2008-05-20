@@ -46,7 +46,7 @@ my @rows = map {
 } @senders;
 </%init>
 % if (@senders) {
-   <& /dataTable.mas, rows => \@rows, titles => \@titles &>
+   <& /dataTable.mas, rows => \@rows, columnTitles => \@titles &>
 % } else {
  <& /msg.mas, 
     msg => __x("There isn't any sender in {type} ", 

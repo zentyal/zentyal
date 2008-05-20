@@ -122,7 +122,7 @@ sub serviceModuleName
 
 # Method: _regenConfig
 #
-#       Overrides base method. It regenertates the ldap service configuration
+#       Overrides base method. It regenerates the ldap service configuration
 #
 sub _regenConfig 
 {
@@ -306,15 +306,14 @@ sub _initUser
 #   
 # Parameters:
 #       
-#	user - hash ref containing: 'user' (user name), 'fullname', 'password',
+#	user - hash ref containing: 'user' (user name), 'fullname' and 'password'
 #	and comment
 #	system - boolan: if true it adds the user as system user, otherwise as 
 #	normal user
+#       uidNumber (optional and named)
 sub addUser # (user, system)
 {
-	my $self = shift;
-	my $user = shift;
-	my $system = shift;
+	my ($self, $user, $system, %params) = @_;
 
 	if (length($user->{'user'}) > MAXUSERLENGTH) {
 		throw EBox::Exceptions::External(
@@ -333,19 +332,13 @@ sub addUser # (user, system)
 						   'value' => $user->{'user'});
 	}
 
-	my $uid;
-	if ($system) {
-		$uid = $self->lastUid(1) + 1;
-		if ($uid == MINUID) {
-			thrown EBox::Exceptions::Internal(
-				__('Maximum number of system users reached'));
-		}
-	} else {
-		$uid = $self->lastUid + 1;
-	}
-	
+	my $uid = exists $params{uidNumber} ?
+	                     $params{uidNumber} :
+			     $self->_newUserUidNumber($system);
+	$self->_checkUid($uid, $system);
+
 	my $gid = $self->groupGid(DEFAULTGROUP);
-	
+
 	$self->_checkPwdLength($user->{'password'});
 	my %args = ( 
 		    attr => [
@@ -368,6 +361,54 @@ sub addUser # (user, system)
 	unless ($system) {
 		$self->_initUser($user->{'user'});
 	}
+}
+
+sub _newUserUidNumber
+{
+    my ($self, $systemUser) = @_;
+
+    my $uid;
+    if ($systemUser) {
+	$uid = $self->lastUid(1) + 1;
+	if ($uid == MINUID) {
+	    throw EBox::Exceptions::Internal(
+					      __('Maximum number of system users reached'));
+	}
+    } else {
+	$uid = $self->lastUid + 1;
+    }
+
+    return $uid;
+}
+
+
+sub _checkUid
+{
+    my ($self, $uid, $system) = @_;
+
+    if ($uid < MINUID) {
+	if (not $system) {
+	    throw EBox::Exceptions::External(
+					      __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
+						  uid => $uid,
+						  min => MINUID,
+						 )
+					     );
+	}
+
+    }
+    else {
+	if ($system) {
+	    throw EBox::Exceptions::External(
+					      __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
+						  uid => $uid,
+						  max => MINUID,
+						 )
+					     );
+
+	} 
+    }
+
 }
 
 sub _modifyUserPwd($$$) 
@@ -695,11 +736,7 @@ sub lastGid # (gid)
 #
 sub addGroup # (group, comment, system)
 {
-	my $self = shift;
-	
-	my $group = shift;
-	my $comment = shift;
-	my $system = shift;
+        my ($self, $group, $comment, $system, %params) = @_;
 
 	if (length($group) > MAXGROUPLENGTH) {
 		throw EBox::Exceptions::External(
@@ -724,16 +761,11 @@ sub addGroup # (group, comment, system)
 						   'value' => $group);
 	}
 	#FIXME
-	my $gid;
-	if ($system) {
-		$gid = $self->lastGid(1) + 1;
-		if ($gid == MINGID) {
-			thrown EBox::Exceptions::Internal(
-				__('Maximum number of system users reached'));
-		}
-	} else {
-		$gid = $self->lastGid + 1;
-	}
+	my $gid = exists $params{gidNumber} ? 
+	                         $params{gidNumber} :
+                                 $self->_gidForNewGroup($system);
+
+	$self->_checkGid($gid, $system);
 
 	my %args = ( 
 		    attr => [
@@ -756,6 +788,57 @@ sub addGroup # (group, comment, system)
 		}
 	}
 }
+
+
+sub _gidForNewGroup
+{
+        my ($self, $system) = @_;
+
+	my $gid;
+	if ($system) {
+		$gid = $self->lastGid(1) + 1;
+		if ($gid == MINGID) {
+			throw EBox::Exceptions::Internal(
+				__('Maximum number of system users reached'));
+		}
+	} else {
+		$gid = $self->lastGid + 1;
+	}
+
+	return $gid;
+}
+
+
+sub _checkGid
+{
+    my ($self, $gid, $system) = @_;
+
+    if ($gid < MINGID) {
+	if (not $system) {
+	    throw EBox::Exceptions::External(
+					      __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
+						  gid => $gid,
+						  min => MINGID,
+						 )
+					     );
+	}
+    }
+    else {
+	if ($system) {
+	    throw EBox::Exceptions::External(
+					      __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
+						  gid => $gid,
+						  max => MINGID,
+						 )
+					     );
+
+	} 
+    }
+
+}
+
+
+
 
 sub _updateGroup($$) 
 {
@@ -1527,5 +1610,14 @@ sub _removePasswds
 }
 
 
+sub minUid
+{
+    return MINUID;
+}
+
+sub minGid
+{
+    return MINGID;
+}
 
 1;

@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model ImportFromLdif
 
-perldir = @PERLPATH@/EBox/UsersAndGroups
+perldir = @PERLPATH@/EBox/UsersAndGroups/ImportFromLdif
 
-nobase_perl_DATA = ImportFromLdif.pm 
+nobase_perl_DATA = Base.pm Engine.pm
 
 DISTCLEANFILES = 
 

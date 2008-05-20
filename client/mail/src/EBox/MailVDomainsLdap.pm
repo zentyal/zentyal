@@ -480,6 +480,7 @@ sub updateMDSizes() {
 sub _addVDomainWiithMdQuota
 {
   my ($self, $dn, $dftmdsize) = @_;
+  defined $dftmdsize or $dftmdsize = 0;
 
   unless (isAPositiveNumber($dftmdsize)) {
     throw EBox::Exceptions::InvalidData(

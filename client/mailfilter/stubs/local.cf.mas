@@ -9,15 +9,7 @@ $bayesAutolearnHamThreshold
 @trustedNetworks
 @okLocales      => ('all')
 </%args>
-
-# This is the right place to customize your installation of SpamAssassin.
-#
-# See 'perldoc Mail::SpamAssassin::Conf' for details of what can be
-# tweaked.
-#
-# Only a small subset of options are listed below
-#
-###########################################################################
+# See 'perldoc Mail::SpamAssassin::Conf' for details 
 
 
 #   Save spam messages as a message/rfc822 MIME attachment instead of

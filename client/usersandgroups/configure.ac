@@ -59,6 +59,7 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/UsersAndGroups/Makefile
+src/EBox/UsersAndGroups/ImportFromLdif/Makefile
 src/EBox/UsersAndGroups/Model/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
@@ -68,6 +69,8 @@ schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
 tools/Makefile
+tools/t/Makefile
+tools/t/testdata/Makefile
 migration/Makefile
 Makefile
 ])

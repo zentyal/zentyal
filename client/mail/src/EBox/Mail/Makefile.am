@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/Mail
 
 SUBDIRS = Model
 
-regular_packages = FilterProvider.pm
+regular_packages = FilterProvider.pm ImportFromLdif.pm
 
 test_packages = Test.pm
 

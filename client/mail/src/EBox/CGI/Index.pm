@@ -84,13 +84,13 @@ sub _process($) {
 	push (@array, 'smtptls'		=> $mail->tlsSmtp());
 	push (@array, 'popssl'		=> $mail->sslPop());
 	push (@array, 'imapssl'		=> $mail->sslImap());
-	push (@array, 'fwport'		=> $mail->fwport());
 
 	push (@array, 'filterservice'		=> $self->_inService('filter'));	
 	push (@array, 'filtername'              => $mail->externalFilter   );
 	push (@array, 'availableFilters',         => $mail->externalFiltersFromModules);
 	push (@array, 'ipfilter'		=> $mail->ipfilter());
 	push (@array, 'portfilter'		=>  $mail->portfilter());
+	push (@array, 'fwport'		=> $mail->fwport());
 
 	if ($mail->mdQuotaAvailable()) {
 	  push (@array, mdQuotaAvailable => 1);
