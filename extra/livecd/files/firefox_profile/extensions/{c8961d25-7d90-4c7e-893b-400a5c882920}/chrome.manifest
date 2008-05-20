@@ -1,0 +1,31 @@
+content remember-mismatch jar:chrome/remember-mismatch.jar!/content/
+
+overlay	chrome://messenger/content/messenger.xul            chrome://remember-mismatch/content/rmd.xul
+overlay	chrome://navigator/content/navigator.xul            chrome://remember-mismatch/content/rmd.xul
+overlay	chrome://browser/content/browser.xul                chrome://remember-mismatch/content/rmd.xul
+
+overlay	chrome://pippki/content/domainMismatch.xul          chrome://remember-mismatch/content/mismatch_overlay.xul
+overlay	chrome://pippki/content/serverCertExpired.xul       chrome://remember-mismatch/content/mismatch_overlay.xul
+
+
+locale remember-mismatch cs-CZ jar:chrome/remember-mismatch.jar!/locale/cs-CZ/
+locale remember-mismatch da-DK jar:chrome/remember-mismatch.jar!/locale/da-DK/
+locale remember-mismatch de-DE jar:chrome/remember-mismatch.jar!/locale/de-DE/
+locale remember-mismatch el-GR jar:chrome/remember-mismatch.jar!/locale/el-GR/
+locale remember-mismatch en-US jar:chrome/remember-mismatch.jar!/locale/en-US/
+locale remember-mismatch es-AR jar:chrome/remember-mismatch.jar!/locale/es-AR/
+locale remember-mismatch es-ES jar:chrome/remember-mismatch.jar!/locale/es-ES/
+locale remember-mismatch fi-FI jar:chrome/remember-mismatch.jar!/locale/fi-FI/
+locale remember-mismatch fr-FR jar:chrome/remember-mismatch.jar!/locale/fr-FR/
+locale remember-mismatch hr-HR jar:chrome/remember-mismatch.jar!/locale/hr-HR/
+locale remember-mismatch it-IT jar:chrome/remember-mismatch.jar!/locale/it-IT/
+locale remember-mismatch ja-JP jar:chrome/remember-mismatch.jar!/locale/ja-JP/
+locale remember-mismatch ko-KR jar:chrome/remember-mismatch.jar!/locale/ko-KR/
+locale remember-mismatch nb-NO jar:chrome/remember-mismatch.jar!/locale/nb-NO/
+locale remember-mismatch nl-NL jar:chrome/remember-mismatch.jar!/locale/pl-PL/
+locale remember-mismatch pl-PL jar:chrome/remember-mismatch.jar!/locale/nl-NL/
+locale remember-mismatch pt-BR jar:chrome/remember-mismatch.jar!/locale/pt-BR/
+locale remember-mismatch ru-RU jar:chrome/remember-mismatch.jar!/locale/ru-RU/
+locale remember-mismatch tr-TR jar:chrome/remember-mismatch.jar!/locale/tr-TR/
+locale remember-mismatch uk-UA jar:chrome/remember-mismatch.jar!/locale/uk-UA/
+locale remember-mismatch zh-CN jar:chrome/remember-mismatch.jar!/locale/zh-CN/

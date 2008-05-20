@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+	<Description about="urn:mozilla:install-manifest">
+
+		<em:id>{c8961d25-7d90-4c7e-893b-400a5c882920}</em:id>
+		<em:name>Remember Mismatched Domains</em:name>
+		<em:version>1.4.6</em:version>
+		<em:description>Adds a 'don't ask me again' option to the Domain Name Mismatch Security Error window.</em:description>
+		<em:creator>Andrew Lucking</em:creator>
+		<em:homepageURL>http://www.andrewlucking.com</em:homepageURL>
+		<em:aboutURL>chrome://remember-mismatch/content/about.xul</em:aboutURL>
+        	<em:optionsURL>chrome://remember-mismatch/content/options.xul</em:optionsURL>
+		<!--<em:updateURL>http://www.andrewlucking.com/code/ff-extensions/update.rdf</em:updateURL>-->
+		<em:targetPlatform>WINNT_x86-msvc</em:targetPlatform>
+		<em:targetPlatform>Linux_x86-gcc3</em:targetPlatform>
+		<em:targetPlatform>Linux_x86_64-gcc3</em:targetPlatform>
+		<em:targetPlatform>linux-gnu_x86-gcc3</em:targetPlatform>
+		<em:targetPlatform>linux-gnu_x86_64-gcc3</em:targetPlatform>
+		<em:targetPlatform>linux-gnu_x86-gcc3</em:targetPlatform>
+		<em:targetPlatform>Darwin_x86-gcc3</em:targetPlatform>
+		<em:targetPlatform>Darwin_ppc-gcc3</em:targetPlatform>
+		<em:targetPlatform>Linux_ppc-gcc3</em:targetPlatform>
+		<em:file>
+			<Description about="urn:mozilla:extension:file:remember-mismatch.jar">
+				<em:package>content/remember-mismatch/</em:package>
+			</Description>
+		</em:file>
+
+		<em:targetApplication>        <!-- Firefox -->
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:targetApplication>        <!-- Thunderbird -->
+			<Description>
+				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
+    		</em:targetApplication>
+		<em:targetApplication>        <!-- Seamonkey -->
+			<Description>
+				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+				<em:minVersion>1.0</em:minVersion>
+				<em:maxVersion>1.1.*</em:maxVersion>
+			</Description>
+        </em:targetApplication>
+	</Description>
+
+</RDF>

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+USER="eboxlive" # must be the same user than in /etc/remastersys.conf
+###START_CMD="su $USER -c startx"
+
+
+
+
+start() {
+#          $START_CMD
+           su $USER  -c "sudo startx"
+}
+
+case "$1" in
+  start)
+        start
+  ;;
+
+  restart)
+        start
+  ;;
+
+esac
+
+exit 0
+
+

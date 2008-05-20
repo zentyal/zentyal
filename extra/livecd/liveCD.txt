@@ -1,0 +1,31 @@
+1. Use the installer Cd to install eBox in a virtual machine
+2. Enable all modules
+3. Install remastersys
+4. Edit /etc/remastersys.conf LIVECDLABEL='eBox Live CD\ and LIVEUSER='eboxlive'
+5. apt-get install startx xfonts-base xserver-xorg
+6. apt-get install firefox icewm
+7. Start X and tweak firefox:
+   - install
+   - always accept the eBox's certificate
+   - always accept the mismmatched domain (127.0.0.1) for eBox password
+   - always remember eBox's password
+   - create bookmarks to administrative interface, eBox's webpage and eBox's web
+   manual
+8. When firefox is properly configured copy the profile folder to the defaul
+profile folder (/etc/firefox/profile), assure that all the files are readable by
+any user
+9. Put a file in /etc/X11/Xsessiond.d to always start firefox and icewm
+10. Put the eboxlive script in /etc/init.d and give it execution permissions
+11. Assure that the script is executed as last acitopn when entering runlevel 2: 
+  update-rc.d eboxlive start 99 2 . 
+12. Execute 'remastersys dist' to create the ISO image
+
+
+Shortcut:
+  in files/ directory we have all files needed in points 4,8,9 and 10 so if you
+  dont want to change anything you can copy them back or use them as template
+  for your own modifications
+
+Shortcut 2:
+The buildLiveCD.sh script takes care of steps 3 to 12, but you must copy the
+files/ directory to the same directory on which is placed the script in the host computer
