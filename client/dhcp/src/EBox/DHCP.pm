@@ -314,7 +314,11 @@ sub _exposedMethods
         'removeFixedAddress' => { action   => 'del',
                                   path     => [ 'FixedAddressTable' ],
                                   indexes  => [ 'name' ],
-                                }
+                                },
+        'setLeases' => { action  => 'set',
+                         path    => [ 'LeaseTimes' ],
+                         indexes => [ 'id' ],
+                       },
         );
     return \%methods;
 
@@ -745,10 +749,12 @@ sub ranges # (iface)
 #	iface - String interface name
 #       action - String the action to be performed (add/set/del)
 #
-#       indexValue - String the index element value, it may be the name,
-#       the ip or the mac since they all are unique
+#       indexValue - String the index element value, it may be the
+#       name, the ip or the mac since they all are unique (Only
+#       required for set/del actions)
 #
-#       indexField - String the field name to use as index
+#       indexField - String the field name to use as index (Only
+#       required for set/del actions)
 #
 #	mac - String mac address
 #	ip - String IPv4 address

@@ -384,7 +384,6 @@ sub _table
                                fieldName     => 'secondary_ns',
                                printableName => __('Secondary nameserver'),
                                editable      => 1,
-                               defaultValue  => $self->_fetchSecondaryNS(),
                                optional      => 1,
                               ),
       );

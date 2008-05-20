@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 21;
+use Test::More tests => 25;
 use Test::Exception;
 use Test::MockObject;
 
@@ -168,5 +168,21 @@ cmp_ok( $dhcp->nameserver('eth0', 2), 'eq', '192.32.23.34',
 throws_ok {
     $dhcp->setOption('eth0', secondary_ns => 'BEDlights for BLUEeyes');
 } 'EBox::Exceptions::External', 'Setting incorrect secondary NS';
+
+lives_ok {
+    $dhcp->setLeases('eth0', default_leased_time => 1000, max_leased_time => 1001);
+} 'Set leases time';
+
+throws_ok {
+    $dhcp->setLeases('eth0', default_leased_time => 2000);
+} 'EBox::Exceptions::External', 'Default leased time must be lower than maximum one';
+
+throws_ok {
+    $dhcp->setLeases('eth0', max_leased_time => 10);
+} 'EBox::Exceptions::External', 'Maximum leased time must be greater than default one';
+
+throws_ok {
+    $dhcp->setLeases('eth0', default_leased_time => -10);
+} 'EBox::Exceptions::External', 'Lease time must be a positive number';
 
 1;

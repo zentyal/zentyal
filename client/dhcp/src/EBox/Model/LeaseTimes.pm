@@ -133,13 +133,15 @@ sub validateTypedRow
             throw EBox::Exceptions::External(__('Default leased time must be '
                                                 . 'higher than 0 seconds'));
         }
-        my $maxTime = $allFields->{max_leased_time}->value();
-        if ( $defaultTime > $maxTime ) {
-            throw EBox::Exceptions::External(__x('Default leased time {default} '
-                                                 . 'must be lower than maximum '
-                                                 . 'one {max}',
-                                                 default => $defaultTime,
-                                                 max     => $maxTime));
+        if ( defined($allFields->{max_leased_time}) ) {
+            my $maxTime = $allFields->{max_leased_time}->value();
+            if ( $defaultTime > $maxTime ) {
+                throw EBox::Exceptions::External(__x('Default leased time {default} '
+                                                     . 'must be lower than maximum '
+                                                     . 'one {max}',
+                                                     default => $defaultTime,
+                                                     max     => $maxTime));
+            }
         }
     }
     if ( exists $changedFields->{max_leased_time} ) {
@@ -149,13 +151,15 @@ sub validateTypedRow
             throw EBox::Exceptions::External(__('Maximum leased time must be '
                                                 . 'higher than 0 seconds'));
         }
-        my $defaultTime = $allFields->{default_leased_time}->value();
-        if ( $maxTime < $defaultTime ) {
-            throw EBox::Exceptions::External(__x('Maximum leased time {max} '
-                                                 . 'must be higher than default '
-                                                 . 'one {default}',
-                                                 max     => $maxTime,
-                                                 default => $defaultTime));
+        if (defined($allFields->{default_leased_time})) {
+            my $defaultTime = $allFields->{default_leased_time}->value();
+            if ( $maxTime < $defaultTime ) {
+                throw EBox::Exceptions::External(__x('Maximum leased time {max} '
+                                                     . 'must be higher than default '
+                                                     . 'one {default}',
+                                                     max     => $maxTime,
+                                                     default => $defaultTime));
+            }
         }
     }
 }
