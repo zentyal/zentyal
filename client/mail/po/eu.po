@@ -1,20 +1,20 @@
-# Japanese translations for ebox-mail package.
-# Copyright (C) 2008 Warp S.L.
+# Basque translations for ebox-mail package.
+# Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-mail package.
-# Automatically generated, 2008.
-#
+# Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.11.99Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-05-21 12:27+0200\n"
-"PO-Revision-Date: 2008-01-08 15:49+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2007-03-28 23:25+0000\n"
+"Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/MailUserLdap.pm:68 src/EBox/MailUserLdap.pm:73
 #: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
@@ -194,7 +194,7 @@ msgstr ""
 
 #: src/EBox/Mail.pm:623 src/EBox/Mail.pm:672
 msgid "port"
-msgstr ""
+msgstr "ataka"
 
 #: src/EBox/Mail.pm:717
 msgid "Smarthost"
@@ -209,8 +209,9 @@ msgid "message size"
 msgstr ""
 
 #: src/EBox/Mail.pm:1192
+#, fuzzy
 msgid "Mail services"
-msgstr ""
+msgstr "Zerbitzuak"
 
 #: src/EBox/Mail.pm:1194
 msgid "POP3 service"
@@ -221,12 +222,14 @@ msgid "IMAP service"
 msgstr ""
 
 #: src/EBox/Mail.pm:1216
+#, fuzzy
 msgid "enabled"
-msgstr ""
+msgstr "Gaitu"
 
 #: src/EBox/Mail.pm:1216
+#, fuzzy
 msgid "disabled"
-msgstr ""
+msgstr "Gaitu"
 
 #: src/EBox/Mail.pm:1219 src/EBox/Mail.pm:1297
 msgid "Status"
@@ -466,12 +469,12 @@ msgstr ""
 #: src/templates/index.mas:136 src/templates/index.mas:137
 #: src/templates/index.mas:383 src/templates/index.mas:384
 msgid "Change"
-msgstr ""
+msgstr "Aldatu"
 
 #: src/templates/warnvdmdsize.mas:36 src/templates/warnusermdsize.mas:26
 #: src/templates/warnvd.mas:32
 msgid "Cancel"
-msgstr ""
+msgstr "Utzi"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
@@ -499,7 +502,7 @@ msgstr ""
 #: src/templates/alias.mas:24 src/templates/alias.mas:76
 #: src/templates/alias.mas:77 src/templates/warnvd.mas:29
 msgid "Delete"
-msgstr ""
+msgstr "Ezabatu"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
@@ -511,7 +514,7 @@ msgstr ""
 #: src/templates/imap.mas:30 src/templates/sasl.mas:15
 #: src/templates/sasl.mas:18
 msgid "No"
-msgstr ""
+msgstr "Ez"
 
 #: src/templates/pop.mas:23 src/templates/pop.mas:27 src/templates/pop.mas:31
 #: src/templates/imap.mas:23 src/templates/imap.mas:27
@@ -539,7 +542,7 @@ msgstr ""
 
 #: src/templates/vdomains.mas:120
 msgid "(MB)"
-msgstr ""
+msgstr "(MB)"
 
 #: src/templates/vdomains.mas:129 src/templates/vdomains.mas:130
 msgid "Add"
@@ -555,7 +558,7 @@ msgstr ""
 
 #: src/templates/vdomains.mas:156
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: src/templates/vdomains.mas:160
 msgid "Maildir Size"
@@ -567,7 +570,7 @@ msgstr ""
 
 #: src/templates/vdomains.mas:180
 msgid "Edit"
-msgstr ""
+msgstr "Editatu"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"
@@ -624,7 +627,7 @@ msgstr ""
 #: src/templates/mailtabs.mas:9 src/templates/mailtabs.mas:11
 #: src/templates/index.mas:55
 msgid "Services"
-msgstr ""
+msgstr "Zerbitzuak"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
 msgid "Settings"
@@ -669,11 +672,12 @@ msgstr ""
 
 #: src/templates/sasl.mas:16 src/templates/sasl.mas:19
 msgid "Yes"
-msgstr ""
+msgstr "Bai"
 
 #: src/templates/index.mas:36
+#, fuzzy
 msgid "Mail service settings"
-msgstr ""
+msgstr "Zerbitzuak"
 
 #: src/templates/index.mas:37
 msgid "TLS support is required by the authentication system"
@@ -681,11 +685,11 @@ msgstr ""
 
 #: src/templates/index.mas:63
 msgid "Service"
-msgstr ""
+msgstr "Zerbitzu"
 
 #: src/templates/index.mas:66
 msgid "Enabled"
-msgstr ""
+msgstr "Gaitu"
 
 #: src/templates/index.mas:69
 msgid "SSL Support"
@@ -807,3 +811,9 @@ msgstr ""
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
 msgstr ""
+
+#~ msgid "POP3"
+#~ msgstr "POP3"
+
+#~ msgid "IMAP"
+#~ msgstr "IMAP"

@@ -1,20 +1,21 @@
-# Japanese translations for ebox-mail package.
-# Copyright (C) 2008 Warp S.L.
+# Arabic translations for ebox-mail package.
+# Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-mail package.
-# Automatically generated, 2008.
-#
+# Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.11.99Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-05-21 12:27+0200\n"
-"PO-Revision-Date: 2008-01-08 15:49+0100\n"
+"PO-Revision-Date: 2006-12-22 13:55+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=6; n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 && n<=10 ? "
+"3 : n>=11 && n<=99 ? 4 : 5;\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/MailUserLdap.pm:68 src/EBox/MailUserLdap.pm:73
 #: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63

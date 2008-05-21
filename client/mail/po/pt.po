@@ -1,35 +1,35 @@
-# Japanese translations for ebox-mail package.
-# Copyright (C) 2008 Warp S.L.
+# Portuguese translations for ebox-mail package.
+# Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-mail package.
-# Automatically generated, 2008.
+# Automatically generated, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.11.99Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-05-21 12:27+0200\n"
-"PO-Revision-Date: 2008-01-08 15:49+0100\n"
+"PO-Revision-Date: 2007-06-06 09:38+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/MailUserLdap.pm:68 src/EBox/MailUserLdap.pm:73
 #: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
 #: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
 #: src/EBox/MailAliasLdap.pm:156
 msgid "mail account"
-msgstr ""
+msgstr "conta de e-mail"
 
 #: src/EBox/MailUserLdap.pm:257
 msgid "This group has a mail alias"
-msgstr ""
+msgstr "Este grupo tem um alias de e-mail"
 
 #: src/EBox/MailUserLdap.pm:283
 msgid "This user has a mail account"
-msgstr ""
+msgstr "Este utilizador tem uma conta de e-mail"
 
 #: src/EBox/MailUserLdap.pm:673 src/EBox/MailUserLdap.pm:679
 #: src/EBox/MailUserLdap.pm:741 src/EBox/MailUserLdap.pm:747
@@ -37,12 +37,12 @@ msgstr ""
 #: src/EBox/MailVDomainsLdap.pm:487 src/EBox/MailVDomainsLdap.pm:493
 #: src/EBox/Mail.pm:1459 src/EBox/Mail.pm:1465
 msgid "maildir size"
-msgstr ""
+msgstr "tamanho da maildir"
 
 #: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:120
 #: src/EBox/CGI/CreateAccount.pm:48
 msgid "virtual domain"
-msgstr ""
+msgstr "domínio virtual"
 
 #: src/EBox/MailVDomainsLdap.pm:348
 msgid "Size quota"
@@ -56,7 +56,7 @@ msgstr ""
 #: src/EBox/Mail.pm:1261 src/EBox/Mail.pm:1315 src/EBox/CGI/Index.pm:28
 #: src/EBox/CGI/Index.pm:64 src/EBox/CGI/VDomains.pm:55
 msgid "Mail"
-msgstr ""
+msgstr "Mail"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
@@ -69,8 +69,9 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 
 #: src/EBox/Mail.pm:74
+#, fuzzy
 msgid "mail"
-msgstr ""
+msgstr "Mail"
 
 #: src/EBox/Mail.pm:98
 msgid "Remove postfix init script link"
@@ -99,8 +100,9 @@ msgid "To allow postfix communicate with saslauthd "
 msgstr ""
 
 #: src/EBox/Mail.pm:116
+#, fuzzy
 msgid "Generate mail aliases"
-msgstr ""
+msgstr "alias de e-mail"
 
 #: src/EBox/Mail.pm:117
 msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
@@ -175,12 +177,12 @@ msgstr ""
 
 #: src/EBox/Mail.pm:568 src/EBox/Mail.pm:576 src/EBox/Mail.pm:581
 msgid "remote IP"
-msgstr ""
+msgstr "IP remoto"
 
 #: src/EBox/Mail.pm:569
 #, perl-brace-format
 msgid "{ip} is not a valid ip address"
-msgstr ""
+msgstr "{ip} não é um número de ip válido"
 
 #: src/EBox/Mail.pm:577
 #, perl-brace-format
@@ -194,7 +196,7 @@ msgstr ""
 
 #: src/EBox/Mail.pm:623 src/EBox/Mail.pm:672
 msgid "port"
-msgstr ""
+msgstr "porta"
 
 #: src/EBox/Mail.pm:717
 msgid "Smarthost"
@@ -206,36 +208,36 @@ msgstr ""
 
 #: src/EBox/Mail.pm:750 src/EBox/Mail.pm:756
 msgid "message size"
-msgstr ""
+msgstr "tamanho da mensagem"
 
 #: src/EBox/Mail.pm:1192
 msgid "Mail services"
-msgstr ""
+msgstr "Serviços de e-mai"
 
 #: src/EBox/Mail.pm:1194
 msgid "POP3 service"
-msgstr ""
+msgstr "Serviço de POP3"
 
 #: src/EBox/Mail.pm:1196
 msgid "IMAP service"
-msgstr ""
+msgstr "Serviço de IMAP"
 
 #: src/EBox/Mail.pm:1216
 msgid "enabled"
-msgstr ""
+msgstr "ligado"
 
 #: src/EBox/Mail.pm:1216
 msgid "disabled"
-msgstr ""
+msgstr "desligado"
 
 #: src/EBox/Mail.pm:1219 src/EBox/Mail.pm:1297
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: src/EBox/Mail.pm:1230 src/EBox/Mail.pm:1235 src/templates/mailtabs.mas:19
 #: src/templates/mailtabs.mas:21
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/EBox/Mail.pm:1230
 msgid "Custom"
@@ -243,53 +245,53 @@ msgstr ""
 
 #: src/EBox/Mail.pm:1232
 msgid "Address"
-msgstr ""
+msgstr "Endereço"
 
 #: src/EBox/Mail.pm:1252
 msgid "Mail system"
-msgstr ""
+msgstr "Sistema de E-mail"
 
 #: src/EBox/Mail.pm:1264
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/EBox/Mail.pm:1267 src/EBox/CGI/VDomains.pm:29
 #: src/EBox/CGI/VDomains.pm:39
 msgid "Virtual domains"
-msgstr ""
+msgstr "Domínios virtuais"
 
 #: src/EBox/Mail.pm:1270 src/EBox/CGI/QueueManager.pm:33
 #: src/EBox/CGI/QueueManager.pm:50
 msgid "Queue Management"
-msgstr ""
+msgstr "Gestão de Fila"
 
 #: src/EBox/Mail.pm:1289 src/templates/qmanager.mas:19
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Mail.pm:1290
 msgid "Message ID"
-msgstr ""
+msgstr "ID da mensagem"
 
 #: src/EBox/Mail.pm:1291
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/EBox/Mail.pm:1292 src/EBox/Mail/Model/Dispatcher/Mail.pm:135
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #: src/EBox/Mail.pm:1293
 msgid "From hostname"
-msgstr ""
+msgstr "De nome do anfitrião"
 
 #: src/EBox/Mail.pm:1294
 msgid "From host ip"
-msgstr ""
+msgstr "De ip do anfitrião"
 
 #: src/EBox/Mail.pm:1295 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
-msgstr ""
+msgstr "Tamanho (bytes)"
 
 #: src/EBox/Mail.pm:1296
 msgid "Relay"
@@ -297,52 +299,54 @@ msgstr ""
 
 #: src/EBox/Mail.pm:1298
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/Mail.pm:1299
 msgid "Aditional Info"
-msgstr ""
+msgstr "Informação adicional"
 
 #: src/EBox/Mail.pm:1305
 msgid "Successful messages"
-msgstr ""
+msgstr "Mensagens com sucesso"
 
 #: src/EBox/Mail.pm:1306
 msgid "Maximum message size exceeded"
-msgstr ""
+msgstr "Tamanho máximo da mensagem excedido"
 
 #: src/EBox/Mail.pm:1307
 msgid "User quote exceeded"
-msgstr ""
+msgstr "Quota de utilizador excedida"
 
 #: src/EBox/Mail.pm:1308
 msgid "Relay access denied"
-msgstr ""
+msgstr "Acesso de relay negado"
 
 #: src/EBox/Mail.pm:1309
+#, fuzzy
 msgid "Account does not exist"
-msgstr ""
+msgstr "A conta não existe"
 
 #: src/EBox/Mail.pm:1310
 msgid "Host unreachable"
-msgstr ""
+msgstr "Anfitrião inalcançável"
 
 #: src/EBox/Mail.pm:1311
 msgid "Authentication error"
-msgstr ""
+msgstr "Erro de autenticação"
 
 #: src/EBox/Mail.pm:1312
 msgid "Other events"
-msgstr ""
+msgstr "Outros eventos"
 
 #: src/EBox/Mail.pm:1419
+#, fuzzy
 msgid "Mailboxes"
-msgstr ""
+msgstr "Mail"
 
 #: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
 #: src/EBox/MailAliasLdap.pm:282
 msgid "mail alias account"
-msgstr ""
+msgstr "alias da conta de e-mail"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -369,67 +373,67 @@ msgstr ""
 
 #: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupo"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
 msgid "account name"
-msgstr ""
+msgstr "nome de conta"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
 msgid "domain name"
-msgstr ""
+msgstr "nome de domínio"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr ""
+msgstr "ID de Fila"
 
 #: src/EBox/CGI/AddVDomain.pm:42
 msgid "Virtual domain name"
-msgstr ""
+msgstr "Nome do domínio virtual"
 
 #: src/EBox/CGI/SetMDQuota.pm:46
 msgid "Maximum mail account size"
-msgstr ""
+msgstr "Máximo de tamanho da conta de e-mail"
 
 #: src/EBox/CGI/DelAccount.pm:42 src/EBox/CGI/CreateAccount.pm:42
 #: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAlias.pm:42
 #: src/EBox/CGI/DelAlias.pm:42
 msgid "username"
-msgstr ""
+msgstr "utilizador"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr ""
+msgstr "E-mail do utilizador"
 
 #: src/EBox/CGI/MailConf.pm:42
 msgid "relay"
-msgstr ""
+msgstr "relay"
 
 #: src/EBox/CGI/EditVDomain.pm:43 src/EBox/CGI/ModifyVDomain.pm:57
 #: src/EBox/CGI/DelVDomain.pm:72
 msgid "vdomain"
-msgstr ""
+msgstr "vdomain"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
-msgstr ""
+msgstr "Endereço de e-mail"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr ""
+msgstr "maildrop"
 
 #: src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr ""
+msgstr "alias de e-mail"
 
 #: src/EBox/CGI/SetQuota.pm:46
 msgid "Message size limit"
-msgstr ""
+msgstr "Limite de tamanho da mensagem"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
-msgstr ""
+msgstr "e-mail alias do grupo"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
@@ -448,7 +452,7 @@ msgstr ""
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 #: src/templates/alias.mas:65
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 #: src/templates/createaccount.mas:62
 msgid "Maildir size"
@@ -466,12 +470,12 @@ msgstr ""
 #: src/templates/index.mas:136 src/templates/index.mas:137
 #: src/templates/index.mas:383 src/templates/index.mas:384
 msgid "Change"
-msgstr ""
+msgstr "Modificar"
 
 #: src/templates/warnvdmdsize.mas:36 src/templates/warnusermdsize.mas:26
 #: src/templates/warnvd.mas:32
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
@@ -499,7 +503,7 @@ msgstr ""
 #: src/templates/alias.mas:24 src/templates/alias.mas:76
 #: src/templates/alias.mas:77 src/templates/warnvd.mas:29
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
@@ -511,7 +515,7 @@ msgstr ""
 #: src/templates/imap.mas:30 src/templates/sasl.mas:15
 #: src/templates/sasl.mas:18
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: src/templates/pop.mas:23 src/templates/pop.mas:27 src/templates/pop.mas:31
 #: src/templates/imap.mas:23 src/templates/imap.mas:27
@@ -624,7 +628,7 @@ msgstr ""
 #: src/templates/mailtabs.mas:9 src/templates/mailtabs.mas:11
 #: src/templates/index.mas:55
 msgid "Services"
-msgstr ""
+msgstr "Serviços"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
 msgid "Settings"
@@ -666,14 +670,16 @@ msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"O domínio virtual que tentou apagar contém dados nos seguintes módulos. Por "
+"favor confirme que deseja remover tudo, incluindo os dados."
 
 #: src/templates/sasl.mas:16 src/templates/sasl.mas:19
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: src/templates/index.mas:36
 msgid "Mail service settings"
-msgstr ""
+msgstr "Configuração do serviço de e-mail"
 
 #: src/templates/index.mas:37
 msgid "TLS support is required by the authentication system"
@@ -681,19 +687,19 @@ msgstr ""
 
 #: src/templates/index.mas:63
 msgid "Service"
-msgstr ""
+msgstr "Serviço"
 
 #: src/templates/index.mas:66
 msgid "Enabled"
-msgstr ""
+msgstr "Ligado"
 
 #: src/templates/index.mas:69
 msgid "SSL Support"
-msgstr ""
+msgstr "Suporte SSL"
 
 #: src/templates/index.mas:82 src/templates/index.mas:83
 msgid "Apply Changes"
-msgstr ""
+msgstr "Aplicar modificações"
 
 #: src/templates/index.mas:89
 msgid ""
@@ -801,9 +807,31 @@ msgid "There aren't modules which provide mail domains options to configure"
 msgstr ""
 
 #: src/templates/account.mas:22
+#, fuzzy
 msgid "Mail account"
-msgstr ""
+msgstr "conta de e-mail"
 
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
 msgstr ""
+
+#~ msgid "mail system status"
+#~ msgstr "Estado do sistema de mail"
+
+#~ msgid "Deleting virtual domain"
+#~ msgstr "Apagando o domínio virtual"
+
+#~ msgid "TLS for SMTP server"
+#~ msgstr "TLS para o serviço de SMTP"
+
+#~ msgid "Require authentication"
+#~ msgstr "Requer autenticação"
+
+#~ msgid "POP3"
+#~ msgstr "POP3"
+
+#~ msgid "IMAP"
+#~ msgstr "IMAP"
+
+#~ msgid "module status"
+#~ msgstr "Estado do módulo"
