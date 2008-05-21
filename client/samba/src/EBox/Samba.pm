@@ -616,7 +616,6 @@ sub setNetbios # (enabled)
 }
 
 #returns netbios name
-#ret: bool
 sub netbios
 {
         my $self = shift;
@@ -648,7 +647,6 @@ sub setRoamingProfiles # (enabled)
 }
 
 #returns description name
-#ret: bool
 sub description
 {
         my $self = shift;
@@ -667,7 +665,6 @@ sub setWorkgroup # (enabled)
 }
 
 #returns workgroup name
-#ret: bool
 sub workgroup
 {
         my $self = shift;
@@ -686,7 +683,6 @@ sub setDefaultUserQuota # (enabled)
 }
 
 #returns userQuota name
-#ret: bool
 sub defaultUserQuota
 {
         my $self = shift;
