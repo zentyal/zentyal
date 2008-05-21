@@ -797,10 +797,13 @@ sub addTypedRow
       # Insert the element in order
       if ($self->table()->{'order'}) {
           my $pos = 0;
-          if ( $self->insertPosition() eq 'front' ) {
-              $pos = 0;
-          } elsif ( $self->insertPosition() eq 'back' ) {
-              $pos = $#{$self->order()} + 1;
+          my $insertPos = $self->insertPosition();
+          if (defined($insertPos)) {
+              if ( $insertPos) eq 'front' ) {
+                  $pos = 0;
+              } elsif ( $insertPos eq 'back' ) {
+                  $pos = $#{$self->order()} + 1;
+              }
           }
           $self->_insertPos($id, $pos);
       }
