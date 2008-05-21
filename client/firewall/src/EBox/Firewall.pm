@@ -672,7 +672,7 @@ sub addOutputRule # (protocol, port)
 
 # Method: setInternalService
 #
-# 	This method adds a rule to the "internal networks to eBox services"
+#   This method adds a rule to the "internal networks to eBox services"
 #   table.
 #
 #   In case the service has already been configured with a custom
@@ -700,6 +700,46 @@ sub setInternalService
 {
 	my ($self, $service, $decision) = @_;
 
+	return _setService($service, $decision, 1);
+}
+
+# Method: setExternalService
+#
+#   This method adds a rule to the "external networks to eBox services"
+#   table.
+#
+#   In case the service has already been configured with a custom
+#   rule by the user the adding operation is aborted.
+#
+#   Modules configuring internal services running on eBox should use
+#   this method if they wish to allow access from external networks
+#   to the service by default.
+#
+# Parameters:
+#
+#   service - service's name
+#   decision - accept or deny
+# 	
+# Returns:
+#
+#   boolan - true if the rule has been added, otherwise false and
+#            that implies there is already a custom rule
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#   <EBox::Exceptions::DataNotFound>
+sub setExternalService
+{
+	my ($self, $service, $decision) = @_;
+
+	return _setService($service, $decision, 0);
+}
+
+sub _setService
+{
+	my ($self, $service, $decision, $internal) = @_;
+
 	my $serviceMod = EBox::Global->modInstance('services');
 
 	unless (defined($service)) {
@@ -722,7 +762,14 @@ sub setInternalService
 				'value' => $service);
 	}
 
-	my $rulesModel = $self->{'InternalToEBoxRuleModel'};
+
+	my $model;
+	if ($internal) {
+		$model = 'InternalToEBoxRuleModel';
+	} else {
+		$model = 'ExternalToEBoxRuleModel';
+	}
+	my $rulesModel = $self->{$model};
 
 	# Do not add rule if there is already a rule
 	if ($rulesModel->findValue('service' => $serviceId)) {
@@ -739,7 +786,6 @@ sub setInternalService
 
 	return 1;
 }
-
 # Method: enableLog 
 #
 #   Override <EBox::LogObserver>
