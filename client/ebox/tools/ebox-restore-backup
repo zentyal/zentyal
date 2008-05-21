@@ -82,7 +82,7 @@ elsif ($info) {
 my $incompatibleModes = grep { $_  }  ($configRestore, $dataRestore, $fullRestore, );
 
 if ($incompatibleModes > 1) {
-  die "You can only choose one orestore mode from --config-restore, --data-restore or --full-restore. (--config-restore is the default restore mode)";
+  die "You can only choose one restore mode from --config-restore, --data-restore or --full-restore. (--config-restore is the default restore mode)";
 }
 
 
