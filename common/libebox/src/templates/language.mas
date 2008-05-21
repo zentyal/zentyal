@@ -11,7 +11,7 @@ my $langs = langs();
 <div class="help"><% __d("Language changes happen automatically, saving the configuration it's not needed.", 'libebox') %></div>
 	<form action='Lang' method='POST'>
 		<select name='lang'>
-%	foreach my $l (keys %{$langs}) {
+%	foreach my $l (sort keys %{$langs}) {
 %		if($lang eq $l){
 			<option selected value="<% $l %>"><% $langs->{$l} %></option>
 %		}else{
