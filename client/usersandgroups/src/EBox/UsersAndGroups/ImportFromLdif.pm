@@ -20,6 +20,8 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
+use MIME::Base64;
+
 
 sub classesToProcess
 {
@@ -54,10 +56,9 @@ sub processPosixAccount
 	$usersMod->delUser($name)
     } 
 
-
-
     my $uidNumber = $entry->get_value('uidNumber');
-    my $hashedPasswd = $entry->get_value('userPassword');
+    my $passwd = $entry->get_value('userPassword');
+
     my $fullName = $entry->get_value('sn');
     my $commentary = $entry->get_value('description');
 
@@ -72,7 +73,7 @@ sub processPosixAccount
     my $user = {
 		user => $name,
 		fullname => $fullName,
-		password => 'CHANGEIT', # XXX change it
+		password => $passwd, 
 		commentary => $commentary,
 	       };
 
