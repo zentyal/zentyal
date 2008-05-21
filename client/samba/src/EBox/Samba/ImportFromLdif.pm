@@ -20,7 +20,8 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
-
+use EBox::Sudo;
+use EBox::Ldap;
 
 sub classesToProcess
 {
@@ -32,25 +33,94 @@ sub classesToProcess
 
 sub processSambaSamAccount
 {
-    my ($package, $entry) = @_;
+    my ($package, $entry, @params) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
-    if (not defined $samba) {
-	print "Samba module not available. Ignoring samba data";
-	return;
+    my $username = $entry->get_value('cn');
+
+    if ($username =~ m{\$$}) {
+	$package->_processComputerAccount($entry, @params);
+    }
+    else {
+	$package->_processUserAccount($entry, @params);
     }
 
-    my $sambaUser = $samba->_ldapModImplementation();
+}
+
+sub _processUserAccount
+{
+    my ($package, $entry) = @_;
 
     my $username = $entry->get_value('cn');
 
     my $flags = $entry->get_value('sambaAcctFlags');
     my $sharing = not ($flags =~ /D/) ? 'yes' : 'no';
     
-    $sambaUser->setUserSharing($username, $sharing);
+    my $samba = EBox::Global->modInstance('samba');
+    my $sambaUser = $samba->_ldapModImplementation();
 
+    $sambaUser->setUserSharing($username, $sharing);
 }
 
 
 
+sub _processComputerAccount
+{
+    my ($package, $entry, %options) = @_;
+
+    my $account = $entry->get_value('cn');
+
+    if ($package->_existsComputerAccount($account)) {
+	if (not $options{overwrite}) {
+	    print "Computer Account $account already exists. Skipping it\n";
+	    return;
+	}
+
+	print "Overwriting computer account $account\n";
+	$package->_delComputerAccount($account);
+    }
+
+    $package->_addComputerAccount($account);
+}
+
+
+
+sub _addComputerAccount
+{
+    my ($package, $account) = @_;
+
+    my $accountAddCmd = "/usr/sbin/smbldap-useradd -w $account";
+    EBox::Sudo::root($accountAddCmd);
+	
+}
+
+
+sub _delComputerAccount
+{
+    my ($package, $account) = @_;
+
+    my $accountDelCmd = "/usr/sbin/smbldap-userdel  $account";
+    EBox::Sudo::root($accountDelCmd);
+}	
+
+
+sub _existsComputerAccount
+{
+    my ($package, $account) = @_;
+
+    my $computersDn = 'ou=Computers,' . EBox::Ldap->dn();
+
+    my %attrs = (
+		 base => $computersDn,
+		 filter => "&(objectclass=*)(uid=$account)",
+		 scope => 'one'
+		);
+
+    my $ldap   = EBox::Ldap->instance();
+    my $result = $ldap->search(\%attrs);
+    
+    return ($result->count > 0);
+}
+
+
 1;
+
