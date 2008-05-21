@@ -39,6 +39,10 @@ sub processPosixAccount
     defined $usersMod or die 'Cannot instantiate users and groups module';
     
     my $name = $entry->get_value('cn');
+    if ($name =~ m{\$$}) {
+	# windows domain machine name, don't process here
+	return;
+    }
 
     if ( $usersMod->userExists($name) ) {
 	if (not $options{overwrite}) {
