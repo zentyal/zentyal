@@ -15,12 +15,9 @@
 
 package EBox::UsersAndGroups::ImportFromLdif;
 use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
-#
 
 use strict;
 use warnings;
-
-use MIME::Base64;
 
 
 sub classesToProcess
