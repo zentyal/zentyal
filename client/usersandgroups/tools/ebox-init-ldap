@@ -8,10 +8,6 @@ use EBox::Config;
 use EBox::Sudo qw(:all);
 use EBox::Exceptions::Internal;
 
-
-use constant DEFAULTGROUP    => '__USERS__';
-use constant DEFAULTGROUPGID => '2000';
-
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
@@ -83,7 +79,8 @@ sub populate
 
 	($result->is_error) and warn "Cant initialize Groups";
 
-	$users->addGroup(DEFAULTGROUP, 'All users', 1);
+	my $defaultGroup = $users->defaultGroup();
+	$users->addGroup($defaultGroup, 'All users', 1);
 }
 
 sub clean 

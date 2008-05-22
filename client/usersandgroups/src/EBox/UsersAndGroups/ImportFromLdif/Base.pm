@@ -53,5 +53,12 @@ sub processParents
 
 
 
+sub onStartup
+{
+    my ($package, %params) = @_;
+}
+
+
+
 
 1;

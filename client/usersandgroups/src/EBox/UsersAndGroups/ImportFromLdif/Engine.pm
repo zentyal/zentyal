@@ -27,6 +27,7 @@ use Net::LDAP::LDIF;
 use constant MIN_PRIORITY => -1;
 
 my %classesToProcess;
+my %classStartup;
 my $maxPriority;
 
 
@@ -35,7 +36,6 @@ sub importLdif
     my ($ldifPath, @extraOptions) = @_;
     
     _loadClientClasses();
-
 
     my @entries = @{ _entries($ldifPath)  };
 
@@ -84,17 +84,21 @@ sub _loadClientClasses
 	my @modClassesToProcess = @{ $importClass->classesToProcess() };
 	foreach my $ldifClassSpec (@modClassesToProcess) {
 	    my $ldifClass;
-	    my $priority;
+	    my $priority = 1;
 
 	    if (ref $ldifClassSpec) {
 		$ldifClass = $ldifClassSpec->{class};
-		$priority  = $ldifClassSpec->{priority};
+		defined $ldifClass or
+		    die "Not class specified in $importClass::classesToProcess()";
+		if (exists $ldifClassSpec->{priority}) {
+		    $priority  = $ldifClassSpec->{priority} 
+		}
 	    }
 	    else {
 		$ldifClass = $ldifClassSpec;
-		$priority  = 1;
 	    }
 
+	    
 
 	    my $importClassElement =  {
                                        importClass => $importClass,
@@ -102,11 +106,15 @@ sub _loadClientClasses
 						      };
 
 	    if (not exists  $classesToProcess{$ldifClass}) {
-		 $classesToProcess{$ldifClass} = [ $importClassElement ];
+		 $classesToProcess{$ldifClass} = [];
 	    }
-	    else {
-		push @{  $classesToProcess{$ldifClass} }, $importClassElement; 
+	    push @{ $classesToProcess{$ldifClass} }, $importClassElement; 
+
+	    if (not exists $classStartup{$ldifClass}) {
+		$classStartup{$ldifClass} = [];
 	    }
+	    push @{ $classStartup{$ldifClass} }, $importClassElement;
+
 
 	    if ($priority > $maxPriority) {
 		$maxPriority = $priority;
@@ -115,6 +123,8 @@ sub _loadClientClasses
     }
 
 }
+
+
 
 
 sub _processEntry
@@ -129,6 +139,8 @@ sub _processEntry
 
     foreach my $class (@objectClasses) {
 	if (exists $classesToProcess{$class}) {
+	    _startupClass($class, %params);
+
 	    foreach my $package_r (@{  $classesToProcess{$class}  }) {
 		my $classPriority = $package_r->{priority};
 
@@ -145,7 +157,6 @@ sub _processEntry
 		my $package = $package_r->{importClass};
 		my $subName = 'process' . ucfirst $class;
 		$package->$subName($entry, %params);
-
 	    }
 
 	}
@@ -156,6 +167,29 @@ sub _processEntry
 }
 
 
+
+sub _startupClass
+{
+    my ($oclass, @params) = @_;
+
+    return if not exists $classStartup{$oclass};
+
+    # sort by priority
+    my @importClasses = sort {  
+	$a->{priority} <=> $b->{priority}
+    } @{ $classStartup{$oclass} };
+
+
+    foreach my $importClass_r (@importClasses) {
+	my $importClass = $importClass_r->{importClass};
+	my $startupName = 'startup' . ucfirst $oclass;
+	if ($importClass->can($startupName)) {
+	    $importClass->$startupName(@params);
+	}
+    }
+
+    delete $classStartup{$oclass};
+}
 
 1;
 

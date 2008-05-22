@@ -19,6 +19,7 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
+use constant DEFAULTGROUP => '__USERS__';
 
 sub classesToProcess
 {
@@ -28,6 +29,29 @@ sub classesToProcess
 	   ];
 }
 
+
+sub startupPosixAccount
+{
+    my ($package, %params) = @_;
+
+    # we remove all users and groups to have a clean state
+
+    my $usersMod = EBox::Global->modInstance('users');
+    
+    foreach my $user_r ($usersMod->users()) {
+	$usersMod->delUser( $user_r->{username} );
+    }
+
+
+    foreach my $group_r ($usersMod->groups(1)) {
+	my $name = $group_r->{account};
+	$usersMod->delGroup( $group_r->{account} );
+    }
+
+    # create users default group
+    my $defaultGroup = $usersMod->defaultGroup();
+    $usersMod->addGroup($defaultGroup, 'All users', 1);
+}
 
 
 sub processPosixAccount
@@ -42,16 +66,6 @@ sub processPosixAccount
 	# windows domain machine name, don't process here
 	return;
     }
-
-    if ( $usersMod->userExists($name) ) {
-	if (not $options{overwrite}) {
-	    print "User $name already exists. Skipping\n";
-	    return;
-	}
-
-	print "Overwritting user $name\n";
-	$usersMod->delUser($name)
-    } 
 
     my $uidNumber = $entry->get_value('uidNumber');
     my $passwd = $entry->get_value('userPassword');
@@ -84,20 +98,16 @@ sub processPosixGroup
     my ($package, $entry, %options) = @_;
 
     my $usersMod = EBox::Global->modInstance('users');
-    defined $usersMod or die 'Cannot instantiate users and groups module';
+
 
     my $group = $entry->get_value('cn');
 
     if ( $usersMod->groupExists($group) ) {
-	if (not $options{overwrite}) {
-	    print "Group $group already exists. Skipping it\n";
-	    return;
-	}
-
-	print "Overwriting group $group\n";
-	$usersMod->delGroup($group);
+	# group already exists bz we have removed all the groups is the
+	# startupPosixAccount that means it has been added by another startup
+	# method so we left it alone
+	return;
     }  
-	
 
     my $gidNumber = $entry->get_value('gidNumber');
     my $comment = $entry->get_value('description');

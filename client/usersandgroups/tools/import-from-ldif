@@ -26,7 +26,7 @@ $ldifPath or die 'No LDIF file path supplied';
 
 EBox::init();
 
-EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifPath, overwrite => 1);
+EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifPath);
 
 
 

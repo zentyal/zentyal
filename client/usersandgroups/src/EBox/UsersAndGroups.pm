@@ -970,7 +970,10 @@ sub groupInfo # (group)
 
 # Method: groups
 #
-#      	Returns an array containing all the groups (not system groupss)
+#      	Returns an array containing all the groups 
+#
+#   Parameters:
+#       system - show system groups (default: false)  
 #
 # Returns:
 #
@@ -978,7 +981,8 @@ sub groupInfo # (group)
 #
 sub groups 
 {
-	my $self = shift;
+	my ($self, $system) = @_;
+	defined $system or $system = 0;
 	
 	my %args = (
 		      base => $self->groupsDn,
@@ -992,7 +996,10 @@ sub groups
 	my @groups = ();
 	foreach ($result->sorted('cn'))
 	{
-		next if ($_->get_value('gidNumber') < MINGID);
+             	if (not $system) {
+		    next if ($_->get_value('gidNumber') < MINGID);
+	        }
+
 
 		my $info = {
 				'account' => $_->get_value('cn'),
@@ -1618,6 +1625,12 @@ sub minUid
 sub minGid
 {
     return MINGID;
+}
+
+
+sub defaultGroup
+{
+    return DEFAULTGROUP;
 }
 
 1;
