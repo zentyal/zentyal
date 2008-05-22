@@ -95,7 +95,7 @@ sub status
    exit 0;
   } else {
    print STDOUT $msg . "[ DISABLED ]\n";
-   exit 1;
+   exit 3;
   }
 
 }
