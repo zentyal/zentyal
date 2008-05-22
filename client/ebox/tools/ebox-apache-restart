@@ -7,6 +7,7 @@ use IO::Socket;
 use Error qw(:try);
 
 use constant RECONNECTION_ATTEMPTS => 9;
+use constant START_ATTEMPTS => 5;
 
 
 EBox::init();
@@ -61,6 +62,12 @@ if (defined($port) and $port =~ /^\d+$/) {
     }
 }
 
-try {
-    EBox::Sudo::root("/usr/share/ebox/ebox-apache2ctl start");
-} otherwise {};
+for my $i (0..RESTART_ATTEMPTS) {
+	my $started = undef;
+	try {
+	    EBox::Sudo::root("/usr/share/ebox/ebox-apache2ctl start");
+	    $started = 1;
+	} otherwise {};
+	last if ($started);
+	sleep(1);
+}
