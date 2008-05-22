@@ -14,6 +14,7 @@ my $timeout = 60;
 my $global = EBox::Global->getInstance(1);
 $global->modExists("firewall") or exit(0);
 my $fw = $global->modInstance("firewall");
+return unless ($fw->isEnabled());
 
 
 while ($timeout) {

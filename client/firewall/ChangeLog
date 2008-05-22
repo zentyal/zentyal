@@ -1,5 +1,7 @@
 0.11.101
 	+ Unroll inoexternal chain
+	+ Bugfix. Do not restart firewall module if called from dhcp context
+	  and the module is not enabled
 0.11.100
 	+ Fix English string
 	+ onInstall() functionality moved to migration script
