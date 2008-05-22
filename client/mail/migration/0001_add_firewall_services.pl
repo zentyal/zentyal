@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+#
+# This is a migration script to add a service and firewall rules
+# for the eBox mail system
+#
+# For next releases we should be able to enable/disable some ports
+# depening on if certain mail service is enabled or not
+#
 package EBox::Migration;
 use base 'EBox::MigrationBase';
 
@@ -14,12 +21,11 @@ sub runGConf
 {
     my ($self) = @_;
 
-
     my $service = EBox::Global->getInstance()->modInstance('services');
+    my $firewall = EBox::Global->getInstance()->modInstance('firewall');
     my $serviceName = 'Mail system';
-    my $id;
     if (not $service->serviceExists(name => $serviceName)) {
-        $id = $service->addMultipleService(
+        $service->addMultipleService(
                 'name' => $serviceName,
                 'description' => __d('eBox Mail System'),
                 'translationDomain' => 'ebox-mail',
@@ -50,12 +56,11 @@ sub runGConf
                                     'destinationPort' => 993,
                                 }
                               ]);
-   } else {
-       $id = $service->serviceId($serviceName); 
    }
 
-   my $firewall = EBox::Global->getInstance()->modInstance('firewall');
-   $firewall->setExternalService($id, 'deny');
+   $firewall->setExternalService($serviceName, 'deny');
+   $firewall->setInternalService($serviceName, 'accept');
+   $firewall->saveConfigRecursive(); 
 }
 
 EBox::init();
