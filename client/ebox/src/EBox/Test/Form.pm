@@ -67,7 +67,7 @@ sub _table
         (
          new EBox::Types::IPAddr(
                                  'fieldName' => 'compulsory_addr',
-                                 'printableName' => __('Compulsory IP Address'),
+                                 'printableName' => 'Compulsory IP Address',
                                  'class' => 'tcenter',
                                  'size' => '12',
                                  'editable' => 1,
@@ -76,7 +76,7 @@ sub _table
                                 ),
          new EBox::Types::Boolean(
                                   'fieldName' => 'compulsory_boolean',
-                                  'printableName' => __('Compulsory Boolean'),
+                                  'printableName' => 'Compulsory Boolean',
                                   'class' => 'tcenter',
                                   'size' => '1',
                                   'editable' => 1,
@@ -85,7 +85,7 @@ sub _table
                                 ),
          new EBox::Types::Int(
                               'fieldName' => 'compulsory_int',
-                              'printableName' => __('Compulsory Integer'),
+                              'printableName' => 'Compulsory Integer',
                               'class' => 'tcenter',
                               'size' => '1',
                               'editable' => 1,
@@ -94,7 +94,7 @@ sub _table
                              ),
          new EBox::Types::Select(
                                  'fieldName' => 'compulsory_select',
-                                 'printableName' => __('Compulsory Select'),
+                                 'printableName' => 'Compulsory Select',
                                  'class' => 'tcenter',
                                  'size' => '1',
                                  'editable' => 1,
@@ -103,7 +103,7 @@ sub _table
                                 ),
          new EBox::Types::Text(
                                'fieldName' => 'compulsory_text',
-                               'printableName' => __('Compulsory Text'),
+                               'printableName' => 'Compulsory Text',
                                'class' => 'tcenter',
                                'size' => '10',
                                'editable' => 1,
@@ -112,7 +112,7 @@ sub _table
                               ),
          new EBox::Types::MACAddr(
                                'fieldName' => 'compulsory_mac',
-                               'printableName' => __('Compulsory MAC Address'),
+                               'printableName' => 'Compulsory MAC Address',
                                'class' => 'tcenter',
                                'size' => '10',
                                'editable' => 1,
@@ -121,7 +121,7 @@ sub _table
                               ),
          new EBox::Types::Password(
                                    'fieldName' => 'compulsory_password',
-                                   'printableName' => __('Compulsory Password'),
+                                   'printableName' => 'Compulsory Password',
                                    'class' => 'tcenter',
                                    'size' => '10',
                                    'editable' => 1,
@@ -132,7 +132,7 @@ sub _table
                                   ),
          new EBox::Types::PortRange(
                                    'fieldName' => 'port_range',
-                                   'printableName' => __('Port range'),
+                                   'printableName' => 'Port range',
                                    'class' => 'tcenter',
                                    'size' => '5',
                                    'editable' => 1,
@@ -141,7 +141,7 @@ sub _table
                                   ),
          new EBox::Types::Union(
                                 'fieldName'     => 'union',
-                                'printableName' => __('Union'),
+                                'printableName' => 'Union',
                                 'class'         => 'tcenter',
                                 'size'          => 10,
                                 'editable'      => 1,
@@ -149,29 +149,29 @@ sub _table
                                 [
                                  new EBox::Types::Text(
                                                        'fieldName' => 'foo',
-                                                       'printableName' => __('Foo'),
+                                                       'printableName' => 'Foo',
                                                        'editable'      => 1,
                                                       ),
                                  new EBox::Types::PortRange(
                                                             'fieldName' => 'bar',
-                                                            'printableName' => __('Bar'),
+                                                            'printableName' => 'Bar',
                                                             'editable'      => 1,
                                                             'defaultValue'  => '2000:2001',
                                                            ),
                                  new EBox::Types::IPAddr(
                                                          'fieldName' => 'baz',
-                                                         'printableName' => __('Baz'),
+                                                         'printableName' => 'Baz',
                                                          'editable' => 1,
                                                          ),
                                  new EBox::Types::Union::Text(
                                                               'fieldName' => 'others',
-                                                              'printableName' => __('Other option'),
+                                                              'printableName' => 'Other option',
                                                              ),
                                 ]
                                ),
          new EBox::Types::InverseMatchSelect(
                                              'fieldName' => 'inverse_select',
-                                             'printableName' => __('Inverse Match Select'),
+                                             'printableName' => 'Inverse Match Select',
                                              'class' => 'tcenter',
                                              'size' => '11',
                                              'editable' => 1,
@@ -181,7 +181,7 @@ sub _table
                                             ),
          new EBox::Types::InverseMatchUnion(
                                             'fieldName'     => 'inverse_union',
-                                            'printableName' => __('Inverse Match Union'),
+                                            'printableName' => 'Inverse Match Union',
                                             'class'         => 'tcenter',
                                             'size'          => 10,
                                             'editable'      => 1,
@@ -189,30 +189,30 @@ sub _table
                                             [
                                              new EBox::Types::Text(
                                                                    'fieldName' => 'inverse_foo',
-                                                                   'printableName' => __('Inverse Foo'),
+                                                                   'printableName' => 'Inverse Foo',
                                                                    'editable'      => 1,
                                                                   ),
                                              new EBox::Types::PortRange(
                                                                         'fieldName' => 'inverse_bar',
-                                                                        'printableName' => __('Inverse Bar'),
+                                                                        'printableName' => 'Inverse Bar',
                                                                         'editable'      => 1,
                                                                         'defaultValue'  => '19201',
                                                                        ),
                                              new EBox::Types::IPAddr(
                                                                      'fieldName' => 'inverse_baz',
-                                                                     'printableName' => __('Inverse Baz'),
+                                                                     'printableName' => 'Inverse Baz',
                                                                      'editable' => 1,
                                                                     ),
                                              new EBox::Types::Union::Text(
                                                                           'fieldName' => 'inverse_others',
-                                                                          'printableName' => __('Inverse Other option'),
+                                                                          'printableName' => 'Inverse Other option',
                                                                           'editable' => 1,
                                                                          ),
                                             ]
                                            ),
          new EBox::Types::Service(
                                   'fieldName'     => 'compulsory_service',
-                                  'printableName' => __('Compulsory Service'),
+                                  'printableName' => 'Compulsory Service',
                                   'class'         => 'tcenter',
                                   'editable'      => 1,
                                   'defaultValue'  => '1010/udp',
@@ -222,13 +222,13 @@ sub _table
     my $dataTable =
         {
             'tableName' => 'TestForm',
-            'printableTableName' => __('Test form'),
+            'printableTableName' => 'Test form',
 	    'defaultController' => '/ebox/Test/Controller/TestForm',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'modelDomain' => 'Logs',
             'class' => 'dataForm',
-            'help' => __('Test form to test types'),
+            'help' => 'Test form to test types',
         };
 
     return $dataTable;
@@ -250,9 +250,9 @@ sub compulsoryOptionsCallback
   {
 
       return [
-              { value => 'a', printableValue => __('A') },
-              { value => 'b', printableValue => __('B') },
-              { value => 'c', printableValue => __('C') },
+              { value => 'a', printableValue => 'A' },
+              { value => 'b', printableValue => 'B' },
+              { value => 'c', printableValue => 'C' },
              ];
 
   }

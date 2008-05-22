@@ -68,7 +68,7 @@ sub _description
                             ],
          layout          => 'top-bottom',
          name            => 'TestSubComposite',
-         printableName   => __('Sub-composite example'),
+         printableName   => 'Sub-composite example',
          compositeDomain => 'Logs',
         };
 

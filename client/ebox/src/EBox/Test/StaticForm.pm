@@ -67,44 +67,44 @@ sub _table
         (
          new EBox::Types::IPAddr(
                                  'fieldName' => 'compulsory_addr',
-                                 'printableName' => __('Compulsory IP Address'),
+                                 'printableName' => 'Compulsory IP Address',
                                  'defaultValue' => '192.168.45.1/32',
                                 ),
          new EBox::Types::Boolean(
                                   'fieldName' => 'compulsory_boolean',
-                                  'printableName' => __('Compulsory Boolean'),
+                                  'printableName' => 'Compulsory Boolean',
                                   'defaultValue' => 1,
                                 ),
          new EBox::Types::Int(
                               'fieldName' => 'compulsory_int',
-                              'printableName' => __('Compulsory Integer'),
+                              'printableName' => 'Compulsory Integer',
                               'defaultValue' => 11,
                              ),
          new EBox::Types::Text(
                                'fieldName' => 'compulsory_text',
-                               'printableName' => __('Compulsory Text'),
+                               'printableName' => 'Compulsory Text',
                                'defaultValue' => 'foo',
                               ),
          new EBox::Types::MACAddr(
                                'fieldName' => 'compulsory_mac',
-                               'printableName' => __('Compulsory MAC Address'),
+                               'printableName' => 'Compulsory MAC Address',
                                'defaultValue' => '00:0C:29:AD:B4:60',
                               ),
          new EBox::Types::Password(
                                    'fieldName' => 'compulsory_password',
-                                   'printableName' => __('Compulsory Password'),
+                                   'printableName' => 'Compulsory Password',
                                    'minLength' => 5,
                                    'maxLength' => 10,
                                    'defaultValue' => 'foobar',
                                   ),
          new EBox::Types::PortRange(
                                     'fieldName' => 'port_range',
-                                    'printableName' => __('Port range'),
+                                    'printableName' => 'Port range',
                                     'defaultValue' => '2132',
                                    ),
          new EBox::Types::Service(
                                   'fieldName'     => 'compulsory_service',
-                                  'printableName' => __('Compulsory Service'),
+                                  'printableName' => 'Compulsory Service',
                                   'defaultValue'  => '1010/udp',
                                  ),
         );
@@ -112,13 +112,13 @@ sub _table
     my $dataTable =
         {
             'tableName' => 'StaticTestForm',
-            'printableTableName' => __('Read only test form'),
+            'printableTableName' => 'Read only test form',
 	    'defaultController' => '/ebox/Test/Controller/StaticTestForm',
             'defaultActions' => [ 'changeView' ],
             'tableDescription' => \@tableHead,
             'modelDomain' => 'Logs',
             'class' => 'dataForm',
-            'help' => __('Static test form'),
+            'help' => 'Static test form',
         };
 
     return $dataTable;
