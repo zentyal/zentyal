@@ -700,7 +700,7 @@ sub setInternalService
 {
 	my ($self, $service, $decision) = @_;
 
-	return _setService($service, $decision, 1);
+	return $self->_setService($service, $decision, 1);
 }
 
 # Method: setExternalService
@@ -733,7 +733,7 @@ sub setExternalService
 {
 	my ($self, $service, $decision) = @_;
 
-	return _setService($service, $decision, 0);
+	return $self->_setService($service, $decision, 0);
 }
 
 sub _setService
