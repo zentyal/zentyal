@@ -20,15 +20,38 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
+use EBox::Global;
 use EBox::Sudo;
 use EBox::Ldap;
 
 sub classesToProcess
 {
     return [
-	    'sambaSamAccount',
+	    { class => 'sambaDomain', priority => 5 },
+	    {class => 'sambaSamAccount', priority => 10 },
 	   ];
 }
+
+
+sub processSambaDomain
+{
+    my ($package, $entry, %params)  = @_;
+
+    my $domainName = $entry->get_value('sambaDomainName');
+    print "Overwriting old samba domain with domain $domainName\n";
+
+    $package->_delAllComputerAccounts();
+
+    my $samba = EBox::Global->modInstance('samba');
+    $samba->setWorkgroup($domainName);
+
+    print "Restarting samba module..\n";
+    $samba->fixSIDs(); 
+# fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
+
+}
+
+
 
 
 sub processSambaSamAccount
@@ -103,15 +126,49 @@ sub _delComputerAccount
 }	
 
 
+
+sub _delAllComputerAccounts
+{
+    my ($package) = @_;
+
+    my @accounts = @{  $package->_allComputerAccounts() };
+    foreach my $account (@accounts) {
+	$package->_delComputerAccount($account);
+    }
+}
+
+
+sub _allComputerAccounts
+{
+    my ($package) = @_;
+
+    my $dn = $package->_computersDn();
+    my %attrs = (
+		 base => $dn,
+		 filter => "cn=*",
+		 scope => 'sub',
+		 attrs => ['cn'],
+		);
+
+    my $ldap   = EBox::Ldap->instance();
+    my $result = $ldap->search(\%attrs);
+
+    my @accounts = map {
+	$_->get_value('cn');
+    } $result->entries();
+
+    return \@accounts;
+}
+
+
 sub _existsComputerAccount
 {
     my ($package, $account) = @_;
 
-    my $computersDn = 'ou=Computers,' . EBox::Ldap->dn();
-
+    my $dn = $package->_computersDn();
     my %attrs = (
-		 base => $computersDn,
-		 filter => "&(objectclass=*)(uid=$account)",
+		 base => $dn,
+		 filter => "&(objectclass=sambaSamAccount)(uid=$account)",
 		 scope => 'one'
 		);
 
@@ -119,6 +176,13 @@ sub _existsComputerAccount
     my $result = $ldap->search(\%attrs);
     
     return ($result->count > 0);
+}
+
+sub _computersDn
+{
+    my $computersDn = 'ou=Computers,' . EBox::Ldap->dn();
+    return $computersDn;
+    
 }
 
 
