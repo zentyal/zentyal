@@ -90,22 +90,16 @@ sub _processComputerAccount
 {
     my ($package, $entry, %options) = @_;
 
+    # we can always add computers account bz we have remove all the old accounts
+    # when proccessing sambaSamDomian
     my $account = $entry->get_value('cn');
-
-    if ($package->_existsComputerAccount($account)) {
-	if (not $options{overwrite}) {
-	    print "Computer Account $account already exists. Skipping it\n";
-	    return;
-	}
-
-	print "Overwriting computer account $account\n";
-	$package->_delComputerAccount($account);
-    }
-
     $package->_addComputerAccount($account);
 }
 
 
+
+# TODO we can move all computer accoutn utility method to its own class but for
+# now it is not neccessary
 
 sub _addComputerAccount
 {
