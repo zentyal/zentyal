@@ -49,7 +49,7 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'dns', 
                                           domain => 'ebox-dns',
-                                          printableName => __('dns'),
+                                          printableName => __('Domain Name System'),
                                           @_);
 
 	bless($self, $class);
