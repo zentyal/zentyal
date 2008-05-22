@@ -182,7 +182,7 @@ sub _description
   {
 
       return __('Check if any disk partition ' .
-                ' has no storage space left');
+                'has no storage space left');
 
   }
 

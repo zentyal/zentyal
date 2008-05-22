@@ -59,8 +59,8 @@ sub _process
         $modules{$mod} = $enabled; 
     }
 
-    use Data::Dumper;
-    EBox::debug(Dumper \%modules);
+#     use Data::Dumper;
+#     EBox::debug(Dumper \%modules);
 
     my $manager = new EBox::ServiceModule::Manager();
     $manager->enableServices(\%modules);
