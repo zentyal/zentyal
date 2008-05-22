@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11\n"
+"Project-Id-Version: libebox 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-06-06 09:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,7 +40,7 @@ msgstr "{data} är tom."
 msgid "Page not found"
 msgstr "Sidan kunde inte hittas"
 
-#: src/EBox/CGI/Base.pm:189
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -48,7 +48,7 @@ msgstr ""
 "Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
 "icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
+#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -56,7 +56,7 @@ msgstr ""
 "Ett internt fel har inträffat. Det här är antagligen ett programfel. "
 "Relevant information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:341
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "Ett internt fel relaterat till en mall har inträffat. Det här är ett "
 "programfel. Relevant information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:546
+#: src/EBox/CGI/Base.pm:566
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -72,29 +72,29 @@ msgstr ""
 "Ett oväntat internt fel har inträffat. Det här är ett programfel. Relevant "
 "information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:552
+#: src/EBox/CGI/Base.pm:572
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Du har precis påträffat ett programfel i eBox. Kontakta teknisk support."
 
-#: src/EBox/CGI/Base.pm:639
+#: src/EBox/CGI/Base.pm:659
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den innehöll felaktiga parametrar"
 
-#: src/EBox/CGI/Base.pm:654
+#: src/EBox/CGI/Base.pm:674
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den saknade nödvändiga parametrar"
 
-#: src/EBox/CGI/Base.pm:803
+#: src/EBox/CGI/Base.pm:823
 msgid "Invalid uploaded file."
 msgstr "Ogiltig uppskickad fil."
 
-#: src/EBox/CGI/Base.pm:809
+#: src/EBox/CGI/Base.pm:829
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan inte skapa en temporärfil för sändningen"
 
@@ -113,14 +113,14 @@ msgstr "Nätverksgränssnitt"
 msgid "Could not open the config file {file}."
 msgstr "Kunde inte öppna konfigurationsfilen {file}."
 
-#: src/EBox/Config.pm.in:88
+#: src/EBox/Config.pm.in:102
 msgid "The ebox user has not been set in the config file."
 msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "Katalogen hittades inte: {d}"
 
 #: src/EBox/Validate.pm:685
 #, perl-brace-format
@@ -156,33 +156,33 @@ msgstr "port"
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
 msgid "Inverse match"
-msgstr ""
+msgstr "Omvänd matchning"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
-msgstr ""
+msgstr "Från"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
+msgstr "Till"
 
 #: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
 msgid "first"
-msgstr ""
+msgstr "första"
 
 #: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
 msgid "prev"
-msgstr ""
+msgstr "föreg"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
 #: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
 msgid "next"
-msgstr ""
+msgstr "nästa"
 
 #: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
 #: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
 msgid "last"
-msgstr ""
+msgstr "sista"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"

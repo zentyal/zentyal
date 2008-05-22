@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.11\n"
+"Project-Id-Version: ebox-ca 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-05-15 13:12+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -20,13 +20,13 @@ msgstr ""
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
 #: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:43
 msgid "Certification Authority Management"
 msgstr "Yetki Yönetimini Belgelendirme"
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
 #: src/EBox/CGI/IssueCertificate.pm:70 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CGI/RenewCertificate.pm:75 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706
 #: src/EBox/CA.pm:872 src/EBox/CA.pm:1187 src/EBox/CA.pm:1229
 #: src/EBox/CA.pm:1328 src/templates/formRenew.mas:43
@@ -56,7 +56,13 @@ msgstr "CA parolası uymuyor"
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "CA parolası en az {length} karakter olmalı"
 
-#: src/EBox/CGI/CreateCA.pm:131
+#: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
+#: src/EBox/CGI/RenewCertificate.pm:89
+#, fuzzy, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Sona ermesine kalan gün doğal bir sayı olmalıdır"
+
+#: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"
 msgstr "Yetki Belgelendirme yaratma sırasında problemler oluştu"
 
@@ -71,13 +77,13 @@ msgstr "Dosya yaratmada hata"
 msgid "Organization Name"
 msgstr "Organizasyon İsmi"
 
-#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:70
 #: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
 #: src/templates/index.mas:28
 msgid "Days to expire"
 msgstr "Sona ermesine kalan gün"
 
-#: src/EBox/CGI/IssueCertificate.pm:105
+#: src/EBox/CGI/IssueCertificate.pm:109
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
@@ -85,11 +91,11 @@ msgstr ""
 "Girdi geçersiz karakterler içermektedir. Tüm metin ve rakam bileşenli "
 "karakterlerin yanısıra  .?&+:\\@ ve boşluk kullanımına izin verilmektedir"
 
-#: src/EBox/CGI/IssueCertificate.pm:124
+#: src/EBox/CGI/IssueCertificate.pm:128
 msgid "The certificate has been issued"
 msgstr "Sertifika yayımlandı"
 
-#: src/EBox/CGI/IssueCertificate.pm:125
+#: src/EBox/CGI/IssueCertificate.pm:129
 msgid "The new CA certificate has been issued"
 msgstr "Yeni CA sertifikası yayımlandı"
 
@@ -97,7 +103,7 @@ msgstr "Yeni CA sertifikası yayımlandı"
 msgid "The certificate has NOT been revoked"
 msgstr "Sertifika geri alınamadı"
 
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:69
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Boolean değeri sertifikayı onaylayan kurumun doğrulama numarasıdır."
 
@@ -113,19 +119,19 @@ msgstr "Sertifika geçersiz"
 msgid "The CA certificate has been revoked"
 msgstr "Sertifika onaylama geçersiz"
 
-#: src/EBox/CGI/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:65
 msgid "The certificate has NOT been renewed"
 msgstr "Sertifika yenilenmemiş"
 
-#: src/EBox/CGI/RenewCertificate.pm:129
+#: src/EBox/CGI/RenewCertificate.pm:136
 msgid "The certificate CANNOT be renewed"
 msgstr "Sertifika yenilemenez"
 
-#: src/EBox/CGI/RenewCertificate.pm:131
+#: src/EBox/CGI/RenewCertificate.pm:138
 msgid "The certificate has been renewed"
 msgstr "Sertifika yenilendi"
 
-#: src/EBox/CGI/RenewCertificate.pm:132
+#: src/EBox/CGI/RenewCertificate.pm:139
 msgid "The new CA certificate has been renewed"
 msgstr "CA Sertifikası yenilendi"
 
@@ -202,36 +208,36 @@ msgstr ""
 "Özel anahtar parola-ifadesi yeni bir istek yaratacak. Yenileme olmadı. Yeni "
 "anahtarlarla yeni bir sertifika yayımlayın."
 
-#: src/EBox/CA.pm:1647
+#: src/EBox/CA.pm:1649
 msgid "Certificate Manager"
 msgstr "Sertifika Yöneticisi"
 
-#: src/EBox/CA.pm:2171
+#: src/EBox/CA.pm:2173
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "İşaretlenemiyor. Yanlış parola-ifadesi veya CA özel anahtarı kaybolmuş."
 
-#: src/EBox/CA.pm:2173
+#: src/EBox/CA.pm:2175
 msgid "Database corruption"
 msgstr "Veritabanı bozulması"
 
-#: src/EBox/CA.pm:2175
+#: src/EBox/CA.pm:2177
 msgid "Identifier duplicated in Database"
 msgstr "Veritabanında tanımlayıcı kopyası"
 
-#: src/EBox/CA.pm:2177
+#: src/EBox/CA.pm:2179
 msgid "Certificate already revoked"
 msgstr "Sertifika zaten iptal edildi"
 
-#: src/EBox/CA.pm:2180
+#: src/EBox/CA.pm:2182
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 alan uzunluğu çok fazla. Azami Boyut:"
 
-#: src/EBox/CA.pm:2182
+#: src/EBox/CA.pm:2184
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Bilinmeyen hata. Verilen OpenSSL çıktısı:"
 
-#: src/EBox/CA.pm:2255
+#: src/EBox/CA.pm:2257
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -240,17 +246,17 @@ msgstr ""
 "Sertifikasyon Yetkilisi organizasyon ismi {orgName} olarak ve {days} gün "
 "geçerli olmak üzere oluşturuldu."
 
-#: src/EBox/CA.pm:2257
+#: src/EBox/CA.pm:2259
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "{orgName} isimli Sertifikasyon Yetkilisi yok edildi "
 
-#: src/EBox/CA.pm:2259
+#: src/EBox/CA.pm:2261
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "CA sertifikası {reason} sebebinden ötürü iptale zorlandı: {force}"
 
-#: src/EBox/CA.pm:2261
+#: src/EBox/CA.pm:2263
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -259,7 +265,7 @@ msgstr ""
 "{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yayımlanan CA "
 "sertifikası"
 
-#: src/EBox/CA.pm:2263
+#: src/EBox/CA.pm:2265
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -268,13 +274,13 @@ msgstr ""
 "{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yenilenen CA "
 "sertifikası"
 
-#: src/EBox/CA.pm:2265
+#: src/EBox/CA.pm:2267
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "{cn} genel ismi ve {days} gün geçerli olmak üzere yayımlanan CA sertifikası"
 
-#: src/EBox/CA.pm:2267
+#: src/EBox/CA.pm:2269
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -282,18 +288,18 @@ msgstr ""
 "{cn} genel isimli certifika {reason} sebebinden ötürü iptale zorlandı: "
 "{force}"
 
-#: src/EBox/CA.pm:2269
+#: src/EBox/CA.pm:2271
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "{cn} genel ismi ve {days} gün geçerli olmak üzere yenilenen CA sertifikası"
 
-#: src/EBox/CA.pm:2271
+#: src/EBox/CA.pm:2273
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Sertifika veritabanı güncellendi. {number} sertifika sona erdi"
 
-#: src/EBox/CA.pm:2354
+#: src/EBox/CA.pm:2356
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSL kabuğu(shell) açılamıyor. ({errval})"
@@ -315,14 +321,6 @@ msgstr "Bir sertifika yenileme"
 #: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
 msgid "Expiration Date"
 msgstr "Bitiş Tarihi"
-
-#: src/templates/createCA.mas:11
-msgid "Passphrase"
-msgstr "Parola"
-
-#: src/templates/createCA.mas:13
-msgid "Re-passphrase"
-msgstr "Parola (tekrar)"
 
 #: src/templates/createCA.mas:15
 msgid "Create"
@@ -480,6 +478,12 @@ msgstr "Bir sertifika iptal et"
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Seçilen sertifikayı iptal et"
+
+#~ msgid "Passphrase"
+#~ msgstr "Parola"
+
+#~ msgid "Re-passphrase"
+#~ msgstr "Parola (tekrar)"
 
 #~ msgid "Days to expire MUST be a natural number"
 #~ msgstr "Sona ermesine kalan gün doğal bir sayı olmalıdır"

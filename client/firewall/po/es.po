@@ -9,9 +9,9 @@
 # Dani Baeyens <dani@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11\n"
+"Project-Id-Version: ebox-firewall 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:04+0200\n"
 "PO-Revision-Date: 2007-05-16 13:00+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -23,65 +23,57 @@ msgstr ""
 
 #: src/EBox/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "ACEPTAR"
 
 #: src/EBox/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "DENEGAR"
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:830
-#, fuzzy
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:898
 msgid "Decision"
-msgstr "Denegar acción"
+msgstr "Decisión"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:825
+#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:893
 #: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Origen"
 
 #: src/EBox/Model/BaseRuleTable.pm:122 src/EBox/Model/BaseRuleTable.pm:149
-#, fuzzy
 msgid "Any"
-msgstr "cualquiera"
+msgstr "Cualquiera"
 
 #: src/EBox/Model/BaseRuleTable.pm:125
-#, fuzzy
 msgid "Source IP"
-msgstr "Origen"
+msgstr "IP origen"
 
 #: src/EBox/Model/BaseRuleTable.pm:130
-#, fuzzy
 msgid "Source object"
-msgstr "Puerto de origen"
+msgstr "Objeto origen"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:826
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:894
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Destino"
 
 #: src/EBox/Model/BaseRuleTable.pm:152
-#, fuzzy
 msgid "Destination IP"
-msgstr "Destino"
+msgstr "IP Destino"
 
 #: src/EBox/Model/BaseRuleTable.pm:157
-#, fuzzy
 msgid "Destination object"
-msgstr "Puerto de destino"
+msgstr "Objeto destino"
 
 #: src/EBox/Model/BaseRuleTable.pm:172 src/templates/objectService.mas:46
 msgid "Service"
 msgstr "Servicio"
 
 #: src/EBox/Model/BaseRuleTable.pm:179
-#, fuzzy
 msgid "Description"
-msgstr "Destino"
+msgstr "Descripción"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:65 src/templates/filter.mas:17
-#, fuzzy
 msgid "Filtering rules for internal networks"
-msgstr "Reglas de filtrado entre redes internas"
+msgstr "Reglas de filtrado para las redes internas"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:78
@@ -97,25 +89,21 @@ msgid "rule"
 msgstr "regla"
 
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:68 src/templates/filter.mas:10
-#, fuzzy
 msgid "Filtering rules from internal networks to eBox"
-msgstr "Reglas de filtrado entre redes internas"
+msgstr "Reglas de filtrado desde las redes internas a eBox"
 
 #: src/EBox/Model/EBoxOutputRuleTable.pm:68 src/templates/filter.mas:25
-#, fuzzy
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr "Reglas de filtrado para acceso a Internet"
+msgstr "Reglas de filtrado para el tráfico saliente de eBox"
 
 #: src/EBox/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:44
-#, fuzzy
 msgid "Filtering rules from external networks to internal networks"
-msgstr "Reglas de filtrado entre redes internas"
+msgstr "Reglas de filtrado desde las redes externas a las internas"
 
 #: src/EBox/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Filtering rules from  external networks to eBox"
-msgstr "Reglas de filtrado entre redes internas"
+msgstr "Reglas de filtrado desde las redes externas a eBox"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
@@ -155,8 +143,8 @@ msgstr "Reglas de filtrado de servicios {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:254 src/EBox/Firewall.pm:287 src/EBox/Firewall.pm:588
-#: src/EBox/Firewall.pm:613
+#: src/EBox/Firewall.pm:303 src/EBox/Firewall.pm:336 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:662
 msgid "protocol"
 msgstr "protocolo"
 
@@ -167,23 +155,23 @@ msgstr "interfaz de red"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:256 src/EBox/Firewall.pm:288
+#: src/EBox/Firewall.pm:305 src/EBox/Firewall.pm:337
 msgid "external port"
 msgstr "puerto externo"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:255
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:304
 msgid "destination address"
 msgstr "dirección de destino"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:257
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:306
 msgid "destination port"
 msgstr "puerto de destino"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:205
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:254
 msgid "action"
 msgstr "acción"
 
@@ -201,83 +189,105 @@ msgstr "servicio"
 msgid "Edit rule"
 msgstr "Editar regla"
 
-#: src/EBox/Firewall.pm:45
-#, fuzzy
+#: src/EBox/Firewall.pm:50
 msgid "firewall"
-msgstr "Cortafuegos"
+msgstr "cortafuegos"
 
-#: src/EBox/Firewall.pm:261
+#: src/EBox/Firewall.pm:97
+msgid "Flush previous firewall rules"
+msgstr ""
+
+#: src/EBox/Firewall.pm:98
+msgid ""
+"The eBox firewall will flush any previous firewall  rules which have been "
+"added manually or by another tool"
+msgstr ""
+
+#: src/EBox/Firewall.pm:103
+msgid "Secure by default"
+msgstr ""
+
+#: src/EBox/Firewall.pm:104
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+
+#: src/EBox/Firewall.pm:310
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
 msgstr ""
 "El puerto {port} está siendo usado por un servicio o por una redirección de "
 "puerto."
 
-#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:481
+#: src/EBox/Firewall.pm:461 src/EBox/Firewall.pm:506 src/EBox/Firewall.pm:530
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "El nombre '{name}' no es válido"
 
-#: src/EBox/Firewall.pm:413 src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:614
+#: src/EBox/Firewall.pm:462 src/EBox/Firewall.pm:638 src/EBox/Firewall.pm:663
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Firewall.pm:778 src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:846 src/EBox/Firewall.pm:906
 msgid "Firewall"
 msgstr "Cortafuegos"
 
-#: src/EBox/Firewall.pm:782
+#: src/EBox/Firewall.pm:850
 msgid "Packet Filter"
 msgstr "Filtrado de paquetes"
 
-#: src/EBox/Firewall.pm:785
+#: src/EBox/Firewall.pm:853
 msgid "Redirects"
 msgstr "Redirecciones"
 
-#: src/EBox/Firewall.pm:822
-#, fuzzy
+#: src/EBox/Firewall.pm:890
 msgid "Date"
-msgstr "Borrar"
+msgstr "Fecha"
 
-#: src/EBox/Firewall.pm:823
-#, fuzzy
+#: src/EBox/Firewall.pm:891
 msgid "Input interface"
-msgstr "interfaz de red"
+msgstr "Interfaz de entrada"
 
-#: src/EBox/Firewall.pm:824
-#, fuzzy
+#: src/EBox/Firewall.pm:892
 msgid "Output interface"
-msgstr "interfaz de red"
+msgstr "Interfaz de salida"
 
-#: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
+#: src/EBox/Firewall.pm:895 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
 #: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/EBox/Firewall.pm:828 src/templates/fwdrules.mas:76
+#: src/EBox/Firewall.pm:896 src/templates/fwdrules.mas:76
 #: src/templates/fwdruleedit.mas:109
 msgid "Source port"
 msgstr "Puerto de origen"
 
-#: src/EBox/Firewall.pm:829 src/templates/fwdrules.mas:124
+#: src/EBox/Firewall.pm:897 src/templates/fwdrules.mas:124
 #: src/templates/fwdruleedit.mas:167
 msgid "Destination port"
 msgstr "Puerto de destino"
 
-#: src/EBox/Firewall.pm:835
+#: src/EBox/Firewall.pm:903
 msgid "DROP"
 msgstr ""
 
-#: src/EBox/Iptables.pm:608
+#: src/EBox/Iptables.pm:604
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Debes establecer la variable iptables_log_limit en el fichero de "
+"configuración de eBox"
 
-#: src/EBox/Iptables.pm:614
+#: src/EBox/Iptables.pm:610
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Debes establecer la variable iptables_log_burst en el fichero de "
+"configuración de eBox"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
@@ -331,6 +341,8 @@ msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"Estas reglas sirven para controla el acceso desde interfaces de red internos "
+"a servicios que se están ejecutando en tu máquina eBox"
 
 #: src/templates/filter.mas:14 src/templates/filter.mas:22
 #: src/templates/filter.mas:30 src/templates/filter.mas:41
@@ -344,21 +356,27 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"Estas reglas te permiten controlar el acceso desde tus redes internas a "
+"Internet, y el tráfico entre tus redes internas. Si deseas dar acceso a tus "
+"servicios eBox, debes usar la sección superior"
 
 #: src/templates/filter.mas:27
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"Estas reglas te permiten control el acceso desde eBox a los servicios "
+"externos"
 
 #: src/templates/filter.mas:33
-#, fuzzy
 msgid "Filtering rules from external networks to eBox"
-msgstr "Reglas de filtrado entre redes internas"
+msgstr "Reglas de filtrado desde las redes externas a eBox"
 
 #: src/templates/filter.mas:35
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Estas reglas te permiten controlar el acceso desde redes externas a "
+"servicios que corren en tu máquina eBox"
 
 #: src/templates/filter.mas:38 src/templates/filter.mas:49
 msgid ""
@@ -366,13 +384,17 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"Ten cuidado ya que añadiendo reglas a esta sección puedes estar "
+"comprometiendo la seguridad de tu red, permitiendo el acceso desde redes no "
+"confiables. Por favor, no las uses a menos que sepas lo que estás haciendo"
 
 #: src/templates/filter.mas:46
-#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
-msgstr "Reglas de filtrado entre redes internas"
+msgstr ""
+"Estas reglas te permiten controlar el acceso desde redes externas a redes "
+"internas"
 
 #: src/templates/object.mas:39
 msgid ""

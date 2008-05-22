@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.11\n"
+"Project-Id-Version: ebox-ntp 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,14 +20,6 @@ msgstr ""
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
 msgstr "статус внешней синхронизации"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "статус модуля"
-
-#: src/EBox/CGI/Index.pm:30
-msgid "NTP Server"
-msgstr "Сервер NTP"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
@@ -49,12 +41,12 @@ msgstr "континент"
 msgid "first ntp server"
 msgstr "первый ntp-сервер"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:193
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:244
 #: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "Основной сервер"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:207
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:258
 #: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "Доп. сервер"
@@ -87,55 +79,59 @@ msgstr "Минуты"
 msgid "Seconds"
 msgstr "Секунды"
 
-#: src/EBox/NTP.pm:195
+#: src/EBox/NTP.pm:71
+msgid "Remove ntp init script links"
+msgstr ""
+
+#: src/EBox/NTP.pm:72
+msgid "eBox will take care of starting and stopping the services."
+msgstr ""
+
+#: src/EBox/NTP.pm:246
 msgid "primary server"
 msgstr "основной сервер"
 
-#: src/EBox/NTP.pm:200 src/EBox/NTP.pm:219
+#: src/EBox/NTP.pm:251 src/EBox/NTP.pm:270
 msgid "Primary and secondary server must be different"
 msgstr "Основной и дополнительный серверы должны отличаться"
 
-#: src/EBox/NTP.pm:203
+#: src/EBox/NTP.pm:254
 msgid "secondary server"
 msgstr "доп. сервер"
 
-#: src/EBox/NTP.pm:216
+#: src/EBox/NTP.pm:267
 msgid "Primary and tertiary server must be different"
 msgstr "Основной и второй доп. серверы должны отличаться"
 
-#: src/EBox/NTP.pm:222
+#: src/EBox/NTP.pm:273
 msgid "tertiary server"
 msgstr "второй доп. сервер"
 
-#: src/EBox/NTP.pm:238
+#: src/EBox/NTP.pm:289
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "{name} IP-адрес"
 
-#: src/EBox/NTP.pm:241
+#: src/EBox/NTP.pm:292
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "{name} имя узла"
 
-#: src/EBox/NTP.pm:383
+#: src/EBox/NTP.pm:434
 msgid "NTP local server"
 msgstr "Локальный NTP-сервер"
 
-#: src/EBox/NTP.pm:428
+#: src/EBox/NTP.pm:447
 msgid "System"
 msgstr "Система"
 
-#: src/EBox/NTP.pm:431
+#: src/EBox/NTP.pm:450
 msgid "Date/time"
 msgstr "Дата/Время"
 
-#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Часовой пояс"
-
-#: src/EBox/NTP.pm:438
-msgid "NTP server"
-msgstr "NTP-сервер"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
@@ -227,6 +223,15 @@ msgstr "Декабрь"
 #: src/templates/date.mas:55
 msgid "Time"
 msgstr "Время"
+
+#~ msgid "module status"
+#~ msgstr "статус модуля"
+
+#~ msgid "NTP Server"
+#~ msgstr "Сервер NTP"
+
+#~ msgid "NTP server"
+#~ msgstr "NTP-сервер"
 
 #~ msgid "NTP server status"
 #~ msgstr "Статус NTP-сервера"

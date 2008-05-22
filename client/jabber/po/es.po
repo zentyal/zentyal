@@ -9,9 +9,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.11\n"
+"Project-Id-Version: ebox-jabber 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "module status"
 msgstr "estado del módulo"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
 msgstr "dominio"
 
@@ -37,11 +37,23 @@ msgstr "dominio"
 msgid "username"
 msgstr "nombre de usuario"
 
-#: src/EBox/Jabber.pm:197
-msgid "listening port"
-msgstr "puerto"
+#: src/EBox/Jabber.pm:71
+msgid "Copy jabber ldap schema to /etc/ldap/schemas"
+msgstr ""
 
-#: src/EBox/Jabber.pm:309
+#: src/EBox/Jabber.pm:72
+msgid "eBox will need this schema to store jabber users"
+msgstr ""
+
+#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+msgid "To properly configure jabberd2"
+msgstr ""
+
+#: src/EBox/Jabber.pm:98
+msgid "To add the LDAP schemas used by eBox jabber"
+msgstr ""
+
+#: src/EBox/Jabber.pm:356
 msgid "Jabber Service"
 msgstr "Servicio Jabber"
 
@@ -73,11 +85,11 @@ msgstr "Privilegios de administrador"
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/index.mas:17
+#: src/templates/index.mas:16
 msgid "General Settings"
 msgstr "Configuración general"
 
-#: src/templates/index.mas:19
+#: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -86,34 +98,34 @@ msgstr ""
 "posible que no se pueda utilizar. Ésto se aplica tanto para las conexiones "
 "internas como para las externas."
 
-#: src/templates/index.mas:25
+#: src/templates/index.mas:24
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
-#: src/templates/index.mas:33
+#: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
 msgstr "Conectar a la red Jabber global"
 
-#: src/templates/index.mas:45
+#: src/templates/index.mas:44
 msgid "SSL Support"
 msgstr "Soporte SSL"
 
-#: src/templates/index.mas:50 src/templates/index.mas:54
-#: src/templates/index.mas:58
+#: src/templates/index.mas:49 src/templates/index.mas:53
+#: src/templates/index.mas:57
 msgid "No"
 msgstr "No"
 
-#: src/templates/index.mas:51 src/templates/index.mas:55
-#: src/templates/index.mas:59
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "Optional"
 msgstr "Opcional"
 
-#: src/templates/index.mas:52 src/templates/index.mas:56
-#: src/templates/index.mas:60
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Required"
 msgstr "Obligatorio"
 
-#: src/templates/index.mas:69 src/templates/index.mas:70
+#: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
 msgstr "Aplicar Cambios"
 
@@ -121,6 +133,9 @@ msgstr "Aplicar Cambios"
 msgid "Enter a username and password to register with this server."
 msgstr ""
 "Escriba un nombre de usuario y una contraseña para entrar a este servidor"
+
+#~ msgid "listening port"
+#~ msgstr "puerto"
 
 #~ msgid "Jabber Service status"
 #~ msgstr "Estado del servicio Jabber"

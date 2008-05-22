@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.11.99"
+"Project-Id-Version: ebox-ntp 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,210 +18,216 @@ msgstr ""
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:30
-msgid "NTP Server"
-msgstr ""
+msgstr "外部同期状況"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
-msgstr ""
+msgstr "タイムゾーン設定"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
-msgstr ""
+msgstr "日付と時刻の設定"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
-msgstr ""
+msgstr "国"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
-msgstr ""
+msgstr "大陸"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
-msgstr ""
+msgstr "第一NTPサーバ"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:193
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:244
 #: src/templates/servers.mas:16
 msgid "Primary server"
-msgstr ""
+msgstr "一番目のサーバ"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:207
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:258
 #: src/templates/servers.mas:27
 msgid "Secondary server"
-msgstr ""
+msgstr "二番目のサーバ"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
-msgstr ""
+msgstr "三番目のサーバ"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
-msgstr ""
+msgstr "日"
 
 #: src/EBox/CGI/ChangeDate.pm:42
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: src/EBox/CGI/ChangeDate.pm:44
 msgid "Hour"
-msgstr ""
+msgstr "時"
 
 #: src/EBox/CGI/ChangeDate.pm:45
 msgid "Minutes"
-msgstr ""
+msgstr "分"
 
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
+msgstr "秒"
+
+#: src/EBox/NTP.pm:71
+msgid "Remove ntp init script links"
 msgstr ""
 
-#: src/EBox/NTP.pm:195
+#: src/EBox/NTP.pm:72
+msgid "eBox will take care of starting and stopping the services."
+msgstr ""
+
+#: src/EBox/NTP.pm:246
 msgid "primary server"
-msgstr ""
+msgstr "一番目のサーバ"
 
-#: src/EBox/NTP.pm:200 src/EBox/NTP.pm:219
+#: src/EBox/NTP.pm:251 src/EBox/NTP.pm:270
 msgid "Primary and secondary server must be different"
-msgstr ""
+msgstr "一番目と二番目のサーバは違うものを選んでください"
 
-#: src/EBox/NTP.pm:203
+#: src/EBox/NTP.pm:254
 msgid "secondary server"
-msgstr ""
+msgstr "二番目のサーバ"
 
-#: src/EBox/NTP.pm:216
+#: src/EBox/NTP.pm:267
 msgid "Primary and tertiary server must be different"
-msgstr ""
+msgstr "二番目と三番目のサーバは違うものを選んでください"
 
-#: src/EBox/NTP.pm:222
+#: src/EBox/NTP.pm:273
 msgid "tertiary server"
-msgstr ""
+msgstr "三番目のサーバ"
 
-#: src/EBox/NTP.pm:238
+#: src/EBox/NTP.pm:289
 #, perl-brace-format
 msgid "{name} IP address"
-msgstr ""
+msgstr "{name} IPアドレス"
 
-#: src/EBox/NTP.pm:241
+#: src/EBox/NTP.pm:292
 #, perl-brace-format
 msgid "{name} host name"
-msgstr ""
+msgstr "{name} ホスト名"
 
-#: src/EBox/NTP.pm:383
+#: src/EBox/NTP.pm:434
 msgid "NTP local server"
-msgstr ""
+msgstr "NTPローカルサーバ"
 
-#: src/EBox/NTP.pm:428
+#: src/EBox/NTP.pm:447
 msgid "System"
-msgstr ""
+msgstr "システム"
 
-#: src/EBox/NTP.pm:431
+#: src/EBox/NTP.pm:450
 msgid "Date/time"
-msgstr ""
+msgstr "日時"
 
-#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
 msgid "Time zone"
-msgstr ""
-
-#: src/EBox/NTP.pm:438
-msgid "NTP server"
-msgstr ""
+msgstr "タイムゾーン"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "有効"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
 #: src/templates/servers.mas:50 src/templates/timezone.mas:35
 #: src/templates/timezone.mas:36 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
-msgstr ""
+msgstr "NTPサーバ"
 
 #: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"同期が正しく行われるようにタイムゾーンを設定することを忘れないでください"
 
 #: src/templates/timezone.mas:18
 msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
+msgstr "タイムゾーンを変更するとeBoxサービスを再起動する必要があります"
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted"
-msgstr ""
+msgstr "日時を変更するとeBoxサービスを再起動する必要があります"
 
 #: src/templates/date.mas:15
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
 #: src/templates/date.mas:30
 msgid "January"
-msgstr ""
+msgstr "1月"
 
 #: src/templates/date.mas:30
 msgid "February"
-msgstr ""
+msgstr "2月"
 
 #: src/templates/date.mas:30
 msgid "March"
-msgstr ""
+msgstr "3月"
 
 #: src/templates/date.mas:30
 msgid "April"
-msgstr ""
+msgstr "4月"
 
 #: src/templates/date.mas:30
 msgid "May"
-msgstr ""
+msgstr "5月"
 
 #: src/templates/date.mas:30
 msgid "June"
-msgstr ""
+msgstr "6月"
 
 #: src/templates/date.mas:30
 msgid "July"
-msgstr ""
+msgstr "7月"
 
 #: src/templates/date.mas:30
 msgid "August"
-msgstr ""
+msgstr "8月"
 
 #: src/templates/date.mas:30
 msgid "September"
-msgstr ""
+msgstr "9月"
 
 #: src/templates/date.mas:30
 msgid "October"
-msgstr ""
+msgstr "10月"
 
 #: src/templates/date.mas:30
 msgid "November"
-msgstr ""
+msgstr "11月"
 
 #: src/templates/date.mas:30
 msgid "December"
-msgstr ""
+msgstr "12月"
 
 #: src/templates/date.mas:55
 msgid "Time"
-msgstr ""
+msgstr "時刻"
+
+#~ msgid "module status"
+#~ msgstr "モジュール状況"
+
+#~ msgid "NTP Server"
+#~ msgstr "NTPサーバ"
+
+#~ msgid "NTP server"
+#~ msgstr "NTPサーバ"

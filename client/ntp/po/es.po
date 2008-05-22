@@ -10,9 +10,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.11\n"
+"Project-Id-Version: ebox-ntp 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2006-11-16 15:11+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -25,14 +25,6 @@ msgstr ""
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
 msgstr "estado de sincronización externa"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "estado del módulo"
-
-#: src/EBox/CGI/Index.pm:30
-msgid "NTP Server"
-msgstr "Servidor NTP"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
@@ -54,12 +46,12 @@ msgstr "continente"
 msgid "first ntp server"
 msgstr "primer servidor ntp"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:193
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:244
 #: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "Servidor primario"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:207
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:258
 #: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "Servidor secundario"
@@ -92,55 +84,59 @@ msgstr "Minutos"
 msgid "Seconds"
 msgstr "Segundos"
 
-#: src/EBox/NTP.pm:195
+#: src/EBox/NTP.pm:71
+msgid "Remove ntp init script links"
+msgstr ""
+
+#: src/EBox/NTP.pm:72
+msgid "eBox will take care of starting and stopping the services."
+msgstr ""
+
+#: src/EBox/NTP.pm:246
 msgid "primary server"
 msgstr "servidor primario"
 
-#: src/EBox/NTP.pm:200 src/EBox/NTP.pm:219
+#: src/EBox/NTP.pm:251 src/EBox/NTP.pm:270
 msgid "Primary and secondary server must be different"
 msgstr "Los servidores primario y secundario deben ser diferentes"
 
-#: src/EBox/NTP.pm:203
+#: src/EBox/NTP.pm:254
 msgid "secondary server"
 msgstr "servidor secundario"
 
-#: src/EBox/NTP.pm:216
+#: src/EBox/NTP.pm:267
 msgid "Primary and tertiary server must be different"
 msgstr "Los servidores primario y terciario deben ser diferentes"
 
-#: src/EBox/NTP.pm:222
+#: src/EBox/NTP.pm:273
 msgid "tertiary server"
 msgstr "servidor terciario"
 
-#: src/EBox/NTP.pm:238
+#: src/EBox/NTP.pm:289
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "dirección IP {name}"
 
-#: src/EBox/NTP.pm:241
+#: src/EBox/NTP.pm:292
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "nombre de máquina {name}"
 
-#: src/EBox/NTP.pm:383
+#: src/EBox/NTP.pm:434
 msgid "NTP local server"
 msgstr "Servidor local NTP"
 
-#: src/EBox/NTP.pm:428
+#: src/EBox/NTP.pm:447
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/NTP.pm:431
+#: src/EBox/NTP.pm:450
 msgid "Date/time"
 msgstr "Fecha/hora"
 
-#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Zona horaria"
-
-#: src/EBox/NTP.pm:438
-msgid "NTP server"
-msgstr "Servidor NTP"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
@@ -237,6 +233,15 @@ msgstr "Diciembre"
 #: src/templates/date.mas:55
 msgid "Time"
 msgstr "Hora"
+
+#~ msgid "module status"
+#~ msgstr "estado del módulo"
+
+#~ msgid "NTP Server"
+#~ msgstr "Servidor NTP"
+
+#~ msgid "NTP server"
+#~ msgstr "Servidor NTP"
 
 #~ msgid "NTP server status"
 #~ msgstr "Estado del servidor NTP"

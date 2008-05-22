@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11.99"
+"Project-Id-Version: ebox-firewall 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:04+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,57 +18,57 @@ msgstr ""
 
 #: src/EBox/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "許可"
 
 #: src/EBox/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "拒否"
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:830
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:898
 msgid "Decision"
-msgstr ""
+msgstr "決定"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:825
+#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:893
 #: src/templates/fwdrules.mas:161
 msgid "Source"
-msgstr ""
+msgstr "送信元"
 
 #: src/EBox/Model/BaseRuleTable.pm:122 src/EBox/Model/BaseRuleTable.pm:149
 msgid "Any"
-msgstr ""
+msgstr "全て"
 
 #: src/EBox/Model/BaseRuleTable.pm:125
 msgid "Source IP"
-msgstr ""
+msgstr "送信元IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:130
 msgid "Source object"
-msgstr ""
+msgstr "送信元オブジェクト"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:826
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:894
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
-msgstr ""
+msgstr "送信先"
 
 #: src/EBox/Model/BaseRuleTable.pm:152
 msgid "Destination IP"
-msgstr ""
+msgstr "送信先IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:157
 msgid "Destination object"
-msgstr ""
+msgstr "送信先オブジェクト"
 
 #: src/EBox/Model/BaseRuleTable.pm:172 src/templates/objectService.mas:46
 msgid "Service"
-msgstr ""
+msgstr "サービス"
 
 #: src/EBox/Model/BaseRuleTable.pm:179
 msgid "Description"
-msgstr ""
+msgstr "内容"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:65 src/templates/filter.mas:17
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "内部ネットワーク向けフィルタルール"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:78
@@ -81,209 +81,233 @@ msgstr ""
 #: src/EBox/CGI/ObjectRule.pm:64 src/EBox/CGI/ObjectRule.pm:75
 #: src/EBox/CGI/ObjectRule.pm:79
 msgid "rule"
-msgstr ""
+msgstr "ルール"
 
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:68 src/templates/filter.mas:10
 msgid "Filtering rules from internal networks to eBox"
-msgstr ""
+msgstr "内部ネットワークからeBoxへのフィルタルール"
 
 #: src/EBox/Model/EBoxOutputRuleTable.pm:68 src/templates/filter.mas:25
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
+msgstr "eBoxからのトラフィックへのフィルタルール"
 
 #: src/EBox/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:44
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "外部ネットワークから内部ネットワークへのフィルタルール"
 
 #: src/EBox/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr ""
+msgstr "外部ネットワークからeBoxへのフィルタルール"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
-msgstr ""
+msgstr "ポートリダイレクト"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 msgid "Packet filtering"
-msgstr ""
+msgstr "パケットフィルタ"
 
 #: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
 #: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectRule.pm:41
 msgid "Object"
-msgstr ""
+msgstr "オブジェクト"
 
 #: src/EBox/CGI/Object.pm:62
 msgid "Global firewall configuration"
-msgstr ""
+msgstr "グローバルファイアウォール設定"
 
 #: src/EBox/CGI/Object.pm:64
 #, perl-brace-format
 msgid "Firewall configuration: {desc}"
-msgstr ""
+msgstr "ファイアウォール設定: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
 msgid "policy"
-msgstr ""
+msgstr "ポリシー"
 
 #: src/EBox/CGI/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "グローバルサービスのフィルタルール"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "サービスのフィルタルール {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:254 src/EBox/Firewall.pm:287 src/EBox/Firewall.pm:588
-#: src/EBox/Firewall.pm:613
+#: src/EBox/Firewall.pm:303 src/EBox/Firewall.pm:336 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:662
 msgid "protocol"
-msgstr ""
+msgstr "プロトコル"
 
 #: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
 #: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
 msgid "network interface"
-msgstr ""
+msgstr "ネットワークインタフェース"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:256 src/EBox/Firewall.pm:288
+#: src/EBox/Firewall.pm:305 src/EBox/Firewall.pm:337
 msgid "external port"
-msgstr ""
+msgstr "外部ポート"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:255
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:304
 msgid "destination address"
-msgstr ""
+msgstr "送信先アドレス"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:257
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:306
 msgid "destination port"
-msgstr ""
+msgstr "送信先ポート"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:205
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:254
 msgid "action"
-msgstr ""
+msgstr "アクション"
 
 #: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
 #: src/templates/object.mas:37
 msgid "Rules"
-msgstr ""
+msgstr "ルール"
 
 #: src/EBox/CGI/ChangeObjectService.pm:67
 #: src/EBox/CGI/ChangeObjectService.pm:73
 msgid "service"
-msgstr ""
+msgstr "サービス"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
 msgid "Edit rule"
-msgstr ""
+msgstr "ルールを編集"
 
-#: src/EBox/Firewall.pm:45
+#: src/EBox/Firewall.pm:50
 msgid "firewall"
+msgstr "ファイアウォール"
+
+#: src/EBox/Firewall.pm:97
+msgid "Flush previous firewall rules"
 msgstr ""
 
-#: src/EBox/Firewall.pm:261
+#: src/EBox/Firewall.pm:98
+msgid ""
+"The eBox firewall will flush any previous firewall  rules which have been "
+"added manually or by another tool"
+msgstr ""
+
+#: src/EBox/Firewall.pm:103
+msgid "Secure by default"
+msgstr ""
+
+#: src/EBox/Firewall.pm:104
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+
+#: src/EBox/Firewall.pm:310
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
 msgstr ""
+"ポート {port} はサービスによって使われているかリダイレクト対象になっていま"
+"す。"
 
-#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:481
+#: src/EBox/Firewall.pm:461 src/EBox/Firewall.pm:506 src/EBox/Firewall.pm:530
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "名前 '{name}' は無効です"
 
-#: src/EBox/Firewall.pm:413 src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:614
+#: src/EBox/Firewall.pm:462 src/EBox/Firewall.pm:638 src/EBox/Firewall.pm:663
 msgid "port"
-msgstr ""
+msgstr "ポート"
 
-#: src/EBox/Firewall.pm:778 src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:846 src/EBox/Firewall.pm:906
 msgid "Firewall"
-msgstr ""
+msgstr "ファイアウォール"
 
-#: src/EBox/Firewall.pm:782
+#: src/EBox/Firewall.pm:850
 msgid "Packet Filter"
-msgstr ""
+msgstr "パケットフィルタ"
 
-#: src/EBox/Firewall.pm:785
+#: src/EBox/Firewall.pm:853
 msgid "Redirects"
-msgstr ""
+msgstr "リダイレクト"
 
-#: src/EBox/Firewall.pm:822
+#: src/EBox/Firewall.pm:890
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
-#: src/EBox/Firewall.pm:823
+#: src/EBox/Firewall.pm:891
 msgid "Input interface"
-msgstr ""
+msgstr "入力インタフェース"
 
-#: src/EBox/Firewall.pm:824
+#: src/EBox/Firewall.pm:892
 msgid "Output interface"
-msgstr ""
+msgstr "出力インタフェース"
 
-#: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
+#: src/EBox/Firewall.pm:895 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
 #: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
 msgid "Protocol"
-msgstr ""
+msgstr "プロトコル"
 
-#: src/EBox/Firewall.pm:828 src/templates/fwdrules.mas:76
+#: src/EBox/Firewall.pm:896 src/templates/fwdrules.mas:76
 #: src/templates/fwdruleedit.mas:109
 msgid "Source port"
-msgstr ""
+msgstr "送信元ポート"
 
-#: src/EBox/Firewall.pm:829 src/templates/fwdrules.mas:124
+#: src/EBox/Firewall.pm:897 src/templates/fwdrules.mas:124
 #: src/templates/fwdruleedit.mas:167
 msgid "Destination port"
-msgstr ""
+msgstr "送信先ポート"
 
-#: src/EBox/Firewall.pm:835
+#: src/EBox/Firewall.pm:903
 msgid "DROP"
-msgstr ""
+msgstr "ドロップ"
 
-#: src/EBox/Iptables.pm:608
+#: src/EBox/Iptables.pm:604
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr ""
+msgstr "eBox設定ファイルの iptables_log_limit 変数を設定する必要があります"
 
-#: src/EBox/Iptables.pm:614
+#: src/EBox/Iptables.pm:610
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
+msgstr "eBox設定ファイルの iptables_log_burst 変数を設定する必要があります"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
-msgstr ""
+msgstr "インタフェース"
 
 #: src/templates/redirects.mas:24
 msgid "External port"
-msgstr ""
+msgstr "外部ポート"
 
 #: src/templates/redirects.mas:26
 msgid "IP address"
-msgstr ""
+msgstr "IPアドレス"
 
 #: src/templates/redirects.mas:27 src/templates/object.mas:48
 #: src/templates/fwdrules.mas:162 src/templates/fwdrules.mas:164
 msgid "Port"
-msgstr ""
+msgstr "ポート"
 
 #: src/templates/redirects.mas:28 src/templates/object.mas:52
 #: src/templates/objectService.mas:48 src/templates/fwdrules.mas:165
 msgid "Actions"
-msgstr ""
+msgstr "アクション"
 
 #: src/templates/redirects.mas:72 src/templates/redirects.mas:73
 #: src/templates/redirects.mas:74 src/templates/object.mas:100
 #: src/templates/object.mas:101 src/templates/object.mas:102
 #: src/templates/objectService.mas:38 src/templates/fwdrules.mas:146
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: src/templates/redirects.mas:147 src/templates/redirects.mas:148
 #: src/templates/redirects.mas:149 src/templates/object.mas:185
@@ -292,7 +316,7 @@ msgstr ""
 #: src/templates/objectService.mas:77 src/templates/fwdruleedit.mas:194
 #: src/templates/fwdruleedit.mas:195 src/templates/fwdruleedit.mas:196
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 #: src/templates/redirects.mas:155 src/templates/redirects.mas:156
 #: src/templates/redirects.mas:157 src/templates/object.mas:193
@@ -301,19 +325,21 @@ msgstr ""
 #: src/templates/objectService.mas:84 src/templates/fwdrules.mas:274
 #: src/templates/fwdrules.mas:275 src/templates/fwdrules.mas:276
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: src/templates/filter.mas:12
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"これらのルールは内部ネットワークインタフェースからeBoxが動作するマシンへのア"
+"クセスのコントロールに適用されます"
 
 #: src/templates/filter.mas:14 src/templates/filter.mas:22
 #: src/templates/filter.mas:30 src/templates/filter.mas:41
 #: src/templates/filter.mas:52
 msgid "Configure rules"
-msgstr ""
+msgstr "ルールを設定"
 
 #: src/templates/filter.mas:19
 msgid ""
@@ -321,20 +347,26 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"これらのルールにより内部ネットワークからインターネットへのアクセス、そして内"
+"部ネットワーク間のトラフィックをコントロールできます。eBoxサービスにアクセス"
+"をする場合は上のセクションを使う必要があります"
 
 #: src/templates/filter.mas:27
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"これらのルールによりeBoxから外部サービスへのアクセスをコントロールできます"
 
 #: src/templates/filter.mas:33
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "外部ネットワークからeBoxへのフィルタルール"
 
 #: src/templates/filter.mas:35
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"これらのルールにより外部ネットワークからeBoxが動作するマシンへのアクセスをコ"
+"ントロールできます"
 
 #: src/templates/filter.mas:38 src/templates/filter.mas:49
 msgid ""
@@ -342,12 +374,17 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"このセクションにルールを追加することにより信頼できないネットワークを許可する"
+"ことになるため、ネットワークのセキュリティが弱まります。何をしようとしている"
+"か理解していないのであればルールを追加すべきではありません。"
 
 #: src/templates/filter.mas:46
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"これらのルールにより外部ネットワークから内部ネットワークへのアクセスをコント"
+"ロールできます。"
 
 #: src/templates/object.mas:39
 msgid ""
@@ -355,6 +392,9 @@ msgid ""
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
 msgstr ""
+"プロトコル、ポート、送信先アドレスの入力は任意です。ルールは上から下の順に適"
+"用されます。追加した後で並べ替えることもできます。ルールは削除しなくても無効"
+"にすることができます。"
 
 #: src/templates/object.mas:42
 msgid ""
@@ -363,20 +403,24 @@ msgid ""
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
 msgstr ""
+"送信先のアドレスが明示されていないルールはeBoxから外部ネットワークインタ"
+"フェースへのパケットに適用されます.ネットワークインタフェースは<a href='../"
+"Network/Ifaces'>ネットワークインタフェース設定ページ</a>から外部向けとして設"
+"定できます。"
 
 #: src/templates/object.mas:49 src/templates/fwdrules.mas:95
 #: src/templates/fwdruleedit.mas:135
 msgid "Destination address"
-msgstr ""
+msgstr "送信先アドレス"
 
 #: src/templates/object.mas:50 src/templates/fwdrules.mas:33
 #: src/templates/fwdruleedit.mas:58
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
 #: src/templates/object.mas:51
 msgid "Active"
-msgstr ""
+msgstr "アクティブ"
 
 #: src/templates/object.mas:90 src/templates/object.mas:166
 #: src/templates/object.mas:169 src/templates/object.mas:261
@@ -385,7 +429,7 @@ msgstr ""
 #: src/templates/objectService.mas:67 src/templates/fwdrules.mas:38
 #: src/templates/fwdruleedit.mas:64 src/templates/fwdruleedit.mas:67
 msgid "Allow"
-msgstr ""
+msgstr "許可"
 
 #: src/templates/object.mas:91 src/templates/object.mas:167
 #: src/templates/object.mas:170 src/templates/object.mas:255
@@ -394,23 +438,23 @@ msgstr ""
 #: src/templates/objectService.mas:68 src/templates/fwdrules.mas:39
 #: src/templates/fwdruleedit.mas:65 src/templates/fwdruleedit.mas:68
 msgid "Deny"
-msgstr ""
+msgstr "拒否"
 
 #: src/templates/object.mas:201 src/templates/object.mas:202
 #: src/templates/object.mas:203 src/templates/fwdrules.mas:280
 #: src/templates/fwdrules.mas:281 src/templates/fwdrules.mas:282
 msgid "Up"
-msgstr ""
+msgstr "正常"
 
 #: src/templates/object.mas:209 src/templates/object.mas:210
 #: src/templates/object.mas:211 src/templates/fwdrules.mas:286
 #: src/templates/fwdrules.mas:287 src/templates/fwdrules.mas:288
 msgid "Down"
-msgstr ""
+msgstr "停止"
 
 #: src/templates/object.mas:232 src/templates/objectService.mas:47
 msgid "Policy"
-msgstr ""
+msgstr "ポリシー"
 
 #: src/templates/object.mas:234
 msgid ""
@@ -419,21 +463,27 @@ msgid ""
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
 msgstr ""
+"ポリシーは以下の設定に明示的にマッチしないネットワークパケットに対して操作を"
+"行います。ポリシーはeBoxから外部ネットワークインタフェースへの接続に適用され"
+"ます。内部ネットワークでのトラフィックを許可するには明示的にルールを作成する"
+"必要があります。"
 
 #: src/templates/object.mas:238
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
 msgstr ""
+"グローバルを選択するとファイアウォールは<a href='Object?object=_global'>デ"
+"フォルト設定</a>に戻ります。"
 
 #: src/templates/object.mas:248 src/templates/object.mas:250
 #: src/templates/object.mas:269
 msgid "Global"
-msgstr ""
+msgstr "グローバル"
 
 #: src/templates/objectService.mas:23
 msgid "Services"
-msgstr ""
+msgstr "サービス"
 
 #: src/templates/fwdrules.mas:10
 msgid ""
@@ -441,14 +491,17 @@ msgid ""
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
 msgstr ""
+"プロトコル、ポート、アドレスの入力は任意です。ルールは上から順に適用されま"
+"す。追加した後で並べ替えることもできます。ルールは削除しなくても無効化するこ"
+"とができます。"
 
 #: src/templates/fwdrules.mas:12
 msgid "New rule"
-msgstr ""
+msgstr "新規ルール"
 
 #: src/templates/fwdrules.mas:47 src/templates/fwdruleedit.mas:77
 msgid "Source address"
-msgstr ""
+msgstr "送信元アドレス"
 
 #: src/templates/fwdrules.mas:52 src/templates/fwdrules.mas:81
 #: src/templates/fwdrules.mas:100 src/templates/fwdrules.mas:129
@@ -457,7 +510,7 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:141 src/templates/fwdruleedit.mas:144
 #: src/templates/fwdruleedit.mas:173 src/templates/fwdruleedit.mas:176
 msgid "is not"
-msgstr ""
+msgstr "でない"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdrules.mas:82
 #: src/templates/fwdrules.mas:101 src/templates/fwdrules.mas:130
@@ -466,36 +519,36 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:145
 #: src/templates/fwdruleedit.mas:174 src/templates/fwdruleedit.mas:177
 msgid "is"
-msgstr ""
+msgstr "です"
 
 #: src/templates/fwdrules.mas:86 src/templates/fwdrules.mas:134
 #: src/templates/fwdruleedit.mas:125 src/templates/fwdruleedit.mas:183
 msgid "to"
-msgstr ""
+msgstr "へ"
 
 #: src/templates/fwdrules.mas:155
 msgid "Rule list"
-msgstr ""
+msgstr "ルール一覧"
 
 #: src/templates/fwdrules.mas:180 src/templates/fwdrules.mas:181
 #: src/templates/fwdrules.mas:301 src/templates/fwdrules.mas:302
 msgid "allow"
-msgstr ""
+msgstr "許可"
 
 #: src/templates/fwdrules.mas:184 src/templates/fwdrules.mas:185
 #: src/templates/fwdrules.mas:318 src/templates/fwdrules.mas:319
 msgid "allow (disabled)"
-msgstr ""
+msgstr "許可(無効)"
 
 #: src/templates/fwdrules.mas:188 src/templates/fwdrules.mas:189
 #: src/templates/fwdrules.mas:304 src/templates/fwdrules.mas:305
 msgid "deny"
-msgstr ""
+msgstr "拒否"
 
 #: src/templates/fwdrules.mas:192 src/templates/fwdrules.mas:193
 #: src/templates/fwdrules.mas:321 src/templates/fwdrules.mas:322
 msgid "deny (disabled)"
-msgstr ""
+msgstr "拒否(無効)"
 
 #: src/templates/fwdrules.mas:203 src/templates/fwdrules.mas:204
 #: src/templates/fwdrules.mas:225 src/templates/fwdrules.mas:226
@@ -503,33 +556,33 @@ msgstr ""
 #: src/templates/fwdrules.mas:258 src/templates/fwdrules.mas:259
 #: src/templates/fwdrules.mas:313 src/templates/fwdrules.mas:314
 msgid "inverse match"
-msgstr ""
+msgstr "逆引き"
 
 #: src/templates/fwdrules.mas:268 src/templates/fwdrules.mas:269
 #: src/templates/fwdrules.mas:270
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: src/templates/fwdrules.mas:307 src/templates/fwdrules.mas:308
 msgid "delete"
-msgstr ""
+msgstr "削除"
 
 #: src/templates/fwdrules.mas:310 src/templates/fwdrules.mas:311
 msgid "edit"
-msgstr ""
+msgstr "編集"
 
 #: src/templates/fwdrules.mas:324 src/templates/fwdrules.mas:325
 msgid "move up"
-msgstr ""
+msgstr "上に移動"
 
 #: src/templates/fwdrules.mas:327 src/templates/fwdrules.mas:328
 msgid "move down"
-msgstr ""
+msgstr "下に移動"
 
 #: src/templates/fwdrules.mas:338
 msgid "any"
-msgstr ""
+msgstr "全て"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "有効"

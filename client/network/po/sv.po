@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11\n"
+"Project-Id-Version: ebox-network 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-06-06 09:39+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:385
 msgid "any"
-msgstr ""
+msgstr "alla"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:94
 msgid "Protocol"
@@ -27,13 +27,13 @@ msgstr "Protokoll"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:684
-#: src/EBox/Network.pm:716 src/EBox/Network.pm:761 src/EBox/Network.pm:795
-#: src/EBox/Network.pm:820 src/EBox/Network.pm:896 src/EBox/Network.pm:1019
-#: src/EBox/Network.pm:1214 src/EBox/Network.pm:1274 src/EBox/Network.pm:1309
-#: src/EBox/Network.pm:1345 src/EBox/Network.pm:1378 src/EBox/Network.pm:2061
-#: src/EBox/Network.pm:2093 src/EBox/Network.pm:2166 src/EBox/Network.pm:2186
-#: src/EBox/Network.pm:2207 src/EBox/Network.pm:2230
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:789
+#: src/EBox/Network.pm:821 src/EBox/Network.pm:866 src/EBox/Network.pm:900
+#: src/EBox/Network.pm:925 src/EBox/Network.pm:1001 src/EBox/Network.pm:1124
+#: src/EBox/Network.pm:1319 src/EBox/Network.pm:1379 src/EBox/Network.pm:1414
+#: src/EBox/Network.pm:1451 src/EBox/Network.pm:1484 src/EBox/Network.pm:2276
+#: src/EBox/Network.pm:2308 src/EBox/Network.pm:2381 src/EBox/Network.pm:2401
+#: src/EBox/Network.pm:2422 src/EBox/Network.pm:2445
 msgid "Interface"
 msgstr "Nätverksgränssnitt"
 
@@ -45,41 +45,41 @@ msgstr "Källa"
 #: src/EBox/Model/MultiGwRulesDataTable.pm:111
 #: src/EBox/Model/MultiGwRulesDataTable.pm:143
 msgid "Any"
-msgstr ""
+msgstr "Alla"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:114
 msgid "Source IP"
-msgstr ""
+msgstr "Käll-IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:119
 msgid "Source object"
-msgstr ""
+msgstr "Källobjekt"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:130
 #: src/EBox/Model/MultiGwRulesDataTable.pm:163
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
-msgstr ""
+msgstr "Mål"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Destination IP"
-msgstr ""
+msgstr "Mål-IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:151
 msgid "Destination object"
-msgstr ""
+msgstr "Målobjekt"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1510
-#: src/templates/routes.mas:31
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170
+#: src/EBox/Model/StaticRoute.pm:124
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:182
 msgid "Multigateway rules"
-msgstr ""
+msgstr "Regler för multigateway"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:196
 msgid ""
@@ -92,42 +92,85 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:198
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:216
 msgid "Destination port"
-msgstr ""
+msgstr "Målport"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:221
 msgid "Source port"
-msgstr ""
+msgstr "Källport"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:231
 msgid "Port cannot be set if no protocol is selected"
-msgstr ""
+msgstr "Porten kan inte anges om inget protokoll har valts"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
 #: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
 #: src/templates/ifaces.mas:26 src/templates/ifaces.mas:205
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:74
-#, fuzzy
 msgid "Physical interface list"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "Lista över fysiska gränssnitt"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:81
 msgid "These are the physical interfaces which are available in your system."
 msgstr ""
+"Dessa är de fysiska gränssnitten som finns tillgängliga på ditt system."
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:117
 #: src/EBox/Model/VlanInterfaceTable.pm:94
-#, fuzzy
 msgid "interface"
-msgstr "Nätverksgränssnitt"
+msgstr "gränssnitt"
+
+#: src/EBox/Model/DNSResolver.pm:82
+#, fuzzy
+msgid "Name server"
+msgstr "Källa"
+
+#: src/EBox/Model/DNSResolver.pm:90
+msgid "Name server resolvers"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:97
+#, fuzzy
+msgid "name server"
+msgstr "Källa"
+
+#: src/EBox/Model/StaticRoute.pm:118 src/EBox/Network.pm:66
+#: src/EBox/Network.pm:2568
+msgid "Network"
+msgstr "Nätverk"
+
+#: src/EBox/Model/StaticRoute.pm:129 src/templates/ifaces.mas:149
+msgid "Description"
+msgstr "Beskrivning"
+
+#: src/EBox/Model/StaticRoute.pm:137
+msgid "Static routes"
+msgstr "Statiska rutter"
+
+#: src/EBox/Model/StaticRoute.pm:142
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:145
+#, fuzzy
+msgid "static route"
+msgstr "Statiska rutter"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
@@ -142,37 +185,36 @@ msgid "External"
 msgstr "Extern"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:108
-#, fuzzy
 msgid "Configurable interface list"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "Lista över konfigurerbara gränssnitt"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
 msgid "These are the interfaces which can be configured"
-msgstr ""
+msgstr "Dessa är gränssnitten som kan konfigureras"
 
 #: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
-msgstr ""
+msgstr "IP-adress"
 
 #: src/EBox/Model/GatewayTable.pm:102
 msgid "Upload"
-msgstr ""
+msgstr "Sändning"
 
 #: src/EBox/Model/GatewayTable.pm:109
 msgid "Download"
-msgstr ""
+msgstr "Hämtning"
 
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Weight"
-msgstr ""
+msgstr "Vikt"
 
 #: src/EBox/Model/GatewayTable.pm:123
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/EBox/Model/GatewayTable.pm:133
 msgid "Gateway list"
-msgstr ""
+msgstr "Gatewaylista"
 
 #: src/EBox/Model/GatewayTable.pm:147
 #, perl-brace-format
@@ -183,33 +225,35 @@ msgid ""
 "towards the gateway. The correct value of these fields is critical to ensure "
 "a correct functionality of the traffic shaping module"
 msgstr ""
+"Du kan lägga till så många gateways som du vill. Detta är mycket användbart "
+"om du vill dela upp din Internet-trafik genom flera länkar.{br}Fälten för "
+"hämtning och sändning måste anges till hur stor din anslutning till denna "
+"gateway är. Det korrekta värdet för dessa fält är kritiskt för att "
+"trafikbegränsningsmodulen ska fungera"
 
 #: src/EBox/Model/GatewayTable.pm:149
 msgid "gateway"
-msgstr ""
+msgstr "gateway"
 
 #: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1509
 msgid "ip address"
-msgstr ""
+msgstr "ip-adress"
 
 #: src/EBox/Model/GatewayTable.pm:176
 msgid "There is already a default gateway"
-msgstr ""
+msgstr "Det finns redan en standardgateway"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:70
-#, fuzzy
 msgid "Physical interface"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "Fysiskt gränssnitt"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:85
-#, fuzzy
 msgid "Vlan interface list"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "Lista över VLAN-gränssnitt"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:92
 msgid "These are the vlan interfaces which are available in your system."
-msgstr ""
+msgstr "Dessa är de VLAN-gränssnitt som finns tillgängliga på ditt system."
 
 #: src/EBox/Model/ByteRateEnableForm.pm:71
 msgid ""
@@ -227,9 +271,8 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/ByteRateSettings.pm:80
-#, fuzzy
 msgid "Interface to listen"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "Gränssnitt att lyssna på"
 
 #: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
@@ -241,25 +284,25 @@ msgstr ""
 
 #: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
-msgstr ""
+msgstr "Inställningar har ändrats"
 
 #: src/EBox/Model/ByteRateSettings.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "{iface} (internt gränssnitt)"
 
 #: src/EBox/Model/ByteRateSettings.pm:122
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Virtuella nätverksgränssnitt"
+msgstr "{iface} (externt gränssnitt)"
 
 #: src/EBox/Model/ByteRateSettings.pm:129
 msgid "all"
-msgstr ""
+msgstr "alla"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
-msgstr ""
+msgstr "Välj trafikdiagram"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:57
 msgid ""
@@ -271,32 +314,31 @@ msgstr ""
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "Diagramtyp"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr ""
+msgstr "All aktiv trafik efter källa"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
-msgstr ""
+msgstr "All aktiv trafik efter tjänst"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "Trafik efter vald källa"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
-msgstr ""
+msgstr "Trafik efter vald tjänst"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr ""
+msgstr "Trafik efter källa och tjänst"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:117
-#, fuzzy
 msgid "Service"
-msgstr "Källa"
+msgstr "Tjänst"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
@@ -304,12 +346,12 @@ msgstr ""
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
-msgstr ""
+msgstr "Nätverksgränssnitt konfigurerat"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2284
+#: src/EBox/Network.pm:2499
 msgid "Network interfaces"
-msgstr ""
+msgstr "Nätverksgränssnitt"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
@@ -319,15 +361,15 @@ msgstr ""
 
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNS konfigurerad"
 
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "Gateway konfigurerad"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
-msgstr ""
+msgstr "Ange standardgateway"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
@@ -335,301 +377,275 @@ msgstr ""
 
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr ""
+msgstr "Regler för trafikbalansering och multigateway"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
-msgstr ""
+msgstr "Nätverksdiagnos"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
 msgid "Host"
-msgstr ""
+msgstr "Värd"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2271
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2486
 msgid "host name"
-msgstr ""
+msgstr "värdnamn"
 
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "nätverksgränssnitt"
 
 #: src/EBox/CGI/Iface.pm:58
 msgid "method"
-msgstr ""
+msgstr "metod"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
 msgid "netmask"
-msgstr ""
+msgstr "nätmask"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
-msgstr ""
+msgstr "trafikbalans"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr ""
+msgstr "åtgärd för virtuellt gränssnitt"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:591 src/EBox/Network.pm:596
-#: src/EBox/Network.pm:900 src/EBox/Network.pm:921 src/EBox/Network.pm:1452
-#: src/EBox/Network.pm:2063 src/EBox/Network.pm:2078 src/EBox/Network.pm:2210
-#: src/EBox/Network.pm:2329 src/templates/ifaces.mas:91
-#: src/templates/ifaces.mas:206
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:696 src/EBox/Network.pm:701
+#: src/EBox/Network.pm:1005 src/EBox/Network.pm:1026 src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:2293 src/EBox/Network.pm:2425 src/EBox/Network.pm:2544
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
-msgstr ""
+msgstr "IP-adress"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
-msgstr ""
+msgstr "namn på virtuellt gränssnitt"
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1508
-msgid "network address"
-msgstr ""
-
-#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr ""
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1093
-#: src/EBox/Network.pm:1122 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1198
+#: src/EBox/Network.pm:1227 src/templates/ifaces.mas:148
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN-Id"
 
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2358
-msgid "Routes"
-msgstr ""
+#: src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "gatewayadress"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2318
+#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2533
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/EBox/Network/Report/ByteRate.pm:135
 msgid "Running"
-msgstr ""
+msgstr "Kör"
 
-#: src/EBox/Network/Report/ByteRate.pm:612
+#: src/EBox/Network/Report/ByteRate.pm:755
 msgid "bytes/second"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:677
-#: src/EBox/Network/Report/ByteRate.pm:767
-msgid "Traffic data for source"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:697
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:729
-msgid "Traffic data not found for service"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:739
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:775
-msgid "Traffic data for service"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:784
-msgid "Traffic data not found for source and service pair"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:786
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:800
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:816
-msgid "All active services"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:821
-msgid "Traffic data for "
-msgstr ""
+msgstr "byte/sekund"
 
 #: src/EBox/Network/Report/ByteRate.pm:822
-#, fuzzy
+#: src/EBox/Network/Report/ByteRate.pm:928
+msgid "Traffic data for source"
+msgstr "Trafikdata för källa"
+
+#: src/EBox/Network/Report/ByteRate.pm:842
+#, perl-brace-format
+msgid "Network traffic from {src}"
+msgstr "Nätverkstrafik från {src}"
+
+#: src/EBox/Network/Report/ByteRate.pm:876
+msgid "Traffic data not found for service"
+msgstr "Trafikdata hittades inte för tjänst"
+
+#: src/EBox/Network/Report/ByteRate.pm:886
+#, perl-brace-format
+msgid "Network traffic for {service}"
+msgstr "Nätverkstrafik för {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:936
+msgid "Traffic data for service"
+msgstr "Trafikdata för tjänst"
+
+#: src/EBox/Network/Report/ByteRate.pm:945
+msgid "Traffic data not found for source and service pair"
+msgstr "Trafikdata hittades inte för källa och tjänst"
+
+#: src/EBox/Network/Report/ByteRate.pm:947
+#, perl-brace-format
+msgid "source {src} and service {service}"
+msgstr "källan {src} och tjänsten {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:961
+#, perl-brace-format
+msgid "Network traffic from source {src} and for service {service}"
+msgstr "Nätverkstrafik från källan {src} och för tjänsten {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:988
+msgid "All active services"
+msgstr "Alla aktiva tjänster"
+
+#: src/EBox/Network/Report/ByteRate.pm:993
+msgid "Traffic data for "
+msgstr "Trafikdata för"
+
+#: src/EBox/Network/Report/ByteRate.pm:994
 msgid "all services"
-msgstr "Källa"
+msgstr "alla tjänster"
 
-#: src/EBox/Network/Report/ByteRate.pm:857
+#: src/EBox/Network/Report/ByteRate.pm:1039
 msgid "All active sources"
-msgstr ""
+msgstr "Alla aktiva källor"
 
-#: src/EBox/Network/Report/ByteRate.pm:862
+#: src/EBox/Network/Report/ByteRate.pm:1044
 msgid "Traffic data for"
-msgstr ""
+msgstr "Trafikdata för"
 
-#: src/EBox/Network/Report/ByteRate.pm:863
+#: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "all sources"
-msgstr ""
+msgstr "alla källor"
 
-#: src/EBox/Network/Report/ByteRate.pm:901
+#: src/EBox/Network/Report/ByteRate.pm:1083
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr ""
+msgstr "Total trafikfrekvens från {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:916
+#: src/EBox/Network/Report/ByteRate.pm:1098
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr ""
+msgstr "Total trafikfrekvens för {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:940
+#: src/EBox/Network/Report/ByteRate.pm:1122
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
-msgstr ""
+msgstr "Trafikfrekvens från {src} för {service}"
 
 #: src/EBox/Network/FirstTime.pm:14
 msgid "Configure network interfaces"
-msgstr ""
+msgstr "Konfigurera nätverksgränssnitt"
 
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "Konfigurera namnservrar"
 
 #: src/EBox/Network/FirstTime.pm:16
 msgid "Configure default gateway"
-msgstr ""
+msgstr "Konfigurera standardgateway"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2019
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2235
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
+msgstr "Gateway {gw} är inte nåbar"
+
+#: src/EBox/Network.pm:84
+msgid "Add default routers to the default table"
 msgstr ""
 
-#: src/EBox/Network.pm:60 src/EBox/Network.pm:2350 src/templates/routes.mas:30
-msgid "Network"
+#: src/EBox/Network.pm:85
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
 msgstr ""
 
-#: src/EBox/Network.pm:87
-msgid "Activate traffic rate monitor"
+#: src/EBox/Network.pm:91
+msgid "Enable eBox DHCP hook"
 msgstr ""
 
-#: src/EBox/Network.pm:588 src/EBox/Network.pm:592
+#: src/EBox/Network.pm:92
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+
+#: src/EBox/Network.pm:108
+msgid "eBox will set your network configuration"
+msgstr ""
+
+#: src/EBox/Network.pm:693 src/EBox/Network.pm:697
 msgid "Virtual interface name"
-msgstr ""
+msgstr "Namn på virtuellt gränssnitt"
 
-#: src/EBox/Network.pm:591 src/EBox/Network.pm:900 src/EBox/Network.pm:2063
+#: src/EBox/Network.pm:696 src/EBox/Network.pm:1005 src/EBox/Network.pm:2278
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
-msgstr ""
+msgstr "Nätmask"
 
-#: src/EBox/Network.pm:1024
+#: src/EBox/Network.pm:1129
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:1069
+#: src/EBox/Network.pm:1174
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1102
+#: src/EBox/Network.pm:1207
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1980
+#: src/EBox/Network.pm:2170
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2023
+#: src/EBox/Network.pm:2238
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2252
+#: src/EBox/Network.pm:2467
 msgid "Host name"
-msgstr ""
+msgstr "Värdnamn"
 
-#: src/EBox/Network.pm:2303
+#: src/EBox/Network.pm:2518
 msgid "down"
-msgstr ""
+msgstr "nere"
 
-#: src/EBox/Network.pm:2309
+#: src/EBox/Network.pm:2524
 msgid "up"
-msgstr ""
+msgstr "uppe"
 
-#: src/EBox/Network.pm:2313
+#: src/EBox/Network.pm:2528
 msgid "link ok"
-msgstr ""
+msgstr "länk ok"
 
-#: src/EBox/Network.pm:2315
+#: src/EBox/Network.pm:2530
 msgid "no link"
-msgstr ""
+msgstr "ingen länk"
 
-#: src/EBox/Network.pm:2323
+#: src/EBox/Network.pm:2538
 msgid "MAC address"
-msgstr ""
+msgstr "MAC-adress"
 
-#: src/EBox/Network.pm:2354
+#: src/EBox/Network.pm:2572
 msgid "Interfaces"
-msgstr ""
+msgstr "Gränssnitt"
 
-#: src/EBox/Network.pm:2360
+#: src/EBox/Network.pm:2576
+msgid "Routes"
+msgstr "Rutter"
+
+#: src/EBox/Network.pm:2578
 msgid "Diagnosis"
-msgstr ""
+msgstr "Diagnos"
 
-#: src/EBox/Network.pm:2363
+#: src/EBox/Network.pm:2581
 msgid "Gateways"
-msgstr ""
+msgstr "Gateways"
 
-#: src/EBox/Network.pm:2366
+#: src/EBox/Network.pm:2584
 msgid "Balance traffic"
-msgstr ""
-
-#: src/EBox/Network.pm:2369
-msgid "Traffic rate monitor"
-msgstr ""
-
-#: src/templates/routes.mas:12
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-
-#: src/templates/routes.mas:26
-msgid "Static routes"
-msgstr "Statiska rutter"
-
-#: src/templates/routes.mas:32 src/templates/ifaces.mas:150
-#: src/templates/ifaces.mas:208
-msgid "Action"
-msgstr "Åtgärd"
-
-#: src/templates/routes.mas:60 src/templates/routes.mas:61
-#: src/templates/routes.mas:62 src/templates/ifaces.mas:166
-#: src/templates/ifaces.mas:167 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:246 src/templates/ifaces.mas:247
-#: src/templates/ifaces.mas:248
-msgid "Add"
-msgstr "Lägg till"
-
-#: src/templates/routes.mas:80 src/templates/routes.mas:81
-#: src/templates/routes.mas:82 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:187
-#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:274
-#: src/templates/ifaces.mas:275
-msgid "Delete"
-msgstr "Ta bort"
+msgstr "Balansera trafik"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
@@ -651,12 +667,6 @@ msgstr "Slå upp"
 msgid "Output"
 msgstr "Utdata"
 
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-
 #: src/templates/dns.mas:19
 msgid "Primary"
 msgstr "Primär"
@@ -677,7 +687,7 @@ msgstr ""
 
 #: src/templates/gwrules.mas:27
 msgid "Traffic balancing"
-msgstr ""
+msgstr "Trafikbalansering"
 
 #: src/templates/ifaces.mas:11
 msgid ""
@@ -712,9 +722,21 @@ msgstr "Ändra"
 msgid "VLAN List"
 msgstr "VLAN-lista"
 
-#: src/templates/ifaces.mas:149
-msgid "Description"
-msgstr "Beskrivning"
+#: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
+msgid "Action"
+msgstr "Åtgärd"
+
+#: src/templates/ifaces.mas:166 src/templates/ifaces.mas:167
+#: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
+#: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
+msgid "Add"
+msgstr "Lägg till"
+
+#: src/templates/ifaces.mas:185 src/templates/ifaces.mas:186
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
+msgid "Delete"
+msgstr "Ta bort"
 
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
@@ -744,3 +766,6 @@ msgstr "Avbryt"
 #, fuzzy
 #~ msgid "Source traffic"
 #~ msgstr "Källa"
+
+#~ msgid "network address"
+#~ msgstr "nätverksadress"

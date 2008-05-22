@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.11\n"
+"Project-Id-Version: ebox-jabber 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-04-18 17:53+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "module status"
 msgstr "Modul durumu"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
 msgstr "Alan ismi"
 
@@ -33,11 +33,23 @@ msgstr "Alan ismi"
 msgid "username"
 msgstr "Kullanıcı ismi "
 
-#: src/EBox/Jabber.pm:197
-msgid "listening port"
-msgstr "Kullanılacak port"
+#: src/EBox/Jabber.pm:71
+msgid "Copy jabber ldap schema to /etc/ldap/schemas"
+msgstr ""
 
-#: src/EBox/Jabber.pm:309
+#: src/EBox/Jabber.pm:72
+msgid "eBox will need this schema to store jabber users"
+msgstr ""
+
+#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+msgid "To properly configure jabberd2"
+msgstr ""
+
+#: src/EBox/Jabber.pm:98
+msgid "To add the LDAP schemas used by eBox jabber"
+msgstr ""
+
+#: src/EBox/Jabber.pm:356
 msgid "Jabber Service"
 msgstr "Jabber Servisi"
 
@@ -69,11 +81,11 @@ msgstr "Yönetici hakları"
 msgid "Change"
 msgstr "Değiştir"
 
-#: src/templates/index.mas:17
+#: src/templates/index.mas:16
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
-#: src/templates/index.mas:19
+#: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -81,40 +93,43 @@ msgstr ""
 "Alan ismi yerel ağda mevcut olmak zorundadır. Aksi taktirde bu servisi "
 "kullanamazsınız. Bu dahili ve harici bağlantılar içinde geçerlidir."
 
-#: src/templates/index.mas:25
+#: src/templates/index.mas:24
 msgid "Domain name"
 msgstr "Alan ismi"
 
-#: src/templates/index.mas:33
+#: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
 msgstr "Genel Jabber ağlarına bağlan"
 
-#: src/templates/index.mas:45
+#: src/templates/index.mas:44
 msgid "SSL Support"
 msgstr "SSL desteği"
 
-#: src/templates/index.mas:50 src/templates/index.mas:54
-#: src/templates/index.mas:58
+#: src/templates/index.mas:49 src/templates/index.mas:53
+#: src/templates/index.mas:57
 msgid "No"
 msgstr "Hayır"
 
-#: src/templates/index.mas:51 src/templates/index.mas:55
-#: src/templates/index.mas:59
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "Optional"
 msgstr "Seçmeli"
 
-#: src/templates/index.mas:52 src/templates/index.mas:56
-#: src/templates/index.mas:60
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Required"
 msgstr "Gerekli"
 
-#: src/templates/index.mas:69 src/templates/index.mas:70
+#: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
 msgstr "Değişikliklkeri Uygula"
 
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
 msgstr "Bu sunucu için kullanılacak olan kullanıcı ismini ve parolayı girin."
+
+#~ msgid "listening port"
+#~ msgstr "Kullanılacak port"
 
 #~ msgid "Jabber Service status"
 #~ msgstr "Jabber servis durumu"

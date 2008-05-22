@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11\n"
+"Project-Id-Version: libebox 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-03-15 15:30+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,97 +19,111 @@ msgstr ""
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} esiste già"
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Valore non valido per {data}: {value}."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} not esiste."
 
 #: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "{data} è vuoto."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
-msgstr ""
+msgstr "Pagina non trovata"
 
-#: src/EBox/CGI/Base.pm:189
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
+"I dati in ingresso contengono caratteri non validi. Sono permessi tutti i "
+"caratteri alfanumerici, più i seguenti caratteri non alfanumerici: /.?&+:-@ "
+"e gli spazi."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
+#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Si è verificato un errore interno. Si tratta molto probabilmente di un bug, "
+"informazioni rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:341
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Si è verificato un errore interno relativo ad un template. Questo è un bug, "
+"informazioni rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:546
+#: src/EBox/CGI/Base.pm:566
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Si è verificato un errore interno inatteso. Questo è un bug, informazioni "
+"rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:552
+#: src/EBox/CGI/Base.pm:572
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
+"Hai appena colpito un bug in eBox. Prego contatta il supporto tecnico. "
 
-#: src/EBox/CGI/Base.pm:639
+#: src/EBox/CGI/Base.pm:659
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
+"Non è stato possibile elaborare la tua richiesta in quanto conteneva alcuni "
+"parametri non corretti"
 
-#: src/EBox/CGI/Base.pm:654
+#: src/EBox/CGI/Base.pm:674
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
+"Non è stato possibile elaborare la tua richiesta in quanto mancavano alcuni "
+"parametri"
 
-#: src/EBox/CGI/Base.pm:803
+#: src/EBox/CGI/Base.pm:823
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "File caricato non valido."
 
-#: src/EBox/CGI/Base.pm:809
+#: src/EBox/CGI/Base.pm:829
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Impossibile creare un file temporaneo per il caricamento"
 
 #: src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "L'esecuzione del comando '{cmd}' come {user} è fallita"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
-msgstr ""
+msgstr "Interfaccia"
 
 #: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "Impossibile aprire il file di configurazione {file}."
 
-#: src/EBox/Config.pm.in:88
+#: src/EBox/Config.pm.in:102
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "L'utente ebox non è stato impostato nel file di configurazione."
 
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "Directory non trovata: {d}"
 
 #: src/EBox/Validate.pm:685
 #, perl-brace-format
@@ -117,78 +131,85 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Impossibile eseguire stat sulla directory: {dir}. Ciò può significare che la "
+"directory non esiste o i permessi ne impediscono l'accesso"
 
 #: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"La directory {dir} non è privata; perché il possessore è un altro utente"
 
 #: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"Il percorso di file fornito non è valido. (Al momento non sono supportati "
+"tutti i caratteri validi per un file)"
 
 #: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Il percorso del file deve essere assoluto"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
-msgstr ""
+msgstr "porta"
 
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
 msgid "Inverse match"
-msgstr ""
+msgstr "Corrispondenza inversa"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
 msgid "first"
-msgstr ""
+msgstr "primo"
 
 #: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
 msgid "prev"
-msgstr ""
+msgstr "prec."
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
 #: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
 msgid "next"
-msgstr ""
+msgstr "succ."
 
 #: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
 #: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
 msgid "last"
-msgstr ""
+msgstr "ultimo"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "Scegli una delle opzioni per mostrare la tabella associata"
 
 #: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
-msgstr ""
+msgstr "Scegli una..."
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
-msgstr ""
+msgstr "homepage di eBox"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr ""
+msgstr "Se hai inserito la URL manualmente, prego controllala"
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in eBox's configuration or software made no longer available "
 "the requested page"
 msgstr ""
+"Forse una modifica nel software o nella configurazione di eBox ha reso non "
+"più disponibile la pagina richiesta "
 
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
@@ -196,46 +217,50 @@ msgid ""
 "If you need more help, you may want visit {homepage} for\n"
 "   documentation and mailing lists"
 msgstr ""
+"Se hai bisogno di ulteriore aiuto, visita {homepage} per\n"
+"la documentazione e le mailing list"
 
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "we're sorry"
-msgstr ""
+msgstr "siamo spiacenti"
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
-msgstr ""
+msgstr "Impossibile trovare la pagina"
 
 #: src/templates/title.mas:12
 msgid "show help"
-msgstr ""
+msgstr "mostra aiuto"
 
 #: src/templates/title.mas:13
 msgid "hide help"
-msgstr ""
+msgstr "nascondi aiuto"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr ""
+msgstr "Selezione lingua"
 
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr ""
+"La modifica della lingua ha effetto immediato, non è necessario registrarla "
+"in configurazione."
 
 #: src/templates/language.mas:23 src/templates/enable.mas:29
 #: src/templates/enable.mas:30
 msgid "Change"
-msgstr ""
+msgstr "Modifica"
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"
-msgstr ""
+msgstr "Configurazione servizio"
 
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "Inattivo"
 
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "Attivo"

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-soap 0.11\n"
+"Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,19 +99,19 @@ msgstr ""
 msgid "You should enable the service to test the connectivity"
 msgstr ""
 
-#: src/EBox/SOAP.pm:940
+#: src/EBox/SOAP.pm:881
 msgid "The OpenVPN client configuration file is missing"
 msgstr ""
 
-#: src/EBox/SOAP.pm:947
+#: src/EBox/SOAP.pm:888
 msgid "The OpenVPN client configuration file is not well formatted "
 msgstr ""
 
-#: src/EBox/SOAP.pm:977
+#: src/EBox/SOAP.pm:918
 msgid "Some certificate is missing"
 msgstr ""
 
-#: src/EBox/SOAP.pm:984
+#: src/EBox/SOAP.pm:925
 #, perl-brace-format
 msgid ""
 "You cannot upload this bundle since the name {name} has been already used "
@@ -119,24 +119,24 @@ msgid ""
 "please save changes first"
 msgstr ""
 
-#: src/EBox/SOAP.pm:1017
+#: src/EBox/SOAP.pm:958
 msgid "Certificate file is missing"
 msgstr ""
 
-#: src/EBox/SOAP.pm:1020
+#: src/EBox/SOAP.pm:961
 msgid "Private key file is missing"
 msgstr ""
 
-#: src/EBox/SOAP.pm:1023
+#: src/EBox/SOAP.pm:964
 msgid "Certification Authority file is missing"
 msgstr ""
 
-#: src/EBox/SOAP.pm:1075
+#: src/EBox/SOAP.pm:1016
 msgid ""
 "You should upload a bundle to be able to communicate with the control center"
 msgstr ""
 
-#: src/EBox/SOAP.pm:1084
+#: src/EBox/SOAP.pm:1025
 msgid ""
 "The OpenVPN client is not running. You may need to save changes in order to "
 "set up the OpenVPN client"

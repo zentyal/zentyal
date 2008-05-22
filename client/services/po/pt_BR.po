@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-services 0.11\n"
+"Project-Id-Version: ebox-services 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2007-09-03 17:18+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,11 +40,6 @@ msgstr ""
 msgid "Services"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:154
-#: src/EBox/Model/ServiceConfigurationTable.pm:137
-msgid "bbbb"
-msgstr ""
-
 #: src/EBox/Model/ServiceTable.pm:155
 #: src/EBox/Model/ServiceConfigurationTable.pm:138
 msgid "service"
@@ -70,48 +65,48 @@ msgstr ""
 msgid "This protocol does not use ports"
 msgstr ""
 
-#: src/EBox/Services.pm:270
+#: src/EBox/Services.pm:321
 msgid "port"
 msgstr ""
 
-#: src/EBox/Services.pm:272
-#: migration/0001_import_services_from_firewall.pl:102
+#: src/EBox/Services.pm:323
+#: migration/0001_import_services_from_firewall.pl:108
 msgid "eBox administration"
 msgstr ""
 
-#: src/EBox/Services.pm:273
-#: migration/0001_import_services_from_firewall.pl:103
+#: src/EBox/Services.pm:324
+#: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration port"
 msgstr ""
 
-#: src/EBox/Services.pm:274 migration/0001_import_services_from_firewall.pl:70
-#: migration/0001_import_services_from_firewall.pl:81
-#: migration/0001_import_services_from_firewall.pl:93
-#: migration/0001_import_services_from_firewall.pl:104
-#: migration/0001_import_services_from_firewall.pl:115
+#: src/EBox/Services.pm:325 migration/0001_import_services_from_firewall.pl:71
+#: migration/0001_import_services_from_firewall.pl:82
+#: migration/0001_import_services_from_firewall.pl:94
+#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:125
 msgid "ebox-services"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:68
+#: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:69
+#: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:79
+#: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:80
+#: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:91
+#: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
 msgstr ""
 
-#: migration/0001_import_services_from_firewall.pl:92
+#: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
 msgstr ""

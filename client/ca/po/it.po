@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.11\n"
+"Project-Id-Version: ebox-ca 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-03-15 15:45+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,13 +19,13 @@ msgstr ""
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
 #: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:43
 msgid "Certification Authority Management"
 msgstr "Gestione della Autorita' di Certificazione"
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
 #: src/EBox/CGI/IssueCertificate.pm:70 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CGI/RenewCertificate.pm:75 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706
 #: src/EBox/CA.pm:872 src/EBox/CA.pm:1187 src/EBox/CA.pm:1229
 #: src/EBox/CA.pm:1328 src/templates/formRenew.mas:43
@@ -55,7 +55,13 @@ msgstr "la CA passwordfrase non coincide "
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "La passfrase CA dovrebbe essere lunga almeno {length} caratteri"
 
-#: src/EBox/CGI/CreateCA.pm:131
+#: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
+#: src/EBox/CGI/RenewCertificate.pm:89
+#, fuzzy, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Il numero di giorni per espirare deve essere un numero naturale"
+
+#: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
 "Sono stati rilevati dei problemi nella creazione della Autorita' di "
@@ -72,13 +78,13 @@ msgstr "Errore nella  creazione del file"
 msgid "Organization Name"
 msgstr "Nome dell'organizzazione"
 
-#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:70
 #: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
 #: src/templates/index.mas:28
 msgid "Days to expire"
 msgstr "Giorni per espirare"
 
-#: src/EBox/CGI/IssueCertificate.pm:105
+#: src/EBox/CGI/IssueCertificate.pm:109
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
@@ -86,11 +92,11 @@ msgstr ""
 "L'input contiene dei caratteri non validi. Sono permessi tutti i caratteri "
 "alfanumerici, piu' i seguenti non alfanumerici: .?&+:\\@ e gli spazi"
 
-#: src/EBox/CGI/IssueCertificate.pm:124
+#: src/EBox/CGI/IssueCertificate.pm:128
 msgid "The certificate has been issued"
 msgstr "Il certificato e' stato emesso"
 
-#: src/EBox/CGI/IssueCertificate.pm:125
+#: src/EBox/CGI/IssueCertificate.pm:129
 msgid "The new CA certificate has been issued"
 msgstr "Il nuovo certificato CA e' stato emesso"
 
@@ -98,7 +104,7 @@ msgstr "Il nuovo certificato CA e' stato emesso"
 msgid "The certificate has NOT been revoked"
 msgstr "Il certificato NON e' stato revocato"
 
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:69
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Booleano che indica la Certificazione del Certificato dell'Autorita'"
 
@@ -114,19 +120,19 @@ msgstr "Il certificato e' stato revocato"
 msgid "The CA certificate has been revoked"
 msgstr "Il certificato CA e' stato revocato"
 
-#: src/EBox/CGI/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:65
 msgid "The certificate has NOT been renewed"
 msgstr "Il certificato NON e' stato rinnovato"
 
-#: src/EBox/CGI/RenewCertificate.pm:129
+#: src/EBox/CGI/RenewCertificate.pm:136
 msgid "The certificate CANNOT be renewed"
 msgstr "Il certificato NON PUO' essere rinnovato"
 
-#: src/EBox/CGI/RenewCertificate.pm:131
+#: src/EBox/CGI/RenewCertificate.pm:138
 msgid "The certificate has been renewed"
 msgstr "Il certificato e' stato rinnovato"
 
-#: src/EBox/CGI/RenewCertificate.pm:132
+#: src/EBox/CGI/RenewCertificate.pm:139
 msgid "The new CA certificate has been renewed"
 msgstr "Il nuovo certificato CA e' stato rinnovato"
 
@@ -204,37 +210,37 @@ msgstr ""
 "La passfrase della chiave privata e' necessaria per creare una nuova "
 "richiesta. Emetti un nuovo certificato con nuove chiavi"
 
-#: src/EBox/CA.pm:1647
+#: src/EBox/CA.pm:1649
 msgid "Certificate Manager"
 msgstr "Manager del certificato"
 
-#: src/EBox/CA.pm:2171
+#: src/EBox/CA.pm:2173
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Impossibile firmare. Sbagliata CA passfrase o la chiave private della CA e' "
 "sparita?"
 
-#: src/EBox/CA.pm:2173
+#: src/EBox/CA.pm:2175
 msgid "Database corruption"
 msgstr "Database corrotto"
 
-#: src/EBox/CA.pm:2175
+#: src/EBox/CA.pm:2177
 msgid "Identifier duplicated in Database"
 msgstr "Identificativo duplicato nel Database"
 
-#: src/EBox/CA.pm:2177
+#: src/EBox/CA.pm:2179
 msgid "Certificate already revoked"
 msgstr "Certificato gia' revocato"
 
-#: src/EBox/CA.pm:2180
+#: src/EBox/CA.pm:2182
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Lunghezza del campo ASN1 troppo lunga. Dimensione massima:"
 
-#: src/EBox/CA.pm:2182
+#: src/EBox/CA.pm:2184
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Errore sconosciuto. OpenSSl ha dato il seguente output:"
 
-#: src/EBox/CA.pm:2255
+#: src/EBox/CA.pm:2257
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -243,19 +249,19 @@ msgstr ""
 "Creata Autorita' di Certificazione con nome dell'organizzazione {orgName} e "
 "validita' per {days} giorni"
 
-#: src/EBox/CA.pm:2257
+#: src/EBox/CA.pm:2259
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
 "Distrutta la Autorita' di Certificazione con nome dell'organizzazione "
 "{orgName}"
 
-#: src/EBox/CA.pm:2259
+#: src/EBox/CA.pm:2261
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "Il certificato CA e' stato revocato perche' {reason} forzato: {force}"
 
-#: src/EBox/CA.pm:2261
+#: src/EBox/CA.pm:2263
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -264,7 +270,7 @@ msgstr ""
 "Emesso certificato CA con nome dell'organizzazione {orgName} e validita' per "
 "{days} giorni"
 
-#: src/EBox/CA.pm:2263
+#: src/EBox/CA.pm:2265
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -273,12 +279,12 @@ msgstr ""
 "Il certificato CA con nome dell'organizzazione {orgName} e' stato rinnovato "
 "con validita' per {days} giorni"
 
-#: src/EBox/CA.pm:2265
+#: src/EBox/CA.pm:2267
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Emesso certificato con common name {cn} e validita' per {days} giorni"
 
-#: src/EBox/CA.pm:2267
+#: src/EBox/CA.pm:2269
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -286,21 +292,21 @@ msgstr ""
 "Revocato il certificato con common name {cn} perche' {reason} forzata: "
 "{force}"
 
-#: src/EBox/CA.pm:2269
+#: src/EBox/CA.pm:2271
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Il certificato con common name {cn} e' stato rinnovato con validita' di "
 "{days} giorni"
 
-#: src/EBox/CA.pm:2271
+#: src/EBox/CA.pm:2273
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Aggiornamento del database dei certificati. {number}  certificati sono "
 "scaduti"
 
-#: src/EBox/CA.pm:2354
+#: src/EBox/CA.pm:2356
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Impossibile avviare la shell OpenSSL. ({errval})"
@@ -322,14 +328,6 @@ msgstr "Rinnova un certificato"
 #: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
 msgid "Expiration Date"
 msgstr "Data di scadenza"
-
-#: src/templates/createCA.mas:11
-msgid "Passphrase"
-msgstr "Passfrase"
-
-#: src/templates/createCA.mas:13
-msgid "Re-passphrase"
-msgstr "Re-passfrase"
 
 #: src/templates/createCA.mas:15
 msgid "Create"
@@ -487,6 +485,12 @@ msgstr "Revoca un certificato"
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Revoca il certificato selezionato"
+
+#~ msgid "Passphrase"
+#~ msgstr "Passfrase"
+
+#~ msgid "Re-passphrase"
+#~ msgstr "Re-passfrase"
 
 #~ msgid "Days to expire MUST be a natural number"
 #~ msgstr "Il numero di giorni per espirare deve essere un numero naturale"

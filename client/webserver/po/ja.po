@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.11.99"
+"Project-Id-Version: ebox-webserver 0.11.99\n"
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:07+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,7 +19,7 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "バーチャルホスト名"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:140
 #, perl-brace-format
@@ -26,6 +27,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"バーチャルホスト {vhost} が追加されました。ドメイン {domain} が作成され、名"
+"前 {name} と IPアドレス {ip} のマッピングが作成されました"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:158
 #, perl-brace-format
@@ -33,29 +36,33 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"バーチャルホスト {vhost} が追加されました。ドメイン {domain} に名前 {name} - "
+"IPアドレス {ip} のマッピングが追加されました"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:172
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"ホスト名 {hostname} へのエイリアス {alias} としてバーチャルホスト {vhost} が"
+"追加されました"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:178
 #: src/EBox/WebServer/Model/VHostTable.pm:183
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "バーチャルホスト {vhost} が追加されました"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:188
 msgid "There is no static internal interface to set the Web server IP address"
-msgstr ""
+msgstr "WebサーバのIPアドレスを設定する静的な内部インタフェースがありません"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:214
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:224
 msgid "Virtual hosts"
-msgstr ""
+msgstr "バーチャルホスト"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:228
 #, perl-brace-format
@@ -66,29 +73,33 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"バーチャルホストは多数の同じWebサーバのインスタンスを単一の物理サーバ上にホス"
+"トするWebホスティングサービスです。異なるホスト名が同一のWebサーバを指すこと"
+"になります。DNSのエントリは可能であれば自動的に作成されます。コンテンツは "
+"{docRoot}/vHostName ディレクトリの下に展開されている必要があります。"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:235
 msgid "virtual host"
-msgstr ""
+msgstr "バーチャルホスト"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:136
-msgid "Listening port"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:142
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "受信ポート"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
-msgid "General configuration settings"
-msgstr ""
+msgid "Listening port"
+msgstr "受信ポート"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:156
+#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "ユーザ {dirName} 毎に有効化"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:168
+msgid "General configuration settings"
+msgstr "全般的設定"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:172
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -96,34 +107,39 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"全般的なWebサーバの設定を行います。受信ポートは他のサービスと競合してはなりま"
+"せん。ユーザ毎の公開ページを有効にする場合、ページSambaホームディレクトリの中"
+"の {dirName} ディレクトリから読み込まれます。"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:178
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "全般的なWebサーバの設定が更新されました"
 
 #: src/EBox/WebServer/Composite/General.pm:81
 msgid "Web service"
-msgstr ""
+msgstr "Webサービス"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"eBox Webサービスでは異なるバーチャルホストでプレーンなHTMLページをホストする"
+"ことを許可しています"
 
-#: src/EBox/WebServer/Maintenance.pm:66
-msgid "HyperText Transport Protocol"
-msgstr ""
-
-#: src/EBox/WebServer.pm:127 src/EBox/WebServer.pm:151
+#: src/EBox/WebServer.pm:130 src/EBox/WebServer.pm:154
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
-#: src/EBox/WebServer.pm:170
+#: src/EBox/WebServer.pm:173
 msgid "Web service status"
-msgstr ""
+msgstr "Webサービスの状態"
 
-#: src/EBox/WebServer.pm:362
+#: src/EBox/WebServer.pm:365
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "ファイル {userDirConfFile} がありません！ 修復してください"
+
+#: migration/0001_add_service_and_port.pl:145
+msgid "HyperText Transport Protocol"
+msgstr "ハイパーテキストトランスポートプロトコル"

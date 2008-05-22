@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.11\n"
+"Project-Id-Version: ebox-usersandgroups 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:07+0200\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -44,24 +44,24 @@ msgid "user"
 msgstr "användare"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:653 src/EBox/UsersAndGroups.pm:658
-#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:890
-#: src/EBox/UsersAndGroups.pm:927 src/EBox/UsersAndGroups.pm:1001
-#: src/EBox/UsersAndGroups.pm:1107
+#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:760
+#: src/EBox/UsersAndGroups.pm:911 src/EBox/UsersAndGroups.pm:1038
+#: src/EBox/UsersAndGroups.pm:1075 src/EBox/UsersAndGroups.pm:1149
+#: src/EBox/UsersAndGroups.pm:1255
 msgid "group name"
 msgstr "gruppnamn"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
+#: src/EBox/CGI/AddUser.pm:47
 msgid "comment"
 msgstr "kommentar"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:261 src/EBox/UsersAndGroups.pm:267
-#: src/EBox/UsersAndGroups.pm:353 src/EBox/UsersAndGroups.pm:407
-#: src/EBox/UsersAndGroups.pm:438 src/EBox/UsersAndGroups.pm:727
-#: src/EBox/UsersAndGroups.pm:792 src/EBox/UsersAndGroups.pm:885
-#: src/EBox/UsersAndGroups.pm:922 src/EBox/UsersAndGroups.pm:959
+#: src/EBox/UsersAndGroups.pm:325 src/EBox/UsersAndGroups.pm:331
+#: src/EBox/UsersAndGroups.pm:459 src/EBox/UsersAndGroups.pm:513
+#: src/EBox/UsersAndGroups.pm:544 src/EBox/UsersAndGroups.pm:875
+#: src/EBox/UsersAndGroups.pm:940 src/EBox/UsersAndGroups.pm:1033
+#: src/EBox/UsersAndGroups.pm:1070 src/EBox/UsersAndGroups.pm:1107
 msgid "user name"
 msgstr "användarnamn"
 
@@ -69,7 +69,7 @@ msgstr "användarnamn"
 msgid "full name"
 msgstr "fullständigt namn"
 
-#: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
+#: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
 msgstr "lösenord"
 
@@ -77,20 +77,17 @@ msgstr "lösenord"
 msgid "confirm password"
 msgstr "bekräfta lösenord"
 
-#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:61
+#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
 msgid "Passwords do not match."
 msgstr "Lösenorden stämde inte överens."
-
-#: src/EBox/CGI/AddUser.pm:48
-msgid "retype password"
-msgstr "ange lösenordet igen"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
 msgstr "Redigera grupp"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/UsersAndGroups/Model/Users.pm:74 src/EBox/UsersAndGroups.pm:1378
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:74
+#: src/EBox/UsersAndGroups.pm:1526
 msgid "Users"
 msgstr "Användare"
 
@@ -98,60 +95,113 @@ msgstr "Användare"
 msgid "username"
 msgstr "användarnamn"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1386
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1534
 msgid "Groups"
 msgstr "Grupper"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:98
+#: src/EBox/UsersAndGroups/Model/Users.pm:129
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
-#: src/EBox/UsersAndGroups/Model/Users.pm:108 src/templates/users.mas:27
+#: src/EBox/UsersAndGroups/Model/Users.pm:139 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
 msgstr "Fullständigt namn"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
-#: src/EBox/UsersAndGroups/Model/Users.pm:118
+#: src/EBox/UsersAndGroups/Model/Users.pm:149
 msgid "Edit"
 msgstr "Redigera"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:81
 msgid "foo"
+msgstr "foo"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:112
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:256
+#: src/EBox/UsersAndGroups.pm:56
+#, fuzzy
+msgid "users and groups"
+msgstr "Användare i grupp"
+
+#: src/EBox/UsersAndGroups.pm:74
+msgid ""
+"Your current openLDAP database will be replaced and backuped in /var/backups/"
+"slapd"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:76
+msgid ""
+"eBox will initialize openLDAP to store its database. It will also overwrite "
+"your current configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:92
+msgid "To make openLDAP listen on TCP and Unix sockets"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:97
+msgid ""
+"To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
+"and ACLs used by  the LDAP based eBox modules"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:320
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Användarnamnet får inte vara längre än {maxuserlength} tecken"
 
-#: src/EBox/UsersAndGroups.pm:276 src/EBox/UsersAndGroups.pm:667
+#: src/EBox/UsersAndGroups.pm:375 src/EBox/UsersAndGroups.pm:802
 msgid "Maximum number of system users reached"
 msgstr "Maximalt antal systemanvändare har uppnåtts"
 
-#: src/EBox/UsersAndGroups.pm:641
+#: src/EBox/UsersAndGroups.pm:392
+#, perl-brace-format
+msgid ""
+"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:403
+#, perl-brace-format
+msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:743
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Gruppnamn får inte vara längre än {maxGroupLength} tecken"
 
-#: src/EBox/UsersAndGroups.pm:647
+#: src/EBox/UsersAndGroups.pm:749
 msgid "The group name is not valid because it is used internally"
 msgstr "Gruppnamnet är inte giltigt därför att det används internt"
 
-#: src/EBox/UsersAndGroups.pm:1180
+#: src/EBox/UsersAndGroups.pm:819
+#, perl-brace-format
+msgid ""
+"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:829
+#, perl-brace-format
+msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1328
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Lösenord får inte vara längre än {maxPwdLength} tecken"
 
-#: src/EBox/UsersAndGroups.pm:1380
-#, fuzzy
+#: src/EBox/UsersAndGroups.pm:1528
 msgid "Add user"
 msgstr "Lägg till användare"
 
-#: src/EBox/UsersAndGroups.pm:1383
-#, fuzzy
+#: src/EBox/UsersAndGroups.pm:1531
 msgid "Edit user"
 msgstr "Redigera användare"
 
@@ -160,9 +210,8 @@ msgid "This group contains users"
 msgstr "Den här gruppen innehåller användare"
 
 #: src/templates/ajax/tableUser.mas:88
-#, fuzzy
 msgid "Add new"
-msgstr "Lägg till användare"
+msgstr "Lägg till ny"
 
 #: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""
@@ -316,6 +365,9 @@ msgstr "Redigera grupp"
 #: src/templates/groups.mas:55
 msgid "Actions"
 msgstr "Åtgärder"
+
+#~ msgid "retype password"
+#~ msgstr "ange lösenordet igen"
 
 #~ msgid "Deleting user"
 #~ msgstr "Tar bort användare"

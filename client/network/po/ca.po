@@ -5,9 +5,9 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11\n"
+"Project-Id-Version: ebox-network 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -28,13 +28,13 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:684
-#: src/EBox/Network.pm:716 src/EBox/Network.pm:761 src/EBox/Network.pm:795
-#: src/EBox/Network.pm:820 src/EBox/Network.pm:896 src/EBox/Network.pm:1019
-#: src/EBox/Network.pm:1214 src/EBox/Network.pm:1274 src/EBox/Network.pm:1309
-#: src/EBox/Network.pm:1345 src/EBox/Network.pm:1378 src/EBox/Network.pm:2061
-#: src/EBox/Network.pm:2093 src/EBox/Network.pm:2166 src/EBox/Network.pm:2186
-#: src/EBox/Network.pm:2207 src/EBox/Network.pm:2230
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:789
+#: src/EBox/Network.pm:821 src/EBox/Network.pm:866 src/EBox/Network.pm:900
+#: src/EBox/Network.pm:925 src/EBox/Network.pm:1001 src/EBox/Network.pm:1124
+#: src/EBox/Network.pm:1319 src/EBox/Network.pm:1379 src/EBox/Network.pm:1414
+#: src/EBox/Network.pm:1451 src/EBox/Network.pm:1484 src/EBox/Network.pm:2276
+#: src/EBox/Network.pm:2308 src/EBox/Network.pm:2381 src/EBox/Network.pm:2401
+#: src/EBox/Network.pm:2422 src/EBox/Network.pm:2445
 msgid "Interface"
 msgstr "Interfície"
 
@@ -75,8 +75,8 @@ msgstr "Descripció"
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1510
-#: src/templates/routes.mas:31
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170
+#: src/EBox/Model/StaticRoute.pm:124
 msgid "Gateway"
 msgstr "Pasarel·la"
 
@@ -134,6 +134,53 @@ msgstr "Interfícies de xarxa"
 #, fuzzy
 msgid "interface"
 msgstr "Interfície"
+
+#: src/EBox/Model/DNSResolver.pm:82
+msgid "Name server"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:90
+msgid "Name server resolvers"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
+"paràmetres es sobreescriguen."
+
+#: src/EBox/Model/DNSResolver.pm:97
+msgid "name server"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:118 src/EBox/Network.pm:66
+#: src/EBox/Network.pm:2568
+msgid "Network"
+msgstr "Xarxa"
+
+#: src/EBox/Model/StaticRoute.pm:129 src/templates/ifaces.mas:149
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/Model/StaticRoute.pm:137
+msgid "Static routes"
+msgstr "Rutes estàtiques"
+
+#: src/EBox/Model/StaticRoute.pm:142
+#, fuzzy
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Totes les rutes que introduïu han de ser accessibles des de una de les "
+"interfícies de xarxa actualment configurades."
+
+#: src/EBox/Model/StaticRoute.pm:145
+#, fuzzy
+msgid "static route"
+msgstr "Rutes estàtiques"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
@@ -201,7 +248,6 @@ msgid "gateway"
 msgstr "Pasarel·la"
 
 #: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1509
 msgid "ip address"
 msgstr "adreça ip"
 
@@ -321,7 +367,7 @@ msgid "Network interface configured"
 msgstr "Interfícies de xarxa"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2284
+#: src/EBox/Network.pm:2499
 msgid "Network interfaces"
 msgstr "Interfícies de xarxa"
 
@@ -362,7 +408,7 @@ msgstr "Interfícies de xarxa"
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2271
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2486
 msgid "host name"
 msgstr ""
 
@@ -375,7 +421,7 @@ msgstr "interfície de xarxa"
 msgid "method"
 msgstr "mètode"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
 msgid "netmask"
 msgstr "màscara de xarxa"
 
@@ -387,11 +433,10 @@ msgstr ""
 msgid "virtual interface action"
 msgstr "acció d'interfície virtual"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:591 src/EBox/Network.pm:596
-#: src/EBox/Network.pm:900 src/EBox/Network.pm:921 src/EBox/Network.pm:1452
-#: src/EBox/Network.pm:2063 src/EBox/Network.pm:2078 src/EBox/Network.pm:2210
-#: src/EBox/Network.pm:2329 src/templates/ifaces.mas:91
-#: src/templates/ifaces.mas:206
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:696 src/EBox/Network.pm:701
+#: src/EBox/Network.pm:1005 src/EBox/Network.pm:1026 src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:2293 src/EBox/Network.pm:2425 src/EBox/Network.pm:2544
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
 msgstr "Adreça IP"
 
@@ -399,30 +444,21 @@ msgstr "Adreça IP"
 msgid "virtual interface name"
 msgstr "nom de la interfície virtual"
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1508
-msgid "network address"
-msgstr "adreça de xarxa"
-
-#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "adreça de la pasarel·la"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1093
-#: src/EBox/Network.pm:1122 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1198
+#: src/EBox/Network.pm:1227 src/templates/ifaces.mas:148
 msgid "VLAN Id"
 msgstr ""
 
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2358
-msgid "Routes"
-msgstr "Rutes"
+#: src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "adreça de la pasarel·la"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2318
+#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2533
 msgid "Status"
 msgstr "Estat"
 
@@ -430,82 +466,82 @@ msgstr "Estat"
 msgid "Running"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:612
+#: src/EBox/Network/Report/ByteRate.pm:755
 msgid "bytes/second"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:677
-#: src/EBox/Network/Report/ByteRate.pm:767
+#: src/EBox/Network/Report/ByteRate.pm:822
+#: src/EBox/Network/Report/ByteRate.pm:928
 msgid "Traffic data for source"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:697
+#: src/EBox/Network/Report/ByteRate.pm:842
 #, perl-brace-format
 msgid "Network traffic from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:729
+#: src/EBox/Network/Report/ByteRate.pm:876
 msgid "Traffic data not found for service"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:739
+#: src/EBox/Network/Report/ByteRate.pm:886
 #, perl-brace-format
 msgid "Network traffic for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:775
+#: src/EBox/Network/Report/ByteRate.pm:936
 msgid "Traffic data for service"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:784
+#: src/EBox/Network/Report/ByteRate.pm:945
 msgid "Traffic data not found for source and service pair"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:786
+#: src/EBox/Network/Report/ByteRate.pm:947
 #, perl-brace-format
 msgid "source {src} and service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:800
+#: src/EBox/Network/Report/ByteRate.pm:961
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:816
+#: src/EBox/Network/Report/ByteRate.pm:988
 msgid "All active services"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:821
+#: src/EBox/Network/Report/ByteRate.pm:993
 msgid "Traffic data for "
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:822
+#: src/EBox/Network/Report/ByteRate.pm:994
 msgid "all services"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:857
+#: src/EBox/Network/Report/ByteRate.pm:1039
 msgid "All active sources"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:862
+#: src/EBox/Network/Report/ByteRate.pm:1044
 msgid "Traffic data for"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:863
+#: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "all sources"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:901
+#: src/EBox/Network/Report/ByteRate.pm:1083
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:916
+#: src/EBox/Network/Report/ByteRate.pm:1098
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:940
+#: src/EBox/Network/Report/ByteRate.pm:1122
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
 msgstr ""
@@ -524,134 +560,117 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr "Pasarel·la per defecte"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2019
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2235
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "No es pot accedir a la pasarel·la {gw}"
 
-#: src/EBox/Network.pm:60 src/EBox/Network.pm:2350 src/templates/routes.mas:30
-msgid "Network"
-msgstr "Xarxa"
-
-#: src/EBox/Network.pm:87
-msgid "Activate traffic rate monitor"
+#: src/EBox/Network.pm:84
+msgid "Add default routers to the default table"
 msgstr ""
 
-#: src/EBox/Network.pm:588 src/EBox/Network.pm:592
+#: src/EBox/Network.pm:85
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
+
+#: src/EBox/Network.pm:91
+msgid "Enable eBox DHCP hook"
+msgstr ""
+
+#: src/EBox/Network.pm:92
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+
+#: src/EBox/Network.pm:108
+msgid "eBox will set your network configuration"
+msgstr ""
+
+#: src/EBox/Network.pm:693 src/EBox/Network.pm:697
 msgid "Virtual interface name"
 msgstr "Nom de la interfície virtual"
 
-#: src/EBox/Network.pm:591 src/EBox/Network.pm:900 src/EBox/Network.pm:2063
+#: src/EBox/Network.pm:696 src/EBox/Network.pm:1005 src/EBox/Network.pm:2278
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr "Màscara de xarxa"
 
-#: src/EBox/Network.pm:1024
+#: src/EBox/Network.pm:1129
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:1069
+#: src/EBox/Network.pm:1174
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1102
+#: src/EBox/Network.pm:1207
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1980
+#: src/EBox/Network.pm:2170
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2023
+#: src/EBox/Network.pm:2238
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2252
+#: src/EBox/Network.pm:2467
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2303
+#: src/EBox/Network.pm:2518
 msgid "down"
 msgstr "avall"
 
-#: src/EBox/Network.pm:2309
+#: src/EBox/Network.pm:2524
 msgid "up"
 msgstr "amunt"
 
-#: src/EBox/Network.pm:2313
+#: src/EBox/Network.pm:2528
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2315
+#: src/EBox/Network.pm:2530
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2323
+#: src/EBox/Network.pm:2538
 msgid "MAC address"
 msgstr "Adreça MAC"
 
-#: src/EBox/Network.pm:2354
+#: src/EBox/Network.pm:2572
 #, fuzzy
 msgid "Interfaces"
 msgstr "Interfície"
 
-#: src/EBox/Network.pm:2360
+#: src/EBox/Network.pm:2576
+msgid "Routes"
+msgstr "Rutes"
+
+#: src/EBox/Network.pm:2578
 msgid "Diagnosis"
 msgstr ""
 
-#: src/EBox/Network.pm:2363
+#: src/EBox/Network.pm:2581
 #, fuzzy
 msgid "Gateways"
 msgstr "Pasarel·la"
 
-#: src/EBox/Network.pm:2366
+#: src/EBox/Network.pm:2584
 msgid "Balance traffic"
 msgstr ""
-
-#: src/EBox/Network.pm:2369
-msgid "Traffic rate monitor"
-msgstr ""
-
-#: src/templates/routes.mas:12
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Totes les rutes que introduïu han de ser accessibles des de una de les "
-"interfícies de xarxa actualment configurades."
-
-#: src/templates/routes.mas:26
-msgid "Static routes"
-msgstr "Rutes estàtiques"
-
-#: src/templates/routes.mas:32 src/templates/ifaces.mas:150
-#: src/templates/ifaces.mas:208
-msgid "Action"
-msgstr "Acció"
-
-#: src/templates/routes.mas:60 src/templates/routes.mas:61
-#: src/templates/routes.mas:62 src/templates/ifaces.mas:166
-#: src/templates/ifaces.mas:167 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:246 src/templates/ifaces.mas:247
-#: src/templates/ifaces.mas:248
-msgid "Add"
-msgstr "Afegeix"
-
-#: src/templates/routes.mas:80 src/templates/routes.mas:81
-#: src/templates/routes.mas:82 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:187
-#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:274
-#: src/templates/ifaces.mas:275
-msgid "Delete"
-msgstr "Elimina"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
@@ -672,14 +691,6 @@ msgstr ""
 #: src/templates/diag.mas:29
 msgid "Output"
 msgstr ""
-
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-"paràmetres es sobreescriguen."
 
 #: src/templates/dns.mas:19
 msgid "Primary"
@@ -742,9 +753,21 @@ msgstr "Cancel·la"
 msgid "VLAN List"
 msgstr ""
 
-#: src/templates/ifaces.mas:149
-msgid "Description"
-msgstr "Descripció"
+#: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
+msgid "Action"
+msgstr "Acció"
+
+#: src/templates/ifaces.mas:166 src/templates/ifaces.mas:167
+#: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
+#: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
+msgid "Add"
+msgstr "Afegeix"
+
+#: src/templates/ifaces.mas:185 src/templates/ifaces.mas:186
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
+msgid "Delete"
+msgstr "Elimina"
 
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
@@ -771,6 +794,9 @@ msgstr "D'acord"
 msgid "Cancel"
 msgstr "Cancel·la"
 
+#~ msgid "network address"
+#~ msgstr "adreça de xarxa"
+
 #, fuzzy
 #~ msgid ""
 #~ "Having network interfaces configured via DHCP may cause the default "
@@ -785,3 +811,10 @@ msgstr "Cancel·la"
 
 #~ msgid "Default gateway"
 #~ msgstr "Pasarel·la per defecte"
+
+#~ msgid ""
+#~ "All routers you enter here must be reachable through one of the network "
+#~ "interfaces currently configured."
+#~ msgstr ""
+#~ "Totes les rutes que introduïu han de ser accessibles des de una de les "
+#~ "interfícies de xarxa actualment configurades."

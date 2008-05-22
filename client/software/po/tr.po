@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11\n"
+"Project-Id-Version: ebox-software 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr "Otomatil sistem güncellemeleri"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:382
+#: src/EBox/Software.pm:456
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
@@ -38,87 +38,107 @@ msgstr "Sistem güncellendi"
 msgid "automatic updates configuration"
 msgstr "Otomatik güncelleme ayarları"
 
-#: src/EBox/CGI/InstallPkgs.pm:76
+#: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "Güncellenecek paket mevcut değil"
 
-#: src/EBox/CGI/InstallPkgs.pm:93
-msgid "The packages were removed successfully"
-msgstr "Paketler başarılı bir şekilde silindi"
-
-#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
 msgstr "Güncelleniyor"
 
-#: src/EBox/CGI/InstallPkgs.pm:119
+#: src/EBox/CGI/InstallPkgs.pm:146
 #, fuzzy
 msgid "Upgrading packages"
 msgstr "Güncelleniyor"
 
-#: src/EBox/CGI/InstallPkgs.pm:120
+#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
 msgstr "Güncel paketler"
 
-#: src/EBox/CGI/InstallPkgs.pm:121
+#: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:122
-#, fuzzy
-msgid "The packages installation has finished successfully"
-msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
+msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:123
+#: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
+#: src/EBox/CGI/InstallPkgs.pm:165
+#, fuzzy
+msgid "Removing package"
+msgstr "Güncelleniyor"
+
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:173
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
 msgid "eBox components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/Software.pm:164
-msgid ""
-"An error ocurred while removing components. If the error persists or eBox "
-"stops working properly, seek technical support."
-msgstr ""
-"Bir bileşenin kaldırılması esnasında bir hata oluştur. Eğer bu hata tekrar "
-"meydana gelirse veya eBox düzgün çalışmaz ise 'Teknik Servis' bölümünü okuyun"
-
-#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:384
+#: src/EBox/Software.pm:458
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Otomatil sistem güncellemeleri"
 
-#: src/EBox/Software.pm:475
+#: src/EBox/Software.pm:549
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "Certificate Authority Manager for eBox"
+#, fuzzy
+msgid "ebox - Certificate Authority Manager for eBox"
 msgstr "Ebox yetkili sertifika yöneticisi "
 
 #: src/EBox/PackageDescriptions.pm:2
-msgid "DHCP server"
-msgstr "DHCP sunucusu"
+#, fuzzy
+msgid "eBox - DHCP server module"
+msgstr "eBox DNS sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "eBox DNS server"
+#, fuzzy
+msgid "eBox - DNS server"
 msgstr "eBox DNS sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:4
-msgid "Base framework"
-msgstr "Temel taşlar"
+msgid "the eBox platform - Base framework"
+msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:5
-msgid "Firewall"
+#, fuzzy
+msgid "eBox - Firewall"
 msgstr "Güvenlik duvarı"
 
 #: src/EBox/PackageDescriptions.pm:6
@@ -126,15 +146,18 @@ msgid "IPsec VPNs"
 msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
-msgid "Instant messaging (Jabber)"
+#, fuzzy
+msgid "ebox - Instant messaging (Jabber)"
 msgstr "Haberleşme (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
-msgid "Mail server"
+#, fuzzy
+msgid "eBox - Mail server"
 msgstr "Posta sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Mail filter module"
+#, fuzzy
+msgid "ebox - Mail filter module"
 msgstr "Posta süzgeçleme modulu"
 
 #: src/EBox/PackageDescriptions.pm:10
@@ -142,27 +165,33 @@ msgid "Network configuration"
 msgstr "Ağ ayarları"
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "NTP server"
-msgstr "NTP sunucusu"
+#, fuzzy
+msgid "ebox NTP server"
+msgstr "eBox DNS sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "Object management"
+#, fuzzy
+msgid "eBox - Object management"
 msgstr "Nesne yönetimi"
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "OpenVPN server"
+#, fuzzy
+msgid "eBox - OpenVPN server module"
 msgstr "OpenVPN sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "Printer sharing"
+#, fuzzy
+msgid "eBox - Printer sharing"
 msgstr "Yazıcı paylaşımı"
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "File sharing"
+#, fuzzy
+msgid "ebox - File sharing"
 msgstr "Dosya paylaşımı"
 
 #: src/EBox/PackageDescriptions.pm:16
-msgid "Services  management"
+#, fuzzy
+msgid "eBox - Services management"
 msgstr "Servis yönetimi"
 
 #: src/EBox/PackageDescriptions.pm:17
@@ -174,17 +203,32 @@ msgid "Proxy cache and content filter"
 msgstr "Vekil depolama ve içerik filtreleme"
 
 #: src/EBox/PackageDescriptions.pm:20
-msgid "Traffic shaper for eBox"
+#, fuzzy
+msgid "eBox - Traffic shaper for eBox"
 msgstr "Ebox için internet trafik kontrolü"
 
 #: src/EBox/PackageDescriptions.pm:21
-msgid "User and Group management"
+#, fuzzy
+msgid "eBox - User and Group management"
 msgstr "Kullanıcı ve grup yönetimi"
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
 msgid "Web Server"
 msgstr "eBox DNS sunucusu"
+
+#: migration/0001_add_http_software_rule.pl:23
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:25
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:43
+#, fuzzy
+msgid "rule to allow apt updates"
+msgstr "Otomatil sistem güncellemeleri"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -258,6 +302,30 @@ msgstr "hiçbirşey"
 msgid "Remove"
 msgstr "Kaldır"
 
+#~ msgid "The packages were removed successfully"
+#~ msgstr "Paketler başarılı bir şekilde silindi"
+
+#, fuzzy
+#~ msgid "The packages installation has finished successfully"
+#~ msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
+
+#~ msgid ""
+#~ "An error ocurred while removing components. If the error persists or eBox "
+#~ "stops working properly, seek technical support."
+#~ msgstr ""
+#~ "Bir bileşenin kaldırılması esnasında bir hata oluştur. Eğer bu hata "
+#~ "tekrar meydana gelirse veya eBox düzgün çalışmaz ise 'Teknik Servis' "
+#~ "bölümünü okuyun"
+
+#~ msgid "DHCP server"
+#~ msgstr "DHCP sunucusu"
+
+#~ msgid "Base framework"
+#~ msgstr "Temel taşlar"
+
+#~ msgid "NTP server"
+#~ msgstr "NTP sunucusu"
+
 #~ msgid "The installation of the packages has finished successfully"
 #~ msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
 
@@ -276,3 +344,42 @@ msgstr "Kaldır"
 
 #~ msgid "Perform automatic security updates"
 #~ msgstr "Güvenlik güncellemelerini otomatik olarak uygula"
+
+#~ msgid "Certificate Authority Manager for eBox"
+#~ msgstr "Ebox yetkili sertifika yöneticisi "
+
+#~ msgid "eBox DNS server"
+#~ msgstr "eBox DNS sunucusu"
+
+#~ msgid "Firewall"
+#~ msgstr "Güvenlik duvarı"
+
+#~ msgid "Instant messaging (Jabber)"
+#~ msgstr "Haberleşme (Jabber)"
+
+#~ msgid "Mail server"
+#~ msgstr "Posta sunucusu"
+
+#~ msgid "Mail filter module"
+#~ msgstr "Posta süzgeçleme modulu"
+
+#~ msgid "Object management"
+#~ msgstr "Nesne yönetimi"
+
+#~ msgid "OpenVPN server"
+#~ msgstr "OpenVPN sunucusu"
+
+#~ msgid "Printer sharing"
+#~ msgstr "Yazıcı paylaşımı"
+
+#~ msgid "File sharing"
+#~ msgstr "Dosya paylaşımı"
+
+#~ msgid "Services  management"
+#~ msgstr "Servis yönetimi"
+
+#~ msgid "Traffic shaper for eBox"
+#~ msgstr "Ebox için internet trafik kontrolü"
+
+#~ msgid "User and Group management"
+#~ msgstr "Kullanıcı ve grup yönetimi"

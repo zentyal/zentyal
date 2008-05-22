@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11\n"
+"Project-Id-Version: ebox-software 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2007-06-06 09:40+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgid "Automatic software updates"
 msgstr "Automatisk uppdatering av programvara"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:382
+#: src/EBox/Software.pm:456
 msgid "System updates"
 msgstr "Systemuppdateringar"
 
@@ -37,87 +37,107 @@ msgstr "Systemet är uppdaterat"
 msgid "automatic updates configuration"
 msgstr "konfiguration av automatiska uppdateringar"
 
-#: src/EBox/CGI/InstallPkgs.pm:76
+#: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "Det fanns inga paket att uppdatera"
 
-#: src/EBox/CGI/InstallPkgs.pm:93
-msgid "The packages were removed successfully"
-msgstr "Paketen togs bort utan fel"
-
-#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
 msgstr "Uppgradering"
 
-#: src/EBox/CGI/InstallPkgs.pm:119
+#: src/EBox/CGI/InstallPkgs.pm:146
 #, fuzzy
 msgid "Upgrading packages"
 msgstr "Uppgradering"
 
-#: src/EBox/CGI/InstallPkgs.pm:120
+#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
 msgstr "Aktuellt paket"
 
-#: src/EBox/CGI/InstallPkgs.pm:121
+#: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:122
-#, fuzzy
-msgid "The packages installation has finished successfully"
-msgstr "Installationen av paketen har färdigställts"
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
+msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:123
+#: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
+#: src/EBox/CGI/InstallPkgs.pm:165
+#, fuzzy
+msgid "Removing package"
+msgstr "Uppgradering"
+
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:173
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
 msgid "eBox components"
 msgstr "Komponenter i eBox"
 
-#: src/EBox/Software.pm:164
-msgid ""
-"An error ocurred while removing components. If the error persists or eBox "
-"stops working properly, seek technical support."
-msgstr ""
-"Ett fel inträffade vid borttagning av komponenter. Om felet kvarstår eller "
-"om eBox slutar att fungera bör du kontakta en tekniker."
-
-#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Hantering av programvara"
 
-#: src/EBox/Software.pm:384
+#: src/EBox/Software.pm:458
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Automatisk uppdatering av programvara"
 
-#: src/EBox/Software.pm:475
+#: src/EBox/Software.pm:549
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "Certificate Authority Manager for eBox"
+#, fuzzy
+msgid "ebox - Certificate Authority Manager for eBox"
 msgstr "Hanterare för certfikatutfärdare för eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
-msgid "DHCP server"
-msgstr "DHCP-server"
+#, fuzzy
+msgid "eBox - DHCP server module"
+msgstr "eBox DNS-server"
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "eBox DNS server"
+#, fuzzy
+msgid "eBox - DNS server"
 msgstr "eBox DNS-server"
 
 #: src/EBox/PackageDescriptions.pm:4
-msgid "Base framework"
-msgstr "Basramverk"
+msgid "the eBox platform - Base framework"
+msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:5
-msgid "Firewall"
+#, fuzzy
+msgid "eBox - Firewall"
 msgstr "Brandvägg"
 
 #: src/EBox/PackageDescriptions.pm:6
@@ -125,15 +145,18 @@ msgid "IPsec VPNs"
 msgstr "IPsec VPN-nätverk"
 
 #: src/EBox/PackageDescriptions.pm:7
-msgid "Instant messaging (Jabber)"
+#, fuzzy
+msgid "ebox - Instant messaging (Jabber)"
 msgstr "Snabbmeddelanden (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
-msgid "Mail server"
+#, fuzzy
+msgid "eBox - Mail server"
 msgstr "E-postserver"
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Mail filter module"
+#, fuzzy
+msgid "ebox - Mail filter module"
 msgstr "Modul för e-postfilter"
 
 #: src/EBox/PackageDescriptions.pm:10
@@ -141,28 +164,33 @@ msgid "Network configuration"
 msgstr "Nätverkskonfiguration"
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "NTP server"
-msgstr "NTP-server"
+#, fuzzy
+msgid "ebox NTP server"
+msgstr "eBox DNS-server"
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "Object management"
+#, fuzzy
+msgid "eBox - Object management"
 msgstr "Objekthantering"
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "OpenVPN server"
+#, fuzzy
+msgid "eBox - OpenVPN server module"
 msgstr "OpenVPN-server"
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "Printer sharing"
+#, fuzzy
+msgid "eBox - Printer sharing"
 msgstr "Skrivardelning"
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "File sharing"
+#, fuzzy
+msgid "ebox - File sharing"
 msgstr "Fildelning"
 
 #: src/EBox/PackageDescriptions.pm:16
 #, fuzzy
-msgid "Services  management"
+msgid "eBox - Services management"
 msgstr "Hantering av programvara"
 
 #: src/EBox/PackageDescriptions.pm:17
@@ -174,17 +202,32 @@ msgid "Proxy cache and content filter"
 msgstr "Proxycache och innehållsfilter"
 
 #: src/EBox/PackageDescriptions.pm:20
-msgid "Traffic shaper for eBox"
+#, fuzzy
+msgid "eBox - Traffic shaper for eBox"
 msgstr "Trafikbegränsning för eBox"
 
 #: src/EBox/PackageDescriptions.pm:21
-msgid "User and Group management"
+#, fuzzy
+msgid "eBox - User and Group management"
 msgstr "Hantering av användare och grupper"
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
 msgid "Web Server"
 msgstr "eBox DNS-server"
+
+#: migration/0001_add_http_software_rule.pl:23
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:25
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:43
+#, fuzzy
+msgid "rule to allow apt updates"
+msgstr "Automatisk uppdatering av programvara"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -258,6 +301,29 @@ msgstr "ingen"
 msgid "Remove"
 msgstr "Ta bort"
 
+#~ msgid "The packages were removed successfully"
+#~ msgstr "Paketen togs bort utan fel"
+
+#, fuzzy
+#~ msgid "The packages installation has finished successfully"
+#~ msgstr "Installationen av paketen har färdigställts"
+
+#~ msgid ""
+#~ "An error ocurred while removing components. If the error persists or eBox "
+#~ "stops working properly, seek technical support."
+#~ msgstr ""
+#~ "Ett fel inträffade vid borttagning av komponenter. Om felet kvarstår "
+#~ "eller om eBox slutar att fungera bör du kontakta en tekniker."
+
+#~ msgid "DHCP server"
+#~ msgstr "DHCP-server"
+
+#~ msgid "Base framework"
+#~ msgstr "Basramverk"
+
+#~ msgid "NTP server"
+#~ msgstr "NTP-server"
+
 #~ msgid "The installation of the packages has finished successfully"
 #~ msgstr "Installationen av paketen har färdigställts"
 
@@ -276,3 +342,43 @@ msgstr "Ta bort"
 
 #~ msgid "Perform automatic security updates"
 #~ msgstr "Genomför automatiska säkerhetsuppdateringar"
+
+#~ msgid "Certificate Authority Manager for eBox"
+#~ msgstr "Hanterare för certfikatutfärdare för eBox"
+
+#~ msgid "eBox DNS server"
+#~ msgstr "eBox DNS-server"
+
+#~ msgid "Firewall"
+#~ msgstr "Brandvägg"
+
+#~ msgid "Instant messaging (Jabber)"
+#~ msgstr "Snabbmeddelanden (Jabber)"
+
+#~ msgid "Mail server"
+#~ msgstr "E-postserver"
+
+#~ msgid "Mail filter module"
+#~ msgstr "Modul för e-postfilter"
+
+#~ msgid "Object management"
+#~ msgstr "Objekthantering"
+
+#~ msgid "OpenVPN server"
+#~ msgstr "OpenVPN-server"
+
+#~ msgid "Printer sharing"
+#~ msgstr "Skrivardelning"
+
+#~ msgid "File sharing"
+#~ msgstr "Fildelning"
+
+#, fuzzy
+#~ msgid "Services  management"
+#~ msgstr "Hantering av programvara"
+
+#~ msgid "Traffic shaper for eBox"
+#~ msgstr "Trafikbegränsning för eBox"
+
+#~ msgid "User and Group management"
+#~ msgstr "Hantering av användare och grupper"

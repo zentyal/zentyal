@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.11\n"
+"Project-Id-Version: ebox-squid 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2007-08-19 14:56+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -84,7 +84,7 @@ msgstr "Speicher für Inhaltsfilter"
 msgid "Content filter threshold changed"
 msgstr "Speicher für Inhaltsfilter geändert"
 
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103 src/EBox/Squid.pm.in:701
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103 src/EBox/Squid.pm.in:768
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -149,7 +149,7 @@ msgid "MIME Type"
 msgstr "MIME-Typ"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
-#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:706
+#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:773
 msgid "Allow"
 msgstr "Erlauben"
 
@@ -286,7 +286,7 @@ msgstr "Dateiendung entfernt"
 msgid "Extension updated"
 msgstr "Dateiendung aktualisiert"
 
-#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:741
+#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:808
 msgid "Filter settings"
 msgstr "Filter-Einstellungen"
 
@@ -298,7 +298,7 @@ msgstr "Nach MIME-Typ filtern"
 msgid "Domains filtering"
 msgstr "Domänen-Filter"
 
-#: src/EBox/Squid/Composite/General.pm:76 src/EBox/Squid.pm.in:679
+#: src/EBox/Squid/Composite/General.pm:75 src/EBox/Squid.pm.in:746
 msgid "HTTP Proxy"
 msgstr "HTTP-Proxy"
 
@@ -310,7 +310,7 @@ msgstr "Dateiendungen filtern"
 msgid "Always allow"
 msgstr "Immer erlauben"
 
-#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:710
+#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:777
 msgid "Filter"
 msgstr "Filter"
 
@@ -322,90 +322,89 @@ msgstr "Immer verbieten"
 msgid "Squid's policy"
 msgstr "Vorgehen für Squid"
 
-#: src/EBox/Squid.pm.in:88
-msgid "HTTP Proxy service status"
-msgstr "Status des HTTP-Proxy-Dienstes"
-
-#: src/EBox/Squid.pm.in:203
+#: src/EBox/Squid.pm.in:276
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
 "Sie müssen die Variable cache_mem in der eBox-Konfigurationsdatei setzen"
 
-#: src/EBox/Squid.pm.in:693
+#: src/EBox/Squid.pm.in:760
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/EBox/Squid.pm.in:699
+#: src/EBox/Squid.pm.in:766
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/EBox/Squid.pm.in:703
+#: src/EBox/Squid.pm.in:770
 msgid "Transparent proxy"
 msgstr "Transparenter Proxy"
 
-#: src/EBox/Squid.pm.in:708
+#: src/EBox/Squid.pm.in:775
 msgid "Deny"
 msgstr "Verweigern"
 
-#: src/EBox/Squid.pm.in:713
+#: src/EBox/Squid.pm.in:780
 msgid "Global policy"
 msgstr "Allgemeines Vorgehen"
 
-#: src/EBox/Squid.pm.in:715
+#: src/EBox/Squid.pm.in:782
 msgid "Listening port"
 msgstr "Port"
 
-#: src/EBox/Squid.pm.in:731 src/EBox/Squid.pm.in:764
+#: src/EBox/Squid.pm.in:798 src/EBox/Squid.pm.in:831
 msgid "HTTP proxy"
 msgstr "HTTP-Proxy"
 
-#: src/EBox/Squid.pm.in:734
+#: src/EBox/Squid.pm.in:801
 msgid "General"
 msgstr "Allgemein"
 
-#: src/EBox/Squid.pm.in:738
+#: src/EBox/Squid.pm.in:805
 msgid "Objects' Policy"
 msgstr "Vorgehen für Computergruppe"
 
-#: src/EBox/Squid.pm.in:750
+#: src/EBox/Squid.pm.in:817
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Squid.pm.in:751
+#: src/EBox/Squid.pm.in:818
 msgid "Host"
 msgstr "Computer"
 
-#: src/EBox/Squid.pm.in:752
+#: src/EBox/Squid.pm.in:819
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm.in:753
+#: src/EBox/Squid.pm.in:820
 msgid "Bytes"
 msgstr "Bytes"
 
-#: src/EBox/Squid.pm.in:754
+#: src/EBox/Squid.pm.in:821
 msgid "Mime/type"
 msgstr "MIME/type"
 
-#: src/EBox/Squid.pm.in:755
+#: src/EBox/Squid.pm.in:822
 msgid "Event"
 msgstr "Ereignis"
 
-#: src/EBox/Squid.pm.in:760
+#: src/EBox/Squid.pm.in:827
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: src/EBox/Squid.pm.in:761
+#: src/EBox/Squid.pm.in:828
 msgid "Denied"
 msgstr "Verweigert"
 
-#: src/EBox/Squid.pm.in:762
+#: src/EBox/Squid.pm.in:829
 msgid "Filtered"
 msgstr "Gefiltert"
 
-#: src/EBox/Squid.pm.in:805
+#: src/EBox/Squid.pm.in:859
 msgid "HTTP Proxy's cache files"
 msgstr "Speicherdateien des HTTP-Proxy-Dienstes"
+
+#~ msgid "HTTP Proxy service status"
+#~ msgstr "Status des HTTP-Proxy-Dienstes"
 
 #~ msgid "module status"
 #~ msgstr "Status"

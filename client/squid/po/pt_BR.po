@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.11\n"
+"Project-Id-Version: ebox-squid 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2006-10-19 00:21-0200\n"
 "Last-Translator: junior\n"
 "Language-Team: <en@li.org>\n"
@@ -81,7 +81,7 @@ msgstr "Ponto inicial do filtro de conteúdo"
 msgid "Content filter threshold changed"
 msgstr "Ponto inicial do filtro de conteúdo"
 
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103 src/EBox/Squid.pm.in:701
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103 src/EBox/Squid.pm.in:768
 msgid "Disabled"
 msgstr "Desabilitado"
 
@@ -151,7 +151,7 @@ msgid "MIME Type"
 msgstr ""
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
-#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:706
+#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:773
 msgid "Allow"
 msgstr "Aceitar"
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Extension updated"
 msgstr ""
 
-#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:741
+#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:808
 #, fuzzy
 msgid "Filter settings"
 msgstr "Configurações Globais"
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Domains filtering"
 msgstr ""
 
-#: src/EBox/Squid/Composite/General.pm:76 src/EBox/Squid.pm.in:679
+#: src/EBox/Squid/Composite/General.pm:75 src/EBox/Squid.pm.in:746
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
 
@@ -310,7 +310,7 @@ msgstr ""
 msgid "Always allow"
 msgstr "Aceitar"
 
-#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:710
+#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:777
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -322,91 +322,90 @@ msgstr ""
 msgid "Squid's policy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:88
-msgid "HTTP Proxy service status"
-msgstr "Status do serviço de Proxy"
-
-#: src/EBox/Squid.pm.in:203
+#: src/EBox/Squid.pm.in:276
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Você precisa setar a variável cache_mem no arquivo de configuração"
 
-#: src/EBox/Squid.pm.in:693
+#: src/EBox/Squid.pm.in:760
 msgid "Proxy"
 msgstr "proxy"
 
-#: src/EBox/Squid.pm.in:699
+#: src/EBox/Squid.pm.in:766
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/EBox/Squid.pm.in:703
+#: src/EBox/Squid.pm.in:770
 msgid "Transparent proxy"
 msgstr "Proxy transparente"
 
-#: src/EBox/Squid.pm.in:708
+#: src/EBox/Squid.pm.in:775
 msgid "Deny"
 msgstr "Negar"
 
-#: src/EBox/Squid.pm.in:713
+#: src/EBox/Squid.pm.in:780
 msgid "Global policy"
 msgstr "Política Global"
 
-#: src/EBox/Squid.pm.in:715
+#: src/EBox/Squid.pm.in:782
 msgid "Listening port"
 msgstr "Portas escutando"
 
-#: src/EBox/Squid.pm.in:731 src/EBox/Squid.pm.in:764
+#: src/EBox/Squid.pm.in:798 src/EBox/Squid.pm.in:831
 msgid "HTTP proxy"
 msgstr "Proxy HTTP"
 
-#: src/EBox/Squid.pm.in:734
+#: src/EBox/Squid.pm.in:801
 msgid "General"
 msgstr "Geral"
 
-#: src/EBox/Squid.pm.in:738
+#: src/EBox/Squid.pm.in:805
 msgid "Objects' Policy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:750
+#: src/EBox/Squid.pm.in:817
 #, fuzzy
 msgid "Date"
 msgstr "Deletar"
 
-#: src/EBox/Squid.pm.in:751
+#: src/EBox/Squid.pm.in:818
 msgid "Host"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:752
+#: src/EBox/Squid.pm.in:819
 msgid "URL"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:753
+#: src/EBox/Squid.pm.in:820
 msgid "Bytes"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:754
+#: src/EBox/Squid.pm.in:821
 msgid "Mime/type"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:755
+#: src/EBox/Squid.pm.in:822
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:760
+#: src/EBox/Squid.pm.in:827
 msgid "Accepted"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:761
+#: src/EBox/Squid.pm.in:828
 msgid "Denied"
 msgstr "Negado"
 
-#: src/EBox/Squid.pm.in:762
+#: src/EBox/Squid.pm.in:829
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: src/EBox/Squid.pm.in:805
+#: src/EBox/Squid.pm.in:859
 #, fuzzy
 msgid "HTTP Proxy's cache files"
 msgstr "Status do serviço de Proxy"
+
+#~ msgid "HTTP Proxy service status"
+#~ msgstr "Status do serviço de Proxy"
 
 #~ msgid "module status"
 #~ msgstr "Status do Módulo"

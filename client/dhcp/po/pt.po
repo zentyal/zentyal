@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11\n"
+"Project-Id-Version: ebox-dhcp 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-06-06 09:37+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,173 +25,180 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "interface {iface}"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "Intervalo não válido {from} - {to} "
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "Intervalo {from} - {to} não pertence à rede {net}"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "Intervalo {from}-{to} inclui interface com o endereço IP: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
+"Intervalo {newFrom}-{newTo} subrepõem-se ao intervalo '{range}': {oldFrom}-"
+"{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:180
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
+msgstr "Intervalo {from}-{to} inclui endereço fixo '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "Até"
 
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "Intervalos"
 
 #: src/EBox/Model/RangeTable.pm:238
 msgid "range"
-msgstr ""
+msgstr "intervalo"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "Endereço IP do interface"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "Sub-rede"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "Intervalo disponível"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "Intervalos DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "O tempo de aluguer por defeito deve ser maior que zero segundos"
 
-#: src/EBox/Model/LeaseTimes.pm:138
+#: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
+"O tempo de aluguer por defeito {default} deve ser menor que o máximo {max}"
 
-#: src/EBox/Model/LeaseTimes.pm:149
+#: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "O tempo de aluguer máximo deve ser maior que zero segundos"
 
-#: src/EBox/Model/LeaseTimes.pm:154
+#: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"O tempo de aluguer máximo {max} deve ser maior que o valor por defeito "
+"{default} "
 
-#: src/EBox/Model/LeaseTimes.pm:197
+#: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
-msgstr ""
+msgstr "Tempo de aluguer por defeito"
 
-#: src/EBox/Model/LeaseTimes.pm:200 src/EBox/Model/LeaseTimes.pm:208
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:212
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
-#: src/EBox/Model/LeaseTimes.pm:205
+#: src/EBox/Model/LeaseTimes.pm:209
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Tempo de aluguer máximo"
 
-#: src/EBox/Model/LeaseTimes.pm:215
+#: src/EBox/Model/LeaseTimes.pm:219
 msgid "Lease times"
-msgstr ""
+msgstr "Tempos de aluguer"
 
-#: src/EBox/Model/LeaseTimes.pm:220
+#: src/EBox/Model/LeaseTimes.pm:224
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
+"Tempo de aluguer é o tempo que o servidor DHCP atribui a um  endereço IP"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway} não consta da rede actual"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
 msgstr ""
+"Serviço DNS deve ser activado como nameserver primário no servidor DNS eBox"
 
 #: src/EBox/Model/Options.pm:302 src/EBox/Model/Options.pm:330
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: src/EBox/Model/Options.pm:310
 msgid "eBox's domain"
-msgstr ""
+msgstr "Domínio eBox"
 
 #: src/EBox/Model/Options.pm:318
 msgid "local eBox DNS"
-msgstr ""
+msgstr "DNS local eBox"
 
 #: src/EBox/Model/Options.pm:325 src/EBox/Model/Options.pm:337
-#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:219
+#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: src/EBox/Model/Options.pm:344 src/templates/options.mas:18
 msgid "Default gateway"
-msgstr ""
+msgstr "Gateway predefinido"
 
-#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:222
+#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/Options.pm:354
 msgid "Custom IP address"
-msgstr ""
+msgstr "Endereços IP personalizados"
 
 #: src/EBox/Model/Options.pm:364
 msgid "Configured ones"
-msgstr ""
+msgstr "Configurados"
 
 #: src/EBox/Model/Options.pm:373 src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "Procurar domínio"
 
 #: src/EBox/Model/Options.pm:379 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "Nameserver primário"
 
 #: src/EBox/Model/Options.pm:385 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "Nameserver secundário"
 
-#: src/EBox/Model/Options.pm:394
+#: src/EBox/Model/Options.pm:393
 msgid "Common options"
-msgstr ""
+msgstr "Opções comuns"
 
-#: src/EBox/Model/Options.pm:399
+#: src/EBox/Model/Options.pm:398
 msgid ""
 "Setting \"eBox\" as default gateway will set as default gateway the "
 "interface address. If you set a \"name\", you may choose one the configured "
@@ -237,12 +244,12 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr ""
 
 #: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
+#: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr ""
@@ -255,36 +262,36 @@ msgstr ""
 msgid "fixed address"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:136
+#: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
 "In order to upload firmware to boot PCs to eBox, you need to set eBox as "
 "next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:192
+#: src/EBox/Model/ThinClientOptions.pm:190
 #, perl-brace-format
 msgid ""
-"Unlinked previous uploaded firmware since next server optionhas been changed "
-"from eBox to {option}"
+"Unlinked previous uploaded firmware since next server option has been "
+"changed from eBox to {option}"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:215
+#: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:229
+#: src/EBox/Model/ThinClientOptions.pm:227
 msgid "name"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:235
+#: src/EBox/Model/ThinClientOptions.pm:233
 msgid "File name"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:246
+#: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:251
+#: src/EBox/Model/ThinClientOptions.pm:249
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -293,10 +300,10 @@ msgstr ""
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:494
-#: src/EBox/DHCP.pm:530 src/EBox/DHCP.pm:580 src/EBox/DHCP.pm:678
-#: src/EBox/DHCP.pm:732 src/EBox/DHCP.pm:781 src/EBox/DHCP.pm:837
-#: src/EBox/DHCP.pm:1204
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
+#: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
+#: src/EBox/DHCP.pm:1209
 msgid "Interface"
 msgstr ""
 
@@ -340,32 +347,21 @@ msgid ""
 "least a range or a fixed address."
 msgstr ""
 
-#: src/EBox/DHCP.pm:96
-msgid "DHCP service status"
-msgstr ""
-
-#: src/EBox/DHCP.pm:380
-#, perl-brace-format
-msgid ""
-"DHCP server cannot activated because there are not any network interface "
-"with a static address. {openhref}Configure one{closehref} first"
-msgstr ""
-
-#: src/EBox/DHCP.pm:500 src/EBox/DHCP.pm:536 src/EBox/DHCP.pm:586
-#: src/EBox/DHCP.pm:684 src/EBox/DHCP.pm:787 src/EBox/DHCP.pm:843
+#: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr ""
 
-#: src/EBox/DHCP.pm:670
+#: src/EBox/DHCP.pm:673
 msgid "Not a valid action: add, set and del are available"
 msgstr ""
 
-#: src/EBox/DHCP.pm:773
+#: src/EBox/DHCP.pm:778
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 
-#: src/EBox/DHCP.pm:991
+#: src/EBox/DHCP.pm:996
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -373,7 +369,7 @@ msgid ""
 "it before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:1009
+#: src/EBox/DHCP.pm:1014
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -381,36 +377,36 @@ msgid ""
 "remove it before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:1203
+#: src/EBox/DHCP.pm:1208
 msgid "Date"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1206
+#: src/EBox/DHCP.pm:1211
 msgid "IP"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1207
+#: src/EBox/DHCP.pm:1212
 msgid "Event"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1210
+#: src/EBox/DHCP.pm:1215
 msgid "Leased"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1210
+#: src/EBox/DHCP.pm:1215
 msgid "Released"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1213
+#: src/EBox/DHCP.pm:1218
 msgid "DHCP"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1474 src/EBox/DHCP.pm:1483
-msgid "Dynamic Host Configuration Protocol"
+#: migration/0002_add_services.pl:117
+msgid "Trivial File Transfer Protocol"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1504 src/EBox/DHCP.pm:1513
-msgid "Trivial File Transfer Protocol"
+#: migration/0002_add_services.pl:126
+msgid "Dynamic Host Configuration Protocol"
 msgstr ""
 
 #: src/templates/options.mas:8

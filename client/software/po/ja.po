@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.99"
+"Project-Id-Version: ebox-software 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,233 +18,326 @@ msgstr ""
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "自動ソフトウェアアップデート"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:382
+#: src/EBox/Software.pm:456
 msgid "System updates"
-msgstr ""
+msgstr "システムアップデート"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "ソフトウェアアップデートは自動で適用されます"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "システムは最新の状態です"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "自動アップデート設定"
 
-#: src/EBox/CGI/InstallPkgs.pm:76
+#: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "アップデートするパッケージはありませんでした"
 
-#: src/EBox/CGI/InstallPkgs.pm:93
-msgid "The packages were removed successfully"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "アップグレードしています"
 
-#: src/EBox/CGI/InstallPkgs.pm:119
+#: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "パッケージをアップグレードしています"
 
-#: src/EBox/CGI/InstallPkgs.pm:120
+#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "現在のパッケージ"
 
-#: src/EBox/CGI/InstallPkgs.pm:121
+#: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "残りのインストールパッケージ"
 
-#: src/EBox/CGI/InstallPkgs.pm:122
-msgid "The packages installation has finished successfully"
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
 msgstr ""
+"パッケージのインストールが完了しました。数秒の間、管理インタフェースが応答し"
+"ないかもしれません。システムが再起動するまでお待ちください"
 
-#: src/EBox/CGI/InstallPkgs.pm:123
+#: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"パッケージのインストールは正常に終了しませんでした。詳細はログを見てください"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
-msgid "eBox components"
+#: src/EBox/CGI/InstallPkgs.pm:165
+msgid "Removing package"
 msgstr ""
 
-#: src/EBox/Software.pm:164
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
-"An error ocurred while removing components. If the error persists or eBox "
-"stops working properly, seek technical support."
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
 msgstr ""
 
-#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/CGI/InstallPkgs.pm:173
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
+msgid "eBox components"
+msgstr "eBoxコンポーネント"
+
+#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
-msgstr ""
+msgstr "ソフトウェアの管理"
 
-#: src/EBox/Software.pm:384
+#: src/EBox/Software.pm:458
 msgid "Automatic updates"
-msgstr ""
+msgstr "自動アップデート"
 
-#: src/EBox/Software.pm:475
+#: src/EBox/Software.pm:549
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"ソフトウェア管理は現在 {locker} によってロックされています。ロックが解除され"
+"てから試行してください"
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "Certificate Authority Manager for eBox"
+msgid "ebox - Certificate Authority Manager for eBox"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:2
-msgid "DHCP server"
+msgid "eBox - DHCP server module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "eBox DNS server"
+msgid "eBox - DNS server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:4
-msgid "Base framework"
+msgid "the eBox platform - Base framework"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:5
-msgid "Firewall"
+msgid "eBox - Firewall"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPN"
 
 #: src/EBox/PackageDescriptions.pm:7
-msgid "Instant messaging (Jabber)"
+msgid "ebox - Instant messaging (Jabber)"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:8
-msgid "Mail server"
+msgid "eBox - Mail server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Mail filter module"
+msgid "ebox - Mail filter module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "Network configuration"
-msgstr ""
+msgstr "ネットワーク設定"
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "NTP server"
+msgid "ebox NTP server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "Object management"
+msgid "eBox - Object management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "OpenVPN server"
+msgid "eBox - OpenVPN server module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "Printer sharing"
+msgid "eBox - Printer sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "File sharing"
+msgid "ebox - File sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:16
-msgid "Services  management"
+msgid "eBox - Services management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "eBoxコントロールセンターと接続するSOAPサーバ"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "Proxy cache and content filter"
-msgstr ""
+msgstr "プロキシキャッシュとコンテンツフィルタ"
 
 #: src/EBox/PackageDescriptions.pm:20
-msgid "Traffic shaper for eBox"
+msgid "eBox - Traffic shaper for eBox"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:21
-msgid "User and Group management"
+msgid "eBox - User and Group management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "Web Server"
+msgstr "Webサーバ"
+
+#: migration/0001_add_http_software_rule.pl:23
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:25
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:43
+msgid "rule to allow apt updates"
 msgstr ""
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "次のパッケージがインストールされます"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "次のパッケージが削除されます"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "はい"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "次のシステムコンポーネントのアップデートが利用可能です"
 
 #: src/templates/updates.mas:15 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "コンポーネント"
 
 #: src/templates/updates.mas:16
 msgid "Description"
-msgstr ""
+msgstr "内容"
 
 #: src/templates/updates.mas:17 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "アップデート"
 
 #: src/templates/updates.mas:33 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "全てアップデート"
 
 #: src/templates/updates.mas:44
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
-msgstr ""
+msgstr "この処理はしばらく時間がかかるかもしれません。"
 
 #: src/templates/updates.mas:47
 msgid "Upgrade"
-msgstr ""
+msgstr "アップグレード"
 
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "インストール済みバージョン"
 
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "最新バージョン"
 
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "アクション"
 
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "インストール"
 
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "なし"
 
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "削除"
+
+#~ msgid "The packages were removed successfully"
+#~ msgstr "パッケージは削除されました"
+
+#~ msgid ""
+#~ "An error ocurred while removing components. If the error persists or eBox "
+#~ "stops working properly, seek technical support."
+#~ msgstr ""
+#~ "コンポーネントの削除中にエラーが発生しました。エラーが続いたりeBoxが正しく"
+#~ "動作していないようでしたらテクニカルサポートに問い合わせてください。"
+
+#~ msgid "Certificate Authority Manager for eBox"
+#~ msgstr "eBox認証局マネージャ"
+
+#~ msgid "DHCP server"
+#~ msgstr "DHCPサーバ"
+
+#~ msgid "eBox DNS server"
+#~ msgstr "eBox DNSサーバ"
+
+#~ msgid "Base framework"
+#~ msgstr "ベースフレームワーク"
+
+#~ msgid "Firewall"
+#~ msgstr "ファイアウォール"
+
+#~ msgid "Instant messaging (Jabber)"
+#~ msgstr "インスタントメッセージング (Jabber)"
+
+#~ msgid "Mail server"
+#~ msgstr "メールサーバ"
+
+#~ msgid "Mail filter module"
+#~ msgstr "メールフィルタモジュール"
+
+#~ msgid "NTP server"
+#~ msgstr "NTPサーバ"
+
+#~ msgid "Object management"
+#~ msgstr "オブジェクト管理"
+
+#~ msgid "OpenVPN server"
+#~ msgstr "OpenVPNサーバ"
+
+#~ msgid "Printer sharing"
+#~ msgstr "プリンタ共有"
+
+#~ msgid "File sharing"
+#~ msgstr "ファイル共有"
+
+#~ msgid "Services  management"
+#~ msgstr "サービス管理"
+
+#~ msgid "Traffic shaper for eBox"
+#~ msgstr "eBoxトラフィック整形"
+
+#~ msgid "User and Group management"
+#~ msgstr "ユーザとグループの管理"

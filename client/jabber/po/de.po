@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.11\n"
+"Project-Id-Version: ebox-jabber 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-03-01 18:58+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 msgid "module status"
 msgstr "Status des Moduls"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
 msgstr "Domäne"
 
@@ -28,11 +28,23 @@ msgstr "Domäne"
 msgid "username"
 msgstr "Benutzername"
 
-#: src/EBox/Jabber.pm:197
-msgid "listening port"
-msgstr "Hört auf Port"
+#: src/EBox/Jabber.pm:71
+msgid "Copy jabber ldap schema to /etc/ldap/schemas"
+msgstr ""
 
-#: src/EBox/Jabber.pm:309
+#: src/EBox/Jabber.pm:72
+msgid "eBox will need this schema to store jabber users"
+msgstr ""
+
+#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+msgid "To properly configure jabberd2"
+msgstr ""
+
+#: src/EBox/Jabber.pm:98
+msgid "To add the LDAP schemas used by eBox jabber"
+msgstr ""
+
+#: src/EBox/Jabber.pm:356
 msgid "Jabber Service"
 msgstr "Jabber-Dienst"
 
@@ -64,11 +76,11 @@ msgstr "Administrationsrechte"
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/index.mas:17
+#: src/templates/index.mas:16
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/templates/index.mas:19
+#: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -77,34 +89,34 @@ msgstr ""
 "nicht verwenden. Das gilt sowohl für interne, als auch für externe "
 "Verbindungen"
 
-#: src/templates/index.mas:25
+#: src/templates/index.mas:24
 msgid "Domain name"
 msgstr "Name der Domäne"
 
-#: src/templates/index.mas:33
+#: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
 msgstr "Mit dem globalen Jabber-Netzwerk verbinden"
 
-#: src/templates/index.mas:45
+#: src/templates/index.mas:44
 msgid "SSL Support"
 msgstr "SSL-Unterstützung"
 
-#: src/templates/index.mas:50 src/templates/index.mas:54
-#: src/templates/index.mas:58
+#: src/templates/index.mas:49 src/templates/index.mas:53
+#: src/templates/index.mas:57
 msgid "No"
 msgstr "Nein"
 
-#: src/templates/index.mas:51 src/templates/index.mas:55
-#: src/templates/index.mas:59
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "Optional"
 msgstr "Optional"
 
-#: src/templates/index.mas:52 src/templates/index.mas:56
-#: src/templates/index.mas:60
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Required"
 msgstr "Notwendig"
 
-#: src/templates/index.mas:69 src/templates/index.mas:70
+#: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
 msgstr "Änderungen anwenden"
 
@@ -113,6 +125,9 @@ msgid "Enter a username and password to register with this server."
 msgstr ""
 "Geben Sie einen Benutzernamen und ein Passwort ein, um sich mit diesem "
 "Server zu verbinden"
+
+#~ msgid "listening port"
+#~ msgstr "Hört auf Port"
 
 #~ msgid "Jabber Service status"
 #~ msgstr "Status des Jabber-Dienstes"

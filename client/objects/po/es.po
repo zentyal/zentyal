@@ -8,9 +8,9 @@
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.11\n"
+"Project-Id-Version: ebox-objects 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-02-02 09:48+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -26,39 +26,36 @@ msgstr "Nombre"
 
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
-msgstr ""
+msgstr "Miembros"
 
-#: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
+#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/ObjectTable.pm:88
 #: src/EBox/Model/MemberTable.pm:93 src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Objetos"
 
-#: src/EBox/Model/ObjectTable.pm:90
-#, fuzzy
+#: src/EBox/Model/ObjectTable.pm:89
 msgid "object"
-msgstr "Objeto"
+msgstr "objeto"
 
-#: src/EBox/Model/ObjectTable.pm:131
+#: src/EBox/Model/ObjectTable.pm:111
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Este objeto está siendo usado por otro módulo"
 
 #: src/EBox/Model/MemberTable.pm:70
-#, fuzzy
 msgid "IP Address"
 msgstr "Dirección IP"
 
 #: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
 msgid "MAC Address"
-msgstr "Dirección IP"
+msgstr "Dirección MAC"
 
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
-msgstr ""
+msgstr "miembro"
 
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Sólo puedes usar direcciones MAC con máquinas"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 #: src/EBox/Model/MemberTable.pm:124

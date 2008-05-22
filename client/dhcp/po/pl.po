@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11\n"
+"Project-Id-Version: ebox-dhcp 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-04-05 20:45+0000\n"
 "Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
@@ -105,39 +105,39 @@ msgstr "zakresy DHCP"
 msgid "Default leased time must be higher than 0 seconds"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:138
+#: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:149
+#: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:154
+#: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:197
+#: src/EBox/Model/LeaseTimes.pm:201
 #, fuzzy
 msgid "Default leased time"
 msgstr "Brama domyślna"
 
-#: src/EBox/Model/LeaseTimes.pm:200 src/EBox/Model/LeaseTimes.pm:208
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:212
 msgid "seconds"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:205
+#: src/EBox/Model/LeaseTimes.pm:209
 msgid "Maximum leased time"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:215
+#: src/EBox/Model/LeaseTimes.pm:219
 #, fuzzy
 msgid "Lease times"
 msgstr "Brama domyślna"
 
-#: src/EBox/Model/LeaseTimes.pm:220
+#: src/EBox/Model/LeaseTimes.pm:224
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
@@ -166,7 +166,7 @@ msgid "local eBox DNS"
 msgstr ""
 
 #: src/EBox/Model/Options.pm:325 src/EBox/Model/Options.pm:337
-#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:219
+#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Default gateway"
 msgstr "Brama domyślna"
 
-#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:222
+#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
 msgstr ""
 
@@ -199,11 +199,11 @@ msgstr "Główny serwer nazw"
 msgid "Secondary nameserver"
 msgstr "Pomocniczy serwer nazw"
 
-#: src/EBox/Model/Options.pm:394
+#: src/EBox/Model/Options.pm:393
 msgid "Common options"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:399
+#: src/EBox/Model/Options.pm:398
 msgid ""
 "Setting \"eBox\" as default gateway will set as default gateway the "
 "interface address. If you set a \"name\", you may choose one the configured "
@@ -251,12 +251,12 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "adres MAC"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
+#: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "adres IP"
@@ -270,37 +270,37 @@ msgstr "Statyczny adres"
 msgid "fixed address"
 msgstr "Statyczny adres"
 
-#: src/EBox/Model/ThinClientOptions.pm:136
+#: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
 "In order to upload firmware to boot PCs to eBox, you need to set eBox as "
 "next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:192
+#: src/EBox/Model/ThinClientOptions.pm:190
 #, perl-brace-format
 msgid ""
-"Unlinked previous uploaded firmware since next server optionhas been changed "
-"from eBox to {option}"
+"Unlinked previous uploaded firmware since next server option has been "
+"changed from eBox to {option}"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:215
+#: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:229
+#: src/EBox/Model/ThinClientOptions.pm:227
 #, fuzzy
 msgid "name"
 msgstr "Nazwa"
 
-#: src/EBox/Model/ThinClientOptions.pm:235
+#: src/EBox/Model/ThinClientOptions.pm:233
 msgid "File name"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:246
+#: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:251
+#: src/EBox/Model/ThinClientOptions.pm:249
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -309,10 +309,10 @@ msgstr ""
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:494
-#: src/EBox/DHCP.pm:530 src/EBox/DHCP.pm:580 src/EBox/DHCP.pm:678
-#: src/EBox/DHCP.pm:732 src/EBox/DHCP.pm:781 src/EBox/DHCP.pm:837
-#: src/EBox/DHCP.pm:1204
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
+#: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
+#: src/EBox/DHCP.pm:1209
 msgid "Interface"
 msgstr "Interfejs"
 
@@ -357,36 +357,21 @@ msgid ""
 "least a range or a fixed address."
 msgstr ""
 
-#: src/EBox/DHCP.pm:96
-#, fuzzy
-msgid "DHCP service status"
-msgstr "Stan serwera DHCP"
-
-#: src/EBox/DHCP.pm:380
-#, fuzzy, perl-brace-format
-msgid ""
-"DHCP server cannot activated because there are not any network interface "
-"with a static address. {openhref}Configure one{closehref} first"
-msgstr ""
-"Serwer DHCP nie mógł zostać aktywowany ponieważ nie został wykryty interfejs "
-"z statycznie ustawionym adresem.<a href='Network/Ifaces'>Skonfiguruj</a> "
-"najpierw"
-
-#: src/EBox/DHCP.pm:500 src/EBox/DHCP.pm:536 src/EBox/DHCP.pm:586
-#: src/EBox/DHCP.pm:684 src/EBox/DHCP.pm:787 src/EBox/DHCP.pm:843
+#: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} nie ma ustawionego adresu statycznego"
 
-#: src/EBox/DHCP.pm:670
+#: src/EBox/DHCP.pm:673
 msgid "Not a valid action: add, set and del are available"
 msgstr ""
 
-#: src/EBox/DHCP.pm:773
+#: src/EBox/DHCP.pm:778
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 
-#: src/EBox/DHCP.pm:991
+#: src/EBox/DHCP.pm:996
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -398,7 +383,7 @@ msgstr ""
 "zakresie '{range}'. Przed ponowną próbą dodania interfejsu wirtualnego usuń "
 "interfejs '{iface}'"
 
-#: src/EBox/DHCP.pm:1009
+#: src/EBox/DHCP.pm:1014
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -409,36 +394,36 @@ msgstr ""
 "wykorzystywanym przez serwer DHCP adresem: '{fixed}' uruchomionym na porcie: "
 "'{iface}'. Usuń adres przed próba kontynuacji."
 
-#: src/EBox/DHCP.pm:1203
+#: src/EBox/DHCP.pm:1208
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/DHCP.pm:1206
+#: src/EBox/DHCP.pm:1211
 msgid "IP"
 msgstr "Adres IP"
 
-#: src/EBox/DHCP.pm:1207
+#: src/EBox/DHCP.pm:1212
 msgid "Event"
 msgstr "Zdarzenie"
 
-#: src/EBox/DHCP.pm:1210
+#: src/EBox/DHCP.pm:1215
 msgid "Leased"
 msgstr "Liście"
 
-#: src/EBox/DHCP.pm:1210
+#: src/EBox/DHCP.pm:1215
 msgid "Released"
 msgstr "Zwolnione"
 
-#: src/EBox/DHCP.pm:1213
+#: src/EBox/DHCP.pm:1218
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/DHCP.pm:1474 src/EBox/DHCP.pm:1483
-msgid "Dynamic Host Configuration Protocol"
+#: migration/0002_add_services.pl:117
+msgid "Trivial File Transfer Protocol"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1504 src/EBox/DHCP.pm:1513
-msgid "Trivial File Transfer Protocol"
+#: migration/0002_add_services.pl:126
+msgid "Dynamic Host Configuration Protocol"
 msgstr ""
 
 #: src/templates/options.mas:8
@@ -480,6 +465,19 @@ msgstr "Maska podsieci"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Usuń"
+
+#, fuzzy
+#~ msgid "DHCP service status"
+#~ msgstr "Stan serwera DHCP"
+
+#, fuzzy
+#~ msgid ""
+#~ "DHCP server cannot activated because there are not any network interface "
+#~ "with a static address. {openhref}Configure one{closehref} first"
+#~ msgstr ""
+#~ "Serwer DHCP nie mógł zostać aktywowany ponieważ nie został wykryty "
+#~ "interfejs z statycznie ustawionym adresem.<a href='Network/"
+#~ "Ifaces'>Skonfiguruj</a> najpierw"
 
 #~ msgid "Nameserver IP address"
 #~ msgstr "Nameserver IP adres"

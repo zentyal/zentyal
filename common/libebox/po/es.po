@@ -9,9 +9,9 @@
 # This file is distributed under the same license as the libebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11\n"
+"Project-Id-Version: libebox 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2007-05-16 13:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr "Dato vacío: {data}"
 msgid "Page not found"
 msgstr "La página no pudo encontrarse"
 
-#: src/EBox/CGI/Base.pm:189
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -53,7 +53,7 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
+#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -61,7 +61,7 @@ msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:341
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -69,7 +69,7 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:546
+#: src/EBox/CGI/Base.pm:566
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -77,19 +77,19 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:552
+#: src/EBox/CGI/Base.pm:572
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
-#: src/EBox/CGI/Base.pm:639
+#: src/EBox/CGI/Base.pm:659
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Su petición no pudo ser procesada debido a que contenia parametros "
 "incorrectos"
 
-#: src/EBox/CGI/Base.pm:654
+#: src/EBox/CGI/Base.pm:674
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -97,11 +97,11 @@ msgstr ""
 "Su petición no pudo ser procesada debido a que carece de algún parametro "
 "necesario"
 
-#: src/EBox/CGI/Base.pm:803
+#: src/EBox/CGI/Base.pm:823
 msgid "Invalid uploaded file."
 msgstr "Fichero subido inválido"
 
-#: src/EBox/CGI/Base.pm:809
+#: src/EBox/CGI/Base.pm:829
 msgid "Cannot create a temporally file for the upload"
 msgstr "No se pudo crear un fichero temporal para la subida"
 
@@ -120,7 +120,7 @@ msgstr "Interfaz"
 msgid "Could not open the config file {file}."
 msgstr "No se pudo abrir el fichero de configuración {file}"
 
-#: src/EBox/Config.pm.in:88
+#: src/EBox/Config.pm.in:102
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."

@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.11\n"
+"Project-Id-Version: ebox-usersandgroups 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:07+0200\n"
 "PO-Revision-Date: 2007-02-27 21:41+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -43,24 +43,24 @@ msgid "user"
 msgstr "usuario"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:653 src/EBox/UsersAndGroups.pm:658
-#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:890
-#: src/EBox/UsersAndGroups.pm:927 src/EBox/UsersAndGroups.pm:1001
-#: src/EBox/UsersAndGroups.pm:1107
+#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:760
+#: src/EBox/UsersAndGroups.pm:911 src/EBox/UsersAndGroups.pm:1038
+#: src/EBox/UsersAndGroups.pm:1075 src/EBox/UsersAndGroups.pm:1149
+#: src/EBox/UsersAndGroups.pm:1255
 msgid "group name"
 msgstr "nombre de grupo"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
+#: src/EBox/CGI/AddUser.pm:47
 msgid "comment"
 msgstr "comentario"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:261 src/EBox/UsersAndGroups.pm:267
-#: src/EBox/UsersAndGroups.pm:353 src/EBox/UsersAndGroups.pm:407
-#: src/EBox/UsersAndGroups.pm:438 src/EBox/UsersAndGroups.pm:727
-#: src/EBox/UsersAndGroups.pm:792 src/EBox/UsersAndGroups.pm:885
-#: src/EBox/UsersAndGroups.pm:922 src/EBox/UsersAndGroups.pm:959
+#: src/EBox/UsersAndGroups.pm:325 src/EBox/UsersAndGroups.pm:331
+#: src/EBox/UsersAndGroups.pm:459 src/EBox/UsersAndGroups.pm:513
+#: src/EBox/UsersAndGroups.pm:544 src/EBox/UsersAndGroups.pm:875
+#: src/EBox/UsersAndGroups.pm:940 src/EBox/UsersAndGroups.pm:1033
+#: src/EBox/UsersAndGroups.pm:1070 src/EBox/UsersAndGroups.pm:1107
 msgid "user name"
 msgstr "nombre d'usuario"
 
@@ -68,7 +68,7 @@ msgstr "nombre d'usuario"
 msgid "full name"
 msgstr "nombre completo"
 
-#: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
+#: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
 msgstr "parabra de paso"
 
@@ -76,20 +76,17 @@ msgstr "parabra de paso"
 msgid "confirm password"
 msgstr "confirmar parabra de paso"
 
-#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:61
+#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
 msgid "Passwords do not match."
 msgstr "As parabras de paso no coinziden"
-
-#: src/EBox/CGI/AddUser.pm:48
-msgid "retype password"
-msgstr "torne á escribir a parabra de paso"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
 msgstr "Editar grupo"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/UsersAndGroups/Model/Users.pm:74 src/EBox/UsersAndGroups.pm:1378
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:74
+#: src/EBox/UsersAndGroups.pm:1526
 msgid "Users"
 msgstr "Usuarios"
 
@@ -97,23 +94,23 @@ msgstr "Usuarios"
 msgid "username"
 msgstr "nombre d'usuario"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1386
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1534
 msgid "Groups"
 msgstr "Grupos"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:98
+#: src/EBox/UsersAndGroups/Model/Users.pm:129
 msgid "Name"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
-#: src/EBox/UsersAndGroups/Model/Users.pm:108 src/templates/users.mas:27
+#: src/EBox/UsersAndGroups/Model/Users.pm:139 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
 msgstr "Nombre completo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
-#: src/EBox/UsersAndGroups/Model/Users.pm:118
+#: src/EBox/UsersAndGroups/Model/Users.pm:149
 msgid "Edit"
 msgstr "Editar"
 
@@ -121,35 +118,90 @@ msgstr "Editar"
 msgid "foo"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:256
+#: src/EBox/UsersAndGroups/Model/Users.pm:112
+msgid ""
+"You must enable the module Users in the module status section in order to "
+"use it."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:56
+#, fuzzy
+msgid "users and groups"
+msgstr "Usuarios en o grupo"
+
+#: src/EBox/UsersAndGroups.pm:74
+msgid ""
+"Your current openLDAP database will be replaced and backuped in /var/backups/"
+"slapd"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:76
+msgid ""
+"eBox will initialize openLDAP to store its database. It will also overwrite "
+"your current configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:92
+msgid "To make openLDAP listen on TCP and Unix sockets"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:97
+msgid ""
+"To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
+"and ACLs used by  the LDAP based eBox modules"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:320
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "O nombre d'usuario no debe estar mayor de {maxuserlength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:276 src/EBox/UsersAndGroups.pm:667
+#: src/EBox/UsersAndGroups.pm:375 src/EBox/UsersAndGroups.pm:802
 msgid "Maximum number of system users reached"
 msgstr "Adubito lo masimo numero d'usuarios d'o sistema"
 
-#: src/EBox/UsersAndGroups.pm:641
+#: src/EBox/UsersAndGroups.pm:392
+#, perl-brace-format
+msgid ""
+"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:403
+#, perl-brace-format
+msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:743
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "O nombre de grupo no debe estar mayor de {maxGroupLength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:647
+#: src/EBox/UsersAndGroups.pm:749
 msgid "The group name is not valid because it is used internally"
 msgstr "O nombre de grupo no ye balito porque s'emplega internamén"
 
-#: src/EBox/UsersAndGroups.pm:1180
+#: src/EBox/UsersAndGroups.pm:819
+#, perl-brace-format
+msgid ""
+"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:829
+#, perl-brace-format
+msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:1328
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A parabra de paso no debe estar mayor que {maxPwdLength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:1380
+#: src/EBox/UsersAndGroups.pm:1528
 #, fuzzy
 msgid "Add user"
 msgstr "Adibir usuario"
 
-#: src/EBox/UsersAndGroups.pm:1383
+#: src/EBox/UsersAndGroups.pm:1531
 #, fuzzy
 msgid "Edit user"
 msgstr "Editar usuario"
@@ -316,6 +368,9 @@ msgstr "Editar grupo"
 #: src/templates/groups.mas:55
 msgid "Actions"
 msgstr "Aizions"
+
+#~ msgid "retype password"
+#~ msgstr "torne á escribir a parabra de paso"
 
 #~ msgid "Deleting user"
 #~ msgstr "Eliminar usuario"

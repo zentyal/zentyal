@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11\n"
+"Project-Id-Version: ebox-software 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgid "Automatic software updates"
 msgstr "Autualizazions automaticas de software"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:382
+#: src/EBox/Software.pm:456
 msgid "System updates"
 msgstr "Autualizazions d'o sistema"
 
@@ -37,87 +37,107 @@ msgstr "O sistema ye autualizato"
 msgid "automatic updates configuration"
 msgstr "confeguración d'as autualizazions automaticas"
 
-#: src/EBox/CGI/InstallPkgs.pm:76
+#: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "No bi ha paquez ta autualizar"
 
-#: src/EBox/CGI/InstallPkgs.pm:93
-msgid "The packages were removed successfully"
-msgstr "Os paquez s'han eliminato correutament"
-
-#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
 msgstr "Autualizando"
 
-#: src/EBox/CGI/InstallPkgs.pm:119
+#: src/EBox/CGI/InstallPkgs.pm:146
 #, fuzzy
 msgid "Upgrading packages"
 msgstr "Autualizando"
 
-#: src/EBox/CGI/InstallPkgs.pm:120
+#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
 msgstr "Paquet autual"
 
-#: src/EBox/CGI/InstallPkgs.pm:121
+#: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:122
-#, fuzzy
-msgid "The packages installation has finished successfully"
-msgstr "Os paquez s'han instalato correutament"
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
+msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:123
+#: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
+#: src/EBox/CGI/InstallPkgs.pm:165
+#, fuzzy
+msgid "Removing package"
+msgstr "Autualizando"
+
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:173
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
 msgid "eBox components"
 msgstr "Components eBox"
 
-#: src/EBox/Software.pm:164
-msgid ""
-"An error ocurred while removing components. If the error persists or eBox "
-"stops working properly, seek technical support."
-msgstr ""
-"S'ha produzito un error á lo instalar components. Si o error contina u eBox "
-"dixa de funzionar correutament demande soporte teunico."
-
-#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Chestión de software"
 
-#: src/EBox/Software.pm:384
+#: src/EBox/Software.pm:458
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Autualizazions automaticas de software"
 
-#: src/EBox/Software.pm:475
+#: src/EBox/Software.pm:549
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "Certificate Authority Manager for eBox"
+#, fuzzy
+msgid "ebox - Certificate Authority Manager for eBox"
 msgstr "Chestor d'autoridat zertificadora"
 
 #: src/EBox/PackageDescriptions.pm:2
-msgid "DHCP server"
-msgstr "Serbidor DHCP"
+#, fuzzy
+msgid "eBox - DHCP server module"
+msgstr "Serbidor DNS ta eBox"
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "eBox DNS server"
+#, fuzzy
+msgid "eBox - DNS server"
 msgstr "Serbidor DNS ta eBox"
 
 #: src/EBox/PackageDescriptions.pm:4
-msgid "Base framework"
-msgstr "Sistema base"
+msgid "the eBox platform - Base framework"
+msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:5
-msgid "Firewall"
+#, fuzzy
+msgid "eBox - Firewall"
 msgstr "Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
@@ -125,15 +145,18 @@ msgid "IPsec VPNs"
 msgstr "VPN IPSec"
 
 #: src/EBox/PackageDescriptions.pm:7
-msgid "Instant messaging (Jabber)"
+#, fuzzy
+msgid "ebox - Instant messaging (Jabber)"
 msgstr "Mensachería instantania (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
-msgid "Mail server"
+#, fuzzy
+msgid "eBox - Mail server"
 msgstr "Serbidor de Correu"
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Mail filter module"
+#, fuzzy
+msgid "ebox - Mail filter module"
 msgstr "Filtro d'o modulo de correu"
 
 #: src/EBox/PackageDescriptions.pm:10
@@ -141,28 +164,33 @@ msgid "Network configuration"
 msgstr "Confegurazión de rete"
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "NTP server"
-msgstr "Serbidor NTP"
+#, fuzzy
+msgid "ebox NTP server"
+msgstr "Serbidor DNS ta eBox"
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "Object management"
+#, fuzzy
+msgid "eBox - Object management"
 msgstr "Chestión d'ochetos"
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "OpenVPN server"
+#, fuzzy
+msgid "eBox - OpenVPN server module"
 msgstr "Serbidor OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "Printer sharing"
+#, fuzzy
+msgid "eBox - Printer sharing"
 msgstr "Compartizión d'imprentadoras"
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "File sharing"
+#, fuzzy
+msgid "ebox - File sharing"
 msgstr "Compartizión de fichers"
 
 #: src/EBox/PackageDescriptions.pm:16
 #, fuzzy
-msgid "Services  management"
+msgid "eBox - Services management"
 msgstr "Chestión de software"
 
 #: src/EBox/PackageDescriptions.pm:17
@@ -174,17 +202,32 @@ msgid "Proxy cache and content filter"
 msgstr "Cache HTTP e filtro de contenitos"
 
 #: src/EBox/PackageDescriptions.pm:20
-msgid "Traffic shaper for eBox"
+#, fuzzy
+msgid "eBox - Traffic shaper for eBox"
 msgstr "Moldiador de trafico ta eBox"
 
 #: src/EBox/PackageDescriptions.pm:21
-msgid "User and Group management"
+#, fuzzy
+msgid "eBox - User and Group management"
 msgstr "Chestión d'usuarios e grupos"
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
 msgid "Web Server"
 msgstr "Serbidor DNS ta eBox"
+
+#: migration/0001_add_http_software_rule.pl:23
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:25
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:43
+#, fuzzy
+msgid "rule to allow apt updates"
+msgstr "Autualizazions automaticas de software"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -259,6 +302,29 @@ msgstr "denguna"
 msgid "Remove"
 msgstr "Eliminar"
 
+#~ msgid "The packages were removed successfully"
+#~ msgstr "Os paquez s'han eliminato correutament"
+
+#, fuzzy
+#~ msgid "The packages installation has finished successfully"
+#~ msgstr "Os paquez s'han instalato correutament"
+
+#~ msgid ""
+#~ "An error ocurred while removing components. If the error persists or eBox "
+#~ "stops working properly, seek technical support."
+#~ msgstr ""
+#~ "S'ha produzito un error á lo instalar components. Si o error contina u "
+#~ "eBox dixa de funzionar correutament demande soporte teunico."
+
+#~ msgid "DHCP server"
+#~ msgstr "Serbidor DHCP"
+
+#~ msgid "Base framework"
+#~ msgstr "Sistema base"
+
+#~ msgid "NTP server"
+#~ msgstr "Serbidor NTP"
+
 #~ msgid "The installation of the packages has finished successfully"
 #~ msgstr "Os paquez s'han instalato correutament"
 
@@ -277,3 +343,43 @@ msgstr "Eliminar"
 
 #~ msgid "Perform automatic security updates"
 #~ msgstr "Instalar automaticament parches de seguridat"
+
+#~ msgid "Certificate Authority Manager for eBox"
+#~ msgstr "Chestor d'autoridat zertificadora"
+
+#~ msgid "eBox DNS server"
+#~ msgstr "Serbidor DNS ta eBox"
+
+#~ msgid "Firewall"
+#~ msgstr "Firewall"
+
+#~ msgid "Instant messaging (Jabber)"
+#~ msgstr "Mensachería instantania (Jabber)"
+
+#~ msgid "Mail server"
+#~ msgstr "Serbidor de Correu"
+
+#~ msgid "Mail filter module"
+#~ msgstr "Filtro d'o modulo de correu"
+
+#~ msgid "Object management"
+#~ msgstr "Chestión d'ochetos"
+
+#~ msgid "OpenVPN server"
+#~ msgstr "Serbidor OpenVPN"
+
+#~ msgid "Printer sharing"
+#~ msgstr "Compartizión d'imprentadoras"
+
+#~ msgid "File sharing"
+#~ msgstr "Compartizión de fichers"
+
+#, fuzzy
+#~ msgid "Services  management"
+#~ msgstr "Chestión de software"
+
+#~ msgid "Traffic shaper for eBox"
+#~ msgstr "Moldiador de trafico ta eBox"
+
+#~ msgid "User and Group management"
+#~ msgstr "Chestión d'usuarios e grupos"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11\n"
+"Project-Id-Version: ebox-network 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-07-24 12:12+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -27,13 +27,13 @@ msgstr "Protokol"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:684
-#: src/EBox/Network.pm:716 src/EBox/Network.pm:761 src/EBox/Network.pm:795
-#: src/EBox/Network.pm:820 src/EBox/Network.pm:896 src/EBox/Network.pm:1019
-#: src/EBox/Network.pm:1214 src/EBox/Network.pm:1274 src/EBox/Network.pm:1309
-#: src/EBox/Network.pm:1345 src/EBox/Network.pm:1378 src/EBox/Network.pm:2061
-#: src/EBox/Network.pm:2093 src/EBox/Network.pm:2166 src/EBox/Network.pm:2186
-#: src/EBox/Network.pm:2207 src/EBox/Network.pm:2230
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:789
+#: src/EBox/Network.pm:821 src/EBox/Network.pm:866 src/EBox/Network.pm:900
+#: src/EBox/Network.pm:925 src/EBox/Network.pm:1001 src/EBox/Network.pm:1124
+#: src/EBox/Network.pm:1319 src/EBox/Network.pm:1379 src/EBox/Network.pm:1414
+#: src/EBox/Network.pm:1451 src/EBox/Network.pm:1484 src/EBox/Network.pm:2276
+#: src/EBox/Network.pm:2308 src/EBox/Network.pm:2381 src/EBox/Network.pm:2401
+#: src/EBox/Network.pm:2422 src/EBox/Network.pm:2445
 msgid "Interface"
 msgstr "Interface"
 
@@ -72,8 +72,8 @@ msgstr "Destination IP"
 msgid "Destination object"
 msgstr "Destination objekt"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1510
-#: src/templates/routes.mas:31
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170
+#: src/EBox/Model/StaticRoute.pm:124
 msgid "Gateway"
 msgstr "Gateway"
 
@@ -131,6 +131,53 @@ msgstr "Dette er de fysiske interfaces der er tilgængelige på dit system."
 #: src/EBox/Model/VlanInterfaceTable.pm:94
 msgid "interface"
 msgstr "interface"
+
+#: src/EBox/Model/DNSResolver.pm:82
+#, fuzzy
+msgid "Name server"
+msgstr "Aktive servicer"
+
+#: src/EBox/Model/DNSResolver.pm:90
+msgid "Name server resolvers"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr "At konfigurere via DHCP kan bevirke at opsætning bliver overskrevet."
+
+#: src/EBox/Model/DNSResolver.pm:97
+#, fuzzy
+msgid "name server"
+msgstr "Konfigurer navneserver"
+
+#: src/EBox/Model/StaticRoute.pm:118 src/EBox/Network.pm:66
+#: src/EBox/Network.pm:2568
+msgid "Network"
+msgstr "Netværk"
+
+#: src/EBox/Model/StaticRoute.pm:129 src/templates/ifaces.mas:149
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Model/StaticRoute.pm:137
+msgid "Static routes"
+msgstr "Statisk routing"
+
+#: src/EBox/Model/StaticRoute.pm:142
+#, fuzzy
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Alle routere du nævner her må være tilgængelige gennem en af de netværk "
+"interfaces du har konfigureret"
+
+#: src/EBox/Model/StaticRoute.pm:145
+#, fuzzy
+msgid "static route"
+msgstr "Statisk routing"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
@@ -196,7 +243,6 @@ msgid "gateway"
 msgstr "gateway"
 
 #: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1509
 msgid "ip address"
 msgstr "ip adresse"
 
@@ -318,7 +364,7 @@ msgid "Network interface configured"
 msgstr "Netværk interface konfigureret"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2284
+#: src/EBox/Network.pm:2499
 msgid "Network interfaces"
 msgstr "Netværk interfaces"
 
@@ -358,7 +404,7 @@ msgstr "Netværk diagnose"
 msgid "Host"
 msgstr "Host"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2271
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2486
 msgid "host name"
 msgstr "host navn"
 
@@ -371,7 +417,7 @@ msgstr "netværk interface"
 msgid "method"
 msgstr "metode"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
 msgid "netmask"
 msgstr "netmaske"
 
@@ -383,11 +429,10 @@ msgstr "trafik balance"
 msgid "virtual interface action"
 msgstr "virtuel interface handling"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:591 src/EBox/Network.pm:596
-#: src/EBox/Network.pm:900 src/EBox/Network.pm:921 src/EBox/Network.pm:1452
-#: src/EBox/Network.pm:2063 src/EBox/Network.pm:2078 src/EBox/Network.pm:2210
-#: src/EBox/Network.pm:2329 src/templates/ifaces.mas:91
-#: src/templates/ifaces.mas:206
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:696 src/EBox/Network.pm:701
+#: src/EBox/Network.pm:1005 src/EBox/Network.pm:1026 src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:2293 src/EBox/Network.pm:2425 src/EBox/Network.pm:2544
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
 msgstr "IP adresse"
 
@@ -395,23 +440,14 @@ msgstr "IP adresse"
 msgid "virtual interface name"
 msgstr "Virtuelt interface navn"
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1508
-msgid "network address"
-msgstr "netværk adresse"
-
-#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "gateway adresse"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1093
-#: src/EBox/Network.pm:1122 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1198
+#: src/EBox/Network.pm:1227 src/templates/ifaces.mas:148
 msgid "VLAN Id"
 msgstr "VLAN Id"
 
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2358
-msgid "Routes"
-msgstr "Ruter"
+#: src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "gateway adresse"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
@@ -419,7 +455,7 @@ msgstr "Ruter"
 msgid "Traffic rate monitoring"
 msgstr "traffik data fra {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2318
+#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2533
 msgid "Status"
 msgstr "Status"
 
@@ -427,92 +463,92 @@ msgstr "Status"
 msgid "Running"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:612
+#: src/EBox/Network/Report/ByteRate.pm:755
 msgid "bytes/second"
 msgstr "bytes/sekund"
 
-#: src/EBox/Network/Report/ByteRate.pm:677
-#: src/EBox/Network/Report/ByteRate.pm:767
+#: src/EBox/Network/Report/ByteRate.pm:822
+#: src/EBox/Network/Report/ByteRate.pm:928
 #, fuzzy
 msgid "Traffic data for source"
 msgstr "Traffik data for {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:697
+#: src/EBox/Network/Report/ByteRate.pm:842
 #, perl-brace-format
 msgid "Network traffic from {src}"
 msgstr "Netværkstraffik fra {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:729
+#: src/EBox/Network/Report/ByteRate.pm:876
 #, fuzzy
 msgid "Traffic data not found for service"
 msgstr "Ingen traffik fundet for servicen {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:739
+#: src/EBox/Network/Report/ByteRate.pm:886
 #, perl-brace-format
 msgid "Network traffic for {service}"
 msgstr "Netværkstraffik for {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:775
+#: src/EBox/Network/Report/ByteRate.pm:936
 #, fuzzy
 msgid "Traffic data for service"
 msgstr "Traffik data for {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:784
+#: src/EBox/Network/Report/ByteRate.pm:945
 #, fuzzy
 msgid "Traffic data not found for source and service pair"
 msgstr "Ingen traffik fundet for kilden {src} og servicen {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:786
+#: src/EBox/Network/Report/ByteRate.pm:947
 #, fuzzy, perl-brace-format
 msgid "source {src} and service {service}"
 msgstr "Netværkstraffik for kilden {src} og servicen {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:800
+#: src/EBox/Network/Report/ByteRate.pm:961
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
 msgstr "Netværkstraffik for kilden {src} og servicen {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:816
+#: src/EBox/Network/Report/ByteRate.pm:988
 #, fuzzy
 msgid "All active services"
 msgstr "Aktive servicer"
 
-#: src/EBox/Network/Report/ByteRate.pm:821
+#: src/EBox/Network/Report/ByteRate.pm:993
 #, fuzzy
 msgid "Traffic data for "
 msgstr "traffik data fra {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:822
+#: src/EBox/Network/Report/ByteRate.pm:994
 #, fuzzy
 msgid "all services"
 msgstr "Aktive servicer"
 
-#: src/EBox/Network/Report/ByteRate.pm:857
+#: src/EBox/Network/Report/ByteRate.pm:1039
 #, fuzzy
 msgid "All active sources"
 msgstr "Aktive kilder"
 
-#: src/EBox/Network/Report/ByteRate.pm:862
+#: src/EBox/Network/Report/ByteRate.pm:1044
 #, fuzzy
 msgid "Traffic data for"
 msgstr "traffik data fra {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:863
+#: src/EBox/Network/Report/ByteRate.pm:1045
 #, fuzzy
 msgid "all sources"
 msgstr "Aktive kilder"
 
-#: src/EBox/Network/Report/ByteRate.pm:901
+#: src/EBox/Network/Report/ByteRate.pm:1083
 #, fuzzy, perl-brace-format
 msgid "Total traffic rate from {src}"
 msgstr "traffik data fra {src}"
 
-#: src/EBox/Network/Report/ByteRate.pm:916
+#: src/EBox/Network/Report/ByteRate.pm:1098
 #, fuzzy, perl-brace-format
 msgid "Total traffic rate for {service}"
 msgstr "Traffik data for {service}"
 
-#: src/EBox/Network/Report/ByteRate.pm:940
+#: src/EBox/Network/Report/ByteRate.pm:1122
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
 msgstr "Traffik data for {src} og {service}"
@@ -529,35 +565,50 @@ msgstr "Konfigurer navneserver"
 msgid "Configure default gateway"
 msgstr "Konfigurer default gateway"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2019
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2235
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "Gateway {gw} kan ikke nås"
 
-#: src/EBox/Network.pm:60 src/EBox/Network.pm:2350 src/templates/routes.mas:30
-msgid "Network"
-msgstr "Netværk"
+#: src/EBox/Network.pm:84
+msgid "Add default routers to the default table"
+msgstr ""
 
-#: src/EBox/Network.pm:87
-#, fuzzy
-msgid "Activate traffic rate monitor"
-msgstr "traffik data fra {src}"
+#: src/EBox/Network.pm:85
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
+msgstr ""
 
-#: src/EBox/Network.pm:588 src/EBox/Network.pm:592
+#: src/EBox/Network.pm:91
+msgid "Enable eBox DHCP hook"
+msgstr ""
+
+#: src/EBox/Network.pm:92
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+
+#: src/EBox/Network.pm:108
+msgid "eBox will set your network configuration"
+msgstr ""
+
+#: src/EBox/Network.pm:693 src/EBox/Network.pm:697
 msgid "Virtual interface name"
 msgstr "Virtuelt interface navn"
 
-#: src/EBox/Network.pm:591 src/EBox/Network.pm:900 src/EBox/Network.pm:2063
+#: src/EBox/Network.pm:696 src/EBox/Network.pm:1005 src/EBox/Network.pm:2278
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr "Netmaske"
 
-#: src/EBox/Network.pm:1024
+#: src/EBox/Network.pm:1129
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "Dette interface kan ikke sættes i trunk mode, da det er et vlan interface"
 
-#: src/EBox/Network.pm:1069
+#: src/EBox/Network.pm:1174
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -565,13 +616,13 @@ msgstr ""
 "Dette interface er i trunk mode. Du skal af-konfigurere alle vlan interfaces "
 "i denne trunk før du ændrer dens konfigurering"
 
-#: src/EBox/Network.pm:1102
+#: src/EBox/Network.pm:1207
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Netværk interfaces skal være i trunk mode før du tilføjer vlans til dem"
 
-#: src/EBox/Network.pm:1980
+#: src/EBox/Network.pm:2170
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -579,7 +630,7 @@ msgstr ""
 "Den ønskede handling vil bringe en af de konfigurerede routere ud af "
 "rækkevidde. Fjern den først hvis du virkelig ønsker denne ændring."
 
-#: src/EBox/Network.pm:2023
+#: src/EBox/Network.pm:2238
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
@@ -588,83 +639,49 @@ msgstr ""
 "Gateway {gw} må være tilgængelig for et statisk interface. Er lige nu "
 "tilgængelig for {iface} der ikke er statisk"
 
-#: src/EBox/Network.pm:2252
+#: src/EBox/Network.pm:2467
 msgid "Host name"
 msgstr "Host navn"
 
-#: src/EBox/Network.pm:2303
+#: src/EBox/Network.pm:2518
 msgid "down"
 msgstr "ned"
 
-#: src/EBox/Network.pm:2309
+#: src/EBox/Network.pm:2524
 msgid "up"
 msgstr "op"
 
-#: src/EBox/Network.pm:2313
+#: src/EBox/Network.pm:2528
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:2315
+#: src/EBox/Network.pm:2530
 msgid "no link"
 msgstr "intet link"
 
-#: src/EBox/Network.pm:2323
+#: src/EBox/Network.pm:2538
 msgid "MAC address"
 msgstr "MAC adresse"
 
-#: src/EBox/Network.pm:2354
+#: src/EBox/Network.pm:2572
 msgid "Interfaces"
 msgstr "Interfaces"
 
-#: src/EBox/Network.pm:2360
+#: src/EBox/Network.pm:2576
+msgid "Routes"
+msgstr "Ruter"
+
+#: src/EBox/Network.pm:2578
 msgid "Diagnosis"
 msgstr "Diagnose"
 
-#: src/EBox/Network.pm:2363
+#: src/EBox/Network.pm:2581
 msgid "Gateways"
 msgstr "Gateways"
 
-#: src/EBox/Network.pm:2366
+#: src/EBox/Network.pm:2584
 msgid "Balance traffic"
 msgstr "Balancer trafik"
-
-#: src/EBox/Network.pm:2369
-#, fuzzy
-msgid "Traffic rate monitor"
-msgstr "traffik data fra {src}"
-
-#: src/templates/routes.mas:12
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Alle routere du nævner her må være tilgængelige gennem en af de netværk "
-"interfaces du har konfigureret"
-
-#: src/templates/routes.mas:26
-msgid "Static routes"
-msgstr "Statisk routing"
-
-#: src/templates/routes.mas:32 src/templates/ifaces.mas:150
-#: src/templates/ifaces.mas:208
-msgid "Action"
-msgstr "Handling"
-
-#: src/templates/routes.mas:60 src/templates/routes.mas:61
-#: src/templates/routes.mas:62 src/templates/ifaces.mas:166
-#: src/templates/ifaces.mas:167 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:246 src/templates/ifaces.mas:247
-#: src/templates/ifaces.mas:248
-msgid "Add"
-msgstr "Tilføj"
-
-#: src/templates/routes.mas:80 src/templates/routes.mas:81
-#: src/templates/routes.mas:82 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:187
-#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:274
-#: src/templates/ifaces.mas:275
-msgid "Delete"
-msgstr "Slet"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
@@ -685,12 +702,6 @@ msgstr "Opslag"
 #: src/templates/diag.mas:29
 msgid "Output"
 msgstr "Output"
-
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr "At konfigurere via DHCP kan bevirke at opsætning bliver overskrevet."
 
 #: src/templates/dns.mas:19
 msgid "Primary"
@@ -754,9 +765,21 @@ msgstr "Skift"
 msgid "VLAN List"
 msgstr "VLAN Liste"
 
-#: src/templates/ifaces.mas:149
-msgid "Description"
-msgstr "Beskrivelse"
+#: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
+msgid "Action"
+msgstr "Handling"
+
+#: src/templates/ifaces.mas:166 src/templates/ifaces.mas:167
+#: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
+#: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
+msgid "Add"
+msgstr "Tilføj"
+
+#: src/templates/ifaces.mas:185 src/templates/ifaces.mas:186
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
+msgid "Delete"
+msgstr "Slet"
 
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
@@ -787,6 +810,17 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Fortryd"
+
+#~ msgid "network address"
+#~ msgstr "netværk adresse"
+
+#, fuzzy
+#~ msgid "Activate traffic rate monitor"
+#~ msgstr "traffik data fra {src}"
+
+#, fuzzy
+#~ msgid "Traffic rate monitor"
+#~ msgstr "traffik data fra {src}"
 
 #~ msgid "Traffic data not found for service {service}"
 #~ msgstr "Ingen traffik fundet for servicen {service}"
@@ -842,3 +876,10 @@ msgstr "Fortryd"
 
 #~ msgid "No sources bit rate data found"
 #~ msgstr "Ingen bitrate data for kilder"
+
+#~ msgid ""
+#~ "All routers you enter here must be reachable through one of the network "
+#~ "interfaces currently configured."
+#~ msgstr ""
+#~ "Alle routere du nævner her må være tilgængelige gennem en af de netværk "
+#~ "interfaces du har konfigureret"

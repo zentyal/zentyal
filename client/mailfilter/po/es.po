@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.11\n"
+"Project-Id-Version: ebox-mailfilter 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-01-27 17:22+0000\n"
 "Last-Translator: Enrique J. Hernndez <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -83,10 +83,6 @@ msgstr "El remitente especificado no está en la ACL"
 msgid "Mail domain {domain} added to external domain's list."
 msgstr "Dominio de correo {domain} añadido a la lista de dominios externos."
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "estado del modulo"
-
 #: src/EBox/CGI/RemoveExternalDomain.pm:58
 #, perl-brace-format
 msgid "Mail domain {domain} removed from external domain's list."
@@ -123,15 +119,19 @@ msgstr "Tipos MIME"
 msgid "file extension"
 msgstr "extensión de fichero"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:290
+#: src/EBox/MailFilter/SpamAssassin.pm:38
+msgid " To configure spamassassin daemon"
+msgstr ""
+
+#: src/EBox/MailFilter/SpamAssassin.pm:302
 msgid "The spam's autolearn threshold must be higher than 6.0"
 msgstr "El umbral de auto aprendizaje de Spam debe ser mayor de 6.0"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:319
+#: src/EBox/MailFilter/SpamAssassin.pm:331
 msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
 msgstr "El umbral de auto aprendizaje de Ham no pude ser mayor que el de Spam"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:335
+#: src/EBox/MailFilter/SpamAssassin.pm:347
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
@@ -139,7 +139,7 @@ msgstr ""
 "El umbral de auto aprendizaje de Spam no pude ser menor que el umbral de "
 "auto aprendzaje de Spam por defecto"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:339
+#: src/EBox/MailFilter/SpamAssassin.pm:351
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
@@ -147,26 +147,26 @@ msgstr ""
 "El umbral de auto aprendizaje de Ham tiene que ser menor que el umbral de "
 "auto aprendzaje de Spam por defecto"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:428 src/templates/antispam.mas:29
+#: src/EBox/MailFilter/SpamAssassin.pm:440 src/templates/antispam.mas:29
 msgid "Spam threshold"
 msgstr "Umbral de Spam"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:428
+#: src/EBox/MailFilter/SpamAssassin.pm:440
 msgid "It must be a number(decimal point allowed)"
 msgstr "Debe ser un número (se permiten decimales)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:438
+#: src/EBox/MailFilter/SpamAssassin.pm:450
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr "El umbral de Spam no puede ser mayor que su umbral de auto aprendizaje"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:443
+#: src/EBox/MailFilter/SpamAssassin.pm:455
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
 "El umbral de Spam tiene que ser mayor su umbral de auto aprendizaje de Ham"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:520
+#: src/EBox/MailFilter/SpamAssassin.pm:532
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
@@ -176,108 +176,136 @@ msgstr ""
 "configuración actual. Para permitir el aprendizaje active el filtro "
 "bayesiano y guarde los cambios"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:535
+#: src/EBox/MailFilter/SpamAssassin.pm:547
 #, perl-brace-format
 msgid "Unsupported or incorrect input source format: {format}"
 msgstr "Formato de entrada no soportado o incorrecto: {format}"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:564
+#: src/EBox/MailFilter/SpamAssassin.pm:576
 msgid "domain name"
 msgstr "nombre de dominio"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:568
+#: src/EBox/MailFilter/SpamAssassin.pm:580
 msgid "email address"
 msgstr "dirección de correo"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:572
+#: src/EBox/MailFilter/SpamAssassin.pm:584
 msgid ""
 "The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
 "El remitente puede ser una dirección de correo o un nombre de dominio con el "
 "prefijo '@'"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:734
+#: src/EBox/MailFilter/VDomainsLdap.pm:409 src/EBox/MailFilter.pm:804
 msgid "Mail filter settings"
 msgstr "Ajustes del filtro de correo"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:448
+#: src/EBox/MailFilter/VDomainsLdap.pm:464
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "El dominio de correo virtual {vd} no existe"
 
-#: src/EBox/MailFilter.pm:298
+#: src/EBox/MailFilter/ClamAV.pm:56
+msgid "To configure freshclam updater daemon"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:87
+msgid "Add clamav user to amavis group"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:88
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:92
+msgid "Update LDAP"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:93
+msgid "Add amavis specific classes and fields"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:109
+msgid "To configure amavis"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:114
+msgid "To add the LDAP schemas used by eBox mailfilter"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:368
 msgid "Cannot proceed because the filter is in use"
 msgstr "No puede continuar porque el filtro está en uso"
 
-#: src/EBox/MailFilter.pm:371
+#: src/EBox/MailFilter.pm:441
 msgid "Mailfilter's port"
 msgstr "Puerto del filtro de correo"
 
-#: src/EBox/MailFilter.pm:378
+#: src/EBox/MailFilter.pm:448
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
 msgstr "El puerto {port} está siendo usado por el modulo {mod}"
 
-#: src/EBox/MailFilter.pm:434
+#: src/EBox/MailFilter.pm:504
 msgid "MTA's address"
 msgstr "Dirección del MTA"
 
-#: src/EBox/MailFilter.pm:446
+#: src/EBox/MailFilter.pm:516
 #, fuzzy, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
 "MTA externo {MTA} no valido. Las direcciones de red locales no están "
 "permitidas"
 
-#: src/EBox/MailFilter.pm:474
+#: src/EBox/MailFilter.pm:544
 #, perl-brace-format
 msgid "{mta} is already allowed"
 msgstr "{mta} ya está permitido"
 
-#: src/EBox/MailFilter.pm:499
+#: src/EBox/MailFilter.pm:569
 #, perl-brace-format
 msgid "{mta} not found"
 msgstr "{mta} no encontrado"
 
-#: src/EBox/MailFilter.pm:518
+#: src/EBox/MailFilter.pm:588
 msgid "Mail domain"
 msgstr "Dominio de correo"
 
-#: src/EBox/MailFilter.pm:523
+#: src/EBox/MailFilter.pm:593
 #, perl-brace-format
 msgid "{domain} is already acknowledged as external mail domain"
 msgstr "{domain} ya se reconoce como dominio de correo externo"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:613
 #, perl-brace-format
 msgid "Domain {domain} was not acknowledged as external mail domain"
 msgstr "El dominio {domain} no fue reconocido como dominio de correo externo"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:636
 msgid "Administrator address"
 msgstr "Dirección del administrador"
 
-#: src/EBox/MailFilter.pm:628
+#: src/EBox/MailFilter.pm:698
 msgid "policy type"
 msgstr "tipo de política"
 
-#: src/EBox/MailFilter.pm:647
+#: src/EBox/MailFilter.pm:717
 msgid "filter type"
 msgstr "tipo de filtro"
 
-#: src/EBox/MailFilter.pm:719
+#: src/EBox/MailFilter.pm:789
 msgid "Mail filter system"
 msgstr "Sistema de filtrado"
 
-#: src/EBox/MailFilter.pm:796
+#: src/EBox/MailFilter.pm:863
 msgid "eBox internal mail filter"
 msgstr "Filtro de correo interno de eBox"
 
-#: src/EBox/MailFilter.pm:815 src/templates/menutabs.mas:12
+#: src/EBox/MailFilter.pm:883 src/templates/menutabs.mas:12
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: src/EBox/MailFilter.pm:825 src/templates/menutabs.mas:13
+#: src/EBox/MailFilter.pm:893 src/templates/menutabs.mas:13
 msgid "Antispam"
 msgstr "Antispam"
 
@@ -328,13 +356,13 @@ msgid "Deny"
 msgstr "Rechazar"
 
 #: src/templates/fileFilter.mas:59 src/templates/antispamACL.mas:29
-#: src/templates/general.mas:102 src/templates/general.mas:137
+#: src/templates/general.mas:100 src/templates/general.mas:135
 msgid "Actions"
 msgstr "Acciones"
 
 #: src/templates/fileFilter.mas:157 src/templates/fileFilter.mas:158
-#: src/templates/antispamACL.mas:31 src/templates/general.mas:104
-#: src/templates/general.mas:139
+#: src/templates/antispamACL.mas:31 src/templates/general.mas:102
+#: src/templates/general.mas:137
 msgid "Delete"
 msgstr "Borrar"
 
@@ -413,7 +441,7 @@ msgstr ""
 "Mensajes Ham con la puntuación por debajo de este umbral serán añadidos al "
 "sistema de aprendizaje"
 
-#: src/templates/antispam.mas:76 src/templates/general.mas:67
+#: src/templates/antispam.mas:76 src/templates/general.mas:65
 #: src/templates/vdomain.mas:95
 msgid "Change"
 msgstr "Cambiar"
@@ -471,51 +499,51 @@ msgstr "Remitente"
 msgid "Add sender to {type}"
 msgstr "Añadir remitente a {type}"
 
-#: src/templates/general.mas:26
+#: src/templates/general.mas:24
 msgid "Service port"
 msgstr "Puerto del servicio"
 
-#: src/templates/general.mas:40
+#: src/templates/general.mas:38
 msgid "Notify of non-spam problematic messages"
 msgstr "Notificar los mensajes problemáticos no-Spam"
 
-#: src/templates/general.mas:49
+#: src/templates/general.mas:47
 msgid "Notification address"
 msgstr "Dirección para notificar"
 
-#: src/templates/general.mas:72
+#: src/templates/general.mas:70
 msgid "Notification"
 msgstr "Notificación"
 
-#: src/templates/general.mas:102
+#: src/templates/general.mas:100
 msgid "External Mail server"
 msgstr "Servidor de Correo Externo"
 
-#: src/templates/general.mas:117
+#: src/templates/general.mas:115
 msgid "Allowed external mail servers"
 msgstr "Servidores de correo externos autorizados"
 
-#: src/templates/general.mas:124
+#: src/templates/general.mas:122
 msgid "Add external mail server"
 msgstr "Añadir servidor de correo externo"
 
-#: src/templates/general.mas:126
+#: src/templates/general.mas:124
 msgid "External mail server"
 msgstr "Servidor de correo externo"
 
-#: src/templates/general.mas:137
+#: src/templates/general.mas:135
 msgid "External Mail domain"
 msgstr "Dominio de Correo Externo"
 
-#: src/templates/general.mas:152
+#: src/templates/general.mas:150
 msgid "External mail domains"
 msgstr "Dominios de correo externos"
 
-#: src/templates/general.mas:159
+#: src/templates/general.mas:157
 msgid "Add external mail domain"
 msgstr "Añadir dominio de correo externo"
 
-#: src/templates/general.mas:161
+#: src/templates/general.mas:159
 msgid "External mail domain"
 msgstr "Dominio de correo externo"
 
@@ -594,6 +622,9 @@ msgstr "Rebotar"
 #: src/templates/policy.mas:14
 msgid "Discard"
 msgstr "Descartar"
+
+#~ msgid "module status"
+#~ msgstr "estado del modulo"
 
 #~ msgid "The last update was successful at {date}"
 #~ msgstr "La última actualización con éxito fue el {date}"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.11.99"
+"Project-Id-Version: ebox-openvpn 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:06+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,730 +20,949 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:34
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1346 src/EBox/OpenVPN.pm:1471
+#: src/EBox/OpenVPN.pm:1413 src/EBox/OpenVPN.pm:1538
 msgid "OpenVPN"
-msgstr ""
+msgstr "OpenVPN"
 
 #: src/EBox/CGI/EditClient.pm:126
 #, perl-brace-format
 msgid "Client {name} configuration updated"
-msgstr ""
+msgstr "クライアント {name} の設定が更新されました"
 
-#: src/EBox/CGI/EditClient.pm:130 src/EBox/CGI/Edit.pm:162
+#: src/EBox/CGI/EditClient.pm:130 src/EBox/CGI/Edit.pm:158
 msgid "There are no changes to be saved"
-msgstr ""
+msgstr "保存が必要な変更はありません"
 
 #: src/EBox/CGI/EditClient.pm:176
 msgid ""
 "Certificate files cannot be changed in isolation. You must change all files "
 "at the same time"
 msgstr ""
+"証明書ファイルは別個に変更することができません。全てのファイルを同時に変更す"
+"る必要があります"
 
-#: src/EBox/CGI/Edit.pm:158
+#: src/EBox/CGI/Edit.pm:154
 #, perl-brace-format
 msgid "Server {name} configuration updated"
+msgstr "サーバ {name} の設定が更新されました"
+
+#: src/EBox/CGI/Edit.pm:197
+msgid "A eBox-to-eBox tunnel's password is required"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:52
 msgid "active parameter"
-msgstr ""
+msgstr "アクティブなパラメータ"
 
 #: src/EBox/CGI/Enable.pm:52
 msgid "It only may be 'yes' or 'no'"
-msgstr ""
+msgstr "'はい' か 'いいえ' を選んでください"
 
 #: src/EBox/CGI/AddAdvertisedNet.pm:61
 #, perl-brace-format
 msgid "Server now grants access to {network}"
-msgstr ""
+msgstr "{network} へのアクセスを許可しました"
 
 #: src/EBox/CGI/RemoveAdvertisedNet.pm:56
 #, perl-brace-format
 msgid "Server no longer grants access to {network}"
-msgstr ""
+msgstr "{network} へのアクセスを拒否に設定しました"
 
 #: src/EBox/CGI/DeleteClient.pm:44
 msgid "Client"
-msgstr ""
+msgstr "クライアント"
 
 #: src/EBox/CGI/DeleteClient.pm:75
 #, perl-brace-format
 msgid "Client {name} removed"
-msgstr ""
+msgstr "クライアント {name} が削除されました"
 
-#: src/EBox/CGI/CreateClient.pm:126
+#: src/EBox/CGI/CreateClient.pm:131
 #, perl-brace-format
 msgid "New client {name} created"
-msgstr ""
+msgstr "クライアント {name} が新規作成されました"
 
 #: src/EBox/CGI/Delete.pm:42
 msgid "Server"
-msgstr ""
+msgstr "サーバ"
 
 #: src/EBox/CGI/Delete.pm:75
 #, perl-brace-format
 msgid "Server {name} removed"
-msgstr ""
+msgstr "サーバ {name} が削除されました"
 
-#: src/EBox/CGI/Create.pm:100
+#: src/EBox/CGI/Create.pm:105
 #, perl-brace-format
 msgid "New server {name} created. Now you can add advertised routes"
 msgstr ""
+"サーバ {name} が新規作成されました。アドバタイズされた経路を追加できます"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
-#: src/EBox/OpenVPN/Client.pm:297 src/templates/clientProperties.mas:17
+#: src/EBox/OpenVPN/Client.pm:305
 msgid "Server's address"
-msgstr ""
+msgstr "サーバのアドレス"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:38
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "少なくとも1つのアドレスをサーバ {name} に与える必要があります"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:76
 msgid "Can't get address for this server: no external interfaces present"
 msgstr ""
+"このサーバのためにアドレスを取得することができません: 外部インタフェースがあ"
+"りません"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:183
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "クライアント証明書はサーバ証明書と同一であってはいけません"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "CA証明書として渡されたファイルは無効です"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:61
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "クライアント証明書として渡されたファイルは無効です"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:76
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "クライアントプライベート鍵として渡されたファイルは無効です"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:89
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"クライアント証明書として渡されたファイルがCA証明書として渡されたファイルと一"
+"致しません"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:118
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"クライアント証明書として渡されたファイルが証明書のプライベート鍵として渡され"
+"たファイルと一致しません"
 
 #: src/EBox/OpenVPN/Server.pm:45
 msgid "The protocol only may be TCP or UDP."
-msgstr ""
+msgstr "TCPまたはUDPプロトコルのみ使用できます"
 
 #: src/EBox/OpenVPN/Server.pm:77
 msgid "The port must be a non-privileged port"
-msgstr ""
+msgstr "非特権ポートのみ使用できます"
 
-#: src/EBox/OpenVPN/Server.pm:114
+#: src/EBox/OpenVPN/Server.pm:118
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "ポート {p}/{pro} はすでに使用中です"
 
-#: src/EBox/OpenVPN/Server.pm:169
+#: src/EBox/OpenVPN/Server.pm:171
 #, perl-brace-format
-msgid ""
-"OpenVPN can only listen on a external interface. The interface {iface} does "
-"not exist"
+msgid "The interface {iface} does not exist"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:172
+#: src/EBox/OpenVPN/Server.pm:175
 #, perl-brace-format
-msgid ""
-"OpenVPN can only listen on a external interface. The interface {iface} is  "
-"internal"
+msgid "The interface {iface} is not configured"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:254
+#: src/EBox/OpenVPN/Server.pm:181
+msgid ""
+"VPN server can only run in a internal interface if network address "
+"translation option is active"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:264
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "証明書 {cn} が存在しません"
 
-#: src/EBox/OpenVPN/Server.pm:257
+#: src/EBox/OpenVPN/Server.pm:267
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "証明書 {cn} は期限切れです"
 
-#: src/EBox/OpenVPN/Server.pm:260
+#: src/EBox/OpenVPN/Server.pm:270
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "証明書 {cn} は無効です"
 
-#: src/EBox/OpenVPN/Server.pm:275
+#: src/EBox/OpenVPN/Server.pm:285
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "サーバ {name} は証明書を保有していません"
 
-#: src/EBox/OpenVPN/Server.pm:292
+#: src/EBox/OpenVPN/Server.pm:302
 #, perl-brace-format
 msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
-msgstr ""
+msgstr "サーバ {name} は証明書を保有していないため、鍵を取得できません"
 
-#: src/EBox/OpenVPN/Server.pm:344
+#: src/EBox/OpenVPN/Server.pm:354 src/EBox/OpenVPN/Server.pm:721
 #, perl-brace-format
 msgid "Network address {net} with netmask {mask} is not a valid network"
 msgstr ""
+"ネットマスク {mask} を持つネットワークアドレス {net} は有効なネットワークでは"
+"ありません"
 
-#: src/EBox/OpenVPN/Server.pm:520
+#: src/EBox/OpenVPN/Server.pm:530
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
-msgstr ""
+msgstr "インタフェース {iface} のIPアドレスが見つかりません"
 
-#: src/EBox/OpenVPN/Server.pm:564
+#: src/EBox/OpenVPN/Server.pm:574
 #, perl-brace-format
 msgid ""
 "OpenVPN server {name} cannot be activated because there is not any network "
 "interface available"
 msgstr ""
+"ネットワークインタフェースが存在しないためOpenVPNサーバ {name} は使用できませ"
+"ん"
 
-#: src/EBox/OpenVPN/Server.pm:645 src/EBox/OpenVPN/Server.pm:666
+#: src/EBox/OpenVPN/Server.pm:608
+msgid ""
+"VPN servers running on a internal interface should have network address "
+"translation option active"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:717 src/EBox/OpenVPN/Server.pm:742
 msgid "network address"
-msgstr ""
+msgstr "ネットワークアドレス"
 
-#: src/EBox/OpenVPN/Server.pm:646
+#: src/EBox/OpenVPN/Server.pm:718
 msgid "network mask"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:649
-#, perl-brace-format
-msgid "Network {net} is already advertised in this server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:669
-#, perl-brace-format
-msgid "Network {net} is not advertised in this server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:691
-msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:722
-msgid "The server requires a network address for the VPN"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:723
-msgid "The server requires a netmask for its VPN network"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:724
-msgid "The server requires a port number"
-msgstr ""
+msgstr "ネットワークマスク"
 
 #: src/EBox/OpenVPN/Server.pm:725
+#, perl-brace-format
+msgid "Network {net} is already advertised in this server"
+msgstr "ネットワーク {net} はこのサーバではすでにアドバタイズされています"
+
+#: src/EBox/OpenVPN/Server.pm:745
+#, perl-brace-format
+msgid "Network {net} is not advertised in this server"
+msgstr "ネットワーク {net} はこのサーバでアドバタイズされていません"
+
+#: src/EBox/OpenVPN/Server.pm:767
+msgid "OpenVPN servers cannot be used for internal services"
+msgstr "OpenVPNサーバは内部サービスには使用できません"
+
+#: src/EBox/OpenVPN/Server.pm:801
+msgid "The server requires a network address for the VPN"
+msgstr "サーバにVPNのためのネットワークアドレスが必要です"
+
+#: src/EBox/OpenVPN/Server.pm:802
+msgid "The server requires a netmask for its VPN network"
+msgstr "サーバにVPNのためのネットワークマスクが必要です"
+
+#: src/EBox/OpenVPN/Server.pm:803
+msgid "The server requires a port number"
+msgstr "サーバにポート番号が必要です"
+
+#: src/EBox/OpenVPN/Server.pm:804
 msgid "A IP protocol must be specified for the server"
-msgstr ""
+msgstr "サーバにIPプロトコルが指定されている必要があります"
 
-#: src/EBox/OpenVPN/Server.pm:726
+#: src/EBox/OpenVPN/Server.pm:805
 msgid "A  server certificate must be specified"
+msgstr "サーバ証明書が指定されている必要があります"
+
+#: src/EBox/OpenVPN/Server.pm:806
+msgid "The masquerade parameter must be specified"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:732
+#: src/EBox/OpenVPN/Server.pm:810
+msgid "eBox-to-EBox tunnel's password missing"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:817
 msgid ""
-"Cannot create the OpenVPN server because thre is not any external network "
-"interface available"
+"Cannot create the OpenVPN server because there is neither any external "
+"network interface available or network address  translation active"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:925
+#: src/EBox/OpenVPN/Server.pm:862
+#, perl-brace-format
+msgid "Unsupported client type: {ct}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:1043
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "サーバ {name}"
 
-#: src/EBox/OpenVPN/Server.pm:927 src/EBox/OpenVPN/Client.pm:438
+#: src/EBox/OpenVPN/Server.pm:1045 src/EBox/OpenVPN/Client.pm:480
 msgid "Enabled"
-msgstr ""
+msgstr "有効"
 
-#: src/EBox/OpenVPN/Server.pm:927 src/EBox/OpenVPN/Client.pm:438
+#: src/EBox/OpenVPN/Server.pm:1045 src/EBox/OpenVPN/Client.pm:480
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
-#: src/EBox/OpenVPN/Server.pm:928 src/EBox/OpenVPN/Client.pm:439
+#: src/EBox/OpenVPN/Server.pm:1046 src/EBox/OpenVPN/Client.pm:481
 msgid "Service"
-msgstr ""
+msgstr "サービス"
 
-#: src/EBox/OpenVPN/Server.pm:930 src/EBox/OpenVPN/Client.pm:441
+#: src/EBox/OpenVPN/Server.pm:1048 src/EBox/OpenVPN/Client.pm:483
 msgid "Running"
-msgstr ""
+msgstr "動作"
 
-#: src/EBox/OpenVPN/Server.pm:930 src/EBox/OpenVPN/Client.pm:441
+#: src/EBox/OpenVPN/Server.pm:1048 src/EBox/OpenVPN/Client.pm:483
 msgid "Stopped"
-msgstr ""
+msgstr "停止"
 
-#: src/EBox/OpenVPN/Server.pm:931 src/EBox/OpenVPN/Client.pm:442
+#: src/EBox/OpenVPN/Server.pm:1049 src/EBox/OpenVPN/Client.pm:484
 msgid "Daemon status"
-msgstr ""
+msgstr "デーモン状態"
 
-#: src/EBox/OpenVPN/Server.pm:935 src/templates/serverProperties.mas:31
+#: src/EBox/OpenVPN/Server.pm:1053
 msgid "All external interfaces"
-msgstr ""
+msgstr "全ての外部インタフェース"
 
-#: src/EBox/OpenVPN/Server.pm:936
+#: src/EBox/OpenVPN/Server.pm:1054
 msgid "Local address"
-msgstr ""
+msgstr "ローカルアドレス"
 
-#: src/EBox/OpenVPN/Server.pm:942 src/templates/serverProperties.mas:51
+#: src/EBox/OpenVPN/Server.pm:1060 src/templates/serverProperties.mas:51
 msgid "Port"
-msgstr ""
+msgstr "ポート"
 
-#: src/EBox/OpenVPN/Server.pm:945
+#: src/EBox/OpenVPN/Server.pm:1063
 msgid "VPN subnet"
+msgstr "VPNサブネット"
+
+#: src/EBox/OpenVPN/Server.pm:1066
+msgid "VPN network interface"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:44
+#: src/EBox/OpenVPN/Server.pm:1070 src/EBox/OpenVPN/Server.pm:1073
+#: src/EBox/OpenVPN/Client.pm:496 src/EBox/OpenVPN/Client.pm:499
+msgid "VPN interface address"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:1073 src/EBox/OpenVPN/Client.pm:499
+msgid "No active"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:45
 msgid "The protocol only may be tcp or udp."
-msgstr ""
+msgstr "TCPまたはUDPプロトコルのみ使用できます"
 
-#: src/EBox/OpenVPN/Client.pm:259
+#: src/EBox/OpenVPN/Client.pm:267
 msgid "You must supply at least one server for the client"
-msgstr ""
+msgstr "少なくとも1つのサーバをクライアントに指定する必要があります"
 
-#: src/EBox/OpenVPN/Client.pm:298
+#: src/EBox/OpenVPN/Client.pm:306
 msgid "Server's port"
-msgstr ""
+msgstr "サーバのポート"
 
-#: src/EBox/OpenVPN/Client.pm:347
+#: src/EBox/OpenVPN/Client.pm:362
 msgid "A IP protocol must be specified for the client"
-msgstr ""
+msgstr "クライアントにIPプロトコルが指定されている必要があります"
 
-#: src/EBox/OpenVPN/Client.pm:348
+#: src/EBox/OpenVPN/Client.pm:363
 msgid "The CA certificate is needed"
-msgstr ""
+msgstr "CA証明書が必要です"
 
-#: src/EBox/OpenVPN/Client.pm:349
+#: src/EBox/OpenVPN/Client.pm:364
 msgid "The client certificate must be specified"
-msgstr ""
+msgstr "クライアント証明書を指定する必要があります"
 
-#: src/EBox/OpenVPN/Client.pm:350
+#: src/EBox/OpenVPN/Client.pm:365
 msgid "The client private key must be specified"
-msgstr ""
+msgstr "クライアントプライベート鍵を指定する必要があります"
 
-#: src/EBox/OpenVPN/Client.pm:351
+#: src/EBox/OpenVPN/Client.pm:366
 msgid "Servers must be supplied to the client"
+msgstr "サーバがクライアントに指定されている必要があります"
+
+#: src/EBox/OpenVPN/Client.pm:375
+msgid "Server's tunnel password missing"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:436
+#: src/EBox/OpenVPN/Client.pm:478
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "クライアント {name}"
 
-#: src/EBox/OpenVPN/Client.pm:449
+#: src/EBox/OpenVPN/Client.pm:491
 msgid "Connection target"
+msgstr "接続ターゲット"
+
+#: src/EBox/OpenVPN/Daemon.pm:433
+msgid "You must supply a non-empty password"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:642
+#: src/EBox/OpenVPN.pm:57
+msgid "openVPN"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:81
+msgid "Remove openVPN and quagga init script links"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:82
+msgid "eBox will take care of starting and stopping the services."
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:100
+msgid "To configure Quagga to run ripd and zebra"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:105
+msgid "To configure Quagga to listen on the given interfaces"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:110
+msgid "Main zebra configuration file"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:115
+msgid "To configure ripd to exchange routes with client to client connections"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:735
 #, perl-brace-format
-msgid "Invalid name {name}. Only alphanumerics and underscores are allowed"
+msgid ""
+"Invalid name {name}. Only alphanumerics and underscores characters are "
+"allowed with a maximum length of 20 characters"
 msgstr ""
+"{name} は無効な名前です。最大で20文字の半角英数字及びアンダースコア_のみ使用"
+"可能です"
 
-#: src/EBox/OpenVPN.pm:657
+#: src/EBox/OpenVPN.pm:752
 #, perl-brace-format
 msgid ""
 "Cannot use the name {name} because a  deleted daemon which has not been "
-"cleaned up has the same name. If you wan to use this name, please save "
+"cleaned up has the same name. If you want to use this name, please save "
 "changes first"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:674
+#: src/EBox/OpenVPN.pm:769
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"{name} は無効な名前です。プリフィックス {pf} から始まる名前は内部的に使用され"
+"ます"
 
-#: src/EBox/OpenVPN.pm:683
+#: src/EBox/OpenVPN.pm:778
 #, perl-brace-format
 msgid ""
-"Invalid name {name}. A internal daemon must has a name which begins with the "
-"prefix {pf}"
+"Invalid name {name}. A internal daemon must have a name which begins with "
+"the prefix {pf}"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1362
+#: src/EBox/OpenVPN.pm:1429
 msgid "OpenVPN daemons"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1392
-msgid "OpenVPN service"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1447
-msgid "Date"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1448
-msgid "Event"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1450
-msgid "Type"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1451
-msgid "Remote IP"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1452
-msgid "Remote Certificate"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1457
-msgid "Initialization sequence completed"
-msgstr ""
+msgstr "OpenVPNデーモン"
 
 #: src/EBox/OpenVPN.pm:1459
+msgid "OpenVPN service"
+msgstr "OpenVPNサービス"
+
+#: src/EBox/OpenVPN.pm:1514
+msgid "Date"
+msgstr "日付"
+
+#: src/EBox/OpenVPN.pm:1515
+msgid "Event"
+msgstr "イベント"
+
+#: src/EBox/OpenVPN.pm:1517
+msgid "Type"
+msgstr "タイプ"
+
+#: src/EBox/OpenVPN.pm:1518
+msgid "Remote IP"
+msgstr "リモートIP"
+
+#: src/EBox/OpenVPN.pm:1519
+msgid "Remote Certificate"
+msgstr "リモート証明書"
+
+#: src/EBox/OpenVPN.pm:1524
+msgid "Initialization sequence completed"
+msgstr "初期化が終了しました"
+
+#: src/EBox/OpenVPN.pm:1526
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "証明書発行者は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1460
+#: src/EBox/OpenVPN.pm:1527
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "証明書共通名は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1461
+#: src/EBox/OpenVPN.pm:1528
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "証明書の確認に失敗しました"
 
-#: src/EBox/OpenVPN.pm:1463
+#: src/EBox/OpenVPN.pm:1530
 msgid "Client connection initiated"
-msgstr ""
+msgstr "クライアントとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1464
+#: src/EBox/OpenVPN.pm:1531
 msgid "Client connection terminated"
-msgstr ""
+msgstr "クライアントとの接続が切断されました"
 
-#: src/EBox/OpenVPN.pm:1466
+#: src/EBox/OpenVPN.pm:1533
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "サーバとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1467
+#: src/EBox/OpenVPN.pm:1534
 msgid "Server connection terminated"
+msgstr "サーバとの接続が切断されました"
+
+#: src/templates/createClient.mas:12
+msgid ""
+"There are two ways to configure the client. Either you can configure it "
+"manually or use the configuration bundle file which you can download in the "
+"servers' list"
 msgstr ""
 
-#: src/templates/createClient.mas:4
+#: src/templates/createClient.mas:18
+msgid "Client configuration"
+msgstr ""
+
+#: src/templates/createClient.mas:24
+msgid "automatic with bundle file"
+msgstr ""
+
+#: src/templates/createClient.mas:28
+msgid "manual"
+msgstr ""
+
+#: src/templates/createClient.mas:45
+msgid "Bundle file"
+msgstr ""
+
+#: src/templates/createClient.mas:49
+msgid "Create"
+msgstr ""
+
+#: src/templates/createClient.mas:52
 msgid "OpenVPN client creation"
+msgstr "OpenVPNクライアントの作成"
+
+#: src/templates/createClient.mas:57
+msgid "Connection parameters"
+msgstr ""
+
+#: src/templates/createClient.mas:62
+msgid "Upload bundle file"
 msgstr ""
 
 #: src/templates/delete.mas:10
 #, perl-brace-format
 msgid ""
 "Are you sure you want delete the {type} {name}?\n"
-"This action can not be undone."
+"This action cannot be undone."
 msgstr ""
 
 #: src/templates/delete.mas:13
 #, perl-brace-format
 msgid "Are you sure you want delete the {type} {name}?"
-msgstr ""
+msgstr "{type} {name} を削除しますか？"
 
 #: src/templates/delete.mas:16
 #, perl-brace-format
 msgid "Deleting OpenVPN {type}"
-msgstr ""
+msgstr "OpenVPN {type} を削除しています"
 
 #: src/templates/delete.mas:18
 #, perl-brace-format
 msgid "Are you sure you want delete the {type} {name}.?"
-msgstr ""
+msgstr "{type} {name} を削除しますか？"
 
-#: src/templates/delete.mas:28 src/templates/edit.mas:60
-#: src/templates/index.mas:42 src/templates/index.mas:88
+#: src/templates/delete.mas:28 src/templates/edit.mas:57
+#: src/templates/index.mas:36 src/templates/index.mas:81
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: src/templates/delete.mas:31
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
-#: src/templates/create.mas:11
+#: src/templates/create.mas:19
 msgid "OpenVPN server creation"
-msgstr ""
+msgstr "OpenVPNサーバの作成"
 
 #: src/templates/serverProperties.mas:15
 msgid "Certificate"
-msgstr ""
+msgstr "証明書"
 
 #: src/templates/serverProperties.mas:18
 msgid "This certificate will be used by the server to authenticate itself"
-msgstr ""
+msgstr "証明書はサーバ自身の認証に使用されます"
 
 #: src/templates/serverProperties.mas:21
 msgid "disabled"
-msgstr ""
+msgstr "無効"
 
 #: src/templates/serverProperties.mas:24
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "共通名によるクライアント認証"
 
 #: src/templates/serverProperties.mas:27
 msgid ""
 "Only clients with this value as full common name's prefix will be authorized"
 msgstr ""
+"完全な共通名のプリフィックスとしてこの値を設定したクライアントのみ認証されま"
+"す"
+
+#: src/templates/serverProperties.mas:31
+msgid "All network interfaces"
+msgstr ""
 
 #: src/templates/serverProperties.mas:42
 msgid "Interface to listen on"
-msgstr ""
+msgstr "受信するインタフェース"
 
 #: src/templates/serverProperties.mas:45
 msgid ""
 "The server will listen only in all external interfaces or only in the "
 "interface selected"
-msgstr ""
+msgstr "サーバは全ての外部インタフェースと選択したインタフェースのみ受信します"
 
-#: src/templates/serverProperties.mas:50 src/templates/clientProperties.mas:13
+#: src/templates/serverProperties.mas:50
 msgid "Active"
-msgstr ""
+msgstr "アクティブ"
 
 #: src/templates/serverProperties.mas:52
 msgid "VPN network address"
-msgstr ""
+msgstr "VPNネットワークアドレス"
 
 #: src/templates/serverProperties.mas:53
 msgid "VPN network netmask"
-msgstr ""
+msgstr "VPNネットワークマスク"
 
 #: src/templates/serverProperties.mas:54
 msgid "Protocol"
-msgstr ""
-
-#: src/templates/serverProperties.mas:66
-msgid "Allow eBox-to-eBox tunnels"
-msgstr ""
+msgstr "プロトコル"
 
 #: src/templates/serverProperties.mas:68
+msgid "Network Address Translation"
+msgstr ""
+
+#: src/templates/serverProperties.mas:72
+msgid "Allow client-to-client connections"
+msgstr "クライアントからクライアントへの接続を許可"
+
+#: src/templates/serverProperties.mas:74
+msgid "Allow clients to connect each other within the VPN"
+msgstr "VPN内のクライアント間の接続を許可"
+
+#: src/templates/serverProperties.mas:78
+msgid "Allow eBox-to-eBox tunnels"
+msgstr "eBoxからeBoxへのトンネルを許可"
+
+#: src/templates/serverProperties.mas:80
 msgid ""
 "If you want to create a tunnel between two eBox, you will need this option "
 "to allow connections from clients to this server"
 msgstr ""
+"2つのeBoxの間のトンネルを作成するには、クライアントからサーバへの接続を許可す"
+"るためのこのオプションが必要です"
 
-#: src/templates/serverProperties.mas:71
-msgid "Allow client-to-client connections"
+#: src/templates/serverProperties.mas:83
+msgid "eBox-to-eBox tunnel password"
 msgstr ""
 
-#: src/templates/serverProperties.mas:73
-msgid "Allow clients to connect each other within the VPN"
+#: src/templates/serverProperties.mas:85
+msgid ""
+"Only this password is required for eBox-to-eBox tunnels. The same password "
+"must be set in the client or it wouldn't be able to push routes to this host"
 msgstr ""
 
-#: src/templates/serverProperties.mas:78
+#: src/templates/serverProperties.mas:90
 msgid "Server name"
-msgstr ""
+msgstr "サーバ名"
 
 #: src/templates/caRequired.mas:10
 msgid ""
 "OpenVPN servers require at least one client certificate. Create it first"
 msgstr ""
+"OpenVPNサーバは最低でも1つのクライアント証明書を必要とします。最初に証明書を"
+"作成してください"
 
 #: src/templates/caRequired.mas:13
 msgid ""
 "OpenVPN servers require a certification\n"
 "authority and at least one client certificate. Create them first"
 msgstr ""
+"OpenVPNサーバは認証局と最低でも1つのクライアント証明書を必要とします。最初に"
+"それらを作成してください"
 
 #: src/templates/editClient.mas:9
 msgid "Change CA's certificate"
-msgstr ""
+msgstr "CA証明書を変更"
 
 #: src/templates/editClient.mas:10
 msgid "Change client's certificate"
-msgstr ""
+msgstr "クライアント証明書を変更"
 
 #: src/templates/editClient.mas:11
 msgid "Change client's private key"
+msgstr "クライアントのプライベート鍵を変更"
+
+#: src/templates/editClient.mas:17
+msgid "Change"
 msgstr ""
 
-#: src/templates/editClient.mas:15
+#: src/templates/editClient.mas:20
 #, perl-brace-format
 msgid "Client {name} configuration"
-msgstr ""
+msgstr "クライアント {name} の設定"
 
-#: src/templates/editClient.mas:18
+#: src/templates/editClient.mas:23
 msgid ""
-"Changes in certificates and key files can not be discarded. You cannot "
-"change a certificate or key file in isolation; you must change all at once"
+"Changes in certificates and key files cannot be discarded. You cannot change "
+"a certificate or key file in isolation; you must change all at once"
 msgstr ""
 
-#: src/templates/edit.mas:25
+#: src/templates/edit.mas:22
 #, perl-brace-format
 msgid "Server {name} configuration"
-msgstr ""
+msgstr "サーバ {name} の設定"
 
-#: src/templates/edit.mas:39
+#: src/templates/edit.mas:36
 msgid "Advertised networks"
-msgstr ""
+msgstr "アドバタイズされたネットワーク"
 
-#: src/templates/edit.mas:41
+#: src/templates/edit.mas:38
 msgid ""
 "This section manages which networks will be made accessible to connecting "
 "clients"
 msgstr ""
+"このセクションではどのネットワークが接続するクライアントからアクセス可能かを"
+"管理します"
 
-#: src/templates/edit.mas:56
+#: src/templates/edit.mas:53
 msgid "Net address"
-msgstr ""
+msgstr "ネットアドレス"
 
-#: src/templates/edit.mas:56 src/templates/edit.mas:92
+#: src/templates/edit.mas:53 src/templates/edit.mas:89
 msgid "Netmask"
-msgstr ""
+msgstr "ネットマスク"
 
-#: src/templates/edit.mas:56
+#: src/templates/edit.mas:53
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
-#: src/templates/edit.mas:91
+#: src/templates/edit.mas:88
 msgid "Network"
-msgstr ""
+msgstr "ネットワーク"
 
-#: src/templates/edit.mas:93 src/templates/edit.mas:96
+#: src/templates/edit.mas:90 src/templates/edit.mas:93
 msgid "Add network"
-msgstr ""
+msgstr "ネットワークを追加"
 
-#: src/templates/index.mas:41 src/templates/index.mas:87
-msgid "Name"
-msgstr ""
-
-#: src/templates/index.mas:41 src/templates/index.mas:87
-msgid "Actions"
-msgstr ""
-
-#: src/templates/index.mas:44 src/templates/index.mas:90
-msgid "Edit"
-msgstr ""
-
-#: src/templates/index.mas:46
-msgid "Download client's file bundle"
-msgstr ""
-
-#: src/templates/index.mas:63
+#: src/templates/index.mas:14
 msgid "Servers"
-msgstr ""
+msgstr "サーバ"
 
-#: src/templates/index.mas:75 src/templates/index.mas:76
-msgid "Create new server"
-msgstr ""
-
-#: src/templates/index.mas:105
+#: src/templates/index.mas:22
 msgid "Clients"
-msgstr ""
+msgstr "クライアント"
 
-#: src/templates/index.mas:115 src/templates/index.mas:116
+#: src/templates/index.mas:35 src/templates/index.mas:80
+msgid "Name"
+msgstr "名前"
+
+#: src/templates/index.mas:35 src/templates/index.mas:80
+msgid "Actions"
+msgstr "アクション"
+
+#: src/templates/index.mas:38 src/templates/index.mas:83
+msgid "Edit"
+msgstr "編集"
+
+#: src/templates/index.mas:40
+msgid "Download client's file bundle"
+msgstr "クライアントのファイルバンドルをダウンロード"
+
+#: src/templates/index.mas:68 src/templates/index.mas:69
+msgid "Create new server"
+msgstr "サーバを新規作成"
+
+#: src/templates/index.mas:107 src/templates/index.mas:108
 msgid "Create new client"
-msgstr ""
+msgstr "クライアントを新規作成"
 
-#: src/templates/index.mas:127
+#: src/templates/index.mas:119
 msgid "edit"
-msgstr ""
+msgstr "編集"
 
-#: src/templates/index.mas:131
+#: src/templates/index.mas:123
 msgid "delete"
-msgstr ""
+msgstr "削除"
 
-#: src/templates/clientBundle.mas:13 src/templates/clientProperties.mas:40
+#: src/templates/clientBundle.mas:14
 msgid "Client's certificate"
-msgstr ""
+msgstr "クライアントの証明書"
 
-#: src/templates/clientBundle.mas:16
+#: src/templates/clientBundle.mas:17
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
+msgstr "この証明書はクライアントが自身をサーバで認証するために使用されます"
+
+#: src/templates/clientBundle.mas:36
+msgid "EBox to EBox tunnel"
 msgstr ""
 
-#: src/templates/clientBundle.mas:21
-msgid "Client's operative system"
+#: src/templates/clientBundle.mas:46
+msgid "Client's type"
 msgstr ""
 
-#: src/templates/clientBundle.mas:28
+#: src/templates/clientBundle.mas:52
 msgid ""
 "This selection should match the operative\n"
 "\t\t\t system running on the client computer"
 msgstr ""
+"この選択はクライアントのコンピュータで動作するオペレーティングシステムと一致"
+"する必要があります"
 
-#: src/templates/clientBundle.mas:37
+#: src/templates/clientBundle.mas:61
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "バンドルするOpenVPNのインストーラを追加"
 
-#: src/templates/clientBundle.mas:69
+#: src/templates/clientBundle.mas:100
 msgid "Server's IP address"
-msgstr ""
+msgstr "サーバのIPアドレス"
 
-#: src/templates/clientBundle.mas:70
+#: src/templates/clientBundle.mas:101
 msgid "This address should be the one used to reach the server."
-msgstr ""
-
-#: src/templates/clientBundle.mas:73
-msgid "Additional server's IP address (optional)"
-msgstr ""
-
-#: src/templates/clientBundle.mas:74
-msgid "An additional address to reach the server can be specified here"
-msgstr ""
-
-#: src/templates/clientBundle.mas:87
-msgid "Download client's files"
-msgstr ""
+msgstr "このアドレスにはサーバに接続するためのものを使用してください"
 
 #: src/templates/clientBundle.mas:104
+msgid "Additional server's IP address (optional)"
+msgstr "追加のサーバのIPアドレス (任意)"
+
+#: src/templates/clientBundle.mas:105
+msgid "An additional address to reach the server can be specified here"
+msgstr "追加のサーバに接続するためのアドレスはここで指定してください"
+
+#: src/templates/clientBundle.mas:118
+msgid "Download client's files"
+msgstr "クライアントのファイルをダウンロード"
+
+#: src/templates/clientBundle.mas:135
 #, perl-brace-format
 msgid "Client files for server {name}"
-msgstr ""
+msgstr "サーバ {name} のためのクライアントのファイル"
 
-#: src/templates/clientBundle.mas:110
+#: src/templates/clientBundle.mas:141
 msgid ""
 "eBox  has guessed for you the values of the addresses' fields. If those "
 "values are incorrect or you want another ones, change them"
 msgstr ""
+"eBoxはアドレス欄の値を自動入力しました。値が誤っているか、違うものを指定した"
+"い場合は変更してください"
 
-#: src/templates/clientBundle.mas:113
+#: src/templates/clientBundle.mas:144
 msgid ""
 "eBox was unable to guess for you the values of the server's address. Please, "
 "enter the value manually or check your internet connection and try again"
 msgstr ""
+"eBoxはサーバのアドレス欄の値の自動入力に失敗しました。手動で入力するか、イン"
+"ターネット接続設定を確認してからもう一度設定してください"
 
-#: src/templates/clientBundle.mas:119
+#: src/templates/clientBundle.mas:150
 msgid "Return to the OpenVPN's main page"
-msgstr ""
+msgstr "OpenVPNのメインページに戻る"
 
-#: src/templates/clientProperties.mas:19
-msgid "Server's protocol"
-msgstr ""
-
-#: src/templates/clientProperties.mas:28
-msgid "Server's Port"
-msgstr ""
-
-#: src/templates/clientProperties.mas:34
-msgid "CA's certificate"
-msgstr ""
-
-#: src/templates/clientProperties.mas:35
-msgid ""
-"Certificate of the Certification Authority. Must be the same used by the "
-"server"
-msgstr ""
-
-#: src/templates/clientProperties.mas:41
-msgid ""
-"Certificate used by the client to identify itself. It must be signed by the "
-"Certification Authority"
-msgstr ""
-
-#: src/templates/clientProperties.mas:46
-msgid "Client's private key"
-msgstr ""
-
-#: src/templates/clientProperties.mas:47
-msgid "Private key used to unlock the client's certificate"
-msgstr ""
-
-#: src/templates/clientProperties.mas:51
+#: src/templates/clientProperties.mas:76
 msgid "Client name"
-msgstr ""
+msgstr "クライアント名"
 
-#: src/templates/externalIfaceRequired.mas:5
-msgid ""
-"OpenVPN servers require at leat one external network\n"
-"interface available. Configure one first"
-msgstr ""
+#~ msgid ""
+#~ "OpenVPN can only listen on a external interface. The interface {iface} "
+#~ "does not exist"
+#~ msgstr ""
+#~ "OpenVPNは外部インタフェースのみ受信できます。インタフェース {iface} が存在"
+#~ "しません"
+
+#~ msgid ""
+#~ "OpenVPN can only listen on a external interface. The interface {iface} "
+#~ "is  internal"
+#~ msgstr ""
+#~ "OpenVPNは外部インタフェースのみ受信できます。インタフェース {iface} は内部"
+#~ "インタフェースです"
+
+#~ msgid ""
+#~ "Cannot create the OpenVPN server because thre is not any external network "
+#~ "interface available"
+#~ msgstr ""
+#~ "外部ネットワークインタフェースが利用不可能なため、OpenVPNサーバを開始でき"
+#~ "ません"
+
+#~ msgid ""
+#~ "Cannot use the name {name} because a  deleted daemon which has not been "
+#~ "cleaned up has the same name. If you wan to use this name, please save "
+#~ "changes first"
+#~ msgstr ""
+#~ "まだ削除されたデーモンが同一名を持っているため、 {name} を使用できません。"
+#~ "先に変更を保存してください"
+
+#~ msgid ""
+#~ "Invalid name {name}. A internal daemon must has a name which begins with "
+#~ "the prefix {pf}"
+#~ msgstr ""
+#~ "{name} は無効な名前です。内部デーモンはプリフィックス {pf} から始まる名前"
+#~ "を持っている必要があります"
+
+#~ msgid ""
+#~ "Are you sure you want delete the {type} {name}?\n"
+#~ "This action can not be undone."
+#~ msgstr ""
+#~ "{type} {name} を削除しますか？\n"
+#~ "この操作は取り消せません。"
+
+#~ msgid ""
+#~ "Changes in certificates and key files can not be discarded. You cannot "
+#~ "change a certificate or key file in isolation; you must change all at once"
+#~ msgstr ""
+#~ "証明書と鍵ファイルの変更は破棄できません。また、証明書と鍵のファイルを別個"
+#~ "に変更することもできません。全て同時に変更する必要があります"
+
+#~ msgid "Client's operative system"
+#~ msgstr "クライアントのオペレーティングシステム"
+
+#~ msgid "Server's protocol"
+#~ msgstr "サーバのプロトコル"
+
+#~ msgid "Server's Port"
+#~ msgstr "サーバのポート"
+
+#~ msgid "CA's certificate"
+#~ msgstr "CA証明書"
+
+#~ msgid ""
+#~ "Certificate of the Certification Authority. Must be the same used by the "
+#~ "server"
+#~ msgstr "CA証明書はサーバで使用されているものと同一でなくてはなりません"
+
+#~ msgid ""
+#~ "Certificate used by the client to identify itself. It must be signed by "
+#~ "the Certification Authority"
+#~ msgstr ""
+#~ "クライアント証明書は自己識別に使われます。証明書は認証局(CA)によって署名さ"
+#~ "れている必要があります"
+
+#~ msgid "Client's private key"
+#~ msgstr "クライアントのプライベート鍵"
+
+#~ msgid "Private key used to unlock the client's certificate"
+#~ msgstr "クライアントの証明書を開くためのプライベート鍵"
+
+#~ msgid ""
+#~ "OpenVPN servers require at leat one external network\n"
+#~ "interface available. Configure one first"
+#~ msgstr ""
+#~ "OpenVPNサーバを使うにはは少なくとも1つの外部ネットワークインタフェースが利"
+#~ "用可能である必要があります。最初に外部インタフェースを設定してください"

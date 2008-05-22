@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.11.99"
+"Project-Id-Version: ebox-jabber 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,97 +18,114 @@ msgstr ""
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "モジュール状態"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
-msgstr ""
+msgstr "ドメイン"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
+msgstr "ユーザ名"
+
+#: src/EBox/Jabber.pm:71
+msgid "Copy jabber ldap schema to /etc/ldap/schemas"
 msgstr ""
 
-#: src/EBox/Jabber.pm:197
-msgid "listening port"
+#: src/EBox/Jabber.pm:72
+msgid "eBox will need this schema to store jabber users"
 msgstr ""
 
-#: src/EBox/Jabber.pm:309
+#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+msgid "To properly configure jabberd2"
+msgstr ""
+
+#: src/EBox/Jabber.pm:98
+msgid "To add the LDAP schemas used by eBox jabber"
+msgstr ""
+
+#: src/EBox/Jabber.pm:356
 msgid "Jabber Service"
-msgstr ""
+msgstr "Jabberサービス"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Jabberアカウント"
 
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "Jabberサービスのパスワードはユーザパスワードです"
 
 #: src/templates/jabber.mas:18
 msgid "User account"
-msgstr ""
+msgstr "ユーザアカウント"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
-msgstr ""
+msgstr "有効"
 
 #: src/templates/jabber.mas:34
 msgid "Administration rights"
-msgstr ""
+msgstr "管理者権限"
 
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
-#: src/templates/index.mas:17
+#: src/templates/index.mas:16
 msgid "General Settings"
-msgstr ""
+msgstr "全般的設定"
 
-#: src/templates/index.mas:19
+#: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"ドメイン名がネットワーク上で利用可能になっている必要があります。この規定は内"
+"部と外部の接続に適用されます。"
 
-#: src/templates/index.mas:25
+#: src/templates/index.mas:24
 msgid "Domain name"
-msgstr ""
+msgstr "ドメイン名"
 
-#: src/templates/index.mas:33
+#: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "グローバルJabberネットワークに接続"
 
-#: src/templates/index.mas:45
+#: src/templates/index.mas:44
 msgid "SSL Support"
-msgstr ""
+msgstr "SSLサポート"
+
+#: src/templates/index.mas:49 src/templates/index.mas:53
+#: src/templates/index.mas:57
+msgid "No"
+msgstr "いいえ"
 
 #: src/templates/index.mas:50 src/templates/index.mas:54
 #: src/templates/index.mas:58
-msgid "No"
-msgstr ""
+msgid "Optional"
+msgstr "オプション"
 
 #: src/templates/index.mas:51 src/templates/index.mas:55
 #: src/templates/index.mas:59
-msgid "Optional"
-msgstr ""
-
-#: src/templates/index.mas:52 src/templates/index.mas:56
-#: src/templates/index.mas:60
 msgid "Required"
-msgstr ""
+msgstr "必須"
 
-#: src/templates/index.mas:69 src/templates/index.mas:70
+#: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
-msgstr ""
+msgstr "変更を適用"
 
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "ユーザ名とパスワードを入力し、このサーバに登録してください"
+
+#~ msgid "listening port"
+#~ msgstr "受信ポート"

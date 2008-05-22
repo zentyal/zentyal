@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.11\n"
+"Project-Id-Version: ebox-trafficshaping 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:07+0200\n"
 "PO-Revision-Date: 2007-05-15 14:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -93,12 +93,12 @@ msgid "Destination object"
 msgstr "Objet de destination"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:529
-#: src/EBox/TrafficShaping.pm:1504
+#: src/EBox/TrafficShaping.pm:1549
 msgid "Priority"
 msgstr "Priorité"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:536
-#: src/EBox/TrafficShaping.pm:1502
+#: src/EBox/TrafficShaping.pm:1547
 msgid "Guaranteed Rate"
 msgstr "Taux garanti"
 
@@ -108,23 +108,24 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:545
-#: src/EBox/TrafficShaping.pm:1503
+#: src/EBox/TrafficShaping.pm:1548
 msgid "Limited Rate"
 msgstr "Taux limité"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "Listes des règles pour {printableIndex}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:568
+#, fuzzy
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
 "to that interface and the sum of the different guaranteed rates should be at "
 "much as the total rate allowed. No limited rate or zero means unlimited rate "
 "in terms of bandwidth link. At least, one should be provided.In order to "
 "identify a rule, an attribute should be given.Highest priority: 0 lowest "
-"priority: 7"
+"priority: 7."
 msgstr ""
 "L'ajout d'une règle sur une interface doit tenir compte du débit maximum de "
 "celle-ci, ainsi que de la somme des taux garantis alloués. Aucune limite ou "
@@ -133,15 +134,22 @@ msgstr ""
 "définir les priorités de chaque règle. La plus haute : 0 . La plus basse : 7"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:575
+msgid ""
+"Take care about the traffic flow setting the correct source and destination. "
+"If the interface is internal, the traffic flow comes from Internet to inside "
+"and the external is the other way around"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 msgid "rule"
 msgstr "règle"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:640
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:624
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "Effacer {num} règles dans {modelName}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:685
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:669
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -253,20 +261,38 @@ msgstr "Adresse"
 msgid "options"
 msgstr "options"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:370
-#: src/EBox/TrafficShaping.pm:520 src/EBox/TrafficShaping.pm:907
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:415
+#: src/EBox/TrafficShaping.pm:565 src/EBox/TrafficShaping.pm:952
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/TrafficShaping.pm:89 src/EBox/TrafficShaping.pm:316
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
 msgid "Traffic Shaping"
 msgstr "Lissage de trafic"
 
-#: src/EBox/TrafficShaping.pm:90
+#: src/EBox/TrafficShaping.pm:95
 msgid "traffic shaping"
 msgstr "lissage de trafic"
 
-#: src/EBox/TrafficShaping.pm:383
+#: src/EBox/TrafficShaping.pm:133
+msgid "Add iptables rules to mangle table"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:134
+msgid "To mark packets with different priorities and rates"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:138
+#, fuzzy
+msgid "Add tc rules"
+msgstr "Adresse"
+
+#: src/EBox/TrafficShaping.pm:139
+#, fuzzy
+msgid "To implement the traffic shaping rules"
+msgstr "Règles de lissage du trafic"
+
+#: src/EBox/TrafficShaping.pm:428
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -275,7 +301,7 @@ msgstr ""
 "Le nombre maximum de compte de règles {max} est atteint. Veuillez en effacer "
 "au moins une"
 
-#: src/EBox/TrafficShaping.pm:924
+#: src/EBox/TrafficShaping.pm:969
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -283,11 +309,11 @@ msgstr ""
 "Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
 "ont une passerelle associée"
 
-#: src/EBox/TrafficShaping.pm:1013
+#: src/EBox/TrafficShaping.pm:1058
 msgid "type"
 msgstr "type"
 
-#: src/EBox/TrafficShaping.pm:1036
+#: src/EBox/TrafficShaping.pm:1081
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -296,16 +322,13 @@ msgstr ""
 "L'interface {iface} doit avoir un taux de transfert maximum afin de pouvoir "
 "lisser le trafic"
 
-#: src/EBox/TrafficShaping.pm:1500
+#: src/EBox/TrafficShaping.pm:1545
 msgid "Protocol"
 msgstr "Protocole"
 
-#: src/EBox/TrafficShaping.pm:1501
+#: src/EBox/TrafficShaping.pm:1546
 msgid "Port"
 msgstr "Port"
-
-#~ msgid "Traffic Shaping rules"
-#~ msgstr "Règles de lissage du trafic"
 
 #~ msgid "Traffic Shaping Management"
 #~ msgstr "Gestion du lissage du trafic"
@@ -407,3 +430,21 @@ msgstr "Port"
 #~ "Le lissage de trafic est actif lorsqu'eBox fonctionne en mode passerelle. "
 #~ "Vous devez avoir au moins une interface interne et une externe. Vérifiez "
 #~ "votre configuration dans {openhref} Réseau->Interfaces{closehref}"
+
+#~ msgid ""
+#~ "Adding a rule to the interface should be done following maximum rate "
+#~ "allowed to that interface and the sum of the different guaranteed rates "
+#~ "should be at much as the total rate allowed. No limited rate or zero "
+#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
+#~ "provided.In order to identify a rule, an attribute should be given."
+#~ "Highest priority: 0 lowest priority: 7"
+#~ msgstr ""
+#~ "L'ajout d'une règle sur une interface doit tenir compte du débit maximum "
+#~ "de celle-ci, ainsi que de la somme des taux garantis alloués. Aucune "
+#~ "limite ou la valeur 0 signifie un taux illimité en fonction des capacités "
+#~ "de l'interface. Au moins une valeur doit être définie. Vous devez de même "
+#~ "définir les priorités de chaque règle. La plus haute : 0 . La plus "
+#~ "basse : 7"
+
+#~ msgid "Traffic Shaping rules"
+#~ msgstr "Règles de lissage du trafic"

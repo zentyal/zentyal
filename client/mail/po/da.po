@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.11\n"
+"Project-Id-Version: ebox-mail 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-21 12:27+0200\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2007-07-24 12:12+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,57 +16,157 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/MailUserLdap.pm:68 src/EBox/MailUserLdap.pm:73
-#: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
-#: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
-#: src/EBox/MailAliasLdap.pm:156
-msgid "mail account"
-msgstr "mail konto"
-
-#: src/EBox/MailUserLdap.pm:257
-msgid "This group has a mail alias"
-msgstr "Denne gruppe har et mail alias"
-
-#: src/EBox/MailUserLdap.pm:283
-msgid "This user has a mail account"
-msgstr "Denne bruger har en mail konto"
-
-#: src/EBox/MailUserLdap.pm:673 src/EBox/MailUserLdap.pm:679
-#: src/EBox/MailUserLdap.pm:741 src/EBox/MailUserLdap.pm:747
-#: src/EBox/MailVDomainsLdap.pm:438 src/EBox/MailVDomainsLdap.pm:444
-#: src/EBox/MailVDomainsLdap.pm:487 src/EBox/MailVDomainsLdap.pm:493
-#: src/EBox/Mail.pm:1459 src/EBox/Mail.pm:1465
-msgid "maildir size"
-msgstr "maildir størrelse"
-
-#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:120
-#: src/EBox/CGI/CreateAccount.pm:48
-msgid "virtual domain"
-msgstr "virtuelt domæne"
-
-#: src/EBox/MailVDomainsLdap.pm:348
-msgid "Size quota"
-msgstr ""
-
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Modtager af admin mail"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:1191
-#: src/EBox/Mail.pm:1261 src/EBox/Mail.pm:1315 src/EBox/CGI/Index.pm:28
-#: src/EBox/CGI/Index.pm:64 src/EBox/CGI/VDomains.pm:55
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/CGI/Index.pm:28
+#: src/EBox/CGI/Index.pm:64 src/EBox/CGI/VDomains.pm:55 src/EBox/Mail.pm:1191
+#: src/EBox/Mail.pm:1261 src/EBox/Mail.pm:1315
 msgid "Mail"
 msgstr "Mail"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Kan ikke få forbindelse til {smtp} mailserver"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:233
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Kan ikke få forbindelse til serveren {hostname} for at sende mailen via SMTP"
+
+#: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
+#: src/EBox/CGI/EditVDomain.pm:43
+msgid "vdomain"
+msgstr "vdomain"
+
+#: src/EBox/CGI/SetQuota.pm:46
+msgid "Message size limit"
+msgstr "Meddelelse størrelses grænse"
+
+#: src/EBox/CGI/AddVDomain.pm:42
+msgid "Virtual domain name"
+msgstr "Virtuelt domæne navn"
+
+#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr "Kø ID"
+
+#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/ModifyAccountMDSize.pm:55
+#: src/EBox/CGI/DelAccount.pm:42
+msgid "username"
+msgstr "brugernavn"
+
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "maildrop"
+
+#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
+msgid "account name"
+msgstr "login navn"
+
+#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
+msgid "domain name"
+msgstr "domæne navn"
+
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "mail alias"
+
+#: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
+#: src/EBox/Mail.pm:1270
+msgid "Queue Management"
+msgstr "Kø håndtering"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:63
+#: src/EBox/MailVDomainsLdap.pm:120
+msgid "virtual domain"
+msgstr "virtuelt domæne"
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr "mail adresse"
+
+#: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
+#: src/EBox/Mail.pm:1267
+msgid "Virtual domains"
+msgstr "Virtuelle domæner"
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr "bruger mail"
+
+#: src/EBox/CGI/SetMDQuota.pm:46
+msgid "Maximum mail account size"
+msgstr "Maximum mail konto størrelse"
+
+#: src/EBox/CGI/MailConf.pm:42
+msgid "relay"
+msgstr "videresende"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "gruppe"
+
+#: src/EBox/CGI/DelGroupAlias.pm:47
+msgid "group alias mail"
+msgstr "gruppe alias mail"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
+msgstr "Emne"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr "[EBox-event] der har været en event på {hostName}"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1292
+msgid "To"
+msgstr "Til"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr "Opsætning af mail levering"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+msgid ""
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+"For at kunne sætte mail event håndtering op, skal mail være enablet i eBox"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
+msgstr "Mail håndtering er opdateret"
+
+#: src/EBox/MailVDomainsLdap.pm:348
+msgid "Size quota"
+msgstr ""
+
+#: src/EBox/MailVDomainsLdap.pm:438 src/EBox/MailVDomainsLdap.pm:444
+#: src/EBox/MailVDomainsLdap.pm:487 src/EBox/MailVDomainsLdap.pm:493
+#: src/EBox/Mail.pm:1459 src/EBox/Mail.pm:1465 src/EBox/MailUserLdap.pm:673
+#: src/EBox/MailUserLdap.pm:679 src/EBox/MailUserLdap.pm:741
+#: src/EBox/MailUserLdap.pm:747
+msgid "maildir size"
+msgstr "maildir størrelse"
+
+#: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
+#: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
+#: src/EBox/MailAliasLdap.pm:156 src/EBox/MailUserLdap.pm:68
+#: src/EBox/MailUserLdap.pm:73
+msgid "mail account"
+msgstr "mail konto"
+
+#: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
+#: src/EBox/MailAliasLdap.pm:282
+msgid "mail alias account"
+msgstr "mail alias konto"
 
 #: src/EBox/Mail.pm:74
 #, fuzzy
@@ -261,16 +361,6 @@ msgstr "Mail system"
 msgid "General"
 msgstr "Generel"
 
-#: src/EBox/Mail.pm:1267 src/EBox/CGI/VDomains.pm:29
-#: src/EBox/CGI/VDomains.pm:39
-msgid "Virtual domains"
-msgstr "Virtuelle domæner"
-
-#: src/EBox/Mail.pm:1270 src/EBox/CGI/QueueManager.pm:33
-#: src/EBox/CGI/QueueManager.pm:50
-msgid "Queue Management"
-msgstr "Kø håndtering"
-
 #: src/EBox/Mail.pm:1289 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Dato"
@@ -282,10 +372,6 @@ msgstr "Meddelelses ID"
 #: src/EBox/Mail.pm:1291
 msgid "From"
 msgstr "Fra"
-
-#: src/EBox/Mail.pm:1292 src/EBox/Mail/Model/Dispatcher/Mail.pm:135
-msgid "To"
-msgstr "Til"
 
 #: src/EBox/Mail.pm:1293
 msgid "From hostname"
@@ -328,9 +414,8 @@ msgid "Relay access denied"
 msgstr "Videresendelse nægtet"
 
 #: src/EBox/Mail.pm:1309
-#, fuzzy
 msgid "Account does not exist"
-msgstr "Konto eksisterer ikke"
+msgstr "Kontoen eksisterer ikke"
 
 #: src/EBox/Mail.pm:1310
 msgid "Host unreachable"
@@ -348,139 +433,50 @@ msgstr "Andre handlinger"
 msgid "Mailboxes"
 msgstr "Mailboxe"
 
-#: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
-#: src/EBox/MailAliasLdap.pm:282
-msgid "mail alias account"
-msgstr "mail alias konto"
+#: src/EBox/MailUserLdap.pm:257
+msgid "This group has a mail alias"
+msgstr "Denne gruppe har et mail alias"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
-msgid "Subject"
-msgstr ""
+#: src/EBox/MailUserLdap.pm:283
+msgid "This user has a mail account"
+msgstr "Denne bruger har en mail konto"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
-#, perl-brace-format
-msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+#: migration/0001_add_firewall_services.pl:30
+#, fuzzy
+msgid "eBox Mail System"
+msgstr "Mail system"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
-msgid "Configure mail dispatcher"
-msgstr ""
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+#: src/templates/warnvd.mas:14
 msgid ""
-"In order to configure the Mail event dispatcher is required to enable the "
-"mail service from eBox"
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"Det virtuelle domæne du prøvede at slette indeholder data i følgende "
+"moduler. Bekræft venligst at du ønsker at fjerne det og alle dets data"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
-msgid "Mail dispatcher configuration updated"
-msgstr ""
+#: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
+#: src/templates/groupalias.mas:65 src/templates/vdomains.mas:184
+#: src/templates/vdomains.mas:185 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:24
+#: src/templates/alias.mas:76 src/templates/alias.mas:77
+msgid "Delete"
+msgstr "Slet"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "gruppe"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
-msgid "account name"
-msgstr "login navn"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "domæne navn"
-
-#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:17
-msgid "Queue ID"
-msgstr "Kø ID"
-
-#: src/EBox/CGI/AddVDomain.pm:42
-msgid "Virtual domain name"
-msgstr "Virtuelt domæne navn"
-
-#: src/EBox/CGI/SetMDQuota.pm:46
-msgid "Maximum mail account size"
-msgstr "Maximum mail konto størrelse"
-
-#: src/EBox/CGI/DelAccount.pm:42 src/EBox/CGI/CreateAccount.pm:42
-#: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAlias.pm:42
-#: src/EBox/CGI/DelAlias.pm:42
-msgid "username"
-msgstr "brugernavn"
-
-#: src/EBox/CGI/DelAccount.pm:46
-msgid "user mail"
-msgstr "bruger mail"
-
-#: src/EBox/CGI/MailConf.pm:42
-msgid "relay"
-msgstr "videresende"
-
-#: src/EBox/CGI/EditVDomain.pm:43 src/EBox/CGI/ModifyVDomain.pm:57
-#: src/EBox/CGI/DelVDomain.pm:72
-msgid "vdomain"
-msgstr "vdomain"
-
-#: src/EBox/CGI/CreateAccount.pm:50
-msgid "Mail address"
-msgstr "mail adresse"
-
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "maildrop"
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "mail alias"
-
-#: src/EBox/CGI/SetQuota.pm:46
-msgid "Message size limit"
-msgstr "Meddelelse størrelses grænse"
-
-#: src/EBox/CGI/DelGroupAlias.pm:47
-msgid "group alias mail"
-msgstr "gruppe alias mail"
-
-#: src/templates/createaccount.mas:15
-msgid "Create mail account"
-msgstr "Opret mail konto"
-
-#: src/templates/createaccount.mas:23
-msgid "Account name"
-msgstr "Konto navn"
-
-#: src/templates/createaccount.mas:27 src/templates/vdomains.mas:89
-msgid "Domain name"
-msgstr "Domæne navn"
-
-#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
-#: src/templates/alias.mas:63 src/templates/alias.mas:64
-#: src/templates/alias.mas:65
-msgid "Create"
-msgstr "Opret"
-
-#: src/templates/createaccount.mas:62
-msgid "Maildir size"
-msgstr "Maildir størrelse"
-
-#: src/templates/createaccount.mas:78 src/templates/vdomains.mas:99
-#: src/templates/alias.mas:140 src/templates/editVDomainSizeQuota.mas:10
-#: src/templates/index.mas:124 src/templates/index.mas:371
-msgid "Unlimited size"
-msgstr "Ubegrænset størrelse"
-
-#: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
-#: src/templates/index.mas:48 src/templates/index.mas:49
-#: src/templates/index.mas:98 src/templates/index.mas:99
-#: src/templates/index.mas:136 src/templates/index.mas:137
-#: src/templates/index.mas:383 src/templates/index.mas:384
-msgid "Change"
-msgstr "Ret"
-
-#: src/templates/warnvdmdsize.mas:36 src/templates/warnusermdsize.mas:26
-#: src/templates/warnvd.mas:32
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
 msgid "Cancel"
 msgstr "Fortryd"
+
+#: src/templates/sasl.mas:15 src/templates/sasl.mas:18
+#: src/templates/imap.mas:22 src/templates/imap.mas:26
+#: src/templates/imap.mas:30 src/templates/pop.mas:22 src/templates/pop.mas:26
+#: src/templates/pop.mas:30
+msgid "No"
+msgstr "Nej"
+
+#: src/templates/sasl.mas:16 src/templates/sasl.mas:19
+msgid "Yes"
+msgstr "Ja"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
@@ -502,193 +498,16 @@ msgstr ""
 "Der er ingen brugere i gruppen eller brugerne har ikke en mailkonto, så en "
 "alias konto kan ikke oprettes"
 
+#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
+#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
+#: src/templates/alias.mas:65
+msgid "Create"
+msgstr "Opret"
+
 #: src/templates/groupalias.mas:54
 msgid "Mail alias settings"
 msgstr "Mail alias indstillinger"
-
-#: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
-#: src/templates/vdomains.mas:184 src/templates/vdomains.mas:185
-#: src/templates/alias.mas:22 src/templates/alias.mas:23
-#: src/templates/alias.mas:24 src/templates/alias.mas:76
-#: src/templates/alias.mas:77 src/templates/warnvd.mas:29
-msgid "Delete"
-msgstr "Slet"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the mail module is enabled"
-msgstr ""
-"Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
-
-#: src/templates/pop.mas:22 src/templates/pop.mas:26 src/templates/pop.mas:30
-#: src/templates/imap.mas:22 src/templates/imap.mas:26
-#: src/templates/imap.mas:30 src/templates/sasl.mas:15
-#: src/templates/sasl.mas:18
-msgid "No"
-msgstr "Nej"
-
-#: src/templates/pop.mas:23 src/templates/pop.mas:27 src/templates/pop.mas:31
-#: src/templates/imap.mas:23 src/templates/imap.mas:27
-#: src/templates/imap.mas:31
-msgid "Optional"
-msgstr "Optional/mulig"
-
-#: src/templates/pop.mas:24 src/templates/pop.mas:28 src/templates/pop.mas:32
-#: src/templates/imap.mas:24 src/templates/imap.mas:28
-#: src/templates/imap.mas:32
-msgid "Required"
-msgstr "Krævet"
-
-#: src/templates/vdomains.mas:22
-#, fuzzy
-msgid "unlimited"
-msgstr "Ubegrænset størrelse"
-
-#: src/templates/vdomains.mas:84
-msgid "Add a new virtual domain"
-msgstr "Tilføj et nyt virtuelt domæne"
-
-#: src/templates/vdomains.mas:109
-msgid "Default maildir size"
-msgstr "Default maildir størrelse"
-
-#: src/templates/vdomains.mas:120
-msgid "(MB)"
-msgstr "(MB)"
-
-#: src/templates/vdomains.mas:129 src/templates/vdomains.mas:130
-msgid "Add"
-msgstr "Tilføj"
-
-#: src/templates/vdomains.mas:147
-#, fuzzy
-msgid "Unlimited"
-msgstr "Ubegrænset størrelse"
-
-#: src/templates/vdomains.mas:151
-msgid "Virtual domains list"
-msgstr "Virtuel domæne liste"
-
-#: src/templates/vdomains.mas:156
-msgid "Name"
-msgstr "Navn"
-
-#: src/templates/vdomains.mas:160
-msgid "Maildir Size"
-msgstr "Maildir Størrelse"
-
-#: src/templates/vdomains.mas:164 src/templates/alias.mas:42
-msgid "Action"
-msgstr "Handling"
-
-#: src/templates/vdomains.mas:180
-msgid "Edit"
-msgstr "Rediger"
-
-#: src/templates/qmanager.mas:20
-msgid "Sender"
-msgstr "Afsender"
-
-#: src/templates/qmanager.mas:21
-msgid "Recipients"
-msgstr "Modtagere"
-
-#: src/templates/qmanager.mas:22
-msgid "Message"
-msgstr "Meddelelse"
-
-#: src/templates/qmanager.mas:23
-msgid "Operate"
-msgstr "Betjen"
-
-#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
-msgid "Requeue"
-msgstr "Genindlæs kø"
-
-#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
-msgid "Show Info"
-msgstr "Vis info"
-
-#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
-msgid "Remove"
-msgstr "Fjern"
-
-#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
-msgid "Hide Info"
-msgstr "Skjul info"
-
-#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
-msgid "first"
-msgstr "første"
-
-#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
-msgid "prev"
-msgstr "forrige"
-
-#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
-msgid "next"
-msgstr "næste"
-
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
-msgid "last"
-msgstr "sidste"
-
-#: src/templates/qmanager.mas:122
-#, fuzzy
-msgid "There is no messages in queue or the service is stopped"
-msgstr "Der er ingen meddelelser i køen eller servicen er stoppet"
-
-#: src/templates/mailtabs.mas:9 src/templates/mailtabs.mas:11
-#: src/templates/index.mas:55
-msgid "Services"
-msgstr "Services"
-
-#: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
-msgid "Settings"
-msgstr "Indstillinger"
-
-#: src/templates/alias.mas:11
-msgid "Mail account settings"
-msgstr "Mail konto indstillinger"
-
-#: src/templates/alias.mas:34
-msgid "Create mail aliases"
-msgstr "Opret mail alias'"
-
-#: src/templates/alias.mas:39
-msgid "Mail alias"
-msgstr "Mail alias"
-
-#: src/templates/alias.mas:126
-msgid "Default maildir size (MB)"
-msgstr "Default maildir størrelse (MB)"
-
-#: src/templates/alias.mas:151 src/templates/alias.mas:152
-#: src/templates/editVDomainSizeQuota.mas:25
-#: src/templates/editVDomainSizeQuota.mas:26
-msgid "Modify"
-msgstr "Ændr"
-
-#: src/templates/editVDomainSizeQuota.mas:19
-msgid "Force the change to the existing accounts"
-msgstr "Tving ændringen til eksisterende konti"
-
-#: src/templates/editVDomainSizeQuota.mas:42
-#, perl-brace-format
-msgid "Maildir size for {vdomain} virtual domain"
-msgstr "Maildir størrelse for {vdomain} virtuelt domæne"
-
-#: src/templates/warnvd.mas:14
-msgid ""
-"The virtual domain you tried to delete contains data in the following "
-"modules. Please confirm you want to remove it and all its related data"
-msgstr ""
-"Det virtuelle domæne du prøvede at slette indeholder data i følgende "
-"moduler. Bekræft venligst at du ønsker at fjerne det og alle dets data"
-
-#: src/templates/sasl.mas:16 src/templates/sasl.mas:19
-msgid "Yes"
-msgstr "Ja"
 
 #: src/templates/index.mas:36
 #, fuzzy
@@ -698,6 +517,19 @@ msgstr "Mail services"
 #: src/templates/index.mas:37
 msgid "TLS support is required by the authentication system"
 msgstr "TLS support er krævet af godkendelses systemet"
+
+#: src/templates/index.mas:48 src/templates/index.mas:49
+#: src/templates/index.mas:98 src/templates/index.mas:99
+#: src/templates/index.mas:136 src/templates/index.mas:137
+#: src/templates/index.mas:383 src/templates/index.mas:384
+#: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
+msgid "Change"
+msgstr "Ret"
+
+#: src/templates/index.mas:55 src/templates/mailtabs.mas:9
+#: src/templates/mailtabs.mas:11
+msgid "Services"
+msgstr "Services"
 
 #: src/templates/index.mas:63
 msgid "Service"
@@ -742,6 +574,13 @@ msgstr "Maximum meddelelses størrelse godkendt af mail server"
 #: src/templates/index.mas:111 src/templates/index.mas:357
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
+
+#: src/templates/index.mas:124 src/templates/index.mas:371
+#: src/templates/editVDomainSizeQuota.mas:10
+#: src/templates/createaccount.mas:78 src/templates/vdomains.mas:99
+#: src/templates/alias.mas:140
+msgid "Unlimited size"
+msgstr "Ubegrænset størrelse"
 
 #: src/templates/index.mas:150
 msgid "Relay policy for objects"
@@ -823,9 +662,176 @@ msgstr "Anvend"
 msgid "Default maximum mail account size"
 msgstr "Default maximum mail konto størrelse"
 
+#: src/templates/editVDomainSizeQuota.mas:19
+msgid "Force the change to the existing accounts"
+msgstr "Tving ændringen til eksisterende konti"
+
+#: src/templates/editVDomainSizeQuota.mas:25
+#: src/templates/editVDomainSizeQuota.mas:26 src/templates/alias.mas:151
+#: src/templates/alias.mas:152
+msgid "Modify"
+msgstr "Ændr"
+
+#: src/templates/editVDomainSizeQuota.mas:42
+#, perl-brace-format
+msgid "Maildir size for {vdomain} virtual domain"
+msgstr "Maildir størrelse for {vdomain} virtuelt domæne"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
+"Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
+
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr "Opret mail konto"
+
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr "Konto navn"
+
+#: src/templates/createaccount.mas:27 src/templates/vdomains.mas:89
+msgid "Domain name"
+msgstr "Domæne navn"
+
+#: src/templates/createaccount.mas:62
+msgid "Maildir size"
+msgstr "Maildir størrelse"
+
+#: src/templates/vdomains.mas:22
+#, fuzzy
+msgid "unlimited"
+msgstr "Ubegrænset størrelse"
+
+#: src/templates/vdomains.mas:84
+msgid "Add a new virtual domain"
+msgstr "Tilføj et nyt virtuelt domæne"
+
+#: src/templates/vdomains.mas:109
+msgid "Default maildir size"
+msgstr "Default maildir størrelse"
+
+#: src/templates/vdomains.mas:120
+msgid "(MB)"
+msgstr "(MB)"
+
+#: src/templates/vdomains.mas:129 src/templates/vdomains.mas:130
+msgid "Add"
+msgstr "Tilføj"
+
+#: src/templates/vdomains.mas:147
+#, fuzzy
+msgid "Unlimited"
+msgstr "Ubegrænset størrelse"
+
+#: src/templates/vdomains.mas:151
+msgid "Virtual domains list"
+msgstr "Virtuel domæne liste"
+
+#: src/templates/vdomains.mas:156
+msgid "Name"
+msgstr "Navn"
+
+#: src/templates/vdomains.mas:160
+msgid "Maildir Size"
+msgstr "Maildir Størrelse"
+
+#: src/templates/vdomains.mas:164 src/templates/alias.mas:42
+msgid "Action"
+msgstr "Handling"
+
+#: src/templates/vdomains.mas:180
+msgid "Edit"
+msgstr "Rediger"
+
+#: src/templates/imap.mas:23 src/templates/imap.mas:27
+#: src/templates/imap.mas:31 src/templates/pop.mas:23 src/templates/pop.mas:27
+#: src/templates/pop.mas:31
+msgid "Optional"
+msgstr "Optional/mulig"
+
+#: src/templates/imap.mas:24 src/templates/imap.mas:28
+#: src/templates/imap.mas:32 src/templates/pop.mas:24 src/templates/pop.mas:28
+#: src/templates/pop.mas:32
+msgid "Required"
+msgstr "Krævet"
+
 #: src/templates/editvdomains.mas:29
 msgid "There aren't modules which provide mail domains options to configure"
 msgstr ""
+
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr "Mail konto indstillinger"
+
+#: src/templates/alias.mas:34
+msgid "Create mail aliases"
+msgstr "Opret mail alias'"
+
+#: src/templates/alias.mas:39
+msgid "Mail alias"
+msgstr "Mail alias"
+
+#: src/templates/alias.mas:126
+msgid "Default maildir size (MB)"
+msgstr "Default maildir størrelse (MB)"
+
+#: src/templates/qmanager.mas:20
+msgid "Sender"
+msgstr "Afsender"
+
+#: src/templates/qmanager.mas:21
+msgid "Recipients"
+msgstr "Modtagere"
+
+#: src/templates/qmanager.mas:22
+msgid "Message"
+msgstr "Meddelelse"
+
+#: src/templates/qmanager.mas:23
+msgid "Operate"
+msgstr "Betjen"
+
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
+msgid "Requeue"
+msgstr "Genindlæs kø"
+
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
+msgid "Show Info"
+msgstr "Vis info"
+
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
+msgid "Remove"
+msgstr "Fjern"
+
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
+msgid "Hide Info"
+msgstr "Skjul info"
+
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
+msgid "first"
+msgstr "første"
+
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+msgid "prev"
+msgstr "forrige"
+
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
+msgid "next"
+msgstr "næste"
+
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+msgid "last"
+msgstr "sidste"
+
+#: src/templates/qmanager.mas:122
+msgid "There is no messages in queue or the service is stopped"
+msgstr "Der er ingen meddelelser i køen eller servicen er stoppet"
+
+#: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
+msgid "Settings"
+msgstr "Indstillinger"
 
 #: src/templates/account.mas:22
 msgid "Mail account"
@@ -834,6 +840,12 @@ msgstr "Mail konto"
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
 msgstr "Klik her for at oprette et nyt virtuelt mail domæne"
+
+#~ msgid "smarthost ip"
+#~ msgstr "smarthost ip"
+
+#~ msgid "IP address of smarthost to send mail"
+#~ msgstr "IP adresse fra smarthost til send mail"
 
 #~ msgid "mail system status"
 #~ msgstr "mail system status"
@@ -856,3 +868,6 @@ msgstr "Klik her for at oprette et nyt virtuelt mail domæne"
 
 #~ msgid "There is not any message at the queue or the service is stopped"
 #~ msgstr "Der er ingen meddelelser i køen eller servicen er stoppet"
+
+#~ msgid "Account do not exists"
+#~ msgstr "Konto eksisterer ikke"

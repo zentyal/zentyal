@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11\n"
+"Project-Id-Version: ebox-firewall 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:04+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,12 +25,12 @@ msgstr ""
 msgid "DENY"
 msgstr ""
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:830
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:898
 #, fuzzy
 msgid "Decision"
 msgstr "Запретить действие"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:825
+#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:893
 #: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Источник"
@@ -50,7 +50,7 @@ msgstr "Источник"
 msgid "Source object"
 msgstr "Исходный порт"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:826
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:894
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Назначение"
@@ -151,8 +151,8 @@ msgstr "Правила фильтрации служб: {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:254 src/EBox/Firewall.pm:287 src/EBox/Firewall.pm:588
-#: src/EBox/Firewall.pm:613
+#: src/EBox/Firewall.pm:303 src/EBox/Firewall.pm:336 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:662
 msgid "protocol"
 msgstr "протокол"
 
@@ -163,23 +163,23 @@ msgstr "сетевой интерфейс"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:256 src/EBox/Firewall.pm:288
+#: src/EBox/Firewall.pm:305 src/EBox/Firewall.pm:337
 msgid "external port"
 msgstr "внешний порт"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:255
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:304
 msgid "destination address"
 msgstr "адрес назначения"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:257
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:306
 msgid "destination port"
 msgstr "порт назначения"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:205
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:254
 msgid "action"
 msgstr "действие"
 
@@ -197,78 +197,100 @@ msgstr "служба"
 msgid "Edit rule"
 msgstr "Редактировать правило"
 
-#: src/EBox/Firewall.pm:45
+#: src/EBox/Firewall.pm:50
 #, fuzzy
 msgid "firewall"
 msgstr "Файрвол"
 
-#: src/EBox/Firewall.pm:261
+#: src/EBox/Firewall.pm:97
+msgid "Flush previous firewall rules"
+msgstr ""
+
+#: src/EBox/Firewall.pm:98
+msgid ""
+"The eBox firewall will flush any previous firewall  rules which have been "
+"added manually or by another tool"
+msgstr ""
+
+#: src/EBox/Firewall.pm:103
+msgid "Secure by default"
+msgstr ""
+
+#: src/EBox/Firewall.pm:104
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+
+#: src/EBox/Firewall.pm:310
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
 msgstr "Порт {port} используется службой или перенаправлением портов"
 
-#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:481
+#: src/EBox/Firewall.pm:461 src/EBox/Firewall.pm:506 src/EBox/Firewall.pm:530
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "Имя '{name}' ошибочное"
 
-#: src/EBox/Firewall.pm:413 src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:614
+#: src/EBox/Firewall.pm:462 src/EBox/Firewall.pm:638 src/EBox/Firewall.pm:663
 msgid "port"
 msgstr "порт"
 
-#: src/EBox/Firewall.pm:778 src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:846 src/EBox/Firewall.pm:906
 msgid "Firewall"
 msgstr "Файрвол"
 
-#: src/EBox/Firewall.pm:782
+#: src/EBox/Firewall.pm:850
 msgid "Packet Filter"
 msgstr "Фильтр Пакетов"
 
-#: src/EBox/Firewall.pm:785
+#: src/EBox/Firewall.pm:853
 msgid "Redirects"
 msgstr "Перенаправления"
 
-#: src/EBox/Firewall.pm:822
+#: src/EBox/Firewall.pm:890
 #, fuzzy
 msgid "Date"
 msgstr "Удалить"
 
-#: src/EBox/Firewall.pm:823
+#: src/EBox/Firewall.pm:891
 #, fuzzy
 msgid "Input interface"
 msgstr "сетевой интерфейс"
 
-#: src/EBox/Firewall.pm:824
+#: src/EBox/Firewall.pm:892
 #, fuzzy
 msgid "Output interface"
 msgstr "сетевой интерфейс"
 
-#: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
+#: src/EBox/Firewall.pm:895 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
 #: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
 msgid "Protocol"
 msgstr "Протокол"
 
-#: src/EBox/Firewall.pm:828 src/templates/fwdrules.mas:76
+#: src/EBox/Firewall.pm:896 src/templates/fwdrules.mas:76
 #: src/templates/fwdruleedit.mas:109
 msgid "Source port"
 msgstr "Исходный порт"
 
-#: src/EBox/Firewall.pm:829 src/templates/fwdrules.mas:124
+#: src/EBox/Firewall.pm:897 src/templates/fwdrules.mas:124
 #: src/templates/fwdruleedit.mas:167
 msgid "Destination port"
 msgstr "Порт назначения"
 
-#: src/EBox/Firewall.pm:835
+#: src/EBox/Firewall.pm:903
 msgid "DROP"
 msgstr ""
 
-#: src/EBox/Iptables.pm:608
+#: src/EBox/Iptables.pm:604
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Iptables.pm:614
+#: src/EBox/Iptables.pm:610
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""

@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.11.99"
+"Project-Id-Version: ebox-mailfilter 0.11.100\n"
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:49+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +25,7 @@ msgstr ""
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
 msgid "Mail filter"
-msgstr ""
+msgstr "メールフィルタ"
 
 #: src/EBox/CGI/RemoveAllowedMTA.pm:58
 #, perl-brace-format
@@ -32,67 +33,65 @@ msgid ""
 "External mail server {mta} removed. Remember to remove its mail domains from "
 "the external mail domain's list"
 msgstr ""
+"外部メールサーバ {mta} は削除されました。外部メールドメイン一覧から該当する"
+"メールドメインを削除してください"
 
 #: src/EBox/CGI/AntispamTraining.pm:80
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "無効なメールボックス形式です: {type}"
 
 #: src/EBox/CGI/AntispamTraining.pm:93
 msgid "Learned from mailbox file"
-msgstr ""
+msgstr "メールボックスファイルから学習"
 
 #: src/EBox/CGI/AddFileFilterElement.pm:66
 #, perl-brace-format
 msgid "{name} is already registered"
-msgstr ""
+msgstr "{name} はすでに登録されています"
 
 #: src/EBox/CGI/AddFileFilterElement.pm:74
 #, perl-brace-format
 msgid "{name} added"
-msgstr ""
+msgstr "{name} が追加されました"
 
 #: src/EBox/CGI/ModifyFileFilterACL.pm:87
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
 msgid "Denied settings changed"
-msgstr ""
+msgstr "拒否設定が変更されました"
 
 #: src/EBox/CGI/ModifyFileFilterACL.pm:90
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
 msgid "No changes were specified by the user"
-msgstr ""
+msgstr "変更は指定されていません"
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:66
 #, perl-brace-format
 msgid "{name} is not registered"
-msgstr ""
+msgstr "{name} は登録されていません"
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:74
 #, perl-brace-format
 msgid "{name} removed"
-msgstr ""
+msgstr "{name} が削除されました"
 
 #: src/EBox/CGI/RemoveSenderACL.pm:74
 msgid "The specified sender is not in the ACL"
-msgstr ""
+msgstr "指定した送信者はACLに含まれていません"
 
 #: src/EBox/CGI/AddExternalDomain.pm:64
 #, perl-brace-format
 msgid "Mail domain {domain} added to external domain's list."
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
+msgstr "メールドメイン {domain} が外部ドメイン一覧に追加されました"
 
 #: src/EBox/CGI/RemoveExternalDomain.pm:58
 #, perl-brace-format
 msgid "Mail domain {domain} removed from external domain's list."
-msgstr ""
+msgstr "メールドメイン {domain} が外部ドメイン一覧から削除されました"
 
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
 msgid "All entries were removed"
-msgstr ""
+msgstr "全ての項目が削除されました"
 
 #: src/EBox/CGI/AddAllowedMTA.pm:63
 #, perl-brace-format
@@ -100,187 +99,231 @@ msgid ""
 "External mail server {mta} allowed. Remember to add its mail domains to the "
 "external mail domain's list"
 msgstr ""
+"外部メールサーバ {mta} が許可されました。外部メールドメイン一覧に追加してくだ"
+"さい"
 
 #: src/EBox/MailFilter/FileFilter.pm:70
 #, perl-brace-format
 msgid "{ext} is not registered in the extensions list"
-msgstr ""
+msgstr "{ext} は拡張子一覧に登録されていません"
 
 #: src/EBox/MailFilter/FileFilter.pm:137
 #, perl-brace-format
 msgid "{ext} is not registered in the mimeTypes list"
-msgstr ""
+msgstr "{ext} はMIMEタイプ一覧に登録されていません"
 
 #: src/EBox/MailFilter/FileFilter.pm:173
 msgid "MIME type"
-msgstr ""
+msgstr "MIMEタイプ"
 
 #: src/EBox/MailFilter/FileFilter.pm:187
 msgid "file extension"
+msgstr "ファイル拡張子"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:38
+msgid " To configure spamassassin daemon"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:290
+#: src/EBox/MailFilter/SpamAssassin.pm:302
 msgid "The spam's autolearn threshold must be higher than 6.0"
-msgstr ""
+msgstr "迷惑メールの学習のしきい値は6.0より大きく設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:319
+#: src/EBox/MailFilter/SpamAssassin.pm:331
 msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-msgstr ""
+msgstr "通常メールの学習のしきい値は迷惑メールよりも高く設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:335
+#: src/EBox/MailFilter/SpamAssassin.pm:347
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
+"迷惑メールの学習のしきい値はデフォルトの迷惑メールのしきい値以上に設定してく"
+"ださい"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:339
+#: src/EBox/MailFilter/SpamAssassin.pm:351
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"通常メールの学習のしきい値はデフォルトの迷惑メールのレベルよりも小さく設定し"
+"てください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:428 src/templates/antispam.mas:29
+#: src/EBox/MailFilter/SpamAssassin.pm:440 src/templates/antispam.mas:29
 msgid "Spam threshold"
-msgstr ""
+msgstr "迷惑メールしきい値"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:428
+#: src/EBox/MailFilter/SpamAssassin.pm:440
 msgid "It must be a number(decimal point allowed)"
-msgstr ""
+msgstr "数字を入力してください(小数点も利用可能)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:438
+#: src/EBox/MailFilter/SpamAssassin.pm:450
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
+msgstr "迷惑メールのしきい値は学習のしきい値以下に設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:443
+#: src/EBox/MailFilter/SpamAssassin.pm:455
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
+"迷惑メールのしきい値は通常メールの学習のしきい値よりも高く設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:520
+#: src/EBox/MailFilter/SpamAssassin.pm:532
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
+"ベイジアンフィルタが無効になっているため学習を開始できません。ベイジアンフィ"
+"ルタが有効になるように設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:535
+#: src/EBox/MailFilter/SpamAssassin.pm:547
 #, perl-brace-format
 msgid "Unsupported or incorrect input source format: {format}"
-msgstr ""
+msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:564
+#: src/EBox/MailFilter/SpamAssassin.pm:576
 msgid "domain name"
-msgstr ""
+msgstr "ドメイン名"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:568
+#: src/EBox/MailFilter/SpamAssassin.pm:580
 msgid "email address"
-msgstr ""
+msgstr "Eメールアドレス"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:572
+#: src/EBox/MailFilter/SpamAssassin.pm:584
 msgid ""
 "The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
+"送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使え"
+"ます"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:734
+#: src/EBox/MailFilter/VDomainsLdap.pm:409 src/EBox/MailFilter.pm:804
 msgid "Mail filter settings"
-msgstr ""
+msgstr "メールフィルタ設定"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:448
+#: src/EBox/MailFilter/VDomainsLdap.pm:464
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
+msgstr "バーチャルメールドメイン {vd} は存在しません"
+
+#: src/EBox/MailFilter/ClamAV.pm:56
+msgid "To configure freshclam updater daemon"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:298
+#: src/EBox/MailFilter.pm:87
+msgid "Add clamav user to amavis group"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:88
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:92
+msgid "Update LDAP"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:93
+msgid "Add amavis specific classes and fields"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:109
+msgid "To configure amavis"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:114
+msgid "To add the LDAP schemas used by eBox mailfilter"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:368
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "フィルタが使われているため進めません"
 
-#: src/EBox/MailFilter.pm:371
+#: src/EBox/MailFilter.pm:441
 msgid "Mailfilter's port"
-msgstr ""
+msgstr "メールフィルタのポート"
 
-#: src/EBox/MailFilter.pm:378
+#: src/EBox/MailFilter.pm:448
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
-msgstr ""
+msgstr "ポート {port} はすでにモジュール {mod} で使われています"
 
-#: src/EBox/MailFilter.pm:434
+#: src/EBox/MailFilter.pm:504
 msgid "MTA's address"
-msgstr ""
+msgstr "MTAのアドレス"
 
-#: src/EBox/MailFilter.pm:446
+#: src/EBox/MailFilter.pm:516
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
+"無効な外部MTAです: {mta}。ローカルのネットワークアドレスは利用できません"
 
-#: src/EBox/MailFilter.pm:474
+#: src/EBox/MailFilter.pm:544
 #, perl-brace-format
 msgid "{mta} is already allowed"
-msgstr ""
+msgstr "{mta} はすでに許可されています"
 
-#: src/EBox/MailFilter.pm:499
+#: src/EBox/MailFilter.pm:569
 #, perl-brace-format
 msgid "{mta} not found"
-msgstr ""
+msgstr "{mta} が見つかりません"
 
-#: src/EBox/MailFilter.pm:518
+#: src/EBox/MailFilter.pm:588
 msgid "Mail domain"
-msgstr ""
+msgstr "メールドメイン"
 
-#: src/EBox/MailFilter.pm:523
+#: src/EBox/MailFilter.pm:593
 #, perl-brace-format
 msgid "{domain} is already acknowledged as external mail domain"
-msgstr ""
+msgstr "{domain} はすでに外部メールドメインとして認識されています"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:613
 #, perl-brace-format
 msgid "Domain {domain} was not acknowledged as external mail domain"
-msgstr ""
+msgstr "ドメイン {domain} は外部メールドメインとして認識されていません"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:636
 msgid "Administrator address"
-msgstr ""
+msgstr "管理者アドレス"
 
-#: src/EBox/MailFilter.pm:628
+#: src/EBox/MailFilter.pm:698
 msgid "policy type"
-msgstr ""
+msgstr "ポリシータイプ"
 
-#: src/EBox/MailFilter.pm:647
+#: src/EBox/MailFilter.pm:717
 msgid "filter type"
-msgstr ""
+msgstr "フィルタタイプ"
 
-#: src/EBox/MailFilter.pm:719
+#: src/EBox/MailFilter.pm:789
 msgid "Mail filter system"
-msgstr ""
+msgstr "メールフィルタシステム"
 
-#: src/EBox/MailFilter.pm:796
+#: src/EBox/MailFilter.pm:863
 msgid "eBox internal mail filter"
-msgstr ""
+msgstr "eBox内部メールフィルタ"
 
-#: src/EBox/MailFilter.pm:815 src/templates/menutabs.mas:12
+#: src/EBox/MailFilter.pm:883 src/templates/menutabs.mas:12
 msgid "Antivirus"
-msgstr ""
+msgstr "アンチウィルス"
 
-#: src/EBox/MailFilter.pm:825 src/templates/menutabs.mas:13
+#: src/EBox/MailFilter.pm:893 src/templates/menutabs.mas:13
 msgid "Antispam"
-msgstr ""
+msgstr "アンチスパム"
 
 #: src/templates/badHeaders.mas:7
 msgid "Bad headers policy"
-msgstr ""
+msgstr "望ましくないヘッダポリシーです"
 
 #: src/templates/antivirus.mas:23
 msgid "Virus policy"
-msgstr ""
+msgstr "ウィルスポリシー"
 
 #: src/templates/antivirus.mas:31
 msgid "Virus database update status"
-msgstr ""
+msgstr "ウィルスデータベース更新状態"
 
 #: src/templates/antivirus.mas:66
 #, perl-brace-format
 msgid "The last update failed at {date}"
-msgstr ""
+msgstr "最後の更新が {date} に失敗しました"
 
 #: src/templates/antivirus.mas:78
 #, perl-brace-format
@@ -289,215 +332,218 @@ msgid ""
 "Your version of freshclam  is outdated.Please, install version {version} or "
 "higher"
 msgstr ""
+"{date} に更新が失敗しました。\n"
+"お使いのFleshclamは古いバージョンです。バージョン {version} 以降を使用してく"
+"ださい"
 
 #: src/templates/antivirus.mas:95
 #, perl-brace-format
 msgid "The last successful update was at {date}"
-msgstr ""
+msgstr "最後の更新は {date} です"
 
 #: src/templates/fileFilter.mas:13
 #, perl-brace-format
 msgid "{plural} which are not listed below are allowed"
-msgstr ""
+msgstr "以下に表示されていない {plural} が許可されています"
 
 #: src/templates/fileFilter.mas:31
 msgid "Banned files policy"
-msgstr ""
+msgstr "隔離ファイルポリシー"
 
 #: src/templates/fileFilter.mas:56 src/templates/fileFilter.mas:194
 msgid "Deny"
-msgstr ""
+msgstr "拒否"
 
 #: src/templates/fileFilter.mas:59 src/templates/antispamACL.mas:29
-#: src/templates/general.mas:102 src/templates/general.mas:137
+#: src/templates/general.mas:100 src/templates/general.mas:135
 msgid "Actions"
-msgstr ""
+msgstr "アクション"
 
 #: src/templates/fileFilter.mas:157 src/templates/fileFilter.mas:158
-#: src/templates/antispamACL.mas:31 src/templates/general.mas:104
-#: src/templates/general.mas:139
+#: src/templates/antispamACL.mas:31 src/templates/general.mas:102
+#: src/templates/general.mas:137
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: src/templates/fileFilter.mas:181
 #, perl-brace-format
 msgid "Add {element}"
-msgstr ""
+msgstr "{element} を追加"
 
 #: src/templates/fileFilter.mas:188
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: src/templates/fileFilter.mas:215
 #, perl-brace-format
 msgid "All registered {plural}"
-msgstr ""
+msgstr "全ての登録済み {plural}"
 
 #: src/templates/fileFilter.mas:246 src/templates/fileFilter.mas:247
 msgid "Delete them all"
-msgstr ""
+msgstr "全て削除"
 
 #: src/templates/antispam.mas:30
 msgid "The score threshold to mark a message as spam"
-msgstr ""
+msgstr "メッセージを迷惑メールとしてマークするしきい値スコア"
 
 #: src/templates/antispam.mas:36
 msgid "Spam subject tag"
-msgstr ""
+msgstr "迷惑メール題名タグ"
 
 #: src/templates/antispam.mas:37
 msgid "Tag which will be added to the spam mail subject"
-msgstr ""
+msgstr "迷惑メール題名として追加するタグ"
 
 #: src/templates/antispam.mas:43
 msgid "Use bayesian classifier"
-msgstr ""
+msgstr "ベイジアン識別器を使用"
 
 #: src/templates/antispam.mas:49
 msgid "Auto-whitelist"
-msgstr ""
+msgstr "自動ホワイトリスト"
 
 #: src/templates/antispam.mas:50
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "送信者の履歴を使用してメールのスコアを変更"
 
 #: src/templates/antispam.mas:56
 msgid "Auto-learn"
-msgstr ""
+msgstr "自動学習"
 
 #: src/templates/antispam.mas:57
 msgid "Feedback the learning system with messages that reach the threshold"
-msgstr ""
+msgstr "しきい値に達したメッセージを使って学習システムにフィードバック"
 
 #: src/templates/antispam.mas:63
 msgid "Autolearn spam threshold"
-msgstr ""
+msgstr "迷惑メールしきい値を自動で学習"
 
 #: src/templates/antispam.mas:64
 msgid ""
 "Spam messages which a score equal or greater than this threshold will be "
 "added to the learning system "
-msgstr ""
+msgstr "このしきい値以上の迷惑メッセージが学習システムに追加されます"
 
 #: src/templates/antispam.mas:70
 msgid "Autolearn ham threshold"
-msgstr ""
+msgstr "通常メールのしきい値を自動で学習"
 
 #: src/templates/antispam.mas:71
 msgid ""
 "Ham messages which a score below this threshold will be added to the "
 "learning system"
-msgstr ""
+msgstr "このしきい値を下回るスコアの通常メールを学習システムに追加"
 
-#: src/templates/antispam.mas:76 src/templates/general.mas:67
+#: src/templates/antispam.mas:76 src/templates/general.mas:65
 #: src/templates/vdomain.mas:95
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 #: src/templates/antispam.mas:83
 msgid "Mailbox contains"
-msgstr ""
+msgstr "メールボックス内容"
 
 #: src/templates/antispam.mas:86
 msgid "spam"
-msgstr ""
+msgstr "迷惑メール"
 
 #: src/templates/antispam.mas:87
 msgid "ham"
-msgstr ""
+msgstr "通常メール"
 
 #: src/templates/antispam.mas:94
 msgid "Mailbox"
-msgstr ""
+msgstr "メールボックス"
 
 #: src/templates/antispam.mas:102
 msgid "Train"
-msgstr ""
+msgstr "学習"
 
 #: src/templates/antispam.mas:115
 msgid "Spam policy"
-msgstr ""
+msgstr "迷惑メールポリシー"
 
 #: src/templates/antispam.mas:123
 msgid "Antispam options"
-msgstr ""
+msgstr "アンチスパムオプション"
 
 #: src/templates/antispam.mas:128
 msgid "Antispam global sender access lists"
-msgstr ""
+msgstr "グローバルな送信者アクセス一覧をアンチスパム"
 
 #: src/templates/antispam.mas:135
 msgid "Spam filter training"
-msgstr ""
+msgstr "迷惑メールフィルタの学習"
 
 #: src/templates/antispamACL.mas:6
 msgid "Whitelist"
-msgstr ""
+msgstr "ホワイトリスト"
 
 #: src/templates/antispamACL.mas:13
 msgid "Blacklist"
-msgstr ""
+msgstr "ブラックリスト"
 
 #: src/templates/antispamACL.mas:29 src/templates/antispamACL.mas:58
 msgid "Sender"
-msgstr ""
+msgstr "送信者"
 
 #: src/templates/antispamACL.mas:56
 #, perl-brace-format
 msgid "Add sender to {type}"
-msgstr ""
+msgstr "送信者を {type} に追加"
 
-#: src/templates/general.mas:26
+#: src/templates/general.mas:24
 msgid "Service port"
-msgstr ""
+msgstr "サービスポート"
 
-#: src/templates/general.mas:40
+#: src/templates/general.mas:38
 msgid "Notify of non-spam problematic messages"
-msgstr ""
+msgstr "問題のある非迷惑メッセージを通知"
 
-#: src/templates/general.mas:49
+#: src/templates/general.mas:47
 msgid "Notification address"
-msgstr ""
+msgstr "通知アドレス"
 
-#: src/templates/general.mas:72
+#: src/templates/general.mas:70
 msgid "Notification"
-msgstr ""
+msgstr "通知"
 
-#: src/templates/general.mas:102
+#: src/templates/general.mas:100
 msgid "External Mail server"
-msgstr ""
+msgstr "外部メールサーバ"
 
-#: src/templates/general.mas:117
+#: src/templates/general.mas:115
 msgid "Allowed external mail servers"
-msgstr ""
+msgstr "許可された外部メールサーバ"
+
+#: src/templates/general.mas:122
+msgid "Add external mail server"
+msgstr "外部メールサーバを追加"
 
 #: src/templates/general.mas:124
-msgid "Add external mail server"
-msgstr ""
-
-#: src/templates/general.mas:126
 msgid "External mail server"
-msgstr ""
+msgstr "外部メールサーバ"
 
-#: src/templates/general.mas:137
+#: src/templates/general.mas:135
 msgid "External Mail domain"
-msgstr ""
+msgstr "外部メールドメイン"
 
-#: src/templates/general.mas:152
+#: src/templates/general.mas:150
 msgid "External mail domains"
-msgstr ""
+msgstr "外部メールドメイン"
+
+#: src/templates/general.mas:157
+msgid "Add external mail domain"
+msgstr "外部メールドメインを追加"
 
 #: src/templates/general.mas:159
-msgid "Add external mail domain"
-msgstr ""
-
-#: src/templates/general.mas:161
 msgid "External mail domain"
-msgstr ""
+msgstr "外部メールドメイン"
 
 #: src/templates/vdomain.mas:27
 msgid "Use virus filtering"
-msgstr ""
+msgstr "ウィルスフィルタを使用"
 
 #: src/templates/vdomain.mas:37
 #, perl-brace-format
@@ -505,10 +551,12 @@ msgid ""
 "The \"{name}\"  setting will not have effect until the\n"
 "   antivirus service will be enabled in the mail filter"
 msgstr ""
+"\"{name}\" の設定はアンチウィルスサービスがメールフィルタの設定で有効にならな"
+"い限り無効です"
 
 #: src/templates/vdomain.mas:44
 msgid "Use spam filtering"
-msgstr ""
+msgstr "迷惑メールフィルタを使用"
 
 #: src/templates/vdomain.mas:54
 #, perl-brace-format
@@ -516,53 +564,58 @@ msgid ""
 "The \"{name}\"  setting will not have effect until the\n"
 "   antispam sergice will be enabled in the mail filter"
 msgstr ""
+"\"{name}\" の設定はアンチスパムサービスがメールフィルタの設定で有効にならない"
+"限り無効です"
 
 #: src/templates/vdomain.mas:74
 #, perl-brace-format
 msgid "Use default spam threshold (current value is {v})"
-msgstr ""
+msgstr "デフォルトの迷惑メールしきい値を使う (現在値 {v})"
 
 #: src/templates/vdomain.mas:87
 #, perl-brace-format
 msgid "Spam threshold for {domain} virtual domain"
-msgstr ""
+msgstr "バーチャルドメイン {domain} の迷惑メールしきい値"
 
 #: src/templates/vdomain.mas:102
 msgid "Mail filter options"
-msgstr ""
+msgstr "メールフィルタオプション"
 
 #: src/templates/vdomain.mas:107
 msgid "Antispam sender access lists"
-msgstr ""
+msgstr "送信者アクセス一覧をアンチスパム"
 
 #: src/templates/menutabs.mas:11
 msgid "General"
-msgstr ""
+msgstr "全般"
 
 #: src/templates/menutabs.mas:14
 msgid "Extensions filter"
-msgstr ""
+msgstr "拡張子フィルタ"
 
 #: src/templates/menutabs.mas:15
 msgid "MIME Type filter"
-msgstr ""
+msgstr "MIMEタイプフィルタ"
 
 #: src/templates/menutabs.mas:16
 msgid "Bad formed headers"
-msgstr ""
+msgstr "望ましくないヘッダ形式です"
 
 #: src/templates/policy.mas:11
 msgid "Pass"
-msgstr ""
+msgstr "通過"
 
 #: src/templates/policy.mas:12
 msgid "Reject"
-msgstr ""
+msgstr "拒否"
 
 #: src/templates/policy.mas:13
 msgid "Bounce"
-msgstr ""
+msgstr "宛先不明通知"
 
 #: src/templates/policy.mas:14
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
+
+#~ msgid "module status"
+#~ msgstr "モジュール状態"

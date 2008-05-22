@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11\n"
+"Project-Id-Version: libebox 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:03+0200\n"
 "PO-Revision-Date: 2006-11-23 16:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,7 +40,7 @@ msgstr "{data} heeft geen waarde."
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: src/EBox/CGI/Base.pm:189
+#: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -48,7 +48,7 @@ msgstr ""
 "De ingave bevat ongeldige tekens. Allle alfanumerieke tekens en de volgende "
 "tekens: /.?&+:-@ en spaties zijn toegelaten."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
+#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -56,7 +56,7 @@ msgstr ""
 "Er is een interne fout opgetreden. Dit is waarschijnlijk een bug, relevante "
 "informatie kan in de logbestanden gevonden worden."
 
-#: src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:341
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "Er is een interne fout met betrekking tot een sjabloon opgetreden. Dit is "
 "een bug, relevante informatie kan in de logbestanden gevonden worden."
 
-#: src/EBox/CGI/Base.pm:546
+#: src/EBox/CGI/Base.pm:566
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -72,30 +72,30 @@ msgstr ""
 "Er is een onverwachte interne fout opgetreden. Dit is een bug, relevante "
 "informatie kan in de logbestanden gevonden worden."
 
-#: src/EBox/CGI/Base.pm:552
+#: src/EBox/CGI/Base.pm:572
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Je hebt met een bug in aanraking gekomen. Gelieve technische ondersteuning "
 "te zoeken. "
 
-#: src/EBox/CGI/Base.pm:639
+#: src/EBox/CGI/Base.pm:659
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Uw vraag kon niet uitgevoerd worden omdat sommige parameters fout zijn."
 
-#: src/EBox/CGI/Base.pm:654
+#: src/EBox/CGI/Base.pm:674
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Uw vraag kon niet uitgevoerd worden omdat sommige parameters ontbreken."
 
-#: src/EBox/CGI/Base.pm:803
+#: src/EBox/CGI/Base.pm:823
 msgid "Invalid uploaded file."
 msgstr "Upgeload bestand is niet juist."
 
-#: src/EBox/CGI/Base.pm:809
+#: src/EBox/CGI/Base.pm:829
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan geen tijdelijk bestand aanmaken voor de upload."
 
@@ -114,7 +114,7 @@ msgstr "Interface"
 msgid "Could not open the config file {file}."
 msgstr "Kan het configuratiebestand {file} niet openen."
 
-#: src/EBox/Config.pm.in:88
+#: src/EBox/Config.pm.in:102
 msgid "The ebox user has not been set in the config file."
 msgstr "De ebox gebruiker is niet aangemaakt in het configuratiebestand."
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:51+0100\n"
+"POT-Creation-Date: 2008-05-22 15:07+0200\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -88,20 +88,20 @@ msgstr "virtual host"
 msgid "listening port"
 msgstr "porta di ascolto"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:136
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
 msgstr "Porta di ascolto"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:142
+#: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Attiva per utente {dirName}"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:168
 msgid "General configuration settings"
 msgstr "Impostazioni generali di configurazione"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:156
+#: src/EBox/WebServer/Model/GeneralSettings.pm:172
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -114,7 +114,7 @@ msgstr ""
 "sue pagine web, le pagine saranno caricate dalla directory {dirName} sotto "
 "le home directory samba"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:178
 msgid "General Web server configuration settings updated"
 msgstr "Impostazioni generali di configurazione aggiornate"
 
@@ -130,19 +130,19 @@ msgstr ""
 "Il servizio web di eBox permette la pubblicazione di pagine Web in HTML "
 "semplice su virtual host diversi"
 
-#: src/EBox/WebServer/Maintenance.pm:66
-msgid "HyperText Transport Protocol"
-msgstr "HyperText Transport Protocol"
-
-#: src/EBox/WebServer.pm:127 src/EBox/WebServer.pm:151
+#: src/EBox/WebServer.pm:130 src/EBox/WebServer.pm:154
 msgid "Web"
 msgstr "Web"
 
-#: src/EBox/WebServer.pm:170
+#: src/EBox/WebServer.pm:173
 msgid "Web service status"
 msgstr "Stato servizio Web"
 
-#: src/EBox/WebServer.pm:362
+#: src/EBox/WebServer.pm:365
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "Manca il file {userDirConfFile}! Prego recuperalo"
+
+#: migration/0001_add_service_and_port.pl:145
+msgid "HyperText Transport Protocol"
+msgstr "HyperText Transport Protocol"

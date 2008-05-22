@@ -8,9 +8,9 @@
 # Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11\n"
+"Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:48+0100\n"
+"POT-Creation-Date: 2008-05-22 15:04+0200\n"
 "PO-Revision-Date: 2007-02-02 18:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -20,56 +20,102 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/Model/HostnameTable.pm:65
+#: src/EBox/Model/HostnameTable.pm:133
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+"Hay un alias con el mismo nombre \"{name}\" para \"{hostname}\" in el mismo "
+"dominio"
+
+#: src/EBox/Model/HostnameTable.pm:158
 msgid "Hostname"
 msgstr "Nombre de la máquina"
 
-#: src/EBox/Model/HostnameTable.pm:73
+#: src/EBox/Model/HostnameTable.pm:166
 msgid "IP Address"
 msgstr "Dirección IP"
 
-#: src/EBox/Model/HostnameTable.pm:81 src/EBox/Model/AliasTable.pm:62
-#: src/EBox/Model/AliasTable.pm:72 src/EBox/Model/AliasTable.pm:78
+#: src/EBox/Model/HostnameTable.pm:174 src/EBox/Model/AliasTable.pm:104
+#: src/EBox/Model/AliasTable.pm:114 src/EBox/Model/AliasTable.pm:120
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:92 src/EBox/Model/HostnameTable.pm:98
+#: src/EBox/Model/HostnameTable.pm:185 src/EBox/Model/HostnameTable.pm:191
 #: src/EBox/Model/DomainTable.pm:73
 msgid "Hostnames"
 msgstr "Nombres de máquinas"
 
-#: src/EBox/Model/HostnameTable.pm:99
+#: src/EBox/Model/HostnameTable.pm:192
 msgid "hostname"
 msgstr "nombre de la máquina"
 
-#: src/EBox/Model/HostnameTable.pm:113 src/EBox/Model/DomainTable.pm:105
-msgid "Domain name"
-msgstr "Nombre del dominio"
-
-#: src/EBox/Model/HostnameTable.pm:114
-msgid "IP address"
-msgstr "dirección IP"
-
-#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:567
-#: src/EBox/DNS.pm.in:603
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:788
+#: src/EBox/DNS.pm.in:816
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "El servidor DNS te permite resolver nombres para tus propios dominios"
+
+#: src/EBox/Model/MailExchanger.pm:86
+#, perl-brace-format
+msgid "Invalid preference number. Allowed range: ({min}, {max})"
+msgstr "Número de preferencia inválido. Rango permitido: ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:110 src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Nombre de la máquina"
+
+#: src/EBox/Model/MailExchanger.pm:117
+msgid "Owner domain"
+msgstr "Propio dominio"
+
+#: src/EBox/Model/MailExchanger.pm:125
+msgid "Custom"
+msgstr "Personalizado"
+
+#: src/EBox/Model/MailExchanger.pm:133
+msgid "Preference"
+msgstr "Preferencia"
+
+#: src/EBox/Model/MailExchanger.pm:142
+msgid "Mail exchangers"
+msgstr "Intercambiadores de correo"
+
+#: src/EBox/Model/MailExchanger.pm:148
+#, perl-brace-format
+msgid ""
+"The smallest preference number has the highest priority  and is the first "
+"server to be tried when a remote client (typically another mail server) does "
+"an MX lookup for the domain name. Allowed preference number interval = "
+"({min}, {max})"
+msgstr ""
+"El menor número de preferencia es el de mayor prioridad y es el primer "
+"servidor que intentará acceder cuando un cliente remoto (normalmente otro "
+"servidor de correo) haga una búsqueda del MX para el dominio seleccionado. "
+"Intervalo permitido para el número de preferencia = ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:154
+msgid "Mail exchanger record"
+msgstr "Registro intercambiador de correo"
 
 #: src/EBox/Model/DomainTable.pm:65
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Model/DomainTable.pm:84 src/EBox/Model/DomainTable.pm:90
-#, fuzzy
-msgid "Domains"
-msgstr "Dominio"
+#: src/EBox/Model/DomainTable.pm:82
+msgid "Mail Exchangers"
+msgstr "Intercambiadores de correo"
 
-#: src/EBox/Model/DomainTable.pm:91 src/EBox/DNS.pm.in:250
+#: src/EBox/Model/DomainTable.pm:92 src/EBox/Model/DomainTable.pm:98
+msgid "Domains"
+msgstr "Dominios"
+
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:326
 msgid "domain"
 msgstr "dominio"
 
@@ -79,25 +125,36 @@ msgstr "Servicio habilitado"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Servicio deshabilitado"
 
-#: src/EBox/Model/AliasTable.pm:79
-#, fuzzy
+#: src/EBox/Model/AliasTable.pm:80
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr ""
+"Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
+
+#: src/EBox/Model/AliasTable.pm:121
 msgid "alias"
-msgstr "Alias"
+msgstr "alias"
 
-#: src/EBox/Model/AliasTable.pm:93
+#: src/EBox/DNS.pm.in:52
 #, fuzzy
-msgid "Alias name"
-msgstr "Alias"
+msgid "Domain Name System"
+msgstr "Nombre del dominio"
 
-#: src/EBox/DNS.pm.in:50
-msgid "dns"
-msgstr ""
-
-#: src/EBox/DNS.pm.in:72
+#: src/EBox/DNS.pm.in:89
 msgid "DNS Server"
-msgstr ""
+msgstr "Servidor DNS"
+
+#: src/EBox/DNS.pm.in:607
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "fichero de configuración para zona {zone}"
+
+#: src/EBox/DNS.pm.in:621
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "fichero de configuración para zona de resolución inversa {zone}"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
@@ -107,10 +164,6 @@ msgstr "Lista de máquinas para el dominio {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
-
-#: src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Nombre de la máquina"
 
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
@@ -149,6 +202,13 @@ msgstr "Editar"
 #: src/templates/index.mas:65
 msgid "edit"
 msgstr "editar"
+
+#~ msgid "IP address"
+#~ msgstr "dirección IP"
+
+#, fuzzy
+#~ msgid "Alias name"
+#~ msgstr "Alias"
 
 #~ msgid "module status"
 #~ msgstr "estado del módulo"
@@ -204,3 +264,6 @@ msgstr "editar"
 
 #~ msgid "DNS Cache"
 #~ msgstr "Cache DNS"
+
+#~ msgid "Domain name"
+#~ msgstr "Nombre del dominio"

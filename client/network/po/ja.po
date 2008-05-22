@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.99"
+"Project-Id-Version: ebox-network 0.11.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"POT-Creation-Date: 2008-05-22 15:05+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,67 +19,67 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:385
 msgid "any"
-msgstr ""
+msgstr "全て"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:94
 msgid "Protocol"
-msgstr ""
+msgstr "プロトコル"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:684
-#: src/EBox/Network.pm:716 src/EBox/Network.pm:761 src/EBox/Network.pm:795
-#: src/EBox/Network.pm:820 src/EBox/Network.pm:896 src/EBox/Network.pm:1019
-#: src/EBox/Network.pm:1214 src/EBox/Network.pm:1274 src/EBox/Network.pm:1309
-#: src/EBox/Network.pm:1345 src/EBox/Network.pm:1378 src/EBox/Network.pm:2061
-#: src/EBox/Network.pm:2093 src/EBox/Network.pm:2166 src/EBox/Network.pm:2186
-#: src/EBox/Network.pm:2207 src/EBox/Network.pm:2230
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:789
+#: src/EBox/Network.pm:821 src/EBox/Network.pm:866 src/EBox/Network.pm:900
+#: src/EBox/Network.pm:925 src/EBox/Network.pm:1001 src/EBox/Network.pm:1124
+#: src/EBox/Network.pm:1319 src/EBox/Network.pm:1379 src/EBox/Network.pm:1414
+#: src/EBox/Network.pm:1451 src/EBox/Network.pm:1484 src/EBox/Network.pm:2276
+#: src/EBox/Network.pm:2308 src/EBox/Network.pm:2381 src/EBox/Network.pm:2401
+#: src/EBox/Network.pm:2422 src/EBox/Network.pm:2445
 msgid "Interface"
-msgstr ""
+msgstr "インタフェース"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:106
 #: src/EBox/Model/ByteRateGraphControl.pm:111
 msgid "Source"
-msgstr ""
+msgstr "送信元"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:111
 #: src/EBox/Model/MultiGwRulesDataTable.pm:143
 msgid "Any"
-msgstr ""
+msgstr "全て"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:114
 msgid "Source IP"
-msgstr ""
+msgstr "送信元IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:119
 msgid "Source object"
-msgstr ""
+msgstr "送信元オブジェクト"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:130
 #: src/EBox/Model/MultiGwRulesDataTable.pm:163
 msgid "Port"
-msgstr ""
+msgstr "ポート"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
-msgstr ""
+msgstr "送信先"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Destination IP"
-msgstr ""
+msgstr "送信先IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:151
 msgid "Destination object"
-msgstr ""
+msgstr "送信先オブジェクト"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1510
-#: src/templates/routes.mas:31
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170
+#: src/EBox/Model/StaticRoute.pm:124
 msgid "Gateway"
-msgstr ""
+msgstr "ゲートウェイ"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:182
 msgid "Multigateway rules"
-msgstr ""
+msgstr "マルチゲートウェイルール"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:196
 msgid ""
@@ -89,87 +89,135 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
+"ゲートウェイ毎にトラフィックの種類を決めることができます。この方法を取ること"
+"で、サブネット、サービス、送信先などに対して通過するルータを強制させることが"
+"できます。ルールは最初の行から最後の行まで順番に適用されます。追加された後で"
+"も順番は並び替えることができます。ポートやIPアドレスを別途設定していない場"
+"合、ルールは全てのものに適用されます。"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:198
 msgid "rule"
-msgstr ""
+msgstr "ルール"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:216
 msgid "Destination port"
-msgstr ""
+msgstr "送信先ポート"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:221
 msgid "Source port"
-msgstr ""
+msgstr "送信元ポート"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:231
 msgid "Port cannot be set if no protocol is selected"
-msgstr ""
+msgstr "プロトコルが選択されていないとポートは設定できません。"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
 #: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
 #: src/templates/ifaces.mas:26 src/templates/ifaces.mas:205
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:74
 msgid "Physical interface list"
-msgstr ""
+msgstr "物理インタフェース一覧"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:81
 msgid "These are the physical interfaces which are available in your system."
-msgstr ""
+msgstr "これらがシステムで利用可能な物理インタフェースです。"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:117
 #: src/EBox/Model/VlanInterfaceTable.pm:94
 msgid "interface"
+msgstr "インタフェース"
+
+#: src/EBox/Model/DNSResolver.pm:82
+msgid "Name server"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:90
+msgid "Name server resolvers"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"DHCP経由で設定されたインタフェースがある場合、この設定が上書きされるかもしれ"
+"ません。"
+
+#: src/EBox/Model/DNSResolver.pm:97
+msgid "name server"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:118 src/EBox/Network.pm:66
+#: src/EBox/Network.pm:2568
+msgid "Network"
+msgstr "ネットワーク"
+
+#: src/EBox/Model/StaticRoute.pm:129 src/templates/ifaces.mas:149
+msgid "Description"
+msgstr "内容"
+
+#: src/EBox/Model/StaticRoute.pm:137
+msgid "Static routes"
+msgstr "静的経路"
+
+#: src/EBox/Model/StaticRoute.pm:142
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:145
+msgid "static route"
 msgstr ""
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
 #: src/templates/ifaces.mas:37
 msgid "Method"
-msgstr ""
+msgstr "方式"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:92
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:250
 #: src/templates/ifaces.mas:74
 msgid "External"
-msgstr ""
+msgstr "外部"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:108
 msgid "Configurable interface list"
-msgstr ""
+msgstr "設定可能なインタフェース一覧"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
 msgid "These are the interfaces which can be configured"
-msgstr ""
+msgstr "これらが設定可能なインタフェースです"
 
 #: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
-msgstr ""
+msgstr "IPアドレス"
 
 #: src/EBox/Model/GatewayTable.pm:102
 msgid "Upload"
-msgstr ""
+msgstr "アップロード"
 
 #: src/EBox/Model/GatewayTable.pm:109
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Weight"
-msgstr ""
+msgstr "ウェイト"
 
 #: src/EBox/Model/GatewayTable.pm:123
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: src/EBox/Model/GatewayTable.pm:133
 msgid "Gateway list"
-msgstr ""
+msgstr "ゲートウェイ一覧"
 
 #: src/EBox/Model/GatewayTable.pm:147
 #, perl-brace-format
@@ -180,80 +228,87 @@ msgid ""
 "towards the gateway. The correct value of these fields is critical to ensure "
 "a correct functionality of the traffic shaping module"
 msgstr ""
+"ゲートウェイは追加したいだけ追加することができます。これはインターネットトラ"
+"フィックをいくつかのリンクに分散させる際に有用です。 {br}アップロード、ダウン"
+"ロードフィールドはゲートウェイに向かう接続に対して同等のレートである必要があ"
+"ります。トラフィック整形モジュールが正しく動作するためにはこのフィールドに正"
+"しい値が設定されている必要があります。"
 
 #: src/EBox/Model/GatewayTable.pm:149
 msgid "gateway"
-msgstr ""
+msgstr "ゲートウェイ"
 
 #: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1509
 msgid "ip address"
-msgstr ""
+msgstr "IPアドレス"
 
 #: src/EBox/Model/GatewayTable.pm:176
 msgid "There is already a default gateway"
-msgstr ""
+msgstr "デフォルトゲートウェイはすでに存在します"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:70
 msgid "Physical interface"
-msgstr ""
+msgstr "物理インタフェース"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:85
 msgid "Vlan interface list"
-msgstr ""
+msgstr "VLANインタフェースリスト"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:92
 msgid "These are the vlan interfaces which are available in your system."
-msgstr ""
+msgstr "これらがシステムで利用可能なVLANインタフェースです。"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:71
 msgid ""
 "Starting traffic rate monitoring. Wait patiently until the graph appears"
 msgstr ""
+"トラフィックレート監視を開始しています。グラフが表示されるまでお待ちください"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:74
 msgid "Stopping traffic rate monitoring"
-msgstr ""
+msgstr "トラフィックレート監視を停止しています。"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:87
 msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
 msgstr ""
+"トラフィックレート監視は要求に応じて自動で開始/停止します。最初に変更を保存す"
+"る必要はありません。"
 
 #: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
-msgstr ""
+msgstr "受信するインタフェース"
 
 #: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
-msgstr ""
+msgstr "トラフィックレート監視設定"
 
 #: src/EBox/Model/ByteRateSettings.pm:93
 msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
+msgstr "変更はすぐにトラフィックレート監視に適用されます"
 
 #: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
-msgstr ""
+msgstr "設定が変更されました"
 
 #: src/EBox/Model/ByteRateSettings.pm:115
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (内部インタフェース)"
 
 #: src/EBox/Model/ByteRateSettings.pm:122
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (外部インタフェース)"
 
 #: src/EBox/Model/ByteRateSettings.pm:129
 msgid "all"
-msgstr ""
+msgstr "全て"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
-msgstr ""
+msgstr "トラフィックのグラフィックを選択"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:57
 msgid ""
@@ -262,420 +317,407 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"パラメタ設定に応じて表示が変わります。グラフの種類によってはホストIPアドレス"
+"とサービスを/etc/servicesに基づいて設定されたグラフ凡例のテキストと一致させる"
+"必要があるかもしれません。フロー表示はそれに従って変更されます。"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "グラフの種類"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr ""
+msgstr "送信元による全てのアクティブなトラフィック"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
-msgstr ""
+msgstr "サービスによる全てのアクティブなトラフィック"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "選択された送信元によるトラフィック"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
-msgstr ""
+msgstr "選択されたサービスによるトラフィック"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr ""
+msgstr "送信元とサービスによるトラフィック"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:117
 msgid "Service"
-msgstr ""
+msgstr "サービス"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "メニューのNetwork/DNSからもこのページを訪れることができます"
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
-msgstr ""
+msgstr "ネットワークインタフェースが設定されました"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2284
+#: src/EBox/Network.pm:2499
 msgid "Network interfaces"
-msgstr ""
+msgstr "ネットワークインタフェース"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
 msgstr ""
+"初期設定後はメニューのNetwork/Interfacesからこのページを訪れることができます"
 
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNSが設定されました"
 
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "ゲートウェイが設定されました"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
-msgstr ""
+msgstr "デフォルトゲートウェイを設定"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "後でメニューのNetwork/Routesからゲートウェイを変更できます"
 
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr ""
+msgstr "トラフィックとマルチゲートウェイルールを調整"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
-msgstr ""
+msgstr "ネットワーク診断"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
 msgid "Host"
-msgstr ""
+msgstr "ホスト"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2271
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2486
 msgid "host name"
-msgstr ""
+msgstr "ホスト名"
 
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "ネットワークインタフェース"
 
 #: src/EBox/CGI/Iface.pm:58
 msgid "method"
-msgstr ""
+msgstr "方式"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
 msgid "netmask"
-msgstr ""
+msgstr "ネットマスク"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
-msgstr ""
+msgstr "トラフィックバランス"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr ""
+msgstr "バーチャルインタフェースアクション"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:591 src/EBox/Network.pm:596
-#: src/EBox/Network.pm:900 src/EBox/Network.pm:921 src/EBox/Network.pm:1452
-#: src/EBox/Network.pm:2063 src/EBox/Network.pm:2078 src/EBox/Network.pm:2210
-#: src/EBox/Network.pm:2329 src/templates/ifaces.mas:91
-#: src/templates/ifaces.mas:206
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:696 src/EBox/Network.pm:701
+#: src/EBox/Network.pm:1005 src/EBox/Network.pm:1026 src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:2293 src/EBox/Network.pm:2425 src/EBox/Network.pm:2544
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
-msgstr ""
+msgstr "IPアドレス"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
-msgstr ""
+msgstr "バーチャルインタフェース名"
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1508
-msgid "network address"
-msgstr ""
-
-#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr ""
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1093
-#: src/EBox/Network.pm:1122 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1198
+#: src/EBox/Network.pm:1227 src/templates/ifaces.mas:148
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN ID"
 
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2358
-msgid "Routes"
-msgstr ""
+#: src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "ゲートウェイアドレス"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
-msgstr ""
+msgstr "トラフィックレート監視"
 
-#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2318
+#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2533
 msgid "Status"
-msgstr ""
+msgstr "状態"
 
 #: src/EBox/Network/Report/ByteRate.pm:135
 msgid "Running"
-msgstr ""
+msgstr "動作"
 
-#: src/EBox/Network/Report/ByteRate.pm:612
+#: src/EBox/Network/Report/ByteRate.pm:755
 msgid "bytes/second"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:677
-#: src/EBox/Network/Report/ByteRate.pm:767
-msgid "Traffic data for source"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:697
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:729
-msgid "Traffic data not found for service"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:739
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:775
-msgid "Traffic data for service"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:784
-msgid "Traffic data not found for source and service pair"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:786
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:800
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:816
-msgid "All active services"
-msgstr ""
-
-#: src/EBox/Network/Report/ByteRate.pm:821
-msgid "Traffic data for "
-msgstr ""
+msgstr "bytes/second"
 
 #: src/EBox/Network/Report/ByteRate.pm:822
+#: src/EBox/Network/Report/ByteRate.pm:928
+msgid "Traffic data for source"
+msgstr "送信元へのトラフィックデータ"
+
+#: src/EBox/Network/Report/ByteRate.pm:842
+#, perl-brace-format
+msgid "Network traffic from {src}"
+msgstr "{src} からのネットワークトラフィック"
+
+#: src/EBox/Network/Report/ByteRate.pm:876
+msgid "Traffic data not found for service"
+msgstr "サービスへのトラフィックデータが見つかりません"
+
+#: src/EBox/Network/Report/ByteRate.pm:886
+#, perl-brace-format
+msgid "Network traffic for {service}"
+msgstr "{service} へのネットワークトラフィック"
+
+#: src/EBox/Network/Report/ByteRate.pm:936
+msgid "Traffic data for service"
+msgstr "サービスへのトラフィックデータ"
+
+#: src/EBox/Network/Report/ByteRate.pm:945
+msgid "Traffic data not found for source and service pair"
+msgstr "送信元とサービスの組のトラフィックデータが見つかりません"
+
+#: src/EBox/Network/Report/ByteRate.pm:947
+#, perl-brace-format
+msgid "source {src} and service {service}"
+msgstr "送信元 {src} とサービス {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:961
+#, perl-brace-format
+msgid "Network traffic from source {src} and for service {service}"
+msgstr "送信元 {src} からサービス {service} へのネットワークトラフィック"
+
+#: src/EBox/Network/Report/ByteRate.pm:988
+msgid "All active services"
+msgstr "全てのアクティブなサービス"
+
+#: src/EBox/Network/Report/ByteRate.pm:993
+msgid "Traffic data for "
+msgstr "次の送信先へのトラフィックデータ"
+
+#: src/EBox/Network/Report/ByteRate.pm:994
 msgid "all services"
-msgstr ""
+msgstr "全てのサービス"
 
-#: src/EBox/Network/Report/ByteRate.pm:857
+#: src/EBox/Network/Report/ByteRate.pm:1039
 msgid "All active sources"
-msgstr ""
+msgstr "全てのアクティブな送信元"
 
-#: src/EBox/Network/Report/ByteRate.pm:862
+#: src/EBox/Network/Report/ByteRate.pm:1044
 msgid "Traffic data for"
-msgstr ""
+msgstr "次の送信先へのトラフィックデータ"
 
-#: src/EBox/Network/Report/ByteRate.pm:863
+#: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "all sources"
-msgstr ""
+msgstr "全ての送信元"
 
-#: src/EBox/Network/Report/ByteRate.pm:901
+#: src/EBox/Network/Report/ByteRate.pm:1083
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr ""
+msgstr "{src} からのトラフィックレート合計"
 
-#: src/EBox/Network/Report/ByteRate.pm:916
+#: src/EBox/Network/Report/ByteRate.pm:1098
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr ""
+msgstr "{service} へのトラフィックレート合計"
 
-#: src/EBox/Network/Report/ByteRate.pm:940
+#: src/EBox/Network/Report/ByteRate.pm:1122
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
-msgstr ""
+msgstr "{src} から {service} へのトラフィックレート"
 
 #: src/EBox/Network/FirstTime.pm:14
 msgid "Configure network interfaces"
-msgstr ""
+msgstr "ネットワークインタフェースを設定"
 
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "ネームサーバを設定"
 
 #: src/EBox/Network/FirstTime.pm:16
 msgid "Configure default gateway"
-msgstr ""
+msgstr "デフォルトゲートウェイを設定"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2019
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2235
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
+msgstr "ゲートウェイ {gw} に到達できません"
+
+#: src/EBox/Network.pm:84
+msgid "Add default routers to the default table"
 msgstr ""
 
-#: src/EBox/Network.pm:60 src/EBox/Network.pm:2350 src/templates/routes.mas:30
-msgid "Network"
+#: src/EBox/Network.pm:85
+msgid ""
+"This is needed to work with a multigateway configuration. Note that to list "
+"the default routes you must execute: "
 msgstr ""
 
-#: src/EBox/Network.pm:87
-msgid "Activate traffic rate monitor"
+#: src/EBox/Network.pm:91
+msgid "Enable eBox DHCP hook"
 msgstr ""
 
-#: src/EBox/Network.pm:588 src/EBox/Network.pm:592
+#: src/EBox/Network.pm:92
+msgid ""
+"It will take care of adding the default route given by a DHCP server to the "
+"default route table. "
+msgstr ""
+
+#: src/EBox/Network.pm:108
+msgid "eBox will set your network configuration"
+msgstr ""
+
+#: src/EBox/Network.pm:693 src/EBox/Network.pm:697
 msgid "Virtual interface name"
-msgstr ""
+msgstr "バーチャルインタフェース名"
 
-#: src/EBox/Network.pm:591 src/EBox/Network.pm:900 src/EBox/Network.pm:2063
+#: src/EBox/Network.pm:696 src/EBox/Network.pm:1005 src/EBox/Network.pm:2278
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
-msgstr ""
+msgstr "ネットマスク"
 
-#: src/EBox/Network.pm:1024
+#: src/EBox/Network.pm:1129
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
+"このインタフェースはトランクモードでは使用できません。VLANのインタフェースで"
+"す。"
 
-#: src/EBox/Network.pm:1069
+#: src/EBox/Network.pm:1174
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
+"このインタフェースはトランクモードです。設定モードを変更する前にこのトランク"
+"の全てのVLANインタフェースの設定を解除してください。"
 
-#: src/EBox/Network.pm:1102
+#: src/EBox/Network.pm:1207
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
+"VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
+"があります。"
 
-#: src/EBox/Network.pm:1980
+#: src/EBox/Network.pm:2170
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
+"リクエストされた操作によって設定済みのルータに到達できなくなります。変更を適"
+"用する前にルータを削除してください。"
 
-#: src/EBox/Network.pm:2023
+#: src/EBox/Network.pm:2238
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
+"ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があり"
+"ます。 現在は静的でないインタフェース {iface} から到達可能です。"
 
-#: src/EBox/Network.pm:2252
+#: src/EBox/Network.pm:2467
 msgid "Host name"
-msgstr ""
+msgstr "ホスト名"
 
-#: src/EBox/Network.pm:2303
+#: src/EBox/Network.pm:2518
 msgid "down"
-msgstr ""
+msgstr "停止"
 
-#: src/EBox/Network.pm:2309
+#: src/EBox/Network.pm:2524
 msgid "up"
-msgstr ""
+msgstr "正常"
 
-#: src/EBox/Network.pm:2313
+#: src/EBox/Network.pm:2528
 msgid "link ok"
-msgstr ""
+msgstr "正常なリンク"
 
-#: src/EBox/Network.pm:2315
+#: src/EBox/Network.pm:2530
 msgid "no link"
-msgstr ""
+msgstr "リンクなし"
 
-#: src/EBox/Network.pm:2323
+#: src/EBox/Network.pm:2538
 msgid "MAC address"
-msgstr ""
+msgstr "MACアドレス"
 
-#: src/EBox/Network.pm:2354
+#: src/EBox/Network.pm:2572
 msgid "Interfaces"
-msgstr ""
+msgstr "インタフェース"
 
-#: src/EBox/Network.pm:2360
+#: src/EBox/Network.pm:2576
+msgid "Routes"
+msgstr "経路"
+
+#: src/EBox/Network.pm:2578
 msgid "Diagnosis"
-msgstr ""
+msgstr "診断"
 
-#: src/EBox/Network.pm:2363
+#: src/EBox/Network.pm:2581
 msgid "Gateways"
-msgstr ""
+msgstr "ゲートウェイ"
 
-#: src/EBox/Network.pm:2366
+#: src/EBox/Network.pm:2584
 msgid "Balance traffic"
-msgstr ""
-
-#: src/EBox/Network.pm:2369
-msgid "Traffic rate monitor"
-msgstr ""
-
-#: src/templates/routes.mas:12
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-
-#: src/templates/routes.mas:26
-msgid "Static routes"
-msgstr ""
-
-#: src/templates/routes.mas:32 src/templates/ifaces.mas:150
-#: src/templates/ifaces.mas:208
-msgid "Action"
-msgstr ""
-
-#: src/templates/routes.mas:60 src/templates/routes.mas:61
-#: src/templates/routes.mas:62 src/templates/ifaces.mas:166
-#: src/templates/ifaces.mas:167 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:246 src/templates/ifaces.mas:247
-#: src/templates/ifaces.mas:248
-msgid "Add"
-msgstr ""
-
-#: src/templates/routes.mas:80 src/templates/routes.mas:81
-#: src/templates/routes.mas:82 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:187
-#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:274
-#: src/templates/ifaces.mas:275
-msgid "Delete"
-msgstr ""
+msgstr "トラフィック調整"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
-msgstr ""
+msgstr "PING"
 
 #: src/templates/diag.mas:22
 msgid "Name resolution"
-msgstr ""
+msgstr "名前解決"
 
 #: src/templates/diag.mas:23
 msgid "Domain name"
-msgstr ""
+msgstr "ドメイン名"
 
 #: src/templates/diag.mas:27
 msgid "Lookup"
-msgstr ""
+msgstr "参照"
 
 #: src/templates/diag.mas:29
 msgid "Output"
-msgstr ""
-
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
+msgstr "出力"
 
 #: src/templates/dns.mas:19
 msgid "Primary"
-msgstr ""
+msgstr "プライマリ"
 
 #: src/templates/dns.mas:30
 msgid "Secondary"
-msgstr ""
+msgstr "セカンダリ"
 
 #: src/templates/dns.mas:42
 msgid "Apply"
-msgstr ""
+msgstr "適用"
 
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
 msgstr ""
+"この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/ebox/"
+"Network/View/GatewayDataTable\">ここから</a>追加できます。"
 
 #: src/templates/gwrules.mas:27
 msgid "Traffic balancing"
-msgstr ""
+msgstr "トラフィック調整"
 
 #: src/templates/ifaces.mas:11
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
+"ネットワークインタフェースの設定を変更すると管理ページへの接続が切断されるか"
+"もしれません。"
 
 #: src/templates/ifaces.mas:14
 msgid ""
@@ -683,40 +725,57 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
+"外部インタフェースとマークされたインタフェースを経由するトラフィックはNAT経由"
+"となります。また、LAN内のユーザ向けのサービスは外部インタフェースでは利用でき"
+"ません。"
 
 #: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"
-msgstr ""
+msgstr "静的"
 
 #: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "トランク (802.1q)"
 
 #: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"
-msgstr ""
+msgstr "未設定"
 
 #: src/templates/ifaces.mas:135
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 #: src/templates/ifaces.mas:143
 msgid "VLAN List"
-msgstr ""
+msgstr "VLAN一覧"
 
-#: src/templates/ifaces.mas:149
-msgid "Description"
-msgstr ""
+#: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
+msgid "Action"
+msgstr "アクション"
+
+#: src/templates/ifaces.mas:166 src/templates/ifaces.mas:167
+#: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
+#: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
+msgid "Add"
+msgstr "追加"
+
+#: src/templates/ifaces.mas:185 src/templates/ifaces.mas:186
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
+msgid "Delete"
+msgstr "削除"
 
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
-msgstr ""
+msgstr "バーチャルインタフェース"
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
+"適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
+"ジュールに影響します。"
 
 #: src/templates/confirmremove.mas:14 src/templates/confirm.mas:17
 msgid ""
@@ -724,11 +783,30 @@ msgid ""
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
+"現在のこのネットワークインタフェースの設定に依存する全てのモジュールはこのイ"
+"ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
+"ルしてください。"
 
 #: src/templates/confirmremove.mas:24 src/templates/confirm.mas:31
 msgid "Ok"
-msgstr ""
+msgstr "はい"
 
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
+
+#~ msgid "network address"
+#~ msgstr "ネットワークアドレス"
+
+#~ msgid "Activate traffic rate monitor"
+#~ msgstr "トラフィックレート監視を有効化"
+
+#~ msgid "Traffic rate monitor"
+#~ msgstr "トラフィックレート監視"
+
+#~ msgid ""
+#~ "All routers you enter here must be reachable through one of the network "
+#~ "interfaces currently configured."
+#~ msgstr ""
+#~ "ここに入力した全てのルータは設定済みのネットワークインタフェースから到達可"
+#~ "能である必要があります。"
