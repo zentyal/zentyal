@@ -29,6 +29,7 @@ sub runGConf
                 'name' => $serviceName,
                 'description' => __d('eBox Mail System'),
                 'translationDomain' => 'ebox-mail',
+                'internal' => 1,
                 'services' => [ 
                                 {
                                     'protocol' => 'tcp',
