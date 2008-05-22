@@ -498,13 +498,9 @@ sub _iexternalCheckInit
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
-        pf "-A inointernal -i $if -j RETURN";
+        pf "-A iexternalmodules -i $if -j RETURN";
+        pf "-A iexternal -i $if -j RETURN";
     }
-
-    pf "-I iexternalmodules -j inointernal";
-    pf "-I iexternal -j inointernal";
-
-
 }
 
 # Method: _iexternal
