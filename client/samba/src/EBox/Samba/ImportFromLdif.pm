@@ -23,15 +23,53 @@ use warnings;
 use EBox::Global;
 use EBox::Sudo;
 use EBox::Ldap;
+use EBox::SambaLdapUser;
 
 sub classesToProcess
 {
     return [
+	    { class => 'posixAccount', priority => 5 },
 	    { class => 'sambaDomain', priority => 5 },
-	    {class => 'sambaSamAccount', priority => 10 },
+	    { class => 'sambaSamAccount', priority => 10 },
+	    
 	   ];
 }
 
+
+
+sub startupPosixAccount
+{
+    my ($package, %params) = @_;
+
+    my $sambaLdap = EBox::SambaLdapUser->new();
+
+
+    my $ldap = EBox::Ldap->instance();
+
+    my $name = 'Domain Users';
+    my %args = (
+		attr => [
+			 'cn'		=> $name,
+			 'gidNumber'	=> 512,
+			 'sambaSID'	=>  $sambaLdap->getSID(), 
+			 'sambaGroupType'  => 2,
+			 'displayName'	=> $name, 
+			 'objectclass'	=> ['posixGroup',
+					    'sambaGroupMapping', 
+					    'eboxGroup']
+			]
+	       );
+    
+    my $dn = "cn=$name,ou=Groups,dc=ebox";
+    $ldap->add($dn, \%args);
+}
+
+
+
+sub processPosixAccount
+{
+    # don't do anything we are only intersted in statupPosixAcocunt
+}
 
 sub processSambaDomain
 {
