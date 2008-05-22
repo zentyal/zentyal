@@ -4,10 +4,13 @@
 
 case "$1" in
 	configure)
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# create log table
-		/usr/share/ebox/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
+        # create log table
+        /usr/share/ebox/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
+
+        # migrate data 
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-mail/migration
 
         # restart logs
         invoke-rc.d ebox logs restart || true
