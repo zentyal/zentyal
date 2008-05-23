@@ -10,6 +10,8 @@
 	methods
 	+ Ordered tables may insert values at the beginning or the end of
 	the table by "insertPosition" attribute
+	+ Change notConfigured template to fix English and add link to the
+	  module status section
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
 	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks

@@ -5,5 +5,12 @@
 use EBox::Gettext;
 </%init>
 <div class="note">
-	<div><%__x('You must enable the module {module} in the module status section in order to use it. ', module => $module )%></div><br/>
+	<div><%__x('You must enable the {module} module on the {openhref} module status section {closehref} in order to use it.', 
+			module => $module , 
+			openhref  => '<a href="/ebox/ServiceModule/StatusView">',
+			closehref => '</a>')
+		  %>
+	</div>
+	<br/>
+
 </div>
