@@ -1,3 +1,6 @@
+0.11.101
+	+ Bugfix. Fix typo in ebox-update-packages which prevented software 
+	  management from working
 0.11.100
 	+ Regenerate cache before finishing package installation/removal
 	+ Do not truncate sources.list
@@ -16,7 +19,7 @@
 0.9.100
 	+ New release
 0.9.99
-    + New release
+	+ New release
 0.9.3
 	+ New release
 0.8.99

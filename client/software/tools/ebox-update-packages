@@ -58,7 +58,7 @@ try {
 } finally {
     try {
         EBox::Sudo::root(
-          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'}
+          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'});
         my $global = EBox::Global->getInstance(1);
         my $software = $global->modInstance('software');
 
@@ -69,7 +69,7 @@ try {
 
         my $apache = EBox::Global->modInstance('apache');
         $apache->_daemon('restart');
-                        );
+                        
     } catch EBox::Exceptions::Sudo::Command with {
         my ($exc) = @_;
         $retValue = $exc->exitValue();
