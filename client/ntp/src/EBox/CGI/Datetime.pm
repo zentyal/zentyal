@@ -40,34 +40,41 @@ sub _process($) {
 	my $ntp = EBox::Global->modInstance('ntp');
 	
 	my @array = ();
-	my $synchronized = 'no';
-	
-	if ($ntp->synchronized()) {
-		$synchronized = 'yes';
+
+	if ($ntp->isEnabled()) {
+		my $synchronized = 'no';
+		
+		if ($ntp->synchronized()) {
+			$synchronized = 'yes';
+		}
+		
+		my $day;
+		my $month;
+		my $year;
+		my $hour;
+		my $minute;
+		my $second;
+		
+		($second,$minute,$hour,$day,$month,$year) = localtime(time);
+
+		$day = sprintf ("%02d", $day);
+		$month = sprintf ("%02d", ++$month);
+		$year = sprintf ("%04d", ($year+1900));
+		$hour = sprintf ("%02d", $hour);
+		$minute= sprintf ("%02d", $minute);
+		$second = sprintf ("%02d", $second);
+
+		my @date = ($day,$month,$year,$hour,$minute,$second);
+		my @servers = $ntp->servers;
+		
+		push (@array, 'synchronized'		=> $synchronized);
+		push (@array, 'servers'		=> \@servers);
+		push (@array, 'date'			=> \@date);
+
+	} else {
+		$self->setTemplate('/notConfigured.mas'); 
+		push(@array, 'module' => 'NTP');
 	}
-	
-	my $day;
-	my $month;
-	my $year;
-	my $hour;
-	my $minute;
-	my $second;
-	
-	($second,$minute,$hour,$day,$month,$year) = localtime(time);
-
-	$day = sprintf ("%02d", $day);
-	$month = sprintf ("%02d", ++$month);
-	$year = sprintf ("%04d", ($year+1900));
-	$hour = sprintf ("%02d", $hour);
-	$minute= sprintf ("%02d", $minute);
-	$second = sprintf ("%02d", $second);
-
-	my @date = ($day,$month,$year,$hour,$minute,$second);
-	my @servers = $ntp->servers;
-	
-	push (@array, 'synchronized'		=> $synchronized);
-	push (@array, 'servers'		=> \@servers);
-	push (@array, 'date'			=> \@date);
 	$self->{params} = \@array;
 
 }
