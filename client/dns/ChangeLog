@@ -1,4 +1,4 @@
-0.12
+0.11.101
 	+ Added Mail Exchanger model to introduce MX records in domains.
 	+ Added mail exchanger model related methods to the exposed API.
 	+ Check consistencies among alias and hostnames within the same
