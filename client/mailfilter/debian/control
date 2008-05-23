@@ -10,7 +10,7 @@ Package: ebox-mailfilter
 Architecture: all
 Depends: ebox (>= 0.11.99), ebox (<< 0.12), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.11.99), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl, arj, unzoo
 Conflicts: ebox (<< 0.11.99)
-Description: ebox - Mail filter module
+Description: eBox - Mail filter module
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

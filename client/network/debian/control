@@ -11,7 +11,7 @@ Architecture: all
 Depends: ebox (>= 0.11.99), ebox ( << 0.12), ebox-objects, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, rrdtool, librrds-perl, jnettop, ${misc:Depends}
 Replaces: ebox (<< 0.6), ebox-firewall (<< 0.9.99)
 Conflicts: ebox (<< 0.9.99)
-Description: Network configuration
+Description: eBox - Network configuration module
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

@@ -11,7 +11,7 @@ Architecture: all
 Depends: ebox (>= 0.11.99), ebox (<< 0.12), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2, ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
-Description: ebox - File sharing
+Description: eBox - File sharing
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
