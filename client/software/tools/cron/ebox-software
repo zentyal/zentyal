@@ -11,6 +11,8 @@ use Error qw(:try);
 EBox::init();
 my $global = EBox::Global->getInstance(1);
 my $software = $global->modInstance('software');
+exit 0 unless ($software->isEnabled());
+
 my @pkgs;
 try {
     $software->lock(by => 'ebox-software');

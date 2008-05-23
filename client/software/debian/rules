@@ -4,3 +4,6 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include debian/cdbs/ebox.mk
+
+install/ebox-software::
+	test -e debian/ebox-software.cron.daily || ln -s ../tools/cron/ebox-software debian/ebox-software.cron.daily

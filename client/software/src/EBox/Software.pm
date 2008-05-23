@@ -74,15 +74,21 @@ sub serviceModuleName
 	return 'software';
 }
 
-#  Method: enableModDepends
+# Method: actions
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+# 	Override EBox::ServiceModule::ServiceInterface::actions
 #
-sub enableModDepends 
+sub actions
 {
-    return ['network'];
+	return [ 
+	{
+		'action' => __('Enable cron script to download updates'),
+		'reason' => __('eBox software will download the available updates' .
+					' from your configured apt sources. ')
+		'module' => 'software'
+	},
+	];
 }
-
 
 # Method: listEBoxPkgs
 # 	

@@ -1,6 +1,8 @@
 0.11.101
 	+ Bugfix. Fix typo in ebox-update-packages which prevented software 
 	  management from working
+	+ Add ebox-software.cron.daily to debian package
+	+ Add action to explain ebox-software cron script
 0.11.100
 	+ Regenerate cache before finishing package installation/removal
 	+ Do not truncate sources.list
