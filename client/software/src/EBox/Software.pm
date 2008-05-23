@@ -84,7 +84,7 @@ sub actions
 	{
 		'action' => __('Enable cron script to download updates'),
 		'reason' => __('eBox software will download the available updates' .
-					' from your configured apt sources. ')
+					' from your configured apt sources. '),
 		'module' => 'software'
 	},
 	];
