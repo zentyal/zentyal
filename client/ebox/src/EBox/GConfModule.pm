@@ -126,7 +126,7 @@ sub _load_from_file # (dir?, key?)
   ($key) or $key = $self->_key("");
   $self->_delete_dir_internal($key);
 
-  system "/usr/bin/gconftool --load=$file $key";
+  system "/usr/bin/gconftool-2 --load=$file $key";
   if (not ($? == 0)) {
     throw EBox::Exceptions::Internal("Error while restoring " .
 				     "configuration from $file");
@@ -158,7 +158,7 @@ sub _dump_to_file # (dir?)
 	my $key = "/ebox/modules/" . $self->name;
 	($dir) or $dir = EBox::Config::conf;
 	my $file = $self->_bak_file_from_dir($dir);
-	`umask 0077; /usr/bin/gconftool --dump $key > $file` and
+	`umask 0077; /usr/bin/gconftool-2 --dump $key > $file` and
 		throw EBox::Exceptions::Internal("Error while backing up " .
 						 "configuration on $file");
 }
