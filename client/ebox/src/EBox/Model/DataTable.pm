@@ -250,7 +250,7 @@ sub printableContextName
                                     model  => $self->printableName(),
                                     module => $self->{'gconfmodule'}->printableName());
     if ( $self->index() ) {
-        $printableContextName .= __(' at ');
+        $printableContextName .= ' ' . __('at') . ' ';
         if ( $self->printableIndex() ) {
             $printableContextName .= $self->printableIndex();
         } else {
@@ -799,7 +799,7 @@ sub addTypedRow
           my $pos = 0;
           my $insertPos = $self->insertPosition();
           if (defined($insertPos)) {
-              if ( $insertPos) eq 'front' ) {
+              if ( $insertPos eq 'front' ) {
                   $pos = 0;
               } elsif ( $insertPos eq 'back' ) {
                   $pos = $#{$self->order()} + 1;

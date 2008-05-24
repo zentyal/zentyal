@@ -123,8 +123,7 @@ sub _populate
 
 
       if (@constructionParams and $multiple) {
-	throw EBox::Exceptions::External(
-					 __('A provided class with has multiple instances cannot have construction parameters specified')
+	throw EBox::Exceptions::External('A provided class with has multiple instances cannot have construction parameters specified'
 					);
       }
     } 
@@ -244,7 +243,7 @@ sub removeInstance
   }
   else {
     throw EBox::Exceptions::External(__x(
-					'Provided object with index {i} soes not exist',
+					'Provided object with index {i} does not exist',
 					i => $index,
 
 				       )

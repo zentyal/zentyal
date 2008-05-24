@@ -20,6 +20,7 @@ use warnings;
 
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
+use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::LogAdmin qw(:all);
@@ -78,8 +79,9 @@ sub saveAllModulesAction
 		      currentItemCaption  =>  __("Current module"),
 		      itemsLeftMessage  => __('modules saved'),
 		      endNote  =>  __('Changes saved'),
-                      errorNote => __('Some modules reported error when saving changes '
-                                      . '. More information on the logs'),
+                      errorNote => __x('Some modules reported error when saving changes '
+                                      . '. More information on the logs in {dir}',
+                                      dir => EBox::Config->log()),
 		      reloadInterval  => 2,
 		     );
 }
@@ -102,8 +104,9 @@ sub revokeAllModulesAction
 		      currentItemCaption  =>  __("Current module"),
 		      itemsLeftMessage  => __('modules revoked'),
 		      endNote  =>  __('Changes revoked'),
-                      errorNote => __('Some modules reported error when discarding changes '
-                                      . '. More information on the logs'),
+                      errorNote => __x('Some modules reported error when discarding changes '
+                                      . '. More information on the logs in {dir}',
+                                      dir => EBox::Config->log()),
 		      reloadInterval  => 2,
 		     );
 }
