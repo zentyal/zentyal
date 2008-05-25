@@ -47,7 +47,7 @@ use Error qw(:try);
 
 # Constants
 use constant VHOST_PREFIX => 'ebox-';
-use constant WEB_SERVICE  => 'apache2';
+use constant WEB_SERVICE  => 'ebox.apache2-user';
 use constant CONF_DIR     => EBox::WebServer::PlatformPath::ConfDirPath();
 use constant PORTS_FILE   => CONF_DIR . '/ports.conf';
 use constant ENABLED_MODS_DIR   => CONF_DIR . '/mods-enabled/';
