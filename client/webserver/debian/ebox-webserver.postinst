@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	configure)
 
@@ -11,6 +13,6 @@ case "$1" in
 		invoke-rc.d ebox webserver restart
 esac
 
-#DEBHELPER#
+
 
 exit 0
