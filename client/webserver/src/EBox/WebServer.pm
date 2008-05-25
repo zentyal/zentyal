@@ -24,7 +24,10 @@ package EBox::WebServer;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule 
+            EBox::Model::ModelProvider 
+            EBox::Model::CompositeProvider
+            EBox::ServiceModule::ServiceInterface);
 
 # eBox uses
 use EBox::Common::Model::EnableForm;
@@ -69,14 +72,38 @@ use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
 #
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(
+    my $class = shift;
+    my $self = $class->SUPER::_create(
                                           name => 'webserver',
+                                          printableName => 'webserver',
                                           domain => 'ebox-webserver',
                                           @_,
                                          );
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
+}
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+    return [
+    {
+        'file' => PORTS_FILE,
+        'module' => 'webserver',
+        'reason' => 'To set webserver listening port'
+    },
+        ];
+}
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+    return 'webserver';
 }
 
 # Method: _regenConfig
