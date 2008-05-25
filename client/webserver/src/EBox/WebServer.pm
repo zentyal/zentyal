@@ -97,6 +97,21 @@ sub usedFiles
     },
         ];
 }
+
+# Method: actions 
+#
+#	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions 
+{
+    return [
+    {
+        'action' => __('Enable apache LDAP user module'),
+        'module' => 'webserver',
+        'reason' => __('To fetch home directories from LDAP')
+    },
+        ];
+}
 # Method: serviceModuleName 
 #
 #	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
