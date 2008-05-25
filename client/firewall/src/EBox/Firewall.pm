@@ -95,17 +95,17 @@ sub actions
 	return [ 
 	{
 		'action' => __('Flush previous firewall rules'),
-		'reason' => __('The eBox firewall will flush any previous firewall ' .
-					' rules which have been added manually or by another tool'),
+		'reason' => __('The eBox firewall will flush any previous firewall '
+                               . 'rules which have been added manually or by another tool'),
 		'module' => 'firewall'
 	},
 	{
 		'action' => __('Secure by default'),
 		'reason' => __('Just a few connections are allowed by default. ' .
-					'Make sure you add the proper incoming and outcoming ' .
-					'rules to make your system work as expected. Usually, ' .
-					'all outcoming connections are denied by default, and ' .
-					'only SSH and HTTPS incoming connections are allowed.'),
+			       'Make sure you add the proper incoming and outcoming ' .
+			       'rules to make your system work as expected. Usually, ' .
+			       'all outcoming connections are denied by default, and ' .
+			       'only SSH and HTTPS incoming connections are allowed.'),
 		'module' => 'firewall'
 
 	}

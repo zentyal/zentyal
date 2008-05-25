@@ -20,7 +20,7 @@
 #
 #	<EBox::Firewall::Model::ToInternetRule>
 #
-#	It uses <EBox::Firewall::IptabalesRule> to assit with rules creation
+#	It uses <EBox::Firewall::IptablesRule> to assit with rules creation
 #
 
 package EBox::Firewall::IptablesHelper;
