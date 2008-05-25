@@ -1,12 +1,12 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		/usr/bin/ebox-clean-gconf webserver || true
-
 		;;		
 esac
 
-#DEBHELPER#
+

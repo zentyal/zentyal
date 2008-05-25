@@ -1,13 +1,14 @@
 Source: ebox-webserver
 Section: web
 Priority: optional
-Maintainer: Enrique J. Hernandez <quique@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-webserver
 Architecture: all
-Depends: ebox (= 0.11.99), ebox-firewall, apache2, libapache2-mod-ldap-userdir
+Depends: ebox (>=  0.11.99), ebox-firewall, apache2, libapache2-mod-ldap-userdir, ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
 Description: Web Server
  eBox is a framework for the development and deployment of security-wise
@@ -15,5 +16,4 @@ Description: Web Server
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
  .
- This module adds a web server to eBox, allowing publication of contents
- using several virtual hosts and using userdir module.
+ This module adds a pretty simple apache server configuration module to eBox, allowing publication of contents using several virtual hosts and using userdir module.
