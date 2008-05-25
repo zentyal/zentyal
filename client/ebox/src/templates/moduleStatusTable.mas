@@ -73,7 +73,7 @@ stripe('dataTable', '#ecf5da', '#ffffff');
         <td style="color:#888">
         <% join(', ', @{$mod->{'printableDepends'}}) %> 
         </td>
-        <td class='tcenter'>
+        <td class='tcenter' id="<% $name %>_status">
 %   if (not $depends) {
            <& /input/checkbox.mas, 
                 'name' => $name, 
@@ -95,7 +95,7 @@ stripe('dataTable', '#ecf5da', '#ffffff');
                 'name' => $name, 
                 'id' => $name,  
                 'value' => $status,
-                'onChange' => 'sendStatus()'
+                'onChange' => qq{sendStatus(); setLoading("${name}_status"); }
             &>
 %   }
         </td>

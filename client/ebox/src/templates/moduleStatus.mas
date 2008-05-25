@@ -10,6 +10,7 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
 
 <div id='statusTable'>
     <& moduleStatusTable.mas, 'modules' => \@modules &>
