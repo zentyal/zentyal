@@ -286,8 +286,6 @@ sub enableService
             " return a valid gconf module");
     }
 
-    EBox::debug("Module status: " . $self->isEnabled() . " new status: " .
-    $status);
     return unless ($self->isEnabled() xor $status);
 
     $gconf->set_bool('_serviceModuleStatus', $status);
