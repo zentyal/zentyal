@@ -427,8 +427,8 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
 
     if ( $evtMsg ) {
         if ( $showPer ) {
-            $evtMsg .= __x('Status: {percentage}% completed',
-                           percentage => $arrayInfo->{operationPercentage}) . '\n';
+            $evtMsg .= __x('Status: {percentage} completed',
+                           percentage => $arrayInfo->{operationPercentage}) . '%\n';
             $evtMsg .= __x('Estimated finish time: {time}',
                            time => $arrayInfo->{operationEstimatedTime});
         }
