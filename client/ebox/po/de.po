@@ -370,7 +370,7 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr "Das RAID-Gerät {name} ist am {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, perl-format, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage}% completed"
 msgstr "Zustand: {percentage}% abgeschlosssen"
 
