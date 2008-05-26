@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
-
-invoke-rc.d ebox stop || true
+if [ "$1" = remove ] || [ "$1" = purge ]; then
+    invoke-rc.d ebox stop || true
+fi
 
 #DEBHELPER#
 
