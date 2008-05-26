@@ -10,6 +10,9 @@ DEB_CONFIGURE_SCRIPT_ENV += IMAGESPATH="/usr/share/ebox/www/images"
 DEB_CONFIGURE_SCRIPT_ENV += VARPATH="/var"
 DEB_CONFIGURE_SCRIPT_ENV += ETCPATH="/etc/ebox"
 DEB_CONFIGURE_SCRIPT_ENV += SQUIDCONF="/etc/squid/squid.conf" 
+DEB_CONFIGURE_SCRIPT_ENV += APACHE2CONFDIRPATH="/etc/apache2" 
+DEB_CONFIGURE_SCRIPT_ENV += APACHE2DOCROOT="/var/www" 
+DEB_CONFIGURE_SCRIPT_ENV += APACHE2EXECPATH="/usr/sbin/apache2" 
 
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
 DEB_MAKE_FLAGS += schemadir=usr/share/gconf/schemas
