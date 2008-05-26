@@ -357,7 +357,7 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr "RAIDデバイス {name} は {opName} を実行中です"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, perl-format, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage}% completed"
 msgstr "状態: {percentage}% 完了"
 
