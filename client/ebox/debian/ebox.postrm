@@ -12,8 +12,9 @@ case "$1" in
         rm -f /var/lib/ebox/conf/ssl.crt/ebox.cert  /var/lib/ebox/conf/ssl.key/ebox.key \
             /var/lib/ebox/conf/ssl.pem/ebox.pem
 
-
-		;;	
+        # delete eBox logs
+        rm -rf /var/log/ebox || true
+        ;;	
 esac
 
 #DEBHELPER#
