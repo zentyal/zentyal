@@ -20,8 +20,8 @@ use EBox::Gettext;
 my $vdomainUrl = '/ebox/Mail/VDomains';
 </%init>
 <h3><% __('Mail account') %></h3>
-<div id='note'>
-<% __(q{Mail account options are disabled because there isn't any mail virtual
+<div class='warning'>
+<% __(q{Mail account  is unavailable because there isn't any mail virtual 
  domain created} ) %><br/>
 <a href='<% $vdomainUrl %>'><% __('Click here to create a new mail virtual domain') %></a>
 </div> 
