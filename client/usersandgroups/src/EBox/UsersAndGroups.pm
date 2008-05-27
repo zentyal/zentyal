@@ -165,6 +165,25 @@ sub groupsDn
 	return GROUPSDN . "," . $self->{ldap}->dn;
 }
 
+
+# Method: groupDn
+#
+#    Returns the dn for a given group. The group don't have to existst
+#
+#   Parameters:
+#       group 
+#
+#  Returns:
+#     dn for the group
+sub groupDn
+{
+    my ($self, $group) = @_;
+    $group or throw EBox::Exceptions::MissingArgument('group');
+
+    my $dn = "cn=$group," .  $self->groupsDn;
+    return $dn;
+}
+
 # Method: usersDn
 #
 #       Returns the dn where the users are stored in the ldap directory
@@ -178,6 +197,26 @@ sub usersDn
 	my $self = shift;
 	return USERSDN . "," . $self->{ldap}->dn;
 }
+
+# Method: userDn
+#
+#    Returns the dn for a given user. The user don't have to existst
+#
+#   Parameters:
+#       user 
+#
+#  Returns:
+#     dn for the user
+sub userDn
+{
+    my ($self, $user) = @_;
+    $user or throw EBox::Exceptions::MissingArgument('user');
+
+    my $dn = "uid=$user," .  $self->usersDn;
+    return $dn;
+}
+
+
 
 # Method: userExists 
 #
