@@ -24,12 +24,12 @@ use EBox::Global;
 use Net::LDAP;
 use Net::LDAP::LDIF;
 
-use constant MIN_PRIORITY => -1;
+
 
 my %classesToProcess;
 my %classStartup;
 my $maxPriority;
-
+my $minPriority;
 
 sub importLdif
 {
@@ -39,7 +39,7 @@ sub importLdif
 
     my @entries = @{ _entries($ldifPath)  };
 
-    foreach my $priority (MIN_PRIORITY .. $maxPriority) {
+    foreach my $priority ($minPriority .. $maxPriority) {
 	@entries = map {
 	    _processEntry($_, priority => $priority, @extraOptions);
 	} @entries;
@@ -67,12 +67,17 @@ sub _entries
 
 sub _loadClientClasses
 {
-    $maxPriority = MIN_PRIORITY;
+    $minPriority = -1000;
+    $maxPriority = $minPriority;
 
     my $global = EBox::Global->getInstance();
 
     my @userMods = @{  $global->modInstancesOfType('EBox::LdapModule')  };
     foreach my $mod (@userMods) {
+	# we only import data into configured modules
+	$mod->configured() or
+	    next;
+
 	my $importClass = (ref $mod) . '::ImportFromLdif';
 	eval "use $importClass";
 	if ($@) {
@@ -80,6 +85,7 @@ sub _loadClientClasses
 	    EBox::error("Skipping $importClass");
 	    next;
 	}
+
 
 	my @modClassesToProcess = @{ $importClass->classesToProcess() };
 	foreach my $ldifClassSpec (@modClassesToProcess) {
@@ -118,6 +124,9 @@ sub _loadClientClasses
 
 	    if ($priority > $maxPriority) {
 		$maxPriority = $priority;
+	    }
+	    elsif ($priority < $minPriority) {
+		$minPriority = $priority;
 	    }
 	}
     }
