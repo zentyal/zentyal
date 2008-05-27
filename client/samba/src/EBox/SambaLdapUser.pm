@@ -301,20 +301,35 @@ sub _addGroup ($$)
 	 
 	return unless ($self->{samba}->configured());
 
-	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('users');
-	
-	my $rid = 2 * $users->lastGid + 1001;
+	$self->addGroupLdapAttrs($group);
+}
 
-	my $sid = alwaysGetSID();
-	my $sambaSID = $sid . '-' .  $rid;
 
-	my $dn = "cn=$group," .  $users->groupsDn;
+
+sub addGroupLdapAttrs
+{
+    my ($self, $group, %params) = @_;
+
+    my $sambaSID = delete $params{SID};
+
+    my $ldap  = $self->{ldap};
+    my $users = EBox::Global->modInstance('users');
+    
+    my $rid = 2 * $users->lastGid + 1001;
+
+    if (not defined $sambaSID) {
+	my $baseSid = alwaysGetSID();
+	$sambaSID = $baseSid . '-' .  $rid;
+    }
+
+
+
+    my $dn = "cn=$group," .  $users->groupsDn;
         
-	unless ($self->_isSambaObject('sambaGroupMapping', $dn)) {
-	     my %attrs = (
+    unless ($self->_isSambaObject('sambaGroupMapping', $dn)) {
+	my %attrs = (
 		     changes => [
-                    		add => [
+				 add => [
                        		 	 objectClass    => 'sambaGroupMapping',
 					 objectClass    => 'eboxGroup',
                         		 sambaSID       => $sambaSID,
@@ -322,9 +337,62 @@ sub _addGroup ($$)
                         		 displayName    => $group,
                            		]
                   		]
-		         );
-	     $ldap->modify($dn, \%attrs);
-	}
+		    );
+	$ldap->modify($dn, \%attrs);
+    }
+}
+
+
+
+sub setUserSID
+{
+    my ($self, $user, $sid) = @_;
+    checkSID($sid) or
+	throw EBox::Exceptions::External(__('Incorrect SID: {s}', 's' => $sid));
+
+    my $users = EBox::Global->modInstance('users');
+    $users->userExists($user)  or
+	throw EBox::Exceptions::External(__x('User {u} does not exists', 'u' => $user));
+
+    my $dn =  $users->userDn($user);
+    $self->_isSambaObject('sambaSamAccount', $dn) or
+	throw EBox::Exceptions::External(__x('User {u} is not a samba user', 'u' => $user));
+    
+    $self->_setSID($dn, $sid);
+}
+
+
+sub setGroupSID
+{
+    my ($self, $group, $sid) = @_;
+    checkSID($sid) or
+	throw EBox::Exceptions::External(__('Incoorect SID: {s}', 's' => $sid));
+
+    my $users = EBox::Global->modInstance('users');
+    $users->groupExists($group)  or
+	throw EBox::Exceptions::External(__x('Group {g} does not exists', 'g' => $group));
+
+    my $dn = $users->groupDn($group);
+    $self->_isSambaObject('sambaGroupMapping', $dn) or
+	throw EBox::Exceptions::External(__x('Group {g} is not a samba group', 'g' => $group));
+    
+    $self->_setSID($dn, $sid);
+}
+
+
+sub _setSID
+{
+    my ($self, $dn, $sambaSID) = @_;
+
+	my %attrs = (
+		     changes => [
+				 replace => [
+                        		 sambaSID       => $sambaSID,
+                           		]
+                  		]
+		    );
+    $self->{ldap}->modify($dn, \%attrs);
+
 }
 
 sub _delGroup($$){
@@ -547,6 +615,13 @@ sub checkDomainSID
 
 
   return 1;
+}
+
+
+sub checkSID
+{
+    # we do not discrimintae now etween domainSID and a element SID
+    return checkDomainSID(@_);
 }
 
 sub getSID 

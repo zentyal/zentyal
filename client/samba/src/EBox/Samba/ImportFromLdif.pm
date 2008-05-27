@@ -25,28 +25,36 @@ use EBox::Sudo;
 use EBox::Ldap;
 use EBox::SambaLdapUser;
 
+use constant DEFAULT_USERS_GROUP => 'Domain Users';
+
+
 sub classesToProcess
 {
     return [
-	    { class => 'posixAccount', priority => 5 },
-	    { class => 'sambaDomain', priority => 5 },
+	    { class => 'sambaDomain', priority => -5 },
 	    { class => 'sambaSamAccount', priority => 10 },
-	    
+	    { class => 'sambaGroupMapping', priority => 15  },
 	   ];
 }
 
 
 
-sub startupPosixAccount
+
+
+sub _addDomainUsersAccount
 {
     my ($package, %params) = @_;
 
-    my $sambaLdap = EBox::SambaLdapUser->new();
+    my $name = DEFAULT_USERS_GROUP;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    $usersMod->groupExists($name) and 
+	return;
 
 
     my $ldap = EBox::Ldap->instance();
+    my $sambaLdap = EBox::SambaLdapUser->new();
 
-    my $name = 'Domain Users';
     my %args = (
 		attr => [
 			 'cn'		=> $name,
@@ -64,33 +72,53 @@ sub startupPosixAccount
     $ldap->add($dn, \%args);
 }
 
-
-
-sub processPosixAccount
-{
-    # don't do anything we are only intersted in statupPosixAcocunt
-}
-
 sub processSambaDomain
 {
     my ($package, $entry, %params)  = @_;
 
     my $domainName = $entry->get_value('sambaDomainName');
+    my $sambaSID   = $entry->get_value('sambaSID');
     print "Overwriting old samba domain with domain $domainName\n";
+
+
 
     $package->_delAllComputerAccounts();
 
     my $samba = EBox::Global->modInstance('samba');
     $samba->setWorkgroup($domainName);
+    $samba->setNetSID($sambaSID);
 
     print "Restarting samba module..\n";
-    $samba->fixSIDs(); 
+
+ #   $samba->fixSIDs(); 
 # fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
+    $samba->_regenConfig();
+
+    $package->_addDomainUsersAccount();
 
 }
 
 
 
+
+sub processSambaGroupMapping
+{
+    my ($package, $entry, @params) = @_;
+
+    my $group = $entry->get_value('cn');
+    my $sid   = $entry->get_value('sambaSID');
+
+    my $samba = EBox::Global->modInstance('samba');
+    my $sambaUser = $samba->_ldapModImplementation();
+
+
+    if ($group eq DEFAULT_USERS_GROUP) {
+	$sambaUser->setGroupSID($group, $sid, isGroup => 1);
+    }
+
+
+    $sambaUser->addGroupLdapAttrs($group, SID => $sid);
+}
 
 sub processSambaSamAccount
 {
@@ -107,18 +135,24 @@ sub processSambaSamAccount
 
 }
 
+
+
+
+
 sub _processUserAccount
 {
     my ($package, $entry) = @_;
 
     my $username = $entry->get_value('cn');
-
-    my $flags = $entry->get_value('sambaAcctFlags');
-    my $sharing = not ($flags =~ /D/) ? 'yes' : 'no';
-    
+ 
     my $samba = EBox::Global->modInstance('samba');
     my $sambaUser = $samba->_ldapModImplementation();
 
+    my $sambaSID = $entry->get_value('sambaSID');
+    $sambaUser->setUserSID($username, $sambaSID);
+
+    my $flags = $entry->get_value('sambaAcctFlags');
+    my $sharing = not ($flags =~ /D/) ? 'yes' : 'no';
     $sambaUser->setUserSharing($username, $sharing);
 }
 
@@ -131,21 +165,28 @@ sub _processComputerAccount
     # we can always add computers account bz we have remove all the old accounts
     # when proccessing sambaSamDomian
     my $account = $entry->get_value('cn');
-    $package->_addComputerAccount($account);
+    my $sambaSID = $entry->get_value('sambaSID');
+    $package->_addComputerAccount($account, $sambaSID);
 }
 
 
 
-# TODO we can move all computer accoutn utility method to its own class but for
+# TODO we can move all computer account utility method to its own class but for
 # now it is not neccessary
 
 sub _addComputerAccount
 {
-    my ($package, $account) = @_;
+    my ($package, $account, $sid) = @_;
 
     my $accountAddCmd = "/usr/sbin/smbldap-useradd -w $account";
     EBox::Sudo::root($accountAddCmd);
-	
+}
+
+
+sub _computerAccountDn
+{
+    my ($package, $account) = @_;
+    return "uid=$account,ou=Computers,dc=ebox";
 }
 
 
