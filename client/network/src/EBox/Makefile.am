@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Network Model
+SUBDIRS = CGI Network Model t
 
 perldir = @PERLPATH@/EBox
 
