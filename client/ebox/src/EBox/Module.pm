@@ -824,7 +824,7 @@ sub writeConfFile # (file, component, params, defaults)
     if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
         $manager = new EBox::ServiceModule::Manager();
         if ($manager->skipModification($self->serviceModuleName(), $file)) {
-            EBox::info("Skiping modification of $file");
+            EBox::info("Skipping modification of $file");
             return;
         }
     }
