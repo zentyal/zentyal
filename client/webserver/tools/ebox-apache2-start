@@ -43,6 +43,6 @@ fi
 
 # Include apache group, user and pid path
 
-. /etc/apache2/envvar
+. /etc/apache2/envvars
 
 exec $HTTPD -DNO_DETACH
