@@ -87,20 +87,21 @@ sub _exposedMethods
   {
 
       my %exposedMethods =
-        (
-         'serviceName' => { action   => 'get',
-			    path     => [ 'ServiceTable' ],
-			    indexes  => [ 'id' ],
-			    selector => [ 'name' ],
-                        },
-	 'service'     => { action   => 'get',
-			    path     => [ 'ServiceTable' ],
-			    indexes  => [ 'id' ],
-			  },
-         'updateDestPort'  => { action   => 'set',
+          (
+          'serviceName' => { action   => 'get',
+                           path     => [ 'ServiceTable' ],
+                           indexes  => [ 'id' ],
+                           selector => [ 'name' ],
+                           },
+          'service'     => { action   => 'get',
+           path     => [ 'ServiceTable' ],
+           indexes  => [ 'id' ],
+           },
+           'updateDestPort'  => { action   => 'set',
                                 path     => [ 'ServiceTable', 'configuration' ],
                                 indexes  => [ 'name', 'id' ],
-                                selector => [ 'destination' ]
+                                selector => [ 'destination' ],
+                                separator => ':'
                               },
          );
 

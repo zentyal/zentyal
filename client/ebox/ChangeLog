@@ -14,6 +14,8 @@
 	  module status section
 	+ Add loading gif to module status actions
 	+ Remove debug from ServiceInterface.pm
+	+ Add support for custom separators to be used as index separators on
+	  exposedMethods
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
 	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks

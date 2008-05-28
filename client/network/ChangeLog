@@ -1,8 +1,9 @@
-0.12
+0.101
 	+ Become static routes a model with three methods exposed
 	+ Remove usage of a deprecated method in NetWrappers
 	+ Become DNS resolvers to a model with three methods exposed. Now
 	you may add as many DNS resolvers you want
+	+ Use separator ':' in exposed method using '/' for addresses
 O.11.100
 	+ Disable network traffic monitor due to a bug in perl and RRDs module
 	+ Use /etc/network/interfaces and not /var/lib/ebox/tmp/interfaces

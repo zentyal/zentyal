@@ -176,11 +176,13 @@ sub _exposedMethods
        'delRoute' => { action  => 'del',
                        path    => [ 'StaticRoute' ],
                        indexes => [ 'network' ],
+                       separator => ':',
                    },
        'changeGateway' => { action   => 'set',
                             path     => [ 'StaticRoute' ],
                             indexes  => [ 'network' ],
                             selector => [ 'gateway' ],
+                            separator => ':'
                           },
        'addNS'    => { action => 'add',
                        path   => [ 'DNSResolver' ],

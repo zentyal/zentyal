@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Model::ModelManager;
 
 use constant TYPE => 'model';
+use constant DEFAULT_SEPARATOR => '/';
 
 # Method: models 
 # 
@@ -328,7 +329,16 @@ sub _callExposedMethod
 #      if ( @{$paramsRef} > 1 ) {
       unless ( ref ( $paramsRef->[0] ) ) {
           if ( defined ( $paramsRef->[0] )) {
-              @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0], scalar(@indexes));
+              my $separator;
+              if (exists $methodDesc->{'separator'}) {
+                  $separator = $methodDesc->{'separator'};
+              } else {
+                  $separator = DEFAULT_SEPARATOR;
+              } 
+              @indexValues = grep { $_ ne '' } 
+                                            split ( $separator, 
+                                                    $paramsRef->[0], 
+                                                    scalar(@indexes) + 1 );
               # Remove the index param if any
               shift ( @{$paramsRef} );
           }
