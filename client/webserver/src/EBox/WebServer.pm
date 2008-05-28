@@ -89,13 +89,34 @@ sub _create
 #
 sub usedFiles
 {
-    return [
+    my ($self) = @_;
+    my $files = [
     {
         'file' => PORTS_FILE,
         'module' => 'webserver',
-        'reason' => 'To set webserver listening port'
+        'reason' => __('To set webserver listening port')
     },
-        ];
+    {
+        'file' => AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
+        'module' => 'webserver',
+        'reason' => __('To configure the per-user public HTML directory')
+    }
+        ]; 
+   
+   my $vHostModel = $self->model('VHostTable');
+
+    my $vHosts = $vHostModel->rows();
+
+    foreach my $vHost (@{$vHostModel->rows()}) {
+        # Access to the field values for every virtual host
+        my $vHostValues = $vHost->{plainValueHash};
+
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostValues->{name};
+       push @{$files}, { 'file' => $destFile, 'module' => 'webserver' , 
+                         'reason' => 'To configure every virtual host'};
+    }
+
+    return $files;
 }
 
 # Method: actions 
@@ -195,7 +216,7 @@ sub statusSummary
                                      'webserver',
                                      __('Web'),
                                      $self->running(),
-                                     $self->service(),
+                                     $self->isEnabled(),
                                     );
 
 }
@@ -290,24 +311,6 @@ sub running
     my ($self) = @_;
 
     return EBox::Service::running(WEB_SERVICE);
-
-}
-
-# Method: service
-#
-#       Convenient method to check whether the web service is enabled
-#       or not
-#
-# Returns:
-#
-#       boolean - indicating whether the service is enabled or not
-#
-sub service
-{
-
-    my ($self) = @_;
-
-    return $self->model('EnableForm')->enabledValue();
 
 }
 
@@ -480,14 +483,14 @@ sub _setVHosts
 
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
-    EBox::Sudo::root('rm -f ' . SITES_AVAILABLE_DIR . "$vHostPattern");
     EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . "$vHostPattern");
-
+    my %sitesToRemove = %{_availableSites()};
     foreach my $vHost (@{$vHostModel->rows()}) {
         # Access to the field values for every virtual host
         my $vHostValues = $vHost->{plainValueHash};
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostValues->{name};
+        delete $sitesToRemove{$destFile};
         $self->writeConfFile( $destFile,
                               "webserver/vhost.mas",
                               [ vHostName => $vHostValues->{name} ],
@@ -513,6 +516,26 @@ sub _setVHosts
         }
     }
 
+    # Remove not used old dirs
+    for my $dir (keys %sitesToRemove) { 
+        EBox::Sudo::root("rm -f $dir");
+    }
+
+}
+
+# return current eBox available sites from actual dir
+sub _availableSites
+{
+    my $vhostPrefixPath = SITES_AVAILABLE_DIR . VHOST_PREFIX;
+    my $cmd = "ls $vhostPrefixPath*";
+    my @dirs;
+    try {
+      @dirs = @{EBox::Sudo::root($cmd)};
+    } catch EBox::Exceptions::Sudo::Command with { 
+        # No sites 
+    };
+    my %dirs = map  {chop($_); $_ => 1} @dirs;
+    return \%dirs;
 }
 
 ######################################
@@ -523,9 +546,9 @@ sub _doDaemon
 
     my ($self) = @_;
 
-    if ( $self->running() and $self->service() ) {
+    if ( $self->running() and $self->isEnabled() ) {
         EBox::Service::manage(WEB_SERVICE, 'restart');
-    } elsif ( $self->service() ) {
+    } elsif ( $self->isEnabled() ) {
         EBox::Service::manage(WEB_SERVICE, 'start');
     } else {
         EBox::Service::manage(WEB_SERVICE, 'stop');
