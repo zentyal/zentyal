@@ -72,7 +72,6 @@ sub _description
     my $description =
       {
        components      => [
-                           '/' . $wsMod->name() . '/EnableForm',
                            '/' . $wsMod->name() . '/GeneralSettings',
                            '/' . $wsMod->name() . '/VHostTable',
                           ],
