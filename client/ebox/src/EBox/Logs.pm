@@ -38,9 +38,11 @@ use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
 use EBox::Logs::Model::ForcePurge;
 use EBox::Logs::Composite::ConfigureLog;
+use EBox::Service;
 
 use POSIX qw(ceil);
 
+use constant LOG_DAEMON => 'ebox.loggerd';
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
@@ -106,14 +108,16 @@ sub _regenConfig
 
 	$self->_saveEnabledLogs();
 	_stopService();
+
 	return unless ($self->isEnabled());
-	system(EBox::Config::pkgdata . 'ebox-loggerd');
+
+	EBox::Service::manage(LOG_DAEMON, 'start');
 }
 
 sub _stopService
 {
-	if (-f PIDPATH . "loggerd.pid") {
-        	system(EBox::Config::pkgdata . 'ebox-kill-pid loggerd');
+	if (EBox::Service::running(LOG_DAEMON)) {
+	    EBox::Service::manage(LOG_DAEMON, 'stop');
 	}
 }
 

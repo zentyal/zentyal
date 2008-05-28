@@ -15,8 +15,6 @@
 
 package EBox::Loggerd;
 
-use base qw(EBox::AbstractDaemon);
-
 use EBox;
 use EBox::Global;
 use EBox::Sudo qw( :all );
@@ -28,6 +26,8 @@ use IO::Handle;
 use IO::File;
 use IO::Select;
 use File::Tail;
+
+use POSIX;
 
 use constant BUFFER => 64000;
 
@@ -42,7 +42,7 @@ sub int_handler
 sub new 
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(name => 'loggerd', @_);
+	my $self = {};
 	my %opts = @_;
 	$self->{'filetails'} = [] ; 
 	bless($self, $class);
@@ -52,7 +52,11 @@ sub new
 sub run 
 {
 	my $self = shift;
-	$self->init();
+
+	EBox::init();
+
+	$self->initDaemon();
+
 	my $global = EBox::Global->getInstance();
 	my $log = $global->modInstance('logs');
 	$self->{'loghelpers'} = $log->allEnabledLogHelpers();
@@ -61,6 +65,30 @@ sub run
 	$self->_mainloop();
 
 }
+
+
+sub initDaemon
+{
+	my $self =  shift;
+
+ 	unless (POSIX::setsid) {
+ 		EBox::debug ('Cannot start new session for ', $self->{'name'});
+ 		exit 1;
+ 	}
+
+	foreach my $fd (0 .. 64) { POSIX::close($fd); }
+
+	my $tmp = EBox::Config::tmp();
+	open(STDIN,  "+<$tmp/stdin");
+	if (EBox::Config::configkey('debug') eq 'yes') {
+	  open(STDOUT, "+>$tmp/stout");
+	  open(STDERR, "+>$tmp/stderr");
+	}
+
+}
+
+
+
 
 # Method: _prepare
 #
