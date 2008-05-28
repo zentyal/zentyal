@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.100\n"
+"Project-Id-Version: ebox 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:04+0200\n"
+"POT-Creation-Date: 2008-05-28 12:42+0200\n"
 "PO-Revision-Date: 2007-05-14 14:33+0000\n"
 "Last-Translator: Pavel Zaytsev <psz@web74.ru>\n"
 "Language-Team: none\n"
@@ -17,193 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/Test/StaticForm.pm:70 src/EBox/Test/Model.pm:74
-#: src/EBox/Test/Form.pm:70
-#, fuzzy
-msgid "Compulsory IP Address"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:75 src/EBox/Test/Model.pm:90
-#: src/EBox/Test/Form.pm:79
-#, fuzzy
-msgid "Compulsory Boolean"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:80 src/EBox/Test/Model.pm:106
-#: src/EBox/Test/Form.pm:88
-#, fuzzy
-msgid "Compulsory Integer"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:85 src/EBox/Test/Model.pm:149
-#: src/EBox/Test/Form.pm:106
-#, fuzzy
-msgid "Compulsory Text"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:90 src/EBox/Test/Model.pm:165
-#: src/EBox/Test/Form.pm:115
-#, fuzzy
-msgid "Compulsory MAC Address"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:95 src/EBox/Test/Model.pm:190
-#: src/EBox/Test/Form.pm:124
-#, fuzzy
-msgid "Compulsory Password"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:102 src/EBox/Test/Model.pm:209
-#: src/EBox/Test/Form.pm:135
-#, fuzzy
-msgid "Port range"
-msgstr "Пароль изменен"
-
-#: src/EBox/Test/StaticForm.pm:107 src/EBox/Test/Model.pm:293
-#: src/EBox/Test/Form.pm:215
-#, fuzzy
-msgid "Compulsory Service"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/StaticForm.pm:115
-msgid "Read only test form"
-msgstr ""
-
-#: src/EBox/Test/StaticForm.pm:121
-#, fuzzy
-msgid "Static test form"
-msgstr "Восстановить"
-
-#: src/EBox/Test/SubComposite.pm:71
-msgid "Sub-composite example"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:82
-#, fuzzy
-msgid "Optional IP Address"
-msgstr "Адрес Клиента"
-
-#: src/EBox/Test/Model.pm:98
-#, fuzzy
-msgid "Optional Boolean"
-msgstr "Пароль"
-
-#: src/EBox/Test/Model.pm:114
-#, fuzzy
-msgid "Optional Integer"
-msgstr "Адрес Клиента"
-
-#: src/EBox/Test/Model.pm:122 src/EBox/Test/Form.pm:97
-#, fuzzy
-msgid "Compulsory Select"
-msgstr "Текущий пароль"
-
-#: src/EBox/Test/Model.pm:157
-#, fuzzy
-msgid "Optional Text"
-msgstr "Адрес Клиента"
-
-#: src/EBox/Test/Model.pm:173
-#, fuzzy
-msgid "Optional MAC address"
-msgstr "Адрес Клиента"
-
-#: src/EBox/Test/Model.pm:181
-#, fuzzy
-msgid "Optional Link"
-msgstr "Пароль"
-
-#: src/EBox/Test/Model.pm:200
-#, fuzzy
-msgid "Optional Password"
-msgstr "Пароль"
-
-#: src/EBox/Test/Model.pm:217 src/EBox/Test/Form.pm:144
-#, fuzzy
-msgid "Union"
-msgstr "Неизвестный"
-
-#: src/EBox/Test/Model.pm:225 src/EBox/Test/Form.pm:152
-msgid "Foo"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:230 src/EBox/Test/Form.pm:157
-msgid "Bar"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:235 src/EBox/Test/Form.pm:163
-msgid "Baz"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:240 src/EBox/Test/Form.pm:168
-#, fuzzy
-msgid "Other option"
-msgstr "Описание"
-
-#: src/EBox/Test/Model.pm:246 src/EBox/Test/Form.pm:174
-msgid "Inverse Match Select"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:255 src/EBox/Test/Form.pm:184
-msgid "Inverse Match Union"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:263 src/EBox/Test/Form.pm:192
-msgid "Inverse Foo"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:268 src/EBox/Test/Form.pm:197
-msgid "Inverse Bar"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:273 src/EBox/Test/Form.pm:203
-msgid "Inverse Baz"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:278 src/EBox/Test/Form.pm:208
-#, fuzzy
-msgid "Inverse Other option"
-msgstr "Описание"
-
-#: src/EBox/Test/Model.pm:285
-#, fuzzy
-msgid "Members"
-msgstr "Ноябрь"
-
-#: src/EBox/Test/Model.pm:302
-#, fuzzy
-msgid "Test model"
-msgstr "Режим восстановления"
-
-#: src/EBox/Test/Model.pm:309
-msgid "Test model to test types"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:311
-msgid "row"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:349 src/EBox/Test/Form.pm:253
-msgid "A"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:350 src/EBox/Test/Form.pm:254
-msgid "B"
-msgstr ""
-
-#: src/EBox/Test/Model.pm:351 src/EBox/Test/Form.pm:255
-msgid "C"
-msgstr ""
-
-#: src/EBox/Test/Form.pm:225
-#, fuzzy
-msgid "Test form"
-msgstr "Восстановить"
-
-#: src/EBox/Test/Form.pm:231
-msgid "Test form to test types"
-msgstr ""
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -280,7 +93,7 @@ msgid "Free storage space"
 msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition  has no storage space left"
+msgid "Check if any disk partition has no storage space left"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:182
@@ -377,8 +190,8 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, perl-format, perl-brace-format
-msgid "Status: {percentage}% completed"
+#, perl-brace-format
+msgid "Status: {percentage} completed"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:432
@@ -602,8 +415,9 @@ msgid "{model} in {module} module"
 msgstr ""
 
 #: src/EBox/Model/DataTable.pm:253
-msgid " at "
-msgstr ""
+#, fuzzy
+msgid "at"
+msgstr "Дата"
 
 #: src/EBox/Model/DataTable.pm:434
 msgid "field"
@@ -651,16 +465,10 @@ msgstr ""
 msgid "Enabled"
 msgstr "Включено"
 
-#: src/EBox/Model/ProviderBase.pm:127
-msgid ""
-"A provided class with has multiple instances cannot have construction "
-"parameters specified"
-msgstr ""
-
-#: src/EBox/Model/ProviderBase.pm:247
-#, perl-brace-format
-msgid "Provided object with index {i} soes not exist"
-msgstr ""
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "Поле {field} не существует"
 
 #: src/EBox/Model/ModelManager.pm:458
 msgid ""
@@ -924,65 +732,67 @@ msgstr ""
 msgid "RAID report"
 msgstr "Отчет об ошибках"
 
-#: src/EBox/CGI/Finish.pm:31
+#: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Сохранить настройки"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 #, fuzzy
 msgid "Saving changes"
 msgstr "Сохранить изменения"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Бэкап режим"
 
-#: src/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "Current module"
 msgstr "Текущий пароль"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 #, fuzzy
 msgid "modules saved"
 msgstr "название модуля"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 #, fuzzy
 msgid "Changes saved"
 msgstr "Изменить пароль"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
-"logs"
+"logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Сохранить изменения"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Режим восстановления"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "modules revoked"
 msgstr "название модуля"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:106
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Изменить пароль"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:107
+#, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
-"the logs"
+"the logs in {dir}"
 msgstr ""
 
 #: src/EBox/CGI/ClientRawBase.pm:191
@@ -2087,13 +1897,6 @@ msgstr "восстановить"
 msgid "delete"
 msgstr "удалить"
 
-#: src/templates/notConfigured.mas:8
-#, perl-brace-format
-msgid ""
-"You must enable the module {module} in the module status section in order to "
-"use it. "
-msgstr ""
-
 #: src/templates/configureView.mas:16
 msgid ""
 "Enabling this module will cause eBox to perform the actions and file "
@@ -2195,6 +1998,98 @@ msgstr ""
 #, fuzzy, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
+
+#, fuzzy
+#~ msgid "Compulsory IP Address"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Compulsory Boolean"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Compulsory Integer"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Compulsory Text"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Compulsory MAC Address"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Compulsory Password"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Port range"
+#~ msgstr "Пароль изменен"
+
+#, fuzzy
+#~ msgid "Compulsory Service"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Static test form"
+#~ msgstr "Восстановить"
+
+#, fuzzy
+#~ msgid "Optional IP Address"
+#~ msgstr "Адрес Клиента"
+
+#, fuzzy
+#~ msgid "Optional Boolean"
+#~ msgstr "Пароль"
+
+#, fuzzy
+#~ msgid "Optional Integer"
+#~ msgstr "Адрес Клиента"
+
+#, fuzzy
+#~ msgid "Compulsory Select"
+#~ msgstr "Текущий пароль"
+
+#, fuzzy
+#~ msgid "Optional Text"
+#~ msgstr "Адрес Клиента"
+
+#, fuzzy
+#~ msgid "Optional MAC address"
+#~ msgstr "Адрес Клиента"
+
+#, fuzzy
+#~ msgid "Optional Link"
+#~ msgstr "Пароль"
+
+#, fuzzy
+#~ msgid "Optional Password"
+#~ msgstr "Пароль"
+
+#, fuzzy
+#~ msgid "Union"
+#~ msgstr "Неизвестный"
+
+#, fuzzy
+#~ msgid "Other option"
+#~ msgstr "Описание"
+
+#, fuzzy
+#~ msgid "Inverse Other option"
+#~ msgstr "Описание"
+
+#, fuzzy
+#~ msgid "Members"
+#~ msgstr "Ноябрь"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "Режим восстановления"
+
+#, fuzzy
+#~ msgid "Test form"
+#~ msgstr "Восстановить"
 
 #~ msgid ""
 #~ "You must set the httpd_serverroot variable in the ebox configuration file"
@@ -2301,9 +2196,6 @@ msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
 #~ msgstr ""
 #~ "Не могу переименовать файл бэкапа с {newName} на начальное {name}. "
 #~ "Сообщение об ошибке: {error}"
-
-#~ msgid "Field {field} does not exist"
-#~ msgstr "Поле {field} не существует"
 
 #~ msgid ""
 #~ "Backups will be stored in eBox and then you will be able to download them "
@@ -2412,3 +2304,6 @@ msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
 
 #~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
 #~ msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
+
+#~ msgid "Field {field} does not exist"
+#~ msgstr "Поле {field} не существует"

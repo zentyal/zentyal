@@ -6,9 +6,9 @@
 # This file is distributed under the same license as the ebox-usersandgroups package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.11.100\n"
+"Project-Id-Version: ebox-usersandgroups 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:07+0200\n"
+"POT-Creation-Date: 2008-05-28 12:45+0200\n"
 "PO-Revision-Date: 2007-03-16 11:42+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -45,10 +45,10 @@ msgid "user"
 msgstr "gebruiker"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:760
-#: src/EBox/UsersAndGroups.pm:911 src/EBox/UsersAndGroups.pm:1038
-#: src/EBox/UsersAndGroups.pm:1075 src/EBox/UsersAndGroups.pm:1149
-#: src/EBox/UsersAndGroups.pm:1255
+#: src/EBox/UsersAndGroups.pm:794 src/EBox/UsersAndGroups.pm:799
+#: src/EBox/UsersAndGroups.pm:950 src/EBox/UsersAndGroups.pm:1084
+#: src/EBox/UsersAndGroups.pm:1121 src/EBox/UsersAndGroups.pm:1195
+#: src/EBox/UsersAndGroups.pm:1301
 msgid "group name"
 msgstr "Naam groep"
 
@@ -58,11 +58,11 @@ msgid "comment"
 msgstr "Commentaar"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:325 src/EBox/UsersAndGroups.pm:331
-#: src/EBox/UsersAndGroups.pm:459 src/EBox/UsersAndGroups.pm:513
-#: src/EBox/UsersAndGroups.pm:544 src/EBox/UsersAndGroups.pm:875
-#: src/EBox/UsersAndGroups.pm:940 src/EBox/UsersAndGroups.pm:1033
-#: src/EBox/UsersAndGroups.pm:1070 src/EBox/UsersAndGroups.pm:1107
+#: src/EBox/UsersAndGroups.pm:364 src/EBox/UsersAndGroups.pm:370
+#: src/EBox/UsersAndGroups.pm:498 src/EBox/UsersAndGroups.pm:552
+#: src/EBox/UsersAndGroups.pm:583 src/EBox/UsersAndGroups.pm:914
+#: src/EBox/UsersAndGroups.pm:979 src/EBox/UsersAndGroups.pm:1079
+#: src/EBox/UsersAndGroups.pm:1116 src/EBox/UsersAndGroups.pm:1153
 msgid "user name"
 msgstr "Naam gebruiker"
 
@@ -88,7 +88,7 @@ msgstr "Groep wijzigen"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:74
-#: src/EBox/UsersAndGroups.pm:1526
+#: src/EBox/UsersAndGroups.pm:1572
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -96,7 +96,7 @@ msgstr "Gebruikers"
 msgid "username"
 msgstr "Gebruikersnaam"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1534
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1580
 msgid "Groups"
 msgstr "Groepen"
 
@@ -153,57 +153,57 @@ msgid ""
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:320
+#: src/EBox/UsersAndGroups.pm:359
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Gebruikersnaam mag niet langer zijn dan {maxuserlength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:375 src/EBox/UsersAndGroups.pm:802
+#: src/EBox/UsersAndGroups.pm:414 src/EBox/UsersAndGroups.pm:841
 msgid "Maximum number of system users reached"
 msgstr "Maximum aantal gebruikers voor systeem bereikt"
 
-#: src/EBox/UsersAndGroups.pm:392
+#: src/EBox/UsersAndGroups.pm:431
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:403
+#: src/EBox/UsersAndGroups.pm:442
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:743
+#: src/EBox/UsersAndGroups.pm:782
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Groepnaam mag niet langer zijn dan {maxGroupLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:749
+#: src/EBox/UsersAndGroups.pm:788
 msgid "The group name is not valid because it is used internally"
 msgstr "De naam van de groep is niet geldig omdat hij gereserveerd is"
 
-#: src/EBox/UsersAndGroups.pm:819
+#: src/EBox/UsersAndGroups.pm:858
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:829
+#: src/EBox/UsersAndGroups.pm:868
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:1328
+#: src/EBox/UsersAndGroups.pm:1374
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Paswoord mag niet langer zijn dan {maxPwdLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:1528
+#: src/EBox/UsersAndGroups.pm:1574
 #, fuzzy
 msgid "Add user"
 msgstr "Gebruiker toevoegen"
 
-#: src/EBox/UsersAndGroups.pm:1531
+#: src/EBox/UsersAndGroups.pm:1577
 #, fuzzy
 msgid "Edit user"
 msgstr "Gebruiker wijzigen"

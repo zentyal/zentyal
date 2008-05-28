@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.100\n"
+"Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:06+0200\n"
+"POT-Creation-Date: 2008-05-28 12:44+0200\n"
 "PO-Revision-Date: 2007-04-11 16:25+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr ""
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:456
+#: src/EBox/Software.pm:462
 msgid "System updates"
 msgstr ""
 
@@ -96,26 +96,36 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
 msgstr ""
 
-#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:85
+msgid "Enable cron script to download updates"
+msgstr ""
+
+#: src/EBox/Software.pm:86
+msgid ""
+"eBox software will download the available updates from your configured apt "
+"sources. "
+msgstr ""
+
+#: src/EBox/Software.pm:457
 msgid "Software management"
 msgstr ""
 
-#: src/EBox/Software.pm:458
+#: src/EBox/Software.pm:464
 msgid "Automatic updates"
 msgstr ""
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "ebox - Certificate Authority Manager for eBox"
+msgid "eBox - Certificate Authority Manager for eBox"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:2
@@ -139,7 +149,7 @@ msgid "IPsec VPNs"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:7
-msgid "ebox - Instant messaging (Jabber)"
+msgid "eBox - Instant messaging (Jabber)"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:8
@@ -147,15 +157,15 @@ msgid "eBox - Mail server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "ebox - Mail filter module"
+msgid "eBox - Mail filter module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:10
-msgid "Network configuration"
+msgid "eBox - Network configuration module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "ebox NTP server"
+msgid "eBox - NTP server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:12
@@ -171,7 +181,7 @@ msgid "eBox - Printer sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "ebox - File sharing"
+msgid "eBox - File sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:16
@@ -182,8 +192,12 @@ msgstr ""
 msgid "SOAP server to communicate with eBox control center"
 msgstr ""
 
+#: src/EBox/PackageDescriptions.pm:18
+msgid "eBox - Software management"
+msgstr ""
+
 #: src/EBox/PackageDescriptions.pm:19
-msgid "Proxy cache and content filter"
+msgid "eBox - Proxy cache and content filter"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:20

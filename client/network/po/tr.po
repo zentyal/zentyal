@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2007-05-12 23:18+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -142,7 +142,7 @@ msgstr "Kaynak"
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -442,10 +442,6 @@ msgstr "Sanal aygıt ismi"
 msgid "VLAN Id"
 msgstr "VLAN Id"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "Ağ geçidi adresi"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 #, fuzzy
@@ -693,18 +689,6 @@ msgstr "Lookup"
 msgid "Output"
 msgstr "Çıkış"
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Birincil"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "İkincil"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "Uygula"
-
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -801,6 +785,18 @@ msgstr "Tamam"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Vazgeç"
+
+#~ msgid "gateway address"
+#~ msgstr "Ağ geçidi adresi"
+
+#~ msgid "Primary"
+#~ msgstr "Birincil"
+
+#~ msgid "Secondary"
+#~ msgstr "İkincil"
+
+#~ msgid "Apply"
+#~ msgstr "Uygula"
 
 #~ msgid "network address"
 #~ msgstr "Ağ adresi"

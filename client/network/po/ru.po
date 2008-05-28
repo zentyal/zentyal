@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -146,7 +146,7 @@ msgstr "Источник"
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -444,10 +444,6 @@ msgstr "имя вирт. интерфейса"
 msgid "VLAN Id"
 msgstr "VLAN ID"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "адрес шлюза"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 #, fuzzy
@@ -686,18 +682,6 @@ msgstr "Поиск"
 msgid "Output"
 msgstr ""
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Первичный"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "Вторичный"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "Применить"
-
 #: src/templates/gwrules.mas:21
 #, fuzzy
 msgid ""
@@ -792,6 +776,18 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Отмена"
+
+#~ msgid "gateway address"
+#~ msgstr "адрес шлюза"
+
+#~ msgid "Primary"
+#~ msgstr "Первичный"
+
+#~ msgid "Secondary"
+#~ msgstr "Вторичный"
+
+#~ msgid "Apply"
+#~ msgstr "Применить"
 
 #~ msgid "network address"
 #~ msgstr "адрес сети"

@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2007-03-15 12:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -444,10 +444,6 @@ msgstr "nome interfaccia virtuale"
 msgid "VLAN Id"
 msgstr "Id VLAN"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "indirizzo gateway"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
@@ -694,18 +690,6 @@ msgstr "Ricerca"
 msgid "Output"
 msgstr "Uscita"
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Primario"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "Secondario"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "Applica"
-
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -802,6 +786,18 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annulla"
+
+#~ msgid "gateway address"
+#~ msgstr "indirizzo gateway"
+
+#~ msgid "Primary"
+#~ msgstr "Primario"
+
+#~ msgid "Secondary"
+#~ msgstr "Secondario"
+
+#~ msgid "Apply"
+#~ msgstr "Applica"
 
 #~ msgid "network address"
 #~ msgstr "indirizzo rete"

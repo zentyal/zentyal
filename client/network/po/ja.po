@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -438,10 +438,6 @@ msgstr "バーチャルインタフェース名"
 msgid "VLAN Id"
 msgstr "VLAN ID"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "ゲートウェイアドレス"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
@@ -687,18 +683,6 @@ msgstr "参照"
 msgid "Output"
 msgstr "出力"
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "プライマリ"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "セカンダリ"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "適用"
-
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -794,6 +778,18 @@ msgstr "はい"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "キャンセル"
+
+#~ msgid "gateway address"
+#~ msgstr "ゲートウェイアドレス"
+
+#~ msgid "Primary"
+#~ msgstr "プライマリ"
+
+#~ msgid "Secondary"
+#~ msgstr "セカンダリ"
+
+#~ msgid "Apply"
+#~ msgstr "適用"
 
 #~ msgid "network address"
 #~ msgstr "ネットワークアドレス"

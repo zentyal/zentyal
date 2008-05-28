@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2007-04-12 09:04+0000\n"
 "Last-Translator: Piotr Pastuszka <piotr.pastuszka@wp.pl>\n"
 "Language-Team: none\n"
@@ -148,7 +148,7 @@ msgstr "Źródło"
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -454,10 +454,6 @@ msgstr "nazwa interfejsu wirtualnego"
 msgid "VLAN Id"
 msgstr "Identyfikator VLAN-u"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "adresy bram"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
@@ -703,18 +699,6 @@ msgstr "Poszukiwanie"
 msgid "Output"
 msgstr "Wyjście"
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Główny"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "Zapasowy"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "Zastosuj"
-
 #: src/templates/gwrules.mas:21
 #, fuzzy
 msgid ""
@@ -812,6 +796,18 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Anuluj"
+
+#~ msgid "gateway address"
+#~ msgstr "adresy bram"
+
+#~ msgid "Primary"
+#~ msgstr "Główny"
+
+#~ msgid "Secondary"
+#~ msgstr "Zapasowy"
+
+#~ msgid "Apply"
+#~ msgstr "Zastosuj"
 
 #~ msgid "network address"
 #~ msgstr "adres sieci"

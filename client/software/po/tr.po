@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.100\n"
+"Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:06+0200\n"
+"POT-Creation-Date: 2008-05-28 12:44+0200\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr "Otomatil sistem güncellemeleri"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:456
+#: src/EBox/Software.pm:462
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
@@ -98,20 +98,30 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:85
+msgid "Enable cron script to download updates"
+msgstr ""
+
+#: src/EBox/Software.pm:86
+msgid ""
+"eBox software will download the available updates from your configured apt "
+"sources. "
+msgstr ""
+
+#: src/EBox/Software.pm:457
 msgid "Software management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:458
+#: src/EBox/Software.pm:464
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Otomatil sistem güncellemeleri"
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -119,7 +129,7 @@ msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
 #, fuzzy
-msgid "ebox - Certificate Authority Manager for eBox"
+msgid "eBox - Certificate Authority Manager for eBox"
 msgstr "Ebox yetkili sertifika yöneticisi "
 
 #: src/EBox/PackageDescriptions.pm:2
@@ -147,7 +157,7 @@ msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 #, fuzzy
-msgid "ebox - Instant messaging (Jabber)"
+msgid "eBox - Instant messaging (Jabber)"
 msgstr "Haberleşme (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
@@ -157,16 +167,17 @@ msgstr "Posta sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:9
 #, fuzzy
-msgid "ebox - Mail filter module"
+msgid "eBox - Mail filter module"
 msgstr "Posta süzgeçleme modulu"
 
 #: src/EBox/PackageDescriptions.pm:10
-msgid "Network configuration"
+#, fuzzy
+msgid "eBox - Network configuration module"
 msgstr "Ağ ayarları"
 
 #: src/EBox/PackageDescriptions.pm:11
 #, fuzzy
-msgid "ebox NTP server"
+msgid "eBox - NTP server"
 msgstr "eBox DNS sunucusu"
 
 #: src/EBox/PackageDescriptions.pm:12
@@ -186,7 +197,7 @@ msgstr "Yazıcı paylaşımı"
 
 #: src/EBox/PackageDescriptions.pm:15
 #, fuzzy
-msgid "ebox - File sharing"
+msgid "eBox - File sharing"
 msgstr "Dosya paylaşımı"
 
 #: src/EBox/PackageDescriptions.pm:16
@@ -198,8 +209,14 @@ msgstr "Servis yönetimi"
 msgid "SOAP server to communicate with eBox control center"
 msgstr "Ebox yönetim merkezi ile iletişim yapabilecek SOAP sunucu adresi"
 
+#: src/EBox/PackageDescriptions.pm:18
+#, fuzzy
+msgid "eBox - Software management"
+msgstr "Uygulama yönetimi"
+
 #: src/EBox/PackageDescriptions.pm:19
-msgid "Proxy cache and content filter"
+#, fuzzy
+msgid "eBox - Proxy cache and content filter"
 msgstr "Vekil depolama ve içerik filtreleme"
 
 #: src/EBox/PackageDescriptions.pm:20
@@ -302,6 +319,10 @@ msgstr "hiçbirşey"
 msgid "Remove"
 msgstr "Kaldır"
 
+#, fuzzy
+#~ msgid "ebox NTP server"
+#~ msgstr "eBox DNS sunucusu"
+
 #~ msgid "The packages were removed successfully"
 #~ msgstr "Paketler başarılı bir şekilde silindi"
 
@@ -383,3 +404,25 @@ msgstr "Kaldır"
 
 #~ msgid "User and Group management"
 #~ msgstr "Kullanıcı ve grup yönetimi"
+
+#, fuzzy
+#~ msgid "ebox - Certificate Authority Manager for eBox"
+#~ msgstr "Ebox yetkili sertifika yöneticisi "
+
+#, fuzzy
+#~ msgid "ebox - Instant messaging (Jabber)"
+#~ msgstr "Haberleşme (Jabber)"
+
+#, fuzzy
+#~ msgid "ebox - Mail filter module"
+#~ msgstr "Posta süzgeçleme modulu"
+
+#~ msgid "Network configuration"
+#~ msgstr "Ağ ayarları"
+
+#, fuzzy
+#~ msgid "ebox - File sharing"
+#~ msgstr "Dosya paylaşımı"
+
+#~ msgid "Proxy cache and content filter"
+#~ msgstr "Vekil depolama ve içerik filtreleme"

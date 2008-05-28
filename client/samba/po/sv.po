@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.11.100\n"
+"Project-Id-Version: ebox-samba 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:06+0200\n"
+"POT-Creation-Date: 2008-05-28 12:44+0200\n"
 "PO-Revision-Date: 2007-06-06 09:40+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,8 +21,8 @@ msgid "user name"
 msgstr "användarnamn"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:694 src/EBox/SambaLdapUser.pm:722
-#: src/EBox/SambaLdapUser.pm:773
+#: src/EBox/SambaLdapUser.pm:769 src/EBox/SambaLdapUser.pm:797
+#: src/EBox/SambaLdapUser.pm:848
 msgid "group name"
 msgstr "gruppnamn"
 
@@ -38,16 +38,16 @@ msgstr "delningsnamn"
 msgid "active"
 msgstr "aktiv"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:402
-#: src/EBox/Samba.pm:410
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:401
+#: src/EBox/Samba.pm:409
 msgid "File sharing"
 msgstr "Fildelning"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:612
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:611
 msgid "netbios"
 msgstr "netbios"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:661
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:660
 msgid "working group"
 msgstr "arbetsgrupp"
 
@@ -55,7 +55,7 @@ msgstr "arbetsgrupp"
 msgid "working mode"
 msgstr "arbetsläge"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:630
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:629
 msgid "description"
 msgstr "beskrivning"
 
@@ -134,19 +134,19 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr ""
 
-#: src/EBox/Samba.pm:679
+#: src/EBox/Samba.pm:678
 msgid "quota"
 msgstr "kvot"
 
-#: src/EBox/Samba.pm:963 src/EBox/Samba.pm:982
+#: src/EBox/Samba.pm:962 src/EBox/Samba.pm:981
 msgid "user"
 msgstr "användare"
 
-#: src/EBox/Samba.pm:966 src/EBox/Samba.pm:996 src/EBox/SambaLdapUser.pm:843
+#: src/EBox/Samba.pm:965 src/EBox/Samba.pm:995 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "grupp"
 
-#: src/EBox/Samba.pm:969
+#: src/EBox/Samba.pm:968
 msgid "printer"
 msgstr "skrivare"
 
@@ -163,20 +163,50 @@ msgstr "Gruppens filer"
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Den här användaren har en delad katalog associerad som innehåller data"
 
-#: src/EBox/SambaLdapUser.pm:356
+#: src/EBox/SambaLdapUser.pm:351
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:355
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:359
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:369
+#, perl-brace-format
+msgid "Incoorect SID: {s}"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:373
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:377
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:424
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Den här gruppen har en delad katalog associerad som innehåller data"
 
-#: src/EBox/SambaLdapUser.pm:608
+#: src/EBox/SambaLdapUser.pm:683
 #, perl-brace-format
 msgid "{g} group does not exist"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:727
+#: src/EBox/SambaLdapUser.pm:802
 msgid "A name should be provided for the share"
 msgstr "Ett namn bör anges för utdelningen"
 
-#: src/EBox/SambaLdapUser.pm:735
+#: src/EBox/SambaLdapUser.pm:810
 msgid "sharing resource"
 msgstr "delning av resurs"
 

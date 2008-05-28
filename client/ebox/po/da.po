@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.100\n"
+"Project-Id-Version: ebox 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:04+0200\n"
+"POT-Creation-Date: 2008-05-28 12:42+0200\n"
 "PO-Revision-Date: 2007-07-24 15:21+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,170 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/Test/StaticForm.pm:70 src/EBox/Test/Model.pm:74
-#: src/EBox/Test/Form.pm:70
-msgid "Compulsory IP Address"
-msgstr "Obligatorisk ip-adresse"
-
-#: src/EBox/Test/StaticForm.pm:75 src/EBox/Test/Model.pm:90
-#: src/EBox/Test/Form.pm:79
-msgid "Compulsory Boolean"
-msgstr "Obligatorisk on/off"
-
-#: src/EBox/Test/StaticForm.pm:80 src/EBox/Test/Model.pm:106
-#: src/EBox/Test/Form.pm:88
-msgid "Compulsory Integer"
-msgstr "Obligatorisk tal"
-
-#: src/EBox/Test/StaticForm.pm:85 src/EBox/Test/Model.pm:149
-#: src/EBox/Test/Form.pm:106
-msgid "Compulsory Text"
-msgstr "Obligatorisk tekst"
-
-#: src/EBox/Test/StaticForm.pm:90 src/EBox/Test/Model.pm:165
-#: src/EBox/Test/Form.pm:115
-msgid "Compulsory MAC Address"
-msgstr "Obligatorisk MAC adresse"
-
-#: src/EBox/Test/StaticForm.pm:95 src/EBox/Test/Model.pm:190
-#: src/EBox/Test/Form.pm:124
-msgid "Compulsory Password"
-msgstr "Obligatorisk kodeord"
-
-#: src/EBox/Test/StaticForm.pm:102 src/EBox/Test/Model.pm:209
-#: src/EBox/Test/Form.pm:135
-msgid "Port range"
-msgstr "Port område"
-
-#: src/EBox/Test/StaticForm.pm:107 src/EBox/Test/Model.pm:293
-#: src/EBox/Test/Form.pm:215
-msgid "Compulsory Service"
-msgstr "Obligatorisk service"
-
-#: src/EBox/Test/StaticForm.pm:115
-msgid "Read only test form"
-msgstr "Læsbar test form"
-
-#: src/EBox/Test/StaticForm.pm:121
-msgid "Static test form"
-msgstr "Statisk test form"
-
-#: src/EBox/Test/SubComposite.pm:71
-msgid "Sub-composite example"
-msgstr "Under composite exempel"
-
-#: src/EBox/Test/Model.pm:82
-msgid "Optional IP Address"
-msgstr "Frivillig ip adresse"
-
-#: src/EBox/Test/Model.pm:98
-msgid "Optional Boolean"
-msgstr "Frivillig on/off værdi"
-
-#: src/EBox/Test/Model.pm:114
-msgid "Optional Integer"
-msgstr "Frivilligt tal"
-
-#: src/EBox/Test/Model.pm:122 src/EBox/Test/Form.pm:97
-msgid "Compulsory Select"
-msgstr "Obligatorisk valg"
-
-#: src/EBox/Test/Model.pm:157
-msgid "Optional Text"
-msgstr "Frivillig tekst"
-
-#: src/EBox/Test/Model.pm:173
-msgid "Optional MAC address"
-msgstr "Frivillig MAC adresse"
-
-#: src/EBox/Test/Model.pm:181
-msgid "Optional Link"
-msgstr "Frivilligt link"
-
-#: src/EBox/Test/Model.pm:200
-msgid "Optional Password"
-msgstr "Frivilligt password"
-
-#: src/EBox/Test/Model.pm:217 src/EBox/Test/Form.pm:144
-msgid "Union"
-msgstr "Union"
-
-#: src/EBox/Test/Model.pm:225 src/EBox/Test/Form.pm:152
-msgid "Foo"
-msgstr "Foo"
-
-#: src/EBox/Test/Model.pm:230 src/EBox/Test/Form.pm:157
-msgid "Bar"
-msgstr "Bar"
-
-#: src/EBox/Test/Model.pm:235 src/EBox/Test/Form.pm:163
-msgid "Baz"
-msgstr "Baz"
-
-#: src/EBox/Test/Model.pm:240 src/EBox/Test/Form.pm:168
-msgid "Other option"
-msgstr "Andre valg"
-
-#: src/EBox/Test/Model.pm:246 src/EBox/Test/Form.pm:174
-msgid "Inverse Match Select"
-msgstr "Vælg baglæns match"
-
-#: src/EBox/Test/Model.pm:255 src/EBox/Test/Form.pm:184
-msgid "Inverse Match Union"
-msgstr "Vælg baglæns samling"
-
-#: src/EBox/Test/Model.pm:263 src/EBox/Test/Form.pm:192
-msgid "Inverse Foo"
-msgstr "Baglæns Foo"
-
-#: src/EBox/Test/Model.pm:268 src/EBox/Test/Form.pm:197
-msgid "Inverse Bar"
-msgstr "Baglæns Bar"
-
-#: src/EBox/Test/Model.pm:273 src/EBox/Test/Form.pm:203
-msgid "Inverse Baz"
-msgstr "Baglæns Baz"
-
-#: src/EBox/Test/Model.pm:278 src/EBox/Test/Form.pm:208
-msgid "Inverse Other option"
-msgstr "Andre baglæns muligheder"
-
-#: src/EBox/Test/Model.pm:285
-msgid "Members"
-msgstr "Medlemmer"
-
-#: src/EBox/Test/Model.pm:302
-msgid "Test model"
-msgstr "Test model"
-
-#: src/EBox/Test/Model.pm:309
-msgid "Test model to test types"
-msgstr "Test model for at test typer"
-
-#: src/EBox/Test/Model.pm:311
-msgid "row"
-msgstr "Række"
-
-#: src/EBox/Test/Model.pm:349 src/EBox/Test/Form.pm:253
-msgid "A"
-msgstr "A"
-
-#: src/EBox/Test/Model.pm:350 src/EBox/Test/Form.pm:254
-msgid "B"
-msgstr "B"
-
-#: src/EBox/Test/Model.pm:351 src/EBox/Test/Form.pm:255
-msgid "C"
-msgstr "C"
-
-#: src/EBox/Test/Form.pm:225
-msgid "Test form"
-msgstr "Test formular"
-
-#: src/EBox/Test/Form.pm:231
-msgid "Test form to test types"
-msgstr "Test formular for at teste typer"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -255,7 +91,8 @@ msgid "Free storage space"
 msgstr "Ledig diskplads"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition  has no storage space left"
+#, fuzzy
+msgid "Check if any disk partition has no storage space left"
 msgstr "Check om noget filsystem har ledig plads"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
@@ -352,8 +189,8 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, fuzzy, perl-format, perl-brace-format
-msgid "Status: {percentage}% completed"
+#, fuzzy, perl-brace-format
+msgid "Status: {percentage} completed"
 msgstr "Procent færdig"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
@@ -577,7 +414,8 @@ msgid "{model} in {module} module"
 msgstr "{model} i {module} modul"
 
 #: src/EBox/Model/DataTable.pm:253
-msgid " at "
+#, fuzzy
+msgid "at"
 msgstr "i"
 
 #: src/EBox/Model/DataTable.pm:434
@@ -626,16 +464,9 @@ msgstr "{row} flyttet ned"
 msgid "Enabled"
 msgstr "Slået til"
 
-#: src/EBox/Model/ProviderBase.pm:127
-msgid ""
-"A provided class with has multiple instances cannot have construction "
-"parameters specified"
-msgstr ""
-"En klasse som har flere instanser kan ikke have konstruktions parametre"
-
-#: src/EBox/Model/ProviderBase.pm:247
-#, perl-brace-format
-msgid "Provided object with index {i} soes not exist"
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
 msgstr "Objektet med index {i} eksisterer ikke"
 
 #: src/EBox/Model/ModelManager.pm:458
@@ -895,65 +726,67 @@ msgstr "Disk forbrug"
 msgid "RAID report"
 msgstr "RAID status"
 
-#: src/EBox/CGI/Finish.pm:31
+#: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Gem konfiguration"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 #, fuzzy
 msgid "Saving changes"
 msgstr "Gem ændringer"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Backup af moduler"
 
-#: src/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "Current module"
 msgstr "Nuværende password"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 #, fuzzy
 msgid "modules saved"
 msgstr "modul navn"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 #, fuzzy
 msgid "Changes saved"
 msgstr "Skift password"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
-"logs"
+"logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Gem ændringer"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Restore af moduler"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "modules revoked"
 msgstr "moduler der mangler at bliver restored"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:106
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Skift password"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:107
+#, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
-"the logs"
+"the logs in {dir}"
 msgstr ""
 
 #: src/EBox/CGI/ClientRawBase.pm:191
@@ -2047,13 +1880,6 @@ msgstr "restore"
 msgid "delete"
 msgstr "slet"
 
-#: src/templates/notConfigured.mas:8
-#, perl-brace-format
-msgid ""
-"You must enable the module {module} in the module status section in order to "
-"use it. "
-msgstr ""
-
 #: src/templates/configureView.mas:16
 msgid ""
 "Enabling this module will cause eBox to perform the actions and file "
@@ -2158,6 +1984,133 @@ msgstr ""
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 
+#, fuzzy
+#~ msgid "Status: {percentage}% completed"
+#~ msgstr "Procent færdig"
+
+#~ msgid "Compulsory IP Address"
+#~ msgstr "Obligatorisk ip-adresse"
+
+#~ msgid "Compulsory Boolean"
+#~ msgstr "Obligatorisk on/off"
+
+#~ msgid "Compulsory Integer"
+#~ msgstr "Obligatorisk tal"
+
+#~ msgid "Compulsory Text"
+#~ msgstr "Obligatorisk tekst"
+
+#~ msgid "Compulsory MAC Address"
+#~ msgstr "Obligatorisk MAC adresse"
+
+#~ msgid "Compulsory Password"
+#~ msgstr "Obligatorisk kodeord"
+
+#~ msgid "Port range"
+#~ msgstr "Port område"
+
+#~ msgid "Compulsory Service"
+#~ msgstr "Obligatorisk service"
+
+#~ msgid "Read only test form"
+#~ msgstr "Læsbar test form"
+
+#~ msgid "Static test form"
+#~ msgstr "Statisk test form"
+
+#~ msgid "Sub-composite example"
+#~ msgstr "Under composite exempel"
+
+#~ msgid "Optional IP Address"
+#~ msgstr "Frivillig ip adresse"
+
+#~ msgid "Optional Boolean"
+#~ msgstr "Frivillig on/off værdi"
+
+#~ msgid "Optional Integer"
+#~ msgstr "Frivilligt tal"
+
+#~ msgid "Compulsory Select"
+#~ msgstr "Obligatorisk valg"
+
+#~ msgid "Optional Text"
+#~ msgstr "Frivillig tekst"
+
+#~ msgid "Optional MAC address"
+#~ msgstr "Frivillig MAC adresse"
+
+#~ msgid "Optional Link"
+#~ msgstr "Frivilligt link"
+
+#~ msgid "Optional Password"
+#~ msgstr "Frivilligt password"
+
+#~ msgid "Union"
+#~ msgstr "Union"
+
+#~ msgid "Foo"
+#~ msgstr "Foo"
+
+#~ msgid "Bar"
+#~ msgstr "Bar"
+
+#~ msgid "Baz"
+#~ msgstr "Baz"
+
+#~ msgid "Other option"
+#~ msgstr "Andre valg"
+
+#~ msgid "Inverse Match Select"
+#~ msgstr "Vælg baglæns match"
+
+#~ msgid "Inverse Match Union"
+#~ msgstr "Vælg baglæns samling"
+
+#~ msgid "Inverse Foo"
+#~ msgstr "Baglæns Foo"
+
+#~ msgid "Inverse Bar"
+#~ msgstr "Baglæns Bar"
+
+#~ msgid "Inverse Baz"
+#~ msgstr "Baglæns Baz"
+
+#~ msgid "Inverse Other option"
+#~ msgstr "Andre baglæns muligheder"
+
+#~ msgid "Members"
+#~ msgstr "Medlemmer"
+
+#~ msgid "Test model"
+#~ msgstr "Test model"
+
+#~ msgid "Test model to test types"
+#~ msgstr "Test model for at test typer"
+
+#~ msgid "row"
+#~ msgstr "Række"
+
+#~ msgid "A"
+#~ msgstr "A"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "C"
+#~ msgstr "C"
+
+#~ msgid "Test form"
+#~ msgstr "Test formular"
+
+#~ msgid "Test form to test types"
+#~ msgstr "Test formular for at teste typer"
+
+#~ msgid ""
+#~ "A provided class with has multiple instances cannot have construction "
+#~ "parameters specified"
+#~ msgstr ""
+#~ "En klasse som har flere instanser kan ikke have konstruktions parametre"
+
 #~ msgid ""
 #~ "Check if any service has been restarted many  times in a time interval"
 #~ msgstr ""
@@ -2203,3 +2156,12 @@ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 
 #~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
 #~ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
+
+#~ msgid " at "
+#~ msgstr "i"
+
+#~ msgid "Provided object with index {i} soes not exist"
+#~ msgstr "Objektet med index {i} eksisterer ikke"
+
+#~ msgid "Check if any disk partition  has no storage space left"
+#~ msgstr "Check om noget filsystem har ledig plads"

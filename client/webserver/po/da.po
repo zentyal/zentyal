@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.11.99\n"
+"Project-Id-Version: ebox-webserver 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:07+0200\n"
+"POT-Creation-Date: 2008-05-28 12:45+0200\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -112,15 +112,23 @@ msgid ""
 "different virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer.pm:130 src/EBox/WebServer.pm:154
+#: src/EBox/WebServer.pm:109
+msgid "Enable apache LDAP user module"
+msgstr ""
+
+#: src/EBox/WebServer.pm:111
+msgid "To fetch home directories from LDAP"
+msgstr ""
+
+#: src/EBox/WebServer.pm:172 src/EBox/WebServer.pm:196
 msgid "Web"
 msgstr ""
 
-#: src/EBox/WebServer.pm:173
+#: src/EBox/WebServer.pm:215
 msgid "Web service status"
 msgstr ""
 
-#: src/EBox/WebServer.pm:365
+#: src/EBox/WebServer.pm:407
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""

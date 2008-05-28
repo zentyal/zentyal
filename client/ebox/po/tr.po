@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.100\n"
+"Project-Id-Version: ebox 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:04+0200\n"
+"POT-Creation-Date: 2008-05-28 12:42+0200\n"
 "PO-Revision-Date: 2007-05-13 00:27+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -16,171 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/Test/StaticForm.pm:70 src/EBox/Test/Model.pm:74
-#: src/EBox/Test/Form.pm:70
-msgid "Compulsory IP Address"
-msgstr "Zorunlu IP adresi"
-
-#: src/EBox/Test/StaticForm.pm:75 src/EBox/Test/Model.pm:90
-#: src/EBox/Test/Form.pm:79
-msgid "Compulsory Boolean"
-msgstr "Zorunlu Boolean değeri"
-
-#: src/EBox/Test/StaticForm.pm:80 src/EBox/Test/Model.pm:106
-#: src/EBox/Test/Form.pm:88
-msgid "Compulsory Integer"
-msgstr "Zorunlu Integer değeri"
-
-#: src/EBox/Test/StaticForm.pm:85 src/EBox/Test/Model.pm:149
-#: src/EBox/Test/Form.pm:106
-msgid "Compulsory Text"
-msgstr "Zorunlu metin"
-
-#: src/EBox/Test/StaticForm.pm:90 src/EBox/Test/Model.pm:165
-#: src/EBox/Test/Form.pm:115
-msgid "Compulsory MAC Address"
-msgstr "Zorunlu MAC adresi"
-
-#: src/EBox/Test/StaticForm.pm:95 src/EBox/Test/Model.pm:190
-#: src/EBox/Test/Form.pm:124
-msgid "Compulsory Password"
-msgstr "Güncel parola"
-
-#: src/EBox/Test/StaticForm.pm:102 src/EBox/Test/Model.pm:209
-#: src/EBox/Test/Form.pm:135
-msgid "Port range"
-msgstr "Port aralığı"
-
-#: src/EBox/Test/StaticForm.pm:107 src/EBox/Test/Model.pm:293
-#: src/EBox/Test/Form.pm:215
-msgid "Compulsory Service"
-msgstr "Zorunlu servisler"
-
-#: src/EBox/Test/StaticForm.pm:115
-msgid "Read only test form"
-msgstr ""
-
-#: src/EBox/Test/StaticForm.pm:121
-#, fuzzy
-msgid "Static test form"
-msgstr "Deneme formu"
-
-#: src/EBox/Test/SubComposite.pm:71
-msgid "Sub-composite example"
-msgstr "Alt bileşik örnekleri"
-
-#: src/EBox/Test/Model.pm:82
-msgid "Optional IP Address"
-msgstr "Seçmeli IP adresi"
-
-#: src/EBox/Test/Model.pm:98
-msgid "Optional Boolean"
-msgstr "Seçmeli Boolean değeri"
-
-#: src/EBox/Test/Model.pm:114
-msgid "Optional Integer"
-msgstr "Seçmeli Integer değeri"
-
-#: src/EBox/Test/Model.pm:122 src/EBox/Test/Form.pm:97
-msgid "Compulsory Select"
-msgstr "Zorunlu seçim"
-
-#: src/EBox/Test/Model.pm:157
-msgid "Optional Text"
-msgstr "Seçmeli metin"
-
-#: src/EBox/Test/Model.pm:173
-msgid "Optional MAC address"
-msgstr "Seçmeli MAC adresi"
-
-#: src/EBox/Test/Model.pm:181
-msgid "Optional Link"
-msgstr "Seçmeli bağlantı"
-
-#: src/EBox/Test/Model.pm:200
-msgid "Optional Password"
-msgstr "Seçmeli Parola"
-
-#: src/EBox/Test/Model.pm:217 src/EBox/Test/Form.pm:144
-msgid "Union"
-msgstr "Bensersiz"
-
-#: src/EBox/Test/Model.pm:225 src/EBox/Test/Form.pm:152
-msgid "Foo"
-msgstr "Foo"
-
-#: src/EBox/Test/Model.pm:230 src/EBox/Test/Form.pm:157
-msgid "Bar"
-msgstr "Bar"
-
-#: src/EBox/Test/Model.pm:235 src/EBox/Test/Form.pm:163
-msgid "Baz"
-msgstr "Baz"
-
-#: src/EBox/Test/Model.pm:240 src/EBox/Test/Form.pm:168
-msgid "Other option"
-msgstr "Diğer seçenekler"
-
-#: src/EBox/Test/Model.pm:246 src/EBox/Test/Form.pm:174
-msgid "Inverse Match Select"
-msgstr "Seçili eşleşenleri tersine çevir"
-
-#: src/EBox/Test/Model.pm:255 src/EBox/Test/Form.pm:184
-msgid "Inverse Match Union"
-msgstr "Benzersiz eşleşenleri tersine çevir"
-
-#: src/EBox/Test/Model.pm:263 src/EBox/Test/Form.pm:192
-msgid "Inverse Foo"
-msgstr "Foo'yu tersine çevir"
-
-#: src/EBox/Test/Model.pm:268 src/EBox/Test/Form.pm:197
-msgid "Inverse Bar"
-msgstr "Bar'ı tersine çevir"
-
-#: src/EBox/Test/Model.pm:273 src/EBox/Test/Form.pm:203
-msgid "Inverse Baz"
-msgstr "Baz'ı tersine çevir"
-
-#: src/EBox/Test/Model.pm:278 src/EBox/Test/Form.pm:208
-msgid "Inverse Other option"
-msgstr "Diğer seçimleri tersine çevir"
-
-#: src/EBox/Test/Model.pm:285
-msgid "Members"
-msgstr "Üyeler"
-
-#: src/EBox/Test/Model.pm:302
-msgid "Test model"
-msgstr "Deneme modeli"
-
-#: src/EBox/Test/Model.pm:309
-msgid "Test model to test types"
-msgstr "Deneme modelinini deneme türleri"
-
-#: src/EBox/Test/Model.pm:311
-msgid "row"
-msgstr "satır"
-
-#: src/EBox/Test/Model.pm:349 src/EBox/Test/Form.pm:253
-msgid "A"
-msgstr "A"
-
-#: src/EBox/Test/Model.pm:350 src/EBox/Test/Form.pm:254
-msgid "B"
-msgstr "B"
-
-#: src/EBox/Test/Model.pm:351 src/EBox/Test/Form.pm:255
-msgid "C"
-msgstr "C"
-
-#: src/EBox/Test/Form.pm:225
-msgid "Test form"
-msgstr "Deneme formu"
-
-#: src/EBox/Test/Form.pm:231
-msgid "Test form to test types"
-msgstr "Deneme formun deneme türü"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -257,7 +92,8 @@ msgid "Free storage space"
 msgstr "Boş depolama alanı"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition  has no storage space left"
+#, fuzzy
+msgid "Check if any disk partition has no storage space left"
 msgstr "Herhangi bir disk bölümüde yer kalıp kalmadığını kontrol et"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
@@ -354,8 +190,8 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, perl-format, perl-brace-format
-msgid "Status: {percentage}% completed"
+#, perl-brace-format
+msgid "Status: {percentage} completed"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:432
@@ -578,8 +414,9 @@ msgid "{model} in {module} module"
 msgstr ""
 
 #: src/EBox/Model/DataTable.pm:253
-msgid " at "
-msgstr ""
+#, fuzzy
+msgid "at"
+msgstr "Tarih"
 
 #: src/EBox/Model/DataTable.pm:434
 msgid "field"
@@ -627,16 +464,10 @@ msgstr "{row} alta kaydırıldı"
 msgid "Enabled"
 msgstr "Etkinleşti"
 
-#: src/EBox/Model/ProviderBase.pm:127
-msgid ""
-"A provided class with has multiple instances cannot have construction "
-"parameters specified"
-msgstr ""
-
-#: src/EBox/Model/ProviderBase.pm:247
-#, perl-brace-format
-msgid "Provided object with index {i} soes not exist"
-msgstr ""
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "{field} alanı mevcut değil."
 
 #: src/EBox/Model/ModelManager.pm:458
 #, fuzzy
@@ -907,65 +738,67 @@ msgstr ""
 msgid "RAID report"
 msgstr "Hata raporlama"
 
-#: src/EBox/CGI/Finish.pm:31
+#: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Ayarları kaydet"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 #, fuzzy
 msgid "Saving changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Yedekleme modu"
 
-#: src/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "Current module"
 msgstr "Güncel parola"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 #, fuzzy
 msgid "modules saved"
 msgstr "Modul ismi"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 #, fuzzy
 msgid "Changes saved"
 msgstr "Parolayı değiştir"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
-"logs"
+"logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Geri yükleme modu"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "modules revoked"
 msgstr "Modul ismi"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:106
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Parolayı değiştir"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:107
+#, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
-"the logs"
+"the logs in {dir}"
 msgstr ""
 
 #: src/EBox/CGI/ClientRawBase.pm:191
@@ -2077,13 +1910,6 @@ msgstr "Geri yükle"
 msgid "delete"
 msgstr "Sil"
 
-#: src/templates/notConfigured.mas:8
-#, perl-brace-format
-msgid ""
-"You must enable the module {module} in the module status section in order to "
-"use it. "
-msgstr ""
-
 #: src/templates/configureView.mas:16
 msgid ""
 "Enabling this module will cause eBox to perform the actions and file "
@@ -2186,6 +2012,121 @@ msgstr ""
 #, fuzzy, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuştur"
+
+#~ msgid "Compulsory IP Address"
+#~ msgstr "Zorunlu IP adresi"
+
+#~ msgid "Compulsory Boolean"
+#~ msgstr "Zorunlu Boolean değeri"
+
+#~ msgid "Compulsory Integer"
+#~ msgstr "Zorunlu Integer değeri"
+
+#~ msgid "Compulsory Text"
+#~ msgstr "Zorunlu metin"
+
+#~ msgid "Compulsory MAC Address"
+#~ msgstr "Zorunlu MAC adresi"
+
+#~ msgid "Compulsory Password"
+#~ msgstr "Güncel parola"
+
+#~ msgid "Port range"
+#~ msgstr "Port aralığı"
+
+#~ msgid "Compulsory Service"
+#~ msgstr "Zorunlu servisler"
+
+#, fuzzy
+#~ msgid "Static test form"
+#~ msgstr "Deneme formu"
+
+#~ msgid "Sub-composite example"
+#~ msgstr "Alt bileşik örnekleri"
+
+#~ msgid "Optional IP Address"
+#~ msgstr "Seçmeli IP adresi"
+
+#~ msgid "Optional Boolean"
+#~ msgstr "Seçmeli Boolean değeri"
+
+#~ msgid "Optional Integer"
+#~ msgstr "Seçmeli Integer değeri"
+
+#~ msgid "Compulsory Select"
+#~ msgstr "Zorunlu seçim"
+
+#~ msgid "Optional Text"
+#~ msgstr "Seçmeli metin"
+
+#~ msgid "Optional MAC address"
+#~ msgstr "Seçmeli MAC adresi"
+
+#~ msgid "Optional Link"
+#~ msgstr "Seçmeli bağlantı"
+
+#~ msgid "Optional Password"
+#~ msgstr "Seçmeli Parola"
+
+#~ msgid "Union"
+#~ msgstr "Bensersiz"
+
+#~ msgid "Foo"
+#~ msgstr "Foo"
+
+#~ msgid "Bar"
+#~ msgstr "Bar"
+
+#~ msgid "Baz"
+#~ msgstr "Baz"
+
+#~ msgid "Other option"
+#~ msgstr "Diğer seçenekler"
+
+#~ msgid "Inverse Match Select"
+#~ msgstr "Seçili eşleşenleri tersine çevir"
+
+#~ msgid "Inverse Match Union"
+#~ msgstr "Benzersiz eşleşenleri tersine çevir"
+
+#~ msgid "Inverse Foo"
+#~ msgstr "Foo'yu tersine çevir"
+
+#~ msgid "Inverse Bar"
+#~ msgstr "Bar'ı tersine çevir"
+
+#~ msgid "Inverse Baz"
+#~ msgstr "Baz'ı tersine çevir"
+
+#~ msgid "Inverse Other option"
+#~ msgstr "Diğer seçimleri tersine çevir"
+
+#~ msgid "Members"
+#~ msgstr "Üyeler"
+
+#~ msgid "Test model"
+#~ msgstr "Deneme modeli"
+
+#~ msgid "Test model to test types"
+#~ msgstr "Deneme modelinini deneme türleri"
+
+#~ msgid "row"
+#~ msgstr "satır"
+
+#~ msgid "A"
+#~ msgstr "A"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "C"
+#~ msgstr "C"
+
+#~ msgid "Test form"
+#~ msgstr "Deneme formu"
+
+#~ msgid "Test form to test types"
+#~ msgstr "Deneme formun deneme türü"
 
 #~ msgid ""
 #~ "Check if any service has been restarted many  times in a time interval"
@@ -2303,9 +2244,6 @@ msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuşt
 #~ msgstr ""
 #~ "{newName} yedekleme dosyası {name} orjinal ismine değiştirilemiyor. Hata "
 #~ "mesajı: {error}"
-
-#~ msgid "Field {field} does not exist"
-#~ msgstr "{field} alanı mevcut değil."
 
 #~ msgid ""
 #~ "Backups will be stored in eBox and then you will be able to download them "
@@ -2452,3 +2390,9 @@ msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuşt
 #~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
 #~ msgstr ""
 #~ "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuştur"
+
+#~ msgid "Check if any disk partition  has no storage space left"
+#~ msgstr "Herhangi bir disk bölümüde yer kalıp kalmadığını kontrol et"
+
+#~ msgid "Field {field} does not exist"
+#~ msgstr "{field} alanı mevcut değil."

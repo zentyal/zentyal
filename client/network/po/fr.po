@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2007-05-15 13:15+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -142,7 +142,7 @@ msgstr "Services actifs"
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -448,10 +448,6 @@ msgstr "nom d'interface virtuelle"
 msgid "VLAN Id"
 msgstr "Id de VLAN"
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "adresse de passerelle"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 #, fuzzy
@@ -710,18 +706,6 @@ msgstr "Recherche"
 msgid "Output"
 msgstr "Sortie"
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Primaire"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "Secondaire"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr "Appliquer"
-
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -819,6 +803,18 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annuler"
+
+#~ msgid "gateway address"
+#~ msgstr "adresse de passerelle"
+
+#~ msgid "Primary"
+#~ msgstr "Primaire"
+
+#~ msgid "Secondary"
+#~ msgstr "Secondaire"
+
+#~ msgid "Apply"
+#~ msgstr "Appliquer"
 
 #~ msgid "network address"
 #~ msgstr "adresse réseau"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.100\n"
+"Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:06+0200\n"
+"POT-Creation-Date: 2008-05-28 12:44+0200\n"
 "PO-Revision-Date: 2007-04-03 14:25+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -23,7 +23,7 @@ msgid "Automatic software updates"
 msgstr "Automatyczne aktualizacje systemu"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:456
+#: src/EBox/Software.pm:462
 msgid "System updates"
 msgstr "Aktualizacje systemu"
 
@@ -99,20 +99,30 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:454
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
 msgstr "komponenty eBox"
 
-#: src/EBox/Software.pm:451 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:85
+msgid "Enable cron script to download updates"
+msgstr ""
+
+#: src/EBox/Software.pm:86
+msgid ""
+"eBox software will download the available updates from your configured apt "
+"sources. "
+msgstr ""
+
+#: src/EBox/Software.pm:457
 msgid "Software management"
 msgstr "Zarządzanie Oprogramowaniem"
 
-#: src/EBox/Software.pm:458
+#: src/EBox/Software.pm:464
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Automatyczne aktualizacje systemu"
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -120,7 +130,7 @@ msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
 #, fuzzy
-msgid "ebox - Certificate Authority Manager for eBox"
+msgid "eBox - Certificate Authority Manager for eBox"
 msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
@@ -148,7 +158,7 @@ msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 #, fuzzy
-msgid "ebox - Instant messaging (Jabber)"
+msgid "eBox - Instant messaging (Jabber)"
 msgstr "Obsługa komunikatora (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
@@ -157,16 +167,18 @@ msgid "eBox - Mail server"
 msgstr "Serwer Poczty"
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "ebox - Mail filter module"
-msgstr ""
+#, fuzzy
+msgid "eBox - Mail filter module"
+msgstr "Serwer Poczty"
 
 #: src/EBox/PackageDescriptions.pm:10
-msgid "Network configuration"
+#, fuzzy
+msgid "eBox - Network configuration module"
 msgstr "Konfiguracja Sieci"
 
 #: src/EBox/PackageDescriptions.pm:11
 #, fuzzy
-msgid "ebox NTP server"
+msgid "eBox - NTP server"
 msgstr "Serwer DNS eBoxa"
 
 #: src/EBox/PackageDescriptions.pm:12
@@ -186,7 +198,7 @@ msgstr "Współdzielenie drukarki"
 
 #: src/EBox/PackageDescriptions.pm:15
 #, fuzzy
-msgid "ebox - File sharing"
+msgid "eBox - File sharing"
 msgstr "Współdzielenie plików"
 
 #: src/EBox/PackageDescriptions.pm:16
@@ -198,8 +210,14 @@ msgstr "Zarządzanie Oprogramowaniem"
 msgid "SOAP server to communicate with eBox control center"
 msgstr ""
 
+#: src/EBox/PackageDescriptions.pm:18
+#, fuzzy
+msgid "eBox - Software management"
+msgstr "Zarządzanie Oprogramowaniem"
+
 #: src/EBox/PackageDescriptions.pm:19
-msgid "Proxy cache and content filter"
+#, fuzzy
+msgid "eBox - Proxy cache and content filter"
 msgstr "Proxy i filtr treści"
 
 #: src/EBox/PackageDescriptions.pm:20
@@ -302,6 +320,10 @@ msgstr "żadne"
 msgid "Remove"
 msgstr "Usuń"
 
+#, fuzzy
+#~ msgid "ebox NTP server"
+#~ msgstr "Serwer DNS eBoxa"
+
 #~ msgid "The packages were removed successfully"
 #~ msgstr "Pakiety zostały pomyślnie usunięte"
 
@@ -381,3 +403,21 @@ msgstr "Usuń"
 
 #~ msgid "User and Group management"
 #~ msgstr "Zarządzanie Użytkownikami i Grupami"
+
+#, fuzzy
+#~ msgid "ebox - Certificate Authority Manager for eBox"
+#~ msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
+
+#, fuzzy
+#~ msgid "ebox - Instant messaging (Jabber)"
+#~ msgstr "Obsługa komunikatora (Jabber)"
+
+#~ msgid "Network configuration"
+#~ msgstr "Konfiguracja Sieci"
+
+#, fuzzy
+#~ msgid "ebox - File sharing"
+#~ msgstr "Współdzielenie plików"
+
+#~ msgid "Proxy cache and content filter"
+#~ msgstr "Proxy i filtr treści"

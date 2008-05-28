@@ -9,9 +9,9 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.11.100\n"
+"Project-Id-Version: ebox-samba 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:06+0200\n"
+"POT-Creation-Date: 2008-05-28 12:44+0200\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -26,8 +26,8 @@ msgid "user name"
 msgstr "nombre de usuario"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:694 src/EBox/SambaLdapUser.pm:722
-#: src/EBox/SambaLdapUser.pm:773
+#: src/EBox/SambaLdapUser.pm:769 src/EBox/SambaLdapUser.pm:797
+#: src/EBox/SambaLdapUser.pm:848
 msgid "group name"
 msgstr "nombre del grupo"
 
@@ -43,16 +43,16 @@ msgstr "nombre del recurso compartido"
 msgid "active"
 msgstr "activo"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:402
-#: src/EBox/Samba.pm:410
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:401
+#: src/EBox/Samba.pm:409
 msgid "File sharing"
 msgstr "Compartir ficheros"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:612
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:611
 msgid "netbios"
 msgstr "netbios"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:661
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:660
 msgid "working group"
 msgstr "grupo de trabajo"
 
@@ -60,7 +60,7 @@ msgstr "grupo de trabajo"
 msgid "working mode"
 msgstr "modo de trabajo"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:630
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:629
 msgid "description"
 msgstr "descripción"
 
@@ -139,19 +139,19 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr ""
 
-#: src/EBox/Samba.pm:679
+#: src/EBox/Samba.pm:678
 msgid "quota"
 msgstr "cuota"
 
-#: src/EBox/Samba.pm:963 src/EBox/Samba.pm:982
+#: src/EBox/Samba.pm:962 src/EBox/Samba.pm:981
 msgid "user"
 msgstr "usuario"
 
-#: src/EBox/Samba.pm:966 src/EBox/Samba.pm:996 src/EBox/SambaLdapUser.pm:843
+#: src/EBox/Samba.pm:965 src/EBox/Samba.pm:995 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "grupo"
 
-#: src/EBox/Samba.pm:969
+#: src/EBox/Samba.pm:968
 msgid "printer"
 msgstr "impresora"
 
@@ -169,20 +169,50 @@ msgid "This user has a sharing directory associated which contains data"
 msgstr ""
 "Este usuario tiene asociado un directorio compartido que contiene datos"
 
-#: src/EBox/SambaLdapUser.pm:356
+#: src/EBox/SambaLdapUser.pm:351
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:355
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:359
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:369
+#, perl-brace-format
+msgid "Incoorect SID: {s}"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:373
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:377
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:424
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Este grupo tiene asociado un directorio compartido que contiene datos"
 
-#: src/EBox/SambaLdapUser.pm:608
+#: src/EBox/SambaLdapUser.pm:683
 #, perl-brace-format
 msgid "{g} group does not exist"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:727
+#: src/EBox/SambaLdapUser.pm:802
 msgid "A name should be provided for the share"
 msgstr "Se debe proporcionar un nombre para el directorio compartido"
 
-#: src/EBox/SambaLdapUser.pm:735
+#: src/EBox/SambaLdapUser.pm:810
 msgid "sharing resource"
 msgstr "recurso compartido"
 

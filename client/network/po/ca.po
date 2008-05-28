@@ -5,9 +5,9 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.100\n"
+"Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:05+0200\n"
+"POT-Creation-Date: 2008-05-28 12:43+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -143,7 +143,7 @@ msgstr ""
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95 src/templates/dns.mas:11
+#: src/EBox/Model/DNSResolver.pm:95
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -449,10 +449,6 @@ msgstr "nom de la interfície virtual"
 msgid "VLAN Id"
 msgstr ""
 
-#: src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "adreça de la pasarel·la"
-
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:133
 msgid "Traffic rate monitoring"
@@ -692,18 +688,6 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: src/templates/dns.mas:19
-msgid "Primary"
-msgstr "Primària"
-
-#: src/templates/dns.mas:30
-msgid "Secondary"
-msgstr "Secundària"
-
-#: src/templates/dns.mas:42
-msgid "Apply"
-msgstr ""
-
 #: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -793,6 +777,15 @@ msgstr "D'acord"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Cancel·la"
+
+#~ msgid "gateway address"
+#~ msgstr "adreça de la pasarel·la"
+
+#~ msgid "Primary"
+#~ msgstr "Primària"
+
+#~ msgid "Secondary"
+#~ msgstr "Secundària"
 
 #~ msgid "network address"
 #~ msgstr "adreça de xarxa"

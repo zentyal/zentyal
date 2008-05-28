@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11.100\n"
+"Project-Id-Version: ebox-firewall 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:04+0200\n"
+"POT-Creation-Date: 2008-05-28 12:42+0200\n"
 "PO-Revision-Date: 2007-08-19 14:55+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -200,8 +200,9 @@ msgid "Flush previous firewall rules"
 msgstr "Vorherige Firewall-Regeln löschen"
 
 #: src/EBox/Firewall.pm:98
+#, fuzzy
 msgid ""
-"The eBox firewall will flush any previous firewall  rules which have been "
+"The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
 "eBox wird alle vorherigen Firewall-Regeln löschen, welche manuell oder von "
@@ -606,6 +607,13 @@ msgstr "Alle"
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
 msgstr "Aktiviert"
+
+#~ msgid ""
+#~ "The eBox firewall will flush any previous firewall  rules which have been "
+#~ "added manually or by another tool"
+#~ msgstr ""
+#~ "eBox wird alle vorherigen Firewall-Regeln löschen, welche manuell oder "
+#~ "von einem anderen Programm hinzugefügt wurden"
 
 #~ msgid "object"
 #~ msgstr "Computergruppe"

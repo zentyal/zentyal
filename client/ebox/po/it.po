@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.100\n"
+"Project-Id-Version: ebox 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-22 15:04+0200\n"
+"POT-Creation-Date: 2008-05-28 12:42+0200\n"
 "PO-Revision-Date: 2007-03-15 12:53+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,170 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
-
-#: src/EBox/Test/StaticForm.pm:70 src/EBox/Test/Model.pm:74
-#: src/EBox/Test/Form.pm:70
-msgid "Compulsory IP Address"
-msgstr "Indirizzo IP Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:75 src/EBox/Test/Model.pm:90
-#: src/EBox/Test/Form.pm:79
-msgid "Compulsory Boolean"
-msgstr "Booleano Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:80 src/EBox/Test/Model.pm:106
-#: src/EBox/Test/Form.pm:88
-msgid "Compulsory Integer"
-msgstr "Intero Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:85 src/EBox/Test/Model.pm:149
-#: src/EBox/Test/Form.pm:106
-msgid "Compulsory Text"
-msgstr "Testo Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:90 src/EBox/Test/Model.pm:165
-#: src/EBox/Test/Form.pm:115
-msgid "Compulsory MAC Address"
-msgstr "Indirizzo MAC Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:95 src/EBox/Test/Model.pm:190
-#: src/EBox/Test/Form.pm:124
-msgid "Compulsory Password"
-msgstr "Password Obbligatoria"
-
-#: src/EBox/Test/StaticForm.pm:102 src/EBox/Test/Model.pm:209
-#: src/EBox/Test/Form.pm:135
-msgid "Port range"
-msgstr "Intervallo Porte"
-
-#: src/EBox/Test/StaticForm.pm:107 src/EBox/Test/Model.pm:293
-#: src/EBox/Test/Form.pm:215
-msgid "Compulsory Service"
-msgstr "Servizio Obbligatorio"
-
-#: src/EBox/Test/StaticForm.pm:115
-msgid "Read only test form"
-msgstr "Form di test in sola lettura"
-
-#: src/EBox/Test/StaticForm.pm:121
-msgid "Static test form"
-msgstr "Form di testo statico"
-
-#: src/EBox/Test/SubComposite.pm:71
-msgid "Sub-composite example"
-msgstr "Esempio pre-composto"
-
-#: src/EBox/Test/Model.pm:82
-msgid "Optional IP Address"
-msgstr "Indirizzo IP Opzionale"
-
-#: src/EBox/Test/Model.pm:98
-msgid "Optional Boolean"
-msgstr "Booleano Opzionale"
-
-#: src/EBox/Test/Model.pm:114
-msgid "Optional Integer"
-msgstr "Intero Opzionale"
-
-#: src/EBox/Test/Model.pm:122 src/EBox/Test/Form.pm:97
-msgid "Compulsory Select"
-msgstr "Selezione Opzionale"
-
-#: src/EBox/Test/Model.pm:157
-msgid "Optional Text"
-msgstr "Testo Opzionale"
-
-#: src/EBox/Test/Model.pm:173
-msgid "Optional MAC address"
-msgstr "Indirizzo MAC Opzionale"
-
-#: src/EBox/Test/Model.pm:181
-msgid "Optional Link"
-msgstr "Link Opzionale"
-
-#: src/EBox/Test/Model.pm:200
-msgid "Optional Password"
-msgstr "Password Opzionale"
-
-#: src/EBox/Test/Model.pm:217 src/EBox/Test/Form.pm:144
-msgid "Union"
-msgstr "Unione"
-
-#: src/EBox/Test/Model.pm:225 src/EBox/Test/Form.pm:152
-msgid "Foo"
-msgstr "Pippo"
-
-#: src/EBox/Test/Model.pm:230 src/EBox/Test/Form.pm:157
-msgid "Bar"
-msgstr "Pluto"
-
-#: src/EBox/Test/Model.pm:235 src/EBox/Test/Form.pm:163
-msgid "Baz"
-msgstr "Paperino"
-
-#: src/EBox/Test/Model.pm:240 src/EBox/Test/Form.pm:168
-msgid "Other option"
-msgstr "Altra opzione"
-
-#: src/EBox/Test/Model.pm:246 src/EBox/Test/Form.pm:174
-msgid "Inverse Match Select"
-msgstr "Seleziona Corrispondenza Inversa"
-
-#: src/EBox/Test/Model.pm:255 src/EBox/Test/Form.pm:184
-msgid "Inverse Match Union"
-msgstr "Unione Corrispondenza Inversa"
-
-#: src/EBox/Test/Model.pm:263 src/EBox/Test/Form.pm:192
-msgid "Inverse Foo"
-msgstr "Inverso di Pippo"
-
-#: src/EBox/Test/Model.pm:268 src/EBox/Test/Form.pm:197
-msgid "Inverse Bar"
-msgstr "Inverso di Pluto"
-
-#: src/EBox/Test/Model.pm:273 src/EBox/Test/Form.pm:203
-msgid "Inverse Baz"
-msgstr "Inverso di Paperino"
-
-#: src/EBox/Test/Model.pm:278 src/EBox/Test/Form.pm:208
-msgid "Inverse Other option"
-msgstr "Inverso di Altra Opzione"
-
-#: src/EBox/Test/Model.pm:285
-msgid "Members"
-msgstr "Membri"
-
-#: src/EBox/Test/Model.pm:302
-msgid "Test model"
-msgstr "Modello di test"
-
-#: src/EBox/Test/Model.pm:309
-msgid "Test model to test types"
-msgstr "Modello di test per il test dei tipi"
-
-#: src/EBox/Test/Model.pm:311
-msgid "row"
-msgstr "riga"
-
-#: src/EBox/Test/Model.pm:349 src/EBox/Test/Form.pm:253
-msgid "A"
-msgstr "A"
-
-#: src/EBox/Test/Model.pm:350 src/EBox/Test/Form.pm:254
-msgid "B"
-msgstr "B"
-
-#: src/EBox/Test/Model.pm:351 src/EBox/Test/Form.pm:255
-msgid "C"
-msgstr "C"
-
-#: src/EBox/Test/Form.pm:225
-msgid "Test form"
-msgstr "Form di test"
-
-#: src/EBox/Test/Form.pm:231
-msgid "Test form to test types"
-msgstr "Form di test per il test dei tipi"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -254,7 +90,8 @@ msgid "Free storage space"
 msgstr "Spazio libero di memorizzazione"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition  has no storage space left"
+#, fuzzy
+msgid "Check if any disk partition has no storage space left"
 msgstr ""
 "Controlla se qualche partizione del disco non ha spazio di memorizzazione "
 "libero"
@@ -363,8 +200,8 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr "Il dispositivo RAID {name} sta eseguendo l'operazione {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, perl-format, perl-brace-format
-msgid "Status: {percentage}% completed"
+#, fuzzy, perl-brace-format
+msgid "Status: {percentage} completed"
 msgstr "Stato: {percentage}% completato"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
@@ -591,7 +428,8 @@ msgid "{model} in {module} module"
 msgstr "{model} in modulo {module}"
 
 #: src/EBox/Model/DataTable.pm:253
-msgid " at "
+#, fuzzy
+msgid "at"
 msgstr "a"
 
 #: src/EBox/Model/DataTable.pm:434
@@ -640,17 +478,9 @@ msgstr "{row} spostata in basso"
 msgid "Enabled"
 msgstr "Attivo"
 
-#: src/EBox/Model/ProviderBase.pm:127
-msgid ""
-"A provided class with has multiple instances cannot have construction "
-"parameters specified"
-msgstr ""
-"Una classe fornita con istanze multiple non può avere parametri specificati "
-"sul costruttore"
-
-#: src/EBox/Model/ProviderBase.pm:247
-#, perl-brace-format
-msgid "Provided object with index {i} soes not exist"
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
 msgstr "L'oggetto fornito con indice {i} non esiste"
 
 #: src/EBox/Model/ModelManager.pm:458
@@ -912,59 +742,61 @@ msgstr "Utilizzo Disco"
 msgid "RAID report"
 msgstr "Rapporto RAID"
 
-#: src/EBox/CGI/Finish.pm:31
+#: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Registra configurazione"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Backup eseguito"
 
-#: src/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:104
 msgid "Current module"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 #, fuzzy
 msgid "modules saved"
 msgstr "nome modulo"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
+#, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
-"logs"
+"logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:103
 msgid "Revoking changes in modules"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "modules revoked"
 msgstr "nome modulo"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:106
 msgid "Changes revoked"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:107
+#, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
-"the logs"
+"the logs in {dir}"
 msgstr ""
 
 #: src/EBox/CGI/ClientRawBase.pm:191
@@ -2064,13 +1896,6 @@ msgstr "ripristina"
 msgid "delete"
 msgstr "elimina"
 
-#: src/templates/notConfigured.mas:8
-#, perl-brace-format
-msgid ""
-"You must enable the module {module} in the module status section in order to "
-"use it. "
-msgstr ""
-
 #: src/templates/configureView.mas:16
 msgid ""
 "Enabling this module will cause eBox to perform the actions and file "
@@ -2174,6 +1999,133 @@ msgstr ""
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr ""
+
+#~ msgid "Status: {percentage}% completed"
+#~ msgstr "Stato: {percentage}% completato"
+
+#~ msgid "Compulsory IP Address"
+#~ msgstr "Indirizzo IP Obbligatorio"
+
+#~ msgid "Compulsory Boolean"
+#~ msgstr "Booleano Obbligatorio"
+
+#~ msgid "Compulsory Integer"
+#~ msgstr "Intero Obbligatorio"
+
+#~ msgid "Compulsory Text"
+#~ msgstr "Testo Obbligatorio"
+
+#~ msgid "Compulsory MAC Address"
+#~ msgstr "Indirizzo MAC Obbligatorio"
+
+#~ msgid "Compulsory Password"
+#~ msgstr "Password Obbligatoria"
+
+#~ msgid "Port range"
+#~ msgstr "Intervallo Porte"
+
+#~ msgid "Compulsory Service"
+#~ msgstr "Servizio Obbligatorio"
+
+#~ msgid "Read only test form"
+#~ msgstr "Form di test in sola lettura"
+
+#~ msgid "Static test form"
+#~ msgstr "Form di testo statico"
+
+#~ msgid "Sub-composite example"
+#~ msgstr "Esempio pre-composto"
+
+#~ msgid "Optional IP Address"
+#~ msgstr "Indirizzo IP Opzionale"
+
+#~ msgid "Optional Boolean"
+#~ msgstr "Booleano Opzionale"
+
+#~ msgid "Optional Integer"
+#~ msgstr "Intero Opzionale"
+
+#~ msgid "Compulsory Select"
+#~ msgstr "Selezione Opzionale"
+
+#~ msgid "Optional Text"
+#~ msgstr "Testo Opzionale"
+
+#~ msgid "Optional MAC address"
+#~ msgstr "Indirizzo MAC Opzionale"
+
+#~ msgid "Optional Link"
+#~ msgstr "Link Opzionale"
+
+#~ msgid "Optional Password"
+#~ msgstr "Password Opzionale"
+
+#~ msgid "Union"
+#~ msgstr "Unione"
+
+#~ msgid "Foo"
+#~ msgstr "Pippo"
+
+#~ msgid "Bar"
+#~ msgstr "Pluto"
+
+#~ msgid "Baz"
+#~ msgstr "Paperino"
+
+#~ msgid "Other option"
+#~ msgstr "Altra opzione"
+
+#~ msgid "Inverse Match Select"
+#~ msgstr "Seleziona Corrispondenza Inversa"
+
+#~ msgid "Inverse Match Union"
+#~ msgstr "Unione Corrispondenza Inversa"
+
+#~ msgid "Inverse Foo"
+#~ msgstr "Inverso di Pippo"
+
+#~ msgid "Inverse Bar"
+#~ msgstr "Inverso di Pluto"
+
+#~ msgid "Inverse Baz"
+#~ msgstr "Inverso di Paperino"
+
+#~ msgid "Inverse Other option"
+#~ msgstr "Inverso di Altra Opzione"
+
+#~ msgid "Members"
+#~ msgstr "Membri"
+
+#~ msgid "Test model"
+#~ msgstr "Modello di test"
+
+#~ msgid "Test model to test types"
+#~ msgstr "Modello di test per il test dei tipi"
+
+#~ msgid "row"
+#~ msgstr "riga"
+
+#~ msgid "A"
+#~ msgstr "A"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "C"
+#~ msgstr "C"
+
+#~ msgid "Test form"
+#~ msgstr "Form di test"
+
+#~ msgid "Test form to test types"
+#~ msgstr "Form di test per il test dei tipi"
+
+#~ msgid ""
+#~ "A provided class with has multiple instances cannot have construction "
+#~ "parameters specified"
+#~ msgstr ""
+#~ "Una classe fornita con istanze multiple non può avere parametri "
+#~ "specificati sul costruttore"
 
 #, fuzzy
 #~ msgid "Active"
@@ -2314,3 +2266,14 @@ msgstr ""
 
 #~ msgid "{ebox} created by {warp} in collaboration with {dbs}"
 #~ msgstr "{ebox} creato da {warp} in collaborazione con {dbs}"
+
+#~ msgid " at "
+#~ msgstr "a"
+
+#~ msgid "Provided object with index {i} soes not exist"
+#~ msgstr "L'oggetto fornito con indice {i} non esiste"
+
+#~ msgid "Check if any disk partition  has no storage space left"
+#~ msgstr ""
+#~ "Controlla se qualche partizione del disco non ha spazio di memorizzazione "
+#~ "libero"
