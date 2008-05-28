@@ -1,5 +1,5 @@
 pre-start script
     invoke-rc.d apache2 stop || true
 end script
-exec /usr/sbin/apache2 -DNO_DETACH
+exec /usr/share/ebox-webserver/ebox-apache2-start 
 respawn

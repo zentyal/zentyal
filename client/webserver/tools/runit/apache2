@@ -1,3 +1,0 @@
-#!/bin/sh
-exec 1>&2
-exec /usr/sbin/apache2 -DNO_DETACH
