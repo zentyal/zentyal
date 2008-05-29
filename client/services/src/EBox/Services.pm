@@ -101,7 +101,6 @@ sub _exposedMethods
                                 path     => [ 'ServiceTable', 'configuration' ],
                                 indexes  => [ 'name', 'id' ],
                                 selector => [ 'destination' ],
-                                separator => ':'
                               },
          );
 
