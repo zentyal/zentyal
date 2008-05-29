@@ -6,8 +6,8 @@ use EBox::Sudo;
 use IO::Socket;
 use Error qw(:try);
 
-use constant RECONNECTION_ATTEMPTS => 9;
-use constant START_ATTEMPTS => 5;
+use constant RECONNECTION_ATTEMPTS => 15;
+use constant RESTART_ATTEMPTS => 15;
 
 
 EBox::init();
