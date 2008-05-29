@@ -9,6 +9,11 @@ use File::Slurp;
 use Error qw(:try);
 
 use EBox::NetWrappers;
+use EBox::Service;
+
+
+use constant UPSTART_DIR => '/etc/event.d';
+
 
 sub new
 {
@@ -47,9 +52,15 @@ sub _openvpnModule
 #
 sub init
 {
-  throw EBox::Exceptions::NotImplemented();
+  throw EBox::Exceptions::NotImplemented('init method');
 }
 
+
+
+sub service
+{
+  throw EBox::Exceptions::NotImplemented('service method');
+}
 
 #
 # Method: name
@@ -62,12 +73,29 @@ sub name
     return $self->{name};
 }
 
-
-
 sub type
 {
   my ($self) = @_;
   return $self->{type};
+}
+
+
+#
+# Method: upstartName
+#
+#  Returns:
+#    the name of the upstart service that controls the daemon
+sub upstartName
+{
+    my ($self)  = @_;
+    return 'ebox.openvpn.' . $self->type . '.' . $self->name;
+}
+
+
+sub _upstartFile
+{
+    my ($self) = @_;
+    return  UPSTART_DIR . '/' . $self->upstartName();
 }
 
 sub  ifaceNumber
@@ -275,14 +303,14 @@ sub writeConfFile
        statusLogFile => $self->statusLogFile(),
       );
 
-    my $defaults     = {
+
+    my $fileAttrs  = {
 	uid  => 0,
 	gid  => 0,
 	mode => '0400',
     };
 
-
-    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, $templateParams, $defaults);
+    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, $templateParams, $fileAttrs);
 }
 
 
@@ -318,7 +346,8 @@ sub delete
   my $daemonClass = ref $self;
   my @daemonFiles = $self->daemonFiles;
   $self->_openvpnModule->notifyDaemonDeletion( $self->name, 
-					       daemonClass => $daemonClass,
+					       class => $daemonClass,
+					       type        => $self->type,
 					       files => \@daemonFiles,
 					     );
 
@@ -442,14 +471,7 @@ sub setRipPasswd
 sub start
 {
   my ($self) = @_;
-
-  if ($self->running) {
-    EBox::error($self->name . ' openvpn daemon is already running. We will stop it');
-    $self->stop;
-  }
-
-  my $command = $self->_rootCommandForStartDaemon();
-  EBox::Sudo::root($command);
+  EBox::Service::manage($self->upstartName, 'start');
 }
 
 #
@@ -459,30 +481,26 @@ sub start
 sub stop
 {
   my ($self) = @_;
-
-  my $pid = $self->pid();
-  defined $pid or return; # if there isn't pid the daemon isn't running
-
-  EBox::Sudo::root("kill $pid");
-  EBox::Sudo::root('rm ' . $self->_pidFile);
+  EBox::Service::manage($self->upstartName, 'stop');
 }
 
 
 
 # XXX very fragile method!!! if the stop() methods request any attribute other
-# than name it will break!!
+# than name and type it will break!!
 sub stopDeletedDaemon
 {
-  my ($class, $name) = @_;
+  my ($class, $name, $type) = @_;
 
   $class->isa('EBox::OpenVPN::Daemon') or
     throw EBox::Exceptions::Internal("$class is not a openvpn's daemon class");
 
-  my $daemon = { name => $name };
+  my $daemon = { name => $name, type => $type };
   bless $daemon, $class;
 
-  $daemon->stop();
 
+  $daemon->stop();
+  $daemon->removeUpstartFile();
 }
 
 
@@ -496,7 +514,8 @@ sub _rootCommandForStartDaemon
   my $confFilePath =   $self->confFile($confDir);
   my $pidFile = $self->_pidFile();
 
-  return "$bin --daemon $name --writepid $pidFile --config $confFilePath";
+#  return "$bin --daemon $name --writepid $pidFile --config $confFilePath";
+  return "$bin  --syslog $name  --config $confFilePath";
 }
 
 
@@ -540,13 +559,41 @@ sub pid
 sub running
 {
   my ($self) = @_;
-  my $pid = $self->pid;
-  return (defined $pid);
+  return EBox::Service::running($self->upstartName);
 }
 
 
 
 
+
+sub writeUpstartFile
+{
+    my ($self) = @_;
+
+    my $path = $self->_upstartFile();
+    my $cmd  = $self->_rootCommandForStartDaemon();
+
+    my $fileAttrs    = {
+	uid  => 0,
+	gid  => 0,
+	mode => '0644',
+    };
+
+    EBox::GConfModule->writeConfFile($path, 
+				      '/openvpn/upstart.mas', 
+				     [ cmd => $cmd],
+				     $fileAttrs
+				    );
+
+}
+
+sub removeUpstartFile
+{
+    my ($self) = @_;
+
+    my $path = $self->_upstartFile();
+    EBox::Sudo::root("rm -f $path");
+}
 
 #
 # Method: summary

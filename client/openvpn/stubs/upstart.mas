@@ -1,0 +1,9 @@
+<%args>
+$cmd
+</%args>
+pre-start script
+    invoke-rc.d openvpn stop || true
+end script
+
+exec <% $cmd %>
+respawn

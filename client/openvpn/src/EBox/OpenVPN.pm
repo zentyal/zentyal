@@ -186,6 +186,7 @@ sub _writeConfFiles
     my @daemons = $self->daemons();
     foreach my $daemon (@daemons) {
 	$daemon->writeConfFile($confDir);
+	$daemon->writeUpstartFile();
     }
 }
 
@@ -219,7 +220,8 @@ sub _cleanupDeletedDaemons
     while (my ($name, $properties) = each %deletedDaemons) {
       try {
 	my $class = $properties->{class};
-	$class->stopDeletedDaemon($name);
+	my $type  = $properties->{type};
+	$class->stopDeletedDaemon($name, $type);
 
 	my @filesToDelete = @{ $properties->{filesToDelete}} ;
 	EBox::Sudo::root(" rm -rf @filesToDelete");
@@ -248,6 +250,7 @@ sub _deletedDaemons
   foreach my $daemonName (@{ $self->all_dirs_base('deleted') }) {
     $deletedDaemons{$daemonName} = {};
     $deletedDaemons{$daemonName}->{class} = $self->get_string("deleted/$daemonName/class");
+    $deletedDaemons{$daemonName}->{type} = $self->get_string("deleted/$daemonName/type");
 
     my @filesToDelete = map { 
       $self->get_string($_);
@@ -264,13 +267,16 @@ sub notifyDaemonDeletion
   my ($self, $name, %params) = @_;
   $self  or throw EBox::Exceptions::MissingArgument("you must call this on a object");
   $name  or throw EBox::Exceptions::MissingArgument("you must supply the name of tssub firewalhe daemon to delete");
-  exists $params{daemonClass} or
-    throw EBox::Exceptions::MissingArgument('daemonClass');
+  exists $params{class} or
+    throw EBox::Exceptions::MissingArgument('class');
+  exists $params{type} or
+    throw EBox::Exceptions::MissingArgument('type');
 
 
   my @files = exists $params{files} ? @{ $params{files} } : ();
 
-  $self->set_string("deleted/$name/class", $params{daemonClass});
+  $self->set_string("deleted/$name/class", $params{class});
+  $self->set_string("deleted/$name/type", $params{type});
 
   my $id = 0;
   foreach my $file (@files) {
