@@ -1,7 +1,6 @@
-0.12
-	+ Added Japanese translation
 0.11.101
 	+ Bugfix: Minor bugfix when checking uniqueness in Select type
+	+ Added Japanese translation
 0.11.100
 	+ Add groups() to set groups eBox belongs to: ebox, adm, lp...
 	+ Use eBox tmp directory to create std* files
