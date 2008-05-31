@@ -70,23 +70,6 @@ sub _regenConfig
 }
 
 
-# Method: actions
-#
-# 	Override EBox::ServiceModule::ServiceInterface::actions
-#
-sub actions
-{
-	return [ 
-	{
-		'action' => __('Remove openVPN and quagga init script links'),
-		'reason' => __('eBox will take care of starting and stopping ' .
-						'the services.'),
-		'module' => 'openvpn'
-	}
-    ];
-}
-
-
 # Method: usedFiles
 #
 #	Override EBox::ServiceModule::ServiceInterface::usedFiles

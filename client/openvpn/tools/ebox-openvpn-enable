@@ -1,12 +1,5 @@
 #!/bin/bash
 
-
-# don't start openvpn services 
-update-rc.d -f openvpn remove
-
-# XXX quagga don't start quagga services
-update-rc.d -f quagga remove
-
 # create zebra.conf if it does not exist
 test -e /etc/quagga/zebra.conf || touch /etc/quagga/zebra.conf
 # create zebra.conf if it does not exist
