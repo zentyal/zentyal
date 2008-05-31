@@ -18,6 +18,7 @@ use Error qw(:try);
 sub _addFirewallRule
 {
     my $global = EBox::Global->getInstance();
+    return unless ($global->modExists('services'));
     my $servMod = $global->modInstance('services');
     my $servId;
     my $name = __d('HTTP software');
@@ -36,6 +37,7 @@ sub _addFirewallRule
         $servId = $servMod->serviceId($name);
     }
 
+    return unless ($global->modExists('firewall'));
     my $fwMod = EBox::Global->modInstance('firewall');
     $fwMod->addOutputService( decision => 'accept', 
             destination =>  {destination_any => 'any'},
