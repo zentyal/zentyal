@@ -1,7 +1,7 @@
 0.101
-	+ Become static routes a model with three methods exposed
+	+ Static routes become a model with three methods exposed
 	+ Remove usage of a deprecated method in NetWrappers
-	+ Become DNS resolvers to a model with three methods exposed. Now
+	+ DNS resolvers become  a model with three methods exposed. Now
 	you may add as many DNS resolvers you want
 	+ Use separator ':' in exposed method using '/' for addresses
 O.11.100
