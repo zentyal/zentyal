@@ -19,12 +19,12 @@ use strict;
 use warnings;
 
 use base qw(EBox::GConfModule 
-			EBox::ObjectsObserver 
-			EBox::NetworkObserver
-			EBox::LogObserver
-			EBox::Model::ModelProvider
-			EBox::ServiceModule::ServiceInterface
-			);
+		EBox::ObjectsObserver 
+		EBox::NetworkObserver
+		EBox::LogObserver
+		EBox::Model::ModelProvider
+		EBox::ServiceModule::ServiceInterface
+		);
 
 use EBox::Objects;
 use EBox::Global;
@@ -45,42 +45,38 @@ sub _create
 {
 	my $class = shift;
 	my $self =$class->SUPER::_create(
-                                         name => 'firewall',
-                                         domain => 'ebox-firewall',
-                                         printableName => __('firewall'),
-					@_);
-    $self->{'ToInternetRuleModel'} = 
-            new EBox::Firewall::Model::ToInternetRuleTable(
-               'gconfmodule' => $self,
-                'directory' => 'ToInternetRuleTable',
-                );
+			name => 'firewall',
+			domain => 'ebox-firewall',
+			printableName => __('firewall'),
+			@_);
+	$self->{'ToInternetRuleModel'} = 
+		new EBox::Firewall::Model::ToInternetRuleTable(
+				'gconfmodule' => $self,
+				'directory' => 'ToInternetRuleTable',
+				);
 
-    $self->{'InternalToEBoxRuleModel'} = 
-            new EBox::Firewall::Model::InternalToEBoxRuleTable(
-               'gconfmodule' => $self,
-                'directory' => 'InternalToEBoxRuleTable',
-                );
-    
-    $self->{'ExternalToEBoxRuleModel'} = 
-            new EBox::Firewall::Model::ExternalToEBoxRuleTable(
-               'gconfmodule' => $self,
-                'directory' => 'ExternalToEBoxRuleTable',
-                );
-    
-    $self->{'EBoxOutputRuleModel'} = 
-            new EBox::Firewall::Model::EBoxOutputRuleTable(
-               'gconfmodule' => $self,
-                'directory' => 'EBoxOutputRuleTable',
-                );
-    $self->{'ExternalToInternalRuleTable'} = 
-            new EBox::Firewall::Model::ExternalToInternalRuleTable(
-               'gconfmodule' => $self,
-                'directory' => 'ExternalToInternalRuleTable',
-                );
+	$self->{'InternalToEBoxRuleModel'} = 
+		new EBox::Firewall::Model::InternalToEBoxRuleTable(
+				'gconfmodule' => $self,
+				'directory' => 'InternalToEBoxRuleTable',
+				);
 
+	$self->{'ExternalToEBoxRuleModel'} = 
+		new EBox::Firewall::Model::ExternalToEBoxRuleTable(
+				'gconfmodule' => $self,
+				'directory' => 'ExternalToEBoxRuleTable',
+				);
 
-
-
+	$self->{'EBoxOutputRuleModel'} = 
+		new EBox::Firewall::Model::EBoxOutputRuleTable(
+				'gconfmodule' => $self,
+				'directory' => 'EBoxOutputRuleTable',
+				);
+	$self->{'ExternalToInternalRuleTable'} = 
+		new EBox::Firewall::Model::ExternalToInternalRuleTable(
+				'gconfmodule' => $self,
+				'directory' => 'ExternalToInternalRuleTable',
+				);
 
 	bless($self, $class);
 	return $self;
@@ -135,13 +131,13 @@ sub enableModDepends
 #      Overrides <EBox::Model::ModelProvider::models>
 #
 sub models {
-       my ($self) = @_;
+	my ($self) = @_;
 
-       return [$self->{'ToInternetRuleModel'},
-      		 $self->{'InternalToEBoxRuleModel'},
-		 $self->{'ExternalToEBoxRuleModel'},
-		 $self->{'EBoxOutputRuleModel'},
-		 $self->{'ExternalToInternalRuleTable'}];
+	return [$self->{'ToInternetRuleModel'},
+		   $self->{'InternalToEBoxRuleModel'},
+		   $self->{'ExternalToEBoxRuleModel'},
+		   $self->{'EBoxOutputRuleModel'},
+		   $self->{'ExternalToInternalRuleTable'}];
 }
 
 # Method: _exposedMethods
@@ -153,20 +149,20 @@ sub models {
 sub _exposedMethods
 {
 
-    my %exposedMethods = (
-                          addOutputService => { action => 'add',
-                                                path   => [ 'EBoxOutputRuleTable' ] },
-                          removeOutputService => { action => 'del',
-                                                   path   => [ 'EBoxOutputRuleTable' ],
-                                                   indexes => [ 'id' ]
-                                                 },
-                          getOutputService => { action  => 'get',
-                                                path    => [ 'EBoxOutputRuleTable' ],
-                                                indexes => [ 'position' ],
-                                              },
-                          );
+	my %exposedMethods = (
+			addOutputService => { action => 'add',
+			path   => [ 'EBoxOutputRuleTable' ] },
+			removeOutputService => { action => 'del',
+			path   => [ 'EBoxOutputRuleTable' ],
+			indexes => [ 'id' ]
+			},
+			getOutputService => { action  => 'get',
+			path    => [ 'EBoxOutputRuleTable' ],
+			indexes => [ 'position' ],
+			},
+			);
 
-    return \%exposedMethods;
+	return \%exposedMethods;
 
 }
 
@@ -174,10 +170,10 @@ sub _exposedMethods
 
 sub externalIfaceExists
 {
-  my $network = EBox::Global->modInstance('network');
-  my $externalIfaceExists = @{$network->ExternalIfaces()  } > 0;
-  
-  return $externalIfaceExists;
+	my $network = EBox::Global->modInstance('network');
+	my $externalIfaceExists = @{$network->ExternalIfaces()  } > 0;
+
+	return $externalIfaceExists;
 }
 
 ## internal utility functions
@@ -390,14 +386,14 @@ sub availablePort # (proto, port, interface)
 	($port ne "") or return undef;
 	my $global = EBox::Global->getInstance();
 	my $network = $global->modInstance('network');
-    my $services = $global->modInstance('services');
+	my $services = $global->modInstance('services');
 
 	# if it's an internal interface, check all services
 	unless ($iface &&
-	($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
-        unless ($services->availablePort($proto, $port)) {
-            return undef;
-        }
+			($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
+		unless ($services->availablePort($proto, $port)) {
+			return undef;
+		}
 	}
 
 	# check for port redirections on the interface, on all internal ifaces
@@ -419,11 +415,11 @@ sub availablePort # (proto, port, interface)
 	}
 
 	my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
-        foreach my $mod (@mods) {
-                if ($mod->usesPort($proto, $port, $iface)) {
-                        return undef;
-                }
-        }
+	foreach my $mod (@mods) {
+		if ($mod->usesPort($proto, $port, $iface)) {
+			return undef;
+		}
+	}
 	return 1;
 }
 
@@ -811,11 +807,11 @@ sub enableLog
 #
 sub setLogging
 {
-    my ($self, $enable) = @_;
+	my ($self, $enable) = @_;
 
-    if ($enable xor $self->logging()) {
-        $self->set_bool('logging', $enable);
-    }
+	if ($enable xor $self->logging()) {
+		$self->set_bool('logging', $enable);
+	}
 }
 
 # Method: logging 
@@ -829,9 +825,9 @@ sub setLogging
 #
 sub logging
 {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    return  $self->get_bool('logging');
+	return  $self->get_bool('logging');
 }
 
 # Method: menu 
@@ -884,7 +880,7 @@ sub menu
 
 # Impelment LogHelper interface
 sub tableInfo {
-        my ($self) = @_ ;
+	my ($self) = @_ ;
 	
 	my $titles = { 
 			'timestamp' => __('Date'),
@@ -896,7 +892,7 @@ sub tableInfo {
 			'fw_spt'    => __('Source port'),
 			'fw_dpt'    => __('Destination port'),
 			'event'     => __('Decision')
-		      };
+	};
 	
 	my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt);
 	
@@ -919,9 +915,9 @@ sub tableInfo {
 
 sub logHelper
 {
-        my $self = shift;
+	my $self = shift;
 
-        return (new EBox::FirewallLogHelper);
+	return (new EBox::FirewallLogHelper);
 }
 
 
