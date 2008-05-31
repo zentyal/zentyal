@@ -425,7 +425,9 @@ sub _setUserDir
                                    rootDN  => $rootDN,
                                    usersDN => $usersDN,
                                    dnPass  => $ldapPass,
-                                  ]);
+                                  ],
+                                  { 'uid' => 0, 'gid' => 0, mode => '600' }
+                                  );
             try {
                 EBox::Sudo::root('a2enmod ldap_userdir');
             } catch EBox::Exceptions::Sudo::Command with {
