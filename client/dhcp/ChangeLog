@@ -1,4 +1,4 @@
-0.12
+0.11.101
 	+ Bugfix. Secondary nameserver in options does not fill a default
 	value when setting as undef by user
 	+ Added 'setLeases' method to set lease times from module API
