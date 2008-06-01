@@ -280,7 +280,7 @@ msgstr "Criado certificado de nome comum {cn} e válido por {days} dias"
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
-msgstr "Revogado certificado de nome comum {cn} e válido por {days} dias"
+msgstr "Revogado certificado de nome comum {cn} por {reason} : {force} "
 
 #: src/EBox/CA.pm:2271
 #, perl-brace-format
