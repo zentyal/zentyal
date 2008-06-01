@@ -10,7 +10,8 @@ use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
 my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes ripPasswd masquerade);
-my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient local service tlsRemote pullRoutes masquerade);
+my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient
+local service tlsRemote pullRoutes masquerade ripPasswd);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -128,8 +129,6 @@ sub _doEdit
     my $server = $openVPN->server($name);
     my $changed = 0;
 
-    $self->_checkTunnelParams($server);
-
 
     my $anyPropertyParam = any @regularAccessorsAndMutators;
     my @mutatorsParams = grep { $_ eq $anyPropertyParam } @{ $self->params() };
@@ -149,6 +148,7 @@ sub _doEdit
 	}
     }
 
+    $self->_checkTunnelParams($server);
     
     if ($changed) {
 	$self->setMsg(__x("Server {name} configuration updated", name => $name) );

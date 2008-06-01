@@ -454,13 +454,14 @@ sub ripPasswd
 #     set the password used by this daemon to secure RIP transmissions
 #
 #     Parameters:
-#        passwd - a non-empty password
+#        passwd - string
 sub setRipPasswd
 {
   my ($self, $passwd) = @_;
-  $passwd or 
-    throw EBox::Exceptions::External(__('You must supply a non-empty password'));
-
+  
+  unless (defined ($passwd)) {
+    $passwd = '';
+  }
   $self->setConfString('ripPasswd', $passwd);
 }
 
