@@ -1,13 +1,5 @@
 #!/bin/bash -x
 
-# don't start postfix and courier with its init script
-update-rc.d -f postfix remove
-update-rc.d -f courier-authdaemon remove
-update-rc.d -f courier-imap remove
-update-rc.d -f courier-imap-ssl remove
-update-rc.d -f courier-pop remove
-update-rc.d -f courier-pop-ssl remove
-
 # copy LDAP schemas
 cp /usr/share/ebox-mail/*.schema /etc/ldap/schema
 
