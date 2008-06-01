@@ -34,7 +34,7 @@ sub addInternalService
 
   $self->_addService(%params);
 
-  return unless (EBox::Global->getInstance()->modExists('firewall');
+  return unless (EBox::Global->getInstance()->modExists('firewall'));
   my @fwRuleParams = ($params{name});
   push @fwRuleParams, $params{target} if exists $params{target};
   $self->fwRuleForInternalService(@fwRuleParams);
@@ -57,7 +57,7 @@ sub _addService
 {
   my ($self, %params) = @_;
 
-  return unless (EBox::Global->getInstance()->modExists('services');
+  return unless (EBox::Global->getInstance()->modExists('services'));
   exists $params{name} or
     throw EBox::Exceptions::MissingArgument('name');
   exists $params{protocol} or
