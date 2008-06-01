@@ -20,5 +20,5 @@ Parameters:
         LDAPUserDir public_html
         LDAPUserDirDNInfo <% $rootDN %> <% $dnPass %>
         LDAPUserDirBaseDN <% $usersDN %>
-        LDAPUserDirHomeAttribute homeDirectory
+#        LDAPUserDirHomeAttribute homeDirectory
 </IfModule>
