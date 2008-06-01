@@ -6,6 +6,6 @@ nobase_perl_DATA = Base.pm Engine.pm
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = ${nobase_perl_Data}
+EXTRA_DIST = ${nobase_perl_DATA}
 
 MAINTAINERCLEANFILES = Makefile.in

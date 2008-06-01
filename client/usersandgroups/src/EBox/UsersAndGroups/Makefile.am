@@ -7,6 +7,6 @@ nobase_perl_DATA = ImportFromLdif.pm
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = 
+EXTRA_DIST = ${nobase_perl_DATA}
 
 MAINTAINERCLEANFILES = Makefile.in
