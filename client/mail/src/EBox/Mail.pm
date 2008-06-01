@@ -94,19 +94,6 @@ sub domain
 sub actions
 {
 	return [ 
-	{
-		'action' => __('Remove postfix init script link'),
-		'reason' => __('eBox will take care of starting and stopping ' .
-						'the service.'),
-		'module' => 'mail'
-	},
-	{
-		'action' => __('Remove courier init script links for authdaemon, '.
-                       'imap, imap-ssl, pop, and pop-ssl'),
-		'reason' => __('eBox will take care of starting and stopping those ' .
-						'services'),
-		'module' => 'mail'
-	},
 	{	
 		'action' => __('dpkg-stateoverride  saslauthdaemon directory'),
 		'reason' => __('To allow postfix communicate with saslauthd '),
