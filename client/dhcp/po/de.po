@@ -246,7 +246,7 @@ msgstr "Die IP Adresse {ip} ist im Bereich \"{range}\": {from}-{to}"
 #: src/EBox/Model/FixedAddressTable.pm:159
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr "Der Name kann keine Leerzeichen enthalten"
+msgstr "Der {name} kann keine Leerzeichen enthalten"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
