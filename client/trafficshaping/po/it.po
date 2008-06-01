@@ -166,7 +166,7 @@ msgstr ""
 "Il traffic shaping viene applicato quando eBox funziona come gateway. Per "
 "ottenere questo, devi avere almeno un'interfaccia interna ed una esterna. "
 "Controlla che la tua configurazione interfaccia corrisponda, su {openhref}"
-"Rete ->Interfacce{closehref"
+"Rete ->Interfacce{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
