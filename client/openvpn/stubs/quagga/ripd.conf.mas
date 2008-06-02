@@ -17,7 +17,7 @@ password ripd
 enable password ripd
 
 %   foreach my $iface (@ifaces) {
-interface <% $iface->{$ifaceName} %>
+interface <% $iface->{ifaceName} %>
 no ip rip authentication mode
 %   }
 
