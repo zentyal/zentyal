@@ -11,13 +11,13 @@ sub _keychainForIface
 }
 </%init>
 
-% if (not $insecurePasswd) {
+% if ($insecurePasswd) {
 hostname ebox
 password ripd
 enable password ripd
 
 %   foreach my $iface (@ifaces) {
-interface <% $iface %>
+interface <% $iface->{$ifaceName} %>
 no ip rip authentication mode
 %   }
 
