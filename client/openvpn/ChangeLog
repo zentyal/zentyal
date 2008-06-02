@@ -5,6 +5,9 @@
 	+ Bugfix. Allow user to remove rip password when disabling ebox-to-ebox
 	  tunnel
 	+ Add backwards compatibility with old openVPN tunnels
+	+ Make removed daemons deletion more robust
+	+ Bugfix. Get activeServers instead of activeDaemons to add
+	  INPUT rules
 0.11.100
 	+ Bugfix. rip password is not required for normal clients
 	+ Add feature to allow masquerading in VPNs. Now you can use the

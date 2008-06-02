@@ -194,32 +194,41 @@ sub _prepareLogFiles
 sub _cleanupDeletedDaemons
 {
     my ($self) = @_;
-    
+
     $self->dir_exists('deleted') or return;
 
 
     my %deletedDaemons = % { $self->_deletedDaemons() };
 
     while (my ($name, $properties) = each %deletedDaemons) {
-      try {
-	my $class = $properties->{class};
-	my $type  = $properties->{type};
-	$class->stopDeletedDaemon($name, $type);
+        try {
+            my $class = $properties->{class};
+            my $type  = $properties->{type};
+            try {
+                $class->stopDeletedDaemon($name, $type);
+            } otherwise {
+                EBox::error("Couldn't stop deleted daemon $name");
+            };
 
-	my @filesToDelete = @{ $properties->{filesToDelete}} ;
-	EBox::Sudo::root(" rm -rf @filesToDelete");
-      }
-     otherwise {
-       my $ex = shift;
-       EBox::error("Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup");
-       $ex->throw();
-     }
-   }
+            for my $entry  (@{ $properties->{filesToDelete}}) {
+                try {
+                     EBox::Sudo::root(" rm -rf $entry");
+                } otherwise {
+                    EBox::error("Couldn't remove $entry");
+                };
+            }
+        }
+        otherwise {
+            my $ex = shift;
+            EBox::error("Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup");
+            $ex->throw();
+        };
+    }
 
     $self->delete_dir('deleted');
 
-    # this is to avoid mark the modules as changed bz the removal of deleted information
-    # XXX TODO: reimplement using ebox state
+# this is to avoid mark the modules as changed bz the removal of deleted information
+# XXX TODO: reimplement using ebox state
     my $global = EBox::Global->getInstance();
     $global->modRestarted('openvpn');
 }
@@ -885,29 +894,28 @@ sub firewallHelper
 
     my $service = $self->service();
 
-    my @activeDaemons =  $self->activeDaemons() ;
+    my @activeServers =  $self->activeServers() ;
 
     my @ifaces = map {
        $_->iface();
-    } @activeDaemons;
+    } @activeServers;
     
     my @ports = map {
-	my $port = $_->port();
-	my $proto = $_->proto();
-	my $external = $_->runningOnInternalIface ? 0 : 1;
-	
-	{ port => $port, proto => $proto, external => $external }
-    }  @activeDaemons;
+            my $port = $_->port();
+            my $proto = $_->proto();
+            my $external = $_->runningOnInternalIface ? 0 : 1;
+            
+            { port => $port, proto => $proto, external => $external }
+        }  @activeServers;
     
 
     my @networksToMasquerade = map {
-	my $network = $_->subnet();
-	my $mask    = $_->subnetNetmask();
-	my $cidrNet = EBox::NetWrappers::to_network_with_mask($network, $mask);
-	$cidrNet
-    } grep {
-	$_->masquerade() and $_->can('subnet')
-    } @activeDaemons;
+            my $network = $_->subnet();
+            my $mask    = $_->subnetNetmask();
+            my $cidrNet = EBox::NetWrappers::to_network_with_mask($network,
+                            $mask);
+            $cidrNet
+            } grep { $_->masquerade() and $_->can('subnet') } @activeServers;
 
 
     my $serversToConnect = $self->_serversToConnect();
