@@ -55,7 +55,7 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
-
+conf/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile

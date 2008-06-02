@@ -1223,6 +1223,7 @@ sub _writeRIPDaemonConf
   my @ripdConfParams = (
 			ifaces       => $ifaces,
 			redistribute => $redistribute,
+			insecurePasswd => _insecureRipPasswd(),
 		       );
   $self->writeConfFile("$confDir/ripd.conf", '/quagga/ripd.conf.mas', \@ripdConfParams, $fileAttrs);
  
@@ -1537,7 +1538,21 @@ sub tableInfo
 
 }
 
-
+sub _insecureRipPasswd
+{
+    my $insecure = EBox::Config::configkey('insecure_rip_conf');
+    unless (defined($insecure)) {
+        return undef;
+    }
+    if ($insecure eq 'no') {
+        return 0;
+    } elsif ($insecure eq 'yes') {
+        return 1;
+    } else {
+        thore EBox::Exceptions::External(
+            __('You must set insecure_rip_conf to yes or no'));
+    }
+}
 # Method: notifyLogChange
 #
 #   this is used to notify the log module of changes which will affect the logs

@@ -1,6 +1,7 @@
 <%args>
 @ifaces
 $redistribute
+$insecurePasswd
 </%args>
 <%init>
 sub _keychainForIface
@@ -10,9 +11,21 @@ sub _keychainForIface
 }
 </%init>
 
+% if (not $insecurePasswd) {
+hostname ebox
+password ripd
+enable password ripd
 
-% foreach my $iface_r (@ifaces) {
+%   foreach my $iface (@ifaces) {
+interface <% $iface %>
+no ip rip authentication mode
+%   }
+
+% } else {
+
+%   foreach my $iface_r (@ifaces) {
 %   my $keyChainName = _keychainForIface($iface_r->{ifaceName});
+
 key chain <% $keyChainName %>
    key 1
       key-string <% $iface_r->{passwd} %>
@@ -22,6 +35,9 @@ interface <% $iface_r->{ifaceName} %>
     ip rip receive version 2
     ip rip authentication mode md5
     ip rip authentication key-chain <% $keyChainName %>
+
+%   }
+
 % }
 
 router rip
