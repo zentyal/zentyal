@@ -507,15 +507,14 @@ sub groupHasAlias ($$) {
 	return ($result->count > 0);
 }
 
-# Method: accountAlias
+# Method: aliasExists
 #
-#	This method returns all mail alias accounts that have a mail account as
-#	maildrop value
+#	This method returns wether a given alias exists
 #
 # Parameters:
 #
 #     mail - The mail account 
-sub aliasExists($$) { #mail alias account
+sub aliasExists($$) { #mail alias 
 	my $self = shift;
 	my $alias = shift;
 
