@@ -192,7 +192,7 @@ sub writeConf
 
 
 
-  my $observerScript = EBox::Config::libexec() . FRESHCLAM_OBSERVER_SCRIPT;
+  my $observerScript = EBox::Config::share() . '/ebox-mailfilter/' .  FRESHCLAM_OBSERVER_SCRIPT;
 
   my @freshclamParams = (
 			 clamdConfFile   => CLAMD_CONF_FILE,

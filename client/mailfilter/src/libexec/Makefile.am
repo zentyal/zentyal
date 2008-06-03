@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @LIBDIR@/ebox
+scriptsdir = @DATADIR@/ebox-mailfilter
 
-scripts_SCRIPTS = freshclam-observer
+scripts_SCRIPTS = freshclam-observer 
 
 MAINTAINERCLEANFILES = Makefile.in
 
