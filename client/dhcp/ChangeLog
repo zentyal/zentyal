@@ -2,6 +2,8 @@
 	+ Bugfix. Secondary nameserver in options does not fill a default
 	value when setting as undef by user
 	+ Added 'setLeases' method to set lease times from module API
+	+ Bugfix: Virtual interface options do not override real interface
+	options anymore
 0.11.100
 	+ onInstall() functionality moved to migration script
 	+ Do not remove dhcpd3 rc links 

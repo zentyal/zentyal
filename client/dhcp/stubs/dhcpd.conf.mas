@@ -43,9 +43,6 @@ allow bootp;
 default-lease-time 1800;
 max-lease-time 7200;
 
-
-
-
 %	foreach my $iface (keys(%real_ifaces)) {
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
 %	}
