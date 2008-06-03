@@ -142,7 +142,6 @@ sub runGConf
   my ($self) = @_;
 
   my $port = $self->_availablePort();
-  $self->setPort($port);
   $self->addInternalService(
 				    'name'            => 'http',
 				    'description'     => __('HyperText Transport Protocol'),
@@ -150,6 +149,7 @@ sub runGConf
 				    'sourcePort'      => 'any',
 				    'destinationPort' => $port,
 				   );
+  $self->setPort($port);
 }
 
 EBox::init();
