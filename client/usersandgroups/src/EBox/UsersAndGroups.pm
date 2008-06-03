@@ -308,7 +308,7 @@ sub lastUid # (system)
 	foreach my $user (@users) {
 		my $curruid = $user->get_value('uidNumber');
 		if ($system) {
-			last if ($curruid > MINUID);
+			last if ($curruid >= MINUID);
 		} else {
 			next if ($curruid < MINUID);
 		}
