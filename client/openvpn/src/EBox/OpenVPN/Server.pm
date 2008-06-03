@@ -464,7 +464,34 @@ sub pullRoutes
 sub setPullRoutes
 {
   my ($self, $value) = @_;
+
+  if ($value) {
+      $self->ripPasswd() or
+	  throw EBox::Exceptions::External(
+	   __('A tunnel password is required')
+					  );
+  }
+
+
   return $self->setConfBool('pull_routes', $value);
+}
+
+
+#  Method: setRipPasswd
+#
+#     set the password used by this daemon to secure RIP transmissions
+#
+#     Parameters:
+#        passwd - string
+sub setRipPasswd
+{
+  my ($self, $passwd) = @_;
+  
+  unless (defined ($passwd)) {
+    $passwd = '';
+  }
+
+  $self->setConfString('ripPasswd', $passwd);
 }
 
 sub ripDaemon
@@ -829,7 +856,8 @@ sub init
     # masquerade must be setted before than local port
     $self->setMasquerade($params{masquerade});
 
-    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote pullRoutes ripPasswd  internal); 
+    # W: pullRoutes requires than it is called after setting the rip password
+    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote  ripPasswd  pullRoutes internal); 
     push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
 
     foreach my $attr (@noFundamentalAttrs)  {

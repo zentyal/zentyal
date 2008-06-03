@@ -9,9 +9,10 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes ripPasswd masquerade);
+
+my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote masquerade ripPasswd pullRoutes );
 my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient
-local service tlsRemote pullRoutes masquerade ripPasswd);
+local service tlsRemote  masquerade ripPasswd pullRoutes);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -132,6 +133,12 @@ sub _doEdit
 
     my $anyPropertyParam = any @regularAccessorsAndMutators;
     my @mutatorsParams = grep { $_ eq $anyPropertyParam } @{ $self->params() };
+
+    # pullRoutes requirres than it is called after setting the rip password
+    if ('pullRoutes' eq any @mutatorsParams) {
+	@mutatorsParams = grep {  $_ ne 'pullRoutes' } @mutatorsParams;
+	push @mutatorsParams, 'pullRoutes';
+    }
     
     $changed = 1 if $self->_editSubnetAndMask();
 

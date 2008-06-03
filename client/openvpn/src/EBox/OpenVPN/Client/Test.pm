@@ -342,6 +342,29 @@ sub otherNetworkObserverMethodsTest : Test(2)
   ok !$client->vifaceAdded('eth0', 'eth0:1', '10.0.0.1', '255.0.0.0'), 'Checking wether client notifies that is not disrupted after staticIfaceAddressChanged invokation';
 }
 
+
+
+sub setRipPasswdTest : Test(4)
+{
+  my ($self) = @_;
+  my $client = $self->_newClient();
+
+  my $passwd = 'pass';
+  lives_ok {
+      $client->setRipPasswd($passwd);
+  } 'Setting no-empty passwd';
+
+  is $client->ripPasswd(), $passwd, 'Checking RIP passwd of the client';
+
+
+
+  dies_ok {
+      $client->setRipPasswd('');
+  } 'Checking that trying to set a incorrect password rises error';
+
+  is $client->ripPasswd(), $passwd, 'Checking taht RIP password hasnot changed after a incorrept aptempt of change';
+}
+
 sub _confDir
 {
     my ($self) = @_;

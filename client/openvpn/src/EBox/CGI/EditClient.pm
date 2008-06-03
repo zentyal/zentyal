@@ -70,7 +70,7 @@ sub masonParameters
     my %clientAttributes;
     foreach my $attr (@clientPropierties) {
 	my $accessor_r = $client->can($attr);
-	defined $accessor_r or throw EBox::Exceptions::Internal "Can not locate accessor for $attr in client class";
+	defined $accessor_r or throw EBox::Exceptions::Internal "Cannot locate accessor for $attr in client class";
 	my $value = $accessor_r->($client);
 	$clientAttributes{$attr} = $value;
     }
@@ -144,8 +144,7 @@ sub _editClientProperties
 
   foreach my $attr (@mutatorsParams) {
     my $value =  $self->param($attr);
-    next if $value eq '';
-
+  
     if ($client->$attr() ne $attr) {
       my $mutatorName = "set\u$attr";
       my $mutator_r   = $client->can($mutatorName);

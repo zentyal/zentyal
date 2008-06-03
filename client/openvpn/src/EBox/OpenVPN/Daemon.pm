@@ -445,7 +445,8 @@ sub ripPasswd
 {
   my ($self) = @_;
   my $passwd = $self->getConfString('ripPasswd');
-  defined $passwd or $passwd = '';   # since is optional it may be undefined
+  defined $passwd or $passwd = '';   # in some cases it may be optional it may
+                                     # be undefined
   return $passwd;
 }
 
@@ -458,11 +459,7 @@ sub ripPasswd
 sub setRipPasswd
 {
   my ($self, $passwd) = @_;
-  
-  unless (defined ($passwd)) {
-    $passwd = '';
-  }
-  $self->setConfString('ripPasswd', $passwd);
+  throw EBox::Exceptions::NotImplemented('setRipPasswd');
 }
 
 

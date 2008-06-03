@@ -134,6 +134,27 @@ sub privateDir
   return $dir;
 }
 
+
+#  Method: setRipPasswd
+#
+#     set the password used by this daemon to secure RIP transmissions
+#
+#     Parameters:
+#        passwd - not empty string
+sub setRipPasswd
+{
+  my ($self, $passwd) = @_;
+  
+  $passwd or
+      throw EBox::Exceptions::External(
+         __('The client must have a non-empty RIP password')
+				      );
+
+  $self->setConfString('ripPasswd', $passwd);
+}
+
+
+
 sub _setPrivateFile
 {
   my ($self, $type, $path) = @_;

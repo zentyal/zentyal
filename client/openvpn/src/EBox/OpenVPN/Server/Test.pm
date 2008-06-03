@@ -1042,6 +1042,45 @@ sub setServiceTest : Test(56)
   $self->_checkSetServiceWithBadStatus($server, 'using a revoked certificate');
 }
 
+
+sub setPullRoutesAndRipPasswdTest : Test(11)
+{
+  my ($self) = @_;
+  my $server = $self->_newServer();
+
+  my @correctCases = (
+		      [0, ''],
+		      [0, 'anyPasswd'],
+		      [1, 'passwd'],
+		     );
+
+  foreach my $case (@correctCases) {
+      my ($pull, $passwd) = @{ $case };
+      
+      lives_ok {
+	  $server->setRipPasswd($passwd);
+	  $server->setPullRoutes($pull);
+      } "Setting server password '$passwd' with pullRoutes $pull";
+      
+      is $server->ripPasswd(), $passwd, 'checking wether the password was correctly changed';
+
+      my $serverPull = $server->pullRoutes ? 1 : 0;
+      is $serverPull, $pull, 'checking wether pull routes states is correct';
+  }
+
+
+  # incorrect case: setting pullRoutes when thereisn't RIP password
+  $server->setPullRoutes(0);
+  $server->setRipPasswd('');
+
+  dies_ok {
+      $server->setPullRoutes(1);
+  } 'Checking that tryng to set pull routes option without RIP password raises error';
+
+  ok (not $server->pullRoutes), 'Checking that pullRoutes option remains disabled after incorrect aptemtp to activate it';
+
+}
+
 sub _checkSetServiceWithBadStatus
 {
   my ($self, $server, $badState) = @_;
