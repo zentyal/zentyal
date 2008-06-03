@@ -168,6 +168,35 @@ sub delUserAccount () { #username, mail
 
 }
 
+
+# Method: userAccount
+#
+#  return the user mail account or undef if it doesn't exists
+#
+sub userAccount
+{
+      my ($self, $username) = @_;
+
+      my $mail = EBox::Global->modInstance('mail');
+      my $users = EBox::Global->modInstance('users');
+
+      my %args = (
+		  base => $users->usersDn,
+		  filter => "&(objectclass=*)(uid=$username)",
+		  scope => 'one',
+		  attrs => ['mail', 'userMaildirSize'],
+		  active => $mail->service,
+		 );
+      
+      my $result = $self->{ldap}->search(\%args);
+      my $entry = $result->entry(0);
+      
+      my $usermail = $entry->get_value('mail');
+      
+      return $usermail;
+}
+
+
 # Method: delAccountsFromVDomain
 #
 #  This method removes all mail accounts from a virtual domain
@@ -296,22 +325,8 @@ sub _userAddOns() {
 	return unless (EBox::Global->modInstance('mail')->configured());
 
 	my $mail = EBox::Global->modInstance('mail');
-	my $users = EBox::Global->modInstance('users');
-	
-	
-	my %args = (
-			base => $users->usersDn,
-			filter => "&(objectclass=*)(uid=$username)",
-			scope => 'one',
-			attrs => ['mail', 'userMaildirSize'],
-		        active => $mail->service,
-	);
 
-	my $result = $self->{ldap}->search(\%args);
-	my $entry = $result->entry(0);
-
-	my $usermail = $entry->get_value('mail');
-
+	my $usermail = $self->userAccount($username);
 	my @aliases = $mail->{malias}->accountAlias($usermail);
 	my @vdomains =  $mail->{vdomains}->vdomains();
 
@@ -325,13 +340,10 @@ sub _userAddOns() {
 
 
 	if ($mail->mdQuotaAvailable) {
-	  push @paramsList, $self->_mdQuotaAccountAddonParams($entry);
+	  push @paramsList, $self->_mdQuotaAccountAddonParams($username);
 	  
 	}
 
-
-
-	
 	return { path => '/mail/account.mas', params => { @paramsList } };
 }
 
@@ -758,9 +770,24 @@ sub setMDSize() {
 
 sub _mdQuotaAccountAddonParams
 {
-  my ($self, $userLdapEntry) = @_;
+  my ($self, $username) = @_;
 
-  my $mdsize = $userLdapEntry->get_value('userMaildirSize');
+  my $mail = EBox::Global->modInstance('mail');
+  my $users = EBox::Global->modInstance('users');
+  
+  my %args = (
+	      base => $users->usersDn,
+	      filter => "&(objectclass=*)(uid=$username)",
+	      scope => 'one',
+	      attrs => ['mail', 'userMaildirSize'],
+	      active => $mail->service,
+	     );
+  
+  my $result = $self->{ldap}->search(\%args);
+  my $entry = $result->entry(0);
+
+  my $mdsize = $entry->get_value('userMaildirSize');
+
 
 
   my @params = (
