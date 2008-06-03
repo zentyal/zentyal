@@ -1,6 +1,8 @@
 0.11.101
 	+ Fixed bug when removing users in non-quota installations
 	+ Do not remove init rc scripts
+	+ Add port 465 (SMTP over SSL) to mail service, old outlook version
+	  will use this port
 0.11.100
 	+ Create certificate for smtpd server
 	+ Disabled filter appears in the filter lists as disabled

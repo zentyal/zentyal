@@ -55,6 +55,11 @@ sub runGConf
                                     'protocol' => 'tcp',
                                     'sourcePort' => 'any',
                                     'destinationPort' => 993,
+                                },
+                                {
+                                    'protocol' => 'tcp',
+                                    'sourcePort' => 'any',
+                                    'destinationPort' => 465,
                                 }
                               ]);
    }
