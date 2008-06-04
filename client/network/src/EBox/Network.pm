@@ -20,10 +20,10 @@ use strict;
 use warnings;
 
 use base qw(
-            EBox::GConfModule 
-			EBox::Model::ModelProvider
-			EBox::ServiceModule::ServiceInterface
-           ); 
+            EBox::GConfModule
+            EBox::Model::ModelProvider
+            EBox::ServiceModule::ServiceInterface
+           );
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
@@ -1588,7 +1588,7 @@ sub setNameservers # (one, two)
                 $self->setNS($idx, $newNS);
             } else {
                 # Add a new one
-                $resolverModel->addDNSResolver(nameserver => $newNS);
+                $resolverModel->add(nameserver => $newNS);
             }
         }
 
@@ -2237,7 +2237,9 @@ sub gatewayReachable
                 __x("Gateway {gw} not reachable", gw => $gw));
         } else {
 	    throw EBox::Exceptions::External(
-                __x("Gateway {gw} must be reacheable by a static interface. Currently is reacheable by {iface} which is not static", gw => $gw, iface => $reachableByNoStaticIface) );
+                __x("Gateway {gw} must be reachable by a static interface. "
+                    . "Currently it is reachable by {iface} which is not static",
+                    gw => $gw, iface => $reachableByNoStaticIface) );
         }
 
     } else {
