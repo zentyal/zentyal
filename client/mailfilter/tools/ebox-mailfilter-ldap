@@ -15,6 +15,39 @@ EBox::init();
 
 sub update
 {
+
+  my $users =  EBox::Global->modInstance('users');
+  
+
+  my @controlUsers = (
+		      {
+		       user => 'spam',
+		       fullname => 'Spam account',
+		       password => '',
+		      },
+		      {
+		       user => 'ham',
+		       fullname => 'Ham account',
+		       password => '',
+		      },
+		     );
+
+
+  foreach my $user_r (@controlUsers) {
+      my $username = $user_r->{user};
+      if (not $users->userExists($username)) {
+	  $users->addUser($user_r, 1);
+      }
+      else {
+	  my $userInfo = $users->userInfo($username);
+	  my $uid      = $userInfo->{uid};
+	  if ($uid > $users->lastUid(1)) {
+	      die "$username is not a system user as it has to be";
+	  }
+      }
+  }
+
+
   my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
   my @vdomains = _vdomains();
   foreach my $vdomain (@vdomains) {

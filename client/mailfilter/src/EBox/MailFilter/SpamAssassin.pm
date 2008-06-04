@@ -1,5 +1,5 @@
 package EBox::MailFilter::SpamAssassin;
-# package:
+
 use strict;
 use warnings;
 
@@ -14,6 +14,8 @@ use EBox::MailFilter::VDomainsLdap;
 
 use constant {
   SA_SERVICE          => 'ebox.spamd',
+  SA_LEARN_SERVICE    => 'ebox.learnspamd',
+
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
 
   CONF_USER          => 'amavis',
@@ -54,18 +56,27 @@ sub _mailfilterModule
   return EBox::GConfModule::Partition::fullModule(@_);
 }
 
+
+
+sub _manageServices
+{
+    my ($self, $action) = @_;
+    EBox::Service::manage(SA_SERVICE, $action);
+    EBox::Service::manage(SA_LEARN_SERVICE, $action);
+}
+
 sub doDaemon
 {
   my ($self, $mailfilterService) = @_;
   
   if ($mailfilterService and $self->service() and $self->isRunning()) {
-    EBox::Service::manage(SA_SERVICE, 'restart');
+    $self->_manageServices('restart');
   } 
   elsif ($mailfilterService and $self->service()) {
-    EBox::Service::manage(SA_SERVICE, 'start');
+    $self->_manageServices('start');
   } 
   elsif ($self->isRunning()) {
-    EBox::Service::manage(SA_SERVICE, 'stop');
+    $self->_manageServices('stop');
   }
 }
 
@@ -74,7 +85,7 @@ sub stopService
 {
   my ($self) = @_;
   if ($self->isRunning) {
-    EBox::Service::manage(SA_SERVICE, 'stop');   
+    $self->_manageServices('stop');   
   }
 }
 
@@ -521,9 +532,9 @@ sub bayesPath
 sub learn
 {
   my ($self, %params) = @_;
-  foreach (qw(isSpam format input)) {
-    exists $params{$_} or throw EBox::Exceptions::MissingArgument($_);
-  }
+
+  exists $params{isSpam} or throw EBox::Exceptions::MissingArgument($_);
+  exists $params{input} or throw EBox::Exceptions::MissingArgument($_);
 
   # check wether the current spamassassin conf has bayesian filter enabled
   my $eboxRO = EBox::Global->getInstance(1);
@@ -538,13 +549,13 @@ sub learn
 
   my $typeArg = $params{isSpam} ? '--spam' : '--ham';
 
-  my $formatArg;
+  my $formatArg = '';
   # currently only mbox supported
   if ($params{format} eq 'mbox') {
     $formatArg = '--mbox'; 
   }
-  else {
-    throw EBox::Exceptions::External(__x('Unsupported or incorrect input source format: {format}', format => $params{format}))    
+  elsif  (exists $params{format}) {
+    throw EBox::Exceptions::External(__x('Unsupported or incorrect input source fonrmat: {format}', format => $params{format}))    
   }
 
 

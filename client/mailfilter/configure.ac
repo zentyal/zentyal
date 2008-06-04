@@ -72,6 +72,7 @@ stubs/Makefile
 stubs/t/Makefile
 www/Makefile
 tools/Makefile
+migration/Makefile
 Makefile
 ])
 

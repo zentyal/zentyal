@@ -13,8 +13,12 @@ case "$1" in
 		test -d $SA_DIR || mkdir $SA_DIR
 		chown -R amavis.amavis $SA_DIR
 
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-mailfilter/migration/	
+
         # restart module
-		invoke-rc.d ebox mailfilter restart
+	invoke-rc.d ebox mailfilter restart
 
         # restart apache
         invoke-rc.d ebox apache restart || true

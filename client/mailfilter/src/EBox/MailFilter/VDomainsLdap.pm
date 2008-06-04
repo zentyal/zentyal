@@ -26,6 +26,7 @@ use EBox::Global;
 use EBox::Ldap;
 use EBox::Gettext;
 use EBox::MailVDomainsLdap;
+use EBox::MailAliasLdap;
 
 
 # LDAP schema
@@ -351,8 +352,43 @@ sub _addVDomain() {
 	
 	   my $add = $ldap->modify($dn, \%attrs ); 
   }
+
+  # add spam and ham accounts
+  $self->addControlAddresses($vdomain);
 }
 
+
+sub addControlAddresses
+{
+    my ($self, $vdomain) = @_;
+
+    my $mail         = EBox::Global->modInstance('mail');
+    my $mailUserLdap = $mail->_ldapModImplementation();
+    my $mailAliasLdap = new EBox::MailAliasLdap;
+
+    foreach my $user (qw(ham spam)) {
+	my $account = $mailUserLdap->userAccount($user);
+
+	if (defined $account) {
+	    my ($lh, $accountVdomain) = split '@', $account;
+
+	    if ($vdomain eq $accountVdomain) {
+		# this domain has the account so we haven't nothing to do
+		return;
+	    }
+
+	    my $alias = $user . '@' . $vdomain;
+	    if (not $mailAliasLdap->aliasExists($alias)) {
+		$mailAliasLdap->addAlias($alias, $account, $user);
+	    }
+	}
+	else {
+	    $mailUserLdap->setUserAccount($user, $user, $vdomain);	    
+	}
+
+    }
+
+}
 
 
 sub _delVDomain() 

@@ -1,0 +1,158 @@
+#!/usr/bin/perl
+# Copyright (C) 2008 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+
+use constant WAIT_INTERVAL => 5;
+
+my %mailDirsByType;
+
+
+sub initDaemon
+{
+    my ($self) = @_;
+    
+    unless (POSIX::setsid) {
+	EBox::debug ('Cannot start new session for ', $self->{'name'});
+	exit 1;
+    }
+    
+ #   foreach my $fd (0 .. 64) { POSIX::close($fd); }
+    
+    my $tmp = EBox::Config::tmp();
+    open(STDIN,  "+<$tmp/stdin");
+    if (EBox::Config::configkey('debug') eq 'yes') {
+	open(STDOUT, "+>$tmp/stout");
+	open(STDERR, "+>$tmp/stderr");
+    }
+    
+}
+
+
+sub run 
+{
+    my ($self) = @_;
+	
+    EBox::init();
+    
+    $self->_checkMailfilter();
+    
+    $self->initDaemon();
+    
+    $self->_prepare();
+
+    $self->_mainloop();
+}
+
+
+sub _checkMailfilter
+{
+    my ($self) = @_;
+
+    my $mf = EBox::Global->modInstance('mailfilter');
+
+    if (not $mf->configured()) {
+	die "Mailfilter module is not configured";
+    }
+    elsif (not $mf->isEnabled()) {
+	die "Mailfilter module is not enabled";
+    }
+    else {
+	my $antispam = $mf->antispam();
+	if (not $antispam->service()) {
+	    die "Antispam service is disabled";
+	}
+	elsif (not $antispam->bayes()) {
+	    die "Antispam bayesian filter is disabled";
+	}
+    }
+
+}
+
+
+sub _prepare
+{
+    my ($self) = @_;
+
+    my $mail         = EBox::Global->modInstance('mail');
+    my $mailUserLdap = $mail->_ldapModImplementation();
+
+    my @users = qw(spam ham);
+    foreach my $user (@users) {
+	my $account = $mailUserLdap->userAccount($user);
+	defined $account or
+	    die "$user has not mail account";
+	
+	my ($mailName, $vdomain) = split '@', $account;
+	my $mailDir    = $mailUserLdap->maildir($mailName, $vdomain);
+	my $newMailDir = $mailDir. "new";
+
+	$mailDirsByType{$user} = $newMailDir;
+    }
+
+}
+
+
+sub _mainloop
+{
+    my $wait = 0;
+
+    my $antispam =  EBox::Global->modInstance('mailfilter')->antispam();
+
+    while (1) {
+	if ($wait) {
+	    sleep WAIT_INTERVAL;
+	}
+	$wait = 1;
+
+	while (my ($type, $dir) = each %mailDirsByType) {
+	    my $isSpam = ($type eq 'spam');
+
+	    opendir my $DH,  $dir or
+		die "Cannot open directory $dir";
+	    while (my $msg = readdir($DH)) {
+		if (($msg eq '.') or ($msg eq '..')) {
+		    next;
+		}
+
+		my $path = "$dir/$msg";
+
+		$antispam->learn(
+				 input => $path,
+				 isSpam => $isSpam,
+				);
+		unlink $path;
+		$wait = 0;
+	    }
+	    
+	    closedir $DH;
+	}
+	
+
+    }
+    
+}
+
+
+__PACKAGE__->run();
+
+1;
