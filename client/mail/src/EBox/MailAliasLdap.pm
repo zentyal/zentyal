@@ -21,6 +21,7 @@ use warnings;
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
+use EBox::MailUserLdap;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
@@ -102,32 +103,15 @@ sub addGroupAlias ($$$) { #mail alias, groupname
 														'value' => $alias);
 	}
 
-	my %args = (
-		base => $users->usersDn,
-		filter => "(objectclass=couriermailaccount)",
-		scope => 'one',
-		attrs => ['mail']
-	);
-	
-	my $result = $self->{ldap}->search(\%args);
+	my $mailUserLdap = EBox::MailUserLdap->new();
 
-	my @mailusers;
-	foreach my $user ($result->sorted('mail')) {
-		push(@mailusers, $user->get_value('mail'));
-	}
-	my @usersingroup = @{$users->usersInGroup($groupname)};
-	
-	# the intersection between users with mail and users of the group
-	my @mailingroup;
-	foreach my $m (@mailusers) {
-		my $temp = (split(/@/, $m))[0];
-		if (grep(/^$temp$/,@usersingroup)) {
-			push (@mailingroup, $m);
-		}
-	}
+	my @mailAccounts = map {
+	    $mailUserLdap->userAccount($_)
+	} $mailUserLdap->usersWithMailInGroup($groupname);
+
 
 	my $aux = 0;
-	foreach my $mail (@mailingroup)
+	foreach my $mail (@mailAccounts)
 	{
 		if ($aux++ == 0) { 
 			$self->addAlias($alias, $mail, $groupname); 
@@ -155,44 +139,6 @@ sub updateGroupAlias ($$$) {
 	unless ($self->accountExists($alias)) {
 		throw EBox::Exceptions::DataNotFound('data' => __('mail account'),
 														'value' => $alias);
-	}
-
-	my %args = (
-		base => $users->usersDn,
-		filter => "(objectclass=couriermailaccount)",
-		scope => 'one',
-		attrs => ['mail']
-	);
-	
-	my $result = $self->{ldap}->search(\%args);
-
-	my @mailusers;
-	foreach my $user ($result->sorted('mail')) {
-		push(@mailusers, $user->get_value('mail'));
-	}
-	my @usersingroup = @{$users->usersInGroup($group)};
-	
-	# the intersection between users with mail and users of the group
-	my @mailingroup;
-	foreach my $m (@mailusers) {
-		my $temp = (split(/@/, $m))[0];
-		if (grep(/^$temp$/,@usersingroup)) {
-			push (@mailingroup, $m);
-		}
-	}
-
-	%args = (
-		base => $self->aliasDn,
-		filter => "&(objectclass=couriermailalias)(userid=$group)",
-		scope => 'one',
-		attrs => ['maildrop']
-	);
-	
-	$result = $self->{ldap}->search(\%args);
-
-	my @maildrops;
-	foreach my $md ($result->sorted('maildrop')) {
-		push(@maildrops, $md->get_value('maildrop'));
 	}
 
 	$self->delAliasGroup($group);

@@ -28,6 +28,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 
+use Perl6::Junction qw(any);
+
 # LDAP schema
 use constant SCHEMAS		=> ('/etc/ldap/schema/authldap.schema', '/etc/ldap/schema/eboxmail.schema');
 use constant DIRVMAIL	=>	'/var/vmail/';
@@ -380,9 +382,9 @@ sub _groupAddOns() {
 	my @vd =  $mail->{vdomains}->vdomains();
 
 	my $args = { 	'group' => $group,
-						'vdomains'	=>	\@vd,
-						'alias'		=> $alias,
-						'nacc' => $self->usersWithMailInGroup($group)
+			'vdomains'	=>	\@vd,
+			'alias'		=> $alias,
+			'nacc' => scalar ($self->usersWithMailInGroup($group)),
 	};
 	
 	return { path => '/mail/groupalias.mas', params => $args };
@@ -470,7 +472,7 @@ sub allAccountsFromVDomain() { #vdomain
 
 # Method: usersWithMailInGroup
 #
-#  This method returns the number of users with mail account on the group
+#  This method returns the list of users with mail account on the group
 #
 # Parameters:
 #
@@ -484,27 +486,23 @@ sub usersWithMailInGroup() {
 		base => $users->usersDn,
 		filter => "(objectclass=couriermailaccount)",
 		scope => 'one',
-		attrs => ['mail']
 	);
 	
 	my $result = $self->{ldap}->search(\%args);
 
 	my @mailusers;
-	foreach my $user ($result->sorted('mail')) {
-		push(@mailusers, $user->get_value('mail'));
-	}
-	my @usersingroup = @{$users->usersInGroup($groupname)};
-	
-	# the intersection between users with mail and users of the group
-	my @mailingroup;
-	foreach my $m (@mailusers) {
-		my $temp = (split(/@/, $m))[0];
-		if (grep(/^$temp$/,@usersingroup)) {
-			push (@mailingroup, $m);
-		}
+	foreach my $entry ($result->entries()) {
+	    push @mailusers, $entry->get_value('uid');
 	}
 
-	return scalar(@mailingroup);
+	my $anyUserInGroup = any( @{ $users->usersInGroup($groupname) } );
+	
+	# the intersection between users with mail and users of the group
+	my @mailingroup = grep {
+	    $_ eq $anyUserInGroup
+	} @mailusers;
+
+	return @mailingroup;
 }
 
 # Method: checkUserMDSize
