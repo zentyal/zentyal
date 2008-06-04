@@ -3,6 +3,8 @@
 	+ Do not remove init rc scripts
 	+ Add port 465 (SMTP over SSL) to mail service, old outlook version
 	  will use this port
+	+ Fixed bug in group alias that broke this feature for mail
+	accounts which its name was different to the username
 0.11.100
 	+ Create certificate for smtpd server
 	+ Disabled filter appears in the filter lists as disabled
