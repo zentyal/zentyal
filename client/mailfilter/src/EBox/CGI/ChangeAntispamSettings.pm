@@ -27,7 +27,7 @@ use Perl6::Junction qw(any);
 
 
 my @settings = qw(spamThreshold spamSubjectTag bayes autoWhitelist autolearn 
-autolearnHamThreshold autolearnSpamThreshold );
+autolearnHamThreshold autolearnSpamThreshold spamAccountActive hamAccountActive);
 my @unsafeParamSettings = qw(spamSubjectTag);
 
 

@@ -62,6 +62,13 @@ sub _manageServices
 {
     my ($self, $action) = @_;
     EBox::Service::manage(SA_SERVICE, $action);
+
+
+    my $saLearnService = $self->spamAccountActive() or $self->hamAccountActive();
+    if (not $saLearnService) {
+	$action = 'stop';
+    }
+
     EBox::Service::manage(SA_LEARN_SERVICE, $action);
 }
 
@@ -164,6 +171,8 @@ sub writeConf
   push @confParams, (bayesAutolearnHamThreshold => $self->autolearnHamThreshold);
 
   EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
+
+  $self->_vdomains->updateControlAccounts();
 }
 
 #
@@ -718,5 +727,41 @@ sub trustedNetworks
   push @trustedNetworks, '127.0.0.1';
   return \@trustedNetworks
 }
+
+
+
+
+sub setSpamAccountActive
+{
+    my ($self, $active) = @_;
+    my $oldActive = $self->spamAccountActive;
+    ($active and $oldActive) and return;
+    ((not $active) and (not $oldActive)) and return;
+
+    $self->setConfBool('spam_account_active', $active);
+}
+
+sub spamAccountActive
+{
+    my ($self) = @_;
+    return $self->getConfBool('spam_account_active');
+}
+
+sub setHamAccountActive
+{
+    my ($self, $active) = @_;
+    my $oldActive = $self->hamAccountActive;
+    ($active and $oldActive) and return;
+    ((not $active) and (not $oldActive)) and return;
+
+    $self->setConfBool('ham_account_active', $active);
+}
+
+sub hamAccountActive
+{
+    my ($self) = @_;
+    return $self->getConfBool('ham_account_active');
+}
+
 
 1;

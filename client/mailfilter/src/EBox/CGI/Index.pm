@@ -109,6 +109,9 @@ sub _antispamMasonParameters
 
   push @masonParameters, (spamSubjectTag => $antispam->spamSubjectTag);
 
+  push @masonParameters, (spamAccountActive => $antispam->spamAccountActive);
+  push @masonParameters, (hamAccountActive  => $antispam->hamAccountActive);
+
   push @masonParameters, (whitelist => $antispam->whitelist);
   push @masonParameters, (blacklist => $antispam->blacklist);
 

@@ -15,6 +15,9 @@ $autolearnSpamThreshold
 
 $spamSubjectTag
 
+$spamAccountActive
+$hamAccountActive
+
 @whitelist
 @blacklist
 </%args>
@@ -69,6 +72,20 @@ my @antispamOptions = (
      value => $autolearnHamThreshold,
      printableName => __('Autolearn ham threshold'),
      help  => __('Ham messages which a score below this threshold will be added to the learning system'),
+  ],
+  [
+   name => 'spamAccountActive',
+   input => 'checkbox',
+   value => $spamAccountActive,
+   printableName => __('Spam mail account for learning spam'),
+   help => __('A address spam@ will be made in each domain, spam messages incorreclty classified as ham may be forwarded to this addres to train the filter')
+  ],
+  [
+   name => 'hamAccountActive',
+   input => 'checkbox',
+   value => $hamAccountActive,
+   printableName => __('Ham mail account for learning ham'),
+   help => __('A address ham@ will be made in each domain, ham messages incorreclty classified as spam may be forwarded to this addres to train the filter')
   ],
   [
     name => 'change',

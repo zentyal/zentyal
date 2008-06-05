@@ -353,43 +353,103 @@ sub _addVDomain() {
 	   my $add = $ldap->modify($dn, \%attrs ); 
   }
 
-  # add spam and ham accounts
-  $self->addControlAddresses($vdomain);
+  # set spam and ham accounts
+  my $antispam = EBox::Global->modInstance('mailfilter')->antispam();
+
+  $self->setControlAccounts( $vdomain,
+			     spam => $antispam->spamAccountActive(),
+			     ham  => $antispam->hamAccountActive(),
+			   );
+
+
 }
 
 
-sub addControlAddresses
+
+sub updateControlAccounts
 {
-    my ($self, $vdomain) = @_;
+    my ($self) = @_;
+
+    # add spam and ham accounts
+    my $antispam = EBox::Global->modInstance('mailfilter')->antispam();
+    my @accounts = (
+		    spam => $antispam->spamAccountActive(),
+		    ham  => $antispam->hamAccountActive(),
+		   );
+
+    my $mailVdomains =  EBox::MailVDomainsLdap->new();
+    my @vdomains = $mailVdomains->vdomains();
+
+    
+    foreach my $vdomain (@vdomains) {
+	$self->setControlAccounts( $vdomain,
+				   @accounts
+				 );
+    }
+
+}
+
+
+sub setControlAccounts
+{
+    my ($self, $vdomain, %accounts) = @_;
+
+    while (my ($user, $active) = each %accounts) {
+	if ($active) {
+	    $self->_addControlAccount($vdomain, $user);
+	}
+	else {
+	    $self->_removeControlAccount($vdomain, $user);
+	}
+	
+    }
+
+}
+
+
+sub _addControlAccount
+{
+    my ($self, $vdomain, $user) = @_;
 
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
     my $mailAliasLdap = new EBox::MailAliasLdap;
 
-    foreach my $user (qw(ham spam)) {
-	my $account = $mailUserLdap->userAccount($user);
-
-	if (defined $account) {
-	    my ($lh, $accountVdomain) = split '@', $account;
-
-	    if ($vdomain eq $accountVdomain) {
-		# this domain has the account so we haven't nothing to do
-		return;
-	    }
-
-	    my $alias = $user . '@' . $vdomain;
-	    if (not $mailAliasLdap->aliasExists($alias)) {
-		$mailAliasLdap->addAlias($alias, $account, $user);
-	    }
+    my $account = $mailUserLdap->userAccount($user);
+    
+    if (defined $account) {
+	my ($lh, $accountVdomain) = split '@', $account;
+	
+	if ($vdomain eq $accountVdomain) {
+	    # this domain has the account so we haven't nothing to do
+	    return;
 	}
-	else {
-	    $mailUserLdap->setUserAccount($user, $user, $vdomain);	    
-	}
-
+	
+	my $alias = $user . '@' . $vdomain;
+	if (not $mailAliasLdap->aliasExists($alias)) {
+	    $mailAliasLdap->addAlias($alias, $account, $user);
+	    }
     }
-
+    else {
+	$mailUserLdap->setUserAccount($user, $user, $vdomain);	    
+    }
 }
 
+
+sub _removeControlAccount
+{
+    my ($self, $vdomain, $user) = @_;
+
+    my $mail         = EBox::Global->modInstance('mail');
+    my $mailUserLdap = $mail->_ldapModImplementation();
+
+    my $account = $mailUserLdap->userAccount($user);
+    defined $account or
+	return;
+
+    $mailUserLdap->delUserAccount($user, $account);
+    
+}
 
 sub _delVDomain() 
 {

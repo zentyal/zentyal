@@ -266,6 +266,24 @@
 		</schema>
 
 		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/spam_account_active</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/spam_account_active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/ham_account_active</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/ham_account_active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
 			<key>/schemas/ebox/modules/mailfilter/file_filter/holder</key>
 			<applyto>/ebox/modules/mailfilter/file_filter/holder</applyto>
 			<owner>ebox</owner>
@@ -273,6 +291,8 @@
 			<default>true</default>
 			<locale name="C"/>
 		</schema>
+
+
 
 
 	</schemalist>

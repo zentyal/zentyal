@@ -96,7 +96,16 @@ sub _prepare
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
 
-    my @users = qw(spam ham);
+    my @users;
+    my $antispam = EBox::Global->modInstance('mailfilter')->antispam();
+    push @users, 'spam' if $antispam->spamAccountActive;
+    push @users, 'ham'  if $antispam->hamAccountActive;
+
+    if (not @users) {
+	die "Neither spam or ham accounts are active";
+    }
+
+
     foreach my $user (@users) {
 	my $account = $mailUserLdap->userAccount($user);
 	defined $account or
