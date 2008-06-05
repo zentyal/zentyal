@@ -552,7 +552,7 @@ sub notifyDaemonDeletionTest : Test(3)
     $openvpn->notifyDaemonDeletion(
 				   $name,
 				   class => $class,
-				   type        => $type,
+				   type  => $type,
 				   files => \@files
 
 				  );

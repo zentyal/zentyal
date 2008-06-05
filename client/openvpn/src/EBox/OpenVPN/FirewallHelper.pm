@@ -92,8 +92,11 @@ sub _inputRules
     foreach my $port_r (@ports) {
 	my $port    =   $port_r->{port};
 	my $proto  = $port_r->{proto};
+	my $listen = $port_r->{listen};
+	
+	my $inputIface = defined $listen ? "-i $listen" : "";
 
-	my $rule = "--protocol $proto --destination-port $port -j ACCEPT";
+	my $rule = "--protocol $proto --destination-port $port $inputIface -j ACCEPT";
 	push @rules, $rule;
     }
 

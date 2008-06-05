@@ -904,17 +904,18 @@ sub firewallHelper
             my $port = $_->port();
             my $proto = $_->proto();
             my $external = $_->runningOnInternalIface ? 0 : 1;
+	    my $listen   = $_->local();
             
-            { port => $port, proto => $proto, external => $external }
+            { port => $port, proto => $proto, external => $external, listen => $listen }
         }  @activeServers;
     
 
-    my @networksToMasquerade = map {
+    my %networksToMasquerade = map {
             my $network = $_->subnet();
             my $mask    = $_->subnetNetmask();
             my $cidrNet = EBox::NetWrappers::to_network_with_mask($network,
                             $mask);
-            $cidrNet
+            ($cidrNet => 1)
             } grep { $_->masquerade() and $_->can('subnet') } @activeServers;
 
 
@@ -925,7 +926,7 @@ sub firewallHelper
 							    ifaces           => \@ifaces,
 							    ports     => \@ports,
 							    serversToConnect => $serversToConnect,
-							    networksToMasquerade => \@networksToMasquerade,
+							    networksToMasquerade => [keys %networksToMasquerade],
 							    
 							   );
     return $firewallHelper;
