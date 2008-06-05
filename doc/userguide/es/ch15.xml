@@ -1,26 +1,126 @@
 <chapter id="ch-dns">
 
-	<title>Servicio DNS</title>
+  <title>Servicio DNS</title>
 
-        <para>
-          El servicio DNS puede funcionar como un servidor DNS caché,
-          o como un servidor DNS propio para responder a consultas de
-          tus dominios locales.
-        </para>
+  <para>
+    El servicio DNS puede funcionar como un servidor DNS caché,
+    o como un servidor DNS propio para responder a consultas de
+    tus dominios locales.
+  </para>
 
-	<section id='sect-dns-cache'>
-		<!-- DNS Cache -->
-		<title>Caché DNS</title>
-                
-		<para>
-		Si se encuentra el servicio DNS activado actuará
-                automáticamente como un servicio de DNS
-                caché. Permitirá que varias peticiones DNS iguales 
-		a eBox se resuelvan con una sola petición DNS externa, reduciendo así
-		el tiempo de respuesta y el tráfico por la red para los sitios más 
-		frecuentados.
-		</para>
-	</section>
-        <!-- TODO: Servidor DNS sección -->
+  <section id='sect-dns-cache'>
+    <!-- DNS Cache -->
+    <title>Caché DNS</title>
+    
+    <para>
+      Si se encuentra el servicio DNS activado actuará
+      automáticamente como un servicio de DNS
+      caché. Permitirá que varias peticiones DNS iguales 
+      a eBox se resuelvan con una sola petición DNS externa, reduciendo así
+      el tiempo de respuesta y el tráfico por la red para los sitios más 
+      frecuentados.
+    </para>
+  </section>
+
+  <section id="sect-dns-server">
+    <!-- DNS server -->
+    <title>Servidor de nombres</title>
+    <para>
+      Hay una característica más avanzada que te permitirá crear
+      dominios para tu red local. Esto es muy útil si quieres que tus
+      usuarios usen los nombres de máquinas para tus máquinas locales
+      en vez recordar las direcciones IP.
+    </para>
+
+    <para>
+      El servicio DNS en eBox se caracteriza para ser usado en los
+      casos más simples y usuales. Añadir dominios dando a cada
+      dominio máquinas y alias para dichas máquinas. Ten en cuenta que
+      carece de características como transferencia de zonas,
+      subdominios y demás. Estas mejoras se añadirán en un futuro.
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Dominios</term>
+        <listitem>
+          <para>
+            Puedes añadir tantos dominios como necesites. Recuerda que
+            tus máquinas serán añadidas tomando un dominio como
+            raíz.
+          </para>
+          <para>
+            Para añadir un dominio, ve a
+            <menuchoice><guimenu>DNS</guimenu></menuchoice> y
+            simplemente escribe un nombre para dicho dominio en la
+            tabla expuesta debajo del título. Añade tantos como
+            necesites.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Máquinas</term>
+        <listitem>
+          <para>
+            El siguiente paso, tras crear un dominio, es añadir
+            nombres para máquinas al dominio. Lo que estás haciendo
+            aquí es enlazar una dirección IP a un nombre de máquina.
+          </para>
+          <para>
+            Para añadir un nombre de máquinas, debes editar el dominio
+            al que te gustaría tener dicha máquina. Para hacerlo,
+            pincha en el icono del lápiz en la tabla de dominios. Una
+            nueva pantalla aparecerá. En esta nueva pantalla, serás
+            capaz de añadir un nombre de máquina y su correspondiente
+            dirección IP.
+          </para>
+          <para>
+            En caso de tener una dirección IP con más de un nombre
+            asociado a ella, puedes añadir <emphasis>alias</emphasis>
+            justo al lado de donde has creado el nombre de máquina.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Intercambiadores de correo</term>
+        <listitem>
+          <para>
+            Cada dominio puede tener intercambiadores de correo
+            (<emphasis>registros MX</emphasis>), que dentro de la
+            jerga DNS son aquellas máquinas que actúan como servidores
+            de correo electrónico, esto es, servidores SMTP.
+          </para>
+          <para>
+            Cada registro MX se compone de una nombre de máquina, que
+            puede pertenecer al mismo dominio, i.e. uno de los
+            definidos previamente para el mismo dominio o uno
+            cualquiera de un dominio externo. El valor de preferencia
+            determina que servidor de correo se utilizará primero para
+            tratar de enviar un correo a dicho dominio. El menor valor
+            de preferencia da la mayor prioridad. El intervalo de
+            valores permitidos es <emphasis>(0, 65535)</emphasis>. La
+            tabla está ordenada por dicho valor.
+          </para>
+          <para>
+            Una vez que hayas definido los registros MX, puedes crear
+            un dominio virtual en el módulo de correo con el mismo
+            nombre definido aquí. Así el sistema de correo funcionaría
+            de manera más sencilla.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>
+      Además, la traducción inversa se hace también automáticamente
+      por este módulo. Cada máquina que tiene una dirección IP
+      asociada, ante una petición de nombre de dicha dirección IP el
+      servicio DNS responderá con el mismo nombre asociado.
+    </para>
+
+  </section>
 
 </chapter>

@@ -91,10 +91,18 @@
 		<!-- Network->DNS -->
 		<title>DNS Servers</title>
 
-		<para>You can set IP addresses for the DNS Server that you want to use
-		to solve host names. You have to remember that, if your network
-		interfaces are configured with DHCP, your network settings could be
-		overwritten.</para>
+		<para>You can set IP addresses for the name servers that you want to use
+		to resolve host names. You may set as many name
+                servers as you want, the first one is primary one which
+                whether it becomes down, the secondary one is used
+                instead and so on.</para>
+                <warning>
+                  <para>
+                    You have to remember that, if your network
+                    interfaces are configured with DHCP, your network settings could be
+                    overwritten.
+                  </para>
+                </warning>
 	</section>
 
 	<section id='sect-ebox-diagnostics'>
@@ -357,14 +365,14 @@
             In advanced configurations, defining a set of <link
             linkend="sect-gateways">gateways</link> and <link
             linkend="sect-multigateway-rules">rules</link> to
-            applied them is not sufficient. The user defined <xref
-            linkend="route-example"/> may help:
+            applied them is not sufficient. Thus the user defined <xref
+            linkend="route-example"/> routing table may help:
             </para>
             <example id="route-example">
               <title>Static route use case</title>
               <para><quote>
                 I have some machines that are on the outside,
-                connected to the external LAN of the ebox and I would
+                connected to the external LAN of the eBox and I would
                 like all users who connect to VPN server to connect to
                 those machines via the VPN tunnel.
               </quote></para>

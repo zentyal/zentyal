@@ -26,7 +26,7 @@
 				<term>Estático</term>
 				<listitem>
 					<para>
-					Asigna de forma permanete una dirección IP al
+					Asigna de forma permanente una dirección IP al
 					interface de red. Una vez seleccionado este método podrá
 					establecer si la interfaz de red es
 					externa<footnote><para>En
@@ -112,8 +112,12 @@
 		<title>Servidores DNS</title>
 
 		<para>
-		Se pueden especificar las direcciones IP de los servidores DNS a
-		través de los cuales se desea resolver nombres. 
+		Se pueden especificar las direcciones IP de los
+                servidores de nombres a través de los cuales se desea
+                resolver nombres. Puedes poner tantos como quieras, el
+                primero de ellos será el primario que si se queda no
+                disponible, el secundario en cambio será usado y así
+                sucesivamente.
 		</para>
 		
 		<warning>
@@ -250,7 +254,7 @@
 	    <para>
 	      Cada router debe ser alcanzable desde al menos un
 	      interfaz. eBox lo comprueba para cada interfaz cuya
-	      configuración es estática. Si el interfaz se define via
+	      configuración es estática. Si el interfaz se define vía
 	      DHCP, esta prueba se saltará ya que no es posible
 	      determinar su resultado.
 	    </para>
@@ -265,7 +269,7 @@
 	  </para>
 
 	  <para>
-	    Una vez has añadido un route, aparecerá en la
+	    Una vez has añadido un router, aparecerá en la
 	    <guilabel>lista de routers</guilabel>. Posteriormente,
 	    puedes borrarlo o editar sus valores a través de los
 	    iconos que aparecen en la parte derecha de la lista.
@@ -401,5 +405,37 @@
 	  </section>
 	</section>
 
+        <section id="sect-routers">
+          <!-- Network->Routers -->
+          <title>Rutas</title>
+          
+          <para>
+            En configuraciones avanzadas, definir una conjunto de
+            <link linkend="sect-gateways">routers</link> y de <link
+            linkend="sect-multigateway-rules">reglas</link> que
+            aplicar a ellos no es suficiente. Por ello la creación de
+            tablas de rutas por el usuario quizá ayude:
+          </para>
+          <example id="route-example">
+            <title>Caso de uso para rutas estáticas</title>
+            <para><quote>
+              Tengo algunas máquinas que están fuera, conectadas a
+              la LAN externa de eBox y me gustaría que los
+              usuarios que se conectan al servidor VPN para
+              conectarlas usando el túnel VPN.
+            </quote></para>
+          </example>
+          <para>
+            En esos casos podemos usar rutas estáticas. Esta tabla
+            especifica aquellas <guilabel>redes</guilabel> cuyo
+            tráfico será redirigido a un <guilabel>router</guilabel>
+            determinado, que debes ser alcanzable desde la máquina
+            eBox. Cada ruta debe tener una única red a encaminar
+            dentro de la tabla. Además, se puede añadir una
+            <guilabel>descripción</guilabel> opcional para añadir
+            información sobre la razón de la ruta y facilitar así su
+            mantenimiento.
+          </para>
+        </section>
 
 </chapter>
