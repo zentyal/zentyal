@@ -44,7 +44,7 @@ sub processPosixAccount
 
     my $email = $entry->get_value('mail');
     
-    $email or return; # if email is not conifgured in this user we left the user
+    $email or return; # if email is not configured in this user we left the user
                       # alone
 
     my $mailMod = EBox::Global->modInstance('mail');
@@ -92,18 +92,19 @@ sub processDomain
 
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
 
-    if ($vdomainsLdap->vdomainExists($vdomain)) {
-	if (not $options{overwrite}) {
-	    print "Virtual mail domain $vdomain already exists. Skipping it\n";
-	    return;
-	}
-	
-	print "Overwriting virtual mail domain $vdomain\n";
-	$vdomainsLdap->delVDomain($vdomain);
-
-    }
-
     $vdomainsLdap->addVDomain($vdomain);
+}
+
+
+sub startupDomain
+{
+    my ($package) = @_;
+    # we remove all domains to avoid conflicts
+
+    my $vdomainsLdap = EBox::MailVDomainsLdap->new();
+    foreach my $vdomain ($vdomainsLdap->vdomains()) {
+	$vdomainsLdap->delVDomain($vdomain);
+    }
 }
 
 
