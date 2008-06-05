@@ -48,6 +48,14 @@ use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
                                           # correctly in ifconfig
 use constant RESERVED_PREFIX => 'R_D_';
 
+use constant USER  => 'nobody';
+use constant GROUP => 'nogroup';
+
+use constant DH_PATH => '/etc/openvpn/ebox-dh1024.pem';
+use constant OPENVPN_BIN => '/usr/sbin/openvpn';
+use constant CONF_DIR    => '/etc/openvpn';
+
+
 my @daemonTypes   = qw(server client); # in the daemons method they will appear in this order
 my $anyDaemonType = any @daemonTypes;
 
@@ -139,7 +147,7 @@ sub enableModDepends
 sub confDir
 {
     my ($self) = @_;
-    return $self->get_string('conf_dir');
+    return CONF_DIR;
 }
 
 #
@@ -154,7 +162,7 @@ sub confDir
 sub openvpnBin
 {
    my ($self) = @_;
-   return $self->get_string('openvpn_bin');
+   return OPENVPN_BIN;
 }
 
 
@@ -836,7 +844,7 @@ sub logDir
 sub user
 {
     my ($self) = @_;
-    return $self->get_string('user');
+    return USER;
 }
 
 #
@@ -852,7 +860,7 @@ sub user
 sub group
 {
     my ($self) = @_;
-    return $self->get_string('group');
+    return GROUP;
 }
 
 #
@@ -868,7 +876,7 @@ sub group
 sub dh
 {
     my ($self) = @_;
-    return $self->get_string('dh');
+    return DH_PATH;
 }
 
 

@@ -23,29 +23,6 @@
 		</schema>
 
 		<schema>
-			<key>/schemas/ebox/modules/openvpn/conf_dir</key>
-			<applyto>/ebox/modules/openvpn/conf_dir</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>/etc/openvpn</default>
-			<locale name="C">
-				<short>Path of the directory where the configuration files will be stored</short>
-			</locale>
-		</schema>
-
-		<schema>
-			<key>/schemas/ebox/modules/openvpn/dh</key>
-			<applyto>/ebox/modules/openvpn/dh</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>/etc/openvpn/ebox-dh1024.pem</default>
-			<locale name="C">
-				<short>Diffie hellman parametes file</short>
-			</locale>
-		</schema>
-
-
-		<schema>
 			<key>/schemas/ebox/modules/openvpn/userActive</key>
 			<applyto>/ebox/modules/openvpn/userActive</applyto>
 			<owner>ebox</owner>
@@ -61,40 +38,6 @@
 			<type>bool</type>
 			<default>false</default>
 		        <locale name="C" />
-		</schema>
-
-
-		<schema>
-			<key>/schemas/ebox/modules/openvpn/openvpn_bin</key>
-			<applyto>/ebox/modules/openvpn/openvpn_bin</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>/usr/sbin/openvpn</default>
-			<locale name="C">
-				<short>Path of the openvpn binary</short>
-			</locale>
-		</schema>
-
-		<schema>
-			<key>/schemas/ebox/modules/openvpn/user</key>
-			<applyto>/ebox/modules/openvpn/user</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>nobody</default>
-			<locale name="C">
-				<short>User to which root will drop privileges after starting openvpn</short>
-			</locale>
-		</schema>
-
-		<schema>
-			<key>/schemas/ebox/modules/openvpn/group</key>
-			<applyto>/ebox/modules/openvpn/group</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>nogroup</default>
-			<locale name="C">
-				<short>Group to which root will drop privileges after starting openvpn</short>
-			</locale>
 		</schema>
 
 		<schema>
