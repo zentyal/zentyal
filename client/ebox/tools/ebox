@@ -20,8 +20,8 @@ EBox::init();
 my $global = EBox::Global->getInstance(1);
 
 sub usage {
-	print "Usage: $0 start|stop|status|restart\n";
-	print "       $0 <module> start|stop|restart\n";
+	print "Usage: $0 start|stop|restart\n";
+	print "       $0 <module> start|stop|status|enabled|restart\n";
 	exit 1;
 }
 
@@ -165,7 +165,8 @@ sub main
     } 
     elsif ($action eq 'stop') {
       moduleStop($modName);
-    } elsif ($action eq 'status') {
+    } elsif ($action eq 'status' or $action eq 'enabled') {
+      # FIXME: Separate enabled and status actions
       status($modName);
     } else {
       usage();

@@ -21,7 +21,7 @@ use warnings;
 use base qw(EBox::GConfModule Apache::Singleton::Process);
 
 use EBox;
-use EBox::Validate qw( :all );
+use EBox::Exceptions::Command;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
@@ -31,12 +31,19 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::ProgressIndicator;
 use EBox::ProgressIndicator::Dummy;
+use EBox::Sudo;
+use EBox::Validate qw( :all );
+use File::Basename;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 
 use Digest::MD5;
 
-
+# Constants
+use constant {
+    PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
+    POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
+};
 
 
 #redefine inherited method to create own constructor
@@ -302,8 +309,9 @@ sub prepareSaveAllModules
 {
     my ($self) = @_;
 
-    my $totalTicks =  scalar @{$self->modifiedModules()};;
-    
+    my $totalTicks = scalar @{$self->modifiedModules()}
+      + $self->_nScripts(PRESAVE_SUBDIR, POSTSAVE_SUBDIR);
+
     return $self->_prepareActionScript('saveAllModules', $totalTicks);
 }
 
@@ -338,12 +346,13 @@ sub saveAllModules
 	my $log = EBox::logger();
 
 	my $failed = "";
-	
+
 	my $progress = $options{progress};
 	if (not $progress) {
 	    $progress = EBox::ProgressIndicator::Dummy->create();
 	}
 
+        $self->_runExecFromDir(PRESAVE_SUBDIR, $progress);
 
 	my @mods = @{$self->modifiedModules()};
 	my $msg = "Saving config and restarting services: @mods";
@@ -357,7 +366,8 @@ sub saveAllModules
 			next;
 		}
 
-		$progress->setMessage($name);
+		$progress->setMessage(__x("Saving {modName} module",
+                                          modName => $name));
 		$progress->notifyTick();
 
 		my $mod = $self->modInstance($name);
@@ -377,7 +387,8 @@ sub saveAllModules
 
 	# FIXME - tell the CGI to inform the user that apache is restarting
 	if ($apache) {
-		$progress->setMessage('apache');
+		$progress->setMessage(__x("Saving {modName} module",
+                                          modName => 'apache'));
 		$progress->notifyTick();
 
 		my $mod = $self->modInstance('apache');
@@ -388,10 +399,10 @@ sub saveAllModules
 		};
 
 	}
-	
 	if ($failed eq "") {
-	    $progress->setAsFinished();   
-		return;
+            $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress);
+	    $progress->setAsFinished();
+            return;
 	}
 
 	my $errorText = "The following modules failed while ".
@@ -752,5 +763,98 @@ sub init
 	EBox::init();
 }
 
+# Method: _runExecFromDir
+#
+#      Run executables files from a directory using
+#      <EBox::Sudo::command>. The execution will be done in lexical
+#      order
+#
+# Parameters:
+#
+#      dir - String the directory to search for executables
+#
+#      progress - <EBox::ProgressIndicator> to indicate the user how
+#      the actions are being performed
+#
+# Exceptions:
+#
+#      The ones launched by <EBox::Sudo::command>
+#
+sub _runExecFromDir
+{
+    my ($self, $dirPath, $progress) = @_;
+
+    unless ( -e $dirPath ) {
+        throw EBox::Exceptions::DataNotFound(data  => 'directory',
+                                             value => $dirPath);
+    }
+
+    opendir(my $dh, $dirPath);
+    my @execs = ();
+    while( my $file = readdir($dh) ) {
+        next unless ( -f "${dirPath}/$file" or -l "${dirPath}/$file");
+        next unless ( -x "${dirPath}/$file" );
+        push(@execs, "${dirPath}/$file");
+    }
+    closedir($dh);
+
+    # Sorting lexically the scripts to execute
+    @execs = sort(@execs);
+
+    if ( @execs > 0 ) {
+        EBox::info("Running executable files from $dirPath");
+        foreach my $exec (@execs) {
+            try {
+                EBox::info("Running $exec");
+                # Progress indicator stuff
+                $progress->setMessage(__x('running {scriptName} script',
+                                          scriptName => scalar(File::Basename::fileparse($exec))));
+                $progress->notifyTick();
+                my $output = EBox::Sudo::command($exec);
+                if ( @{$output} > 0) {
+                    EBox::info("Output from $exec: @{$output}");
+                }
+            } catch EBox::Exceptions::Command with {
+                my ($exc) = @_;
+                my $msg = "Command $exec failed its execution\n"
+                  . 'Output: ' . @{$exc->output()} . "\n"
+                  . 'Error: ' . @{$exc->error()} . "\n"
+                  . 'Return value: ' . $exc->exitValue();
+                EBox::error($msg);
+            } otherwise {
+                my ($exc) = @_;
+                EBox::error("Error executing $exec: $exc");
+            };
+        }
+    }
+
+}
+
+# Method: _nScripts
+#
+# Parameters:
+#
+#     array - the dir path to count executable files
+# 
+# Returns:
+#
+#     Integer - number of executable scripts in pre/post dirs
+#
+sub _nScripts
+{
+    my ($self, @dirPaths) = @_;
+
+    my $nScripts = 0;
+    foreach my $dirPath (@dirPaths) {
+        opendir(my $dh, $dirPath);
+        while( my $file = readdir($dh) ) {
+            next unless ( -f "${dirPath}/$file" or -l "${dirPath}/$file");
+            next unless ( -x "${dirPath}/$file" );
+            $nScripts++;
+        }
+        closedir($dh);
+    }
+    return $nScripts;
+}
 
 1;

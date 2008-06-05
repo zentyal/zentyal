@@ -72,18 +72,17 @@ sub saveAllModulesAction
     my $progressIndicator = $global->prepareSaveAllModules();
 
     $self->showProgress(
-			progressIndicator => $progressIndicator,
-
-		      title    => __('Saving changes'),
-		      text     => __('Saving changes in modules'),
-		      currentItemCaption  =>  __("Current module"),
-		      itemsLeftMessage  => __('modules saved'),
-		      endNote  =>  __('Changes saved'),
-                      errorNote => __x('Some modules reported error when saving changes '
-                                      . '. More information on the logs in {dir}',
-                                      dir => EBox::Config->log()),
-		      reloadInterval  => 2,
-		     );
+        progressIndicator  => $progressIndicator,
+        title              => __('Saving changes'),
+        text               => __('Saving changes in modules'),
+        currentItemCaption => __("Current operation"),
+        itemsLeftMessage   => __('operations performed'),
+        endNote            => __('Changes saved'),
+        errorNote          => __x('Some modules reported error when saving changes '
+                                  . '. More information on the logs in {dir}',
+                                  dir => EBox::Config->log()),
+        reloadInterval  => 2,
+       );
 }
 
 
