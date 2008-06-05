@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-webserver
 Architecture: all
-Depends: ebox (>  0.11.100), ebox-services (> 0.11.100), ebox-firewall, apache2, libapache2-mod-ldap-userdir, ${misc:Depends}
+Depends: ebox (>>  0.11.100), ebox-services (>> 0.11.100), ebox-firewall, apache2, libapache2-mod-ldap-userdir, ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
 Description: eBox- Web Server
  eBox is a framework for the development and deployment of security-wise
