@@ -279,7 +279,7 @@
 			<applyto>/ebox/modules/mailfilter/spamassassin/ham_account_active</applyto>
 			<owner>ebox</owner>
 			<type>bool</type>
-			<default>true</default>
+			<default>false</default>
 			<locale name="C"/>
 		</schema>
 
