@@ -1,6 +1,7 @@
 1. Use the installer Cd to install eBox in a virtual machine
 2. Enable all modules
-3. Install remastersys
+3. Install remastersys 
+   - can be found at the repository: deb http://www.remastersys.klikit-linux.com/repository remastersys/
 4. Edit /etc/remastersys.conf LIVECDLABEL='eBox Live CD\ and LIVEUSER='eboxlive'
 5. apt-get install startx xfonts-base xserver-xorg
 6. apt-get install firefox icewm
