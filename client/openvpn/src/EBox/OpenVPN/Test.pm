@@ -378,6 +378,12 @@ sub _expectedDeletedDaemonData
   my ($daemon) = @_;
   my %deletedData;
   $deletedData{class} = ref $daemon;
+
+  my $type = ref $daemon;
+  $type =~ s/^.*:://;
+  $type = lc $type;
+  $deletedData{type} = $type;
+
   $deletedData{filesToDelete} = [$daemon->daemonFiles];
 
   return \%deletedData;
@@ -536,6 +542,7 @@ sub notifyDaemonDeletionTest : Test(3)
 
   my $name    = 'macaco';
   my $class   ='EBox::OpenVPN::Daemon';
+  my $type    = 'daemon';
   my @files   = (
 		 '/etc/openvpn/macaco.conf',
 		 '/etc/openvpn/macaco.conf.d',
@@ -544,7 +551,8 @@ sub notifyDaemonDeletionTest : Test(3)
   lives_ok {
     $openvpn->notifyDaemonDeletion(
 				   $name,
-				   daemonClass => $class,
+				   class => $class,
+				   type        => $type,
 				   files => \@files
 
 				  );
@@ -557,6 +565,7 @@ sub notifyDaemonDeletionTest : Test(3)
   my $expectedDeletedDaemons = {
 				$name => {
 					  class => $class,
+					  type => $type,
 					  filesToDelete => \@files,
 					 }
 			       };
