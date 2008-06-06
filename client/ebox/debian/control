@@ -9,7 +9,7 @@ Standards-Version: 3.7.3
 
 Package: ebox
 Architecture: all
-Depends: libebox (>= 0.11.99), apache2, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-mmagic-perl, libxml-rss-perl
+Depends: libebox (>= 0.11.99), apache2, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-copy-recursive-perl, libfile-mmagic-perl, libxml-rss-perl
 Replaces: libebox (<< 0.11.99)
 Description: the eBox platform - Base framework
  eBox is a framework for the development and deployment of security-wise
