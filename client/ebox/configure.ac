@@ -58,11 +58,11 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Apache::Singleton, ,
 	  AC_MSG_ERROR(Missing Apache::Singleton))
 	  
-	AC_PROG_PERL_MODULES(Apache::AuthCookie, ,
-	  AC_MSG_ERROR(Missing Apache::AuthCookie))
-
-	AC_PROG_PERL_MODULES(Apache::Reload, ,
-	  AC_MSG_ERROR(Missing Apache::Reload))
+#	AC_PROG_PERL_MODULES(Apache::AuthCookie, ,
+#	  AC_MSG_ERROR(Missing Apache::AuthCookie))
+#
+#	AC_PROG_PERL_MODULES(Apache::Reload, ,
+#	  AC_MSG_ERROR(Missing Apache::Reload))
 
 	AC_PROG_PERL_MODULES(Test::Class, ,
 	  AC_MSG_WARN(Missing test dependency Test::Class))
@@ -143,6 +143,7 @@ src/EBox/Model/DataForm/t/Makefile
 src/EBox/Model/ModelProvider/Makefile
 src/EBox/Model/ProviderBase/Makefile
 src/EBox/Types/Makefile
+src/EBox/Types/t/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/ProgressIndicator/Makefile
 src/EBox/Global/t/Makefile
