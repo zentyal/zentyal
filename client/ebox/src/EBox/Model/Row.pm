@@ -45,6 +45,7 @@ use strict;
 use warnings;
 
 # eBox uses
+use EBox::Model::ModelManager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 
@@ -320,7 +321,52 @@ sub size
     return scalar(@{$self->{'values'}});
 }
 
+# Method: subModel
+#
+#   Return a submodel contained in hasMany type
+#
+# Parameters:
+#
+#   fieldName - string identifying a hasMany type
+#
+# Returns:
+#
+#   An instance of a class implementing <EBox::Model::DataTable>
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::DataNotFound> if the element does not exist
+#   <EBox::Exceptions::MissingArgument>
+#   <EBox::Exceptions::Internal>
+#
+sub subModel
+{
+    my ($self, $fieldName) = @_;
 
+    unless (defined($fieldName)) {
+        throw EBox::Exceptions::MissingArgument($fieldName);
+    }
+    unless (exists $self->{plainValueHash}->{$fieldName}) {
+        throw EBox::Exceptions::DataNotFound( data => 'field',
+                                             value => $fieldName);
+    }
+    my $element = $self->elementByName($fieldName);
+    unless ($element->isa('EBox::Types::HasMany')) {
+        throw EBox::Exceptions::Internal("$fieldName is not a HasMany type");
+    }
+
+    my $model;
+    try {
+        my $mgr = EBox::Model::ModelManager->instance();
+        $model =  $mgr->model($element->foreignModel());
+        my $olddir = $model->directory();
+        $model->setDirectory($self->dir());
+    } catch EBox::Exceptions::DataNotFound with {
+        EBox::warn("Couldn't fetch foreing model: " . $element->foreingModel());
+    };
+
+    return $model;
+}
 
 
 1;
