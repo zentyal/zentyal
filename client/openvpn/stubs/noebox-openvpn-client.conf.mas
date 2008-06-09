@@ -114,9 +114,9 @@ persist-tun
 # a separate .crt/.key file pair
 # for each client.  A single ca
 # file can be used for all clients.
-ca   <% $ca %>
-cert <% $cert %>
-key  <% $key %>
+ca   <% "'$ca'" %>
+cert <% "'$cert'" %>
+key  <% "'$key'" %>
 
 # Verify server certificate by common name
 % if (defined $tlsRemote) {

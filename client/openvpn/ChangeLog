@@ -1,3 +1,5 @@
+0.11.102
+	+ Bugfix. Quote certifacte file names to support spaces
 0.11.101
 	+ Fix typo in CreateClient
 	+ Do not remove quagga and openVPN rc links
