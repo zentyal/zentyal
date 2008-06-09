@@ -43,6 +43,7 @@ use File::Glob qw(:glob);
 use File::Basename;
 
 use constant RRD_TTL => 601;
+use constant RRD_TIME_STORED => 600; # store 10 minutes of data
 
 use constant SRC_COLOUR      => 'FF0000';
 use constant SERVICE_COLOUR =>  '00FF00';
@@ -444,7 +445,7 @@ sub _createRRDIfNotExists
 	       $rrd,
 	       '-s 1',
 	       'DS:bps:GAUGE:60:0:U',
-	       'RRA:AVERAGE:0.99:2:600', # store 10 minutes of data
+	       'RRA:AVERAGE:0.99:2:' . RRD_TIME_STORED, # store 10 minutes of data
 	      );
 
 
