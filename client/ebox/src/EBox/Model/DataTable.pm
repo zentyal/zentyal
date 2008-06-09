@@ -18,6 +18,7 @@ package EBox::Model::DataTable;
 use EBox;
 use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
+use EBox::Model::Row;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -42,9 +43,7 @@ use warnings;
 # 	
 #	Factor findValue, find, findAll and findAllValue
 #
-#	Use callback for selectOptions
-#	
-# 	Fix issue with menu and generic controllers
+#  Use EBox::Model::Row all over the place
 #
 #	Fix issue with values and printableValues fetched
 #	from foreign tables
@@ -852,18 +851,19 @@ sub row
 	
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
-	my $row = {};
+	my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
 	
 	unless (defined($id)) {
 		return undef;
 	}
+	$row->setId($id);
 
 	unless ($gconfmod->dir_exists("$dir/$id")) {
 		return undef;
 	}
 
 
-	my @values;
+
 	$self->{'cacheOptions'} = {};
 	my $gconfData = $gconfmod->hash_from_dir("$dir/$id");
 	$row->{'readOnly'} = $gconfData->{'readOnly'};
@@ -872,35 +872,10 @@ sub row
 		$data->setRow($row);
 		$data->setModel($self);
 		$data->restoreFromHash($gconfData);
-
-		# TODO Rework the union select options thing
-		#      this code just sucks. Modify Types to do something
-		#      nicer 
-		if ($data->type() eq 'union') {
-                    # FIXME: Check if we can avoid this
-			$row->{'plainValueHash'}->{$data->selectedType} =
-				$data->value();
-			$row->{'printableValueHash'}->{$data->selectedType} =
-				$data->printableValue();
-		}
-
-		if ($data->type eq 'hasMany') {
-			my $fieldName = $data->fieldName();
-			$data->setDirectory("$dir/$id/$fieldName");
-		}
-		
-		push (@values, $data);
-		$row->{'valueHash'}->{$type->fieldName()} = $data;
-		$row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
-		$row->{'plainValueHash'}->{'id'} = $id;
-		$row->{'printableValueHash'}->{$type->fieldName()} =
-							$data->printableValue();
-		$row->{'printableValueHash'}->{'id'} = $id;
+		$row->addElement($data);
 	}
-	
-	$row->{'id'} = $id;
-	$row->{'order'} = $self->_rowOrder($id);
-	$row->{'values'} = \@values;
+	$row->setId($id);
+	$row->setOrder($self->_rowOrder($id));	
 
 	return $row;
 }

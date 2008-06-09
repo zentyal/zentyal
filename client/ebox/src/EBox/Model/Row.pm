@@ -59,6 +59,13 @@ use Error qw(:try);
 #
 #     Create a row
 #
+# Parameters:
+#   
+#   (NAMED)
+#   
+#   dir - row's directory
+#   gconfmodule - gconfmodule
+#
 # Overrides:
 #
 #     <EBox::Model::DataTable::new>
@@ -126,7 +133,7 @@ sub setId
         throw EBox::Exceptions::MissingArgument('id');
     }
  
-    return $self->{id};
+  $self->{id} = $id;
 }
 
 # Method: dir
@@ -175,10 +182,10 @@ sub setOrder
     my ($self, $order) = @_;
 
     unless (defined($order)) {
-        throw EBox::Exceptions::MissingArgument('order');
+        return;
     }
  
-    return $self->{order};
+    $self->{order} = $order;
 }
 
 # Method: GConfModule
@@ -212,8 +219,8 @@ sub addElement
 {
     my ($self, $element) = @_;
 
-    unless (defined($element) and $element->isa('EBox::Type::Abstract')) {
-        throw EBox::Exception::Internal('element is not a vaid type');
+    unless (defined($element) and $element->isa('EBox::Types::Abstract')) {
+        throw EBox::Exceptions::Internal('element is not a valid type');
     }
 
     my $dir = $self->dir();
@@ -255,14 +262,14 @@ sub addElement
 #
 # Exceptions:
 #
-#   <EBox::Exception::DataNotFound> if the element does not exist
+#   <EBox::Exceptions::DataNotFound> if the element does not exist
 #
 sub elementByName 
 {
     my ($self, $element) = @_;
 
     unless (exists $self->{valueHash}->{$element}) {
-        throw EBox::Exception::DataNotFound( data => 'element',
+        throw EBox::Exceptions::DataNotFound( data => 'element',
                                              value => $element);
     }
 
@@ -279,14 +286,14 @@ sub elementByName
 #
 # Exceptions:
 #
-#   <EBox::Exception::DataNotFound> if the element does not exist
+#   <EBox::Exceptions::DataNotFound> if the element does not exist
 #
 sub elementByIndex
 {
     my ($self, $index) = @_;
 
     unless (($index + 1) > $self->size() ) {
-        throw EBox::Exception::DataNotFound( data => 'index',
+        throw EBox::Exceptions::DataNotFound( data => 'index',
                                              value => $index);
     }
 
