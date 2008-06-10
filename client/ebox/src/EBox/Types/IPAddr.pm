@@ -28,7 +28,7 @@ use base 'EBox::Types::Abstract';
 sub new
 {
         my $class = shift;
-    	my %opts = @_;
+        my %opts = @_;
 
         unless (exists $opts{'HTMLSetter'}) {
             $opts{'HTMLSetter'} ='/ajax/setter/ipaddrSetter.mas';
@@ -36,7 +36,7 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
-	
+        
         $opts{'type'} = 'ipaddr';
         my $self = $class->SUPER::new(%opts);
 
@@ -50,9 +50,9 @@ sub paramExist
 {
         my ($self, $params) = @_;
 
-	my $ip =  $self->fieldName() . '_ip';
- 	my $mask =  $self->fieldName() . '_mask';
-	
+        my $ip =  $self->fieldName() . '_ip';
+        my $mask =  $self->fieldName() . '_mask';
+        
         return (defined($params->{$ip}) and defined($params->{$mask}));
 
 }
@@ -60,71 +60,71 @@ sub paramExist
 
 sub printableValue
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	if (defined($self->{'ip'}) and defined($self->{'mask'})) {
-		return "$self->{'ip'}/$self->{'mask'}";
-	} else   {
-		return "";
-	}
-	
+        if (defined($self->{'ip'}) and defined($self->{'mask'})) {
+                return "$self->{'ip'}/$self->{'mask'}";
+        } else   {
+                return "";
+        }
+        
 }
 
 sub size
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	return $self->{'size'};
+        return $self->{'size'};
 }
 
 sub compareToHash
 {
-	my ($self, $hash) = @_;
+        my ($self, $hash) = @_;
 
-	my ($oldIp, $oldMask) = $self->_ipNetmask();
-	my $ip = $self->fieldName() . '_ip';
- 	my $mask = $self->fieldName() . '_mask';
-	
-	if ($oldIp ne $hash->{$ip}) {
-		return 0;
-	}
+        my ($oldIp, $oldMask) = $self->_ipNetmask();
+        my $ip = $self->fieldName() . '_ip';
+        my $mask = $self->fieldName() . '_mask';
+        
+        if ($oldIp ne $hash->{$ip}) {
+                return 0;
+        }
 
-	if ($oldMask ne $hash->{$mask}) {
-		return 0;
-	}
+        if ($oldMask ne $hash->{$mask}) {
+                return 0;
+        }
 
-	return 1;
+        return 1;
 }
 
 sub isEqualTo
 {
-	my ($self, $newObject) = @_;
+        my ($self, $newObject) = @_;
 
-	return ($self->printableValue() eq $newObject->printableValue());
+        return ($self->printableValue() eq $newObject->printableValue());
 }
 
 sub fields
 {
-	my ($self) = @_;
-	
-	my $ip = $self->fieldName() . '_ip';
- 	my $mask = $self->fieldName() . '_mask';
-	
-	return ($ip, $mask);
+        my ($self) = @_;
+        
+        my $ip = $self->fieldName() . '_ip';
+        my $mask = $self->fieldName() . '_mask';
+        
+        return ($ip, $mask);
 }
 
 sub ip
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	return $self->{'ip'};
+        return $self->{'ip'};
 }
 
 sub mask 
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	return $self->{'mask'};
+        return $self->{'mask'};
 }
 
 # Method: cmp
@@ -146,7 +146,7 @@ sub cmp
 
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
-    } elsif ( $ipB->bincomp('eq', $ipB)) {
+    } elsif ( $ipA->bincomp('eq', $ipB)) {
         return 0;
     } else {
         return 1;
@@ -164,13 +164,13 @@ sub cmp
 #
 sub _setMemValue
 {
-	my ($self, $params) = @_;
+        my ($self, $params) = @_;
 
-	my $ip =  $self->fieldName() . '_ip';
- 	my $mask =  $self->fieldName() . '_mask';
+        my $ip =  $self->fieldName() . '_ip';
+        my $mask =  $self->fieldName() . '_mask';
 
-	$self->{'ip'} = $params->{$ip};
-	$self->{'mask'} = $params->{$mask};
+        $self->{'ip'} = $params->{$ip};
+        $self->{'mask'} = $params->{$mask};
 
 }
 
@@ -184,16 +184,16 @@ sub _storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
 
- 	my $ipKey = "$key/" . $self->fieldName() . '_ip';
- 	my $maskKey = "$key/" . $self->fieldName() . '_mask';
+        my $ipKey = "$key/" . $self->fieldName() . '_ip';
+        my $maskKey = "$key/" . $self->fieldName() . '_mask';
 
-	if ($self->{'ip'}) {
-        	$gconfmod->set_string($ipKey, $self->{'ip'});
-        	$gconfmod->set_string($maskKey, $self->{'mask'});
-	} else {
-		$gconfmod->unset($ipKey);
-		$gconfmod->unset($maskKey);
-	}
+        if ($self->{'ip'}) {
+                $gconfmod->set_string($ipKey, $self->{'ip'});
+                $gconfmod->set_string($maskKey, $self->{'mask'});
+        } else {
+                $gconfmod->unset($ipKey);
+                $gconfmod->unset($maskKey);
+        }
 }
 
 # Method: _restoreFromHash
@@ -204,13 +204,13 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-	my ($self, $hash) = @_;
+        my ($self, $hash) = @_;
 
- 	my $ip = $self->fieldName() . '_ip';
- 	my $mask = $self->fieldName() . '_mask';
+        my $ip = $self->fieldName() . '_ip';
+        my $mask = $self->fieldName() . '_mask';
 
-	$self->{'ip'} = $hash->{$ip};
-	$self->{'mask'} = $hash->{$mask};
+        $self->{'ip'} = $hash->{$ip};
+        $self->{'mask'} = $hash->{$mask};
 }
 
 
@@ -294,9 +294,9 @@ sub _setValue # (value)
 # Helper funcionts
 sub _ipNetmask
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	return ($self->{'ip'}, $self->{'mask'});
+        return ($self->{'ip'}, $self->{'mask'});
 
 }
 
