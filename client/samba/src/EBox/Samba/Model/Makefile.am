@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Samba/Model
 
-nobase_perl_DATA = SambaShares.pm DeletedSambaShares.pm
+nobase_perl_DATA = SambaShares.pm DeletedSambaShares.pm SambaSharePermissions.pm
 
 DISTCLEANFILES = 
 
