@@ -20,7 +20,8 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver
             EBox::Report::DiskUsageProvider 
-            EBox::ServiceModule::ServiceInterface);
+            EBox::ServiceModule::ServiceInterface
+            EBox::Model::ModelProvider);
 
 
 use EBox::Sudo qw( :all );
@@ -42,6 +43,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Model::ModelManager;
 
 
 use File::Slurp qw(read_file write_file);
@@ -197,6 +199,123 @@ sub enableModDepends
     return ['network', 'users'];
 }
 
+
+# Method: models
+#
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+
+    my ($self) = @_;
+    
+    return  [   
+               'EBox::Samba::Model::SambaShares',
+               'EBox::Samba::Model::SambaSharePermissions',
+               'EBox::Samba::Model::DeletedSambaShares',
+ 
+           ];
+
+}
+
+#
+# Method: shares
+#
+#   It returns the custom shares added by the user.
+#
+# Returns:
+#
+#   Array ref containing hash ref with:
+#
+#   share   - share's name
+#   path    - share's path
+#   comment - share's comment
+#   readOnly - string containing users and groups with read-only permissions
+#   readWrite - string containing users and groups with read and write 
+#               permissions
+#   administrator - string containing users and groups with admin priviliges
+#                   on the share
+sub shares
+{
+    my ($self) = @_;
+    my $shares = $self->model('SambaShares');
+    my @shares;
+
+    for my $row (@{$shares->rows()}) {
+        my @readOnly;
+        my @readWrite;
+        my @administrators;
+        my $shareConf;
+
+        $shareConf->{'share'} = $row->elementByName('share')->value();
+        $shareConf->{'comment'} = $row->elementByName('comment')->value(); 
+
+        my $path = $row->elementByName('path');
+
+        if ($path->selectedType() eq 'ebox') {
+            $shareConf->{'path'} = '/home/samba/shares/';
+        }
+        $shareConf->{'path'} .= $path->value();
+
+        for my $subRow (@{$row->subModel('access')->rows()}) {
+            my $userType = $subRow->elementByName('user_group');
+            my $preCar = '';
+            if ($userType->selectedType() eq 'group') {
+                $preCar = '@';
+            }
+            my $user =  $preCar . '"' . $userType->printableValue() . '"';
+
+            my $permissions = $subRow->elementByName('permissions');
+
+            if ($permissions->value() eq 'readOnly') {
+                push (@readOnly, $user);
+            } elsif ($permissions->value() eq 'readWrite') {
+                push (@readWrite, $user);
+            } elsif ($permissions->value() eq 'administrator') {
+                push (@administrators, $user)
+            }
+        }
+        
+        $shareConf->{'readOnly'} = join (', ', @readOnly);
+        $shareConf->{'readWrite'} = join (', ', @readWrite);
+        $shareConf->{'administrators'} = join (', ', @administrators);
+        push (@shares, $shareConf);
+    }
+
+    return \@shares;
+}
+
+
+sub _exposedMethods
+{
+    return {
+            'getPathByShareName' => {
+            'action' => 'get',
+                'path' => [ 'SambaShares'],
+                'indexes' => [ 'share'],
+                'selector' => [ 'path']
+            },
+            'getUserByIndex' => {
+                'action' => 'get',
+                'path' => [ 'SambaShares',
+                'access'
+                    ],
+                'indexes' => ['share', 'id'],
+                'selector' => ['user_group']
+            },
+            'getPermissionsByIndex' => {	
+                'action' => 'get',
+                'path' => [ 'SambaShares',
+                'access'
+                    ],
+                'indexes' => ['share', 'id'],
+                'selector' => ['permissions']
+            }
+    };
+}
+
 # return interface upon samba should listen as a comma-separated string
 # XXX this is a quick fix for this version. See #529
 sub _interfacesToListenOn
@@ -251,6 +370,7 @@ sub _setSambaConf
     push(@array, 'pdc' => $self->pdc());
     push(@array, 'roaming' => $self->roamingProfiles());
     push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
+    push(@array, 'shares' => $self->shares());
 
     $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
@@ -282,6 +402,11 @@ sub _setSambaConf
     my $sid = $self->_sidFromLdap();
     defined $sid or $sid = $smbimpl->alwaysGetSID();
     $self->setNetSID($sid);
+
+    # Remove shares
+    $self->model('DeletedSambaShares')->removeDirs();
+    # Create samba shares
+    $self->model('SambaShares')->createDirs();
 
 }
 
@@ -405,8 +530,17 @@ sub statusSummary
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'Samba/Index',
-                'text' => __('File sharing')));
+
+    my $folder = new EBox::Menu::Folder('name' => 'File sharing',
+            'text' => __('File sharing'));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Samba/Index',
+                'text' => __('General settings')));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Samba/View/SambaShares',
+                'text' => __('Shares')));
+
+    $root->add($folder);
 }
 
 

@@ -59,6 +59,7 @@ conf/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Samba/Makefile
+src/EBox/Samba/Model/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile

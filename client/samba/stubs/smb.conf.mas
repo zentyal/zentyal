@@ -11,6 +11,7 @@
 	$active_file
 	$backup_path
 	$roaming
+	@shares
 </%args>
 <%init>
 use EBox::Gettext;
@@ -123,6 +124,19 @@ use EBox::Gettext;
 # guest ok = yes
 % 	}
 % }
+
+% foreach my $share (@shares) {
+[<% $share->{share} %>]
+ comment = <% $share->{comment} %>
+ path = <% $share->{path} %>
+ read list = <% $share->{readOnly} %>
+ write list = <% $share->{readWrite} %>
+ admin list = <% $share->{administrators} %>
+ read only = No
+ browseable = Yes
+
+% }
+
 
 [ebox-internal-backups]
  path = <% $backup_path %> 
