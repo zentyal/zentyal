@@ -82,10 +82,10 @@ sub printableValue
 
     if ( defined($self->{protocol}) ) {
       if ( $self->_needPort($self->{protocol}) ) {
-	return $self->{port} . '/' . $self->_printableValue($self->{protocol});
+        return $self->{port} . '/' . $self->_printableValue($self->{protocol});
       }
       else {
-	return $self->_printableValue($self->{protocol});
+        return $self->_printableValue($self->{protocol});
       }
     }
     else {
@@ -119,7 +119,7 @@ sub compareToHash
     my $newPort = $self->fieldName() . '_port';
 
     if ( not defined ( $oldProtocol ) or
-	 not defined ( $hash->{$newProtocol} )) {
+         not defined ( $hash->{$newProtocol} )) {
       return 0;
     }
 
@@ -141,9 +141,43 @@ sub compareToHash
 #
 sub isEqualTo
 {
-	my ($self, $newObject) = @_;
+        my ($self, $newObject) = @_;
 
-	return ($self->printableValue() eq $newObject->printableValue());
+        return ($self->printableValue() eq $newObject->printableValue());
+}
+
+# Method: cmp
+#
+#    Overrides <EBox::Types::Abstract::cmp> method
+#
+sub cmp
+{
+    my ($self, $compared) = @_;
+
+    $compared->isa(__PACKAGE__) or 
+        return undef;
+
+    my $portA = $self->port();
+    my $portB = $compared->port();
+
+    my $res = $portA <=> $portB;
+    if ( $res != 0 ) {
+        return $res;
+    }
+
+    my $protoA = $self->protocol();
+    my $protoB = $self->protocol();
+
+    if ($protoA gt $protoB) {
+        return 1;
+    }
+    elsif ($protoA lt $protoB) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+
 }
 
 # Method: fields
@@ -182,32 +216,32 @@ sub protocols
     my ($self) = @_;
 
     my @protocols = (
-		     {
-		      value => 'all',
-		      printableValue => __('Any'),
-		      needPort => 0,
-		     },
-		     {
-		      value => 'tcp',
-		      printableValue => 'TCP',
-		      needPort => 1,
-		     },
-		     {
-		      value => 'udp',
-		      printableValue => 'UDP',
-		      needPort => 1,
-		     },
-		     {
-		      value => 'icmp',
-		      printableValue => 'ICMP',
-		      needPort => 0,
-		     },
-		     {
-		      value => 'gre',
-		      printableValue => 'GRE',
-		      needPort => 0,
-		     },
-		    );
+                     {
+                      value => 'all',
+                      printableValue => __('Any'),
+                      needPort => 0,
+                     },
+                     {
+                      value => 'tcp',
+                      printableValue => 'TCP',
+                      needPort => 1,
+                     },
+                     {
+                      value => 'udp',
+                      printableValue => 'UDP',
+                      needPort => 1,
+                     },
+                     {
+                      value => 'icmp',
+                      printableValue => 'ICMP',
+                      needPort => 0,
+                     },
+                     {
+                      value => 'gre',
+                      printableValue => 'GRE',
+                      needPort => 0,
+                     },
+                    );
 
     return \@protocols;
  }
@@ -230,7 +264,7 @@ sub protocolsJS
 
     foreach my $proto ( @{$self->protocols()} ) {
       if ( $proto->{needPort} ) {
-	$str .= q{"} . $proto->{value} . q{", };
+        $str .= q{"} . $proto->{value} . q{", };
       }
     }
 
