@@ -134,7 +134,7 @@ sub setId
         throw EBox::Exceptions::MissingArgument('id');
     }
  
-  $self->{id} = $id;
+    $self->{id} = $id;
 }
 
 # Method: readOnly
@@ -166,11 +166,8 @@ sub setReadOnly
 {
     my ($self, $readOnly) = @_;
 
-    unless (defined($readOnly)) {
-        throw EBox::Exceptions::MissingArgument('readOnly');
-    }
  
-  $self->{readOnly} = $readOnly;
+    $self->{readOnly} = $readOnly;
 }
 
 # Method: dir
