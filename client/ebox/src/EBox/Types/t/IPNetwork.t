@@ -18,52 +18,52 @@ use strict;
 use warnings;
 
 use Test::More tests => 4;
-use Test::Exception;
 
 use EBox::TestStubs;
 
 
 use lib '../../..';
 
+use EBox::Types::Test;
 use EBox::Types::IPNetwork;
 
 EBox::TestStubs::activateTestStubs();
 
 my %validNetworks = (
-		     '192.168.45.0' => 24,
-		     '40.24.3.128' => 25,
-		     
-		    );
+                     '192.168.45.0' => 24,
+                     '40.24.3.128' => 25,
+                     
+                    );
 
 my %invalidNetworks = (
-		       '192.168.45.1' => 24,
-	    	     '40.24.3.129' => 25,
-		      );
+                       '192.168.45.1' => 24,
+                     '40.24.3.129' => 25,
+                      );
+
+
 
 
 while (my ($ip, $mask) = each %validNetworks) {
-    lives_ok {
-	_create(
-				    fieldName => 'test',
-				    ip   => $ip,
-				    mask => $mask,
-				   );
+    EBox::Types::Test::createOk(
+                                'EBox::Types::IPNetwork',
+                                fieldName => 'test',
+                                ip   => $ip,
+                                mask => $mask,
+                                "Checking instance creation with valid parameters ip => $ip, mask => $mask"
+                               );
 
-    } "Checking instance creation with valid parameters ip => $ip, mask => $mask";
 }
 
+
 while (my ($ip, $mask) = each %invalidNetworks) {
-    dies_ok {
-	_create(
-		fieldName => 'test',
-		printableName => 'test',
-		ip   => $ip,
-		mask => $mask,
-	       );
-
-
-	
-    } "Checking instance creation raises error when called with invalid parameters ip => $ip, mask => $mask";
+    EBox::Types::Test::createFail(
+                                  'EBox::Types::IPNetwork',
+                                  fieldName => 'test',
+                                  printableName => 'test',
+                                  ip   => $ip,
+                                  mask => $mask,
+"Checking instance creation raises error when called with invalid parameters ip => $ip, mask => $mask"
+                                 );
 }
 
 
@@ -72,16 +72,16 @@ sub _create
     my %params = @_;
     
     my $ipn = EBox::Types::IPNetwork->new(
-					  %params
-					 );
+                                          %params
+                                         );
     
     my $ipParamName   = $ipn->fieldName() . '_ip';
     my $maskParamName = $ipn->fieldName() . '_mask';
     
     $ipn->setMemValue({
-		       $ipParamName    => $params{ip},
-		       $maskParamName => $params{mask},
-		      });
+                       $ipParamName    => $params{ip},
+                       $maskParamName => $params{mask},
+                      });
 }
 
 

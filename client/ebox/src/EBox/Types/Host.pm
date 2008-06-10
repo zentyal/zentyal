@@ -13,12 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Types::HostIP
+# Class: EBox::Types::Host
 #
-#      A specialised text type to represent an host IP address, that
-#      is, those IP addresses whose netmask is equal to 32
+#      A specialised text type to represent either a host IP address or a host name.
 #
-package EBox::Types::HostIP;
+package EBox::Types::Host;
 
 use strict;
 use warnings;
@@ -35,17 +34,19 @@ use Net::IP;
 
 # Constructor: new
 #
-#      The constructor for the <EBox::Types::HostIP>
+#      The constructor for the <EBox::Types::Host>
 #
 # Returns:
 #
-#      the recently created <EBox::Types::HostIP> object
+#      the recently created <EBox::Types::Host> object
 #
 sub new
 {
         my $class = shift;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'hostip';
+        my $self = $class->SUPER::new(
+                                      @_,
+                                     );
+        $self->{'type'} = 'host';
         bless($self, $class);
         return $self;
 }
@@ -64,17 +65,67 @@ sub cmp
         return undef;
     }
 
+    my $aIsIp = $self->isIPAddress();
+    my $bIsIp = $compareType->isIPAddress();;
+
+    if ($aIsIp and $bIsIp) {
+        $self->_cmpIP($compareType);
+    }
+    elsif ((not $aIsIp) and (not $bIsIp)) {
+        $self->_cmpHostname($compareType);
+    }
+    else {
+        # we cannot compare host name with an a host address
+        return undef;
+    }
+
+}
+
+
+sub _cmpIP
+{
+    my ($self, $compareType) = @_;
+
     my $ipA = new Net::IP($self->value());
     my $ipB = new Net::IP($compareType->value());
 
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
-    } elsif ( $ipB->bincomp('eq', $ipB)) {
-        return 0;
-    } else {
+    } elsif ( $ipA->bincomp('gt', $ipB)) {
         return 1;
+    } else {
+        return 0;
     }
 
+}
+
+sub _cmpHostname
+{
+    my ($self, $compareType) = @_;
+
+    my $aValue = $self->value();
+    my $bValue = $compareType->value();
+
+    if ($aValue gt $bValue) {
+        return 1;
+    }
+    elsif ($aValue lt $bValue) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
+
+# Method: isIPAddress
+#
+# Returns:
+#    true - if the value contained is an IP address
+sub isIPAddress
+{
+    my ($self) = @_;
+    my $value = $self->value();
+    return $value =~ m/^[\d.]+$/;
 }
 
 # Group: Protected methods
@@ -93,12 +144,12 @@ sub cmp
 #
 # Returns:
 #
-#     true - if the parameter is a correct host IP address
+#     true - if the parameter is either a correct host IP address or name
 #
 # Exceptions:
 #
 #     <EBox::Exceptions::InvalidData> - throw if it's not a correct
-#                                       host IP address
+#                                       host IP address or name
 #
 sub _paramIsValid
 {
@@ -107,7 +158,7 @@ sub _paramIsValid
     my $value = $params->{$self->fieldName()};
 
     if (defined ( $value )) {
-        EBox::Validate::checkIP($value, $self->printableName());
+        EBox::Validate::checkHost($value, $self->printableName());
     }
 
     return 1;

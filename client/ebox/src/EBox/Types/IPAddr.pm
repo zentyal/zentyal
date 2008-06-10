@@ -146,10 +146,10 @@ sub cmp
 
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
-    } elsif ( $ipA->bincomp('eq', $ipB)) {
-        return 0;
-    } else {
+    } elsif ( $ipA->bincomp('gt', $ipB)) {
         return 1;
+    } else {
+        return 0;
     }
 
 }

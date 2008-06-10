@@ -1,4 +1,4 @@
-test_scripts = IPNetwork.t
+test_scripts = IPNetwork.t Host.t
 
 EXTRA_DIST = $(test_scripts)
 
