@@ -43,7 +43,7 @@ sub checkIsPrivateDir
   system "rm -rf $dir" ;
   die $! if ($? != 0);
 
-  mkdir($dir, 0777);		# public access
+  mkdir($dir, 0777);            # public access
   ok !EBox::Validate::isPrivateDir($dir), 'Testing isPrivateDir in a owned but public accesible dir';
   dies_ok  { EBox::Validate::isPrivateDir($dir, 1) } 'The same  with exceptions';
 
@@ -64,62 +64,62 @@ sub _checkPathSubsTest
     my ($checkPathSub_r, $relativeIsValid) = @_;
 
     my @straightCases = qw(
-			   /
-			   /home/javier/.emacs
-			   /home/javier/.emacs.d
-			   /home/javier/.emacs.d/auto-save-list
-			   /home/javier/.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
-			   /home/javier/src/ebox-platform/trunk/extra/esofttool/debian/rules
-			   /home/javier/src/ebox-platform/trunk/doc/.svn/format
-			   /var/log/ntpstats/peerstats.20060524
-			   /usr/share/doc/libtext-wrapi18n-perl/changelog.gz
-			   /usr/share/man/man1/lexgrog.1.gz
-			   /usr/share/man/man3/Apache::Resource.3pm.gz
-			   /usr/share/locale/ro/LC_MESSAGES/libgnomecanvas-2.0.mo
-			 );
+                           /
+                           /home/javier/.emacs
+                           /home/javier/.emacs.d
+                           /home/javier/.emacs.d/auto-save-list
+                           /home/javier/.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
+                           /home/javier/src/ebox-platform/trunk/extra/esofttool/debian/rules
+                           /home/javier/src/ebox-platform/trunk/doc/.svn/format
+                           /var/log/ntpstats/peerstats.20060524
+                           /usr/share/doc/libtext-wrapi18n-perl/changelog.gz
+                           /usr/share/man/man1/lexgrog.1.gz
+                           /usr/share/man/man3/Apache::Resource.3pm.gz
+                           /usr/share/locale/ro/LC_MESSAGES/libgnomecanvas-2.0.mo
+                         );
 
     my @relativePathsCases = qw(
-			  .
-			  ..
-			  ../..
-			  .emacs
-			  .ea.txt.gz
-			  Config/t/cover_db/-home-javier-src-ebox-platform-trunk-common-libebox-src-EBox-pm.html
-			  home/javier/.emacs
-			  home/javier/.emacs.d
-			  home/javier/.emacs.d/auto-save-list
-			  home/javier/.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
-			  home/javier/src/ebox-platform/trunk/extra/esofttool/debian/rules
-			  ./home/javier/src/ebox-platform/trunk/doc/.svn/format
-			  ./var/log/ntpstats/peerstats.20060524
-			  ../share/doc/libtext-wrapi18n-perl/changelog.gz
-			  ../share/man/man1/lexgrog.1.gz
-			  ../share/man/man3/Apache::Resource.3pm.gz
-			  ../../share/locale/ro/LC_MESSAGES/libgnomecanvas-2.0.mo
-			   /home/../.emacs.d
-			   /home/./.emacs.d/../auto-save-list
-			   /home/./.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
-			  );
+                          .
+                          ..
+                          ../..
+                          .emacs
+                          .ea.txt.gz
+                          Config/t/cover_db/-home-javier-src-ebox-platform-trunk-common-libebox-src-EBox-pm.html
+                          home/javier/.emacs
+                          home/javier/.emacs.d
+                          home/javier/.emacs.d/auto-save-list
+                          home/javier/.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
+                          home/javier/src/ebox-platform/trunk/extra/esofttool/debian/rules
+                          ./home/javier/src/ebox-platform/trunk/doc/.svn/format
+                          ./var/log/ntpstats/peerstats.20060524
+                          ../share/doc/libtext-wrapi18n-perl/changelog.gz
+                          ../share/man/man1/lexgrog.1.gz
+                          ../share/man/man3/Apache::Resource.3pm.gz
+                          ../../share/locale/ro/LC_MESSAGES/libgnomecanvas-2.0.mo
+                           /home/../.emacs.d
+                           /home/./.emacs.d/../auto-save-list
+                           /home/./.emacs.d/auto-save-list/.saves-12049-localhost.localdomain~
+                          );
 
     my @deviantCases = qw(
-		       	);
+                        );
 
     if ($relativeIsValid) {
-	push @straightCases, @relativePathsCases;
+        push @straightCases, @relativePathsCases;
     }
     else {
-	push @deviantCases, @relativePathsCases;
+        push @deviantCases, @relativePathsCases;
     }
 
     foreach my $case (@straightCases) {
-	my $name = "checking validation for straight case: $case";
-	ok $checkPathSub_r->($case), $name;
+        my $name = "checking validation for straight case: $case";
+        ok $checkPathSub_r->($case), $name;
     }
 
     foreach my $case (@deviantCases) {
-	my $name = "checking validation error for deviant case: $case";
-	ok !$checkPathSub_r->($case), $name;
-	dies_ok { $checkPathSub_r->($case, $name) } "$name (with name parameter)";
+        my $name = "checking validation error for deviant case: $case";
+        ok !$checkPathSub_r->($case), $name;
+        dies_ok { $checkPathSub_r->($case, $name) } "$name (with name parameter)";
     }
 
 }
@@ -131,22 +131,22 @@ sub checkHostTest
                           'macaco.monos.org',  # valid hostname
                           'isolatedMonkey',    # valid stand-alone hostname
                           '192.168.45.21',     # valid ip address
-		       );
+                       );
   my @deviantCases  = (
-		       '198.23.423.12',  # invalid ip address
-		       'badhost_.a.com', # invalid hostname
+                       '198.23.423.12',  # invalid ip address
+                       'badhost_.a.com', # invalid hostname
 
-		      );
+                      );
 
     foreach my $case (@straightCases) {
-	my $name = "checking validation for straight case: $case";
-	ok EBox::Validate::checkHost($case), $name;
+        my $name = "checking validation for straight case: $case";
+        ok EBox::Validate::checkHost($case), $name;
     }
 
     foreach my $case (@deviantCases) {
-	my $name = "checking validation error for deviant case: $case";
-	ok ! EBox::Validate::checkHost($case), $name;
-	dies_ok {  EBox::Validate::checkHost($case, $name) } "$name (with name parameter)";
+        my $name = "checking validation error for deviant case: $case";
+        ok ! EBox::Validate::checkHost($case), $name;
+        dies_ok {  EBox::Validate::checkHost($case, $name) } "$name (with name parameter)";
     }
 }
 
@@ -165,14 +165,14 @@ sub checkEmailAddressTest
    );
 
     foreach my $case (@straightCases) {
-	my $name = "checking validation for straight case: $case";
-	ok EBox::Validate::checkEmailAddress($case), $name;
+        my $name = "checking validation for straight case: $case";
+        ok EBox::Validate::checkEmailAddress($case), $name;
     }
 
     foreach my $case (@deviantCases) {
-	my $name = "checking validation error for deviant case: $case";
-	ok ! EBox::Validate::checkEmailAddress($case), $name;
-	dies_ok {  EBox::Validate::checkEmailAddress($case, $name) } "$name (with name parameter)";
+        my $name = "checking validation error for deviant case: $case";
+        ok ! EBox::Validate::checkEmailAddress($case), $name;
+        dies_ok {  EBox::Validate::checkEmailAddress($case, $name) } "$name (with name parameter)";
     }
 }
 
@@ -180,18 +180,18 @@ sub checkEmailAddressTest
 sub checkIP6Test
 {
   my @valid = (
-	       '2001:0db8:0000:0000:0000:0000:1428:57ab',
-	       '2001:0db8:0000:0000:0000::1428:57ab',
-	       '2001:0db8:0:0:0:0:1428:57ab',
-	       '2001:0db8:0:0::1428:57ab',
-	       '2001:0db8::1428:57ab',
-	       '2001:db8::1428:57ab',
-	      );
+               '2001:0db8:0000:0000:0000:0000:1428:57ab',
+               '2001:0db8:0000:0000:0000::1428:57ab',
+               '2001:0db8:0:0:0:0:1428:57ab',
+               '2001:0db8:0:0::1428:57ab',
+               '2001:0db8::1428:57ab',
+               '2001:db8::1428:57ab',
+              );
 
   my @invalid = (
-		 'macaco',
-		 '192.168.45.3',
-		);
+                 'macaco',
+                 '192.168.45.3',
+                );
 
 
   foreach my $ip (@valid) {
