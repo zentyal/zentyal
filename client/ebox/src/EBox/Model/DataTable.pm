@@ -2881,24 +2881,6 @@ sub _compulsoryFields
 
   }
 
-# Gives back the compulsory field names
-sub _unionFields
-  {
-
-      my ($self) = @_;
-
-      my @union = ();
-      foreach my $fieldName (@{$self->fields()}) {
-          my $field = $self->fieldHeader($fieldName);
-          if ( $field->type() eq 'union' ) {
-              push ( @union, $fieldName );
-          }
-      }
-
-      return \@union;
-
-  }
-
 sub _checkRowExist
 {
 	my ($self, $id, $text) = @_;
