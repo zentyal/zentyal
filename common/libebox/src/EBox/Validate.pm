@@ -605,8 +605,6 @@ sub checkDomainName # (domain, name?)
 #       Checks if a given host is valid. It is considered valid either a valid
 #       no-CIDR IP address or a valid hostname 
 #       
-#       The hostnames have the additional restriction that they musn't start
-#       with a number. This restriction is made to be able to catch invalid IP addresses
 #
 # Parameters:
 #
