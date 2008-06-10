@@ -27,6 +27,7 @@ use strict;
 use warnings;
 
 # eBox uses
+use EBox::Model::Row;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
@@ -883,7 +884,8 @@ sub _row
 
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
-      my $row = {};
+
+      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
 
       unless ($gconfmod->dir_exists("$dir")) {
           # Return default values instead
@@ -893,43 +895,16 @@ sub _row
       my @values;
       $self->{'cacheOptions'} = {};
       my $gconfData = $gconfmod->hash_from_dir("$dir");
-      $row->{'readOnly'} = $gconfData->{'readOnly'};
+      $row->setReadOnly($gconfData->{'readOnly'});
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
           my $data = $type->clone();
           $data->restoreFromHash($gconfData);
           $data->setRow($row);
           $data->setModel($self);
-
-          # TODO Rework the union select options thing
-          #      this code just sucks. Modify Types to do something
-          #      nicer 
-          if ($data->type() eq 'union') {
-              # FIXME: Check if we can avoid this
-              $row->{'plainValueHash'}->{$data->selectedType} =
-                $data->value();
-              $row->{'printableValueHash'}->{$data->selectedType} =
-                $data->printableValue();
-          }
-          if ($data->type eq 'hasMany') {
-              my $fieldName = $data->fieldName();
-              $data->setDirectory("$dir/$fieldName");
-          }
-          if ($data->type eq 'hasMany') {
-              my $fieldName = $data->fieldName();
-              $data->setDirectory("$dir/$fieldName");
-          }
-
-          push (@values, $data);
-          $row->{'valueHash'}->{$type->fieldName()} = $data;
-          $row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
-          $row->{'printableValueHash'}->{$type->fieldName()} =
-            $data->printableValue();
+          $row->addElement($data);
       }
-
-      $row->{'values'} = \@values;
       # Dummy id for dataform
-      $row->{'id'} = 'dummy';
-
+      $row->setId('dummy');
       return $row;
 
   }
@@ -941,37 +916,13 @@ sub _defaultRow
       my ($self) = @_;
 
       my $dir = $self->{'directory'};
-      my $row = {};
-      my @values = ();
+      my $gconfmod = $self->{'gconfmodule'};
+      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
 
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
           my $data = $type->clone();
-
-          if ($data->type() eq 'union') {
-            # FIXME: Check if we can avoid this
-              $row->{'plainValueHash'}->{$data->selectedType} =
-                $data->value();
-              $row->{'printableValueHash'}->{$data->selectedType} =
-                $data->printableValue();
-          }
-          if ($data->type eq 'hasMany') {
-              my $fieldName = $data->fieldName();
-              $data->setDirectory("$dir/$fieldName");
-          }
-          if ($data->type eq 'hasMany') {
-              my $fieldName = $data->fieldName();
-              $data->setDirectory("$dir/$fieldName");
-          }
-
-          push (@values, $data);
-          $row->{'valueHash'}->{$type->fieldName()} = $data;
-          $row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
-          $row->{'printableValueHash'}->{$type->fieldName()} =
-            $data->printableValue();
+          $row->addElement($data);
       }
-
-      $row->{'values'} = \@values;
-
       return $row;
 
   }
