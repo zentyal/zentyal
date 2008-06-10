@@ -1,3 +1,5 @@
+0.11.102
+	+ Added EBox::Model::Row to ease the management of data returned by models
 0.11.101
 	+ Bugfix: Fix memory leak in models while cloning types. Now
 	cloning is controlled by clone method in types
