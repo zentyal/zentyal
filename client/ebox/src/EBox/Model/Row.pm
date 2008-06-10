@@ -137,6 +137,42 @@ sub setId
   $self->{id} = $id;
 }
 
+# Method: readOnly
+#
+#   row's readOnly 
+#
+# Returns:
+#
+#   string - containing readOnly
+#
+#
+sub readOnly
+{
+    my ($self) = @_;
+
+    return $self->{readOnly};
+}
+
+# Method: setReadOnly
+#
+#   Set row readOnly
+#
+# Returns:
+#
+#   string - containing readOnly
+#
+#
+sub setReadOnly
+{
+    my ($self, $readOnly) = @_;
+
+    unless (defined($readOnly)) {
+        throw EBox::Exceptions::MissingArgument('readOnly');
+    }
+ 
+  $self->{readOnly} = $readOnly;
+}
+
 # Method: dir
 #
 #   GConf directory
@@ -270,8 +306,14 @@ sub elementByName
     my ($self, $element) = @_;
 
     unless (exists $self->{valueHash}->{$element}) {
+        for my $value (@{$self->{values}}) {
+            next unless  ($value->isa('EBox::Types::Union'));
+            if ($value->selectedType() eq $element) {
+                return $value->subtype();
+            }
+        }
         throw EBox::Exceptions::DataNotFound( data => 'element',
-                                             value => $element);
+                value => $element);
     }
 
     return $self->{valueHash}->{$element};
@@ -360,7 +402,7 @@ sub subModel
         my $mgr = EBox::Model::ModelManager->instance();
         $model =  $mgr->model($element->foreignModel());
         my $olddir = $model->directory();
-        $model->setDirectory($self->dir());
+        $model->setDirectory($element->directory());
     } catch EBox::Exceptions::DataNotFound with {
         EBox::warn("Couldn't fetch foreing model: " . $element->foreingModel());
     };
