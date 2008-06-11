@@ -436,6 +436,8 @@ sub store
 #
 #   This method is used to synchronize a given element of a row with 
 #   usually disk.
+#
+#   Use this method if you just want to store one element
 #   
 # Parameters:
 #
