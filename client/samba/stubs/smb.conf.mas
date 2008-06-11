@@ -131,7 +131,7 @@ use EBox::Gettext;
  path = <% $share->{path} %>
  read list = <% $share->{readOnly} %>
  write list = <% $share->{readWrite} %>
- admin list = <% $share->{administrators} %>
+ admin users = <% $share->{administrators} %>
  read only = No
  browseable = Yes
 
