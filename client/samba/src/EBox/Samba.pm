@@ -238,7 +238,7 @@ sub modelClasses
 #   administrators  - string containing users and groups with admin priviliges
 #                   on the share
 #   validUsers - readOnly + readWrite + administrators
-ub shares
+sub shares
 {
     my ($self) = @_;
     my $shares = $self->model('SambaShares');
