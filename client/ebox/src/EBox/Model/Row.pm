@@ -48,6 +48,7 @@ use warnings;
 use EBox::Model::ModelManager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
 
@@ -100,6 +101,51 @@ sub new
 }
 
 # Group: Public methods
+
+# Method: model
+#
+#   model which this row belongs to
+#
+# Returns:
+#
+#   An instance of a class implementing <EBox::Model::DataTable>
+#
+sub model
+{
+    my ($self) = @_;
+
+    return  $self->{'model'};
+}
+
+# Method: setModel
+#
+#   set the model
+#
+# Parameters:
+#   
+#   (Positional)
+#
+#   model - An instance of a class implementing <EBox::Model::DataTable>
+#
+# Returns:
+#
+#   An instance of a class implementing <EBox::Model::DataTable>
+#
+sub setModel
+{
+    my ($self, $model) = @_;
+
+    unless (defined($model)) {
+        throw EBox::Exceptions::MissingArgument('model');
+    }
+
+    unless ($model->isa('EBox::Model::DataTable')) {
+        throw EBox::Exceptions::InvalidType(arg => 'model', 
+                                            type => 'EBox::Model::DataTable' );
+    }
+
+    $self->{'model'} = $model;
+}
 
 # Method: id
 #
@@ -165,7 +211,6 @@ sub readOnly
 sub setReadOnly
 {
     my ($self, $readOnly) = @_;
-
  
     $self->{readOnly} = $readOnly;
 }
@@ -256,6 +301,9 @@ sub addElement
     unless (defined($element) and $element->isa('EBox::Types::Abstract')) {
         throw EBox::Exceptions::Internal('element is not a valid type');
     }
+
+    $element->setRow($self);
+    $element->setModel($self->model());
 
     my $dir = $self->dir();
     my $id = $self->id();
@@ -358,6 +406,59 @@ sub size
     }
 
     return scalar(@{$self->{'values'}});
+}
+
+# Method: store
+#
+#   This method is used to synchronize the elements of a row with usually disk.
+#   
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal>
+#
+sub store
+{
+    my ($self) = @_;
+
+    my $model = $self->model();
+    
+    unless (defined($model)) {
+        throw EBox::Exceptions::Internal('Cannot store a row without a model');
+    }
+
+    $model->setTypedRow($self->id(), 
+                        $self->{'valueHash'}, 
+                        readOnly => $self->readOnly(), 
+                        force => 1);
+}
+
+# Method: storeElementByName
+#
+#   This method is used to synchronize a given element of a row with 
+#   usually disk.
+#   
+# Parameters:
+#
+#   element - element's name
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal>
+#
+sub storeElementByName
+{
+    my ($self, $element) = @_;
+
+    unless (defined($element)) {
+        throw EBox::Exceptions::MissingArgument($element);
+    }
+
+    my $model = $self->model();
+ 
+    $model->setTypedRow($self->id(), 
+                        {$element => $self->elementByName($element)}, 
+                        readOnly => $self->readOnly(), 
+                        force => 1);
 }
 
 # Method: subModel

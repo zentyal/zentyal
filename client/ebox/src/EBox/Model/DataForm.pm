@@ -897,11 +897,9 @@ sub _row
       my $gconfData = $gconfmod->hash_from_dir("$dir");
       $row->setReadOnly($gconfData->{'readOnly'});
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = $type->clone();
-          $data->restoreFromHash($gconfData);
-          $data->setRow($row);
-          $data->setModel($self);
-          $row->addElement($data);
+          my $element = $type->clone();
+          $element->restoreFromHash($gconfData);
+          $row->addElement($element);
       }
       # Dummy id for dataform
       $row->setId('dummy');
@@ -920,8 +918,8 @@ sub _defaultRow
       my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
 
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = $type->clone();
-          $row->addElement($data);
+          my $element = $type->clone();
+          $row->addElement($element);
       }
       return $row;
 
