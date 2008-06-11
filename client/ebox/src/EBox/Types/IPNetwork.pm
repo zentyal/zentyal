@@ -33,10 +33,12 @@ sub new
     my $class = shift;
     my %opts = @_;
     
-    my $self = $class->SUPER::new(
-            'HTMLSetter' => '/ajax/setter/ipnetworkSetter.mas',
-                                  %opts
-                                 );
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} = '/ajax/setter/ipnetworkSetter.mas';
+    }
+
+    my $self = $class->SUPER::new(%opts);
+
     $self->{'type'} = 'ipnetwork';
     
     bless($self, $class);
