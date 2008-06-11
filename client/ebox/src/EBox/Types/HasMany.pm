@@ -109,14 +109,43 @@ sub value
 #      String - the foreign model, empty if there is none
 #
 sub foreignModel
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    return '' unless (exists $self->{'foreignModel'});
+    return $self->{'foreignModel'};
+}
 
-      return '' unless (exists $self->{'foreignModel'});
-      return $self->{'foreignModel'};
 
-  }
+# Method: foreignModelInstance
+#
+#      Get the foreign model instance used in the HasMany instance
+#
+# Returns:
+#
+#       - the foreign model instance or undef if thre is none
+#
+sub foreignModelInstance
+{
+    my ($self) = @_;
+
+    my $value = $self->value();
+    if (not $value) {
+        return undef;
+    }
+
+    my $modelName = $value->{model};
+    my $directory = $value->{directory};
+
+    # directory maybe undef if the HasMany is not yet created
+    $directory or
+        return undef;
+
+    my $model = EBox::Model::ModelManager->instance()->model($modelName);
+    $model->setDirectory($directory);
+
+    return $model;
+}
 
 # Method: setDirectory
 #
