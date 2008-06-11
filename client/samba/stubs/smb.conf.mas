@@ -129,6 +129,7 @@ use EBox::Gettext;
 [<% $share->{share} %>]
  comment = <% $share->{comment} %>
  path = <% $share->{path} %>
+ valid users = <% $share->{validUsers} %>
  read list = <% $share->{readOnly} %>
  write list = <% $share->{readWrite} %>
  admin users = <% $share->{administrators} %>

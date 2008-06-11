@@ -235,9 +235,10 @@ sub modelClasses
 #   readOnly - string containing users and groups with read-only permissions
 #   readWrite - string containing users and groups with read and write 
 #               permissions
-#   administrator - string containing users and groups with admin priviliges
+#   administrators  - string containing users and groups with admin priviliges
 #                   on the share
-sub shares
+#   validUsers - readOnly + readWrite + administrators
+ub shares
 {
     my ($self) = @_;
     my $shares = $self->model('SambaShares');
@@ -281,6 +282,9 @@ sub shares
         $shareConf->{'readOnly'} = join (', ', @readOnly);
         $shareConf->{'readWrite'} = join (', ', @readWrite);
         $shareConf->{'administrators'} = join (', ', @administrators);
+        $shareConf->{'validUsers'} = join (', ', @readOnly, 
+                                                 @readWrite,
+                                                 @administrators);
         push (@shares, $shareConf);
     }
 
