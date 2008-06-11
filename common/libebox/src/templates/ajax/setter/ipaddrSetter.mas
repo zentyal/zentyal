@@ -4,12 +4,29 @@ $data
 $cssClass => ''
 </%args>
 <%init>
+my @masks = (32, 30, 29, 28, 27, 26, 25, 24, 16, 8);
+</%init>
+<& SELF:setter, 
+              tableName => $tableName,
+              data      => $data,         
+              cssClass  => $cssClass,
+              masks     => \@masks, 
+&>
+
+<%method setter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+@masks
+</%args>
+<%init>
 my @options;
-for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
+for my $mask (@masks) {
 	push (@options, {'value' => $mask, 'printableValue' => $mask});
 }
-
 </%init>
+
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
 <span id="<% $id %>" class="<% $cssClass %>">
@@ -30,4 +47,4 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
    data => $data &>
 % }
 
-
+</%method>

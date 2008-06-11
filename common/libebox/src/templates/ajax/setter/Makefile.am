@@ -7,7 +7,8 @@
 #
 
 templatedir = $(datadir)/ebox/templates/ajax/setter
-template_DATA = booleanSetter.mas ipaddrSetter.mas textSetter.mas \
+template_DATA = booleanSetter.mas textSetter.mas \
+		ipaddrSetter.mas ipnetworkSetter.mas \
 		hasManySetter.mas portRangeSetter.mas unionSetter.mas \
 		inverseMatchSelectSetter.mas selectSetter.mas \
 		inverseMatchUnionSetter.mas serviceSetter.mas \
