@@ -231,6 +231,30 @@ sub dir
     return $self->{dir};
 }
 
+# Method: parentRow
+#
+#   Return parent row if any. This methods makes sense when is used
+#   by submodels
+#
+# Returns:
+#
+#   An instance of class implmenenting <EBox::Model::Row>
+#   or undef if it has no parent
+#
+sub parentRow
+{
+    my ($self) = @_;
+
+    my $parentModel = $self->model()->parent();
+    return undef unless (defined ($parentModel));
+
+    # TODO Do this more robust using directory info from models
+    my @dirs = reverse split('/', $self->dir());
+    my $parentId = $dirs[2];
+
+    return $parentModel->row($parentId);
+}
+
 # Method: order
 #
 #   row's order 
