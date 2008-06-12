@@ -553,7 +553,13 @@ sub _setUpModels
     for my $module (@modules) {
         $self->_setUpModelsFromProvider($module);
     }
+
+    # Set parent models given by hasMany relationships
+    for my $childName (keys %{$self->{'childOf'}}) {
+        $self->model($childName)->setParent($self->{'childOf'}->{$childName});
+    }
 }
+
 
 # Method: _setUpModelsFromProvider
 #
@@ -590,12 +596,15 @@ sub _setUpModelsFromProvider
         foreach my $model ( @{$self->{'models'}->{$provider->name()}->{$modelKind}} ) {
             my $tableDesc = $model->table()->{'tableDescription'};
             my $localModelName = $model->contextName();
-            for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
+            my $dependentTypes = $self->_fetchDependentTypes($tableDesc);
+            for my $type (@{$dependentTypes->{'select'}}) {
                 my $foreignModel;
                 try {
                     $foreignModel = $type->foreignModel();
                 } otherwise {
+                    my ($exc) = @_;
                     EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
+                    EBox::warn("Error: $exc");
                 };
                 next unless (defined($foreignModel));
                 my $foreignModelName = $foreignModel->contextName();
@@ -604,6 +613,19 @@ sub _setUpModelsFromProvider
                 push (@{$currentHasOne{$localModelName}}, $type->fieldName());
                 $self->{'hasOneReverse'}->{$foreignModelName} = \%currentHasOne;
             }
+            for my $type (@{$dependentTypes->{'hasMany'}}) {
+                my $foreignModel;
+                try {
+                    $foreignModel = $type->foreignModel();
+                } otherwise {
+                    my ($exc) = @_;
+                    EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
+                    EBox::warn("Error: $exc");
+                };
+                next unless (defined($foreignModel) and $foreignModel ne '');
+                $self->{'childOf'}->{$foreignModel} = $model;
+            }
+
         }
     }
 
@@ -646,12 +668,15 @@ sub _modelsWithHasOneRelation
 }
 
 
-# Method: _fetchSelectTypes
+# Method: _fetchDependentTypes
 #
 # 	(PRIVATE)
 #
-#   Given a table description it returns all its types which are
-#   <EBox::Types::Select>
+#   Given a table description it returns  types which depends on other
+#   modules. Those are:
+#
+#       <EBox::Types::Select>
+#       <EBox::Types::HasMany>
 #
 # Parameters:
 #
@@ -663,22 +688,31 @@ sub _modelsWithHasOneRelation
 #
 #   Array ref containing the types
 #
-sub _fetchSelectTypes
+sub _fetchDependentTypes
 {
     my ($self, $tableDescription) = @_;
 
     my @selectTypes;
+    my @hasManyTypes;
     foreach my $type (@{$tableDescription}) { 
         if ($type->type() eq 'union') {
             for my $subtype (@{$type->subtypes()}) {
-                push (@selectTypes, $subtype) if ($subtype->type() eq 'select');
+                 if ($subtype->type() eq 'select') {
+                    push (@selectTypes, $subtype);
+                }
+                if ($subtype->type() eq 'hasMany') {
+                    push (@hasManyTypes, $subtype);
+                }
             }
         } elsif ($type->type() eq 'select') {
             push (@selectTypes, $type);
+        } elsif ($type->type() eq 'hasMany') {
+            push (@hasManyTypes, $type);
         }
     }
     
-    return \@selectTypes;
+    return { 'select' => \@selectTypes,
+             'hasMany' => \@hasManyTypes };
 }
 
 
