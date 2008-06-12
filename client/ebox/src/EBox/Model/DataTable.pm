@@ -298,6 +298,48 @@ sub printableIndex
 
 }
 
+# Method: parent
+#
+#   Return model's parent
+#
+# Returns:
+#
+#      
+#   An instance of a class implementing <EBox::Model::DataTable>
+#   or undef if it's not set
+#
+sub parent
+{
+    my ($self) = @_;
+
+    return $self->{'parent'};
+}
+
+# Method: setParent
+#
+#   Set model's parent
+#
+# Parameters:
+#
+#   An instance of a class implementing <EBox::Model::DataTable>
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidType>
+sub setParent 
+{
+    my ($self, $parent) = @_;
+
+    my $type = 'EBox::Model::DataTable';
+    if (defined($parent) and (not $parent->isa($type))) {
+        throw EBox::Exceptions::InvalidType( 'argument' => 'parent', 
+                                             'type' => $type);
+    }
+
+    $self->{'parent'} = $parent;
+}
+
+
 # Method: precondition
 #
 #       Check if the model has enough data to be manipulated, that
