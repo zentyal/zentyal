@@ -145,13 +145,13 @@ sub model
             # There are at least one parameter
             return $self->_chooseModelUsingParameters($path);
         } else {
-		my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
-		if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
-			return $self->{'models'}->{$moduleName}->{$modelName};
-		} else {
-			return 
-			  $self->{'models'}->{$moduleName}->{$modelName}->[0];
-		}
+            my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
+            if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
+                return $self->{'models'}->{$moduleName}->{$modelName};
+            } else {
+                return 
+                    $self->{'models'}->{$moduleName}->{$modelName}->[0];
+            }
         }
     } else {
         throw EBox::Exceptions::DataNotFound( data  => 'model',
@@ -445,19 +445,19 @@ sub removeRowsUsingId
 #
 sub warnIfIdIsUsed
 {
-	my ($self, $modelName, $id) = @_;
+    my ($self, $modelName, $id) = @_;
 
-	my $tablesUsing;
+    my $tablesUsing;
 
-	for my $name  (values %{$self->modelsUsingId($modelName, $id)}) {
-		$tablesUsing .= '<br> - ' .  $name ;
-	}
+    for my $name  (values %{$self->modelsUsingId($modelName, $id)}) {
+        $tablesUsing .= '<br> - ' .  $name ;
+    }
 
-	if ($tablesUsing) {
-		throw EBox::Exceptions::DataInUse(
-			__('The data you are removing is being used by
-			the following sections:') . '<br>' . $tablesUsing);
-	}
+    if ($tablesUsing) {
+        throw EBox::Exceptions::DataInUse(
+                __('The data you are removing is being used by
+                    the following sections:') . '<br>' . $tablesUsing);
+    }
 }
 
 # Method: warnOnChangeOnId
