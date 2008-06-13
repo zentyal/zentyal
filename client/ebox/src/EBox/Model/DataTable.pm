@@ -40,28 +40,28 @@ use strict;
 use warnings;
 
 # TODO
-# 	
-#	Factor findValue, find, findAll and findAllValue
+#     
+#    Factor findValue, find, findAll and findAllValue
 #
-#  Use EBox::Model::Row all over the place
+#     Use EBox::Model::Row all over the place
 #
-#	Fix issue with values and printableValues fetched
-#	from foreign tables
+#    Fix issue with values and printableValues fetched
+#    from foreign tables
 
 
 #
 # Caching:
-# 	
-# 	To speed up the process of returning rows, the access to the
-# 	data stored in gconf is now cached. To keep data coherence amongst
-# 	the several apache processes, we add a mark in the gconf structure
-# 	whenever a write operation takes place. This mark is fetched by
-# 	a process returning its rows, if it has changed then it has
-# 	a old copy, otherwise its cached data can be returned.
+#     
+#     To speed up the process of returning rows, the access to the
+#     data stored in gconf is now cached. To keep data coherence amongst
+#     the several apache processes, we add a mark in the gconf structure
+#     whenever a write operation takes place. This mark is fetched by
+#     a process returning its rows, if it has changed then it has
+#     a old copy, otherwise its cached data can be returned.
 #
-# 	Note that this caching process is very basic. Next step could be
-# 	caching at row level, and keeping coherence at that level, modifying
-# 	just the affected rows in the memory stored structure.
+#     Note that this caching process is very basic. Next step could be
+#     caching at row level, and keeping coherence at that level, modifying
+#     just the affected rows in the memory stored structure.
 #
 
 sub new
@@ -142,12 +142,12 @@ sub table
 
 # Method: _table
 #
-#	Override this method to describe your table.
+#    Override this method to describe your table.
 #       This method is (PROTECTED)
 #
 # Returns:
 #
-# 	table description. See example on <EBox::Network::Model::GatewayDataTable::_table>.
+#     table description. See example on <EBox::Network::Model::GatewayDataTable::_table>.
 #
 sub _table
 {
@@ -158,12 +158,12 @@ sub _table
 
 # Method: modelName 
 #
-#	Return the model name which is set by the key 'tableName' when
-#	a model table is described
+#    Return the model name which is set by the key 'tableName' when
+#    a model table is described
 #
 # Returns:
 #
-#	string containing the model name
+#    string containing the model name
 #
 sub modelName
 {
@@ -444,15 +444,15 @@ sub sortedBy
 
 # Method: fieldHeader
 #
-#	Return the instanced type of a given header field
+#    Return the instanced type of a given header field
 #
 # Arguments:
 #
-# 	fieldName - field's name
+#     fieldName - field's name
 #
 # Returns:
 #
-#	instance of a type derivated of <EBox::Types::Abstract>
+#    instance of a type derivated of <EBox::Types::Abstract>
 #
 # Exceptions:
 #
@@ -481,28 +481,28 @@ sub fieldHeader
 
 # Method: optionsFromForeignModel 
 #
-#	This method is used to fetch an array of hashes containing
-#	pairs of value and printableValue.
+#    This method is used to fetch an array of hashes containing
+#    pairs of value and printableValue.
 #
-#	It's a convenience method to be used by <EBox::Types::Select> types
-#	when using foreing modules.
+#    It's a convenience method to be used by <EBox::Types::Select> types
+#    when using foreing modules.
 #
-#	It's implemented here, because it has to do some caching
-#	due to performance reasons.
+#    It's implemented here, because it has to do some caching
+#    due to performance reasons.
 #
 # Arguments:
 #
-# 	field - field's name  
+#     field - field's name  
 #
 # Returns:
 #
-#	Array ref of hashes containing:
-#		
-#	value - row's id
-#	printableValue - field's printableValue
+#    Array ref of hashes containing:
+#        
+#    value - row's id
+#    printableValue - field's printableValue
 #
-#	Example:
-#	[{ 'value' => 'obj001', 'printableValue' => 'administration'}]
+#    Example:
+#    [{ 'value' => 'obj001', 'printableValue' => 'administration'}]
 sub optionsFromForeignModel 
 {
     my ($self, $field) = @_;
@@ -531,27 +531,27 @@ sub optionsFromForeignModel
 
 # Method: selectOptions
 #
-#	Override this method to return your select options
-#	for the given select.
+#    Override this method to return your select options
+#    for the given select.
 #
 #       This method is *deprecated*. Use <EBox::Types::Select::populate>
 #       callback to fill the select options.
 #
 # Arguments:
 #
-# 	select - select's name
+#     select - select's name
 #
 # Returns:
 #
-#	Array ref containing hash ref with value, printable
-#	value and selected status
+#    Array ref containing hash ref with value, printable
+#    value and selected status
 #
-#	example:
+#    example:
 #
-#	[ 
-#	  { value => '1', printableValue => '1'},
+#    [ 
+#      { value => '1', printableValue => '1'},
 #         { value => '2', printableValue => '2'} 
-#	]
+#    ]
 sub selectOptions 
 {
 
@@ -561,28 +561,28 @@ sub selectOptions
 
 # Method: validateRow
 #
-#	Override this method to add your custom checks for
-#	the table fields. The parameters are passed just like they are
-#	received from the CGI. If you want to check on typed data use
-#	<EBox::Model::DataTable::validateTypedRow> instead.
+#    Override this method to add your custom checks for
+#    the table fields. The parameters are passed just like they are
+#    received from the CGI. If you want to check on typed data use
+#    <EBox::Model::DataTable::validateTypedRow> instead.
 #
-#	It will be called whenever a row is added/updated.
+#    It will be called whenever a row is added/updated.
 #
 # Arguments:
 #
 #       action - String containing the action to be performed
 #                after validating this row.
 #                Current options: 'add', 'update'
-# 	params - hash ref containing fields names and their values
+#     params - hash ref containing fields names and their values
 #
 # Returns:
 #
-#	Nothing
+#    Nothing
 #
 # Exceptions:
 #
-# 	You must throw an exception whenever a field value does not
-# 	fulfill your requirements
+#     You must throw an exception whenever a field value does not
+#     fulfill your requirements
 #
 sub validateRow
 {
@@ -591,10 +591,10 @@ sub validateRow
 
 # Method: validateTypedRow
 #
-#	Override this method to add your custom checks for
-#	the table fields. The parameters are passed like data types.
+#    Override this method to add your custom checks for
+#    the table fields. The parameters are passed like data types.
 #
-#	It will be called whenever a row is added/updated.
+#    It will be called whenever a row is added/updated.
 #
 #
 # Arguments:
@@ -603,9 +603,9 @@ sub validateRow
 #                after validating this row.
 #                Current options: 'add', 'update'
 #
-# 	changedFields - hash ref containing the typed parameters
-# 	subclassing from <EBox::Types::Abstract> that has changed, the
-# 	key will be the field's name
+#     changedFields - hash ref containing the typed parameters
+#     subclassing from <EBox::Types::Abstract> that has changed, the
+#     key will be the field's name
 #
 #       allFields - hash ref containing the typed parameters
 #       subclassing from <EBox::Types::Abstract> including changed,
@@ -613,12 +613,12 @@ sub validateRow
 #
 # Returns:
 #
-#	Nothing
+#    Nothing
 #
 # Exceptions:
 #
-# 	You must throw an exception whenever a field value does not
-# 	fulfill your requirements
+#     You must throw an exception whenever a field value does not
+#     fulfill your requirements
 #
 sub validateTypedRow
 {
@@ -626,14 +626,14 @@ sub validateTypedRow
 }
 
 # Method: addedRowNotify
-#	
-#	Override this method to be notified whenever
-#	a new row is added
+#    
+#    Override this method to be notified whenever
+#    a new row is added
 #
 # Arguments:
 #
-# 	row - hash ref containing fields and values of the new
-# 	row
+#     row - hash ref containing fields and values of the new
+#     row
 #
 sub addedRowNotify 
 {
@@ -641,15 +641,15 @@ sub addedRowNotify
 }
 
 # Method: deletedRowNotify
-#	
-#	Override this method to be notified whenever
-#	a new row is deleted 
+#    
+#    Override this method to be notified whenever
+#    a new row is deleted 
 #
 # Arguments:
 #
-# 	row - hash ref containing fields and values of the deleted
-# 	row. The same structure as <EBox::Model::DataTable::row>
-# 	return value
+#     row - hash ref containing fields and values of the deleted
+#     row. The same structure as <EBox::Model::DataTable::row>
+#     return value
 #
 #       force - boolean indicating whether the delete is forced or not
 #
@@ -660,13 +660,13 @@ sub deletedRowNotify
 }
 
 # Method: movedUpRowNotify
-#	
-#	Override this method to be notified whenever
-#	a  row is moved up 
+#    
+#    Override this method to be notified whenever
+#    a  row is moved up 
 #
 # Arguments:
 #
-# 	row - hash ref containing fields and values of the moved row
+#     row - hash ref containing fields and values of the moved row
 #
 sub movedUpRowNotify 
 {
@@ -674,13 +674,13 @@ sub movedUpRowNotify
 }
 
 # Method: movedDownRowNotify
-#	
-#	Override this method to be notified whenever
-#	a  row is moved down
+#    
+#    Override this method to be notified whenever
+#    a  row is moved down
 #
 # Arguments:
 #
-# 	row - hash ref containing fields and values of the moved row
+#     row - hash ref containing fields and values of the moved row
 #
 sub movedDownRowNotify 
 {
@@ -688,15 +688,15 @@ sub movedDownRowNotify
 }
 
 # Method: updatedRowNotify
-#	
-#	Override this method to be notified whenever
-#	a  row is updated 
+#    
+#    Override this method to be notified whenever
+#    a  row is updated 
 #
 # Arguments:
 #
-# 	row - hash ref containing fields and values of the moved
-# 	row. The same structure as <EBox::Model::DataTable::row>
-# 	return value
+#     row - hash ref containing fields and values of the moved
+#     row. The same structure as <EBox::Model::DataTable::row>
+#     return value
 #
 #       force - boolean indicating whether the delete is forced or not
 #
@@ -706,18 +706,18 @@ sub updatedRowNotify
 }
 
 # Method: notifyForeignModelAction 
-#	
-#	This method is used to let models know when other model has
-#	taken an action.
+#    
+#    This method is used to let models know when other model has
+#    taken an action.
 #
-#	To be notified your table description must contain:
-#	an entry 'notifyAction' => [ ModelName1, ModelName2]
-#	where ModelName is the model you are interested of receiving
-#	notifications.
+#    To be notified your table description must contain:
+#    an entry 'notifyAction' => [ ModelName1, ModelName2]
+#    where ModelName is the model you are interested of receiving
+#    notifications.
 #
-#	If you are interested on some action on a module you should
-#	override this method to take the actions you need on response to
-#	the foreign module action
+#    If you are interested on some action on a module you should
+#    override this method to take the actions you need on response to
+#    the foreign module action
 #
 # Parameters: 
 #
@@ -725,7 +725,7 @@ sub updatedRowNotify
 #
 #   model - model name where the action took place 
 #   action - string represting the action: 
-#   	     [ add, del, edit, moveUp, moveDown ]
+#            [ add, del, edit, moveUp, moveDown ]
 #
 #   row  - row modified 
 #
@@ -742,11 +742,11 @@ sub notifyForeingModelAction
 
 # Method: addRow
 #
-#	Add a new row. This method should be used only by CGIs
+#    Add a new row. This method should be used only by CGIs
 #
 # Parameters:
 #
-#	named parameters containing the expected fields for each row
+#    named parameters containing the expected fields for each row
 #
 # Returns:
 #
@@ -864,21 +864,21 @@ sub addTypedRow
 
 # Method: row
 #
-#	Return a given row
+#    Return a given row
 #
 # Parameters:
 #
-# 	id - row id
+#     id - row id
 #
 # Returns:
 #
-#	Hash reference containing:
+#    Hash reference containing:
 #
-#		- 'id' =>  row id
-#		- 'order' => row order
+#        - 'id' =>  row id
+#        - 'order' => row order
 #               - 'readOnly' => Boolean indicating if the row is readOnly or not
-#		- 'values' => array ref containing objects
-#			    implementing <EBox::Types::Abstract> interface
+#        - 'values' => array ref containing objects
+#                implementing <EBox::Types::Abstract> interface
 #       - 'valueHash' => hash ref containing the same objects as
 #          'values' but indexed by 'fieldName'
 #
@@ -910,7 +910,7 @@ sub row
     $row->setId($id);
     $row->setReadOnly($gconfData->{'readOnly'});
     $row->setModel($self);
-    $row->setOrder($self->_rowOrder($id));	
+    $row->setOrder($self->_rowOrder($id));    
     
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();
@@ -923,16 +923,16 @@ sub row
 
 # Method: isRowReadOnly
 #
-# 	Given a row it returns if it is read-only or not
+#     Given a row it returns if it is read-only or not
 #
 # Parameters:
-# 	(POSITIONAL)
+#     (POSITIONAL)
 #
-# 	id - row's id
+#     id - row's id
 #
 # Returns:
 #
-# 	boolean - true if it is read-only, otherwise false
+#     boolean - true if it is read-only, otherwise false
 #
 sub isRowReadOnly
 {
@@ -1028,14 +1028,14 @@ sub _reorderCachedRows
 
 # Method: removeRow
 #
-#	Remove a row
+#    Remove a row
 #
 # Parameters:
 #
-#	(POSITIONAL)
-#	
-# 	'id' - row id
-#	'force' - boolean to skip integrations checks of the row to remove
+#    (POSITIONAL)
+#    
+#     'id' - row id
+#    'force' - boolean to skip integrations checks of the row to remove
 #
 # Exceptions:
 #
@@ -1128,20 +1128,20 @@ sub removeAll
 
 # Method: warnIfIdUsed 
 #
-#	This method must be overriden in case you want to warn the user
-#	when a row is going to be deleted. Note that models manage this
-#	situation automatically, this method is intended for situations
-#	where the use of the model is done in a non-standard way.
+#    This method must be overriden in case you want to warn the user
+#    when a row is going to be deleted. Note that models manage this
+#    situation automatically, this method is intended for situations
+#    where the use of the model is done in a non-standard way.
 #
-#	Override this method and raise a <EBox::Exceptions::DataInUse>
-#	excpetions to warn the user
+#    Override this method and raise a <EBox::Exceptions::DataInUse>
+#    excpetions to warn the user
 #
 # Parameters:
 #
-#	(POSITIONAL)
+#    (POSITIONAL)
 #
 #       'modelName' - String the observable model's name
-# 	'id' - String row id
+#     'id' - String row id
 #
 sub warnIfIdUsed
 {
@@ -1160,22 +1160,22 @@ sub warnIfIdUsed
 #
 # Parameters:
 #
-#	(NAMED)
+#    (NAMED)
 #
 #       'modelName' - String the observable model's name
 #
-# 	'id' - String row id
+#     'id' - String row id
 #
-#	'changeData' - hash ref of data types which are going to be
-#	changed
+#    'changeData' - hash ref of data types which are going to be
+#    changed
 #
 #       'oldRow' - hash ref the same content as
 #       <EBox::Model::DataTable::row> using old row content
 #
 # Returns:
 #
-# 	A i18ned string explaining what happens if the requested action
-# 	takes place
+#     A i18ned string explaining what happens if the requested action
+#     takes place
 sub warnOnChangeOnId
 {
 
@@ -1183,12 +1183,12 @@ sub warnOnChangeOnId
 
 # Method: isIdUsed 
 #
-#	TODO
+#    TODO
 #
-#	(POSITIONAL)
-#	
-#	'modelName' - model's name
-# 	'id' - row id
+#    (POSITIONAL)
+#    
+#    'modelName' - model's name
+#     'id' - row id
 sub isIdUsed
 {
 
@@ -1196,11 +1196,11 @@ sub isIdUsed
 
 # Method: setRow
 #
-#	Set an existing row. It should be used only by CGIs
+#    Set an existing row. It should be used only by CGIs
 #
 # Parameters:
 #
-#	named parameters containing the expected fields for each row
+#    named parameters containing the expected fields for each row
 sub setRow
 {
     my ($self, $force, %params) = @_;
@@ -1365,16 +1365,16 @@ sub _cachedVersion
 
 # Method: rows
 #
-# 	Return a list containing the table rows 	
+#     Return a list containing the table rows     
 #
 # Parameters:
 #
-# 	filter - string to filter result
+#     filter - string to filter result
 #       page   - int the page to show the result from
-# 	
+#     
 # Returns:
 #
-#	Array ref containing the rows 
+#    Array ref containing the rows 
 sub rows
 {
     my ($self, $filter, $page)  = @_;
@@ -1414,12 +1414,12 @@ sub rows
 
 # Method: printableValueRows
 #
-# 	Return a list containing the table rows and the printable value
-# 	of every field
+#     Return a list containing the table rows and the printable value
+#     of every field
 #
 # Returns:
 #
-#	Array ref containing the rows 
+#    Array ref containing the rows 
 sub printableValueRows 
 {
     my $self = shift;
@@ -1499,7 +1499,7 @@ sub _rows
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};	
+        my @order = @{$gconfmod->get_list($self->{'order'})};    
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -1605,12 +1605,12 @@ sub _tailoredOrder # (rows)
 
 # Method: setTableName
 #
-#	Use this method to set the current table name. This method
-#	comes in handy to manage several tables with same model
+#    Use this method to set the current table name. This method
+#    comes in handy to manage several tables with same model
 #
 # Parameters:
 #
-# 	tablename - string containing the name
+#     tablename - string containing the name
 #
 sub setTableName
 {
@@ -1627,12 +1627,12 @@ sub setTableName
 
 # Method: setDirectory
 #
-#	Use this method to set the current directory. This method
-#	comes in handy to manage several tables with same model
+#    Use this method to set the current directory. This method
+#    comes in handy to manage several tables with same model
 #
 # Parameters:
 #
-# 	directory - string containing the name
+#     directory - string containing the name
 #
 sub setDirectory
 {
@@ -1738,7 +1738,7 @@ sub directory
 
 # Method: menuNamespace 
 #
-#	Fetch the menu namespace which this model belongs to
+#    Fetch the menu namespace which this model belongs to
 #
 # Returns:
 #
@@ -2038,11 +2038,11 @@ sub modelDomain
 
 # Method: fields 
 #
-# 	Return a list containing the fields which compose each row	
+#     Return a list containing the fields which compose each row    
 #
 # Returns:
 #
-#	Array ref containing the fields
+#    Array ref containing the fields
 sub fields
 {
     my $self = shift;
@@ -2065,12 +2065,12 @@ sub fields
 
 # Method: fieldsWithUndefSetter
 #
-# 	Return a hash containing the fields which compose each row	
-#	and dont have a defined Setter
+#     Return a hash containing the fields which compose each row    
+#    and dont have a defined Setter
 #
 # Returns:
 #
-#	Hash ref containing the field names as keys
+#    Hash ref containing the field names as keys
 #
 sub fieldsWithUndefSetter
 {
@@ -2091,11 +2091,11 @@ sub fieldsWithUndefSetter
 
 # Method: setterTypes 
 #
-# 	Return a list containing those fields which have defined setters 
+#     Return a list containing those fields which have defined setters 
 #
 # Returns:
 #
-#	Array ref containing the fields
+#    Array ref containing the fields
 sub setterTypes
 {
     my ($self) = @_ ;
@@ -2112,11 +2112,11 @@ sub setterTypes
 
 # Method: setFilter
 #
-# 	Set the the string used to filter the return of rows
+#     Set the the string used to filter the return of rows
 #
 # Parameters:
-#	(POSITIONAL)
-#	filter - string containing the filter
+#    (POSITIONAL)
+#    filter - string containing the filter
 #
 sub setFilter
 {
@@ -2126,11 +2126,11 @@ sub setFilter
 
 # Method: filter
 #
-#	Return the string used to filter the return of rows
+#    Return the string used to filter the return of rows
 #
 # Returns:
 #
-#	string - containing the value
+#    string - containing the value
 sub filter
 {
     my ($self) = @_;
@@ -2139,15 +2139,15 @@ sub filter
 
 # Method: pages 
 #
-#	Return the number of pages
+#    Return the number of pages
 #
 # Parameters:
 #
-# 	$rows - hash ref containing the rows, if undef it will use
-# 		those returned by rows()
+#     $rows - hash ref containing the rows, if undef it will use
+#         those returned by rows()
 # Returns:
 #
-#	integer - containing the value
+#    integer - containing the value
 sub pages 
 {
     my ($self, $filter) = @_;
@@ -2172,26 +2172,26 @@ sub pages
 
 # Method: find
 #
-#	Return the first row which matches the value of the given
-#	field against the data returned by the method printableValue()
+#    Return the first row which matches the value of the given
+#    field against the data returned by the method printableValue()
 #
-#	If you want to match against value use
-#	<EBox::Model::DataTable::findValue>
+#    If you want to match against value use
+#    <EBox::Model::DataTable::findValue>
 #
 # Parameters:
 #
-# 	fieldName => value
+#     fieldName => value
 #
-# 	Example:
+#     Example:
 #
-# 	find('default' => 1);
+#     find('default' => 1);
 #
 # Returns:
 #
-# 	Hash ref containing the printable values of the matched row 
-#	
-#	undef if there was not any match
-# 	
+#     Hash ref containing the printable values of the matched row 
+#    
+#    undef if there was not any match
+#     
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2214,25 +2214,25 @@ sub find
 
 # Method: findAll
 #
-#	Return all the rows which matches the value of the given
-#	field against the data returned by the method printableValue()
+#    Return all the rows which matches the value of the given
+#    field against the data returned by the method printableValue()
 #
-#	If you want to match against value use
-#	<EBox::Model::DataTable::findValue>
+#    If you want to match against value use
+#    <EBox::Model::DataTable::findValue>
 #
 # Parameters:
 #
-# 	fieldName => value
+#     fieldName => value
 #
-# 	Example:
+#     Example:
 #
-# 	find('default' => 1);
+#     find('default' => 1);
 #
 # Returns:
 #
-# 	Array ref of hash refs  containing the printable 
-# 	values of the matched row 
-# 	
+#     Array ref of hash refs  containing the printable 
+#     values of the matched row 
+#     
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2252,25 +2252,25 @@ sub findAll
 
 # Method: findValue
 #
-#	Return the first row which matches the value of the given
-#	field against the data returned by the method value()
+#    Return the first row which matches the value of the given
+#    field against the data returned by the method value()
 #
-#	If you want to match against printable value use
-#	<EBox::Model::DataTable::find>
+#    If you want to match against printable value use
+#    <EBox::Model::DataTable::find>
 # Parameters:
 #
-# 	fieldName => value
+#     fieldName => value
 #
-# 	Example:
+#     Example:
 #
-# 	find('default' => 1);
+#     find('default' => 1);
 #
 # Returns:
 #
-# 	Hash ref containing the  values of the matched row 
-#	
-#	undef if there was not any match
-# 	
+#     Hash ref containing the  values of the matched row 
+#    
+#    undef if there was not any match
+#     
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2293,25 +2293,25 @@ sub findValue
 
 # Method: findAllValue
 #
-#	Return all the rows which matches the value of the given
-#	field against the data returned by the method value()
+#    Return all the rows which matches the value of the given
+#    field against the data returned by the method value()
 #
-#	If you want to match against value use
-#	<EBox::Model::DataTable::find>
+#    If you want to match against value use
+#    <EBox::Model::DataTable::find>
 #
 #
 # Parameters:
 #
-# 	fieldName => value
+#     fieldName => value
 #
-# 	Example:
+#     Example:
 #
-# 	find('default' => 1);
+#     find('default' => 1);
 #
 # Returns:
 #
-# 	Array ref of hash refs  containing the values of the matched rows 
-# 	
+#     Array ref of hash refs  containing the values of the matched rows 
+#     
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2331,23 +2331,23 @@ sub findAllValue
 
 # Method: findId
 #
-#	Return the first row identifier which matches the value of the
-#	given field against the data returned by the method value() or
-#	the method printableValue()
+#    Return the first row identifier which matches the value of the
+#    given field against the data returned by the method value() or
+#    the method printableValue()
 #
 # Parameters:
 #
-# 	fieldName => value
+#     fieldName => value
 #
-# 	Example:
+#     Example:
 #
-# 	findId('default' => 1);
+#     findId('default' => 1);
 #
 # Returns:
 #
 #       String - the row identifier from the first matched rule
 #
-#	undef - if there was not any match
+#    undef - if there was not any match
 #
 # Exceptions:
 #
@@ -2528,12 +2528,12 @@ sub automaticRemoveMsg
 }
 
 # Method: pageSize
-# 	
-# 	Return the number of rows per page
+#     
+#     Return the number of rows per page
 #
 # Returns:
-#	
-#	int - page size
+#    
+#    int - page size
 sub pageSize
 {
     my ($self) = @_;
@@ -2542,16 +2542,16 @@ sub pageSize
 }
 
 # Method: setPageSize
-# 	
-# 	set the number of rows per page
+#     
+#     set the number of rows per page
 #
 # Parameters:
 #
-# 	rows - number of rows per page
-# 	
+#     rows - number of rows per page
+#     
 # Returns:
-#	
-#	int - page size
+#    
+#    int - page size
 sub setPageSize
 {
     my ($self, $rows) = @_;
@@ -2566,21 +2566,21 @@ sub setPageSize
 
 # Method: changeViewJS
 #
-# 	Return the javascript function to change view to
-# 	add a row
+#     Return the javascript function to change view to
+#     add a row
 #
 # Parameters:
 #
-#	(NAMED)
-#	changeType - changeAdd or changeList	
-#	editId - edit id
-# 	page - page number
+#    (NAMED)
+#    changeType - changeAdd or changeList    
+#    editId - edit id
+#     page - page number
 #       isFilter - boolean indicating if comes from filtering
 #
 #
 # Returns:
 #
-# 	string - holding a javascript funcion
+#     string - holding a javascript funcion
 sub changeViewJS
 {
     my ($self, %args) = @_;
@@ -2608,16 +2608,16 @@ sub changeViewJS
 
 # Method: addNewRowJS
 #
-# 	Return the javascript function for addNewRow
+#     Return the javascript function for addNewRow
 #
 # Parameters:
-#	
-#	(POSITIONAL)
-# 	page - page number
+#    
+#    (POSITIONAL)
+#     page - page number
 #
 # Returns:
 #
-# 	string - holding a javascript funcion
+#     string - holding a javascript funcion
 sub addNewRowJS
 {
     my ($self, $page) = @_;
@@ -2637,17 +2637,17 @@ sub addNewRowJS
 
 # Method: changeRowJS
 #
-# 	Return the javascript function for changeRow 
+#     Return the javascript function for changeRow 
 #
 # Parameters:
-#	
-#	(POSITIONAL)
-#	editId - row id to edit
-# 	page - page number
+#    
+#    (POSITIONAL)
+#    editId - row id to edit
+#     page - page number
 #
 # Returns:
 #
-# 	string - holding a javascript funcion
+#     string - holding a javascript funcion
 sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
@@ -2669,19 +2669,19 @@ sub changeRowJS
 
 # Method: actionClicked 
 #
-# 	Return the javascript function for actionClicked
+#     Return the javascript function for actionClicked
 #
 # Parameters:
-#	
-#	(POSITIONAL)
-#	action - move or del
-#	editId - row id to edit
-#	direction - up or down
-# 	page - page number
+#    
+#    (POSITIONAL)
+#    action - move or del
+#    editId - row id to edit
+#    direction - up or down
+#     page - page number
 #
 # Returns:
 #
-# 	string - holding a javascript funcion
+#     string - holding a javascript funcion
 sub actionClickedJS
 {
     my ($self, $action, $editId, $direction, $page) = @_;
@@ -2703,7 +2703,7 @@ sub actionClickedJS
         $direction = "dir=$direction";
     } else {
         $direction = "";
-    }	
+    }    
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
@@ -2756,31 +2756,31 @@ sub _setDefaultMessages
 
 # Method: _find
 #
-#	(PRIVATE)
-#	
-#	Used by find and findAll to find rows in a table	
+#    (PRIVATE)
+#    
+#    Used by find and findAll to find rows in a table    
 #
 # Parameters:
 #
-#	(POSITIONAL)
-#	
-#	fieldName - the name of the field to match
-#	value - value we want to match
-#	allMatches -   1 or undef to tell the method to return just the
-#		first match or all of them
+#    (POSITIONAL)
+#    
+#    fieldName - the name of the field to match
+#    value - value we want to match
+#    allMatches -   1 or undef to tell the method to return just the
+#        first match or all of them
 #
-#	kind - String if 'printableValue' match against
-#	printableValue, if 'value' against value, 'row' match against
-#	value returning the row *(Optional)* Default value: 'value'
+#    kind - String if 'printableValue' match against
+#    printableValue, if 'value' against value, 'row' match against
+#    value returning the row *(Optional)* Default value: 'value'
 #
 # Example:
 #
-# 	_find('default',  1, undef, 'printableValue');
+#     _find('default',  1, undef, 'printableValue');
 #
 # Returns:
 #
-#	An array of hash ref containing the rows with their printable
-#	values
+#    An array of hash ref containing the rows with their printable
+#    values
 #
 sub _find
 {
@@ -2995,7 +2995,7 @@ sub _orderHash
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};	
+        my @order = @{$gconfmod->get_list($self->{'order'})};    
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -3053,50 +3053,50 @@ sub _removeHasManyTables
 # FIXME This method must be in ModelManager
 #sub _warnIfIdIsUsed
 #{
-#	my ($self, $id) = @_;
-#	
-#	my $manager = EBox::Model::ModelManager->instance();
-#	my $modelName = $self->modelName();
-#	my $tablesUsing;
-#	
-#	for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
-#		$tablesUsing .= '<br> - ' .  $name ;
-#	}
+#    my ($self, $id) = @_;
+#    
+#    my $manager = EBox::Model::ModelManager->instance();
+#    my $modelName = $self->modelName();
+#    my $tablesUsing;
+#    
+#    for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
+#        $tablesUsing .= '<br> - ' .  $name ;
+#    }
 #
-#	if ($tablesUsing) {
-#		throw EBox::Exceptions::DataInUse(
-#			__('The data you are removing is being used by
-#			the following dtables:') . '<br>' . $tablesUsing);
-#	}
+#    if ($tablesUsing) {
+#        throw EBox::Exceptions::DataInUse(
+#            __('The data you are removing is being used by
+#            the following dtables:') . '<br>' . $tablesUsing);
+#    }
 #}
 #
 ## FIXME This method must be in ModelManager
 #sub _warnOnChangeOnId 
 #{
-#	my ($self, $id, $changeData, $oldRow) = @_;
-#	
-#	my $manager = EBox::Model::ModelManager->instance();
-#	my $modelName = $self->modelName();
-#	my $tablesUsing;
-#	
-#	for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
-#		my $model = $manager->model($name);
-#		my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
-#		if ($issue) {
-#			$tablesUsing .= '<br> - ' .  $issue ;
-#		}
-#	}
+#    my ($self, $id, $changeData, $oldRow) = @_;
+#    
+#    my $manager = EBox::Model::ModelManager->instance();
+#    my $modelName = $self->modelName();
+#    my $tablesUsing;
+#    
+#    for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
+#        my $model = $manager->model($name);
+#        my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
+#        if ($issue) {
+#            $tablesUsing .= '<br> - ' .  $issue ;
+#        }
+#    }
 #
-#	if ($tablesUsing) {
-#		throw EBox::Exceptions::DataInUse(
-#			__('The data you are modifying is being used by
-#			the following tables:') . '<br>' . $tablesUsing);
-#	}
+#    if ($tablesUsing) {
+#        throw EBox::Exceptions::DataInUse(
+#            __('The data you are modifying is being used by
+#            the following tables:') . '<br>' . $tablesUsing);
+#    }
 #}
 
 # Method: _setDomain
 #
-# 	Set the translation domain to the one stored in the model, if any
+#     Set the translation domain to the one stored in the model, if any
 sub _setDomain
 {
     my ($self) = @_;
@@ -3109,7 +3109,7 @@ sub _setDomain
 
 # Method: _restoreDomain
 #
-# 	Restore the translation domain privous to _setDomain
+#     Restore the translation domain privous to _setDomain
 sub _restoreDomain
 {
     my ($self) = @_;
@@ -3162,7 +3162,7 @@ sub _filterRows
         for my $row (@{$rows}) {
             my $values = $row->{'printableValueHash'};
             my $nwords = $totalWords;
-            my %wordFound;		
+            my %wordFound;        
             for my $key (keys %{$values}) {
                 next if (ref $values->{$key});
                 my $rowFound;
@@ -3291,8 +3291,8 @@ sub _paramsWithSetterJS
 
 # Method: _isOptionsCacheDirty
 #
-#	Check if the options cache is dirty. In case of being empty
-#	we return empty too
+#    Check if the options cache is dirty. In case of being empty
+#    we return empty too
 #
 sub _isOptionsCacheDirty
 {
