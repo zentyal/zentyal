@@ -30,115 +30,112 @@ use Clone;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my %params = @_;
-	my $tableModel = delete $params{'tableModel'};
-	my $template;
-	if (defined($tableModel)) {
-		$template = $tableModel->Viewer();
-	}
-	my $self = $class->SUPER::new('template' => $template,
-                                      @_);
-	$self->{'tableModel'} = $tableModel;
-	bless($self, $class);
-	return  $self;
+    my $class = shift;
+    my %params = @_;
+    my $tableModel = delete $params{'tableModel'};
+    my $template;
+    if (defined($tableModel)) {
+        $template = $tableModel->Viewer();
+    }
+    my $self = $class->SUPER::new('template' => $template,
+            @_);
+    $self->{'tableModel'} = $tableModel;
+    bless($self, $class);
+    return  $self;
 }
 
 sub getParams
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
+    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
 
-	my %params;
-	foreach my $field (@{$tableDesc}) {
-		foreach my $fieldName ($field->fields()) {
-                    my $value;
-                    if ( $field->allowUnsafeChars() ) {
-                        $value = $self->unsafeParam($fieldName);
-                    } else {
-			$value = $self->param($fieldName);
-                    }
+    my %params;
+    foreach my $field (@{$tableDesc}) {
+        foreach my $fieldName ($field->fields()) {
+            my $value;
+            if ( $field->allowUnsafeChars() ) {
+                $value = $self->unsafeParam($fieldName);
+            } else {
+                $value = $self->param($fieldName);
+            }
             # TODO Review code to see if we are actually checking
             # types which are not optional
                     $params{$fieldName} = $value;
-		}
-	}
+        }
+    }
 
-	$params{'id'} = $self->param('id');
-	$params{'filter'} = $self->param('filter');
+    $params{'id'} = $self->param('id');
+    $params{'filter'} = $self->param('filter');
 
-	return %params;
+    return %params;
 }
 
 sub addRow
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $model = $self->{'tableModel'};
-	$model->addRow($self->getParams());
-
-
+    my $model = $self->{'tableModel'};
+    $model->addRow($self->getParams());
 }
 
 sub moveRow
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $model = $self->{'tableModel'};
-	
-	$self->_requireParam('id');
-	$self->_requireParam('dir');
+    my $model = $self->{'tableModel'};
 
-	my $id = $self->param('id');
-	my $dir = $self->param('dir');
-	
-	if ($dir eq 'up') {
-		$model->moveUp($id);
-	} else {
-		$model->moveDown($id);
-	}
+    $self->_requireParam('id');
+    $self->_requireParam('dir');
+
+    my $id = $self->param('id');
+    my $dir = $self->param('dir');
+
+    if ($dir eq 'up') {
+        $model->moveUp($id);
+    } else {
+        $model->moveDown($id);
+    }
 }
 
 sub removeRow()
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $model = $self->{'tableModel'};
-	
-	$self->_requireParam('id');
-	my $id = $self->param('id');
-	my $force = $self->param('force');
+    my $model = $self->{'tableModel'};
 
-	$model->removeRow($id, $force);
-	
+    $self->_requireParam('id');
+    my $id = $self->param('id');
+    my $force = $self->param('force');
+
+    $model->removeRow($id, $force);
 }
 
 sub editField
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $model = $self->{'tableModel'};
-	my %params = $self->getParams();
-	my $force = $self->param('force');
-	$model->setRow($force, %params);
+    my $model = $self->{'tableModel'};
+    my %params = $self->getParams();
+    my $force = $self->param('force');
+    $model->setRow($force, %params);
 
-	my $editField = $self->param('editfield');
-	if (not $editField) {
-		return;
-	}
+    my $editField = $self->param('editfield');
+    if (not $editField) {
+        return;
+    }
 
-	my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
-	foreach my $field (@{$tableDesc}) {
-			my $fieldName = $field->{'fieldName'};	
-			if ($editField ne $fieldName) {
-				next;
-			}
-			my $fieldType = $field->{'type'};
-			if ($fieldType  eq 'text' or $fieldType eq 'int') {
-				$self->{'to_print'} = $params{$fieldName};
-			}
-	}
+    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
+    foreach my $field (@{$tableDesc}) {
+        my $fieldName = $field->{'fieldName'};	
+        if ($editField ne $fieldName) {
+            next;
+        }
+        my $fieldType = $field->{'type'};
+        if ($fieldType  eq 'text' or $fieldType eq 'int') {
+            $self->{'to_print'} = $params{$fieldName};
+        }
+    }
 
 }
 
@@ -146,31 +143,31 @@ sub editField
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $model = $self->{'tableModel'};
-	my $global = EBox::Global->getInstance(); 
+    my $model = $self->{'tableModel'};
+    my $global = EBox::Global->getInstance(); 
 
-	my $filter = $self->param('filter');
-	my $page = $self->param('page');
-	my $pageSize = $self->param('pageSize');
-        if ( defined ( $pageSize )) {
-            $model->setPageSize($pageSize);
-        }
-	my $rows = $model->rows($filter, $page);
-	my $tpages = $model->pages($filter);
-	my @params;
-	push(@params, 'data' => $rows);
-	push(@params, 'dataTable' => $model->table());
-	push(@params, 'model' => $model);
-	push(@params, 'action' => $self->{'action'});
-	push(@params, 'editid' => $self->param('editid'));
-	push(@params, 'hasChanged' => $global->unsaved());
-	push(@params, 'filter' => $filter);
-	push(@params, 'page' => $page);
-	push(@params, 'tpages' => $tpages);
+    my $filter = $self->param('filter');
+    my $page = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    if ( defined ( $pageSize )) {
+        $model->setPageSize($pageSize);
+    }
+    my $rows = $model->rows($filter, $page);
+    my $tpages = $model->pages($filter);
+    my @params;
+    push(@params, 'data' => $rows);
+    push(@params, 'dataTable' => $model->table());
+    push(@params, 'model' => $model);
+    push(@params, 'action' => $self->{'action'});
+    push(@params, 'editid' => $self->param('editid'));
+    push(@params, 'hasChanged' => $global->unsaved());
+    push(@params, 'filter' => $filter);
+    push(@params, 'page' => $page);
+    push(@params, 'tpages' => $tpages);
 
-	$self->{'params'} = \@params;
+    $self->{'params'} = \@params;
 
 }
 
@@ -178,71 +175,71 @@ sub refreshTable
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->_requireParam('action');
-	my $action = $self->param('action');
-	$self->{'action'} = $action;
+    $self->_requireParam('action');
+    my $action = $self->param('action');
+    $self->{'action'} = $action;
 
-	my $model = $self->{'tableModel'};
-	
-	my $directory = $self->param('directory');
-	if ($directory) {
+    my $model = $self->{'tableModel'};
 
-		$model->setDirectory($directory);
-	}
+    my $directory = $self->param('directory');
+    if ($directory) {
 
-	if ($action eq 'edit') {
+        $model->setDirectory($directory);
+    }
 
-		$self->editField();
-		$self->refreshTable();
+    if ($action eq 'edit') {
 
-	} elsif ($action eq 'add') {
-		
-		$self->addRow();
-		$self->refreshTable();
+        $self->editField();
+        $self->refreshTable();
 
-	} elsif ($action eq 'del') {
-		
-		$self->removeRow();
-		$self->refreshTable();
+    } elsif ($action eq 'add') {
 
-	} elsif ($action eq 'move') {
+        $self->addRow();
+        $self->refreshTable();
 
-		$self->moveRow();
-		$self->refreshTable();
+    } elsif ($action eq 'del') {
 
-	} elsif ($action eq 'changeAdd') {
-		
-		$self->refreshTable();
-		
-	} elsif ($action eq 'changeList') {
+        $self->removeRow();
+        $self->refreshTable();
 
-		$self->refreshTable();
+    } elsif ($action eq 'move') {
 
-	} elsif ($action eq 'changeEdit') {
-	
-		$self->refreshTable();
+        $self->moveRow();
+        $self->refreshTable();
 
-        } elsif ($action eq 'view') {
-                # This action will show the whole table (including the
-                # table header similarly View Base CGI but inheriting
-                # from ClientRawBase instead of ClientBase
-                $self->{template} = $model->Viewer();
-                $self->refreshTable();
-        }
+    } elsif ($action eq 'changeAdd') {
+
+        $self->refreshTable();
+
+    } elsif ($action eq 'changeList') {
+
+        $self->refreshTable();
+
+    } elsif ($action eq 'changeEdit') {
+
+        $self->refreshTable();
+
+    } elsif ($action eq 'view') {
+        # This action will show the whole table (including the
+        # table header similarly View Base CGI but inheriting
+        # from ClientRawBase instead of ClientBase
+        $self->{template} = $model->Viewer();
+        $self->refreshTable();
+    }
 }
 
 sub _print
 {
-	my $self = shift;
+    my $self = shift;
 
-	if ($self->{'to_print'}) {
-		print($self->cgi()->header(-charset=>'utf-8'));
-		print $self->{'to_print'};
-	} else {
-		$self->SUPER::_print();
-	}
+    if ($self->{'to_print'}) {
+        print($self->cgi()->header(-charset=>'utf-8'));
+        print $self->{'to_print'};
+    } else {
+        $self->SUPER::_print();
+    }
 }
 
 1;
