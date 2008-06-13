@@ -1,3 +1,6 @@
+0.11.102
+	+ Bugfix. Logging were not working with hostnames with characters
+	different from alphanumeric plus '_'
 0.11.101
 	+ Bugfix. Secondary nameserver in options does not fill a default
 	value when setting as undef by user
