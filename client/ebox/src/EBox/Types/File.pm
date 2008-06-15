@@ -69,7 +69,7 @@ use Digest::MD5;
 sub new
 {
         my $class = shift;
-    	my %opts = @_;
+        my %opts = @_;
 
         unless (exists $opts{'HTMLSetter'}) {
             $opts{'HTMLSetter'} ='/ajax/setter/file.mas';
@@ -96,7 +96,7 @@ sub printableValue
     my ($self) = @_;
 
     if ( defined ($self->{filePath}) ) {
-        return $self->{filePath};
+        return basename($self->{filePath});
     } else {
         return '';
     }
@@ -129,6 +129,9 @@ sub isEqualTo
         binmode ( $newFile );
         $newMD5->addfile($newFile);
         my $newDigest = $newMD5->hexdigest();
+        close($origFile);
+        close($newFile);
+
         return ($origDigest eq $newDigest);
 
     }
@@ -146,7 +149,8 @@ sub fields
 {
     my ($self) = @_;
     my $pathField = $self->fieldName() . '_path';
-    return ( $pathField );
+    my $removeField = $self->fieldName() . '_remove';
+    return ( $pathField, $removeField );
 }
 
 # Method: path
@@ -161,8 +165,12 @@ sub path
 {
     my ($self) = @_;
 
-    return $self->{filePath};
+    if (exists $self->{dynamicPath}) {
+        my $dynamicPathFunc = $self->{dynamicPath};
+        return &$dynamicPathFunc($self);
+    }
 
+    return $self->{filePath};
 }
 
 # Method: exist
@@ -289,8 +297,10 @@ sub _setMemValue
     my ($self, $params) = @_;
 
     my $homePathParam = $self->fieldName() . '_path';
+    my $removeParam = $self->fieldName() . '_remove';
 
     $self->{userPath} = $params->{$homePathParam};
+    $self->{remove} = $params->{$removeParam};
 
 }
 
@@ -316,7 +326,7 @@ sub _storeInGConf
                                                  . ' to ' . $self->path());
         }
 
-    } else {
+    } elsif ($self->{remove}) {
         $gconfmod->unset($keyField);
         if ( not $self->userPath() ) {
             # Actually remove
@@ -372,9 +382,11 @@ sub _paramIsSet
     # Check if the parameter exist
     my $path =  $self->fieldName() . '_path';
     my $pathValue = $params->{$path};
+    my $remove =  $self->fieldName() . '_remove';
+    my $removeValue = $params->{$remove};
 
-    return 0 unless defined ( $pathValue );
-
+    return 1 if ($removeValue);
+    return 1 if (defined ( $pathValue ));
     return (-f $self->tmpPath());
 
 }
