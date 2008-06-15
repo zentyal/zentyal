@@ -10,19 +10,28 @@ $data
 my $showPath = defined ( $data->printableValue());
 $showPath = $showPath && (-f $data->path());
 my $download = $showPath && $data->allowDownload();
+ my $id = $data->model()->tableName() . '_' . $data->fieldName();
+ my $idRemove = $id . '_remove';
+ my $idCurrent = $id . '_current';
 </%init>
+% if ($data->model()->isa('EBox::Model::DataForm')) {
+
+<div id="<% $idCurrent %>">
+  <% __('Current file') %>: <% $data->printableValue() %>
 % if ( $download ) {
-<a href="<% $data->linkToDownload() %>">
+  <a href="<% $data->linkToDownload() %>"><% __('Download') %></a>
 % } else {
-<span>
+  <span></span>
 % }
-% if ( $showPath ) {
-  <% $data->printableValue() %>
-% } else {
-  --
-% }
-% if ( $download ) {
-</a>
-% } else {
-</span>
+   <a href="#" onClick="markFileToRemove('<% $id %>');"><% __('Remove') %></a>
+</div>
+
+% } elsif ($data->model()->isa('EBox::Model::DataTable')) {
+
+<% $data->printableValue() %>
+%   if ( $download ) {
+  <a href="<% $data->linkToDownload() %>"><% __('Download') %></a>
+%   } else {
+  <span></span>
+%   }
 % }
