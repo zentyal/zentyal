@@ -134,6 +134,10 @@ sub isEqualTo
 
         return ($origDigest eq $newDigest);
 
+    } elsif ($self->exist() 
+             and (not -f $new->tmpPath() and not $new->toRemove())) {
+
+        return 1;
     }
     return 0;
 
@@ -191,6 +195,21 @@ sub exist
     } else {
         return undef;
     }
+}
+
+# Method: toRemove 
+#
+#    Check if the file has been marked to be removed
+#
+# Returns:
+#
+#    boolean -  
+#
+sub toRemove
+{
+    my ($self) = @_;
+
+    return $self->{remove};
 }
 
 # Method: allowDownload
