@@ -772,12 +772,18 @@ sub _addTypedRow
     my $gconfmod = $self->{'gconfmodule'};
     my $readOnly = delete $optParams{'readOnly'};
 
+    my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setReadOnly($readOnly);
+    $row->setModel($self);
+    $row->setId('dummy');
+
     # Check compulsory fields
     $self->_checkCompulsoryFields($paramsRef);
 
     $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
     foreach my $data (values ( %{$paramsRef} )) {
+        $row->addElement($data);
         $data->storeInGConf($gconfmod, "$dir");
         $data = undef;
     }
@@ -804,6 +810,8 @@ sub _setTypedRow
 
     my $dir = $self->{'directory'};
     my $gconfmod = $self->{'gconfmodule'};
+    
+    
 
     my $oldRow = $self->row();
     my $oldValues = $oldRow->{'valueHash'};
@@ -885,12 +893,14 @@ sub _row
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
 
-      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-
+      
       unless ($gconfmod->dir_exists("$dir")) {
           # Return default values instead
           return $self->_defaultRow();
       }
+      
+      my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+      $row->setModel($self);
 
       my @values;
       $self->{'cacheOptions'} = {};
@@ -916,6 +926,8 @@ sub _defaultRow
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
       my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+      $row->setModel($self);
+      $row->setId('dummy');
 
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
           my $element = $type->clone();

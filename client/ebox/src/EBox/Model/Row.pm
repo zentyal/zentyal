@@ -245,6 +245,10 @@ sub parentRow
 {
     my ($self) = @_;
 
+    unless ($self->model()) {
+        EBox::debug("This row has not a model set");
+        return undef;
+    }
     my $parentModel = $self->model()->parent();
     return undef unless (defined ($parentModel));
 

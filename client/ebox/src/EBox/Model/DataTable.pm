@@ -570,9 +570,9 @@ sub selectOptions
 #
 # Arguments:
 #
-#       action - String containing the action to be performed
-#                after validating this row.
-#                Current options: 'add', 'update'
+#     action - String containing the action to be performed
+#               after validating this row.
+#               Current options: 'add', 'update'
 #     params - hash ref containing fields names and their values
 #
 # Returns:
@@ -599,17 +599,17 @@ sub validateRow
 #
 # Arguments:
 #
-#       action - String containing the action to be performed
-#                after validating this row.
-#                Current options: 'add', 'update'
+#     action - String containing the action to be performed
+#              after validating this row.
+#              Current options: 'add', 'update'
 #
-#     changedFields - hash ref containing the typed parameters
-#     subclassing from <EBox::Types::Abstract> that has changed, the
-#     key will be the field's name
+#    changedFields - hash ref containing the typed parameters
+#                    subclassing from <EBox::Types::Abstract> 
+#                    that has changed, the key will be the field's name
 #
-#       allFields - hash ref containing the typed parameters
-#       subclassing from <EBox::Types::Abstract> including changed,
-#       the key is the field's name
+#    allFields - hash ref containing the typed parameters
+#                subclassing from <EBox::Types::Abstract> including changed,
+#                the key is the field's name
 #
 # Returns:
 #
@@ -651,7 +651,7 @@ sub addedRowNotify
 #     row. The same structure as <EBox::Model::DataTable::row>
 #     return value
 #
-#       force - boolean indicating whether the delete is forced or not
+#    force - boolean indicating whether the delete is forced or not
 #
 #
 sub deletedRowNotify 
@@ -698,7 +698,7 @@ sub movedDownRowNotify
 #     row. The same structure as <EBox::Model::DataTable::row>
 #     return value
 #
-#       force - boolean indicating whether the delete is forced or not
+#     force - boolean indicating whether the delete is forced or not
 #
 sub updatedRowNotify
 {
@@ -801,6 +801,20 @@ sub addTypedRow
       my $readOnly = delete $optParams{'readOnly'};
       my $id = delete $optParams{'id'};
 
+      my $leadingText = substr( $tableName, 0, 4);
+      # Changing text to be lowercase
+      $leadingText = "\L$leadingText";
+
+      unless (defined ($id) and length ($id) > 0) {
+          $id = $gconfmod->get_unique_id( $leadingText, $dir);
+      }
+
+      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+      $row->setReadOnly($readOnly);
+      $row->setModel($self);
+      $row->setId($id);
+
+            
       # Check compulsory fields
       $self->_checkCompulsoryFields($paramsRef);
 
@@ -813,6 +827,7 @@ sub addTypedRow
               $self->_checkFieldIsUnique($param);
           }
           push(@userData, $param);
+          $row->addElement($param);
       }
 
       $self->validateTypedRow('add', $paramsRef, $paramsRef);
@@ -822,13 +837,7 @@ sub addTypedRow
           $self->_checkRowIsUnique(undef, $paramsRef);
       }
 
-      my $leadingText = substr( $tableName, 0, 4);
-      # Changing text to be lowercase
-      $leadingText = "\L$leadingText";
-
-      unless (defined ($id) and length ($id) > 0) {
-          $id = $gconfmod->get_unique_id( $leadingText, $dir);
-      }
+      
 
       foreach my $data (@userData) {
           $data->storeInGConf($gconfmod, "$dir/$id");
