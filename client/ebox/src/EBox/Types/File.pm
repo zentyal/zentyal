@@ -115,8 +115,8 @@ sub isEqualTo
 
 
     if ( defined ( $self->path() ) and $self->path() ne ''
-         and (-f $self->path()) and defined ( $self->tmpPath() )
-         and (-f $self->tmpPath())) {
+         and (-f $self->path()) and defined ( $new->tmpPath() )
+         and (-f $new->tmpPath())) {
         # Check MD5 sum to check content uniqueness
         my ($origFile, $newFile);
         my $origMD5 = Digest::MD5->new();
@@ -125,7 +125,7 @@ sub isEqualTo
         $origMD5->addfile($origFile);
         my $origDigest = $origMD5->hexdigest();
         my $newMD5 = Digest::MD5->new();
-        open ( $newFile, '<', $self->tmpPath());
+        open ( $newFile, '<', $new->tmpPath());
         binmode ( $newFile );
         $newMD5->addfile($newFile);
         my $newDigest = $newMD5->hexdigest();
