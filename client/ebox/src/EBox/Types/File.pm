@@ -253,12 +253,31 @@ sub linkToDownload
 {
     my ($self) = @_;
 
-    my $link = '/ebox/';
-    $link .= $self->model()->modelDomain() . '/Controller/';
-    $link .= $self->model()->name() . '/';
-    $link .= $self->model()->index() . '/' if defined ( $self->model()->index());
-    $link .= 'Download/';
-    $link .= $self->row()->{id} . '/' . $self->fieldName();
+    my $modelDomain = $self->model()->modelDomain();
+    my $modelName = $self->model()->name();
+    my $index = $self->model()->index();
+
+    unless (defined($modelDomain) and length ($modelDomain) > 0) {
+        $modelDomain = undef;
+    }
+
+    unless (defined($modelName) and length ($modelName) > 0) {
+        $modelName = undef;
+    }
+
+    unless (defined($index) and length ($index) > 0) {
+        $index = undef;
+    }
+
+
+    my $link = '/ebox/Controller/Downloader/FromModel?';
+    $link .= 'model=';
+    $link .= "/$modelDomain" if ($modelDomain);
+    $link .= "/$modelName" if ($modelName);
+    $link .= "/$index" if ($index);
+    $link .= '&dir=' . $self->model()->directory();
+    $link .= '&id=' . $self->row()->id(); 
+    $link .= '&field='  . $self->fieldName();
 
     return $link;
 }

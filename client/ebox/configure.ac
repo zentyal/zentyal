@@ -152,6 +152,7 @@ src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Controller/Makefile
+src/EBox/CGI/Controller/Downloader/Makefile
 src/EBox/CGI/ServiceModule/Makefile
 src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile

@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::CGI::Controller::Downloader
+# Class: EBox::CGI::Controller::Downloader::Base
 #
-# This CGI is used to download a file from a type called Type.
-
-package EBox::CGI::Controller::Downloader;
+#   This is the base cgi to implement controllers to download files
+#
+package EBox::CGI::Controller::Downloader::Base;
 
 use strict;
 use warnings;
@@ -39,46 +39,33 @@ use File::MMagic;
 
 # Constructor: new
 #
-#      Create a <EBox::CGI::Controller::Downloader>
+#      Create a <EBox::CGI::Controller::Downloader::Base>
 #
-# Parameters:
-#
-#      model - <EBox::Model::DataTable> the model instance from where
-#      gets the file type
-#
-#      id - String the row identifier from where to get the file. This
-#      field is *optional* when the model has one single row
-#
-#      fieldName - String the field name which corresponds to the file
-#      to download
-#
-#      - Named parameters
-#
-# Exceptions:
-#
-#     <EBox::Exceptions::MissingArgument> - thrown if model or
-#     fieldName is not present
 #
 sub new # (cgi=?)
 {
 
     my ($class, %params) = @_;
-    my $model = delete $params{model};
-    throw EBox::Exceptions::MissingArgument('model')
-      unless defined ( $model );
-    my $id = delete $params{id};
-    my $fieldName = delete $params{fieldName};
-    throw EBox::Exceptions::MissingArgument('fieldName')
-      unless defined ( $fieldName );
     my $self = $class->SUPER::new(@_);
-    $self->{model} = $model;
-    $self->{id} = $id;
-    $self->{fieldName} = $fieldName;
     bless($self, $class);
     return  $self;
 }
 
 # Group: Protected methods
+
+# Method: _path
+#
+#   This method must be overriden by subclasses to return the path
+#   of the file to download
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::NotImplemented> - thrown if this method
+#      is not implemented by the subclass
+sub _path
+{
+    throw EBox::Exceptions::NotImplemented;
+}
 
 # Method: _process
 #
@@ -95,25 +82,8 @@ sub _process
 {
     my ($self) = @_;
 
-    my $model = $self->{model};
-    my $fieldName = $self->{fieldName};
-    my $id = $self->{id};
+    my $path = $self->_path();
 
-    my $row = $model->row($id);
-
-    my $fileType = $row->{valueHash}->{$fieldName};
-    unless ( defined ( $fileType )) {
-        throw EBox::Exceptions::Internal("$fieldName does not exist"
-                                         . 'in model ' . $model->name()
-                                         . '.Possible values: ' 
-                                         . join(', ', keys(%{$row->{valueHash}})));
-    }
-    unless ( $fileType->allowDownload() ) {
-        throw EBox::Exceptions::Internal('Try to download a field which is not '
-                                         . 'allowed to download from');
-    }
-
-    my $path = $fileType->path();
     # Setting the file
     $self->{downfile} = $path;
     # Setting the file name
