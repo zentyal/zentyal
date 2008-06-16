@@ -149,6 +149,7 @@ sub modelClasses
 # 	  'EBox::Network::Model::ByteRateGraph',
 # 	  'EBox::Network::Model::ByteRateGraphControl',
           'EBox::Network::Model::StaticRoute',
+          'EBox::Network::Model::DeletedStaticRoute',
           'EBox::Network::Model::DNSResolver',
 	 ];
 }
@@ -1867,6 +1868,8 @@ sub generateInterfaces
 sub _generateRoutes
 {
 	my ($self) = @_;
+        # Delete those routes which are not useful anymore
+        $self->_removeRoutes();
         my @routes = @{$self->routes()};
         (@routes) or return;
 	foreach (@routes) {
@@ -1877,6 +1880,29 @@ sub _generateRoutes
 		}
 		root("/sbin/ip route add $net via $router table main || true");
 	}
+}
+
+# Remove those static routes which user has marked as deleted
+sub _removeRoutes
+{
+    my ($self) = @_;
+
+    my $deletedModel = $self->model('DeletedStaticRoute');
+    foreach my $row (@{$deletedModel->rows()}) {
+        my $network = $row->elementByName('network')->printableValue();
+        my $gateway = $row->elementByName('gateway')->printableValue();
+        if ( route_is_up($network, $gateway)) {
+            root("/sbin/ip route del $network via $gateway");
+        }
+        # Perform deletion in two phases to let eBox perform sync correctly
+        if ( $row->elementByName('deleted')->value() ) {
+            $deletedModel->removeRow($row->id(), 1);
+        } else {
+            $row->elementByName('deleted')->setValue(1);
+            $row->storeElementByName('deleted');
+        }
+    }
+
 }
 
 sub _multigwRoutes

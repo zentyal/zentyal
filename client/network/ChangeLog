@@ -1,4 +1,7 @@
-0.101
+0.11.102
+	+ Bugfix: Static routes are deleted from ip when they are not
+	useful
+0.11.101
 	+ Static routes become a model with three methods exposed
 	+ Remove usage of a deprecated method in NetWrappers
 	+ DNS resolvers become  a model with three methods exposed. Now

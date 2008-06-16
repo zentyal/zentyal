@@ -92,10 +92,25 @@ sub deletedRowNotify
 {
     my ($self, $rowDeleted, $force) = @_;
 
-    my $gatewayDeleted = $rowDeleted->{plainValueHash}->{gateway};
+    my $net = $rowDeleted->elementByName('network')->printableValue();
+    my $gw = $rowDeleted->elementByName('gateway')->printableValue();
 
     my $netMod = EBox::Global->modInstance('network');
-    $netMod->gatewayDeleted($gatewayDeleted);
+    $netMod->gatewayDeleted($gw);
+
+    # Store the deleted static route
+    my $modelManager = EBox::Model::ModelManager->instance();
+    my $deletedModel = $modelManager->model('DeletedStaticRoute');
+    my $result = $deletedModel->findRow( network => $net );
+    if ( defined($result)
+         and $result->elementByName('gateway')->value() eq $gw ) {
+          $deletedModel->set( $result->id(),
+                              deleted => 0);
+    } else {
+        $deletedModel->add(network => $net,
+                           gateway => $gw,
+                           deleted => 0);
+    }
 
 }
 
