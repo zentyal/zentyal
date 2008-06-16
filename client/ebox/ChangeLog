@@ -1,5 +1,9 @@
 0.11.102
-	+ Added EBox::Model::Row to ease the management of data returned by models
+	+ Added EBox::Model::Row to ease the management of data returned
+	by models
+	+ Added support to pre-save and post-save executable files. They
+	must be placed at /etc/ebox/pre-save or /etc/ebox/post-save
+	+ Added `findRow` method to ease find and set
 0.11.101
 	+ Bugfix: Fix memory leak in models while cloning types. Now
 	cloning is controlled by clone method in types
@@ -7,7 +11,7 @@
 	+ DESTROY is not an autoloaded method anymore
 	+ HasOne fields now may set printable value from the foreign field
 	to set its value
-	+ findId now searchs as well using printableValue
+	+ findId now searches as well using printableValue
 	+ Bugfix. Minor bug found when key is an IP address in autoloaded
 	methods
 	+ Ordered tables may insert values at the beginning or the end of

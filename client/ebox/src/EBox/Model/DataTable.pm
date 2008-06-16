@@ -513,7 +513,7 @@ sub optionsFromForeignModel
 
     my $cache = $self->{'optionsCache'};
     if ($self->_isOptionsCacheDirty($field)) {
-        EBox::debug("cache is dirty");
+        # EBox::debug("cache is dirty");
         my @options;
         for my $row (@{$self->printableValueRows()}) {
             push (@options, {
@@ -814,7 +814,6 @@ sub addTypedRow
       $row->setModel($self);
       $row->setId($id);
 
-            
       # Check compulsory fields
       $self->_checkCompulsoryFields($paramsRef);
 
@@ -836,8 +835,6 @@ sub addTypedRow
       if ( $self->rowUnique() ) {
           $self->_checkRowIsUnique(undef, $paramsRef);
       }
-
-      
 
       foreach my $data (@userData) {
           $data->storeInGConf($gconfmod, "$dir/$id");
@@ -881,7 +878,7 @@ sub addTypedRow
 #
 # Returns:
 #
-#    Hash reference containing:
+#    <EBox::Model::Row> - hash reference containing:
 #
 #        - 'id' =>  row id
 #        - 'order' => row order
@@ -2197,9 +2194,9 @@ sub pages
 #
 # Returns:
 #
-#     Hash ref containing the printable values of the matched row 
-#    
-#    undef if there was not any match
+#     Hash ref - containing the printable values of the matched row
+#
+#     undef - if there was not any match
 #     
 # Exceptions:
 #
@@ -2388,6 +2385,49 @@ sub findId
     return undef;
 
 }
+
+# Method: findRow
+#
+#    Return the first row which matches the value of the given field
+#    against the data returned by the method printableValue() or
+#    method value()
+#
+# Parameters:
+#
+#     fieldName => value
+#
+#     Example:
+#
+#     findRow('default' => 1);
+#
+# Returns:
+#
+#    <EBox::Model::Row> - the row from the first matched rule
+#
+#    undef - if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findRow
+{
+    my ($self, $fieldName, $value) = @_;
+
+    unless (defined($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name");
+    }
+
+    my $id = $self->findId($fieldName, $value);
+
+    if ( defined($id) ) {
+        return $self->row($id);
+    } else {
+        return undef;
+    }
+
+}
+
 
 sub DESTROY { ; }
 

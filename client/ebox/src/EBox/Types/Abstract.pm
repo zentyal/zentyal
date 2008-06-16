@@ -352,13 +352,13 @@ sub restoreFromGconf
 #      value - the value to set
 #
 sub setValue
-  {
+{
 
-      my ($self, $value) = @_;
+    my ($self, $value) = @_;
 
-      $self->_setValue($value);
+    $self->_setValue($value);
 
-  }
+}
 
 # Method: setMemValue
 #
