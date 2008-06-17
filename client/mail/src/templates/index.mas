@@ -398,25 +398,7 @@ $maxmdsize
 <script type="text/javascript">
 
 % if ($mdQuotaAvailable) {
-function updateMsgSize() {
-    var size = document.getElementById("maxmsgsize")
-    var chk = document.getElementById("ulmsize")
-	var val = <% $maxmsgsize %>;
 
-    if(chk.checked) {
-        size.disabled = true;
-        size.value = '';
-    } else {
-        size.disabled = false;
-
-		if(val == 0) {
-			val = 10;
-		}
-
-        size.value = val;
-    }
-}
-% }
 function updateMDSize() {
     var size = document.getElementById("mdsize")
     var chk = document.getElementById("ummsize")
@@ -436,9 +418,30 @@ function updateMDSize() {
 }
 
 
+% }
+
+function updateMsgSize() {
+    var size = document.getElementById("maxmsgsize")
+    var chk = document.getElementById("ulmsize")
+	var val = <% $maxmsgsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+
+		if(val == 0) {
+			val = 10;
+		}
+
+        size.value = val;
+    }
+}
+
+
 updateMsgSize()
 </script>
-
 
 
 </%def>
