@@ -143,6 +143,7 @@ src/EBox/Model/DataForm/t/Makefile
 src/EBox/Model/ModelProvider/Makefile
 src/EBox/Model/ProviderBase/Makefile
 src/EBox/Types/Makefile
+src/EBox/Types/File/Makefile
 src/EBox/Types/t/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/ProgressIndicator/Makefile

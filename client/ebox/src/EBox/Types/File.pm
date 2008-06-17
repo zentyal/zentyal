@@ -41,11 +41,12 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::Sudo;
 
 # Core modules
 use File::Basename;
-use File::Copy::Recursive;
 use Digest::MD5;
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -61,6 +62,11 @@ use Digest::MD5;
 #
 #     allowDownload - Boolean indicating if the file uploaded can be
 #     downloaded *(Optional)* Default value: false
+#     filePath - path to the file location
+#     dynamicPath - reference to a subroutine that returns the actual filePath
+#     user        - user which will own the file (default: ebox)
+#     group       - group which will be own the file, if it is not supplied
+#                     the group will be have the sanme name than the user
 #
 # Returns:
 #
@@ -177,6 +183,38 @@ sub path
     return $self->{filePath};
 }
 
+
+# Method: user
+#
+# Returns:
+#         - the user which will own the file  
+sub user
+{
+    my ($self) = @_;
+
+    if (not exists $self->{user}) {
+        return 'ebox';
+    }
+
+    return $self->{user};
+}
+
+# Method: group
+#
+# Returns:
+#         - the group which will own the file  
+sub group
+{
+    my ($self) = @_;
+
+    if (not exists $self->{user}) {
+        return $self->user();
+    }
+
+    return $self->{user};
+
+}
+
 # Method: exist
 #
 #    Check if the file path marked exists
@@ -191,7 +229,7 @@ sub exist
     my ($self) = @_;
 
     if ( $self->path() ) {
-        return (-f $self->path());
+        return EBox::Sudo::fileTest('-f', $self->path);
     } else {
         return undef;
     }
@@ -357,25 +395,60 @@ sub _storeInGConf
     if ($self->path() and $self->userPath()) {
         $gconfmod->set_string($keyField, $self->path());
         # Do actually move
-        my $tmpPath = $self->tmpPath();
-        if ( -f $tmpPath ) {
-            File::Copy::move($tmpPath, $self->path()) or
-                throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
-                                                 . ' to ' . $self->path());
-        }
+        $self->_moveToPath();
 
     } elsif ($self->{remove}) {
         $gconfmod->unset($keyField);
         if ( not $self->userPath() ) {
             # Actually remove
-            if ( -f $self->path() ) {
-                unlink( $self->path() ) or
-                  throw EBox::Exceptions::Internal('Cannot unlink '
-                                                   . $self->path());
+            my $path = $self->path();
+            if ( -f $path ) {
+                EBox::Sudo::root("rm $path");
             }
         }
     }
 }
+
+
+
+sub _moveToPath
+{
+    my ($self) = @_;
+
+    my $path   = $self->path();
+
+    my $tmpPath = $self->tmpPath();
+    if (not -f $tmpPath) {
+        throw EBox::Exceptions::Internal("No file found at $tmpPath for moving to $path");
+    }
+
+    my $user = $self->user();
+    my $group = $self->group();
+
+    if (($user eq  'root') or ($group eq 'root')) {
+        EBox::Sudo::root("mv $tmpPath $path");
+        try {
+            EBox::Sudo::root("chown $user.$group $path");
+        }
+        otherwise {
+            my $ex = shift;
+            EBox::Sudo::root("rm -f $path");
+            $ex->throw();
+        };
+    }
+    elsif (($user eq 'ebox') and ($group eq 'ebox')) {
+        File::Copy::move($tmpPath, $self->path()) or
+              throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
+                                               . ' to ' . $self->path());
+    }
+    else {
+        throw EBox::Exceptions::NotImplemented(
+                 "user and group combination not supported"
+                                              );
+    }
+
+}
+
 
 # Method: _restoreFromHash
 #
@@ -463,14 +536,11 @@ sub backup
     my $backupPath = $self->backupPath();
     $backupPath or return;
 
-     File::Copy::Recursive::fcopy ($path, $backupPath);
+    EBox::Sudo::root("cp -p $path $backupPath")
   }
   else {
     my $noPreviousFilePath = $self->noPreviousFilePath();
-    open my $FH, ">$noPreviousFilePath" or
-      throw EBox::Exceptions::Internal("Cannot open $noPreviousFilePath: $!");
-    close $FH or
-      throw EBox::Exceptions::Internal("Cannot close $noPreviousFilePath: $!");
+    EBox::Sudo::root("touch $noPreviousFilePath");
   }
 
 }
@@ -484,15 +554,14 @@ sub restore
   $path or return;
 
   my $backupPath = $self->backupPath();
-  if (-f $backupPath) {
-    copy ($backupPath, $path);
-    return;
+  if ( EBox::Sudo::fileTest('-f', $backupPath) ) {
+      EBox::Sudo::root("cp -p $backupPath $path");
+      return;
   }
   
   my $noPreviousFilePath = $self->noPreviousFilePath();
-  if (-f $noPreviousFilePath) {
-    unlink $path;
-    unlink $noPreviousFilePath;
+  if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
+      EBox::Sudo::root("rm -f $path $noPreviousFilePath");
   }
   
 

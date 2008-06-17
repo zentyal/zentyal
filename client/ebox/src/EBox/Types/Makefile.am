@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Union t
+SUBDIRS = Union File t
 
 perldir = @PERLPATH@/EBox/Types
 
