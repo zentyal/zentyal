@@ -262,6 +262,8 @@ sub acquireEventConfURL
 {
     my ($instancedType) = @_;
 
+    return unless defined($instancedType);
+
     my $logDomain = $instancedType->row()->{plainValueHash}->{domain};
 
     my $modelManager = EBox::Model::ModelManager->instance();
