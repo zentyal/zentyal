@@ -920,6 +920,7 @@ sub row
     
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();
+        $element->setRow($row); # XXX This is done twice!!!
         $element->restoreFromHash($gconfData);
         $row->addElement($element);
     }
