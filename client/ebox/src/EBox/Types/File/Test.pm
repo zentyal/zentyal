@@ -36,7 +36,6 @@ use EBox::Types::File;
 
 
 
-EBox::TestStubs::activateTestStubs();
 
 my $content = 'first';
 my $secondContent = 'second';
@@ -44,11 +43,20 @@ my $secondContent = 'second';
 my $path = '/tmp/ebox.type.file.test';
 
 
+sub setEBoxTmp : Test(startup)
+{
+    EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp/');
+}
 
 
-sub clearFile : Test(startup)
+
+sub clearFiles : Test(setup)
 {
     system "rm -f $path";
+
+    my $file = newFile();
+    my @toDelete = ($file->tmpPath, $file->path, $file->backupPath, $file->noPreviousFilePath);
+    system (" rm -f @toDelete"); 
 }
 
 sub newTest : Test(1)
@@ -75,6 +83,29 @@ sub restoreWithoutBackup : Test(2)
 }
 
 
+sub restoreWithoutBackup: Test(4)
+{
+    my $file = newFile();
+
+    write_file($path, $content);
+    lives_ok {
+        $file->restore()
+    } ' restore with backup of no existent file';
+
+    my $actualContent = read_file($path);
+    is $actualContent, $content, 
+        'Checking that restore without backup does not alter the existent file';
+
+    unlink $path;
+
+        lives_ok {
+        $file->restore()
+    } ' restore with backup of no existent file';
+
+    Test::File::file_not_exists_ok($path, "checking that restore without backup does not bring back deleted files");
+}
+
+
 sub restoreWithoutPreviousFile : Test(3)
 {
     my $file = newFile();
@@ -92,9 +123,8 @@ sub restoreWithoutPreviousFile : Test(3)
         $file->restore()
     } ' restore with backup of no existent file';
 
-    my $actualContent = read_file($path);
-    is $actualContent, $content, 
-        'Checking that restore without backup does not alter the existent file';
+    Test::File::file_not_exists_ok($path, "checking that restore bckup done without files erases the new file");
+
 }
 
 
@@ -125,6 +155,51 @@ sub restoreWithPreviousFile : Test(5)
 
 }
 
+
+sub isEqualToTest : Test(5)
+{
+    my $file = newFile();
+    my $file2 = newFile();
+
+    clearFiles();
+    ok $file->isEqualTo($file2), 'Checking equalTo in identical files objects';
+
+    clearFiles();
+    write_file($path, $content);
+    ok $file->isEqualTo($file2), 'Checking equalTo in identical files objects  with file already in place';
+
+    clearFiles();
+    write_file($path, $content);
+    write_file($file2->tmpPath(), $content);
+    ok $file->isEqualTo($file2), 'Checking equalTo in identical files objects with the same file already in place and upload file';
+    
+    
+    my $notEqual;
+
+    clearFiles();
+    write_file($path, $content);
+    write_file($file2->tmpPath(), 'differentContent');
+    $notEqual = not $file->isEqualTo($file2);
+    ok  $notEqual, 'Checking equalTo in identical files objects with a file already in place and another upload file';
+
+    clearFiles();
+    write_file($file2->tmpPath(), $content);
+    $notEqual = not $file->isEqualTo($file2);
+    ok $notEqual, 'Checking equalTo in identical files objects without a file  in place and upload file';
+}
+
+
+sub existsTest : Test(2)
+{
+    my $file = newFile();
+
+    ok (not $file->exist);
+
+    write_file($path, $content);
+    ok $file->exist;
+}
+
+
 sub newFile
 {
     my $file = EBox::Types::File->new(
@@ -132,7 +207,7 @@ sub newFile
                                       fieldName => 'fileTest',
                                      );
     
-    # remove previous backup apth
+    # remove previous backup path
     my $backupPath = $file->backupPath();
     system "rm -f $backupPath";
 

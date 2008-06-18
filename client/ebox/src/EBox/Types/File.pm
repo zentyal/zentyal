@@ -45,7 +45,6 @@ use EBox::Sudo;
 
 # Core modules
 use File::Basename;
-use Digest::MD5;
 use Error qw(:try);
 
 # Group: Public methods
@@ -119,34 +118,37 @@ sub isEqualTo
 {
     my ($self, $new) = @_;
 
+    my $fileExists  = $self->exist();
+    my $uploadFile = (-f $new->tmpPath);
+    my $removeFile =  $new->toRemove;
 
-    if ( defined ( $self->path() ) and $self->path() ne ''
-         and (-f $self->path()) and defined ( $new->tmpPath() )
-         and (-f $new->tmpPath())) {
+    if ( $fileExists and $uploadFile) {
         # Check MD5 sum to check content uniqueness
-        my ($origFile, $newFile);
-        my $origMD5 = Digest::MD5->new();
-        open ($origFile, '<', $self->path());
-        binmode ( $origFile );
-        $origMD5->addfile($origFile);
-        my $origDigest = $origMD5->hexdigest();
-        my $newMD5 = Digest::MD5->new();
-        open ( $newFile, '<', $new->tmpPath());
-        binmode ( $newFile );
-        $newMD5->addfile($newFile);
-        my $newDigest = $newMD5->hexdigest();
-        close($origFile);
-        close($newFile);
+        my $path    = $self->path;
+        my $tmpPath = $self->tmpPath;
+        my $equal;
+        try {
+            EBox::Sudo::root("diff -q $path $tmpPath");
+            # diff return value 0; they are equal
+            $equal = 1;
+        }
+        otherwise {
+            # diff command failed, we assume that they ar different (cannot find
+            # a reliable docuentation of diff's return values)
+            $equal = 0;
+            
+        };
 
-        return ($origDigest eq $newDigest);
-
-    } elsif ($self->exist() 
-             and (not -f $new->tmpPath() and not $new->toRemove())) {
-
-        return 1;
+        return $equal;
     }
-    return 0;
+    elsif ($uploadFile) {
+        return 0
+    }
+    elsif ($removeFile) {
+        return 0;
+    }
 
+    return 1;
 }
 
 # Method: fields
@@ -532,15 +534,19 @@ sub backup
   my $path        = $self->path();
   $path or return;
 
+  my $backupPath = $self->backupPath();
+  my $noPreviousFilePath = $self->noPreviousFilePath();
+
   if ($self->exist()) {
-    my $backupPath = $self->backupPath();
+
     $backupPath or return;
 
-    EBox::Sudo::root("cp -p $path $backupPath")
+    EBox::Sudo::root("cp -p $path $backupPath");
+    EBox::Sudo::root("rm -f $noPreviousFilePath");
   }
   else {
-    my $noPreviousFilePath = $self->noPreviousFilePath();
     EBox::Sudo::root("touch $noPreviousFilePath");
+    EBox::Sudo::root("rm -f $backupPath");
   }
 
 }
@@ -561,7 +567,7 @@ sub restore
   
   my $noPreviousFilePath = $self->noPreviousFilePath();
   if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
-      EBox::Sudo::root("rm -f $path $noPreviousFilePath");
+      EBox::Sudo::root("rm -f $path");
   }
   
 
