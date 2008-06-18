@@ -920,7 +920,7 @@ sub row
     
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();
-        $element->setRow($row); # XXX This is done twice!!!
+	$element->setRow($row);
         $element->restoreFromHash($gconfData);
         $row->addElement($element);
     }
@@ -3874,7 +3874,39 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 
 }
 
+# Method: pushRedirection
+#
+#   Push a redirection to be used by the controller
+#
+# Parameters:
+#
+#   redirect - URL containing the redirect, should be something like:
+#              /ebox/Controller/Foo
+sub pushRedirection
+{
+    my ($self, $redirect) = @_;
 
+    $self->{redirection} = $redirect;
+}
+
+# Method: popRedirection
+#
+#   Pop a redirection to be used by the controller
+#
+# Returns:
+#
+#   redirect - URL containing the redirect, should be something like:
+#              /ebox/Controller/Foo
+s
+sub popRedirection
+{
+    my ($self) = @_;
+
+    my $redirection = $self->{redirection};
+    $self->{redirection} = undef;
+
+    return $redirection;
+}
 
 # Method: _autoloadGetId
 #

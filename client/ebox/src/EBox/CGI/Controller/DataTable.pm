@@ -140,6 +140,8 @@ sub editField
 }
 
 
+
+
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
@@ -230,16 +232,32 @@ sub _process
     }
 }
 
+sub _redirect
+{
+    my $self = shift;
+
+    my $model = $self->{'tableModel'};
+
+    return unless (defined($model));
+
+    return $model->popRedirection();
+}
+
+# TODO: Move this function to the proper place
+sub _printRedirect
+{
+    my $self = shift;
+    my $url = $self->_redirect();
+    return unless (defined($url));
+    print "<script>window.location.href='$url'</script>";
+}
+
 sub _print
 {
     my $self = shift;
 
-    if ($self->{'to_print'}) {
-        print($self->cgi()->header(-charset=>'utf-8'));
-        print $self->{'to_print'};
-    } else {
-        $self->SUPER::_print();
-    }
+    $self->SUPER::_print();
+    $self->_printRedirect;
 }
 
 1;
