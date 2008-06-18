@@ -18,10 +18,10 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
-			EBox::Model::ModelProvider 
-			EBox::Model::CompositeProvider
-			EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::GConfModule
+            EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider
+            EBox::ServiceModule::ServiceInterface);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -43,6 +43,7 @@ use constant BIND9CONFOPTIONSFILE => "@BIND9CONFOPTIONS@";
 use constant BIND9CONFLOCALFILE => "@BIND9CONFLOCAL@";
 use constant BIND9INIT     => "@BIND9_INIT@";
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
+use constant NAMESERVER_HOST => 'ns';
 
 sub _create 
 {
@@ -409,6 +410,21 @@ sub findAlias
 
 }
 
+# Method: NameserverHost
+#
+#       Return those host which is the nameserver for every domain. It
+#       is a constant
+#
+# Returns:
+#
+#       String - the nameserver host name for every eBox defined
+#       domain
+#
+sub NameserverHost
+{
+    return NAMESERVER_HOST;
+}
+
 # Method: _completeDomain
 #
 # 	Return a structure with all required data to build bind db config files
@@ -760,6 +776,7 @@ sub _setBindConf
 		my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
 		@array = ();
 		push(@array, 'domain' => $domdata);
+                push(@array, 'nameserverHostname' => __PACKAGE__->NameserverHost());
 		$self->writeConfFile($file,"dns/db.mas",\@array);
 	}
 
@@ -786,7 +803,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dns', __('DNS'),
-		EBox::Service::running('ebox.bind9'), $self->service);
+		EBox::Service::running('ebox.bind9'), $self->service());
 }
 
 sub configureFirewall

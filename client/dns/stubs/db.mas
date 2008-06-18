@@ -14,25 +14,28 @@ Parameters:
       mailExchangers - Array ref containing hash refs with the following elements:
          hostName - String the host's name which is a mail exchanger
          preference - Int the preference number for that MX record
+
+  nameserverHostname - String the nameserver host name
 </%doc>
 <%args>
 	%domain
+        $nameserverHostname
 </%args>
 <%init>
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
 </%init>
 $TTL 3D
-@	IN	SOA	ns.<% $domain{'name'} %>.	admin.warp.es. (
+@	IN	SOA	<% $nameserverHostname %>.<% $domain{'name'} %>.	admin.warp.es. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry
 			4W		;expiration
 			1D )		;
 ;
-		NS	ns.<% $domain{'name'} %>.	;nameserver
+		NS	<% $nameserverHostname %>.<% $domain{'name'} %>.	;nameserver
 ;
-ns		A	127.0.0.1
+<% $nameserverHostname %>		A	127.0.0.1
 <%perl>
 	my @hosts = @{$domain{'hosts'}};
 	if(@hosts != 0) {
