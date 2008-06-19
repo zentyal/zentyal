@@ -1,0 +1,18 @@
+<%flags>
+inherit => '/ajax/setter/ipaddrSetter.mas'
+</%flags>
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+my @masks = (30, 29, 28, 27, 26, 25, 24, 16, 8);
+</%init>
+
+<& PARENT:setter, 
+              tableName => $tableName,
+              data      => $data,       
+              cssClass  => $cssClass,
+              masks     => \@masks,
+&>
