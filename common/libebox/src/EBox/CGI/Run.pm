@@ -26,7 +26,6 @@ use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
-use EBox::CGI::Controller::Downloader;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Composite;
 use CGI;
@@ -120,11 +119,10 @@ sub _lookupViewController
 #	my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
         # URL to map:
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
-        # menuNamespaceBranch => 'View' model | 'Controller' model index action | 'Composite' model index action
+        # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model index action
         # model => '::<modelName>'
         # index => '::<index>' | epsilon
-        # action => '::<actionName>' field | epsilon
-        # field => '::<id>::<fieldName> | epsilon
+        # action => '::<actionName>' | epsilon
 
         my @namespaces = split ( '::', $classname);
 
@@ -155,26 +153,17 @@ sub _lookupViewController
                 $model = $manager->model($modelName);
             };
 
+
             $menuNamespace = $model->menuNamespace();
             if ( $namespace eq 'View' ) {
+#            if ($classname =~ /EBox::CGI::.*::View:/ ) {
 		$cgi = EBox::CGI::View::DataTable->new(
                                                        'tableModel' => $model);
             } elsif ( $namespace eq 'Controller' ) {
-                if ( not defined ( $action )) {
-                    $cgi = EBox::CGI::Controller::DataTable->new(
-                                                                 'tableModel' => $model);
-                } else {
-                    if ( $action eq 'Download' ) {
-                        my ($id, $fieldName) = ($namespaces[6], $namespaces[7]);
-                        $cgi = EBox::CGI::Controller::Downloader->new(
-                                                                      model => $model,
-                                                                      id    => $id,
-                                                                      fieldName => $fieldName,
-                                                                     );
-                    } else {
-                        throw EBox::Exceptions::Internal("Unknown action $action to perform");
-                    }
-                }
+#            } elsif ($classname =~ /EBox::CGI::.*::Controller:/) {
+		EBox::debug($classname);
+		$cgi = EBox::CGI::Controller::DataTable->new(
+                                                             'tableModel' => $model);
             }
 
         } elsif ( $namespace eq 'Composite' ) {
