@@ -81,7 +81,7 @@ sub new
             'gconfmodule' => $gconfmodule,
             'gconfdir' => $directory,
             'directory' => "$directory/keys",
-            'order' => "$directory/order",
+            'order' => "$directory/order", 
             'table' => undef,
             'cachedVersion' => undef,
             'domain' => $domain,
@@ -3897,7 +3897,6 @@ sub pushRedirection
 #
 #   redirect - URL containing the redirect, should be something like:
 #              /ebox/Controller/Foo
-s
 sub popRedirection
 {
     my ($self) = @_;
