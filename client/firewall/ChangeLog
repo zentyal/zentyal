@@ -1,3 +1,6 @@
+0.11.102
+	+ Set editable attribute to 1 in Decision field. To comply with
+	  what the type expects and avoid warnings
 0.11.101
 	+ Unroll inoexternal chain
 	+ Bugfix. Do not restart firewall module if called from dhcp context
