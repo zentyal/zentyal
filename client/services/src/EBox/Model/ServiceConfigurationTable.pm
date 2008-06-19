@@ -111,13 +111,11 @@ sub _table
                          'fieldName' => 'source',
                          'printableName' => __('Source port'),
                          'editable' => 1,
-                         'optional' => 1,
                          ),
                  new EBox::Types::PortRange(
                          'fieldName' => 'destination',
                          'printableName' => __('Destination port'),
                          'editable' => 1,
-                         'optional' => 1
                          )
                );
 
