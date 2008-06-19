@@ -123,17 +123,20 @@ sub _table
                                     new EBox::Types::Select(
                                         fieldName => 'user',
                                         printableName => __('User'),
-                                        populate => \&populateUser),
+                                        populate => \&populateUser,
+                                        editable => 1),
                                     new EBox::Types::Select(
                                         fieldName => 'group',
                                         printableName => __('Group'),
-                                        populate => \&populateGroup),
+                                        populate => \&populateGroup,
+                                        editable => 1)
                                 ]
                               ),
        new EBox::Types::Select(
                                fieldName     => 'permissions',
                                printableName => __('Permissions'),
-                               populate => \&populatePermissions
+                               populate => \&populatePermissions,
+                               editable => 1
                               )
       );
 

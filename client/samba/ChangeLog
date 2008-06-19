@@ -4,6 +4,9 @@
 		- Any share automatically created under /home/samba/shares
 		- Fine-grained access to the share: read-only, read and write,
 		  administrator, per user and per group.
+	+ Set editable attribute to 1 in User field. To comply with
+	  what the type expects and avoid warnings
+
 0.11.101
 	+ New release
 0.11.100
