@@ -1,3 +1,6 @@
+0.11.102
+	+ Remove optional attribute from PortRange as it didn't make sense
+	  and we were getting warinings
 0.11.101
 	+ New upstream release
 0.11.100
