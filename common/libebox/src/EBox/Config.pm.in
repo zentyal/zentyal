@@ -175,6 +175,19 @@ sub tmp
 	return $ref->{localstatedir} . "lib/ebox/tmp/";
 }
 
+# Method: downloads
+#
+#      Get the path of the directory where the files to be downloaded are put
+#
+# Returns:
+#
+#      String - the path to that directory
+sub downloads
+{
+
+        return tmp() . 'downloads/';
+}
+
 sub passwd 
 {
 	return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
