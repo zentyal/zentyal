@@ -88,14 +88,15 @@ sub setTypedRow
 
     # Create the row
     my @values = values(%{$paramsRef});
-    my %printableValueHash = map { $_->fieldName() => $_->printableValue() } @values;
-    my %plainValueHash = map { $_->fieldName() => $_->value() } @values;
-    my $row = { id => 'dummy',
-                values => \@values,
-                printableValueHash => \%printableValueHash,
-                plainValueHash => \%plainValueHash,
-                valueHash => $paramsRef,
-              };
+
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setModel($self);
+    $row->setId('dummy');
+    for my $value (@values) {
+        $row->addElement($value);
+    }
 
     $self->setMessage($self->message('update'));
     my $depModelMsg = $self->_notifyModelManager('update', $row);
