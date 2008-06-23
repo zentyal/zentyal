@@ -76,8 +76,8 @@ case "$1" in
         chmod 0600 ${STDERR_FILE}
         chown ebox:ebox ${STDERR_FILE}
 
-        # add the dynamic www-directories
-        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()});  1;'); 
+        # add the dynamic-www- and downloads directories
+        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;'); 
         for DIR in $DYNAMIC_WWW_DIRS; do
         mkdir -p $DIR
         chown -R ebox.ebox $DIR
