@@ -94,7 +94,7 @@ sub _process
     $self->_requireParam('filename');
     my $filename = $self->param('filename');
 
-    my $tmp = EBox::Config::tmp() . '/downloads';
+    my $tmp = EBox::Config::tmp() . 'downloads';
     my $path = $tmp . '/' . $filename;
     my $normalized = abs_path($path);
     unless ($normalized =~ /^$tmp/) {
