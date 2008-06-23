@@ -1,3 +1,6 @@
+0.11.102
+	+ Added `override_user_modification` configuration parameter to
+	avoid user modification checkings and override them without asking
 0.11.101
 	+ Bugfix: Minor bugfix when checking uniqueness in Select type
 	+ Added Japanese translation

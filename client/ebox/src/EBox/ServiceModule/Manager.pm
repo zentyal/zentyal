@@ -23,22 +23,23 @@
 #
 package EBox::ServiceModule::Manager;
 
-
 use strict;
 use warnings;
 
-
-use EBox::Sudo qw(:all);
+use EBox::Config;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
 use EBox::Global;
+use EBox::Sudo qw(:all);
 
 use Error qw(:try);
 use File::Basename;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::Internal;
-
 use constant GCONF_DIR => 'ServiceModule/';
 use constant CLASS => 'EBox::ServiceModule::ServiceInterface';
+use constant OVERRIDE_USER_MODIFICATIONS_KEY => 'override_user_modification';
+
+# Group: Public methods
 
 sub new
 {
@@ -98,39 +99,6 @@ sub moduleStatus
     }
 
     return \@mods;
-}
-
-sub _dependencyTree
-{
-    my ($self, $tree, $hash) = @_;
-
-    $tree = [] unless (defined($tree));
-    $hash = {} unless (defined($hash));
-
-    my $global = $self->{'gconfmodule'};
-
-    my $numMods = @{$tree};
-    for my $modInstance (@{$global->modInstancesOfType(CLASS)}) {
-        my $mod = $modInstance->serviceModuleName();
-        next if (exists $hash->{$mod});
-        my $depOk = 1;
-        for my $modDep (@{$modInstance->enableModDepends()}) {
-            unless (exists $hash->{$modDep}) {
-                $depOk = undef;
-                last;
-            }
-        }
-        if ($depOk) {
-            push (@{$tree}, $mod);
-            $hash->{$mod} = 1;
-        }
-    }
-
-    if ($numMods ==  @{$tree}) {
-        return $tree;
-    } else {
-        return $self->_dependencyTree($tree, $hash);
-    }
 }
 
 # Method: printableDepends 
@@ -218,10 +186,12 @@ sub enableServices
 # Method: checkFiles
 #
 #   This method must be called to get all those files which are going
-#   to be modified by  eBox and have been modified by the user
+#   to be modified by  eBox and have been modified by the user.
+#
+#   If <checkUserModifications> returns false, then this method will
+#   return an empty array reference.
 #
 # Returns:
-#
 #
 #   An array ref of hashes containing the following:
 #
@@ -233,8 +203,11 @@ sub checkFiles
 {
     my ($self) = @_;
 
+    unless ( $self->checkUserModifications() ) {
+        return [];
+    }
+
     my $global = EBox::Global->getInstance();
-    
     my @mods;
     for my $modName (@{$global->modifiedModules()}) {
         my $modIns = $global->modInstance($modName);
@@ -371,6 +344,156 @@ sub updateFileDigest
     $self->_updateMD5($fileEntry);
 }
 
+# Method: updateDigests 
+#
+#   This method must be called once changes have been saved to
+#   update the digests.
+#
+sub updateDigests 
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $class = 'EBox::ServiceModule::ServiceInterface';
+    
+    for my $mod (@{$global->modInstancesOfType($class)}) {
+        for my $file (@{$mod->usedFiles()}) { 
+            next unless ($self->modificationAllowed($file->{'module'},
+                         $file->{'file'}));
+            $self->_updateMD5($file);
+        }
+    }
+}
+
+# Method: updateModuleDigests 
+#
+#   This method must be called when the user configures a module
+#   for first time. Note this function updates digest for a
+#   given module while updateDigests does the same for all modules.
+#
+#   This function set the packages as accepted
+#
+# Parameters:
+#
+#   module - module name
+#
+sub updateModuleDigests 
+{
+    my ($self, $modName) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $gconf = $self->{'gconfmodule'};
+
+    my $mod = $global->modInstance($modName);
+    unless (defined($mod)) {
+        throw EBox::Exceptions::Internal("Can't instance $modName");
+    }
+    my @files;
+    for my $file (@{$mod->usedFiles()}) { 
+        $self->_updateMD5($file);
+        my $module = $file->{'module'};
+        push (@files, "${module}_" . $self->_fileId($file));
+
+    }
+
+    $self->setAcceptedFiles(\@files, []);
+}
+
+# Method: enableAllModules
+#
+#	This method enables all modules implementing
+#	<EBox::ServiceModule::ServiceInterface>
+#
+sub enableAllModules
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    for my $modName (@{$self->_dependencyTree()}) {
+        my $module = $global->modInstance($modName);
+        $module->setConfigured(1);
+        $module->enableService(1);
+        $self->updateModuleDigests($modName);
+        try {
+            $module->enableActions();
+        } otherwise {
+            $module->setConfigured(undef);
+            $module->enableService(undef);
+            EBox::warn("Falied to enable module $modName");
+        }
+        $self->updateModuleDigests($modName);
+    }
+
+}
+
+# Method: checkUserModifications
+#
+#     Indicate if eBox must check user modifications from
+#     configuration files or not. It is defined in main eBox
+#     configuration file at "/etc/ebox" by
+#     "override_user_modification" value
+#
+# Returns:
+#
+#     true  - if it must check user modifications
+#
+#     false - otherwise
+#
+sub checkUserModifications
+{
+    my ($self) = @_;
+
+    if (defined($self->{OVERRIDE_USER_MODIFICATIONS_KEY})) {
+        return $self->{OVERRIDE_USER_MODIFICATIONS_KEY};
+    }
+
+    my $overrideUserMods =
+      EBox::Config::configkey(OVERRIDE_USER_MODIFICATIONS_KEY);
+
+    # if key is not defined or its value is different from yes, say check
+    if (defined($overrideUserMods) and $overrideUserMods eq 'yes' ) {
+        return 0;
+    } else {
+        return 1;
+    }
+
+}
+
+# Group: Private methods
+
+sub _dependencyTree
+{
+    my ($self, $tree, $hash) = @_;
+
+    $tree = [] unless (defined($tree));
+    $hash = {} unless (defined($hash));
+
+    my $global = $self->{'gconfmodule'};
+
+    my $numMods = @{$tree};
+    for my $modInstance (@{$global->modInstancesOfType(CLASS)}) {
+        my $mod = $modInstance->serviceModuleName();
+        next if (exists $hash->{$mod});
+        my $depOk = 1;
+        for my $modDep (@{$modInstance->enableModDepends()}) {
+            unless (exists $hash->{$modDep}) {
+                $depOk = undef;
+                last;
+            }
+        }
+        if ($depOk) {
+            push (@{$tree}, $mod);
+            $hash->{$mod} = 1;
+        }
+    }
+
+    if ($numMods ==  @{$tree}) {
+        return $tree;
+    } else {
+        return $self->_dependencyTree($tree, $hash);
+    }
+}
+
 sub _fileId
 {
     my ($self, $file) = @_;
@@ -437,60 +560,6 @@ sub _fileModified
     return  ($stDigest ne $currDigest)
 }
 
-# Method: updateDigests 
-#
-#   This method must be called once changes have been saved to
-#   update the digests.
-#
-sub updateDigests 
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $class = 'EBox::ServiceModule::ServiceInterface';
-    
-    for my $mod (@{$global->modInstancesOfType($class)}) {
-        for my $file (@{$mod->usedFiles()}) { 
-            next unless ($self->modificationAllowed($file->{'module'},
-                         $file->{'file'}));
-            $self->_updateMD5($file);
-        }
-    }
-}
-
-# Method: updateModuleDigests 
-#
-#   This method must be called when the user configures a module
-#   for first time. Note this function updates digest for a
-#   given module while updateDigests does the same for all modules.
-#
-#   This function set the packages as accepted
-#
-# Parameters:
-#
-#   module - module name
-#
-sub updateModuleDigests 
-{
-    my ($self, $modName) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $gconf = $self->{'gconfmodule'};
-
-    my $mod = $global->modInstance($modName);
-    unless (defined($mod)) {
-        throw EBox::Exceptions::Internal("Can't instance $modName");
-    }
-    my @files;
-    for my $file (@{$mod->usedFiles()}) { 
-        $self->_updateMD5($file);
-        my $module = $file->{'module'};
-        push (@files, "${module}_" . $self->_fileId($file));
-
-    }
-
-    $self->setAcceptedFiles(\@files, []);
-}
 
 
 sub _updateMD5
@@ -541,33 +610,6 @@ sub  _getMD5
     chomp $md5;
 
     return $md5;
-}
-
-# Method: enableAllModules
-#
-#	This method enables all modules implementing 
-#	EBox::ServiceModule::ServiceInterface
-#
-sub enableAllModules
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    for my $modName (@{$self->_dependencyTree()}) {
-        my $module = $global->modInstance($modName);
-        $module->setConfigured(1);
-        $module->enableService(1);
-        $self->updateModuleDigests($modName);
-        try {
-            $module->enableActions();
-        } otherwise {
-            $module->setConfigured(undef);
-            $module->enableService(undef);
-            EBox::warn("Falied to enable module $modName");
-        }
-        $self->updateModuleDigests($modName);
-    }
-
 }
 
 1;

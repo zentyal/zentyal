@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2006-2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -795,21 +796,21 @@ sub pidFileRunning
 }
 
 #
-# Method: writeConfFile 
+# Method: writeConfFile
 #
-#	It executes a given mason component with the passed parameters over 
-#	a file. It becomes handy to set configuration files for services. 
-#	Also, its file permissions will be kept.
-#       It can be called as class method. (XXX: this design or is an implementation accident?)
-#      XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
+#    It executes a given mason component with the passed parameters over 
+#    a file. It becomes handy to set configuration files for services. 
+#    Also, its file permissions will be kept.
+#    It can be called as class method. (XXX: this design or is an implementation accident?)
+#    XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
 #
 #
 # Parameters:
 #
-#	file - file name which will be overwritten with the execution output
-#	component - mason component
-#	params - parameters for the mason component. Optional. Defaults to no parameters
-#       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#    file      - file name which will be overwritten with the execution output
+#    component - mason component
+#    params    - parameters for the mason component. Optional. Defaults to no parameters
+#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
 #
 # Returns:
 #
@@ -817,49 +818,50 @@ sub pidFileRunning
 #
 sub writeConfFile # (file, component, params, defaults)
 {
-	my ($self, $file, $compname, $params, $defaults) = @_;
-	validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
+    my ($self, $file, $compname, $params, $defaults) = @_;
+    validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
     my $manager;
     if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
         $manager = new EBox::ServiceModule::Manager();
-        if ($manager->skipModification($self->serviceModuleName(), $file)) {
+        if ($manager->checkUserModifications()
+            and $manager->skipModification($self->serviceModuleName(), $file)) {
             EBox::info("Skipping modification of $file");
             return;
         }
     }
 
 
-	my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
-	unless($fh) {
-		throw EBox::Exceptions::Internal(
-			"Could not create temp file in " . EBox::Config::tmp);
-	}
-	my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::stubs,
-		out_method => sub { $fh->print($_[0]) });
-	my $comp = $interp->make_component(comp_file =>
-		EBox::Config::stubs . "/" . $compname);
-	$interp->exec($comp, @{$params});
-	$fh->close();
+    my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+    unless($fh) {
+        throw EBox::Exceptions::Internal(
+            "Could not create temp file in " . EBox::Config::tmp);
+    }
+    my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::stubs,
+                                          out_method => sub { $fh->print($_[0]) });
+    my $comp = $interp->make_component(comp_file =>
+                                         EBox::Config::stubs . "/" . $compname);
+    $interp->exec($comp, @{$params});
+    $fh->close();
 
-	my $mode;
-	my $uid;
-	my $gid;
-	if((not defined($defaults)) and (my $st = stat($file))) {
-	    $mode= sprintf("%04o", $st->mode & 07777); 
-	    $uid = $st->uid;
-	    $gid = $st->gid;
+    my $mode;
+    my $uid;
+    my $gid;
+    if ((not defined($defaults)) and (my $st = stat($file))) {
+        $mode= sprintf("%04o", $st->mode & 07777); 
+        $uid = $st->uid;
+        $gid = $st->gid;
 
-	} else {
-	    defined $defaults or $defaults = {};
-	    $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
-	    $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
-	    $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
-	}
+    } else {
+        defined $defaults or $defaults = {};
+        $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
+        $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
+        $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
+    }
 
-	EBox::Sudo::root("/bin/mv $tmpfile  $file");
-	EBox::Sudo::root("/bin/chmod $mode $file");
-	EBox::Sudo::root("/bin/chown $uid.$gid $file");
+    EBox::Sudo::root("/bin/mv $tmpfile  $file");
+    EBox::Sudo::root("/bin/chmod $mode $file");
+    EBox::Sudo::root("/bin/chown $uid.$gid $file");
 
     if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
         $manager->updateFileDigest($self->serviceModuleName(), $file);
