@@ -45,7 +45,7 @@ use EBox::Exceptions::MissingArgument;
 # Core modules
 use Clone;
 use Error qw(:try);
-use URL_REDIRECT => '/ebox/Controller/Downloader/FromTempDir?filename=';
+use constant URL_REDIRECT => '/ebox/Controller/Downloader/FromTempDir?filename=';
 
 # Group: Public methods
 
@@ -84,7 +84,7 @@ sub pushFileToDownload
         throw EBox::Exceptions::MissingArgument('file');
     }
 
-    $self->pushRedirection(URL_REDIRECT + $file);
+    $self->pushRedirection(URL_REDIRECT . $file);
 }
 
 1;
