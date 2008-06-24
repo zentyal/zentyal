@@ -94,10 +94,13 @@ sub _process
     $self->_requireParam('filename');
     my $filename = $self->param('filename');
 
-    my $tmp = EBox::Config::tmp() . 'downloads';
-    my $path = $tmp . '/' . $filename;
+    my $downloadDir =  EBox::Config::downloads();
+    my $path = $downloadDir . $filename;
     my $normalized = abs_path($path);
-    unless ($normalized =~ /^$tmp/) {
+    unless ($normalized) {
+        throw EBox::Exceptions::Internal("Path $path cannot be normalized");
+    }
+    unless ($normalized =~ /^$downloadDir/) {
         throw EBox::Exceptions::Internal("$normalized is not a valid path");
     }
     unless (-r $normalized) {
