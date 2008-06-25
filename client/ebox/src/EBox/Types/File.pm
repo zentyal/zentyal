@@ -125,7 +125,7 @@ sub isEqualTo
     if ( $fileExists and $uploadFile) {
         # Check MD5 sum to check content uniqueness
         my $path    = $self->path;
-        my $tmpPath = $self->tmpPath;
+        my $tmpPath = $new->tmpPath;
         my $equal;
         try {
             EBox::Sudo::root("diff -q $path $tmpPath");
