@@ -105,7 +105,6 @@ src/templates/common/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
-src/templates/firstTime/Makefile
 src/templates/report/Makefile
 src/templates/Makefile
 src/EBox/Makefile
@@ -160,7 +159,6 @@ src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Summary/Makefile
-src/EBox/CGI/FirstTime/Makefile
 src/EBox/CGI/Report/Makefile
 src/EBox/Summary/Makefile
 schemas/Makefile
