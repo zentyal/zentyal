@@ -1,4 +1,4 @@
-AC_INIT([EBox-samba], [0.11.101])
+AC_INIT([EBox-samba], [0.11.103])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Samba.pm])
@@ -60,6 +60,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/Samba/Makefile
 src/EBox/Samba/Model/Makefile
+src/EBox/Samba/Types/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile

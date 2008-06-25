@@ -28,7 +28,7 @@ use warnings;
 # eBox uses
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::Select;
+use EBox::Samba::Types::Select;
 
 # Dependencies
 
@@ -120,12 +120,12 @@ sub _table
                                printableName => __('User/Group'),
                                subtypes =>
                                 [
-                                    new EBox::Types::Select(
+                                    new EBox::Samba::Types::Select(
                                         fieldName => 'user',
                                         printableName => __('User'),
                                         populate => \&populateUser,
                                         editable => 1),
-                                    new EBox::Types::Select(
+                                    new EBox::Samba::Types::Select(
                                         fieldName => 'group',
                                         printableName => __('Group'),
                                         populate => \&populateGroup,
