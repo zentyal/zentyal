@@ -688,15 +688,17 @@ sub movedDownRowNotify
 }
 
 # Method: updatedRowNotify
-#    
+#
 #    Override this method to be notified whenever
-#    a  row is updated 
+#    a row is updated
 #
 # Arguments:
 #
-#     row - hash ref containing fields and values of the moved
-#     row. The same structure as <EBox::Model::DataTable::row>
-#     return value
+#     row - <EBox::Model::Row> row containing fields and values of the
+#           updated row
+#
+#     oldRow - <EBox::Model::Row> row containing the values of the old
+#              row
 #
 #     force - boolean indicating whether the delete is forced or not
 #
@@ -1313,7 +1315,7 @@ sub setTypedRow
       $changedData->{id} = $id;
       $self->validateTypedRow('update', $changedData, $allData);
 
-      # If force != true atomaticRemove is enabled it means
+      # If force != true automaticRemove is enabled it means
       # the model has to automatically check if the row which is 
       # about to be changed is referenced elsewhere and this change
       # produces an inconsistent state
@@ -1347,7 +1349,7 @@ sub setTypedRow
               $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
           }
           $self->_notifyCompositeManager('update', $self->row($id));
-          $self->updatedRowNotify($self->row($id), $force);
+          $self->updatedRowNotify($self->row($id), $oldRow, $force);
       }
 
   }
