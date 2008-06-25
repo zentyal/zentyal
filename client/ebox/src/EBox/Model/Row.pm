@@ -532,7 +532,7 @@ sub subModel
         my $olddir = $model->directory();
         $model->setDirectory($element->directory());
     } catch EBox::Exceptions::DataNotFound with {
-        EBox::warn("Couldn't fetch foreing model: " . $element->foreingModel());
+        EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
     };
 
     return $model;
