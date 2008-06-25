@@ -82,6 +82,26 @@ sub validateTypedRow
 
 }
 
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::deletedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $oldRow, $force) = @_;
+
+    # Check if network or gateway values have changed to delete
+    # current route from routing table
+    unless ( $newRow->elementByName('gateway')->cmp($oldRow->elementByName('gateway')) == 0
+             and $newRow->elementByName('network')->cmp($oldRow->elementByName('network')) == 0 ){
+        $self->_addToDelete($oldRow->elementByName('network')->printableValue(),
+                            $oldRow->elementByName('gateway')->printableValue());
+    }
+
+}
+
 # Method: deletedRowNotify
 #
 # Overrides:
@@ -98,19 +118,7 @@ sub deletedRowNotify
     my $netMod = EBox::Global->modInstance('network');
     $netMod->gatewayDeleted($gw);
 
-    # Store the deleted static route
-    my $modelManager = EBox::Model::ModelManager->instance();
-    my $deletedModel = $modelManager->model('DeletedStaticRoute');
-    my $result = $deletedModel->findRow( network => $net );
-    if ( defined($result)
-         and $result->elementByName('gateway')->value() eq $gw ) {
-          $deletedModel->set( $result->id(),
-                              deleted => 0);
-    } else {
-        $deletedModel->add(network => $net,
-                           gateway => $gw,
-                           deleted => 0);
-    }
+    $self->_addToDelete($net, $gw);
 
 }
 
@@ -163,6 +171,27 @@ sub _table
 
       return $dataTable;
 
+}
+
+# Group: Private methods
+
+sub _addToDelete
+{
+    my ($self, $net, $gw) = @_;
+
+    # Store the deleted static route
+    my $modelManager = EBox::Model::ModelManager->instance();
+    my $deletedModel = $modelManager->model('DeletedStaticRoute');
+    my $result = $deletedModel->findRow( network => $net );
+    if ( defined($result)
+           and $result->elementByName('gateway')->value() eq $gw ) {
+        $deletedModel->set( $result->id(),
+                            deleted => 0);
+    } else {
+        $deletedModel->add(network => $net,
+                           gateway => $gw,
+                           deleted => 0);
+    }
 
 }
 
