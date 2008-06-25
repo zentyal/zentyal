@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use EBox;
-# use EBox::FirstTime; # see #204 
 use EBox::Gettext;
 use EBox::CGI::Base;
 use EBox::Model::CompositeManager;
@@ -34,89 +33,73 @@ use Error qw(:try);
 
 sub run # (url)
 {
-	my ($self, $script) = @_;
-	my $classname = "EBox::CGI::";
+        my ($self, $script) = @_;
+        my $classname = "EBox::CGI::";
 
-	defined($script) or exit;
+        defined($script) or exit;
 
-	$script =~ s/\?.*//g;
-	$script =~ s/[\\"']//g;
-	$script =~ s/\//::/g;
-	$script =~ s/^:://;
+        $script =~ s/\?.*//g;
+        $script =~ s/[\\"']//g;
+        $script =~ s/\//::/g;
+        $script =~ s/^:://;
 
-	$classname .= $script;
+        $classname .= $script;
 
-	$classname =~ s/::::/::/g;
-	$classname =~ s/::$//;
-	
-# see #204
-# 	if (EBox::FirstTime::isFirstTime()) {
-#               $classname = firstTimeClassName($classname);
-# 	}
-# 	elsif ($classname eq 'EBox::CGI') {
-	if ($classname eq 'EBox::CGI') {
-		$classname .= '::Summary::Index';
-	}
+        $classname =~ s/::::/::/g;
+        $classname =~ s/::$//;
+        
 
-	settextdomain('ebox');
+        if ($classname eq 'EBox::CGI') {
+                $classname .= '::Summary::Index';
+        }
 
-	my $cgi;
-	eval "use $classname"; 
-	if ($@) {
-	        try {
-		  $cgi = $self->_lookupViewController($classname);
-		}
-		catch EBox::Exceptions::DataNotFound with {
-		  # path not valid
-		  $cgi = undef;
-		};
-		
-		if (not $cgi) {
-			my $log = EBox::logger;
-			$log->error("Unable to import cgi: " 
-				. "$classname Eval error: $@");
+        settextdomain('ebox');
 
-			my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
-			eval "use $error_cgi"; 
-			$cgi = new $error_cgi;
-		} else {
-			EBox::debug("$classname mapped to " 
-			. " Controller/Viewer CGI");
-		}
-	} 
+        my $cgi;
+        eval "use $classname"; 
+        if ($@) {
+                try {
+                  $cgi = $self->_lookupViewController($classname);
+                }
+                catch EBox::Exceptions::DataNotFound with {
+                  # path not valid
+                  $cgi = undef;
+                };
+                
+                if (not $cgi) {
+                        my $log = EBox::logger;
+                        $log->error("Unable to import cgi: " 
+                                . "$classname Eval error: $@");
+
+                        my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
+                        eval "use $error_cgi"; 
+                        $cgi = new $error_cgi;
+                } else {
+                        EBox::debug("$classname mapped to " 
+                        . " Controller/Viewer CGI");
+                }
+        } 
         else {
-		$cgi = new $classname;
-	}
+                $cgi = new $classname;
+        }
 
-	$cgi->run;
+        $cgi->run;
 }
 
-# see #204
-# sub firstTimeClassName
-# {
-#     my ($classname) = @_;
 
-#     ### login and logout classes had priority over first time index
-#     return $classname if $classname =~ m{::Login::};
-#     return $classname if $classname =~ m{::Logout::};
-#     ### other first time classes must not be replaced by the firsttime index
-#     return $classname if $classname =~ m{::FirstTime::};
-#     ### change to firstime index...
-#     return 'EBox::CGI::FirstTime::Index' ; 
-# }
 
 # Helper functions
 
 # Method:: _lookupViewController
 #
-# 	Check if a classname must be mapped to a View or Controller
-# 	cgi class from a model or a composite
+#       Check if a classname must be mapped to a View or Controller
+#       cgi class from a model or a composite
 #
 sub _lookupViewController
 {
-	my ($self, $classname) = @_;
+        my ($self, $classname) = @_;
 
-#	my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
+#       my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
         # URL to map:
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
         # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model index action
@@ -157,12 +140,12 @@ sub _lookupViewController
             $menuNamespace = $model->menuNamespace();
             if ( $namespace eq 'View' ) {
 #            if ($classname =~ /EBox::CGI::.*::View:/ ) {
-		$cgi = EBox::CGI::View::DataTable->new(
+                $cgi = EBox::CGI::View::DataTable->new(
                                                        'tableModel' => $model);
             } elsif ( $namespace eq 'Controller' ) {
 #            } elsif ($classname =~ /EBox::CGI::.*::Controller:/) {
-		EBox::debug($classname);
-		$cgi = EBox::CGI::Controller::DataTable->new(
+                EBox::debug($classname);
+                $cgi = EBox::CGI::Controller::DataTable->new(
                                                              'tableModel' => $model);
             }
 
@@ -198,11 +181,11 @@ sub _lookupViewController
             }
         }
 
-	if (defined($cgi) and defined($menuNamespace)) {
-		$cgi->setMenuNamespace($menuNamespace);
-	}
+        if (defined($cgi) and defined($menuNamespace)) {
+                $cgi->setMenuNamespace($menuNamespace);
+        }
 
-	return $cgi;
+        return $cgi;
 }
 
 1;
