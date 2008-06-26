@@ -257,7 +257,6 @@ sub parentRow
 
     # TODO Do this more robust using directory info from models
     my @dirs = split('/', $self->dir());
-    EBox::debug("directory: " .  $self->dir());
     splice (@dirs, -2);
     my $parentId = pop @dirs;
     pop @dirs;
@@ -265,7 +264,6 @@ sub parentRow
     if (length($directory) > 1) {
     	$parentModel->setDirectory($directory);
     }
-    EBox::debug("parentId: $parentId directory: $directory");
 	
     return $parentModel->row($parentId);
 }
@@ -346,6 +344,36 @@ sub addElement
 
     push (@{$self->{'values'}}, $element);
     $self->{'valueHash'}->{$element->fieldName()} = $element;
+}
+
+# Method: elementExists
+#
+#   Check if a given element exists
+#
+# Parameters:
+#
+#   element - element's name
+#
+# Exceptions:
+#
+#   boolean - 1 or undef
+#
+sub elementExists
+{
+    my ($self, $element) = @_;
+    
+    unless (defined($element)) {
+        throw EBox::Exceptions::MissingArgument($element);
+    }
+
+    return 1 if (exists $self->{valueHash}->{$element});
+
+    for my $value (@{$self->{values}}) {
+        next unless  ($value->isa('EBox::Types::Union'));
+        return 1 if ($value->selectedType() eq $element);
+    }
+
+    return undef;
 }
 
 # Method: elementByName
