@@ -155,7 +155,7 @@ sub _i18filter
     my $row = $self->row();
     return $value unless ($row);
 
-    unless (exists $row->elementExists('translationDomain')) {
+    unless ($row->elementExists('translationDomain')) {
         throw EBox::Exceptions::Internal(
           'i18filter has been called and there is no translationDomain filter');
     }
