@@ -135,7 +135,6 @@ sub _table
 		new EBox::Types::Union(
 					'fieldName' => 'destination',
 					'printableName' => __('Destination'),
-					'optional' => 1,
 					'subtypes' => 
 						[
 						new EBox::Types::Union::Text(
