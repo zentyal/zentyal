@@ -118,7 +118,7 @@ sub _process
     $tarArgs .= qq{'$linkPrivate' } if ( $linkPrivate );
     $tarArgs .= qq{'$linkPublic' '$linkCert'};
     # -h to dump what links point to
-    my $ret = system("cd " . EBox::Config->tmp() . '; tar cvzhf ' . $tarArgs);
+    my $ret = system('tar -C ' . EBox::Config->tmp() . ' -czhf ' . $tarArgs);
 
     unlink(EBox::Config->tmp() . $linkPrivate) if ($linkPrivate);
     unlink(EBox::Config->tmp() . $linkPublic);
