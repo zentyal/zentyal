@@ -78,9 +78,9 @@ persist-tun
 # a separate .crt/.key file pair
 # for each client.  A single ca
 # file can be used for all clients.
-<& valueEntry, entry => 'ca', value => "'$caCertificate'"  &>
-<& valueEntry, entry => 'cert', value => "'$certificate'" &>
-<& valueEntry, entry => 'key', value => "'$certificateKey'"  &> # This file should be kept secret
+<& valueEntry, entry => 'ca', value => qq{"$caCertificate"}  &>
+<& valueEntry, entry => 'cert', value => qq{"$certificate"} &>
+<& valueEntry, entry => 'key', value => qq{"$certificateKey"}  &> # This file should be kept secret
 
 
 # Verify server certificate by checking
