@@ -1271,18 +1271,11 @@ sub newClient
 sub setClientConfFromBundle
 {
     my ($self, $name, $bundle) = @_;
-<<<<<<< .copia-de-trabajo
-    
-        my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
-                                        'text' => __('OpenVPN'));
-	$root->add($item);
-=======
 
     my @confParams =
       EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox->initParamsFromBundle($bundle);
 
     $self->_setClientConf($name, @confParams);
->>>>>>> .derecha-combinacion.r10732
 }
 
 sub _doNewClient
