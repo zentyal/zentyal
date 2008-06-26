@@ -175,7 +175,7 @@ sub objectIds # (object)
 # Returns:
 #
 #   	array ref - each element contains a hash with the member keys 'nname' 
-#   	(member's name), 'ip' (ip's member), 'mask' (network mask's member),
+#   	(member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
 #   	'macaddr', (mac address' member)
 #
 # Exceptions:
@@ -196,7 +196,7 @@ sub objectMembers # (object)
     for my $member (@{$object->subModel('members')->rows()}) {
         my $ipaddr = $member->elementByName('ipaddr');
         push (@members, {
-                            ip => $ipaddr->ip(),
+                            ipaddr => $ipaddr->ip(),
                             mask => $ipaddr->mask(),
                             macaddr => $member->valueByName('macaddr'),
                             name => $member->valueByName('name')
@@ -323,7 +323,7 @@ sub objectExists # (name)
 		throw EBox::Exceptions::MissingArgument("id");
 	}
 	
-	return defined($self->{'objectModel'}->find('id' => $id));
+	return defined($self->{'objectModel'}->row($id));
 }
 
 # return defined ( $self->{objectModel}->get($id) );
