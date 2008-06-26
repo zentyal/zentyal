@@ -2169,7 +2169,6 @@ sub pages
     my $rows = $self->rows($filter);
 
     my $nrows = @{$rows};
-    EBox::debug("nrows $nrows");
 
     if ($nrows == 0) {
         return 0;
