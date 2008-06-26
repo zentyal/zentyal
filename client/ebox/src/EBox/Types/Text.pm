@@ -30,7 +30,7 @@ use EBox::Exceptions::InvalidData;
 sub new
 {
         my $class = shift;
-    	my %opts = @_;
+        my %opts = @_;
 
         unless (exists $opts{'HTMLSetter'}) {
             $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
@@ -38,7 +38,7 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
-	
+
         $opts{'type'} = 'text';
         my $self = $class->SUPER::new(%opts);
 
@@ -49,9 +49,9 @@ sub new
 
 sub size
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'size'};
+    return $self->{'size'};
 }
 
 # Method: printableValue
@@ -98,15 +98,15 @@ sub cmp
 #
 sub _storeInGConf
 {
-        my ($self, $gconfmod, $key) = @_;
+    my ($self, $gconfmod, $key) = @_;
 
-	my $keyField = "$key/" . $self->fieldName();
+    my $keyField = "$key/" . $self->fieldName();
 
-	if ($self->memValue()) {
-        	$gconfmod->set_string($keyField, $self->memValue());
-	} else {
-		$gconfmod->unset($keyField);
-	}
+    if ($self->memValue()) {
+        $gconfmod->set_string($keyField, $self->memValue());
+    } else {
+        $gconfmod->unset($keyField);
+    }
 }
 
 # Method: _paramIsValid
@@ -118,7 +118,7 @@ sub _storeInGConf
 sub _paramIsValid
 {
 
-	return 1;
+    return 1;
 
 }
 
