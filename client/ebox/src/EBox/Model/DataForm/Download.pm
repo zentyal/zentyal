@@ -25,8 +25,8 @@
 #
 #   Extends this model with your custom model.
 #
-#   Implement formSubmitted(). Do your stuff and create a file under
-#   EBox::Config::tmp() . '/downloads/'. 
+#   Implement formSubmitted(). Do your stuff and create a file in  
+#   EBox::Config::tmp() . '/downloads/' . your_file_name
 #
 #   At the end of this method call pushFileToDownload(your_file_name);
 #
