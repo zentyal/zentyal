@@ -630,3 +630,18 @@ function inputValue(elementId) {
 	}
 }
 
+/*
+Function: markFileToRemove
+
+    This function is used along with the File view and setter to mark
+    a file to be removed
+
+Parameters:
+
+    elementId - a EBox::Types::File id
+*/
+function markFileToRemove(id)
+{
+    $(id + '_remove').value = "1";
+    hide(id + '_current');
+}
