@@ -3,51 +3,32 @@
 $redistribute
 $insecurePasswd
 </%args>
-<%init>
-sub _keychainForIface
-{
-   my ($iface) = @_;
-   return $iface . 'KC';
-}
-</%init>
+
 
 % if ($insecurePasswd) {
 hostname ebox
 password ripd
 enable password ripd
+% }
+
 
 %   foreach my $iface (@ifaces) {
-interface <% $iface->{ifaceName} %>
-no ip rip authentication mode
-%   }
-
-% } else {
-
-%   foreach my $iface_r (@ifaces) {
-%   my $keyChainName = _keychainForIface($iface_r->{ifaceName});
-
-key chain <% $keyChainName %>
-   key 1
-      key-string <% $iface_r->{passwd} %>
-
-interface <% $iface_r->{ifaceName} %>
-    ip rip send version 2
-    ip rip receive version 2
-    ip rip authentication mode md5
-    ip rip authentication key-chain <% $keyChainName %>
-
-%   }
+%      if ($insecurePasswd or (not $iface->{passwd})) {
+         <& .noAuthIface, iface => $iface  &>
+%      } else {
+        <& .iface, iface => $iface  &> 
+%      }
 
 % }
 
 router rip
 
-% foreach my $iface_r (@ifaces) {
-network <% $iface_r->{ifaceName} %>
+% foreach my $iface (@ifaces) {
+network <% $iface->{ifaceName} %>
 % }
-% foreach my $iface_r (@ifaces) {
-distribute-list private in  <% $iface_r->{ifaceName} %>
-distribute-list private out <% $iface_r->{ifaceName} %>
+% foreach my $iface (@ifaces) {
+distribute-list private in  <% $iface->{ifaceName} %>
+distribute-list private out <% $iface->{ifaceName} %>
 % }
 % if ($redistribute) {
 redistribute connected
@@ -62,3 +43,30 @@ access-list private permit 172.16.0.0/12
 access-list private permit 192.168.0.0/16
 access-list private deny any
 
+
+<%def .noAuthIface>
+<%args>
+$iface
+</%args>
+interface <% $iface->{ifaceName} %>
+    no ip rip authentication mode
+</%def>
+
+<%def .iface>
+<%args>
+$iface
+</%args>
+<%init>
+ my $keyChainName = $iface->{ifaceName} . 'KC';
+</%init>
+
+key chain <% $keyChainName %>
+   key 1
+      key-string <% $iface->{passwd} %>
+
+interface <% $iface->{ifaceName} %>
+    ip rip send version 2
+    ip rip receive version 2
+    ip rip authentication mode md5
+    ip rip authentication key-chain <% $keyChainName %>
+</%def>

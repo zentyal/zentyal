@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Server Client  LogHelper t
+SUBDIRS = Server Client  LogHelper t Model Types
 
 perldir = @PERLPATH@/EBox/OpenVPN
 

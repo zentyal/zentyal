@@ -1,28 +1,27 @@
 package EBox::OpenVPN::FirewallHelper;
 use base 'EBox::FirewallHelper';
+
 # Description:
 use strict;
 use warnings;
 
-
-sub new 
+sub new
 {
-        my ($class, %opts) = @_;
+    my ($class, %opts) = @_;
 
-	exists $opts{portsByProto} and
-	    throw EBox::Exceptions::Internal('deprecated argumnt');
+    exists $opts{portsByProto}
+      and throw EBox::Exceptions::Internal('deprecated argumnt');
 
-        my $self = $class->SUPER::new(%opts);
-	$self->{service}          =  delete $opts{service};
-	$self->{ifaces}           =  delete $opts{ifaces};
-	$self->{networksToMasquerade} = delete $opts{networksToMasquerade};
-	$self->{ports}            =  delete $opts{ports};
-	$self->{serversToConnect} =  delete $opts{serversToConnect};
+    my $self = $class->SUPER::new(%opts);
+    $self->{service}          =  delete $opts{service};
+    $self->{ifaces}           =  delete $opts{ifaces};
+    $self->{networksToMasquerade} = delete $opts{networksToMasquerade};
+    $self->{ports}            =  delete $opts{ports};
+    $self->{serversToConnect} =  delete $opts{serversToConnect};
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
-
 
 sub service
 {
@@ -36,13 +35,11 @@ sub ifaces
     return $self->{ifaces};
 }
 
-
 sub networksToMasquerade
 {
     my ($self) = @_;
     return $self->{networksToMasquerade};
 }
-
 
 sub ports
 {
@@ -62,13 +59,11 @@ sub externalInput
     return $self->_inputRules(1);
 }
 
-
 sub input
 {
     my ($self) = @_;
     return $self->_inputRules(0);
 }
-
 
 sub _inputRules
 {
@@ -80,24 +75,21 @@ sub _inputRules
 
     # allow rip traffic in openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-i $iface -p udp --destination-port 520 -j ACCEPT";
+        push @rules, "-i $iface -p udp --destination-port 520 -j ACCEPT";
     }
 
-
-    my @ports = grep {
-	$_->{external} == $external
-    } @{ $self->ports };
-
+    my @ports = grep {$_->{external} == $external} @{ $self->ports };
 
     foreach my $port_r (@ports) {
-	my $port    =   $port_r->{port};
-	my $proto  = $port_r->{proto};
-	my $listen = $port_r->{listen};
-	
-	my $inputIface = defined $listen ? "-i $listen" : "";
+        my $port    =   $port_r->{port};
+        my $proto  = $port_r->{proto};
+        my $listen = $port_r->{listen};
 
-	my $rule = "--protocol $proto --destination-port $port $inputIface -j ACCEPT";
-	push @rules, $rule;
+        my $inputIface = defined $listen ? "-i $listen" : "";
+
+        my $rule =
+          "--protocol $proto --destination-port $port $inputIface -j ACCEPT";
+        push @rules, $rule;
     }
 
     return \@rules;
@@ -109,26 +101,26 @@ sub output
     my @rules;
 
     if ($self->service()) {
-    # allow rip traffic in openvpn virtual ifaces
-      foreach my $iface (@{ $self->ifaces() }) {
-	push @rules, "-o $iface -p udp --destination-port 520 -j ACCEPT";
-      }
-    
-      foreach my $server_r (@{ $self->serversToConnect() }) {
-	my ($serverProto, $server, $serverPort) = @{ $server_r };
-	my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
-	push @rules, $connectRule;
-      }
+
+        # allow rip traffic in openvpn virtual ifaces
+        foreach my $iface (@{ $self->ifaces() }) {
+            push @rules, "-o $iface -p udp --destination-port 520 -j ACCEPT";
+        }
+
+        foreach my $server_r (@{ $self->serversToConnect() }) {
+            my ($serverProto, $server, $serverPort) = @{$server_r};
+            my $connectRule =
+"--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
+            push @rules, $connectRule;
+        }
     }
 
-
-    # we need HTTP access for client bundle generation (need to resolve external address)
+# we need HTTP access for client bundle generation (need to resolve external address)
     my $httpRule = "--protocol tcp  --destination-port 80 -j ACCEPT";
     push @rules, $httpRule;
 
     return \@rules;
 }
-
 
 sub forward
 {
@@ -139,18 +131,17 @@ sub forward
 
     # do not firewall openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-i $iface -j ACCEPT";
-      push @rules, "-o $iface -j ACCEPT";
+        push @rules, "-i $iface -j ACCEPT";
+        push @rules, "-o $iface -j ACCEPT";
     }
 
     return \@rules;
 }
 
-
 sub postrouting
 {
     my ($self) = @_;
-    
+
     my $network = EBox::Global->modInstance('network');
     my @internalIfaces = @{ $network->InternalIfaces()  };
 
@@ -158,11 +149,10 @@ sub postrouting
 
     my @rules;
     foreach my $network (@networksToMasquerade) {
-	foreach my $iface (@internalIfaces) {
-	    push @rules, "-o $iface --source $network -j MASQUERADE";
-	}
+        foreach my $iface (@internalIfaces) {
+            push @rules, "-o $iface --source $network -j MASQUERADE";
+        }
     }
-    
 
     return \@rules;
 }

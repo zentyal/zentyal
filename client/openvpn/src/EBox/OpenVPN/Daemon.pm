@@ -1,9 +1,10 @@
 package EBox::OpenVPN::Daemon;
+
 # package: Parent class for the distinct types of OpenVPN daemons
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule::Partition EBox::NetworkObserver);
+use base qw(EBox::NetworkObserver);
 
 use File::Slurp;
 use Error qw(:try);
@@ -11,34 +12,24 @@ use Error qw(:try);
 use EBox::NetWrappers;
 use EBox::Service;
 
-
 use constant UPSTART_DIR => '/etc/event.d';
-
 
 sub new
 {
-    my ($class, $name, $daemonPrefix, $openvpnModule) = @_;
-    
-    my $confKeysBase = "$daemonPrefix/$name";
-    if (!$openvpnModule->dir_exists($confKeysBase) ) {
-	throw EBox::Exceptions::Internal("Tried to instantiate a daemon with a name not found in module configuration: $name");
-    }
+    my ($class, $row) = @_;
 
+    my $self = {};
+    $self->{row}  = $row;
 
-    my $self = $class->SUPER::new($confKeysBase, $openvpnModule);
-    $self->{name} = $name;
-    $self->{type} = $daemonPrefix;
-      
     bless $self, $class;
 
     return $self;
 }
 
-
 sub _openvpnModule
 {
     my ($self) = @_;
-    return $self->fullModule();
+    return EBox::Global->modInstance('openvpn');
 }
 
 #
@@ -52,14 +43,7 @@ sub _openvpnModule
 #
 sub init
 {
-  throw EBox::Exceptions::NotImplemented('init method');
-}
-
-
-
-sub service
-{
-  throw EBox::Exceptions::NotImplemented('service method');
+    throw EBox::Exceptions::NotImplemented('init method');
 }
 
 #
@@ -70,15 +54,37 @@ sub service
 sub name
 {
     my ($self) = @_;
-    return $self->{name};
+    return $self->_rowAttr('name');
 }
 
 sub type
 {
-  my ($self) = @_;
-  return $self->{type};
+    throw EBox::Exceptions::NotImplemented('type class method');
 }
 
+sub service
+{
+    my ($self) = @_;
+    return $self->_rowAttr('service');
+}
+
+sub _rowAttr
+{
+    my ($self, $name) = @_;
+
+    my $element = $self->{row}->elementByName($name);
+    return $element->value();
+}
+
+sub _configAttr
+{
+    my ($self, $name) = @_;
+
+    my $config =
+      $self->{row}->elementByName('configuration')->foreignModelInstance();
+
+    return $config->$name();
+}
 
 #
 # Method: upstartName
@@ -88,9 +94,29 @@ sub type
 sub upstartName
 {
     my ($self)  = @_;
-    return 'ebox.openvpn.' . $self->type . '.' . $self->name;
+    return __PACKAGE__->upstartNameForDaemon($self->name, $self->type);
 }
 
+#
+# Method: upstartNameForDaemon
+#
+#  Parameters:
+#
+#    $type  - daemon's type
+#    $name  - daemons's ma,e
+#
+#  Returns:
+#    the name of the upstart service for the daemon type and name given
+sub upstartNameForDaemon
+{
+    my ($class, $name, $type) = @_;
+    $type
+      or throw EBox::Exceptions::MissingArgument('type');
+    $name
+      or throw EBox::Exceptions::MissingArgument('name');
+
+    return 'ebox.openvpn.' . $type . '.' . $name;
+}
 
 sub _upstartFile
 {
@@ -98,10 +124,16 @@ sub _upstartFile
     return  UPSTART_DIR . '/' . $self->upstartName();
 }
 
-sub  ifaceNumber
+sub _upstartFileForDaemon
 {
-  my ($self) = @_;
-  return $self->getConfInt('iface_number');
+    my ($class, $name, $type) = @_;
+    return  UPSTART_DIR . '/' . $class->upstartNameForDaemon($name, $type);
+}
+
+sub ifaceNumber
+{
+    my ($self) = @_;
+    return $self->_rowAttr('interfaceNumber');
 }
 
 #
@@ -113,13 +145,12 @@ sub  ifaceNumber
 #    - the device name
 sub iface
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $ifaceType = $self->ifaceType();
-  my $number    = $self->ifaceNumber();
-  return "$ifaceType$number";
-} 
-
+    my $ifaceType = $self->ifaceType();
+    my $number    = $self->ifaceNumber();
+    return "$ifaceType$number";
+}
 
 #
 # Method: ifaceType
@@ -130,10 +161,9 @@ sub iface
 #    - the device type
 sub ifaceType
 {
-  my ($self) = @_;
-  return 'tap';
+    my ($self) = @_;
+    return $self->_rowAttr('interfaceType');
 }
-
 
 #
 # Method: ifaceAddress
@@ -144,31 +174,32 @@ sub ifaceType
 #    - the address in CIDR notation or undef if the interface has not address
 sub ifaceAddress
 {
-  my ($self) = @_;
-  my $iface = $self->iface();
+    my ($self) = @_;
+    my $iface = $self->iface();
 
-  if (not EBox::NetWrappers::iface_exists($iface)) {
-    return undef;
-  }
+    if (not EBox::NetWrappers::iface_exists($iface)) {
+        return undef;
+    }
 
-  if (not EBox::NetWrappers::iface_is_up($iface)) {
-    return undef;
-  }
-  
-  my %addresses = %{ EBox::NetWrappers::iface_addresses_with_netmask($iface) };
-  my $nAddresses = keys %addresses;
-  if ($nAddresses == 0) {
-    EBox::error("No address found for interface $iface");
-    return undef;
-  }
-  elsif ($nAddresses > 1) {
-    EBox::warn("More than one addres for interface $iface. Only one of them will be show");
-  }
+    if (not EBox::NetWrappers::iface_is_up($iface)) {
+        return undef;
+    }
 
-  my ($addr, $netmask) = each %addresses;
-  my $cidrAddr = EBox::NetWrappers::to_network_with_mask($addr, $netmask);
+    my %addresses =
+      %{ EBox::NetWrappers::iface_addresses_with_netmask($iface) };
+    my $nAddresses = keys %addresses;
+    if ($nAddresses == 0) {
+        EBox::error("No address found for interface $iface");
+        return undef;
+    }elsif ($nAddresses > 1) {
+        EBox::warn(
+"More than one addres for interface $iface. Only one of them will be show" );
+    }
 
-  return $cidrAddr;
+    my ($addr, $netmask) = each %addresses;
+    my $cidrAddr = EBox::NetWrappers::to_network_with_mask($addr, $netmask);
+
+    return $cidrAddr;
 }
 
 #
@@ -183,7 +214,6 @@ sub user
     my ($self) = @_;
     return $self->_openvpnModule->user();
 }
-
 
 # Method: group
 #
@@ -209,44 +239,25 @@ sub dh
     return $self->_openvpnModule->dh();
 }
 
-
 sub logFile
 {
-  my ($self) = @_;
-  return $self->_logFile('');
+    my ($self) = @_;
+    return $self->_logFile('');
 }
-
 
 sub statusLogFile
 {
-  my ($self) = @_;
-  return $self->_logFile('status-');
+    my ($self) = @_;
+    return $self->_logFile('status-');
 }
-
-
 
 sub _logFile
 {
-  my ($self, $prefix) = @_;
-  my $logDir = $self->_openvpnModule->logDir();
-  my $file = $logDir . "/$prefix"  . $self->name() . '.log';
-  return $file;
+    my ($self, $prefix) = @_;
+    my $logDir = $self->_openvpnModule->logDir();
+    my $file = $logDir . "/$prefix"  . $self->name() . '.log';
+    return $file;
 }
-
-
-# Method: setInternal
-#
-#  set the daemon's internal state
-#
-# Parameters:
-#    internal - bool. 
-sub setInternal
-{
-    my ($self, $internal) = @_;
-
-   $self->setConfBool('internal', $internal);
-}
-
 
 # Method: internal
 #
@@ -254,13 +265,12 @@ sub setInternal
 #   is a internal daemon used and created by other EBox services
 #
 # Returns:
-#  returns the client's internal state
+#  returns the daemon's internal state
 sub internal
 {
-    my ($self) = @_;
-    return $self->getConfBool('internal');
+    throw EBox::Exceptions::NotImplemented(
+                                          'Must be immplemented in subclasses');
 }
-
 
 #
 # Method: confFile
@@ -275,7 +285,20 @@ sub internal
 sub confFile
 {
     my ($self, $confDir) = @_;
-    my $confFile = $self->name() . '.conf';
+    my $name = $self->name();
+
+    return __PACKAGE__->confFileForName($name, $confDir);
+}
+
+sub confFileForName
+{
+    my ($package, $name, $confDir) = @_;
+    defined $confDir
+      or throw EBox::Exceptions::MissingArgument('confDir');
+    defined $name
+      or throw EBox::Exceptions::MissingArgument('name');
+
+    my $confFile = $name . '.conf';
     my $confFilePath = defined $confDir ? "$confDir/$confFile" : $confFile;
 
     return $confFilePath;
@@ -293,26 +316,29 @@ sub writeConfFile
 {
     my ($self, $confDir) = @_;
 
+    return if not $self->service();
+
     my $confFilePath   = $self->confFile($confDir);
     my $templatePath   = $self->confFileTemplate();
     my $templateParams = $self->confFileParams();
 
-    push @{ $templateParams },
+    push @{$templateParams},
       (
-       logFile       => $self->logFile(),
-       statusLogFile => $self->statusLogFile(),
+        logFile       => $self->logFile(),
+        statusLogFile => $self->statusLogFile(),
       );
 
-
     my $fileAttrs  = {
-	uid  => 0,
-	gid  => 0,
-	mode => '0400',
+                      uid  => 0,
+                      gid  => 0,
+                      mode => '0400',
     };
 
-    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, $templateParams, $fileAttrs);
+    EBox::GConfModule->writeConfFile(
+                                     $confFilePath, $templatePath,
+                                     $templateParams, $fileAttrs
+    );
 }
-
 
 #
 # Method: confFileTemplate
@@ -323,67 +349,32 @@ sub writeConfFile
 #   the mason path of the configuration file template
 sub confFileTemplate
 {
-  throw EBox::Exceptions::NotImplemented();
-}
-
-
-#
-# Method: delete
-#
-#   This method is called to make the Daemon delete itself
-#
-#  Warning:
-#    discard and do NOT use again the daemon object or any instance of it remaining after calling this method
-sub delete
-{
-  my ($self) = @_;
-  $self->isa (__PACKAGE__) or 
-    throw EBox::Exceptions::Internal('This must be called as method');
-
-
-  # notify openvpn of the removal so it can make the clean up in the next
-  # restart
-  my $daemonClass = ref $self;
-  my @daemonFiles = $self->daemonFiles;
-  $self->_openvpnModule->notifyDaemonDeletion( $self->name, 
-					       class => $daemonClass,
-					       type        => $self->type,
-					       files => \@daemonFiles,
-					     );
-
-  # delete itself..
-  my $daemonDir = $self->confKeysBase();
-  $self->_openvpnModule->delete_dir($daemonDir);
-
-  # invalidate object instance
-  $_[0] = undef;
-
-  # notifiy logs module so it no longer observes the lof gile of this daemon
-  $self->_openvpnModule->notifyLogChange();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 #
 # Method: daemonFiles
 #
-#    Get a list with the files and directories generated by the daemon. Paths
-#    must be absolute. Directories contents are not included
+#    Get a list with the files and directories generated by the given
+#    daemon. Paths must be absolute. Directories contents are not included
 #
-#    This is a default implementation, specifics daemon may want to override this to include their 
-#      additional files
+#    This is a default implementation, specifics daemon classes may want to
+#    override this to include their additional files
 #
-# Returns: 
+#  Parameters:
+#        $name - daemon name
+#
+# Returns:
 #  a list with each path as string
 sub daemonFiles
 {
-  my ($self) = @_;
+    my ($class, $name) = @_;
 
-  my $confDir  = $self->_openvpnModule->confDir();
-  my $confFile = $self->confFile($confDir);
+    my $confDir  = $class->_openvpnModule->confDir();
+    my $confFile = $class->confFileForName($name, $confDir);
 
-  return ($confFile);
+    return ($confFile);
 }
-
-
 
 #
 # Method: confFileParams
@@ -394,7 +385,7 @@ sub daemonFiles
 #   a reference to the parameter's list
 sub confFileParams
 {
-  throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 #
@@ -411,7 +402,7 @@ sub confFileParams
 #       redistribute - wether the daemon wants to redistribute routes or not
 sub ripDaemon
 {
-  throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 #   Method: ifaceWithRipPasswd
@@ -425,14 +416,14 @@ sub ripDaemon
 #              passwd    - rip password for this daemon
 sub ifaceWithRipPasswd
 {
-  my ($self) = @_;
-  my $iface = $self->iface;
-  my $passwd = $self->ripPasswd;
+    my ($self) = @_;
+    my $iface = $self->iface;
+    my $passwd = $self->ripPasswd;
 
-  return {
-	  ifaceName => $iface,
-	  passwd    => $passwd,
-	 };
+    return {
+            ifaceName => $iface,
+            passwd    => $passwd,
+    };
 }
 
 #  Method: ripPasswd
@@ -443,11 +434,11 @@ sub ifaceWithRipPasswd
 #        the password as string (empty string if the password wasn't set)
 sub ripPasswd
 {
-  my ($self) = @_;
-  my $passwd = $self->getConfString('ripPasswd');
-  defined $passwd or $passwd = '';   # in some cases it may be optional it may
-                                     # be undefined
-  return $passwd;
+    my ($self) = @_;
+    my $passwd = $self->_configAttr('ripPasswd');
+    defined $passwd or $passwd = '';   # in some cases it may be optional it may
+    # be undefined
+    return $passwd;
 }
 
 #  Method: setRipPasswd
@@ -458,18 +449,17 @@ sub ripPasswd
 #        passwd - string
 sub setRipPasswd
 {
-  my ($self, $passwd) = @_;
-  throw EBox::Exceptions::NotImplemented('setRipPasswd');
+    my ($self, $passwd) = @_;
+    throw EBox::Exceptions::NotImplemented('setRipPasswd');
 }
-
 
 # Method: start
 #
 #  Start the daemon
 sub start
 {
-  my ($self) = @_;
-  EBox::Service::manage($self->upstartName, 'start');
+    my ($self) = @_;
+    EBox::Service::manage($self->upstartName, 'start');
 }
 
 #
@@ -478,53 +468,72 @@ sub start
 #  Stop the daemon
 sub stop
 {
-  my ($self) = @_;
-  EBox::Service::manage($self->upstartName, 'stop');
+    my ($self) = @_;
+    EBox::Service::manage($self->upstartName, 'stop');
 }
 
-
-
-# XXX very fragile method!!! if the stop() methods request any attribute other
-# than name and type it will break!!
 sub stopDeletedDaemon
 {
-  my ($class, $name, $type) = @_;
+    my ($class, $name, $type) = @_;
 
-  $class->isa('EBox::OpenVPN::Daemon') or
-    throw EBox::Exceptions::Internal("$class is not a openvpn's daemon class");
+    $class->isa('EBox::OpenVPN::Daemon')
+      or throw EBox::Exceptions::Internal(
+                                      "$class is not a openvpn's daemon class");
 
-  my $daemon = { name => $name, type => $type };
-  bless $daemon, $class;
+    # see if we have upstart service
+    my $upstartFile = $class->_upstartFileForDaemon($name, $type);
+    if (not -f $upstartFile) {
+        return;
 
+    }
 
-  $daemon->stop();
-  $daemon->removeUpstartFile();
+    my $upstartService = $class->upstartNameForDaemon($name, $type);
+    EBox::Service::manage($upstartService, 'stop');
+
+    $class->removeUpstartFileForDaemon($name, $type);
 }
 
+sub deletedDaemonCleanup
+{
+    my ($class, $name) = @_;
+    my $type = $class->type();
+
+    try {
+        $class->stopDeletedDaemon($name, $type);
+
+        foreach my $file  ( $class->daemonFiles($name) ) {
+            EBox::Sudo::root(" rm -rf $file");
+
+        }
+    }
+    otherwise {
+        my $ex = shift;
+        EBox::error(
+"Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup"
+        );
+        $ex->throw();
+    };
+}
 
 sub _rootCommandForStartDaemon
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $name    = $self->name;
-  my $bin     = $self->_openvpnModule->openvpnBin();
-  my $confDir = $self->_openvpnModule->confDir();
-  my $confFilePath =   $self->confFile($confDir);
-  my $pidFile = $self->_pidFile();
+    my $name    = $self->name;
+    my $bin     = $self->_openvpnModule->openvpnBin();
+    my $confDir = $self->_openvpnModule->confDir();
+    my $confFilePath =   $self->confFile($confDir);
+    my $pidFile = $self->_pidFile();
 
-#  return "$bin --daemon $name --writepid $pidFile --config $confFilePath";
-  return "$bin  --syslog $name  --config $confFilePath";
+    return "$bin  --syslog $name  --config $confFilePath";
 }
-
-
 
 sub _pidFile
 {
-  my ($self) = @_;
-  return '/var/run/openvpn.' . $self->name . '.pid';
+    my ($self) = @_;
+    return '/var/run/openvpn.' . $self->name . '.pid';
 
 }
-
 
 #
 # Method: pid
@@ -533,21 +542,19 @@ sub _pidFile
 #     the pid of the daemon or undef if isn't running
 sub pid
 {
-  my ($self) = @_;
-  my $pid;
+    my ($self) = @_;
+    my $pid;
 
-  try {
-    $pid = File::Slurp::read_file($self->_pidFile);
+    try {
+        $pid = File::Slurp::read_file($self->_pidFile);
 
-  }
-  otherwise {
-    $pid = undef;
-  };
+    }
+    otherwise {
+        $pid = undef;
+    };
 
-  return $pid;
+    return $pid;
 }
-
-
 
 #
 # Method: running
@@ -556,13 +563,14 @@ sub pid
 #    bool - wether the daemon is running
 sub running
 {
-  my ($self) = @_;
-  return EBox::Service::running($self->upstartName);
+    my ($self) = @_;
+
+    if (not -f $self->_upstartFile()) {
+        return undef;
+    }
+
+    return EBox::Service::running($self->upstartName);
 }
-
-
-
-
 
 sub writeUpstartFile
 {
@@ -572,16 +580,13 @@ sub writeUpstartFile
     my $cmd  = $self->_rootCommandForStartDaemon();
 
     my $fileAttrs    = {
-	uid  => 0,
-	gid  => 0,
-	mode => '0644',
+                        uid  => 0,
+                        gid  => 0,
+                        mode => '0644',
     };
 
-    EBox::GConfModule->writeConfFile($path, 
-				      '/openvpn/upstart.mas', 
-				     [ cmd => $cmd],
-				     $fileAttrs
-				    );
+    EBox::GConfModule->writeConfFile($path,'/openvpn/upstart.mas',
+                                     [ cmd => $cmd],$fileAttrs);
 
 }
 
@@ -593,18 +598,30 @@ sub removeUpstartFile
     EBox::Sudo::root("rm -f $path");
 }
 
+sub removeUpstartFileForDaemon
+{
+    my ($class, $name, $type) = @_;
+    $type
+      or throw EBox::Exceptions::MissingArgument('type');
+    $name
+      or throw EBox::Exceptions::MissingArgument('name');
+
+    my $path = $class->_upstartFileForDaemon($name, $type);
+    EBox::Sudo::root("rm -f $path");
+}
+
 #
 # Method: summary
 #
 #   Abstract method. May be implemented by any daemon which wants his summary section
 #
 # Returns:
-#     the summary data as list; the first element will be the title of the summary 
+#     the summary data as list; the first element will be the title of the summary
 #     section and the following pairs will be usd to build EBox::Summary::Value objects
 sub summary
 {
-  my ($self) = @_;
-  return ();
+    my ($self) = @_;
+    return ();
 }
 
 1;

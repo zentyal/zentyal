@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = t OpenVPN  
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/OpenVPN/Types
 
-nobase_perl_DATA = OpenVPN.pm
+nobase_perl_DATA = PortAndProtocol.pm Certificate.pm TlsRemote.pm
 
 DISTCLEANFILES = 
 

@@ -1,53 +1,38 @@
 package EBox::OpenVPN::Server;
+
 # Description: Class for modelling each of the OpenVPN servers
 use strict;
 use warnings;
 
 use base qw(EBox::OpenVPN::Daemon);
 
-use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
-use EBox::NetWrappers;
 use EBox::CA;
 use EBox::FileSystem;
-use Perl6::Junction qw(any);
-use List::Util qw(first);
 use EBox::Gettext;
-use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
-
+use EBox::NetWrappers;
+use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
+use EBox::Validate
+  qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+
+use List::Util qw(first);
+use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
+use Perl6::Junction qw(any);
 
 sub new
 {
-    my ($class, $name, $openvpnModule) = @_;
-   
-    my $prefix= 'server';
+    my ($class, $row) = @_;
 
-    my $self = $class->SUPER::new($name, $prefix, $openvpnModule);
-      bless $self, $class;
+    my $self = $class->SUPER::new($row);
+    bless $self, $class;
 
     return $self;
 }
 
-
-# Method: setProto
-#
-#   Set the protocol used by the server
-#
-#  Parametes:
-#        $proto   - protocol. Must be 'tcp' or 'udp'
-
-sub setProto
+sub type
 {
-    my ($self, $proto) = @_;
-
-    if ($proto ne 'tcp'  and ($proto ne 'udp') ) {
-	throw EBox::Exceptions::InvalidData(data => "server's protocol", value => $proto, advice => __("The protocol only may be TCP or UDP.")  );
-    }
-
-    $self->_checkPortIsAvailable( $proto, $self->port(), $self->local);
-
-    $self->setConfString('proto', $proto);
+    return 'server';
 }
 
 # Method: proto
@@ -58,32 +43,15 @@ sub setProto
 sub proto
 {
     my ($self) = @_;
-    return $self->getConfString('proto');
+
+    my $config =
+      $self->{row}->elementByName('configuration')->foreignModelInstance;
+
+    my $portAndProtocol =  $config->portAndProtocolType();
+    return $portAndProtocol->protocol();
 }
 
-# Method: setPort
-#
-#   Sets the port used by the server to receive connections. It must be a port
-#    not used by another openvpn daemon
-#
-#  Parametes:
-#        $port   - port number 
-sub setPort
-{
-  my ($self, $port) = @_;
-
-  checkPort($port, "server's port");
-  if ( $port < 1024 ) {
-      throw EBox::Exceptions::InvalidData(data => "server's port", value => $port, advice => __("The port must be a non-privileged port")  );
-    }
-
-  $self->_checkPortIsAvailable($self->proto(), $port, $self->local());
-
-  $self->setConfInt('port', $port);
-}
-
-
-
+# XXX move to toher class
 sub _checkPortIsAvailable
 {
     my ($self, $proto, $port, $localIface) = @_;
@@ -94,99 +62,64 @@ sub _checkPortIsAvailable
     my $oldPort  = $self->port();
     my $oldProto = $self->proto;
     if ( defined $oldPort and defined $oldProto) {
-	if (($port == $oldPort) and ($proto eq $oldProto)  ) {
-	    if (defined $localIface) {
-		my $currentLocalIface = $self->local();
-		if (not defined $currentLocalIface) {
-		    return 1;
-		}
-		elsif ($currentLocalIface eq $localIface) {
-		    return 1;
-		}
-	    }
-	    else {
-		return 1;	
-	    }
-	}
+        if (($port == $oldPort) and ($proto eq $oldProto)  ) {
+            if (defined $localIface) {
+                my $currentLocalIface = $self->local();
+                if (not defined $currentLocalIface) {
+                    return 1;
+                }elsif ($currentLocalIface eq $localIface) {
+                    return 1;
+                }
+            }else {
+                return 1;
+            }
+        }
     }
-
 
     my $fw = EBox::Global->modInstance('firewall');
     my $availablePort =   $fw->availablePort($proto, $port, $localIface);
     if (not $availablePort) {
- 	    throw EBox::Exceptions::External ( __x(
-					      "The port {p}/{pro} is already in use",
-						   p => $port,
-						   pro => $proto,
-						  )
-					     );
-	  }
+        throw EBox::Exceptions::External(
+                                     __x(
+                                         "The port {p}/{pro} is already in use",
+                                         p => $port,
+                                         pro => $proto,
+                                     )
+        );
+    }
 }
-
-
-
-
 
 # Method: port
 #
 #  Returns:
-#   the port used by the server to receive conenctions. 
+#   the port used by the server to receive conenctions.
 sub port
 {
     my ($self) = @_;
-    return $self->getConfInt('port');
+    my $config =
+      $self->{row}->elementByName('configuration')->foreignModelInstance;
+
+    my $portAndProtocol =  $config->portAndProtocolType();
+    return $portAndProtocol->port();
 }
 
-
-# Method: setLocal
+# Method: internal
 #
-#  Sets the local network interface where the server will listen or
-#   sets the server to listen in all interfaces
+#   tell wether the client must been internal for users in the UI or nodaemon
+#   is a internal daemon used and created by other EBox services.
+#   In this point there aren;t internal server so this method always return false
 #
-# Parameters: iface - the interface to listen on. An undef of false value
-#   signals that we listen in all interfaces
-sub setLocal
+# Returns:
+#  returns the client's internal state
+sub internal
 {
-  my ($self, $iface) = @_;
-  $iface or $iface = undef;
-
-  $self->_checkPortIsAvailable($self->proto, $self->port, $iface);
-
-  if (defined $iface) {
-    $self->_checkLocal($iface);
-    $self->setConfString('local', $iface);
-  }
-  else {
-    $self->unsetConf('local');
-  }
-}
-
-sub _checkLocal
-{
-  my ($self, $iface)  = @_;
-
-  my $network = EBox::Global->modInstance('network');
-
-  if (not $network->ifaceExists($iface) ) {
-      throw EBox::Exceptions::External(__x('The interface {iface} does not exist'), iface => $iface);
-  } 
-  
-  if ($network->ifaceMethod($iface) eq 'notset') {
-      throw EBox::Exceptions::External(__x('The interface {iface} is not configured'), iface => $iface);
-  }
-
-  if (not $network->ifaceIsExternal($iface)) {
-      $self->masquerade or
-	        throw EBox::Exceptions::External(
-                   __('VPN server can only run in a internal interface if network address translation option is active') 
-                );
-  }
-
+    my ($self) = @_;
+    return 0;
 }
 
 # Method: local
 #
-#  Gets the local network interface where the server will listen 
+#  Gets the local network interface where the server will listen
 #
 #   Returns:
 #      undef if the server listens in all interfaces or
@@ -194,16 +127,15 @@ sub _checkLocal
 sub local
 {
     my ($self) = @_;
-    my $iface = $self->getConfString('local');
+    my $iface = $self->_configAttr('local');
 
     # gconf does not store undef values, with a undef key it returns ''
-    if (not $iface) {
-      $iface = undef;
+    if ($iface eq  '_ALL') {
+        $iface = undef;
     }
 
     return $iface;
 }
-
 
 # Method: caCertificatePath
 #
@@ -211,32 +143,16 @@ sub local
 #      the path to the CA's certificate
 sub caCertificatePath
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $global = EBox::Global->instance();
-  my $ca = $global->modInstance('ca');
+    my $global = EBox::Global->instance();
+    my $ca = $global->modInstance('ca');
 
-  my $caCertificate = $ca->getCACertificateMetadata;
-  defined $caCertificate or throw EBox::Exceptions::Internal('No CA certificate' );
+    my $caCertificate = $ca->getCACertificateMetadata;
+    defined $caCertificate
+      or throw EBox::Exceptions::Internal('No CA certificate');
 
-  return $caCertificate->{path};
-}
-
-
-# Method: setCertificate
-#
-#  Sets the certificate used by the server to identify itself
-#
-#   parameters:
-#      certificateCN - the common name of the certificate
-sub setCertificate
-{
-  my ($self, $certificateCN) = @_;
-  validate_pos(@_, 1, 1);
-
-  $self->_checkCertificate($certificateCN);
-  
-  $self->setConfString('server_certificate', $certificateCN);
+    return $caCertificate->{path};
 }
 
 # Method: certificate
@@ -248,29 +164,29 @@ sub setCertificate
 sub certificate
 {
     my ($self) = @_;
-    my $cn = $self->getConfString('server_certificate');
+    my $cn = $self->_configAttr('certificate');
     return $cn;
 }
 
-
-sub _checkCertificate
+sub checkCertificate
 {
-  my ($self, $cn) = @_;
+    my ($class, $cn) = @_;
 
-  my $ca = EBox::Global->modInstance('ca');
-  my $cert_r = $ca->getCertificateMetadata(cn => $cn);
+    my $ca = EBox::Global->modInstance('ca');
+    my $cert_r = $ca->getCertificateMetadata(cn => $cn);
 
-  if (not defined $cert_r) {
-    throw EBox::Exceptions::External(__x('The certificate {cn} does not exist', cn => $cn));
-  }
-  elsif ($cert_r->{state} eq 'E') {
-    throw EBox::Exceptions::External(__x('The certificate {cn} has expired', cn => $cn));
-  }
-  elsif ($cert_r->{state} eq 'R') {
-    throw EBox::Exceptions::External(__x('The certificate {cn} has been revoked', cn => $cn));
-  }
+    if (not defined $cert_r) {
+        throw EBox::Exceptions::External(
+                         __x('The certificate {cn} does not exist', cn => $cn));
+    }elsif ($cert_r->{state} eq 'E') {
+        throw EBox::Exceptions::External(
+                            __x('The certificate {cn} has expired', cn => $cn));
+    }elsif ($cert_r->{state} eq 'R') {
+        throw EBox::Exceptions::External(
+                       __x('The certificate {cn} has been revoked', cn => $cn));
+    }
 
-  return $cert_r;
+    return $cert_r;
 }
 
 # Method: certificatePath
@@ -279,16 +195,20 @@ sub _checkCertificate
 #  the path to the certificate file
 sub certificatePath
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $cn = $self->certificate();
-  ($cn) or throw EBox::Exceptions::External(__x('The server {name} does not have certificate assigned', name => $self->name));
+    my $cn = $self->certificate();
+    ($cn)
+      or throw EBox::Exceptions::External(
+                     __x(
+                         'The server {name} does not have certificate assigned',
+                         name => $self->name
+                     )
+      );
 
-  my $certificate_r = $self->_checkCertificate($cn);
-  return $certificate_r->{path};
+    my $certificate_r = $self->checkCertificate($cn);
+    return $certificate_r->{path};
 }
-
-
 
 # Method: key
 #
@@ -299,9 +219,15 @@ sub key
     my ($self) = @_;
 
     my $certificateCN = $self->certificate();
-    ($certificateCN) or throw EBox::Exceptions::External(__x('Cannot get key of server {name} because it does not have any certificate assigned', name => $self->name));
+    ($certificateCN)
+      or throw EBox::Exceptions::External(
+        __x(
+'Cannot get key of server {name} because it does not have any certificate assigned',
+            name => $self->name
+        )
+      );
 
-    $self->_checkCertificate($certificateCN);
+    $self->checkCertificate($certificateCN);
 
     my $ca = EBox::Global->modInstance('ca');
     my $keys = $ca->getKeys($certificateCN);
@@ -317,52 +243,10 @@ sub key
 #  the path to the current certificates revoked list
 sub crlVerify
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $ca = EBox::Global->modInstance('ca');
-  return $ca->getCurrentCRL();
-}
-
-# Method: setSubnetAndMask
-#
-#   sets the subnet and the netmask of the VPN provided by the server
-#
-# Parameters:
-#   net  - the network address
-#   mask - the network netmask
-sub setSubnetAndMask
-{
-  my ($self, $net, $mask) = @_;
-  $self->_checkSubnetAndMask($net, $mask);
-
-  checkIP($net, 'VPN subnet');
-  checkNetmask($mask, "VPN network netmask");
-
-  $self->setConfString('vpn_net', $net);
-  $self->setConfString('vpn_netmask', $mask);
-}
-
-sub _checkSubnetAndMask
-{
-  my ($self, $net, $mask) = @_;
-
-  # XXX ugly change it when we have #396
-  checkIP($net, 'VPN subnet');
-  checkNetmask($mask, "VPN network netmask");
-
-  if (EBox::Validate::checkIPNetmask($net, $mask)) {
-    throw EBox::Exceptions::External(__x('Network address {net} with netmask {mask} is not a valid network', net => $net, mask => $mask));
-  }
-
-}
-
-sub setSubnet
-{
-  my ($self, $net) = @_;
-  
-  $self->_checkSubnetAndMask($net, $self->subnetNetmask);
-
-  $self->setConfString('vpn_net', $net);
+    my $ca = EBox::Global->modInstance('ca');
+    return $ca->getCurrentCRL();
 }
 
 # Method: subnet
@@ -372,18 +256,9 @@ sub setSubnet
 sub subnet
 {
     my ($self) = @_;
-    my $net = $self->getConfString('vpn_net');
-    return $net;
-}
-
-
-sub setSubnetNetmask
-{
-    my ($self, $netmask) = @_;
-
-    $self->_checkSubnetAndMask($self->subnet(), $netmask);
-
-    $self->setConfString('vpn_netmask', $netmask);
+    my $conf = $self->{row}->subModel('configuration');
+    my $net  = $conf->vpnType();
+    return $net->ip();
 }
 
 # Method: subnetNetmask
@@ -393,32 +268,22 @@ sub setSubnetNetmask
 sub subnetNetmask
 {
     my ($self) = @_;
-    my $netmask = $self->getConfString('vpn_netmask');
-    return $netmask;
+    my $conf = $self->{row}->subModel('configuration');
+    my $net  = $conf->vpnType();
+    my $mask = EBox::NetWrappers::mask_from_bits($net->mask);
+
+    return $mask;
 }
 
-# Method: setClientToClientAllowed
-# 
-#  sets wether connection is alloweb bettween clients though the VPN or not
-#
-# Parameters:
-#  clientToClientAllowed - true if it is allowed, false otherwise
-sub setClientToClient
-{
-    my ($self, $clientToClientAllowed) = @_;
-    $self->setConfBool('client_to_client', $clientToClientAllowed);
-}
-
-# Method: clientToClientAllowed
+# Method: clientToClient
 #
 # Returns:
 #  wether conenction is alloweb bettween clients though the VPN or not
 sub clientToClient
 {
     my ($self) = @_;
-    return $self->getConfBool('client_to_client');
+    return $self->_configAttr('clientToClient');
 }
-
 
 # Method: tlsRemote
 #
@@ -426,27 +291,10 @@ sub clientToClient
 #  value of the openvpn's tlsRemote option
 sub tlsRemote
 {
-  my ($self) = @_;
-  $self->getConfString('tls_remote');
+    my ($self) = @_;
+    my $tlsRemote = $self->_configAttr('tlsRemote');
+    return $tlsRemote ? $tlsRemote : undef;
 }
-
-# Method: tlsRemote
-#
-# Returns:
-#  value of the openvpn's tlsRemote option
-sub setTlsRemote
-{
-  my ($self, $clientCN) = @_;
-
-  if (!$clientCN) {   # disabling access by cn
-    $self->unsetConf('tls_remote');
-    return;
-  }
-
-  $self->_checkCertificate($clientCN);
-  $self->setConfString('tls_remote', $clientCN);
-}
-
 
 # Method: pullRoutes
 #
@@ -454,87 +302,54 @@ sub setTlsRemote
 #  wether the server may pull routes from client or not
 sub pullRoutes
 {
-  my ($self) = @_;
-  return $self->getConfBool('pull_routes');
-}
-
-# Method: setPullRoutes
-#
-#  sets wether the server may pull routes from client or not
-sub setPullRoutes
-{
-  my ($self, $value) = @_;
-
-  if ($value) {
-      $self->ripPasswd() or
-	  throw EBox::Exceptions::External(
-	   __('A tunnel password is required')
-					  );
-  }
-
-
-  return $self->setConfBool('pull_routes', $value);
-}
-
-
-#  Method: setRipPasswd
-#
-#     set the password used by this daemon to secure RIP transmissions
-#
-#     Parameters:
-#        passwd - string
-sub setRipPasswd
-{
-  my ($self, $passwd) = @_;
-  
-  unless (defined ($passwd)) {
-    $passwd = '';
-  }
-
-  $self->setConfString('ripPasswd', $passwd);
+    my ($self) = @_;
+    return $self->_configAttr('pullRoutes');
 }
 
 sub ripDaemon
 {
-  my ($self) = @_;
-  
-  $self->pullRoutes() or return undef;
+    my ($self) = @_;
 
-  my $iface = $self->ifaceWithRipPasswd();
-  return { iface => $iface };
+    $self->service()
+      or return undef;
+
+    $self->pullRoutes()
+      or return undef;
+
+    my $iface = $self->ifaceWithRipPasswd();
+    return { iface => $iface };
 }
 
 sub confFileTemplate
 {
-  my ($self) = @_;
-  return "openvpn/openvpn.conf.mas";
+    my ($self) = @_;
+    return "openvpn/openvpn.conf.mas";
 }
 
 sub confFileParams
 {
-  my ($self) = @_;
-  my @templateParams;
+    my ($self) = @_;
+    my @templateParams;
 
-  push @templateParams, (dev => $self->iface());
+    push @templateParams, (dev => $self->iface());
 
-  my @paramsNeeded = qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
-  foreach  my $param (@paramsNeeded) {
-    my $accessor_r = $self->can($param);
-    defined $accessor_r or die "Cannot found accesor for param $param";
-    my $value = $accessor_r->($self);
-    defined $value or next;
-    push @templateParams, ($param => $value);
-  }
+    my @paramsNeeded =
+      qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
+    foreach  my $param (@paramsNeeded) {
+        my $accessor_r = $self->can($param);
+        defined $accessor_r or die "Cannot found accesor for param $param";
+        my $value = $accessor_r->($self);
+        defined $value or next;
+        push @templateParams, ($param => $value);
+    }
 
-  
+    # local parameter needs special mapping from iface -> ip
+    push @templateParams, $self->_confFileLocalParam();
 
-  # local parameter needs special mapping from iface -> ip
-  push @templateParams, $self->_confFileLocalParam();
+    my @advertisedNets =  $self->advertisedNets();
+    push @templateParams, ( advertisedNets => \@advertisedNets);
 
-  my @advertisedNets =  $self->advertisedNets();
-  push @templateParams, ( advertisedNets => \@advertisedNets);
-
-  return \@templateParams;
+    return \@templateParams;
 }
 
 # Method: localAddress
@@ -544,135 +359,81 @@ sub confFileParams
 # listens in all network interfaces
 sub localAddress
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
- my $localAddress;
-  my $localIface = $self->local();
-  if ($localIface) {
-    # translate local iface to a local ip 
-    my $network = EBox::Global->modInstance('network');
-    my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
-    my @addresses = @{ $ifaceAddresses_r };
-    if (@addresses == 0) {
-      throw EBox::Exceptions::External(__x('No IP address found for interface {iface}', iface => $localIface));
+    my $localAddress;
+    my $localIface = $self->local();
+    if ($localIface) {
+
+        # translate local iface to a local ip
+        my $network = EBox::Global->modInstance('network');
+        my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
+        my @addresses = @{$ifaceAddresses_r};
+        if (@addresses == 0) {
+            throw EBox::Exceptions::External(
+                                __x(
+                                    'No IP address found for interface {iface}',
+                                    iface => $localIface
+                                )
+            );
+        }
+
+        my $selectedAddress =  shift @addresses
+          ; # XXX may be we have to look up a better address resolution method
+        $localAddress = $selectedAddress->{address};
+    }else {
+        $localAddress = undef;
     }
-
-    my $selectedAddress =  shift @addresses; # XXX may be we have to look up a better address resolution method
-    $localAddress = $selectedAddress->{address};
-  }
-  else {
-    $localAddress = undef;
-  }
 }
-
 
 sub _confFileLocalParam
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $localParamValue = $self->localAddress();
-  return (local => $localParamValue);
+    my $localParamValue = $self->localAddress();
+    return (local => $localParamValue);
 }
-
-sub setService # (active)
-{
-  my ($self, $active) = @_;
-  ($active and $self->service)   and return;
-  (!$active and !$self->service) and return;
-
-
-  if ($active) {  
-    # servers with certificate trouble must not be activated
-    my $certificate = $self->certificate();
-    $self->_checkCertificate($certificate);
-
-    # servers  with iface trouble shuld not activated
-    my $local = $self->local();
-    if ($local) {
-      $self->_checkLocal($local)
-    }
-    else {
-      # we need at least one interface
-      my $network = EBox::Global->modInstance('network');
-      my @ifaces = @{ $network->ExternalIfaces };
-      # XXX it should care of internal ifaces only until we close #391
-      push @ifaces, @{ $network->InternalIfaces };
-      if (@ifaces == 0) {
-	throw EBox::Exceptions::External(__x('OpenVPN server {name} cannot be activated because there is not any network interface available', name => $self->name));
-      }
-    }
-  }
-
-  $self->setConfBool('active', $active);
-
-  # notifiy logs module so it no longer observes the lof gile of this daemon
-  $self->_openvpnModule->notifyLogChange();
-}
-
 
 sub service
 {
-   my ($self) = @_;
-   return $self->getConfBool('active');
+    my ($self) = @_;
+    return $self->_rowAttr('service');
 }
-
-
 
 sub masquerade
 {
     my ($self) = @_;
-    return $self->getConfBool('masquerade');
+    return $self->_configAttr('masquerade');
 }
-
-
-sub setMasquerade
-{
-    my ($self, $value) = @_;
-
-    if (not $value) {
-	if ($self->runningOnInternalIface()) {
-	    throw EBox::Exceptions::External(
-	       __('VPN servers running on a internal interface should have network address translation option active')
-					    );
-	}
-    }
-
-    $self->setConfBool('masquerade', $value);
-
-}
-
 
 sub runningOnInternalIface
 {
     my ($self) = @_;
 
     my $local = $self->local();
-    
+
     if ($local) {
-	my $network = EBox::Global->modInstance('network');
-	return not $network->ifaceIsExternal($local);
-    }
-    else {
-	# server listen in all ifaces
-	return $self->_allIfacesAreInternal();
+        my $network = EBox::Global->modInstance('network');
+        return not $network->ifaceIsExternal($local);
+    }else {
+
+        # server listen in all ifaces
+        return $self->_allIfacesAreInternal();
     }
 
 }
 
-
 sub _allIfacesAreInternal
 {
     my ($self) = @_;
-    
+
     my $network = EBox::Global->modInstance('network');
 
-    my @ifaces = grep {
-	$network->ifaceMethod($_) ne 'notset';
-    } @{ $network->ifaces() };
-
+    my @ifaces =
+      grep {$network->ifaceMethod($_) ne 'notset';} @{ $network->ifaces() };
 
     foreach my $iface (@ifaces) {
-	return 0 if $network->ifaceIsExternal($iface);
+        return 0 if $network->ifaceIsExternal($iface);
     }
 
     return 1;
@@ -686,377 +447,237 @@ sub _allIfacesAreInternal
 #  a list of references to a lists containing the net addres and netmask pair
 sub advertisedNets
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @net =  @{ $self->allConfEntriesBase('advertised_nets') };
-  @net = map {
-    my $net = $_;
-    my $netmask = $self->getConfString("advertised_nets/$net");
-    [$net, $netmask]
-  } @net;
-    
-  return @net;
+    my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
+    my @nets =   map {
+        my $netObj = $_->elementByName('network');
+        my $net  = $netObj->ip();
+        my $maskBits = $netObj->mask();
+        my $mask = EBox::NetWrappers::mask_from_bits($maskBits);
+
+        [$net, $mask]
+    } @{ $advertisedNetsModel->rows() };
+
+    return @nets;
 }
-
-# Method: setAdvertisedNets
-#
-#  sets the server's advertised nets
-#
-# Parameters:
-#    advertisedNets_r - the list of advertised net. Each net is a list
-#  reference to a net address and netmask pair
-sub setAdvertisedNets
-{
-  my ($self, $advertisedNets_r)  =  @_;
-  
-  foreach my $net_r (@{ $advertisedNets_r }) {
-    my ($address, $netmask)= @{ $net_r };
-
-    $self->_checkAdvertisedNet($address, $netmask);
-
-    $self->setConfString("advertised_nets/$address", $netmask);
-  }
-
-}
-
-# Method: addAdvertisedNet
-#
-#  add a net to the advertised nets list
-#
-# Parameters:
-#  net     - network address
-#  netmask - network's netmask
-sub addAdvertisedNet
-{
-  my ($self, $net, $netmask) = @_;
-
-  $self->_checkAdvertisedNet($net, $netmask);
-
-  $self->setConfString("advertised_nets/$net", $netmask);
-
-}
-
-
-sub _checkAdvertisedNet
-{
-  my ($self, $net, $netmask) = @_;
-
-  checkIP($net, __('network address'));
-  checkNetmask($netmask, __('network mask'));
-
-  if (EBox::Validate::checkIPNetmask($net, $netmask)) {
-    throw EBox::Exceptions::External(__x('Network address {net} with netmask {mask} is not a valid network', net => $net, mask => $netmask));
-  }
-
-  if ($self->getConfString("advertised_nets/$net")) {
-    throw EBox::Exceptions::External(__x("Network {net} is already advertised in this server", net => $net));
-  }
-}
-
-
-
-# Method: removeAdvertisedNet
-#
-#  remove a net from  the advertised nets list
-#
-# Parameters:
-#  net     - network address
-#  netmask - network's netmask
-sub removeAdvertisedNet
-{
-  my ($self, $net) = @_;
-
-  EBox::Validate::checkIP($net,  __('network address'));
-
-  if (!$self->getConfString("advertised_nets/$net")) {
-    throw EBox::Exceptions::External(__x("Network {net} is not advertised in this server", net => $net));
-  }
-
-  $self->unsetConf("advertised_nets/$net");
-
-}
-
 
 # Method: setInternal
 #
 #
-# This method is overriden here beacuse servers cannot be internal; 
+# This method is overriden here beacuse servers cannot be internal;
 #  so trying to set them as internals we raise error
 #
 # Parameters:
-#    internal - bool. 
+#    internal - bool.
 sub setInternal
 {
-  my ($self, $internal) = @_;
+    my ($self, $internal) = @_;
 
-  if ($internal) {
-    throw EBox::Exceptions::External(
-                      __('OpenVPN servers cannot be used for internal services')
-				    );
-  }
+    if ($internal) {
+        throw EBox::Exceptions::External(
+                    __('OpenVPN servers cannot be used for internal services'));
+    }
 
-  $self->SUPER::setInternal($internal);
+    $self->SUPER::setInternal($internal);
 }
-
-
-
-# Method: init
-#
-#  initialisation method
-#
-# Parameters:
-#
-#  *(Named parameters)*   
-#
-#  service        - wether the server is active or not *(default: disabled)*
-#  subnet         - address of VPN net
-#  subnetNetmask  - netmask of VPN net
-#  port           - server's port
-#  proto          - server's proto
-#  certificate    - CN of server's certificate
-#  masquerade   - masquerade option
-#  local          - local interface to listen on *(optional)*
-#  advertisedNets - advertised nets 
-#  tlsRemote      - tls remote option
-#  
-#  pullRoutes     - wether pull routes from clientes or not
-#  ripPasswd      - rip password used to secure the routes' pulling
-sub init
-{
-    my ($self, %params) = @_;
-
-    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server requires a network address for the VPN");
-    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server requires a netmask for its VPN network");
-    (exists $params{port} ) or throw EBox::Exceptions::External __("The server requires a port number");
-    (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
-    (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
-    (exists $params{masquerade}) or throw EBox::Exceptions::External __("The masquerade parameter must be specified");
-    if (exists $params{pullRoutes} and $params{pullRoutes}) {
-      ($params{ripPasswd}) or
-	throw EBox::Exceptions::External(
-		  __(q{eBox-to-EBox tunnel's password missing})
-					);
-    }
-
-    
-    if ($self->_allIfacesAreInternal  and (not $params{masquerade})) {
-      throw  EBox::Exceptions::External(
-					__('Cannot create the OpenVPN server because there is neither any external network interface available or network address  translation active')
-				       );
-    }
-
-
-
-    $self->setSubnetAndMask($params{subnet}, $params{subnetNetmask});
-
-    $self->setProto($params{proto});
-    $self->setPort($params{port});
-    $self->setCertificate($params{certificate});    
-
-    # masquerade must be setted before than local port
-    $self->setMasquerade($params{masquerade});
-
-    # W: pullRoutes requires than it is called after setting the rip password
-    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote  ripPasswd  pullRoutes internal); 
-    push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
-
-    foreach my $attr (@noFundamentalAttrs)  {
-	if (exists $params{$attr} ) {
-	    my $mutator_r = $self->can("set\u$attr");
-	    defined $mutator_r or die "Not mutator found for attribute $attr";
-	    $mutator_r->($self, $params{$attr});
-	}
-    }
-}
-
-
 
 sub clientBundle
 {
-  my ($self, @p) = @_;
-  validate(@p,
-	   {
-	    clientType        => { default => 'windows' },
-	    clientCertificate => 1,
-	    addresses         => { type => ARRAYREF },
-	    installer         => 0,
-	   }
-	  );
+    my ($self, @p) = @_;
+    validate(
+             @p,
+             {
+               clientType        => { default => 'windows' },
+               clientCertificate => 1,
+               addresses         => { type => ARRAYREF },
+               installer         => 0,
+             }
+    );
 
-  my %params = @p;
+    my %params = @p;
 
-  my $clientType = delete $params{clientType};
-  if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox')) ) {
-    throw EBox::Exceptions::External( __x('Unsupported client type: {ct}', ct => $clientType) );
-  }
+    my $clientType = delete $params{clientType};
+    if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox')) ) {
+        throw EBox::Exceptions::External(
+                      __x('Unsupported client type: {ct}', ct => $clientType) );
+    }
 
-  if (@{ $params{addresses} } == 0) {
-        throw EBox::Exceptions::External('You must provide a server address for the bundle');
-  }
+    if (@{ $params{addresses} } == 0) {
+        throw EBox::Exceptions::External(
+                            'You must provide a server address for the bundle');
+    }
 
-  my $class = 'EBox::OpenVPN::Server::ClientBundleGenerator::' . ucfirst $clientType;
+    my $class =
+      'EBox::OpenVPN::Server::ClientBundleGenerator::' . ucfirst $clientType;
 
+    $params{server} = $self;
 
-  $params{server} = $self;
-
-  return $class->clientBundle(%params);
+    return $class->clientBundle(%params);
 }
-
-
-
-
 
 sub certificateRevoked # (commonName, isCACert)
 {
-  my ($self, $commonName, $isCACert) = @_;
+    my ($self, $commonName, $isCACert) = @_;
 
-  return 1 if $isCACert;
-  return ($commonName eq $self->certificate()) ;
+    return 1 if $isCACert;
+    return ($commonName eq $self->certificate());
 }
-
-
 
 sub certificateExpired
 {
-  my ($self, $commonName, $isCACert) = @_;
+    my ($self, $commonName, $isCACert) = @_;
 
-  if ($isCACert or  ($commonName eq $self->certificate())) {
-    EBox::info('OpenVPN server ' . $self->name . ' is now inactive because of certificate expiration issues');
-    $self->_invalidateCertificate();
-  } 
+    if ($isCACert or  ($commonName eq $self->certificate())) {
+        EBox::info('OpenVPN server '
+                 . $self->name
+                 . ' is now inactive because of certificate expiration issues');
+        $self->_invalidateCertificate();
+    }
 }
 
 sub freeCertificate
 {
-  my ($self, $commonName) = @_;
+    my ($self, $commonName) = @_;
 
-  if ($commonName eq $self->certificate()) {
-    EBox::info('OpenVPN server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
-    $self->_invalidateCertificate();
-  } 
+    if ($commonName eq $self->certificate()) {
+        EBox::info('OpenVPN server '
+            . $self->name
+            . ' is now inactive because server certificate expired or was revoked'
+        );
+        $self->_invalidateCertificate();
+    }
 }
 
 sub _invalidateCertificate
 {
-  my ($self) = @_;
-  $self->unsetConf('server_certificate');
-  $self->setService(0);
+    my ($self) = @_;
+
+    # openvpn server cannot be activated again until it has a valid certificate
+    $self->_deactivate();
 }
 
+sub _deactivate
+{
+    my ($self) = @_;
+
+    $self->{row}->elementByName('service')->setValue(0);
+
+   # we stop daemon to not accept more conexions with the invalidate certificate
+    $self->stop() if $self->running();
+}
 
 sub usesPort
 {
-  my ($self, $proto, $port, $iface) = @_;
+    my ($self, $proto, $port, $iface) = @_;
 
-
-  my $ownProto = $self->proto;
-  defined $ownProto or 
-    return undef; # uninitialized server
-  if ($proto ne $ownProto) {
-    return undef;
-  }
-
-
-  my $ownPort = $self->port;
-  defined $ownPort or 
-    return undef; #uninitialized server
-  if ($port ne $ownPort) {
-    return undef;
-  }
-
-
-  my $ownIface = $self->local;
-  if ((defined $iface) and (defined $ownIface)) {
-    if ($iface ne $ownIface) {
-      return undef;
+    my $ownProto = $self->proto;
+    defined $ownProto
+      or return undef; # uninitialized server
+    if ($proto ne $ownProto) {
+        return undef;
     }
-  }
 
-  return 1;
+    my $ownPort = $self->port;
+    defined $ownPort
+      or return undef; #uninitialized server
+    if ($port ne $ownPort) {
+        return undef;
+    }
+
+    my $ownIface = $self->local;
+    if ((defined $iface) and (defined $ownIface)) {
+        if ($iface ne $ownIface) {
+            return undef;
+        }
+    }
+
+    return 1;
 }
-
 
 sub ifaceMethodChanged
 {
-  my ($self, $iface, $oldmethod, $newmethod) = @_;
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
 
-  if ($self->_onlyListenOnIface($iface)) {
-    return 1 if $newmethod eq 'notset';
-  }
+    if ($self->_onlyListenOnIface($iface)) {
+        return 1 if $newmethod eq 'notset';
+    }
 
-  return undef;
+    return undef;
 }
-
 
 sub vifaceDelete
 {
-  my ($self, $iface, $viface) = @_;
-  return $self->_onlyListenOnIface($viface);
+    my ($self, $iface, $viface) = @_;
+    return $self->_onlyListenOnIface($viface);
 }
-
 
 sub freeIface
 {
-  my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-  if ($self->_onlyListenOnIface($iface)) {
-    $self->setService(0);
-    EBox::warn('OpenVPN server ' . $self->name . " was deactivated because it was dependent on the interface $iface");
-  }
+    if ($self->_onlyListenOnIface($iface)) {
+        $self->_deactivate();
+        EBox::warn('OpenVPN server '
+            . $self->name
+            . " was deactivated because it was dependent on the interface $iface"
+        );
+    }
 }
 
 sub freeViface
 {
-  my ($self, $iface, $viface) = @_;
-  $self->freeIface($viface);
+    my ($self, $iface, $viface) = @_;
+    $self->freeIface($viface);
 }
-
 
 sub changeIfaceExternalProperty # (iface, external)
 {
-   my ($self, $iface, $external) = @_;
+    my ($self, $iface, $external) = @_;
 
     # only we can break configuration if a external passes
-  # to internal and masquerade is not set
-   
+    # to internal and masquerade is not set
 
-   $external and return; 
+    $external and return;
 
-   my $local = $self->local();
-   if ($local) {
-       # check if the change is for another iface..
-       return undef if $iface ne $local;
-   }
-   else {
-       # if we listen all ifaces, if at least is one that is not internal
-       # masquerading will not be compulsive
-       return undef if not $self->_allIfacesAreInternal() 
-   }
-   
-   return ( $self->masquerade) ?  undef : 1;
+    my $local = $self->local();
+    if ($local) {
+
+        # check if the change is for another iface..
+        return undef if $iface ne $local;
+    }else {
+
+        # if we listen all ifaces, if at least is one that is not internal
+        # masquerading will not be compulsive
+        return undef if not $self->_allIfacesAreInternal(
+              );
+    }
+
+    return ( $self->masquerade) ?  undef : 1;
 }
 
 sub _onlyListenOnIface
 {
-  my ($self, $iface) = @_;
+    my ($self, $iface) = @_;
 
-  my $local = $self->local();
-  if ($local and ($iface eq $self->local() )) {
-    return 1;
-  }
-  else { 
-    # the server listens in all ifaces...
-    my $network = EBox::Global->modInstance('network');
-    my @ifaces = @{ $network->ExternalIfaces };
-    # XXX it should care of internal ifaces only until we close #391
-    push @ifaces, @{ $network->InternalIfaces };
+    my $local = $self->local();
+    if ($local and ($iface eq $self->local() )) {
+        return 1;
+    }else {
 
-    if (@ifaces == 1) {
-      return 1;
+        # the server listens in all ifaces...
+        my $network = EBox::Global->modInstance('network');
+        my @ifaces = @{ $network->ExternalIfaces };
+
+        # XXX it should care of internal ifaces only until we close #391
+        push @ifaces, @{ $network->InternalIfaces };
+
+        if (@ifaces == 1) {
+            return 1;
+        }
     }
-  }
 
-  return undef;
+    return undef;
 }
 
 # Method: summary
@@ -1065,45 +686,40 @@ sub _onlyListenOnIface
 #
 sub summary
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @summary;
-  push @summary, __x('Server {name}', name => $self->name);
+    my @summary;
+    push @summary, __x('Server {name}', name => $self->name);
 
-  my $service = $self->service ? __('Enabled') : __('Disabled');
-  push @summary, (__('Service'), $service);
+    my $service = $self->service ? __('Enabled') : __('Disabled');
+    push @summary, (__('Service'), $service);
 
-  my $running = $self->running ? __('Running') : __('Stopped');
-  push @summary,(__('Daemon status'), $running);
+    my $running = $self->running ? __('Running') : __('Stopped');
+    push @summary,(__('Daemon status'), $running);
 
+    my $localAddress = $self->localAddress();
+    defined $localAddress or $localAddress = __('All external interfaces');
+    push @summary, (__('Local address'), $localAddress);
 
-  my $localAddress = $self->localAddress();
-  defined $localAddress or $localAddress = __('All external interfaces');
-  push @summary, (__('Local address'), $localAddress);
-  
+    my $proto   = $self->proto();
+    my $port    = $self->port();
+    my $portAndProtocol = "$port/\U$proto";
+    push @summary,(__('Port'), $portAndProtocol);
 
-  my $proto   = $self->proto();
-  my $port    = $self->port();
-  my $portAndProtocol = "$port/\U$proto";
-  push @summary,(__('Port'), $portAndProtocol);
+    my $subnet  = $self->subnet . '/' . $self->subnetNetmask;
+    push @summary,(__('VPN subnet'), $subnet);
 
-  my $subnet  = $self->subnet . '/' . $self->subnetNetmask;
-  push @summary,(__('VPN subnet'), $subnet);
+    my $iface = $self->iface();
+    push @summary, (__('VPN network interface'), $iface );
 
-  my $iface = $self->iface();
-  push @summary, (__('VPN network interface'), $iface );
-  
-  my $addr = $self->ifaceAddress();
-  if ($addr) {
-    push @summary, (__('VPN interface address'), $addr);
-  }
-  else {
-    push @summary, (__('VPN interface address'), __('No active'));
-  }
+    my $addr = $self->ifaceAddress();
+    if ($addr) {
+        push @summary, (__('VPN interface address'), $addr);
+    }else {
+        push @summary, (__('VPN interface address'), __('No active'));
+    }
 
-  return @summary;
+    return @summary;
 }
-
-
 
 1;

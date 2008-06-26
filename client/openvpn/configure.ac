@@ -61,6 +61,10 @@ src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/t/testdata/Makefile
 src/EBox/OpenVPN/Makefile
+src/EBox/OpenVPN/Model/Makefile
+src/EBox/OpenVPN/Model/ServerConfiguration/Makefile
+src/EBox/OpenVPN/Model/t/Makefile
+src/EBox/OpenVPN/Types/Makefile
 src/EBox/OpenVPN/Server/Makefile
 src/EBox/OpenVPN/Server/t/Makefile
 src/EBox/OpenVPN/Server/ClientBundleGenerator/Makefile
@@ -71,13 +75,6 @@ src/EBox/OpenVPN/Client/t/Makefile
 src/EBox/OpenVPN/Client/t/testdata/Makefile
 src/EBox/OpenVPN/LogHelper/Makefile
 src/EBox/OpenVPN/t/Makefile
-src/EBox/rootTests/Makefile
-src/EBox/rootTests/lib/Makefile
-src/EBox/rootTests/testdata/Makefile
-src/EBox/CGI/Makefile
-src/EBox/CGI/t/Makefile
-src/EBox/CGI/OpenVPN/Makefile
-src/EBox/CGI/OpenVPN/Create/Makefile
 src/templates/Makefile
 src/templates/t/Makefile
 schemas/Makefile

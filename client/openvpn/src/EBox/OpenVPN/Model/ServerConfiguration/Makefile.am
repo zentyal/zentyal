@@ -1,12 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = t OpenVPN  
-
-perldir = @PERLPATH@/EBox
-
-nobase_perl_DATA = OpenVPN.pm
+test_classes = Test.pm
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = $(nobase_perl_DATA)
+EXTRA_DIST =  $(test_classes)
 
 MAINTAINERCLEANFILES = Makefile.in

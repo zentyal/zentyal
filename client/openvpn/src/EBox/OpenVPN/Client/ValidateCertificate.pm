@@ -25,6 +25,29 @@ sub check
   defined $privKeyPath or 
     throw EBox::Exceptions::MissingArgument('privKeyPath');
 
+  EBox::Sudo::fileTest('-f', $caPath) or
+        throw EBox::Exceptions::External(
+                    __x(
+                        "Inexistent CA's certificate file {p}",
+                        p => $caPath,
+                       )
+                                        );
+  EBox::Sudo::fileTest('-f', $certPath) or
+        throw EBox::Exceptions::External(
+                    __x(
+                        "Inexistent client's certificate file {p}",
+                        p => $certPath,
+                       )
+                                        );
+  EBox::Sudo::fileTest('-f', $privKeyPath) or
+        throw EBox::Exceptions::External(
+                    __x(
+                        "Inexistent certificate's private key file {p}",
+                        p => $privKeyPath,
+                       )
+                                        );
+
+
   _verifyCaCert($caPath);
   _verifyCert($certPath);
   _verifyPrivKey($privKeyPath);

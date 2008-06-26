@@ -7,6 +7,7 @@ use base qw(EBox::Test::Class);
 
 use EBox::Test;
 use EBox::TestStubs;
+use EBox::Types::File;
 use Test::More;
 use Test::Exception;
 use Test::MockObject;
@@ -15,7 +16,10 @@ use Test::Differences;
 
 use lib '../../../';
 use EBox::OpenVPN;
+use EBox::OpenVPN::Client;
 use EBox::CA::TestStub;
+use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::OpenVPN::Client::ValidateCertificate;
 
 use English qw(-no_match_vars);
 
@@ -24,6 +28,20 @@ sub testDir
     return  '/tmp/ebox.openvpn.test';
 }
 
+sub _confDir
+{
+    my ($self) = @_;
+    return $self->testDir() . "/config";
+}
+
+# we dont want to test certificate validation here
+sub EBox::OpenVPN::Client::ValidateCertificate::check
+{
+    return 1 
+}
+
+
+
 
 sub mockNetworkModule 
 {
@@ -31,13 +49,13 @@ sub mockNetworkModule
   my @ifaces = defined $ifaces_r ? @{ $ifaces_r } : ('eth1', 'eth2') ;
 
   EBox::TestStubs::fakeEBoxModule(
-				  name => 'network',
-				  module => 'EBox::Network',
-				  subs => [
-					   ExternalIfaces => sub { return \@ifaces },
-					   InternalIfaces => sub { return [] },
-					  ],
-				 );
+                                  name => 'network',
+                                  module => 'EBox::Network',
+                                  subs => [
+                                           ExternalIfaces => sub { return \@ifaces },
+                                           InternalIfaces => sub { return [] },
+                                          ],
+                                 );
 }
 
 
@@ -60,44 +78,37 @@ sub ignoreChownRootCommand : Test(startup)
   defined $root_r or die 'Can not get root sub from EBox::Sudo';
 
   Test::MockObject->fake_module(
-				'EBox::Sudo',
-				root => $rootIgnoreChown_r,
-			       )
+                                'EBox::Sudo',
+                                root => $rootIgnoreChown_r,
+                               )
 }
+
+
 
 
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
- 
-    my $confDir = $self->_confDir();
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    my @gids = split '\s', $GID;
+    fakeEBoxModule(
+                                           name => 'openvpn',
+                                           package => 'EBox::OpenVPN',
+                                           subs => [
+                                                    confDir => sub {
+                                                        return $self->_confDir()
+                                                    },
+                                                   ],
+                                          );
 
 
-    my @config = (
-		  '/ebox/modules/openvpn/user'  => $UID,
-		  '/ebox/modules/openvpn/group' =>  $gids[0],
-		  '/ebox/modules/openvpn/conf_dir' => $confDir,
-		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
+    mockNetworkModule();
 
-		  '/ebox/modules/openvpn/client/client1/service' => 0,	
-		  '/ebox/modules/openvpn/client/client1/proto'   => 'tcp',	
-		  '/ebox/modules/openvpn/client/client1/caCertificate'   => '/etc/openvpn/ca.pem',	
-		  '/ebox/modules/openvpn/client/client1/certificate'   => '/etc/openvpn/client.pem',	
-		  '/ebox/modules/openvpn/client/client1/certificateKey'   => '/etc/openvpn/client.key',	
-		  '/ebox/modules/openvpn/client/client1/ripPasswd'   => 'passwd',	
-		  '/ebox/modules/openvpn/client/client1/servers/openvpn.macaco.org'   => 1040,	
-		  );
-
-    EBox::GConfModule::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
-
-    $self->mockNetworkModule();
+    EBox::Config::TestStub::setConfigKeys(tmp => '/tmp/');
 }
+
+
 
 
 sub clearConfiguration : Test(teardown)
@@ -107,181 +118,135 @@ sub clearConfiguration : Test(teardown)
 
 }
 
-sub _useOkTest : Test
+
+
+
+
+
+
+sub _newClient
 {
-    use_ok ('EBox::OpenVPN::Client');
+    my ($self, %conf) = @_;
+    my %defaults = (
+                    name               => 'macaco',
+                    service            => 0,
+                    server                   => 'server.monos.org',
+                    serverPortAndProtocol    => '1000/tcp',
+                    ripPasswd                => '123456',
+                   );
+
+    while (my ($attr, $value) = each %defaults) {
+        exists $conf{$attr} and 
+            next;
+        $conf{$attr} = $value;
+    }
+
+    my $name    = delete $conf{name};
+    my $service = delete $conf{service};
+    my $ifaceNumber =  delete $conf{ifaceNumber};
+
+    my $openvpnMod = $self->{openvpnModInstance};
+    my $clients =  $openvpnMod->model('Clients');
+
+    my @ifaceParams; 
+    if (defined $ifaceNumber) {
+        @ifaceParams = (
+                        interfaceNumber => $ifaceNumber,
+                        interfaceType   => 'tap',
+                       );
+    }
+
+
+    $clients->addRow(
+                     name => $name,
+                     service =>  0,
+                     @ifaceParams,
+                    );
+
+
+    # put mock certificate files
+    my $tmpDir = EBox::Config::tmp();
+    my $dir = EBox::OpenVPN::Client->privateDirForName($name);
+    foreach my $f (qw(caCertificate certificate certificateKey)) {
+        system "touch $dir/$f" ;
+        ($? == 0) or die "$!";
+        system "touch $tmpDir/$f" . "_path";
+       ($? == 0) or die "$!";
+    }
+
+
+    my $clientRow     = $clients->findRow(name => $name);
+    my $clientConfRow = $clientRow->subModel('configuration')->row();
+    while (my ($attr, $value) = each %conf) {
+        $clientConfRow->elementByName($attr)->setValue($value);
+    }
+    $clientConfRow->store();
+
+
+    
+    if ($service) {
+        $clientRow->elementByName('service')->setValue(1);
+        $clientRow->store();
+    }
+
+
+    my $client = $clients->client($name);
+    return $client;
 }
 
-sub newClientTest : Test(4)
+
+
+
+
+# XXX this two very ugly and fragile fudge must be removed when we make the
+# parent() method to work with the mocked framework
+sub EBox::Types::File::exist
 {
-    my ($self) = @_;
-    my $openVpnMod = $self->{openvpnModInstance};
-
-    my @existentClients = qw(client1);
-    foreach my $clientName (@existentClients) {
-	my $clientInstance;
-	lives_ok { $clientInstance = new EBox::OpenVPN::Client($clientName, $openVpnMod) };  
-	isa_ok $clientInstance, 'EBox::OpenVPN::Client';
-    }
-
-    my @inexistentClients = qw(bufalo gacela);
-    foreach my $clientName (@inexistentClients) {
-	dies_ok {  new EBox::OpenVPN::Client($clientName, $openVpnMod) } 'Checking that we can not create OpenVPN clients objects if the client is not registered in configuration';  
-    }
+    return 1;
 }
 
 
-
-
-sub setProtoTest : Test(6)
+# XXX this two very ugly and fragile fudge must be removed when we make the
+# parent() method to work with the mocked framework
+sub EBox::OpenVPN::Client::_filePath
 {
-    my ($self) = @_;
- 
-    my $client          = $self->_newClient();
-    my $protoGetter_r    =  $client->can('proto');
-    my $protoSetter_r    =  $client->can('setProto');
-    my $correctProtos   = [qw(tcp udp)];
-    my $incorrectProtos = [qw(mkkp)];
+    my ($self, $f) = @_;;
 
-    setterAndGetterTest(
-			  object         => $client,
-			  getter         => $protoGetter_r,
-			  setter         => $protoSetter_r,
-			  straightValues => $correctProtos,
-			  deviantValues  => $incorrectProtos,
-			  propierty      => "Client\'s IP protocol",
-			);
+    my $confDir = $self->privateDir();
+    return "$confDir/$f";
+
 }
-
-
-
-sub setterAndGetterTest
-{
-    my %params = @_;
-    my $object         = $params{object};
-    my $propierty      = exists $params{propierty} ? $params{propierty} : 'propierty';
-    my @straightValues = @{ $params{straightValues} };
-    my @deviantValues  = @{ $params{deviantValues} };
-    my $setter_r       = $params{setter};
-    my $getter_r       = $params{getter};
-
-    foreach my $value (@straightValues) {
-	lives_ok { $setter_r->($object, $value) } "Trying to set $propierty to $value";
-
-	my $actualValue = $getter_r->($object);
-	is $actualValue, $value, "Using getter to check that $propierty was correcty setted" ;
-    }
-
-    foreach my $value (@deviantValues) {
-	my $beforeValue = $getter_r->($object);
-
-	dies_ok { $setter_r->($object, $value) } "Checking that setting $propierty to the invalid value $value raises error";
-
-	my $actualValue = $getter_r->($object);
-	is $actualValue, $beforeValue, "Checking that $propierty\'s value was left untouched";
-    }
-}
-
-
-sub setServersTest : Test(12)
-{
-    my ($self) = @_;
- 
-    my $client          = $self->_newClient();
-
-    my @correctServers   = (
-			     [ 
-			      ['192.168.34.24', 10005],   
-			     ],
-			     [ 
-			      ['openvpn.antropoides.com', 10007],   
-			     ],
-			     [ 
-			      ['10.40.34.24',   5004],   
-			      ['openvpn.monos.org', 10001],   
-			     ],
-			    );
-
-    my @incorrectServers = (
-			     [ 
-			      ['192.168.34.257', 10005],   # bad ip address
-			     ],
-			     [ 
-			      ['openvpn_antropoides.com', 10007],  # bad hostname 
-			     ],
-			     [ 
-			      ['10.40.34.24',   5004],         # bad second server
-			      ['', 10001],   
-			     ],
-
-			    );
-
-    foreach my $servers_r (@correctServers) {
-      lives_ok { $client->setServers($servers_r) } 'Setting correct servers';
-      eq_or_diff $client->servers(), $servers_r, 'Checking wether servers were correctly stored';
-    }
-
-    foreach my $servers_r (@incorrectServers) {
-      my $actualServers_r = $client->servers();
-      dies_ok { $client->setServers($servers_r) } 'Checking wether trying to set incorrect server raises error';
-      eq_or_diff $client->servers(), $actualServers_r, 'Checking wether stored server were left untouched after faield attempt of settign them';
-    }
-}
-
 
 sub writeConfFileTest : Test(2)
 {
     my ($self) = @_;
 
+    my $openvpn = EBox::Global->modInstance('openvpn');
+
+    my $confDir =   $openvpn->confDir();
     my $stubDir  = $self->testDir() . '/stubs';
-    my $confDir =   $self->testDir() . "/config";
     foreach my $testSubdir ($confDir, $stubDir, "$stubDir/openvpn") {
-	system ("rm -rf $testSubdir");
-	($? == 0) or die "Error removing  temp test subdir $testSubdir: $!";
-	system ("mkdir -p $testSubdir");
-	($? == 0) or die "Error creating  temp test subdir $testSubdir: $!";
+        system ("rm -rf $testSubdir");
+        ($? == 0) or die "Error removing  temp test subdir $testSubdir: $!";
+        system ("mkdir -p $testSubdir");
+        ($? == 0) or die "Error creating  temp test subdir $testSubdir: $!";
     }
     
     
     system "cp ../../../../stubs/openvpn-client.conf.mas $stubDir/openvpn";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
-    EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir, tmp => '/tmp');
+    EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir, tmp => '/tmp/');
 
   
-    my $client = $self->_newClient();
+    my $client = $self->_newClient(
+                                   name => 'client1' , 
+                                   service => 1,
+                                   ifaceNumber => 0,
+                                  );
     lives_ok { $client->writeConfFile($confDir)  } 'Calling writeConfFile method in client instance';
-    file_exists_ok("$confDir/client1.conf", "Checking if the new configuration file was written");
+    file_exists_ok($client->confFile($confDir), "Checking if the new configuration file was written");
     diag "TODO: try to validate automatically the generated conf file without ressorting a aspect-like thing. (You may validate manually with openvpn --config)";
 }
-
-
-sub setServiceTest : Test(16)
-{
-  my ($self) = @_;
-  my @service = (0, 1, 1, 0);
-  
-  my $client = $self->_newClient();
-  $client->setService(0); # set up client for te tests
-
-  foreach my $newService (@service) {
-    lives_ok { $client->setService($newService) } 'Changing service status';
-    is $client->service() ? 1 : 0, $newService, 'Checking wether the service change was done';
-  }
-
-  $self->mockNetworkModule([]);
-  foreach my $newService (@service) {
-    if ($newService) {
-      dies_ok { $client->setService($newService) } 'Changing wether activating service with bad interfaces states is unallowed';
-      ok !$client->service, 'Checking wether the client continues inactive';
-    }
-    else {
-      lives_ok { $client->setService($newService) } 'Changing service status to inactive';
-      is $client->service() ? 1 : 0, $newService, 'Checking wether the service change was done';
-    }
-
-  }
-}
-
 
 sub ifaceMethodChangedTest : Test(3)
 {
@@ -297,7 +262,6 @@ sub ifaceMethodChangedTest : Test(3)
 }
 
 
-
 sub vifaceDeleteTest : Test(2)
 {
   my ($self) = @_;
@@ -310,12 +274,13 @@ sub vifaceDeleteTest : Test(2)
   ok $client->vifaceDelete('wathever', 'eth0'), "Checking wether deleting a viface is considered disruptive if this is the only interface elft";
 }
 
+
 sub freeIfaceAndFreeVifaceTest : Test(4)
 {
   my ($self) = @_;
 
-  my $client = $self->_newClient();
-  $client->setService(1);
+  my $client = $self->_newClient(service => 1);
+
 
   $client->freeIface('eth3');
   ok $client->service(), 'Checking wether client is active after deleteing a iface';
@@ -327,10 +292,12 @@ sub freeIfaceAndFreeVifaceTest : Test(4)
   $client->freeIface('eth0');
   ok !$client->service(), 'Checking wether client was disabled after removing the last interface';
 
-  $client->setService(1);
-  $client->freeViface('eth0', 'eth1');
-  ok !$client->service(), 'Checking wether client was disabled after removing the last interface (the last interface happened to be a virtual interface)';
+  my $client2 = $self->_newClient(name => 'c2', service => 1);
+  $client2->freeViface('eth0', 'eth1');
+  ok !$client2->service(), 'Checking wether client was disabled after removing the last interface (the last interface happened to be a virtual interface)';
 }
+
+
 
 sub otherNetworkObserverMethodsTest : Test(2)
 {
@@ -340,46 +307,6 @@ sub otherNetworkObserverMethodsTest : Test(2)
   ok !$client->staticIfaceAddressChanged('eth0', '192.168.45.4', '255.255.255.0', '10.0.0.1', '255.0.0.0'), 'Checking wether client notifies that is not disrupted after staticIfaceAddressChanged invokation';
 
   ok !$client->vifaceAdded('eth0', 'eth0:1', '10.0.0.1', '255.0.0.0'), 'Checking wether client notifies that is not disrupted after staticIfaceAddressChanged invokation';
-}
-
-
-
-sub setRipPasswdTest : Test(4)
-{
-  my ($self) = @_;
-  my $client = $self->_newClient();
-
-  my $passwd = 'pass';
-  lives_ok {
-      $client->setRipPasswd($passwd);
-  } 'Setting no-empty passwd';
-
-  is $client->ripPasswd(), $passwd, 'Checking RIP passwd of the client';
-
-
-
-  dies_ok {
-      $client->setRipPasswd('');
-  } 'Checking that trying to set a incorrect password rises error';
-
-  is $client->ripPasswd(), $passwd, 'Checking taht RIP password hasnot changed after a incorrept aptempt of change';
-}
-
-sub _confDir
-{
-    my ($self) = @_;
-    return $self->testDir() . "/config";
-}
-
-sub _newClient
-{
-    my ($self, $name) = @_;
-    defined $name or $name = 'client1';
-
-    my $openVpnMod = $self->{openvpnModInstance};
-    my $server =  new EBox::OpenVPN::Client($name, $openVpnMod);
-    
-    return $server;
 }
 
 1;
