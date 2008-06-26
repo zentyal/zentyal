@@ -76,42 +76,32 @@ sub _table
         ( 
             new EBox::Types::Boolean(
                     fieldName => 'transparentProxy',
-
                     printableName => __('Transparent Proxy'),
- 
                     editable => 1,
-
-		    defaultValue   => 0,
+                    defaultValue   => 0,
                 ),
             new EBox::Types::Port(
                     fieldName => 'port',
-
                     printableName => __('Port'),
-
                     editable => 1,
-		    defaultValue   => 3128,
+                    defaultValue   => 3128,
                  ),
-
-           new EBox::Squid::Types::Policy(
-				   fieldName => 'globalPolicy',
-				   printableName => __('Default policy'),
-				   defaultValue => 'filter',
-				  ),
-
-
+            new EBox::Squid::Types::Policy(
+               fieldName => 'globalPolicy',
+               printableName => __('Default policy'),
+               defaultValue => 'filter',
+               ),
         );
 
       my $dataForm = {
                       tableName          => 'GeneralSettings',
                       printableTableName => __('General Settings '),
-		      modelDomain        => 'Squid',
+                      modelDomain        => 'Squid',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
-
-
-		      messages           => {
-			    update => __('Settings changed'),
-			   },
+                      messages           => {
+                          update => __('Settings changed'),
+                      },
                      };
 
 
@@ -144,11 +134,11 @@ sub _checkPortAvailable
 
   my $firewall = EBox::Global->modInstance('firewall');
   if (not $firewall->availablePort('tcp', $port )) {
-    throw EBox::Exceptions::External(
-				     __x('{port} is already in use. Please choose another',
-					 port => $port,
-					)
-				    );
+      throw EBox::Exceptions::External(
+              __x('{port} is already in use. Please choose another',
+                  port => $port,
+                 )
+              );
   }
 }
 

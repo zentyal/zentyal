@@ -1,3 +1,5 @@
+0.11.103
+	+ Use the new EBox::Model::Row API
 0.11.102
 	+ Remove optional attribute from PortRange as it didn't make sense
 	  and we were getting warinings

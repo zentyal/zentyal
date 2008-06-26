@@ -121,7 +121,7 @@ sub InternalToEBoxRuleTable
     for my $row (@{$model->rows()}) {
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iglobal');
-	$rule->setState('new' => 1);
+        $rule->setState('new' => 1);
         $self->_addAdddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
@@ -150,7 +150,7 @@ sub ExternalToEBoxRuleTable
     for my $row (@{$model->rows()}) {
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iexternal');
-	$rule->setState('new' => 1);
+        $rule->setState('new' => 1);
         $self->_addAdddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
@@ -179,7 +179,7 @@ sub EBoxOutputRuleTable
     for my $row (@{$model->rows()}) {
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'oglobal');
-	$rule->setState('new' => 1);
+        $rule->setState('new' => 1);
         $self->_addAdddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
@@ -193,7 +193,7 @@ sub _addAdddressToRule
 {
     my ($self, $rule, $row, $address) = @_;
 
-    my $addr = $row->{'valueHash'}->{$address};    
+    my $addr = $row->elementByName($address);
     my $type = $addr->selectedType();
 
     my %params;
@@ -215,7 +215,7 @@ sub _addServiceToRule
 {
     my ($self, $rule, $row) = @_;
 
-    my $service = $row->{'valueHash'}->{'service'};    
+    my $service = $row->elementByName('service');
     $rule->setService($service->value(), $service->inverseMatch());    
 }
 
@@ -223,7 +223,7 @@ sub _addDecisionToRule
 {
     my ($self, $rule, $row) = @_;
 
-    my $decision = $row->{'valueHash'}->{'decision'}->value();    
+    my $decision = $row->valueByName('decision');
     if ($decision eq 'accept') {
         $rule->setDecision('ACCEPT');    
     } elsif ($decision eq 'deny') {

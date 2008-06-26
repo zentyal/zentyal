@@ -117,7 +117,7 @@ sub rows
 
       my %storedEventWatchers;
       foreach my $currentRow (@{$currentRows}) {
-          $storedEventWatchers{$currentRow->{valueHash}->{eventWatcher}->value()} = 'true';
+          $storedEventWatchers{$currentRow->valueByName('eventWatcher')} = 'true';
       }
 
       my %currentEventWatchers;
@@ -146,7 +146,7 @@ sub rows
 
       # Removing old ones
       foreach my $row (@{$currentRows}) {
-          my $stored = $row->{valueHash}->{eventWatcher}->value();
+          my $stored = $row->valueByName('eventWatcher');
           if ( exists ( $currentEventWatchers{$stored} )) {
               # Check its ability
               my $able = $self->_checkWatcherAbility($stored);
@@ -182,9 +182,9 @@ sub updatedRowNotify
     my ($self, $rowRef) = @_;
 
     # Get whether the event watcher is enabled or not
-    my $newRow = $self->row($rowRef->{id});
-    my $enabled = $newRow->{valueHash}->{enabled}->{value};
-    my $className = $newRow->{valueHash}->{eventWatcher}->{value};
+    my $newRow = $self->row($rowRef->id());
+    my $enabled = $newRow->valueByName('enabled');
+    my $className = $newRow->valueByName('eventWatcher');
 
     # Set to move
     $self->{gconfmodule}->enableEventElement('watcher', $className, $enabled);
@@ -323,7 +323,7 @@ sub filterDescription
 
       my ($instancedType) = @_;
 
-      my $className = $instancedType->row()->{valueHash}->{eventWatcher}->value();
+      my $className = $instancedType->row()->valueByName('eventWatcher');
 
       eval "use $className";
       if ( $@ ) {

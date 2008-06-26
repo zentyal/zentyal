@@ -171,7 +171,7 @@ sub validateRow()
 	# Check if there's only one default gw
 	my $currentRow = $params{'id'};
 	my $default = $self->find('default' => 1);
-	if (defined($default) and ($currentRow ne $default->{'id'})) {
+	if (defined($default) and ($currentRow ne $default->id())) {
 		throw EBox::Exceptions::External(
 		 __('There is already a default gateway'));
 	}
@@ -183,7 +183,7 @@ sub defaultGateway()
 
 	my $default = $self->find('default' => 1);
 	if ($default) {
-		return $default->{'ip'};
+		return $default->valueByName('ip');
 	} else {
 		return undef;
 	}
@@ -195,7 +195,7 @@ sub iproute2TableIds()
 
 	my @ids;
 	for my $row (@{$self->rows()}) {
-		push (@ids, $row->{'id'});
+		push (@ids, $row->id());
 	}
 
 	return \@ids;
@@ -221,20 +221,34 @@ sub gateways()
 {
 	my $self = shift;
 
-	return $self->printableValueRows();
+	my @gateways;
+
+	foreach my $gw (@{$self->rows()}) {
+		push (@gateways, {
+							id => $gw->id(),
+							name => $gw->valueByName('name'),
+							ip => $gw->valueByName('ip'),
+							weight => $gw->valueByName('weight'),
+							default => $gw->valueByName('default'),
+							upload => $gw->valueByName('upload'),
+							download => $gw->valueByName('download'),
+							interface => $gw->valueByName('interface'),
+						 });
+	}
+
+	return \@gateways;
 }
 
 sub gatewaysWithMac
 {
 	my ($self) = @_;
 
-	my $gws = $self->gateways();
-
-	foreach my $gw (@{$gws}) {
+	my @gateways = @{$self->gateways()};
+	foreach my $gw (@gateways) {
 		$gw->{'mac'} = _getRouterMac($gw->{'ip'});
 	}
 
-	return $gws;
+	return \@gateways;
 }
 
 sub _getRouterMac

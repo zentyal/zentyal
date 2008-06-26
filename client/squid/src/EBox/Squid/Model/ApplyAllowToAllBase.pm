@@ -39,8 +39,8 @@ sub setRow
   my $rows_r = $listModel->rows();
 
   foreach my $row (@{ $rows_r }) {
-    my $id       = $row->{id};
-    my $allowed = $row->{valueHash}->{allowed};
+    my $id       = $row->id();
+    my $allowed = $row->elementByName('allowed');
     $allowed->setValue($allowValue);
 
 

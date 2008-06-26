@@ -147,23 +147,23 @@ sub validateTypedRow
         # Check the other ranges
         my $currentId;
         if ( $action eq 'update' ) {
-            $currentId = $allFields->{name}->row()->{id};
+            $currentId = $allFields->{name}->row()->id();
         }
         foreach my $row ( @{$self->rows()} ) {
-            my $compareId = $row->{id};
+            my $compareId = $row->id();
             # If the action is an update, does not check the same row
             if ( $action eq 'update' and $compareId eq $currentId ) {
                 next;
             }
-            my $compareFrom = $row->{plainValueHash}->{from};
-            my $compareTo   = $row->{plainValueHash}->{to};
+            my $compareFrom = $row->valueByName('from');
+            my $compareTo   = $row->valueByName('to');
             my $compareRange = new Net::IP( $compareFrom . '-'
                                             . $compareTo);
             unless ( $compareRange->overlaps($range) == $IP_NO_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('Range {newFrom}-{newTo} overlaps '
                                                      . "with range '{range}': {oldFrom}-{oldTo}",
                                                      newFrom => $from, newTo => $to,
-                                                     range   => $row->{plainValueHash}->{name},
+                                                     range   => $row->valueByElement('name'),
                                                      oldFrom => $compareFrom,
                                                      oldTo   => $compareTo));
             }
@@ -175,14 +175,14 @@ sub validateTypedRow
         my $fixedAddressModel = EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/'
                                                                              . $self->{interface});
         foreach my $map ( @{$fixedAddressModel->rows()} ) {
-            my $fixedIP = new Net::IP($map->{plainValueHash}->{ip});
+            my $fixedIP = new Net::IP($map->valueByElement('ip'));
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('Range {from}-{to} includes fixed '
                                                      . "address '{name}': {fixedIP}",
                                                      from => $from,
                                                      to   => $to,
-                                                     name => $map->{plainValueHash}->{name},
-                                                     fixedIP => $map->{plainValueHash}->{ip},
+                                                     name => $map->valueByElement('name'),
+                                                     fixedIP => $map->valueByElement('ip'),
                                                      ));
             }
         }

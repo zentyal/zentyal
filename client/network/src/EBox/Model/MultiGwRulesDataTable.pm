@@ -238,9 +238,9 @@ sub removeRulesUsingRouter
 	my ($self, $router) = @_;
 
 	for my $row (@{$self->rows()}) {
-		my $rowRouter = $row->{'valueHash'}->{'gateway'}->value();
+		my $rowRouter = $row->valueByName('gateway');
 		if ($rowRouter eq $router) {
-			$self->removeRow($row->{'id'});
+			$self->removeRow($row->id());
 		}
 	}
 }
@@ -293,23 +293,21 @@ sub _buildIptablesRule
 	my $network = EBox::Global->modInstance('network');
 	my $marks = $network->marksForRouters();
 
-	my $hVal = $row->{'valueHash'};
-	my $proto = $hVal->{'protocol'}->value();
-	my $iface = $hVal->{'iface'}->value();
-	my $srcType = $hVal->{'source'}->selectedType();
-	my $srcPort = $hVal->{'source_port'}->printableValue();
-	my $dstType = $hVal->{'destination'}->selectedType();
-	my $dstPort = $hVal->{'destination_port'}->printableValue();
-	my $gw = $hVal->{'gateway'}->value();
+	my $proto = $row->valueByName('protocol');
+	my $iface = $row->valueByName('iface');
+	my $srcType = $row->elementByName('source')->selectedType();
+	my $srcPort = $row->printableValueByName('source_port');
+	my $dstType = $row->elementByName('destination')->selectedType();
+	my $dstPort = $row->printableValueByName('destination_port');
+	my $gw = $row->vlaueByName('gateway');
 
 	my @ifaces = @{$self->_ifacesForRule($iface)};
 	
 	my @src;
-	EBox::debug("source $srcType destination $dstType");
     if ($srcType eq 'source_any') {
         @src = ('');
     } elsif  ($srcType eq 'source_ipaddr') {
-		my $ipaddr = $hVal->{'source'}->subtype();
+		my $ipaddr = $row->elementByName('source')->subtype();
 		my $ip;
 		if ($ipaddr->ip()) {
 			$ip = $ipaddr->ip() . '/' . $ipaddr->mask();
@@ -318,7 +316,7 @@ sub _buildIptablesRule
 		}
 		@src = ($ip);
 	} else {
-		my $object = $hVal->{'source'}->subtype();
+		my $object = $row->elementByName('source')->subtype();
 		@src = @{$self->_addressesForObject($object->value())};
 	}
 
@@ -327,7 +325,7 @@ sub _buildIptablesRule
      if ($dstType eq 'destination_any') {
         @dst = ('');
     } elsif  ($dstType eq 'destination_ipaddr') {
-		my $ipaddr = $hVal->{'destination'}->subtype();
+		my $ipaddr = $row->elementByName('destination')->subtype();
 		my $ip;
 		if ($ipaddr->ip()) {
 			$ip = $ipaddr->ip() . '/' . $ipaddr->mask();
@@ -336,7 +334,7 @@ sub _buildIptablesRule
 		}
 		@dst = ($ip);
 	} else {
-		my $object = $hVal->{'destination'}->subtype();
+		my $object = $row->elementByName('destination')->subtype();
 		@dst = @{$self->_addressesForObject($object->value())};
 	}
 

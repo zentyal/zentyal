@@ -35,7 +35,7 @@ if ( $data->unique() ) {
 
         foreach my $row (@{$rows}) {
             push( @optionsAlreadyModel,
-                  $row->{plainValueHash}->{$field} );
+                  $row->valueByName($field) );
         }
 
         # Difference among optionsAlreadyModel and options arrays

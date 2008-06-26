@@ -170,17 +170,23 @@ sub serviceConfiguration
 
     throw EBox::Exceptions::ArgumentMissing("id") unless defined($id);
 
-    my $row = $self->{'serviceModel'}->find('id' => $id);
+    my $row = $self->{'serviceModel'}->row($id);
 
     unless (defined($row)) {
         throw EBox::Exceptions::DataNotFound('data' => 'id',
                 'value' => $id);
     }
 
-    my $model = $self->{'serviceConfigurationModel'};
-    $model->setDirectory($row->{'configuration'}->{'directory'});
+    my $model = $row->subModel('configuration');
 
-    my @conf = map {$_->{'plainValueHash'}} @{$model->rows()};
+    my @conf;
+    for my $subRow (@{$model->rows()}) {
+        push (@conf, { 
+                        'protocol' => $subRow->valueByName('protocol'),
+                        'source' => $subRow->valueByName('source'),
+                        'destination' => $subRow->valueByName('destination')
+                      });
+    }
 
     return \@conf;
 }
@@ -381,7 +387,7 @@ sub removeService
         unless (defined($row)) {
             throw EBox::Exceptions::External("service $name not found");
         }
-        $id = $row->{'id'};
+        $id = $row->id();
     }
 
     $model->removeRow($id, 1);
@@ -414,7 +420,7 @@ sub serviceExists
         my $name = $params{'name'};
         $row = $model->findValue('name' => $name);
     } else {
-        $row = $model->findValue('id' => $id);
+        $row = $model->row($id);
     }
 
     return defined($row);
@@ -444,7 +450,7 @@ sub serviceId
     my $model =  $self->{'serviceModel'};
     my $row = $model->findValue('name' => $name);
     
-    return $row->{'id'};
+    return $row->id();
 }
 
 # Method: menu 

@@ -96,36 +96,36 @@ sub _table
          new EBox::Squid::Types::Policy(
                                fieldName     => 'policy',
                                printableName => __('Policy'),
-			       defaultValue  => 'filter',
+                               defaultValue  => 'filter',
                               ),
         );
 
       my $dataTable =
-        {
-         tableName          => 'DomainFilter',
-         printableTableName => __('Domains list'),
-	 modelDomain        => 'Squid',
-	 'defaultController' => '/ebox/Squid/Controller/DomainFilter',
-	 'defaultActions' =>
-	 [	
-	  'add', 'del',
-	  'editField',
-	  'changeView'
-	 ],
-         tableDescription   => \@tableHeader,
-         class              => 'dataTable',
-         order              => 0,
-         rowUnique          => 1,
-         printableRowName   => __('internet domain'),
-         help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains.'),
-	 messages           => {
-				add => __('Domain added'),
-				del => __('Domain removed'),
-				update => __('Domain updated'),
+      {
+          tableName          => 'DomainFilter',
+          printableTableName => __('Domains list'),
+          modelDomain        => 'Squid',
+          'defaultController' => '/ebox/Squid/Controller/DomainFilter',
+          'defaultActions' =>
+              [	
+              'add', 'del',
+              'editField',
+              'changeView'
+              ],
+          tableDescription   => \@tableHeader,
+          class              => 'dataTable',
+          order              => 0,
+          rowUnique          => 1,
+          printableRowName   => __('internet domain'),
+          help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains.'),
+          messages           => {
+                                  add => __('Domain added'),
+                                  del => __('Domain removed'),
+                                  update => __('Domain updated'),
 
-			       },
-         sortedBy           => 'domain',
-	};
+                                },
+          sortedBy           => 'domain',
+      };
 
   }
 
@@ -140,10 +140,10 @@ sub validateTypedRow
 
   if ($domain =~ m{^www\.}) {
     throw EBox::Exceptions::InvalidData(
-					data => __('Domain'),
-					value => $domain,
-					advice => __('You must not prefix the domain with www.'),
-				       );
+            data => __('Domain'),
+            value => $domain,
+            advice => __('You must not prefix the domain with www.'),
+            );
   }
 
   EBox::Validate::checkDomainName($domain);
@@ -197,19 +197,12 @@ sub _domainsByPolicy
 {
   my ($self, $policy) = @_;
 
-  my @domains = map {
-    my $values = $_->{plainValueHash};
-
-    if ($values->{policy} eq $policy)  {
-      ($values->{domain})
-    }
-    else {
-      ()
-    }
-    
-
-  } @{ $self->rows() };
-
+  my @domains;
+  for my $row (@{$self->rows()}) {
+        if ($row->valueByName('policy') eq $policy) {
+            push (@domains, $row->valueByName('domain'));
+        }
+  }
 
   return \@domains;
 }

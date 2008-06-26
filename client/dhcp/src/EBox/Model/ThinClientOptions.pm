@@ -159,7 +159,7 @@ sub nextServer
 
     my $row = $self->row();
 
-    my $nextServerType = $row->{valueHash}->{nextServer};
+    my $nextServerType = $row->elementByName('nextServer');
     my $nextServerSelectedName = $nextServerType->selectedType();
     if ( $nextServerSelectedName eq 'nextServerNone' ) {
         return '';
@@ -185,11 +185,11 @@ sub formSubmitted
 {
     my ($self, $oldRow) = @_;
 
-    if ( $oldRow->{valueHash}->{nextServer}->selectedType() eq 'nextServerEBox'
-         and $self->row()->{valueHash}->{nextServer}->selectedType() ne 'nextServerEBox') {
+    if ( $oldRow->elementByName('nextServer')->selectedType() eq 'nextServerEBox'
+         and $self->row()->elementByName('nextServer')->selectedType() ne 'nextServerEBox') {
         $self->setMessage(__x('Unlinked previous uploaded firmware since next server option'
                              . ' has been changed from eBox to {option}',
-                             option => $self->row()->{valueHash}->{nextServer}->printableName()));
+                             option => $self->row()->elementByName('nextServer')->printableName()));
     }
 }
 

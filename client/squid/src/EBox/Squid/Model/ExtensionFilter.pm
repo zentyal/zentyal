@@ -71,11 +71,11 @@ sub validateTypedRow
   if (exists $params_r->{extension} ) {
     my $extension = $params_r->{extension}->value();
     if ($extension =~ m{\.}) {
-      throw EBox::Exceptions::InvalidData(
-					  data  => __('File extension'),
-					  value => $extension,
-					  advice => ('Dots (".") are not allowed in file extensions')
-					 )
+        throw EBox::Exceptions::InvalidData(
+                data  => __('File extension'),
+                value => $extension,
+                advice => ('Dots (".") are not allowed in file extensions')
+                )
     }
   }
 
@@ -93,15 +93,13 @@ sub banned
 {
   my ($self) = @_;
   
-  my @bannedExtensions = map {
-    my $values = $_->{plainValueHash};
-    if ($values->{allowed}) {
-      ();
-    } else {
-      ($values->{extension});
+  my @bannedExtensions;
+
+  for my $row (@{$self->rows()}) {
+    if (not $row->valueByName('allowed')) {
+        push (@bannedExtensions, $row->valueByName('extension'));
     }
-  } @{ $self->rows() };
-		   
+  }
   return \@bannedExtensions;
 }
 

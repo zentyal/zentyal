@@ -379,7 +379,7 @@ sub start
 	}
 
 	foreach my $object (@{$self->{objects}->objects}) {
-		my $members = $self->{objects}->objectMembers($object);
+		my $members = $self->{objects}->objectMembers($object->{id});
 		foreach my $member (@{$members}) {
 			my $mac = $member->{macaddr};
 			defined($mac) or next;

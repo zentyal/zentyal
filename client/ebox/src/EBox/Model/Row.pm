@@ -92,6 +92,7 @@ sub new
         throw EBox::Exceptions::MissingArgument('gconfmodule');
     }
     $self->{'gconfmodule'} = $opts{gconfmodule};
+    $self->{'values'} = [];
 
 
     bless ( $self, $class);
@@ -246,16 +247,26 @@ sub parentRow
     my ($self) = @_;
 
     unless ($self->model()) {
-        EBox::debug("This row has not a model set");
         return undef;
     }
     my $parentModel = $self->model()->parent();
-    return undef unless (defined ($parentModel));
+    
+    unless (defined ($parentModel)) {
+    	return undef;
+	}
 
     # TODO Do this more robust using directory info from models
-    my @dirs = reverse split('/', $self->dir());
-    my $parentId = $dirs[2];
-
+    my @dirs = split('/', $self->dir());
+    EBox::debug("directory: " .  $self->dir());
+    splice (@dirs, -2);
+    my $parentId = pop @dirs;
+    pop @dirs;
+    my $directory = join('/', @dirs);
+    if (length($directory) > 1) {
+    	$parentModel->setDirectory($directory);
+    }
+    EBox::debug("parentId: $parentId directory: $directory");
+	
     return $parentModel->row($parentId);
 }
 
@@ -333,33 +344,8 @@ sub addElement
     $element->setRow($self);
     $element->setModel($self->model());
 
-    my $dir = $self->dir();
-    my $id = $self->id();
-
-    # TODO Rework the union select options thing
-    #      this code just sucks. Modify Types to do something
-    #      nicer 
-    if ($element->type() eq 'union') {
-        # FIXME: Check if we can avoid this
-        $self->{'plainValueHash'}->{$element->selectedType} = $element->value();
-        $self->{'printableValueHash'}->{$element->selectedType} =
-            $element->printableValue();
-    }
-
-    if ($element->type eq 'hasMany') {
-        my $fieldName = $element->fieldName();
-        $element->setDirectory("$dir/$id/$fieldName");
-    }
-    
     push (@{$self->{'values'}}, $element);
-    
     $self->{'valueHash'}->{$element->fieldName()} = $element;
-    $self->{'plainValueHash'}->{$element->fieldName()} = $element->value();
-    $self->{'plainValueHash'}->{'id'} = $id;
-    $self->{'printableValueHash'}->{$element->fieldName()} = 
-        $element->printableValue();
-    $self->{'printableValueHash'}->{'id'} = $id;
-
 }
 
 # Method: elementByName
@@ -372,7 +358,10 @@ sub addElement
 #
 # Exceptions:
 #
+#   undef - if the element exists under a union type but it's not
+#           the selected one
 #   <EBox::Exceptions::DataNotFound> if the element does not exist
+#
 #
 sub elementByName 
 {
@@ -383,6 +372,9 @@ sub elementByName
             next unless  ($value->isa('EBox::Types::Union'));
             if ($value->selectedType() eq $element) {
                 return $value->subtype();
+            }
+            for my $type (@{$value->subtypes}) {
+                return undef if ($type->fieldName() eq $element);
             }
         }
         throw EBox::Exceptions::DataNotFound( data => 'element',
@@ -408,12 +400,91 @@ sub elementByIndex
 {
     my ($self, $index) = @_;
 
-    unless (($index + 1) > $self->size() ) {
+    unless ($index  <  $self->size()) {
         throw EBox::Exceptions::DataNotFound( data => 'index',
                                              value => $index);
     }
 
     return @{$self->{'values'}}[$index];
+}
+
+# Method: elements
+#
+#   Return the elements contained in the row
+#
+# Returns:
+#
+#   array ref of <EBox::Types::Abstract>
+#
+sub elements
+{
+    my ($self) = @_;
+
+    return $self->{'values'};
+}
+
+# Method: hashElements
+#
+#   Return the elements contained in the row
+#   in a hash ref
+#
+# Returns:
+#
+#   hash ref of <EBox::Types::Abstract>
+#
+sub hashElements
+{
+    my ($self) = @_;
+
+    return $self->{'valueHash'};
+}
+
+# Method: valueByName
+#
+#   Return the value of a given element.
+#   This method will fecth the element and will 
+#   return element->value().
+#
+#   Element is a subclass of <EBox::Types::Abstract>
+#
+#
+# Returns:
+#
+#   Whatever the given type returns
+#
+sub valueByName
+{
+    my ($self,$name) = @_;
+
+    unless (defined($name)) {
+        throw EBox::Exceptions::MissingArgument($name);
+    }
+
+    return $self->elementByName($name)->value();
+}
+
+# Method: printableValueByName
+#
+#   Return the printableValue of a given element.
+#   This method will fecth the element and will 
+#   return element->printableBalue().
+#
+#   Element is a subclass of <EBox::Types::Abstract>
+#
+#
+# Returns:
+#
+#   Whatever the given type returns
+#
+sub printableValueByName
+{
+    my ($self,$name) = @_;
+
+    unless (defined($name)) {
+        throw EBox::Exceptions::MissingArgument($name);
+    }
+
+    return $self->elementByName($name)->printableValue();
 }
 
 # Method: size
@@ -435,6 +506,7 @@ sub size
 
     return scalar(@{$self->{'values'}});
 }
+
 
 # Method: store
 #
@@ -516,7 +588,7 @@ sub subModel
     unless (defined($fieldName)) {
         throw EBox::Exceptions::MissingArgument($fieldName);
     }
-    unless (exists $self->{plainValueHash}->{$fieldName}) {
+    unless (exists $self->{valueHash}->{$fieldName}) {
         throw EBox::Exceptions::DataNotFound( data => 'field',
                                              value => $fieldName);
     }
@@ -527,10 +599,7 @@ sub subModel
 
     my $model;
     try {
-        my $mgr = EBox::Model::ModelManager->instance();
-        $model =  $mgr->model($element->foreignModel());
-        my $olddir = $model->directory();
-        $model->setDirectory($element->directory());
+        $model =  $element->foreignModelInstance();
     } catch EBox::Exceptions::DataNotFound with {
         EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
     };

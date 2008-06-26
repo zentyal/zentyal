@@ -163,7 +163,7 @@ sub rows
     my $rows = $self->SUPER::rows($filter, $page);
     my $filteredRows = [];
     for my $row (@{$rows}) {
-        my $userGroup = $row->{printableValueHash}->{user_group};
+        my $userGroup = $row->printableValueByName('user_group');
         if (defined($userGroup) and length ($userGroup) > 0) {
             push (@{$filteredRows}, $row);
         } else {

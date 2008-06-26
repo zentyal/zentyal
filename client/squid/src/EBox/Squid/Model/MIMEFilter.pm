@@ -85,24 +85,24 @@ sub new
 #
 sub _table
 {
-  my @tableHeader =
-    (
-     new EBox::Types::Text(
-			   fieldName     => 'MIMEType',
-			   printableName => __('MIME Type'),
-			   unique        => 1,
-			   editable      => 1,
-			   optional      => 0,
-			  ),
-     new EBox::Types::Boolean(
-			      fieldName     => 'allowed',
-			      printableName => __('Allow'),
- 
-			      optional      => 0,
-			      editable      => 1,
-			      defaultValue  => 1,
-			     ),
-    );
+    my @tableHeader =
+        (
+         new EBox::Types::Text(
+             fieldName     => 'MIMEType',
+             printableName => __('MIME Type'),
+             unique        => 1,
+             editable      => 1,
+             optional      => 0,
+             ),
+         new EBox::Types::Boolean(
+             fieldName     => 'allowed',
+             printableName => __('Allow'),
+
+             optional      => 0,
+             editable      => 1,
+             defaultValue  => 1,
+             ),
+        );
 
   my $dataTable =
     {
@@ -124,10 +124,10 @@ sub _table
      help               => __("Allow/Deny the HTTP traffic of the files which the given MIME types.MIME types not listed here are allowed.\nThe  filter needs a 'filter' policy to be in effect"),
 
      messages           => {
-			    add => __('MIME type added'),
-			    del =>  __('MIME type removed'),
-			    update => __('MIME type updated'),
-			   },
+         add => __('MIME type added'),
+         del =>  __('MIME type removed'),
+         update => __('MIME type updated'),
+     },
      sortedBy           => 'MIMEType',
     };
 
@@ -154,16 +154,14 @@ sub validateTypedRow
 sub banned
 {
   my ($self) = @_;
-  
-  my @banned = map {
-    my $values = $_->{plainValueHash};
-    if ($values->{allowed}) {
-      ();
-    } else {
-      ($values->{MIMEType});
+
+  my @banned;
+  for my $row (@{$self->rows()}) {
+    if (not $row->valueByName('allowed')) {
+        push (@banned, $row->valueByName('MIMEType'));
     }
-  } @{ $self->rows() };
-		   
+  }
+
   return \@banned;
 }
 
@@ -175,15 +173,15 @@ sub banned
 #       The current registrated types are: <http://www.iana.org/assignments/media-types/index.html>
 #
 my @ianaMimeTypes = ("application",
-	       "audio",
-	       "example",
-	       "image",
-	       "message",
-	       "model",
-	       "multipart",
-	       "text",
-	       "video",
-	       "[Xx]-.*" );
+        "audio",
+        "example",
+        "image",
+        "message",
+        "model",
+        "multipart",
+        "text",
+        "video",
+        "[Xx]-.*" );
 my $allIanaMimeType = all @ianaMimeTypes;
   
 
@@ -194,34 +192,34 @@ sub checkMimeType
   my ($mainType, $subType) = split '/', $type, 2;
 
   if (not defined $subType) {
-    throw EBox::Exceptions::InvalidData(
-					data  => __('MIME Type'),
-					value => $type,
-					advice => __('A MIME Type must follows this syntax: type/subtype'),
-				       )
+      throw EBox::Exceptions::InvalidData(
+              data  => __('MIME Type'),
+              value => $type,
+              advice => __('A MIME Type must follows this syntax: type/subtype'),
+              )
   }
 
 
   if ($mainType ne $allIanaMimeType) {
-    throw EBox::Exceptions::InvalidData(
-					data  => __('MIME Type'),
-					value => $type,
-					advice => __x(
-						      '{type} is not a valid IANA type',
-						      type => $mainType,
-						     )
-				       )
+      throw EBox::Exceptions::InvalidData(
+              data  => __('MIME Type'),
+              value => $type,
+              advice => __x(
+                  '{type} is not a valid IANA type',
+                  type => $mainType,
+                  )
+              )
   }
 
   if (not $subType =~ m{^[\w\-\d]+$} ) {
-    throw EBox::Exceptions::InvalidData(
-					data   => __('MIME Type'),
-					value  => $type,
-					advice => __x(
-						      '{t} subtype has a wrong syntax',
-						      t => $subType,
-						     )
-				       )
+      throw EBox::Exceptions::InvalidData(
+              data   => __('MIME Type'),
+              value  => $type,
+              advice => __x(
+                  '{t} subtype has a wrong syntax',
+                  t => $subType,
+                  )
+              )
   }
 
 

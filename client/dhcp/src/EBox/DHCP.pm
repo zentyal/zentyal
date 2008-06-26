@@ -736,8 +736,17 @@ sub ranges # (iface)
 						'value' => $iface);
 	}
 
-        return $self->_getModel('rangeModel', $iface)->printableValueRows();
-
+    my $model = $self->_getModel('rangeModel', $iface);
+    my @ranges;
+    for my $row (@{$model->rows()}) {
+        push (@ranges, { 
+                name => $row->valueByName('name'),
+                from => $row->valueByName('from'),
+                to => $row->valueByName('to')
+                });
+    }
+    
+    return \@ranges;
 }
 
 # Method: fixedAddressAction
@@ -849,7 +858,17 @@ sub fixedAddresses # (interface)
 			iface => $iface));
 	}
 
-        return $self->_getModel('fixedAddrModel', $iface)->printableValueRows();
+	my $model = $self->_getModel('fixedAddrModel', $iface);
+	my @addrs;
+	for my $row (@{$model->rows()}) {
+		push (@addrs, { 
+				name => $row->valueByName('name'),
+				ip => $row->valueByName('ip'),
+				mac => $row->valueByName('mac')
+				});
+	}
+
+	return \@addrs;
 }
 
 # Group: Static or class methods
@@ -988,8 +1007,8 @@ sub vifaceAdded # (iface, viface, address, netmask)
         # Check that the new IP for the virtual interface isn't in any range
         foreach my $rangeModel (@rangeModels) {
             foreach my $rangeRow (@{$rangeModel->rows()}) {
-                my $from = $rangeRow->{plainValueHash}->{from};
-                my $to   = $rangeRow->{plainValueHash}->{to};
+                my $from = $rangeRow->valueByName('from');
+                my $to   = $rangeRow->valueByName('to');
                 my $range = new Net::IP($from . ' - ' . $to);
                 unless ( $ip->overlaps($range) == $IP_NO_OVERLAP ) {
                     throw EBox::Exceptions::External(
@@ -998,7 +1017,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
                             . "DHCP range '{range}' in the interface "
                             . "'{iface}'. Please, remove it before trying "
                             . 'to add a virtual interface using it.',
-                            range => $rangeRow->{plainValueHash}->{name},
+                            range => $rangeRow->valueByName('name'),
                             iface => $rangeModel->index()));
                 }
             }
@@ -1008,7 +1027,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
         # Check the new IP for the virtual interface is not a fixed address
         foreach my $fixedAddrModel (@fixedAddrModels) {
             foreach my $mappingRow (@{$fixedAddrModel->rows()}) {
-                my $fixedIP = new Net::IP($mappingRow->{plainValueHash}->{ip});
+                my $fixedIP = new Net::IP($mappingRow->valueByName('ip'));
                 unless ( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP ) {
                     throw EBox::Exceptions::External(
                            __x('The IP address of the virtual interface '
@@ -1090,9 +1109,9 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
         my $manager = EBox::Model::ModelManager->instance();
         my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
         foreach my $rangeRow (@{$rangeModel->rows()}) {
-            my $range = new Net::IP($rangeRow->{plainValueHash}->{from}
+            my $range = new Net::IP($rangeRow->valueByName('from')
                                     . ' - ' .
-                                    $rangeRow->{plainValueHash}->{to});
+                                    $rangeRow->valueByName('to'));
             # Check the range is still in the network
             unless ($range->overlaps($netIP) == $IP_A_IN_B_OVERLAP){
                 return 1;
@@ -1104,7 +1123,7 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
         }
         my $fixedAddrModel = $manager->model("/dhcp/FixedAddressTable/$iface");
         foreach my $mappingRow (@{$fixedAddrModel->rows()}) {
-            my $fixedIP = new Net::IP( $mappingRow->{plainValueHash}->{ip} );
+            my $fixedIP = new Net::IP( $mappingRow->valueByName('ip') );
             # Check the fixed address is still in the network
             unless($fixedIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP){
                 return 1;

@@ -119,7 +119,7 @@ sub rows
 
       my %storedEventDispatchers;
       foreach my $currentRow (@{$currentRows}) {
-          $storedEventDispatchers{$currentRow->{valueHash}->{eventDispatcher}->value()} = 'true';
+          $storedEventDispatchers{$currentRow->valueByName('eventDispatcher')} = 'true';
       }
 
       my %currentEventDispatchers;
@@ -153,9 +153,9 @@ sub rows
 
       # Removing old ones
       foreach my $row (@{$currentRows}) {
-          my $stored = $row->{valueHash}->{eventDispatcher}->value();
+          my $stored = $row->valueByName('eventDispatcher');
           next if ( exists ( $currentEventDispatchers{$stored} ));
-          $self->removeRow( $row->{id} );
+          $self->removeRow( $row->id() );
       }
 
       return $self->SUPER::rows($filter, $page);
@@ -183,9 +183,9 @@ sub updatedRowNotify
       my ($self, $rowRef) = @_;
 
       # Get whether the event watcher is enabled or not
-      my $newRow = $self->row($rowRef->{id});
-      my $enabled = $newRow->{valueHash}->{enabled}->{value};
-      my $className = $newRow->{valueHash}->{eventDispatcher}->{value};
+      my $newRow = $self->row($rowRef->id());
+      my $enabled = $newRow->valueByName('enabled');
+      my $className = $newRow->valueByName('eventDispatcher');
 
       # Set to move
       $self->{gconfmodule}->enableEventElement('dispatcher', $className, $enabled);
@@ -376,7 +376,7 @@ sub filterReceiver
 
       my ($instancedType) = @_;
 
-      my $className = $instancedType->row()->{valueHash}->{eventDispatcher}->value();
+      my $className = $instancedType->row()->valueByName('eventDispatcher');
 
       eval "use $className";
       if ( $@ ) {
@@ -408,7 +408,7 @@ sub acquireURL
 
       my ($instancedType) = @_;
 
-      my $className = $instancedType->row()->{plainValueHash}->{eventDispatcher};
+      my $className = $instancedType->row()->valueByName('eventDispatcher');
 
       eval "use $className";
       if ( $@ ) {

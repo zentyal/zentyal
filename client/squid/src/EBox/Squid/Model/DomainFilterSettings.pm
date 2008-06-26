@@ -94,7 +94,7 @@ sub _table
          new EBox::Types::Boolean(
                                fieldName     => 'blockIp',
                                printableName => __('Block sites specified only as IP'),
-			       defaultValue  => 0,
+                               defaultValue  => 0,
                               ),
         );
 
@@ -103,14 +103,14 @@ sub _table
       my $dataForm = {
                       tableName          => 'DomainFilterSettings',
                       printableTableName => __('Domain filter settings'),
-		      modelDomain        => 'Squid',
+                      modelDomain        => 'Squid',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
 
 
-		      messages           => {
-			    update => __('Filtering settings changed'),
-			   },
+                      messages           => {
+                          update => __('Filtering settings changed'),
+                                            },
                      };
 
 

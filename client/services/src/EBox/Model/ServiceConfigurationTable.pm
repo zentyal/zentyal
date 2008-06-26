@@ -104,7 +104,7 @@ sub _table
                  new EBox::Types::Select(
                          'fieldName' => 'protocol',
                          'printableName' => __('Protocol'),
-			 'populate' => \&protocols,
+                         'populate' => \&protocols,
                          'editable' => 1
                          ),
                  new EBox::Types::PortRange(
@@ -148,7 +148,7 @@ sub validateTypedRow()
     my ($self, $action, $parms)  = @_;
 
     if ($action eq 'add' or $action eq 'update') {
-    	return unless (exists $parms->{'protocol'});
+        return unless (exists $parms->{'protocol'});
         my $type = $parms->{'protocol'}->value();
         if ($type eq 'gre' or $type eq 'icmp' or $type eq 'any') {
             my $source = $parms->{'source'};

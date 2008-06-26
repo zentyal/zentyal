@@ -170,9 +170,10 @@ sub _tailoredOrder # (rows)
     my ($self, $rows_ref) = @_;
 
     # Order rules per priority
-    my @orderedRows = sort { $a->{valueHash}->{name}->value()
-        cmp $b->{valueHash}->{name}->value() }
-    @{$rows_ref};
+    my @orderedRows = sort { 
+                            $a->valueByName('name') cmp $b->valueByName('name')
+                            }
+                            @{$rows_ref};
 
     return \@orderedRows;
 
@@ -206,15 +207,11 @@ sub availablePort
 
     my $internals = $self->findAll('internal' => 1);
 
-    my $serviceConf = EBox::Model::ModelManager
-        ->instance()
-        ->model('ServiceConfigurationTable');
-	
     for my $service (@{$internals}) {
-        $serviceConf->setDirectory($service->{'configuration'}->{'directory'});
-	for my $conf (@{$serviceConf->findAllValue('destination' => $port)}) {
-		return undef if ($conf->{'protocol'} eq $protocol);
-	}
+        my $serviceConf = $service->subModel('configuration');
+        for my $conf (@{$serviceConf->findAllValue('destination' => $port)}) {
+            return undef if ($conf->valueByName('protocol') eq $protocol);
+        }
     }
     
     return 1;
@@ -313,7 +310,7 @@ sub setService
                                             'value' => 'name');
     }
 
-    my $id = $row->{'id'};
+    my $id = $row->id();
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
     my $serviceConf = EBox::Model::ModelManager
@@ -328,11 +325,11 @@ sub setService
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
     my @rows = @{$serviceConf->rows()};
     unless (@rows > 0) {
-	throw EBox::Exceptions::External(
-			"This service has no protocols configured");
+        throw EBox::Exceptions::External(
+                "This service has no protocols configured");
     }
 
-    my $idConf = $rows[0]->{'id'};
+    my $idConf = $rows[0]->id();
     
     
     my %confParams = _serviceConfParams(%params);

@@ -83,45 +83,45 @@ sub _table
   my @tableHeader =
     (
      new EBox::Types::Select(
-			     fieldName     => 'object',
-			     foreignModel  => \&objectModel,
-			     foreignField  => 'name',
+         fieldName     => 'object',
+         foreignModel  => \&objectModel,
+         foreignField  => 'name',
 
-			     printableName => __('Object'),
-			     unique        => 1,
-			     editable      => 1,
-			     optional      => 0,
+         printableName => __('Object'),
+         unique        => 1,
+         editable      => 1,
+         optional      => 0,
 
-			    ),
+         ),
      new EBox::Squid::Types::Policy(
-				    fieldName     => 'policy',
-				    printableName => __('Policy'),
-				   ),
+         fieldName     => 'policy',
+         printableName => __('Policy'),
+         ),
     );
 
   my $dataTable =
-    {
-     tableName          => name(),
-     printableTableName => __(q{Configure network objects' policies}),
-     modelDomain        => 'Squid',
-     'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
-     'defaultActions' => [	
-			  'add', 'del',
-			  'editField',
-			  'changeView'
-			 ],
-     tableDescription   => \@tableHeader,
-     class              => 'dataTable',
-     order              => 0,
-     rowUnique          => 1,
-     printableRowName   => __("object's policy"),
-     help               => __("Here you can establish a custom policy per network object"),
-     messages           => {
-			    add => __(q{Added object's policy}),
-			    del =>  __(q{Removed object's policy}),
-			    update => __(q{Updated object's policy}),
-			   },
-    };
+  {
+      tableName          => name(),
+      printableTableName => __(q{Configure network objects' policies}),
+      modelDomain        => 'Squid',
+      'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
+      'defaultActions' => [	
+          'add', 'del',
+      'editField',
+      'changeView'
+          ],
+      tableDescription   => \@tableHeader,
+      class              => 'dataTable',
+      order              => 0,
+      rowUnique          => 1,
+      printableRowName   => __("object's policy"),
+      help               => __("Here you can establish a custom policy per network object"),
+      messages           => {
+          add => __(q{Added object's policy}),
+          del =>  __(q{Removed object's policy}),
+          update => __(q{Updated object's policy}),
+      },
+  };
 
 }
 
@@ -147,7 +147,7 @@ sub _objectsByPolicy
   EBox::Squid::Types::Policy->checkPolicy($policy);
 
   my @objects =  map {
-    $_->{object}
+    $_->valueByName('object')
   }  @{ $self->findAllValue(policy => $policy) };
 
   return \@objects;

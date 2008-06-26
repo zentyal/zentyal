@@ -628,7 +628,7 @@ sub AUTOLOAD
       # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
       my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
 
-      unless ( any( keys ( %{$row->{valueHash}} ) ) eq $attr ) {
+      unless ( any( keys ( %{$row->hashElements()} ) ) eq $attr ) {
           # Try with the parent autoload
           return $self->NEXT::ACTUAL::AUTOLOAD(@params);
       }
@@ -640,11 +640,11 @@ sub AUTOLOAD
       }
 
       if ( $suffix eq 'Value' ) {
-          return $row->{plainValueHash}->{$attr};
+          return $row->valueByName($attr);
       } elsif ( $suffix eq 'PrintableValue' ) {
-          return $row->{printableValueHash}->{$attr};
+          return $row->printableValueByName($attr);
       } elsif ( $suffix eq 'Type' ) {
-          return $row->{valueHash}->{$attr};
+          return $row->elementByName($attr);
       }
 
       return;

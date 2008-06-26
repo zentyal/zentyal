@@ -51,6 +51,7 @@ sub _new
 
     $self->{'version'} = $self->_version();
     $self->_setUpModels();
+    $self->_setRelationship();
 
     return $self;
 }
@@ -132,6 +133,8 @@ sub model
     if ( $self->_hasChanged() ) {
         $self->_setUpModels();
         $self->{'version'} = $self->_version();
+        $self->_setRelationship();
+
     }
 
     unless ( defined ( $modelName )) {
@@ -553,13 +556,25 @@ sub _setUpModels
     for my $module (@modules) {
         $self->_setUpModelsFromProvider($module);
     }
+}
+
+# Method: _setRelationship
+#
+#   (PRIVATE)
+#
+#   Set the relationship between models and submodels
+#
+sub _setRelationship
+{
+    my ($self) = @_;
 
     # Set parent models given by hasMany relationships
     for my $childName (keys %{$self->{'childOf'}}) {
         $self->model($childName)->setParent($self->{'childOf'}->{$childName});
     }
-}
 
+
+}
 
 # Method: _setUpModelsFromProvider
 #

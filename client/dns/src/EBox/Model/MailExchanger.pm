@@ -113,18 +113,18 @@ sub _table
                                  subtypes      =>
                                  [
                                   new EBox::Types::Select(
-                                                          fieldName     => 'ownerDomain',
-                                                          printableName => __('Owner domain'),
-                                                          foreignModel  => \&_hostnameModel,
-                                                          foreignField  => 'hostname',
-                                                          editable      => 1,
-                                                          unique        => 1,
+                                          fieldName     => 'ownerDomain',
+                                          printableName => __('Owner domain'),
+                                          foreignModel  => \&_hostnameModel,
+                                          foreignField  => 'hostname',
+                                          editable      => 1,
+                                          unique        => 1,
                                                          ),
                                   new EBox::Types::DomainName(
-                                                              fieldName     => 'custom',
-                                                              printableName => __('Custom'),
-                                                              editable      => 1,
-                                                              unique        => 1,
+                                          fieldName     => 'custom',
+                                          printableName => __('Custom'),
+                                          editable      => 1,
+                                          unique        => 1,
                                                              ),
                                  ],
                                 ),

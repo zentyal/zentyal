@@ -109,9 +109,9 @@ sub usedFiles
 
     foreach my $vHost (@{$vHostModel->rows()}) {
         # Access to the field values for every virtual host
-        my $vHostValues = $vHost->{plainValueHash};
+        my $vHostName = $vHost->valueByName('name');
 
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostValues->{name};
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
        push @{$files}, { 'file' => $destFile, 'module' => 'webserver' , 
                          'reason' => 'To configure every virtual host'};
     }
@@ -334,10 +334,9 @@ sub virtualHosts
     my $vHostModel = $self->model('VHostTable');
     my @vHosts;
     foreach my $rowVHost (@{$vHostModel->rows()}) {
-        my $values = $rowVHost->{plainValueHash};
         push ( @vHosts, {
-                         name => $values->{name},
-                         enabled => $values->{enabled},
+                         name => $rowVHost->valueByName('name'), 
+                         enabled => $rowVHost->valueByName('enabled'), 
                         });
     }
 
@@ -489,29 +488,29 @@ sub _setVHosts
     my %sitesToRemove = %{_availableSites()};
     foreach my $vHost (@{$vHostModel->rows()}) {
         # Access to the field values for every virtual host
-        my $vHostValues = $vHost->{plainValueHash};
+        my $vHostName  = $vHost->valueByName('name');
 
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostValues->{name};
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
         delete $sitesToRemove{$destFile};
         $self->writeConfFile( $destFile,
                               "webserver/vhost.mas",
-                              [ vHostName => $vHostValues->{name} ],
+                              [ vHostName => $vHostName ],
                             );
 
         # Create the subdir if required
         my $userConfDir = SITES_AVAILABLE_DIR . 'user-' .  VHOST_PREFIX
-          . $vHostValues->{name};
+          . $vHostName;
         unless ( -d $userConfDir ) {
             EBox::Sudo::root("mkdir $userConfDir");
         }
 
-        if ( $vHostValues->{enabled} ) {
+        if ( $vHost->valueByName('enabled') ) {
             # Create the symbolic link
             EBox::Sudo::root("ln -s $destFile " . SITES_ENABLED_DIR);
             # Create the directory content if it is not already
             # created
             my $dir = EBox::WebServer::PlatformPath::DocumentRoot()
-              . '/' . $vHostValues->{name};
+              . '/' . $vHostName;
             unless ( -d $dir ) {
                 EBox::Sudo::root("mkdir $dir");
             }

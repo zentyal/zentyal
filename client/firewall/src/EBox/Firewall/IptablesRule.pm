@@ -113,7 +113,7 @@ sub setService
         $iptables = "";
         my $srcPort = $ser->{'source'};
         my $dstPort = $ser->{'destination'};
-     	my $protocol = $ser->{'protocol'};
+        my $protocol = $ser->{'protocol'};
         my $invProto = '';
         if ($inverseMatch and $srcPort eq 'any' and  $dstPort eq 'any') {
             $invProto = ' ! ';
@@ -142,8 +142,8 @@ sub setService
             $iptables = " -p $invProto $protocol";
             push (@{$self->{'service'}}, $iptables);
         } elsif ($protocol eq 'any') {
-	        push (@{$self->{'service'}}, '');
-	    }
+            push (@{$self->{'service'}}, '');
+        }
     }
 }
 
@@ -557,7 +557,7 @@ sub _setAddress
     $self->{$addressType} = [] ;
     my $flag = ' --source ';
     if ($addressType eq 'destination') {
-	$flag = ' --destination ';
+        $flag = ' --destination ';
     }
     if (defined($obj)) {
         foreach my $addr (@{$self->{'objects'}->objectAddresses($obj)}) {
@@ -568,9 +568,9 @@ sub _setAddress
             and defined($src->ip())) {
             $self->{$addressType} = ["$flag $inverse "
                                      . $src->printableValue()];
-	} elsif ( defined ( $src ) and $src->isa('EBox::Types::MACAddr')) {
-	  $self->{$addressType} = ["-m mac --mac-source $inverse " .
-				   $src->printableValue()];
+        } elsif ( defined ( $src ) and $src->isa('EBox::Types::MACAddr')) {
+            $self->{$addressType} = ["-m mac --mac-source $inverse " .
+                $src->printableValue()];
         } else {
             $self->{$addressType} = [''];
         }

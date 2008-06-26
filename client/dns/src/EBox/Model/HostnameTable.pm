@@ -120,26 +120,25 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{hostname} ) {
-        # Check there is no CNAME RR in the domain with the same name
-        my $newHostName = $changedFields->{hostname}->value();
-        my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
-        my $dir = $self->directory();
-        my ($domainId) = $dir =~ m:keys/(.*?)/:;
-        my $domRow = $domainModel->row($domainId)->{printableValueHash};
-        foreach my $hostNameRow (@{$domRow->{hostnames}->{values}}) {
-            my $aliasMatched = grep { $_->{alias} eq $newHostName } @{$hostNameRow->{alias}->{values}};
-            if ( $aliasMatched ) {
-                throw EBox::Exceptions::External(__x('There is an alias with the same name "{name}" '
-                                                     . 'for "{hostname}" in the same domain',
-                                                     name     => $newHostName,
-                                                     hostname => $hostNameRow->{hostname}));
+    return unless ( exists $changedFields->{hostname} );
+
+    # Check there is no CNAME RR in the domain with the same name
+    my $newHostName = $changedFields->{hostname}->value();
+    my $domainModel = $changedFields->{hostname}->row()->model();
+
+    for my $row (@{$domainModel->rows()}) {
+        for my $subRow (@{$row->subModel('alias')->rows()}) {
+           if ($subRow->valueByName('alias') eq $newHostName) {
+                throw EBox::Exceptions::External(
+                    __x('There is an alias with the same name "{name}" '
+                        . 'for "{hostname}" in the same domain',
+                         name     => $newHostName,
+                         hostname => $subRow->valueByName('hostname')));
             }
         }
     }
-
-
 }
+
 # Group: Protected methods
 
 # Method: _table

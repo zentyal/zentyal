@@ -136,7 +136,15 @@ sub objects
 {
 	my ($self) = @_;
 
-	return $self->{'objectModel'}->printableValueRows();
+    my @objects;
+    for my $object (@{$self->{objectModel}->rows()}) {
+        push (@objects, {
+                            id => $object->id(),
+                            name => $object->valueByName('name')
+                         });
+    }
+    
+    return \@objects;
 }
 
 # Method: objectIds
@@ -168,28 +176,32 @@ sub objectIds # (object)
 #
 #   	array ref - each element contains a hash with the member keys 'nname' 
 #   	(member's name), 'ip' (ip's member), 'mask' (network mask's member),
-#   	'mac', (mac address' member)
+#   	'macaddr', (mac address' member)
 #
 # Exceptions:
 #
 # 	<EBox::Exceptions::MissingArgument>
 sub objectMembers # (object) 
 {
-	my ($self, $id) = @_;
-	
-	unless (defined($id)) {
-		throw EBox::Exceptions::MissingArgument("id");
-	}
+    my ($self, $id) = @_;
 
-	my $object = $self->{'objectModel'}->find('id' => $id);
-	return undef unless defined($object);
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $object = $self->{'objectModel'}->row($id);
+    return undef unless defined($object);
+
     my @members;
-    for my $member (@{$object->{'members'}->{'values'}}) {
-        my $ipaddr = $member->{'ipaddr'};
-        my ($ip, $mask) = split ('/', $ipaddr);
-        $member->{'ip'} = $ip;
-        $member->{'mask'} = $mask;
-        push (@members, $member);
+    for my $member (@{$object->subModel('members')->rows()}) {
+        my $ipaddr = $member->elementByName('ipaddr');
+        push (@members, {
+                            ip => $ipaddr->ip(),
+                            mask => $ipaddr->mask(),
+                            macaddr => $member->valueByName('macaddr'),
+                            name => $member->valueByName('name')
+
+                        });
     }
 
     return \@members;
@@ -212,19 +224,19 @@ sub objectMembers # (object)
 #
 sub objectAddresses # (object)
 {
-	my ($self, $id) = @_;
+    my ($self, $id) = @_;
 
-	unless (defined($id)) {
-		throw EBox::Exceptions::MissingArgument("id");
-	}
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
 
-        my $members = $self->objectMembers($id);
+    my $members = $self->objectMembers($id);
 
-        return [] unless defined ( $members );
+    return [] unless defined ( $members );
 
-	my @ips = map { $_->{'ipaddr'} } @{$members};
+    my @ips = map { $_->{'ipaddr'} } @{$members};
 
-	return \@ips;
+    return \@ips;
 }
 
 # getMembersToObjectTable($id, [ 'ipaddr' ])
@@ -246,18 +258,18 @@ sub objectAddresses # (object)
 # 	DataNotFound - if the Object does not exist
 sub objectDescription  # (object) 
 {
-	my ( $self, $id ) = @_;
-	
-	unless (defined($id)) {
-		throw EBox::Exceptions::MissingArgument("id");
-	}
+    my ( $self, $id ) = @_;
 
-	my $object = $self->{'objectModel'}->find('id' => $id);
-	unless (defined($object)) {
-		throw EBox::Exceptions::DataNotFound('data' => __('Object'),
-						     'value' => $object);
-     	}
-	return $object->{'name'};
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $object = $self->{'objectModel'}->row($id);
+    unless (defined($object)) {
+        throw EBox::Exceptions::DataNotFound('data' => __('Object'),
+                'value' => $object);
+    }
+    return $object->valueByName('name');
 }
 
 # get ( $id, ['name'])

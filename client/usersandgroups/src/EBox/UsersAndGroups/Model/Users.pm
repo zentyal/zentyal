@@ -17,15 +17,17 @@ package EBox::UsersAndGroups::Model::Users;
 
 # Class: EBox::UsersAndGroups::Model::Users
 #
-# 	This a class used it as a proxy for the users stored in LDAP.
+# 	This a class used as a proxy for the users stored in LDAP.
 # 	It is meant to improve the user experience when managing users,
-# 	but it's just a interim solution. An integral approach needs to 
+# 	but it's just an interim solution. An integral approach needs to 
 # 	be done.
 # 	
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
+use EBox::Model::Row;
 use EBox::Exceptions::External;
+
 
 use EBox::Types::Text;
 use EBox::Types::Link;
@@ -37,53 +39,53 @@ use base 'EBox::Model::DataTable';
 
 sub new 
 {
-	my $class = shift;
-	my %parms = @_;
-	
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	
-	return $self;
+    my $class = shift;
+    my %parms = @_;
+
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+
+    return $self;
 }
 
 sub _table
 {
-	my @tableHead = 
-	 ( 
+    my @tableHead = 
+        ( 
 
-		new EBox::Types::Text(
-					'fieldName' => 'name',
-					'printableName' => __('Name'),
-					'size' => '12',
-				      ),
-		new EBox::Types::Text(
-					'fieldName' => 'fullname',
-					'printableName' => __('Full name'),
-					'size' => '12',
-				      ),
-		new EBox::Types::Link(
-					'fieldName' => 'edit',
-					'printableName' => __('Edit'),
-				      ),
+         new EBox::Types::Text(
+             'fieldName' => 'name',
+             'printableName' => __('Name'),
+             'size' => '12',
+             ),
+         new EBox::Types::Text(
+             'fieldName' => 'fullname',
+             'printableName' => __('Full name'),
+             'size' => '12',
+             ),
+         new EBox::Types::Link(
+             'fieldName' => 'edit',
+             'printableName' => __('Edit'),
+             ),
 
-	 );
+        );
 
-	my $dataTable = 
-		{ 
-			'tableName' => 'Users',
-			'printableTableName' => __('Users'),
-			'defaultController' =>
+    my $dataTable = 
+    { 
+        'tableName' => 'Users',
+        'printableTableName' => __('Users'),
+        'defaultController' =>
             '/ebox/Users/Controller/Users',
-			'defaultActions' =>
-				['changeView'],
-			'tableDescription' => \@tableHead,
-			'menuNamespace' => 'UsersAndGroups/Users',
-			'help' => __x('foo'),
-		        'printableRowName' => __('user'),
-                        'sortedBy' => 'name',
-		};
+        'defaultActions' =>
+            ['changeView'],
+        'tableDescription' => \@tableHead,
+        'menuNamespace' => 'UsersAndGroups/Users',
+        'help' => __x('foo'),
+        'printableRowName' => __('user'),
+        'sortedBy' => 'name',
+    };
 
-	return $dataTable;
+    return $dataTable;
 }
 
 # Method: precondition
@@ -95,8 +97,8 @@ sub _table
 #	<EBox::Model::DataTable::precondition>
 sub precondition
 {
-	my $users = EBox::Global->modInstance('users');
-	return $users->configured();
+    my $users = EBox::Global->modInstance('users');
+    return $users->configured();
 }
 
 # Method: preconditionFailMsg
@@ -108,66 +110,63 @@ sub precondition
 #	<EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-	my $users = EBox::Global->modInstance('users');
-	return __('You must enable the module Users in the module ' .
-		  'status section in order to use it.');
+    my $users = EBox::Global->modInstance('users');
+    return __('You must enable the module Users in the module ' .
+            'status section in order to use it.');
 }
-
-
-
-
 
 sub rows
 {
-	my ($self, $filter, $page) = @_;
+    my ($self, $filter, $page) = @_;
 
-	my $userMod = EBox::Global->modInstance('users');
-	my @rows;
-	for my $userInfo ($userMod->users()) {
-		my $user = new EBox::Types::Text(
-					'fieldName' => 'name',
-					'printableName' => __('Name'),
-					'size' => '12',
-					'editable' => 1
-				     	);
-	
-		my $userName = $userInfo->{'username'};
-		$user->setValue($userName);
-		$user->setModel($self);
-		my $fullName = new EBox::Types::Text(
-					'fieldName' => 'fullname',
-					'printableName' => __('Full name'),
-					'size' => '12',
-					'editable' => 1
-				     	);
-		my $full = $userInfo->{'fullname'};
-		$fullName->setValue($full);
-		$fullName->setModel($self);
-	
-		my $link = new EBox::Types::Link(
-					'fieldName' => 'edit',
-					'printableName' => __('Edit'),
-				     	);
-		my $linkValue = "/ebox/UsersAndGroups/User?username=$userName";
-		$link->setValue($linkValue);
-		$link->setModel($self);
-		push (@rows, { 'values' => [$user, $fullName, $link], 
-				'printableValueHash' => 
-					{
-					 'name' => $userName, 
-					 'fullname' => $full,
-					 'edit' => ''
-					}, 
-				'id' => 'NOT_USED', 
-				'readOnly' => 1});
-	}
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
 
-	return $self->_filterRows(\@rows, $filter, $page);
+    my $userMod = EBox::Global->modInstance('users');
+    my @rows;
+    for my $userInfo ($userMod->users()) {
+        my $user = new EBox::Types::Text(
+                'fieldName' => 'name',
+                'printableName' => __('Name'),
+                'size' => '12',
+                'editable' => 1
+                );
+        my $userName = $userInfo->{'username'};
+        $user->setValue($userName);
+
+        my $fullName = new EBox::Types::Text(
+                'fieldName' => 'fullname',
+                'printableName' => __('Full name'),
+                'size' => '12',
+                'editable' => 1
+                );
+        my $full = $userInfo->{'fullname'};
+        $fullName->setValue($full);
+
+        my $link = new EBox::Types::Link(
+                'fieldName' => 'edit',
+                'printableName' => __('Edit'),
+                );
+        my $linkValue = "/ebox/UsersAndGroups/User?username=$userName";
+        $link->setValue($linkValue);
+
+        my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+        $row->setModel($self);
+        $row->setId('NOT_USED');
+        $row->setReadOnly(1);
+        $row->addElement($user);
+        $row->addElement($fullName);
+        $row->addElement($link);
+
+        push (@rows, $row); 
+    }
+
+    return $self->_filterRows(\@rows, $filter, $page);
 }
 
 sub Viewer
 {
-	return '/ajax/tableUser.mas';
+    return '/ajax/tableUser.mas';
 }
 
 1;

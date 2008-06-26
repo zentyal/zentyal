@@ -140,7 +140,7 @@ sub warnOnChangeOnId
 
       if ( $modelName =~ m/GatewayTable/ ) {
           if ( exists $changedData->{interface} ) {
-              my $oldGatewayIface = $oldRow->{plainValueHash}->{interface};
+              my $oldGatewayIface = $oldRow->valueByName('interface');
               if ( ($oldGatewayIface eq $self->{interface}) &&
                    ($self->size() > 0) ) {
                   return $strToShow;
@@ -178,7 +178,7 @@ sub isUsingId
               my $observableModel = $manager->model($modelName);
 
               my $gateway = $observableModel->row($id);
-              my $gatewayIface = $gateway->{plainValueHash}->{interface};
+              my $gatewayIface = $gateway->valueByName('interface');
               return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
           } else {
               # Every time a gateway is changed, call a warning from an internal interface
@@ -211,7 +211,7 @@ sub notifyForeignModelAction
     } elsif ( $action eq 'del' or
               $action eq 'update') {
 
-        if ( $row->{plainValueHash}->{interface} eq $self->{interface} ) {
+        if ( $row->valueByName('interface') eq $self->{interface} ) {
             # Check new bandwidth
             my $netMod = EBox::Global->modInstance('network');
             my $limitRate;
@@ -320,11 +320,11 @@ sub validateTypedRow
   }
 
   if ( $action eq 'update' ) {
-    # Fill those parameters which is not changed
+    # Fill those parameters which haven't been changed
     my $oldRow = $self->row($params->{id});
-    foreach my $paramName (keys %{$oldRow->{valueHash}}) {
+    foreach my $paramName (keys %{$oldRow->hashElements()}) {
       unless ( defined ( $params->{$paramName})) {
-	$params->{$paramName} = $oldRow->{valueHash}->{$paramName};
+	$params->{$paramName} = $oldRow->elementByName($paramName);
       }
     }
   }
@@ -639,8 +639,8 @@ sub _normalize
         # The bandwidth has been decreased
         for (my $pos = 0; $pos < $self->size(); $pos++ ) {
             my $row = $self->get( $pos );
-            my $guaranteedRate = $row->{plainValueHash}->{guaranteed_rate};
-            my $limitedRate = $row->{plainValueHash}->{limited_rate};
+            my $guaranteedRate = $row->valueByName('guaranteed_rate');
+            my $limitedRate = $row->valueByName('limited_rate');
             if ( $limitedRate > $currentLimitRate ) {
                 $limitedRate = $currentLimitRate;
                 $limitNum++;
@@ -657,8 +657,8 @@ sub _normalize
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
                 my ($exc) = @_;
-                EBox::warn($row->{id} . " is being removed. Reason: $exc");
-                $self->removeRow( $row->{id}, 1);
+                EBox::warn($row->id() . " is being removed. Reason: $exc");
+                $self->removeRow( $row->id(), 1);
                 $removeNum++;
                 $pos--;
             }

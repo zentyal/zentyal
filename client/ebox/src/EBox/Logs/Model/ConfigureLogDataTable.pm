@@ -84,8 +84,8 @@ sub enabledLogs()
 
     my %enabledLogs;
     for my $row (@{$self->rows()}) {
-        next unless ($row->{'valueHash'}->{'enabled'}->value());
-        $enabledLogs{$row->{'valueHash'}->{'domain'}->value()}  = 1;
+        next unless ($row->valueByName('enabled'));
+        $enabledLogs{$row->valueByName('domain')}  = 1;
     }
     return \%enabledLogs;
 }
@@ -114,7 +114,7 @@ sub rows
     my $currentRows = $self->SUPER::rows();
     my %storedLogDomains;
     foreach my $row (@{$currentRows}) {
-        $storedLogDomains{$row->{'valueHash'}->{'domain'}->value()} = 1;
+        $storedLogDomains{$row->valueByName('domain')} = 1;
     }
 
     # Fetch the current available log domains
@@ -127,20 +127,22 @@ sub rows
     # Add new domains to gconf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
-	my $enabled;
-	if ($currentTables->{$domain}->{'disabledByDefault'})  {
-		$enabled = 0;
-	} else {
-		$enabled = 1;
-	}
-        $self->addRow('domain' => $domain, 'enabled' => $enabled, lifeTime => 0);
+        my $enabled;
+        if ($currentTables->{$domain}->{'disabledByDefault'})  {
+            $enabled = 0;
+        } else {
+            $enabled = 1;
+        }
+        $self->addRow(domain => $domain, 
+                      enabled => $enabled, 
+                      lifeTime => 0);
     }
 
     # Remove non-existing domains from gconf
     foreach my $row (@{$currentRows}) {
-        my $domain = $row->{'valueHash'}->{'domain'}->value();
+        my $domain = $row->valueByName('domain');
         next if (exists $currentLogDomains{$domain});
-        $self->removeRow($row->{'id'});
+        $self->removeRow($row->id());
     }
 
     return $self->SUPER::rows($filter, $page);
@@ -148,20 +150,20 @@ sub rows
 
 # Method: validateTypedRow
 #
-#	Override <EBox::Model::DataTable::validateTypedRow>
+#   Override <EBox::Model::DataTable::validateTypedRow>
 #
 sub updatedRowNotify 
 {
   my ($self, $row) = @_;
 
-  my $domain = $row->{'valueHash'}->{'domain'}->value();
-  my $enabled = $row->{'valueHash'}->{'enabled'}->value();
+  my $domain = $row->valueByName('domain');
+  my $enabled = $row->valueByName('enabled');
  
   my $logs = EBox::Global->modInstance('logs');
   my $tables = $logs->getAllTables();
 
   unless (exists $tables->{$domain}) {
-	EBox::warn("Domain: $domain does not exist in logs");
+      EBox::warn("Domain: $domain does not exist in logs");
   }
   
 
@@ -203,45 +205,45 @@ sub filterDomain
 
 sub _populateSelectLifeTime
 {
-  # life time values must be in hours
-  return  [
-	   {
-	    printableValue => __('never purge'),
-	    value          =>  0,
-	   },
-	   {
-	    printableValue => __('one hour'),
-	    value          => 1,
-	   },
-	   {
-	    printableValue => __('twelve hours'),
-	    value          => 12,
-	   },
-	   {
-	    printableValue => __('one day'),
-	    value          => 24,
-	   },
-	   {
-	    printableValue => __('three days'),
-	    value          => 72,
-	   },
-	   {
-	    printableValue => __('one week'),
-	    value          =>  168,
-	   },
-	   {
-	    printableValue => __('fifteeen days'),
-	    value          =>  360,
-	   },
-	   {
-	    printableValue => __('thirty days'),
-	    value          =>  720,
-	   },
-	   {
-	    printableValue => __('ninety days'),
-	    value          =>  2160,
-	   },
-	  ];
+    # life time values must be in hours
+    return  [
+                {
+                    printableValue => __('never purge'),
+                    value          =>  0,
+                },
+                {
+                    printableValue => __('one hour'),
+                    value          => 1,
+                },
+                {
+                    printableValue => __('twelve hours'),
+                    value          => 12,
+                },
+                {
+                    printableValue => __('one day'),
+                    value          => 24,
+                },
+                {
+                    printableValue => __('three days'),
+                    value          => 72,
+                },
+                {
+                    printableValue => __('one week'),
+                    value          =>  168,
+                },
+                {
+                    printableValue => __('fifteeen days'),
+                    value          =>  360,
+                },
+                {
+                    printableValue => __('thirty days'),
+                    value          =>  720,
+                },
+                {
+                    printableValue => __('ninety days'),
+                    value          =>  2160,
+                },
+           ];
 }
 
 # Function: acquireEventConfURL
@@ -262,7 +264,7 @@ sub acquireEventConfURL
 {
     my ($instancedType) = @_;
 
-    my $logDomain = $instancedType->row()->{plainValueHash}->{domain};
+    my $logDomain = $instancedType->row()->valueByName('domain');
 
     my $modelManager = EBox::Model::ModelManager->instance();
 
@@ -313,7 +315,7 @@ sub _table
                     'size' => '12',
                     'unique' => 1,
                     'editable' => 0,
-		    'filter' => \&filterDomain
+                    'filter' => \&filterDomain
                               ),
          new EBox::Types::Boolean(
                     'fieldName' => 'enabled',
@@ -323,11 +325,11 @@ sub _table
                     'editable' => 1,
                                  ),
          new EBox::Types::Select(
-		  'fieldName'     => 'lifeTime',
-		  'printableName' => __('Purge logs older than'),
-		  'populate'      => \&_populateSelectLifeTime,
-		  'editable'      => 1,
-                  'defaultValue'  => 168, # one week
+                 'fieldName'     => 'lifeTime',
+                 'printableName' => __('Purge logs older than'),
+                 'populate'      => \&_populateSelectLifeTime,
+                 'editable'      => 1,
+                 'defaultValue'  => 168, # one week
                                 ),
          new EBox::Types::Link(
                   'fieldName'     => 'eventConf',
@@ -342,7 +344,7 @@ sub _table
         { 
             'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Configure logs'),
-	    'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
+            'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

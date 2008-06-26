@@ -148,19 +148,23 @@ sub _alreadyInObject # (ip, mask)
      
     my $model = EBox::Model::ModelManager->instance()->model('ObjectTable');
     return unless (defined($model));
-    my $objs = $model->printableValueRows();
 
-    for my $obj (@{$objs}) {
-        next unless (exists $obj->{'members'}->{'values'});
-        for my $member (@{$obj->{'members'}->{'values'}}) {
-            next if (defined($memberId) and ($member->{'id'} eq $memberId));	
-            my $memaddr = new Net::IP($member->{'ipaddr'});
+    my $olddir = $self->directory();
+
+    for my $row (@{$model->rows()}) {
+        for my $subRow (@{$row->subModel('members')->rows()}) {
+            next if ($subRow->id() eq $memberId);
+            my $memaddr = new Net::IP($subRow->printableValueByName('ipaddr'));
             my $new = new Net::IP("$iparg/$maskarg");
             if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
                 return 1;
             }
+
         }
     }
+
+    $self->setDirectory($olddir);
+
     return undef;
 }
 

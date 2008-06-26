@@ -118,7 +118,7 @@ sub addedRowNotify
 
     my $dns = $gl->modInstance('dns');
 
-    my $vHostName = $row->{plainValueHash}->{name};
+    my $vHostName = $row->valueByName('name');
     my ($hostName, $domain) = ( $vHostName =~ m/^(.*?)\.(.*)/g );
 
     # We try to guess the IP address

@@ -119,7 +119,7 @@ sub rows
     my $currentRows = $self->SUPER::rows();
     my %storedLogDomains;
     foreach my $row (@{$currentRows}) {
-        $storedLogDomains{$row->{'valueHash'}->{'domain'}->value()} = 1;
+        $storedLogDomains{$row->valueByName('domain')} = 1;
     }
 
     # Fetch the current available log domains
@@ -137,9 +137,9 @@ sub rows
 
     # Remove non-existing domains from gconf
     foreach my $row (@{$currentRows}) {
-        my $domain = $row->{'valueHash'}->{'domain'}->value();
+        my $domain = $row->valueByName('domain');
         next if (exists $currentLogDomains{$domain});
-        $self->removeRow($row->{'id'});
+        $self->removeRow($row->id());
         $self->_removeFilteringModel($domain);
     }
 
@@ -157,10 +157,10 @@ sub updatedRowNotify
 {
     my ($self, $oldRow, $force) = @_;
 
-    my $row = $self->row($oldRow->{id});
+    my $row = $self->row($oldRow->id());
 
     # Warn if the parent log observer is not enabled
-    if ( $row->{plainValueHash}->{enabled} ) {
+    if ( $row->valueByName('enabled') ) {
         my $manager = EBox::Model::ModelManager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
@@ -184,7 +184,7 @@ sub addedRowNotify
     my ($self, $row, $force) = @_;
 
     # Warn if the parent log observer is not enabled
-    if ( $row->{plainValueHash}->{enabled} ) {
+    if ( $row->valueByName('enabled') ) {
         my $manager = EBox::Model::ModelManager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );

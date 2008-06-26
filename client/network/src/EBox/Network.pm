@@ -1516,8 +1516,8 @@ sub nameservers
 # 	}
 # 	return \@array;
         my $resolverModel = $self->model('DNSResolver');
-        my $rows = $resolverModel->printableValueRows();
-        @array = map { $_->{nameserver} } @{$rows};
+        my $rows = $resolverModel->rows();
+        @array = map { $_->valueByName('nameserver') } @{$rows};
         return \@array;
 }
 
@@ -1635,8 +1635,12 @@ sub routes
     my ($self) = @_;
 
     my $staticRouteModel = $self->model('StaticRoute');
-
-    return $staticRouteModel->printableValueRows();
+    my @routes;
+    for my $row (@{$staticRouteModel->rows()}) {
+        push (@routes, { network => $row->printableValueByName('network'),
+                         gateway => $row->printableValueByName('gateway')});
+    }
+    return \@routes; 
 
 }
 

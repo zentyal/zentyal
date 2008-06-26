@@ -1,3 +1,5 @@
+0.11.103
+	+ Use new EBox::Model::Row api
 0.11.102
 	+ Bugfix: Static routes are deleted from ip when they are not
 	useful

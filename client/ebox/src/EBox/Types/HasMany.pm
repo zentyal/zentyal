@@ -73,20 +73,7 @@ sub printableValue
 {
     my ($self) = @_;
 
-    return '' unless (exists $self->{'foreignModel'});
-    my $val;
-    try {
-        my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
-        my $olddir = $model->directory();
-        $model->setDirectory($self->directory());
-        $val = $model->printableValueRows();
-        $model->setDirectory($olddir);
-    } catch EBox::Exceptions::DataNotFound with {
-        $val = undef;
-    };
-    return { 'model' => $self->{'foreignModel'},
-             'directory' => $self->directory(),
-             'values' => $val};
+    return undef;
 }
 
 sub value
@@ -172,12 +159,11 @@ sub setDirectory
 sub directory
 {
     my ($self) = @_;
-    
-   if (exists $self->{'directory'}) {
-        return $self->{'directory'};
-   } else {
-        return undef;
-   }
+
+    my $directory = $self->row()->dir() . '/' . $self->row()->id();
+    $directory .= '/' . $self->fieldName();
+
+    return $directory;
 }
 
 # Method: view 
@@ -230,6 +216,7 @@ sub linkToView
 
     my $view = $self->view();
     my $directory = $self->directory();
+
     my $backview = $self->backView();
     my $params="?directory=$directory" . "&backview=$backview";
     

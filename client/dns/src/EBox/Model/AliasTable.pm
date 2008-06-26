@@ -68,28 +68,43 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{alias} ) {
-        # Check it is not the nameserver hostname
-        my $dnsMod = EBox::Global->modInstance('dns');
-        if ( $changedFields->{alias}->value() eq $dnsMod->NameserverHost()) {
-            throw EBox::Exceptions::External(__x('An alias cannot be the nameserver host name "{ns}". '
-                                                 . 'Use a hostname instead',
-                                                 ns => $dnsMod->NameserverHost()));
+    return unless ( exists $changedFields->{alias} );
+    my $alias = $changedFields->{alias};
+
+    # Check it is not the nameserver hostname
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $newAlias = $alias->value();
+    if ($newAlias eq $dnsMod->NameserverHost()) {
+        throw EBox::Exceptions::External(
+            __x('An alias cannot be the nameserver host name "{ns}". '
+                . 'Use a hostname instead',
+                 ns => $dnsMod->NameserverHost()));
+    }
+
+    my $olddir = $self->directory();
+
+    # Check there is no A RR in the domain with the same name
+    my $domain = $newAlias->parentRow()->parentRow()->valueByName('alias');
+    
+    for my $hostname ($dnsMod->getHostnames($domain)) {
+        if ($hostname->{name} eq $newAlias) {
+            throw EBox::Exceptions::External(
+                        __x('There is a hostname with the same name "{name}" '
+                            . 'in the same domain',
+                             name     => $newAlias));
+
         }
-        # Check there is no A RR in the domain with the same name
-        my $newAlias = $changedFields->{alias}->value();
-        my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
-        my $dir = $self->directory();
-        my ($domainId) = $dir =~ m:keys/(.*?)/:;
-        my $domRow = $domainModel->row($domainId)->{printableValueHash};
-        my $hostnameMatched = grep { $_->{hostname} eq $newAlias } @{$domRow->{hostnames}->{values}};
-        if ( $hostnameMatched ) {
-            throw EBox::Exceptions::External(__x('There is a hostname with the same name "{name}" '
-                                                 . 'in the same domain',
-                                                 name     => $newAlias));
+        for my $alias (@{$hostname->{'aliases'}}) {
+            if ($hostname->{name} eq $newAlias) {
+                throw EBox::Exceptions::External(
+                        __x('There is an alias with the same name "{name}" '
+                            . 'in the same domain',
+                             name     => $newAlias));
+            }
         }
     }
 
+    $self->setDirectory($olddir);
 }
 
 # Group: Protected methods

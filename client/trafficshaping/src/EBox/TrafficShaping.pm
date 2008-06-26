@@ -491,14 +491,14 @@ sub listRules
     foreach my $row (@{$ruleModel->rows()}) {
         my $ruleRef =
           {
-           ruleId      => $row->{id},
-           service     => $row->{plainValueHash}->{service},
-           source      => $row->{valueHash}->{source}->subtype(),
-           destination => $row->{valueHash}->{destination}->subtype(),
-           priority    => $row->{plainValueHash}->{priority},
-           guaranteed_rate => $row->{plainValueHash}->{guaranteed_rate},
-           limited_rate => $row->{plainValueHash}->{limited_rate},
-           enabled     => $row->{plainValueHash}->{enabled},
+           ruleId      => $row->id(),
+           service     => $row->valueByName('service'),
+           source      => $row->elementByName('source')->subtype(),
+           destination => $row->elementByName('destination')->subtype(),
+           priority    => $row->valueByName('priority'),
+           guaranteed_rate => $row->valueByName('guaranteed_rate'),
+           limited_rate => $row->valueByName('limited_rate'),
+           enabled     => $row->valueByName('enabled'),
           };
         push ( @rules, $ruleRef );
     }
@@ -1105,10 +1105,10 @@ sub _buildGConfRules # (iface, regenConfig)
     foreach my $row (@{$rows}) {
         my $ruleRef = {};
         $ruleRef->{identifier} = $self->_nextMap($row->{id});
-        $ruleRef->{service} = $row->{plainValueHash}->{service};
+        $ruleRef->{service} = $row->valueByName('service');
         # Source and destination
         for my $targetName (qw(source destination)) {
-            my $target = $row->{valueHash}->{$targetName}->subtype();
+            my $target = $row->elementByName($targetName)->subtype();
             if ( $target->isa('EBox::Types::Union::Text')) {
                 $target = undef;
             } elsif ( $target->isa('EBox::Types::Select')) {
@@ -1118,18 +1118,18 @@ sub _buildGConfRules # (iface, regenConfig)
             $ruleRef->{$targetName}  = $target;
         }
         # Priority
-        $ruleRef->{priority} = $row->{plainValueHash}->{priority};
+        $ruleRef->{priority} = $row->valueByName('priority');
 
         # Rates
         # Transform from gconf to camelCase and set if they're null
         # since they're optional parameters
-        $ruleRef->{guaranteedRate} = $row->{plainValueHash}->{guaranteed_rate};
+        $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
-        $ruleRef->{limitedRate} = $row->{plainValueHash}->{limited_rate};
+        $ruleRef->{limitedRate} = $row->valueByName('limited_rate');
         $ruleRef->{limitedRate} = 0 unless defined ($ruleRef->{limitedRate});
         # Take care of enabled value only if regenConfig is enabled
         if ( $regenConfig ) {
-            $ruleRef->{enabled} = $row->{plainValueHash}->{enabled};
+            $ruleRef->{enabled} = $row->valueByName('enabled');
             $ruleRef->{enabled} = 1 unless defined ($ruleRef->{enabled});
         } else {
             $ruleRef->{enabled} = 1;

@@ -513,12 +513,11 @@ sub optionsFromForeignModel
 
     my $cache = $self->{'optionsCache'};
     if ($self->_isOptionsCacheDirty($field)) {
-        # EBox::debug("cache is dirty");
         my @options;
-        for my $row (@{$self->printableValueRows()}) {
+        for my $row (@{$self->rows()}) {
             push (@options, {
-                    'value' => $row->{'id'},
-                    'printableValue' => $row->{$field}
+                    'value' => $row->id(),
+                    'printableValue' => $row->printableValueByName($field)
                     });
         }
         $cache->{$field}->{'values'} = \@options;
@@ -767,9 +766,9 @@ sub addRow
         $userData->{$data->fieldName()} = $data;
     }
 
-        return $self->addTypedRow($userData,
-                                  readOnly => $params{'readOnly'},
-                                  id => $params{'id'});
+    return $self->addTypedRow($userData,
+            readOnly => $params{'readOnly'},
+            id => $params{'id'});
 
 }
 
@@ -880,21 +879,8 @@ sub addTypedRow
 #
 # Returns:
 #
-#    <EBox::Model::Row> - hash reference containing:
+#   An object of  <EBox::Model::Row> 
 #
-#        - 'id' =>  row id
-#        - 'order' => row order
-#               - 'readOnly' => Boolean indicating if the row is readOnly or not
-#        - 'values' => array ref containing objects
-#                implementing <EBox::Types::Abstract> interface
-#       - 'valueHash' => hash ref containing the same objects as
-#          'values' but indexed by 'fieldName'
-#
-#       - 'plainValueHash' => hash ref containing the fields and their
-#          value
-#
-#       - 'printableValueHash' => hash ref containing the fields and
-#          their printable value
 sub row
 {
     my ($self, $id)  = @_;
@@ -1273,25 +1259,19 @@ sub setTypedRow
       my $gconfmod = $self->{'gconfmodule'};
 
       my $oldRow = $self->row($id);
-      my $oldValues = $oldRow->{'valueHash'};
 
       my @setterTypes = @{$self->setterTypes()};
 
-      my $changedData = { };
-      my $allData = $self->row($id)->{'valueHash'};
-      my @changedData = ();
+      my $changedElements = { };
+      my @changedElements = ();
+      my $allHashElements = $oldRow->hashElements();
       foreach my $paramName (keys %{$paramsRef}) {
-          unless ( exists ( $oldValues->{$paramName} )) {
-              throw EBox::Exceptions::Internal('Field to update $paramName does not ' .
-                                               'exist in this model');
-          }
-
           unless ( $paramName ne any(@setterTypes) ) {
               throw EBox::Exceptions::Internal('Trying to update a non setter type');
           }
 
           my $paramData = $paramsRef->{$paramName};
-          if ( $oldValues->{$paramName}->isEqualTo($paramsRef->{$paramName})) {
+          if ( $oldRow->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
               next;
           }
 
@@ -1300,20 +1280,18 @@ sub setTypedRow
           }
 
           $paramData->setRow($oldRow);
-          $changedData->{$paramName} = $paramData;
-          push ( @changedData, $paramData);
-          $allData->{$paramName} = $paramData;
-
+          $changedElements->{$paramName} = $paramData;
+          push ( @changedElements, $paramData);
+          $allHashElements->{$paramName} = $paramData;
       }
 
       # Check if the new row is unique
-      my @newValues = values(%{$allData});
       if ( $self->rowUnique() ) {
-          $self->_checkRowIsUnique($id, $allData);
+          $self->_checkRowIsUnique($id, $allHashElements);
       }
 
-      $changedData->{id} = $id;
-      $self->validateTypedRow('update', $changedData, $allData);
+      $changedElements->{id} = $id;
+      $self->validateTypedRow('update', $changedElements, $allHashElements);
 
       # If force != true automaticRemove is enabled it means
       # the model has to automatically check if the row which is 
@@ -1321,11 +1299,11 @@ sub setTypedRow
       # produces an inconsistent state
       if ((not $force) and $self->table()->{'automaticRemove'}) {
           my $manager = EBox::Model::ModelManager->instance();
-          $manager->warnOnChangeOnId($self->tableName(), $id, $changedData, $oldRow);
+          $manager->warnOnChangeOnId($self->tableName(), $id, $changedElements, $oldRow);
       }
 
       my $modified = undef;
-      for my $data (@changedData) {
+      for my $data (@changedElements) {
           $data->storeInGConf($gconfmod, "$dir/$id");
           $modified = 1;
       }
@@ -1421,45 +1399,6 @@ sub rows
     }
 }
 
-# Method: printableValueRows
-#
-#     Return a list containing the table rows and the printable value
-#     of every field
-#
-# Returns:
-#
-#    Array ref containing the rows 
-sub printableValueRows 
-{
-    my $self = shift;
-
-    my @hasManyFields;
-    foreach my $type (@{$self->table()->{'tableDescription'}}) {
-        if ($type->type() eq 'hasMany') {
-            push (@hasManyFields, $type->fieldName())
-        }
-    }
-
-
-    my @values = map { $_->{'printableValueHash'} } @{$self->rows()};
-    return \@values unless (@hasManyFields > 0);
-
-    my $manager = EBox::Model::ModelManager->instance();
-    foreach my $row (@values) {
-        for my $field (@hasManyFields) {
-            next  unless (exists $row->{$field}->{'model'});
-            my $model = $manager->model($row->{$field}->{'model'});
-            next unless (defined($model));
-            my $olddir = $model->directory();
-            $model->setDirectory($row->{$field}->{'directory'});
-            $row->{$field}->{'values'} = 
-                $model->printableValueRows();
-            $model->setDirectory($olddir);
-        }
-    }
-
-    return \@values;
-}
 
 # Method: enabledRows
 #
@@ -1602,7 +1541,7 @@ sub _tailoredOrder # (rows)
         if ( $self->fieldHeader($fieldName) ) {
             my @sortedRows =
               sort {
-                  $a->{valueHash}->{$fieldName}->cmp($b->{valueHash}->{$fieldName})
+                  $a->elementByName($fieldName)->cmp($b->elementByName($fieldName))
               } @{$rows};
             return \@sortedRows;
         }
@@ -2238,8 +2177,7 @@ sub find
 #
 # Returns:
 #
-#     Array ref of hash refs  containing the printable 
-#     values of the matched row 
+#     Array ref of <EBox::Model::Row> 
 #     
 # Exceptions:
 #
@@ -2275,7 +2213,7 @@ sub findAll
 #
 # Returns:
 #
-#     Hash ref containing the  values of the matched row 
+#    An object of <EBox::Model::Row>
 #    
 #    undef if there was not any match
 #     
@@ -2318,7 +2256,7 @@ sub findValue
 #
 # Returns:
 #
-#     Array ref of hash refs  containing the values of the matched rows 
+#   An array ref of <EBox::Model::Row> objects
 #     
 # Exceptions:
 #
@@ -2373,14 +2311,13 @@ sub findId
     my $rows = $self->rows();
 
     foreach my $row (@{$rows}) {
-        my $values = $row->{'plainValueHash'};
-        my $printableValues = $row->{'printableValueHash'};
-        if ( (defined($values->{$fieldName}) and $values->{$fieldName} eq $value)
-                or
-                (defined($printableValues->{$fieldName})
-                 and $printableValues->{$fieldName} eq $value)
-           ) {
-            return $row->{'id'};
+        my $element = $row->elementByName($fieldName);
+        my $plainValue = $element->value(); 
+        my $printableValue = $element->printableValue();
+        if ((defined($plainValue) and $plainValue eq $value) 
+            or (defined($printableValue) and $printableValue eq $value)) {
+
+            return $row->id();
         }
     }
 
@@ -2847,19 +2784,19 @@ sub _find
 
     my @matched;
     foreach my $row (@{$rows}) {
-        my $values;
+        my $element = $row->elementByName($fieldName);
+        next unless (defined($element));
+
+        my $eValue;
         if ($kind eq 'printableValue') {
-            $values = $row->{'printableValueHash'};
+            $eValue = $element->printableValue();
         } else {
-            $values = $row->{'plainValueHash'};
+            $eValue = $element->value();
         }
-        next unless (exists $values->{$fieldName});
-        next unless ($values->{$fieldName} eq $value);
-        if ( $kind ne 'row' ) {
-            push (@matched, $values);
-        } else {
-            push (@matched, $row);
-        }
+        next unless ($eValue eq $value);
+        my $match;
+        
+        push (@matched, $row);
         return (\@matched) unless ($allMatches);
     }
 
@@ -2873,7 +2810,7 @@ sub _checkFieldIsUnique
     # Call _rows instead of rows because of deep recursion
     my $rows = $self->_rows();
     foreach my $row (@{$rows}) {
-        my $rowField = $row->{'valueHash'}->{$newData->fieldName()};
+        my $rowField = $row->elementByName($newData->fieldName());
         if ( $newData->isEqualTo($rowField) ) {
             throw EBox::Exceptions::DataExists(
                 'data'  => $newData->printableName(),
@@ -2906,7 +2843,7 @@ sub _checkRowIsUnique # (rowId, row_ref)
         # Compare if the row identifier is different
         next if ( defined($rowId) and $row->{'id'} eq $rowId);
         my $nEqual = grep
-          { $row_ref->{$_}->isEqualTo($row->{valueHash}->{$_}) }
+          { $row_ref->{$_}->isEqualTo($row->elementByName($_)) }
             @{$fields};
         next unless ( $nEqual == scalar(@{$fields}) );
         throw EBox::Exceptions::DataExists(
@@ -3211,15 +3148,15 @@ sub _filterRows
         my @words = split (/\s+/, $filter);
         my $totalWords = scalar(@words);
         for my $row (@{$rows}) {
-            my $values = $row->{'printableValueHash'};
             my $nwords = $totalWords;
             my %wordFound;        
-            for my $key (keys %{$values}) {
-                next if (ref $values->{$key});
+            for my $element (@{$row->elements()}) {
+                my $printableVal = $element->printableValue();
+                next unless defined($printableVal);
                 my $rowFound;
                 for my $regExp (@words) {
                     if (not exists $wordFound{$regExp} 
-                            and $values->{$key} =~ /$regExp/) {
+                            and $printableVal =~ /$regExp/) {
                         $nwords--;
                         $wordFound{$regExp} = 1;
                         unless ($nwords) {
@@ -3996,15 +3933,11 @@ sub _filterFields
     unless ( defined ( $fieldNames ) ){
         return $row;
     }
-
-    my $newRow = {
-        id => $row->{'id'},
-        order => $row->{'order'},
-        values => [],
-        valueHash => {},
-        printableValueHash => {},
-        plainValueHash => {},
-    };
+    
+    my $newRow = EBox::Model::Row->new(dir => $row->dir(), 
+                                       gconfmodule => $row->GConfModule());
+    $newRow->setId($row->id());
+    $newRow->setOrder($row->order());
 
     my @modelFields = @{$self->fields()};
     foreach my $fieldName ( @{$fieldNames} ) {
@@ -4014,14 +3947,11 @@ sub _filterFields
                     'are available: ' . join ( ', ', @modelFields));
         }
         # Put it the new one
-        push( @{$newRow->{'values'}}, $row->{valueHash}->{$fieldName});
-        $newRow->{'valueHash'}->{$fieldName} = $row->{valueHash}->{$fieldName};
-        $newRow->{'printableValueHash'}->{$fieldName} = $row->{printableValueHash}->{$fieldName};
-        $newRow->{'plainValueHash'}->{$fieldName} = $row->{plainValueHash}->{$fieldName};
+        $newRow->addElement($row->elementByName($fieldName));
     }
 
-    if ( @{$newRow->{'values'}} == 1 ) {
-        return $newRow->{'values'}->[0];
+    if ($newRow->size() == 1) {
+        return $newRow->elementByIndex(0);
     }
 
     return $newRow;

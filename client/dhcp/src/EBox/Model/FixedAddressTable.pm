@@ -140,14 +140,14 @@ sub validateTypedRow
         my $rangeModel = EBox::Model::ModelManager->instance()->model('/dhcp/RangeTable/'
                                                                       . $self->{interface});
         foreach my $rangeRow (@{$rangeModel->rows()}) {
-            my $from = $rangeRow->{plainValueHash}->{from};
-            my $to   = $rangeRow->{plainValueHash}->{to};
+            my $from = $rangeRow->valueByName('from');
+            my $to   = $rangeRow->valueByName('to');
             my $range = new Net::IP( $from . '-' . $to);
             unless ( $newIP->overlaps($range) == $IP_NO_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('IP address {ip} is in range '
                                                      . "'{range}': {from}-{to}",
                                                      ip => $newIP->print(),
-                                                     range => $rangeRow->{plainValueHash}->{name},
+                                                     range => $rangeRow->valueByName('range'),
                                                      from  => $from, to => $to));
             }
         }
