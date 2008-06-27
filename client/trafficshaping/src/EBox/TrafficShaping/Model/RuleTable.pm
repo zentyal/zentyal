@@ -625,7 +625,7 @@ sub _removeRules
     my $numRows = scalar(@{$rows});
     if ($numRows > 0) {
         $msg = __x('Remove {num} rules at {modelName}',
-               num => $rows,
+               num => $numRows,
                modelName => $self->printableContextName());
     }
     return $msg;
