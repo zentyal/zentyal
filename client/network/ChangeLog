@@ -3,6 +3,7 @@
 0.11.102
 	+ Bugfix: Static routes are deleted from ip when they are not
 	useful
+	+ Bugfix: Fixing wrong href in multigateway rules page
 0.11.101
 	+ Static routes become a model with three methods exposed
 	+ Remove usage of a deprecated method in NetWrappers
