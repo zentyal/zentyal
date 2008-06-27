@@ -621,10 +621,14 @@ sub _removeRules
         $self->removeRow( $row->{id}, 1);
     }
 
-    return __x('Remove {num} rules at {modelName}',
-               num => scalar(@{$rows}),
+    my $msg = '';
+    my $numRows = scalar(@{$rows});
+    if ($numRows > 0) {
+        $msg = __x('Remove {num} rules at {modelName}',
+               num => $rows,
                modelName => $self->printableContextName());
-
+    }
+    return $msg;
 }
 
 # Normalize the current rates (guaranteed and limited)
