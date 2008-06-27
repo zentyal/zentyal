@@ -196,7 +196,8 @@ sub objectMembers # (object)
     for my $member (@{$object->subModel('members')->rows()}) {
         my $ipaddr = $member->elementByName('ipaddr');
         push (@members, {
-                            ipaddr => $ipaddr->ip(),
+                            ipaddr => $ipaddr->printableValue(),
+                            ip => $ipaddr->ip(),
                             mask => $ipaddr->mask(),
                             macaddr => $member->valueByName('macaddr'),
                             name => $member->valueByName('name')
