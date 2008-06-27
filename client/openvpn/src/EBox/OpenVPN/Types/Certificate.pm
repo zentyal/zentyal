@@ -50,6 +50,8 @@ sub options
     my ($self) = @_;
 
     my $openVPN = EBox::Global->modInstance('openvpn');
+    my $ca = EBox::Global->modInstance('ca');
+    return [] unless ($ca->isCreated());
     my @certs = @{ $openVPN->availableCertificates() };
 
     my $excluded = $self->_excludeCertificate;

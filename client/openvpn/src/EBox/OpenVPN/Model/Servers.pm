@@ -121,6 +121,45 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
+# Method: precondition
+#
+#   Overrides  <EBox::Model::DataTable::precondition>
+#   to check if the CA is created otherwise this model can't be used
+#
+# Returns:
+#
+#       Boolean - true if the precondition is accomplished, false
+#       otherwise
+sub precondition
+{
+    my $global = EBox::Global->getInstance();
+    my $ca = $global->modInstance('ca');
+    my $openvpn = $global->modInstance('openvpn');
+
+    return undef unless ($ca->isCreated());
+    my $certsAvailable = @{  $openvpn->availableCertificates() };
+    return undef unless ($certsAvailable);
+}
+
+# Method: preconditionFailMsg
+#
+#   Overrides <EBox::Model::DataTable::preconditionFailMsg
+#
+# Returns:
+#
+#       String - the i18ned message to inform user why this model
+#       cannot be handled
+#
+#
+sub preconditionFailMsg
+{
+    return  __x(q/<p>You can't create VPN servers because there aren't enough/
+        . ' certificates.</p><p>Please, go to the {openhref} certificate '
+        . 'manager module {closehref} and create new certificates.</p>' 
+        . '<p>You will need a CA and at least one certificate.</p>',
+        openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>});
+ 
+}
 
 sub validateTypedRow
 {
