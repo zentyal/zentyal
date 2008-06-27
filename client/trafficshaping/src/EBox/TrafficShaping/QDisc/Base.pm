@@ -158,37 +158,6 @@ sub filters
 
   }
 
-# Method: orderedFilters
-#
-#      Get the filters associated to the qdisc ordered by the iptables
-#      priority
-#
-# Returns:
-#
-#      array ref - containing zero or more <EBox::TrafficShaping::Filter::Fw>
-#
-sub orderedFilters
-  {
-
-    my ($self) = @_;
-
-    if ( defined ( $self->filters() )) {
-      my @orderedFilters = sort {
-	                         $a->attribute('matchPrio')
-				   <=>
-				 $b->attribute('matchPrio')
-			        }
-	@{$self->filters()};
-
-      return \@orderedFilters;
-    }
-    else {
-      return [];
-    }
-
-  }
-
-
 # Method: setParent
 #
 #      Set the parent class which contains the parent
@@ -298,7 +267,7 @@ sub dumpIptablesCommands
 
     my @iptCommands;
     # Dump from each filter attached to the qdisc
-    foreach my $filter (@{$self->orderedFilters()}) {
+    foreach my $filter (@{$self->filters()}) {
       # Add every iptables command created by each filter
       push(@iptCommands, @{$filter->dumpIptablesCommands});
     }

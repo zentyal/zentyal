@@ -1,5 +1,6 @@
 0.11.102
 	+ Use the new EBox::Model:Row api
+	+ Do not order iptables rules by priority
 0.11.101
 	+ Fixing typo in actions performed by the module
 0.11.100
