@@ -133,10 +133,8 @@ sub name
 sub precondition
 {
     my $global = EBox::Global->getInstance();
-    my $ca = $global->modInstance('ca');
     my $openvpn = $global->modInstance('openvpn');
 
-    return undef unless ($ca->isCreated());
     my $certsAvailable = @{  $openvpn->availableCertificates() };
     return undef unless ($certsAvailable);
 }
