@@ -37,8 +37,23 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
+
+        # default min value is zero
+        unless (exists $opts{'min'}) {
+            $opts{'min'} = 0;
+        }
+
+        if (exists $opts{max}) {
+            if (not ($opts{max} > $opts{min}) ) {
+                throw EBox::Exceptions::External(
+                      __('Maximum value must be greater than minimum value') 
+                                                );
+            }
+        }
+
+
         $opts{'type'} = 'int';
-	
+        
         my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
@@ -48,9 +63,9 @@ sub new
 
 sub size
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	return $self->{'size'};
+        return $self->{'size'};
 }
 
 # Method: cmp
@@ -81,15 +96,15 @@ sub cmp
 #
 sub _storeInGConf
 {
-	my ($self, $gconfmod, $key) = @_;
+        my ($self, $gconfmod, $key) = @_;
 
-	my $fieldKey ="$key/" . $self->fieldName();
+        my $fieldKey ="$key/" . $self->fieldName();
 
-	if (defined($self->memValue()) and $self->memValue() ne '') {
-		$gconfmod->set_int($fieldKey, $self->memValue());
-	} else {
-		$gconfmod->unset($fieldKey);
-	}
+        if (defined($self->memValue()) and $self->memValue() ne '') {
+                $gconfmod->set_int($fieldKey, $self->memValue());
+        } else {
+                $gconfmod->unset($fieldKey);
+        }
 }
 
 # Method: _paramIsValid
@@ -100,19 +115,62 @@ sub _storeInGConf
 #
 sub _paramIsValid
 {
-	my ($self, $params) = @_;
+        my ($self, $params) = @_;
 
-	my $value = $params->{$self->fieldName()};
+        my $value = $params->{$self->fieldName()};
 
-	unless ($value =~ /^[0-9]+$/) {
+        unless ($value =~ /^-?[0-9]+$/) {
             throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                                  value  => $value,
-                                                 advice => __('Write down a positive number'));
-	}
+                                                 advice => __('Write down a number'));
+        }
 
-	return 1;
+        my $max = $self->max();
+        if (defined $max and ($value > $max)) {
+            throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
+                                                 value  => $value,
+          advice => __x(q|The value shouldn't be greater than {m}|, m => $max)
+
+                                               );
+        }
+
+
+        my $min = $self->min();
+        if (defined $min and ($value < $min)) {
+            throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
+                                                 value  => $value,
+          advice => __x(q|The value shouldn't be lesser than {m}|, m => $min)
+
+                                               );
+        }
+
+        return 1;
 
 }
+
+
+# Method: max
+#
+#  Returns:
+#       the maximum value allowed (undef means no maximum)
+#
+sub max
+{
+    my ($self) = @_;
+    return $self->{max};
+}
+
+# Method: min
+#
+#  Returns:
+#       the minimum value allowed (default: 0)
+#
+sub min
+{
+    my ($self) = @_;
+    return $self->{min};
+}
+
 
 # Method: _paramIsSet
 #
