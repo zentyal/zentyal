@@ -26,6 +26,12 @@ use EBox::Gettext;
 
 # Group: Public methods
 
+#  Method: new
+#
+#   Parameters:
+#       (in addition of base classes parameters)
+#       max - maximum integer value allowed 
+#       min - minimum integer value allowed (default: 0)
 sub new
 {
         my $class = shift;
