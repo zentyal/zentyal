@@ -95,34 +95,41 @@ sub _table
 					'fieldName' => 'interface',
 					'printableName' => __('Interface'),
 					'populate' => \&interfaces,
-					'editable' => 1
+					'editable' => 1,
+					'help' => __('Interface connected to this gateway')
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'upload',
 					'printableName' => __('Upload'),
 					'size' => '3',
 					'editable' => 1,
-					'trailingText' => 'Kb/s'
+					'trailingText' => 'Kb/s',
+					'help' => __('Upload rate in Kbits/s for this gateway.')
+								
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'download',
 					'printableName' => __('Download'),
 					'size' => '3',
 					'editable' => 1,
-					'trailingText' => 'Kb/s'
+					'trailingText' => 'Kb/s',
+					'help' => __('Download rate in Kbits/s for this gateway.')
 				),
 		new EBox::Types::Select(
 					'fieldName' => 'weight',
 					'printableName' => __('Weight'),
 					'size' => '2',
 					'populate' => \&weights,
-					'editable' => 1
+					'editable' => 1,
+					'help' => __('This field is only useful if you have ' . 
+								 'more than one router and  the balance ' .
+								 'traffic feature is enabled.')
 				),
 		new EBox::Types::Boolean(
 					'fieldName' => 'default',
 					'printableName' => __('Default'),
 					'size' => '1',
-					'editable' => 1
+					'editable' => 1,
 				)
 
 	 );
@@ -170,10 +177,11 @@ sub validateRow()
 
 	# Check if there's only one default gw
 	my $currentRow = $params{'id'};
-	my $default = $self->find('default' => 1);
-	if (defined($default) and ($currentRow ne $default->id())) {
-		throw EBox::Exceptions::External(
-		 __('There is already a default gateway'));
+	my $defaultRow = $self->find('default' => 1);
+	if (defined($defaultRow) and ($currentRow ne $defaultRow->id())) {
+		my $default = $defaultRow->elementByName('default');
+		$default->setValue(undef);
+		$defaultRow->storeElementByName('default');
 	}
 }
 

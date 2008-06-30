@@ -75,6 +75,8 @@ sub _table
 {
     my ($self) = @_;
 
+    my $helpHostIP = __('IP address of the DNS server that eBox'.
+                        ' will use to resolve names'); 
     my @tableDesc =
       (
        new EBox::Types::HostIP(
@@ -82,6 +84,7 @@ sub _table
                                printableName => __('Name server'),
                                editable      => 1,
                                unique        => 1,
+                               help          => $helpHostIP
                               ),
       );
 

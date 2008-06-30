@@ -137,22 +137,26 @@ sub _table
     my @tableDesc =
       (
        new EBox::Types::IPAddr(
-                                  fieldName     => 'network',
-                                  printableName => __('Network'),
-                                  editable      => 1,
-                                  unique        => 1,
-                                 ),
+           fieldName     => 'network',
+           printableName => __('Network'),
+           editable      => 1,
+           unique        => 1,
+           help          => __('IP or network address')
+           ),
        new EBox::Types::HostIP(
-                               fieldName     => 'gateway',
-                               printableName => __('Gateway'),
-                               editable      => 1,
-                              ),
+           fieldName     => 'gateway',
+           printableName => __('Gateway'),
+           editable      => 1,
+           help          => __('Gateway used to reach the above network' .
+                               '  address')
+           ),
        new EBox::Types::Text(
-                             fieldName     => 'description',
-                             printableName => __('Description'),
-                             editable      => 1,
-                             optional      => 1,
-                            ),
+           fieldName     => 'description',
+           printableName => __('Description'),
+           editable      => 1,
+           optional      => 1,
+           help          => __('Optional description for this route')
+           ),
       );
 
       my $dataTable = {
