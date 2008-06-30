@@ -100,7 +100,10 @@ sub _table
 					'printableName' => __('Interface'),
 					'editable' => 1,
 					'populate' => \&ifaces,
-				      ),
+					'help' => __('Incoming interface to match packets. If you '.
+						' want to match a whole subnet you can ' .
+						' select the interface of that subnet')
+			),
 		new EBox::Types::Union(
 					'fieldName' => 'source',
 					'printableName' => __('Source'),
@@ -123,14 +126,15 @@ sub _table
 						],
 
 					'unique' => 1,
-					'editable' => 1
+					'editable' => 1,
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'source_port',
 					'printableName' => __('Port'),
 					'size' => '3',
 					'editable' => 1,
-					'optional' => 1
+					'optional' => 1,
+					'help' => __('Leave it blank  to select any port')
 				),
 		new EBox::Types::Union(
 					'fieldName' => 'destination',
@@ -162,15 +166,18 @@ sub _table
 					'printableName' => __('Port'),
 					'size' => '3',
 					'editable' => 1,
-					'optional' => 1
+					'optional' => 1,
+					'help' => __('Leave it blank if to select any port')
 				),
 		new EBox::Types::Select(
 					'fieldName' => 'gateway',
 					'printableName' => __('Gateway'),
   					'foreignModel' => \&gatewayModel,
 					'foreignField' => 'name',
-					'editable' => 1
-				      )
+					'editable' => 1,
+					'help' => __('Gateway to route packets matching' .
+						'this rule')
+				)
 
 
 	 );
@@ -299,7 +306,7 @@ sub _buildIptablesRule
 	my $srcPort = $row->printableValueByName('source_port');
 	my $dstType = $row->elementByName('destination')->selectedType();
 	my $dstPort = $row->printableValueByName('destination_port');
-	my $gw = $row->vlaueByName('gateway');
+	my $gw = $row->valueByName('gateway');
 
 	my @ifaces = @{$self->_ifacesForRule($iface)};
 	
