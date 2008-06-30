@@ -45,8 +45,8 @@ sub new
 
         if (exists $opts{max}) {
             if (not ($opts{max} > $opts{min}) ) {
-                throw EBox::Exceptions::External(
-                      __('Maximum value must be greater than minimum value') 
+                throw EBox::Exceptions::Internal(
+                      'Maximum value must be greater than minimum value'
                                                 );
             }
         }
