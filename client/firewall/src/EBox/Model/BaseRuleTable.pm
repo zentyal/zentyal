@@ -124,8 +124,7 @@ sub _fieldDescription
                              new EBox::Types::IPAddr(
                                  'fieldName' => 'source_ipaddr',
                                  'printableName' => __('Source IP'),
-                                 'editable' => 1,
-                                 'optional' => 1),
+                                 'editable' => 1,),
                              new EBox::Types::Select(
                                  'fieldName' => 'source_object',
                                  'printableName' => __('Source object'),
