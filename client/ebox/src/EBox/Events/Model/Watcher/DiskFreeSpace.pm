@@ -93,27 +93,27 @@ sub _table
   {
 
       my @tableDesc =
-        (
-         new EBox::Types::Int(
-			      fieldName     => 'spaceThreshold',
-			      printableName => __('Minimum free disk space per filesystem'),
-			      editable      => 1,
-			      trailingText  => '%',
-	                      defaultValue  => 10,
-			     ),
-       );
+          (
+           new EBox::Types::Int(
+               fieldName     => 'spaceThreshold',
+               printableName => __('Minimum free disk space per filesystem'),
+               editable      => 1,
+               trailingText  => '%',
+               defaultValue  => 10,
+               ),
+          );
 
       my $dataForm = {
-                      tableName           => 'DiskFreeWatcherConfiguration',
-                      printableTableName  => __('Configure disk free space watcher'),
-                      modelDomain         => 'Events',
-                      defaultActions      => [ 'editField', 'changeView' ],
-                      tableDescription    => \@tableDesc,
-                      class               => 'dataForm',
-                      help                => __('Take care the minimum percentage of '
-						. 'free space is done per file system '
-					        . 'and not in overall'),
-                     };
+          tableName           => 'DiskFreeWatcherConfiguration',
+          printableTableName  => __('Configure disk free space watcher'),
+          modelDomain         => 'Events',
+          defaultActions      => [ 'editField', 'changeView' ],
+          tableDescription    => \@tableDesc,
+          class               => 'dataForm',
+          help                => __('Take care the minimum percentage of '
+                  . 'free space is done per file system '
+                  . 'and not in overall'),
+      };
 
       return $dataForm;
 
