@@ -48,7 +48,7 @@ use EBox::Exceptions::NotImplemented;
 sub new
 {
         my $class = shift;
-    	my %opts = @_;
+        my %opts = @_;
         my $self = $class->SUPER::new(@_);
         $self->{'type'} = 'union/text';
         # If it is set to editable
