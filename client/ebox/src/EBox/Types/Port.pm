@@ -8,13 +8,13 @@ use EBox::Validate;
 
 sub new
 {
-  my $class = shift;
+    my $class = shift;
 
-  my $self = $class->SUPER::new(@_);
-  $self->{type} = 'port';
-
-  bless($self, $class);
-  return $self;
+    my $self = $class->SUPER::new(@_);
+    $self->{type} = 'port';
+    
+    bless($self, $class);
+    return $self;
 }
 
 # Method: size
@@ -50,18 +50,18 @@ sub size
 #                                       port
 #
 sub _paramIsValid
-  {
-      my ($self, $params) = @_;
-
-      my $value = $params->{$self->fieldName()};
-
-      if (defined ( $value )) {
-	  EBox::Validate::checkPort($value, $self->printableName());
+{
+    my ($self, $params) = @_;
+    
+    my $value = $params->{$self->fieldName()};
+    
+    if (defined ( $value )) {
+        EBox::Validate::checkPort($value, $self->printableName());
       }
-
-      return 1;
-
-  }
+    
+    return 1;
+    
+}
 
 
 
