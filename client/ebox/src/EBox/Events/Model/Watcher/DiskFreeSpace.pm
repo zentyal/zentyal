@@ -92,7 +92,7 @@ sub validateTypedRow
 sub _table
   {
 
-      my @tableDesc =
+     my @tableDesc =
           (
            new EBox::Types::Int(
                fieldName     => 'spaceThreshold',
@@ -100,6 +100,8 @@ sub _table
                editable      => 1,
                trailingText  => '%',
                defaultValue  => 10,
+               help          => __('When the free space percentage of any ' .
+               'disk partition is under this value the event is triggered.')
                ),
           );
 
@@ -110,9 +112,7 @@ sub _table
           defaultActions      => [ 'editField', 'changeView' ],
           tableDescription    => \@tableDesc,
           class               => 'dataForm',
-          help                => __('Take care the minimum percentage of '
-                  . 'free space is done per file system '
-                  . 'and not in overall'),
+          help                => '',
       };
 
       return $dataForm;
