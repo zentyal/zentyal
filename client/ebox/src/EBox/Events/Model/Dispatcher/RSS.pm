@@ -174,6 +174,7 @@ sub _table
                              fieldName     => 'link',
                              printableName => __('Channel link'),
                              editable      => 1,
+                             size          => 30,
                              defaultValue  => $self->_defaultChannelLink(),
                             ),
        new EBox::Types::Union(

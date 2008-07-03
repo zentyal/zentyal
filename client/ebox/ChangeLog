@@ -5,6 +5,7 @@
 	+ Use the new EBox::Model::Row api
 	+ Add help method to EBox::Types::Abstract
 	+ Decrease size for percentage value in disk free watcher
+	+ Increase channel link field size in RSS dispatcher
 0.11.102
 	+ Bugfix: cmp in EBox::Types::HostIP now sorts correctly
 	+ updatedRowNotify in EBox::Model::DataTable receives old row as
