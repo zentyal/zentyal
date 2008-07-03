@@ -127,6 +127,11 @@ sub _table
         new EBox::Types::Boolean(
             'fieldName' => 'internal',
             'printableName' => __('Internal'),
+            'help'  => __('Tick this field if there is actually a service ' .
+                'on the machine using the ports configured for this service. ' .
+                'This helps eBox to know what ports are already busy')
+
+
 #            'hidden' => 1,
         ),
         new EBox::Types::HasMany (

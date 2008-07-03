@@ -111,6 +111,7 @@ sub _table
                          'fieldName' => 'source',
                          'printableName' => __('Source port'),
                          'editable' => 1,
+                         'help' => __('This field is usually set to any')
                          ),
                  new EBox::Types::PortRange(
                          'fieldName' => 'destination',
