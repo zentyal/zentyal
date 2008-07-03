@@ -182,6 +182,8 @@ sub _table
                               printableName => __('Allowed readers'),
                               editable      => 1,
                               subtypes      => \@subtypesAllowed,
+                              help          => __('Use this field to set the ' .
+                              ' access control for the channel')
                              ),
        new EBox::Types::Link(
                              fieldName      => 'linkToRSS',
