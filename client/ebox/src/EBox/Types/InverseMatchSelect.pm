@@ -36,22 +36,22 @@ use EBox;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-	unless (exists $opts{'HTMLSetter'}) {
-		$opts{'HTMLSetter'} ='/ajax/setter/inverseMatchSelectSetter.mas';
-	}
-	$opts{'type'} = 'select';
-        if ( defined ( $opts{'optional'} ) and
-             (not $opts{'optional'} )) {
-            EBox::warn('EBox::Types::InverseMatchSelect cannot be compulsory');
-        }
-	$opts{'optional'} = undef;
-	my $self = $class->SUPER::new(%opts);
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/inverseMatchSelectSetter.mas';
+    }
+    $opts{'type'} = 'select';
+    if ( defined ( $opts{'optional'} ) and
+            (not $opts{'optional'} )) {
+        EBox::warn('EBox::Types::InverseMatchSelect cannot be compulsory');
+    }
+    $opts{'optional'} = undef;
+    my $self = $class->SUPER::new(%opts);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 
