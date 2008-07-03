@@ -159,6 +159,10 @@ sub _table
                                                      dirName => PUBLIC_DIR),
                                 editable      => 1,
                                 defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
+                                help          => __('If you tick this field,' .
+                                    ' each user is permitted to have a website' .
+                                    ' in their home directory' .
+                                    ' under public_html')
                                ),
       );
 
