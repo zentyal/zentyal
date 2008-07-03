@@ -47,7 +47,7 @@ sub new
              (not $opts{'optional'} )) {
             EBox::warn('EBox::Types::InverseMatchSelect cannot be compulsory');
         }
-	$opts{'optional'} = 1;
+	$opts{'optional'} = undef;
 	my $self = $class->SUPER::new(%opts);
 
 	bless($self, $class);
