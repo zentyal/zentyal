@@ -134,7 +134,7 @@ sub _fieldDescription
                              ],
                          'unique' => 1,
                          'editable' => 1
-                          );
+                         );
         push (@tableHead, $source);
     }
 
@@ -167,20 +167,23 @@ sub _fieldDescription
     }
 
     push (@tableHead, 
-       new EBox::Types::InverseMatchSelect(
-             'fieldName' => 'service',
-             'printableName' => __('Service'), 
-             'foreignModel' => \&serviceModel,
-             'foreignField' => 'name',
-             'editable' => 1
-             ),
-       new EBox::Types::Text(
-             'fieldName' => 'description',
-             'printableName' => __('Description'),
-             'size' => '15',
-             'editable' => 1,
-             'optional' => 1,
-             ),
+            new EBox::Types::InverseMatchSelect(
+                'fieldName' => 'service',
+                'printableName' => __('Service'), 
+                'foreignModel' => \&serviceModel,
+                'foreignField' => 'name',
+                'editable' => 1,
+                'help' => __('If inverse match is ticked, any ' .
+                    ' service but the selected one will match this rule')
+
+                ),
+            new EBox::Types::Text(
+                'fieldName' => 'description',
+                'printableName' => __('Description'),
+                'size' => '15',
+                'editable' => 1,
+                'optional' => 1,
+                ),
 #        new EBox::Types::Boolean(
 #                 'fieldName' => 'log',
 #                 'printableName' => __('Log'),
