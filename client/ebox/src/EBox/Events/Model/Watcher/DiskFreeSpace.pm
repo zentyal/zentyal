@@ -98,6 +98,7 @@ sub _table
                fieldName     => 'spaceThreshold',
                printableName => __('Minimum free disk space per filesystem'),
                editable      => 1,
+               size          => 4,
                trailingText  => '%',
                defaultValue  => 10,
                help          => __('When the free space percentage of any ' .
