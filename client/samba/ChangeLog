@@ -1,3 +1,6 @@
+0.11.104
+	+ Add help to model fields
+	+ Fix typo in defaultEnabledValue. Now shares are enabled by default.
 0.11.103
 	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid 
 	  issues with the options cache

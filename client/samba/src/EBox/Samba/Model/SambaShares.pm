@@ -116,7 +116,8 @@ sub _table
                                        editable      => 1,
                                        unique        => 1,
                                                           ),
-                               ]),
+                               ],
+                               help => _pathHelp()),
        new EBox::Types::Text(
                                fieldName     => 'comment',
                                printableName => __('Comment'),
@@ -145,7 +146,7 @@ sub _table
                      printableRowName   => __('share'),
                      insertPosition     => 'back',
                      enableProperty     => 1,
-                     defaultEnableValue => 1
+                     defaultEnabledValue => 1
 
                     };
 
@@ -267,4 +268,15 @@ sub createDirs
     }
 }
 
+
+# Private methods
+sub _pathHelp
+{
+    return __( '<i>Directory under eBox</i> will ' .
+            'automatically create the share.' . 
+            'directory in /home/samba/shares <br>' .
+            '<i>File system path</i> will allow you to '.
+            'an existing directory in your file system. ');
+
+}
 1;
