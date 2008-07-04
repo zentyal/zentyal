@@ -1,3 +1,5 @@
+0.11.103
+	+ Make default and max leasing time mandatory fields
 0.11.102
 	+ Bugfix. Logging were not working with hostnames with characters
 	different from alphanumeric plus '_'

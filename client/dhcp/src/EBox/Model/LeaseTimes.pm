@@ -202,7 +202,6 @@ sub _table
                             editable         => 1,
                             defaultValue     => DEFAULT_LEASED_TIME,
                             trailingText     => __('seconds'),
-                            optional         => 1,
                            ),
        new EBox::Types::Int(
                             fieldName        => 'max_leased_time',
@@ -210,7 +209,6 @@ sub _table
                             editable         => 1,
                             defaultValue     => MAX_LEASED_TIME,
                             trailingText     => __('seconds'),
-                            optional         => 1,
                            ),
       );
 
