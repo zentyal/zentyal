@@ -221,22 +221,24 @@ sub _table
                                printableName => __('IP address'),
                                unique        => 1,
                                editable      => 1,
+                               help          => __('You cannot use an IP' .
+                                ' address contained the above ranges')
                               ),
       );
 
-    my $dataTable = {
-		     'tableName'          => 'FixedAddressTable',
-		     'printableTableName' => __('Fixed addresses'),
-                     'defaultActions'     =>
-                           [ 'add', 'del', 'editField', 'changeView' ],
-                     'modelDomain'        => 'DHCP',
-		     'tableDescription'   => \@tableDesc,
-		     'class'              => 'dataTable',
-		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('fixed address'),
-                     'order'              => 0,  # Ordered by tailoredOrder
-                     'sortedBy'           => 'ip',
-		    };
+      my $dataTable = {
+      'tableName'          => 'FixedAddressTable',
+      'printableTableName' => __('Fixed addresses'),
+      'defaultActions'     =>
+        [ 'add', 'del', 'editField', 'changeView' ],
+      'modelDomain'        => 'DHCP',
+      'tableDescription'   => \@tableDesc,
+      'class'              => 'dataTable',
+      'rowUnique'          => 1,  # Set each row is unique
+      'printableRowName'   => __('fixed address'),
+      'order'              => 0,  # Ordered by tailoredOrder
+      'sortedBy'           => 'ip',
+        };
 
     return $dataTable;
 
