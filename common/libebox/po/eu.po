@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.101\n"
+"Project-Id-Version: libebox 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:15+0200\n"
 "PO-Revision-Date: 2007-03-28 23:18+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -122,7 +122,7 @@ msgstr "Ez da konfigurazio fitxategian ebox erabiltzailea ezarri."
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:685
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -131,13 +131,13 @@ msgstr ""
 "Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
 "sartzeko baimena galerazia dagoela esan nahi du."
 
-#: src/EBox/Validate.pm:690
+#: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
 
-#: src/EBox/Validate.pm:765
+#: src/EBox/Validate.pm:767
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -145,9 +145,17 @@ msgstr ""
 "Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
 "fitxategi karaktere guztiak onartzen) "
 
-#: src/EBox/Validate.pm:793
+#: src/EBox/Validate.pm:795
 msgid "The file path must be absolute"
 msgstr "Fitxategi bidea absolutua izan behar da"
+
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"

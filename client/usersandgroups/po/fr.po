@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:45+0200\n"
+"POT-Creation-Date: 2008-07-04 08:20+0200\n"
 "PO-Revision-Date: 2007-04-12 11:56+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -41,7 +41,7 @@ msgid "group"
 msgstr "groupe"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:82
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
 msgid "user"
 msgstr "utilisateur"
 
@@ -88,7 +88,7 @@ msgid "Edit group"
 msgstr "Éditer groupe"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:74
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
 #: src/EBox/UsersAndGroups.pm:1572
 msgid "Users"
 msgstr "Utilisateurs"
@@ -101,27 +101,27 @@ msgstr "nom d'utilisateur"
 msgid "Groups"
 msgstr "Groupes"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:61
+#: src/EBox/UsersAndGroups/Model/Users.pm:63
 #: src/EBox/UsersAndGroups/Model/Users.pm:139 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
 msgstr "Nom complet"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:66
-#: src/EBox/UsersAndGroups/Model/Users.pm:149
+#: src/EBox/UsersAndGroups/Model/Users.pm:68
+#: src/EBox/UsersAndGroups/Model/Users.pm:148
 msgid "Edit"
 msgstr "Éditer"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:81
+#: src/EBox/UsersAndGroups/Model/Users.pm:83
 msgid "foo"
 msgstr "foo"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:112
+#: src/EBox/UsersAndGroups/Model/Users.pm:114
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."

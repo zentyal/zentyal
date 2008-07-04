@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.11.101\n"
+"Project-Id-Version: ebox-ca 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-05-15 13:01+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -57,9 +57,9 @@ msgstr "La phrase secrète CA doit être au minumum de {length} caractères"
 
 #: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
 #: src/EBox/CGI/RenewCertificate.pm:89
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Les jours avant expiration doivent être un nombre entier"
+msgstr "Les jours avant expiration ({days}) doivent être un nombre positif"
 
 #: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"

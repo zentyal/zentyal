@@ -8,9 +8,9 @@
 # This file is distributed under the same license as the ebox-dhcp package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11.101\n"
+"Project-Id-Version: ebox-dhcp 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-04-12 07:57+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -257,7 +257,7 @@ msgstr ""
 "utilisé dans une autre table d'adresses fixes"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1229 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "Adresse MAC"
 
@@ -284,13 +284,13 @@ msgstr ""
 "vous devez définir eBox en tant que prochain serveur"
 
 #: src/EBox/Model/ThinClientOptions.pm:190
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Unlinked previous uploaded firmware since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"L'ancien progiciel (firmware) est détaché depuis que les options du serveur "
-"ont été changées d'eBox à {option}"
+"L'ancien progiciel (firmware) est déchargé depuis que les options du "
+"prochain serveur ont été changées dans eBox sur {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
@@ -322,8 +322,8 @@ msgstr ""
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
 #: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
-#: src/EBox/DHCP.pm:1209
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
+#: src/EBox/DHCP.pm:1228
 msgid "Interface"
 msgstr "Interface"
 
@@ -375,7 +375,7 @@ msgstr ""
 "moins une plage ou une adresse fixe"
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} n'est pas statique"
@@ -384,12 +384,12 @@ msgstr "{iface} n'est pas statique"
 msgid "Not a valid action: add, set and del are available"
 msgstr "N'est pas une action valide : ajouter, définir et effacer en sont"
 
-#: src/EBox/DHCP.pm:778
+#: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 "N'est pas une action valide. Action disponibles : ajouter, définir et effacer"
 
-#: src/EBox/DHCP.pm:996
+#: src/EBox/DHCP.pm:1015
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -400,7 +400,7 @@ msgstr ""
 "employée par la plage DHCP '{range} 'dans l'interface '{iface} '. Svp, "
 "enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
 
-#: src/EBox/DHCP.pm:1014
+#: src/EBox/DHCP.pm:1033
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -411,27 +411,27 @@ msgstr ""
 "employée par l'adresse fixe DHCP '{fixed} 'dans l'interface '{iface} '. Svp, "
 "enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1227
 msgid "Date"
 msgstr "Date"
 
-#: src/EBox/DHCP.pm:1211
+#: src/EBox/DHCP.pm:1230
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1212
+#: src/EBox/DHCP.pm:1231
 msgid "Event"
 msgstr "Evénement"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Leased"
 msgstr "Alloué"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Released"
 msgstr "Libre"
 
-#: src/EBox/DHCP.pm:1218
+#: src/EBox/DHCP.pm:1237
 msgid "DHCP"
 msgstr "DHCP"
 

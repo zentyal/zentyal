@@ -12,9 +12,9 @@
 # This file is distributed under the same license as the ebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.101\n"
+"Project-Id-Version: ebox 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:42+0200\n"
+"POT-Creation-Date: 2008-07-04 08:17+0200\n"
 "PO-Revision-Date: 2007-05-16 13:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -377,11 +377,22 @@ msgstr "Habilita el servicio"
 msgid "Choose a value within the value set: {set}"
 msgstr "Elije un valor dentro del conjunto de valores: {set}"
 
-#: src/EBox/Types/Int.pm:110
-msgid "Write down a positive number"
+#: src/EBox/Types/Int.pm:131
+#, fuzzy
+msgid "Write down a number"
 msgstr "Escribe un número positivo"
 
-#: src/EBox/Types/Service.pm:187 src/EBox/Types/PortRange.pm:283
+#: src/EBox/Types/Int.pm:138
+#, perl-brace-format
+msgid "The value shouldn't be greater than {m}"
+msgstr ""
+
+#: src/EBox/Types/Int.pm:148
+#, perl-brace-format
+msgid "The value shouldn't be lesser than {m}"
+msgstr ""
+
+#: src/EBox/Types/Service.pm:221 src/EBox/Types/PortRange.pm:283
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:173
 msgid "Any"
@@ -426,58 +437,58 @@ msgstr "Arrancar"
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/EBox/Model/DataTable.pm:249
+#: src/EBox/Model/DataTable.pm:248
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} en módulo {module}"
 
-#: src/EBox/Model/DataTable.pm:253
+#: src/EBox/Model/DataTable.pm:252
 #, fuzzy
 msgid "at"
 msgstr "Fecha"
 
-#: src/EBox/Model/DataTable.pm:434
+#: src/EBox/Model/DataTable.pm:475
 msgid "field"
 msgstr "campo"
 
-#: src/EBox/Model/DataTable.pm:1894 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:1858 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
-#: src/EBox/Logs.pm:658
+#: src/EBox/Logs.pm:662
 msgid "Action"
 msgstr "Acción"
 
-#: src/EBox/Model/DataTable.pm:2506
+#: src/EBox/Model/DataTable.pm:2510
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Borra {num} filas de {rowName} de {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2724
+#: src/EBox/Model/DataTable.pm:2728
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} añadida"
 
-#: src/EBox/Model/DataTable.pm:2725
+#: src/EBox/Model/DataTable.pm:2729
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} borrada"
 
-#: src/EBox/Model/DataTable.pm:2726
+#: src/EBox/Model/DataTable.pm:2730
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} actualizada"
 
-#: src/EBox/Model/DataTable.pm:2727
+#: src/EBox/Model/DataTable.pm:2731
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} subida"
 
-#: src/EBox/Model/DataTable.pm:2728
+#: src/EBox/Model/DataTable.pm:2732
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} bajada"
 
-#: src/EBox/Model/DataTable.pm:3971
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:320
+#: src/EBox/Model/DataTable.pm:3978
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:294
 msgid "Enabled"
 msgstr "Deshabilitado"
@@ -487,15 +498,16 @@ msgstr "Deshabilitado"
 msgid "Provided object with index {i} does not exist"
 msgstr "El campo {field} no existe"
 
-#: src/EBox/Model/ModelManager.pm:458
+#: src/EBox/Model/ModelManager.pm:461
+#, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
-"\t\t\tthe following sections:"
+"                    the following sections:"
 msgstr ""
 "Los datos que estás borrando están siendo usados por\n"
 "\t\t\tlas siguientes secciones:"
 
-#: src/EBox/Model/ModelManager.pm:505
+#: src/EBox/Model/ModelManager.pm:508
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -503,18 +515,18 @@ msgstr ""
 "Los datos que estás modificando están siendo usados por\n"
 "\t\t\tlas siguientes secciones:"
 
-#: src/EBox/Model/DataForm.pm:524
+#: src/EBox/Model/DataForm.pm:525
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Borra datos de {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:574 src/templates/firstTime/passwd.mas:38
-#: src/templates/password.mas:53 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
+#: src/EBox/Model/DataForm.pm:575 src/templates/password.mas:53
+#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/EBox/Model/DataForm.pm:667 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:668 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Hecho"
 
@@ -589,7 +601,7 @@ msgstr "Restaurando el backup"
 msgid "Restoring modules"
 msgstr "Restaurando módulos"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:657
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:661
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Módulo"
@@ -646,7 +658,7 @@ msgstr "Las contraseñas no coinciden"
 msgid "The password must be at least 6 characters long"
 msgstr "La contraseña debe tener al menos 6 caracteres"
 
-#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
+#: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
 msgstr "Se ha cambiado la contraseña correctamente"
 
@@ -686,33 +698,13 @@ msgstr "Backup completo de configuración y datos"
 msgid "Bug-report configuration dump"
 msgstr "Volcado de configuración para informe de fallo"
 
-#: src/EBox/CGI/Logs/Index.pm:34 src/EBox/Logs.pm:637
+#: src/EBox/CGI/Logs/Index.pm:34 src/EBox/Logs.pm:641
 msgid "Logs"
 msgstr "Registros"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module status configuration"
 msgstr "Configuración del estado de los módulos"
-
-#: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to eBox"
-msgstr "Bienvenido a eBox"
-
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
-msgstr "eBox ya ha sido inicializado"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr "Establezca contraseña"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr "La contraseña inicial ya fue cambiada"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr "Las contraseñas no coinciden"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
@@ -750,50 +742,55 @@ msgstr "Informe RAID"
 msgid "Save configuration"
 msgstr "Guardar la configuración"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
 msgstr "Guardando cambios"
 
-#: src/EBox/CGI/Finish.pm:78
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
 msgstr "Guardando cambios en los módulos"
 
-#: src/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:104
-msgid "Current module"
-msgstr "Módulo actual"
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
+#, fuzzy
+msgid "Current operation"
+msgstr "Contraseña actual"
+
+#: src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
+msgstr ""
 
 #: src/EBox/CGI/Finish.pm:80
-msgid "modules saved"
-msgstr "módulos guardados"
-
-#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr "Cambios guardados"
 
-#: src/EBox/CGI/Finish.pm:82
+#: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
 msgstr "Revocando cambios"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
 msgstr "Revocando cambios en módulos"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "Módulo actual"
+
+#: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
 msgstr "módulos revocados"
 
-#: src/EBox/CGI/Finish.pm:106
+#: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
 msgstr "Cambios revocados"
 
-#: src/EBox/CGI/Finish.pm:107
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -820,73 +817,73 @@ msgstr ""
 msgid "A instance of a subclass of EBox::GConfModule is expected"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:209
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
 msgstr "nunca purgar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:213
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:124
 msgid "one hour"
 msgstr "una hora"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:217
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
 #: src/EBox/Logs/Model/ForcePurge.pm:128
 msgid "twelve hours"
 msgstr "doce horas"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:221
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
 #: src/EBox/Logs/Model/ForcePurge.pm:132
 msgid "one day"
 msgstr "un día"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:225
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
 #: src/EBox/Logs/Model/ForcePurge.pm:136
 msgid "three days"
 msgstr "tres días"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
 #: src/EBox/Logs/Model/ForcePurge.pm:140
 msgid "one week"
 msgstr "una semana"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
 #: src/EBox/Logs/Model/ForcePurge.pm:144
 msgid "fifteeen days"
 msgstr "quince días"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
 #: src/EBox/Logs/Model/ForcePurge.pm:148
 msgid "thirty days"
 msgstr "treinta días"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
 #: src/EBox/Logs/Model/ForcePurge.pm:152
 msgid "ninety days"
 msgstr "noventa días"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:312
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
 #: src/EBox/Events/Model/Watcher/Log.pm:216
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:327
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
 #: src/EBox/Logs/Model/ForcePurge.pm:98
 msgid "Purge logs older than"
 msgstr "Purgar registros anteriores a"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:336
 msgid "Event configuration"
 msgstr "Configuración de eventos"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:344 src/EBox/Logs.pm:643
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346 src/EBox/Logs.pm:647
 msgid "Configure logs"
 msgstr "Configurar los registros"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:350
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:352
 msgid "Enable/disable logging per-module basis"
 msgstr "Habilita/deshabilita el registro basándose en el módulo"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:352 src/EBox/Logs.pm:60
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:354 src/EBox/Logs.pm:62
 msgid "logs"
 msgstr "registros"
 
@@ -902,48 +899,61 @@ msgstr "Purgar"
 msgid "Jabber server name"
 msgstr "Nombre del servidor Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:197
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#, fuzzy
+msgid "Jabber server to send the messages"
+msgstr "Nombre del servidor Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
 msgstr "Puerto"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:204
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
 msgid "Jabber user name"
 msgstr "Nombre de usuario Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account which will send the messages. Pattern: user@domain"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
 msgstr "Contraseña del usuario"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:218
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
 msgid "Subscribe"
 msgstr "Subscribirse"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:263
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid "Tick this option if  you need to create an account for  the above user"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 msgid "Administrator Jabber Identifier"
 msgstr "Identificador del Administrador Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+msgid ""
+"Destination Jabber ID of the messages  generated by eBox,  i.e: you, the "
+"eBox admin. Note that you need to register this  account manually in  any "
+"jabber server"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
 msgstr "Configurar el emisor Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
-msgid ""
-"In order to configure the Jabber event dispatcher is required to be "
-"registered at the chosen Jabber server or check subscribe to do register. "
-"The administrator identifier should follow the pattern: user@domain[/"
-"resource]"
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+msgid "This dispatcher will send  events to an Jabber account"
 msgstr ""
-"Para configurar el emisor de eventos Jabber se necesita estar registrado en "
-"un servidor Jabber elegido o tildar \"Subscribirse\" para hacer el registro. "
-"El identificador del administrador debe seguir el patrón: usuario@dominio[/"
-"recurso]"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:241
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
 msgstr "Configuración del emisor Jabber actualizada"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:265
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr "Debe seguir el patrón 'usuario@dominio[/recurso]'"
 
@@ -967,19 +977,23 @@ msgstr "Público"
 msgid "Channel link"
 msgstr "Enlace del canal"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:181
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
 msgid "Allowed readers"
 msgstr "Lectores permitidos"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the  access control for the channel"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
 msgid "Syndicate this RSS"
 msgstr "Sindicar este RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:197
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
 msgid "Configure RSS dispatcher"
 msgstr "Configurar emisor RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
@@ -987,7 +1001,7 @@ msgstr ""
 "El enlace al canal es el enlace que se usa para sindicar el contenido de tu "
 "RSS favorito"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
 msgid "RSS dispatcher configuration updated"
 msgstr "Configuración del emisor RSS actualizada"
 
@@ -1022,17 +1036,15 @@ msgstr "filtro"
 msgid "Minimum free disk space per filesystem"
 msgstr "Mínimo espacio de disco libre por sistema de ficheros"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:108
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
 msgid "Configure disk free space watcher"
 msgstr "Configurar el observador de espacio de disco libre"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
-msgid ""
-"Take care the minimum percentage of free space is done per file system and "
-"not in overall"
-msgstr ""
-"Ten cuidado con el mínimo de porcentaje de espacio libre que se calcula por "
-"sistema de ficheros y no del conjunto de ellos"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:168
 #: src/EBox/Events/Model/Watcher/Log.pm:192
@@ -1155,50 +1167,60 @@ msgstr "Sistema"
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Logs.pm:76
+#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
+#, fuzzy, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Guardando cambios en los módulos"
+
+#: src/EBox/Global.pm:810
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr ""
+
+#: src/EBox/Logs.pm:78
 msgid "Create logs database"
 msgstr ""
 
-#: src/EBox/Logs.pm:77
+#: src/EBox/Logs.pm:79
 msgid "eBox store its logs in the database"
 msgstr ""
 
-#: src/EBox/Logs.pm:459
+#: src/EBox/Logs.pm:463
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "La tabla {table} no existe"
 
-#: src/EBox/Logs.pm:640
+#: src/EBox/Logs.pm:644
 msgid "Query logs"
 msgstr "Consulta registros"
 
-#: src/EBox/Logs.pm:655 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:659 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/Logs.pm:656
+#: src/EBox/Logs.pm:660
 msgid "Client Address"
 msgstr "Dirección del cliente"
 
-#: src/EBox/Logs.pm:659
+#: src/EBox/Logs.pm:663
 msgid "Params"
 msgstr "Parámetros"
 
-#: src/EBox/Logs.pm:660
+#: src/EBox/Logs.pm:664
 msgid "Committed"
 msgstr "Cometido"
 
-#: src/EBox/Logs.pm:665
+#: src/EBox/Logs.pm:669
 msgid "Admin"
 msgstr "Administración"
 
-#: src/EBox/Logs.pm:759
+#: src/EBox/Logs.pm:763
 #, fuzzy
 msgid "Log messages"
 msgstr "Mensaje"
 
-#: src/EBox/Logs.pm:771
+#: src/EBox/Logs.pm:775
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -1333,10 +1355,6 @@ msgstr "Lista de backups"
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
-
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
-msgid "Change default password"
-msgstr "Cambie la contraseña inicial"
 
 #: src/EBox/SysInfo.pm:41
 #, fuzzy
@@ -1564,22 +1582,6 @@ msgstr "siguiente"
 msgid "last"
 msgstr "último"
 
-#: src/templates/firstTime/passwd.mas:5 src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Tu contraseña debe tener al menos 6 caracteres."
-
-#: src/templates/firstTime/passwd.mas:11 src/templates/password.mas:25
-msgid "New password"
-msgstr "Nueva contraseña"
-
-#: src/templates/firstTime/passwd.mas:25 src/templates/password.mas:39
-msgid "Confirm password"
-msgstr "Confirmar nueva contraseña"
-
-#: src/templates/firstTime/index.mas:6
-msgid "Use default values"
-msgstr "Usar valores de fábrica"
-
 #: src/templates/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
 msgstr ""
@@ -1727,11 +1729,6 @@ msgstr ""
 msgid "Operation speed"
 msgstr ""
 
-#: src/templates/report/raid.mas:203
-#, fuzzy
-msgid "Current operation"
-msgstr "Contraseña actual"
-
 #: src/templates/report/raid.mas:214
 #, fuzzy
 msgid "RAID device number"
@@ -1788,9 +1785,21 @@ msgstr "Modo de restauración desconocido: {mode}"
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Tu contraseña debe tener al menos 6 caracteres."
+
 #: src/templates/password.mas:11
 msgid "Current password"
 msgstr "Contraseña actual"
+
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: src/templates/password.mas:39
+msgid "Confirm password"
+msgstr "Confirmar nueva contraseña"
 
 #: src/templates/progress.mas:20
 #, fuzzy
@@ -2011,6 +2020,58 @@ msgstr "Modificar"
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} creado por {warp}"
+
+#~ msgid "Write down a positive number"
+#~ msgstr "Escribe un número positivo"
+
+#~ msgid ""
+#~ "The data you are removing is being used by\n"
+#~ "\t\t\tthe following sections:"
+#~ msgstr ""
+#~ "Los datos que estás borrando están siendo usados por\n"
+#~ "\t\t\tlas siguientes secciones:"
+
+#~ msgid "Welcome to eBox"
+#~ msgstr "Bienvenido a eBox"
+
+#~ msgid "eBox was already initialized"
+#~ msgstr "eBox ya ha sido inicializado"
+
+#~ msgid "Set password"
+#~ msgstr "Establezca contraseña"
+
+#~ msgid "Default password was already changed"
+#~ msgstr "La contraseña inicial ya fue cambiada"
+
+#~ msgid "New passwords do not match"
+#~ msgstr "Las contraseñas no coinciden"
+
+#~ msgid "modules saved"
+#~ msgstr "módulos guardados"
+
+#~ msgid ""
+#~ "In order to configure the Jabber event dispatcher is required to be "
+#~ "registered at the chosen Jabber server or check subscribe to do register. "
+#~ "The administrator identifier should follow the pattern: user@domain[/"
+#~ "resource]"
+#~ msgstr ""
+#~ "Para configurar el emisor de eventos Jabber se necesita estar registrado "
+#~ "en un servidor Jabber elegido o tildar \"Subscribirse\" para hacer el "
+#~ "registro. El identificador del administrador debe seguir el patrón: "
+#~ "usuario@dominio[/recurso]"
+
+#~ msgid ""
+#~ "Take care the minimum percentage of free space is done per file system "
+#~ "and not in overall"
+#~ msgstr ""
+#~ "Ten cuidado con el mínimo de porcentaje de espacio libre que se calcula "
+#~ "por sistema de ficheros y no del conjunto de ellos"
+
+#~ msgid "Change default password"
+#~ msgstr "Cambie la contraseña inicial"
+
+#~ msgid "Use default values"
+#~ msgstr "Usar valores de fábrica"
 
 #~ msgid "Status: {percentage}% completed"
 #~ msgstr "Estado: {percentage}% completado"

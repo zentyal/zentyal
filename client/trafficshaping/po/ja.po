@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:45+0200\n"
+"POT-Creation-Date: 2008-07-04 08:20+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -146,12 +146,12 @@ msgstr ""
 msgid "rule"
 msgstr "ルール"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:624
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:627
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "{num} 個のルールを {modelName} から削除"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:669
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:673
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -281,19 +281,19 @@ msgstr "トラフィック整形"
 
 #: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "iptableルールをmangleテーブルに追加"
 
 #: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "優先度とレートの異なるパケットをマーク"
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
-msgstr ""
+msgstr "tcルールを追加"
 
 #: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "トラフィック整形ルールを実装"
 
 #: src/EBox/TrafficShaping.pm:428
 #, perl-brace-format

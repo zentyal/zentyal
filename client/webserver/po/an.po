@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:45+0200\n"
+"POT-Creation-Date: 2008-07-04 08:20+0200\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -84,11 +84,17 @@ msgstr ""
 msgid "Enable per user {dirName}"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:168
-msgid "General configuration settings"
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid ""
+"If you tick this field, each user is permitted to have a website in their "
+"home directory under public_html"
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -97,41 +103,49 @@ msgid ""
 "directories"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:178
+#: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
 msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
 msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:83
+#: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer.pm:109
+#: src/EBox/WebServer.pm:97
+msgid "To set webserver listening port"
+msgstr ""
+
+#: src/EBox/WebServer.pm:102
+msgid "To configure the per-user public HTML directory"
+msgstr ""
+
+#: src/EBox/WebServer.pm:130
 msgid "Enable apache LDAP user module"
 msgstr ""
 
-#: src/EBox/WebServer.pm:111
+#: src/EBox/WebServer.pm:132
 msgid "To fetch home directories from LDAP"
 msgstr ""
 
-#: src/EBox/WebServer.pm:172 src/EBox/WebServer.pm:196
+#: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
 msgid "Web"
 msgstr ""
 
-#: src/EBox/WebServer.pm:215
+#: src/EBox/WebServer.pm:236
 msgid "Web service status"
 msgstr ""
 
-#: src/EBox/WebServer.pm:407
+#: src/EBox/WebServer.pm:409
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""
 
-#: migration/0001_add_service_and_port.pl:145
+#: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
 msgstr ""

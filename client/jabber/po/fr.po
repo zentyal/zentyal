@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:42+0200\n"
+"POT-Creation-Date: 2008-07-04 08:17+0200\n"
 "PO-Revision-Date: 2007-04-12 08:21+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -36,19 +36,19 @@ msgstr "nom d'utilisateur"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr ""
+msgstr "Copier le schéma ldap de jabber vers /etc/ldap/schemas"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "eBox a besoin de ce schéma pour stocker les utilisateurs de jabber"
 
 #: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "Configurer proprement jabberd2"
 
 #: src/EBox/Jabber.pm:98
 msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
+msgstr "Ajouter les schémas LDAP utilisés par jabber"
 
 #: src/EBox/Jabber.pm:356
 msgid "Jabber Service"

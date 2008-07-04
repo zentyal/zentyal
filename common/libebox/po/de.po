@@ -10,9 +10,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.101\n"
+"Project-Id-Version: libebox 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:15+0200\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -131,7 +131,7 @@ msgstr "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
 msgid "Directory not found: {d}"
 msgstr "Der Ordner {d} wurde nicht gefunden"
 
-#: src/EBox/Validate.pm:685
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -142,7 +142,7 @@ msgstr ""
 "Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
 "Vielleicht sind Sie nicht zugriffsberechtigt"
 
-#: src/EBox/Validate.pm:690
+#: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
@@ -150,7 +150,7 @@ msgstr ""
 "#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
 "Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
 
-#: src/EBox/Validate.pm:765
+#: src/EBox/Validate.pm:767
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -158,9 +158,17 @@ msgstr ""
 "Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
 "sind noch nicht alle gültigen Zeichen unterstützt)"
 
-#: src/EBox/Validate.pm:793
+#: src/EBox/Validate.pm:795
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
+
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"

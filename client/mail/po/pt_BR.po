@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.11.101\n"
+"Project-Id-Version: ebox-mail 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:17+0200\n"
 "PO-Revision-Date: 2006-10-18 19:02-0200\n"
 "Last-Translator: junior\n"
 "Language-Team: <en@li.org>\n"
@@ -21,8 +21,8 @@ msgid "Admin mail recipient"
 msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/CGI/Index.pm:28
-#: src/EBox/CGI/Index.pm:64 src/EBox/CGI/VDomains.pm:55 src/EBox/Mail.pm:1191
-#: src/EBox/Mail.pm:1261 src/EBox/Mail.pm:1315
+#: src/EBox/CGI/Index.pm:64 src/EBox/CGI/VDomains.pm:55 src/EBox/Mail.pm:1178
+#: src/EBox/Mail.pm:1248 src/EBox/Mail.pm:1302
 msgid "Mail"
 msgstr "Mail"
 
@@ -79,7 +79,7 @@ msgid "mail alias"
 msgstr "alias de email"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:1270
+#: src/EBox/Mail.pm:1257
 msgid "Queue Management"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgid "Mail address"
 msgstr "Endereço de Email"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:1267
+#: src/EBox/Mail.pm:1254
 msgid "Virtual domains"
 msgstr "Domínios Virtuais"
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1292
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1279
 msgid "To"
 msgstr ""
 
@@ -150,21 +150,21 @@ msgstr ""
 
 #: src/EBox/MailVDomainsLdap.pm:438 src/EBox/MailVDomainsLdap.pm:444
 #: src/EBox/MailVDomainsLdap.pm:487 src/EBox/MailVDomainsLdap.pm:493
-#: src/EBox/Mail.pm:1459 src/EBox/Mail.pm:1465 src/EBox/MailUserLdap.pm:673
-#: src/EBox/MailUserLdap.pm:679 src/EBox/MailUserLdap.pm:741
-#: src/EBox/MailUserLdap.pm:747
+#: src/EBox/Mail.pm:1446 src/EBox/Mail.pm:1452 src/EBox/MailUserLdap.pm:683
+#: src/EBox/MailUserLdap.pm:689 src/EBox/MailUserLdap.pm:751
+#: src/EBox/MailUserLdap.pm:757
 msgid "maildir size"
 msgstr "Tamanho Maildir"
 
-#: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
-#: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
-#: src/EBox/MailAliasLdap.pm:156 src/EBox/MailUserLdap.pm:68
-#: src/EBox/MailUserLdap.pm:73
+#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
+#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
+#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:70
+#: src/EBox/MailUserLdap.pm:75
 msgid "mail account"
 msgstr "Conta de Email"
 
-#: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
-#: src/EBox/MailAliasLdap.pm:282
+#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
+#: src/EBox/MailAliasLdap.pm:228
 msgid "mail alias account"
 msgstr "Alias da Conta de Email"
 
@@ -174,276 +174,258 @@ msgid "mail"
 msgstr "Mail"
 
 #: src/EBox/Mail.pm:98
-msgid "Remove postfix init script link"
-msgstr ""
-
-#: src/EBox/Mail.pm:99
-msgid "eBox will take care of starting and stopping the service."
-msgstr ""
-
-#: src/EBox/Mail.pm:104
-msgid ""
-"Remove courier init script links for authdaemon, imap, imap-ssl, pop, and "
-"pop-ssl"
-msgstr ""
-
-#: src/EBox/Mail.pm:106
-msgid "eBox will take care of starting and stopping those services"
-msgstr ""
-
-#: src/EBox/Mail.pm:111
 msgid "dpkg-stateoverride  saslauthdaemon directory"
 msgstr ""
 
-#: src/EBox/Mail.pm:112
+#: src/EBox/Mail.pm:99
 msgid "To allow postfix communicate with saslauthd "
 msgstr ""
 
-#: src/EBox/Mail.pm:116
+#: src/EBox/Mail.pm:103
 #, fuzzy
 msgid "Generate mail aliases"
 msgstr "Criar Aliases de Email"
 
-#: src/EBox/Mail.pm:117
+#: src/EBox/Mail.pm:104
 msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
 msgstr ""
 
-#: src/EBox/Mail.pm:121
+#: src/EBox/Mail.pm:108
 msgid "Add LDAP schemas"
 msgstr ""
 
-#: src/EBox/Mail.pm:122
+#: src/EBox/Mail.pm:109
 msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
 msgstr ""
 
-#: src/EBox/Mail.pm:138
+#: src/EBox/Mail.pm:125
 msgid "To configure postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:143
+#: src/EBox/Mail.pm:130
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:149
+#: src/EBox/Mail.pm:136
 msgid "To configure courier to authenticate against LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:154
+#: src/EBox/Mail.pm:141
 msgid "To let courier know how to access LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:159
+#: src/EBox/Mail.pm:146
 msgid "To configure courier POP3"
 msgstr ""
 
-#: src/EBox/Mail.pm:164
+#: src/EBox/Mail.pm:151
 msgid "To configure POP3 with SSL support"
 msgstr ""
 
-#: src/EBox/Mail.pm:169
+#: src/EBox/Mail.pm:156
 msgid "To configure IMAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:174
+#: src/EBox/Mail.pm:161
 msgid "To configure IMAP with SSL support"
 msgstr ""
 
-#: src/EBox/Mail.pm:179 src/EBox/Mail.pm:184
+#: src/EBox/Mail.pm:166 src/EBox/Mail.pm:171
 msgid "To configure saslauthd to authenticate against LDAP "
 msgstr ""
 
-#: src/EBox/Mail.pm:189
+#: src/EBox/Mail.pm:176
 msgid "To configure saslauthd to use LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:194
+#: src/EBox/Mail.pm:181
 msgid "To add the LDAP schemas used by eBox mail"
 msgstr ""
 
-#: src/EBox/Mail.pm:489
+#: src/EBox/Mail.pm:476
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:506 src/EBox/Mail.pm:524
+#: src/EBox/Mail.pm:493 src/EBox/Mail.pm:511
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:530
+#: src/EBox/Mail.pm:517
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:568 src/EBox/Mail.pm:576 src/EBox/Mail.pm:581
+#: src/EBox/Mail.pm:555 src/EBox/Mail.pm:563 src/EBox/Mail.pm:568
 msgid "remote IP"
 msgstr "IP remoto"
 
-#: src/EBox/Mail.pm:569
+#: src/EBox/Mail.pm:556
 #, perl-brace-format
 msgid "{ip} is not a valid ip address"
 msgstr ""
 
-#: src/EBox/Mail.pm:577
+#: src/EBox/Mail.pm:564
 #, perl-brace-format
 msgid "{ip} cannot be reached by any configured interface"
 msgstr ""
 
-#: src/EBox/Mail.pm:582
+#: src/EBox/Mail.pm:569
 #, perl-brace-format
 msgid "{ip} can be reached by more than one configured interface"
 msgstr ""
 
-#: src/EBox/Mail.pm:623 src/EBox/Mail.pm:672
+#: src/EBox/Mail.pm:610 src/EBox/Mail.pm:659
 msgid "port"
 msgstr "Porta"
 
-#: src/EBox/Mail.pm:717
+#: src/EBox/Mail.pm:704
 #, fuzzy
 msgid "Smarthost"
 msgstr "IP smarthost"
 
-#: src/EBox/Mail.pm:719
+#: src/EBox/Mail.pm:706
 msgid "The smart host must be a domain name, a host name or an host address"
 msgstr ""
 
-#: src/EBox/Mail.pm:750 src/EBox/Mail.pm:756
+#: src/EBox/Mail.pm:737 src/EBox/Mail.pm:743
 msgid "message size"
 msgstr "Tamanho Mensagem"
 
-#: src/EBox/Mail.pm:1192
+#: src/EBox/Mail.pm:1179
 #, fuzzy
 msgid "Mail services"
 msgstr "Configurações do Serviço de Email"
 
-#: src/EBox/Mail.pm:1194
+#: src/EBox/Mail.pm:1181
 msgid "POP3 service"
 msgstr "Serviço POP3"
 
-#: src/EBox/Mail.pm:1196
+#: src/EBox/Mail.pm:1183
 msgid "IMAP service"
 msgstr "Serviço IMAP"
 
-#: src/EBox/Mail.pm:1216
+#: src/EBox/Mail.pm:1203
 #, fuzzy
 msgid "enabled"
 msgstr "Ativo"
 
-#: src/EBox/Mail.pm:1216
+#: src/EBox/Mail.pm:1203
 #, fuzzy
 msgid "disabled"
 msgstr "Desabilitado"
 
-#: src/EBox/Mail.pm:1219 src/EBox/Mail.pm:1297
+#: src/EBox/Mail.pm:1206 src/EBox/Mail.pm:1284
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1230 src/EBox/Mail.pm:1235 src/templates/mailtabs.mas:19
+#: src/EBox/Mail.pm:1217 src/EBox/Mail.pm:1222 src/templates/mailtabs.mas:19
 #: src/templates/mailtabs.mas:21
 msgid "Filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:1230
+#: src/EBox/Mail.pm:1217
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1232
+#: src/EBox/Mail.pm:1219
 #, fuzzy
 msgid "Address"
 msgstr "Endereço de Email"
 
-#: src/EBox/Mail.pm:1252
+#: src/EBox/Mail.pm:1239
 msgid "Mail system"
 msgstr "Sistema EMail"
 
-#: src/EBox/Mail.pm:1264
+#: src/EBox/Mail.pm:1251
 msgid "General"
 msgstr "Geral"
 
-#: src/EBox/Mail.pm:1289 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:1276 src/templates/qmanager.mas:19
 #, fuzzy
 msgid "Date"
 msgstr "Criar"
 
-#: src/EBox/Mail.pm:1290
+#: src/EBox/Mail.pm:1277
 #, fuzzy
 msgid "Message ID"
 msgstr "Tamanho Mensagem"
 
-#: src/EBox/Mail.pm:1291
+#: src/EBox/Mail.pm:1278
 msgid "From"
 msgstr ""
 
-#: src/EBox/Mail.pm:1293
+#: src/EBox/Mail.pm:1280
 msgid "From hostname"
 msgstr ""
 
-#: src/EBox/Mail.pm:1294
+#: src/EBox/Mail.pm:1281
 #, fuzzy
 msgid "From host ip"
 msgstr "IP smarthost"
 
-#: src/EBox/Mail.pm:1295 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1282 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
-#: src/EBox/Mail.pm:1296
+#: src/EBox/Mail.pm:1283
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1298
+#: src/EBox/Mail.pm:1285
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Mail.pm:1299
+#: src/EBox/Mail.pm:1286
 msgid "Aditional Info"
 msgstr ""
 
-#: src/EBox/Mail.pm:1305
+#: src/EBox/Mail.pm:1292
 msgid "Successful messages"
 msgstr ""
 
-#: src/EBox/Mail.pm:1306
+#: src/EBox/Mail.pm:1293
 #, fuzzy
 msgid "Maximum message size exceeded"
 msgstr "Tamanho Máximo aceito pelo servidor de Email (MB)"
 
-#: src/EBox/Mail.pm:1307
+#: src/EBox/Mail.pm:1294
 msgid "User quote exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1308
+#: src/EBox/Mail.pm:1295
 msgid "Relay access denied"
 msgstr ""
 
-#: src/EBox/Mail.pm:1309
+#: src/EBox/Mail.pm:1296
 #, fuzzy
 msgid "Account does not exist"
 msgstr "Nome da conta"
 
-#: src/EBox/Mail.pm:1310
+#: src/EBox/Mail.pm:1297
 msgid "Host unreachable"
 msgstr ""
 
-#: src/EBox/Mail.pm:1311
+#: src/EBox/Mail.pm:1298
 #, fuzzy
 msgid "Authentication error"
 msgstr "Requer Autentication"
 
-#: src/EBox/Mail.pm:1312
+#: src/EBox/Mail.pm:1299
 msgid "Other events"
 msgstr ""
 
-#: src/EBox/Mail.pm:1419
+#: src/EBox/Mail.pm:1406
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mail"
 
-#: src/EBox/MailUserLdap.pm:257
+#: src/EBox/MailUserLdap.pm:288
 msgid "This group has a mail alias"
 msgstr "Este grupo tem um alias de Email"
 
-#: src/EBox/MailUserLdap.pm:283
+#: src/EBox/MailUserLdap.pm:314
 msgid "This user has a mail account"
 msgstr "Este usuário tem uam conta de Email"
 

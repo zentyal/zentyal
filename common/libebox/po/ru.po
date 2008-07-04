@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.101\n"
+"Project-Id-Version: libebox 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:15+0200\n"
 "PO-Revision-Date: 2007-04-11 16:22+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -121,7 +121,7 @@ msgstr "Пользователь eBox не указан в конфигурац�
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:685
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -130,19 +130,27 @@ msgstr ""
 "Нет статистики по каталогу {dir}. Это может значить что каталог не "
 "существует или права доступа запрещают доступ к нему"
 
-#: src/EBox/Validate.pm:690
+#: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:765
+#: src/EBox/Validate.pm:767
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:793
+#: src/EBox/Validate.pm:795
 msgid "The file path must be absolute"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
 msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -75,15 +75,15 @@ msgstr ""
 
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "パッケージを削除"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "選択したパッケージを依存パッケージとともに削除"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "削除予定のパッケージ"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -91,12 +91,14 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"パッケージは正常に削除されました。管理インタフェースが数秒間反応しなくなりま"
+"すが、再起動が完了するまで少々お待ちください"
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
-msgstr ""
+msgstr "パッケージは正常に削除されませんでした。詳細はログに記録されています"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
@@ -104,13 +106,13 @@ msgstr "eBoxコンポーネント"
 
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "更新をダウンロードするためにcronスクリプトを有効化"
 
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
-msgstr ""
+msgstr "eBoxは設定済みのapt sourcesから利用可能な更新をダウンロードします。"
 
 #: src/EBox/Software.pm:457
 msgid "Software management"
@@ -129,112 +131,105 @@ msgstr ""
 "てから試行してください"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox認証局マネージャ"
+msgstr "eBox - eBox認証局マネージャ"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "eBox - DHCPサーバモジュール"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "eBox - DNSサーバ"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "eBoxプラットフォーム - ベースフレームワーク"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "eBox - ファイアウォール"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
 msgstr "IPsec VPN"
 
 #: src/EBox/PackageDescriptions.pm:7
-#, fuzzy
 msgid "eBox - Instant messaging (Jabber)"
-msgstr "インスタントメッセージング (Jabber)"
+msgstr "eBox - インスタントメッセージング (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "eBox - メールサーバ"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - Mail filter module"
-msgstr "メールフィルタモジュール"
+msgstr "eBox - メールフィルタモジュール"
 
 #: src/EBox/PackageDescriptions.pm:10
-#, fuzzy
 msgid "eBox - Network configuration module"
-msgstr "ネットワーク設定"
+msgstr "eBox - ネットワーク設定モジュール"
 
 #: src/EBox/PackageDescriptions.pm:11
-#, fuzzy
 msgid "eBox - NTP server"
-msgstr "eBox DNSサーバ"
+msgstr "eBox - NTPサーバ"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - オブジェクト管理"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "eBox - OpenVPNサーバモジュール"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "eBox - プリンタ共有"
 
 #: src/EBox/PackageDescriptions.pm:15
-#, fuzzy
 msgid "eBox - File sharing"
-msgstr "ファイル共有"
+msgstr "eBox - ファイル共有"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Services management"
-msgstr ""
+msgstr "eBox - サービス管理"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "SOAP server to communicate with eBox control center"
 msgstr "eBoxコントロールセンターと接続するSOAPサーバ"
 
 #: src/EBox/PackageDescriptions.pm:18
-#, fuzzy
 msgid "eBox - Software management"
-msgstr "ソフトウェアの管理"
+msgstr "eBox - ソフトウェアの管理"
 
 #: src/EBox/PackageDescriptions.pm:19
-#, fuzzy
 msgid "eBox - Proxy cache and content filter"
-msgstr "プロキシキャッシュとコンテンツフィルタ"
+msgstr "eBox - プロキシキャッシュとコンテンツフィルタ"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - eBoxのためのトラフィック整形"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - ユーザグループ管理"
 
 #: src/EBox/PackageDescriptions.pm:22
-msgid "Web Server"
+#, fuzzy
+msgid "eBox- Web Server"
 msgstr "Webサーバ"
 
-#: migration/0001_add_http_software_rule.pl:23
+#: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTPソフトウェア"
 
-#: migration/0001_add_http_software_rule.pl:25
+#: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "aptを利用したパッケージ更新ソフトウェアサービス"
 
-#: migration/0001_add_http_software_rule.pl:43
+#: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "aptアップデートの許可ルール"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -305,6 +300,9 @@ msgstr "なし"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "削除"
+
+#~ msgid "Web Server"
+#~ msgstr "Webサーバ"
 
 #~ msgid "The packages were removed successfully"
 #~ msgstr "パッケージは削除されました"

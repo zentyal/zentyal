@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2006-11-24 09:33+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -151,15 +151,15 @@ msgid "You must not prefix the domain with www."
 msgstr ""
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:92
-#: src/EBox/Squid/Model/MIMEFilter.pm:198
-#: src/EBox/Squid/Model/MIMEFilter.pm:207
-#: src/EBox/Squid/Model/MIMEFilter.pm:218
+#: src/EBox/Squid/Model/MIMEFilter.pm:196
+#: src/EBox/Squid/Model/MIMEFilter.pm:205
+#: src/EBox/Squid/Model/MIMEFilter.pm:216
 #, fuzzy
 msgid "MIME Type"
 msgstr "tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
-#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:773
+#: src/EBox/Squid/Model/ExtensionFilter.pm:140 src/EBox/Squid.pm.in:773
 msgid "Allow"
 msgstr "Permitir"
 
@@ -193,19 +193,19 @@ msgstr "tipo MIME"
 msgid "MIME type updated"
 msgstr "tipo MIME"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:200
+#: src/EBox/Squid/Model/MIMEFilter.pm:198
 #, fuzzy
 msgid "A MIME Type must follows this syntax: type/subtype"
 msgstr ""
 "Añade un nuevo tipo MIME con la siguiente sintaxis: tipo/subtipo. Donde el "
 "tipo puede ser: {types}"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:210
+#: src/EBox/Squid/Model/MIMEFilter.pm:208
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
 msgstr ""
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:221
+#: src/EBox/Squid/Model/MIMEFilter.pm:219
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
 msgstr ""
@@ -227,30 +227,30 @@ msgstr ""
 msgid "Filtering settings changed"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:80
+#: src/EBox/Squid/Model/GeneralSettings.pm:79
 #, fuzzy
 msgid "Transparent Proxy"
 msgstr "Proxy transparente"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:89
+#: src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "Port"
 msgstr "Puerto"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:97
+#: src/EBox/Squid/Model/GeneralSettings.pm:91
 #, fuzzy
 msgid "Default policy"
 msgstr "política global"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:106
+#: src/EBox/Squid/Model/GeneralSettings.pm:98
 #, fuzzy
 msgid "General Settings "
 msgstr "Configuración general"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:113
+#: src/EBox/Squid/Model/GeneralSettings.pm:103
 msgid "Settings changed"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:148
+#: src/EBox/Squid/Model/GeneralSettings.pm:138
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr ""
@@ -269,38 +269,38 @@ msgstr "Configurar extensiones permitidas"
 msgid "File extension"
 msgstr "Todas las extensiones"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:135
+#: src/EBox/Squid/Model/ExtensionFilter.pm:133
 msgid "Extension"
 msgstr "Extensión"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:153
+#: src/EBox/Squid/Model/ExtensionFilter.pm:151
 #, fuzzy
 msgid "Configure allowed file extensions"
 msgstr "Configurar extensiones permitidas"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:166
+#: src/EBox/Squid/Model/ExtensionFilter.pm:164
 #, fuzzy
 msgid "extension"
 msgstr "extensiones"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:167
+#: src/EBox/Squid/Model/ExtensionFilter.pm:165
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given extensions.\n"
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:170
+#: src/EBox/Squid/Model/ExtensionFilter.pm:168
 #, fuzzy
 msgid "Extension added"
 msgstr "Extensión"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:171
+#: src/EBox/Squid/Model/ExtensionFilter.pm:169
 #, fuzzy
 msgid "Extension removed"
 msgstr "Extensión"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:172
+#: src/EBox/Squid/Model/ExtensionFilter.pm:170
 #, fuzzy
 msgid "Extension updated"
 msgstr "Filtro de extensiones"

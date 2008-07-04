@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.101\n"
+"Project-Id-Version: ebox-dns 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2005-07-18 20:21+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,31 +23,31 @@ msgid ""
 "same domain"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:158
+#: src/EBox/Model/HostnameTable.pm:157
 msgid "Hostname"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:166
+#: src/EBox/Model/HostnameTable.pm:165
 msgid "IP Address"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:174 src/EBox/Model/AliasTable.pm:104
-#: src/EBox/Model/AliasTable.pm:114 src/EBox/Model/AliasTable.pm:120
+#: src/EBox/Model/HostnameTable.pm:173 src/EBox/Model/AliasTable.pm:126
+#: src/EBox/Model/AliasTable.pm:136 src/EBox/Model/AliasTable.pm:142
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:185 src/EBox/Model/HostnameTable.pm:191
+#: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
 #: src/EBox/Model/DomainTable.pm:73
 msgid "Hostnames"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:192
+#: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
 msgstr ""
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:788
-#: src/EBox/DNS.pm.in:816
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
+#: src/EBox/DNS.pm.in:852
 msgid "DNS"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Domains"
 msgstr ""
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:326
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
 msgid "domain"
 msgstr ""
 
@@ -117,29 +117,40 @@ msgstr ""
 msgid "Service disabled"
 msgstr ""
 
-#: src/EBox/Model/AliasTable.pm:80
+#: src/EBox/Model/AliasTable.pm:79
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr ""
 
-#: src/EBox/Model/AliasTable.pm:121
+#: src/EBox/Model/AliasTable.pm:100
+#, perl-brace-format
+msgid "There is an alias with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:52
+#: src/EBox/DNS.pm.in:53
 msgid "Domain Name System"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:89
+#: src/EBox/DNS.pm.in:90
 msgid "DNS Server"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:607
+#: src/EBox/DNS.pm.in:639
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:621
+#: src/EBox/DNS.pm.in:655
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""

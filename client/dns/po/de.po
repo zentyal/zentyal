@@ -5,9 +5,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.101\n"
+"Project-Id-Version: ebox-dns 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-02-24 00:21+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -26,31 +26,31 @@ msgstr ""
 "Es gibt bereits ein Alias mit dem Namen \"{name}\" für \"{hostname}\" in "
 "dieser Domäne"
 
-#: src/EBox/Model/HostnameTable.pm:158
+#: src/EBox/Model/HostnameTable.pm:157
 msgid "Hostname"
 msgstr "Computername"
 
-#: src/EBox/Model/HostnameTable.pm:166
+#: src/EBox/Model/HostnameTable.pm:165
 msgid "IP Address"
 msgstr "IP Adresse"
 
-#: src/EBox/Model/HostnameTable.pm:174 src/EBox/Model/AliasTable.pm:104
-#: src/EBox/Model/AliasTable.pm:114 src/EBox/Model/AliasTable.pm:120
+#: src/EBox/Model/HostnameTable.pm:173 src/EBox/Model/AliasTable.pm:126
+#: src/EBox/Model/AliasTable.pm:136 src/EBox/Model/AliasTable.pm:142
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:185 src/EBox/Model/HostnameTable.pm:191
+#: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
 #: src/EBox/Model/DomainTable.pm:73
 msgid "Hostnames"
 msgstr "Computernamen"
 
-#: src/EBox/Model/HostnameTable.pm:192
+#: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
 msgstr "Computername"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:788
-#: src/EBox/DNS.pm.in:816
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
+#: src/EBox/DNS.pm.in:852
 msgid "DNS"
 msgstr "DNS"
 
@@ -111,7 +111,7 @@ msgstr "Mailserver"
 msgid "Domains"
 msgstr "Domänen"
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:326
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
 msgid "domain"
 msgstr "Domäne"
 
@@ -123,31 +123,43 @@ msgstr "Dienst aktiviert"
 msgid "Service disabled"
 msgstr "Dienst deaktiviert"
 
-#: src/EBox/Model/AliasTable.pm:80
+#: src/EBox/Model/AliasTable.pm:79
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr ""
 "Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
 
-#: src/EBox/Model/AliasTable.pm:121
+#: src/EBox/Model/AliasTable.pm:100
+#, fuzzy, perl-brace-format
+msgid "There is an alias with the same name \"{name}\" in the same domain"
+msgstr ""
+"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
+
+#: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
 msgstr "Alias"
 
-#: src/EBox/DNS.pm.in:52
+#: src/EBox/DNS.pm.in:53
 #, fuzzy
 msgid "Domain Name System"
 msgstr "Name der Domäne"
 
-#: src/EBox/DNS.pm.in:89
+#: src/EBox/DNS.pm.in:90
 msgid "DNS Server"
 msgstr "DNS-Server"
 
-#: src/EBox/DNS.pm.in:607
+#: src/EBox/DNS.pm.in:639
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "Konfigurationsdatei für Zone {zone}"
 
-#: src/EBox/DNS.pm.in:621
+#: src/EBox/DNS.pm.in:655
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Konfiguration für Rückwärtsauflösung in Zone {zone}"

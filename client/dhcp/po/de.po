@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11.101\n"
+"Project-Id-Version: ebox-dhcp 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-08-19 12:26+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -266,7 +266,7 @@ msgstr ""
 "in einer anderen Tabelle mit festen Adressen verzeichnet ist"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1229 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC Adresse"
 
@@ -330,8 +330,8 @@ msgstr ""
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
 #: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
-#: src/EBox/DHCP.pm:1209
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
+#: src/EBox/DHCP.pm:1228
 msgid "Interface"
 msgstr "Netzwerkkarte"
 
@@ -383,7 +383,7 @@ msgstr ""
 "eine fixe Adresse setzen"
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} ist nicht statisch"
@@ -393,12 +393,12 @@ msgid "Not a valid action: add, set and del are available"
 msgstr ""
 "Ungültiger Befehl, \"Hinzufügen\", \"Setzen\" und \"Löschen\" sind verfügbar"
 
-#: src/EBox/DHCP.pm:778
+#: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 "Ungültiger Befehl, \"Hinzufügen\", \"Setzen\" und \"Löschen\" sind verfügbar"
 
-#: src/EBox/DHCP.pm:996
+#: src/EBox/DHCP.pm:1015
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -410,7 +410,7 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:1014
+#: src/EBox/DHCP.pm:1033
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -422,27 +422,27 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1227
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/DHCP.pm:1211
+#: src/EBox/DHCP.pm:1230
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1212
+#: src/EBox/DHCP.pm:1231
 msgid "Event"
 msgstr "Event"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Leased"
 msgstr "Ausgeliehen"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Released"
 msgstr "Zurückgegeben"
 
-#: src/EBox/DHCP.pm:1218
+#: src/EBox/DHCP.pm:1237
 msgid "DHCP"
 msgstr "DHCP"
 

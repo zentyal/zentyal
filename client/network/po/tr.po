@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:18+0200\n"
 "PO-Revision-Date: 2007-05-12 23:18+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
-#: src/EBox/Model/MultiGwRulesDataTable.pm:385
+#: src/EBox/Model/MultiGwRulesDataTable.pm:389
 msgid "any"
 msgstr "herhangi"
 
@@ -28,61 +28,79 @@ msgstr "Protokol"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:789
-#: src/EBox/Network.pm:821 src/EBox/Network.pm:866 src/EBox/Network.pm:900
-#: src/EBox/Network.pm:925 src/EBox/Network.pm:1001 src/EBox/Network.pm:1124
-#: src/EBox/Network.pm:1319 src/EBox/Network.pm:1379 src/EBox/Network.pm:1414
-#: src/EBox/Network.pm:1451 src/EBox/Network.pm:1484 src/EBox/Network.pm:2276
-#: src/EBox/Network.pm:2308 src/EBox/Network.pm:2381 src/EBox/Network.pm:2401
-#: src/EBox/Network.pm:2422 src/EBox/Network.pm:2445
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:792
+#: src/EBox/Network.pm:824 src/EBox/Network.pm:869 src/EBox/Network.pm:903
+#: src/EBox/Network.pm:928 src/EBox/Network.pm:1004 src/EBox/Network.pm:1127
+#: src/EBox/Network.pm:1322 src/EBox/Network.pm:1382 src/EBox/Network.pm:1417
+#: src/EBox/Network.pm:1454 src/EBox/Network.pm:1487 src/EBox/Network.pm:2310
+#: src/EBox/Network.pm:2342 src/EBox/Network.pm:2415 src/EBox/Network.pm:2435
+#: src/EBox/Network.pm:2456 src/EBox/Network.pm:2479
 msgid "Interface"
 msgstr "Arabirim"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:106
+#: src/EBox/Model/MultiGwRulesDataTable.pm:103
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:109
 #: src/EBox/Model/ByteRateGraphControl.pm:111
 msgid "Source"
 msgstr "Kaynak"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:111
-#: src/EBox/Model/MultiGwRulesDataTable.pm:143
+#: src/EBox/Model/MultiGwRulesDataTable.pm:114
+#: src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Any"
 msgstr "herhangi"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:114
+#: src/EBox/Model/MultiGwRulesDataTable.pm:117
 msgid "Source IP"
 msgstr "Kaynak IP adresi"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:119
+#: src/EBox/Model/MultiGwRulesDataTable.pm:122
 msgid "Source object"
 msgstr "Kaynak nesnesi"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:130
-#: src/EBox/Model/MultiGwRulesDataTable.pm:163
+#: src/EBox/Model/MultiGwRulesDataTable.pm:133
+#: src/EBox/Model/MultiGwRulesDataTable.pm:166
 msgid "Port"
 msgstr "Port"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Leave it blank  to select any port"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:141
 msgid "Destination"
 msgstr "Hedef"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:146
+#: src/EBox/Model/MultiGwRulesDataTable.pm:149
 msgid "Destination IP"
 msgstr "Hedef IP adresi"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:151
+#: src/EBox/Model/MultiGwRulesDataTable.pm:154
 msgid "Destination object"
 msgstr "Hedef nesnesi"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
-#: src/EBox/Model/StaticRoute.pm:124
+msgid "Leave it blank if to select any port"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:174
+#: src/EBox/Model/StaticRoute.pm:148
 msgid "Gateway"
 msgstr "Ağ geçidi"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:182
+#: src/EBox/Model/MultiGwRulesDataTable.pm:178
+msgid "Gateway to route packets matchingthis rule"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:188
 msgid "Multigateway rules"
 msgstr "Çoklu ağ geçidi kuralları"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:196
+#: src/EBox/Model/MultiGwRulesDataTable.pm:202
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destiantion and so forth  to use the router you "
@@ -96,19 +114,19 @@ msgstr ""
 "aklınızdan çıkartmayın. Elbette sıralamayı değiştirebilirsiniz. Eğer bir IP "
 "adresi veya port tanımlamazsanız, tanımlanan kural bütün hepsi geçerli olur."
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:198
+#: src/EBox/Model/MultiGwRulesDataTable.pm:204
 msgid "rule"
 msgstr "Kural"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:216
+#: src/EBox/Model/MultiGwRulesDataTable.pm:222
 msgid "Destination port"
 msgstr "Hedef portu"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:221
+#: src/EBox/Model/MultiGwRulesDataTable.pm:227
 msgid "Source port"
 msgstr "Kaynak portu"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:231
+#: src/EBox/Model/MultiGwRulesDataTable.pm:237
 msgid "Port cannot be set if no protocol is selected"
 msgstr "Protokol seçilmezse port tanımlaması yapılamaz"
 
@@ -133,16 +151,20 @@ msgstr "Bunlar sisteminizde mevcut olan fiziksel arabirimlerdir."
 msgid "interface"
 msgstr "Arabirim"
 
-#: src/EBox/Model/DNSResolver.pm:82
+#: src/EBox/Model/DNSResolver.pm:78
+msgid "IP address of the DNS server that eBox will use to resolve names"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:84
 #, fuzzy
 msgid "Name server"
 msgstr "Kaynak"
 
-#: src/EBox/Model/DNSResolver.pm:90
+#: src/EBox/Model/DNSResolver.pm:93
 msgid "Name server resolvers"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:95
+#: src/EBox/Model/DNSResolver.pm:98
 msgid ""
 "Having network interfaces configured via DHCP may cause this settings to be "
 "overriden."
@@ -150,25 +172,38 @@ msgstr ""
 "Mevcut ağ kartı ayarları DHCP sunucusu tarafından tekrardan "
 "yapılandırılabilir."
 
-#: src/EBox/Model/DNSResolver.pm:97
+#: src/EBox/Model/DNSResolver.pm:100
 #, fuzzy
 msgid "name server"
 msgstr "Ad sunucularını ayarla"
 
-#: src/EBox/Model/StaticRoute.pm:118 src/EBox/Network.pm:66
-#: src/EBox/Network.pm:2568
+#: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
+#: src/EBox/Network.pm:2602
 msgid "Network"
 msgstr "Ağ"
 
-#: src/EBox/Model/StaticRoute.pm:129 src/templates/ifaces.mas:149
+#: src/EBox/Model/StaticRoute.pm:144
+#, fuzzy
+msgid "IP or network address"
+msgstr "Ağ adresi"
+
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "Gateway used to reach the above network  address"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:149
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/EBox/Model/StaticRoute.pm:137
+#: src/EBox/Model/StaticRoute.pm:158
+msgid "Optional description for this route"
+msgstr ""
+
+#: src/EBox/Model/StaticRoute.pm:164
 msgid "Static routes"
 msgstr "Sabit yönelticiler"
 
-#: src/EBox/Model/StaticRoute.pm:142
+#: src/EBox/Model/StaticRoute.pm:169
 #, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
@@ -177,7 +212,7 @@ msgstr ""
 "Girdiğiniz bütün yönelticiler ağ kartınız üzerinden erişilebilir olması "
 "gerekir."
 
-#: src/EBox/Model/StaticRoute.pm:145
+#: src/EBox/Model/StaticRoute.pm:172
 #, fuzzy
 msgid "static route"
 msgstr "Sabit yönelticiler"
@@ -206,27 +241,46 @@ msgstr "Bunlar yapılandırılabilir arabirimlerdir"
 msgid "IP Address"
 msgstr "IP adresi"
 
-#: src/EBox/Model/GatewayTable.pm:102
+#: src/EBox/Model/GatewayTable.pm:99
+#, fuzzy
+msgid "Interface connected to this gateway"
+msgstr "Arabirimler"
+
+#: src/EBox/Model/GatewayTable.pm:103
 msgid "Upload"
 msgstr "Yükle"
 
-#: src/EBox/Model/GatewayTable.pm:109
+#: src/EBox/Model/GatewayTable.pm:107
+msgid "Upload rate in Kbits/s for this gateway."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:112
 msgid "Download"
 msgstr "İndir"
 
 #: src/EBox/Model/GatewayTable.pm:116
+msgid "Download rate in Kbits/s for this gateway."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:120
 msgid "Weight"
 msgstr "Yük"
 
-#: src/EBox/Model/GatewayTable.pm:123
+#: src/EBox/Model/GatewayTable.pm:124
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:130
 msgid "Default"
 msgstr "Öntanımlı"
 
-#: src/EBox/Model/GatewayTable.pm:133
+#: src/EBox/Model/GatewayTable.pm:140
 msgid "Gateway list"
 msgstr "Ağ geçidi listesi"
 
-#: src/EBox/Model/GatewayTable.pm:147
+#: src/EBox/Model/GatewayTable.pm:154
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -240,17 +294,13 @@ msgstr ""
 "alanları kendi yapınıza göre olmalıdır.  Bu sayede ağ genişliğinin düzenli "
 "ve adil bir şekilde dağıtılmasını gerçekleştirirsiniz."
 
-#: src/EBox/Model/GatewayTable.pm:149
+#: src/EBox/Model/GatewayTable.pm:156
 msgid "gateway"
 msgstr "Ağ geçidi"
 
-#: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "IP adresi"
-
-#: src/EBox/Model/GatewayTable.pm:176
-msgid "There is already a default gateway"
-msgstr "Önceden tanımlı bir ağ geçidi mevcut"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:70
 msgid "Physical interface"
@@ -360,7 +410,7 @@ msgid "Network interface configured"
 msgstr "Ağ arabirimi ayarlandı"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2499
+#: src/EBox/Network.pm:2533
 msgid "Network interfaces"
 msgstr "Ağ arabirimleri"
 
@@ -401,7 +451,7 @@ msgstr "Ağ tanıları"
 msgid "Host"
 msgstr "Makina"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2486
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2520
 msgid "host name"
 msgstr "Makina ismi"
 
@@ -426,9 +476,9 @@ msgstr "Trafik dengesi"
 msgid "virtual interface action"
 msgstr "Sanal aygıt işlemleri"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:696 src/EBox/Network.pm:701
-#: src/EBox/Network.pm:1005 src/EBox/Network.pm:1026 src/EBox/Network.pm:2278
-#: src/EBox/Network.pm:2293 src/EBox/Network.pm:2425 src/EBox/Network.pm:2544
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
+#: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
+#: src/EBox/Network.pm:2327 src/EBox/Network.pm:2459 src/EBox/Network.pm:2578
 #: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
 msgstr "IP adresi"
@@ -437,103 +487,103 @@ msgstr "IP adresi"
 msgid "virtual interface name"
 msgstr "Sanal aygıt ismi"
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1198
-#: src/EBox/Network.pm:1227 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1201
+#: src/EBox/Network.pm:1230 src/templates/ifaces.mas:148
 msgid "VLAN Id"
 msgstr "VLAN Id"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
-#: src/EBox/Network/Report/ByteRate.pm:133
+#: src/EBox/Network/Report/ByteRate.pm:134
 #, fuzzy
 msgid "Traffic rate monitoring"
 msgstr "Trafik dengeleme"
 
-#: src/EBox/Network/Report/ByteRate.pm:135 src/EBox/Network.pm:2533
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2567
 msgid "Status"
 msgstr "Durum"
 
-#: src/EBox/Network/Report/ByteRate.pm:135
+#: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:755
+#: src/EBox/Network/Report/ByteRate.pm:756
 msgid "bytes/second"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:822
-#: src/EBox/Network/Report/ByteRate.pm:928
+#: src/EBox/Network/Report/ByteRate.pm:823
+#: src/EBox/Network/Report/ByteRate.pm:929
 msgid "Traffic data for source"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:842
+#: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
 msgid "Network traffic from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:876
+#: src/EBox/Network/Report/ByteRate.pm:877
 msgid "Traffic data not found for service"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:886
+#: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
 msgid "Network traffic for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:936
+#: src/EBox/Network/Report/ByteRate.pm:937
 msgid "Traffic data for service"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:945
+#: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:947
+#: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
 msgid "source {src} and service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:961
+#: src/EBox/Network/Report/ByteRate.pm:962
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:988
+#: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:993
+#: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:994
+#: src/EBox/Network/Report/ByteRate.pm:995
 #, fuzzy
 msgid "all services"
 msgstr "Kaynak"
 
-#: src/EBox/Network/Report/ByteRate.pm:1039
+#: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:1044
+#: src/EBox/Network/Report/ByteRate.pm:1045
 #, fuzzy
 msgid "Traffic data for"
 msgstr "Trafik dengeleme"
 
-#: src/EBox/Network/Report/ByteRate.pm:1045
+#: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:1083
+#: src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:1098
+#: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:1122
+#: src/EBox/Network/Report/ByteRate.pm:1123
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
 msgstr ""
@@ -550,7 +600,7 @@ msgstr "Ad sunucularını ayarla"
 msgid "Configure default gateway"
 msgstr "Varsayılan ağ geçidini ayarla"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2235
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2267
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "{gw} ağ geçidine ulaşılamıyor"
@@ -579,20 +629,20 @@ msgstr ""
 msgid "eBox will set your network configuration"
 msgstr ""
 
-#: src/EBox/Network.pm:693 src/EBox/Network.pm:697
+#: src/EBox/Network.pm:696 src/EBox/Network.pm:700
 msgid "Virtual interface name"
 msgstr "Sanal arabirim ismi"
 
-#: src/EBox/Network.pm:696 src/EBox/Network.pm:1005 src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:699 src/EBox/Network.pm:1008 src/EBox/Network.pm:2312
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr "Ağ maskesi"
 
-#: src/EBox/Network.pm:1129
+#: src/EBox/Network.pm:1132
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "Bu ağ kartı Trunk kipinde kullanılamaz çünkü bu bir görsel ağ kartı."
 
-#: src/EBox/Network.pm:1174
+#: src/EBox/Network.pm:1177
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -600,14 +650,14 @@ msgstr ""
 "Bu ağ kartı Trunk kipindedir. Kullanılan kipi değiştirmeden önce bütün "
 "görsel ağ kartlarını tekrardan ayarlamanız gereklidir."
 
-#: src/EBox/Network.pm:1207
+#: src/EBox/Network.pm:1210
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Görsel bir alan eklemeden önce ağ kartlarının Trunk kipinde olması "
 "gereklidir."
 
-#: src/EBox/Network.pm:2170
+#: src/EBox/Network.pm:2202
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -616,56 +666,56 @@ msgstr ""
 "gelmesine neden olacaktır. Eğer bu işlemi gerçekten uygulamak istiyorsanız, "
 "lütfen yönelticiyi ilk önce iptal edin ve sonra tekrar deneyin."
 
-#: src/EBox/Network.pm:2238
-#, perl-brace-format
+#: src/EBox/Network.pm:2270
+#, fuzzy, perl-brace-format
 msgid ""
-"Gateway {gw} must be reacheable by a static interface. Currently is "
-"reacheable by {iface} which is not static"
+"Gateway {gw} must be reachable by a static interface. Currently it is "
+"reachable by {iface} which is not static"
 msgstr ""
 "{gw} ağ geçidi sabit bir IP adresi ile erişilebilir olması gerekir. {iface} "
 "ağ kartı ağ geçidine erişebiliyor fakat bu işlem dinamik IP üzerinden ayarlı."
 
-#: src/EBox/Network.pm:2467
+#: src/EBox/Network.pm:2501
 msgid "Host name"
 msgstr "Makina ismi"
 
-#: src/EBox/Network.pm:2518
+#: src/EBox/Network.pm:2552
 msgid "down"
 msgstr "down"
 
-#: src/EBox/Network.pm:2524
+#: src/EBox/Network.pm:2558
 msgid "up"
 msgstr "up"
 
-#: src/EBox/Network.pm:2528
+#: src/EBox/Network.pm:2562
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:2530
+#: src/EBox/Network.pm:2564
 msgid "no link"
 msgstr "no link"
 
-#: src/EBox/Network.pm:2538
+#: src/EBox/Network.pm:2572
 msgid "MAC address"
 msgstr "MAC adresi"
 
-#: src/EBox/Network.pm:2572
+#: src/EBox/Network.pm:2606
 msgid "Interfaces"
 msgstr "Arabirimler"
 
-#: src/EBox/Network.pm:2576
+#: src/EBox/Network.pm:2610
 msgid "Routes"
 msgstr "Yönelticiler"
 
-#: src/EBox/Network.pm:2578
+#: src/EBox/Network.pm:2612
 msgid "Diagnosis"
 msgstr "Tanılar"
 
-#: src/EBox/Network.pm:2581
+#: src/EBox/Network.pm:2615
 msgid "Gateways"
 msgstr "Ağ geçitleri"
 
-#: src/EBox/Network.pm:2584
+#: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr "Trafik Dengeleme"
 
@@ -689,16 +739,17 @@ msgstr "Lookup"
 msgid "Output"
 msgstr "Çıkış"
 
-#: src/templates/gwrules.mas:21
+#: src/templates/gwrules.mas:19
+#, fuzzy
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
-"add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
+"add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
 "Bu fonksiyonu kullanabilmek için en azından 2 tane ağ geçidi tanımlamanız "
 "gereklidir. Bunları öncelikle <a href=\"/ebox/Network/View/GatewayDataTable"
 "\">buraya</a> ekleyebilirsiniz."
 
-#: src/templates/gwrules.mas:27
+#: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
 msgstr "Trafik dengeleme"
 
@@ -786,6 +837,25 @@ msgstr "Tamam"
 msgid "Cancel"
 msgstr "Vazgeç"
 
+#~ msgid ""
+#~ "Gateway {gw} must be reacheable by a static interface. Currently is "
+#~ "reacheable by {iface} which is not static"
+#~ msgstr ""
+#~ "{gw} ağ geçidi sabit bir IP adresi ile erişilebilir olması gerekir. "
+#~ "{iface} ağ kartı ağ geçidine erişebiliyor fakat bu işlem dinamik IP "
+#~ "üzerinden ayarlı."
+
+#~ msgid ""
+#~ "To be able to use this feature, you need, at least, two gateways. You can "
+#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
+#~ msgstr ""
+#~ "Bu fonksiyonu kullanabilmek için en azından 2 tane ağ geçidi tanımlamanız "
+#~ "gereklidir. Bunları öncelikle <a href=\"/ebox/Network/View/"
+#~ "GatewayDataTable\">buraya</a> ekleyebilirsiniz."
+
+#~ msgid "There is already a default gateway"
+#~ msgstr "Önceden tanımlı bir ağ geçidi mevcut"
+
 #~ msgid "gateway address"
 #~ msgstr "Ağ geçidi adresi"
 
@@ -797,9 +867,6 @@ msgstr "Vazgeç"
 
 #~ msgid "Apply"
 #~ msgstr "Uygula"
-
-#~ msgid "network address"
-#~ msgstr "Ağ adresi"
 
 #, fuzzy
 #~ msgid "Source traffic"
@@ -852,3 +919,6 @@ msgstr "Vazgeç"
 #~ msgstr ""
 #~ "Girdiğiniz bütün yönelticiler ağ kartınız üzerinden erişilebilir olması "
 #~ "gerekir."
+
+#~ msgid "network address"
+#~ msgstr "Ağ adresi"

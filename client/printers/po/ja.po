@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -172,11 +172,11 @@ msgstr "デバイス"
 
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
-msgstr ""
+msgstr "スタンドアロンCUPSは有効です"
 
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
-msgstr ""
+msgstr "スタンドアロンCUPSは無効です"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
@@ -197,40 +197,40 @@ msgstr "プリンタを削除"
 
 #: src/EBox/Printers.pm:53
 msgid "printers"
-msgstr ""
+msgstr "プリンタ"
 
 #: src/EBox/Printers.pm:73
 msgid "Create spool directory for printers"
-msgstr ""
+msgstr "プリンタのスプールディレクトリを作成"
 
 #: src/EBox/Printers.pm:74
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "eBoxは/var/spool/sambaにスプールディレクトリを作成します"
 
 #: src/EBox/Printers.pm:79
 msgid "Add user ebox to lpadmin group"
-msgstr ""
+msgstr "lpadminグループにユーザeboxを追加"
 
 #: src/EBox/Printers.pm:80
 msgid "In order to manage printers and queues from the eBox web interface"
-msgstr ""
+msgstr "eBoxウェブインタフェースからプリンタとキューを管理するため"
 
 #: src/EBox/Printers.pm:85
 msgid "Create log table"
-msgstr ""
+msgstr "ログテーブルを作成"
 
 #: src/EBox/Printers.pm:86
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
-msgstr ""
+msgstr "eBoxはプリンタログのためにログデータベースに新規テーブルを作成します"
 
 #: src/EBox/Printers.pm:102
 msgid "To add and manage printers"
-msgstr ""
+msgstr "プリンタの追加・管理"
 
 #: src/EBox/Printers.pm:107
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
+msgstr "スタンドアロンcupsdを内部インタフェースに応答"
 
 #: src/EBox/Printers.pm:245
 msgid "Printer sharing"
@@ -315,7 +315,7 @@ msgstr "キャンセル"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "CUPSプリンタサーバポート"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -405,11 +405,11 @@ msgstr "プリンタ設定を削除"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
-msgstr ""
+msgstr "スタンドアロンCUPSを有効化"
 
 #: src/templates/printers.mas:25
 msgid "General settings"
-msgstr ""
+msgstr "一般設定"
 
 #: src/templates/printers.mas:33
 msgid "List of printers"
@@ -433,7 +433,7 @@ msgstr "このプリンタの管理"
 
 #: src/templates/printers.mas:75
 msgid "There is no printer configured yet"
-msgstr ""
+msgstr "設定済みのプリンタはありません"
 
 #: src/templates/network.mas:16
 msgid "Configure remote printer"

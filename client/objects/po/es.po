@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:18+0200\n"
 "PO-Revision-Date: 2007-02-02 09:48+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -87,7 +87,7 @@ msgstr "Borrado forzado del objeto {object}"
 msgid "Removed {nname} from object {object}"
 msgstr "Borrado {nname} del objeto {object}"
 
-#: src/EBox/Objects.pm:257
+#: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Objeto"
 

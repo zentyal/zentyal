@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:42+0200\n"
+"POT-Creation-Date: 2008-07-04 08:17+0200\n"
 "PO-Revision-Date: 2007-05-13 01:29+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -25,20 +25,20 @@ msgstr "Onayla"
 msgid "DENY"
 msgstr "Reddet"
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:898
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:894
 msgid "Decision"
 msgstr "Karar"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:893
+#: src/EBox/Model/BaseRuleTable.pm:118 src/EBox/Firewall.pm:889
 #: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Kaynak"
 
-#: src/EBox/Model/BaseRuleTable.pm:122 src/EBox/Model/BaseRuleTable.pm:149
+#: src/EBox/Model/BaseRuleTable.pm:123 src/EBox/Model/BaseRuleTable.pm:149
 msgid "Any"
 msgstr "herhangi"
 
-#: src/EBox/Model/BaseRuleTable.pm:125
+#: src/EBox/Model/BaseRuleTable.pm:126
 msgid "Source IP"
 msgstr "Kaynak IP"
 
@@ -46,7 +46,7 @@ msgstr "Kaynak IP"
 msgid "Source object"
 msgstr "Kaynak nese"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:894
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:890
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Hedef"
@@ -63,7 +63,13 @@ msgstr "Hedef nesne"
 msgid "Service"
 msgstr "Servis"
 
-#: src/EBox/Model/BaseRuleTable.pm:179
+#: src/EBox/Model/BaseRuleTable.pm:176
+msgid ""
+"If inverse match is ticked, any  service but the selected one will match "
+"this rule"
+msgstr ""
+
+#: src/EBox/Model/BaseRuleTable.pm:182
 msgid "Description"
 msgstr "Açıklama"
 
@@ -139,8 +145,8 @@ msgstr "Servisler süzgeçleme kuralları {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:303 src/EBox/Firewall.pm:336 src/EBox/Firewall.pm:637
-#: src/EBox/Firewall.pm:662
+#: src/EBox/Firewall.pm:299 src/EBox/Firewall.pm:332 src/EBox/Firewall.pm:633
+#: src/EBox/Firewall.pm:658
 msgid "protocol"
 msgstr "Protokol"
 
@@ -151,23 +157,23 @@ msgstr "Ağ aygıtı"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:305 src/EBox/Firewall.pm:337
+#: src/EBox/Firewall.pm:301 src/EBox/Firewall.pm:333
 msgid "external port"
 msgstr "Harici port"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:304
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:300
 msgid "destination address"
 msgstr "Hedef adresi"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:306
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:302
 msgid "destination port"
 msgstr "Hedef portu"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:254
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:250
 msgid "action"
 msgstr "İşlem"
 
@@ -190,21 +196,21 @@ msgstr "Kuralları düzenle"
 msgid "firewall"
 msgstr "Güvenlik duvarı"
 
-#: src/EBox/Firewall.pm:97
+#: src/EBox/Firewall.pm:93
 msgid "Flush previous firewall rules"
 msgstr ""
 
-#: src/EBox/Firewall.pm:98
+#: src/EBox/Firewall.pm:94
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
 
-#: src/EBox/Firewall.pm:103
+#: src/EBox/Firewall.pm:99
 msgid "Secure by default"
 msgstr ""
 
-#: src/EBox/Firewall.pm:104
+#: src/EBox/Firewall.pm:100
 msgid ""
 "Just a few connections are allowed by default. Make sure you add the proper "
 "incoming and outcoming rules to make your system work as expected. Usually, "
@@ -212,66 +218,66 @@ msgid ""
 "incoming connections are allowed."
 msgstr ""
 
-#: src/EBox/Firewall.pm:310
+#: src/EBox/Firewall.pm:306
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
 msgstr ""
 "{port} portu başka bir servis tarafından kullanımda veya port başka bir yere "
 "yönlendirilmekte"
 
-#: src/EBox/Firewall.pm:461 src/EBox/Firewall.pm:506 src/EBox/Firewall.pm:530
+#: src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:502 src/EBox/Firewall.pm:526
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "'{name}' ismi geçersiz"
 
-#: src/EBox/Firewall.pm:462 src/EBox/Firewall.pm:638 src/EBox/Firewall.pm:663
+#: src/EBox/Firewall.pm:458 src/EBox/Firewall.pm:634 src/EBox/Firewall.pm:659
 msgid "port"
 msgstr "Port"
 
-#: src/EBox/Firewall.pm:846 src/EBox/Firewall.pm:906
+#: src/EBox/Firewall.pm:842 src/EBox/Firewall.pm:902
 msgid "Firewall"
 msgstr "Güvenlik duvarı"
 
-#: src/EBox/Firewall.pm:850
+#: src/EBox/Firewall.pm:846
 msgid "Packet Filter"
 msgstr "Paket süzgeçleme"
 
-#: src/EBox/Firewall.pm:853
+#: src/EBox/Firewall.pm:849
 msgid "Redirects"
 msgstr "Yönlendirme"
 
-#: src/EBox/Firewall.pm:890
+#: src/EBox/Firewall.pm:886
 #, fuzzy
 msgid "Date"
 msgstr "Sil"
 
-#: src/EBox/Firewall.pm:891
+#: src/EBox/Firewall.pm:887
 #, fuzzy
 msgid "Input interface"
 msgstr "Ağ aygıtı"
 
-#: src/EBox/Firewall.pm:892
+#: src/EBox/Firewall.pm:888
 #, fuzzy
 msgid "Output interface"
 msgstr "Ağ aygıtı"
 
-#: src/EBox/Firewall.pm:895 src/templates/redirects.mas:25
+#: src/EBox/Firewall.pm:891 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
 #: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
 msgid "Protocol"
 msgstr "Protokol"
 
-#: src/EBox/Firewall.pm:896 src/templates/fwdrules.mas:76
+#: src/EBox/Firewall.pm:892 src/templates/fwdrules.mas:76
 #: src/templates/fwdruleedit.mas:109
 msgid "Source port"
 msgstr "Kaynak portu"
 
-#: src/EBox/Firewall.pm:897 src/templates/fwdrules.mas:124
+#: src/EBox/Firewall.pm:893 src/templates/fwdrules.mas:124
 #: src/templates/fwdruleedit.mas:167
 msgid "Destination port"
 msgstr "Hedef portu"
 
-#: src/EBox/Firewall.pm:903
+#: src/EBox/Firewall.pm:899
 msgid "DROP"
 msgstr ""
 

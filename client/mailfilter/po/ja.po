@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:18+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -120,19 +120,19 @@ msgstr "MIMEタイプ"
 msgid "file extension"
 msgstr "ファイル拡張子"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:38
+#: src/EBox/MailFilter/SpamAssassin.pm:40
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Spamassassinデーモンを設定"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:302
+#: src/EBox/MailFilter/SpamAssassin.pm:322
 msgid "The spam's autolearn threshold must be higher than 6.0"
 msgstr "迷惑メールの学習のしきい値は6.0より大きく設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:331
+#: src/EBox/MailFilter/SpamAssassin.pm:351
 msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
 msgstr "通常メールの学習のしきい値は迷惑メールよりも高く設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:347
+#: src/EBox/MailFilter/SpamAssassin.pm:367
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
@@ -140,7 +140,7 @@ msgstr ""
 "迷惑メールの学習のしきい値はデフォルトの迷惑メールのしきい値以上に設定してく"
 "ださい"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:351
+#: src/EBox/MailFilter/SpamAssassin.pm:371
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
@@ -148,26 +148,26 @@ msgstr ""
 "通常メールの学習のしきい値はデフォルトの迷惑メールのレベルよりも小さく設定し"
 "てください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:440 src/templates/antispam.mas:29
+#: src/EBox/MailFilter/SpamAssassin.pm:460 src/templates/antispam.mas:32
 msgid "Spam threshold"
 msgstr "迷惑メールしきい値"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:440
+#: src/EBox/MailFilter/SpamAssassin.pm:460
 msgid "It must be a number(decimal point allowed)"
 msgstr "数字を入力してください(小数点も利用可能)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:450
+#: src/EBox/MailFilter/SpamAssassin.pm:470
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr "迷惑メールのしきい値は学習のしきい値以下に設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:455
+#: src/EBox/MailFilter/SpamAssassin.pm:475
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
 "迷惑メールのしきい値は通常メールの学習のしきい値よりも高く設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:532
+#: src/EBox/MailFilter/SpamAssassin.pm:552
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
@@ -176,62 +176,62 @@ msgstr ""
 "ベイジアンフィルタが無効になっているため学習を開始できません。ベイジアンフィ"
 "ルタが有効になるように設定してください"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:547
-#, perl-brace-format
-msgid "Unsupported or incorrect input source format: {format}"
+#: src/EBox/MailFilter/SpamAssassin.pm:567
+#, fuzzy, perl-brace-format
+msgid "Unsupported or incorrect input source fonrmat: {format}"
 msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:576
+#: src/EBox/MailFilter/SpamAssassin.pm:596
 msgid "domain name"
 msgstr "ドメイン名"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:580
+#: src/EBox/MailFilter/SpamAssassin.pm:600
 msgid "email address"
 msgstr "Eメールアドレス"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:584
+#: src/EBox/MailFilter/SpamAssassin.pm:604
 msgid ""
 "The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
 "送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使え"
 "ます"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:409 src/EBox/MailFilter.pm:804
+#: src/EBox/MailFilter/VDomainsLdap.pm:505 src/EBox/MailFilter.pm:804
 msgid "Mail filter settings"
 msgstr "メールフィルタ設定"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:464
+#: src/EBox/MailFilter/VDomainsLdap.pm:560
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "バーチャルメールドメイン {vd} は存在しません"
 
 #: src/EBox/MailFilter/ClamAV.pm:56
 msgid "To configure freshclam updater daemon"
-msgstr ""
+msgstr "freshclamアップデータデーモンを設定"
 
 #: src/EBox/MailFilter.pm:87
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "ClamAVユーザをAMaViSグループに追加"
 
 #: src/EBox/MailFilter.pm:88
 msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr ""
+msgstr "ClamAVがメールをスキャンするにはAMaViSフィールドへのアクセスが必要です"
 
 #: src/EBox/MailFilter.pm:92
 msgid "Update LDAP"
-msgstr ""
+msgstr "LDAPを更新"
 
 #: src/EBox/MailFilter.pm:93
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "AMaViS用のクラスとフィールドを追加"
 
 #: src/EBox/MailFilter.pm:109
 msgid "To configure amavis"
-msgstr ""
+msgstr "AMaViSを設定"
 
 #: src/EBox/MailFilter.pm:114
 msgid "To add the LDAP schemas used by eBox mailfilter"
-msgstr ""
+msgstr "eBoxメールフィルタが利用するLDAPスキーマを追加"
 
 #: src/EBox/MailFilter.pm:368
 msgid "Cannot proceed because the filter is in use"
@@ -383,96 +383,116 @@ msgstr "全ての登録済み {plural}"
 msgid "Delete them all"
 msgstr "全て削除"
 
-#: src/templates/antispam.mas:30
+#: src/templates/antispam.mas:33
 msgid "The score threshold to mark a message as spam"
 msgstr "メッセージを迷惑メールとしてマークするしきい値スコア"
 
-#: src/templates/antispam.mas:36
+#: src/templates/antispam.mas:39
 msgid "Spam subject tag"
 msgstr "迷惑メール題名タグ"
 
-#: src/templates/antispam.mas:37
+#: src/templates/antispam.mas:40
 msgid "Tag which will be added to the spam mail subject"
 msgstr "迷惑メール題名として追加するタグ"
 
-#: src/templates/antispam.mas:43
+#: src/templates/antispam.mas:46
 msgid "Use bayesian classifier"
 msgstr "ベイジアン識別器を使用"
 
-#: src/templates/antispam.mas:49
+#: src/templates/antispam.mas:52
 msgid "Auto-whitelist"
 msgstr "自動ホワイトリスト"
 
-#: src/templates/antispam.mas:50
+#: src/templates/antispam.mas:53
 msgid "Change the score of mail according to the sender history"
 msgstr "送信者の履歴を使用してメールのスコアを変更"
 
-#: src/templates/antispam.mas:56
+#: src/templates/antispam.mas:59
 msgid "Auto-learn"
 msgstr "自動学習"
 
-#: src/templates/antispam.mas:57
+#: src/templates/antispam.mas:60
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr "しきい値に達したメッセージを使って学習システムにフィードバック"
 
-#: src/templates/antispam.mas:63
+#: src/templates/antispam.mas:66
 msgid "Autolearn spam threshold"
 msgstr "迷惑メールしきい値を自動で学習"
 
-#: src/templates/antispam.mas:64
+#: src/templates/antispam.mas:67
 msgid ""
 "Spam messages which a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr "このしきい値以上の迷惑メッセージが学習システムに追加されます"
 
-#: src/templates/antispam.mas:70
+#: src/templates/antispam.mas:73
 msgid "Autolearn ham threshold"
 msgstr "通常メールのしきい値を自動で学習"
 
-#: src/templates/antispam.mas:71
+#: src/templates/antispam.mas:74
 msgid ""
 "Ham messages which a score below this threshold will be added to the "
 "learning system"
 msgstr "このしきい値を下回るスコアの通常メールを学習システムに追加"
 
-#: src/templates/antispam.mas:76 src/templates/general.mas:65
+#: src/templates/antispam.mas:80
+msgid "Spam mail account for learning spam"
+msgstr ""
+
+#: src/templates/antispam.mas:81
+msgid ""
+"A address spam@ will be made in each domain, spam messages incorreclty "
+"classified as ham may be forwarded to this addres to train the filter"
+msgstr ""
+
+#: src/templates/antispam.mas:87
+msgid "Ham mail account for learning ham"
+msgstr ""
+
+#: src/templates/antispam.mas:88
+msgid ""
+"A address ham@ will be made in each domain, ham messages incorreclty "
+"classified as spam may be forwarded to this addres to train the filter"
+msgstr ""
+
+#: src/templates/antispam.mas:93 src/templates/general.mas:65
 #: src/templates/vdomain.mas:95
 msgid "Change"
 msgstr "変更"
 
-#: src/templates/antispam.mas:83
+#: src/templates/antispam.mas:100
 msgid "Mailbox contains"
 msgstr "メールボックス内容"
 
-#: src/templates/antispam.mas:86
+#: src/templates/antispam.mas:103
 msgid "spam"
 msgstr "迷惑メール"
 
-#: src/templates/antispam.mas:87
+#: src/templates/antispam.mas:104
 msgid "ham"
 msgstr "通常メール"
 
-#: src/templates/antispam.mas:94
+#: src/templates/antispam.mas:111
 msgid "Mailbox"
 msgstr "メールボックス"
 
-#: src/templates/antispam.mas:102
+#: src/templates/antispam.mas:119
 msgid "Train"
 msgstr "学習"
 
-#: src/templates/antispam.mas:115
+#: src/templates/antispam.mas:132
 msgid "Spam policy"
 msgstr "迷惑メールポリシー"
 
-#: src/templates/antispam.mas:123
+#: src/templates/antispam.mas:140
 msgid "Antispam options"
 msgstr "アンチスパムオプション"
 
-#: src/templates/antispam.mas:128
+#: src/templates/antispam.mas:145
 msgid "Antispam global sender access lists"
 msgstr "グローバルな送信者アクセス一覧をアンチスパム"
 
-#: src/templates/antispam.mas:135
+#: src/templates/antispam.mas:152
 msgid "Spam filter training"
 msgstr "迷惑メールフィルタの学習"
 
@@ -616,6 +636,9 @@ msgstr "宛先不明通知"
 #: src/templates/policy.mas:14
 msgid "Discard"
 msgstr "破棄"
+
+#~ msgid "Unsupported or incorrect input source format: {format}"
+#~ msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
 #~ msgid "module status"
 #~ msgstr "モジュール状態"

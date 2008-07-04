@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:18+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Removed {nname} from object {object}"
 msgstr ""
 
-#: src/EBox/Objects.pm:257
+#: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Objecte"
 

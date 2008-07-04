@@ -7,9 +7,9 @@
 # Jorge Arcas <jorge@warp.es>, 2006. 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11.101\n"
+"Project-Id-Version: ebox-dhcp 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-02-25 15:27+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -261,7 +261,7 @@ msgstr ""
 "otra tabla de asignaciones estáticas"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1229 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "Dirección MAC"
 
@@ -323,8 +323,8 @@ msgstr ""
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
 #: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
-#: src/EBox/DHCP.pm:1209
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
+#: src/EBox/DHCP.pm:1228
 msgid "Interface"
 msgstr "Interfaz"
 
@@ -376,7 +376,7 @@ msgstr ""
 "asignación estática"
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} no es estática"
@@ -385,11 +385,11 @@ msgstr "{iface} no es estática"
 msgid "Not a valid action: add, set and del are available"
 msgstr "No es una acción válida: añadir, actualizar y borrar están disponibles"
 
-#: src/EBox/DHCP.pm:778
+#: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Accion invalida, las posibles son : Agregar, configurar y borrar"
 
-#: src/EBox/DHCP.pm:996
+#: src/EBox/DHCP.pm:1015
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -401,7 +401,7 @@ msgstr ""
 "favor, elimine el rango antes de intentar añadir una interfaz virtual que "
 "utilice esa IP."
 
-#: src/EBox/DHCP.pm:1014
+#: src/EBox/DHCP.pm:1033
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -413,27 +413,27 @@ msgstr ""
 "'{iface}'. Por favor, elimine la asignación estática antes de intentar "
 "añadir una interfaz virtual que utilice esa IP."
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1227
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/DHCP.pm:1211
+#: src/EBox/DHCP.pm:1230
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1212
+#: src/EBox/DHCP.pm:1231
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Leased"
 msgstr "Cedida"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Released"
 msgstr "Liberada"
 
-#: src/EBox/DHCP.pm:1218
+#: src/EBox/DHCP.pm:1237
 msgid "DHCP"
 msgstr "DHCP"
 

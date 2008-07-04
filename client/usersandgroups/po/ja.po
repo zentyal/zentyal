@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:45+0200\n"
+"POT-Creation-Date: 2008-07-04 08:20+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -39,7 +39,7 @@ msgid "group"
 msgstr "グループ"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:82
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
 msgid "user"
 msgstr "ユーザ"
 
@@ -86,7 +86,7 @@ msgid "Edit group"
 msgstr "グループを編集"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:74
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
 #: src/EBox/UsersAndGroups.pm:1572
 msgid "Users"
 msgstr "ユーザ"
@@ -99,57 +99,65 @@ msgstr "ユーザ名"
 msgid "Groups"
 msgstr "グループ"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "Name"
 msgstr "名前"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:61
+#: src/EBox/UsersAndGroups/Model/Users.pm:63
 #: src/EBox/UsersAndGroups/Model/Users.pm:139 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
 msgstr "フルネーム"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:66
-#: src/EBox/UsersAndGroups/Model/Users.pm:149
+#: src/EBox/UsersAndGroups/Model/Users.pm:68
+#: src/EBox/UsersAndGroups/Model/Users.pm:148
 msgid "Edit"
 msgstr "編集"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:81
+#: src/EBox/UsersAndGroups/Model/Users.pm:83
 msgid "foo"
 msgstr "hoge"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:112
+#: src/EBox/UsersAndGroups/Model/Users.pm:114
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"使用するためにはモジュール状態セクションからユーザモジュールを有効にする必要"
+"があります。"
 
 #: src/EBox/UsersAndGroups.pm:56
 msgid "users and groups"
-msgstr ""
+msgstr "ユーザとグループ"
 
 #: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
+"現在のOpenLDAPデータベース設定は置換され、/var/backups/slapdにバックアップさ"
+"れます"
 
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
 "your current configuration"
 msgstr ""
+"eBoxはデータベースを格納するためにOpenLDAPを初期化します。また、現在の設定を"
+"上書きします"
 
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr ""
+msgstr "OpenLDAPがTCPソケットやUnixソケットに応答するように設定"
 
 #: src/EBox/UsersAndGroups.pm:97
 msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
+"OpenLDAPデータベースをdcエントリ、rootpw、rootdn、スキーマ、そしてACLとともに"
+"設定（ACLはLDAPに依存するeBoxモジュールに利用されます）"
 
 #: src/EBox/UsersAndGroups.pm:359
 #, perl-brace-format
@@ -164,12 +172,13 @@ msgstr "システムが扱える最大ユーザ数に達しました"
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
-msgstr ""
+msgstr "{uid}は誤ったUIDです。ユーザのUIDは{min}以上に設定する必要があります"
 
 #: src/EBox/UsersAndGroups.pm:442
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"{uid}は誤ったUIDです。システムユーザのUIDは{min}以上に設定する必要があります"
 
 #: src/EBox/UsersAndGroups.pm:782
 #, perl-brace-format
@@ -184,12 +193,14 @@ msgstr "グループ名はシステム内部で使われているため利用で
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
+msgstr "{gid}は誤ったGIDです。グループのGIDは{min}以上に設定する必要があります"
 
 #: src/EBox/UsersAndGroups.pm:868
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
+"{gid}は誤ったGIDです。システムグループのGIDは{max}より小さい値に設定する必要"
+"があります"
 
 #: src/EBox/UsersAndGroups.pm:1374
 #, perl-brace-format

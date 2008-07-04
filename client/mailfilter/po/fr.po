@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:43+0200\n"
+"POT-Creation-Date: 2008-07-04 08:18+0200\n"
 "PO-Revision-Date: 2005-08-09 10:37+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -122,21 +122,21 @@ msgstr "Types MIME"
 msgid "file extension"
 msgstr "extension de fichier"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:38
+#: src/EBox/MailFilter/SpamAssassin.pm:40
 msgid " To configure spamassassin daemon"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:302
+#: src/EBox/MailFilter/SpamAssassin.pm:322
 msgid "The spam's autolearn threshold must be higher than 6.0"
 msgstr "Le seuil d'auto-apprentissage des spams doit être supérieur à 6.0"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:331
+#: src/EBox/MailFilter/SpamAssassin.pm:351
 msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
 msgstr ""
 "Le seuil d'auto-apprentissage des mails valides (ham) ne peut pas être "
 "supérieur à celui du spam"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:347
+#: src/EBox/MailFilter/SpamAssassin.pm:367
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
@@ -144,7 +144,7 @@ msgstr ""
 "Le seuil d'auto-apprentissage des spams ne peut pas être inférieur au seuil "
 "par défaut"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:351
+#: src/EBox/MailFilter/SpamAssassin.pm:371
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
@@ -152,21 +152,21 @@ msgstr ""
 "Le seuil d'auto-apprentissage des mails valides (ham) ne peut être supérieur "
 "ou égale au seul par défaut des spams"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:440 src/templates/antispam.mas:29
+#: src/EBox/MailFilter/SpamAssassin.pm:460 src/templates/antispam.mas:32
 msgid "Spam threshold"
 msgstr "Seuil des spams"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:440
+#: src/EBox/MailFilter/SpamAssassin.pm:460
 msgid "It must be a number(decimal point allowed)"
 msgstr "Doit être un nombre (séparateur . de décimale toléré)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:450
+#: src/EBox/MailFilter/SpamAssassin.pm:470
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr ""
 "Le seuil des pourriels ne peut être supérieur que son seuil d'auto-"
 "apprentissage"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:455
+#: src/EBox/MailFilter/SpamAssassin.pm:475
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
@@ -174,7 +174,7 @@ msgstr ""
 "Le seuil de pourriels ne peut pas être inférieur ou égale à son seuil d'auto-"
 "apprentissage de mails valides (ham)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:532
+#: src/EBox/MailFilter/SpamAssassin.pm:552
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
@@ -183,31 +183,31 @@ msgstr ""
 "Apprentissage impossible car le filtre bayésien est désactivé dans la "
 "configuration actuelle. "
 
-#: src/EBox/MailFilter/SpamAssassin.pm:547
-#, perl-brace-format
-msgid "Unsupported or incorrect input source format: {format}"
+#: src/EBox/MailFilter/SpamAssassin.pm:567
+#, fuzzy, perl-brace-format
+msgid "Unsupported or incorrect input source fonrmat: {format}"
 msgstr "Format de donnée source incorrect ou non supporté : {format}"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:576
+#: src/EBox/MailFilter/SpamAssassin.pm:596
 msgid "domain name"
 msgstr "nom de domaine"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:580
+#: src/EBox/MailFilter/SpamAssassin.pm:600
 msgid "email address"
 msgstr "adresse mail"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:584
+#: src/EBox/MailFilter/SpamAssassin.pm:604
 msgid ""
 "The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
 "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
 "commençant par '@'"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:409 src/EBox/MailFilter.pm:804
+#: src/EBox/MailFilter/VDomainsLdap.pm:505 src/EBox/MailFilter.pm:804
 msgid "Mail filter settings"
 msgstr "Configuration du filtrage mail"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:464
+#: src/EBox/MailFilter/VDomainsLdap.pm:560
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "Le nom de domaine virtuel {vd} n'existe pas"
@@ -392,46 +392,46 @@ msgstr "{plural} tous enregistrés"
 msgid "Delete them all"
 msgstr "Tous les supprimer"
 
-#: src/templates/antispam.mas:30
+#: src/templates/antispam.mas:33
 msgid "The score threshold to mark a message as spam"
 msgstr "Seuil de score à atteindre pour marquer le message en tant que spam"
 
-#: src/templates/antispam.mas:36
+#: src/templates/antispam.mas:39
 msgid "Spam subject tag"
 msgstr "Etiquette du sujet de spam"
 
-#: src/templates/antispam.mas:37
+#: src/templates/antispam.mas:40
 msgid "Tag which will be added to the spam mail subject"
 msgstr "Etiquette qui sera ajoutée au sujet du pourriel"
 
-#: src/templates/antispam.mas:43
+#: src/templates/antispam.mas:46
 msgid "Use bayesian classifier"
 msgstr "Utiliser la classification bayésienne"
 
-#: src/templates/antispam.mas:49
+#: src/templates/antispam.mas:52
 msgid "Auto-whitelist"
 msgstr "Liste Blanche automatique"
 
-#: src/templates/antispam.mas:50
+#: src/templates/antispam.mas:53
 msgid "Change the score of mail according to the sender history"
 msgstr ""
 "Modifier le score des mails en accord avec l'historique de l'expéditeur"
 
-#: src/templates/antispam.mas:56
+#: src/templates/antispam.mas:59
 msgid "Auto-learn"
 msgstr "Auto-apprentissage"
 
-#: src/templates/antispam.mas:57
+#: src/templates/antispam.mas:60
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr ""
 "Retour d'information du système d'apprentissage avec les messages qui "
 "atteignent le seuil"
 
-#: src/templates/antispam.mas:63
+#: src/templates/antispam.mas:66
 msgid "Autolearn spam threshold"
 msgstr "Seuil d'auto-apprentissage spam"
 
-#: src/templates/antispam.mas:64
+#: src/templates/antispam.mas:67
 msgid ""
 "Spam messages which a score equal or greater than this threshold will be "
 "added to the learning system "
@@ -439,11 +439,11 @@ msgstr ""
 "Les pourriels qui ont un score égal ou supérieur au seuil seront introduits "
 "dans le système d'apprentissage"
 
-#: src/templates/antispam.mas:70
+#: src/templates/antispam.mas:73
 msgid "Autolearn ham threshold"
 msgstr "Seuil d'auto-apprentissage des mails valides (ham)"
 
-#: src/templates/antispam.mas:71
+#: src/templates/antispam.mas:74
 msgid ""
 "Ham messages which a score below this threshold will be added to the "
 "learning system"
@@ -451,44 +451,64 @@ msgstr ""
 "Les mails valides (ham) qui ont un score inférieur à ce seuil seront "
 "introduits dans le système d'apprentissage"
 
-#: src/templates/antispam.mas:76 src/templates/general.mas:65
+#: src/templates/antispam.mas:80
+msgid "Spam mail account for learning spam"
+msgstr ""
+
+#: src/templates/antispam.mas:81
+msgid ""
+"A address spam@ will be made in each domain, spam messages incorreclty "
+"classified as ham may be forwarded to this addres to train the filter"
+msgstr ""
+
+#: src/templates/antispam.mas:87
+msgid "Ham mail account for learning ham"
+msgstr ""
+
+#: src/templates/antispam.mas:88
+msgid ""
+"A address ham@ will be made in each domain, ham messages incorreclty "
+"classified as spam may be forwarded to this addres to train the filter"
+msgstr ""
+
+#: src/templates/antispam.mas:93 src/templates/general.mas:65
 #: src/templates/vdomain.mas:95
 msgid "Change"
 msgstr "Modifier"
 
-#: src/templates/antispam.mas:83
+#: src/templates/antispam.mas:100
 msgid "Mailbox contains"
 msgstr "La boîte mail contient"
 
-#: src/templates/antispam.mas:86
+#: src/templates/antispam.mas:103
 msgid "spam"
 msgstr "spam"
 
-#: src/templates/antispam.mas:87
+#: src/templates/antispam.mas:104
 msgid "ham"
 msgstr "ham"
 
-#: src/templates/antispam.mas:94
+#: src/templates/antispam.mas:111
 msgid "Mailbox"
 msgstr "Boîte mail"
 
-#: src/templates/antispam.mas:102
+#: src/templates/antispam.mas:119
 msgid "Train"
 msgstr "Entraîner"
 
-#: src/templates/antispam.mas:115
+#: src/templates/antispam.mas:132
 msgid "Spam policy"
 msgstr "Politique antispam"
 
-#: src/templates/antispam.mas:123
+#: src/templates/antispam.mas:140
 msgid "Antispam options"
 msgstr "Options antispam"
 
-#: src/templates/antispam.mas:128
+#: src/templates/antispam.mas:145
 msgid "Antispam global sender access lists"
 msgstr "Listes globales d'accès d'expéditeur d'Antispam"
 
-#: src/templates/antispam.mas:135
+#: src/templates/antispam.mas:152
 msgid "Spam filter training"
 msgstr "Entraînement du filtre spam"
 
@@ -632,6 +652,9 @@ msgstr "Rebond"
 #: src/templates/policy.mas:14
 msgid "Discard"
 msgstr "Mise à l'écart"
+
+#~ msgid "Unsupported or incorrect input source format: {format}"
+#~ msgstr "Format de donnée source incorrect ou non supporté : {format}"
 
 #~ msgid "module status"
 #~ msgstr "Status du module"

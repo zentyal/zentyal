@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2007-03-28 23:28+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -212,18 +212,18 @@ msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
-msgid "Web Server"
+msgid "eBox- Web Server"
 msgstr "NTP zerbitzari"
 
-#: migration/0001_add_http_software_rule.pl:23
+#: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
 msgstr ""
 
-#: migration/0001_add_http_software_rule.pl:25
+#: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
 msgstr ""
 
-#: migration/0001_add_http_software_rule.pl:43
+#: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
 msgstr ""
 
@@ -296,6 +296,10 @@ msgstr ""
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Web Server"
+#~ msgstr "NTP zerbitzari"
 
 #~ msgid "NTP server"
 #~ msgstr "NTP zerbitzari"

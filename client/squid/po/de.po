@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2007-08-19 14:56+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -142,14 +142,14 @@ msgid "You must not prefix the domain with www."
 msgstr "Die Domäne muss ohne das \"www.\" Präfix eingegeben werden"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:92
-#: src/EBox/Squid/Model/MIMEFilter.pm:198
-#: src/EBox/Squid/Model/MIMEFilter.pm:207
-#: src/EBox/Squid/Model/MIMEFilter.pm:218
+#: src/EBox/Squid/Model/MIMEFilter.pm:196
+#: src/EBox/Squid/Model/MIMEFilter.pm:205
+#: src/EBox/Squid/Model/MIMEFilter.pm:216
 msgid "MIME Type"
 msgstr "MIME-Typ"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
-#: src/EBox/Squid/Model/ExtensionFilter.pm:142 src/EBox/Squid.pm.in:773
+#: src/EBox/Squid/Model/ExtensionFilter.pm:140 src/EBox/Squid.pm.in:773
 msgid "Allow"
 msgstr "Erlauben"
 
@@ -182,18 +182,18 @@ msgstr "MIME-Typ entfernt"
 msgid "MIME type updated"
 msgstr "MIME-Typ aktualisiert"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:200
+#: src/EBox/Squid/Model/MIMEFilter.pm:198
 msgid "A MIME Type must follows this syntax: type/subtype"
 msgstr ""
 "Eine neuer MIME-Typ muss folgendes Schema haben: \"kategorie/unterkategorie"
 "\"."
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:210
+#: src/EBox/Squid/Model/MIMEFilter.pm:208
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
 msgstr "{type} ist kein gültiger IANA-Typ"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:221
+#: src/EBox/Squid/Model/MIMEFilter.pm:219
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
 msgstr "Der Subtyp {t} hat eine falsche Syntax"
@@ -214,27 +214,27 @@ msgstr "Filter-Einstellungen für Domänen"
 msgid "Filtering settings changed"
 msgstr "Filter-Einstellungen geändert"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:80
+#: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Transparent Proxy"
 msgstr "Transparenter Proxy"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:89
+#: src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:97
+#: src/EBox/Squid/Model/GeneralSettings.pm:91
 msgid "Default policy"
 msgstr "Allgemeines Vorgehen"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:106
+#: src/EBox/Squid/Model/GeneralSettings.pm:98
 msgid "General Settings "
 msgstr "Allgemeine Einstellungen"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:113
+#: src/EBox/Squid/Model/GeneralSettings.pm:103
 msgid "Settings changed"
 msgstr "Einstellungen geändert"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:148
+#: src/EBox/Squid/Model/GeneralSettings.pm:138
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "Der Port {port} wird bereits verwendet. Bitte wählen Sie einen anderen"
@@ -251,19 +251,19 @@ msgstr "Vorgehen für alle Dateiendungen einstellen"
 msgid "File extension"
 msgstr "Dateiendung"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:135
+#: src/EBox/Squid/Model/ExtensionFilter.pm:133
 msgid "Extension"
 msgstr "Erweiterung"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:153
+#: src/EBox/Squid/Model/ExtensionFilter.pm:151
 msgid "Configure allowed file extensions"
 msgstr "Erlaubte Dateiendungen konfigurieren"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:166
+#: src/EBox/Squid/Model/ExtensionFilter.pm:164
 msgid "extension"
 msgstr "Dateiendung"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:167
+#: src/EBox/Squid/Model/ExtensionFilter.pm:165
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given extensions.\n"
 "Extensions not listed here are allowed.\n"
@@ -274,15 +274,15 @@ msgstr ""
 "Der Dateiendungs-Filter benötigt das \"Filter\" Vorgehen um angewendet zu "
 "werden"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:170
+#: src/EBox/Squid/Model/ExtensionFilter.pm:168
 msgid "Extension added"
 msgstr "Dateiendung hinzugefügt"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:171
+#: src/EBox/Squid/Model/ExtensionFilter.pm:169
 msgid "Extension removed"
 msgstr "Dateiendung entfernt"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:172
+#: src/EBox/Squid/Model/ExtensionFilter.pm:170
 msgid "Extension updated"
 msgstr "Dateiendung aktualisiert"
 

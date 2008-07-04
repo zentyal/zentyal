@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.101\n"
+"Project-Id-Version: libebox 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:15+0200\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -120,7 +120,7 @@ msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
 msgid "Directory not found: {d}"
 msgstr "Dizin bulunamadı: {d}"
 
-#: src/EBox/Validate.pm:685
+#: src/EBox/Validate.pm:687
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -128,12 +128,12 @@ msgid ""
 msgstr ""
 "{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
 
-#: src/EBox/Validate.pm:690
+#: src/EBox/Validate.pm:692
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
 
-#: src/EBox/Validate.pm:765
+#: src/EBox/Validate.pm:767
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -141,9 +141,17 @@ msgstr ""
 "Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
 "karakterleri desteklenmiyor)"
 
-#: src/EBox/Validate.pm:793
+#: src/EBox/Validate.pm:795
 msgid "The file path must be absolute"
 msgstr "Dosya yolu mutlak olmalı"
+
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"

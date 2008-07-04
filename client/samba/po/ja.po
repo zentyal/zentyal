@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.11.101\n"
+"Project-Id-Version: ebox-samba 0.11.103\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -38,16 +38,16 @@ msgstr "共有名"
 msgid "active"
 msgstr "アクティブ"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:401
-#: src/EBox/Samba.pm:409
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:530
+#: src/EBox/Samba.pm:539
 msgid "File sharing"
 msgstr "ファイル共有"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:611
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:749
 msgid "netbios"
 msgstr "NETBIOS"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:660
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:798
 msgid "working group"
 msgstr "ワークグループ"
 
@@ -55,7 +55,7 @@ msgstr "ワークグループ"
 msgid "working mode"
 msgstr "動作モード"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:629
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:767
 msgid "description"
 msgstr "内容"
 
@@ -65,130 +65,228 @@ msgstr "ユーザクォータ"
 
 #: src/EBox/CGI/SambaConf.pm:47
 msgid "roaming profiles"
+msgstr "ローミングプロファイル"
+
+#: src/EBox/Samba/Model/SambaShares.pm:97
+#, fuzzy
+msgid "Share name"
+msgstr "共有名"
+
+#: src/EBox/Samba/Model/SambaShares.pm:103
+msgid "Share path"
 msgstr ""
 
-#: src/EBox/Samba.pm:73
+#: src/EBox/Samba/Model/SambaShares.pm:109
+#, fuzzy
+msgid "Directory under eBox"
+msgstr "ディレクトリ名"
+
+#: src/EBox/Samba/Model/SambaShares.pm:115
+msgid "File system path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:122
+msgid "Comment"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:127
+msgid "Access control"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:137
+msgid "Samba shares"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:144
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:151
+msgid "Todo"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:145
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "share"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:175
+msgid "Path not allowed"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:183
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:217
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr ""
+
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr ""
+
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:120
+msgid "User/Group"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#, fuzzy
+msgid "User"
+msgstr "ユーザ"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:130
+#, fuzzy
+msgid "Group"
+msgstr "グループ"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:137
+msgid "Permissions"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:145
+msgid "Samba share configuration"
+msgstr ""
+
+#: src/EBox/Samba.pm:75
 msgid "file sharing"
-msgstr ""
+msgstr "ファイル共有"
 
-#: src/EBox/Samba.pm:93
+#: src/EBox/Samba.pm:95
 msgid "Create Samba home directory for users and groups"
-msgstr ""
+msgstr "ユーザとグループのSambaホームディレクトリを作成"
 
-#: src/EBox/Samba.pm:94
+#: src/EBox/Samba.pm:96
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
+"eBoxはSambaユーザとグループのホームディレクトリを/home/samba以下に作成しま"
+"す。"
 
-#: src/EBox/Samba.pm:99
+#: src/EBox/Samba.pm:101
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "LDAPスキーマを追加"
 
-#: src/EBox/Samba.pm:100
+#: src/EBox/Samba.pm:102
 msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
-msgstr ""
+msgstr "eBoxは二つのLDAPスキーマを追加します: samba.schema ebox.schema"
 
-#: src/EBox/Samba.pm:105 src/EBox/Samba.pm:111
+#: src/EBox/Samba.pm:107 src/EBox/Samba.pm:113
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Samba LDAP admin dn passwordを設定"
 
-#: src/EBox/Samba.pm:106 src/EBox/Samba.pm:112
+#: src/EBox/Samba.pm:108 src/EBox/Samba.pm:114
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "eBoxはSambaがLDAP admin dn passwordを使うように設定します。"
 
-#: src/EBox/Samba.pm:128
+#: src/EBox/Samba.pm:130
 msgid "To set up Samba according to your configuration"
-msgstr ""
+msgstr "入力内容にしたがってSambaを設定します"
 
-#: src/EBox/Samba.pm:133
+#: src/EBox/Samba.pm:135
 msgid "To set up smbldap-tools according to your configuration"
-msgstr ""
+msgstr "入力内容にしたがってsmbldap-toolsを設定します"
 
-#: src/EBox/Samba.pm:139
+#: src/EBox/Samba.pm:141
 msgid "To set up smbldap-tools according to your LDAP configuration"
-msgstr ""
+msgstr "LDAPに関する入力内容にしたがってsmbldap-toolsを設定します"
 
-#: src/EBox/Samba.pm:145
+#: src/EBox/Samba.pm:147
 msgid "To add two new schemas and the set ACLs"
-msgstr ""
+msgstr "2つのスキーマを追加しACLを設定"
 
-#: src/EBox/Samba.pm:150
+#: src/EBox/Samba.pm:152
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"NSSがユーザとグループアカウントのためにLDAP解決を使うように設定。これはSamba "
+"PDC設定に必要となります"
 
-#: src/EBox/Samba.pm:156
+#: src/EBox/Samba.pm:158
 msgid "To let NSS know how to access LDAP accounts"
-msgstr ""
+msgstr "LDAPアカウントへのアクセス方法をNSSに通知"
 
-#: src/EBox/Samba.pm:161
+#: src/EBox/Samba.pm:163
 msgid ""
 "To copy LDAP admin password generated by eBox and allow NSS to access LDAP"
 msgstr ""
+"eBoxが生成したLDAP admin passwordをコピーし、NSSからLDAPへのアクセスを許可"
 
-#: src/EBox/Samba.pm:167
+#: src/EBox/Samba.pm:169
 msgid "To add quota support to /home partition"
+msgstr "/homeパーティションにクォータサポートを追加"
+
+#: src/EBox/Samba.pm:542
+#, fuzzy
+msgid "General settings"
+msgstr "全般的設定"
+
+#: src/EBox/Samba.pm:545
+msgid "Shares"
 msgstr ""
 
-#: src/EBox/Samba.pm:678
+#: src/EBox/Samba.pm:816
 msgid "quota"
 msgstr "クォータ"
 
-#: src/EBox/Samba.pm:962 src/EBox/Samba.pm:981
+#: src/EBox/Samba.pm:1100 src/EBox/Samba.pm:1119
 msgid "user"
 msgstr "ユーザ"
 
-#: src/EBox/Samba.pm:965 src/EBox/Samba.pm:995 src/EBox/SambaLdapUser.pm:918
+#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1133 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "グループ"
 
-#: src/EBox/Samba.pm:968
+#: src/EBox/Samba.pm:1106
 msgid "printer"
 msgstr "プリンタ"
 
-#: src/EBox/Samba.pm:1429
+#: src/EBox/Samba.pm:1567
 msgid "User's files"
 msgstr "ユーザのファイル"
 
-#: src/EBox/Samba.pm:1431
+#: src/EBox/Samba.pm:1569
 msgid "Group's files"
 msgstr "グループのファイル"
 
 #: src/EBox/SambaLdapUser.pm:287
 msgid "This user has a sharing directory associated which contains data"
-msgstr ""
+msgstr "このユーザはデータを含む共有ディレクトリを所有しています"
 
 #: src/EBox/SambaLdapUser.pm:351
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "SIDが誤っています: {s}"
 
 #: src/EBox/SambaLdapUser.pm:355
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "ユーザ{u}は存在しません"
 
 #: src/EBox/SambaLdapUser.pm:359
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "ユーザ{u}はSambaユーザではありません"
 
 #: src/EBox/SambaLdapUser.pm:369
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
-msgstr ""
+msgstr "SIDが誤っています: {s}"
 
 #: src/EBox/SambaLdapUser.pm:373
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "グループ{g}は存在しません"
 
 #: src/EBox/SambaLdapUser.pm:377
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "グループ{g}はSambaグループではありません"
 
 #: src/EBox/SambaLdapUser.pm:424
 msgid "This group has a sharing directory associatedwhich conatins data"
@@ -197,7 +295,7 @@ msgstr "このグループはデータを含んだ共有ディレクトリを所
 #: src/EBox/SambaLdapUser.pm:683
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "グループ{g}は存在しません"
 
 #: src/EBox/SambaLdapUser.pm:802
 msgid "A name should be provided for the share"
@@ -209,7 +307,7 @@ msgstr "共有リソース"
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"
-msgstr ""
+msgstr "ファイル共有(Samba)プロトコル"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -356,16 +454,16 @@ msgstr "クォータ制限"
 
 #: src/templates/index.mas:77
 msgid "Roaming profiles"
-msgstr ""
+msgstr "ローミングプロファイル"
 
-#: stubs/smb.conf.mas:96
+#: stubs/smb.conf.mas:97
 msgid "Home Directories"
 msgstr "ホームディレクトリ"
 
-#: stubs/smb.conf.mas:103
+#: stubs/smb.conf.mas:104
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "{group}共有ディレクトリ"
 
 #~ msgid "listening port"
 #~ msgstr "受信ポート"

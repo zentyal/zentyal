@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11.101\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:44+0200\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
 "PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
@@ -232,18 +232,18 @@ msgstr "Gestión de usuarios y grupos"
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
-msgid "Web Server"
+msgid "eBox- Web Server"
 msgstr "Servidor DNS para eBox"
 
-#: migration/0001_add_http_software_rule.pl:23
+#: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
 msgstr ""
 
-#: migration/0001_add_http_software_rule.pl:25
+#: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
 msgstr ""
 
-#: migration/0001_add_http_software_rule.pl:43
+#: migration/0001_add_http_software_rule.pl:45
 #, fuzzy
 msgid "rule to allow apt updates"
 msgstr "Actualizaciones automáticas de software"
@@ -320,6 +320,10 @@ msgstr "ninguna"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Eliminar"
+
+#, fuzzy
+#~ msgid "Web Server"
+#~ msgstr "Servidor DNS para eBox"
 
 #, fuzzy
 #~ msgid "ebox NTP server"

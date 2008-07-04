@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11.101\n"
+"Project-Id-Version: ebox-dhcp 0.11.102\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-05-28 12:41+0200\n"
+"POT-Creation-Date: 2008-07-04 08:16+0200\n"
 "PO-Revision-Date: 2007-07-24 15:13+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -249,7 +249,7 @@ msgstr ""
 "en anden fast adresse"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1210 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1229 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC adresse"
 
@@ -312,8 +312,8 @@ msgstr ""
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
 #: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:786 src/EBox/DHCP.pm:842
-#: src/EBox/DHCP.pm:1209
+#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
+#: src/EBox/DHCP.pm:1228
 msgid "Interface"
 msgstr "Interface"
 
@@ -365,7 +365,7 @@ msgstr ""
 "område eller en fast adresse."
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:792 src/EBox/DHCP.pm:848
+#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} er ikke statisk"
@@ -374,11 +374,11 @@ msgstr "{iface} er ikke statisk"
 msgid "Not a valid action: add, set and del are available"
 msgstr "Ikke en gyldig handling: tilføj, sæt og slet er mulige"
 
-#: src/EBox/DHCP.pm:778
+#: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
 msgstr "Ugyldig handling. Tilgængeligt er: tilføj, sæt og slet"
 
-#: src/EBox/DHCP.pm:996
+#: src/EBox/DHCP.pm:1015
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -389,7 +389,7 @@ msgstr ""
 "brug i DHCP området '{range}' i interfacet '{iface}'. Fjern venligst dette "
 "før du prøver at tilføje et virtuelt interface der bruger det."
 
-#: src/EBox/DHCP.pm:1014
+#: src/EBox/DHCP.pm:1033
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -400,27 +400,27 @@ msgstr ""
 "brug af den DHCP faste adresse '{fixed}' i interfacet '{iface}'. Fjern "
 "venligst dette før du prøver at tilføje et virtuelt interface der bruger det."
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1227
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/DHCP.pm:1211
+#: src/EBox/DHCP.pm:1230
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1212
+#: src/EBox/DHCP.pm:1231
 msgid "Event"
 msgstr "Hændelse"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Leased"
 msgstr "Tildelt"
 
-#: src/EBox/DHCP.pm:1215
+#: src/EBox/DHCP.pm:1234
 msgid "Released"
 msgstr "Frigivet"
 
-#: src/EBox/DHCP.pm:1218
+#: src/EBox/DHCP.pm:1237
 msgid "DHCP"
 msgstr "DHCP"
 
