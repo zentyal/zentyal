@@ -530,6 +530,8 @@ sub _table
                                editable      => 1,
                                populate      => \&priority,
                                defaultValue  => 7,
+                               help          => __('Lowest priotiry: 7 ' .
+                                ' Highest priority: 0')
                               ),
        new EBox::Types::Int(
                             fieldName     => 'guaranteed_rate',
@@ -537,8 +539,11 @@ sub _table
                             size          => 3,
                             editable      => 1, # editable
                             trailingText  => __('Kbit/s'),
-                            optional      => 1, # optional
                             defaultValue  => 0,
+                            help          => __('Note that  ' .
+                                'The sum of all guaranteed ' .
+                                'rates cannot exceed your ' .
+                                'total bandwidth. 0 means unlimited rate.')
                            ),
        new EBox::Types::Int(
                             fieldName     => 'limited_rate',
@@ -548,8 +553,9 @@ sub _table
                             size          => 3,
                             editable      => 1, # editable
                             trailingText  => __('Kbit/s'),
-                            optional      => 1, # optional
                             defaultValue  => 0,
+                            help          => __('Traffic will not exceed ' .
+                                'this rate. 0 means unlimited rate.')
                            ),
       );
 
@@ -565,17 +571,9 @@ sub _table
 		     'class'              => 'dataTable',
 		     # Priority field set the ordering through _order function
 		     'order'              => 1,
-		     'help'               => __('Adding a rule to the interface should be done following ' .
-						'maximum rate allowed to that interface and the sum of the ' .
-						'different guaranteed rates should be at much as the total ' .
-						'rate allowed. No limited rate or zero means unlimited rate ' .
-					        'in terms of bandwidth link. At least, one should be provided.' .
-					        'In order to identify a rule, an attribute should be given.' .
-					        'Highest priority: 0 lowest priority: 7.') . ' ' .
-                                             __('Take care about the traffic flow setting the correct source '
-                                                . 'and destination. If the interface is internal, the traffic '
-                                                . 'flow comes from Internet to inside and the external is the '
-                                                . 'other way around'),
+		     'help'               => __('Note that if the interface is internal, the traffic '
+                                    . 'flow comes from Internet to inside and the external is the '
+                                    . 'other way around'),
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName'   => __('rule'),
                      'notifyActions'      => [ 'GatewayTable' ],
