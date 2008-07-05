@@ -79,7 +79,8 @@ sub _table
     my $dataTable = 
         { 
             'tableName' => 'ObjectTable',
-            'printableTableName' => __('Objects'),
+            'pageTitle' => __('Objects'),
+            'printableTableName' => __('Object list'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Objects/Controller/ObjectTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
