@@ -90,6 +90,10 @@ sub _table
                                fieldName     => 'blanketBlock',
                                printableName => __('Block not listed domains'),
                                defaultValue     => 0,
+                               help         => __('If this is enabled, ' .
+                                'any domain which is not allowed in the ' .
+                                '<i>Domains list</i> section below will be ' .
+                                'forbidden.'),
                               ),
          new EBox::Types::Boolean(
                                fieldName     => 'blockIp',

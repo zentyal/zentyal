@@ -79,6 +79,7 @@ sub _table
                     printableName => __('Transparent Proxy'),
                     editable => 1,
                     defaultValue   => 0,
+                    help => _transparentHelp() 
                 ),
             new EBox::Types::Port(
                     fieldName => 'port',
@@ -90,6 +91,7 @@ sub _table
                fieldName => 'globalPolicy',
                printableName => __('Default policy'),
                defaultValue => 'filter',
+               help => _policyHelp(), 
                ),
         );
 
@@ -142,7 +144,20 @@ sub _checkPortAvailable
   }
 }
 
+sub _policyHelp
+{
+    return __('<i>Filter</i> means that HTTP requests will go through the ' . 
+              'content filter and they might be rejected if the content is ' .   
+              'not considered valid.');
+}
 
+sub _transparentHelp
+{
+    return  __('Note that you cannot proxy HTTPS ' .
+               'transparently. You will need to add ' .
+               'a firewall rule if you enable this mode.');
+               
+ }
 
 1;
 

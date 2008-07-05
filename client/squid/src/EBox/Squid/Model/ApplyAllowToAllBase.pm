@@ -75,6 +75,8 @@ sub _tableDesc
              fieldName      => 'allowForAll',
              printableName  => $printableName,
              editable       => 1,
+             help           => __('Use this field to change the value of ' .
+                    ' all the above rows at once')
 #			      defaultValue   => 1,
              ),
         );
