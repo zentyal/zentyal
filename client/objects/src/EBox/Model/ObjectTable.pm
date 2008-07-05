@@ -86,7 +86,7 @@ sub _table
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'help' => __('Objects'),
+            'help' => _objectHelp(),
             'printableRowName' => __('object'),
             'sortedBy' => 'name',
         };
@@ -177,6 +177,13 @@ sub addObject
    foreach my $member (@{$members}) {
        $memberModel->addRow(%{$member});
    }
+}
+
+sub _objectHelp
+{
+    return __('Objects are an abstraction of machines and network addresses ' .
+              'which can be used in other modules. Any change on an object ' .
+              'is automatically synched in all the modules using it');
 }
 
 1;
