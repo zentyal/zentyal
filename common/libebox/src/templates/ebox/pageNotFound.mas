@@ -11,7 +11,7 @@ my @tipList = (
 );
 </%init>
 <h4><% __(q{we're sorry}) %></h4>
-<% __('The page can not be found') %>
+<% __('The page cannot be found') %>
 <ul>
 % foreach my $tip (@tipList) {
   <li><% $tip %></li>
