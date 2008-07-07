@@ -1,9 +1,18 @@
+<%doc>
+  Create the RIPd configuration file
+
+Params:
+  ifaces - array ref containing hash refs with the following keys:
+           ifaceName - String the interface name
+           passwd    - String the MD5 password
+  redistribute   - Boolean indicating if redistributing connected routes or not
+  insecurePasswd - Boolean indicating if allow VTY shell connections using a password or not
+</%doc>
 <%args>
 @ifaces
 $redistribute
 $insecurePasswd
 </%args>
-
 
 % if ($insecurePasswd) {
 hostname ebox
@@ -22,7 +31,7 @@ enable password ripd
 % }
 
 router rip
-
+version 2
 % foreach my $iface (@ifaces) {
 network <% $iface->{ifaceName} %>
 % }

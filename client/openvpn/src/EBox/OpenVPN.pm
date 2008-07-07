@@ -980,7 +980,7 @@ sub _stopService
 # Returns:
 #
 #    - undef if not RIP daemon is neccessary
-#    - if RIP is neccessary a hash ref with RIP daemosn parameters:
+#    - if RIP is neccessary a hash ref with RIP daemons parameters:
 #          ifaces      - list of ifaces to use by RIP daemon
 #          redistribute - bool parameters which signal if routes
 #                           redistribution is required

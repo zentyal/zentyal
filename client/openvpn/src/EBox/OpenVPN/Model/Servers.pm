@@ -95,7 +95,6 @@ sub _table
                                 'size' => '1',
                              ),
                              __PACKAGE__->interfaceFields(),
-                             
           );
 
     my $dataTable = 

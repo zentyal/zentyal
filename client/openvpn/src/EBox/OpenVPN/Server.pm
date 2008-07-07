@@ -299,7 +299,7 @@ sub tlsRemote
 # Method: pullRoutes
 #
 # Returns:
-#  wether the server may pull routes from client or not
+#  whether the server may pull routes from client or not
 sub pullRoutes
 {
     my ($self) = @_;
