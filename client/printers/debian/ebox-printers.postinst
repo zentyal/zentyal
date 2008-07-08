@@ -12,6 +12,10 @@ case "$1" in
          # add ebox to lp to read cups logs
         adduser --quiet ebox lp
 
+        # Create log table
+        /usr/share/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql
+
+        # Do migration scripts
 	/usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/
 
         # Restart eBox apache
