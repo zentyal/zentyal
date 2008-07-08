@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Composite Filter Model QDisc QueueDiscipline t TreeBuilder
+SUBDIRS = Composite Firewall Filter Model QDisc QueueDiscipline t TreeBuilder
 
 perldir = @PERLPATH@/EBox/TrafficShaping
 

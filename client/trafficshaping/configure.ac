@@ -1,4 +1,4 @@
-AC_INIT([ebox-trafficshaping], [0.11.101])
+AC_INIT([ebox-trafficshaping], [0.11.104])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/TrafficShaping.pm])
@@ -60,6 +60,7 @@ src/EBox/t/Makefile
 src/EBox/TrafficShaping/Makefile
 src/EBox/TrafficShaping/Composite/Makefile
 src/EBox/TrafficShaping/Filter/Makefile
+src/EBox/TrafficShaping/Firewall/Makefile
 src/EBox/TrafficShaping/Model/Makefile
 src/EBox/TrafficShaping/QDisc/Makefile
 src/EBox/TrafficShaping/t/Makefile

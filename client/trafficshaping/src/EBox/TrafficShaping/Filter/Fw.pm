@@ -18,11 +18,12 @@ package EBox::TrafficShaping::Filter::Fw;
 use strict;
 use warnings;
 
+use EBox::Global;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 
-use EBox::Firewall::IptablesRule;
+use EBox::TrafficShaping::Firewall::IptablesRule;
 
 use EBox::TrafficShaping;
 
@@ -356,7 +357,7 @@ sub dumpIptablesCommands
     my $leadingStr;
     my $mediumStr;
     if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP )) {
-      my $ipTablesRule = EBox::Firewall::IptablesRule->new( chain => $shaperChain );
+      my $ipTablesRule = EBox::TrafficShaping::Firewall::IptablesRule->new( chain => $shaperChain );
       # Mark the package and set the decision to MARK and the table as mangle
       $ipTablesRule->setMark($mark, MARK_MASK);
 
@@ -370,7 +371,13 @@ sub dumpIptablesCommands
                                                 destinationAddress => $self->{dstAddr} );
       }
 
-      $ipTablesRule->setService($self->{service});
+      my $iface = $self->{parent}->getInterface();
+      my $network = EBox::Global->modInstance('network');
+      if ($network->ifaceIsExternal($iface)) {
+        $ipTablesRule->setService($self->{service});
+      } else {
+        $ipTablesRule->setReverseService($self->{service});
+      }
       push(@ipTablesCommands, @{$ipTablesRule->strings()});
     }
     # FIXME Comment out because it messes up with multipath marks
