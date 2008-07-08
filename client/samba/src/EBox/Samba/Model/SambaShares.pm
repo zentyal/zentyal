@@ -135,18 +135,19 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'SambaShares',
-                     printableTableName => __('Samba shares'),
+                     printableTableName => __('List of samba shares'),
+                     pageTitle          => __('Samba shares'),
                      modelDomain        => 'Samba',
                      defaultActions     => [ 'add', 'del', 
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      menuNamespace      => 'Samba/View/SambaShares',
                      class              => 'dataTable',
-                     help               => __('Todo'),
+                     help               => _sharesHelp(),
                      printableRowName   => __('share'),
-                     insertPosition     => 'back',
                      enableProperty     => 1,
-                     defaultEnabledValue => 1
+                     defaultEnabledValue => 1,
+                     orderedBy          => 'share',
 
                     };
 
@@ -275,8 +276,16 @@ sub _pathHelp
     return __( '<i>Directory under eBox</i> will ' .
             'automatically create the share.' . 
             'directory in /home/samba/shares <br>' .
-            '<i>File system path</i> will allow you to '.
-            'an existing directory in your file system. ');
+            '<i>File system path</i> will allow you to share '.
+            'an existing directory within your file system. ');
 
+}
+
+sub _sharesHelp
+{
+    return __('Here you can create shares with more fine-grained permission ' . 
+              'control. ' .
+              'You can use an existing directory or pick a name and let eBox ' .
+              'create it for you.');
 }
 1;
