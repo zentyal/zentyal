@@ -1,3 +1,6 @@
+0.11.104
+	+ Bugfix: Don't assume timecol is 'timestamp' but defined by
+	module developer. This allows to purge some logs tables again
 0.11.103
 	+ Modify EBox::Types::HasMany to create directory based on its row 
 	+ Add _setRelationship method to set up relationships between models

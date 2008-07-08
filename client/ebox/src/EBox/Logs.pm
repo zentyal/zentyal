@@ -767,6 +767,21 @@ sub _facilitiesForDiskUsage
 	 };
 }
 
+# Method: forcePurge
+#
+#      Force to purge every table used to log data in eBox given a
+#      timestamp
+#
+# Parameters:
+#
+#      lifetime - Int the allowed data not to purge should be
+#                 timestamped before this limit which is set in hours
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the lifetime is not a
+#      positive number
+#
 sub forcePurge
 {
   my ($self, $lifetime) = @_;
@@ -779,11 +794,24 @@ sub forcePurge
 
   foreach my $tableInfo ( values %{ $self->getAllTables } ) {
     my $table = $tableInfo->{tablename};
-    $self->_purgeTable($table, $thresholdDate);
+    my $timeCol = $tableInfo->{timecol};
+    $self->_purgeTable($table, $timeCol, $thresholdDate);
   }
-  
 }
 
+# Method: purge
+#
+#      Purge every table used to log data in eBox with the threshold
+#      lifetime defined by 'lifetime' field in
+#      <EBox::Logs::Model::ConfigureLogDataTable> model
+#
+#     This method is called by a cron job.
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the lifetime is not a
+#      positive number
+#
 sub purge
 {
   my ($self) = @_;
@@ -803,16 +831,16 @@ sub purge
     $thresholdByDomain{$valuesHash->{'domain'}} = $threshold;
   }
 
-  
   # purge each domain
   my $tables = $self->getAllTables();
   while (my ($domain, $threshold) = each %thresholdByDomain) {
     my $table = $tables->{$domain}->{tablename};
-    $self->_purgeTable($table, $threshold);
+    my $timeCol = $tables->{$domain}->{timecol};
+    $self->_purgeTable($table, $timeCol, $threshold);
   }
 }
 
-
+# Transform an hour into a localtime
 sub _thresholdDate
 {
   my ($self, $lifeTime) = @_;
@@ -823,11 +851,12 @@ sub _thresholdDate
   return scalar localtime($threshold);
 }
 
-sub _purgeTable
+# Do perform the purge in a table
+sub _purgeTable #(tablename, timecolumn, thresholdDate)
 {
-  my ($self, $table, $thresholdDate) = @_;
-  
-  my $sqlStatement = "DELETE FROM $table WHERE timestamp < '$thresholdDate'";
+  my ($self, $table, $timeCol, $thresholdDate) = @_;
+
+  my $sqlStatement = "DELETE FROM $table WHERE '$timeCol' < '$thresholdDate'";
   my $dbengine = EBox::DBEngineFactory::DBEngine();
   $dbengine->query($sqlStatement);
 }
