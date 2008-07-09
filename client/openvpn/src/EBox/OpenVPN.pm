@@ -1351,7 +1351,12 @@ sub _setClientConf
     }
 }
 
-
+#   Method: deleteClient
+#
+#      deletes a client
+#
+#   Parameters:
+#         name - client's name
 sub deleteClient
 {
     my ($self, $name) = @_;
