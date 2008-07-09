@@ -1351,6 +1351,26 @@ sub _setClientConf
     }
 }
 
+
+sub deleteClient
+{
+    my ($self, $name) = @_;
+    my $clients = $self->model('Clients');
+
+    my $id = $clients->findId(name => $name);
+
+    if (not defined $id) {
+        throw EBox::Exceptions::External(__x(
+                                             'Client {c} does not exists',
+                                             c => $name
+                                            )
+                                        );
+    }
+
+    $clients->removeRow($id, 1);
+}
+
+
 # Method: menu
 #
 #       Overrides <EBox::Module::menu> method.

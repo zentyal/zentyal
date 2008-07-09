@@ -181,7 +181,7 @@ sub clearConfiguration : Test(teardown)
     EBox::GConfModule::TestStub::setConfig();
 }
 
-sub newClientTest : Test(6)
+sub newAndDeleteClientTest : Test(12)
 {
 
     my ($self) = @_;
@@ -231,71 +231,87 @@ sub newClientTest : Test(6)
     eq_or_diff [sort @actualClientsNamesForUI], [sort @userClientsNames],
       "Checking returned test clients names for UI";
 
-}
 
-sub newClientFromBundleTest #: Test(7)
-{
-    my ($self) =@_;
+    # delete test
 
-    my $bundlePath = 'testdata/bundle-EBoxToEBox.tar.gz';
-
-    my $name = 'clientFromBundle';
-
-    my $openVPN = EBox::OpenVPN->_create();
-
-    lives_ok {
-        $openVPN->newClient($name, bundle => $bundlePath, internal => 0);
-    }
-    'creating client form bundle file';
-
-    my %expectedAttrs = (
-                         proto => 'tcp',
-                         ripPasswd => 'aaaaa',
-                         servers   =>  [ [ '192.168.45.4' => 10008 ] ],
-    );
-
-    my $client = $openVPN->client($name);
-
-    while (my ($attr, $expectedValue) = each %expectedAttrs) {
-        if (ref $expectedValue) {
-            is_deeply $client->$attr(), $expectedValue,
-              "checking server created from bundle for poperty $attr";
-        }else {
-            is $client->$attr(), $expectedValue,
-              "checking server created from bundle for popierty $attr";
-        }
-
-    }
-
-    my @certGetters = qw(caCertificate certificate certificateKey);
-    foreach my $certGetter (@certGetters) {
-        my $certPath = $client->$certGetter();
-        diag "path $certPath";
-        my $fileExists =  (-r $certPath);
-        ok $fileExists , 'checking that certificate file $certGetter exists';
-    }
+    my ($nameToDelete) = @clientsNames;
+    _checkDeleteDaemon($openVPN, $nameToDelete, 'client');
 
 }
+
+# sub newClientFromBundleTest #: Test(7)
+# {
+#     my ($self) =@_;
+
+#     my $bundlePath = 'testdata/bundle-EBoxToEBox.tar.gz';
+
+#     my $name = 'clientFromBundle';
+
+#     my $openVPN = EBox::OpenVPN->_create();
+
+#     lives_ok {
+#         $openVPN->newClient($name, bundle => $bundlePath, internal => 0);
+#     }
+#     'creating client form bundle file';
+
+#     my %expectedAttrs = (
+#                          proto => 'tcp',
+#                          ripPasswd => 'aaaaa',
+#                          servers   =>  [ [ '192.168.45.4' => 10008 ] ],
+#     );
+
+#     my $client = $openVPN->client($name);
+
+#     while (my ($attr, $expectedValue) = each %expectedAttrs) {
+#         if (ref $expectedValue) {
+#             is_deeply $client->$attr(), $expectedValue,
+#               "checking server created from bundle for poperty $attr";
+#         }else {
+#             is $client->$attr(), $expectedValue,
+#               "checking server created from bundle for popierty $attr";
+#         }
+
+#     }
+
+#     my @certGetters = qw(caCertificate certificate certificateKey);
+#     foreach my $certGetter (@certGetters) {
+#         my $certPath = $client->$certGetter();
+#         diag "path $certPath";
+#         my $fileExists =  (-r $certPath);
+#         ok $fileExists , 'checking that certificate file $certGetter exists';
+#     }
+
+# }
 
 sub _checkDeleteDaemon
 {
     my ($openVPN, $name, $type) = @_;
+
+    my $deleteMethod = 'delete' . ucfirst $type;
     my $existsMethod = $type . 'Exists';
     my $listMethod = $type . 'sNames';
+
 
     my $daemon = $openVPN->$type($name);
     my $expectedDeletedData = _expectedDeletedDaemonData($daemon);
 
+    
+
     lives_ok {
-        $daemon->delete();
+        $openVPN->$deleteMethod($name);
     }
     "Testing client removal $name";
 
     dies_ok  {
-        $openVPN->type(
-                       $name);
+        $openVPN->$type($name);
     }
 'Testing that can not get the $type object that represents the deleted daemon ';
+
+    dies_ok {
+        $openVPN->$deleteMethod($name);
+    } 'wether you cannot delete the same daemon twice';
+
+
 
     my @actualDaemonsNames = $openVPN->$listMethod();
     ok $name ne all(@actualDaemonsNames),
@@ -310,14 +326,9 @@ sub _expectedDeletedDaemonData
 {
     my ($daemon) = @_;
     my %deletedData;
-    $deletedData{class} = ref $daemon;
+    $deletedData{name} =  $daemon->name;
+    $deletedData{type} =  $daemon->type;
 
-    my $type = ref $daemon;
-    $type =~ s/^.*:://;
-    $type = lc $type;
-    $deletedData{type} = $type;
-
-    $deletedData{filesToDelete} = [$daemon->daemonFiles];
 
     return \%deletedData;
 }
@@ -326,17 +337,16 @@ sub _checkDeletedDaemonData
 {
     my ($openVPN, $daemonName, $expectedDeleted) = @_;
 
-    my $deletedDaemons = $openVPN->_deletedDaemons();
+    my $deletedDaemons = $openVPN->model('DeletedDaemons');
+    my ($deletedData) = grep {
+        $_->{name} eq $daemonName;
+    } @{  $deletedDaemons->daemons() };
 
-    my $existsDaemon = exists $deletedDaemons->{$daemonName};
-    ok  $existsDaemon,
-      "Checking wether $daemonName appears in the list of deleted daemons";
-  SKIP:{
-        skip 1, 'the daemon do not appear in deleted daemons data'
-          if (not $existsDaemon);
-        is_deeply $expectedDeleted, $deletedDaemons->{$daemonName},
-          'Checking the deleted daemon information';
-    }
+    is_deeply $deletedData, $expectedDeleted, 
+        'checking wether deleted data is correct';
+
+
+
 }
 
 sub _createClientCertificates
