@@ -45,11 +45,9 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
-% if ( $model->printableName() ) {
 <& PARENT:title,
-   title => $model->printableName()
+   title => $model->headTitle()
 &>
-% }
 
 <& SELF:editForm,
    modelName => $model->name(),

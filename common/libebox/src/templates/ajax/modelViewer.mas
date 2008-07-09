@@ -223,6 +223,11 @@
 <tr>
   <td class='tright'>
     <% $type->printableName() %>:
+% if ($type->optional()) {
+    <div class='optional_field'>
+        <% __('Optional') %>
+    </div>
+% }
   </td>
   <td>
     <&
@@ -230,6 +235,9 @@
       'data' => $type,
       'tableName' => "$modelName"
     &>
+    <div class="field_help">
+    <% $type->help() %>
+    </div>
   </td>
 </tr>
 % }

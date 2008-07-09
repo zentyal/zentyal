@@ -224,6 +224,29 @@ sub defaultValue
 
   }
 
+# Method: help
+#
+#   Method to retrieve the associated help to this type
+#
+# Returns:
+#
+#     string
+#
+sub help 
+  {
+
+      my ($self) = @_;
+
+     if (defined($self->{help})) {
+        return $self->{help};
+     } else {
+        return '';
+     }
+
+
+  }
+
+
 sub trailingText
 {
 	my ($self) = @_;

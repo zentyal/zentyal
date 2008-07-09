@@ -138,6 +138,7 @@ sub _table
 		{ 
 			'tableName' => 'GatewayTable',
 			'printableTableName' => __('Gateway list'),
+			'pageTitle'	=> __('Gateways'),
 			'automaticRemove' => 1,
 			'defaultController' =>
 				'/ebox/Network/Controller/GatewayTable',

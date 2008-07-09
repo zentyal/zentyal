@@ -59,6 +59,8 @@ use Perl6::Junction qw(any);
 # Constants
 use constant LAYOUTS => qw(top-bottom tabbed select);
 
+use base 'EBox::Model::Component';
+
 # Group: Public methods
 
 # Constructor: new
@@ -416,6 +418,23 @@ sub printableName
       my ($self) = @_;
 
       return $self->{printableName};
+
+  }
+
+# Method: pageTitle
+#
+#       Get the i18ned name of the page where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub pageTitle 
+  {
+
+      my ($self) = @_;
+
+      return $self->printableName();
 
   }
 

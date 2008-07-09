@@ -222,7 +222,7 @@ sub _table
                                unique        => 1,
                                editable      => 1,
                                help          => __('You cannot use an IP' .
-                                ' address contained the above ranges')
+                                ' address contained in the above ranges.')
                               ),
       );
 

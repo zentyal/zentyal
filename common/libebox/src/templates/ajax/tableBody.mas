@@ -95,13 +95,15 @@ use EBox::Model::DataTable;
       $action = 'changeEdit' if ( $editid );
   }
 </%init>
-
+<& .pageTitle,
+   title => $model->pageTitle()
+&>
 %  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )
 %  {
 %    if ( $model->printableModelName() )
 %    {
 <& PARENT:title,
-   title => $model->printableModelName()
+   title => $model->headTitle()
 &>
 %    }
 %    if ($changeView and exists $actions->{'add'}) 
@@ -437,3 +439,26 @@ use EBox::Model::DataTable;
   </td>
 </tr>
 </%method>
+
+<%doc>
+  Method: pageTitle
+
+     Set the page title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%def .pageTitle>
+<%args>
+  $title => undef
+</%args>
+% if ($title) {
+<& /title.mas,
+    title => $title
+&>
+% }
+</%def>
+
+

@@ -1,5 +1,7 @@
 0.11.103
 	+ Use new EBox::Model::Row api
+	+ Add help to model fields
+	+ Remove default option auotmatically if another router is set as default
 0.11.102
 	+ Bugfix: Static routes are deleted from ip when they are not
 	useful

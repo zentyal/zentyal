@@ -266,6 +266,8 @@ iptable tr {
 
 .tright {
 	text-align: right;
+	vertical-align: top;
+	white-space: nowrap;
 }
 
 .border { border-bottom: 1px solid #CCCCCC; }
@@ -665,6 +667,12 @@ a.changed:hover {
 	text-decoration: underline;
 }
 
+#field_help {
+	color: #888;
+	clear: both;
+	font-size: 11px;
+}
+
 #file_comment {
         width: 70%;
         border:3px solid #E5503B;
@@ -759,3 +767,9 @@ a.changed:hover {
 }
 
 .endForm { padding-top: 5px; }
+
+.field_help {
+    color: #888;
+    clear: both;
+    font-size: 11px;
+}

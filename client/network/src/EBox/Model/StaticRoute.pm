@@ -162,6 +162,7 @@ sub _table
       my $dataTable = {
                        tableName          => 'StaticRoute',
                        printableTableName => __('Static routes'),
+                       pageTitle          => __('Static route list'),
                        modelDomain        => 'Network',
                        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                        tableDescription   => \@tableDesc,

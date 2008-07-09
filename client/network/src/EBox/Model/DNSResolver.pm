@@ -90,13 +90,13 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'DNSResolver',
-                     printableTableName => __('Name server resolvers'),
+                     printableTableName => __('Name server resolver list'),
+                     pageTitle          => __('Name server resolver'),
                      modelDomain        => 'Network',
                      defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',
-                     help               => __('Having network interfaces configured via DHCP ' .
-                                              'may cause this settings to be overriden.'),
+                     help               => _help(), 
                      printableRowName   => __('name server'),
                      order              => 1,
                      insertPosition     => 'back',
@@ -105,6 +105,14 @@ sub _table
       return $dataTable;
 
 
+}
+
+sub _help
+{
+    return (__('<p>Here you can add the name server resolvers that eBox will ' .
+               'use.</p>' .
+               '<p>Note that these settings may be overriden if you have any ' .
+               'network interface configured via DHCP</p>'));
 }
 
 1;

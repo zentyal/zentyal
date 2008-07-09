@@ -1,3 +1,6 @@
+0.11.103
+	+ Added .field_help class in public.css
+	+ Add field help to modelView.mas
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking

@@ -15,8 +15,12 @@
   use EBox::Gettext;
   use Data::Dumper;
 </%init>
-<& .title,
-   title => $model->printableName()
+<& .pageTitle,
+   title => $model->pageTitle()
+&>
+</%init>
+<& .headTitle,
+   title => $model->headTitle()
 &>
 % if ( $model->precondition() ) {
 %    # Define the components when we are sure the precondition is
@@ -63,7 +67,28 @@
 % }
 
 <%doc>
-Method: .title
+  Method: pageTitle
+
+     Set the page title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%def .pageTitle>
+<%args>
+  $title => undef
+</%args>
+% if ($title) {
+<& /title.mas,
+    title => $title
+&>
+% }
+</%def>
+
+<%doc>
+Method: .headTitle
 
    Private component to print the title if any. It takes into account
    if the composite is the root one or not to determine which kind of
@@ -74,24 +99,16 @@ Parameters:
    title - String the title to print
 
 </%doc>
-<%def .title>
+<%def .headTitle>
 <%args>
   $title => undef
 </%args>
-<%perl>
-  # Print the model name if any
-  if ( $title ) {
-    # Check if we are the root component or not to determine the heading size
-    if ( $m->depth() == 2 ) {
-</%perl>
-<& /title.mas,
-    title => $title
-&>
-%   } else {
+
+% if ($title) {
 <h3>
   <% $title | h %>
 </h3>
-%   }
 % }
 
 </%def>
+

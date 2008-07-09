@@ -90,6 +90,20 @@ sub printableIndex
 
 }
 
+# Method: pageTitle
+#
+#   Overrides:
+#       
+#       <EBox::Model::Composite::headTitle>
+#
+# Returns:
+#
+#
+#   undef
+sub pageTitle 
+  {
+    return undef;
+  }
 
 # Group: Protected methods
 

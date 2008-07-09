@@ -148,7 +148,8 @@ sub _table
     { 
         'tableName' => 'ServiceTable',
         'automaticRemove' => 1,
-        'printableTableName' => __('Services'),
+        'printableTableName' => __('List of services'),
+        'pageTitle' => __('Services'),
         'defaultController' =>
             '/ebox/Services/Controller/ServiceTable',
         'defaultActions' =>
@@ -156,7 +157,7 @@ sub _table
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'Services/View/ServiceTable',
         'class' => 'dataTable',
-        'help' => '', # FIXME
+        'help' => _servicesHelp(), # FIXME
         'printableRowName' => __('service'),
         'sortedBy' => 'name',
     };
@@ -532,5 +533,13 @@ sub _serviceConfParams
            'destination_to_port' => $destinationPortTo,
 	   'internal' => $internal,
 	   'readOnly' => $readonly);
+}
+
+sub _servicesHelp
+{
+    return __('A service is an abstraction of one or more network protocols '.
+              'which can be used in other modules such as: firewall, traffic '.
+              'shaping...');
+
 }
 1;

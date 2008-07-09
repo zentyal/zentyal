@@ -196,6 +196,37 @@ sub updatedRowNotify
 
 }
 
+# Method: pageTitle
+#
+#   Overrides:
+#       
+#       <EBox::Model::Composite::headTitle>
+#
+# Returns:
+#
+#
+#   undef
+sub pageTitle 
+{
+    return undef;
+}
+
+# Method: headTitle
+#
+#   Overrides:
+#       
+#       <EBox::Model::Composite::headTitle>
+#
+# Returns:
+#
+#
+#   undef
+sub headTitle 
+{
+    return undef;
+}
+
+
 # Group: Protected methods
 
 # Method: _table

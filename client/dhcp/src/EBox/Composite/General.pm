@@ -84,6 +84,17 @@ sub preconditionFailMsg
               closehref => '</a>');
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#   
+#   <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    return 'DHCP';
+}
+
 # Group: Protected methods
 
 # Method: _description
@@ -109,5 +120,6 @@ sub _description
       return $description;
 
   }
+
 
 1;

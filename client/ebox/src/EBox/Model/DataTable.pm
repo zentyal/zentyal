@@ -39,6 +39,8 @@ use Perl6::Junction qw(all any);
 use strict;
 use warnings;
 
+use base 'EBox::Model::Component';
+
 # TODO
 #     
 #    Factor findValue, find, findAll and findAllValue
@@ -338,7 +340,6 @@ sub setParent
 
     $self->{'parent'} = $parent;
 }
-
 
 # Method: precondition
 #
@@ -1664,6 +1665,42 @@ sub printableName
       return $self->printableModelName();
 
   }
+
+# Method: pageTitle
+#
+#       Get the i18ned name of the page where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub pageTitle 
+  {
+
+      my ($self) = @_;
+
+      return $self->table()->{'pageTitle'};
+
+  }
+
+# Method: headTitle
+#
+#       Get the i18ned name of the page where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub headTitle 
+  {
+
+      my ($self) = @_;
+
+      return $self->printableModelName();
+
+  }
+
+
 
 # Method: directory
 #

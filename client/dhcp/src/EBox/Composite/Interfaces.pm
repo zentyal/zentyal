@@ -54,6 +54,38 @@ sub new
 
   }
 
+# Method: pageTitle
+#
+#   Overrides:
+#       
+#       <EBox::Model::Composite::headTitle>
+#
+# Returns:
+#
+#
+#   undef
+sub pageTitle 
+  {
+    return undef;
+  }
+
+# Method: pageTitle
+#
+#   Overrides:
+#       
+#       <EBox::Model::Composite::headTitle>
+#
+# Returns:
+#
+#
+#   undef
+sub headTitle 
+  {
+    my ($self) = @_;
+    $self->printableName();
+  }
+
+
 # Group: Protected methods
 
 # Method: _description

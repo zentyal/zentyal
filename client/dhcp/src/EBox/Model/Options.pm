@@ -281,6 +281,19 @@ sub nameserver
 
 }
 
+# Method: headTitle
+#
+# Overrides:
+#
+#   <EBox::Model::Component::headTitle>
+#
+sub headTitle
+{
+    return undef;
+}
+
+
+
 # Group: Protected methods
 
 # Method: _table
