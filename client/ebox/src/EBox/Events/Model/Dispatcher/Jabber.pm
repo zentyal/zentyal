@@ -246,7 +246,7 @@ sub _table
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
                       help               => __('This dispatcher will send ' .
-                      ' events to an Jabber account') 
+                                               ' events to an Jabber account'),
                       messages           => {
                                              update => __('Jabber dispatcher configuration updated'),
                                             },
