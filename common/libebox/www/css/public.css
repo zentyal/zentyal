@@ -779,5 +779,6 @@ a.changed:hover {
     clear: both;
     font-size: 9px;
     font-style: italic;
+    padding-right: 3px;
 }
 
