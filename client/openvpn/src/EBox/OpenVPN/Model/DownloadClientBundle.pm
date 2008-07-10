@@ -55,55 +55,55 @@ sub _table
         ( 
 
          new EBox::Types::Select(
-                                 fieldName => 'clientType', 
-                                 printableName => __(q{Client's type}), 
-                                 editable => 1,
-                                 populate => \&_clientTypeOptions,
+             fieldName => 'clientType', 
+             printableName => __(q{Client's type}), 
+             editable => 1,
+             populate => \&_clientTypeOptions,
 #                                  populate => sub {
 #                                      return $self->_clientTypeOptions()
 #                                  },
-                                ),
+             ),
          new EBox::OpenVPN::Types::Certificate(
-                           fieldName => 'certificate',
-                           printableName => __("Client's certificate"),
+             fieldName => 'certificate',
+             printableName => __("Client's certificate"),
 #                           excluded => $self->_parentCert,
-                           editable => 1,
-                                ),
+             editable => 1,
+             ),
          new EBox::Types::Boolean(
-                                  fieldName => 'installer',
-                        printableName => __(q(Add OpenVPN's installer to bundle)),
-                                  editable => 1,
-                                 ),
+             fieldName => 'installer',
+             printableName => __(q(Add OpenVPN's installer to bundle)),
+             editable => 1,
+             ),
          new EBox::Types::Host(
-                                          fieldName => 'addr1',
-                                          printableName => __('Server address'),
-                                          editable => 1,
-                                         ),
+                 fieldName => 'addr1',
+                 printableName => __('Server address'),
+                 editable => 1,
+                 ),
          new EBox::Types::Host(
-                               fieldName => 'addr2',
+                 fieldName => 'addr2',
                  printableName => __('Additional server address (optional)'),
-                               editable => 1,
-                               optional => 1,
-                                         ),
+                 editable => 1,
+                 optional => 1,
+                 ),
          new EBox::Types::Host(
-                               fieldName => 'addr3',
+                 fieldName => 'addr3',
                  printableName => __('Additional server address (optional)'),
-                               editable => 1,
-                               optional => 1,
-                                         ),
-        );
+                 editable => 1,
+                 optional => 1,
+                 ),
+         );
 
     my $dataTable = 
-        { 
-            'tableName'               => __PACKAGE__->nameFromClass(),
-            'printableTableName' => __('Download client bundle'),
-            'automaticRemove' => 1,
-            'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-             'modelDomain' => 'OpenVPN',
-        };
+    { 
+        'tableName'               => __PACKAGE__->nameFromClass(),
+        'printableTableName' => __('Download client bundle'),
+        'automaticRemove' => 1,
+        'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
+        'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+        'tableDescription' => \@tableHead,
+        'class' => 'dataTable',
+        'modelDomain' => 'OpenVPN',
+    };
 
     return $dataTable;
 }
