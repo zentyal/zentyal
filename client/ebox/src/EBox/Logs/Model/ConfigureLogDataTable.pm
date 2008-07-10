@@ -343,7 +343,8 @@ sub _table
     my $dataTable = 
         { 
             'tableName' => 'ConfigureLogTable',
-            'printableTableName' => __('Configure logs'),
+            'printableTableName' => __('Current configuration'),
+            'pageTitle' => __('Logs configuration'),
             'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
