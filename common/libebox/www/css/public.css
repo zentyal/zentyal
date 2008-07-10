@@ -773,3 +773,11 @@ a.changed:hover {
     clear: both;
     font-size: 11px;
 }
+
+.optional_field {
+    color: #11AEA9;
+    clear: both;
+    font-size: 9px;
+    font-style: italic;
+}
+
