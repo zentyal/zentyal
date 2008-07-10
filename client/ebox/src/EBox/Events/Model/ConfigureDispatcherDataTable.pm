@@ -87,6 +87,22 @@ sub new
 
   }
 
+# Method: headTitle
+#
+#       Get the i18ned name of the header where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub headTitle 
+{
+
+    my ($self) = @_;
+
+    return undef;
+}
+
 # Method: rows
 #
 #      This method is overridden since the showed data is managed
