@@ -154,7 +154,11 @@ sub filters
 
     my ($self) = @_;
 
-    return $self->{filters};
+    if ($self->{filters}) {
+        return $self->{filters};
+    } else {
+        return [];
+    }
 
   }
 

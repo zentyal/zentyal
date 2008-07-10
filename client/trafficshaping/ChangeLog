@@ -1,6 +1,9 @@
+0.11.105
+	+ Add field help to model
 0.11.104
 	+ Do not return a "removed message" with 0 rows removed
-	+ Add field help to model
+0.11.104
+	+ Bugfix. Return empty array and not undef if there are no rules
 0.11.103
 	+ Bugfix. Extend IptablesRule from Firewall to add setReverseService.
 	  To properly add ingress rules
