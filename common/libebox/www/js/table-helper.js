@@ -270,14 +270,17 @@ function hangTable(successId, errorId, url, formId, loadingId)
 	method: 'post',
 	parameters: Form.serialize(formId, true), // The parameters are taken from the form
 	asynchronous: true,
-        evalScripts: true,
+    evalScripts: true,
+    onComplete: function(t) {
+      stripe('dataTable', '#ecf5da', '#ffffff'); 
+    },
 	onFailure: function(t) {
 	  restoreHidden(loadingId);
 	}
       }
   );
  
-  //setLoading(loadingId);
+  setLoading(loadingId);
  
 }
 

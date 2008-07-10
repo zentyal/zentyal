@@ -116,10 +116,10 @@ use EBox::Model::DataTable;
                       page => $page,
                       isFilter => 0) 
                 %>;return false'>Add new</a>
+   <br/>
+   <br/>
 %    }
   <span id="<% 'creatingForm_' . $tableName %>"></span>   
-   <br/>
-<br>
 %  }
 
 %  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
