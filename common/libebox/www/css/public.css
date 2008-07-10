@@ -104,6 +104,7 @@
 	font-size: 8pt;
 	background: #dfef7a url("/data/images/msg.gif") 6pt 6pt no-repeat;
 	margin: 1em 0px 0em 0px;
+	margin-bottom: 5px;
 }
 
 .error {
