@@ -65,78 +65,78 @@ sub _table
 {
     my @tableHead = 
         ( 
-          new EBox::OpenVPN::Types::PortAndProtocol(
-                                                    
-                                                    fieldName => 'portAndProtocol',
-                                                    printableName => __('Server port'),
-                                                    unique => 1,
-                                                    editable => 1,
-                                                   ),
+         new EBox::OpenVPN::Types::PortAndProtocol(
+
+             fieldName => 'portAndProtocol',
+             printableName => __('Server port'),
+             unique => 1,
+             editable => 1,
+             ),
          new EBox::Types::IPNetwork(
-                                   fieldName => 'vpn',
-                                   printableName => __('VPN address'),
-                                    editable => 1,
-                               ),
+             fieldName => 'vpn',
+             printableName => __('VPN address'),
+             editable => 1,
+             ),
 
          new EBox::OpenVPN::Types::Certificate(
-                                fieldName => 'certificate',
-                                printableName => __('Server certificate'),
+             fieldName => 'certificate',
+             printableName => __('Server certificate'),
 
-                                editable       => 1,
-                               ),
-         
+             editable       => 1,
+             ),
+
          new EBox::OpenVPN::Types::TlsRemote(
-                                 fieldName => 'tlsRemote',
-                                 printableName => __('Client authorization by common name'),
-                                 editable => 1,
-                               ),
+                 fieldName => 'tlsRemote',
+                 printableName => __('Client authorization by common name'),
+                 editable => 1,
+                 ),
          new EBox::Types::Boolean(
-                                 fieldName =>  'masquerade',
-                                 printableName => __('Network Address Translation'),
-                                  editable => 1,
-                                  defaultValue => 0,
-                               ),
+                 fieldName =>  'masquerade',
+                 printableName => __('Network Address Translation'),
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
          new EBox::Types::Boolean(
-                                 fieldName => 'clientToClient',  
-                                 printableName => __('Allow client-to-client connections'), 
-                                  editable => 1,
-                                  defaultValue => 0,
-                                ),
+                 fieldName => 'clientToClient',  
+                 printableName => __('Allow client-to-client connections'), 
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
          new EBox::Types::Boolean(
-                                 fieldName => 'pullRoutes', 
-                                 printableName => __('Allow eBox-to-eBox tunnels'), 
-                                  editable => 1,
-                                  defaultValue => 0,
-                                ),
-        new EBox::Types::Password(
-                                  fieldName => 'ripPasswd', 
-                                  printableName => __('eBox-to-eBox tunnel password'), 
-                                  minLength => 6,
-                                  editable => 1,
-                                  optional => 1,
-                                 ), 
+                 fieldName => 'pullRoutes', 
+                 printableName => __('Allow eBox-to-eBox tunnels'), 
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
+         new EBox::Types::Password(
+                 fieldName => 'ripPasswd', 
+                 printableName => __('eBox-to-eBox tunnel password'), 
+                 minLength => 6,
+                 editable => 1,
+                 optional => 1,
+                 ), 
          new EBox::Types::Select(
-                                 fieldName  => 'local', 
-                                 printableName => __('Interface to listen on'), 
-                                 editable => 1,
-                                 populate      => \&_populateLocal,
-                                 defaultValue => ALL_INTERFACES,
-                                ),
-        );
+                 fieldName  => 'local', 
+                 printableName => __('Interface to listen on'), 
+                 editable => 1,
+                 populate      => \&_populateLocal,
+                 defaultValue => ALL_INTERFACES,
+                 ),
+         );
 
     my $dataTable = 
-        { 
-            'tableName'               => __PACKAGE__->nameFromClass(),
-            'printableTableName' => __('Server configuration'),
-            'automaticRemove' => 1,
-            'defaultController' => '/ebox/OpenVPN/Controller/ServerConfiguration',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'printableRowName' => __('server'),
-            'sortedBy' => 'name',
-            'modelDomain' => 'OpenVPN',
-        };
+    { 
+        'tableName'               => __PACKAGE__->nameFromClass(),
+        'printableTableName' => __('Server configuration'),
+        'automaticRemove' => 1,
+        'defaultController' => '/ebox/OpenVPN/Controller/ServerConfiguration',
+        'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+        'tableDescription' => \@tableHead,
+        'class' => 'dataTable',
+        'printableRowName' => __('server'),
+        'sortedBy' => 'name',
+        'modelDomain' => 'OpenVPN',
+    };
 
     return $dataTable;
 }
@@ -223,26 +223,26 @@ sub _checkRipPasswd
 sub _uniqPortAndProtocol
 {
     my ($self, $action, $params_r) = @_;
-    
+
     exists $params_r->{portAndProtocol} 
-        or return;
+    or return;
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
     my $manager = EBox::Model::ModelManager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
-    
+
     my $nIdentical = 0;
     my $olddir = $self->directory();
     foreach my $row ( @{ $serverList->rows}) {
         my $serverConf = $row->subModel('configuration');
         my $other      = $serverConf->portAndProtocolType();
-        
+
         if ($portAndProtocol->cmp($other) == 0) {
-                throw EBox::Exceptions::External(
-                                                 __('Other server is listening on the same port')
-                                                );
+            throw EBox::Exceptions::External(
+                    __('Other server is listening on the same port')
+                    );
 
         }
     }
@@ -271,7 +271,8 @@ sub _checkPortIsAvailable
                     $actual_r->{local}->value();
 
 
-    return if $self->_alreadyCheckedAvailablity( $proto, $port, $local, $actual_r);
+    return if $self->_alreadyCheckedAvailablity($proto, 
+                $port, $local, $actual_r);
 
 
     my $firewall = EBox::Global->modInstance('firewall');
@@ -302,10 +303,10 @@ sub _alreadyCheckedAvailablity
 
     # avoid falses positives
     my ($oldProto, $oldPort, $oldLocal) = (
-                                           $actual_r->{portAndProtocol}->protocol(),
-                                           $actual_r->{portAndProtocol}->port(),
-                                           $actual_r->{local}->value(),
-                                          );
+            $actual_r->{portAndProtocol}->protocol(),
+            $actual_r->{portAndProtocol}->port(),
+            $actual_r->{local}->value(),
+            );
     my $samePort  = $port eq $oldPort;
     my $sameProto = $proto eq $oldProto;
     my $sameLocal = $local eq $oldLocal;
@@ -345,12 +346,14 @@ sub _checkIface
     my $network = EBox::Global->modInstance('network');
 
     if (not $network->ifaceExists($iface) ) {
-        throw EBox::Exceptions::External(__x('The interface {iface} does not exist'), iface => $iface);
+        throw EBox::Exceptions::External(
+            __x('The interface {iface} does not exist'), iface => $iface);
     } 
-    
+
     if ( $network->ifaceMethod($iface) eq 'notset') {
-        throw EBox::Exceptions::External(__x('The interface {iface} is not configured'), iface => $iface);
-  }
+        throw EBox::Exceptions::External(
+            __x('The interface {iface} is not configured'), iface => $iface);
+    }
 }
 
 
@@ -367,13 +370,15 @@ sub _checkMasqueradeIsAvailable
     my $firewall = EBox::Global->modInstance('firewall');
     if (not $firewall) {
         throw EBox::Exceptions::External(
-          __('Cannot use Network Address translation beacuse it requires the firewall module. The module is neither installed or activated')
+          __('Cannot use Network Address translation beacuse it requires the ' .
+             'firewall module. The module is neither installed or activated')
                                         );
     }
 
     if (not $firewall->isEnabled()) {
         throw EBox::Exceptions::External(
-          __('Cannot use Network Address translation beacuse it requires the firewall module enabled. Please activate it and try again')
+          __('Cannot use Network Address translation beacuse it requires the ' .
+              'firewall module enabled. Please activate it and try again')
                                         );
     }
 }
@@ -409,7 +414,8 @@ sub _checkIfaceAndMasquerade
         my $externalIfaces = @{ $network->ExternalIfaces() };
         if (not $externalIfaces) {
             throw EBox::Exceptions::External(
-             __('At least one external interface is needed to connect to the server unless network address translation option is enabled')
+             __('At least one external interface is needed to connect to the ' .
+                'server unless network address translation option is enabled')
                                             );
         }
     }
@@ -417,7 +423,8 @@ sub _checkIfaceAndMasquerade
         my $external = $network->ifaceIsExternal($local);
         if (not $external) {
             throw EBox::Exceptions::External(
-              __('The interface must be a external interface, unless masuqerade option is on')
+              __('The interface must be a external interface, unless ' . 
+              'masuqerade option is on')
                                             )
         }
     }
