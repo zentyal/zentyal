@@ -73,11 +73,15 @@ sub _table
              fieldName => 'installer',
              printableName => __(q(Add OpenVPN's installer to bundle)),
              editable => 1,
+             help => __('OpenVPN installer for Microsoft Windows'),
              ),
          new EBox::Types::Host(
                  fieldName => 'addr1',
                  printableName => __('Server address'),
                  editable => 1,
+                 help => __('This is the address that will be used by your ' .
+                            'clients to connect to the server. Typically, ' .
+                            'this will be a public IP or host name'),
                  ),
          new EBox::Types::Host(
                  fieldName => 'addr2',
@@ -96,13 +100,15 @@ sub _table
     my $dataTable = 
     { 
         'tableName'               => __PACKAGE__->nameFromClass(),
-        'printableTableName' => __('Download client bundle'),
+        'printableTableName' => __('Configure bundle'),
+        'pageTitle' => __('Download client bundle'),
         'automaticRemove' => 1,
         'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
         'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
         'tableDescription' => \@tableHead,
         'class' => 'dataTable',
         'modelDomain' => 'OpenVPN',
+        'help'  => _help(),
     };
 
     return $dataTable;
@@ -286,4 +292,9 @@ sub _server
     return $openvpn->server($name);
 }
 
+sub _help
+{
+    return __('A client bundle is a file which contains a ready to use ' .
+              'configuration for your clients');
+}
 1;

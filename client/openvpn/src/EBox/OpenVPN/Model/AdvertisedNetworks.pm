@@ -58,7 +58,8 @@ sub _table
     my $dataTable = 
         { 
             'tableName'              => __PACKAGE__->name(),
-            'printableTableName' => __('Advertised networks'),
+            'printableTableName' => __('List of networks'),
+            'pageTitle' => __('Advertised networks'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/AdvertisedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -67,6 +68,7 @@ sub _table
             'printableRowName' => __('Advertised network'),
             'sortedBy' => 'network',
             'modelDomain' => 'OpenVPN',
+            'help'  => _help(),
         };
 
     return $dataTable;
@@ -79,5 +81,12 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
+sub _help
+{
+    return __('<p>You can add here those networks which you want to make ' .
+              'available to clients connecting to this VPN.</p>' . 
+              '<p>Typically, you will allow access to your LAN by advertising' .
+              ' its network address here</p>');
+}
 
 1;

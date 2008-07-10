@@ -100,7 +100,8 @@ sub _table
     my $dataTable = 
         { 
             'tableName'              => __PACKAGE__->name(),
-            'printableTableName' => __('VPN servers'),
+            'printableTableName' => __('List of servers'),
+            'pageTitle' => __('VPN servers'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/Servers',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -108,6 +109,7 @@ sub _table
             'class' => 'dataTable',
             'printableRowName' => __('server'),
             'sortedBy' => 'name',
+            'help' => _help(),
             'modelDomain' => 'OpenVPN',
         };
 
@@ -298,7 +300,17 @@ sub deletedRowNotify
 
 }
 
+sub _help
+{
+    return ('<p>You can configure openVPN servers to easily connect remote ' .
+            'offices or users.</p>' .
+            '<p>Click on <i>Configuration</i> to set the VPN parameters.</p>' .
+            '<p><i>Advertised networks</i> allows you to configure which ' .
+            'networks you want to make accessible to the remote users.' .
+            '<p>Once you are done with the configuration you can download ' .
+            'a file bundle for your operating system to use in your clients.');
 
+}
 
 
 1;
