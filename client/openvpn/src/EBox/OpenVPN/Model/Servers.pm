@@ -38,7 +38,9 @@ use EBox::OpenVPN::Server;
 
 #use EBox::OpenVPN::Model::ServerConfiguration;
 
-sub new 
+# Group: Public and protected methods
+
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -152,12 +154,13 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return  __x(q/<p>You can't create VPN servers because there aren't enough/
-        . ' certificates.</p><p>Please, go to the {openhref} certificate '
-        . 'manager module {closehref} and create new certificates.</p>' 
-        . '<p>You will need a CA and at least one certificate.</p>',
-        openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>});
- 
+    return  __x(q/{openpar}You can't create VPN servers because there aren't enough/
+        . ' certificates.{closepar}{openpar}Please, go to the {openhref}certificate '
+        . 'manager module{closehref} and create new certificates.{closepar}'
+        . '{openpar}You will need a CA and at least one certificate.{closepar}',
+        openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
+        openpar => '<p>', closepar => '</p>' );
+
 }
 
 sub validateTypedRow
@@ -172,62 +175,6 @@ sub validateTypedRow
 
     $self->_validateService($action, $params_r, $actual_r);
     $self->_validateName($action, $params_r, $actual_r);
-}
-
-
-sub _validateService
-{
-    my ($self, $action, $params_r, $actual_r) = @_;
-
-
-    if ( not exists $params_r->{service} ) {
-        return;
-    }
-
-    if (not $params_r->{service}->value()) {
-        return;
-    }
-
-    my $configuration = $actual_r->{'configuration'}->foreignModelInstance();
-    if ((not defined $configuration) or (not $configuration->configured())) {
-        throw EBox::Exceptions::External(
-                                         __('Cannot activate the server because is not fully configured; please edit the configuration and retry')
-                                            )
-        }
-
-        $self->_checkCertificatesAvailable(
-                  __('Server activation')
-                                          );
-}
-
-
-sub _validateName
-{
-    my ($self, $action, $params_r, $actual_r) = @_;
-
-    if ( not exists $params_r->{name} ) {
-        return;
-    }
-
-    my $name =  $params_r->{name}->value();
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    $openvpn->checkNewDaemonName($name, 'server');
-}
-
-sub _checkCertificatesAvailable
-{
-    my ($self, $printableAction) = @_;
-
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    my $certsAvailable = @{  $openvpn->availableCertificates() };
-    if (not $certsAvailable) {
-        throw EBox::Exceptions::External(
-                   __x(
-                       q/{act} not possible because there aren't any avaialbe certificate. Please, go to the certificate manager module and create new certificates/,
-                       act => $printableAction
-                      )
-                                        );
-    }
 }
 
 sub servers
@@ -252,7 +199,7 @@ sub server
 
     my $row = $self->findRow(name => $name);
     defined $row or
-        throw EBox::Exceptions::Internal("Server $name  does not exist");
+        throw EBox::Exceptions::Internal("Server $name does not exist");
 
     return EBox::OpenVPN::Server->new($row);
 }
@@ -300,15 +247,80 @@ sub deletedRowNotify
 
 }
 
+# Group: Private methods
+
+sub _validateService
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+
+    if ( not exists $params_r->{service} ) {
+        return;
+    }
+
+    if (not $params_r->{service}->value()) {
+        return;
+    }
+
+    my $configuration = $actual_r->{'configuration'}->foreignModelInstance();
+    if ((not defined $configuration) or (not $configuration->configured())) {
+        throw EBox::Exceptions::External(
+                                         __('Cannot activate the server because '
+                                            .' is not fully configured; please '
+                                            . 'edit the configuration and retry')
+                                            )
+        }
+
+        $self->_checkCertificatesAvailable(
+                  __('Server activation')
+                                          );
+}
+
+
+sub _validateName
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    if ( not exists $params_r->{name} ) {
+        return;
+    }
+
+    my $name =  $params_r->{name}->value();
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    $openvpn->checkNewDaemonName($name, 'server');
+}
+
+sub _checkCertificatesAvailable
+{
+    my ($self, $printableAction) = @_;
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $certsAvailable = @{  $openvpn->availableCertificates() };
+    if (not $certsAvailable) {
+        throw EBox::Exceptions::External(
+                   __x(
+                       q/{act} not possible because there aren't/
+                       . 'any available certificate. Please, go to'
+                       . 'the certificate authority module'
+                       . 'and create new certificates',
+                       act => $printableAction
+                      )
+                                        );
+    }
+}
+
+# Return the model help message
 sub _help
 {
-    return ('<p>You can configure openVPN servers to easily connect remote ' .
-            'offices or users.</p>' .
-            '<p>Click on <i>Configuration</i> to set the VPN parameters.</p>' .
-            '<p><i>Advertised networks</i> allows you to configure which ' .
+    return __x('{openpar}You can configure openVPN servers to easily connect remote ' .
+            'offices or users.{closepar}' .
+            '{openpar}Click on {openit}Configuration{closeit} to set the VPN parameters.{closepar}' .
+            '{openpar}{openit}Advertised networks{closeit} allows you to configure which ' .
             'networks you want to make accessible to the remote users.' .
-            '<p>Once you are done with the configuration you can download ' .
-            'a file bundle for your operating system to use in your clients.');
+            '{openpar}Once you are done with the configuration you can download ' .
+            'a file bundle for your operating system to use in your clients.',
+            openpar => '<p>', closepar => '</p>', openit => '<i>',
+            closeit => '</i>');
 
 }
 
