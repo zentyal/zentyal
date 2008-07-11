@@ -32,6 +32,8 @@ use EBox::Exceptions::DataExists;
 
 use EBox::Types::IPNetwork;
 
+# Group: Public methods
+
 sub new 
 {
     my $class = shift;
@@ -42,6 +44,12 @@ sub new
     return $self;
 }
 
+sub name
+{
+    __PACKAGE__->nameFromClass(),
+}
+
+# Group: Protected methods
 
 sub _table
 {
@@ -74,19 +82,16 @@ sub _table
     return $dataTable;
 }
 
+# Group: Private methods
 
-
-sub name
-{
-    __PACKAGE__->nameFromClass(),
-}
-
+# Return the help message
 sub _help
 {
-    return __('<p>You can add here those networks which you want to make ' .
-              'available to clients connecting to this VPN.</p>' . 
-              '<p>Typically, you will allow access to your LAN by advertising' .
-              ' its network address here</p>');
+    return __x('{openpar}You can add here those networks which you want to make ' .
+              'available to clients connecting to this VPN.{closepar}' .
+              '{openpar}Typically, you will allow access to your LAN by advertising' .
+              ' its network address here{closepar}',
+              openpar => '<p>', closepar => '</p>');
 }
 
 1;
