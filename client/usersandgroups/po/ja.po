@@ -178,7 +178,7 @@ msgstr "{uid}は誤ったUIDです。ユーザのUIDは{min}以上に設定す�
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
-"{uid}は誤ったUIDです。システムユーザのUIDは{min}以上に設定する必要があります"
+"{uid}は誤ったUIDです。システムユーザのUIDは{max}以上に設定する必要があります"
 
 #: src/EBox/UsersAndGroups.pm:782
 #, perl-brace-format
