@@ -15,7 +15,7 @@
     my $defaultSizeIncluded = grep { $_ == $defaultSize  } @sizes;
     if ( not $defaultSizeIncluded) {
        push @sizes, $defaultSize;
-       @szies = sort @sizes;
+       @sizes = sort { $a <=> $b }@sizes;
    }
 
     foreach my $size (@sizes) {
