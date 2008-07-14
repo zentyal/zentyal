@@ -1,4 +1,4 @@
-AC_INIT([EBox-samba], [0.11.103])
+AC_INIT([EBox-samba], [0.11.104])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Samba.pm])
