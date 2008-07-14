@@ -594,7 +594,12 @@ sub _setUpModelsFromProvider
 
     try {
         for my $model (@{$provider->models()}) {
-            push ( @{$self->{'models'}->{$provider->name()}->{$model->tableName()}}, $model);
+	    my $moduleName = $provider->name();
+	    my $modelName = $model->tableName();
+	    $modelName or 
+		throw EBox::Exceptions::Internal("Invalid model name $modelName");
+
+            push ( @{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
         }
         for my $model (@{$provider->reloadModelsOnChange()}) {
             push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
@@ -872,8 +877,17 @@ sub _hasChanged
 
     my ($self) = @_;
 
-    return ($self->{'version'} != $self->_version());
+    my $actualVersionNotDefined = not defined $self->{'version'};
+    my $gconfVersionNotDefined  = not defined $self->_version();
 
+    if ($actualVersionNotDefined and $gconfVersionNotDefined) {
+        return undef;
+    }
+    elsif ($actualVersionNotDefined or $gconfVersionNotDefined) {
+        return 1;
+    }
+
+    return ($self->{'version'} != $self->_version());
 }
 
 # Method: _version

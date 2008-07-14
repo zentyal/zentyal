@@ -87,7 +87,6 @@ sub new
             'table' => undef,
             'cachedVersion' => undef,
             'domain' => $domain,
-            'pageSize' => 10
         };
 
         bless($self, $class);
@@ -130,7 +129,7 @@ sub table
         # addition as well
         $field->setModel($self);
       }
-      # Some default values
+      # Some defaultvalues
       unless (defined($self->{'table'}->{'class'})) {
           $self->{'table'}->{'class'} = 'dataTable';
       }
@@ -2563,8 +2562,36 @@ sub pageSize
 {
     my ($self) = @_;
 
-    return $self->{'pageSize'}
+    # if the user has selected a page size return it
+    if (exists $self->{'pageSize'} ) {
+        return $self->{'pageSize'};
+    }
+
+    return $self->defaultPageSize();
 }
+
+
+# Method: defaultPageSize
+#     
+#     Return the default number of rows per page. This value must be defined in
+#     the table description. If it is not defined it defaults to 10
+#
+# Returns:
+#    
+#    int - default page size
+sub defaultPageSize
+{
+    my ($self) = @_;
+
+    my $table = $self->table();
+    if (exists $table->{'pageSize'} ) {
+        return $table->{'pageSize'};
+    }
+
+    # fallback to defautl value of 10
+    return 10;
+}
+
 
 # Method: setPageSize
 #     
