@@ -1,4 +1,4 @@
-AC_INIT([EBox-CA], [0.11.102])
+AC_INIT([EBox-CA], [0.11.103])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/CA.pm])
