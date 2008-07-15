@@ -50,16 +50,15 @@ use EBox::Squid::Types::Policy;
 #       created model
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
-
-      my $self = $class->SUPER::new(@_);
-
-      bless $self, $class;
-      return $self;
-
-  }
+    my $self = $class->SUPER::new(@_);
+    
+    bless $self, $class;
+    return $self;
+    
+}
 
 # Group: Protected methods
 
@@ -106,7 +105,7 @@ sub _table
       printableTableName => __('List of objects'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
-      'defaultActions' => [	
+      'defaultActions' => [     
           'add', 'del',
       'editField',
       'changeView'
@@ -128,14 +127,14 @@ sub _table
 
 sub objectModel
 {
-	my $objects = EBox::Global->getInstance()->modInstance('objects');
-	return $objects->{'objectModel'};
+    my $objects = EBox::Global->getInstance()->modInstance('objects');
+    return $objects->{'objectModel'};
 }
 
 
 sub name
 {
-  return 'ObjectPolicy';
+    return 'ObjectPolicy';
 }
 
 
@@ -143,108 +142,105 @@ sub name
 
 sub _objectsByPolicy
 {
-  my ($self, $policy) = @_;
-
-  EBox::Squid::Types::Policy->checkPolicy($policy);
-
-  my @objects =  map {
-    $_->valueByName('object')
-  }  @{ $self->findAllValue(policy => $policy) };
-
-  return \@objects;
+    my ($self, $policy) = @_;
+    
+    EBox::Squid::Types::Policy->checkPolicy($policy);
+    
+    my @objects =  map {
+        $_->valueByName('object')
+    }  @{ $self->findAllValue(policy => $policy) };
+    
+    return \@objects;
 }
 
 sub _objectHasPolicy
 {
-  my ($self, $object, $policy) = @_;
-
-  EBox::Squid::Types::Policy->checkPolicy($policy);
-
-  my $objectRow = $self->findValue(object => $object);
-  if (not defined $objectRow) {
-    throw EBox::Exceptions::External('{o} does not exists', o => $object );
-  }
-
-  return $object->{policy} eq $policy;
+    my ($self, $object, $policy) = @_;
+    
+    EBox::Squid::Types::Policy->checkPolicy($policy);
+    
+    my $objectRow = $self->findValue(object => $object);
+    if (not defined $objectRow) {
+        throw EBox::Exceptions::External('{o} does not exists', o => $object );
+    }
+    
+    return $object->{policy} eq $policy;
 }
 
 #
 # Method: filtered
 #
-#	Returns a list of filtered objects
+#       Returns a list of filtered objects
 #
 # Parameters:
 #
-#	array ref - holding the object names
+#       array ref - holding the object names
 #
 sub filtered
 {
-  my($self) = @_;
-  return $self->_objectsByPolicy('filter');
-
+    my ($self) = @_;
+    return $self->_objectsByPolicy('filter');
 }
 
 # Method: unfiltered
 #
-#	Returns a list of unfiltered objects
+#       Returns a list of unfiltered objects
 #
 # Parameters:
 #
-#	array ref - holding the object names
+#       array ref - holding the object names
 #
 sub unfiltered
 {
-  my($self) = @_;
-  return $self->_objectsByPolicy('allow');
-
+    my ($self) = @_;
+    return $self->_objectsByPolicy('allow');
 }
 
 
 # Method: isUnfiltered
 #
-#	Checks if a given object is set as unfiltered
+#       Checks if a given object is set as unfiltered
 #
 # Parameters:
 #
-#	object - object name
+#       object - object name
 #
 # Returns:
 #
-#	boolean - true if it's set as unfiltered, otherwise false
+#       boolean - true if it's set as unfiltered, otherwise false
 sub isUnfiltered # ($object)
 {
-  my ($self, $object) = @_;
-  $self->_objectHasPolicy($object, 'allow');
+    my ($self, $object) = @_;
+    $self->_objectHasPolicy($object, 'allow');
 }
 
 
 #
 # Method: banned
 #
-#	Returns the list of banned objects.
+#       Returns the list of banned objects.
 #
 # Returns:
 #
-#	array ref - holding the objects
+#       array ref - holding the objects
 #
 sub banned
 {
-  my($self) = @_;
-  return $self->_objectsByPolicy('deny');
-
+    my ($self) = @_;
+    return $self->_objectsByPolicy('deny');
 }
 
 # Method: isBanned
 #
-#	Checks if a given object is banned
+#       Checks if a given object is banned
 #
 # Parameters:
 #
-#	object - object name
+#       object - object name
 #
 # Returns:
 #
-#	boolean - true if it's set as banned, otherwise false
+#       boolean - true if it's set as banned, otherwise false
 sub isBanned # ($object)
 {
   my ($self, $object) = @_;
