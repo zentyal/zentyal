@@ -1496,25 +1496,6 @@ sub _setCacheDirty
     $gconfmod->set_int($storedVerKey, $newVersion);
 }
 
-sub _increaseStoredAndCachedVersion
-{
-    my $self = shift;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVerKey = $self->{'directory'} . '/version';
-    my $storedVersion = $gconfmod->get_int($storedVerKey);
-    my $newVersion;
-
-    if (defined($storedVersion)) {
-        $newVersion = $storedVersion + 1;
-    } else {
-        $newVersion = 1;
-    }
-
-    $gconfmod->set_int($storedVerKey, $newVersion);
-    $self->{'cachedVersion'} = $newVersion;
-}
-
 # Method: _tailoredOrder
 #
 #       Function to be overriden by the subclasses in order to do
