@@ -391,7 +391,7 @@ sub acquireConfModel
       eval "use $className";
       if ( $@ ) {
           # Error loading class -> dispatcher to remove
-          return;
+          throw EBox::Exceptions::Internal("Class $className does not compile: $@");
       }
 
       return $className->ConfigureModel();
