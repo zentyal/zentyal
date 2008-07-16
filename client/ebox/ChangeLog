@@ -3,6 +3,7 @@
 	module developer. This allows to purge some logs tables again
 	+ Add page titles to models
 	+ Set default values when not given in `add` method in models
+	+ Add method to manage page size in model
 0.11.103
 	+ Modify EBox::Types::HasMany to create directory based on its row 
 	+ Add _setRelationship method to set up relationships between models
