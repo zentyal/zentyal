@@ -3375,7 +3375,7 @@ sub _autoloadAdd
         my %params = @{$paramsRef};
         $paramsRef = \%params;
         # Simple add (add a new row to a model including submodels...)
-        my $instancedTypes = $self->_fillTypes($paramsRef);
+        my $instancedTypes = $self->_fillTypes($paramsRef, 1);
         my $addedId = $self->addTypedRow($instancedTypes);
 
         my $subModels = $self->_subModelFields();
@@ -3674,6 +3674,10 @@ sub _subModelFields
 #     params - hash ref containing the name and the values for each
 #     type to fill
 #
+#     fillDefault - boolean indicating if there are any field which is
+#     not provided in params parameter, it will feed with its default
+#     value if any *(Optional)* Default value: false
+#
 # Returns:
 #
 #     hash ref - the types instanced with a value set indexed by field
@@ -3687,7 +3691,9 @@ sub _subModelFields
 sub _fillTypes
 {
 
-    my ($self, $params) = @_;
+    my ($self, $params, $fillDefault) = @_;
+
+    $fillDefault = '' unless defined($fillDefault);
 
 # Check all given fields to fill are in the table description
     foreach my $paramName (keys %{$params}) {
@@ -3699,11 +3705,16 @@ sub _fillTypes
 
     my $filledTypes = {};
     foreach my $fieldName (@{$self->fields()}) {
+        my $field = $self->fieldHeader($fieldName);
         if ( exists $params->{$fieldName} ) {
-            my $field = $self->fieldHeader($fieldName);
             my $paramValue = $params->{$fieldName};
             my $newType = $field->clone();
             $newType->setValue($paramValue);
+            $filledTypes->{$fieldName} = $newType;
+        } elsif ( $fillDefault and defined($field->defaultValue())
+                  and (not $field->optional())) {
+            # New should set default value
+            my $newType = $field->clone();
             $filledTypes->{$fieldName} = $newType;
         }
     }
@@ -3742,7 +3753,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
 
     # Addition to a submodel
     foreach my $subModelRow (@{$subModelRows}) {
-        my $instancedTypes = $submodel->_fillTypes($subModelRow);
+        my $instancedTypes = $submodel->_fillTypes($subModelRow, 1);
         my $addedId = $submodel->addTypedRow($instancedTypes);
 
         my $subSubModels = $submodel->_subModelFields();
