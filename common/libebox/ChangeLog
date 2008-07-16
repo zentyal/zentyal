@@ -3,6 +3,8 @@
 	+ Add field help to modelView.mas
 	+ Stripe tables in hang table
 	+ Use again the load gif when switching tabs
+	+ Add completedAjaxRequest and startAjaxRequest to be used as helpers
+	  for automated testing with ANSTE
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking

@@ -43,6 +43,7 @@ function addNewRow(url, table, fields, directory)
 			evalScripts: true,
 			onComplete: function(t) {
 			  stripe('dataTable', '#ecf5da', '#ffffff'); 
+			  completedAjaxRequest();
 			},
 			onFailure: function(t) {
 			  restoreHidden('buttons_' + table, table);
@@ -202,6 +203,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
 			  if ( action == 'changeEdit' ) {
 			    restoreHidden('actionsCell_' + id, table);
 			  }
+			  completedAjaxRequest();
 			},
 			onFailure: function(t) {
 			  if ( action == 'changeAdd' ) {
@@ -273,6 +275,7 @@ function hangTable(successId, errorId, url, formId, loadingId)
     evalScripts: true,
     onComplete: function(t) {
       stripe('dataTable', '#ecf5da', '#ffffff'); 
+      completedAjaxRequest();
     },
 	onFailure: function(t) {
 	  restoreHidden(loadingId);
@@ -648,3 +651,34 @@ function markFileToRemove(id)
     $(id + '_remove').value = "1";
     hide(id + '_current');
 }
+
+/*
+Function: startAjaxRequest
+
+	This function is used to mark we start an ajax request.
+	This is used to help test using selenium, it modifies
+	a dom element -request_cookie- to be able to know when
+	an ajax request starts and stops.
+
+*/
+function startAjaxRequest()
+{
+    $('request_cookie').value = 1;
+}
+
+/*
+Function: completedAjaxRequest
+
+	This function is used to mark we finished an ajax request.
+	This is used to help test using selenium, it modifies
+	a dom element -request_cookie- to be able to know when
+	an ajax request starts and stops.
+
+*/
+function completedAjaxRequest()
+{
+    $('request_cookie').value = 0;
+}
+
+
+
