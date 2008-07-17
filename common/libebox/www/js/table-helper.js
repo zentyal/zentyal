@@ -663,7 +663,7 @@ Function: startAjaxRequest
 */
 function startAjaxRequest()
 {
-    $('request_cookie').value = 1;
+    $('ajax_request_cookie').value = 1;
 }
 
 /*
@@ -677,7 +677,7 @@ Function: completedAjaxRequest
 */
 function completedAjaxRequest()
 {
-    $('request_cookie').value = 0;
+    $('ajax_request_cookie').value = 0;
 }
 
 
