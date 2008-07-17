@@ -180,8 +180,7 @@ sub _clientCertificatesPaths
     return \%certificates;
 }
 
-#  remember to call the bundle's destructor as soon as possible
-#  XXX may be change the bundle so it call its destructor automatically when it falls out of scope
+
 sub clientBundle
 {
     my ($class, %params) = @_;
