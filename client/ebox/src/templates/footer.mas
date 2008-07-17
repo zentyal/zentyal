@@ -9,6 +9,7 @@ ebox => $ebox, warp => $warp);
 </%init>
 <div id="footer">
 	<% $copy %></div>
+	<input type='hidden' value='0' id='ajax_request_cookie' name='ajax_request_cookie'/>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
 	<script type="text/javascript"><!--
 	stripe('dataTable', '#ecf5da', '#ffffff');
