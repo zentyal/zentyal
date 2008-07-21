@@ -77,21 +77,11 @@ sub _nextInterfaceNumber
 {
     my ($self) = @_;
 
-
-    # get all initializaed ifaces
-    my @initializedIfaces = grep {
-        my $number = $_->elementByName('interfaceNumber')->value();
-        $number  >= 0;
-    }  @{ $self->rows() };
-
-    # get the ordererd number list
+    # get the ordererd assigned number list
     my @numbers = sort map {
         my $number = $_->elementByName('interfaceNumber')->value();
-        $number
-    }  @initializedIfaces;
-
-    EBox::debug("NUMBERS @numbers");
-
+        ($number >= 0) ? $number : ()
+    }  @{ $self->rows() };
 
     my $lastNumber = -1;
     # search for holes in the numbers
