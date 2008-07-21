@@ -1,4 +1,4 @@
-test_scripts = ServerConfiguration.t
+test_scripts = Servers.t ServerConfiguration.t
 
 EXTRA_DIST = $(test_scripts)
 

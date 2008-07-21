@@ -22,7 +22,6 @@ use warnings;
 use EBox::Types::Text;
 use EBox::Types::Int;
 
-use constant IFACE_NO_INITIALIZED => 'uninitialized';
 
 
 sub new
@@ -38,16 +37,16 @@ sub interfaceFields
                    'fieldName' => 'interfaceType',
                    'hidden'    => 1,
                    'editable'  => 0,
-                   'optional'  => 1,
-                   'defaultValue' => IFACE_NO_INITIALIZED,
+                   'defaultValue' => 'tap',
                   ),
                   new EBox::Types::Int
                   (
                    'fieldName' => 'interfaceNumber',
                    'hidden' => 1,
                    'editable' => 0,
-                   'optional' => 1,
-                   # no unique bz it may not be until we call updateInterfaces
+                   'min'      => -1,
+                   'defaultValue' => -1,
+                   # no unique bz it will not be until we call updateInterfaces
                   ),
                  );
     return @fields;
@@ -58,12 +57,13 @@ sub initializeInterfaces
     my ($self) = @_;
 
     foreach my $row ( @{ $self->rows() }) {
-        my $interfaceType = $row->elementByName('interfaceType');
-        next if $interfaceType->value() ne IFACE_NO_INITIALIZED;
+        my $interfaceNumber = $row->elementByName('interfaceNumber');
+        next if $interfaceNumber->value() != -1;
 
+        my $interfaceType = $row->elementByName('interfaceType');
         $interfaceType->setValue('tap');
 
-        my $interfaceNumber = $row->elementByName('interfaceNumber');
+
         my $number = $self->_nextInterfaceNumber();
         $interfaceNumber->setValue($number);
 
@@ -80,14 +80,14 @@ sub _nextInterfaceNumber
 
     # get all initializaed ifaces
     my @initializedIfaces = grep {
-        my $ifaceType = $_->elementByName('interfaceType');
-        $ifaceType->value() ne IFACE_NO_INITIALIZED;
+        my $number = $_->elementByName('interfaceNumber')->value();
+        $number  >= 0;
     }  @{ $self->rows() };
 
     # get the ordererd number list
     my @numbers = sort map {
-        my $ifaceNumber = $_->elementByName('interfaceNumber');
-        $ifaceNumber->value();
+        my $number = $_->elementByName('interfaceNumber')->value();
+        $number
     }  @initializedIfaces;
 
     EBox::debug("NUMBERS @numbers");

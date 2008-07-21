@@ -497,17 +497,6 @@ sub clientBundle
 
     my %params = @p;
 
-    # XXX uninitalized id  must be equal to const IFACE_NO_INITIALIZED from
-    # EBox::OpenVPN::Model::InterfaceTable;
-    if ($self->ifaceType() eq 'uninitialized') {
-        throw EBox::Exceptions::External(
-          __x('Server {s} is not initialized, please save changes and try again',
-              s => $self->name,
-             )
-                                        );
-    }
-
-
     my $clientType = delete $params{clientType};
     if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox')) ) {
         throw EBox::Exceptions::External(

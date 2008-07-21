@@ -62,6 +62,7 @@ src/EBox/t/Makefile
 src/EBox/t/testdata/Makefile
 src/EBox/OpenVPN/Makefile
 src/EBox/OpenVPN/Model/Makefile
+src/EBox/OpenVPN/Model/Servers/Makefile
 src/EBox/OpenVPN/Model/ServerConfiguration/Makefile
 src/EBox/OpenVPN/Model/t/Makefile
 src/EBox/OpenVPN/Types/Makefile
