@@ -1240,8 +1240,11 @@ sub newClient
       caCertificate certificate certificateKey
       ripPasswd
       service internal);
+    
+    EBox::debug("PARAMS @_");
 
-    if (exists $params{bundle}) {
+
+    if (( exists $params{bundle} ) and ($params{bundle})) {
         %params = (
                    %params,
                    EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox
@@ -1252,9 +1255,12 @@ sub newClient
     }
 
     foreach my $param (@paramsNeeded) {
+        EBox::debug("param |$param|");
         exists $params{$param}
           or throw EBox::Exceptions::MissingArgument($param);
     }
+
+    EBox::debug("AAA");
 
     my $client;
     try {
@@ -1284,13 +1290,19 @@ sub _doNewClient
     my ($self, $name, %params) = @_;
 
     # create client
+
+
     my $clients = $self->model('Clients');
+
+    my $hidden = $params{internal} ? 1 : 0;
     $clients->addRow(
                      name => $name,
                      internal => $params{internal},
                      service => 0,
-                     hidden  => 1,
+                     hidden  => $hidden,
                     );
+
+    EBox::debug("ADDED");
 
     $self->_setClientConf($name, %params);
 
@@ -1317,7 +1329,17 @@ sub _setClientConf
     my $clients   = $self->model('Clients');
     my $clientRow =  $clients->findRow(name => $name);
 
+    EBox::OpenVPN::Client->setCertificatesFilesForName(
+                                       $name,
+                                      caCertificate => $params{caCertificate},
+                                      certificate => $params{certificate},
+                                      certificateKey => $params{certificateKey},
+                                                      );
+
     my $clientConfDir = EBox::OpenVPN::Client->privateDirForName($name);
+
+    
+
     my @files = qw(caCertificate certificate certificateKey );
     foreach my $f (@files) {
 

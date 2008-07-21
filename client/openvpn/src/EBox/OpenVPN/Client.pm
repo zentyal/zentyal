@@ -338,12 +338,33 @@ sub backupCertificates
 {
     my ($self, $dir) = @_;
 
+
     my $d = "$dir/" . $self->name;
     EBox::FileSystem::makePrivateDir($d);
 
-    EBox::Sudo::root('cp ' . $self->caCertificate . " $d/caCertificate" );
-    EBox::Sudo::root('cp ' . $self->certificate   . " $d/certificate" );
-    EBox::Sudo::root('cp ' . $self->certificateKey    . " $d/certificateKey" );
+    my $dirEmpty = 0;
+    foreach my $cert (qw(caCertificate certificate certificateKey)) {
+        my $orig = $self->$cert();
+        if (EBox::Sudo::fileTest('-r', $orig)) {
+            my $dest = "$d/$cert";
+            EBox::Sudo::root("cp $orig $dest");
+        }
+        else {
+            # all certifcates or nothing bz validation issues between
+            # certificates ...
+            $dirEmpty = 1;
+            last;
+        }
+        
+    }
+
+    if ($dirEmpty) {
+        # we remove the directory as to signal that the client is uninitialized
+        # (no certificates)
+        EBox::Sudo::root("rm -rf $d");
+        return;
+    }
+    
     EBox::Sudo::root("chown ebox.ebox $d/*");
 }
 
@@ -354,11 +375,12 @@ sub restoreCertificates
     my $d = "$dir/" . $self->name;
     if (not -d $d) {
 
-        # XXX we don't abort to mantain compability with previous bakcup version
-        EBox::error(
+        # XXX we don't abort to mantain compability with previous bakcup and
+        # because uninitialized clients don't save certificates
+        EBox::warn(
                'No directory found with saved certificates for client '
               .$self->name
-              .'. Current certificates will be left untouched'
+              .'. No certificates will be restores'
 
         );
         next;
@@ -374,8 +396,11 @@ sub restoreCertificates
 
     # set the files from the backup in the client
     try {
-        $self->setCertificateFiles("$d/caCertificate","$d/certificate",
-                                   "$d/certificateKey");
+        __PACKAGE__->setCertificatesFilesForName(
+                                   $self->name(),
+                                   caCertificate => "$d/caCertificate",
+                                   certificate   => "$d/certificate",
+                                   certificateKey => "$d/certificateKey");
     }
     otherwise {
         my $e = shift;
@@ -384,6 +409,27 @@ sub restoreCertificates
                     .'. Probably the certificates will be  inconsistents');
         $e->throw();
     };
+
+}
+
+
+sub setCertificatesFilesForName
+{
+    my ($class, $name, %pathByFile) = @_;
+
+    my $clientConfDir = $class->privateDirForName($name);
+    my @files = qw(caCertificate certificate certificateKey );
+    foreach my $f (@files) {
+
+# the destination must be firstly the same than the vlaue obtained with
+# tmpPath in the EBox::Type::File to assure the checks and then te final destination
+        my $tmpDest =  EBox::Config::tmp() . $f . '_path';
+        EBox::Sudo::root('cp ' . $pathByFile{$f} . " $tmpDest");
+
+        my $finalDest = "$clientConfDir/$f";
+        EBox::Sudo::root('cp ' . $pathByFile{$f} . " $finalDest");
+        EBox::Sudo::root("chmod 0400 $finalDest");
+    }
 
 }
 
