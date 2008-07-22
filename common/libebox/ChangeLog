@@ -5,6 +5,7 @@
 	+ Use again the load gif when switching tabs
 	+ Add completedAjaxRequest and startAjaxRequest to be used as helpers
 	  for automated testing with ANSTE
+	+ Display as default value 24 in `IPNetwork` default setter
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking

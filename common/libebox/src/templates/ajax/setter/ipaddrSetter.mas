@@ -27,8 +27,10 @@ for my $mask (@masks) {
 	push (@options, {'value' => $mask, 'printableValue' => $mask});
 }
 
-my $defaultMaskValue = $data->mask;
-$defaultMaskValue or $defaultMaskValue = $defaultMask;
+my $defaultMaskValue = $data->mask();
+unless ( $defaultMaskValue ) {
+   $defaultMaskValue = $defaultMask;
+}
 </%init>
 
 % my $id = $tableName . '_' . $data->fieldName();
