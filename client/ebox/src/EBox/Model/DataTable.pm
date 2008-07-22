@@ -103,54 +103,93 @@ sub new
 #       hash ref with the table description
 #
 sub table
-  {
-
+{
     my ($self) = @_;
 
     # It's a singleton method
     unless( defined( $self->{'table'} ) and
             defined( $self->{'table'}->{'tableDescription'})) {
-      $self->_setDomain();
+        $self->_setupTable();
+    }
 
-      my $table = $self->_table();
-      if (not exists $table->{tableDescription}) {
-          throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
-      }
-      elsif (@{ $table->{tableDescription} } == 0) {
-          throw EBox::Exceptions::Internal(
-          'tableDescription has not any field'
-                                          );
-      }
+    return $self->{'table'};
+}
 
-      $self->{'table'} = $table;
-      $self->_restoreDomain();
-      # Set the needed controller and undef setters
-      $self->_setControllers();
-      # This is useful for submodels
-      $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
-      # Add enabled field if desired
-      if ( $self->isEnablePropertySet() ) {
-          $self->_setEnabledAsFieldInTable();
-      }
-       # Make fields accessible by their names
-      for my $field (@{$self->{'table'}->{'tableDescription'}}) {
-          my $name = $field->fieldName();
-          $self->{'table'}->{'tableDescriptionByName'}->{$name} = $field;
+
+sub _setupTable
+{
+    my ($self) = @_;
+
+    $self->_setDomain();
+    
+    my $table = $self->_table();
+    $self->_checkTable($table);
+    $self->{'table'} = $table;
+    
+    $self->_restoreDomain();
+
+    # Set the needed controller and undef setters
+    $self->_setControllers();
+    # This is useful for submodels
+    $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
+    # Add enabled field if desired
+    if ( $self->isEnablePropertySet() ) {
+        $self->_setEnabledAsFieldInTable();
+    }
+    # Make fields accessible by their names
+    for my $field (@{$self->{'table'}->{'tableDescription'}}) {
+        my $name = $field->fieldName();
+        $name or throw EBox::Exceptions::Internal('empty field name in type object in tableDescription');
+        
+        if (exists $self->{'table'}->{'tableDescriptionByName'}->{$name} ) {
+            throw EBox::Exceptions::Internal(
+                  "Repeated field  name in tableDescription: $name"
+                                             
+                                            );
+        }
+
+        $self->{'table'}->{'tableDescriptionByName'}->{$name} = $field;
         # Set the model here to allow types have the model from the
         # addition as well
         $field->setModel($self);
       }
-      # Some defaultvalues
-      unless (defined($self->{'table'}->{'class'})) {
-          $self->{'table'}->{'class'} = 'dataTable';
-      }
-      $self->_setDefaultMessages();
+
+    if (exists $table->{sortedBy}) {
+        my $sortField = $table->{sortedBy};
+        if (not exists  $table->{'tableDescriptionByName'}->{$sortField} ) {
+            throw EBox::Exceptions::Internal(
+                      "Trying to sort table by  inexistent field $sortField"
+                                              );
+        }
     }
+    
 
-    return $self->{'table'};
+    # Some default values
+    unless (defined($self->{'table'}->{'class'})) {
+        $self->{'table'}->{'class'} = 'dataTable';
+    }
+    $self->_setDefaultMessages();
+}
 
-  }
+sub _checkTable
+{
+    my ($self, $table) = @_;
 
+    if (not exists $table->{tableDescription}) {
+        throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
+    }
+    elsif (@{ $table->{tableDescription} } == 0) {
+        throw EBox::Exceptions::Internal(
+                                         'tableDescription has not any field'
+                                        );
+    }
+    
+    if (not $table->{tableName}) {
+        throw EBox::Exceptions::Internal(
+            'table description has not tableName field or has a empty one'
+                                        );
+      }
+}
 
 # Method: _table
 #
@@ -188,13 +227,10 @@ sub modelName
 #       Return the same that <EBox::Model::DataTable::modelName>
 #
 sub name
-  {
-
-      my ($self) = @_;
-
-      return $self->modelName();
-
-  }
+{
+    my ($self) = @_;
+    return $self->modelName();
+}
 
 
 

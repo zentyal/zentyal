@@ -49,21 +49,75 @@ sub clearGConf : Test(teardown)
 }
 
 
-sub deviantTableTest : Test(2)
+sub deviantTableTest : Test(6)
 {
     my ($self) = @_;
 
     my @cases;
-    push @cases,  [  'empty table' => {
+    push @cases,  [  'empty table description' => {
+                                                   tableName => 'test',
                          }
 
                   ];
     push @cases,  [  'empty tableDescription' => {
                             tableDescription => [],
+                            tableName => 'test',
                          }
 
                   ];
+    push @cases, [
+                  'empty field name' => {
+                                               tableDescription => [
+                                                     new EBox::Types::Abstract()               
+                                                                    
+                                                                   ],
+                                                tableName => 'test',
+                                              }
+                  
+                 ];
+    push @cases, [
+                  'repeated field name' => {
+                                               tableDescription => [
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'repeated',
+                                                                          ),
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'repeated',
+                                                                          ),                                                                    
+                                                                   ],
 
+                                                tableName => 'test',
+                                              }
+                  
+                 ];
+    push @cases, [
+                  'no table name' => {
+                                               tableDescription => [
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'field1',
+                                                                          ),
+                                                                   
+                                                                   ],
+
+
+                                              }
+                  
+                 ];
+
+    push @cases, [
+                  'sortedBy uses unexistent field' => {
+                                               tableDescription => [
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'field1',
+                                                                          ),
+                                                                   
+                                                                   ],
+
+                                                tableName => 'test',
+                                                sortedBy => 'unexistentField',
+                                              }
+                  
+                 ];
     
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
@@ -71,9 +125,56 @@ sub deviantTableTest : Test(2)
         $dataTable->set_always('_table' => $table);
         dies_ok {
             $dataTable->table();
-        } "expecting error eith deviant table case: $caseName";
+        } "expecting error with deviant table case: $caseName";
     }
 
+
+}
+
+sub tableTest : Test(4)
+{
+    my ($self) = @_;
+
+    my @cases;
+    push @cases,  [  'simple table' => {
+                                               tableDescription => [
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'field1',
+                                                                          ),
+                                                                   
+                                                                   ],
+                                                   tableName => 'test',
+                         }
+
+                  ];
+    push @cases,  [  'sorted table' => {
+                                        tableDescription => [
+                                            new EBox::Types::Abstract(
+                                                      fieldName => 'field1',
+                                                                     ),
+                                            new EBox::Types::Abstract(
+                                                       fieldName => 'field2',
+                                                                     ),
+                                                             
+                                                            ],
+                                        tableName => 'test',
+                                        sortedBy => 'field1',
+                                       }
+
+                  ];
+
+    foreach my $case_r (@cases) {
+        my ($caseName, $table) = @{ $case_r };
+        my $dataTable = Test::MockObject::Extends->new($self->_newDataTable);
+        $dataTable->set_always('_table' => $table);
+
+        my $tableFromModel;
+        lives_ok {
+            $tableFromModel = $dataTable->table();
+        } "checking first call to table method with: $caseName";
+
+        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fileds were inserted by first time setup';
+    }
 
 }
 
