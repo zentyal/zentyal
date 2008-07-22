@@ -15,4 +15,5 @@ my @masks = (30, 29, 28, 27, 26, 25, 24, 16, 8);
               data      => $data,       
               cssClass  => $cssClass,
               masks     => \@masks,
+              defaultMask => 24,
 &>

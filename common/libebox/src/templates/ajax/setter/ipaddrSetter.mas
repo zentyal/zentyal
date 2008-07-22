@@ -18,6 +18,7 @@ my @masks = (32, 30, 29, 28, 27, 26, 25, 24, 16, 8);
 $tableName
 $data
 $cssClass => ''
+$defaultMask => 32
 @masks
 </%args>
 <%init>
@@ -25,6 +26,9 @@ my @options;
 for my $mask (@masks) {
 	push (@options, {'value' => $mask, 'printableValue' => $mask});
 }
+
+my $defaultMaskValue = $data->mask;
+$defaultMaskValue or $defaultMaskValue = $defaultMask;
 </%init>
 
 % my $id = $tableName . '_' . $data->fieldName();
@@ -36,7 +40,8 @@ for my $mask (@masks) {
 
   <& /input/select.mas,  
     'name'  => $id . '_ip' , 
-    'value' => $data->mask(), options => \@options,
+    'value' => $defaultMaskValue, 
+     options => \@options,
     'id'    => "$id" . "_mask",
   &>
 </span>
