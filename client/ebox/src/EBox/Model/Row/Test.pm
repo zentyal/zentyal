@@ -34,7 +34,27 @@ sub clearGConf : Test(teardown)
 }
 
 
-sub elementsTest : Test(3)
+
+sub deviantAddElementTest : Test(3)
+{
+    my ($self) = @_;
+
+    my $row= $self->_newRow();
+
+    dies_ok {
+        $row->addElement(undef);
+    } 'Expecting fail when trying to add a undefined element';
+    dies_ok {
+        my $badElement = new Test::MockObject();
+        $row->addElement($badElement);
+    } 'Expecting fail when trying to addi a non ebox-type element';
+    dies_ok {
+        my $badElement = new EBox::Types::Abstract();
+        $row->addElement($badElement);
+    } 'Expecting fail when trying to add a ebox-type element without fieldName';
+}
+
+sub elementsTest : Test(32)
 {
     my ($self) = @_;
 
@@ -52,17 +72,40 @@ sub elementsTest : Test(3)
         push @elementsToAdd, $el;
     }
 
-    dies_ok {
-        $row->addElement(undef);
-    } 'Expecting fail when trying to add a undefined element';
-    dies_ok {
-        my $badElement = new Test::MockObject();
-        $row->addElement($badElement);
-    } 'Expecting fail when trying to addi a non ebox-type element';
-    dies_ok {
-        my $badElement = new EBox::Types::Abstract();
-        $row->addElement($badElement);
-    } 'Expecting fail when trying to add a ebox-type element without fieldName';
+    lives_ok {
+        foreach my $element (@elementsToAdd) {
+            $row->addElement($element);
+        }
+
+    } 'Adding elements to the row';
+
+
+    is scalar @elementsToAdd, $row->size(), 'checking size of row after addition of elements';
+
+    # elements
+    # hashElements
+
+
+    foreach my $index (0 .. $#elementsToAdd) {
+        my $el    = $elementsToAdd[$index];
+        my $name  = $el->fieldName();
+        my $value = $el->value();
+        my $printableValue = $el->printableValue();
+
+        ok $row->elementExists($name), 
+            "checking elementExists on existent element $name";
+
+        is_deeply $row->elementByName($name), $el,
+            "checking elementByName in a existent element $name";  
+        is_deeply $row->elementByIndex($index), $el,
+            "checking elementByIndex in a existent element $name";      
+
+        is $row->valueByName($name), $value, 
+            "checking valueByName in a existent element $name";
+        is $row->printableValueByName($name), $printableValue,
+            "checking printableValueByName in a existent element $name";
+    }
+    
 
 }
 
@@ -70,6 +113,54 @@ sub elementsTest : Test(3)
 
 sub parentRowTest
 {
+
+}
+
+
+sub unionTest
+{
+    my ($self) = @_;
+
+    my $row= $self->_newRow();
+    $self->_populateRow($row);
+    # test: elementExists, elementByName
+
+    my $unionName           = 'fakeUnion';
+    my $selectedUnionSubtype = 'selected';
+    my $unselectedUnionSubtype = 'unselected';
+    my @unionTypes = ($selectedUnionSubtype, $unselectedUnionSubtype);
+
+    my $fakeUnion = new Test::MockObject();
+    $fakeUnion->set_isa('EBox::Types::Union');
+    $fakeUnion->set_always('fieldName', $unionName);
+    $fakeUnion->set_always('selected', $selectedUnionSubtype);
+
+    $row->addElement($fakeUnion);
+
+    
+}
+
+
+sub _populateRow
+{
+    my ($self, $row) = @_;
+
+    my @elementsToAdd;
+    foreach my $i(0 .. 5) {
+        my $el = new EBox::Types::Abstract(
+                                           fieldName => "fieldName$i",
+                                           printableName => "printableName$i",
+                                          );
+
+        $el->setValue($i);
+
+        push @elementsToAdd, $el;
+    }
+
+
+    foreach my $element (@elementsToAdd) {
+        $row->addElement($element);
+    }
 
 }
 

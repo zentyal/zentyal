@@ -369,12 +369,13 @@ sub elementExists
 {
     my ($self, $element) = @_;
     
-    unless (defined($element)) {
-        throw EBox::Exceptions::MissingArgument($element);
+    unless ($element) {
+        throw EBox::Exceptions::MissingArgument('element');
     }
 
     return 1 if (exists $self->{valueHash}->{$element});
 
+    # this is only for EBox::Types::Union selected subtype
     for my $value (@{$self->{values}}) {
         next unless  ($value->isa('EBox::Types::Union'));
         return 1 if ($value->selectedType() eq $element);
@@ -401,6 +402,10 @@ sub elementExists
 sub elementByName 
 {
     my ($self, $element) = @_;
+
+    unless ($element) {
+        throw EBox::Exceptions::MissingArgument('element');
+    }
 
     unless (exists $self->{valueHash}->{$element}) {
         for my $value (@{$self->{values}}) {
@@ -434,6 +439,10 @@ sub elementByName
 sub elementByIndex
 {
     my ($self, $index) = @_;
+
+    unless (defined $index) {
+        throw EBox::Exceptions::MissingArgument('index');
+    }
 
     unless ($index  <  $self->size()) {
         throw EBox::Exceptions::DataNotFound( data => 'index',
@@ -491,8 +500,8 @@ sub valueByName
 {
     my ($self,$name) = @_;
 
-    unless (defined($name)) {
-        throw EBox::Exceptions::MissingArgument($name);
+    unless ($name) {
+        throw EBox::Exceptions::MissingArgument('name');
     }
 
     return $self->elementByName($name)->value();
@@ -515,8 +524,8 @@ sub printableValueByName
 {
     my ($self,$name) = @_;
 
-    unless (defined($name)) {
-        throw EBox::Exceptions::MissingArgument($name);
+    unless ($name) {
+        throw EBox::Exceptions::MissingArgument('name');
     }
 
     return $self->elementByName($name)->printableValue();
@@ -586,8 +595,8 @@ sub storeElementByName
 {
     my ($self, $element) = @_;
 
-    unless (defined($element)) {
-        throw EBox::Exceptions::MissingArgument($element);
+    unless ($element) {
+        throw EBox::Exceptions::MissingArgument('element');
     }
 
     my $model = $self->model();
@@ -620,8 +629,8 @@ sub subModel
 {
     my ($self, $fieldName) = @_;
 
-    unless (defined($fieldName)) {
-        throw EBox::Exceptions::MissingArgument($fieldName);
+    unless ($fieldName) {
+        throw EBox::Exceptions::MissingArgument('fieldName');
     }
     unless (exists $self->{valueHash}->{$fieldName}) {
         throw EBox::Exceptions::DataNotFound( data => 'field',
