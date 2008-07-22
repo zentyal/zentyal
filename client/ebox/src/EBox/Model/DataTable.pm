@@ -111,7 +111,18 @@ sub table
     unless( defined( $self->{'table'} ) and
             defined( $self->{'table'}->{'tableDescription'})) {
       $self->_setDomain();
-      $self->{'table'} = $self->_table();
+
+      my $table = $self->_table();
+      if (not exists $table->{tableDescription}) {
+          throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
+      }
+      elsif (@{ $table->{tableDescription} } == 0) {
+          throw EBox::Exceptions::Internal(
+          'tableDescription has not any field'
+                                          );
+      }
+
+      $self->{'table'} = $table;
       $self->_restoreDomain();
       # Set the needed controller and undef setters
       $self->_setControllers();

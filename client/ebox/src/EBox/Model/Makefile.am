@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS= DataForm ProviderBase ModelProvider CompositeProvider Row t
+SUBDIRS= DataForm ProviderBase ModelProvider CompositeProvider \
+	Row DataTable \
+	t
 
 perldir = @PERLPATH@/EBox/Model
 
