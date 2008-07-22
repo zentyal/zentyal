@@ -252,8 +252,8 @@ sub parentRow
     my $parentModel = $self->model()->parent();
     
     unless (defined ($parentModel)) {
-    	return undef;
-	}
+        return undef;
+        }
 
     # TODO Do this more robust using directory info from models
     my @dirs = split('/', $self->dir());
@@ -262,9 +262,9 @@ sub parentRow
     pop @dirs;
     my $directory = join('/', @dirs);
     if (length($directory) > 1) {
-    	$parentModel->setDirectory($directory);
+        $parentModel->setDirectory($directory);
     }
-	
+        
     return $parentModel->row($parentId);
 }
 
