@@ -20,7 +20,8 @@ use lib '../../..';
 
 use EBox::Model::Row;
 use EBox::Model::DataTable;
-
+use EBox::Types::Abstract;
+use EBox::Types::HasMany;
 
 sub setEBoxModules : Test(setup)
 {
@@ -35,7 +36,7 @@ sub clearGConf : Test(teardown)
 
 
 
-sub deviantElementsTest : Test(4)
+sub deviantElementsTest : Test(8)
 {
     my ($self) = @_;
 
@@ -47,7 +48,7 @@ sub deviantElementsTest : Test(4)
     dies_ok {
         my $badElement = new Test::MockObject();
         $row->addElement($badElement);
-    } 'Expecting fail when trying to addi a non ebox-type element';
+    } 'Expecting fail when trying to add a non ebox-type element';
     dies_ok {
         my $badElement = new EBox::Types::Abstract();
         $row->addElement($badElement);
@@ -58,13 +59,25 @@ sub deviantElementsTest : Test(4)
         my $repeatedElement =  $row->elementByIndex(1);
         $row->addElement($repeatedElement);
     } 'Expecting fail when adding a repeated element';
+
+    my $inexistentIndex = $row->size() + 2;
+    dies_ok {
+        $row->elementByIndex($inexistentIndex);
+    } 'Expecting error when calling elementByIndex with a inexistent index';
+
+    my $inexistentElement = 'inexistent';
+    foreach my $accesor (qw(elementByName valueByName printableValueByName)) {
+        dies_ok {
+            $row->$accesor($inexistentElement);
+        } "Expecting error when calling $accesor with inexistent name";
+    }
 }
 
 
 
 
 
-sub elementsTest : Test(32)
+sub elementsTest : Test(35)
 {
     my ($self) = @_;
 
@@ -90,11 +103,21 @@ sub elementsTest : Test(32)
     } 'Adding elements to the row';
 
 
-    is scalar @elementsToAdd, $row->size(), 'checking size of row after addition of elements';
+    is scalar @elementsToAdd, $row->size(), 
+        'checking size of row after addition of elements';
 
-    # elements
-    # hashElements
+    is_deeply $row->elements(), \@elementsToAdd,
+        'checkign contents of the wor using elements() method';
+    
+    my %expectedHashElements = map {  
+        ( $_->fieldName => $_)
+    } @elementsToAdd;
+    is_deeply $row->hashElements, \%expectedHashElements,
+        'checkign contents of the wor using hashElements() method';
 
+
+
+    ok (not $row->elementExists('inexistent')), 'checking elementExists on inexistent element';
 
     foreach my $index (0 .. $#elementsToAdd) {
         my $el    = $elementsToAdd[$index];
@@ -121,33 +144,164 @@ sub elementsTest : Test(32)
 
 
 
-sub parentRowTest
-{
-
-}
-
-
-sub unionTest
+sub parentRowTest : Test(3)
 {
     my ($self) = @_;
 
     my $row= $self->_newRow();
     $self->_populateRow($row);
-    # test: elementExists, elementByName
+
+    is $row->parentRow(), undef,
+    'checking that calling parentRow when the model has not parent returns undef';
+    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+
+    my $parentDirectory = '/ebox/modules/fakeModule/Parent';
+    my $rowWithChildId     = 'ParentRow';
+    my $childDirectory  = "$parentDirectory/$rowWithChildId/Child";
+    my $rowDirectory    = "$childDirectory/Row";
+
+
+    my $parentModel =  Test::MockObject::Extends->new(
+                               EBox::Model::DataTable->new(
+                                                 gconfmodule => $gconfmodule,
+                                                 directory   => $parentDirectory,
+                                                 domain      => 'domain',
+                                                 )
+                                        );
+
+    $parentModel->mock('row', sub {
+                           my ($self, $id) = @_;
+                           if ($id eq $rowWithChildId) {
+                               my $fakeRow = Test::MockObject->new();
+                               $fakeRow->set_always('id', $rowWithChildId);
+                           }
+                           else {
+                               die "BAD ID $id";
+                           }
+
+                       }
+
+                      );
+
+
+    my $childModel = EBox::Model::DataTable->new(
+                                                 gconfmodule => $gconfmodule,
+                                                 directory   => $parentDirectory,
+                                                 domain      => 'domain',
+                                                 );
+    $row = EBox::Model::Row->new(
+                                 gconfmodule => $gconfmodule,
+                                 dir         => $rowDirectory
+                                );
+
+    $row->setId('FAKE_ID');
+    $row->setModel($childModel);
+    $childModel->setParent($parentModel);
+    
+    my $parentRow;
+    lives_ok {
+        $parentRow = $row->parentRow()
+    } 'getting parent row';
+
+
+    is $parentRow->id(), $rowWithChildId, 'chekcing ID of parent row';
+}
+
+
+sub subModelTest : Test(3)
+{
+    my ($self) = @_;
+
+    my $row= $self->_newRow();
+    $self->_populateRow($row);
+
+    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $subModelObject = EBox::Model::DataTable->new(
+                                                 gconfmodule => $gconfmodule,
+                                                 directory   => 'Submodel',
+                                                 domain      => 'domain',
+                                                );
+
+    my $hasManyName = 'mockHasMany';
+    my $hasManyObject = Test::MockObject::Extends->new(
+                                                      EBox::Types::HasMany->new(
+                                                      fieldName => $hasManyName,
+                                                      printableName =>
+                                                              $hasManyName,
+                                                                                 
+                                                                                )
+
+                                                      );
+    $hasManyObject->set_isa('EBox::Types::Abstract', 'EBox::Types::HasMany');
+    $hasManyObject->set_always(foreignModelInstance => $subModelObject);
+
+    $row->addElement($hasManyObject);
+
+    dies_ok {
+        $row->subModel('inexistent');
+    } 'expecting error when calling subModel with a inexistent element';
+
+    dies_ok {
+        my $name = $row->elementByIndex(0)->fieldName();
+        $row->subModel($name);
+    } 'expecting error when calling subModel with a element that is not a HasMany';
+
+    is_deeply(
+              $row->subModel($hasManyName),
+              $subModelObject,
+              'checking that subModel returns the correct hasMany submodel'
+             );
+}
+
+sub unionTest : Test(6)
+{
+    my ($self) = @_;
+
+    my $row= $self->_newRow();
+    $self->_populateRow($row);
 
     my $unionName           = 'fakeUnion';
     my $selectedUnionSubtype = 'selected';
+    my $selectedUnionSubtypeObject =   EBox::Types::Abstract->new(
+                                         fieldName => $selectedUnionSubtype,
+                                         printableName => $selectedUnionSubtype, 
+                                                                 );
     my $unselectedUnionSubtype = 'unselected';
-    my @unionTypes = ($selectedUnionSubtype, $unselectedUnionSubtype);
+    my $unselectedUnionSubtypeObject =   EBox::Types::Abstract->new(
+                                         fieldName => $unselectedUnionSubtype,
+                                         printableName => $unselectedUnionSubtype, 
+                                                                 );
 
-    my $fakeUnion = new Test::MockObject();
-    $fakeUnion->set_isa('EBox::Types::Union');
-    $fakeUnion->set_always('fieldName', $unionName);
-    $fakeUnion->set_always('selected', $selectedUnionSubtype);
+    my $unionObject = new Test::MockObject();
+    $unionObject->set_isa('EBox::Types::Union', 'EBox::Types::Abstract');
+    $unionObject->set_always('fieldName', $unionName);
+    $unionObject->set_always('selectedType', $selectedUnionSubtype);
+    $unionObject->set_always('subtypes', [
+                                          $selectedUnionSubtypeObject,
+                                          $unselectedUnionSubtypeObject,
+                                         ]);
+    $unionObject->set_always('subtype',  $selectedUnionSubtypeObject);
 
-    $row->addElement($fakeUnion);
+    $row->addElement($unionObject);
 
+    ok $row->elementExists($unionName), 
+        'checking that union object exists using elementExists';
+    ok $row->elementExists($selectedUnionSubtype), 
+        'checking that selected union-subtype object exists using elementExists';
+    ok ( not $row->elementExists($unselectedUnionSubtype) ), 
+        'checking that unselected union-subtype object does not exists for elementExists';
+
+    is_deeply $row->elementByName($unionName), $unionObject,
+   'checking that elementByName can return the union object itself if requested';
     
+    is_deeply(
+              $row->elementByName($selectedUnionSubtype),
+              $selectedUnionSubtypeObject,
+   'checking that elementByName  returns the selected union-subtype object  if requested'
+             );
+
+    is $row->elementByName($unselectedUnionSubtype), undef,
+           'checking that elementByName return undef when requested a unselected union subtype';
 }
 
 
@@ -177,17 +331,19 @@ sub _populateRow
 sub _newRow
 {
     my $gconfmodule = EBox::Global->modInstance('fakeModule');
-    my $dir = 'Row';
+
+    my $dataTableDir = 'DataTable';
+    my $rowDir = "$dataTableDir/Row";
 
     my $row = EBox::Model::Row->new(
 
                                  gconfmodule => $gconfmodule,
-                                 dir         => $dir,
+                                 dir         => $rowDir,
                                 );
 
     $row->setId('FAKE_ID');
 
-    my $dataTableDir = 'DataTable';
+
     my $dataTable  = EBox::Model::DataTable->new(
                                                  gconfmodule => $gconfmodule,
                                                  directory   => $dataTableDir,
