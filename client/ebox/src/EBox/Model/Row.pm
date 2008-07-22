@@ -339,11 +339,18 @@ sub addElement
         throw EBox::Exceptions::Internal('element is not a valid type');
     }
 
+    
+    my $fieldName = $element->fieldName();
+    if (not $fieldName) {
+        throw EBox::Exceptions::Internal('element has not field name or has a empty one');
+    }
+
+
     $element->setRow($self);
     $element->setModel($self->model());
 
     push (@{$self->{'values'}}, $element);
-    $self->{'valueHash'}->{$element->fieldName()} = $element;
+    $self->{'valueHash'}->{$fieldName} = $element;
 }
 
 # Method: elementExists
