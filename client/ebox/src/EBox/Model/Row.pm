@@ -345,6 +345,12 @@ sub addElement
         throw EBox::Exceptions::Internal('element has not field name or has a empty one');
     }
 
+    if ($self->elementExists($fieldName)) {
+        throw EBox::Exceptions::Internal(
+           "Element $fieldName already is in the row"
+                                        );
+    }
+
 
     $element->setRow($self);
     $element->setModel($self->model());

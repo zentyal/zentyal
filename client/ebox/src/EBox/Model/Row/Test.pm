@@ -35,7 +35,7 @@ sub clearGConf : Test(teardown)
 
 
 
-sub deviantAddElementTest : Test(3)
+sub deviantElementsTest : Test(4)
 {
     my ($self) = @_;
 
@@ -52,7 +52,17 @@ sub deviantAddElementTest : Test(3)
         my $badElement = new EBox::Types::Abstract();
         $row->addElement($badElement);
     } 'Expecting fail when trying to add a ebox-type element without fieldName';
+
+    $self->_populateRow($row);
+    dies_ok {
+        my $repeatedElement =  $row->elementByIndex(1);
+        $row->addElement($repeatedElement);
+    } 'Expecting fail when adding a repeated element';
 }
+
+
+
+
 
 sub elementsTest : Test(32)
 {
