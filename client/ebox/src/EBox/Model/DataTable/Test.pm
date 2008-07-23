@@ -56,6 +56,17 @@ use EBox::Types::Text;
        
     }
 
+    sub EBox::Model::ModelManager::warnOnChangeOnId
+    {
+        my ($self, $tableName, $id) = @_;
+        if (not defined $rowIdUsed) {
+            return;
+        }
+        elsif ($rowIdUsed eq $id) {
+            throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
+        }
+    }
+
     sub EBox::Model::ModelManager::removeRowsUsingId
     {
         # do nothing
@@ -446,14 +457,22 @@ sub removeAllTest : Test(8)
 }
 
 
-sub removeRowTest : Test(8)
+sub removeRowTest : Test(13)
 {
     my ($self) = @_;
 
     my $dataTable;
     my $id;
 
+    my $notifyMethodName = 'deletedRowNotify';
+
+
     $dataTable = $self->_newPopulatedDataTable();
+
+    $dataTable->can($notifyMethodName) or
+        die "bad notify method name $notifyMethodName";
+    $dataTable->set_true($notifyMethodName);
+
     my @ids = map {
         $_->id()
     } @{ $dataTable->rows() };
@@ -462,7 +481,10 @@ sub removeRowTest : Test(8)
     dies_ok {
         $dataTable->removeRow('inexistent');
     } 'expecting error when trying to remove a inexistent row';
-
+    ok (
+        (not $dataTable->called($notifyMethodName)),
+        'checking that on error notify method was not called',
+       );
 
     $id = shift @ids;
     lives_ok {
@@ -470,12 +492,13 @@ sub removeRowTest : Test(8)
     } 'removing row';
     is $dataTable->row($id), undef,
         'checking that row is not longer in the table';
-
+    $dataTable->called_ok($notifyMethodName);
+    $dataTable->clear();
 
     # tests with automatic remove
 
     $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
-
+    $dataTable->set_true($notifyMethodName);
 
     @ids = map {
         $_->id()
@@ -490,12 +513,18 @@ sub removeRowTest : Test(8)
         $dataTable->removeRow($id, 0)
     } 'EBox::Exceptions::DataInUse',
       'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
+    ok (
+        (not $dataTable->called($notifyMethodName)),
+        'checking that on DataInUse excpeion notify method was not called',
+       );
 
     lives_ok {
         $dataTable->removeRow($id, 1)
     } 'removeRow with force in a used row within a automaticRemove table works';
     is $dataTable->row($id), undef,
         'checking that row is not longer in the table';
+    $dataTable->called_ok($notifyMethodName);
+    $dataTable->clear();
     
     $id = shift @ids;
     lives_ok {
@@ -503,6 +532,224 @@ sub removeRowTest : Test(8)
     } 'removeRow with force in a unused row within a automaticRemove table works';
     is $dataTable->row($id), undef,
         'checking that row is not longer in the table';
+    $dataTable->called_ok($notifyMethodName);
+    $dataTable->clear();
+}
+
+
+sub deviantSetTest : Test(12)
+{
+    my ($self) = @_;
+    my $dataTable = $self->_newPopulatedDataTable();
+    my @ids = map {
+        $_->id()
+    } @{ $dataTable->rows() };
+    my $id = shift @ids;
+
+    my $notifyMethodName = 'updatedRowNotify';
+
+
+    my $repeatedUnique = $dataTable->row($ids[0])->valueByName('uniqueField');
+    $self->_checkDeviantSet(
+                               $dataTable,
+                               $id,
+                               {
+                                uniqueField => $repeatedUnique,
+                                regularField => 'distinctData',
+                                defaultField => 'aa',
+                               },
+                               'Checking that setting repeated unique field raises error'
+                              );
+
+
+
+   $self->_checkDeviantSet(
+                               $dataTable,
+                               $id,
+                               {
+                                inexistentField => 'inexistentData',
+                                uniqueField =>  'zaszxza',
+                                regularField => 'distinctData',
+                                defaultField => 'aa',
+
+                               },
+                              'Checking that setting a inexistent field raises error'
+
+                             );
+
+
+    $dataTable->mock('validateTypedRow' => sub { die 'always fail' });
+    $self->_checkDeviantSet(
+                               $dataTable,
+                               $id,
+                               {
+                                uniqueField =>  'zaszxza',
+                                regularField => 'distinctData',
+                                defaultField => 'aa',
+
+                               },
+                              'Checking error when validateTypedRow fails'
+
+                             );
+
+
+}
+
+
+sub _checkDeviantSet # counts as 4 tests
+{
+    my ($self, $dataTable, $id, $params_r, $testName) = @_;
+    my $notifyMethodName = 'updatedRowNotify';
+
+    my $version = $dataTable->_storedVersion();
+    my $oldValues = $dataTable->row($id)->hashElements();
+
+    dies_ok {
+        $dataTable->set(
+                         $id,
+                         %{ $params_r }
+                        );
+
+    } $testName;
+
+
+    is_deeply $dataTable->row($id)->hashElements, $oldValues,
+        'checking that erroneous operation has not changed the row values';
+    is $version, $dataTable->_storedVersion(), 
+     'checking that stored table version has not changed after incorrect set operation';
+    ok (
+        (not $dataTable->called($notifyMethodName)),
+        'checking that on error notify method was not called',
+       );
+}
+
+
+sub _checkSet
+{
+    my ($self, $dataTable, $id, $changeParams_r, $testName) = @_;
+    my $notifyMethodName = 'updatedRowNotify';
+    my %changeParams = %{ $changeParams_r };
+
+    my $oldSize = $dataTable->size();
+    my $version = $dataTable->_storedVersion();
+    lives_ok {
+        $dataTable->set (
+                         $id,
+                         %changeParams,
+                        );
+
+    } $testName;
+
+    my $row = $dataTable->row($id);
+    while (my ($field, $value) = each %changeParams) {
+        ($field eq 'force') and 
+            next;
+
+        is $row->valueByName($field),
+            $value,
+             "testing if $field has the updated value";
+    }
+
+    is $dataTable->_storedVersion, ($version + 1),
+        'checking that stored version has been incremented';
+    is $dataTable->size(), $oldSize,
+        'checking that table size has not changed after the setRow';
+
+    $dataTable->called_ok($notifyMethodName);
+    $dataTable->clear();
+}
+
+
+# XXX tODO add notification method parameters test
+sub setTest : Test(10)
+{
+    my ($self) = @_;
+    my $dataTable = $self->_newPopulatedDataTable();
+    my @ids = map {
+        $_->id()
+    } @{ $dataTable->rows() };
+    my $id = shift @ids;
+
+    my $notifyMethodName = 'updatedRowNotify';
+    $dataTable->set_true($notifyMethodName);
+
+
+
+    my %changeParams = (
+                        regularField => 'distinctData',
+                        uniqueField => 'newUniqueValue',
+                        defaultField => 'aaa',
+                       );
+    $self->_checkSet(
+                     $dataTable,
+                     $id,
+                     \%changeParams,
+                     'Setting row',
+                    );
+
+
+
+    my $version = $dataTable->_storedVersion();
+    lives_ok {
+        $dataTable->set (
+                         $id,
+                         %changeParams,
+                        );
+
+    } 'Setting row with the same values';
+    is $version, $dataTable->_storedVersion(), 
+        'checking that stored table version has not changed';
+    ok (
+        (not $dataTable->called($notifyMethodName)),
+        'checking that on setting row with no changes notify method was not called',
+       );
+}
+
+
+sub setWithDataInUseTest : Test(18)
+{
+    my ($self) = @_;
+    my $dataTable = $self->_newPopulatedDataTableWithAutomaticRemove();
+    my @ids = map {
+        $_->id()
+    } @{ $dataTable->rows() };
+    my $id = shift @ids;
+
+    my $notifyMethodName = 'updatedRowNotify';
+    $dataTable->set_true($notifyMethodName);
+
+    setRowIdInUse($id);
+
+    my %changeParams = (
+                        regularField => 'distinctData',
+                        uniqueField => 'newUniqueValue',
+                        defaultField => 'aaa',
+                       );  
+
+    $self->_checkDeviantSet ( 
+                      $dataTable,
+                      $id,
+                      \%changeParams,
+      'Checking that setting a row with data on use raises error'
+                     );
+
+    $changeParams{force} = 1;
+    $self->_checkSet ( 
+                      $dataTable,
+                      $id,
+                      \%changeParams,
+      'Checking that setting a row with data on use and force =1 works'
+                     );
+
+    delete $changeParams{force};
+    setRowIdInUse(undef);
+    $changeParams{defaultField} = 'anotherValue';
+    $self->_checkSet ( 
+                      $dataTable,
+                      $id,
+                      \%changeParams,
+      'Checking that setting a row with no data on use and force =0 works in a automaticRemoveTable'
+                     );
 }
 
 sub _checkValidateTypedRowCall

@@ -3544,10 +3544,15 @@ sub _autoloadSet
         shift ( @{$paramsRef} );
         # Convert array ref to hash ref
         my %params = @{$paramsRef};
+
+        my $force  = delete $params{force};
+        defined $force or
+            $force = 0;
+
         $paramsRef = \%params;
         # Simple add (add a new row to a model including submodels...)
         my $instancedTypes = $self->_fillTypes($paramsRef);
-        $self->setTypedRow($updateId, $instancedTypes, force => 0);
+        $self->setTypedRow($updateId, $instancedTypes, force => $force);
 
         my $subModels = $self->_subModelFields();
         foreach my $subModel (@{$subModels}) {
