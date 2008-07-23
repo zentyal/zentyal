@@ -17,9 +17,9 @@ PidFile <% $tmpdir %>/apache.pid
 
 <IfModule mpm_prefork_module>
     StartServers          1 
-    MinSpareServers       1
-    MaxSpareServers       5
-    MaxClients            5 
+    MinSpareServers       1 
+    MaxSpareServers       1
+    MaxClients            2 
     MaxRequestsPerChild   20
 </IfModule>
 
