@@ -2656,7 +2656,7 @@ sub setPageSize
 # Returns:
 #
 #     string - holding a javascript funcion
-sub cangeViewJS
+sub changeViewJS
 {
     my ($self, %args) = @_;
 
