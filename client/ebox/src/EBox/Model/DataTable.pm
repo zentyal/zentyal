@@ -268,7 +268,6 @@ sub nameFromClass
 #
 sub contextName
 {
-
     my ($self) = @_;
 
     my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
@@ -277,7 +276,6 @@ sub contextName
     $path .= $self->index();
 
     return $path;
-
 }
 
 # Method: printableContextName
@@ -291,7 +289,6 @@ sub contextName
 #
 sub printableContextName
 {
-
     my ($self) = @_;
     my $printableContextName = __x( '{model} in {module} module',
                                     model  => $self->printableName(),
@@ -306,7 +303,6 @@ sub printableContextName
     }
 
     return $printableContextName;
-
 }
 
 # Method: index
@@ -1088,6 +1084,11 @@ sub removeRow
 {
     my ($self, $id, $force) = @_;
 
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove")
+    }
+
     # If force != true and automaticRemove is enabled it means
     # the model has to automatically check if the row which is 
     # about to removed is referenced elsewhere. In that
@@ -1097,11 +1098,6 @@ sub removeRow
         my $manager = EBox::Model::ModelManager->instance();
         $manager->warnIfIdIsUsed($self->contextName(), $id);
 #            $self->warnIfIdUsed($id);
-    }
-
-    unless (defined($id)) {
-        throw EBox::Exceptions::MissingArgument(
-                "Missing row identifier to remove")
     }
 
     $self->_checkRowExist($id, '');
@@ -2661,7 +2657,7 @@ sub setPageSize
 # Returns:
 #
 #     string - holding a javascript funcion
-sub changeViewJS
+sub cangeViewJS
 {
     my ($self, %args) = @_;
 
