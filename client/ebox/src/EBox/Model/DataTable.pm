@@ -1097,7 +1097,6 @@ sub removeRow
     if ((not $force) and $self->table()->{'automaticRemove'}) {
         my $manager = EBox::Model::ModelManager->instance();
         $manager->warnIfIdIsUsed($self->contextName(), $id);
-#            $self->warnIfIdUsed($id);
     }
 
     $self->_checkRowExist($id, '');
