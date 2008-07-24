@@ -154,14 +154,6 @@ sub _setupTable
         $field->setModel($self);
       }
 
-    if (exists $table->{sortedBy}) {
-        my $sortField = $table->{sortedBy};
-        if (not exists  $table->{'tableDescriptionByName'}->{$sortField} ) {
-            throw EBox::Exceptions::Internal(
-                      "Trying to sort table by  inexistent field $sortField"
-                                              );
-        }
-    }
     
 
     # Some default values
@@ -189,6 +181,26 @@ sub _checkTable
             'table description has not tableName field or has a empty one'
                                         );
       }
+
+#     if (exists $table->{sortedBy} ) {
+#         my $found = 0;
+#         my $sortField = $table->{sortedBy};
+
+#         foreach my $field (@{  $table->{tableDescription}  }) {
+#             EBox::debug("fieldName " . $field->fieldName);
+#             if ($field->fieldName eq $sortField) {
+#                 $found = 1;
+#                 last;
+#             }
+#         }
+
+#         if (not $found ) {
+#             throw EBox::Exceptions::Internal(
+#                       "Trying to sort table by  inexistent field $sortField"
+#                                               );
+#         }
+#     }
+    
 }
 
 # Method: _table
