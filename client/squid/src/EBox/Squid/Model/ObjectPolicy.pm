@@ -146,9 +146,14 @@ sub _objectsByPolicy
     
     EBox::Squid::Types::Policy->checkPolicy($policy);
     
-    my @objects =  map {
-        $_->valueByName('object')
-    }  @{ $self->findAllValue(policy => $policy) };
+
+    my @objects = map {
+        my $obPolicy = $_->valueByName('policy');
+        ($obPolicy eq $policy) ? $_->valueByName('object') : ()
+        
+    } @{ $self->rows()  };
+
+
     
     return \@objects;
 }
@@ -159,13 +164,29 @@ sub _objectHasPolicy
     
     EBox::Squid::Types::Policy->checkPolicy($policy);
     
-    my $objectRow = $self->findValue(object => $object);
+
+    my $objectRow = $self->_findRowByObjectName($object);
     if (not defined $objectRow) {
         throw EBox::Exceptions::External('{o} does not exists', o => $object );
     }
     
-    return $object->{policy} eq $policy;
+    return $objectRow->valueByName('policy') eq $policy;
 }
+
+sub _addressesByPolicy
+{
+    my ($self, $policy) = @_;
+
+    my $objectMod = EBox::Global->modInstance('objects');
+    my @objects = @{  $self->_objectsByPolicy($policy) };
+    
+    my @addrs = map {
+        @{ $objectMod->objectAddresses($_) }
+    } @objects;
+
+    return \@addrs;
+}
+
 
 #
 # Method: filtered
@@ -176,10 +197,10 @@ sub _objectHasPolicy
 #
 #       array ref - holding the object names
 #
-sub filtered
+sub filteredAddresses
 {
     my ($self) = @_;
-    return $self->_objectsByPolicy('filter');
+    return $self->_addressesByPolicy('filter');
 }
 
 # Method: unfiltered
@@ -190,12 +211,27 @@ sub filtered
 #
 #       array ref - holding the object names
 #
-sub unfiltered
+sub unfilteredAddresses
 {
     my ($self) = @_;
-    return $self->_objectsByPolicy('allow');
+    return $self->_addressesByPolicy('allow');
 }
 
+
+#
+# Method: banned
+#
+#       Returns the list of banned objects.
+#
+# Returns:
+#
+#       array ref - holding the objects
+#
+sub bannedAddresses
+{
+    my ($self) = @_;
+    return $self->_addressesByPolicy('deny');
+}
 
 # Method: isUnfiltered
 #
@@ -215,20 +251,7 @@ sub isUnfiltered # ($object)
 }
 
 
-#
-# Method: banned
-#
-#       Returns the list of banned objects.
-#
-# Returns:
-#
-#       array ref - holding the objects
-#
-sub banned
-{
-    my ($self) = @_;
-    return $self->_objectsByPolicy('deny');
-}
+
 
 # Method: isBanned
 #
@@ -245,6 +268,19 @@ sub isBanned # ($object)
 {
   my ($self, $object) = @_;
   $self->_objectHasPolicy($object, 'deny');
+}
+
+
+sub _findRowByObjectName
+{
+    my ($self, $objectName) = @_;
+
+    my $objectModel = $self->objectModel();
+    my $objectRowId = $objectModel->findId(name => $objectName);
+
+    my $row = $self->findRow(object => $objectRowId);
+
+    return $row;
 }
 
 1;
