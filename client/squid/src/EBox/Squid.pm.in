@@ -566,7 +566,7 @@ sub _setSquidConf
 sub _squidOnly
 {
 	my $self = shift;
-	my $ob = EBox::Global->modInstance('objects');
+#	my $ob = EBox::Global->modInstance('objects');
 	my $objects;
 	my $policy = $self->globalPolicy;
 	my $squidpolicy = $policy;
@@ -577,17 +577,15 @@ sub _squidOnly
 	my $objectPolicy = $self->model('ObjectPolicy');
 
 	if ($policy eq 'deny') {
-		push(@exceptions, @{$objectPolicy->filtered});
-		push(@exceptions, @{$objectPolicy->unfiltered});
+		push(@exceptions, @{$objectPolicy->filteredAddresses});
+		push(@exceptions, @{$objectPolicy->unfilteredAddresses});
 	} else {
 		$squidpolicy = "allow";
-		push(@exceptions, @{$objectPolicy->banned});
+		push(@exceptions, @{$objectPolicy->bannedAddresses});
 	}
 	
-	foreach my $aux (@exceptions) {
-		foreach my $addr (@{$ob->objectAddresses($aux)}) {
-			$objects .= "acl objects src  $addr\n";
-		}
+	foreach my $addr (@exceptions) {
+		$objects .= "acl objects src  $addr\n";
 	}
 
 	my @array = ();
@@ -615,7 +613,7 @@ sub dansguardianPort
 sub _squidAndDG
 {
 	my $self = shift;
-	my $ob = EBox::Global->modInstance('objects');
+#	my $ob = EBox::Global->modInstance('objects');
 	my $objects;
 
 
@@ -632,17 +630,15 @@ sub _squidAndDG
 	my $objectPolicy = $self->model('ObjectPolicy');	
 
 	if ($policy eq 'allow') {
-		push(@exceptions, @{$objectPolicy->banned});
-		push(@exceptions, @{$objectPolicy->filtered});
+		push(@exceptions, @{$objectPolicy->bannedAddresses});
+		push(@exceptions, @{$objectPolicy->filteredAddresses});
 	} else {
 		$squidpolicy = "deny";
-		push(@exceptions, @{$objectPolicy->unfiltered});
+		push(@exceptions, @{$objectPolicy->unfilteredAddresses});
 	}
 
-	foreach my $aux (@exceptions) {
-		foreach my $addr (@{$ob->objectAddresses($aux)}) {
-			$objects .= "acl objects src  $addr\n";
-		}
+	foreach my $addr (@exceptions) {
+                $objects .= "acl objects src  $addr\n";
 	}
 
 	my @writeParam = ();

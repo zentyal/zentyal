@@ -189,13 +189,13 @@ sub _addressesByPolicy
 
 
 #
-# Method: filtered
+# Method: filteredAddresses
 #
-#       Returns a list of filtered objects
+#       Returns a list of filtered addresses
 #
 # Parameters:
 #
-#       array ref - holding the object names
+#       array ref - holding the addresses
 #
 sub filteredAddresses
 {
@@ -203,13 +203,13 @@ sub filteredAddresses
     return $self->_addressesByPolicy('filter');
 }
 
-# Method: unfiltered
+# Method: unfilteredAddresses
 #
-#       Returns a list of unfiltered objects
+#       Returns a list of unfiltered addresses
 #
 # Parameters:
 #
-#       array ref - holding the object names
+#       array ref - holding the addresses
 #
 sub unfilteredAddresses
 {
@@ -219,13 +219,13 @@ sub unfilteredAddresses
 
 
 #
-# Method: banned
+# Method: bannedAddresses
 #
-#       Returns the list of banned objects.
+#       Returns the list of banned addresses
 #
 # Returns:
 #
-#       array ref - holding the objects
+#       array ref - holding the addresses
 #
 sub bannedAddresses
 {
