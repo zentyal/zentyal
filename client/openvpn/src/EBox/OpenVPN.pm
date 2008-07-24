@@ -792,10 +792,9 @@ sub firewallHelper
 
     my $service = $self->service();
 
+    my @ifaces = map {$_->iface() } $self->activeDaemons();
+
     my @activeServers =  $self->activeServers();
-
-    my @ifaces = map {$_->iface();} @activeServers;
-
     my @ports = map {
         my $port = $_->port();
         my $proto = $_->proto();
