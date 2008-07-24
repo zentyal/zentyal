@@ -227,6 +227,8 @@ sub addedRowNotify
 {
     my ($self, $row) = @_;
     
+    EBox::OpenVPN::Model::InterfaceTable::addedRowNotify($self, $row);
+
     my $service = $row->elementByName('service');
     
     if ($service->value()) {

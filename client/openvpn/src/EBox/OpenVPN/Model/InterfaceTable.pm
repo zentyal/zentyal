@@ -22,7 +22,8 @@ use warnings;
 use EBox::Types::Text;
 use EBox::Types::Int;
 
-
+use constant IFACE_TYPE_DEFAULT => 'tap';
+use constant IFACE_NUMBER_DEFAULT => -1;
 
 sub new
 {
@@ -35,21 +36,33 @@ sub interfaceFields
                   new EBox::Types::Text
                   (
                    'fieldName' => 'interfaceType',
+                   'printableName'  => 'interfaceType',
                    'hidden'    => 1,
                    'editable'  => 0,
-                   'defaultValue' => 'tap',
+                   'optional'     => 1,
                   ),
                   new EBox::Types::Int
                   (
                    'fieldName' => 'interfaceNumber',
+                   'printableName' => 'interfaceNumber',
                    'hidden' => 1,
                    'editable' => 0,
                    'min'      => -1,
-                   'defaultValue' => -1,
+                   'optional'     => 1,
                    # no unique bz it will not be until we call updateInterfaces
                   ),
                  );
     return @fields;
+}
+
+
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    $row->elementByName('interfaceType')->setValue(IFACE_TYPE_DEFAULT);
+    $row->elementByName('interfaceNumber')->setValue(IFACE_NUMBER_DEFAULT);
+    $row->store();
 }
 
 sub initializeInterfaces
