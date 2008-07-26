@@ -55,6 +55,16 @@ sub new
     return $self;
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#   
+#   <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    return undef; 
+}
 
 # Method:  _table
 #
