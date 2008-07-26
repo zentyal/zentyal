@@ -89,30 +89,47 @@ sub _table
 }
 
 # Method: precondition
-#	
-#	Check if the module is configured
+#
+# Check if the module is configured
 #
 # Overrides:
 #
-#	<EBox::Model::DataTable::precondition>
+# <EBox::Model::DataTable::precondition>
 sub precondition
 {
+    my ($self) = @_;
     my $users = EBox::Global->modInstance('users');
-    return $users->configured();
+    unless ($users->configured()) {
+        $self->{preconFail} = 'notConfigured';
+        return undef;
+    }
+
+    unless ($users->users()) {
+        $self->{preconFail} = 'noUsers';
+        return undef;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
-#	
-#	Check if the module is configured
+#
+# Check if the module is configured
 #
 # Overrides:
 #
-#	<EBox::Model::DataTable::precondition>
+# <EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-    my $users = EBox::Global->modInstance('users');
-    return __('You must enable the module Users in the module ' .
-            'status section in order to use it.');
+    my ($self) = @_;
+
+    if ($self->{preconFail} eq 'notConfigured') {
+        return __('You must enable the module Users in the module ' .
+                'status section in order to use it.');
+    } else {
+        return __('There are no users at the moment.');
+
+    }
 }
 
 sub rows
