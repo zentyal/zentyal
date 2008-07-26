@@ -80,6 +80,9 @@ sub _table
                         'help' => '',
                         'printableRowName' => __('virtual domain'),
                         'sortedBy' => 'vdomain',
+                        'messages' => { add => __('Virtual domain added.' .
+                                'You need to save changes to use this domain')
+                            },
                 };
 
         return $dataTable;
