@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Mail
 
-SUBDIRS = Model
+SUBDIRS = Model Composite
 
 regular_packages = FilterProvider.pm ImportFromLdif.pm
 

@@ -2,12 +2,9 @@
 
 perldir = @PERLPATH@/EBox/CGI/Mail
 
-nobase_perl_DATA = Index.pm  MailConf.pm VDomains.pm AddVDomain.pm \
-DelVDomain.pm CreateAccount.pm CreateAlias.pm DelAccount.pm DelAlias.pm \
-CreateGroupAlias.pm DelGroupAlias.pm SetAllowed.pm SetQuota.pm SetMDQuota.pm \
-EditVDomain.pm ModifyVDomain.pm SetExternalFilter.pm ModifyAccountMDSize.pm \
-MailSettings.pm EnableServices.pm QueueManager.pm MQRemove.pm MQRequeue.pm
-
+nobase_perl_DATA = CreateAccount.pm CreateAlias.pm DelAccount.pm DelAlias.pm  \
+	CreateGroupAlias.pm DelGroupAlias.pm  \
+	 QueueManager.pm MQRemove.pm MQRequeue.pm
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(nobase_perl_DATA)

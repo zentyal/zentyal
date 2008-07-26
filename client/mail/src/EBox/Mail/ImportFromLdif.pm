@@ -27,12 +27,12 @@ use EBox::MailVDomainsLdap;
 sub classesToProcess
 {
     return [
-	    { class => 'domain',           priority => 10 },
-	    { class => 'vdeboxmail',       priority => 15 },
-	    { class => 'posixAccount',     priority => 15 },
-	    { class => 'usereboxmail',     priority => 20 },
-	    { class => 'CourierMailAlias', priority => 20 },
-	   ];
+            { class => 'domain',           priority => 10 },
+            { class => 'vdeboxmail',       priority => 15 },
+            { class => 'posixAccount',     priority => 15 },
+            { class => 'usereboxmail',     priority => 20 },
+            { class => 'CourierMailAlias', priority => 20 },
+           ];
 }
 
 
@@ -91,19 +91,29 @@ sub processDomain
     my $vdomain = $entry->get_value('dc');
 
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
-
+    
+    # we add it to LDAP because until we have changed users to useg gconf things
+    # may became inconsistent with mail accounts
     $vdomainsLdap->addVDomain($vdomain);
+
+    # and we add the domains too to VDomains table...
+    my $vdomainsTable = EBox::Global->modInstance('mail')->model('VDomains');
+    $vdomainsTable->add( vdomain => $vdomain);
 }
 
 
 sub startupDomain
 {
     my ($package) = @_;
-    # we remove all domains to avoid conflicts
 
+    # clear vdomains table
+    my $vdomainsTable = EBox::Global->modInstance('mail')->model('VDomains');
+    $vdomainsTable->removeAll();
+
+    # we remove all domains to avoid conflicts
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
     foreach my $vdomain ($vdomainsLdap->vdomains()) {
-	$vdomainsLdap->delVDomain($vdomain);
+        $vdomainsLdap->delVDomain($vdomain);
     }
 }
 

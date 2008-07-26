@@ -1,4 +1,4 @@
-test_scripts = Mail.t
+test_scripts = Mail.t MailQueue.t
 
 EXTRA_DIST = $(test_scripts)
 

@@ -3,6 +3,7 @@
 
 <gconfschemafile>
 	<schemalist>
+
 	<schema>
 		<key>/schemas/ebox/modules/global/modules/mail/class</key>
 		<applyto>/ebox/modules/global/modules/mail/class</applyto>
@@ -12,126 +13,6 @@
 		<locale name="C"/>
 	</schema>
 	
-	<schema>
-		<key>/schemas/ebox/modules/mail/active</key>
-		<applyto>/ebox/modules/mail/active</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>false</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/pop</key>
-		<applyto>/ebox/modules/mail/pop</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>false</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/popssl</key>
-		<applyto>/ebox/modules/mail/popssl</applyto>
-		<owner>ebox</owner>
-		<type>string</type>
-		<default>no</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/imap</key>
-		<applyto>/ebox/modules/mail/imap</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>false</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/imapssl</key>
-		<applyto>/ebox/modules/mail/imapssl</applyto>
-		<owner>ebox</owner>
-		<type>string</type>
-		<default>no</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/filter</key>
-		<applyto>/ebox/modules/mail/filter</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>false</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/external_filter_name</key>
-		<applyto>/ebox/modules/mail/external_filter_name</applyto>
-		<owner>ebox</owner>
-		<type>string</type>
-		<default>custom</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/sasl</key>
-		<applyto>/ebox/modules/mail/sasl</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>false</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/smtptls</key>
-		<applyto>/ebox/modules/mail/smtptls</applyto>
-		<owner>ebox</owner>
-		<type>bool</type>
-		<default>true</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/allowed</key>
-		<applyto>/ebox/modules/mail/allowed</applyto>
-		<owner>ebox</owner>
-		<type>list</type>
-		<list_type>string</list_type>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/quota</key>
-		<applyto>/ebox/modules/mail/quota</applyto>
-		<owner>ebox</owner>
-		<type>int</type>
-		<default>50</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/mdsize</key>
-		<applyto>/ebox/modules/mail/mdsize</applyto>
-		<owner>ebox</owner>
-		<type>int</type>
-		<default>0</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/fwport</key>
-		<applyto>/ebox/modules/mail/fwport</applyto>
-		<owner>ebox</owner>
-		<type>int</type>
-		<default>10025</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/ipfilter</key>
-		<applyto>/ebox/modules/mail/ipfilter</applyto>
-		<owner>ebox</owner>
-		<type>string</type>
-		<default>127.0.0.1</default>
-		<locale name="C"/>
-	</schema>
-	<schema>
-		<key>/schemas/ebox/modules/mail/portfilter</key>
-		<applyto>/ebox/modules/mail/portfilter</applyto>
-		<owner>ebox</owner>
-		<type>int</type>
-		<default>10024</default>
-		<locale name="C"/>
-	</schema>
 
 	<schema>
 		<key>/schemas/ebox/modules/global/modules/mail/depends</key>

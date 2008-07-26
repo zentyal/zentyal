@@ -83,28 +83,5 @@ sub _delVDomainWarning($$) # (vdomain)
 
 }
 
-# Method: _vdomainAddOns
-#
-#	When a virtual domain is to be edited, this method is called to
-#	get customized mason components from modules depending on virtual
-#	domains stored in LDAP. Thus, these components will be showed below
-#	the basic virtual domain data The method has to return a hash ref
-#	containing: 'path' => MASON_COMPONENT_PATH_TO_BE_ADDED 'params' =>
-#	PARAMETERS_FOR_MASON_COMPONENT
-#
-# Parameters:
-#
-#   	vdomain - virutal domain name to be edited
-#
-# Returns:
-#
-#   	A reference to a list of hash references each containing:
-#
-#   	path - mason component which is going to be added
-#   	params - parameters for the mason component
-sub _vdomainAddOns($$)
-{
-
-}
 
 1;

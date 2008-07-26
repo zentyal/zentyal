@@ -66,7 +66,6 @@ AC_SUBST(MD_QUOTA, ["$md_quota"])
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
-debian/control
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
@@ -74,8 +73,10 @@ src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/Event/Dispatcher/t/Makefile
 src/EBox/Mail/Makefile
+src/EBox/Mail/Composite/Makefile
 src/EBox/Mail/Model/Makefile
 src/EBox/Mail/Model/Dispatcher/Makefile
+src/EBox/Mail/Composite/Makefile
 src/EBox/t/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
