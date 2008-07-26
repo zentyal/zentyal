@@ -73,7 +73,6 @@ src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/Event/Dispatcher/t/Makefile
 src/EBox/Mail/Makefile
-src/EBox/Mail/Composite/Makefile
 src/EBox/Mail/Model/Makefile
 src/EBox/Mail/Model/Dispatcher/Makefile
 src/EBox/Mail/Composite/Makefile
