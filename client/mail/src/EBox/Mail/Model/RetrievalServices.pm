@@ -74,12 +74,12 @@ sub _table
         ( 
          new EBox::Types::Boolean(
                                   fieldName => 'pop3',
-                                  printableName => 'POP3 service',
+                                  printableName => 'POP3 service enabled',
                                   editable => 1,
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'imap',
-                                  printableName => 'IMAP service',
+                                  printableName => 'IMAP service enabled',
                                   editable => 1,
                                  ),
          new EBox::Types::Select(

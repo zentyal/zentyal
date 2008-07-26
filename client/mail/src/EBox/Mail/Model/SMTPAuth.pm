@@ -74,15 +74,17 @@ sub _table
     my @tableDesc = 
         ( 
          new EBox::Types::Boolean(
-                                  fieldName => 'tls',
-                                  printableName => 'TLS for SMTP server',
-                                  editable => 1,
-                                 ),
+             fieldName => 'tls',
+             printableName => 'TLS for SMTP server',
+             editable => 1,
+             ),
          new EBox::Types::Boolean(
-                                  fieldName => 'sasl',
-                                  printableName => 'Require authentication',
-                                  editable => 1,
-                                 ),
+             fieldName => 'sasl',
+             printableName => 'Require authentication',
+             editable => 1,
+             help => __('Users will have to authenticate to be able to send ' .
+                        'mails through this server'),
+             ),
 
         );
 

@@ -72,6 +72,32 @@ sub headTitle
     return undef; 
 }
 
+# Method: precondition
+#
+#	If SMTP requires authentication, we inform the user
+#	that relay based on network addresses makes no sense
+# Overrides:
+#   
+#   <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+	return (not EBox::Global->modInstance('mail')->saslService());
+}
+
+# Method: preconditionFailMsg
+#
+#
+# Overrides:
+#	
+#	<EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    return __x('Relay based on network objects is only applied when {openI} Mail server options-> Authentication -> Requiere authentication {closeI} is disabled', openI => '<i>', closeI => '</i>');
+}
+
+
 # Group: Protected methods
 
 # Method: _table
@@ -83,25 +109,28 @@ sub _table
   my @tableHeader =
     (
      new EBox::Types::Select(
-                             fieldName     => 'object',
-                             foreignModel  => \&objectModel,
-                             foreignField  => 'name',
+         fieldName     => 'object',
+         foreignModel  => \&objectModel,
+         foreignField  => 'name',
 
-                             printableName => __('Object'),
-                             unique        => 1,
-                             editable      => 1,
-                            ),
+         printableName => __('Object'),
+         unique        => 1,
+         editable      => 1,
+         ),
      new EBox::Types::Boolean(
-                                    fieldName     => 'allow',
-                                    printableName => __('Allow relay'),
-                                    editable      => 1,
-                                   ),
+         fieldName     => 'allow',
+         printableName => __('Allow relay'),
+         editable      => 1,
+         help          => __('Tick this to allow the machines within the ' .
+                             'above object to send mails through this ' . 
+                             ' server.'),
+         ),
     );
 
   my $dataTable =
     {
      tableName          => __PACKAGE__->nameFromClass,
-     printableTableName => __(q{Relay policy for network objects'}),
+     printableTableName => __(q{Relay policy for network objects}),
      modelDomain        => 'Mail',
      'defaultController' => '/ebox/Mail/Controller/ObjectPolicy',
      'defaultActions' => [      
