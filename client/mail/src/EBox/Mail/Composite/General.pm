@@ -54,17 +54,6 @@ sub new
 
   }
 
-# Method: pageTitle
-#
-# Overrides:
-#   
-#   <EBox::Model::Component::pageTitle>
-#
-sub pageTitle
-{
-    return undef;
-}
-
 # Group: Protected methods
 
 # Method: _description

@@ -61,13 +61,13 @@ sub new
 
   }
 
-# Method: pageTitle
+# Method: headTitle
 #
 # Overrides:
 #   
-#   <EBox::Model::Component::pageTitle>
+#   <EBox::Model::Component::headTitle>
 #
-sub pageTitle
+sub headTitle
 {
     return undef; 
 }
