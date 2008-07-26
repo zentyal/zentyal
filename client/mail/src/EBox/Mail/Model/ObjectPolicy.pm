@@ -72,32 +72,6 @@ sub headTitle
     return undef; 
 }
 
-# Method: precondition
-#
-#	If SMTP requires authentication, we inform the user
-#	that relay based on network addresses makes no sense
-# Overrides:
-#   
-#   <EBox::Model::DataTable::precondition>
-#
-sub precondition
-{
-	return (not EBox::Global->modInstance('mail')->saslService());
-}
-
-# Method: preconditionFailMsg
-#
-#
-# Overrides:
-#	
-#	<EBox::Model::DataTable::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    return __x('Relay based on network objects is only applied when {openI} Mail server options-> Authentication -> Requiere authentication {closeI} is disabled', openI => '<i>', closeI => '</i>');
-}
-
-
 # Group: Protected methods
 
 # Method: _table
