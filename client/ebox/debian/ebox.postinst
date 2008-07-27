@@ -80,7 +80,7 @@ case "$1" in
         DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;'); 
         for DIR in $DYNAMIC_WWW_DIRS; do
         mkdir -p $DIR
-        chown -R ebox.ebox $DIR
+        chown -R ebox:ebox $DIR
         done
 
         #change the /var/lib/ebox/ user
