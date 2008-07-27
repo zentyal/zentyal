@@ -16,7 +16,7 @@ _Description: Passowrd mismatch
  The two passwords you entered were not the same. Please try again
 
 Template: ebox/port
-Type: string 
+Type: string
 Default: 443
 _Description: eBox HTTPS port:
  Please enter the port which will be used by the eBox HTTPS server. Use an
@@ -26,6 +26,6 @@ Template: ebox/port_used
 Type: boolean
 Default: true
 _Description: Do you want to continue?
- It seems that the port you have selected is already being used. Press yes to 
- proceed anyway, or no to enter a new port.
+ It seems that the port you have selected is already being used. You can
+ continue anyway or enter a new port.
 
