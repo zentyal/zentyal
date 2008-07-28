@@ -182,6 +182,15 @@ sub _checkTable
                                         );
       }
 
+    if ((exists $table->{sortedBy}) and (exists $table->{order})) {
+        if ($table->{sortedBy}and $table->{order}) {
+            throw EBox::Exceptions::Internal(
+             'sortedBy and order are incompatible options'
+                                        );
+        }
+    }
+
+
 #     if (exists $table->{sortedBy} ) {
 #         my $found = 0;
 #         my $sortField = $table->{sortedBy};

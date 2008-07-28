@@ -117,12 +117,17 @@ sub model
     my ($self, $path) = @_;
 
 
-    unless ( defined ( $path )) {
+    unless (  $path ) {
         throw EBox::Exceptions::MissingArgument('path');
     }
 
     my ($moduleName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
-    if ( not defined ( $modelName ) and $path =~ m:/: ) {
+    
+    if (not $moduleName) {
+        throw EBox::Exceptions::Internal('Invalid path');
+    }
+
+    if ( ( not $modelName ) and $path =~ m:/: ) {
         throw EBox::Exceptions::Internal('One element is given and ' .
                                          'slashes are given. The valid format ' .
                                          'requires no slashes, sorry');
