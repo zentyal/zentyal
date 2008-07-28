@@ -74,17 +74,17 @@ sub new
 
   }
 
-# Method: checkTable
+# Method: _checkTable
 #
 #  Method overriden to add some checks
 #
 #  Overrides:
-#    EBox::Model::DataTable::checkTable
-sub checkTable
+#    EBox::Model::DataTable::_checkTable
+sub __checkTable
 {
     my ($self, $table) = @_;
 
-    $self->SUPER::checkTable($table);
+    $self->SUPER::_checkTable($table);
 
     my @unallowedSuperParams = qw(sortedBy order);
     foreach my $param (@unallowedSuperParams) {
