@@ -38,7 +38,7 @@ settextdomain('ebox-jabber');
     
     <ip>0.0.0.0</ip>
 %	if (!($ssl eq 'no')){
-    <pemfile>/etc/ebox/ssl.pem/ebox.pem</pemfile>
+    <pemfile>/var/lib/ebox/conf/ssl.pem/ebox.pem</pemfile>
     <ssl-port>5223</ssl-port>
 %		if ($ssl eq 'required') {
     <require-starttls/>
