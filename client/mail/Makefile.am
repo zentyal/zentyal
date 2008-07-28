@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = conf src schemas po tools stubs www migration
+SUBDIRS = conf src schemas po tools stubs migration
 
 MAINTAINERCLEANFILES = aclocal.m4 configure Makefile.in config.status \
   config.log config/mkinstalldirs depcomp config/install-sh config/missing \
