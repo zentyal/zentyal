@@ -74,6 +74,29 @@ sub new
 
   }
 
+# Method: checkTable
+#
+#  Method overriden to add some checks
+#
+#  Overrides:
+#    EBox::Model::DataTable::checkTable
+sub checkTable
+{
+    my ($self, $table) = @_;
+
+    $self->SUPER::checkTable($table);
+
+    my @unallowedSuperParams = qw(sortedBy order);
+    foreach my $param (@unallowedSuperParams) {
+        if (exists $table->{$param}) {
+            throw EBox::Exceptions::Internal(
+
+                                            );
+        }
+    }
+
+}
+
 # Method: addRow
 #
 #       This method has no sense since it has just one row. To fill
@@ -384,36 +407,13 @@ sub set
 #       <EBox::Model::DataTable::rows>
 #
 sub rows
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    return [ $self->_row() ];
+}
 
-      return [ $self->_row() ];
 
-  }
-
-# Method: printableValueRows
-#
-#       Return a list containing the table rows and the printable
-#       value of every field. It makes no sense in an one-rowed table.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::printableValueRows>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
-#
-#sub printableValueRows
-#  {
-#
-#      throw EBox::Exceptions::Internal('It cannot return more than one row in an ' .
-#                                       'one-rowed table');
-#
-#  }
-#
 # Method: order
 #
 #       Get the keys order in an array ref. It makes no sense in an one-rowed table.
@@ -428,11 +428,30 @@ sub rows
 #       an one-rowed table
 #
 sub order
-  {
+{
 
       throw EBox::Exceptions::Internal('It has no sense order in an one-rowed table');
 
-  }
+}
+
+
+# Method: sortedBy
+#
+#       Return the field name which is used by model to sort rows when
+#       the model is not ordered. It makes no sense in an one-rowed table.
+#
+# Returns:
+#
+#       String - field name used to sort the rows
+#
+sub sortedBy
+{
+
+    throw EBox::Exceptions::Internal(
+         'It has no sense sortedBy in an one-rowed table'
+                                    );
+
+}
 
 # Method: rowUnique
 #

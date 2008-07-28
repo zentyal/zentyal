@@ -123,7 +123,7 @@ sub _setupTable
     $self->_setDomain();
     
     my $table = $self->_table();
-    $self->_checkTable($table);
+    $self->checkTable($table);
     $self->{'table'} = $table;
     
     $self->_restoreDomain();
@@ -163,7 +163,11 @@ sub _setupTable
     $self->_setDefaultMessages();
 }
 
-sub _checkTable
+# Method: checkTable
+#
+#  This method does some fast and general checks in the table specification
+#
+sub checkTable
 {
     my ($self, $table) = @_;
 
@@ -2495,7 +2499,6 @@ sub DESTROY { ; }
 #          field is requested when just one type is returned. In order
 #          to make queries about multiple rows, use
 #          <EBox::Model::DataTable::rows>,
-#          <EBox::Model::DataTable::printableValueRows> and
 #          <EBox::Model::DataTable::findAll> methods or similars.
 #
 #       - Update

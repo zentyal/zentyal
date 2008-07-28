@@ -1,6 +1,6 @@
 test_scripts = autoload.t CompositeProvider.t CompositeManager.t \
 	ModelManager.t ModelProvider.t \
-	Row.t DataTable.t
+	Row.t DataTable.t DataForm.t
 
 EXTRA_DIST = $(test_scripts)
 

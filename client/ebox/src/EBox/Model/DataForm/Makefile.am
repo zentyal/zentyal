@@ -7,7 +7,9 @@ mods = Action.pm ReadOnly.pm Download.pm
 
 nobase_perl_DATA = $(mods)
 
-SOURCES = $(nobase_perl_DATA)
+test_classes = Test.pm
+
+SOURCES = $(nobase_perl_DATA) $(test_classes)
 
 EXTRA_DIST = $(mods)
 
