@@ -1,10 +1,31 @@
+<%doc>
+   Template to set the apache configuration file
+   for the Web administration
+
+Parameters:
+
+   port - Int the listening port
+   group - String the group that must live apache-perl process
+   user  - String the user that the apache-perl process must be 
+   serverroot - String the path to the Apache server root
+   tmpdir - String the path to the Apache temporary directory
+   debug - String to enable Apache::Reload or not *(Optional)*
+           Default value: 'no'
+   restrictedResources - Array containing a hash ref structure
+                     which contains the following elements:
+                - allowedIPs - array ref containing the allowed IPs
+                               for accessing this resource
+                - name - String the resource name
+                - type - String the resource type. Options: file, directory or location.
+</%doc>
 <%args>
 	$port
 	$group
 	$user
 	$serverroot
 	$tmpdir
-    $debug => 'no'
+        $debug => 'no'
+        @restrictedResources => ()
 </%args>
 
 Timeout 300
@@ -91,6 +112,33 @@ DocumentRoot @WWWPATH@
     Order allow,deny
     Allow from all
 </Directory>
+
+<%perl>
+if ( @restrictedResources > 0 ) {
+    foreach my $restrictedResource (@restrictedResources) {
+        my @allowIPs = @{$restrictedResource->{allowedIPs}};
+        my $restrictedResourceName = $restrictedResource->{name};
+        my $foundNobody = grep { $_ eq 'nobody' } @allowIPs;
+        my $foundAll = grep { $_ eq 'all' } @allowIPs;
+        my $type = $restrictedResource->{type};
+        if ( $type eq 'file' ) {
+           $type = 'Files';
+        } elsif ( $type eq 'dir' ) {
+           $type = 'Directory';
+        } elsif ( $type eq 'location' ) {
+           $type = 'Location';
+        }      
+</%perl>
+<<% $type %> <% $restrictedResourceName %>>
+    Order Allow,Deny
+%        unless ( $foundNobody ) {
+%            foreach my $ip (@allowIPs) {
+    Allow from <% $ip %>
+%            }
+%        }
+</<% $type %>>
+%   }
+% }
 
 
 UseCanonicalName Off

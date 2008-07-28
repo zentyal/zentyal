@@ -6,6 +6,8 @@
 	+ Add method to manage page size in model
 	+ Add hidden field to help with Ajax request and automated testing with
 	  ANSTE
+	+ Bugfix: Restricted resources are back again to make RSS
+	access policy work again
 0.11.103
 	+ Modify EBox::Types::HasMany to create directory based on its row 
 	+ Add _setRelationship method to set up relationships between models
