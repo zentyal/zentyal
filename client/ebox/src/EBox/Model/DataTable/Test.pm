@@ -98,7 +98,7 @@ sub clearGConf : Test(teardown)
 }
 
 
-sub deviantTableTest : Test(6)
+sub deviantTableTest : Test(7)
 {
     my ($self) = @_;
 
@@ -167,6 +167,22 @@ sub deviantTableTest : Test(6)
                                               }
                   
                  ];
+
+    push @cases, [
+                  'sortedBy and order are both set' => {
+                                               tableDescription => [
+                                                 new EBox::Types::Abstract(
+                                                       fieldName => 'field1',
+                                                                          ),
+                                                                   
+                                                                   ],
+
+                                                tableName => 'test',
+                                                sortedBy => 'field1',
+                                                order    => 1,
+                                              }
+                  
+                 ];
     
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
@@ -180,7 +196,7 @@ sub deviantTableTest : Test(6)
 
 }
 
-sub tableTest : Test(4)
+sub tableTest : Test(6)
 {
     my ($self) = @_;
 
@@ -208,6 +224,21 @@ sub tableTest : Test(4)
                                                             ],
                                         tableName => 'test',
                                         sortedBy => 'field1',
+                                       }
+
+                  ];
+    push @cases,  [  'ordered by user table' => {
+                                        tableDescription => [
+                                            new EBox::Types::Abstract(
+                                                      fieldName => 'field1',
+                                                                     ),
+                                            new EBox::Types::Abstract(
+                                                       fieldName => 'field2',
+                                                                     ),
+                                                             
+                                                            ],
+                                        tableName => 'test',
+                                        order => 1,
                                        }
 
                   ];
@@ -381,12 +412,12 @@ sub addTest : Test(25)
 # XXX TODO:
 # deviant test up and down in no-prderer table
 # straight test of moving up and down
-sub moveRowsTest : Test(2)
+sub moveRowsTest : Test(8)
 {
     my ($self) = @_;
 
     my $tableDescription = _tableDescription4fields();
-    $tableDescription->{orderBy} = 'uniqueField';
+    $tableDescription->{order}   = 1;
 
     my $dataTable = $self->_newDataTable($tableDescription);
     $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
@@ -402,14 +433,39 @@ sub moveRowsTest : Test(2)
     }
  
     my @order = @{ $dataTable->order() };
-    my @reverseOrder = reverse @order;
-   
-    $dataTable->moveUp($order[0]);
-    is_deeply $dataTable->order, \@order, 
-        'checking that moving up the upper filed has not changed the order';
-    ok ((not $dataTable->called('movedUpRowNotify')), 
-        'Checking that movedUpRowNotify has not triggered');
 
+
+    my $upperRow = $order[0];
+    my $lowerRow = $order[1];        
+
+    $dataTable->moveUp($upperRow);
+    is_deeply $dataTable->order, \@order, 
+        'checking that moving up the upper row has not changed the order';
+    ok ((not $dataTable->called('movedUpRowNotify')), 
+        'Checking that movedUpRowNotify has not been triggered');
+    $dataTable->clear();
+
+    $dataTable->moveDown($lowerRow);
+    is_deeply $dataTable->order, \@order, 
+        'checking that moving down the  lower row has not changed the order';
+    ok ((not $dataTable->called('movedDownRowNotify')), 
+        'Checking that movedDownRowNotify has not been triggered');
+    $dataTable->clear();
+
+    my @reverseOrder = reverse @order;
+    $dataTable->moveUp($lowerRow);
+    is_deeply $dataTable->order, \@reverseOrder,
+        'checking that lower row was moved up';
+    ok ( $dataTable->called('movedUpRowNotify'), 
+        'Checking that movedUpRowNotify has  been triggered');
+    $dataTable->clear();
+
+    $dataTable->moveDown($lowerRow);
+    is_deeply $dataTable->order, \@order,
+        'checking that upper row was moved down';
+    ok ( $dataTable->called('movedDownRowNotify'), 
+        'Checking that movedDownRowNotify has  been triggered');
+    $dataTable->clear();
 }
 
 
@@ -813,7 +869,7 @@ sub _checkRow
     is_deeply \%valueHash, \%expectedFields, $testName ;
 }
 
-sub optionsFromForeignModelTest : Test(1)
+sub optionsFromForeignModelTest : Test(2)
 {
     my ($self) = @_;
     my $tableDescription = {
@@ -845,20 +901,69 @@ sub optionsFromForeignModelTest : Test(1)
         $dataTable->optionsFromForeignModel('inexistentField');
     }'expecting error when using a inexistent field for optionsFromForeignModel';
     
-    
-#    my @options;
-#     @options = $dataTable->optionsFromForeignModel('field1');
 
-#     my @expectedOptions = map {
-#         {  value => $_, printableValues}
-#     } @field1Values;
+    my $field = 'field1';
+
+   my @expectedOptions =  map {
+                                   {
+                              value => $_->id(),
+                              printableValue => $_->printableValueByName($field),
+                                   }
+                               } @{ $dataTable->rows() };
     
-#     is_deeply  \@options, \@expectedOptions, 'checking ';
+
+
+
+     my $options=  $dataTable->optionsFromForeignModel($field);
+
+
+     is_deeply  $options, \@expectedOptions, 
+        'checking optionsFromForeignModel for a existent field';
 
 }
 
 
+sub findTest : Test(6)
+{
+    my ($self) = @_;
 
+    my $dataTable = $self->_newPopulatedDataTable();
+
+    my $fieldName = 'uniqueField';
+    my $fieldValue = 'b';
+
+    my $row;
+
+    dies_ok {
+        $dataTable->find('inexistentField' => 'b');
+    } 'checking that find() with a inexistent field fails' ;
+
+
+    $row = $dataTable->find($fieldName => 'inexistent');
+    ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
+    
+    $row = $dataTable->find($fieldName => $fieldValue);
+    isa_ok ($row, 
+            'EBox::Model::Row',
+            'checking that find with row name and value returns  a row'
+           );
+    
+    
+    my $rowfound =  $dataTable->findRow($fieldName => $fieldValue);
+    is $row->id(), $rowfound->id(),
+        'checking return value of findRow method';
+
+    my $idfound = $dataTable->findId($fieldName => $fieldValue);
+    is $idfound, $row->id(),
+        'checking return value of findId metthod';
+
+    my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
+        is $valueFound->id(), $row->id(),
+        'checking return value of findValue method';
+
+
+
+}
 
 sub _newDataTable
 {
@@ -879,7 +984,7 @@ sub _newDataTable
 
     my $gconfmodule = EBox::Global->modInstance('fakeModule');
 
-    my $dataTableDir = 'DataTable';
+    my $dataTableDir = '/ebox/modules/fakeModule/DataTable';
     # remove old data from prvious modules
     $gconfmodule->delete_dir($dataTableDir);
 
