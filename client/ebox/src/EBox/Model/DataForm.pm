@@ -80,7 +80,7 @@ sub new
 #
 #  Overrides:
 #    EBox::Model::DataTable::_checkTable
-sub __checkTable
+sub _checkTable
 {
     my ($self, $table) = @_;
 
