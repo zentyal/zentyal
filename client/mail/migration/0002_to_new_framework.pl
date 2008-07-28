@@ -180,6 +180,10 @@ sub _migrateDomains
     my ($self) = @_;
     my $mail   = $self->{gconfmodule};
 
+    if (not $mail->configured()) {
+        return;
+    }
+
     my $vdomainsLdap = new EBox::MailVDomainsLdap;
     my @vdomainsInLdap = $vdomainsLdap->vdomains();
 
