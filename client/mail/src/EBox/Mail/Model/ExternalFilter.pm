@@ -86,7 +86,8 @@ sub _table
                                  fieldName => 'externalFilter',
                                  printableName => __('Filter in use'),
                                  editable => 1,
-                                 populate => \&_availableFilters
+                                 populate => \&_availableFilters,
+                                 defaultValue => 'none',
                                 ),
          new EBox::Types::Port(
                                fieldName => 'fwport',
