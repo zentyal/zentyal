@@ -229,6 +229,64 @@ sub formTest : Test(2)
 }
 
 
+
+sub deviantSetTest
+{
+    my ($self) = @_;
+    my $dataForm = $self->_newDataForm();
+
+    my @cases = (
+                 {
+                  secondField => 'aaa',
+                 },
+                 
+                );
+
+}
+
+sub setTest : Test(9)
+{
+    my ($self) = @_;
+    my $dataForm = $self->_newDataForm();
+
+    my @cases = (
+                 {
+                  firstField => 'aaa',
+                  secondField => 'bbb',
+                 },
+                 {
+                  firstField => 'aaz',
+                  secondField => 'bbc',
+                  defaultField => 'adad',
+                  optionalField => 'dadaa',
+                 },
+
+                );
+
+    foreach my $case_r (@cases) {
+        my %params = %{ $case_r };
+
+        lives_ok {
+            $dataForm->set(%params)
+        } 'setting data form values';
+
+
+        if (not exists $params{defaultField}) {
+            $params{defaultField} = 'defaultText';
+        }
+
+        while (my ($field, $expectedValue) = each %params) {
+            my $getter = $field . 'Value';
+            is $dataForm->$getter, $expectedValue,
+                "Checking value of field $field";
+        }
+
+
+    }
+}
+
+
+
 sub _newDataForm
 {
     my ($self, $table) = @_;
@@ -264,13 +322,12 @@ sub _tableDescription4fields
       my $tableDescription = {
                   tableDescription => [
                                        new EBox::Types::Text(
-                                                   fieldName => 'uniqueField',
-                                                   printableName => 'uniqueField',
-                                                   unique        => 1,
+                                                   fieldName => 'firstField',
+                                                   printableName => 'firstField',
                                                                 ),
                                        new EBox::Types::Text(
-                                                  fieldName => 'regularField',
-                                                 printableName => 'regularField',
+                                                  fieldName => 'secondField',
+                                                 printableName => 'secondField',
                                                                 ),
                                        new EBox::Types::Text(
                                                 fieldName => 'defaultField',

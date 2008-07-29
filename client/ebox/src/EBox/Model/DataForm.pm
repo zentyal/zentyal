@@ -391,7 +391,7 @@ sub set
         throw EBox::Exceptions::MissingArgument('Missing parameters to set their value');
     }
 
-    my $typedParams = $self->_fillTypes(\%params);
+    my $typedParams = $self->_fillTypes(\%params, 1);
 
     $self->setTypedRow(0, $typedParams, force => $force,
                        readOnly => $readOnly);
