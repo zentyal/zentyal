@@ -16,4 +16,6 @@ Description: eBox- Web Server
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
  .
- This module adds a pretty simple apache server configuration module to eBox, allowing publication of contents using several virtual hosts and the capabity to use public_html directories within user directories
+ This module adds a pretty simple apache server configuration module to eBox, 
+ allowing publication of contents using several virtual hosts and the 
+ use of public_html directories within user directories.

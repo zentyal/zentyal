@@ -63,7 +63,6 @@ src/EBox/WebServer/Model/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile
-www/Makefile
 migration/Makefile
 Makefile
 ])
