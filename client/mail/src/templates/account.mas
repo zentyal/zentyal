@@ -21,8 +21,8 @@ my $vdomainUrl = '/ebox/Mail/VDomains';
 </%init>
 <h3><% __('Mail account') %></h3>
 <div class='warning'>
-<% __(q{Mail account  is unavailable because there isn't any mail virtual 
- domain created} ) %><br/>
+<% __(q{Mail account  is unavailable because either isn't any mail virtual 
+ domain created or you need to save changes to activate the new domains} ) %><br/>
 <a href='<% $vdomainUrl %>'><% __('Click here to create a new mail virtual domain') %></a>
 </div> 
 </%def>
