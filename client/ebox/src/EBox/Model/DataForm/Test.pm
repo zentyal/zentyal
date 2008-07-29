@@ -230,10 +230,11 @@ sub formTest : Test(2)
 
 
 
-sub deviantSetTest
+sub deviantSetTest : Test(2)
 {
     my ($self) = @_;
     my $dataForm = $self->_newDataForm();
+    $dataForm->set_true('addedRowNotify', 'updatedRowNotify');
 
     my @cases = (
                  {
@@ -242,12 +243,26 @@ sub deviantSetTest
                  
                 );
 
+    foreach my $case (@cases) {
+        my %params = %{ $case };
+
+        dies_ok {
+            $dataForm->set(%params);
+        } 'expecting error with incorrect srt operation';
+
+        ok(
+           (not $dataForm->called('updatedRowNotify')),
+           'Checing that noitfication method was nto called'
+          );
+    }
+
 }
 
-sub setTest : Test(9)
+sub setTest : Test(11)
 {
     my ($self) = @_;
     my $dataForm = $self->_newDataForm();
+    $dataForm->set_true('addedRowNotify', 'updatedRowNotify');
 
     my @cases = (
                  {
@@ -262,6 +277,8 @@ sub setTest : Test(9)
                  },
 
                 );
+
+    my $firstTime = 1;
 
     foreach my $case_r (@cases) {
         my %params = %{ $case_r };
@@ -281,6 +298,10 @@ sub setTest : Test(9)
                 "Checking value of field $field";
         }
 
+
+
+        $dataForm->called_ok('updatedRowNotify');
+        $dataForm->clear();
 
     }
 }
