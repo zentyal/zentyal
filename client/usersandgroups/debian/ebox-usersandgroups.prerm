@@ -1,9 +1,0 @@
-#!/bin/bash
-
-#DEBHELPER#
-
-case "$1" in
-	remove)
-		# /usr/share/ebox-usersandgroups/ebox-init-ldap clean
-		;;	
-esac 
