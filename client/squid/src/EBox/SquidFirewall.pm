@@ -27,42 +27,33 @@ use EBox::Gettext;
 
 sub new 
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _squidAddrs
 {
-	my $sq = EBox::Global->modInstance('squid');
-	my $objPolicy = $sq->model('ObjectPolicy');
-	my $ob = EBox::Global->modInstance('objects');
+    my $sq = EBox::Global->modInstance('squid');
+    my $objPolicy = $sq->model('ObjectPolicy');
+    
+    my @addrs = (
+                 @{ $objPolicy->unfilteredAddresses() },
+                 @{ $objPolicy->bannedAddresses()     },
+                );
 
-	my @objs = @{$objPolicy->unfiltered()};
-	push(@objs, @{$objPolicy->banned()});
-
-	my @addrs = ();
-	foreach my $obj (@objs) {
-		push(@addrs, @{$ob->objectAddresses($obj)});
-	}
-	return @addrs;
+    return @addrs;
 }
 
 sub _dgAddrs
 {
 	my $sq = EBox::Global->modInstance('squid');
 	my $objPolicy = $sq->model('ObjectPolicy');
-	my $ob = EBox::Global->modInstance('objects');
 
-	my @objs = @{$objPolicy->filtered()};
+	my @addrs = @{$objPolicy->filteredAddresses()};
 	
-
-	my @addrs = ();
-	foreach my $obj (@objs) {
-		push(@addrs, @{$ob->objectAddresses($obj)});
-	}
 	return @addrs;
 }
 
