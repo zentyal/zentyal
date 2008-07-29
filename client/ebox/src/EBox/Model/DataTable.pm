@@ -14,6 +14,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Model::DataTable;
+use base 'EBox::Model::Component';
+
+use strict;
+use warnings;
+
 
 use EBox;
 use EBox::Model::CompositeManager;
@@ -36,10 +41,6 @@ use Error qw(:try);
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 
-use strict;
-use warnings;
-
-use base 'EBox::Model::Component';
 
 # TODO
 #     

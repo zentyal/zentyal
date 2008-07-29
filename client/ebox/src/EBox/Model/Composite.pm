@@ -35,6 +35,7 @@
 #
 
 package EBox::Model::Composite;
+use base 'EBox::Model::Component';
 
 use strict;
 use warnings;
@@ -59,7 +60,7 @@ use Perl6::Junction qw(any);
 # Constants
 use constant LAYOUTS => qw(top-bottom tabbed select);
 
-use base 'EBox::Model::Component';
+
 
 # Group: Public methods
 
