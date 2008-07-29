@@ -66,8 +66,6 @@ src/EBox/TrafficShaping/QDisc/Makefile
 src/EBox/TrafficShaping/t/Makefile
 src/EBox/TrafficShaping/QueueDiscipline/Makefile
 src/EBox/TrafficShaping/TreeBuilder/Makefile
-stubs/Makefile
-www/Makefile
 Makefile
 ])
 
