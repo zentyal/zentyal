@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 8;
 
 use EBox::TestStubs;
 
@@ -32,5 +32,6 @@ EBox::TestStubs::activateTestStubs();
 EBox::Types::Test::defaultValueOk('EBox::Types::Boolean', 0);
 EBox::Types::Test::defaultValueOk('EBox::Types::Boolean', 1);
 
-
+EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 1, 0);
+EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 0, 1);
 1;

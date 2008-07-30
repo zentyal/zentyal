@@ -22,8 +22,9 @@ use warnings;
 
 
 use Test::More;
+use Test::Exception;
 use Error qw(:try);
-
+use EBox::Global;
 
 
 sub defaultValueOk
@@ -38,6 +39,8 @@ sub defaultValueOk
                               );
     }
     otherwise {
+        my $ex = shift @_;
+        diag "$ex";
         fail "Cannot create a instance of $class with default value $value";
     };
 
@@ -127,7 +130,68 @@ sub _createTest
     }
 }
 
+# count as 3 tests per value
+sub storeAndRestoreGConfTest
+{
+    my ($class, $otherValue, @values) = @_;
+    if (not @values) {
+        die "You must supply test values";
+    }
+    defined $otherValue or
+        die "you ,must suply a correct base value";
+
+    EBox::TestStubs::fakeEBoxModule(name => 'store');
+    
+    my $mod = EBox::Global->modInstance('store');
+    my $dir = 'storeAndRestoreTest';
+
+    # to remove remains for other tests
+    $mod->delete_dir($dir);
+
+    my $instance;
+    try {
+        $instance = $class->new(
+                                fieldName => 'storeAndRestoreGConfTest',
+                                printableName => 'storeAndRestoreGConfTest',
+                               )
+    }
+    otherwise {
+        my $ex = shift;
+        die "Cannot create instance of $class";
+    };
 
 
+    foreach my $value (@values) {
+        try {
+            $instance->setValue($value)
+        }
+        otherwise {
+            my $ex = shift;
+            die "Cannot set value $value: $ex";
+        };
+        
+        lives_ok {
+            $instance->storeInGConf($mod, $dir);
+        } "storing in GConf $class with value $value";
+        
+
+        try {
+            $instance->setValue($otherValue);
+        }
+        otherwise {
+            my $ex = shift;
+            die "Cannot set value $value: $ex";
+        };
+
+        my $hash = $mod->hash_from_dir($dir);
+        lives_ok {
+            $instance->restoreFromHash($hash);
+        } 'restoring form hash returned by hash_from_dir';
+
+        is $instance->value(), $value,
+            'checking that the value was restored';
+        
+    }
+}
 
 1;

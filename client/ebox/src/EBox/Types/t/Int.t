@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 20;
 
 use EBox::TestStubs;
 
@@ -111,17 +111,12 @@ foreach my $case_r (@deviantCases) {
 
 
 
-# # default value test
-# my $interger = new EBox::Types::Int(
-#                                     fieldName => 'default',
-#                                     printableName => 'default',
-#                                     defaultValue => 4,
-#                                    );
 
-# is $interger->value, 4, 'checking default value';
 
 
 EBox::Types::Test::defaultValueOk('EBox::Types::Int', 4);
 
+
+EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Int', 4, 1, 4 ,5);
 
 1;
