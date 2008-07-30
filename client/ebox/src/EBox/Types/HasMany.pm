@@ -251,10 +251,7 @@ sub paramExist
 
 }
 
-sub restoreFromGconf
-{
 
-}
 
 sub setMemValue
 {

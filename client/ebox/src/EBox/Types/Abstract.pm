@@ -338,10 +338,7 @@ sub storeInGConf
     
 }
 
-sub restoreFromGconf
-{
 
-}
 
 # Method: setValue
 #

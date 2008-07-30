@@ -224,10 +224,6 @@ sub paramExist
 	return 0;
 }
 
-sub restoreFromGconf
-{
-
-}
 
 
 sub printableValue
