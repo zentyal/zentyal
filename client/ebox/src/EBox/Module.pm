@@ -832,11 +832,19 @@ sub writeConfFile # (file, component, params, defaults)
     }
 
 
-    my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
-    unless($fh) {
-        throw EBox::Exceptions::Internal(
-            "Could not create temp file in " . EBox::Config::tmp);
+    my $oldUmask = umask 0007;
+    my ($fh,$tmpfile);
+    try {
+        ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        unless($fh) {
+            throw EBox::Exceptions::Internal(
+                                             "Could not create temp file in " . EBox::Config::tmp);
+        }
     }
+    finally {
+        umask $oldUmask;
+    };
+
     my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::stubs,
                                           out_method => sub { $fh->print($_[0]) });
     my $comp = $interp->make_component(comp_file =>
@@ -859,9 +867,10 @@ sub writeConfFile # (file, component, params, defaults)
         $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
     }
 
-    EBox::Sudo::root("/bin/mv $tmpfile  $file");
     EBox::Sudo::root("/bin/chmod $mode $file");
     EBox::Sudo::root("/bin/chown $uid.$gid $file");
+    EBox::Sudo::root("/bin/mv $tmpfile  $file");
+
 
     if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
         $manager->updateFileDigest($self->serviceModuleName(), $file);
