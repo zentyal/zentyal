@@ -14,9 +14,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # TODO 
-# 	Document this class
-#	Fix the method naming, some names such as
-#	setMemValue and memValue are so broken!!!
+#       Document this class
+#       Fix the method naming, some names such as
+#       setMemValue and memValue are so broken!!!
 #
 
 # Class: EBox::Types::Abstract
@@ -36,25 +36,25 @@ use Perl6::Junction qw(none);
 
 sub new
 {
-        my $class = shift;
-	my %opts = @_;
-	my $self = {@_};
-
-	if (defined($self->{'hidden'}) and $self->{'hidden'}) {
-		$self->{'HTMLViewer'} = undef;
-		$self->{'HTMLSetter'} = undef;
-	}
-        bless($self, $class);
-
-        if ( defined ( $self->{'defaultValue'} )) {
-            if ( $self->optional() ) {
-                EBox::warn('Defined default value to an optional field ' .
-                           $self->fieldName());
-            }
-            $self->_setValue($self->{'defaultValue'});
+    my $class = shift;
+    my %opts = @_;
+    my $self = {@_};
+    
+    if (defined($self->{'hidden'}) and $self->{'hidden'}) {
+        $self->{'HTMLViewer'} = undef;
+        $self->{'HTMLSetter'} = undef;
+    }
+    bless($self, $class);
+    
+    if ( defined ( $self->{'defaultValue'} )) {
+        if ( $self->optional() ) {
+            EBox::warn('Defined default value to an optional field ' .
+                       $self->fieldName());
         }
+        $self->_setValue($self->{'defaultValue'});
+    }
 
-        return $self;
+    return $self;
 }
 
 # Method: clone
@@ -89,17 +89,14 @@ sub clone
 
 sub type
 {
-	my ($self) = @_;
-
-	return $self->{'type'};
-
+    my ($self) = @_;
+    return $self->{'type'};
 }
 
 sub class
 {
-	my ($self) = @_;
-
-	return $self->{'class'};
+    my ($self) = @_;
+    return $self->{'class'};
 }
 
 # Method: volatile
@@ -115,19 +112,17 @@ sub class
 #     boolean - whether the type is volatile or not
 #
 sub volatile
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{volatile};
-
-  }
+    return $self->{volatile};
+}
 
 sub unique
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'unique'};
+    return $self->{'unique'};
 }
 
 # Method: editable
@@ -141,70 +136,69 @@ sub unique
 #
 sub editable
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-        if ( $self->volatile() ) {
-            return 0;
-        } else {
-            return $self->{'editable'};
-        }
-
+    if ( $self->volatile() ) {
+        return 0;
+    } else {
+        return $self->{'editable'};
+    }
 }
 
 sub fieldName
 {
-	my ($self) = @_;
-
-	return $self->{'fieldName'};
+    my ($self) = @_;
+    
+    return $self->{'fieldName'};
 }
 
 sub fields
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return ($self->fieldName());
+    return ($self->fieldName());
 }
 
 sub printableName
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'printableName'};
+    return $self->{'printableName'};
 }
 
 sub printableValue
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->filter();
+    return $self->filter();
 }
 
 # Method: filter
 #
-# 	This method is used to filter the output of printableValue
+#       This method is used to filter the output of printableValue
 #
 # Returns:
-#	
-#	Output filtered
+#       
+#       Output filtered
 sub filter
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $filterFunc = $self->{'filter'};
-	if ($filterFunc) {
-		return (&$filterFunc($self));
-	} else {
-		return $self->{'value'};
-	}
+    my $filterFunc = $self->{'filter'};
+    if ($filterFunc) {
+        return (&$filterFunc($self));
+    } else {
+        return $self->{'value'};
+    }
 
 }
 
 
 sub value
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'value'};
+    return $self->{'value'};
 }
 
 # Method: defaultValue
@@ -216,13 +210,12 @@ sub value
 #     The default value
 #
 sub defaultValue
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    return $self->{'defaultValue'};
 
-      return $self->{'defaultValue'};
-
-  }
+}
 
 # Method: help
 #
@@ -233,48 +226,44 @@ sub defaultValue
 #     string
 #
 sub help 
-  {
-
-      my ($self) = @_;
-
-     if (defined($self->{help})) {
+{
+    my ($self) = @_;
+    
+    if (defined($self->{help})) {
         return $self->{help};
-     } else {
+    } else {
         return '';
-     }
+    }
 
-
-  }
+}
 
 
 sub trailingText
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'trailingText'};
+    return $self->{'trailingText'};
 }
 
 sub leadingText
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'leadingText'};
+    return $self->{'leadingText'};
 }
 
 sub setOptional # (optional)
-  {
-
+{
     my ($self, $optional) = @_;
 
     $self->{'optional'} = $optional;
-
-  }
+}
 
 sub optional
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'optional'};
+    return $self->{'optional'};
 }
 
 # Method: disabled
@@ -291,7 +280,6 @@ sub disabled
     my ($self) = @_;
 
     return $self->{'disabled'};
-
 }
 
 # Method: allowUnsafeChars
@@ -311,7 +299,6 @@ sub allowUnsafeChars
     my ($self) = @_;
 
     return $self->{'allowUnsafeChars'};
-
 }
 
 # Method: paramExist
@@ -337,19 +324,19 @@ sub paramExist
 #      from
 #
 sub storeInGConf
-  {
-      my ($self, @params) = @_;
-
-      if ( $self->volatile() ) {
-          if ( $self->storer() ) {
+{
+    my ($self, @params) = @_;
+    
+    if ( $self->volatile() ) {
+        if ( $self->storer() ) {
               my $storerProc = $self->storer();
               &$storerProc($self);
           }
-      } else {
-          $self->_storeInGConf(@params);
-      }
-
-  }
+    } else {
+        $self->_storeInGConf(@params);
+    }
+    
+}
 
 sub restoreFromGconf
 {
@@ -376,11 +363,9 @@ sub restoreFromGconf
 #
 sub setValue
 {
-
     my ($self, $value) = @_;
 
     $self->_setValue($value);
-
 }
 
 # Method: setMemValue
@@ -473,19 +458,18 @@ sub cmp
 #
 #
 sub restoreFromHash
-  {
-
-      my ($self, $hashRef) = @_;
-
-      if ( $self->volatile() ) {
-          my $volatileFunc = $self->{acquirer};
+{
+    my ($self, $hashRef) = @_;
+    
+    if ( $self->volatile() ) {
+        my $volatileFunc = $self->{acquirer};
           $volatileFunc = \&_identity unless defined ( $volatileFunc );
-          $self->{value} = &$volatileFunc($self);
-      } else {
-          $self->_restoreFromHash($hashRef);
-      }
+        $self->{value} = &$volatileFunc($self);
+    } else {
+        $self->_restoreFromHash($hashRef);
+    }
 
-  }
+}
 
 # Method: acquirer
 #
@@ -504,13 +488,12 @@ sub restoreFromHash
 #      function - the pointer to that function
 #
 sub acquirer
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{acquirer};
-
-  }
+    return $self->{acquirer};
+    
+}
 
 # Method: storer
 #
@@ -525,13 +508,11 @@ sub acquirer
 #      function - the pointer to that function
 #
 sub storer
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{storer};
-
-  }
+    return $self->{storer};
+}
 
 sub isEqualTo
 {
@@ -547,8 +528,8 @@ sub isEqualTo
 #   row - hash ref containting a row
 sub row
 {
-	my ($self) =  @_;
-	return $self->{'row'};
+    my ($self) =  @_;
+    return $self->{'row'};
 }
 
 # Method: setRow
@@ -562,8 +543,8 @@ sub row
 #   row - hash ref of a row
 sub setRow
 {
-	my ($self, $row) = @_;
-	$self->{'row'} = $row;
+    my ($self, $row) = @_;
+    $self->{'row'} = $row;
 }
 
 # Method: setModel
@@ -577,8 +558,8 @@ sub setRow
 #   model -  an object of type <EBox::Model::DataTable>
 sub setModel
 {
-	my ($self, $id) = @_;
-	$self->{'model'} = $id;
+    my ($self, $id) = @_;
+    $self->{'model'} = $id;
 }
 
 # Method: model
@@ -590,8 +571,8 @@ sub setModel
 #   model -  an object of type <EBox::Model::DataTable>
 sub model
 {
-	my ($self) =  @_;
-	return $self->{'model'};
+    my ($self) =  @_;
+    return $self->{'model'};
 }
 
 sub HTMLSetter
@@ -624,9 +605,9 @@ sub HTMLViewer
 #       params - hash ref with the fields to fill the type with its
 #       appropiate values
 sub _setMemValue
-  {
+{
 
-  }
+}
 
 # Method: _storeInGConf
 #
@@ -645,9 +626,9 @@ sub _setMemValue
 #      from
 #
 sub _storeInGConf
-  {
+{
 
-  }
+}
 
 
 # Method: _restoreFromHash
@@ -662,9 +643,9 @@ sub _storeInGConf
 #      the value from this type
 #
 sub _restoreFromHash
-  {
+{
 
-  }
+}
 
 # Method: _paramIsValid
 #
@@ -685,9 +666,9 @@ sub _restoreFromHash
 #      does not contain a valid data for this type
 #
 sub _paramIsValid
-  {
+{
 
-  }
+}
 
 # Method: _paramIsSet
 #
@@ -706,11 +687,9 @@ sub _paramIsValid
 #      data to fill the type
 #
 sub _paramIsSet
-  {
-
+{
       return 0;
-
-  }
+}
 
 # Method: _setValue
 #
@@ -722,11 +701,9 @@ sub _paramIsSet
 #     values - the value to set
 #
 sub _setValue # (value)
-  {
-
-      return;
-
-  }
+{
+    return;
+}
 
 # Group: Private functions
 
@@ -739,10 +716,8 @@ sub _setValue # (value)
 #      instancedType - <EBox::Types::Abstract>
 #
 sub _identity
-  {
-
+{
       return '';
-
-  }
+}
 
 1;
