@@ -88,15 +88,15 @@ sub populatePermissions
     return [
             { 
                 value => 'readOnly',
-                printableValue => 'Read only'
+                printableValue => __('Read only')
             },
             { 
                 value => 'readWrite',
-                printableValue => 'Read and write'
+                printableValue => __('Read and write')
             },
             { 
                 value => 'administrator',
-                printableValue => 'Admnistrator'
+                printableValue => __('Administrator')
             }
            ];
 }
