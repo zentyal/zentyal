@@ -26,6 +26,26 @@ use Error qw(:try);
 
 
 
+sub defaultValueOk
+{
+    my ($class, $value) = @_;
+    my $instance;
+    try {
+        $instance = $class->new(
+                               fieldName => 'defaultValueTest',
+                               printableName=>'defaultValueTest',
+                               defaultValue => $value
+                              );
+    }
+    otherwise {
+        fail "Cannot create a instance of $class with default value $value";
+    };
+
+    is $instance->value(),
+        $value,
+       "Checking that default value $value was set correctly for $class";
+}
+
 sub createOk
 {
     _createTest(1, @_);
