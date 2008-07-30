@@ -27,6 +27,7 @@ use Test::Exception;
 use Test::MockObject;
 use Test::MockObject::Extends;
 use Perl6::Junction qw(any);
+use POSIX;
 
 
 use EBox::Types::Abstract;
@@ -961,6 +962,116 @@ sub findTest : Test(6)
         is $valueFound->id(), $row->id(),
         'checking return value of findValue method';
 
+
+
+}
+
+
+sub filterTest : Test(5)
+{
+    my ($self) = @_;
+
+    my $dataTable = $self->_newPopulatedDataTable();
+    $dataTable->add(
+                    'uniqueField' => 'x',
+                    'regularField' => 'onceRepeated twiceRepeated',
+
+                   );
+    $dataTable->add(
+                    'uniqueField' => 'z',
+                    'regularField' => 'twiceRepeated',
+
+                   );
+
+    my %filterAndRowsExpected = (
+                                 'twiceRepeated' => 2,
+                                 'onceRepeated' => 1,
+                                 'twiceRepeated onceRepeated' => 1,
+                                 'onceRepeated zeroRepeated' => 0, 
+                                 'zeroRepeated' => 0,
+                                );
+
+    while (my ($filter, $rowsExpected) = each %filterAndRowsExpected) {
+        $dataTable->setFilter($filter);
+        my $nRows = scalar @{ $dataTable->rows($filter) };
+        is $nRows, $rowsExpected, "Checking number of rows returned with filter: $filter";
+    }
+}
+
+
+
+sub pageTest : Test(38)
+{
+    my ($self) = @_;
+
+    my $rows = 20;
+    my $dataTable = $self->_newDataTable($self->_tableDescription4fields());
+    foreach (1 .. $rows) {
+        $dataTable->add(
+                        uniqueField => $_,
+                        regularField => "regular for $_",
+                       );
+    }
+
+    my @pagesSizes = (1, 5, 7, 11);
+    foreach my $size (@pagesSizes) {
+        my %rowsSeen = ();
+
+        lives_ok {
+            $dataTable->setPageSize($size)
+        } "Setting page size to $size";
+
+        my $pageCount = POSIX::ceil($rows / $size);
+        my $lastPage     = $pageCount - 1;
+        my $lastPageRows = $rows - ( ($pageCount -1) * $size );
+        foreach my $page (0 .. $lastPage) {
+            my $expectedRows = ($page != $lastPage) ?
+                                                 $size        :
+                                                 $lastPageRows;
+                                          
+
+            my @rows  =  @{ $dataTable->rows(undef, $page) };
+            foreach my $row (@rows) {
+                my $id = $row->id();
+                if (exists $rowsSeen{$id}) {
+                    fail 
+            "Row with id $id was previously returned i nanother page";
+                    next;
+
+                }
+
+                $rowsSeen{$id} = 1;
+            }
+
+            is scalar @rows, $expectedRows,
+              "Checking expected number of rows ($expectedRows) for page $page with size $size";
+                    
+        }
+
+    }
+
+    dies_ok {
+        $dataTable->rows(undef, -1);
+    } 'Check that rows() raises error when requested a negative page';
+
+
+    $dataTable->setPageSize($rows);
+    is_deeply $dataTable->rows(undef, 0),
+              $dataTable->rows(undef, 1),
+        'Checking that a number greater than available page means last page';
+
+    dies_ok {
+        $dataTable->setPageSize(-1);
+    } 'Setting page size to a negative number must raise error';
+    
+
+    $dataTable->setPageSize($rows + 1);
+    is scalar @{ $dataTable->rows(undef, 1)  }, $rows,
+'Checking that a apge size greater than the number of rows returns all the rows';
+
+    $dataTable->setPageSize(0);
+    is scalar @{ $dataTable->rows(undef, 1)  }, $rows,
+        'Checking that pageZise ==0 means unlimited page size';
 
 
 }

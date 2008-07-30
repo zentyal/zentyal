@@ -1433,6 +1433,15 @@ sub _cachedVersion
 sub rows
 {
     my ($self, $filter, $page)  = @_;
+    if (defined $page and ($page < 0)) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('page'),
+                                            value => $page,
+                                            advice => 
+                          __('Page must be a number equal or greater than zero')
+
+                                           )
+    }
 
     # The method which takes care of loading the rows
     # from gconf is _rows(). 
@@ -2658,6 +2667,15 @@ sub setPageSize
 
     unless (defined ($rows)) {
         throw EBox::Exceptions::MissingArgument("Missing field rows"); 
+    }
+
+    if ($rows < 0) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('Pagr size'),
+                                            value => $rows,
+                                            advice => 
+                                 __('Must be either a positve number or zero')
+                                           )
     }
 
     $self->{'pageSize'} = $rows;
