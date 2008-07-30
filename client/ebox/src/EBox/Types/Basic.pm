@@ -25,65 +25,64 @@ use EBox::Exceptions::MissingArgument;
 
 sub new
 {
-        my $class = shift;
-	my %opts = @_;
-	my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-
-	# Setting as non-optional, if no optional value is passed
-	if ( not defined ( $self->optional() ) ) {
-	  $self->setOptional(0);
-	}
-
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    
+    # Setting as non-optional, if no optional value is passed
+    if ( not defined ( $self->optional() ) ) {
+        $self->setOptional(0);
+    }
+    
+    return $self;
 }
 
 sub paramExist
 {
-	my ($self, $params, $field) = @_;
+    my ($self, $params, $field) = @_;
 
-	return (defined($params->{$self->fieldName()}));
-
+    return (defined($params->{$self->fieldName()}));
 }
 
 sub memValue
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'value'};
+    return $self->{'value'};
 }
 
 sub compareToHash
 {
-	my ($self, $hash) = @_;
+    my ($self, $hash) = @_;
 
-        if ( defined ( $hash->{$self->fieldName()} )
-           and defined ( $self->memValue() )) {
-            return ($self->memValue() eq $hash->{$self->fieldName()});
-        } else {
-            return 0;
-        }
+    if ( defined ( $hash->{$self->fieldName()} )
+         and defined ( $self->memValue() )) {
+        return ($self->memValue() eq $hash->{$self->fieldName()});
+    } else {
+        return 0;
+    }
 }
 
 sub isEqualTo
 {
-	my ($self, $newObject) = @_;
+    my ($self, $newObject) = @_;
+    
+    my $oldValue = $self->{'value'};
+    my $newValue = $newObject->memValue();
+    
+    # A great dilemma
+    if ( not defined ( $oldValue ) and
+         not defined ( $newValue )) {
+        return 1;
+    }
 
-	my $oldValue = $self->{'value'};
-	my $newValue = $newObject->memValue();
+    if ( not defined ( $oldValue ) or
+         not defined ( $newValue )) {
+        return 0;
+    }
 
-        # A great dilemma
-        if ( not defined ( $oldValue ) and
-             not defined ( $newValue )) {
-            return 1;
-        }
-
-	if ( not defined ( $oldValue ) or
-	     not defined ( $newValue )) {
-	  return 0;
-	}
-
-	return ($oldValue eq $newValue);
+    return ($oldValue eq $newValue);
 }
 
 # Group: Protected methods
@@ -96,9 +95,9 @@ sub isEqualTo
 #
 sub _setMemValue
 {
-	my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-	$self->{'value'} = $params->{$self->fieldName()};
+    $self->{'value'} = $params->{$self->fieldName()};
 }
 
 # Method: _restoreFromHash
@@ -109,9 +108,9 @@ sub _setMemValue
 #
 sub _restoreFromHash
 {
-	my ($self, $hash) = @_;
+    my ($self, $hash) = @_;
 
-	$self->{'value'} = $hash->{$self->fieldName()};
+    $self->{'value'} = $hash->{$self->fieldName()};
 }
 
 # Method: _setValue
@@ -127,16 +126,15 @@ sub _restoreFromHash
 #     value - the basic value to pass
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my $params = {
+                  $self->fieldName() => $value,
+                 };
+    
+    $self->setMemValue($params);
 
-      my $params = {
-                    $self->fieldName() => $value,
-                   };
-
-      $self->setMemValue($params);
-
-  }
+}
 
 1;
