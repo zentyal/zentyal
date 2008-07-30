@@ -311,7 +311,19 @@ sub _getIfacesForAddress
 #
 sub _setMailConf
 {
-    my $self = shift;
+    my ($self) = @_;
+
+    my $daemonUid = getpwnam('daemon');
+    my $daemonGid = getgrnam('daemon');
+    my $perm      = '0640';
+
+
+    my $daemonMode = {
+                      uid => $daemonUid,
+                      gid => $daemonGid,
+                      mode => $perm
+                     };
+
     my @array = ();
     my $users = EBox::Global->modInstance('users');
     my $ldap = EBox::Ldap->instance();
@@ -354,9 +366,17 @@ sub _setMailConf
     push(@array, 'rootDN', $self->{vdomains}->{ldap}->rootDn());
     push(@array, 'rootPW', $self->{vdomains}->{ldap}->rootPw());
 
-    $self->writeConfFile(AUTHLDAPCONFFILE, "mail/authldaprc.mas", \@array);
+    $self->writeConfFile(AUTHLDAPCONFFILE, 
+                         "mail/authldaprc.mas", 
+                         \@array, 
+                         $daemonMode
+                        );
 
-    $self->writeConfFile(AUTHDAEMONCONFFILE, "mail/authdaemonrc.mas");
+    $self->writeConfFile(AUTHDAEMONCONFFILE, 
+                         "mail/authdaemonrc.mas",
+                        [],
+                        $daemonMode);
+
     $self->writeConfFile(IMAPDCONFFILE, "mail/imapd.mas");
     $self->writeConfFile(POP3DCONFFILE, "mail/pop3d.mas");
 
@@ -374,9 +394,14 @@ sub _setMailConf
     push(@array, 'passdn', $self->{vdomains}->{ldap}->rootPw());
     push(@array, 'usersdn', $users->usersDn());
 
-    $self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
-    $self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
-    $self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
+    $self->writeConfFile(SASLAUTHDDCONFFILE, 
+                         "mail/saslauthd.conf.mas",
+                         \@array,
+                         $daemonMode
+                        );
+
+    $self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas");
+    $self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas");
 }
 
 sub _fqdn
