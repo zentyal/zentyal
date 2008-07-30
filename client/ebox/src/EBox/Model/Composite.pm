@@ -766,6 +766,9 @@ sub _setDescription
       }
 
       if ( exists ($description->{name})) {
+          $description->{name} or
+          throw EBox::Exceptions::Internal('name for composite cannot be empty');
+
           $self->{name} = delete ( $description->{name} );
       }
 
@@ -778,6 +781,11 @@ sub _setDescription
       }
 
       if ( exists ($description->{selectMessage})) {
+          ($self->{layout} eq 'select')
+              or throw EBox::Exceptions::Internal(
+                     'Cannot use selectMessage when layout is not of select type'
+                                                 );
+
           $self->{selectMessage} = delete ( $description->{selectMessage} );
       }
 
