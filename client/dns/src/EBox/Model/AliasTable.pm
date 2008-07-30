@@ -84,9 +84,9 @@ sub validateTypedRow
     my $olddir = $self->directory();
 
     # Check there is no A RR in the domain with the same name
-    my $domain = $newAlias->parentRow()->parentRow()->valueByName('alias');
+    my $domain = $alias->row()->parentRow()->parentRow()->valueByName('domain');
     
-    for my $hostname ($dnsMod->getHostnames($domain)) {
+    for my $hostname (@{$dnsMod->getHostnames($domain)}) {
         if ($hostname->{name} eq $newAlias) {
             throw EBox::Exceptions::External(
                         __x('There is a hostname with the same name "{name}" '
