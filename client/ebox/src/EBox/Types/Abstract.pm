@@ -446,7 +446,7 @@ sub cmp
 #      Restore the value from a hash.
 #
 #      If the type is volatile, the memory value will be set from the
-#      <EBox::Types::Abstract::wangler>. If the function is empty, a
+#      <EBox::Types::Abstract::acquirer>. If the function is empty, a
 #      function which returns '' will be used.
 #
 # Parameters:
