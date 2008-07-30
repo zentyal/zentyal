@@ -608,7 +608,7 @@ sub _sqlStmnt {
 	
 	if ($sql->{'regexp'}) {
 		foreach my $field (keys %{$sql->{'regexp'}}) {
-			$stmt .= "$and $field ~ ? ";
+			$stmt .= "$and CAST($field as text) ~ ? ";
 			$and = 'AND';
 			push @params, $sql->{'regexp'}->{$field};
 		}

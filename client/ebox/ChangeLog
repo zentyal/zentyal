@@ -6,6 +6,7 @@
 	+ Add method to manage page size in model
 	+ Add hidden field to help with Ajax request and automated testing with
 	  ANSTE
+	+ Bugfix: cast sql types to filter fields in logs
 	+ Bugfix: Restricted resources are back again to make RSS
 	access policy work again
 0.11.103
