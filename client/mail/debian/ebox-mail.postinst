@@ -15,6 +15,9 @@ case "$1" in
         # restart logs
         invoke-rc.d ebox logs restart || true
 
+        # restart module
+        invoke-rc.d ebox mail restart
+
         # restart apache
         invoke-rc.d ebox apache restart || true
 esac
