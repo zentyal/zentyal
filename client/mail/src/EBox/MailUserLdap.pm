@@ -332,9 +332,9 @@ sub _userAddOns
  {
      my ($self, $username) = @_;
 
-     return unless (EBox::Global->modInstance('mail')->configured());
-     
-        my $mail = EBox::Global->modInstance('mail');
+     my $mail = EBox::Global->modInstance('mail');
+
+     return undef unless ($mail->configured());
      
      my $usermail = $self->userAccount($username);
      my @aliases = $mail->{malias}->accountAlias($usermail);
