@@ -204,7 +204,7 @@ sub parentRowTest : Test(3)
     } 'getting parent row';
 
 
-    is $parentRow->id(), $rowWithChildId, 'chekcing ID of parent row';
+    is $parentRow->id(), $rowWithChildId, 'checking ID of parent row';
 }
 
 
