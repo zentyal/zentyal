@@ -34,52 +34,43 @@ use Perl6::Junction qw(any);
 
 sub new
 {
-        my $class = shift;
-    	my %opts = @_;
-
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
+    my $class = shift;
+    my %opts = @_;
+    
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
-	$opts{'type'} = 'select';
-
-        my $self = $class->SUPER::new(%opts);
-
-        unless ( $self->editable() ) {
-            EBox::warn('Select ' . $self->fieldName() . ' should be ' .
-                       'editable. If you want a read only field, use ' .
-                       'text type instead.');
-        }
-        if ( $self->optional()
+    $opts{'type'} = 'select';
+    
+    my $self = $class->SUPER::new(%opts);
+    
+    unless ( $self->editable() ) {
+        EBox::warn('Select ' . $self->fieldName() . ' should be ' .
+                   'editable. If you want a read only field, use ' .
+                   'text type instead.');
+    }
+    if ( $self->optional()
              and not $self->isa('EBox::Types::InverseMatchSelect') ) {
-            throw EBox::Exceptions::Internal('Select ' . $self->fieldName() .
-                                             ' must be compulsory');
-        }
+        throw EBox::Exceptions::Internal('Select ' . $self->fieldName() .
+                                         ' must be compulsory');
+    }
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 
 sub size
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'size'};
+    return $self->{'size'};
 }
 
-#sub addOptions
-#{
-#	my ($self, $options) = @_;
-#
-#	if (exists $self->{'foreignModel'}) {
-#		$self->_addOptionsFromForeignModel();
-#	} else {
-#		$self->{'options'} = $options;
-#	}
-#}
+
 
 # Method: options
 #
@@ -97,10 +88,10 @@ sub size
 #
 sub options
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-        if ( exists $self->{'foreignModel'}) {
-            $self->{'options'} = $self->_optionsFromForeignModel();
+    if ( exists $self->{'foreignModel'}) {
+        $self->{'options'} = $self->_optionsFromForeignModel();
         } else {
             unless (exists $self->{'options'}) {
                 my $populateFunc = $self->populate();
@@ -108,44 +99,40 @@ sub options
             }
         }
 
-#        if ( $self->unique() ) {
-#            return $self->_filterOptions($self->{'options'});
-#        } else {
-            return $self->{'options'};
-#        }
 
+    return $self->{'options'};
 }
 
 sub printableValue
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-        # Cache the current options
-        my $options = $self->options();
-	return '' unless (defined($options));
-
-	foreach my $option (@{$options}) {
-		if ($option->{'value'} eq $self->{'value'}) {
-			return $option->{'printableValue'};
-		}
-	}
+    # Cache the current options
+    my $options = $self->options();
+    return '' unless (defined($options));
+    
+    foreach my $option (@{$options}) {
+        if ($option->{'value'} eq $self->{'value'}) {
+            return $option->{'printableValue'};
+        }
+    }
 
 }
 
 sub value
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'value'};
+    return $self->{'value'};
 }
 
 # Method: foreignModel
 #
-# 	Return the foreignModel associated to the type
+#       Return the foreignModel associated to the type
 #
 # Returns:
 #
-# 	object - an instance of class <EBox::Model::DataTable>
+#       object - an instance of class <EBox::Model::DataTable>
 sub foreignModel
 {
     my ($self) = @_;
@@ -169,19 +156,19 @@ sub foreignModel
 #       <EBox::Types::Select::options>.
 #
 sub populate
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      unless ( defined ( $self->{'populate'} )) {
-          throw EBox::Exceptions::Internal('No populate function has been ' .
-                                           'defined and it is required to fill ' .
-                                           'the select options');
-      }
+    unless ( defined ( $self->{'populate'} )) {
+        throw EBox::Exceptions::Internal('No populate function has been ' .
+                                         'defined and it is required to fill ' .
+                                         'the select options');
+    }
+    
+    return $self->{'populate'};
 
-      return $self->{'populate'};
-
-  }
+}
 
 # Group: Protected methods
 
@@ -193,13 +180,13 @@ sub populate
 #
 sub _storeInGConf
 {
-        my ($self, $gconfmod, $key) = @_;
+    my ($self, $gconfmod, $key) = @_;
 
-        if ( defined ( $self->memValue() )) {
-            $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
-        } else {
-            $gconfmod->unset("$key/" . $self->fieldName());
-        }
+    if ( defined ( $self->memValue() )) {
+        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+    } else {
+        $gconfmod->unset("$key/" . $self->fieldName());
+    }
 
 }
 
@@ -211,24 +198,25 @@ sub _storeInGConf
 #
 sub _paramIsValid
 {
-	my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-	my $value = $params->{$self->fieldName()};
+    my $value = $params->{$self->fieldName()};
 
-        # Check whether value is within the values returned by
-        # populate callback function
-        my @allowedValues = map { $_->{value} } @{$self->options()};
+    # Check whether value is within the values returned by
+    # populate callback function
+    my @allowedValues = map { $_->{value} } @{$self->options()};
 
-        # We're assuming the options value are always strings
-        unless ( grep { $_ eq $value } @allowedValues ) {
-            throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
-                                                 value  => $value,
-                                                 advice => __x('Choose a value within the value set: {set}',
-                                                              set => join(', ', @allowedValues)));
-        }
+    # We're assuming the options value are always strings
+    unless ( grep { $_ eq $value } @allowedValues ) {
+        throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
+                                             value  => $value,
+                                             advice => 
+                      __x('Choose a value within the value set: {set}',
+                                 set => join(', ', @allowedValues))
+                                           );
+    }
 
-	return 1;
-
+    return 1;
 }
 
 # Method: _paramIsSet
@@ -238,16 +226,15 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      my ($self, $params) = @_;
-
-      # Check if the parameter exist
-      my $param =  $params->{$self->fieldName()};
-
-      return defined ( $params->{$self->fieldName()} );
-
-  }
+{
+    my ($self, $params) = @_;
+    
+    # Check if the parameter exist
+    my $param =  $params->{$self->fieldName()};
+    
+    return defined ( $params->{$self->fieldName()} );
+    
+}
 
 # Method: _setValue
 #
@@ -315,36 +302,36 @@ sub _optionsFromForeignModel
 #   recursion using rows here.
 #
 sub _filterOptions
-  {
-      my ($self, $options) = @_;
+{
+    my ($self, $options) = @_;
+    
+    my $model = $self->model();
+    
+    return $options unless defined ( $model );
+    
+    my $field  = $self->fieldName();
+    
+    my @optionsAlreadyModel = ();
+    my $rows = $model->rows();
+    
+    foreach my $row (@{$rows}) {
+        push( @optionsAlreadyModel, $row->{valueHash}->{$field});
+    }
+    
+    # Difference among optionsAlreadyModel and options arrays
+    my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
+    
+    # Add the current value if the action is an edition
+    if ( $self->value() ) {
+        push ( @filteredOptions, {
+                                  value => $self->value(),
+                                  printableValue => $self->printableValue(),
+                                 }
+             );
+    }
+    
+    return \@filteredOptions;
 
-      my $model = $self->model();
-
-      return $options unless defined ( $model );
-
-      my $field  = $self->fieldName();
-
-      my @optionsAlreadyModel = ();
-      my $rows = $model->rows();
-
-      foreach my $row (@{$rows}) {
-          push( @optionsAlreadyModel, $row->{valueHash}->{$field});
-      }
-
-      # Difference among optionsAlreadyModel and options arrays
-      my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
-
-      # Add the current value if the action is an edition
-      if ( $self->value() ) {
-          push ( @filteredOptions, {
-                                    value => $self->value(),
-                                    printableValue => $self->printableValue(),
-                                   }
-               );
-      }
-
-      return \@filteredOptions;
-
-  }
+}
 
 1;
