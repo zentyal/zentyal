@@ -344,4 +344,27 @@ sub _filterOptions
 
 }
 
+#  Method: cmp
+#
+#
+#  Warning:
+#  We compare printableValues bz it has more sense for the user (specially when
+#  we have a foreignModel and the values are roe Ids). However there may be many
+#  cases when this would not be appropiate
+#
+#  Overrides:
+#  <EBox::Types::Abstract>
+sub cmp
+{
+    my ($self, $other) = @_;
+
+    if (ref($self) ne ref($other)) {
+        return undef;
+    }
+
+    $self->printableValue() cmp $other->printableValue();
+
+}
+
+
 1;
