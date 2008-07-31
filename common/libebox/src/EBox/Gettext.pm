@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2006-2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -152,6 +153,7 @@ $langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pl_PL.UTF-8'} = 'Polski';
 $langs->{'pt_BR.UTF-8'} = 'Português do Brasil';
 $langs->{'pt_PT.UTF-8'} = 'Português';
+$langs->{'bg_BG.UTF-8'} = 'Български';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
