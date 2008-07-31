@@ -80,7 +80,7 @@ sub cmp
 {
     my ($self, $compareType) = @_;
 
-    unless ( $self->type() eq $compareType->type() ) {
+    unless ( (ref $self) eq (ref $compareType) ) {
         return undef;
     }
 
