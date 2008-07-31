@@ -140,6 +140,12 @@ sub rows
     my $gconfmod = $self->{'gconfmodule'};
 
     my $userMod = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
+
+    unless ($userMod->configured()) {
+        return [];
+    }
+
     my @rows;
     for my $userInfo ($userMod->users()) {
         my $user = new EBox::Types::Text(
