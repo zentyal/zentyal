@@ -66,11 +66,12 @@ sub new
     }
 
     if ( defined ( $opts{'optional'} )
-		    and $opts{'optional'} ) {
-	    EBox::warn(q{PortRange type cannot be optional. You should select 'any' value});
+                    and $opts{'optional'} ) {
+        throw EBox::Exceptions::Internal(
+          q{PortRange type cannot be optional. You should select 'any' value}
+                                        );
     }
     
-    $opts{optional} = 0;
     $opts{'type'} = 'portrange';
 
     my $self = $class->SUPER::new(%opts);
@@ -170,16 +171,22 @@ sub compareToHash
     return 1;
 }
 
-# Method: isEqualTo
+# Method: cmp
 #
-#    Overrides <EBox::Types::Abstract::isEqualTo> method
+#    Overrides <EBox::Types::Abstract::cmp> method
 #
-sub isEqualTo
+sub cmp
 {
-    my ($self, $newObject) = @_;
+    my ($self, $other) = @_;
 
-    return ($self->printableValue() eq $newObject->printableValue());
+    if ((ref $self) ne (ref $other)) {
+        return undef;
+    }
+
+
+    return $self->printableValue() <=> $other->printableValue();
 }
+
 
 # Method: fields
 #
@@ -273,27 +280,26 @@ sub single
 #              - printableValue - the protocol printable name
 #
 sub rangeTypes
-  {
-
+{
     my ($self) = @_;
 
     my @rangeTypes = (
-		     {
-		      value => 'any',
-		      printableValue => __('Any'),
-		     },
-		     {
-		      value => 'single',
-		      printableValue => 'Single port',
-		     },
-		     {
-		      value => 'range',
-		      printableValue => 'Port range',
-		     },
-		    );
-
+                      {
+                       value => 'any',
+                       printableValue => __('Any'),
+                      },
+                      {
+                       value => 'single',
+                       printableValue => 'Single port',
+                      },
+                      {
+                       value => 'range',
+                       printableValue => 'Port range',
+                      },
+                     );
+    
     return \@rangeTypes;
- }
+}
 
 # Group: Protected methods
 
