@@ -44,13 +44,19 @@ sub cloneTest
 
 sub defaultValueOk
 {
-    my ($class, $value) = @_;
+    my ($class, $value, %params) = @_;
+
+    my @extraNewParams = exists $params{extraNewParams} ?
+                                   @{ $params{extraNewParams} } :
+                                   ();
+
     my $instance;
     try {
         $instance = $class->new(
                                fieldName => 'defaultValueTest',
                                printableName=>'defaultValueTest',
-                               defaultValue => $value
+                               defaultValue => $value,
+                               @extraNewParams
                               );
     }
     otherwise {
@@ -98,6 +104,7 @@ sub _createTest
     my $failed = 0;
 
     my %params = @p;
+    my $noSetCheck = delete $params{noSetCheck};
 
     my $instance;
     try {
@@ -120,7 +127,9 @@ sub _createTest
     
     
     try {
-        $instance->setValue($instance->printableValue);
+        unless ($noSetCheck) {
+            $instance->setValue($instance->printableValue);
+        }
     }
     otherwise {
         $failed = 1;

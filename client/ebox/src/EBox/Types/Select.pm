@@ -46,11 +46,21 @@ sub new
     $opts{'type'} = 'select';
     
     my $self = $class->SUPER::new(%opts);
-    
+
+    unless ($self->{populate} or $self->{foreignModel}) {
+        throw EBox::Exceptions::MissingArgument('populate or foreignModel');
+    }
+
+    if ($self->{foreignModel} and (not $self->{foreignField})) {
+        throw EBox::Exceptions::MissingArgument('foreignField');
+    }
+
     unless ( $self->editable() ) {
-        EBox::warn('Select ' . $self->fieldName() . ' should be ' .
+        throw EBox::Exceptions::Internal(
+                                         'Select ' . $self->fieldName() . ' should be ' .
                    'editable. If you want a read only field, use ' .
-                   'text type instead.');
+                   'text type instead.'
+                                        );
     }
     if ( $self->optional()
              and not $self->isa('EBox::Types::InverseMatchSelect') ) {
