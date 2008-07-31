@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # TODO 
-# 	* Optimize class. Use reference to fetch selected type 
+#       * Optimize class. Use reference to fetch selected type 
 #         instead of transverse array.
 #
 #       * Support automatic unique check
@@ -41,25 +41,25 @@ our $AUTOLOAD;
 
 sub new
 {
-        my $class = shift;
-    	my %opts = @_;
-    	my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'union';
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'union';
 
-        # Union type cannot be optional
-        if ( $self->{'optional'} ) {
-            EBox::warn('Union type cannot be optional. To use the non-defined ' .
-                       'value, choose EBox::Types::Union::Text');
-        }
-        $self->{'optional'} = 0;
-	# Union type must contain more than one subtype
-	unless (@{$self->{'subtypes'}} > 1) {
-            throw EBox::Exceptions::Internal("Union type: $self->{'fieldName'}"
-                                             . " must contain more than one subtype");
-	}
+    # Union type cannot be optional
+    if ( $self->{'optional'} ) {
+        EBox::warn('Union type cannot be optional. To use the non-defined ' .
+                   'value, choose EBox::Types::Union::Text');
+    }
+    $self->{'optional'} = 0;
+    # Union type must contain more than one subtype
+    unless (@{$self->{'subtypes'}} > 1) {
+        throw EBox::Exceptions::Internal("Union type: $self->{'fieldName'}"
+                                         . " must contain more than one subtype");
+    }
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: clone
@@ -98,18 +98,17 @@ sub clone
 
 sub subtype
 {
-	my ($self) = @_;
-	
-	my $selected = $self->selectedType();
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		if ($type->fieldName() eq $selected) {
-			return $type;
-		}
-	}
-
-	return "";
-
+    my ($self) = @_;
+        
+    my $selected = $self->selectedType();
+    
+    foreach my $type (@{$self->{'subtypes'}}) {
+        if ($type->fieldName() eq $selected) {
+            return $type;
+        }
+    }
+    
+    return "";
 }
 
 # Method: selectedType
@@ -123,127 +122,125 @@ sub subtype
 #
 sub selectedType
 {
-	my ($self) = @_;
-	
-	if (not $self->{'selectedField'}) {
-		my @subtypes = @{$self->{'subtypes'}};
-		if (@subtypes > 0) {
-			return $subtypes[0]->fieldName();
-		} else {
-			return undef;
-		}
-	} else {
-		return $self->{'selectedField'};
-	}
+    my ($self) = @_;
+        
+    if (not $self->{'selectedField'}) {
+        my @subtypes = @{$self->{'subtypes'}};
+        if (@subtypes > 0) {
+            return $subtypes[0]->fieldName();
+        } else {
+            return undef;
+        }
+    } else {
+        return $self->{'selectedField'};
+    }
 
 }
 
 sub setSelectedType
 {
-	my ($self, $field) = @_;
-
-	$self->{'selectedField'} = $field;
+    my ($self, $field) = @_;
+    
+    $self->{'selectedField'} = $field;
 }
 
 sub subtypes
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	return $self->{'subtypes'};
+    return $self->{'subtypes'};
 }
 
 sub unique
 {
-	my ($self) = @_;
-
-        my @subtypes = @{$self->{'subtypes'}};
-        foreach my $subtype (@subtypes) {
-            unless ( $subtype->unique() ) {
-                return 0;
-            }
+    my ($self) = @_;
+    
+    my @subtypes = @{$self->{'subtypes'}};
+    foreach my $subtype (@subtypes) {
+        unless ( $subtype->unique() ) {
+            return 0;
         }
-
-        return 1;
+    }
+    
+    return 1;
 }
 
 
 
 sub fields
 {
-	my ($self) = @_;
-
-	my @fields;
-	foreach my $type (@{$self->{'subtypes'}}) {
-		push (@fields, $type->fields());
-	
-	}
-	
-	push (@fields, $self->fieldName() . '_selected');
-	
-	return @fields;
+    my ($self) = @_;
+    
+    my @fields;
+    foreach my $type (@{$self->{'subtypes'}}) {
+        push (@fields, $type->fields());
+        
+    }
+    
+    push (@fields, $self->fieldName() . '_selected');
+    
+    return @fields;
 }
 
 sub setModel 
 {
-      my ($self, $model) = @_;
- 
-      $AUTOLOAD = 'setModel';
-      return $self->AUTOLOAD($model);
+    my ($self, $model) = @_;
+    
+    $AUTOLOAD = 'setModel';
+    return $self->AUTOLOAD($model);
 }
  
 sub setRow
 {
-      my ($self, $row) = @_;
-
-      # Call AUTOLOAD method in order not to repeat code
-      $AUTOLOAD = 'setRow';
-      return $self->AUTOLOAD($row);
+    my ($self, $row) = @_;
+    
+    # Call AUTOLOAD method in order not to repeat code
+    $AUTOLOAD = 'setRow';
+    return $self->AUTOLOAD($row);
 }
 
 sub paramExist
 {
-        my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-	my $selPar = $self->fieldName() . '_selected';
-	my $selected = $params->{$selPar};
-
-        if ( (not defined ( $selected )) and
-             $self->optional() ) {
-            return 1;
-        }
-
-	return 0 unless (defined($selected)); 
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		next unless ($type->fieldName() eq $selected);
-                # If type has no setter, parameter is not required anyway
-                return 1 unless( $type->HTMLSetter() );
-		return $type->paramExist($params);
-	}
-
-	return 0;
+    my $selPar = $self->fieldName() . '_selected';
+    my $selected = $params->{$selPar};
+    
+    if ( (not defined ( $selected )) and
+         $self->optional() ) {
+        return 1;
+    }
+    
+    return 0 unless (defined($selected)); 
+    
+    foreach my $type (@{$self->{'subtypes'}}) {
+        next unless ($type->fieldName() eq $selected);
+        # If type has no setter, parameter is not required anyway
+        return 1 unless( $type->HTMLSetter() );
+        return $type->paramExist($params);
+    }
+    
+    return 0;
 }
 
 
 
 sub printableValue
 {
-      my ($self) = @_;
-
+    my ($self) = @_;
+    
       # Call AUTOLOAD method in order not to repeat code
-      $AUTOLOAD = 'printableValue';
-      return $self->AUTOLOAD();
-
+    $AUTOLOAD = 'printableValue';
+    return $self->AUTOLOAD();
 }
 
 sub value
 {
-      my ($self) = @_;
-
-      # Call AUTOLOAD method in order not to repeat code
-      $AUTOLOAD = 'value';
-      return $self->AUTOLOAD();
-
+    my ($self) = @_;
+    
+    # Call AUTOLOAD method in order not to repeat code
+    $AUTOLOAD = 'value';
+    return $self->AUTOLOAD();
 }
 
 
@@ -261,9 +258,9 @@ sub compareToHash
 
 sub isEqualTo
 {
-	my ($self, $newObject) = @_;
+    my ($self, $newObject) = @_;
 
-	return ($self->printableValue() eq $newObject->printableValue());
+    return ($self->printableValue() eq $newObject->printableValue());
 }
 
 # Method: HTMLSetter
@@ -283,32 +280,31 @@ sub isEqualTo
 #      undef  - if all subtypes have no setter
 #
 sub HTMLSetter
-  {
-
-      my ($self) = @_;
-
-      my $definedSetter = 0;
-      foreach my $type (@{$self->{'subtypes'}}) {
-          next unless ( defined ( $type->HTMLSetter() ));
-          $definedSetter = 1;
-          last;
-      }
-
-      if ( $definedSetter ) {
-          return '/ajax/setter/unionSetter.mas';
-      } else {
-          return undef;
-      }
+{
+    my ($self) = @_;
+    
+    my $definedSetter = 0;
+    foreach my $type (@{$self->{'subtypes'}}) {
+        next unless ( defined ( $type->HTMLSetter() ));
+        $definedSetter = 1;
+        last;
+    }
+    
+    if ( $definedSetter ) {
+        return '/ajax/setter/unionSetter.mas';
+    } else {
+        return undef;
+    }
 
 }
 
 sub HTMLViewer 
 {
-      my ($self) = @_;
-	
-      # Call AUTOLOAD method in order not to repeat code
-      $AUTOLOAD = 'HTMLViewer';
-      return $self->AUTOLOAD();
+    my ($self) = @_;
+    
+    # Call AUTOLOAD method in order not to repeat code
+    $AUTOLOAD = 'HTMLViewer';
+    return $self->AUTOLOAD();
 
 }
 
@@ -328,38 +324,37 @@ sub HTMLViewer
 #      method call
 #
 sub AUTOLOAD
-  {
-
-      my ($self, @params) = @_;
-      my $methodName = $AUTOLOAD;
-
-      # Remove namespaces
-      $methodName =~ s/.*:://;
-
-      # Ignore DESTROY callings (the Perl destructor)
-      if ( $methodName eq 'DESTROY' ) {
-          return;
-      }
-
-      # Call the method from the selected type
-      my $selected = $self->selectedType();
-
-      unless ( defined ( $selected )) {
-          throw EBox::Exceptions::Internal('There is no selected type ' .
-                                           "to call its own method $methodName");
-      }
-
-      foreach my $subtype (@{$self->{'subtypes'}}) {
-          next unless ($subtype->fieldName() eq $selected);
-          # Check if the method is defined
-          if ( $subtype->can($methodName)) {
-              return $subtype->$methodName(@params);
-          } else {
-              throw EBox::Exceptions::Internal("Method $methodName is not defined " .
-                                               'in type ' . $subtype->type());
-          }
-      }
-
+{
+    my ($self, @params) = @_;
+    my $methodName = $AUTOLOAD;
+    
+    # Remove namespaces
+    $methodName =~ s/.*:://;
+    
+    # Ignore DESTROY callings (the Perl destructor)
+    if ( $methodName eq 'DESTROY' ) {
+        return;
+    }
+    
+    # Call the method from the selected type
+    my $selected = $self->selectedType();
+    
+    unless ( defined ( $selected )) {
+        throw EBox::Exceptions::Internal('There is no selected type ' .
+                                         "to call its own method $methodName");
+    }
+    
+    foreach my $subtype (@{$self->{'subtypes'}}) {
+        next unless ($subtype->fieldName() eq $selected);
+        # Check if the method is defined
+        if ( $subtype->can($methodName)) {
+            return $subtype->$methodName(@params);
+        } else {
+            throw EBox::Exceptions::Internal("Method $methodName is not defined " .
+                                             'in type ' . $subtype->type());
+        }
+    }
+    
   }
 
 # Group: Protected methods
@@ -372,19 +367,19 @@ sub AUTOLOAD
 #
 sub _setMemValue
 {
-	my ($self, $params) = @_;
+    my ($self, $params) = @_;
+    
+    my $selPar = $self->fieldName() . '_selected';
+    my $selected = $params->{$selPar};
 
-	my $selPar = $self->fieldName() . '_selected';
-	my $selected = $params->{$selPar};
-
-	if ( defined ( $selected )) {
-            foreach my $type (@{$self->{'subtypes'}}) {
-		if ($type->fieldName() eq $selected) {
+    if ( defined ( $selected )) {
+        foreach my $type (@{$self->{'subtypes'}}) {
+            if ($type->fieldName() eq $selected) {
                     $type->setMemValue($params);
                     $self->setSelectedType($selected);
-		}
-            }
+                }
         }
+    }
 }
 
 # Method: _storeInGConf
@@ -394,22 +389,22 @@ sub _setMemValue
 #       <EBox::Types::Abstract::_storeInGConf>
 #
 sub _storeInGConf
-  {
-      my ($self, $gconfmod, $key) = @_;
-
-      my $selected = $self->selectedType();
-
-      foreach my $type (@{$self->{'subtypes'}}) {
-          # Every union type should be stored in order to unset its
-          # value if it has not got one
-          $type->storeInGConf($gconfmod, $key);
-          if ($type->fieldName() eq $selected) {
+{
+    my ($self, $gconfmod, $key) = @_;
+    
+    my $selected = $self->selectedType();
+    
+    foreach my $type (@{$self->{'subtypes'}}) {
+        # Every union type should be stored in order to unset its
+        # value if it has not got one
+        $type->storeInGConf($gconfmod, $key);
+        if ($type->fieldName() eq $selected) {
               my $selKey = "$key/" . $self->fieldName() 
-                . '_selected';
+                  . '_selected';
               $gconfmod->set_string($selKey, $self->selectedType());
           }
-      }
-  }
+    }
+}
 
 # Method: _restoreFromHash
 #
@@ -419,19 +414,19 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-	my ($self, $hash) = @_;
-
-	my $selPar = $self->fieldName() . '_selected';
-	
-	my $selected = $hash->{$selPar};
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		next unless ($type->fieldName() eq $selected);
-		
-		$type->restoreFromHash($hash);
-		$self->setSelectedType($selected);
-	}
-	
+    my ($self, $hash) = @_;
+    
+    my $selPar = $self->fieldName() . '_selected';
+    
+    my $selected = $hash->{$selPar};
+        
+    foreach my $type (@{$self->{'subtypes'}}) {
+        next unless ($type->fieldName() eq $selected);
+        
+        $type->restoreFromHash($hash);
+        $self->setSelectedType($selected);
+    }
+        
 }
 
 # Method: _paramIsValid
@@ -442,9 +437,7 @@ sub _restoreFromHash
 #
 sub _paramIsValid
 {
-
     return 1;
-
 }
 
 # Method: _paramIsSet
@@ -454,27 +447,26 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
+{
+    my ($self, $params) = @_;
+    
+    my $selPar = $self->fieldName() . '_selected';
+    my $selected = $params->{$selPar};
 
-      my ($self, $params) = @_;
-
-      my $selPar = $self->fieldName() . '_selected';
-      my $selected = $params->{$selPar};
-
-      unless ( defined ( $selected )) {
+    unless ( defined ( $selected )) {
         return 0;
-      }
-
-      foreach my $type (@{$self->{'subtypes'}}) {
-          next unless ($type->fieldName() eq $selected);
-          # If type has no setter, parameter is not required anyway
+    }
+    
+    foreach my $type (@{$self->{'subtypes'}}) {
+        next unless ($type->fieldName() eq $selected);
+        # If type has no setter, parameter is not required anyway
           return 1 unless( $type->HTMLSetter() );
-          return $type->_paramIsSet($params);
-      }
-
-      return 0;
-
-  }
+        return $type->_paramIsSet($params);
+    }
+    
+    return 0;
+    
+}
 
 # Method: _setValue
 #
@@ -484,16 +476,15 @@ sub _paramIsSet
 #
 sub _setValue
 {
-      my ($self, $value) = @_;
-
-      my ($selectedField, $selectedValue) = each ( %{$value} );
-
-      $self->setSelectedType( $selectedField );
-
-      # Call AUTOLOAD method in order not to repeat code
-      $AUTOLOAD = '_setValue';
-      return $self->AUTOLOAD($selectedValue);
-
-}
+    my ($self, $value) = @_;
+    
+    my ($selectedField, $selectedValue) = each ( %{$value} );
+    
+    $self->setSelectedType( $selectedField );
+    
+    # Call AUTOLOAD method in order not to repeat code
+    $AUTOLOAD = '_setValue';
+    return $self->AUTOLOAD($selectedValue);
+ }
 
 1;
