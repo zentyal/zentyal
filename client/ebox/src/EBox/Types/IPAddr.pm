@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::IPAddr;
+use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;
@@ -22,7 +23,7 @@ use EBox::Exceptions::MissingArgument;
 use strict;
 use warnings;
 
-use base 'EBox::Types::Abstract';
+
 
 
 sub new
@@ -70,6 +71,24 @@ sub printableValue
         
 }
 
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( (ref $self) eq (ref $compareType) ) {
+        return undef;
+    }
+
+    return $self->printableValue() cmp $compareType->printableValue();
+
+}
+
 sub size
 {
         my ($self) = @_;
@@ -96,12 +115,6 @@ sub compareToHash
         return 1;
 }
 
-sub isEqualTo
-{
-        my ($self, $newObject) = @_;
-
-        return ($self->printableValue() eq $newObject->printableValue());
-}
 
 sub fields
 {
@@ -125,33 +138,6 @@ sub mask
         my ($self) = @_;
 
         return $self->{'mask'};
-}
-
-# Method: cmp
-#
-# Overrides:
-#
-#      <EBox::Types::Abstract::cmp>
-#
-sub cmp
-{
-    my ($self, $compareType) = @_;
-
-    unless ( $self->type() eq $compareType->type() ) {
-        return undef;
-    }
-
-    my $ipA = new Net::IP($self->printableValue());
-    my $ipB = new Net::IP($compareType->printableValue());
-
-    if ( $ipA->bincomp('lt', $ipB) ) {
-        return -1;
-    } elsif ( $ipA->bincomp('gt', $ipB)) {
-        return 1;
-    } else {
-        return 0;
-    }
-
 }
 
 # Group: Protected methods
