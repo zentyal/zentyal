@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 115;
+use Test::More tests => 123;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -16,6 +16,7 @@ checkIsPrivateDir();
 checkHostTest();
 checkEmailAddressTest();
 checkIP6Test();
+checkCIDRTest();
 
 sub checkFilePathTest
 {
@@ -209,5 +210,37 @@ sub checkIP6Test
 
 
 }
+
+
+sub checkCIDRTest
+{
+  my @valid = (
+               '192.168.0.0/16',
+               '34.32.25.0/24',
+              );
+
+  my @invalid = (
+                 '192.168.34.12/0',
+                 '192.168.34.12',
+                 '34.32.25.1/24',
+                );
+
+
+  foreach my $ip (@valid) {
+    ok EBox::Validate::checkCIDR($ip), 'checking wether checkCIDR recognizes valid addresses';
+  }
+
+  
+  foreach my $ip (@invalid) {
+    my $errorReturnValue = not EBox::Validate::checkCIDR($ip);
+    ok $errorReturnValue, 'checking wether checkCIDR signals invalid values wit its return value';;
+    dies_ok {
+      EBox::Validate::checkCIDR($ip, 'error');
+    } 'checking wether checkCIDR signals a invalid value raising exception';
+  }
+
+
+}
+
 
 1;
