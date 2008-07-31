@@ -119,6 +119,42 @@ sub _paramIsSet
 
   }
 
+
+
+
+
+# Method: cmp
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $other) = @_;
+    
+    if ((ref $self) ne (ref $other)) {
+        return undef;
+    }
+
+    my $ownValue = $self->value();
+    my $otherValue = $other->value();
+
+
+    if ($ownValue and (not $otherValue)) {
+        return 1;
+    }
+    elsif ((not $ownValue) and $otherValue) {
+        return -1;
+    }
+    else {
+        # the two values are both true or false
+        return 0;
+    }
+
+}
+
+
 # Method: isEqualTo 
 #
 # Overrides:
@@ -127,13 +163,8 @@ sub _paramIsSet
 #
 sub isEqualTo 
 {
-	my ($self, $newObject) = @_;
-
-	if ($self->value() xor $newObject->value()) {
-		return undef;
-	} else {
-		return 1;
-	}
+    my ($self, $other) = @_;
+    return $self->cmp($other) == 0;
 }
 
 1;

@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 19;
 
 use EBox::TestStubs;
 
@@ -34,4 +34,32 @@ EBox::Types::Test::defaultValueOk('EBox::Types::Boolean', 1);
 
 EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 1, 0);
 EBox::Types::Test::storeAndRestoreGConfTest('EBox::Types::Boolean', 0, 1);
+
+
+my $trueBoolean = new EBox::Types::Boolean(
+                                       fieldName => 'trueBool',
+                                       value => 1,
+                                      );
+
+
+my $falseBoolean = new EBox::Types::Boolean(
+                                       fieldName => 'falseBool',
+                                       value => 0,
+                                      );
+
+EBox::Types::Test::cloneTest($trueBoolean);
+EBox::Types::Test::cloneTest($falseBoolean);
+
+ok $falseBoolean->isEqualTo($falseBoolean->clone()), 
+    'checking isEqualTo for equality';
+ok( (not $falseBoolean->isEqualTo($trueBoolean)),
+    'checking isEqualTo for inequality'
+  );
+
+is $trueBoolean->cmp($trueBoolean->clone()), 0, 'checking cmp method for equality';
+is $trueBoolean->cmp($falseBoolean), 1, 
+    'checking cmp method for lesser other object';
+is $falseBoolean->cmp($trueBoolean), -1, 
+    'checking cmp method for grater other object';
+
 1;
