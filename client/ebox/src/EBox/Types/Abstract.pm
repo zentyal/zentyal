@@ -523,9 +523,16 @@ sub storer
     return $self->{storer};
 }
 
-sub isEqualTo
-{
+# Method: isEqualTo
+#
+#  returns if a type object is equal to another
+#  default implementation uses the cmp method
+#  soon to be deprecated. 
 
+sub isEqualTo 
+{
+    my ($self, $other) = @_;
+    return $self->cmp($other) == 0;
 }
 
 # Method: row

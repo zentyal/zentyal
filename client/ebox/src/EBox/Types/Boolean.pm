@@ -155,16 +155,6 @@ sub cmp
 }
 
 
-# Method: isEqualTo 
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::isEqualTo>
-#
-sub isEqualTo 
-{
-    my ($self, $other) = @_;
-    return $self->cmp($other) == 0;
-}
+
 
 1;
