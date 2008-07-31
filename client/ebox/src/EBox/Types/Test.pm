@@ -15,8 +15,6 @@
 
 package EBox::Types::Test;
 
-#
-
 use strict;
 use warnings;
 
@@ -26,6 +24,23 @@ use Test::Exception;
 use Error qw(:try);
 use EBox::Global;
 
+
+# count as 3 tests
+sub cloneTest
+{
+    my ($instance) = @_;
+    
+    my $clone;
+    lives_ok {
+        $clone = $instance->clone();
+    } 'cloning instance';
+    
+
+    is_deeply $instance, $clone,
+        'checking tht data is the same in original and clone';
+    is ref $instance, ref $clone,
+        'checking that original and clone are of the same class';
+}
 
 sub defaultValueOk
 {
@@ -48,6 +63,9 @@ sub defaultValueOk
         $value,
        "Checking that default value $value was set correctly for $class";
 }
+
+
+
 
 sub createOk
 {

@@ -30,11 +30,6 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
     
-    # Setting as non-optional, if no optional value is passed
-    if ( not defined ( $self->optional() ) ) {
-        $self->setOptional(0);
-    }
-    
     return $self;
 }
 

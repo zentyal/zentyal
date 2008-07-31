@@ -31,6 +31,8 @@ use warnings;
 
 use EBox;
 use Perl6::Junction qw(none);
+use Clone;
+
 
 # Group: Public methods
 
@@ -40,6 +42,15 @@ sub new
     my %opts = @_;
     my $self = {@_};
     
+    if (not $self->{fieldName}) {
+        throw EBox::Exceptions::MissingArgument('fieldName');
+    }
+    
+    if (not $self->{printableName}) {
+        $self->{printableName} = $self->{fieldName};
+    }
+
+
     if (defined($self->{'hidden'}) and $self->{'hidden'}) {
         $self->{'HTMLViewer'} = undef;
         $self->{'HTMLSetter'} = undef;
@@ -48,8 +59,9 @@ sub new
     
     if ( defined ( $self->{'defaultValue'} )) {
         if ( $self->optional() ) {
-            EBox::warn('Defined default value to an optional field ' .
-                       $self->fieldName());
+            throw EBox::Exceptions::Internal(
+             'Defined default value to an optional field ' . $self->fieldName()
+                                            );
         }
         $self->_setValue($self->{'defaultValue'});
     }
