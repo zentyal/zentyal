@@ -82,13 +82,21 @@ sub size
 #
 sub cmp
 {
-    my ($self, $compareType) = @_;
+    my ($self, $other) = @_;
 
-    unless ( $self->type() eq $compareType->type() ) {
+    unless ( ref($self) eq ref($other) ) {
         return undef;
     }
 
-    return $self->value() <=> $compareType->value();
+    # cannot compare int with different upper or lower bounds
+    if ($self->max != $other->max) {
+        return undef;
+    }
+    if ($self->min != $other->min) {
+        return undef;
+    }
+
+    return $self->value() <=> $other->value();
 
 }
 
