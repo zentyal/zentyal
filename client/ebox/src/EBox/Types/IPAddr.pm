@@ -85,7 +85,14 @@ sub cmp
         return undef;
     }
 
-    return $self->printableValue() cmp $compareType->printableValue();
+    my $maskA = $self->mask();
+    my $maskB = $compareType->mask();
+
+    if ($maskA != $maskB) {
+        return $maskA <=> $maskB;
+    }
+
+    return $self->ip() cmp $compareType->ip();
 
 }
 
