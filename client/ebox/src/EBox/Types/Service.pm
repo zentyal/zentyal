@@ -135,16 +135,7 @@ sub compareToHash
 
 }
 
-# Method: isEqualTo
-#
-#    Overrides <EBox::Types::Abstract::isEqualTo> method
-#
-sub isEqualTo
-{
-        my ($self, $newObject) = @_;
 
-        return ($self->printableValue() eq $newObject->printableValue());
-}
 
 # Method: cmp
 #
