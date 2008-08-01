@@ -1,6 +1,7 @@
 0.11.103
 	+ Use the new EBox::Model::Row api
 	+ Add help field to firewall models
+	+ Bugfix. Use exit and not return in dchp-firewall external script
 0.11.102
 	+ Set editable attribute to 1 in Decision field. To comply with
 	  what the type expects and avoid warnings
