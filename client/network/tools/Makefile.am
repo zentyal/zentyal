@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = ebox-netcfg-import ebox-flush-fwmarks
+pkgdata_SCRIPTS = ebox-netcfg-import ebox-flush-fwmarks ebox-updatedigests
 
 SUBDIRS =
 

@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::ServiceModule::Manager;
+
+EBox::init();
+
+my $mgr = new EBox::ServiceModule::Manager;
+$mgr->updateModuleDigests('network');
+
+exit 0;
