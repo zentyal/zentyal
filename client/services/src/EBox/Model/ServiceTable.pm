@@ -113,14 +113,14 @@ sub _table
             'fieldName' => 'name',
             'printableName' => __('Service name'),
             'localizable' => 1,
-            'size' => '8',
+            'size' => '20',
             'unique' => 1,
             'editable' => 1
         ),
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'size' => '16',
+            'size' => '30',
             'editable' => 1,
             'optional' => 1,
         ),
