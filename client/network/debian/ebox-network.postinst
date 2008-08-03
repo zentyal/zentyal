@@ -1,13 +1,31 @@
 #!/bin/bash
 
+set -e
+
+. /usr/share/debconf/confmodule
+
+manage_overwrite() {
+    local permission
+
+    db_get ebox-network/overwrite_ifaces || true
+    permission="$RET"
+
+    if [ "$permission" = "true" ]; then
+        /usr/share/ebox-network/ebox-updatedigests
+        /etc/init.d/ebox network stop || true
+    fi
+}
+
+
 #DEBHELPER#
 
 case "$1" in
     configure)
+
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
         # import network configuration from system 
-        # if installing for the first time
+        # if installing the first time
         if [ -z "$2" ] ; then
             /usr/share/ebox-network/ebox-netcfg-import
         fi
@@ -25,7 +43,17 @@ case "$1" in
         # mkdir -p $RRD_DIR
         # chown ebox:ebox $RRD_DIR
 
+        # Ask permission to overwrite /etc/newtork/interfaces if we
+        # are upgrading 0.11.99-0ubuntu1 as that version didn't use
+        # that file but another interfaces file under /var/lib/ebox
+        if [ "$2" = "0.11.99-0ubuntu1" ]; then
+            if /etc/init.d/ebox network status; then
+                manage_overwrite;
+            fi
+        fi
+
         invoke-rc.d ebox network restart
+
     ;;
 esac
 

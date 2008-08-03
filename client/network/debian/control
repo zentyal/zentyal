@@ -3,12 +3,12 @@ Section: web
 Priority: optional
 Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
 XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
-Build-Depends: debhelper (>= 4.0.0), cdbs
+Build-Depends: debhelper (>= 4.0.0), cdbs, po-debconf
 Standards-Version: 3.7.3
 
 Package: ebox-network
 Architecture: all
-Depends: ebox (>= 0.11.99), ebox ( << 0.12), ebox-objects, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, rrdtool, librrds-perl, jnettop, ${misc:Depends}
+Depends: ebox (>= 0.11.99), ebox ( << 0.12), ebox-objects, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, rrdtool, librrds-perl, jnettop, debconf, ${misc:Depends}
 Replaces: ebox (<< 0.6), ebox-firewall (<< 0.9.99)
 Conflicts: ebox (<< 0.9.99)
 Description: eBox - Network configuration module
