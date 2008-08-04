@@ -1,3 +1,4 @@
+0.12
 0.11.102
 	+ Bugfix: Create the `job` table when installing. This readds a
 	bunch of lost lines from ubuntu merging.
