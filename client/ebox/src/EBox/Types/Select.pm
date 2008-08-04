@@ -47,9 +47,10 @@ sub new
     
     my $self = $class->SUPER::new(%opts);
 
-    unless ($self->{populate} or $self->{options} or $self->{foreignModel}) {
-        throw EBox::Exceptions::MissingArgument('populate or foreignModel');
-    }
+    # This doesn't check if the option method is implemented
+    # unless ($self->{populate} or $self->{options} or $self->{foreignModel}) {
+    # throw EBox::Exceptions::MissingArgument('populate or foreignModel');
+    #}
 
     if ($self->{foreignModel} and (not $self->{foreignField})) {
         throw EBox::Exceptions::MissingArgument('foreignField');
