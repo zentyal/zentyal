@@ -343,7 +343,6 @@ sub _table
                                    printableName => __('Custom'),
                                    editable      => 1,
                                    defaultValue  => $self->_fetchPrimaryNS(),
-                                   optional      => 1,
                                   ),
            new EBox::Types::Union::Text(
                                         fieldName => 'none',
