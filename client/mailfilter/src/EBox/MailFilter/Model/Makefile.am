@@ -8,4 +8,6 @@ nobase_perl_DATA =  General.pm ExternalMTA.pm ExternalDomain.pm \
                     AntispamConfiguration.pm AntispamACL.pm AntispamTraining.pm \
                     VDomains.pm
 
+EXTRA_DIST = $(nobase_perl_DATA)
+
 MAINTAINERCLEANFILES = Makefile.in
