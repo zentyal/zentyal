@@ -867,9 +867,9 @@ sub writeConfFile # (file, component, params, defaults)
         $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
     }
 
+    EBox::Sudo::root("/bin/mv $tmpfile  $file");
     EBox::Sudo::root("/bin/chmod $mode $file");
     EBox::Sudo::root("/bin/chown $uid.$gid $file");
-    EBox::Sudo::root("/bin/mv $tmpfile  $file");
 
 
     if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
