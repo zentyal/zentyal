@@ -19,10 +19,10 @@ use strict;
 use warnings;
 
 use base qw(EBox::GConfModule 
-                        EBox::LdapModule 
-                        EBox::Model::ModelProvider
-                        EBox::ServiceModule::ServiceInterface
-                   );
+            EBox::LdapModule 
+            EBox::Model::ModelProvider
+            EBox::ServiceModule::ServiceInterface
+          );
 
 use EBox::Global;
 use EBox::Ldap;

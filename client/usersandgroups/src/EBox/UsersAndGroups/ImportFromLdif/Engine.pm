@@ -40,9 +40,9 @@ sub importLdif
     my @entries = @{ _entries($ldifPath)  };
 
     foreach my $priority ($minPriority .. $maxPriority) {
-	@entries = map {
-	    _processEntry($_, priority => $priority, @extraOptions);
-	} @entries;
+        @entries = map {
+            _processEntry($_, priority => $priority, @extraOptions);
+        } @entries;
     }
 
 
@@ -58,8 +58,8 @@ sub _entries
     my @entries;
 
     while (not $ldif->eof()) {
-	my $entry = $ldif->read_entry();
-	push @entries, $entry;
+        my $entry = $ldif->read_entry();
+        push @entries, $entry;
     }
 
     return \@entries;
@@ -74,61 +74,61 @@ sub _loadClientClasses
 
     my @userMods = @{  $global->modInstancesOfType('EBox::LdapModule')  };
     foreach my $mod (@userMods) {
-	# we only import data into configured modules
-	$mod->configured() or
-	    next;
+        # we only import data into configured modules
+        $mod->configured() or
+            next;
 
-	my $importClass = (ref $mod) . '::ImportFromLdif';
-	eval "use $importClass";
-	if ($@) {
-	    EBox::error("Error loading import users from ldif class $importClass: $@");
-	    EBox::error("Skipping $importClass");
-	    next;
-	}
+        my $importClass = (ref $mod) . '::ImportFromLdif';
+        eval "use $importClass";
+        if ($@) {
+            EBox::error("Error loading import users from ldif class $importClass: $@");
+            EBox::error("Skipping $importClass");
+            next;
+        }
 
 
-	my @modClassesToProcess = @{ $importClass->classesToProcess() };
-	foreach my $ldifClassSpec (@modClassesToProcess) {
-	    my $ldifClass;
-	    my $priority = 1;
+        my @modClassesToProcess = @{ $importClass->classesToProcess() };
+        foreach my $ldifClassSpec (@modClassesToProcess) {
+            my $ldifClass;
+            my $priority = 1;
 
-	    if (ref $ldifClassSpec) {
-		$ldifClass = $ldifClassSpec->{class};
-		defined $ldifClass or
-		    die "Not class specified in $importClass::classesToProcess()";
-		if (exists $ldifClassSpec->{priority}) {
-		    $priority  = $ldifClassSpec->{priority} 
-		}
-	    }
-	    else {
-		$ldifClass = $ldifClassSpec;
-	    }
+            if (ref $ldifClassSpec) {
+                $ldifClass = $ldifClassSpec->{class};
+                defined $ldifClass or
+                    die "Not class specified in $importClass::classesToProcess()";
+                if (exists $ldifClassSpec->{priority}) {
+                    $priority  = $ldifClassSpec->{priority} 
+                }
+            }
+            else {
+                $ldifClass = $ldifClassSpec;
+            }
 
-	    
+            
 
-	    my $importClassElement =  {
+            my $importClassElement =  {
                                        importClass => $importClass,
-				       priority    => $priority,
-						      };
+                                       priority    => $priority,
+                                                      };
 
-	    if (not exists  $classesToProcess{$ldifClass}) {
-		 $classesToProcess{$ldifClass} = [];
-	    }
-	    push @{ $classesToProcess{$ldifClass} }, $importClassElement; 
+            if (not exists  $classesToProcess{$ldifClass}) {
+                 $classesToProcess{$ldifClass} = [];
+            }
+            push @{ $classesToProcess{$ldifClass} }, $importClassElement; 
 
-	    if (not exists $classStartup{$ldifClass}) {
-		$classStartup{$ldifClass} = [];
-	    }
-	    push @{ $classStartup{$ldifClass} }, $importClassElement;
+            if (not exists $classStartup{$ldifClass}) {
+                $classStartup{$ldifClass} = [];
+            }
+            push @{ $classStartup{$ldifClass} }, $importClassElement;
 
 
-	    if ($priority > $maxPriority) {
-		$maxPriority = $priority;
-	    }
-	    elsif ($priority < $minPriority) {
-		$minPriority = $priority;
-	    }
-	}
+            if ($priority > $maxPriority) {
+                $maxPriority = $priority;
+            }
+            elsif ($priority < $minPriority) {
+                $minPriority = $priority;
+            }
+        }
     }
 
 }
@@ -147,28 +147,28 @@ sub _processEntry
     my $entryNotFullyProcessed = 0;
 
     foreach my $class (@objectClasses) {
-	if (exists $classesToProcess{$class}) {
-	    _startupClass($class, %params);
+        if (exists $classesToProcess{$class}) {
+            _startupClass($class, %params);
 
-	    foreach my $package_r (@{  $classesToProcess{$class}  }) {
-		my $classPriority = $package_r->{priority};
+            foreach my $package_r (@{  $classesToProcess{$class}  }) {
+                my $classPriority = $package_r->{priority};
 
-		if ($classPriority < $priority) {
-		    # already processed, next object class
-		next;
-	        }
-		elsif ($classPriority > $priority) {
-		    # class of lower priority, skipping and left it for latter
-		    $entryNotFullyProcessed = 1;
-		    next;
-		}
+                if ($classPriority < $priority) {
+                    # already processed, next object class
+                next;
+                }
+                elsif ($classPriority > $priority) {
+                    # class of lower priority, skipping and left it for latter
+                    $entryNotFullyProcessed = 1;
+                    next;
+                }
 
-		my $package = $package_r->{importClass};
-		my $subName = 'process' . ucfirst $class;
-		$package->$subName($entry, %params);
-	    }
+                my $package = $package_r->{importClass};
+                my $subName = 'process' . ucfirst $class;
+                $package->$subName($entry, %params);
+            }
 
-	}
+        }
     }
 
 
@@ -185,16 +185,16 @@ sub _startupClass
 
     # sort by priority
     my @importClasses = sort {  
-	$a->{priority} <=> $b->{priority}
+        $a->{priority} <=> $b->{priority}
     } @{ $classStartup{$oclass} };
 
 
     foreach my $importClass_r (@importClasses) {
-	my $importClass = $importClass_r->{importClass};
-	my $startupName = 'startup' . ucfirst $oclass;
-	if ($importClass->can($startupName)) {
-	    $importClass->$startupName(@params);
-	}
+        my $importClass = $importClass_r->{importClass};
+        my $startupName = 'startup' . ucfirst $oclass;
+        if ($importClass->can($startupName)) {
+            $importClass->$startupName(@params);
+        }
     }
 
     delete $classStartup{$oclass};

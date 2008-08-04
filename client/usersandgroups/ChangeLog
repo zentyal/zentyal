@@ -2,6 +2,8 @@
 	+ Use the new EBox::Model::Row api
 	+ Check if there is any added user and show a message
 	  in case there isn't any.
+	+ Restore users reading from ldiff and adding them through
+	  eBox API
 0.11.101
 	+ New release
 0.11.100

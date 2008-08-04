@@ -39,24 +39,24 @@ use File::Slurp qw(read_file);
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
-use constant LDAP	   => "ldap://127.0.0.1";
+use constant LDAP          => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant ROOTDN        => 'cn=admin,' . DN;
 use constant INIT_SCRIPT   => '/etc/init.d/slapd';
 use constant DATA_DIR      => '/var/lib/ldap';
-use constant LDAP_USER	   => 'openldap';
+use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
 
 # Singleton variable
 my $_instance = undef;
 
 sub _new_instance {
-	my $class = shift;
+        my $class = shift;
 
-	my $self = {};
-	$self->{ldap} = undef;
-	bless($self, $class);
-	return $self;
+        my $self = {};
+        $self->{ldap} = undef;
+        bless($self, $class);
+        return $self;
 }
 
 # Method: instance
@@ -89,48 +89,48 @@ sub instance
 #               
 #       Internal - If connection can't be created
 sub ldapCon {
-	my $self = shift;
-	# Workaround to detect if connection is broken and force reconnection
+        my $self = shift;
+        # Workaround to detect if connection is broken and force reconnection
 
-	my $reconnect;
-	if ($self->{ldap}) {
-		my $mesg = $self->{ldap}->search(
-				base   => 'dc=ebox',
-				scope => 'base',		 
-				filter => "(cn=*)",
-				);
-		
-
-
-		if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
-		  $self->{ldap}->unbind;
-		  $reconnect = 1;
-		}
-	}
+        my $reconnect;
+        if ($self->{ldap}) {
+                my $mesg = $self->{ldap}->search(
+                                base   => 'dc=ebox',
+                                scope => 'base',                 
+                                filter => "(cn=*)",
+                                );
+                
 
 
-	if ((not defined $self->{ldap}) or $reconnect) {
-		# We try to connect 5 times in 5 seconds, as we might need to 
-		# give slapd some time to accept connections after a
-		# slapd restart
-		my $connected = undef;
-		for (0..4) {
-			$self->{ldap} = Net::LDAP->new (LDAPI);
-			if ($self->{ldap}) {
-				$connected = 1;
-				last;
-			} else {
-				sleep (1);
-			}	
-		}
-		unless ($connected) {
-			throw EBox::Exceptions::Internal(
-					"Can't create ldapi connection");
-		}
-		$self->{ldap}->bind(ROOTDN, password => getPassword());
-	}
+                if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
+                  $self->{ldap}->unbind;
+                  $reconnect = 1;
+                }
+        }
 
-	return $self->{ldap};
+
+        if ((not defined $self->{ldap}) or $reconnect) {
+                # We try to connect 5 times in 5 seconds, as we might need to 
+                # give slapd some time to accept connections after a
+                # slapd restart
+                my $connected = undef;
+                for (0..4) {
+                        $self->{ldap} = Net::LDAP->new (LDAPI);
+                        if ($self->{ldap}) {
+                                $connected = 1;
+                                last;
+                        } else {
+                                sleep (1);
+                        }       
+                }
+                unless ($connected) {
+                        throw EBox::Exceptions::Internal(
+                                        "Can't create ldapi connection");
+                }
+                $self->{ldap}->bind(ROOTDN, password => getPassword());
+        }
+
+        return $self->{ldap};
 }
 
 # Method: getPassword 
@@ -146,17 +146,17 @@ sub ldapCon {
 #       Internal - If password can't be read
 sub getPassword {
 
-	my $path = EBox::Config->conf . "/ebox-ldap.passwd";
+        my $path = EBox::Config->conf . "/ebox-ldap.passwd";
         open(PASSWD, $path) or
                 throw EBox::Exceptions::Internal("Could not open $path to " .
-						 "get ldap password");
+                                                 "get ldap password");
 
         my $pwd = <PASSWD>;
         close(PASSWD);
 
         $pwd =~ s/[\n\r]//g;
 
-	return $pwd;
+        return $pwd;
 }
 
 
@@ -169,7 +169,7 @@ sub getPassword {
 #       string - dn
 #
 sub dn {
-	return DN;
+        return DN;
 }
 
 # Method: rootDn
@@ -181,7 +181,7 @@ sub dn {
 #       string - rootdn
 #
 sub rootDn {
-	return ROOTDN
+        return ROOTDN
 }
 
 # Method: rootPw
@@ -193,7 +193,7 @@ sub rootDn {
 #       string - password
 #
 sub rootPw {
-	return getPassword();
+        return getPassword();
 }
 
 # Method: slapdConfFile
@@ -205,7 +205,7 @@ sub rootPw {
 #       string - location
 #
 sub slapdConfFile {
-	return SLAPDCONFFILE;
+        return SLAPDCONFFILE;
 }
 
 # Method: ldapConf
@@ -217,15 +217,15 @@ sub slapdConfFile {
 #     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn' 
 #
 sub ldapConf {
-	my ($class) = @_;
-	
-	my $conf = {
-		     'dn'     => DN,
-		     'ldapi'  => LDAPI,
-		     'ldap'   => LDAP,
-		     'rootdn' => ROOTDN,
-		   };
-	return $conf;
+        my ($class) = @_;
+        
+        my $conf = {
+                     'dn'     => DN,
+                     'ldapi'  => LDAPI,
+                     'ldap'   => LDAP,
+                     'rootdn' => ROOTDN,
+                   };
+        return $conf;
 }
 
 # Method: search
@@ -234,21 +234,21 @@ sub ldapConf {
 #       
 # Parameters:
 #
-#	args - arguments to pass to Net::LDAP->search()
+#       args - arguments to pass to Net::LDAP->search()
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the search
+#       Internal - If there is an error during the search
 sub search($$) # (args)
 {
-	my $self = shift;
-	my $args = shift;
+        my $self = shift;
+        my $args = shift;
 
-	$self->ldapCon;	
-	my $result = $self->{ldap}->search(%{$args});
-	_errorOnLdap($result, $args);
-	return $result;
-	
+        $self->ldapCon; 
+        my $result = $self->{ldap}->search(%{$args});
+        _errorOnLdap($result, $args);
+        return $result;
+        
 }
 
 # Method: modify
@@ -257,21 +257,21 @@ sub search($$) # (args)
 #       
 # Parameters:
 #
-#	dn - dn where to perform the modification 
-#	args - parameters to pass to Net::LDAP->modify()
+#       dn - dn where to perform the modification 
+#       args - parameters to pass to Net::LDAP->modify()
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the search
+#       Internal - If there is an error during the search
 sub modify($$) {
-	my $self = shift;
-	my $dn   = shift;
-	my $args = shift;
+        my $self = shift;
+        my $dn   = shift;
+        my $args = shift;
 
-	$self->ldapCon;	
-	my $result = $self->{ldap}->modify($dn, %{$args});
-	_errorOnLdap($result, $args);
-	return $result;
+        $self->ldapCon; 
+        my $result = $self->{ldap}->modify($dn, %{$args});
+        _errorOnLdap($result, $args);
+        return $result;
 
 }
 
@@ -281,19 +281,19 @@ sub modify($$) {
 #       
 # Parameters:
 #
-#	dn - dn to delete 
+#       dn - dn to delete 
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the search
+#       Internal - If there is an error during the search
 sub delete($$) {
-	my $self = shift;
-	my $dn   = shift;
-	
-	$self->ldapCon;	
-	my $result =  $self->{ldap}->delete($dn);
-	_errorOnLdap($result, $dn);
-	return $result;
+        my $self = shift;
+        my $dn   = shift;
+        
+        $self->ldapCon; 
+        my $result =  $self->{ldap}->delete($dn);
+        _errorOnLdap($result, $dn);
+        return $result;
 
 }
 
@@ -303,22 +303,22 @@ sub delete($$) {
 #       
 # Parameters:
 #
-#	dn - dn to add
-#	args - parameters to pass to Net::LDAP->add()
+#       dn - dn to add
+#       args - parameters to pass to Net::LDAP->add()
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the search
+#       Internal - If there is an error during the search
 
 sub add($$) {
-	my $self = shift;
-	my $dn   = shift;
-	my $args = shift;
-	
-	$self->ldapCon;	
-	my $result =  $self->{ldap}->add($dn, %{$args});
-	_errorOnLdap($result, $args);
-	return $result;
+        my $self = shift;
+        my $dn   = shift;
+        my $args = shift;
+        
+        $self->ldapCon; 
+        my $result =  $self->{ldap}->add($dn, %{$args});
+        _errorOnLdap($result, $args);
+        return $result;
 }
 
 # Method: delObjectclass
@@ -327,74 +327,74 @@ sub add($$) {
 #       
 # Parameters:
 #
-#	dn - object's dn
-#	objectclass - objectclass
+#       dn - object's dn
+#       objectclass - objectclass
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the search
+#       Internal - If there is an error during the search
 sub delObjectclass # (dn, objectclass);
 {
-	my $self = shift;
-	my $dn   = shift;
-	my $objectclass = shift;
+        my $self = shift;
+        my $dn   = shift;
+        my $objectclass = shift;
 
-	my $schema = $self->ldapCon->schema();
-	my $msg = $self->search(
-				{ base => $dn, scope => 'base',
-				  filter => "(objectclass=$objectclass)"
-				});
-	_errorOnLdap($msg);
-	return unless ($msg->entries > 0);
+        my $schema = $self->ldapCon->schema();
+        my $msg = $self->search(
+                                { base => $dn, scope => 'base',
+                                  filter => "(objectclass=$objectclass)"
+                                });
+        _errorOnLdap($msg);
+        return unless ($msg->entries > 0);
 
-	my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
-
-
-	$msg = $self->search(
-				{ base => $dn, scope => 'base',
-				  attrs => ['objectClass'], 
-				  filter => '(objectclass=*)'
-				});
-	_errorOnLdap($msg);
-	my %attrs;
-	for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
-	        # get objectclass attributes
-		my @ocattrs =  map { 
-		  $_->{name}
-		}  ($schema->must($oc), $schema->may($oc));
-
-		# mark objectclass attributes as seen
-		foreach (@ocattrs) {
-		  $attrs{$_ } = 1;
-		}
-	      }
-
-	# get the attributes of the object class which will be deleted
-	my @objectAttrs = map {
-	  $_->{name}
-	}  ($schema->must($objectclass), $schema->may($objectclass));
+        my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
 
 
-	my %attr2del;
-	for my $attr (@objectAttrs) {
-		# Skip if the attribute belongs to another objectclass
-		next if (exists $attrs{$attr});
-		# Skip if the attribute is not stored in the object
-		next unless (exists $attrexist{$attr});
-		$attr2del{$attr} = [];
-	}
+        $msg = $self->search(
+                                { base => $dn, scope => 'base',
+                                  attrs => ['objectClass'], 
+                                  filter => '(objectclass=*)'
+                                });
+        _errorOnLdap($msg);
+        my %attrs;
+        for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
+                # get objectclass attributes
+                my @ocattrs =  map { 
+                  $_->{name}
+                }  ($schema->must($oc), $schema->may($oc));
 
-	my $result;
-	if (%attr2del) {
-		$result = $self->modify($dn, { changes => 
-			[delete =>[ objectclass => $objectclass, %attr2del ] ] });
-		_errorOnLdap($msg);
-	} else {
-		$result = $self->modify($dn, { changes => 
-			[delete =>[ objectclass => $objectclass ] ] });
-		_errorOnLdap($msg);
-	}
-	return $result;
+                # mark objectclass attributes as seen
+                foreach (@ocattrs) {
+                  $attrs{$_ } = 1;
+                }
+              }
+
+        # get the attributes of the object class which will be deleted
+        my @objectAttrs = map {
+          $_->{name}
+        }  ($schema->must($objectclass), $schema->may($objectclass));
+
+
+        my %attr2del;
+        for my $attr (@objectAttrs) {
+                # Skip if the attribute belongs to another objectclass
+                next if (exists $attrs{$attr});
+                # Skip if the attribute is not stored in the object
+                next unless (exists $attrexist{$attr});
+                $attr2del{$attr} = [];
+        }
+
+        my $result;
+        if (%attr2del) {
+                $result = $self->modify($dn, { changes => 
+                        [delete =>[ objectclass => $objectclass, %attr2del ] ] });
+                _errorOnLdap($msg);
+        } else {
+                $result = $self->modify($dn, { changes => 
+                        [delete =>[ objectclass => $objectclass ] ] });
+                _errorOnLdap($msg);
+        }
+        return $result;
 }
 
 # Method: modifyAttribute 
@@ -403,20 +403,20 @@ sub delObjectclass # (dn, objectclass);
 #       
 # Parameters:
 #
-#	dn - object's dn
-#	attribute - attribute to change
-#	value - new value
+#       dn - object's dn
+#       attribute - attribute to change
+#       value - new value
 #               
 # Exceptions:
 #
-#	Internal - If there is an error during the modification
-#	
+#       Internal - If there is an error during the modification
+#       
 sub modifyAttribute # (dn, attribute, value);
 {
-	my ($self, $dn, $attribute, $value) = @_;
+        my ($self, $dn, $attribute, $value) = @_;
 
-	my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
-	$self->modify($dn, \%attrs ); 
+        my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
+        $self->modify($dn, \%attrs ); 
 }
 
 
@@ -436,56 +436,56 @@ sub isObjectClass
   my ($self, $dn, $objectClass) = @_;
 
 
-	my %attrs = (
-			base   => $dn,
-			filter => "(objectclass=$objectClass)",
-			attrs  => [ 'objectClass'],
-			scope  => 'base'
-		    );
-	 
-	my $result = $self->search(\%attrs);
+  my %attrs = (
+               base   => $dn,
+               filter => "(objectclass=$objectClass)",
+               attrs  => [ 'objectClass'],
+               scope  => 'base'
+              );
+  
+  my $result = $self->search(\%attrs);
+  
+  if ($result->count ==  1) {
+      return 1;
+  }
 
-	if ($result->count ==  1) {
-		return 1;
-	}
-
-	return undef;
+  return undef;
 }
 
 sub _errorOnLdap 
 {
-        my $result = shift;
-        my $args   = shift;
+    my ($result, $args) = @_;
 
-        my  @frames = caller (2);
-        if ($result->is_error){
-                if ($args) {
-			use Data::Dumper;
-			EBox::error( Dumper($args) );
-                }
-                throw EBox::Exceptions::Internal("Unknown error at " .
-						$frames[3] . " " .
-						$result->error);
+    my  @frames = caller (2);
+    if ($result->is_error){
+        if ($args) {
+            use Data::Dumper;
+            EBox::error( Dumper($args) );
         }
+        throw EBox::Exceptions::Internal("Unknown error at " .
+                                         $frames[3] . " " .
+                                         $result->error);
+    }
 }
 
 # Workaround to mark strings returned from ldap as utf8 strings
 sub _utf8Attrs # (result)
 {
-        my $result = shift;
+    my ($result) = @_;
 
-        my @entries = $result->entries;
-        foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
-                my @vals = @{$attr->{vals}};
+    my @entries = $result->entries;
+    foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
+        my @vals = @{$attr->{vals}};
                 next unless (@vals);
-                my @utfvals;
-                foreach my $val (@vals) {
-                        _utf8_on($val);
-                        push @utfvals, $val;
-                }
-                $attr->{vals} = \@utfvals;
+        my @utfvals;
+        foreach my $val (@vals) {
+            _utf8_on($val);
+            push @utfvals, $val;
         }
-        return $result;
+        $attr->{vals} = \@utfvals;
+    }
+
+    return $result;
 }
 
 
@@ -544,7 +544,13 @@ sub ldifFile
   return "$dir/ldap.ldif";
 }
 
-
+# Method: dumpLdapData
+#
+#  dump the LDAP contents to a LDIF file in the given directory. The exact file
+#  path can be retrevied using the method ldifFile
+#  
+#    Parameters:
+#       dir - directory in which put the LDIF file
 sub dumpLdapData
 {
   my ($self, $dir) = @_;
@@ -561,6 +567,12 @@ sub dumpLdapData
   $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
 } 
 
+# Method: loadLdapData
+#
+#  load all the raw LDAP data found in the LDIF file
+#  
+#    Parameters:
+#       dir - directory in which is the LDIF file
 # XXX: todo add on error sub
 sub loadLdapData
 {
@@ -576,15 +588,31 @@ sub loadLdapData
   my $chownDataCommand = $self->_chownDatadir;
   
   $self->_pauseAndExecute(
-		cmds => [$backupCommand, $rmCommand, 
-			 $slapaddCommand, $chownDataCommand 
-			]);
+                cmds => [$backupCommand, $rmCommand, 
+                         $slapaddCommand, $chownDataCommand 
+                        ]);
+}
+
+# Method: loadLdapData
+#
+#    load in eBox the data found in LDIF file. Import classes for the various
+#    modules are used to load the data
+#  
+#    Parameters:
+#       dir - directory in which is the LDIF file
+sub importLdapData
+{
+  my ($self, $dir) = @_;
+  
+  my $ldifFile = $self->ldifFile($dir);
+
+  EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
 }
 
 
 sub _chownDatadir
 {
-	return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
+        return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
 }
 
 sub _slapcatCmd
