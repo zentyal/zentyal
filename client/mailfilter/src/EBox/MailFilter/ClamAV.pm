@@ -3,7 +3,6 @@ package EBox::MailFilter::ClamAV;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule::Partition';
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
 use EBox::Config;
@@ -13,8 +12,8 @@ use EBox::Gettext;
 use EBox::MailFilter::VDomainsLdap;
 
 use constant {
-  CLAMAVPIDFILE			=> '/var/run/clamav/clamd.pid',
-  CLAMD_INIT			=> '/etc/init.d/clamav-daemon',
+  CLAMAVPIDFILE                 => '/var/run/clamav/clamd.pid',
+  CLAMD_INIT                    => '/etc/init.d/clamav-daemon',
   CLAMD_SERVICE                  => 'ebox.clamd',
   CLAMD_CONF_FILE               => '/etc/clamav/ebox.clamd.conf',
 
@@ -32,7 +31,7 @@ sub new
 {
   my $class = shift @_;
 
-  my $self = $class->SUPER::new(@_);
+  my $self = {};
   bless $self, $class;
 
   return $self;
@@ -46,17 +45,17 @@ sub _mailfilterModule
 sub usedFiles
 {
   return (
-# 	  {
-# 	   file => CLAMD_CONF_FILE,
-# 	   reason => __(' To configure clamd daemon'),
-# 	   module => 'mailfilter',
-# 	  },
-	  {
-	   file => FRESHCLAM_CONF_FILE,
-	   reason => __('To configure freshclam updater daemon'),
-	   module => 'mailfilter',
-	  },
-	 );
+#         {
+#          file => CLAMD_CONF_FILE,
+#          reason => __(' To configure clamd daemon'),
+#          module => 'mailfilter',
+#         },
+          {
+           file => FRESHCLAM_CONF_FILE,
+           reason => __('To configure freshclam updater daemon'),
+           module => 'mailfilter',
+          },
+         );
 }
 
 
@@ -95,27 +94,13 @@ sub _daemon
 
 
 
-#
-# Method: setService
-#
-#  Enable/Disable the service.
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setService 
-{
-	my ($self, $active) = @_;
-	($active and $self->service()) and return;
-	(!$active and !$self->service()) and return;
-	$self->setConfBool('active', $active);
-}
-
 sub service
 {
   my ($self) = @_;
-  return $self->getConfBool('active');
+
+  my $mailfilter = EBox::Global->modInstance('mailfilter');
+  my $avConf     = $mailfilter->model('AntivirusConfiguration');
+  return $avConf->enabled();
 }
 
 
@@ -185,8 +170,8 @@ sub writeConf
   my $localSocket = $self->localSocket();
 
   my @clamdParams = (
-		localSocket => $localSocket,
-	       );
+                localSocket => $localSocket,
+               );
 
   EBox::Module->writeConfFile(CLAMD_CONF_FILE, "mailfilter/clamd.conf.mas", \@clamdParams);
 
@@ -195,9 +180,9 @@ sub writeConf
   my $observerScript = EBox::Config::share() . '/ebox-mailfilter/' .  FRESHCLAM_OBSERVER_SCRIPT;
 
   my @freshclamParams = (
-			 clamdConfFile   => CLAMD_CONF_FILE,
-			 observerScript  => $observerScript,
-			);
+                         clamdConfFile   => CLAMD_CONF_FILE,
+                         observerScript  => $observerScript,
+                        );
 
 
   EBox::Module->writeConfFile(FRESHCLAM_CONF_FILE, "mailfilter/freshclam.conf.mas", \@freshclamParams);

@@ -3,7 +3,7 @@ package EBox::MailFilter::SpamAssassin;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule::Partition);
+
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
 use EBox::Config;
@@ -23,39 +23,51 @@ use constant {
 
 sub new 
 {
-  my $class = shift @_;
+    my $class = shift @_;
 
-  my $self = $class->SUPER::new(@_);
-  $self->{vdomains} = new EBox::MailFilter::VDomainsLdap();
+    my $self = {};
+    $self->{vdomains} = new EBox::MailFilter::VDomainsLdap();
 
-  bless $self, $class;
-  return $self;
+    bless $self, $class;
+    return $self;
 }
 
 sub usedFiles
 {
-  return (
-	  {
-	   file =>  SA_CONF_FILE,
-	   reason => __(' To configure spamassassin daemon'),
-	   module => 'mailfilter',
-	  },
-
-	 );
+    return (
+            {
+             file =>  SA_CONF_FILE,
+             reason => __(' To configure spamassassin daemon'),
+             module => 'mailfilter',
+            },
+            
+           );
 }
 
 
 sub _vdomains
 {
-  my ($self) = @_;
-  return $self->{vdomains};
+    my ($self) = @_;
+    return $self->{vdomains};
 }
 
 sub _mailfilterModule
 {
-  return EBox::GConfModule::Partition::fullModule(@_);
+    return EBox::Global->modInstance('mailfilter');
 }
 
+
+sub _confAttr
+{
+    my ($self, $attr) = @_;
+
+    if (not $self->{configuration}) {
+        my $mailfilter = EBox::Global->modInstance('mailfilter');
+        $self->{configuration}     = $mailfilter->model('AntispamConfiguration');
+    }
+
+    return $self->{configuration}->$attr();
+}
 
 
 sub _manageServices
@@ -63,37 +75,36 @@ sub _manageServices
     my ($self, $action) = @_;
     EBox::Service::manage(SA_SERVICE, $action);
 
-
-    my $saLearnService = $self->spamAccountActive() or $self->hamAccountActive();
+    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
+    my $saLearnService = $vdomainsLdap->learnAccountsExists;
     if (not $saLearnService) {
-	$action = 'stop';
+        $action = 'stop';
     }
-
     EBox::Service::manage(SA_LEARN_SERVICE, $action);
 }
 
 sub doDaemon
 {
-  my ($self, $mailfilterService) = @_;
-  
-  if ($mailfilterService and $self->service() and $self->isRunning()) {
-    $self->_manageServices('restart');
-  } 
-  elsif ($mailfilterService and $self->service()) {
-    $self->_manageServices('start');
-  } 
-  elsif ($self->isRunning()) {
-    $self->_manageServices('stop');
-  }
+    my ($self, $mailfilterService) = @_;
+    
+    if ($mailfilterService and $self->service() and $self->isRunning()) {
+        $self->_manageServices('restart');
+    } 
+    elsif ($mailfilterService and $self->service()) {
+        $self->_manageServices('start');
+    } 
+    elsif ($self->isRunning()) {
+        $self->_manageServices('stop');
+    }
 }
 
 
 sub stopService
 {
-  my ($self) = @_;
-  if ($self->isRunning) {
-    $self->_manageServices('stop');   
-  }
+    my ($self) = @_;
+    if ($self->isRunning) {
+        $self->_manageServices('stop');   
+    }
 }
 
 
@@ -110,69 +121,53 @@ sub stopService
 #
 sub service
 {
-  my ($self) = @_;
-  return $self->getConfBool('active');
+    my ($self) = @_;
+    return $self->_confAttr('enabled');
 }
 
-#
-# Method: setService
-#
-#  Enable/Disable the service.
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setService 
-{
-  my ($self, $active) = @_;
-  ($active and $self->service()) and return;
-  (!$active and !$self->service()) and return;
-  $self->setConfBool('active', $active);
-}
 
 
 
 sub setVDomainService
 {
-  my ($self, $vdomain, $service) = @_;
-
-  my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
-  $vdomainsLdap->checkVDomainExists($vdomain);
-  $vdomainsLdap->setAntispam($vdomain, $service);
+    my ($self, $vdomain, $service) = @_;
+    
+    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
+    $vdomainsLdap->checkVDomainExists($vdomain);
+    $vdomainsLdap->setAntispam($vdomain, $service);
 }
 
 
 sub vdomainService
 {
-  my ($self, $vdomain) = @_;
-
-  my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
-  $vdomainsLdap->checkVDomainExists($vdomain);
-  $vdomainsLdap->antispam($vdomain);
+    my ($self, $vdomain) = @_;
+    
+    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
+    $vdomainsLdap->checkVDomainExists($vdomain);
+    $vdomainsLdap->antispam($vdomain);
 }
 
 sub isRunning
 {
-  return EBox::Service::running(SA_SERVICE);
+    return EBox::Service::running(SA_SERVICE);
 }
 
 
 sub writeConf
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @confParams;
-  push @confParams, (trustedNetworks => $self->trustedNetworks());
-  push @confParams, (bayes => $self->bayes);
-  push @confParams, (bayesPath => $self->bayesPath);
-  push @confParams, (bayesAutolearn => $self->autolearn);
-  push @confParams, (bayesAutolearnSpamThreshold => $self->autolearnSpamThreshold);
-  push @confParams, (bayesAutolearnHamThreshold => $self->autolearnHamThreshold);
+    my @confParams;
+    push @confParams, (trustedNetworks => $self->trustedNetworks());
+    push @confParams, (bayes => $self->bayes);
+    push @confParams, (bayesPath => $self->bayesPath);
+    push @confParams, (bayesAutolearn => $self->autolearn);
+    push @confParams, (bayesAutolearnSpamThreshold => $self->autolearnSpamThreshold);
+    push @confParams, (bayesAutolearnHamThreshold => $self->autolearnHamThreshold);
 
-  EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
-
-  $self->_vdomains->updateControlAccounts();
+    EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
+    
+#    $self->_vdomains->updateControlAccounts();
 }
 
 #
@@ -186,26 +181,11 @@ sub writeConf
 #
 sub bayes
 {
-	my $self = shift;
-	return $self->getConfBool('bayes');
+    my ($self) = @_;
+    return $self->_confAttr('bayes');
 }
 
-#
-# Method: setBayes
-#
-#  Enable/Disable the bayesian filter.
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setBayes
-{
-	my ($self, $active) = @_;
-	($active and $self->bayes()) and return;
-	(!$active and !$self->bayes()) and return;
-	$self->setConfBool('bayes', $active);
-}
+
 
 #
 # Method: autolearn
@@ -218,32 +198,10 @@ sub setBayes
 #
 sub autolearn
 {
-       my $self = shift;
-       return $self->getConfBool('autolearn');
+    my ($self) = @_;
+    return $self->_confAttr('autolearn');
 }
 
-#
-# Method: setAutolearn
-#
-#  Enable/Disable autolearn in bayesian subsystem.
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setAutolearn
-{
-       my ($self, $active) = @_;
-       ($active and $self->autolearn()) and return;
-       (!$active and !$self->autolearn()) and return;
-
-       # this is to force to check the threshold's levels bz when the autolearn
-       # is disabled the spam's level aren't checked against them
-       $self->setAutolearnHamThreshold($self->autolearnHamThreshold);
-       $self->setAutolearnSpamThreshold($self->autolearnSpamThreshold);
-
-       $self->setConfBool('autolearn', $active);
-}
 
 
 #
@@ -259,7 +217,7 @@ sub setAutolearn
 sub autolearnHamThreshold
 {
   my ($self) = @_;
-  return $self->getConfString('autolearn_ham_threshold');
+  return $self->_confAttr('autolearnHamThreshold');
 }
 
 
@@ -276,105 +234,9 @@ sub autolearnHamThreshold
 sub autolearnSpamThreshold
 {
   my ($self) = @_;
-  return $self->getConfString('autolearn_spam_threshold');
+  return $self->_confAttr('autolearnSpamThreshold');
 }
 
-
-#
-# Method: setAutolearnHamThreshold
-#
-#  Set the  score that a ham  message shouldn't reach to enter to the
-#  learning system.
-#
-# Parameters:
-#
-#  ham - new threshold for ham
-sub setAutolearnHamThreshold
-{
-  my ($self, $threshold) = @_;
-  $self->_checkAutolearnThresholds(
-				ham   => $threshold,
-				spam  => $self->autolearnSpamThreshold(),
-			       );
-
-   if ($threshold ne $self->autolearnHamThreshold) {
-     $self->setConfString('autolearn_ham_threshold', $threshold);
-   }
-
-}
-
-
-#
-# Method: setAutolearnSpamThreshold
-#
-#  Set the  score that a spam  message should have to obtain to enter to the
-#  learning system.
-#
-# Parameters:
-#
-#  spam - new threshold for spam
-sub setAutolearnSpamThreshold
-{
-  my ($self, $threshold) = @_;
-
-  if ($threshold < 6) {
-    throw EBox::Exceptions::External(
-	 __("The spam's autolearn threshold must be higher than 6.0")
-				    );
-   }
-
-  $self->_checkAutolearnThresholds(
-				spam => $threshold,
-				ham  => $self->autolearnHamThreshold(),
-			       );
-
-
-  if ($threshold ne $self->autolearnSpamThreshold) {
-    $self->setConfString('autolearn_spam_threshold', $threshold);
-  }
-}
-
-sub _checkAutolearnThresholds
-{
-  my ($self, %params) = @_;
-  (exists $params{spam})  or
-    throw EBox::Exceptions::MissingArgument('You must supply at least a  spam parameter');
-  (exists $params{ham})  or
-    throw EBox::Exceptions::MissingArgument('You must supply at least a  ham parameter');
-
-   my $hamT  = $params{ham};
-   my $spamT = $params{spam};
-
-   # check thresholds
-   if ($hamT > $spamT) {
-     throw EBox::Exceptions::External(
-	 __("The ham's autolearn threshold cannot be higher than spam's threshold")
-				     );
-   }
-
-   # check autolearn's thresholds against spam thresholds
-   my @spamStateThresholds;
-   @spamStateThresholds = map {
-     my $th = $self->vdomainSpamThreshold($_);
-     defined $th ? $th : ();
-   } $self->_vdomains->vdomains(); # get threshold from vdomaind
-   push @spamStateThresholds, $self->spamThreshold;
-   
-   
-   foreach my $spamStateThreshold (@spamStateThresholds) {
-     if ($spamT < $spamStateThreshold) {
-       throw EBox::Exceptions::External(
-					__("The spam's autolearn threshold cannot be lower than the default spam's treshold ")
-				       );
-     } elsif ($hamT >= $spamStateThreshold) {
-       throw EBox::Exceptions::External(
-	 __("The ham's autolearn threshold canot be higher or equal than the default spam level")
-				       );
-     }
-
-   }
- 
-}
 
 
 #
@@ -388,35 +250,9 @@ sub _checkAutolearnThresholds
 #
 sub autoWhitelist
 {
-       my $self = shift;
-       return $self->getConfBool('autowhitelist');
+    my ($self) = @_;
+    return $self->_confAttr('autoWhitelist');
 }
-
-#
-# Method: setAutoWhitelist
-#
-#  Enable/Disable the auto-whiteleist feature
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setAutoWhitelist
-{
-       my ($self, $active) = @_;
-       ($active and $self->autoWhitelist()) and return;
-       (!$active and !$self->autoWhitelist()) and return;
-       $self->setConfBool('autowhitelist', $active);
-}
-
-
-
-
-
-
-
-
-
 
 #
 # Method: spamSubjectTag
@@ -430,112 +266,78 @@ sub setAutoWhitelist
 #
 sub spamSubjectTag
 {
-	my $self = shift;
-	return $self->getConfString('spam_subject_tag');
-}
-
-#
-# Method: setSpamSubjectTag
-#
-#  Sets the string to add to the subject of a spam message.
-#
-# Parameters:
-#
-#  subject - A string to add.
-#
-sub setSpamSubjectTag
-{
-	my ($self, $subject) = @_;
-	($subject eq $self->spamSubjectTag()) and return;
-	$self->setConfString('spam_subject_tag', $subject);
-}
-
-
-
-sub _checkSpamThreshold
-{
-  my ($self, $threshold) = @_;
-
-  if (not ($threshold =~ m/^\d+\.?\d*$/  )) {
-    throw EBox::Exceptions::InvalidData(data => __('Spam threshold'), value => $threshold, advice => __('It must be a number(decimal point allowed)') );
-  }
-  
-  if ($threshold <= 0) {
-    throw EBox::Exceptions::Internal("The spam threshold must be greter than zero (was $threshold)");
-  }
-
-  if ($self->autolearn()) {
-    if ($threshold > $self->autolearnSpamThreshold) {
-      throw EBox::Exceptions::External(
-	__("The spam's threshold cannot be higher than its autolearn threshold")
-				      );
-    }
-    elsif ($threshold <= $self->autolearnHamThreshold) {
-      throw EBox::Exceptions::External(
-	__("The spam's threshold cannot be lower or equal than its ham's autolearn threshold")
-				      );
-    }
-  }
+    my ($self) = @_;
+    return $self->_confAttr('spamSubjectTag');
 }
 
 sub spamThreshold
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  return $self->getConfString('spam_threshold');
+    return $self->_confAttr('spamThreshold');
 }
-
-
-sub setSpamThreshold
-{
-  my ($self, $newLevel) = @_;
-
-  $self->_checkSpamThreshold($newLevel);
-
-  ($newLevel == $self->spamThreshold) and return;
-
-  $self->setConfString('spam_threshold', $newLevel);
-}
-
-
-
-
 
 sub vdomainSpamThreshold
 {
-  my ($self, $domain) = @_;
-  return $self->_vdomains->spamThreshold($domain);
+    my ($self, $domain) = @_;
+    return $self->_vdomains->spamThreshold($domain);
 }
 
 sub setVDomainSpamThreshold
 {
-  my ($self, $domain, $value) = @_;
+    my ($self, $domain, $value) = @_;
 
-  if ($value ne '') {
-    $self->_checkSpamThreshold($value);
-  }
+    if ($value ne '') {
+        $self->_checkSpamThreshold($value);
+    }
 
-  $self->_vdomains->setSpamThreshold($domain, $value);
+    $self->_vdomains->setSpamThreshold($domain, $value);
+}
+
+
+sub _checkSpamThreshold
+{
+    my ($self, $threshold) = @_;
+
+    if (not ($threshold =~ m/^\d+\.?\d*$/  )) {
+        throw EBox::Exceptions::InvalidData(data => __('Spam threshold'), value => $threshold, advice => __('It must be a number(decimal point allowed)') );
+    }
+  
+    if ($threshold <= 0) {
+        throw EBox::Exceptions::Internal("The spam threshold must be greter than zero (was $threshold)");
+    }
+
+    if ($self->autolearn()) {
+        if ($threshold > $self->autolearnSpamThreshold) {
+            throw EBox::Exceptions::External(
+                                             __("The spam's threshold cannot be higher than its autolearn threshold")
+                                            );
+        } elsif ($threshold <= $self->autolearnHamThreshold) {
+            throw EBox::Exceptions::External(
+                                             __("The spam's threshold cannot be lower or equal than its ham's autolearn threshold")
+                                            );
+        }
+    }
 }
 
 sub dbPath
 {
-  my ($self) = @_;
-  return EBox::Config::home() . '/.spamassassin';
+    my ($self) = @_;
+    return EBox::Config::home() . '/.spamassassin';
 }
 
 
 sub confUser
 {
-  my ($self) = @_;
-  return CONF_USER;
+    my ($self) = @_;
+    return CONF_USER;
 }
 
 
 sub bayesPath
 {
-  my ($self) = @_;
-  return $self->dbPath . '/bayes';
+    my ($self) = @_;
+    return $self->dbPath . '/bayes';
 }
 
 sub learn
@@ -550,9 +352,9 @@ sub learn
   my $saRO   = $eboxRO->modInstance('mailfilter')->antispam();
   if (not $saRO->bayes()) {
     throw EBox::Exceptions::External(__('Cannot learn because bayesian filter is disabled in the' .
-					' current configuration. ' . 
-					'In order to be able to learn enable the bayesian filter and save changes')
-				    );
+                                        ' current configuration. ' . 
+                                        'In order to be able to learn enable the bayesian filter and save changes')
+                                    );
   }
 
 
@@ -583,38 +385,26 @@ sub learn
 
 
 
-# valid sender values :
-#  address@domain
-#  @domain
-sub _checkSender
-{
-  my ($self, $sender) = @_;
 
-  if ($sender =~ m/^@/) {
-    # domain case
-    my ($unused, $domainName,) = split '@', $sender, 2;
-    EBox::Validate::checkDomainName($domainName, __('domain name'));
-  }
-  elsif ($sender =~ m/@/) {
-    # sender addres
-    EBox::Validate::checkEmailAddress($sender, __('email address'));
-  }
-  else {
-    throw EBox::Exceptions::External(
-	 __(q{The sender can be either an email address or a domain name prefixed with '@'})
-				    );
-  }
-
-
-}
-
-
+# Method: whitelist
+#
+#  return the address whitelist. All the mail from the addresses in the
+#  whitelist is considered not spam and none header is added
+#
+#  Returns:
+#      refrence to the white list
 sub whitelist
 {
   my ($self) = @_;
-  $self->getConfList('whitelist');
+  my $acl = EBox::Global->modInstance('mailfilter')->model('AntispamACL');
+  return $acl->whitelist();
 }
 
+
+# Method: whitelistForAmavisConf
+#
+#  Returns:
+#  the whitelist in amavis friendly format
 sub whitelistForAmavisConf
 {
   my ($self) = @_;
@@ -623,7 +413,7 @@ sub whitelistForAmavisConf
 
 
 
-# amavis.conf uses distinct format than ldap to store domain in his acls..
+# amavis.conf uses distinct format than ldap to store domain in his ACLs..
 sub _aclForAmavisConf
 {
   my ($self, $list) = @_;
@@ -639,16 +429,6 @@ sub _aclForAmavisConf
   return \@mangledList;
 }
 
-
-sub setWhitelist
-{
-  my ($self, $whitelist_r) = @_;
-  foreach my $entry (@{ $whitelist_r }) {
-    $self->_checkSender($entry)
-  }
-
-  $self->setConfList('whitelist', 'string', $whitelist_r);
-}
 
 
 
@@ -666,28 +446,30 @@ sub setVDomainWhitelist
   return $self->_vdomains->setWhitelist($vdomain, $senderList_r);
 }
 
+# Method: blacklist
+#
+#  return the address blacklist. All the mail from the addresses in the
+#  blacklist is considered spam
+#
+#  Returns:
+#      refrence to the black list
 sub blacklist
 {
   my ($self) = @_;
-  $self->getConfList('blacklist');
+  my $acl = EBox::Global->modInstance('mailfilter')->model('AntispamACL');
+  return $acl->blacklist();
 }
 
-
+# Method: blacklistForAmavisConf
+#
+#  Returns:
+#  the blacklist in amavis friendly format
 sub blacklistForAmavisConf
 {
   my ($self) = @_;
   return $self->_aclForAmavisConf('blacklist');
 }
 
-sub setBlacklist
-{
-  my ($self, $blacklist_r) = @_;
-  foreach my $entry (@{ $blacklist_r }) {
-    $self->_checkSender($entry)
-  }
-
-  $self->setConfList('blacklist', 'string', $blacklist_r);
-}
 
 
 sub vdomainBlacklist
@@ -728,40 +510,19 @@ sub trustedNetworks
   return \@trustedNetworks
 }
 
-
-
-
-sub setSpamAccountActive
+sub setVDomainSpamAccount
 {
-    my ($self, $active) = @_;
-    my $oldActive = $self->spamAccountActive;
-    ($active and $oldActive) and return;
-    ((not $active) and (not $oldActive)) and return;
-
-    $self->setConfBool('spam_account_active', $active);
+    my ($self, $vdomain, $active) = @_;
+    $self->_vdomains->setSpamAccount($vdomain, $active);
 }
 
-sub spamAccountActive
+sub setVDomainHamAccount
 {
-    my ($self) = @_;
-    return $self->getConfBool('spam_account_active');
+    my ($self, $vdomain, $active) = @_;
+    $self->_vdomains->setHamAccount($vdomain, $active);
 }
 
-sub setHamAccountActive
-{
-    my ($self, $active) = @_;
-    my $oldActive = $self->hamAccountActive;
-    ($active and $oldActive) and return;
-    ((not $active) and (not $oldActive)) and return;
 
-    $self->setConfBool('ham_account_active', $active);
-}
-
-sub hamAccountActive
-{
-    my ($self) = @_;
-    return $self->getConfBool('ham_account_active');
-}
 
 
 1;

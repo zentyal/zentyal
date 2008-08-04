@@ -19,13 +19,15 @@ use strict;
 use warnings;
 
 use base (
-	  'EBox::GConfModule', 
-	  'EBox::VDomainModule',
-	  'EBox::LdapModule',
-	  'EBox::Mail::FilterProvider', 
-	  'EBox::FirewallObserver',
+          'EBox::GConfModule', 
+          'EBox::VDomainModule',
+          'EBox::LdapModule',
+          'EBox::Mail::FilterProvider', 
+          'EBox::FirewallObserver',
           'EBox::ServiceModule::ServiceInterface',
-	 );
+          'EBox::Model::ModelProvider',
+          'EBox::Model::CompositeProvider',
+         );
 
 use Perl6::Junction qw(all any);
 
@@ -37,7 +39,6 @@ use EBox::Summary::Status;
 use EBox::Exceptions::InvalidData;
 use EBox::MailFilter::ClamAV;
 use EBox::MailFilter::SpamAssassin;
-use EBox::MailFilter::FileFilter;
 use EBox::MailFilter::FirewallHelper;
 use EBox::MailVDomainsLdap;
 use EBox::Validate;
@@ -47,11 +48,11 @@ use EBox::Global;
 use constant {
   AMAVIS_SERVICE                 => 'ebox.amavisd-new',
   AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
-  AMAVISPIDFILE			=> '/var/run/amavis/amavisd.pid',
-  AMAVIS_INIT			=> '/etc/init.d/amavis',
+  AMAVISPIDFILE                 => '/var/run/amavis/amavisd.pid',
+  AMAVIS_INIT                   => '/etc/init.d/amavis',
 
-  SA_INIT			=> '/etc/init.d/spamassassin',
-  SAPIDFILE			=> '/var/run/spamd.pid',
+  SA_INIT                       => '/etc/init.d/spamassassin',
+  SAPIDFILE                     => '/var/run/spamd.pid',
 
   MAILFILTER_NAME => 'mailfilter', # name used to identify the filter
                                    # which this modules provides
@@ -65,67 +66,66 @@ use constant {
 #
 sub _create 
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'mailfilter');
-	bless($self, $class);
-
-	$self->{antivirus} = new EBox::MailFilter::ClamAV('clamav', $self);
-	$self->{antispam}  = new EBox::MailFilter::SpamAssassin('spamassassin', $self);
-       $self->{fileFilter} = new EBox::MailFilter::FileFilter('file_filter', $self);
-
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'mailfilter');
+    bless($self, $class);
+    
+    $self->{antivirus} = new EBox::MailFilter::ClamAV();
+    $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
+    
+    return $self;
 }
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::ServiceModule::ServiceInterface::actions
 #
 sub actions
 {
-  return [ 
-	  {
-	   'action' => __('Add clamav user to amavis group'),
-	   'reason' => __('Clamav need access to amavis fields to properly scan mail'),
-	   'module' => 'mailfilter',
-	  },
-	  {
-	   'action' => __('Update LDAP'),
-	   'reason' => __('Add amavis specific classes and fields'),
-	   'module' => 'mailfilter',
-	  },
-	 ]
+    return [ 
+            {
+             'action' => __('Add clamav user to amavis group'),
+             'reason' => __('Clamav need access to amavis fields to properly scan mail'),
+             'module' => 'mailfilter',
+            },
+            {
+             'action' => __('Update LDAP'),
+             'reason' => __('Add amavis specific classes and fields'),
+             'module' => 'mailfilter',
+            },
+           ]
 }
 
 
 # Method: usedFiles 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::files
+#       Override EBox::ServiceModule::ServiceInterface::files
 #
 sub usedFiles 
 {
-  my @usedFiles = (
-		   {	
-		    'file' =>   AMAVIS_CONF_FILE,
-		    'reason' => __('To configure amavis'),
-		    'module' => 'mailfilter'
-            },
-            {
-            'file' => '/etc/ldap/slapd.conf',
+    my @usedFiles = (
+                     {    
+                      'file' =>   AMAVIS_CONF_FILE,
+                      'reason' => __('To configure amavis'),
+                      'module' => 'mailfilter'
+                     },
+                     {
+                      'file' => '/etc/ldap/slapd.conf',
             'reason' => __('To add the LDAP schemas used by eBox mailfilter'),
-            'module' => 'users'
-            }
-          );
+                      'module' => 'users'
+                     }
+                    );
+    
+    push @usedFiles, EBox::MailFilter::ClamAV::usedFiles();
+    push @usedFiles, EBox::MailFilter::SpamAssassin::usedFiles();
+    
 
-  push @usedFiles, EBox::MailFilter::ClamAV::usedFiles();
-  push @usedFiles, EBox::MailFilter::SpamAssassin::usedFiles();
-
-
-   return \@usedFiles;
+    return \@usedFiles;
 }
 
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::ServiceModule::ServiceInterface::enableActions
 #
 sub enableActions
 {
@@ -138,7 +138,7 @@ sub enableActions
 #
 sub serviceModuleName
 {
-	return 'mailfilter';
+    return 'mailfilter';
 }
 
 #  Method: enableModDepends
@@ -154,13 +154,65 @@ sub enableModDepends
 
     my $mail = EBox::Global->modInstance('mail');
     if ($mail) {
-	if (not $mail->configured()) {
-	    push @depends, 'mail';
-	}
+        if (not $mail->configured()) {
+            push @depends, 'mail';
+        }
     }
 
 
     return \@depends;;
+}
+
+
+# Method: modelClasses
+#
+# Overrides:
+#
+#    <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    return [
+            'EBox::MailFilter::Model::General',
+
+            'EBox::MailFilter::Model::ExternalMTA',
+            'EBox::MailFilter::Model::ExternalDomain',
+
+            'EBox::MailFilter::Model::BannedFilesPolicy',            
+            'EBox::MailFilter::Model::FileExtensionACL',
+            'EBox::MailFilter::Model::MIMETypeACL',
+            'EBox::MailFilter::Model::BadHeadersPolicy',
+            
+            'EBox::MailFilter::Model::AntivirusConfiguration',
+            'EBox::MailFilter::Model::FreshclamStatus',       
+     
+            'EBox::MailFilter::Model::AntispamConfiguration',
+            'EBox::MailFilter::Model::AntispamACL',
+            'EBox::MailFilter::Model::AntispamTraining',
+
+            'EBox::MailFilter::Model::VDomains',
+           ];
+}
+
+
+# Method: compositeClasses
+#
+# Overrides:
+#
+#    <EBox::Model::CompositeProvider::compositeClasses>
+#
+sub compositeClasses
+{
+    return [
+            'EBox::MailFilter::Composite::Index',
+            'EBox::MailFilter::Composite::GeneralAndBadHeader',
+            'EBox::MailFilter::Composite::ExternalConnections',
+
+            'EBox::MailFilter::Composite::FileFilter',
+
+            'EBox::MailFilter::Composite::Antivirus',
+            'EBox::MailFilter::Composite::Antispam',
+           ];
 }
 
 
@@ -172,8 +224,8 @@ sub enableModDepends
 #   - the antivirus object. This a instance of EBox::MailFilter::ClamAV
 sub antivirus
 {
-  my ($self) = @_;
-  return $self->{antivirus};
+    my ($self) = @_;
+    return $self->{antivirus};
 }
 
 #
@@ -183,38 +235,36 @@ sub antivirus
 #   - the antispam object. This a instance of EBox::MailFilter::SpamAssassin
 sub antispam
 {
-  my ($self) = @_;
-  return $self->{antispam};
+    my ($self) = @_;
+    return $self->{antispam};
 }
 
 
-#
-# Method: fileFilter
-#
-# Returns:
-#   - the file filter object. This a instance of EBox::MailFilter::FileFilter
-sub fileFilter
-{
-  my ($self) = @_;
-  return $self->{fileFilter};
-}
+
 
 #
 # Method: _regenConfig
 #
 sub _regenConfig
 {
-  my ($self) = @_;
-  my $service = $self->service();
+    my ($self) = @_;
+    my $service = $self->service();
+
+    if ($service) {
+        $self->antivirus()->writeConf($service);
+        $self->antispam()->writeConf();
+        $self->_writeAmavisConf();
+
+        my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
+        $vdomainsLdap->regenConfig();
+    }
+    
+    $self->antivirus()->doDaemon($service);
+    $self->antispam()->doDaemon($service);
 
 
-  $self->antivirus()->writeConf($service);
-  $self->antispam()->writeConf();
-  $self->_writeAmavisConf();
 
-  $self->antivirus()->doDaemon($service);
-  $self->antispam()->doDaemon($service);
-  $self->_doDaemon();
+    $self->_doDaemon();
 }
 
 
@@ -223,47 +273,57 @@ sub _regenConfig
 
 sub _writeAmavisConf
 {
-  my ($self) = @_;
+    my ($self) = @_;
+    
+    my @masonParams;
+    
+    push @masonParams, ( myhostname => $self->_fqdn());
+    push @masonParams, ( mydomain => $self->_domain());
+    push @masonParams, ( localDomains => $self->_localDomains());
+    
+    push @masonParams, (port => $self->port);
+    
+    push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-  my @masonParams;
+    push @masonParams, ( ldapBase         =>  EBox::Ldap->dn );
+    push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
+    push @masonParams, ( ldapBindDn       =>  EBox::Ldap->rootDn );
+    push @masonParams, ( ldapBindPasswd   =>  EBox::Ldap->rootPw );
+    
+    push @masonParams, ( antivirusActive  => $self->antivirus->service());
+    push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
+    push @masonParams, ( clamdSocket     => $self->antivirus()->localSocket());
+    
+    push @masonParams, ( antispamActive     => $self->antispam->service());
+    push @masonParams, ( spamThreshold => $self->antispam()->spamThreshold());
+    push @masonParams, ( spamDetectedSubject => $self->antispam()->spamSubjectTag());
+    push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
+    push @masonParams, 
+        ( antispamWhitelist  => $self->antispam->whitelistForAmavisConf());
+    push @masonParams, 
+        ( antispamBlacklist  => $self->antispam->blacklistForAmavisConf());
 
-  push @masonParams, ( myhostname => $self->_fqdn());
-  push @masonParams, ( mydomain => $self->_domain());
-  push @masonParams, ( localDomains => $self->_localDomains());
+    push @masonParams, ( bannedPolicy      => $self->filterPolicy('banned'));
+    push @masonParams, ( bannedFileTypes   => $self->bannedFilesRegexes);
 
-  push @masonParams, (port => $self->port);
+    push @masonParams, ( bheadPolicy      => $self->filterPolicy('bhead'));
 
-  push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
+    push @masonParams, (adminAddress => $self->adminAddress);
 
-  push @masonParams, ( ldapBase         =>  EBox::Ldap->dn );
-  push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-  push @masonParams, ( ldapBindDn       =>  EBox::Ldap->rootDn );
-  push @masonParams, ( ldapBindPasswd   =>  EBox::Ldap->rootPw );
-
-  push @masonParams, ( antivirusActive  => $self->antivirus->service());
-  push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
-  push @masonParams, ( clamdSocket     => $self->antivirus()->localSocket());
-
-  push @masonParams, ( antispamActive     => $self->antispam->service());
-  push @masonParams, ( spamThreshold => $self->antispam()->spamThreshold());
-  push @masonParams, ( spamDetectedSubject => $self->antispam()->spamSubjectTag());
-  push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
-  push @masonParams, 
-    ( antispamWhitelist  => $self->antispam->whitelistForAmavisConf());
-  push @masonParams, 
-    ( antispamBlacklist  => $self->antispam->blacklistForAmavisConf());
-
-  push @masonParams, ( bannedPolicy      => $self->filterPolicy('banned'));
-  push @masonParams, ( bannedFileTypes   => $self->fileFilter->bannedFilesRegexes);
-
-  push @masonParams, ( bheadPolicy      => $self->filterPolicy('bhead'));
-
-  push @masonParams, (adminAddress => $self->adminAddress);
-
-  push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
+    push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
 
 
-  $self->writeConfFile(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams);
+    my $uid = getpwnam('amavis');
+    my $gid = getgrnam('amavis');
+
+
+    my $fileAttrs = {
+                     mode => '0640',
+                     uid   => $uid,
+                     gid   => $gid,
+                    };
+
+    $self->writeConfFile(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
 }
 
 
@@ -272,41 +332,42 @@ sub _writeAmavisConf
 
 sub _domain
 {
-  my $domain = `hostname --domain`;
+    my $domain = `hostname --domain`;
 
-  if ($? != 0) {
-    throw EBox::Exceptions::Internal('eBox was unable to get the omain for his host/' .
-	'Please, check than your resolver and /etc/hosts file are propely configured.'
-				    )
-  }
+    if ($? != 0) {
+        throw EBox::Exceptions::Internal('eBox was unable to get the omain for his host/' .
+                                         'Please, check than your resolver and /etc/hosts file are propely configured.'
+                                        )
+    }
 
-  chomp $domain;
-  return $domain;
+    chomp $domain;
+    return $domain;
 }
 
 sub _fqdn
 {
-  my $fqdn = `hostname --fqdn`;
+    my $fqdn = `hostname --fqdn`;
 
-  if ($? != 0) {
-    throw EBox::Exceptions::Internal('eBox was unable to get the full qualified domain name (FQDN) for his host/' .
-	'Please, check than your resolver and /etc/hosts file are propely configured.'
-				    )
-  }
+    if ($? != 0) {
+        throw EBox::Exceptions::Internal(
+   'eBox was unable to get the full qualified domain name (FQDN) for his host/' .
+  'Please, check than your resolver and /etc/hosts file are propely configured.'
+                                        )
+    }
 
-  chomp $fqdn;
-  return $fqdn;
+    chomp $fqdn;
+    return $fqdn;
 }
 
 
 sub _localDomains
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my @vdomains =   EBox::MailVDomainsLdap->new->vdomains();
-  push @vdomains, @{ $self->externalDomains() };
-
-  return [@vdomains];
+    my @vdomains =   EBox::MailVDomainsLdap->new->vdomains();
+    push @vdomains, @{ $self->externalDomains() };
+    
+    return [@vdomains];
 }
 
 #
@@ -320,19 +381,28 @@ sub _localDomains
 #
 sub isRunning
 {
-  my ($self) = @_;
-  
-  return 1 if $self->_amavisdIsRunning();
-  return 1 if  $self->antivirus->isRunning;
-  
-  return 0;
+    my ($self) = @_;
+    
+
+    if ($self->antivirus->service() and not $self->antivirus->isRunning) {
+        return 0;
+    }
+
+    if ($self->antispam->service() and not $self->antispam->isRunning) {
+        return 0;
+    }
+
+
+    return 1 if $self->_amavisdIsRunning();
+    
+    return 0;
 }
 
 
 sub _amavisdIsRunning
 {
-  my ($self) = @_;
-  return EBox::Service::running(AMAVIS_SERVICE);
+    my ($self) = @_;
+    return EBox::Service::running(AMAVIS_SERVICE);
 }
 
 #
@@ -346,8 +416,8 @@ sub _amavisdIsRunning
 #
 sub service
 {
-  my ($self) = @_;
-  return $self->isEnabled();
+    my ($self) = @_;
+    return $self->isEnabled();
 }
 
 
@@ -355,18 +425,18 @@ sub service
 
 sub _assureFilterNotInUse
 {
-  my ($self) = @_;
-
-  my $mail = EBox::Global->modInstance('mail');
-
-  $mail->service('filter') or
-    return;
-
-  my $filterInUse = $mail->externalFilter();
-  if ($filterInUse eq MAILFILTER_NAME) {
-    throw EBox::Exceptions::External(
-	  __('Cannot proceed because the filter is in use'),
-				    );
+    my ($self) = @_;
+    
+    my $mail = EBox::Global->modInstance('mail');
+    
+    $mail->service('filter') or
+        return;
+    
+    my $filterInUse = $mail->externalFilter();
+    if ($filterInUse eq MAILFILTER_NAME) {
+        throw EBox::Exceptions::External(
+                                         __('Cannot proceed because the filter is in use'),
+                                        );
   }
 
 }
@@ -378,7 +448,7 @@ sub _assureFilterNotInUse
 #  state and the state stored in gconf
 #
 sub _doDaemon
-  {
+{
     my $self = shift;
 
     if ($self->service() and $self->isRunning()) {
@@ -400,13 +470,13 @@ sub _doDaemon
 #
 sub _stopService
 {
-	my $self = shift;
-	if ($self->isRunning('active')) {
-	  $self->antispam()->stopService();
-	  $self->antivirus()->stopService();
-
-	  EBox::Service::manage(AMAVIS_SERVICE, 'stop');
-	}
+    my $self = shift;
+    if ($self->isRunning('active')) {
+        $self->antispam()->stopService();
+        $self->antivirus()->stopService();
+        
+        EBox::Service::manage(AMAVIS_SERVICE, 'stop');
+    }
 }
 
 
@@ -421,41 +491,12 @@ sub _stopService
 #
 sub port
 {
-  my ($self) = @_;
-  return $self->get_int('port');
+    my ($self) = @_;
+    my $generalModel = $self->model('General');
+    return $generalModel->port();
 }
 
 #
-# Method: setPort
-#
-#  set the filter's port
-#
-# Parameters
-#  port - the new filter's port
-#
-sub setPort
-{
-  my ($self, $port) = @_;
-  $port ne $self->port or return;
-
-  EBox::Validate::checkPort($port, __(q{Mailfilter's port}));
-
-  my $global  = EBox::Global->getInstance();
-  my @mods = grep {  $_->can('usesPort') } @{ $global->modInstances  };
-  foreach my $mod (@mods) {
-    if ($mod->usesPort('tcp', $port)) {
-      throw EBox::Exceptions::External(
-				       __x('The port {port} is already used by module {mod}',
-					   port => $port,
-					   mod  => $mod->name,
-					  )
-				      );
-    }
-  }
-
-
-  $self->set_int('port', $port);
-}
 
 
 #
@@ -466,13 +507,13 @@ sub setPort
 #
 sub fwport
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  # if $relayhost_is_client is true,
-  #  The static port number is also overridden, and is dynamically 
-  # calculated  as being one above the incoming SMTP/LMTP session port number.
-  my $fwport = $self->port() + 1;
-  return $fwport;
+    # if $relayhost_is_client is true,
+    #  The static port number is also overridden, and is dynamically 
+    # calculated  as being one above the incoming SMTP/LMTP session port number.
+    my $fwport = $self->port() + 1;
+    return $fwport;
 }
 
 
@@ -485,161 +526,52 @@ sub fwport
 #   the MTAs list as a list reference
 sub allowedExternalMTAs
 {
-  my ($self) = @_;
-  return $self->get_list('allowed_external_mtas');
-}
-
-# Method : setAllowedExternalMTAs
-#
-#  set the list of external MTA's addresses which are allowed to connect to the
-#  filter.
-#
-#  Parameters:
-#   mtasList - a reference to the list of addresses of allowed external MTAs
-sub setAllowedExternalMTAs
-{
-  my ($self, $mtasList) = @_;
-
-  foreach my $mta (@{ $mtasList }) {
-    EBox::Validate::checkHost($mta, __("MTA's address"));
-
-    # check that mta sin't internal
-    my $internal;
-    if ( $mta =~ m/^[\d.]+$/ ) {
-      $internal =  EBox::Validate::isIPInNetwork('127.0.0.0', '255.0.0.0', $mta);
-    } else {
-      $internal = $mta eq 'localhost';
-    }
-
-    if ($internal) {
-      throw EBox::Exceptions::External(
-				       __x('Invalid external MTA {mta}. Local network addresses are not allowed', mta => $mta)
-				      );
-    }
-  }
-
-  $self->set_list('allowed_external_mtas', 'string', $mtasList);
-  # set firewall as changed bz this may change firewall rules
-  my $firewall = EBox::Global->modInstance('firewall');
-  $firewall->setAsChanged();
+    my ($self) = @_;
+    my $externalMTA = $self->model('ExternalMTA');
+    return $externalMTA->allowed();
 }
 
 
 
-# Method : addAllowedExternalMTA
-#
-#  add a MTA  to the list of the MTA's which are allowed to connect to
-#  the 
-#  filter.
-#
-#  Parameters:
-#   mta - the IP address or the hostname of the MTA to be added
-sub addAllowedExternalMTA
-{
-  my ($self, $mta) = @_;
 
-  my @mtas = @{ $self->get_list('allowed_external_mtas') };
-  if ($mta eq any @mtas) {
-    throw EBox::Exceptions::External(
-       __x('{mta} is already allowed', mta => $mta )
-				    );
-  }
-
-  unshift @mtas, $mta;
-  $self->setAllowedExternalMTAs(\@mtas);
-		
-}
-
-# Method : removeAllowedExternalMTA
-#
-#  remove a MTA's  from the list of the MTA's which are allowed to connect to
-#  the 
-#  filter.
-#
-#  Parameters:
-#   mta - the IP address or the hostname of the MTA to be removed
-sub removeAllowedExternalMTA
-{
-  my ($self, $mta) = @_;
-
-  my @mtas = @{ $self->get_list('allowed_external_mtas') };
-  my @mtasWithoutRemoved = grep { $_ ne $mta } @mtas;
-  if (@mtas == @mtasWithoutRemoved) {
-    throw EBox::Exceptions::External(
-	     __x('{mta} not found', mta => $mta)
-				    );
-  }
-
-  $self->setAllowedExternalMTAs(\@mtasWithoutRemoved);
-}
 
 
 sub externalDomains
 {
-  my ($self) = @_;
-  return $self->get_list('external_domains');
+    my ($self) = @_;
+    my $externalDomain = $self->model('ExternalDomain');
+    return $externalDomain->allowed();
 }
 
 
-sub addExternalDomain
-{
-  my ($self, $domain) = @_;
-
-  EBox::Validate::checkDomainName($domain , __('Mail domain'));
-
-  my @domains = @{  $self->externalDomains };
-  if ($domain eq any @domains) {
-    throw EBox::Exceptions::External (
-	    __x('{domain} is already acknowledged as external mail domain',
-		domain => $domain,
-	       )
-				     );
-  }
-
-  push @domains, $domain;
-
-  $self->set_list('external_domains', 'string', \@domains);
-}
-
-sub removeExternalDomain
-{
-  my ($self, $domain) = @_;
-
-  my @domains = @{  $self->externalDomains };
-  my @domainsWithoutRemoved = grep {  $_ ne $domain } @domains;
-
-  if (@domains == @domainsWithoutRemoved) {
-    throw EBox::Exceptions::External(
-	     __x('Domain {domain} was not acknowledged as external mail domain',
-		 domain => $domain,
-		)
-				    );
-  }
-
-  $self->set_list('external_domains', 'string', \@domainsWithoutRemoved);
-}
 
 
 
 sub adminAddress
 {
-  my ($self) = @_;
-  return $self->get_string('admin_address');
+    my ($self) = @_;
+    my $general = $self->model('General');
+    return $general->notificationAddress();
 }
 
 
-sub setAdminAddress
+
+sub bannedFilesRegexes
 {
-  my ($self, $address) = @_;
+  my ($self) = @_;
 
-  if (defined $address) {
-    EBox::Validate::checkEmailAddress($address, __('Administrator address'));
-    $self->set_string('admin_address', $address);
-  }
-  else {  # removal 
-    $self->unset('admin_address');
-  }
 
+
+  my @bannedRegexes;
+
+  my $extensionACL = $self->model('FileExtensionACL');
+  push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
+
+  
+  my $mimeACL = $self->model('MIMETypeACL');
+  push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
+
+  return \@bannedRegexes;
 }
 
 
@@ -648,14 +580,14 @@ sub setAdminAddress
 #
 #  Returns the policy of a filter type passed as parameter. The filter type
 #  could be:
-#  	- virus: Virus filter.
-#  	- spam: Spam filter.
-#  	- bhead: Bad headers checks.
-#  	- banned: Banned names and types checks.
+#       - virus: Virus filter.
+#       - spam: Spam filter.
+#       - bhead: Bad headers checks.
+#       - banned: Banned names and types checks.
 #  And the policy:
-#  	- D_PASS
-#	- D_REJECT
-#  	- D_BOUNCE
+#       - D_PASS
+#       - D_REJECT
+#       - D_BOUNCE
 #       - D_DISCARD
 #
 # Parameters:
@@ -667,63 +599,27 @@ sub setAdminAddress
 #  string - The string with the policy established to the filter type.
 #
 sub filterPolicy
-  {
+{
     my ($self, $ftype) = @_;
-    my $ftypeKey = $self->_ftypePolicyKey($ftype);
-
-    my $policy =  $self->get_string($ftypeKey);
-    $policy or throw EBox::Exceptions::Internal("No filter policy set for $ftype");
-
-    return $policy;
-  }
-
-#
-# Method: setFilterPolicy
-#
-#  Sets the policy to a filter type. (see filterPolicy method to filter types
-#  and policies details.)
-#
-# Parameters:
-#
-#  ftype - A string with the filter type.
-#  policy - A string with the policy.
-#
-sub setFilterPolicy
-  {
-    my ($self, $ftype, $policy) = @_;
-
-    my @policies = ('D_PASS', 'D_REJECT', 'D_BOUNCE', 'D_DISCARD');
-    if (not ($policy eq any @policies)) {
-      throw EBox::Exceptions::InvalidData(
-					  'data'  => __('policy type'),
-					  'value' => $policy
-					 );
+    
+    my $modelName;
+    if ($ftype eq 'banned') {
+        $modelName = 'BannedFilesPolicy';
+    }
+    elsif ($ftype eq 'bhead') {
+        $modelName = 'BadHeadersPolicy';
+    }
+    elsif ($ftype eq 'virus') {
+        $modelName = 'AntivirusConfiguration';
+    }
+    elsif ($ftype eq 'spam') {
+        $modelName = 'AntispamConfiguration';
     }
 
-    ($policy eq $self->filterPolicy($ftype)) and return;
 
-    my $ftypeKey = $self->_ftypePolicyKey($ftype);
-    $self->set_string($ftypeKey, $policy);
+    my $model = $self->model($modelName);
+    return $model->policy();
 }
-
-sub _ftypePolicyKey
-{
-  my ($self, $ftype) = @_;
-
-  my @ftypes = ('virus', 'spam', 'bhead', 'banned');
-  
-  if (not ($ftype eq any @ftypes)) {
-    throw EBox::Exceptions::InvalidData(
-					'data'  => __('filter type'),
-					'value' => $ftype
-				       );
-  }
-
-  return $ftype . '_policy';
-}
-
-
-
 
 ## firewall method
 sub usesPort
@@ -761,12 +657,12 @@ sub firewallHelper
 
   my $externalMTAs = $self->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
-			      active          => $self->service,
-			      antivirusActive => $self->antivirus->service,
-			      port            => $self->port,
-			      fwport          => $self->fwport,
-			      externalMTAs    => $externalMTAs,
-					     );
+                              active          => $self->service,
+                              antivirusActive => $self->antivirus->service,
+                              port            => $self->port,
+                              fwport          => $self->fwport,
+                              externalMTAs    => $externalMTAs,
+                                             );
 }
 
 
@@ -775,36 +671,36 @@ sub firewallHelper
 #
 # Method: statusSummary
 #
-#	Returns an EBox::Summary::Status to add to the services section of the
-#	summary page. This class contains information about the state of the
-#	module.
+#       Returns an EBox::Summary::Status to add to the services section of the
+#       summary page. This class contains information about the state of the
+#       module.
 #
 # Returns:
 #
-#	EBox::Summary::Status instance.
+#       EBox::Summary::Status instance.
 #
 sub statusSummary
 {
-	my $self = shift;
-	return new EBox::Summary::Status('mailfilter', __('Mail filter system'),
-		$self->isRunning(), $self->service());
+        my $self = shift;
+        return new EBox::Summary::Status('mailfilter', __('Mail filter system'),
+                $self->isRunning(), $self->service());
 }
 
 #
 # Method: mailMenuItem
 #
-#	 Reimplements the method found in EBox::Mail::FilterProvider
+#        Reimplements the method found in EBox::Mail::FilterProvider
 # 
 sub mailMenuItem
 {
-	my ($self) = @_;
+        my ($self) = @_;
 
-	my $menuItem = new EBox::Menu::Item(
-					    url   => 'MailFilter/Index',
-					    text => __('Mail filter settings')
-					   );
+        my $menuItem = new EBox::Menu::Item(
+                                            url   => 'MailFilter/Composite/Index',
+                                            text => __('Mail filter settings')
+                                           );
 
-	return $menuItem;
+        return $menuItem;
 }
 
 
@@ -820,9 +716,9 @@ sub mailMenuItem
 #  An object implementing EBox::LdapUserBase
 sub _ldapModImplementation
 {
-	my $self = shift;
+        my $self = shift;
 
-	return new EBox::MailFilter::VDomainsLdap();
+        return new EBox::MailFilter::VDomainsLdap();
 }
 
 # Method: _vdomainModImplementation
@@ -837,9 +733,9 @@ sub _ldapModImplementation
 
 sub _vdomainModImplementation
 {
-	my $self = shift;
+        my $self = shift;
 
-	return new EBox::MailFilter::VDomainsLdap();
+        return new EBox::MailFilter::VDomainsLdap();
 }
 
    
@@ -857,13 +753,13 @@ sub mailFilter
   my $name       = $self->mailFilterName;
   my $active     = $self->service ? 1 : 0;
   my %properties = (
-		     address     => '127.0.0.1',
-		     port        => $self->port(),
-		     forwardPort => $self->fwport,
-		     prettyName  => __('eBox internal mail filter'),
-		     module      => $self->name,
-		     active      => $active,
-		    );
+                     address     => '127.0.0.1',
+                     port        => $self->port(),
+                     forwardPort => $self->fwport,
+                     prettyName  => __('eBox internal mail filter'),
+                     module      => $self->name,
+                     active      => $active,
+                    );
 
   
   return ($name, \%properties);
@@ -879,22 +775,22 @@ sub mailFilterSummary
 
 
   my $antivirus = new EBox::Summary::Status(
-					    'idle_parameter', 
-					    __('Antivirus'),
-					    $self->antivirus->isRunning(), 
-					    $self->antivirus-> service(),
-					    1, # no button
-					   );
+                                            'idle_parameter', 
+                                            __('Antivirus'),
+                                            $self->antivirus->isRunning(), 
+                                            $self->antivirus-> service(),
+                                            1, # no button
+                                           );
 
   $section->add($antivirus);
 
   my $antispam = new EBox::Summary::Status(
-					    'idle_parameter', 
-					    __('Antispam'),
-					    $self->antispam->isRunning(), 
-					    $self->antispam-> service(),
-					    1, # no button
-					   );
+                                            'idle_parameter', 
+                                            __('Antispam'),
+                                            $self->antispam->isRunning(), 
+                                            $self->antispam-> service(),
+                                            1, # no button
+                                           );
 
   $section->add($antispam);
   

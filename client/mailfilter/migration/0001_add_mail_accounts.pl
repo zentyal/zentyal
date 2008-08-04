@@ -34,10 +34,10 @@ sub runGConf
 EBox::init();
 my $mailfilter = EBox::Global->modInstance('mailfilter');
 my $migration = new EBox::Migration( 
-				     'gconfmodule' => $mailfilter,
-				     'version' => 1
-				    );
-$migration->execute();				     
+                                     'gconfmodule' => $mailfilter,
+                                     'version' => 1
+                                    );
+$migration->execute();          		     
 
 
 1;

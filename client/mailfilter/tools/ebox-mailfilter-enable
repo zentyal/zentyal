@@ -1,5 +1,10 @@
 #!/bin/bash 
 
+# stop services
+SERVICES="amavis clamav-daemon clamav-freshclam spamassassin"
+for SERVICE in $SERVICES; do
+    invoke-rc.d  $SERVICE stop || true
+done
 
 # move out old amavis conf files
 mv /etc/amavis/conf.d /etc/amavis/conf.d.old
@@ -18,8 +23,7 @@ cp /usr/share/ebox-mailfilter/*.schema /etc/ldap/schema
 /etc/init.d/slapd restart
 /usr/share/ebox-mailfilter/ebox-mailfilter-ldap update
 
-# populate file filter
-/usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update
+
 
 exit 0;
 

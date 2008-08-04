@@ -15,78 +15,77 @@ EBox::init();
 
 sub update
 {
+    my $users =  EBox::Global->modInstance('users');
 
-  my $users =  EBox::Global->modInstance('users');
-  
-
-  my @controlUsers = (
-		      {
-		       user => 'spam',
-		       fullname => 'Spam account',
-		       password => '',
-		      },
-		      {
-		       user => 'ham',
-		       fullname => 'Ham account',
-		       password => '',
-		      },
-		     );
-
-
-  foreach my $user_r (@controlUsers) {
-      my $username = $user_r->{user};
-      if (not $users->userExists($username)) {
-	  $users->addUser($user_r, 1);
-      }
-      else {
-	  my $userInfo = $users->userInfo($username);
-	  my $uid      = $userInfo->{uid};
-	  if ($uid > $users->lastUid(1)) {
-	      die "$username is not a system user as it has to be";
-	  }
-      }
-  }
-
-
-  my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
-  my @vdomains = _vdomains();
-  foreach my $vdomain (@vdomains) {
-    $vdomainMailfilter->_addVDomain($vdomain);
-  }
+    my @controlUsers = (
+                        {
+                         user => 'spam',
+                         fullname => 'Spam account',
+                         password => '',
+                        },
+                        {
+                         user => 'ham',
+                         fullname => 'Ham account',
+                         password => '',
+                        },
+                     );
+    
+    
+    foreach my $user_r (@controlUsers) {
+        my $username = $user_r->{user};
+        if (not $users->userExists($username)) {
+            $users->addUser($user_r, 1);
+        }
+        else {
+            my $userInfo = $users->userInfo($username);
+            my $uid      = $userInfo->{uid};
+            if ($uid > $users->lastUid(1)) {
+                die "$username is not a system user as it has to be";
+            }
+        }
+    }
+    
+    
+    my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
+    my @vdomains = _vdomains();
+    foreach my $vdomain (@vdomains) {
+        $vdomainMailfilter->_addVDomain($vdomain);
+    }
 }
 
 
 sub clean
 {
-  my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
-  my @vdomains = _vdomains();
-  foreach my $vdomain (@vdomains) {
-    $vdomainMailfilter->_delVDomain($vdomain);
-  }
+    my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
+    my @vdomains = _vdomains();
+    foreach my $vdomain (@vdomains) {
+        $vdomainMailfilter->_delVDomain($vdomain);
+    }
 }
 
 
 sub _vdomains
 {
-  my $vdomainMail       = new EBox::MailVDomainsLdap;
-  return $vdomainMail->vdomains();
+    my $vdomainMail       = new EBox::MailVDomainsLdap;
+    return $vdomainMail->vdomains();
 }
 
-sub usage {
-	print "Usage: $0 update | clean\n";
-	exit 1;
+sub usage 
+{
+    print "Usage: $0 update | clean\n";
+    exit 1;
 }
 
 unless ($#ARGV == 0) {
-	usage();
+    usage();
 }
 
 if ($ARGV[0] eq 'update') {
-	update();
+    update();
 } elsif ($ARGV[0] eq 'clean') {
-	clean();
+    clean();
 } else {
-	usage();
+    usage();
 }
 
 1;

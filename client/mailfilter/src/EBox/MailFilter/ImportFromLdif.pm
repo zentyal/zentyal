@@ -27,12 +27,12 @@ use EBox::MailFilter::VDomainsLdap;
 sub classesToProcess
 {
     return [
-	    { class => 'amavisAccount',    priority => 25 },
-	    { class => 'vdmailfilter',     priority => 30 },
-	   ];
+            { class => 'amavisAccount',    priority => 25 },
+            { class => 'vdmailfilter',     priority => 30 },
+           ];
 }
 
-
+# XXX TODO: borrar todas las entradas anteriores en el modelo VDomains
 
 sub processVdmailfilter
 {
@@ -42,45 +42,65 @@ sub processVdmailfilter
 }
 
 
+
+sub startupAmavisAccount
+{
+    my $vdomainsConfiguration =  
+        EBox::Global->modInstance('mailfilter')->model('VDomains');
+    $vdomainsConfiguration->removeAll();
+}
+
 sub processAmavisAccount
 {
     my ($package, $entry) = @_;
 
     my $vdomain = $entry->get_value('dc');
 
-    my $vdomainsLdap =  EBox::MailFilter::VDomainsLdap->new();
+    my $vdomainsConfiguration =  
+        EBox::Global->modInstance('mailfilter')->model('VDomains');
+    my $vdRow = $vdomainsConfiguration->vdomainRow($vdomain);
+
 
     my $amavisBypassSpamChecks = $entry->get_value('amavisBypassSpamChecks');
     if (defined $amavisBypassSpamChecks) {
-	my $active = $amavisBypassSpamChecks ? 0 : 1;
-	$vdomainsLdap->setAntispam($vdomain, $active);
+        my $active = $amavisBypassSpamChecks ? 0 : 1;
+        $vdRow->elementByName('antispam')->setValue($active);
     }
 
     my $amavisBypassVirusChecks = $entry->get_value('amavisBypassVirusChecks');
     if (defined $amavisBypassVirusChecks) {
-	my $active = $amavisBypassVirusChecks ? 0 : 1;
-	$vdomainsLdap->setAntivirus($vdomain, $active);
+        my $active = $amavisBypassVirusChecks ? 0 : 1;
+        $vdRow->elementByName('antivirus')->setValue($active);
     }
 
 
 
-    my $amavisSpamTag2Level = $entry->get_value('amavisSpamTag2Level');
-    if (defined $amavisSpamTag2Level) {
-	$vdomainsLdap->setSpamThreshold($vdomain, $amavisSpamTag2Level);
-    }
+     my $amavisSpamTag2Level = $entry->get_value('amavisSpamTag2Level');
+     if (defined $amavisSpamTag2Level) {
+         $vdRow->elementByName('spamThreshold')->setValue(
+                                    { customThreshold => $amavisSpamTag2Level},
+                                                         );
+     }
 
     my @whiteList = $entry->get_value( 'amavisWhitelistSender');
-    if (@whiteList) {
-	$vdomainsLdap->setWhitelist($vdomain, \@whiteList);
+    foreach my $sender (@whiteList) {
+        $vdomainsConfiguration->addVDomainSenderACL(
+                                                    $vdomain,
+                                                    $sender,
+                                                    'whitelist'
+                                                   );
     }
- 
-    my @blackList = $entry->get_value( 'amavisBlacklistSender');
-    if (@blackList) {
-	$vdomainsLdap->setBlacklist($vdomain, \@blackList);
+
+     my @blackList = $entry->get_value( 'amavisBlacklistSender');
+    foreach my $sender (@blackList) {
+        $vdomainsConfiguration->addVDomainSenderACL(
+                                                    $vdomain,
+                                                    $sender,
+                                                    'blacklist'
+                                                   );
     }
 
-
-
+    $vdRow->store();
 }
 
 

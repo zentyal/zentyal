@@ -14,7 +14,10 @@ case "$1" in
         chown -R amavis:amavis $SA_DIR
 
         # migrate data if needed
-        /usr/share/ebox/ebox-migrate /usr/share/ebox-mailfilter/migration/	
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-mailfilter/migration/
+
+        # populate file types if needed
+         /usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update	
 
         # restart module
         invoke-rc.d ebox mailfilter restart

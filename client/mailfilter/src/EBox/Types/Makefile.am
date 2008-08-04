@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = MailFilter t Types
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Types
 
-nobase_perl_DATA = MailFilter.pm
+nobase_perl_DATA = MailAddress.pm
 
 DISTCLEANFILES = 
 
