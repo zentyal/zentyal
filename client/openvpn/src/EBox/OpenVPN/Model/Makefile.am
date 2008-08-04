@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS=ServerConfiguration t
+SUBDIRS= Servers ServerConfiguration t
 
 perldir = @PERLPATH@/EBox/OpenVPN/Model
 
