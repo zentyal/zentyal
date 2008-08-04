@@ -140,12 +140,10 @@ src/EBox/Model/t/Makefile
 src/EBox/Model/CompositeProvider/Makefile
 src/EBox/Model/ModelProvider/Makefile
 src/EBox/Model/ProviderBase/Makefile
-src/EBox/Model/Row/Makefile
 src/EBox/Model/DataForm/Makefile
 src/EBox/Model/DataTable/Makefile
 src/EBox/Model/Composite/Makefile
 src/EBox/Model/DataForm/t/Makefile
-src/EBox/Model/DataTable/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/File/Makefile
 src/EBox/Types/t/Makefile
