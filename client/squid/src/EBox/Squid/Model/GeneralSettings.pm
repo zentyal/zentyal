@@ -90,7 +90,7 @@ sub _table
             new EBox::Squid::Types::Policy(
                fieldName => 'globalPolicy',
                printableName => __('Default policy'),
-               defaultValue => 'filter',
+               defaultValue => 'deny',
                help => _policyHelp(), 
                ),
         );
