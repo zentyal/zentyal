@@ -145,7 +145,7 @@ sub _listByPolicy
     } @{  $self->rows() };
 
     @list = map {
-        $_->elementByName('extension')->value()
+        $_->elementByName('sender')->value()
     } @list;
 
     return \@list;
