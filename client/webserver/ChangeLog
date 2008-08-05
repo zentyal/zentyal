@@ -1,6 +1,8 @@
 0.12
 0.11.103
 	+ Add help field to webserver model
+	+ Bugfix. Do not add a dns domain if the virtual host
+	  is just a host name with no domain
 0.11.102
 	+ Use the new EBox::Model::Row
 0.11.101

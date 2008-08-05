@@ -121,6 +121,8 @@ sub addedRowNotify
     my $vHostName = $row->valueByName('name');
     my ($hostName, $domain) = ( $vHostName =~ m/^(.*?)\.(.*)/g );
 
+    return unless (defined($hostName) or ($domain));
+
     # We try to guess the IP address
     my $ip = $self->_guessWebIPAddr();
     if ( $ip ) {
