@@ -184,7 +184,7 @@ sub cmp
     }
 
 
-    return $self->printableValue() <=> $other->printableValue();
+    return ($self->printableValue() cmp $other->printableValue());
 }
 
 

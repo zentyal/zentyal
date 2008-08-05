@@ -363,7 +363,7 @@ sub cmp
         return undef;
     }
 
-    $self->printableValue() cmp $other->printableValue();
+    return ($self->printableValue() cmp $other->printableValue());
 
 }
 
