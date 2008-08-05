@@ -111,7 +111,10 @@ sub _table
      new EBox::Types::Boolean(
                               fieldName     => 'hamAccount',
                               printableName => __('Learning ham account'),
-                              help => __('An address (ham@domain) will be made in this domain, ham messages incorreclty classified as spam may be forwarded to this addres to train the filter'),
+                              help => __('An address (ham@domain) will be ' .
+                                'created for this domain, ham messages ' .
+                                'incorreclty classified as spam may be ' .
+                                'forwarded to this addres to train the filter'),
                               
                               defaultValue => 0,
                               editable     => 1,
@@ -120,7 +123,10 @@ sub _table
      new EBox::Types::Boolean(
                               fieldName     => 'spamAccount',
                               printableName => __('Learning spam account'),
-                              help => __('An address (spam@domain) will be made in this domain, ham messages incorreclty classified as ham may be forwarded to this addres to train the filter'),
+                               help => __('An address (spam@domain) will be ' .
+                                'created for this domain, spam messages ' .
+                                'incorreclty classified as ham may be ' .
+                                'forwarded to this addres to train the filter'),
                               
                               defaultValue => 0,
                               editable     => 1,
