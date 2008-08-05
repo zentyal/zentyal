@@ -56,11 +56,11 @@ sub _table
         ( 
          new EBox::Types::Text(
                               fieldName => 'message',
-                              printableName => __('status'),
+                              printableName => __('Status'),
                              ),
          new EBox::Types::Text(
                                 fieldName => 'date',
-                                printableName => __('date'),
+                                printableName => __('Date'),
                                ),
 
 
