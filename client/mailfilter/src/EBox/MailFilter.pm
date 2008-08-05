@@ -313,8 +313,8 @@ sub _writeAmavisConf
     push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
 
 
-    my $uid = getpwnam('amavis');
-    my $gid = getgrnam('amavis');
+    my $uid = getpwnam('root');
+    my $gid = getgrnam('root');
 
 
     my $fileAttrs = {
@@ -335,7 +335,7 @@ sub _domain
     my $domain = `hostname --domain`;
 
     if ($? != 0) {
-        throw EBox::Exceptions::Internal('eBox was unable to get the omain for his host/' .
+        throw EBox::Exceptions::Internal('eBox was unable to get the domain for his host/' .
                                          'Please, check than your resolver and /etc/hosts file are propely configured.'
                                         )
     }
