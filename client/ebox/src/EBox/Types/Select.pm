@@ -349,9 +349,9 @@ sub _filterOptions
 #
 #
 #  Warning:
-#  We compare printableValues bz it has more sense for the user (specially when
-#  we have a foreignModel and the values are roe Ids). However there may be many
-#  cases when this would not be appropiate
+#  We compare printableValues becasue it has more sense for the user 
+#  (especially when we have a foreignModel and the values are row Ids). 
+#  However there may be many cases when this would not be appropiate.
 #
 #  Overrides:
 #  <EBox::Types::Abstract>
