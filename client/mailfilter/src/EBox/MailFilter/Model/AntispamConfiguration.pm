@@ -113,14 +113,14 @@ sub _table
          positive => 1,
          editable => 1,
          defaultValue => 11,
-         help  => __('Spam messages which a score equal or greater than this threshold will be added to the learning system '),
+         help  => __('Spam messages with a score equal or greater than this threshold will be added to the learning system '),
                                ),
          new EBox::MailFilter::Types::AntispamThreshold (
              fieldName => 'autolearnHamThreshold', 
              printableName => __('Autolearn ham threshold'),
              editable => 1,
              defaultValue => -1,
-            help  => __('Ham messages which a score below this threshold will be added to the learning system'),
+            help  => __('Ham messages with a score below this threshold will be added to the learning system'),
                               ),
         );
 
