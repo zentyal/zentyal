@@ -792,6 +792,11 @@ sub firewallHelper
 
     my $service = $self->service();
 
+    # Initialize interfaces before setting fw rules
+    if ($service and EBox::Global->getInstance()->modIsChanged('openvpn')) {
+        $self->_initializeInterfaces();
+    }
+
     my @ifaces = map {$_->iface() } $self->activeDaemons();
 
     my @activeServers =  $self->activeServers();
