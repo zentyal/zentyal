@@ -1,5 +1,6 @@
 pre-start script
 	invoke-rc.d bind9 stop || true
+	modprobe capability >/dev/null 2>&1 || true
 	mkdir -p /var/run/bind/run
 	chmod 775 /var/run/bind/run
 	chown root:bind /var/run/bind/run >/dev/null 2>&1 || true
