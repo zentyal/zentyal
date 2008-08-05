@@ -335,7 +335,7 @@ sub _domain
     my $domain = `hostname --domain`;
 
     if ($? != 0) {
-        throw EBox::Exceptions::Internal('eBox was unable to get the domain for his host/' .
+        throw EBox::Exceptions::Internal('eBox was unable to get the domain for its host/' .
                                          'Please, check than your resolver and /etc/hosts file are propely configured.'
                                         )
     }
@@ -350,7 +350,7 @@ sub _fqdn
 
     if ($? != 0) {
         throw EBox::Exceptions::Internal(
-   'eBox was unable to get the full qualified domain name (FQDN) for his host/' .
+   'eBox was unable to get the full qualified domain name (FQDN) for its host/' .
   'Please, check than your resolver and /etc/hosts file are propely configured.'
                                         )
     }
