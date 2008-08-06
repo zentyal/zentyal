@@ -102,6 +102,7 @@ sub run
 
     my ($self) = @_;
 
+    EBox::debug("logger co");
     my $logs = $self->{logs};
     my @loggers = keys %{$logs->getAllTables()};
 
@@ -300,10 +301,9 @@ sub _isLoggerEnabled
     my ($self, $logger) = @_;
 
     unless (exists $self->{logger}->{$logger}) {
-    	my $confModel = EBox::Model::ModelManager
-				->instance()->model($self->ConfigureModel());
-    	my $row = $confModel->find(domain => $logger);
-	$self->{logger}->{$logger} = $row->{enabled};
+        my $confModel = $self->_logSubModel(); 
+        my $row = $confModel->find(domain => $logger);
+        $self->{logger}->{$logger} = $row->valueByName('enabled');
     }
 
     return  $self->{logger}->{$logger};
@@ -316,38 +316,44 @@ sub _filters
     my ($self, $logger) = @_;
 
     unless ($self->{filters}->{$logger}) {
-	    my $manager = EBox::Model::ModelManager->instance();
-	    my $logConfModel = $manager->model($self->ConfigureModel());
-	    
-	    my $loggerConfRow = $logConfModel->findValue(domain => $logger);
+        my $logConfModel = $self->_logSubModel(); 
 
-	    my $filterDirectory = $loggerConfRow->{filters}->{directory};
+        my $loggerConfRow = $logConfModel->findValue(domain => $logger);
 
-	    my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
-	    $filterModel->setDirectory($filterDirectory);
+        my $filterModel = $loggerConfRow->subModel('filters'); 
 
-	    my @filterSearchs = ();
-	    foreach my $filterRow (@{$filterModel->rows()}) {
-		my $filterSearch = {};
-		foreach my $filterField (@{$filterRow->{values}}) {
-		    if ( $filterField->value() ) {
-			# Do not store a thing if the field is the event with
-			# 'any' value to work with <EBox::Logs::search> API
-			unless ( $filterField->fieldName() eq 'event'
-				 and $filterField->value() eq 'any' ) {
-			    $filterSearch->{$filterField->fieldName()} =
-			      $filterField->value();
-			}
-		    }
-		}
-		
-		push ( @filterSearchs, $filterSearch );
-	    }
-	    $self->{filters}->{$logger} = \@filterSearchs;
-	    
+        my @filterSearchs = ();
+        foreach my $filterRow (@{$filterModel->rows()}) {
+            my $filterSearch = {};
+            foreach my $filterField (@{$filterRow->elements()}) {
+                if ( $filterField->value() ) {
+                    # Do not store a thing if the field is the event with
+                    # 'any' value to work with <EBox::Logs::search> API
+                    unless ( $filterField->fieldName() eq 'event'
+                            and $filterField->value() eq 'any' ) {
+                        $filterSearch->{$filterField->fieldName()} =
+                            $filterField->value();
+                    }
+                }
+            }
+
+            push ( @filterSearchs, $filterSearch );
+        }
+        $self->{filters}->{$logger} = \@filterSearchs;
+
     }
 
     return $self->{filters}->{$logger};
+}
+
+sub _logSubModel
+{
+    my ($self) = @_;
+
+    my $manager = EBox::Model::ModelManager->instance();
+    my $watchers = $manager->model('/events/ConfigureEventDataTable');
+    my $row = $watchers->findValue('eventWatcher' => __PACKAGE__);
+    return $row->subModel('configuration_model');
 }
 
 1;
