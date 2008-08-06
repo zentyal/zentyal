@@ -244,15 +244,12 @@ sub _isFSFull
 # notified because of the free space lack
 sub _spaceThreshold
 {
-  # return SPACE_THRESHOLD;
-  my ($self) = @_;
+ my ($self) = @_;
 
   my $manager = EBox::Model::ModelManager->instance();
-
-  my $confModel = $manager->model('/events/' . $self->ConfigureModel());
-
-  return $confModel->spaceThresholdValue();
-
+  my $watchers = $manager->model('/events/ConfigureEventDataTable');
+  my $row = $watchers->findValue('eventWatcher' => __PACKAGE__);
+  return $row->subModel('configuration_model')->spaceThreshold();
 }
 
 

@@ -638,10 +638,7 @@ sub subModel
     unless ($fieldName) {
         throw EBox::Exceptions::MissingArgument('fieldName');
     }
-    unless (exists $self->{valueHash}->{$fieldName}) {
-        throw EBox::Exceptions::DataNotFound( data => 'field',
-                                             value => $fieldName);
-    }
+
     my $element = $self->elementByName($fieldName);
     unless ($element->isa('EBox::Types::HasMany')) {
         throw EBox::Exceptions::Internal("$fieldName is not a HasMany type");
