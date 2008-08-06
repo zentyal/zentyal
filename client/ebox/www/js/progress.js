@@ -34,6 +34,9 @@ function updatePage (xmlHttp) {
        else if (response.state == 'done') {
                 Element.hide('progressing');
                 Element.show('done');
+                // Used to tell selenium we are done
+                // with saving changes
+                $('ajax_request_cookie').value = 0;
        }
        else if (response.state == 'error') {
               Element.hide('progressing');
