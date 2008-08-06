@@ -27,6 +27,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
 
 <script type="text/javascript">
     createPeriodicalExecuter(<% $progressId %>, '<% $currentItemUrl %>', <% $reloadInterval %>);
