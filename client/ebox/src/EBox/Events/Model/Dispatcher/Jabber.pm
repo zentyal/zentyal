@@ -206,7 +206,7 @@ sub _table
              size          => 12,
              editable      => 1,
              help          => __('Jabber ID of the account ' .
-                 'which will send the messages. ' .
+                 'that will send the messages. ' .
                  'Pattern: user@domain')
              ),
          new EBox::Types::Password(
@@ -222,7 +222,7 @@ sub _table
              printableName  => __('Subscribe'),
              editable       => 1,
              help           => __('Tick this option if ' .
-                 ' you need to create an account for ' .
+                 ' you want eBox to create an account for ' .
                  ' the above user')
              ),
 
