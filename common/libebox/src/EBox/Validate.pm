@@ -344,7 +344,7 @@ sub checkPort # (port, name?)
                 }
         }
 
-        if (($pnumber > 0)&&($pnumber<65535)) {
+        if (($pnumber > 0) and ($pnumber <= 65535)) {
                 return 1;
         } else {
                 if ($name) {

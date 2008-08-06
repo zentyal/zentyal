@@ -75,8 +75,8 @@ sub run # (url)
                         eval "use $error_cgi"; 
                         $cgi = new $error_cgi;
                 } else {
-                        EBox::debug("$classname mapped to " 
-                        . " Controller/Viewer CGI");
+                      #  EBox::debug("$classname mapped to " 
+                      #  . " Controller/Viewer CGI");
                 }
         } 
         else {
@@ -132,7 +132,7 @@ sub _lookupViewController
                 $action = $namespaces[5];
                 # Remove the previous thought index
                 $modelName =~ s:/.*?$::g;
-                EBox::debug($modelName);
+                # EBox::debug($modelName);
                 $model = $manager->model($modelName);
             };
 
@@ -144,7 +144,7 @@ sub _lookupViewController
                                                        'tableModel' => $model);
             } elsif ( $namespace eq 'Controller' ) {
 #            } elsif ($classname =~ /EBox::CGI::.*::Controller:/) {
-                EBox::debug($classname);
+               # EBox::debug($classname);
                 $cgi = EBox::CGI::Controller::DataTable->new(
                                                              'tableModel' => $model);
             }
