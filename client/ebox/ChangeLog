@@ -11,6 +11,7 @@
 	+ Bugfix: Restricted resources are back again to make RSS
 	access policy work again
 	+ Workaround bogus mason warnings
+	+ Make postinst script less verbose
 0.11.103
 	+ Modify EBox::Types::HasMany to create directory based on its row 
 	+ Add _setRelationship method to set up relationships between models

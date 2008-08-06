@@ -69,11 +69,10 @@ set_ebox_port()
     db_get ebox/port
     new_port=$RET
 
-	fetch_ebox_port;
-	if [ $new_port -eq $PORT ]; then
-		echo "Skipping apache port setting as current port and new port are equal"
-		return 0;
-	fi
+    fetch_ebox_port;
+    if [ $new_port -eq $PORT ]; then
+        return 0;
+    fi
 
     set +e 
 

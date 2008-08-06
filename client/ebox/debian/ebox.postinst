@@ -36,7 +36,7 @@ case "$1" in
         pkill -u ebox gconfd-2 || true
 
         # create ebox's' apache certificates
-        /usr/share/ebox/ebox-create-certificate
+        /usr/share/ebox/ebox-create-certificate > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
