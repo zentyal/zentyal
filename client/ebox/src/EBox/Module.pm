@@ -849,8 +849,18 @@ sub writeConfFile # (file, component, params, defaults)
                                           out_method => sub { $fh->print($_[0]) });
     my $comp = $interp->make_component(comp_file =>
                                          EBox::Config::stubs . "/" . $compname);
+
+    # Workaround bogus mason warnings, redirect stderr to /dev/null to not
+    # scare users. New mason version fixes this issue
+    my $old_stderr;
+    my $tmpErr = EBox::Config::tmp() . 'mason.err';
+    open($old_stderr,">&STDERR");
+    open(STDERR,">$tmpErr");
+
     $interp->exec($comp, @{$params});
     $fh->close();
+
+    open(STDERR,">&$old_stderr");
 
     my $mode;
     my $uid;
