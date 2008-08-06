@@ -3,6 +3,9 @@
 	+ Make default and max leasing time mandatory fields
 	+ Add field help to model
 	+ Make custom_ns field required
+	+ Bugfix: Mark managers as changed every time they ask to change
+	from/to static method because some models may appear/disappear
+	because of modifying configuration method in interfaces
 0.11.102
 	+ Bugfix. Logging were not working with hostnames with characters
 	different from alphanumeric plus '_'

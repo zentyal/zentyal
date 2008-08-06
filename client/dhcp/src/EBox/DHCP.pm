@@ -88,7 +88,7 @@ sub _create
 {
 	my $class = shift;
 	my $self  = $class->SUPER::_create(name => 'dhcp', 
-									   printableName => 'dhcp server',
+                                           printableName => 'dhcp server',
                                            domain => 'ebox-dhcp',
                                            @_);
 	bless ($self, $class);
@@ -964,20 +964,29 @@ sub PluginConfDir
 #
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
-	my ($self, $iface, $old_method, $new_method) = @_;
+    my ($self, $iface, $old_method, $new_method) = @_;
 
-        if ($old_method eq 'static'
-            and $new_method ne 'static') {
-            my $rangeModel = $self->_getModel('rangeModel', $iface);
-            if ( defined ( $rangeModel )) {
-                return 1 if ( $rangeModel->size() > 0);
-            }
-            my $fixedAddrModel = $self->_getModel('fixedAddrModel', $iface);
-            if ( defined ( $fixedAddrModel )) {
-                return 1 if ( $fixedAddrModel->size() > 0);
-            }
+    # Mark managers as changed every time we attempt to change the
+    # iface method from/to static
+    if ($old_method eq 'static' or $new_method eq 'static') {
+        my $manager = EBox::Model::ModelManager->instance();
+        $manager->markAsChanged();
+        $manager = EBox::Model::CompositeManager->Instance();
+        $manager->markAsChanged();
+    }
+
+    if ($old_method eq 'static'
+          and $new_method ne 'static') {
+        my $rangeModel = $self->_getModel('rangeModel', $iface);
+        if ( defined ( $rangeModel )) {
+            return 1 if ( $rangeModel->size() > 0);
         }
-        return 0;
+        my $fixedAddrModel = $self->_getModel('fixedAddrModel', $iface);
+        if ( defined ( $fixedAddrModel )) {
+            return 1 if ( $fixedAddrModel->size() > 0);
+        }
+    }
+    return 0;
 }
 
 # Method: vifaceAdded
