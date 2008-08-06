@@ -102,7 +102,6 @@ sub run
 
     my ($self) = @_;
 
-    EBox::debug("logger co");
     my $logs = $self->{logs};
     my @loggers = keys %{$logs->getAllTables()};
 
