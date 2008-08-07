@@ -146,7 +146,7 @@ sub formSubmitted
           if ( $gl->modExists('firewall') ){
               my $fwMod = $gl->modInstance('firewall');
               my $jabberServPort = $self->portValue();
-              $fwMod->removeOutputRule( 'tcp', $oldRow->{plainValueHash}->{port});
+              $fwMod->removeOutputRule( 'tcp', $oldRow->valueByName('port'));
               $fwMod->addOutputRule( 'tcp', $jabberServPort);
 #              my ( $idx, $row ) = ( 0, undef);
 #              my $servId = $servMod->serviceId(JABBER_DISPATCHER_SERVICE_NAME);
