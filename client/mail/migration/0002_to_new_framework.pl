@@ -154,10 +154,14 @@ sub _migrateExternalFilter
     my ($self) = @_;
     $self->_migrateToForm(
                         'ExternalFilter',
-                        external_filter_name => {
-                                    keyGetter => 'get_string',
-                                    formElement => 'externalFilter',
-                               },
+#   Comment out as old configurations can
+#   have set ebox as mailfilter and current
+#   model won't allow to add this configuration 
+#   making the migration fail
+#                        external_filter_name => {
+#                                    keyGetter => 'get_string',
+#                                   formElement => 'externalFilter',
+#                             },
                         ipfilter => {
                                     keyGetter => 'get_string',
                                     formElement => 'ipfilter',
