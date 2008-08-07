@@ -1339,6 +1339,7 @@ sub _buildObjMembers
       my $ip = new EBox::Types::IPAddr(
 				       ip => $member_ref->{ip},
 				       mask => $member_ref->{mask},
+				       fieldName => 'ip'
 				      );
       my $srcAddr;
       my $dstAddr;
