@@ -169,6 +169,36 @@ sub send
 
   }
 
+# Method: configurationSubModel
+#
+#   Fetch the configuration submodel for a given
+#   event dispacher.
+#
+#   Given a class name it will look up the row
+#   of the model which  contains this class, and
+#   it will return its configuration model
+#
+# Parameters:
+#
+#   package - String containing a class to look up
+#
+# Returns:
+#
+#   An instance of <EBox::Model::DataTable>
+#
+#
+sub configurationSubModel
+{
+    my ($self, $package) = @_;
+
+    defined ( $package ) or
+        throw EBox::Exceptions::MissingArgument('package');
+
+    my $manager = EBox::Model::ModelManager->instance();
+    my $watchers = $manager->model('/events/ConfigureDispatcherDataTable');
+    my $row = $watchers->findValue('eventDispatcher' => $package);
+    return $row->subModel('configuration_model');
+}
 # Group: Protected method
 
 # Method: _description

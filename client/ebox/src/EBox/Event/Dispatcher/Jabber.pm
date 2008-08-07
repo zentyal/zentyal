@@ -314,20 +314,18 @@ sub _jabberDispatcherParams
 
       my ($self) = @_;
 
-      my $model = EBox::Model::ModelManager::instance()->model($self->ConfigureModel());
+      my $model = $self->configurationSubModel(__PACKAGE__); 
 
       my $row = $model->row();
 
       return unless defined ( $row );
 
-      my $values = $row->{printableValueHash};
-
-      $self->{server}    = $values->{server};
-      $self->{port}      = $values->{port};
-      $self->{user}      = $values->{user};
-      $self->{password}  = $values->{password};
-      $self->{adminJID}  = $values->{adminJID};
-      $self->{subscribe} = $values->{subscribe};
+      $self->{server}    = $row->valueByName('server');
+      $self->{port}      = $row->valueByName('port');
+      $self->{user}      = $row->valueByName('user');
+      $self->{password}  = $row->valueByName('password');
+      $self->{adminJID}  = $row->valueByName('adminJID');
+      $self->{subscribe} = $row->valueByName('subscribe');
 
   }
 

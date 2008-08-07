@@ -349,10 +349,7 @@ sub _logSubModel
 {
     my ($self) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $watchers = $manager->model('/events/ConfigureEventDataTable');
-    my $row = $watchers->findValue('eventWatcher' => __PACKAGE__);
-    return $row->subModel('configuration_model');
+    return $self->configurationSubModel(__PACKAGE__); 
 }
 
 1;
