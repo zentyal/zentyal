@@ -331,13 +331,13 @@ sub _table
                  'editable'      => 1,
                  'defaultValue'  => 168, # one week
                                 ),
-         new EBox::Types::Link(
-                  'fieldName'     => 'eventConf',
-                  'printableName' => __('Event configuration'),
-                  'editable'      => 0,
-                  'volatile'      => 1,
-                  'acquirer'      => \&acquireEventConfURL,
-                              ),
+#         new EBox::Types::Link(
+#                  'fieldName'     => 'eventConf',
+#                  'printableName' => __('Event configuration'),
+#                  'editable'      => 0,
+#                  'volatile'      => 1,
+#                  'acquirer'      => \&acquireEventConfURL,
+#                              ),
         );
 
     my $dataTable = 
