@@ -122,22 +122,6 @@ sub output
     return \@rules;
 }
 
-sub forward
-{
-    my ($self) = @_;
-    my @rules;
-
-    $self->service() or return [];
-
-    # do not firewall openvpn virtual ifaces
-    foreach my $iface (@{ $self->ifaces() }) {
-        push @rules, "-i $iface -j ACCEPT";
-        push @rules, "-o $iface -j ACCEPT";
-    }
-
-    return \@rules;
-}
-
 sub postrouting
 {
     my ($self) = @_;
