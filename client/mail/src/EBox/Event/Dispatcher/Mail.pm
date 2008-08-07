@@ -206,17 +206,14 @@ sub _confParams
 
     my ($self) = @_;
 
-    my $model = EBox::Model::ModelManager::instance()->model('/mail/'
-                                                             . $self->ConfigureModel());
+    my $model = $self->configurationSubModel(__PACKAGE__); 
 
     my $row = $model->row();
 
     return unless defined ( $row );
 
-    my $values = $row->{printableValueHash};
-
-    $self->{subject}  = $values->{subject};
-    $self->{to}       = $values->{to};
+    $self->{subject}  = $row->valueByName('subject');
+    $self->{to}       = $row->valueByName('to');
     $self->{smtp}     = 'localhost';
 
 }
