@@ -246,11 +246,11 @@ sub modelActionTaken
     throw EBox::Exceptions::MissingArgument("action") unless (defined($action));
     throw EBox::Exceptions::MissingArgument("row") unless (defined($row));
 
-    if ( defined $row->{'id'} ) {
-        EBox::debug("$model has taken action '$action' on row $row->{'id'}");
-    } else {
-        EBox::debug("$model has taken action '$action' on row");
-    }
+    # if ( defined $row->{'id'} ) {
+    #    EBox::debug("$model has taken action '$action' on row $row->{'id'}");
+    # } else {
+    #    EBox::debug("$model has taken action '$action' on row");
+    # }
 
     # return unless (exists $self->{'notifyActions'}->{$model});
 
