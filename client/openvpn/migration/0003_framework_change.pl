@@ -108,6 +108,12 @@ sub _setServerConf
     
     my $pullRoutes  = $openvpn->get_bool("$dir/pull_routes");
     my $ripPasswd   = $openvpn->get_string("$dir/ripPasswd");
+
+   if ($pullRoutes and (not defined($ripPasswd))) {
+	# This is a corner case for really old configuration
+	# where there was just one password...
+	$ripPasswd = 'eboxebox';
+   }
     
 
     my $masquerade  = $openvpn->get_bool("$dir/masquerade");
@@ -167,7 +173,7 @@ sub _setAdvertisedNetworks
     
     while (my ($net, $mask) = each %advertised) {
         $mask = EBox::NetWrappers::bits_from_mask($mask);
-        $advertisedNetworks->addRow(network => "$net/$mask" );
+        $advertisedNetworks->addRow(network_ip => $net , network_mask => $mask );
     }
 }
 
@@ -261,7 +267,7 @@ sub _setClientConf
                       );
 
     if (length $ripPasswd < 6) {
-        print "Previous RIP password not valid because it has less than 6 characters. A tmeporally password will be set. You will need to vhange it finish the configuration of the client $name manually\n";
+        print "Previous RIP password is not valid because it has less than 6 characters. A tmeporally password will be set. You will need to vhange it finish the configuration of the client $name manually\n";
         $confToSet{ripPasswd} = '123456';
         $confOk = 0;
     }
