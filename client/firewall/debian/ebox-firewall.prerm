@@ -1,9 +1,11 @@
 #!/bin/bash
 
-#DEBHELPER#
+
 
 case "$1" in
 	remove)
         invoke-rc.d ebox firewall stop || true
 		;;
 esac 
+
+#DEBHELPER#
