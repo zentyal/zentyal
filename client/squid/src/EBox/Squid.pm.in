@@ -527,7 +527,7 @@ sub _dgNeeded
 	
 	
 	my $objectPolicy = $self->model('ObjectPolicy');
-	if ( @{ $objectPolicy->filtered } ) {
+	if ( @{ $objectPolicy->filteredAddresses() } ) {
 	  return 1;
 	}
 
