@@ -7,8 +7,8 @@ cp /usr/share/ebox-mail/*.schema /etc/ldap/schema
 SASLAUTHD="/var/spool/postfix/var/run/saslauthd"
 test -d $SASLAUTHD || mkdir -p $SASLAUTHD
 
-# Allow postfix to connect to the unix socket
-dpkg-statoverride --add postfix sasl 710 $SASLAUTHD
+# Add user to sasl group
+adduser  postfix sasl
 
 # Create certificates for smptd
 /usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl/

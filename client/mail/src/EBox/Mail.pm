@@ -98,8 +98,9 @@ sub actions
 {
     return [
             {
-              'action' => __('dpkg-stateoverride  saslauthdaemon directory'),
-              'reason' => __('To allow postfix communicate with saslauthd '),
+              'action' => __('Add postfix to sasl group'),
+              'reason' => __('To allow postfix to connect with saslauthd via ' .
+                  'unix socket'),
               'module' => 'mail'
             },
             {
