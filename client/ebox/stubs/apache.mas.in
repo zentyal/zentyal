@@ -29,7 +29,7 @@ Parameters:
 </%args>
 
 Timeout 300
-KeepAlive On
+KeepAlive Off
 MaxKeepAliveRequests 100
 KeepAliveTimeout 15
 AddDefaultCharset utf-8	
@@ -193,7 +193,7 @@ SSLCertificateKeyFile /var/lib/ebox/conf/ssl.key/ebox.key
 % }
 PerlWarn On
 
-PerlRequire "/var/lib/ebox/conf/startup.pl"
+# PerlRequire "/var/lib/ebox/conf/startup.pl"
 
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /
