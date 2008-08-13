@@ -9,9 +9,9 @@ DEPENDENCIES
 	+ ebox-objects
 	+ ebox-usersandgroups
 
-+ Debian testing packages (apt-get install <package>)
++ Packages (apt-get install <package>)
 
-	+ Postfix with VDA patch applied.
+	+ Postfix 
 	+ postfix-tls
 	+ postfix-ldap
 	+ courier-pop
@@ -23,29 +23,3 @@ DEPENDENCIES
 	+ libsasl2-modules
 	+ libsasl2
 	+ sasl2-bin
-
-INSTALLATION
-------------
-
-- Once all packages has been installed:
-	
-	./configure
-	make install
-
-  configure will autodetect eBox base path to install
-
-- Copy conf/*.pem to /etc/postfix/sasl/, creating the directory if needed
-
-- Execute as root (should be in $prefix/lib/ebox-mail/ ):
-	./ebox-mail-ldap
-
-- Do not services on startup, this module takes control all services:
-
-mv /etc/rc2.d/SXXpostfix /etc/rc2.d/KXXpostfix
-mv /etc/rc2.d/SXXcourier-authdaemon /etc/rc2.d/KXXcourier-authdaemon
-mv /etc/rc2.d/SXXcourier-imap /etc/rc2.d/KXXcourier-imap
-mv /etc/rc2.d/SXXcourier-imap-ssl /etc/rc2.d/KXXcourier-imap-ssl
-mv /etc/rc2.d/SXXcourier-pop-ssl /etc/rc2.d/KXXcourier-pop-ssl
-mv /etc/rc2.d/SXXcourier-pop /etc/rc2.d/KXXcourier-pop
-
-- Stop all services if it's running.
