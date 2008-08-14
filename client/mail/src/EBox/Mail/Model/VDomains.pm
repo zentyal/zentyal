@@ -32,7 +32,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 
-use EBox::Types::DomainName;
+use EBox::Mail::Types::WriteOnceDomain;
 #use EBox::Types::Link;
 
 
@@ -52,7 +52,7 @@ sub _table
         my @tableHead = 
          ( 
 
-                new EBox::Types::DomainName(
+                new EBox::Mail::Types::WriteOnceDomain(
                                         'fieldName' => 'vdomain',
                                         'printableName' => __('Name'),
                                         'size' => '20',
