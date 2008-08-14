@@ -34,6 +34,9 @@ if ( $data->unique() ) {
         my $rows = $model->rows();
 
         foreach my $row (@{$rows}) {
+            # Check if the element exists to avoid nasty issues
+            # with union types
+            next unless ($row->elementByName($field));
             push( @optionsAlreadyModel,
                   $row->valueByName($field) );
         }
