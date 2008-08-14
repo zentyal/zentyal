@@ -1,5 +1,4 @@
 0.12
-0.11.103
 	+ Use the new EBox::Model::Row api
 	+ Load module capability in pre-start just like the bind9 init script does
 0.11.102

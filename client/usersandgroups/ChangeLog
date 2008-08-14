@@ -1,5 +1,4 @@
 0.12
-0.11.102
 	+ Use the new EBox::Model::Row api
 	+ Check if there is any added user and show a message
 	  in case there isn't any.

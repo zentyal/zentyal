@@ -1,5 +1,4 @@
 0.12
-0.11.104
 	+ Bugfix: Don't assume timecol is 'timestamp' but defined by
 	module developer. This allows to purge some logs tables again
 	+ Add page titles to models
