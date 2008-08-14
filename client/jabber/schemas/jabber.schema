@@ -1,13 +1,13 @@
-attributetype ( 1.4.6.1.4.1.7165.2.1.90 NAME 'jabberUid'
+attributetype ( 1.3.6.1.4.1.31607.2.1.2.1.1 NAME 'jabberUid'
 	DESC 'User can use jabber service'
 	EQUALITY caseExactMatch
 	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{24} SINGLE-VALUE)
 
-attributetype ( 1.4.6.1.4.1.7165.2.1.91 NAME 'jabberAdmin'
+attributetype ( 1.3.6.1.4.1.31607.2.1.2.1.2 NAME 'jabberAdmin'
 	DESC 'User has administration rights'
 	EQUALITY booleanMatch
 	SYNTAX 1.3.6.1.4.1.1466.115.121.1.7)
 
-objectclass ( 1.4.6.1.4.1.7165.2.2.40 NAME 'userJabberAccount' SUP posixAccount AUXILIARY
+objectclass ( 1.3.6.1.4.1.31607.2.1.2.2.1 NAME 'userJabberAccount' SUP posixAccount AUXILIARY
 	DESC 'Extra User Data to Jabber Ebox Module'
 	MUST ( jabberUid $ jabberAdmin) )

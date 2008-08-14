@@ -1,4 +1,4 @@
-attributetype ( 1.4.6.1.4.1.7165.2.1.27 NAME 'displayResource'
+attributetype ( 1.3.6.1.4.1.31607.2.1.1.1.1  NAME 'displayResource'
 	DESC 'Display name for sharing resource'
 	EQUALITY caseIgnoreMatch
 	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{255} SINGLE-VALUE )
@@ -7,7 +7,7 @@ attributetype ( 1.4.6.1.4.1.7165.2.1.27 NAME 'displayResource'
 ##              objectClasses                                        ##
 #######################################################################
 
-objectclass ( 1.4.6.1.4.1.7165.2.2.6 NAME 'eboxGroup' SUP (SambaGroupMapping) AUXILIARY
+objectclass ( 1.3.6.1.4.1.31607.2.1.1.2.1 NAME 'eboxGroup' SUP (SambaGroupMapping) AUXILIARY
 	DESC 'EBox Group'
 	MAY  (displayResource))
 
