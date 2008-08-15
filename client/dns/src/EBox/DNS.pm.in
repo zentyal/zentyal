@@ -298,13 +298,19 @@ sub _formatMailExchangers
 {
     my ($self, $mailExchangers) = @_;
 
+    my $hostnames = 
     my @mailExchangers;
     foreach my $mx (@{$mailExchangers}) {
         my $hostName = $mx->valueByName('hostName');
-        if ($mx->elementByName('hostName')->value() eq 'custom') {
+        if ($mx->elementByName('hostName')->selectedType() eq 'custom') {
             unless ( $hostName =~ m:\.$: ) {
                 $hostName .= '.';
             }
+        } else {
+            $hostName = $mx->parentRow()
+               ->subModel('hostnames')
+               ->row($hostName)
+               ->valueByName('hostname');
         }
         push (@mailExchangers, { 
                 hostName => $hostName, 
