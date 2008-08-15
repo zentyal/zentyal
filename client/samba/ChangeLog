@@ -4,6 +4,7 @@
 	+ Fix typo in administrator label
 	+ Mark shares strings to translate
 	+ Use eBox OID number in LDAP schemas
+	+ Do not use shares that don't have permission for any user or group
 0.11.103
 	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid 
 	  issues with the options cache

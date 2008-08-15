@@ -279,12 +279,15 @@ sub shares
             }
         }
         
+        next unless (@readOnly or @readWrite or @administrators);       
+
         $shareConf->{'readOnly'} = join (', ', @readOnly);
         $shareConf->{'readWrite'} = join (', ', @readWrite);
         $shareConf->{'administrators'} = join (', ', @administrators);
         $shareConf->{'validUsers'} = join (', ', @readOnly, 
                                                  @readWrite,
                                                  @administrators);
+
         push (@shares, $shareConf);
     }
 
