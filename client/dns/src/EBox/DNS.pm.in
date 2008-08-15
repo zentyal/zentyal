@@ -298,7 +298,6 @@ sub _formatMailExchangers
 {
     my ($self, $mailExchangers) = @_;
 
-    my $hostnames = 
     my @mailExchangers;
     foreach my $mx (@{$mailExchangers}) {
         my $hostName = $mx->valueByName('hostName');
