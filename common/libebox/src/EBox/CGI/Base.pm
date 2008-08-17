@@ -304,27 +304,30 @@ sub run
 	} 
 
 	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
-                my $request = Apache2::RequestUtil->request();
-                my $headersIn = $request->headers_in(); 
-                my $localAddr = $request->connection()->local_ip();
-                my $portStr = '';
-                # If the connection comes from a Proxy, redirects with the Proxy IP address
-                if ( exists $headersIn->{Via} and exists $headersIn->{'X-Forwarded-Host'}) {
-                    $localAddr = $headersIn->{'X-Forwarded-Host'};
-                } else {
-                    my $apachePort = EBox::Global->getInstance(1)->modInstance('apache')->port();
-                    if ( $apachePort != 443 ) {
-                        $portStr = ":$apachePort";
-                    }
-                }
-		print($self->cgi()->redirect("https://${localAddr}${portStr}/ebox/" . $self->{redirect}));
-		EBox::debug("redirect: " . $self->{redirect});
+		my $request = Apache2::RequestUtil->request();
+		my $headers = $request->headers_in();
+		my $via = $headers->{'Via'}; 
+		my $host= $headers->{'Host'};
+		my $fwhost = $headers->{'X-Forwaded-Host'};
+		# If the connection comes from a Proxy, 
+		# redirects with the Proxy IP address
+		if (defined($via) and defined($fwhost)) {
+			$host = $fwhost; 
+		}
+		my $protocol; 
+		if ($request->->subprocess_env('https')) {
+			$protocol = 'https';
+		} else {
+			$protocol = 'http';
+		}
+		my $url = "$protocol://${host}/ebox/" . $self->{redirect};
+		print($self->cgi()->redirect($url));
 		return;
 	} 
 
 	
 
-	try  { 
+	try  { $url
 	  settextdomain('ebox');
 	  $self->_print 
 	} catch EBox::Exceptions::Internal with {
