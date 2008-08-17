@@ -315,7 +315,7 @@ sub run
 			$host = $fwhost; 
 		}
 		my $protocol; 
-		if ($request->->subprocess_env('https')) {
+		if ($request->subprocess_env('https')) {
 			$protocol = 'https';
 		} else {
 			$protocol = 'http';
@@ -327,7 +327,7 @@ sub run
 
 	
 
-	try  { $url
+	try  { 
 	  settextdomain('ebox');
 	  $self->_print 
 	} catch EBox::Exceptions::Internal with {
