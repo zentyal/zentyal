@@ -13,6 +13,7 @@
 	+ Make postinst script less verbose
 	+ Disable keepalive in eBox apache
 	+ Do not run a startup script in eBox apache
+	+ Set default purge time for logs stored in eBox db to 1 week
 0.11.103
 	+ Modify EBox::Types::HasMany to create directory based on its row 
 	+ Add _setRelationship method to set up relationships between models

@@ -135,7 +135,7 @@ sub rows
         }
         $self->addRow(domain => $domain, 
                       enabled => $enabled, 
-                      lifeTime => 0);
+                      lifeTime => 168);
     }
 
     # Remove non-existing domains from gconf
