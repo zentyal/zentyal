@@ -2,6 +2,7 @@
 	+ Use the new EBox::Model::Row API
 	+ Add help to fields in service model
 	+ Increase some field length
+	+ Add support for ESP protocol
 0.11.102
 	+ Remove optional attribute from PortRange as it didn't make sense
 	  and we were getting warinings

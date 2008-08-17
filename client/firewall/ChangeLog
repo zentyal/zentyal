@@ -4,6 +4,7 @@
 	+ Bugfix. Use exit and not return in dchp-firewall external script
 	+ Bugfix. Use #DEBHELPER# properly to be able to flush the firewall rules
 	  when the package is uninstalled
+	+ Add support for ESP protocol
 0.11.102
 	+ Set editable attribute to 1 in Decision field. To comply with
 	  what the type expects and avoid warnings

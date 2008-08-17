@@ -138,7 +138,7 @@ sub setService
                                              . $iptables);    
             }
 
-        } elsif ($protocol eq any ('gre', 'icmp')) {
+        } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
             $iptables = " -p $invProto $protocol";
             push (@{$self->{'service'}}, $iptables);
         } elsif ($protocol eq 'any') {

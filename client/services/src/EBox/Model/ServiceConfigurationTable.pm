@@ -43,6 +43,7 @@ use EBox::Types::Select;
 use EBox::Types::PortRange;
 use EBox::Sudo;
 
+use Perl6::Junction qw( any );
 
 use strict;
 use warnings;
@@ -78,6 +79,10 @@ sub protocols
                  {
                  'value' => 'udp',
                  'printableValue' => 'UDP'
+                 },
+                 {
+                 'value' => 'esp',
+                 'printableValue' => 'ESP'
                  },
                  {
                  'value' => 'gre',
@@ -151,7 +156,7 @@ sub validateTypedRow()
     if ($action eq 'add' or $action eq 'update') {
         return unless (exists $parms->{'protocol'});
         my $type = $parms->{'protocol'}->value();
-        if ($type eq 'gre' or $type eq 'icmp' or $type eq 'any') {
+        if ($type eq any ('gre', 'icmp', 'esp') ) {
             my $source = $parms->{'source'};
             my $destination = $parms->{'destination'};
             for my $port ($source, $destination) {
