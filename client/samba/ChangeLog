@@ -5,6 +5,8 @@
 	+ Mark shares strings to translate
 	+ Use eBox OID number in LDAP schemas
 	+ Do not use shares that don't have permission for any user or group
+	+ Remove deprecated printer admin configuration key in smb.conf.mas
+	+ Enable dns proxy in smb.conf.mas
 0.11.103
 	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid 
 	  issues with the options cache

@@ -34,6 +34,7 @@ use EBox::Gettext;
  time server = Yes
  printcap name = CUPS
  wins support = Yes
+ dns proxy = Yes
  ldap suffix = <% $ldap->{'dn'} %>
  ldap machine suffix = ou=Computers
  ldap user suffix =  <% $ldap->{'users'} %>
@@ -42,7 +43,6 @@ use EBox::Gettext;
  ldap admin dn = <% $ldap->{'rootdn'} %>
  map acl inherit = Yes
  printing = cups
- printer admin = Administrator
 
 % if ($pdc) {
  encrypt passwords = Yes
