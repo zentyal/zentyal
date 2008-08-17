@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+#SCRIPTSCOMMON#
+
+# Fetch apache port from eBox and set it in debconf
+if [ "$1" = "upgrade" ] && [ -n "$2" ]; then
+    fetch_ebox_port
+    echo "Setting eBox port to $PORT"
+    db_set  ebox/port $PORT || true
+fi
+
+exit 0
