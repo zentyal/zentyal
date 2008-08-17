@@ -8,6 +8,8 @@
 	+ Fix port validation with "<=" 65535
 	+ Display 24 as default value in `IPNetwork` default setter
 	+ Comment out some debug
+	+ Bugfix. Create redirection URLs using client headers and guessing checking
+	  the protocol (HTTP or HTTPS)
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking
