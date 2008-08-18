@@ -156,7 +156,7 @@ sub validateTypedRow()
     if ($action eq 'add' or $action eq 'update') {
         return unless (exists $parms->{'protocol'});
         my $type = $parms->{'protocol'}->value();
-        if ($type eq any ('gre', 'icmp', 'esp') ) {
+        if ($type eq any ('gre', 'icmp', 'esp', 'any') ) {
             my $source = $parms->{'source'};
             my $destination = $parms->{'destination'};
             for my $port ($source, $destination) {
