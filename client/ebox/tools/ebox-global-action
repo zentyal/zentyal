@@ -10,6 +10,8 @@ use EBox::LogAdmin;
 
 use Error qw(:try);
 
+EBox::init();
+
 my %params = @ARGV;
 (exists $params{'--progress-id'}) or 
   die 'not progress indicator id supplied';

@@ -8,6 +8,7 @@ use EBox::ProgressIndicator;
 
 use Error qw(:try);
 
+EBox::init();
 
 my %params = @ARGV;
 (exists $params{'--progress-id'}) or 

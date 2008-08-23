@@ -11,16 +11,18 @@ use Getopt::Long;
 use English qw(-no-match-vars);
 use Error qw(:try);
 
+EBox::init();
+
 # check user..
-if ($EUID == getpwnam('ebox')) {
-  # ok ...
-}
-elsif ($EUID == 0) {
-  EBox::init();
-}
-else {
-  die 'This program can be only run by root or ebox user';
-}
+#if ($EUID == getpwnam('ebox')) {
+#  # ok ...
+#}
+#elsif ($EUID == 0) {
+#  EBox::init();
+#}
+#else {
+#  die 'This program can be only run by root or ebox user';
+#}
 
 
 # process cli
