@@ -57,7 +57,7 @@ sub configkeyFromFile # (key, file)
 		$_ =~ s/\s//g;
 		$_ =~ s/#.*//g;
 		($_ eq '') and next;
-		my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
+		my ($nkey, $nvalue) = $_ =~ /(.*?)=(.*)/;
 		if ($nkey eq $key) {
 			$value = $nvalue;
 			last;

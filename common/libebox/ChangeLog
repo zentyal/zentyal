@@ -11,6 +11,7 @@
 	+ Bugfix. Create redirection URLs using client headers and guessing checking
 	  the protocol (HTTP or HTTPS)
 	+ Add spinner gif to modalbox window
+	+ Make EBox::Config::configKeyFromFile non-greedy to parse values properly
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking
