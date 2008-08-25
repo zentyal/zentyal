@@ -6,7 +6,7 @@ use EBox;
 use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
-use EBox::LogAdmin;
+#use EBox::LogAdmin;
 
 use Error qw(:try);
 
@@ -37,11 +37,11 @@ try {
 
   if ($action eq 'saveAllModules') {
       $global->saveAllModules(progress => $progress);
-      EBox::LogAdmin::commitPending();
+#      EBox::LogAdmin::commitPending();
   }
   elsif ($action eq 'revokeAllModules') {
       $global->revokeAllModules(progress => $progress);
-      EBox::LogAdmin::rollbackPending();
+#      EBox::LogAdmin::rollbackPending();
   }
 
 
