@@ -6,8 +6,10 @@ $proto
 $caCertificate
 $certificate
 $certificateKey
+
 $user
 $group
+$dh
 
 $logFile
 $statusLogFile
@@ -109,6 +111,15 @@ persist-tun
 # Don't enable this unless it is also
 # enabled in the server config file.
 comp-lzo
+
+
+# Diffie hellman parameters.
+# Generate your own with:
+#   openssl dhparam -out dh1024.pem 1024
+# Substitute 2048 for 1024 if you are using
+# 2048 bit keys. 
+#dh /etc/openvpn/dh1024.pem
+<& valueEntry, entry => 'dh', value => $dh  &>
 
 
 # By default, log messages will go to the syslog (or
