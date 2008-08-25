@@ -4,6 +4,8 @@
 	  in case there isn't any.
 	+ Restore users reading from ldiff and adding them through
 	  eBox API
+	+ Set password-hash in slapd.conf to make password changes from samba sync
+	  the user password
 0.11.101
 	+ New release
 0.11.100
