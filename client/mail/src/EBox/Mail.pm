@@ -1153,9 +1153,9 @@ sub tableInfo
 
 sub logHelper
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    return (new EBox::MailLogHelper);
+    return new EBox::MailLogHelper();
 }
 
 sub restoreConfig
