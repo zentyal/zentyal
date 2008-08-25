@@ -833,12 +833,12 @@ sub _setTypedRow
     
 
     my $oldRow = $self->row();
-    my $oldValues = $oldRow->{'valueHash'};
+    my $oldValues = $oldRow->hashElements();
 
     my @setterTypes = @{$self->setterTypes()};
 
     my $changedData = { };
-    my $allData = $self->row()->{valueHash};
+    my $allData = $self->row()->hashElements();
     my @changedData = ();
     foreach my $paramName (keys %{$paramsRef}) {
         unless ( exists ( $oldValues->{$paramName} )) {
