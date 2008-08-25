@@ -24,6 +24,7 @@ Parameters:
 <%init>
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+my @hosts = @{$domain{'hosts'}};
 </%init>
 $TTL 3D
 @	IN	SOA	<% $nameserverHostname %>.<% $domain{'name'} %>.	admin.warp.es. (
@@ -35,9 +36,10 @@ $TTL 3D
 ;
 		NS	<% $nameserverHostname %>.<% $domain{'name'} %>.	;nameserver
 ;
+% unless (@hosts > 0 and (scalar(grep { $_->{'name'} eq $nameserverHostname } @hosts))) {
 <% $nameserverHostname %>		A	127.0.0.1
 <%perl>
-	my @hosts = @{$domain{'hosts'}};
+  }
 	if(@hosts != 0) {
 		foreach my $host (@hosts) {
 </%perl>
