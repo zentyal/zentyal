@@ -19,12 +19,10 @@ use base 'EBox::Types::Abstract';
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use Net::IP;
 
 use strict;
 use warnings;
-
-
-
 
 sub new
 {
@@ -84,15 +82,16 @@ sub cmp
     unless ( (ref $self) eq (ref $compareType) ) {
         return undef;
     }
+    my $ipA = new Net::IP($self->printableValue());
+    my $ipB = new Net::IP($compareType->printableValue());
 
-    my $maskA = $self->mask();
-    my $maskB = $compareType->mask();
-
-    if ($maskA != $maskB) {
-        return $maskA <=> $maskB;
+    if ( $ipA->bincomp('lt', $ipB) ) {
+        return -1;
+    } elsif ( $self->printableValue() eq $compareType->printableValue() ) {
+        return 0;
+    } else {
+        return 1;
     }
-
-    return $self->ip() cmp $compareType->ip();
 
 }
 
