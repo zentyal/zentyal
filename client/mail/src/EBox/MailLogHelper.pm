@@ -83,7 +83,7 @@ sub _getDate
 # I need go deeper in postfix logs to get this stuff work better
 sub processLine
 {
-    my ($self, $file, $line, $dbengine, $event) = @_;
+    my ($self, $file, $line, $dbengine) = @_;
 
     if (not $line =~ m/postfix/) {
         return;
@@ -107,7 +107,6 @@ sub processLine
                       client_host_name => $hostname,
                       from_address => $from,
                       to_address => $to,
-ea oskar
                       status => 'reject',
                       message => $msg,
                       postfix_date => $self->_getDate($line),
