@@ -5,8 +5,6 @@
 # debhelper has been run). That's why we do things before
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
-        # Set module as unconfigured
-        /usr/share/ebox/ebox-unconfigure-module squid || true
         # Purge configuration
         /usr/share/ebox/ebox-clean-gconf squid || true
 fi
