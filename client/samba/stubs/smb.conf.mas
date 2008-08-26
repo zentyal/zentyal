@@ -148,4 +148,11 @@ use EBox::Gettext;
  force user = ebox
  browseable = Yes
 
+[print$]
+ comment = Printer Drivers
+ path = /var/lib/samba/printers
+ browseable = yes
+ read only = yes
+ guest ok = no
+ write list = @"Domain Admins"
 
