@@ -32,6 +32,8 @@ loglevel        none
 modulepath	/usr/lib/ldap
 moduleload	back_hdb
 
+password-hash {CLEARTEXT}
+
 # The maximum number of entries that is returned for a search operation
 sizelimit 500
 
