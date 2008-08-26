@@ -100,9 +100,11 @@ case "$1" in
 
         /usr/share/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
 
-        set_ebox_port
+       
 
         if [ -z "$2" ]; then
+            # Set eBox port only if it's the first time we install
+            set_ebox_port
             invoke-rc.d ebox apache start || true
         else 
             invoke-rc.d ebox apache stop || true
