@@ -207,7 +207,7 @@ sub _table
              editable      => 1,
              help          => __('Jabber ID of the account ' .
                  'that will send the messages. ' .
-                 'Pattern: user@domain')
+                 'Hint: do not introduce @domain, only the user name')
              ),
          new EBox::Types::Password(
              fieldName     => 'password',
