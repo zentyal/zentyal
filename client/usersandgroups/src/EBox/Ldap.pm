@@ -30,6 +30,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::UsersAndGroups::ImportFromLdif::Engine;
 use EBox::Gettext;
 use Data::Dumper;
 use Encode qw( :all );
@@ -593,9 +594,9 @@ sub loadLdapData
                         ]);
 }
 
-# Method: loadLdapData
+# Method: importLdapData
 #
-#    load in eBox the data found in LDIF file. Import classes for the various
+#    import in eBox the data found in LDIF file. Import classes for the various
 #    modules are used to load the data
 #  
 #    Parameters:

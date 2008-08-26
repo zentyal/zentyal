@@ -1565,7 +1565,7 @@ sub restoreConfig
 {
   my ($self, $dir) = @_;
 
-  $self->{ldap}->loadLdapData($dir);
+  $self->{ldap}->importLdapData($dir);
 }
 
 
