@@ -27,6 +27,8 @@ use warnings;
 
 use Params::Validate qw(validate SCALAR ARRAYREF);
 
+# Group: Public methods
+
 # Constructor: new
 #
 #     This exception is taken to say the type of an argument is not
@@ -91,8 +93,63 @@ sub new
   return $self;
 }
 
+# Method: cmd
+#
+#       Return the command string
+#
+# Returns:
+#
+#       String - the command string
+#
+sub cmd
+{
+  my ($self) = @_;
+  return $self->{cmd};
+}
 
+# Method: output
+#
+#       Return the standard output in an array
+#
+# Returns:
+#
+#       Array ref - the standard output, one line per element
+#
+sub output
+{
+  my ($self) = @_;
+  return $self->{output};
+}
 
+# Method: error
+#
+#       Return the standard error in an array
+#
+# Returns:
+#
+#       Array ref - the standard error, one line per element
+#
+sub error
+{
+  my ($self) = @_;
+  return $self->{error};
+}
+
+# Method: exitValue
+#
+#       Return the exit value
+#
+# Returns:
+#
+#       Int - the exit value
+#
+sub exitValue
+{
+  my ($self) = @_;
+  return $self->{exitValue};
+}
+
+# Group: Private methods
 sub _errorMsg
 {
   my ($cmdType, $cmd, $error, $output, $exitValue) = @_;
@@ -104,28 +161,5 @@ sub _errorMsg
   return "$cmdType $cmd failed. \nError output: $errorStr\nCommand output: $outputStr. \nExit value: $exitValue";
 }
 
-sub cmd
-{
-  my ($self) = @_;
-  return $self->{cmd};
-}
-
-sub output
-{
-  my ($self) = @_;
-  return $self->{output};
-} 
-
-sub error
-{
-  my ($self) = @_;
-  return $self->{error};
-} 
-
-sub exitValue
-{
-  my ($self) = @_;
-  return $self->{exitValue};
-} 
 
 1;
