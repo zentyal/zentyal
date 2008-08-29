@@ -1,3 +1,6 @@
+0.12.1
+	+ Bugfix: Get logger from EBox category if it is not set explicity
+	to allow external programs to log using eBox log helper functions
 0.12
 	+ Added .field_help class in public.css
 	+ Add field help to modelView.mas
