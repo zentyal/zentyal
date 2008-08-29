@@ -492,7 +492,7 @@ sub listRules
         my $ruleRef =
           {
            ruleId      => $row->id(),
-           service     => $row->valueByName('service'),
+           service     => $row->elementByName('service'),
            source      => $row->elementByName('source')->subtype(),
            destination => $row->elementByName('destination')->subtype(),
            priority    => $row->valueByName('priority'),
@@ -1105,7 +1105,7 @@ sub _buildGConfRules # (iface, regenConfig)
     foreach my $row (@{$rows}) {
         my $ruleRef = {};
         $ruleRef->{identifier} = $self->_nextMap($row->{id});
-        $ruleRef->{service} = $row->valueByName('service');
+        $ruleRef->{service} = $row->elementByName('service');
         # Source and destination
         for my $targetName (qw(source destination)) {
             my $target = $row->elementByName($targetName)->subtype();

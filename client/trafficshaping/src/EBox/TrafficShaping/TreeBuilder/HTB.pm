@@ -586,7 +586,13 @@ sub findLeafClassId
 #    priority    - Int the filter priority
 #    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
 #    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
-#    service - String a service identifier
+#    service   - undef or <EBox::Types::Union> from 
+#                <EBox::TrafficShaping::Model::RuleTable> that can contains
+#                 a port based service, l7 protocol service or a group
+#                 of l7 protocol services.
+#                  
+#                 If undef, any service is assumed
+#
 #    id      - the filter identifier *(Optional)*
 #              Default value: $leafClassId
 #
@@ -613,8 +619,6 @@ sub addFilter
       unless defined ( $leafClassId );
     throw EBox::Exceptions::MissingArgument('Filter priority')
       unless defined ( $priority );
-    throw EBox::Exceptions::MissingArgument(__('Service'))
-      unless defined ( $service );
     throw EBox::Exceptions::MissingArgument(__('Address'))
       unless defined ( $srcAddr ) or defined ( $dstAddr );
 
@@ -954,21 +958,20 @@ sub _createInternalStructure # (defaultClassId)
 
     # Filter to generated in eBox traffic
     my $netMod = EBox::Global->modInstance('network');
-    my $servMod = EBox::Global->modInstance('services');
+    #my $servMod = EBox::Global->modInstance('services');
     my $ifaceAddr = $netMod->ifaceAddress($self->getInterface());
     my $eBoxIPType = new EBox::Types::IPAddr(fieldName     => 'ifaceAddr',
                                             printableName => 'ifaceAddr');
     $eBoxIPType->setValue("$ifaceAddr/32");
-    my $anyServiceId = $servMod->serviceId('any');
     $self->addFilter(leafClassId => $eBoxId,
                      priority    => 0,
                      srcAddr     => $eBoxIPType,
-                     service     => $anyServiceId,
+                     service     => undef,
                     );
     $self->addFilter(leafClassId => $eBoxId,
                      priority    => 0,
                      dstAddr     => $eBoxIPType,
-                     service     => $anyServiceId,
+                     service     => undef,
                      id          => $eBoxId + 1,
                     );
 

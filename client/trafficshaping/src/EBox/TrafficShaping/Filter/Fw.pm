@@ -60,8 +60,13 @@ use constant LOWEST_PRIORITY => 200;
 #
 #     - Following are *iptables* arguments to do filtering:
 #
-#       service   - String the service identifier
-#                   *(Optional)*
+#       service   - undef or <EBox::Types::Union> from 
+#                   <EBox::TrafficShaping::Model::RuleTable> that can contains
+#                   a port based service, l7 protocol service or a group
+#                   of l7 protocol services.
+#                   
+#                   If undef, any service is assumed
+#
 #       srcAddr   - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the
 #                   packet source to match *(Optional)*
 #       dstAddr   - <EBox::Types::MACAddr> the packet destination to match
@@ -371,12 +376,21 @@ sub dumpIptablesCommands
                                                 destinationAddress => $self->{dstAddr} );
       }
 
-      my $iface = $self->{parent}->getInterface();
-      my $network = EBox::Global->modInstance('network');
-      if ($network->ifaceIsExternal($iface)) {
-        $ipTablesRule->setService($self->{service});
-      } else {
-        $ipTablesRule->setReverseService($self->{service});
+      if (not defined ($self->{service})) {
+        my $serviceMod = EBox::Global->modInstance('services');
+        $ipTablesRule->setService($serviceMod->serviceId('any'));
+      } elsif ($self->{service}->selectedType() eq 'port') { 
+         my $iface = $self->{parent}->getInterface();
+         my $network = EBox::Global->modInstance('network');
+         if ($network->ifaceIsExternal($iface)) {
+           $ipTablesRule->setService($self->{service}->value());
+         } else {
+           $ipTablesRule->setReverseService($self->{service}->value());
+         }
+      } elsif ($self->{service}->selectedType() eq 'l7Protocol') {
+        $ipTablesRule->setL7Service($self->{service}->value());
+      } elsif ($self->{service}->selectedType() eq 'l7Group') {
+        $ipTablesRule->setL7GroupedService($self->{service}->value());
       }
       push(@ipTablesCommands, @{$ipTablesRule->strings()});
     }
