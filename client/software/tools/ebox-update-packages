@@ -19,6 +19,8 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
@@ -53,8 +55,8 @@ try {
 } catch EBox::Exceptions::Sudo::Command with {
     my ($exc) = @_;
     $retValue = $exc->exitValue();
-    $errorMsg = $exc->_errorMsg();
-    EBox::error($exc->_errorMsg());
+    $errorMsg = $exc->stringify();
+    EBox::error($errorMsg);
 } finally {
     try {
         EBox::Sudo::root(
@@ -69,11 +71,11 @@ try {
 
         my $apache = EBox::Global->modInstance('apache');
         $apache->_daemon('restart');
-                        
     } catch EBox::Exceptions::Sudo::Command with {
         my ($exc) = @_;
         $retValue = $exc->exitValue();
-        EBox::error($exc->_errorMsg());
+        $errorMsg = $exc->stringify();
+        EBox::error($errorMsg);
     };
     try {
         $progress->setAsFinished($retValue, $errorMsg);
