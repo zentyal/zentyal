@@ -479,21 +479,21 @@ sub _table
             subtypes =>
                [
                 new EBox::Types::Select(
-                    fieldName       => 'port',
+                    fieldName       => 'service_port',
                     printableName   => __('Port based service'),
                     foreignModel    => \&_serviceModel,
                     foreignField    => 'name',
                     editable        => 1,
                     ),
                 new EBox::Types::Select(
-                    fieldName       => 'l7Protocol',
+                    fieldName       => 'service_l7Protocol',
                     printableName   => __('Application based service'),
                     foreignModel    => \&_l7Protocol,
                     foreignField    => 'protocol',
                     editable        => 1,
                     ),
                 new EBox::Types::Select(
-                    fieldName       => 'l7Group',
+                    fieldName       => 'service_l7Group',
                     printableName   => __('Application based service group'),
                     foreignModel    => \&_l7Group,
                     foreignField    => 'group',

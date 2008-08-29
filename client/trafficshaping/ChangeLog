@@ -1,3 +1,7 @@
+0.12.2
+	+ Add support for l7filter
+0.12.1
+	+ Bugfix. Fetch value from rate properly
 0.12
 	+ Add field help to model
 0.11.104
@@ -15,7 +19,7 @@
 0.11.100
 	+ Rules are introduced into a ordered table
 0.11.99
-        + eBox -> internal networks traffic flow is not shaped
+	+ eBox -> internal networks traffic flow is not shaped
 	anymore
 	+ Exposing API from models
 	+ Removing old code to decrease the module complexity and LOC by
