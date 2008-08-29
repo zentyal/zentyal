@@ -23,6 +23,8 @@
 #     we need to reverse the service configuration: source port is destination
 #     port and vice versa.
 #
+#   - Setting L7 services
+#
 package EBox::TrafficShaping::Firewall::IptablesRule;
 
 use warnings;
@@ -117,5 +119,68 @@ sub setReverseService
         }
     }
 }
+
+# Method: setL7Service
+#
+#   Set service for the rule
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   l7service name
+sub setL7Service
+{
+    my ($self, $service, $inverseMatch) = @_;
+
+    unless (defined($service)) {
+        throw EBox::Exceptions::MissingArgument("service");
+    }
+
+    my $inverse = '';
+    if ($inverseMatch) {
+        $inverse = ' ! ';
+    }
+
+  push (@{$self->{'service'}}, " -m layer7 --l7proto $inverse $service");
+}
+
+# Method: setL7GroupedService
+#
+#   Set a grouped service
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   
+#   l7 grouped service id
+#   
+sub setL7GroupedService
+{
+    my ($self, $service, $inverseMatch) = @_;
+
+    unless (defined($service)) {
+        throw EBox::Exceptions::MissingArgument("service");
+    }
+
+    my $inverse = '';
+    if ($inverseMatch) {
+        $inverse = ' ! ';
+    }
+
+    my $l7mod = EBox::Global->modInstance('l7-protocols')->model('Groups');
+    my $row = $l7mod->row($service);
+    unless (defined($row)) {
+        throw EBox::Exceptions::External("group $service does not exist");
+    }
+
+    my @protocols;
+    for my $subRow (@{$row->subModel('protocols')->rows()}) {
+        my $ser =  $subRow->valueByName('protocol');
+        push (@{$self->{'service'}}, " -m layer7 --l7proto $inverse $ser");
+    }
+
+}
+
 
 1;

@@ -126,40 +126,40 @@ sub priority
 #       <EBox::Model::DataTable::warnOnChangeOnId>
 #
 sub warnOnChangeOnId
-  {
+{
 
-      my ($self, %params) = @_;
+    my ($self, %params) = @_;
 
-      my ($modelName, $id, $changedData, $oldRow) = ( $params{modelName},
-                                                      $params{id},
-                                                      $params{changedData},
-                                                      $params{oldRow} );
+    my ($modelName, $id, $changedData, $oldRow) = ( $params{modelName},
+            $params{id},
+            $params{changedData},
+            $params{oldRow} );
 
-      my $strToShow = __x('Change or remove some rules on {contextName}',
-                             contextName => $self->printableContextName());
+    my $strToShow = __x('Change or remove some rules on {contextName}',
+            contextName => $self->printableContextName());
 
-      if ( $modelName =~ m/GatewayTable/ ) {
-          if ( exists $changedData->{interface} ) {
-              my $oldGatewayIface = $oldRow->valueByName('interface');
-              if ( ($oldGatewayIface eq $self->{interface}) &&
-                   ($self->size() > 0) ) {
-                  return $strToShow;
-              }
-          } else {
-              if ( $self->isUsingId($modelName, $id) ) {
-                  if ( exists $changedData->{upload} ) {
-                      return $strToShow;
-                  }
-                  if ( exists $changedData->{download} ) {
-                      return $strToShow;
-                  }
-              }
-          }
-      }
+    if ( $modelName =~ m/GatewayTable/ ) {
+        if ( exists $changedData->{interface} ) {
+            my $oldGatewayIface = $oldRow->valueByName('interface');
+            if ( ($oldGatewayIface eq $self->{interface}) &&
+                    ($self->size() > 0) ) {
+                return $strToShow;
+            }
+        } else {
+            if ( $self->isUsingId($modelName, $id) ) {
+                if ( exists $changedData->{upload} ) {
+                    return $strToShow;
+                }
+                if ( exists $changedData->{download} ) {
+                    return $strToShow;
+                }
+            }
+        }
+    }
 
-      return '';
+    return '';
 
-  }
+}
 
 # Method: isUsingId
 #
@@ -168,27 +168,28 @@ sub warnOnChangeOnId
 #       <EBox::Model::DataTable::isUsingId>
 #
 sub isUsingId
-  {
+{
 
-      my ($self, $modelName, $id) = @_;
+    my ($self, $modelName, $id) = @_;
 
-      if ( $modelName eq 'GatewayTable' ) {
-          if ( $self->{interfaceType} eq 'external' ) {
-              my $manager = EBox::Model::ModelManager->instance();
-              my $observableModel = $manager->model($modelName);
+    if ( $modelName eq 'GatewayTable' ) {
+        if ( $self->{interfaceType} eq 'external' ) {
+            my $manager = EBox::Model::ModelManager->instance();
+            my $observableModel = $manager->model($modelName);
 
-              my $gateway = $observableModel->row($id);
-              my $gatewayIface = $gateway->valueByName('interface');
-              return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
-          } else {
-              # Every time a gateway is changed, call a warning from an internal interface
-              return ($self->size() > 0);
-          }
-      }
+            my $gateway = $observableModel->row($id);
+            my $gatewayIface = $gateway->valueByName('interface');
+            return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
+        } else {
+            # Every time a gateway is changed, 
+            # call a warning from an internal interface
+            return ($self->size() > 0);
+        }
+    }
 
-      return 0;
+    return 0;
 
-  }
+}
 
 # Method: notifyForeignModelAction
 #
@@ -267,10 +268,10 @@ sub printableIndex
 
     if ( $self->{interfaceType} eq 'internal' ) {
         return __x('{iface} (internal interface)',
-                   iface => $self->{interface});
+                iface => $self->{interface});
     } else {
         return __x('{iface} (external interface)',
-                   iface => $self->{interface});
+                iface => $self->{interface});
     }
 
 }
@@ -292,74 +293,80 @@ sub printableIndex
 #
 sub validateTypedRow
 {
-  my ($self, $action, $params) = @_;
+    my ($self, $action, $params) = @_;
 
-  if ( defined ( $params->{guaranteed_rate} )) {
-    $self->_checkRate( $params->{guaranteed_rate},
-		       __('Guaranteed rate'));
-  }
-
-  if ( defined ( $params->{limited_rate} )) {
-    $self->_checkRate( $params->{limited_rate},
-		       __('Limited rate'));
-  }
-
-  # Check objects have members
-  my $objMod = EBox::Global->modInstance('objects');
-  foreach my $target (qw(source destination)) {
-      if ( defined ( $params->{$target} )) {
-          if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
-              my $srcObjId = $params->{$target}->value();
-              unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
-                  throw EBox::Exceptions::External(__x('Object {object} has no members. Please add at '
-                                                       . 'least one to add rules using this object',
-                                                       object => $params->{$target}->printableValue()));
-              }
-          }
-      }
-  }
-
-  if ( $action eq 'update' ) {
-    # Fill those parameters which haven't been changed
-    my $oldRow = $self->row($params->{id});
-    foreach my $paramName (keys %{$oldRow->hashElements()}) {
-      unless ( defined ( $params->{$paramName})) {
-	$params->{$paramName} = $oldRow->elementByName($paramName);
-      }
+    if ( defined ( $params->{guaranteed_rate} )) {
+        $self->_checkRate( $params->{guaranteed_rate},
+                __('Guaranteed rate'));
     }
-  }
 
-  my $servMod = EBox::Global->modInstance('services');
-  # Check if service is any, any source or destination is given
-  if ( ( $servMod->serviceName($params->{service}->value())->value() eq 'any') and
-       $params->{source}->subtype()->isa('EBox::Types::Union::Text') and
-       $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
-    throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
+    if ( defined ( $params->{limited_rate} )) {
+        $self->_checkRate( $params->{limited_rate},
+                __('Limited rate'));
+    }
 
-  }
+    # Check objects have members
+    my $objMod = EBox::Global->modInstance('objects');
+    foreach my $target (qw(source destination)) {
+        if ( defined ( $params->{$target} )) {
+            if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
+                my $srcObjId = $params->{$target}->value();
+                unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
+                    throw EBox::Exceptions::External(
+                    __x('Object {object} has no members. Please add at ' .
+                        'least one to add rules using this object',
+                        object => $params->{$target}->printableValue()));
+                }
+            }
+        }
+    }
 
-  # Transform objects (Select type) to object identifier to satisfy
-  # checkRule API
-  my %targets;
-  foreach my $target (qw(source destination)) {
-      if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
-          $targets{$target} = $params->{$target}->value();
-      } else {
-          $targets{$target} = $params->{$target}->subtype();
-      }
-  }
+    if ( $action eq 'update' ) {
+        # Fill those parameters which haven't been changed
+        my $oldRow = $self->row($params->{id});
+        foreach my $paramName (keys %{$oldRow->hashElements()}) {
+            unless ( defined ( $params->{$paramName})) {
+                $params->{$paramName} = $oldRow->elementByName($paramName);
+            }
+        }
+    }
 
-  # Check the memory structure works as well
-  $self->{ts}->checkRule(interface      => $self->{interface},
-			 service        => $params->{service}->value(),
-			 source         => $targets{source},
-			 destination    => $targets{destination},
-			 priority       => $params->{priority}->value(),
-			 guaranteedRate => $params->{guaranteed_rate}->value(),
-			 limitedRate    => $params->{limited_rate}->value(),
-			 ruleId         => $params->{id}, # undef on addition
-                         enabled        => $params->{enabled},
-			);
+    my $service = $params->{service}->subtype();
+    if ($service->fieldName() eq 'port') {
+        my $servMod = EBox::Global->modInstance('services');
+        # Check if service is any, any source or destination is given
+        if ($service->value() eq 'any' 
+           and $params->{source}->subtype()->isa('EBox::Types::Union::Text') 
+           and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
+            
+            throw EBox::Exceptions::External(
+                __('If service is any, some source or' .
+                   'destination should be provided'));
+
+        }
+    }
+    # Transform objects (Select type) to object identifier to satisfy
+    # checkRule API
+    my %targets;
+    foreach my $target (qw(source destination)) {
+        if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
+            $targets{$target} = $params->{$target}->value();
+        } else {
+            $targets{$target} = $params->{$target}->subtype();
+        }
+    }
+
+    # Check the memory structure works as well
+    $self->{ts}->checkRule(interface      => $self->{interface},
+            service        => $params->{service}->value(),
+            source         => $targets{source},
+            destination    => $targets{destination},
+            priority       => $params->{priority}->value(),
+            guaranteedRate => $params->{guaranteed_rate}->value(),
+            limitedRate    => $params->{limited_rate}->value(),
+            ruleId         => $params->{id}, # undef on addition
+            enabled        => $params->{enabled},
+            );
 
 }
 
@@ -465,126 +472,149 @@ sub _table
     my ($self) = @_;
 
     my @tableHead =
-      (
-       new EBox::Types::Select(
-			       fieldName       => 'service',
-			       printableName   => __('Service'),
-			       foreignModel    => \&_serviceModel,
-			       foreignField    => 'name',
-			       editable        => 1,
-			      ),
-       new EBox::Types::Union(
-                              fieldName     => 'source',
-                              printableName => __('Source'),
-                              subtypes      =>
-                              [
-                               new EBox::Types::Union::Text(
-                                                            'fieldName' => 'source_any',
-                                                            'printableName' => __('Any')),
-                               new EBox::Types::IPAddr(
-                                                       fieldName     => 'source_ipaddr',
-                                                       printableName => __('Source IP'),
-                                                       editable      => 1,
-                                                      ),
-                               new EBox::Types::MACAddr(
-                                                        fieldName     => 'source_macaddr',
-                                                        printableName => __('Source MAC'),
-                                                        editable      => 1,
-                                                       ),
-                               new EBox::Types::Select(
-                                                       fieldName     => 'source_object',
-                                                       printableName => __('Source object'),
-                                                       editable      => 1,
-                                                       foreignModel => \&_objectModel,
-                                                       foreignField => 'name'
-                                                      )
-                              ],
-                              editable => 1,
-                             ),
-       new EBox::Types::Union(
-                              fieldName     => 'destination',
-                              printableName => __('Destination'),
-                              subtypes      =>
-                              [
-                               new EBox::Types::Union::Text(
-                                                            'fieldName' => 'destination_any',
-                                                            'printableName' => __('Any')),
-                               new EBox::Types::IPAddr(
-                                                       fieldName     => 'destination_ipaddr',
-                                                       printableName => __('Destination IP'),
-                                                       editable      => 1,
-                                                      ),
-                               new EBox::Types::Select(
-                                                       fieldName     => 'destination_object',
-                                                       printableName => __('Destination object'),
-                                                       type          => 'select',
-                                                       foreignModel => \&_objectModel,
-                                                       foreignField => 'name',
-                                                       editable      => 1 ),
-                              ],
-                              editable => 1,
-                             ),
-       new EBox::Types::Select(
-                               fieldName     => 'priority',
-                               printableName => __('Priority'),
-                               editable      => 1,
-                               populate      => \&priority,
-                               defaultValue  => 7,
-                               help          => __('Lowest priotiry: 7 ' .
-                                ' Highest priority: 0')
-                              ),
-       new EBox::Types::Int(
-                            fieldName     => 'guaranteed_rate',
-                            printableName => __('Guaranteed Rate'),
-                            size          => 3,
-                            editable      => 1, # editable
-                            trailingText  => __('Kbit/s'),
-                            defaultValue  => 0,
-                            help          => __('Note that  ' .
-                                'The sum of all guaranteed ' .
-                                'rates cannot exceed your ' .
-                                'total bandwidth. 0 means unlimited rate.')
-                           ),
-       new EBox::Types::Int(
-                            fieldName     => 'limited_rate',
-                            printableName => __('Limited Rate'),
-                            class         => 'tcenter',
-                            type          => 'int',
-                            size          => 3,
-                            editable      => 1, # editable
-                            trailingText  => __('Kbit/s'),
-                            defaultValue  => 0,
-                            help          => __('Traffic will not exceed ' .
-                                'this rate. 0 means unlimited rate.')
-                           ),
+        (
+         new EBox::Types::Union(
+            fieldName   => 'service',
+            printableName => __('Service'),
+            subtypes =>
+               [
+                new EBox::Types::Select(
+                    fieldName       => 'port',
+                    printableName   => __('Port based service'),
+                    foreignModel    => \&_serviceModel,
+                    foreignField    => 'name',
+                    editable        => 1,
+                    ),
+                new EBox::Types::Select(
+                    fieldName       => 'l7Protocol',
+                    printableName   => __('Application based service'),
+                    foreignModel    => \&_l7Protocol,
+                    foreignField    => 'protocol',
+                    editable        => 1,
+                    ),
+                new EBox::Types::Select(
+                    fieldName       => 'l7Group',
+                    printableName   => __('Application based service group'),
+                    foreignModel    => \&_l7Group,
+                    foreignField    => 'group',
+                    editable        => 1,
+                    ),
+                ],
+             editable => 1,
+             help => _serviceHelp()
+             ),
+         new EBox::Types::Union(
+             fieldName     => 'source',
+             printableName => __('Source'),
+             subtypes      =>
+                [
+                 new EBox::Types::Union::Text(
+                     'fieldName' => 'source_any',
+                     'printableName' => __('Any')),
+                 new EBox::Types::IPAddr(
+                     fieldName     => 'source_ipaddr',
+                     printableName => __('Source IP'),
+                     editable      => 1,
+                     ),
+                 new EBox::Types::MACAddr(
+                     fieldName     => 'source_macaddr',
+                     printableName => __('Source MAC'),
+                     editable      => 1,
+                     ),
+                 new EBox::Types::Select(
+                     fieldName     => 'source_object',
+                     printableName => __('Source object'),
+                     editable      => 1,
+                     foreignModel => \&_objectModel,
+                     foreignField => 'name'
+                     )
+                 ],
+             editable => 1,
+             ),
+         new EBox::Types::Union(
+             fieldName     => 'destination',
+             printableName => __('Destination'),
+             subtypes      =>
+                 [
+                 new EBox::Types::Union::Text(
+                     'fieldName' => 'destination_any',
+                     'printableName' => __('Any')),
+                 new EBox::Types::IPAddr(
+                     fieldName     => 'destination_ipaddr',
+                     printableName => __('Destination IP'),
+                     editable      => 1,
+                     ),
+                 new EBox::Types::Select(
+                     fieldName     => 'destination_object',
+                     printableName => __('Destination object'),
+                     type          => 'select',
+                     foreignModel => \&_objectModel,
+                     foreignField => 'name',
+                     editable      => 1 ),
+                 ],
+              editable => 1,
+              ),
+         new EBox::Types::Select(
+             fieldName     => 'priority',
+             printableName => __('Priority'),
+             editable      => 1,
+             populate      => \&priority,
+             defaultValue  => 7,
+             help          => __('Lowest priotiry: 7 Highest priority: 0')
+             ),
+         new EBox::Types::Int(
+             fieldName     => 'guaranteed_rate',
+             printableName => __('Guaranteed Rate'),
+             size          => 3,
+             editable      => 1, # editable
+             trailingText  => __('Kbit/s'),
+             defaultValue  => 0,
+             help          => __('Note that  ' .
+                 'The sum of all guaranteed ' .
+                 'rates cannot exceed your ' .
+                 'total bandwidth. 0 means unlimited rate.')
+              ),
+         new EBox::Types::Int(
+                 fieldName     => 'limited_rate',
+                 printableName => __('Limited Rate'),
+                 class         => 'tcenter',
+                 type          => 'int',
+                 size          => 3,
+                 editable      => 1, # editable
+                 trailingText  => __('Kbit/s'),
+                 defaultValue  => 0,
+                 help          => __('Traffic will not exceed ' .
+                     'this rate. 0 means unlimited rate.')
+              ),
       );
 
 
     my $dataTable = { 
-		     'tableName'          => 'tsTable',
-		     'printableTableName' => __x('Rules list for {printableIndex}',
-                                                 printableIndex => $self->printableIndex()),
-                     'defaultActions'     =>
-                           [ 'add', 'del', 'editField', 'changeView', 'move' ],
-                     'modelDomain'        => 'TrafficShaping',
-		     'tableDescription'   => \@tableHead,
-		     'class'              => 'dataTable',
-		     # Priority field set the ordering through _order function
-		     'order'              => 1,
-		     'help'               => __('Note that if the interface is internal, the traffic '
-                                    . 'flow comes from Internet to inside and the external is the '
-                                    . 'other way around'),
-		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('rule'),
-                     'notifyActions'      => [ 'GatewayTable' ],
-                     'automaticRemove' => 1,    # Related to objects,
-                                                # remove rules with an
-                                                # object when that
-                                                # object is being
-                                                # deleted
-                     'enableProperty'      => 1, # The rules can be enabled or not
-                     'defaultEnabledValue' => 1, # The rule is enabled by default
-		    };
+        'tableName'          => 'tsTable',
+        'printableTableName' => __x('Rules list for {printableIndex}',
+                                    printableIndex => $self->printableIndex()),
+        'defaultActions'     =>
+            [ 'add', 'del', 'editField', 'changeView', 'move' ],
+        'modelDomain'        => 'TrafficShaping',
+        'tableDescription'   => \@tableHead,
+        'class'              => 'dataTable',
+        # Priority field set the ordering through _order function
+        'order'              => 1,
+        'help'               => __('Note that if the interface is internal, ' .
+                                   'the traffic flow comes from Internet to ' .
+                                   'inside and the external is the other way '.
+                                   'around'),
+        'rowUnique'          => 1,  # Set each row is unique
+        'printableRowName'   => __('rule'),
+        'notifyActions'      => [ 'GatewayTable' ],
+        'automaticRemove' => 1,    # Related to objects,
+                                   # remove rules with an
+                                   # object when that
+                                   # object is being
+                                   # deleted
+        'enableProperty'      => 1, # The rules can be enabled or not
+        'defaultEnabledValue' => 1, # The rule is enabled by default
+    };
 
     return $dataTable;
 
@@ -606,6 +636,21 @@ sub _serviceModel
 {
     return EBox::Global->modInstance('services')->{serviceModel};
 }
+
+# Get the object model from l7-protocol
+sub _l7Protocol 
+{
+
+    return EBox::Global->modInstance('l7-protocols')->model('Protocols');
+}
+
+# Get the object model from l7-groups
+sub _l7Group
+{
+
+    return EBox::Global->modInstance('l7-protocols')->model('Groups');
+}
+
 
 # Remove every rule from the model since no limit rate are possible
 sub _removeRules
@@ -649,12 +694,13 @@ sub _normalize
             }
             # Normalize guaranteed rate
             if ( $guaranteedRate != 0 ) {
-                $guaranteedRate = ( $guaranteedRate * $currentLimitRate ) / $oldLimitRate;
+                $guaranteedRate = ( $guaranteedRate * $currentLimitRate ) 
+                                  / $oldLimitRate;
                 $guaranNum++;
             }
             try {
                 $self->set( $pos, guaranteed_rate => $guaranteedRate,
-                            limited_rate => $limitedRate);
+                        limited_rate => $limitedRate);
             } catch EBox::Exceptions::External with {
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
@@ -668,13 +714,14 @@ sub _normalize
     }
 
     if ( $limitNum > 0 or $guaranNum > 0 ){
-        return __x('Normalizing rates: {limitNum} rules have decreased its limit rate to {limitRate}, ' .
-                   '{guaranNum} rules have normalized its guaranteed rate to maintain ' .
-                   'the same proportion that it has previously and {removeNum} ' .
-                   'have been deleted because its guaranteed rate was lower than the ' .
-                   'minimum allowed',
-                   limitNum => $limitNum, limitRate => $currentLimitRate,
-                   guaranNum => $guaranNum, removeNum => $removeNum);
+        return __x( 'Normalizing rates: {limitNum} rules have decreased its ' .
+            'limit rate to {limitRate}, {guaranNum} rules have normalized ' . 
+            'its guaranteed rate to maintain ' .
+            'the same proportion that it has previously and {removeNum} ' .
+            'have been deleted because its guaranteed rate was lower than ' .
+            'the minimum allowed',
+            limitNum => $limitNum, limitRate => $currentLimitRate,
+            guaranNum => $guaranNum, removeNum => $removeNum);
     }
 
 }
@@ -688,16 +735,16 @@ sub _normalize
 sub _checkRate # (rate, printableName)
 {
 
-  my ($self, $rate, $printableName) = @_;
+    my ($self, $rate, $printableName) = @_;
 
-  if ( $rate < 0 ) {
-    throw EBox::Exceptions::InvalidData(
-					'data'  => $printableName,
-					'value' => $rate,
-				       );
-  }
+    if ( $rate < 0 ) {
+        throw EBox::Exceptions::InvalidData(
+                'data'  => $printableName,
+                'value' => $rate,
+                );
+    }
 
-  return 1;
+    return 1;
 
 }
 
@@ -718,8 +765,17 @@ sub _setStateRate
     my ($self, $rate) = @_;
 
     $self->{gconfmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
-                                     $rate);
+            $rate);
 
 }
 
+sub _serviceHelp
+{
+    return __('Port based protocols use the port number to match a service, ' .
+              'while Application based protocols are slower but more ' .
+              'effective as they check the content of any ' .
+              'packet to match a service.');
+
+              
+}
 1;
