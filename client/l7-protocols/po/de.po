@@ -1,0 +1,126 @@
+# German translations for ebox-services package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-services package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-services 0.11.101\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"PO-Revision-Date: 2007-09-03 17:18+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/Model/ServiceTable.pm:107
+msgid "Domain"
+msgstr "Domäne"
+
+#: src/EBox/Model/ServiceTable.pm:114
+msgid "Service name"
+msgstr "Name des Dienstes"
+
+#: src/EBox/Model/ServiceTable.pm:122
+msgid "Description"
+msgstr "Beschreibung"
+
+#: src/EBox/Model/ServiceTable.pm:129
+msgid "Internal"
+msgstr "Intern"
+
+#: src/EBox/Model/ServiceTable.pm:130
+msgid ""
+"Tick this field if there is actually a service on the machine using the "
+"ports configured for this service. This helps eBox to know what ports are "
+"already busy"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:139
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: src/EBox/Model/ServiceTable.pm:151 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Dienste"
+
+#: src/EBox/Model/ServiceTable.pm:160
+#: src/EBox/Model/ServiceConfigurationTable.pm:137
+msgid "service"
+msgstr "Dienst"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:106
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:112
+msgid "Source port"
+msgstr "Quellport"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:114
+msgid "This field is usually set to any"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:118
+msgid "Destination port"
+msgstr "Zielport"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:128
+msgid "Service configuration"
+msgstr "Dienste konfigurieren"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:160
+msgid "This protocol does not use ports"
+msgstr "Dieses Protokoll verwendet keine Ports"
+
+#: src/EBox/Services.pm:327
+msgid "port"
+msgstr "Port"
+
+#: src/EBox/Services.pm:329
+#: migration/0001_import_services_from_firewall.pl:108
+msgid "eBox administration"
+msgstr "eBox-Administration"
+
+#: src/EBox/Services.pm:330
+#: migration/0001_import_services_from_firewall.pl:109
+msgid "eBox Administration port"
+msgstr "Port für eBox-Administration"
+
+#: src/EBox/Services.pm:331 migration/0001_import_services_from_firewall.pl:71
+#: migration/0001_import_services_from_firewall.pl:82
+#: migration/0001_import_services_from_firewall.pl:94
+#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:125
+msgid "ebox-services"
+msgstr "eBox-Dienste"
+
+#: migration/0001_import_services_from_firewall.pl:69
+msgid "any"
+msgstr "Alle"
+
+#: migration/0001_import_services_from_firewall.pl:70
+msgid "any protocol and port"
+msgstr "Alle Ports und Protokolle"
+
+#: migration/0001_import_services_from_firewall.pl:80
+msgid "any UDP"
+msgstr "alle UDP"
+
+#: migration/0001_import_services_from_firewall.pl:81
+msgid "any UDP port"
+msgstr "alle UDP-Ports"
+
+#: migration/0001_import_services_from_firewall.pl:92
+msgid "any TCP"
+msgstr "alle TCP"
+
+#: migration/0001_import_services_from_firewall.pl:93
+msgid "any TCP port"
+msgstr "alle TCP-Ports"
+
+#~ msgid "bbbb"
+#~ msgstr "bbbb"
