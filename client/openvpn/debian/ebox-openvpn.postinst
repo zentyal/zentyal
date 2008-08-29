@@ -33,7 +33,9 @@ case "$1" in
         # restart logs
         invoke-rc.d ebox logs restart || true
         # restart module
-        invoke-rc.d ebox openvpn restart
+        invoke-rc.d ebox openvpn restart || true
+        # restart module
+        invoke-rc.d ebox firewall restart || true
         # Restart eBox apache
         invoke-rc.d ebox apache restart || true
     esac
