@@ -172,6 +172,8 @@ sub setStructure
 
 	pf '-N drop';
 
+	pf '-N log';
+
 	pf '-N ointernal';
 	pf '-N omodules';
 	pf '-N oglobal';
@@ -430,6 +432,8 @@ sub start
 
 	$self->_drop();
 
+	$self->_log();
+
 	$self->_iexternal();
 	$self->_iglobal();
 
@@ -613,7 +617,38 @@ sub _drop
     }
     pf "-I drop -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
        ' --log-level ' . SYSLOG_LEVEL . 
-       ' --log-prefix "ebox-firewall "';
+       ' --log-prefix "ebox-firewall drop "';
 }
 
+# Method: _log
+#
+#	Set up log chain. Log rule and return rule
+#	
+sub _log
+{
+    my ($self) = @_;
+
+    pf '-I log -j RETURN';
+
+    # If logging is disabled we are done
+    return unless ($self->{firewall}->logging());
+
+    my $limit = EBox::Config::configkey('iptables_log_limit');
+    my $burst = EBox::Config::configkey('iptables_log_burst');
+
+    unless (defined($limit) and $limit =~ /^\d+$/) {
+	throw EBox::Exceptions::External(__('You must set the ' .
+		'iptables_log_limit variable in the ebox configuration file'));
+
+    }
+
+    unless (defined($burst) and $burst =~ /^\d+$/) {
+	throw EBox::Exceptions::External(__('You must set the ' .
+		'iptables_log_burst variable in the ebox configuration file'));
+
+    }
+    pf "-I log -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
+       ' --log-level ' . SYSLOG_LEVEL . 
+       ' --log-prefix "ebox-firewall log "';
+}
 1;

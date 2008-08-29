@@ -65,7 +65,10 @@ sub decision
     my @options = ({ 'value' => 'accept', 
              'printableValue' => __('ACCEPT') }, 
                { 'value' => 'deny',
-             'printableValue' => __('DENY') });
+             'printableValue' => __('DENY') },
+               { 'value' => 'log',
+             'printableValue' => __('LOG') });
+ 
     return \@options;
 }
 

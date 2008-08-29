@@ -894,9 +894,9 @@ sub tableInfo {
 			'event'     => __('Decision')
 	};
 	
-	my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt);
+	my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt event);
 	
-	my $events = { 'drop' => __('DROP') };
+	my $events = { 'drop' => __('DROP'), 'log' => __('LOG') };
 
 	return {
 		'name' => __('Firewall'),
