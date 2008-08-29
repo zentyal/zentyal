@@ -67,11 +67,13 @@ sub processLine # (file, line, logger)
 {
 	my ($self, $file, $line, $dbengine) = @_;
 
-	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (.+)/) {
+	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
+	    EBox::debug("$line not logged");
 	    return;
 	}
 	my $date = $1;
-	my $rule = $2;
+	my $type = $2;
+	my $rule = $3;
 
 	my @pairs = grep (/=./, split(' ', $rule));
 	my %fields = map { split('='); } @pairs;
@@ -79,7 +81,7 @@ sub processLine # (file, line, logger)
 	my %dataToInsert;
 	my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
 	$dataToInsert{timestamp} = $timestamp;
-	$dataToInsert{event} = 'drop';
+	$dataToInsert{event} = $type;
 
 	my @fieldNames = qw(in out src dst proto spt dpt);
 	for my $name (@fieldNames) {

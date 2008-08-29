@@ -228,6 +228,8 @@ sub _addDecisionToRule
         $rule->setDecision('ACCEPT');    
     } elsif ($decision eq 'deny') {
         $rule->setDecision('drop');    
+    } elsif ($decision eq 'log') {
+        $rule->setDecision('log');    
     }
 
 }
