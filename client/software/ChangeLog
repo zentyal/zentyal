@@ -1,3 +1,6 @@
+0.12.1
+	+ Bugfix: Packages which are not installable for some reason are
+	handled correctly stopping the update process and showing the error
 0.12
 	+ New release
 0.11.101
