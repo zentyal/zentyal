@@ -23,6 +23,8 @@ use EBox::Exceptions::DeprecatedMethod;
 use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
 use English;
 
+use constant LOGGER_CAT => 'EBox';
+
 my $loginit = 0;
 
 sub deprecated
@@ -36,7 +38,7 @@ sub deprecated
 sub info # (msg)
 {
 	my ($msg) = @_;
-	my $logger = EBox::logger(caller);
+	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->info($msg);
 	$Log::Log4perl::caller_depth -=1;
@@ -45,7 +47,7 @@ sub info # (msg)
 sub error # (msg)
 {
 	my ($msg) = @_;
-	my $logger = EBox::logger(caller);
+	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->error($msg);
 	$Log::Log4perl::caller_depth -=1;
@@ -54,7 +56,7 @@ sub error # (msg)
 sub debug # (msg)
 {
 	my ($msg) = @_;
-	my $logger = EBox::logger(caller);
+	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->debug($msg);
 	$Log::Log4perl::caller_depth -=1;
@@ -63,7 +65,7 @@ sub debug # (msg)
 sub warn # (msg)
 {
 	my ($msg) = @_;
-	my $logger = EBox::logger(caller);
+	my $logger = EBox::logger(LOGGER_CAT);
 	$Log::Log4perl::caller_depth +=1;
 	$logger->warn($msg);
 	$Log::Log4perl::caller_depth -=1;
@@ -72,8 +74,8 @@ sub warn # (msg)
 # initializes Log4perl if necessary, returns the logger for the caller package
 sub logger # (caller?) 
 {
-	my $cat = shift;
-	defined($cat) or $cat = caller;
+	my ($cat) = @_;
+	defined($cat) or $cat = LOGGER_CAT;
 	unless ($loginit) {
 		Log::Log4perl->init(EBox::Config::conf() . "/eboxlog.conf");
 		$loginit = 1;
@@ -85,7 +87,7 @@ sub logger # (caller?)
 # 	- locale: the locale the interface should use
 sub setLocale # (locale) 
 {
-	my $locale = shift;
+	my ($locale) = @_;
 	open(LOCALE, ">" . EBox::Config::conf() . "/locale");
 	print LOCALE $locale;
 	close(LOCALE);
