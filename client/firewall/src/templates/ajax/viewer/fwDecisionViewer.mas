@@ -6,8 +6,14 @@ $data
 		<img src="/data/images/allow-active.gif" 
 			alt="<% $data->printableValue() %>"
 			title="<% $data->printableValue() %>"/>
-%   } else {
+%   } elsif ($data->value() eq 'deny') {
 		<img src="/data/images/deny-active.gif" 
 			alt="<% $data->printableValue() %>"
 			title="<% $data->printableValue() %>"/>
+%   } elsif ($data->value() eq 'log') {
+		<img src="/data/images/edit-table.gif" 
+			alt="<% $data->printableValue() %>"
+			title="<% $data->printableValue() %>"/>
+
 %   }
+
