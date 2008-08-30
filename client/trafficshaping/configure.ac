@@ -1,4 +1,4 @@
-AC_INIT([ebox-trafficshaping], [0.12])
+AC_INIT([ebox-trafficshaping], [0.12.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/TrafficShaping.pm])
