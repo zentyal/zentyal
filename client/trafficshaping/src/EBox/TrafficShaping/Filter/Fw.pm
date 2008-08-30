@@ -379,7 +379,7 @@ sub dumpIptablesCommands
       if (not defined ($self->{service})) {
         my $serviceMod = EBox::Global->modInstance('services');
         $ipTablesRule->setService($serviceMod->serviceId('any'));
-      } elsif ($self->{service}->selectedType() eq 'port') { 
+      } elsif ($self->{service}->selectedType() eq 'service_port') { 
          my $iface = $self->{parent}->getInterface();
          my $network = EBox::Global->modInstance('network');
          if ($network->ifaceIsExternal($iface)) {
@@ -387,9 +387,9 @@ sub dumpIptablesCommands
          } else {
            $ipTablesRule->setReverseService($self->{service}->value());
          }
-      } elsif ($self->{service}->selectedType() eq 'l7Protocol') {
+      } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
         $ipTablesRule->setL7Service($self->{service}->value());
-      } elsif ($self->{service}->selectedType() eq 'l7Group') {
+      } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
         $ipTablesRule->setL7GroupedService($self->{service}->value());
       }
       push(@ipTablesCommands, @{$ipTablesRule->strings()});

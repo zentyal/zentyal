@@ -485,21 +485,8 @@ sub _table
                     foreignField    => 'name',
                     editable        => 1,
                     ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Protocol',
-                    printableName   => __('Application based service'),
-                    foreignModel    => \&_l7Protocol,
-                    foreignField    => 'protocol',
-                    editable        => 1,
-                    ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Group',
-                    printableName   => __('Application based service group'),
-                    foreignModel    => \&_l7Group,
-                    foreignField    => 'group',
-                    editable        => 1,
-                    ),
-                ],
+                _l7Types(),
+               ],
              editable => 1,
              help => _serviceHelp()
              ),
@@ -588,7 +575,6 @@ sub _table
               ),
       );
 
-
     my $dataTable = { 
         'tableName'          => 'tsTable',
         'printableTableName' => __x('Rules list for {printableIndex}',
@@ -640,15 +626,15 @@ sub _serviceModel
 # Get the object model from l7-protocol
 sub _l7Protocol 
 {
-
-    return EBox::Global->modInstance('l7-protocols')->model('Protocols');
+    my $global = EBox::Global->getInstance();
+    return $global->modInstance('l7-protocols')->model('Protocols');
 }
 
 # Get the object model from l7-groups
 sub _l7Group
 {
-
-    return EBox::Global->modInstance('l7-protocols')->model('Groups');
+    my $global = EBox::Global->getInstance();
+    return $global->modInstance('l7-protocols')->model('Groups');
 }
 
 
@@ -778,4 +764,51 @@ sub _serviceHelp
 
               
 }
+
+# If l7filter capabilities are not enabled return dummy types which
+# are disabled
+sub _l7Types
+{
+    if (_l7FilterEnabled()) {
+        return (
+                new EBox::Types::Select(
+                    fieldName       => 'service_l7Protocol',
+                    printableName   => __('Application based service'),
+                    foreignModel    => \&_l7Protocol,
+                    foreignField    => 'protocol',
+                    editable        => 1,
+                    ),
+                new EBox::Types::Select(
+                    fieldName       => 'service_l7Group',
+                    printableName   => 
+                    __('Application based service group'),
+                    foreignModel    => \&_l7Group,
+                    foreignField    => 'group',
+                    editable        => 1,
+                    ));
+    } else {
+        return (
+                new EBox::Types::Select(
+                    fieldName       => 'service_l7Protocol',
+                    printableName   => __('Application based service'),
+                    options	    => [],
+                    editable        => 1,
+                    disabled	    => 1, 
+                    ),
+                new EBox::Types::Select(
+                    fieldName       => 'service_l7Group',
+                    printableName   => __('Application based service group'),
+                    options	    => [],
+                    editable        => 1,
+                    disabled	    => 1, 
+                    ));
+    }
+}
+
+sub _l7FilterEnabled
+{
+    return (EBox::Global->getInstance()->modExists('l7-protocols')
+            and `uname -a | grep l7filter`);
+}
+
 1;
