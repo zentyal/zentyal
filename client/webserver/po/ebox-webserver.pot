@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.11.101\n"
+"Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:20+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,44 +20,44 @@ msgstr ""
 msgid "Virtual host's name"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:140
+#: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:158
+#: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:172
+#: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:178
-#: src/EBox/WebServer/Model/VHostTable.pm:183
+#: src/EBox/WebServer/Model/VHostTable.pm:180
+#: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:188
+#: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:214
+#: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:224
+#: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:228
+#: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -67,7 +67,7 @@ msgid ""
 "directory"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:235
+#: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
 msgstr ""
 

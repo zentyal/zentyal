@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2008-07-04 08:15+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -45,44 +45,44 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -157,21 +157,25 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr ""
 
@@ -209,7 +213,7 @@ msgid "we're sorry"
 msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
+msgid "The page cannot be found"
 msgstr ""
 
 #: src/templates/title.mas:12

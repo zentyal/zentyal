@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-07-24 12:12+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -160,19 +160,26 @@ msgid "Name server"
 msgstr "Aktive servicer"
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
-msgstr ""
+#, fuzzy
+msgid "Name server resolver list"
+msgstr "Aktive servicer"
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr "At konfigurere via DHCP kan bevirke at opsætning bliver overskrevet."
+#: src/EBox/Model/DNSResolver.pm:94
+#, fuzzy
+msgid "Name server resolver"
+msgstr "Aktive servicer"
 
 #: src/EBox/Model/DNSResolver.pm:100
 #, fuzzy
 msgid "name server"
 msgstr "Konfigurer navneserver"
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -200,7 +207,12 @@ msgstr ""
 msgid "Static routes"
 msgstr "Statisk routing"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "Statisk routing"
+
+#: src/EBox/Model/StaticRoute.pm:170
 #, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
@@ -209,7 +221,7 @@ msgstr ""
 "Alle routere du nævner her må være tilgængelige gennem en af de netværk "
 "interfaces du har konfigureret"
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 #, fuzzy
 msgid "static route"
 msgstr "Statisk routing"
@@ -277,7 +289,11 @@ msgstr "Default"
 msgid "Gateway list"
 msgstr "Gateway liste"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+msgid "Gateways"
+msgstr "Gateways"
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -292,11 +308,11 @@ msgstr ""
 "korrekte værdi til disse felter er kritisk for at sikre en korrekt "
 "funktionalitet af trafik styrings modulet"
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "gateway"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "ip adresse"
 
@@ -721,10 +737,6 @@ msgstr "Ruter"
 msgid "Diagnosis"
 msgstr "Diagnose"
 
-#: src/EBox/Network.pm:2615
-msgid "Gateways"
-msgstr "Gateways"
-
 #: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr "Balancer trafik"
@@ -845,6 +857,12 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Fortryd"
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "At konfigurere via DHCP kan bevirke at opsætning bliver overskrevet."
 
 #~ msgid ""
 #~ "Gateway {gw} must be reacheable by a static interface. Currently is "

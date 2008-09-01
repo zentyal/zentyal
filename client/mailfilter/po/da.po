@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.11.101\n"
+"Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-09-28 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,129 +17,101 @@ msgstr ""
 "es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/AddFileFilterElement.pm:29
-#: src/EBox/CGI/ModifyFileFilterACL.pm:29
-#: src/EBox/CGI/RemoveFileFilterElement.pm:29
-#: src/EBox/CGI/FileFilterBase.pm:32
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
-msgid "Mail filter"
-msgstr "Mail filter"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:64
+#, fuzzy
+msgid "Antispam enabled"
+msgstr "Antispam"
 
-#: src/EBox/CGI/RemoveAllowedMTA.pm:58
-#, perl-brace-format
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:70
+msgid "Spam policy"
+msgstr "Spam politik"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
+#: src/EBox/MailFilter/Model/VDomains.pm:91
+#: src/EBox/MailFilter/SpamAssassin.pm:303
+msgid "Spam threshold"
+msgstr "Spam tærskel"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:80
+msgid "The score threshold to mark a message as spam"
+msgstr "Tærskel-værdien for at markere en meddelelse som spam"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84
+msgid "Spam subject tag"
+msgstr "Spam subjekt mærke"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
+msgid "Tag which will be added to the spam mail subject"
+msgstr "Mærke som vil blive tilføjet til spam mail subjekt"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
+msgid "Use bayesian classifier"
+msgstr "Brug bayesian classifier"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:97
+msgid "Auto-whitelist"
+msgstr "Auto-godkendte"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:100
+msgid "Change the score of mail according to the sender history"
+msgstr "Change the score of mail i henhold til afsender historik"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:104
+msgid "Auto-learn"
+msgstr "Selv-lær"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr "Meld tilbage til læresystemet, med meddelelser der når tærsklen"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:112
+msgid "Autolearn spam threshold"
+msgstr "SElvlær spam tærskel"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
+#, fuzzy
 msgid ""
-"External mail server {mta} removed. Remember to remove its mail domains from "
-"the external mail domain's list"
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
 msgstr ""
-"Extern mail server {mta} er fjernet. Husk at fjerne dens mail domæner fra "
-"den externe mail domæne liste"
+"Spam meddelelser med en score lig med eller større end denne tærskel vil "
+"blive tilføjet læresystemet"
 
-#: src/EBox/CGI/AntispamTraining.pm:80
-#, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr "Ugyldig mailbox type: {type}"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:120
+msgid "Autolearn ham threshold"
+msgstr "Selvlær ham tærskel"
 
-#: src/EBox/CGI/AntispamTraining.pm:93
-msgid "Learned from mailbox file"
-msgstr "Lært fra mailbox file"
-
-#: src/EBox/CGI/AddFileFilterElement.pm:66
-#, perl-brace-format
-msgid "{name} is already registered"
-msgstr "{name} er allerede registreret"
-
-#: src/EBox/CGI/AddFileFilterElement.pm:74
-#, perl-brace-format
-msgid "{name} added"
-msgstr "{name} tilføjet"
-
-#: src/EBox/CGI/ModifyFileFilterACL.pm:87
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
-msgid "Denied settings changed"
-msgstr "Afvis opsætning ændret"
-
-#: src/EBox/CGI/ModifyFileFilterACL.pm:90
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
-msgid "No changes were specified by the user"
-msgstr "Ingen ændringer blev angivet af bruger"
-
-#: src/EBox/CGI/RemoveFileFilterElement.pm:66
-#, perl-brace-format
-msgid "{name} is not registered"
-msgstr "{name} er ikke registreret"
-
-#: src/EBox/CGI/RemoveFileFilterElement.pm:74
-#, perl-brace-format
-msgid "{name} removed"
-msgstr "{name} fjernet"
-
-#: src/EBox/CGI/RemoveSenderACL.pm:74
-msgid "The specified sender is not in the ACL"
-msgstr "DEnangivne afsender er ikke i ACL'en"
-
-#: src/EBox/CGI/AddExternalDomain.pm:64
-#, perl-brace-format
-msgid "Mail domain {domain} added to external domain's list."
-msgstr "Mail domæne {domain} tilføjet til extern domæne liste."
-
-#: src/EBox/CGI/RemoveExternalDomain.pm:58
-#, perl-brace-format
-msgid "Mail domain {domain} removed from external domain's list."
-msgstr "Mail domæne {domain} fjernet fra extern domæne liste."
-
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
-msgid "All entries were removed"
-msgstr "Alle posteringer blev fjernet"
-
-#: src/EBox/CGI/AddAllowedMTA.pm:63
-#, perl-brace-format
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:123
+#, fuzzy
 msgid ""
-"External mail server {mta} allowed. Remember to add its mail domains to the "
-"external mail domain's list"
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
 msgstr ""
-"Extern mail server {mta} tilladt. Husk at tilføje  dens mail domæner til den "
-"externe mail domæne liste"
+"Ham meddelelser med en score lig med eller større end denne tærskel vil "
+"blive tilføjet læresystemet"
 
-#: src/EBox/MailFilter/FileFilter.pm:70
-#, perl-brace-format
-msgid "{ext} is not registered in the extensions list"
-msgstr "{ext} er ikke registreret i extensions listen"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:129
+#, fuzzy
+msgid "Antispam configuration"
+msgstr "Antispam muligheder"
 
-#: src/EBox/MailFilter/FileFilter.pm:137
-#, perl-brace-format
-msgid "{ext} is not registered in the mimeTypes list"
-msgstr "{ext} er ikke registreret i mimeTypes listen"
-
-#: src/EBox/MailFilter/FileFilter.pm:173
-msgid "MIME type"
-msgstr "MIME type"
-
-#: src/EBox/MailFilter/FileFilter.pm:187
-msgid "file extension"
-msgstr "fil endelse"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:40
-msgid " To configure spamassassin daemon"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:181
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:322
-msgid "The spam's autolearn threshold must be higher than 6.0"
-msgstr "Spam's selvlærings tærskel skal være højere end 6.0"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:187
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:351
-msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
-msgstr "Ham's selvlærings tærskel kan ikke være højere end spam's tærskel"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:367
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:193
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
 "Spam's selvlærings tærskel kan ikke være lavere end default spam's tærskel"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:371
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:199
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
@@ -147,26 +119,430 @@ msgstr ""
 "Ham's selvlærings tærskel kan ikke være større eller lig med default spam "
 "niveau"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:460 src/templates/antispam.mas:32
-msgid "Spam threshold"
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
+msgid "External mail server"
+msgstr "Extern mail server"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
+msgid "Allow connection"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
+#, fuzzy
+msgid "External mail servers"
+msgstr "Extern mail server"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
+#, fuzzy
+msgid "external mail server"
+msgstr "Extern mail server"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:143
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr "Ugyldig extern MTA {mta}. Lokale netværk adresser er ikke tilladt"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
+msgid "Mailbox"
+msgstr "Mailbox"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
+msgid "Mailbox contains"
+msgstr "Mailbox indeholder"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#, fuzzy
+msgid "Train bayesian spam filter"
+msgstr "Brug bayesian classifier"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
+#, fuzzy
+msgid "Learned from messages"
+msgstr "Lært fra mailbox file"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
+msgid "spam"
+msgstr "spam"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:98
+msgid "ham"
+msgstr "ham"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:130
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "Ugyldig mailbox type: {type}"
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:59
+msgid "Status"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:63
+#, fuzzy
+msgid "Date"
+msgstr "Slet"
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
+#, fuzzy
+msgid "Database update status"
+msgstr "Virus database updatering status"
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:126
+msgid ""
+"The antivirus database has not been updated since the  mailfilter eBox's "
+"module was installed"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:129
+#, fuzzy
+msgid "The last update failed"
+msgstr "Den sidste opdatering mislykkedes d. {date}"
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:133
+#, fuzzy, perl-brace-format
+msgid ""
+"Update failed.\n"
+"Your version of freshclam  is outdated.Please, install version {version} or "
+"higher"
+msgstr ""
+"Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
+"Installér venligst version {version} eller højere"
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:140
+msgid "Last update successful"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:143
+#, perl-brace-format
+msgid "Unknown event {event}"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
+#, fuzzy
+msgid "MIME Type"
+msgstr "MIME type"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
+msgid "Allow"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
+#, fuzzy
+msgid "MIME types"
+msgstr "MIME type"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+#: src/EBox/MailFilter/Types/MIMEType.pm:61
+msgid "MIME type"
+msgstr "MIME type"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
+#, fuzzy
+msgid "MIME types which are not listed below are allowed"
+msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+
+#: src/EBox/MailFilter/Model/BannedFilesPolicy.pm:63
+#: src/EBox/MailFilter/Model/AntispamACL.pm:68
+#: src/EBox/MailFilter/Model/BadHeadersPolicy.pm:63
+msgid "Policy"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/BannedFilesPolicy.pm:73
+msgid "Banned files policy"
+msgstr "Banned files politik"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "Externt mail domæne"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "Externe mail domæner"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
+#, fuzzy
+msgid "external mail domain"
+msgstr "Externt mail domæne"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
+#, perl-brace-format
+msgid "{d} is a internal eBox's virtual main domain"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:62
+#, fuzzy
+msgid "Mail sender"
+msgstr "Mail filter"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:77
+#, fuzzy
+msgid "Sender policy"
+msgstr "Bad headers politik"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:89
+#, fuzzy
+msgid "sender policy"
+msgstr "Bad headers politik"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:98
+#, fuzzy
+msgid "whitelist"
+msgstr "Whitelist/godkendte"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:99
+#, fuzzy
+msgid "blacklist"
+msgstr "Blacklist/uønskede"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:100
+msgid "process"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:58
+#, fuzzy
+msgid "Antivirus enabled"
+msgstr "Antivirus"
+
+#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:64
+msgid "Virus policy"
+msgstr "Virus politik"
+
+#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:72
+msgid "Antivirus configuration"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
+#, fuzzy
+msgid "File extension"
+msgstr "fil endelse"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
+#, fuzzy
+msgid "File extensions"
+msgstr "fil endelse"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
+#: src/EBox/MailFilter/Types/FileExtension.pm:59
+msgid "file extension"
+msgstr "fil endelse"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
+#, fuzzy
+msgid "Extensions which are not listed below are allowed"
+msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+
+#: src/EBox/MailFilter/Model/General.pm:64
+#, fuzzy
+msgid "Service's port"
+msgstr "Service port"
+
+#: src/EBox/MailFilter/Model/General.pm:71
+msgid "Notify of non-spam problematic messages"
+msgstr "Meddel non-spam problematiske meddelelser"
+
+#: src/EBox/MailFilter/Model/General.pm:75
+#, fuzzy
+msgid "Disabled"
+msgstr "Kasser"
+
+#: src/EBox/MailFilter/Model/General.pm:80
+#, fuzzy
+msgid "mail address"
+msgstr "email adresse"
+
+#: src/EBox/MailFilter/Model/General.pm:90
+#, fuzzy
+msgid "General settings"
+msgstr "Afvis opsætning ændret"
+
+#: src/EBox/MailFilter/Model/General.pm:118
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Porten {port} er allerede i brug af modul {mod}"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:69
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:79
+msgid "Use virus filtering"
+msgstr "Brug virus filtrering"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:85
+msgid "Use spam filtering"
+msgstr "Brug spam filtrering"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:98
+msgid "default"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:102
+#, fuzzy
+msgid "custom threshold"
 msgstr "Spam tærskel"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:460
+#: src/EBox/MailFilter/Model/VDomains.pm:113
+msgid "Learning ham account"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:114
+msgid ""
+"An address (ham@domain) will be created for this domain, ham messages "
+"incorrectly classified as spam may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:125
+msgid "Learning spam account"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:126
+msgid ""
+"An address (spam@domain) will be created for this domain, spam messages "
+"incorrectly classified as ham may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:137
+#, fuzzy
+msgid "Antispam sender policy"
+msgstr "Antispam afsender adgangs liste"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:148
+msgid "Virtual domains configuration"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:159
+#, fuzzy
+msgid "virtual domain"
+msgstr "Mail domæne"
+
+#: src/EBox/MailFilter/Model/BadHeadersPolicy.pm:73
+msgid "Bad headers policy"
+msgstr "Bad headers politik"
+
+#: src/EBox/MailFilter/Composite/Antivirus.pm:63 src/EBox/MailFilter.pm:779
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
+#, fuzzy
+msgid "External connections"
+msgstr "Externe mail domæner"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:64
+#, fuzzy
+msgid "Attached files filter"
+msgstr "Mail filter"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:66
+msgid "Filter mail messages according attached files"
+msgstr ""
+
+#: src/EBox/MailFilter/Composite/Index.pm:70
+#, fuzzy
+msgid "Internal mailfilter"
+msgstr "eBox internt mail filter"
+
+#: src/EBox/MailFilter/Composite/Antispam.pm:64 src/EBox/MailFilter.pm:789
+msgid "Antispam"
+msgstr "Antispam"
+
+#: src/EBox/MailFilter/Composite/GeneralAndBadHeader.pm:64
+#, fuzzy
+msgid "Options"
+msgstr "Handlinger"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
+msgid "Write down a decimal number"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
+msgid "Only non-zero positive numbers are allowed"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/Policy.pm:30
+msgid "Pass"
+msgstr "Tillad"
+
+#: src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Reject"
+msgstr "Afvis"
+
+#: src/EBox/MailFilter/Types/Policy.pm:32
+msgid "Bounce"
+msgstr "Returner"
+
+#: src/EBox/MailFilter/Types/Policy.pm:33
+msgid "Discard"
+msgstr "Kasser"
+
+#: src/EBox/MailFilter/Types/Policy.pm:53
+#, fuzzy
+msgid "Mailfilter's policy"
+msgstr "Mailfilter's port"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:79
+msgid "domain name"
+msgstr "domæne navn"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:83
+msgid "email address"
+msgstr "email adresse"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+#, fuzzy
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"Afsenderen kan enten være en email adresse eller et domæne navn prefixed med "
+"'@'"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:40
+msgid " To configure spamassassin daemon"
+msgstr ""
+
+#: src/EBox/MailFilter/SpamAssassin.pm:303
 msgid "It must be a number(decimal point allowed)"
 msgstr "Det skal være et tal (decimaler tilladt)"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:470
+#: src/EBox/MailFilter/SpamAssassin.pm:313
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr "Spams tærskel kan ikke være større en selvlærings tærskel"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:475
+#: src/EBox/MailFilter/SpamAssassin.pm:317
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
 "Spam's tærskel kan ikke være lavere eller lig med ham's selvlærings tærskel"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:552
+#: src/EBox/MailFilter/SpamAssassin.pm:354
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
@@ -176,36 +552,17 @@ msgstr ""
 "konfiguration. For at kunne lære skal det bayesiske filter aktiveres og "
 "ændringerne gemmes"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:567
+#: src/EBox/MailFilter/SpamAssassin.pm:369
 #, fuzzy, perl-brace-format
 msgid "Unsupported or incorrect input source fonrmat: {format}"
 msgstr "Ikke understøttet eller ukorrekt input source format: {format}"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:596
-msgid "domain name"
-msgstr "domæne navn"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:600
-msgid "email address"
-msgstr "email adresse"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:604
-msgid ""
-"The sender can be either an email address or a domain name prefixed with '@'"
-msgstr ""
-"Afsenderen kan enten være en email adresse eller et domæne navn prefixed med "
-"'@'"
-
-#: src/EBox/MailFilter/VDomainsLdap.pm:505 src/EBox/MailFilter.pm:804
-msgid "Mail filter settings"
-msgstr "Mail filter opsætning"
-
-#: src/EBox/MailFilter/VDomainsLdap.pm:560
+#: src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "Virtuelt mail domæne {vd} eksisterer ikke"
 
-#: src/EBox/MailFilter/ClamAV.pm:56
+#: src/EBox/MailFilter/ClamAV.pm:55
 msgid "To configure freshclam updater daemon"
 msgstr ""
 
@@ -233,411 +590,264 @@ msgstr ""
 msgid "To add the LDAP schemas used by eBox mailfilter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:368
+#: src/EBox/MailFilter.pm:438
 msgid "Cannot proceed because the filter is in use"
 msgstr "Kan ikke fortsætte fordi filter er i brug"
 
-#: src/EBox/MailFilter.pm:441
-msgid "Mailfilter's port"
-msgstr "Mailfilter's port"
-
-#: src/EBox/MailFilter.pm:448
-#, perl-brace-format
-msgid "The port {port} is already used by module {mod}"
-msgstr "Porten {port} er allerede i brug af modul {mod}"
-
-#: src/EBox/MailFilter.pm:504
-msgid "MTA's address"
-msgstr "MTA's adresse"
-
-#: src/EBox/MailFilter.pm:516
-#, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr "Ugyldig extern MTA {mta}. Lokale netværk adresser er ikke tilladt"
-
-#: src/EBox/MailFilter.pm:544
-#, perl-brace-format
-msgid "{mta} is already allowed"
-msgstr "{mta} er allerede tilladt"
-
-#: src/EBox/MailFilter.pm:569
-#, perl-brace-format
-msgid "{mta} not found"
-msgstr "{mta} ikke fundet"
-
-#: src/EBox/MailFilter.pm:588
-msgid "Mail domain"
-msgstr "Mail domæne"
-
-#: src/EBox/MailFilter.pm:593
-#, perl-brace-format
-msgid "{domain} is already acknowledged as external mail domain"
-msgstr "{domain} er allerede anerkendt som externt mail domæne"
-
-#: src/EBox/MailFilter.pm:613
-#, perl-brace-format
-msgid "Domain {domain} was not acknowledged as external mail domain"
-msgstr "Domænet {domain} blev ikke anerkendt som externt mail domæne"
-
-#: src/EBox/MailFilter.pm:636
-msgid "Administrator address"
-msgstr "Administrator adresse"
-
-#: src/EBox/MailFilter.pm:698
-msgid "policy type"
-msgstr "politik type"
-
-#: src/EBox/MailFilter.pm:717
-msgid "filter type"
-msgstr "filter type"
-
-#: src/EBox/MailFilter.pm:789
+#: src/EBox/MailFilter.pm:685
 msgid "Mail filter system"
 msgstr "Mail filter system"
 
-#: src/EBox/MailFilter.pm:863
+#: src/EBox/MailFilter.pm:700
+msgid "Mail filter settings"
+msgstr "Mail filter opsætning"
+
+#: src/EBox/MailFilter.pm:759
 msgid "eBox internal mail filter"
 msgstr "eBox internt mail filter"
 
-#: src/EBox/MailFilter.pm:883 src/templates/menutabs.mas:12
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/MailFilter.pm:893 src/templates/menutabs.mas:13
-msgid "Antispam"
-msgstr "Antispam"
-
-#: src/templates/badHeaders.mas:7
-msgid "Bad headers policy"
-msgstr "Bad headers politik"
-
-#: src/templates/antivirus.mas:23
-msgid "Virus policy"
-msgstr "Virus politik"
-
-#: src/templates/antivirus.mas:31
-msgid "Virus database update status"
-msgstr "Virus database updatering status"
-
-#: src/templates/antivirus.mas:66
-#, perl-brace-format
-msgid "The last update failed at {date}"
-msgstr "Den sidste opdatering mislykkedes d. {date}"
-
-#: src/templates/antivirus.mas:78
-#, perl-brace-format
-msgid ""
-"Update failed at {date}.\n"
-"Your version of freshclam  is outdated.Please, install version {version} or "
-"higher"
-msgstr ""
-"Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
-"Installér venligst version {version} eller højere"
-
-#: src/templates/antivirus.mas:95
-#, perl-brace-format
-msgid "The last successful update was at {date}"
-msgstr "Den sidste succesfulde opdatering var d. {date}"
-
-#: src/templates/fileFilter.mas:13
-#, perl-brace-format
-msgid "{plural} which are not listed below are allowed"
-msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
-
-#: src/templates/fileFilter.mas:31
-msgid "Banned files policy"
-msgstr "Banned files politik"
-
-#: src/templates/fileFilter.mas:56 src/templates/fileFilter.mas:194
-msgid "Deny"
-msgstr "Afvis"
-
-#: src/templates/fileFilter.mas:59 src/templates/antispamACL.mas:29
-#: src/templates/general.mas:100 src/templates/general.mas:135
-msgid "Actions"
-msgstr "Handlinger"
-
-#: src/templates/fileFilter.mas:157 src/templates/fileFilter.mas:158
-#: src/templates/antispamACL.mas:31 src/templates/general.mas:102
-#: src/templates/general.mas:137
-msgid "Delete"
-msgstr "Slet"
-
-#: src/templates/fileFilter.mas:181
-#, perl-brace-format
-msgid "Add {element}"
-msgstr "Tilføj {element}"
-
-#: src/templates/fileFilter.mas:188
-msgid "Name"
-msgstr "Navn"
-
-#: src/templates/fileFilter.mas:215
-#, perl-brace-format
-msgid "All registered {plural}"
-msgstr "Alle registreret {plural}"
-
-#: src/templates/fileFilter.mas:246 src/templates/fileFilter.mas:247
-msgid "Delete them all"
-msgstr "Slet alle"
-
-#: src/templates/antispam.mas:33
-msgid "The score threshold to mark a message as spam"
-msgstr "Tærskel-værdien for at markere en meddelelse som spam"
-
-#: src/templates/antispam.mas:39
-msgid "Spam subject tag"
-msgstr "Spam subjekt mærke"
-
-#: src/templates/antispam.mas:40
-msgid "Tag which will be added to the spam mail subject"
-msgstr "Mærke som vil blive tilføjet til spam mail subjekt"
-
-#: src/templates/antispam.mas:46
-msgid "Use bayesian classifier"
-msgstr "Brug bayesian classifier"
-
-#: src/templates/antispam.mas:52
-msgid "Auto-whitelist"
-msgstr "Auto-godkendte"
-
-#: src/templates/antispam.mas:53
-msgid "Change the score of mail according to the sender history"
-msgstr "Change the score of mail i henhold til afsender historik"
-
-#: src/templates/antispam.mas:59
-msgid "Auto-learn"
-msgstr "Selv-lær"
-
-#: src/templates/antispam.mas:60
-msgid "Feedback the learning system with messages that reach the threshold"
-msgstr "Meld tilbage til læresystemet, med meddelelser der når tærsklen"
-
-#: src/templates/antispam.mas:66
-msgid "Autolearn spam threshold"
-msgstr "SElvlær spam tærskel"
-
-#: src/templates/antispam.mas:67
-msgid ""
-"Spam messages which a score equal or greater than this threshold will be "
-"added to the learning system "
-msgstr ""
-"Spam meddelelser med en score lig med eller større end denne tærskel vil "
-"blive tilføjet læresystemet"
-
-#: src/templates/antispam.mas:73
-msgid "Autolearn ham threshold"
-msgstr "Selvlær ham tærskel"
-
-#: src/templates/antispam.mas:74
-msgid ""
-"Ham messages which a score below this threshold will be added to the "
-"learning system"
-msgstr ""
-"Ham meddelelser med en score lig med eller større end denne tærskel vil "
-"blive tilføjet læresystemet"
-
-#: src/templates/antispam.mas:80
-msgid "Spam mail account for learning spam"
-msgstr ""
-
-#: src/templates/antispam.mas:81
-msgid ""
-"A address spam@ will be made in each domain, spam messages incorreclty "
-"classified as ham may be forwarded to this addres to train the filter"
-msgstr ""
-
-#: src/templates/antispam.mas:87
-msgid "Ham mail account for learning ham"
-msgstr ""
-
-#: src/templates/antispam.mas:88
-msgid ""
-"A address ham@ will be made in each domain, ham messages incorreclty "
-"classified as spam may be forwarded to this addres to train the filter"
-msgstr ""
-
-#: src/templates/antispam.mas:93 src/templates/general.mas:65
-#: src/templates/vdomain.mas:95
-msgid "Change"
-msgstr "Skift"
-
-#: src/templates/antispam.mas:100
-msgid "Mailbox contains"
-msgstr "Mailbox indeholder"
-
-#: src/templates/antispam.mas:103
-msgid "spam"
-msgstr "spam"
-
-#: src/templates/antispam.mas:104
-msgid "ham"
-msgstr "ham"
-
-#: src/templates/antispam.mas:111
-msgid "Mailbox"
-msgstr "Mailbox"
-
-#: src/templates/antispam.mas:119
-msgid "Train"
-msgstr "Træn"
-
-#: src/templates/antispam.mas:132
-msgid "Spam policy"
-msgstr "Spam politik"
-
-#: src/templates/antispam.mas:140
-msgid "Antispam options"
-msgstr "Antispam muligheder"
-
-#: src/templates/antispam.mas:145
-msgid "Antispam global sender access lists"
-msgstr "Antispam global afsender tilgangs lister"
-
-#: src/templates/antispam.mas:152
-msgid "Spam filter training"
-msgstr "Spam filter træning"
-
-#: src/templates/antispamACL.mas:6
-msgid "Whitelist"
-msgstr "Whitelist/godkendte"
-
-#: src/templates/antispamACL.mas:13
-msgid "Blacklist"
-msgstr "Blacklist/uønskede"
-
-#: src/templates/antispamACL.mas:29 src/templates/antispamACL.mas:58
-msgid "Sender"
-msgstr "Afsender"
-
-#: src/templates/antispamACL.mas:56
-#, perl-brace-format
-msgid "Add sender to {type}"
-msgstr "Tilføj afsender til {type}"
-
-#: src/templates/general.mas:24
-msgid "Service port"
-msgstr "Service port"
-
-#: src/templates/general.mas:38
-msgid "Notify of non-spam problematic messages"
-msgstr "Meddel non-spam problematiske meddelelser"
-
-#: src/templates/general.mas:47
-msgid "Notification address"
-msgstr "Meddelelses adresse"
-
-#: src/templates/general.mas:70
-msgid "Notification"
-msgstr "Meddelelse"
-
-#: src/templates/general.mas:100
-msgid "External Mail server"
-msgstr "Extern Mail server"
-
-#: src/templates/general.mas:115
-msgid "Allowed external mail servers"
-msgstr "Tilladte externe mail servere"
-
-#: src/templates/general.mas:122
-msgid "Add external mail server"
-msgstr "Tilføj extern mail server"
-
-#: src/templates/general.mas:124
-msgid "External mail server"
-msgstr "Extern mail server"
-
-#: src/templates/general.mas:135
-msgid "External Mail domain"
-msgstr "Externt Mail domæne"
-
-#: src/templates/general.mas:150
-msgid "External mail domains"
-msgstr "Externe mail domæner"
-
-#: src/templates/general.mas:157
-msgid "Add external mail domain"
-msgstr "Tilføj externt mail domæne"
-
-#: src/templates/general.mas:159
-msgid "External mail domain"
-msgstr "Externt mail domæne"
-
-#: src/templates/vdomain.mas:27
-msgid "Use virus filtering"
-msgstr "Brug virus filtrering"
-
-#: src/templates/vdomain.mas:37
-#, perl-brace-format
-msgid ""
-"The \"{name}\"  setting will not have effect until the\n"
-"   antivirus service will be enabled in the mail filter"
-msgstr ""
-"\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service vil "
-"blive aktiveret på mail filter"
-
-#: src/templates/vdomain.mas:44
-msgid "Use spam filtering"
-msgstr "Brug spam filtrering"
-
-#: src/templates/vdomain.mas:54
-#, perl-brace-format
-msgid ""
-"The \"{name}\"  setting will not have effect until the\n"
-"   antispam sergice will be enabled in the mail filter"
-msgstr ""
-"\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service vil "
-"blive aktiveret på mail filter"
-
-#: src/templates/vdomain.mas:74
-#, perl-brace-format
-msgid "Use default spam threshold (current value is {v})"
-msgstr "Brug default spam tærskel (nuværende værdi er {v})"
-
-#: src/templates/vdomain.mas:87
-#, perl-brace-format
-msgid "Spam threshold for {domain} virtual domain"
-msgstr "Spam tærskel for det virtuelle domæne {domain} "
-
-#: src/templates/vdomain.mas:102
-msgid "Mail filter options"
-msgstr "Mail filter muligheder"
-
-#: src/templates/vdomain.mas:107
-msgid "Antispam sender access lists"
-msgstr "Antispam afsender adgangs liste"
-
-#: src/templates/menutabs.mas:11
-msgid "General"
-msgstr "Almen"
-
-#: src/templates/menutabs.mas:14
-msgid "Extensions filter"
-msgstr "Udvidelses filter"
-
-#: src/templates/menutabs.mas:15
-msgid "MIME Type filter"
-msgstr "MIME Type filter"
-
-#: src/templates/menutabs.mas:16
-msgid "Bad formed headers"
-msgstr "Ugyldigt format på mail header"
-
-#: src/templates/policy.mas:11
-msgid "Pass"
-msgstr "Tillad"
-
-#: src/templates/policy.mas:12
-msgid "Reject"
-msgstr "Afvis"
-
-#: src/templates/policy.mas:13
-msgid "Bounce"
-msgstr "Returner"
-
-#: src/templates/policy.mas:14
-msgid "Discard"
-msgstr "Kasser"
+#~ msgid "Mail filter"
+#~ msgstr "Mail filter"
+
+#~ msgid "Learned from mailbox file"
+#~ msgstr "Lært fra mailbox file"
+
+#~ msgid "Denied settings changed"
+#~ msgstr "Afvis opsætning ændret"
+
+#~ msgid ""
+#~ "The sender can be either an email address or a domain name prefixed with "
+#~ "'@'"
+#~ msgstr ""
+#~ "Afsenderen kan enten være en email adresse eller et domæne navn prefixed "
+#~ "med '@'"
+
+#~ msgid "Mailfilter's port"
+#~ msgstr "Mailfilter's port"
+
+#~ msgid "Mail domain"
+#~ msgstr "Mail domæne"
+
+#~ msgid "Virus database update status"
+#~ msgstr "Virus database updatering status"
+
+#~ msgid "The last update failed at {date}"
+#~ msgstr "Den sidste opdatering mislykkedes d. {date}"
+
+#~ msgid ""
+#~ "Update failed at {date}.\n"
+#~ "Your version of freshclam  is outdated.Please, install version {version} "
+#~ "or higher"
+#~ msgstr ""
+#~ "Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
+#~ "Installér venligst version {version} eller højere"
+
+#~ msgid "{plural} which are not listed below are allowed"
+#~ msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+
+#~ msgid "Actions"
+#~ msgstr "Handlinger"
+
+#~ msgid "Delete"
+#~ msgstr "Slet"
+
+#~ msgid ""
+#~ "Spam messages which a score equal or greater than this threshold will be "
+#~ "added to the learning system "
+#~ msgstr ""
+#~ "Spam meddelelser med en score lig med eller større end denne tærskel vil "
+#~ "blive tilføjet læresystemet"
+
+#~ msgid ""
+#~ "Ham messages which a score below this threshold will be added to the "
+#~ "learning system"
+#~ msgstr ""
+#~ "Ham meddelelser med en score lig med eller større end denne tærskel vil "
+#~ "blive tilføjet læresystemet"
+
+#~ msgid "Antispam options"
+#~ msgstr "Antispam muligheder"
+
+#~ msgid "Whitelist"
+#~ msgstr "Whitelist/godkendte"
+
+#~ msgid "Blacklist"
+#~ msgstr "Blacklist/uønskede"
+
+#~ msgid "Service port"
+#~ msgstr "Service port"
+
+#~ msgid "Antispam sender access lists"
+#~ msgstr "Antispam afsender adgangs liste"
+
+#~ msgid ""
+#~ "External mail server {mta} removed. Remember to remove its mail domains "
+#~ "from the external mail domain's list"
+#~ msgstr ""
+#~ "Extern mail server {mta} er fjernet. Husk at fjerne dens mail domæner fra "
+#~ "den externe mail domæne liste"
+
+#~ msgid "{name} is already registered"
+#~ msgstr "{name} er allerede registreret"
+
+#~ msgid "{name} added"
+#~ msgstr "{name} tilføjet"
+
+#~ msgid "No changes were specified by the user"
+#~ msgstr "Ingen ændringer blev angivet af bruger"
+
+#~ msgid "{name} is not registered"
+#~ msgstr "{name} er ikke registreret"
+
+#~ msgid "{name} removed"
+#~ msgstr "{name} fjernet"
+
+#~ msgid "The specified sender is not in the ACL"
+#~ msgstr "DEnangivne afsender er ikke i ACL'en"
+
+#~ msgid "Mail domain {domain} added to external domain's list."
+#~ msgstr "Mail domæne {domain} tilføjet til extern domæne liste."
+
+#~ msgid "Mail domain {domain} removed from external domain's list."
+#~ msgstr "Mail domæne {domain} fjernet fra extern domæne liste."
+
+#~ msgid "All entries were removed"
+#~ msgstr "Alle posteringer blev fjernet"
+
+#~ msgid ""
+#~ "External mail server {mta} allowed. Remember to add its mail domains to "
+#~ "the external mail domain's list"
+#~ msgstr ""
+#~ "Extern mail server {mta} tilladt. Husk at tilføje  dens mail domæner til "
+#~ "den externe mail domæne liste"
+
+#~ msgid "{ext} is not registered in the extensions list"
+#~ msgstr "{ext} er ikke registreret i extensions listen"
+
+#~ msgid "{ext} is not registered in the mimeTypes list"
+#~ msgstr "{ext} er ikke registreret i mimeTypes listen"
+
+#~ msgid "The spam's autolearn threshold must be higher than 6.0"
+#~ msgstr "Spam's selvlærings tærskel skal være højere end 6.0"
+
+#~ msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
+#~ msgstr "Ham's selvlærings tærskel kan ikke være højere end spam's tærskel"
+
+#~ msgid "MTA's address"
+#~ msgstr "MTA's adresse"
+
+#~ msgid "{mta} is already allowed"
+#~ msgstr "{mta} er allerede tilladt"
+
+#~ msgid "{mta} not found"
+#~ msgstr "{mta} ikke fundet"
+
+#~ msgid "{domain} is already acknowledged as external mail domain"
+#~ msgstr "{domain} er allerede anerkendt som externt mail domæne"
+
+#~ msgid "Domain {domain} was not acknowledged as external mail domain"
+#~ msgstr "Domænet {domain} blev ikke anerkendt som externt mail domæne"
+
+#~ msgid "Administrator address"
+#~ msgstr "Administrator adresse"
+
+#~ msgid "policy type"
+#~ msgstr "politik type"
+
+#~ msgid "filter type"
+#~ msgstr "filter type"
+
+#~ msgid "The last successful update was at {date}"
+#~ msgstr "Den sidste succesfulde opdatering var d. {date}"
+
+#~ msgid "Deny"
+#~ msgstr "Afvis"
+
+#~ msgid "Add {element}"
+#~ msgstr "Tilføj {element}"
+
+#~ msgid "Name"
+#~ msgstr "Navn"
+
+#~ msgid "All registered {plural}"
+#~ msgstr "Alle registreret {plural}"
+
+#~ msgid "Delete them all"
+#~ msgstr "Slet alle"
+
+#~ msgid "Change"
+#~ msgstr "Skift"
+
+#~ msgid "Train"
+#~ msgstr "Træn"
+
+#~ msgid "Antispam global sender access lists"
+#~ msgstr "Antispam global afsender tilgangs lister"
+
+#~ msgid "Spam filter training"
+#~ msgstr "Spam filter træning"
+
+#~ msgid "Sender"
+#~ msgstr "Afsender"
+
+#~ msgid "Add sender to {type}"
+#~ msgstr "Tilføj afsender til {type}"
+
+#~ msgid "Notification address"
+#~ msgstr "Meddelelses adresse"
+
+#~ msgid "Notification"
+#~ msgstr "Meddelelse"
+
+#~ msgid "External Mail server"
+#~ msgstr "Extern Mail server"
+
+#~ msgid "Allowed external mail servers"
+#~ msgstr "Tilladte externe mail servere"
+
+#~ msgid "Add external mail server"
+#~ msgstr "Tilføj extern mail server"
+
+#~ msgid "External Mail domain"
+#~ msgstr "Externt Mail domæne"
+
+#~ msgid "Add external mail domain"
+#~ msgstr "Tilføj externt mail domæne"
+
+#~ msgid ""
+#~ "The \"{name}\"  setting will not have effect until the\n"
+#~ "   antivirus service will be enabled in the mail filter"
+#~ msgstr ""
+#~ "\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service "
+#~ "vil blive aktiveret på mail filter"
+
+#~ msgid ""
+#~ "The \"{name}\"  setting will not have effect until the\n"
+#~ "   antispam sergice will be enabled in the mail filter"
+#~ msgstr ""
+#~ "\"{name}\"  opsætning vil ikke have nogen effekt før   antivirus service "
+#~ "vil blive aktiveret på mail filter"
+
+#~ msgid "Use default spam threshold (current value is {v})"
+#~ msgstr "Brug default spam tærskel (nuværende værdi er {v})"
+
+#~ msgid "Spam threshold for {domain} virtual domain"
+#~ msgstr "Spam tærskel for det virtuelle domæne {domain} "
+
+#~ msgid "Mail filter options"
+#~ msgstr "Mail filter muligheder"
+
+#~ msgid "General"
+#~ msgstr "Almen"
+
+#~ msgid "Extensions filter"
+#~ msgstr "Udvidelses filter"
+
+#~ msgid "MIME Type filter"
+#~ msgstr "MIME Type filter"
+
+#~ msgid "Bad formed headers"
+#~ msgstr "Ugyldigt format på mail header"
 
 #~ msgid "Unsupported or incorrect input source format: {format}"
 #~ msgstr "Ikke understøttet eller ukorrekt input source format: {format}"

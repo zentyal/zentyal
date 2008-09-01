@@ -7,9 +7,9 @@
 # This file is distributed under the same license as the EBox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.102\n"
+"Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:17+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-03-15 17:26+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -51,21 +51,21 @@ msgstr ""
 msgid "RSS"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
+#: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/RSS.pm:295
+#: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/RSS.pm:315
+#: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/RSS.pm:319
+#: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
 msgstr ""
@@ -352,36 +352,36 @@ msgstr "Serveis"
 msgid "Enable service"
 msgstr "servei"
 
-#: src/EBox/Types/Select.pm:226
+#: src/EBox/Types/Select.pm:225
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr ""
 
-#: src/EBox/Types/Int.pm:131
+#: src/EBox/Types/Int.pm:139
 msgid "Write down a number"
 msgstr ""
 
-#: src/EBox/Types/Int.pm:138
+#: src/EBox/Types/Int.pm:146
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
 msgstr ""
 
-#: src/EBox/Types/Int.pm:148
+#: src/EBox/Types/Int.pm:156
 #, perl-brace-format
 msgid "The value shouldn't be lesser than {m}"
 msgstr ""
 
-#: src/EBox/Types/Service.pm:221 src/EBox/Types/PortRange.pm:283
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:173
 msgid "Any"
 msgstr ""
 
-#: src/EBox/Types/PortRange.pm:137
+#: src/EBox/Types/PortRange.pm:138
 msgid "any"
 msgstr ""
 
-#: src/EBox/Types/PortRange.pm:392
+#: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr ""
@@ -418,59 +418,77 @@ msgstr "Estat"
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:248
+#: src/EBox/Model/DataTable.pm:319
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:252
+#: src/EBox/Model/DataTable.pm:323
 #, fuzzy
 msgid "at"
 msgstr "Data"
 
-#: src/EBox/Model/DataTable.pm:475
+#: src/EBox/Model/DataTable.pm:544
 msgid "field"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:1858 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
+#: src/EBox/Model/DataTable.pm:1438
+#, fuzzy
+msgid "page"
+msgstr "Canvia"
+
+#: src/EBox/Model/DataTable.pm:1441
+msgid "Page must be a number equal or greater than zero"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:662
 msgid "Action"
 msgstr "Acció"
 
-#: src/EBox/Model/DataTable.pm:2510
+#: src/EBox/Model/DataTable.pm:2603
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2728
+#: src/EBox/Model/DataTable.pm:2674
+#, fuzzy
+msgid "Pagr size"
+msgstr "Canvia"
+
+#: src/EBox/Model/DataTable.pm:2677
+msgid "Must be either a positve number or zero"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2858
 #, fuzzy, perl-brace-format
 msgid "{row} added"
 msgstr "Elimina"
 
-#: src/EBox/Model/DataTable.pm:2729
+#: src/EBox/Model/DataTable.pm:2859
 #, fuzzy, perl-brace-format
 msgid "{row} deleted"
 msgstr "Elimina"
 
-#: src/EBox/Model/DataTable.pm:2730
+#: src/EBox/Model/DataTable.pm:2860
 #, fuzzy, perl-brace-format
 msgid "{row} updated"
 msgstr "Elimina"
 
-#: src/EBox/Model/DataTable.pm:2731
+#: src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2732
+#: src/EBox/Model/DataTable.pm:2862
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3978
+#: src/EBox/Model/DataTable.pm:4124
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:294
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:310
 msgid "Enabled"
 msgstr ""
 
@@ -479,45 +497,45 @@ msgstr ""
 msgid "Provided object with index {i} does not exist"
 msgstr "{field} no existeix."
 
-#: src/EBox/Model/ModelManager.pm:461
+#: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
 
-#: src/EBox/Model/ModelManager.pm:508
+#: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:525
+#: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:575 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Canvia"
 
-#: src/EBox/Model/DataForm.pm:668 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
 #, fuzzy
 msgid "Done"
 msgstr "Avall"
 
-#: src/EBox/Model/Composite.pm:319
+#: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:605
+#: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:728
+#: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
 msgstr ""
 
@@ -875,20 +893,21 @@ msgstr "Avall"
 msgid "Purge logs older than"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:336
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
 #, fuzzy
-msgid "Event configuration"
+msgid "Current configuration"
 msgstr "Desa la configuració"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346 src/EBox/Logs.pm:647
-msgid "Configure logs"
-msgstr ""
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+#, fuzzy
+msgid "Logs configuration"
+msgstr "Desa la configuració"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:352
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:354 src/EBox/Logs.pm:62
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355 src/EBox/Logs.pm:62
 #, fuzzy
 msgid "logs"
 msgstr "Surt"
@@ -920,7 +939,8 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid ""
-"Jabber ID of the account which will send the messages. Pattern: user@domain"
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
@@ -933,7 +953,8 @@ msgid "Subscribe"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid "Tick this option if  you need to create an account for  the above user"
+msgid ""
+"Tick this option if  you want eBox to create an account for  the above user"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
@@ -1077,69 +1098,69 @@ msgstr "Descarta els canvis"
 msgid "Log watcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:219
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:246
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:262
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:227
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
 msgid "Description"
 msgstr "Descripció"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:236
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:268
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:284
 #, fuzzy
 msgid "Configuration"
 msgstr "Desa la configuració"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:247
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:278
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
 #, fuzzy
 msgid "None"
 msgstr "No"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:256
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:287
 #, fuzzy
 msgid "Configure events"
 msgstr "Desa la configuració"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:264
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:295
 #, fuzzy
 msgid "event"
 msgstr "Extern"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:265
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 msgid "Enable/Disable each event watcher monitoring"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:420
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:451
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:256
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:272
 msgid "Receiver"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:327
 #, fuzzy
 msgid "Configure dispatchers"
 msgstr "Descarta els canvis"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:320
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:336
 #, fuzzy
 msgid "dispatcher"
 msgstr "Descarta els canvis"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:321
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
 msgid "Enable/Disable each event dispatcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:509
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:525
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -1208,6 +1229,10 @@ msgstr "Tabla {table} no existeix."
 msgid "Query logs"
 msgstr ""
 
+#: src/EBox/Logs.pm:647
+msgid "Configure logs"
+msgstr ""
+
 #: src/EBox/Logs.pm:659 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
 msgid "Date"
@@ -1234,7 +1259,7 @@ msgstr ""
 msgid "Log messages"
 msgstr ""
 
-#: src/EBox/Logs.pm:775
+#: src/EBox/Logs.pm:790
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -1829,7 +1854,7 @@ msgstr ""
 msgid "Some error has happened in eBox: "
 msgstr ""
 
-#: src/templates/progress.mas:37
+#: src/templates/progress.mas:38
 #, fuzzy
 msgid "Starting..."
 msgstr "Estat"
@@ -2040,6 +2065,10 @@ msgstr ""
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Event configuration"
+#~ msgstr "Desa la configuració"
 
 #, fuzzy
 #~ msgid "Set password"
@@ -2672,10 +2701,6 @@ msgstr ""
 #~ msgid "Dispatchers"
 #~ msgstr "Descarta els canvis"
 
-#, fuzzy
-#~ msgid "Page"
-#~ msgstr "Canvia"
-
 #~ msgid "Packet filtering"
 #~ msgstr "Filtrat de paquets"
 
@@ -2691,3 +2716,7 @@ msgstr ""
 
 #~ msgid "Field {field} does not exist"
 #~ msgstr "{field} no existeix."
+
+#, fuzzy
+#~ msgid "Page"
+#~ msgstr "Canvia"

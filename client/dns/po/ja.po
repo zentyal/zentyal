@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.102\n"
+"Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,8 +48,8 @@ msgstr "ホスト名"
 msgid "hostname"
 msgstr "ホスト名"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
-#: src/EBox/DNS.pm.in:852
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
+#: src/EBox/DNS.pm.in:857
 msgid "DNS"
 msgstr "DNS"
 
@@ -111,7 +111,7 @@ msgstr "メールエクスチェンジャー"
 msgid "Domains"
 msgstr "ドメイン"
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "ドメイン"
 
@@ -151,12 +151,12 @@ msgstr "ドメインネームシステム"
 msgid "DNS Server"
 msgstr "DNSサーバ"
 
-#: src/EBox/DNS.pm.in:639
+#: src/EBox/DNS.pm.in:644
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "ゾーン{zone}の設定ファイル"
 
-#: src/EBox/DNS.pm.in:655
+#: src/EBox/DNS.pm.in:660
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "zone{zone}の逆引き設定ファイル"

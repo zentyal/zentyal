@@ -8,9 +8,9 @@
 # Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.102\n"
+"Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-02-02 18:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -52,8 +52,8 @@ msgstr "Nombres de máquinas"
 msgid "hostname"
 msgstr "nombre de la máquina"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
-#: src/EBox/DNS.pm.in:852
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
+#: src/EBox/DNS.pm.in:857
 msgid "DNS"
 msgstr "DNS"
 
@@ -115,7 +115,7 @@ msgstr "Intercambiadores de correo"
 msgid "Domains"
 msgstr "Dominios"
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "dominio"
 
@@ -132,6 +132,8 @@ msgstr "Servicio deshabilitado"
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
+"Un alias no puede ser el nombre de la máquina que es servidora de nombres "
+"\"{ns}\". Usa un nombre de máquina"
 
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
@@ -140,30 +142,28 @@ msgstr ""
 "Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
 
 #: src/EBox/Model/AliasTable.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
-"Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
+msgstr "Hay un alias con el mismo nombre \"{name}\" en el mismo dominio"
 
 #: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
 msgstr "alias"
 
 #: src/EBox/DNS.pm.in:53
-#, fuzzy
 msgid "Domain Name System"
-msgstr "Nombre del dominio"
+msgstr "Sistema de Nombres de Dominio"
 
 #: src/EBox/DNS.pm.in:90
 msgid "DNS Server"
 msgstr "Servidor DNS"
 
-#: src/EBox/DNS.pm.in:639
+#: src/EBox/DNS.pm.in:644
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "fichero de configuración para zona {zone}"
 
-#: src/EBox/DNS.pm.in:655
+#: src/EBox/DNS.pm.in:660
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "fichero de configuración para zona de resolución inversa {zone}"

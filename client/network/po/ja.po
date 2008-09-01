@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -159,20 +159,25 @@ msgid "Name server"
 msgstr "ネームサーバ"
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
+#, fuzzy
+msgid "Name server resolver list"
 msgstr "ネームサーバリゾルバ"
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-"DHCP経由で設定されたインタフェースがある場合、この設定が上書きされるかもしれ"
-"ません。"
+#: src/EBox/Model/DNSResolver.pm:94
+#, fuzzy
+msgid "Name server resolver"
+msgstr "ネームサーバリゾルバ"
 
 #: src/EBox/Model/DNSResolver.pm:100
 msgid "name server"
 msgstr "ネームサーバ"
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -200,7 +205,12 @@ msgstr ""
 msgid "Static routes"
 msgstr "静的経路"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "静的経路"
+
+#: src/EBox/Model/StaticRoute.pm:170
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
@@ -208,7 +218,7 @@ msgstr ""
 "入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
 "能である必要があります"
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
 msgstr "静的ルート"
 
@@ -275,7 +285,11 @@ msgstr "デフォルト"
 msgid "Gateway list"
 msgstr "ゲートウェイ一覧"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+msgid "Gateways"
+msgstr "ゲートウェイ"
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -290,11 +304,11 @@ msgstr ""
 "ります。トラフィック整形モジュールが正しく動作するためにはこのフィールドに正"
 "しい値が設定されている必要があります。"
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "ゲートウェイ"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "IPアドレス"
 
@@ -711,10 +725,6 @@ msgstr "経路"
 msgid "Diagnosis"
 msgstr "診断"
 
-#: src/EBox/Network.pm:2615
-msgid "Gateways"
-msgstr "ゲートウェイ"
-
 #: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr "トラフィック調整"
@@ -837,6 +847,13 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "DHCP経由で設定されたインタフェースがある場合、この設定が上書きされるかもし"
+#~ "れません。"
+
+#~ msgid ""
 #~ "Gateway {gw} must be reacheable by a static interface. Currently is "
 #~ "reacheable by {iface} which is not static"
 #~ msgstr ""
@@ -880,3 +897,6 @@ msgstr "キャンセル"
 
 #~ msgid "network address"
 #~ msgstr "ネットワークアドレス"
+
+#~ msgid "Name server resolvers"
+#~ msgstr "ネームサーバリゾルバ"

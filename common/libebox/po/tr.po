@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102\n"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Giriş geçersiz karakter içeriyor. Tüm alfanümerik karakterlere ilaveten şu "
 "alfanümerik olmayan karakterler: /.?&+:-@ ve boşluk kullanılabilir."
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -57,7 +57,7 @@ msgstr ""
 "Dahili bir hata oluştu. Bu genelde bir bug(hata)'dır, ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -65,7 +65,7 @@ msgstr ""
 "Şablonla ilgili bir dahili hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -73,26 +73,26 @@ msgstr ""
 "Beklenmeyen dahili bir hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "eBox'da bir hata yakaladınız. Lütfen teknik destek araştırın."
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü yanlış parametreler içermekte"
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü bazı parametreleri eksik"
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr "Geçersiz gönderilen dosya."
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr "Dosya göndermek için geçici dosya yaratılamıyor"
 
@@ -170,21 +170,25 @@ msgstr "Gönderen"
 msgid "To"
 msgstr "Kime"
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr "birinci"
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr "önceki"
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr "sonraki"
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr "sonuncu"
 
@@ -226,7 +230,8 @@ msgid "we're sorry"
 msgstr "Çok üzgünüz"
 
 #: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
+#, fuzzy
+msgid "The page cannot be found"
 msgstr "Sayfa bulunamadı"
 
 #: src/templates/title.mas:12
@@ -283,3 +288,6 @@ msgstr "Etkin"
 
 #~ msgid "Hide help notes"
 #~ msgstr "Yardım ipuçlarını gizle"
+
+#~ msgid "The page can not be found"
+#~ msgstr "Sayfa bulunamadı"

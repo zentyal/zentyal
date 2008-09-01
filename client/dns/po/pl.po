@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.102\n"
+"Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-04-03 14:37+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -52,8 +52,8 @@ msgstr "Nazwa hosta"
 msgid "hostname"
 msgstr "nazwa hosta"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
-#: src/EBox/DNS.pm.in:852
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
+#: src/EBox/DNS.pm.in:857
 msgid "DNS"
 msgstr "DNS"
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Domains"
 msgstr "Domena"
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "domena"
 
@@ -155,12 +155,12 @@ msgstr "Nazwa domeny"
 msgid "DNS Server"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:639
+#: src/EBox/DNS.pm.in:644
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:655
+#: src/EBox/DNS.pm.in:660
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""

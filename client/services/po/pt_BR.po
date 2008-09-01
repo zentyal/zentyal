@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-services 0.11.101\n"
+"Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"POT-Creation-Date: 2008-09-01 08:33+0200\n"
 "PO-Revision-Date: 2007-09-03 17:18+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -43,36 +43,46 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:151 src/EBox/Services.pm:47
+#: src/EBox/Model/ServiceTable.pm:151
+msgid "List of services"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
 msgid "Services"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:160
-#: src/EBox/Model/ServiceConfigurationTable.pm:137
+#: src/EBox/Model/ServiceTable.pm:161
+#: src/EBox/Model/ServiceConfigurationTable.pm:142
 msgid "service"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:106
+#: src/EBox/Model/ServiceTable.pm:540
+msgid ""
+"A service is an abstraction of one or more network protocols which can be "
+"used in other modules such as: firewall, traffic shaping..."
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:111
 msgid "Protocol"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:112
+#: src/EBox/Model/ServiceConfigurationTable.pm:117
 msgid "Source port"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:114
+#: src/EBox/Model/ServiceConfigurationTable.pm:119
 msgid "This field is usually set to any"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:118
+#: src/EBox/Model/ServiceConfigurationTable.pm:123
 msgid "Destination port"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:128
+#: src/EBox/Model/ServiceConfigurationTable.pm:133
 msgid "Service configuration"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:160
+#: src/EBox/Model/ServiceConfigurationTable.pm:165
 msgid "This protocol does not use ports"
 msgstr ""
 

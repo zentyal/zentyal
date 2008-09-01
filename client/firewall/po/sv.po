@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11.101\n"
+"Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:17+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-06-06 09:38+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,57 +24,61 @@ msgstr ""
 msgid "DENY"
 msgstr ""
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:894
+#: src/EBox/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:899
+msgid "LOG"
+msgstr ""
+
+#: src/EBox/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:894
 #, fuzzy
 msgid "Decision"
 msgstr "Åtgärd vid nekning"
 
-#: src/EBox/Model/BaseRuleTable.pm:118 src/EBox/Firewall.pm:889
+#: src/EBox/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:889
 #: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Källa"
 
-#: src/EBox/Model/BaseRuleTable.pm:123 src/EBox/Model/BaseRuleTable.pm:149
+#: src/EBox/Model/BaseRuleTable.pm:126 src/EBox/Model/BaseRuleTable.pm:152
 #, fuzzy
 msgid "Any"
 msgstr "alla"
 
-#: src/EBox/Model/BaseRuleTable.pm:126
+#: src/EBox/Model/BaseRuleTable.pm:129
 #, fuzzy
 msgid "Source IP"
 msgstr "Källa"
 
-#: src/EBox/Model/BaseRuleTable.pm:130
+#: src/EBox/Model/BaseRuleTable.pm:133
 #, fuzzy
 msgid "Source object"
 msgstr "Källport"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:890
+#: src/EBox/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:890
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Destination"
 
-#: src/EBox/Model/BaseRuleTable.pm:152
+#: src/EBox/Model/BaseRuleTable.pm:155
 #, fuzzy
 msgid "Destination IP"
 msgstr "Destination"
 
-#: src/EBox/Model/BaseRuleTable.pm:157
+#: src/EBox/Model/BaseRuleTable.pm:160
 #, fuzzy
 msgid "Destination object"
 msgstr "Destinationsport"
 
-#: src/EBox/Model/BaseRuleTable.pm:172 src/templates/objectService.mas:46
+#: src/EBox/Model/BaseRuleTable.pm:175 src/templates/objectService.mas:46
 msgid "Service"
 msgstr "Tjänst"
 
-#: src/EBox/Model/BaseRuleTable.pm:176
+#: src/EBox/Model/BaseRuleTable.pm:179
 msgid ""
-"If inverse match is ticked, any  service but the selected one will match "
-"this rule"
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
 msgstr ""
 
-#: src/EBox/Model/BaseRuleTable.pm:182
+#: src/EBox/Model/BaseRuleTable.pm:185
 #, fuzzy
 msgid "Description"
 msgstr "Destination"
@@ -290,12 +294,12 @@ msgstr "Destinationsport"
 msgid "DROP"
 msgstr ""
 
-#: src/EBox/Iptables.pm:604
+#: src/EBox/Iptables.pm:608 src/EBox/Iptables.pm:640
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Iptables.pm:610
+#: src/EBox/Iptables.pm:614 src/EBox/Iptables.pm:646
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""

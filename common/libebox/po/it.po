@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102\n"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-03-15 15:30+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -49,7 +49,7 @@ msgstr ""
 "caratteri alfanumerici, più i seguenti caratteri non alfanumerici: /.?&+:-@ "
 "e gli spazi."
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -57,7 +57,7 @@ msgstr ""
 "Si è verificato un errore interno. Si tratta molto probabilmente di un bug, "
 "informazioni rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -65,7 +65,7 @@ msgstr ""
 "Si è verificato un errore interno relativo ad un template. Questo è un bug, "
 "informazioni rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -73,19 +73,19 @@ msgstr ""
 "Si è verificato un errore interno inatteso. Questo è un bug, informazioni "
 "rilevanti si possono trovare nei log."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Hai appena colpito un bug in eBox. Prego contatta il supporto tecnico. "
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Non è stato possibile elaborare la tua richiesta in quanto conteneva alcuni "
 "parametri non corretti"
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -93,11 +93,11 @@ msgstr ""
 "Non è stato possibile elaborare la tua richiesta in quanto mancavano alcuni "
 "parametri"
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr "File caricato non valido."
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr "Impossibile creare un file temporaneo per il caricamento"
 
@@ -177,21 +177,25 @@ msgstr "Da"
 msgid "To"
 msgstr "A"
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr "primo"
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr "prec."
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr "succ."
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr "ultimo"
 
@@ -233,7 +237,8 @@ msgid "we're sorry"
 msgstr "siamo spiacenti"
 
 #: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
+#, fuzzy
+msgid "The page cannot be found"
 msgstr "Impossibile trovare la pagina"
 
 #: src/templates/title.mas:12
@@ -272,3 +277,6 @@ msgstr "Inattivo"
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Attivo"
+
+#~ msgid "The page can not be found"
+#~ msgstr "Impossibile trovare la pagina"

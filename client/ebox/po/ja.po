@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.11.102\n"
+"Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:17+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,21 +48,21 @@ msgstr "RSSファイル: {path}"
 msgid "RSS"
 msgstr "RSS"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:292
+#: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
 msgstr "eBoxは {hostname} へのチャネルに対して警戒しています"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:295
+#: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
 msgstr "このチャネルはeBoxの作動するマシンで起こったことをずっと監視しています"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:315
+#: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
 msgstr "{source} によってeBox {hostname} にイベントが発生しました"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:319
+#: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
 msgstr "ステータスを確認するには {url} に行ってください。"
@@ -360,37 +360,36 @@ msgstr "サービスは無効化されました"
 msgid "Enable service"
 msgstr "サービスを有効にする"
 
-#: src/EBox/Types/Select.pm:226
+#: src/EBox/Types/Select.pm:225
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "値を選んでください: {set}"
 
-#: src/EBox/Types/Int.pm:131
-#, fuzzy
+#: src/EBox/Types/Int.pm:139
 msgid "Write down a number"
-msgstr "正の数を入力してください"
+msgstr "数値を入力してください"
 
-#: src/EBox/Types/Int.pm:138
-#, fuzzy, perl-brace-format
+#: src/EBox/Types/Int.pm:146
+#, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr "0より大きい必要があります"
+msgstr "値は{m}以下にしてください"
 
-#: src/EBox/Types/Int.pm:148
+#: src/EBox/Types/Int.pm:156
 #, perl-brace-format
 msgid "The value shouldn't be lesser than {m}"
-msgstr ""
+msgstr "値は{m}以上にしてください"
 
-#: src/EBox/Types/Service.pm:221 src/EBox/Types/PortRange.pm:283
+#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:173
 msgid "Any"
 msgstr "全部"
 
-#: src/EBox/Types/PortRange.pm:137
+#: src/EBox/Types/PortRange.pm:138
 msgid "any"
 msgstr "全部"
 
-#: src/EBox/Types/PortRange.pm:392
+#: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"From\" {from} は \"To\" {to} よりも大きくなくてはなりません"
@@ -425,58 +424,77 @@ msgstr "起動"
 msgid "Disabled"
 msgstr "無効"
 
-#: src/EBox/Model/DataTable.pm:248
+#: src/EBox/Model/DataTable.pm:319
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{module} モジュールの {model}"
 
-#: src/EBox/Model/DataTable.pm:252
+#: src/EBox/Model/DataTable.pm:323
 msgid "at"
 msgstr "at"
 
-#: src/EBox/Model/DataTable.pm:475
+#: src/EBox/Model/DataTable.pm:544
 msgid "field"
 msgstr "フィールド"
 
-#: src/EBox/Model/DataTable.pm:1858 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
+#: src/EBox/Model/DataTable.pm:1438
+#, fuzzy
+msgid "page"
+msgstr "予備"
+
+#: src/EBox/Model/DataTable.pm:1441
+#, fuzzy
+msgid "Page must be a number equal or greater than zero"
+msgstr "0より大きい必要があります"
+
+#: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:662
 msgid "Action"
 msgstr "アクション"
 
-#: src/EBox/Model/DataTable.pm:2510
+#: src/EBox/Model/DataTable.pm:2603
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "{model}{br} の {rowName} から {num} 行削除する"
 
-#: src/EBox/Model/DataTable.pm:2728
+#: src/EBox/Model/DataTable.pm:2674
+msgid "Pagr size"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2677
+#, fuzzy
+msgid "Must be either a positve number or zero"
+msgstr "0以外の正の整数でなくてはなりません"
+
+#: src/EBox/Model/DataTable.pm:2858
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} が追加されました"
 
-#: src/EBox/Model/DataTable.pm:2729
+#: src/EBox/Model/DataTable.pm:2859
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} が削除されました"
 
-#: src/EBox/Model/DataTable.pm:2730
+#: src/EBox/Model/DataTable.pm:2860
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} が更新されました"
 
-#: src/EBox/Model/DataTable.pm:2731
+#: src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} が上に移動しました"
 
-#: src/EBox/Model/DataTable.pm:2732
+#: src/EBox/Model/DataTable.pm:2862
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} が下に移動しました"
 
-#: src/EBox/Model/DataTable.pm:3978
+#: src/EBox/Model/DataTable.pm:4124
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:294
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:310
 msgid "Enabled"
 msgstr "有効"
 
@@ -485,45 +503,46 @@ msgstr "有効"
 msgid "Provided object with index {i} does not exist"
 msgstr "インデックス {i} を持つ入力オブジェクトは存在しません"
 
-#: src/EBox/Model/ModelManager.pm:461
-#, fuzzy
+#: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
-msgstr "削除しようとしているデータは次のセクションで使われています:"
+msgstr ""
+"削除しようとしているデータは\n"
+"次のセクションで使われています:"
 
-#: src/EBox/Model/ModelManager.pm:508
+#: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr "修正しようとしているデータは次のセクションで使われています:"
 
-#: src/EBox/Model/DataForm.pm:525
+#: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "{model}{br} からデータを削除する"
 
-#: src/EBox/Model/DataForm.pm:575 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "変更"
 
-#: src/EBox/Model/DataForm.pm:668 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
 msgid "Done"
 msgstr "完了"
 
-#: src/EBox/Model/Composite.pm:319
+#: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr "次の値のいずれかでなくてはなりません: {values}"
 
-#: src/EBox/Model/Composite.pm:605
+#: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "許可されたアクションは: {view} と {cView}"
 
-#: src/EBox/Model/Composite.pm:728
+#: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
 msgstr "以下のいずれかを選んでください"
 
@@ -735,9 +754,8 @@ msgid "Current operation"
 msgstr "現在の処理"
 
 #: src/EBox/CGI/Finish.pm:79
-#, fuzzy
 msgid "operations performed"
-msgstr "実行速度"
+msgstr "実行中の処理"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "Changes saved"
@@ -855,19 +873,21 @@ msgstr "ドメイン"
 msgid "Purge logs older than"
 msgstr "次より古いログを消去する"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:336
-msgid "Event configuration"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
+#, fuzzy
+msgid "Current configuration"
 msgstr "イベント設定"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346 src/EBox/Logs.pm:647
-msgid "Configure logs"
-msgstr "設定ログ"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
+#, fuzzy
+msgid "Logs configuration"
+msgstr "設定を保存"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:352
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
 msgstr "モジュール毎のログを有効/無効にする"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:354 src/EBox/Logs.pm:62
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355 src/EBox/Logs.pm:62
 msgid "logs"
 msgstr "ログ"
 
@@ -884,9 +904,8 @@ msgid "Jabber server name"
 msgstr "Jabberサーバ名"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-#, fuzzy
 msgid "Jabber server to send the messages"
-msgstr "Jabberサーバ名"
+msgstr "送信先Jabberサーバ"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
@@ -898,7 +917,8 @@ msgstr "Jabberユーザ名"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid ""
-"Jabber ID of the account which will send the messages. Pattern: user@domain"
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
@@ -910,7 +930,8 @@ msgid "Subscribe"
 msgstr "購読する"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid "Tick this option if  you need to create an account for  the above user"
+msgid ""
+"Tick this option if  you want eBox to create an account for  the above user"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
@@ -924,6 +945,8 @@ msgid ""
 "eBox admin. Note that you need to register this  account manually in  any "
 "jabber server"
 msgstr ""
+"eBoxにより作成されたメッセージの送信先Jabber ID (例: you, the eBox admin)\n"
+"注意: このアカウントはどこかのJabberサーバに手動で登録しておく必要があります"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
@@ -931,7 +954,7 @@ msgstr "Jabberディスパッチャーを設定"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send  events to an Jabber account"
-msgstr ""
+msgstr "このディスパッチャーはJabberアカウントにイベントを送信します"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
@@ -967,7 +990,7 @@ msgstr "許可されたリーダ"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the  access control for the channel"
-msgstr ""
+msgstr "チャネルのアクセス制御を設定するにはこのフィールドを使ってください"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
 msgid "Syndicate this RSS"
@@ -1024,6 +1047,7 @@ msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"ディスクパーティションの空き容量がこの値を下回ったときイベントが発生します。"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
 msgid "Configure disk free space watcher"
@@ -1050,40 +1074,40 @@ msgstr "ログ監視を設定する"
 msgid "Log watcher"
 msgstr "ログ監視"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:219
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:246
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:262
 msgid "Name"
 msgstr "名前"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:227
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
 msgid "Description"
 msgstr "内容"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:236
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:268
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:284
 msgid "Configuration"
 msgstr "設定"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:247
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:278
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
 msgid "None"
 msgstr "なし"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:256
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:287
 msgid "Configure events"
 msgstr "イベントを設定する"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:264
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:295
 msgid "event"
 msgstr "イベント"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:265
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "イベント監視を有効/無効にする"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:420
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:451
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -1093,23 +1117,23 @@ msgstr ""
 "こったときに連絡を受けるためには、'設定'に行き、少なくとも一つのログドメイン"
 "監視を有効にしてください。"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:256
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:272
 msgid "Receiver"
 msgstr "受信"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:327
 msgid "Configure dispatchers"
 msgstr "ディスパッチャーを設定する"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:320
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:336
 msgid "dispatcher"
 msgstr "ディスパッチャー"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:321
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
 msgid "Enable/Disable each event dispatcher"
 msgstr "イベントディスパッチャーを有効/無効にする"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:509
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:525
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -1155,14 +1179,14 @@ msgid "port"
 msgstr "ポート"
 
 #: src/EBox/Global.pm:369 src/EBox/Global.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Saving {modName} module"
-msgstr "{module} モジュールの {model}"
+msgstr "{modName}モジュールを保存"
 
 #: src/EBox/Global.pm:810
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "{scriptName}スクリプトを実行"
 
 #: src/EBox/Logs.pm:78
 msgid "Create logs database"
@@ -1180,6 +1204,10 @@ msgstr "テーブル {table} は存在しません"
 #: src/EBox/Logs.pm:644
 msgid "Query logs"
 msgstr "クエリログ"
+
+#: src/EBox/Logs.pm:647
+msgid "Configure logs"
+msgstr "設定ログ"
 
 #: src/EBox/Logs.pm:659 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
@@ -1206,7 +1234,7 @@ msgstr "管理者"
 msgid "Log messages"
 msgstr "ログメッセージ"
 
-#: src/EBox/Logs.pm:775
+#: src/EBox/Logs.pm:790
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "ライフタイムパラメタは正の数で表される時間でなくてはなりません"
 
@@ -1786,7 +1814,7 @@ msgstr "残りのアイテム"
 msgid "Some error has happened in eBox: "
 msgstr "eBoxに何らかのエラーが発生しました:"
 
-#: src/templates/progress.mas:37
+#: src/templates/progress.mas:38
 msgid "Starting..."
 msgstr "開始しました..."
 
@@ -1992,6 +2020,20 @@ msgstr "修正"
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} created by {warp}"
+
+#~ msgid "Event configuration"
+#~ msgstr "イベント設定"
+
+#~ msgid ""
+#~ "Jabber ID of the account which will send the messages. Pattern: "
+#~ "user@domain"
+#~ msgstr "メッセージを送信するアカウントのJabber ID (例: user@domain)"
+
+#~ msgid ""
+#~ "Tick this option if  you need to create an account for  the above user"
+#~ msgstr ""
+#~ "上記ユーザのアカウントを作成する必要がある場合、このオプションをチェックし"
+#~ "てください"
 
 #~ msgid "Write down a positive number"
 #~ msgstr "正の数を入力してください"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.11.101\n"
+"Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,18 +25,29 @@ msgstr "Имя"
 msgid "Members"
 msgstr ""
 
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/ObjectTable.pm:88
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Objects.pm:40
+#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Объекты"
 
-#: src/EBox/Model/ObjectTable.pm:89
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Object list"
+msgstr "Список объектов"
+
+#: src/EBox/Model/ObjectTable.pm:90
 #, fuzzy
 msgid "object"
 msgstr "Объект"
 
-#: src/EBox/Model/ObjectTable.pm:111
+#: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
 msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
@@ -163,9 +174,6 @@ msgstr "Объект"
 
 #~ msgid "Create"
 #~ msgstr "Создать"
-
-#~ msgid "Object list"
-#~ msgstr "Список объектов"
 
 #~ msgid "Edit"
 #~ msgstr "Редактировать"

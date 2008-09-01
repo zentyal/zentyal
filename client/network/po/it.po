@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-03-15 12:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -160,19 +160,22 @@ msgid "Name server"
 msgstr ""
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
+msgid "Name server resolver list"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
+#: src/EBox/Model/DNSResolver.pm:94
+msgid "Name server resolver"
 msgstr ""
-"Avere le interfacce di rete configurate via DHCP può provocare la "
-"sovrascritture di queste impostazioni."
 
 #: src/EBox/Model/DNSResolver.pm:100
 msgid "name server"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
 msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
@@ -201,13 +204,18 @@ msgstr ""
 msgid "Static routes"
 msgstr "Route statiche"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "Route statiche"
+
+#: src/EBox/Model/StaticRoute.pm:170
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
 msgstr ""
 
@@ -274,7 +282,11 @@ msgstr "Default"
 msgid "Gateway list"
 msgstr "Elenco gateway"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+msgid "Gateways"
+msgstr "Gateway"
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -289,11 +301,11 @@ msgstr ""
 "gateway. È critico che il valore di questi campi sia corretto per il "
 "corretto funzionamento del modulo di traffic shaping"
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "gateway"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "indirizzo ip"
 
@@ -712,10 +724,6 @@ msgstr "Route"
 msgid "Diagnosis"
 msgstr "Diagnosi"
 
-#: src/EBox/Network.pm:2615
-msgid "Gateways"
-msgstr "Gateway"
-
 #: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr "Bilancia traffico"
@@ -837,6 +845,13 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annulla"
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "Avere le interfacce di rete configurate via DHCP può provocare la "
+#~ "sovrascritture di queste impostazioni."
 
 #~ msgid ""
 #~ "Gateway {gw} must be reacheable by a static interface. Currently is "

@@ -6,9 +6,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.11.101\n"
+"Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:20+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2007-08-19 14:49+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -22,25 +22,25 @@ msgstr ""
 msgid "Change or remove some rules on {contextName}"
 msgstr "Ändern oder Entfernen einiger Regeln von {contextName}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:269
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:270
 #, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "{iface} interne Netzwerkkarte"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:272
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:273
 #, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "{iface} externe Netzwerkkarte"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:299
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:300
 msgid "Guaranteed rate"
 msgstr "Minimale Bandbreite"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:304
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:305
 msgid "Limited rate"
 msgstr "Maximale Bandbreite"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:314
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:316
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
@@ -49,111 +49,113 @@ msgstr ""
 "Die Computergruppe {object} ist leer. Bitte fügen Sie mindestens einen "
 "Computer hinzu, bevor Sie Regeln für diese Gruppe vergeben"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:337
-msgid "If service is any, some source or destination should be provided"
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:343
+#, fuzzy
+msgid "If service is any, some source ordestination should be provided"
 msgstr ""
 "Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
 "angegeben werden"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:471
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:616
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
 msgid "Service"
 msgstr "Dienst"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:483
+msgid "Port based service"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 msgid "Source"
 msgstr "Quelle"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:483
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:511
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:500
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:528
 msgid "Any"
 msgstr "Alle"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:486
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:503
 msgid "Source IP"
 msgstr "Quell-IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:491
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:508
 msgid "Source MAC"
 msgstr "Quell-MAC"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:513
 msgid "Source object"
 msgstr "Quell-Objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:506
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:523
 msgid "Destination"
 msgstr "Ziel"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:531
 msgid "Destination IP"
 msgstr "Ziel-IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:519
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
 msgid "Destination object"
 msgstr "Ziel-Objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
-#: src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
+#: src/EBox/TrafficShaping.pm:1550
 msgid "Priority"
 msgstr "Priorität"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
-#: src/EBox/TrafficShaping.pm:1547
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:550
+msgid "Lowest priotiry: 7 Highest priority: 0"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
+#: src/EBox/TrafficShaping.pm:1548
 msgid "Guaranteed Rate"
 msgstr "Garantierte Bandbreite"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:539
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:550
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:557
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:571
 msgid "Kbit/s"
 msgstr "kBit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:545
-#: src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
+msgid ""
+"Note that  The sum of all guaranteed rates cannot exceed your total "
+"bandwidth. 0 means unlimited rate."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
+#: src/EBox/TrafficShaping.pm:1549
 msgid "Limited Rate"
 msgstr "Maximale Bandbreite"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:573
+msgid "Traffic will not exceed this rate. 0 means unlimited rate."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "Liste der Regeln für {printableIndex}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:568
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:589
+#, fuzzy
 msgid ""
-"Adding a rule to the interface should be done following maximum rate allowed "
-"to that interface and the sum of the different guaranteed rates should be at "
-"much as the total rate allowed. No limited rate or zero means unlimited rate "
-"in terms of bandwidth link. At least, one should be provided.In order to "
-"identify a rule, an attribute should be given.Highest priority: 0 lowest "
-"priority: 7."
-msgstr ""
-"Wenn Sie eine neue Regel für eine Netzwerkkarte hinzufügen, beachten Sie, "
-"dass die Bandbreite für eine Netzwerkkarte grösser sein sollte als die Summe "
-"der maximal erlaubte Bandbreite der einzelnen Regeln. Keine oder null als "
-"maximale Bandbreite bedeutet, dass die verfügbare Bandbreite ausgeschöpft "
-"wird. Geben Sie mindestens eine Regel ein. Um eine Regel zu identifizieren "
-"geben Sie ein Attribut an. Die höchste Priorität ist 0, die tiefste 7."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:575
-msgid ""
-"Take care about the traffic flow setting the correct source and destination. "
-"If the interface is internal, the traffic flow comes from Internet to inside "
-"and the external is the other way around"
+"Note that if the interface is internal, the traffic flow comes from Internet "
+"to inside and the external is the other way around"
 msgstr ""
 "Achten Sie darauf, dass die Quelle und das Ziel richtig gesetzt werden. Wenn "
 "die Netzwerkkarte intern ist, kommt der Netzwerkverkehr vom Internet, für "
 "externe Netzwerkkarten ist es umgekehrt."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:580
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
 msgstr "Regel"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:627
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "{num} Regeln von {modelName} entfernen"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:673
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -165,6 +167,23 @@ msgstr ""
 "{limitRate} herunter, {guaranNum} Regeln haben ihre garantierte Bandbreite "
 "normalisiert, um das Verhältnis zu wahren und {removeNum} Regeln wurden "
 "gelöscht weil die garantierte Bandbreite kleiner war als das erlaubte Minimum"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+msgid ""
+"Port based protocols use the port number to match a service, while "
+"Application based protocols are slower but more effective as they check the "
+"content of any packet to match a service."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+msgid "Application based service"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+msgid "Application based service group"
+msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -257,11 +276,11 @@ msgstr ""
 "Die beschränkte Bandbreite {lR} kBit/s sollte kleiner sein als {maxLR}. Sie "
 "können die maximale Bandbreite für diese Netzwerkkarte auch erhöhen."
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:612
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
 msgstr "Leaf class identifier"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
 msgstr "Adresse"
 
@@ -330,13 +349,34 @@ msgstr ""
 "Für die Netzwerkkarte {iface} sollte eine maximale Bandbreite definiert "
 "sein, damit die Bandbreitenbegrenzung überhaupt möglich ist"
 
-#: src/EBox/TrafficShaping.pm:1545
+#: src/EBox/TrafficShaping.pm:1546
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1546
+#: src/EBox/TrafficShaping.pm:1547
 msgid "Port"
 msgstr "Port"
+
+#~ msgid "If service is any, some source or destination should be provided"
+#~ msgstr ""
+#~ "Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
+#~ "angegeben werden"
+
+#~ msgid ""
+#~ "Adding a rule to the interface should be done following maximum rate "
+#~ "allowed to that interface and the sum of the different guaranteed rates "
+#~ "should be at much as the total rate allowed. No limited rate or zero "
+#~ "means unlimited rate in terms of bandwidth link. At least, one should be "
+#~ "provided.In order to identify a rule, an attribute should be given."
+#~ "Highest priority: 0 lowest priority: 7."
+#~ msgstr ""
+#~ "Wenn Sie eine neue Regel für eine Netzwerkkarte hinzufügen, beachten Sie, "
+#~ "dass die Bandbreite für eine Netzwerkkarte grösser sein sollte als die "
+#~ "Summe der maximal erlaubte Bandbreite der einzelnen Regeln. Keine oder "
+#~ "null als maximale Bandbreite bedeutet, dass die verfügbare Bandbreite "
+#~ "ausgeschöpft wird. Geben Sie mindestens eine Regel ein. Um eine Regel zu "
+#~ "identifizieren geben Sie ein Attribut an. Die höchste Priorität ist 0, "
+#~ "die tiefste 7."
 
 #~ msgid "Traffic Shaping Management"
 #~ msgstr "Verwalten der Bandbreitenbegrenzung"
@@ -460,3 +500,12 @@ msgstr "Port"
 
 #~ msgid "Traffic Shaping rules"
 #~ msgstr "Regeln für Bandbreitenbegrenzung"
+
+#~ msgid ""
+#~ "Take care about the traffic flow setting the correct source and "
+#~ "destination. If the interface is internal, the traffic flow comes from "
+#~ "Internet to inside and the external is the other way around"
+#~ msgstr ""
+#~ "Achten Sie darauf, dass die Quelle und das Ziel richtig gesetzt werden. "
+#~ "Wenn die Netzwerkkarte intern ist, kommt der Netzwerkverkehr vom "
+#~ "Internet, für externe Netzwerkkarten ist es umgekehrt."

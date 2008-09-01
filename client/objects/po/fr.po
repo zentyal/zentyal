@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.11.101\n"
+"Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-04-12 09:14+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -25,18 +25,29 @@ msgstr "Nom"
 msgid "Members"
 msgstr "Membres"
 
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/ObjectTable.pm:88
-#: src/EBox/Model/MemberTable.pm:93 src/EBox/Objects.pm:40
+#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Objets"
 
-#: src/EBox/Model/ObjectTable.pm:89
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Object list"
+msgstr "List d'objets"
+
+#: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
 msgstr "objet"
 
-#: src/EBox/Model/ObjectTable.pm:111
+#: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
 msgstr "Cet objet est utilisé par un autre module"
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP Address"
@@ -161,9 +172,6 @@ msgstr "Objet"
 
 #~ msgid "Create"
 #~ msgstr "Créer"
-
-#~ msgid "Object list"
-#~ msgstr "List d'objets"
 
 #~ msgid "Edit"
 #~ msgstr "Éditer"

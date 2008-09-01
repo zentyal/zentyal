@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.11.101\n"
+"Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:20+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Virtual host's name"
 msgstr "Nom d'hôte virtuel"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:140
+#: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -30,7 +30,7 @@ msgstr ""
 "Hôte virtuel {vhost} ajouté. Le domaine {domain} a été créé avec le nom de "
 "mappage  {name} - Adresse IP {ip}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:158
+#: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -39,33 +39,33 @@ msgstr ""
 "Hôte virtuel {vhost} ajouté. Le nom de mappage {name} - Adresse IP {ip} a "
 "été ajouté au domaine {domain}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:172
+#: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
 "Hôte virtuel {vhost} ajouté en tant qu'alias {alias} au nom d'hôte {hostname}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:178
-#: src/EBox/WebServer/Model/VHostTable.pm:183
+#: src/EBox/WebServer/Model/VHostTable.pm:180
+#: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "Hôte virtuel {vhost} ajouté"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:188
+#: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
 "Il n'y a aucune interface statique interne pour définir l'adresse IP du "
 "serveur Web"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:214
+#: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:224
+#: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
 msgstr "Hôtes virtuels"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:228
+#: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -80,7 +80,7 @@ msgstr ""
 "entrées DNS sont créées automatiquement si possible. Le contenu doit être "
 "placé dans le dossier {docRoot}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:235
+#: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
 msgstr "hôte virtuel "
 

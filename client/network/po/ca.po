@@ -5,9 +5,9 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -162,19 +162,22 @@ msgid "Name server"
 msgstr ""
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
+msgid "Name server resolver list"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
+#: src/EBox/Model/DNSResolver.pm:94
+msgid "Name server resolver"
 msgstr ""
-"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-"paràmetres es sobreescriguen."
 
 #: src/EBox/Model/DNSResolver.pm:100
 msgid "name server"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
 msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
@@ -203,7 +206,12 @@ msgstr ""
 msgid "Static routes"
 msgstr "Rutes estàtiques"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "Rutes estàtiques"
+
+#: src/EBox/Model/StaticRoute.pm:170
 #, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
@@ -212,7 +220,7 @@ msgstr ""
 "Totes les rutes que introduïu han de ser accessibles des de una de les "
 "interfícies de xarxa actualment configurades."
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 #, fuzzy
 msgid "static route"
 msgstr "Rutes estàtiques"
@@ -286,7 +294,12 @@ msgstr "Pasarel·la per defecte"
 msgid "Gateway list"
 msgstr "Pasarel·la"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+#, fuzzy
+msgid "Gateways"
+msgstr "Pasarel·la"
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -296,12 +309,12 @@ msgid ""
 "a correct functionality of the traffic shaping module"
 msgstr ""
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 #, fuzzy
 msgid "gateway"
 msgstr "Pasarel·la"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "adreça ip"
 
@@ -708,11 +721,6 @@ msgstr "Rutes"
 msgid "Diagnosis"
 msgstr ""
 
-#: src/EBox/Network.pm:2615
-#, fuzzy
-msgid "Gateways"
-msgstr "Pasarel·la"
-
 #: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr ""
@@ -826,6 +834,13 @@ msgstr "D'acord"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Cancel·la"
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
+#~ "paràmetres es sobreescriguen."
 
 #, fuzzy
 #~ msgid "There is already a default gateway"

@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.11.102\n"
+"Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2006-11-06 16:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,18 +48,18 @@ msgstr "Common name: {cn} NÃO existe da base de dados"
 
 #: src/EBox/CGI/CreateCA.pm:109 src/EBox/CGI/IssueCertificate.pm:84
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "As senhas de CA não coincidem"
 
 #: src/EBox/CGI/CreateCA.pm:119 src/EBox/CGI/IssueCertificate.pm:92
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "A senha necessita ter no mínimo {comprimento} caracteres"
 
 #: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
 #: src/EBox/CGI/RenewCertificate.pm:89
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr ""
+msgstr "Dias até expirar ({dias}) deve ser um número positivo"
 
 #: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"

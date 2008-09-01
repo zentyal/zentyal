@@ -9,9 +9,9 @@
 # Dani Baeyens <dani@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.11.101\n"
+"Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:17+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-05-16 13:00+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -29,51 +29,55 @@ msgstr "ACEPTAR"
 msgid "DENY"
 msgstr "DENEGAR"
 
-#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:894
+#: src/EBox/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:899
+msgid "LOG"
+msgstr ""
+
+#: src/EBox/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:894
 msgid "Decision"
 msgstr "Decisión"
 
-#: src/EBox/Model/BaseRuleTable.pm:118 src/EBox/Firewall.pm:889
+#: src/EBox/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:889
 #: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Origen"
 
-#: src/EBox/Model/BaseRuleTable.pm:123 src/EBox/Model/BaseRuleTable.pm:149
+#: src/EBox/Model/BaseRuleTable.pm:126 src/EBox/Model/BaseRuleTable.pm:152
 msgid "Any"
 msgstr "Cualquiera"
 
-#: src/EBox/Model/BaseRuleTable.pm:126
+#: src/EBox/Model/BaseRuleTable.pm:129
 msgid "Source IP"
 msgstr "IP origen"
 
-#: src/EBox/Model/BaseRuleTable.pm:130
+#: src/EBox/Model/BaseRuleTable.pm:133
 msgid "Source object"
 msgstr "Objeto origen"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:890
+#: src/EBox/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:890
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Destino"
 
-#: src/EBox/Model/BaseRuleTable.pm:152
+#: src/EBox/Model/BaseRuleTable.pm:155
 msgid "Destination IP"
 msgstr "IP Destino"
 
-#: src/EBox/Model/BaseRuleTable.pm:157
+#: src/EBox/Model/BaseRuleTable.pm:160
 msgid "Destination object"
 msgstr "Objeto destino"
 
-#: src/EBox/Model/BaseRuleTable.pm:172 src/templates/objectService.mas:46
+#: src/EBox/Model/BaseRuleTable.pm:175 src/templates/objectService.mas:46
 msgid "Service"
 msgstr "Servicio"
 
-#: src/EBox/Model/BaseRuleTable.pm:176
+#: src/EBox/Model/BaseRuleTable.pm:179
 msgid ""
-"If inverse match is ticked, any  service but the selected one will match "
-"this rule"
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
 msgstr ""
 
-#: src/EBox/Model/BaseRuleTable.pm:182
+#: src/EBox/Model/BaseRuleTable.pm:185
 msgid "Description"
 msgstr "Descripción"
 
@@ -208,6 +212,8 @@ msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"El cortafuegos de eBox eliminará cualquier regla previa que hubiera sido "
+"añadido manualmente o por otra herramienta"
 
 #: src/EBox/Firewall.pm:99
 msgid "Secure by default"
@@ -286,14 +292,14 @@ msgstr "Puerto de destino"
 msgid "DROP"
 msgstr "DESECHAR"
 
-#: src/EBox/Iptables.pm:604
+#: src/EBox/Iptables.pm:608 src/EBox/Iptables.pm:640
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Debes establecer la variable iptables_log_limit en el fichero de "
 "configuración de eBox"
 
-#: src/EBox/Iptables.pm:610
+#: src/EBox/Iptables.pm:614 src/EBox/Iptables.pm:646
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
