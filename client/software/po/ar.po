@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.101\n"
+"Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -153,63 +153,67 @@ msgid "eBox - Instant messaging (Jabber)"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:8
-msgid "eBox - Mail server"
+msgid "eBox - layer 7 protocols"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "eBox - Mail filter module"
+msgid "eBox - Mail server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:10
-msgid "eBox - Network configuration module"
+msgid "eBox - Mail filter module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - NTP server"
+msgid "eBox - Network configuration module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "eBox - Object management"
+msgid "eBox - NTP server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "eBox - OpenVPN server module"
+msgid "eBox - Object management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - Printer sharing"
+msgid "eBox - OpenVPN server module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:15
-msgid "eBox - File sharing"
+msgid "eBox - Printer sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:16
-msgid "eBox - Services management"
+msgid "eBox - File sharing"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:17
-msgid "SOAP server to communicate with eBox control center"
+msgid "eBox - Services management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:18
-msgid "eBox - Software management"
+msgid "SOAP server to communicate with eBox control center"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:19
-msgid "eBox - Proxy cache and content filter"
+msgid "eBox - Software management"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:20
-msgid "eBox - Traffic shaper for eBox"
+msgid "eBox - Proxy cache and content filter"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:21
-msgid "eBox - User and Group management"
+msgid "eBox - Traffic shaper for eBox"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:22
-msgid "eBox- Web Server"
+msgid "eBox - User and Group management"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:23
+msgid "eBox - Web Server"
 msgstr ""
 
 #: migration/0001_add_http_software_rule.pl:24

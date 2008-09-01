@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.11.103\n"
+"Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"POT-Creation-Date: 2008-09-01 08:33+0200\n"
 "PO-Revision-Date: 2007-04-12 11:16+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -39,16 +39,16 @@ msgstr "nom du partage"
 msgid "active"
 msgstr "actif"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:530
-#: src/EBox/Samba.pm:539
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:533
+#: src/EBox/Samba.pm:542
 msgid "File sharing"
 msgstr "Partage de fichiers"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:749
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:752
 msgid "netbios"
 msgstr "netbios"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:798
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:801
 msgid "working group"
 msgstr "groupe de travail"
 
@@ -56,7 +56,7 @@ msgstr "groupe de travail"
 msgid "working mode"
 msgstr "Mode de travail"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:767
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:770
 msgid "description"
 msgstr "description"
 
@@ -66,16 +66,15 @@ msgstr "quota d'utilisateur"
 
 #: src/EBox/CGI/SambaConf.pm:47
 msgid "roaming profiles"
-msgstr ""
+msgstr "profils itinérants"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
-#, fuzzy
 msgid "Share name"
-msgstr "Nom partagé"
+msgstr "Nom de partage"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr ""
+msgstr "Chemin du partage"
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
 #, fuzzy
@@ -84,42 +83,53 @@ msgstr "Nom de répertoire"
 
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
-msgstr ""
+msgstr "Chemin du système de fichier"
 
-#: src/EBox/Samba/Model/SambaShares.pm:122
+#: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
-#: src/EBox/Samba/Model/SambaShares.pm:127
+#: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:137
+#: src/EBox/Samba/Model/SambaShares.pm:138
+msgid "List of samba shares"
+msgstr "Liste des partages samba"
+
+#: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Samba shares"
-msgstr ""
+msgstr "Partages samba"
 
-#: src/EBox/Samba/Model/SambaShares.pm:144
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:151
-msgid "Todo"
-msgstr ""
-
-#: src/EBox/Samba/Model/SambaShares.pm:145
+#: src/EBox/Samba/Model/SambaShares.pm:147
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr ""
+msgstr "Partage"
 
-#: src/EBox/Samba/Model/SambaShares.pm:175
+#: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:183
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:217
+#: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:276
+msgid ""
+"<i>Directory under eBox</i> will automatically create the share.directory "
+"in /home/samba/shares <br><i>File system path</i> will allow you to share an "
+"existing directory within your file system. "
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:286
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:113
@@ -130,26 +140,47 @@ msgstr ""
 msgid "Deleted Samba shares"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:120
-msgid "User/Group"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "Todo"
 msgstr ""
 
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:91
+msgid "Read only"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:95
+msgid "Read and write"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:99
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:120
+msgid "User/Group"
+msgstr "Utilisateur/Groupe"
+
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#, fuzzy
 msgid "User"
-msgstr "utilisateur"
+msgstr "Utilisateur"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:130
-#, fuzzy
 msgid "Group"
-msgstr "groupe"
+msgstr "Groupe"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:145
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Samba share configuration"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:180
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share"
 msgstr ""
 
 #: src/EBox/Samba.pm:75
@@ -219,36 +250,36 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr ""
 
-#: src/EBox/Samba.pm:542
+#: src/EBox/Samba.pm:545
 #, fuzzy
 msgid "General settings"
 msgstr "Configuration générale"
 
-#: src/EBox/Samba.pm:545
+#: src/EBox/Samba.pm:548
 msgid "Shares"
 msgstr ""
 
-#: src/EBox/Samba.pm:816
+#: src/EBox/Samba.pm:819
 msgid "quota"
 msgstr "quota"
 
-#: src/EBox/Samba.pm:1100 src/EBox/Samba.pm:1119
+#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1122
 msgid "user"
 msgstr "utilisateur"
 
-#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1133 src/EBox/SambaLdapUser.pm:918
+#: src/EBox/Samba.pm:1106 src/EBox/Samba.pm:1136 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "groupe"
 
-#: src/EBox/Samba.pm:1106
+#: src/EBox/Samba.pm:1109
 msgid "printer"
 msgstr "imprimante"
 
-#: src/EBox/Samba.pm:1567
+#: src/EBox/Samba.pm:1570
 msgid "User's files"
 msgstr "Fichiers utilisateur"
 
-#: src/EBox/Samba.pm:1569
+#: src/EBox/Samba.pm:1572
 msgid "Group's files"
 msgstr "Fichiers de groupe"
 

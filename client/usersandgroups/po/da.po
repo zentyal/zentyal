@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.11.101\n"
+"Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:20+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2007-09-28 10:48+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -44,10 +44,10 @@ msgid "user"
 msgstr "bruger"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:794 src/EBox/UsersAndGroups.pm:799
-#: src/EBox/UsersAndGroups.pm:950 src/EBox/UsersAndGroups.pm:1084
-#: src/EBox/UsersAndGroups.pm:1121 src/EBox/UsersAndGroups.pm:1195
-#: src/EBox/UsersAndGroups.pm:1301
+#: src/EBox/UsersAndGroups.pm:778 src/EBox/UsersAndGroups.pm:783
+#: src/EBox/UsersAndGroups.pm:930 src/EBox/UsersAndGroups.pm:1059
+#: src/EBox/UsersAndGroups.pm:1093 src/EBox/UsersAndGroups.pm:1165
+#: src/EBox/UsersAndGroups.pm:1268
 msgid "group name"
 msgstr "gruppe navn"
 
@@ -57,11 +57,11 @@ msgid "comment"
 msgstr "kommentar"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:364 src/EBox/UsersAndGroups.pm:370
-#: src/EBox/UsersAndGroups.pm:498 src/EBox/UsersAndGroups.pm:552
-#: src/EBox/UsersAndGroups.pm:583 src/EBox/UsersAndGroups.pm:914
-#: src/EBox/UsersAndGroups.pm:979 src/EBox/UsersAndGroups.pm:1079
-#: src/EBox/UsersAndGroups.pm:1116 src/EBox/UsersAndGroups.pm:1153
+#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
+#: src/EBox/UsersAndGroups.pm:490 src/EBox/UsersAndGroups.pm:542
+#: src/EBox/UsersAndGroups.pm:571 src/EBox/UsersAndGroups.pm:896
+#: src/EBox/UsersAndGroups.pm:958 src/EBox/UsersAndGroups.pm:1054
+#: src/EBox/UsersAndGroups.pm:1088 src/EBox/UsersAndGroups.pm:1124
 msgid "user name"
 msgstr "brugernavn"
 
@@ -87,7 +87,7 @@ msgstr "rediger gruppe"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
-#: src/EBox/UsersAndGroups.pm:1572
+#: src/EBox/UsersAndGroups.pm:1530
 msgid "Users"
 msgstr "Brugere"
 
@@ -95,23 +95,23 @@ msgstr "Brugere"
 msgid "username"
 msgstr "brugernavn"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1580
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1538
 msgid "Groups"
 msgstr "Grupper"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
-#: src/EBox/UsersAndGroups/Model/Users.pm:130
+#: src/EBox/UsersAndGroups/Model/Users.pm:153
 msgid "Name"
 msgstr "Navn"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:63
-#: src/EBox/UsersAndGroups/Model/Users.pm:139 src/templates/users.mas:27
+#: src/EBox/UsersAndGroups/Model/Users.pm:162 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
 msgstr "Fuldt navn"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:68
-#: src/EBox/UsersAndGroups/Model/Users.pm:148
+#: src/EBox/UsersAndGroups/Model/Users.pm:171
 msgid "Edit"
 msgstr "Rediger"
 
@@ -119,13 +119,17 @@ msgstr "Rediger"
 msgid "foo"
 msgstr "foo"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:114
+#: src/EBox/UsersAndGroups/Model/Users.pm:127
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
 "Du skal have slået modulet Brugere til i modul status, for at kunne bruger "
 "det."
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:130
+msgid "There are no users at the moment."
+msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:56
 msgid "users and groups"
@@ -159,16 +163,16 @@ msgstr ""
 "For at konfigurere openLDAP databsen med dc__ input, root password, root dn, "
 "scemas og ACLer der skal bruges af LDAP baserede moduler"
 
-#: src/EBox/UsersAndGroups.pm:359
+#: src/EBox/UsersAndGroups.pm:355
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Brugernavnet må ikke være længere end {maxuserlength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:414 src/EBox/UsersAndGroups.pm:841
+#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:825
 msgid "Maximum number of system users reached"
 msgstr "Maximum antal brugere på systemet er nået"
 
-#: src/EBox/UsersAndGroups.pm:431
+#: src/EBox/UsersAndGroups.pm:427
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -176,22 +180,22 @@ msgstr ""
 "Ugyldigt UID {uid} for brugeren. UID skal være det samme eller større end "
 "{min}."
 
-#: src/EBox/UsersAndGroups.pm:442
+#: src/EBox/UsersAndGroups.pm:438
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Ugyldigt UID {uid} for en system bruger. UID skal være mindre end {max}."
 
-#: src/EBox/UsersAndGroups.pm:782
+#: src/EBox/UsersAndGroups.pm:766
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Gruppenavnet kan ikke være længere end {maxGroupLength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:788
+#: src/EBox/UsersAndGroups.pm:772
 msgid "The group name is not valid because it is used internally"
 msgstr "Gruppenavnet er ugyldigt da navnet bliver brugt internt"
 
-#: src/EBox/UsersAndGroups.pm:858
+#: src/EBox/UsersAndGroups.pm:842
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -199,22 +203,22 @@ msgstr ""
 "Ugyldigt GID {gid} for en gruppe. GID skal være lig med eller større end "
 "{min}."
 
-#: src/EBox/UsersAndGroups.pm:868
+#: src/EBox/UsersAndGroups.pm:852
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Ugyldigt GID {gid} for en system gruppe. GID skal være mindre end {max}."
 
-#: src/EBox/UsersAndGroups.pm:1374
+#: src/EBox/UsersAndGroups.pm:1336
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Passwordet kan ikke være længere end {maxPwdLength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:1574
+#: src/EBox/UsersAndGroups.pm:1532
 msgid "Add user"
 msgstr "Tilføj en bruger"
 
-#: src/EBox/UsersAndGroups.pm:1577
+#: src/EBox/UsersAndGroups.pm:1535
 msgid "Edit user"
 msgstr "Rediger en bruger"
 

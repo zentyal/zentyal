@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.101\n"
+"Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -159,64 +159,68 @@ msgid "eBox - Instant messaging (Jabber)"
 msgstr "eBox - インスタントメッセージング (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
+msgid "eBox - layer 7 protocols"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
 msgstr "eBox - メールサーバ"
 
-#: src/EBox/PackageDescriptions.pm:9
+#: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
 msgstr "eBox - メールフィルタモジュール"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Network configuration module"
 msgstr "eBox - ネットワーク設定モジュール"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - NTP server"
 msgstr "eBox - NTPサーバ"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Object management"
 msgstr "eBox - オブジェクト管理"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - OpenVPN server module"
 msgstr "eBox - OpenVPNサーバモジュール"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Printer sharing"
 msgstr "eBox - プリンタ共有"
 
-#: src/EBox/PackageDescriptions.pm:15
+#: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - File sharing"
 msgstr "eBox - ファイル共有"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Services management"
 msgstr "eBox - サービス管理"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "SOAP server to communicate with eBox control center"
 msgstr "eBoxコントロールセンターと接続するSOAPサーバ"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - Software management"
 msgstr "eBox - ソフトウェアの管理"
 
-#: src/EBox/PackageDescriptions.pm:19
+#: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Proxy cache and content filter"
 msgstr "eBox - プロキシキャッシュとコンテンツフィルタ"
 
-#: src/EBox/PackageDescriptions.pm:20
+#: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Traffic shaper for eBox"
 msgstr "eBox - eBoxのためのトラフィック整形"
 
-#: src/EBox/PackageDescriptions.pm:21
+#: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - User and Group management"
 msgstr "eBox - ユーザグループ管理"
 
-#: src/EBox/PackageDescriptions.pm:22
+#: src/EBox/PackageDescriptions.pm:23
 #, fuzzy
-msgid "eBox- Web Server"
+msgid "eBox - Web Server"
 msgstr "Webサーバ"
 
 #: migration/0001_add_http_software_rule.pl:24
@@ -300,6 +304,10 @@ msgstr "なし"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "削除"
+
+#, fuzzy
+#~ msgid "eBox- Web Server"
+#~ msgstr "Webサーバ"
 
 #~ msgid "Web Server"
 #~ msgstr "Webサーバ"

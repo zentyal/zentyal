@@ -10,9 +10,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102\n"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Alle Buchstaben (A-Z, a-z), die "
 "Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt"
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -62,7 +62,7 @@ msgstr ""
 "Ein interner Fehler ist aufgetreten. Dies ist höchstwahrscheinlich ein "
 "Programmierfehler, mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -70,7 +70,7 @@ msgstr ""
 "Ein interner Fehler betreffend einer Vorlage ist aufgetreten. Dies ist ein "
 "Programmierfehler, mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -78,20 +78,20 @@ msgstr ""
 "Ein unerwarteter Fehler ist aufgetreten. Dies ist ein Programmierfehler, "
 "mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Sie haben einen Programmierfehler in der eBox entdeckt, bitte suchen Sie "
 "technische Unterstützung"
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil sie falsche Parameter "
 "enthält"
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -99,11 +99,11 @@ msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil einige nötige Parameter "
 "fehlen"
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr "Die hochgeladene Datei ist ungültig"
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr "Die temporäre Datei für das Hochladen konnte nicht erstellt werden"
 
@@ -187,21 +187,25 @@ msgstr "Von"
 msgid "To"
 msgstr "An"
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr "erste"
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr "vorherige"
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr "nächste"
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr "letzte"
 
@@ -245,7 +249,8 @@ msgid "we're sorry"
 msgstr "Entschuldigung"
 
 #: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
+#, fuzzy
+msgid "The page cannot be found"
 msgstr "Die Seite wurde nicht gefunden"
 
 #: src/templates/title.mas:12
@@ -302,3 +307,6 @@ msgstr "Aktiviert"
 
 #~ msgid "Hide help notes"
 #~ msgstr "Hilfetexte ausblenden"
+
+#~ msgid "The page can not be found"
+#~ msgstr "Die Seite wurde nicht gefunden"

@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102\n"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-04-15 19:22+0000\n"
 "Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <en@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 "A entrada contém caracteres inválidos. Todos caracteres alfanuméricos, mais "
 "estes não-alfanuméricos:  /.?&+:-@ e espaços são aceitos."
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -56,7 +56,7 @@ msgstr ""
 "Ocorreu um erro interno, este erro é provavelmente um BUG, informações "
 "importantes podem ser encontradas nos logs"
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "Ocorreu um erro interno relativo ao template, isto é um BUG, informações "
 "importantes podem ser encontradas nos logs."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 #, fuzzy
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
@@ -73,28 +73,28 @@ msgstr ""
 "Ocorreu um erro interno desconhecido, Isto é um BUG, informações importantes "
 "podem ser encontradas nos logs."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Você encontrou um BUg no eBox. Por Favor procure suporte técnico."
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "O seu pedido não pode ser processado porque tem parametros incorrectos."
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "O seu pedido não pode ser processado porque faltam parametros necessários."
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr "Upload de ficheiro inválido."
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -169,21 +169,25 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr ""
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr ""
 
@@ -222,7 +226,7 @@ msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:14
 #, fuzzy
-msgid "The page can not be found"
+msgid "The page cannot be found"
 msgstr "Tha página não pôde ser encontrado."
 
 #: src/templates/title.mas:12
@@ -279,3 +283,7 @@ msgstr "Habilitado"
 
 #~ msgid "Root command '{cmd}' failed"
 #~ msgstr "O Comando Root '{cmd}' falhou"
+
+#, fuzzy
+#~ msgid "The page can not be found"
+#~ msgstr "Tha página não pôde ser encontrado."

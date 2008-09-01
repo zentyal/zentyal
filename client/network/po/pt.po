@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-06-06 09:39+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -154,17 +154,22 @@ msgid "Name server"
 msgstr ""
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
+msgid "Name server resolver list"
 msgstr ""
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
+#: src/EBox/Model/DNSResolver.pm:94
+msgid "Name server resolver"
 msgstr ""
 
 #: src/EBox/Model/DNSResolver.pm:100
 msgid "name server"
+msgstr ""
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
 msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
@@ -193,13 +198,18 @@ msgstr ""
 msgid "Static routes"
 msgstr "Rotas estáticas"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "Rotas estáticas"
+
+#: src/EBox/Model/StaticRoute.pm:170
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
 msgstr ""
 
@@ -265,7 +275,11 @@ msgstr "Pré-definido"
 msgid "Gateway list"
 msgstr "Lista de gateways"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+msgid "Gateways"
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -278,11 +292,11 @@ msgstr ""
 "tráfego por diferentes ligações. {br} Os campos upload e download devem ser "
 "os definidos para cada ligação à Internet."
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "gateway"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "endereço ip"
 
@@ -676,10 +690,6 @@ msgstr "Rotas"
 
 #: src/EBox/Network.pm:2612
 msgid "Diagnosis"
-msgstr ""
-
-#: src/EBox/Network.pm:2615
-msgid "Gateways"
 msgstr ""
 
 #: src/EBox/Network.pm:2618

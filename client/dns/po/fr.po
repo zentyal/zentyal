@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.11.102\n"
+"Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:31+0200\n"
 "PO-Revision-Date: 2007-04-12 08:06+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -47,8 +47,8 @@ msgstr "Noms d'hôtes"
 msgid "hostname"
 msgstr "nom d'hôte"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:824
-#: src/EBox/DNS.pm.in:852
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
+#: src/EBox/DNS.pm.in:857
 msgid "DNS"
 msgstr "DNS"
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Domains"
 msgstr "Domaines"
 
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:338
+#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "domaine"
 
@@ -149,15 +149,15 @@ msgstr "Nom de domaine"
 msgid "DNS Server"
 msgstr "Serveur DNS"
 
-#: src/EBox/DNS.pm.in:639
+#: src/EBox/DNS.pm.in:644
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "Fichier de configuration pour la zone {zone}"
 
-#: src/EBox/DNS.pm.in:655
+#: src/EBox/DNS.pm.in:660
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "Fichier de configuration pour la zone de recherche inversée {zone}"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format

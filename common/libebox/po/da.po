@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.11.102\n"
+"Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:15+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-09-28 10:49+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Ugyldigt input. Kun bogstaver og tal plus disse tegn: /.?&+:-@ og mellemrum "
 "er tilladt."
 
-#: src/EBox/CGI/Base.pm:331 src/EBox/CGI/Base.pm:560
+#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -56,7 +56,7 @@ msgstr ""
 "En intern fejl er opstået. Dette er højst sandsynligt en fejl. Relevant "
 "information kan findes i logs."
 
-#: src/EBox/CGI/Base.pm:341
+#: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "En intern fejl relateret til \"template\" er opstået. Dette er en fejl. "
 "Relevant info kan findes i logs."
 
-#: src/EBox/CGI/Base.pm:566
+#: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -72,17 +72,17 @@ msgstr ""
 "En uventet intern fejl er opstået. Dette er en fejl. Relevant information "
 "kan findes i dine logs."
 
-#: src/EBox/CGI/Base.pm:572
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Du har fundet en fejl i eBox. Kontakt venligst teknisk support."
 
-#: src/EBox/CGI/Base.pm:659
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din anmodning kunne ikke sendes, fordi den indeholdt ukorrekte parametre."
 
-#: src/EBox/CGI/Base.pm:674
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -90,11 +90,11 @@ msgstr ""
 "Din anmodning kunne ikke sendes, fordi alle nødvendige parametre ikke er "
 "udfyldt."
 
-#: src/EBox/CGI/Base.pm:823
+#: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
 msgstr "Den uploadede fil er ikke tilgængelig."
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
 msgstr "Det er ikke muligt at danne en midlertidig fil for dette upload."
 
@@ -172,21 +172,25 @@ msgstr "Fra"
 msgid "To"
 msgstr "Til"
 
-#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr "Første"
 
-#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr "Forrige"
 
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
-#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr "Næste"
 
-#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
-#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr "Sidste"
 
@@ -228,7 +232,8 @@ msgid "we're sorry"
 msgstr "Vi undskylder."
 
 #: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
+#, fuzzy
+msgid "The page cannot be found"
 msgstr "Siden kan ikke vises."
 
 #: src/templates/title.mas:12
@@ -269,3 +274,6 @@ msgstr "Slået til"
 
 #~ msgid "Add new"
 #~ msgstr "Tilføj ny"
+
+#~ msgid "The page can not be found"
+#~ msgstr "Siden kan ikke vises."

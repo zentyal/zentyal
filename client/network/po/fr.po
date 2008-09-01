@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.11.101\n"
+"Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:18+0200\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
 "PO-Revision-Date: 2007-05-15 13:15+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -161,21 +161,26 @@ msgid "Name server"
 msgstr "Services actifs"
 
 #: src/EBox/Model/DNSResolver.pm:93
-msgid "Name server resolvers"
-msgstr ""
+#, fuzzy
+msgid "Name server resolver list"
+msgstr "Services actifs"
 
-#: src/EBox/Model/DNSResolver.pm:98
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-"La configuration d'interfaces par DHCP peut causer un remplacement de ces "
-"paramètres."
+#: src/EBox/Model/DNSResolver.pm:94
+#, fuzzy
+msgid "Name server resolver"
+msgstr "Services actifs"
 
 #: src/EBox/Model/DNSResolver.pm:100
 #, fuzzy
 msgid "name server"
 msgstr "Configurer les serveurs de nom"
+
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -203,7 +208,12 @@ msgstr ""
 msgid "Static routes"
 msgstr "Routes statiques"
 
-#: src/EBox/Model/StaticRoute.pm:169
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "Routes statiques"
+
+#: src/EBox/Model/StaticRoute.pm:170
 #, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
@@ -212,7 +222,7 @@ msgstr ""
 "Tous les routeurs que vous entrez ici doivent être atteignables depuis l'une "
 "des interfaces actuellement configurées."
 
-#: src/EBox/Model/StaticRoute.pm:172
+#: src/EBox/Model/StaticRoute.pm:173
 #, fuzzy
 msgid "static route"
 msgstr "Routes statiques"
@@ -280,7 +290,11 @@ msgstr "Défaut"
 msgid "Gateway list"
 msgstr "Liste des passerelles"
 
-#: src/EBox/Model/GatewayTable.pm:154
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+msgid "Gateways"
+msgstr "Passerelles"
+
+#: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -295,11 +309,11 @@ msgstr ""
 "définis à des taux corrects pour assurer la pérénité de fonctionnement du "
 "système de gestion de trafic"
 
-#: src/EBox/Model/GatewayTable.pm:156
+#: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "passerelle"
 
-#: src/EBox/Model/GatewayTable.pm:173 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "adresse IP"
 
@@ -728,10 +742,6 @@ msgstr "Routes"
 msgid "Diagnosis"
 msgstr "Diagnostic"
 
-#: src/EBox/Network.pm:2615
-msgid "Gateways"
-msgstr "Passerelles"
-
 #: src/EBox/Network.pm:2618
 msgid "Balance traffic"
 msgstr "Equilibrage du trafic"
@@ -854,6 +864,13 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annuler"
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "La configuration d'interfaces par DHCP peut causer un remplacement de ces "
+#~ "paramètres."
 
 #~ msgid ""
 #~ "Gateway {gw} must be reacheable by a static interface. Currently is "

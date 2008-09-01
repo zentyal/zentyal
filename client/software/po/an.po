@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.11.101\n"
+"Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:19+0200\n"
+"POT-Creation-Date: 2008-09-01 08:34+0200\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -160,77 +160,81 @@ msgid "eBox - Instant messaging (Jabber)"
 msgstr "Mensachería instantania (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
+msgid "eBox - layer 7 protocols"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:9
 #, fuzzy
 msgid "eBox - Mail server"
 msgstr "Serbidor de Correu"
 
-#: src/EBox/PackageDescriptions.pm:9
+#: src/EBox/PackageDescriptions.pm:10
 #, fuzzy
 msgid "eBox - Mail filter module"
 msgstr "Filtro d'o modulo de correu"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:11
 #, fuzzy
 msgid "eBox - Network configuration module"
 msgstr "Confegurazión de rete"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:12
 #, fuzzy
 msgid "eBox - NTP server"
 msgstr "Serbidor DNS ta eBox"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 #, fuzzy
 msgid "eBox - Object management"
 msgstr "Chestión d'ochetos"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 #, fuzzy
 msgid "eBox - OpenVPN server module"
 msgstr "Serbidor OpenVPN"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 #, fuzzy
 msgid "eBox - Printer sharing"
 msgstr "Compartizión d'imprentadoras"
 
-#: src/EBox/PackageDescriptions.pm:15
+#: src/EBox/PackageDescriptions.pm:16
 #, fuzzy
 msgid "eBox - File sharing"
 msgstr "Compartizión de fichers"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 #, fuzzy
 msgid "eBox - Services management"
 msgstr "Chestión de software"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "SOAP server to communicate with eBox control center"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 #, fuzzy
 msgid "eBox - Software management"
 msgstr "Chestión de software"
 
-#: src/EBox/PackageDescriptions.pm:19
+#: src/EBox/PackageDescriptions.pm:20
 #, fuzzy
 msgid "eBox - Proxy cache and content filter"
 msgstr "Cache HTTP e filtro de contenitos"
 
-#: src/EBox/PackageDescriptions.pm:20
+#: src/EBox/PackageDescriptions.pm:21
 #, fuzzy
 msgid "eBox - Traffic shaper for eBox"
 msgstr "Moldiador de trafico ta eBox"
 
-#: src/EBox/PackageDescriptions.pm:21
+#: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
 msgid "eBox - User and Group management"
 msgstr "Chestión d'usuarios e grupos"
 
-#: src/EBox/PackageDescriptions.pm:22
+#: src/EBox/PackageDescriptions.pm:23
 #, fuzzy
-msgid "eBox- Web Server"
+msgid "eBox - Web Server"
 msgstr "Serbidor DNS ta eBox"
 
 #: migration/0001_add_http_software_rule.pl:24
@@ -318,6 +322,10 @@ msgstr "denguna"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Eliminar"
+
+#, fuzzy
+#~ msgid "eBox- Web Server"
+#~ msgstr "Serbidor DNS ta eBox"
 
 #, fuzzy
 #~ msgid "Web Server"

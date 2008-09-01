@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.11.102\n"
+"Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-07-04 08:16+0200\n"
+"POT-Creation-Date: 2008-09-01 08:30+0200\n"
 "PO-Revision-Date: 2007-08-19 12:26+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -130,19 +130,19 @@ msgstr ""
 msgid "Default leased time"
 msgstr "Standard-Mietdauer"
 
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:212
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
 msgstr "Sekunden"
 
-#: src/EBox/Model/LeaseTimes.pm:209
+#: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
 msgstr "Höchst-Mietdauer"
 
-#: src/EBox/Model/LeaseTimes.pm:219
+#: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
 msgstr "Mietdauer"
 
-#: src/EBox/Model/LeaseTimes.pm:224
+#: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
@@ -161,56 +161,56 @@ msgstr ""
 "Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
 "wählen können"
 
-#: src/EBox/Model/Options.pm:302 src/EBox/Model/Options.pm:330
+#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: src/EBox/Model/Options.pm:310
+#: src/EBox/Model/Options.pm:323
 msgid "eBox's domain"
 msgstr "Domäne der eBox"
 
-#: src/EBox/Model/Options.pm:318
+#: src/EBox/Model/Options.pm:331
 msgid "local eBox DNS"
 msgstr "Lokale eBox DNS"
 
-#: src/EBox/Model/Options.pm:325 src/EBox/Model/Options.pm:337
-#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:217
+#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
+#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
 msgstr "Keine"
 
-#: src/EBox/Model/Options.pm:344 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Standardgateway"
 
-#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:220
+#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
 msgstr "eBox"
 
-#: src/EBox/Model/Options.pm:354
+#: src/EBox/Model/Options.pm:366
 msgid "Custom IP address"
 msgstr "Benutzerdefinierte IP Adresse"
 
-#: src/EBox/Model/Options.pm:364
+#: src/EBox/Model/Options.pm:376
 msgid "Configured ones"
 msgstr "Konfigurierte"
 
-#: src/EBox/Model/Options.pm:373 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Suche in Domäne"
 
-#: src/EBox/Model/Options.pm:379 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Erster Nameserver"
 
-#: src/EBox/Model/Options.pm:385 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Zweiter Nameserver"
 
-#: src/EBox/Model/Options.pm:393
+#: src/EBox/Model/Options.pm:405
 msgid "Common options"
 msgstr "Gemeinsame Optionen"
 
-#: src/EBox/Model/Options.pm:398
+#: src/EBox/Model/Options.pm:410
 msgid ""
 "Setting \"eBox\" as default gateway will set as default gateway the "
 "interface address. If you set a \"name\", you may choose one the configured "
@@ -266,7 +266,7 @@ msgstr ""
 "in einer anderen Tabelle mit festen Adressen verzeichnet ist"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1229 src/templates/fixed.mas:9
+#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC Adresse"
 
@@ -276,11 +276,15 @@ msgstr "MAC Adresse"
 msgid "IP address"
 msgstr "IP Adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:229 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:224
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Feste Adressen"
 
-#: src/EBox/Model/FixedAddressTable.pm:236
+#: src/EBox/Model/FixedAddressTable.pm:238
 msgid "fixed address"
 msgstr "Feste Adresse"
 
@@ -331,7 +335,7 @@ msgstr ""
 #: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
 #: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
-#: src/EBox/DHCP.pm:1228
+#: src/EBox/DHCP.pm:1237
 msgid "Interface"
 msgstr "Netzwerkkarte"
 
@@ -362,19 +366,19 @@ msgstr ""
 "Sie den DHCP-Dienst verwenden können. Die Netzwerkkarten können Sie im "
 "{openhref}Netzwerk-Modul{closehref} konfigurieren"
 
-#: src/EBox/Composite/AdvancedOptions.pm:119
+#: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
 msgstr "Erweiterte Einstellungen"
 
-#: src/EBox/Composite/Interfaces.pm:76
+#: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
 msgstr "Wählen Sie eine statische Netzwerkkarte"
 
-#: src/EBox/Composite/Interfaces.pm:77
+#: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
 msgstr "Dienst konfigurieren"
 
-#: src/EBox/Composite/Interfaces.pm:78
+#: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
@@ -398,7 +402,7 @@ msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 "Ungültiger Befehl, \"Hinzufügen\", \"Setzen\" und \"Löschen\" sind verfügbar"
 
-#: src/EBox/DHCP.pm:1015
+#: src/EBox/DHCP.pm:1024
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -410,7 +414,7 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:1033
+#: src/EBox/DHCP.pm:1042
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -422,27 +426,27 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:1227
+#: src/EBox/DHCP.pm:1236
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/DHCP.pm:1230
+#: src/EBox/DHCP.pm:1239
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1231
+#: src/EBox/DHCP.pm:1240
 msgid "Event"
 msgstr "Event"
 
-#: src/EBox/DHCP.pm:1234
+#: src/EBox/DHCP.pm:1243
 msgid "Leased"
 msgstr "Ausgeliehen"
 
-#: src/EBox/DHCP.pm:1234
+#: src/EBox/DHCP.pm:1243
 msgid "Released"
 msgstr "Zurückgegeben"
 
-#: src/EBox/DHCP.pm:1237
+#: src/EBox/DHCP.pm:1246
 msgid "DHCP"
 msgstr "DHCP"
 
