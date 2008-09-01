@@ -40,6 +40,7 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::Host;
 use EBox::Types::Union;
+use EBox::Types::Union::Text;
 use EBox::Types::Port;
 
 
@@ -83,24 +84,22 @@ sub _table
                                editable => 1,
                               ),
          new EBox::Types::Union(
-                                fieldName => 'maxSize',
-                                printableName => 
-                                      __('Maximum message size accepted'),
-                                subtypes => [
-                                             new EBox::Types::Text(
-                                         'fieldName' => 'unlimited',
-                                         'printableName' => __('Unlimited size'),
-                                                                         ),
-                                             new EBox::Types::Int(
-                                               'fieldName' => 'size',
-                                               'printableName' => 
-                                                 __('size in Mb'),
-                                               'editable'  => 1,
-                                               'max'       => MAX_MSG_SIZE, 
-                                                                 ),
-
-                                            ],
-                               ),
+                              fieldName => 'maxSize',
+                              printableName => 
+                                __('Maximum message size accepted'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'unlimited',
+                                  'printableName' => __('Unlimited size'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'size',
+                                  'printableName' => __('size in Mb'),
+                                  'editable'  => 1,
+                                  'max'       => MAX_MSG_SIZE, 
+                                      ),
+                                  ],
+             ),
          
 
         );
