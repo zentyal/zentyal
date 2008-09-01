@@ -206,14 +206,14 @@ sub defaultGateway
 
     my $row = $self->row();
 
-    my $gwType = $row->{valueHash}->{default_gateway};
+    my $gwType = $row->elementByName('default_gateway');
     my $selectedTypeName = $gwType->selectedType();
     if ( $selectedTypeName eq 'ip' ) {
-        return $gwType->value();
+        return $gwType->subtype->value();
     } elsif ( $selectedTypeName eq 'name' ) {
-        my $gwModel = $gwType->foreignModel();
-        my $row = $gwModel->row( $gwType->value() );
-        return $row->{plainValueHash}->{ip};
+        my $gwModel = $gwType->subtype()->foreignModel();
+        my $row = $gwModel->row( $gwType->subtype()->value() );
+        return $row->valueByName('ip');
     } elsif ( $selectedTypeName eq 'none' ) {
         return '';
     } elsif ( $selectedTypeName eq 'ebox' ) {
@@ -236,12 +236,12 @@ sub searchDomain
 
     my $row = $self->row();
 
-    my $selectedType = $row->{valueHash}->{search_domain}->selectedType();
+    my $selectedType = $row->elementByName('search_domain')->selectedType();
 
     if ( $selectedType eq 'none' ) {
         return undef;
     } else {
-        return $row->{printableValueHash}->{search_domain};
+        return $row->elementByName('search_domain')->subtype()->printableValue();
     }
 
 }
@@ -266,17 +266,17 @@ sub nameserver
 
     my $selectedType;
     if ( $number == 1 ) {
-        $selectedType = $row->{valueHash}->{primary_ns}->selectedType();
+        $selectedType = $row->elementByName('primary_ns')->selectedType();
         if ( $selectedType eq 'none' ) {
             return undef;
         } elsif ( $selectedType eq 'eboxDNS' ) {
             my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
             return $ifaceAddr;
         } else {
-            return $row->{printableValueHash}->{primary_ns};
+            return $row->elementByName('primary_ns')->subtype()->printableValue();
         }
     } else {
-        return $row->{valueHash}->{secondary_ns}->printableValue();
+            return $row->printableValueByName('secondary_ns');
     }
 
 }
