@@ -59,7 +59,10 @@ sub _process
   my @paramsNames = qw( text currentItemCaption itemsLeftMessage
                         endNote errorNote reloadInterval currentItemUrl);
   foreach my $name (@paramsNames) {
-    my $value = $self->param($name);
+    # We use unsafeParam because these paramaters can be i18'ed.
+    # Also, these parameters are only used to generate html, no command
+    # or so is run.
+    my $value = $self->unsafeParam($name);
     $value or
       next;
 

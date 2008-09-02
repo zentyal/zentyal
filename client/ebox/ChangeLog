@@ -1,3 +1,6 @@
+0.12.1
+	+ Bug fix: use unsafeParam for progress indicator or some i18 strings
+	will fail when saving changes
 0.12
 	+ Bugfix: Don't assume timecol is 'timestamp' but defined by
 	module developer. This allows to purge some logs tables again
