@@ -1,3 +1,6 @@
+0.12.1
+	+ Leave Logon Home empty, as Logon Home = "" as stated by smb.conf
+	documentation doesn't seem to work
 0.12
 	+ Add help to model fields
 	+ Fix typo in defaultEnabledValue. Now shares are enabled by default.
