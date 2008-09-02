@@ -56,7 +56,7 @@ use EBox::Gettext;
 %  if ($roaming) {
  logon path = \\<% $netbios %>\profiles\%U
 % } else {
- logon path = "" 
+ logon path = 
 % }
 
  domain logons = Yes
