@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use Error qw(:try);
 
 ## arguments:
 ## 	title [required]
@@ -46,6 +48,10 @@ sub _process($) {
 	$self->_requireParam('userquota', __('user quota'));
 	$self->_requireParam('roaming', __('roaming profiles'));
 
+	if ($self->param('workgroup') eq $self->param('netbios')) {
+		throw EBox::Exceptions::External(
+			__('Netbios and workgroup must have different names'));
+	}
 	$samba->setPdc($self->param('mode') eq 'pdc');
 	$samba->setWorkgroup($self->param('workgroup'));
 	$samba->setNetbios($self->param('netbios'));
