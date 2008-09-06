@@ -3,8 +3,11 @@
 use strict;
 use warnings;
 
+
 use Getopt::Long;
 use Cwd;
+use HTML::Mason;
+use File::Slurp;
 
 use constant 
     {
@@ -12,16 +15,16 @@ use constant
        STUBS_PATH => '/home/magnetic/dev/ebox/sources/trunk/extra/moddev/stubs',
     };
 
-sub _print_usage
+sub _printUsage
 {
-    print STDERR "Usage: $0 --module-name --main-class [Options] \n\n";
+    print STDERR "Usage: $0 --module-name --main-class [Options]\n\n";
     print STDERR "Options:\n";
     print STDERR "\t--version\n"; 
     print STDERR "\t--destdir\n";
     exit 1;
 }
 
-sub _parse_options
+sub _parseOptions
 {
     my %options = ( 
             moduleName => undef, 
@@ -41,11 +44,11 @@ sub _parse_options
             );
 
     if (not $optionsOk or $info or $help) {
-        _print_usage();
+        _printUsage();
     }
 
     unless (defined($options{moduleName}) and defined($options{mainClass})) {
-        _print_usage();
+        _printUsage();
     }
 
     if ($options{destdir}) {
@@ -65,8 +68,35 @@ sub _parse_options
     return \%options;
 }
 
-# Main
-my $options = _parse_options();
+sub _createModule
+{
+    # Main
+    my %options = %{_parseOptions()};
 
-use Data::Dumper;
-print Dumper($options);
+    my $dir = $options{destdir};
+    
+    mkdir $dir or die "Can't create dir $dir";
+    
+    my $stubs = STUBS_PATH;
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => $stubs, 
+            out_method => \$output);
+
+
+    # configure.ac
+    my $comp = $interp->make_component(comp_file => "$stubs/configure.ac.mas");
+    $interp->exec($comp,  
+            (mainClass => $options{mainClass},
+             module => $options{moduleName},
+             version => $options{version}));
+   write_file("$dir/configure.ac", $output);
+
+   # Makefile.am 
+   $output = '';
+   $comp = $interp->make_component(comp_file => "$stubs/Makefile.am.mas");
+   $interp->exec($comp);
+   write_file("$dir/Makefile.am", $output);
+
+}
+
+_createModule();
