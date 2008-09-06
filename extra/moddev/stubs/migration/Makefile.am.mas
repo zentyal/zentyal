@@ -1,0 +1,14 @@
+<%args>
+    $module
+    @migrationScripts
+</%args>
+## Process this file with automake to produce Makefile.in
+
+Migrationsdir = @DATADIR@/<% $module %>/migration
+
+nobase_Migrations_SCRIPTS = <% join(/ /, @migrationScripts) %>
+
+EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
+
+MAINTAINERCLEANFILES = Makefile.in
+

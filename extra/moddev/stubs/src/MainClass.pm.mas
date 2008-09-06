@@ -1,0 +1,81 @@
+<%args>
+    $class
+    $name
+    $printableName
+    $domain
+</%args>
+# Copyright (C) 
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Class: <% $class > 
+#
+#   TODO: Documentation
+
+package <% $class %> 
+
+use strict;
+use warnings;
+
+use base qw(EBox::GConfModule EBox::Model::ModelProvider
+            EBox::ServiceModule::ServiceInterface);
+
+
+use EBox::Validate qw( :all );
+use EBox::Global;
+use EBox::Gettext;
+
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataNotFound;
+
+sub _create
+{
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => '<% $name %>',
+            printableName => __('<% $printableName %>'),
+            domain => '<% domain %>',
+            @_);
+}
+
+## api functions
+
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::modelClasses>
+sub modelClasses {
+    my ($self) = @_;
+
+    return [];
+}
+
+
+# Method: menu 
+#
+#       Overrides EBox::Module method.
+#   
+#
+sub menu
+{
+    my ($self, $root) = @_;
+    my $item = new EBox::Menu::Item(
+    'url' => 'Services/View/ServiceTable',
+    'text' => __(<% $printableName %>),
+    'order' => 3);
+    $root->add($item);
+}
+
+1;
