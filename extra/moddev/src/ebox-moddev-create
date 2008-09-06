@@ -1,0 +1,72 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+use Cwd;
+
+use constant 
+    {
+       MODULE_VERSION => '0.1',
+       STUBS_PATH => '/home/magnetic/dev/ebox/sources/trunk/extra/moddev/stubs',
+    };
+
+sub _print_usage
+{
+    print STDERR "Usage: $0 --module-name --main-class [Options] \n\n";
+    print STDERR "Options:\n";
+    print STDERR "\t--version\n"; 
+    print STDERR "\t--destdir\n";
+    exit 1;
+}
+
+sub _parse_options
+{
+    my %options = ( 
+            moduleName => undef, 
+            mainClass => undef ,
+            version => MODULE_VERSION,
+            destdir => undef,
+            );
+    my $help;
+    my $info;
+    my $optionsOk = GetOptions(
+            'module-name=s' => \$options{moduleName},
+            'main-class=s' => \$options{mainClass},
+            'version=s' => \$options{version},
+            'destdir=s' => \$options{destdir},
+            'help'  => \$help,
+            'info'  => \$info,
+            );
+
+    if (not $optionsOk or $info or $help) {
+        _print_usage();
+    }
+
+    unless (defined($options{moduleName}) and defined($options{mainClass})) {
+        _print_usage();
+    }
+
+    if ($options{destdir}) {
+        unless (-d $options{destdir}) {
+            die "$options{destidir} does not exist";
+        }
+    } else {
+        $options{destdir} = getcwd;
+    }
+
+    $options{destdir} .= '/' . $options{moduleName};
+
+    if ( -d $options{destdir} ) {
+        die "$options{destdir} already exists!!";
+    }
+
+    return \%options;
+}
+
+# Main
+my $options = _parse_options();
+
+use Data::Dumper;
+print Dumper($options);
