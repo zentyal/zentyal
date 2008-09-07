@@ -1,9 +1,10 @@
-<%arg>
+<%args>
     $mainClass
     $modelName
     $printableTableName
     $rowName
-<%arg>
+    $modelDomain
+</%args>
 # Copyright  
 #
 # This program is free software; you can redistribute it and/or modify
@@ -72,7 +73,7 @@ sub _table
         'tableName' => '<% $modelName %>',
         'automaticRemove' => 1,
         'printableTableName' => __('<% $printableTableName %>'),
-        'domain' => <% $domain %>
+        'modelDomain' => '<% $modelDomain %>'
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

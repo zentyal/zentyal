@@ -4,9 +4,9 @@
 </%args>
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/<% $module %>/migration
+Migrationsdir = @DATADIR@/ebox-<% $module %>/migration
 
-nobase_Migrations_SCRIPTS = <% join(/ /, @migrationScripts) %>
+nobase_Migrations_SCRIPTS = <% join(" ", @migrationScripts) %>
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

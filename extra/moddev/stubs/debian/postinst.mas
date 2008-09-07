@@ -1,0 +1,23 @@
+<%args>
+    $module
+</%args>
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-<% $module %>/migration/
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
+    ;;
+esac
+
+
+
+exit 0
