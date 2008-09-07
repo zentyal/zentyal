@@ -1,0 +1,15 @@
+#!/bin/sh
+cat tools/po-am.header
+echo -n "POTFILES_TMPL = "
+find . \( -path ./tools -prune -o -name "*.tmpl" -o -name "*.mas" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo ""
+echo ""
+echo -n "POTFILES_PL = "
+find . \( -path ./tools -prune -o -path ./doc -prune -o -name "*.pm" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo ""
+echo ""
+echo -n "POTFILES = "
+find . \( -path ./tools -prune -path ./doc -prune -o -name "*.tmpl" -o -name "*.mas" -o -name "*.pm" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo ""
+echo ""
+cat tools/po-am.footer

@@ -1,13 +1,13 @@
 <%args>
-    $moduleName
+    $module
     $mainClass
 </%args>
 
 <gconfschemafile>
     <schemalist>
     <schema>
-        <key>/schemas/ebox/modules/global/modules/<% $moduleName %>/class</key>
-        <applyto>/ebox/modules/global/modules/<% $moduleName %>/class</applyto>
+        <key>/schemas/ebox/modules/global/modules/<% $module %>/class</key>
+        <applyto>/ebox/modules/global/modules/<% $module %>/class</applyto>
         <owner>ebox</owner>
         <type>string</type>
         <default><% $mainClass %></default>
