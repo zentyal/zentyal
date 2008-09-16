@@ -119,4 +119,38 @@ sub _controlModelField
 }
 
 
+# Method: checkTable
+#
+#  This method does some fast and general checks in the table specification
+#  We override it bz for Images is acceptable to not have elements in the tableDescription
+#
+#  Override: <EBox::Model::DataTable>
+sub checkTable
+{
+    my ($self, $table) = @_;
+
+    if (not exists $table->{tableDescription}) {
+        throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
+    }
+
+    
+    if (not $table->{tableName}) {
+        throw EBox::Exceptions::Internal(
+            'table description has not tableName field or has a empty one'
+                                        );
+      }
+
+    if ((exists $table->{sortedBy}) and (exists $table->{order})) {
+        if ($table->{sortedBy}and $table->{order}) {
+            throw EBox::Exceptions::Internal(
+             'sortedBy and order are incompatible options'
+                                        );
+        }
+    }
+
+
+    
+}
+
+
 1;
