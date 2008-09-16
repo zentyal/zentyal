@@ -572,72 +572,78 @@ sub modInstancesOfType # (classname)
 # 
 # Method: modInstance
 #
-# 	Build an instance of a module. Can be called as a class method or as an
-# 	object method.
+#       Build an instance of a module. Can be called as a class method or as an
+#       object method.
 #
 #   Parameters:
 #
-#   	module - module name
+#       module - module name
 #
 # Returns:
 #
-#   	If everything goes ok:
+#       If everything goes ok:
 #
-#   	<EBox::Module> - An instance of the requested module
+#       <EBox::Module> - An instance of the requested module
 #
-#   	Otherwise
+#       Otherwise
 #
-#   	undef
+#       undef
 sub modInstance # (module)
 {
-	my $self = shift;
-	my $name = shift;
-	if (!$self) {
-		throw EBox::Exceptions::Internal("Incorrect call to ".
-		"EBox::Global modInstance(), maybe it was called as an static".
-		" function instead of an instance method?");
-	}
-	my $global = undef;
-	if ($self eq "EBox::Global") {
-		$global = EBox::Global->getInstance();
-	} elsif ($self->isa("EBox::Global")) {
-		$global = $self;
-	} else {
-		throw EBox::Exceptions::Internal("Incorrect call to ".
-		"EBox::Global modInstance(), the first parameter is not a class".
-		" nor an instance.");
-	}
+    my ($self, $name) = @_;
 
-	if ($name eq 'global') {
-		return $global;
-	}
-	my $modInstance  = $global->{'mod_instances'}->{$name};
-	if (defined($modInstance)) {
-		if (not ($global->isReadOnly() xor $modInstance->{'ro'})) {
-			return $modInstance;
-		}
-	}
-	
-	$global->modExists($name) or return undef;
-	my $classname = $global->get_string("modules/$name/class");
-	unless ($classname) {
-		throw EBox::Exceptions::Internal("Module '$name' ".
-				"declared, but it has no classname.");
-	}
-	eval "use $classname";
-	if ($@) {
-		throw EBox::Exceptions::Internal("Error loading ".
-						 "class: $classname");
-	}
-	if ($global->isReadOnly()) {
-		$global->{'mod_instances'}->{$name} =
-					$classname->_create(ro => 1);
-	} else {
-		$global->{'mod_instances'}->{$name} =
-						$classname->_create;
-	}
-	return $global->{'mod_instances'}->{$name};
+    if (!$self) {
+        throw EBox::Exceptions::Internal("Incorrect call to ".
+                                         "EBox::Global modInstance(), maybe it was called as an static".
+                                         " function instead of an instance method?");
+    }
+    if (not $name) {
+        throw EBox::Exceptions::MissingArgument(q{module's name});
+    }
 
+    my $global = undef;
+    if ($self eq "EBox::Global") {
+        $global = EBox::Global->getInstance();
+    } elsif ($self->isa("EBox::Global")) {
+        $global = $self;
+    } else {
+        throw EBox::Exceptions::Internal("Incorrect call to ".
+                                             "EBox::Global modInstance(), the first parameter is not a class".
+                                         " nor an instance.");
+    }
+    
+
+    if ($name eq 'global') {
+        return $global;
+    }
+
+    my $modInstance  = $global->{'mod_instances'}->{$name};
+    if (defined($modInstance)) {
+        if (not ($global->isReadOnly() xor $modInstance->{'ro'})) {
+            return $modInstance;
+                    }
+    }
+    
+    $global->modExists($name) or return undef;
+    my $classname = $global->get_string("modules/$name/class");
+    unless ($classname) {
+        throw EBox::Exceptions::Internal("Module '$name' ".
+                                         "declared, but it has no classname.");
+    }
+    eval "use $classname";
+    if ($@) {
+        throw EBox::Exceptions::Internal("Error loading ".
+                                         "class: $classname");
+    }
+    if ($global->isReadOnly()) {
+        $global->{'mod_instances'}->{$name} =
+            $classname->_create(ro => 1);
+    } else {
+        $global->{'mod_instances'}->{$name} =
+            $classname->_create;
+    }
+
+    return $global->{'mod_instances'}->{$name};
 }
 
 

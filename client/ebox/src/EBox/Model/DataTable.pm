@@ -229,7 +229,7 @@ sub checkTable
 sub _table
 {
 
-    throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented('_table');
 
 }
 
