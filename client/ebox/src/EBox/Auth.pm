@@ -174,8 +174,12 @@ sub authen_cred  # (request, password)
 	return;
     }
 
+    my $rndStr;
+    for my $i (1..64) {
+        $rndStr .= rand (2**32);
+    }
     my $md5 = Digest::MD5->new;
-    $md5->add(time() . rand((2**50)));
+    $md5->add($rndStr);
     my $sid = $md5->hexdigest;
     _savesession($sid);
 
