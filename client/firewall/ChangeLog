@@ -1,5 +1,6 @@
 0.12.1
 	+ Add log decision to firewall rules
+	+ Add conf parameter to disable NAT
 0.12
 	+ Use the new EBox::Model::Row api
 	+ Add help field to firewall models

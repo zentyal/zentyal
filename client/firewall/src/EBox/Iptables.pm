@@ -421,6 +421,8 @@ sub start
 		pf "-A inoexternal $new -i $if -j idrop";
 		pf "-A ftoexternalonly -o $if -j ACCEPT";
 
+		next unless (_natEnabled());
+
 		if ($self->{net}->ifaceMethod($if) eq 'static') {
 			my $addr = $self->{net}->ifaceAddress($if);
 			pf "-t nat -A POSTROUTING -s ! $addr -o $if " .
@@ -651,4 +653,22 @@ sub _log
        ' --log-level ' . SYSLOG_LEVEL . 
        ' --log-prefix "ebox-firewall log "';
 }
+
+# Method: _natEnabled
+#
+#   Fetch value to enable NAT
+#
+sub _natEnabled
+{
+	my $nat =  EBox::Config::configkey('nat_enabled');
+
+	return 1 unless (defined($nat));
+
+	if ($nat =~ /no/) {
+		return undef;
+	} else {
+		return 1;
+	}
+}
+
 1;
