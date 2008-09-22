@@ -505,7 +505,11 @@ sub search {
 	
 	my $offset = $page * $pagesize;
 	$self->_addPager($offset, $pagesize);
+        $self->_addOrder("$timecol DESC");
+
 	$self->_addSelect('*');
+        
+
 	my @ret = @{$dbengine->query($self->_sqlStmnt())};
 	
 	my $hashret = {
@@ -568,10 +572,18 @@ sub _addDateFilter
 
 sub _addPager
 {
+    my ($self, $offset, $limit) = @_;
+    $self->{'sqlselect'}->{'offset'} = $offset;
+    $self->{'sqlselect'}->{'limit'} = $limit;
+}
 
-	my ($self, $offset, $limit) = @_;
-	$self->{'sqlselect'}->{'offset'} = $offset;
-	$self->{'sqlselect'}->{'limit'} = $limit;
+
+sub _addOrder
+{
+    my ($self, $order) = @_;
+
+    $self->{sqlselect}->{order} = $order;
+
 }
 
 sub _addTableName
@@ -620,6 +632,10 @@ sub _sqlStmnt {
 			push @params, $sql->{'filter'}->{$field};
 		}
 	}
+
+        if ($sql->{order}) {
+            $stmt .= 'ORDER BY ' . $sql->{order} . ' ';
+        }
 
         $stmt .= "OFFSET ? LIMIT ?";
 	push @params, $sql->{'offset'}, $sql->{'limit'};
