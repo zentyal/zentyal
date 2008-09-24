@@ -1,6 +1,7 @@
 #include <iostream>
-#include <sstream>
 #include <fstream>
+#include <sstream>
+#include <stdio.h>
 
 #include <set>
 #include <sys/stat.h>
@@ -35,7 +36,7 @@ std::set<const char *, ltstr> notfetched;
 std::set<const char *, ltstr> visited;
 
 void _initLog() {
-  const char *logPath ="/var/lib/ebox/log/esofttool.log";
+  const char *logPath ="/var/log/ebox/esofttool.log";
 
   Log.open(logPath, std::fstream::app);
   if (! Log.is_open()) {
@@ -70,11 +71,6 @@ void init() {
 	Plcy = new pkgPolicy(Cache);
 	Recs = new pkgRecords(*Cache);
 }
-
-
-
-
-
 
 
 
@@ -193,6 +189,56 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	return true;
 }
 
+std::string _distributionId () {
+
+        std::ifstream lsbReleaseFile;
+        std::string line;
+
+        lsbReleaseFile.open("/etc/lsb-release", std::ifstream::in);
+        if (! lsbReleaseFile.is_open() ) {
+                Log << "No file /etc/lsb-release" << std::endl;
+                return NULL;
+        }
+        lsbReleaseFile >> line;
+        size_t foundPos = line.find('=');
+        if (foundPos == std::string::npos) {
+                Log << "No = is found" << std::endl;
+                return NULL;
+        }
+        std::string distroId = line.substr(foundPos + 1, std::string::npos);
+        return distroId;
+        
+}
+
+std::string _changeLog(const std::string fileName, const std::string versionStr) {
+  
+        std::string cmd("dpkg-deb --fsys-tarfile " + fileName
+                        + " | tar x --wildcards *changelog.Debian.gz -O | zcat "
+                        + "| /usr/lib/dpkg/parsechangelog/debian --since="
+                        + versionStr + " - | sed -n -e /Changes/,//p");
+        std::string outputStr("");
+        FILE * output = popen(cmd.c_str(), "r");
+        if ( output == NULL ) {
+               perror("popen");
+               Log << "Couldn't popen command" << std::endl;
+               return "";
+        }
+
+        while( ! feof(output) ) {
+               char tmpStr[256];
+               fgets(tmpStr, 256, output);
+               outputStr.append(tmpStr);
+        }
+
+        int retVal = pclose(output);
+        if ( retVal == -1 ) {
+               perror("pclose");
+               Log << "Couldn't close popen stream" << std::endl;
+               return "";
+        }
+        return outputStr;
+}
+
 bool pkgIsFetched(pkgCache::PkgIterator P) {
 	visited.clear();
 	return _pkgIsFetched(P);
@@ -235,8 +281,7 @@ void listEBoxPkgs() {
 
 			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
 			if (!P.CurrentVer() && (curverObject.end() == true)){
-			  Log << name << " only version availble is a removed one" << std::endl;
-			  
+			  Log << name << " only version available is a removed one" << std::endl;
 			  continue;
 			}
 			
@@ -297,6 +342,8 @@ void listEBoxPkgs() {
 void listUpgradablePkgs() {
 	init();
 
+        Log << "Distribution Id: " << _distributionId() << std::endl;
+
 	Log << "Listing non-eBox upgradables packages.." << std::endl;
 
 	std::cout << "my $result = [" << std::endl;
@@ -330,10 +377,24 @@ void listUpgradablePkgs() {
 		  Log << name << " has not any available version" << std::endl;
 		  continue;
 		}
+
 		std::stringstream file;
 		file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
 
 		std::string filename = file.str();
+
+                for(pkgCache::VerFileIterator verFile = curverObject.FileList();
+                    verFile.end() == false; verFile++) {
+                  Log << "Label: " << verFile.File().Label() << std::endl;
+                  Log << "Site: " << verFile.File().Site() << std::endl;
+                  Log << "Component: " << verFile.File().Component() << std::endl;
+                  Log << "Version: " << verFile.File().Version() << std::endl;
+                  Log << "Archive: " << verFile.File().Archive() << std::endl;
+                  //                  if ( strncmp(verFile.File().Archive(), "hardy-security", 14) == 0 ) {
+                    std::string changelogStr = _changeLog(filename, curver);
+                    //                  }
+                }
+
 		std::string::size_type epoch = filename.find(":",0);
 		if(epoch != std::string::npos) filename.replace(epoch,1,"%3a");
 		struct stat stats;
