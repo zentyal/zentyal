@@ -31,10 +31,10 @@ use constant DEFAULT_USERS_GROUP => 'Domain Users';
 sub classesToProcess
 {
     return [
-	    { class => 'sambaDomain', priority => -5 },
-	    { class => 'sambaSamAccount', priority => 10 },
-	    { class => 'sambaGroupMapping', priority => 15  },
-	   ];
+            { class => 'sambaDomain', priority => -5 },
+            { class => 'sambaSamAccount', priority => 10 },
+            { class => 'sambaGroupMapping', priority => 15  },
+           ];
 }
 
 
@@ -49,24 +49,24 @@ sub _addDomainUsersAccount
 
     my $usersMod = EBox::Global->modInstance('users');
     $usersMod->groupExists($name) and 
-	return;
+        return;
 
 
     my $ldap = EBox::Ldap->instance();
     my $sambaLdap = EBox::SambaLdapUser->new();
 
     my %args = (
-		attr => [
-			 'cn'		=> $name,
-			 'gidNumber'	=> 512,
-			 'sambaSID'	=>  $sambaLdap->getSID(), 
-			 'sambaGroupType'  => 2,
-			 'displayName'	=> $name, 
-			 'objectclass'	=> ['posixGroup',
-					    'sambaGroupMapping', 
-					    'eboxGroup']
-			]
-	       );
+                attr => [
+                         'cn'           => $name,
+                         'gidNumber'    => 512,
+                         'sambaSID'     =>  $sambaLdap->getSID(), 
+                         'sambaGroupType'  => 2,
+                         'displayName'  => $name, 
+                         'objectclass'  => ['posixGroup',
+                                            'sambaGroupMapping', 
+                                            'eboxGroup']
+                        ]
+               );
     
     my $dn = "cn=$name,ou=Groups,dc=ebox";
     $ldap->add($dn, \%args);
@@ -113,7 +113,7 @@ sub processSambaGroupMapping
 
 
     if ($group eq DEFAULT_USERS_GROUP) {
-	$sambaUser->setGroupSID($group, $sid, isGroup => 1);
+        $sambaUser->setGroupSID($group, $sid, isGroup => 1);
     }
 
 
@@ -127,17 +127,13 @@ sub processSambaSamAccount
     my $username = $entry->get_value('cn');
 
     if ($username =~ m{\$$}) {
-	$package->_processComputerAccount($entry, @params);
+        $package->_processComputerAccount($entry, @params);
     }
     else {
-	$package->_processUserAccount($entry, @params);
+        $package->_processUserAccount($entry, @params);
     }
 
 }
-
-
-
-
 
 sub _processUserAccount
 {
@@ -196,7 +192,7 @@ sub _delComputerAccount
 
     my $accountDelCmd = "/usr/sbin/smbldap-userdel  $account";
     EBox::Sudo::root($accountDelCmd);
-}	
+}       
 
 
 
@@ -206,7 +202,7 @@ sub _delAllComputerAccounts
 
     my @accounts = @{  $package->_allComputerAccounts() };
     foreach my $account (@accounts) {
-	$package->_delComputerAccount($account);
+        $package->_delComputerAccount($account);
     }
 }
 
@@ -217,17 +213,17 @@ sub _allComputerAccounts
 
     my $dn = $package->_computersDn();
     my %attrs = (
-		 base => $dn,
-		 filter => "cn=*",
-		 scope => 'sub',
-		 attrs => ['cn'],
-		);
+                 base => $dn,
+                 filter => "cn=*",
+                 scope => 'sub',
+                 attrs => ['cn'],
+                );
 
     my $ldap   = EBox::Ldap->instance();
     my $result = $ldap->search(\%attrs);
 
     my @accounts = map {
-	$_->get_value('cn');
+        $_->get_value('cn');
     } $result->entries();
 
     return \@accounts;
@@ -240,10 +236,10 @@ sub _existsComputerAccount
 
     my $dn = $package->_computersDn();
     my %attrs = (
-		 base => $dn,
-		 filter => "&(objectclass=sambaSamAccount)(uid=$account)",
-		 scope => 'one'
-		);
+                 base => $dn,
+                 filter => "&(objectclass=sambaSamAccount)(uid=$account)",
+                 scope => 'one'
+                );
 
     my $ldap   = EBox::Ldap->instance();
     my $result = $ldap->search(\%attrs);
@@ -255,7 +251,6 @@ sub _computersDn
 {
     my $computersDn = 'ou=Computers,' . EBox::Ldap->dn();
     return $computersDn;
-    
 }
 
 
