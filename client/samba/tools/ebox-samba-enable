@@ -54,6 +54,8 @@ sleep 1
 # and turn quotas on
 
 perl -e '
+# Disable quota
+exit 0;
 open(FD, "/etc/fstab") or die "Could not open /etc/fstab";
 my @fstab = <FD>; 
 close(FD);
