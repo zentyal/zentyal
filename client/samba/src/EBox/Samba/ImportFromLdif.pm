@@ -107,6 +107,7 @@ sub processSambaGroupMapping
 
     my $group = $entry->get_value('cn');
     my $sid   = $entry->get_value('sambaSID');
+    my $displayResource = $entry->get_value('displayResource');
 
     my $samba = EBox::Global->modInstance('samba');
     my $sambaUser = $samba->_ldapModImplementation();
@@ -118,6 +119,10 @@ sub processSambaGroupMapping
 
 
     $sambaUser->addGroupLdapAttrs($group, SID => $sid);
+
+    if (defined $displayResource) {
+        $sambaUser->setSharingName($group, $displayResource);
+    }
 }
 
 sub processSambaSamAccount
