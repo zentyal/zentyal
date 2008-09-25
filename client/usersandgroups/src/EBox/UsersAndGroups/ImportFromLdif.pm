@@ -24,9 +24,9 @@ use constant DEFAULTGROUP => '__USERS__';
 sub classesToProcess
 {
     return [
-	    {class => 'posixAccount', priority => -1 },
-	    {class => 'posixGroup',   priority => 0 },
-	   ];
+            {class => 'posixAccount', priority => -1 },
+            {class => 'posixGroup',   priority => 0 },
+           ];
 }
 
 
@@ -39,13 +39,13 @@ sub startupPosixAccount
     my $usersMod = EBox::Global->modInstance('users');
     
     foreach my $user_r ($usersMod->users()) {
-	$usersMod->delUser( $user_r->{username} );
+        $usersMod->delUser( $user_r->{username} );
     }
 
 
     foreach my $group_r ($usersMod->groups(1)) {
-	my $name = $group_r->{account};
-	$usersMod->delGroup( $group_r->{account} );
+        my $name = $group_r->{account};
+        $usersMod->delGroup( $group_r->{account} );
     }
 
     # create users default group
@@ -63,8 +63,8 @@ sub processPosixAccount
     
     my $name = $entry->get_value('cn');
     if ($name =~ m{\$$}) {
-	# windows domain machine name, don't process here
-	return;
+        # windows domain machine name, don't process here
+        return;
     }
 
     my $uidNumber = $entry->get_value('uidNumber');
@@ -82,11 +82,11 @@ sub processPosixAccount
 
 
     my $user = {
-		user => $name,
-		fullname => $fullName,
-		password => $passwd, 
-		commentary => $commentary,
-	       };
+                user => $name,
+                fullname => $fullName,
+                password => $passwd, 
+                commentary => $commentary,
+               };
 
     $usersMod->addUser($user, $system, uidNumber => $uidNumber);
 }
@@ -103,10 +103,10 @@ sub processPosixGroup
     my $group = $entry->get_value('cn');
 
     if ( $usersMod->groupExists($group) ) {
-	# group already exists bz we have removed all the groups is the
-	# startupPosixAccount that means it has been added by another startup
-	# method so we left it alone
-	return;
+        # group already exists bz we have removed all the groups is the
+        # startupPosixAccount that means it has been added by another startup
+        # method so we left it alone
+        return;
     }  
 
     my $gidNumber = $entry->get_value('gidNumber');
@@ -120,7 +120,7 @@ sub processPosixGroup
     $usersMod->addGroup($group, $comment, $system, gidNumber => $gidNumber);
 
     foreach my $user (@members) {
-	$usersMod->addUserToGroup($user, $group);
+        $usersMod->addUserToGroup($user, $group);
     }
 }
 
