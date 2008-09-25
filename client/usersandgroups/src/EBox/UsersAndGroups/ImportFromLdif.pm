@@ -38,7 +38,7 @@ sub startupPosixAccount
 
     my $usersMod = EBox::Global->modInstance('users');
     
-    foreach my $user_r ($usersMod->users()) {
+    foreach my $user_r ($usersMod->users(1)) {
         $usersMod->delUser( $user_r->{username} );
     }
 
