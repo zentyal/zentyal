@@ -1,3 +1,5 @@
+0.12.2
+	+ Restore group share names when restoring a backup
 0.12.1
 	+ Leave Logon Home empty, as Logon Home = "" as stated by smb.conf
 	documentation doesn't seem to work
