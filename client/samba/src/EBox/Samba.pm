@@ -402,7 +402,9 @@ sub _setSambaConf
 
 
     # Set quotas
-    $smbimpl->_setAllUsersQuota();
+    if ($self->enableQuota()) {
+        $smbimpl->_setAllUsersQuota();
+    }
 
     # Set SIDs using the net tool this is neccesary bz if we change the
     #  domain name we can lost the domain SID
@@ -1159,6 +1161,10 @@ sub _sambaPrinterConf
     return \@printers;
 }
 
+sub enableQuota
+{
+    return (EBox::Config::configkey('enable_quota') eq 'yes');
+}
 
 sub extendedBackup
 {
