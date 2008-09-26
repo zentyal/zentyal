@@ -47,9 +47,6 @@ void _initLog() {
   Log << "esofttool process begins" << std::endl;
 }
 
-  
-
-
 
 void init() {
 	pkgInitConfig(*_config);
@@ -189,6 +186,43 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	return true;
 }
 
+/*
+  Function: _escapeQuote
+
+      Escape single quotes with \\' from a string without modifying it
+
+  Parameters:
+      str - const std::string the string to escape quotes from
+
+  Returns:
+  
+      std::string - the string with the quotes escaped
+
+ */
+std::string _escapeQuote(const std::string str) {
+
+         uint pos;
+         std::string retStr(str);
+         pos = retStr.find("'",0);
+         while (pos != std::string::npos){
+           retStr.replace(pos,1,"\\'");
+           pos = retStr.find("'",pos+2);
+         }
+
+         return retStr;
+
+}
+
+/*
+  Function: _distributionId
+
+      The distribution identifier following the LSB conventions
+
+  Returns:
+  
+      std::string the string with the quotes escaped
+
+ */
 std::string _distributionId () {
 
         std::ifstream lsbReleaseFile;
@@ -210,12 +244,67 @@ std::string _distributionId () {
         
 }
 
+/*
+  Function: _securityUpdate
+
+      Check if the given package file is a security update or not
+
+  Parameters:
+      pkgFile - pkgCache::PkgFileIterator the package file to check
+
+  Returns:
+  
+      bool - true if it is a security update, false otherwise
+
+ */
+bool _securityUpdate(pkgCache::PkgFileIterator pkgFile) {
+
+        std::string distroId(_distributionId());
+        bool retValue;
+        if ( distroId.compare("Ubuntu") == 0 ) {
+          retValue = strstr(pkgFile.Archive(), "-security") != NULL; 
+        } else if ( distroId.compare("Debian") == 0 ) {
+          retValue = strstr(pkgFile.Site(), "security.debian.org") != NULL;
+        }
+        return retValue;
+ 
+}
+
+/*
+  Function: _changeLog
+
+      The changelog from the installed version till the version stored
+      in given fileName
+
+  Parameters:
+      fileName - const std::string the file path name to check the
+      changelog from
+
+      versionStr - const std::string the version string element
+
+  Returns:
+  
+      std::string - the paragraphs with the changelog
+
+ */
 std::string _changeLog(const std::string fileName, const std::string versionStr) {
+
+        /*
+          If the package is debian native, the version string has not - char
+          and the changelog file is only in changelog.gz
+        */
+        std::string changelogPath;
+        if ( versionStr.find('-') == std::string::npos ) {
+               changelogPath = "changelog.gz";
+        } else {
+               // Not native
+               changelogPath = "changelog.Debian.gz";
+        }
   
         std::string cmd("dpkg-deb --fsys-tarfile " + fileName
-                        + " | tar x --wildcards *changelog.Debian.gz -O | zcat "
-                        + "| /usr/lib/dpkg/parsechangelog/debian --since="
-                        + versionStr + " - | sed -n -e /Changes/,//p");
+                        + " | tar x --wildcards *" + changelogPath + " -O | zcat "
+                        + "| /usr/lib/dpkg/parsechangelog/debian "
+                        + " - | sed -n -e /Changes/,//p | sed -n -e '4,$p'");
         std::string outputStr("");
         FILE * output = popen(cmd.c_str(), "r");
         if ( output == NULL ) {
@@ -323,13 +412,8 @@ void listEBoxPkgs() {
 			std::cout << "'avail' => '" << available << "'," << std::endl;
 			pkgRecords::Parser &P = Recs->Lookup(curverObject.FileList());
 			description = P.ShortDesc();
-			
-			uint pos;
-			pos = description.find("'",0);
-			while (pos != string::npos){
-				description.replace(pos,1,"\\'");
-				pos = description.find("'",pos+2);
-			}
+
+                        description = _escapeQuote(description);
 		
 			std::cout << "'description' => '" << description << "'" << std::endl;
 			std::cout << "}," << std::endl;
@@ -342,9 +426,8 @@ void listEBoxPkgs() {
 void listUpgradablePkgs() {
 	init();
 
-        Log << "Distribution Id: " << _distributionId() << std::endl;
-
-	Log << "Listing non-eBox upgradables packages.." << std::endl;
+	Log << "Listing non-eBox upgradables packages on "
+            << _distributionId() << " .." << std::endl;
 
 	std::cout << "my $result = [" << std::endl;
 
@@ -360,6 +443,8 @@ void listUpgradablePkgs() {
 		}
 		std::string name = P.Name();
 		std::string description;
+                std::string security("0");
+                std::string changelog("");
 		std::string arch;
 		std::string curver = P.CurrentVer().VerStr();
 		pkgCache::VerIterator curverObject = P.CurrentVer();
@@ -385,14 +470,10 @@ void listUpgradablePkgs() {
 
                 for(pkgCache::VerFileIterator verFile = curverObject.FileList();
                     verFile.end() == false; verFile++) {
-                  Log << "Label: " << verFile.File().Label() << std::endl;
-                  Log << "Site: " << verFile.File().Site() << std::endl;
-                  Log << "Component: " << verFile.File().Component() << std::endl;
-                  Log << "Version: " << verFile.File().Version() << std::endl;
-                  Log << "Archive: " << verFile.File().Archive() << std::endl;
-                  //                  if ( strncmp(verFile.File().Archive(), "hardy-security", 14) == 0 ) {
-                    std::string changelogStr = _changeLog(filename, curver);
-                    //                  }
+                  if ( _securityUpdate(verFile.File()) ) {
+                    security.assign("1");
+                    changelog = _changeLog(filename, curver);
+                  }
                 }
 
 		std::string::size_type epoch = filename.find(":",0);
@@ -417,17 +498,17 @@ void listUpgradablePkgs() {
 		}
 
 		description = Par.ShortDesc();
-	
-		uint pos;
-		pos = description.find("'",0);
-		while (pos != string::npos){
-			description.replace(pos,1,"\\'");
-			pos = description.find("'",pos+2);
-		}
+
+                // Escape quotes
+                description = _escapeQuote(description);
+                changelog   = _escapeQuote(changelog);
 		
 		std::cout << "{";
 		std::cout << "'name' => '" << name << "'," << std::endl;
-		std::cout << "'description' => '" << description << "'" << std::endl;
+		std::cout << "'description' => '" << description << "'," << std::endl;
+                std::cout << "'version' => '" << curver << "'," << std::endl;
+                std::cout << "'security' => '" << security << "'," << std::endl;
+                std::cout << "'changelog' => '" << changelog << "'" << std::endl;
 		std::cout << "}," << std::endl;
 
 	}
