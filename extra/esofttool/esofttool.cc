@@ -38,7 +38,7 @@ std::set<const char *, ltstr> visited;
 void _initLog() {
   const char *logPath ="/var/log/ebox/esofttool.log";
 
-  Log.open(logPath, std::fstream::app);
+  Log.open(logPath, std::fstream::trunc);
   if (! Log.is_open()) {
     std::cout << "Cannot open log file " << logPath << ". Aborting" << std::endl;
     exit (1);
