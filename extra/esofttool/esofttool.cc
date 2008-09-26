@@ -467,6 +467,10 @@ void listUpgradablePkgs() {
 		file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
 
 		std::string filename = file.str();
+                uint pos = filename.find(':');
+                if ( pos != std::string::npos ) {
+                  filename.replace(pos, 1, "%3a");
+                }
 
                 for(pkgCache::VerFileIterator verFile = curverObject.FileList();
                     verFile.end() == false; verFile++) {
