@@ -65,7 +65,9 @@ SSLPIDFILE=/var/run/courier/pop3d-ssl.pid
 #
 #  Whether or not to start POP3 over SSL on spop3 port:
 
-#POP3DSSLSTART=YES
+% if (($popssl eq 'optional') or ($popssl eq 'required')) {
+POP3DSSLSTART=YES
+% }
 
 ##NAME: POP3_STARTTLS:0
 #
