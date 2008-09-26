@@ -1,3 +1,10 @@
+esofttool (0.5) hardy; urgency=low
+
+  * Determine which are security updates and which are not with the Debian changelog for them
+  * Include version string using -u option
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Fri, 26 Sep 2008 10:49:34 +0200
+
 esofttool (0.4-0ubuntu1) hardy; urgency=low
 
   * Add man page
