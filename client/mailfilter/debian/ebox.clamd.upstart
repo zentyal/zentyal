@@ -9,5 +9,5 @@ pre-start script
     fi
 end script
 
-exec /usr/sbin/clamd -c /etc/clamav/ebox.clamd.conf
+exec su clamav -p -s /bin/sh -c "/usr/sbin/clamd -c /etc/clamav/ebox.clamd.conf"
 respawn
