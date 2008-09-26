@@ -294,7 +294,7 @@ sub fetchAllPkgs
 #       <EBox::Exceptions::External> - thrown if the module is locked
 #       by other process
 #
-sub listUpgradablePkgs 
+sub listUpgradablePkgs
 {
 	my ($self,$clear) = @_;
 
