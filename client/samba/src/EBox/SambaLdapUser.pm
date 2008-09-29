@@ -951,6 +951,7 @@ sub sambaDomainName
 	my %attrs = ( 
 			base => "dc=ebox", 
 			filter => "(objectclass=sambaDomain)", 
+			
 			scope => "sub"
 	    	    ); 
 	my $entry = $ldap->search(\%attrs)->pop_entry();
@@ -1159,6 +1160,64 @@ sub updateNetbiosName
 					"\\\\$netbios\\profiles\\$username");
 	}
 }
+
+# Method: updateSIDEntries
+#	
+#		Check and correct if there's any user or group with a wrong SID. Note
+#		that depending on when the user/group is created the SID might change.
+#		This method should be run in regenConfig
+#
+#	
+sub updateSIDEntries
+{
+	my ($self) = @_;
+
+	my $users = EBox::Global->modInstance('users');
+	my $ldap = $self->{'ldap'};
+	my $userDN = $users->usersDn();
+	my $sid = uc(getSID());
+	$sid = uc($sid);
+
+	my %attrs = (
+			base   => $userDN,
+			filter => "(&(objectclass=sambaSamAccount)(!(sambaSID=$sid*)))",
+			attrs  => ['sambaSID', 'sambaPrimaryGroupSID', 'dn'],
+			scope  => 'sub'
+			);
+
+	my $result = $ldap->search(\%attrs);
+
+	for my $entry ($result->entries()) {
+		my $oldSID = $entry->get_value('sambaSID');
+		my $oldGroupSID = $entry->get_value('sambaPrimaryGroupSID');
+		my ($lastNumbers) = $oldSID =~ /.*-(\d+)$/;
+		my $newSID = "$sid-$lastNumbers";
+		my ($lastNumbersGroup) = $oldGroupSID =~ /.*-(\d+)$/;
+		my $newGroupSID = "$sid-$lastNumbersGroup";
+		$ldap->modifyAttribute($entry->dn(), 'sambaSID', $newSID);
+		$ldap->modifyAttribute($entry->dn(), 
+				'sambaPrimaryGroupSID', 
+				$newGroupSID);
+	}
+
+	my $groupDN = $users->groupsDn();
+	%attrs = (
+			base   => $groupDN,
+			filter => "(&(objectclass=sambaGroupMapping)(!(sambaSID=$sid*)))",
+			attrs  => ['sambaSID'],
+			scope  => 'sub'
+			);
+
+	$result = $ldap->search(\%attrs);
+
+	for my $entry ($result->entries()) {
+		my $oldSID = $entry->get_value('sambaSID');
+		my ($lastNumbers) = $oldSID =~ /.*-(\d+)$/;
+		my $newSID = "$sid-$lastNumbers";
+		$ldap->modifyAttribute($entry->dn(), 'sambaSID', $newSID);
+	}
+}
+
 
 sub _isSambaObject($$$) {
 	my $self = shift;
