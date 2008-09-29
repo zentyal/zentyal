@@ -363,6 +363,7 @@ sub _setSambaConf
 
     $smbimpl->setSambaDomainName($self->workgroup) ;
     $smbimpl->updateNetbiosName($self->netbios);
+    $smbimpl->updateSIDEntries();
 
     my @array = ();
     push(@array, 'netbios'   => $self->netbios);
