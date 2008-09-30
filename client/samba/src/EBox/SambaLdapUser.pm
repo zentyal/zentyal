@@ -983,6 +983,7 @@ sub setSambaDomainName
 	my $ldap = $self->{ldap}; 
 	my $sid  = getSID();
 
+	my %domainAttrs = %{$self->_fetchDomainAttrs($domain)};
 	$self->deleteSambaDomainNameAttrs();
 	$self->deleteSambaDomains();
 
@@ -994,14 +995,40 @@ sub setSambaDomainName
 			'uidNumber'		=> $users->lastUid,
 			'gidNumber'		=> $users->lastGid,
 			'objectClass'		=> ['sambaDomain', 
-						    'sambaUnixidPool']
+						    'sambaUnixidPool'],
+			%domainAttrs
 			]
-		   );
+		);
 
 	my $dn = "sambaDomainName=$domain,dc=ebox";
 	$ldap->add($dn, \%attrs);
 }
 
+sub _fetchDomainAttrs
+{
+	my ($self, $domain) = @_;
+
+	my $ldap = EBox::Ldap->instance();
+
+	my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge sambaLockoutThreshold/;
+	my $result = $ldap->search( 
+			{
+			base => $ldap->dn(),
+			filter => "sambaDomainName=$domain",
+			scope => 'sub',
+			attrs => [@attrs],
+			}
+			);
+
+	my $entry = $result->pop_entry();
+	return {} unless defined($entry);
+	my %attributes;
+	for my $attr (@attrs) {
+		$attributes{$attr} = $entry->get_value($attr);
+		return {} unless defined($attributes{$attr});
+	}
+	return \%attributes;
+}
 
 sub deleteSambaDomainNameAttrs
 {
@@ -1204,13 +1231,16 @@ sub updateSIDEntries
 	%attrs = (
 			base   => $groupDN,
 			filter => "(&(objectclass=sambaGroupMapping)(!(sambaSID=$sid*)))",
-			attrs  => ['sambaSID'],
+			attrs  => ['sambaSID', 'cn'],
 			scope  => 'sub'
 			);
 
 	$result = $ldap->search(\%attrs);
+	my %groupsToSkip = ('Administrators' => 1, 'Account Operators' => 1,
+                            'Print Operators' => 1, 'Backup Operators' => 1, 'Replicators' => 1);
 
 	for my $entry ($result->entries()) {
+		next if $groupsToSkip{$entry->get_value('cn')};
 		my $oldSID = $entry->get_value('sambaSID');
 		my ($lastNumbers) = $oldSID =~ /.*-(\d+)$/;
 		my $newSID = "$sid-$lastNumbers";
