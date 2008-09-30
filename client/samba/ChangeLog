@@ -2,6 +2,8 @@
 	+ Bugfix. Check and correct if there is a user or group with a wrong SID.
 	It's possible to run into that scenarion depending when the user/group is
 	created
+	+ Do not delete some domain attributes that are used to store password
+	attributes such us password length, expiration...
 0.12.3
 	+ Add configuration variable to enable/disable quota support
 	  as it might be really slow if we have many users
