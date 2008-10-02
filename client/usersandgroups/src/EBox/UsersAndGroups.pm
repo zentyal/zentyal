@@ -472,12 +472,13 @@ sub _updateUser
 
 # Method: modifyUser 
 #
-#       Modifies a user
+#       Modifies  user's attributes
 #   
 # Parameters:
 #       
 #       user - hash ref containing: 'user' (user name), 'fullname', 'password',
-#       and comment
+#       and comment. The only mandatory parameter is 'user' the other attribute
+#       parameters would be ignored if they are missing.
 #
 sub modifyUser # (\%user)
 {
