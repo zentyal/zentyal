@@ -73,6 +73,7 @@ sub _table
         'tableName' => '<% $modelName %>',
         'printableTableName' => __('<% $printableTableName %>'),
         'modelDomain' => '<% $modelDomain %>',
+        'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'help' => '', # FIXME
     };
