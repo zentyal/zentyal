@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+DEB_CONFIGURE_EXTRA_FLAGS := --prefix=/usr 
+DEB_MAKE_INSTALL_TARGET = install DESTDIR=$(DEB_DESTDIR)
+
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/cdbs/1/rules/debhelper.mk

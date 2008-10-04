@@ -3,6 +3,7 @@
     $name
     $printableName
     $domain
+    $modelDomain
 </%args>
 # Copyright (C) 
 #
@@ -23,7 +24,7 @@
 #
 #   TODO: Documentation
 
-package <% $class %> 
+package <% $class %>;
 
 use strict;
 use warnings;
@@ -35,6 +36,7 @@ use base qw(EBox::GConfModule EBox::Model::ModelProvider
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Sudo;
 
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -59,9 +61,50 @@ sub _create
 sub modelClasses {
     my ($self) = @_;
 
+    return ['<% $class %>::Model::Settings'];
+}
+
+
+sub domain
+{
+    return '<% $domain %>';
+}
+
+# Method: actions
+#
+#   Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
     return [];
 }
 
+
+# Method: usedFiles
+#
+#   Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+    return [];
+}
+
+# Method: enableActions 
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+}
+
+# Method: serviceModuleName 
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+    return '<% $name %>';
+}
 
 # Method: menu 
 #
@@ -72,8 +115,8 @@ sub menu
 {
     my ($self, $root) = @_;
     my $item = new EBox::Menu::Item(
-    'url' => 'Services/View/ServiceTable',
-    'text' => __(<% $printableName %>),
+    'url' => '<% $modelDomain %>/View/Settings',
+    'text' => __('<% $printableName %>'),
     'order' => 3);
     $root->add($item);
 }

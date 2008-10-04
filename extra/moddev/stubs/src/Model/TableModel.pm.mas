@@ -25,7 +25,7 @@
 #   TODO: Document class
 #
 
-package <% $mainClass %>::Model::<% $modelName %>
+package <% $mainClass %>::Model::<% $modelName %>;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -60,7 +60,7 @@ sub _table
             'editable' => 1
         ),
         new EBox::Types::Text(
-            'fieldName' => 'field 2',
+            'fieldName' => 'field2',
             'printableName' => __('Field 2'),
             'size' => '8',
             'unique' => 1,
@@ -73,7 +73,7 @@ sub _table
         'tableName' => '<% $modelName %>',
         'automaticRemove' => 1,
         'printableTableName' => __('<% $printableTableName %>'),
-        'modelDomain' => '<% $modelDomain %>'
+        'modelDomain' => '<% $modelDomain %>',
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

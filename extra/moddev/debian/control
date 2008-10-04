@@ -1,0 +1,15 @@
+Source: emoddev
+Section: utils
+Priority: optional
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: cdbs, debhelper (>= 4.0.0)
+Standards-Version: 3.7.3
+
+Package: emoddev
+Architecture: all
+Depends: make, dpkg-dev, autotools-dev, autoconf, cdbs, automake, fakeroot
+Recommends: ebox
+Description: eBox  module development scripts
+ This package ships scripts to ease the development of modules for the
+ eBox platform.
