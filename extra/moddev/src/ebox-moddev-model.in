@@ -1,0 +1,173 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+
+use Getopt::Long;
+use Cwd;
+use HTML::Mason;
+use File::Slurp;
+use File::Copy;
+
+use constant 
+    {
+       MODULE_VERSION => '0.1',
+       STUBS_PATH => '@DATADIR@/emoddev/stubs',
+    };
+
+sub types
+{
+    return qw/Text Int Boolean Port HostIP IPAddress/;
+}
+
+sub _printValidTypes
+{
+    for my $type (types()) {
+        print STDERR "\t $type\n";
+    }
+    print STDERR "\n\tExample:\n";
+    print STDERR "\t\t --field name:Text --field active:Boolean\n";
+
+}
+sub _printUsage
+{
+    print STDERR "\nUsage: $0 --name name --field field1:type1 [Options]\n\n";
+    print STDERR "Options:\n";
+    print STDERR "\t--model form | table. Default: form\n";
+    print STDERR "\t--destdir\n";
+    print STDERR "Types:\n";
+    _printValidTypes();
+    exit 1;
+}
+
+sub _parseFields
+{
+    my ($fields) = @_;
+
+    my %validTypes = map {$_ => 1} types();
+    my %names;
+
+    for my $pair (@{$fields}) {
+        unless ($pair =~ /:/) {
+            print STDERR "$pair is not a valid field:type\n";
+            exit 1;
+        }
+        my ($name, $type) = split(/:/, $pair);
+        unless (exists $validTypes{$type}) {
+            print STDERR "$type from $name is not a valid type\n";
+            exit 1;
+        }
+        if (exists $names{$name}) {
+            print STDERR "$name already exists\n";
+            exit 1;
+        } else {
+            $names{$name} = $type;
+        }
+    }
+
+    return %names;
+}
+
+sub _parseOptions
+{
+    my %options = ( 
+            name =>   undef,
+            fields => [], 
+            destdir => undef,
+            model => 'form',
+            );
+    my $help;
+    my $info;
+    my @fields;
+    my $optionsOk = GetOptions(
+            'name=s' => \$options{name},
+            'fields=s' => $options{fields},
+            'destdir=s' => \$options{destdir},
+            'model=s' => \$options{model},
+            'help'  => \$help,
+            'info'  => \$info,
+            );
+    %options{parsedFields} = _parseFields($options{fields});
+    if (not $optionsOk or $info or $help) {
+        _printUsage();
+    }
+
+    unless (defined($options{name}) and defined($options{fields})) {
+        _printUsage();
+    }
+
+    if ($options{destdir}) {
+        unless (-d $options{destdir}) {
+            die "$options{destidir} does not exist";
+        }
+    } else {
+        $options{destdir} = getcwd;
+    }
+
+
+    $options{destdir} .= '/' . $options{moduleName};
+
+    unless ( -d $options{destdir} ) {
+        die "$options{destdir} does not exist!!";
+    }
+
+    return \%options;
+}
+
+sub _src_EBox_Model
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/src/EBox/Model';
+    my $mainClass = 'Settings.pm';
+    mkdir ($dir) or die "Can't create $dir";
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/Model/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, 
+                    ( module => $options->{mainClass},
+                      models => ('Settings.pm')));
+    write_file($dir . '/Makefile.am', ${$output});
+    
+    # TableModel or FormModel ?
+    my $template;
+    if ($options->{model} eq 'table') {
+        $template = '/src/Model/TableModel.pm.mas';
+    } else {
+        $template = '/src/Model/FormModel.pm.mas';
+    }
+    $comp = $interp->make_component(
+            comp_file => STUBS_PATH . $template,
+            );
+    ${$output} = '';
+    $interp->exec($comp, 
+            ( mainClass => 'EBox::' . $options->{mainClass},
+              modelName => 'Settings',
+              printableTableName => 'Settings', 
+              rowName   => 'Setting',
+              modelDomain => $options->{mainClass}
+              ));
+    write_file("$dir/Settings.pm", ${$output});
+}
+
+sub _createModel
+{
+    # Main
+    my $options = _parseOptions();
+
+    my $dir = $options->{destdir};
+    
+    mkdir $dir or die "Can't create dir $dir";
+    
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+            out_method => \$output);
+
+   _src_EBox_Model($interp, \$output, $options);
+
+}
+
+_createModel();

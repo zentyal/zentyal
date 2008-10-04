@@ -15,6 +15,7 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 src/ebox-moddev-create
+src/ebox-moddev-model
 stubs/Makefile
 ])
 
