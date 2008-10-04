@@ -13,7 +13,7 @@ use File::Copy;
 use constant 
     {
        MODULE_VERSION => '0.1',
-       STUBS_PATH => '/home/magnetic/dev/ebox/sources/trunk/extra/moddev/stubs',
+       STUBS_PATH => '/usr/share/emoddev/stubs',
     };
 
 sub _printUsage
@@ -22,6 +22,7 @@ sub _printUsage
     print STDERR "Options:\n";
     print STDERR "\t--version\n"; 
     print STDERR "\t--destdir\n";
+    print STDERR "\t--model form | table. Default: form\n";
     exit 1;
 }
 
@@ -33,7 +34,7 @@ sub _parseOptions
             mainClass => undef ,
             version => MODULE_VERSION,
             destdir => undef,
-
+            model => 'form',
             );
     my $help;
     my $info;
@@ -43,6 +44,7 @@ sub _parseOptions
             'printable-module-name=s' => \$options{printableModuleName},
             'version=s' => \$options{version},
             'destdir=s' => \$options{destdir},
+            'model=s' => \$options{model},
             'help'  => \$help,
             'info'  => \$info,
             );
@@ -135,7 +137,8 @@ sub _src_EBox
               class => 'EBox::' . $options->{mainClass},
               name => $options->{moduleName},
               printableName => $options->{printableModuleName},
-              domain => 'ebox-' . $options->{moduleName}
+              domain => 'ebox-' . $options->{moduleName},
+              modelDomain => $options->{mainClass},
               ));
     write_file($dir . "/$mainClass", ${$output});
 }
@@ -157,8 +160,15 @@ sub _src_EBox_Model
                       models => ('Settings.pm')));
     write_file($dir . '/Makefile.am', ${$output});
     
+    # TableModel or FormModel ?
+    my $template;
+    if ($options->{model} eq 'table') {
+        $template = '/src/Model/TableModel.pm.mas';
+    } else {
+        $template = '/src/Model/FormModel.pm.mas';
+    }
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Model/TableModel.pm.mas',
+            comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
     $interp->exec($comp, 
@@ -269,6 +279,29 @@ sub _schemas
   
 }
 
+sub _stubs
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/stubs';
+    my $module = $options->{moduleName};
+
+    mkdir ("$dir") or die "Can't create $dir";
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/stubs/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( module=> $module));
+    write_file($dir . '/Makefile.am', ${$output});
+
+   my $confSrc = STUBS_PATH . '/stubs/';
+   my $confDst = $options->{destdir} . '/tools';
+
+   copy(STUBS_PATH . '/stubs/service.conf.mas', "$dir/service.conf.mas");
+
+  
+}
 sub _m4
 {
     my ($interp, $output, $options) = @_;
@@ -287,6 +320,7 @@ sub _tools
     my $toolsDst = $options->{destdir} . '/tools';
 
     `cp -a $toolsSrc $toolsDst`;
+    chmod(0755, "$toolsDst/po-am.generator");
 } 
 
 
@@ -300,6 +334,21 @@ sub _autogen
     chmod(0755, "$dir/autogen.sh");
 
 }
+
+sub _runAutogen
+{
+    my ($options) = @_;
+
+    my $dir = $options->{destdir};
+
+    my $cwd = getcwd();
+    chdir($dir);
+
+    system("./autogen.sh");
+
+    chdir($cwd);
+}
+
 sub _createModule
 {
     # Main
@@ -324,6 +373,8 @@ sub _createModule
    _m4($interp, \$output, $options);
    _autogen($interp, \$output, $options);
    _tools($interp, \$output, $options);
+   _stubs($interp, \$output, $options);
+   _runAutogen($options);
 
 }
 
