@@ -53,12 +53,40 @@ sub new
         return $self;
 }
 
+% for my $field (@fields) {
+%   if ($field->{type} eq 'Select') {
+# Method: populate_<% $field->{name} %>
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field <% $field->{name} %>
+#
+# Returns:
+#   
+#   Array ref of hash refs containing:
+#    
+#
+sub populate_<% $field->{name} %>
+{
+    return [ { value => 'value1', printableValue => 'value2'}];
+}
+%   }
+% }
+
 sub _table
 {
 
     my @tableHead = 
     ( 
 % for my $field (@fields) {
+%   if ($field->{type} eq 'Select') {
+        new EBox::Types::<% $field->{type} %>(
+            'fieldName' => '<% $field->{name} %>',
+            'printableName' => __('<% $field->{name} %>'),
+            'populate' => \&populate_<% $field->{name} %>,
+            'unique' => 1,
+            'editable' => 1
+        ),
+%   }   else {
         new EBox::Types::<% $field->{type} %>(
             'fieldName' => '<% $field->{name} %>',
             'printableName' => __('<% $field->{name} %>'),
@@ -66,6 +94,7 @@ sub _table
             'unique' => 1,
             'editable' => 1
         ),
+%   }
 % }
     );
     my $dataTable = 
