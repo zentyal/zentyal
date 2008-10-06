@@ -32,7 +32,7 @@ sub _printValidTypes
 }
 sub _printUsage
 {
-    print STDERR "\nUsage: $0 --name name --field field1:type1 [Options]\n\n";
+    print STDERR "\nUsage: $0 --main-class class --name name --field field1:type1 [Options]\n\n";
     print STDERR "Options:\n";
     print STDERR "\t--model form | table. Default: form\n";
     print STDERR "\t--destdir\n";
@@ -47,7 +47,7 @@ sub _parseFields
 
     my %validTypes = map {$_ => 1} types();
     my %names;
-
+    my  @fields;
     for my $pair (@{$fields}) {
         unless ($pair =~ /:/) {
             print STDERR "$pair is not a valid field:type\n";
@@ -63,10 +63,11 @@ sub _parseFields
             exit 1;
         } else {
             $names{$name} = $type;
+            push (@fields, { name => $name, type => $type});
         }
     }
 
-    return %names;
+    return \@fields;
 }
 
 sub _parseOptions
@@ -76,11 +77,13 @@ sub _parseOptions
             fields => [], 
             destdir => undef,
             model => 'form',
+            mainClass => undef,
             );
     my $help;
     my $info;
     my @fields;
     my $optionsOk = GetOptions(
+            'main-class=s' => \$options{mainClass},
             'name=s' => \$options{name},
             'fields=s' => $options{fields},
             'destdir=s' => \$options{destdir},
@@ -88,7 +91,7 @@ sub _parseOptions
             'help'  => \$help,
             'info'  => \$info,
             );
-    %options{parsedFields} = _parseFields($options{fields});
+    $options{parsedFields} = _parseFields($options{fields});
     if (not $optionsOk or $info or $help) {
         _printUsage();
     }
@@ -105,9 +108,6 @@ sub _parseOptions
         $options{destdir} = getcwd;
     }
 
-
-    $options{destdir} .= '/' . $options{moduleName};
-
     unless ( -d $options{destdir} ) {
         die "$options{destdir} does not exist!!";
     }
@@ -115,42 +115,97 @@ sub _parseOptions
     return \%options;
 }
 
+sub _models
+{
+    my ($dir) = @_;
+    my @models ;
+    opendir ( my $dirFH, $dir );
+    while ( defined ( my $file = readdir ( $dirFH ))) {
+          next unless ( $file =~ m/.*\.pm/ );
+          push(@models, $file);
+    }
+    return \@models; 
+}
+sub _makefile
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/src/EBox/Model';
+
+   my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/Model/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp,
+                    ( module => $options->{mainClass},
+                      models => _models($dir)));
+
+    write_file($dir . '/Makefile.am', ${$output});
+}
+
 sub _src_EBox_Model
 {
     my ($interp, $output, $options) = @_;
 
     my $dir = $options->{destdir} . '/src/EBox/Model';
-    my $mainClass = 'Settings.pm';
-    mkdir ($dir) or die "Can't create $dir";
+    my $mainClass = $options->{name} . '.pm';
+    mkdir ($dir) unless (-d $dir); 
 
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Model/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, 
-                    ( module => $options->{mainClass},
-                      models => ('Settings.pm')));
-    write_file($dir . '/Makefile.am', ${$output});
-    
     # TableModel or FormModel ?
-    my $template;
-    if ($options->{model} eq 'table') {
-        $template = '/src/Model/TableModel.pm.mas';
-    } else {
-        $template = '/src/Model/FormModel.pm.mas';
-    }
-    $comp = $interp->make_component(
+    my $template = '/src/Model/FormModel.pm.mas';
+   
+    my $comp = $interp->make_component(
             comp_file => STUBS_PATH . $template,
             );
     ${$output} = '';
     $interp->exec($comp, 
             ( mainClass => 'EBox::' . $options->{mainClass},
-              modelName => 'Settings',
-              printableTableName => 'Settings', 
-              rowName   => 'Setting',
-              modelDomain => $options->{mainClass}
+              modelName => $options->{name},
+              printableTableName => $options->{name}, 
+              rowName   => $options->{name},
+              modelDomain => $options->{mainClass},
+              fields    => $options->{parsedFields},
               ));
-    write_file("$dir/Settings.pm", ${$output});
+    write_file("$dir/$mainClass", ${$output});
+
+}
+
+sub _addModelsToMainClass
+{
+    my ($interp, $output, $options) = @_;
+
+    my $mainClass = $options->{mainClass};
+    my $file = $options->{destdir} . "/src/EBox/$mainClass.pm";
+    my $dir = $options->{destdir} . "/src/EBox/Model";
+
+    my $code = "    return [\n";
+    for my $model (@{_models($dir)}) {
+        $code .= ' ' x 8;
+        $code .= "'EBox::${mainClass}::Model::$model',\n";
+    }
+    $code .= "    ];\n";
+
+    my $fd;
+    open($fd, $file) or die "Can open $file\n";
+    my @oldFile = <$fd>;
+    close($fd);
+    
+    open($fd, ">$file");
+    my $inFunction = undef;
+    for my $line (@oldFile) {
+        if ($line =~ /sub modelClasses/) {
+            $inFunction = 1;    
+        } elsif ($inFunction and $line =~ /{/) {
+            print $fd "{\n$code";
+            next;
+        } elsif ($inFunction and $line =~ /}/) {
+            $inFunction = undef
+        }  elsif ($inFunction) {
+            next;
+        }
+        print $fd $line;
+    }
+    close($fd);
 }
 
 sub _createModel
@@ -160,13 +215,13 @@ sub _createModel
 
     my $dir = $options->{destdir};
     
-    mkdir $dir or die "Can't create dir $dir";
-    
     my $output;
     my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
             out_method => \$output);
 
    _src_EBox_Model($interp, \$output, $options);
+   _makefile($interp, \$output, $options);
+   _addModelsToMainClass($interp, \$output, $options);
 
 }
 

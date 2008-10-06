@@ -50,7 +50,7 @@ stubsstubs_DATA = stubs/Makefile.am.mas stubs/service.conf.mas
 DISTCLEANFILES = 
 
 EXTRA_DIST = $(stubs_DATA) $(stubsdebian_DATA) $(stubsm4_DATA) \
-	$(stubsmigration_DATA) $(stubsschema_DATA) $(stubssrc_DATA) \
+	$(stubsmigration_DATA) $(stubsschemas_DATA) $(stubssrc_DATA) \
 	$(stubsmodel_DATA) $(stubstools_DATA) $(stubsstubs_DATA)
 
 

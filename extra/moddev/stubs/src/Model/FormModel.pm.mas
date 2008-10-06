@@ -4,6 +4,8 @@
     $printableTableName
     $rowName
     $modelDomain
+    $modelType => 'form'
+    @fields => ()
 </%args>
 # Copyright  
 #
@@ -34,7 +36,11 @@ use EBox::Types::Text;
 use strict;
 use warnings;
 
+% if ($modelType eq 'form') {
 use base 'EBox::Model::DataForm';
+% } else {
+use base 'EBox::Model::DataTable';
+% }
 
 sub new 
 {
@@ -52,22 +58,16 @@ sub _table
 
     my @tableHead = 
     ( 
-        new EBox::Types::Text(
-            'fieldName' => 'field1',
-            'printableName' => __('Field 1'),
+% for my $field (@fields) {
+        new EBox::Types::<% $field->{type} %>(
+            'fieldName' => '<% $field->{name} %>',
+            'printableName' => __('<% $field->{name} %>'),
             'size' => '8',
             'unique' => 1,
             'editable' => 1
         ),
-        new EBox::Types::Text(
-            'fieldName' => 'field2',
-            'printableName' => __('Field 2'),
-            'size' => '8',
-            'unique' => 1,
-            'editable' => 1
-        ),
+% }
     );
-
     my $dataTable = 
     { 
         'tableName' => '<% $modelName %>',
