@@ -147,38 +147,12 @@ sub _src_EBox_Model
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/src/EBox/Model';
-    my $mainClass = 'Settings.pm';
-    mkdir ($dir) or die "Can't create $dir";
-
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/src/Model/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, 
-                    ( module => $options->{mainClass},
-                      models => ('Settings.pm')));
-    write_file($dir . '/Makefile.am', ${$output});
-    
-    # TableModel or FormModel ?
-    my $template;
-    if ($options->{model} eq 'table') {
-        $template = '/src/Model/TableModel.pm.mas';
-    } else {
-        $template = '/src/Model/FormModel.pm.mas';
-    }
-    $comp = $interp->make_component(
-            comp_file => STUBS_PATH . $template,
-            );
-    ${$output} = '';
-    $interp->exec($comp, 
-            ( mainClass => 'EBox::' . $options->{mainClass},
-              modelName => 'Settings',
-              printableTableName => 'Settings', 
-              rowName   => 'Setting',
-              modelDomain => $options->{mainClass}
-              ));
-    write_file("$dir/Settings.pm", ${$output});
+    my $dir = $options->{destdir}; 
+    my $mainClass = $options->{mainClass}; 
+    my $params = " --main-class $mainClass --name Settings" .
+                 " --field field1:Text --field field2:Text" .
+                 " --destdir $dir";
+    system("ebox-moddev-model $params"); 
 }
 
 sub _debian

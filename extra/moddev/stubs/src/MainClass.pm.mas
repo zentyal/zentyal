@@ -58,7 +58,8 @@ sub _create
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::modelClasses>
-sub modelClasses {
+sub modelClasses 
+{
     my ($self) = @_;
 
     return ['<% $class %>::Model::Settings'];
