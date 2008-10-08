@@ -10,7 +10,10 @@ LocalSocket <% $localSocket %>
 FixStaleSocket true
 User clamav
 AllowSupplementaryGroups  true
-MaxRecursion 5
+ArchiveMaxRecursion 5
+ArchiveMaxFiles 1000
+ArchiveMaxFileSize 10M
+ArchiveMaxCompressionRatio 250
 ReadTimeout 180
 MaxThreads <% $maxThreads %>
 MaxConnectionQueueLength 15
