@@ -8,7 +8,7 @@ Standards-Version: 3.7.1
 
 Package: ebox-ntp
 Architecture: all
-Depends: ebox (>= 0.12), ebox (<< 0.12.10), ebox-firewall, ntp-server, ntpdate, gconf2
+Depends: ebox (>= 0.12.99), ebox (<< 0.12.110), ebox-firewall, ntp-server, ntpdate, gconf2
 Conflicts: ebox (<< 0.9.99)
 Description: eBox - NTP server
  eBox is a framework for the development and deployment of security-wise
