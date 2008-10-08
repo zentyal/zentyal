@@ -133,7 +133,9 @@ src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
 src/EBox/Logs/Makefile
 src/EBox/Logs/Model/Makefile
+src/EBox/Logs/Model/Report/Makefile
 src/EBox/Logs/Composite/Makefile
+src/EBox/Logs/Consolidate/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/Row/Makefile
 src/EBox/Model/t/Makefile

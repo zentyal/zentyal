@@ -24,6 +24,7 @@ use base (
           'EBox::LdapModule',
           'EBox::Mail::FilterProvider', 
           'EBox::FirewallObserver',
+          'EBox::LogObserver',
           'EBox::ServiceModule::ServiceInterface',
           'EBox::Model::ModelProvider',
           'EBox::Model::CompositeProvider',
@@ -40,6 +41,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::MailFilter::ClamAV;
 use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::FirewallHelper;
+use EBox::MailFilter::LogHelper;
 use EBox::MailVDomainsLdap;
 use EBox::Validate;
 use EBox::Config;
@@ -74,6 +76,12 @@ sub _create
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
     
     return $self;
+}
+
+
+sub domain
+{
+    return 'ebox-mailfilter';
 }
 
 # Method: actions
@@ -191,6 +199,10 @@ sub modelClasses
             'EBox::MailFilter::Model::AntispamTraining',
 
             'EBox::MailFilter::Model::VDomains',
+
+            'EBox::MailFilter::Model::Report::FilterDetails',
+            'EBox::MailFilter::Model::Report::FilterGraph',
+            'EBox::MailFilter::Model::Report::FilterReportOptions',
            ];
 }
 
@@ -212,6 +224,8 @@ sub compositeClasses
 
             'EBox::MailFilter::Composite::Antivirus',
             'EBox::MailFilter::Composite::Antispam',
+
+            'EBox::MailFilter::Composite::Report::FilterReport',
            ];
 }
 
@@ -510,7 +524,7 @@ sub fwport
     my ($self) = @_;
 
     # if $relayhost_is_client is true,
-    #  The static port number is also overridden, and is dynamically 
+    #  The static port number is also overridden, and cally 
     # calculated  as being one above the incoming SMTP/LMTP session port number.
     my $fwport = $self->port() + 1;
     return $fwport;
@@ -806,5 +820,90 @@ sub mailFilterName
 {
   return MAILFILTER_NAME;
 }
+
+
+sub tableInfo
+{
+    my $self = shift;
+    my $titles = {
+                  'date' => __('Date'),
+
+                  'action' => __('Action'),
+                  'event' => __('Event'),
+
+                  from_address => __('Sender address'),
+                  to_address => __('Recipient address'),
+
+                  'spam_hits' => __('Spam hits'),
+    };
+    my @order = qw( date event action from_address to_address spam_hits );
+
+    my $events = {
+                  'BAD-HEADER' => __('Bad header found'),
+                  'SPAM'      => __('Spam found'),
+                  'BANNED' => __('Forbidden attached file  found'),
+                  'BLACKLISTED' => __('Address in blacklist found'),
+                  'INFECTED'    => __('Virus found'),
+                  'CLEAN'       => __('Clean message'),
+    };
+
+
+    my $consolidate = {
+                       mailfilter_traffic => _filterTrafficConsolidationSpec(),
+                      };
+
+
+    return {
+            'name' => __('Mail Filter'),
+            'index' => 'mailfilter',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'message_filter',
+            'timecol' => 'date',
+            'filter' => ['action', 'from_address', 'to_address'],
+            'events' => $events,
+            'eventcol' => 'event',
+            'consolidate' => $consolidate,
+    };
+}
+
+sub logHelper
+{
+    my ($self) = @_;
+
+    return new EBox::MailFilter::LogHelper();
+}
+
+
+sub _filterTrafficConsolidationSpec
+{
+    my $spec = {
+                accummulateColumns => {
+                                       clean => 0,
+                                       spam => 0,
+                                       banned => 0,
+                                       blacklisted => 0,
+                                       clean  => 0,
+                                       infected => 0,
+                                       bad_header => 0,
+                                      },
+                consolidateColumns => {
+                                       event => {
+                                                 conversor => sub { return 1  },
+                                                 accummulate => sub {
+                                                     my ($v) = @_;
+                                                     if ($v eq 'BAD-HEADER') {
+                                                         return 'bad_header';
+                                                     }
+                                                     
+                                                     return lc $v;
+                                                 },
+                                                },
+                                      },
+               };
+        
+    return $spec;
+}
+
 
 1;

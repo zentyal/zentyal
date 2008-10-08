@@ -152,5 +152,16 @@ sub checkTable
     
 }
 
+# Method: refreshImage
+#
+#   signal wether the image msut be periodically refreshed or not
+#
+#    Defaults: true
+sub refreshImage
+{
+    my ($self) = @_;
+    return 1;
+}
+
 
 1;

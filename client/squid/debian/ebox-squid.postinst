@@ -11,6 +11,7 @@ case "$1" in
 
         # create log table
         /usr/share/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add squid_traffic /usr/share/ebox/sqllog/squid_traffic.sql
         # migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-squid/migration/
 

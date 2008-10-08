@@ -5,11 +5,17 @@ use warnings;
 use EBox;
 use EBox::Global;
 
+use EBox::Logs::Consolidate;
+
 EBox::init();
 
 my $logs = EBox::Global->modInstance('logs');
 defined $logs or
  die 'Cannot instanstiate eBox logs module';
+
+# we consolidate before the purge to not lose any data
+EBox::Logs::Consolidate->consolidateDaily('all');
+
 
 $logs->purge();
 

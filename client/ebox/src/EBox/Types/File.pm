@@ -112,7 +112,7 @@ sub printableValue
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::compareToHash>
+#       <EBox::Types::Abstract::isEqualTo>
 #
 sub isEqualTo
 {

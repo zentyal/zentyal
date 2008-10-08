@@ -69,13 +69,6 @@ case "$1" in
         chmod 0600 ${STDERR_FILE}
         chown ebox:ebox ${STDERR_FILE}
 
-
-        # add the stderr file needed by sudo
-        STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
-        touch ${STDERR_FILE}
-        chmod 0600 ${STDERR_FILE}
-        chown ebox:ebox ${STDERR_FILE}
-
         # add the dynamic-www- and downloads directories
         DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;'); 
         for DIR in $DYNAMIC_WWW_DIRS; do
@@ -99,6 +92,7 @@ case "$1" in
         create_db
 
         /usr/share/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
+        /usr/share/ebox/ebox-sql-table add consolidation /usr/share/ebox/sqllog/consolidation.sql
 
        
 

@@ -66,12 +66,16 @@ src/EBox/MailFilter/ClamAV/Makefile
 src/EBox/MailFilter/Types/Makefile
 src/EBox/MailFilter/Types/t/Makefile
 src/EBox/MailFilter/Model/Makefile
+src/EBox/MailFilter/Model/Report/Makefile
 src/EBox/MailFilter/Composite/Makefile
+src/EBox/MailFilter/Composite/Report/Makefile
+src/EBox/MailFilter/LogHelper/Makefile
 src/libexec/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/t/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 migration/Makefile
 Makefile
 ])

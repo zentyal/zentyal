@@ -221,26 +221,9 @@ use EBox::Model::DataTable;
 <table class='<% 
                $model->table()->{'class'} 
               %>'>
-    <thead>
-%    foreach my $th (@tableHead) 
-%    {
-%	next unless ($th->HTMLViewer());
-      <th class='<% 
-                   $th->class() 
-                  %>'>
-        <% 
-          $th->printableName() 
-        %>
-      </th>
-%    }
 
-      <th class='thOptions'>
-        <%
-          __('Action') 
-        %>
-      </th>
-    </thead>
-      
+<& SELF:tableHead, tableHead => \@tableHead &>
+  
     <tbody>      
 %    for ( my $idx = 0; $idx < scalar(@data); $idx++) 
 %    {
@@ -262,92 +245,16 @@ use EBox::Model::DataTable;
         </td>
 %     }
 
-        <td class='tcenter' 
-            id='actionsCell_<% 
-                              $row->{id} 
-                            %>'>
-%      my $disabled = $row->{'readOnly'} ? 'disabled' : '';
+<& SELF:actionCell, model => $model, 
+                    actions => $actions,
 
-%      if ($actions->{'del'}) 
-%      {
-          <input class='inputButton' 
-              <% 
-                $disabled 
-              %>
-              type='image' 
-              name='del'
-              value="Del" 
-              title="Del"
-              alt="Del" 
-              src='/data/images/delete.gif'
-              onClick='<% 
-                          $model->actionClickedJS('del', 
-                             $row->{id}, 
-                            '' , 
-                            $page) 
-                       %>' 
-          />
-      
-%      }
-%      if ($changeView) 
-%      {
-          <input  class='inputButton'
-              <% 
-                $disabled 
-              %>  
-              type='image' 
-              name='edit'
-              value="edit" 
-              title="edit" 
-              src='/data/images/edit.gif'
-              onClick='<% 
-                         $model->changeViewJS( changeType => 'changeEdit', 
-                             editId => $row->{'id'}, 
-                             page => $page,
-                             isFilter => 0) 
- 
-                       %>' 
-          />
-%      }
-    
-%      if ($model->table()->{'order'} == 1) 
-%      {
-%       if ( $idx != 0 ) 
-%        {
-          <input class='inputButton'
-              type='image' 
-              name='up'
-              value="Up" 
-              title="Up"
-              alt="Up" 
-              src='/data/images/up.gif' 
-              onClick='<%
-                         $model->actionClickedJS('move', 
-                             $row->{id}, 
-                            'up', 
-                            $page) 
-                       %>'
-          />
-%       }
-%       if ( $idx != $#data ) 
-%        {
-          <input  class='inputButton' 
-              type='image' 
-              name='down'
-              value="Down" 
-              title="Down"
-              alt="Down" 
-              src='/data/images/down.gif' 
-              onClick='<% 
-                         $model->actionClickedJS('move', 
-                             $row->{id}, 
-                            'down', 
-                            $page) 
-                       %>'
-          />
-%       }
-%     }
-        </td>
+                    row => $row, 
+                    firstRow    => ($idx == 0),
+                    lastRow    => ($idx == $#data),
+
+                    changeView => $changeView,
+                    page => $page 
+                    &>
       </tr>
 %   }  
     </tbody>
@@ -368,7 +275,7 @@ use EBox::Model::DataTable;
 </%method>
 
 <%doc>
-  Method: buttons
+   Method: buttons
 
      Show the button to submit the form
 
@@ -438,6 +345,153 @@ use EBox::Model::DataTable;
 % }
   </td>
 </tr>
+
+
+
+</%method>
+
+
+
+<%method tableHead>
+<%doc>
+Method: tableHead
+
+  Print the header of the table
+
+Parameteres:
+  @tableHead - list with the types of the fields of the tale's rows
+</%doc>
+<%args>
+@tableHead
+</%args>
+    <thead>
+%    foreach my $th (@tableHead) 
+%    {
+%	next unless ($th->HTMLViewer());
+      <th class='<% 
+                   $th->class() 
+                  %>'>
+        <% 
+          $th->printableName() 
+        %>
+      </th>
+%    }
+
+      <th class='thOptions'>
+        <%
+          __('Action') 
+        %>
+      </th>
+    </thead>
+</%method>    
+
+<%method actionCell>
+<%doc>
+    Print the action cell for the row
+
+    Parameters:
+        $model - model of the table
+        $idx
+        $actions
+        $row   - the row printed
+        $changeView
+        $page  - table's page
+
+</%doc>
+<%args>
+$model
+$actions
+$firstRow
+$lastRow
+$row
+$changeView
+$page
+</%args>
+        <td class='tcenter' 
+            id='actionsCell_<% 
+                              $row->{id} 
+                            %>'>
+%      my $disabled = $row->{'readOnly'} ? 'disabled' : '';
+
+%      if ($actions->{'del'}) 
+%      {
+          <input class='inputButton' 
+              <% 
+                $disabled 
+              %>
+              type='image' 
+              name='del'
+              value="Del" 
+              title="Del"
+              alt="Del" 
+              src='/data/images/delete.gif'
+              onClick='<% 
+                          $model->actionClickedJS('del', 
+                             $row->{id}, 
+                            '' , 
+                            $page) 
+                       %>' 
+          />
+      
+%      }
+%      if ($changeView) 
+%      {
+          <input  class='inputButton'
+              <% 
+                $disabled 
+              %>  
+              type='image' 
+              name='edit'
+              value="edit" 
+              title="edit" 
+              src='/data/images/edit.gif'
+              onClick='<% 
+                         $model->changeViewJS( changeType => 'changeEdit', 
+                             editId => $row->{'id'}, 
+                             page => $page,
+                             isFilter => 0) 
+ 
+                       %>' 
+          />
+%      }
+    
+%      if ($model->table()->{'order'} == 1) 
+%      {
+%       if (not $firstRow) {
+          <input class='inputButton'
+              type='image' 
+              name='up'
+              value="Up" 
+              title="Up"
+              alt="Up" 
+              src='/data/images/up.gif' 
+              onClick='<%
+                         $model->actionClickedJS('move', 
+                             $row->{id}, 
+                            'up', 
+                            $page) 
+                       %>'
+          />
+%       }
+
+%       if (not $lastRow) {
+          <input  class='inputButton' 
+              type='image' 
+              name='down'
+              value="Down" 
+              title="Down"
+              alt="Down" 
+              src='/data/images/down.gif' 
+              onClick='<% 
+                         $model->actionClickedJS('move', 
+                             $row->{id}, 
+                            'down', 
+                            $page) 
+                       %>'
+          />
+%       }
+%     }
+        </td>
 </%method>
 
 <%doc>

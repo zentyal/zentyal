@@ -60,8 +60,11 @@ migration/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
-src/EBox/Model/Makefile
 src/EBox/Firewall/Makefile
+src/EBox/Firewall/Model/Makefile
+src/EBox/Firewall/Model/Report/Makefile
+src/EBox/Firewall/Composite/Makefile
+src/EBox/Firewall/Composite/Report/Makefile
 src/EBox/t/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile

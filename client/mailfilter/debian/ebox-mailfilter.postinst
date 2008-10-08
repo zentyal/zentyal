@@ -7,6 +7,12 @@ case "$1" in
 
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
+
+        # create log table
+        /usr/share/ebox/ebox-sql-table add message_filter /usr/share/ebox/sqllog/mailfilter.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add mailfilter_traffic /usr/share/ebox/sqllog/mailfilter_traffic.sql
+
+
         # create spamassassin directory 
         EBOX_HOME=`perl -e'my @pwInfo = getpwnam("ebox"); print $pwInfo[7]; 1'`
         SA_DIR=$EBOX_HOME/.spamassassin
@@ -18,6 +24,9 @@ case "$1" in
 
         # populate file types if needed
          /usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update	
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
 
         # restart module
         invoke-rc.d ebox mailfilter restart

@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 templatedir = $(datadir)/ebox/templates/ajax/viewer
-template_DATA = linkRSS.mas 
+template_DATA = linkRSS.mas  
 
 EXTRA_DIST = $(template_DATA)
 

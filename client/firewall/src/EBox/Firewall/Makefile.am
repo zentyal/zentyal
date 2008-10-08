@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = Model Composite
 
 perldir = @PERLPATH@/EBox/Firewall/
 

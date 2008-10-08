@@ -28,6 +28,7 @@ js = js/csshover.htc js/common.js \
   js/fileUpload.js js/image-helper.js \
   js/tabMenu.js  \
   js/modalbox.js  js/prototype.js  \
+  js/flotr.js     js/excanvas.js \
   js/scriptaculous/controls.js \
   js/scriptaculous/unittest.js \
   js/scriptaculous/sound.js \

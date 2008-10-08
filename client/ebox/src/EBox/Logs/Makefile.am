@@ -1,9 +1,11 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model Composite
+SUBDIRS = Model Composite Consolidate
 
-DISTCLEANFILES =
+perldir = @PERLPATH@/EBox/Logs
 
-EXTRA_DIST =
+nobase_perl_DATA = Consolidate.pm 
+
+EXTRA_DIST =Consolidate.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

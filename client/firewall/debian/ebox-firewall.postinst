@@ -15,6 +15,7 @@ case "$1" in
 
         # create log table
         /usr/share/ebox/ebox-sql-table add firewall /usr/share/ebox/sqllog/firewall.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add firewall_packet_traffic /usr/share/ebox/sqllog/firewall_packet_traffic.sql 
 
         # restart logs
         invoke-rc.d ebox logs restart || true
