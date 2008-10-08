@@ -72,8 +72,8 @@ case "$1" in
         # add the dynamic-www- and downloads directories
         DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;'); 
         for DIR in $DYNAMIC_WWW_DIRS; do
-        mkdir -p $DIR
-        chown -R ebox:ebox $DIR
+            mkdir -p $DIR
+            chown -R ebox:ebox $DIR
         done
 
         #change the /var/lib/ebox/ user
@@ -108,6 +108,9 @@ case "$1" in
             invoke-rc.d ebox apache start || true
         fi 
         
+
+        # migrate log data
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration
 
         ;;
 esac
