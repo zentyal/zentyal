@@ -53,13 +53,13 @@ msgstr "As senhas de CA não coincidem"
 #: src/EBox/CGI/CreateCA.pm:119 src/EBox/CGI/IssueCertificate.pm:92
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr "A senha necessita ter no mínimo {comprimento} caracteres"
+msgstr "A senha necessita ter no mínimo {length} caracteres"
 
 #: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
 #: src/EBox/CGI/RenewCertificate.pm:89
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Dias até expirar ({dias}) deve ser um número positivo"
+msgstr "Dias até expirar ({days}) deve ser um número positivo"
 
 #: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"
