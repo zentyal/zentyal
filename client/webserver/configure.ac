@@ -1,4 +1,4 @@
-AC_INIT([eBox-webserver], [0.12])
+AC_INIT([eBox-webserver], [0.12.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/WebServer.pm])
