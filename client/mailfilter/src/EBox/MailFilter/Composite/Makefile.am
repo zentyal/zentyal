@@ -1,4 +1,6 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = Report
+
 perldir = @PERLPATH@/EBox/MailFilter/Composite
 
 

@@ -1,0 +1,68 @@
+<%flags>
+  inherit => '/ajax/tableBody.mas'
+</%flags>
+<%args>
+  $model
+  $action => 'view'
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+  %presetParams => ()
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Model::DataTable;
+</%init>
+<& PARENT:view,
+   model      => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>
+<%method tableHead>
+<%doc>
+Method: tableHead
+
+  Print the header of the table.
+  overriden to do not print the action colum's header bz we don;t have action column
+
+Parameteres:
+  @tableHead - list with the types of the fields of the tale's rows
+</%doc>
+<%args>
+@tableHead
+</%args>
+    <thead>
+%    foreach my $th (@tableHead) 
+%    {
+%	next unless ($th->HTMLViewer());
+      <th class='<% 
+                   $th->class() 
+                  %>'>
+        <% 
+          $th->printableName() 
+        %>
+      </th>
+%    }
+
+
+    </thead>
+</%method>    
+
+<%method actionCell>
+<%doc>
+    Print the action cell for the row
+    In this case we don't need actionCell so we don't print anything...
+</%doc>
+</%method>
+
+<%doc>
+  Method: buttons
+
+     Show the button to submit the form
+
+
+</%doc>
+<%method buttons>
+</%method>

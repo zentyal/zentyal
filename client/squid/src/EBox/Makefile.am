@@ -7,7 +7,7 @@ nobase_perl_DATA = Squid.pm SquidFirewall.pm SquidOnlyFirewall.pm SquidLogHelper
 
 SOURCES = $(nobase_perl_DATA)
 
-DISTCLEANFILES = Squid.pm 
+DISTCLEANFILES = 
 
 EXTRA_DIST = SquidFirewall.pm SquidOnlyFirewall.pm SquidLogHelper.pm
 

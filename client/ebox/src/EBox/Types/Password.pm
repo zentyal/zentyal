@@ -151,4 +151,31 @@ sub _paramIsValid
 
 }
 
+
+#  Method: cmp
+#
+#   This method is overrien because we cannot sort the passwords (do so would be
+#   given away clues about their value) but we need to know where they are equal
+#   or we wil lhave trouble
+#
+#  Overrides:
+#  <EBox::Types::Text::cmp>
+sub cmp 
+{
+    my ($self, $other) = @_;
+
+    my $cmpRes = $self->SUPER::cmp($other);
+    if (not defined $cmpRes ) {
+        # no comparable case
+        return undef;
+    }
+    elsif ($cmpRes == 0) {
+        # equal case
+        return 0;
+    }
+
+    # other cases we return 1 to have a non-content dependent order
+    return 1;
+}
+
 1;

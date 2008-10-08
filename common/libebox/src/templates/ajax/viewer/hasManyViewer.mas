@@ -1,4 +1,9 @@
 <%args>
 $data
 </%args>
+% my $link = $data->linkToView();
+% if (defined $link) {
 <a href="<% $data->linkToView() %>"><img src="/data/images/edit-table.gif"></a>
+% } else {
+<span>--</span>
+% }

@@ -1,4 +1,6 @@
 ## Process this file with automake to produce Makefile.
+SUBDIRS=Report
+
 perldir = @PERLPATH@/EBox/Squid/Composite
 
 nobase_perl_DATA =  General.pm Extensions.pm MIME.pm Domains.pm \

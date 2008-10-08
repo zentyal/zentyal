@@ -19,6 +19,11 @@ case "$1" in
         invoke-rc.d ebox apache restart || true
 
         ;;		
+
+	purge)
+		/usr/share/ebox/ebox-sql-table drop firewall || true
+		/usr/share/ebox/ebox-sql-table-with-time-period drop firewall_packet_traffic || true
+		;;
 esac
 
 

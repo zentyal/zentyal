@@ -254,7 +254,7 @@ sub stat
   my ($file) = @_;
   validate_pos(@_, 1);
   
-  my $statCmd = "$STAT_CMD $file";
+  my $statCmd = "$STAT_CMD '$file'";
   my $statOutput;
 
   try {
@@ -319,7 +319,7 @@ sub fileTest
   
   ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
 
-  my $testCmd = "$TEST_PATH $test $file";
+  my $testCmd = "$TEST_PATH $test '$file'";
   rootWithoutException($testCmd);
   
   return ($? == 0);  # $? was set by execution of $testCmd

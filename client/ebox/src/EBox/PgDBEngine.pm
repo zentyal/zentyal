@@ -24,39 +24,46 @@ use DBI;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox;
+use EBox::Exceptions::Internal;
+
 use Params::Validate qw(validate_pos);
 
+use Error qw(:try);
+
 sub new {
-	my $class = shift,
-	my $self = {};
-	bless($self,$class);
-	return $self;
+        my $class = shift,
+        my $self = {};
+        bless($self,$class);
+
+        $self->_connect();
+
+        return $self;
 }
 
 # Method: _dbname
 #
-#	This function returns the database name.
+#       This function returns the database name.
 #
 sub _dbname {
-	my $root = EBox::Config::configkey('eboxlogs_dbname');
-	($root) or
-	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
-					     'variable in the ebox configuration file',
-					     variable => 'eboxlogs_dbname'));
-	return $root;
+        my $root = EBox::Config::configkey('eboxlogs_dbname');
+        ($root) or
+        throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+                                             'variable in the ebox configuration file',
+                                             variable => 'eboxlogs_dbname'));
+        return $root;
 }
 
 # Method: _dbuser
 #
-#	This function returns the database user.
+#       This function returns the database user.
 #
 sub _dbuser {
-	my $root = EBox::Config::configkey('eboxlogs_dbuser');
-	($root) or
-	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
-					     'variable in the ebox configuration file',
-					    variable => 'eboxlogs_dbuser'));
-	return $root;
+        my $root = EBox::Config::configkey('eboxlogs_dbuser');
+        ($root) or
+        throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+                                             'variable in the ebox configuration file',
+                                            variable => 'eboxlogs_dbuser'));
+        return $root;
 }
 
 # Method: _dbpass
@@ -64,132 +71,180 @@ sub _dbuser {
 #  This function returns the database user password.
 #
 sub _dbpass {
-	my $root = EBox::Config::configkey('eboxlogs_dbpass');
-	($root) or
-	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
-					     'variable in the ebox configuration file',
-					     variable => 'eboxlogs_dbpass'));
-	return $root;
+        my $root = EBox::Config::configkey('eboxlogs_dbpass');
+        ($root) or
+        throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+                                             'variable in the ebox configuration file',
+                                             variable => 'eboxlogs_dbpass'));
+        return $root;
 }
 
 # Method: _connect
 #
-#	This function do the necessary operations to establish a connection with the
-#	database.
+#       This function do the necessary operations to establish a connection with the
+#       database.
 #
 sub _connect {
-	my $self = shift;
+        my $self = shift;
 
-	return if($self->{'dbh'});
+        return if($self->{'dbh'});
 
-	my $dbh = DBI->connect("dbi:Pg:dbname=".$self->_dbname(),
-		$self->_dbuser(), $self->_dbpass(), { PrintError => 0});
+        my $dbh = DBI->connect("dbi:Pg:dbname=".$self->_dbname(),
+                $self->_dbuser(), $self->_dbpass(), { PrintError => 0});
 
-	unless ($dbh) {
-		#throw exception
-		die "Connection DB error $DBI::errstr\n";
-		EBox::debug("Connection DB Error: $DBI::errstr\n");
-	}
+        unless ($dbh) {
+            throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
+        }
 
-	$self->{'dbh'} = $dbh;
+        $self->{'dbh'} = $dbh;
 }
 
 # Method: _disconnect
 #
-#	This function do the necessary operations to get disconnected from the
-#	database.
+#       This function do the necessary operations to get disconnected from the
+#       database.
 #
 sub _disconnect {
-	my $self = shift;
+        my $self = shift;
 
-	$self->{'sthinsert'}->finish() if ($self->{'sthinsert'});
-	$self->{'dbh'}->disconnect();
-	$self->{'dbh'} = undef;
+        $self->{'sthinsert'}->finish() if ($self->{'sthinsert'});
+        $self->{'dbh'}->disconnect();
+        $self->{'dbh'} = undef;
 }
 
 sub _prepare {
-	my ($self, $sql) = @_;
+        my ($self, $sql) = @_;
 
-	$self->{'sthinsert'} =  $self->{'dbh'}->prepare($sql);
-	unless ($self->{'sthinsert'}) {
-		#throw exception
-		EBox::debug("Error preparing sql: $sql\n");
-	}
+        $self->{'sthinsert'} =  $self->{'dbh'}->prepare($sql);
+        unless ($self->{'sthinsert'}) {
+                #throw exception
+                EBox::debug("Error preparing sql: $sql\n");
+                throw EBox::Exceptions::Internal("Error preparing sql: $sql\n");
+        }
 }
 
 # Method: insert
 #
-#	This function do the necessary operations to create and establish an insert
-#	operation to a table form the database.
+#       This function do the necessary operations to create and establish an insert
+#       operation to a table form the database.
 #
 # Parameters:
 #   $table: The table name to insert data.
 #   $values: A hash ref with database fields name and values pairs that do you
 #   want to insert to.the table name passed as parameter too.
 #
-sub insert {
-	my ($self, $table, $values) = @_;
-	my $sql = "INSERT INTO $table ( ";
+sub insert 
+{
+    my ($self, $table, $values) = @_;
+    my $sql = "INSERT INTO $table ( ";
+    
+    my @keys = ();
+    my @vals = ();
+    while(my ($key, $value) = each %$values ) {
+        push(@keys, $key);
+        push(@vals, $value);
+    }
+    
+    $sql .= join(", ", @keys);
+    $sql .= ") VALUES (";
+    
+    foreach (@vals) {
+        $sql .= " ?,";
+    }
+    $sql = (substr($sql, 0, -1)).')';
+    
 
-	my @keys = ();
-	my @vals = ();
-	while(my ($key, $value) = each %$values ) {
-		push(@keys, $key);
-		push(@vals, $value);
-	}
-	
-	$sql .= join(", ", @keys);
-	$sql .= ") VALUES (";
+    $self->_prepare($sql);
+    my $err = $self->{'sthinsert'}->execute(@vals);
+    if (!$err) {
+        #throw exception
+        EBox::debug ("Error inserting data: $sql\n" .
+                     $self->{dbh}->errstr .
+                     " \n"
+                    );
+        throw EBox::Exceptions::Internal ("Error inserting data: $sql\n" .
+                                          $self->{dbh}->errstr .
+                                          " \n"
+                                         );
+    }
 
-	foreach (@vals) {
-		$sql .= " ?,";
-	}
-	$sql = (substr($sql, 0, -1)).')';
-
-	$self->_connect();
-	$self->_prepare($sql);
-	my $err = $self->{'sthinsert'}->execute(@vals);
-	if (!$err) {
-		#throw exception
-		EBox::debug ("Error inserting data: $sql\n");
-	}
-	$self->_disconnect();
 }
+
+
 
 # Method: query
 #
-#	This function do the necessary operations to create and establish a query
-#	operation to a table form the database.
+#       This function do the necessary operations to create and establish a query
+#       operation to a table form the database.
 #
 # Parameters:
 #   $sql: A string that contains the SQL query.
-#   $values: An array with the values to substitute in the query.
+#   @values: An array with the values to substitute in the query.
 #
-sub query {
-	my ($self, $sql, @values) = @_;
-	
-	my $ret;
-	my $err;
+sub query 
+{
+    my ($self, $sql, @values) = @_;
+        
+    my $ret;
+    my $err;
 
-	$self->_connect();
-	$self->_prepare($sql);
-	if(@values) {
-		$err = $self->{'sthinsert'}->execute(@values);
-	} else {
-		$err = $self->{'sthinsert'}->execute();
-	}
-	if (!$err) {
-		#throw exception
-		my $errstr = $self->{'dbh'}->errstr();
-		EBox::debug ("Error querying data: $sql , $errstr\n");
-	}
-	$ret = $self->{'sthinsert'}->fetchall_arrayref({});
-	$self->{'sthinsert'}->finish();
-	$self->_disconnect();
-
-	return $ret;
+        
+    $self->_prepare($sql);
+    if (@values) {
+        $err = $self->{'sthinsert'}->execute(@values);
+    } else {
+        $err = $self->{'sthinsert'}->execute();
+    }
+    if (!$err) {
+        my $errstr = $self->{'dbh'}->errstr();
+        EBox::debug ("Error querying data: $sql , $errstr\n");
+        #                 throw EBox::Exceptions::Internal ("Error querying data: $sql , $errstr");
+    }
+    $ret = $self->{'sthinsert'}->fetchall_arrayref({});
+    $self->{'sthinsert'}->finish();
+    
+    return $ret;
 }
 
+
+
+# Method: do
+#
+#   Prepare and execute a single statement. 
+#
+#
+# Parameters:
+#   $sql: A string that contains the SQL stament.
+#   $attr: 
+#   @bind_values
+#
+#
+# Returns : the number of rows affected  
+sub do
+{
+    my ($self, $sql, $attr, @bindValues) = @_;
+
+    my @optionalCallParams;
+    if (defined $attr) {
+        push @optionalCallParams, $attr;
+    }
+    if (@bindValues) {
+        push @optionalCallParams, @bindValues;
+    }
+
+
+    my $res;
+
+    $res = $self->{dbh}->do($sql, @optionalCallParams);
+    if (not defined $res) {
+        my $errstr = $self->{'dbh'}->errstr();
+        throw EBox::Exceptions::Internal("Error doing statement: $sql , $errstr\n");
+    }
+
+
+
+    return $res;
+}
 
 
 
@@ -239,9 +294,16 @@ sub restoreDB
   my $eboxHome = EBox::Config::home();
 
   my $restoreCommand = "HOME=$eboxHome /usr/bin/psql -h 127.0.0.1" 
-  		       . " --file $file  -U $dbuser $dbname";
+                       . " --file $file  -U $dbuser $dbname";
   EBox::Sudo::command($restoreCommand);
   EBox::info('Database ' . _dbname() . ' restored' );
 }  
+
+
+sub DESTROY
+{
+    my ($self) = @_;
+    $self->_disconnect();
+}
 
 1;

@@ -32,7 +32,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Logs::Model::ConfigureLogDataTable;
-
+use EBox::Logs::Consolidate;
 
 # Core modules
 use Error qw(:try);
@@ -72,6 +72,9 @@ sub formSubmitted
     my ($self, $row, $force) = @_;
 
     my $lifeTime = $row->{plainValueHash}->{lifeTime};
+
+    # we consolidate before to avoid any data loss
+    EBox::Logs::Consolidate->consolidate('all');
 
     my $logs = EBox::Global->modInstance('logs');
     $logs->forcePurge($lifeTime);

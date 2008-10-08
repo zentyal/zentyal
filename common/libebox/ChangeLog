@@ -15,6 +15,7 @@
 	  the protocol (HTTP or HTTPS)
 	+ Add spinner gif to modalbox window
 	+ Make EBox::Config::configKeyFromFile non-greedy to parse values properly
+	+ IPNetwork control has a default mas kvalue of 24
 0.11.102
 	+ Added `override_user_modification` configuration parameter to
 	avoid user modification checkings and override them without asking

@@ -1,7 +1,9 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS= Report
+
 perldir = @PERLPATH@/EBox/Logs/Model
 
-nobase_perl_DATA = ConfigureLogDataTable.pm ForcePurge.pm
+nobase_perl_DATA = ConfigureLogDataTable.pm ForcePurge.pm  SelectLog.pm
 
 DISTCLEANFILES =
 

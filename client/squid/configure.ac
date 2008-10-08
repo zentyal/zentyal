@@ -1,7 +1,7 @@
 AC_INIT([EBox-squid], [0.12])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/Squid.pm.in])
+AC_CONFIG_SRCDIR([src/EBox/Squid.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -35,8 +35,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AM_GCONF_SOURCE_2
 
-	AC_PROG_SQUID
-
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
@@ -60,10 +58,11 @@ AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
 src/EBox/Makefile
-src/EBox/Squid.pm
 src/EBox/Squid/Makefile
 src/EBox/Squid/Model/Makefile
+src/EBox/Squid/Model/Report/Makefile
 src/EBox/Squid/Composite/Makefile
+src/EBox/Squid/Composite/Report/Makefile
 src/EBox/Squid/Types/Makefile
 src/EBox/t/Makefile
 src/templates/Makefile

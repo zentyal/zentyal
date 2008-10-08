@@ -5,17 +5,22 @@
 # debhelper has been run). That's why we do things before
 # and after gconf debhelper is run
 if [ "$1" = "purge" ]; then
-        # Purge configuration
-        /usr/share/ebox/ebox-clean-gconf mailfilter || true
+	# Purge configuration
+	/usr/share/ebox/ebox-clean-gconf mailfilter || true
 fi
 
 #DEBHELPER#
 
 case "$1" in
 	remove)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-        ;;		
+	;;
+
+	purge)
+		/usr/share/ebox/ebox-sql-table drop message_filter || true
+		/usr/share/ebox/ebox-sql-table-with-time-period drop mailfilter_traffic  || true
+	;;		
 esac
 
 

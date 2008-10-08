@@ -10,14 +10,17 @@
 	$data     => undef
 	@fromdate => ()
 	@todate   => ()
+        $refresh  => 0
 </%args>
 <%init>
 use EBox::Gettext;
 use Data::Dumper;
 </%init>
+
+
 	<form method="POST" action="Index">
 	<div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
-	<% __('Select available logs') %>:
+	<% __('Select available full reports') %>:
 	<select name='selected'>
 %	foreach my $domain (sort keys %logdomains){
 %		if ($selected eq $domain) {
@@ -100,9 +103,18 @@ use Data::Dumper;
 		</select></td>
 	</tr>
 
+
+        <tr>
+        <td class='tright'><% __('Refresh logs')  %>:</td>
+        <td>
+         <input type='checkbox' name='refresh' id='refresh'  <% $refresh ? 'checked' : '' %>
+        onclick='updateRefresh()' />
+        </td>
+        </tr>
+
 	<tr>
 	<td class='tright'><% __('To date:') %></td>
-	<td><select name="today">
+	<td><select name="today" id="today">
 %  					for (my $td=1; $td<=31; $td++) {
 				<option
 %  							if ($td == $todate[0]) {
@@ -112,7 +124,7 @@ use Data::Dumper;
 %					}
 		</select> / 
 
-		<select name="tomonth">
+		<select name="tomonth" id="tomonth">
 %  					my @tmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
 %  					my $tm=1;
 %  					foreach my $tmonth(@tmonths) {
@@ -124,7 +136,7 @@ use Data::Dumper;
 %						$tm++; }
 		</select> / 
 
-		<select name="toyear">
+		<select name="toyear" id="toyear">
 %  					for (my $ty=2000; $ty<=$currentyear; $ty++) {
 				<option 
 %  						if ($ty == $todate[2]) {
@@ -134,7 +146,7 @@ use Data::Dumper;
 %  					}
 		</select> - 
 		
-		<select name="tohour">
+		<select name="tohour" id="tohour">
 %  					for (my $th=0; $th<=23; $th++) {
 				<option
 %  					if ($th == $todate[3]) {
@@ -144,7 +156,7 @@ use Data::Dumper;
 %					}
 		</select> : 
 
-		<select name="tomin">
+		<select name="tomin" id="tomin">
 %  					for (my $tn=0; $tn<=59; $tn++) {
 				<option
 %  					if ($tn == $todate[4]) {
@@ -180,6 +192,8 @@ use Data::Dumper;
 %   }
 	</select></td>
 	</tr>
+
+
 
 	<tr>
 	<td></td>
@@ -227,3 +241,35 @@ use Data::Dumper;
 %           }
 %	}
 % }
+
+<script type='text/javascript'>
+
+function updateRefresh() {
+    var refresh = document.getElementById('refresh').checked;
+
+    var today = document.getElementById('today');
+    var tomonth = document.getElementById('tomonth');
+    var toyear = document.getElementById('toyear');
+    var tohour = document.getElementById('tohour');
+    var tomin = document.getElementById('tomin');
+
+    if (refresh) {
+        today.disabled   = true;
+        tomonth.disabled = true;
+        toyear.disabled  = true;
+        tohour.disabled  = true;
+        tomin.disabled   = true;
+    }
+    else {
+        today.disabled   = false;
+        tomonth.disabled = false;
+        toyear.disabled  = false;
+        tohour.disabled  = false;
+        tomin.disabled   = false;
+    }
+
+}
+
+updateRefresh();
+
+</script>

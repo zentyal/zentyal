@@ -25,6 +25,7 @@ case "$1" in
         ;;		
 	purge)
         /usr/share/ebox/ebox-sql-table drop access || true
+                /usr/share/ebox/ebox-sql-table-with-time-period add squid_traffic  || true
 
        	;;
 esac

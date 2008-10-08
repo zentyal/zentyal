@@ -1,0 +1,225 @@
+<%doc>
+  This template is indicated to view the EBox::Model::Image. 
+
+  The original overridden call at /ajax/image.mas
+</%doc>
+<%flags>
+ inherit =>  '/ajax/tableBody.mas'   
+</%flags>
+<%args>
+  $model
+  $hasChanged
+  $action => 'view'
+</%args>
+
+<%init>
+  use EBox::Gettext;
+  use EBox::Model::DataTable;
+
+  sub timeTickFormatter
+  {
+      my ($timePeriod) = @_;
+
+      if ($timePeriod eq 'monthly') {
+          return  <<END
+              function(ts) { 
+                  var date;
+                  if (ts > 1000) {
+                     date  = new Date(ts*1000);
+                  }
+                  else {
+                     date = new Date();
+                  }        
+
+                  var dateParts =  date.toDateString().split(' ', 4);
+                  var dateSt = dateParts[1] + ' ' + dateParts[3];
+                 return dateSt;
+              }
+END
+      }
+      elsif ($timePeriod eq 'weekly') {
+          return  <<END
+              function(ts) { 
+                  var date;
+                  if (ts > 1000) {
+                     date  = new Date(ts*1000);
+                  }
+                  else {
+                     date = new Date();
+                  }        
+
+                   return date.toDateString();
+              }
+END
+      }
+      elsif ($timePeriod eq 'daily') {
+          return  <<END
+              function(ts) { 
+                  var date;
+                  if (ts > 1000) {
+                     date  = new Date(ts*1000);
+                  }
+                  else {
+                     date = new Date();
+                  }        
+
+                   return date.toDateString();
+              }
+END
+      }
+      elsif ($timePeriod eq 'hourly') {
+          return  <<END
+              function(ts) { 
+                  var date;
+                  if (ts > 1000) {
+                     date  = new Date(ts*1000);
+                  }
+                  else {
+                     date = new Date();
+                  }        
+
+
+                  var dateSt = date.toDateString();
+                  dateSt += ' ' + date.getHours() + ':00';
+                 return dateSt;
+              }
+END
+      }
+      else {
+          return  <<END
+              function(ts) { 
+                  var date;
+                  if (ts > 1000) {
+                     date  = new Date(ts*1000);
+                  }
+                  else {
+                     date = new Date();
+                  }    
+                  return date.toDateString();
+              }
+END
+     }
+  }
+</%init>
+<& SELF:view,
+   model => $model,
+   hasChanged => $hasChanged,
+   action => $action,
+&>
+<%doc>
+% # Anyway you should call the change menu sub-component to check if
+% # any change has been done
+<& SELF:changeMenu,
+   hasChanged => $hasChanged
+&>
+</%doc>
+
+<%method _body>
+<%args>
+  $model
+</%args>
+<%init>
+my $stackDeep = 2;
+my %childArgs = $m->caller_args($stackDeep);
+
+my $action = exists $childArgs{action} ? $childArgs{action} : 'view';
+my $reloadAction = $action eq 'changeList';
+</%init>
+
+%    if ( $model->printableName() ) {
+<& PARENT:title, title => $model->printableName() &>
+<br/>
+%    }
+
+<& SELF:graph, model => $model  &>
+
+
+
+</%method>
+
+<%method graph>
+<%args>
+$model
+</%args>
+<%init>
+my $container = $model->name() . 'GraphContainer';
+
+my @dataSets = @{ $model->datasets };
+my @labels   = @{ $model->datasetsLabels };
+
+
+# this supposes that all datsets have the same number of points
+my $noTicks = (scalar  @{ $dataSets[0] }) - 1;
+($noTicks < 1) and
+    $noTicks = 1;
+    
+
+my $timeTickFormatter = timeTickFormatter($model->timePeriod());
+
+my $graphData = '[ ';
+foreach my $ds (@dataSets) {
+      my $label = shift @labels;
+
+      $graphData .=  "{ \n";
+      $graphData .= "label: '$label',\n";
+
+      $graphData .= 'data: [';
+      foreach my $set (  @{ $ds } ) {
+             my $elements = join ',', @{ $set };
+            $graphData .= "[ $elements ],";
+      }
+      $graphData .= " ],\n";
+
+     if (@{ $ds } < 2) {
+          $graphData .= 'points: {show: true, },';
+     }
+      
+#      $graphData .= 'mouse: {  track: true, trackDecimals: 0, },';
+
+      $graphData .= "   },\n";
+}
+
+$graphData .= ' ]';
+
+
+my $graphOptions = <<"END";
+{
+   xaxis: { autoscaleMargin: 0.001, tickDecimals: 0, tickFormatter: $timeTickFormatter, noTicks: $noTicks} ,
+   yaxis: { autoscaleMargin: 0.1, noTicks: $noTicks },
+}
+END
+
+</%init>
+<div id="<% $container %>" style="width:600px;height:300px;"></div>
+<br/>
+<script language="javascript" type="text/javascript">
+			/**
+			 * Wait till dom's finished loading.
+			 */
+			document.observe('dom:loaded', function(){
+			    var f = Flotr.draw($('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
+			});	
+</script>
+
+</%method>
+
+
+
+<%method headerScriptSection>
+
+<& PARENT:headerScriptSection &>
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="/data/js/excanvas.js"></script>--!>
+<script language="javascript" type="text/javascript" src="/data/js/flotr.js"></script>
+
+</%method>
+
+<%method editForm>
+$m->abort('images cannot be edited');
+</%method>
+
+<%method editRowFields>
+$m->abort('images cannot be edited');
+</%method>
+
+

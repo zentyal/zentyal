@@ -1,4 +1,6 @@
 ## Process this file with automake to produce Makefile.
+SUBDIRS = Report
+
 perldir = @PERLPATH@/EBox/Squid/Model
 
 nobase_perl_DATA = GeneralSettings.pm ContentFilterThreshold.pm\
