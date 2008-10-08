@@ -1,5 +1,6 @@
 0.12.99
 	+ Add new table view without actions
+	+ Add javascript libraty to generate report charts
 0.12.1
 	+ Bugfix: Get logger from EBox category if it is not set explicity
 	to allow external programs to log using eBox log helper functions
