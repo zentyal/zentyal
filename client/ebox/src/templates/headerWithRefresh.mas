@@ -1,6 +1,6 @@
 <%args>
 $title
-$refreshTime => 600
+$refreshTime => 60
 $destination
 </%args>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
