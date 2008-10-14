@@ -135,7 +135,7 @@ sub _table
     my $dataTable = 
         { 
             'tableName' =>__PACKAGE__->tableName(),
-            'printableTableName' => __('Mail traffic details'),
+            'printableTableName' => __('Web traffic details'),
 #            'pageTitle' => __('Mail traffic'),
             'defaultController' => '/ebox/Mail/Controller/TrafficReport',
             'defaultActions' => [ 'changeView' ],
