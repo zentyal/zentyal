@@ -68,7 +68,6 @@ sub processLine # (file, line, logger)
 	my ($self, $file, $line, $dbengine) = @_;
 
 	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
-	    EBox::debug("$line not logged");
 	    return;
 	}
 	my $date = $1;
