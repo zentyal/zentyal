@@ -717,7 +717,8 @@ sub  adminUser
         return undef;
     }
     else {
-        throw EBox::Exceptions::Internal("The user has incomplete group memberships; to be administrator he must be both member of domain Admins and Administrators group")
+        EBox::error("The user has incomplete group memberships; to be administrator he must be both member of domain Admins and Administrators group");
+        return undef;
     }
 }
 
