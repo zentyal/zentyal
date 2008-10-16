@@ -1,5 +1,6 @@
 0.12.99
 	+ Add support for reporting 
+	+ Add rules to allow DHCP requests from interfaces configured via DHCP
 0.12.1
 	+ Add log decision to firewall rules
 	+ Add conf parameter to disable NAT

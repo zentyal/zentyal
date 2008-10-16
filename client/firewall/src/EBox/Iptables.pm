@@ -228,6 +228,21 @@ sub setDNS # (dns)
 	pf "-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT";
 }
 
+# Method: setDHCP
+#
+#       Set output DHCP traffic 
+#
+# Parameters:
+#
+#       interface - 
+#
+sub setDHCP 
+{
+	my $self = shift;
+	my $interface = shift;
+	pf "-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT";
+}
+
 # Method: nospoof
 #
 #       Set no IP spoofing (forged) for the given addresses to the
@@ -399,6 +414,7 @@ sub start
 		my $addrs = $self->{net}->ifaceAddresses($ifc);
 		$self->nospoof($ifc, $addrs);
 		if ($self->{net}->ifaceMethod($ifc) eq 'dhcp') {
+			$self->setDHCP($ifc);
 			my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
 			foreach my $srv (@{$dnsSrvs}) {
 				$self->setDNS($srv);
