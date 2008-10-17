@@ -175,6 +175,7 @@ sub delUserAccount   #username, mail
 # Method: userAccount
 #
 #  return the user mail account or undef if it doesn't exists
+#  In case the user does not exist undef is also returned
 #
 sub userAccount
 {
@@ -193,6 +194,10 @@ sub userAccount
     
     my $result = $self->{ldap}->search(\%args);
     my $entry = $result->entry(0);
+    if (not defined $entry) {
+        EBox::warn("Asked for user account or inexistent user $username");
+        return undef;
+    }
     
     my $usermail = $entry->get_value('mail');
     
