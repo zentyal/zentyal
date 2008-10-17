@@ -120,7 +120,14 @@ sub processPosixGroup
     $usersMod->addGroup($group, $comment, $system, gidNumber => $gidNumber);
 
     foreach my $user (@members) {
-        $usersMod->addUserToGroup($user, $group);
+        if ($usersMod->userExists($user)) {
+            $usersMod->addUserToGroup($user, $group);
+        }
+        else {
+            EBox::error("Cannot add user $user to group $group because user $user does not exists");
+        }
+
+
     }
 }
 
