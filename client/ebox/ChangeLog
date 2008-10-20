@@ -1,5 +1,5 @@
 0.12.100
-        + EBox::Module::writeConfFile escapes now file's path
+        + EBox::Module::writeConfFile and EBox::Service scape fil'es path
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically

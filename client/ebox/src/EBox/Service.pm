@@ -41,14 +41,14 @@ sub manage # (daemon,action)
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
 	if ( $action eq 'start' ) {
-		root("start $daemon");
+		root("start '$daemon'");
 	}
 	elsif ( $action eq 'stop' ) {
-		root("stop $daemon");
+		root("stop '$daemon'");
 	}
 	elsif ( $action eq 'restart') {
-		root("stop $daemon");
-		root("start $daemon");
+		root("stop '$daemon'");
+		root("start '$daemon'");
 	}
 	else {
 		throw EBox::Exceptions::Internal("Bad argument: $action");
@@ -74,7 +74,7 @@ sub running # (daemon)
 	(-f "/etc/event.d/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-	my $output = root("status $daemon");
+	my $output = root("status '$daemon'");
 	my $status = @{$output}[0];
 	# TODO: Parse different exit status:
 	# 		Pre-start
