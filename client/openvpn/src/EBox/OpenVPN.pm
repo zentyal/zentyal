@@ -631,8 +631,8 @@ sub _serversToConnect
 
 # Method: checkNewDaemonName
 #
-#    Check if the name for a new daemon does nto conflict with the actual
-#    configuration
+#    Check if the name for a new daemon is correct and does not conflicts with
+#    the actual configuration
 #
 #  Parameters:
 #          $name       - name to be checked
@@ -641,6 +641,16 @@ sub _serversToConnect
 sub checkNewDaemonName
 {
     my ($self, $name, $daemonType, $internal) = @_;
+
+    if (not $name =~ m/^[\w\.\-]+$/) {
+        throw EBox::Exceptions::External(
+            __x(
+              q{Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are allowed},
+                name => $name,
+
+            )
+                                        )
+    }
 
     # check if the daemon name is repeated in others daemon types
     if ($daemonType eq 'server') {
