@@ -67,6 +67,10 @@ sub processUsereboxmail
     $mdsize or return;
 
     my $mailMod = EBox::Global->modInstance('mail');
+    $mailMod->mdQuotaAvailable() or
+        return;
+
+
     my $mailUserLdap = $mailMod->_ldapModImplementation();
     $mailUserLdap->setMDSize($mdsize);
 }
@@ -92,7 +96,7 @@ sub processDomain
 
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
     
-    # we add it to LDAP because until we have changed users to useg gconf things
+    # we add it to LDAP because until we have changed users to use gconf, things
     # may became inconsistent with mail accounts
     $vdomainsLdap->addVDomain($vdomain);
 
@@ -124,12 +128,22 @@ sub processVdeboxmail
 
     my $vdomain = $entry->get_value('dc');
 
+
+
+    # quota sutff
+
     my $dftmdsize = $entry->get_value('vddftMaildirSize');
 
-    $dftmdsize or return;
+    $dftmdsize or 
+        return;
+
+    my $mailMod = EBox::Global->modInstance('mail');
+    $mailMod->mdQuotaAvailable() or
+        return;
+
 
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
-    $vdomainsLdap->_addVDomainWiithMdQuota($vdomain, $dftmdsize);
+    $vdomainsLdap->_addVDomainWithMdQuota($vdomain, $dftmdsize);
 }
 
 1;
