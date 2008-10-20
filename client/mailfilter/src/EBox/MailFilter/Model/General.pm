@@ -70,7 +70,7 @@ sub _table
                                 printableName => 
                                 __('Notify of non-spam problematic messages'),
                                 subtypes => [
-                                             new EBox::Types::Text(
+                                             new EBox::Types::Union::Text(
                                          'fieldName' => 'disabled',
                                          'printableName' => __('Disabled'),
                                                                   ),
@@ -111,9 +111,12 @@ sub validateTypedRow
   my $port = $params_r->{port}->value();
 
   my $global  = EBox::Global->getInstance();
-  my @mods = grep {  $_->can('usesPort') } @{ $global->modInstances  };
+  my @mods = grep {  
+                 $_->can('usesPort') and ($_->name ne 'mailfilter')
+             } @{ $global->modInstances  };
   foreach my $mod (@mods) {
     if ($mod->usesPort('tcp', $port)) {
+
       throw EBox::Exceptions::External(
                                        __x('The port {port} is already used by module {mod}',
                                            port => $port,
