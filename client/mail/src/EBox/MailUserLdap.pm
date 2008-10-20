@@ -233,6 +233,10 @@ sub delAccountsFromVDomain   #vdomain
 #
 #               uid - uid of the user
 #               value - the atribute name
+#
+# Returns: 
+#    the value of the attribute. Undef if either the user ot the attribute
+#    does not exists
 sub getUserLdapValue   #uid, ldap value
 {
     my ($self, $uid, $value) = @_;
@@ -247,10 +251,27 @@ sub getUserLdapValue   #uid, ldap value
     
     my $result = $self->{ldap}->search(\%args);
     my $entry = $result->entry(0);
+    if (not defined $entry) {
+        EBox::warn("Inexistent user $uid asked for LDAP attribute $value");
+        return undef;
+    }
+
     
     return $entry->get_value($value);
 }
 
+
+# Method: existsUserLdapValue
+#
+#   checks whether a LDAP attribute exists on a given user
+#
+# Parameters:
+#
+#               uid - uid of the user
+#               value - the atribute name
+#  Returns:
+#       true if the user and the LDAP attribute exist.  Undef if either the user ot the attribute
+#    does not exists
 sub existsUserLdapValue  
 {
     my ($self, $uid, $value) = @_;
@@ -804,6 +825,10 @@ sub _mdQuotaAccountAddonParams
   
   my $result = $self->{ldap}->search(\%args);
   my $entry = $result->entry(0);
+  if (not defined $entry) {
+      EBox::warn("Inexistent user: $username");
+      return ();
+  }
 
   my $mdsize = $entry->get_value('userMaildirSize');
 
