@@ -1,5 +1,9 @@
 0.12.100
-	+ EBox::MailUserLdap::userAccount and  EBox::MailUserLdap::getUserLdapValue  dont longer assumme that the user exists
+	+ EBox::MailUserLdap::userAccount and
+	EBox::MailUserLdap::getUserLdapValue  dont longer assumme that the
+	user exists
+	+ Bugfix: MDSize attribute should not be restored in sytems with
+	MDSize feature disabled
 0.12.99
 	+ Add support for reporting
 0.12.2
