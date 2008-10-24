@@ -110,5 +110,23 @@ sub _process
  
     $self->SUPER::_process(@_);
 }
+
+# Method: _print
+#
+# Overrides:
+#
+#      <EBox::CGI::Controller::Downloader::Base::_print>
+#
+# To remove the file after it has been downloaded
+#
+sub _print
+{
+    my ($self, @params) = @_;
+
+    $self->SUPER::_print(@params);
+
+    unlink ($self->{path}) if ( -e $self->{path} );
+}
+
 1;
 
