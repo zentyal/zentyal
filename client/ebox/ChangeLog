@@ -4,6 +4,7 @@
 	+ Add support for reporting
 	+ Refresh logs automatically
 	+ Reverse log order
+	+ Remove temp file after it is downloaded with FromTempDir controller
 0.12.3
 	+ Bug fix: use the new API in purge method. Now purging logs is working
 	again.
