@@ -37,10 +37,6 @@ sub new
   return $self;
 }
 
-sub _mailfilterModule
-{
-  return EBox::GconfModule::Partition::fullModule(@_);
-}
 
 sub usedFiles
 {
