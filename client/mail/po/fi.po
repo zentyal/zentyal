@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2007-04-11 16:24+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-03 16:00+0000\n"
+"Last-Translator: Nacho Correas <icorreas@eboxplatform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
@@ -230,7 +231,7 @@ msgstr ""
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:114
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:115
 msgid "Optional"

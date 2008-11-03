@@ -15,14 +15,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2007-05-16 13:08+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2008-11-03 16:35+0000\n"
+"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -208,7 +208,7 @@ msgstr "Dispositivo RAID {name} está realizando la operación {opName}"
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr ""
+msgstr "Estado: {percentage} completado"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
@@ -343,7 +343,7 @@ msgstr "Notifica cuando un registrador ({loggers}) ha registrado algo"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Los siguientes módulos no se están ejecutando: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -352,6 +352,8 @@ msgstr "Servicio"
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
 msgstr ""
+"Comprueba si algún servicio de eBox no está ejecutándose cuando debería "
+"estar haciéndolo"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -359,6 +361,8 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"El servicio {servicio} ha sido reiniciado {restart} veces en {time} segundos "
+"y ha sido detenido"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -378,9 +382,8 @@ msgid "Choose a value within the value set: {set}"
 msgstr "Elije un valor dentro del conjunto de valores: {set}"
 
 #: src/EBox/Types/Int.pm:139
-#, fuzzy
 msgid "Write down a number"
-msgstr "Escribe un número positivo"
+msgstr "Escribe un número"
 
 #: src/EBox/Types/Int.pm:146
 #, perl-brace-format
