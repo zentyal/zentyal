@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2007-05-16 12:57+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2008-11-03 12:48+0000\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
@@ -59,9 +59,9 @@ msgstr "Las contraseñas deben ser de al menos {length} caracteres"
 
 #: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
 #: src/EBox/CGI/RenewCertificate.pm:89
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Los días para expirar DEBE ser un número natural"
+msgstr "Los días para expirar ({days}) debe ser un número positivo"
 
 #: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"
