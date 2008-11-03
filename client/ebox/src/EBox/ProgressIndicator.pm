@@ -165,6 +165,15 @@ sub totalTicks
   return $self->getConfInt('totalTicks');
 }
 
+# Method: percentage
+#
+#     Return how many ticks have been performed of the total in
+#     percentage means
+#
+# Returns:
+#
+#     String - the percentage round to two decimals
+#
 sub percentage
 {
   my ($self) = @_;
@@ -193,6 +202,15 @@ sub id
   return $self->getConfString('id');
 }
 
+# Method: started
+#
+#     Return whether the action to perform has started or not
+#
+# Returns:
+#
+#     True  - if it has started
+#     False - otherwise
+#
 sub started
 {
   my ($self) = @_;
@@ -205,7 +223,15 @@ sub _setAsStarted
   return $self->setConfBool('started', 1);
 }
 
-
+# Method: finished
+#
+#     Return whether the action to perform has finished or not
+#
+# Returns:
+#
+#     True  - if it has finished
+#     False - otherwise
+#
 sub finished
 {
   my ($self) = @_;
