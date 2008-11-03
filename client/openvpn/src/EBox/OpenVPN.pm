@@ -915,9 +915,8 @@ sub running
     if ($self->_runningInstances()) {
         return 1;
     }elsif ($self->service) {
-        my @activeUserDaemons =
-          grep { (not $_->service) and (not $_->internal) } $self->daemons;
-        return @activeUserDaemons == 0 ? 1 : 0;
+        my @activeDaemons = grep { (not $_->service)  } $self->daemons;
+        return (@activeDaemons == 0) ? 1 : 0;
     }
 
     return 0;
@@ -926,14 +925,27 @@ sub running
 sub userRunning
 {
     my ($self) = @_;
-    my @userDaemons = grep { not $_->internal } $self->daemons;
 
-    foreach my $userDaemon (@userDaemons) {
-        return 1 if $userDaemon->running;
+
+    my $noneDaemonEnabled = 1;
+    
+    my @daemons =  $self->daemons;
+    foreach my $daemon (@daemons) {
+        next if $daemon->internal();
+
+        return 1 if $daemon->running;
+        
+        if ($daemon->service()) {
+            $noneDaemonEnabled = 0;
+        }
     }
 
-    return
-      0;   # XXX control that there isn't any user daemon incorrectly running
+
+    if ($noneDaemonEnabled) {
+        return 1 if $self->service()
+    }
+
+    return 0;   # XXX control that there isn't any user daemon incorrectly running
 }
 
 sub _startDaemon
