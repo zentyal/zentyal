@@ -15,10 +15,10 @@
 
 # Class: EBox::Services
 #
-# 	This class is used to abstract services composed of
-# 	protocols and ports.
+#       This class is used to abstract services composed of
+#       protocols and ports.
 #
-# 	
+#       
 
 package EBox::Services;
 
@@ -110,16 +110,16 @@ sub _exposedMethods
 
 # Method: serviceNames
 #
-# 	Fetch all the service identifiers and names
+#       Fetch all the service identifiers and names
 #
 # Returns:
 #
-# 	Array ref of  hash refs which contain:
+#       Array ref of  hash refs which contain:
 #
-# 	'id' - service identifier
-# 	'name' service name
+#       'id' - service identifier
+#       'name' service name
 #
-#	Example:
+#       Example:
 #         [
 #          {
 #            'name' => 'ssh',
@@ -145,24 +145,24 @@ sub serviceNames
 
 # Method: serviceConfiguration
 #
-#	For a given service identifier it returns its service configuration,
-#	that is, the set of protocols and ports.
+#       For a given service identifier it returns its service configuration,
+#       that is, the set of protocols and ports.
 #
 # Returns:
 #
-# 	Array ref of  hash refs which contain:
-#	
-#	protocol - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#	source	 - it can take: 
-#   			"any"
-#	    		An integer from 1 to 65536 -> 22
-#		    	Two integers separated by colons -> 22:25 
-#	destination - same as source
+#       Array ref of  hash refs which contain:
+#       
+#       protocol - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#       source   - it can take: 
+#                       "any"
+#                       An integer from 1 to 65536 -> 22
+#                       Two integers separated by colons -> 22:25 
+#       destination - same as source
 #
-#	Example:
+#       Example:
 #
-#	     'protocol' => 'tcp',
-#	     'source' => 'any',
+#            'protocol' => 'tcp',
+#            'source' => 'any',
 #       'destination' => '21:22',
 sub serviceConfiguration
 {
@@ -193,7 +193,7 @@ sub serviceConfiguration
 
 # Method: addService 
 #
-#   Add a service to the services table	
+#   Add a service to the services table 
 #
 # Parameters:
 #
@@ -201,22 +201,22 @@ sub serviceConfiguration
 #   
 #   name        - service's name
 #   description - service's description
-#	protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#	sourcePort  - it can take: 
+#       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#       sourcePort  - it can take: 
 #                   "any"
 #                    An integer from 1 to 65536 -> 22
 #                   Two integers separated by colons -> 22:25 
-#	destinationPort - same as source
+#       destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
 #   translationDomain - eBox module domain for i18n
 #
-#	Example:
+#       Example:
 #
 #       'name' => 'ssh',
 #       'description' => 'secure shell'.
-#	    'protocol' => 'tcp',
-#	    'sourcePort' => 'any',
+#           'protocol' => 'tcp',
+#           'sourcePort' => 'any',
 #       'destinationPort' => '21:22',
 #
 #   Returns:
@@ -231,7 +231,7 @@ sub addService
 
 # Method: addMultipleService 
 #
-#   Add a multi protocol service to the services table	
+#   Add a multi protocol service to the services table  
 #
 # Parameters:
 #
@@ -244,27 +244,27 @@ sub addService
 #
 #   services - array ref of hash ref containing:
 #
-#	    protocol    - it can take one of these: any, tcp, udp, 
-#	                                            tcp/udp, grep, icmp
-#	    sourcePort  - it can take:  "any"
+#           protocol    - it can take one of these: any, tcp, udp, 
+#                                                   tcp/udp, grep, icmp
+#           sourcePort  - it can take:  "any"
 #                                   An integer from 1 to 65536 -> 22
 #                                   Two integers separated by colons -> 22:25 
-#	    destinationPort - same as source
+#           destinationPort - same as source
 #
 #
-#	Example:
+#       Example:
 #
 #       'name' => 'ssh',
 #       'description' => 'secure shell'.
 #       'services' => [ 
 #                       {
-#	                        'protocol' => 'tcp',
-#	                        'sourcePort' => 'any',
+#                               'protocol' => 'tcp',
+#                               'sourcePort' => 'any',
 #                           'destinationPort' => '21:22'
 #                        },
 #                        {
-#	                        'protocol' => 'tcp',
-#	                        'sourcePort' => 'any',
+#                               'protocol' => 'tcp',
+#                               'sourcePort' => 'any',
 #                           'destinationPort' => '21:22'
 #                        }
 #                     ];
@@ -281,7 +281,7 @@ sub addMultipleService
 
 # Method: setService 
 #
-#   Set a existing service to the services table	
+#   Set a existing service to the services table        
 #
 # Parameters:
 #
@@ -289,21 +289,21 @@ sub addMultipleService
 #   
 #   name        - service's name
 #   description - service's description
-#	protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#	sourcePort  - it can take: 
+#       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#       sourcePort  - it can take: 
 #                   "any"
 #                    An integer from 1 to 65536 -> 22
 #                   Two integers separated by colons -> 22:25 
-#	destinationPort - same as source
+#       destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
 #
-#	Example:
+#       Example:
 #
 #       'name' => 'ssh',
 #       'description' => 'secure shell'.
-#	    'protocol' => 'tcp',
-#	    'sourcePort' => 'any',
+#           'protocol' => 'tcp',
+#           'sourcePort' => 'any',
 #       'destinationPort' => '21:22',
 sub setService 
 {
@@ -314,19 +314,19 @@ sub setService
 
 # Method: setAdministrationPort
 #
-#	Set administration port on service
+#       Set administration port on service
 #
 # Parameters:
 #
-#	port - port
-#	
+#       port - port
+#       
 sub setAdministrationPort
 {
     my ($self, $port) = @_;
 
     checkPort($port, __("port"));
 
-	$self->setService('name' => __d('eBox administration'),
+        $self->setService('name' => __d('eBox administration'),
                 'description' => __d('eBox Administration port'),
                 'domain' => __d('ebox-services'),
                 'protocol' => 'tcp',
@@ -339,14 +339,14 @@ sub setAdministrationPort
 
 # Method: availablePort 
 #
-#	Check if a given port for a given protocol is available. That is,
-#	no internal service uses it.
+#       Check if a given port for a given protocol is available. That is,
+#       no internal service uses it.
 #
 # Parameters:
 #
 #   (POSITIONAL)
 #   protocol   - it can take one of these: tcp, udp
-#   port 	   - An integer from 1 to 65536 -> 22
+#   port           - An integer from 1 to 65536 -> 22
 #
 # Returns:
 #   boolean - true if it's available, otherwise false
@@ -360,7 +360,7 @@ sub availablePort
 
 # Method: removeService 
 #
-#  Remove a service from the  services table	
+#  Remove a service from the  services table    
 #
 # Parameters:
 # 
