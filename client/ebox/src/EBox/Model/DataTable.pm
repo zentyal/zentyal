@@ -805,7 +805,7 @@ sub updatedRowNotify
 #   has happened when the foreign model action was done in the current
 #   model
 #
-sub notifyForeingModelAction
+sub notifyForeignModelAction
 {
     return '';
 }
