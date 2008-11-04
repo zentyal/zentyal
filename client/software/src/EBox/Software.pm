@@ -286,8 +286,12 @@ sub fetchAllPkgs
 #
 # Returns:
 #
-#	array ref - holding hashes ref containing keys: 'name' and 
-#	'description' for each package
+#	array ref - holding hashes ref containing keys:
+#                   'name' - package's name
+# 	            'description' package's short description
+#                   'version' - package's latest version
+#                   'security' - flag indicating if the update is a security one
+#                   'changelog' - package's changelog from current version till last one
 #
 # Exceptions:
 #
