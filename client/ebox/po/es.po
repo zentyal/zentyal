@@ -361,7 +361,7 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
-"El servicio {servicio} ha sido reiniciado {restart} veces en {time} segundos "
+"El servicio {service} ha sido reiniciado {restart} veces en {time} segundos "
 "y ha sido detenido"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
