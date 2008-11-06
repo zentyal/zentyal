@@ -163,7 +163,7 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__x('Range {newFrom}-{newTo} overlaps '
                                                      . "with range '{range}': {oldFrom}-{oldTo}",
                                                      newFrom => $from, newTo => $to,
-                                                     range   => $row->valueByElement('name'),
+                                                     range   => $row->valueByName('name'),
                                                      oldFrom => $compareFrom,
                                                      oldTo   => $compareTo));
             }
@@ -175,14 +175,14 @@ sub validateTypedRow
         my $fixedAddressModel = EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/'
                                                                              . $self->{interface});
         foreach my $map ( @{$fixedAddressModel->rows()} ) {
-            my $fixedIP = new Net::IP($map->valueByElement('ip'));
+            my $fixedIP = new Net::IP($map->valueByName('ip'));
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('Range {from}-{to} includes fixed '
                                                      . "address '{name}': {fixedIP}",
                                                      from => $from,
                                                      to   => $to,
-                                                     name => $map->valueByElement('name'),
-                                                     fixedIP => $map->valueByElement('ip'),
+                                                     name => $map->valueByName('name'),
+                                                     fixedIP => $map->valueByName('ip'),
                                                      ));
             }
         }
