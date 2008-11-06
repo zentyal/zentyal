@@ -1,7 +1,9 @@
+0.12.100
+	+ Bugfix: two wrong calls to EBox::Model::Row API fixed
 0.12.99
 	+ New release
 0.12.1
-	+ Bug fix: use the new EBox::Model::Row api for DHCP options
+	+ Bug fix: use the new EBox::Model::Row API for DHCP options
 0.12
 	+ Make default and max leasing time mandatory fields
 	+ Add field help to model
