@@ -6,6 +6,7 @@ Parameters:
   domain - hash containing the following information:
 
       name - String the domain's name
+      ipaddr - String the domain's ip address
       hosts - Array ref containing hash refs with the following elements:
          ip   - String the IP address for that host
          name - String the host's name
@@ -36,6 +37,9 @@ $TTL 3D
 ;
 		NS	<% $nameserverHostname %>.<% $domain{'name'} %>.	;nameserver
 ;
+% if($domain{'ipaddr'}) {	
+		A	<% $domain{'ipaddr'} %>
+% }
 % unless (@hosts > 0 and (scalar(grep { $_->{'name'} eq $nameserverHostname } @hosts))) {
 <% $nameserverHostname %>		A	127.0.0.1
 <%perl>

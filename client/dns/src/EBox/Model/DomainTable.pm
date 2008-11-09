@@ -14,14 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #   EBox::DNS::Model::DomainTable
 #
-#   This class inherits from <EBox::Model::DataTable> and represents the
-#   object table which basically contains domains names and a reference
-#   to a member <EBox::DNS::Model::HostnameTable>
+#   This class inherits from <EBox::Model::DataTable> and represents
+#   the object table which basically contains domains names, the IP
+#   address for the domain and a reference to a member
+#   <EBox::DNS::Model::HostnameTable>
 #
-#   
 package EBox::DNS::Model::DomainTable;
 
 use EBox::Global;
@@ -32,6 +32,7 @@ use EBox::Exceptions::DataExists;
 
 use EBox::Types::DomainName;
 use EBox::Types::HasMany;
+use EBox::Types::HostIP;
 use EBox::Sudo;
 
 use EBox::Model::ModelManager;
@@ -84,6 +85,14 @@ sub _table
                                 'view' => '/ebox/DNS/View/MailExchanger',
                                 'backView' => '/ebox/DNS/View/DomainTable',
                              ),
+            new EBox::Types::HostIP
+                            (
+                                'fieldName' => 'ipaddr',
+                                'printableName' => __('IP Address'),
+                                'size' => '20',
+                                'optional' => 1,
+                                'editable' => 1
+                            ),
           );
 
     my $dataTable = 
