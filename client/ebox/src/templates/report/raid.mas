@@ -73,12 +73,12 @@ $dev
 </%args>
 <%init>
 my %raidTypePrintableValue = (
-			     'raid0' => __('RAID 0'),
-			     'raid1' => __('RAID 1'),
-			     'raid2' => __('RAID 2'),
-			     'raid3' => __('RAID 3'),
-			     'raid4' => __('RAID 4'),
-			     'raid4' => __('RAID 5'),
+			     'raid0' => 'RAID 0',
+			     'raid1' => 'RAID 1',
+			     'raid2' => 'RAID 2',
+			     'raid3' => 'RAID 3',
+			     'raid4' => 'RAID 4',
+			     'raid4' => 'RAID 5',
 			    );
 my %algorithmPrintableValue = (
 				0  => __('left-asymmetric'),

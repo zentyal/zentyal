@@ -207,7 +207,7 @@ sub usage
   if (defined $fileSystemToScan ) {
     if ($fileSystemToScan ne all keys %{ $fileSystems }) {
       throw EBox::Exceptions::External(
-        __x('Invalid file system: {f}. Only regular and no rmeovable media file systems are accepted',
+        __x('Invalid file system: {f}. Only regular and no removable media file systems are accepted',
 	    f => $fileSystemToScan
 	   )
 				      );
