@@ -218,6 +218,7 @@ sub addDomain
 #  Array ref - containing hash refs with the following elements:
 #
 #           name - String the domain's name
+#           ipaddr - String the domain's ip address
 #
 sub domains
 {
@@ -231,6 +232,7 @@ sub domains
         my $domaindata;
 
         $domaindata->{'name'} = $row->valueByName('domain');
+	$domaindata->{'ipaddr'} = $row->valueByName('ipaddr');
 
         push(@array, $domaindata);
     }
@@ -452,6 +454,7 @@ sub NameserverHost
 # hash ref - structure data with:
 #
 #  'name': domain name
+#  'ipaddr': domain ip address
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
 #
 sub _completeDomain # (domain)
@@ -462,6 +465,7 @@ sub _completeDomain # (domain)
 
     my $row = $model->find(domain => $domain->{'name'});
     $domdata->{'name'} = $domain->{'name'};
+    $domdata->{'ipaddr'} = $domain->{'ipaddr'};
     $domdata->{'hosts'} = $self->_hostnames(
             $row->subModel('hostnames')->rows());
 
