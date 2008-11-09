@@ -13,13 +13,14 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2007-08-17 22:25+0200\n"
-"Last-Translator: andy <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 08:12+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
@@ -31,7 +32,7 @@ msgstr "Einstellungen der Zeitzone"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
-msgstr "Datum und Uhrzeit einstellen"
+msgstr "Datum- und Uhrzeiteinstellungen"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
@@ -85,11 +86,11 @@ msgstr "Sekunden"
 
 #: src/EBox/NTP.pm:71
 msgid "Remove ntp init script links"
-msgstr ""
+msgstr "Entferne ntp-init-Skript-Links"
 
 #: src/EBox/NTP.pm:72
 msgid "eBox will take care of starting and stopping the services."
-msgstr ""
+msgstr "eBox übernimmt das Starten und Beenden des Dienstes."
 
 #: src/EBox/NTP.pm:246
 msgid "primary server"
@@ -131,7 +132,7 @@ msgstr "System"
 
 #: src/EBox/NTP.pm:450
 msgid "Date/time"
-msgstr "Datum / Uhrzeit"
+msgstr "Datum/Uhrzeit"
 
 #: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
 msgid "Time zone"

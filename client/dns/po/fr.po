@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2007-04-12 08:06+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2008-11-04 16:46+0000\n"
+"Last-Translator: Amaury <acallens@free.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/HostnameTable.pm:133
 #, perl-brace-format
@@ -60,7 +60,7 @@ msgstr ""
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Nombre invalide. Intervalle autorisé: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:110 src/templates/edit.mas:20
 msgid "Host name"
@@ -77,7 +77,7 @@ msgstr ""
 
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "Préférence"
 
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"

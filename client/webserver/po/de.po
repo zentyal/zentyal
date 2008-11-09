@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-05 01:46+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
@@ -102,6 +102,8 @@ msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Wenn Sie dieses Feld aktivieren ist es jedem Benutzer erlaubt eine Webseite "
+"in ihrem Home-Verzeichnis unter public_html zu haben"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
@@ -137,22 +139,21 @@ msgstr ""
 "unterschiedlichen virtuellen Servern zu speichern"
 
 #: src/EBox/WebServer.pm:97
-#, fuzzy
 msgid "To set webserver listening port"
-msgstr "Hört auf Port"
+msgstr "Um den lauschenden Port des Webservers zu setzen"
 
 #: src/EBox/WebServer.pm:102
 msgid "To configure the per-user public HTML directory"
 msgstr ""
+"Um die benutzerbezogenen öffentlichen HTML-Verzeichnisse zu konfigurieren"
 
 #: src/EBox/WebServer.pm:130
-#, fuzzy
 msgid "Enable apache LDAP user module"
-msgstr "Ein {dirName} pro Benutzer"
+msgstr "Aktiviere Apache LDAP Benutzer Modul"
 
 #: src/EBox/WebServer.pm:132
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Zum Abrufen der Home-Verzeichnisse vom LDAP"
 
 #: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
 msgid "Web"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2007-02-24 00:21+0100\n"
-"Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 14:45+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/HostnameTable.pm:133
 #, perl-brace-format
@@ -77,7 +77,7 @@ msgstr "Benutzerdefiniert"
 
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr "Nummer"
+msgstr "Präferenz"
 
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
@@ -91,13 +91,15 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"Die kleinste Nummer hat die höchste Priorität und ist der erste Server, der "
-"von Mailversendern angesprochen wird. Der erlaubte Bereich geht von {min} "
-"bis {max}."
+"Die kleinste Präferenz-Nummer hat die höchste Priorität.   Nach Abfrage des "
+"MX-Eintrages durch einen externen Mailversender (meist ein anderer "
+"Mailserver) ist dies der erste Server, an dem versucht wird die Nachricht "
+"zuzustellen. Der erlaubte Bereich geht von {min} bis {max}."
 
+# in german speaking countries 'mail exchanger' is rarely used. more common is 'MX', 'MX record' or 'MX Eintrag'.
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr "Mailserver Eintrag"
+msgstr "Mail-Exchanger (MX) Eintrag"
 
 #: src/EBox/Model/DomainTable.pm:65
 msgid "Domain"
@@ -105,7 +107,7 @@ msgstr "Domäne"
 
 #: src/EBox/Model/DomainTable.pm:82
 msgid "Mail Exchangers"
-msgstr "Mailserver"
+msgstr "Mail-Exchanger (MX)"
 
 #: src/EBox/Model/DomainTable.pm:92 src/EBox/Model/DomainTable.pm:98
 msgid "Domains"
@@ -128,6 +130,8 @@ msgstr "Dienst deaktiviert"
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
+"Ein Alias kann nicht der Hostname des Name-Server \"{ns}\" sein. Verwenden Sie "
+"stattdessen einen anderen Hostnamen"
 
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
@@ -136,7 +140,7 @@ msgstr ""
 "Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
 
 #: src/EBox/Model/AliasTable.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
 msgstr ""
 "Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
@@ -146,9 +150,8 @@ msgid "alias"
 msgstr "Alias"
 
 #: src/EBox/DNS.pm.in:53
-#, fuzzy
 msgid "Domain Name System"
-msgstr "Name der Domäne"
+msgstr "Domain Name System (DNS)"
 
 #: src/EBox/DNS.pm.in:90
 msgid "DNS Server"

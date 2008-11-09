@@ -9,13 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2007-08-19 14:49+0200\n"
-"Last-Translator: andy <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-06 00:37+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -50,11 +51,10 @@ msgstr ""
 "Computer hinzu, bevor Sie Regeln für diese Gruppe vergeben"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:343
-#, fuzzy
 msgid "If service is any, some source ordestination should be provided"
 msgstr ""
-"Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
-"angegeben werden"
+"Wenn alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel angegeben "
+"werden"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:478
 msgid "Service"
@@ -62,7 +62,7 @@ msgstr "Dienst"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
 msgid "Port based service"
-msgstr ""
+msgstr "Portbasierender Dienst"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 msgid "Source"
@@ -104,7 +104,7 @@ msgstr "Priorität"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Niedriegste Priorität: 7 Höchste Priorität: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #: src/EBox/TrafficShaping.pm:1548
@@ -121,6 +121,8 @@ msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
+"Beachten Sie, dass die Summe aller garantierten Bandbreiten nicht Ihre "
+"Gesamtbandbreite überschreiten kann. 0 bedeutet unbegrenzte Bandbreite."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
 #: src/EBox/TrafficShaping.pm:1549
@@ -130,6 +132,8 @@ msgstr "Maximale Bandbreite"
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
+"Netzwerkverkehr wird diese Grenze nicht überschreiten. 0 bedeutet "
+"unbegrenzte Bandbreite."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
@@ -137,14 +141,13 @@ msgid "Rules list for {printableIndex}"
 msgstr "Liste der Regeln für {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
-#, fuzzy
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
 "Achten Sie darauf, dass die Quelle und das Ziel richtig gesetzt werden. Wenn "
-"die Netzwerkkarte intern ist, kommt der Netzwerkverkehr vom Internet, für "
-"externe Netzwerkkarten ist es umgekehrt."
+"die Netzwerkkarte intern ist, kommt der Netzwerkverkehr vom Internet nach "
+"Intern, für externe Netzwerkkarten ist es umgekehrt."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
@@ -174,16 +177,20 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Portbasierende Protokolle benutzen die Portnummer um einen Dienst zu "
+"identifizieren. Im Gegensatz dazu überprüfen anwendungsbasierende Protokolle "
+"jedes Paket und ordnen es einem Dienst zu. Letzteres ist effektiver, aber "
+"auch langsamer."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:776
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:793
 msgid "Application based service"
-msgstr ""
+msgstr "Anwendungsbasierter Dienst"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:784
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:800
 msgid "Application based service group"
-msgstr ""
+msgstr "Anwendungsbasierter Dienste-Gruppe"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -307,17 +314,15 @@ msgstr ""
 
 #: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Um Pakete mit unterschiedlicher Priorität und Rate zu markieren"
 
 #: src/EBox/TrafficShaping.pm:138
-#, fuzzy
 msgid "Add tc rules"
-msgstr "Adresse"
+msgstr "Füge tc Regel hinzu"
 
 #: src/EBox/TrafficShaping.pm:139
-#, fuzzy
 msgid "To implement the traffic shaping rules"
-msgstr "Regeln für Bandbreitenbegrenzung"
+msgstr "Um Regeln für Bandbreitenbegrenzung einzurichten"
 
 #: src/EBox/TrafficShaping.pm:428
 #, perl-brace-format

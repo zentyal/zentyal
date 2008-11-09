@@ -13,13 +13,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2007-08-18 11:14+0200\n"
-"Last-Translator: andy <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-06 00:21+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -100,7 +101,6 @@ msgid "Free storage space"
 msgstr "Speicherplatz freigeben"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-#, fuzzy
 msgid "Check if any disk partition has no storage space left"
 msgstr ""
 "Überprüfen Sie, ob irgendeine Partition keinen Speicherplatz mehr frei hat"
@@ -146,7 +146,7 @@ msgstr "{operation} wird ausgeführt"
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr "Zu {per} fertig"
+msgstr "Zu {per} % fertig"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
@@ -207,9 +207,9 @@ msgid "RAID device {name} is performing operation {opName}"
 msgstr "Das RAID-Gerät {name} ist am {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr "Zustand: {percentage}% abgeschlosssen"
+msgstr "Status: {percentage} % abgeschlosssen"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
@@ -343,15 +343,15 @@ msgstr "Benachrichtigen, wenn ein Logger ({loggers}) etwas geloggt hat "
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Die folgenden Module sind nicht gestartet: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr "Dienste"
+msgstr "Dienst"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Überprüfen Sie, ob ein eBox-Dienst nicht läuft, obwohl er laufen sollte"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -380,19 +380,18 @@ msgid "Choose a value within the value set: {set}"
 msgstr "Wählen Sie einen Wert aus diesen aus: {set}"
 
 #: src/EBox/Types/Int.pm:139
-#, fuzzy
 msgid "Write down a number"
-msgstr "Geben Sie eine positive Zahl ein"
+msgstr "Tragen Sie ein Zahl ein"
 
 #: src/EBox/Types/Int.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr "muss grösser als Null sein"
+msgstr "Der Wert darf nicht größer sein als {m}"
 
 #: src/EBox/Types/Int.pm:156
 #, perl-brace-format
 msgid "The value shouldn't be lesser than {m}"
-msgstr ""
+msgstr "Der Wert darf nicht kleiner sein als {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
@@ -445,23 +444,20 @@ msgid "{model} in {module} module"
 msgstr "{model} im Modul {module}"
 
 #: src/EBox/Model/DataTable.pm:323
-#, fuzzy
 msgid "at"
-msgstr "um"
+msgstr "bei"
 
 #: src/EBox/Model/DataTable.pm:544
 msgid "field"
 msgstr "Feld"
 
 #: src/EBox/Model/DataTable.pm:1438
-#, fuzzy
 msgid "page"
 msgstr "Seite"
 
 #: src/EBox/Model/DataTable.pm:1441
-#, fuzzy
 msgid "Page must be a number equal or greater than zero"
-msgstr "muss grösser als Null sein"
+msgstr "Seite muss grösser oder gleich Null sein"
 
 #: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
@@ -475,14 +471,12 @@ msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "{num} Zeilen {rowName} von {model} entfernen{br}"
 
 #: src/EBox/Model/DataTable.pm:2674
-#, fuzzy
 msgid "Pagr size"
-msgstr "Seite"
+msgstr "Seitengröße"
 
 #: src/EBox/Model/DataTable.pm:2677
-#, fuzzy
 msgid "Must be either a positve number or zero"
-msgstr "Geben Sie eine positive Zahl ein"
+msgstr "Geben Sie eine positive Zahl oder Null ein"
 
 #: src/EBox/Model/DataTable.pm:2858
 #, perl-brace-format
@@ -516,17 +510,17 @@ msgid "Enabled"
 msgstr "Aktiviert"
 
 #: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Provided object with index {i} does not exist"
 msgstr "Das übergebene Objekt mit dem Index {i} existiert nicht"
 
 #: src/EBox/Model/ModelManager.pm:466
-#, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
-"Die Daten, welche Sie löschen möchten werden von folgenden Tabellen benutzt:"
+"Die Daten, welche Sie löschen möchten werden von folgenden Bereichen "
+"benutzt:"
 
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
@@ -723,9 +717,8 @@ msgid "Logs"
 msgstr "Logs"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module status configuration"
-msgstr "Einstellungen für Ereignisse"
+msgstr "Modul Status Einstellungen"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
@@ -765,28 +758,24 @@ msgid "Save configuration"
 msgstr "Konfiguration sichern"
 
 #: src/EBox/CGI/Finish.pm:76
-#, fuzzy
 msgid "Saving changes"
 msgstr "Änderungen speichern"
 
 #: src/EBox/CGI/Finish.pm:77
-#, fuzzy
 msgid "Saving changes in modules"
-msgstr "Module werden gesichert"
+msgstr "Änderungen in den Modulen werden gesichert"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
 msgid "Current operation"
 msgstr "Aktuelle Operation"
 
 #: src/EBox/CGI/Finish.pm:79
-#, fuzzy
 msgid "operations performed"
-msgstr "Geschwindigkeit"
+msgstr "Änderungen ausgeführt"
 
 #: src/EBox/CGI/Finish.pm:80
-#, fuzzy
 msgid "Changes saved"
-msgstr "Passwort ändern"
+msgstr "Änderungen gespeichert"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -794,31 +783,28 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Einige Module meldeten ein Fehler beim Sichern der Änderungen. Weitere "
+"Informationen finden Sie in den Logs in {dir}"
 
 #: src/EBox/CGI/Finish.pm:101
-#, fuzzy
 msgid "Revoking changes"
-msgstr "Änderungen speichern"
+msgstr "Änderungen rückgängig machen"
 
 #: src/EBox/CGI/Finish.pm:102
-#, fuzzy
 msgid "Revoking changes in modules"
-msgstr "Module werden wiederhergestellt"
+msgstr "Änderungen in den Modulen werden rückgängig gemacht"
 
 #: src/EBox/CGI/Finish.pm:103
-#, fuzzy
 msgid "Current module"
-msgstr "Aktuelles Passwort"
+msgstr "Aktuelles Modul"
 
 #: src/EBox/CGI/Finish.pm:104
-#, fuzzy
 msgid "modules revoked"
-msgstr "Module werden noch wiederhergestellt"
+msgstr "Module zurückgesetzt"
 
 #: src/EBox/CGI/Finish.pm:105
-#, fuzzy
 msgid "Changes revoked"
-msgstr "Passwort ändern"
+msgstr "Änderungen wurden rückgängig gemacht"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -826,6 +812,8 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Einige Module meldeten einen Fehler beim Verwerfen der Änderungen. "
+"Weiterführende Informationen finden Sie in den Logs in {dir}"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
 msgid ""
@@ -902,14 +890,12 @@ msgid "Purge logs older than"
 msgstr "Alle Logs löschen, die älter sind als"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
-#, fuzzy
 msgid "Current configuration"
-msgstr "Einstellungen für Ereignisse"
+msgstr "Derzeitige Einstellungen"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#, fuzzy
 msgid "Logs configuration"
-msgstr "Konfiguration sichern"
+msgstr "Einstellungen der Protokollierung "
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
@@ -932,9 +918,8 @@ msgid "Jabber server name"
 msgstr "Name des Jabber-Servers"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-#, fuzzy
 msgid "Jabber server to send the messages"
-msgstr "Name des Jabber-Servers"
+msgstr "Jabber-Server um Nachrichten zu senden"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
@@ -949,6 +934,8 @@ msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Jabber ID des Kontos, welches die Nachrichten verschickt. Hinweis: Verwenden "
+"Sie nur den Benutzernamen ohne die Domain (@domain)"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
@@ -962,6 +949,8 @@ msgstr "Einschreiben"
 msgid ""
 "Tick this option if  you want eBox to create an account for  the above user"
 msgstr ""
+"Markieren Sie diese Option wenn Sie wollen, dass eBox für den oben "
+"angeführten Benutzer einen Konto anlegt"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
@@ -974,6 +963,9 @@ msgid ""
 "eBox admin. Note that you need to register this  account manually in  any "
 "jabber server"
 msgstr ""
+"Jabber-Ziel-ID der Nachricht generiert von eBox, z.B. Sie, der eBox "
+"Administrator. Beachten Sie, dass Sie dieses Konto manuell bei einem "
+"beliebigen Jabber-Server anlegen müssen."
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
@@ -981,7 +973,7 @@ msgstr "Jabber-Verteiler konfigurieren"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send  events to an Jabber account"
-msgstr ""
+msgstr "Der Verteiler sendet Ereignisse an ein Jabber-Konto"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
@@ -1018,6 +1010,8 @@ msgstr "Erlaubte Leser"
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the  access control for the channel"
 msgstr ""
+"Benutzen Sie dieses Feld um die Zugriffskontrolle für die RSS-Datei zu "
+"setzen."
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
 msgid "Syndicate this RSS"
@@ -1075,6 +1069,8 @@ msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Falls der Anteil an freien Speicherplat einer partition unter diesen Wert "
+"ist, wird das Ereignis ausgelöst"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
 msgid "Configure disk free space watcher"
@@ -1208,22 +1204,22 @@ msgid "port"
 msgstr "Port"
 
 #: src/EBox/Global.pm:369 src/EBox/Global.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Saving {modName} module"
-msgstr "Module werden gesichert"
+msgstr "Modul {modName} wird gesichert"
 
 #: src/EBox/Global.pm:810
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "führe das Skript {scriptName} aus"
 
 #: src/EBox/Logs.pm:78
 msgid "Create logs database"
-msgstr ""
+msgstr "Erstelle Protokollierungs-Datenbank"
 
 #: src/EBox/Logs.pm:79
 msgid "eBox store its logs in the database"
-msgstr ""
+msgstr "eBox speichert die Protokolle in der Datenbank"
 
 #: src/EBox/Logs.pm:463
 #, perl-brace-format
@@ -1374,12 +1370,11 @@ msgstr ""
 #: src/EBox/Backup.pm:1133
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "Modul {m} wurde nicht in der Sicherung gefunden"
 
 #: src/EBox/Backup.pm:1162
-#, fuzzy
 msgid "No modules to restore"
-msgstr "Module werden noch wiederhergestellt"
+msgstr "Kein Modul zum Wiederherstellen"
 
 #: src/EBox/Backup.pm:1227
 #, perl-brace-format
@@ -1431,12 +1426,11 @@ msgstr "Systemlast"
 
 #: src/EBox/SysInfo.pm:120
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: src/EBox/SysInfo.pm:124
-#, fuzzy
 msgid "Module status"
-msgstr "Modul"
+msgstr "Modul Status"
 
 #: src/EBox/SysInfo.pm:133
 msgid "General"
@@ -1460,7 +1454,7 @@ msgstr "Passwort geändert"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
-msgstr "?Alle Häckchen"
+msgstr "Alle Häckchen"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
@@ -1636,7 +1630,7 @@ msgstr "Eingeben"
 
 #: src/templates/login/index.mas:42
 msgid "Created by <a href='http://www.warp.es'>Warp Networks</a>"
-msgstr ""
+msgstr "Entwickelt von <a href='http://www.warp.es'>Warp Networks</a>"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -1704,19 +1698,19 @@ msgstr "RAID 5"
 
 #: src/templates/report/raid.mas:84
 msgid "left-asymmetric"
-msgstr "?Links unsymetrisch"
+msgstr "links-asymmetrisch"
 
 #: src/templates/report/raid.mas:85
 msgid "right-asymmetric"
-msgstr "?Rechts unsymetrisch"
+msgstr "rechts-asymmetrisch"
 
 #: src/templates/report/raid.mas:86
 msgid "left-symmetric"
-msgstr "?Links symetrisch"
+msgstr "links-symmetrisch"
 
 #: src/templates/report/raid.mas:87
 msgid "right-symmetric"
-msgstr "?Rechts symetrisch"
+msgstr "rechts-symmetrisch"
 
 #: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
@@ -1724,7 +1718,7 @@ msgstr "Aktive RAID-Geräte"
 
 #: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
-msgstr "Benötigte aktive RAID-Geräte"
+msgstr "Benötige aktive RAID-Geräte"
 
 #: src/templates/report/raid.mas:134
 msgid "Size in blocks"
@@ -1811,14 +1805,13 @@ msgid "Restore mode"
 msgstr "Wiederherstellungsmodus"
 
 #: src/templates/moduleStatusTable.mas:59
-#, fuzzy
 msgid "Depends"
-msgstr "Ereignisse"
+msgstr "Abhängigkeiten"
 
 #: src/templates/moduleStatusTable.mas:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure module: {module}"
-msgstr "Unbekannter Widerherstellungsmodus: {mode}"
+msgstr "Bearbeite Modul: {module}"
 
 #: src/templates/password.mas:4
 msgid "Change password"
@@ -1850,7 +1843,7 @@ msgstr "verbleibende Dinge"
 
 #: src/templates/progress.mas:23
 msgid "Some error has happened in eBox: "
-msgstr ""
+msgstr "Es traten Fehler in eBox auf: "
 
 #: src/templates/progress.mas:38
 msgid "Starting..."
@@ -1871,6 +1864,9 @@ msgid ""
 "module status{closeref} section will be ignored in both backup and restore "
 "operations"
 msgstr ""
+"Module, welche noch nie im Bereich {openref}module status{closeref} "
+"aktiviert wurden, werden sowohl bei der Sicherung als auch beim "
+"Wiederherstellen ignoriert"
 
 #: src/templates/backup.mas:26
 msgid "Back up the current state"
@@ -1960,18 +1956,21 @@ msgid ""
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
+"Wenn Sie dieses Modul aktivieren wird eBox die unten aufgelisteten Aktionen "
+"und Dateiänderungen durchführen. Sie müssen diese Änderungen explizit "
+"erlauben um das Modul zu aktivieren."
 
 #: src/templates/configureView.mas:20
 msgid "Actions to perform by eBox"
-msgstr ""
+msgstr "Aktionen, welche eBox ausführen wird"
 
 #: src/templates/configureView.mas:35
 msgid "Files to modify by eBox"
-msgstr ""
+msgstr "Dateien, welche eBox ändern wird"
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
-msgstr ""
+msgstr "Bestätigen"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -1987,9 +1986,8 @@ msgid "Download bug report file"
 msgstr "Fehlermeldung herunterladen"
 
 #: src/templates/finish.mas:82
-#, fuzzy
 msgid "Warning"
-msgstr "Array wird synchronisiert"
+msgstr "Warnung"
 
 #: src/templates/finish.mas:96
 msgid ""
@@ -2044,20 +2042,20 @@ msgstr "Neu starten"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Möchten Sie diese Dateien überschreiben?"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "Behalte derzeitige Datei"
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: src/templates/footer.mas:6
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ebox} created by {warp}"
-msgstr "{ebox} wurde entwickelt von {warp} in Zusammenarbeit mit {dbs}"
+msgstr "{ebox} wurde entwickelt von {warp}"
 
 #~ msgid "Event configuration"
 #~ msgstr "Einstellungen für Ereignisse"
