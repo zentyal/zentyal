@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:33+0200\n"
-"PO-Revision-Date: 2007-09-03 17:18+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-05 14:50+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
@@ -38,15 +39,17 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Markieren Sie dieses Feld, wenn es derzeit einen Dienst auf diesem Computer "
+"gibt, der diesen Port benutzt. Dies hilft eBox beim Erkennen von Ports, "
+"welche schon benutzt sind"
 
 #: src/EBox/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "Konfiguration"
 
 #: src/EBox/Model/ServiceTable.pm:151
-#, fuzzy
 msgid "List of services"
-msgstr "eBox-Dienste"
+msgstr "Liste der Dienste"
 
 #: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
 msgid "Services"
@@ -62,6 +65,9 @@ msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Ein Dienst ist eine Abstraktion von einem oder mehreren Netzwerk-"
+"Protokollen, welche von anderen Modulen benutzt werden können, z.B. "
+"Firewall, Traffic shaping..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:111
 msgid "Protocol"
@@ -73,7 +79,7 @@ msgstr "Quellport"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:119
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Dieses Feld enthält normalerweise Jeder"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:123
 msgid "Destination port"

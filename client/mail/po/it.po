@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2007-04-09 15:24+0000\n"
-"Last-Translator: Andrea Fino <af@netzen.it>\n"
+"PO-Revision-Date: 2008-11-05 16:32+0000\n"
+"Last-Translator: Christian Merlin <nuandavr@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
@@ -120,7 +120,7 @@ msgstr "Configurazione mail dispatcher aggiornata"
 #: src/EBox/Mail/Model/SMTPAuth.pm:85
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
-msgstr ""
+msgstr "L'utente deve essere autenticato per spedire posta con questo server"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:93
 #, fuzzy
@@ -129,7 +129,7 @@ msgstr "Errore di autenticazione"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:123
 msgid "Cannot require authentication when TLS is inactive"
-msgstr ""
+msgstr "Non è possibile richiedere l'autenticazione quando il TLS è inattivo"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 #, fuzzy
@@ -139,7 +139,7 @@ msgstr "Oggetto"
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
 #, fuzzy
 msgid "Allow relay"
-msgstr "Permesso"
+msgstr "Permetti ritrasmissione"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:98
 msgid ""
@@ -154,11 +154,11 @@ msgstr "Politica di relay per gli oggetti"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:119
 msgid "object's relay policy"
-msgstr ""
+msgstr "policy di ritrasmissione degli oggetti"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "Here you can allow mail relay per network object"
-msgstr ""
+msgstr "Quì puoi permettere la ritrasmissione della posta per oggetto di rete"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
@@ -172,12 +172,12 @@ msgstr "Porta forwars mail"
 #: src/EBox/Mail/Model/ExternalFilter.pm:100
 #, fuzzy
 msgid "Custom filter's IP address"
-msgstr "Indirizzo IP del filtro"
+msgstr "Indirizzo IP del filtro personalizzato"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:106
 #, fuzzy
 msgid "Custom filter's Port"
-msgstr "Porta del filtro"
+msgstr "Porta del filtro personalizzato"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:115
 #, fuzzy
@@ -209,7 +209,7 @@ msgstr "Dimensione illimitata"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:97
 msgid "size in Mb"
-msgstr ""
+msgstr "dimensione in Mb"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:110
 #, fuzzy
@@ -264,7 +264,7 @@ msgstr "Impostazioni del servizio di posta"
 
 #: src/EBox/MailVDomainsLdap.pm:332
 msgid "Size quota"
-msgstr ""
+msgstr "Dimensione della quota"
 
 #: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
 #: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
@@ -306,59 +306,59 @@ msgstr "Crea un alias di posta"
 
 #: src/EBox/Mail.pm:109
 msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-msgstr ""
+msgstr "eBox eseguirà /usr/sbin/postalias /etc/aliases"
 
 #: src/EBox/Mail.pm:113
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Aggiungi schemi LDAP"
 
 #: src/EBox/Mail.pm:115
 msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
-msgstr ""
+msgstr "eBox aggiungerà due schemi LDAP: authldap.schema e eboximail.schema."
 
 #: src/EBox/Mail.pm:132
 msgid "To configure postfix"
-msgstr ""
+msgstr "Per configurare postfix"
 
 #: src/EBox/Mail.pm:138
 msgid "To define how client programs connect to services in  postfix"
-msgstr ""
+msgstr "Per configurare come i client si connettono ai servizi in postfix"
 
 #: src/EBox/Mail.pm:146
 msgid "To configure courier to authenticate against LDAP"
-msgstr ""
+msgstr "Per configurare courier di autenticarsi per mezzo di LDAP"
 
 #: src/EBox/Mail.pm:151
 msgid "To let courier know how to access LDAP"
-msgstr ""
+msgstr "Per far sapere a courier come accedere a LDAP"
 
 #: src/EBox/Mail.pm:156
 msgid "To configure courier POP3"
-msgstr ""
+msgstr "Per configurare il servizio POP3 di courier"
 
 #: src/EBox/Mail.pm:161
 msgid "To configure POP3 with SSL support"
-msgstr ""
+msgstr "Per configurare POP3 con supporto SSL"
 
 #: src/EBox/Mail.pm:166
 msgid "To configure IMAP"
-msgstr ""
+msgstr "Per configurare IMAP"
 
 #: src/EBox/Mail.pm:171
 msgid "To configure IMAP with SSL support"
-msgstr ""
+msgstr "Per configurare IMAP con supporto SSL"
 
 #: src/EBox/Mail.pm:177 src/EBox/Mail.pm:183
 msgid "To configure saslauthd to authenticate against LDAP "
-msgstr ""
+msgstr "Per configurare saslauthd per autenticarsi attraverso LDAP"
 
 #: src/EBox/Mail.pm:188
 msgid "To configure saslauthd to use LDAP"
-msgstr ""
+msgstr "Per configurare saslauthd per usare LDAP"
 
 #: src/EBox/Mail.pm:193
 msgid "To add the LDAP schemas used by eBox mail"
-msgstr ""
+msgstr "Per aggiungere gli schemi LDAP usati da eBox mail"
 
 #: src/EBox/Mail.pm:515
 msgid "Cannot change this parameter for a non-custom filter"
@@ -369,7 +369,8 @@ msgstr ""
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
-"Il filtro mail non esiste. Prego imposta un altro filtro mail o disattivalo"
+"Il filtro mail non esiste. Prego impostare un altro filtro mail o "
+"disattivalo"
 
 #: src/EBox/Mail.pm:558
 #, fuzzy
@@ -377,7 +378,8 @@ msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"Il filtro mail non esiste. Prego imposta un altro filtro mail o disattivalo"
+"Il filtro mail non esiste. Prego impostare un altro filtro mail o "
+"disattivalo"
 
 #: src/EBox/Mail.pm:995
 msgid "Mail services"
@@ -389,7 +391,7 @@ msgstr "POP3 servizio"
 
 #: src/EBox/Mail.pm:1004
 msgid "IMAP service"
-msgstr "IMAP servizio"
+msgstr "servizio IMAP"
 
 #: src/EBox/Mail.pm:1024
 msgid "enabled"

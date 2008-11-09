@@ -14,13 +14,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2007-08-19 12:32+0200\n"
-"Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 13:40+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
@@ -82,18 +83,16 @@ msgstr ""
 "Informationen finden Sie in den Logdateien"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
-#, fuzzy
 msgid "Removing package"
-msgstr "Pakete werden aktualisiert"
+msgstr "Entferne Paket"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Entferne das ausgewählte Paket und abhängige Pakete"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "packages left to remove"
-msgstr "Pakete, die noch installiert werden müssen"
+msgstr "Pakete, die noch enfernt werden müssen"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -101,12 +100,17 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Die Paket-Entfernung wurde erfolgreich beendet. Die Administrations-"
+"Oberfläche könnte für ein paar Sekunden nicht reagieren. Bitte warten Sie "
+"bis das System komplett neugestartet hat."
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Die Paket-Entfernung wurde nicht erfolgreich beendet. Weitere Informationen "
+"in den Logs"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
@@ -114,13 +118,15 @@ msgstr "eBox-Komponenten"
 
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Aktiviere cron-Skript um Updates herunterzuladen"
 
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"eBox wird nun verfügbare Updates von den von Ihnen eingestellten apt-Quellen "
+"herunterladen."
 
 #: src/EBox/Software.pm:457
 msgid "Software management"
@@ -139,128 +145,108 @@ msgstr ""
 "Sie es später nochmals"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "Zertifizierungsstelle"
+msgstr "eBox - Zertifizierungsstellen-Manager für eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
 msgid "eBox - DHCP server module"
-msgstr "DNS-Server"
+msgstr "eBox - DHCP-Server Modul"
 
 #: src/EBox/PackageDescriptions.pm:3
-#, fuzzy
 msgid "eBox - DNS server"
-msgstr "DNS-Server"
+msgstr "eBox - DNS-Server"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "eBox-Plattform - Basisframework"
 
 #: src/EBox/PackageDescriptions.pm:5
-#, fuzzy
 msgid "eBox - Firewall"
-msgstr "Firewall"
+msgstr "eBox - Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
 msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
-#, fuzzy
 msgid "eBox - Instant messaging (Jabber)"
-msgstr "Chat (Jabber)"
+msgstr "eBox - Instant Messenger (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - Layer 7 Protokolle"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - Mail server"
-msgstr "Mailserver"
+msgstr "eBox - Mailserver"
 
 #: src/EBox/PackageDescriptions.pm:10
-#, fuzzy
 msgid "eBox - Mail filter module"
-msgstr "Mail-Filter Modul"
+msgstr "eBox - Mail-Filter Modul"
 
 #: src/EBox/PackageDescriptions.pm:11
-#, fuzzy
 msgid "eBox - Network configuration module"
-msgstr "Netzwerkkonfiguration"
+msgstr "eBox - Netzwerkkonfiguration Modul"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "eBox - NTP server"
-msgstr "DNS-Server"
+msgstr "eBox - NTP-Server (Zeitserver)"
 
 #: src/EBox/PackageDescriptions.pm:13
-#, fuzzy
 msgid "eBox - Object management"
-msgstr "Objektverwaltung"
+msgstr "eBox - Objektverwaltung"
 
 #: src/EBox/PackageDescriptions.pm:14
-#, fuzzy
 msgid "eBox - OpenVPN server module"
-msgstr "OpenVPN-Server"
+msgstr "eBox - OpenVPN-Server Modul"
 
 #: src/EBox/PackageDescriptions.pm:15
-#, fuzzy
 msgid "eBox - Printer sharing"
-msgstr "Druckerfreigabe"
+msgstr "eBox - Druckerfreigabe"
 
 #: src/EBox/PackageDescriptions.pm:16
-#, fuzzy
 msgid "eBox - File sharing"
-msgstr "Dateifreigabe"
+msgstr "eBox - Dateifreigabe"
 
 #: src/EBox/PackageDescriptions.pm:17
-#, fuzzy
 msgid "eBox - Services management"
-msgstr "Dienste verwalten"
+msgstr "eBox - Diensteverwaltung"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "SOAP server to communicate with eBox control center"
 msgstr "SOAP-Server, der mit dem eBox-Kontrollzentrum kommunizieren darf"
 
 #: src/EBox/PackageDescriptions.pm:19
-#, fuzzy
 msgid "eBox - Software management"
-msgstr "Softwareverwaltung"
+msgstr "eBox - Softwareverwaltung"
 
 #: src/EBox/PackageDescriptions.pm:20
-#, fuzzy
 msgid "eBox - Proxy cache and content filter"
-msgstr "HTTP-Proxy und -Filter"
+msgstr "eBox - HTTP-Proxy und Inhaltsfilter"
 
 #: src/EBox/PackageDescriptions.pm:21
-#, fuzzy
 msgid "eBox - Traffic shaper for eBox"
-msgstr "Bandbreitennutzung für eBox"
+msgstr "eBox - Bandbreitenbegrenzung für eBox"
 
 #: src/EBox/PackageDescriptions.pm:22
-#, fuzzy
 msgid "eBox - User and Group management"
-msgstr "Benutzer- und Gruppenverwaltung"
+msgstr "eBox - Benutzer- und Gruppenverwaltung"
 
 #: src/EBox/PackageDescriptions.pm:23
-#, fuzzy
 msgid "eBox - Web Server"
-msgstr "Webserver"
+msgstr "eBox - Webserver"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP Software"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "Software-Dienst um Pakete via apt zu aktualisieren"
 
 #: migration/0001_add_http_software_rule.pl:45
-#, fuzzy
 msgid "rule to allow apt updates"
-msgstr "Automatische Softwareaktualisierungen"
+msgstr "Regel, welche apt-Aktualisierungen erlaubt"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"

@@ -14,13 +14,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2007-08-19 14:56+0200\n"
-"Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 08:21+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Object"
@@ -37,7 +38,7 @@ msgstr "Vorgehen für Computergruppen konfigurieren"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:105
 msgid "List of objects"
-msgstr ""
+msgstr "Objektliste"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "object's policy"
@@ -79,6 +80,7 @@ msgstr "Alle {elements} erlauben"
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
 msgid "Use this field to change the value of  all the above rows at once"
 msgstr ""
+"Benutzen Sie dieses Feld um den Wert aller darüberliegenden Reihen zu ändern"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Threshold"
@@ -118,7 +120,7 @@ msgstr "Sehr streng"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:114
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Dies legt fest wie streng der Inhalts-Filter ist."
 
 #: src/EBox/Squid/Model/DomainFilter.pm:91
 #: src/EBox/Squid/Model/DomainFilter.pm:143
@@ -219,6 +221,8 @@ msgid ""
 "If this is enabled, any domain which is not allowed in the <i>Domains list</"
 "i> section below will be forbidden."
 msgstr ""
+"Wenn dies aktiviert ist, wird jede Domain, welche nicht in der unten "
+"angeführten  <i>Domain-Liste</i> erlaubt ist, gesperrt."
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:100
 msgid "Block sites specified only as IP"
@@ -262,12 +266,18 @@ msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
+"<i>Filter</i> bedeutet, dass HTTP-Anfragen durch den Inhaltsfilter "
+"durchgehen und unter Umständen geblockt werden, falls der Inhalt nicht "
+"zulässig ist."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:156
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Beachten Sie, dass HTTPS-Verbindungen nicht transparent über den Proxy "
+"verarbeitet werden können. Sie benötigen dafür eine zusätzliche Firewall-"
+"Regel, falls die diese Option aktivieren wollen."
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
 msgid "extensions"

@@ -13,13 +13,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2007-08-19 14:51+0200\n"
-"Last-Translator: andy <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 08:33+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:389
@@ -47,6 +48,9 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"Eingehende Schnittstelle, an der die Pakete überprüft werden. Wenn Sie ein "
+"ganzes Subnetz überprüfen wollen wählen Sie die Netzwerkschnittstelle dieses "
+"Subnetzes aus"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:109
 #: src/EBox/Model/ByteRateGraphControl.pm:111
@@ -73,7 +77,7 @@ msgstr "Port"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr ""
+msgstr "Leer lassen um alle Ports auszuwählen"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
 msgid "Destination"
@@ -87,9 +91,10 @@ msgstr "Ziel-IP"
 msgid "Destination object"
 msgstr "Ziel: Computergruppe"
 
+# i'm not sure if 'if' in the english text is correct.
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr ""
+msgstr "Lassen Sie diese Feld leer um alle Ports auszuwählen"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:174
 #: src/EBox/Model/StaticRoute.pm:148
@@ -98,7 +103,7 @@ msgstr "Gateway"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
-msgstr ""
+msgstr "Gateway zum Routen von Paketen, welche dieser Regel entsprechen"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
 msgid "Multigateway rules"
@@ -160,26 +165,27 @@ msgstr "Netzwerkkarte"
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
 msgstr ""
+"IP-Adresse des DNS-Servers, welchen eBox zur Auflösung von Namen verwenden "
+"soll"
 
+# there's no german expression for 'name server'
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Name server"
-msgstr "Aktive Dienste"
+msgstr "Name Server"
 
+# there's no german expression for 'name server' and 'resolver'
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Name server resolver list"
-msgstr "Aktive Dienste"
+msgstr "Name Server Resolver Liste"
 
+# there's no german expression for 'name server' and 'resolver'
 #: src/EBox/Model/DNSResolver.pm:94
-#, fuzzy
 msgid "Name server resolver"
-msgstr "Aktive Dienste"
+msgstr "Name Server Resolver"
 
 #: src/EBox/Model/DNSResolver.pm:100
-#, fuzzy
 msgid "name server"
-msgstr "Nameserver konfigurieren"
+msgstr "Name-Server"
 
 #: src/EBox/Model/DNSResolver.pm:112
 msgid ""
@@ -187,6 +193,10 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+"<p>Hier können Sie den Name-Server Resolver, welchen eBox verwenden wird, "
+"angeben.</p><p>Beachten Sie, dass diese Einstellungen unter Umständen nicht "
+"berücksichtigt werden, falls eine Netzwerkschnittstelle via DHCP "
+"konfiguriert wird</p>"
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -194,13 +204,13 @@ msgid "Network"
 msgstr "Netzwerk"
 
 #: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
 msgid "IP or network address"
-msgstr "Adresse des Netzwerks"
+msgstr "IP oder Netzwerkadresse"
 
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
 msgstr ""
+"Gateway, welches benutzt wird um das oben genannte Netzwerk zu erreichen"
 
 #: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:149
 msgid "Description"
@@ -208,28 +218,25 @@ msgstr "Beschreibung"
 
 #: src/EBox/Model/StaticRoute.pm:158
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Optionale Beschreibung für diese Route"
 
 #: src/EBox/Model/StaticRoute.pm:164
 msgid "Static routes"
 msgstr "Statisches Routing"
 
 #: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
 msgid "Static route list"
-msgstr "Statisches Routing"
+msgstr "Statisches Routing-Liste"
 
 #: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
-"Alle Router, die Sie hier eingeben müssen durch eine der konfigurierten "
+"Alle Gateways, die Sie hier eingeben, müssen durch eine der konfigurierten "
 "Netzwerkkarten erreichbar sein"
 
 #: src/EBox/Model/StaticRoute.pm:173
-#, fuzzy
 msgid "static route"
 msgstr "Statisches Routing"
 
@@ -258,17 +265,17 @@ msgid "IP Address"
 msgstr "IP-Adresse"
 
 #: src/EBox/Model/GatewayTable.pm:99
-#, fuzzy
 msgid "Interface connected to this gateway"
-msgstr "Netzwerkkarte zum Entgegennehmen der Anfragen"
+msgstr "Netzwerkkarte, welche mit diesem Gateway verbunden ist"
 
 #: src/EBox/Model/GatewayTable.pm:103
 msgid "Upload"
 msgstr "Upload"
 
+# there's no german expression for 'Upload'
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Upload-Geschwindigkeit in Kbit/s für dieses Gateway"
 
 #: src/EBox/Model/GatewayTable.pm:112
 msgid "Download"
@@ -276,7 +283,7 @@ msgstr "Download"
 
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Download-Geschwindigkeit in Kbit/s für dieses Gateway"
 
 #: src/EBox/Model/GatewayTable.pm:120
 msgid "Weight"
@@ -287,6 +294,8 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Diese Feld ist nur sinnvoll, wenn Sie mehr als einen Router haben und  das "
+"Netzwerklastenausgleichs-Feature aktiviert ist."
 
 #: src/EBox/Model/GatewayTable.pm:130
 msgid "Default"
@@ -381,7 +390,7 @@ msgstr "{iface} (externe Netzwerkkarte)"
 
 #: src/EBox/Model/ByteRateSettings.pm:129
 msgid "all"
-msgstr "Alle"
+msgstr "alle"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -581,7 +590,7 @@ msgstr "Netzwerkverkehr für"
 
 #: src/EBox/Network/Report/ByteRate.pm:995
 msgid "all services"
-msgstr "Alle Dienste"
+msgstr "alle Dienste"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
@@ -629,13 +638,15 @@ msgstr "Gateway {gw} ist nicht erreichbar"
 
 #: src/EBox/Network.pm:84
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "Hinzufügen einer Standard-Routers zu Standard-Tabelle"
 
 #: src/EBox/Network.pm:85
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Dies wird für eine Multigateway-Konfiguration benötigt. Beachten Sie, dass "
+"Sie zum Auflisten der Standard-Routen folgendes ausführen müssen:  "
 
 #: src/EBox/Network.pm:91
 msgid "Enable eBox DHCP hook"
@@ -646,10 +657,13 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Es wird darauf Acht gegeben, dass eine Standard-Route, welche von einem "
+"DHCP-Server zur Verfügung gestellt wurde, in der Standard-Routing-Tabelle "
+"hinzugefügt wird.  "
 
 #: src/EBox/Network.pm:108
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "eBox wird Ihre Netzwerk-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:696 src/EBox/Network.pm:700
 msgid "Virtual interface name"
@@ -691,7 +705,7 @@ msgstr ""
 "wirklich machen möchten"
 
 #: src/EBox/Network.pm:2270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
@@ -761,14 +775,13 @@ msgid "Output"
 msgstr "Ausgabe"
 
 #: src/templates/gwrules.mas:19
-#, fuzzy
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
-"Um diese Funktion verwenden zu können, müssen Sie mindestens zwei Gateways "
-"konfiguriert haben. Sie können diese <a href=\"/ebox/Network/View/"
-"GatewayDataTable\">hier</a> hinzufügen"
+"Um diese Funktion verwenden zu können, müssen Sie zumindest zwei Gateways "
+"konfiguriert haben. Sie können diese <a "
+"href=\"/ebox/Network/View/GatewayDataTable\">hier</a> hinzufügen"
 
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"

@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:33+0200\n"
-"PO-Revision-Date: 2007-06-06 09:39+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-06 13:18+0000\n"
+"Last-Translator: Patrick Djärv <temp@djarv.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 msgid "Upload configuration's bundle"
@@ -90,23 +91,23 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Servers.pm:60 src/EBox/OpenVPN/Server.pm:694
 #: src/EBox/OpenVPN/Client.pm:313
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiv"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 #: src/EBox/OpenVPN/Model/Clients.pm:60 src/templates/index.mas:35
 #: src/templates/index.mas:80
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 msgid "Download client bundle"
-msgstr ""
+msgstr "Ladda ner klientinställningar"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -182,7 +183,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:85
 msgid "Server certificate"
-msgstr ""
+msgstr "Servercertifikat"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:92
 #: src/templates/serverProperties.mas:24
@@ -256,12 +257,12 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:360
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Interface {iface} existerar ej"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:365
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Interface {iface} är ej konfigurerat"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:383
 msgid ""
@@ -295,11 +296,11 @@ msgstr "Klient"
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 #: src/templates/clientBundle.mas:61
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Inkludera OpenVPN's installationsprogram"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "OpenVPN installationsprogram för Microsoft Windows"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
 #, fuzzy
@@ -376,7 +377,7 @@ msgstr ""
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
 #: src/templates/serverProperties.mas:21
 msgid "disabled"
-msgstr ""
+msgstr "inaktiv"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"
@@ -487,7 +488,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:694 src/EBox/OpenVPN/Client.pm:313
 msgid "Disabled"
-msgstr ""
+msgstr "Inaktiv"
 
 #: src/EBox/OpenVPN/Server.pm:697 src/EBox/OpenVPN/Client.pm:316
 msgid "Running"
@@ -495,7 +496,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:697 src/EBox/OpenVPN/Client.pm:316
 msgid "Stopped"
-msgstr ""
+msgstr "Stoppad"
 
 #: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:317
 msgid "Daemon status"
@@ -511,7 +512,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:707 src/templates/serverProperties.mas:51
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/OpenVPN/Server.pm:710
 msgid "VPN subnet"
@@ -600,7 +601,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN.pm:1427 src/templates/index.mas:22
 msgid "Clients"
-msgstr ""
+msgstr "Klienter"
 
 #: src/EBox/OpenVPN.pm:1444
 msgid "OpenVPN daemons"
@@ -612,7 +613,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN.pm:1523
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/OpenVPN.pm:1524
 msgid "Event"
@@ -620,7 +621,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN.pm:1526
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/OpenVPN.pm:1527
 msgid "Remote IP"
@@ -691,7 +692,7 @@ msgstr ""
 
 #: src/templates/createClient.mas:49
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #: src/templates/createClient.mas:52
 msgid "OpenVPN client creation"
@@ -730,11 +731,11 @@ msgstr ""
 #: src/templates/delete.mas:28 src/templates/edit.mas:57
 #: src/templates/index.mas:36 src/templates/index.mas:81
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/delete.mas:31
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/templates/create.mas:19
 msgid "OpenVPN server creation"
@@ -742,7 +743,7 @@ msgstr ""
 
 #: src/templates/serverProperties.mas:15
 msgid "Certificate"
-msgstr ""
+msgstr "Certifikat"
 
 #: src/templates/serverProperties.mas:18
 msgid "This certificate will be used by the server to authenticate itself"
@@ -761,7 +762,7 @@ msgstr ""
 
 #: src/templates/serverProperties.mas:50
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: src/templates/serverProperties.mas:52
 msgid "VPN network address"
@@ -773,7 +774,7 @@ msgstr ""
 
 #: src/templates/serverProperties.mas:54
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/templates/serverProperties.mas:74
 msgid "Allow clients to connect each other within the VPN"
@@ -820,7 +821,7 @@ msgstr ""
 
 #: src/templates/editClient.mas:17
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/editClient.mas:20
 #, perl-brace-format
@@ -858,11 +859,11 @@ msgstr ""
 
 #: src/templates/edit.mas:88
 msgid "Network"
-msgstr ""
+msgstr "Nätverk"
 
 #: src/templates/edit.mas:90 src/templates/edit.mas:93
 msgid "Add network"
-msgstr ""
+msgstr "Lägg till nätverk"
 
 #: src/templates/index.mas:35 src/templates/index.mas:80
 msgid "Actions"
@@ -870,7 +871,7 @@ msgstr ""
 
 #: src/templates/index.mas:38 src/templates/index.mas:83
 msgid "Edit"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/index.mas:40
 msgid "Download client's file bundle"
@@ -878,19 +879,19 @@ msgstr ""
 
 #: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Create new server"
-msgstr ""
+msgstr "Skapa ny server"
 
 #: src/templates/index.mas:107 src/templates/index.mas:108
 msgid "Create new client"
-msgstr ""
+msgstr "Skapa ny klient"
 
 #: src/templates/index.mas:119
 msgid "edit"
-msgstr ""
+msgstr "ändra"
 
 #: src/templates/index.mas:123
 msgid "delete"
-msgstr ""
+msgstr "ta bort"
 
 #: src/templates/clientBundle.mas:17
 msgid ""
@@ -948,7 +949,7 @@ msgstr ""
 
 #: src/templates/clientProperties.mas:76
 msgid "Client name"
-msgstr ""
+msgstr "Klientnamn"
 
 #~ msgid "Client"
 #~ msgstr "Klient"

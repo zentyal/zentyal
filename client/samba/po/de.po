@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:33+0200\n"
-"PO-Revision-Date: 2007-03-04 20:27+0100\n"
-"Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2008-11-05 15:16+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -61,59 +61,58 @@ msgstr "Speicherlimite für Benutzer"
 
 #: src/EBox/CGI/SambaConf.pm:47
 msgid "roaming profiles"
-msgstr ""
+msgstr "Benutzerprofile am Server speichern"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
-#, fuzzy
 msgid "Share name"
-msgstr "Name der Freigabe"
+msgstr "Freigabename"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr ""
+msgstr "Freigabepfad"
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
-#, fuzzy
 msgid "Directory under eBox"
-msgstr "Ordnername"
+msgstr "Verzeichnis in eBox"
 
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
-msgstr ""
+msgstr "Dateisystem-Pfad"
 
 #: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
-msgstr ""
+msgstr "Zugriffskontrolle"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "List of samba shares"
-msgstr ""
+msgstr "Liste der Samba-Freigaben"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Samba shares"
-msgstr ""
+msgstr "Samba-Freigaben"
 
 #: src/EBox/Samba/Model/SambaShares.pm:147
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:129
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr ""
+msgstr "Freigabe"
 
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
-msgstr ""
+msgstr "Pfad nicht erlaubt"
 
 #: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Es sind nur alphanumerische Zeichen und _ für Pfade erlaubt"
 
 #: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
+"Das Verzeichnis ist nicht leer. Sind Sie sicher, dass Sie es löschen wollen?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:276
 msgid ""
@@ -121,146 +120,160 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
+"<i>Verzeichnis in eBox</i> wird automatisch das Freigabe-Verzeichnis in "
+"/home/samba/shares erstellen<br><i>Dateisystempfad</i> erlaubt es Ihnen ein "
+"bestehendes Verzeichnis in Ihrem Dateisystem freizugeben."
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
+"Hier können Sie Freigaben mit weitaus differenzierteren Berechtigugnen "
+"anlegen. Sie können ein schon angelegtes Verzeichnis verwenden oder einen "
+"Namen auswählen und eBox erstellt es für Sie."
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
-msgstr ""
+msgstr "Pfad"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:122
 msgid "Deleted Samba shares"
-msgstr ""
+msgstr "Lösche Samba-Freigabe"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:128
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:152
 msgid "Todo"
-msgstr ""
+msgstr "Todo"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
-msgstr ""
+msgstr "Nur Lesen"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:95
 msgid "Read and write"
-msgstr ""
+msgstr "Lesen und Schreiben"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:99
-#, fuzzy
 msgid "Administrator"
-msgstr "Administrationsrechte"
+msgstr "Administrator"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:120
 msgid "User/Group"
-msgstr ""
+msgstr "Benutzer/Gruppe"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:125
-#, fuzzy
 msgid "User"
 msgstr "Benutzer"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:130
-#, fuzzy
 msgid "Group"
 msgstr "Gruppe"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
-msgstr ""
+msgstr "Berechtigungen"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Samba share configuration"
-msgstr ""
+msgstr "Samba-Freigaben Konfiguration"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:180
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
 msgstr ""
+"Seien Sie vorsichtig beim Vergeben von <i>Administrator</i> Privilegien. "
+"Benutzer sind dann in der Lage jede Datei in der Freigabe zu lesen und zu "
+"schreiben"
 
 #: src/EBox/Samba.pm:75
-#, fuzzy
 msgid "file sharing"
 msgstr "Dateifreigabe"
 
 #: src/EBox/Samba.pm:95
-#, fuzzy
 msgid "Create Samba home directory for users and groups"
-msgstr "Freigegebener Ordner für diese Gruppe"
+msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 
 #: src/EBox/Samba.pm:96
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
+"eBox wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter "
+"/home/samba erstellen."
 
 #: src/EBox/Samba.pm:101
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Füge LDAP Shemas hinzu"
 
 #: src/EBox/Samba.pm:102
 msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
-msgstr ""
+msgstr "eBox wird zwei LDAP Schemas hinzufügen: samba.schema und ebox.schema"
 
+# not sure what 'dn' means
 #: src/EBox/Samba.pm:107 src/EBox/Samba.pm:113
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Setze das Passwort der DN LDAP-admin"
 
+# not sure what 'dn' means
 #: src/EBox/Samba.pm:108 src/EBox/Samba.pm:114
 msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr ""
+"ebox wird Samba so konfigurieren, dass es Passwort der DN \"LDAP admin\"  "
+"verwendet"
 
 #: src/EBox/Samba.pm:130
 msgid "To set up Samba according to your configuration"
-msgstr ""
+msgstr "Um Samba gemäß Ihrer Konfiguration einzurichten"
 
 #: src/EBox/Samba.pm:135
 msgid "To set up smbldap-tools according to your configuration"
-msgstr ""
+msgstr "Um smbldap-tools gemäß Ihrer Konfiguration einzurichten"
 
 #: src/EBox/Samba.pm:141
 msgid "To set up smbldap-tools according to your LDAP configuration"
-msgstr ""
+msgstr "Um smbldap-tools gemäß Ihrer LDAP-Konfiguration einzurichten"
 
 #: src/EBox/Samba.pm:147
 msgid "To add two new schemas and the set ACLs"
-msgstr ""
+msgstr "Um zwei neue Schemas hinzuzufügen und um die ACL's zu setzen"
 
 #: src/EBox/Samba.pm:152
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"Um NSS so einzurichten, das es die Benutzer- und Gruppenrichtlinien von LDAP "
+"verwendet. Dies wird benötigt, falls Samba als primärer Domänencontroller "
+"(PDC) konfiguriert wird."
 
 #: src/EBox/Samba.pm:158
 msgid "To let NSS know how to access LDAP accounts"
-msgstr ""
+msgstr "Um NSS mitzuteilen, wie es auf LDAP-Konten zugreift"
 
 #: src/EBox/Samba.pm:163
 msgid ""
 "To copy LDAP admin password generated by eBox and allow NSS to access LDAP"
 msgstr ""
+"Um das LDAP admin-Passwort, welches von eBox erstellt wurde zu kopieren und "
+"NSS zu erlauben, dass es auf LDAP zugreifen kann"
 
 #: src/EBox/Samba.pm:169
 msgid "To add quota support to /home partition"
-msgstr ""
+msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen"
 
 #: src/EBox/Samba.pm:545
-#, fuzzy
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
 #: src/EBox/Samba.pm:548
 msgid "Shares"
-msgstr ""
+msgstr "Freigabe"
 
 #: src/EBox/Samba.pm:819
 msgid "quota"
-msgstr "Speicherlimite"
+msgstr "Speicherlimit"
 
 #: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1122
 msgid "user"
@@ -283,39 +296,39 @@ msgid "Group's files"
 msgstr "Dateien der Gruppe"
 
 #: src/EBox/SambaLdapUser.pm:287
-#, fuzzy
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Dieser Benutzer hat eine Freigabe zugeordnet, welche Daten enthält"
 
 #: src/EBox/SambaLdapUser.pm:351
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Ungültige SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:355
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Benutzer {u} existiert nicht"
 
 #: src/EBox/SambaLdapUser.pm:359
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Benutzer {u} ist kein Samba-Benutzer"
 
+# original has typo: incoorect --> incorrect
 #: src/EBox/SambaLdapUser.pm:369
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
-msgstr ""
+msgstr "Ungültige SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:373
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Gruppe {g} existiert nicht"
 
 #: src/EBox/SambaLdapUser.pm:377
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Gruppe {g} ist keine Samba-Gruppe"
 
 #: src/EBox/SambaLdapUser.pm:424
 msgid "This group has a sharing directory associatedwhich conatins data"
@@ -324,7 +337,7 @@ msgstr "Diese Gruppe hat eine Freigabe zugeordnet, welche Daten enthält"
 #: src/EBox/SambaLdapUser.pm:683
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "Gruppe {g} existiert nicht"
 
 #: src/EBox/SambaLdapUser.pm:802
 msgid "A name should be provided for the share"
@@ -335,9 +348,8 @@ msgid "sharing resource"
 msgstr "Ressource freigegeben"
 
 #: migration/0001_add_samba_service.pl:113
-#, fuzzy
 msgid "File sharing (Samba) protocol"
-msgstr "Dateifreigabe-Modul"
+msgstr "Dateifreigabe-Protokoll (Samba)"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -486,7 +498,7 @@ msgstr "Speicherlimit"
 
 #: src/templates/index.mas:77
 msgid "Roaming profiles"
-msgstr ""
+msgstr "Servergespeicherte Profile"
 
 #: stubs/smb.conf.mas:97
 msgid "Home Directories"
@@ -495,7 +507,7 @@ msgstr "Eigener Ordner"
 #: stubs/smb.conf.mas:104
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "{group} Freigabe-Verzeichnis"
 
 #~ msgid "listening port"
 #~ msgstr "Auf diesen Port hören"
