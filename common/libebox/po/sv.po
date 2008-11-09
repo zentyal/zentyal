@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2007-06-06 09:36+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-06 13:24+0000\n"
+"Last-Translator: Patrick Djärv <temp@djarv.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
@@ -155,7 +156,7 @@ msgstr ""
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
