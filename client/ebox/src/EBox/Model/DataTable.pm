@@ -2671,10 +2671,10 @@ sub setPageSize
 
     if ($rows < 0) {
         throw EBox::Exceptions::InvalidData(
-                                            data => __('Pagr size'),
+                                            data => __('Page size'),
                                             value => $rows,
                                             advice => 
-                                 __('Must be either a positve number or zero')
+                                 __('Must be either a positive number or zero')
                                            )
     }
 

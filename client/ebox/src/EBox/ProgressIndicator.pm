@@ -48,7 +48,7 @@ sub create
   my ($executableWoArguments) = split '\s', $params{executable};
   (-x $executableWoArguments) or
     throw EBox::Exceptions::External(
-				     __x('Cannot execute  {exe}',
+				     __x('Cannot execute {exe}',
                                            exe => $params{executable}
                                           )
 				    );

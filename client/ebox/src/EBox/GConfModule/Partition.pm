@@ -27,7 +27,7 @@ sub new
       throw EBox::Exceptions::InvalidData(
 				      data => 'GConfModule',
 				      value => $fullModule,
-				      advice => __('A instance of a subclass of EBox::GConfModule is expected'),
+				      advice => 'A instance of a subclass of EBox::GConfModule is expected',
 				     );
     
     my $dirExists = $class->_checkBaseDirExists($fullModule, $base);
