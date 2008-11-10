@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:50+0000\n"
 "PO-Revision-Date: 2008-11-05 14:53+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -21,16 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} gibt es schon"
-
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Ungültiger Wert für {data}: {value}"
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -41,6 +31,52 @@ msgstr "{data} {value} gibt es nicht"
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} ist leer"
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Ungültiger Wert für {data}: {value}"
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} gibt es schon"
+
+#: src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "{user} konnte den Befehl \"{cmd}\" nicht ausführen"
+
+#: src/EBox/Validate.pm:689
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"#-#-#-#-#  de.po (libebox 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
+"Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
+"Vielleicht sind Sie nicht zugriffsberechtigt"
+
+#: src/EBox/Validate.pm:694
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"#-#-#-#-#  de.po (libebox 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
+"Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
+
+#: src/EBox/Validate.pm:769
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
+"sind noch nicht alle gültigen Zeichen unterstützt)"
+
+#: src/EBox/Validate.pm:797
+msgid "The file path must be absolute"
+msgstr "Geben Sie einen absoluter Dateipfad an"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -107,11 +143,6 @@ msgstr "Die hochgeladene Datei ist ungültig"
 msgid "Cannot create a temporally file for the upload"
 msgstr "Die temporäre Datei für das Hochladen konnte nicht erstellt werden"
 
-#: src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "{user} konnte den Befehl \"{cmd}\" nicht ausführen"
-
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
@@ -131,53 +162,22 @@ msgstr "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
 msgid "Directory not found: {d}"
 msgstr "Der Ordner {d} wurde nicht gefunden"
 
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
-"Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
-"Vielleicht sind Sie nicht zugriffsberechtigt"
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Wählen Sie eine der Optionen, um die zugehörige Tabelle anzuzeigen"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
-"Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Wählen Sie eine..."
 
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
-"sind noch nicht alle gültigen Zeichen unterstützt)"
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Geben Sie einen absoluter Dateipfad an"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Download"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Entfernen"
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+msgid "Inverse match"
+msgstr "Treffer invertieren"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "Port"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
-msgstr "Treffer invertieren"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
@@ -186,10 +186,6 @@ msgstr "Von"
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
 msgstr "An"
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
-msgstr "Optional"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -209,13 +205,17 @@ msgstr "nächste"
 msgid "last"
 msgstr "letzte"
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Wählen Sie eine der Optionen, um die zugehörige Tabelle anzuzeigen"
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr "Optional"
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Wählen Sie eine..."
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Download"
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Entfernen"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -252,6 +252,23 @@ msgstr "Entschuldigung"
 msgid "The page cannot be found"
 msgstr "Die Seite wurde nicht gefunden"
 
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Konfiguration der Dienste"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
+msgstr "Ändern"
+
 #: src/templates/title.mas:12
 msgid "show help"
 msgstr "Hilfe anzeigen"
@@ -271,23 +288,6 @@ msgid ""
 msgstr ""
 "Die Sprache wird automatisch geändern, die Konfiguration muss dazu nicht "
 "gespeichert werden"
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Ändern"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Konfiguration der Dienste"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Aktiviert"
 
 #~ msgid "Add new"
 #~ msgstr "Hinzufügen"
