@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,59 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
-msgid "Members"
-msgstr "メンバ"
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:40
+#: src/EBox/Objects.pm:40 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Model/ObjectTable.pm:82
 msgid "Objects"
 msgstr "オブジェクト"
-
-#: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
-msgid "Object list"
-msgstr "オブジェクト"
-
-#: src/EBox/Model/ObjectTable.pm:90
-msgid "object"
-msgstr "オブジェクト"
-
-#: src/EBox/Model/ObjectTable.pm:112
-msgid "This object is being used by another module"
-msgstr "このオブジェクトは他のモジュールで利用されています"
-
-#: src/EBox/Model/ObjectTable.pm:184
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP Address"
-msgstr "IPアドレス"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC Address"
-msgstr "MACアドレス"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "メンバ"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "MACアドレスはホストが存在するときのみ利用できます"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-#: src/EBox/Model/MemberTable.pm:124
-msgid "network address"
-msgstr "ネットワークアドレス"
 
 #: src/EBox/Objects.pm:45
 #, perl-brace-format
@@ -99,3 +50,52 @@ msgstr "オブジェクト {object} から {nname} が削除されました"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "オブジェクト"
+
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
+msgid "Name"
+msgstr "名前"
+
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP Address"
+msgstr "IPアドレス"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC Address"
+msgstr "MACアドレス"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
+msgid "Members"
+msgstr "メンバ"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "メンバ"
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "MACアドレスはホストが存在するときのみ利用できます"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
+msgid "network address"
+msgstr "ネットワークアドレス"
+
+#: src/EBox/Model/ObjectTable.pm:83
+#, fuzzy
+msgid "Object list"
+msgstr "オブジェクト"
+
+#: src/EBox/Model/ObjectTable.pm:90
+msgid "object"
+msgstr "オブジェクト"
+
+#: src/EBox/Model/ObjectTable.pm:112
+msgid "This object is being used by another module"
+msgstr "このオブジェクトは他のモジュールで利用されています"
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""

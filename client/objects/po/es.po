@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-02-02 09:48+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -20,58 +20,10 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
-msgid "Members"
-msgstr "Miembros"
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:40
+#: src/EBox/Objects.pm:40 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Model/ObjectTable.pm:82
 msgid "Objects"
 msgstr "Objetos"
-
-#: src/EBox/Model/ObjectTable.pm:83
-msgid "Object list"
-msgstr "Lista de objetos"
-
-#: src/EBox/Model/ObjectTable.pm:90
-msgid "object"
-msgstr "objeto"
-
-#: src/EBox/Model/ObjectTable.pm:112
-msgid "This object is being used by another module"
-msgstr "Este objeto está siendo usado por otro módulo"
-
-#: src/EBox/Model/ObjectTable.pm:184
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP Address"
-msgstr "Dirección IP"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC Address"
-msgstr "Dirección MAC"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "miembro"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Sólo puedes usar direcciones MAC con máquinas"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-#: src/EBox/Model/MemberTable.pm:124
-msgid "network address"
-msgstr "dirección de red"
 
 #: src/EBox/Objects.pm:45
 #, perl-brace-format
@@ -101,6 +53,54 @@ msgstr "Borrado {nname} del objeto {object}"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Objeto"
+
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC Address"
+msgstr "Dirección MAC"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
+msgid "Members"
+msgstr "Miembros"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "miembro"
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Sólo puedes usar direcciones MAC con máquinas"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
+msgid "network address"
+msgstr "dirección de red"
+
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Object list"
+msgstr "Lista de objetos"
+
+#: src/EBox/Model/ObjectTable.pm:90
+msgid "object"
+msgstr "objeto"
+
+#: src/EBox/Model/ObjectTable.pm:112
+msgid "This object is being used by another module"
+msgstr "Este objeto está siendo usado por otro módulo"
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
 
 #~ msgid "IP address"
 #~ msgstr "Dirección IP"

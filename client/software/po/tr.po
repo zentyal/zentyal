@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:46+0000\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Otomatil sistem güncellemeleri"
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "Otomatik güncelleme ayarları"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:462
+#: src/EBox/Software.pm:466
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
@@ -34,17 +34,21 @@ msgstr "Sistem güncellemeleri otomatik olarak başlatılacak"
 msgid "The system is up to date"
 msgstr "Sistem güncellendi"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "Otomatik güncelleme ayarları"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Otomatil sistem güncellemeleri"
+
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
+msgid "Upgrading"
+msgstr "Güncelleniyor"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
+msgid "eBox components"
+msgstr "eBox bileşenleri"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "Güncellenecek paket mevcut değil"
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Güncelleniyor"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 #, fuzzy
@@ -98,10 +102,6 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
-msgid "eBox components"
-msgstr "eBox bileşenleri"
-
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
 msgstr ""
@@ -112,16 +112,16 @@ msgid ""
 "sources. "
 msgstr ""
 
-#: src/EBox/Software.pm:457
+#: src/EBox/Software.pm:461
 msgid "Software management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:464
+#: src/EBox/Software.pm:468
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Otomatil sistem güncellemeleri"
 
-#: src/EBox/Software.pm:555
+#: src/EBox/Software.pm:559
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -251,43 +251,31 @@ msgstr ""
 msgid "rule to allow apt updates"
 msgstr "Otomatil sistem güncellemeleri"
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "Aşağıdaki paketler kurulacak"
-
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
-msgstr "Aşağıdaki paketler silinecek"
-
-#: src/templates/del.mas:32
-msgid "Ok"
-msgstr "Tamam"
-
-#: src/templates/del.mas:33
-msgid "Cancel"
-msgstr "Vazgeç"
-
-#: src/templates/updates.mas:10
+#: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr "Aşağıdaki sistem bileşenleri için güncelleme mevcut"
 
-#: src/templates/updates.mas:15 src/templates/ebox.mas:14
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "Bileşen"
 
-#: src/templates/updates.mas:16
+#: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/templates/updates.mas:17 src/templates/ebox.mas:27
+#: src/templates/updates.mas:18
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "Güncelle"
 
-#: src/templates/updates.mas:33 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "Bütün paketleri güncelle"
 
-#: src/templates/updates.mas:44
+#: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -295,7 +283,7 @@ msgstr ""
 "Bu işlem uzun sürebilir. eBox uzun bir süre size cevap vermez ise sakın "
 "heyacana kapılmayın."
 
-#: src/templates/updates.mas:47
+#: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "Güncelle"
 
@@ -322,6 +310,22 @@ msgstr "hiçbirşey"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Kaldır"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Aşağıdaki paketler kurulacak"
+
+#: src/templates/del.mas:16
+msgid "The following packages will be removed"
+msgstr "Aşağıdaki paketler silinecek"
+
+#: src/templates/del.mas:32
+msgid "Ok"
+msgstr "Tamam"
+
+#: src/templates/del.mas:33
+msgid "Cancel"
+msgstr "Vazgeç"
 
 #, fuzzy
 #~ msgid "eBox- Web Server"

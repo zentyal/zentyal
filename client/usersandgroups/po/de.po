@@ -7,13 +7,13 @@
 # This file is distributed under the same license as the ebox-usersandgroups package.
 # Automatically generated, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2008-11-05 13:44+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -22,6 +22,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
+msgid "Groups"
+msgstr "Gruppen"
+
+#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
+#: src/EBox/UsersAndGroups.pm:1537
+msgid "Users"
+msgstr "Benutzer"
+
+#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
+#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
+#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
+#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
+#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
+#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
+msgid "user name"
+msgstr "Benutzername"
+
+#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+msgid "full name"
+msgstr "Vollständiger Name"
+
+#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/ModifyGroup.pm:47
+msgid "comment"
+msgstr "Kommentar"
+
+#: src/EBox/CGI/AddUser.pm:65 src/EBox/CGI/ModifyUser.pm:65
+msgid "Passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -39,42 +71,6 @@ msgstr "Der Benutzer wurde entfernt"
 msgid "Group removed successfully"
 msgstr "Die Gruppe wurde entfernt"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
-msgstr "Gruppe"
-
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "Benutzer"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:778 src/EBox/UsersAndGroups.pm:783
-#: src/EBox/UsersAndGroups.pm:930 src/EBox/UsersAndGroups.pm:1059
-#: src/EBox/UsersAndGroups.pm:1093 src/EBox/UsersAndGroups.pm:1165
-#: src/EBox/UsersAndGroups.pm:1268
-msgid "group name"
-msgstr "Gruppenname"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
-msgid "comment"
-msgstr "Kommentar"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
-#: src/EBox/UsersAndGroups.pm:490 src/EBox/UsersAndGroups.pm:542
-#: src/EBox/UsersAndGroups.pm:571 src/EBox/UsersAndGroups.pm:896
-#: src/EBox/UsersAndGroups.pm:958 src/EBox/UsersAndGroups.pm:1054
-#: src/EBox/UsersAndGroups.pm:1088 src/EBox/UsersAndGroups.pm:1124
-msgid "user name"
-msgstr "Benutzername"
-
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-msgid "full name"
-msgstr "Vollständiger Name"
-
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
 msgstr "Passwort"
@@ -83,27 +79,35 @@ msgstr "Passwort"
 msgid "confirm password"
 msgstr "Passwort bestätigen"
 
-#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
-msgid "Passwords do not match."
-msgstr "Die Passwörter stimmen nicht überein"
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/Group.pm:45
+#: src/EBox/CGI/DelUserFromGroup.pm:45
+msgid "group"
+msgstr "Gruppe"
 
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Gruppe bearbeiten"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
-#: src/EBox/UsersAndGroups.pm:1530
-msgid "Users"
+#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
+msgid "user"
 msgstr "Benutzer"
+
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
+#: src/EBox/UsersAndGroups.pm:937 src/EBox/UsersAndGroups.pm:1066
+#: src/EBox/UsersAndGroups.pm:1100 src/EBox/UsersAndGroups.pm:1172
+#: src/EBox/UsersAndGroups.pm:1275
+msgid "group name"
+msgstr "Gruppenname"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
 msgstr "Benutzername"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1538
-msgid "Groups"
-msgstr "Gruppen"
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Gruppe bearbeiten"
+
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "Diese Gruppe enthält Benutzer"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
@@ -146,8 +150,8 @@ msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
-"Ihre derzeitige openLDAP-Datenbank wird ersetzt und gesichert in "
-"/var/backups/slapd"
+"Ihre derzeitige openLDAP-Datenbank wird ersetzt und gesichert in /var/"
+"backups/slapd"
 
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
@@ -174,7 +178,7 @@ msgstr ""
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Der Benutzername darf nicht länger als {maxuserlength} Zeichen sein"
 
-#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:825
+#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
 msgid "Maximum number of system users reached"
 msgstr "Maximale Anzahl der Benutzer für dieses System erreicht"
 
@@ -193,51 +197,46 @@ msgstr ""
 "Unerlaubte UID {uid} für einen Systembenutzer . UID muss kleiner sein als "
 "{max}"
 
-#: src/EBox/UsersAndGroups.pm:766
+#: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Der Gruppenname darf nicht länger als {maxGroupLength} Zeichen sein"
 
-#: src/EBox/UsersAndGroups.pm:772
+#: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
 msgstr "Der Gruppenname ist ungültig, weil er intern verwendet wird"
 
-#: src/EBox/UsersAndGroups.pm:842
+#: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
-"Unerlaubte GID {gid} für eine Gruppe. GID muss gleich oder größer  {min} "
-"sein"
+"Unerlaubte GID {gid} für eine Gruppe. GID muss gleich oder größer  {min} sein"
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Unerlaubte GID {gid} für eine Systemgruppe. GID muss kleiner sein als {max}"
 
-#: src/EBox/UsersAndGroups.pm:1336
+#: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Das Passwort darf höchstens {maxPwdLength} Zeichen lang sein"
 
-#: src/EBox/UsersAndGroups.pm:1532
+#: src/EBox/UsersAndGroups.pm:1539
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
-#: src/EBox/UsersAndGroups.pm:1535
+#: src/EBox/UsersAndGroups.pm:1542
 msgid "Edit user"
 msgstr "Benutzer bearbeiten"
-
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "Diese Gruppe enthält Benutzer"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "Neuen Benutzer hinzufügen"
 
-#: src/templates/users.mas:11 src/templates/groups.mas:11
+#: src/templates/groups.mas:11 src/templates/users.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
@@ -245,13 +244,47 @@ msgstr ""
 "Änderungen an den Benutzerkonten treten sofort in Kraft, sie müssen nicht "
 "gespeichert werden"
 
-#: src/templates/users.mas:12 src/templates/groups.mas:12
+#: src/templates/groups.mas:12 src/templates/users.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
 "Änderungen betreffend Druck-, Dateifreigabe- und Jabber-Dienst müssen "
 "gespeichert werden, damit sie in Kraft treten"
+
+#: src/templates/groups.mas:14
+msgid "Add Group"
+msgstr "Gruppe hinzufügen"
+
+#: src/templates/groups.mas:20 src/templates/groups.mas:54
+msgid "Group name"
+msgstr "Gruppenname"
+
+#: src/templates/groups.mas:30 src/templates/users.mas:35
+#: src/templates/group.mas:21 src/templates/user.mas:18
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/templates/groups.mas:35
+msgid "Optional value"
+msgstr "Optionaler Name"
+
+#: src/templates/groups.mas:42 src/templates/groups.mas:43
+#: src/templates/users.mas:63 src/templates/users.mas:64
+msgid "Create"
+msgstr "Erstellen"
+
+#: src/templates/groups.mas:51
+msgid "Edit Group"
+msgstr "Gruppe bearbeiten"
+
+#: src/templates/groups.mas:55
+msgid "Actions"
+msgstr "Aktionen"
+
+#: src/templates/groups.mas:76 src/templates/group.mas:58
+msgid "Remove"
+msgstr "Entfernen"
 
 #: src/templates/users.mas:14
 msgid "Add User"
@@ -261,11 +294,6 @@ msgstr "Benutzer hinzufügen"
 msgid "User name"
 msgstr "Benutzername"
 
-#: src/templates/users.mas:35 src/templates/group.mas:21
-#: src/templates/user.mas:18 src/templates/groups.mas:30
-msgid "Comment"
-msgstr "Kommentar"
-
 #: src/templates/users.mas:43 src/templates/user.mas:38
 msgid "Password"
 msgstr "Passwort"
@@ -274,38 +302,9 @@ msgstr "Passwort"
 msgid "Retype password"
 msgstr "Passwort erneut eingeben"
 
-#: src/templates/users.mas:63 src/templates/users.mas:64
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-msgid "Create"
-msgstr "Erstellen"
-
 #: src/templates/users.mas:77
 msgid "Group"
 msgstr "Gruppe"
-
-#: src/templates/del.mas:15
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Der Benutzer den Sie löschen möchten hat Daten in einigen Modulen. Möchten "
-"Sie den Benutzer und alle zugehörigen Daten löschen?"
-
-#: src/templates/del.mas:20
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Die Gruppe die Sie löschen möchten hat Daten in folgenden Modulen. Möchten "
-"Sie die Gruppe und alle zugehörigen Daten löschen?"
-
-#: src/templates/del.mas:43
-msgid "Delete"
-msgstr "Löschen"
-
-#: src/templates/del.mas:46
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: src/templates/group.mas:15
 msgid ""
@@ -331,10 +330,6 @@ msgstr "keine Gruppenmitglieder"
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
 msgstr "Liste leeren"
-
-#: src/templates/group.mas:58 src/templates/groups.mas:76
-msgid "Remove"
-msgstr "Entfernen"
 
 #: src/templates/group.mas:61
 msgid "Remove users from group"
@@ -370,25 +365,29 @@ msgstr ""
 "Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
 "Benutzerdaten, ..."
 
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "Gruppe hinzufügen"
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Der Benutzer den Sie löschen möchten hat Daten in einigen Modulen. Möchten "
+"Sie den Benutzer und alle zugehörigen Daten löschen?"
 
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "Gruppenname"
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Die Gruppe die Sie löschen möchten hat Daten in folgenden Modulen. Möchten "
+"Sie die Gruppe und alle zugehörigen Daten löschen?"
 
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "Optionaler Name"
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr "Löschen"
 
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "Gruppe bearbeiten"
-
-#: src/templates/groups.mas:55
-msgid "Actions"
-msgstr "Aktionen"
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #~ msgid "retype password"
 #~ msgstr "Passwort erneut eingeben"

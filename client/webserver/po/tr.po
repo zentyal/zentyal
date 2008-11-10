@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:82
+msgid ""
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
+msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
@@ -106,16 +116,6 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
-
-#: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr ""
-
-#: src/EBox/WebServer/Composite/General.pm:82
-msgid ""
-"The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
 msgstr ""
 
 #: src/EBox/WebServer.pm:97

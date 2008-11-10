@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2007-09-28 10:48+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "bugs@warp.es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
+msgid "Groups"
+msgstr "Grupper"
+
+#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
+#: src/EBox/UsersAndGroups.pm:1537
+msgid "Users"
+msgstr "Brugere"
+
+#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
+#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
+#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
+#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
+#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
+#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
+msgid "user name"
+msgstr "brugernavn"
+
+#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+msgid "full name"
+msgstr "fuldt navn"
+
+#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/ModifyGroup.pm:47
+msgid "comment"
+msgstr "kommentar"
+
+#: src/EBox/CGI/AddUser.pm:65 src/EBox/CGI/ModifyUser.pm:65
+msgid "Passwords do not match."
+msgstr "De 2 passwords er ikke ens"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -33,42 +65,6 @@ msgstr "Brugeren blev slettet"
 msgid "Group removed successfully"
 msgstr "Gruppen blev slettet"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
-msgstr "gruppe"
-
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "bruger"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:778 src/EBox/UsersAndGroups.pm:783
-#: src/EBox/UsersAndGroups.pm:930 src/EBox/UsersAndGroups.pm:1059
-#: src/EBox/UsersAndGroups.pm:1093 src/EBox/UsersAndGroups.pm:1165
-#: src/EBox/UsersAndGroups.pm:1268
-msgid "group name"
-msgstr "gruppe navn"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
-msgid "comment"
-msgstr "kommentar"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
-#: src/EBox/UsersAndGroups.pm:490 src/EBox/UsersAndGroups.pm:542
-#: src/EBox/UsersAndGroups.pm:571 src/EBox/UsersAndGroups.pm:896
-#: src/EBox/UsersAndGroups.pm:958 src/EBox/UsersAndGroups.pm:1054
-#: src/EBox/UsersAndGroups.pm:1088 src/EBox/UsersAndGroups.pm:1124
-msgid "user name"
-msgstr "brugernavn"
-
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-msgid "full name"
-msgstr "fuldt navn"
-
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
 msgstr "password"
@@ -77,27 +73,35 @@ msgstr "password"
 msgid "confirm password"
 msgstr "bekræft password"
 
-#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
-msgid "Passwords do not match."
-msgstr "De 2 passwords er ikke ens"
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/Group.pm:45
+#: src/EBox/CGI/DelUserFromGroup.pm:45
+msgid "group"
+msgstr "gruppe"
 
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "rediger gruppe"
+#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
+msgid "user"
+msgstr "bruger"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
-#: src/EBox/UsersAndGroups.pm:1530
-msgid "Users"
-msgstr "Brugere"
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
+#: src/EBox/UsersAndGroups.pm:937 src/EBox/UsersAndGroups.pm:1066
+#: src/EBox/UsersAndGroups.pm:1100 src/EBox/UsersAndGroups.pm:1172
+#: src/EBox/UsersAndGroups.pm:1275
+msgid "group name"
+msgstr "gruppe navn"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
 msgstr "brugernavn"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1538
-msgid "Groups"
-msgstr "Grupper"
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "rediger gruppe"
+
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "Denne gruppe har brugere"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
@@ -168,7 +172,7 @@ msgstr ""
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Brugernavnet må ikke være længere end {maxuserlength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:825
+#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
 msgid "Maximum number of system users reached"
 msgstr "Maximum antal brugere på systemet er nået"
 
@@ -186,16 +190,16 @@ msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Ugyldigt UID {uid} for en system bruger. UID skal være mindre end {max}."
 
-#: src/EBox/UsersAndGroups.pm:766
+#: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Gruppenavnet kan ikke være længere end {maxGroupLength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:772
+#: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
 msgstr "Gruppenavnet er ugyldigt da navnet bliver brugt internt"
 
-#: src/EBox/UsersAndGroups.pm:842
+#: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -203,47 +207,77 @@ msgstr ""
 "Ugyldigt GID {gid} for en gruppe. GID skal være lig med eller større end "
 "{min}."
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Ugyldigt GID {gid} for en system gruppe. GID skal være mindre end {max}."
 
-#: src/EBox/UsersAndGroups.pm:1336
+#: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Passwordet kan ikke være længere end {maxPwdLength} tegn"
 
-#: src/EBox/UsersAndGroups.pm:1532
+#: src/EBox/UsersAndGroups.pm:1539
 msgid "Add user"
 msgstr "Tilføj en bruger"
 
-#: src/EBox/UsersAndGroups.pm:1535
+#: src/EBox/UsersAndGroups.pm:1542
 msgid "Edit user"
 msgstr "Rediger en bruger"
-
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "Denne gruppe har brugere"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "Tilføj ny"
 
-#: src/templates/users.mas:11 src/templates/groups.mas:11
+#: src/templates/groups.mas:11 src/templates/users.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
 msgstr ""
 "Ændringer i brugerkonti sker med det samme, de behøver ikke at blive gemt"
 
-#: src/templates/users.mas:12 src/templates/groups.mas:12
+#: src/templates/groups.mas:12 src/templates/users.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
 "Ændringer med hensyn til print, fildeling og Jabber service behøver ikke at "
 "blive gemt for at blive aktive"
+
+#: src/templates/groups.mas:14
+msgid "Add Group"
+msgstr "Tilføj gruppe"
+
+#: src/templates/groups.mas:20 src/templates/groups.mas:54
+msgid "Group name"
+msgstr "Gruppe navn"
+
+#: src/templates/groups.mas:30 src/templates/users.mas:35
+#: src/templates/group.mas:21 src/templates/user.mas:18
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/templates/groups.mas:35
+msgid "Optional value"
+msgstr "Frivillig værdi"
+
+#: src/templates/groups.mas:42 src/templates/groups.mas:43
+#: src/templates/users.mas:63 src/templates/users.mas:64
+msgid "Create"
+msgstr "Opret"
+
+#: src/templates/groups.mas:51
+msgid "Edit Group"
+msgstr "Rediger gruppe"
+
+#: src/templates/groups.mas:55
+msgid "Actions"
+msgstr "Handlinger"
+
+#: src/templates/groups.mas:76 src/templates/group.mas:58
+msgid "Remove"
+msgstr "Slet"
 
 #: src/templates/users.mas:14
 msgid "Add User"
@@ -253,11 +287,6 @@ msgstr "Tilføj bruger"
 msgid "User name"
 msgstr "Brugernavn"
 
-#: src/templates/users.mas:35 src/templates/group.mas:21
-#: src/templates/user.mas:18 src/templates/groups.mas:30
-msgid "Comment"
-msgstr "Kommentar"
-
 #: src/templates/users.mas:43 src/templates/user.mas:38
 msgid "Password"
 msgstr "Password"
@@ -266,38 +295,9 @@ msgstr "Password"
 msgid "Retype password"
 msgstr "Gentag password"
 
-#: src/templates/users.mas:63 src/templates/users.mas:64
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-msgid "Create"
-msgstr "Opret"
-
 #: src/templates/users.mas:77
 msgid "Group"
 msgstr "Gruppe"
-
-#: src/templates/del.mas:15
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Brugeren du prøvede at slette har data i følgende moduler. Bekræft venligst "
-"at du vil slette den og alle tilhørende data"
-
-#: src/templates/del.mas:20
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"Gruppen du prøvede at slette har data i følgende moduler. Bekræft venligst "
-"at du vil slette den og alle tilhørende data"
-
-#: src/templates/del.mas:43
-msgid "Delete"
-msgstr "Slet"
-
-#: src/templates/del.mas:46
-msgid "Cancel"
-msgstr "Fortryd"
 
 #: src/templates/group.mas:15
 msgid ""
@@ -323,10 +323,6 @@ msgstr "Brugere der ikke er i gruppen"
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
 msgstr "Tom liste"
-
-#: src/templates/group.mas:58 src/templates/groups.mas:76
-msgid "Remove"
-msgstr "Slet"
 
 #: src/templates/group.mas:61
 msgid "Remove users from group"
@@ -361,25 +357,29 @@ msgstr ""
 "Denne handling vil slette brugeren og alle dens  data, som mail konto, filer "
 "etc."
 
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "Tilføj gruppe"
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Brugeren du prøvede at slette har data i følgende moduler. Bekræft venligst "
+"at du vil slette den og alle tilhørende data"
 
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "Gruppe navn"
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"Gruppen du prøvede at slette har data i følgende moduler. Bekræft venligst "
+"at du vil slette den og alle tilhørende data"
 
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "Frivillig værdi"
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr "Slet"
 
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "Rediger gruppe"
-
-#: src/templates/groups.mas:55
-msgid "Actions"
-msgstr "Handlinger"
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr "Fortryd"
 
 #~ msgid "retype password"
 #~ msgstr "Indtast password igen"

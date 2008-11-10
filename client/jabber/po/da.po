@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:30+0000\n"
 "PO-Revision-Date: 2007-09-28 10:35+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "Modul status"
-
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
-msgid "domain"
-msgstr "domæne"
-
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
 msgstr "brugernavn"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "Modul status"
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
+msgid "domain"
+msgstr "domæne"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
@@ -52,33 +52,9 @@ msgstr ""
 msgid "Jabber Service"
 msgstr "Jabber service"
 
-#: src/templates/jabber.mas:8
-msgid "Jabber account"
-msgstr "Jabber konto"
-
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password"
-msgstr "passwordet for jabber er brugerens almindelige password"
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr "Brugerkonto"
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Slået fra"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr "Slået til"
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr "Administrator rettigheder"
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Ændre"
+#: stubs/c2s.xml.mas:77
+msgid "Enter a username and password to register with this server."
+msgstr "Skriv et brugernavn og password for at registrere dig på denne server"
 
 #: src/templates/index.mas:16
 msgid "General Settings"
@@ -123,9 +99,33 @@ msgstr "Tvungen"
 msgid "Apply Changes"
 msgstr "Gem rettelser"
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
-msgstr "Skriv et brugernavn og password for at registrere dig på denne server"
+#: src/templates/jabber.mas:8
+msgid "Jabber account"
+msgstr "Jabber konto"
+
+#: src/templates/jabber.mas:9
+msgid "Password for Jabber service is the user password"
+msgstr "passwordet for jabber er brugerens almindelige password"
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr "Brugerkonto"
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr "Slået fra"
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr "Slået til"
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr "Administrator rettigheder"
+
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
+msgstr "Ændre"
 
 #~ msgid "listening port"
 #~ msgstr "port der lyttes på"

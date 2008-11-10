@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "bugs@warp.es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
+msgid "Groups"
+msgstr "グループ"
+
+#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
+#: src/EBox/UsersAndGroups.pm:1537
+msgid "Users"
+msgstr "ユーザ"
+
+#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
+#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
+#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
+#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
+#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
+#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
+msgid "user name"
+msgstr "ユーザ名"
+
+#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+msgid "full name"
+msgstr "フルネーム"
+
+#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/ModifyGroup.pm:47
+msgid "comment"
+msgstr "コメント"
+
+#: src/EBox/CGI/AddUser.pm:65 src/EBox/CGI/ModifyUser.pm:65
+msgid "Passwords do not match."
+msgstr "パスワードがマッチしません"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -33,42 +65,6 @@ msgstr "ユーザは削除されました"
 msgid "Group removed successfully"
 msgstr "グループは削除されました"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
-msgstr "グループ"
-
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "ユーザ"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:778 src/EBox/UsersAndGroups.pm:783
-#: src/EBox/UsersAndGroups.pm:930 src/EBox/UsersAndGroups.pm:1059
-#: src/EBox/UsersAndGroups.pm:1093 src/EBox/UsersAndGroups.pm:1165
-#: src/EBox/UsersAndGroups.pm:1268
-msgid "group name"
-msgstr "グループ名"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
-msgid "comment"
-msgstr "コメント"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
-#: src/EBox/UsersAndGroups.pm:490 src/EBox/UsersAndGroups.pm:542
-#: src/EBox/UsersAndGroups.pm:571 src/EBox/UsersAndGroups.pm:896
-#: src/EBox/UsersAndGroups.pm:958 src/EBox/UsersAndGroups.pm:1054
-#: src/EBox/UsersAndGroups.pm:1088 src/EBox/UsersAndGroups.pm:1124
-msgid "user name"
-msgstr "ユーザ名"
-
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-msgid "full name"
-msgstr "フルネーム"
-
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
 msgstr "パスワード"
@@ -77,27 +73,35 @@ msgstr "パスワード"
 msgid "confirm password"
 msgstr "パスワード(確認)"
 
-#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
-msgid "Passwords do not match."
-msgstr "パスワードがマッチしません"
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/Group.pm:45
+#: src/EBox/CGI/DelUserFromGroup.pm:45
+msgid "group"
+msgstr "グループ"
 
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "グループを編集"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
-#: src/EBox/UsersAndGroups.pm:1530
-msgid "Users"
+#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
+msgid "user"
 msgstr "ユーザ"
+
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
+#: src/EBox/UsersAndGroups.pm:937 src/EBox/UsersAndGroups.pm:1066
+#: src/EBox/UsersAndGroups.pm:1100 src/EBox/UsersAndGroups.pm:1172
+#: src/EBox/UsersAndGroups.pm:1275
+msgid "group name"
+msgstr "グループ名"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
 msgstr "ユーザ名"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1538
-msgid "Groups"
-msgstr "グループ"
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "グループを編集"
+
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "このグループはユーザを含んでいます"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
@@ -168,7 +172,7 @@ msgstr ""
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "ユーザ名は {maxuserlength} 文字を超えてはなりません"
 
-#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:825
+#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
 msgid "Maximum number of system users reached"
 msgstr "システムが扱える最大ユーザ数に達しました"
 
@@ -184,62 +188,92 @@ msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "{uid}は誤ったUIDです。システムユーザのUIDは{max}以上に設定する必要があります"
 
-#: src/EBox/UsersAndGroups.pm:766
+#: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "グループ名は {maxGroupLength} 文字を超えてはなりません"
 
-#: src/EBox/UsersAndGroups.pm:772
+#: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
 msgstr "グループ名はシステム内部で使われているため利用できません"
 
-#: src/EBox/UsersAndGroups.pm:842
+#: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "{gid}は誤ったGIDです。グループのGIDは{min}以上に設定する必要があります"
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "{gid}は誤ったGIDです。システムグループのGIDは{max}より小さい値に設定する必要"
 "があります"
 
-#: src/EBox/UsersAndGroups.pm:1336
+#: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "パスワードは {maxPwdLength} 文字を超えてはなりません"
 
-#: src/EBox/UsersAndGroups.pm:1532
+#: src/EBox/UsersAndGroups.pm:1539
 msgid "Add user"
 msgstr "ユーザを追加"
 
-#: src/EBox/UsersAndGroups.pm:1535
+#: src/EBox/UsersAndGroups.pm:1542
 msgid "Edit user"
 msgstr "ユーザを編集"
-
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "このグループはユーザを含んでいます"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "新規作成"
 
-#: src/templates/users.mas:11 src/templates/groups.mas:11
+#: src/templates/groups.mas:11 src/templates/users.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
 msgstr "変更はすぐに反映されるため、保存する必要はありません。"
 
-#: src/templates/users.mas:12 src/templates/groups.mas:12
+#: src/templates/groups.mas:12 src/templates/users.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
 "印刷、ファイル共有、Jabberに関連した変更を反映するために保存する必要はありま"
 "せん"
+
+#: src/templates/groups.mas:14
+msgid "Add Group"
+msgstr "グループを追加"
+
+#: src/templates/groups.mas:20 src/templates/groups.mas:54
+msgid "Group name"
+msgstr "グループ名"
+
+#: src/templates/groups.mas:30 src/templates/users.mas:35
+#: src/templates/group.mas:21 src/templates/user.mas:18
+msgid "Comment"
+msgstr "コメント"
+
+#: src/templates/groups.mas:35
+msgid "Optional value"
+msgstr "オプション"
+
+#: src/templates/groups.mas:42 src/templates/groups.mas:43
+#: src/templates/users.mas:63 src/templates/users.mas:64
+msgid "Create"
+msgstr "作成"
+
+#: src/templates/groups.mas:51
+msgid "Edit Group"
+msgstr "グループを編集"
+
+#: src/templates/groups.mas:55
+msgid "Actions"
+msgstr "アクション"
+
+#: src/templates/groups.mas:76 src/templates/group.mas:58
+msgid "Remove"
+msgstr "削除"
 
 #: src/templates/users.mas:14
 msgid "Add User"
@@ -249,11 +283,6 @@ msgstr "ユーザを追加"
 msgid "User name"
 msgstr "ユーザ名"
 
-#: src/templates/users.mas:35 src/templates/group.mas:21
-#: src/templates/user.mas:18 src/templates/groups.mas:30
-msgid "Comment"
-msgstr "コメント"
-
 #: src/templates/users.mas:43 src/templates/user.mas:38
 msgid "Password"
 msgstr "パスワード"
@@ -262,38 +291,9 @@ msgstr "パスワード"
 msgid "Retype password"
 msgstr "パスワードを再度入力してください"
 
-#: src/templates/users.mas:63 src/templates/users.mas:64
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-msgid "Create"
-msgstr "作成"
-
 #: src/templates/users.mas:77
 msgid "Group"
 msgstr "グループ"
-
-#: src/templates/del.mas:15
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"削除しようとしているユーザは次のモジュールにデータを所有しています。ユーザと"
-"関連するデータを削除しますか"
-
-#: src/templates/del.mas:20
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"削除しようとしているグループは次のモジュールにデータを所有しています。グルー"
-"プと関連するデータを削除しますか"
-
-#: src/templates/del.mas:43
-msgid "Delete"
-msgstr "削除"
-
-#: src/templates/del.mas:46
-msgid "Cancel"
-msgstr "キャンセル"
 
 #: src/templates/group.mas:15
 msgid ""
@@ -319,10 +319,6 @@ msgstr "グループに含まれないユーザ"
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
 msgstr "空のリスト"
-
-#: src/templates/group.mas:58 src/templates/groups.mas:76
-msgid "Remove"
-msgstr "削除"
 
 #: src/templates/group.mas:61
 msgid "Remove users from group"
@@ -357,25 +353,29 @@ msgstr ""
 "この操作を行うと、メールアカウントやユーザの所有するデータなど関連するデータ"
 "とともにユーザが削除されます。"
 
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "グループを追加"
+#: src/templates/del.mas:15
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"削除しようとしているユーザは次のモジュールにデータを所有しています。ユーザと"
+"関連するデータを削除しますか"
 
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "グループ名"
+#: src/templates/del.mas:20
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"削除しようとしているグループは次のモジュールにデータを所有しています。グルー"
+"プと関連するデータを削除しますか"
 
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "オプション"
+#: src/templates/del.mas:43
+msgid "Delete"
+msgstr "削除"
 
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "グループを編集"
-
-#: src/templates/groups.mas:55
-msgid "Actions"
-msgstr "アクション"
+#: src/templates/del.mas:46
+msgid "Cancel"
+msgstr "キャンセル"
 
 #~ msgid "retype password"
 #~ msgstr "パスワードを再度入力してください"

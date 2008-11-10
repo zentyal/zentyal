@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:30+0000\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -21,21 +21,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "estado del módulo"
-
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
-msgid "domain"
-msgstr "dominio"
-
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
 msgstr "nombre de usuario"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "estado del módulo"
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
+msgid "domain"
+msgstr "dominio"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
@@ -57,33 +57,10 @@ msgstr ""
 msgid "Jabber Service"
 msgstr "Servicio Jabber"
 
-#: src/templates/jabber.mas:8
-msgid "Jabber account"
-msgstr "Cuenta Jabber"
-
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password"
-msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr "Cuenta de usuario"
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr "Activado"
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr "Privilegios de administrador"
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Cambiar"
+#: stubs/c2s.xml.mas:77
+msgid "Enter a username and password to register with this server."
+msgstr ""
+"Escriba un nombre de usuario y una contraseña para entrar a este servidor"
 
 #: src/templates/index.mas:16
 msgid "General Settings"
@@ -129,10 +106,33 @@ msgstr "Obligatorio"
 msgid "Apply Changes"
 msgstr "Aplicar Cambios"
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
-msgstr ""
-"Escriba un nombre de usuario y una contraseña para entrar a este servidor"
+#: src/templates/jabber.mas:8
+msgid "Jabber account"
+msgstr "Cuenta Jabber"
+
+#: src/templates/jabber.mas:9
+msgid "Password for Jabber service is the user password"
+msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr "Cuenta de usuario"
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr "Activado"
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr "Privilegios de administrador"
+
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
+msgstr "Cambiar"
 
 #~ msgid "listening port"
 #~ msgstr "puerto"

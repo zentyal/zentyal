@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,61 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
-msgid "Name"
-msgstr "Имя"
-
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
-msgid "Members"
-msgstr ""
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:40
+#: src/EBox/Objects.pm:40 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Model/ObjectTable.pm:82
 msgid "Objects"
 msgstr "Объекты"
-
-#: src/EBox/Model/ObjectTable.pm:83
-msgid "Object list"
-msgstr "Список объектов"
-
-#: src/EBox/Model/ObjectTable.pm:90
-#, fuzzy
-msgid "object"
-msgstr "Объект"
-
-#: src/EBox/Model/ObjectTable.pm:112
-msgid "This object is being used by another module"
-msgstr ""
-
-#: src/EBox/Model/ObjectTable.pm:184
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:70
-#, fuzzy
-msgid "IP Address"
-msgstr "IP-адрес"
-
-#: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
-msgid "MAC Address"
-msgstr "IP-адрес"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr ""
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-#: src/EBox/Model/MemberTable.pm:124
-msgid "network address"
-msgstr "сетевой адрес"
 
 #: src/EBox/Objects.pm:45
 #, perl-brace-format
@@ -101,6 +50,57 @@ msgstr "Удален {nname} из объекта {object}"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Объект"
+
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
+msgid "Name"
+msgstr "Имя"
+
+#: src/EBox/Model/MemberTable.pm:70
+#, fuzzy
+msgid "IP Address"
+msgstr "IP-адрес"
+
+#: src/EBox/Model/MemberTable.pm:76
+#, fuzzy
+msgid "MAC Address"
+msgstr "IP-адрес"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
+msgid "Members"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
+msgid "network address"
+msgstr "сетевой адрес"
+
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Object list"
+msgstr "Список объектов"
+
+#: src/EBox/Model/ObjectTable.pm:90
+#, fuzzy
+msgid "object"
+msgstr "Объект"
+
+#: src/EBox/Model/ObjectTable.pm:112
+msgid "This object is being used by another module"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
 
 #~ msgid "IP address"
 #~ msgstr "IP-адрес"

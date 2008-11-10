@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-04-18 19:25+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,17 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "Harici eşitleme durumu"
-
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
 msgstr "Saat dilimi ayarları"
 
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Tarih ve zaman ayarları"
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "Harici eşitleme durumu"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
@@ -54,6 +50,10 @@ msgstr "İkincil sunucu"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Üçüncül sunucu"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Tarih ve zaman ayarları"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -133,6 +133,19 @@ msgstr "Tarih/Zaman"
 msgid "Time zone"
 msgstr "Zaman dilimi"
 
+#: src/templates/timezone.mas:18
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+"Zaman dilimini değiştirmek aynı zamanda eBox servislerinin yeniden "
+"çalıştırılmasına neden olur"
+
+#: src/templates/timezone.mas:35 src/templates/timezone.mas:36
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Değiştir"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Etkisiz"
@@ -140,13 +153,6 @@ msgstr "Etkisiz"
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Etkin"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:35
-#: src/templates/timezone.mas:36 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Değiştir"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
@@ -159,12 +165,6 @@ msgid ""
 msgstr ""
 "Eşleştirmenin doğru olabilmesi için zaman diliminizi doğru olarak "
 "ayarlamanız gereklidir."
-
-#: src/templates/timezone.mas:18
-msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
-"Zaman dilimini değiştirmek aynı zamanda eBox servislerinin yeniden "
-"çalıştırılmasına neden olur"
 
 #: src/templates/date.mas:10
 msgid ""

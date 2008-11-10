@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"POT-Creation-Date: 2008-11-10 08:45+0000\n"
 "PO-Revision-Date: 2007-07-24 12:13+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,9 +16,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/ParallelPrinter.pm:40
+#: src/EBox/CGI/Drvopts.pm:39 src/EBox/CGI/Manufacturer.pm:39
+#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/DeleteUI.pm:46
+#: src/EBox/CGI/USBPrinterUI.pm:46 src/EBox/CGI/DriverUI.pm:46
+#: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/SambaPrinterUI.pm:46
+#: src/EBox/CGI/Driver.pm:39 src/EBox/CGI/Model.pm:39
+#: src/EBox/CGI/SambaPrinter.pm:40 src/EBox/CGI/ModelUI.pm:46
+#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/ManagePrinter.pm:40
+#: src/EBox/CGI/ParallelPrinterUI.pm:46 src/EBox/CGI/ManagePrinterUI.pm:46
+#: src/EBox/CGI/USBPrinter.pm:40 src/EBox/Printers.pm:323
+#: src/EBox/Printers.pm:451 src/EBox/Printers.pm:464 src/EBox/Printers.pm:481
+#: src/EBox/Printers.pm:537 src/EBox/Printers.pm:591 src/EBox/Printers.pm:627
+#: src/EBox/Printers.pm:644 src/EBox/Printers.pm:666 src/EBox/Printers.pm:692
+#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:751 src/EBox/Printers.pm:795
+#: src/EBox/Printers.pm:809 src/EBox/Printers.pm:835 src/EBox/Printers.pm:849
+#: src/EBox/Printers.pm:875 src/EBox/Printers.pm:889 src/EBox/Printers.pm:914
+#: src/EBox/Printers.pm:938 src/EBox/Printers.pm:963 src/EBox/Printers.pm:1037
+#: src/EBox/Printers.pm:1086 src/EBox/Printers.pm:1128
+#: src/EBox/Printers.pm:1157 src/EBox/Printers.pm:1212
+#: src/EBox/Printers.pm:1227 src/EBox/Printers.pm:1258
+msgid "Printer"
+msgstr "Printer"
+
+#: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:723
+#: src/templates/network.mas:23 src/templates/printerback.mas:182
+msgid "IP"
+msgstr "IP"
+
+#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:724
+#: src/templates/network.mas:31 src/templates/printerback.mas:190
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/CGI/AddPrinterUI.pm:30
+msgid "Add a new printer (I)"
+msgstr "Tilføj ny printer (I)"
+
+#: src/EBox/CGI/ParallelPrinter.pm:41 src/EBox/CGI/USBPrinter.pm:41
+#: src/EBox/Printers.pm:672 src/EBox/Printers.pm:698
+#: src/templates/parallel.mas:18 src/templates/usb.mas:18
+msgid "Device"
+msgstr "Enhed"
+
 #: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:421
 msgid "Manage printers"
 msgstr "Håndtér printere"
+
+#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:814
+#: src/templates/printer.mas:133 src/templates/printerback.mas:21
+msgid "Manufacturer"
+msgstr "Fabrikant"
+
+#: src/EBox/CGI/NetworkPrinterUI.pm:30 src/EBox/CGI/USBPrinterUI.pm:30
+#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
+msgid "Add a new printer (II)"
+msgstr "Tilføj ny printer (II)"
+
+#: src/EBox/CGI/NetworkPrinterUI.pm:53 src/EBox/CGI/USBPrinterUI.pm:54
+#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/DrvoptsUI.pm:53
+#: src/EBox/CGI/ParallelPrinterUI.pm:54 src/templates/addprinter.mas:38
+#: src/templates/addprinter.mas:39 src/templates/manufacturer.mas:21
+#: src/templates/manufacturer.mas:22 src/templates/driver.mas:21
+#: src/templates/driver.mas:22 src/templates/drivers.mas:34
+#: src/templates/drivers.mas:35 src/templates/models.mas:21
+#: src/templates/models.mas:22 src/templates/printerback.mas:167
+#: src/templates/printerback.mas:168
+msgid "Next"
+msgstr "Næste"
+
+#: src/EBox/CGI/DeleteUI.pm:30
+msgid "Delete printer"
+msgstr "Slet printer"
+
+#: src/EBox/CGI/DriverUI.pm:30
+msgid "Add a new printer (V)"
+msgstr "Tilføj ny printer (V)"
+
+#: src/EBox/CGI/ManufacturerUI.pm:30
+msgid "Add a new printer (III)"
+msgstr "Tilføj ny printer (III)"
+
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:149
+#: src/templates/printerback.mas:37
+msgid "Driver"
+msgstr "Driver"
 
 #: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
@@ -36,49 +118,14 @@ msgstr "Job-id"
 msgid "Job was successfully canceled"
 msgstr "Jobbet var successfuldt afbrudt"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
-#: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
-msgid "Add a new printer (II)"
-msgstr "Tilføj ny printer (II)"
-
-#: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
-#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
-#: src/EBox/CGI/ManagePrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
-#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
-#: src/EBox/CGI/Manufacturer.pm:39 src/EBox/CGI/ManagePrinter.pm:40
-#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/USBPrinter.pm:40
-#: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/ParallelPrinterUI.pm:46
-#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/Model.pm:39
-#: src/EBox/CGI/DeleteUI.pm:46 src/EBox/CGI/ParallelPrinter.pm:40
-#: src/EBox/CGI/Drvopts.pm:39 src/EBox/Printers.pm:323
-#: src/EBox/Printers.pm:451 src/EBox/Printers.pm:464 src/EBox/Printers.pm:481
-#: src/EBox/Printers.pm:537 src/EBox/Printers.pm:591 src/EBox/Printers.pm:627
-#: src/EBox/Printers.pm:644 src/EBox/Printers.pm:666 src/EBox/Printers.pm:692
-#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:751 src/EBox/Printers.pm:795
-#: src/EBox/Printers.pm:809 src/EBox/Printers.pm:835 src/EBox/Printers.pm:849
-#: src/EBox/Printers.pm:875 src/EBox/Printers.pm:889 src/EBox/Printers.pm:914
-#: src/EBox/Printers.pm:938 src/EBox/Printers.pm:963 src/EBox/Printers.pm:1037
-#: src/EBox/Printers.pm:1086 src/EBox/Printers.pm:1128
-#: src/EBox/Printers.pm:1157 src/EBox/Printers.pm:1212
-#: src/EBox/Printers.pm:1227 src/EBox/Printers.pm:1258
-msgid "Printer"
-msgstr "Printer"
-
-#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
-#: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
-#: src/EBox/CGI/DrvoptsUI.pm:53 src/templates/models.mas:21
-#: src/templates/models.mas:22 src/templates/printerback.mas:167
-#: src/templates/printerback.mas:168 src/templates/driver.mas:21
-#: src/templates/driver.mas:22 src/templates/addprinter.mas:38
-#: src/templates/addprinter.mas:39 src/templates/manufacturer.mas:21
-#: src/templates/manufacturer.mas:22 src/templates/drivers.mas:34
-#: src/templates/drivers.mas:35
-msgid "Next"
-msgstr "Næste"
-
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
 msgstr "Modulstatus"
+
+#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:853 src/EBox/Printers.pm:893
+#: src/templates/printer.mas:141 src/templates/printerback.mas:29
+msgid "Model"
+msgstr "Model"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
@@ -99,13 +146,26 @@ msgstr "Bruger"
 msgid "Password"
 msgstr "Kodeord"
 
-#: src/EBox/CGI/DriverUI.pm:30
-msgid "Add a new printer (V)"
-msgstr "Tilføj ny printer (V)"
+#: src/EBox/CGI/ModelUI.pm:30
+msgid "Add a new printer (IV)"
+msgstr "Tilføj ny printer (IV)"
 
-#: src/EBox/CGI/ManufacturerUI.pm:30
-msgid "Add a new printer (III)"
-msgstr "Tilføj ny printer (III)"
+#: src/EBox/CGI/DrvoptsUI.pm:30
+msgid "Add a new printer (VI)"
+msgstr "Tilføj ny printer (VI)"
+
+#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:560
+#: src/EBox/Printers.pm:648 src/templates/addprinter.mas:23
+msgid "Method"
+msgstr "Metode"
+
+#: src/EBox/CGI/AddPrinter.pm:43
+msgid "Printer description"
+msgstr "Printer beskrivelse"
+
+#: src/EBox/CGI/ManagePrinter.pm:51
+msgid "The printer has been deleted successfully"
+msgstr "Printeren er successfuldt blevet slettet"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
@@ -127,49 +187,6 @@ msgstr "Konfigurationsmuligheder"
 msgid "Jobs Queue"
 msgstr "Job kø"
 
-#: src/EBox/CGI/AddPrinterUI.pm:30
-msgid "Add a new printer (I)"
-msgstr "Tilføj ny printer (I)"
-
-#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:149
-#: src/templates/printerback.mas:37
-msgid "Driver"
-msgstr "Driver"
-
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:814
-#: src/templates/printer.mas:133 src/templates/printerback.mas:21
-msgid "Manufacturer"
-msgstr "Fabrikant"
-
-#: src/EBox/CGI/ManagePrinter.pm:51
-msgid "The printer has been deleted successfully"
-msgstr "Printeren er successfuldt blevet slettet"
-
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:560
-#: src/EBox/Printers.pm:648 src/templates/addprinter.mas:23
-msgid "Method"
-msgstr "Metode"
-
-#: src/EBox/CGI/AddPrinter.pm:43
-msgid "Printer description"
-msgstr "Printer beskrivelse"
-
-#: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:723
-#: src/templates/printerback.mas:182 src/templates/network.mas:23
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:724
-#: src/templates/printerback.mas:190 src/templates/network.mas:31
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:672 src/EBox/Printers.pm:698 src/templates/usb.mas:18
-#: src/templates/parallel.mas:18
-msgid "Device"
-msgstr "Enhed"
-
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
 msgstr ""
@@ -177,23 +194,6 @@ msgstr ""
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
 msgstr ""
-
-#: src/EBox/CGI/ModelUI.pm:30
-msgid "Add a new printer (IV)"
-msgstr "Tilføj ny printer (IV)"
-
-#: src/EBox/CGI/DrvoptsUI.pm:30
-msgid "Add a new printer (VI)"
-msgstr "Tilføj ny printer (VI)"
-
-#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:853 src/EBox/Printers.pm:893
-#: src/templates/printer.mas:141 src/templates/printerback.mas:29
-msgid "Model"
-msgstr "Model"
-
-#: src/EBox/CGI/DeleteUI.pm:30
-msgid "Delete printer"
-msgstr "Slet printer"
 
 #: src/EBox/Printers.pm:53
 #, fuzzy
@@ -255,8 +255,8 @@ msgid ""
 msgstr ""
 "Printerens navn indeholder ugyldige tegn. Kun alfabetiske tegn er tilladt."
 
-#: src/EBox/Printers.pm:565 src/templates/printer.mas:69
-#: src/templates/printers.mas:37 src/templates/addprinter.mas:15
+#: src/EBox/Printers.pm:565 src/templates/addprinter.mas:15
+#: src/templates/printer.mas:69 src/templates/printers.mas:37
 msgid "Name"
 msgstr "Navn"
 
@@ -322,18 +322,42 @@ msgstr "Afbrudt"
 msgid "Cups printer server port"
 msgstr ""
 
-#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
-msgid "Driver options"
-msgstr "Driver options"
+#: src/templates/addprinter.mas:10
+msgid "Set printer name and method"
+msgstr "Sæt printernavn og metode"
 
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr "Vælg en printermodel"
+#: src/templates/addprinter.mas:28
+msgid "Parallel"
+msgstr "Parallel"
+
+#: src/templates/addprinter.mas:29
+msgid "Network printer"
+msgstr "Netværksprinter"
+
+#: src/templates/addprinter.mas:30
+msgid "Samba"
+msgstr "Samba"
+
+#: src/templates/manufacturer.mas:12
+msgid "Choose manufacturer"
+msgstr "Vælg fabrikant"
+
+#: src/templates/driver.mas:12
+msgid "Choose a driver for the printer"
+msgstr "Vælg en driver til printeren"
+
+#: src/templates/drivers.mas:13
+msgid "Choose a dirver for the printer"
+msgstr "Vælg en driver til printeren"
+
+#: src/templates/drivers.mas:20
+msgid "driver"
+msgstr "driver"
 
 #: src/templates/printer.mas:32 src/templates/printer.mas:159
-#: src/templates/printer.mas:160 src/templates/printerback.mas:96
-#: src/templates/printerback.mas:97 src/templates/printerback.mas:200
-#: src/templates/printerback.mas:201 src/templates/printers.mas:19
+#: src/templates/printer.mas:160 src/templates/printers.mas:19
+#: src/templates/printerback.mas:96 src/templates/printerback.mas:97
+#: src/templates/printerback.mas:200 src/templates/printerback.mas:201
 msgid "Change"
 msgstr "Skift"
 
@@ -354,15 +378,19 @@ msgid "Action"
 msgstr "Begivenhed"
 
 #: src/templates/printer.mas:111 src/templates/printer.mas:112
-#: src/templates/printer.mas:113 src/templates/del.mas:21
-#: src/templates/printers.mas:64 src/templates/printers.mas:65
-#: src/templates/printers.mas:66
+#: src/templates/printer.mas:113 src/templates/printers.mas:64
+#: src/templates/printers.mas:65 src/templates/printers.mas:66
+#: src/templates/del.mas:21
 msgid "Delete"
 msgstr "Slet"
 
 #: src/templates/printer.mas:121
 msgid "This printer has no pending job in queue at the moment"
 msgstr "Printeren har ingen jobs i køen i øjeblikket"
+
+#: src/templates/network.mas:16
+msgid "Configure remote printer"
+msgstr "Opsætning af netværksprinter"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
@@ -387,26 +415,13 @@ msgstr "Gæst"
 msgid "User/Password"
 msgstr "Bruger/Kodeord"
 
-#: src/templates/del.mas:12
-#, perl-brace-format
-msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "Er du sikker på at du vil slette printeren med navnet '{name}'?"
+#: src/templates/parallel.mas:15
+msgid "Local parallel printer configuration"
+msgstr "Lokal parallel printer konfiguration"
 
-#: src/templates/del.mas:24
-msgid "Cancel"
-msgstr "Fortryd"
-
-#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
-msgid "Go"
-msgstr "Ja"
-
-#: src/templates/printerback.mas:106
-msgid "Samba shared printer configurationr"
-msgstr "Samba delt printer konfiguration"
-
-#: src/templates/printerback.mas:176
-msgid "Remote printer configuration"
-msgstr "Netværksprinter konfiguration"
+#: src/templates/models.mas:13
+msgid "Choose a printer model"
+msgstr "Vælg en printermodel"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
@@ -441,46 +456,31 @@ msgstr "Håndtér denne printer"
 msgid "There is no printer configured yet"
 msgstr "Netværksprinter konfiguration"
 
-#: src/templates/network.mas:16
-msgid "Configure remote printer"
-msgstr "Opsætning af netværksprinter"
+#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
+msgid "Driver options"
+msgstr "Driver options"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
 msgstr "Lokal USB printer indtillinger"
 
-#: src/templates/driver.mas:12
-msgid "Choose a driver for the printer"
-msgstr "Vælg en driver til printeren"
+#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
+msgid "Go"
+msgstr "Ja"
 
-#: src/templates/addprinter.mas:10
-msgid "Set printer name and method"
-msgstr "Sæt printernavn og metode"
+#: src/templates/printerback.mas:106
+msgid "Samba shared printer configurationr"
+msgstr "Samba delt printer konfiguration"
 
-#: src/templates/addprinter.mas:28
-msgid "Parallel"
-msgstr "Parallel"
+#: src/templates/printerback.mas:176
+msgid "Remote printer configuration"
+msgstr "Netværksprinter konfiguration"
 
-#: src/templates/addprinter.mas:29
-msgid "Network printer"
-msgstr "Netværksprinter"
+#: src/templates/del.mas:12
+#, perl-brace-format
+msgid "Are you sure you want to delete the printer '{name}'?"
+msgstr "Er du sikker på at du vil slette printeren med navnet '{name}'?"
 
-#: src/templates/addprinter.mas:30
-msgid "Samba"
-msgstr "Samba"
-
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr "Vælg fabrikant"
-
-#: src/templates/parallel.mas:15
-msgid "Local parallel printer configuration"
-msgstr "Lokal parallel printer konfiguration"
-
-#: src/templates/drivers.mas:13
-msgid "Choose a dirver for the printer"
-msgstr "Vælg en driver til printeren"
-
-#: src/templates/drivers.mas:20
-msgid "driver"
-msgstr "driver"
+#: src/templates/del.mas:24
+msgid "Cancel"
+msgstr "Fortryd"

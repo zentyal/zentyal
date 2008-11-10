@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:46+0000\n"
 "PO-Revision-Date: 2007-04-03 14:25+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,12 +18,12 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatyczne aktualizacje systemu"
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "konfiguracja automatycznej aktualizacji"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:462
+#: src/EBox/Software.pm:466
 msgid "System updates"
 msgstr "Aktualizacje systemu"
 
@@ -35,17 +35,21 @@ msgstr "Aktualizacje systemu odbywają się automatycznie"
 msgid "The system is up to date"
 msgstr "System jest zaktualizowany"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "konfiguracja automatycznej aktualizacji"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatyczne aktualizacje systemu"
+
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
+msgid "Upgrading"
+msgstr "Uaktualniam"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
+msgid "eBox components"
+msgstr "komponenty eBox"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "Nie było pakietów do aktualizacji"
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Uaktualniam"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 #, fuzzy
@@ -99,10 +103,6 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
-msgid "eBox components"
-msgstr "komponenty eBox"
-
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
 msgstr ""
@@ -113,16 +113,16 @@ msgid ""
 "sources. "
 msgstr ""
 
-#: src/EBox/Software.pm:457
+#: src/EBox/Software.pm:461
 msgid "Software management"
 msgstr "Zarządzanie Oprogramowaniem"
 
-#: src/EBox/Software.pm:464
+#: src/EBox/Software.pm:468
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Automatyczne aktualizacje systemu"
 
-#: src/EBox/Software.pm:555
+#: src/EBox/Software.pm:559
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -252,43 +252,31 @@ msgstr ""
 msgid "rule to allow apt updates"
 msgstr "Automatyczne aktualizacje systemu"
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "Następujące pakiety zostaną zainstalowane"
-
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
-msgstr "Następujące pakiety zostaną usunięte"
-
-#: src/templates/del.mas:32
-msgid "Ok"
-msgstr "Ok"
-
-#: src/templates/del.mas:33
-msgid "Cancel"
-msgstr "Anuluj"
-
-#: src/templates/updates.mas:10
+#: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr "Dostępne są aktualizacje dla następujących komponentów"
 
-#: src/templates/updates.mas:15 src/templates/ebox.mas:14
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "Komponenty"
 
-#: src/templates/updates.mas:16
+#: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Opis"
 
-#: src/templates/updates.mas:17 src/templates/ebox.mas:27
+#: src/templates/updates.mas:18
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "Uaktualnij"
 
-#: src/templates/updates.mas:33 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "Uaktualnij wszystkie pakiety"
 
-#: src/templates/updates.mas:44
+#: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -296,7 +284,7 @@ msgstr ""
 "Operacja ta może zająć trochę czasu nie martw się jeśli eBox przestanie na "
 "chwilę odpowiadać po naciśnięciu przycisku Zaktualizuj."
 
-#: src/templates/updates.mas:47
+#: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "Zaktualizuj"
 
@@ -323,6 +311,22 @@ msgstr "żadne"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Usuń"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Następujące pakiety zostaną zainstalowane"
+
+#: src/templates/del.mas:16
+msgid "The following packages will be removed"
+msgstr "Następujące pakiety zostaną usunięte"
+
+#: src/templates/del.mas:32
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/del.mas:33
+msgid "Cancel"
+msgstr "Anuluj"
 
 #, fuzzy
 #~ msgid "eBox- Web Server"

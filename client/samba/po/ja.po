@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"POT-Creation-Date: 2008-11-10 08:45+0000\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
+#: src/EBox/Samba.pm:545
+msgid "File sharing"
+msgstr "ファイル共有"
+
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:756
+msgid "netbios"
+msgstr "NETBIOS"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:805
+msgid "working group"
+msgstr "ワークグループ"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "working mode"
+msgstr "動作モード"
+
+#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:774
+msgid "description"
+msgstr "内容"
+
+#: src/EBox/CGI/SambaConf.pm:48
+msgid "user quota"
+msgstr "ユーザクォータ"
+
+#: src/EBox/CGI/SambaConf.pm:49
+msgid "roaming profiles"
+msgstr "ローミングプロファイル"
+
+#: src/EBox/CGI/SambaConf.pm:53
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "モジュールの状態"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -26,10 +63,6 @@ msgstr "ユーザ名"
 msgid "group name"
 msgstr "グループ名"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "モジュールの状態"
-
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
 msgstr "共有名"
@@ -38,34 +71,24 @@ msgstr "共有名"
 msgid "active"
 msgstr "アクティブ"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:533
-#: src/EBox/Samba.pm:542
-msgid "File sharing"
-msgstr "ファイル共有"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:752
-msgid "netbios"
-msgstr "NETBIOS"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:801
-msgid "working group"
-msgstr "ワークグループ"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "Todo"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "動作モード"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:770
-msgid "description"
-msgstr "内容"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "ユーザクォータ"
-
-#: src/EBox/CGI/SambaConf.pm:47
-msgid "roaming profiles"
-msgstr "ローミングプロファイル"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "share"
+msgstr ""
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 #, fuzzy
@@ -101,12 +124,6 @@ msgstr ""
 msgid "Samba shares"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:147
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
-msgid "share"
-msgstr ""
-
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr ""
@@ -130,19 +147,6 @@ msgstr ""
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
-msgid "Deleted Samba shares"
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
-msgid "Todo"
 msgstr ""
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
@@ -256,36 +260,36 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr "/homeパーティションにクォータサポートを追加"
 
-#: src/EBox/Samba.pm:545
+#: src/EBox/Samba.pm:548
 #, fuzzy
 msgid "General settings"
 msgstr "全般的設定"
 
-#: src/EBox/Samba.pm:548
+#: src/EBox/Samba.pm:551
 msgid "Shares"
 msgstr ""
 
-#: src/EBox/Samba.pm:819
+#: src/EBox/Samba.pm:823
 msgid "quota"
 msgstr "クォータ"
 
-#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1122
+#: src/EBox/Samba.pm:1107 src/EBox/Samba.pm:1126
 msgid "user"
 msgstr "ユーザ"
 
-#: src/EBox/Samba.pm:1106 src/EBox/Samba.pm:1136 src/EBox/SambaLdapUser.pm:918
+#: src/EBox/Samba.pm:1110 src/EBox/Samba.pm:1140 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "グループ"
 
-#: src/EBox/Samba.pm:1109
+#: src/EBox/Samba.pm:1113
 msgid "printer"
 msgstr "プリンタ"
 
-#: src/EBox/Samba.pm:1570
+#: src/EBox/Samba.pm:1578
 msgid "User's files"
 msgstr "ユーザのファイル"
 
-#: src/EBox/Samba.pm:1572
+#: src/EBox/Samba.pm:1580
 msgid "Group's files"
 msgstr "グループのファイル"
 
@@ -344,6 +348,15 @@ msgstr "共有リソース"
 msgid "File sharing (Samba) protocol"
 msgstr "ファイル共有(Samba)プロトコル"
 
+#: stubs/smb.conf.mas:97
+msgid "Home Directories"
+msgstr "ホームディレクトリ"
+
+#: stubs/smb.conf.mas:104
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group}共有ディレクトリ"
+
 #: src/templates/delete.mas:11
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
@@ -362,6 +375,69 @@ msgstr "消去"
 msgid "Cancel"
 msgstr "キャンセル"
 
+#: src/templates/index.mas:17
+msgid "General Settings"
+msgstr "全般的設定"
+
+#: src/templates/index.mas:19
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"ユーザのディスク使用量を無制限にするには、クォータ制限を0に設定してください。"
+
+#: src/templates/index.mas:25
+msgid "Working mode"
+msgstr "動作モード"
+
+#: src/templates/index.mas:30 src/templates/index.mas:33
+msgid "File server"
+msgstr "ファイルサーバ"
+
+#: src/templates/index.mas:31 src/templates/index.mas:34
+msgid "PDC"
+msgstr "PDC"
+
+#: src/templates/index.mas:42
+msgid "Domain name"
+msgstr "ドメイン名"
+
+#: src/templates/index.mas:44
+msgid "Working group"
+msgstr "ワークグループ"
+
+#: src/templates/index.mas:54
+msgid "Netbios name"
+msgstr "NETBIOS名"
+
+#: src/templates/index.mas:62
+msgid "Description"
+msgstr "内容"
+
+#: src/templates/index.mas:69
+msgid "Quota limit"
+msgstr "クォータ制限"
+
+#: src/templates/index.mas:77
+msgid "Roaming profiles"
+msgstr "ローミングプロファイル"
+
+#: src/templates/index.mas:82 src/templates/index.mas:86
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr "有効"
+
+#: src/templates/index.mas:83 src/templates/index.mas:85
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "無効"
+
+#: src/templates/index.mas:95 src/templates/index.mas:96
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+msgid "Change"
+msgstr "変更"
+
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
 msgstr "PDC/ファイル共有アカウント"
@@ -370,26 +446,9 @@ msgstr "PDC/ファイル共有アカウント"
 msgid "User account"
 msgstr "ユーザアカウント"
 
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-#: src/templates/index.mas:83 src/templates/index.mas:85
-msgid "Disabled"
-msgstr "無効"
-
-#: src/templates/samba.mas:22 src/templates/samba.mas:25
-#: src/templates/index.mas:82 src/templates/index.mas:86
-msgid "Enabled"
-msgstr "有効"
-
 #: src/templates/samba.mas:32
 msgid "Administration rights"
 msgstr "管理者権限"
-
-#: src/templates/samba.mas:46 src/templates/samba.mas:47
-#: src/templates/samba.mas:76 src/templates/samba.mas:77
-#: src/templates/samba.mas:147 src/templates/samba.mas:148
-#: src/templates/index.mas:95 src/templates/index.mas:96
-msgid "Change"
-msgstr "変更"
 
 #: src/templates/samba.mas:55
 msgid "Sharing directory for this group"
@@ -444,61 +503,6 @@ msgstr "プリンタモジュール"
 #: src/templates/samba.mas:170
 msgid "file sharing module"
 msgstr "ファイル共有モジュール"
-
-#: src/templates/index.mas:17
-msgid "General Settings"
-msgstr "全般的設定"
-
-#: src/templates/index.mas:19
-msgid ""
-"To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"ユーザのディスク使用量を無制限にするには、クォータ制限を0に設定してください。"
-
-#: src/templates/index.mas:25
-msgid "Working mode"
-msgstr "動作モード"
-
-#: src/templates/index.mas:30 src/templates/index.mas:33
-msgid "File server"
-msgstr "ファイルサーバ"
-
-#: src/templates/index.mas:31 src/templates/index.mas:34
-msgid "PDC"
-msgstr "PDC"
-
-#: src/templates/index.mas:42
-msgid "Domain name"
-msgstr "ドメイン名"
-
-#: src/templates/index.mas:44
-msgid "Working group"
-msgstr "ワークグループ"
-
-#: src/templates/index.mas:54
-msgid "Netbios name"
-msgstr "NETBIOS名"
-
-#: src/templates/index.mas:62
-msgid "Description"
-msgstr "内容"
-
-#: src/templates/index.mas:69
-msgid "Quota limit"
-msgstr "クォータ制限"
-
-#: src/templates/index.mas:77
-msgid "Roaming profiles"
-msgstr "ローミングプロファイル"
-
-#: stubs/smb.conf.mas:97
-msgid "Home Directories"
-msgstr "ホームディレクトリ"
-
-#: stubs/smb.conf.mas:104
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group}共有ディレクトリ"
 
 #~ msgid "listening port"
 #~ msgstr "受信ポート"

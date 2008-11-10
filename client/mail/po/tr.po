@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:33+0000\n"
 "PO-Revision-Date: 2007-05-12 23:21+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -16,6 +16,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/CGI/MQRemove.pm:42 src/EBox/CGI/MQRequeue.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr "Sıra Kimliği"
+
+#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAccount.pm:42
+#: src/EBox/CGI/DelAccount.pm:42 src/EBox/CGI/CreateAlias.pm:42
+msgid "username"
+msgstr "kullanıcı adı"
+
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "Takma posta ismi"
+
+#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
+#: src/EBox/Mail.pm:1089
+msgid "Queue Management"
+msgstr "Sıra Yönetimi"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:63
+#: src/EBox/MailVDomainsLdap.pm:122 src/EBox/Mail/Model/VDomains.pm:81
+msgid "virtual domain"
+msgstr "Sanal alan adı"
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr "Posta adresi"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "Grup"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
+msgid "account name"
+msgstr "Hesap adı"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr "Alan adı"
+
+#: src/EBox/CGI/DelGroupAlias.pm:47
+msgid "group alias mail"
+msgstr "Grup takma adı postası"
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr "kullanıcı postası"
+
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "İletileri sil"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
@@ -36,98 +88,23 @@ msgstr ""
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 
-#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:17
-msgid "Queue ID"
-msgstr "Sıra Kimliği"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "Grup"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
-msgid "account name"
-msgstr "Hesap adı"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "Alan adı"
-
-#: src/EBox/CGI/DelGroupAlias.pm:47
-msgid "group alias mail"
-msgstr "Grup takma adı postası"
-
-#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
-#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
-msgid "username"
-msgstr "kullanıcı adı"
-
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "İletileri sil"
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "Takma posta ismi"
-
-#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1089
-msgid "Queue Management"
-msgstr "Sıra Yönetimi"
-
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
-#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
-msgid "virtual domain"
-msgstr "Sanal alan adı"
-
-#: src/EBox/CGI/CreateAccount.pm:50
-msgid "Mail address"
-msgstr "Posta adresi"
-
-#: src/EBox/CGI/DelAccount.pm:46
-msgid "user mail"
-msgstr "kullanıcı postası"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
-msgid "Subject"
+#: src/EBox/MailVDomainsLdap.pm:332
+msgid "Size quota"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
-#, perl-brace-format
-msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
+#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
+#: src/EBox/Mail.pm:1280 src/EBox/MailUserLdap.pm:725
+#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
+#: src/EBox/MailUserLdap.pm:799
+msgid "maildir size"
+msgstr "Posta dizini boyutu"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1113
-msgid "To"
-msgstr "Alıcı"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
-msgid "Configure mail dispatcher"
-msgstr ""
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-msgid ""
-"In order to configure the Mail event dispatcher is required to enable the "
-"mail service from eBox"
-msgstr ""
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
-msgid "Mail dispatcher configuration updated"
-msgstr ""
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:85
-msgid ""
-"Users will have to authenticate to be able to send mails through this server"
-msgstr ""
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:93
+#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
+#: src/EBox/Mail/Composite/General.pm:77
 #, fuzzy
-msgid "Authentication"
-msgstr "Doğrulama hatası"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:123
-msgid "Cannot require authentication when TLS is inactive"
-msgstr ""
+msgid "Mail server options"
+msgstr "Posta servis ayarları"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
@@ -155,6 +132,25 @@ msgstr ""
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "Here you can allow mail relay per network object"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:57
+msgid "Name"
+msgstr "İsim"
+
+#: src/EBox/Mail/Model/VDomains.pm:72
+#, fuzzy
+msgid "Mail virtual domains"
+msgstr "Sanal alan adı"
+
+#: src/EBox/Mail/Model/VDomains.pm:83
+msgid "Virtual domain added.You need to save changes to use this domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:113
+msgid ""
+"You must enable the module mail in the module status section in order to use "
+"it."
 msgstr ""
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
@@ -189,17 +185,17 @@ msgstr "yok"
 msgid "custom"
 msgstr "Özel"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:81
+#: src/EBox/Mail/Model/SMTPOptions.pm:82
 #, fuzzy
 msgid "Smarthost to send mail"
 msgstr "Posta göndermek için akıllı sunucunun ip adresi"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:88
+#: src/EBox/Mail/Model/SMTPOptions.pm:89
 #, fuzzy
 msgid "Maximum message size accepted"
 msgstr "İleti boyutu üst sınırı aşıldı"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:92 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:93 src/templates/createaccount.mas:78
 #: src/templates/alias.mas:140
 msgid "Unlimited size"
 msgstr "Sınırsız boyut"
@@ -208,28 +204,36 @@ msgstr "Sınırsız boyut"
 msgid "size in Mb"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:110
+#: src/EBox/Mail/Model/SMTPOptions.pm:109
 #, fuzzy
 msgid "Options"
 msgstr "Seçmeli"
 
-#: src/EBox/Mail/Model/VDomains.pm:57
-msgid "Name"
-msgstr "İsim"
-
-#: src/EBox/Mail/Model/VDomains.pm:72
-#, fuzzy
-msgid "Mail virtual domains"
-msgstr "Sanal alan adı"
-
-#: src/EBox/Mail/Model/VDomains.pm:83
-msgid "Virtual domain added.You need to save changes to use this domain"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:113
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1113
+msgid "To"
+msgstr "Alıcı"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
-"You must enable the module mail in the module status section in order to use "
-"it."
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
 msgstr ""
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:87
@@ -253,35 +257,19 @@ msgstr "Seçmeli"
 msgid "Required"
 msgstr "Gerekli"
 
-#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
-#: src/EBox/Mail/Composite/General.pm:77
-#, fuzzy
-msgid "Mail server options"
-msgstr "Posta servis ayarları"
-
-#: src/EBox/MailVDomainsLdap.pm:332
-msgid "Size quota"
+#: src/EBox/Mail/Model/SMTPAuth.pm:85
+msgid ""
+"Users will have to authenticate to be able to send mails through this server"
 msgstr ""
 
-#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
-#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
-#: src/EBox/Mail.pm:1280 src/EBox/MailUserLdap.pm:699
-#: src/EBox/MailUserLdap.pm:705 src/EBox/MailUserLdap.pm:767
-#: src/EBox/MailUserLdap.pm:773
-msgid "maildir size"
-msgstr "Posta dizini boyutu"
+#: src/EBox/Mail/Model/SMTPAuth.pm:93
+#, fuzzy
+msgid "Authentication"
+msgstr "Doğrulama hatası"
 
-#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
-#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
-#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
-#: src/EBox/MailUserLdap.pm:76
-msgid "mail account"
-msgstr "Posta hesabı"
-
-#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
-#: src/EBox/MailAliasLdap.pm:228
-msgid "mail alias account"
-msgstr "Posta takma adı hesabı"
+#: src/EBox/Mail/Model/SMTPAuth.pm:123
+msgid "Cannot require authentication when TLS is inactive"
+msgstr ""
 
 #: src/EBox/Mail.pm:75
 #, fuzzy
@@ -500,41 +488,30 @@ msgstr "Diğer olaylar"
 msgid "Mailboxes"
 msgstr "Posta"
 
-#: src/EBox/MailUserLdap.pm:294
+#: src/EBox/MailUserLdap.pm:71 src/EBox/MailUserLdap.pm:76
+#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
+#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
+#: src/EBox/MailAliasLdap.pm:140
+msgid "mail account"
+msgstr "Posta hesabı"
+
+#: src/EBox/MailUserLdap.pm:320
 msgid "This group has a mail alias"
 msgstr "Bu grubun bir posta takma adı var"
 
-#: src/EBox/MailUserLdap.pm:321
+#: src/EBox/MailUserLdap.pm:347
 msgid "This user has a mail account"
 msgstr "Bu kullanıcının bir posta hesabı var"
+
+#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
+#: src/EBox/MailAliasLdap.pm:228
+msgid "mail alias account"
+msgstr "Posta takma adı hesabı"
 
 #: migration/0001_add_firewall_services.pl:30
 #, fuzzy
 msgid "eBox Mail System"
 msgstr "Posta sistemi"
-
-#: src/templates/createaccount.mas:15
-msgid "Create mail account"
-msgstr "Posta hesabı oluştur"
-
-#: src/templates/createaccount.mas:23
-msgid "Account name"
-msgstr "Hesap ismi"
-
-#: src/templates/createaccount.mas:27
-msgid "Domain name"
-msgstr "Alan ismi"
-
-#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
-#: src/templates/alias.mas:63 src/templates/alias.mas:64
-#: src/templates/alias.mas:65
-msgid "Create"
-msgstr "Oluştur"
-
-#: src/templates/createaccount.mas:62
-msgid "Maildir size"
-msgstr "Posta dizini boyutu"
 
 #: src/templates/warnvd.mas:14
 msgid ""
@@ -556,10 +533,6 @@ msgstr "Sil"
 msgid "Cancel"
 msgstr "Vazgeç"
 
-#: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
-msgid "Change"
-msgstr "Değiştir"
-
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
 msgstr "Grup için bir ileti takma ismi oluştur"
@@ -578,33 +551,41 @@ msgstr ""
 "Bu grubun içinde kullanıcı mevcut değil veya kullanıcının posta hesabı yok. "
 "Bu yüzden takma isim hesabı oluşturulamıyor."
 
+#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
+#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
+#: src/templates/alias.mas:65
+msgid "Create"
+msgstr "Oluştur"
+
 #: src/templates/groupalias.mas:54
 msgid "Mail alias settings"
 msgstr "İleti takma isim ayarları"
 
-#: src/templates/alias.mas:11
-msgid "Mail account settings"
-msgstr "Posta hesabı ayarları"
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr "Posta hesabı oluştur"
 
-#: src/templates/alias.mas:34
-msgid "Create mail aliases"
-msgstr "İleti takma ismi oluştur"
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr "Hesap ismi"
 
-#: src/templates/alias.mas:39
-msgid "Mail alias"
-msgstr "İleti takma isimleri"
+#: src/templates/createaccount.mas:27
+msgid "Domain name"
+msgstr "Alan ismi"
 
-#: src/templates/alias.mas:42
-msgid "Action"
-msgstr "İşlem"
+#: src/templates/createaccount.mas:62
+msgid "Maildir size"
+msgstr "Posta dizini boyutu"
 
-#: src/templates/alias.mas:126
-msgid "Default maildir size (MB)"
-msgstr "Varsayılan posta dizini noyutu (MB)"
-
-#: src/templates/alias.mas:151 src/templates/alias.mas:152
-msgid "Modify"
+#: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
+msgid "Change"
 msgstr "Değiştir"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"
@@ -659,6 +640,30 @@ msgstr "Sonuncu"
 msgid "There is no messages in queue or the service is stopped"
 msgstr "Ne beklemede nede servislerden gelen olağan dışı bir mesaj var."
 
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr "Posta hesabı ayarları"
+
+#: src/templates/alias.mas:34
+msgid "Create mail aliases"
+msgstr "İleti takma ismi oluştur"
+
+#: src/templates/alias.mas:39
+msgid "Mail alias"
+msgstr "İleti takma isimleri"
+
+#: src/templates/alias.mas:42
+msgid "Action"
+msgstr "İşlem"
+
+#: src/templates/alias.mas:126
+msgid "Default maildir size (MB)"
+msgstr "Varsayılan posta dizini noyutu (MB)"
+
+#: src/templates/alias.mas:151 src/templates/alias.mas:152
+msgid "Modify"
+msgstr "Değiştir"
+
 #: src/templates/account.mas:22
 #, fuzzy
 msgid "Mail account"
@@ -668,11 +673,6 @@ msgstr "Posta hesabı"
 #, fuzzy
 msgid "Click here to create a new mail virtual domain"
 msgstr "Yeni sanal bir alan ekle"
-
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the mail module is enabled"
-msgstr ""
 
 #~ msgid "vdomain"
 #~ msgstr "Sanal alanlar"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2006-11-16 15:11+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -22,17 +22,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "estado de sincronización externa"
-
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
 msgstr "Opciones de la zona horaria"
 
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Opciones de fecha y hora"
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "estado de sincronización externa"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
@@ -59,6 +55,10 @@ msgstr "Servidor secundario"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Servidor terciario"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Opciones de fecha y hora"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -138,6 +138,19 @@ msgstr "Fecha/hora"
 msgid "Time zone"
 msgstr "Zona horaria"
 
+#: src/templates/timezone.mas:18
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+"Un cambio en la zona horaria provocará que se reinicien todos los servicios "
+"de ebox"
+
+#: src/templates/timezone.mas:35 src/templates/timezone.mas:36
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Cambiar"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Desactivado"
@@ -145,13 +158,6 @@ msgstr "Desactivado"
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Activado"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:35
-#: src/templates/timezone.mas:36 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Cambiar"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
@@ -164,12 +170,6 @@ msgid ""
 msgstr ""
 "Recuerde configurar su zona horaria para que la sincronización funcione "
 "correctamente."
-
-#: src/templates/timezone.mas:18
-msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
-"Un cambio en la zona horaria provocará que se reinicien todos los servicios "
-"de ebox"
 
 #: src/templates/date.mas:10
 msgid ""

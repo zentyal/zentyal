@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
+
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
+msgid "Traffic Shaping"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:95
+msgid "traffic shaping"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:133
+msgid "Add iptables rules to mangle table"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:134
+msgid "To mark packets with different priorities and rates"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:138
+msgid "Add tc rules"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:139
+msgid "To implement the traffic shaping rules"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:415 src/EBox/TrafficShaping.pm:565
+#: src/EBox/TrafficShaping.pm:952 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:428
+#, perl-brace-format
+msgid ""
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:969
+msgid ""
+"Traffic shaping can be only done in external interfaces which have gateways "
+"associated to"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1058
+msgid "type"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1081
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1546
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1547
+msgid "Port"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
+msgid "Guaranteed Rate"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
+msgid "Limited Rate"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:1550
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
+msgid "Priority"
+msgstr ""
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+msgid "Rules list per interface"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -92,18 +203,8 @@ msgstr ""
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1550
-msgid "Priority"
-msgstr ""
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1548
-msgid "Guaranteed Rate"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
@@ -115,11 +216,6 @@ msgstr ""
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1549
-msgid "Limited Rate"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
@@ -172,37 +268,6 @@ msgstr ""
 msgid "Application based service group"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-msgid "Rules list per interface"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr ""
-
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
@@ -248,69 +313,4 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr ""
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr ""
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:415
-#: src/EBox/TrafficShaping.pm:565 src/EBox/TrafficShaping.pm:952
-msgid "Interface"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
-msgid "Traffic Shaping"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:95
-msgid "traffic shaping"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:133
-msgid "Add iptables rules to mangle table"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:134
-msgid "To mark packets with different priorities and rates"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:138
-msgid "Add tc rules"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:139
-msgid "To implement the traffic shaping rules"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:428
-#, perl-brace-format
-msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:969
-msgid ""
-"Traffic shaping can be only done in external interfaces which have gateways "
-"associated to"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:1058
-msgid "type"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:1081
-#, perl-brace-format
-msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:1546
-msgid "Protocol"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:1547
-msgid "Port"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:23+0000\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/Model/AliasTable.pm:79
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:92
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr "同じドメイン内に\"{name}\"と同じホスト名が存在します"
+
+#: src/EBox/Model/AliasTable.pm:100
+#, perl-brace-format
+msgid "There is an alias with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:126 src/EBox/Model/AliasTable.pm:136
+#: src/EBox/Model/AliasTable.pm:142 src/EBox/Model/HostnameTable.pm:173
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "エイリアス"
+
+#: src/EBox/Model/AliasTable.pm:143
+msgid "alias"
+msgstr "エイリアス"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
+#: src/EBox/DNS.pm.in:861
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+"DNSサーバは所有するドメインのためにあなたが名前解決することを許可します"
+
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "ドメイン"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:184
+#: src/EBox/Model/HostnameTable.pm:190
+msgid "Hostnames"
+msgstr "ホスト名"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "メールエクスチェンジャー"
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:165
+msgid "IP Address"
+msgstr "IPアドレス"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+msgid "Domains"
+msgstr "ドメイン"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "ドメイン"
 
 #: src/EBox/Model/HostnameTable.pm:133
 #, perl-brace-format
@@ -29,34 +90,17 @@ msgstr ""
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: src/EBox/Model/HostnameTable.pm:165
-msgid "IP Address"
-msgstr "IPアドレス"
-
-#: src/EBox/Model/HostnameTable.pm:173 src/EBox/Model/AliasTable.pm:126
-#: src/EBox/Model/AliasTable.pm:136 src/EBox/Model/AliasTable.pm:142
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "エイリアス"
-
-#: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
-#: src/EBox/Model/DomainTable.pm:73
-msgid "Hostnames"
-msgstr "ホスト名"
-
 #: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
 msgstr "ホスト名"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
-#: src/EBox/DNS.pm.in:857
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/EnableFormDNS.pm:84
+msgid "Service enabled"
+msgstr "サービスは有効化されました"
 
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
-"DNSサーバは所有するドメインのためにあなたが名前解決することを許可します"
+#: src/EBox/Model/EnableFormDNS.pm:86
+msgid "Service disabled"
+msgstr "サービスは無効化されました"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -99,50 +143,6 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "メールエクスチェンジャー記録"
 
-#: src/EBox/Model/DomainTable.pm:65
-msgid "Domain"
-msgstr "ドメイン"
-
-#: src/EBox/Model/DomainTable.pm:82
-msgid "Mail Exchangers"
-msgstr "メールエクスチェンジャー"
-
-#: src/EBox/Model/DomainTable.pm:92 src/EBox/Model/DomainTable.pm:98
-msgid "Domains"
-msgstr "ドメイン"
-
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
-msgid "domain"
-msgstr "ドメイン"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr "サービスは有効化されました"
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr "サービスは無効化されました"
-
-#: src/EBox/Model/AliasTable.pm:79
-#, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:92
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr "同じドメイン内に\"{name}\"と同じホスト名が存在します"
-
-#: src/EBox/Model/AliasTable.pm:100
-#, perl-brace-format
-msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:143
-msgid "alias"
-msgstr "エイリアス"
-
 #: src/EBox/DNS.pm.in:53
 msgid "Domain Name System"
 msgstr "ドメインネームシステム"
@@ -151,46 +151,15 @@ msgstr "ドメインネームシステム"
 msgid "DNS Server"
 msgstr "DNSサーバ"
 
-#: src/EBox/DNS.pm.in:644
+#: src/EBox/DNS.pm.in:648
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "ゾーン{zone}の設定ファイル"
 
-#: src/EBox/DNS.pm.in:660
+#: src/EBox/DNS.pm.in:664
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "zone{zone}の逆引き設定ファイル"
-
-#: src/templates/edit.mas:12
-#, perl-brace-format
-msgid "Host list for domain {domain}"
-msgstr "ドメイン {domain} のホスト一覧"
-
-#: src/templates/edit.mas:17
-msgid "IP"
-msgstr "IP"
-
-#: src/templates/edit.mas:23 src/templates/index.mas:24
-msgid "Action"
-msgstr "アクション"
-
-#: src/templates/edit.mas:40 src/templates/edit.mas:41
-#: src/templates/edit.mas:42 src/templates/edit.mas:74
-#: src/templates/edit.mas:75 src/templates/edit.mas:76
-#: src/templates/index.mas:37 src/templates/index.mas:38
-#: src/templates/index.mas:39
-msgid "Add"
-msgstr "追加"
-
-#: src/templates/edit.mas:54 src/templates/edit.mas:55
-#: src/templates/edit.mas:93 src/templates/edit.mas:94
-#: src/templates/index.mas:53 src/templates/index.mas:54
-msgid "Delete"
-msgstr "削除"
-
-#: src/templates/edit.mas:110 src/templates/index.mas:70
-msgid "delete"
-msgstr "削除"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
@@ -200,13 +169,44 @@ msgstr "ドメイン一覧"
 msgid "Name"
 msgstr "名前"
 
+#: src/templates/index.mas:24 src/templates/edit.mas:23
+msgid "Action"
+msgstr "アクション"
+
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39 src/templates/edit.mas:40
+#: src/templates/edit.mas:41 src/templates/edit.mas:42
+#: src/templates/edit.mas:74 src/templates/edit.mas:75
+#: src/templates/edit.mas:76
+msgid "Add"
+msgstr "追加"
+
 #: src/templates/index.mas:49
 msgid "Edit"
 msgstr "編集"
 
+#: src/templates/index.mas:53 src/templates/index.mas:54
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+msgid "Delete"
+msgstr "削除"
+
 #: src/templates/index.mas:65
 msgid "edit"
 msgstr "編集"
+
+#: src/templates/index.mas:70 src/templates/edit.mas:110
+msgid "delete"
+msgstr "削除"
+
+#: src/templates/edit.mas:12
+#, perl-brace-format
+msgid "Host list for domain {domain}"
+msgstr "ドメイン {domain} のホスト一覧"
+
+#: src/templates/edit.mas:17
+msgid "IP"
+msgstr "IP"
 
 #~ msgid "dns"
 #~ msgstr "DNS"

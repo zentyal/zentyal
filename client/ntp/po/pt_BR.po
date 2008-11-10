@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-04-15 19:07+0000\n"
 "Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <es@li.org>\n"
@@ -17,17 +17,13 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "Status de sincronização externa"
-
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
 msgstr "Configurações "
 
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Configurações de data e hora"
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "Status de sincronização externa"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
@@ -54,6 +50,10 @@ msgstr "Servidor Secundário"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Servidor Terciário"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Configurações de data e hora"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -136,6 +136,18 @@ msgstr "Data/Hora"
 msgid "Time zone"
 msgstr "Fusorário"
 
+#: src/templates/timezone.mas:18
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+"Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
+
+#: src/templates/timezone.mas:35 src/templates/timezone.mas:36
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Servidores NTP"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Desabilitado"
@@ -143,13 +155,6 @@ msgstr "Desabilitado"
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Habilitado"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:35
-#: src/templates/timezone.mas:36 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Servidores NTP"
 
 #: src/templates/servers.mas:7
 #, fuzzy
@@ -163,11 +168,6 @@ msgid ""
 msgstr ""
 "Você deve se lembrar de configurar o seu fusorário para que a sincronização "
 "funcione corretamente"
-
-#: src/templates/timezone.mas:18
-msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
-"Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
 
 #: src/templates/date.mas:10
 msgid ""

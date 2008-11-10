@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2007-05-15 13:09+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,135 @@ msgstr ""
 "es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
+msgid "Traffic Shaping"
+msgstr "Trafik Şekillendirme"
+
+#: src/EBox/TrafficShaping.pm:95
+#, fuzzy
+msgid "traffic shaping"
+msgstr "Trafik Şekillendirme"
+
+#: src/EBox/TrafficShaping.pm:133
+msgid "Add iptables rules to mangle table"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:134
+msgid "To mark packets with different priorities and rates"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:138
+#, fuzzy
+msgid "Add tc rules"
+msgstr "Adres"
+
+#: src/EBox/TrafficShaping.pm:139
+#, fuzzy
+msgid "To implement the traffic shaping rules"
+msgstr "Trafik Şekillendirme Kuralları"
+
+#: src/EBox/TrafficShaping.pm:415 src/EBox/TrafficShaping.pm:565
+#: src/EBox/TrafficShaping.pm:952 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Arabirim"
+
+#: src/EBox/TrafficShaping.pm:428
+#, perl-brace-format
+msgid ""
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
+msgstr ""
+"Azami kural hesabına {max} ulaşıldı, lütfen bir yenisini eklemek için mevcut "
+"olandan en azından birini silin."
+
+#: src/EBox/TrafficShaping.pm:969
+msgid ""
+"Traffic shaping can be only done in external interfaces which have gateways "
+"associated to"
+msgstr ""
+"Trafik şekillendirmesi ilişikilendirilmiş ağ geçidine sahip harici "
+"arabirimlerde yapılabilir"
+
+#: src/EBox/TrafficShaping.pm:1058
+msgid "type"
+msgstr "tip"
+
+#: src/EBox/TrafficShaping.pm:1081
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"{iface} arabirimi trafik şekillendirmesi yapabilmek için azami bir bant "
+"genişliği oranına sahip olmalıdır"
+
+#: src/EBox/TrafficShaping.pm:1546
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/EBox/TrafficShaping.pm:1547
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
+msgid "Guaranteed Rate"
+msgstr "Garantili Oran"
+
+#: src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
+msgid "Limited Rate"
+msgstr "Sınırlı Oran"
+
+#: src/EBox/TrafficShaping.pm:1550
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
+msgid "Priority"
+msgstr "Öncelik"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "Seçenekler"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
+"arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
+"{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
+"arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
+"{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#, fuzzy
+msgid "Rules list per interface"
+msgstr "Herbir arabirim için kurallar listesi"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"Trafik şekillendirme kuralları eklemek için bir arabirim seçin. Bir iç "
+"arabirim şekillendirdiğinizde giriş şekillendirmesi yaptığınızı unutmayın. "
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr "Şekillendirilecek arayüzü seçin"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -96,19 +225,9 @@ msgstr "Hedef IP"
 msgid "Destination object"
 msgstr "Hedef nesne"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1550
-msgid "Priority"
-msgstr "Öncelik"
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1548
-msgid "Guaranteed Rate"
-msgstr "Garantili Oran"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:571
@@ -120,11 +239,6 @@ msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1549
-msgid "Limited Rate"
-msgstr "Sınırlı Oran"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -175,46 +289,6 @@ msgstr ""
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:800
 msgid "Application based service group"
 msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, fuzzy, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
-"arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
-"{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, fuzzy, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
-"arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
-"{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-#, fuzzy
-msgid "Rules list per interface"
-msgstr "Herbir arabirim için kurallar listesi"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-"Trafik şekillendirme kuralları eklemek için bir arabirim seçin. Bir iç "
-"arabirim şekillendirdiğinizde giriş şekillendirmesi yaptığınızı unutmayın. "
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr "Şekillendirilecek arayüzü seçin"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -268,80 +342,6 @@ msgstr "Sayfa sınıf tanımlayıcısı"
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
 msgstr "Adres"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "Seçenekler"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:415
-#: src/EBox/TrafficShaping.pm:565 src/EBox/TrafficShaping.pm:952
-msgid "Interface"
-msgstr "Arabirim"
-
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
-msgid "Traffic Shaping"
-msgstr "Trafik Şekillendirme"
-
-#: src/EBox/TrafficShaping.pm:95
-#, fuzzy
-msgid "traffic shaping"
-msgstr "Trafik Şekillendirme"
-
-#: src/EBox/TrafficShaping.pm:133
-msgid "Add iptables rules to mangle table"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:134
-msgid "To mark packets with different priorities and rates"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:138
-#, fuzzy
-msgid "Add tc rules"
-msgstr "Adres"
-
-#: src/EBox/TrafficShaping.pm:139
-#, fuzzy
-msgid "To implement the traffic shaping rules"
-msgstr "Trafik Şekillendirme Kuralları"
-
-#: src/EBox/TrafficShaping.pm:428
-#, perl-brace-format
-msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
-msgstr ""
-"Azami kural hesabına {max} ulaşıldı, lütfen bir yenisini eklemek için mevcut "
-"olandan en azından birini silin."
-
-#: src/EBox/TrafficShaping.pm:969
-msgid ""
-"Traffic shaping can be only done in external interfaces which have gateways "
-"associated to"
-msgstr ""
-"Trafik şekillendirmesi ilişikilendirilmiş ağ geçidine sahip harici "
-"arabirimlerde yapılabilir"
-
-#: src/EBox/TrafficShaping.pm:1058
-msgid "type"
-msgstr "tip"
-
-#: src/EBox/TrafficShaping.pm:1081
-#, perl-brace-format
-msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
-msgstr ""
-"{iface} arabirimi trafik şekillendirmesi yapabilmek için azami bir bant "
-"genişliği oranına sahip olmalıdır"
-
-#: src/EBox/TrafficShaping.pm:1546
-msgid "Protocol"
-msgstr "Protokol"
-
-#: src/EBox/TrafficShaping.pm:1547
-msgid "Port"
-msgstr "Port"
 
 #~ msgid "If service is any, some source or destination should be provided"
 #~ msgstr "Eğer bir hizmet sunulacaksa bazı kaynak veya hedef verilmeli"
