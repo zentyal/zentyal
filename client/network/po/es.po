@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-05-15 10:22+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -19,6 +19,135 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
+#: src/EBox/Network.pm:2533
+msgid "Network interfaces"
+msgstr "Interfaces de red"
+
+#: src/EBox/CGI/VIface.pm:43 src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:42
+#: src/EBox/CGI/Iface.pm:59
+msgid "network interface"
+msgstr "interfaz de red"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "acción sobre la interfaz virtual"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
+#: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
+#: src/EBox/Network.pm:2327 src/EBox/Network.pm:2459 src/EBox/Network.pm:2578
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
+msgid "IP address"
+msgstr "Dirección IP"
+
+#: src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Iface.pm:88
+msgid "netmask"
+msgstr "máscara de red"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "nombre de la interfaz virtual"
+
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
+msgid "Balance traffic and multigateway rules"
+msgstr "Balanceo de tráfico y reglas multirouter"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network diagnosis"
+msgstr "Diagnóstico de la red"
+
+#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
+msgid "Host"
+msgstr "Máquina"
+
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2520
+msgid "host name"
+msgstr "nombre de máquina"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "balanceo de tráfico"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+msgid "Set default gateway"
+msgstr "Establecer ruta por defecto"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
+msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+msgid ""
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
+msgstr ""
+"Tras la configuración inicia puede volver a visitar esta página en el menú "
+"Red/Interfaces"
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr "Gateway configurada"
+
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr "DNS configurado"
+
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+msgid "Network interface configured"
+msgstr "Interfaces de red configurados"
+
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1201
+#: src/EBox/Network.pm:1230 src/templates/ifaces.mas:148
+msgid "VLAN Id"
+msgstr "Identificador de VLAN"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "método"
+
+#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayTable.pm:174
+msgid "ip address"
+msgstr "dirección IP"
+
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2267
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "El router {gw} no es alcanzable"
+
+#: src/EBox/Model/ByteRateSettings.pm:80
+msgid "Interface to listen"
+msgstr "Interfaz a escuchar"
+
+#: src/EBox/Model/ByteRateSettings.pm:89
+msgid "Traffic rate monitor settings"
+msgstr "Preferencias en la monitorización de tasa de tráfico"
+
+#: src/EBox/Model/ByteRateSettings.pm:93
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "Los cambios serán aplicados a la monitorización inmediatamente"
+
+#: src/EBox/Model/ByteRateSettings.pm:96
+msgid "Settings changed"
+msgstr "Preferencias cambiadas"
+
+#: src/EBox/Model/ByteRateSettings.pm:115
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (interfaz interna)"
+
+#: src/EBox/Model/ByteRateSettings.pm:122
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (interfaz externa)"
+
+#: src/EBox/Model/ByteRateSettings.pm:129
+msgid "all"
+msgstr "todas"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:389
@@ -134,26 +263,50 @@ msgstr "Puerto origen"
 msgid "Port cannot be set if no protocol is selected"
 msgstr "El puerto no puede ser asignado si no se ha seleccionado un protocolo"
 
-#: src/EBox/Model/PhysicalInterfaceTable.pm:60
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
-#: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
-#: src/templates/ifaces.mas:26 src/templates/ifaces.mas:205
-msgid "Name"
-msgstr "Nombre"
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Selecciona el gráfico de tráfico"
 
-#: src/EBox/Model/PhysicalInterfaceTable.pm:74
-msgid "Physical interface list"
-msgstr "Lista de interfaces físicos"
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"Varias vistas se muestran dependiendo de la selección de los parámetros. Una "
+"dirección IP de máquina y un servicio, que debe coincidir con el texto que "
+"se muestra en la leyenda del gráfico basado en /etc/services, son las "
+"posibilidades en los tipos de gráfico. El flujo de la vista cambiará "
+"conforme a los nuevos parámetros."
 
-#: src/EBox/Model/PhysicalInterfaceTable.pm:81
-msgid "These are the physical interfaces which are available in your system."
-msgstr "Estos son los interfaces físicos que están disponibles en tu sistema"
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Tipo de gráfico"
 
-#: src/EBox/Model/PhysicalInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
-#: src/EBox/Model/VlanInterfaceTable.pm:94
-msgid "interface"
-msgstr "interfaz"
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "Todo el tráfico activo por fuente"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "Todo el tráfico activo por servicio"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "Tráfico por la fuente seleccionada"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "Tráfico por el servicio seleccionado"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "Tráfico por el servicio y fuente seleccionados"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+msgid "Service"
+msgstr "Servicio"
 
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
@@ -185,6 +338,32 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+
+#: src/EBox/Model/VlanInterfaceTable.pm:61
+#: src/EBox/Model/PhysicalInterfaceTable.pm:60
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
+#: src/EBox/Model/GatewayTable.pm:82 src/templates/ifaces.mas:26
+#: src/templates/ifaces.mas:205
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:70
+msgid "Physical interface"
+msgstr "Interfaz físico"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:85
+msgid "Vlan interface list"
+msgstr "Lista de interfaces VLAN"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:92
+msgid "These are the vlan interfaces which are available in your system."
+msgstr "Estos son los interfaces VLAN que están disponibles en tu sistema"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:94
+#: src/EBox/Model/PhysicalInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
+msgid "interface"
+msgstr "interfaz"
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -231,6 +410,14 @@ msgstr ""
 msgid "static route"
 msgstr "Rutas estáticas"
 
+#: src/EBox/Model/PhysicalInterfaceTable.pm:74
+msgid "Physical interface list"
+msgstr "Lista de interfaces físicos"
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:81
+msgid "These are the physical interfaces which are available in your system."
+msgstr "Estos son los interfaces físicos que están disponibles en tu sistema"
+
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
 #: src/templates/ifaces.mas:37
@@ -250,6 +437,25 @@ msgstr "Lista de interfaces configurables"
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
 msgid "These are the interfaces which can be configured"
 msgstr "Estos son los interfaces que se pueden configurar"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:71
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"Comenzando la monitorización de tasa de tráfico. Espera pacientemente hasta "
+"que el gráfico aparezca"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:74
+msgid "Stopping traffic rate monitoring"
+msgstr "Parando la monitorización de tasa de tráfico"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:87
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"La monitorización de tasa de tráfico se para/inicia bajo demanda sin tener "
+"que guardar cambios primero"
 
 #: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
@@ -316,317 +522,6 @@ msgstr ""
 #: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "router"
-
-#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
-msgid "ip address"
-msgstr "dirección IP"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:70
-msgid "Physical interface"
-msgstr "Interfaz físico"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:85
-msgid "Vlan interface list"
-msgstr "Lista de interfaces VLAN"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:92
-msgid "These are the vlan interfaces which are available in your system."
-msgstr "Estos son los interfaces VLAN que están disponibles en tu sistema"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:71
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"Comenzando la monitorización de tasa de tráfico. Espera pacientemente hasta "
-"que el gráfico aparezca"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:74
-msgid "Stopping traffic rate monitoring"
-msgstr "Parando la monitorización de tasa de tráfico"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:87
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"La monitorización de tasa de tráfico se para/inicia bajo demanda sin tener "
-"que guardar cambios primero"
-
-#: src/EBox/Model/ByteRateSettings.pm:80
-msgid "Interface to listen"
-msgstr "Interfaz a escuchar"
-
-#: src/EBox/Model/ByteRateSettings.pm:89
-msgid "Traffic rate monitor settings"
-msgstr "Preferencias en la monitorización de tasa de tráfico"
-
-#: src/EBox/Model/ByteRateSettings.pm:93
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "Los cambios serán aplicados a la monitorización inmediatamente"
-
-#: src/EBox/Model/ByteRateSettings.pm:96
-msgid "Settings changed"
-msgstr "Preferencias cambiadas"
-
-#: src/EBox/Model/ByteRateSettings.pm:115
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (interfaz interna)"
-
-#: src/EBox/Model/ByteRateSettings.pm:122
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (interfaz externa)"
-
-#: src/EBox/Model/ByteRateSettings.pm:129
-msgid "all"
-msgstr "todas"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Selecciona el gráfico de tráfico"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Varias vistas se muestran dependiendo de la selección de los parámetros. Una "
-"dirección IP de máquina y un servicio, que debe coincidir con el texto que "
-"se muestra en la leyenda del gráfico basado en /etc/services, son las "
-"posibilidades en los tipos de gráfico. El flujo de la vista cambiará "
-"conforme a los nuevos parámetros."
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Tipo de gráfico"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "Todo el tráfico activo por fuente"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "Todo el tráfico activo por servicio"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "Tráfico por la fuente seleccionada"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "Tráfico por el servicio seleccionado"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "Tráfico por el servicio y fuente seleccionados"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-msgid "Service"
-msgstr "Servicio"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
-
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-msgid "Network interface configured"
-msgstr "Interfaces de red configurados"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2533
-msgid "Network interfaces"
-msgstr "Interfaces de red"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
-msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
-msgstr ""
-"Tras la configuración inicia puede volver a visitar esta página en el menú "
-"Red/Interfaces"
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNS configurado"
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "Gateway configurada"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-msgid "Set default gateway"
-msgstr "Establecer ruta por defecto"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
-
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
-msgid "Balance traffic and multigateway rules"
-msgstr "Balanceo de tráfico y reglas multirouter"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network diagnosis"
-msgstr "Diagnóstico de la red"
-
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
-msgid "Host"
-msgstr "Máquina"
-
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2520
-msgid "host name"
-msgstr "nombre de máquina"
-
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
-#: src/EBox/CGI/Vlan.pm:40
-msgid "network interface"
-msgstr "interfaz de red"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "método"
-
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "máscara de red"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "balanceo de tráfico"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "acción sobre la interfaz virtual"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
-#: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
-#: src/EBox/Network.pm:2327 src/EBox/Network.pm:2459 src/EBox/Network.pm:2578
-#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
-msgid "IP address"
-msgstr "Dirección IP"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "nombre de la interfaz virtual"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1201
-#: src/EBox/Network.pm:1230 src/templates/ifaces.mas:148
-msgid "VLAN Id"
-msgstr "Identificador de VLAN"
-
-#: src/EBox/Network/Composite/ByteRate.pm:74
-#: src/EBox/Network/Report/ByteRate.pm:134
-msgid "Traffic rate monitoring"
-msgstr "Monitorización de la tasa de tráfico"
-
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2567
-msgid "Status"
-msgstr "Estado"
-
-#: src/EBox/Network/Report/ByteRate.pm:136
-msgid "Running"
-msgstr "Ejecutándose"
-
-#: src/EBox/Network/Report/ByteRate.pm:756
-msgid "bytes/second"
-msgstr "Bytes/segundo"
-
-#: src/EBox/Network/Report/ByteRate.pm:823
-#: src/EBox/Network/Report/ByteRate.pm:929
-msgid "Traffic data for source"
-msgstr "Datos de tráfico para fuente"
-
-#: src/EBox/Network/Report/ByteRate.pm:843
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr "Tráfico de red desde: {src}"
-
-#: src/EBox/Network/Report/ByteRate.pm:877
-msgid "Traffic data not found for service"
-msgstr "Datos de tráfico no encontrados para el servicio"
-
-#: src/EBox/Network/Report/ByteRate.pm:887
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr "Tráfico de red para {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:937
-msgid "Traffic data for service"
-msgstr "Datos de tráfico para servicio"
-
-#: src/EBox/Network/Report/ByteRate.pm:946
-msgid "Traffic data not found for source and service pair"
-msgstr ""
-"No se encontraron datos de tráfico para el par dado de fuente y servicio"
-
-#: src/EBox/Network/Report/ByteRate.pm:948
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr "fuente {src} y servicio {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:962
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr "Tráfico de red desde fuente {src} y para el servicio {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:989
-msgid "All active services"
-msgstr "Todos los servicios activos"
-
-#: src/EBox/Network/Report/ByteRate.pm:994
-msgid "Traffic data for "
-msgstr "Datos de tráfico para"
-
-#: src/EBox/Network/Report/ByteRate.pm:995
-msgid "all services"
-msgstr "todos los servicios"
-
-#: src/EBox/Network/Report/ByteRate.pm:1040
-msgid "All active sources"
-msgstr "Todas las fuentes activas"
-
-#: src/EBox/Network/Report/ByteRate.pm:1045
-msgid "Traffic data for"
-msgstr "Datos de tráfico para"
-
-#: src/EBox/Network/Report/ByteRate.pm:1046
-msgid "all sources"
-msgstr "todas las fuentes"
-
-#: src/EBox/Network/Report/ByteRate.pm:1084
-#, perl-brace-format
-msgid "Total traffic rate from {src}"
-msgstr "Tasa total de tráfico desde {src}"
-
-#: src/EBox/Network/Report/ByteRate.pm:1099
-#, perl-brace-format
-msgid "Total traffic rate for {service}"
-msgstr "Tasa total de tráfico para {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:1123
-#, perl-brace-format
-msgid "Traffic rate from {src} for {service}"
-msgstr "Tasa de tráfico desde {src} para {service}"
-
-#: src/EBox/Network/FirstTime.pm:14
-msgid "Configure network interfaces"
-msgstr "Configurar interfaces de red"
-
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr "Configurar los servidores de nombre"
-
-#: src/EBox/Network/FirstTime.pm:16
-msgid "Configure default gateway"
-msgstr "Configurar gateway por defecto"
-
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2267
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "El router {gw} no es alcanzable"
 
 #: src/EBox/Network.pm:84
 msgid "Add default routers to the default table"
@@ -718,6 +613,10 @@ msgstr "enlace ok"
 msgid "no link"
 msgstr "sin enlace"
 
+#: src/EBox/Network.pm:2567 src/EBox/Network/Report/ByteRate.pm:136
+msgid "Status"
+msgstr "Estado"
+
 #: src/EBox/Network.pm:2572
 msgid "MAC address"
 msgstr "Dirección MAC"
@@ -738,6 +637,148 @@ msgstr "Diagnóstico"
 msgid "Balance traffic"
 msgstr "Balanceo de tráfico"
 
+#: src/EBox/Network/FirstTime.pm:14
+msgid "Configure network interfaces"
+msgstr "Configurar interfaces de red"
+
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr "Configurar los servidores de nombre"
+
+#: src/EBox/Network/FirstTime.pm:16
+msgid "Configure default gateway"
+msgstr "Configurar gateway por defecto"
+
+#: src/EBox/Network/Report/ByteRate.pm:134
+#: src/EBox/Network/Composite/ByteRate.pm:74
+msgid "Traffic rate monitoring"
+msgstr "Monitorización de la tasa de tráfico"
+
+#: src/EBox/Network/Report/ByteRate.pm:136
+msgid "Running"
+msgstr "Ejecutándose"
+
+#: src/EBox/Network/Report/ByteRate.pm:756
+msgid "bytes/second"
+msgstr "Bytes/segundo"
+
+#: src/EBox/Network/Report/ByteRate.pm:823
+#: src/EBox/Network/Report/ByteRate.pm:929
+msgid "Traffic data for source"
+msgstr "Datos de tráfico para fuente"
+
+#: src/EBox/Network/Report/ByteRate.pm:843
+#, perl-brace-format
+msgid "Network traffic from {src}"
+msgstr "Tráfico de red desde: {src}"
+
+#: src/EBox/Network/Report/ByteRate.pm:877
+msgid "Traffic data not found for service"
+msgstr "Datos de tráfico no encontrados para el servicio"
+
+#: src/EBox/Network/Report/ByteRate.pm:887
+#, perl-brace-format
+msgid "Network traffic for {service}"
+msgstr "Tráfico de red para {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:937
+msgid "Traffic data for service"
+msgstr "Datos de tráfico para servicio"
+
+#: src/EBox/Network/Report/ByteRate.pm:946
+msgid "Traffic data not found for source and service pair"
+msgstr ""
+"No se encontraron datos de tráfico para el par dado de fuente y servicio"
+
+#: src/EBox/Network/Report/ByteRate.pm:948
+#, perl-brace-format
+msgid "source {src} and service {service}"
+msgstr "fuente {src} y servicio {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:962
+#, perl-brace-format
+msgid "Network traffic from source {src} and for service {service}"
+msgstr "Tráfico de red desde fuente {src} y para el servicio {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:989
+msgid "All active services"
+msgstr "Todos los servicios activos"
+
+#: src/EBox/Network/Report/ByteRate.pm:994
+msgid "Traffic data for "
+msgstr "Datos de tráfico para"
+
+#: src/EBox/Network/Report/ByteRate.pm:995
+msgid "all services"
+msgstr "todos los servicios"
+
+#: src/EBox/Network/Report/ByteRate.pm:1040
+msgid "All active sources"
+msgstr "Todas las fuentes activas"
+
+#: src/EBox/Network/Report/ByteRate.pm:1045
+msgid "Traffic data for"
+msgstr "Datos de tráfico para"
+
+#: src/EBox/Network/Report/ByteRate.pm:1046
+msgid "all sources"
+msgstr "todas las fuentes"
+
+#: src/EBox/Network/Report/ByteRate.pm:1084
+#, perl-brace-format
+msgid "Total traffic rate from {src}"
+msgstr "Tasa total de tráfico desde {src}"
+
+#: src/EBox/Network/Report/ByteRate.pm:1099
+#, perl-brace-format
+msgid "Total traffic rate for {service}"
+msgstr "Tasa total de tráfico para {service}"
+
+#: src/EBox/Network/Report/ByteRate.pm:1123
+#, perl-brace-format
+msgid "Traffic rate from {src} for {service}"
+msgstr "Tasa de tráfico desde {src} para {service}"
+
+#: src/templates/gwrules.mas:19
+#, fuzzy
+msgid ""
+"To be able to use this feature, you need, at least, two gateways. You can "
+"add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
+msgstr ""
+"Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
+"enlace. Puede añadirlas <a href=\"/ebox/Network/View/GatewayDataTable"
+"\">aquí</a>"
+
+#: src/templates/gwrules.mas:25
+msgid "Traffic balancing"
+msgstr "Balancear tráfico"
+
+#: src/templates/confirm.mas:14 src/templates/confirmremove.mas:11
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"El cambio que esta intentando realizar afectará a la configuración de uno o "
+"varios módulos que usan este interfaz de red."
+
+#: src/templates/confirm.mas:17 src/templates/confirmremove.mas:14
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
+msgstr ""
+"Si elige continuar, todos los módulos que usan la configuración actual de "
+"este interfaz de red borrarán las partes mas relevantes de su configuración. "
+"Elija \"Cancelar\" si no está seguro."
+
+#: src/templates/confirm.mas:31 src/templates/confirmremove.mas:24
+msgid "Ok"
+msgstr "Aceptar"
+
+#: src/templates/confirm.mas:33 src/templates/confirmremove.mas:26
+msgid "Cancel"
+msgstr "Cancelar"
+
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
 msgstr "Ping"
@@ -757,20 +798,6 @@ msgstr "Lookup"
 #: src/templates/diag.mas:29
 msgid "Output"
 msgstr "Salida"
-
-#: src/templates/gwrules.mas:19
-#, fuzzy
-msgid ""
-"To be able to use this feature, you need, at least, two gateways. You can "
-"add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
-msgstr ""
-"Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
-"enlace. Puede añadirlas <a href=\"/ebox/Network/View/GatewayDataTable"
-"\">aquí</a>"
-
-#: src/templates/gwrules.mas:25
-msgid "Traffic balancing"
-msgstr "Balancear tráfico"
 
 #: src/templates/ifaces.mas:11
 msgid ""
@@ -829,32 +856,6 @@ msgstr "Borrar"
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
 msgstr "Interfaces virtuales"
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"El cambio que esta intentando realizar afectará a la configuración de uno o "
-"varios módulos que usan este interfaz de red."
-
-#: src/templates/confirmremove.mas:14 src/templates/confirm.mas:17
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
-"Si elige continuar, todos los módulos que usan la configuración actual de "
-"este interfaz de red borrarán las partes mas relevantes de su configuración. "
-"Elija \"Cancelar\" si no está seguro."
-
-#: src/templates/confirmremove.mas:24 src/templates/confirm.mas:31
-msgid "Ok"
-msgstr "Aceptar"
-
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
-msgid "Cancel"
-msgstr "Cancelar"
 
 #~ msgid ""
 #~ "Having network interfaces configured via DHCP may cause this settings to "

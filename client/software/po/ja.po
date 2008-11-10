@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:46+0000\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "自動ソフトウェアアップデート"
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "自動アップデート設定"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:462
+#: src/EBox/Software.pm:466
 msgid "System updates"
 msgstr "システムアップデート"
 
@@ -33,17 +33,21 @@ msgstr "ソフトウェアアップデートは自動で適用されます"
 msgid "The system is up to date"
 msgstr "システムは最新の状態です"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "自動アップデート設定"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "自動ソフトウェアアップデート"
+
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
+msgid "Upgrading"
+msgstr "アップグレードしています"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
+msgid "eBox components"
+msgstr "eBoxコンポーネント"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "アップデートするパッケージはありませんでした"
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "アップグレードしています"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
@@ -100,10 +104,6 @@ msgid ""
 "logs"
 msgstr "パッケージは正常に削除されませんでした。詳細はログに記録されています"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
-msgid "eBox components"
-msgstr "eBoxコンポーネント"
-
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
 msgstr "更新をダウンロードするためにcronスクリプトを有効化"
@@ -114,15 +114,15 @@ msgid ""
 "sources. "
 msgstr "eBoxは設定済みのapt sourcesから利用可能な更新をダウンロードします。"
 
-#: src/EBox/Software.pm:457
+#: src/EBox/Software.pm:461
 msgid "Software management"
 msgstr "ソフトウェアの管理"
 
-#: src/EBox/Software.pm:464
+#: src/EBox/Software.pm:468
 msgid "Automatic updates"
 msgstr "自動アップデート"
 
-#: src/EBox/Software.pm:555
+#: src/EBox/Software.pm:559
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -235,49 +235,37 @@ msgstr "aptを利用したパッケージ更新ソフトウェアサービス"
 msgid "rule to allow apt updates"
 msgstr "aptアップデートの許可ルール"
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "次のパッケージがインストールされます"
-
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
-msgstr "次のパッケージが削除されます"
-
-#: src/templates/del.mas:32
-msgid "Ok"
-msgstr "はい"
-
-#: src/templates/del.mas:33
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: src/templates/updates.mas:10
+#: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr "次のシステムコンポーネントのアップデートが利用可能です"
 
-#: src/templates/updates.mas:15 src/templates/ebox.mas:14
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "コンポーネント"
 
-#: src/templates/updates.mas:16
+#: src/templates/updates.mas:17
 msgid "Description"
 msgstr "内容"
 
-#: src/templates/updates.mas:17 src/templates/ebox.mas:27
+#: src/templates/updates.mas:18
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "アップデート"
 
-#: src/templates/updates.mas:33 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "全てアップデート"
 
-#: src/templates/updates.mas:44
+#: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr "この処理はしばらく時間がかかるかもしれません。"
 
-#: src/templates/updates.mas:47
+#: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "アップグレード"
 
@@ -304,6 +292,22 @@ msgstr "なし"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "削除"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "次のパッケージがインストールされます"
+
+#: src/templates/del.mas:16
+msgid "The following packages will be removed"
+msgstr "次のパッケージが削除されます"
+
+#: src/templates/del.mas:32
+msgid "Ok"
+msgstr "はい"
+
+#: src/templates/del.mas:33
+msgid "Cancel"
+msgstr "キャンセル"
 
 #, fuzzy
 #~ msgid "eBox- Web Server"

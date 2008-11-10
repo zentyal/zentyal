@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:46+0000\n"
 "PO-Revision-Date: 2007-07-24 12:13+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatisk software opdatering"
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "Indstillinger for automatisk opdatering."
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:462
+#: src/EBox/Software.pm:466
 msgid "System updates"
 msgstr "System opdatering"
 
@@ -33,17 +33,21 @@ msgstr "Software opdateringer sker automatisk."
 msgid "The system is up to date"
 msgstr "Systemet er opdateret."
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "Indstillinger for automatisk opdatering."
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatisk software opdatering"
+
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
+msgid "Upgrading"
+msgstr "Opgraderer"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
+msgid "eBox components"
+msgstr "eBox komponenter"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "Der var ingen pakke at opdatere."
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Opgraderer"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
@@ -97,10 +101,6 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
-msgid "eBox components"
-msgstr "eBox komponenter"
-
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
 msgstr ""
@@ -111,16 +111,16 @@ msgid ""
 "sources. "
 msgstr ""
 
-#: src/EBox/Software.pm:457
+#: src/EBox/Software.pm:461
 msgid "Software management"
 msgstr "Software styring"
 
-#: src/EBox/Software.pm:464
+#: src/EBox/Software.pm:468
 #, fuzzy
 msgid "Automatic updates"
 msgstr "Automatisk software opdatering"
 
-#: src/EBox/Software.pm:555
+#: src/EBox/Software.pm:559
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -250,43 +250,31 @@ msgstr ""
 msgid "rule to allow apt updates"
 msgstr "Automatisk software opdatering"
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "Følgende pakker vil blive installeret"
-
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
-msgstr "Følgende pakker vil blive fjernet"
-
-#: src/templates/del.mas:32
-msgid "Ok"
-msgstr "Ok"
-
-#: src/templates/del.mas:33
-msgid "Cancel"
-msgstr "Afbryd"
-
-#: src/templates/updates.mas:10
+#: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr "Opdateringer er tilgængelige for følgende systemkomponenter."
 
-#: src/templates/updates.mas:15 src/templates/ebox.mas:14
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "Komponent"
 
-#: src/templates/updates.mas:16
+#: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/templates/updates.mas:17 src/templates/ebox.mas:27
+#: src/templates/updates.mas:18
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "Opdatér"
 
-#: src/templates/updates.mas:33 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "Opdatér alle pakker"
 
-#: src/templates/updates.mas:44
+#: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -294,7 +282,7 @@ msgstr ""
 "Denne handling kan tage noget tid, bliv ikke nervøs hvis eBox ser ud som om "
 "den er gået i stå, efter du har trykket på Opgrader-knappen."
 
-#: src/templates/updates.mas:47
+#: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "Opgrader"
 
@@ -321,6 +309,22 @@ msgstr "ingen"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Fjern"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Følgende pakker vil blive installeret"
+
+#: src/templates/del.mas:16
+msgid "The following packages will be removed"
+msgstr "Følgende pakker vil blive fjernet"
+
+#: src/templates/del.mas:32
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/del.mas:33
+msgid "Cancel"
+msgstr "Afbryd"
 
 #, fuzzy
 #~ msgid "eBox- Web Server"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:30+0000\n"
 "PO-Revision-Date: 2007-04-06 21:22+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "estato d'o modulo"
-
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
-msgid "domain"
-msgstr "dominio"
-
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
 msgstr "nombre d'usuario"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "estato d'o modulo"
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
+msgid "domain"
+msgstr "dominio"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
@@ -52,34 +52,11 @@ msgstr ""
 msgid "Jabber Service"
 msgstr "Serbizio Jabber"
 
-#: src/templates/jabber.mas:8
-msgid "Jabber account"
-msgstr "Cuenta Jabber"
-
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password"
+#: stubs/c2s.xml.mas:77
+msgid "Enter a username and password to register with this server."
 msgstr ""
-"A parabra de paso ta o serbizio Jabber ye a parabra de paso de l'usuario"
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr "Cuenta d'usuario"
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Desautibato"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr "Autibato"
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr "Pribilechios d'almenistrador"
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Cambear"
+"Escriba un nombre d'usuario y una parabra de paso ta dentrar-ie á iste "
+"serbidor"
 
 #: src/templates/index.mas:16
 msgid "General Settings"
@@ -125,11 +102,34 @@ msgstr "Requerito"
 msgid "Apply Changes"
 msgstr "Aplicar Cambeos"
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
+#: src/templates/jabber.mas:8
+msgid "Jabber account"
+msgstr "Cuenta Jabber"
+
+#: src/templates/jabber.mas:9
+msgid "Password for Jabber service is the user password"
 msgstr ""
-"Escriba un nombre d'usuario y una parabra de paso ta dentrar-ie á iste "
-"serbidor"
+"A parabra de paso ta o serbizio Jabber ye a parabra de paso de l'usuario"
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr "Cuenta d'usuario"
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr "Desautibato"
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr "Autibato"
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr "Pribilechios d'almenistrador"
+
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
+msgstr "Cambear"
 
 #~ msgid "listening port"
 #~ msgstr "puerto"

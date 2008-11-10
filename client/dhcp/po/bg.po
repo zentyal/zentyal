@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:23+0000\n"
 "PO-Revision-Date: 2008-11-04 14:56+0000\n"
 "Last-Translator: Stanimir Stoyanov <stoyanovs@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,16 +16,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/FixedAddressTable.pm:94
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
+#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/DHCP.pm:497 src/EBox/DHCP.pm:533
+#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681 src/EBox/DHCP.pm:735
+#: src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851 src/EBox/DHCP.pm:1237
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr ""
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/FixedAddressTable.pm:221
+#: src/EBox/Model/ThinClientOptions.pm:223 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr ""
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:211
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Име"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:217
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "От"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:223
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "До"
+
+#: src/EBox/Composite/General.pm:79
+#, perl-brace-format
+msgid ""
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
+msgstr ""
+
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #: src/EBox/Composite/OptionsTab.pm:87
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/ThinClientOptions.pm:118
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "интерфейс {iface}"
+
+#: src/EBox/Composite/AdvancedOptions.pm:133
+msgid "Advanced options"
+msgstr ""
+
+#: src/EBox/Composite/Interfaces.pm:108
+msgid "Choose a static interface to configure:"
+msgstr ""
+
+#: src/EBox/Composite/Interfaces.pm:109
+msgid "Service configuration"
+msgstr ""
+
+#: src/EBox/Composite/Interfaces.pm:110
+msgid ""
+"In order to serve IP addresses on an interface, it is required to set at "
+"least a range or a fixed address."
+msgstr ""
+
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#, perl-brace-format
+msgid ""
+"In order to serve IP addresses on a external interface, you must open the "
+"service on {openhref}firewall module{closehref}"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:120
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:131
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:147
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:159
+#, perl-brace-format
+msgid "{name} cannot contain spaces"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:177
+msgid "update"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:179
+msgid "add"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:181
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:224
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:238
+msgid "fixed address"
+msgstr ""
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -54,22 +174,6 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "Обхват {from}-{to} включва фиксиран адрес '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Име"
-
-#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "От"
-
-#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "До"
-
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Обхвати"
@@ -93,45 +197,6 @@ msgstr "Наличен обхват"
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "DHCP обхвати"
-
-#: src/EBox/Model/LeaseTimes.pm:133
-msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:139
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:151
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:157
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:201
-msgid "Default leased time"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
-msgid "seconds"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:208
-msgid "Maximum leased time"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:217
-msgid "Lease times"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:222
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -202,62 +267,43 @@ msgid ""
 "optionals setting its value as \"None\" or leaving blank."
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:120
+#: src/EBox/Model/LeaseTimes.pm:133
+msgid "Default leased time must be higher than 0 seconds"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
+msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:131
+#: src/EBox/Model/LeaseTimes.pm:151
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:147
-#, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
+#: src/EBox/Model/LeaseTimes.pm:201
+msgid "Default leased time"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:159
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
+msgid "seconds"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:177
-msgid "update"
+#: src/EBox/Model/LeaseTimes.pm:208
+msgid "Maximum leased time"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:179
-msgid "add"
+#: src/EBox/Model/LeaseTimes.pm:217
+msgid "Lease times"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:181
-#, perl-brace-format
+#: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
-#: src/templates/fixed.mas:10
-msgid "IP address"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:224
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:238
-msgid "fixed address"
+"Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:137
@@ -294,55 +340,6 @@ msgstr ""
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
-msgstr ""
-
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
-#: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
-#: src/EBox/DHCP.pm:1237
-msgid "Interface"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr ""
-
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
-#, perl-brace-format
-msgid ""
-"In order to serve IP addresses on a external interface, you must open the "
-"service on {openhref}firewall module{closehref}"
-msgstr ""
-
-#: src/EBox/Composite/General.pm:79
-#, perl-brace-format
-msgid ""
-"An interface must set as static to configure the DHCP service on it. To do "
-"so, change {openhref}interfaces configuration{closehref} in network module"
-msgstr ""
-
-#: src/EBox/Composite/AdvancedOptions.pm:133
-msgid "Advanced options"
-msgstr ""
-
-#: src/EBox/Composite/Interfaces.pm:108
-msgid "Choose a static interface to configure:"
-msgstr ""
-
-#: src/EBox/Composite/Interfaces.pm:109
-msgid "Service configuration"
-msgstr ""
-
-#: src/EBox/Composite/Interfaces.pm:110
-msgid ""
-"In order to serve IP addresses on an interface, it is required to set at "
-"least a range or a fixed address."
 msgstr ""
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
@@ -407,20 +404,6 @@ msgstr ""
 msgid "Dynamic Host Configuration Protocol"
 msgstr ""
 
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr ""
-
-#: src/templates/options.mas:10
-msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
-msgstr ""
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr ""
-
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
 msgstr ""
@@ -443,4 +426,18 @@ msgstr ""
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
+msgstr ""
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr ""
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+
+#: src/templates/options.mas:64
+msgid "Apply"
 msgstr ""

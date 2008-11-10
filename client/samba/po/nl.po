@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"POT-Creation-Date: 2008-11-10 08:45+0000\n"
 "PO-Revision-Date: 2007-02-05 20:38+0000\n"
 "Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,6 +15,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
+#: src/EBox/Samba.pm:545
+msgid "File sharing"
+msgstr "Bestanden delen"
+
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:756
+msgid "netbios"
+msgstr "netbios"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:805
+msgid "working group"
+msgstr "werkgroep"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "working mode"
+msgstr "werkgroep mode"
+
+#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:774
+msgid "description"
+msgstr "omschrijving"
+
+#: src/EBox/CGI/SambaConf.pm:48
+msgid "user quota"
+msgstr "gebruikers quota"
+
+#: src/EBox/CGI/SambaConf.pm:49
+msgid "roaming profiles"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:53
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "status module"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -26,10 +63,6 @@ msgstr "naam gebruiker"
 msgid "group name"
 msgstr "naam groep"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "status module"
-
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
 msgstr "naam gedeelde map"
@@ -38,33 +71,23 @@ msgstr "naam gedeelde map"
 msgid "active"
 msgstr "actief"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:533
-#: src/EBox/Samba.pm:542
-msgid "File sharing"
-msgstr "Bestanden delen"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:752
-msgid "netbios"
-msgstr "netbios"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:801
-msgid "working group"
-msgstr "werkgroep"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "Todo"
+msgstr ""
 
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "werkgroep mode"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:770
-msgid "description"
-msgstr "omschrijving"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "gebruikers quota"
-
-#: src/EBox/CGI/SambaConf.pm:47
-msgid "roaming profiles"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "share"
 msgstr ""
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
@@ -101,12 +124,6 @@ msgstr ""
 msgid "Samba shares"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:147
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
-msgid "share"
-msgstr ""
-
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr ""
@@ -130,19 +147,6 @@ msgstr ""
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
-msgid "Deleted Samba shares"
-msgstr ""
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
-msgid "Todo"
 msgstr ""
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
@@ -253,36 +257,36 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr ""
 
-#: src/EBox/Samba.pm:545
+#: src/EBox/Samba.pm:548
 #, fuzzy
 msgid "General settings"
 msgstr "Algemene instellingen"
 
-#: src/EBox/Samba.pm:548
+#: src/EBox/Samba.pm:551
 msgid "Shares"
 msgstr ""
 
-#: src/EBox/Samba.pm:819
+#: src/EBox/Samba.pm:823
 msgid "quota"
 msgstr "quota"
 
-#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1122
+#: src/EBox/Samba.pm:1107 src/EBox/Samba.pm:1126
 msgid "user"
 msgstr "gebruiker"
 
-#: src/EBox/Samba.pm:1106 src/EBox/Samba.pm:1136 src/EBox/SambaLdapUser.pm:918
+#: src/EBox/Samba.pm:1110 src/EBox/Samba.pm:1140 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "groep"
 
-#: src/EBox/Samba.pm:1109
+#: src/EBox/Samba.pm:1113
 msgid "printer"
 msgstr "printer"
 
-#: src/EBox/Samba.pm:1570
+#: src/EBox/Samba.pm:1578
 msgid "User's files"
 msgstr ""
 
-#: src/EBox/Samba.pm:1572
+#: src/EBox/Samba.pm:1580
 msgid "Group's files"
 msgstr ""
 
@@ -343,6 +347,15 @@ msgstr "Bron delen"
 msgid "File sharing (Samba) protocol"
 msgstr "Bestanden delen"
 
+#: stubs/smb.conf.mas:97
+msgid "Home Directories"
+msgstr "Home mappen"
+
+#: stubs/smb.conf.mas:104
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr ""
+
 #: src/templates/delete.mas:11
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
@@ -361,6 +374,69 @@ msgstr "Verwijderen"
 msgid "Cancel"
 msgstr "Annuleren"
 
+#: src/templates/index.mas:17
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#: src/templates/index.mas:19
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"Om ongelimiteerd schijfgebruik toe te laten, stel nul in als quota limiet."
+
+#: src/templates/index.mas:25
+msgid "Working mode"
+msgstr "Wergroep mode"
+
+#: src/templates/index.mas:30 src/templates/index.mas:33
+msgid "File server"
+msgstr "Bestand server"
+
+#: src/templates/index.mas:31 src/templates/index.mas:34
+msgid "PDC"
+msgstr "PDC"
+
+#: src/templates/index.mas:42
+msgid "Domain name"
+msgstr "Naam domein"
+
+#: src/templates/index.mas:44
+msgid "Working group"
+msgstr "Werkgroep"
+
+#: src/templates/index.mas:54
+msgid "Netbios name"
+msgstr "Naam Netbios"
+
+#: src/templates/index.mas:62
+msgid "Description"
+msgstr "Omschrijving"
+
+#: src/templates/index.mas:69
+msgid "Quota limit"
+msgstr "Limiet quota"
+
+#: src/templates/index.mas:77
+msgid "Roaming profiles"
+msgstr ""
+
+#: src/templates/index.mas:82 src/templates/index.mas:86
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/templates/index.mas:83 src/templates/index.mas:85
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: src/templates/index.mas:95 src/templates/index.mas:96
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+msgid "Change"
+msgstr "Wijzigen"
+
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
 msgstr "PDC/File sharing account"
@@ -369,26 +445,9 @@ msgstr "PDC/File sharing account"
 msgid "User account"
 msgstr "Gebruikers account"
 
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-#: src/templates/index.mas:83 src/templates/index.mas:85
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/templates/samba.mas:22 src/templates/samba.mas:25
-#: src/templates/index.mas:82 src/templates/index.mas:86
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
 #: src/templates/samba.mas:32
 msgid "Administration rights"
 msgstr "Beheersrechten"
-
-#: src/templates/samba.mas:46 src/templates/samba.mas:47
-#: src/templates/samba.mas:76 src/templates/samba.mas:77
-#: src/templates/samba.mas:147 src/templates/samba.mas:148
-#: src/templates/index.mas:95 src/templates/index.mas:96
-msgid "Change"
-msgstr "Wijzigen"
 
 #: src/templates/samba.mas:55
 msgid "Sharing directory for this group"
@@ -444,61 +503,6 @@ msgstr "printer"
 #, fuzzy
 msgid "file sharing module"
 msgstr "Bestanden delen"
-
-#: src/templates/index.mas:17
-msgid "General Settings"
-msgstr "Algemene instellingen"
-
-#: src/templates/index.mas:19
-msgid ""
-"To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"Om ongelimiteerd schijfgebruik toe te laten, stel nul in als quota limiet."
-
-#: src/templates/index.mas:25
-msgid "Working mode"
-msgstr "Wergroep mode"
-
-#: src/templates/index.mas:30 src/templates/index.mas:33
-msgid "File server"
-msgstr "Bestand server"
-
-#: src/templates/index.mas:31 src/templates/index.mas:34
-msgid "PDC"
-msgstr "PDC"
-
-#: src/templates/index.mas:42
-msgid "Domain name"
-msgstr "Naam domein"
-
-#: src/templates/index.mas:44
-msgid "Working group"
-msgstr "Werkgroep"
-
-#: src/templates/index.mas:54
-msgid "Netbios name"
-msgstr "Naam Netbios"
-
-#: src/templates/index.mas:62
-msgid "Description"
-msgstr "Omschrijving"
-
-#: src/templates/index.mas:69
-msgid "Quota limit"
-msgstr "Limiet quota"
-
-#: src/templates/index.mas:77
-msgid "Roaming profiles"
-msgstr ""
-
-#: stubs/smb.conf.mas:97
-msgid "Home Directories"
-msgstr "Home mappen"
-
-#: stubs/smb.conf.mas:104
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr ""
 
 #~ msgid "listening port"
 #~ msgstr "luistert op poort"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2008-11-05 01:46+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -16,6 +16,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr "Webserver"
+
+#: src/EBox/WebServer/Composite/General.pm:82
+msgid ""
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
+msgstr ""
+"Der eBox Webserver erlaubt Ihnen verschiedene HTML-Webseiten in "
+"unterschiedlichen virtuellen Servern zu speichern"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
@@ -125,18 +137,6 @@ msgstr ""
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
 msgstr "Die allgemeinen Einstellungen wurden aktualisiert"
-
-#: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "Webserver"
-
-#: src/EBox/WebServer/Composite/General.pm:82
-msgid ""
-"The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
-msgstr ""
-"Der eBox Webserver erlaubt Ihnen verschiedene HTML-Webseiten in "
-"unterschiedlichen virtuellen Servern zu speichern"
 
 #: src/EBox/WebServer.pm:97
 msgid "To set webserver listening port"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.12.99"
+"Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:30+0000\n"
 "PO-Revision-Date: 2008-09-01 08:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
-
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
 msgstr ""
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
-msgid "domain"
-msgstr ""
-
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
+msgid "domain"
 msgstr ""
 
 #: src/EBox/Jabber.pm:71
@@ -53,32 +53,8 @@ msgstr ""
 msgid "Jabber Service"
 msgstr ""
 
-#: src/templates/jabber.mas:8
-msgid "Jabber account"
-msgstr ""
-
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password"
-msgstr ""
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr ""
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr ""
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
+#: stubs/c2s.xml.mas:77
+msgid "Enter a username and password to register with this server."
 msgstr ""
 
 #: src/templates/index.mas:16
@@ -122,6 +98,30 @@ msgstr ""
 msgid "Apply Changes"
 msgstr ""
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
+#: src/templates/jabber.mas:8
+msgid "Jabber account"
+msgstr ""
+
+#: src/templates/jabber.mas:9
+msgid "Password for Jabber service is the user password"
+msgstr ""
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr ""
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr ""
+
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
 msgstr ""

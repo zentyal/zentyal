@@ -7,13 +7,13 @@
 # This file is distributed under the same license as the ebox-objects package.
 # Automatically generated, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2008-11-05 01:44+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -23,61 +23,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
-msgid "Name"
-msgstr "Name"
-
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
-msgid "Members"
-msgstr "Mitglieder"
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:40
+#: src/EBox/Objects.pm:40 src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Model/ObjectTable.pm:82
 msgid "Objects"
 msgstr "Computergruppen"
-
-#: src/EBox/Model/ObjectTable.pm:83
-msgid "Object list"
-msgstr "Liste der Computergruppen"
-
-#: src/EBox/Model/ObjectTable.pm:90
-msgid "object"
-msgstr "Computergruppe"
-
-#: src/EBox/Model/ObjectTable.pm:112
-msgid "This object is being used by another module"
-msgstr "Diese Computergruppe wird von einem anderen Modul verwendet"
-
-#: src/EBox/Model/ObjectTable.pm:184
-msgid ""
-"Objects are an abstraction of machines and network addresses which can be "
-"used in other modules. Any change on an object is automatically synched in "
-"all the modules using it"
-msgstr ""
-"Objekte sind eine Abstraktion von Computer und Netzwerk-Adressen, welche in "
-"anderen Modulen genutzt werden können. Jede Änderung an einem Objekt wird "
-"automatisch in allen Modulen, die dieses Objekt beinhalten, übernommen"
-
-#: src/EBox/Model/MemberTable.pm:70
-msgid "IP Address"
-msgstr "IP-Adresse"
-
-#: src/EBox/Model/MemberTable.pm:76
-msgid "MAC Address"
-msgstr "MAC-Adresse"
-
-#: src/EBox/Model/MemberTable.pm:94
-msgid "member"
-msgstr "Mitglied"
-
-#: src/EBox/Model/MemberTable.pm:116
-msgid "You can only use MAC addresses with hosts"
-msgstr "Sie können nur MAC-Adressen in Verbindung mit Computer verwenden"
-
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-#: src/EBox/Model/MemberTable.pm:124
-msgid "network address"
-msgstr "Netzwerkadresse"
 
 #: src/EBox/Objects.pm:45
 #, perl-brace-format
@@ -107,6 +56,57 @@ msgstr "{nname} aus Computergruppe {object} entfernt"
 #: src/EBox/Objects.pm:270
 msgid "Object"
 msgstr "Computergruppe"
+
+#: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
+msgid "Name"
+msgstr "Name"
+
+#: src/EBox/Model/MemberTable.pm:70
+msgid "IP Address"
+msgstr "IP-Adresse"
+
+#: src/EBox/Model/MemberTable.pm:76
+msgid "MAC Address"
+msgstr "MAC-Adresse"
+
+#: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
+msgid "Members"
+msgstr "Mitglieder"
+
+#: src/EBox/Model/MemberTable.pm:94
+msgid "member"
+msgstr "Mitglied"
+
+#: src/EBox/Model/MemberTable.pm:116
+msgid "You can only use MAC addresses with hosts"
+msgstr "Sie können nur MAC-Adressen in Verbindung mit Computer verwenden"
+
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
+msgid "network address"
+msgstr "Netzwerkadresse"
+
+#: src/EBox/Model/ObjectTable.pm:83
+msgid "Object list"
+msgstr "Liste der Computergruppen"
+
+#: src/EBox/Model/ObjectTable.pm:90
+msgid "object"
+msgstr "Computergruppe"
+
+#: src/EBox/Model/ObjectTable.pm:112
+msgid "This object is being used by another module"
+msgstr "Diese Computergruppe wird von einem anderen Modul verwendet"
+
+#: src/EBox/Model/ObjectTable.pm:184
+msgid ""
+"Objects are an abstraction of machines and network addresses which can be "
+"used in other modules. Any change on an object is automatically synched in "
+"all the modules using it"
+msgstr ""
+"Objekte sind eine Abstraktion von Computer und Netzwerk-Adressen, welche in "
+"anderen Modulen genutzt werden können. Jede Änderung an einem Objekt wird "
+"automatisch in allen Modulen, die dieses Objekt beinhalten, übernommen"
 
 #~ msgid "IP address"
 #~ msgstr "IP-Adresse"

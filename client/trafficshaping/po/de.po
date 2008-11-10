@@ -2,13 +2,13 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2008-11-10 08:47+0000\n"
 "PO-Revision-Date: 2008-11-06 00:37+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -17,6 +17,134 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
+msgid "Traffic Shaping"
+msgstr "Bandbreitenbegrenzung"
+
+#: src/EBox/TrafficShaping.pm:95
+msgid "traffic shaping"
+msgstr "Bandbreitenbegrenzung"
+
+#: src/EBox/TrafficShaping.pm:133
+msgid "Add iptables rules to mangle table"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:134
+msgid "To mark packets with different priorities and rates"
+msgstr "Um Pakete mit unterschiedlicher Priorität und Rate zu markieren"
+
+#: src/EBox/TrafficShaping.pm:138
+msgid "Add tc rules"
+msgstr "Füge tc Regel hinzu"
+
+#: src/EBox/TrafficShaping.pm:139
+msgid "To implement the traffic shaping rules"
+msgstr "Um Regeln für Bandbreitenbegrenzung einzurichten"
+
+#: src/EBox/TrafficShaping.pm:415 src/EBox/TrafficShaping.pm:565
+#: src/EBox/TrafficShaping.pm:952 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Netzwerkkarte"
+
+#: src/EBox/TrafficShaping.pm:428
+#, perl-brace-format
+msgid ""
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
+msgstr ""
+"Es können nicht mehr als {max} Regeln erstellt werden. Löschen Sie "
+"mindestens eine, bevor Sie eine neue hinzufügen"
+
+#: src/EBox/TrafficShaping.pm:969
+msgid ""
+"Traffic shaping can be only done in external interfaces which have gateways "
+"associated to"
+msgstr ""
+"Die Bandbreitenbegrenzung kann nur auf externe Netzwerkkarten mit einem "
+"Gateway angewendet werden"
+
+#: src/EBox/TrafficShaping.pm:1058
+msgid "type"
+msgstr "Typ"
+
+#: src/EBox/TrafficShaping.pm:1081
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"Für die Netzwerkkarte {iface} sollte eine maximale Bandbreite definiert "
+"sein, damit die Bandbreitenbegrenzung überhaupt möglich ist"
+
+#: src/EBox/TrafficShaping.pm:1546
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: src/EBox/TrafficShaping.pm:1547
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
+msgid "Guaranteed Rate"
+msgstr "Garantierte Bandbreite"
+
+#: src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
+msgid "Limited Rate"
+msgstr "Maximale Bandbreite"
+
+#: src/EBox/TrafficShaping.pm:1550
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
+msgid "Priority"
+msgstr "Priorität"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "Optionen"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"Die Bandbreitenbegrenzung wird angewendet, wenn eBox als Gateway fungiert. "
+"Um diese Funktion verwenden zu können, brauchen Sie eine interne und eine "
+"externe Netzwerkkarte. Ändern Sie wenn nötig die Einstellungen in {openhref}"
+"Netzwerk->Netzwerkkarten{closehref} eine Netzwerkkarte als extern"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"Die Bandbreitenbegrenzung wird nur auf externe Netzwerkkarten angewendet, "
+"welche einen Gateway mit Begrenzung der Upload-Bandbreite haben. Um diese "
+"Funktion verwenden zu können, markieren Sie unter {openhref}Netzwerk-"
+">Gateways{closehref} eine Netzwerkkarte als extern"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+msgid "Rules list per interface"
+msgstr "Liste der Regeln pro Netzwerkkarte"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"Wählen Sie eine Netzwerkkarte aus, um Regeln zur Bandbreitenbegrenzung "
+"hinzuzufügen. Wenn Sie eine interne Netzwerkkarte wählen, wird der "
+"eingehende Verkehr begrenzt"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -97,19 +225,9 @@ msgstr "Ziel-IP"
 msgid "Destination object"
 msgstr "Ziel-Objekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1550
-msgid "Priority"
-msgstr "Priorität"
-
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Niedriegste Priorität: 7 Höchste Priorität: 0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1548
-msgid "Guaranteed Rate"
-msgstr "Garantierte Bandbreite"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:571
@@ -123,11 +241,6 @@ msgid ""
 msgstr ""
 "Beachten Sie, dass die Summe aller garantierten Bandbreiten nicht Ihre "
 "Gesamtbandbreite überschreiten kann. 0 bedeutet unbegrenzte Bandbreite."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1549
-msgid "Limited Rate"
-msgstr "Maximale Bandbreite"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -192,48 +305,6 @@ msgstr "Anwendungsbasierter Dienst"
 msgid "Application based service group"
 msgstr "Anwendungsbasierter Dienste-Gruppe"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"Die Bandbreitenbegrenzung wird angewendet, wenn eBox als Gateway fungiert. "
-"Um diese Funktion verwenden zu können, brauchen Sie eine interne und eine "
-"externe Netzwerkkarte. Ändern Sie wenn nötig die Einstellungen in {openhref}"
-"Netzwerk->Netzwerkkarten{closehref} eine Netzwerkkarte als extern"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"Die Bandbreitenbegrenzung wird nur auf externe Netzwerkkarten angewendet, "
-"welche einen Gateway mit Begrenzung der Upload-Bandbreite haben. Um diese "
-"Funktion verwenden zu können, markieren Sie unter {openhref}Netzwerk-"
-">Gateways{closehref} eine Netzwerkkarte als extern"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-msgid "Rules list per interface"
-msgstr "Liste der Regeln pro Netzwerkkarte"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-"Wählen Sie eine Netzwerkkarte aus, um Regeln zur Bandbreitenbegrenzung "
-"hinzuzufügen. Wenn Sie eine interne Netzwerkkarte wählen, wird der "
-"eingehende Verkehr begrenzt"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
-
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
@@ -290,77 +361,6 @@ msgstr "Leaf class identifier"
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
 msgstr "Adresse"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "Optionen"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:415
-#: src/EBox/TrafficShaping.pm:565 src/EBox/TrafficShaping.pm:952
-msgid "Interface"
-msgstr "Netzwerkkarte"
-
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
-msgid "Traffic Shaping"
-msgstr "Bandbreitenbegrenzung"
-
-#: src/EBox/TrafficShaping.pm:95
-msgid "traffic shaping"
-msgstr "Bandbreitenbegrenzung"
-
-#: src/EBox/TrafficShaping.pm:133
-msgid "Add iptables rules to mangle table"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:134
-msgid "To mark packets with different priorities and rates"
-msgstr "Um Pakete mit unterschiedlicher Priorität und Rate zu markieren"
-
-#: src/EBox/TrafficShaping.pm:138
-msgid "Add tc rules"
-msgstr "Füge tc Regel hinzu"
-
-#: src/EBox/TrafficShaping.pm:139
-msgid "To implement the traffic shaping rules"
-msgstr "Um Regeln für Bandbreitenbegrenzung einzurichten"
-
-#: src/EBox/TrafficShaping.pm:428
-#, perl-brace-format
-msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
-msgstr ""
-"Es können nicht mehr als {max} Regeln erstellt werden. Löschen Sie "
-"mindestens eine, bevor Sie eine neue hinzufügen"
-
-#: src/EBox/TrafficShaping.pm:969
-msgid ""
-"Traffic shaping can be only done in external interfaces which have gateways "
-"associated to"
-msgstr ""
-"Die Bandbreitenbegrenzung kann nur auf externe Netzwerkkarten mit einem "
-"Gateway angewendet werden"
-
-#: src/EBox/TrafficShaping.pm:1058
-msgid "type"
-msgstr "Typ"
-
-#: src/EBox/TrafficShaping.pm:1081
-#, perl-brace-format
-msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
-msgstr ""
-"Für die Netzwerkkarte {iface} sollte eine maximale Bandbreite definiert "
-"sein, damit die Bandbreitenbegrenzung überhaupt möglich ist"
-
-#: src/EBox/TrafficShaping.pm:1546
-msgid "Protocol"
-msgstr "Protokoll"
-
-#: src/EBox/TrafficShaping.pm:1547
-msgid "Port"
-msgstr "Port"
 
 #~ msgid "If service is any, some source or destination should be provided"
 #~ msgstr ""

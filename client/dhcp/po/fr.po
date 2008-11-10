@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:23+0000\n"
 "PO-Revision-Date: 2008-11-04 16:50+0000\n"
 "Last-Translator: Amaury <acallens@free.fr>\n"
 "Language-Team: <es@li.org>\n"
@@ -20,16 +20,147 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/FixedAddressTable.pm:94
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
+#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/DHCP.pm:497 src/EBox/DHCP.pm:533
+#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681 src/EBox/DHCP.pm:735
+#: src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851 src/EBox/DHCP.pm:1237
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "Adresse MAC"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/FixedAddressTable.pm:221
+#: src/EBox/Model/ThinClientOptions.pm:223 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:211
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Statut du Module"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "statut du module"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:217
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "De"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:223
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "À"
+
+#: src/EBox/Composite/General.pm:79
+#, perl-brace-format
+msgid ""
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
+msgstr ""
+"Une interface doit être définie comme statique, afin de configurer son "
+"service DHCP. Pour le faire, modifier {openhref}la configuration des "
+"interfaces{closehref} dans le module réseau"
+
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #: src/EBox/Composite/OptionsTab.pm:87
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/ThinClientOptions.pm:118
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "interface {iface}"
+
+#: src/EBox/Composite/AdvancedOptions.pm:133
+msgid "Advanced options"
+msgstr "Options avancées"
+
+#: src/EBox/Composite/Interfaces.pm:108
+msgid "Choose a static interface to configure:"
+msgstr "Choisir une interface statique à configurer :"
+
+#: src/EBox/Composite/Interfaces.pm:109
+msgid "Service configuration"
+msgstr "Configuration du service"
+
+#: src/EBox/Composite/Interfaces.pm:110
+msgid ""
+"In order to serve IP addresses on an interface, it is required to set at "
+"least a range or a fixed address."
+msgstr ""
+"Afin de fournir les adresses IP sur une interface, vous devez définir au "
+"moins une plage ou une adresse fixe"
+
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#, perl-brace-format
+msgid ""
+"In order to serve IP addresses on a external interface, you must open the "
+"service on {openhref}firewall module{closehref}"
+msgstr ""
+"Afin de fournir des adresses IP sur une interface externe, vous devez ouvrir "
+"le service sur {openhref}le module pare-feu{closehref}"
+
+#: src/EBox/Model/FixedAddressTable.pm:120
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr "L'adresse IP {ip} n'est pas dans le réseau {net}"
+
+#: src/EBox/Model/FixedAddressTable.pm:131
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
+
+#: src/EBox/Model/FixedAddressTable.pm:147
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:159
+#, perl-brace-format
+msgid "{name} cannot contain spaces"
+msgstr "{name} ne doit pas contenir d'espace"
+
+#: src/EBox/Model/FixedAddressTable.pm:177
+msgid "update"
+msgstr "mis-à-jour"
+
+#: src/EBox/Model/FixedAddressTable.pm:179
+msgid "add"
+msgstr "ajouter"
+
+#: src/EBox/Model/FixedAddressTable.pm:181
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+"Vous ne pouvez pas {action} une adresse fixe avec un nom qui est déjà "
+"utilisé dans une autre table d'adresses fixes"
+
+#: src/EBox/Model/FixedAddressTable.pm:224
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr ""
+"Vous ne pouvez pas utiliser une adresse IP comprise dans les intervalles ci-"
+"dessus."
+
+#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Adresses fixes"
+
+#: src/EBox/Model/FixedAddressTable.pm:238
+msgid "fixed address"
+msgstr "adresse fixe"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -59,22 +190,6 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "La plage {from}-{to} inclue l'adresse fixe '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "De"
-
-#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "À"
-
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Plages"
@@ -98,51 +213,6 @@ msgstr "Plage disponible"
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "Plage DHCP"
-
-#: src/EBox/Model/LeaseTimes.pm:133
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:139
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"Le temps alloué par défaut {default} doit être inférieur au temps maximum "
-"{max}"
-
-#: src/EBox/Model/LeaseTimes.pm:151
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:157
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"Le temps alloué maximum {max} doit être supérieur au temps par défaut "
-"{default}"
-
-#: src/EBox/Model/LeaseTimes.pm:201
-msgid "Default leased time"
-msgstr "Temps alloué par défaut"
-
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
-msgid "seconds"
-msgstr "secondes"
-
-#: src/EBox/Model/LeaseTimes.pm:208
-msgid "Maximum leased time"
-msgstr "Temps alloué maximum"
-
-#: src/EBox/Model/LeaseTimes.pm:217
-msgid "Lease times"
-msgstr "Temps alloués"
-
-#: src/EBox/Model/LeaseTimes.pm:222
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Le temps alloué est le temps pour lequel une adresse IP donnée est validée "
-"par le serveur DHCP"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -219,67 +289,50 @@ msgstr ""
 "configurer le \"Serveur de nom primaire\", eBox peut fonctionner en tant que "
 "serveur de cache DNS. Tous ces champs sont optionnels."
 
-#: src/EBox/Model/FixedAddressTable.pm:120
+#: src/EBox/Model/LeaseTimes.pm:133
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
+
+#: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
-msgstr "L'adresse IP {ip} n'est pas dans le réseau {net}"
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"Le temps alloué par défaut {default} doit être inférieur au temps maximum "
+"{max}"
 
-#: src/EBox/Model/FixedAddressTable.pm:131
+#: src/EBox/Model/LeaseTimes.pm:151
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
+
+#: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"Le temps alloué maximum {max} doit être supérieur au temps par défaut "
+"{default}"
 
-#: src/EBox/Model/FixedAddressTable.pm:147
-#, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
+#: src/EBox/Model/LeaseTimes.pm:201
+msgid "Default leased time"
+msgstr "Temps alloué par défaut"
 
-#: src/EBox/Model/FixedAddressTable.pm:159
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
-msgstr "{name} ne doit pas contenir d'espace"
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
+msgid "seconds"
+msgstr "secondes"
 
-#: src/EBox/Model/FixedAddressTable.pm:177
-msgid "update"
-msgstr "mis-à-jour"
+#: src/EBox/Model/LeaseTimes.pm:208
+msgid "Maximum leased time"
+msgstr "Temps alloué maximum"
 
-#: src/EBox/Model/FixedAddressTable.pm:179
-msgid "add"
-msgstr "ajouter"
+#: src/EBox/Model/LeaseTimes.pm:217
+msgid "Lease times"
+msgstr "Temps alloués"
 
-#: src/EBox/Model/FixedAddressTable.pm:181
-#, perl-brace-format
+#: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
+"Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
-"Vous ne pouvez pas {action} une adresse fixe avec un nom qui est déjà "
-"utilisé dans une autre table d'adresses fixes"
-
-#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "Adresse MAC"
-
-#: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
-#: src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "Adresse IP"
-
-#: src/EBox/Model/FixedAddressTable.pm:224
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
-"Vous ne pouvez pas utiliser une adresse IP comprise dans les intervalles ci-"
-"dessus."
-
-#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Adresses fixes"
-
-#: src/EBox/Model/FixedAddressTable.pm:238
-msgid "fixed address"
-msgstr "adresse fixe"
+"Le temps alloué est le temps pour lequel une adresse IP donnée est validée "
+"par le serveur DHCP"
 
 #: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
@@ -323,62 +376,6 @@ msgstr ""
 "Vous pouvez vouloir modifier les options de votre client léger. Afin de le "
 "faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
 "{path}"
-
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
-#: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
-#: src/EBox/DHCP.pm:1237
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "statut du module"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Statut du Module"
-
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
-#, perl-brace-format
-msgid ""
-"In order to serve IP addresses on a external interface, you must open the "
-"service on {openhref}firewall module{closehref}"
-msgstr ""
-"Afin de fournir des adresses IP sur une interface externe, vous devez ouvrir "
-"le service sur {openhref}le module pare-feu{closehref}"
-
-#: src/EBox/Composite/General.pm:79
-#, perl-brace-format
-msgid ""
-"An interface must set as static to configure the DHCP service on it. To do "
-"so, change {openhref}interfaces configuration{closehref} in network module"
-msgstr ""
-"Une interface doit être définie comme statique, afin de configurer son "
-"service DHCP. Pour le faire, modifier {openhref}la configuration des "
-"interfaces{closehref} dans le module réseau"
-
-#: src/EBox/Composite/AdvancedOptions.pm:133
-msgid "Advanced options"
-msgstr "Options avancées"
-
-#: src/EBox/Composite/Interfaces.pm:108
-msgid "Choose a static interface to configure:"
-msgstr "Choisir une interface statique à configurer :"
-
-#: src/EBox/Composite/Interfaces.pm:109
-msgid "Service configuration"
-msgstr "Configuration du service"
-
-#: src/EBox/Composite/Interfaces.pm:110
-msgid ""
-"In order to serve IP addresses on an interface, it is required to set at "
-"least a range or a fixed address."
-msgstr ""
-"Afin de fournir les adresses IP sur une interface, vous devez définir au "
-"moins une plage ou une adresse fixe"
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
 #: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
@@ -449,22 +446,6 @@ msgstr "Protocole de transfert de fichier insignifiant"
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Configuration du protocole de clients dynamiques"
 
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Options"
-
-#: src/templates/options.mas:10
-msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
-msgstr ""
-"Vous pouvez laisser vide le champ de Passerelle par Défaut pour utiliser "
-"eBox comme passerelle par défaut pour ce sous-réseau"
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Appliquer"
-
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
 msgstr "Action"
@@ -488,6 +469,22 @@ msgstr "Masque de sous-réseau"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Supprimer"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Options"
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+"Vous pouvez laisser vide le champ de Passerelle par Défaut pour utiliser "
+"eBox comme passerelle par défaut pour ce sous-réseau"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Appliquer"
 
 #~ msgid "DHCP service status"
 #~ msgstr "Statut du service DHCP"

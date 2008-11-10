@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"POT-Creation-Date: 2008-11-10 08:39+0000\n"
 "PO-Revision-Date: 2007-09-28 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,17 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "extern synkroniserings status"
-
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
 msgstr "Tidszone indstillinger"
 
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Dato og tidsindstillinger"
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "extern synkroniserings status"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
@@ -53,6 +49,10 @@ msgstr "anden server"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "tredje server"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Dato og tidsindstillinger"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -132,6 +132,18 @@ msgstr "Dato/Tid"
 msgid "Time zone"
 msgstr "Tidszone"
 
+#: src/templates/timezone.mas:18
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+"En ændring af tidszone vil forårsage at alle funktioner bliver genstartet."
+
+#: src/templates/timezone.mas:35 src/templates/timezone.mas:36
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Ændre"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Slået fra"
@@ -139,13 +151,6 @@ msgstr "Slået fra"
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Slået til"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:35
-#: src/templates/timezone.mas:36 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Ændre"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
@@ -156,11 +161,6 @@ msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr "Husk at sætte den rigtige tidszone så synkroniseringen virker korrekt."
-
-#: src/templates/timezone.mas:18
-msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
-"En ændring af tidszone vil forårsage at alle funktioner bliver genstartet."
 
 #: src/templates/date.mas:10
 msgid ""

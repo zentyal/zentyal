@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:25+0000\n"
 "PO-Revision-Date: 2007-04-05 20:24+0000\n"
 "Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
@@ -17,118 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/CGI/RSA.pm:29 src/EBox/CGI/RSA.pm:39 src/EBox/IPSec.pm:1106
-#: src/templates/static.mas:112 src/templates/static-edit.mas:119
-#: src/templates/static-edit.mas:124
-msgid "RSA keys"
-msgstr "klucz RSA"
-
-#: src/EBox/CGI/RSA.pm:48 src/EBox/CGI/RSA.pm:51 src/EBox/CGI/RSAView.pm:43
-#: src/EBox/IPSec.pm:124 src/EBox/IPSec.pm:185 src/EBox/IPSec.pm:390
-#: src/EBox/IPSec.pm:496 src/EBox/IPSec.pm:893 src/EBox/IPSec.pm:926
-#: src/EBox/IPSec.pm:967 src/EBox/IPSec.pm:998
-msgid "RSA key ID"
-msgstr "identyfikator Klucza RSA"
-
-#: src/EBox/CGI/Static.pm:29 src/EBox/CGI/Static.pm:39 src/EBox/IPSec.pm:1035
-#: src/EBox/IPSec.pm:1102
-msgid "Static tunnels"
-msgstr "Tunele statyczne"
-
-#: src/EBox/CGI/Static.pm:61 src/EBox/CGI/RoadWarrior.pm:61
-#: src/EBox/CGI/StaticEdit.pm:79 src/EBox/CGI/RoadWarriorEdit.pm:77
-#: src/EBox/IPSec.pm:133 src/EBox/IPSec.pm:505
-msgid "connection name"
-msgstr "nazwa połączenia"
-
-#: src/EBox/CGI/Static.pm:62 src/EBox/CGI/RoadWarrior.pm:62
-#: src/EBox/CGI/StaticEdit.pm:80 src/EBox/CGI/RoadWarriorEdit.pm:78
-#: src/EBox/IPSec.pm:137 src/EBox/IPSec.pm:205 src/EBox/IPSec.pm:407
-#: src/EBox/IPSec.pm:509
-msgid "network interface"
-msgstr "interfejs sieciowy"
-
-#: src/EBox/CGI/Static.pm:63 src/EBox/CGI/StaticEdit.pm:81
-#: src/EBox/IPSec.pm:180 src/EBox/IPSec.pm:386
-msgid "remote IP address"
-msgstr "zdalny adres IP"
-
-#: src/EBox/CGI/Static.pm:64 src/EBox/CGI/RoadWarrior.pm:63
-#: src/EBox/CGI/StaticEdit.pm:82 src/EBox/CGI/RoadWarriorEdit.pm:79
-msgid "local network"
-msgstr "sieć lokalna"
-
-#: src/EBox/CGI/Static.pm:65 src/EBox/CGI/RoadWarrior.pm:64
-#: src/EBox/CGI/StaticEdit.pm:83 src/EBox/CGI/RoadWarriorEdit.pm:80
-msgid "local network mask"
-msgstr "maska sieci lokalnej"
-
-#: src/EBox/CGI/Static.pm:66 src/EBox/CGI/RoadWarrior.pm:65
-#: src/EBox/CGI/StaticEdit.pm:84 src/EBox/CGI/RoadWarriorEdit.pm:81
-msgid "remote network"
-msgstr "sieć zdalna"
-
-#: src/EBox/CGI/Static.pm:67 src/EBox/CGI/RoadWarrior.pm:66
-#: src/EBox/CGI/StaticEdit.pm:85 src/EBox/CGI/RoadWarriorEdit.pm:82
-msgid "remote network mask"
-msgstr "maska sieci zdalnej"
-
-#: src/EBox/CGI/Static.pm:68 src/EBox/CGI/StaticEdit.pm:86
-#: src/EBox/IPSec.pm:181
-msgid "authentication method"
-msgstr "metoda uwierzytelnienia"
-
-#: src/EBox/CGI/Static.pm:72 src/EBox/CGI/StaticEdit.pm:90
-#: src/EBox/IPSec.pm:194 src/EBox/IPSec.pm:196 src/EBox/IPSec.pm:399
-#: src/EBox/IPSec.pm:401
-msgid "shared secret"
-msgstr "shared secret"
-
-#: src/EBox/CGI/Static.pm:74 src/EBox/CGI/RoadWarrior.pm:67
-#: src/EBox/CGI/StaticEdit.pm:92 src/EBox/CGI/RSAView.pm:29
-#: src/EBox/CGI/RSAView.pm:40 src/EBox/CGI/RoadWarriorEdit.pm:83
-#: src/EBox/IPSec.pm:897 src/EBox/IPSec.pm:930 src/EBox/IPSec.pm:1002
-#: src/templates/static-edit.mas:132
-msgid "RSA key"
-msgstr "klucz RSA"
-
-#: src/EBox/CGI/Static.pm:75 src/EBox/CGI/RoadWarrior.pm:68
-#: src/EBox/CGI/StaticEdit.pm:93 src/EBox/CGI/RoadWarriorEdit.pm:84
-msgid "remote id"
-msgstr "zdalny identyfikator"
-
-#: src/EBox/CGI/Static.pm:76 src/EBox/CGI/RoadWarrior.pm:69
-#: src/EBox/CGI/StaticEdit.pm:94 src/EBox/CGI/RoadWarriorEdit.pm:85
-#: src/EBox/IPSec.pm:129 src/EBox/IPSec.pm:190 src/EBox/IPSec.pm:395
-#: src/EBox/IPSec.pm:501
-msgid "remote RSA key"
-msgstr "zdalny klucz RSA"
-
-#: src/EBox/CGI/Static.pm:93 src/EBox/CGI/RoadWarrior.pm:80
-#: src/EBox/CGI/StaticEdit.pm:43 src/EBox/CGI/RoadWarriorEdit.pm:43
-msgid "connection id"
-msgstr "identyfikator połączenia"
-
-#: src/EBox/CGI/RoadWarrior.pm:29 src/EBox/CGI/RoadWarrior.pm:39
-msgid "Road Warrior tunnels"
-msgstr "Tunele mobilne"
-
-#: src/EBox/CGI/StaticEdit.pm:29 src/EBox/CGI/StaticEdit.pm:39
-msgid "Static tunnel"
-msgstr "Tunel statyczny"
-
-#: src/EBox/CGI/StaticEdit.pm:48 src/EBox/CGI/RoadWarriorEdit.pm:48
-msgid "The requested tunnel does not exist."
-msgstr "Żądany tunel nie istnieje"
-
-#: src/EBox/CGI/RSAView.pm:46
-msgid "RSA public key"
-msgstr "publiczny klucz RSA"
-
-#: src/EBox/CGI/RoadWarriorEdit.pm:29 src/EBox/CGI/RoadWarriorEdit.pm:39
-msgid "Road Warrior tunnel"
-msgstr "Tunel mobilny"
 
 #: src/EBox/IPSec.pm:120 src/EBox/IPSec.pm:178 src/EBox/IPSec.pm:384
 #: src/EBox/IPSec.pm:492
@@ -140,10 +28,53 @@ msgstr "lokalna podsieć"
 msgid "remote subnet"
 msgstr "podsieć zdalna"
 
+#: src/EBox/IPSec.pm:124 src/EBox/IPSec.pm:185 src/EBox/IPSec.pm:390
+#: src/EBox/IPSec.pm:496 src/EBox/IPSec.pm:893 src/EBox/IPSec.pm:926
+#: src/EBox/IPSec.pm:967 src/EBox/IPSec.pm:998 src/EBox/CGI/RSAView.pm:43
+#: src/EBox/CGI/RSA.pm:48 src/EBox/CGI/RSA.pm:51
+msgid "RSA key ID"
+msgstr "identyfikator Klucza RSA"
+
 #: src/EBox/IPSec.pm:126 src/EBox/IPSec.pm:187 src/EBox/IPSec.pm:392
 #: src/EBox/IPSec.pm:498
 msgid "remote ID"
 msgstr "zdalny identyfikator"
+
+#: src/EBox/IPSec.pm:129 src/EBox/IPSec.pm:190 src/EBox/IPSec.pm:395
+#: src/EBox/IPSec.pm:501 src/EBox/CGI/RoadWarrior.pm:69
+#: src/EBox/CGI/StaticEdit.pm:94 src/EBox/CGI/Static.pm:76
+#: src/EBox/CGI/RoadWarriorEdit.pm:85
+msgid "remote RSA key"
+msgstr "zdalny klucz RSA"
+
+#: src/EBox/IPSec.pm:133 src/EBox/IPSec.pm:505 src/EBox/CGI/RoadWarrior.pm:61
+#: src/EBox/CGI/StaticEdit.pm:79 src/EBox/CGI/Static.pm:61
+#: src/EBox/CGI/RoadWarriorEdit.pm:77
+msgid "connection name"
+msgstr "nazwa połączenia"
+
+#: src/EBox/IPSec.pm:137 src/EBox/IPSec.pm:205 src/EBox/IPSec.pm:407
+#: src/EBox/IPSec.pm:509 src/EBox/CGI/RoadWarrior.pm:62
+#: src/EBox/CGI/StaticEdit.pm:80 src/EBox/CGI/Static.pm:62
+#: src/EBox/CGI/RoadWarriorEdit.pm:78
+msgid "network interface"
+msgstr "interfejs sieciowy"
+
+#: src/EBox/IPSec.pm:180 src/EBox/IPSec.pm:386 src/EBox/CGI/StaticEdit.pm:81
+#: src/EBox/CGI/Static.pm:63
+msgid "remote IP address"
+msgstr "zdalny adres IP"
+
+#: src/EBox/IPSec.pm:181 src/EBox/CGI/StaticEdit.pm:86
+#: src/EBox/CGI/Static.pm:68
+msgid "authentication method"
+msgstr "metoda uwierzytelnienia"
+
+#: src/EBox/IPSec.pm:194 src/EBox/IPSec.pm:196 src/EBox/IPSec.pm:399
+#: src/EBox/IPSec.pm:401 src/EBox/CGI/StaticEdit.pm:90
+#: src/EBox/CGI/Static.pm:72
+msgid "shared secret"
+msgstr "shared secret"
 
 #: src/EBox/IPSec.pm:201 src/EBox/IPSec.pm:411
 msgid "Connection name is empty"
@@ -189,6 +120,14 @@ msgstr "Połączenie nie istnieje"
 msgid "Invalid connection name"
 msgstr "Błędna nazwa połączenia"
 
+#: src/EBox/IPSec.pm:897 src/EBox/IPSec.pm:930 src/EBox/IPSec.pm:1002
+#: src/EBox/CGI/RoadWarrior.pm:67 src/EBox/CGI/RSAView.pm:29
+#: src/EBox/CGI/RSAView.pm:40 src/EBox/CGI/StaticEdit.pm:92
+#: src/EBox/CGI/Static.pm:74 src/EBox/CGI/RoadWarriorEdit.pm:83
+#: src/templates/static-edit.mas:132
+msgid "RSA key"
+msgstr "klucz RSA"
+
 #: src/EBox/IPSec.pm:906
 msgid "Error getting RSA key"
 msgstr "Błąd podczas pobierania klucza RSA"
@@ -207,6 +146,11 @@ msgstr ""
 msgid "IPSec VPNs"
 msgstr "Sieci Prywatne IPSec"
 
+#: src/EBox/IPSec.pm:1035 src/EBox/IPSec.pm:1102 src/EBox/CGI/Static.pm:29
+#: src/EBox/CGI/Static.pm:39
+msgid "Static tunnels"
+msgstr "Tunele statyczne"
+
 #: src/EBox/IPSec.pm:1039 src/EBox/IPSec.pm:1066
 msgid "Disabled"
 msgstr "Wyłączony"
@@ -223,36 +167,61 @@ msgstr "Podniesiony"
 msgid "Road warriors"
 msgstr "Mobilni"
 
-#: src/templates/rsa.mas:9
-msgid "New RSA key"
-msgstr "Nowy klucz RSA"
+#: src/EBox/IPSec.pm:1106 src/EBox/CGI/RSA.pm:29 src/EBox/CGI/RSA.pm:39
+#: src/templates/static.mas:112 src/templates/static-edit.mas:119
+#: src/templates/static-edit.mas:124
+msgid "RSA keys"
+msgstr "klucz RSA"
 
-#: src/templates/rsa.mas:12
-msgid "Key ID:"
-msgstr "Identyfikator klucza:"
+#: src/EBox/CGI/RoadWarrior.pm:29 src/EBox/CGI/RoadWarrior.pm:39
+msgid "Road Warrior tunnels"
+msgstr "Tunele mobilne"
 
-#: src/templates/rsa.mas:16
-msgid "Generate"
-msgstr "Generuj"
+#: src/EBox/CGI/RoadWarrior.pm:63 src/EBox/CGI/StaticEdit.pm:82
+#: src/EBox/CGI/Static.pm:64 src/EBox/CGI/RoadWarriorEdit.pm:79
+msgid "local network"
+msgstr "sieć lokalna"
 
-#: src/templates/rsa.mas:22
-msgid "Key"
-msgstr "Klucz"
+#: src/EBox/CGI/RoadWarrior.pm:64 src/EBox/CGI/StaticEdit.pm:83
+#: src/EBox/CGI/Static.pm:65 src/EBox/CGI/RoadWarriorEdit.pm:80
+msgid "local network mask"
+msgstr "maska sieci lokalnej"
 
-#: src/templates/rsa.mas:23
-msgid "Actions"
-msgstr "Czynności"
+#: src/EBox/CGI/RoadWarrior.pm:65 src/EBox/CGI/StaticEdit.pm:84
+#: src/EBox/CGI/Static.pm:66 src/EBox/CGI/RoadWarriorEdit.pm:81
+msgid "remote network"
+msgstr "sieć zdalna"
 
-#: src/templates/rsa.mas:35 src/templates/rsa.mas:36
-msgid "View"
-msgstr "Podgląd"
+#: src/EBox/CGI/RoadWarrior.pm:66 src/EBox/CGI/StaticEdit.pm:85
+#: src/EBox/CGI/Static.pm:67 src/EBox/CGI/RoadWarriorEdit.pm:82
+msgid "remote network mask"
+msgstr "maska sieci zdalnej"
 
-#: src/templates/rsa.mas:40 src/templates/rsa.mas:41 src/templates/rsa.mas:42
-#: src/templates/static.mas:214 src/templates/static.mas:215
-#: src/templates/static.mas:216 src/templates/roadwarrior.mas:166
-#: src/templates/roadwarrior.mas:167 src/templates/roadwarrior.mas:168
-msgid "Delete"
-msgstr "Skasuj"
+#: src/EBox/CGI/RoadWarrior.pm:68 src/EBox/CGI/StaticEdit.pm:93
+#: src/EBox/CGI/Static.pm:75 src/EBox/CGI/RoadWarriorEdit.pm:84
+msgid "remote id"
+msgstr "zdalny identyfikator"
+
+#: src/EBox/CGI/RoadWarrior.pm:80 src/EBox/CGI/StaticEdit.pm:43
+#: src/EBox/CGI/Static.pm:93 src/EBox/CGI/RoadWarriorEdit.pm:43
+msgid "connection id"
+msgstr "identyfikator połączenia"
+
+#: src/EBox/CGI/RSAView.pm:46
+msgid "RSA public key"
+msgstr "publiczny klucz RSA"
+
+#: src/EBox/CGI/StaticEdit.pm:29 src/EBox/CGI/StaticEdit.pm:39
+msgid "Static tunnel"
+msgstr "Tunel statyczny"
+
+#: src/EBox/CGI/StaticEdit.pm:48 src/EBox/CGI/RoadWarriorEdit.pm:48
+msgid "The requested tunnel does not exist."
+msgstr "Żądany tunel nie istnieje"
+
+#: src/EBox/CGI/RoadWarriorEdit.pm:29 src/EBox/CGI/RoadWarriorEdit.pm:39
+msgid "Road Warrior tunnel"
+msgstr "Tunel mobilny"
 
 #: src/templates/static.mas:11
 msgid "Add new tunnel"
@@ -326,6 +295,13 @@ msgstr "Czynność"
 msgid "Edit"
 msgstr "Edycja"
 
+#: src/templates/static.mas:214 src/templates/static.mas:215
+#: src/templates/static.mas:216 src/templates/roadwarrior.mas:166
+#: src/templates/roadwarrior.mas:167 src/templates/roadwarrior.mas:168
+#: src/templates/rsa.mas:40 src/templates/rsa.mas:41 src/templates/rsa.mas:42
+msgid "Delete"
+msgstr "Skasuj"
+
 #: src/templates/static-edit.mas:18 src/templates/roadwarrior-edit.mas:19
 msgid "Enabled"
 msgstr "Włączony"
@@ -349,6 +325,30 @@ msgstr "Zezwalaj zdalnym podsieciom"
 #: src/templates/roadwarrior.mas:93 src/templates/roadwarrior-edit.mas:112
 msgid "Local RSA Key"
 msgstr "Lokalny klucz RSA"
+
+#: src/templates/rsa.mas:9
+msgid "New RSA key"
+msgstr "Nowy klucz RSA"
+
+#: src/templates/rsa.mas:12
+msgid "Key ID:"
+msgstr "Identyfikator klucza:"
+
+#: src/templates/rsa.mas:16
+msgid "Generate"
+msgstr "Generuj"
+
+#: src/templates/rsa.mas:22
+msgid "Key"
+msgstr "Klucz"
+
+#: src/templates/rsa.mas:23
+msgid "Actions"
+msgstr "Czynności"
+
+#: src/templates/rsa.mas:35 src/templates/rsa.mas:36
+msgid "View"
+msgstr "Podgląd"
 
 #: src/templates/roadwarrior-edit.mas:160
 msgid "Cancel"

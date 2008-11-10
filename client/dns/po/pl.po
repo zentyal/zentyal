@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"POT-Creation-Date: 2008-11-10 08:23+0000\n"
 "PO-Revision-Date: 2007-04-03 14:37+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,70 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/Model/AliasTable.pm:79
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:92
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:100
+#, perl-brace-format
+msgid "There is an alias with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:126 src/EBox/Model/AliasTable.pm:136
+#: src/EBox/Model/AliasTable.pm:142 src/EBox/Model/HostnameTable.pm:173
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Alias"
+
+#: src/EBox/Model/AliasTable.pm:143
+#, fuzzy
+msgid "alias"
+msgstr "Alias"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
+#: src/EBox/DNS.pm.in:861
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Domena"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:184
+#: src/EBox/Model/HostnameTable.pm:190
+#, fuzzy
+msgid "Hostnames"
+msgstr "Nazwa hosta"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr ""
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:165
+#, fuzzy
+msgid "IP Address"
+msgstr "adres IP"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+#, fuzzy
+msgid "Domains"
+msgstr "Domena"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "domena"
 
 #: src/EBox/Model/HostnameTable.pm:133
 #, perl-brace-format
@@ -30,35 +94,17 @@ msgstr ""
 msgid "Hostname"
 msgstr "Nazwa hosta"
 
-#: src/EBox/Model/HostnameTable.pm:165
-#, fuzzy
-msgid "IP Address"
-msgstr "adres IP"
-
-#: src/EBox/Model/HostnameTable.pm:173 src/EBox/Model/AliasTable.pm:126
-#: src/EBox/Model/AliasTable.pm:136 src/EBox/Model/AliasTable.pm:142
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Alias"
-
-#: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
-#: src/EBox/Model/DomainTable.pm:73
-#, fuzzy
-msgid "Hostnames"
-msgstr "Nazwa hosta"
-
 #: src/EBox/Model/HostnameTable.pm:191
 #, fuzzy
 msgid "hostname"
 msgstr "nazwa hosta"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:829
-#: src/EBox/DNS.pm.in:857
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/EnableFormDNS.pm:84
+msgid "Service enabled"
+msgstr ""
 
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
+#: src/EBox/Model/EnableFormDNS.pm:86
+msgid "Service disabled"
 msgstr ""
 
 #: src/EBox/Model/MailExchanger.pm:86
@@ -100,52 +146,6 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr ""
 
-#: src/EBox/Model/DomainTable.pm:65
-msgid "Domain"
-msgstr "Domena"
-
-#: src/EBox/Model/DomainTable.pm:82
-msgid "Mail Exchangers"
-msgstr ""
-
-#: src/EBox/Model/DomainTable.pm:92 src/EBox/Model/DomainTable.pm:98
-#, fuzzy
-msgid "Domains"
-msgstr "Domena"
-
-#: src/EBox/Model/DomainTable.pm:99 src/EBox/DNS.pm.in:343
-msgid "domain"
-msgstr "domena"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr ""
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:79
-#, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:92
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:100
-#, perl-brace-format
-msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:143
-#, fuzzy
-msgid "alias"
-msgstr "Alias"
-
 #: src/EBox/DNS.pm.in:53
 #, fuzzy
 msgid "Domain Name System"
@@ -155,46 +155,15 @@ msgstr "Nazwa domeny"
 msgid "DNS Server"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:644
+#: src/EBox/DNS.pm.in:648
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:660
+#: src/EBox/DNS.pm.in:664
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""
-
-#: src/templates/edit.mas:12
-#, perl-brace-format
-msgid "Host list for domain {domain}"
-msgstr "Lista hostów dla domeny {domain}"
-
-#: src/templates/edit.mas:17
-msgid "IP"
-msgstr "IP"
-
-#: src/templates/edit.mas:23 src/templates/index.mas:24
-msgid "Action"
-msgstr "Akcia"
-
-#: src/templates/edit.mas:40 src/templates/edit.mas:41
-#: src/templates/edit.mas:42 src/templates/edit.mas:74
-#: src/templates/edit.mas:75 src/templates/edit.mas:76
-#: src/templates/index.mas:37 src/templates/index.mas:38
-#: src/templates/index.mas:39
-msgid "Add"
-msgstr "Dodaj"
-
-#: src/templates/edit.mas:54 src/templates/edit.mas:55
-#: src/templates/edit.mas:93 src/templates/edit.mas:94
-#: src/templates/index.mas:53 src/templates/index.mas:54
-msgid "Delete"
-msgstr "Usuń"
-
-#: src/templates/edit.mas:110 src/templates/index.mas:70
-msgid "delete"
-msgstr "usuń"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
@@ -204,13 +173,44 @@ msgstr "Lista domeny"
 msgid "Name"
 msgstr "Nazwa"
 
+#: src/templates/index.mas:24 src/templates/edit.mas:23
+msgid "Action"
+msgstr "Akcia"
+
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39 src/templates/edit.mas:40
+#: src/templates/edit.mas:41 src/templates/edit.mas:42
+#: src/templates/edit.mas:74 src/templates/edit.mas:75
+#: src/templates/edit.mas:76
+msgid "Add"
+msgstr "Dodaj"
+
 #: src/templates/index.mas:49
 msgid "Edit"
 msgstr "Edytuj"
 
+#: src/templates/index.mas:53 src/templates/index.mas:54
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+msgid "Delete"
+msgstr "Usuń"
+
 #: src/templates/index.mas:65
 msgid "edit"
 msgstr "edytuj"
+
+#: src/templates/index.mas:70 src/templates/edit.mas:110
+msgid "delete"
+msgstr "usuń"
+
+#: src/templates/edit.mas:12
+#, perl-brace-format
+msgid "Host list for domain {domain}"
+msgstr "Lista hostów dla domeny {domain}"
+
+#: src/templates/edit.mas:17
+msgid "IP"
+msgstr "IP"
 
 #~ msgid "IP address"
 #~ msgstr "adres IP"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"POT-Creation-Date: 2008-11-10 08:45+0000\n"
 "PO-Revision-Date: 2008-11-05 15:16+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -11,6 +11,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
+#: src/EBox/Samba.pm:545
+msgid "File sharing"
+msgstr "Dateifreigabe"
+
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:756
+msgid "netbios"
+msgstr "NetBIOS"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:805
+msgid "working group"
+msgstr "Arbeitsgruppe"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "working mode"
+msgstr "Arbeitsmodus"
+
+#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:774
+msgid "description"
+msgstr "Beschreibung"
+
+#: src/EBox/CGI/SambaConf.pm:48
+msgid "user quota"
+msgstr "Speicherlimite für Benutzer"
+
+#: src/EBox/CGI/SambaConf.pm:49
+msgid "roaming profiles"
+msgstr "Benutzerprofile am Server speichern"
+
+#: src/EBox/CGI/SambaConf.pm:53
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "Status des Moduls"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -22,10 +59,6 @@ msgstr "Benutzername"
 msgid "group name"
 msgstr "Gruppenname"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "Status des Moduls"
-
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
 msgstr "Name der Freigabe"
@@ -34,34 +67,24 @@ msgstr "Name der Freigabe"
 msgid "active"
 msgstr "Aktiv"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:533
-#: src/EBox/Samba.pm:542
-msgid "File sharing"
-msgstr "Dateifreigabe"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "Pfad"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:752
-msgid "netbios"
-msgstr "NetBIOS"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr "Lösche Samba-Freigabe"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:801
-msgid "working group"
-msgstr "Arbeitsgruppe"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "Todo"
+msgstr "Todo"
 
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "Arbeitsmodus"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:770
-msgid "description"
-msgstr "Beschreibung"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "Speicherlimite für Benutzer"
-
-#: src/EBox/CGI/SambaConf.pm:47
-msgid "roaming profiles"
-msgstr "Benutzerprofile am Server speichern"
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "share"
+msgstr "Freigabe"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
@@ -95,12 +118,6 @@ msgstr "Liste der Samba-Freigaben"
 msgid "Samba shares"
 msgstr "Samba-Freigaben"
 
-#: src/EBox/Samba/Model/SambaShares.pm:147
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
-msgid "share"
-msgstr "Freigabe"
-
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr "Pfad nicht erlaubt"
@@ -120,8 +137,8 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
-"<i>Verzeichnis in eBox</i> wird automatisch das Freigabe-Verzeichnis in "
-"/home/samba/shares erstellen<br><i>Dateisystempfad</i> erlaubt es Ihnen ein "
+"<i>Verzeichnis in eBox</i> wird automatisch das Freigabe-Verzeichnis in /"
+"home/samba/shares erstellen<br><i>Dateisystempfad</i> erlaubt es Ihnen ein "
 "bestehendes Verzeichnis in Ihrem Dateisystem freizugeben."
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
@@ -132,19 +149,6 @@ msgstr ""
 "Hier können Sie Freigaben mit weitaus differenzierteren Berechtigugnen "
 "anlegen. Sie können ein schon angelegtes Verzeichnis verwenden oder einen "
 "Namen auswählen und eBox erstellt es für Sie."
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "Pfad"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
-msgid "Deleted Samba shares"
-msgstr "Lösche Samba-Freigabe"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
-msgid "Todo"
-msgstr "Todo"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
@@ -200,8 +204,8 @@ msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
-"eBox wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter "
-"/home/samba erstellen."
+"eBox wird die Home-Verzeichnisse für Samba-Benutzer und -Gruppen unter /home/"
+"samba erstellen."
 
 #: src/EBox/Samba.pm:101
 msgid "Add LDAP schemas"
@@ -263,35 +267,35 @@ msgstr ""
 msgid "To add quota support to /home partition"
 msgstr "Um Speicherplatzbegrenzung für die /home-Partition hinzuzufügen"
 
-#: src/EBox/Samba.pm:545
+#: src/EBox/Samba.pm:548
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/EBox/Samba.pm:548
+#: src/EBox/Samba.pm:551
 msgid "Shares"
 msgstr "Freigabe"
 
-#: src/EBox/Samba.pm:819
+#: src/EBox/Samba.pm:823
 msgid "quota"
 msgstr "Speicherlimit"
 
-#: src/EBox/Samba.pm:1103 src/EBox/Samba.pm:1122
+#: src/EBox/Samba.pm:1107 src/EBox/Samba.pm:1126
 msgid "user"
 msgstr "Benutzer"
 
-#: src/EBox/Samba.pm:1106 src/EBox/Samba.pm:1136 src/EBox/SambaLdapUser.pm:918
+#: src/EBox/Samba.pm:1110 src/EBox/Samba.pm:1140 src/EBox/SambaLdapUser.pm:918
 msgid "group"
 msgstr "Gruppe"
 
-#: src/EBox/Samba.pm:1109
+#: src/EBox/Samba.pm:1113
 msgid "printer"
 msgstr "Drucker"
 
-#: src/EBox/Samba.pm:1570
+#: src/EBox/Samba.pm:1578
 msgid "User's files"
 msgstr "Dateien des Benutzers"
 
-#: src/EBox/Samba.pm:1572
+#: src/EBox/Samba.pm:1580
 msgid "Group's files"
 msgstr "Dateien der Gruppe"
 
@@ -351,6 +355,15 @@ msgstr "Ressource freigegeben"
 msgid "File sharing (Samba) protocol"
 msgstr "Dateifreigabe-Protokoll (Samba)"
 
+#: stubs/smb.conf.mas:97
+msgid "Home Directories"
+msgstr "Eigener Ordner"
+
+#: stubs/smb.conf.mas:104
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group} Freigabe-Verzeichnis"
+
 #: src/templates/delete.mas:11
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
@@ -370,6 +383,70 @@ msgstr "Löschen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#: src/templates/index.mas:17
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: src/templates/index.mas:19
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
+"Speicherlimit auf null"
+
+#: src/templates/index.mas:25
+msgid "Working mode"
+msgstr "Arbeitsmodus"
+
+#: src/templates/index.mas:30 src/templates/index.mas:33
+msgid "File server"
+msgstr "Dateiserver"
+
+#: src/templates/index.mas:31 src/templates/index.mas:34
+msgid "PDC"
+msgstr "Domänencontroller"
+
+#: src/templates/index.mas:42
+msgid "Domain name"
+msgstr "Domänenname"
+
+#: src/templates/index.mas:44
+msgid "Working group"
+msgstr "Arbeitsgruppe"
+
+#: src/templates/index.mas:54
+msgid "Netbios name"
+msgstr "NetBIOS-Name"
+
+#: src/templates/index.mas:62
+msgid "Description"
+msgstr "Beschreibung"
+
+#: src/templates/index.mas:69
+msgid "Quota limit"
+msgstr "Speicherlimit"
+
+#: src/templates/index.mas:77
+msgid "Roaming profiles"
+msgstr "Servergespeicherte Profile"
+
+#: src/templates/index.mas:82 src/templates/index.mas:86
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/templates/index.mas:83 src/templates/index.mas:85
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: src/templates/index.mas:95 src/templates/index.mas:96
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+msgid "Change"
+msgstr "Ändern"
+
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
 msgstr "Domänencontroller-/Freigabekonto"
@@ -378,26 +455,9 @@ msgstr "Domänencontroller-/Freigabekonto"
 msgid "User account"
 msgstr "Benutzerkonto"
 
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-#: src/templates/index.mas:83 src/templates/index.mas:85
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-#: src/templates/samba.mas:22 src/templates/samba.mas:25
-#: src/templates/index.mas:82 src/templates/index.mas:86
-msgid "Enabled"
-msgstr "Aktiviert"
-
 #: src/templates/samba.mas:32
 msgid "Administration rights"
 msgstr "Administrationsrechte"
-
-#: src/templates/samba.mas:46 src/templates/samba.mas:47
-#: src/templates/samba.mas:76 src/templates/samba.mas:77
-#: src/templates/samba.mas:147 src/templates/samba.mas:148
-#: src/templates/index.mas:95 src/templates/index.mas:96
-msgid "Change"
-msgstr "Ändern"
 
 #: src/templates/samba.mas:55
 msgid "Sharing directory for this group"
@@ -452,62 +512,6 @@ msgstr "Druckermodul"
 #: src/templates/samba.mas:170
 msgid "file sharing module"
 msgstr "Dateifreigabe-Modul"
-
-#: src/templates/index.mas:17
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
-
-#: src/templates/index.mas:19
-msgid ""
-"To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
-"Speicherlimit auf null"
-
-#: src/templates/index.mas:25
-msgid "Working mode"
-msgstr "Arbeitsmodus"
-
-#: src/templates/index.mas:30 src/templates/index.mas:33
-msgid "File server"
-msgstr "Dateiserver"
-
-#: src/templates/index.mas:31 src/templates/index.mas:34
-msgid "PDC"
-msgstr "Domänencontroller"
-
-#: src/templates/index.mas:42
-msgid "Domain name"
-msgstr "Domänenname"
-
-#: src/templates/index.mas:44
-msgid "Working group"
-msgstr "Arbeitsgruppe"
-
-#: src/templates/index.mas:54
-msgid "Netbios name"
-msgstr "NetBIOS-Name"
-
-#: src/templates/index.mas:62
-msgid "Description"
-msgstr "Beschreibung"
-
-#: src/templates/index.mas:69
-msgid "Quota limit"
-msgstr "Speicherlimit"
-
-#: src/templates/index.mas:77
-msgid "Roaming profiles"
-msgstr "Servergespeicherte Profile"
-
-#: stubs/smb.conf.mas:97
-msgid "Home Directories"
-msgstr "Eigener Ordner"
-
-#: stubs/smb.conf.mas:104
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group} Freigabe-Verzeichnis"
 
 #~ msgid "listening port"
 #~ msgstr "Auf diesen Port hören"
