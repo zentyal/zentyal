@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:50+0000\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -16,16 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} önceden mevcut."
-
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "{data} için geçersiz değer : {value} ."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -36,6 +26,46 @@ msgstr "{data} {value} mevcut değil."
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} boş."
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "{data} için geçersiz değer : {value} ."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} önceden mevcut."
+
+#: src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "{user} ile çalıştırılan '{cmd}' komutu başarısız oldu"
+
+#: src/EBox/Validate.pm:689
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
+
+#: src/EBox/Validate.pm:694
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
+
+#: src/EBox/Validate.pm:769
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
+"karakterleri desteklenmiyor)"
+
+#: src/EBox/Validate.pm:797
+msgid "The file path must be absolute"
+msgstr "Dosya yolu mutlak olmalı"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -96,11 +126,6 @@ msgstr "Geçersiz gönderilen dosya."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Dosya göndermek için geçici dosya yaratılamıyor"
 
-#: src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "{user} ile çalıştırılan '{cmd}' komutu başarısız oldu"
-
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
@@ -120,47 +145,22 @@ msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
 msgid "Directory not found: {d}"
 msgstr "Dizin bulunamadı: {d}"
 
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Birtanesini seçin..."
 
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
-"karakterleri desteklenmiyor)"
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Dosya yolu mutlak olmalı"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr ""
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+msgid "Inverse match"
+msgstr "Eşleşenleri tersine çevir"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "port"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
-msgstr "Eşleşenleri tersine çevir"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
@@ -169,10 +169,6 @@ msgstr "Gönderen"
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
 msgstr "Kime"
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
-msgstr ""
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -192,13 +188,17 @@ msgstr "sonraki"
 msgid "last"
 msgstr "sonuncu"
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Birtanesini seçin..."
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -234,6 +234,23 @@ msgstr "Çok üzgünüz"
 msgid "The page cannot be found"
 msgstr "Sayfa bulunamadı"
 
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Servis ayarları"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Etkisiz"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Etkin"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
+msgstr "Değiştir"
+
 #: src/templates/title.mas:12
 msgid "show help"
 msgstr "Yardımı göster"
@@ -253,23 +270,6 @@ msgid ""
 msgstr ""
 "Dil değişikliği kendiliğinden olacaktır, yapılandırmayı kayıt etmeyi "
 "gerektirmez."
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Değiştir"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Servis ayarları"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Etkisiz"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Etkin"
 
 #~ msgid "Add new"
 #~ msgstr "Yeni ekle"

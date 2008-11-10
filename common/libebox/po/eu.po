@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:50+0000\n"
 "PO-Revision-Date: 2007-03-28 23:18+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -15,16 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} badago dagoeneko."
-
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Balio baliogabea {data}: {value}-rentzat."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -35,6 +25,48 @@ msgstr "{data} {value} ez dago."
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} hutsik dago."
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Balio baliogabea {data}: {value}-rentzat."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} badago dagoeneko."
+
+#: src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Huts '{cmd}' komandoa {user} bezala abiaraztean"
+
+#: src/EBox/Validate.pm:689
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
+"sartzeko baimena galerazia dagoela esan nahi du."
+
+#: src/EBox/Validate.pm:694
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
+
+#: src/EBox/Validate.pm:769
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
+"fitxategi karaktere guztiak onartzen) "
+
+#: src/EBox/Validate.pm:797
+msgid "The file path must be absolute"
+msgstr "Fitxategi bidea absolutua izan behar da"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -98,11 +130,6 @@ msgstr "Igotako fitxategi baliogabea."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Ezin da igotakoarentzat aldizkako fitxategi at sortu."
 
-#: src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Huts '{cmd}' komandoa {user} bezala abiaraztean"
-
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
@@ -122,49 +149,22 @@ msgstr "Ez da konfigurazio fitxategian ebox erabiltzailea ezarri."
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
-"sartzeko baimena galerazia dagoela esan nahi du."
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Hautatu erlazionaturiko taula bistaratzeko aukeretako bat"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Bat hautatu..."
 
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
-"fitxategi karaktere guztiak onartzen) "
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Fitxategi bidea absolutua izan behar da"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+msgid "Inverse match"
 msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "ataka"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
-msgstr ""
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
@@ -172,10 +172,6 @@ msgstr ""
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
 msgstr ""
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
@@ -196,13 +192,17 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Hautatu erlazionaturiko taula bistaratzeko aukeretako bat"
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Bat hautatu..."
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -234,6 +234,23 @@ msgstr ""
 msgid "The page cannot be found"
 msgstr "Ezin da orrialdea aurkitu"
 
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Zerbitzu konfigurazioa"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Ezgaiturik"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Gaiturik"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
+msgstr "Aldatu"
+
 #: src/templates/title.mas:12
 msgid "show help"
 msgstr "laguntza ikusi"
@@ -253,23 +270,6 @@ msgid ""
 msgstr ""
 "Hizkuntza aldaketak automatikoki geratzen dira , ez da konfigurazioa gorde "
 "behar."
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Aldatu"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Zerbitzu konfigurazioa"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Ezgaiturik"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Gaiturik"
 
 #~ msgid "Add new"
 #~ msgstr "Gehitu beria"

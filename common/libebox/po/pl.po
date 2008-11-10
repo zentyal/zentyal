@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:50+0000\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,16 +18,6 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} już istnieje."
-
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Nieprawidłowa wartość dla {data}:{value}."
-
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
@@ -37,6 +27,48 @@ msgstr "{data} {value} nie istnieje."
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} jest puste."
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Nieprawidłowa wartość dla {data}:{value}."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} już istnieje."
+
+#: src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się."
+
+#: src/EBox/Validate.pm:689
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
+"lub uprawnienia nie pozwalają na dostęp do niego."
+
+#: src/EBox/Validate.pm:694
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
+
+#: src/EBox/Validate.pm:769
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
+"w nazwach plików znaki są obsługiwane)."
+
+#: src/EBox/Validate.pm:797
+msgid "The file path must be absolute"
+msgstr "Ścieżka do pliku nie może być względna."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -102,11 +134,6 @@ msgstr "Wgrano nieprawidłowy plik."
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
-#: src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się."
-
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
@@ -126,48 +153,21 @@ msgstr "Użytkownik eBoxa nie został ustawiony w pliku konfiguracyjnym."
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
-"lub uprawnienia nie pozwalają na dostęp do niego."
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Wybierz jedną z opcji aby zobaczyć powiązaną tablicę."
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Wybierz jedną..."
 
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
-"w nazwach plików znaki są obsługiwane)."
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Ścieżka do pliku nie może być względna."
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+msgid "Inverse match"
 msgstr ""
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
-msgstr ""
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
 msgstr ""
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
@@ -176,10 +176,6 @@ msgstr ""
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
 msgstr ""
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
@@ -200,13 +196,17 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Wybierz jedną z opcji aby zobaczyć powiązaną tablicę."
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Wybierz jedną..."
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -238,6 +238,23 @@ msgstr ""
 msgid "The page cannot be found"
 msgstr "Strony nie odnaleziono."
 
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Konfiguracja serwisowa"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Włączony"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
+msgstr "Zmień"
+
 #: src/templates/title.mas:12
 msgid "show help"
 msgstr "Pokaż pomoc"
@@ -256,23 +273,6 @@ msgid ""
 "needed."
 msgstr ""
 "Wybór języka następuje automatycznie. Zapis konfiguracji nie jest konieczny."
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Zmień"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Konfiguracja serwisowa"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Wyłączony"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Włączony"
 
 #~ msgid "Add new"
 #~ msgstr "Dodaj nowy"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2008-11-10 08:50+0000\n"
 "PO-Revision-Date: 2008-11-06 13:24+0000\n"
 "Last-Translator: Patrick Djärv <temp@djarv.net>\n"
 "Language-Team: none\n"
@@ -16,16 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Exceptions/DataExists.pm:36
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} finns redan."
-
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Ogiltigt värde för {data}: {value}."
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -36,6 +26,48 @@ msgstr "{data} {value} finns inte."
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} är tom."
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Ogiltigt värde för {data}: {value}."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} finns redan."
+
+#: src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Körning av kommandot \"{cmd}\" som {user} misslyckades"
+
+#: src/EBox/Validate.pm:689
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+"Kan inte läsa status på katalog: {dir}. Det kan betyda att katalogen inte "
+"finns eller att rättigheterna inte tillåter åtkomst till den"
+
+#: src/EBox/Validate.pm:694
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+"Katalogen {dir} är inte privat; därför att den ägs av en annan användare"
+
+#: src/EBox/Validate.pm:769
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"Filsökvägen som angavs är inte giltig. (För närvarande stöds inte alla av "
+"den giltiga filens tecken) "
+
+#: src/EBox/Validate.pm:797
+msgid "The file path must be absolute"
+msgstr "Filsökvägen måste vara absolut"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -99,11 +131,6 @@ msgstr "Ogiltig uppskickad fil."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan inte skapa en temporärfil för sändningen"
 
-#: src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Körning av kommandot \"{cmd}\" som {user} misslyckades"
-
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
@@ -123,49 +150,22 @@ msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 msgid "Directory not found: {d}"
 msgstr "Katalogen hittades inte: {d}"
 
-#: src/EBox/Validate.pm:687
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-"Kan inte läsa status på katalog: {dir}. Det kan betyda att katalogen inte "
-"finns eller att rättigheterna inte tillåter åtkomst till den"
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Välj ett av alternativen för att visa associerad tabell"
 
-#: src/EBox/Validate.pm:692
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-"Katalogen {dir} är inte privat; därför att den ägs av en annan användare"
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Välj en..."
 
-#: src/EBox/Validate.pm:767
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-"Filsökvägen som angavs är inte giltig. (För närvarande stöds inte alla av "
-"den giltiga filens tecken) "
-
-#: src/EBox/Validate.pm:795
-msgid "The file path must be absolute"
-msgstr "Filsökvägen måste vara absolut"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Ta bort"
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+msgid "Inverse match"
+msgstr "Omvänd matchning"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "port"
-
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
-msgstr "Omvänd matchning"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
@@ -174,10 +174,6 @@ msgstr "Från"
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
 msgstr "Till"
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
-msgstr ""
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -197,13 +193,17 @@ msgstr "nästa"
 msgid "last"
 msgstr "sista"
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Välj ett av alternativen för att visa associerad tabell"
+#: src/templates/ajax/modelViewer.mas:228
+msgid "Optional"
+msgstr ""
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Välj en..."
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Ta bort"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -239,6 +239,23 @@ msgstr "vi ber om ursäkt"
 msgid "The page cannot be found"
 msgstr "Sidan kunde inte hittas"
 
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Tjänstekonfiguration"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
+msgstr "Ändra"
+
 #: src/templates/title.mas:12
 msgid "show help"
 msgstr "visa hjälp"
@@ -257,23 +274,6 @@ msgid ""
 "needed."
 msgstr ""
 "Ändring av språk händer automatiskt. Du behöver inte spara konfigurationen."
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Ändra"
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Tjänstekonfiguration"
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Aktiverad"
 
 #~ msgid "Add new"
 #~ msgstr "Lägg till ny"
