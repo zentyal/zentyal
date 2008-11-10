@@ -3,6 +3,9 @@
 	groups membership
 0.12.99
 	+ New release
+0.12.5
+	+ Bugfix. Set loginShell when adding users. By default it takes /bin/false
+	but users can change it using /etc/ebox/80samba.conf
 0.12.4
 	+ Bugfix. Check and correct if there is a user or group with a wrong SID.
 	It's possible to run into that scenarion depending when the user/group is

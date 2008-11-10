@@ -48,6 +48,7 @@ use constant SMBGROUP 		=> '513';
 use constant SMBACCTFLAGS       => '[U]'; 
 use constant GECOS              => 'Ebox file sharing user '; 
 use constant USERGROUP          => 513;
+use constant DEFAULT_SHELL	=> '/bin/false';
 # Home path for users and groups
 use constant BASEPATH          => '/home/samba';
 use constant USERSPATH 	       => BASEPATH . '/users';
@@ -124,6 +125,8 @@ sub _userCommonLdapAttrs
 	       sambaHomeDrive       => SMBHOMEDRIVE,
 
 	       sambaAcctFlags       => SMBACCTFLAGS,
+
+	       loginShel            => _loginShell(),
 	      };
 
   return $attrs;
@@ -160,6 +163,7 @@ sub _addUserLdapAttrs
 				     sambaNTPassword      => $nt,
 
 				     sambaSID             => $sambaSID,
+				    
 
 				     # gecos                => GECOS
 				    ],
@@ -1308,4 +1312,14 @@ sub groupsPath
   return GROUPSPATH;
 }
 
+sub _loginShell
+{
+	my $shell = EBox::Config::configkey('login_shell');
+
+	if (defined($shell)) {
+		return $shell;
+	} else {
+		return DEFAULT_SHELL;
+	}
+}
 1;
