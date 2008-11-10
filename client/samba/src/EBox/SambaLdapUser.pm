@@ -126,7 +126,7 @@ sub _userCommonLdapAttrs
 
 	       sambaAcctFlags       => SMBACCTFLAGS,
 
-	       loginShel            => _loginShell(),
+	       loginShell            => _loginShell(),
 	      };
 
   return $attrs;
