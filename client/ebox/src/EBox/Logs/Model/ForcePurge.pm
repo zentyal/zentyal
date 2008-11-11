@@ -71,7 +71,7 @@ sub formSubmitted
 {
     my ($self, $row, $force) = @_;
 
-    my $lifeTime = $row->{plainValueHash}->{lifeTime};
+    my $lifeTime = $row->valueByName('lifeTime');
 
     # we consolidate before to avoid any data loss
     EBox::Logs::Consolidate->consolidate('all');
@@ -90,19 +90,18 @@ sub formSubmitted
 #     <EBox::Model::DataForm::_table>
 #
 sub _table
-  {
+ {
+     my ($self) = @_;
 
-      my ($self) = @_;
-
-      my @tableDesc =
+     my @tableDesc =
         (
-	 new EBox::Types::Select(
-				 'fieldName' => 'lifeTime',
-				 'printableName' => __('Purge logs older than'),
-				 populate       => \&_populateSelectLifeTime,
-				 editable       => 1,
-				 defaultValue   => 1,
-				),
+         new EBox::Types::Select(
+                                 'fieldName' => 'lifeTime',
+                                 'printableName' => __('Purge logs older than'),
+                                 populate       => \&_populateSelectLifeTime,
+                                 editable       => 1,
+                                 defaultValue   => 1,
+                                ),
         );
 
       my $dataForm = {
@@ -123,39 +122,39 @@ sub _populateSelectLifeTime
 {
   # life time values must be in hours
   return  [
-	   {
-	    printableValue => __('one hour'),
-	    value          => 1,
-	   },
-	   {
-	    printableValue => __('twelve hours'),
-	    value          => 12,
-	   },
-	   {
-	    printableValue => __('one day'),
-	    value          => 24,
-	   },
-	   {
-	    printableValue => __('three days'),
-	    value          => 72,
-	   },
-	   {
-	    printableValue => __('one week'),
-	    value          =>  168,
-	   },
-	   {
-	    printableValue => __('fifteeen days'),
-	    value          =>  360,
-	   },
-	   {
-	    printableValue => __('thirty days'),
-	    value          =>  720,
-	   },
-	   {
-	    printableValue => __('ninety days'),
-	    value          =>  2160,
-	   },
-	  ];
+           {
+            printableValue => __('one hour'),
+            value          => 1,
+           },
+           {
+            printableValue => __('twelve hours'),
+            value          => 12,
+           },
+           {
+            printableValue => __('one day'),
+            value          => 24,
+           },
+           {
+            printableValue => __('three days'),
+            value          => 72,
+           },
+           {
+            printableValue => __('one week'),
+            value          =>  168,
+           },
+           {
+            printableValue => __('fifteeen days'),
+            value          =>  360,
+           },
+           {
+            printableValue => __('thirty days'),
+            value          =>  720,
+           },
+           {
+            printableValue => __('ninety days'),
+            value          =>  2160,
+           },
+          ];
 }
 
 
