@@ -1,5 +1,6 @@
 0.12.100
-        + EBox::Module::writeConfFile and EBox::Service scape fil'es path
+     + EBox::Module::writeConfFile and EBox::Service scape fil'es path
+	 + Bugfix. Configure logrotate to actually rotate ebox logs
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
