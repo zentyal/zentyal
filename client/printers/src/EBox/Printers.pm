@@ -36,6 +36,7 @@ use EBox::Sudo qw( :all );
 use EBox::PrinterFirewall;
 use EBox::PrinterLogHelper;
 use Foomatic::DB;
+use HTML::Mason::Interp;
 use Net::CUPS::Destination;
 use Net::CUPS;
 use Storable;
@@ -45,7 +46,9 @@ use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 'samba');
 use constant CUPSPRINTERS     	=> '/etc/cups/printers.conf';
 use constant CUPSD              => '/etc/cups/cupsd.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
-
+use constant START_TAG		=> '# __EBOX__ TAG #';
+use constant END_TAG		=> '# END __EBOX__ TAG #';
+	
 sub _create 
 {
 	my $class = shift;
@@ -165,7 +168,7 @@ sub firewallHelper
         return undef;
 }
 
-sub _setCupsConf
+sub writeOldCupsConf
 {
 	my $self = shift;
 
@@ -184,9 +187,17 @@ sub _setCupsConf
 		push (@conf, $printer );
 	}
 
-	my @array;
-	push(@array, 'printers' => \@conf);
-	$self->writeConfFile(CUPSPRINTERS, 'printers/printers.conf.mas', \@array);
+	$self->writeConfFile(CUPSPRINTERS, 
+			'printers/printers.conf.mas', 
+			['printers' => \@conf]);
+
+}
+
+sub _setCupsConf
+{
+	my $self = shift;
+
+	$self->_mergeCupsConf();
 
         # Added configuration for standalone cups
         my @internalIfaces = ();
@@ -194,7 +205,7 @@ sub _setCupsConf
             my $net = EBox::Global->modInstance('network');
             @internalIfaces = @{$net->InternalIfaces()};
         }
-        @array = ( standaloneCups => $self->isStandaloneCupsEnabled(),
+        my @array = ( standaloneCups => $self->isStandaloneCupsEnabled(),
                    ifaces => \@internalIfaces );
         $self->writeConfFile(CUPSD, 'printers/cupsd.conf.mas', \@array);
 
@@ -290,6 +301,8 @@ sub manufacturers
 	
 	my $db = new Foomatic::DB;
 	my @makes = sort($db->get_makes());
+	# Add Raw
+	push (@makes, 'Raw');
 	return \@makes;
 }
 
@@ -301,6 +314,7 @@ sub manufacturerModels($$)
 	my $db = new Foomatic::DB;
 	my $manufacturer = $self->manufacturer($id);
 	my @models = sort ($db->get_models_by_make($manufacturer));
+	push (@models, 'Raw');
 	return \@models;
 }
 
@@ -326,6 +340,9 @@ sub _printerIdDriver($$$)
 
 	my $maker = $self->manufacturer($id);
 	my $model = $self->model($id);
+	if ($maker eq 'Raw') {
+		return 'Raw';
+	}
 	my $db = new Foomatic::DB;
 	return $db->get_printer_from_make_model($maker, $model);
 }
@@ -336,10 +353,12 @@ sub driversForPrinter($$)
 	my $id = shift;
 	
 	my $printer = $self->_printerIdDriver($id);
-	
+	if ($printer eq 'Raw') {
+		return ['Raw'];
+	}
 	my $db = new Foomatic::DB;
-	my @drivers = grep(! /^(gimp.*)|(hpdj)/, 
-			$db->get_drivers_for_printer($printer));
+	#my @drivers = grep(! /^(gimp.*)|(hpdj)/, 
+	my @drivers = $db->get_drivers_for_printer($printer);
 	if (@drivers) {
 		return \@drivers;	
 	} else {
@@ -920,13 +939,12 @@ sub driverArgs($$)
 	my $manufacturer = $self->manufacturer($id);
 
 	my $printerid = $self->_printerFromManuModel($manufacturer, $printer);
-	$printerid or return {};
+	$printerid or return [];
 	
 	my $db = new Foomatic::DB;
 	my $dat = $db->getdat($driver, $printerid);
 
-	my @args = keys %{$dat->{args_byname}};
-	return \@args;
+	return [ keys %{$dat->{args_byname}} ];
 }
 
 sub driverOptions($$)
@@ -1091,6 +1109,9 @@ sub _setDriverOptionsToFile($$)
 	}
 	
 	my $printer = $self->model($id);
+	if ($printer eq 'Raw') {
+		return;
+	}
 	my $manufacturer = $self->manufacturer($id);
 	my $driver = $self->driver($id);
 	my $defaults = $self->driverOptions($id);
@@ -1298,6 +1319,104 @@ sub _checkSambaInstalled
 	my $samba = EBox::Global->modInstance('samba');
 	return  $samba ? 1 : undef;
 }
+
+sub _mergeCupsConf
+{
+	my ($self) = @_;
+
+	my  $manager = new EBox::ServiceModule::Manager();
+        if ($manager->checkUserModifications()
+            and $manager->skipModification(
+		$self->serviceModuleName(), CUPSPRINTERS)) {
+            EBox::info('Skipping modification of ' . CUPSPRINTERS);
+            #return;
+        }
+
+	my %external = map {$_ => 1} @{$self->fetchExternalCUPSPrinters};
+	my @file;
+	if ( -f CUPSPRINTERS ) {
+		my $cmd = 'cat ' . CUPSPRINTERS;
+		@file = @{root($cmd)};
+	}
+	my $startTag = START_TAG; 
+	my $endTag = END_TAG;
+	
+	my @newFile;
+	my $copy = 1;
+	for my $line (@file) {
+		if ($line =~ /$startTag/) {
+			$copy = undef;
+		} 
+		push (@newFile, $line) if ($copy);
+		if ((not $copy) and $line =~ /$endTag/) {
+			$copy = 1;
+		}
+	}
+	
+	my $output;
+
+	my $interp = HTML::Mason::Interp->new(comp_root => 
+						EBox::Config::stubs,
+						out_method => \$output);
+	my $comp = $interp->make_component(
+			comp_file => 
+			EBox::Config::stubs() . 'printers/printers.conf.mas');
+	my @conf;
+	my @idprinters = $self->all_dirs("printers");
+	for my $dirid (@idprinters){
+		my $id = $dirid;
+		$id =~  s'.*/'';
+		unless ($self->_printerConfigured($id)){
+			$self->removePrinter($id);
+			next;
+		}
+		$self->_setDriverOptionsToFile($id);
+		my $printer = $self->_printerInfo($id);
+		next if (exists $external{$printer->{name}});
+		$printer->{location} = $self->_location($id);
+		push (@conf, $printer );
+	}
+
+
+	$interp->exec($comp, 'printers' => \@conf);
+
+	push (@newFile, $output);
+
+	my $file = EBox::Config::tmp() . '/printers.conf.tmp';
+ 	open (my $fd, ">$file");
+	print $fd @newFile;
+	root("cp $file " . CUPSPRINTERS);
+	close ($fd);
+
+        $manager->updateFileDigest($self->serviceModuleName(), CUPSPRINTERS);
+}
+
+# Method: fetchExternalCUPSPrinters
+#
+#	This method returns those printers that haven been configured
+#	by the user using CUPS and not our interface. 
+#
+# Returns:
+#
+#	Array ref - containing the printer names
+#
+sub fetchExternalCUPSPrinters
+{
+    my ($self) = @_;
+
+    my %eboxPrinters = map { $_->{name} => 1 } @{$self->printers()};
+
+ 	my $cups = Net::CUPS->new();
+
+	my @printers;
+	foreach my $printer ($cups->getDestinations())
+	{
+		my $name = $printer->getName();
+		push (@printers, $name) unless (exists $eboxPrinters{$name});
+	}
+	return \@printers;
+}
+
 
 # Method: enableStandaloneCups
 #

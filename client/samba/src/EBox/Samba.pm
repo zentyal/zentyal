@@ -717,8 +717,8 @@ sub  adminUser
         return undef;
     }
     else {
-        EBox::error("The user has incomplete group memberships; to be administrator he must be both member of domain Admins and Administrators group");
-        return undef;
+        EBox::error("The user has incomplete group memberships; to be administrator he must be both member of domain Admins and Administrators group");                                                        
+        return undef; 
     }
 }
 
@@ -881,19 +881,47 @@ sub addPrinter # (resource)
     return if ($self->dir_exists("printers/$name"));
     $self->set_list("printers/$name/users", "string", []);
     $self->set_list("printers/$name/groups", "string", []);
+    $self->set_bool("printers/external", undef);
 
+}
+
+sub _addExternalPrinter
+{
+    my ($self, $name) = @_;
+    $self->set_list("printers/$name/users", "string", []);
+    $self->set_list("printers/$name/groups", "string", []);
+    $self->set_bool("printers/$name/external", 1);
 }
 
 sub printers 
 {
     my $self = shift;
 
+    my $printers = EBox::Global->modInstance('printers');
+    my %external = map { $_ => 1 } @{$printers->fetchExternalCUPSPrinters()};
     my @printers;
+    my $readOnly = $self->isReadOnly();
     for my $printer (@{$self->array_from_dir("printers")}) {
+        my $name = $printer->{_dir};
+        my $key = "printers/$name/external";
+        my $isExt = $self->get_bool($key);
+        if ($isExt and not exists $external{$name}) {
+            $self->delPrinter($name) unless ($readOnly);
+            $external{$name} = 'removed';
+        }  elsif ($isExt) {
+            $external{$name} = 'exists';
+        }
         push (@printers,  $printer->{'_dir'});
     }
 
-    return \@printers;
+    unless ($readOnly) {
+        for my $newPrinter (grep { $external{$_} == 1  } keys %external) {
+            $self->_addExternalPrinter($newPrinter);
+            push (@printers, $newPrinter);
+        }
+    }
+
+    return [sort @printers];
 }
 
 sub _addUsersToPrinter # (printer, users)
@@ -969,10 +997,9 @@ sub _printersForUser # (user)
     _checkUserExists($user);
 
     my @printers;
-    for my $printer (@{$self->array_from_dir("printers")}) {
-        my $name = $printer->{'_dir'};
+    for my $name (@{$self->printers()}) {
         my $print = { 	'name' => $name, 'allowed' => undef };
-        my $users = $printer->{'users'};
+        my $users = $self->get_list("printers/$name/users");
         if (@{$users}) {
             $print->{'allowed'} = 1 if (grep(/^$user$/, @{$users}));
         }
