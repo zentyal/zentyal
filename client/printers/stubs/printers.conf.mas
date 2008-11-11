@@ -3,8 +3,9 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Printers;
 </%init>
-
+<% EBox::Printers::START_TAG %>
 % foreach my $printer (@printers) {
 <Printer <% $printer->{name} %>>
 Info <% $printer->{manufacturer} %> <% $printer->{model} %> <% $printer->{driver} %>
@@ -18,3 +19,4 @@ PageLimit 0
 KLimit 0
 </Printer>
 % }
+<% EBox::Printers::END_TAG %>
