@@ -1,4 +1,4 @@
-@LOCALSTATEDIR@/lib/ebox/log/error.log @LOCALSTATEDIR@/lib/ebox/log/access.log {
+@LOCALSTATEDIR@/log/ebox/error.log @LOCALSTATEDIR@/log/ebox/access.log {
         rotate 7
         size 10M
         compress
@@ -15,7 +15,7 @@
         endscript
 }
 
-@LOCALSTATEDIR@/lib/ebox/log/ebox.log {
+@LOCALSTATEDIR@/log/ebox/ebox.log {
         rotate 7
         size 10M
         compress
