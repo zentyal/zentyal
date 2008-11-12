@@ -1,5 +1,9 @@
 0.12.100
-	+ Restore backup is more robust: inexistent users in a group are ignored
+	+ Restore backup is more robust: inexistent users in a group are
+	ignored
+	+ Make and restore backup more robust: removed slapd.conf
+	parameters in both slapadd and slapcat invokations, so we can use
+	the module with sldap with configuration in the directory itself
 0.12.99
 	+ New release
 0.12.1

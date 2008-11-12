@@ -557,12 +557,11 @@ sub dumpLdapData
   my ($self, $dir) = @_;
   
   my $ldapDir       = EBox::Ldap::dataDir();
-  my $slapdConfFile = EBox::Ldap::slapdConfFile();
   my $user  = EBox::Config::user();
   my $group = EBox::Config::group();
   my $ldifFile = $self->ldifFile($dir);
 
-  my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapdConfFile);
+  my $slapcatCommand = $self->_slapcatCmd($ldifFile);
   my $chownCommand = "/bin/chown $user.$group $ldifFile";
 
   $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
@@ -580,12 +579,11 @@ sub loadLdapData
   my ($self, $dir) = @_;
   
   my $ldapDir   = EBox::Ldap::dataDir();
-  my $slapdConfFile = EBox::Ldap::slapdConfFile();
   my $ldifFile = $self->ldifFile($dir);
 
   my $backupCommand = $self->_backupSystemDirectory();
   my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
-  my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapdConfFile);
+  my $slapaddCommand = $self->_slapaddCmd($ldifFile);
   my $chownDataCommand = $self->_chownDatadir;
   
   $self->_pauseAndExecute(
@@ -618,14 +616,14 @@ sub _chownDatadir
 
 sub _slapcatCmd
 {
-  my ($self, $ldifFile, $slapdConfFile) = @_;
-  return  "/usr/sbin/slapcat  -f $slapdConfFile > $ldifFile";
+  my ($self, $ldifFile) = @_;
+  return  "/usr/sbin/slapcat  > $ldifFile";
 }
 
 sub _slapaddCmd
 {
-  my ($self, $ldifFile, $slapdConfFile) = @_;
-  return  "/usr/sbin/slapadd  -c -f $slapdConfFile < $ldifFile" ;
+  my ($self, $ldifFile) = @_;
+  return  "/usr/sbin/slapadd  -c  < $ldifFile" ;
 }
 
 sub _rmLdapDirCmd
