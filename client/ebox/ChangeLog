@@ -1,6 +1,7 @@
 0.12.100
-     + EBox::Module::writeConfFile and EBox::Service scape fil'es path
-	 + Bugfix. Configure logrotate to actually rotate ebox logs
+        + EBox::Module::writeConfFile and EBox::Service scape file's path
+	+ Bugfix. Configure logrotate to actually rotate ebox logs
+       + Fixed bug in ForcePurge logs model
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
