@@ -597,6 +597,10 @@ sub _ffwdrules
 {
     my ($self) = @_;
 
+    my @internalIfaces = @{$self->{net}->InternalIfaces()};
+    foreach my $if (@internalIfaces) {
+        pf " -A ffwdrules -i $if -j RETURN";
+    }
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToInternalRuleTable()}) {
         pf "$rule";
