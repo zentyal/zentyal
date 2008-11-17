@@ -365,11 +365,15 @@ sub _setSambaConf
     $smbimpl->updateNetbiosName($self->netbios);
     $smbimpl->updateSIDEntries();
 
+    my $ldapconf = $ldap->ldapConf();
+    $ldapconf->{'users'} = EBox::UsersAndGroups::USERSDN;
+    $ldapconf->{'groups'} = EBox::UsersAndGroups::GROUPSDN;
+    
     my @array = ();
     push(@array, 'netbios'   => $self->netbios);
     push(@array, 'desc'      => $self->description);
     push(@array, 'workgroup' => $self->workgroup);
-    push(@array, 'ldap'      => $ldap->ldapConf);
+    push(@array, 'ldap'      => $ldapconf);
     push(@array, 'dirgroup'  => $smbimpl->groupShareDirectories);
     push(@array, 'ifaces'    => $interfaces); 
     push(@array, 'printers'  => $self->_sambaPrinterConf());
@@ -384,7 +388,6 @@ sub _setSambaConf
 
     root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
-    my $ldapconf = $ldap->ldapConf;
     my $users = EBox::Global->modInstance('users');
 
     @array = ();
