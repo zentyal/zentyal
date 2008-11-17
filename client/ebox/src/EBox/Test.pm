@@ -58,42 +58,92 @@ sub checkModuleInstantiation
 
     eval  "use  $modulePackage";
     if ($@) {
-	$Test->ok(0, "$modulePackage failed to load: $@");
-	return;
+        $Test->ok(0, "$modulePackage failed to load: $@");
+        return;
     }
  
     my $global = EBox::Global->getInstance();
     defined $global or die "Cannot get a instance of the global module";
-	
+        
     my $instance;
     my $modInstanceError = 0;
 
     try {
-	$instance = $global->modInstance($moduleName);
+        $instance = $global->modInstance($moduleName);
     }
     otherwise {
-	$modInstanceError = 1;;
+        $modInstanceError = 1;;
     };
     
     if ($modInstanceError or !defined $instance) {
-	$Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
-	return;
+        $Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
+        return;
     }
 
     my $refType = ref $instance;
 
     if ($refType eq $modulePackage) {
-	$Test->ok(1, "$moduleName instantiated correctly");
+        $Test->ok(1, "$moduleName instantiated correctly");
     }
     elsif (defined $refType) {
-	$Test->ok(0, "The instance returned of $moduleName is not of type $modulePackage instead is a $refType");
+        $Test->ok(0, "The instance returned of $moduleName is not of type $modulePackage instead is a $refType");
     }
     else {
-	$Test->ok(0, "The instance returned of $moduleName is not a blessed reference");
+        $Test->ok(0, "The instance returned of $moduleName is not a blessed reference");
     }
 
 }
 
+
+
+sub checkModels
+{
+    my ($mod, @modelsNames) = @_;
+
+    my @failedModels;
+    foreach my $name (@modelsNames) {
+        try {
+            $mod->model($name);
+        }
+        otherwise {
+            push @failedModels, $name;
+        };
+    }
+
+
+    my $modName = $mod->name();
+    if (@failedModels) {
+        $Test->ok(0, "Module $modName failed when loading the models: @failedModels");
+    }
+    else {
+        $Test->ok(1, "Module $modName loaded the models");
+    }
+}
+
+
+sub checkComposites
+{
+    my ($mod, @compositesNames) = @_;
+
+    my @failedComposites;
+    foreach my $name (@compositesNames) {
+        try {
+            $mod->composite($name);
+        }
+        otherwise {
+            push @failedComposites, $name;
+        };
+    }
+
+
+    my $modName = $mod->name();
+    if (@failedComposites) {
+        $Test->ok(0, "Module $modName failed when loading the composites: @failedComposites");
+    }
+    else {
+        $Test->ok(1, "Module $modName loaded the composites");
+    }
+}
 
 
 
