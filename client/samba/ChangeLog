@@ -3,6 +3,8 @@
 	groups membership
 0.12.99
 	+ New release
+0.12.6
+	+ Bugfix. Set users and groups suffix properly in smb.conf
 0.12.5
 	+ Bugfix. Set loginShell when adding users. By default it takes /bin/false
 	but users can change it using /etc/ebox/80samba.conf
