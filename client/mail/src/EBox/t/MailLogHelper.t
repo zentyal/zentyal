@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 24;
+use Test::More tests => 28;
 use Test::MockObject;
 use Test::Exception;
 
@@ -105,7 +105,7 @@ my @cases = (
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
                                client_host_name => 'unknown',
-                               relay => 'virtual, delay=0.11, delays=0.06/0.02/0/0.02',
+                               relay => 'virtual',
                                client_host_ip => '192.168.45.159'
                               },
              },
@@ -132,7 +132,7 @@ my @cases = (
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
                                client_host_name => 'unknown',
-                               relay => 'virtual, delay=0.08, delays=0.04/0/0/0.04',
+                               relay => 'virtual',
                                client_host_ip => '192.168.45.159'
                               },
 
@@ -158,7 +158,7 @@ my @cases = (
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
                                client_host_name => 'unknown',
-                               relay => 'virtual, delay=0.13, delays=0.09/0/0/0.04',
+                               relay => 'virtual',
                                client_host_ip => '192.168.45.159'
                               },
 
@@ -188,7 +188,7 @@ my @cases = (
                                message => '250 2.0.0 Ok: queued as 3F7CEBC608',
                                to_address => 'jag@gmail.com',
                                client_host_name => 'unknown',
-                               relay => 'smtp.warp.es[82.194.70.220]:25, delay=15, delays=0.03/0/6.9/8.3',
+                               relay => 'smtp.warp.es[82.194.70.220]:25',
                                client_host_ip => '192.168.9.1'
                               },
 
@@ -218,7 +218,7 @@ my @cases = (
                                message => 'connect to 192.168.45.120[192.168.45.120]:25: Connection timed out',
                                to_address => 'jag@gmail.com',
                                client_host_name => 'unknown',
-                               relay => 'none, delay=30, delays=0.06/0.02/30/0',
+                               relay => 'none',
                                client_host_ip => '192.168.9.1'
                               },
 
@@ -252,12 +252,41 @@ my @cases = (
                                message => 'mail for 192.168.45.120 loops back to myself',
                                to_address => 'jag@gmail.com',
                                client_host_name => 'unknown',
-                               relay => '192.168.45.120[192.168.45.120]:25, delay=0.56, delays=0.04/0.02/0.5/0',
+                               relay => '192.168.45.120[192.168.45.120]:25',
                                client_host_ip => '192.168.9.1'
                               },
 
              },
 
+             {
+              name => 'Remote smarthost denies relay',
+                 lines => [
+'Oct 30 16:22:18 ebox011101 postfix/smtpd[22313]: connect from unknown[192.168.9.1]',
+'Oct 30 16:22:18 ebox011101 postfix/smtpd[22313]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct 30 16:22:18 ebox011101 postfix/smtpd[22313]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct 30 16:22:19 ebox011101 postfix/smtpd[22313]: 0649F5262D: client=unknown[192.168.9.1]',
+'Oct 30 16:22:19 ebox011101 postfix/cleanup[22316]: 0649F5262D: message-id=<200811181701.17282.spam@warp.es>',
+'Oct 30 16:22:19 ebox011101 postfix/qmgr[16604]: 0649F5262D: from=<spam@warp.es>, size=580, nrcpt=1 (queue active)',
+'Oct 30 16:22:19 ebox011101 postfix/smtpd[22313]: disconnect from unknown[192.168.9.1]',
+'Oct 30 16:22:19 ebox011101 postfix/smtp[22317]: 0649F5262D: to=<jag@gmail.com>, relay=192.168.45.120[192.168.45.120]:25, delay=0.36, delays=0.16/0.02/0.09/0.09, dsn=5.7.1, status=bounced (host 192.168.45.120[192.168.45.120] said: 554 5.7.1 <jag@gmail.com>: Relay access denied (in reply to RCPT TO command))',
+'Oct 30 16:22:19 ebox011101 postfix/bounce[22318]: 0649F5262D: sender non-delivery notification: 5A4B352630',
+'Oct 30 16:22:19 ebox011101 postfix/qmgr[16604]: 0649F5262D: removed',
+                          ],
+              expectedData =>  {
+                               from_address => 'spam@warp.es',
+                               message_id => '200811181701.17282.spam@warp.es',
+                               message_size => '580',
+                               status => 'bounced',
+                               postfix_date => '2008-Oct-30 16:22:19',
+                               event => 'nosmarthostrelay',
+                               message => 'host 192.168.45.120[192.168.45.120] said: 554 5.7.1 <jag@gmail.com>: Relay access denied (in reply to RCPT TO command)',
+                               to_address => 'jag@gmail.com',
+                               client_host_name => 'unknown',
+                               relay => '192.168.45.120[192.168.45.120]:25',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
 
             );
  
