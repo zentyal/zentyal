@@ -4,6 +4,7 @@
 	user exists
 	+ Bugfix: MDSize attribute should not be restored in sytems with
 	MDSize feature disabled
+	+ Bugfix: mail relayed to external smarthost is now logged
 0.12.99
 	+ Add support for reporting
 0.12.2
