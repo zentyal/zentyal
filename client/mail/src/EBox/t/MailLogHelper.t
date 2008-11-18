@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 20;
+use Test::More tests => 24;
 use Test::MockObject;
 use Test::Exception;
 
@@ -219,6 +219,40 @@ my @cases = (
                                to_address => 'jag@gmail.com',
                                client_host_name => 'unknown',
                                relay => 'none, delay=30, delays=0.06/0.02/30/0',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
+
+
+             {
+              name => 'Error. Smarthost and client have the same hostname',
+                 lines => [
+
+'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: 7B98D5262E: client=unknown[192.168.9.1]',
+'Oct 30 13:13:09 ebox011101 postfix/cleanup[17166]: 7B98D5262E: message-id=<200811181352.16952.spam@warp.es>',
+'Oct 30 13:13:09 ebox011101 postfix/qmgr[16604]: 7B98D5262E: from=<spam@warp.es>, size=580, nrcpt=1 (queue active)',
+'Oct 30 13:13:09 ebox011101 postfix/smtpd[17163]: disconnect from unknown[192.168.9.1]',
+'Oct 30 13:13:10 ebox011101 postfix/smtp[17167]: warning: host 192.168.45.120[192.168.45.120]:25 replied to HELO/EHLO with my own hostname ebox011101.lan.hq.warp.es',
+'Oct 30 13:13:10 ebox011101 postfix/smtp[17167]: 7B98D5262E: to=<jag@gmail.com>, relay=192.168.45.120[192.168.45.120]:25, delay=0.56, delays=0.04/0.02/0.5/0, dsn=5.4.6, status=bounced (mail for 192.168.45.120 loops back to myself)',
+'Oct 30 13:13:10 ebox011101 postfix/bounce[17168]: 7B98D5262E: sender non-delivery notification: 10ADB52631',
+'Oct 30 13:13:10 ebox011101 postfix/qmgr[16604]: 7B98D5262E: removed',
+
+
+                          ],
+              expectedData =>  {
+                               from_address => 'spam@warp.es',
+                               message_id => '200811181352.16952.spam@warp.es',
+                               message_size => '580',
+                               status => 'bounced',
+                               postfix_date => '2008-Oct-30 13:13:10',
+                               event => 'other',
+                               message => 'mail for 192.168.45.120 loops back to myself',
+                               to_address => 'jag@gmail.com',
+                               client_host_name => 'unknown',
+                               relay => '192.168.45.120[192.168.45.120]:25, delay=0.56, delays=0.04/0.02/0.5/0',
                                client_host_ip => '192.168.9.1'
                               },
 
