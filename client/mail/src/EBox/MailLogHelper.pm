@@ -130,13 +130,12 @@ sub processLine
         $dbengine->insert(TABLENAME, $values);
     } elsif ($line =~ m/client=/) {
         my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: (.*): client=(.*)\[(.*)\]/);
-        
   
         $temp{$qid}{'hostname'} = $hostname;
         $temp{$qid}{'clientip'} = $clientip;
     } elsif ($line =~ m/cleanup.*message-id=/) {
-        my ($qid, $msg_id1) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
-        $temp{$qid}{'msgid'} = $msg_id1;
+        my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
+        $temp{$qid}{'msgid'} = $msg_id;
     } elsif ($line =~ m/qmgr.*from=</) {
         my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
         $temp{$qid}{'from'} = $from;
@@ -150,14 +149,28 @@ sub processLine
         $temp{$qid}{'msg'} = $msg;
         $temp{$qid}{'date'} = $self->_getDate($line);
 
-        if ($status eq 'deferred') {
-            $temp{$qid}{'event'} = 'nohost';
+        if ($status ne 'sent') {
+            if ($msg =~ m/Connection timed out/) {
+                $temp{$qid}{'event'} = 'nohost';
+            }
+            else {
+                $temp{$qid}{'event'} = 'other';
+            }
+
+        }
+
+        if (exists $temp{$qid}{'event'}) {
             $self->_insertEvent($qid,  $dbengine);
         }
 
     } elsif ($line =~ m/.*removed.*/) {
         my ($qid) = $line =~ m/.*qmgr.*: (.*): removed/;
                 
+        if (not exists $temp{$qid}) {
+            return;
+        }
+
+
         my $event = 'msgsent';
         if ($temp{$qid}{'msg'} =~ m/.*maildir has overdrawn his diskspace quota.*/) {
             $event = 'maxusrsize';
@@ -174,6 +187,8 @@ sub _insertEvent
 {
     my ($self, $qid, $dbengine) = @_;
 
+
+
     my $values = {
                   message_id => $temp{$qid}{'msgid'},
                   client_host_ip => $temp{$qid}{'clientip'},
@@ -187,6 +202,7 @@ sub _insertEvent
                   postfix_date => $temp{$qid}{'date'},
                   event => $temp{$qid}{'event'},
                  };
+
 
 
     $dbengine->insert(TABLENAME, $values);
