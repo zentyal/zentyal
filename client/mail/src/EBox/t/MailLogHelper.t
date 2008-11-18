@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 16;
+use Test::More tests => 20;
 use Test::MockObject;
 use Test::Exception;
 
@@ -194,8 +194,39 @@ my @cases = (
 
              },
 
-            );
+             {
+              name => 'Message relayed to unavailable external smarthost',
+                 lines => [
+'Oct 30 13:07:38 ebox011101 postfix/smtpd[16765]: connect from unknown[192.168.9.1]',
+'Oct 30 13:07:38 ebox011101 postfix/smtpd[16765]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct 30 13:07:38 ebox011101 postfix/smtpd[16765]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct 30 13:07:39 ebox011101 postfix/smtpd[16765]: 6E06752608: client=unknown[192.168.9.1]',
+'Oct 30 13:07:39 ebox011101 postfix/cleanup[16769]: 6E06752608: message-id=<200811181346.45800.spam@warp.es>',
+'Oct 30 13:07:39 ebox011101 postfix/qmgr[16604]: 6E06752608: from=<spam@warp.es>, size=580, nrcpt=1 (queue active)',
+'Oct 30 13:07:39 ebox011101 postfix/smtpd[16765]: disconnect from unknown[192.168.9.1]',
+'Oct 30 13:08:09 ebox011101 postfix/smtp[16770]: connect to 192.168.45.120[192.168.45.120]:25: Connection timed out',
+'Oct 30 13:08:09 ebox011101 postfix/smtp[16770]: 6E06752608: to=<jag@gmail.com>, relay=none, delay=30, delays=0.06/0.02/30/0, dsn=4.4.1, status=deferred (connect to 192.168.45.120[192.168.45.120]:25: Connection timed out)',
 
+                          ],
+              expectedData =>  {
+                               from_address => 'spam@warp.es',
+                               message_id => '200811181346.45800.spam@warp.es',
+                               message_size => '580',
+                               status => 'deferred',
+                               postfix_date => '2008-Oct-30 13:08:09',
+                               event => 'nohost',
+                               message => 'connect to 192.168.45.120[192.168.45.120]:25: Connection timed out',
+                               to_address => 'jag@gmail.com',
+                               client_host_name => 'unknown',
+                               relay => 'none, delay=30, delays=0.06/0.02/30/0',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
+
+
+            );
+ 
 
 
 my $logHelper = new EBox::MailLogHelper();
