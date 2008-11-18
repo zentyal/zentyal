@@ -100,8 +100,10 @@ sub processLine
             $event = 'norelay';
         } elsif ($msg =~ m/.*552.*$/) {
             $event = 'maxmsgsize';
-            }
+        }
         
+ 
+
         my $values = {
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
@@ -147,6 +149,12 @@ sub processLine
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
         $temp{$qid}{'date'} = $self->_getDate($line);
+
+        if ($status eq 'deferred') {
+            $temp{$qid}{'event'} = 'nohost';
+            $self->_insertEvent($qid,  $dbengine);
+        }
+
     } elsif ($line =~ m/.*removed.*/) {
         my ($qid) = $line =~ m/.*qmgr.*: (.*): removed/;
                 
@@ -154,46 +162,38 @@ sub processLine
         if ($temp{$qid}{'msg'} =~ m/.*maildir has overdrawn his diskspace quota.*/) {
             $event = 'maxusrsize';
         }
-        my $values = {
-                      message_id => $temp{$qid}{'msgid'},
-                      client_host_ip => $temp{$qid}{'clientip'},
-                      client_host_name => $temp{$qid}{'hostname'},
-                      from_address => $temp{$qid}{'from'},
-                      to_address => $temp{$qid}{'to'},
-                      message_size => $temp{$qid}{'size'},
-                      relay => $temp{$qid}{'relay'},
-                      status => $temp{$qid}{'status'},
-                      message => $temp{$qid}{'msg'},
-                      postfix_date => $temp{$qid}{'date'},
-                      event => $event,
-                     };
 
-        $dbengine->insert(TABLENAME, $values);
+        $temp{$qid}{'event'} = $event;
 
-        $temp{$qid} = ();
-    } elsif ($line =~ m/.*status=deferred.*/) {
-        my ($qid, $to, $relay, $status, $msg) = $line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/;
-                        
-        my $values = {
-                      message_id => $temp{$qid}{'msgid'},
-                      client_host_ip => $temp{$qid}{'clientip'},
-                      client_host_name => $temp{$qid}{'hostname'},
-                      from_address => $temp{$qid}{'from'},
-                      to_address => $to,
-                      message_size => $temp{$qid}{'size'},
-                      relay => $relay,
-                      status => $status,
-                      message => $msg,
-                      postfix_date => $temp{$qid}{'date'},
-                      event => 'nohost',
-                     };
-
-        $dbengine->insert(TABLENAME, $values);
-
-        $temp{$qid} = ();
-                        
+        $self->_insertEvent($qid, $dbengine);
     }
 
 }
+
+sub _insertEvent
+{
+    my ($self, $qid, $dbengine) = @_;
+
+    my $values = {
+                  message_id => $temp{$qid}{'msgid'},
+                  client_host_ip => $temp{$qid}{'clientip'},
+                  client_host_name => $temp{$qid}{'hostname'},
+                  from_address => $temp{$qid}{'from'},
+                  to_address => $temp{$qid}{'to'},
+                  message_size => $temp{$qid}{'size'},
+                  relay => $temp{$qid}{'relay'},
+                  status => $temp{$qid}{'status'},
+                  message => $temp{$qid}{'msg'},
+                  postfix_date => $temp{$qid}{'date'},
+                  event => $temp{$qid}{'event'},
+                 };
+
+
+    $dbengine->insert(TABLENAME, $values);
+
+    delete $temp{$qid};
+}
+
+
 
 1;
