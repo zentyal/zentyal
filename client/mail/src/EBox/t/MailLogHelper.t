@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More qw(no_plan);
+use Test::More tests => 16;
 use Test::MockObject;
 use Test::Exception;
 
@@ -164,6 +164,36 @@ my @cases = (
 
              },
              
+             {
+              name => 'Message relayed trough external smarthost',
+                 lines => [
+'Oct 30 11:00:07 ebox011101 postfix/smtpd[32271]: connect from unknown[192.168.9.1]',
+'Oct 30 11:00:07 ebox011101 postfix/smtpd[32271]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct 30 11:00:07 ebox011101 postfix/smtpd[32271]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct 30 11:00:07 ebox011101 postfix/smtpd[32271]: 2AF6952626: client=unknown[192.168.9.1]',
+'Oct 30 11:00:07 ebox011101 postfix/cleanup[32275]: 2AF6952626: message-id=<200811181139.13287.spam@warp.es>',
+'Oct 30 11:00:07 ebox011101 postfix/qmgr[31065]: 2AF6952626: from=<spam@warp.es>, size=580, nrcpt=1 (queue active)',
+'Oct 30 11:00:07 ebox011101 postfix/smtpd[32271]: disconnect from unknown[192.168.9.1]',
+'Oct 30 11:00:22 ebox011101 postfix/smtp[32362]: 2AF6952626: to=<jag@gmail.com>, relay=smtp.warp.es[82.194.70.220]:25, delay=15, delays=0.03/0/6.9/8.3, dsn=2.0.0, status=sent (250 2.0.0 Ok: queued as 3F7CEBC608)',
+'Oct 30 11:00:22 ebox011101 postfix/qmgr[31065]: 2AF6952626: removed',
+
+                          ],
+              expectedData =>  {
+                               from_address => 'spam@warp.es',
+                               message_id => '200811181139.13287.spam@warp.es',
+                               message_size => '580',
+                               status => 'sent',
+                               postfix_date => '2008-Oct-30 11:00:22',
+                               event => 'msgsent',
+                               message => '250 2.0.0 Ok: queued as 3F7CEBC608',
+                               to_address => 'jag@gmail.com',
+                               client_host_name => 'unknown',
+                               relay => 'smtp.warp.es[82.194.70.220]:25, delay=15, delays=0.03/0/6.9/8.3',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
+
             );
 
 

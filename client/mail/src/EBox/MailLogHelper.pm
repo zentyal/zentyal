@@ -139,8 +139,9 @@ sub processLine
         my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
-    } elsif ($line =~ m/virtual.*to=</) {
-        my ($qid, $to, $relay, $status, $msg) = $line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/;
+    } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/) {
+        my ($qid, $to, $relay, $status, $msg) = ($1, $2, $3, $4, $5);
+
         $temp{$qid}{'to'} = $to;
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
