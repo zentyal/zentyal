@@ -4,7 +4,9 @@
 	user exists
 	+ Bugfix: MDSize attribute should not be restored in sytems with
 	MDSize feature disabled
-	+ Bugfix: mail relayed to external smarthost is now logged
+	+ Bugfix in logs: mail relayed to external smarthost is now
+	logged, external smarthost relay denied action also logged, relay
+	field now only logs relay data and no unrelated data
 0.12.99
 	+ Add support for reporting
 0.12.2

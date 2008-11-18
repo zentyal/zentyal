@@ -1135,7 +1135,8 @@ sub tableInfo
                    'noaccount' => __('Account does not exist'),
                    'nohost' => __('Host unreachable'),
                    'noauth' => __('Authentication error'),
-                   'other' => __('Other events')
+                   'other' => __('Other events'),
+                   'nosmarthostrelay' => __('Relay denied by the smarthost'),
     };
 
     return {

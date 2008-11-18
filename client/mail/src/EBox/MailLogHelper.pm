@@ -140,7 +140,7 @@ sub processLine
         my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
-    } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/) {
+    } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
         my ($qid, $to, $relay, $status, $msg) = ($1, $2, $3, $4, $5);
 
         $temp{$qid}{'to'} = $to;
@@ -152,6 +152,9 @@ sub processLine
         if ($status ne 'sent') {
             if ($msg =~ m/Connection timed out/) {
                 $temp{$qid}{'event'} = 'nohost';
+            }
+            elsif ($msg =~ /host.*said.*Relay access denied/) {
+                $temp{$qid}{'event'} = 'nosmarthostrelay';        
             }
             else {
                 $temp{$qid}{'event'} = 'other';
