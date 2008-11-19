@@ -173,7 +173,7 @@ sub cmp
     return undef unless ( $self->type() eq $compareType->type() );
 
     my @selfTypes = @{$self->types()};
-    my @comparedTypes = @{$self->types()};
+    my @comparedTypes = @{$compareType->types()};
 
     return undef unless ( scalar(@selfTypes) == scalar(@comparedTypes) );
     my $returnValue = undef;
