@@ -1,12 +1,12 @@
 <%args>
-    $mainClass
+    $module
+    @types
 </%args>
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model Types
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/<% $module %>/Types
 
-nobase_perl_DATA = <% $mainClass %> 
+nobase_perl_DATA = <% join (' ', @types) %> 
 
 DISTCLEANFILES = 
 
