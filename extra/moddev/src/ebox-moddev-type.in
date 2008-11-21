@@ -120,7 +120,7 @@ sub _src_EBox_Types
                 parent => $options->{parent},
                 mainClass => $options->{mainClass},
               ));
-    write_file("$dir/$name", ${$output});
+    write_file("$dir/$name.pm", ${$output});
 
 }
 
