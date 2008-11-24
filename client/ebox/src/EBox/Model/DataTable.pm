@@ -1367,7 +1367,7 @@ sub setTypedRow
       # produces an inconsistent state
       if ((not $force) and $self->table()->{'automaticRemove'}) {
           my $manager = EBox::Model::ModelManager->instance();
-          $manager->warnOnChangeOnId($self->tableName(), $id, $changedElements, $oldRow);
+          $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
       }
 
       my $modified = undef;
