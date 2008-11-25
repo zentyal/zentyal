@@ -95,6 +95,7 @@ sub _table
          fieldName     => 'allow',
          printableName => __('Allow relay'),
          editable      => 1,
+         defaultValue  => 1,
          help          => __('Tick this to allow the machines within the ' .
                              'above object to send mails through this ' . 
                              ' server.'),
