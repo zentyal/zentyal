@@ -1045,7 +1045,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
                                . "interface '{iface}'. Please, remove it "
                                . 'before trying to add a virtual interface '
                                . 'using it.',
-                               fixed => $mappingRow->{plainValueHash}->{name},
+                               fixed => $mappingRow->valueByName(name),
                                iface => $fixedAddrModel->index()));
 
                 }
@@ -1469,7 +1469,7 @@ sub _leasedTime # (which, iface)
     my $advOptionsModel = $self->_getModel('leaseTimesModel', $iface);
 
     my $fieldName = $which . '_leased_time';
-    return $advOptionsModel->row()->{plainValueHash}->{$fieldName};
+    return $advOptionsModel->row()->valueByName($fieldName);
 
 }
 
