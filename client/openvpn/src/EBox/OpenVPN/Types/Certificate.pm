@@ -58,6 +58,10 @@ sub options
     }
 
     my @options= map {{ value => $_ }} @certs;
+    @options = sort {
+        $a->{value} cmp $b->{value}
+    } @options;
+
 
     return \@options;
 
