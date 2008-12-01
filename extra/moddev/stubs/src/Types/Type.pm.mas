@@ -7,7 +7,7 @@
 #
 #   TODO
 #
-package EBox::Types::<% $mainClass %>::<% $name %>;
+package EBox::<% $mainClass %>::Types::<% $name %>;
 use strict;
 use warnings;
 
