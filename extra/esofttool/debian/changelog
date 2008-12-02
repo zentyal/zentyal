@@ -1,3 +1,12 @@
+esofttool (0.5.1) hardy; urgency=low
+
+  * Bugfix: Use `SmartTargetPkg` to select the best option when several dependencies options are available
+  * Check deb file existence prior to extracting the security changelog
+  * Bugfix: Substitute strcmp for strncmp to avoid security flaws
+  * Bugfix: Determine if a security update more secure if no archive is	listed by the package
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Tue, 02 Dec 2008 11:01:31 +0100
+
 esofttool (0.5) hardy; urgency=low
 
   * Determine which are security updates and which are not with the Debian changelog for them

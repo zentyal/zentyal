@@ -261,6 +261,10 @@ bool _securityUpdate(pkgCache::PkgFileIterator pkgFile) {
 
         std::string distroId(_distributionId());
         bool retValue;
+        /* foomatic-db-hpjs contains no archive */
+        if ( pkgFile.Archive() == NULL ) {
+          return false;
+        }
         if ( distroId.compare("Ubuntu") == 0 ) {
           retValue = strstr(pkgFile.Archive(), "-security") != NULL; 
         } else if ( distroId.compare("Debian") == 0 ) {
@@ -284,7 +288,8 @@ bool _securityUpdate(pkgCache::PkgFileIterator pkgFile) {
 
   Returns:
   
-      std::string - the paragraphs with the changelog
+      std::string - the paragraphs with the changelog, an empty string
+                    if the changelog cannot be parsed
 
  */
 std::string _changeLog(const std::string fileName, const std::string versionStr) {
@@ -361,8 +366,6 @@ void listEBoxPkgs() {
 			  
 			  continue;
 			}
-			
-
 
 			//if the only version available is a removed one ( ==
 			// there are no candidates and P.CurrentVer() is null),
@@ -373,7 +376,6 @@ void listEBoxPkgs() {
 			  Log << name << " only version available is a removed one" << std::endl;
 			  continue;
 			}
-			
 
 			std::cout << "{";
 			std::cout << "'name' => '" << name << "'," << std::endl;
@@ -394,12 +396,12 @@ void listEBoxPkgs() {
 			}
 			std::cout << "'depends' => [" << std::endl;
 			for (pkgCache::DepIterator d = curverObject.DependsList(); d.end() == false; d++) {
-				if((strcmp(d.DepType(),"Depends")!=0) &&
-					(strcmp(d.DepType(),"PreDepends")!=0)) {
-					continue;
-				}
-				depends.insert(depends.begin(),d.TargetPkg().Name());
-				std::cout << "\t'" << d.TargetPkg().Name()  << "'," << std::endl;
+                          if((strncmp(d.DepType(),"Depends",7)!=0) &&
+                             (strncmp(d.DepType(),"PreDepends",10)!=0)) {
+                            continue;
+                          }
+                          depends.insert(depends.begin(),d.SmartTargetPkg().Name());
+                          std::cout << "\t'" << d.SmartTargetPkg().Name()  << "'," << std::endl;
 			}
 			std::cout << "]," << std::endl;
 			if(pkgIsFetched(P)){
@@ -472,14 +474,6 @@ void listUpgradablePkgs() {
                   filename.replace(pos, 1, "%3a");
                 }
 
-                for(pkgCache::VerFileIterator verFile = curverObject.FileList();
-                    verFile.end() == false; verFile++) {
-                  if ( _securityUpdate(verFile.File()) ) {
-                    security.assign("1");
-                    changelog = _changeLog(filename, curver);
-                  }
-                }
-
 		std::string::size_type epoch = filename.find(":",0);
 		if(epoch != std::string::npos) filename.replace(epoch,1,"%3a");
 		struct stat stats;
@@ -488,6 +482,14 @@ void listUpgradablePkgs() {
 		      << filename << ")" << std::endl;
 			continue;
 		}
+
+                for(pkgCache::VerFileIterator verFile = curverObject.FileList();
+                    verFile.end() == false; verFile++) {
+                  if ( _securityUpdate(verFile.File()) ) {
+                    security.assign("1");
+                    changelog = _changeLog(filename, curver);
+                  }
+                }
 
 		pkgRecords::Parser &Par = Recs->Lookup(curverObject.FileList());
 
