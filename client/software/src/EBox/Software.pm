@@ -253,7 +253,7 @@ sub fetchAllPkgs
 
 	@pkgs = @{_getInfoEBoxPkgs()};
 
-	my $cmd ='/usr/bin/apt-get install -qq --download-only --yes ';
+	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes ';
 	foreach my $pkg (@pkgs) {
 		$cmd .= ($pkg->{name} . " ");
 		$cmd .= (join(" ", @{$pkg->{depends}}) . " ");
@@ -263,13 +263,13 @@ sub fetchAllPkgs
 	} catch EBox::Exceptions::Internal with {
 	};
 
-	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --yes';
+	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes';
 	try {
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
 	};
 
-	$cmd ='/usr/bin/apt-get autoclean -qq --yes';
+	$cmd ='/usr/bin/apt-get autoclean -qq --force-yes --yes';
 	try {
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
