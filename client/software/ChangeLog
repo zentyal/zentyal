@@ -1,8 +1,8 @@
-0.12.100
-	+ Added `--force-yes` option to accept unsigned packages from
-	our PPA repository
 0.12.99
 	+ New release
+0.12.2
+	+ Bugfix: Added `--force-yes` option to accept unsigned packages from
+	our PPA repository
 0.12.1
 	+ Bugfix: Packages which are not installable for some reason are
 	handled correctly stopping the update process and showing the error
