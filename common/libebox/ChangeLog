@@ -2,6 +2,7 @@
 	+ Add new table view without actions
 	+ Add javascript library to generate report charts
 	+ Fixing redirect URL coming from proxy
+	+ Added Chinese from Taiwan and Galician translations
 0.12.1
 	+ Bugfix: Get logger from EBox category if it is not set explicity
 	to allow external programs to log using eBox log helper functions
