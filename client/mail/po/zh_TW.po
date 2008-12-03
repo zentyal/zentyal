@@ -1,0 +1,642 @@
+# Chinese translations for ebox-mail package.
+# Copyright (C) 2008 Warp S.L.
+# This file is distributed under the same license as the ebox-mail package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-mail 0.12.99"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-09-01 08:32+0200\n"
+"PO-Revision-Date: 2008-09-01 08:32+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:155
+msgid "Admin mail recipient"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:994
+#: src/EBox/Mail.pm:1069 src/EBox/Mail.pm:1142
+msgid "Mail"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:189
+#, perl-brace-format
+msgid "Cannot connect to {smtp} mail server"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:230
+#, perl-brace-format
+msgid "Cannot connect to the server {hostname} to send the event through SMTP"
+msgstr ""
+
+#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr ""
+
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr ""
+
+#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
+msgid "account name"
+msgstr ""
+
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
+msgid "domain name"
+msgstr ""
+
+#: src/EBox/CGI/DelGroupAlias.pm:47
+msgid "group alias mail"
+msgstr ""
+
+#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
+msgid "username"
+msgstr ""
+
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr ""
+
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr ""
+
+#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
+#: src/EBox/Mail.pm:1089
+msgid "Queue Management"
+msgstr ""
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
+#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
+msgid "virtual domain"
+msgstr ""
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr ""
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1113
+msgid "To"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+msgid ""
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:85
+msgid ""
+"Users will have to authenticate to be able to send mails through this server"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:93
+msgid "Authentication"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:123
+msgid "Cannot require authentication when TLS is inactive"
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:90
+msgid "Object"
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:96
+msgid "Allow relay"
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:98
+msgid ""
+"Tick this to allow the machines within the above object to send mails "
+"through this  server."
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:107
+msgid "Relay policy for network objects"
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:119
+msgid "object's relay policy"
+msgstr ""
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:120
+msgid "Here you can allow mail relay per network object"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:87
+msgid "Filter in use"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:94
+msgid "Custom filter's mail forward port"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:100
+msgid "Custom filter's IP address"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:106
+msgid "Custom filter's Port"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:115
+msgid "Mail filter options"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:135
+msgid "none"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalFilter.pm:136
+msgid "custom"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:81
+msgid "Smarthost to send mail"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:88
+msgid "Maximum message size accepted"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:92 src/templates/createaccount.mas:78
+#: src/templates/alias.mas:140
+msgid "Unlimited size"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:97
+msgid "size in Mb"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:110
+msgid "Options"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:57
+msgid "Name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:72
+msgid "Mail virtual domains"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:83
+msgid "Virtual domain added.You need to save changes to use this domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:113
+msgid ""
+"You must enable the module mail in the module status section in order to use "
+"it."
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:87
+msgid "SSL Support"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:96
+msgid "Mail retrieval services"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:114
+msgid "No"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:115
+msgid "Optional"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:116
+msgid "Required"
+msgstr ""
+
+#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
+#: src/EBox/Mail/Composite/General.pm:77
+msgid "Mail server options"
+msgstr ""
+
+#: src/EBox/MailVDomainsLdap.pm:332
+msgid "Size quota"
+msgstr ""
+
+#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
+#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
+#: src/EBox/Mail.pm:1280 src/EBox/MailUserLdap.pm:699
+#: src/EBox/MailUserLdap.pm:705 src/EBox/MailUserLdap.pm:767
+#: src/EBox/MailUserLdap.pm:773
+msgid "maildir size"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
+#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
+#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
+#: src/EBox/MailUserLdap.pm:76
+msgid "mail account"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
+#: src/EBox/MailAliasLdap.pm:228
+msgid "mail alias account"
+msgstr ""
+
+#: src/EBox/Mail.pm:75
+msgid "mail"
+msgstr ""
+
+#: src/EBox/Mail.pm:101
+msgid "Add postfix to sasl group"
+msgstr ""
+
+#: src/EBox/Mail.pm:102
+msgid "To allow postfix to connect with saslauthd via unix socket"
+msgstr ""
+
+#: src/EBox/Mail.pm:107
+msgid "Generate mail aliases"
+msgstr ""
+
+#: src/EBox/Mail.pm:109
+msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
+msgstr ""
+
+#: src/EBox/Mail.pm:113
+msgid "Add LDAP schemas"
+msgstr ""
+
+#: src/EBox/Mail.pm:115
+msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
+msgstr ""
+
+#: src/EBox/Mail.pm:132
+msgid "To configure postfix"
+msgstr ""
+
+#: src/EBox/Mail.pm:138
+msgid "To define how client programs connect to services in  postfix"
+msgstr ""
+
+#: src/EBox/Mail.pm:146
+msgid "To configure courier to authenticate against LDAP"
+msgstr ""
+
+#: src/EBox/Mail.pm:151
+msgid "To let courier know how to access LDAP"
+msgstr ""
+
+#: src/EBox/Mail.pm:156
+msgid "To configure courier POP3"
+msgstr ""
+
+#: src/EBox/Mail.pm:161
+msgid "To configure POP3 with SSL support"
+msgstr ""
+
+#: src/EBox/Mail.pm:166
+msgid "To configure IMAP"
+msgstr ""
+
+#: src/EBox/Mail.pm:171
+msgid "To configure IMAP with SSL support"
+msgstr ""
+
+#: src/EBox/Mail.pm:177 src/EBox/Mail.pm:183
+msgid "To configure saslauthd to authenticate against LDAP "
+msgstr ""
+
+#: src/EBox/Mail.pm:188
+msgid "To configure saslauthd to use LDAP"
+msgstr ""
+
+#: src/EBox/Mail.pm:193
+msgid "To add the LDAP schemas used by eBox mail"
+msgstr ""
+
+#: src/EBox/Mail.pm:515
+msgid "Cannot change this parameter for a non-custom filter"
+msgstr ""
+
+#: src/EBox/Mail.pm:531 src/EBox/Mail.pm:551
+msgid ""
+"The mail filter does not exist. Please set another mail filter or disable it"
+msgstr ""
+
+#: src/EBox/Mail.pm:558
+msgid ""
+"The mail filter $name is not active. Please set another mail filter or "
+"disable it"
+msgstr ""
+
+#: src/EBox/Mail.pm:995
+msgid "Mail services"
+msgstr ""
+
+#: src/EBox/Mail.pm:999
+msgid "POP3 service"
+msgstr ""
+
+#: src/EBox/Mail.pm:1004
+msgid "IMAP service"
+msgstr ""
+
+#: src/EBox/Mail.pm:1024
+msgid "enabled"
+msgstr ""
+
+#: src/EBox/Mail.pm:1024
+msgid "disabled"
+msgstr ""
+
+#: src/EBox/Mail.pm:1026 src/EBox/Mail.pm:1118
+msgid "Status"
+msgstr ""
+
+#: src/EBox/Mail.pm:1033 src/EBox/Mail.pm:1039
+msgid "Filter"
+msgstr ""
+
+#: src/EBox/Mail.pm:1033
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Mail.pm:1035
+msgid "Address"
+msgstr ""
+
+#: src/EBox/Mail.pm:1058
+msgid "Mail system"
+msgstr ""
+
+#: src/EBox/Mail.pm:1075
+msgid "General"
+msgstr ""
+
+#: src/EBox/Mail.pm:1082
+msgid "Virtual mail domains"
+msgstr ""
+
+#: src/EBox/Mail.pm:1110 src/templates/qmanager.mas:19
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Mail.pm:1111
+msgid "Message ID"
+msgstr ""
+
+#: src/EBox/Mail.pm:1112
+msgid "From"
+msgstr ""
+
+#: src/EBox/Mail.pm:1114
+msgid "From hostname"
+msgstr ""
+
+#: src/EBox/Mail.pm:1115
+msgid "From host ip"
+msgstr ""
+
+#: src/EBox/Mail.pm:1116 src/templates/qmanager.mas:18
+msgid "Size (bytes)"
+msgstr ""
+
+#: src/EBox/Mail.pm:1117
+msgid "Relay"
+msgstr ""
+
+#: src/EBox/Mail.pm:1119
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Mail.pm:1120
+msgid "Aditional Info"
+msgstr ""
+
+#: src/EBox/Mail.pm:1131
+msgid "Successful messages"
+msgstr ""
+
+#: src/EBox/Mail.pm:1132
+msgid "Maximum message size exceeded"
+msgstr ""
+
+#: src/EBox/Mail.pm:1133
+msgid "User quote exceeded"
+msgstr ""
+
+#: src/EBox/Mail.pm:1134
+msgid "Relay access denied"
+msgstr ""
+
+#: src/EBox/Mail.pm:1135
+msgid "Account does not exist"
+msgstr ""
+
+#: src/EBox/Mail.pm:1136
+msgid "Host unreachable"
+msgstr ""
+
+#: src/EBox/Mail.pm:1137
+msgid "Authentication error"
+msgstr ""
+
+#: src/EBox/Mail.pm:1138
+msgid "Other events"
+msgstr ""
+
+#: src/EBox/Mail.pm:1244
+msgid "Mailboxes"
+msgstr ""
+
+#: src/EBox/MailUserLdap.pm:294
+msgid "This group has a mail alias"
+msgstr ""
+
+#: src/EBox/MailUserLdap.pm:321
+msgid "This user has a mail account"
+msgstr ""
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox Mail System"
+msgstr ""
+
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr ""
+
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr ""
+
+#: src/templates/createaccount.mas:27
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
+#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
+#: src/templates/alias.mas:65
+msgid "Create"
+msgstr ""
+
+#: src/templates/createaccount.mas:62
+msgid "Maildir size"
+msgstr ""
+
+#: src/templates/warnvd.mas:14
+msgid ""
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
+msgstr ""
+
+#: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
+#: src/templates/groupalias.mas:65 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:24
+#: src/templates/alias.mas:76 src/templates/alias.mas:77
+msgid "Delete"
+msgstr ""
+
+#: src/templates/warnvd.mas:32 src/templates/warnusermdsize.mas:26
+#: src/templates/warnvdmdsize.mas:36
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
+msgid "Change"
+msgstr ""
+
+#: src/templates/groupalias.mas:11
+msgid "Create alias mail account to group"
+msgstr ""
+
+#: src/templates/groupalias.mas:16
+msgid ""
+"When the last member of a group is removed, the mail alias account will be "
+"deleted"
+msgstr ""
+
+#: src/templates/groupalias.mas:21
+msgid ""
+"There are no users in the group or the users do not have a mail account, so "
+"an alias account cannot be created"
+msgstr ""
+
+#: src/templates/groupalias.mas:54
+msgid "Mail alias settings"
+msgstr ""
+
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr ""
+
+#: src/templates/alias.mas:34
+msgid "Create mail aliases"
+msgstr ""
+
+#: src/templates/alias.mas:39
+msgid "Mail alias"
+msgstr ""
+
+#: src/templates/alias.mas:42
+msgid "Action"
+msgstr ""
+
+#: src/templates/alias.mas:126
+msgid "Default maildir size (MB)"
+msgstr ""
+
+#: src/templates/alias.mas:151 src/templates/alias.mas:152
+msgid "Modify"
+msgstr ""
+
+#: src/templates/qmanager.mas:20
+msgid "Sender"
+msgstr ""
+
+#: src/templates/qmanager.mas:21
+msgid "Recipients"
+msgstr ""
+
+#: src/templates/qmanager.mas:22
+msgid "Message"
+msgstr ""
+
+#: src/templates/qmanager.mas:23
+msgid "Operate"
+msgstr ""
+
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
+msgid "Requeue"
+msgstr ""
+
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
+msgid "Show Info"
+msgstr ""
+
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
+msgid "Remove"
+msgstr ""
+
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
+msgid "Hide Info"
+msgstr ""
+
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
+msgid "first"
+msgstr ""
+
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+msgid "prev"
+msgstr ""
+
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
+msgid "next"
+msgstr ""
+
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+msgid "last"
+msgstr ""
+
+#: src/templates/qmanager.mas:122
+msgid "There is no messages in queue or the service is stopped"
+msgstr ""
+
+#: src/templates/account.mas:22
+msgid "Mail account"
+msgstr ""
+
+#: src/templates/account.mas:26
+msgid "Click here to create a new mail virtual domain"
+msgstr ""
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
