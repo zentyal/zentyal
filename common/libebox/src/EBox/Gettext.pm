@@ -140,6 +140,7 @@ sub _unset_packagedomain
 
 my $langs;
 $langs->{'an_ES.UTF-8'} = 'Aragonés';
+$langs->{'bg_BG.UTF-8'} = 'Български';
 $langs->{'es_ES.UTF-8'} = 'Castellano';
 $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'da_DK.UTF-8'} = 'Dansk';
@@ -147,16 +148,17 @@ $langs->{'de_DE.UTF-8'} = 'Deutsch';
 $langs->{'C'} = 'English';
 $langs->{'eu_ES.UTF-8'} = 'Euskara';
 $langs->{'fr_FR.UTF-8'} = 'Français';
+$langs->{'gl_ES.UTF-8'} = 'Galego';
 $langs->{'it_IT.UTF-8'} = 'Italiano';
 $langs->{'ja_JP.UTF-8'} = '日本語';
 $langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pl_PL.UTF-8'} = 'Polski';
 $langs->{'pt_BR.UTF-8'} = 'Português do Brasil';
 $langs->{'pt_PT.UTF-8'} = 'Português';
-$langs->{'bg_BG.UTF-8'} = 'Български';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
+$langs->{'zh_TW.UTF-8'} = '繁體中文';
 
 # Method:  langname
 #
