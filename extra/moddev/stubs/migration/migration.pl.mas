@@ -1,0 +1,46 @@
+<%args>
+    $module
+    $version
+</%args>
+#!/usr/bin/perl
+
+#  Migration between gconf data version X and Y
+#
+#       This migration script takes care of... TODO
+#
+use strict;
+use warnings;
+
+package EBox::Migration;
+use base 'EBox::MigrationBase';
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+use EBox::Sudo;
+
+# Method: runGConf
+#
+#   Overrides <EBox::MigrationBase::runGConf>
+#
+sub runGConf
+{
+    my ($self) = @_;
+
+}
+
+# Main
+
+EBox::init();
+
+my $module = EBox::Global->modInstance('<% $module %>');
+my $migration = new EBox::Migration( 
+        'gconfmodule' => $module,
+        'version' => <% $version %>,
+        );
+$migration->execute();
+
+1;
