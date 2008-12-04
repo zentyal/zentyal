@@ -1,0 +1,12 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+        <key>/schemas/ebox/modules/global/modules/monitor/class</key>
+        <applyto>/ebox/modules/global/modules/monitor/class</applyto>
+        <owner>ebox</owner>
+        <type>string</type>
+        <default>EBox::Monitor</default>
+        <locale name="C"/>
+    </schema>
+  </schemalist>
+</gconfschemafile>

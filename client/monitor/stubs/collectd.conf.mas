@@ -1,0 +1,303 @@
+<%args>
+</%args>
+# Config file for collectd(1).
+#
+# Some plugins need additional configuration and are disabled by default.
+# Please read collectd.conf(5) for details.
+#
+# You should also read /usr/share/doc/collectd/README.Debian.plugins before
+# enabling any more plugins.
+
+#Hostname "localhost"
+FQDNLookup true
+#BaseDir "/var/lib/collectd"
+#PluginDir "/usr/lib/collectd"
+#TypesDB "/usr/lib/collectd/types.db" "/etc/collectd/my_types.db"
+#Interval 10
+#ReadThreads 5
+
+#LoadPlugin apache
+#LoadPlugin apcups
+#LoadPlugin apple_sensors
+#LoadPlugin battery
+LoadPlugin cpu
+#LoadPlugin cpufreq
+#LoadPlugin csv
+LoadPlugin df
+#LoadPlugin disk
+#LoadPlugin dns
+#LoadPlugin email
+#LoadPlugin entropy
+#LoadPlugin exec
+#LoadPlugin hddtemp
+#LoadPlugin interface
+#LoadPlugin iptables
+#LoadPlugin ipvs
+#LoadPlugin irq
+#LoadPlugin libvirt
+LoadPlugin load
+#LoadPlugin logfile
+#LoadPlugin mbmon
+#LoadPlugin memcached
+LoadPlugin memory
+#LoadPlugin multimeter
+#LoadPlugin mysql
+#LoadPlugin netlink
+#LoadPlugin network
+#LoadPlugin nfs
+#LoadPlugin nginx
+#LoadPlugin ntpd
+#LoadPlugin nut
+#LoadPlugin perl
+#LoadPlugin ping
+LoadPlugin processes
+LoadPlugin rrdtool
+#LoadPlugin sensors
+#LoadPlugin serial
+#LoadPlugin snmp
+LoadPlugin swap
+LoadPlugin syslog
+#LoadPlugin tape
+#LoadPlugin tcpconns
+#LoadPlugin unixsock
+#LoadPlugin users
+#LoadPlugin uuid
+#LoadPlugin vserver
+#LoadPlugin wireless
+
+#<Plugin apache>
+#       URL "http://localhost/status?auto"
+#       User "www-user"
+#       Password "secret"
+#       CACert "/etc/ssl/ca.crt"
+#</Plugin>
+
+#<Plugin apcups>
+#       Host "localhost"
+#       Port 3551
+#</Plugin>
+
+#<Plugin csv>
+#       DataDir "/var/lib/collectd/csv"
+#       StoreRates false
+#</Plugin>
+
+#<Plugin df>
+#       Device "/dev/sda1"
+#       Device "192.168.0.2:/mnt/nfs"
+#       MountPoint "/home"
+#       FSType "ext3"
+#       IgnoreSelected false
+#</Plugin>
+
+#<Plugin dns>
+#       Interface "eth0"
+#       IgnoreSource "192.168.0.1"
+#</Plugin>
+
+#<Plugin email>
+#       SocketGroup "collectd"
+#       SocketPerms "0770"
+#       MaxConns 5
+#</Plugin>
+
+#<Plugin exec>
+#       Exec user "/path/to/exec"
+#       NotificationExec "/path/to/exec"
+#</Plugin>
+
+#<Plugin hddtemp>
+#       Host "127.0.0.1"
+#       Port 7634
+#       TranslateDevicename false
+#</Plugin>
+
+#<Plugin interface>
+#       Interface "eth0"
+#       IgnoreSelected false
+#</Plugin>
+
+#<Plugin iptables>
+#       Chain "table" "chain"
+#</Plugin>
+
+#<Plugin irq>
+#       Irq 7
+#       Irq 8
+#       Irq 9
+#       IgnoreSelected true
+#</Plugin>
+
+#<Plugin libvirt>
+#       Connection "xen:///"
+#       RefreshInterval 60
+#       Domain "name"
+#       BlockDevice "name:device"
+#       InterfaceDevice "name:device"
+#       IgnoreSelected false
+#       HostnameFormat name
+#</Plugin>
+
+#<Plugin logfile>
+#       LogLevel "info"
+#       File STDOUT
+#       Timestamp true
+#</Plugin>
+
+#<Plugin mbmon>
+#        Host "127.0.0.1"
+#        Port 411
+#</Plugin>
+
+#<Plugin memcached>
+#       Host "127.0.0.1"
+#       Port "11211"
+#</Plugin>
+
+#<Plugin mysql>
+#       Host "database.serv.er"
+#       User "db_user"
+#       Password "secret"
+#       Database "db_name"
+#</Plugin>
+
+#<Plugin netlink>
+#       Interface "All"
+#       VerboseInterface "All"
+#       QDisc "eth0" "pfifo_fast-1:0"
+#       Class "ppp0" "htb-1:10"
+#       Filter "ppp0" "u32-1:0"
+#       IgnoreSelected false
+#</Plugin>
+
+#<Plugin network>
+#       Server "ff18::efc0:4a42" "25826"
+#       Server "239.192.74.66" "25826"
+#       Listen "ff18::efc0:4a42" "25826"
+#       Listen "239.192.74.66" "25826"
+#       TimeToLive "128"
+#       Forward false
+#       CacheFlush 1800
+#</Plugin>
+
+#<Plugin nginx>
+#       URL "http://localhost/status?auto"
+#       User "www-user"
+#       Password "secret"
+#       CACert "/etc/ssl/ca.crt"
+#</Plugin>
+
+#<Plugin ntpd>
+#       Host "localhost"
+#       Port 123
+#       ReverseLookups false
+#</Plugin>
+
+#<Plugin nut>
+#       UPS "upsname@hostname:port"
+#</Plugin>
+
+#<Plugin perl>
+#       IncludeDir "/my/include/path"
+#       BaseName "Collectd::Plugin"
+#       EnableDebugger ""
+#       LoadPlugin "foo"
+#       LoadPlugin "bar"
+#</Plugin>
+
+#<Plugin ping>
+#       Host "host.foo.bar"
+#       Host "host.baz.qux"
+#       TTL 255
+#</Plugin>
+
+#<Plugin processes>
+#       Process "name"
+#</Plugin>
+
+<Plugin rrdtool>
+        DataDir "/var/lib/collectd/rrd"
+#       CacheTimeout 120
+#       CacheFlush 900
+#
+# The following settings are rather advanced
+# and should usually not be touched:
+#       StepSize 10
+#       HeartBeat 20
+#       RRARows 1200
+#       RRATimespan 158112000
+#       XFF 0.1
+</Plugin>
+
+#<Plugin sensors>
+#       Sensor "it8712-isa-0290/temperature-temp1"
+#       Sensor "it8712-isa-0290/fanspeed-fan3"
+#       Sensor "it8712-isa-0290/voltage-in8"
+#       IgnoreSelected false
+#</Plugin>
+
+# See /usr/share/doc/collectd/examples/snmp-data.conf.gz for a
+# comprehensive sample configuration.
+#<Plugin snmp>
+#       <Data "powerplus_voltge_input">
+#               Type "voltage"
+#               Table false
+#               Instance "input_line1"
+#               Values "SNMPv2-SMI::enterprises.6050.5.4.1.1.2.1"
+#       </Data>
+#       <Data "hr_users">
+#               Type "users"
+#               Table false
+#               Instance ""
+#               Values "HOST-RESOURCES-MIB::hrSystemNumUsers.0"
+#       </Data>
+#       <Data "std_traffic">
+#               Type "if_octets"
+#               Table true
+#               Instance "IF-MIB::ifDescr"
+#               Values "IF-MIB::ifInOctets" "IF-MIB::ifOutOctets"
+#       </Data>
+#
+#       <Host "some.switch.mydomain.org">
+#               Address "192.168.0.2"
+#               Version 1
+#               Community "community_string"
+#               Collect "std_traffic"
+#               Inverval 120
+#       </Host>
+#       <Host "some.server.mydomain.org">
+#               Address "192.168.0.42"
+#               Version 2
+#               Community "another_string"
+#               Collect "std_traffic" "hr_users"
+#       </Host>
+#       <Host "some.ups.mydomain.org">
+#               Address "192.168.0.3"
+#               Version 1
+#               Community "more_communities"
+#               Collect "powerplus_voltge_input"
+#               Interval 300
+#       </Host>
+#</Plugin>
+
+<Plugin syslog>
+        LogLevel info
+</Plugin>
+
+#<Plugin tcpconns>
+#       ListeningPorts false
+#       LocalPort "25"
+#       RemotePort "25"
+#</Plugin>
+
+#<Plugin unixsock>
+#       SocketFile "/var/run/collectd-unixsock"
+#       SocketGroup "collectd"
+#       SocketPerms "0660"
+#</Plugin>
+
+#<Plugin uuid>
+#       UUIDFile "/etc/uuid"
+#</Plugin>
+
+Include "/etc/collectd/thresholds.conf"

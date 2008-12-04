@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# stop collectd if it's running as a normal service
+invoke-rc.d collectd stop
