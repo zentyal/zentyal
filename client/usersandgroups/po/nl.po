@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:47+0000\n"
+"POT-Creation-Date: 2008-12-04 12:05+0100\n"
 "PO-Revision-Date: 2008-12-03 08:49+0000\n"
 "Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
 "Language-Team: <es@li.org>\n"
@@ -18,72 +18,33 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
-msgid "Groups"
-msgstr "Groepen"
-
-#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:31
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:56
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Groups.pm:52
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/User.pm:42
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:76
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1537
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
 #: src/EBox/UsersAndGroups.pm:1537
 msgid "Users"
 msgstr "Gebruikers"
 
-#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
-#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
-#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
-#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
-#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
-#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
-msgid "user name"
-msgstr "Naam gebruiker"
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Groups.pm:43
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1545
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
+msgid "Groups"
+msgstr "Groepen"
 
-#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
-msgid "full name"
-msgstr "Volledige naam"
-
-#: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/ModifyGroup.pm:47
-msgid "comment"
-msgstr "Commentaar"
-
-#: src/EBox/CGI/AddUser.pm:65 src/EBox/CGI/ModifyUser.pm:65
-msgid "Passwords do not match."
-msgstr "Wachtwoorden komen niet overeen."
-
-#: src/EBox/CGI/Del.pm:65
-msgid "object name"
-msgstr "Naam object"
-
-#: src/EBox/CGI/Del.pm:70
-msgid "object type"
-msgstr "Type object"
-
-#: src/EBox/CGI/Del.pm:90
-msgid "User removed successfully"
-msgstr "Gebruiker succesvol verwijderd"
-
-#: src/EBox/CGI/Del.pm:94
-msgid "Group removed successfully"
-msgstr "Groep succesvol verwijderd"
-
-#: src/EBox/CGI/ModifyUser.pm:49
-msgid "password"
-msgstr "wachtwoord"
-
-#: src/EBox/CGI/ModifyUser.pm:50
-msgid "confirm password"
-msgstr "wachtwoord bevestigen"
-
-#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/Group.pm:45
-#: src/EBox/CGI/DelUserFromGroup.pm:45
-msgid "group"
-msgstr "groep"
-
-#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
-#: src/EBox/UsersAndGroups/Model/Users.pm:84
-msgid "user"
-msgstr "gebruiker"
-
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddGroup.pm:45
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyGroup.pm:40
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:785
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:790
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:937
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1066
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1100
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1172
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1275
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
 #: src/EBox/UsersAndGroups.pm:937 src/EBox/UsersAndGroups.pm:1066
@@ -92,38 +53,133 @@ msgstr "gebruiker"
 msgid "group name"
 msgstr "Naam groep"
 
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "Gebruikersnaam"
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUser.pm:45
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:42
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:360
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:366
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:491
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:543
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:572
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:903
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:965
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1061
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1095
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1131
+#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
+#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
+#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
+#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
+#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
+#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
+msgid "user name"
+msgstr "Naam gebruiker"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUser.pm:46
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:47
+#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
+msgid "full name"
+msgstr "Volledige naam"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUser.pm:47
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:48
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyGroup.pm:47
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:47
+msgid "comment"
+msgstr "Commentaar"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUser.pm:65
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:65
+#: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:65
+msgid "Passwords do not match."
+msgstr "Wachtwoorden komen niet overeen."
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:65
+#: src/EBox/CGI/Del.pm:65
+msgid "object name"
+msgstr "Naam object"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:70
+#: src/EBox/CGI/Del.pm:70
+msgid "object type"
+msgstr "Type object"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:90
+#: src/EBox/CGI/Del.pm:90
+msgid "User removed successfully"
+msgstr "Gebruiker succesvol verwijderd"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:94
+#: src/EBox/CGI/Del.pm:94
+msgid "Group removed successfully"
+msgstr "Groep succesvol verwijderd"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Group.pm:30
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
 msgstr "Groep wijzigen"
 
-#: src/EBox/LdapUserImplementation.pm:42
-msgid "This group contains users"
-msgstr "Deze groep bevat gebruikers"
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Group.pm:45
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/DelUserFromGroup.pm:45
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUserToGroup.pm:44
+#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/Group.pm:45
+msgid "group"
+msgstr "groep"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/DelUserFromGroup.pm:50
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/AddUserToGroup.pm:49
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:84
+#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
+#: src/EBox/UsersAndGroups/Model/Users.pm:84
+msgid "user"
+msgstr "gebruiker"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/User.pm:46
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "Gebruikersnaam"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:49
+#: src/EBox/CGI/ModifyUser.pm:49
+msgid "password"
+msgstr "wachtwoord"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:50
+#: src/EBox/CGI/ModifyUser.pm:50
+msgid "confirm password"
+msgstr "wachtwoord bevestigen"
+
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:58
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:153
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
 msgid "Name"
 msgstr "Naam"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:63
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:162
 #: src/EBox/UsersAndGroups/Model/Users.pm:63
-#: src/EBox/UsersAndGroups/Model/Users.pm:162 src/templates/users.mas:27
-#: src/templates/user.mas:28
+#: src/EBox/UsersAndGroups/Model/Users.pm:162
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:27
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:28
+#: src/templates/users.mas:27 src/templates/user.mas:28
 msgid "Full name"
 msgstr "Volledige naam"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:68
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:171
 #: src/EBox/UsersAndGroups/Model/Users.pm:68
 #: src/EBox/UsersAndGroups/Model/Users.pm:171
 msgid "Edit"
 msgstr "Wijzigen"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:83
 #: src/EBox/UsersAndGroups/Model/Users.pm:83
 msgid "foo"
 msgstr "foo"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:127
 #: src/EBox/UsersAndGroups/Model/Users.pm:127
 msgid ""
 "You must enable the module Users in the module status section in order to "
@@ -132,22 +188,26 @@ msgstr ""
 "Module Gebruikers moet geselecteerd worden in de module-status sectie om het "
 "te kunnen gebruiken "
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:130
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "There are no users at the moment."
 msgstr "Er zijn geen gebruikers op het moment."
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:56
 #: src/EBox/UsersAndGroups.pm:56
 msgid "users and groups"
 msgstr "gebruikers en groepen"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:74
 #: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
-"De huidige openLDAP database word vervangen en gekopieerd naar "
-"/var/backups/slapd"
+"De huidige openLDAP database word vervangen en gekopieerd naar /var/backups/"
+"slapd"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:76
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
@@ -156,10 +216,12 @@ msgstr ""
 "eBox gebruikt openLDAP om zijn database in op te slaan. De huidige "
 "configuratie word overschreven"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:92
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
 msgstr "Om openLDAP te laten luisteren op TCP en Unix aansluitingen"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:97
 #: src/EBox/UsersAndGroups.pm:97
 msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
@@ -168,15 +230,19 @@ msgstr ""
 "Om de openLdap database te configureren met dc_ _entry, rootpw, rootdn, "
 "schemas en ACLs die gebruikt worden door de op LDAP gebaseerde eBox modules"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:355
 #: src/EBox/UsersAndGroups.pm:355
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Gebruikersnaam mag niet langer zijn dan {maxuserlength} tekens"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:410
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:832
 #: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
 msgid "Maximum number of system users reached"
 msgstr "Maximum aantal gebruikers voor systeem bereikt"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:427
 #: src/EBox/UsersAndGroups.pm:427
 #, perl-brace-format
 msgid ""
@@ -185,6 +251,7 @@ msgstr ""
 "Incorrecte UID {uid} voor een gebruiker . UID moet gelijk zijn aan of groter "
 "dan {min}"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:438
 #: src/EBox/UsersAndGroups.pm:438
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
@@ -192,15 +259,18 @@ msgstr ""
 "Incorrecte UID {uid} voor een systeemgebruiker . UID moet lager zijn dan "
 "{max}"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:773
 #: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Groepnaam mag niet langer zijn dan {maxGroupLength} tekens"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:779
 #: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
 msgstr "De naam van de groep is niet geldig omdat hij intern gereserveerd is"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:849
 #: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
@@ -209,30 +279,42 @@ msgstr ""
 "Incorrecte GID {gid} voor een groep . GID moet gelijk zijn aan of groter dan "
 "{min}"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:859
 #: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Incorrecte GID {gid} voor een systeemgroep . GID moet minder zijn dan {max}"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1343
 #: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Wachtwoord mag niet langer zijn dan {maxPwdLength} tekens"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1539
 #: src/EBox/UsersAndGroups.pm:1539
 msgid "Add user"
 msgstr "Toevoegen gebruiker "
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1542
 #: src/EBox/UsersAndGroups.pm:1542
 msgid "Edit user"
 msgstr "Wijzig gebruiker"
 
+#: debian/ebox-usersandgroups/usr/share/perl5/EBox/LdapUserImplementation.pm:42
+#: src/EBox/LdapUserImplementation.pm:42
+msgid "This group contains users"
+msgstr "Deze groep bevat gebruikers"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/ajax/tableUser.mas:88
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "Nieuwe gebruiker toevoegen"
 
-#: src/templates/groups.mas:11 src/templates/users.mas:11
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:11
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:11
+#: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
@@ -240,7 +322,9 @@ msgstr ""
 "Wijzigingen in gebruikers instellingen worden onmiddellijk toegepast en "
 "hoeven te niet worden opgeslagen."
 
-#: src/templates/groups.mas:12 src/templates/users.mas:12
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:12
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:12
+#: src/templates/users.mas:12 src/templates/groups.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
@@ -248,60 +332,84 @@ msgstr ""
 "Wijzigingen aan printer-, bestandsdeel- en Jabberinstellingen moeten wel "
 "opgeslagen worden om toegepast te worden."
 
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "Groep toevoegen"
-
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "Naam groep"
-
-#: src/templates/groups.mas:30 src/templates/users.mas:35
-#: src/templates/group.mas:21 src/templates/user.mas:18
-msgid "Comment"
-msgstr "Commentaar"
-
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "Optionele waarde"
-
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-#: src/templates/users.mas:63 src/templates/users.mas:64
-msgid "Create"
-msgstr "Aanmaken"
-
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "Groep wijzigen"
-
-#: src/templates/groups.mas:55
-msgid "Actions"
-msgstr "Acties"
-
-#: src/templates/groups.mas:76 src/templates/group.mas:58
-msgid "Remove"
-msgstr "Verwijderen"
-
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:14
 #: src/templates/users.mas:14
 msgid "Add User"
 msgstr "Gebruiker toevoegen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:19
 #: src/templates/users.mas:19
 msgid "User name"
 msgstr "Gebruikersnaam"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:35
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:30
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:21
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:18
+#: src/templates/users.mas:35 src/templates/group.mas:21
+#: src/templates/user.mas:18 src/templates/groups.mas:30
+msgid "Comment"
+msgstr "Commentaar"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:43
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:38
 #: src/templates/users.mas:43 src/templates/user.mas:38
 msgid "Password"
 msgstr "Wachtwoord"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:50
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:48
 #: src/templates/users.mas:50 src/templates/user.mas:48
 msgid "Retype password"
 msgstr "Wachtwoord herhalen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:63
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:64
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:42
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:43
+#: src/templates/users.mas:63 src/templates/users.mas:64
+#: src/templates/groups.mas:42 src/templates/groups.mas:43
+msgid "Create"
+msgstr "Aanmaken"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:77
 #: src/templates/users.mas:77
 msgid "Group"
 msgstr "Groep"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:14
+#: src/templates/groups.mas:14
+msgid "Add Group"
+msgstr "Groep toevoegen"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:20
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:54
+#: src/templates/groups.mas:20 src/templates/groups.mas:54
+msgid "Group name"
+msgstr "Naam groep"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:35
+#: src/templates/groups.mas:35
+msgid "Optional value"
+msgstr "Optionele waarde"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:51
+#: src/templates/groups.mas:51
+msgid "Edit Group"
+msgstr "Groep wijzigen"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:55
+#: src/templates/groups.mas:55
+msgid "Actions"
+msgstr "Acties"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/groups.mas:76
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:58
+#: src/templates/group.mas:58 src/templates/groups.mas:76
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:15
 #: src/templates/group.mas:15
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
@@ -310,36 +418,51 @@ msgstr ""
 "Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
 "kunnen beheren"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:25
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:26
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:60
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:61
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:60 src/templates/user.mas:61
 msgid "Change"
 msgstr "Wijzigen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:32
 #: src/templates/group.mas:32
 msgid "Users in group"
 msgstr "Gebruikers in groep"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:34
 #: src/templates/group.mas:34
 msgid "Users not in group"
 msgstr "Gebruikers niet in groep"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:50
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:85
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
 msgstr "Lege lijst"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:61
 #: src/templates/group.mas:61
 msgid "Remove users from group"
 msgstr "Gebruikers uit groep verwijderen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:69
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:72
 #: src/templates/group.mas:69 src/templates/group.mas:72
 msgid "Add users to group"
 msgstr "Gebruikers aan groep toevoegen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:100
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:108
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:109
 #: src/templates/group.mas:100 src/templates/group.mas:108
 #: src/templates/group.mas:109
 msgid "Delete group"
 msgstr "Groep verwijderen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/group.mas:102
 #: src/templates/group.mas:102
 msgid ""
 "If you remove this group all its data within its shared directory will be "
@@ -348,11 +471,15 @@ msgstr ""
 "Als je deze groep verwijderd worden alle gegevens in zijn gedeelde map "
 "verwijderd."
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:71
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:79
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:80
 #: src/templates/user.mas:71 src/templates/user.mas:79
 #: src/templates/user.mas:80
 msgid "Delete user"
 msgstr "Gebruiker verwijderen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:73
 #: src/templates/user.mas:73
 msgid ""
 "This operation will cause the removal of the user and all his dependences; "
@@ -361,6 +488,7 @@ msgstr ""
 "Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
 "accounts, gebruikers gegevens..."
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/del.mas:15
 #: src/templates/del.mas:15
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
@@ -370,6 +498,7 @@ msgstr ""
 "modules. Bevestig dat u de gebruiker en al zijn data wenst te verwijderen "
 "AUB. "
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/del.mas:20
 #: src/templates/del.mas:20
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
@@ -378,10 +507,12 @@ msgstr ""
 "De groep die je probeert te verwijderen bevat gegevens in de volgende "
 "modules. Bevestig dat u de groep en al zijn data wenst te verwijderen. "
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/del.mas:43
 #: src/templates/del.mas:43
 msgid "Delete"
 msgstr "Verwijderen"
 
+#: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/del.mas:46
 #: src/templates/del.mas:46
 msgid "Cancel"
 msgstr "Annuleren"
