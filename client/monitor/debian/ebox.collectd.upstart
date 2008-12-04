@@ -1,0 +1,5 @@
+pre-start script
+    invoke-rc.d collectd stop || true
+end script
+respawn
+exec /usr/sbin/collectd -f -C /etc/collectd/collectd.conf

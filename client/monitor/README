@@ -1,0 +1,4 @@
+This eBox module provides the following features:
+
+   * Show graphs for cpu, load, memory, disk usage, swap and processes
+   * Notify to event infrastructure if any value has reached/dimished a certain threshold
