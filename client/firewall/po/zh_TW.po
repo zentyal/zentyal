@@ -5,79 +5,79 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2008-09-01 08:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 02:28+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "允許"
 
 #: src/EBox/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "拒絕"
 
 #: src/EBox/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:899
 msgid "LOG"
-msgstr ""
+msgstr "紀錄"
 
 #: src/EBox/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:894
 msgid "Decision"
-msgstr ""
+msgstr "動作"
 
 #: src/EBox/Model/BaseRuleTable.pm:121 src/EBox/Firewall.pm:889
 #: src/templates/fwdrules.mas:161
 msgid "Source"
-msgstr ""
+msgstr "來源"
 
 #: src/EBox/Model/BaseRuleTable.pm:126 src/EBox/Model/BaseRuleTable.pm:152
 msgid "Any"
-msgstr ""
+msgstr "任何"
 
 #: src/EBox/Model/BaseRuleTable.pm:129
 msgid "Source IP"
-msgstr ""
+msgstr "來源 IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:133
 msgid "Source object"
-msgstr ""
+msgstr "來源 object"
 
 #: src/EBox/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:890
 #: src/templates/fwdrules.mas:163
 msgid "Destination"
-msgstr ""
+msgstr "目的"
 
 #: src/EBox/Model/BaseRuleTable.pm:155
 msgid "Destination IP"
-msgstr ""
+msgstr "目的 IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:160
 msgid "Destination object"
-msgstr ""
+msgstr "目的 object"
 
 #: src/EBox/Model/BaseRuleTable.pm:175 src/templates/objectService.mas:46
 msgid "Service"
-msgstr ""
+msgstr "服務"
 
 #: src/EBox/Model/BaseRuleTable.pm:179
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
-msgstr ""
+msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
 
 #: src/EBox/Model/BaseRuleTable.pm:185
 msgid "Description"
-msgstr ""
+msgstr "目的"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:65 src/templates/filter.mas:17
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "過濾內部網路規則"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:78
@@ -90,126 +90,126 @@ msgstr ""
 #: src/EBox/CGI/ObjectRule.pm:64 src/EBox/CGI/ObjectRule.pm:75
 #: src/EBox/CGI/ObjectRule.pm:79
 msgid "rule"
-msgstr ""
+msgstr "規則"
 
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:68 src/templates/filter.mas:10
 msgid "Filtering rules from internal networks to eBox"
-msgstr ""
+msgstr "過濾從內部網路連到 eBox 的規則"
 
 #: src/EBox/Model/EBoxOutputRuleTable.pm:68 src/templates/filter.mas:25
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
+msgstr "過濾從 eBox 出去的規則"
 
 #: src/EBox/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:44
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "過濾從外部網路到內部網路的規則"
 
 #: src/EBox/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr ""
+msgstr "過濾從外部網路連到 eBox 的規則"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
-msgstr ""
+msgstr "連接埠轉送"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 msgid "Packet filtering"
-msgstr ""
+msgstr "封包過濾"
 
 #: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
 #: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectRule.pm:41
 msgid "Object"
-msgstr ""
+msgstr "Object"
 
 #: src/EBox/CGI/Object.pm:62
 msgid "Global firewall configuration"
-msgstr ""
+msgstr "全域防火牆設置"
 
 #: src/EBox/CGI/Object.pm:64
 #, perl-brace-format
 msgid "Firewall configuration: {desc}"
-msgstr ""
+msgstr "防火牆設置: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
 msgid "policy"
-msgstr ""
+msgstr "政策"
 
 #: src/EBox/CGI/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "全域服務' 過濾規則"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "服務' 過濾規則 {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
 #: src/EBox/Firewall.pm:299 src/EBox/Firewall.pm:332 src/EBox/Firewall.pm:633
 #: src/EBox/Firewall.pm:658
 msgid "protocol"
-msgstr ""
+msgstr "通訊協定"
 
 #: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
 #: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
 msgid "network interface"
-msgstr ""
+msgstr "網路介面"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
 #: src/EBox/Firewall.pm:301 src/EBox/Firewall.pm:333
 msgid "external port"
-msgstr ""
+msgstr "外網連接埠"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
 #: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:300
 msgid "destination address"
-msgstr ""
+msgstr "目的位址"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
 #: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:302
 msgid "destination port"
-msgstr ""
+msgstr "目的連接埠"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
 #: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:250
 msgid "action"
-msgstr ""
+msgstr "動作"
 
 #: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
 #: src/templates/object.mas:37
 msgid "Rules"
-msgstr ""
+msgstr "規則"
 
 #: src/EBox/CGI/ChangeObjectService.pm:67
 #: src/EBox/CGI/ChangeObjectService.pm:73
 msgid "service"
-msgstr ""
+msgstr "服務"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
 msgid "Edit rule"
-msgstr ""
+msgstr "編輯規則"
 
 #: src/EBox/Firewall.pm:50
 msgid "firewall"
-msgstr ""
+msgstr "防火牆"
 
 #: src/EBox/Firewall.pm:93
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "清空之前的防火牆規則"
 
 #: src/EBox/Firewall.pm:94
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
-msgstr ""
+msgstr "eBox 防火牆將會清空任何之前的防火牆規則然後可以手動新增或是用其他工具"
 
 #: src/EBox/Firewall.pm:99
 msgid "Secure by default"
-msgstr ""
+msgstr "預設是以安全"
 
 #: src/EBox/Firewall.pm:100
 msgid ""
@@ -218,103 +218,105 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"預設中只有一些連線是允許的. 請確定您所新增的連入跟連出的規則能使您的系統工作正常.通常,預設中所有連出的連線是禁止的,只有 SSH 和 HTTPS "
+"連入連線是允許的."
 
 #: src/EBox/Firewall.pm:306
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
-msgstr ""
+msgstr "連接埠 {port} 已被服務或是連接埠轉送所使用了."
 
 #: src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:502 src/EBox/Firewall.pm:526
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "名稱 '{name}' 是無效的"
 
 #: src/EBox/Firewall.pm:458 src/EBox/Firewall.pm:634 src/EBox/Firewall.pm:659
 msgid "port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/EBox/Firewall.pm:842 src/EBox/Firewall.pm:902
 msgid "Firewall"
-msgstr ""
+msgstr "防火牆"
 
 #: src/EBox/Firewall.pm:846
 msgid "Packet Filter"
-msgstr ""
+msgstr "封包過濾"
 
 #: src/EBox/Firewall.pm:849
 msgid "Redirects"
-msgstr ""
+msgstr "轉送"
 
 #: src/EBox/Firewall.pm:886
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Firewall.pm:887
 msgid "Input interface"
-msgstr ""
+msgstr "連入介面"
 
 #: src/EBox/Firewall.pm:888
 msgid "Output interface"
-msgstr ""
+msgstr "連出介面"
 
 #: src/EBox/Firewall.pm:891 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
 #: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
 msgid "Protocol"
-msgstr ""
+msgstr "通訊協定"
 
 #: src/EBox/Firewall.pm:892 src/templates/fwdrules.mas:76
 #: src/templates/fwdruleedit.mas:109
 msgid "Source port"
-msgstr ""
+msgstr "來源連接埠"
 
 #: src/EBox/Firewall.pm:893 src/templates/fwdrules.mas:124
 #: src/templates/fwdruleedit.mas:167
 msgid "Destination port"
-msgstr ""
+msgstr "目的連接埠"
 
 #: src/EBox/Firewall.pm:899
 msgid "DROP"
-msgstr ""
+msgstr "丟棄"
 
 #: src/EBox/Iptables.pm:608 src/EBox/Iptables.pm:640
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr ""
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
 
 #: src/EBox/Iptables.pm:614 src/EBox/Iptables.pm:646
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
-msgstr ""
+msgstr "介面"
 
 #: src/templates/redirects.mas:24
 msgid "External port"
-msgstr ""
+msgstr "外網連接埠"
 
 #: src/templates/redirects.mas:26
 msgid "IP address"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/templates/redirects.mas:27 src/templates/object.mas:48
 #: src/templates/fwdrules.mas:162 src/templates/fwdrules.mas:164
 msgid "Port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/templates/redirects.mas:28 src/templates/object.mas:52
 #: src/templates/objectService.mas:48 src/templates/fwdrules.mas:165
 msgid "Actions"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/redirects.mas:72 src/templates/redirects.mas:73
 #: src/templates/redirects.mas:74 src/templates/object.mas:100
 #: src/templates/object.mas:101 src/templates/object.mas:102
 #: src/templates/objectService.mas:38 src/templates/fwdrules.mas:146
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: src/templates/redirects.mas:147 src/templates/redirects.mas:148
 #: src/templates/redirects.mas:149 src/templates/object.mas:185
@@ -323,7 +325,7 @@ msgstr ""
 #: src/templates/objectService.mas:77 src/templates/fwdruleedit.mas:194
 #: src/templates/fwdruleedit.mas:195 src/templates/fwdruleedit.mas:196
 msgid "Change"
-msgstr ""
+msgstr "改變"
 
 #: src/templates/redirects.mas:155 src/templates/redirects.mas:156
 #: src/templates/redirects.mas:157 src/templates/object.mas:193
@@ -332,60 +334,61 @@ msgstr ""
 #: src/templates/objectService.mas:84 src/templates/fwdrules.mas:274
 #: src/templates/fwdrules.mas:275 src/templates/fwdrules.mas:276
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/filter.mas:12
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
-msgstr ""
+msgstr "這些規則是控制您的 ebox 機器上的內網介面到執行的服務規則"
 
 #: src/templates/filter.mas:14 src/templates/filter.mas:22
 #: src/templates/filter.mas:30 src/templates/filter.mas:41
 #: src/templates/filter.mas:52
 msgid "Configure rules"
-msgstr ""
+msgstr "設置規則"
 
 #: src/templates/filter.mas:19
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
-msgstr ""
+msgstr "這些規則允許您去控制從您的內網到網際網路,和內網之間的流量.假如您想要試著存取您的 eBox 服務,您必須要使用以下選項"
 
 #: src/templates/filter.mas:27
 msgid "These rules allow you to control access from eBox to external services"
-msgstr ""
+msgstr "這些規則允許您控制存取從 eBox 到外部服務"
 
 #: src/templates/filter.mas:33
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "過濾從外網到 eBox 的規則"
 
 #: src/templates/filter.mas:35
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
-msgstr ""
+msgstr "這些規則允許您控制存取從外部網路到您的 ebox 機器上所執行的服務"
 
 #: src/templates/filter.mas:38 src/templates/filter.mas:49
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
-msgstr ""
+msgstr "一個建議,在這裡新增規則後可能會損害您的網路安全,您可能會允許不明的網路來存取.請不要使用您不清楚的功能"
 
 #: src/templates/filter.mas:46
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
-msgstr ""
+msgstr "這些規則允許您控制存取從外部網路到內部網路"
 
 #: src/templates/object.mas:39
+#, fuzzy
 msgid ""
 "Protocol, port and destination address are optional. The rules will be "
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
-msgstr ""
+msgstr "通訊協定,連接埠和目的位址是選擇性的.此規則將會排序,從最上到最下,您可以新增後重新排序.規則也可以不用刪除只是關閉它."
 
 #: src/templates/object.mas:42
 msgid ""
@@ -398,16 +401,16 @@ msgstr ""
 #: src/templates/object.mas:49 src/templates/fwdrules.mas:95
 #: src/templates/fwdruleedit.mas:135
 msgid "Destination address"
-msgstr ""
+msgstr "目的位址"
 
 #: src/templates/object.mas:50 src/templates/fwdrules.mas:33
 #: src/templates/fwdruleedit.mas:58
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/object.mas:51
 msgid "Active"
-msgstr ""
+msgstr "啟用"
 
 #: src/templates/object.mas:90 src/templates/object.mas:166
 #: src/templates/object.mas:169 src/templates/object.mas:261
@@ -416,7 +419,7 @@ msgstr ""
 #: src/templates/objectService.mas:67 src/templates/fwdrules.mas:38
 #: src/templates/fwdruleedit.mas:64 src/templates/fwdruleedit.mas:67
 msgid "Allow"
-msgstr ""
+msgstr "允許"
 
 #: src/templates/object.mas:91 src/templates/object.mas:167
 #: src/templates/object.mas:170 src/templates/object.mas:255
@@ -425,23 +428,23 @@ msgstr ""
 #: src/templates/objectService.mas:68 src/templates/fwdrules.mas:39
 #: src/templates/fwdruleedit.mas:65 src/templates/fwdruleedit.mas:68
 msgid "Deny"
-msgstr ""
+msgstr "拒絕"
 
 #: src/templates/object.mas:201 src/templates/object.mas:202
 #: src/templates/object.mas:203 src/templates/fwdrules.mas:280
 #: src/templates/fwdrules.mas:281 src/templates/fwdrules.mas:282
 msgid "Up"
-msgstr ""
+msgstr "上"
 
 #: src/templates/object.mas:209 src/templates/object.mas:210
 #: src/templates/object.mas:211 src/templates/fwdrules.mas:286
 #: src/templates/fwdrules.mas:287 src/templates/fwdrules.mas:288
 msgid "Down"
-msgstr ""
+msgstr "下"
 
 #: src/templates/object.mas:232 src/templates/objectService.mas:47
 msgid "Policy"
-msgstr ""
+msgstr "政策"
 
 #: src/templates/object.mas:234
 msgid ""
@@ -455,31 +458,31 @@ msgstr ""
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
-msgstr ""
+msgstr "選擇全域將會使防火牆將回復到 <a href='Object?object=_global'>預設設置</a>."
 
 #: src/templates/object.mas:248 src/templates/object.mas:250
 #: src/templates/object.mas:269
 msgid "Global"
-msgstr ""
+msgstr "全域"
 
 #: src/templates/objectService.mas:23
 msgid "Services"
-msgstr ""
+msgstr "服務"
 
 #: src/templates/fwdrules.mas:10
 msgid ""
 "Protocol, ports and addresses are optional. The rules will be applied in "
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
-msgstr ""
+msgstr "通訊協定,連接埠和目的位址是選擇性的.此規則將會排序,從最上到最下,您可以新增後重新排序.規則也可以不用刪除只是關閉它."
 
 #: src/templates/fwdrules.mas:12
 msgid "New rule"
-msgstr ""
+msgstr "新規則"
 
 #: src/templates/fwdrules.mas:47 src/templates/fwdruleedit.mas:77
 msgid "Source address"
-msgstr ""
+msgstr "來源位址"
 
 #: src/templates/fwdrules.mas:52 src/templates/fwdrules.mas:81
 #: src/templates/fwdrules.mas:100 src/templates/fwdrules.mas:129
@@ -488,7 +491,7 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:141 src/templates/fwdruleedit.mas:144
 #: src/templates/fwdruleedit.mas:173 src/templates/fwdruleedit.mas:176
 msgid "is not"
-msgstr ""
+msgstr "不是"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdrules.mas:82
 #: src/templates/fwdrules.mas:101 src/templates/fwdrules.mas:130
@@ -497,36 +500,36 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:145
 #: src/templates/fwdruleedit.mas:174 src/templates/fwdruleedit.mas:177
 msgid "is"
-msgstr ""
+msgstr "是"
 
 #: src/templates/fwdrules.mas:86 src/templates/fwdrules.mas:134
 #: src/templates/fwdruleedit.mas:125 src/templates/fwdruleedit.mas:183
 msgid "to"
-msgstr ""
+msgstr "到"
 
 #: src/templates/fwdrules.mas:155
 msgid "Rule list"
-msgstr ""
+msgstr "規則列表"
 
 #: src/templates/fwdrules.mas:180 src/templates/fwdrules.mas:181
 #: src/templates/fwdrules.mas:301 src/templates/fwdrules.mas:302
 msgid "allow"
-msgstr ""
+msgstr "允許"
 
 #: src/templates/fwdrules.mas:184 src/templates/fwdrules.mas:185
 #: src/templates/fwdrules.mas:318 src/templates/fwdrules.mas:319
 msgid "allow (disabled)"
-msgstr ""
+msgstr "允許 (停用)"
 
 #: src/templates/fwdrules.mas:188 src/templates/fwdrules.mas:189
 #: src/templates/fwdrules.mas:304 src/templates/fwdrules.mas:305
 msgid "deny"
-msgstr ""
+msgstr "拒絕"
 
 #: src/templates/fwdrules.mas:192 src/templates/fwdrules.mas:193
 #: src/templates/fwdrules.mas:321 src/templates/fwdrules.mas:322
 msgid "deny (disabled)"
-msgstr ""
+msgstr "拒絕 (停用)"
 
 #: src/templates/fwdrules.mas:203 src/templates/fwdrules.mas:204
 #: src/templates/fwdrules.mas:225 src/templates/fwdrules.mas:226
@@ -534,33 +537,33 @@ msgstr ""
 #: src/templates/fwdrules.mas:258 src/templates/fwdrules.mas:259
 #: src/templates/fwdrules.mas:313 src/templates/fwdrules.mas:314
 msgid "inverse match"
-msgstr ""
+msgstr "反向符合"
 
 #: src/templates/fwdrules.mas:268 src/templates/fwdrules.mas:269
 #: src/templates/fwdrules.mas:270
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/templates/fwdrules.mas:307 src/templates/fwdrules.mas:308
 msgid "delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/fwdrules.mas:310 src/templates/fwdrules.mas:311
 msgid "edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/templates/fwdrules.mas:324 src/templates/fwdrules.mas:325
 msgid "move up"
-msgstr ""
+msgstr "上移"
 
 #: src/templates/fwdrules.mas:327 src/templates/fwdrules.mas:328
 msgid "move down"
-msgstr ""
+msgstr "下移"
 
 #: src/templates/fwdrules.mas:338
 msgid "any"
-msgstr ""
+msgstr "任何"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "啟動"

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:34+0000\n"
-"PO-Revision-Date: 2008-11-05 01:24+0000\n"
+"PO-Revision-Date: 2008-11-24 00:55+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -55,11 +55,11 @@ msgstr "Kann nicht weitermachen, weil der Filter in Verwendung ist"
 
 #: src/EBox/MailFilter.pm:699
 msgid "Mail filter system"
-msgstr "E-Mails filtern"
+msgstr "E-Mail Filter-System"
 
 #: src/EBox/MailFilter.pm:714
 msgid "Mail filter settings"
-msgstr "E-Mails filtern"
+msgstr "Mail-Filter Einstellungen"
 
 #: src/EBox/MailFilter.pm:773
 msgid "eBox internal mail filter"
@@ -79,58 +79,50 @@ msgid "Date"
 msgstr "Datum"
 
 #: src/EBox/MailFilter.pm:831
-#, fuzzy
 msgid "Action"
-msgstr "Aktionen"
+msgstr "Aktion"
 
 #: src/EBox/MailFilter.pm:832
 msgid "Event"
-msgstr ""
+msgstr "Ereignis"
 
 #: src/EBox/MailFilter.pm:834
-#, fuzzy
 msgid "Sender address"
-msgstr "E-Mail-Adresse"
+msgstr "Adresse des Senders"
 
 #: src/EBox/MailFilter.pm:835
-#, fuzzy
 msgid "Recipient address"
-msgstr "E-Mail-Adresse"
+msgstr "Adresse des Empfängers"
 
 #: src/EBox/MailFilter.pm:837
-#, fuzzy
 msgid "Spam hits"
-msgstr "Wert für Spam"
+msgstr "Spam-Treffer"
 
 #: src/EBox/MailFilter.pm:842
-#, fuzzy
 msgid "Bad header found"
-msgstr "Richtlinie für nicht konforme Kopfzeilen"
+msgstr "Ungültige Kopfzeile gefunden"
 
 #: src/EBox/MailFilter.pm:843
 msgid "Spam found"
-msgstr ""
+msgstr "Spam gefunden"
 
 #: src/EBox/MailFilter.pm:844
 msgid "Forbidden attached file  found"
-msgstr ""
+msgstr "Nicht erlaubter Dateianhang gefunden"
 
 #: src/EBox/MailFilter.pm:845
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Adresse in Blacklist gefunden"
 
 #: src/EBox/MailFilter.pm:846
-#, fuzzy
 msgid "Virus found"
-msgstr "Richtlinie bei Viren"
+msgstr "Virus gefunden"
 
 #: src/EBox/MailFilter.pm:847
-#, fuzzy
 msgid "Clean message"
-msgstr "von Nachrichten gelernt"
+msgstr "saubere Nachrichten"
 
 #: src/EBox/MailFilter.pm:857
-#, fuzzy
 msgid "Mail Filter"
 msgstr "Mailfilter"
 
@@ -208,14 +200,12 @@ msgid "Virtual mail domain {vd} does not exist"
 msgstr "Die virtuelle Maildomäne {vd} gibt es nicht"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
-#, fuzzy
 msgid "Mail filter report"
-msgstr "Port"
+msgstr "Mail-Filter Bericht"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
-#, fuzzy
 msgid "Mail Filter report"
-msgstr "Port"
+msgstr "Mail-Filter Bericht"
 
 #: src/EBox/MailFilter/Composite/Index.pm:70
 msgid "Internal mailfilter"
@@ -413,16 +403,14 @@ msgstr ""
 "der Standardwert für Spam"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-#, fuzzy
 msgid "Mail filter graph"
-msgstr "Mailfilter"
+msgstr "Mailfilter Diagramm"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#, fuzzy
 msgid "clean messages"
-msgstr "von Nachrichten gelernt"
+msgstr "saubere Nachrichten"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
@@ -434,49 +422,44 @@ msgstr "Spam"
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
-#, fuzzy
 msgid "banned files"
-msgstr "Richtlinie bei verbotenen Dateien"
+msgstr "nicht erlaubte Dateien"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
 msgid "infected"
-msgstr ""
+msgstr "infiziert"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
-#, fuzzy
 msgid "bad header"
-msgstr "Richtlinie für nicht konforme Kopfzeilen"
+msgstr "falsche Kopfzeile"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-#, fuzzy
 msgid "blacklisted"
-msgstr "schwarzer Liste"
+msgstr "auf der schwarzer Liste"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
 msgid "Filter traffic"
-msgstr ""
+msgstr "Filter-Verkehr"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
-#, fuzzy
 msgid "blacklisted senders"
-msgstr "schwarzer Liste"
+msgstr "Absender auf der schwarzen Liste"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-#, fuzzy
 msgid "bad message header"
-msgstr "Kopfzeilen"
+msgstr "unerlaubte Kopfzeile"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
 msgid "Filter traffic details"
-msgstr ""
+msgstr "Filter-Verkehr Details"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
 msgid "traffic"
-msgstr ""
+msgstr "Verkehr"
 
 #: src/EBox/MailFilter/Model/General.pm:64
 msgid "Service's port"

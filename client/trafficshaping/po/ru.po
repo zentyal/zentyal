@@ -8,44 +8,45 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2007-04-11 16:25+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 08:34+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "Управление трафиком"
 
 #: src/EBox/TrafficShaping.pm:95
 msgid "traffic shaping"
-msgstr ""
+msgstr "управление трафиком"
 
 #: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Добавить правило iptables в таблицу mangle"
 
 #: src/EBox/TrafficShaping.pm:134
+#, fuzzy
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Чтобы отметить пакеты с различным приоритетом и ценной(весом) "
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
-msgstr ""
+msgstr "Добавить правила tc"
 
 #: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "Для включения правил управления трафиком"
 
 #: src/EBox/TrafficShaping.pm:415 src/EBox/TrafficShaping.pm:565
 #: src/EBox/TrafficShaping.pm:952 src/EBox/TC.pm:107
 msgid "Interface"
-msgstr ""
+msgstr "Интерфейс"
 
 #: src/EBox/TrafficShaping.pm:428
 #, perl-brace-format
@@ -62,7 +63,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping.pm:1058
 msgid "type"
-msgstr ""
+msgstr "тип"
 
 #: src/EBox/TrafficShaping.pm:1081
 #, perl-brace-format
@@ -73,11 +74,11 @@ msgstr ""
 
 #: src/EBox/TrafficShaping.pm:1546
 msgid "Protocol"
-msgstr ""
+msgstr "Протокол"
 
 #: src/EBox/TrafficShaping.pm:1547
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: src/EBox/TrafficShaping.pm:1548
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
@@ -92,11 +93,11 @@ msgstr ""
 #: src/EBox/TrafficShaping.pm:1550
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
 msgid "Priority"
-msgstr ""
+msgstr "Приоритет"
 
 #: src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "настройки"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -117,7 +118,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
-msgstr ""
+msgstr "Список правил на интерфейсе"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
 msgid ""
@@ -165,53 +166,53 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:478
 msgid "Service"
-msgstr ""
+msgstr "Служба"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
 msgid "Port based service"
-msgstr ""
+msgstr "Основной порт службы"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 msgid "Source"
-msgstr ""
+msgstr "Источник"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:500
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:528
 msgid "Any"
-msgstr ""
+msgstr "Любой"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:503
 msgid "Source IP"
-msgstr ""
+msgstr "Источник IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:508
 msgid "Source MAC"
-msgstr ""
+msgstr "Источник MAC"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:513
 msgid "Source object"
-msgstr ""
+msgstr "Источник объект"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:523
 msgid "Destination"
-msgstr ""
+msgstr "Назначение"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:531
 msgid "Destination IP"
-msgstr ""
+msgstr "Назначение IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:536
 msgid "Destination object"
-msgstr ""
+msgstr "Назначение объект"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Низший приоритет: 7 Высший приоритет: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:571
 msgid "Kbit/s"
-msgstr ""
+msgstr "Кбит/сек"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
 msgid ""
@@ -226,7 +227,7 @@ msgstr ""
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "Список правил для {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
 msgid ""
@@ -236,12 +237,12 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
-msgstr ""
+msgstr "правило"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:656
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "Удалить {num} правила для {modelName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:703
 #, perl-brace-format
@@ -314,4 +315,4 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr ""
+msgstr "Адрес"

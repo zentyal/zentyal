@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:24+0000\n"
-"PO-Revision-Date: 2008-11-09 17:25+0000\n"
+"PO-Revision-Date: 2008-11-18 09:12+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -764,6 +764,8 @@ msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
+"Sistema de ficheros inválido: {f}. Solo se puede usar aquellos medios "
+"regulares y no extraíbles."
 
 #: src/EBox/Report/DiskUsage.pm:321
 msgid "Free space"
@@ -832,7 +834,7 @@ msgstr "Debe ser un número positivo distinto de cero"
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "No puede ejecutar {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format

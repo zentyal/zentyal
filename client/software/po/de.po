@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:46+0000\n"
-"PO-Revision-Date: 2008-11-05 13:40+0000\n"
+"PO-Revision-Date: 2008-11-24 00:46+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -262,7 +262,7 @@ msgstr "Beschreibung"
 
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"

@@ -8,38 +8,37 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:24+0000\n"
-"PO-Revision-Date: 2007-05-14 14:33+0000\n"
-"Last-Translator: Pavel Zaytsev <psz@web74.ru>\n"
+"PO-Revision-Date: 2008-12-03 15:02+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EventDaemon.pm:443
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
+msgstr "Диспетчер {name} отключен, поэтому невозможно послать событие"
 
 #: src/EBox/Backup.pm:96
-#, fuzzy
 msgid "Creating backup archive"
-msgstr "Не могу создать бэкап-архив"
+msgstr "Создание резервного архива"
 
 #: src/EBox/Backup.pm:142
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr "Хранилище настроек отчетов об ошибках"
+msgstr "Создание дампа конфигурации модуля {m}"
 
 #: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
-msgstr "Не могу создать бэкап-архив"
+msgstr "Невозможно создать резервный архив"
 
 #: src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
-msgstr "Не могу добавить данные к бэкап-архиву"
+msgstr "Невозможно добавить данные к резервному архиву"
 
 #: src/EBox/Backup.pm:420
 msgid "Unknown"
@@ -48,60 +47,59 @@ msgstr "Неизвестный"
 #: src/EBox/Backup.pm:454
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr "Не могу извлечь запрошенные бэкап-файлы: {files}"
+msgstr "Не могу извлечь запрошенные резервные файлы: {files}"
 
 #: src/EBox/Backup.pm:457 src/EBox/Backup.pm:1046
 msgid "Could not unpack the backup"
-msgstr "Не могу распаковать бэкап"
+msgstr "Не могу распаковать резервную копию"
 
 #: src/EBox/Backup.pm:647 src/EBox/SysInfo.pm:146
 msgid "Backup"
-msgstr "Бэкап"
+msgstr "Резервная копия"
 
 #: src/EBox/Backup.pm:683
-#, fuzzy
 msgid "Writing backup file to hard disK"
-msgstr "Бэкап на жесткий диск"
+msgstr "Запись резервных файлов на жесткий диск"
 
 #: src/EBox/Backup.pm:708
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
-"Некоторые модули содержат несохраненные изменения. Перед созданием бэкапа Вы "
-"должны сохранить или отклонить их"
+"Некоторые модули содержат не сохраненные изменения. Перед созданием "
+"резервной копии Вы должны сохранить или отклонить их"
 
 #: src/EBox/Backup.pm:763
 msgid "Incorrect or corrupt backup file"
-msgstr "Неверный или поврежденный бэкап-файл"
+msgstr "Неверный или поврежденный резервный файл"
 
 #: src/EBox/Backup.pm:792
 msgid "The backup file is corrupt: could not open archive"
-msgstr "Бэкап-файл поврежден: не могу открыть архив"
+msgstr "Резервный файл поврежден: не могу открыть архив"
 
 #: src/EBox/Backup.pm:804
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "Бэкап-файл поврежден: не могу открыть контрольную сумму"
+msgstr "Резервный файл поврежден: не могу открыть контрольную сумму"
 
 #: src/EBox/Backup.pm:811
 msgid "The backup file is corrupt."
-msgstr "Бэкап-файл поврежден."
+msgstr "Резервный файл поврежден."
 
 #: src/EBox/Backup.pm:829
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
-"Бэкап-архив недопустимого формата. Может быть архив поврежден или Вы "
-"используете несовместимую версию eBox."
+"Архив резервной копии недопустимого формата. Может быть архив поврежден или "
+"Вы используете несовместимую версию eBox."
 
 #: src/EBox/Backup.pm:835
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"Архив не содержит полного бэкапа т.е. полное восстановление невозможно. "
-"Возможно доступно восстановление настроек"
+"Архив не содержит полной резервной копии т.е. полное восстановление "
+"невозможно. Возможно доступно восстановление настроек"
 
 #: src/EBox/Backup.pm:870
 #, perl-brace-format
@@ -116,11 +114,11 @@ msgstr ""
 #: src/EBox/Backup.pm:1133
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "Модуль {m} не найден в резервной копии"
 
 #: src/EBox/Backup.pm:1162
 msgid "No modules to restore"
-msgstr ""
+msgstr "Нет модуля для востановления"
 
 #: src/EBox/Backup.pm:1227
 #, perl-brace-format
@@ -137,21 +135,20 @@ msgid "The input contains invalid characters"
 msgstr "Ввод содержит неверные символы"
 
 #: src/EBox/Backup.pm:1270
-#, fuzzy
 msgid "Backup's archives"
-msgstr "Список бэкапов"
+msgstr "Список архивов резервных копий"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module status configuration"
-msgstr "Сохранить настройки"
+msgstr "Конфигурация статуса модуля"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Внутренняя ошибка. Доп. информацию, скорее всего, можно найти в журналах."
+"Обнаружена внутренняя ошибка. Доп. информацию, скорее всего, можно найти в "
+"журналах."
 
 #: src/EBox/CGI/ClientRawBase.pm:201
 msgid ""
@@ -163,21 +160,20 @@ msgstr ""
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "Использование Диска"
 
 #: src/EBox/CGI/Report/RAID.pm:30
-#, fuzzy
 msgid "RAID report"
-msgstr "Отчет об ошибках"
+msgstr "Отчет по RAID"
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
-msgstr "Бэкап системы"
+msgstr "Резервные копии системы"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr "Неизвестный бэкап-режим: {mode}"
+msgstr "Неизвестный режим резервной копии: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
@@ -185,38 +181,32 @@ msgid "Unknown restore mode: {mode}"
 msgstr "Неизвестный режим восстановления: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
-#, fuzzy
 msgid "Backing up"
-msgstr "Бэкап"
+msgstr "Резервное копирование"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
-#, fuzzy
 msgid "Backing up modules"
-msgstr "Бэкап режим"
+msgstr "Модуль резервного копирования"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
-#, fuzzy
 msgid "Operation"
-msgstr "Описание"
+msgstr "Операция"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "операции отложены до завершения резервного копирования"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
-#, fuzzy
 msgid "Backup successful"
-msgstr "Файл бэкапа"
+msgstr "Резервное копирование успешно завершено"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
-#, fuzzy
 msgid "Restoring backup"
-msgstr "Восстановить из бэкапа"
+msgstr "Восстановление из резервной копии"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
-#, fuzzy
 msgid "Restoring modules"
-msgstr "Режим восстановления"
+msgstr "Модуль восстановления"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:622
 #: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
@@ -225,12 +215,11 @@ msgstr "Модуль"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "модули оставленные для восстановления"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
-#, fuzzy
 msgid "Restore successful"
-msgstr "Режим восстановления"
+msgstr "Восстановление успешно"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
@@ -278,15 +267,15 @@ msgstr "Модуль был корректно перезапущен."
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Модернизация"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
-msgstr "Бэкап настроек"
+msgstr "Резервная копия настроек"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Пожалуйста подтвердите удаление данного бэкап-файла:"
+msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
 #: src/templates/backup.mas:169
@@ -309,7 +298,7 @@ msgstr "Бэкап настроек"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr "Полный бэкап данных и настроек"
+msgstr "Полная резервная копия данных и настроек"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
 msgid "Bug-report configuration dump"
@@ -324,28 +313,27 @@ msgid "Save configuration"
 msgstr "Сохранить настройки"
 
 #: src/EBox/CGI/Finish.pm:76
-#, fuzzy
 msgid "Saving changes"
-msgstr "Сохранить изменения"
+msgstr "Сохранение изменений"
 
 #: src/EBox/CGI/Finish.pm:77
-#, fuzzy
 msgid "Saving changes in modules"
-msgstr "Бэкап режим"
+msgstr "Сохранение изменений в модулях"
 
+# Instead of word "operation" there was "password" as well.  Fixed.
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
-#, fuzzy
 msgid "Current operation"
-msgstr "Текущий пароль"
+msgstr "Текущая операция"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "выполненные операции"
 
+# The value for this field actually was "Change password", I changed it to "Changes saved" as it should be.  
+# No fuzzyness anymore.
 #: src/EBox/CGI/Finish.pm:80
-#, fuzzy
 msgid "Changes saved"
-msgstr "Изменить пароль"
+msgstr "Изменения сохранены"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -353,31 +341,28 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Некоторые модули сообщили об ошибках при сохранении. Больше информации можно "
+"узнать из журналов {dir}"
 
 #: src/EBox/CGI/Finish.pm:101
-#, fuzzy
 msgid "Revoking changes"
-msgstr "Сохранить изменения"
+msgstr "Отмена изменений"
 
 #: src/EBox/CGI/Finish.pm:102
-#, fuzzy
 msgid "Revoking changes in modules"
-msgstr "Режим восстановления"
+msgstr "Отмена изменений в модулях"
 
 #: src/EBox/CGI/Finish.pm:103
-#, fuzzy
 msgid "Current module"
-msgstr "Текущий пароль"
+msgstr "Текущий модуль"
 
 #: src/EBox/CGI/Finish.pm:104
-#, fuzzy
 msgid "modules revoked"
-msgstr "название модуля"
+msgstr "модули отозваны"
 
 #: src/EBox/CGI/Finish.pm:105
-#, fuzzy
 msgid "Changes revoked"
-msgstr "Изменить пароль"
+msgstr "Изменения отозваны"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -385,6 +370,8 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Некоторые модули сообщили об ошибках при отмене изменений. Больше информации "
+"вы найдете в журналах {dir}"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
@@ -403,7 +390,7 @@ msgstr "Ошибка"
 msgid ""
 "There is a Web service script running. Please, wait patiently until it is "
 "done"
-msgstr ""
+msgstr "Запущен скрипт Web сервиса. Потерпите немного :)"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
@@ -420,7 +407,7 @@ msgstr "Ваш сеанс был закрыт т.к. был открыт нов�
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Следующие модули не запущены: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -428,7 +415,7 @@ msgstr "Сервис"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Проверьте запущены ли необходимые службы eBox"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -436,89 +423,91 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"Служба {service} была перезапущена {restart} в {time} секунд и сейчас "
+"остановлена"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr ""
+"В файловой системе {fs}, при монтированной в  {mp}, нет свободного места"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Свободное место для хранения"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Проверьте может быть в каком-нибудь дисковом разделе не осталось места"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox поднят и запущен"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox упал сильно"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
-#, fuzzy
 msgid "State"
-msgstr "Запуск"
+msgstr "Состояние"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Проверьте eBox сейчас поднят или опущен"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Проверьте события подсистемы  RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Новое устройство массив RAID device {devName} информация:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Состояние: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Тип: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Активным устройствам необходимо: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Активные устройства: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Операция продолжается: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Завершенность операции в процентах: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Приблизительное время завершения операции: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "Raid компонент {nb}: устройство {device} состояние {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -530,7 +519,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
-msgstr ""
+msgstr "RAID устройство {name} изменило состояние с {oldState} на {newState}"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -538,37 +527,41 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"RAID устройство {name} сменило номер активных компонент с {oldNum} на "
+"{newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
-msgstr ""
+msgstr "RAID устройство {name} началась операция {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
-msgstr ""
+msgstr "RAID устройство {name} закончилась операция {opName} или была прервана"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started {newOpName}"
 msgstr ""
+"RAID устройство {name} закончилась операция {oldOpName} и началась "
+"{newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
-msgstr ""
+msgstr "RAID device {name} выполняться операция {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr ""
+msgstr "Состояние: {percentage} завершено"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
-msgstr ""
+msgstr "Предполагаемое время завершения: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
@@ -576,6 +569,8 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"Активный компонент {compName} из массива RAID {arrayName} был отмечен, как "
+"неисправный"
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
@@ -583,6 +578,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Запасной компонент {compName} из массива RAID {arrayName} , перестройка "
+"которого для замены неисправного устройства завершена неудачно"
 
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
@@ -591,6 +588,9 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Запасной компонент {compName} из массива RAID {arrayName} перестройка "
+"которого для замены неисправного устройства завершена удачно и он может быть "
+"активным"
 
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
@@ -598,6 +598,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Новый компонент {compName} бфл на горячую добавлен в RAID устройство "
+"{arrayName} со статусом {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
@@ -605,144 +607,139 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Компонент {compName} был удален по горячему из массива RAID {arrayName} "
+"статус которого был {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:101
-#, fuzzy
 msgid "active"
-msgstr "Действие"
+msgstr "активно"
 
 #: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
 msgid "degraded"
-msgstr ""
+msgstr "ухудшено"
 
 #: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
-#, fuzzy
 msgid "recovering"
-msgstr "Версия eBox"
+msgstr "востановлено"
 
 #: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
 msgid "resyncing"
-msgstr ""
+msgstr "синхронизировано"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
 msgid "rebuilding"
-msgstr ""
+msgstr "перестроено"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
 msgid "reshaping"
-msgstr ""
+msgstr "изменено"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
-#, fuzzy
 msgid "failed"
-msgstr "Включено"
+msgstr "сбой"
 
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
-msgstr ""
+msgstr "синхронизировать"
 
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
-msgstr ""
+msgstr "перестроить"
 
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
-msgstr ""
+msgstr "измененить"
 
 #: src/EBox/Event/Watcher/RAID.pm:564
-#, fuzzy
 msgid "recovery"
-msgstr "Декабрь"
+msgstr "восстановить"
 
 #: src/EBox/Event/Watcher/RAID.pm:577
-#, fuzzy
 msgid "faulty"
-msgstr "Июль"
+msgstr "дефектный"
 
 #: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
-#, fuzzy
 msgid "spare"
-msgstr "предыдущая"
+msgstr "запасной"
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
-msgstr ""
+msgstr "Журнал наблюдения"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Сообщать, когда в журнале ({loggers}) появится что-нибудь"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Диспетчер {name} не сконфигурирован для включения"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS файл: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBox канал сообщений для {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
+msgstr "Этот канал отслеживает события на машине eBox в течении времени"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Событие случилось eBox {hostname} из {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Перейти на {url} для проверки его статуса."
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Аккаунт администратора Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Jabber сервер {serverName} лежит или соединения не разрешены"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Подпись не правильная: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Авторизация провалена: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
-msgstr ""
+msgstr "Файл журнала"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
-#, fuzzy
 msgid "Log"
 msgstr "Журналы"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
+msgstr "Нет данных об использовании {d}. Вы уверены что это допустимый диск?"
 
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
@@ -753,7 +750,7 @@ msgstr ""
 
 #: src/EBox/Report/DiskUsage.pm:321
 msgid "Free space"
-msgstr ""
+msgstr "Свободное пространство"
 
 #: src/EBox/Report/DiskUsage.pm:324 src/EBox/SysInfo.pm:129
 msgid "System"

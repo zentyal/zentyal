@@ -5,32 +5,33 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-23 16:00+0000\n"
+"Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Actualización de software automática"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:462
 msgid "System updates"
-msgstr ""
+msgstr "Actualizacións do sistema"
 
 #: src/EBox/CGI/Updates.pm:45
+#, fuzzy
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Actualizacións de software manéxanse automaticamente"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "O sistema está ao día"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"

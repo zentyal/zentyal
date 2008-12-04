@@ -5,37 +5,37 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2008-11-10 08:23+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 07:13+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 #: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
 msgid "Organization Name"
-msgstr ""
+msgstr "組織名稱"
 
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr ""
+msgstr "日期允許最大的設定值 {days}: Year 2038 Bug"
 
 #: src/EBox/CA.pm:347
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
+msgstr "移除操作無法完成.原因是: "
 
 #: src/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
-msgstr ""
+msgstr "CA 憑證應該撤銷或是在過期前發出新的憑證"
 
 #: src/EBox/CA.pm:706 src/EBox/CA.pm:872 src/EBox/CA.pm:1187
 #: src/EBox/CA.pm:1229 src/EBox/CA.pm:1328 src/EBox/CGI/RenewCertificate.pm:75
@@ -45,11 +45,11 @@ msgstr ""
 #: src/EBox/CA/TestStub.pm:642 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/CA.pm:743 src/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
+msgstr "到期日不晚於 CA 憑證到期日"
 
 #: src/EBox/CA.pm:885 src/EBox/CA.pm:1198
 #, perl-brace-format

@@ -8,59 +8,60 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:46+0000\n"
-"PO-Revision-Date: 2007-04-11 16:25+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 07:19+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "автоматическое обновление конфигурации"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:466
 msgid "System updates"
-msgstr ""
+msgstr "Системные обновления"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Обновление программного обеспечения выполняется автоматически"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "Система уже обновлена"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Автоматическое обновление программного обеспечения"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
 msgid "Upgrading"
-msgstr ""
+msgstr "Обновление"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
 msgid "eBox components"
-msgstr ""
+msgstr "Компоненты eBox"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Нет пакетов для обновления"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Обновляемые пакеты"
 
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "Текущий пакет"
 
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "пакеты отмечены для установки"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid ""
@@ -68,24 +69,28 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"Установка пакетов завершена успешно. Интерфейс администрирования может не "
+"отвечать несколько секунд. Пожалуйста, дождитесь полного перезапуска"
 
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Установка пакета прошла не успешна. Дополнительную информацию смотрите в "
+"журналах системы"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "Удаление пакета"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Удаление выбранных пакетов и зависимых пакетов"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "пакеты отмечены для удаления"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
@@ -93,211 +98,222 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Удаление пакетов завершено успешно. Интерфейс администрирования будет "
+"недоступен несколько секунд. Пожалуйста дождитесь полного перезапуска "
+"системы"
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Удаление пакетов завершено некорректно. Дополнительную информацию смотрите в "
+"журналах системы"
 
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Включить скрипт загрузки обновлений в cron"
 
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"Программное обеспечение eBox загрузит доступные обновления указанных в ваших "
+"источниках обновлений apt"
 
 #: src/EBox/Software.pm:461
 msgid "Software management"
-msgstr ""
+msgstr "Управление программным обеспечением"
 
 #: src/EBox/Software.pm:468
 msgid "Automatic updates"
-msgstr ""
+msgstr "Автоматическое обновление"
 
 #: src/EBox/Software.pm:559
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Управление программным обеспечением сейчас заблокировано {locker}. "
+"Пожалуйста, попробуйте позже"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "eBox - Certificate Authority Manager для eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "eBox - модуль сервера DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "eBox - сервер DNS"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "eBox platform - базовая структура"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "eBox - Файервол "
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
+msgstr "eBox - сервер мгновенных сообщений (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - слой 7 протоколов"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "eBox - Почтовый сервер"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
-msgstr ""
+msgstr "eBox - модуль почтового фильтра"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Network configuration module"
-msgstr ""
+msgstr "eBox - модуль конфигурации сети"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - NTP server"
-msgstr ""
+msgstr "eBox - сервер NTP"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - управление объектами"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "eBox - модуль сервера OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "eBox - Совместное использование принтеров"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - File sharing"
-msgstr ""
+msgstr "eBox - Совместное использование файлов"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Services management"
-msgstr ""
+msgstr "eBox - Управление службами"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "Сервер SOAP для коммуникации с центром управления eBox"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - Software management"
-msgstr ""
+msgstr "eBox - Управление программным обеспечением"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "eBox - Прокси и фильтр содержимого"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - Шейпер трафика для eBox"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - Управление пользователями и группами"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "eBox - Веб-сервер"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP программное обеспечение"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "служба обновления пакетов через apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "правило разрешающее обновления apt"
 
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Возможно обновление нескольких системных компонент"
 
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Компонент"
 
 #: src/templates/updates.mas:17
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "Обновление"
 
 #: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "Обновить все пакеты"
 
 #: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Эта операция может занять некоторое время, не беспокойтесь, если eBox "
+"выглядит недоступным, после нажатия кнопки обновления."
 
 #: src/templates/updates.mas:67
 msgid "Upgrade"
-msgstr ""
+msgstr "Обновление"
 
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "Установленная версия"
 
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "Последняя версия"
 
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "Установка"
 
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "ничего"
 
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Выбранный пакет уже установлен"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Выбранный пакет уже удален"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"

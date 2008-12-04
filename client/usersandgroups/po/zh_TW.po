@@ -5,25 +5,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2008-11-10 08:47+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 06:23+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
 msgid "Groups"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
 #: src/EBox/UsersAndGroups.pm:1537
 msgid "Users"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
 #: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
@@ -32,54 +33,54 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
 #: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
 msgid "user name"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
 msgid "full name"
-msgstr ""
+msgstr "完整名稱"
 
 #: src/EBox/CGI/AddUser.pm:47 src/EBox/CGI/ModifyUser.pm:48
 #: src/EBox/CGI/ModifyGroup.pm:47
 msgid "comment"
-msgstr ""
+msgstr "註解"
 
 #: src/EBox/CGI/AddUser.pm:65 src/EBox/CGI/ModifyUser.pm:65
 msgid "Passwords do not match."
-msgstr ""
+msgstr "密碼不符合"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr ""
+msgstr "object 名稱"
 
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr ""
+msgstr "object 類型"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
-msgstr ""
+msgstr "使用者移除成功"
 
 #: src/EBox/CGI/Del.pm:94
 msgid "Group removed successfully"
-msgstr ""
+msgstr "群組移除成功"
 
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
-msgstr ""
+msgstr "密碼"
 
 #: src/EBox/CGI/ModifyUser.pm:50
 msgid "confirm password"
-msgstr ""
+msgstr "確認密碼"
 
 #: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/Group.pm:45
 #: src/EBox/CGI/DelUserFromGroup.pm:45
 msgid "group"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
 #: src/EBox/UsersAndGroups/Model/Users.pm:84
 msgid "user"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
@@ -87,69 +88,69 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1100 src/EBox/UsersAndGroups.pm:1172
 #: src/EBox/UsersAndGroups.pm:1275
 msgid "group name"
-msgstr ""
+msgstr "群組名稱"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
-msgstr ""
+msgstr "編輯群組"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
-msgstr ""
+msgstr "這個群組包含使用者"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:63
 #: src/EBox/UsersAndGroups/Model/Users.pm:162 src/templates/users.mas:27
 #: src/templates/user.mas:28
 msgid "Full name"
-msgstr ""
+msgstr "完整名稱"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:68
 #: src/EBox/UsersAndGroups/Model/Users.pm:171
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:83
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:127
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
-msgstr ""
+msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "There are no users at the moment."
-msgstr ""
+msgstr "這裡現在沒有使用者"
 
 #: src/EBox/UsersAndGroups.pm:56
 msgid "users and groups"
-msgstr ""
+msgstr "使用者和群組"
 
 #: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
-msgstr ""
+msgstr "您目前的 openLDAP 資料庫將被置換並且備份到 /var/backups/slapd"
 
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
 "your current configuration"
-msgstr ""
+msgstr "eBox 將會初始 openLDAP 儲存的資料庫.這也會覆寫您目前的設置"
 
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr ""
+msgstr "讓 openLDAP 在 TCP 和 Unix sockets 監聽"
 
 #: src/EBox/UsersAndGroups.pm:97
 msgid ""
@@ -160,195 +161,195 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:355
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
+msgstr "使用者名稱必須不超過 {maxuserlength} 字元"
 
 #: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
 msgid "Maximum number of system users reached"
-msgstr ""
+msgstr "達到最大的使用者數量"
 
 #: src/EBox/UsersAndGroups.pm:427
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
-msgstr ""
+msgstr "使用者的 UID {uid} 不正確. UID 必須等於或大於 {min}"
 
 #: src/EBox/UsersAndGroups.pm:438
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
-msgstr ""
+msgstr "系統使用者的 UID {uid} 不正確. UID 必須小於 {max}"
 
 #: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
+msgstr "群組名稱必須不超過 {maxGroupLength} 字元"
 
 #: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
-msgstr ""
+msgstr "群組名稱是無效的,因為這是內部使用的"
 
 #: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
+msgstr "群組的 GID {gid} 不正確. GID 必須等於或大於 {min}"
 
 #: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
-msgstr ""
+msgstr "系統群組的 GID {gid} 不正確. GID 必須小於 {max}"
 
 #: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
+msgstr "密碼必須不超過 {maxPwdLength} 字元"
 
 #: src/EBox/UsersAndGroups.pm:1539
 msgid "Add user"
-msgstr ""
+msgstr "新增使用者"
 
 #: src/EBox/UsersAndGroups.pm:1542
 msgid "Edit user"
-msgstr ""
+msgstr "編輯使用者"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
-msgstr ""
+msgstr "新增"
 
 #: src/templates/groups.mas:11 src/templates/users.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
-msgstr ""
+msgstr "改變使用者帳號會立即生效,他不需要儲存."
 
 #: src/templates/groups.mas:12 src/templates/users.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
-msgstr ""
+msgstr "為了讓功能生效更改相關列印,檔案分享和 Jabber 的服務是必須儲存的."
 
 #: src/templates/groups.mas:14
 msgid "Add Group"
-msgstr ""
+msgstr "新增群組"
 
 #: src/templates/groups.mas:20 src/templates/groups.mas:54
 msgid "Group name"
-msgstr ""
+msgstr "群組名稱"
 
 #: src/templates/groups.mas:30 src/templates/users.mas:35
 #: src/templates/group.mas:21 src/templates/user.mas:18
 msgid "Comment"
-msgstr ""
+msgstr "註解"
 
 #: src/templates/groups.mas:35
 msgid "Optional value"
-msgstr ""
+msgstr "選擇性"
 
 #: src/templates/groups.mas:42 src/templates/groups.mas:43
 #: src/templates/users.mas:63 src/templates/users.mas:64
 msgid "Create"
-msgstr ""
+msgstr "建立"
 
 #: src/templates/groups.mas:51
 msgid "Edit Group"
-msgstr ""
+msgstr "編輯群組"
 
 #: src/templates/groups.mas:55
 msgid "Actions"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/groups.mas:76 src/templates/group.mas:58
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: src/templates/users.mas:14
 msgid "Add User"
-msgstr ""
+msgstr "新增使用者"
 
 #: src/templates/users.mas:19
 msgid "User name"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/templates/users.mas:43 src/templates/user.mas:38
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/templates/users.mas:50 src/templates/user.mas:48
 msgid "Retype password"
-msgstr ""
+msgstr "再輸入密碼"
 
 #: src/templates/users.mas:77
 msgid "Group"
-msgstr ""
+msgstr "群組"
 
 #: src/templates/group.mas:15
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
-msgstr ""
+msgstr "這裡現在沒有使用者.您必須至少有一個來管理這個群組"
 
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:60 src/templates/user.mas:61
 msgid "Change"
-msgstr ""
+msgstr "改變"
 
 #: src/templates/group.mas:32
 msgid "Users in group"
-msgstr ""
+msgstr "使用者在群組中"
 
 #: src/templates/group.mas:34
 msgid "Users not in group"
-msgstr ""
+msgstr "使用者不在群組中"
 
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
-msgstr ""
+msgstr "空的列表"
 
 #: src/templates/group.mas:61
 msgid "Remove users from group"
-msgstr ""
+msgstr "從群組中移除使用者"
 
 #: src/templates/group.mas:69 src/templates/group.mas:72
 msgid "Add users to group"
-msgstr ""
+msgstr "新增使用者到群組"
 
 #: src/templates/group.mas:100 src/templates/group.mas:108
 #: src/templates/group.mas:109
 msgid "Delete group"
-msgstr ""
+msgstr "刪除群組"
 
 #: src/templates/group.mas:102
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
-msgstr ""
+msgstr "假如您刪除這個群組所有的資料及它們分享的目錄都會被刪除"
 
 #: src/templates/user.mas:71 src/templates/user.mas:79
 #: src/templates/user.mas:80
 msgid "Delete user"
-msgstr ""
+msgstr "刪除使用者"
 
 #: src/templates/user.mas:73
 msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
-msgstr ""
+msgstr "這個操作會造成移除使用者及所有他用到的功能;例如郵件帳戶,使用者資料..."
 
 #: src/templates/del.mas:15
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
-msgstr ""
+msgstr "您試著在以下的模組中刪除使用者的資料.請確認您要移除這些和所有相關資料"
 
 #: src/templates/del.mas:20
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
-msgstr ""
+msgstr "您試著在以下的模組中刪除群組的資料.請確認您要移除這些和所有相關資料"
 
 #: src/templates/del.mas:43
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/del.mas:46
 msgid "Cancel"
-msgstr ""
+msgstr "取消"

@@ -8,29 +8,31 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-14 09:33+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
-msgstr ""
+msgstr "Веб-служба"
 
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"Веб-служба EBox позволяет вам создавать веб-сайты с веб-страницами в формате "
+"обычного HTML на различных виртуальных узлах"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Имена виртуальных узлов"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
@@ -38,6 +40,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Виртуальный узел {vhost} добавлен. Домен {domain} был создан, с отображаемым "
+"именем  {name} - IP-адресом {ip} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
@@ -45,29 +49,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Виртуальный узел {vhost} добавлен. Отображаемое имя name {name} - IP-адрес "
+"{ip} был добавлен в домен {domain}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Виртуальный узел {vhost} добавлен, как псевдоним {alias} имени узла "
+"{hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Виртуальный узел {vhost} добавлен"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Нет статического внутреннего интерфейса, чтобы установить ip-адрес "
+"веб-сервера"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Виртуальные узлы"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
@@ -78,33 +88,39 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"Виртуальные узлы на службах веб-хостинга располагаются на одном физическом "
+"сервере. Различные имена узла укажут на тот же самый веб-сервер. Запись в "
+"DNS будет автоматически создана, если это возможно. Содержание должно быть "
+"помещено в каталог {docRoot}/vHostName "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
-msgstr ""
+msgstr "виртуальный узел"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "слушающий порт"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Слушающий порт"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Включить доступ пользователям {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Если вы отметите данное поле, каждый пользователь сможет заводить свой "
+"веб-сайт в его домашнем каталоге в public_html"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Общие параметры конфигурации"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
@@ -114,40 +130,44 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Общая конфигурация Web-сервера. Слушающий порт не должен быть занят другими "
+"службами. Если Вы позволяете пользователям публиковать страницы html, то "
+"страницы будут загружены из {dirName} каталога относительно их домашних "
+"каталогов самбы"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Общая конфигурация Web-сервера обновлена."
 
 #: src/EBox/WebServer.pm:97
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Установить слушающий порт веб-сервера"
 
 #: src/EBox/WebServer.pm:102
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Установить HTML каталог, для публикаций пользователей "
 
 #: src/EBox/WebServer.pm:130
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Включить модуль apache LDAP user"
 
 #: src/EBox/WebServer.pm:132
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Перенести домашние каталоги из LDAP"
 
 #: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
 msgid "Web"
-msgstr ""
+msgstr "Веб"
 
 #: src/EBox/WebServer.pm:236
 msgid "Web service status"
-msgstr ""
+msgstr "Статус веб-службы"
 
 #: src/EBox/WebServer.pm:409
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "{userDirConfFile} отсутствует! Пожалуйста восстановите его"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HTTP (протокол передачи гипертекста)"

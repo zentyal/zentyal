@@ -5,123 +5,123 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.12.100"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2008-11-10 08:23+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 16:28+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/AliasTable.pm:79
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
+msgstr "別名不可以是網域伺服器的主機名稱 \"{ns}\". 使用主機名稱代替"
 
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "有一個主機使用相同的名稱 \"{name}\" 在同一個網域"
 
 #: src/EBox/Model/AliasTable.pm:100
 #, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "有一個別名使用相同的名稱 \"{name}\" 在同一個網域"
 
 #: src/EBox/Model/AliasTable.pm:126 src/EBox/Model/AliasTable.pm:136
 #: src/EBox/Model/AliasTable.pm:142 src/EBox/Model/HostnameTable.pm:173
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "別名"
 
 #: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
-msgstr ""
+msgstr "別名"
 
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
 #: src/EBox/DNS.pm.in:861
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "DNS 伺服器允許您幫助您的網域進行解析."
 
 #: src/EBox/Model/DomainTable.pm:66
 msgid "Domain"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:184
 #: src/EBox/Model/HostnameTable.pm:190
 msgid "Hostnames"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "郵件交換(MX)"
 
 #: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:165
 msgid "IP Address"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 msgid "Domains"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
 msgid "domain"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Model/HostnameTable.pm:133
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
-msgstr ""
+msgstr "有一個別名有相同的名稱 \"{name}\" 是 \"{hostname}\" 在同一個網域"
 
 #: src/EBox/Model/HostnameTable.pm:157
 msgid "Hostname"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "服務已啟動"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "服務已停止"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "無效的偏好數字. 允許的範圍: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:110 src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/Model/MailExchanger.pm:117
 msgid "Owner domain"
-msgstr ""
+msgstr "網域擁有者"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "自訂"
 
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "偏好"
 
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "郵件交換(MX)"
 
 #: src/EBox/Model/MailExchanger.pm:148
 #, perl-brace-format
@@ -131,40 +131,42 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"當遠端用戶 (通常使用其他的郵件伺服器) 在用 MX 查詢網域名稱時數字愈小就有最高的優先權和嘗試使用的第一台伺服器. 允許的數字區間 = "
+"({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "MX紀錄"
 
 #: src/EBox/DNS.pm.in:53
 msgid "Domain Name System"
-msgstr ""
+msgstr "網域名稱系統"
 
 #: src/EBox/DNS.pm.in:90
 msgid "DNS Server"
-msgstr ""
+msgstr "DNS 伺服器"
 
 #: src/EBox/DNS.pm.in:648
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "設置區域的檔案 {zone}"
 
 #: src/EBox/DNS.pm.in:664
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "設置反解區域的檔案 {zone}"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "網域列表"
 
 #: src/templates/index.mas:21
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/templates/index.mas:24 src/templates/edit.mas:23
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/index.mas:37 src/templates/index.mas:38
 #: src/templates/index.mas:39 src/templates/edit.mas:40
@@ -172,31 +174,31 @@ msgstr ""
 #: src/templates/edit.mas:74 src/templates/edit.mas:75
 #: src/templates/edit.mas:76
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: src/templates/index.mas:49
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/templates/index.mas:53 src/templates/index.mas:54
 #: src/templates/edit.mas:54 src/templates/edit.mas:55
 #: src/templates/edit.mas:93 src/templates/edit.mas:94
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/templates/index.mas:70 src/templates/edit.mas:110
 msgid "delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "網域的主機列表 {domain}"
 
 #: src/templates/edit.mas:17
 msgid "IP"
-msgstr ""
+msgstr "IP"

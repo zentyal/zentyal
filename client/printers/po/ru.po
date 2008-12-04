@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2007-04-11 16:25+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-15 15:14+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/ParallelPrinter.pm:40
 #: src/EBox/CGI/Drvopts.pm:39 src/EBox/CGI/Manufacturer.pm:39
@@ -84,7 +85,7 @@ msgstr "Добавить новый принтер (II)"
 #: src/templates/models.mas:22 src/templates/printerback.mas:167
 #: src/templates/printerback.mas:168
 msgid "Next"
-msgstr ""
+msgstr "Следующее"
 
 #: src/EBox/CGI/DeleteUI.pm:30
 msgid "Delete printer"
@@ -190,52 +191,48 @@ msgstr "Очередь заданий"
 
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
-msgstr ""
+msgstr "Автономный режим включен"
 
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
-msgstr ""
+msgstr "Автономный режим отключен"
 
 #: src/EBox/Printers.pm:53
-#, fuzzy
 msgid "printers"
-msgstr "Принтеры"
+msgstr "принтеры"
 
 #: src/EBox/Printers.pm:73
-#, fuzzy
 msgid "Create spool directory for printers"
-msgstr "Выберите драйвер для принтера"
+msgstr "Создать каталог для очереди печати принтеров"
 
 #: src/EBox/Printers.pm:74
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "eBox создаст каталог очереди печати в /var/spool/samba"
 
 #: src/EBox/Printers.pm:79
 msgid "Add user ebox to lpadmin group"
-msgstr ""
+msgstr "Добавить пользователя ebox в группу ldadmin"
 
 #: src/EBox/Printers.pm:80
 msgid "In order to manage printers and queues from the eBox web interface"
-msgstr ""
+msgstr "Чтобы управлять принтерами и очередями печати через веб-интрефейс eBox"
 
 #: src/EBox/Printers.pm:85
-#, fuzzy
 msgid "Create log table"
-msgstr "Время создания"
+msgstr "Создание таблицы журнала"
 
 #: src/EBox/Printers.pm:86
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
-msgstr ""
+msgstr "eBox создал новую таблицу в базе данных хранящий журналы принтеров"
 
 #: src/EBox/Printers.pm:102
-#, fuzzy
 msgid "To add and manage printers"
-msgstr "Управление принтерами"
+msgstr "Добавление и управление принтерами"
 
 #: src/EBox/Printers.pm:107
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
+msgstr "Включение автономного режима сушащего внешний интерфейс"
 
 #: src/EBox/Printers.pm:245
 msgid "Printer sharing"
@@ -306,7 +303,7 @@ msgstr "Владелец"
 
 #: src/EBox/Printers.pm:1260
 msgid "Queued at"
-msgstr ""
+msgstr "В очереди на"
 
 #: src/EBox/Printers.pm:1261
 msgid "Event"
@@ -314,7 +311,7 @@ msgstr "Событие"
 
 #: src/EBox/Printers.pm:1264
 msgid "Queued"
-msgstr ""
+msgstr "В очереди"
 
 #: src/EBox/Printers.pm:1264
 msgid "Canceled"
@@ -322,7 +319,7 @@ msgstr "Отменено"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Порт принт-сервера cups"
 
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
@@ -427,11 +424,11 @@ msgstr "Выберите модель принтера"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
-msgstr ""
+msgstr "Включение автономного режима CUPS"
 
 #: src/templates/printers.mas:25
 msgid "General settings"
-msgstr ""
+msgstr "Общие настройка"
 
 #: src/templates/printers.mas:33
 msgid "List of printers"
@@ -454,9 +451,8 @@ msgid "Manage this printer"
 msgstr "Управление этим принтером"
 
 #: src/templates/printers.mas:75
-#, fuzzy
 msgid "There is no printer configured yet"
-msgstr "Настройка удаленного принтера"
+msgstr "Нет сконфигурированного принтера"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -468,7 +464,7 @@ msgstr "Настройка локального USB-принтера"
 
 #: src/templates/printerback.mas:47 src/templates/printerback.mas:48
 msgid "Go"
-msgstr ""
+msgstr "Вперед"
 
 #: src/templates/printerback.mas:106
 msgid "Samba shared printer configurationr"

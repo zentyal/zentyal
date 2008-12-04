@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:39+0000\n"
-"PO-Revision-Date: 2007-04-11 16:24+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 10:45+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
 #: src/EBox/Network.pm:2533
@@ -29,7 +30,7 @@ msgstr "сетевой интерфейс"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr ""
+msgstr "виртуальный интерфейс действия"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
 #: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
@@ -117,35 +118,34 @@ msgid "Gateway {gw} not reachable"
 msgstr "Шлюз {gw} недоступен"
 
 #: src/EBox/Model/ByteRateSettings.pm:80
-#, fuzzy
 msgid "Interface to listen"
-msgstr "Интерфейсы"
+msgstr "Слушающий интерфейс"
 
 #: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
-msgstr ""
+msgstr "Параметры настройки мониторинга трафика"
 
 #: src/EBox/Model/ByteRateSettings.pm:93
 msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
+msgstr "Изменения будут немедленно применены к монитору трафика"
 
 #: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
-msgstr ""
+msgstr "Настройки изменены"
 
 #: src/EBox/Model/ByteRateSettings.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Виртуальные интерфейсы"
+msgstr "{iface} (внутренний интерфейс)"
 
 #: src/EBox/Model/ByteRateSettings.pm:122
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Виртуальные интерфейсы"
+msgstr "{iface} (внешний интерфейс)"
 
 #: src/EBox/Model/ByteRateSettings.pm:129
 msgid "all"
-msgstr ""
+msgstr "все"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:389
@@ -169,10 +169,13 @@ msgid "Interface"
 msgstr "Интерфейс"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:103
+#, fuzzy
 msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"Входящий интерфейс соответствующие пакеты. Если вы  соответствующую подсеть, "
+"вы должны выбрать  интерфейс этой подсети"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:109
 #: src/EBox/Model/ByteRateGraphControl.pm:111
@@ -181,9 +184,8 @@ msgstr "Источник"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:114
 #: src/EBox/Model/MultiGwRulesDataTable.pm:146
-#, fuzzy
 msgid "Any"
-msgstr "любой"
+msgstr "Любой"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:117
 msgid "Source IP"
@@ -200,7 +202,7 @@ msgstr "Порт"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr ""
+msgstr "Оставьте пустым  для выбора какого-либо порта"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
 msgid "Destination"
@@ -216,7 +218,7 @@ msgstr "Объект назначения"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr ""
+msgstr "Оставьте пустым, если выбираете любые порты"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:174
 #: src/EBox/Model/StaticRoute.pm:148
@@ -225,7 +227,7 @@ msgstr "Шлюз"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
-msgstr ""
+msgstr "Шлюз для маршрута пакетов соответствующих этому правилу"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
 msgid "Multigateway rules"
@@ -263,7 +265,7 @@ msgstr "Порт не может быть установлен без выбор
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
-msgstr ""
+msgstr "Выберите график трафика"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:57
 msgid ""
@@ -272,59 +274,57 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"Несколько представлений показаны в зависимости от выбранного параметра. IP "
+"адрес узла и службы, которые соответствуют тексту легенды графика "
+"основанного на /etc/services. Представление будут соответственно изменены."
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "Тип графика"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr ""
+msgstr "Весь активный трафик источника"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
-msgstr ""
+msgstr "Весь активный трафик службы"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "Трафик выбранного источника"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
-msgstr ""
+msgstr "Трафик выбранной службы"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr ""
+msgstr "Трафик выбранного источника и службы"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:117
-#, fuzzy
 msgid "Service"
-msgstr "Источник"
+msgstr "Служба"
 
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
-msgstr ""
+msgstr "IP-адрес из DNS-сервера, который eBox использует для разрешения имен"
 
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Name server"
-msgstr "Источник"
+msgstr "Сервер имен"
 
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Name server resolver list"
-msgstr "Источник"
+msgstr "Список разрешенных серверов имен"
 
 #: src/EBox/Model/DNSResolver.pm:94
-#, fuzzy
 msgid "Name server resolver"
-msgstr "Источник"
+msgstr "Разрешенные сервера имен"
 
 #: src/EBox/Model/DNSResolver.pm:100
-#, fuzzy
 msgid "name server"
-msgstr "Настроить серверы имен"
+msgstr "сервер имен"
 
 #: src/EBox/Model/DNSResolver.pm:112
 msgid ""
@@ -332,6 +332,9 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+"<p>Здесь вы можете добавить серверы имен которые будут использованы "
+"eBox.</p><p>Замечание данные параметры могут быть перезаписаны, если "
+"како-либо интерфейс настраивается по DHCP</p>"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:61
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
@@ -342,26 +345,22 @@ msgid "Name"
 msgstr "Имя"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:70
-#, fuzzy
 msgid "Physical interface"
-msgstr "Виртуальные интерфейсы"
+msgstr "Физический интерфейс"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:85
-#, fuzzy
 msgid "Vlan interface list"
-msgstr "Виртуальные интерфейсы"
+msgstr "Список виртуальных интерфейсов"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:92
-#, fuzzy
 msgid "These are the vlan interfaces which are available in your system."
-msgstr "Сетевой интерфейс сконфигурирован"
+msgstr "Это - интерфейсы vlan, которые доступны в вашей системе."
 
 #: src/EBox/Model/VlanInterfaceTable.pm:94
 #: src/EBox/Model/PhysicalInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:117
-#, fuzzy
 msgid "interface"
-msgstr "Интерфейс"
+msgstr "интерфейс"
 
 #: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
 #: src/EBox/Network.pm:2602
@@ -369,13 +368,12 @@ msgid "Network"
 msgstr "Сеть"
 
 #: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
 msgid "IP or network address"
-msgstr "адрес сети"
+msgstr "IP-адрес или адрес сети"
 
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "Шлюз используемый для доступа к адресам вышеупомянутой сети"
 
 #: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:149
 msgid "Description"
@@ -383,40 +381,35 @@ msgstr "Описание"
 
 #: src/EBox/Model/StaticRoute.pm:158
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Дополнительное описание для этого маршрута"
 
 #: src/EBox/Model/StaticRoute.pm:164
 msgid "Static routes"
 msgstr "Статические маршруты"
 
 #: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
 msgid "Static route list"
-msgstr "Статические маршруты"
+msgstr "Список статических маршрутов"
 
 #: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
-"Все маршруты введенные здесь должны быть доступны через один из настроенных "
+"Все шлюзы введенные здесь должны быть доступны через один из настроенных "
 "сетевых интерфейсов."
 
 #: src/EBox/Model/StaticRoute.pm:173
-#, fuzzy
 msgid "static route"
-msgstr "Статические маршруты"
+msgstr "статические маршруты"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:74
-#, fuzzy
 msgid "Physical interface list"
-msgstr "Виртуальные интерфейсы"
+msgstr "Список физических интерфейсов"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:81
-#, fuzzy
 msgid "These are the physical interfaces which are available in your system."
-msgstr "Сетевой интерфейс сконфигурирован"
+msgstr "Это - физические интерфейсы, которые доступны в вашей системе."
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:83
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:218
@@ -431,54 +424,54 @@ msgid "External"
 msgstr "Внешний"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:108
-#, fuzzy
 msgid "Configurable interface list"
-msgstr "Настроить сетевые интерфейсы"
+msgstr "Список застраиваемых интерфейсов"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
-#, fuzzy
 msgid "These are the interfaces which can be configured"
-msgstr "Сетевой интерфейс сконфигурирован"
+msgstr "Это - интерфейсы, которые могут настраиваться"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:71
 msgid ""
 "Starting traffic rate monitoring. Wait patiently until the graph appears"
 msgstr ""
+"Запуск мониторинга трафика. Подождите (терпеливо) пока не появиться график"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:74
 msgid "Stopping traffic rate monitoring"
-msgstr ""
+msgstr "Остановка мониторинга трафика"
 
 #: src/EBox/Model/ByteRateEnableForm.pm:87
 msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
 msgstr ""
+"Запуск/Остановка монитора трафика по требованию, требует вначале сохранения "
+"изменений."
 
 #: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
 msgstr "IP-адрес"
 
 #: src/EBox/Model/GatewayTable.pm:99
-#, fuzzy
 msgid "Interface connected to this gateway"
-msgstr "Интерфейсы"
+msgstr "Интерфейс подключенный к этому шлюзу"
 
 #: src/EBox/Model/GatewayTable.pm:103
 msgid "Upload"
-msgstr "Upload"
+msgstr "Входящий"
 
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Входящий Kbits/s для этого шлюза."
 
 #: src/EBox/Model/GatewayTable.pm:112
 msgid "Download"
-msgstr "Download"
+msgstr "Исходящий"
 
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Исходящий Kbits/s для этого шлюза."
 
 #: src/EBox/Model/GatewayTable.pm:120
 msgid "Weight"
@@ -489,10 +482,12 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Это поле необходимо только если вы используете несколько маршрутов и у вас "
+"включена балансировка трафика между ними."
 
 #: src/EBox/Model/GatewayTable.pm:130
 msgid "Default"
-msgstr "Стандартный"
+msgstr "По умолчанию"
 
 #: src/EBox/Model/GatewayTable.pm:140
 msgid "Gateway list"
@@ -511,6 +506,11 @@ msgid ""
 "towards the gateway. The correct value of these fields is critical to ensure "
 "a correct functionality of the traffic shaping module"
 msgstr ""
+"Вы можете добавить любое количество шлюзов. Это полезно если вы хотите "
+"распределить ваш интернет трафик по нескольким каналам.{br} Поля входящий и "
+"исходящий должны быть установлены в зависимости от количества соединений "
+"необходимых вам для шлюза. Корректное значение полей имеет важное значение "
+"для правильной работы модуля управления трафиком."
 
 #: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
@@ -518,27 +518,31 @@ msgstr "шлюз"
 
 #: src/EBox/Network.pm:84
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "Добавить маршруты по умолчанию в таблицу по умолчанию"
 
 #: src/EBox/Network.pm:85
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Это необходимо для работы в мульти шлюзовой конфигурации. Замечание, в "
+"список маршрутов по умолчанию вы должны включить:  "
 
 #: src/EBox/Network.pm:91
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "Включить eBox перехватчик DHCP "
 
 #: src/EBox/Network.pm:92
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Это будет заботиться о добавлении маршрута по умолчанию получаемому по DHCP "
+"в таблицу маршрутов по умолчанию "
 
 #: src/EBox/Network.pm:108
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "eBox установит конфигурацию сети"
 
 #: src/EBox/Network.pm:696 src/EBox/Network.pm:700
 msgid "Virtual interface name"
@@ -552,23 +556,31 @@ msgstr "Маска подсети"
 #: src/EBox/Network.pm:1132
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
+"Данный интерфейс не может быть переведен в trunk режим, так как это "
+"интерфейс vlan."
 
 #: src/EBox/Network.pm:1177
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
+"Данный интерфейс в режиме trunk, вам необходимо расконфигурироать все "
+"интерфейсы vlan в trunk перед изменением режима."
 
 #: src/EBox/Network.pm:1210
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
+"Сетевые интерфейсы должны быть в режиме trunk перед добавлением к ним vlans."
 
 #: src/EBox/Network.pm:2202
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
+"Запрошенная операция приведет к тому, что настроены маршруты станут не "
+"доступны. Пожалуйста удалите сначала их, если вы действительно хотите внести "
+"такие изменения. "
 
 #: src/EBox/Network.pm:2270
 #, perl-brace-format
@@ -576,6 +588,8 @@ msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr ""
+"Шлюз {gw} должен быть доступен со статического интерфейса. Сейчас он "
+"доступен через {iface}, который не статический"
 
 #: src/EBox/Network.pm:2501
 msgid "Host name"
@@ -583,11 +597,11 @@ msgstr "Имя узла"
 
 #: src/EBox/Network.pm:2552
 msgid "down"
-msgstr ""
+msgstr "опустить"
 
 #: src/EBox/Network.pm:2558
 msgid "up"
-msgstr ""
+msgstr "поднять"
 
 #: src/EBox/Network.pm:2562
 msgid "link ok"
@@ -635,106 +649,104 @@ msgstr "Настроить основной шлюз"
 
 #: src/EBox/Network/Report/ByteRate.pm:134
 #: src/EBox/Network/Composite/ByteRate.pm:74
-#, fuzzy
 msgid "Traffic rate monitoring"
-msgstr "Балансировка траффика"
+msgstr "Мониторинг трафика"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
-msgstr ""
+msgstr "Запуск"
 
 #: src/EBox/Network/Report/ByteRate.pm:756
 msgid "bytes/second"
-msgstr ""
+msgstr "байт/сек."
 
 #: src/EBox/Network/Report/ByteRate.pm:823
 #: src/EBox/Network/Report/ByteRate.pm:929
 msgid "Traffic data for source"
-msgstr ""
+msgstr "Данные трафика из источника"
 
 #: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
 msgid "Network traffic from {src}"
-msgstr ""
+msgstr "Сетевой трафик из {src}"
 
 #: src/EBox/Network/Report/ByteRate.pm:877
 msgid "Traffic data not found for service"
-msgstr ""
+msgstr "Для службы данные трафика не найдены"
 
 #: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
 msgid "Network traffic for {service}"
-msgstr ""
+msgstr "Сетевой трафик для {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:937
 msgid "Traffic data for service"
-msgstr ""
+msgstr "Данные трафика для службы"
 
 #: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
-msgstr ""
+msgstr "Для пары источник, служба данные трафика не найдены"
 
 #: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
 msgid "source {src} and service {service}"
-msgstr ""
+msgstr "источник {src} служба {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:962
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
-msgstr ""
+msgstr "Сетвой трафик из источника {src} для службы {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
-msgstr ""
+msgstr "Все активные службы"
 
 #: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
-msgstr ""
+msgstr "Данные трафика для "
 
 #: src/EBox/Network/Report/ByteRate.pm:995
-#, fuzzy
 msgid "all services"
-msgstr "Источник"
+msgstr "все службы"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr ""
+msgstr "Все активные источники"
 
 #: src/EBox/Network/Report/ByteRate.pm:1045
-#, fuzzy
 msgid "Traffic data for"
-msgstr "Балансировка траффика"
+msgstr "Данные трафика для "
 
 #: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr ""
+msgstr "все источники"
 
 #: src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr ""
+msgstr "Общий трафик из {src}"
 
 #: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr ""
+msgstr "Общий трафик для {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:1123
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
-msgstr ""
+msgstr "Трафик из {src} для {service}"
 
 #: src/templates/gwrules.mas:19
-#, fuzzy
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
-msgstr "Для включения этой функции Вам необходимо, как минимум, два шлюза."
+msgstr ""
+"Для включения этой функции Вам необходимо, как минимум, два шлюза. Вы можете "
+"добавить их <a href=\"/ebox/Network/View/GatewayTable\">здесь</a> сначала"
 
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
-msgstr "Балансировка траффика"
+msgstr "Балансировка трафика"
 
 #: src/templates/confirm.mas:14 src/templates/confirmremove.mas:11
 msgid ""
@@ -745,14 +757,14 @@ msgstr ""
 "нескольких модулей, которые используют этот сетевой интерфейс."
 
 #: src/templates/confirm.mas:17 src/templates/confirmremove.mas:14
-#, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
 "Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
-"сетевого интерфейса удалят важные части своей конфигурации."
+"сетевого интерфейса удалят важные части своей конфигурации. Выберите "
+"\"Отмена\" если вы не хотите этого."
 
 #: src/templates/confirm.mas:31 src/templates/confirmremove.mas:24
 msgid "Ok"
@@ -768,7 +780,7 @@ msgstr "Ping"
 
 #: src/templates/diag.mas:22
 msgid "Name resolution"
-msgstr ""
+msgstr "Разрешение имен"
 
 #: src/templates/diag.mas:23
 msgid "Domain name"
@@ -780,7 +792,7 @@ msgstr "Поиск"
 
 #: src/templates/diag.mas:29
 msgid "Output"
-msgstr ""
+msgstr "Выход"
 
 #: src/templates/ifaces.mas:11
 msgid ""
@@ -806,7 +818,7 @@ msgstr "Статический"
 
 #: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Магистраль (802.1q)"
 
 #: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"

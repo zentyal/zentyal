@@ -7,19 +7,19 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:46+0000\n"
-"PO-Revision-Date: 2006-10-19 00:21-0200\n"
-"Last-Translator: junior\n"
+"PO-Revision-Date: 2008-11-13 03:17+0000\n"
+"Last-Translator: Fabio Alan Pracz Fiuza <pracz@pracz.com.br>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid/Types/Policy.pm:34
 #, fuzzy
 msgid "Always allow"
-msgstr "Aceitar"
+msgstr "Sempre Aceitar"
 
 #: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm:781
 msgid "Filter"
@@ -27,17 +27,17 @@ msgstr "Filtrar"
 
 #: src/EBox/Squid/Types/Policy.pm:36
 msgid "Always deny"
-msgstr ""
+msgstr "Sempre Rejeitar"
 
 #: src/EBox/Squid/Types/Policy.pm:56
 msgid "Squid's policy"
-msgstr ""
+msgstr "Políticas do Squid"
 
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
 #, fuzzy
 msgid "HTTP proxy traffic report"
-msgstr "Política Proxy HTTP"
+msgstr "Relátorio de Tráfego HTTp"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 msgid "MIME types filtering"
@@ -46,7 +46,7 @@ msgstr ""
 #: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm:812
 #, fuzzy
 msgid "Filter settings"
-msgstr "Configurações Globais"
+msgstr "Configurar Filtros"
 
 #: src/EBox/Squid/Composite/General.pm:75 src/EBox/Squid.pm:750
 msgid "HTTP Proxy"
@@ -54,11 +54,11 @@ msgstr "Proxy HTTP"
 
 #: src/EBox/Squid/Composite/Domains.pm:91
 msgid "Domains filtering"
-msgstr ""
+msgstr "Filtrar Dominios"
 
 #: src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
-msgstr ""
+msgstr "Filtrar extensões de aquivos"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
 msgid "MIME types"
@@ -70,12 +70,12 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
 msgid "elements"
-msgstr ""
+msgstr "Elementos"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
 #, fuzzy, perl-brace-format
 msgid "Allow all {elements}"
-msgstr "Aceitar"
+msgstr "Aceitar todos {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
 msgid "Use this field to change the value of  all the above rows at once"
@@ -83,7 +83,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
 msgid "extensions"
-msgstr ""
+msgstr "extensões"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
 msgid "Set policy for all extensions"

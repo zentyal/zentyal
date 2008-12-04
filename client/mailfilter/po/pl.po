@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:34+0000\n"
-"PO-Revision-Date: 2005-08-09 10:37+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-27 23:13+0000\n"
+"Last-Translator: Wojciech Łysiak <wojciech.lysiak@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/MailFilter.pm:95
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Dodaj użytkownika clamav do grupy amavis"
 
 #: src/EBox/MailFilter.pm:96
 msgid "Clamav need access to amavis fields to properly scan mail"
@@ -28,11 +28,11 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:100
 msgid "Update LDAP"
-msgstr ""
+msgstr "Aktualizacja LDAP"
 
 #: src/EBox/MailFilter.pm:101
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Dodaj klasy i pola specyficzne dla Amavisa."
 
 #: src/EBox/MailFilter.pm:117
 msgid "To configure amavis"
@@ -44,60 +44,61 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:452
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Filtr jest w użyciu. Nie można kontynuować"
 
 #: src/EBox/MailFilter.pm:699
 msgid "Mail filter system"
-msgstr ""
+msgstr "System filtrowania poczty"
 
 #: src/EBox/MailFilter.pm:714
 msgid "Mail filter settings"
-msgstr ""
+msgstr "Ustawienia filtra pocztowego"
 
 #: src/EBox/MailFilter.pm:773
 msgid "eBox internal mail filter"
-msgstr ""
+msgstr "Wewnętrzny filtr pocztowy systemu eBox"
 
 #: src/EBox/MailFilter.pm:793 src/EBox/MailFilter/Composite/Antivirus.pm:63
 msgid "Antivirus"
-msgstr ""
+msgstr "Antywirus"
 
 #: src/EBox/MailFilter.pm:803 src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
-msgstr ""
+msgstr "Antyspam"
 
 #: src/EBox/MailFilter.pm:829 src/EBox/MailFilter/Model/FreshclamStatus.pm:63
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/MailFilter.pm:831
 msgid "Action"
-msgstr ""
+msgstr "Akcja"
 
 #: src/EBox/MailFilter.pm:832
 msgid "Event"
-msgstr ""
+msgstr "Zdarzenie"
 
 #: src/EBox/MailFilter.pm:834
 msgid "Sender address"
-msgstr ""
+msgstr "Adres nadawcy"
 
 #: src/EBox/MailFilter.pm:835
 msgid "Recipient address"
-msgstr ""
+msgstr "Adres odbiorcy"
 
+# it is hard to properly translate it to Polish 
 #: src/EBox/MailFilter.pm:837
 msgid "Spam hits"
-msgstr ""
+msgstr "Ilość spamu"
 
 #: src/EBox/MailFilter.pm:842
 msgid "Bad header found"
-msgstr ""
+msgstr "Znaleziono zły nagłówek"
 
 #: src/EBox/MailFilter.pm:843
 msgid "Spam found"
-msgstr ""
+msgstr "Znaleziono niechcianą pocztę"
 
 #: src/EBox/MailFilter.pm:844
 msgid "Forbidden attached file  found"
@@ -105,15 +106,15 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:845
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Adres e-mail znajduje sie na czarnej liście"
 
 #: src/EBox/MailFilter.pm:846
 msgid "Virus found"
-msgstr ""
+msgstr "Znaleziono wirusa"
 
 #: src/EBox/MailFilter.pm:847
 msgid "Clean message"
-msgstr ""
+msgstr "Wiadomość jest czysta"
 
 #: src/EBox/MailFilter.pm:857
 #, fuzzy
@@ -123,60 +124,64 @@ msgstr "Filtr Poczty"
 #: src/EBox/MailFilter/Types/MIMEType.pm:61
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
 msgid "MIME type"
-msgstr ""
+msgstr "Typ MIME"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:79
 msgid "domain name"
-msgstr ""
+msgstr "nazwa domenowa"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:83
 msgid "email address"
-msgstr ""
+msgstr "adres e-mail"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:87
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
 msgstr ""
+"W polu Nadawca powinien znajdować się adres e-mail lub nazwa domenowa "
+"poprzedzona znakiem '@'"
 
 #: src/EBox/MailFilter/Types/Policy.pm:30
 msgid "Pass"
-msgstr ""
+msgstr "Zatwierdź"
 
 #: src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Reject"
-msgstr ""
+msgstr "Odrzuć"
 
 #: src/EBox/MailFilter/Types/Policy.pm:32
 msgid "Bounce"
-msgstr ""
+msgstr "Odbij"
 
 #: src/EBox/MailFilter/Types/Policy.pm:33
 msgid "Discard"
-msgstr ""
+msgstr "Porzuć"
 
 #: src/EBox/MailFilter/Types/Policy.pm:53
 #, fuzzy
 msgid "Mailfilter's policy"
-msgstr "Filtr Poczty"
+msgstr "Polityka filtra poczty"
 
 #: src/EBox/MailFilter/Types/FileExtension.pm:59
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "file extension"
-msgstr ""
+msgstr "rozszerzenie pliku"
 
+# In Polish "to write down" means "write down" or "provide", at least for me. 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
 msgid "Write down a decimal number"
-msgstr ""
+msgstr "Wpisz/Zapisz liczbę dziesiętną"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
 msgid "Only non-zero positive numbers are allowed"
-msgstr ""
+msgstr "Dozwolone są tylko liczby większe od zera"
 
+# issue similar to "write down a decimal number". at least for me.
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
 #, perl-brace-format
 msgid "Write down a number lesser than {m}"
-msgstr ""
+msgstr "Wpisz/Zapisz liczbę mniejszą niż {m}"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
 #, perl-brace-format
@@ -185,34 +190,34 @@ msgstr ""
 
 #: src/EBox/MailFilter/ClamAV.pm:51
 msgid "To configure freshclam updater daemon"
-msgstr ""
+msgstr "Aby skonfigurować program aktualizacyjny Freshclam"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "Domena wirtualna {vd} nie istnieje"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 #, fuzzy
 msgid "Mail filter report"
-msgstr "Filtr Poczty"
+msgstr "Raport flitra pocztowego"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
 #, fuzzy
 msgid "Mail Filter report"
-msgstr "Filtr Poczty"
+msgstr "Raport filtra pocztowego"
 
 #: src/EBox/MailFilter/Composite/Index.pm:70
 msgid "Internal mailfilter"
-msgstr ""
+msgstr "Wewnętrzny filtr pocztowy"
 
 #: src/EBox/MailFilter/Composite/GeneralAndBadHeader.pm:64
 msgid "Options"
-msgstr ""
+msgstr "Opcje"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:64
 msgid "Attached files filter"
-msgstr ""
+msgstr "Filtr załączonych plików"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:66
 msgid "Filter mail messages according attached files"
@@ -220,25 +225,27 @@ msgstr ""
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
 msgid "External connections"
-msgstr ""
+msgstr "Połączenia zewnętrzne"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Stan"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
 msgid "Database update status"
-msgstr ""
+msgstr "Stan aktualizacji bazy danych"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed"
 msgstr ""
+"Sygnatury wirusów nie były aktualizowane od czasu zainstalowania modułu do "
+"filtrowania poczty"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
-msgstr ""
+msgstr "Ostatnia próba aktualizacji nie powiodła się"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:133
 #, perl-brace-format
@@ -247,51 +254,56 @@ msgid ""
 "Your version of freshclam  is outdated.Please, install version {version} or "
 "higher"
 msgstr ""
+"Aktualizacja nie powiodła się.\n"
+"Twoja wersja programu aktualizacyjnego Freshclam jest przestarzała. "
+"Zainstaluj wersję {version} lub wyższą."
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:140
 msgid "Last update successful"
-msgstr ""
+msgstr "Aktualizacja zakończona sukcesem"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}"
-msgstr ""
+msgstr "Nieznane zdarzenie {event}"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:68
 msgid "External mail server"
-msgstr ""
+msgstr "Zewnętrzny serwer pocztowy"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
 msgid "Allow connection"
-msgstr ""
+msgstr "Zezwól na połączenie"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Zewnętrzne serwery pocztowe"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
-msgstr ""
+msgstr "zewnętrzny serwer pocztowy"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Tutaj możesz określić, które z zewnętrznych serwerów pocztowych mogą "
+"podłączać się do filtra poczty"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:143
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr ""
+msgstr "Nieprawidłowy zewnętrzny MTA {mta}. Adresy lokalne nie są dozwolone"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:64
 msgid "Antispam enabled"
-msgstr ""
+msgstr "Uruchomiono system antyspamowy"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:70
 msgid "Spam policy"
-msgstr ""
+msgstr "Polityka niechcianej poczty"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
 #: src/EBox/MailFilter/Model/VDomains.pm:91
