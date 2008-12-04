@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:50+0000\n"
-"PO-Revision-Date: 2007-04-11 16:22+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 11:56+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -30,7 +31,7 @@ msgstr "{data} пустое."
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr "Некорректное значение для {data}: {value}."
+msgstr "Неправильное значение {data}: {value}."
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
@@ -40,7 +41,7 @@ msgstr "{data} {value} уже существует."
 #: src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr "Текущая команда '{cmd}' пользователя {user} не удалась"
+msgstr "Запуск команды '{cmd}' от {user} не удался"
 
 #: src/EBox/Validate.pm:689
 #, perl-brace-format
@@ -55,6 +56,7 @@ msgstr ""
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"Каталог {dir} не приватный; пока владельцем являеться другой пользователь."
 
 #: src/EBox/Validate.pm:769
 msgid ""
@@ -64,7 +66,7 @@ msgstr ""
 
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Путь может быть абсолютным"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -76,7 +78,7 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 "Ввод содержит некорректные символы. Все буквенно-цифровые символы, так же "
-"символы: /.?&+:-@ и пробелы - допустимы."
+"символы: /.?&+:-@ и пробелы - разрешены."
 
 #: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
@@ -143,7 +145,7 @@ msgstr "Пользователь eBox не указан в конфигурац�
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "Каталог не найден: {d}"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -151,62 +153,62 @@ msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
-msgstr ""
+msgstr "Выберите одно ..."
 
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 msgid "Inverse match"
-msgstr ""
+msgstr "Обратное соответствие"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
-msgstr ""
+msgstr "порт"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
-msgstr ""
+msgstr "от"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
+msgstr "до"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr ""
+msgstr "первый"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr ""
+msgstr "пред."
 
 #: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
 #: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
-msgstr ""
+msgstr "след."
 
 #: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
 #: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr ""
+msgstr "последний"
 
 #: src/templates/ajax/modelViewer.mas:228
 msgid "Optional"
-msgstr ""
+msgstr "Дополнительно"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "Загрузить"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
-msgstr ""
+msgstr "Домашняя страница eBox "
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr ""
+msgstr "Если вы ввели URL вручную, пожалуйста проверьте еще раз."
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
@@ -223,7 +225,7 @@ msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "we're sorry"
-msgstr ""
+msgstr "мы извиняемся "
 
 #: src/templates/ebox/pageNotFound.mas:14
 #, fuzzy
@@ -236,28 +238,28 @@ msgstr ""
 
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "Отключено"
 
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
 #: src/templates/language.mas:23
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/title.mas:12
 msgid "show help"
-msgstr ""
+msgstr "показать помощь"
 
 #: src/templates/title.mas:13
 msgid "hide help"
-msgstr ""
+msgstr "скрыть помощь"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr ""
+msgstr "Выбор языка"
 
 #: src/templates/language.mas:11
 msgid ""
