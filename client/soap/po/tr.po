@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,25 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/UploadBundle.pm:36
-msgid "Bundle Upload"
-msgstr "Paket gönderimi"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
 
-#: src/EBox/CGI/UploadBundle.pm:77
-msgid "The bundle file has been uploaded successfully"
-msgstr "Paket dosya başarıyla gönderildi"
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr "Yönetim merkezi ile iletişim"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "Yönetim merkezi"
 
 #: src/EBox/CGI/Enable.pm:38
 msgid "Enable SOAP service"
 msgstr "SOAP servisini etkinleştir"
 
-#: src/EBox/CGI/ConnectivityTest.pm:39
-msgid "Connectivity test"
-msgstr "Bağlantı testi"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Yönetim merkezi ile iletişim"
 
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
@@ -48,13 +44,32 @@ msgstr ""
 "Bir önceki paket silindi. Bir eBox merkezi ile iletişim kurmak için yeni bir "
 "tane gönderin"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "Bağlantı testi"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr "Yönetim merkezi"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "Paket gönderimi"
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "Paket dosya başarıyla gönderildi"
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} bir genel yöntem değildir"
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} tanımlı bir yöntem değildir"
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "{module} mevcut değil"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"
@@ -135,21 +150,6 @@ msgid ""
 msgstr ""
 "OpenVPN istemcisi çalışmıyor. OpenVPN istemcisini kurmak için değişiklikleri "
 "kaydetmeniz gerekiyor"
-
-#: src/EBox/SOAP/Global.pm:147
-#, perl-brace-format
-msgid "{method} is not a public method"
-msgstr "{method} bir genel yöntem değildir"
-
-#: src/EBox/SOAP/Global.pm:175
-#, perl-brace-format
-msgid "{method} is not a defined method"
-msgstr "{method} tanımlı bir yöntem değildir"
-
-#: src/EBox/SOAP/Global.pm:183
-#, perl-brace-format
-msgid "{module} does not exist"
-msgstr "{module} mevcut değil"
 
 #: src/templates/index.mas:27
 msgid "General configuration for"

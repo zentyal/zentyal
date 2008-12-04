@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2008-07-04 08:19+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,24 +15,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/UploadBundle.pm:36
-msgid "Bundle Upload"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
 msgstr ""
 
-#: src/EBox/CGI/UploadBundle.pm:77
-msgid "The bundle file has been uploaded successfully"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:38
 msgid "Enable SOAP service"
 msgstr ""
 
-#: src/EBox/CGI/ConnectivityTest.pm:39
-msgid "Connectivity test"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
 msgstr ""
 
 #: src/EBox/CGI/DeleteBundle.pm:34
@@ -45,12 +41,31 @@ msgid ""
 "communication with an eBox control center"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr ""
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
 msgstr ""
 
 #: src/EBox/SOAP.pm:168
@@ -124,21 +139,6 @@ msgstr ""
 msgid ""
 "The OpenVPN client is not running. You may need to save changes in order to "
 "set up the OpenVPN client"
-msgstr ""
-
-#: src/EBox/SOAP/Global.pm:147
-#, perl-brace-format
-msgid "{method} is not a public method"
-msgstr ""
-
-#: src/EBox/SOAP/Global.pm:175
-#, perl-brace-format
-msgid "{method} is not a defined method"
-msgstr ""
-
-#: src/EBox/SOAP/Global.pm:183
-#, perl-brace-format
-msgid "{module} does not exist"
 msgstr ""
 
 #: src/templates/index.mas:27
