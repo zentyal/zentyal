@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:31+0200\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-12-04 10:34+0100\n"
 "PO-Revision-Date: 2008-12-04 01:08+0000\n"
 "Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
@@ -207,7 +208,8 @@ msgstr "在磁碟陣列 {arrayName} 的啟動元件 {compName} 已被標記為�
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
-msgstr "在磁碟陣列 {arrayName} 的備用元件 {compName} 正在重建並置換已故障的裝置"
+msgstr ""
+"在磁碟陣列 {arrayName} 的備用元件 {compName} 正在重建並置換已故障的裝置"
 
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
@@ -215,21 +217,25 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
-msgstr "在磁碟陣列 {arrayName} 的備用元件 {compName} 重建並置換故障裝置已經完成且使之啟動"
+msgstr ""
+"在磁碟陣列 {arrayName} 的備用元件 {compName} 重建並置換故障裝置已經完成且使之"
+"啟動"
 
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
 msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
-msgstr "新的元件 {compName} 已經新增到磁碟陣列裝置 {arrayName} 且狀態為 {status}"
+msgstr ""
+"新的元件 {compName} 已經新增到磁碟陣列裝置 {arrayName} 且狀態為 {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
 msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
-msgstr "當狀態為 {status} 時此元件 {compName} 已經從磁碟陣列 {arrayName} 中移除了"
+msgstr ""
+"當狀態為 {status} 時此元件 {compName} 已經從磁碟陣列 {arrayName} 中移除了"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:101
@@ -362,7 +368,7 @@ msgstr "這個值不應該小於 {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/templates/logs/index.mas:173
+#: src/templates/logs/index.mas:185
 msgid "Any"
 msgstr "任何"
 
@@ -428,7 +434,7 @@ msgstr ""
 
 #: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
-#: src/EBox/Logs.pm:662
+#: src/EBox/Logs.pm:623
 msgid "Action"
 msgstr ""
 
@@ -438,11 +444,11 @@ msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
 #: src/EBox/Model/DataTable.pm:2674
-msgid "Pagr size"
+msgid "Page size"
 msgstr ""
 
 #: src/EBox/Model/DataTable.pm:2677
-msgid "Must be either a positve number or zero"
+msgid "Must be either a positive number or zero"
 msgstr ""
 
 #: src/EBox/Model/DataTable.pm:2858
@@ -522,15 +528,6 @@ msgstr ""
 msgid "Choose one of the following:"
 msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
-#: src/templates/moduleStatusTable.mas:60
-msgid "Status"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
 msgstr ""
@@ -579,7 +576,7 @@ msgstr ""
 msgid "Restoring modules"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:661
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:622
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr ""
@@ -675,7 +672,16 @@ msgstr ""
 msgid "Bug-report configuration dump"
 msgstr ""
 
-#: src/EBox/CGI/Logs/Index.pm:34 src/EBox/Logs.pm:641
+#: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
+#: src/templates/moduleStatusTable.mas:60
+msgid "Status"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr ""
+
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:601
 msgid "Logs"
 msgstr ""
 
@@ -783,8 +789,34 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/GConfModule/Partition.pm:30
-msgid "A instance of a subclass of EBox::GConfModule is expected"
+#: src/EBox/Logs/Model/Report/Details.pm:197
+#: src/EBox/Logs/Model/Report/Details.pm:230
+msgid "All"
+msgstr ""
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:40
+msgid "hour"
+msgstr ""
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:41
+#, fuzzy
+msgid "day"
+msgstr "任何"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:42
+msgid "week"
+msgstr ""
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:43
+msgid "month"
+msgstr ""
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:79
+msgid "Report time period"
+msgstr ""
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:101
+msgid "Report options"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
@@ -792,52 +824,53 @@ msgid "never purge"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
-#: src/EBox/Logs/Model/ForcePurge.pm:124
+#: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
-#: src/EBox/Logs/Model/ForcePurge.pm:128
+#: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
-#: src/EBox/Logs/Model/ForcePurge.pm:132
+#: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
-#: src/EBox/Logs/Model/ForcePurge.pm:136
+#: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
-#: src/EBox/Logs/Model/ForcePurge.pm:140
+#: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
-#: src/EBox/Logs/Model/ForcePurge.pm:144
+#: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
-#: src/EBox/Logs/Model/ForcePurge.pm:148
+#: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
-#: src/EBox/Logs/Model/ForcePurge.pm:152
+#: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
+#: src/EBox/Logs/Model/SelectLog.pm:121
 #: src/EBox/Events/Model/Watcher/Log.pm:216
 msgid "Domain"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
-#: src/EBox/Logs/Model/ForcePurge.pm:98
+#: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
 msgstr ""
 
@@ -853,17 +886,35 @@ msgstr ""
 msgid "Enable/disable logging per-module basis"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355 src/EBox/Logs.pm:62
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355
+#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:59
 msgid "logs"
 msgstr ""
 
-#: src/EBox/Logs/Model/ForcePurge.pm:107
+#: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
 msgstr ""
 
-#: src/EBox/Logs/Model/ForcePurge.pm:110
+#: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
 msgstr ""
+
+#: src/EBox/Logs/Model/SelectLog.pm:129
+msgid "Full report"
+msgstr ""
+
+#: src/EBox/Logs/Model/SelectLog.pm:135
+msgid "Summarized report"
+msgstr ""
+
+#: src/EBox/Logs/Model/SelectLog.pm:146
+msgid "Select report"
+msgstr ""
+
+#: src/EBox/Logs/Report.pm:68
+#, fuzzy
+msgid "Day"
+msgstr "任何"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
@@ -897,7 +948,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid ""
-"Tick this option if  you want eBox to create an account for  the above user"
+"Tick this option if you want eBox to create an account for the above user"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
@@ -907,9 +958,9 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
 msgid ""
-"Destination Jabber ID of the messages  generated by eBox,  i.e: you, the "
-"eBox admin. Note that you need to register this  account manually in  any "
-"jabber server"
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
@@ -917,7 +968,7 @@ msgid "Configure Jabber dispatcher"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send  events to an Jabber account"
+msgid "This dispatcher will send events to an Jabber account"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
@@ -953,7 +1004,7 @@ msgid "Allowed readers"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-msgid "Use this field to set the  access control for the channel"
+msgid "Use this field to set the access control for the channel"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
@@ -980,7 +1031,7 @@ msgid "Log domain {logDomain}"
 msgstr ""
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:171
+#: src/templates/logs/index.mas:183
 msgid "Event"
 msgstr ""
 
@@ -1112,7 +1163,7 @@ msgstr ""
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
 msgid ""
-"Invalid file system: {f}. Only regular and no rmeovable media file systems "
+"Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
 
@@ -1133,63 +1184,9 @@ msgstr ""
 msgid "Saving {modName} module"
 msgstr ""
 
-#: src/EBox/Global.pm:810
+#: src/EBox/Global.pm:816
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
-
-#: src/EBox/Logs.pm:78
-msgid "Create logs database"
-msgstr ""
-
-#: src/EBox/Logs.pm:79
-msgid "eBox store its logs in the database"
-msgstr ""
-
-#: src/EBox/Logs.pm:463
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr ""
-
-#: src/EBox/Logs.pm:644
-msgid "Query logs"
-msgstr ""
-
-#: src/EBox/Logs.pm:647
-msgid "Configure logs"
-msgstr ""
-
-#: src/EBox/Logs.pm:659 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:128 src/templates/finish.mas:105
-msgid "Date"
-msgstr ""
-
-#: src/EBox/Logs.pm:660
-msgid "Client Address"
-msgstr ""
-
-#: src/EBox/Logs.pm:663
-msgid "Params"
-msgstr ""
-
-#: src/EBox/Logs.pm:664
-msgid "Committed"
-msgstr ""
-
-#: src/EBox/Logs.pm:669
-msgid "Admin"
-msgstr ""
-
-#: src/EBox/Logs.pm:763
-msgid "Log messages"
-msgstr ""
-
-#: src/EBox/Logs.pm:790
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
 msgstr ""
 
 #: src/EBox/Events.pm:91
@@ -1198,6 +1195,65 @@ msgstr ""
 
 #: src/EBox/Events.pm:646
 msgid "Event service status"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr ""
+
+#: src/EBox/Logs.pm:75
+msgid "Create logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:76
+msgid "eBox store its logs in the database"
+msgstr ""
+
+#: src/EBox/Logs.pm:407
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr ""
+
+#: src/EBox/Logs.pm:604
+msgid "Query logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:607
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:620 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:128 src/templates/finish.mas:105
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Logs.pm:621
+msgid "Client Address"
+msgstr ""
+
+#: src/EBox/Logs.pm:624
+msgid "Params"
+msgstr ""
+
+#: src/EBox/Logs.pm:625
+msgid "Committed"
+msgstr ""
+
+#: src/EBox/Logs.pm:630
+msgid "Admin"
+msgstr ""
+
+#: src/EBox/Logs.pm:724
+msgid "Log messages"
+msgstr ""
+
+#: src/EBox/Logs.pm:751
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr ""
+
+#: src/EBox/EventDaemon.pm:443
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
 
 #: src/EBox/Backup.pm:96
@@ -1235,7 +1291,7 @@ msgid "Backup"
 msgstr ""
 
 #: src/EBox/Backup.pm:683
-msgid "Writing backup file to hard disc"
+msgid "Writing backup file to hard disK"
 msgstr ""
 
 #: src/EBox/Backup.pm:708
@@ -1297,11 +1353,6 @@ msgstr ""
 
 #: src/EBox/Backup.pm:1270
 msgid "Backup's archives"
-msgstr ""
-
-#: src/EBox/EventDaemon.pm:443
-#, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
 
 #: src/EBox/SysInfo.pm:41
@@ -1370,7 +1421,7 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
-msgid "Cannot execute  {exe}"
+msgid "Cannot execute {exe}"
 msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:101
@@ -1390,120 +1441,124 @@ msgstr ""
 msgid "Executable has not been run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:238
+#: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:370
+#: src/EBox/ProgressIndicator.pm:396
 msgid "The executable has already been started"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:374
+#: src/EBox/ProgressIndicator.pm:400
 msgid "The executable has already finished"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:43 src/EBox/PgDBEngine.pm:56
-#: src/EBox/PgDBEngine.pm:69
+#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:217
+#: src/EBox/PgDBEngine.pm:272
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:235
+#: src/EBox/PgDBEngine.pm:290
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
 
-#: src/templates/logs/index.mas:19
+#: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
 
-#: src/templates/logs/index.mas:20
-msgid "Select available logs"
+#: src/templates/logs/index.mas:23
+msgid "Select available full reports"
 msgstr ""
 
-#: src/templates/logs/index.mas:32 src/templates/logs/index.mas:33
-#: src/templates/logs/index.mas:34
+#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:37
 msgid "View"
 msgstr ""
 
-#: src/templates/logs/index.mas:41
+#: src/templates/logs/index.mas:44
 msgid "Custom query"
 msgstr ""
 
-#: src/templates/logs/index.mas:47
+#: src/templates/logs/index.mas:50
 msgid "From date:"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
 msgstr ""
 
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
 msgstr ""
 
-#: src/templates/logs/index.mas:104
+#: src/templates/logs/index.mas:108
+msgid "Refresh logs"
+msgstr ""
+
+#: src/templates/logs/index.mas:116
 msgid "To date:"
 msgstr ""
 
-#: src/templates/logs/index.mas:189 src/templates/logs/index.mas:190
+#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
 msgstr ""
 
-#: src/templates/logs/index.mas:194 src/templates/logs/index.mas:195
+#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
 msgstr ""
 
-#: src/templates/logs/index.mas:221
+#: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
 msgstr ""
 
-#: src/templates/logs/index.mas:225
+#: src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
 msgstr ""
 
@@ -1536,7 +1591,8 @@ msgid "Enter"
 msgstr ""
 
 #: src/templates/login/index.mas:42
-msgid "Created by <a href='http://www.warp.es'>Warp Networks</a>"
+#, perl-brace-format
+msgid "Created by {href}"
 msgstr ""
 
 #: src/templates/logout/index.mas:11
@@ -1575,30 +1631,6 @@ msgstr ""
 #: src/templates/report/raid.mas:17
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
-msgstr ""
-
-#: src/templates/report/raid.mas:76
-msgid "RAID 0"
-msgstr ""
-
-#: src/templates/report/raid.mas:77
-msgid "RAID 1"
-msgstr ""
-
-#: src/templates/report/raid.mas:78
-msgid "RAID 2"
-msgstr ""
-
-#: src/templates/report/raid.mas:79
-msgid "RAID 3"
-msgstr ""
-
-#: src/templates/report/raid.mas:80
-msgid "RAID 4"
-msgstr ""
-
-#: src/templates/report/raid.mas:81
-msgid "RAID 5"
 msgstr ""
 
 #: src/templates/report/raid.mas:84
