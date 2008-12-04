@@ -25,6 +25,10 @@ stubsmigration_DATA = migration/Makefile.am.mas
 
 stubsschemasdir = $(datadir)/emoddev/stubs/schemas
 
+stubsmigrationbasedir = $(datadir)/emoddev/stubs/migration
+
+stubsmigrationbase_DATA = migration/migration.pl.mas
+
 stubsschemas_DATA = schemas/Makefile.am.mas  schemas/gconf.schemas.mas
 
 stubssrcdir = $(datadir)/emoddev/stubs/src
@@ -61,7 +65,7 @@ DISTCLEANFILES =
 EXTRA_DIST = $(stubs_DATA) $(stubsdebian_DATA) $(stubsm4_DATA) \
 	$(stubsmigration_DATA) $(stubsschemas_DATA) $(stubssrc_DATA) \
 	$(stubsmodel_DATA) $(stubstools_DATA) $(stubsstubs_DATA) \
-	$(stubstypes_DATA) $(stubstype_DATA)
+	$(stubstypes_DATA) $(stubstype_DATA) $(stubsmigrationbase_DATA) 
 
 
 MAINTAINERCLEANFILES = Makefile.in

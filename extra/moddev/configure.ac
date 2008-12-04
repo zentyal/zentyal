@@ -17,6 +17,7 @@ src/Makefile
 src/ebox-moddev-create
 src/ebox-moddev-model
 src/ebox-moddev-type
+src/ebox-moddev-migration
 stubs/Makefile
 ])
 
