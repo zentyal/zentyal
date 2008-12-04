@@ -44,6 +44,12 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
+# Method: _create
+#
+# Overrides:
+#
+#       <Ebox::Module::_create>
+#
 sub _create
 {
     my $class = shift;
@@ -51,6 +57,8 @@ sub _create
             printableName => __('<% $printableName %>'),
             domain => '<% $domain %>',
             @_);
+    bless($self, $class);
+    return $self;
 }
 
 ## api functions
