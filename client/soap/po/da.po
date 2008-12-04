@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2007-09-28 10:45+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,25 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/UploadBundle.pm:36
-msgid "Bundle Upload"
-msgstr "Opload en bundle"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Kontrolcenter info i en logfil"
 
-#: src/EBox/CGI/UploadBundle.pm:77
-msgid "The bundle file has been uploaded successfully"
-msgstr "bundle filen er blevet oploadet"
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr "Kontrolcenter kommunikation"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "Kontrolcenter"
 
 #: src/EBox/CGI/Enable.pm:38
 msgid "Enable SOAP service"
 msgstr "Slå SOAP til"
 
-#: src/EBox/CGI/ConnectivityTest.pm:39
-msgid "Connectivity test"
-msgstr "Forbindelsestest"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Kontrolcenter kommunikation"
 
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
@@ -48,13 +44,32 @@ msgstr ""
 "Den foregående forbindelse er blevet slettet. Etabler en ny for at forbinde "
 "til et eBox kontrolcenter."
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr "Kontrolcenter info i en logfil"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "Forbindelsestest"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr "Kontrolcenter"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "Opload en bundle"
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "bundle filen er blevet oploadet"
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} er ikke en offentlig metode"
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} er ikke definered"
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "{module} findes ikke"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"
@@ -135,21 +150,6 @@ msgid ""
 msgstr ""
 "OpenVPN klienten kører ikke. Du skal måske gemme ændringerne for at kunne "
 "sætte OpenVPN klienten op"
-
-#: src/EBox/SOAP/Global.pm:147
-#, perl-brace-format
-msgid "{method} is not a public method"
-msgstr "{method} er ikke en offentlig metode"
-
-#: src/EBox/SOAP/Global.pm:175
-#, perl-brace-format
-msgid "{method} is not a defined method"
-msgstr "{method} er ikke definered"
-
-#: src/EBox/SOAP/Global.pm:183
-#, perl-brace-format
-msgid "{module} does not exist"
-msgstr "{module} findes ikke"
 
 #: src/templates/index.mas:27
 msgid "General configuration for"

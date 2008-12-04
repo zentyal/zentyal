@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2008-11-23 23:17+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -87,7 +88,7 @@ msgid ""
 "Uploaded file is a type of {type1}  but it should be a file of type {type2}"
 msgstr ""
 "O ficheiro subido é de tipo {type1}  pero debería ser un ficheiro de tipo "
-"{typ2}"
+"{type2}"
 
 #: src/EBox/SOAP.pm:333
 #, perl-brace-format
@@ -119,8 +120,7 @@ msgid "Some certificate is missing"
 msgstr "Algún certificado non se atopa"
 
 #: src/EBox/SOAP.pm:925
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "You cannot upload this bundle since the name {name} has been already used "
 "for a bundle which will be cleaned up. If you want to upload the bundle, "

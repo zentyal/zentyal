@@ -7,36 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2008-12-03 09:45+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/UploadBundle.pm:36
-msgid "Bundle Upload"
-msgstr "Пакет Загрузки"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Администратор центра управления в файлах журнала"
 
-#: src/EBox/CGI/UploadBundle.pm:77
-msgid "The bundle file has been uploaded successfully"
-msgstr "Пакет файла был загружен успешно"
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr "Центр управления коммуникациями"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "Центр управления"
 
 #: src/EBox/CGI/Enable.pm:38
 msgid "Enable SOAP service"
 msgstr "Включить службу SOAP "
 
-#: src/EBox/CGI/ConnectivityTest.pm:39
-msgid "Connectivity test"
-msgstr "Тест соединения"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Центр управления коммуникациями"
 
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
@@ -50,13 +46,32 @@ msgstr ""
 "Предыдущий пакет был удален. Загрузите новый для коммуникации с центром "
 "управления eBox"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr "Администратор центра управления в файлах журнала"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "Тест соединения"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr "Центр управления"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "Пакет Загрузки"
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "Пакет файла был загружен успешно"
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} не опубликованный способ"
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} не определенный способ"
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "{module} не существует"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"
@@ -80,7 +95,6 @@ msgid ""
 "{number} "
 msgstr ""
 "Загруженный файл не содержит четыре обязательных файла. Он содержит {number} "
-""
 
 #: src/EBox/SOAP.pm:368
 msgid "It is required to upload a bundle to delete it"
@@ -130,8 +144,7 @@ msgstr "Файл Certification Authority отсутсвует"
 msgid ""
 "You should upload a bundle to be able to communicate with the control center"
 msgstr ""
-"Вы должны загрузить пакет, чтобы установить коммуникации с центром "
-"управления"
+"Вы должны загрузить пакет, чтобы установить коммуникации с центром управления"
 
 #: src/EBox/SOAP.pm:1025
 msgid ""
@@ -141,28 +154,12 @@ msgstr ""
 "Клиент OpenVPN не запущен. Вам необходимо сохранить все изменения и "
 "запустить клиент OpenVPN."
 
-#: src/EBox/SOAP/Global.pm:147
-#, perl-brace-format
-msgid "{method} is not a public method"
-msgstr "{method} не опубликованный способ"
-
-#: src/EBox/SOAP/Global.pm:175
-#, perl-brace-format
-msgid "{method} is not a defined method"
-msgstr "{method} не определенный способ"
-
-#: src/EBox/SOAP/Global.pm:183
-#, perl-brace-format
-msgid "{module} does not exist"
-msgstr "{module} не существует"
-
 #: src/templates/index.mas:27
 msgid "General configuration for"
 msgstr "Общая конфигурация для"
 
 #: src/templates/index.mas:52
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "The connection seems to be {state}. The percentage of loss was {percent}%"
 msgstr "Связь {state}. Процент потерь {percent}%"

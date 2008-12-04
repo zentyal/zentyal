@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,25 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/UploadBundle.pm:36
-msgid "Bundle Upload"
-msgstr "バンドルアップロード"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "ログファイルのコントロールセンター管理者"
 
-#: src/EBox/CGI/UploadBundle.pm:77
-msgid "The bundle file has been uploaded successfully"
-msgstr "バンドルファイルがアップロードされました"
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr "コントロールセンター通信"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "コントロールセンター"
 
 #: src/EBox/CGI/Enable.pm:38
 msgid "Enable SOAP service"
 msgstr "SOAPサービスを有効化"
 
-#: src/EBox/CGI/ConnectivityTest.pm:39
-msgid "Connectivity test"
-msgstr "接続テスト"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "コントロールセンター通信"
 
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
@@ -48,13 +44,32 @@ msgstr ""
 "以前のバンドルは削除されました。eBoxコントロールセンターと通信するためには新"
 "しいバンドルをアップロードしてください"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr "ログファイルのコントロールセンター管理者"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "接続テスト"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr "コントロールセンター"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "バンドルアップロード"
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "バンドルファイルがアップロードされました"
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} はパブリックメソッドではありません"
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} は定義されたメソッドではありません"
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "{module} が存在しません"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"
@@ -138,21 +153,6 @@ msgid ""
 msgstr ""
 "OpenVPNクライアントは停止しています。OpenVPNクライアントを設定するには変更を"
 "保存する必要があるかもしれません"
-
-#: src/EBox/SOAP/Global.pm:147
-#, perl-brace-format
-msgid "{method} is not a public method"
-msgstr "{method} はパブリックメソッドではありません"
-
-#: src/EBox/SOAP/Global.pm:175
-#, perl-brace-format
-msgid "{method} is not a defined method"
-msgstr "{method} は定義されたメソッドではありません"
-
-#: src/EBox/SOAP/Global.pm:183
-#, perl-brace-format
-msgid "{module} does not exist"
-msgstr "{module} が存在しません"
 
 #: src/templates/index.mas:27
 msgid "General configuration for"
