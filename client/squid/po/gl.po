@@ -5,166 +5,167 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-23 13:44+0000\n"
+"Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Object"
-msgstr ""
+msgstr "Obxecto"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 #: src/EBox/Squid/Model/DomainFilter.pm:98
 msgid "Policy"
-msgstr ""
+msgstr "Política"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Configure network objects' policies"
-msgstr ""
+msgstr "Configurar as políticas de obxectos da rede"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:105
 msgid "List of objects"
-msgstr ""
+msgstr "Listado de obxectos"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "object's policy"
-msgstr ""
+msgstr "política de obxectos"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "Here you can establish a custom policy per network object"
-msgstr ""
+msgstr "Aquí podes estabilizar unha política personalizada por obxectos de rede"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:120
 msgid "Added object's policy"
-msgstr ""
+msgstr "Política de obxectos engadida"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:121
 msgid "Removed object's policy"
-msgstr ""
+msgstr "Política de obxectos eliminada"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:122
 msgid "Updated object's policy"
-msgstr ""
+msgstr "Política de obxectos actualizada"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
 msgid "MIME types"
-msgstr ""
+msgstr "Tipos MIME"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
 msgid "Set policy for all MIME types"
-msgstr ""
+msgstr "Establecer a política para todos os tipos MIME"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
 msgid "elements"
-msgstr ""
+msgstr "elementos"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr ""
+msgstr "Permitir a todos {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
 msgid "Use this field to change the value of  all the above rows at once"
-msgstr ""
+msgstr "Usar este campo para cambiar o valor de todas as filas superiores a vez"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Threshold"
-msgstr ""
+msgstr "Umbral"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:81
 msgid "Content filter threshold"
-msgstr ""
+msgstr "Umbral do filtro de contido"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:87
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "O umbral do filtro de contido cambiou"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:102 src/EBox/Squid.pm.in:764
 msgid "Disabled"
-msgstr ""
+msgstr "Deshabilitado"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:103
 msgid "Very permissive"
-msgstr ""
+msgstr "Muy permisivo"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:104
 msgid "Permissive"
-msgstr ""
+msgstr "Permisivo"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:105
 msgid "Medium"
-msgstr ""
+msgstr "Medio"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:106
 msgid "Strict"
-msgstr ""
+msgstr "Estrito"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:107
 msgid "Very strict"
-msgstr ""
+msgstr "Moi estrito"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:114
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Isto especifica como de estrito é o filtro de contido."
 
 #: src/EBox/Squid/Model/DomainFilter.pm:91
 #: src/EBox/Squid/Model/DomainFilter.pm:143
 msgid "Domain"
-msgstr ""
+msgstr "Dominio"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:106
 msgid "Domains list"
-msgstr ""
+msgstr "Listado de dominios"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:119
 msgid "internet domain"
-msgstr ""
+msgstr "dominio de internet"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:120
 msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
 msgstr ""
+"Permitir/Denegar o tráfico HTTP dende/a os dominios de internet listados."
 
 #: src/EBox/Squid/Model/DomainFilter.pm:122
 msgid "Domain added"
-msgstr ""
+msgstr "Dominio engadido"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:123
 msgid "Domain removed"
-msgstr ""
+msgstr "Dominio eliminado"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:124
 msgid "Domain updated"
-msgstr ""
+msgstr "Dominio actualizado"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:145
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "Non debes poñer o prefixo www. no dominio"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:92
 #: src/EBox/Squid/Model/MIMEFilter.pm:196
 #: src/EBox/Squid/Model/MIMEFilter.pm:205
 #: src/EBox/Squid/Model/MIMEFilter.pm:216
 msgid "MIME Type"
-msgstr ""
+msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
 #: src/EBox/Squid/Model/ExtensionFilter.pm:140 src/EBox/Squid.pm.in:769
 msgid "Allow"
-msgstr ""
+msgstr "Pemitir"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:111
 msgid "Configure allowed MIME types"
-msgstr ""
+msgstr "Configurar os tipos MIME permitidos"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:123
 msgid "MIME type"
-msgstr ""
+msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:124
 msgid ""
@@ -172,115 +173,124 @@ msgid ""
 "types not listed here are allowed.\n"
 "The  filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Permitir/Denegar o tráfico HTTP dos ficheiros cos tipos MIME dados. Os tipos "
+"MIME non listados aquí están permitidos.\n"
+"O  filtro necesita unha política 'filtro' para que teña efecto"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:127
 msgid "MIME type added"
-msgstr ""
+msgstr "Tipo MIME engadido"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:128
 msgid "MIME type removed"
-msgstr ""
+msgstr "Tipo MIME eliminado"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:129
 msgid "MIME type updated"
-msgstr ""
+msgstr "Tipo MIME actualizado"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:198
 msgid "A MIME Type must follows this syntax: type/subtype"
-msgstr ""
+msgstr "Un tipo MIME debe seguir esta sintaxe: tipo/subtipo"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:208
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr ""
+msgstr "{type} non é un tipo IANA válido"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:219
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "{t} subtipo ten unha sintaxe incorrecta"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:91
 msgid "Block not listed domains"
-msgstr ""
+msgstr "Bloquear os dominios non listados"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:93
 msgid ""
 "If this is enabled, any domain which is not allowed in the <i>Domains list</"
 "i> section below will be forbidden."
 msgstr ""
+"Se esta opción está habilitada, calquer dominio que non esté permitido na "
+"sección de abaixo <i>listado de Dominios</i> estará prohibido."
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:100
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Bloquear os sitios especificados só como IP"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:109
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Configuracións do filtro de dominio"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:116
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Configuracións de filtrado cambiadas"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "Proxy transparente"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:86
 msgid "Port"
-msgstr ""
+msgstr "Porto"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "Default policy"
-msgstr ""
+msgstr "Política por defecto"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:100
 msgid "General Settings "
-msgstr ""
+msgstr "Configuracións Xerais "
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:105
 msgid "Settings changed"
-msgstr ""
+msgstr "Configuracións cambiadas"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:140
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "{port} xa está en uso. Escolle outro"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:149
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
+"<i>Filter</i> significa que as peticións HTTP que pasarán polo filtro de "
+"contido e poderían ser rexeitadas se o contido é considerado inválido."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:156
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Ten en conta que non se pode ter un proxy HTTPS transparente. Necesitarás "
+"engadir unha regra se habilitas este modo."
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
 msgid "extensions"
-msgstr ""
+msgstr "extensións"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Establecer a política para todas as extensións"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:75
 msgid "File extension"
-msgstr ""
+msgstr "Extensión do ficheiro"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:133
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:151
 msgid "Configure allowed file extensions"
-msgstr ""
+msgstr "Configurar as extensións do ficheiro permitidos"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:164
 msgid "extension"
-msgstr ""
+msgstr "extensión"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:165
 msgid ""
@@ -288,131 +298,138 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Permitir/Denegar o tráfico HTTP dos ficheiros que teñen as extensións dadas.\n"
+"As extensións que non estean neste listado están permitidas.\n"
+"O filtro de extensión precisa unha política 'filter' para que teña efecto"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:168
 msgid "Extension added"
-msgstr ""
+msgstr "Extensión engadida"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:169
 msgid "Extension removed"
-msgstr ""
+msgstr "Extensión eliminada"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:170
 msgid "Extension updated"
-msgstr ""
+msgstr "Extensión actualizada"
 
 #: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:804
 msgid "Filter settings"
-msgstr ""
+msgstr "Configuración do filtro"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 msgid "MIME types filtering"
-msgstr ""
+msgstr "Filtrando os tipos MIME"
 
 #: src/EBox/Squid/Composite/Domains.pm:91
+#, fuzzy
 msgid "Domains filtering"
-msgstr ""
+msgstr "Dominios filtrados"
 
 #: src/EBox/Squid/Composite/General.pm:75 src/EBox/Squid.pm.in:742
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "Proxy HTTP"
 
 #: src/EBox/Squid/Composite/Extensions.pm:91
+#, fuzzy
 msgid "File extensions filtering"
-msgstr ""
+msgstr "Filtrando extensións de ficheiro"
 
 #: src/EBox/Squid/Types/Policy.pm:34
 msgid "Always allow"
-msgstr ""
+msgstr "Sempre permitido"
 
 #: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:773
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/EBox/Squid/Types/Policy.pm:36
 msgid "Always deny"
-msgstr ""
+msgstr "Sempre denegado"
 
 #: src/EBox/Squid/Types/Policy.pm:56
 msgid "Squid's policy"
-msgstr ""
+msgstr "Política de Squid"
 
 #: src/EBox/Squid.pm.in:276
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
+"Debes establecer a variable cache_mem no ficheiro de configuración de ebox"
 
 #: src/EBox/Squid.pm.in:756
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/EBox/Squid.pm.in:762
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitado"
 
 #: src/EBox/Squid.pm.in:766
 msgid "Transparent proxy"
-msgstr ""
+msgstr "Proxy transparente"
 
 #: src/EBox/Squid.pm.in:771
 msgid "Deny"
-msgstr ""
+msgstr "Denegado"
 
 #: src/EBox/Squid.pm.in:776
 msgid "Global policy"
-msgstr ""
+msgstr "Política global"
 
 #: src/EBox/Squid.pm.in:778
 msgid "Listening port"
-msgstr ""
+msgstr "Porto de escoita"
 
 #: src/EBox/Squid.pm.in:794 src/EBox/Squid.pm.in:827
 msgid "HTTP proxy"
-msgstr ""
+msgstr "Proxy HTTP"
 
 #: src/EBox/Squid.pm.in:797
 msgid "General"
-msgstr ""
+msgstr "Xeral"
 
 #: src/EBox/Squid.pm.in:801
+#, fuzzy
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Política de obxectos"
 
 #: src/EBox/Squid.pm.in:813
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Squid.pm.in:814
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: src/EBox/Squid.pm.in:815
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/EBox/Squid.pm.in:816
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: src/EBox/Squid.pm.in:817
 msgid "Mime/type"
-msgstr ""
+msgstr "Mime/type"
 
 #: src/EBox/Squid.pm.in:818
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/Squid.pm.in:823
 msgid "Accepted"
-msgstr ""
+msgstr "Aceptado"
 
 #: src/EBox/Squid.pm.in:824
 msgid "Denied"
-msgstr ""
+msgstr "Denegado"
 
 #: src/EBox/Squid.pm.in:825
 msgid "Filtered"
-msgstr ""
+msgstr "Filtrado"
 
 #: src/EBox/Squid.pm.in:855
 msgid "HTTP Proxy's cache files"
-msgstr ""
+msgstr "Ficheiros da caché do proxy HTTP"

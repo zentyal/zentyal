@@ -5,293 +5,293 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 07:39+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "自動軟體更新"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:462
 msgid "System updates"
-msgstr ""
+msgstr "系統更新"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "系統更新已被設定為全自動"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "系統已經是最新的"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "自動更新設置"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "沒有套件需要更新"
 
 #: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "更新中"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "更新套件中"
 
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "目前套件"
 
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "套件安裝"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
-msgstr ""
+msgstr "套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟動"
 
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
-msgstr ""
+msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "移除套件"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "移除所選擇的套件及相依性套件"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "套件移除"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
-msgstr ""
+msgstr "套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新啟動"
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
-msgstr ""
+msgstr "套件移除沒有完成.在日誌上有更多資訊"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
-msgstr ""
+msgstr "eBox 元件"
 
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "啟用排程 script 來下載更新"
 
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
-msgstr ""
+msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
 
 #: src/EBox/Software.pm:457
 msgid "Software management"
-msgstr ""
+msgstr "軟體管理"
 
 #: src/EBox/Software.pm:464
 msgid "Automatic updates"
-msgstr ""
+msgstr "自動更新"
 
 #: src/EBox/Software.pm:555
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
-msgstr ""
+msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "eBox - Certificate Authority Manager for eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "eBox - DHCP 伺服器模組"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "eBox - DNS 伺服器"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "eBox 系統 - Base framework"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "eBox - 防火牆"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
+msgstr "eBox - 即時通訊 (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - layer 7 protocols"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "eBox - 郵件伺服器"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
-msgstr ""
+msgstr "eBox - 郵件過濾模組"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Network configuration module"
-msgstr ""
+msgstr "eBox - 網路設置模組"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - NTP server"
-msgstr ""
+msgstr "eBox - NTP 伺服器"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - Object 管理"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "eBox - OpenVPN 伺服器模組"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "eBox - 印表機分享"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - File sharing"
-msgstr ""
+msgstr "eBox - 檔案分享"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Services management"
-msgstr ""
+msgstr "eBox - 服務管理"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "SOAP 伺服器通訊到 eBox 控制中心"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - Software management"
-msgstr ""
+msgstr "eBox - 軟體管理"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "eBox - 代理伺服器和內容過濾"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - eBox 的流量管理"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - 使用者和群組管理"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "eBox - 網頁伺服器"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP 軟體"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "透過 apt 讓軟體服務來更新套件"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "允許 apt 更新的規則"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "以下的套件將被安裝"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "以下的套件將被移除"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "確定"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "以下的系統元件有可用的更新"
 
 #: src/templates/updates.mas:15 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "元件"
 
 #: src/templates/updates.mas:16
 msgid "Description"
-msgstr ""
+msgstr "說明"
 
 #: src/templates/updates.mas:17 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: src/templates/updates.mas:33 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "更新所有套件"
 
 #: src/templates/updates.mas:44
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
-msgstr ""
+msgstr "這個動作會花一些時間,假如 eBox 在按下升級按鈕後看起來沒有回應請不用擔心"
 
 #: src/templates/updates.mas:47
 msgid "Upgrade"
-msgstr ""
+msgstr "升級"
 
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "已安裝版本"
 
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "最新版本"
 
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "安裝"
 
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "沒有"
 
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "移除"

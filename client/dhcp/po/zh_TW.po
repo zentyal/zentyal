@@ -5,15 +5,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.12.100"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 10:37+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
@@ -24,171 +24,171 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "介面 {iface}"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "{from} - {to} 是無效的範圍"
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "範圍 {from}-{to} 不在 {net} 網路中"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "範圍 {from}-{to} 包括介面的IP位址: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
+msgstr "範圍 {newFrom}-{newTo} 有重疊的範圍 '{range}': {oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:180
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
+msgstr "範圍 {from}-{to} 包括固定的位址 '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "從"
 
 #: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "範圍"
 
 #: src/EBox/Model/RangeTable.pm:238
 msgid "range"
-msgstr ""
+msgstr "範圍"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "IP位址的介面"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "子網路"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "可用的範圍"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "DHCP 範圍"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "預設的租用時間必須大於0秒"
 
 #: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
+msgstr "預設的租用時間 {default} 必須低於最大的時間 {max}"
 
 #: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "最大的租用時間必須大於0秒"
 
 #: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
+msgstr "最大的租用時間 {max} 必須大於預設時間 {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
-msgstr ""
+msgstr "預設的租用時間"
 
 #: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
-msgstr ""
+msgstr "最大的租用時間"
 
 #: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
-msgstr ""
+msgstr "租用時間"
 
 #: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
+msgstr "租用時間是由 DHCP 伺服器給有效的 IP 位址一個時間"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway} 並不在目前的網路上"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
-msgstr ""
+msgstr "DNS 服務必須啟動在 eBox DNS 伺服器本機的主要名稱伺服器"
 
 #: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
-msgstr ""
+msgstr "自訂"
 
 #: src/EBox/Model/Options.pm:323
 msgid "eBox's domain"
-msgstr ""
+msgstr "eBox 的網域"
 
 #: src/EBox/Model/Options.pm:331
 msgid "local eBox DNS"
-msgstr ""
+msgstr "本機 eBox DNS"
 
 #: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
 #: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
-msgstr ""
+msgstr "沒有"
 
 #: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
-msgstr ""
+msgstr "預設通訊閘"
 
 #: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/Options.pm:366
 msgid "Custom IP address"
-msgstr ""
+msgstr "自訂 IP 位址"
 
 #: src/EBox/Model/Options.pm:376
 msgid "Configured ones"
-msgstr ""
+msgstr "設置"
 
 #: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "搜尋網域"
 
 #: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "主要名稱伺服器"
 
 #: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "次要名稱伺服器"
 
 #: src/EBox/Model/Options.pm:405
 msgid "Common options"
-msgstr ""
+msgstr "共同選項"
 
 #: src/EBox/Model/Options.pm:410
 msgid ""
@@ -203,60 +203,60 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "IP 位址 {ip} 不是屬於 {net} 網路"
 
 #: src/EBox/Model/FixedAddressTable.pm:131
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr ""
+msgstr "已選擇的 IP 是介面的 IP 位址: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:147
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr ""
+msgstr "IP 位址 {ip} 是在範圍 '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:159
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr ""
+msgstr "{name} 不可以空白"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
-msgstr ""
+msgstr "更新"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
-msgstr ""
+msgstr "新增"
 
 #: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
-msgstr ""
+msgstr "您不可以 {action} 將已經使用在其他的位址表用在這個名稱的固定位址上"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "MAC 位址"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
 #: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "您不可以在上述範圍使用這個 IP 位址"
 
 #: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "固定位址"
 
 #: src/EBox/Model/FixedAddressTable.pm:238
 msgid "fixed address"
-msgstr ""
+msgstr "固定位址"
 
 #: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
@@ -277,11 +277,12 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:227
 msgid "name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:233
+#, fuzzy
 msgid "File name"
-msgstr ""
+msgstr "檔案名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"
@@ -300,62 +301,64 @@ msgstr ""
 #: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
 #: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
 #: src/EBox/DHCP.pm:1237
+#, fuzzy
 msgid "Interface"
-msgstr ""
+msgstr "介面"
 
 #: src/EBox/CGI/Enable.pm:39
+#, fuzzy
 msgid "module status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
-msgstr ""
+msgstr "為了讓服務的 IP 位址在外部介面, 您必須開啟服務在 {openhref}防火牆模組{closehref}"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
 msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
-msgstr ""
+msgstr "此介面必須設定為固定在 DHCP 服務上. 要這樣做, 在網路模組上改變 {openhref}介面設置{closehref}"
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr ""
+msgstr "進階選項"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "選擇設置一個固定介面:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
-msgstr ""
+msgstr "服務設置"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
-msgstr ""
+msgstr "為了讓服務的 IP 位址在此介面上, 這必須要設定至少一個範圍或是固定位址."
 
 #: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
 #: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} 不是固定的"
 
 #: src/EBox/DHCP.pm:673
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "不是正確的動作: 新增, 設定和刪除才是有效的"
 
 #: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "不是正確的動作. 有效的是: 新增, 設定和刪除"
 
 #: src/EBox/DHCP.pm:1024
 #, perl-brace-format

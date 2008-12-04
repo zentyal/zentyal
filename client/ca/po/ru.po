@@ -8,21 +8,22 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-04-11 16:22+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-14 06:52+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 #: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
 msgid "Organization Name"
-msgstr "Организация"
+msgstr "Наименование организация"
 
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
@@ -50,7 +51,7 @@ msgstr ""
 #: src/EBox/CA/TestStub.pm:642 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
-msgstr "Имя"
+msgstr "Каноническое наименование"
 
 #: src/EBox/CA.pm:743 src/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"

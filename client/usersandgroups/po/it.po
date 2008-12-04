@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2007-03-16 11:39+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-20 16:40+0000\n"
+"Last-Translator: Christian Merlin <nuandavr@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
 msgid "Groups"
@@ -127,37 +127,44 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"Devi abilitare il modulo Utenti nella sezione stato dei moduli per poterlo "
+"utilizzare."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "There are no users at the moment."
-msgstr ""
+msgstr "Non ci sono utenti al momento."
 
 #: src/EBox/UsersAndGroups.pm:56
 #, fuzzy
 msgid "users and groups"
-msgstr "Utenti nel gruppo"
+msgstr "utenti e gruppi"
 
 #: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
+"Il tuo database openLDAP verrà sostituito e salvato in /var/backups/slapd"
 
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
 "your current configuration"
 msgstr ""
+"eBox inizzializzerà openLDAP per memorizzare i suoi database. Inoltre "
+"sovrascriverà la configurazione corrente"
 
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr ""
+msgstr "Per permettere openLDAP di ascoltare su TCP e Socket Unix"
 
 #: src/EBox/UsersAndGroups.pm:97
 msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
+"Per configurare il database openLDAP con dc__  , rootpw, rootdn, schemi e "
+"ACL utilizzati da __ modulo basato su LDAP di eBox"
 
 #: src/EBox/UsersAndGroups.pm:355
 #, perl-brace-format
@@ -173,11 +180,15 @@ msgstr "Numero massimo di utenti di sistema raggiunto"
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"UID {gid} errato per un utente. Lo UID deve essere uguale o maggiore di "
+"{min}"
 
 #: src/EBox/UsersAndGroups.pm:438
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"UID {gid} errato per un utente di sistema. Lo UID deve essere minore di "
+"{max}"
 
 #: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
@@ -194,11 +205,15 @@ msgstr "Il nome gruppo non è valido perché usato internamente"
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
+"GID {gid} errato per un gruppo. Il GID deve essere uguale o maggiore di "
+"{min}"
 
 #: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
+"GID {gid} errato per un gruppo di sistema. Il GID deve essere minore di "
+"{max}"
 
 #: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format

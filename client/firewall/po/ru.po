@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:25+0000\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 15:15+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ObjectRule.pm:41 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
@@ -118,30 +119,35 @@ msgstr "Перенаправление портов"
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Вы должны установить значение iptables_log_limit в конфигурационном файле "
+"ebox"
 
 #: src/EBox/Iptables.pm:632 src/EBox/Iptables.pm:664
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Вы должны установить значение iptables_log_burst в конфигурационном файле "
+"ebox"
 
 #: src/EBox/Firewall.pm:57
-#, fuzzy
 msgid "firewall"
-msgstr "Файрвол"
+msgstr "Файервол"
 
 #: src/EBox/Firewall.pm:120
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Очистите предыдущие правила файервола "
 
 #: src/EBox/Firewall.pm:121
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"Файервол eBox очистит любые другие правила добавленные ранее в ручную или "
+"при помощи других средств"
 
 #: src/EBox/Firewall.pm:126
 msgid "Secure by default"
-msgstr ""
+msgstr "Безопасность по умолчанию"
 
 #: src/EBox/Firewall.pm:127
 msgid ""

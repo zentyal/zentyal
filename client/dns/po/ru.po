@@ -8,30 +8,32 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-14 05:58+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/AliasTable.pm:79
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
+"Псевдоним не может быть именем сервера имен \"{ns}\". Используйте имя узла"
 
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "В этом домене уже существует узел с этим именем \"{name}\""
 
 #: src/EBox/Model/AliasTable.pm:100
 #, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "В этом домене уже существует псевдоним с этим именем \"{name}\""
 
 #: src/EBox/Model/AliasTable.pm:126 src/EBox/Model/AliasTable.pm:136
 #: src/EBox/Model/AliasTable.pm:142 src/EBox/Model/HostnameTable.pm:173
@@ -40,9 +42,8 @@ msgid "Alias"
 msgstr "Псевдоним"
 
 #: src/EBox/Model/AliasTable.pm:143
-#, fuzzy
 msgid "alias"
-msgstr "Псевдоним"
+msgstr "псевдоним"
 
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
 #: src/EBox/DNS.pm.in:861
@@ -51,7 +52,7 @@ msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "Сервер DNS обеспечивает разрешение имен для вашего домена."
 
 #: src/EBox/Model/DomainTable.pm:66
 msgid "Domain"
@@ -59,23 +60,20 @@ msgstr "Домен"
 
 #: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:184
 #: src/EBox/Model/HostnameTable.pm:190
-#, fuzzy
 msgid "Hostnames"
-msgstr "Имя узла"
+msgstr "Имена узлов"
 
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Почтовый обменник"
 
 #: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:165
-#, fuzzy
 msgid "IP Address"
 msgstr "IP-адрес"
 
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-#, fuzzy
 msgid "Domains"
-msgstr "Домен"
+msgstr "Домены"
 
 #: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
 msgid "domain"
@@ -86,51 +84,48 @@ msgstr "домен"
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
-msgstr ""
+msgstr "В этом домене уже существует псевдоним \"{name}\" для \"{hostname}\""
 
 #: src/EBox/Model/HostnameTable.pm:157
-#, fuzzy
 msgid "Hostname"
 msgstr "Имя узла"
 
 #: src/EBox/Model/HostnameTable.pm:191
-#, fuzzy
 msgid "hostname"
 msgstr "имя узла"
 
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Служба включена"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Служба отключена"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Недопустимое число. Допустимые значение: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:110 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Имя узла"
 
 #: src/EBox/Model/MailExchanger.pm:117
-#, fuzzy
 msgid "Owner domain"
-msgstr "домен"
+msgstr "Владелец домена"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "Общие"
 
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "Предпочтения"
 
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Почтовый обменник"
 
 #: src/EBox/Model/MailExchanger.pm:148
 #, perl-brace-format
@@ -140,29 +135,31 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"Наименьшее число имеет самый высокий приоритет и укажет на первый сервер, "
+"который попробует отдаленный клиент (обычно другой почтовый сервер) при "
+"поиске MX для доменного имени. Допустимый значений = ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "Запись почтового обменника"
 
 #: src/EBox/DNS.pm.in:53
-#, fuzzy
 msgid "Domain Name System"
-msgstr "Доменное имя"
+msgstr "Система доменных имен"
 
 #: src/EBox/DNS.pm.in:90
 msgid "DNS Server"
-msgstr ""
+msgstr "Сервер DNS"
 
 #: src/EBox/DNS.pm.in:648
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "файл конфигурации для зоны {zone}"
 
 #: src/EBox/DNS.pm.in:664
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "файл конфигурации для обратной зоны {zone}"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

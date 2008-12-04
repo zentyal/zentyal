@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:30+0000\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-14 05:02+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
@@ -35,19 +36,19 @@ msgstr "домен"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr ""
+msgstr "Скопируйте схему jabber ldap в /etc/ldap/schemas"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "eBox необходима данная схема для хранения пользователей jabber"
 
 #: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "Правильно настроить jabberd2"
 
 #: src/EBox/Jabber.pm:98
 msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
+msgstr "Добавить схемы LDAP, используемые eBox jabber"
 
 #: src/EBox/Jabber.pm:356
 msgid "Jabber Service"

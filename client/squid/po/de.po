@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:46+0000\n"
-"PO-Revision-Date: 2008-11-05 08:21+0000\n"
+"PO-Revision-Date: 2008-11-24 01:05+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -41,9 +41,8 @@ msgstr "Vorgehen für Squid"
 
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
-#, fuzzy
 msgid "HTTP proxy traffic report"
-msgstr "HTTP-Proxy Vorgehen"
+msgstr "HTTP-Proxy Traffic Bericht"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 msgid "MIME types filtering"
@@ -97,63 +96,61 @@ msgstr "Vorgehen für alle Dateiendungen einstellen"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Squid-Diagramm zur Traffic-Menge"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:56
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:107
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Erlaubte Traffic-Größe (kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:65
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:118
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Nicht erlaubte Traffic-Größe (kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:74
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:129
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Gefilterte Traffic-Größe (kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr ""
+msgstr "Traffic-Größe"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Squid Traffic-Anforderungen Diagramm"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:97
 msgid "Requests"
-msgstr ""
+msgstr "Anforderungen"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:52
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:102
-#, fuzzy
 msgid "Accepted requests"
-msgstr "Akzeptiert"
+msgstr "akzeptiert Anforderungen"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:61
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 msgid "Denied requests"
-msgstr ""
+msgstr "Abgelehnte Anforderungen"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:70
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
-#, fuzzy
 msgid "Filtered requests"
-msgstr "Gefiltert"
+msgstr "Gefilterte Anforderungen"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Zugriffs-Anforderungen"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:93 src/EBox/Squid.pm:821
 msgid "Date"
@@ -161,12 +158,11 @@ msgstr "Datum"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:138
 msgid "Web traffic details"
-msgstr ""
+msgstr "Web-Traffic Details"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:147
-#, fuzzy
 msgid "traffic"
-msgstr "Streng"
+msgstr "Traffic"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:92
 #: src/EBox/Squid/Model/MIMEFilter.pm:196

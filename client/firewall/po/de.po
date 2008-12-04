@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:25+0000\n"
-"PO-Revision-Date: 2008-11-05 00:56+0000\n"
+"PO-Revision-Date: 2008-11-24 00:59+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -247,11 +247,11 @@ msgstr "PROTOKOLLIEREN"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Paket-Traffic Bericht"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Firewall Paket-Traffic Bericht"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #: src/templates/filter.mas:17
@@ -261,28 +261,27 @@ msgstr "Filter-Regeln für interne Netzwerke"
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 msgid "packets dropped"
-msgstr ""
+msgstr "verworfene Pakete"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "verworfene Pakete"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Paket-Traffic Details"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "Traffic"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Firewall Paket-Traffic Diagramm"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-#, fuzzy
 msgid "Packet traffic"
-msgstr "Paketfilter"
+msgstr "Paket-Traffic"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #: src/templates/filter.mas:25

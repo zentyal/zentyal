@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-03-15 15:45+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-24 19:00+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
@@ -224,7 +224,8 @@ msgstr "Giorni per espirare"
 #: src/EBox/CGI/CreateCA.pm:124
 #, fuzzy, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Il numero di giorni per espirare deve essere un numero naturale"
+msgstr ""
+"Il numero di giorni per espirare ({days}) deve essere un numero naturale"
 
 #: src/EBox/CGI/RenewCertificate.pm:136
 msgid "The certificate CANNOT be renewed"

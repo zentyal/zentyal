@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:24+0000\n"
-"PO-Revision-Date: 2008-11-06 00:21+0000\n"
+"PO-Revision-Date: 2008-11-24 00:37+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Das Backup-Archiv wird erstellt"
 #: src/EBox/Backup.pm:142
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr "Die Konfiguration für das Modul {m} wird abgebildet"
+msgstr "Die Konfiguration für das Modul {m} wird verworfen"
 
 #: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
@@ -63,12 +63,11 @@ msgstr "Die Sicherung konnte nicht geöffnet werden"
 
 #: src/EBox/Backup.pm:647 src/EBox/SysInfo.pm:146
 msgid "Backup"
-msgstr "Daten sichern"
+msgstr "Datensicherung"
 
 #: src/EBox/Backup.pm:683
-#, fuzzy
 msgid "Writing backup file to hard disK"
-msgstr "Backup auf eine Festplatte schreiben"
+msgstr "Backup auf die Festplatte schreiben"
 
 #: src/EBox/Backup.pm:708
 msgid ""
@@ -93,7 +92,7 @@ msgstr ""
 
 #: src/EBox/Backup.pm:811
 msgid "The backup file is corrupt."
-msgstr "Die Sicherungsdatei ist fehlerhaft"
+msgstr "Die Sicherungsdatei ist fehlerhaft."
 
 #: src/EBox/Backup.pm:829
 msgid ""
@@ -101,16 +100,16 @@ msgid ""
 "using a incompatible eBox version"
 msgstr ""
 "Die Sicherungsdatei ist vom falschen Typ. Entweder ist die Datei fehlerhaft "
-"oder sie benutzen eine unkompatible Version der eBox"
+"oder sie benutzen eine inkompatible Version der eBox"
 
 #: src/EBox/Backup.pm:835
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"Die Datei ist keine vollständige Sicherung, deshalb ist die vollständige "
-"Wiederherstellung unmöglich. Die Wiederherstellung der Konfiguration kann "
-"möglich sein"
+"Die Datei ist keine vollständige Sicherung, deshalb ist keine vollständige "
+"Wiederherstellung möglich. Die Wiederherstellung der Konfiguration könnte "
+"aber möglich sein"
 
 #: src/EBox/Backup.pm:870
 #, perl-brace-format
@@ -119,7 +118,7 @@ msgid ""
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
 "Es ist nicht genug Speicherplatz auf der Festplatte vorhanden, um die "
-"Wiederherstellung abzuschliessen. {size}Kb sind nötig. Sorgen Sie für "
+"Wiederherstellung abzuschliessen. {size}Kb werden benötigt. Sorgen Sie für "
 "genügend freien Speicherplatz und versuchen Sie es erneut"
 
 #: src/EBox/Backup.pm:1133
@@ -255,7 +254,7 @@ msgstr "eBox startet neu"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr "Falsches Passwort"
+msgstr "Falsches Passwort."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
@@ -765,7 +764,7 @@ msgstr ""
 "gültige Platte handelt?"
 
 #: src/EBox/Report/DiskUsage.pm:210
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
@@ -838,7 +837,7 @@ msgid "It must be a non-zero positive number"
 msgstr "Geben Sie eine positive Zahl ein"
 
 #: src/EBox/ProgressIndicator.pm:51
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "{exe} kann nicht ausgeführt werden"
 
@@ -874,35 +873,31 @@ msgstr "Das Programm ist bereits fertig"
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
-#, fuzzy
 msgid "hour"
-msgstr "eine Stunde"
+msgstr "Stunde"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-#, fuzzy
 msgid "day"
-msgstr "alle"
+msgstr "Tag"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
-#, fuzzy
 msgid "week"
-msgstr "eine Woche"
+msgstr "Woche"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "Monat"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Berichts-Zeitdauer"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-#, fuzzy
 msgid "Report options"
-msgstr "andere Option"
+msgstr "Berichtsoptionen"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:101
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
@@ -991,23 +986,20 @@ msgid "logs"
 msgstr "Logs"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
-#, fuzzy
 msgid "Full report"
-msgstr "Fehler melden"
+msgstr "Vollständiger Bericht"
 
 #: src/EBox/Logs/Model/SelectLog.pm:135
 msgid "Summarized report"
-msgstr ""
+msgstr "Berichts-Zusammenfassung"
 
 #: src/EBox/Logs/Model/SelectLog.pm:146
-#, fuzzy
 msgid "Select report"
-msgstr "Fehler melden"
+msgstr "Bericht auswählen"
 
 #: src/EBox/Logs/Report.pm:68
-#, fuzzy
 msgid "Day"
-msgstr "alle"
+msgstr "Tag"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1121,12 +1113,10 @@ msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "{num} Zeilen {rowName} von {model} entfernen{br}"
 
 #: src/EBox/Model/DataTable.pm:2674
-#, fuzzy
 msgid "Page size"
 msgstr "Seitengröße"
 
 #: src/EBox/Model/DataTable.pm:2677
-#, fuzzy
 msgid "Must be either a positive number or zero"
 msgstr "Geben Sie eine positive Zahl oder Null ein"
 
@@ -1178,7 +1168,7 @@ msgstr "Das übergebene Objekt mit dem Index {i} existiert nicht"
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr "Es sollte eines der folgenden Werte sein: {values}"
+msgstr "Es sollte einer der folgenden Werte sein: {values}"
 
 #: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
@@ -1240,7 +1230,7 @@ msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
-"Falls der Anteil an freien Speicherplat einer partition unter diesen Wert "
+"Falls der Anteil an freien Speicherplatz einer Partition unter diesen Wert "
 "ist, wird das Ereignis ausgelöst"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
@@ -1255,7 +1245,7 @@ msgstr "Logs an die Domäne {logDomain} schicken"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr "Anlass"
+msgstr "Ereignis"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
@@ -1386,7 +1376,6 @@ msgid "Allowed readers"
 msgstr "Erlaubte Leser"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-#, fuzzy
 msgid "Use this field to set the access control for the channel"
 msgstr ""
 "Benutzen Sie dieses Feld um die Zugriffskontrolle für die RSS-Datei zu "
@@ -1445,7 +1434,6 @@ msgid "Subscribe"
 msgstr "Einschreiben"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-#, fuzzy
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
@@ -1458,7 +1446,6 @@ msgid "Administrator Jabber Identifier"
 msgstr "Jabber-Identifikation des Administrators"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-#, fuzzy
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
@@ -1473,7 +1460,6 @@ msgid "Configure Jabber dispatcher"
 msgstr "Jabber-Verteiler konfigurieren"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-#, fuzzy
 msgid "This dispatcher will send events to an Jabber account"
 msgstr "Der Verteiler sendet Ereignisse an ein Jabber-Konto"
 
@@ -1608,9 +1594,8 @@ msgid "Last hour logs will be showed when selecting a component"
 msgstr "Die Logs der letzten Stunde werden angezeigt"
 
 #: src/templates/logs/index.mas:23
-#, fuzzy
 msgid "Select available full reports"
-msgstr "Verfügbare Logs auswählen"
+msgstr "Verfügbare Komplett-Berichte auswählen"
 
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
@@ -1674,9 +1659,8 @@ msgid "December"
 msgstr "Dezember"
 
 #: src/templates/logs/index.mas:108
-#, fuzzy
 msgid "Refresh logs"
-msgstr "Logdateien anzeigen"
+msgstr "Logs aktualisieren"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
@@ -1812,9 +1796,9 @@ msgid "Enter"
 msgstr "Eingeben"
 
 #: src/templates/login/index.mas:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Created by {href}"
-msgstr "{ebox} wurde entwickelt von {warp}"
+msgstr "entwickelt von {href}"
 
 #: src/templates/finish.mas:82
 msgid "Warning"

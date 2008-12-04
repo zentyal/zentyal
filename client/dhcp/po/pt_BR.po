@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-04-15 18:59+0000\n"
-"Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
+"PO-Revision-Date: 2008-11-13 03:12+0000\n"
+"Last-Translator: Fabio Alan Pracz Fiuza <pracz@pracz.com.br>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
@@ -126,7 +126,7 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:177
 #, fuzzy
 msgid "update"
-msgstr "Data"
+msgstr "Atualizar"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 #, fuzzy
@@ -151,7 +151,7 @@ msgstr "Endereços Fixados"
 #: src/EBox/Model/FixedAddressTable.pm:238
 #, fuzzy
 msgid "fixed address"
-msgstr "Endereços Fixados"
+msgstr "Endereços Fixos"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, fuzzy, perl-brace-format
@@ -232,7 +232,7 @@ msgstr ""
 #: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
 #: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "Procurar Dominio"
 
 #: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -302,7 +302,7 @@ msgstr "Gateway Padrão"
 
 #: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
-msgstr ""
+msgstr "Segundos"
 
 #: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
@@ -333,7 +333,7 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
-msgstr ""
+msgstr "Próximo Servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:227
 #, fuzzy
@@ -342,7 +342,7 @@ msgstr "Nome"
 
 #: src/EBox/Model/ThinClientOptions.pm:233
 msgid "File name"
-msgstr ""
+msgstr "Nome do Arquivo"
 
 #: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"

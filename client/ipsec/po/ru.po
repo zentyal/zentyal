@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:25+0000\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-14 04:45+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/IPSec.pm:120 src/EBox/IPSec.pm:178 src/EBox/IPSec.pm:384
 #: src/EBox/IPSec.pm:492
@@ -155,11 +156,11 @@ msgstr "Отключено"
 
 #: src/EBox/IPSec.pm:1043 src/EBox/IPSec.pm:1070
 msgid "Down"
-msgstr ""
+msgstr "Опустить"
 
 #: src/EBox/IPSec.pm:1052 src/EBox/IPSec.pm:1079
 msgid "Up"
-msgstr ""
+msgstr "Поднять"
 
 #: src/EBox/IPSec.pm:1062 src/EBox/IPSec.pm:1104
 msgid "Road warriors"
@@ -346,7 +347,7 @@ msgstr "Действия"
 
 #: src/templates/rsa.mas:35 src/templates/rsa.mas:36
 msgid "View"
-msgstr ""
+msgstr "Просмотреть"
 
 #: src/templates/roadwarrior-edit.mas:160
 msgid "Cancel"

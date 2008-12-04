@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2007-04-11 16:26+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-03 07:05+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
 msgid "Groups"
@@ -107,7 +107,7 @@ msgstr "Эта группа содержит пользователей"
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:63
 #: src/EBox/UsersAndGroups/Model/Users.pm:162 src/templates/users.mas:27
@@ -118,47 +118,55 @@ msgstr "Полное имя"
 #: src/EBox/UsersAndGroups/Model/Users.pm:68
 #: src/EBox/UsersAndGroups/Model/Users.pm:171
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:83
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:127
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"Необходимо включить модуль Пользователи в секции Статус для того чтобы "
+"использовать это."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "There are no users at the moment."
-msgstr ""
+msgstr "На данный момент не существуют пользователи."
 
 #: src/EBox/UsersAndGroups.pm:56
 msgid "users and groups"
-msgstr ""
+msgstr "пользователи и группы"
 
 #: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
+"Ваша текущая база данных openLDAP будет заменена и сохранена в "
+"/var/backups/slapd"
 
 #: src/EBox/UsersAndGroups.pm:76
 msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
 "your current configuration"
 msgstr ""
+"eBox инициализирует openLDAP для хранения своей базы данных. Также он "
+"перепишет текущую вашу конфигурацию"
 
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr ""
+msgstr "Сделать openLDAP слушающим TCP и сокет Unix"
 
 #: src/EBox/UsersAndGroups.pm:97
 msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
+"Чтобы настроить базу данных  openLDAP с входящими, rootpw, rootdn, schemas и "
+"ACLs используйте LDAP модуль eBox."
 
 #: src/EBox/UsersAndGroups.pm:355
 #, perl-brace-format
@@ -174,11 +182,14 @@ msgstr "Достигнуто макс. кол-во пользователей с
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"Некорректный UID {uid} для пользователя. UID должен быть равен или больше "
+"{min}"
 
 #: src/EBox/UsersAndGroups.pm:438
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"Некорректный UID {uid} системного пользователя. UID должен быть меньше {max}"
 
 #: src/EBox/UsersAndGroups.pm:773
 #, perl-brace-format
@@ -187,18 +198,19 @@ msgstr "Имя группы не должно быть длинее {maxGroupLen
 
 #: src/EBox/UsersAndGroups.pm:779
 msgid "The group name is not valid because it is used internally"
-msgstr ""
+msgstr "Имя группы не действительно поскольку используется внутри"
 
 #: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
+msgstr "Некорректный GID {gid} для группы. GID должен быть равен или выше {min}"
 
 #: src/EBox/UsersAndGroups.pm:859
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
+"НЕ корректный GID {gid} для системной группы. GID должен быть меньше {max}"
 
 #: src/EBox/UsersAndGroups.pm:1343
 #, perl-brace-format
@@ -206,39 +218,40 @@ msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Пароль не должен быть длинее {maxPwdLength} символов"
 
 #: src/EBox/UsersAndGroups.pm:1539
-#, fuzzy
 msgid "Add user"
 msgstr "Добавить пользователя"
 
 #: src/EBox/UsersAndGroups.pm:1542
-#, fuzzy
 msgid "Edit user"
-msgstr "Редактировать группу"
+msgstr "Редактировать пользователя"
 
 #: src/templates/ajax/tableUser.mas:88
-#, fuzzy
 msgid "Add new"
-msgstr "Добавить пользователя"
+msgstr "Добавить нового"
 
 #: src/templates/groups.mas:11 src/templates/users.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
 msgstr ""
+"Изменения в учетной записи вступают в силу немедленно, нет необходимости их "
+"записывать."
 
 #: src/templates/groups.mas:12 src/templates/users.mas:12
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
+"Изменения связанные с принтерами, совместного доступа к файлам и службой "
+"jabber необходимо записывать для вступления их в силу."
 
 #: src/templates/groups.mas:14
 msgid "Add Group"
-msgstr ""
+msgstr "Добавить группу"
 
 #: src/templates/groups.mas:20 src/templates/groups.mas:54
 msgid "Group name"
-msgstr ""
+msgstr "Имя группы"
 
 #: src/templates/groups.mas:30 src/templates/users.mas:35
 #: src/templates/group.mas:21 src/templates/user.mas:18
@@ -247,24 +260,24 @@ msgstr "Комментарий"
 
 #: src/templates/groups.mas:35
 msgid "Optional value"
-msgstr ""
+msgstr "Дополнительное величина"
 
 #: src/templates/groups.mas:42 src/templates/groups.mas:43
 #: src/templates/users.mas:63 src/templates/users.mas:64
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: src/templates/groups.mas:51
 msgid "Edit Group"
-msgstr ""
+msgstr "Редактировать группу"
 
 #: src/templates/groups.mas:55
 msgid "Actions"
-msgstr ""
+msgstr "Действие"
 
 #: src/templates/groups.mas:76 src/templates/group.mas:58
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/users.mas:14
 msgid "Add User"
@@ -280,84 +293,92 @@ msgstr "Пароль"
 
 #: src/templates/users.mas:50 src/templates/user.mas:48
 msgid "Retype password"
-msgstr ""
+msgstr "Повторите пароль"
 
 #: src/templates/users.mas:77
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 #: src/templates/group.mas:15
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
 msgstr ""
+"В данный момент нет пользователей. Вам необходим хотя бы один для управления "
+"свойствами этой группы"
 
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:60 src/templates/user.mas:61
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/group.mas:32
 msgid "Users in group"
-msgstr ""
+msgstr "Пользователи в группе"
 
 #: src/templates/group.mas:34
 msgid "Users not in group"
-msgstr ""
+msgstr "Пользователи не в группе"
 
 #: src/templates/group.mas:50 src/templates/group.mas:85
 msgid "Empty list"
-msgstr ""
+msgstr "Пустой список"
 
 #: src/templates/group.mas:61
 msgid "Remove users from group"
-msgstr ""
+msgstr "Удалить пользователя из группы"
 
 #: src/templates/group.mas:69 src/templates/group.mas:72
 msgid "Add users to group"
-msgstr ""
+msgstr "Добавить пользователя в группу"
 
 #: src/templates/group.mas:100 src/templates/group.mas:108
 #: src/templates/group.mas:109
 msgid "Delete group"
-msgstr ""
+msgstr "Удалить группу"
 
 #: src/templates/group.mas:102
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
-msgstr ""
+msgstr "Если вы удалите эту группу все данные в общем каталоге будут удалены"
 
 #: src/templates/user.mas:71 src/templates/user.mas:79
 #: src/templates/user.mas:80
 msgid "Delete user"
-msgstr ""
+msgstr "Удалить пользователя"
 
 #: src/templates/user.mas:73
 msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
 msgstr ""
+"Эта операция удалит пользователя и все, что с ним связано (почтовый аккаунт, "
+"данный пользователя и т.п.)"
 
 #: src/templates/del.mas:15
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"Удаляемый пользователь содержит разные данные в других модулях. Пожалуйста "
+"подтвердите его удаление и удаление данных связанных с ним."
 
 #: src/templates/del.mas:20
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"Удаляемая группа содержит разные данные в других модулях. Пожалуйста "
+"подтвердите ее удаление и удаление данных связанных с ней."
 
 #: src/templates/del.mas:43
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/del.mas:46
 msgid "Cancel"
-msgstr ""
+msgstr "Отменить"
 
 #~ msgid "retype password"
 #~ msgstr "введите пароль еще раз"

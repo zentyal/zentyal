@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2008-11-05 15:16+0000\n"
+"PO-Revision-Date: 2008-11-24 01:01+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Beschreibung"
 
 #: src/EBox/CGI/SambaConf.pm:48
 msgid "user quota"
-msgstr "Speicherlimite für Benutzer"
+msgstr "Speicherlimit für Benutzer"
 
 #: src/EBox/CGI/SambaConf.pm:49
 msgid "roaming profiles"
@@ -43,7 +43,7 @@ msgstr "Benutzerprofile am Server speichern"
 
 #: src/EBox/CGI/SambaConf.pm:53
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Netbios und die Arbeitsgruppe müssen unterschiedliche Namen haben"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
@@ -392,7 +392,7 @@ msgid ""
 "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
 "Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
-"Speicherlimit auf null"
+"Speicherlimit auf Null"
 
 #: src/templates/index.mas:25
 msgid "Working mode"

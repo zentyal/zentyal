@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:24+0000\n"
-"PO-Revision-Date: 2007-02-14 12:22+0000\n"
-"Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
+"PO-Revision-Date: 2008-12-04 08:29+0000\n"
+"Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EventDaemon.pm:443
 #, perl-brace-format
@@ -22,44 +22,42 @@ msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
 
 #: src/EBox/Backup.pm:96
-#, fuzzy
 msgid "Creating backup archive"
-msgstr "Kon geen backup archief aanmaken"
+msgstr "Backup archief aanmaken"
 
 #: src/EBox/Backup.pm:142
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr "Fout-rapport configuratie dump"
+msgstr "Configuratie dump van module {m}"
 
 #: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
-msgstr "Kon geen backup archief aanmaken"
+msgstr "Kon geen back-up archief aanmaken"
 
 #: src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
-msgstr "Kan de gegevens niet aan het backup archief toevoegen"
+msgstr "Kan de gegevens niet aan het back-up archief toevoegen"
 
 #: src/EBox/Backup.pm:420
 msgid "Unknown"
-msgstr "Ongekend"
+msgstr "Onbekend"
 
 #: src/EBox/Backup.pm:454
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr "Kan de gevraagde backup bestanden niet uitpakken: {files}"
+msgstr "Kan de gevraagde back-up bestanden niet uitpakken: {files}"
 
 #: src/EBox/Backup.pm:457 src/EBox/Backup.pm:1046
 msgid "Could not unpack the backup"
-msgstr "Kan de backup niet uitpakken"
+msgstr "Kan de back-up niet uitpakken"
 
 #: src/EBox/Backup.pm:647 src/EBox/SysInfo.pm:146
 msgid "Backup"
-msgstr "Backup"
+msgstr "Back-up"
 
 #: src/EBox/Backup.pm:683
-#, fuzzy
 msgid "Writing backup file to hard disK"
-msgstr "Backup naar harde schijf"
+msgstr "bezig met schrijven van back-up naar harde schijf "
 
 #: src/EBox/Backup.pm:708
 msgid ""
@@ -67,39 +65,39 @@ msgid ""
 "or discard them"
 msgstr ""
 "Enkele modules hebben geen wijzigingen opgeslagen. Je moet de wijzigingen "
-"opslaan of verwerpen vóór de backup"
+"opslaan of verwerpen vóór de back-up"
 
 #: src/EBox/Backup.pm:763
 msgid "Incorrect or corrupt backup file"
-msgstr "Fout of corrupt backup bestand"
+msgstr "Fout of corrupt back-up bestand"
 
 #: src/EBox/Backup.pm:792
 msgid "The backup file is corrupt: could not open archive"
-msgstr "Het backup bestand is corrupt: kan het archief niet openen"
+msgstr "Het back-up bestand is corrupt: kan het archief niet openen"
 
 #: src/EBox/Backup.pm:804
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "Het backup bestand is coorupt: kan de backup checksom niet openen"
+msgstr "Het back-up bestand is corrupt: kan de back-up checksum niet openen"
 
 #: src/EBox/Backup.pm:811
 msgid "The backup file is corrupt."
-msgstr "Het backup bestand is corrupt."
+msgstr "Het back-up bestand is corrupt."
 
 #: src/EBox/Backup.pm:829
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
-"Het backup archief is een fout type. Misschien is het bestand corrupt of "
-"wordt er niet compatibele versie van ebox gebruikt. "
+"Het back-up archief is een fout type. Misschien is het bestand corrupt of "
+"wordt er niet compatibele versie van ebox gebruikt"
 
 #: src/EBox/Backup.pm:835
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
-"Het archief bevat geen volledige backup waardoor volledig herstellen "
-"onmogelijk is. De configuratie kan mogelijk terug geplaatst worden."
+"Het archief bevat geen volledige back-up waardoor volledig herstel "
+"onmogelijk is. Configuratie-herstel kan mogelijk uitgevoerd worden."
 
 #: src/EBox/Backup.pm:870
 #, perl-brace-format
@@ -107,17 +105,17 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
-"Er is niet genoeg plaats op de harde schijf om het herstellen te voltooien. "
-"{size} Kb nodig. Maak de nodige plaats vrij en probeer opnieuw"
+"Er is niet genoeg ruimte op de harde schijf om het herstellen te voltooien. "
+"{size} Kb is nodig. Maak de nodige ruimte vrij en probeer opnieuw"
 
 #: src/EBox/Backup.pm:1133
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "De module {m} is niet gevonden in de back-up"
 
 #: src/EBox/Backup.pm:1162
 msgid "No modules to restore"
-msgstr ""
+msgstr "Geen modules om te herstellen"
 
 #: src/EBox/Backup.pm:1227
 #, perl-brace-format
@@ -125,8 +123,8 @@ msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
-"Onopgeloste afhankelijk bij terugplaatsen voor module {topModule}: {modName} "
-"is niet geïnstalleerd"
+"Onopgeloste herstel-afhankelijkheid van module {topModule}: {modName} is "
+"niet geïnstalleerd"
 
 #: src/EBox/Backup.pm:1248 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
@@ -135,14 +133,12 @@ msgid "The input contains invalid characters"
 msgstr "De ingegeven tekst bevat ongeldige tekens"
 
 #: src/EBox/Backup.pm:1270
-#, fuzzy
 msgid "Backup's archives"
-msgstr "Backup lijst"
+msgstr "Backup's argieven"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module status configuration"
-msgstr "Configuratie opslaan"
+msgstr "Module status configuratie"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
 msgid ""
@@ -150,72 +146,65 @@ msgid ""
 "information can be found in the logs."
 msgstr ""
 "Er is een interne fout opgetreden. Dit is waarschijnlijk een 'bug'. "
-"Relevante informatie kan in de logs teruggevonden worden."
+"Relevante informatie kan in de logging teruggevonden worden."
 
 #: src/EBox/CGI/ClientRawBase.pm:201
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug'. "
-"Relevante informatie kan in de logs teruggevonden worden."
+"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug', "
+"Relevante informatie kan in de logging teruggevonden worden."
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "Disk gebruik"
 
 #: src/EBox/CGI/Report/RAID.pm:30
-#, fuzzy
 msgid "RAID report"
-msgstr "Fout rapport"
+msgstr "RAID rapport"
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
-msgstr "Systeem backups"
+msgstr "Systeem back-up"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr "Ongekende backup mode: {mode}"
+msgstr "Onbekende back-up modus: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr "Ongekende herstel  mode: {mode}"
+msgstr "Onbekende herstel modus: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
-#, fuzzy
 msgid "Backing up"
-msgstr "Backup"
+msgstr "Bezig met Back-up"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
-#, fuzzy
 msgid "Backing up modules"
-msgstr "Backup mode"
+msgstr "Bezig met back-up van modules"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
-#, fuzzy
 msgid "Operation"
-msgstr "Omschrijving"
+msgstr "Toestand"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "overige toestanden over om de back-up af te maken"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
-#, fuzzy
 msgid "Backup successful"
-msgstr "Backup bestand"
+msgstr "Back-up klaar zonder fouten"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
-#, fuzzy
 msgid "Restoring backup"
-msgstr "Herstellen van backup"
+msgstr "Herstellen vanuit back-up"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
-#, fuzzy
 msgid "Restoring modules"
-msgstr "Herstel mode"
+msgstr "Module herstel vanuit back-up"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:622
 #: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
@@ -224,12 +213,11 @@ msgstr "Module"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "modules over om te herstellen"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
-#, fuzzy
 msgid "Restore successful"
-msgstr "Herstel mode"
+msgstr "Herstel klaar zonder fouten"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
@@ -245,27 +233,27 @@ msgstr "Uitschakelen of herstarten"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr "eBox wordt onbereikbaar door uitschakelen"
+msgstr "eBox wordt nu uit geschakeld "
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr "eBox wordt onbereikbaar door herstart"
+msgstr "eBox wordt nu opnieuw opgestart"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr "Ongeldig paswoord."
+msgstr "Ongeldig wachtwoord."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr "Nieuwe paswoorden komen niet overeen."
+msgstr "Nieuwe wachtwoorden komen niet overeen."
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr "Het nieuwe paswoord moet minstens 6 tekens lang zijn"
+msgstr "Het nieuwe wachtwoord moet minstens 6 tekens lang zijn"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr "Het paswoord is succesvol gewijzigd."
+msgstr "Het wachtwoord is succesvol gewijzigd."
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
@@ -273,19 +261,19 @@ msgstr "naam module"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr "De module is correct herstart."
+msgstr "De module is correct opnieuw gestart."
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Opwaarderen"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
-msgstr "Configuratie backups"
+msgstr "Configuratie back-up"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Bevestig AUB dat je het volgende backup-bestand wil verwijderen:"
+msgstr "Bevestig alstublieft dat u het volgende backup-bestand wil verwijderen:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
 #: src/templates/backup.mas:169
@@ -296,7 +284,8 @@ msgstr "Verwijderen"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
-"Bevestig AUB dat je de bestanden van dit backup bestand wenst te herstellen:"
+"Bevestig alstublieft dat u de bestanden van dit back-up bestand wenst te "
+"herstellen:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
@@ -305,11 +294,11 @@ msgstr "Herstellen"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"
-msgstr "Configuratie backup"
+msgstr "Configuratie back-up"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr "Volledige backup van gegevens en configuratie"
+msgstr "Volledige back-up van gegevens en configuratie"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
 msgid "Bug-report configuration dump"
@@ -317,35 +306,31 @@ msgstr "Fout-rapport configuratie dump"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:601
 msgid "Logs"
-msgstr "Logs"
+msgstr "Logging"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Configuratie opslaan"
 
 #: src/EBox/CGI/Finish.pm:76
-#, fuzzy
 msgid "Saving changes"
 msgstr "Wijzigingen opslaan"
 
 #: src/EBox/CGI/Finish.pm:77
-#, fuzzy
 msgid "Saving changes in modules"
-msgstr "Backup mode"
+msgstr "Wijzigingen van modules opslaan"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
-#, fuzzy
 msgid "Current operation"
-msgstr "Huidig paswoord"
+msgstr "Huidige toestand"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "Alles is uitgevoerd"
 
 #: src/EBox/CGI/Finish.pm:80
-#, fuzzy
 msgid "Changes saved"
-msgstr "Paswoord wijzigen"
+msgstr "Wijzigingen opgeslagen"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -355,29 +340,24 @@ msgid ""
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:101
-#, fuzzy
 msgid "Revoking changes"
-msgstr "Wijzigingen opslaan"
+msgstr "Wijzigingen terugdraaien"
 
 #: src/EBox/CGI/Finish.pm:102
-#, fuzzy
 msgid "Revoking changes in modules"
-msgstr "Herstel mode"
+msgstr "Wijzigingen terugdraaien in modules"
 
 #: src/EBox/CGI/Finish.pm:103
-#, fuzzy
 msgid "Current module"
-msgstr "Huidig paswoord"
+msgstr "Huidige module"
 
 #: src/EBox/CGI/Finish.pm:104
-#, fuzzy
 msgid "modules revoked"
-msgstr "naam module"
+msgstr "Modules teruggezet"
 
 #: src/EBox/CGI/Finish.pm:105
-#, fuzzy
 msgid "Changes revoked"
-msgstr "Paswoord wijzigen"
+msgstr "Veranderingen teruggezet"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -385,6 +365,8 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Sommige modules rapporteren een error als de veranderingen genegeerd worden. "
+"Meer info in de log in {dir}"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"

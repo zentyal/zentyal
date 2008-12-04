@@ -5,19 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-10 21:16+0000\n"
+"Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Nome do Virtual Host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
@@ -25,6 +25,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Virtual host {vhost} engadido. Un dominio {domain} foi creado co nome {name} "
+"- enderezo IP {ip} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
@@ -32,29 +34,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtual host {vhost} engadido. O nome {name} - enderezo IP {ip} foi engadido "
+"ao dominio {domain}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtual host {vhost} engadido como un alias {alias} ao nome de host "
+"{hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Virtual host {vhost} engadido"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Non existe unha interface interna estática para establecer o enderezo IP do "
+"servidor web"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtual hosts"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
@@ -65,33 +73,40 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"Os Virtual Hosts é un método de servizo de aloxamento web onde moitas "
+"instancias do mesmo servidor web están aloxadas nun único servidor físico. "
+"Diferentes nomes de máquina apuntarán ao mesmo servidor web. A entrada DNS é "
+"automaticamente creada se é posible. O contido debe situarse baixo o "
+"directorio {docRoot}/vHostName"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
-msgstr ""
+msgstr "virtual host"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "porto de escoita"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Porto de escoita"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Habilitado por usuario {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Se marca este campo, cada usuario ten permitido ter un sitio web no seu "
+"directorio home dentro de public_html"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Axustes de configuración xeral"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
@@ -101,50 +116,56 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Configuración do servidor web xeral. O porto de escoita non pode pertencer a "
+"outro servizo. Se habilitas ao usuario para publicar as súas propias "
+"páxinas html, o contido será cargado do directorio {dirName} dos seus "
+"directorios home de samba"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Actualizados os axustes de configuración do servidor web xeral"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
-msgstr ""
+msgstr "Servizo web"
 
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"O servizo web eBox permítelle aloxar páxinas web en HTML plano en diferentes "
+"virtual hosts"
 
 #: src/EBox/WebServer.pm:97
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Establecer o porto de escoita do servidor web"
 
 #: src/EBox/WebServer.pm:102
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Configurar o directorio HTML público por usuario"
 
 #: src/EBox/WebServer.pm:130
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Habilitar o módulo de usuario LDAP de apache"
 
 #: src/EBox/WebServer.pm:132
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Coller os directorios home de LDAP"
 
 #: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: src/EBox/WebServer.pm:236
 msgid "Web service status"
-msgstr ""
+msgstr "Estado do servizo web"
 
 #: src/EBox/WebServer.pm:409
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "O directorio {userDirConfFile} perdeuse! Recupereo"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "Protocolo de Transferencia de HiperTexto"

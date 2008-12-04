@@ -5,145 +5,150 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2008-09-01 08:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-11 01:19+0000\n"
+"Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
+#, fuzzy
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Conta Jabber Admin"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"O servidor Jabber {serverName} está parado ou a conexión non está permitida"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Subscrición errada: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Sen autorización: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "Ficheiro RSS: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "Canle de alertas eBox para {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
 msgstr ""
+"Esta canle fai un seguemento do que acontece sobre esta máquina eBox ao "
+"longo do tempo"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "O evento sucedeu na eBox {hostname} dende {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Ir á {url} para comprobar o seu estado."
 
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
-msgstr ""
+msgstr "Ficheiro de log"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:140
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Coordinador {name} non está configurado para ser habilitado"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "O sistema de ficheiros {fs}, montado sobre {mp}, non ten espacio"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Espacio de almacenamento libre"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
 msgstr ""
+"Comprobar se calquera partición de disco non ten espacio de almacenamento"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Comprobar se calquera evento ten lugar no subsistema RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Novo array de dispositivos RAID {devName} información:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Estado: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tipo: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Dispositivos activos necesarios: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Dispositivos activos: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Operación en progreso: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Porcentaxe de operación completada: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Tempo de finalización estimado da operación: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "Compoñente Raid {nb}: dispositivo {devide} estado {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -151,11 +156,13 @@ msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"O dispositivo RAID {name} desapareceu: Un array RAID que foi configurado "
+"previamente parece non estar configurado agora"
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
-msgstr ""
+msgstr "O dispositivo RAID {name} cambiou de estado de {oldState} a {newState}"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -163,37 +170,41 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"O dispositivo RAID {name} cambio o número de compoñentes activos de {oldNum} "
+"a {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
-msgstr ""
+msgstr "O dispositivo RAID {name} comezou a operación {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
-msgstr ""
+msgstr "O dispositivo RAID {name} rematou a operación {opName} ou foi abortada"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started {newOpName}"
 msgstr ""
+"O dispositivo RAID {name} rematou a operación {oldOpName} e comezou "
+"{newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
-msgstr ""
+msgstr "O dispositivo RAID {name} está levando a cabo a operación {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr ""
+msgstr "Estado: {percentage} completado"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
-msgstr ""
+msgstr "Tempo estimado para o remate: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
@@ -201,6 +212,8 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"O compoñente activo {compName} do array RAID {arrayName} está marcado coma "
+"defectuoso"
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
@@ -208,6 +221,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"O compoñente de reposto {compName} do array RAID {arrayName} o cal foi "
+"reconstruido para reemprazar un dispositivo defectuoso fallou "
 
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
@@ -216,6 +231,9 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"O compoñente de reposto {compName} do array RAID {arrayName} o cal foio "
+"reconstruido para reemprazar un dispositivo defectuoso foi "
+"satisfactoriamente reconstruido e está activo"
 
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
@@ -223,6 +241,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Un novo compoñente {compNa}me non foi engadido ao dispositivo RAID "
+"{arrayName} co estado {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
@@ -230,97 +250,106 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Un compoñente {compName} foi eliminado en quente do array RAID {arrayName} "
+"cando o seu estado era {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:101
 msgid "active"
-msgstr ""
+msgstr "activo"
 
 #: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
 msgid "degraded"
-msgstr ""
+msgstr "degradado"
 
 #: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
 msgid "recovering"
-msgstr ""
+msgstr "recuperando"
 
 #: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
 msgid "resyncing"
-msgstr ""
+msgstr "resincronizando"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
 msgid "rebuilding"
-msgstr ""
+msgstr "reconstruindo"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
 msgid "reshaping"
-msgstr ""
+msgstr "reconfigurando"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
 msgid "failed"
-msgstr ""
+msgstr "erro"
 
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
-msgstr ""
+msgstr "resincronizar"
 
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
-msgstr ""
+msgstr "reconstruir"
 
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
-msgstr ""
+msgstr "reconfigurar"
 
 #: src/EBox/Event/Watcher/RAID.pm:564
 msgid "recovery"
-msgstr ""
+msgstr "recuperación"
 
 #: src/EBox/Event/Watcher/RAID.pm:577
 msgid "faulty"
-msgstr ""
+msgstr "defectuoso"
 
 #: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
 msgid "spare"
-msgstr ""
+msgstr "reposto"
 
 #: src/EBox/Event/Watcher/State.pm:126
+#, fuzzy
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox está activa e traballando"
 
 #: src/EBox/Event/Watcher/State.pm:132
+#, fuzzy
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox está criticamente parada"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: src/EBox/Event/Watcher/State.pm:174
+#, fuzzy
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Comprobar se eBox está actualmente traballando ou parada"
 
+# Establecer un estilo para log ou rexistro
 #: src/EBox/Event/Watcher/Log.pm:203
+#, fuzzy
 msgid "Log observer"
-msgstr ""
+msgstr "Monitor do log"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
+#, fuzzy
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Notificar cando un logger {{loggers}} rexistraron algo"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Os seguintes módulos non están en funcionamento: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Servizo"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
 msgstr ""
+"Comprobar se algún servizo de eBox non está en funcionamento cando debería"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -328,414 +357,429 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"O servizo {service} foi reiniciado {restart} veces en {time} segundos e foi "
+"parado"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
-msgstr ""
+msgstr "Servizo habilitado"
 
 #: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
-msgstr ""
+msgstr "Servizo deshabilitado"
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "Habilitar servizo"
 
 #: src/EBox/Types/Select.pm:225
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Escoller un valor co valor establecido: {set}"
 
 #: src/EBox/Types/Int.pm:139
 msgid "Write down a number"
-msgstr ""
+msgstr "Escriba un número"
 
 #: src/EBox/Types/Int.pm:146
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "O valor non debería ser máis grande que {m}"
 
 #: src/EBox/Types/Int.pm:156
 #, perl-brace-format
 msgid "The value shouldn't be lesser than {m}"
-msgstr ""
+msgstr "O valor non debería ser menor que {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:173
 msgid "Any"
-msgstr ""
+msgstr "Calquera"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "calquera"
 
 #: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"Dende\" {from} debe ser máis grande que \"A\" {to}"
 
 #: src/EBox/Types/Password.pm:132
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "O contrasinal debería ter polo menos {minLength} caracteres"
 
 #: src/EBox/Types/Password.pm:142
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "O contrasinal debería ter como moito {maxLength} caracteres"
 
 #: src/EBox/Summary/Status.pm:44
 msgid "Restart"
-msgstr ""
+msgstr "Reiniciar"
 
 #: src/EBox/Summary/Status.pm:47
 msgid "Running"
-msgstr ""
+msgstr "Traballando"
 
 #: src/EBox/Summary/Status.pm:50
 msgid "Stopped"
-msgstr ""
+msgstr "Parado"
 
 #: src/EBox/Summary/Status.pm:52
 msgid "Start"
-msgstr ""
+msgstr "Iniciar"
 
 #: src/EBox/Summary/Status.pm:54
 msgid "Disabled"
-msgstr ""
+msgstr "Deshabilitar"
 
 #: src/EBox/Model/DataTable.pm:319
 #, perl-brace-format
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} en módulo {module}"
 
 #: src/EBox/Model/DataTable.pm:323
 msgid "at"
-msgstr ""
+msgstr "en"
 
 #: src/EBox/Model/DataTable.pm:544
 msgid "field"
-msgstr ""
+msgstr "campo"
 
 #: src/EBox/Model/DataTable.pm:1438
 msgid "page"
-msgstr ""
+msgstr "páxina"
 
 #: src/EBox/Model/DataTable.pm:1441
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "A páxina debe ser un número igual ou maior que cero"
 
 #: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:662
 msgid "Action"
-msgstr ""
+msgstr "Acción"
 
 #: src/EBox/Model/DataTable.pm:2603
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Eliminar {num} filas de {rowName} do {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2674
 msgid "Pagr size"
-msgstr ""
+msgstr "Tamaño do paxinador"
 
 #: src/EBox/Model/DataTable.pm:2677
 msgid "Must be either a positve number or zero"
-msgstr ""
+msgstr "Debe ser un número positivo ou cero"
 
 #: src/EBox/Model/DataTable.pm:2858
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} engadida"
 
 #: src/EBox/Model/DataTable.pm:2859
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} eliminada"
 
 #: src/EBox/Model/DataTable.pm:2860
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} actualizada"
 
 #: src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} trasladada enriba"
 
 #: src/EBox/Model/DataTable.pm:2862
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} trasladada abaixo"
 
 #: src/EBox/Model/DataTable.pm:4124
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:310
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitado"
 
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "O obxecto fornecido con índice {i} non existe"
 
 #: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Os datos que estás eliminado están sendo usados por\n"
+"                    as seguintes seccións:"
 
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Os datos que estás modificando están sendo usados por\n"
+"\t\t\tas seguintes seccións:"
 
 #: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Datos eliminados dende {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "Mudar"
 
 #: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
 msgid "Done"
-msgstr ""
+msgstr "Feito"
 
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Podería ser un dos seguintes valores: {values}"
 
 #: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgstr "As medidas a levar a cabo permitidas son: {view} e {cView}"
 
 #: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Escoller un dos seguintes:"
 
 #: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
 #: src/templates/moduleStatusTable.mas:60
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: src/EBox/CGI/Summary/Index.pm:47
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
 msgid "System backups"
-msgstr ""
+msgstr "Sistema de backups"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "Modo de respaldo descoñecido: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
 #: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
 #: src/EBox/Backup.pm:1248
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "A entrada contén caracteres inválidos"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "Modo de restauración descoñecido: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "Copia de seguridade"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "Módulos de copia de seguridade"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Operación"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "as operacións da esquerda para rematar a copia de seguridade"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "Copia con éxito"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "Restaurar copia de seguridade"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "Restaurando módulos"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:661
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "módulos da esquerda para restaurar"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "Restauración con éxito"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "nome do módulo"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "O módulo foi restaurado correctamente."
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Actualizando"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
-msgstr ""
+msgstr "Deter ou reiniciar"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox estase detendo"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBox estase reiniciando"
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Informe de erros"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
-msgstr ""
+msgstr "Configuración xeral"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr ""
+msgstr "Contrasinal incorrecto."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Os novos contrasinais non coinciden."
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "O contrasinal debe ter polo menos 6 caracteres de lonxitude"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "O contrasinal mudou con éxito."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
-msgstr ""
+msgstr "Configuración das copias de seguridade"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr ""
+"Por favor confirma que queres eliminar o seguinte ficheiro de copia de "
+"seguridade:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
 #: src/templates/backup.mas:169
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
+"Por favor confirma que queres restaurar empregando o ficheiro de copia de "
+"seguridade:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr ""
+msgstr "Restaurar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"
-msgstr ""
+msgstr "Configuración da copia de seguridade"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr ""
+msgstr "Todos os datos e configuración da copia de seguridade"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+#, fuzzy
 msgid "Bug-report configuration dump"
-msgstr ""
+msgstr "Volcado da configuración do informe de erros"
 
 #: src/EBox/CGI/Logs/Index.pm:34 src/EBox/Logs.pm:641
 msgid "Logs"
-msgstr ""
+msgstr "Rexistros"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
+#, fuzzy
 msgid "Module status configuration"
-msgstr ""
+msgstr "Configuración do estado do módulo"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
 "There is a Web service script running. Please, wait patiently until it is "
 "done"
 msgstr ""
+"Hai un script de servizos web en execución. Por favor, espere pacientemente "
+"ata que remate"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
-msgstr ""
+msgstr "Contrasinal incorrecto"
 
 #: src/EBox/CGI/Login/Index.pm:68
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Por razóns de seguridade a túa sesión expirou debido a inactividade"
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Pechouse a sesión porque unha nova sesión foi iniciada"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Saír"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "Uso de disco"
 
 #: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID report"
-msgstr ""
+msgstr "Informe RAID"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "Gardar configuración"
 
 #: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
-msgstr ""
+msgstr "Gardando cambios"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "Gardando cambios nos módulos"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
 msgid "Current operation"
-msgstr ""
+msgstr "Operación actual"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "operacións realizadas"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "Changes saved"
-msgstr ""
+msgstr "Cambios gardados"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -743,26 +787,28 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Algúns módulos reportaron un erro ao gardar os cambios. Para máis "
+"información mirar os rexistros en {dir}"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr ""
+msgstr "Revocando os cambios"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "Revocando os cambios nos módulos"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
-msgstr ""
+msgstr "Módulo actual"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr ""
+msgstr "módulos revocados"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
-msgstr ""
+msgstr "Cambios revocados"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -770,140 +816,150 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Algúns módulos reportaron erros cando descartaban cambios. Para máis "
+"información nos rexistros en {dir}"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Ocurriu un erro interno. Esto probablemente sexa un bug, a información "
+"pertinente pódese atopar nos rexistros."
 
 #: src/EBox/CGI/ClientRawBase.pm:201
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Ocurriu un erro interno relacionado coa plantilla . Esto é un bug, a "
+"información pertinente pódese atopar nos rexistros."
 
 #: src/EBox/GConfModule/Partition.pm:30
 msgid "A instance of a subclass of EBox::GConfModule is expected"
-msgstr ""
+msgstr "Precísase unha instancia da subclase EBox::GConfModule"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
-msgstr ""
+msgstr "nunca purgar"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:124
 msgid "one hour"
-msgstr ""
+msgstr "unha hora"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
 #: src/EBox/Logs/Model/ForcePurge.pm:128
 msgid "twelve hours"
-msgstr ""
+msgstr "doce horas"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
 #: src/EBox/Logs/Model/ForcePurge.pm:132
 msgid "one day"
-msgstr ""
+msgstr "un día"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
 #: src/EBox/Logs/Model/ForcePurge.pm:136
 msgid "three days"
-msgstr ""
+msgstr "tres días"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
 #: src/EBox/Logs/Model/ForcePurge.pm:140
 msgid "one week"
-msgstr ""
+msgstr "unha semana"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
 #: src/EBox/Logs/Model/ForcePurge.pm:144
 msgid "fifteeen days"
-msgstr ""
+msgstr "quince días"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
 #: src/EBox/Logs/Model/ForcePurge.pm:148
 msgid "thirty days"
-msgstr ""
+msgstr "trinta días"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
 #: src/EBox/Logs/Model/ForcePurge.pm:152
 msgid "ninety days"
-msgstr ""
+msgstr "noventa días"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
 #: src/EBox/Events/Model/Watcher/Log.pm:216
 msgid "Domain"
-msgstr ""
+msgstr "Dominio"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
 #: src/EBox/Logs/Model/ForcePurge.pm:98
 msgid "Purge logs older than"
-msgstr ""
+msgstr "Purgar os rexistros máis vellos que"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
 msgid "Current configuration"
-msgstr ""
+msgstr "Configuración actual"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
 msgid "Logs configuration"
-msgstr ""
+msgstr "Configuración de rexistros"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "Habilitar/deshabilitar o rexistro para módulos base"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355 src/EBox/Logs.pm:62
 msgid "logs"
-msgstr ""
+msgstr "rexistros"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:107
 msgid "Force log purge"
-msgstr ""
+msgstr "Forzar purgar rexistros"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:110
 msgid "Purge"
-msgstr ""
+msgstr "Purgar"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
-msgstr ""
+msgstr "Nome do servidor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Servidor Jabber para enviar as mensaxes"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
-msgstr ""
+msgstr "Porto"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
 msgid "Jabber user name"
-msgstr ""
+msgstr "Nome de usuario de Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Jabber ID da conta que enviará as mensaxes. Pista: non introducir @dominio, "
+"só o nome de usuario"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
-msgstr ""
+msgstr "Contrasinal de usuario"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
 msgid "Subscribe"
-msgstr ""
+msgstr "Subscribir"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid ""
 "Tick this option if  you want eBox to create an account for  the above user"
 msgstr ""
+"Marque esta opción se desexa que eBox cree unha conta para o usuario de "
+"enriba"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Identificador Jabber do Administrador"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
 msgid ""
@@ -1824,27 +1880,27 @@ msgstr ""
 
 #: src/templates/backup.mas:156
 msgid "Restore configuration using this file"
-msgstr ""
+msgstr "Restaurar a configuración empregando este ficheiro"
 
 #: src/templates/backup.mas:157
 msgid "Restore from backup"
-msgstr ""
+msgstr "Restaurar esta copia de seguridade"
 
 #: src/templates/backup.mas:162 src/templates/backup.mas:163
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/templates/backup.mas:182
 msgid "download"
-msgstr ""
+msgstr "descargar"
 
 #: src/templates/backup.mas:184
 msgid "restore"
-msgstr ""
+msgstr "restaurar"
 
 #: src/templates/backup.mas:186
 msgid "delete"
-msgstr ""
+msgstr "eliminar"
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1852,38 +1908,45 @@ msgid ""
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
 msgstr ""
+"Habilitando este módulo ocasionará que eBox leve a cabo as accións e "
+"modificacións no ficheiros listado abaixo. Debes aceptar explicitamente "
+"estes cambios para habilitar o módulo."
 
 #: src/templates/configureView.mas:20
 msgid "Actions to perform by eBox"
-msgstr ""
+msgstr "Accións a levar a cabo por eBox"
 
 #: src/templates/configureView.mas:35
 msgid "Files to modify by eBox"
-msgstr ""
+msgstr "Ficheiros a modificar por eBox"
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a bug in eBox."
 msgstr ""
+"Esta páxina permite xerar un ficheiro coa información sobre o estado do teu "
+"sistema. O ficheiro será de axuda para reportar un erro en eBox."
 
 #: src/templates/bug.mas:14
 msgid "Download bug report file"
-msgstr ""
+msgstr "Descargar o ficheiro de reporte de erros"
 
 #: src/templates/finish.mas:82
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
 msgstr ""
+"Hai cambios sen gardar en un ou máis módulos, podes gardar ou descartar "
+"estes cambios."
 
 #: src/templates/finish.mas:99
 msgid ""
@@ -1891,52 +1954,55 @@ msgid ""
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
 msgstr ""
+"Se fixeches cambios nas interfaces de rede ou no porto de administración, "
+"podería ser necesario reescribir manualmente a url para poder acceder a "
+"interface de administración de novo."
 
 #: src/templates/finish.mas:107
 msgid "Message"
-msgstr ""
+msgstr "Mensaxe"
 
 #: src/templates/finish.mas:123
 msgid "Save"
-msgstr ""
+msgstr "Gardar"
 
 #: src/templates/finish.mas:125
 msgid "Discard changes"
-msgstr ""
+msgstr "Descartar os cambios"
 
 #: src/templates/finish.mas:130
 msgid "There are no unsaved changes."
-msgstr ""
+msgstr "Non hai cambios sen gardar."
 
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"
-msgstr ""
+msgstr "Porto TCP da interface de administración"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+msgstr "Poderías perder a conexión a Internet se esta máquina é detida."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "Deter"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Reiniciar"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Desexa sobrescribir estes ficheiros?"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "Manter o ficheiro actual"
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "Modificar"
 
 #: src/templates/footer.mas:6
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
-msgstr ""
+msgstr "{ebox} creado por {warp}"

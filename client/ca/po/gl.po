@@ -5,22 +5,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-10 20:17+0000\n"
+"Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
 #: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:43
 msgid "Certification Authority Management"
-msgstr ""
+msgstr "Xestión da Autoridade de Certificación"
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
 #: src/EBox/CGI/IssueCertificate.pm:70 src/EBox/CGI/RevokeCertificate.pm:76
@@ -30,11 +30,11 @@ msgstr ""
 #: src/EBox/CA.pm:1328 src/templates/formRenew.mas:43
 #: src/templates/index.mas:23 src/templates/formRevoke.mas:28
 msgid "Common Name"
-msgstr ""
+msgstr "Nome Común"
 
 #: src/EBox/CGI/ShowForm.pm:63
 msgid "Action"
-msgstr ""
+msgstr "Acción"
 
 #: src/EBox/CGI/ShowForm.pm:73
 msgid "Only revoke and renew actions are performed"
@@ -43,7 +43,7 @@ msgstr ""
 #: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr ""
+msgstr "Nome común: {cn} NON existe na base de datos"
 
 #: src/EBox/CGI/CreateCA.pm:109 src/EBox/CGI/IssueCertificate.pm:84
 msgid "CA passphrases do NOT match"

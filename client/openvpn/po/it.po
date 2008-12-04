@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:40+0000\n"
-"PO-Revision-Date: 2007-03-16 11:35+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-11-24 19:01+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
 msgid "disabled"
@@ -201,7 +201,6 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:80
-#, fuzzy
 msgid "Server port"
 msgstr "Porta del server"
 

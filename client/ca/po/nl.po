@@ -7,36 +7,38 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2006-12-20 13:17+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-02 12:24+0000\n"
+"Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 #: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
 msgid "Organization Name"
-msgstr ""
+msgstr "Organizatie Naam"
 
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr ""
+msgstr "Dagen ingesteld tot het maximum toegestane {days}: 2038 bug"
 
 #: src/EBox/CA.pm:347
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
+msgstr "De verwijder operatie kan niet afgemaakt worden. Reden:"
 
 #: src/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
+"De CA certificaten zouden herroepen moeten worden_ _of zijn verlopen voor de "
+"aanvraag van een nieuw certificaat"
 
 #: src/EBox/CA.pm:706 src/EBox/CA.pm:872 src/EBox/CA.pm:1187
 #: src/EBox/CA.pm:1229 src/EBox/CA.pm:1328 src/EBox/CGI/RenewCertificate.pm:75
@@ -46,16 +48,16 @@ msgstr ""
 #: src/EBox/CA/TestStub.pm:642 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
 msgid "Common Name"
-msgstr "Gemeenschappelijke naam"
+msgstr "Algemene naam"
 
 #: src/EBox/CA.pm:743 src/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
+msgstr "Verloop datum is later dan de verloopdatum van het CA certificaat "
 
 #: src/EBox/CA.pm:885 src/EBox/CA.pm:1198
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr ""
+msgstr "Het certificaat met de algemene naam {cn} bestaat niet"
 
 #: src/EBox/CA.pm:889
 #, perl-brace-format
@@ -63,45 +65,52 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
+"Rede {reason} is GEEN toepasbare rede.\n"
+" Opties:"
 
 #: src/EBox/CA.pm:1102
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr ""
+msgstr "Zowel algemene naam, volledige naam of serienummer is verlopen"
 
 #: src/EBox/CA.pm:1329
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #: src/EBox/CA.pm:1330
 msgid "Certificate file"
-msgstr ""
+msgstr "Certificaat bestand"
 
 #: src/EBox/CA.pm:1352
 msgid "The certificate to renew does NOT exist"
-msgstr ""
+msgstr "Het certificaat om te vernieuwen bestaat niet"
 
 #: src/EBox/CA.pm:1391
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
-msgstr ""
+msgstr "Een Certificaat met deze algemene naam {cn} bestaat NIET in deze CA"
 
 #: src/EBox/CA.pm:1419
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
 msgstr ""
+"Het privé-sleutel wachtwoord nodig voor een nieuwe aanvraag. Geen "
+"vernieuwing was uitgevoerd. Vraag een nieuw certificaat aan met nieuwe "
+"sleutels"
 
 #: src/EBox/CA.pm:1649
 msgid "Certificate Manager"
-msgstr ""
+msgstr "Certificaat Beheerder"
 
 #: src/EBox/CA.pm:2173
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
+"Ondertekening is niet mogelijk. Verkeerd CA wachtwoord of is de CA "
+"privé-sleutel verdwenen?"
 
 #: src/EBox/CA.pm:2175
 msgid "Database corruption"
-msgstr ""
+msgstr "Database corruptie"
 
 #: src/EBox/CA.pm:2177
 msgid "Identifier duplicated in Database"

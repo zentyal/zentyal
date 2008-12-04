@@ -5,40 +5,40 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-printers 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-printers 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:33+0200\n"
-"PO-Revision-Date: 2008-09-01 08:33+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 07:06+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:421
 msgid "Manage printers"
-msgstr ""
+msgstr "管理印表機"
 
 #: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
-msgstr ""
+msgstr "印表機名稱"
 
 #: src/EBox/CGI/CancelJob.pm:41
 msgid "Printer's id"
-msgstr ""
+msgstr "印表機id"
 
 #: src/EBox/CGI/CancelJob.pm:42
 msgid "Job id"
-msgstr ""
+msgstr "Job id"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr ""
+msgstr "Job已成功取消了"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr ""
+msgstr "新增新的印表機 (II)"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
@@ -61,7 +61,7 @@ msgstr ""
 #: src/EBox/Printers.pm:1157 src/EBox/Printers.pm:1212
 #: src/EBox/Printers.pm:1227 src/EBox/Printers.pm:1258
 msgid "Printer"
-msgstr ""
+msgstr "印表機"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
 #: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
@@ -73,407 +73,407 @@ msgstr ""
 #: src/templates/manufacturer.mas:22 src/templates/drivers.mas:34
 #: src/templates/drivers.mas:35
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
-msgstr ""
+msgstr "已分享資源"
 
 #: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:32
 #: src/templates/printerback.mas:120
 msgid "Authentication"
-msgstr ""
+msgstr "驗證"
 
 #: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:60
 #: src/templates/printerback.mas:148
 msgid "User"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:69
 #: src/templates/printerback.mas:157
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr ""
+msgstr "新增新的印表機 (V)"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr ""
+msgstr "新增新的印表機 (III)"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
-msgstr ""
+msgstr "管理印表機"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:58
 msgid "Printer details"
-msgstr ""
+msgstr "印表機詳細內容"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:59
 msgid "Driver Options"
-msgstr ""
+msgstr "驅動程式選項"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:60
 msgid "Configuration options"
-msgstr ""
+msgstr "設置選項"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:61
 msgid "Jobs Queue"
-msgstr ""
+msgstr "列印佇列"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr ""
+msgstr "新增新的印表機 (I)"
 
 #: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:149
 #: src/templates/printerback.mas:37
 msgid "Driver"
-msgstr ""
+msgstr "驅動程式"
 
 #: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:814
 #: src/templates/printer.mas:133 src/templates/printerback.mas:21
 msgid "Manufacturer"
-msgstr ""
+msgstr "製造商"
 
 #: src/EBox/CGI/ManagePrinter.pm:51
 msgid "The printer has been deleted successfully"
-msgstr ""
+msgstr "此印表機已成功刪除了"
 
 #: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:560
 #: src/EBox/Printers.pm:648 src/templates/addprinter.mas:23
 msgid "Method"
-msgstr ""
+msgstr "Method"
 
 #: src/EBox/CGI/AddPrinter.pm:43
 msgid "Printer description"
-msgstr ""
+msgstr "印表機說明"
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:723
 #: src/templates/printerback.mas:182 src/templates/network.mas:23
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:724
 #: src/templates/printerback.mas:190 src/templates/network.mas:31
 msgid "Port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
 #: src/EBox/Printers.pm:672 src/EBox/Printers.pm:698 src/templates/usb.mas:18
 #: src/templates/parallel.mas:18
 msgid "Device"
-msgstr ""
+msgstr "裝置"
 
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
-msgstr ""
+msgstr "獨立 cups 已啟用"
 
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
-msgstr ""
+msgstr "獨立 cups 已停用"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
-msgstr ""
+msgstr "新增新的印表機 (IV)"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
-msgstr ""
+msgstr "新增新的印表機 (VI)"
 
 #: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:853 src/EBox/Printers.pm:893
 #: src/templates/printer.mas:141 src/templates/printerback.mas:29
 msgid "Model"
-msgstr ""
+msgstr "型號"
 
 #: src/EBox/CGI/DeleteUI.pm:30
 msgid "Delete printer"
-msgstr ""
+msgstr "刪除印表機"
 
 #: src/EBox/Printers.pm:53
 msgid "printers"
-msgstr ""
+msgstr "印表機"
 
 #: src/EBox/Printers.pm:73
 msgid "Create spool directory for printers"
-msgstr ""
+msgstr "建立印表機的 spool 目錄"
 
 #: src/EBox/Printers.pm:74
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "eBox 將會建立 spool 目錄在 /var/spool/samba"
 
 #: src/EBox/Printers.pm:79
 msgid "Add user ebox to lpadmin group"
-msgstr ""
+msgstr "新增使用者 ebox 到 lpadmin 群組"
 
 #: src/EBox/Printers.pm:80
 msgid "In order to manage printers and queues from the eBox web interface"
-msgstr ""
+msgstr "從 eBox 網頁介面來管理印表機和佇列"
 
 #: src/EBox/Printers.pm:85
 msgid "Create log table"
-msgstr ""
+msgstr "建立日誌表"
 
 #: src/EBox/Printers.pm:86
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
-msgstr ""
+msgstr "eBox 將會建立新表單到日誌資料庫來儲存印表日誌"
 
 #: src/EBox/Printers.pm:102
 msgid "To add and manage printers"
-msgstr ""
+msgstr "新增和管理印表機"
 
 #: src/EBox/Printers.pm:107
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
+msgstr "啟用獨立 cupsd 在內部網路介面來監聽"
 
 #: src/EBox/Printers.pm:245
 msgid "Printer sharing"
-msgstr ""
+msgstr "印表機分享"
 
 #: src/EBox/Printers.pm:356 src/EBox/Printers.pm:1267
 msgid "Printers"
-msgstr ""
+msgstr "印表機"
 
 #: src/EBox/Printers.pm:359
 msgid "Add printer"
-msgstr ""
+msgstr "新增印表機"
 
 #: src/EBox/Printers.pm:556
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
-msgstr ""
+msgstr "印表機名稱裡面的有無效的字元.只接受數字的字元"
 
 #: src/EBox/Printers.pm:565 src/templates/printer.mas:69
 #: src/templates/printers.mas:37 src/templates/addprinter.mas:15
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/Printers.pm:573
 msgid "The given name is alreaday used as "
-msgstr ""
+msgstr "規定的名稱已被使用"
 
 #: src/EBox/Printers.pm:595 src/EBox/Printers.pm:1090
 #: src/EBox/Printers.pm:1132
 msgid "Printer not configured"
-msgstr ""
+msgstr "印表機尚未設置"
 
 #: src/EBox/Printers.pm:677
 msgid "It is not a usb printer"
-msgstr ""
+msgstr "這不是 usb 印表機"
 
 #: src/EBox/Printers.pm:703
 msgid "It is not a parallel printer"
-msgstr ""
+msgstr "這不是 parallel 印表機"
 
 #: src/EBox/Printers.pm:729
 msgid "It is not a network printer"
-msgstr ""
+msgstr "這不是網路印表機"
 
 #: src/EBox/Printers.pm:758
 msgid "It is not a samba printer"
-msgstr ""
+msgstr "這不是 samba 印表機"
 
 #: src/EBox/Printers.pm:998 src/EBox/Printers.pm:1024
 msgid "is not a valid option"
-msgstr ""
+msgstr "不正確的選項"
 
 #: src/EBox/Printers.pm:1112
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr ""
+msgstr "參數 '{name}' 是不存在"
 
 #: src/EBox/Printers.pm:1257 src/templates/printer.mas:67
 msgid "Job ID"
-msgstr ""
+msgstr "列印 ID"
 
 #: src/EBox/Printers.pm:1259 src/templates/printer.mas:68
 msgid "Owner"
-msgstr ""
+msgstr "擁有者"
 
 #: src/EBox/Printers.pm:1260
 msgid "Queued at"
-msgstr ""
+msgstr "佇列在"
 
 #: src/EBox/Printers.pm:1261
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Printers.pm:1264
 msgid "Queued"
-msgstr ""
+msgstr "佇列"
 
 #: src/EBox/Printers.pm:1264
 msgid "Canceled"
-msgstr ""
+msgstr "取消"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Cups 印表機伺服器連接埠"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
-msgstr ""
+msgstr "驅動程式選項"
 
 #: src/templates/models.mas:13
 msgid "Choose a printer model"
-msgstr ""
+msgstr "選擇一個印表機型號"
 
 #: src/templates/printer.mas:32 src/templates/printer.mas:159
 #: src/templates/printer.mas:160 src/templates/printerback.mas:96
 #: src/templates/printerback.mas:97 src/templates/printerback.mas:200
 #: src/templates/printerback.mas:201 src/templates/printers.mas:19
 msgid "Change"
-msgstr ""
+msgstr "改變"
 
 #: src/templates/printer.mas:61
 msgid "Job queue"
-msgstr ""
+msgstr "列印佇列"
 
 #: src/templates/printer.mas:70
 msgid "Size(KB)"
-msgstr ""
+msgstr "大小(KB)"
 
 #: src/templates/printer.mas:71
 msgid "Creation time"
-msgstr ""
+msgstr "建立時間"
 
 #: src/templates/printer.mas:72
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/printer.mas:111 src/templates/printer.mas:112
 #: src/templates/printer.mas:113 src/templates/del.mas:21
 #: src/templates/printers.mas:64 src/templates/printers.mas:65
 #: src/templates/printers.mas:66
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/printer.mas:121
 msgid "This printer has no pending job in queue at the moment"
-msgstr ""
+msgstr "這個印表機現在沒有緊急的列印工作在佇列上"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
-msgstr ""
+msgstr "Samba 印表機分享設置"
 
 #: src/templates/samba.mas:24 src/templates/printerback.mas:112
 msgid "Share resource"
-msgstr ""
+msgstr "分享資源"
 
 #: src/templates/samba.mas:38 src/templates/samba.mas:40
 #: src/templates/printerback.mas:126 src/templates/printerback.mas:128
 msgid "Anonymous"
-msgstr ""
+msgstr "匿名"
 
 #: src/templates/samba.mas:44 src/templates/samba.mas:46
 #: src/templates/printerback.mas:132 src/templates/printerback.mas:134
 msgid "Guest"
-msgstr ""
+msgstr "訪客"
 
 #: src/templates/samba.mas:50 src/templates/samba.mas:52
 #: src/templates/printerback.mas:138 src/templates/printerback.mas:140
 msgid "User/Password"
-msgstr ""
+msgstr "使用者/密碼"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr ""
+msgstr "您確定要刪除這個印表機 '{name}' 嗎?"
 
 #: src/templates/del.mas:24
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/templates/printerback.mas:47 src/templates/printerback.mas:48
 msgid "Go"
-msgstr ""
+msgstr "開始"
 
 #: src/templates/printerback.mas:106
 msgid "Samba shared printer configurationr"
-msgstr ""
+msgstr "Samba 印表機分享設置"
 
 #: src/templates/printerback.mas:176
 msgid "Remote printer configuration"
-msgstr ""
+msgstr "遠端印表機設置"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
-msgstr ""
+msgstr "啟用獨立 cups"
 
 #: src/templates/printers.mas:25
 msgid "General settings"
-msgstr ""
+msgstr "一般設定"
 
 #: src/templates/printers.mas:33
 msgid "List of printers"
-msgstr ""
+msgstr "印表機列表"
 
 #: src/templates/printers.mas:38
 msgid "Description"
-msgstr ""
+msgstr "說明"
 
 #: src/templates/printers.mas:39
 msgid "Actions"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/printers.mas:58
 msgid "Manage"
-msgstr ""
+msgstr "管理"
 
 #: src/templates/printers.mas:59 src/templates/printers.mas:60
 msgid "Manage this printer"
-msgstr ""
+msgstr "管理這個印表機"
 
 #: src/templates/printers.mas:75
 msgid "There is no printer configured yet"
-msgstr ""
+msgstr "這裡沒有印表機設置"
 
 #: src/templates/network.mas:16
 msgid "Configure remote printer"
-msgstr ""
+msgstr "設置遠端印表機"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
-msgstr ""
+msgstr "本機 USB 印表機設置"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr ""
+msgstr "選擇印表機的驅動程式"
 
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
-msgstr ""
+msgstr "設定印表機的名稱和 method"
 
 #: src/templates/addprinter.mas:28
 msgid "Parallel"
-msgstr ""
+msgstr "Parallel"
 
 #: src/templates/addprinter.mas:29
 msgid "Network printer"
-msgstr ""
+msgstr "網路印表機"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
-msgstr ""
+msgstr "Samba"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
-msgstr ""
+msgstr "選擇製造商"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr ""
+msgstr "本機 parallel 印表機設置"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
-msgstr ""
+msgstr "選擇印表機的驅動程式"
 
 #: src/templates/drivers.mas:20
 msgid "driver"
-msgstr ""
+msgstr "驅動程式"
