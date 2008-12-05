@@ -1,12 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Monitor/Measure
 
-nobase_perl_DATA = Monitor.pm 
+nobase_perl_DATA = Base.pm Load.pm 
 
 DISTCLEANFILES = 
 
 EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
-
-SUBDIRS = Monitor

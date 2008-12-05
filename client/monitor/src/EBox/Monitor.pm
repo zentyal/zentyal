@@ -1,4 +1,4 @@
-# Copyright (C) 
+# Copyright 2008 (C) eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -50,6 +50,7 @@ use EBox::Exceptions::DataNotFound;
 # Constants
 use constant COLLECTD_SERVICE   => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE => '/etc/collectd/collectd.conf';
+use constant RRD_BASE_DIR       => EBox::Config::lib() . '/collectd/rrd/';
 
 # Method: _create
 #
@@ -185,6 +186,19 @@ sub menu
 #         'text' => __('Monitor'),
 #         'order' => 3);
 #     $root->add($item);
+}
+
+# Method: RRDBaseDirPath
+#
+#      Return the RRD base directory path
+#
+# Returns:
+#
+#      String - the RRD base directory Path
+#
+sub RRDBaseDirPath
+{
+    return RRD_BASE_DIR;
 }
 
 # Group: Protected methods
