@@ -47,10 +47,13 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
+use Sys::Hostname;
+
 # Constants
 use constant COLLECTD_SERVICE   => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE => '/etc/collectd/collectd.conf';
-use constant RRD_BASE_DIR       => EBox::Config::lib() . '/collectd/rrd/';
+use constant RRD_BASE_DIR       => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
+use constant QUERY_INTERVAL     => 10;
 
 # Method: _create
 #
@@ -201,6 +204,19 @@ sub RRDBaseDirPath
     return RRD_BASE_DIR;
 }
 
+# Method: QueryInterval
+#
+#      Return the collectd query interval to plugins
+#
+# Return:
+#
+#      Int - the query interval
+#
+sub QueryInterval
+{
+    return QUERY_INTERVAL;
+}
+
 # Group: Protected methods
 
 # Method: _stopService
@@ -242,7 +258,11 @@ sub _setMonitorConf
     my ($self) = @_;
 
     $self->writeConfFile(COLLECTD_CONF_FILE,
-                         'monitor/collectd.conf.mas');
+                         'monitor/collectd.conf.mas',
+                         [
+                          (interval => $self->QueryInterval()),
+                         ]
+                       );
 
 }
 

@@ -1,4 +1,5 @@
 <%args>
+  $interval => 10
 </%args>
 # Config file for collectd(1).
 #
@@ -9,11 +10,11 @@
 # enabling any more plugins.
 
 #Hostname "localhost"
-FQDNLookup true
+FQDNLookup false
 #BaseDir "/var/lib/collectd"
 #PluginDir "/usr/lib/collectd"
 #TypesDB "/usr/lib/collectd/types.db" "/etc/collectd/my_types.db"
-#Interval 10
+Interval <% $interval %>
 #ReadThreads 5
 
 #LoadPlugin apache

@@ -11,6 +11,8 @@ case "$1" in
 
         # Restart eBox apache
         invoke-rc.d ebox apache restart || true
+        # Restart the module itself
+        invoke-rc.d ebox monitor restart || true
 
     ;;
 esac

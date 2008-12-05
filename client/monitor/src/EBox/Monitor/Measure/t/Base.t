@@ -20,7 +20,8 @@
 use Clone;
 use EBox::Monitor;
 use File::Temp;
-use Test::More tests => 25;
+use File::Basename;
+use Test::More tests => 27;
 use Test::Exception;
 
 BEGIN {
@@ -33,10 +34,12 @@ BEGIN {
 
 my $tempFile = File::Temp->new( SUFFIX => '.rrd');
 my $greatDescription = {
-    rrds => [ $tempFile->filename() ]
-   };
+   realms => [ '/tmp' ],
+   rrds   => [ File::Basename::basename($tempFile->filename()) ]
+  };
 
-*EBox::Monitor::RRDBaseDirPath = sub { return '/tmp'; };
+my $oldBaseDirFunc = \&EBox::Monitor::RRDBaseDirPath;
+*EBox::Monitor::RRDBaseDirPath = sub { return ''; };
 
 throws_ok {
     EBox::Monitor::Measure::Base->new();
@@ -55,12 +58,15 @@ lives_ok {
 cmp_ok( $measure->{name}, 'eq', ref($measure));
 cmp_ok( $measure->{help}, 'eq', '');
 cmp_ok( $measure->{printableName}, 'eq', '');
-is_deeply( $measure->{dataset}, ['value']);
+is_deeply( $measure->{datasets}, ['value']);
 cmp_ok( $measure->{type}, 'eq', 'int');
 
 # Starting great stuff
 throws_ok {
-    $measure->_setDescription( { rrds => [ '/tmp/falacia' ] });
+    $measure->_setDescription( { realms => ['/tmp'],
+                                 rrds => [ 'falacia' ]
+                                }
+                              );
 } 'EBox::Exceptions::Internal', 'Setting a non-existant RRD';
 
 # Help and printable name
@@ -74,7 +80,7 @@ cmp_ok( $measure->{help}, 'eq', 'foo');
 cmp_ok( $measure->{printableName}, 'eq', 'bar');
 
 # Data set and rrds bad types
-foreach my $attr (qw(dataset rrds)) {
+foreach my $attr (qw(datasets realms)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -98,7 +104,17 @@ throws_ok {
 } 'EBox::Exceptions::InvalidData', 'Setting wrong data type';
 
 # Load testing
-isa_ok( EBox::Monitor::Measure::Load->new(),
-        'EBox::Monitor::Measure::Load');
+
+*EBox::Monitor::RRDBaseDirPath = $oldBaseDirFunc;
+
+my $load;
+lives_ok {
+    $load = EBox::Monitor::Measure::Load->new();
+} 'Creating Load measure';
+
+isa_ok( $load, 'EBox::Monitor::Measure::Load');
+
+ok($load->fetchData(), 'Fetching data');
+
 
 1;
