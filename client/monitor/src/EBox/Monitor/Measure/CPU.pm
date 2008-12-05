@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Monitor::Measure::Load
+# Class: EBox::Monitor::Measure::CPU
 #
-#     This measure collects the system load
+#     This measure collects the cpu usage stats
 #
 
-package EBox::Monitor::Measure::Load;
+package EBox::Monitor::Measure::CPU;
 
 use strict;
 use warnings;
@@ -26,6 +26,7 @@ use warnings;
 use base qw(EBox::Monitor::Measure::Base);
 
 use EBox::Gettext;
+use Sys::CPU;
 
 # Constructor: new
 #
@@ -51,13 +52,22 @@ sub new
 #
 sub _description
 {
+    my ($self) = @_;
+
+    my $cpuNo = Sys::CPU::cpu_count();
+    my @realm = map { "cpu-$_" } 0 .. $cpuNo - 1;
+    my @rrds  = qw(cpu-idle.rrd cpu-user.rrd cpu-interrupt.rrd cpu-nice.rrd
+                   cpu-softinterrupt.rrd cpu-steal.rrd cpu-system.rrd
+                   cpu-wait.rrd);
+
     return {
-        printableName => __('System load'),
-        help          => __('Collect the system load that gives a rough '
-                            . 'overview of the system usage'),
-        datasets      => [ 'shortterm', 'midterm', 'longterm' ],
-        realms        => [ 'load' ],
-        rrds          => [ 'load.rrd' ],
+        printableName => __('CPU usage'),
+        help          => __('Collect the amount of time spent by the CPU '
+                            . 'in various states, most notably executing '
+                            . 'user code, executing system code, waiting '
+                            . 'for IO operations and being idle'),
+        realm         => \@realm,
+        rrds          => \@rrds,
         type          => 'int',
     };
 }

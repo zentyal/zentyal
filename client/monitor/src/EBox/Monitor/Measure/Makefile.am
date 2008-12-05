@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Monitor/Measure
 
-nobase_perl_DATA = Base.pm Load.pm 
+nobase_perl_DATA = Base.pm CPU.pm Load.pm 
 
 DISTCLEANFILES = 
 
