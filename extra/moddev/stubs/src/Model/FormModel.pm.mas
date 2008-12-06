@@ -31,7 +31,10 @@ package <% $mainClass %>::Model::<% $modelName %>;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use EBox::Types::Text;
+
+% for my $field (@fields) {
+use EBox::Types::<% $field->{type} %>;
+% }
 
 use strict;
 use warnings;

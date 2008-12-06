@@ -18,7 +18,7 @@ use constant
 
 sub types
 {
-    return qw/Text Int Boolean Port HostIP IPAddress Select/;
+    return qw/Text Int Boolean Port HostIP IPAddress Select DomainName/;
 }
 
 sub _printValidTypes
