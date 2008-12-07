@@ -1,0 +1,154 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+
+use Getopt::Long;
+use Cwd;
+use HTML::Mason;
+use File::Slurp;
+use File::Copy;
+
+use constant 
+    {
+       MODULE_VERSION => '0.1',
+       STUBS_PATH => '@DATADIR@/emoddev/stubs',
+    };
+
+sub _printUsage
+{
+    print STDERR "\nUsage: $0 --main-class class [Options]\n\n";
+    print STDERR "Options:\n";
+    print STDERR "\t--name\n";
+    print STDERR "\t--destdir\n";
+    print STDERR "\t--parent\n";
+    _printValidTypes();
+    exit 1;
+}
+
+
+sub _parseOptions
+{
+    my %options = ( 
+            name =>   undef,
+            parent => undef,
+            destdir => undef,
+            mainClass => undef,
+            );
+    my $help;
+    my $info;
+    my @fields;
+    my $optionsOk = GetOptions(
+            'main-class=s' => \$options{mainClass},
+            'name=s' => \$options{name},
+            'parent=s' => \$options{parent},
+            'destdir=s' => \$options{destdir},
+            'help'  => \$help,
+            'info'  => \$info,
+            );
+    if (not $optionsOk or $info or $help) {
+        _printUsage();
+    }
+
+    unless (defined($options{mainClass})) {
+        _printUsage();
+    }
+
+    if ($options{destdir}) {
+        unless (-d $options{destdir}) {
+            die "$options{destidir} does not exist";
+        }
+    } else {
+        $options{destdir} = getcwd;
+    }
+
+    unless ( -d $options{destdir} ) {
+        die "$options{destdir} does not exist!!";
+    }
+
+    return \%options;
+}
+
+sub _templates
+{
+    my ($dir) = @_;
+    my @models ;
+    opendir ( my $dirFH, $dir );
+    while ( defined ( my $file = readdir ( $dirFH ))) {
+          next unless ( $file =~ m/.*\.mas/ );
+          push(@models, $file);
+    }
+    return \@models; 
+}
+
+sub _makefile
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/stubs';
+    ( -d $dir )  or mkdir $dir;
+
+   my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/stubs/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp,
+                    ( module => $options->{mainClass},
+                      templates => _templates($dir)));
+
+    write_file($dir . '/Makefile.am', ${$output});
+}
+
+sub _template
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/stubs';
+    mkdir ($dir) unless (-d $dir); 
+
+    my $template = '/stubs/service.conf.mas';
+   
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH . $template,
+            );
+    ${$output} = '';
+    my $name = $options->{name};
+    $interp->exec($comp, 
+            ( 
+                name => $name,
+                parent => $options->{parent},
+                mainClass => $options->{mainClass},
+              ));
+    write_file("$dir/$name.mas", ${$output});
+
+}
+
+sub _runAutogen
+{
+    if (-e 'autogen.sh') {
+        system('./autogen.sh');
+    } else {
+        print STDERR " You will have to manually run autogen.sh within your module directory";
+    }
+}
+
+sub _createStub
+{
+    # Main
+    my $options = _parseOptions();
+
+    my $dir = $options->{destdir};
+    
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+            out_method => \$output);
+
+    if ($options->{name}) {
+        _template($interp, \$output, $options);
+    }
+   _makefile($interp, \$output, $options);
+   _runAutogen();
+}
+
+_createStub();
