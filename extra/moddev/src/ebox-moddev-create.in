@@ -269,25 +269,14 @@ sub _stubs
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/stubs';
+    my $dir = $options->{destdir};
     my $module = $options->{moduleName};
 
-    mkdir ("$dir") or die "Can't create $dir";
-
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/stubs/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, ( module=> $module));
-    write_file($dir . '/Makefile.am', ${$output});
-
-   my $confSrc = STUBS_PATH . '/stubs/';
-   my $confDst = $options->{destdir} . '/tools';
-
-   copy(STUBS_PATH . '/stubs/service.conf.mas', "$dir/service.conf.mas");
-
-  
+    my $params = " --main-class $module --name service.conf" .
+                 " --destdir $dir";
+    system("ebox-moddev-stub $params"); 
 }
+
 sub _m4
 {
     my ($interp, $output, $options) = @_;

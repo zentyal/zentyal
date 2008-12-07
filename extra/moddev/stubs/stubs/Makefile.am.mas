@@ -1,11 +1,12 @@
 <%args>
     $module
+    @templates
 </%args>
 ## Process this file with automake to produce Makefile.in
 
 Stubdir = @STUBSPATH@/<% $module %>
 
-nobase_Stub_DATA = service.conf.mas
+nobase_Stub_DATA = <% join (' ', @templates) %>
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 
