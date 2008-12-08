@@ -1,12 +1,12 @@
 <%args>
-    $mainClass
+    $module
+    @composites
 </%args>
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Composite Model Types
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/<% $module %>/Composite
 
-nobase_perl_DATA = <% $mainClass %> 
+nobase_perl_DATA = <% join (' ', @composites) %> 
 
 DISTCLEANFILES = 
 

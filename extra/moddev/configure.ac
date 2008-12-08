@@ -1,4 +1,4 @@
-AC_INIT([emoddev], [0.1.3])
+AC_INIT([emoddev], [0.1.4])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/ebox-moddev-create.in])
@@ -16,6 +16,7 @@ Makefile
 src/Makefile
 src/ebox-moddev-create
 src/ebox-moddev-model
+src/ebox-moddev-composite
 src/ebox-moddev-type
 src/ebox-moddev-migration
 src/ebox-moddev-stub
