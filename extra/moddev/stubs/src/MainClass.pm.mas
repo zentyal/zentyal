@@ -30,6 +30,7 @@ use strict;
 use warnings;
 
 use base qw(EBox::GConfModule EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider 
             EBox::ServiceModule::ServiceInterface);
 
 
@@ -73,6 +74,15 @@ sub modelClasses
     return ['<% $class %>::Model::Settings'];
 }
 
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::compositeClasses>
+sub compositeClassess 
+{
+    my ($self) = @_;
+
+    return [];
+}
 
 sub domain
 {

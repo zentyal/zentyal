@@ -155,6 +155,18 @@ sub _src_EBox_Model
     system("ebox-moddev-model $params"); 
 }
 
+sub _src_EBox_Composite
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir}; 
+    my $mainClass = $options->{mainClass}; 
+    my $params = " --main-class $mainClass --name Composite" .
+                 " --destdir $dir";
+    system("ebox-moddev-composite $params"); 
+}
+
+
 sub _src_EBox_Types
 {
     my ($interp, $output, $options) = @_;
@@ -342,6 +354,7 @@ sub _createModule
    _src($interp, \$output, $options);
    _src_EBox($interp, \$output, $options);
    _src_EBox_Model($interp, \$output, $options);
+   _src_EBox_Composite($interp, \$output, $options);
    _src_EBox_Types($interp, \$output, $options);
    _debian($interp, \$output, $options);
    _migration($interp, \$output, $options);

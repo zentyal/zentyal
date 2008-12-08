@@ -1,0 +1,187 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+
+use Getopt::Long;
+use Cwd;
+use HTML::Mason;
+use File::Slurp;
+use File::Copy;
+
+use constant 
+    {
+       MODULE_VERSION => '0.1',
+       STUBS_PATH => '@DATADIR@/emoddev/stubs',
+    };
+
+sub _printUsage
+{
+    print STDERR "\nUsage: $0 --main-class class --name name [Options]\n\n";
+    print STDERR "Options:\n";
+    print STDERR "\t--destdir\n";
+    exit 1;
+}
+
+
+sub _parseOptions
+{
+    my %options = ( 
+            name =>   undef,
+            fields => [], 
+            destdir => undef,
+            model => 'form',
+            mainClass => undef,
+            );
+    my $help;
+    my $info;
+    my @fields;
+    my $optionsOk = GetOptions(
+            'main-class=s' => \$options{mainClass},
+            'name=s' => \$options{name},
+            'destdir=s' => \$options{destdir},
+            'help'  => \$help,
+            'info'  => \$info,
+            );
+    if (not $optionsOk or $info or $help) {
+        _printUsage();
+    }
+
+    unless (defined($options{name}) and defined($options{name})) {
+        _printUsage();
+    }
+
+    if ($options{destdir}) {
+        unless (-d $options{destdir}) {
+            die "$options{destidir} does not exist";
+        }
+    } else {
+        $options{destdir} = getcwd;
+    }
+
+    unless ( -d $options{destdir} ) {
+        die "$options{destdir} does not exist!!";
+    }
+
+    return \%options;
+}
+
+sub _composites
+{
+    my ($dir) = @_;
+    my @models ;
+    opendir ( my $dirFH, $dir );
+    while ( defined ( my $file = readdir ( $dirFH ))) {
+          next unless ( $file =~ m/.*\.pm/ );
+          push(@models, $file);
+    }
+    return \@models; 
+}
+
+sub _makefile
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/src/EBox/Composite';
+    ( -d $dir ) or mkdir($dir);
+
+   my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/src/Composite/Makefile.am.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp,
+                    ( module => $options->{mainClass},
+                      composites => _composites($dir)));
+
+    write_file($dir . '/Makefile.am', ${$output});
+}
+
+sub _src_EBox_Composite
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/src/EBox/Composite';
+    my $mainClass = $options->{name} . '.pm';
+    mkdir ($dir) unless (-d $dir); 
+
+    my $template = '/src/Composite/Composite.pm.mas';
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH . $template,
+            );
+    ${$output} = '';
+    $interp->exec($comp, 
+            ( 
+              name => $options->{name},
+              compositeDomain => $options->{mainClass},
+              ));
+    write_file("$dir/$mainClass", ${$output});
+
+}
+
+sub _addCompositesToMainClass
+{
+    my ($interp, $output, $options) = @_;
+
+    my $mainClass = $options->{mainClass};
+    my $file = $options->{destdir} . "/src/EBox/$mainClass.pm";
+    my $dir = $options->{destdir} . "/src/EBox/Composite";
+
+    my $code = "    return [\n";
+    for my $model (@{_composites($dir)}) {
+        $code .= ' ' x 8;
+        $model =~ s/\.pm//;
+        $code .= "'EBox::${mainClass}::Composite::$model',\n";
+    }
+    $code .= "    ];\n";
+
+    my $fd;
+    open($fd, $file) or die "Can open $file\n";
+    my @oldFile = <$fd>;
+    close($fd);
+    
+    open($fd, ">$file");
+    my $inFunction = undef;
+    for my $line (@oldFile) {
+        if ($line =~ /sub compositeClasses/) {
+            $inFunction = 1;    
+        } elsif ($inFunction and $line =~ /{/) {
+            print $fd "{\n$code";
+            next;
+        } elsif ($inFunction and $line =~ /}/) {
+            $inFunction = undef
+        }  elsif ($inFunction) {
+            next;
+        }
+        print $fd $line;
+    }
+    close($fd);
+}
+
+sub _runAutogen
+{
+    if (-e 'autogen.sh') {
+        system('./autogen.sh');
+    } else {
+        print STDERR " You will have to manually run autogen.sh within your module directory";
+    }
+}
+
+sub _createComposite
+{
+    # Main
+    my $options = _parseOptions();
+
+    my $dir = $options->{destdir};
+    
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH, 
+            out_method => \$output);
+
+   _src_EBox_Composite($interp, \$output, $options);
+   _makefile($interp, \$output, $options);
+   _addCompositesToMainClass($interp, \$output, $options);
+   _runAutogen();
+}
+
+_createComposite();
