@@ -14,20 +14,21 @@ fakeEBoxModule(name => 'testMod');
 backupDirTest();
 createBackupDirTest();
 setAsChangedTest();
+noTemplateFileTest();
 
 sub backupDirTest
 {
   my $mod = EBox::Global->modInstance('testMod');
 
   my @cases = (
- 	       ['/' => '/testMod.bak'],
-	       ['/var/lib/ebox/backups' => '/var/lib/ebox/backups/testMod.bak'],
-	       ['/var/lib/ebox/backups/' => '/var/lib/ebox/backups/testMod.bak'],
-	       # with repetition:
-	       ['/var/lib/ebox/backups/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
-	       ['/var/lib/ebox/backups/testMod.bak/' => '/var/lib/ebox/backups/testMod.bak'],
-	       ['/var/lib/ebox/backups/testMod.bak/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
-	      );
+               ['/' => '/testMod.bak'],
+               ['/var/lib/ebox/backups' => '/var/lib/ebox/backups/testMod.bak'],
+               ['/var/lib/ebox/backups/' => '/var/lib/ebox/backups/testMod.bak'],
+               # with repetition:
+               ['/var/lib/ebox/backups/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
+               ['/var/lib/ebox/backups/testMod.bak/' => '/var/lib/ebox/backups/testMod.bak'],
+               ['/var/lib/ebox/backups/testMod.bak/testMod.bak' => '/var/lib/ebox/backups/testMod.bak'],
+              );
 
   foreach my $case_r (@cases) {
     my ($dir, $expectedBackupDir) = @{ $case_r };
@@ -45,12 +46,12 @@ sub createBackupDirTest
   my $mod = EBox::Global->modInstance('testMod');
 
   my @cases = (
-	       ["$dir" => "$dir/testMod.bak"],
-	       ["$dir" => "$dir/testMod.bak"], # check that can be called two times in a row
-	       ["$dir/testMod.bak" => "$dir/testMod.bak"], 
-	       ["$dir/testMod.bak/" => "$dir/testMod.bak"], 
-	       ["$dir/testMod.bak/testMod.bak" => "$dir/testMod.bak"], 
-	      );
+               ["$dir" => "$dir/testMod.bak"],
+               ["$dir" => "$dir/testMod.bak"], # check that can be called two times in a row
+               ["$dir/testMod.bak" => "$dir/testMod.bak"], 
+               ["$dir/testMod.bak/" => "$dir/testMod.bak"], 
+               ["$dir/testMod.bak/testMod.bak" => "$dir/testMod.bak"], 
+              );
 
   foreach my $case_r (@cases) {
     my ($dir, $expectedBackupDir) = @{ $case_r };
@@ -71,15 +72,32 @@ sub setAsChangedTest
 
   lives_and (
 
-	     sub {  
-	       my $mod = $global->modInstance('testMod');
-	       $mod->setAsChanged();
+             sub {  
+               my $mod = $global->modInstance('testMod');
+               $mod->setAsChanged();
 
-	       ok $global->modIsChanged('testMod');
-	     },
-	     'Module was marked as changed'
-	    );
+               ok $global->modIsChanged('testMod');
+             },
+             'Module was marked as changed'
+            );
 }
 
+
+
+sub noTemplateFileTest
+{
+    EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp', stubs => '/tmp');
+
+    my $mod = EBox::Global->modInstance('testMod');
+    dies_ok {
+        $mod->writeConfFile(
+                            '/tmp/whatever',
+                            'inexistentTemplate.mas',
+                            []
+
+                           );
+    } 'Checking that writeConfFile dies when supplied with a inexistent template file';
+
+}
 
 1;
