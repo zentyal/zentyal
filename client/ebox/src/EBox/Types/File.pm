@@ -100,8 +100,9 @@ sub printableValue
 {
     my ($self) = @_;
 
-    if ( defined ($self->{filePath}) ) {
-        return basename($self->{filePath});
+    my $path = $self->path();
+    if ( defined ($path) ) {
+        return basename($path);
     } else {
         return '';
     }

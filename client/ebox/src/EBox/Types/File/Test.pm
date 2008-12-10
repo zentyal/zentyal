@@ -200,6 +200,33 @@ sub existsTest : Test(2)
 }
 
 
+
+sub printableValueTest : Test(2)
+{
+    my $path = '/tmp/ea.jpg';
+    my $expectedPrintableValue = 'ea.jpg';
+
+    my $fileWithStaticPath =  EBox::Types::File->new(
+                                      filePath => $path,
+                                      fieldName => 'fileTest',
+                                     );
+
+    is $fileWithStaticPath->printableValue(),
+        $expectedPrintableValue,
+            'checking printableValue in file with hardcoded path';
+
+    my $dynamicPathSub = sub {  return $path };
+
+    my $fileWithDynamicPath =  EBox::Types::File->new(
+                                      dynamicPath => $dynamicPathSub,
+                                      fieldName => 'fileTest',
+                                     );
+
+    is $fileWithDynamicPath->printableValue(),
+        $expectedPrintableValue,
+            'checking printableValue in file with dynamic path';
+}
+
 sub newFile
 {
     my $file = EBox::Types::File->new(
@@ -213,5 +240,9 @@ sub newFile
 
     return $file;
 }
+
+
+
+
 
 1;
