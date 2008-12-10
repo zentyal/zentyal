@@ -49,6 +49,10 @@
 	      <imagedata fileref="images/road-warrior.png"
 			 format="PNG" />
 	    </imageobject>
+	    <imageobject>
+	      <imagedata fileref="images/road-warrior.ps"
+			 format="PS" />
+	    </imageobject>
 	  </mediaobject>
 	</figure>
 	<para>
@@ -146,6 +150,10 @@
 	  <imageobject>
 	    <imagedata fileref="images/two-offices.png"
 		       format="PNG" />
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="images/two-offices.ps"
+		       format="PS" />
 	  </imageobject>
 	</mediaobject>
       </figure>
