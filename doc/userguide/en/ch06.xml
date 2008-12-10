@@ -156,11 +156,7 @@
                   <mediaobject>
                     <imageobject>
                       <imagedata fileref="images/firewall.png"
-                                 format="PNG"/>
-                    </imageobject>
-                    <imageobject>
-                      <imagedata fileref="images/firewall.ps"
-                                 format="PS"/>
+                                 format="PNG" scale="99.99"/>
                     </imageobject>
                   </mediaobject>
                 </figure>
