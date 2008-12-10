@@ -53,6 +53,9 @@ sub new
 #
 # Parameters:
 #
+#      realm - String the realm to get data from *(Optional)* Default
+#      value: the first realm defined in <_description>
+#
 #      start - Int Start of the time series. A time in seconds since
 #      epoch (1970-01-01) is required. Negative numbers are relative
 #      to the current time. *(Optional)* Default value: one day from
@@ -63,19 +66,39 @@ sub new
 #
 # Returns:
 #
-#      array ref - containing array refs to series as defined in
+#      hash ref - containing the data defined in this
 #      example
 #
-#        [
-#         [ [x1, y1], [x2, y2], ... , [xn, yn ] ],
-#         [ [x2, z1], [x2, z2], ... , [xn, zn ] ],
-#         ...
-#        ]
+#        { id   => 'realm',
+#          type => 'int',
+#          series => [
+#              { data  => [x1, y1], [x2, y2], ... , [xn, yn ],
+#                label => 'label_for_data_1' },
+#              { data  => [x2, z1], [x2, z2], ... , [xn, zn ],
+#                label => ' },
+#              ...
+#          ]
+#        }
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the realm is not
+#      one of the defined ones in the <_description> method
 #
 sub fetchData
 {
-    my ($self, $start, $end) = @_;
+    my ($self, $realm, $start, $end) = @_;
 
+    if ( defined($realm) ) {
+        unless ( scalar(grep { $_ eq $realm } @{$self->{realms}}) == 1 ) {
+            throw EBox::Exceptions::InvalidData(data   => 'realm',
+                                                value  => $realm,
+                                                advice => 'The realm value must be one of the following: '
+                                                  . join(', ', @{$self->{realm}}));
+        }
+    } else {
+        $realm = $self->{realms}->[0];
+    }
     if ( defined($start) ) {
         $start = "-s $start";
     } else {
@@ -87,45 +110,48 @@ sub fetchData
         $end = '';
     }
 
-    my @returnData = map { [] } 1 .. (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}) * scalar(@{$self->{realms}}));
+    my @returnData = map { [] } 1 .. (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}) );
     my $rrdIdx = 0;
-    foreach my $realm (@{$self->{realms}}) {
-        foreach my $rrdFile (@{$self->{rrds}}) {
-            # FIXME: use RRDs when it is fixed in Hardy
-            $rrdFile = EBox::Monitor->RRDBaseDirPath() . $realm . '/' . $rrdFile;
-            my $cmd = "rrdtool fetch $rrdFile AVERAGE $start $end";
-            my $output = EBox::Sudo::command($cmd);
-            # Treat output
-            my $previousTime = 0;
-            my $interval = EBox::Monitor->QueryInterval();
-            foreach my $line (@{$output}) {
-                my ($time, $remainder) = $line =~ m/([0-9]+):\s(.*)$/g;
-                if ( defined($time) ) {
-                    my @values = split(/\s/, $remainder, scalar(@{$self->{datasets}}));
-                    # Check no gaps between values
-                    if ( ($previousTime != 0) and ($time - $previousTime != $interval)) {
-                        # Fill gaps with NaN numbers
-                        my $gapTime = $previousTime;
-                        while ($gapTime != $time) {
-                            $gapTime += $interval;
-                            for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
-                                push( @{$returnData[$valIdx + $rrdIdx]},
-                                      [ $gapTime, "NaN" ]);
-                            }
-                        }
-                    } else {
+    foreach my $rrdFile (@{$self->{rrds}}) {
+        # FIXME: use RRDs when it is fixed in Hardy
+        $rrdFile = EBox::Monitor->RRDBaseDirPath() . $realm . '/' . $rrdFile;
+        my $cmd = "rrdtool fetch $rrdFile AVERAGE $start $end";
+        my $output = EBox::Sudo::command($cmd);
+        # Treat output
+        my $previousTime = 0;
+        my $interval = EBox::Monitor->QueryInterval();
+        foreach my $line (@{$output}) {
+            my ($time, $remainder) = $line =~ m/([0-9]+):\s(.*)$/g;
+            if ( defined($time) ) {
+                my @values = split(/\s/, $remainder, scalar(@{$self->{datasets}}));
+                # Check no gaps between values
+                if ( ($previousTime != 0) and ($time - $previousTime != $interval)) {
+                    # Fill gaps with NaN numbers
+                    my $gapTime = $previousTime;
+                    while ($gapTime != $time) {
+                        $gapTime += $interval;
                         for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
                             push( @{$returnData[$valIdx + $rrdIdx]},
-                                  [ $time, $values[$valIdx] + 0]);
+                                  [ $gapTime, "NaN" ]);
                         }
+                    }
+                } else {
+                    for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
+                        push( @{$returnData[$valIdx + $rrdIdx]},
+                              [ $time, $values[$valIdx] + 0]);
                     }
                 }
             }
-            $rrdIdx++;
         }
+        $rrdIdx++;
     }
-
-    return \@returnData;
+    my @series = 
+	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
+    return {
+        id     => $realm,
+        type   => $self->{type},
+        series => \@series,
+       };
 
 }
 
@@ -152,6 +178,9 @@ sub fetchData
 #
 #         datasets - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
+#
+#         printableLabels - array ref the printable labels for every dataset
+#                           to show *(Optional)* Defaule value: i18ned 'value'
 #
 #         realms - array ref the realms (subdirectories) where the
 #         common name's RRD files are stored
@@ -203,6 +232,13 @@ sub _setDescription
             throw EBox::Exceptions::InvalidType($description->{datasets}, 'array ref');
         }
         $self->{datasets} = $description->{datasets};
+    }
+    $self->{printableLabels} = [ __('value') ];
+    if ( exists($description->{printableLabels}) ) {
+        unless ( ref($description->{printableLabels}) eq 'ARRAY' ) {
+            throw EBox::Exceptions::InvalidType($description->{printableLabels}, 'array ref');
+        }
+        $self->{printableLabels} = $description->{printableLabels};
     }
 
     my $baseDir = EBox::Monitor->RRDBaseDirPath();
