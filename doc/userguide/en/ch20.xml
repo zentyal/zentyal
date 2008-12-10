@@ -19,6 +19,10 @@
             <imagedata fileref="images/control-center.png"
                        format="PNG" />
           </imageobject>
+          <imageobject>
+            <imagedata fileref="images/control-center.ps"
+                       format="PS" />
+          </imageobject>
         </mediaobject>
       </figure>
       In order to provide a secure connection, a Virtual Private
