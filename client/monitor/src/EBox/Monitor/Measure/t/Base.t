@@ -19,9 +19,10 @@
 
 use Clone;
 use EBox::Monitor;
+use EBox::Gettext;
 use File::Temp;
 use File::Basename;
-use Test::More tests => 27;
+use Test::More tests => 33;
 use Test::Exception;
 
 BEGIN {
@@ -59,6 +60,7 @@ cmp_ok( $measure->{name}, 'eq', ref($measure));
 cmp_ok( $measure->{help}, 'eq', '');
 cmp_ok( $measure->{printableName}, 'eq', '');
 is_deeply( $measure->{datasets}, ['value']);
+is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
 
 # Starting great stuff
@@ -80,13 +82,19 @@ cmp_ok( $measure->{help}, 'eq', 'foo');
 cmp_ok( $measure->{printableName}, 'eq', 'bar');
 
 # Data set and rrds bad types
-foreach my $attr (qw(datasets realms)) {
+foreach my $attr (qw(datasets realms printableLabels)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
         $measure->_setDescription($badDescription);
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
+
+my $badDescription = Clone::clone($greatDescription);
+$badDescription->{printableLabels} = [ 'foo', 'bar' ];
+throws_ok {
+    $measure->_setDescription($badDescription);
+} 'EBox::Exceptions::Internal', 'Wrong number of printable labels';
 
 # Type
 foreach my $type (qw(int percentage grade byte)) {
@@ -116,5 +124,18 @@ isa_ok( $load, 'EBox::Monitor::Measure::Load');
 
 ok($load->fetchData(), 'Fetching data');
 
+throws_ok {
+    $load->fetchData(realm => 'foobar');
+} 'EBox::Exceptions::InvalidData',
+  'Trying to fetch data from an unexistant realm';
 
+throws_ok {
+    $load->fetchData(start => 'foobar');
+} 'EBox::Exceptions::Command',
+  'Trying to fetch data with a bad start point';
+
+throws_ok {
+    $load->fetchData(end => 'foobar');
+} 'EBox::Exceptions::Command',
+  'Trying to fetch data with a bad end point';
 1;
