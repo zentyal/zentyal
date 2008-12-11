@@ -34,7 +34,6 @@ use warnings;
 use base qw(EBox::GConfModule EBox::Model::ModelProvider
             EBox::ServiceModule::ServiceInterface);
 
-
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Gettext;
@@ -46,6 +45,9 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
+
+# Measures
+use EBox::Monitor::Measure::Manager;
 
 use Sys::Hostname;
 
@@ -69,6 +71,8 @@ sub _create
                                       domain => 'ebox-monitor',
                                       @_);
     bless($self, $class);
+
+    $self->_setupMeasures();
     return $self;
 }
 
@@ -184,12 +188,37 @@ sub statusSummary
 sub menu
 {
     my ($self, $root) = @_;
-#     my $item = new EBox::Menu::Item(
-#         'url' => 'Monitor/View/Settings',
-#         'text' => __('Monitor'),
-#         'order' => 3);
-#     $root->add($item);
+    my $item = new EBox::Menu::Item(
+         'url' => 'Monitor/Index',
+         'text' => __('Monitor'),
+         'order' => 3);
+    $root->add($item);
 }
+
+# Method: allMeasuredData
+#
+#      Return all the measured data to be displayed in graphs
+#
+# Returns:
+#
+#      array ref - each element contained data to be display in graphs
+#
+sub allMeasuredData
+{
+    my ($self) = @_;
+
+    my @measuredData;
+    foreach my $measure (@{$self->{measureManager}->measures()}) {
+        foreach my $realm (@{$measure->realms()}) {
+            push(@measuredData,
+                 $measure->fetchData(realm => $realm));
+        }
+    }
+
+    return \@measuredData;
+}
+
+# Group: Public static methods
 
 # Method: RRDBaseDirPath
 #
@@ -281,6 +310,17 @@ sub _doDaemon
     } elsif (not $self->isEnabled() and $self->isRunning()) {
         EBox::Service::manage(COLLECTD_SERVICE,'stop');
     }
+
+}
+
+# Setup measures
+sub _setupMeasures
+{
+    my ($self) = @_;
+
+    $self->{measureManager} = EBox::Monitor::Measure::Manager->Instance();
+    $self->{measureManager}->register('EBox::Monitor::Measure::Load');
+    $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
 
 }
 
