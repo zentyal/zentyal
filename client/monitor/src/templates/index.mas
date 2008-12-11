@@ -1,0 +1,15 @@
+<%doc>
+  Show all the monitored graphs in a page
+</%doc>
+<%args>
+  $graphs
+</%args>
+<%init>
+ use Data::Dumper;
+</%init>
+foooo
+<% Dumper($graphs) %>
+<script type="text/javascript" src="/data/js/flotr.js">
+% foreach my $graph (@{$graphs}) {
+  <div id="<% $graph->{id} %>"><% $graph->{type} %></div>
+% }

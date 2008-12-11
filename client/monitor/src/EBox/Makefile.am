@@ -9,4 +9,4 @@ EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
-SUBDIRS = Monitor
+SUBDIRS = CGI Monitor

@@ -1,0 +1,71 @@
+# Copyright (C) 2008 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+package EBox::CGI::Monitor::Index;
+
+use strict;
+use warnings;
+
+use base 'EBox::CGI::ClientBase';
+
+use EBox::Gettext;
+use EBox::Global;
+
+# Group: Public methods
+
+# Method: new
+#
+#       Constructor for Index CGI
+#
+# Returns:
+#
+#       Index - The object recently created
+#
+sub new
+{
+
+    my $class = shift;
+
+    my $self = $class->SUPER::new('title'    => __('Monitoring'),
+                                  'template' => 'monitor/index.mas',
+				  @_);
+
+    $self->{domain} = 'ebox-monitor';
+    bless($self, $class);
+
+    return $self;
+
+}
+
+# Method: masonParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
+{
+
+    my ($self) = @_;
+
+    my $mon = EBox::Global->getInstance()->modInstance('monitor');
+
+    my $graphs = $mon->allMeasuredData();
+
+    return [ graphs => $graphs ];
+
+}
+
+1;
