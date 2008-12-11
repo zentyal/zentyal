@@ -22,6 +22,7 @@ use EBox::Monitor;
 use EBox::Gettext;
 use File::Temp;
 use File::Basename;
+use Test::Deep;
 use Test::More tests => 33;
 use Test::Exception;
 
@@ -122,7 +123,19 @@ lives_ok {
 
 isa_ok( $load, 'EBox::Monitor::Measure::Load');
 
-ok($load->fetchData(), 'Fetching data');
+my $returnVal;
+lives_ok {
+  $returnVal = $load->fetchData();
+} 'Fetching data';
+
+cmp_deeply($returnVal,
+           {
+             id   => str($load->{realms}->[0]),
+             type => any(@{$load->Types()}),
+             series => array_each({ label => any(@{$load->{printableLabels}}),
+                                    data  => array_each(ignore())}),
+            },
+           'The fetched data is in correct format');
 
 throws_ok {
     $load->fetchData(realm => 'foobar');
@@ -138,4 +151,5 @@ throws_ok {
     $load->fetchData(end => 'foobar');
 } 'EBox::Exceptions::Command',
   'Trying to fetch data with a bad end point';
+
 1;
