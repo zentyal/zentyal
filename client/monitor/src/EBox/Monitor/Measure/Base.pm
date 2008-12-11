@@ -119,8 +119,8 @@ sub fetchData
     my $rrdIdx = 0;
     foreach my $rrdFile (@{$self->{rrds}}) {
         # FIXME: use RRDs when it is fixed in Hardy
-        $rrdFile = EBox::Monitor->RRDBaseDirPath() . $realm . '/' . $rrdFile;
-        my $cmd = "rrdtool fetch $rrdFile AVERAGE $start $end";
+        my $fullPath = EBox::Monitor->RRDBaseDirPath() . $realm . '/' . $rrdFile;
+        my $cmd = "rrdtool fetch $fullPath AVERAGE $start $end";
         my $output = EBox::Sudo::command($cmd);
         # Treat output
         my $previousTime = 0;
@@ -150,7 +150,7 @@ sub fetchData
         }
         $rrdIdx++;
     }
-    my @series = 
+    my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     return {
         id     => $realm,
@@ -158,6 +158,21 @@ sub fetchData
         series => \@series,
        };
 
+}
+
+# Method: realms
+#
+#      Get the realms for that measure, ie the total graphs to be
+#      displayed by this measure
+#
+# Returns:
+#
+#      array ref - the realms for this measure
+#
+sub realms
+{
+    my ($self) = @_;
+    return $self->{realms};
 }
 
 # Group: Class methods

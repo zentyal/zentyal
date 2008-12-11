@@ -1,4 +1,4 @@
-test_scripts = Base.t
+test_scripts = Base.t Manager.t
 
 EXTRA_DIST = $(test_scripts)
 
