@@ -150,6 +150,9 @@ sub fetchData
         }
         $rrdIdx++;
     }
+    foreach my $data (@returnData) {
+        $#{$data} = 20;
+    }
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     return {

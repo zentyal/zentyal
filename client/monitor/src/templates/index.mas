@@ -7,9 +7,12 @@
 <%init>
  use Data::Dumper;
 </%init>
-foooo
-<% Dumper($graphs) %>
 <script type="text/javascript" src="/data/js/flotr.js">
+<script type="text/javascript" src="/data/js/excanvas.js">
 % foreach my $graph (@{$graphs}) {
-  <div id="<% $graph->{id} %>"><% $graph->{type} %></div>
+<& /graph.mas,
+   id => $graph->{id},
+   type => $graph->{type},
+   series => $graph->{series}
+  &>
 % }
