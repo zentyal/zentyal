@@ -23,7 +23,7 @@ use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
-use Test::More tests => 33;
+use Test::More tests => 34;
 use Test::Exception;
 
 BEGIN {
@@ -130,7 +130,7 @@ lives_ok {
 
 cmp_deeply($returnVal,
            {
-             id   => str($load->{realms}->[0]),
+             id   => str($load->realms()->[0]),
              type => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
                                     data  => array_each(ignore())}),
