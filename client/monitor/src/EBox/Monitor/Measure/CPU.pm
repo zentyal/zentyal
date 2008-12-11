@@ -55,9 +55,9 @@ sub _description
     my ($self) = @_;
 
     my $cpuNo = Sys::CPU::cpu_count();
-    my @realm = map { "cpu-$_" } 0 .. $cpuNo - 1;
+    my @realms = map { "cpu-$_" } 0 .. $cpuNo - 1;
     my @rrds  = qw(cpu-idle.rrd cpu-user.rrd cpu-interrupt.rrd cpu-nice.rrd
-                   cpu-softinterrupt.rrd cpu-steal.rrd cpu-system.rrd
+                   cpu-softirq.rrd cpu-steal.rrd cpu-system.rrd
                    cpu-wait.rrd);
 
     return {
@@ -66,9 +66,12 @@ sub _description
                             . 'in various states, most notably executing '
                             . 'user code, executing system code, waiting '
                             . 'for IO operations and being idle'),
-        realm         => \@realm,
-        rrds          => \@rrds,
-        type          => 'int',
+        realms          => \@realms,
+        rrds            => \@rrds,
+        printableLabels => [ __('idle'), __('user'), __('interrupt'),
+                             __('nice'), __('soft interrupt'), __('steal'),
+                             __('system'), __('wait') ],
+        type            => 'int',
     };
 }
 

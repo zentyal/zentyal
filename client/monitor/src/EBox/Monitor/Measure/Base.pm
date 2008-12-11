@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
+use EBox::Monitor;
 use EBox::Sudo;
 
 # Constants
@@ -268,15 +269,14 @@ sub _setDescription
             throw EBox::Exceptions::InvalidType($description->{rrds}, 'array ref');
         }
         $self->{rrds} = [];
-        foreach my $realm (@{$self->{realms}}) {
-            my $realmDir = "${baseDir}${realm}/";
-            foreach my $rrdPath (@{$description->{rrds}}) {
-                if ( -f "${realmDir}${rrdPath}" ) {
-                    push(@{$self->{rrds}}, $rrdPath);
-                } else {
-                    throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+        foreach my $rrdPath (@{$description->{rrds}}) {
+            foreach my $realm (@{$self->{realms}}) {
+                my $realmDir = "${baseDir}${realm}/";
+                unless ( -f "${realmDir}${rrdPath}" ) {
+                    throw EBox::Exceptions::Internal("RRD file $realmDir$rrdPath does not exist");
                 }
             }
+            push(@{$self->{rrds}}, $rrdPath);
         }
     } else {
         throw EBox::Exceptions::MissingArgument('rrds');
