@@ -73,10 +73,10 @@ sub new
 #        { id   => 'realm',
 #          type => 'int',
 #          series => [
-#              { data  => [x1, y1], [x2, y2], ... , [xn, yn ],
+#              { data  => [[x1, y1], [x2, y2], ... , [xn, yn ]],
 #                label => 'label_for_data_1' },
-#              { data  => [x2, z1], [x2, z2], ... , [xn, zn ],
-#                label => ' },
+#              { data  => [[x1, z1], [x2, z2], ... , [xn, zn ]],
+#                label => 'label_for_data_2' },
 #              ...
 #          ]
 #        }
@@ -158,6 +158,22 @@ sub fetchData
         series => \@series,
        };
 
+}
+
+# Group: Class methods
+
+# Method: Types
+#
+#      Get the types of measures available
+#
+# Return:
+#
+#      Array ref - the types
+#
+sub Types
+{
+    my @types = TYPES;
+    return \@types;
 }
 
 # Group: Protected methods
@@ -291,13 +307,13 @@ sub _setDescription
 
     $self->{type} = 'int';
     if ( exists($description->{type}) ) {
-        if ( scalar(grep { $_ eq $description->{type} } TYPES) == 1 ) {
+        if ( scalar(grep { $_ eq $description->{type} } @{$self->Types()}) == 1 ) {
             $self->{type} = $description->{type};
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => 'type',
                 value => $description->{type},
-                advice => 'Use one of this types: ' . join(', ', TYPES)
+                advice => 'Use one of this types: ' . join(', ', @{$self->Types()})
                );
         }
     }
