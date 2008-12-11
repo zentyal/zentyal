@@ -52,13 +52,14 @@ sub new
 sub _description
 {
     return {
-        printableName => __('System load'),
-        help          => __('Collect the system load that gives a rough '
+        printableName   => __('System load'),
+        help            => __('Collect the system load that gives a rough '
                             . 'overview of the system usage'),
-        datasets      => [ 'shortterm', 'midterm', 'longterm' ],
-        realms        => [ 'load' ],
-        rrds          => [ 'load.rrd' ],
-        type          => 'int',
+        datasets        => [ 'shortterm', 'midterm', 'longterm' ],
+        printableLabels => [ __('short term'), __('mid term'), __('long term') ],
+        realms          => [ 'load' ],
+        rrds            => [ 'load.rrd' ],
+        type            => 'int',
     };
 }
 

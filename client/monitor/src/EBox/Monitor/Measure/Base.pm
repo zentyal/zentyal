@@ -51,7 +51,7 @@ sub new
 #
 #      Get data for a certain time period from a measure
 #
-# Parameters:
+# Named parameters:
 #
 #      realm - String the realm to get data from *(Optional)* Default
 #      value: the first realm defined in <_description>
@@ -85,16 +85,20 @@ sub new
 #      <EBox::Exceptions::InvalidData> - thrown if the realm is not
 #      one of the defined ones in the <_description> method
 #
+#      <EBox::Exceptions::Command> - thrown if the rrdtool fetch
+#      utility failed to work nicely
+#
 sub fetchData
 {
-    my ($self, $realm, $start, $end) = @_;
+    my ($self, %params) = @_;
 
+    my ($realm, $start, $end) = ($params{realm}, $params{start}, $params{end});
     if ( defined($realm) ) {
         unless ( scalar(grep { $_ eq $realm } @{$self->{realms}}) == 1 ) {
             throw EBox::Exceptions::InvalidData(data   => 'realm',
                                                 value  => $realm,
                                                 advice => 'The realm value must be one of the following: '
-                                                  . join(', ', @{$self->{realm}}));
+                                                  . join(', ', @{$self->{realms}}));
         }
     } else {
         $realm = $self->{realms}->[0];
@@ -246,6 +250,7 @@ sub _setDescription
         unless ( ref($description->{realms}) eq 'ARRAY' ) {
             throw EBox::Exceptions::InvalidType($description->{realms}, 'array ref');
         }
+        $self->{realms} = [];
         foreach my $realm (@{$description->{realms}}) {
             if ( -d "${baseDir}$realm" ) {
                 push(@{$self->{realms}}, $realm);
@@ -275,6 +280,13 @@ sub _setDescription
         }
     } else {
         throw EBox::Exceptions::MissingArgument('rrds');
+    }
+
+    if ( scalar(@{$self->{printableLabels}}) != (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}))) {
+        throw EBox::Exceptions::Internal(
+            'The number of printableLabels must be equal to '
+            . (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}))
+           );
     }
 
     $self->{type} = 'int';
