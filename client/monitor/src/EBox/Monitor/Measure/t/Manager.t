@@ -18,7 +18,7 @@
 # A module to test Manager measure module
 
 use Test::Deep;
-use Test::More qw(no_plan);
+use Test::More tests => 15;
 use Test::Exception;
 
 BEGIN {
@@ -61,5 +61,19 @@ cmp_deeply($measures,
           'All measures are measures classes');
 
 cmp_ok(@{$measures}, '==', 2, 'Two measures are registered');
+
+throws_ok {
+    $manager->measure();
+} 'EBox::Exceptions::MissingArgument', 'Getting no measure instance';
+
+throws_ok {
+    $manager->measure('foobar');
+} 'EBox::Exceptions::DataNotFound', 'Getting an invalid measure';
+
+isa_ok($manager->measure('EBox::Monitor::Measure::CPU'),
+       'EBox::Monitor::Measure::CPU',
+       'Getting a valid measure with the full class name');
+isa_ok($manager->measure('load'), 'EBox::Monitor::Measure::Load',
+       'Getting a valid measure with the base class name');
 
 1;
