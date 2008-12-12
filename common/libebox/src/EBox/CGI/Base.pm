@@ -171,7 +171,7 @@ sub _print
 	$self->_header;
 	$self->_top;
 	$self->_menu;
-	print "</div><div id='limewrap'><div id='content'>";
+	print '<div id="limewrap"><div id="content">';
 	$self->_title;
 	$self->_error;
 	$self->_msg;
