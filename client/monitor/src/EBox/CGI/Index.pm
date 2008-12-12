@@ -62,9 +62,9 @@ sub masonParameters
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
-    my $graphs = $mon->allMeasuredData();
+    my $measuredData = $mon->allMeasuredData();
 
-    return [ graphs => $graphs ];
+    return [ graphs => $measuredData ];
 
 }
 
