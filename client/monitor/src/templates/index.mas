@@ -14,7 +14,7 @@ Parameters:
 <script type="text/javascript" src="/data/js/flotr.js">
 <script type="text/javascript" src="/data/js/excanvas.js">
 % foreach my $graph (@graphs) {
-<h3><% $graph->{id} %></h3>
+<h3><% $graph->{title} %></h3>
 <& /graph.mas,
    id => $graph->{id},
    type => $graph->{type},
