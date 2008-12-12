@@ -11,13 +11,37 @@ Parameters:
 </%args>
 <%init>
 </%init>
-<script type="text/javascript" src="/data/js/flotr.js">
-<script type="text/javascript" src="/data/js/excanvas.js">
+<script type="text/javascript" src="/data/js/flotr.js"></script>
+<script type="text/javascript" src="/data/js/excanvas.js"></script>
 % foreach my $graph (@graphs) {
 <h3><% $graph->{title} %></h3>
-<& /graph.mas,
-   id => $graph->{id},
-   type => $graph->{type},
-   series => $graph->{series}
-  &>
+  <div id="<% $graph->{id} %>_container">
+    <& /graph.mas,
+       id => $graph->{id},
+       type => $graph->{type},
+       series => $graph->{series}
+    &>
+  </div>
 % }
+<script type="text/javascript">
+function updateGraphs() {
+   var graphs = $$('div.graph');
+   graphs.each(function(graph) {
+       var url = '/ebox/Monitor/UpdateGraph';
+       var parts = graph.id.split('.');
+       new Ajax.Updater(graph.id + '_container', url,
+                        { method: 'get',
+                          asynchronous : true,
+                          evalScripts : true,
+                          parameters: { 'measure' : parts[0],
+                                        'realm'   : parts[1]},
+                        });                                        
+   }); 
+}
+
+Event.observe(window, 'load', function() {
+  // Update graphs every 30s   
+  new PeriodicalExecuter(updateGraphs, 30);
+});
+
+</script>

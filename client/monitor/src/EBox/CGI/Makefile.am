@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Monitor
 
-nobase_perl_DATA = Index.pm
+nobase_perl_DATA = Index.pm UpdateGraph.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

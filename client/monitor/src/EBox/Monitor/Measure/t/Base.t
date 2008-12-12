@@ -148,7 +148,7 @@ lives_ok {
 
 cmp_deeply($returnVal,
            {
-             id    => str($load->realms()->[0]),
+             id    => str($load->{name} . '.' . $load->realms()->[0]),
              title => str($load->printableRealm()),
              type  => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
