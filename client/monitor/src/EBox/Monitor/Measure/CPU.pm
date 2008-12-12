@@ -56,6 +56,8 @@ sub _description
 
     my $cpuNo = Sys::CPU::cpu_count();
     my @realms = map { "cpu-$_" } 0 .. $cpuNo - 1;
+    my %printableRealms =
+      map { ("cpu-$_" => __x("CPU {no} usage", no => $_)) } 0 .. $cpuNo - 1;
     my @rrds  = qw(cpu-idle.rrd cpu-user.rrd cpu-interrupt.rrd cpu-nice.rrd
                    cpu-softirq.rrd cpu-steal.rrd cpu-system.rrd
                    cpu-wait.rrd);
@@ -67,6 +69,7 @@ sub _description
                             . 'user code, executing system code, waiting '
                             . 'for IO operations and being idle'),
         realms          => \@realms,
+        printableRealms => \%printableRealms,
         rrds            => \@rrds,
         printableLabels => [ __('idle'), __('user'), __('interrupt'),
                              __('nice'), __('soft interrupt'), __('steal'),
