@@ -70,7 +70,7 @@ sub new
 #      hash ref - containing the data defined in this
 #      example
 #
-#        { id   => 'realm',
+#        { id   => 'measure-realm',
 #          title => 'printableRealm'
 #          type => 'int',
 #          series => [
@@ -158,7 +158,7 @@ sub fetchData
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     return {
-        id     => $realm,
+        id     => $self->{name} . '.' . $realm,
         title  => $self->printableRealm($realm),
         type   => $self->{type},
         series => \@series,
