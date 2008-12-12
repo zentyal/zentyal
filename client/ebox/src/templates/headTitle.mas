@@ -4,7 +4,11 @@ $logout
 $finishClass
 </%args>
 <div id="top"></div>
-	<div id="header"><a href="/ebox"><img src="/data/images/title.gif"></a></div>
+	<div id="header">
+          <a href="/ebox">
+            <img src="/data/images/title.gif" alt="title"/>
+          </a>
+        </div>
 	<div id="hmenu">
 	<a id="m" href="/ebox/Logout/Index"><% $logout %></a>
 	<a class="<% $finishClass %>" id="changes_menu" href="/ebox/Finish"><% $save %></a>
