@@ -27,6 +27,7 @@ package EBox::Monitor::Measure::Manager;
 use strict;
 use warnings;
 
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 
 # Singleton variable
@@ -107,6 +108,47 @@ sub measures
 
     my @measureInstances = values(%{$self->{measures}});
     return \@measureInstances;
+}
+
+# Method: measure
+#
+#      Return a measure instance given its name
+#
+# Parameters:
+#
+#      name - String the measure class name or its common name
+#
+# Returns:
+#
+#      an instance of a measure which is a subclass of
+#      <EBox::Monitor::Measure::Base>
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given measure
+#      name does not registered
+#
+sub measure
+{
+    my ($self, $name) = @_;
+
+    $name or throw EBox::Exceptions::MissingArgument('name');
+
+    if ( exists($self->{measures}->{$name}) ) {
+        return $self->{measures}->{$name};
+    } else {
+        my @measures = grep { $_ =~ m/::$name$/i } keys(%{$self->{measures}});
+        if ( @measures == 1 ) {
+            return $self->{measures}->{$measures[0]};
+        } else {
+            throw EBox::Exceptions::DataNotFound(data  => 'measure',
+                                                 value => $name);
+        }
+    }
+
 }
 
 # Group: Private methods

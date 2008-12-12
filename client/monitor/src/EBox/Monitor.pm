@@ -195,13 +195,50 @@ sub menu
     $root->add($item);
 }
 
+# Method: measuredData
+#
+#      Return the measured data for the desired measure and optionally
+#      the desired realm of data
+#
+# Parameters:
+#
+#      measureName - String the measure name
+#
+#      realm - String the realm name *(Optional)* Default value: the
+#      first described realm in the measure
+#
+# Returns:
+#
+#      hash ref - the data to be displayed in graphs which is
+#      explained in <EBox::Monitor::Measure::Base::fetchData>
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given measure
+#      name does not exist in the measure set
+#
+sub measuredData
+{
+    my ($self, $measureName, $realm) = @_;
+
+    $measureName or throw EBox::Exceptions::MissingArgument('measureName');
+
+    my $measure = $self->{measureManager}->measure($measureName);
+    return $measure->fetchData();
+
+}
+
 # Method: allMeasuredData
 #
 #      Return all the measured data to be displayed in graphs
 #
 # Returns:
 #
-#      array ref - each element contained data to be display in graphs
+#      array ref - each element contained data to be displayed in graphs
+#      as it is described in <EBox::Monitor::Measure::Base::fetchData>
 #
 sub allMeasuredData
 {
