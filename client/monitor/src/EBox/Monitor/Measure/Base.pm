@@ -71,6 +71,7 @@ sub new
 #      example
 #
 #        { id   => 'realm',
+#          title => 'printableRealm'
 #          type => 'int',
 #          series => [
 #              { data  => [[x1, y1], [x2, y2], ... , [xn, yn ]],
@@ -158,6 +159,7 @@ sub fetchData
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     return {
         id     => $realm,
+        title  => $self->printableRealm($realm),
         type   => $self->{type},
         series => \@series,
        };
@@ -177,6 +179,41 @@ sub realms
 {
     my ($self) = @_;
     return $self->{realms};
+}
+
+# Method: printableRealm
+#
+#      Get the printable realm for this measure given the realm itself
+#
+# Parameters:
+#
+#      realm - String the realm to get printable name from
+#              *(Optional)* Default value: the first defined realm
+#
+# Returns:
+#
+#      String - the i18ned name for the realm
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given realm is
+#      not defined in this measure
+#
+sub printableRealm
+{
+    my ($self, $realm) = @_;
+
+    unless(defined($realm)) {
+        $realm = $self->{realms}->[0];
+    }
+    if ( exists($self->{printableRealms}->{$realm})) {
+        return $self->{printableRealms}->{$realm};
+    } elsif ( scalar(grep { $_ eq $realm } @{$self->{realms}}) == 1) {
+        return $realm;
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'realm',
+                                             value => $realm);
+    }
 }
 
 # Group: Class methods
@@ -224,6 +261,10 @@ sub Types
 #
 #         realms - array ref the realms (subdirectories) where the
 #         common name's RRD files are stored
+#
+#         printableRealms - hash ref the printable realm names indexed
+#         by realm name, they are optional, if not present the realm
+#         name will be used.
 #
 #         rrds - array ref the RRD files' basename where it is
 #         stored this measure
@@ -297,6 +338,21 @@ sub _setDescription
         }
     } else {
         throw EBox::Exceptions::MissingArgument('realms');
+    }
+
+    if ( exists($description->{printableRealms})) {
+        unless ( ref($description->{printableRealms}) eq 'HASH' ) {
+            throw EBox::Exceptions::InvalidType($description->{printableRealms},
+                                                'hash ref');
+        }
+        $self->{printableRealms} = {};
+        foreach my $key (keys(%{$description->{printableRealms}})) {
+            if ( scalar(grep { $_ eq $key } @{$self->{realms}}) == 1) {
+                $self->{printableRealms}->{$key} = $description->{printableRealms}->{$key};
+            } else {
+                throw EBox::Exceptions::Internal("Printable realm $key is not a realm in this measure");
+            }
+        }
     }
 
     if ( exists($description->{rrds}) ) {
