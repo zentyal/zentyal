@@ -150,6 +150,7 @@ sub fetchData
         }
         $rrdIdx++;
     }
+    # Truncating for testing purposes
     foreach my $data (@returnData) {
         $#{$data} = 20;
     }

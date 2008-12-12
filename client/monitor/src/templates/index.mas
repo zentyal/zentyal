@@ -1,15 +1,20 @@
 <%doc>
   Show all the monitored graphs in a page
+
+Parameters:
+
+  graphs - array the data to use in graphs
+
 </%doc>
 <%args>
-  $graphs
+  @graphs
 </%args>
 <%init>
- use Data::Dumper;
 </%init>
 <script type="text/javascript" src="/data/js/flotr.js">
 <script type="text/javascript" src="/data/js/excanvas.js">
-% foreach my $graph (@{$graphs}) {
+% foreach my $graph (@graphs) {
+<h3><% $graph->{id} %></h3>
 <& /graph.mas,
    id => $graph->{id},
    type => $graph->{type},
