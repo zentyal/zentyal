@@ -64,8 +64,8 @@ sub html
 		$html .= "<li $idcurrent>\n";
 	}
 
-	$html .= "<a title='$text' href='/ebox/$url' class='navc' ".
-		     "target='_parent'>$text</a>\n";
+	$html .= qq{<a title="$text" href="/ebox/$url" class="navc" }
+		 . qq{ target="_parent">$text</a>\n};
 
 	$html .= "</li>\n";
 
