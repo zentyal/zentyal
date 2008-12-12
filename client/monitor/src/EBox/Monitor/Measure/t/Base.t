@@ -23,7 +23,7 @@ use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
-use Test::More tests => 34;
+use Test::More tests => 39;
 use Test::Exception;
 
 BEGIN {
@@ -36,12 +36,12 @@ BEGIN {
 
 my $tempFile = File::Temp->new( SUFFIX => '.rrd');
 my $greatDescription = {
-   realms => [ '/tmp' ],
+   realms => [ 'tmp' ],
    rrds   => [ File::Basename::basename($tempFile->filename()) ]
   };
 
 my $oldBaseDirFunc = \&EBox::Monitor::RRDBaseDirPath;
-*EBox::Monitor::RRDBaseDirPath = sub { return ''; };
+*EBox::Monitor::RRDBaseDirPath = sub { return '/'; };
 
 throws_ok {
     EBox::Monitor::Measure::Base->new();
@@ -63,10 +63,12 @@ cmp_ok( $measure->{printableName}, 'eq', '');
 is_deeply( $measure->{datasets}, ['value']);
 is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
+cmp_ok( $measure->printableRealm(), 'eq', 'tmp',
+        'Checking default value for printable realm');
 
 # Starting great stuff
 throws_ok {
-    $measure->_setDescription( { realms => ['/tmp'],
+    $measure->_setDescription( { realms => ['tmp'],
                                  rrds => [ 'falacia' ]
                                 }
                               );
@@ -75,15 +77,21 @@ throws_ok {
 # Help and printable name
 $greatDescription->{help} = 'foo';
 $greatDescription->{printableName} = 'bar';
+$greatDescription->{printableRealms} = { 'tmp' => 'Temporal' };
 lives_ok {
     $measure->_setDescription($greatDescription);
 } 'Setting a great description';
 
 cmp_ok( $measure->{help}, 'eq', 'foo');
 cmp_ok( $measure->{printableName}, 'eq', 'bar');
+cmp_ok( $measure->printableRealm('tmp'), 'eq', 'Temporal');
 
-# Data set and rrds bad types
-foreach my $attr (qw(datasets realms printableLabels)) {
+throws_ok {
+    $measure->printableRealm('foo');
+} 'EBox::Exceptions::DataNotFound', 'Getting a non realm printable name';
+
+# Data set, rrds, printable ones bad types
+foreach my $attr (qw(datasets realms printableLabels printableRealms)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -91,7 +99,17 @@ foreach my $attr (qw(datasets realms printableLabels)) {
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
 
+# Printable realm
 my $badDescription = Clone::clone($greatDescription);
+$badDescription->{printableRealms} = { 'tmp' => 'foo',
+                                       'bar' => 'baz' };
+throws_ok {
+    $measure->_setDescription($badDescription);
+} 'EBox::Exceptions::Internal', 'Wrong printable realm';
+
+
+# Printable label
+$badDescription = Clone::clone($greatDescription);
 $badDescription->{printableLabels} = [ 'foo', 'bar' ];
 throws_ok {
     $measure->_setDescription($badDescription);
@@ -130,8 +148,9 @@ lives_ok {
 
 cmp_deeply($returnVal,
            {
-             id   => str($load->realms()->[0]),
-             type => any(@{$load->Types()}),
+             id    => str($load->realms()->[0]),
+             title => str($load->printableRealm()),
+             type  => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
                                     data  => array_each(ignore())}),
             },
