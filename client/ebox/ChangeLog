@@ -1,9 +1,11 @@
 0.12.100
         + EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs
-       + Fixed bug in ForcePurge logs model
+        + Fixed bug in ForcePurge logs model
         + Fixed bug in DataTable: ModelManaged was called with tableName
 	instead of context Name
+	+ Fixing an `img` tag closed now properly and adding alternative
+	text to match W3C validation in head title
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
