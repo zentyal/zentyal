@@ -50,77 +50,77 @@ my $RECURSIVE_DEPENDENCY_THRESHOLD = 3;
 
 sub new 
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # returns:
-# 	string: path to the backup file.
+#       string: path to the backup file.
 sub _makeBackup # (description, bug?) 
 {
-	my ($self, %options) = @_;
+    my ($self, %options) = @_;
 
-	my $description = delete $options{description};
-
-	my $bug         = $options{bug};
-	my $progress   = $options{progress};
-
-	my $time = strftime("%F %T", localtime);
-
-	my $confdir = EBox::Config::conf;
-	my $tempdir = tempdir("$confdir/backup.XXXXXX") or
-		throw EBox::Exceptions::Internal("Could not create tempdir.");
-	EBox::Sudo::command("chmod 0700 $tempdir");
-
-	my $auxDir = "$tempdir/aux";
-	my $archiveContentsDirRelative = "eboxbackup";
-	my $archiveContentsDir = "$tempdir/$archiveContentsDirRelative";
-	my $backupArchive = "$confdir/eboxbackup.tar";
-	
-	try {
-	  mkdir($auxDir, 0700) or
-	    throw EBox::Exceptions::Internal("Could not create auxiliar tempdir.");
-	  mkdir($archiveContentsDir, 0700) or
-	    throw EBox::Exceptions::Internal("Could not create archive tempdir.");
-
-	  $self->_dumpModulesBackupData($auxDir, %options);
-
-	  if ($bug) {
-	    $self->_bug($auxDir);
-	  }
-
-
-	  if ($progress) {
-	    $progress->setMessage(__('Creating backup archive'));
-	    $progress->notifyTick();
-	  }
-
-
-
-	  my $filesArchive  = "$archiveContentsDir/files.tgz";
-	  $self->_createFilesArchive($auxDir, $filesArchive);
-	  $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
-	  $self->_createDescriptionFile($archiveContentsDir, $description);
-	  $self->_createDateFile($archiveContentsDir, $time);
-	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup}, $bug);
-	  $self->_createModulesListFile($archiveContentsDir);
-
-	  $self->_createSizeFile($archiveContentsDir);
-
-	  $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
+    my $description = delete $options{description};
+    
+    my $bug         = $options{bug};
+    my $progress   = $options{progress};
+    
+    my $time = strftime("%F %T", localtime);
+    
+    my $confdir = EBox::Config::conf;
+    my $tempdir = tempdir("$confdir/backup.XXXXXX") or
+        throw EBox::Exceptions::Internal("Could not create tempdir.");
+    EBox::Sudo::command("chmod 0700 $tempdir");
+    
+    my $auxDir = "$tempdir/aux";
+    my $archiveContentsDirRelative = "eboxbackup";
+    my $archiveContentsDir = "$tempdir/$archiveContentsDirRelative";
+    my $backupArchive = "$confdir/eboxbackup.tar";
+    
+    try {
+        mkdir($auxDir, 0700) or
+            throw EBox::Exceptions::Internal("Could not create auxiliar tempdir.");
+        mkdir($archiveContentsDir, 0700) or
+            throw EBox::Exceptions::Internal("Could not create archive tempdir.");
+        
+          $self->_dumpModulesBackupData($auxDir, %options);
+        
+        if ($bug) {
+            $self->_bug($auxDir);
+        }
+        
+        
+        if ($progress) {
+            $progress->setMessage(__('Creating backup archive'));
+            $progress->notifyTick();
+        }
+        
 
 
-	}
-	finally {
-	  system "rm -rf $tempdir";
-	  if ($? != 0) {
-	    EBox::error("$auxDir cannot be deleted: $!. Please do it manually");
-	  }
-	};
-
-	return $backupArchive;
+        my $filesArchive  = "$archiveContentsDir/files.tgz";
+        $self->_createFilesArchive($auxDir, $filesArchive);
+        $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
+        $self->_createDescriptionFile($archiveContentsDir, $description);
+        $self->_createDateFile($archiveContentsDir, $time);
+        $self->_createTypeFile($archiveContentsDir, $options{fullBackup}, $bug);
+        $self->_createModulesListFile($archiveContentsDir);
+        
+        $self->_createSizeFile($archiveContentsDir);
+        
+        $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
+        
+        
+    }
+    finally {
+        system "rm -rf $tempdir";
+        if ($? != 0) {
+            EBox::error("$auxDir cannot be deleted: $!. Please do it manually");
+        }
+    };
+    
+    return $backupArchive;
 }
 
 
@@ -140,7 +140,7 @@ sub _dumpModulesBackupData
       # update progress object
       $progress->notifyTick();
       $progress->setMessage(__x('Dumping configuration of module {m}',
-			      m => $modName));
+                              m => $modName));
     }
 
 
@@ -179,7 +179,7 @@ sub _configuredModInstances
   foreach my $mod (@modules) {
     if ($mod->can('configured')) {
       if ($mod->configured()) {
-	push @configuredModules, $mod;
+        push @configuredModules, $mod;
       }
     }
     else {
@@ -238,7 +238,7 @@ sub  _createTypeFile
 
   my $type =    $bug        ? $BUGREPORT_BACKUP_ID 
               : $fullBackup ?  $FULL_BACKUP_ID 
-	      :	$CONFIGURATION_BACKUP_ID;
+              : $CONFIGURATION_BACKUP_ID;
 
   my $TYPE_F;
   unless (open($TYPE_F, "> $archiveContentsDir/type")) {
@@ -287,7 +287,7 @@ sub  _createBackupArchive
 
   if ( -f $backupArchive) {
     if (`rm -f $backupArchive`) {
-      throw EBox::Exceptions::Internal	("Could not delete old file.");
+      throw EBox::Exceptions::Internal  ("Could not delete old file.");
     }
   }
 
@@ -328,32 +328,32 @@ sub _createSizeFile
 
 sub _bug # (dir) 
 {
-	my ($self, $dir) = @_;
-	`/bin/ps aux > $dir/processes`;
-	`/bin/df -k > $dir/disks`;
-	`/bin/netstat -n -a --inet > $dir/sockets`;
-	`/sbin/ifconfig -a > $dir/interfaces`;
+    my ($self, $dir) = @_;
+    `/bin/ps aux > $dir/processes`;
+    `/bin/df -k > $dir/disks`;
+    `/bin/netstat -n -a --inet > $dir/sockets`;
+    `/sbin/ifconfig -a > $dir/interfaces`;
 
-	try {
-		root("/sbin/iptables -nvL > $dir/iptables-filter");
-	} catch EBox::Exceptions::Base with {};
+    try {
+        root("/sbin/iptables -nvL > $dir/iptables-filter");
+    } catch EBox::Exceptions::Base with {};
 
-	try {
-		root("/sbin/iptables -t nat -nvL > $dir/iptables-nat");
-	} catch EBox::Exceptions::Base with {};
+    try {
+        root("/sbin/iptables -t nat -nvL > $dir/iptables-nat");
+    } catch EBox::Exceptions::Base with {};
 
-	copy(EBox::Config::logfile, "$dir/ebox.log");
-	copy(EBox::Config::log . "/error.log", "$dir/error.log");
-	copy("/var/log/syslog", "$dir/syslog");
-	copy("/var/log/messages", "$dir/messages");
-	copy("/var/log/daemon.log", "$dir/daemon.log");
-	copy("/var/log/auth.log", "$dir/auth.log");
+    copy(EBox::Config::logfile, "$dir/ebox.log");
+    copy(EBox::Config::log . "/error.log", "$dir/error.log");
+    copy("/var/log/syslog", "$dir/syslog");
+    copy("/var/log/messages", "$dir/messages");
+    copy("/var/log/daemon.log", "$dir/daemon.log");
+    copy("/var/log/auth.log", "$dir/auth.log");
 }
 
 #
 # Method: backupDetails 
 #
-#   	Gathers the information for a given backup
+#       Gathers the information for a given backup
 #
 # Parameters:
 #
@@ -362,12 +362,12 @@ sub _bug # (dir)
 # Returns:
 #
 #       A hash reference with the details. This hash consists of:
-#	
+#       
 #       file - the filename of the archive
-#	id - backup's identifier
-#	date - when it was backed up
+#       id - backup's identifier
+#       date - when it was backed up
 #       type - the type of backup
-#	description - backup's description
+#       description - backup's description
 #
 sub backupDetails # (id) 
 {
@@ -398,10 +398,10 @@ sub backupDetails # (id)
 # Returns:
 #
 #       A hash reference with the details. This hash consists of:
-#	
+#       
 #       file - the filename of the archive
-#	date - when it was backed up
-#	description - backup's description
+#       date - when it was backed up
+#       description - backup's description
 #       type        - the type of backup contained by the archive
 sub backupDetailsFromArchive
 {
@@ -451,10 +451,10 @@ sub _unpackArchive
     my $tarCommand = "/bin/tar xf $archive -C $tempDir $filesWithPath";
     if (system $tarCommand) {
       if (@files > 0) {
-	throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
+        throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
       }
       else {
-	throw EBox::Exceptions::External( __("Could not unpack the backup"));
+        throw EBox::Exceptions::External( __("Could not unpack the backup"));
       }
     }
 
@@ -475,7 +475,7 @@ sub _unpackArchive
 #
 # Method: deleteBackup 
 #
-#   	Romoves a stored backup	
+#       Romoves a stored backup 
 #
 # Parameters:
 #
@@ -483,14 +483,14 @@ sub _unpackArchive
 #
 # Exceptions:
 #
-#     	External -  If it can't be found or deleted.
+#       External -  If it can't be found or deleted.
 sub deleteBackup # (id) 
 {
   my ($self, $id) = @_;
   validate_pos(@_, 1, 1);
 
   $self->_checkId($id);
-	
+        
   my $file = $self->_backupFileById($id);
 
   unless (unlink($file)) {
@@ -502,7 +502,7 @@ sub deleteBackup # (id)
 #
 # Method: listBackups 
 #
-#   	Returns a list with the availible backups stored in the system.	
+#       Returns a list with the availible backups stored in the system. 
 #
 # Parameters:
 #
@@ -511,36 +511,36 @@ sub deleteBackup # (id)
 # Returns:
 #
 #       A a ref to an array of hashes. Each  hash reference consists of:
-#	
-#	id - backup's identifier
-#	date - when it was backed up
-#	description - backup's description
+#       
+#       id - backup's identifier
+#       date - when it was backed up
+#       description - backup's description
 #       type        - type of backup (full or configuration only)
 #
 sub listBackups
 {
-	my $self = shift;
-	my $backupdir = backupDir();
-	my $bh = new DirHandle($backupdir);
-	my @backups = ();
-	my $backup;
-	($bh) or return \@backups;
-	while (defined($backup = $bh->read)) {
-		(-f "$backupdir/$backup") or next;
-		$backup =~ s/\.tar$//;
-		my $entry = undef;
-		try {
-			$entry = $self->backupDetails($backup);
-		} catch EBox::Exceptions::Base with {};
-		unless ($entry) {
-			unlink("$backupdir/$backup.tar");
-			next;
-		}
-		push(@backups, $entry);
-	}
-	undef $bh;
-	my @ret = sort {$a->{date} lt $b->{date}} @backups;
-	return \@ret;
+    my ($self) = @_;
+    my $backupdir = backupDir();
+    my $bh = new DirHandle($backupdir);
+    my @backups = ();
+    my $backup;
+    ($bh) or return \@backups;
+    while (defined($backup = $bh->read)) {
+        (-f "$backupdir/$backup") or next;
+        $backup =~ s/\.tar$//;
+        my $entry = undef;
+        try {
+            $entry = $self->backupDetails($backup);
+        } catch EBox::Exceptions::Base with {};
+        unless ($entry) {
+            unlink("$backupdir/$backup.tar");
+            next;
+        }
+        push(@backups, $entry);
+    }
+    undef $bh;
+    my @ret = sort {$a->{date} lt $b->{date}} @backups;
+    return \@ret;
 }
 
 #
@@ -575,7 +575,7 @@ sub _ensureBackupdirExistence
 #
 # Method: prepareMakeBackup
 #
-#   	Prepares a backup restauration 
+#       Prepares a backup restauration 
 #
 # Parameters:
 #
@@ -586,8 +586,8 @@ sub _ensureBackupdirExistence
 #    the progress indicator object whihc represents the progress of the restauration
 #
 # Exceptions:
-#	
-#	External - If it can't unpack de backup
+#       
+#       External - If it can't unpack de backup
 #
 sub prepareMakeBackup
 {
@@ -608,9 +608,9 @@ sub prepareMakeBackup
            
 
   my $progressIndicator =  EBox::ProgressIndicator->create(
-			     executable => $makeBackupScript,
-			     totalTicks => $totalTicks,
-						    );
+                             executable => $makeBackupScript,
+                             totalTicks => $totalTicks,
+                                                    );
 
   $progressIndicator->runExecutable();
 
@@ -621,7 +621,7 @@ sub prepareMakeBackup
 #
 # Method: makeBackup 
 #
-#   	Backups the current configuration	
+#       Backups the current configuration       
 #
 # Parameters:
 #
@@ -631,23 +631,23 @@ sub prepareMakeBackup
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
 #
 # Exceptions:
-#	
-#	Internal - If backup fails
+#       
+#       Internal - If backup fails
 #       Exteanl   - If modules have unsaved changes
 sub makeBackup # (options) 
 {
   my ($self, %options) = @_;
   validate_with(
-		params => [%options],
-		spec   => {
-			   progress     => { 
-					    optional => 1, 
-					     isa => 'EBox::ProgressIndicator'
-					   },
-			   description => { default =>  __('Backup') },
-			   fullBackup  => { default => 0 },
-			   bug         => { default => 0},
-			  });
+                params => [%options],
+                spec   => {
+                           progress     => { 
+                                            optional => 1, 
+                                             isa => 'EBox::ProgressIndicator'
+                                           },
+                           description => { default =>  __('Backup') },
+                           fullBackup  => { default => 0 },
+                           bug         => { default => 0},
+                          });
 
   my $progress = $options{progress};
   if (not $progress) {
@@ -705,8 +705,8 @@ sub _modulesReady
   foreach my $modName (@{ $global->modNames }) {
     if ($global->modIsChanged($modName)) {
       throw EBox::Exceptions::External(
-	 __('Some modules has not saved changes. Before doing the backup you must'
-	    . ' save  or discard them' ) );				      
+         __('Some modules has not saved changes. Before doing the backup you must'
+            . ' save  or discard them' ) );                                   
     }
 }
 
@@ -731,19 +731,19 @@ sub  _moveToArchives
 #
 # Method: makeBugReport
 #
-#   	Makes a bug report	
+#       Makes a bug report      
 #
 sub makeBugReport
 {
-	my $self = shift;
-	return $self->_makeBackup(description => 'Bug report', 'bug' => 1);
+    my ($self) = @_;
+    return $self->_makeBackup(description => 'Bug report', 'bug' => 1);
 }
 
 # unpacks a backup file into a temporary directory and verifies the md5sum
 # arguments:
-# 	string: backup file
+#       string: backup file
 # returns:
-# 	string: path to the temporary directory
+#       string: path to the temporary directory
 sub _unpackAndVerify # (file, fullRestore) 
 {
   my ($self, $archive, $fullRestore) = @_;
@@ -751,15 +751,15 @@ sub _unpackAndVerify # (file, fullRestore)
   my $tempdir;
 
   try {
-    # 	  unless (copy($file, "$tempdir/eboxbackup.tar")) {
-    # 	    throw EBox::Exceptions::Internal("Could not copy backup into ".
-    # 					     "the tempdir.");
-    # 	  }
+    #     unless (copy($file, "$tempdir/eboxbackup.tar")) {
+    #       throw EBox::Exceptions::Internal("Could not copy backup into ".
+    #                                        "the tempdir.");
+    #     }
 
     $tempdir = $self->_unpackArchive($archive);
 
     unless ( -f "$tempdir/eboxbackup/files.tgz" && 
-	     -f "$tempdir/eboxbackup/md5sum") {
+             -f "$tempdir/eboxbackup/md5sum") {
       throw EBox::Exceptions::External( __('Incorrect or corrupt backup file'));
     }
 
@@ -808,7 +808,7 @@ sub  _checkArchiveMd5Sum
 
   if ($digest ne $olddigest) {
     throw EBox::Exceptions::External(
-				     __('The backup file is corrupt.'));
+                                     __('The backup file is corrupt.'));
   }
 }
 
@@ -876,7 +876,7 @@ sub  _checkSize
 #
 # Method: prepareRestoreBackup
 #
-#   	Prepares a backup restauration 
+#       Prepares a backup restauration 
 #
 # Parameters:
 #
@@ -887,8 +887,8 @@ sub  _checkSize
 #    the progress indicator object whihc represents the progress of the restauration
 #
 # Exceptions:
-#	
-#	External - If it can't unpack the backup archive
+#       
+#       External - If it can't unpack the backup archive
 #
 sub prepareRestoreBackup
 {
@@ -922,9 +922,9 @@ sub prepareRestoreBackup
   my $totalTicks = scalar @{ $self->_modInstancesForRestore($file) };
 
   my $progressIndicator =  EBox::ProgressIndicator->create(
-			     executable => $restoreBackupScript,
-			     totalTicks => $totalTicks,
-						    );
+                             executable => $restoreBackupScript,
+                             totalTicks => $totalTicks,
+                                                    );
 
   $progressIndicator->runExecutable();
 
@@ -935,7 +935,7 @@ sub prepareRestoreBackup
 #
 # Method: restoreBackup 
 #
-#   	Restores a backup from file	
+#       Restores a backup from file     
 #
 # Parameters:
 #
@@ -945,8 +945,8 @@ sub prepareRestoreBackup
 # fullRestore - wether do a full restore or restore only configuration (default: false)
 #
 # Exceptions:
-#	
-#	External - If it can't unpack de backup
+#       
+#       External - If it can't unpack de backup
 #
 sub restoreBackup # (file, %options) 
 {
@@ -954,30 +954,30 @@ sub restoreBackup # (file, %options)
   defined $file or throw EBox::Exceptions::MissingArgument('Backup file');
 
   validate_with ( params => [%options], 
-		  spec => { 
-			   progress    => {
-					   optional => 1,
-					   isa => 'EBox::ProgressIndicator',
-					  },
-			   modsToRestore => {
-					    type => ARRAYREF,
-					    optional => 1,
-					   },
-			   fullRestore => { default => 0 },
-			   dataRestore    => { 
-					   default => 0 ,
-					   # incompatible with fullRestore ..
-					   callbacks => {
-							 incompatibleRestores =>  
-							 sub {
-							   (not $_[0]) or (not $_[1]->{fullRestore})
-							 },
-							},
-					      
-					  },
-			   forceDependencies => {default => 0 },
-			  }
-		);
+                  spec => { 
+                           progress    => {
+                                           optional => 1,
+                                           isa => 'EBox::ProgressIndicator',
+                                          },
+                           modsToRestore => {
+                                            type => ARRAYREF,
+                                            optional => 1,
+                                           },
+                           fullRestore => { default => 0 },
+                           dataRestore    => { 
+                                           default => 0 ,
+                                           # incompatible with fullRestore ..
+                                           callbacks => {
+                                                         incompatibleRestores =>  
+                                                         sub {
+                                                           (not $_[0]) or (not $_[1]->{fullRestore})
+                                                         },
+                                                        },
+                                              
+                                          },
+                           forceDependencies => {default => 0 },
+                          }
+                );
 
   _ensureBackupdirExistence();
   $self->_checkSize($file);
@@ -1003,10 +1003,10 @@ sub restoreBackup # (file, %options)
     my @restored = ();
     try {
       foreach my $mod (@modules) {
-	my $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
-	if ($restoreOk) {
-	  push @restored, $mod->name();
-	}
+        my $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
+        if ($restoreOk) {
+          push @restored, $mod->name();
+        }
 
       }
 
@@ -1043,8 +1043,8 @@ sub _unpackModulesRestoreData
   if ($? != 0) {
     system 'rm -rf $tempdir';
     throw EBox::Exceptions::External(
-				     __('Could not unpack the backup')
-				    );
+                                     __('Could not unpack the backup')
+                                    );
   }
 }
 
@@ -1068,9 +1068,9 @@ sub _restoreModule
   # guaranteed that a failed backup will not
   # change state
   $mod->restoreBackup("$tempdir/eboxbackup", 
-		      fullRestore => $options_r->{fullRestore},
-		      dataRestore => $options_r->{dataRestore},
-		     );
+                      fullRestore => $options_r->{fullRestore},
+                      dataRestore => $options_r->{dataRestore},
+                     );
 
   $self->_migratePackage($mod->package());
   
@@ -1098,17 +1098,17 @@ sub _revokeRestore
 
 sub _migratePackage
 {
-	my ($self, $package) = @_;
-	my $migrationdir = EBox::Config::share() . "/$package/migration";
-	
-	if (-d $migrationdir) {
-		my $migration = EBox::Config::pkgdata() . '/ebox-migrate';
-		try {
-			EBox::Sudo::command("$migration $migrationdir");
-		} catch EBox::Exceptions::Internal with {
-			EBox::debug("Failed to migrate $package");
-		};
-	}
+    my ($self, $package) = @_;
+    my $migrationdir = EBox::Config::share() . "/$package/migration";
+        
+    if (-d $migrationdir) {
+        my $migration = EBox::Config::pkgdata() . '/ebox-migrate';
+        try {
+            EBox::Sudo::command("$migration $migrationdir");
+        } catch EBox::Exceptions::Internal with {
+            EBox::debug("Failed to migrate $package");
+        };
+    }
 }
 
 
@@ -1128,12 +1128,12 @@ sub _modInstancesForRestore
     my @modsToRestore =  @{ $options{modsToRestore} };
     foreach my $m (@modsToRestore) {
       if (not( $m eq $anyModuleInBackup)) {
-	throw EBox::Exceptions::External(
-					 __x(
-					     'No module {m} found in backup',
-					     'm' => $m
-					    )
-					);
+        throw EBox::Exceptions::External(
+                                         __x(
+                                             'No module {m} found in backup',
+                                             'm' => $m
+                                            )
+                                        );
       }
     }
 
@@ -1159,8 +1159,8 @@ sub _modInstancesForRestore
 
   if (not @modules) {
     throw EBox::Exceptions::External(
-	      __('No modules to restore')
-				    );
+              __('No modules to restore')
+                                    );
   }
 
 
@@ -1244,9 +1244,9 @@ sub _checkId
 {
   my ($self, $id) = @_;  
   if ($id =~ m{[./]}) {
-		throw EBox::Exceptions::External(
-			__("The input contains invalid characters"));
-	}
+                throw EBox::Exceptions::External(
+                        __("The input contains invalid characters"));
+        }
 }
 
 sub _backupFileById
@@ -1256,7 +1256,7 @@ sub _backupFileById
     my $backupdir = EBox::Config::conf . '/backups';
     my $file = "$backupdir/$id.tar";
     unless (-f $file) {
-	throw EBox::Exceptions::External("Could not find the backup.");
+        throw EBox::Exceptions::External("Could not find the backup.");
     }
 
     return $file;
@@ -1267,8 +1267,8 @@ sub _backupFileById
 sub _facilitiesForDiskUsage
 {
   return {
-	  __(q{Backup's archives}) => [ backupDir() ],
-	 }
+          __(q{Backup's archives}) => [ backupDir() ],
+         }
 }
 
 1;
