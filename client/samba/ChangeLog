@@ -1,6 +1,8 @@
 0.12.100
 	+ Admin user method is more robust in face of user's incomplete
 	groups membership
+	+ Bugfix: `printers` method returns an empty list when
+	`ebox-printers` package is not installed
 0.12.99
 	+ New release
 0.12.6
