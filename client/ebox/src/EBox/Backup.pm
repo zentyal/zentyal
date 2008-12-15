@@ -438,7 +438,6 @@ sub backupDetailsFromArchive
 sub _prettySizeString
 {
     my ($self, $archive) = @_;
-    my $str;
 
     my $size = (-s $archive);
 
