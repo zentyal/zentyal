@@ -47,6 +47,17 @@ if ($restoreAction) {
 				<% $backup->{'printableType'} %>
 			</td>
 		</tr>
+%		if (exists $backup->{'size'}) {
+                 <tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Archive size') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'size'} %>
+			</td>
+                 </tr>
+%                }
+
 	<form action='Backup' method='POST'>
 %		if ($restoreAction) {
                               <&.restoreRows, fullRestoreAvailable => $fullRestoreAvailable &>

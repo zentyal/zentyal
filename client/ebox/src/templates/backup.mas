@@ -126,6 +126,7 @@ my %printableTypeById = (
 			<th class="tleft"><%__('Description') | h %>  </th>
 			<th><% __('Type') %> </th>
 			<th><%__('Date')%> </th>
+                        <th><% __('Archive size') %> </th>
 			<th class="thOptions"><%__('Actions') | h %></th>
 		</tr>
 	</thead>
@@ -145,6 +146,9 @@ my %printableTypeById = (
 				<td class='tcenter'>
 					<% $backup->{'date'} %>
 				</td>
+                                <td>
+                                <% $backup->{'size'} %>
+                                </td>
 				<td width="%14">
 				<form method='POST' action='ConfirmBackup'>
 					<input type='hidden'
