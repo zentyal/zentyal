@@ -227,7 +227,7 @@ sub measuredData
     $measureName or throw EBox::Exceptions::MissingArgument('measureName');
 
     my $measure = $self->{measureManager}->measure($measureName);
-    return $measure->fetchData();
+    return $measure->fetchData(realm => $realm);
 
 }
 
