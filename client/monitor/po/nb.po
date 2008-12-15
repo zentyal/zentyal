@@ -1,0 +1,28 @@
+# Norwegian Bokmal translations for ebox-monitor package.
+# Copyright (C) 2008 Warp S.L.
+# This file is distributed under the same license as the ebox-monitor package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-monitor 0.1"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-12-04 16:22+0100\n"
+"PO-Revision-Date: 2008-12-04 16:22+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/Monitor.pm:64 src/EBox/Monitor.pm:189
+#: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:64
+#: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:189
+msgid "Monitor"
+msgstr ""
+
+#: src/EBox/Monitor.pm:123
+#: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:123
+msgid "Collectd configuration file"
+msgstr ""
