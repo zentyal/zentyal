@@ -901,6 +901,9 @@ sub printers
     my $self = shift;
 
     my $printers = EBox::Global->modInstance('printers');
+    defined $printers or
+        return [];
+
     my %external = map { $_ => 1 } @{$printers->fetchExternalCUPSPrinters()};
     my @printers;
     my $readOnly = $self->isReadOnly();
