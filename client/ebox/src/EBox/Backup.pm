@@ -428,20 +428,20 @@ sub backupDetailsFromArchive
   }
 
   $backupDetails->{file} = $archive; 
-  $backupDetails->{size} = $self->_prettySizeString($archive);
+  $backupDetails->{size} = $self->_printableSize($archive);
 
   system "rm -rf $tempDir";
   return $backupDetails;
 }
 
 
-sub _prettySizeString
+sub _printableSize
 {
     my ($self, $archive) = @_;
 
     my $size = (-s $archive);
 
-    my @units = qw(Kb Mb Gb);
+    my @units = qw(KB MB GB);
     foreach my $unit (@units) {
         $size = sprintf ("%.2f", $size / 1024);
         if ($size < 1024) {
