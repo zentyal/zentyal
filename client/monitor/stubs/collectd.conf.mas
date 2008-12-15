@@ -1,4 +1,5 @@
 <%args>
+  $logFilePath
   $interval => 10
 </%args>
 # Config file for collectd(1).
@@ -37,7 +38,7 @@ LoadPlugin df
 #LoadPlugin irq
 #LoadPlugin libvirt
 LoadPlugin load
-#LoadPlugin logfile
+LoadPlugin logfile
 #LoadPlugin mbmon
 #LoadPlugin memcached
 LoadPlugin memory
@@ -139,11 +140,11 @@ LoadPlugin syslog
 #       HostnameFormat name
 #</Plugin>
 
-#<Plugin logfile>
-#       LogLevel "info"
-#       File STDOUT
-#       Timestamp true
-#</Plugin>
+<Plugin logfile>
+       LogLevel "info"
+       File "<% $logFilePath %>"
+       Timestamp true
+</Plugin>
 
 #<Plugin mbmon>
 #        Host "127.0.0.1"

@@ -56,6 +56,7 @@ use constant COLLECTD_SERVICE   => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE => '/etc/collectd/collectd.conf';
 use constant RRD_BASE_DIR       => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 use constant QUERY_INTERVAL     => 10;
+use constant LOG_FILE_PATH      => EBox::Config::log() . 'collectd.log';
 
 # Method: _create
 #
@@ -323,10 +324,15 @@ sub _setMonitorConf
 {
     my ($self) = @_;
 
+    unless ( -f LOG_FILE_PATH ) {
+        EBox::Sudo::command('touch ' . LOG_FILE_PATH);
+    }
+
     $self->writeConfFile(COLLECTD_CONF_FILE,
                          'monitor/collectd.conf.mas',
                          [
-                          (interval => $self->QueryInterval()),
+                          (logFilePath => LOG_FILE_PATH),
+                          (interval    => $self->QueryInterval()),
                          ]
                        );
 
@@ -358,6 +364,7 @@ sub _setupMeasures
     $self->{measureManager} = EBox::Monitor::Measure::Manager->Instance();
     $self->{measureManager}->register('EBox::Monitor::Measure::Load');
     $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
+    $self->{measureManager}->register('EBox::Monitor::Measure::Df');
 
 }
 
