@@ -428,9 +428,29 @@ sub backupDetailsFromArchive
   }
 
   $backupDetails->{file} = $archive; 
+  $backupDetails->{size} = $self->_prettySizeString($archive);
 
   system "rm -rf $tempDir";
   return $backupDetails;
+}
+
+
+sub _prettySizeString
+{
+    my ($self, $archive) = @_;
+    my $str;
+
+    my $size = (-s $archive);
+
+    my @units = qw(Kb Mb Gb);
+    foreach my $unit (@units) {
+        $size = sprintf ("%.2f", $size / 1024);
+        if ($size < 1024) {
+            return "$size $unit";
+        }
+    }
+    
+    return $size . ' ' . (pop @units);
 }
 
 # if not specific files are specified all the fiels are  extracted
