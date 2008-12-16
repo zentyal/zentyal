@@ -365,6 +365,7 @@ sub _setupMeasures
     $self->{measureManager}->register('EBox::Monitor::Measure::Load');
     $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
     $self->{measureManager}->register('EBox::Monitor::Measure::Df');
+    $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
 
 }
 
