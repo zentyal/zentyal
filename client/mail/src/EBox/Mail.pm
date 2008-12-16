@@ -1276,8 +1276,8 @@ sub setMDDefaultSize
 
     $self->assureMdQuotaIsAvailable();
 
-    unless (isAPositiveNumber($size)) {
-        throw EBox::Exceptions::InvalidData(
+    unless (isZeroOrNaturalNumber($size)) {
+        throw EBox::Exceptions::InternalnvalidData(
                                             'data'      => __('maildir size'),
                                             'value'     => $size
         );
