@@ -15,6 +15,9 @@ Parameters:
 <script type="text/javascript" src="/data/js/excanvas.js"></script>
 % foreach my $graph (@graphs) {
 <h3><% $graph->{title} %></h3>
+  <div class="help">
+    <% $graph->{help} %>
+  </div>
   <div id="<% $graph->{id} %>_container">
     <& /graph.mas,
        id => $graph->{id},

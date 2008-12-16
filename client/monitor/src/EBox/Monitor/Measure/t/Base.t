@@ -150,6 +150,7 @@ cmp_deeply($returnVal,
            {
              id    => str($load->{name} . '.' . $load->realms()->[0]),
              title => str($load->printableRealm()),
+             help  => str($load->{help}),
              type  => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
                                     data  => array_each(ignore())}),
