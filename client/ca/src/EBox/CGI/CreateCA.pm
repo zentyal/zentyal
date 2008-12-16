@@ -120,7 +120,7 @@ sub actuate
                                                length => MIN_PASS_LENGTH));
       }
 
-      unless ( EBox::Validate::isAPositiveNumber($days)) {
+      unless ($days > 0) {
           throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
                                                . 'a positive number',
                                                days => $days));
