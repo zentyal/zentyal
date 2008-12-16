@@ -153,7 +153,7 @@ sub fetchData
     }
     # Truncating for testing purposes
     foreach my $data (@returnData) {
-        @{$data} = @{$data}[-51 .. -1];
+        @{$data} = @{$data}[-361 .. -1];
     }
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
