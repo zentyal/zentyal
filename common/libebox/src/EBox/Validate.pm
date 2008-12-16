@@ -721,9 +721,9 @@ sub isANumber # (value)
         return undef;
 }
 
-# Function: isAPositiveNumber
+# Function: isZeroOrNaturalNumber
 #
-#       Check if the parameter is a positive number.
+#       Check if the parameter is a positive number or zero.
 #
 # Parameters:
 #
@@ -732,7 +732,7 @@ sub isANumber # (value)
 # Returns:
 #       true if the parameter is a postive number, undef otherwise.
 #       
-sub isAPositiveNumber # (value)
+sub isZeroOrNaturalNumber # (value)
 {
         my $value = shift;
 

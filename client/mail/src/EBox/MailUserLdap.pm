@@ -720,7 +720,7 @@ sub _setUserAccountWithMdQuota
   my ($self, $dn, $mdsize) = @_;
   defined $mdsize  or $mdsize = 0;
 
-  unless (isAPositiveNumber($mdsize)) {
+  unless (isZeroOrNaturalNumber($mdsize)) {
     throw EBox::Exceptions::InvalidData(
                                         'data'  => __('maildir size'),
                                         'value' => $mdsize);
@@ -788,7 +788,7 @@ sub setMDSize {
 
         my $users = EBox::Global->modInstance('users');
         
-        unless (isAPositiveNumber($mdsize)) {
+        unless (isZeroOrNaturalNumber($mdsize)) {
                 throw EBox::Exceptions::InvalidData(
                         'data'  => __('maildir size'),
                         'value' => $mdsize);
