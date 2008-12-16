@@ -23,7 +23,6 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Validate;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
