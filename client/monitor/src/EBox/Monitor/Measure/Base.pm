@@ -71,7 +71,8 @@ sub new
 #      example
 #
 #        { id   => 'measure.realm',
-#          title => 'printableRealm'
+#          title => 'printableRealm',
+#          help => 'help text',
 #          type => 'int',
 #          series => [
 #              { data  => [[x1, y1], [x2, y2], ... , [xn, yn ]],
@@ -160,6 +161,7 @@ sub fetchData
     return {
         id     => $self->{name} . '.' . $realm,
         title  => $self->printableRealm($realm),
+        help   => $self->{help},
         type   => $self->{type},
         series => \@series,
        };
