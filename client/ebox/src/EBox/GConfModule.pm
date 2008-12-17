@@ -961,18 +961,19 @@ sub _delete_dir_internal # (key)
 # 	It generates a unique random identifier with a leading
 #       prefix in the root of the module's
 #       namespace, if directory is passed, it will
-#       be added to the path. Note that it does not create the entry, it
+#       be used instead the root directory.
+#       Note that it does not create the entry, it
 #       just returns a unique identifier, so it is up to you to create the
 #       proper entry
 #
 # Parameters:
 #
 #       prefix  - prefix to be added to the root of the module's namespace
-#	directory - if the directory is passed, this is added to the path
+#	directory - directory to use instead root directory (optional)
 #
 # Returns:
 #
-#	string - unique identifier
+#	string - unique identifier without directory path
 sub get_unique_id # (prefix, directory?)
 {
 	my ($self, $prefix, $directory) = @_;
@@ -985,18 +986,19 @@ sub get_unique_id # (prefix, directory?)
 # 	It generates a unique random identifier with a leading
 #       prefix in the root of the module's state
 #       namespace, if directory is passed, it will
-#       be added to the path. Note that it does not create the entry, it
+#       be used instead the root directory.
+#       Note that it does not create the entry, it
 #       just returns a unique identifier, so it is up to you to create the
 #       proper entry
 #
 # Parameters:
 #
 #       prefix  - prefix to be added to the root of the module's state namespace
-#	directory - if the directory is passed, this is added to the path
+#	directory - directory to use instead root directory (optional)
 #
 # Returns:
 #
-#	string - unique identifier
+#	string - unique identifier without directory path
 sub st_get_unique_id # (prefix, directory?)
 {
 	my ($self, $prefix, $directory) = @_;
