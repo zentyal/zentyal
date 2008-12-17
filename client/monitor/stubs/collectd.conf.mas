@@ -50,7 +50,7 @@ LoadPlugin memory
 #LoadPlugin nginx
 #LoadPlugin ntpd
 #LoadPlugin nut
-#LoadPlugin perl
+LoadPlugin perl
 #LoadPlugin ping
 LoadPlugin processes
 LoadPlugin rrdtool
@@ -199,13 +199,13 @@ LoadPlugin syslog
 #       UPS "upsname@hostname:port"
 #</Plugin>
 
-#<Plugin perl>
-#       IncludeDir "/my/include/path"
-#       BaseName "Collectd::Plugin"
+<Plugin perl>
+#      IncludeDir "/my/include/path"
+       BaseName "EBox::Collectd"
 #       EnableDebugger ""
-#       LoadPlugin "foo"
+       LoadPlugin "Plugin"
 #       LoadPlugin "bar"
-#</Plugin>
+</Plugin>
 
 #<Plugin ping>
 #       Host "host.foo.bar"

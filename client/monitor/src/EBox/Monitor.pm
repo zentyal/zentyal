@@ -284,6 +284,20 @@ sub QueryInterval
     return QUERY_INTERVAL;
 }
 
+
+# Method: LogFilePath
+#
+#      Return the collectd notification log file path
+#
+# Return:
+#
+#      String - the log file path
+#
+sub LogFilePath
+{
+    return LOG_FILE_PATH;
+}
+
 # Group: Protected methods
 
 # Method: _stopService
@@ -324,14 +338,14 @@ sub _setMonitorConf
 {
     my ($self) = @_;
 
-    unless ( -f LOG_FILE_PATH ) {
-        EBox::Sudo::command('touch ' . LOG_FILE_PATH);
+    unless ( -f $self->LogFilePath() ) {
+        EBox::Sudo::command('touch ' . $self->LogFilePath());
     }
 
     $self->writeConfFile(COLLECTD_CONF_FILE,
                          'monitor/collectd.conf.mas',
                          [
-                          (logFilePath => LOG_FILE_PATH),
+                          (logFilePath => $self->LogFilePath()),
                           (interval    => $self->QueryInterval()),
                          ]
                        );
