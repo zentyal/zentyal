@@ -1,5 +1,8 @@
 0.12.100
-        + Daemon names are restricted to alphanumerics and '-'. '_', '.' characters
+        + Daemon names are restricted to alphanumerics and '-'. '_', '.'
+	characters
+	+ Bugfix: servers and clients cannto get any longer the same
+	interface number
 0.12.99
 	+ New release
 0.12

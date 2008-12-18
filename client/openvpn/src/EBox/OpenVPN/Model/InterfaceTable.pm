@@ -86,15 +86,14 @@ sub initializeInterfaces
 }
 
 
+
+
 sub _nextInterfaceNumber
 {
     my ($self) = @_;
 
     # get the ordererd assigned number list
-    my @numbers = sort map {
-        my $number = $_->elementByName('interfaceNumber')->value();
-        ($number >= 0) ? $number : ()
-    }  @{ $self->rows() };
+    my @numbers = @{  $self->_usedIfaceNumbers() };
 
     my $lastNumber = -1;
     # search for holes in the numbers
@@ -111,6 +110,31 @@ sub _nextInterfaceNumber
     return $lastNumber + 1;
 }
 
+
+
+sub _usedIfaceNumbers
+{
+    my ($self) = @_;
+    my $openvpn = EBox::Global->modInstance('openvpn');
+
+    my @interfaceTables = grep {
+        $_->isa('EBox::OpenVPN::Model::InterfaceTable')
+    } @{ $openvpn->models() };
+
+    my @numbers;
+    foreach my $ifaceTable (@interfaceTables) {
+        my @tableNumbers =  map {
+                                   my $number = $_->elementByName('interfaceNumber')->value();
+                                   ($number >= 0) ? $number : ()
+                               }  @{ $ifaceTable->rows() };
+
+        push @numbers, @tableNumbers;
+    }
+
+    @numbers = sort @numbers;
+
+    return \@numbers;
+}
 
 
 
