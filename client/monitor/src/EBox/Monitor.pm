@@ -98,7 +98,11 @@ sub domain
 #
 sub modelClasses
 {
-    return [];
+    return
+      [
+          'EBox::Monitor::Model::MeasureWatchers',
+          'EBox::Monitor::Model::ThresholdConfiguration',
+         ];
 }
 
 # Method: actions
@@ -254,6 +258,21 @@ sub allMeasuredData
     }
 
     return \@measuredData;
+}
+
+# Method: measures
+#
+#      Return all the current registered measures to get measured data
+#
+# Returns:
+#
+#      array ref - each element contained an instance of a subclass of
+#      <EBox::Monitor::Measure::Base>
+#
+sub measures
+{
+    my ($self) = @_;
+    return $self->{measureManager}->measures();
 }
 
 # Group: Public static methods

@@ -48,6 +48,37 @@ sub new
     return $self;
 }
 
+# Method: name
+#
+#      Get the measure's name
+#
+# Returns:
+#
+#      String - the measure's name
+#
+sub name
+{
+    my ($self) = @_;
+
+    return $self->{name};
+}
+
+# Method: printableName
+#
+#      Get the measure's printable name
+#
+# Returns:
+#
+#      String - the measure's printable name
+#
+sub printableName
+{
+    my ($self) = @_;
+
+    return $self->{printableName};
+}
+
+
 # Method: fetchData
 #
 #      Get data for a certain time period from a measure
