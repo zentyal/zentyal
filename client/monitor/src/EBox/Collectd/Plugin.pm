@@ -116,11 +116,14 @@ sub _notifyUsingFS
 {
     my ($strEvt) = @_;
 
-    my $fileTemp = new File::Temp(TEMPLATE => 'evtXXXXX',
+    my $fileTemp = new File::Temp(TEMPLATE => 'evt_XXXXX',
                                   DIR      => EVENTS_INCOMING_DIR,
                                   UNLINK   => 0);
 
     print $fileTemp $strEvt;
+    # Make files readable by eBox
+    my ($login, $pass, $uid, $gid) = getpwnam(EBox::Config::user());
+    chown($uid, $gid , $fileTemp->filename());
     symlink($fileTemp->filename(),
             EVENTS_INCOMING_READY_DIR . File::Basename::basename($fileTemp->filename()));
 
