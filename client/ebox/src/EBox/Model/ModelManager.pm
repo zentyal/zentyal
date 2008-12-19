@@ -597,23 +597,17 @@ sub _setUpModelsFromProvider
 {
     my ($self, $provider) = @_;
 
-    try {
-        for my $model (@{$provider->models()}) {
-	    my $moduleName = $provider->name();
-	    my $modelName = $model->tableName();
-	    $modelName or 
-		throw EBox::Exceptions::Internal("Invalid model name $modelName");
+    for my $model (@{$provider->models()}) {
+        my $moduleName = $provider->name();
+        my $modelName = $model->tableName();
+        $modelName or 
+            throw EBox::Exceptions::Internal("Invalid model name $modelName");
 
             push ( @{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
         }
         for my $model (@{$provider->reloadModelsOnChange()}) {
             push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
         }
-    } otherwise {
-        my ($exc) = @_;
-        EBox::warn('Skipping ' . $provider->printableName() . ' to fetch model');
-        EBox::warn("Error: $exc");
-    };
 
     # Set up dependencies. Fetch all select types and check if
     # they depend on other model.
