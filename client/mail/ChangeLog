@@ -7,6 +7,7 @@
 	+ Bugfix in logs: mail relayed to external smarthost is now
 	logged, external smarthost relay denied action also logged, relay
 	field now only logs relay data and no unrelated data
+	+ Added greylist support
 0.12.99
 	+ Add support for reporting
 0.12.2

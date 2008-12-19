@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-mail
 Architecture: all
-Depends: ebox (>= 0.12.99), ebox (<< 0.12.110), ebox-firewall, ebox-usersandgroups, postfix, postfix-ldap, courier-pop, courier-imap, courier-pop-ssl, courier-imap-ssl, courier-authdaemon, courier-ldap, libsasl2-2, libsasl2-modules, sasl2-bin, ${misc:Depends}
+Depends: ebox (>= 0.12.99), ebox (<< 0.12.110), ebox-firewall, ebox-usersandgroups, postfix, postfix-ldap, courier-pop, courier-imap, courier-pop-ssl, courier-imap-ssl, courier-authdaemon, courier-ldap, libsasl2-2, libsasl2-modules, sasl2-bin, postgrey, ${misc:Depends}
 Description: eBox - Mail server
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
