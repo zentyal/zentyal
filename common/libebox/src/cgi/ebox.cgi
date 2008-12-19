@@ -30,5 +30,13 @@ try {
     print header;
     print start_html(-title=>'EBox', -style=>{'src'=>'/data/css/public.css'});
     print h1(__('A really nasty bug has occurred'));
+    print h2(__('Exception'));
+    print $ex->text();
+    print h2(__('Trace'));
+    for my $line (split(/\n/, $ex->stacktrace())) {
+       print "$line<br/>";	
+    }
+
+
     print end_html;
 };
