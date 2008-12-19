@@ -48,7 +48,7 @@ sub new
 
 }
 
-# Method: string
+# Method: strings
 #
 #   Return the iptables rules built as a string
 #   
@@ -99,7 +99,7 @@ sub setService
 
     my $serviceConf = $self->{'services'}->serviceConfiguration($service);
     unless (defined($serviceConf)) {
-	 throw EBox::Exceptions::DataNotFound('data' => 'service',
+        throw EBox::Exceptions::DataNotFound('data' => 'service',
                 'value' => $service);
     }
 
@@ -529,6 +529,7 @@ sub _setAddress
     if (defined($src)) {
         # Checking correct address
         unless ( $src->isa('EBox::Types::IPAddr') or
+                 $src->isa('EBox::Types::HostIP') or
                  $src->isa('EBox::Types::MACAddr')) {
             throw EBox::Exceptions::InvalidData('data' => 'src',
                                                 'value' => $src);
@@ -568,9 +569,11 @@ sub _setAddress
             and defined($src->ip())) {
             $self->{$addressType} = ["$flag $inverse "
                                      . $src->printableValue()];
-        } elsif ( defined ( $src ) and $src->isa('EBox::Types::MACAddr')) {
+        } elsif (defined ($src) and $src->isa('EBox::Types::MACAddr')) {
             $self->{$addressType} = ["-m mac --mac-source $inverse " .
                 $src->printableValue()];
+        } elsif (defined ($src) and $src->isa('EBox::Types::HostIP')) {
+            $self->{$addressType} = [$src->printableValue()];
         } else {
             $self->{$addressType} = [''];
         }

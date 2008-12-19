@@ -30,6 +30,7 @@ use strict;
 
 use EBox::Model::ModelManager;
 use EBox::Firewall::IptablesRule;
+use EBox::Firewall::IptablesRedirectRule;
 
 use EBox::Exceptions::Internal;
 
@@ -62,8 +63,8 @@ sub ToInternetRuleTable
     for my $row (@{$model->rows()}) {
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'fglobal');
-        $self->_addAdddressToRule($rule, $row, 'source');
-        $self->_addAdddressToRule($rule, $row, 'destination');
+        $self->_addAddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
@@ -92,8 +93,8 @@ sub ExternalToInternalRuleTable
     for my $row (@{$model->rows()}) {
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'ffwdrules');
-        $self->_addAdddressToRule($rule, $row, 'source');
-        $self->_addAdddressToRule($rule, $row, 'destination');
+        $self->_addAddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
@@ -122,7 +123,7 @@ sub InternalToEBoxRuleTable
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iglobal');
         $rule->setState('new' => 1);
-        $self->_addAdddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
@@ -151,7 +152,7 @@ sub ExternalToEBoxRuleTable
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iexternal');
         $rule->setState('new' => 1);
-        $self->_addAdddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
@@ -180,7 +181,8 @@ sub EBoxOutputRuleTable
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'oglobal');
         $rule->setState('new' => 1);
-        $self->_addAdddressToRule($rule, $row, 'destination');
+        $self->_addAddressToRule($rule, $row, 'source');
+        $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);  
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
@@ -189,20 +191,59 @@ sub EBoxOutputRuleTable
     return \@rules;
 }
 
-sub _addAdddressToRule
+# Method: RedirectsRuleTable
+#
+#   Return iptables rules from <EBox::Firewall::Model::RedirectsTable>
+#
+# Returns:
+#
+#   Array ref of strings containing iptables rules
+sub RedirectsRuleTable
+{
+    my ($self) = @_;
+
+    my $model = $self->{'manager'}->model('RedirectsTable');
+    defined($model) or throw EBox::Exceptions::Internal(
+            "Can't get RedirectsTable Model");
+
+    my @rules;
+    for my $row (@{$model->rows()}) {
+        my $rule = new EBox::Firewall::IptablesRedirectRule();
+        $rule->setState('new' => 1);
+        $self->_addIfaceToRule($rule, $row);
+        $self->_addCustomServiceToRule($rule, $row);
+        $self->_addAddressToRule($rule, $row, 'source');
+        $self->_addDestinationToRule($rule, $row);
+        push (@rules, @{$rule->strings()});
+    }
+
+    return \@rules;
+}
+
+sub _addAddressToRule
 {
     my ($self, $rule, $row, $address) = @_;
 
-    my $addr = $row->elementByName($address);
-    my $type = $addr->selectedType();
-
     my %params;
-    if ($type eq $address . '_ipaddr') {
-        $params{$address .'Address'} = $addr->subtype();
-    } elsif ($type eq $address . '_object') {
-        $params{$address . 'Object'} = $addr->value();
+    my $addr = $row->elementByName($address);
+
+    # TODO: It would be nice to have another class to translate
+    # eBox types to iptables params to avoid these checks
+    if ($addr->isa('EBox::Types::Union')) {
+        my $type = $addr->selectedType();
+
+        if ($type eq $address . '_ipaddr') {
+            $params{$address .'Address'} = $addr->subtype();
+        } elsif ($type eq $address . '_object') {
+            $params{$address . 'Object'} = $addr->value();
+        }
+
+        if ($addr->isa('EBox::Types::InverseMatchUnion')) {
+            $params{'inverseMatch'} = $addr->inverseMatch();
+        }
+    } else {
+        $params{$address .'Address'} = $addr;
     }
-    $params{'inverseMatch'} = $addr->inverseMatch();
 
     if ($address eq 'source') {
         $rule->setSourceAddress(%params);
@@ -217,6 +258,50 @@ sub _addServiceToRule
 
     my $service = $row->elementByName('service');
     $rule->setService($service->value(), $service->inverseMatch());    
+}
+
+sub _addIfaceToRule
+{
+    my ($self, $rule, $row) = @_;
+
+    my $interface = $row->elementByName('interface');
+    $rule->setInterface($interface->value());
+}
+
+sub _addCustomServiceToRule
+{
+    my ($self, $rule, $row) = @_;
+
+    my ($extPort, $extPortValue, $dstPort, $dstPortValue);
+
+    $extPort = $row->elementByName('external_port');
+    $extPortValue = $extPort->value();
+
+    $dstPort = $row->elementByName('destination_port');
+    if ($dstPort->selectedType() eq 'destination_port_same') {
+        if ($extPort->rangeType() eq 'range') {
+            $dstPortValue = $extPort->from();
+        } else {
+            $dstPortValue = $extPort->value(); # 'any' or single()
+        }
+    } else {
+        $dstPortValue = $dstPort->value();
+    }
+
+    my $protocol = $row->elementByName('protocol')->value();
+    $rule->setCustomService($extPortValue, $dstPortValue, $protocol);
+}
+
+sub _addDestinationToRule
+{
+    my ($self, $rule, $row) = @_;
+
+    my $dstAddr = $row->elementByName('destination')->value();
+    my $dstPort = $row->elementByName('destination_port')->value();
+    if ($dstPort eq 'destination_port_same') {
+        $dstPort = undef;
+    }
+    $rule->setDestination($dstAddr, $dstPort);
 }
 
 sub _addDecisionToRule

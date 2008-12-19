@@ -38,6 +38,7 @@ use EBox::Firewall::Model::InternalToEBoxRuleTable;
 use EBox::Firewall::Model::ExternalToEBoxRuleTable;
 use EBox::Firewall::Model::EBoxOutputRuleTable;
 use EBox::Firewall::Model::ExternalToInternalRuleTable;
+use EBox::Firewall::Model::RedirectsTable;
 
 use EBox::Firewall::Model::Report::PacketTrafficDetails;
 use EBox::Firewall::Model::Report::PacketTrafficGraph;
@@ -84,8 +85,13 @@ sub _create
                                                                'gconfmodule' => $self,
                                                                'directory' => 'ExternalToInternalRuleTable',
                                                               );
-            
-    
+    $self->{'RedirectsTable'} = 
+        new EBox::Firewall::Model::RedirectsTable(
+                                                     'gconfmodule' => $self,
+                                                     'directory' => 'RedirectsTable',
+                                                    );
+
+
     $self->{'PacketTrafficDetails'} = new EBox::Firewall::Model::Report::PacketTrafficDetails (
                                                                                                'gconfmodule' => $self,
                                                                                                'directory' => 'PacketTrafficDetails',
@@ -167,6 +173,7 @@ sub models
             $self->{'ExternalToEBoxRuleModel'},
             $self->{'EBoxOutputRuleModel'},
             $self->{'ExternalToInternalRuleTable'},
+            $self->{'RedirectsTable'},
 
             $self->{'PacketTrafficDetails'},
             $self->{'PacketTrafficGraph'},
@@ -894,35 +901,8 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
                                       'text' => __('Packet Filter')));
     
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/Redirects',
+    $folder->add(new EBox::Menu::Item('url' => 'Firewall/View/RedirectsTable',
                                       'text' => __('Redirects')));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRules',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRuleEdit',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRule',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/Object',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/Objects',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectPolicy',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectRule',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectService',
-                                      'text' => ''));
-    
-    $folder->add(new EBox::Menu::Item('url' => 'Firewall/Redirection',
-                                      'text' => ''));
     
     $root->add($folder);
 }
