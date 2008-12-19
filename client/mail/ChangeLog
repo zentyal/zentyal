@@ -8,6 +8,7 @@
 	logged, external smarthost relay denied action also logged, relay
 	field now only logs relay data and no unrelated data
 	+ Summary changed to reflect the changes in mailfilter module
+	+ Added greylist support
 0.12.99
 	+ Add support for reporting
 0.12.2

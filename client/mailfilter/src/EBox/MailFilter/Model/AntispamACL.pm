@@ -103,10 +103,30 @@ sub _populatePolicy
 }
 
 
-sub validateTypedRow
+sub addedRowNotify 
 {
+    my ($self) = @_;
+    $self->_aclChanged();
+}
 
+sub deletedRowNotify 
+{
+    my ($self) = @_;
+    $self->_aclChanged();
+}
 
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    $self->_aclChanged();
+}
+
+sub _aclChanged
+{
+    my ($self) = @_;
+
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    $mailfilter->antispam()->aclChanged();
 }
 
 

@@ -100,7 +100,10 @@ sub processLine
             $event = 'norelay';
         } elsif ($msg =~ m/.*552.*$/) {
             $event = 'maxmsgsize';
+        } elsif ($msg =~ m/Greylisted/) {
+            $event = 'greylist';
         }
+
         
  
 
