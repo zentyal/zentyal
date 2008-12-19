@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 28;
+use Test::More tests => 32;
 use Test::MockObject;
 use Test::Exception;
 
@@ -287,6 +287,36 @@ my @cases = (
                               },
 
              },
+
+             {
+              name => 'Remote smarthost authentication error',
+                 lines => [
+'Oct 31 00:21:29 ebox011101 postfix/smtpd[11062]: connect from unknown[192.168.9.1]',
+'Oct 31 00:21:29 ebox011101 postfix/smtpd[11062]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct 31 00:21:29 ebox011101 postfix/smtpd[11062]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct 31 00:21:29 ebox011101 postfix/smtpd[11062]: 0158C52634: client=unknown[192.168.9.1]',
+'Oct 31 00:21:30 ebox011101 postfix/cleanup[11065]: 0158C52634: message-id=<200811191624.44633.spam@warp.es>',
+'Oct 31 00:21:30 ebox011101 postfix/qmgr[10852]: 0158C52634: from=<spam@warp.es>, size=580, nrcpt=1 (queue active)',
+'Oct 31 00:21:30 ebox011101 postfix/error[11066]: 0158C52634: to=<jag@gmail.com>, relay=none, delay=0.1, delays=0.06/0.02/0/0.02, dsn=4.7.8, status=deferred (delivery temporarily suspended: SASL authentication failed; server 192.168.45.120[192.168.45.120] said: 535 5.7.8 Error: authentication failed: authentication failure)',
+'Oct 31 00:21:30 ebox011101 postfix/smtpd[11062]: disconnect from unknown[192.168.9.1]',
+                           
+                          ],
+              expectedData =>  {
+                               from_address => 'spam@warp.es',
+                               message_id => '200811191624.44633.spam@warp.es',
+                               message_size => '580',
+                               status => 'deferred',
+                               postfix_date => '2008-Oct-31 00:21:30',
+                               event => 'nosmarthostrelay',
+                               message => 'delivery temporarily suspended: SASL authentication failed; server 192.168.45.120[192.168.45.120] said: 535 5.7.8 Error: authentication failed: authentication failure',
+                               to_address => 'jag@gmail.com',
+                               client_host_name => 'unknown',
+                               relay => 'none',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
+
 
             );
  

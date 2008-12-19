@@ -65,6 +65,7 @@ use constant POPPIDFILE                         => "/var/run/courier/pop3d.pid";
 use constant IMAPPIDFILE                        => "/var/run/courier/imapd.pid";
 use constant BYTES                              => '1048576';
 
+use constant SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 
@@ -353,7 +354,10 @@ sub _setMailConf
     push(@array, fqdn => $self->_fqdn());
     push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
     push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
+
     push(@array, 'relay', $self->relay());
+    push(@array, 'relayAuth', $self->relayAuth());
+
     push(@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
     push(@array, 'allowed', $allowedaddrs);
     push(@array, 'aliasDN', $self->{malias}->aliasDn());
@@ -429,6 +433,20 @@ sub _setMailConf
 
     # greylist configuration files
     $greylist->writeConf();
+
+    $self->writeConfFile(SASL_PASSWD_FILE,
+                         'mail/sasl_passwd.mas',
+                         [
+                          relayHost => $self->relay(),
+                          relayAuth => $self->relayAuth(),
+                         ],
+                         {
+                          uid  => 0,
+                          gid  => 0,
+                          mode => '0600',
+                         }
+                        );
+    EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
 }
 
 sub _fqdn
@@ -667,6 +685,24 @@ sub relay
     my $smtpOptions = $self->model('SMTPOptions');
     return $smtpOptions->smarthost();
 }
+
+
+sub relayAuth
+{
+    my ($self) = @_;
+    my $smtpOptions = $self->model('SMTPOptions');
+    my $auth = $smtpOptions->row()->elementByName('smarthostAuth');
+
+    my $selectedType = $auth->selectedType();
+    if ($selectedType eq 'userandpassword') {
+        return $auth->value();
+    }
+
+    return undef;
+}
+
+
+
 
 
 # Method: getMaxMsgSize

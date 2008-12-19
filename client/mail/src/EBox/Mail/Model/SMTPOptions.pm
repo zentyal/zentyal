@@ -37,12 +37,13 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Int;
 use EBox::Types::Text;
+use EBox::Types::Password;
 use EBox::Types::Boolean;
 use EBox::Types::Host;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Port;
-
+use EBox::Types::Composite;
 
 # eBox exceptions used 
 use EBox::Exceptions::External;
@@ -83,6 +84,39 @@ sub _table
                                optional => 1,
                                editable => 1,
                               ),
+         new EBox::Types::Union(
+                              fieldName => 'smarthostAuth',
+                              printableName => 
+                                __('Smarthost authentication'),
+                              editable => 1,
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'none',
+                                  'printableName' => __('None'),
+                                  ),
+                              new EBox::Types::Composite(
+                                   fieldName => 'userandpassword',
+                                   printableName => __('User and password'),
+                                   editable => 1,
+                                   showTypeName => 0,
+                                   types => [
+                                             new EBox::Types::Text(
+                                              fieldName => 'username',
+                                              printableName => __('User'),
+                                              size => 20,
+                                              editable => 1,
+                                                                  ),
+                                             new EBox::Types::Password(
+                                              fieldName => 'password',
+                                              printableName => __('Password'),
+                                              size => 12,
+                                              editable => 1,                                            
+                                                                  ),
+
+                                            ],
+                                                        )
+                                  ],
+             ),
          new EBox::Types::Union(
                               fieldName => 'maxSize',
                               printableName => 
