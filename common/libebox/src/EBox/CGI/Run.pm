@@ -132,8 +132,11 @@ sub _lookupViewController
                 $action = $namespaces[5];
                 # Remove the previous thought index
                 $modelName =~ s:/.*?$::g;
-                # EBox::debug($modelName);
-                $model = $manager->model($modelName);
+                if (($modelName) ne '') {
+                    $model = $manager->model($modelName);
+                } else {
+                    throw EBox::Exceptions::DataNotFound();	
+                }
             };
 
 
