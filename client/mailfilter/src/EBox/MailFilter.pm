@@ -125,6 +125,8 @@ sub usedFiles
 #
 sub enableActions
 {
+    my ($self) = @_;
+
     root(EBox::Config::share() . '/ebox-mailfilter/ebox-mailfilter-enable');
 }
 

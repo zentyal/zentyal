@@ -38,6 +38,7 @@ use EBox::MailUserLdap;
 use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
+use EBox::Mail::Greylist;
 
 use EBox::Exceptions::InvalidData;
 
@@ -80,6 +81,7 @@ sub _create
     $self->{vdomains} = new EBox::MailVDomainsLdap;
     $self->{musers} = new EBox::MailUserLdap;
     $self->{malias} = new EBox::MailAliasLdap;
+    $self->{greylist} = new EBox::Mail::Greylist;
 
     bless($self, $class);
     return $self;
@@ -88,6 +90,13 @@ sub _create
 sub domain
 {
     return 'ebox-mail';
+}
+
+
+sub greylist
+{
+    my ($self) = @_;
+    return $self->{greylist};
 }
 
 # Method: actions
@@ -116,7 +125,7 @@ sub actions
                             .'eboximail.schema.'
               ),
               'module' => 'mail'
-            }
+            },
     ];
 }
 
@@ -126,6 +135,8 @@ sub actions
 #
 sub usedFiles
 {
+    my ($self) = @_;
+
     return [
             {
               'file' => MAILMAINCONFFILE,
@@ -192,9 +203,12 @@ sub usedFiles
               'file' => '/etc/ldap/slapd.conf',
               'reason' => __('To add the LDAP schemas used by eBox mail'),
               'module' => 'users'
-            }
+            },
+            @{ $self->greylist()->usedFiles() },
     ];
 }
+
+
 
 # Method: enableActions
 #
@@ -253,6 +267,8 @@ sub modelClasses
             'EBox::Mail::Model::ExternalFilter',
 
             'EBox::Mail::Model::Dispatcher::Mail',
+
+            'EBox::Mail::Model::GreylistConfiguration',
            ];
 }
 
@@ -353,6 +369,13 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'ipfilter', $self->ipfilter());
     push(@array, 'portfilter', $self->portfilter());
+
+    # greylist parameters
+    my $greylist = $self->greylist();
+    push(@array, 'greylist',     $greylist->service() );
+    push(@array, 'greylistAddr', $greylist->address());
+    push(@array, 'greylistPort', $greylist->port());
+
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
@@ -403,6 +426,9 @@ sub _setMailConf
 
     $self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas");
     $self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas");
+
+    # greylist configuration files
+    $greylist->writeConf();
 }
 
 sub _fqdn
@@ -797,6 +823,10 @@ sub usesPort # (protocol, port, iface)
         return 1 if (($port eq $srvpto{$mysrv}) and ($self->service($mysrv)));
     }
 
+    if ($self->greylist()->usesPort($protocol, $port, $iface)) {
+        return 1;
+    }
+
     return undef;
 }
 
@@ -877,13 +907,17 @@ sub _stopService
     if ($self->isRunning('active')) {
         $self->_daemon('stop', 'active');
     }
+
+    $self->greylist()->stopService();
 }
 
 sub _regenConfig
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    if ($self->service) {
+    my $service = $self->service('active');
+
+    if ($service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
@@ -896,6 +930,9 @@ sub _regenConfig
 
     $self->_daemon('restart', 'authdaemon');
     $self->_daemon('restart', 'authldap');
+
+    $self->greylist()->writeUpstartFile();
+    $self->greylist()->doDaemon($service);
 }
 
 
@@ -986,6 +1023,20 @@ sub _ldapModImplementation
 
     return new EBox::MailUserLdap();
 }
+
+
+sub notifyAntispamACL
+{
+    my ($self) = @_;
+
+    # greylist must be notified of antispam changes
+    if (not $self->greylist()->service()) {
+        return;
+    }
+
+    $self->setAsChanged();
+}
+
 
 sub summary
 {
@@ -1083,12 +1134,18 @@ sub menu
                                       'text' => __('Virtual mail domains')
                  )
     );
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'Mail/View/GreylistConfiguration',
+                                      'text' => __('Greylist')
+                                     ),
+                );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/QueueManager',
                                       'text' => __('Queue Management')
-                 )
+                 ),
     );
 
     # add filterproviders menu items
@@ -1136,8 +1193,10 @@ sub tableInfo
                    'noaccount' => __('Account does not exist'),
                    'nohost' => __('Host unreachable'),
                    'noauth' => __('Authentication error'),
-                   'other' => __('Other events'),
                    'nosmarthostrelay' => __('Relay denied by the smarthost'),
+                   'greylist' => __('Greylisted'),
+                   'other' => __('Other events'),
+                  
     };
 
     return {

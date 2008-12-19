@@ -564,6 +564,23 @@ sub setVDomainHamAccount
 }
 
 
+sub aclChanged
+{
+    my ($self) = @_;
 
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    if (not $mailfilter->isEnabled()) {
+        return;
+    }
+
+    my @modInstances = @{ EBox::Global->modInstances() };
+    my $notifyMethod = 'notifyAntispamACL';
+
+    foreach my $mod (@modInstances) {
+        if ($mod->can($notifyMethod)) {
+            $mod->$notifyMethod();
+        }
+    } 
+}
 
 1;
