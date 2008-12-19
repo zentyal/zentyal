@@ -1008,35 +1008,36 @@ sub summary
     $section->add($pop);
     $section->add($imap);
 
-    my $filterSection = $self->_filterSummarySection();
-    $summary->add($filterSection);
+    $self->_addFilterSummary($section);
 
     return $summary;
 }
 
-sub _filterSummarySection
+sub _addFilterSummary
 {
-    my ($self) = @_;
+    my ($self, $section) = @_;
 
-    my $section = new EBox::Summary::Section('Mail filter');
 
     my $service     = $self->service('filter');
     my $statusValue =  $service ? __('enabled') : __('disabled');
 
-    $section->add( new EBox::Summary::Value(__('Status'),$statusValue));
+    $section->add( 
+                  new EBox::Summary::Value(__(q{Mail server's filter}),
+                                            $statusValue)
+                 );
 
     $service or return $section;
 
     my $filter = $self->externalFilter();
 
     if ($filter eq 'custom') {
-        $section->add(new EBox::Summary::Value(__('Filter') => __('Custom')));
+        $section->add(new EBox::Summary::Value(__('Filter type') => __('Custom')));
         my   $address = $self->ipfilter() . ':' . $self->portfilter();
         $section->add(new EBox::Summary::Value(__('Address') => $address));
     }else {
         $section->add(
                    new EBox::Summary::Value(
-                       __('Filter') => $self->_filterAttr($filter, 'prettyName')
+                       __('Filter type') => $self->_filterAttr($filter, 'prettyName')
                    )
         );
 

@@ -1,0 +1,208 @@
+<%args>
+@badExtensions
+</%args>
+<%init>
+#use EBox::Gettext;
+
+#my $warningText = 
+
+</%init>
+
+# renattach 1.2.3 recognizes the following configuration directives.
+
+
+# Delete executable binary attachments by signature. renattach looks
+# for encoded bytes that identify DOS/Windows executables ('MZ').
+# If an executable is found, the encoded attachment will be removed
+# while the MIME header remains unchanged. This is a feature that 
+# works independently of filename-based filtering, designed as a 
+# backup. The net effect is that encoded executables are deleted.
+# Specify yes or no, or alternatively 1 or 0
+#
+# delete_exe = yes
+
+
+# Kill executable binary attachments by signature, as in the previous
+# directive. Note that delete_exe and kill_exe are mutually exclusive.
+#
+# kill_exe = no
+
+
+# Search for filenames within ZIP archives using the internal ZIP
+# parsing engine (no external software required). Any filenames found
+# are subject to the same checks, for instance badlist or goodlist,
+# with the notable difference that the RENAME ACTION HAS NO EFFECT on
+# ZIP files. Only the delete or kill actions will modify ZIP files.
+#
+search_zip = yes
+
+
+# Normally, MIME Content-ID fields are dropped during filtering due
+# to their application-specific use and security risk (recently used
+# by worms to link malicious code to embedded images). If you are sure
+# you want to pass Content-ID fields unfiltered, enable this option.
+#
+# pass_contentid = no
+
+
+# Normally, all periods in filenames are replaced with underscores
+# during renaming. Although this is the recommended mode, you can
+# also disable full renaming if you only want the last period to be
+# changed to an underscore.
+#
+# full_rename = yes
+
+
+# If enabled, all filtering actions will be logged via syslog.
+# renattach logs with priority 'warning' to facility 'mail'
+#
+# use_syslog = no
+
+
+# A generic filename to use when parsing fails. Since renattach 
+# rewrites all attachment headers, it's possible that corruption, 
+# lack of buffer space, or some other problem will prevent filenames
+# from being recreated. In such a case, this generic name is used.
+#
+# generic_name = filename
+
+
+# A replacement file extension to use when changing dangerous 
+# attachment filenames. This extension is appended to the previous 
+# one. For instance virus.pif becomes virus_pif.bad
+# Specify just # to leave the extension as is, and not rename it.
+#
+# new_extension = bad
+
+
+# When attachments are renamed, the MIME type is also changed to 
+# this new_mime_type for safety.
+#
+# new_mime_type = application/unknown
+
+
+# The following directives control how the message Subject is 
+# modified to inform the user that filtering has occurred. They
+# have the following ORDER OF PRIORITY (starting with highest):
+# subj_banned, subj_exec, subj_deleted, subj_renamed, add_subject
+# By default, only add_subject is defined so any condition (whether
+# it's a ban, executable match, delete, or rename) results in the
+# same Subject addition. If you also define subj_exec then there 
+# could be a different Subject if an executable was caught (since
+# it has higher priority than add_subject). Another alternative for 
+# these options is to specify the single character # to suppress
+# Subject modification for that condition. You could use this to be 
+# quiet in case a banned attachment is caught. You can also use # to 
+# turn off add_subject, hence NEVER modify the message Subject.
+
+# Add text to Subject if an attachment is caught by banned_files,
+# shown here in suppression mode to NOT inform user on file ban.
+#
+# subj_banned = #
+
+
+# Add text to Subject if an attachment is caught by delete_exe
+#
+# subj_exec = [removed executable]
+
+
+# Add text to Subject if an attachment is deleted for any reason
+#
+# subj_deleted = [deleted attachment]
+
+
+# Add text to Subject if an attachment is renamed for any reason
+#
+# subj_renamed = [renamed attachment]
+
+
+# Add text to Subject if an attachment is filtered in any way. This
+# has lowest priority, and is only used if previous are undefined.
+# Use single character # to suppress addition to Subject.
+#
+# add_subject = [filtered]
+
+
+# When inserting a warning into HTML parts of messages (warning_html),
+# this tag defines the preferred position to insert the new HTML. If
+# the first tag in the list is found, the warning position is placed
+# just after this tag. As subsequent tags are found, the position
+# advances after each.
+#
+# htmlwarn_pos = html, body
+
+
+# If an attachment is filtered, this lets you specify some warning
+# text that will be inserted into any plain text portion(s) of the
+# email. This is effective for informing users of filtered files,
+# but the act of inserting arbitrary text into an email can cause
+# new problems. Use with caution.
+#
+ warning_text =	*******************
+ warning_text =	MAIL SYSTEM WARNING
+ warning_text =	Attachments removed
+ warning_text =	*******************
+
+
+# Inserts a warning message into HTML portions of the email when
+# filtering occurs. The HTML is inserted at a position determined by
+# htmlwarn_pos (see above) which provides a good hope for adding a
+# visible warning. Unfortunately, inserting arbitrary HTML is tricky
+# due to the complexity of markup interactions. Inserting warnings in
+# HTML may thoroughly disrupt the original message, so use with caution.
+#
+# warning_html =	<h1>Mail system warning<h1>
+# warning_html =	<h2>Attachments removed</h2>
+
+
+# When enabled, these new headers will be added to the message to
+# inform the user about filtering that occurred.
+#
+# add_header = X-Filtered-0:  *** PLEASE NOTE ***
+# add_header = X-Filtered-1:  Potentially dangerous attachments have been
+# add_header = X-Filtered-2:  found in this e-mail, and have either been
+# add_header = X-Filtered-3:  renamed or deleted for your safety.
+
+
+# Catch specifically named, banned attachment filenames and
+# optionally take an action (r=rename, d=delete, k=kill). This is
+# an additive option so there is no limit to how many names can be
+# specified. If the name begins with a forward slash ('/'), this
+# substring has to be found; '/foo' matches 'foobar' and 'eatfoo'
+# Otherwise, the whole name has to match. Specify case-insensitive
+# filenames separated by commas. To specify an action on matching
+# filename, append /r (rename), /d (delete), or /k (kill) to the
+# filename as illustrated in the example.
+#
+# banned_files = your_details.zip/r, your_details.pif/k
+# banned_files = movie.pif/d, movie.zip, /winmail/d
+
+
+# A list of good (known-safe) attachment file extensions to use
+# in goodlist filtering mode. This is an additive option, so there
+# is no limit to how many filenames can be specified. Specify case-
+# insensitive extensions separated by commas.
+#
+# goodlist = DOC, PDF, RTF, SXC, SXW, TXT, ZIP
+
+
+# A list of bad (known-dangerous) attachment file extensions to use
+# in badlist filtering mode. This is an additive option, so there
+# is no limit to how many filenames can be specified. Specify case-
+# insensitive extensions separated by commas. To specify an action
+# for an extension, append /r (rename), /d (delete), or /k (kill)
+# to the filename. This overrides the default action for the filter
+# and can be used to provide special handling for some extensions.
+# An additional switch can be used to specify an action only for 
+# files found within ZIP archives. For instance, EXE/k/d tells the
+# filter to kill emails containing EXE attachments, but if the EXE
+# was found inside a ZIP then the attachment is deleted, not killed.
+#
+# badlist = ADE, ADP, BAS, BAT, CHM, CMD, COM, CPL, CRT, EML, EXE
+# badlist = HLP, HTA, HTM, HTML, INF, INS, ISP, JS, JSE, LNK, MDB
+# badlist = MDE, MSC, MSH, MSI, MSP, MST, NWS, OCX, PCD, PIF, REG
+# badlist = SCR, SCT, SHB, SHS, URL, VB, VBE, VBS, WSC, WSF, WSH
+
+% if (@badExtensions) {
+badlist = <% join(',', @badExtensions) %>
+% }

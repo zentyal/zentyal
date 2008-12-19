@@ -4,8 +4,8 @@ SUBDIRS = Report
 perldir = @PERLPATH@/EBox/MailFilter/Composite
 
 
-nobase_perl_DATA =  Index.pm GeneralAndBadHeader.pm ExternalConnections.pm \
-	             FileFilter.pm Antivirus.pm Antispam.pm
+nobase_perl_DATA =  Amavis.pm  ExternalConnections.pm \
+	             FileFilter.pm  Antispam.pm
 
 DISTCLEANFILES =
 

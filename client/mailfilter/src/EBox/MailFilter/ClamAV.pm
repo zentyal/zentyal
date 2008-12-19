@@ -8,6 +8,7 @@ use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Service;
 use EBox::Gettext;
+use EBox::Global;
 
 use EBox::MailFilter::VDomainsLdap;
 
@@ -37,6 +38,10 @@ sub new
   return $self;
 }
 
+sub _mailfilterModule
+{
+  return EBox::Global->modInstance('mailfilter');
+}
 
 sub usedFiles
 {
@@ -89,14 +94,13 @@ sub _daemon
 
 
 
-
+# the service is when requested by any subservice
 sub service
 {
   my ($self) = @_;
 
   my $mailfilter = EBox::Global->modInstance('mailfilter');
-  my $avConf     = $mailfilter->model('AntivirusConfiguration');
-  return $avConf->enabled();
+  return $mailfilter->antivirusNeeded();
 }
 
 

@@ -15,7 +15,15 @@ create_db()
 {
     db_name="eboxlogs"
     db_user="ebox"
-
+    
+    # XXX Workaround to restart postgres if it's not up and running.
+    # Some users have reported that postgres wasn't running during
+    # the installation process and caused an installation failure
+    if  ! invoke-rc.d postgresql-8.3 status > /dev/null 2>%1 
+    then
+        invoke-rc.d postgresql-8.3 restart || true
+    fi 
+    
     su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
     if [ $db_exists -eq 0 ]; then
         echo "Creating the $db_name database"

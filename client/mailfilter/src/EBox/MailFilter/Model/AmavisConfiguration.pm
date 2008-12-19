@@ -15,7 +15,7 @@
 
 
 
-package EBox::MailFilter::Model::General;
+package EBox::MailFilter::Model::AmavisConfiguration;
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -59,6 +59,25 @@ sub _table
 {
     my @tableDesc = 
         ( 
+         new EBox::Types::Boolean(
+                                  fieldName => 'enabled',
+                                  printableName => __('Enabled'),
+                                  defaultValue => 1,
+                                  editable => 1
+                                 ),
+         new EBox::Types::Boolean(
+                                  fieldName => 'antivirus',
+                                  printableName => __('Antivirus enabled'),
+                                  defaultValue => 1,
+                                  editable => 1
+                                 ),
+         new EBox::Types::Boolean(
+                                  fieldName => 'antispam',
+                                  printableName => __('Antispam enabled'),
+                                  defaultValue => 1,
+                                  editable => 1
+                                 ),
+
          new EBox::Types::Port(
                                fieldName => 'port',
                                printableName => __(q{Service's port}),
@@ -87,8 +106,8 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('General settings'),
-                      modelDomain        => 'mailfilter',
+                      printableTableName => __('General  settings'),
+                      modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
 

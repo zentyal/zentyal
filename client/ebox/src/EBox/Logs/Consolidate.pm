@@ -46,49 +46,50 @@ sub consolidate
         if (not EBox::Global->modInstance($modName)->isEnabled()) {
             return;
         }
-
         @modNames = ( $modName );
     }
 
     
-
+    
 
     foreach my $name (@modNames) {
-        my $tableInfo = $self->_tableInfoFromMod($name);
-        while (my ($destTable, $configuration) = each %{ $tableInfo->{consolidate} }) {
-            my @timePeriods = TIME_PERIODS;
+        my @tableInfos = @{ $self->_tableInfosFromMod($name) };
+        foreach my $tableInfo (@tableInfos) {
 
-            my $firstTimePeriod = shift @timePeriods;
+            while (my ($destTable, $configuration) = each %{ $tableInfo->{consolidate} }) {
+                my @timePeriods = TIME_PERIODS;
+                
+                my $firstTimePeriod = shift @timePeriods;
+                
+                
+                $self->_consolidateTable(
+                                         destinationTable => $destTable,
+                                         configuration    => $configuration,
+                                         
+                                         tableInfo        => $tableInfo,
+                                         
+                                         timePeriod       => $firstTimePeriod,
+                                        );
+                
 
-            
-            $self->_consolidateTable(
-                                     destinationTable => $destTable,
-                                     configuration    => $configuration,
-                                     
-                                     tableInfo        => $tableInfo,
-                                     
-                                     timePeriod       => $firstTimePeriod,
-                                    );
-
-
-            my $prevTimePeriod = $firstTimePeriod;
-            foreach my $timePeriod (@timePeriods) {
-                $self->_reconsolidateTable(
+                my $prevTimePeriod = $firstTimePeriod;
+                foreach my $timePeriod (@timePeriods) {
+                    $self->_reconsolidateTable(
                                      destinationTable => $destTable,
                                      configuration    => $configuration,
                                      
                                      timePeriod       => $timePeriod,
                                      sourceTimePeriod => $prevTimePeriod,
 
-                                          );
+                                              );
+                    
+                    $prevTimePeriod = $timePeriod;
+                }
 
-                $prevTimePeriod = $timePeriod;
             }
-
+            
         }
-
     }
-
 
 
 }
@@ -120,13 +121,26 @@ sub _allModulesWithConsolidation
 
     my $global = EBox::Global->getInstance();
 
-    my @mods = grep {
-        my $tableInfo = $_->tableInfo();
-        $_->isEnabled() and
-            (exists  $tableInfo->{consolidate}) and ($tableInfo->{consolidate})
-    } @{  $global->modInstancesOfType('EBox::LogObserver')  };
-        
-    my @modNames = map { $_->name()  } @mods;
+
+    my @modNames;
+    my @mods =  @{  $global->modInstancesOfType('EBox::LogObserver')  };
+
+    foreach my $mod (@mods) {
+        if (not $mod->isEnabled()) {
+            next;
+        }
+
+        my $name = $mod->name();
+
+        my $consolidate = @{  $self->_tableInfosFromMod($name, 1) };
+        if (not $consolidate) {
+            next;
+        }
+
+        push @modNames, $name;
+    }
+
+
 
     return \@modNames;
 }
@@ -386,9 +400,11 @@ sub _clearRows
     $dbengine->do($deleteStatement);
 }
 
-sub _tableInfoFromMod
+sub _tableInfosFromMod
 {
-    my ($self, $modName) = @_;
+    my ($self, $modName, $noThrowsException) = @_;
+    defined $noThrowsException or
+        $noThrowsException = 0;
 
     my $mod = EBox::Global->modInstance($modName);
     if (not $mod->isa('EBox::LogObserver')) {
@@ -396,12 +412,26 @@ sub _tableInfoFromMod
     }
 
 
-    my $tableInfo = $mod->tableInfo();
-    if (not exists $tableInfo->{consolidate}) {
-        throw EBox::Exceptions::Internal("Module $modName has not consolidate conofguration");
+    my @tableInfos;
+    my $ti = $mod->tableInfo();
+
+    if (ref $ti eq 'HASH') {
+        EBox::warn('tableInfo() in ' . $mod->name .  
+                   'must return a reference to a list of hashes not the hash itself');
+        @tableInfos = ( $ti );
+    }
+    else {
+        @tableInfos = @{ $ti };
     }
 
-    return $tableInfo;
+    
+    @tableInfos = grep { exists $_->{consolidate} } @tableInfos;
+
+    if (not @tableInfos and (not $noThrowsException)) {
+        throw EBox::Exceptions::Internal("Module $modName has not any table with consolidate configuration");
+    }
+
+    return \@tableInfos;
 }
 
 

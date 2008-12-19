@@ -21,8 +21,11 @@ use EBox::Gettext;
 
 use base qw(EBox::LogHelper);
 
-use constant MAILOG => "/var/log/mail.log";
-use constant TABLENAME => "message_filter";
+use constant MAIL_LOG => '/var/log/mail.log';
+use constant SYS_LOG => '/var/log/syslog';
+
+use constant SMTP_FILTER_TABLE => 'message_filter';
+use constant POP_PROXY_TABLE   => 'pop_proxy_filter';
 
 
  
@@ -30,6 +33,8 @@ use constant TABLENAME => "message_filter";
 sub new
 {
     my $class = shift;
+    my %params = @_;
+
     my $self = {};
     bless($self, $class);
     return $self;
@@ -45,7 +50,7 @@ sub domain
 }
 
 sub logFiles {
-    return [MAILOG];
+    return [MAIL_LOG, SYS_LOG];
 }
 
 
@@ -70,15 +75,31 @@ sub _getDate
 }
 
 
-my $lineRe = qr{^\s\(.*?\)\s
+
+
+sub processLine
+{
+    my ($self, $file, $line, $dbengine) = @_;
+
+    if ($file eq MAIL_LOG) {
+        $self->_processAmavisLine($line, $dbengine);
+    }
+    elsif ($file eq SYS_LOG) {
+        $self->_processPOPProxyLine($line, $dbengine);
+    }
+}
+
+
+
+my $amavisLineRe = qr{^\s\(.*?\)\s
                (\w+)\s([\w\-]+).*?, # action (Passed or Blocked) and event type
                \s<(.*?)>\s->\s<(.*?)>,  # mail sender and receiver
                \sHits:\s([\d\.\-]+), # Spam hits ('-' for none)
               }x;
 
-sub processLine
+sub _processAmavisLine
 {
-    my ($self, $file, $line, $dbengine) = @_;
+    my ($self, $line, $dbengine) = @_;
 
     if (not $line =~ m/amavis/) {
         return;
@@ -87,7 +108,7 @@ sub processLine
     my $header;
     ($header, $line) = split 'amavis.*?:' , $line, 2;
 
-    if (not $line =~ $lineRe) {
+    if (not $line =~ $amavisLineRe) {
         return;
     }
 
@@ -119,7 +140,74 @@ sub processLine
     }
 
 
-    $dbengine->insert(TABLENAME, $values);
+    $dbengine->insert(SMTP_FILTER_TABLE, $values);
+}
+
+
+my $p3scanAddress;
+my $p3scanVirus = 0;
+my $p3scanSpam  = 0;
+my $p3scanClientConn;
+
+sub _processPOPProxyLine
+{
+    my ($self, $line, $dbengine) = @_;
+
+
+    if ($line =~ m/p3scan\[\d+\]: Connection from (.*):/) {
+        $p3scanClientConn = $1;
+        $p3scanVirus   = 0;
+        $p3scanSpam    = 0;
+        $p3scanAddress = undef;
+    }
+    elsif ($line =~ m/p3scan\[\d+\]: USER \'(.*?)\'/ ) {
+        $p3scanAddress = $1;
+    }
+    elsif ($line =~ m/p3scan\[\d+\]: .* contains a virus/) {
+        $p3scanVirus += 1;
+    }
+    elsif ($line =~ m/spamd: identified spam .* for p3scan/) {
+        $p3scanSpam += 1;
+    }
+    elsif ($line =~ m{p3scan\[\d+\]: Session done.*\((.*?)\).* Mails: (.*) Bytes:} ) {
+        my $status = $1;
+        my $mails  = $2;
+
+        my $event;
+        if ($status eq 'Clean Exit') {
+            $event = 'pop3_fetch_ok';
+        }
+        else { # $status ~= m/abort/
+            $event = 'pop3_fetch_failed';
+            
+        }
+
+
+
+        my $cleanMails = $mails  - $p3scanVirus - $p3scanSpam;
+
+        my $date = $self->_getDate($line);
+
+        my $values = {
+                      event => $event,
+                      address => $p3scanAddress,
+                      
+                      mails  => $mails,
+                      clean   => $cleanMails,
+                      virus  => $p3scanVirus,
+                      spam   => $p3scanSpam,
+                      
+                      clientConn => $p3scanClientConn,
+
+                      
+                      date => $date,
+                     };
+
+
+
+    $dbengine->insert(POP_PROXY_TABLE, $values);
+    }
+
 }
 
 1;

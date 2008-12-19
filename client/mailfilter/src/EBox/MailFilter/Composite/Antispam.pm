@@ -62,7 +62,7 @@ sub _description
          layout          => 'top-bottom',
          name            =>  __PACKAGE__->nameFromClass,
          printableName   => __('Antispam'),
-         compositeDomain => 'mailfilter',
+         compositeDomain => 'MailFilter',
 #         help            => __(''),
         };
 

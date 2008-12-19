@@ -1,5 +1,9 @@
 0.12.100
         + Bugfix: validation of General model now works properly
+	+ Added POP transparent proxy
+	+ SMTP filter separated from main module
+	+ Interface overhaul t reflect changes in SMT filter and addition
+	of POP proxy
 0.12.99
 	+ New release
 0.12.1

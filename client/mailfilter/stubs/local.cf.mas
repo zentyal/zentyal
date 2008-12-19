@@ -1,10 +1,17 @@
 <%args>
+$spamThreshold
+
 $bayes      
 $bayesPath
 
 $bayesAutolearn 
 $bayesAutolearnSpamThreshold 
 $bayesAutolearnHamThreshold 
+
+@whitelist
+@blacklist
+
+$spamSubject => undef
 
 @trustedNetworks
 @okLocales      => ('all')
@@ -17,7 +24,7 @@ $bayesAutolearnHamThreshold
 #
 # report_safe 1
 
-
+ 
 #   Set which networks or hosts are considered 'trusted' by your mail
 #   server (i.e. not spammers)
 
@@ -31,9 +38,14 @@ $bayesAutolearnHamThreshold
 
 
 #   Set the threshold at which a message is considered spam (default: 5.0)
+#   In Amavis case this value is overriden by amavis' tag levels
 #
-# required_score 3.1  # <-- this has not effect bz it is overriden by amavis' tag levels
+required_score <% $spamThreshold %>
 
+
+% if ($spamSubject) {
+rewrite_header  subject  <% $spamSubject %>
+% }
 
 #   Use Bayesian classifier
 
@@ -47,7 +59,16 @@ bayes_path <% $bayesPath %>
             hamThreshold => $bayesAutolearnHamThreshold, 
 &>
 
+# ACLs
 
+% foreach my $addr (@whitelist) {
+whitelist_from <% $addr %>
+% }
+
+
+% foreach my $addr (@blacklist) {
+blacklist_from <% $addr %>
+% }
 
 #   Set headers which may provide inappropriate cues to the Bayesian
 #   classifier

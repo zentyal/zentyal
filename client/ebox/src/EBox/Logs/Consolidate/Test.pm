@@ -20,7 +20,7 @@ use lib '../../..';
 use EBox::Logs::Consolidate;
 use EBox::TestStubs;
 
-sub weeklyDateTest : Test(6)
+sub weeklyDateTest #: Test(6)
 {
     my %cases = (
                  "2008-01-02 13:42:12" => "2007-12-31 00:00:00", # year leap
@@ -233,8 +233,16 @@ sub _setupDB
         EBox::TestStubs::fakeEBoxModule(
                                        name => $modName,
                                        subs => [
-                                                isEnabled => sub { return 1  }
+                                                isEnabled => sub { return 1  },
+                                                tableInfo => sub {
+                                                    my ($mock) = @_;
+                                                    return
+                                                      $self->fakeTableInfoFromMod($mock->name);
+
+                                                }
+#                                                name => sub {  return $modName },
                                                ],
+                                        isa => ['EBox::LogObserver'],
                                       );
     }
 

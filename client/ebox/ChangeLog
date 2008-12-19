@@ -7,6 +7,8 @@
 	+ Fixing an `img` tag closed now properly and adding alternative
 	text to match W3C validation in head title
 	+ Backup pages now includes the size of the archive
+	+ Fixed bug in ForcePurge logs model
+	+ Now the modules can have more than one tableInfo for logginf
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically

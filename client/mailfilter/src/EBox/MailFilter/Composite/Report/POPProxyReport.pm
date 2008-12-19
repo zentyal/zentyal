@@ -13,9 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
-package EBox::MailFilter::Composite::Index;
+package EBox::MailFilter::Composite::Report::POPProxyReport;
 
 use base 'EBox::Model::Composite';
 
@@ -37,13 +35,17 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-{
-    my ($class, @params) = @_;
+  {
 
-    my $self = $class->SUPER::new(@params);
+      my ($class, @params) = @_;
 
-    return $self;
-}
+      my $self = $class->SUPER::new(@params);
+
+      return $self;
+
+  }
+
+
 
 # Group: Protected methods
 
@@ -54,27 +56,25 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-{
+  {
 
-     my $description =
+      my $description =
         {
          components      => [
-                             'GeneralAndBadHeader',
-                             'FileFilter',
-                             'Antivirus',
-                             'Antispam',
-                             'ExternalConnections',
+                             '/mailfilter/POPProxyReportOptions',
+                             'POPProxyGraph',
+                             'POPProxyDetails',
                             ],
-         layout          => 'tabbed',
-         name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('Internal mailfilter'),
-         compositeDomain => 'mailfilter',
+         layout          => 'top-bottom',
+         name            => __PACKAGE__->nameFromClass(),
+         printableName   => __('Mail filter report'),
+         pageTitle   => __('Transparent POP proxy report'),
+         compositeDomain => 'MailPOPProxy',
 #         help            => __(''),
         };
 
       return $description;
-}
 
-
+  }
 
 1;

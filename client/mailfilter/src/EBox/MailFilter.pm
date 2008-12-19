@@ -38,8 +38,6 @@ use EBox::Service;
 use EBox::Summary::Module;
 use EBox::Summary::Status;
 use EBox::Exceptions::InvalidData;
-use EBox::MailFilter::ClamAV;
-use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::FirewallHelper;
 use EBox::MailFilter::LogHelper;
 use EBox::MailVDomainsLdap;
@@ -47,18 +45,11 @@ use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
 
-use constant {
-  AMAVIS_SERVICE                 => 'ebox.amavisd-new',
-  AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
-  AMAVISPIDFILE                 => '/var/run/amavis/amavisd.pid',
-  AMAVIS_INIT                   => '/etc/init.d/amavis',
+use EBox::MailFilter::Amavis;
+use EBox::MailFilter::ClamAV;
+use EBox::MailFilter::SpamAssassin;
+use EBox::MailFilter::POPProxy;
 
-  SA_INIT                       => '/etc/init.d/spamassassin',
-  SAPIDFILE                     => '/var/run/spamd.pid',
-
-  MAILFILTER_NAME => 'mailfilter', # name used to identify the filter
-                                   # which this modules provides
-};
 
 
 #
@@ -72,8 +63,10 @@ sub _create
     my $self = $class->SUPER::_create(name => 'mailfilter');
     bless($self, $class);
     
+    $self->{smtpFilter} = new EBox::MailFilter::Amavis();
     $self->{antivirus} = new EBox::MailFilter::ClamAV();
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
+    $self->{popProxy}  = new EBox::MailFilter::POPProxy();
     
     return $self;
 }
@@ -97,6 +90,11 @@ sub actions
              'module' => 'mailfilter',
             },
             {
+             'action' => __('Add clamav user to p3scan group'),
+             'reason' => __('Clamav need access to p3scan group to properly scan in the POP Proxy'),
+             'module' => 'mailfilter',
+            },
+            {
              'action' => __('Update LDAP'),
              'reason' => __('Add amavis specific classes and fields'),
              'module' => 'mailfilter',
@@ -111,22 +109,12 @@ sub actions
 #
 sub usedFiles 
 {
-    my @usedFiles = (
-                     {    
-                      'file' =>   AMAVIS_CONF_FILE,
-                      'reason' => __('To configure amavis'),
-                      'module' => 'mailfilter'
-                     },
-                     {
-                      'file' => '/etc/ldap/slapd.conf',
-            'reason' => __('To add the LDAP schemas used by eBox mailfilter'),
-                      'module' => 'users'
-                     }
-                    );
+    my @usedFiles;
     
+    push @usedFiles, EBox::MailFilter::Amavis::usedFiles();
     push @usedFiles, EBox::MailFilter::ClamAV::usedFiles();
     push @usedFiles, EBox::MailFilter::SpamAssassin::usedFiles();
-    
+    push @usedFiles, EBox::MailFilter::POPProxy::usedFiles();    
 
     return \@usedFiles;
 }
@@ -167,6 +155,13 @@ sub enableModDepends
         }
     }
 
+    
+    if ($self->popProxy->service()) {
+        # requires firewall to do the port redirection
+        push @depends, 'firewall';
+    }
+
+
 
     return \@depends;;
 }
@@ -181,28 +176,31 @@ sub enableModDepends
 sub modelClasses
 {
     return [
-            'EBox::MailFilter::Model::General',
-
+            'EBox::MailFilter::Model::AmavisConfiguration',
+            'EBox::MailFilter::Model::AmavisPolicy',
             'EBox::MailFilter::Model::ExternalMTA',
             'EBox::MailFilter::Model::ExternalDomain',
+            'EBox::MailFilter::Model::VDomains',
 
-            'EBox::MailFilter::Model::BannedFilesPolicy',            
             'EBox::MailFilter::Model::FileExtensionACL',
             'EBox::MailFilter::Model::MIMETypeACL',
-            'EBox::MailFilter::Model::BadHeadersPolicy',
+
             
-            'EBox::MailFilter::Model::AntivirusConfiguration',
             'EBox::MailFilter::Model::FreshclamStatus',       
      
             'EBox::MailFilter::Model::AntispamConfiguration',
             'EBox::MailFilter::Model::AntispamACL',
             'EBox::MailFilter::Model::AntispamTraining',
 
-            'EBox::MailFilter::Model::VDomains',
+            'EBox::MailFilter::Model::POPProxyConfiguration',
 
             'EBox::MailFilter::Model::Report::FilterDetails',
             'EBox::MailFilter::Model::Report::FilterGraph',
             'EBox::MailFilter::Model::Report::FilterReportOptions',
+
+            'EBox::MailFilter::Model::Report::POPProxyDetails',
+            'EBox::MailFilter::Model::Report::POPProxyGraph',
+            'EBox::MailFilter::Model::Report::POPProxyReportOptions',
            ];
 }
 
@@ -216,20 +214,28 @@ sub modelClasses
 sub compositeClasses
 {
     return [
-            'EBox::MailFilter::Composite::Index',
-            'EBox::MailFilter::Composite::GeneralAndBadHeader',
+            'EBox::MailFilter::Composite::Amavis',
             'EBox::MailFilter::Composite::ExternalConnections',
 
             'EBox::MailFilter::Composite::FileFilter',
 
-            'EBox::MailFilter::Composite::Antivirus',
             'EBox::MailFilter::Composite::Antispam',
 
             'EBox::MailFilter::Composite::Report::FilterReport',
+            'EBox::MailFilter::Composite::Report::POPProxyReport',
            ];
 }
 
-
+#
+# Method: smtpFilter
+#
+# Returns:
+#   - the smtpFilter object. This a instance of EBox::MailFilter::Amavis
+sub smtpFilter
+{
+    my ($self) = @_;
+    return $self->{smtpFilter};
+}
 
 #
 # Method: antivirus
@@ -253,6 +259,51 @@ sub antispam
     return $self->{antispam};
 }
 
+#
+# Method: popProxy
+#
+# Returns:
+#   - the popProxy object. This a instance of EBox::MailFilter::POPProxy
+sub popProxy
+{
+    my ($self) = @_;
+    return $self->{popProxy};
+}
+
+
+sub antivirusNeeded
+{
+    my ($self) = @_;
+
+    if ($self->smtpFilter()->service() and  $self->smtpFilter()->antivirus()) {
+        return 1;
+    }
+
+
+    if ($self->popProxy()->service() and $self->popProxy()->antivirus()) {
+        return 1;
+    }
+
+
+    return 0;
+}
+
+sub antispamNeeded
+{
+    my ($self) = @_;
+
+    if ($self->smtpFilter()->service() and $self->smtpFilter()->antispam()) {
+        return 1;
+    }
+
+    if ($self->popProxy()->service() and $self->popProxy()->antispam()) {
+        return 1;
+    }
+
+
+
+    return 0;
+}
 
 
 
@@ -265,123 +316,22 @@ sub _regenConfig
     my $service = $self->service();
 
     if ($service) {
+        $self->smtpFilter->writeConf();
         $self->antivirus()->writeConf($service);
         $self->antispam()->writeConf();
-        $self->_writeAmavisConf();
+        $self->popProxy()->writeConf();
 
+  
         my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
         $vdomainsLdap->regenConfig();
     }
     
+
     $self->antivirus()->doDaemon($service);
     $self->antispam()->doDaemon($service);
+    $self->smtpFilter()->doDaemon($service);
+    $self->popProxy()->doDaemon($service);
 
-
-
-    $self->_doDaemon();
-}
-
-
-
-
-
-sub _writeAmavisConf
-{
-    my ($self) = @_;
-    
-    my @masonParams;
-    
-    push @masonParams, ( myhostname => $self->_fqdn());
-    push @masonParams, ( mydomain => $self->_domain());
-    push @masonParams, ( localDomains => $self->_localDomains());
-    
-    push @masonParams, (port => $self->port);
-    
-    push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
-
-    push @masonParams, ( ldapBase         =>  EBox::Ldap->dn );
-    push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, ( ldapBindDn       =>  EBox::Ldap->rootDn );
-    push @masonParams, ( ldapBindPasswd   =>  EBox::Ldap->rootPw );
-    
-    push @masonParams, ( antivirusActive  => $self->antivirus->service());
-    push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
-    push @masonParams, ( clamdSocket     => $self->antivirus()->localSocket());
-    
-    push @masonParams, ( antispamActive     => $self->antispam->service());
-    push @masonParams, ( spamThreshold => $self->antispam()->spamThreshold());
-    push @masonParams, ( spamDetectedSubject => $self->antispam()->spamSubjectTag());
-    push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
-    push @masonParams, 
-        ( antispamWhitelist  => $self->antispam->whitelistForAmavisConf());
-    push @masonParams, 
-        ( antispamBlacklist  => $self->antispam->blacklistForAmavisConf());
-
-    push @masonParams, ( bannedPolicy      => $self->filterPolicy('banned'));
-    push @masonParams, ( bannedFileTypes   => $self->bannedFilesRegexes);
-
-    push @masonParams, ( bheadPolicy      => $self->filterPolicy('bhead'));
-
-    push @masonParams, (adminAddress => $self->adminAddress);
-
-    push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
-
-
-    my $uid = getpwnam('root');
-    my $gid = getgrnam('root');
-
-
-    my $fileAttrs = {
-                     mode => '0640',
-                     uid   => $uid,
-                     gid   => $gid,
-                    };
-
-    $self->writeConfFile(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
-}
-
-
-
-
-
-sub _domain
-{
-    my $domain = `hostname --domain`;
-
-    if ($? != 0) {
-        throw EBox::Exceptions::Internal('eBox was unable to get the domain for its host/' .
-                                         'Please, check than your resolver and /etc/hosts file are propely configured.'
-                                        )
-    }
-
-    chomp $domain;
-    return $domain;
-}
-
-sub _fqdn
-{
-    my $fqdn = `hostname --fqdn`;
-
-    if ($? != 0) {
-        throw EBox::Exceptions::Internal(
-   'eBox was unable to get the full qualified domain name (FQDN) for its host/' .
-  'Please, check than your resolver and /etc/hosts file are propely configured.'
-                                        )
-    }
-
-    chomp $fqdn;
-    return $fqdn;
-}
-
-
-sub _localDomains
-{
-    my ($self) = @_;
-
-    my @vdomains =   EBox::MailVDomainsLdap->new->vdomains();
-    push @vdomains, @{ $self->externalDomains() };
-    
-    return [@vdomains];
 }
 
 #
@@ -397,27 +347,30 @@ sub isRunning
 {
     my ($self) = @_;
     
-
-    if ($self->antivirus->service() and not $self->antivirus->isRunning) {
-        return 0;
+    foreach my $componentName qw(smtpFilter antivirus antispam popProxy) {
+        my $component = $self->$componentName();
+        if ( $component->isRunning) {
+            return 1;
+        }
     }
 
-    if ($self->antispam->service() and not $self->antispam->isRunning) {
-        return 0;
-    }
+    if (
+        (not $self->smtpFilter()->service) and
+        (not $self->popProxy()->service)
+       ) 
+        {
+            # none service is enabled but module is -> running = 1
+            if ($self->service()) {
+                return 1;
+            }
+
+        }
 
 
-    return 1 if $self->_amavisdIsRunning();
-    
     return 0;
 }
 
 
-sub _amavisdIsRunning
-{
-    my ($self) = @_;
-    return EBox::Service::running(AMAVIS_SERVICE);
-}
 
 #
 # Method: service
@@ -447,7 +400,7 @@ sub _assureFilterNotInUse
         return;
     
     my $filterInUse = $mail->externalFilter();
-    if ($filterInUse eq MAILFILTER_NAME) {
+    if ($filterInUse eq $self->smtpFilter()->mailfilterName()) {
         throw EBox::Exceptions::External(
                                          __('Cannot proceed because the filter is in use'),
                                         );
@@ -455,26 +408,6 @@ sub _assureFilterNotInUse
 
 }
 
-#
-# Method: _doDaemon
-#
-#  Sends restart/start/stop command to the daemons depending of their actual
-#  state and the state stored in gconf
-#
-sub _doDaemon
-{
-    my $self = shift;
-
-    if ($self->service() and $self->isRunning()) {
-      EBox::Service::manage(AMAVIS_SERVICE, 'restart');
-    } 
-    elsif ($self->service()) {
-      EBox::Service::manage(AMAVIS_SERVICE, 'start');
-    } 
-    elsif ($self->isRunning()) {
-      EBox::Service::manage(AMAVIS_SERVICE, 'stop');
-    }
-  }
 
 
 #
@@ -484,182 +417,28 @@ sub _doDaemon
 #
 sub _stopService
 {
-    my $self = shift;
-    if ($self->isRunning('active')) {
-        $self->antispam()->stopService();
-        $self->antivirus()->stopService();
-        
-        EBox::Service::manage(AMAVIS_SERVICE, 'stop');
-    }
-}
-
-
-
-
-
-#
-# Method: port
-#
-# Returns:
-#  return the port used by the mail filter for input
-#
-sub port
-{
-    my ($self) = @_;
-    my $generalModel = $self->model('General');
-    return $generalModel->port();
-}
-
-#
-
-
-#
-# Method: fwport
-#
-# Returns:
-#  return the port used by the mail filter for forwarding messages to the mta
-#
-sub fwport
-{
     my ($self) = @_;
 
-    # if $relayhost_is_client is true,
-    #  The static port number is also overridden, and cally 
-    # calculated  as being one above the incoming SMTP/LMTP session port number.
-    my $fwport = $self->port() + 1;
-    return $fwport;
+    $self->smtpFilter()->stopService();
+    $self->antispam()->stopService();
+    $self->antivirus()->stopService();
+    $self->popProxy()->stopService();
 }
 
-
-# Method : allowedExternalMTAs
 #
-#  get the list of external MTA's addresses which are allowed to connect to the
-#  filter.
-#
-#  Returns:
-#   the MTAs list as a list reference
-sub allowedExternalMTAs
-{
-    my ($self) = @_;
-    my $externalMTA = $self->model('ExternalMTA');
-    return $externalMTA->allowed();
-}
-
-
-
-
-
-
-sub externalDomains
-{
-    my ($self) = @_;
-    my $externalDomain = $self->model('ExternalDomain');
-    return $externalDomain->allowed();
-}
-
-
-
-
-
-sub adminAddress
-{
-    my ($self) = @_;
-    my $general = $self->model('General');
-    return $general->notificationAddress();
-}
-
-
-
-sub bannedFilesRegexes
-{
-  my ($self) = @_;
-
-
-
-  my @bannedRegexes;
-
-  my $extensionACL = $self->model('FileExtensionACL');
-  push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
-
-  
-  my $mimeACL = $self->model('MIMETypeACL');
-  push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
-
-  return \@bannedRegexes;
-}
-
-
-#
-# Method: filterPolicy
-#
-#  Returns the policy of a filter type passed as parameter. The filter type
-#  could be:
-#       - virus: Virus filter.
-#       - spam: Spam filter.
-#       - bhead: Bad headers checks.
-#       - banned: Banned names and types checks.
-#  And the policy:
-#       - D_PASS
-#       - D_REJECT
-#       - D_BOUNCE
-#       - D_DISCARD
-#
-# Parameters:
-# 
-#  ftype - A string with filter type.
-#   
-# Returns:
-#
-#  string - The string with the policy established to the filter type.
-#
-sub filterPolicy
-{
-    my ($self, $ftype) = @_;
-    
-    my $modelName;
-    if ($ftype eq 'banned') {
-        $modelName = 'BannedFilesPolicy';
-    }
-    elsif ($ftype eq 'bhead') {
-        $modelName = 'BadHeadersPolicy';
-    }
-    elsif ($ftype eq 'virus') {
-        $modelName = 'AntivirusConfiguration';
-    }
-    elsif ($ftype eq 'spam') {
-        $modelName = 'AntispamConfiguration';
-    }
-
-
-    my $model = $self->model($modelName);
-    return $model->policy();
-}
 
 ## firewall method
 sub usesPort
 {
   my ($self, $protocol, $port, $iface) = @_;
 
-  if ($protocol ne 'tcp') {
-    return undef;
-  }
-
-  # if we have a interface specified we can check if we don't use it. 
-  if ((defined $iface) and ($iface ne 'lo')) {
-    # see if we need to listen in normal interfaces
-    my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
-    if (not $externalMTAs) {
-      return undef;
-    }
-  }
-
-
-  if ($port == $self->port) {
+  if ($self->smtpFilter()->usesPort( $protocol, $port, $iface) ) {
     return 1;
   }
-  elsif ($port == $self->fwport) {
+  elsif ($self->popProxy()->usesPort( $protocol, $port, $iface) ) {
     return 1;
   }
+
 
   return undef;
 }
@@ -669,13 +448,20 @@ sub firewallHelper
 {
   my ($self) = @_;
 
-  my $externalMTAs = $self->allowedExternalMTAs();
+  if (not $self->service()) {
+      return undef;
+  }
+
+
+  my $externalMTAs = $self->smtpFilter()->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
-                              active          => $self->service,
+                              smtpFilter          => $self->smtpFilter()->service,
                               antivirusActive => $self->antivirus->service,
-                              port            => $self->port,
-                              fwport          => $self->fwport,
+                              port            => $self->smtpFilter()->port,
+                              fwport          => $self->smtpFilter()->fwport,
                               externalMTAs    => $externalMTAs,
+                              POPProxy        => $self->popProxy->service,
+                              POPProxyPort    => $self->popProxy->port,
                                              );
 }
 
@@ -700,22 +486,6 @@ sub statusSummary
                 $self->isRunning(), $self->service());
 }
 
-#
-# Method: mailMenuItem
-#
-#        Reimplements the method found in EBox::Mail::FilterProvider
-# 
-sub mailMenuItem
-{
-        my ($self) = @_;
-
-        my $menuItem = new EBox::Menu::Item(
-                                            url   => 'MailFilter/Composite/Index',
-                                            text => __('Mail filter settings')
-                                           );
-
-        return $menuItem;
-}
 
 
 
@@ -753,6 +523,15 @@ sub _vdomainModImplementation
 }
 
    
+#  Method: mailFilterName
+#
+#   Implements the method needed for EBox::Mail::FilterProvider
+sub mailFilterName
+{
+    my ($self) = @_;
+    return $self->smtpFilter->mailFilterName();
+}
+
 
 
 
@@ -762,69 +541,36 @@ sub _vdomainModImplementation
 sub mailFilter
 {
   my ($self) = @_;
-
-
-  my $name       = $self->mailFilterName;
-  my $active     = $self->service ? 1 : 0;
-  my %properties = (
-                     address     => '127.0.0.1',
-                     port        => $self->port(),
-                     forwardPort => $self->fwport,
-                     prettyName  => __('eBox internal mail filter'),
-                     module      => $self->name,
-                     active      => $active,
-                    );
-
-  
-  return ($name, \%properties);
+  return $self->smtpFilter()->mailFilter();
 }
 
 
-#  Method: mailFilterSummary
-#
-#   Reimplements the method needed for EBox::Mail::FilterProvider
-sub mailFilterSummary
+sub summary
 {
-  my ($self, $section) = @_;
+    my ($self) = @_;
 
+    my $section = new EBox::Summary::Module(__("Mail Filter"));
+ 
+    $self->smtpFilter()->summary($section);
+    $self->popProxy()->summary($section);
 
-  my $antivirus = new EBox::Summary::Status(
-                                            'idle_parameter', 
-                                            __('Antivirus'),
-                                            $self->antivirus->isRunning(), 
-                                            $self->antivirus-> service(),
-                                            1, # no button
-                                           );
-
-  $section->add($antivirus);
-
-  my $antispam = new EBox::Summary::Status(
-                                            'idle_parameter', 
-                                            __('Antispam'),
-                                            $self->antispam->isRunning(), 
-                                            $self->antispam-> service(),
-                                            1, # no button
-                                           );
-
-  $section->add($antispam);
-  
-  
-  return $section;
-}
-
-
-#  Method: mailFilterName
-#
-#   Implements the method needed for EBox::Mail::FilterProvider
-sub mailFilterName
-{
-  return MAILFILTER_NAME;
+    return $section;
 }
 
 
 sub tableInfo
 {
-    my $self = shift;
+    my ($self) = @_;
+    return [
+            $self->_smtpFilterTableInfo(),
+            $self->_popProxyTableInfo(),
+           ];
+}
+
+
+sub _smtpFilterTableInfo
+{
+    my ($self) = @_;
     my $titles = {
                   'date' => __('Date'),
 
@@ -854,8 +600,8 @@ sub tableInfo
 
 
     return {
-            'name' => __('Mail Filter'),
-            'index' => 'mailfilter',
+            'name' => __('SMTP filter'),
+            'index' => 'mailfilter-smtpFilter',
             'titles' => $titles,
             'order' => \@order,
             'tablename' => 'message_filter',
@@ -866,6 +612,52 @@ sub tableInfo
             'consolidate' => $consolidate,
     };
 }
+
+
+sub _popProxyTableInfo
+{
+    my ($self) = @_;
+
+    my $titles = {
+                  'date' => __('Date'),
+
+                  'address' => __('Account'),
+                  clientConn => __(q{Client's address}),
+                  'event' => __('Event'),
+
+                  mails  => __('Total messages'),
+                  clean  => __('Clean messages'),
+                  virus  => __('Virus messages'),
+                  spam   => __('Spam messages'),
+                 };
+
+    my @order = qw( date event address clientConn mails clean virus spam );
+
+    my $events = {
+                  'pop3_fetch_ok' =>
+                        __('POP3 transmission complete'),
+                  'pop3_fetch_failed' =>
+                        __('POP3 transmission aborted'),
+    };
+
+
+
+
+
+    return {
+            'name' => __('POP3 proxy'),
+            'index' => 'mailfilter-popProxy',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'pop_proxy_filter',
+            'timecol' => 'date',
+            'filter' => ['date', 'address', 'clientConn'],
+            'events' => $events,
+            'eventcol' => 'event',
+            'consolidate' => $self->_popProxyFilterConsolidationSpec(),
+    };
+}
+
 
 sub logHelper
 {
@@ -903,6 +695,89 @@ sub _filterTrafficConsolidationSpec
                };
         
     return $spec;
+}
+
+
+sub _popProxyFilterConsolidationSpec
+{
+    my $spec = {
+                filter             => sub {
+                                       my ( $row) = @_;
+                                       return $row->{event} eq 'pop3_fetch_ok'
+                                      },
+                accummulateColumns => {
+                                       mails  => 0,
+                                       clean  => 0,
+                                       virus  => 0,
+                                       spam   => 0,
+                                      },
+                consolidateColumns => {
+                                       mails => {
+                                                accummulate => 'mails',
+                                               },
+                                       clean => {
+                                                accummulate => 'clean',
+                                               },
+                                       virus => {
+                                                accummulate => 'virus',
+                                               },
+                                       spam => {
+                                                accummulate => 'spam',
+                                               },
+                                       
+                                      },
+               };
+        
+    return {  pop_proxy_filter_traffic => $spec };
+}
+
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder(
+                                        'name' => 'MailFilter',
+                                        'text' => __('Mail Filter')
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'MailFilter/Composite/Amavis',
+                                      'text' => __('SMTP mail filter')
+                 )
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'MailFilter/View/POPProxyConfiguration',
+                                      'text' => __('POP transparent proxy')
+                 )
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'MailFilter/View/FreshclamStatus',
+                                      'text' => __('Antivirus'),
+                 )
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'MailFilter/Composite/Antispam',
+                                      'text' => __('Antispam'),
+                 )
+    );
+
+    $folder->add(
+                 new EBox::Menu::Item(
+                                      'url' => 'MailFilter/Composite/FileFilter',
+                                      'text' => __('Files ACL')
+                 )
+    );
+
+
+
+    $root->add($folder);
 }
 
 

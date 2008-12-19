@@ -11,7 +11,8 @@ case "$1" in
         # create log table
         /usr/share/ebox/ebox-sql-table add message_filter /usr/share/ebox/sqllog/mailfilter.sql
         /usr/share/ebox/ebox-sql-table-with-time-period add mailfilter_traffic /usr/share/ebox/sqllog/mailfilter_traffic.sql
-
+        /usr/share/ebox/ebox-sql-table add pop_proxy_filter /usr/share/ebox/sqllog/pop_proxy_filter.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add pop_proxy_filter_traffic /usr/share/ebox/sqllog/pop_proxy_filter_traffic.sql
 
         # create spamassassin directory 
         EBOX_HOME=`perl -e'my @pwInfo = getpwnam("ebox"); print $pwInfo[7]; 1'`

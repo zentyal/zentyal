@@ -51,10 +51,6 @@ sub _vdomains
     return $self->{vdomains};
 }
 
-sub _mailfilterModule
-{
-    return EBox::Global->modInstance('mailfilter');
-}
 
 
 sub _confAttr
@@ -122,7 +118,9 @@ sub stopService
 sub service
 {
     my ($self) = @_;
-    return $self->_confAttr('enabled');
+
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    return $mailfilter->antispamNeeded();
 }
 
 
@@ -158,12 +156,19 @@ sub writeConf
     my ($self) = @_;
 
     my @confParams;
+    push @confParams, (spamThreshold => $self->spamThreshold());
     push @confParams, (trustedNetworks => $self->trustedNetworks());
     push @confParams, (bayes => $self->bayes);
     push @confParams, (bayesPath => $self->bayesPath);
     push @confParams, (bayesAutolearn => $self->autolearn);
     push @confParams, (bayesAutolearnSpamThreshold => $self->autolearnSpamThreshold);
     push @confParams, (bayesAutolearnHamThreshold => $self->autolearnHamThreshold);
+    push @confParams, (
+                       whitelist => $self->whitelistForSpamassassin(),
+                       blacklist => $self->blacklistForSpamassassin(),
+                      );
+    push @confParams, (spamSubject => $self->spamSubjectTag());
+
 
     EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
     
@@ -431,6 +436,42 @@ sub _aclForAmavisConf
 
 
 
+# Method: whitelistforSpamassassin
+#
+#  Returns:
+#  the whitelist in local.cf friendly format
+sub whitelistForSpamassassin
+{
+  my ($self) = @_;
+  return $self->_aclForSpamassassin('whitelist');
+}
+
+
+# Method: blacklistforSpamassassin
+#
+#  Returns:
+#  the blacklist in local.cf friendly format
+sub blacklistForSpamassassin
+{
+  my ($self) = @_;
+  return $self->_aclForSpamassassin('blacklist');
+}
+
+
+sub _aclForSpamassassin
+{
+  my ($self, $list) = @_;
+
+  my @mangledList = map {
+    if (m/^@/) { # domain
+      $_ = '*' . $_;
+    }
+
+    $_;
+  } @{ $self->$list() };
+
+  return \@mangledList;
+}
 
 sub vdomainWhitelist
 {

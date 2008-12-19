@@ -36,55 +36,54 @@ my ($piperd, $pipewr);
 
 sub int_handler
 {
-        syswrite $pipewr, 1, 1;
+    syswrite $pipewr, 1, 1;
 }
 
 sub new 
 {
-	my $class = shift;
-	my $self = {};
-	my %opts = @_;
-	$self->{'filetails'} = [] ; 
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    my %opts = @_;
+    $self->{'filetails'} = [] ; 
+    bless($self, $class);
+    return $self;
 }
 
 sub run 
 {
-	my $self = shift;
+    my ($self) = @_;
+    
+    EBox::init();
+    
+    $self->initDaemon();
 
-	EBox::init();
-
-	$self->initDaemon();
-
-	my $global = EBox::Global->getInstance();
-	my $log = $global->modInstance('logs');
-	$self->{'loghelpers'} = $log->allEnabledLogHelpers();
-	$self->{'dbengine'} = EBox::DBEngineFactory::DBEngine();
-	$self->_prepare();
-	$self->_mainloop();
-
+    my $global = EBox::Global->getInstance();
+    my $log = $global->modInstance('logs');
+    $self->{'loghelpers'} = $log->allEnabledLogHelpers();
+    $self->{'dbengine'} = EBox::DBEngineFactory::DBEngine();
+    $self->_prepare();
+    $self->_mainloop();
 }
 
 
 sub initDaemon
 {
-	my $self =  shift;
-
- 	unless (POSIX::setsid) {
- 		EBox::debug ('Cannot start new session for ', $self->{'name'});
- 		exit 1;
- 	}
-
-	foreach my $fd (0 .. 64) { POSIX::close($fd); }
-
-	my $tmp = EBox::Config::tmp();
-	open(STDIN,  "+<$tmp/stdin");
-	if (EBox::Config::configkey('debug') eq 'yes') {
-	  open(STDOUT, "+>$tmp/stout");
-	  open(STDERR, "+>$tmp/stderr");
-	}
-
+    my ($self) = @_;
+    
+    unless (POSIX::setsid) {
+        EBox::debug ('Cannot start new session for ', $self->{'name'});
+        exit 1;
+    }
+    
+    foreach my $fd (0 .. 64) { POSIX::close($fd); }
+    
+    my $tmp = EBox::Config::tmp();
+    open(STDIN,  "+<$tmp/stdin");
+    if (EBox::Config::configkey('debug') eq 'yes') {
+        open(STDOUT, "+>$tmp/stout");
+        open(STDERR, "+>$tmp/stderr");
+    }
+    
 }
 
 
@@ -92,63 +91,65 @@ sub initDaemon
 
 # Method: _prepare
 #
-#	Init the necessary stuff, such as open fifos, use required classes, etc.
+#       Init the necessary stuff, such as open fifos, use required classes, etc.
 #
 sub _prepare # (fifo)
 {
-	my ($self) = @_;
+    my ($self) = @_;
+    
+    pipe $piperd, $pipewr;
+    $SIG{"INT"} = \&int_handler;
+    
+    my @loghelpers = @{$self->{'loghelpers'}};
+    for my $obj (@loghelpers) {
+        for my $file (@{$obj->logFiles()}) {
+            my $tail;
+            eval { 
+                $tail = File::Tail->new(name => $file, 
+                                        interval => 1, maxinterval => 1,
+                                        ignore_nonexistant => 1)
+               };
 
-	pipe $piperd, $pipewr;
-	$SIG {"INT"} = \&int_handler;
-
-	my @loghelpers = @{$self->{'loghelpers'}};
-	for my $obj (@loghelpers) {
-		for my $file (@{$obj->logFiles()}) {
-			my $tail;
-			eval { $tail = File::Tail->new(name => $file, 
-					interval => 1, maxinterval => 1,
-					ignore_nonexistant => 1)};
-
-			if ($@) {
-				EBox::warn($@);
-				next;
-			}
-			push @{$self->{'filetails'}}, $tail;
-			push @{$self->{'objects'}->{$file}}, $obj;
-		}
-	}
+            if ($@) {
+                EBox::warn($@);
+                next;
+            }
+            push @{$self->{'filetails'}}, $tail;
+            push @{$self->{'objects'}->{$file}}, $obj;
+        }
+    }
 
 }
 
 sub _mainloop
 {
-	my $self = shift;
-	my $rin;
- 
-	my @files = @{$self->{'filetails'}};
-	while(@files) {
-		vec($rin, fileno($piperd), 1) = 1;
-		my ($nfound, $timeleft, @pending)=
-			File::Tail::select($rin, undef, undef, undef , @files);
-		if ($nfound > @pending) {
-			EBox::info "Exiting Loggerd\n";
-			exit 0;
-		}
-		foreach my $file (@pending) {
-			my $path = $file->{'input'};
-			my $buffer = $file->read();
-			if (defined($buffer) and length ($buffer) > 0) {
-				for my $obj (@{$self->{'objects'}->{$path}}) {
-					foreach my $line (split(/\n/, $buffer)) {
-						eval {$obj->processLine($path, $line, 
-							$self->{'dbengine'})}; 
-					}
-				}
-			}
-		}
-
-	}
-
+    my ($self) = @_;
+    my $rin;
+    
+    my @files = @{$self->{'filetails'}};
+    while(@files) {
+        vec($rin, fileno($piperd), 1) = 1;
+                my ($nfound, $timeleft, @pending)=
+                    File::Tail::select($rin, undef, undef, undef , @files);
+        if ($nfound > @pending) {
+            EBox::info "Exiting Loggerd\n";
+            exit 0;
+        }
+        foreach my $file (@pending) {
+            my $path = $file->{'input'};
+            my $buffer = $file->read();
+            if (defined($buffer) and length ($buffer) > 0) {
+                for my $obj (@{$self->{'objects'}->{$path}}) {
+                    foreach my $line (split(/\n/, $buffer)) {
+                        eval {$obj->processLine($path, $line, 
+                                                $self->{'dbengine'})}; 
+                                        }
+                }
+            }
+        }
+        
+    }
+    
 }
 
 

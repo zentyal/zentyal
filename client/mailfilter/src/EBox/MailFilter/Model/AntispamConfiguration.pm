@@ -27,7 +27,6 @@ use EBox::Gettext;
 
 use EBox::Types::Boolean;
 use EBox::Types::Text;
-use EBox::MailFilter::Types::Policy;
 use EBox::MailFilter::Types::AntispamThreshold;
 
 
@@ -59,18 +58,6 @@ sub _table
 {
     my @tableDesc = 
         ( 
-         new EBox::Types::Boolean(
-                                  fieldName => 'enabled',
-                                  printableName => __('Antispam enabled'),
-                                  defaultValue => 1,
-                                  editable => 1
-                                 ),
-         new EBox::MailFilter::Types::Policy(
-                                             fieldName => 'policy',
-                                             printableName => __('Spam policy'),
-                                             defaultValue  => 'D_PASS',
-                                             editable => 1,
-                                            ),
          new EBox::MailFilter::Types::AntispamThreshold  (
              fieldName     => 'spamThreshold',
              printableName => __('Spam threshold'),
@@ -127,7 +114,7 @@ sub _table
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Antispam configuration'),
-                      modelDomain        => 'mailfilter',
+                      modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
 

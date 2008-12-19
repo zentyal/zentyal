@@ -65,7 +65,7 @@ sub _description
          layout          => 'top-bottom',
          name            =>  __PACKAGE__->nameFromClass,
          printableName   => __('External connections'),
-         compositeDomain => 'mailfilter',
+         compositeDomain => 'MailFilter',
 #         help            => __(''),
         };
 
