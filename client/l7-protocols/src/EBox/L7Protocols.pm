@@ -104,7 +104,7 @@ sub populateProtocols
     my $packageProtocols = _fetchProtocols();
     my $protocolModel = $self->model('Protocols');
     
-    push (@$packageProtocols, ('unknown', 'unset'));
+    push (@{$packageProtocols->{protocols}}, ('unknown', 'unset'));
     for my $protocol (sort @{$packageProtocols->{protocols}}) {
         next if ($protocolModel->row($protocol));
         $protocolModel->addRow(id => $protocol, protocol => $protocol);
