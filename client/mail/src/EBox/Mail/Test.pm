@@ -76,25 +76,10 @@ sub clearConfiguration : Test(teardown)
     EBox::GConfModule::TestStub::setConfig();
 }
 
-sub _moduleTest : Test(4)
+sub _moduleInstantiationTest : Test(2)
 {
     checkModuleInstantiation('mail', 'EBox::Mail');
     use_ok 'EBox::Mail::FilterProvider';
-
-
-  my $mail = EBox::Global->modInstance('mail');
-    EBox::Test::checkModels($mail,
-                            qw(SMTPAuth SMTPOptions RetrievalServices 
-                               ObjectPolicy VDomains ExternalFilter
-                               GreylistConfiguration MailDispatcherConfiguration
-                               )
-
-                           );
-
-    EBox::Test::checkComposites($mail,
-                            qw( ServiceConfiguration General )
-
-                           );
 }
 
 
