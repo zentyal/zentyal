@@ -900,11 +900,13 @@ sub printers
 {
     my $self = shift;
 
-    my $printers = EBox::Global->modInstance('printers');
-    defined $printers or
+    my $global = EBox::Global->getInstance();
+    unless ($global->modExists('printers')) {
         return [];
+    }
 
-    my %external = map { $_ => 1 } @{$printers->fetchExternalCUPSPrinters()};
+    my $printers = $global->modInstance('printers');
+    my  %external = map { $_ => 1 } @{$printers->fetchExternalCUPSPrinters()};
     my @printers;
     my $readOnly = $self->isReadOnly();
     for my $printer (@{$self->array_from_dir("printers")}) {
