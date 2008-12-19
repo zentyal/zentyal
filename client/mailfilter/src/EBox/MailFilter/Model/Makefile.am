@@ -3,12 +3,12 @@ SUBDIRS = Report
 
 perldir = @PERLPATH@/EBox/MailFilter/Model
 
-nobase_perl_DATA =  General.pm ExternalMTA.pm ExternalDomain.pm \
-                    BannedFilesPolicy.pm FileExtensionACL.pm MIMETypeACL.pm \
-                    BadHeadersPolicy.pm \
-	            AntivirusConfiguration.pm FreshclamStatus.pm \
+nobase_perl_DATA =   AmavisConfiguration.pm AmavisPolicy.pm ExternalMTA.pm ExternalDomain.pm \
+                     FileExtensionACL.pm MIMETypeACL.pm \
+                     FreshclamStatus.pm \
                     AntispamConfiguration.pm AntispamACL.pm AntispamTraining.pm \
-                    VDomains.pm
+                    VDomains.pm \
+                    POPProxyConfiguration.pm
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

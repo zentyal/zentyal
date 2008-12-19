@@ -103,7 +103,7 @@ sub _regenConfig
 {
     my ($self) = @_;
         
-    $self->_saveEnabledLogs();
+    $self->_saveEnabledLogsModules();
     _stopService();
 
     return unless ($self->isEnabled());
@@ -211,7 +211,7 @@ sub allEnabledLogHelpers
 
     my $global = EBox::Global->getInstance();
 
-    my $enabledLogs = $self->_restoreEnabledLogs(); 
+    my $enabledLogs = $self->_restoreEnabledLogsModules(); 
         
     # If there's no configuration stored it means the user
     # has not configured them yet. So by default, we enable all them
@@ -221,12 +221,12 @@ sub allEnabledLogHelpers
         
     my @enabledObjects;
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
-    foreach my $object (@mods) {
-        my $domain = $object->tableInfo()->{'index'};
-        if (exists $enabledLogs->{$domain}) {
-            push (@enabledObjects, $object->logHelper());
+    foreach my $mod  (@mods) {
+        if ( $enabledLogs->{$mod->name } ) {
+            push (@enabledObjects, $mod->logHelper());
         }
     }
+
 
     return \@enabledObjects;
 }
@@ -275,10 +275,13 @@ sub getAllTables
     return $self->{tables} if ($self->{tables});
         
     foreach my $mod (@{getLogsModules()}) {
-        my $comp = $mod->tableInfo();
-        $comp->{'helper'} = $mod;
-        next unless ($comp);
-        $tables->{$comp->{'index'}} = $comp;
+        my @tableInfos = @{ $self->getModTableInfos($mod) };
+        
+        foreach my $comp (@tableInfos) {
+            $comp->{'helper'} = $mod;
+            next unless ($comp);
+            $tables->{$comp->{'index'}} = $comp;
+        }
     }
 
     $self->{tables} = $tables;
@@ -300,6 +303,32 @@ sub getTableInfo
 
     my $tables = $self->getAllTables();
     return $tables->{$index};
+}
+
+
+
+sub getModTableInfos
+{
+    my ($self, $mod) = @_;
+    my @tableInfos;
+
+    my $ti = $mod->tableInfo();
+    if (ref $ti eq 'ARRAY') {
+        @tableInfos = @{ $ti };
+    }
+    elsif (ref $ti eq 'HASH') {
+        EBox::warn('tableInfo() in ' . $mod->name .  
+                   'must return a reference to a list of hashes not the hash itself');
+        @tableInfos = ( $ti );
+    }
+    else {
+        throw EBox::Exceptions::Internal(
+                                         $mod->name . 
+                                         "'s tableInfo returned invalid module"
+                                        );
+    }
+
+    return \@tableInfos;
 }
 
 sub getLogDomains 
@@ -650,7 +679,7 @@ sub tableInfo
 #       Anotther approach could be creating a separated script to
 #       query ebox conf.
 #
-sub _saveEnabledLogs
+sub _saveEnabledLogsModules
 {
     my ($self) = @_;
     
@@ -673,12 +702,12 @@ sub _saveEnabledLogs
     close($file);
 }
 
-# Method: _restoreEnabledLogs 
+# Method: _restoreEnabledLogsModules 
 #       
 #       (Private)
 #       
 #       This function restores the  enabled logs saved in a file by
-#       <EBox::Logs::_saveEnabledLogs>
+#       <EBox::Logs::_saveEnabledLogsModules>
 #       We have to do this beacuse the logger daemon will request this
 #       configuration as root user.
 #
@@ -689,7 +718,7 @@ sub _saveEnabledLogs
 #
 #       undef  - if there's no enabled logs stored yet
 #       hash ref containing the enabled logs
-sub _restoreEnabledLogs
+sub _restoreEnabledLogsModules
 {
     my ($self) = @_;
     
@@ -753,7 +782,11 @@ sub forcePurge
 
   my $thresholdDate = $self->_thresholdDate($lifetime);
 
-  foreach my $tableInfo ( values %{ $self->getAllTables } ) {
+  my @tables = map {
+      @{  $self->getModTableInfos($_) }
+  } @{ $self->getLogsModules };
+
+  foreach my $tableInfo ( @tables ) {
     my $table = $tableInfo->{tablename};
     my $timeCol = $tableInfo->{timecol};
     $self->_purgeTable($table, $timeCol, $thresholdDate);
@@ -777,7 +810,7 @@ sub purge
 {
   my ($self) = @_;
 
-  my %thresholdByDomain = ();
+  my %thresholdByModule = ();
 
   # get the threshold date for each domain
   foreach my $row_r ( @{ $self->model('ConfigureLogTable')->rows() } ) {
@@ -788,17 +821,30 @@ sub purge
       next;
 
     my $threshold = $self->_thresholdDate($lifeTime);
-    $thresholdByDomain{$row_r->valueByName('domain')} = $threshold;
+    $thresholdByModule{$row_r->valueByName('domain')} = $threshold;
   }
 
-  # purge each domain
-  my $tables = $self->getAllTables();
-  while (my ($domain, $threshold) = each %thresholdByDomain) {
-    my $table = $tables->{$domain}->{tablename};
-    my $timeCol = $tables->{$domain}->{timecol};
-    $self->_purgeTable($table, $timeCol, $threshold);
+  # purge each module
+
+
+  while (my ($modName, $threshold) = each %thresholdByModule) {
+      my $mod = EBox::Global->modInstance($modName);
+      my @logTables = @{ $self->getModTableInfos($mod) };
+
+      foreach my $table (@logTables) {
+          my $dbTable = $table->{tablename};
+          my $timeCol = $table->{timecol};
+
+          $self->_purgeTable($dbTable, $timeCol, $threshold);
+      }
+
+
   }
 }
+
+
+
+
 
 # Transform an hour into a localtime
 sub _thresholdDate

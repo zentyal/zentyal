@@ -1,0 +1,493 @@
+<%args>
+$pidFile
+$maxChilds => 10
+$port      => 8110
+$bytesfree => 100000
+
+$antivirus => 1
+
+$antispam => 1
+$ispspam  => undef
+
+</%args>
+<%init>
+use EBox::Gettext;
+my $virusSubject = __('[Virus] found in a mail to you:');
+</%init>
+
+##########################################################################
+#                                                                        #
+#                         P3Scan Version 2.1                             #
+#                                                                        #
+#                       default configuration file                       #
+#                      all params are set to default                     #
+#                                                                        #
+##########################################################################
+
+# (C) 2003-2005 by Jack S. Lai <laitcg@cox.net>
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+#
+# PID File
+#
+#   where to write a pid-file
+#
+#   default: /var/run/p3scan/p3scan.pid
+#
+pidfile = <% $pidFile %>
+
+#
+# Max Childs
+#
+#   The maximum number of connections we will handle at once. Any further
+#   connections will be dropped. Keep in mind that a number of 10 also
+#   means that 10 viruscanner can run at once.
+#
+#   default: 10
+#
+maxchilds = <% $maxChilds %>
+
+#
+# IP Address
+#
+#   The IP Address we listen on default: 0.0.0.0 (any address)
+#
+ip = 0.0.0.0
+
+#
+# Port
+#
+#   The tcp port on we should listen. If you need a privileged port you
+#   need to start p3scan as root (but don't set username to root,
+#   that's not necessary, because first after opening the port we will
+#   switch to that user).
+#
+#   default: 8110
+#
+port = <% $port %>
+
+#
+# TargetIP, TargetPort
+#
+#   targetip and targetport are the ip and port to connect -
+#   default is 0.0.0.0 (transparent proxy mode) and 8110 respectively
+#
+#   default: targetport is ignored in transparent proxy mode
+#
+targetip = 0.0.0.0
+# targetport = 8110
+
+#
+# Username
+#
+#   The username the daemon should run as. Takes no effect when you
+#   start as a non-root user.
+#
+#   default: mail
+#
+user = p3scan
+
+#
+# Notify Directory
+#
+#   Create notification mails in <DIR>. Also used for temporary storage.
+#
+#  default: /var/spool/p3scan/notify
+notifydir = /var/spool/p3scan/notify
+
+#
+# Virus Directory
+#
+#   The directory in which infected mails will be stored.  It is also
+#   used for temporary storing. Ensure that the above specified user is
+#   allowed to write into!
+#
+#   default: /var/spool/p3scan
+#
+virusdir = /var/spool/p3scan
+
+#
+# Just Delete
+#
+#  Instead of keeping an infected message in the Virus Directory, delete
+#  it after reporting it to the user.
+#
+#  default: Keep infected messages in Virus Directory
+#
+justdelete
+
+#
+# Bytes Free
+#
+#  The number of KB's there must be free before processing any mail.
+#  If there is less than this amount, p3scan will terminate any
+#  connections until the problem is resolved.
+#
+#  NOTE: p3scan could need (2 * msgsize) * children disk space free.
+#        Being this is dynamic (not all space is needed all the time),
+#        you should ensure you have more than enough disk space.
+#
+#  default: bytesfree = 0 (disable checking for space)
+# Sample: If you want to ensure 100MB are free
+bytesfree = <% $bytesfree %>
+
+#
+# Scanner Type
+#
+#   Select here which type of scanner you want to use.
+#   At the moment you can choose between 'basic' and 'avpd'.
+#
+#   Basic:
+#
+#     This is the default. The configured executable (set in variable
+#     scanner) will be invoked. You can also specify parameters (we are
+#     using /bin/sh).  At the end the path to the mail and a "2>&1" is
+#     appended.  The program can tell us if it's a virus returning Scanner
+#     Returncode (see below) or exit code 0 means, which all ok, all
+#     others are reported to syslog, but mails will be delivered unless
+#     justdelete is enabled above. The output is scanned using a regular
+#     expression which describes where the virusname can be found
+#     (see virusregexp).
+#
+#     If demime is not set 'path to mail' is the full filename to the
+#     rfc822 message, which you MUST NOT DELETE or MODIFY (except you know
+#     how to modify)! If your scanner can not handle rfc822 messages (e.g.
+#     McAfee uvscan) set demime and 'path to mail' is a directory which
+#     contains all MIME-Parts splitted into separate files. That files are
+#     not needed after scanning, so p3scan deletes them.
+#
+#     You will find a sample-configuration for McAfee's uvscan
+#     (http://www.mcafee.com/) in the below sections.
+#
+#
+#   AVPD:
+#
+#     AVPD is a frontend to 'Kaspersky Anti-Virus for Linux'
+#     (http://www.kaspersky.com/) , which provides a daemon named
+#     'kavdaemon'. Once the daemon has been started we connect to
+#     kavdaemons socket and tell what files to scan.  This gives a rapid
+#     speed increasment since the virus-definitions and other
+#     scanner-initialization has only to be done once! Here a result from
+#     a speedtest which I've made: Running kavdaemon, quallcomms qpopper
+#     and p3scan on an Intel P1 with 133MHz and 64MB RAM a client using
+#     Netscape-Mail was able to fetch 500 mails (including POP3- UIDL-
+#     setting) in 62 seconds (each mail sized 2kByte)!
+#
+#     We just need to know in which directory your kavdaemon writes the
+#     socket 'AvpCtl' and file 'AvpPid', default is '/var/run', which is
+#     ok using AVP-default installation, leave in that case the below
+#     variable scanner commented, otherwise set there the path. Parameter
+#     viruscode and virusregexp will not be used.
+#
+#     Actual versions of avpd can't handle rcf822, so set demime (this is
+#     not standard, it's possible that Kaspersky Labs includes rfc822
+#     checking in further releases).
+#
+#     Important note about using kavdaemon:
+#
+#     Ensure that virusdir (/var/spool/p3scan) is included in AVPs
+#     'enabled path list', otherwise the mails will not be scanned, but
+#     kavdaemon returns ok (I've found no way to check if the mail has
+#     been scanned or not). Mail yourself the eicar.com testvirus (from
+#     http://www.eicar.com ) to check it!). The 'enabled path' can be set
+#     in /opt/AVP/defUnix.prf in the 'Names' line (add
+#     ';*/var/spool/p3scan'). Also check if there is a config file in
+#     /root/.AVP/ which has higher precedence (if kavdaemon runs a root,
+#     otherwise check that users $HOME/.AVP ).
+#
+#
+#   TROPHIE:
+#
+#     Trophie is an OpenSource Anti-Virus Daemon, which uses the
+#     virus-scanengine and -database from Trend Antivirus. Trophie can be
+#     found at http://www.vanja.com/tools/trophie/ . Configuration is very
+#     simple, just set scannertype to 'trophie' and it should work. If you
+#     don't use trophies standard-config  you have to set scanner to the
+#     trophie socket.
+#
+#   FRISK F-Prot Antivirus: http://www.f-prot.com
+#
+#      Un-comment appropriate options below.
+#      Use default scannertype = basic
+#
+#   Clam Anti-Virus: http://www.clamav.net
+#
+#      This program must run as the same user as p3scan is running so that
+#      it can access the mail files for scanning. Either compile with the
+#      options --with-user=mail --with-group=mail (if p3scan is using the
+#      the default user/group of "mail") or change "User" in clamav.conf
+#      to the user p3scan is running as. If you get a return code other
+#      than a 0 or 1, see the clamav documentation for the reason.
+#
+#      Un-comment "ScanMail" in clamav.conf as we are scanning mail files
+#      so demime does not need to be set below.
+#
+#      You should start clamd before starting p3scan.
+#
+#      Un-comment appropriate options below.
+#      Use default scannertype = basic
+#
+#   default: basic
+#
+scannertype = basic
+
+#
+# Virusscanner
+#
+#   Depends on scannertype. Read the above section of that scannertype
+#   you're going to use and you do not need to ask what to fill in here.
+#
+#   default: depending on scannertype:
+#     basic   : <no default>
+#     avpd    : /var/run/
+#     trophie : /var/run/trophie
+#
+#
+# Sample: scannertype basic using McAfee UVSCAN:
+# scanner = /usr/local/uvscan/uvscan
+# Sample: scannertype basic using FRISK F-Prot Antivirus:
+# scanner = /usr/local/bin/f-prot -archive -ai
+# Sample: scannertype basic using ClamAV:
+
+% if ($antivirus) {
+scanner = /usr/bin/clamdscan --no-summary
+% }
+% else {
+scanner = /bin/true
+% }
+
+#
+# Scanner Returncode
+#
+#   Specify the returncode(s) which the scanner returns when the mail is
+#   infected. P3Scan does its part (sending the notification and not the
+#   infected mail) only when it gets the specified returncode(s).
+#   A returncode value of 0 from the scanner is assumed to mean that the
+#   message is clean. Any other unspecified value will add warning lines
+#   to your logfiles but THE MESSAGE WILL BE DELIVERED!
+#
+#   Only used from scannertype 'basic'.
+#
+#   default: 1
+#
+# Sample: scannertype basic using McAfee UVSCAN:
+# viruscode = 13
+# Sample: scannertype basic using FRISK F-Prot Antivirus:
+# viruscode = 3,8
+
+#
+# Good Scanner return codes
+#
+# Some scanners can report more than good or infected. Place valid return
+# codes here that will enable the message to be delivered without a
+# warning. For example, Kaspersky Anti-Virus reports code 10 for an
+# encrypted .zip file.
+#
+# default: none
+# Sample: goodcode = 10
+# goodcode =
+
+#
+# Regular Expression for Virusname
+#
+#   Specify here a regular expression which describes where the name of the
+#   virus can be found. If not specified, the first substring is used;
+#   specify it appending '/' and the substring number (1-9) at the end.
+#   PerlCompatibleRegularExpressions are used, case sensitive and the
+#   ungreedy option. Only used by scannertype 'basic'.
+#
+#   default: <none>
+#
+# Sample: McAfee UVSCAN
+# virusregexp = ^[[:space:]]*Found( the|:)[[:space:]]*(.*)[[:space:]]*(|virus[^a-z.]*)$/2
+# Sample: FRISK F-Prot Antivirus
+# virusregexp = (?=Infection\:)[[:space:]]*(.*)$
+# Sample: ClamAV
+virusregexp = .*: (.*) FOUND
+
+#
+# deMIME Setting
+#
+#   Uncomment this if we should parse all MIME-sections instead of passing
+#   the as-it-is mail to the scanner.
+#
+#   default: <no demime>
+#demime
+
+#
+# Broken email clients
+#
+#  Some email clients may require special processing. If this
+#  option is enabled the client will receive whole lines (vice
+#  single characters) while processing a large email message.
+#
+#  The reason for leaving two types of large email processing
+#  is that when this option is disabled, the posibility exists
+#  that the client will not see any "X-P3Scan: Due to an
+#  extremely large attachment you see this message line." in
+#  the recieved message header.
+#
+#  Note: As of the introduction of this parameter, only some
+#  instances of the use of the Outlook/Outlook Express clients
+#  warrent enabling of this feature.
+#
+#  default: send characters during large message processing.
+# broken
+
+#
+# ISP Spam
+#
+# This option allows you to set the string your ISP uses if
+# it processes your email for SPAM. If this string is found
+# in the subject line of the incoming message, it will not
+# perform any spam processing so that the message gets to
+# the client faster.
+#
+# default: <none>
+# Sample for cox.net:
+# ispspam = -- Spam --
+#
+# ispspam =
+% if ($ispspam) {
+ispspam = <% $ispspam %>
+% } else {
+ispspam =
+% }
+
+
+# Enable Spam checking
+#
+#  If set, will scan for Spam before scanning for a virus.
+#
+#  P3scan has been tested with both dspam-3.0.0-rc2 and
+#  Mail::SpamAssassin v2.6.
+#
+#  The DSPAM implementation uses the virtual-users capability
+#  of the mysql backend to dspam. Mysql is the recommended
+#  interface due to speed and stability (and in our case, the
+#  virtual-users interface).
+#
+#  NOTE: the dspam implementation is still work in progress as
+#  I have yet to perfect a false positive procedure that works
+#  correctly on my test system. But is being released as it is
+#  still much faster and more accurate than Mail::SpamAssassin.
+#
+#  P3scan and SpamAssassin uses the interface spamd/spamc.
+#  You should start spamd before running p3scan. For example:
+#  "spamd -L -d" (run in local mode only, daemonize)
+#  man spamd for more information.
+#
+#  default: no checking of spam
+% if ($antispam) {
+checkspam
+% }
+
+#
+# Mail::SpamAssassin
+#
+#  Where to find spamc, the link to the Mail::SpamAssassin daemon spamd.
+#
+spamcheck = /usr/bin/spamc
+
+
+
+#
+# DSPAM
+#
+# This line gives SpamAssassin like functionality to dspam. All
+# users mail is scanned against a single database of "mail".
+#spamcheck = /usr/bin/dspam --user mail --mode=teft --stdout --deliver=innocent,spam --feature=ch,no,wh
+#
+# This line enables each virtual user to have their own database
+# of message traffic 'tokens' and is much more accurate than the
+# procedure above after training. The user 'dspamuser' will be
+# replaced by the actual user calling p3scan.
+#spamcheck = /usr/bin/dspam --user dspamuser --mode=teft --stdout --deliver=innocent,spam --feature=ch,no,wh
+
+#
+# Rename Attachments
+#
+#  If renattach is installed and this option is un-commented, we
+#  will execute renattach to rename dangerous attachments.
+#  (See README for more information)
+#
+#  default: none
+#
+renattach = /usr/bin/renattach -d
+
+#
+# Overwrite (disable) HTML
+#
+#  If a person views an HTML message, not only can the client
+#  download pictures automatically, it enables someone viewing
+#  the remote log file to confirm the email address is valid,
+#  making it "worth" keeping/selling, etc...
+#
+#  p3scan comes with a separate program p3pmail that can be
+#  installed for this purpose.
+#
+#  default: do not disable HTML
+#
+# overwrite = /usr/bin/p3pmail
+
+#
+# Quiet
+#
+#  Disable reporting of normal operating messages. Only report errors
+#  or critical information.
+#
+# default: display all less debug info
+# quiet
+
+#
+# Template
+#
+#  Where to look for an email-template when our own mail has to be send
+#  instead of an infected mail. That file has to be exist, otherwise
+#  p3scan will send an RFC unconform -ERR and closes the connections.
+#  The email-template should be a complete email, that means a
+#  mail-header (to, from, subject, date) , specify also content-type, and
+#  so on. Also the leading dot is necessary (just a dot and no more in
+#  the last line). You can use some key- words which will be replaced
+#  when sending, e.g. %MAILDATE%.
+#  default: /etc/p3scan/p3scan.mail
+#
+# template = /etc/p3scan/p3scan.mail
+
+#
+# Subject
+#
+# This option can be used to change the default subject line when reporting
+# a virus infected message. In the default below, everything between the quotes
+# can be changed and are not part of the actual default subject line and
+# <virus name> will be replaced by the actual name of the detected virus.
+#
+# default: Subject: "[Virus] found in a mail to you:" <virus name>
+#
+# subject =
+subject = <% $virusSubject %>
+#
+# Notify
+#
+# This option can be used to change the default file deleted notification that
+# is displayed in the virus notification message when the "justdelete" option
+# is used.
+#
+# default: Per instruction, the message has been deleted.
+#
+# notify =
+
+# END of configuration

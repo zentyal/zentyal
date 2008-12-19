@@ -16,6 +16,10 @@ chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
 # add clamav user to group amavis. Because it need access to amavis stuff
 addgroup clamav amavis
 
+# add clamav user to group p3scan
+addgroup clamav p3scan
+
+
 # copy LDAP schemas
 cp /usr/share/ebox-mailfilter/*.schema /etc/ldap/schema
 # update ldap

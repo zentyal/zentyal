@@ -15,7 +15,7 @@
 
 
 
-package EBox::MailFilter::Model::BannedFilesPolicy;
+package EBox::MailFilter::Model::AmavisPolicy;
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -58,10 +58,28 @@ sub _table
 {
     my @tableDesc = 
         ( 
+         new EBox::MailFilter::Types::Policy(
+                                             fieldName => 'virus',
+                                             printableName => __('Virus policy'),
+                                             defaultValue  => 'D_DISCARD',
+                                             editable => 1,
+                                            ),
+         new EBox::MailFilter::Types::Policy(
+                                             fieldName => 'spam',
+                                             printableName => __('Spam policy'),
+                                             defaultValue  => 'D_PASS',
+                                             editable => 1,
+                                            ),
          new  EBox::MailFilter::Types::Policy(
-                                              fieldName => 'policy',
-                                              printableName => __('Policy'),
+                                              fieldName => 'banned',
+                                              printableName => __('Banned files policy'),
                                               defaultValue  => 'D_BOUNCE',
+                                              editable      => 1,
+                                             ),
+         new  EBox::MailFilter::Types::Policy(
+                                              fieldName => 'bhead',
+                                              printableName => __('Bad header policy'),
+                                              defaultValue  => 'D_PASS',
                                               editable      => 1,
                                              ),
 
@@ -70,8 +88,8 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Banned files policy'),
-                      modelDomain        => 'mailfilter',
+                      printableTableName => __('SMTP filter policies'),
+                      modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
 

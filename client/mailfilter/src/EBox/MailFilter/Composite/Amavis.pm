@@ -15,7 +15,7 @@
 
 
 
-package EBox::MailFilter::Composite::GeneralAndBadHeader;
+package EBox::MailFilter::Composite::Amavis;
 
 use base 'EBox::Model::Composite';
 
@@ -31,6 +31,10 @@ use EBox::Gettext;
 #
 #         Constructor for the general events composite
 #
+# Returns:
+#
+#       <EBox::Squid::Model::GeneralComposite> - a
+#       general events composite
 #
 sub new
 {
@@ -55,14 +59,15 @@ sub _description
      my $description =
         {
          components      => [
-                             'mailfilter/General',
-                             'BadHeadersPolicy',
+                             'mailfilter/AmavisConfiguration',
+                             'mailfilter/AmavisPolicy',
                              'mailfilter/VDomains',
+                             'mailfilter/ExternalConnections',
                             ],
-         layout          => 'top-bottom',
+         layout          => 'tabbed',
          name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('Options'),
-         compositeDomain => 'mailfilter',
+         printableName   => __('SMTP filter'),
+         compositeDomain => 'MailFilter',
 #         help            => __(''),
         };
 
@@ -70,15 +75,5 @@ sub _description
 }
 
 
-# Method: pageTitle
-#
-#   we override this method to avoid repeating the tab's titles
-#
-#  Overrides:
-#   <EBox::Model::Composite::pageTitle>
-sub pageTitle
-{
-    return undef;
-}
 
 1;

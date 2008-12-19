@@ -78,9 +78,9 @@ sub new
 #       { 'squid' =>  1, 'dhcp' => 1 }
 #
 #   
-sub enabledLogs()
+sub enabledLogs
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my %enabledLogs;
     for my $row (@{$self->rows()}) {
@@ -89,6 +89,29 @@ sub enabledLogs()
     }
     return \%enabledLogs;
 }
+
+
+
+# sub enabledLogsModules
+# {
+#     my ($self) = @_;
+
+#     my %modules;
+
+#     my $enabledLogs = $self->enabledLogs();
+#     my $allTables  = EBox::Global->modInstance('logs')->getAllTables();
+#     foreach my $index  (keys %{ $enabledLogs }) {
+#         exists $allTables->{$index} or 
+#             throw EBox::Exceptions::Internal(
+#                      "$index not found in log tables"
+#                                             );
+
+#         my $mod = $allTables->{$index}->{'helper'};
+#         $modules{$mod->name()} = $mod;
+#     }
+
+#     return [ values %modules  ];
+# }
 
 # Method: rows 
 #
@@ -119,20 +142,40 @@ sub rows
 
     # Fetch the current available log domains
     my %currentLogDomains;
-    my $currentTables = $logs->getAllTables();
-    foreach my $table (keys (%{$currentTables})) {
-        $currentLogDomains{$table} = 1;
+#%#    my $currentTables = $logs->getAllTables();
+    foreach my $mod (@{ $logs->getLogsModules()}  ) {
+#      $currentTables{$mod->name} = 1;
+      $currentLogDomains{$mod->name} = $mod;
     }
+
+
+#     foreach my $table (keys (%{$currentTables})) {
+#         $currentLogDomains{$table} = 1;
+#     }
 
     # Add new domains to gconf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
-        my $enabled;
-        if ($currentTables->{$domain}->{'disabledByDefault'})  {
-            $enabled = 0;
-        } else {
-            $enabled = 1;
+
+        my @tableInfos;
+        my $mod = $currentLogDomains{$domain};
+        my $ti = $mod->tableInfo();
+        
+        if (ref $ti eq 'HASH') {
+            EBox::warn('tableInfo() in ' . $mod->name .  
+             'must return a reference to a list of hashes not the hash itself');
+            @tableInfos = ( $ti );
         }
+        else {
+            @tableInfos = @{ $ti };
+        }
+
+        my $enabled = not grep {
+          $_->{'disabledByDefault'}  
+        } @tableInfos;
+
+
+
         $self->addRow(domain => $domain, 
                       enabled => $enabled, 
                       lifeTime => 168);

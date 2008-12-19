@@ -75,7 +75,7 @@ sub _table
     {
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Sender policy}),
-     modelDomain        => 'mail',
+     modelDomain        => 'MailFilter',
      'defaultController' => '/ebox/MailFilter/Controller/AntispamACL',
      'defaultActions' => [      
                           'add', 'del',

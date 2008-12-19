@@ -92,7 +92,7 @@ sub _table
      order              => 0,
      rowUnique          => 1,
      printableRowName   => __("MIME type"),
-     help               => __("MIME types which are not listed below are allowed"),
+     help               => __("MIME types which are not listed below are allowed. MIME types aren't used by POP transparent proxy"),
      pageSize          => 5,
     };
 

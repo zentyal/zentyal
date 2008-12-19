@@ -2,7 +2,8 @@
 
 perldir = @PERLPATH@/EBox/MailFilter/Model/Report
 
-nobase_perl_DATA = FilterDetails.pm FilterGraph.pm FilterReportOptions.pm
+nobase_perl_DATA = FilterDetails.pm FilterGraph.pm FilterReportOptions.pm \
+ POPProxyDetails.pm POPProxyGraph.pm POPProxyReportOptions.pm
 
 SOURCES = $(nobase_perl_DATA)
 

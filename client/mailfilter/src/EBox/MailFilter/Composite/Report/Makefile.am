@@ -2,7 +2,7 @@
 perldir = @PERLPATH@/EBox/MailFilter/Composite/Report
 
 
-nobase_perl_DATA =  FilterReport.pm
+nobase_perl_DATA =  FilterReport.pm POPProxyReport.pm
 
 DISTCLEANFILES =
 

@@ -55,15 +55,14 @@ sub _description
      my $description =
         {
          components      => [
-                             'BannedFilesPolicy',
-                             'MIMETypeACL',
                              'FileExtensionACL',
+                             'MIMETypeACL',
                             ],
          layout          => 'top-bottom',
          name            =>  __PACKAGE__->nameFromClass,
          printableName   => __('Attached files filter'),
-         compositeDomain => 'mailfilter',
-         help            => __('Filter mail messages according attached files'),
+         compositeDomain => 'MailFilter',
+         help            => __('Filter mail messages according attached files. The transparent POP proxy only filters by extension'),
         };
 
       return $description;

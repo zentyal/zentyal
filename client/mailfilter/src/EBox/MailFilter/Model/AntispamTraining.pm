@@ -74,7 +74,7 @@ sub _table
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Train bayesian spam filter'),
-                      modelDomain        => 'mailfilter',
+                      modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
                       messages           => {
