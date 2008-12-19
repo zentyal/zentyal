@@ -3,7 +3,10 @@
         $fqdn
 	$ldapi
 	$vdomainDN
+
 	$relay
+        $relayAuth 
+
 	$allowed
 	$maxmsgsize
 	$aliasDN
@@ -40,6 +43,9 @@ if ($greylist) {
     $smtpRecipientRestrictions .= ", $greylistRecipientRestriction";
 }
 
+
+my $certFile = '/etc/postfix/sasl/smtpd.pem';
+my $keyFile  = '/etc/postfix/sasl/smtpd-key.pem';
 </%init>
 
 # require helo
@@ -56,8 +62,25 @@ myhostname = <% $fqdn %>
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 mydestination = localhost.localdomain, localhost
+
 relayhost = <% $relay %>
+
+% if ($relay) {
+smtp_tls_security_level = may
+smtp_tls_key_file  = <% $keyFile  %>
+smtp_tls_cert_file = <% $certFile %> 
+% }
+
+% if ($relayAuth) {
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+
+
+% }
+
 mynetworks = <% $allowed %>
+
 message_size_limit = <% $maxmsgsize %>
 mailbox_size_limit = 0
 virtual_mailbox_limit = 0
@@ -69,8 +92,8 @@ virtual_alias_maps = ldap:valiases
 valiases_server_host = <% $ldapi %>
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
-valiases_result_attribute = maildrop
-valiases_bind = no
+valiases_result_attribute = maildropv
+aliases_bind = no
 
 # Virtual Domains
 virtual_transport = virtual
@@ -112,8 +135,8 @@ virtual_create_maildirsize = yes
 ## TLS/SSL
 smtpd_use_tls = yes
 smtpd_tls_note_starttls = yes
-smtpd_tls_key_file = /etc/postfix/sasl/smtpd-key.pem
-smtpd_tls_cert_file = /etc/postfix/sasl/smtpd.pem
+smtpd_tls_key_file  = <% $keyFile  %>
+smtpd_tls_cert_file = <% $certFile %>
 smtpd_tls_loglevel = 1
 % }
 

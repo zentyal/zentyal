@@ -1,0 +1,7 @@
+<%args>
+$relayHost
+$relayAuth
+</%args>
+% if ($relayAuth) {
+<% $relayHost %> <% $relayAuth->{username} %>:<% $relayAuth->{password}  %>
+% }

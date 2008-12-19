@@ -159,6 +159,9 @@ sub processLine
             elsif ($msg =~ /host.*said.*Relay access denied/) {
                 $temp{$qid}{'event'} = 'nosmarthostrelay';        
             }
+            elsif ($msg =~ /server.*said.*authentication failure/) {
+                $temp{$qid}{'event'} = 'nosmarthostrelay';        
+            }
             else {
                 $temp{$qid}{'event'} = 'other';
             }
