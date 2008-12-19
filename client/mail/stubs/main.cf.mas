@@ -17,29 +17,10 @@
 	$filter
 	$ipfilter
 	$portfilter
-
-        $greylist
-        $greylistAddr 
-        $greylistPort 
 </%args>
 <%init>
 use EBox::Gettext;
 $fqdn or $fqdn = 'ebox';
-
-my $smtpRecipientRestrictions = '';
-if ($sasl) {
-    $smtpRecipientRestrictions = 'permit_sasl_authenticated, ';
-}
-
-$smtpRecipientRestrictions .=  'permit_mynetworks, reject_unauth_destination';
-
-if ($greylist) {
-    my $greylistRecipientRestriction = "check_policy_service inet:" . 
-                                        $greylistAddr . ':' . 
-                                        $greylistPort ;
-    $smtpRecipientRestrictions .= ", $greylistRecipientRestriction";
-}
-
 </%init>
 
 # require helo
@@ -117,11 +98,9 @@ smtpd_tls_cert_file = /etc/postfix/sasl/smtpd.pem
 smtpd_tls_loglevel = 1
 % }
 
-
-smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
-
 % if ($sasl) {
 #SASL authentication
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain =
@@ -129,9 +108,6 @@ broken_sasl_auth_clients = yes
 smtpd_tls_auth_only = yes
 % }
 
-
 % if ($filter) {
 content_filter=smtp-amavis:<% $ipfilter %>:<% $portfilter %>
 % }
-
-
