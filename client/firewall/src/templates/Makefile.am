@@ -4,7 +4,7 @@ SUBDIRS = ajax
 
 templatedir = @TEMPLATESPATH@/firewall
 
-template_DATA = filter.mas fwdruleedit.mas fwdrules.mas object.mas objectService.mas redirects.mas
+template_DATA = filter.mas
 
 EXTRA_DIST = $(template_DATA)
 

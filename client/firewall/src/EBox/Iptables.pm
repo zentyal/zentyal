@@ -270,35 +270,6 @@ sub nospoof # (interface, \@addresses)
 	}
 }
 
-# Method: redirect
-#
-#       Redirect traffic (protocol/port) via an specific
-#       interface to an address and port. In fact, do a NAT.
-#
-# Parameters:
-#
-#       protocol  - the protocol to redirect 
-#       inport    - the port from traffic gets in
-#       address   - the destination address
-#       interface - the destination interface
-#       dport     - the destination port
-#       (Positional parameters)
-sub redirect # (protocol, ext_port, address, interface, dest_port)
-{
-	my $self = shift;
-	my ($proto, $inport, $address, $iface, $dport) = @_;
-	my $extaddr = $self->{net}->ifaceAddress($iface);
-	defined($extaddr) or return;
-	$extaddr ne '' or return;
-
-	$iface = vifaceRealname($iface);
-	my $opts = "-t nat -A PREROUTING -i $iface -d $extaddr ";
-	$opts .= "-p $proto --dport $inport -j DNAT --to $address:$dport";
-	pf $opts;
-	pf " -A fredirects $new -p $proto --dport $dport -d $address -i " .
-	    $iface . " -j ACCEPT";
-}
-
 # Method: localRedirects
 #
 #       Do effective local redirections. Done via
@@ -422,14 +393,7 @@ sub start
 		}
 	}
 
-	my $redirects = $self->{firewall}->portRedirections;
-	foreach (@{$redirects}) {
-		$self->redirect($_->{'protocol'},
-				$_->{'eport'},
-				$_->{'ip'},
-				$_->{'iface'},
-				$_->{'dport'});
-	}
+    $self->_redirects();
 
 	@ifaces = @{$self->{net}->ExternalIfaces()};
 	foreach my $if (@ifaces) {
@@ -471,6 +435,7 @@ sub start
 	$self->_ffwdrules();
 
 	$self->_oglobal();
+
 
 	$self->localRedirects();
 
@@ -606,6 +571,20 @@ sub _ffwdrules
         pf "$rule";
     }
     
+}
+
+
+# Method: _redirects
+#
+#	Add redirects rules
+sub _redirects
+{
+    my ($self) = @_;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->RedirectsRuleTable()}) {
+        pf "$rule";
+    }
 }
 
 # Method: _drop

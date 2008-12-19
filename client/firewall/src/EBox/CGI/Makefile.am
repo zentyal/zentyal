@@ -2,9 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Firewall
 
-nobase_perl_DATA = Deny.pm Filter.pm FwdRuleEdit.pm FwdRule.pm FwdRules.pm \
-	Object.pm ObjectPolicy.pm ObjectRule.pm ObjectService.pm  ChangeObjectService.pm \
-	Redirection.pm Redirects.pm
+nobase_perl_DATA = Filter.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
