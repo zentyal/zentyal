@@ -26,7 +26,6 @@ use warnings;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Monitor;
 use EBox::Sudo;
@@ -85,8 +84,9 @@ sub printableName
 #
 # Named parameters:
 #
-#      realm - String the realm to get data from *(Optional)* Default
-#      value: the first realm defined in <_description>
+#      instance - String the instance to get data from *(Optional)*
+#      Default value: the first instance defined in <_description> or
+#      the unique instance that exists
 #
 #      start - Int Start of the time series. A time in seconds since
 #      epoch (1970-01-01) is required. Negative numbers are relative
@@ -101,8 +101,8 @@ sub printableName
 #      hash ref - containing the data defined in this
 #      example
 #
-#        { id   => 'measure.realm',
-#          title => 'printableRealm',
+#        { id   => 'measure.instance',
+#          title => 'printableInstance',
 #          help => 'help text',
 #          type => 'int',
 #          series => [
@@ -116,8 +116,9 @@ sub printableName
 #
 # Exceptions:
 #
-#      <EBox::Exceptions::InvalidData> - thrown if the realm is not
-#      one of the defined ones in the <_description> method
+#      <EBox::Exceptions::InvalidData> - thrown if the instance is not
+#      one of the defined ones in the <_description> method or the
+#      measure does not have instances
 #
 #      <EBox::Exceptions::Command> - thrown if the rrdtool fetch
 #      utility failed to work nicely
@@ -126,16 +127,16 @@ sub fetchData
 {
     my ($self, %params) = @_;
 
-    my ($realm, $start, $end) = ($params{realm}, $params{start}, $params{end});
-    if ( defined($realm) ) {
-        unless ( scalar(grep { $_ eq $realm } @{$self->{realms}}) == 1 ) {
-            throw EBox::Exceptions::InvalidData(data   => 'realm',
-                                                value  => $realm,
-                                                advice => 'The realm value must be one of the following: '
-                                                  . join(', ', @{$self->{realms}}));
+    my ($instance, $start, $end) = ($params{instance}, $params{start}, $params{end});
+    if ( defined($instance) ) {
+        unless ( scalar(grep { $_ eq $instance } @{$self->{instances}}) == 1 ) {
+            throw EBox::Exceptions::InvalidData(data   => 'instance',
+                                                value  => $instance,
+                                                advice => 'The instance value must be one of the following: '
+                                                  . join(', ', @{$self->{instances}}));
         }
     } else {
-        $realm = $self->{realms}->[0];
+        $instance = $self->{instances}->[0];
     }
     if ( defined($start) ) {
         $start = "-s $start";
@@ -152,7 +153,7 @@ sub fetchData
     my $rrdIdx = 0;
     foreach my $rrdFile (@{$self->{rrds}}) {
         # FIXME: use RRDs when it is fixed in Hardy
-        my $fullPath = EBox::Monitor->RRDBaseDirPath() . $realm . '/' . $rrdFile;
+        my $fullPath = $rrdFile;
         my $cmd = "rrdtool fetch $fullPath AVERAGE $start $end";
         my $output = EBox::Sudo::command($cmd);
         # Treat output
@@ -189,9 +190,11 @@ sub fetchData
     }
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
+    my $id = $self->{name};
+    $id .= '.' . $instance if ($instance);
     return {
-        id     => $self->{name} . '.' . $realm,
-        title  => $self->printableRealm($realm),
+        id     => $id,
+        title  => $self->printableInstance($instance),
         help   => $self->{help},
         type   => $self->{type},
         series => \@series,
@@ -199,53 +202,62 @@ sub fetchData
 
 }
 
-# Method: realms
+# Method: instances
 #
-#      Get the realms for that measure, ie the total graphs to be
+#      Get the instances for that measure, ie the total graphs to be
 #      displayed by this measure
 #
 # Returns:
 #
-#      array ref - the realms for this measure
+#      array ref - the instances for this measure
 #
-sub realms
+sub instances
 {
     my ($self) = @_;
-    return $self->{realms};
+    return $self->{instances};
 }
 
-# Method: printableRealm
+# Method: printableInstance
 #
-#      Get the printable realm for this measure given the realm itself
+#      Get the printable instance for this measure given the instance itself
 #
 # Parameters:
 #
-#      realm - String the realm to get printable name from
-#              *(Optional)* Default value: the first defined realm
+#      instance - String the instance to get printable name from
+#              *(Optional)* Default value: the first defined instance
+#              if any, if not the printable name and finally if not
+#              the simple name
 #
 # Returns:
 #
-#      String - the i18ned name for the realm
+#      String - the i18ned name for the instance
 #
 # Exceptions:
 #
-#      <EBox::Exceptions::DataNotFound> - thrown if the given realm is
+#      <EBox::Exceptions::DataNotFound> - thrown if the given instance is
 #      not defined in this measure
 #
-sub printableRealm
+sub printableInstance
 {
-    my ($self, $realm) = @_;
+    my ($self, $instance) = @_;
 
-    unless(defined($realm)) {
-        $realm = $self->{realms}->[0];
+    unless(defined($instance)) {
+        $instance = $self->{instances}->[0];
+        unless(defined($instance)) {
+            if ( $self->{printableName}) {
+                return $self->{printableName};
+            } else {
+                return $self->{simpleName};
+            }
+        }
     }
-    if ( exists($self->{printableRealms}->{$realm})) {
-        return $self->{printableRealms}->{$realm};
-    } elsif ( scalar(grep { $_ eq $realm } @{$self->{realms}}) == 1) {
-        return $realm;
+    if ( exists($self->{printableInstances}->{$instance})) {
+        return $self->{printableInstances}->{$instance};
+    } elsif ( scalar(grep { $_ eq $instance } @{$self->{instances}}) == 1) {
+        return $instance;
     } else {
-        throw EBox::Exceptions::DataNotFound(data  => 'realm',
-                                             value => $realm);
+        throw EBox::Exceptions::DataNotFound(data  => 'instance',
+                                             value => $instance);
     }
 }
 
@@ -289,18 +301,23 @@ sub Types
 #         dataSources - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
 #
-#         printableLabels - array ref the printable labels for every dataset
-#                           to show *(Optional)* Defaule value: i18ned 'value'
+#         printableLabels - array ref the printable labels for every
+#         type instance or data source to show *(Optional)* Default value:
+#         i18ned 'value'
 #
-#         realms - array ref the realms (subdirectories) where the
-#         common name's RRD files are stored
+#         instances - array ref the instances of a measure,
+#         that is, the suffix from the subdirectories where the RRD's
+#         files are stored *(Optional)* Default value: empty
+#         array. That is, the only applicable measure instance is the
+#         static defined one.
 #
-#         printableRealms - hash ref the printable realm names indexed
-#         by realm name, they are optional, if not present the realm
-#         name will be used.
+#         printableInstances - hash ref the printable measure
+#         instance names indexed by measure instance name, they are optional,
+#         if not present the measure name will be used.
 #
-#         rrds - array ref the RRD files' basename where it is
-#         stored this measure
+#         typeInstances - array ref the collection of data type stored
+#         by measure instance, that is, the suffix in the RRD's files,
+#         if any. *(Optional)* Default value: empty array
 #
 #         type - String the measure's gauge type. Possible values:
 #         int, grade, percentage and byte
@@ -336,6 +353,9 @@ sub _setDescription
     my ($self, $description) = @_;
 
     $self->{name} = ref( $self );
+    ($self->{simpleName}) = $self->{name} =~ m/.*::(.*?)$/g;
+    $self->{simpleName} = lc($self->{simpleName});
+    my $prefix = $self->{simpleName};
     $self->{help} = exists($description->{help}) ? $description->{help} : '';
     $self->{printableName} =
       exists($description->{printableName}) ? $description->{printableName} : '';
@@ -356,54 +376,74 @@ sub _setDescription
     }
 
     my $baseDir = EBox::Monitor->RRDBaseDirPath();
-    if ( exists($description->{realms}) ) {
-        unless ( ref($description->{realms}) eq 'ARRAY' ) {
-            throw EBox::Exceptions::InvalidType($description->{realms}, 'array ref');
+    $self->{instances} = [];
+    if ( exists($description->{instances}) ) {
+        unless ( ref($description->{instances}) eq 'ARRAY' ) {
+            throw EBox::Exceptions::InvalidType($description->{instances}, 'array ref');
         }
-        $self->{realms} = [];
-        foreach my $realm (@{$description->{realms}}) {
-            if ( -d "${baseDir}$realm" ) {
-                push(@{$self->{realms}}, $realm);
+        foreach my $instance (@{$description->{instances}}) {
+            if ( -d "${baseDir}${prefix}-$instance" ) {
+                push(@{$self->{instances}}, $instance);
             } else {
-                throw EBox::Exceptions::Internal("Subdirectory ${baseDir}$realm "
-                                                 . 'does not exist');
+                throw EBox::Exceptions::Internal("Subdirectory ${baseDir}${prefix}-$instance "
+                                                   . 'does not exist');
             }
         }
     } else {
-        throw EBox::Exceptions::MissingArgument('realms');
+        unless ( -d "${baseDir}$prefix" ) {
+            throw EBox::Exceptions::Internal(
+                "Subdirectory ${baseDir}${prefix} does not exist");
+        }
     }
 
-    if ( exists($description->{printableRealms})) {
-        unless ( ref($description->{printableRealms}) eq 'HASH' ) {
-            throw EBox::Exceptions::InvalidType($description->{printableRealms},
+    if ( exists($description->{printableInstances})) {
+        unless ( ref($description->{printableInstances}) eq 'HASH' ) {
+            throw EBox::Exceptions::InvalidType($description->{printableInstances},
                                                 'hash ref');
         }
-        $self->{printableRealms} = {};
-        foreach my $key (keys(%{$description->{printableRealms}})) {
-            if ( scalar(grep { $_ eq $key } @{$self->{realms}}) == 1) {
-                $self->{printableRealms}->{$key} = $description->{printableRealms}->{$key};
+        $self->{printableInstances} = {};
+        foreach my $key (keys(%{$description->{printableInstances}})) {
+            if ( scalar(grep { $_ eq $key } @{$self->{instances}}) == 1) {
+                $self->{printableInstances}->{$key} = $description->{printableInstances}->{$key};
             } else {
-                throw EBox::Exceptions::Internal("Printable realm $key is not a realm in this measure");
+                throw EBox::Exceptions::Internal("Printable instance $key is not a instance in this measure");
             }
         }
     }
 
-    if ( exists($description->{rrds}) ) {
-        unless ( ref($description->{rrds}) eq 'ARRAY' ) {
-            throw EBox::Exceptions::InvalidType($description->{rrds}, 'array ref');
+    $self->{typeInstances} = [];
+    $self->{rrds} = [];
+    if ( exists($description->{typeInstances}) ) {
+        unless ( ref($description->{typeInstances}) eq 'ARRAY' ) {
+            throw EBox::Exceptions::InvalidType($description->{typeInstances}, 'array ref');
         }
-        $self->{rrds} = [];
-        foreach my $rrdPath (@{$description->{rrds}}) {
-            foreach my $realm (@{$self->{realms}}) {
-                my $realmDir = "${baseDir}${realm}/";
-                unless ( -f "${realmDir}${rrdPath}" ) {
-                    throw EBox::Exceptions::Internal("RRD file $realmDir$rrdPath does not exist");
+        foreach my $typeInstance (@{$description->{typeInstances}}) {
+            if (@{$self->{instances}}) {
+                foreach my $instance (@{$self->{instances}}) {
+                    my $instanceDir = "${baseDir}${prefix}-${instance}/";
+                    my $rrdPath = "${instanceDir}${prefix}-${typeInstance}.rrd";
+                    unless ( -f $rrdPath ) {
+                        throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                    }
+                    push(@{$self->{rrds}}, $rrdPath);
+                }
+            } else {
+                # Testing against the prefix
+                my $rrdPath = "$baseDir$prefix/${prefix}-${typeInstance}.rrd";
+                if ( -f $rrdPath ) {
+                    push(@{$self->{rrds}}, $rrdPath);
+                } else {
+                    throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
                 }
             }
-            push(@{$self->{rrds}}, $rrdPath);
+            push(@{$self->{typeInstances}}, $typeInstance);
         }
     } else {
-        throw EBox::Exceptions::MissingArgument('rrds');
+        if ( -f "${baseDir}${prefix}/${prefix}.rrd" ) {
+            push(@{$self->{rrds}}, "${baseDir}${prefix}/${prefix}.rrd");
+        } else {
+            throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
+        }
     }
 
     if ( scalar(@{$self->{printableLabels}}) != (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}))) {

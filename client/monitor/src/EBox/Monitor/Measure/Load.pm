@@ -57,9 +57,6 @@ sub _description
                             . 'overview of the system usage'),
         dataSources     => [ 'shortterm', 'midterm', 'longterm' ],
         printableLabels => [ __('short term'), __('mid term'), __('long term') ],
-        realms          => [ 'load' ],
-        printableRealms => { 'load' => __('System load') },
-        rrds            => [ 'load.rrd' ],
         type            => 'int',
     };
 }
