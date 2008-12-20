@@ -55,7 +55,7 @@ sub _description
         printableName   => __('System load'),
         help            => __('Collect the system load that gives a rough '
                             . 'overview of the system usage'),
-        datasets        => [ 'shortterm', 'midterm', 'longterm' ],
+        dataSources     => [ 'shortterm', 'midterm', 'longterm' ],
         printableLabels => [ __('short term'), __('mid term'), __('long term') ],
         realms          => [ 'load' ],
         printableRealms => { 'load' => __('System load') },

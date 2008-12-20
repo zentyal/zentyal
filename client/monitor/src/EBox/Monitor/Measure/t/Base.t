@@ -60,7 +60,7 @@ lives_ok {
 cmp_ok( $measure->{name}, 'eq', ref($measure));
 cmp_ok( $measure->{help}, 'eq', '');
 cmp_ok( $measure->{printableName}, 'eq', '');
-is_deeply( $measure->{datasets}, ['value']);
+is_deeply( $measure->{dataSources}, ['value']);
 is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
 cmp_ok( $measure->printableRealm(), 'eq', 'tmp',
@@ -91,7 +91,7 @@ throws_ok {
 } 'EBox::Exceptions::DataNotFound', 'Getting a non realm printable name';
 
 # Data set, rrds, printable ones bad types
-foreach my $attr (qw(datasets realms printableLabels printableRealms)) {
+foreach my $attr (qw(dataSources realms printableLabels printableRealms)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
