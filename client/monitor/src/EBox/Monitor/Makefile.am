@@ -3,4 +3,4 @@ perldir = @PERLPATH@/EBox/Monitor
 
 MAINTAINERCLEANFILES = Makefile.in
 
-SUBDIRS = Measure Model
+SUBDIRS = Measure Model Types
