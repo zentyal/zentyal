@@ -34,18 +34,23 @@ BEGIN {
       or die;
 }
 
-my $tempFile = File::Temp->new( SUFFIX => '.rrd');
+mkdir('/tmp/base') unless (-d '/tmp/base');
+my $tempFile = File::Temp->new( dir => '/tmp/base',
+                                template => 'base-XXXX',
+                                suffix => '.rrd');
+my $basename = File::Basename::basename($tempFile->filename());
+$basename =~ s:^base-::g;
+$basename =~ s:\.rrd$::g;
 my $greatDescription = {
-   realms => [ 'tmp' ],
-   rrds   => [ File::Basename::basename($tempFile->filename()) ]
+   typeInstances   => [ $basename ]
   };
 
 my $oldBaseDirFunc = \&EBox::Monitor::RRDBaseDirPath;
-*EBox::Monitor::RRDBaseDirPath = sub { return '/'; };
+*EBox::Monitor::RRDBaseDirPath = sub { '/tmp/'; };
 
 throws_ok {
     EBox::Monitor::Measure::Base->new();
-} 'EBox::Exceptions::MissingArgument', 'Cannot create an empty base measure';
+} 'EBox::Exceptions::Internal', 'Cannot create an empty base measure';
 
 *EBox::Monitor::Measure::Base::_description = sub {
     return $greatDescription;
@@ -63,35 +68,34 @@ cmp_ok( $measure->{printableName}, 'eq', '');
 is_deeply( $measure->{dataSources}, ['value']);
 is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
-cmp_ok( $measure->printableRealm(), 'eq', 'tmp',
-        'Checking default value for printable realm');
+cmp_ok( $measure->printableInstance(), 'eq', 'base',
+        'Checking default value for printable instance without printableName neither instances');
 
 # Starting great stuff
 throws_ok {
-    $measure->_setDescription( { realms => ['tmp'],
-                                 rrds => [ 'falacia' ]
+    $measure->_setDescription( { instances => ['tmp'],
+                                 typeInstances => [ 'falacia' ]
                                 }
                               );
 } 'EBox::Exceptions::Internal', 'Setting a non-existant RRD';
 
 # Help and printable name
 $greatDescription->{help} = 'foo';
-$greatDescription->{printableName} = 'bar';
-$greatDescription->{printableRealms} = { 'tmp' => 'Temporal' };
+$greatDescription->{printableName} = 'Temporal';
 lives_ok {
     $measure->_setDescription($greatDescription);
 } 'Setting a great description';
 
 cmp_ok( $measure->{help}, 'eq', 'foo');
-cmp_ok( $measure->{printableName}, 'eq', 'bar');
-cmp_ok( $measure->printableRealm('tmp'), 'eq', 'Temporal');
+cmp_ok( $measure->{printableName}, 'eq', 'Temporal');
+cmp_ok( $measure->printableInstance(), 'eq', 'Temporal');
 
 throws_ok {
-    $measure->printableRealm('foo');
-} 'EBox::Exceptions::DataNotFound', 'Getting a non realm printable name';
+    $measure->printableInstance('foo');
+} 'EBox::Exceptions::DataNotFound', 'Getting a non instance printable name';
 
-# Data set, rrds, printable ones bad types
-foreach my $attr (qw(dataSources realms printableLabels printableRealms)) {
+# Data set, typeInstances, printable ones bad types
+foreach my $attr (qw(dataSources instances printableLabels printableInstances)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -99,13 +103,13 @@ foreach my $attr (qw(dataSources realms printableLabels printableRealms)) {
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
 
-# Printable realm
+# Printable instance
 my $badDescription = Clone::clone($greatDescription);
-$badDescription->{printableRealms} = { 'tmp' => 'foo',
+$badDescription->{printableInstances} = { 'tmp' => 'foo',
                                        'bar' => 'baz' };
 throws_ok {
     $measure->_setDescription($badDescription);
-} 'EBox::Exceptions::Internal', 'Wrong printable realm';
+} 'EBox::Exceptions::Internal', 'Wrong printable instance';
 
 
 # Printable label
@@ -148,8 +152,8 @@ lives_ok {
 
 cmp_deeply($returnVal,
            {
-             id    => str($load->{name} . '.' . $load->realms()->[0]),
-             title => str($load->printableRealm()),
+             id    => str($load->{name}),
+             title => str($load->printableInstance()),
              help  => str($load->{help}),
              type  => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
@@ -158,9 +162,9 @@ cmp_deeply($returnVal,
            'The fetched data is in correct format');
 
 throws_ok {
-    $load->fetchData(realm => 'foobar');
+    $load->fetchData(instance => 'foobar');
 } 'EBox::Exceptions::InvalidData',
-  'Trying to fetch data from an unexistant realm';
+  'Trying to fetch data from an unexistant instance';
 
 throws_ok {
     $load->fetchData(start => 'foobar');
@@ -171,5 +175,7 @@ throws_ok {
     $load->fetchData(end => 'foobar');
 } 'EBox::Exceptions::Command',
   'Trying to fetch data with a bad end point';
+
+rmdir('/tmp/base');
 
 1;
