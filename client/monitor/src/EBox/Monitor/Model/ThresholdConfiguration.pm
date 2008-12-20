@@ -29,6 +29,12 @@
 #
 # These ones are dependant on the measure, that is the parent model
 #
+#    - measureInstance - Select if there are more than one measure
+#    instance, it should be displayed as a select
+#
+#    - typeInstance - Select if there are more than one type per
+#    measure, it should be displayed as a select in this combo
+#
 
 package EBox::Monitor::Model::ThresholdConfiguration;
 
@@ -39,6 +45,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Monitor;
+use EBox::Monitor::Types::MeasureAttribute;
 use EBox::Types::Boolean;
 use EBox::Types::Float;
 
@@ -123,11 +130,12 @@ sub _table
               defaultValue  => 1,
               editable      => 1,
              ),
-          #        new EBox::Monitor::Types::MeasureAttr(
-          #            fieldName     => 'measureInstance',
-          #            printableName => __('Measure instance'),
-          #            attribute     => 'measureIntance',
-          #           ),
+          new EBox::Monitor::Types::MeasureAttribute(
+              fieldName     => 'measureInstance',
+              printableName => __('Measure instance'),
+              attribute     => 'measureInstance',
+              editable      => 1,
+             ),
           #        new EBox::Monitor::Types::MeasureAttr(
           #            fieldName     => 'typeInstance',
           #            printableName => __('Type'),
