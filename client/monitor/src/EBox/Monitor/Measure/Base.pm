@@ -148,7 +148,7 @@ sub fetchData
         $end = '';
     }
 
-    my @returnData = map { [] } 1 .. (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}) );
+    my @returnData = map { [] } 1 .. (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}) );
     my $rrdIdx = 0;
     foreach my $rrdFile (@{$self->{rrds}}) {
         # FIXME: use RRDs when it is fixed in Hardy
@@ -161,7 +161,7 @@ sub fetchData
         foreach my $line (@{$output}) {
             my ($time, $remainder) = $line =~ m/([0-9]+):\s(.*)$/g;
             if ( defined($time) ) {
-                my @values = split(/\s/, $remainder, scalar(@{$self->{datasets}}));
+                my @values = split(/\s/, $remainder, scalar(@{$self->{dataSources}}));
                 # Check no gaps between values
                 if ( ($previousTime != 0) and ($time - $previousTime != $interval)) {
                     # Fill gaps with NaN numbers
@@ -286,7 +286,7 @@ sub Types
 #         explanation about the measure and measurement
 #         *(Optional)*
 #
-#         datasets - array ref the data name for each CDP (consolidated
+#         dataSources - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
 #
 #         printableLabels - array ref the printable labels for every dataset
@@ -340,12 +340,12 @@ sub _setDescription
     $self->{printableName} =
       exists($description->{printableName}) ? $description->{printableName} : '';
 
-    $self->{datasets} = [ 'value' ];
-    if ( exists($description->{datasets}) ) {
-        unless ( ref($description->{datasets}) eq 'ARRAY' ) {
-            throw EBox::Exceptions::InvalidType($description->{datasets}, 'array ref');
+    $self->{dataSources} = [ 'value' ];
+    if ( exists($description->{dataSources}) ) {
+        unless ( ref($description->{dataSources}) eq 'ARRAY' ) {
+            throw EBox::Exceptions::InvalidType($description->{dataSources}, 'array ref');
         }
-        $self->{datasets} = $description->{datasets};
+        $self->{dataSources} = $description->{dataSources};
     }
     $self->{printableLabels} = [ __('value') ];
     if ( exists($description->{printableLabels}) ) {
@@ -406,10 +406,10 @@ sub _setDescription
         throw EBox::Exceptions::MissingArgument('rrds');
     }
 
-    if ( scalar(@{$self->{printableLabels}}) != (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}))) {
+    if ( scalar(@{$self->{printableLabels}}) != (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}))) {
         throw EBox::Exceptions::Internal(
             'The number of printableLabels must be equal to '
-            . (scalar(@{$self->{rrds}}) * scalar(@{$self->{datasets}}))
+            . (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}))
            );
     }
 

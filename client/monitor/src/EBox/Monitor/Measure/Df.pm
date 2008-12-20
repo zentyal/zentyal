@@ -79,7 +79,7 @@ sub _description
     return {
         printableName   => __('File system usage'),
         help            => __('Collect the mounted file system usage information as "df" command does'),
-        datasets        => [ 'free', 'used' ],
+        dataSources     => [ 'free', 'used' ],
         printableLabels => \@printableLabels,
         realms          => [ 'df' ],
         printableRealms => { 'df' => __('File system usage') },
