@@ -55,10 +55,7 @@ sub _description
         printableName   => __('Physical memory usage'),
         help            => __('Collect the physical memory usage'),
         printableLabels => [ __('free'), __('page cache'), __('buffer cache'), __('used') ],
-        realms          => [ 'memory' ],
-        printableRealms => { 'memory' => __('Physical memory usage') },
-        rrds            => [ 'memory-free.rrd', 'memory-cached.rrd', 'memory-buffered.rrd',
-                             'memory-used.rrd' ],
+        typeInstances   => [ 'free', 'cached', 'buffered', 'used' ],
         type            => 'byte',
     };
 }

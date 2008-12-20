@@ -203,14 +203,14 @@ sub menu
 # Method: measuredData
 #
 #      Return the measured data for the desired measure and optionally
-#      the desired realm of data
+#      the desired instance of data
 #
 # Parameters:
 #
 #      measureName - String the measure name
 #
-#      realm - String the realm name *(Optional)* Default value: the
-#      first described realm in the measure
+#      instance - String the instance name *(Optional)* Default value: the
+#      first described instance in the measure
 #
 # Returns:
 #
@@ -227,12 +227,12 @@ sub menu
 #
 sub measuredData
 {
-    my ($self, $measureName, $realm) = @_;
+    my ($self, $measureName, $instance) = @_;
 
     $measureName or throw EBox::Exceptions::MissingArgument('measureName');
 
     my $measure = $self->{measureManager}->measure($measureName);
-    return $measure->fetchData(realm => $realm);
+    return $measure->fetchData(instance => $instance);
 
 }
 
@@ -251,9 +251,13 @@ sub allMeasuredData
 
     my @measuredData;
     foreach my $measure (@{$self->{measureManager}->measures()}) {
-        foreach my $realm (@{$measure->realms()}) {
-            push(@measuredData,
-                 $measure->fetchData(realm => $realm));
+        if(@{$measure->instances()} > 0) {
+            foreach my $instance (@{$measure->instances()}) {
+                push(@measuredData,
+                     $measure->fetchData(instance => $instance));
+            }
+        } else {
+            push(@measuredData, $measure->fetchData());
         }
     }
 

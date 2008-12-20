@@ -55,6 +55,18 @@ sub new
 
 }
 
+# Method: optionalParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::optionalParameters>
+#
+sub optionalParameters
+{
+    return [ 'instance' ];
+}
+
+
 # Method: requiredParameters
 #
 # Overrides:
@@ -63,7 +75,7 @@ sub new
 #
 sub requiredParameters
 {
-    return [ 'measure', 'realm' ];
+    return [ 'measure' ];
 }
 
 
@@ -78,12 +90,14 @@ sub masonParameters
 
     my ($self) = @_;
 
-    my $measure = $self->param('measure');
-    my $realm = $self->param('realm');
+    my $params = $self->paramsAsHash();
+
+    my $measure = $params->{'measure'};
+    my $instance = $params->{'instance'};
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
-    my $measuredData = $mon->measuredData($measure, $realm);
+    my $measuredData = $mon->measuredData($measure, $instance);
 
     return [ id     => $measuredData->{id},
              type   => $measuredData->{type},

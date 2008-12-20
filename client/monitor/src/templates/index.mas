@@ -36,8 +36,8 @@ function updateGraphs() {
                         { method: 'get',
                           asynchronous : true,
                           evalScripts : true,
-                          parameters: { 'measure' : parts[0],
-                                        'realm'   : parts[1]},
+                          parameters: { 'measure'  : parts[0],
+                                        'instance' : parts[1]},
                         });                                        
    }); 
 }
