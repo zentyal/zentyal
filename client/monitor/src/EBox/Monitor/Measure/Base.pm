@@ -101,7 +101,7 @@ sub printableName
 #      hash ref - containing the data defined in this
 #      example
 #
-#        { id   => 'measure.instance',
+#        { id   => 'measure[.instance]',
 #          title => 'printableInstance',
 #          help => 'help text',
 #          type => 'int',
@@ -149,11 +149,26 @@ sub fetchData
         $end = '';
     }
 
-    my @returnData = map { [] } 1 .. (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}) );
+    my @returnData = map { [] } 1 .. $self->{nLines};
+    my @rrds = ();
+    if (@{$self->{typeInstances}} > 0) {
+        @rrds = map { $self->{simpleName} . '-' . $_ . '.rrd' }
+          @{$self->{typeInstances}};
+    } else {
+        push(@rrds, $self->{simpleName} . '.rrd');
+    }
+    my $prefix = $self->{simpleName};
+    if ( defined($instance) ) {
+        $prefix .= "-$instance";
+    }
+    @rrds = map { "$prefix/$_" } @rrds;
+
+    my $baseDir = EBox::Monitor::RRDBaseDirPath();
     my $rrdIdx = 0;
-    foreach my $rrdFile (@{$self->{rrds}}) {
+    foreach my $rrdFile (@rrds) {
         # FIXME: use RRDs when it is fixed in Hardy
         my $fullPath = $rrdFile;
+        $fullPath = $baseDir . $fullPath;
         my $cmd = "rrdtool fetch $fullPath AVERAGE $start $end";
         my $output = EBox::Sudo::command($cmd);
         # Treat output
@@ -412,7 +427,6 @@ sub _setDescription
     }
 
     $self->{typeInstances} = [];
-    $self->{rrds} = [];
     if ( exists($description->{typeInstances}) ) {
         unless ( ref($description->{typeInstances}) eq 'ARRAY' ) {
             throw EBox::Exceptions::InvalidType($description->{typeInstances}, 'array ref');
@@ -425,31 +439,44 @@ sub _setDescription
                     unless ( -f $rrdPath ) {
                         throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
                     }
-                    push(@{$self->{rrds}}, $rrdPath);
                 }
             } else {
                 # Testing against the prefix
                 my $rrdPath = "$baseDir$prefix/${prefix}-${typeInstance}.rrd";
-                if ( -f $rrdPath ) {
-                    push(@{$self->{rrds}}, $rrdPath);
-                } else {
+                unless ( -f $rrdPath ) {
                     throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
                 }
             }
             push(@{$self->{typeInstances}}, $typeInstance);
         }
     } else {
-        if ( -f "${baseDir}${prefix}/${prefix}.rrd" ) {
-            push(@{$self->{rrds}}, "${baseDir}${prefix}/${prefix}.rrd");
+        if (@{$self->{instances}}) {
+            foreach my $instance (@{$self->{instances}}) {
+                my $rrdPath = "${baseDir}${prefix}-$instance/${prefix}.rrd";
+                unless (-f $rrdPath) {
+                    throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                }
+            }
         } else {
-            throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
+            unless ( -f "${baseDir}${prefix}/${prefix}.rrd" ) {
+                throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
+            }
         }
     }
 
-    if ( scalar(@{$self->{printableLabels}}) != (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}))) {
+    # Calculate the lines per graph
+    my $nTI = (0,0);
+    if(@{$self->{typeInstances}}) {
+        $nTI = scalar(@{$self->{typeInstances}});
+    } else {
+        $nTI = 1;
+    }
+    $self->{nLines} = $nTI * scalar(@{$self->{dataSources}});
+
+    if ( scalar(@{$self->{printableLabels}}) != $self->{nLines}) {
         throw EBox::Exceptions::Internal(
             'The number of printableLabels must be equal to '
-            . (scalar(@{$self->{rrds}}) * scalar(@{$self->{dataSources}}))
+            . $self->{nLines}
            );
     }
 
