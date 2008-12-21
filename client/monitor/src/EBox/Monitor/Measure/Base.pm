@@ -128,7 +128,7 @@ sub fetchData
     my ($self, %params) = @_;
 
     my ($instance, $start, $end) = ($params{instance}, $params{start}, $params{end});
-    if ( defined($instance) ) {
+    if ( defined($instance) and $instance ne '') {
         unless ( scalar(grep { $_ eq $instance } @{$self->{instances}}) == 1 ) {
             throw EBox::Exceptions::InvalidData(data   => 'instance',
                                                 value  => $instance,
@@ -206,7 +206,7 @@ sub fetchData
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     my $id = $self->{name};
-    $id .= '.' . $instance if ($instance);
+    $id .= '.' . $instance if (defined($instance));
     return {
         id     => $id,
         title  => $self->printableInstance($instance),

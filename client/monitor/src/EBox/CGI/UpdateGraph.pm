@@ -94,6 +94,7 @@ sub masonParameters
 
     my $measure = $params->{'measure'};
     my $instance = $params->{'instance'};
+    $instance = undef if ($instance eq '');
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
