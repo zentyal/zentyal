@@ -276,6 +276,67 @@ sub printableInstance
     }
 }
 
+# Method: typeInstances
+#
+#      Get the type instances for that measure.
+#
+# Returns:
+#
+#      array ref - the type instances for this measure
+#
+sub typeInstances
+{
+    my ($self) = @_;
+    return $self->{typeInstances};
+}
+
+# Method: printableTypeInstance
+#
+#      Get the printable type instance for this measure given the type
+#      instance itself
+#
+#      If there are not type instances, an <Internal> exception is
+#      raised.
+#
+# Parameters:
+#
+#      typeInstance - String the type instance to get printable name
+#                    from  *(Optional)* Default value: the first
+#                    defined type instance
+#
+# Returns:
+#
+#      String - the i18ned name for the type instance
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given type
+#      instance is not defined in this measure
+#
+#      <EBox::Exceptions::Internal> - thrown if there is not type
+#      instances for this measure
+#
+sub printableTypeInstance
+{
+    my ($self, $typeInstance) = @_;
+
+    if ( @{$self->{typeInstances}} == 0) {
+        throw EBox::Exceptions::Internal('There are not type instances for this measure');
+    }
+
+    unless(defined($typeInstance)) {
+        $typeInstance = $self->{typeInstances}->[0];
+    }
+    if ( exists($self->{printableTypeInstances}->{$typeInstance})) {
+        return $self->{printableTypeInstances}->{$typeInstance};
+    } elsif ( scalar(grep { $_ eq $typeInstance } @{$self->{typeInstances}}) == 1) {
+        return $typeInstance;
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'typeInstance',
+                                             value => $typeInstance);
+    }
+}
+
 # Group: Class methods
 
 # Method: Types
@@ -327,12 +388,15 @@ sub Types
 #         static defined one.
 #
 #         printableInstances - hash ref the printable measure
-#         instance names indexed by measure instance name, they are optional,
+#         instance names indexed by measure instance name, they are *optional*,
 #         if not present the measure name will be used.
 #
 #         typeInstances - array ref the collection of data type stored
 #         by measure instance, that is, the suffix in the RRD's files,
 #         if any. *(Optional)* Default value: empty array
+#
+#         printableTypeInstance - hash ref the printable type instance
+#         name indexed by type instance. *(Optional)*
 #
 #         type - String the measure's gauge type. Possible values:
 #         int, grade, percentage and byte
@@ -411,21 +475,6 @@ sub _setDescription
         }
     }
 
-    if ( exists($description->{printableInstances})) {
-        unless ( ref($description->{printableInstances}) eq 'HASH' ) {
-            throw EBox::Exceptions::InvalidType($description->{printableInstances},
-                                                'hash ref');
-        }
-        $self->{printableInstances} = {};
-        foreach my $key (keys(%{$description->{printableInstances}})) {
-            if ( scalar(grep { $_ eq $key } @{$self->{instances}}) == 1) {
-                $self->{printableInstances}->{$key} = $description->{printableInstances}->{$key};
-            } else {
-                throw EBox::Exceptions::Internal("Printable instance $key is not a instance in this measure");
-            }
-        }
-    }
-
     $self->{typeInstances} = [];
     if ( exists($description->{typeInstances}) ) {
         unless ( ref($description->{typeInstances}) eq 'ARRAY' ) {
@@ -462,6 +511,29 @@ sub _setDescription
                 throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
             }
         }
+    }
+
+    # Check printable stuff
+    foreach my $kind (qw(printableInstances printableTypeInstances)) {
+        $self->{$kind} = {};
+        # Remove printable from kind to establish value from printable one
+        my $valueKey = $kind;
+        $valueKey =~ s:^printable::g;
+        $valueKey = lcfirst($valueKey);
+        if (exists($description->{$kind})) {
+            unless ( ref($description->{$kind}) eq 'HASH' ) {
+                throw EBox::Exceptions::InvalidType($description->{$kind},
+                                                    'hash ref');
+            }
+            foreach my $key (keys(%{$description->{$kind}})) {
+                if ( scalar(grep { $_ eq $key } @{$self->{$valueKey}}) == 1) {
+                    $self->{$kind}->{$key} = $description->{$kind}->{$key};
+                } else {
+                    throw EBox::Exceptions::Internal("Printable $key is not a $valueKey in this measure");
+                }
+            }
+        }
+
     }
 
     # Calculate the lines per graph

@@ -80,6 +80,26 @@ sub new
 
 }
 
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    my $nDefined = grep { defined($_) }
+      map { $allFields->{$_}->value() } qw(warningMin failureMin warningMax failureMax);
+    unless($nDefined > 0) {
+        throw EBox::Exceptions::External(
+            __('At least a threshold (maximum or minumum) must be set')
+           );
+    }
+
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -136,15 +156,18 @@ sub _table
               attribute     => 'measureInstance',
               editable      => 1,
              ),
-          #        new EBox::Monitor::Types::MeasureAttr(
-          #            fieldName     => 'typeInstance',
-          #            printableName => __('Type'),
-          #            attribute     => 'typeInstance',
-          #           ),
-          #        new EBox::Monitor::Types::MeasureAttr(
+          new EBox::Monitor::Types::MeasureAttribute(
+              fieldName     => 'typeInstance',
+              printableName => __('Type'),
+              attribute     => 'typeInstance',
+              editable      => 1,
+             ),
+          #        new EBox::Monitor::Types::MeasureAttribute(
           #            fieldName     => 'dataSource',
           #            printableName => __('Data Source'),
           #            attribute     => 'dataSource',
+          #            editable      => 1,
+          #           ),
                    );
 
     my $dataTable = {

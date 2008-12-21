@@ -128,10 +128,19 @@ sub populate
           @{$mon->measures()};
         my @options = ();
         if ($self->attribute() eq 'measureInstance') {
-            my $realms = $measureInstance->realms();
+            my $instances = $measureInstance->instances();
             @options = map { { value => $_,
-                               printableValue => $measureInstance->printableRealm($_) }
-                         } @{$realms};
+                               printableValue => $measureInstance->printableInstance($_) }
+                         } @{$instances};
+            push(@options, { value => 'any',
+                   printableValue => __('any'),
+               });
+        } elsif ($self->attribute() eq 'typeInstance') {
+            my $typeInstances = $measureInstance->typeInstances();
+            @options = map { { value => $_,
+                               printableValue => $measureInstance->printableTypeInstance($_) }
+                         } @{$typeInstances};
+            push(@options, { value => 'any', printableValue => __('any')});
         }
         return \@options;
     } else {
