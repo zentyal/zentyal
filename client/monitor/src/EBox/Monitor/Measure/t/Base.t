@@ -23,7 +23,7 @@ use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
-use Test::More tests => 39;
+use Test::More tests => 44;
 use Test::Exception;
 
 BEGIN {
@@ -82,6 +82,7 @@ throws_ok {
 # Help and printable name
 $greatDescription->{help} = 'foo';
 $greatDescription->{printableName} = 'Temporal';
+$greatDescription->{printableTypeInstances} = { $basename => 'printable foo'};
 lives_ok {
     $measure->_setDescription($greatDescription);
 } 'Setting a great description';
@@ -89,13 +90,17 @@ lives_ok {
 cmp_ok( $measure->{help}, 'eq', 'foo');
 cmp_ok( $measure->{printableName}, 'eq', 'Temporal');
 cmp_ok( $measure->printableInstance(), 'eq', 'Temporal');
+cmp_ok( $measure->printableTypeInstance($basename), 'eq',
+        'printable foo', 'Checking printable type instance');
 
-throws_ok {
-    $measure->printableInstance('foo');
-} 'EBox::Exceptions::DataNotFound', 'Getting a non instance printable name';
+foreach my $printableMethod (qw(printableInstance printableTypeInstance)) {
+    throws_ok {
+        $measure->$printableMethod('foo');
+    } 'EBox::Exceptions::DataNotFound', 'Getting a non printable name';
+}
 
 # Data set, typeInstances, printable ones bad types
-foreach my $attr (qw(dataSources instances printableLabels printableInstances)) {
+foreach my $attr (qw(dataSources instances printableLabels printableInstances printableTypeInstances)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -103,14 +108,15 @@ foreach my $attr (qw(dataSources instances printableLabels printableInstances)) 
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
 
-# Printable instance
-my $badDescription = Clone::clone($greatDescription);
-$badDescription->{printableInstances} = { 'tmp' => 'foo',
-                                       'bar' => 'baz' };
-throws_ok {
-    $measure->_setDescription($badDescription);
-} 'EBox::Exceptions::Internal', 'Wrong printable instance';
-
+# Printable instances (type and measures)
+foreach my $kind (qw(printableInstances printableTypeInstances)) {
+    my $badDescription = Clone::clone($greatDescription);
+    $badDescription->{$kind} = { 'tmp' => 'foo',
+                                 'bar' => 'baz' };
+    throws_ok {
+        $measure->_setDescription($badDescription);
+    } 'EBox::Exceptions::Internal', 'Wrong printable stuff';
+}
 
 # Printable label
 $badDescription = Clone::clone($greatDescription);
@@ -144,6 +150,11 @@ lives_ok {
 } 'Creating Load measure';
 
 isa_ok( $load, 'EBox::Monitor::Measure::Load');
+
+throws_ok {
+    $load->printableTypeInstance();
+} 'EBox::Exceptions::Internal',
+  'Trying to get a printable type instance from a measure which does not have any';
 
 my $returnVal;
 lives_ok {
