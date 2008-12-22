@@ -1188,9 +1188,17 @@ sub updateNetbiosName
 		my $username = $user->{'username'};
 		my $dn = "uid=$username," .  $users->usersDn;
 		$ldap->modifyAttribute($dn, 'sambaHomePath', 
-					"\\\\$netbios\\homes\\$username");
+				"\\\\$netbios\\homes\\$username");
+		# XXX Check if we have to add or not, instead of
+		# add + [ delete ]
 		$ldap->modifyAttribute($dn, 'sambaProfilePath', 
-					"\\\\$netbios\\profiles\\$username");
+				"\\\\$netbios\\profiles\\$username");
+		unless ($self->{samba}->roamingProfiles()) {
+			my %attrs = ( changes => [ delete =>
+					[ sambaProfilePath => [] ]]);
+			$ldap->modify($dn, \%attrs);
+		}
+
 	}
 }
 

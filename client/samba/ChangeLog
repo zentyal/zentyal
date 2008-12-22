@@ -6,7 +6,11 @@
 	+ Add per-user disk quota
 0.12.99
 	+ New release
-0.12.6
+0.12.6.101
+	+ Bugfix. roaming profiles are not created automatically when they are
+	disabled
+0.12.6.100
+	+ Support for external printers configured with CUPS
 	+ Bugfix. Set users and groups suffix properly in smb.conf
 0.12.5
 	+ Bugfix. Set loginShell when adding users. By default it takes /bin/false
