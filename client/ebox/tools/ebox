@@ -69,11 +69,15 @@ sub moduleAction
   try {
     $mod->$action();
     $success = 0;
-  } 
+  }
   catch EBox::Exceptions::Base with {
       my $ex = shift;
       $success = 1;
-      $errorMsg =  $ex->text;
+      $errorMsg =  $ex->text();
+  } otherwise {
+      my ($ex) = @_;
+      $success = 1;
+      $errorMsg = "$ex";
   };
 
   printModuleMessage($modname, $actionName, $success, $errorMsg);

@@ -10,6 +10,7 @@
 	+ Fixed bug in ForcePurge logs model
 	+ Now the modules can have more than one tableInfo for logging information
 	+ Improve model debugging 
+	+ Improve restart debugging
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
