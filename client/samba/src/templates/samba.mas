@@ -40,6 +40,16 @@ settextdomain('ebox-samba');
 		</td>
 	</tr>
 	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Disk quota limit (MB)') %>:</span>
+		</td>
+		<td>
+			<input type='text' name='quota'  
+				value='<% $params->{quota} %>' />
+		</td>
+	</tr>
+
+	<tr>
 		<td></td>
 		<td>
 			<input class='inputButton' type='submit' name='change'

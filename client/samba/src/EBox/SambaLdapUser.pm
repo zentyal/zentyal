@@ -228,7 +228,7 @@ sub _addUser ($$)
 	my  $samba = EBox::Global->modInstance('samba');
 	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0701');
 	$self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
-	$self->_setUserQuota($unixuid, $samba->defaultUserQuota);
+	$self->{samba}->setUserQuota($unixuid, $samba->defaultUserQuota());
 }
 
 sub _modifyUser($$) {
@@ -442,8 +442,10 @@ sub _userAddOns($$) {
 
 	return unless ($self->{samba}->configured());
 
-	my $samba = EBox::Global->modInstance('samba');
+  	my $users = EBox::Global->modInstance('users');
 
+	my $samba = EBox::Global->modInstance('samba');
+	my $uid = $users->userInfo($username)->{'uid'};
         my @args;
 	my $share = $self->_userSharing($username) ? "yes" : "no";
 	my $printers = $samba->_printersForUser($username);
@@ -454,8 +456,8 @@ sub _userAddOns($$) {
 
 		      'printers' => $printers,
 		      'printerService' => $samba->printerService,
+		      'quota' => $samba->currentUserQuota($uid)
 		      };
-	use Data::Dumper;
         return { path => '/samba/samba.mas',
                  params => $args };
 
