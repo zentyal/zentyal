@@ -23,7 +23,7 @@ use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
-use Test::More tests => 44;
+use Test::More tests => 47;
 use Test::Exception;
 
 BEGIN {
@@ -70,6 +70,8 @@ is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
 cmp_ok( $measure->printableInstance(), 'eq', 'base',
         'Checking default value for printable instance without printableName neither instances');
+cmp_ok( $measure->printableDataSource(), 'eq', 'value',
+        'Checking default printable data source');
 
 # Starting great stuff
 throws_ok {
@@ -100,7 +102,7 @@ foreach my $printableMethod (qw(printableInstance printableTypeInstance)) {
 }
 
 # Data set, typeInstances, printable ones bad types
-foreach my $attr (qw(dataSources instances printableLabels printableInstances printableTypeInstances)) {
+foreach my $attr (qw(dataSources instances printableLabels printableInstances printableTypeInstances printableDataSources)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -108,8 +110,8 @@ foreach my $attr (qw(dataSources instances printableLabels printableInstances pr
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
 
-# Printable instances (type and measures)
-foreach my $kind (qw(printableInstances printableTypeInstances)) {
+# Printable instances (data source, type and measures)
+foreach my $kind (qw(printableInstances printableTypeInstances printableDataSources)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$kind} = { 'tmp' => 'foo',
                                  'bar' => 'baz' };

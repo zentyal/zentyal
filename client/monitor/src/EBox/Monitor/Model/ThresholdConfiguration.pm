@@ -162,13 +162,13 @@ sub _table
               attribute     => 'typeInstance',
               editable      => 1,
              ),
-          #        new EBox::Monitor::Types::MeasureAttribute(
-          #            fieldName     => 'dataSource',
-          #            printableName => __('Data Source'),
-          #            attribute     => 'dataSource',
-          #            editable      => 1,
-          #           ),
-                   );
+          new EBox::Monitor::Types::MeasureAttribute(
+              fieldName     => 'dataSource',
+              printableName => __('Data Source'),
+              attribute     => 'dataSource',
+              editable      => 1,
+             ),
+         );
 
     my $dataTable = {
         tableName           => 'ThresholdConfiguration',
