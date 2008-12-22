@@ -1,0 +1,14 @@
+<%args>
+@logFiles
+</%args>
+
+% foreach my $file (@logFiles) {
+<% $file %> {
+        rotate 7
+        size 10M
+        compress
+        copytruncate
+        missingok
+        notifempty
+}
+% }
