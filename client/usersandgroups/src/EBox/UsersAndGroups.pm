@@ -264,7 +264,7 @@ sub uidExists # (uid)
 
     my %attrs = (
                  base => $self->usersDn,
-                 filter => "&(objectclass=*)(memberUid=$uid)",
+                 filter => "&(objectclass=*)(uidNumber=$uid)",
                  scope => 'one'
                 );
     
