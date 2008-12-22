@@ -3,6 +3,7 @@
 	groups membership
 	+ Bugfix: `printers` method returns an empty list when
 	`ebox-printers` package is not installed
+	+ Add per-user disk quota
 0.12.99
 	+ New release
 0.12.6

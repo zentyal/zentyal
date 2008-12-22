@@ -61,19 +61,23 @@ sub _user {
 	
 	my $smbldap = new EBox::SambaLdapUser;
 	my $smb = EBox::Global->modInstance('samba');
+	my $users = EBox::Global->modInstance('users');
 	
 
 	$self->_requireParam('user', __('user name'));
 	$self->keepParam('user');
 	$self->{errorchain} =  "UsersAndGroups/User";
 	$self->_requireParam('active', __('active'));
+	$self->_requireParam('quota', __('Disk quota limit'));
 	my $user = $self->param('user');
 	my $active = $self->param('active');
+	my $uid = $users->userInfo($user)->{'uid'};
 	
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
 
 	$smbldap->setUserSharing($user, $active);
 	$smb->setAdminUser($user, $self->param('is_admin'));
+	$smb->setUserQuota($uid, $self->param('quota'));
 }
 
 sub _process($) {
