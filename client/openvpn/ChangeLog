@@ -3,6 +3,7 @@
 	characters
 	+ Bugfix: servers and clients cannto get any longer the same
 	interface number
+	+ Added log rotation using logrotate
 0.12.99
 	+ New release
 0.12
