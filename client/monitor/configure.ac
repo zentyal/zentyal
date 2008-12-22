@@ -58,6 +58,8 @@ src/templates/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/Collectd/Makefile
+src/EBox/Event/Makefile
+src/EBox/Event/Watcher/Makefile
 src/EBox/Monitor/Makefile
 src/EBox/Monitor/Measure/Makefile
 src/EBox/Monitor/Measure/t/Makefile
