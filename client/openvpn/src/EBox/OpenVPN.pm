@@ -252,7 +252,7 @@ sub _prepareLogFiles
     my ($self) = @_;
 
     my $logDir = $self->logDir();
-    for my $name ($self->daemonsNames()) {
+    foreach my $name ($self->daemonsNames()) {
         for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
             try {
                 EBox::Sudo::root("test -e $file");
@@ -264,6 +264,26 @@ sub _prepareLogFiles
             EBox::Sudo::root("chmod 0640 $file");
         }
     }
+
+    # recreate log rotate configuration file
+    my @logFiles = map {
+        $_->logFile()
+    } $self->daemons();
+
+    my  $fileMode = {
+                     uid  => 0,
+                     gid  => 0,
+                     mode => '0644',
+    };
+
+    # XXX ugly hack until writeConfFile had different behaviour
+    EBox::GConfModule->writeConfFile('/etc/logrotate.d/ebox-openvpn',
+                         '/openvpn/logrotate.mas',
+                         [
+                          logFiles => \@logFiles,
+                         ],
+                         $fileMode,
+                        )
 }
 
 sub _cleanupDeletedDaemons
