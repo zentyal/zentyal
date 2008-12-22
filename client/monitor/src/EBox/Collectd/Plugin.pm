@@ -27,24 +27,21 @@ package EBox::Collectd::Plugin;
 use strict;
 use warnings;
 
-# eBox uses
-use EBox::Event;
-use EBox::Config;
-
 # Core
-use Errno;
-use Fcntl;
+#use Errno;
+#use Fcntl;
 
 # External uses
-use File::Basename;
 use File::Temp;
 use Collectd qw(:all);
 use Data::Dumper;
 
 # Constants
-use constant EVENTS_INCOMING_DIR       => EBox::Config::conf() . 'events/incoming/';
+# Set it fixed not to include eBox packages
+use constant EVENTS_INCOMING_DIR       => '/var/run/ebox/events/incoming/';
 use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
-use constant EVENTS_FIFO               => EBox::Config::tmp() . 'events-fifo';
+use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
+use constant EBOX_USER                 => 'ebox';
 
 plugin_register(TYPE_NOTIF, 'plugin', 'ebox_notify');
 
@@ -70,9 +67,9 @@ sub ebox_notify
     my ($not) = @_;
 
     my $src = 'monitor-' . $not->{plugin};
-    $src .= '-' . $not->{plugin_instance} if ($not->{plugin_instance});
+    $src .= '-' . $not->{plugin_instance} if ($not->{plugin_instance} ne '');
     $src .= '-' . $not->{type};
-    $src .= '-' . $not->{type_instance} if ($not->{type_instance});
+    $src .= '-' . $not->{type_instance} if ($not->{type_instance} ne '');
 
     my $level = 'fatal';
     if ( $not->{severity} == NOTIF_FAILURE ) {
@@ -83,29 +80,31 @@ sub ebox_notify
         $level = 'info';
     }
 
-    my $evt = new EBox::Event(
+    my $evt = {
         message => $not->{message},
         source  => $src,
         level   => $level,
         timestamp => $not->{time}
-       );
+       };
 
     # Dumpered event without newline chars
     my $strEvt = Dumper($evt);
     $strEvt =~ s:\n::g;
     $strEvt .= "\n";
-    # Unbuffered I/0
-    my $rv = sysopen(my $fifo, EVENTS_FIFO, O_NONBLOCK|O_WRONLY);
-    if (not defined($rv)) {
-        _notifyUsingFS($strEvt);
-        return 1;
-    }
-    $rv = syswrite($fifo, $strEvt, length($strEvt));
-    if ( (! defined($rv) and $!{EAGAIN}) or ($rv != length($strEvt))) {
-        # The syscall would block
-        _notifyUsingFS($strEvt);
-    }
-    close($fifo);
+    # Unbuffered I/0 (Not used for now)
+#     my $rv = sysopen(my $fifo, EVENTS_FIFO, O_NONBLOCK|O_WRONLY);
+#     if (not defined($rv)) {
+#         _notifyUsingFS($strEvt);
+#         return 1;
+#     }
+#     $rv = syswrite($fifo, $strEvt, length($strEvt));
+#     if ( (! defined($rv) and $!{EAGAIN}) or ($rv != length($strEvt))) {
+#         # The syscall would block
+#         _notifyUsingFS($strEvt);
+#     }
+#     close($fifo);
+
+    _notifyUsingFS($strEvt);
 
     return 1;
 
@@ -119,13 +118,13 @@ sub _notifyUsingFS
     my $fileTemp = new File::Temp(TEMPLATE => 'evt_XXXXX',
                                   DIR      => EVENTS_INCOMING_DIR,
                                   UNLINK   => 0);
-
     print $fileTemp $strEvt;
     # Make files readable by eBox
-    my ($login, $pass, $uid, $gid) = getpwnam(EBox::Config::user());
+#    my ($login, $pass, $uid, $gid) = getpwnam(EBox::Config::user());
+    my ($login, $pass, $uid, $gid) = getpwnam(EBOX_USER);
     chown($uid, $gid , $fileTemp->filename());
-    symlink($fileTemp->filename(),
-            EVENTS_INCOMING_READY_DIR . File::Basename::basename($fileTemp->filename()));
+    my ($basename) = ($fileTemp->filename() =~ m:.*/(.*)$:g);
+    symlink($fileTemp->filename(), EVENTS_INCOMING_READY_DIR . $basename);
 
 }
 

@@ -121,7 +121,6 @@ sub populate
         my @dirs = split('/', $self->model()->directory());
         my $parentRow = $self->model()->parent()->row($dirs[-2]);
         my $measureClass = $parentRow->valueByName('measure');
-        EBox::debug($measureClass);
         my ($measureInstance) = grep { $_->name() eq $measureClass }
           @{$mon->measures()};
         my @options = ();

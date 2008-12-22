@@ -77,6 +77,22 @@ sub printableName
     return $self->{printableName};
 }
 
+# Method: simpleName
+#
+#      Get the simple measure's name, that is, the one used in
+#      configuration files
+#
+# Returns:
+#
+#      String - the simple measure's name
+#
+sub simpleName
+{
+    my ($self) = @_;
+
+    return $self->{simpleName};
+
+}
 
 # Method: fetchData
 #

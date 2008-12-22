@@ -52,11 +52,12 @@ use EBox::Monitor::Measure::Manager;
 use Sys::Hostname;
 
 # Constants
-use constant COLLECTD_SERVICE   => 'ebox.collectd';
-use constant COLLECTD_CONF_FILE => '/etc/collectd/collectd.conf';
-use constant RRD_BASE_DIR       => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
-use constant QUERY_INTERVAL     => 10;
-use constant LOG_FILE_PATH      => EBox::Config::log() . 'collectd.log';
+use constant COLLECTD_SERVICE    => 'ebox.collectd';
+use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
+use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
+use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
+use constant QUERY_INTERVAL      => 10;
+use constant LOG_FILE_PATH       => EBox::Config::log() . 'collectd.log';
 
 # Method: _create
 #
@@ -128,7 +129,11 @@ sub usedFiles
     return [
         { file   => COLLECTD_CONF_FILE,
           module => 'monitor',
-          reason => __('Collectd configuration file'),
+          reason => __('Collectd main configuration file'),
+        },
+        { file   => THRESHOLD_CONF_FILE,
+          module => 'monitor',
+          reason => __('Collectd threshold configuration file'),
         },
        ];
 }
@@ -355,23 +360,14 @@ sub _regenConfig
 
 # Method: _setMonitorConf
 #
-#    Set collectd.conf file
+#    Set collectd configuration files
 #
 sub _setMonitorConf
 {
     my ($self) = @_;
 
-    unless ( -f $self->LogFilePath() ) {
-        EBox::Sudo::command('touch ' . $self->LogFilePath());
-    }
-
-    $self->writeConfFile(COLLECTD_CONF_FILE,
-                         'monitor/collectd.conf.mas',
-                         [
-                          (logFilePath => $self->LogFilePath()),
-                          (interval    => $self->QueryInterval()),
-                         ]
-                       );
+    $self->_setMainConf();
+    $self->_setThresholdConf();
 
 }
 
@@ -405,5 +401,65 @@ sub _setupMeasures
     $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
 
 }
+
+# Write down the main configuration file
+sub _setMainConf
+{
+    my ($self) = @_;
+    unless ( -f $self->LogFilePath() ) {
+        EBox::Sudo::command('touch ' . $self->LogFilePath());
+    }
+
+    $self->writeConfFile(COLLECTD_CONF_FILE,
+                         'monitor/collectd.conf.mas',
+                         [
+                          (logFilePath => $self->LogFilePath()),
+                          (interval    => $self->QueryInterval()),
+                         ]
+                        );
+}
+
+# Write down the threshold configuration file
+sub _setThresholdConf
+{
+    my ($self) = @_;
+
+    my $measureWatchersModel = $self->model('MeasureWatchers');
+    my @thresholds = ();
+
+    foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
+        my $confModel = $measureWatcher->subModel('thresholds');
+        my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
+        foreach my $confRow (@{$confModel->findAll(enabled => 1)}) {
+            my %threshold = ( measure  => $measureInstance->simpleName(),
+                              type     => $measureInstance->simpleName(),
+                              invert   => $confRow->valueByName('invert'),
+                              persist  => $confRow->valueByName('persist'),
+                             );
+            if ( $confRow->valueByName('measureInstance') ne 'none' ) {
+                $threshold{instance} = $confRow->valueByName('measureInstance');
+            }
+            if ( $confRow->valueByName('typeInstance') ne 'none' ) {
+                $threshold{typeInstance} = $confRow->valueByName('typeInstance');
+            }
+            foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
+                my $boundValue = $confRow->valueByName($bound);
+                if (defined($boundValue)) {
+                    $threshold{$bound} = $boundValue;
+                }
+            }
+            push(@thresholds, \%threshold);
+        }
+    }
+
+    $self->writeConfFile(THRESHOLD_CONF_FILE,
+                         'monitor/thresholds.conf.mas',
+                         [
+                             (thresholds => \@thresholds),
+                            ]
+                        );
+
+}
+
 
 1;
