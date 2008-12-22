@@ -93,10 +93,7 @@ sub options
 {
     my ($self) = @_;
 
-    unless( exists($self->{'options'}) ) {
-        $self->{'options'} = $self->populate();
-    }
-    return $self->{'options'};
+    return $self->populate();
 
 }
 
@@ -122,25 +119,45 @@ sub populate
 
     if ($self->model()) {
         my @dirs = split('/', $self->model()->directory());
-        my $parentRow = $self->model()->parent()->row($dirs[2]);
+        my $parentRow = $self->model()->parent()->row($dirs[-2]);
         my $measureClass = $parentRow->valueByName('measure');
+        EBox::debug($measureClass);
         my ($measureInstance) = grep { $_->name() eq $measureClass }
           @{$mon->measures()};
         my @options = ();
         if ($self->attribute() eq 'measureInstance') {
             my $instances = $measureInstance->instances();
-            @options = map { { value => $_,
-                               printableValue => $measureInstance->printableInstance($_) }
-                         } @{$instances};
-            push(@options, { value => 'any',
-                   printableValue => __('any'),
-               });
+            @options = map {
+                { value => $_,
+                  printableValue => $measureInstance->printableInstance($_) }
+                } @{$instances};
+            my $printableValue = __('not applicable');
+            if ( @options > 0 ) {
+                $printableValue = __('any');
+            }
+            push(@options, { value => 'none', printableValue => $printableValue});
         } elsif ($self->attribute() eq 'typeInstance') {
             my $typeInstances = $measureInstance->typeInstances();
-            @options = map { { value => $_,
-                               printableValue => $measureInstance->printableTypeInstance($_) }
-                         } @{$typeInstances};
-            push(@options, { value => 'any', printableValue => __('any')});
+            @options = map {
+                { value => $_,
+                    printableValue => $measureInstance->printableTypeInstance($_) }
+                } @{$typeInstances};
+            my $printableValue = __('not applicable');
+            if ( @options > 0 ) {
+                $printableValue = __('any');
+            }
+            push(@options, { value => 'none', printableValue => $printableValue});
+        } elsif ($self->attribute() eq 'dataSource') {
+            my $dataSources = $measureInstance->dataSources();
+            my $printableValue = __('not applicable');
+            if ( @{$dataSources} > 1 ) {
+                @options = map {
+                    { value => $_,
+                      printableValue => $measureInstance->printableDataSource($_) }
+                } @{$dataSources};
+                $printableValue = __('any');
+            }
+            push(@options, { value => 'none', printableValue => $printableValue});
         }
         return \@options;
     } else {

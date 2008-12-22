@@ -337,6 +337,57 @@ sub printableTypeInstance
     }
 }
 
+# Method: dataSources
+#
+#      Get the data sources available for that measure.
+#
+# Returns:
+#
+#      array ref - the data sources for this measure
+#
+sub dataSources
+{
+    my ($self) = @_;
+    return $self->{dataSources};
+}
+
+# Method: printableDataSource
+#
+#      Get the printable data source for this measure given the data
+#      source itself
+#
+# Parameters:
+#
+#      dataSource - String the data source to get printable value
+#                    from  *(Optional)* Default value: the first
+#                    defined data source
+#
+# Returns:
+#
+#      String - the i18ned name for the data source
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given data
+#      source is not defined in this measure
+#
+sub printableDataSource
+{
+    my ($self, $dataSource) = @_;
+
+    unless(defined($dataSource)) {
+        $dataSource = $self->{dataSources}->[0];
+    }
+    if ( exists($self->{printableDataSources}->{$dataSource})) {
+        return $self->{printableDataSources}->{$dataSource};
+    } elsif ( scalar(grep { $_ eq $dataSource } @{$self->{dataSources}}) == 1) {
+        return $dataSource;
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'dataSource',
+                                             value => $dataSource);
+    }
+}
+
 # Group: Class methods
 
 # Method: Types
@@ -376,6 +427,10 @@ sub Types
 #
 #         dataSources - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
+#
+#         printableDataSources - hash ref the printable data sources
+#         for every data source *(Optional)* Default value: the data
+#         source value will be displayed if no data source is given
 #
 #         printableLabels - array ref the printable labels for every
 #         type instance or data source to show *(Optional)* Default value:
@@ -514,7 +569,7 @@ sub _setDescription
     }
 
     # Check printable stuff
-    foreach my $kind (qw(printableInstances printableTypeInstances)) {
+    foreach my $kind (qw(printableInstances printableTypeInstances printableDataSources)) {
         $self->{$kind} = {};
         # Remove printable from kind to establish value from printable one
         my $valueKey = $kind;
