@@ -1,0 +1,60 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This is a external tool to set/get user quotas. It's a separated script
+# as we use the libquota-perl module. In order to use an API that must be run
+# as root and not as ebox user
+#
+# It's meant to be run by eBox.
+#
+# Parameters are:
+#
+# -q uid  | -s uid quota
+#
+# -q: query
+# -s: set
+# uid: user uid
+# quota: quota size in MB
+use Quota;
+
+sub currentQuota
+{
+    my ($uid) = @_;
+
+    my @quotaValues = Quota::query( Quota::getqcarg('/home'), $uid);
+    if (@quotaValues) {
+        return ($quotaValues[1] / 1024);
+    } else {
+        return 0;
+    }
+}
+
+sub setCurrentQuota
+{
+    my ($uid, $quota) = @_;
+
+    Quota::setqlim( Quota::getqcarg('/home'), 
+            $uid, $quota, $quota, 0, 0);
+}
+
+if ($ARGV[0] eq '-s') {
+    setCurrentQuota($ARGV[1], $ARGV[2]);
+} else {
+    print currentQuota($ARGV[1]);
+}
+
+exit 0;
