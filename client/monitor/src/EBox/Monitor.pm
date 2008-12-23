@@ -427,31 +427,38 @@ sub _setThresholdConf
     my $measureWatchersModel = $self->model('MeasureWatchers');
     my @thresholds = ();
 
-    foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
-        my $confModel = $measureWatcher->subModel('thresholds');
-        my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
-        foreach my $confRow (@{$confModel->findAll(enabled => 1)}) {
-            my %threshold = ( measure  => $measureInstance->simpleName(),
-                              type     => $measureInstance->simpleName(),
-                              invert   => $confRow->valueByName('invert'),
-                              persist  => $confRow->valueByName('persist'),
-                             );
-            if ( $confRow->valueByName('measureInstance') ne 'none' ) {
-                $threshold{instance} = $confRow->valueByName('measureInstance');
-            }
-            if ( $confRow->valueByName('typeInstance') ne 'none' ) {
-                $threshold{typeInstance} = $confRow->valueByName('typeInstance');
-            }
-            foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
-                my $boundValue = $confRow->valueByName($bound);
-                if (defined($boundValue)) {
-                    $threshold{$bound} = $boundValue;
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('events') ) {
+        my $evtsMod = $gl->modInstance('events');
+        if ( $evtsMod->isEnabled() and $evtsMod->isEnabledWatcher('EBox::Event::Watcher::Monitor')->value() ) {
+            foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
+                my $confModel = $measureWatcher->subModel('thresholds');
+                my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
+                foreach my $confRow (@{$confModel->findAll(enabled => 1)}) {
+                    my %threshold = ( measure  => $measureInstance->simpleName(),
+                                      type     => $measureInstance->simpleName(),
+                                      invert   => $confRow->valueByName('invert'),
+                                      persist  => $confRow->valueByName('persist'),
+                                     );
+                    if ( $confRow->valueByName('measureInstance') ne 'none' ) {
+                        $threshold{instance} = $confRow->valueByName('measureInstance');
+                    }
+                    if ( $confRow->valueByName('typeInstance') ne 'none' ) {
+                        $threshold{typeInstance} = $confRow->valueByName('typeInstance');
+                    }
+                    foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
+                        my $boundValue = $confRow->valueByName($bound);
+                        if (defined($boundValue)) {
+                            $threshold{$bound} = $boundValue;
+                        }
+                    }
+                    push(@thresholds, \%threshold);
                 }
             }
-            push(@thresholds, \%threshold);
+        } else {
+            EBox::warn('No threshold configuration is saved since monitor watcher or events module are not enabled');
         }
     }
-
     $self->writeConfFile(THRESHOLD_CONF_FILE,
                          'monitor/thresholds.conf.mas',
                          [

@@ -222,14 +222,19 @@ sub _table
 
     my $dataTable = {
         tableName           => 'ThresholdConfiguration',
-        printableTableName  => __('Threshold configuration'),
+        pageTitle           => __('Threshold configuration'),
+        printableTableName  => __(q{Threshold's list}),
         modelDomain         => 'Monitor',
         printableRowName    => __('Threshold'),
         defaultActions      => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         class               => 'dataTable',
         help                => __x('Every check is done with the highest possible '
-                                     . 'resolution: {nSec} seconds', nSec => RESOLUTION),
+                                     . 'resolution: {nSec} seconds', nSec => RESOLUTION) . '.'
+                               . __x('Take into account this configuration will be '
+                                     . 'only applied if monitor {openhref}event watcher is enabled{closehref}',
+                                     openhref  => '<a href="/ebox/Events/Composite/GeneralComposite">',
+                                     closehref => '</a>'),
         enableProperty      => 1,
         defaultEnabledValue => 1,
         automaticRemove     => 1,

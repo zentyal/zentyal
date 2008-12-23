@@ -35,6 +35,7 @@ use EBox::Global;
 
 # Core modules
 use File::Tail;
+use Error qw(:try);
 
 # Constants
 use constant EVENTS_DIR       => EBox::Config::var() . 'run/ebox/events/incoming/';
