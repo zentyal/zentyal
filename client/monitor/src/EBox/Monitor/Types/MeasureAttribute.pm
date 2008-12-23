@@ -131,7 +131,7 @@ sub populate
                   printableValue => $measureInstance->printableInstance($_) }
                 } @{$instances};
             my $printableValue = __('not applicable');
-            if ( @options > 0 ) {
+            if ( @options > 1 ) {
                 $printableValue = __('any');
             }
             push(@options, { value => 'none', printableValue => $printableValue});
@@ -141,11 +141,11 @@ sub populate
                 { value => $_,
                     printableValue => $measureInstance->printableTypeInstance($_) }
                 } @{$typeInstances};
-            my $printableValue = __('not applicable');
-            if ( @options > 0 ) {
-                $printableValue = __('any');
+            if ( @options > 1 ) {
+                push(@options, { value => 'none', printableValue => __('any')});
+            } elsif ( @options == 0 ) {
+                push(@options, { value => 'none', printableValue => __('not applicable')});
             }
-            push(@options, { value => 'none', printableValue => $printableValue});
         } elsif ($self->attribute() eq 'dataSource') {
             my $dataSources = $measureInstance->dataSources();
             my $printableValue = __('not applicable');
@@ -155,8 +155,9 @@ sub populate
                       printableValue => $measureInstance->printableDataSource($_) }
                 } @{$dataSources};
                 $printableValue = __('any');
+            } elsif ( @options == 0 ) {
+                push(@options, { value => 'none', printableValue => $printableValue});
             }
-            push(@options, { value => 'none', printableValue => $printableValue});
         }
         return \@options;
     } else {

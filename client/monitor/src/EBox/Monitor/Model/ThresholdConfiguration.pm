@@ -35,13 +35,17 @@
 #    - typeInstance - Select if there are more than one type per
 #    measure, it should be displayed as a select in this combo
 #
-
+#    - dataSource - Select if there are more than one data source per
+#    type, it should be displayed as a select in this combo
+#
 package EBox::Monitor::Model::ThresholdConfiguration;
 
 use base 'EBox::Model::DataTable';
 
 # eBox uses
+use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Monitor;
@@ -90,12 +94,57 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    # Check at least a threshold is set
     my $nDefined = grep { defined($_) }
       map { $allFields->{$_}->value() } qw(warningMin failureMin warningMax failureMax);
     unless($nDefined > 0) {
         throw EBox::Exceptions::External(
-            __('At least a threshold (maximum or minumum) must be set')
+            __('At least a threshold (maximum or minimum) must be set')
            );
+    }
+
+    my $excStr = __('This threshold rule will override the current ones');
+    # Try not to override a rule with the remainder ones
+    if (exists($changedFields->{typeInstance}) or exists($changedFields->{measureInstance})) {
+        my $matchedRows;
+        # If there two are any-any, then only your row must be on the table
+        if ( $allFields->{typeInstance}->value() eq 'none'
+            and $allFields->{measureInstance}->value() eq 'none') {
+            if ( ($action eq 'add' and $self->size() > 0)
+                  or
+                 ($action eq 'update' and $self->size() > 1)
+               ) {
+                    throw EBox::Exceptions::External($excStr);
+            }
+        }
+
+        if ( $allFields->{typeInstance}->value() eq 'none' ) {
+            $matchedRows = $self->findAllValue(measureInstance => $allFields->{measureInstance}->value());
+        } else {
+            $matchedRows = $self->findAllValue(typeInstance => $allFields->{typeInstance}->value());
+        }
+        foreach my $row (@{$matchedRows}) {
+            next if (($action eq 'update') and ($row->id() eq $allFields->{id}));
+            if ( $allFields->{typeInstance}->value() eq 'none' ) {
+                # There should be no more typeInstance with the same measure instance
+                throw EBox::Exceptions::External($excStr);
+            } else {
+                if ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
+                     and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
+                    throw EBox::Exceptions::DataExists(
+                        data  => $allFields->{typeInstance}->printableName(),
+                        value => $allFields->{typeInstance}->printableValue(),
+                       );
+                } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
+                            and
+                         ($row->valueByName('measureInstance') eq 'none'
+                            or
+                          $allFields->{measureInstance}->value() eq 'none')
+                        ) {
+                    throw EBox::Exceptions::External($excStr);
+                }
+            }
+        }
     }
 
 }
@@ -162,12 +211,13 @@ sub _table
               attribute     => 'typeInstance',
               editable      => 1,
              ),
-          new EBox::Monitor::Types::MeasureAttribute(
-              fieldName     => 'dataSource',
-              printableName => __('Data Source'),
-              attribute     => 'dataSource',
-              editable      => 1,
-             ),
+#           new EBox::Monitor::Types::MeasureAttribute(
+#               fieldName     => 'dataSource',
+#               printableName => __('Data Source'),
+#               attribute     => 'dataSource',
+#               editable      => 1,
+#               unique        => 1,
+#              ),
          );
 
     my $dataTable = {
@@ -182,7 +232,8 @@ sub _table
                                      . 'resolution: {nSec} seconds', nSec => RESOLUTION),
         enableProperty      => 1,
         defaultEnabledValue => 1,
-        automaticRemove => 1,
+        automaticRemove     => 1,
+        rowUnique           => 1,
     };
 
     return $dataTable;
