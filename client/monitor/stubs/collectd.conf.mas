@@ -1,6 +1,17 @@
+<%doc>
+  Template to dump the main configuration for collectd
+
+Parameters:
+
+  interval - Int the query interval for collectd
+             *(Optional)* Default value: 10s
+  loadPerlPlugin - Boolean indicating whether it required to load the perl
+             plugin (with the interpreter) or not
+             *(Optional)* Default value: false
+</%doc>
 <%args>
-  $logFilePath
   $interval => 10
+  $loadPerlPlugin => 0
 </%args>
 # Config file for collectd(1).
 #
@@ -50,7 +61,9 @@ LoadPlugin memory
 #LoadPlugin nginx
 #LoadPlugin ntpd
 #LoadPlugin nut
+% if ( $loadPerlPlugin ) {
 LoadPlugin perl
+% }
 #LoadPlugin ping
 LoadPlugin processes
 LoadPlugin rrdtool
@@ -140,11 +153,11 @@ LoadPlugin syslog
 #       HostnameFormat name
 #</Plugin>
 
-<Plugin logfile>
-       LogLevel "info"
-       File "<% $logFilePath %>"
-       Timestamp true
-</Plugin>
+#<Plugin logfile>
+#       LogLevel "info"
+#       File "/var/log/collectd.log"
+#       Timestamp true
+#</Plugin>
 
 #<Plugin mbmon>
 #        Host "127.0.0.1"
@@ -199,6 +212,7 @@ LoadPlugin syslog
 #       UPS "upsname@hostname:port"
 #</Plugin>
 
+% if ( $loadPerlPlugin ) {
 <Plugin perl>
 #      IncludeDir "/my/include/path"
        BaseName "EBox::Collectd"
@@ -206,6 +220,7 @@ LoadPlugin syslog
        LoadPlugin "Plugin"
 #       LoadPlugin "bar"
 </Plugin>
+% }
 
 #<Plugin ping>
 #       Host "host.foo.bar"
