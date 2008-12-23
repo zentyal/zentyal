@@ -6,6 +6,9 @@ case "$1" in
     configure)
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
+        # Set proper permissions for /var/run/ebox directory
+        chown -R ebox.ebox /var/run/ebox
+
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-monitor/migration/
 

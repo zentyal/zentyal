@@ -8,5 +8,14 @@
         <default>EBox::Monitor</default>
         <locale name="C"/>
     </schema>
+    <schema>
+	<key>/schemas/ebox/modules/global/modules/monitor/depends</key>
+	<applyto>/ebox/modules/global/modules/monitor/depends</applyto>
+	<owner>ebox</owner>
+	<type>list</type>
+	<list_type>string</list_type>
+	<default>[events]</default>
+	<locale name="C"/>
+    </schema>
   </schemalist>
 </gconfschemafile>

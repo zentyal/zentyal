@@ -230,7 +230,7 @@ sub _table
         tableDescription    => \@tableDesc,
         class               => 'dataTable',
         help                => __x('Every check is done with the highest possible '
-                                     . 'resolution: {nSec} seconds', nSec => RESOLUTION) . '.'
+                                     . 'resolution: {nSec} seconds', nSec => RESOLUTION) . '.<br>'
                                . __x('Take into account this configuration will be '
                                      . 'only applied if monitor {openhref}event watcher is enabled{closehref}',
                                      openhref  => '<a href="/ebox/Events/Composite/GeneralComposite">',

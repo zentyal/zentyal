@@ -57,7 +57,6 @@ use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
 use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 use constant QUERY_INTERVAL      => 10;
-use constant LOG_FILE_PATH       => EBox::Config::log() . 'collectd.log';
 
 # Method: _create
 #
@@ -312,20 +311,6 @@ sub QueryInterval
     return QUERY_INTERVAL;
 }
 
-
-# Method: LogFilePath
-#
-#      Return the collectd notification log file path
-#
-# Return:
-#
-#      String - the log file path
-#
-sub LogFilePath
-{
-    return LOG_FILE_PATH;
-}
-
 # Group: Protected methods
 
 # Method: _stopService
@@ -366,8 +351,9 @@ sub _setMonitorConf
 {
     my ($self) = @_;
 
-    $self->_setMainConf();
+    # Order is important, don't swap procedure calls :D
     $self->_setThresholdConf();
+    $self->_setMainConf();
 
 }
 
@@ -406,15 +392,12 @@ sub _setupMeasures
 sub _setMainConf
 {
     my ($self) = @_;
-    unless ( -f $self->LogFilePath() ) {
-        EBox::Sudo::command('touch ' . $self->LogFilePath());
-    }
 
     $self->writeConfFile(COLLECTD_CONF_FILE,
                          'monitor/collectd.conf.mas',
                          [
-                          (logFilePath => $self->LogFilePath()),
-                          (interval    => $self->QueryInterval()),
+                          (interval       => $self->QueryInterval()),
+                          (loadPerlPlugin => $self->_thresholdConfigured()),
                          ]
                         );
 }
@@ -456,9 +439,14 @@ sub _setThresholdConf
                 }
             }
         } else {
-            EBox::warn('No threshold configuration is saved since monitor watcher or events module are not enabled');
+            EBox::warn('No threshold configuration is saved since monitor watcher '
+                       . 'or events module are not enabled');
         }
     }
+    if (@thresholds > 0) {
+        $self->{thresholdConfigured} = 1;
+    }
+
     $self->writeConfFile(THRESHOLD_CONF_FILE,
                          'monitor/thresholds.conf.mas',
                          [
@@ -468,5 +456,18 @@ sub _setThresholdConf
 
 }
 
+# Check if there is threshold configuration and it is enabled or not
+# Done by <_setThresholdConf> as a side effect
+sub _thresholdConfigured
+{
+    my ($self) = @_;
+
+    if( defined($self->{thresholdConfigured}) ) {
+        return $self->{thresholdConfigured};
+    } else {
+        return 0;
+    }
+
+}
 
 1;

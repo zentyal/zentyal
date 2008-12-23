@@ -143,7 +143,7 @@ sub Able
 #
 sub _name
 {
-      return __('Monitor');
+    return __('Monitor');
 }
 
 # Method: _description
@@ -201,7 +201,7 @@ sub _readEventsFromDir
             unlink($fullName);
             unlink(EVENTS_DIR . $filename);
         } else {
-            EBox::warn("File $fullName does not contain an EBox::Event object");
+            EBox::warn("File $fullName does not contain an hash reference");
         }
     }
 
