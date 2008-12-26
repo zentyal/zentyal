@@ -38,9 +38,9 @@ js = js/csshover.htc js/common.js \
   js/scriptaculous/effects.js \
   js/scriptaculous/dragdrop.js
 
+css = css/public.css css/login.css css/modalbox.css
 
-
-css =   css/public.css    css/login.css css/modalbox.css nobase_www_DATA =  $(images) $(js) $(css)
+nobase_www_DATA =  $(images) $(js) $(css)
 
 EXTRA_DIST = $(nobase_www_DATA)
 
