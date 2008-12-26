@@ -272,7 +272,7 @@ sub _addCustomServiceToRule
 {
     my ($self, $rule, $row) = @_;
 
-    my ($extPort, $extPortValue, $dstPort, $dstPortValue);
+    my ($extPort, $extPortValue, $dstPort, $dstPortValue, $dstPortFilter);
 
     $extPort = $row->elementByName('external_port');
     $extPortValue = $extPort->value();
@@ -281,15 +281,23 @@ sub _addCustomServiceToRule
     if ($dstPort->selectedType() eq 'destination_port_same') {
         if ($extPort->rangeType() eq 'range') {
             $dstPortValue = $extPort->from();
+            $dstPortFilter = $extPort->from() . ':' . $extPort->to();
         } else {
             $dstPortValue = $extPort->value(); # 'any' or single()
+            $dstPortFilter = $extPort->value(); 
         }
     } else {
         $dstPortValue = $dstPort->value();
+        if ($extPort->rangeType() eq 'range') {
+            my $endValue = $dstPortValue + ($extPort->to() - $extPort->from());
+            $dstPortFilter = "$dstPortValue:$endValue";
+        } else {
+            $dstPortFilter = $dstPortValue;
+        } 
     }
 
     my $protocol = $row->elementByName('protocol')->value();
-    $rule->setCustomService($extPortValue, $dstPortValue, $protocol);
+    $rule->setCustomService($extPortValue, $dstPortValue, $protocol, $dstPortFilter);
 }
 
 sub _addDestinationToRule

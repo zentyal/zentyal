@@ -64,7 +64,19 @@ sub strings
     my $modulesConf = $self->modulesConf();
     my $iface = $self->interface();
     my $netModule = EBox::Global->modInstance('network');
-    my $extaddr = $netModule->ifaceAddress($iface);
+
+    my $extaddr;
+    my $method = $netModule->ifaceMethod($iface);
+    if ($method eq 'dhcp') {
+        $extaddr = $netModule->DHCPAddress($iface);
+    } elsif ($method eq 'static'){
+        $extaddr =  $netModule->ifaceAddress($iface);
+    }
+
+    unless (defined($extaddr) and length($extaddr) > 0) {
+        return [];
+    }
+
 
     foreach my $src (@{$self->{'source'}}) {
         my ($dst, $toDst) = @{$self->{'destination'}};
@@ -154,9 +166,10 @@ sub setDestination
 #   extPort - external port
 #   dstPort - destination port
 #   protocol - protocol (tcp, udp, ...)
+#   dstPortFilter - destination port to be used in filter table
 sub setCustomService
 {
-    my ($self, $extPort, $dstPort, $protocol) = @_;
+    my ($self, $extPort, $dstPort, $protocol, $dstPortFilter) = @_;
 
     unless (defined($extPort)) {
         throw EBox::Exceptions::MissingArgument("extPort");
@@ -167,6 +180,9 @@ sub setCustomService
     unless (defined($protocol)) {
         throw EBox::Exceptions::MissingArgument("protocol");
     }
+    unless (defined($dstPortFilter)) {
+        throw EBox::Exceptions::MissingArgument("$dstPortFilter");
+    }
 
     my $nat = "";
     my $filter = "";
@@ -175,7 +191,7 @@ sub setCustomService
             $nat .= " --dport $extPort";
         }
         if ($dstPort ne 'any') {
-            $filter .= " --dport $dstPort";
+            $filter .= " --dport $dstPortFilter";
         }
 
         if ($protocol eq 'tcp/udp') {
