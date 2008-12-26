@@ -20,9 +20,13 @@
 </td>
 % }
 <script type="text/javascript">
-graphInfo['<% $elem %>'] = [ [0, 0], [1, 0], [2, 0], [3, 0], [4, 0],
-              [5, 0], [6, 0], [7, 0], [8, 0], [9, <% $item->{'value'} %>]
-            ];
+graphInfo['<% $elem %>'] = [
+% my $values = $item->{'novalues'};
+% foreach my $i (0..$values-2) {
+    [<% $i %>, 0],
+% }
+    [<% $values-1 %>, <% $item->{'value'} %>]
+];
 
 Flotr.draw(
     $('<% $elem %>'), [

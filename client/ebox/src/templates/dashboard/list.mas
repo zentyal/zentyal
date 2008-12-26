@@ -8,7 +8,14 @@
 % if(defined($item->{title})) {
 <div><% $item->{title} %></div> 
 % }
-<table id='<% $namespace . '_' . $i %>'>
+% my $list_display = 'block';
+% my $none_display = 'block';
+% if(@{$item->{ids}}) {
+%   $none_display = 'none';
+% } else {
+%   $list_display = 'none';
+% }
+<table id='<% $namespace . '_' . $i . '_table' %>' style='display: <% $list_display %>;'>
 <thead>
 <tr>
 % foreach my $colTitle (@{$item->{colTitles}}) {
@@ -26,5 +33,12 @@
 % }
 </tbody>
 </table>
+<div id='<% $namespace . '_' . $i . '_none' %>' style='display: <% $none_display %>;'>
+% if($item->{none_text}) {
+    <% $item->{none_text} %>
+% } else {
+    <% __('No entries in this list') %>
+% }
+</div>
 </td>
 </tr>

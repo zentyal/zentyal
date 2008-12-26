@@ -234,36 +234,6 @@ sub _lock
 		throw EBox::Exceptions::Lock($self);
 }
 
-# Method: _stopService
-#
-#	This method will try to stop the module's service. It should be 
-#	overriden by subclasses as needed
-#
-sub _stopService
-{
-	# default empty implementation. It should be overriden by subclasses as
-	# needed
-}
-
-# Method: stopService
-#
-#	This is the external interface to call the implementation which lies in
-#	_stopService in subclassess
-#
-#
-sub stopService
-{
-	my $self = shift;
-
-	$self->_lock();
-	try {
-		$self->_stopService();
-	} finally {
-		$self->_unlock();
-	};
-}
-
-
 # Method: setAsChanged
 #
 #   Sets the module as changed

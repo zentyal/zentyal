@@ -24,6 +24,9 @@
 package EBox::ServiceModule::ServiceInterface;
 
 use EBox::Global;
+use EBox::Sudo;
+
+use Error qw(:try);
 
 use strict;
 use warnings;
@@ -271,10 +274,10 @@ sub _isDaemonRunning
         my $pidfile = $daemon->{'pidfile'};
         return $self->pidFileRunning($pidfile);
     }
-    if($daemon->{'type'} eq 'upstart') {
+    if(daemon_type($daemon) eq 'upstart') {
         return EBox::Service::running($daemon->{'name'});
-    } elsif($daemon->{'type'} eq 'init.d') {
-        my $output = root(INITDPATH . $daemon->{'name'} . ' ' . 'status');
+    } elsif(daemon_type($daemon) eq 'init.d') {
+        my $output = EBox::Sudo::root(INITDPATH . $daemon->{'name'} . ' ' . 'status');
         my $status = @{$output}[0];
         if ($status =~ m{^$daemon .* running}) {
             return 1;
@@ -368,6 +371,16 @@ sub defaultStatus
     return undef;
 }
 
+sub daemon_type
+{
+    my ($daemon) = @_;
+    if($daemon->{'type'}) {
+        return $daemon->{'type'};
+    } else {
+        return 'upstart';
+    }
+}
+
 # Method: _daemons
 #
 #   This method must be overriden to return the services required by this
@@ -413,34 +426,16 @@ sub _daemons
     return undef;
 }
 
-# Method: stopService
-#
-#   This is the external interface to call the implementation which lies in
-#   _stopService in subclassess
-#
-#
-sub stopService
-{
-    my $self = shift;
-
-    $self->_lock();
-    try {
-        $self->_stopService();
-    } finally {
-        $self->_unlock();
-    };
-}
-
 sub _startDaemon
 {
     my($self, $daemon) = @_;
-    if($daemon->{'type'} eq 'upstart') {
+    if(daemon_type($daemon) eq 'upstart') {
         if(EBox::Service::running($daemon->{'name'})) {
             EBox::Service::manage($daemon->{'name'},'restart');
         } else {
             EBox::Service::manage($daemon->{'name'},'start');
         }
-    } elsif($daemon->{'type'} eq 'init.d') {
+    } elsif(daemon_type($daemon) eq 'init.d') {
         my $pidfile = $daemon->{'pidfile'};
         if(!defined($pidfile)) {
             throw EBox::Exceptions::Internal(
@@ -452,7 +447,7 @@ sub _startDaemon
         } else {
             $script = $script . ' ' . 'start';
         }
-        root($script);
+        EBox::Sudo::root($script);
     } else {
         throw EBox::Exceptions::Internal(
             "Service type must be either 'upstart' or 'init.d'");
@@ -462,11 +457,11 @@ sub _startDaemon
 sub _stopDaemon
 {
     my($self, $daemon) = @_;
-    if($daemon->{'type'} eq 'upstart') {
+    if(daemon_type($daemon) eq 'upstart') {
         EBox::Service::manage($daemon->{'name'},'stop');
-    } elsif($daemon->{'type'} eq 'init.d') {
+    } elsif(daemon_type($daemon) eq 'init.d') {
         my $script = INITDPATH . $daemon->{'name'} . ' ' . 'stop';
-        root($script);
+        EBox::Sudo::root($script);
     } else {
         throw EBox::Exceptions::Internal(
             "Service type must be either 'upstart' or 'init.d'");
@@ -493,7 +488,7 @@ sub _manageService
         #if they are no longer needed
         if(($action eq 'start') and $run) {
             $self->_startDaemon($daemon);
-        } else { 
+        } else {
             $self->_stopDaemon($daemon);
         }
     }
@@ -508,6 +503,24 @@ sub _startService
 {
     my ($self) = @_;
     $self->_manageService('start');
+}
+
+# Method: stopService
+#
+#   This is the external interface to call the implementation which lies in
+#   _stopService in subclassess
+#
+#
+sub stopService
+{
+    my $self = shift;
+
+    $self->_lock();
+    try {
+        $self->_stopService();
+    } finally {
+        $self->_unlock();
+    };
 }
 
 # Method: _stopService

@@ -695,8 +695,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.bind9',
-            'type' => 'upstart'
+            'name' => 'ebox.bind9'
         }
     ];
 }

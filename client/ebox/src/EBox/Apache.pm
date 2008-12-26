@@ -21,7 +21,6 @@ use base 'EBox::GConfModule';
 
 use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
-use POSIX qw(setsid);
 use EBox::Global;
 use EBox::Service;
 use HTML::Mason::Interp;
@@ -36,7 +35,8 @@ use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename;
-use POSIX ('setsid');
+use POSIX qw(setsid);
+use Error qw(:try);
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -131,6 +131,18 @@ sub _stopService
 {
 	my $self = shift;
 	$self->_daemon('stop');
+}
+
+sub stopService
+{
+    my $self = shift;
+
+    $self->_lock();
+    try {
+        $self->_stopService();
+    } finally {
+        $self->_unlock();
+    };
 }
 
 sub _regenConfig
@@ -418,6 +430,14 @@ sub _restrictedResources
         push ( @restrictedResources, $restrictedResource );
     }
     return \@restrictedResources;
+}
+
+#Method: isEnabled
+#
+# As it's not a service but it expects to behave like one, implement isEnabled
+sub isEnabled
+{
+    return 1;
 }
 
 1;

@@ -463,12 +463,10 @@ sub daemons
 {
     return [
         {
-            'name' => SMBDSERVICE,
-            'type' => 'upstart'
+            'name' => SMBDSERVICE
         },
         {
-            'name' => NMBDSERVICE,
-            'type' => 'upstart'
+            'name' => NMBDSERVICE
         }
     ];
 }

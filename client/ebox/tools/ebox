@@ -19,14 +19,44 @@ use Error qw(:try);
 EBox::init();
 my $global = EBox::Global->getInstance(1);
 
+sub moduleList {
+    my $modules = "apache";
+    print "Module list: \n";
+    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+    for my $mod (@mods) {
+        $modules .= ", " . $mod->{'name'}
+    }
+    print $modules;
+    print "\n";
+}
+
 sub usage {
 	print "Usage: $0 start|stop|restart\n";
 	print "       $0 <module> start|stop|status|enabled|restart\n";
 	exit 1;
 }
 
+sub checkModule {
+    my ($modname) = @_;
+    my $mod = $global->modInstance($modname);
+    if (!defined $mod) {
+        print STDERR "$modname is not a valid module name\n";
+        moduleList();
+        exit 2;
+    }
+    if(!(
+                ($modname eq 'apache') or
+                $mod->isa("EBox::ServiceModule::ServiceInterface"))) {
+        print STDERR "$modname is a not manageable module name\n";
+        moduleList();
+        exit 2;
+    }
+    return $mod;
+}
+
 sub start() {
-	my @names = grep (! /^apache$/ ,@{$global->modNames});
+    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+	my @names = map { $_->{'name'} } @mods;
 	push(@names, 'apache');
 
 	foreach my $modname (@names) {
@@ -35,7 +65,8 @@ sub start() {
 }
 
 sub stop() {
-	my @names = grep (! /^apache$/ ,@{$global->modNames});
+    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+	my @names = map { $_->{'name'} } @mods;
 	push(@names, 'apache');
 
 	foreach my $modname (@names) {
@@ -47,11 +78,7 @@ sub stop() {
 sub moduleAction
 {
   my ($modname, $action, $actionName) = @_;
-  my $mod = $global->modInstance($modname);
-  if (!defined $mod) {
-    print STDERR "$modname is not a valid module name\n";
-    exit 2;
-  }
+  my $mod = checkModule($modname); #exits if module is not manageable
 
   # Do not restart apache if we are run under ebox-software
   if ($actionName eq 'restart' and $modname eq 'apache' ) {
@@ -86,11 +113,8 @@ sub moduleAction
 sub status
 {
   my ($modname, $action, $actionName) = @_;
-  my $mod = $global->modInstance($modname);
-  if (!defined $mod) {
-    print STDERR "$modname is not a valid module name\n";
-    exit 2;
-  }   
+
+  my $mod = checkModule($modname); #exits if module is not manageable
   
   my $status;
   my $msg = "EBox: status module $modname:\t\t\t";

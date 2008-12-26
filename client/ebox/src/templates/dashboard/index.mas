@@ -231,9 +231,19 @@ function updateWidget(widget) {
                         updateGraph(graph, item.graphs[g].value);
                     }
                 } else if(item.type == 'list') { 
+                    var listname = itemname + '_table';
+                    var nonename = itemname + '_none';
+                    var list = $(listname);
+                    if(item.ids.length == 0) {
+                        $(listname).hide();
+                        $(nonename).show();
+                    } else {
+                        $(listname).show();
+                        $(nonename).hide();
+                    }
                     var rids = new Array();
-                    for (var r = 1; r < element.rows.length; r++) {
-                        var row = element.rows[r];
+                    for (var r = 1; r < list.rows.length; r++) {
+                        var row = list.rows[r];
                         var id = row.attributes['id'].value;
                         if(item.ids.indexOf(id) == -1) {
                             row.remove();
@@ -245,7 +255,7 @@ function updateWidget(widget) {
                     for (var i = 0; i < item.ids.length; i++) {
                         var id = item.ids[i];
                         if(rids.indexOf(id) == -1) {
-                            var row = element.insertRow(i+1);
+                            var row = list.insertRow(i+1);
                             row.setAttribute('id',id);
                             var content = item.rows[id];
                             for (var c = 0; c < content.length; c++) {

@@ -134,25 +134,20 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.jabber.jabber-router',
-            'type' => 'upstart'
+            'name' => 'ebox.jabber.jabber-router'
         },
         {
             'name' => 'ebox.jabber.jabber-resolver',
-            'type' => 'upstart',
             'precondition' => \&externalConnection
         },
         {
-            'name' => 'ebox.jabber.jabber-sm',
-            'type' => 'upstart'
+            'name' => 'ebox.jabber.jabber-sm'
         },
         {
-            'name' => 'ebox.jabber.jabber-c2s',
-            'type' => 'upstart'
+            'name' => 'ebox.jabber.jabber-c2s'
         },
         {
             'name' => 'ebox.jabber.jabber-s2s',
-            'type' => 'upstart',
             'precondition' => \&externalConnection
         }
     ];

@@ -266,8 +266,7 @@ sub _daemons
 {
     return [
         {
-            'name' => WEB_SERVICE,
-            'type' => 'upstart'
+            'name' => WEB_SERVICE
         }
     ];
 }

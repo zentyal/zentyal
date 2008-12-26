@@ -86,6 +86,16 @@
 	color: #fff;
 }
 
+#module_list {
+    margin-left: 20px;
+    height: 60px;
+    overflow: auto;
+}
+
+#widget_list {
+    margin-left: 20px;
+}
+
 .help {
 	display: none;
 	border-bottom: 1px solid #1d4efa;
@@ -169,7 +179,7 @@
 }
 
 .summarySection {
-	width: 70%;
+	width: 95%;
 	margin-bottom: 15px;
 	margin-left:0px; 
 }
@@ -330,7 +340,7 @@ select {
 }
 
 body {
-	width: 820px;
+	width: 960px;
 	margin: 0px;
 	padding:0;
 	margin-left:10px;
@@ -562,6 +572,7 @@ input {
 	background-color: #BBDF39;
 	color: #ffffff;
 	padding: 1px;
+    line-height: 14px;
 }
 
 .trimp {
@@ -619,7 +630,7 @@ a.changed:hover {
 
 .hidden { 
           display: none;
- }
+}
 
 .eDataTable, .bDataTable {
 	width: 100%;
@@ -762,7 +773,7 @@ a.changed:hover {
 #finishForm, .endForm {
         border-top: 1px solid #ccc;
         width: 95%;
-        margin-left:5px;
+        margin-left: 5px;
         margin-right:auto;
         margin-top: 10px;
 }
@@ -783,3 +794,120 @@ a.changed:hover {
     padding-right: 3px;
 }
 
+.dashboard {
+        display: block;
+        float: left;
+        width: 48%;
+        padding: 5px;
+}
+
+.widgetHandle {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        cursor: move;
+        left: 0pt;
+        top: 0pt;
+        z-index: 4;
+}
+
+.widgetTopBar {
+        position: relative;
+        z-index: 1;
+}
+
+.widgetTopBackground {
+        background: #BBDF39;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0pt;
+        top: 0pt;
+        z-index: 1;
+}
+
+.widgetName {
+        position: relative;
+        float: left;
+        z-index: 3;
+        font-size: 14px;
+        font-family: Trebuchet MS, Verdana, sans-serif;
+        font-weight: bold;
+        color: white;
+}
+
+a.closeBox {
+        position: relative;
+        float: right;
+        margin-right:3px;
+        margin-top: 3px;
+        overflow:hidden;
+        z-index: 5;
+}
+
+a.closeBox {
+        background-position: -24px 0px;
+}
+
+a.closeBox:hover {
+        background-position: -24px -12px;
+}
+
+a.minBox, a.maxBox {
+        position: relative;
+        float: right;
+        margin-right: 3px;
+        margin-top: -13px;
+        overflow:hidden;
+        z-index: 5;
+}
+
+.widgetBarBox {
+        display: block;
+        width: 160px;
+        height: 60px;
+        float: left;
+        margin-left: 5px;
+        margin-right: 5px;
+}
+
+.widgetBox {
+        margin-bottom: 5px;
+}
+
+.widgetBoxIn {
+        border:1px solid #C0C0FF;
+}
+
+a.minBox {
+        background-position: -12px 0px;
+}
+
+a.minBox:hover {
+        background-position: -12px -12px;
+}
+
+a.maxBox {
+        background-position: 0px 0px;
+}
+
+a.maxBox:hover {
+        background-position: 0px -12px;
+}
+
+a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover, a.closeBox, a.closeBox:hover {
+        background-image:url('/data/images/widget_controls.png');
+        height:12px;
+        width:12px;
+}
+
+.widArrow {
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.widArrow a:hover {
+    background: transparent;
+}

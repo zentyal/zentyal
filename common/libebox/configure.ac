@@ -1,5 +1,5 @@
 AC_INIT([libebox], [0.12.100])
-		   
+
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
 
@@ -18,7 +18,7 @@ AC_ARG_ENABLE([runtime-tests],
 	enable_runtime_tests=yes)
 
 if test "x$enable_runtime_tests" = "xyes" ; then
-	
+
 	AC_CHECK_PROG(PERL, perl, perl, none)
 
 	if test "$PERL" = "none" ; then
@@ -50,7 +50,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_PROG_PERL_MODULES(Error, ,
 	  AC_MSG_ERROR(Missing Error))
-	  
+
 	AC_PROG_PERL_MODULES(Devel::StackTrace, ,
 	  AC_MSG_ERROR(Missing Devel::StackTrace))
 
@@ -63,10 +63,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(File::Slurp, ,
 	  AC_MSG_ERROR(Missing File::Slurp))
 
-
 	AC_PROG_PERL_MODULES(Test::Exception, ,
 	  AC_MSG_WARN(Missing test dependency Test::Exception))
-
 
 	AC_PROG_PERL_MODULES(Test::MockObject, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockObject))
@@ -85,7 +83,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_PROG_PERL_MODULES(Test::File, ,
 	  AC_MSG_WARN(Missing test dependency Test::File))
-fi  
+fi
 
 if test -z "$perlpath" ; then
 	perlpath="$DATADIR/perl5/"
