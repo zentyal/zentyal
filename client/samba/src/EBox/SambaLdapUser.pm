@@ -452,7 +452,7 @@ sub _userAddOns($$) {
         my $args =  { 'username' => $username,
 		      'share'    => $share,
 		      'is_admin' => $samba->adminUser($username),
-		      'service'  => $samba->service,
+		      'service'  => $samba->isEnabled,
 
 		      'printers' => $printers,
 		      'printerService' => $samba->printerService,
@@ -478,7 +478,7 @@ sub _groupAddOns($$) {
         my $args =  { 'groupname' => $groupname,
 		      'share'     => $share,
 		      'sharename' => $self->sharingName($groupname),
-		      'service'  => $samba->service,
+		      'service'  => $samba->isEnabled,
 
 		      'printers' => $printers,
 		      'printerService' => $samba->printerService,

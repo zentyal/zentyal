@@ -212,8 +212,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.cups',
-            'type' => 'upstart'
+            'name' => 'ebox.cups'
         }
     ];
 }

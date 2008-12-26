@@ -29,6 +29,7 @@ sub new
     $self->{name} = shift;
     $self->{value} = shift;
     $self->{size} = shift;
+    $self->{novalues} = 20;
     $self->{type} = 'graph';
     if($self->{size} eq 'small') {
         $self->{width} = 175;

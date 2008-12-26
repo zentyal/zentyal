@@ -130,14 +130,33 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{filename} ) {
-        if ( $changedFields->{filename}->userPath() and
+    if ( $allFields->{nextServer}->selectedType() eq 'nextServerEBox' ) {
+        if ( not -f $allFields->{filename}->path()
+             and 
+             not ($changedFields->{filename} and
+              -f $changedFields->{filename}->tmpPath() and
+              $changedFields->{filename}->userPath())) {
+            throw EBox::Exceptions::External(__('You need to upload a boot '
+                . 'image to eBox if you set it as next server'));
+        }
+    } else {
+        if ( $changedFields->{filename} and 
+             $changedFields->{filename}->userPath() and
              -f $changedFields->{filename}->tmpPath()) {
-            if ( $allFields->{nextServer}->selectedType() ne 'nextServerEBox' ) {
-                throw EBox::Exceptions::External(__('In order to upload firmware to boot '
-                                                    . 'PCs to eBox, you need to set eBox '
-                                                    . 'as next server'));
-            }
+                throw EBox::Exceptions::External(__('In order to upload a boot '
+                    . 'image to eBox, you need to set eBox as next server'));
+        }
+    }
+    if ( $allFields->{nextServer}->selectedType() eq 'nextServerIP' or
+        ( $allFields->{nextServer}->selectedType() eq 'nextServerName' )) {
+        if ( $allFields->{remoteFilename}->value() eq '') {
+            throw EBox::Exceptions::External(__('You need to specify a path ' 
+            . 'to the boot image in the remote server'));
+        }
+    } else {
+        if ( $allFields->{remoteFilename}->value() ne '') {
+            throw EBox::Exceptions::External(__('You can only specify a file
+              name if you have a next server and it is not eBox'));
         }
     }
 }
@@ -187,9 +206,9 @@ sub formSubmitted
 
     if ( $oldRow->elementByName('nextServer')->selectedType() eq 'nextServerEBox'
          and $self->row()->elementByName('nextServer')->selectedType() ne 'nextServerEBox') {
-        $self->setMessage(__x('Unlinked previous uploaded firmware since next server option'
+        $self->setMessage(__x('Removing previously uploaded boot image since next server option'
                              . ' has been changed from eBox to {option}',
-                             option => $self->row()->elementByName('nextServer')->printableName()));
+                             option => $self->row()->elementByName('nextServer')->printableValue()));
     }
 }
 
@@ -236,6 +255,12 @@ sub _table
                              filePath      => EBox::DHCP->ConfDir($self->{interface}) . 'firmware',
                              showFileWhenEditing => 1,
                              allowDownload => 1,
+                            ),
+       new EBox::Types::Text(
+                             fieldName     => 'remoteFilename',
+                             printableName => __('File path in next server'),
+                             editable      => 1,
+                             optional      => 1,
                             ),
       );
 

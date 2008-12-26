@@ -151,7 +151,7 @@ sub serviceModuleName
 #
 sub _daemons
 {
-    return [ { 'name' => DHCP_SERVICE, 'type' => 'upstart' } ];
+    return [ { 'name' => DHCP_SERVICE } ];
 }
 
 # Method: _regenConfig
@@ -960,7 +960,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
                                . "interface '{iface}'. Please, remove it "
                                . 'before trying to add a virtual interface '
                                . 'using it.',
-                               fixed => $mappingRow->valueByName(name),
+                               fixed => $mappingRow->valueByName('name'),
                                iface => $fixedAddrModel->index()));
 
                 }
@@ -1454,7 +1454,12 @@ sub _thinClientOption # (option, iface)
             # Write down the one stored in tftpd
             return EBox::DHCP->TftpdRootDir() . $iface . '_firmware';
         } else {
-            return undef;
+            my $file = $thinClientModel->row()->{valueHash}->{remoteFilename}->value();
+            if( $file ne '' ) {
+                return $file;
+            } else {
+                return undef;
+            }
         }
     } else {
         return $thinClientModel->nextServer();

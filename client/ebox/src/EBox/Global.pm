@@ -413,7 +413,7 @@ sub saveAllModules
 }
 
 #
-# Method: restartAllMdoules 
+# Method: restartAllModules 
 #
 #       Force a restart for all the modules     
 #

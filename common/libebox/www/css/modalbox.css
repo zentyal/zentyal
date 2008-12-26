@@ -79,7 +79,7 @@
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
-#MB_content { border-top: 1px solid #B5D448; }
+#MB_content { border: 1px solid #B5D448; }
 #MB_header {
   background-color: #A6C733;
   border-bottom: 1px solid #CCC;

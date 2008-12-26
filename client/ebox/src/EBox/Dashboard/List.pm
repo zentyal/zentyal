@@ -29,6 +29,7 @@ sub new  # (title, colTitles, rows)
 	$self->{colTitles} = shift;
 	$self->{ids} = shift;
 	$self->{rows} = shift;
+	$self->{none_text} = shift;
 	$self->{type} = 'list';
 	bless($self, $class);
 	return $self;

@@ -47,10 +47,10 @@ sub run # (url)
 
         $classname =~ s/::::/::/g;
         $classname =~ s/::$//;
-        
+
 
         if ($classname eq 'EBox::CGI') {
-                $classname .= '::Summary::Index';
+                $classname .= '::Dashboard::Index';
         }
 
         settextdomain('ebox');
