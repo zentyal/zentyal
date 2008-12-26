@@ -44,10 +44,11 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
-use EBox::Summary::Composite;
-use EBox::Summary::Module;
-use EBox::Summary::Section;
-use EBox::Summary::Value;
+use EBox::Dashboard::Widget;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::CounterGraph;
+use EBox::Dashboard::GraphRow;
+use EBox::Dashboard::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw( :all );
@@ -63,7 +64,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'network',
-					title => __('Network'),
+					printableName => __('Network'),
 					domain => 'ebox-network',
 					@_);
 	$self->{'actions'} = {};
@@ -2526,70 +2527,97 @@ sub resolv # (host)
 	return `dig +time=3 $host 2>&1`;
 }
 
-sub summary
+sub interfacesWidget
 {
-	my $self = shift;
-        my $composite = new EBox::Summary::Composite();
-	my $item = new EBox::Summary::Module(__("Network interfaces"));
-	my $ifaces = $self->ifacesWithRemoved;
-	my $linkstatus = {};
-	root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus || true");
-	if(open(LINKF, EBox::Config::tmp . "linkstatus")){
-		while (<LINKF>){
-			if(/link ok/){
-				my $i = (split(" ",$_))[0];
-				chop($i);
-				$linkstatus->{$i} = 1;
-			}elsif(/no link/){
-				my $i = (split(" ",$_))[0];
-				chop($i);
-				$linkstatus->{$i} = 0;
-			}
-		}
-	}
-	foreach my $iface (@{$ifaces}) {
-		iface_exists($iface) or next;
-		my $status = __("down");
-		my $section = new
-			EBox::Summary::Section($self->ifaceAlias($iface));
-		$item->add($section);
+    my ($self, $widget) = @_;
+    my $ifaces = $self->ifacesWithRemoved;
+    my $linkstatus = {};
+    root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus || true");
+    if(open(LINKF, EBox::Config::tmp . "linkstatus")){
+        while (<LINKF>){
+            if(/link ok/){
+                my $i = (split(" ",$_))[0];
+                chop($i);
+                $linkstatus->{$i} = 1;
+            }elsif(/no link/){
+                my $i = (split(" ",$_))[0];
+                chop($i);
+                $linkstatus->{$i} = 0;
+            }
+        }
+    }
+    foreach my $iface (@{$ifaces}) {
+        iface_exists($iface) or next;
+        my $status = __("down");
+        my $section = new EBox::Dashboard::Section($self->ifaceAlias($iface),
+            $self->ifaceAlias($iface));
+        $widget->add($section);
 
-		if (iface_is_up($iface)) {
-			$status = __("up");
-		}
-		if(defined($linkstatus->{$iface})){
-			if($linkstatus->{$iface}){
-				$status .= ", " . __("link ok");
-			}else{
-				$status .= ", " . __("no link");
-			}
-		}
-		$section->add(new EBox::Summary::Value (__("Status"), $status));
+        if (iface_is_up($iface)) {
+            $status = __("up");
+        }
+        if(defined($linkstatus->{$iface})){
+            if($linkstatus->{$iface}){
+                $status .= ", " . __("link ok");
+            }else{
+                $status .= ", " . __("no link");
+            }
+        }
+        $section->add(new EBox::Dashboard::Value (__("Status"), $status));
 
-		my $ether = iface_mac_address($iface);
-		if ($ether) {
-			$section->add(new EBox::Summary::Value
-				(__("MAC address"), $ether));
-		}
+        my $ether = iface_mac_address($iface);
+        if ($ether) {
+            $section->add(new EBox::Dashboard::Value
+                (__("MAC address"), $ether));
+        }
 
-		my @ips = iface_addresses($iface);
-		foreach my $ip (@ips) {
-			$section->add(new EBox::Summary::Value
-				(__("IP address"), $ip));
-		}
-	}
-	$composite->add($item);
+        my @ips = iface_addresses($iface);
+        foreach my $ip (@ips) {
+            $section->add(new EBox::Dashboard::Value
+                (__("IP address"), $ip));
+        }
+        my $graphs = new EBox::Dashboard::GraphRow();
+        $section->add($graphs);
 
-	
+        my $cmd;
+        
+        $cmd = "ifconfig $iface | grep 'RX bytes' | " . 
+            "awk '{ print \$6 }' | cut -d: -f 2";
+
+        $graphs->add(new EBox::Dashboard::CounterGraph
+            (__("Tx bytes"),
+            "txbytes",
+            `$cmd`,
+            'small'));
+
+        $cmd = "ifconfig $iface | grep 'RX bytes' | " . 
+            "awk '{ print \$2 }' | cut -d: -f 2";
+
+        $graphs->add(new EBox::Dashboard::CounterGraph
+            (__("Rx bytes"),
+            "rxbytes",
+            `$cmd`,
+            'small'));
+    }
+
 # XXX uncomment when DynLoader bug with locales is fixed
 #         my $monSummary = EBox::Network::Report::ByteRate->summary();
 #         if ( defined($monSummary) ) {
 #             $composite->add($monSummary);
 #         }
-
-        return $composite;
 }
 
+sub widgets
+{
+    return {
+        'interfaces' => {
+            'title' => __("Network interfaces"),
+            'widget' => \&interfacesWidget,
+            'default' => 1
+        }
+    };
+}
+    
 # Method: menu 
 #
 #       Overrides EBox::Module method.

@@ -21,7 +21,7 @@ use warnings;
 use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider 
+            EBox::Report::DiskUsageProvider
             EBox::ServiceModule::ServiceInterface
            );
 
@@ -29,8 +29,6 @@ use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Summary::Module;
-use EBox::Summary::Status;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::MailVDomainsLdap;
@@ -39,33 +37,35 @@ use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
 use EBox::Mail::Greylist;
-
 use EBox::Exceptions::InvalidData;
+use EBox::Dashboard::ModuleStatus;
 
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 
-use constant MAILMAINCONFFILE                   => '/etc/postfix/main.cf';
-use constant MAILMASTERCONFFILE                 => '/etc/postfix/master.cf';
-use constant AUTHLDAPCONFFILE                   => '/etc/courier/authldaprc';
-use constant AUTHDAEMONCONFFILE                 => '/etc/courier/authdaemonrc';
-use constant POP3DCONFFILE                      => '/etc/courier/pop3d';
-use constant POP3DSSLCONFFILE                   => '/etc/courier/pop3d-ssl';
-use constant IMAPDCONFFILE                      => '/etc/courier/imapd';
-use constant IMAPDSSLCONFFILE                   => '/etc/courier/imapd-ssl';
-use constant SASLAUTHDDCONFFILE                 => '/etc/saslauthd.conf';
-use constant SASLAUTHDCONFFILE                  => '/etc/default/saslauthd';
-use constant SMTPDCONFFILE                      => '/etc/postfix/sasl/smtpd.conf';
-use constant MAILINIT                           => '/etc/init.d/postfix';
-use constant POPINIT                            => '/etc/init.d/courier-pop';
-use constant IMAPINIT                           => '/etc/init.d/courier-imap';
-use constant AUTHDAEMONINIT                     => '/etc/init.d/courier-authdaemon';
-use constant AUTHLDAPINIT                       => '/etc/init.d/courier-ldap';
-use constant POPPIDFILE                         => "/var/run/courier/pop3d.pid";
-use constant IMAPPIDFILE                        => "/var/run/courier/imapd.pid";
-use constant BYTES                              => '1048576';
-
 use constant SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd';
+use constant MAILMAINCONFFILE			=> '/etc/postfix/main.cf';
+use constant MAILMASTERCONFFILE			=> '/etc/postfix/master.cf';
+use constant AUTHLDAPCONFFILE			=> '/etc/courier/authldaprc';
+use constant AUTHDAEMONCONFFILE			=> '/etc/courier/authdaemonrc';
+use constant POP3DCONFFILE			=> '/etc/courier/pop3d';
+use constant POP3DSSLCONFFILE			=> '/etc/courier/pop3d-ssl';
+use constant IMAPDCONFFILE			=> '/etc/courier/imapd';
+use constant IMAPDSSLCONFFILE			=> '/etc/courier/imapd-ssl';
+use constant SASLAUTHDDCONFFILE			=> '/etc/saslauthd.conf';
+use constant SASLAUTHDCONFFILE			=> '/etc/default/saslauthd';
+use constant SMTPDCONFFILE			=> '/etc/postfix/sasl/smtpd.conf';
+use constant MAILINIT				=> 'postfix';
+use constant POPINIT				=> 'courier-pop';
+use constant IMAPINIT				=> 'courier-imap';
+use constant AUTHDAEMONINIT			=> 'courier-authdaemon';
+use constant AUTHLDAPINIT			=> 'courier-ldap';
+use constant POPPIDFILE				=> "/var/run/courier/pop3d.pid";
+use constant IMAPPIDFILE			=> "/var/run/courier/imapd.pid";
+use constant AUTHDAEMONPIDFILE		=> "/var/run/courier/authdaemon/pid";
+use constant AUTHLDAPPIDFILE		=> "/var/run/courier/ldapaliasd.pid";
+use constant BYTES				=> '1048576';
+use constant MAXMGSIZE				=> '104857600';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 
@@ -462,62 +462,66 @@ sub _fqdn
     return $fqdn;
 }
 
-# Method: isRunning
+#  Method: _daemons
+#
+#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#
+sub _daemons
+{
+    return [
+        {
+            'name' => MAILINIT,
+            'type' => 'init.d'
+        },
+        {
+            'name' => POPINIT,
+            'type' => 'init.d',
+            'pidfile' => POPPIDFILE,
+            'precondition' => \&isPopEnabled
+        },
+        {
+            'name' => IMAPINIT,
+            'type' => 'init.d',
+            'pidfile' => IMAPPIDFILE,
+            'precondition' => \&isImapEnabled
+        },
+        {
+            'name' => AUTHDAEMONINIT,
+            'type' => 'init.d',
+            'pidfile' => AUTHDAEMONPIDFILE
+        },
+        {
+            'name' => AUTHLDAPINIT,
+            'type' => 'init.d',
+            'pidfile' => AUTHLDAPPIDFILE
+        }
+    ];
+}
+
+# Method: isServiceRunning
 #
 #  This method returns if the service is running
 #
 # Parameter:
 #
-#               service - a string with a service name. It could be:
-#                       active for smtp service
-#                       pop for pop service
-#                       imap for imap service
+#		service - a string with a service name. It could be:
+#			active for smtp service
+#			pop for pop service
+#			imap for imap service
 #
 # Returns
 #
-#               bool - true if the service is running, false otherwise
-sub isRunning
+#		bool - true if the service is running, false otherwise
+sub isServiceRunning
 {
-    my ($self, $service) = @_;
-
-    if (not defined($service)) {
-        return undef unless $self->_postfixIsRunning();
-        if ($self->service('pop') and not $self->_popIsRunning()) {
-            return undef;
-        }
-        if ($self->service('imap') and not $self->_imapIsRunning()) {
-            return undef;
-        }
-        return 1;
-    } elsif ($service eq 'active') {
-        return $self->_postfixIsRunning();
-    } elsif ($service eq 'pop') {
-        return $self->_popIsRunning();
-    } elsif ($service eq 'imap') {
-        return $self->_imapIsRunning();
-    }
-}
-
-sub _popIsRunning
-{
-    my ($self) = @_;
-    return $self->pidFileRunning(POPPIDFILE);
-}
-
-sub _imapIsRunning
-{
-    my ($self) = @_;
-    return $self->pidFileRunning(IMAPPIDFILE);
-}
-
-sub _postfixIsRunning
-{
-    my ($self, $service) = @_;
-    my $t = new Proc::ProcessTable;
-    foreach my $proc (@{$t->table}) {
-        ($proc->fname eq 'master') and return 1;
-    }
-    return undef;
+	my ($self, $service) = @_;
+	if ($service eq 'active') {
+		return $self->_isDaemonRunning('postfix');
+	} elsif ($service eq 'pop') {
+		return $self->_isDaemonRunning('courier-pop');
+	} elsif ($service eq 'imap') {
+		return $self->_isDaemonRunning('courier-imap');
+	}
 }
 
 # Method: externalFiltersFromModules
@@ -535,10 +539,7 @@ sub externalFiltersFromModules
     } @{ $global->modInstancesOfType('EBox::Mail::FilterProvider') };
 
     return \%filters;
-
 }
-
-
 
 #  Method : externalFilter
 #
@@ -558,7 +559,6 @@ sub _assureCustomFilter
         throw EBox::Exceptions::External(
                     __('Cannot change this parameter for a non-custom filter'));
     }
-
 }
 
 sub _filterAttr
@@ -875,103 +875,31 @@ sub firewallHelper
     return undef;
 }
 
-sub _doDaemon
-{
-    my ($self, $service) = @_;
-    my @services = ('active', 'pop', 'imap');
-
-    if ($self->service($service) and $self->isRunning($service)) {
-        if ($service eq 'active') {
-            foreach (@services) {
-                $self->_daemon('restart',$_);
-            }
-        }
-        $self->_daemon('restart', $service);
-    } elsif ($self->service($service)) {
-        $self->_daemon('start', $service);
-    } elsif ($self->isRunning($service)) {
-        $self->_daemon('stop', $service);
-    }
-}
-
-sub _command
-{
-    my ($self, $action, $service) = @_;
-    my $cmd = undef;
-
-    $cmd = EBox::Config::pkgdata() . 'ebox-unblock-exec ';
-    if ($service eq 'active') {
-        $cmd .= MAILINIT . " " . $action;
-    } elsif ($service eq 'pop') {
-        $cmd .= POPINIT . " " . $action;
-    } elsif ($service eq 'imap') {
-        $cmd .= IMAPINIT . " " . $action;
-    } elsif ($service eq 'authdaemon') {
-        $cmd .= AUTHDAEMONINIT . " " . $action;
-    } elsif ($service eq 'authldap') {
-        $cmd .= AUTHLDAPINIT . " " . $action;
-    } else {
-        throw EBox::Exceptions::Internal("Bad service: $service");
-    }
-
-    EBox::debug($cmd);
-    return $cmd;
-}
-
-sub _daemon
-{
-    my ($self, $action, $service) = @_;
-
-    my $command = $self->_command($action, $service);
-
-    if ( $action eq 'start') {
-        root($command);
-    } elsif ( $action eq 'stop') {
-        root($command);
-    } elsif ( $action eq 'reload') {
-        root($command);
-    } elsif ( $action eq 'restart') {
-        root($command);
-    } else {
-        throw EBox::Exceptions::Internal("Bad argument: $action");
-    }
-}
-
-sub _stopService
-{
-    my $self = shift;
-    if ($self->isRunning('active')) {
-        $self->_daemon('stop', 'active');
-    }
-
-    $self->greylist()->stopService();
-}
-
 sub _regenConfig
 {
     my ($self) = @_;
 
-    my $service = $self->service('active');
-
-    if ($service) {
-        $self->_setMailConf;
+	if ($self->isEnabled()) {
+	    $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
-    }
-
-    my @services = ('active', 'pop', 'imap');
-    foreach (@services) {
-        $self->_doDaemon($_);
-    }
-
-    $self->_daemon('restart', 'authdaemon');
-    $self->_daemon('restart', 'authldap');
-
+	}
+    $self->_enforceServiceState();
     $self->greylist()->writeUpstartFile();
     $self->greylist()->doDaemon($service);
 }
 
+sub isPopEnabled
+{
+    my ($self) = @_;
+    return $self->service('pop');
+}
 
+sub isImapEnabled
+{
+    my ($self) = @_;
+    return $self->service('imap');
+}
 
 #
 # Method: service
@@ -994,13 +922,13 @@ sub service
 
     if ($service eq 'active') {
         return $self->isEnabled();
-    } 
+    }
     elsif ($service eq 'sasl') {
         return $self->saslService();
     }
     elsif ($service eq 'pop') {
         return $self->model('RetrievalServices')->pop3();
-    } 
+    }
     elsif ($service eq 'imap') {
         return $self->model('RetrievalServices')->imap();
     }
@@ -1009,7 +937,7 @@ sub service
     }
     else {
         throw EBox::Exceptions::Internal("Unknown service $service");
-    } 
+    }
 }
 
 
@@ -1060,7 +988,6 @@ sub _ldapModImplementation
     return new EBox::MailUserLdap();
 }
 
-
 sub notifyAntispamACL
 {
     my ($self) = @_;
@@ -1074,78 +1001,82 @@ sub notifyAntispamACL
 }
 
 
-sub summary
+sub mailServicesWidget
 {
-    my $self = shift;
+    my ($self, $widget) = @_;
+	my $section = new EBox::Dashboard::Section('mailservices', 'Services');
+	$widget->add($section);
 
-    my $summary = new EBox::Summary::Module(__("Mail"));
-    my $section = new EBox::Summary::Section(__("Mail services"));
-    $summary->add($section);
-    my $pop = new EBox::Summary::Status(
-                                        'mail',
-                                        __('POP3 service'),
-                                        $self->isRunning('pop'),
-                                        $self->service('pop'),
-                                        1
-    );
-    my $imap = new EBox::Summary::Status('mail', __('IMAP service'),
-                                         $self->isRunning('imap'),
-                                         $self->service('imap'), 1);
+	my $pop = new EBox::Dashboard::ModuleStatus('mail', __('POP3 service'),
+		$self->isServiceRunning('pop'), $self->service('pop'), 1);
+	my $imap = new EBox::Dashboard::ModuleStatus('mail', __('IMAP service'),
+		$self->isServiceRunning('imap'), $self->service('imap'), 1);
 
     $section->add($pop);
     $section->add($imap);
 
-    $self->_addFilterSummary($section);
-
-    return $summary;
+	my $filterSection = $self->_filterDashboardSection();
+	$widget->add($filterSection);
 }
 
-sub _addFilterSummary
+#
+## Method: widgets
+#
+#       Overriden method that returns summary components
+#       for system information
+#
+sub widgets
+{
+    return {
+        'mail' => {
+            'title' => __("Mail"),
+            'widget' => \&mailServicesWidget,
+            'default' => 1
+        }
+    };
+}
+
+sub _filterDashboardSection
 {
     my ($self, $section) = @_;
 
+    my $section = new EBox::Dashboard::Section('mailfilter', 'Mail filter');
 
     my $service     = $self->service('filter');
     my $statusValue =  $service ? __('enabled') : __('disabled');
 
-    $section->add( 
-                  new EBox::Summary::Value(__(q{Mail server's filter}),
-                                            $statusValue)
-                 );
+    $section->add( new EBox::Dashboard::Value( __('Status'), $statusValue));
+
+    $section->add(
+            new EBox::Summary::Value(__(q{Mail server's filter}),
+                $statusValue)
+            );
 
     $service or return $section;
 
     my $filter = $self->externalFilter();
 
     if ($filter eq 'custom') {
-        $section->add(new EBox::Summary::Value(__('Filter type') => __('Custom')));
-        my   $address = $self->ipfilter() . ':' . $self->portfilter();
-        $section->add(new EBox::Summary::Value(__('Address') => $address));
+        $section->add(new EBox::Dashboard::Value(__('Filter type') =>
+            __('Custom')));
+        my $address = $self->ipfilter() . ':' . $self->portfilter();
+        $section->add(new EBox::Dashboard::Value(__('Address') => $address));
     }else {
         $section->add(
-                   new EBox::Summary::Value(
-                       __('Filter type') => $self->_filterAttr($filter, 'prettyName')
-                   )
-        );
+                new EBox::Dashboard::Value(
+                    __('Filter type') => $self->_filterAttr($filter,
+                        'prettyName')
+                    )
+                );
 
         my $global = EBox::Global->getInstance(1);
         my ($filterInstance) =
           grep {$_->mailFilterName eq $filter}
           @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-
-        $filterInstance->mailFilterSummary($section);
+        $filterInstance->mailFilterDashboard($section);
     }
 
     return $section;
-}
-
-sub statusSummary
-{
-    my $self = shift;
-    return
-      new EBox::Summary::Status('mail', __('Mail system'),
-                                $self->isRunning('active'),
-                                $self->service('active'));
 }
 
 sub menu
@@ -1232,7 +1163,6 @@ sub tableInfo
                    'nosmarthostrelay' => __('Relay denied by the smarthost'),
                    'greylist' => __('Greylisted'),
                    'other' => __('Other events'),
-                  
     };
 
     return {
@@ -1272,7 +1202,6 @@ sub restoreConfig
             }
         }
     }
-
 }
 
 # extended backup

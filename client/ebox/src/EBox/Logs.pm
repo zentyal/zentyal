@@ -30,7 +30,6 @@ use EBox::Gettext;
 use EBox::Loggerd;
 use EBox::Config;
 use EBox::Sudo qw( :all );
-use EBox::Summary::Module;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;

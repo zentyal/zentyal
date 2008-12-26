@@ -23,10 +23,6 @@ use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface);
 use EBox::Objects;
 use EBox::Gettext;
 use EBox::Service;
-use EBox::Summary::Module;
-use EBox::Summary::Section;
-use EBox::Summary::Status;
-use EBox::Summary::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use Error qw(:try);
@@ -427,14 +423,6 @@ sub setNewTimeZone # (continent, country))
 #	my $global = EBox::Global->getInstance(1);
 #	$self->_restartAllServices;
 }	
-
-sub statusSummary
-{
-	my $self = shift;
-	return new EBox::Summary::Status('ntp', __('NTP local server'),
-					$self->isRunning, $self->service);
-}
-
 
 # Method: menu 
 #

@@ -19,10 +19,10 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
-		EBox::NetworkObserver 
-		EBox::LogObserver 
-		EBox::Model::ModelProvider 
+use base qw(EBox::GConfModule
+		EBox::NetworkObserver
+		EBox::LogObserver
+		EBox::Model::ModelProvider
 		EBox::Model::CompositeProvider
 		EBox::ServiceModule::ServiceInterface);
 
@@ -35,7 +35,6 @@ use EBox::Global;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Objects;
-use EBox::Summary::Status;
 use EBox::Validate qw(:all);
 
 use EBox::Model::ModelManager;
@@ -63,9 +62,11 @@ use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
+use Text::DHCPLeases;
 
 # Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
+use constant LEASEFILE => "/var/lib/dhcp3/dhcpd.leases";
 use constant PIDFILE => "/var/run/dhcpd.pid";
 use constant DHCP_SERVICE => "ebox.dhcpd3";
 use constant TFTP_SERVICE => "tftpd-hpa";
@@ -111,7 +112,7 @@ sub usedFiles
 		{
 		 'file' => DHCPCONFFILE,
 		 'module' => 'dhcp',
- 	 	 'reason' => 'dhcpd configuration file'
+         'reason' => 'dhcpd configuration file'
 		}
 	       ];
 }
@@ -135,7 +136,7 @@ sub enableActions
 }
 
 
-# Method: serviceModuleName 
+# Method: serviceModuleName
 #
 #	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
 #
@@ -144,30 +145,18 @@ sub serviceModuleName
 	return 'dhcp';
 }
 
-# Method: isRunning
+# Method: _daemons
 #
-#   Override EBox::ServiceModule::ServiceInterface::isRunning
+#	Override EBox::ServiceModule::ServiceInterface::daemons
 #
-sub isRunning
+sub _daemons
 {
-    return EBox::Service::running(DHCP_SERVICE);
-}
-
-# Method: _stopService
-#
-#        Stop the dhcp service
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-{
-	EBox::Service::manage(DHCP_SERVICE,'stop');
+    return [ { 'name' => DHCP_SERVICE, 'type' => 'upstart' } ];
 }
 
 # Method: _regenConfig
 #
-#      It regenertates the dhcp service configuration
+#      It regenerates the dhcp service configuration
 #
 # Overrides:
 #
@@ -178,25 +167,7 @@ sub _regenConfig
     my ($self) = @_;
     $self->_setDHCPConf();
     $self->_setTFTPDConf();
-    $self->_doDaemon();
-}
-
-# Method: statusSummary
-#
-# Overrides:
-#
-#     <EBox::Module::statusSummary>
-#
-# Returns:
-#
-#   <EBox::Summary::Status> - the summary components
-#
-#
-sub statusSummary
-{
-	my $self = shift;
-	return new EBox::Summary::Status('dhcp', 'DHCP',
-		EBox::Service::running(DHCP_SERVICE), $self->service);
+    $self->_enforceServiceState();
 }
 
 # Method: menu
@@ -356,62 +327,6 @@ sub composites
     return \@composites;
 
 }
-
-
-# Method: setService
-#
-#	Set the dhcp service as enabled or disabled
-#
-# Parameters:
-#
-#	enabled - boolean. True enable, undef disable
-#
-sub setService # (enabled)
-{
-    my ($self, $active) = @_;
-
-    $self->enableService($active);
-
-#    ($active and $self->service) and return;
-#    (!$active and !$self->service) and return;
-#
-#    if ($active) {
-#        if ($self->_nStaticIfaces() == 0) {
-#            throw EBox::Exceptions::External(
-#                     __x('DHCP server cannot activated because '
-#                         . 'there are not any network interface '
-#                         . 'with a static address. '
-#                         . '{openhref}Configure one{closehref} first',
-#                         openhref  => "<a href='Network/Ifaces'>",
-#                         closehref => '</a>')
-#                                            );
-#        }
-#    }
-#
-#        #	$self->set_bool("active", $active);
-#        #	$self->_configureFirewall();
-#    $self->{enableModel}->setRow(1,
-#                                 ( enabled => $active)
-#                                );
-}
-
-# Method: service
-#
-#   Return if the dhcp service is enabled
-#
-# Returns:
-#
-#   boolean - true if enabled, otherwise undef
-#
-sub service
-{
-    my ($self) = @_;
-
-    return $self->isEnabled();
-#	return $self->get_bool("active");
-    #return $self->{enableModel}->enabledValue();
-}
-
 
 # Method: initRange
 #
@@ -1262,29 +1177,82 @@ sub logHelper
 	return (new EBox::DHCPLogHelper);
 }
 
-# Group: Private methods
-
-# Method: _doDaemon
-#
-#      Manage dchp-related services (dhcp3-server and tftpd-hpa)
-#
-# Parameters:
-#
-#      service - String the service to manage. Options: dhcp or tftp
-#
-sub _doDaemon
+sub _leaseIDFromIP
 {
-	my ($self) = @_;
-
-        # dhcp3-server
-	if ($self->service and EBox::Service::running(DHCP_SERVICE)) {
-		EBox::Service::manage(DHCP_SERVICE,'restart');
-	} elsif ($self->service) {
-		EBox::Service::manage(DHCP_SERVICE,'start');
-	} elsif (not $self->service and EBox::Service::running(DHCP_SERVICE)) {
-		EBox::Service::manage(DHCP_SERVICE,'stop');
-	}
+    my ($ip) = @_;
+    my $id = 'a';
+    #force every byte to use 3 digits to make sorting trivial
+    my @bytes = split('\.', $ip);
+    for my $byte (@bytes) {
+        $id .= sprintf("%03d", $byte); 
+    }
+    return $id;
 }
+
+sub _dhcpLeases
+{
+    my ($self) = @_;
+    if(!defined($self->{'leases'})) {
+        my $leases = Text::DHCPLeases->new(file => LEASEFILE);
+
+        $self->{'leases'} = {};
+        foreach my $lease ($leases->get_objects()) {
+            my $id = _leaseIDFromIP($lease->ip_address());
+            $self->{'leases'}->{$id} = $lease;
+        }
+    }
+    return $self->{'leases'};
+}
+
+sub _leaseFromIP
+{
+    my ($self, $ip) = @_;
+
+    my $leases = $self->_dhcpLeases();
+    my $id = _leaseIDFromIP($ip);
+    return $leases->{$id};
+}
+
+sub dhcpLeasesWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('dhcpleases');
+    $widget->add($section);
+    my $titles = [__('IP address'),__('MAC address'), __('Host name')];
+
+    my $leases = $self->_dhcpLeases();
+
+    my $ids = [];
+    my $rows = {};
+    foreach my $id (sort keys (%{$leases})) {
+        my $lease = $leases->{$id};
+        if($lease->binding_state() eq 'active') {
+            my $hostname = $lease->client_hostname();
+            $hostname =~ s/"//g;
+            push(@{$ids}, $id);
+            $rows->{$id} = [$lease->ip_address(),$lease->mac_address(),
+                            $hostname];
+        }
+    }
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+}
+
+### Method: widgets
+#
+#   Overrides <EBox::Module::widgets>
+#
+sub widgets
+{
+    return {
+        'dhcpleases' => {
+            'title' => __("DHCP leases"),
+            'widget' => \&dhcpLeasesWidget,
+            'default' => 1
+        }
+    };
+}
+
+# Group: Private methods
 
 # Method: _setDHCPConf
 #
@@ -1443,7 +1411,6 @@ sub _realIfaces
 #
 sub _areThereThinClientOptions
 {
-
     my ($self, $ifacesInfo) = @_;
 
     foreach my $iface (keys %{$ifacesInfo}) {
@@ -1454,7 +1421,6 @@ sub _areThereThinClientOptions
         }
     }
     return 0;
-
 }
 
 # Method: _leasedTime
@@ -1463,14 +1429,12 @@ sub _areThereThinClientOptions
 #
 sub _leasedTime # (which, iface)
 {
-
     my ($self, $which, $iface) = @_;
 
     my $advOptionsModel = $self->_getModel('leaseTimesModel', $iface);
 
     my $fieldName = $which . '_leased_time';
     return $advOptionsModel->row()->valueByName($fieldName);
-
 }
 
 # Method: _thinClientOption
@@ -1510,7 +1474,7 @@ sub _configureFirewall {
 		$fw->removeOutputRule('tcp', 68);
 	} catch EBox::Exceptions::Internal with { };
 
-	if ($self->service) {
+	if ($self->isEnabled()) {
 		$fw->addOutputRule('tcp', 67);
 		$fw->addOutputRule('tcp', 68);
 		$fw->addOutputRule('udp', 67);
@@ -1556,8 +1520,8 @@ sub _checkStaticIfaces
 
   my $nStaticIfaces = $self->_nStaticIfaces() + $adjustNumber;
   if ($nStaticIfaces == 0) {
-    if ($self->service()) {
-      $self->setService(0);
+    if ($self->isEnabled()) {
+      $self->enableService(0);
       EBox::info('DHCP service was deactivated because there was not any static interface left');
     }
   }
@@ -1575,7 +1539,6 @@ sub _nStaticIfaces
   return $staticIfaces;
 }
 
-
 # Method:  userConfDir
 #
 #  Returns:
@@ -1585,5 +1548,4 @@ sub userConfDir
   return CONF_DIR;
 }
 
-
- 1;
+1;

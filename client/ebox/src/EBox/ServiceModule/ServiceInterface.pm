@@ -28,6 +28,7 @@ use EBox::Global;
 use strict;
 use warnings;
 
+use constant INITDPATH => '/etc/init.d/';
 
 # Method: usedFiles 
 #
@@ -245,16 +246,57 @@ sub isEnabled
     return $gconf->get_bool('_serviceModuleStatus');
 }
 
+# Method: _isDaemonRunning
+#
+#   Used to tell if a daemon is running or not
+#
+# Returns:
+#
+#   boolean - true if it's running otherwise false
+sub _isDaemonRunning
+{
+    my ($self, $dname) = @_;
+    my $daemons = $self->_daemons();
+
+    my $daemon;
+    my @ds = grep { $_->{'name'} eq $dname } @{$daemons};
+    if(@ds) {
+        $daemon = $ds[0];
+    }
+    if(!defined($daemon)) { 
+        throw EBox::Exceptions::Internal(
+            "no such daemon defined in this module: " . $dname);
+    }
+    if(defined($daemon->{'pidfile'})) {
+        my $pidfile = $daemon->{'pidfile'};
+        return $self->pidFileRunning($pidfile);
+    }
+    if($daemon->{'type'} eq 'upstart') {
+        return EBox::Service::running($daemon->{'name'});
+    } elsif($daemon->{'type'} eq 'init.d') {
+        my $output = root(INITDPATH . $daemon->{'name'} . ' ' . 'status');
+        my $status = @{$output}[0];
+        if ($status =~ m{^$daemon .* running}) {
+            return 1;
+        } else {
+            return 0;
+        }
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Service type must be either 'upstart' or 'init.d'");
+    }
+}
+
 # Method: isRunning
 #
 #   Used to tell if a service is running or not.
 #
-#   Modules starting/stopping services must
+#   Modules with complex service management must
 #   override this method to carry out their custom checks which can
 #   involve checking an upstart script, an existing PID...
 #
-#   By default we return true or false depending on if the module
-#   is enabled or not. 
+#   By default it returns true if all the system services specified in 
+#   daemons are running
 #
 # Returns:
 #
@@ -263,17 +305,27 @@ sub isRunning
 {
     my ($self) = @_;
 
-    return $self->isEnabled();
+    my $daemons = $self->_daemons();
+    for my $daemon (@{$daemons}) {
+        my $check = 1;
+        my $pre = $daemon->{'precondition'};
+        if(defined($pre)) {
+            $check = $pre->($self);
+        }
+        $check or next;
+    }
+    return 1;
 }
 
-# Method: enableService 
+# Method: enableService
 #
 #   Used to enable a service
 #
 # Paramters:
 #
-#   boolean - true to enable, false to disable 
-sub enableService 
+#   boolean - true to enable, false to disable
+#
+sub enableService
 {
     my ($self, $status) = @_;
 
@@ -316,6 +368,172 @@ sub defaultStatus
     return undef;
 }
 
+# Method: _daemons
+#
+#   This method must be overriden to return the services required by this
+#   module.
+#
+# Returns:
+#
+#   An array of hashes containing keys 'name' and 'type', 'name' being the
+#   name of the service and 'type' either 'upstart' or 'init.d', depending
+#   on how the module should be managed.
+#
+#   If the type is 'init.d' an extra 'pidfile' key is needed with the path
+#   to the pidfile the daemon uses. This will be used to check the status.
+#
+#   It can optionally contain a key 'precondition', which should be a reference
+#   to a class method which will be checked to determine if the given daemon
+#   should be run (if it returns true) or not (otherwise).
+#
+#   Example:
+#
+#   sub externalConnection
+#   {
+#     my ($self) = @_;
+#     return $self->isExternal;
+#   }
+#
+#   sub _daemons
+#   {
+#    return [
+#        {
+#            'name' => 'ebox.jabber.jabber-router',
+#            'type' => 'upstart'
+#        },
+#        {
+#            'name' => 'ebox.jabber.jabber-resolver',
+#            'type' => 'upstart',
+#            'precondition' => \&externalConnection
+#        }
+#    ];
+#   }
+sub _daemons
+{
+    return undef;
+}
+
+# Method: stopService
+#
+#   This is the external interface to call the implementation which lies in
+#   _stopService in subclassess
+#
+#
+sub stopService
+{
+    my $self = shift;
+
+    $self->_lock();
+    try {
+        $self->_stopService();
+    } finally {
+        $self->_unlock();
+    };
+}
+
+sub _startDaemon
+{
+    my($self, $daemon) = @_;
+    if($daemon->{'type'} eq 'upstart') {
+        if(EBox::Service::running($daemon->{'name'})) {
+            EBox::Service::manage($daemon->{'name'},'restart');
+        } else {
+            EBox::Service::manage($daemon->{'name'},'start');
+        }
+    } elsif($daemon->{'type'} eq 'init.d') {
+        my $pidfile = $daemon->{'pidfile'};
+        if(!defined($pidfile)) {
+            throw EBox::Exceptions::Internal(
+                "init.d-based daemons must include a 'pidfile'");
+        }
+        my $script = INITDPATH . $daemon->{'name'};
+        if($self->pidFileRunning($pidfile)) {
+            $script = $script . ' ' . 'restart';
+        } else {
+            $script = $script . ' ' . 'start';
+        }
+        root($script);
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Service type must be either 'upstart' or 'init.d'");
+    }
+}
+
+sub _stopDaemon
+{
+    my($self, $daemon) = @_;
+    if($daemon->{'type'} eq 'upstart') {
+        EBox::Service::manage($daemon->{'name'},'stop');
+    } elsif($daemon->{'type'} eq 'init.d') {
+        my $script = INITDPATH . $daemon->{'name'} . ' ' . 'stop';
+        root($script);
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Service type must be either 'upstart' or 'init.d'");
+    }
+}
+
+# Method: _manageService
+#
+#   This method will try to perform the action passed as first argument on 
+#   all the daemons return by the module's daemons method.
+#
+sub _manageService
+{
+    my ($self,$action) = @_;
+
+    my $daemons = $self->_daemons();
+    for my $daemon (@{$daemons}) {
+        my $run = 1;
+        my $pre = $daemon->{'precondition'};
+        if(defined($pre)) {
+            $run = &$pre($self);
+        }
+        #even if parameter is 'start' we might have to stop some daemons
+        #if they are no longer needed
+        if(($action eq 'start') and $run) {
+            $self->_startDaemon($daemon);
+        } else { 
+            $self->_stopDaemon($daemon);
+        }
+    }
+}
+
+# Method: _startService
+#
+#   This method will try to start or restart all the daemons associated to
+#   the module
+#
+sub _startService
+{
+    my ($self) = @_;
+    $self->_manageService('start');
+}
+
+# Method: _stopService
+#
+#   This method will try to stop all the daemons associated to the module
+#
+sub _stopService
+{
+    my ($self) = @_;
+    $self->_manageService('stop');
+}
+
+# Method: _enforceServiceState
+#
+#   This method will start, restart or stop the associated daemons to 
+#   bring them to their desired state
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
+    if($self->isEnabled()) {
+        $self->_startService();
+    } else {
+        $self->_stopService();
+    }
+}
 
 sub _gconfModule
 {

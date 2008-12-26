@@ -1,0 +1,10 @@
+<%args>
+    $widget
+    %toggled => ()
+</%args>
+<%init>
+my $fqmn = $widget->{module} . ':' . $widget->{name};
+</%init>
+<div class='widgetBox' id='widget_<% $fqmn %>'>
+<& /dashboard/widgetcontent.mas, widget => $widget, toggled => \%toggled &>
+</div>

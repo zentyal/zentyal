@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,43 +13,46 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::RestartService;
+package EBox::CGI::Dashboard::Widget;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientRawBase';
 
-use EBox::Global;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Dashboard::Widget;
+use EBox::Dashboard::Item;
+use Error qw(:try);
 
-sub new # (cgi=?)
+sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_);
+	my $self = $class->SUPER::new(@_,
+                                  'template' => '/dashboard/widgetcontent.mas');
 	bless($self, $class);
-	$self->{errorchain} = "/Dashboard/Index";
-	$self->{redirect} = "/Dashboard/Index";
 	return $self;
 }
 
-sub domain
+sub requiredParameters
 {
-	return 'ebox';
+    return ['module', 'widget'];
 }
 
 sub _process
-
 {
-	my $self = shift;
-
+	my ($self) = @_;
 	my $global = EBox::Global->getInstance(1);
+    my $modname = $self->param('module');
+    my $widgetname = $self->param('widget');
+    my $sectionname = $self->param('section');
+	my $module = $global->modInstance($modname);
+    my $widget = $module->widget($widgetname);
 
-	$self->_requireParam('module', __('module name'));
-	my $mod = $global->modInstance($self->param('module'));
-	$self->{chain} = "/Dashboard/Index";
-	$mod->restartService();
-	$self->{msg} = __('The module was restarted correctly.');
+    my @params = ();
+    push(@params, 'widget' => $widget);
+    $self->{params} = \@params;
 }
 
 1;

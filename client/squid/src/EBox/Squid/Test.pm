@@ -27,7 +27,7 @@ sub serviceTest : Test(15)
 
   foreach my $state (0, 1, 1, 0, 0 ) {
     lives_ok {  $squid->setService($state) } 'Checking setService method';
-    is $squid->service, $state, 'Checking wether the service atribute has been changed';
+    is $squid->isEnabled(), $state, 'Checking wether the service atribute has been changed';
     _checkModelAttribute($squid, $serviceModel, $serviceAttr, $state, 'checking wether the value ihas changed in the method')
   }
 

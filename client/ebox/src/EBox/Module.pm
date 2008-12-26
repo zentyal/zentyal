@@ -64,7 +64,7 @@ sub _create # (name, domain?)
 	$self->{name} = delete $opts{name};
 	$self->{domain} = delete $opts{domain};
 	$self->{title} = delete $opts{title};
-        $self->{printableName} = delete $opts{printableName};
+    $self->{printableName} = delete $opts{printableName};
 	unless (defined($self->{name})) {
 		use Devel::StackTrace;
 		my $trace = Devel::StackTrace->new;
@@ -104,7 +104,7 @@ sub _saveConfig
 
 # Method: _regenConfig
 #
-#   	Base method to regenerate configuration. It should be overriden
+#	Base method to regenerate configuration. It should be overriden
 #	by subclasses as needed
 #
 sub _regenConfig 
@@ -463,9 +463,6 @@ sub dumpConfig
 
 }
 
-
-
-
 #
 # Method: aroundDumpConfig
 #
@@ -485,8 +482,6 @@ sub aroundDumpConfig
 
   $self->dumpConfig($dir, @options);
 }
-
-
 
 #
 # Method:  restoreConfig
@@ -518,26 +513,22 @@ sub restoreConfig
 #
 sub aroundRestoreConfig
 {
-  my ($self, $dir) = @_;
-  validate_pos(@_, 1, 1);
+    my ($self, $dir) = @_;
+    validate_pos(@_, 1, 1);
 
-  $self->restoreConfig($dir);
+    $self->restoreConfig($dir);
 }
-
-
 
 # Method: initChangedState
 #
 #    called before module is in the changed state. 
 sub initChangedState
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-   my $global = EBox::Global->getInstance();
-   $global->modIsChanged($self->name) and 
-     throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
-
-
+    my $global = EBox::Global->getInstance();
+    $global->modIsChanged($self->name) and 
+        throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
 }
 
 #
@@ -677,24 +668,60 @@ sub menu
 }
 
 #
-# Method: summary
+# Method: widgets
 #
-#	Return the summary for the module. What it returns will
-#	be added up to the common summary page. It should be overriden by 
+#	Return the widget names for the module. It should be overriden by 
 #	subclasses as needed
 #
 # Returns:
 #
-#       <EBox::Summary::Module> - the summary for the module
+#   An array of hashes containing keys 'title' and 'widget', 'title' being the
+#   title of the widget and 'widget' a function that can fill an
+#   EBox::Dashboard::Widget that will be passed as a parameter
 #
-#       <EBox::Summary::Composite> - if several modules are included
-#       in the same summary it may return an instance of this class
-#       which consists of <EBox::Summary::Module> as elements
+#   It can optionally have the key 'default' set to 1 to have the widget
+#   added by default to the dashboard the first time it's seen.
 #
-sub summary
+#   It can also contain a 'parameter' key which will be passed as parameter to
+#   the widget function. This is intended to allow the dynamic creation of
+#   several widgets.
+#
+
+sub widgets
 {
 	# default empty implementation
-	return undef;
+	return {};
+}
+
+#
+# Method: widget
+#
+#	Return the appropriate widget if exists or undef otherwise
+#
+# Parameters:
+#       name - the widget name
+#
+# Returns:
+#
+#       <EBox::Dashboard::Widget> with the appropriate widget
+#
+
+sub widget
+{
+    my ($self, $name) = @_;
+    my $widgets = $self->widgets();
+    my $winfo = $widgets->{$name};
+    if(defined($winfo)) {
+        my $widget = new EBox::Dashboard::Widget($winfo->{'title'},$self->{'name'},$name);
+        #fill the widget
+        $widget->{'module'} = $self->{'name'};
+        $widget->{'default'} = $winfo->{'default'};
+        my $wfunc = $winfo->{'widget'};
+        &$wfunc($self, $widget, $winfo->{'parameter'});
+        return $widget;
+    } else {
+        return undef;
+    }
 }
 
 #
@@ -706,7 +733,7 @@ sub summary
 #
 # Returns:
 #
-#       <EBox::Summary::Status> - the summary status for the module
+#       <EBox::Dashboard::ModuleStatus> - the summary status for the module
 #
 sub statusSummary
 {

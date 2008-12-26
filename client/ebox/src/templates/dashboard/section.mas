@@ -1,0 +1,11 @@
+<%args>
+    $namespace
+    $section
+    %toggled => ()
+</%args>
+<%init>
+my $sectname = ($namespace . '_' . $section->{name} . '_section');
+</%init>
+<div class='summarySection' id='<% $sectname %>'>
+<& /dashboard/sectioncontent.mas, namespace => $namespace, section => $section, toggled => \%toggled &>
+</div>

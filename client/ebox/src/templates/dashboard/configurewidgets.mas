@@ -1,0 +1,162 @@
+<%args>
+    @modules
+</%args>
+<%init>
+use EBox::Gettext;
+use JSON;
+</%init>
+<script type="text/javascript">
+% local $JSON::ConvBlessed = 1;
+% my $js = objToJson(\@modules);
+
+modules = <% $js %>;
+cur_wid_start = 0;
+
+showModuleWidgets = function(module,start) {
+    cur_wid_start = start;
+    var mod = null;
+    for (var i = 0; i < modules.length; ++i) {
+        if(modules[i]["name"] == module) {
+            mod = modules[i];
+        }
+    }
+    if(mod != null) {
+        var widgets = mod["widgets"];
+        var max_wids = 4;
+        var end = start + max_wids;
+        if(end > widgets.length) {
+            end = widgets.length;
+        }
+        var widget_name_list = new Array();
+        var str = "";
+        var j;
+        var k = 0;
+        for (j = start; j < end; ++j) {
+            var name = "widget_" + module + ":" + widgets[j]["name"];
+            //recalculate present because it can have changed
+            widgets[j]["present"] = $(name) && ($(name).parentNode.id.indexOf("dashboard") == 0);
+            widget_name_list[k++] = name + "_placeholder";
+            str = str + "<div class='widgetBarBox' id='" + name + "_placeholder'>";
+            str = str + widget(module,widgets[j],!widgets[j]["present"]);
+            str = str + "</div>";
+        }
+        widget_name_list[k++] = "dashboard1";
+        widget_name_list[k++] = "dashboard2";
+        var prev = '';
+
+        var new_start = start - 1;
+        var opacity = 1;
+        var link = true;
+        if(new_start < 0) {
+            opacity = 0.5;
+            new_start = 0;
+            link = false;
+        }
+        prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
+        if(link) {
+            prev = prev + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
+        }
+        prev = prev + '<img src="/data/images/left.gif"/>';
+        if(link) {
+            prev = prev + '</a>';
+        }
+        prev = prev + '</div>';
+
+        var next = '';
+        link = true;
+        new_start = start + 1;
+        opacity = 1;
+        if(start + max_wids >= widgets.length) {
+            new_start = start;
+            opacity = 0.5;
+        }
+        next = '<div class="widArrow" style="opacity: ' + opacity + '">';
+        if(link) {
+            next = next + '<a href="#" onclick="showModuleWidgets(\'' + module + '\', ' + new_start + '); return false;">';
+        }
+        next = next + '<img src="/data/images/right.gif"/>';
+        if(link) {
+            next = next + '</a>';
+        }
+        next = next + '</div>';
+
+        str = prev + str + next;
+
+        $('widget_list').update(str);
+        for (j = start; j < end; ++j) {
+            if(!widgets[j]["present"]) {
+                var widname = widgets[j]["name"];
+                var wid = "widget_" + module + ":" + widname;
+                var drag = new Draggable(wid, {
+                    handle: "widgetHandle",
+                    onDrag: function(d,e) {
+                        if(e.clientY > 100) {
+                            if(!this.loaded) { 
+                                new Ajax.Updater(d.element.id,
+                                        '/ebox/Dashboard/Widget?module=' +
+                                        d.module + '&widget=' + d.widget, {
+                                    method: 'get',
+                                    onComplete: function() {
+                                        var elements = $(d.element.id).getElementsByClassName('closeBox');
+                                        Effect.toggle(elements[0],'appear');
+                                    }
+                                });
+                                this.loaded = true;
+                            }
+                        }
+                    },
+                    onEnd: function(d) {
+                        var left_offset = parseInt(d.element.getStyle('left'));
+                        var top_offset = parseInt(d.element.getStyle('top'));
+                        var dur = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
+                        new Effect.Move(d.element.id, {
+                            x: -left_offset,
+                            y: -top_offset,
+                            duration: dur,
+                            afterFinish: function() {
+                                showModuleWidgets(d.module,cur_wid_start);
+                            }
+                        });
+                    }
+                });
+                drag.parent = drag.element.parentNode;
+                drag.module = module;
+                drag.widget = widname;
+                drag.element.onChange = function() {}
+                Sortable.sortables[drag.element.id + '_placeholder'] = drag.element;
+            }
+        }
+        for (j = 0; j < widget_name_list.length; ++j) {
+            var func = null;
+            if(widget_name_list[j].indexOf("dashboard") == 0) {
+                Sortable.create(widget_name_list[j], {
+                    tag: "div",
+                    handle: "widgetHandle",
+                    dropOnEmpty: true,
+                    constraint: false,
+                    scroll: window,
+                    containment: widget_name_list,
+                    onUpdate: function(dashboard) {
+                        var id = dashboard.id;
+                        new Ajax.Request("/ebox/Dashboard/Update", {
+                            method: "post",
+                            parameters: { dashboard: id, widgets: Sortable.sequence(id).join(',') }
+                        });
+                    }
+                });
+            }
+        }
+    }
+}
+
+</script>
+<div id='module_list' style='float: left'>
+% foreach my $module (@modules) {
+%   my $modname = $module->{'name'};
+%   my $title = $module->{'title'};
+    <div id='<% $modname %>-title'>
+    <a href="#" onclick="showModuleWidgets('<% $modname %>', 0); return false;"><% $title %></a>
+    </div>
+% }
+</div>
+<div id='widget_list' style='float: left'></div>

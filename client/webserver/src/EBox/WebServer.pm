@@ -37,7 +37,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
 use EBox::Sudo;
-use EBox::Summary::Module;
 use EBox::WebServer::Composite::General;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
@@ -160,22 +159,6 @@ sub _regenConfig
 
 }
 
-
-# Method: _stopService
-#
-#        Stop the event service
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-  {
-
-      EBox::Service::manage(WEB_SERVICE, 'stop');
-
-  }
-
-
 # Method: menu
 #
 #        Show the web server menu entry
@@ -197,29 +180,6 @@ sub menu
       $root->add($item);
 
   }
-
-
-# Method: statusSummary
-#
-#       Show the module status summary
-#
-# Overrides:
-#
-#       <EBox::Module::statusSummary>
-#
-sub statusSummary
-{
-
-    my ($self) = @_;
-
-    return new EBox::Summary::Status(
-                                     'webserver',
-                                     __('Web'),
-                                     $self->running(),
-                                     $self->isEnabled(),
-                                    );
-
-}
 
 # Method: modelClasses
 #
@@ -297,21 +257,19 @@ sub _exposedMethods
     return \%exposedMethods;
 }
 
-# Method: running
+#  Method: _daemons
 #
-#      Check whether the web server Apache2 is running or not
+#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
 #
-# Returns:
-#
-#      boolean - indicating whether the server is running or not
-#
-sub running
+
+sub _daemons
 {
-
-    my ($self) = @_;
-
-    return EBox::Service::running(WEB_SERVICE);
-
+    return [
+        {
+            'name' => WEB_SERVICE,
+            'type' => 'upstart'
+        }
+    ];
 }
 
 # Method: virtualHosts
@@ -537,24 +495,6 @@ sub _availableSites
     };
     my %dirs = map  {chop($_); $_ => 1} @dirs;
     return \%dirs;
-}
-
-######################################
-# Managing the daemon
-######################################
-sub _doDaemon
-{
-
-    my ($self) = @_;
-
-    if ( $self->running() and $self->isEnabled() ) {
-        EBox::Service::manage(WEB_SERVICE, 'restart');
-    } elsif ( $self->isEnabled() ) {
-        EBox::Service::manage(WEB_SERVICE, 'start');
-    } else {
-        EBox::Service::manage(WEB_SERVICE, 'stop');
-    }
-
 }
 
 1;

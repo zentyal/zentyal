@@ -22,7 +22,6 @@ use base 'EBox::FirewallHelper';
 use EBox::Objects;
 use EBox::Global;
 use EBox::Config;
-use EBox::Mail;
 use EBox::Gettext;
 use EBox::Validate qw( :all );
 

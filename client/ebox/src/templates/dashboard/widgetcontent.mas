@@ -1,0 +1,28 @@
+<%args>
+    $widget
+    %toggled => ()
+</%args>
+<%init>
+my $fqmn = $widget->{module} . ':' . $widget->{name};
+my $content = ($fqmn . '_content');
+</%init>
+    <div class='widgetTopBar'>
+% my $togglerClass = 'minBox';
+% if (exists($toggled{$content}) && $toggled{$content}) {
+%    $togglerClass = 'maxBox';
+% }
+        <a id='<% $content %>_closer' class='closeBox' href='#' onclick="closeWidget('<% $fqmn %>'); return false;" style='display: none;'><span class='hidden'>Close</span></a>
+        <div class='widgetTopBackground'></div>
+        <div class='widgetHandle'></div>
+        <div class='widgetName'><% $widget->{title} %></div>
+        <div style='clear: both;'></div>
+    </div>
+    <div class='widgetBoxIn' id='<% $content %>'
+% if (exists($toggled{$content}) && $toggled{$content}) {
+    style='display: none;'
+% }
+>
+% foreach my $section (@{$widget->sections()}) {
+                <& /dashboard/section.mas, namespace => $fqmn, section => $section, toggled => \%toggled &>
+% }
+    </div>

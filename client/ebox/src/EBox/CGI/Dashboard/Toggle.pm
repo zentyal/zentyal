@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,55 +13,32 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Summary::Item;
+package EBox::CGI::Dashboard::Toggle;
 
 use strict;
 use warnings;
 
-use EBox::Exceptions::Internal;
+use base 'EBox::CGI::ClientRawBase';
+
+use EBox;
 use EBox::Gettext;
+use EBox::Global;
 
 sub new 
 {
 	my $class = shift;
-	my $self = {};
+	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
 	return $self;
 }
 
-sub add # (item) 
+sub _process
 {
 	my $self = shift;
-	my $item = shift;
-	$item->isa('EBox::Summary::Item') or
-		throw EBox::Exceptions::Internal(
-		"Tried to add a non-item to an EBox::Summary::Item composite");
-
-	push(@{$self->items}, $item);
-}
-
-sub items
-{
-	my $self = shift;
-	unless (defined($self->{items})) {
-		my @array = ();
-		$self->{items} = \@array;
-	}
-	return $self->{items};
-}
-
-sub _htmlitems
-{
-	my $self = shift;
-	foreach (@{$self->items}) {
-		$_->html;
-	}
-}
-
-sub html
-{
-	my $self = shift;
-	$self->_htmlitems;
+    my $global = EBox::Global->getInstance();
+    my $sysinfo = $global->modInstance('sysinfo');
+    my $element = $self->unsafeParam("element");
+    $sysinfo->toggleElement($element);
 }
 
 1;

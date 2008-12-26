@@ -1,0 +1,30 @@
+<%args>
+    $namespace
+    $item
+    $i
+</%args>
+<tr>
+<td colspan='2'>
+% if(defined($item->{title})) {
+<div><% $item->{title} %></div> 
+% }
+<table id='<% $namespace . '_' . $i %>'>
+<thead>
+<tr>
+% foreach my $colTitle (@{$item->{colTitles}}) {
+    <td><% $colTitle %></td>
+% }
+</tr>
+</thead>
+<tbody>
+% foreach my $id (@{$item->{ids}}) {
+<tr id=<% $id %>>
+% foreach my $col (@{$item->{rows}->{$id}}) {
+    <td><% $col %></td>
+% }
+</tr>
+% }
+</tbody>
+</table>
+</td>
+</tr>

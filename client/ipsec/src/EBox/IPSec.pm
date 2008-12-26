@@ -31,10 +31,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::InvalidData;
 use EBox::IPSecFirewall;
-use EBox::Summary::Module;
-use EBox::Summary::Section;
-use EBox::Summary::Value;
-use EBox::Summary::Status;
+use EBox::Dashboard::Module;
+use EBox::Dashboard::Section;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Gettext;
@@ -1017,7 +1015,7 @@ sub removeRSAKey # (id)
 sub statusSummary
 {
 	my $self = shift;
-	return new EBox::Summary::Status('ipsec','IPSec', 
+	return new EBox::Dashboard::ModuleStatus('ipsec','IPSec', 
 				$self->isRunning, $self->_serviceNeeded);
 }
 
@@ -1028,15 +1026,15 @@ sub summary
 	if ($self->isRunning()) {
 		$ipsecStatus = root(IPSEC . " auto --status");
 	}
-	my $item = new EBox::Summary::Module(__("IPSec VPNs"));
+	my $item = new EBox::Dashboard::Module(__("IPSec VPNs"));
 	my $section;
 	my $staticConns = $self->staticConnsArray();
 	if (scalar(@{$staticConns})) {
-		$section = new EBox::Summary::Section(__("Static tunnels"));
+		$section = new EBox::Dashboard::Section(__("Static tunnels"));
 		$item->add($section);
 		foreach my $static (@{$staticConns}) {
 			if (not $static->{'enabled'}) {
-				$section->add(new EBox::Summary::Value($static->{'name'},__('Disabled')));
+				$section->add(new EBox::Dashboard::Value($static->{'name'},__('Disabled')));
 				next;
 			}
 			my $status = 0;
@@ -1054,16 +1052,16 @@ sub summary
 					}
 				}
 			}
-			$section->add(new EBox::Summary::Value($static->{'name'},$value));
+			$section->add(new EBox::Dashboard::Value($static->{'name'},$value));
 		}
 	}
 	my $warriors = $self->warriorConnsArray();
 	if (scalar(@{$warriors})) {
-		$section = new EBox::Summary::Section(__("Road warriors"));
+		$section = new EBox::Dashboard::Section(__("Road warriors"));
 		$item->add($section);
 		foreach my $warrior (@{$warriors}) {
 			if (not $warrior->{'enabled'}) {
-				$section->add(new EBox::Summary::Value($warrior->{'name'},__('Disabled')));
+				$section->add(new EBox::Dashboard::Value($warrior->{'name'},__('Disabled')));
 				next;
 			}
 			my $status = 0;
@@ -1081,7 +1079,7 @@ sub summary
 					}
 				}
 			}
-			$section->add(new EBox::Summary::Value($warrior->{'name'},$value));
+			$section->add(new EBox::Dashboard::Value($warrior->{'name'},$value));
 		}
 	}
 	return $item;

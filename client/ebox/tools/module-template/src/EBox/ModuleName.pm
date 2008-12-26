@@ -30,7 +30,7 @@ use base qw(EBox::GConfModule
 
 use EBox::Gettext;
 use EBox::Service;
-use EBox::Summary::Module;
+use EBox::Dashboard::Module;
 
 # Group: Protected methods
 
@@ -79,30 +79,8 @@ sub _regenConfig
 sub summary
 {
 	my ($self) = @_;
-	my $item = new EBox::Summary::Module(__("ModuleName stuff"));
+	my $item = new EBox::Dashboard::Module(__("ModuleName stuff"));
 	return $item;
-}
-
-# Method: statusSummary
-#
-#       Show the module status summary
-#
-# Overrides:
-#
-#       <EBox::Module::statusSummary>
-#
-sub statusSummary
-{
-
-    my ($self) = @_;
-
-    return new EBox::Summary::Status(
-                                     'domain',
-                                     __('Modulename'),
-                                     $self->running(),
-                                     $self->service(),
-                                    );
-
 }
 
 # Method: menu

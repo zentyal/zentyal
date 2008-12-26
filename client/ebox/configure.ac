@@ -102,6 +102,7 @@ src/libexec/Makefile
 src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile
 src/templates/common/Makefile
+src/templates/dashboard/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
@@ -114,6 +115,7 @@ src/EBox/Backup/Makefile
 src/EBox/Backup/testdata/Makefile
 src/EBox/Common/Makefile
 src/EBox/Common/Model/Makefile
+src/EBox/Dashboard/Makefile
 src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/Event/Dispatcher/t/Makefile
@@ -155,6 +157,7 @@ src/EBox/Global/t/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/Dashboard/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Controller/Makefile
 src/EBox/CGI/Controller/Downloader/Makefile
@@ -163,9 +166,7 @@ src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
-src/EBox/CGI/Summary/Makefile
 src/EBox/CGI/Report/Makefile
-src/EBox/Summary/Makefile
 schemas/Makefile
 conf/Makefile
 conf/logrotate/ebox

@@ -149,29 +149,8 @@ sub summary
   {
       # Nothing is required since it has no state
       my ($self) = @_;
-      # my $item = new EBox::Summary::SOAP(__("ModuleName stuff"));
-      # return $item;
       return undef;
   }
-
-# Method: statusSummary
-#
-#       Override <EBox::Module::statusSummary> method
-#
-sub statusSummary
-  {
-
-      my ($self) = @_;
-
-      return new EBox::Summary::Status(
-                                       'soap',
-                                       __('SOAP'),
-                                       $self->running(),
-                                       $self->enabled(),
-                                      );
-
-  }
-
 
 # Method: menu
 #

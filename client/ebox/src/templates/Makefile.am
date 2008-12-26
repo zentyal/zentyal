@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = ajax common login logout logs report
+SUBDIRS = ajax common dashboard login logout logs report
 
 templatedir = $(datadir)/ebox/templates
 template_DATA = backup.mas bug.mas confirm-backup.mas finish.mas general.mas \

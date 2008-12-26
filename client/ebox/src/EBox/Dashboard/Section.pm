@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,35 +13,46 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Printers::Enable;
+package EBox::Dashboard::Section;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
-
-use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
 
-## arguments:
-## 	title [required]
-sub new {
+sub new # (title?)
+{
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Samba',
-				      @_);
-	$self->{redirect} = "Printers/ShowPrintersUI";	
-	$self->{domain} = "ebox-printers";	
+	my $self = {};
+	$self->{name} = shift;
+	$self->{title} = shift;
+    if(not defined($self->{name})) {
+        throw EBox::Exceptions::Internal('Section must have a name');
+    }
 	bless($self, $class);
 	return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $samba = EBox::Global->modInstance('printers');
+sub add # (item)
+{
+    my $self = shift;
+    my $item = shift;
+    $item->isa('EBox::Dashboard::Item') or
+        throw EBox::Exceptions::Internal(
+        "Tried to add a non-item to an EBox::Dashboard::Section");
 
-	$self->_requireParam('active', __('module status'));
-	$samba->setService(($self->param('active') eq 'yes'));
-	
+    push(@{$self->items()}, $item);
+}
+
+sub items
+{
+    my ($self) = @_;
+    unless (defined($self->{items})) {
+        my @array = ();
+        $self->{items} = \@array;
+    }
+    return $self->{items};
 }
 
 1;
