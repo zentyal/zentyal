@@ -1,0 +1,37 @@
+<%args>
+    $namespace
+    $item
+    $i
+    $parent
+</%args>
+% my $elem = ($namespace . '_' . $i);
+% if ($parent eq 'section') {
+<tr>
+<td colspan='2' align='right'>
+<% $item->{title} %>
+<div id='<% $elem %>' style='width:<% $item->{width} %>px; height:<% $item->{height} %>px'></div>
+</div>
+</td>
+</tr>
+% } else {
+<td>
+<% $item->{title} %>
+<div id='<% $elem %>' style='width:<% $item->{width} %>px; height:<% $item->{height} %>px'></div>
+</td>
+% }
+<script type="text/javascript">
+graphInfo['<% $elem %>'] = [ [0, 0], [1, 0], [2, 0], [3, 0], [4, 0],
+              [5, 0], [6, 0], [7, 0], [8, 0], [9, <% $item->{'value'} %>]
+            ];
+
+Flotr.draw(
+    $('<% $elem %>'), [
+    {
+        data: graphInfo['<% $elem %>']
+    }],
+    {
+        xaxis: { noTicks: 0 },
+        yaxis: { noTicks: 2, tickFormatter: getHumanSize },
+    }
+);
+</script>

@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,30 +13,42 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Summary::Module;
+package EBox::Dashboard::Widget;
 
 use strict;
 use warnings;
 
-use base 'EBox::Summary::Item';
 use EBox::Gettext;
 
-sub new # (title)
+sub new # (title?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new();
-	$self->{title} = shift;
+	my ($class, $title, $module, $name) = @_;
+	my $self = {};
+	$self->{title} = $title;
+	$self->{module} = $module;
+	$self->{name} = $name;
 	bless($self, $class);
 	return $self;
 }
 
-sub html
+sub add # (section)
 {
-	my $self = shift;
-	print '<h3>';
-	print $self->{title};
-	print '</h3>';
-	$self->_htmlitems;
+    my ($self,$section) = @_;
+    $section->isa('EBox::Dashboard::Section') or
+        throw EBox::Exceptions::Internal(
+        "Tried to add a non-item to an EBox::Dashboard::Section");
+
+    push(@{$self->sections()}, $section);
+}
+
+sub sections
+{
+    my ($self) = @_;
+    unless (defined($self->{sections})) {
+        my @array = ();
+        $self->{sections} = \@array;
+    }
+    return $self->{sections};
 }
 
 1;

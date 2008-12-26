@@ -1,0 +1,282 @@
+<%args>
+    @dashboard1
+    @dashboard2
+    %toggled
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<link href="/data/css/modalbox.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/human.js">//</script>
+<!--[if IE]><script language="javascript" type="text/javascript" src="/data/js/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="/data/js/flotr.js">//</script>
+<script type="text/javascript">
+widget = function(m,w,full) {
+    var opacity;
+    var top_id;
+    if(full) {
+        opacity = 1;
+        top_id = '';
+        cursor = 'move';
+    } else {
+        opacity = 0.5;
+        top_id = '_bar';
+        cursor = 'default';
+    }
+    str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w["name"] + top_id + "'>" +
+        "<div class='widgetTopBar'>" +
+        "<div class='widgetTopBackground'></div>" +
+        "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
+        "<div class='widgetName'>" + w["title"] + "</div>" +
+        "<div style='clear: both;'></div>" +
+        "</div>" +
+        "</div>";
+    return str;
+}
+
+function toggleClose()
+{
+    var elements = document.getElementsByClassName('closeBox');
+    for (var i = 0; i < elements.length; i++) {
+        Effect.toggle(elements[i],'appear');
+    }
+}
+
+function configureWidgets()
+{
+	Modalbox.show('/ebox/Dashboard/ConfigureWidgets', {
+        title: '<% __("Configure widgets") %>',
+        width: 980,
+        height: 100,
+        overlayOpacity: 0,
+        afterLoad: function() {
+            $('MB_content').setStyle({overflow: 'visible'});
+            toggleClose();
+        },
+        beforeHide: function() {
+            toggleClose();
+        }
+    });
+}
+
+var graphInfo = new Array();
+
+function updateGraph(element,value) {
+    var g = graphInfo[element.id];
+    for(var i = 0; i < g.length-1; i++) {
+        g[i] = [i, g[i+1][1]];
+    }
+    g[g.length-1] = [g.length-1, value];
+    Flotr.draw(
+        element, [
+        {
+            data: g
+        }],
+        {
+            xaxis: { noTicks: 0 },
+            yaxis: { noTicks: 2, tickFormatter: getHumanSize },
+        }
+    );
+}
+</script>
+
+<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+<div style='clear: right;'/>
+<div class='dashboard' id="dashboard1">
+<br/>
+% foreach my $widget (@dashboard1) {
+    <& dashboard/widget.mas, widget => $widget, toggled => \%toggled &>
+% }
+</div>
+<div class='dashboard' id="dashboard2">
+<br/>
+% foreach my $widget (@dashboard2) {
+    <& dashboard/widget.mas, widget => $widget, toggled => \%toggled &>
+% }
+</div>
+<script type="text/javascript">
+//<![CDATA[
+function closeWidget(wid)
+{
+    var name = 'widget_' + wid;
+    Effect.Fade(name, {
+        afterFinish: function(e) {
+            var id = e.element.id;
+            var parent = e.element.parentNode.id;
+            Element.remove(id);
+            var placeholder = id + '_placeholder';
+            var parts = name.split('_');
+            var parts = parts[1].split(':');
+            if($(placeholder)) {
+                showModuleWidgets(parts[0],cur_wid_start);
+            }
+            new Ajax.Request("/ebox/Dashboard/Update", {
+                method: "post",
+                parameters: { dashboard: parent, widgets: Sortable.sequence(parent).join(',') }
+            });
+        }
+    });
+}
+
+function toggleClicked(element) {
+    var togglername = element + '_toggler';
+    var contentname = element + '_content';
+    var toggler = $(togglername);
+    if(toggler.hasClassName('minBox')) {
+        $(contentname).hide();
+        toggler.removeClassName('minBox');
+        toggler.addClassName('maxBox');
+    } else {
+        $(contentname).show();
+        toggler.removeClassName('maxBox');
+        toggler.addClassName('minBox');
+    }
+    new Ajax.Request("/ebox/Dashboard/Toggle", {  
+        method: "post",  
+        parameters: { element: element }
+    });
+}
+
+% foreach my $i (1..2) {
+Sortable.create("dashboard<% $i %>", {
+    tag: "div", 
+    handle: "widgetHandle",
+    dropOnEmpty: true,
+    constraint: false,
+    scroll: window,
+    containment: ["dashboard1","dashboard2"],
+    onUpdate: function() {
+        new Ajax.Request("/ebox/Dashboard/Update", {  
+            method: "post",  
+            parameters: { dashboard: "dashboard<% $i %>", widgets: Sortable.sequence("dashboard<% $i %>").join(',') }
+        });
+    }
+});
+% }
+
+function updateWidget(widget) {
+    if(widget == null) {
+        return;
+    }
+    var widgetcontents = $(widget.module + ":" + widget.name + '_content');
+    var sections = widgetcontents.childElements();
+    for(var i = 0; i < sections.length; i++) {
+        var oldsect = sections[i];
+        var present = false;
+        for(var j = 0; j < widget.sections.length; j++) {
+            var newsect = widget.sections[j];
+            var sectname = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
+            if(sectname == oldsect.id) {
+                present = true;
+                break;
+            }
+        }
+        if(!present) {
+            oldsect.visualEffect('fade',
+            {
+                afterFinish: function(eff) {
+                    eff.element.remove();
+                }
+            });
+        }
+    }
+    var prevsect = null;
+    for(var i = 0; i < widget.sections.length; i++) {
+        var s = widget.sections[i];
+        var sect = widget.module + ":" + widget.name + '_' + s.name;
+        var sectname = widget.module + ":" + widget.name + '_' + s.name + '_section';
+        var cursect = $(sectname);
+        if(!cursect) {
+            var newsection = document.createElement("div");
+            newsection.id = sectname;
+            if(prevsect == null) {
+                widgetcontents.insertBefore(newsection, widgetcontents.firstChild());
+            } else {
+                var next = prevsect.next('div');
+                widgetcontents.insertBefore(newsection, next);
+            }
+            var req = new Ajax.Updater(sectname, '/ebox/Dashboard/Section', {
+                parameters: {
+                    module: widget.module,
+                    widget: widget.name,
+                    section: s.name
+                },
+                onComplete: function(res) {
+                    res.request.element.visualEffect('highlight');
+                } 
+            });
+            req.element = newsection;
+            prevsect = newsection;
+        } else {
+            prevsect = cursect;
+            s.items.each(function(item,i) {
+                var itemname = sect + '_' + i;
+                var element = $(itemname);
+                if(item.type == 'value') {
+                    if (element.innerHTML != item.value) {
+                        element.update(item.value);
+                        element.visualEffect('highlight');
+                    }
+                } else if(item.type == 'graph') { 
+                    updateGraph(element, item.value);
+                } else if(item.type == 'graphrow') { 
+                    var b;
+                    for(var g = 0; g < item.graphs.length; g++) {
+                        var graphname = itemname + '_' + g;
+                        var graph = $(graphname);
+                        updateGraph(graph, item.graphs[g].value);
+                    }
+                } else if(item.type == 'list') { 
+                    var rids = new Array();
+                    for (var r = 1; r < element.rows.length; r++) {
+                        var row = element.rows[r];
+                        var id = row.attributes['id'].value;
+                        if(item.ids.indexOf(id) == -1) {
+                            row.remove();
+                            r--;
+                        } else {
+                            rids[r] = id;
+                        }
+                    }
+                    for (var i = 0; i < item.ids.length; i++) {
+                        var id = item.ids[i];
+                        if(rids.indexOf(id) == -1) {
+                            var row = element.insertRow(i+1);
+                            row.setAttribute('id',id);
+                            var content = item.rows[id];
+                            for (var c = 0; c < content.length; c++) {
+                                var cell = row.insertCell(c);
+                                cell.innerHTML = content[c];
+                            }
+                            row.visualEffect('highlight');
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+
+function updateWidgets() {
+    var widgets = Sortable.sequence("dashboard1").concat(Sortable.sequence("dashboard2"));
+    widgets.each(function(w) {
+        var parts = w.split(':');
+        var url = '/ebox/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
+        new Ajax.Request(url, {
+            method: "get",
+            asynchronous: false,
+            onSuccess: function(transport) {
+                updateWidget(transport.responseJSON);
+            }
+        });
+    });
+}
+
+new PeriodicalExecuter(updateWidgets, 10);
+
+//]]>
+</script>

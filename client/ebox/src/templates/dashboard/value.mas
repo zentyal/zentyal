@@ -1,0 +1,9 @@
+<%args>
+    $namespace
+    $item
+    $i
+</%args>
+<tr>
+<td class='summaryKey'><% $item->{key} %></td>
+<td id='<% $namespace . '_' . $i %>' class='summaryValue'><% $item->{value} %></td>
+</tr>

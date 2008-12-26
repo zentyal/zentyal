@@ -49,7 +49,6 @@ use base qw(EBox::GConfModule
 use Perl6::Junction qw( any );
 
 use EBox::Gettext;
-use EBox::Summary::Module;
 
 use EBox::Validate qw( checkProtocol checkPort );
 use EBox::LogAdmin qw ( :all );

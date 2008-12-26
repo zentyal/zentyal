@@ -1,0 +1,31 @@
+<%args>
+    $namespace
+    $section
+    %toggled => ()
+</%args>
+<%init>
+my $ns = ($namespace . '_' . $section->{name});
+my $sectname = ($ns . '_section');
+</%init>
+% if ($section->{title}) {
+<div class='stitle' style='float: right;'><% $section->{title} %>
+% my $togglerClass = 'minBox';
+% if (exists($toggled{$sectname}) && $toggled{$sectname}) {
+%    $togglerClass = 'maxBox';
+% }
+    <a id='<% $sectname %>_toggler' class='<% $togglerClass %>' href='#' onclick="toggleClicked('<% $sectname %>'); return false;"><span class='hidden'>Toggle</span></a>
+</div>
+% }
+<div id='<% $sectname %>_content'
+% if (exists($toggled{$sectname}) && $toggled{$sectname}) {
+    style='display: none;'
+% }
+>
+<table>
+% my $i = 0;
+% foreach my $item (@{$section->items()}) {
+            <& $item->HTMLViewer(), namespace => $ns, item => $item, i => $i, parent => 'section' &>
+%   $i++;
+% }
+</table>
+</div>

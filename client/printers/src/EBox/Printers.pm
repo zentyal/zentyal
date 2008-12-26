@@ -24,7 +24,6 @@ use base qw(EBox::GConfModule EBox::FirewallObserver EBox::LogObserver
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Service;
-use EBox::Summary::Module;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Exceptions::InvalidData;
@@ -135,10 +134,8 @@ sub enableService
 	
 	$self->SUPER::enableService($status);
 
-	if (_checkSambaInstalled()) {
-		my $samba = EBox::Global->modInstance('samba');
-		$samba->setPrinterService($status);
-	}
+    my $samba = EBox::Global->modInstance('samba');
+    $samba->setPrinterService($status);
 }
 
 #  Method: serviceModuleName
@@ -162,7 +159,7 @@ sub enableModDepends
 sub firewallHelper
 {
         my $self = shift;
-        if ($self->service) {
+        if ($self->isEnabled()) {
                 return new EBox::PrinterFirewall();
         }
         return undef;
@@ -211,31 +208,21 @@ sub _setCupsConf
 
 }
 
-sub isRunning 
+sub _daemons
 {
-	EBox::Service::running('ebox.cups');
-}
-
-sub _doDaemon
-{
-        my $self = shift;
-
-	my $service = $self->service();
-
-        if ($service and $self->isRunning()) {
-                EBox::Service::manage('ebox.cups','restart');
-        } elsif ($service) {
-                EBox::Service::manage('ebox.cups','start');
-        } elsif ($self->isRunning()) {
-                EBox::Service::manage('ebox.cups','stop');
+    return [
+        {
+            'name' => 'ebox.cups',
+            'type' => 'upstart'
         }
+    ];
 }
 
 sub _regenConfig
 {
 	my $self = shift;
 	$self->_setCupsConf();
-	$self->_doDaemon();
+	$self->_enforceServiceState();
 }
 
 sub summary
@@ -243,57 +230,6 @@ sub summary
 	my $self = shift;
 	return undef;
 }
-
-sub statusSummary
-{
-        my $self = shift;
-
-	my $smbrun = 1;
-	if (_checkSambaInstalled()) {
-                my $samba = EBox::Global->modInstance('samba');
-		$smbrun = $samba->isRunning;
-        }
-        return new EBox::Summary::Status('printers', __('Printer sharing'),
-                                ($self->isRunning and $smbrun), $self->service);
-}
-
-
-#   Function: setService 
-#
-#       Sets the printer service.
-#
-#   Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setService # (enabled)
-{
-     my ($self, $active) = @_;
-
-	$self->SUPER::enableService($active);
-
-	if (_checkSambaInstalled()) {
-		my $samba = EBox::Global->modInstance('samba');
-		$samba->setPrinterService($active);
-	}
-
-}
-
-#   Function: service 
-#
-#       Returns if the printer service is enabled  
-#
-#   Returns:
-#
-#       boolean - true if enabled, otherwise undef      
-#
-sub service
-{
-        my $self = shift;
-		
-		return ($self->isEnabled());
-}
-
 
 sub manufacturers
 {
@@ -559,7 +495,7 @@ sub removePrinter # (id)
 	
 	$self->_removeCacheDrvOptions($id);
 	
-	if (_checkSambaInstalled() and $self->_printerConfigured($id)) {
+	if ($self->_printerConfigured($id)) {
 		my $samba = EBox::Global->modInstance('samba');
 		my $info = $self->_printerInfo($id);
 		$samba->delPrinter($info->{'name'});
@@ -584,14 +520,12 @@ sub addPrinter($$$)
 					'data'  => __('Name'),
 					'value' => "$name");
 	}
-	if (_checkSambaInstalled()) {	
-		my $samba = EBox::Global->modInstance('samba');
-		my $rsr = $samba->existsShareResource($name);
-		if ($rsr) {
-			throw EBox::Exceptions::External(
-			  __('The given name is alreaday used as ') . $rsr);
-		}
-	}
+    my $samba = EBox::Global->modInstance('samba');
+    my $rsr = $samba->existsShareResource($name);
+    if ($rsr) {
+        throw EBox::Exceptions::External(
+          __('The given name is alreaday used as ') . $rsr);
+    }
 	
 	my $id = $self->get_unique_id('p', 'printers');
 	$self->set_string("printers/$id/name", $name);
@@ -995,11 +929,9 @@ sub setDriverOptions($$$)
 	}
 
 	$self->_setPrinterConfigured($id, 1);
-	if (_checkSambaInstalled()) {
-		my $samba = EBox::Global->modInstance('samba');
-		my $info = $self->_printerInfo($id);
-		$samba->addPrinter($info->{'name'});
-	}
+    my $samba = EBox::Global->modInstance('samba');
+    my $info = $self->_printerInfo($id);
+    $samba->addPrinter($info->{'name'});
 }
 
 sub _checkDriverOpts # (id, options)
@@ -1312,12 +1244,6 @@ sub _checkPrinterName ($)
         (length($name) > 0) or return undef;
 	($name =~ /^[\w]+$/) or return undef;
         return 1;
-}
-
-sub _checkSambaInstalled 
-{
-	my $samba = EBox::Global->modInstance('samba');
-	return  $samba ? 1 : undef;
 }
 
 sub _mergeCupsConf

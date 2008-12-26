@@ -66,7 +66,7 @@ sub saveAllModulesAction
 {
     my ($self) = @_;
 
-    $self->{redirect} = "/Summary/Index";
+    $self->{redirect} = "/Dashboard/Index";
 
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareSaveAllModules();
@@ -90,7 +90,7 @@ sub revokeAllModulesAction
 {
     my ($self) = @_;
 
-    $self->{redirect} = "/Summary/Index";
+    $self->{redirect} = "/Dashboard/Index";
 
     my $global = EBox::Global->getInstance();
     my $progressIndicator = $global->prepareRevokeAllModules();

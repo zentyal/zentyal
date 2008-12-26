@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,36 +13,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Summary::Section;
+package EBox::Dashboard::List;
 
 use strict;
 use warnings;
 
-use base 'EBox::Summary::Item';
+use base 'EBox::Dashboard::Item';
 use EBox::Gettext;
 
-sub new # (title?)
+sub new  # (title, colTitles, rows)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new();
 	$self->{title} = shift;
+	$self->{colTitles} = shift;
+	$self->{ids} = shift;
+	$self->{rows} = shift;
+	$self->{type} = 'list';
 	bless($self, $class);
 	return $self;
 }
 
-sub html
+sub HTMLViewer()
 {
-	my $self = shift;
-	print "\n<table class='summarySection'>\n";
-	print "<tbody>\n";
-	if ($self->{title}) {
-		print "<tr>\n<td></td>\n<td class='stitle'>\n";
-		print $self->{title};
-		print "\n</td>\n</tr>\n";
-	}
-	$self->_htmlitems;
-	print "</tbody>\n";
-	print "</table>\n";
+    return '/dashboard/list.mas';
 }
 
 1;

@@ -35,9 +35,9 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 
-use EBox::Summary::Module;
-use EBox::Summary::Section;
-use EBox::Summary::Value;
+use EBox::Dashboard::Module;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 
 use File::Glob qw(:glob);
 use File::Basename;
@@ -131,9 +131,9 @@ sub summary
     my ($class) = @_;
 
     if ( $class->service() ) {
-        my $item = new EBox::Summary::Module(__('Traffic rate monitoring'));
-        my $section = new EBox::Summary::Section('');
-        $section->add(new EBox::Summary::Value(__('Status'), __('Running')));
+        my $item = new EBox::Dashboard::Module(__('Traffic rate monitoring'));
+        my $section = new EBox::Dashboard::Section('');
+        $section->add(new EBox::Dashboard::Value(__('Status'), __('Running')));
         $item->add($section);
         return $item;
     } else {

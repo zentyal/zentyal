@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/Summary
+perldir = @PERLPATH@/EBox/CGI/Dashboard
 
-nobase_perl_DATA = Index.pm
+nobase_perl_DATA = Index.pm Toggle.pm Update.pm Widget.pm WidgetJSON.pm
 
 SOURCES = $(nobase_perl_DATA)
 

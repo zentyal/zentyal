@@ -28,7 +28,7 @@ use POSIX qw(ceil);
 
 use constant PAGESIZE => 15;
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title'    => __('Queue Management'),
@@ -39,52 +39,52 @@ sub new
     return $self;
 }
 
-sub _process 
+sub _process
 {
     my ($self) = @_;
-    
+
     my @showlist;
     my $page;
     my $tpages;
     my @data;
     my $info;
-    
+
     $self->{title} = __('Queue Management');
     my $mail = EBox::Global->modInstance('mail');
-    
-    my @array = ();
-    if ($mail->isRunning('active')) {
-        
-        my @mqlist = @{mailQueueList()};
-        $page = 1;
-        
-        $info = $self->param('getinfo');
-        unless ($self->param('getinfo')) {
-            $info = 'none';
-        }
-        @data = ('');
-        if ($info ne 'none') {
-            @data = @{infoMail($info)};
-        }
-        
-        my $aux = ($page - 1) * PAGESIZE;
-        if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
-            @showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
-        } else {
-            @showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
-        }
-        
-        $tpages = ceil(scalar(@mqlist) / PAGESIZE);
-    }
-    
-    push(@array, 'mqlist' => \@showlist);
-    push(@array, 'page' => $page);
-    push(@array, 'tpages' => $tpages);
-    push(@array, 'getinfo' => $info);
-    push(@array, 'data' => \@data);
-    
-    
-    $self->{params} = \@array;
+
+	my @array = ();
+	if ($mail->isServiceRunning('active')) {
+
+		my @mqlist = @{mailQueueList()};
+		$page = 1;
+
+		$info = $self->param('getinfo');
+		unless ($self->param('getinfo')) {
+			$info = 'none';
+		}
+		@data = ('');
+		if ($info ne 'none') {
+			@data = @{infoMail($info)};
+		}
+
+		my $aux = ($page - 1) * PAGESIZE;
+		if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
+			@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
+		} else {
+			@showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
+		}
+
+		$tpages = ceil(scalar(@mqlist) / PAGESIZE);
+	}
+
+	push(@array, 'mqlist'	=> \@showlist);
+	push(@array, 'page'	=> $page);
+	push(@array, 'tpages'	=> $tpages);
+	push(@array, 'getinfo'	=> $info);
+	push(@array, 'data'	=> \@data);
+
+
+	$self->{params} = \@array;
 }
 
 1;

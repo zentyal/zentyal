@@ -32,10 +32,7 @@ use EBox::SambaLdapUser qw(PROFILESPATH);
 use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
-use EBox::Summary::Module;
-use EBox::Summary::Value;
-use EBox::Summary::Status;
-use EBox::Summary::Section;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Menu::Item;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -456,48 +453,33 @@ sub setSambaLdapToolsConf
             { mode => SMBLDAPTOOLBINDFILE_MASK, 
             uid => SMBLDAPTOOLBINDFILE_UID, 
             gid => SMBLDAPTOOLBINDFILE_GID });
-
 }
 
-sub isRunning
+# Method: daemons
+#
+# 	Override EBox::ServiceModule::ServiceInterface::daemons
+#
+sub daemons
 {
-    my $self = shift;
-
-    return EBox::Service::running(SMBDSERVICE) and
-        EBox::Service::running(NMBDSERVICE);
-}
-
-sub _doDaemon
-{
-    my $self = shift;
-    if ($self->service and $self->isRunning) {
-        EBox::Service::manage(SMBDSERVICE,'restart');
-        EBox::Service::manage(NMBDSERVICE,'restart');
-    } elsif ($self->service) {
-        EBox::Service::manage(SMBDSERVICE,'start');
-        EBox::Service::manage(NMBDSERVICE,'start');
-    } elsif ($self->isRunning) {
-        EBox::Service::manage(SMBDSERVICE,'stop');
-        EBox::Service::manage(NMBDSERVICE,'stop');
-    }
-}
-
-sub _stopService
-{
-    EBox::Service::manage(SMBDSERVICE,'stop');
-    EBox::Service::manage(NMBDSERVICE,'stop');
+    return [
+        {
+            'name' => SMBDSERVICE,
+            'type' => 'upstart'
+        },
+        {
+            'name' => NMBDSERVICE,
+            'type' => 'upstart'
+        }
+    ];
 }
 
 sub _regenConfig
 {
     my ($self) = @_;
 
-    $self->_stopService() if ($self->isRunning);
-
-    $self->_setSambaConf;
-
-    $self->_doDaemon();
-
+    $self->_stopService();
+    $self->_setSambaConf();
+    $self->_enforceServiceState();
 }
 
 # Function: usesPort
@@ -508,7 +490,7 @@ sub usesPort # (protocol, port, iface)
 {
     my ($self, $protocol, $port, $iface) = @_;
 
-    return undef unless($self->service());
+    return undef unless($self->isEnabled());
 
     foreach my $smbport (SMBPORTS) {
         return 1 if ($port eq $smbport);
@@ -520,21 +502,10 @@ sub usesPort # (protocol, port, iface)
 sub firewallHelper
 {
     my $self = shift;
-    if ($self->service) {
+    if ($self->isEnabled()) {
         return new EBox::SambaFirewall();
     }
     return undef;
-}
-
-sub statusSummary
-{
-    my $self = shift;
-    my $running;
-    if ($self->fileService()) {
-        $running = $self->isRunning();
-    }
-    return new EBox::Summary::Status('samba', __('File sharing'),
-            $running, $self->fileService);
 }
 
 sub menu
@@ -553,21 +524,6 @@ sub menu
     $root->add($folder);
 }
 
-
-#   Function: service
-#
-#       Returns if the printer or file sharing service is enabled  
-#
-#   Returns:
-#
-#       boolean - true if enabled, otherwise undef      
-#
-sub service
-{
-    my $self = shift;
-    return $self->isEnabled();
-}
-
 #   Function: setFileService 
 #
 #       Sets the file sharing service through samba
@@ -583,23 +539,9 @@ sub setFileService # (enabled)
     (!$active and !$self->fileService) and return;
 
     $self->enableService($active);
-#	if ($active) {
-#		if (not $self->printerService) {
-#			my $fw = EBox::Global->modInstance('firewall');
-#			foreach my $smbport (SMBPORTS) {
-#				unless ($fw->availablePort('tcp',$smbport) and
-#						$fw->availablePort('udp',$smbport)) {
-#					throw EBox::Exceptions::DataExists(
-#							'data'  => __('listening port'),
-#							'value' => $smbport);
-#				}
-#			}
-#		}
-#	}
-#	$self->set_bool('file_active', $active);
 }
 
-#   Function: serviceFile
+#   Function: fileService
 #
 #       Returns if the file sharing service is enabled  
 #
@@ -611,7 +553,7 @@ sub fileService
 {
     my $self = shift;
 
-    return $self->service();
+    return $self->isEnabled();
 }
 
 

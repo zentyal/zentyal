@@ -31,19 +31,19 @@ sub mailFilter
 }
 
 
-# Method: mailFilterSummary
+# Method: mailFilterDashboard
 #
-#  add the custom summary values for the filter
+#  add the custom dashboard values for the filter
 #
-#  Params: 
-#    - section 
+#  Params:
+#    - section
 #
 #  Returns:
-#      - the given summary section
+#      - the given dashboard section
 #
 #  Default implementation:
-#    doesn't add nothing to the summary section
-sub mailFilterSummary
+#    doesn't add nothing to the dashboard section
+sub mailFilterDashboard
 {
   my ($self, $section) = @_;
   return $section;

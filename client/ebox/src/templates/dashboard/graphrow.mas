@@ -1,0 +1,19 @@
+<%args>
+    $namespace
+    $item
+    $i
+</%args>
+% my $elem = ($namespace . '_' . $i);
+<tr>
+<td colspan='2' align='right'>
+<table>
+<tr>
+% my $j = 0;
+% foreach my $graph (@{$item->graphs()}) {
+            <& $graph->HTMLViewer(), namespace => $elem, item => $graph, i => $j, parent => 'graphrow' &>
+%   $j++;
+% }
+</tr>
+</table>
+</td>
+</tr>

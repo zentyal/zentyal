@@ -18,7 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::Module EBox::Report::DiskUsageProvider);
+use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 
 use Sys::Hostname;
 use Sys::CpuLoad;
@@ -26,9 +26,11 @@ use Sys::CpuLoad;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Summary::Module;
-use EBox::Summary::Section;
-use EBox::Summary::Value;
+use EBox::Dashboard::Widget;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::List;
+use EBox::Dashboard::Value;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::RAID;
@@ -38,7 +40,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'sysinfo',
-                                          printableName => __('system information'),
+                                          printableName => __('System information'),
                                           @_);
 	bless($self, $class);
 	return $self;
@@ -47,57 +49,140 @@ sub _create
 
 sub _facilitiesForDiskUsage
 {
-  my ($self, @params) = @_;
-  return EBox::Backup->_facilitiesForDiskUsage(@params);
+    my ($self, @params) = @_;
+    return EBox::Backup->_facilitiesForDiskUsage(@params);
+}
+
+sub modulesWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('status');
+    $widget->add($section);
+
+    my $global = EBox::Global->getInstance();
+    my $typeClass = 'EBox::ServiceModule::ServiceInterface';
+    my %moduleStatus;
+    for my $class (@{$global->modInstancesOfType($typeClass)}) {
+        my $modName = $class->name();
+        my $modPrintName = ucfirst($class->printableName());
+        my $enabled = $class->isEnabled();
+        my $running = $class->isRunning();
+        $section->add(new EBox::Dashboard::ModuleStatus($modName, $modPrintName, $enabled, $running));
+    }
+}
+
+sub generalWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('info');
+    $widget->add($section);
+    my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
+    my $time = `$time_command`;
+    
+    $section->add(new EBox::Dashboard::Value(__("Time"), $time));
+    $section->add(new EBox::Dashboard::Value(__("Host name"), hostname));
+    $section->add(new EBox::Dashboard::Value(
+    __("eBox version"),
+    EBox::Config::version));
+    $section->add(new EBox::Dashboard::Value(
+        __("System load"), join(', ', Sys::CpuLoad::load)));
+}
+
+sub testWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('foo');
+    $widget->add($section);
+    my $titles = ['PID','name'];
+    my $ids = [];
+    my @processes = `ps ax | grep -v PID| awk '{ print \$1, \$5 }'`;
+    my $rows = {};
+    for my $p (@processes) {
+        chomp($p);
+        my ($pid, $name) = split(' ', $p);
+        my $foopid = 'a' . $pid;
+        push(@{$ids}, $foopid);
+        $rows->{$foopid} = [$pid,$name];
+    }
+    $section->add(new EBox::Dashboard::List('Info', $titles, $ids, $rows));
 }
 
 #
-# Method: summary
+# Method: widgets
 #
-#   	Overriden method that returns summary components 
-#   	for system information
+#   Overriden method that returns the widgets offered by this module
 #
-
-sub summary
+sub widgets
 {
-	my $self = shift;
-	my $item = new EBox::Summary::Item;
-	my $global = EBox::Global->getInstance(1);
-	my @names = @{$global->modNames};
-	my $services = 0;
-	my $module = new EBox::Summary::Module(__("Services"));
-	my $section = new EBox::Summary::Section();
-	
-	foreach (@names) {
-		my $mod = $global->modInstance($_);
-		my $status = $mod->statusSummary;
-		if (defined($status)) {
-			$services = 1;
-			$section->add($status);
-		}
-	}
+    return {
+        'modules' => {
+            'title' => __("Module status"),
+            'widget' => \&modulesWidget,
+            'default' => 1
+        },
+        'general' => {
+            'title' => __("General information"),
+            'widget' => \&generalWidget,
+            'default' => 1
+        },
+        'test' => {
+            'title' => __("Test"),
+            'widget' => \&testWidget
+        },
+        'test2' => {
+            'title' => __("Test2"),
+            'widget' => \&testWidget
+        },
+        'test3' => {
+            'title' => __("Test3"),
+            'widget' => \&testWidget
+        }
+    };
+}
 
-	if($services == 1) {
-		$item->add($module);
-		$module->add($section);
-	}
+sub addKnownWidget()
+{
+    my ($self,$wname) = @_;
+    my $list = $self->st_get_list("known/widgets");
+    push(@{$list},$wname);
+    $self->st_set_list("known/widgets", "string", $list);
+}
 
-	$module = new EBox::Summary::Module(__("General information"));
-	$item->add($module);
-	$section = new EBox::Summary::Section();
-	$module->add($section);
+sub isWidgetKnown()
+{
+    my ($self, $wname) = @_;
+    my $list = $self->st_get_list("known/widgets");
+    my @results = grep(/^$wname$/,@{$list});
+    if(@results) {
+        return 1;
+    } else {
+        return undef;
+    }
+}
 
-	my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
-	my $time = `$time_command`;
-	
-	$section->add(new EBox::Summary::Value(__("Time"), $time));
-	$section->add(new EBox::Summary::Value(__("Host name"), hostname));
-	$section->add(new EBox::Summary::Value(
-		__("eBox version"),
-		EBox::Config::version));
-	$section->add(new EBox::Summary::Value(
-		__("System load"), join(', ', Sys::CpuLoad::load)));
-	return $item;
+sub getDashboard()
+{
+    my ($self,$dashboard) = @_;
+    return $self->st_get_list("$dashboard/widgets");
+}
+
+sub setDashboard()
+{
+    my ($self,$dashboard,$widgets) = @_;
+    $self->st_set_list("$dashboard/widgets", "string", $widgets);
+}
+
+sub toggleElement()
+{
+    my ($self,$element) = @_;
+    my $toggled = $self->st_get_bool("toggled/$element");
+    $self->st_set_bool("toggled/$element",!$toggled);
+}
+
+sub toggledElements()
+{
+    my ($self) = @_;
+    return $self->st_hash_from_dir("toggled");
 }
 
 #
@@ -116,8 +201,8 @@ sub menu
 {
 	my ($self, $root) = @_;
 
-	$root->add(new EBox::Menu::Item('url' => 'Summary/Index',
-					'text' => __('Summary'),
+	$root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+					'text' => __('Dashboard'),
 					'order' => 1));
 
 	$root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
@@ -137,7 +222,7 @@ sub menu
 	if (EBox::Report::RAID::enabled()) {
 	$folder->add(new EBox::Menu::Item(
 			 'url' => 'Report/RAID',
-           		 'text' => __('RAID Information'))
+             'text' => __('RAID Information'))
 		    );
 	}
 

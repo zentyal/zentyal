@@ -30,7 +30,6 @@ use strict;
 use warnings;
 
 # eBox uses
-use EBox::DHCP;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;

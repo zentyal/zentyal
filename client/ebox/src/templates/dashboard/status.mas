@@ -1,0 +1,36 @@
+<%args>
+    $item
+</%args>
+<%init>
+use EBox::Gettext;
+my $domain = settextdomain('ebox');
+my $status_str;
+my $status_class;
+my $restart = __('Restart');
+
+if ($item->{running}) {
+    $status_str = __('Running');
+    $status_class = 'summaryRunning';
+} elsif ($item->{enabled}) {
+    $status_str = __('Stopped');
+    $status_class = 'summaryStopped';
+    $restart = __('Start');
+} else {
+    $status_str = __('Disabled');
+    $status_class = 'summaryDisabled';
+}
+</%init>
+<tr>
+<td class='summaryKey'><% $item->{printableName} %></td>
+<td class='summaryValue'><span class='sleft'><% $status_str %></span>
+% if (($item->{running} or $item->{enabled}) and not($item->{nobutton})) {
+<form action='/ebox/EBox/RestartService'>
+    <input type='hidden' name='module' value='<% $item->{module} %>'/>
+    <span class='sright'>
+        <input class='inputButtonRestart' type='submit' name='restart' value='<% $restart %>'/>
+    </span>
+</form>
+% }
+</td>
+</tr>
+% settextdomain($domain);

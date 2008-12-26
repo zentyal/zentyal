@@ -18,8 +18,8 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
-            EBox::LdapModule 
+use base qw(EBox::GConfModule
+            EBox::LdapModule
             EBox::Model::ModelProvider
             EBox::ServiceModule::ServiceInterface
           );
@@ -48,17 +48,17 @@ use constant MAXUSERLENGTH  => 24;
 use constant MAXGROUPLENGTH => 24;
 use constant MAXPWDLENGTH   => 15;
 use constant DEFAULTGROUP   => '__USERS__';
- 
-sub _create 
+
+sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'users', 
+    my $self = $class->SUPER::_create(name => 'users',
                                       printableName => __('users and groups'),
                                       domain => 'ebox-usersandgroups',
                                       @_);
 
     $self->{ldap} = EBox::Ldap->instance();
-    
+
     bless($self, $class);
     return $self;
 }
@@ -69,7 +69,7 @@ sub _create
 #
 sub actions
 {
-    return [ 
+    return [
             {
              'action' => __('Your current openLDAP database will be replaced ' .
                             'and backuped in /var/backups/slapd'),
@@ -80,19 +80,19 @@ sub actions
            ];
 }
 
-# Method: usedFiles 
+# Method: usedFiles
 #
 #       Override EBox::ServiceModule::ServiceInterface::files
 #
-sub usedFiles 
+sub usedFiles
 {
     return [
-            {       
+            {
              'file' => '/etc/default/slapd',
              'reason' => __('To make openLDAP listen on TCP and Unix sockets'),
              'module' => 'users'
             },
-        {       
+        {
          'file' => '/etc/ldap/slapd.conf',
          'reason' => __('To configure the openLDAP database with dc ' .
                         ' entry, rootpw, rootdn, schemas and ACLs used by '.
@@ -102,7 +102,7 @@ sub usedFiles
            ];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 #       Override EBox::ServiceModule::ServiceInterface::enableActions
 #
@@ -127,17 +127,16 @@ sub serviceModuleName
 sub _regenConfig 
 {
     my ($self) = @_;
-        
+
     my @array = ();
-    
+
     push (@array, 'dn'      => $self->{ldap}->dn);
     push (@array, 'rootdn'  => $self->{ldap}->rootDn);
     push (@array, 'rootpw'  => $self->{ldap}->rootPw);
     push (@array, 'schemas' => $self->allLDAPIncludes);
     push (@array, 'acls'    => $self->allLDAPAcls);
-    
-    
-    $self->writeConfFile($self->{ldap}->slapdConfFile, 
+
+    $self->writeConfFile($self->{ldap}->slapdConfFile,
                          "/usersandgroups/slapd.conf.mas", \@array);
 }
 
@@ -145,13 +144,13 @@ sub _regenConfig
 # Method: modelClasses
 #
 #       Override <EBox::Model::ModelProvider::modelClasses>
-#       
+#
 sub modelClasses
 {
     return ['EBox::UsersAndGroups::Model::Users'];
 }
 
-# Method: groupsDn 
+# Method: groupsDn
 #
 #       Returns the dn where the groups are stored in the ldap directory
 #
@@ -192,7 +191,7 @@ sub groupDn
 #
 #       string - dn
 #
-sub usersDn 
+sub usersDn
 {
     my ($self) = @_;
     return USERSDN . "," . $self->{ldap}->dn;
@@ -203,7 +202,7 @@ sub usersDn
 #    Returns the dn for a given user. The user don't have to existst
 #
 #   Parameters:
-#       user 
+#       user
 #
 #  Returns:
 #     dn for the user
@@ -218,13 +217,13 @@ sub userDn
 
 
 
-# Method: userExists 
+# Method: userExists
 #
 #       Checks if a given user exists
-#   
+#
 # Parameters:
-#       
-#       user - user name 
+#
+#       user - user name
 #
 # Returns:
 #
@@ -239,19 +238,19 @@ sub userExists # (user)
                  filter => "&(objectclass=*)(uid=$user)",
                  scope => 'one'
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 
 
-# Method: uidExists 
+# Method: uidExists
 #
 #       Checks if a given uid exists
-#   
+#
 # Parameters:
-#       
+#
 #       uid - uid number to check
 #
 # Returns:
@@ -267,9 +266,9 @@ sub uidExists # (uid)
                  filter => "&(objectclass=*)(uidNumber=$uid)",
                  scope => 'one'
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 

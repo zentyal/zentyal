@@ -33,8 +33,6 @@ use EBox::Menu::Item;
 use EBox::Network;
 use EBox::Service;
 use EBox::Sudo qw ( :all );
-use EBox::Summary::Module;
-use EBox::Summary::Status;
 use EBox::Validate qw ( :all );
 
 use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
@@ -121,62 +119,43 @@ sub serviceModuleName
 
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override <EBox::ServiceModule::ServiceInterface::enableModDepends>
 #
 sub enableModDepends 
 {
     return ['users'];
 }
 
-
-sub _daemons # (action)
+#  Method: _daemons
+#
+#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#
+sub _daemons
 {
-	my ($self, $action) = @_;
-	
-	if ($action eq 'start') {
-	      EBox::Service::manage('ebox.jabber.jabber-router', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-resolver', $action) if ($self->externalConnection);
-	      EBox::Service::manage('ebox.jabber.jabber-sm', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-c2s', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-s2s', $action) if ($self->externalConnection);
-	} elsif ($action eq 'stop'){
-	      EBox::Service::manage('ebox.jabber.jabber-s2s', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-c2s', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-sm', $action);
-  	      EBox::Service::manage('ebox.jabber.jabber-resolver', $action);
-	      EBox::Service::manage('ebox.jabber.jabber-router', $action);
-	} else {
-  	      $self->_daemons('stop');
-	      $self->_daemons('start');
-	}
-
-}
-
-sub _doDaemon
-{
-	my $self = shift;
-
-	if ($self->isEnabled and EBox::Service::running('ebox.jabber.jabber-c2s')) {
-		$self->_daemons('restart');
-	} elsif ($self->isEnabled) {
-		$self->_daemons('start');
-	} else {
-		$self->_daemons('stop');
-	}
-}
-
-# Method: _stopService
-#
-#        Stop the dhcp service
-#
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-{
-        my ($self) = @_;
-	$self->_daemons('stop');
+    return [
+        {
+            'name' => 'ebox.jabber.jabber-router',
+            'type' => 'upstart'
+        },
+        {
+            'name' => 'ebox.jabber.jabber-resolver',
+            'type' => 'upstart',
+            'precondition' => \&externalConnection
+        },
+        {
+            'name' => 'ebox.jabber.jabber-sm',
+            'type' => 'upstart'
+        },
+        {
+            'name' => 'ebox.jabber.jabber-c2s',
+            'type' => 'upstart'
+        },
+        {
+            'name' => 'ebox.jabber.jabber-s2s',
+            'type' => 'upstart',
+            'precondition' => \&externalConnection
+        }
+    ];
 }
 
 sub usesPort # (protocol, port, iface)
@@ -337,14 +316,6 @@ sub _setJabberConf
 			     "jabber/sm.xml.mas",
 			     \@array);
 }
-
-sub statusSummary
-{
-	my $self = shift;
-	return new EBox::Summary::Status('jabber', __('Jabber'),
-		EBox::Service::running('ebox.jabber.jabber-c2s'), $self->isEnabled);
-}
-
 
 # Method: menu
 #

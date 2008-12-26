@@ -45,7 +45,6 @@ use EBox::Global;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Service;
-use EBox::Summary::Status;
 
 # Core modules
 use Error qw(:try);
@@ -176,28 +175,6 @@ sub menu
                                       order => 7);
 
       $root->add($item);
-
-  }
-
-# Method: statusSummary
-#
-#       Show the event status summary
-#
-# Overrides:
-#
-#       <EBox::Module::statusSummary>
-#
-sub statusSummary
-  {
-
-      my ($self) = @_;
-
-      return new EBox::Summary::Status(
-                                       'events',
-                                       __('Events'),
-                                       $self->running(),
-                                       $self->service(),
-                                      );
 
   }
 
