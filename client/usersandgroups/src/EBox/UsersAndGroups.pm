@@ -72,7 +72,7 @@ sub actions
     return [
             {
              'action' => __('Your current openLDAP database will be replaced ' .
-                            'and backuped in /var/backups/slapd'),
+                            'and backed up in /var/backups/slapd'),
                 'reason' => __('eBox will initialize openLDAP to store its database. ' .
                                'It will also overwrite your current configuration'),
              'module' => 'users'
