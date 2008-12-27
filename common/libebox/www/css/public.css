@@ -179,7 +179,7 @@
 }
 
 .summarySection {
-	width: 95%;
+	width: 100%;
 	margin-bottom: 15px;
 	margin-left:0px; 
 }
@@ -571,7 +571,8 @@ input {
 .stitle {
 	background-color: #BBDF39;
 	color: #ffffff;
-	padding: 1px;
+	margin: 5px;
+	padding: 1px 1px 1px 3px;
     line-height: 14px;
 }
 
@@ -780,20 +781,6 @@ a.changed:hover {
 
 .endForm { padding-top: 5px; }
 
-.field_help {
-    color: #888;
-    clear: both;
-    font-size: 11px;
-}
-
-.optional_field {
-    color: #005AA3;
-    clear: both;
-    font-size: 10px;
-    font-style: italic;
-    padding-right: 3px;
-}
-
 .dashboard {
         display: block;
         float: left;
@@ -834,6 +821,7 @@ a.changed:hover {
         font-family: Trebuchet MS, Verdana, sans-serif;
         font-weight: bold;
         color: white;
+        padding-left: 5px;
 }
 
 a.closeBox {
@@ -879,6 +867,10 @@ a.minBox, a.maxBox {
         border:1px solid #C0C0FF;
 }
 
+.sectionContent {
+    width: 100%;
+}
+
 a.minBox {
         background-position: -12px 0px;
 }
@@ -910,4 +902,18 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover, a.closeBox, a.closeBox:hover
 
 .widArrow a:hover {
     background: transparent;
+}
+
+.field_help {
+    color: #888;
+    clear: both;
+    font-size: 11px;
+}
+
+.optional_field {
+    color: #005AA3;
+    clear: both;
+    font-size: 10px;
+    font-style: italic;
+    padding-right: 3px;
 }

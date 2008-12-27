@@ -21,7 +21,7 @@ my $sectname = ($ns . '_section');
     style='display: none;'
 % }
 >
-<table>
+<table class='sectionContent'>
 % my $i = 0;
 % foreach my $item (@{$section->items()}) {
             <& $item->HTMLViewer(), namespace => $ns, item => $item, i => $i, parent => 'section' &>
