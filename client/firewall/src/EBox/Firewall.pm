@@ -200,22 +200,23 @@ sub compositeClasses
 sub _exposedMethods
 {
     my %exposedMethods = (
-                        addOutputService => { 
-                                            action => 'add',
-                                            path   => [ 'EBoxOutputRuleTable' ] },
-                          removeOutputService => { 
-                                           action => 'del',
-                                           path   => [ 'EBoxOutputRuleTable' ],
-                                           indexes => [ 'id' ]
-                                                 },
-                        getOutputService => { 
-                                             action  => 'get',
-                                             path    => [ 'EBoxOutputRuleTable' ],
-                                             indexes => [ 'position' ],
+                addOutputService => { 
+                            action => 'add',
+                            path   => [ 'EBoxOutputRuleTable' ] 
                         },
-                         );
+                removeOutputService => { 
+                            action => 'del',
+                            path   => [ 'EBoxOutputRuleTable' ],
+                            indexes => [ 'id' ]
+                        },
+                getOutputService => { 
+                            action  => 'get',
+                            path    => [ 'EBoxOutputRuleTable' ],
+                            indexes => [ 'position' ],
+                        },
+            );
 
-        return \%exposedMethods;
+    return \%exposedMethods;
 
 }
 
@@ -310,95 +311,7 @@ sub setDenyAction # (action)
         $self->set_string("deny", $action);
 }
 
-# Method: portRedirections 
-#                                               
-#       Return the list of port redirections       
-#                               
-#                               
-# Returns:                    
-#                                   
-#       array ref - contating the port redirections in hash refereces. 
-#       Each hash holds the keys 'protocol', 'eport' (extenal port), 
-#       'iface' (network intercae), 'ip' (destination address), 'dport'
-#       (destination port)
-#                                       
-#       
-sub portRedirections
-{
-    my ($self) = @_;
-    return $self->array_from_dir("redirections");
-}
-
-
-# Method: addPortRedirection
-#
-#       Adds a port redirection. Packets entering an interface matching a
-#       given port will be redirected to an IP and port.
-#   
-# Parameters:
-#       
-#       protocol - tcp|udp
-#       ext_port - 1-65535
-#       iface - network intercace
-#       address - destination address
-#       dest_port - destination port
-#
-# Exceptions:
-#       
-#       External - External port  already  used
-#   
-sub addPortRedirection # (protocol, ext_port, interface, address, dest_port) 
-{
-    my ($self, $proto, $eport, $iface, $address, $dport) = @_;
-
-    checkProtocol($proto, __("protocol"));
-    checkIP($address, __("destination address"));
-    checkPort($eport, __("external port"));
-    checkPort($dport, __("destination port"));
-    
-    $self->availablePort($proto, $eport, $iface) or
-        throw EBox::Exceptions::External(__x(
-                "Port {port} is being used by a service or port redirection.", 
-                port => $eport));
-
-    my $id = $self->get_unique_id("r","redirections");
-
-    $self->set_string("redirections/$id/protocol", $proto);
-    $self->set_int("redirections/$id/eport", $eport);
-    $self->set_string("redirections/$id/iface", $iface);
-    $self->set_string("redirections/$id/ip", $address);
-    $self->set_int("redirections/$id/dport", $dport);
-}
-
-
-# Method: removePortRedirection
-#
-#       Removes a port redirection. 
-#   
-# Parameters:
-#       
-#       protocol - tcp|udp
-#       ext_port - 1-65535
-#       iface - network intercace
-#
-sub removePortRedirection # (protocol, ext_port, interface) 
-{
-    my ($self, $proto, $eport, $iface) = @_;
-    checkProtocol($proto, __("protocol"));
-    checkPort($eport, __("external port"));
-    
-    my @reds = $self->all_dirs("redirections");
-    foreach (@reds) {
-        ($self->get_string("$_/protocol") eq $proto) or next;
-        ($self->get_int("$_/eport") eq $eport) or next;
-        ($self->get_string("$_/iface") eq $iface) or next;
-        $self->delete_dir($_);
-        return 1;
-    }
-    return;
-}
-
-# Method: removePortRedirectionOnIface
+# Method: removePortRedirectionsOnIface
 #
 #       Removes all the port redirections on a given interface
 #   
@@ -406,17 +319,16 @@ sub removePortRedirection # (protocol, ext_port, interface)
 #       
 #       iface - network intercace
 #
-sub removePortRedirectionOnIface # (interface) 
+sub removePortRedirectionsOnIface # (interface) 
 {
     my ($self, $iface) = @_;
-    my @reds = $self->all_dirs("redirections");
-    foreach (@reds) {
-        ($self->get_string("$_/iface") eq $iface) or next;
-        $self->delete_dir($_);
-        return 1;
-    }
 
-    return;
+    my $model = $self->{'RedirectsTable'};
+    foreach my $row (@{$model->rows()}) {
+        if ($row->valueByName('interface') eq $iface) {
+            $model->removeRow($row->id());
+        }
+    }
 }
 
 # Method: availablePort
@@ -445,15 +357,15 @@ sub availablePort # (proto, port, interface)
     my $services = $global->modInstance('services');
 
     # if it's an internal interface, check all services
-        unless ($iface &&
-                        ($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
-                unless ($services->availablePort($proto, $port)) {
-                        return undef;
-                }
+    unless ($iface &&
+            ($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
+        unless ($services->availablePort($proto, $port)) {
+            return undef;
         }
+    }
 
-        # check for port redirections on the interface, on all internal ifaces
-        # if its
+    # check for port redirections on the interface, on all internal ifaces
+    # if its
     my @ifaces = ();
     if ($iface) {
         push(@ifaces, $iface);
@@ -461,15 +373,15 @@ sub availablePort # (proto, port, interface)
         my $tmp = $network->InternalIfaces();
         @ifaces = @{$tmp};
     }
-    my $redirs = $self->portRedirections();
+    my $redirs = $self->{'RedirectsTable'}->rows();
     foreach my $ifc (@ifaces) {
         foreach my $red (@{$redirs}) {
-            ($red->{protocol} eq $proto) or next;
-            ($red->{iface} eq $ifc) or next;
-            ($red->{eport} eq $port) and return undef;
+            ($red->valueByName('protocol') eq $proto) or next;
+            ($red->valueByName('interface') eq $ifc) or next;
+            ($red->valueByName('external_port') eq $port) and return undef;
         }
     }
-    
+
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
     foreach my $mod (@mods) {
         if ($mod->usesPort($proto, $port, $iface)) {
@@ -597,12 +509,14 @@ sub removeLocalRedirect # (service, port)
 sub usesIface # (iface)
 {
     my ($self, $iface) = @_;
-    my @reds = $self->all_dirs("redirections");
-    foreach (@reds) {
-        if ($self->get_string("$_/iface") eq $iface) {
+
+    my $model = $self->{'RedirectsTable'};
+    foreach my $row (@{$model->rows()}) {
+        if ($row->valueByName('interface') eq $iface) {
             return 1;
         }
     }
+
     return undef;
 }
 
@@ -640,7 +554,7 @@ sub vifaceDelete # (iface, viface)
 sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
-    $self->removePortRedirectionOnIface($iface);
+    $self->removePortRedirectionsOnIface($iface);
 }
 
 # Method: freeViface
@@ -651,7 +565,7 @@ sub freeIface # (iface)
 sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
-    $self->removePortRedirectionOnIface("$iface:$viface");
+    $self->removePortRedirectionsOnIface("$iface:$viface");
 }
 
 #
