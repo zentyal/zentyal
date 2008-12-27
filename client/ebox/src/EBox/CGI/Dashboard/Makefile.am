@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Dashboard
 
-nobase_perl_DATA = Index.pm Toggle.pm Update.pm Widget.pm WidgetJSON.pm
+nobase_perl_DATA = ConfigureWidgets.pm Index.pm Section.pm Toggle.pm Update.pm WidgetJSON.pm Widget.pm
 
 SOURCES = $(nobase_perl_DATA)
 
