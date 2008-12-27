@@ -40,7 +40,7 @@ use warnings;
 use base 'EBox::Model::DataTable';
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -51,15 +51,15 @@ sub new
     return $self;
 }
 
-sub interface 
+sub interface
 {
     my $ifaces = EBox::Global->modInstance('network')->ifaces();
-    
+
     my @options;
     foreach my $iface (@{$ifaces}) {
         push(@options, { 'value' => $iface, 'printableValue' => $iface });
     }
- 
+
     return \@options;
 }
 
@@ -101,6 +101,119 @@ sub objectModel
     return EBox::Global->modInstance('objects')->{'objectModel'};
 }
 
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    my $new_iface = $allFields->{interface};
+    my $new_eport = $allFields->{external_port};
+    my $new_protocol = $allFields->{protocol};
+    my $new_source = $allFields->{source};
+
+    foreach my $row (@{$self->rows()}) {
+        my $iface = $row->elementByName('interface');
+        my $eport = $row->elementByName('external_port');
+        my $protocol = $row->elementByName('protocol');
+        my $source = $row->elementByName('source');
+
+        ($iface->value() eq $new_iface->value()) or next;
+        $self->_sameProtocol($protocol->value(), $new_protocol->value()) or next;
+        $self->_samePort($eport, $new_eport) or next;
+        $self->_sameSource($source, $new_source) or next;
+
+        throw EBox::Exceptions::External(__x('Contradictory rule found. Remove it first'));
+    }
+}
+
+sub _sameProtocol
+{
+    my ($self, $protocol, $new_protocol) = @_;
+
+    if ($protocol eq $new_protocol) {
+        return 1;
+    }
+
+    if (($protocol eq 'tcp/udp') and
+         (($new_protocol eq 'tcp') or ($new_protocol eq 'udp'))) {
+            return 1;
+    }
+
+    if (($new_protocol eq 'tcp/udp') and
+         (($protocol eq 'tcp') or ($protocol eq 'udp'))) {
+            return 1;
+    }
+
+    return 0;
+}
+
+sub _samePort
+{
+    my ($self, $port, $new_port) = @_;
+
+    if (($port->rangeType() eq 'any') or ($new_port->rangeType() eq 'any')) {
+        return 1;
+    }
+
+    if ($port->rangeType() eq 'single') {
+        if ($new_port->rangeType() eq 'single') {
+            if ($port->single() == $new_port->single()) {
+                return 1;
+            }
+        } elsif ($new_port->rangeType() eq 'range') {
+            if (($port->single() >= $new_port->from()) and
+                ($port->single() <= $new_port->to())) {
+                return 1;
+            }
+        }
+    } elsif ($port->rangeType() eq 'range') {
+        if ($new_port->rangeType() eq 'single') {
+            if (($new_port->single() >= $port->from()) and
+                ($new_port->single() <= $port->to())) {
+                return 1;
+            }
+        } elsif ($new_port->rangeType() eq 'range') {
+            if (($new_port->from() >= $port->from()) and
+                ($new_port->from() <= $port->to())) {
+                return 1;
+            }
+            if (($new_port->to() >= $port->from()) and
+                ($new_port->to() <= $port->to())) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+sub _sameSource
+{
+    my ($self, $source, $new_source) = @_;
+
+    if (($source->selectedType() eq 'source_any') or
+            ($new_source->selectedType() eq 'source_any')) {
+        return 1;
+    }
+
+    if (($source->selectedType() eq 'source_ipaddr') and
+        ($new_source->selectedType() eq 'source_ipaddr')) {
+        if ($source->value() eq $new_source->value()) {
+            return 1;
+        }
+    }
+
+    # Ignore source_object's because currently we don't have
+    # a way to notice changes in object members.
+
+    return 0;
+}
+
 # Method: _fieldDescription
 #
 #   Return the field description for a firewall redirect table. You have to
@@ -108,7 +221,8 @@ sub objectModel
 #
 # Returns:
 #
-#   Array ref of objects derivated of <EBox::Types::Abstract>	
+#   Array ref of objects derivated of <EBox::Types::Abstract>
+#
 sub _fieldDescription
 {
     my ($self) = @_;
@@ -185,10 +299,10 @@ sub _fieldDescription
 
 sub _table
 {
-    my ($self) = @_;	
-    
-    my $dataTable = 
-    { 
+    my ($self) = @_;
+
+    my $dataTable =
+    {
         'tableName' => 'RedirectsTable',
         'printableTableName' =>
           __('Port redirections'),
