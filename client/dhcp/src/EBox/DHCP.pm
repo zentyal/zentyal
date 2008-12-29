@@ -1157,7 +1157,7 @@ sub tableInfo {
 	my @order = ('timestamp', 'ip', 'mac', 'interface', 'event');
 	my $events = {'leased' => __('Leased'), 'released' => __('Released') };
 	
-	return {
+	return [{
 		'name' => __('DHCP'),
 		'index' => 'dhcp',
 		'titles' => $titles,
@@ -1167,7 +1167,7 @@ sub tableInfo {
 		'filter' => ['interface', 'mac', 'ip'],
 		'events' => $events,
 		'eventcol' => 'event'
-	};
+	}];
 }
 
 sub logHelper

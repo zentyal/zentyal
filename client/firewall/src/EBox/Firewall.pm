@@ -842,7 +842,7 @@ sub tableInfo
         
     my $events = { 'drop' => __('DROP'), 'log' => __('LOG') };
 
-    return {
+    return [{
             'name' => __('Firewall'),
             'index' => 'firewall',
             'titles' => $titles,
@@ -856,7 +856,7 @@ sub tableInfo
             'disabledByDefault' => 1,
 
             consolidate => $self->_consolidate(),
-           };
+           }];
 }
 
 
