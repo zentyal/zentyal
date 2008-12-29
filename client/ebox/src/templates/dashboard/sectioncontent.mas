@@ -8,7 +8,7 @@ my $ns = ($namespace . '_' . $section->{name});
 my $sectname = ($ns . '_section');
 </%init>
 % if ($section->{title}) {
-<div class='stitle' style='float: right;'><% $section->{title} %>
+<div class='stitle'><% $section->{title} %>
 % my $togglerClass = 'minBox';
 % if (exists($toggled{$sectname}) && $toggled{$sectname}) {
 %    $togglerClass = 'maxBox';
