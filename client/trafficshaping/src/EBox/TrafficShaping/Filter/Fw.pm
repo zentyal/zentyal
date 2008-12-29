@@ -349,14 +349,7 @@ sub dumpIptablesCommands
     my $dstNetMask = $self->{dstNetMask};
 
     my $shaperChain;
-    if ( defined ( $srcMAC ) ) {
-      $shaperChain = EBox::TrafficShaping->ShaperChain($self->{parent}->getInterface(),
-						       'forward');
-    }
-    else {
-      $shaperChain = EBox::TrafficShaping->ShaperChain($self->{parent}->getInterface(),
-						       'egress');
-    }
+    $shaperChain = 'EBOX-SHAPER-' . $self->{parent}->getInterface();
 
     my @ipTablesCommands;
     my $leadingStr;
