@@ -33,6 +33,8 @@ use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Widget;
+use EBox::Dashboard::List;
 use EBox::Menu::Item;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -209,12 +211,11 @@ sub modelClasses
 {
 
     my ($self) = @_;
-    
-    return  [   
+
+    return  [
                'EBox::Samba::Model::SambaShares',
                'EBox::Samba::Model::SambaSharePermissions',
                'EBox::Samba::Model::DeletedSambaShares',
- 
            ];
 
 }
@@ -277,8 +278,8 @@ sub shares
                 push (@administrators, $user)
             }
         }
-        
-        next unless (@readOnly or @readWrite or @administrators);       
+
+        next unless (@readOnly or @readWrite or @administrators);
 
         $shareConf->{'readOnly'} = join (', ', @readOnly);
         $shareConf->{'readWrite'} = join (', ', @readWrite);
@@ -367,7 +368,7 @@ sub _setSambaConf
     my $ldapconf = $ldap->ldapConf();
     $ldapconf->{'users'} = EBox::UsersAndGroups::USERSDN;
     $ldapconf->{'groups'} = EBox::UsersAndGroups::GROUPSDN;
-    
+
     my @array = ();
     push(@array, 'netbios'   => $self->netbios);
     push(@array, 'desc'      => $self->description);
@@ -453,6 +454,124 @@ sub setSambaLdapToolsConf
             { mode => SMBLDAPTOOLBINDFILE_MASK, 
             uid => SMBLDAPTOOLBINDFILE_UID, 
             gid => SMBLDAPTOOLBINDFILE_GID });
+}
+
+sub _shareUsers {
+    my $state = 0;
+
+    my $pids = {};
+
+    use File::Slurp;
+    for my $line (`smbstatus`) {
+        chomp($line);
+        if($state == 0) {
+            if($line =~ '----------------------------') {
+                $state = 1;
+            }
+        } elsif($state == 1) {
+            if($line eq '') {
+                $state = 2;
+            } else {
+                # 1735  javi   javi     blackops  (192.168.45.48)
+                $line =~ m/(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+\((\S+)\)/;
+                my ($pid, $user, $machine) = ($1, $2, $4);
+                $pids->{$pid} = { 'user' => $user, 'machine' => $machine };
+            }
+        } elsif($state == 2) {
+            if($line =~ '----------------------------') {
+                $state = 3;
+            }
+        } elsif($state == 3) {
+            if($line eq '') {
+                last;
+            } else {
+            #administracion   1735   blackops      Wed Nov 26 17:27:19 2008
+                $line =~ m/(\S+)\s+(\d+)\s+(\S+)\s+(\S.+)/;
+                my($share, $pid, $date) = ($1, $2, $4);
+                $pids->{$pid}->{'share'} = $share;
+                $pids->{$pid}->{'date'} = $date;
+            }
+        }
+    }
+    return [values %{$pids}];
+}
+
+sub _sharesGroupedBy
+{
+    my ($group) = @_;
+
+    my $shareUsers = _shareUsers();
+
+    my $groupedInfo = {};
+    for my $info (@{$shareUsers}) {
+        if(!defined($groupedInfo->{$info->{$group}})) {
+            $groupedInfo->{$info->{$group}} = [];
+        }
+        push(@{$groupedInfo->{$info->{$group}}}, $info);
+    }
+    return $groupedInfo;
+}
+
+sub sharesByUserWidget
+{
+    my ($self, $widget) = @_;
+
+    my $sharesByUser = _sharesGroupedBy('user');
+
+    for my $user (sort keys %{$sharesByUser}) {
+        my $section = new EBox::Dashboard::Section($user, $user);
+        $widget->add($section);
+        my $titles = [__('Share'), __('Source machine'), __('Connected since')];
+
+        my $rows = {};
+        foreach my $share (@{$sharesByUser->{$user}}) {
+            my $id = $share->{'share'} . '_' . $share->{'machine'};
+            $rows->{$id} = [$share->{'share'}, $share->{'machine'}, $share->{'date'}];
+        }
+        my $ids = [sort keys %{$rows}];
+        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+    }
+}
+
+sub usersByShareWidget
+{
+    my ($self, $widget) = @_;
+
+    my $usersByShare = _sharesGroupedBy('share');
+
+    for my $share (sort keys %{$usersByShare}) {
+        my $section = new EBox::Dashboard::Section($share, $share);
+        $widget->add($section);
+        my $titles = [__('User'), __('Source machine'), __('Connected since')];
+
+        my $rows = {};
+        foreach my $user (@{$usersByShare->{$share}}) {
+            my $id = $user->{'user'} . '_' . $user->{'machine'};
+            $rows->{$id} = [$user->{'user'}, $user->{'machine'}, $user->{'date'}];
+        }
+        my $ids = [sort keys %{$rows}];
+        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+    }
+}
+
+# Method: widgets
+#
+#	Override EBox::Module::widgets
+#
+sub widgets
+{
+    return {
+        'sharesbyuser' => {
+            'title' => __("Shares by user"),
+                'widget' => \&sharesByUserWidget,
+                'default' => 1
+        },
+        'usersbyshare' => {
+            'title' => __("Users by share"),
+                'widget' => \&usersByShareWidget,
+                'default' => 1
+        }
+    };
 }
 
 # Method: daemons
@@ -1501,7 +1620,7 @@ sub _fixLeftoverSharedDirectories
         my $filesInDir = 1;
         try {  EBox::Sudo::root("/bin/ls $leftover/*")  }  otherwise { $filesInDir = 0  } ;
 
-        if ($filesInDir) {	   
+        if ($filesInDir) {
             my $chmodFilesCommand = "  /bin/chmod -R og-srwx  $leftover/*";
             EBox::Sudo::root($chmodFilesCommand);
         }
