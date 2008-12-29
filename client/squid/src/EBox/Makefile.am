@@ -9,6 +9,6 @@ SOURCES = $(nobase_perl_DATA)
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = SquidFirewall.pm SquidOnlyFirewall.pm SquidLogHelper.pm
+EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

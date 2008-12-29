@@ -37,10 +37,8 @@ use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
 use EBox::SquidLogHelper;
 use EBox::SquidOnlyFirewall;
-use EBox::Summary::Module;
-use EBox::Summary::Value;
-use EBox::Summary::Status;
-use EBox::Summary::Section;
+use EBox::Dashboard::Value;
+use EBox::Dashboard::Section;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw( :all );
@@ -728,9 +726,6 @@ sub _writeDgDomainsConf
                                  
 }
 
-
-
-
 sub firewallHelper 
 {
         my $self = shift;
@@ -744,51 +739,50 @@ sub firewallHelper
         return undef;
 }
 
-sub statusSummary
+sub proxyWidget
 {
-        my $self = shift;
-        return new EBox::Summary::Status('squid', __('HTTP Proxy'),
-                                        $self->isRunning, $self->service);
+    my ($self, $widget) = @_;
+    $self->isRunning() or return;
+
+    my $section = new EBox::Dashboard::Section('proxy');
+
+    my $status;
+    $widget->add($section);
+
+    if ($self->transproxy) {
+        $status = __("Enabled");
+    } else {
+        $status = __("Disabled");
+    }
+    $section->add(new EBox::Dashboard::Value(__("Transparent proxy"),$status));
+
+    if ($self->globalPolicy eq 'allow') {
+        $status = __("Allow");
+    } elsif ($self->globalPolicy eq 'deny') {
+        $status = __("Deny");
+    } elsif ($self->globalPolicy eq 'filter') {
+        $status = __("Filter");
+    }
+
+    $section->add(new EBox::Dashboard::Value(__("Global policy"), $status));
+
+    $section->add(new EBox::Dashboard::Value(__("Listening port"), 
+                $self->port));
 }
 
-# Method: summary
+### Method: widgets
 #
-#       Overrides EBox::Module method.
-#   
-#     
-sub summary
+#   Overrides <EBox::Module::widgets>
+#
+sub widgets
 {
-        my $self = shift;
-        $self->isRunning() or return undef;
-
-        my $item = new EBox::Summary::Module(__("Proxy"));
-        my $section = new EBox::Summary::Section();
-        my $status;
-        $item->add($section);
-        
-        if ($self->transproxy) {
-                $status = __("Enabled");
-        } else {
-                $status = __("Disabled");
+    return {
+        'proxy' => {
+            'title' => __("HTTP proxy"),
+            'widget' => \&proxyWidget
         }
-        $section->add(new EBox::Summary::Value(__("Transparent proxy"),$status));
-        
-        if ($self->globalPolicy eq 'allow') {
-                $status = __("Allow");
-        } elsif ($self->globalPolicy eq 'deny') {
-                $status = __("Deny");
-        } elsif ($self->globalPolicy eq 'filter') {
-                $status = __("Filter");
-        }
-
-        $section->add(new EBox::Summary::Value(__("Global policy"), $status));
-        
-        $section->add(new EBox::Summary::Value(__("Listening port"), 
-                                               $self->port));
-        return $item;
+    };
 }
-
-
 
 # Method: menu 
 #
