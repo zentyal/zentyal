@@ -166,7 +166,7 @@ sub enableModDepends
 #       <EBox::Module::_regenConfig>
 #
 sub _regenConfig
-  {
+{
 
     my ($self) = @_;
 
@@ -182,20 +182,22 @@ sub _regenConfig
     # Called every time a Save Changes is done
     my $ifaces_ref = $self->all_dirs_base('');
     # Build a tree for each interface
+
+    $self->_createPostroutingChain();
     foreach my $iface (@{$ifaces_ref}) {
-      if ( defined ( $self->{builders}->{$iface} ) ) {
-	# Dump tc and iptables commands
-	my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
-	my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-	# Execute tc commands
-	$self->{tc}->reset($iface);            # First, deleting everything was there
-	$self->{tc}->execute($tcCommands_ref); # Second, execute them!
-	# Execute iptables commands
-	$self->_resetChain($iface);
-	$self->_executeIptablesCmds($ipTablesCommands_ref);
-      }
+        if ( defined ( $self->{builders}->{$iface} ) ) {
+            # Dump tc and iptables commands
+            my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
+            my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
+            # Execute tc commands
+            $self->{tc}->reset($iface);            # First, deleting everything was there
+            $self->{tc}->execute($tcCommands_ref); # Second, execute them!
+            # Execute iptables commands
+            $self->_resetChain($iface);
+            $self->_executeIptablesCmds($ipTablesCommands_ref);
+        }
     }
-  }
+}
 
 # Method: models
 #
@@ -328,6 +330,7 @@ sub _stopService
 
     my $ifaces_ref = $self->all_dirs_base('');
 
+    $self->_deletePostroutingChain();
     foreach my $iface (@{$ifaces_ref}) {
       # Cleaning iptables
       $self->_deleteChains($iface);
@@ -608,14 +611,9 @@ sub ShaperChain
     $where = 'egress' unless defined ( $where );
 
     if ( $where eq 'egress' ) {
-        #return 'EBOX-SHAPER-OUT-' . $iface;
-        # Doing in PREROUTING to avoid NAT
-        return 'EBOX-SHAPER-IN-' . $iface;
+        return 'EBOX-SHAPER-OUT-' . $iface;
     } elsif ( $where eq 'ingress' ) {
         return 'EBOX-SHAPER-IN-' . $iface;
-    } elsif ( $where eq 'forward' ) {
-        # For MAC addresses and internal interfaces
-        return 'EBOX-SHAPER-FORWARD-' . $iface;
     }
 
 }
@@ -1588,70 +1586,119 @@ sub _setLogAdminActions
 
 # Delete TrafficShaping filter chain in Iptables Linux kernel struct
 sub _deleteChains # (iface)
-  {
+{
 
     my ( $self, $iface ) = @_;
 
-    my %types = (
-		 'egress'  => [ 'POSTROUTING', '-o'],
- 		 'ingress' => [ 'PREROUTING' , '-i'],
-		 'forward' => [ 'FORWARD'    , '-o'],
-		);
+    try {
+        $self->{ipTables}->pf( "-t mangle -F EBOX-SHAPER-$iface" );
+        $self->{ipTables}->pf( "-t mangle -X EBOX-SHAPER-$iface" );
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 2 or
+                $exception->exitValue() == 1) {
+            # The chain does not exist, ignore
+            ;
+        } else {
+            $exception->throw();
+        }
+    };
 
-    foreach my $type (keys %types) {
-      my $shaperChain = $self->ShaperChain($iface, $type);
-      try {
-	$self->{ipTables}->pf( '-t mangle -D ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
-			       " $iface -j $shaperChain" );
-	$self->{ipTables}->pf( "-t mangle -F $shaperChain" );
-	$self->{ipTables}->pf( "-t mangle -X $shaperChain" );
-      } catch EBox::Exceptions::Sudo::Command with {
-	my $exception = shift;
-	if ($exception->exitValue() == 2 or
-	    $exception->exitValue() == 1) {
-	  # The chain does not exist, ignore
-	  ;
-	} else {
-	  $exception->throw();
-	}
-	;
-      }
-    }
+}
 
-  }
+sub _deletePostroutingChain # (iface)
+{
+
+    my ($self) = @_;
+
+    my $chain = "EBOX-SHAPER";
+    try {
+        $self->{ipTables}->pf("-t mangle -D POSTROUTING -j EBOX-SHAPER");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            # Ignoring
+            ;
+        }
+    };
+
+    try {
+        $self->{ipTables}->pf("-t mangle -F EBOX-SHAPER");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            # Ignoring
+            ;
+        }
+    };
+
+    try {
+        $self->{ipTables}->pf("-t mangle -X EBOX-SHAPER");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            # Ignoring
+            ;
+        }
+    };
+}
+
+sub _createPostroutingChain # (iface)
+{
+
+    my ($self) = @_;
+
+    my $chain = "EBOX-SHAPER";
+    try {
+        $self->{ipTables}->pf("-t mangle -N  EBOX-SHAPER");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            # Ignoring
+            ;
+        }
+    };
+
+    try {
+        $self->{ipTables}->pf("-t mangle -I POSTROUTING -j EBOX-SHAPER");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            # Ignoring
+            ;
+        }
+    };
+}
+
+
 
 sub _resetChain # (iface)
-  {
+{
 
     my ($self, $iface) = @_;
 
     # Delete any previous chain
     $self->_deleteChains($iface);
 
-    my %types = (
-		 'egress'  => [ 'POSTROUTING', '-o'],
- 		 'ingress' => [ 'PREROUTING' , '-i'],
-		 'forward' => [ 'FORWARD'    , '-o'],
-		);
+    my $chain = "EBOX-SHAPER-$iface";
+    try {
+        $self->{ipTables}->pf("-t mangle -N $chain");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            EBox::info("$chain already exists");
+        }
+    };
 
-    foreach my $type (keys %types) {
-      my $shaperChain = $self->ShaperChain($iface, $type);
-
-      # Add the chain
-      try {
-	$self->{ipTables}->pf( "-t mangle -N $shaperChain" );
-	$self->{ipTables}->pf( '-t mangle -I ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
-			       " $iface -j $shaperChain" );
-      } catch EBox::Exceptions::Sudo::Command with {
-	my $exception = shift;
-	if ($exception->exitValue() == 1) {
-	  # The chain already exists, do only the rule
-	  $self->{ipTables}->pf( '-t mangle -I ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
-				 " $iface -j $shaperChain" );
-	}
-      }
-    }
-
+    my $rule = "-t mangle -I EBOX-SHAPER -o $iface -j $chain";
+    try {
+        $self->{ipTables}->pf($rule);
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            EBox::info($rule);
+        }
+    };
   }
 
 # Execute an array of iptables commands
