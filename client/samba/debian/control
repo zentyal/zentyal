@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-samba
 Architecture: all
-Depends: ebox (>= 0.12.99), ebox (<< 0.12.110), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2, ${misc:Depends}
+Depends: ebox (>= 0.12.99), ebox (<< 0.12.110), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, libquota-perl, smbldap-tools, bzip2, ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
 Description: eBox - File sharing
