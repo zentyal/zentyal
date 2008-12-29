@@ -1038,7 +1038,7 @@ sub widgets
 
 sub _filterDashboardSection
 {
-    my ($self, $section) = @_;
+    my ($self) = @_;
 
     my $section = new EBox::Dashboard::Section('mailfilter', 'Mail filter');
 
