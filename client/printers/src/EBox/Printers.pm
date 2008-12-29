@@ -1215,7 +1215,7 @@ sub tableInfo {
 	my @order = ('timestamp', 'job', 'printer', 'owner', 'event');
 	my $events = { 'queued' => __('Queued'), 'canceled' => __('Canceled') };
 
-	return {
+	return [{
 		'name' => __('Printers'),
 		'index' => 'printers',
 		'titles' => $titles,
@@ -1226,7 +1226,7 @@ sub tableInfo {
                 'events' => $events,
                 'eventcol' => 'event'
 								
-	};
+	}];
 }
 sub logHelper
 {
