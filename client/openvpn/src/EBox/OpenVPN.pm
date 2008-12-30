@@ -82,29 +82,29 @@ sub usedFiles
 		{
 		 'file' => '/etc/quagga/daemons',
 		 'module' => 'openvpn',
- 	 	 'reason' => __('To configure Quagga to run ripd and zebra')
+		 'reason' => __('To configure Quagga to run ripd and zebra')
 		},
 		{
 		 'file' => '/etc/quagga/debian.conf',
 		 'module' => 'openvpn',
- 	 	 'reason' => __('To configure Quagga to listen on the given interfaces') 
+         'reason' => __('To configure Quagga to listen on the given interfaces')
 		},
 		{
 		 'file' => '/etc/quagga/zebra.conf',
 		 'module' => 'openvpn',
- 	 	 'reason' => __('Main zebra configuration file')
+         'reason' => __('Main zebra configuration file')
 		},
 		{
 		 'file' => '/etc/quagga/ripd.conf',
 		 'module' => 'openvpn',
- 	 	 'reason' => __('To configure ripd to exchange routes with client '.
+         'reason' => __('To configure ripd to exchange routes with client '.
                         'to client connections')
 		}
 	       ];
 }
-# Method: enableActions 
+# Method: enableActions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#	Override EBox::ServiceModule::ServiceInterface::enableActions
 #
 sub enableActions
 {
@@ -1416,11 +1416,11 @@ sub _anyDaemonReturnsTrue
 #
 sub menu
 {
-        my ($self, $root) = @_;
-    
-        my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
-                                        'text' => __('OpenVPN'));
-	$root->add($item);
+    my ($self, $root) = @_;
+
+    my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
+            'text' => __('OpenVPN'));
+    $root->add($item);
 }
 
 sub openVPNWidget
@@ -1429,7 +1429,7 @@ sub openVPNWidget
     my $section = new EBox::Dashboard::Section($ovpn);
     $widget->add($section);
 
-    my $path = STATUS_PATH . 'status-' . $ovpn . '.log';
+    my $path = $self->logDir() . '/' . 'status-' . $ovpn . '.log';
     my @status = read_file($path);
     my $state = 0;
 
@@ -1469,7 +1469,7 @@ sub openVPNDaemonsWidget
     foreach my $daemon (@daemons) {
         my @daemonSummary = $daemon->summary();
         @daemonSummary or next;
-  
+
         my $name = shift @daemonSummary;
         my $section = new EBox::Dashboard::Section($daemon->name(),$name);
 
@@ -1483,7 +1483,7 @@ sub openVPNDaemonsWidget
 
 sub widgets
 {
-    my $openvpns = ['akademy', 'contazara', 'marsitas', 'borrame', 'test'];
+    my $openvpns = $self->daemonsNames();
 
     my $widgets = {
         'openvpndaemons' => {
