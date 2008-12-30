@@ -3,6 +3,9 @@
     $item
     $i
 </%args>
+<%init>
+use EBox::Gettext;
+</%init>
 <tr>
 <td colspan='2'>
 % if(defined($item->{title})) {
