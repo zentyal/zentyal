@@ -167,12 +167,14 @@ function updateWidget(widget) {
     for(var i = 0; i < sections.length; i++) {
         var oldsect = sections[i];
         var present = false;
-        for(var j = 0; j < widget.sections.length; j++) {
-            var newsect = widget.sections[j];
-            var sectname = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
-            if(sectname == oldsect.id) {
-                present = true;
-                break;
+        if(widget.sections) {
+            for(var j = 0; j < widget.sections.length; j++) {
+                var newsect = widget.sections[j];
+                var sectname = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
+                if(sectname == oldsect.id) {
+                    present = true;
+                    break;
+                }
             }
         }
         if(!present) {
@@ -194,7 +196,12 @@ function updateWidget(widget) {
             var newsection = document.createElement("div");
             newsection.id = sectname;
             if(prevsect == null) {
-                widgetcontents.insertBefore(newsection, widgetcontents.firstChild());
+                var first = widgetcontents.firstChild;
+                if((first == null) || (first.nodeType != 1)) {
+                    widgetcontents.appendChild(newsection);
+                } else {
+                    widgetcontents.insertBefore(newsection, widgetcontents.firstChild);
+                }
             } else {
                 var next = prevsect.next('div');
                 widgetcontents.insertBefore(newsection, next);
