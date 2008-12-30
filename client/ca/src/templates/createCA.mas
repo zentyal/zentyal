@@ -18,7 +18,7 @@
 </%init>
 <div class="note">
   <% __("This page only appears once at starting up the Certification
-  Authority. The passphrase is optional.\nChanges take effect immediately") %>
+  Authority.\nChanges take effect immediately") %>
 </div> 
 <h3><% __('Create Certification Authority Certificate') %></h3>
 <form action='CreateCA' method='POST'>
