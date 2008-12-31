@@ -34,11 +34,11 @@ use EBox::Firewall::IptablesRedirectRule;
 
 use EBox::Exceptions::Internal;
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = {}; 
+    my $self = {};
     $self->{'manager'} = EBox::Model::ModelManager->instance();
     bless($self, $class);
     return $self;
@@ -65,7 +65,7 @@ sub ToInternetRuleTable
                 'table' => 'filter', 'chain' => 'fglobal');
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
-        $self->_addServiceToRule($rule, $row);  
+        $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -75,7 +75,7 @@ sub ToInternetRuleTable
 
 # Method: ExternalToInternalRuleTable
 #
-#   Return iptables rules from 
+#   Return iptables rules from
 #   <EBox::Firewall::Model::ExternalToInternalRuleTable>
 #
 # Returns:
@@ -95,7 +95,7 @@ sub ExternalToInternalRuleTable
                 'table' => 'filter', 'chain' => 'ffwdrules');
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
-        $self->_addServiceToRule($rule, $row);  
+        $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -124,7 +124,7 @@ sub InternalToEBoxRuleTable
                 'table' => 'filter', 'chain' => 'iglobal');
         $rule->setState('new' => 1);
         $self->_addAddressToRule($rule, $row, 'source');
-        $self->_addServiceToRule($rule, $row);  
+        $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -153,7 +153,7 @@ sub ExternalToEBoxRuleTable
                 'table' => 'filter', 'chain' => 'iexternal');
         $rule->setState('new' => 1);
         $self->_addAddressToRule($rule, $row, 'source');
-        $self->_addServiceToRule($rule, $row);  
+        $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -181,9 +181,8 @@ sub EBoxOutputRuleTable
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'oglobal');
         $rule->setState('new' => 1);
-        $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
-        $self->_addServiceToRule($rule, $row);  
+        $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
@@ -257,7 +256,7 @@ sub _addServiceToRule
     my ($self, $rule, $row) = @_;
 
     my $service = $row->elementByName('service');
-    $rule->setService($service->value(), $service->inverseMatch());    
+    $rule->setService($service->value(), $service->inverseMatch());
 }
 
 sub _addIfaceToRule
@@ -284,7 +283,7 @@ sub _addCustomServiceToRule
             $dstPortFilter = $extPort->from() . ':' . $extPort->to();
         } else {
             $dstPortValue = $extPort->value(); # 'any' or single()
-            $dstPortFilter = $extPort->value(); 
+            $dstPortFilter = $extPort->value();
         }
     } else {
         $dstPortValue = $dstPort->value();
@@ -293,7 +292,7 @@ sub _addCustomServiceToRule
             $dstPortFilter = "$dstPortValue:$endValue";
         } else {
             $dstPortFilter = $dstPortValue;
-        } 
+        }
     }
 
     my $protocol = $row->elementByName('protocol')->value();
@@ -318,11 +317,11 @@ sub _addDecisionToRule
 
     my $decision = $row->valueByName('decision');
     if ($decision eq 'accept') {
-        $rule->setDecision('ACCEPT');    
+        $rule->setDecision('ACCEPT');
     } elsif ($decision eq 'deny') {
-        $rule->setDecision('drop');    
+        $rule->setDecision('drop');
     } elsif ($decision eq 'log') {
-        $rule->setDecision('log');    
+        $rule->setDecision('log');
     }
 
 }
