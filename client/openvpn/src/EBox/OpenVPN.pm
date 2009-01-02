@@ -1483,6 +1483,8 @@ sub openVPNDaemonsWidget
 
 sub widgets
 {
+    my ($self) = @_;
+
     my $openvpns = $self->daemonsNames();
 
     my $widgets = {
