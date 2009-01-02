@@ -784,8 +784,15 @@ a.changed:hover {
 .dashboard {
         display: block;
         float: left;
-        width: 48%;
-        padding: 5px;
+        width: 385px;
+}
+
+#dashboard1 {
+        padding-right: 5px;
+}
+
+#dashboard2 {
+        padding-left: 5px;
 }
 
 .widgetHandle {
