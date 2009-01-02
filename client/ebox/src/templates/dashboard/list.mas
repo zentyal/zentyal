@@ -18,7 +18,7 @@ use EBox::Gettext;
 % } else {
 %   $list_display = 'none';
 % }
-<table id='<% $namespace . '_' . $i . '_table' %>' style='display: <% $list_display %>;'>
+<table id='<% $namespace . '_' . $i . '_table' %>' style='display: <% $list_display %>;' class='dashboardTable'>
 <thead>
 <tr>
 % foreach my $colTitle (@{$item->{colTitles}}) {

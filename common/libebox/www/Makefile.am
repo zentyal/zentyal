@@ -21,7 +21,7 @@ images = images/delete.gif images/show.gif \
   images/reload.gif images/ajax-loader.gif images/edit-table.gif \
   images/search.gif images/non_ff.gif   images/non_f.gif \
   images/non_r.gif  images/non_rw.gif images/feed-icon.gif \
-  images/spinner.gif images/widget_controls.png
+  images/spinner.gif images/widget_controls.png images/triangles.png
 
 js = js/csshover.htc js/common.js \
   js/help.js js/table-helper.js js/prototype.js \
