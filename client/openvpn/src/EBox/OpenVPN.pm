@@ -28,10 +28,10 @@ use Perl6::Junction qw(any);
 use Error qw(:try);
 
 use EBox::Gettext;
-use EBox::Summary::Module;
-use EBox::Summary::Status;
 use EBox::Sudo;
 use EBox::Validate;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 use EBox::OpenVPN::Server;
 use EBox::OpenVPN::Client;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
@@ -252,7 +252,7 @@ sub _prepareLogFiles
     my ($self) = @_;
 
     my $logDir = $self->logDir();
-    foreach my $name ($self->daemonsNames()) {
+    foreach my $name (@{$self->daemonsNames()}) {
         for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
             try {
                 EBox::Sudo::root("test -e $file");
@@ -393,7 +393,7 @@ sub daemonsNames
 
     my @daemonsNames = ($self->serversNames(),$self->clientsNames(),);
 
-    return @daemonsNames;
+    return \@daemonsNames;
 }
 
 # server-related methods
@@ -1473,9 +1473,42 @@ sub menu
     $root->add($folder);
 }
 
-sub summary
+sub openVPNWidget
 {
-    my ($self) = @_;
+    my ($self, $widget, $ovpn) = @_;
+    my $section = new EBox::Dashboard::Section($ovpn);
+    $widget->add($section);
+
+    my $path = $self->logDir() . '/' . 'status-' . $ovpn . '.log';
+    my @status = read_file($path);
+    my $state = 0;
+
+    my $titles = [__('Common name'),__('Address'), __('Connected since')];
+    my $rows = {};
+
+    for my $line (@status) {
+        chomp($line);
+        if($state == 0) {
+            if($line =~m/^Common Name,/) {
+                $state = 1;
+            }
+        } elsif($state == 1) {
+            my @fields = split(',', $line);
+            if(@fields != 5) {
+                last;
+            }
+            my ($cname,$address,$recv,$sent,$date) = @fields;
+            $rows->{$cname} = [$cname,$address,$date];
+        }
+    }
+    my $ids = [sort keys %{$rows}];
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
+        __('No users connected to the VPN')));
+}
+
+sub openVPNDaemonsWidget
+{
+    my ($self, $widget) = @_;
 
     my @daemons = $self->daemons();
 
@@ -1483,35 +1516,42 @@ sub summary
         return undef;
     }
 
-    my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
-
     foreach my $daemon (@daemons) {
         my @daemonSummary = $daemon->summary();
         @daemonSummary or next;
-
+  
         my $name = shift @daemonSummary;
-        my $section = new EBox::Summary::Section($name);
+        my $section = new EBox::Dashboard::Section($daemon->name(),$name);
 
         while (@daemonSummary) {
             my ($valueName, $valueData) = splice(@daemonSummary, 0, 2);
-            $section->add(new EBox::Summary::Value($valueName, $valueData));
+            $section->add(new EBox::Dashboard::Value ($valueName, $valueData));
         }
-
-        $summary->add($section);
+        $widget->add($section);
     }
-
-    return $summary;
 }
 
-sub statusSummary
+sub widgets
 {
     my ($self) = @_;
-    return
-      new EBox::Summary::Status( 'openvpn', 
-                                 __('OpenVPN service'),
-                                 $self->userRunning, 
-                                 $self->service
-                               );
+    my $openvpns = $self->daemonsNames();
+
+    my $widgets = {
+        'openvpndaemons' => {
+            'title' => __("OpenVPN daemons"),
+            'widget' => \&openVPNDaemonsWidget,
+            'default' => 1
+        }
+    };
+    foreach my $ovpn (@{$openvpns}) {
+        my $widget = {
+            'title' => $ovpn,
+            'widget' => \&openVPNWidget,
+            'parameter' => $ovpn
+        };
+        $widgets->{'vpn' . $ovpn} = $widget;
+    }
+    return $widgets;
 }
 
 sub _backupClientCertificatesDir
