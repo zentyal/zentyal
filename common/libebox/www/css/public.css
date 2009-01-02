@@ -192,7 +192,7 @@
 	padding-left: 15px;
 	padding-top: 2px;
 	padding-bottom: 2px;
-	font-family: monospace;
+	font-family: Verdana, sans-serif;
 	background-color: #F4F4F4;
 }
 
@@ -569,9 +569,9 @@ input {
 .sright { float: right; }
 
 .stitle {
-	background-color: #BBDF39;
-	color: #ffffff;
-	margin: 5px;
+	color: #4c4c4c;
+	margin: 3px;
+    font-weight: bold;
 	padding: 1px 1px 1px 3px;
     line-height: 14px;
 }
@@ -817,11 +817,11 @@ a.changed:hover {
         position: relative;
         float: left;
         z-index: 3;
-        font-size: 14px;
-        font-family: Trebuchet MS, Verdana, sans-serif;
+        font-size: 12px;
+        font-family: Verdana, sans-serif;
         font-weight: bold;
         color: white;
-        padding-left: 5px;
+        padding: 3px 6px;
 }
 
 a.closeBox {
@@ -843,20 +843,15 @@ a.closeBox:hover {
 
 a.minBox, a.maxBox {
         position: relative;
-        float: right;
+        float: left;
         margin-right: 3px;
-        margin-top: -13px;
         overflow:hidden;
         z-index: 5;
 }
 
 .widgetBarBox {
         display: block;
-        width: 160px;
-        height: 60px;
-        float: left;
-        margin-left: 5px;
-        margin-right: 5px;
+        width: 160px; height: 60px; float: left; margin-left: 5px; margin-right: 5px;
 }
 
 .widgetBox {
@@ -864,33 +859,39 @@ a.minBox, a.maxBox {
 }
 
 .widgetBoxIn {
-        border:1px solid #C0C0FF;
+        border:1px solid #BBDF39;
 }
 
 .sectionContent {
     width: 100%;
 }
 
-a.minBox {
-        background-position: -12px 0px;
-}
-
-a.minBox:hover {
-        background-position: -12px -12px;
-}
-
 a.maxBox {
-        background-position: 0px 0px;
+        background-position: -15px 0px;
 }
 
 a.maxBox:hover {
-        background-position: 0px -12px;
+        background-position: 0px 0px;
 }
 
-a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover, a.closeBox, a.closeBox:hover {
+a.minBox {
+        background-position: -15px -15px;
+}
+
+a.minBox:hover {
+        background-position: 0px -15px;
+}
+
+a.closeBox, a.closeBox:hover {
         background-image:url('/data/images/widget_controls.png');
         height:12px;
         width:12px;
+}
+
+a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
+        background-image:url('/data/images/triangles.png');
+        height:15px;
+        width:15px;
 }
 
 .widArrow {
@@ -917,3 +918,39 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover, a.closeBox, a.closeBox:hover
     font-style: italic;
     padding-right: 3px;
 }
+
+.dashboardTable {
+    border-collapse: collapse;
+    border: 0;
+    font-size: 11px;
+    width: 100%;
+}
+
+.dashboardTable thead {
+    color: white;
+    background-color: olive;
+}
+
+.dashboardTable th {
+    font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
+    padding: 3px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+.dashboardTable td {
+        padding: 3px;
+}
+
+.dashboardTable td a {
+	color: #000000;
+	background-color: none;
+	text-decoration: none;
+}
+
+.dashboardTable td a:hover { 
+    background: none;
+    text-decoration: underline;
+    color: #A3BD5B;
+}
+
+.dashboardTable tr.highlight { background: #E58A22; }
