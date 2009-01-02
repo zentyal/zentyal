@@ -10,6 +10,8 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::Global;
 
+use EBox::Dashboard::ModuleStatus;
+
 use EBox::MailFilter::VDomainsLdap;
 use EBox::MailVDomainsLdap;
 
@@ -421,7 +423,7 @@ sub summary
     $summary->add($section);
 
     my $service = $self->service();
-    my $status =  new EBox::Dashboard::Status(
+    my $status =  new EBox::Dashboard::ModuleStatus(
                                         'mailfilter',
                                         __('Status'),
                                         $self->isRunning(),
@@ -438,7 +440,7 @@ sub summary
     my $mailfilter = EBox::Global->modInstance('mailfilter');
             
 
-    my $antivirus = new EBox::Dashboard::Status(
+    my $antivirus = new EBox::Dashboard::ModuleStatus(
                                               'mailfilter',
                                               __('Antivirus'),
                                               $self->antivirus(),
@@ -447,7 +449,7 @@ sub summary
     $section->add($antivirus);
 
 
-   my $antispam = new EBox::Dashboard::Status(
+   my $antispam = new EBox::Dashboard::ModuleStatus(
                                               'mailfilter',
                                               __('Antispam'),
                                               $self->antispam(),
