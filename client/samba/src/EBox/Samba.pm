@@ -574,11 +574,11 @@ sub widgets
     };
 }
 
-# Method: daemons
+# Method: _daemons
 #
-# 	Override EBox::ServiceModule::ServiceInterface::daemons
+# 	Override EBox::ServiceModule::ServiceInterface::_daemons
 #
-sub daemons
+sub _daemons
 {
     return [
         {
