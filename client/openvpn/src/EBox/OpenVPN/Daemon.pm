@@ -617,7 +617,7 @@ sub removeUpstartFileForDaemon
 #
 # Returns:
 #     the summary data as list; the first element will be the title of the summary
-#     section and the following pairs will be used to build EBox::Dashboard::Value objects
+#     section and the following pairs will be usd to build EBox::Summary::Value objects
 sub summary
 {
     my ($self) = @_;
