@@ -20,8 +20,9 @@ use warnings;
 
 use base 'EBox::Menu::Node';
 use EBox::Gettext;
+use HTML::Mason::Interp;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;
@@ -35,16 +36,16 @@ sub html
 {
 	my $self = shift;
 
-	my $html = "<div id='menu'>\n";
-	$html .=   "<ul id='nav'>\n";
+    my $output;
+    my $interp = HTML::Mason::Interp->new(out_method => \$output);
+    my $comp = $interp->make_component(
+            comp_file => (EBox::Config::templates . '/menu.mas'));
 
-	foreach my $item (@{$self->items}) {
-		$html .= $item->html($self->{'current'});
-	}
+    my @params;
+    push(@params, 'items' => $self->items);
+    $interp->exec($comp, @params);
 
-	$html .= "</ul></div>\n";
-
-	return $html;
+	return $output;
 }
 
 1;

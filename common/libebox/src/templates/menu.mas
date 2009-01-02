@@ -1,0 +1,9 @@
+<%args>
+@items
+</%args>
+<div id='menu'>
+    <ul id='nav'>
+% foreach my $item (@items) {
+        <% $item->html($self->{'current'}) %>
+% }
+</ul></div>
