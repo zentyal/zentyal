@@ -318,11 +318,11 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Summary::Section(__("SMTP filter"));
+    my $section = new EBox::Dashboard::Section(__("SMTP filter"));
     $summary->add($section);
 
     my $service = $self->service();
-    my $status =  new EBox::Summary::Status(
+    my $status =  new EBox::Dashboard::Status(
                                         'mailfilter',
                                         __('Status'),
                                         $self->isRunning(),
@@ -333,12 +333,10 @@ sub summary
     $service or
         return ;
 
-    
-
     my $mailfilter = EBox::Global->modInstance('mailfilter');
             
 
-    my $antivirus = new EBox::Summary::Status(
+    my $antivirus = new EBox::Dashboard::Status(
                                               'mailfilter',
                                               __('Antivirus'),
                                               $self->antivirus(),
@@ -347,7 +345,7 @@ sub summary
     $section->add($antivirus);
 
 
-   my $antispam = new EBox::Summary::Status(
+   my $antispam = new EBox::Dashboard::Status(
                                               'mailfilter',
                                               __('Antispam'),
                                               $self->antispam(),
@@ -355,6 +353,5 @@ sub summary
                                               1);
     $section->add($antispam);
 }
-
 
 1;

@@ -417,11 +417,11 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Summary::Section(__("POP transparent proxy"));
+    my $section = new EBox::Dashboard::Section(__("POP transparent proxy"));
     $summary->add($section);
 
     my $service = $self->service();
-    my $status =  new EBox::Summary::Status(
+    my $status =  new EBox::Dashboard::Status(
                                         'mailfilter',
                                         __('Status'),
                                         $self->isRunning(),
@@ -438,7 +438,7 @@ sub summary
     my $mailfilter = EBox::Global->modInstance('mailfilter');
             
 
-    my $antivirus = new EBox::Summary::Status(
+    my $antivirus = new EBox::Dashboard::Status(
                                               'mailfilter',
                                               __('Antivirus'),
                                               $self->antivirus(),
@@ -447,7 +447,7 @@ sub summary
     $section->add($antivirus);
 
 
-   my $antispam = new EBox::Summary::Status(
+   my $antispam = new EBox::Dashboard::Status(
                                               'mailfilter',
                                               __('Antispam'),
                                               $self->antispam(),

@@ -35,8 +35,6 @@ use Perl6::Junction qw(all any);
 use EBox::Gettext;
 use EBox::Sudo qw( :all );
 use EBox::Service;
-use EBox::Summary::Module;
-use EBox::Summary::Status;
 use EBox::Exceptions::InvalidData;
 use EBox::MailFilter::FirewallHelper;
 use EBox::MailFilter::LogHelper;
@@ -467,30 +465,6 @@ sub firewallHelper
                                              );
 }
 
-
-
-
-#
-# Method: statusSummary
-#
-#       Returns an EBox::Summary::Status to add to the services section of the
-#       summary page. This class contains information about the state of the
-#       module.
-#
-# Returns:
-#
-#       EBox::Summary::Status instance.
-#
-sub statusSummary
-{
-        my $self = shift;
-        return new EBox::Summary::Status('mailfilter', __('Mail filter system'),
-                $self->isRunning(), $self->service());
-}
-
-
-
-
 # Method: _ldapModImplementation
 #
 #        All modules using any of the functions in LdapUserBase.pm
@@ -546,19 +520,24 @@ sub mailFilter
   return $self->smtpFilter()->mailFilter();
 }
 
-
-sub summary
+sub mailFilterWidget
 {
-    my ($self) = @_;
+    my ($self,$widget) = @_;
 
-    my $section = new EBox::Summary::Module(__("Mail Filter"));
- 
-    $self->smtpFilter()->summary($section);
-    $self->popProxy()->summary($section);
-
-    return $section;
+    $self->smtpFilter()->summary($widget);
+    $self->popProxy()->summary($widget);
 }
 
+sub widgets
+{
+    my $widgets = {
+        'mailfilter' => {
+            'title' => __("Mail filter"),
+            'widget' => \&mailFilterWidget,
+            'default' => 1
+        }
+    };
+}
 
 sub tableInfo
 {
