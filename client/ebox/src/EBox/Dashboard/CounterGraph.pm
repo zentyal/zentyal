@@ -56,7 +56,6 @@ sub update
     my $startdate = $date - 120;
     my $secs;
     my $value = 0;
-    EBox::debug('original value is ' . $self->{value});
     if(-f $counterfile) {
         my $olddate = (stat $counterfile)[9]; 
         if($olddate < $startdate) {
@@ -67,16 +66,13 @@ sub update
             my $oldcounter = <COUNTERFILE>;
             close COUNTERFILE;
             chomp($oldcounter);
-            EBox::debug('old counter value is ' . $oldcounter);
             if($secs != 0) {
                 $value = ($self->{value}-$oldcounter)/$secs; 
             }
         }
     }
     use EBox;
-    EBox::debug('counterrfile: ' . $counterfile);
     open(COUNTERFILE, "> $counterfile");
-    EBox::debug('new value is ' . $value);
     print COUNTERFILE $self->{value};
     close COUNTERFILE;
     $self->{value} = $value;
