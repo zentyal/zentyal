@@ -11,6 +11,8 @@ use EBox::Sudo;
 use EBox::Global;
 use EBox;
 
+use EBox::Dashboard::ModuleStatus;
+
 use Perl6::Junction qw(all);
 use File::Slurp qw(read_file);
 
@@ -322,7 +324,7 @@ sub summary
     $summary->add($section);
 
     my $service = $self->service();
-    my $status =  new EBox::Dashboard::Status(
+    my $status =  new EBox::Dashboard::ModuleStatus(
                                         'mailfilter',
                                         __('Status'),
                                         $self->isRunning(),
@@ -336,7 +338,7 @@ sub summary
     my $mailfilter = EBox::Global->modInstance('mailfilter');
             
 
-    my $antivirus = new EBox::Dashboard::Status(
+    my $antivirus = new EBox::Dashboard::ModuleStatus(
                                               'mailfilter',
                                               __('Antivirus'),
                                               $self->antivirus(),
@@ -345,7 +347,7 @@ sub summary
     $section->add($antivirus);
 
 
-   my $antispam = new EBox::Dashboard::Status(
+   my $antispam = new EBox::Dashboard::ModuleStatus(
                                               'mailfilter',
                                               __('Antispam'),
                                               $self->antispam(),

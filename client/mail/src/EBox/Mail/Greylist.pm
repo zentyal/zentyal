@@ -34,7 +34,7 @@ use constant {
 };
 
 
-sub new 
+sub new
 {
   my $class = shift @_;
 
@@ -42,39 +42,6 @@ sub new
   bless $self, $class;
 
   return $self;
-}
-
-
-
-
-sub doDaemon
-{
-    my ($self, $mailService) = @_;
-    
-    if ($mailService and $self->service() and $self->isRunning()) {
-        $self->_daemon('restart');
-    } 
-    elsif ($mailService and $self->service()) {
-        $self->_daemon('start');
-    } 
-    elsif ($self->isRunning()) {
-        $self->_daemon('stop');
-    }
-}
-
-
-
-
-
-sub _daemon
-{
-  my ($self, $action) = @_;
-
-  if ($action ne all('start', 'stop', 'restart')) {
-    throw EBox::Exceptions::Internal("Bad argument: $action");
-  }
-
-  EBox::Service::manage(GREYLIST_SERVICE, $action);
 }
 
 sub usedFiles
@@ -97,28 +64,17 @@ sub usedFiles
 #     return [];
 # }
 
-
+sub daemon
+{
+    return {
+            'name' => GREYLIST_SERVICE
+    };
+}
 
 sub service
 {
   my ($self) = @_;
   return $self->_confAttr('service');
-}
-
-sub isRunning
-{
-  my ($self) = @_;
-  return EBox::Service::running(GREYLIST_SERVICE);
-}
-
-
-sub stopService
-{
-  my ($self) = @_;
-
-  if ($self->isRunning()) {
-    $self->_daemon('stop');
-  }
 }
 
 sub delay
@@ -271,8 +227,7 @@ sub address
     return '127.0.0.1';
 }
 
-
-sub usesPort 
+sub usesPort
 {
     my ($self, $protocol, $port, $iface) = @_;
 

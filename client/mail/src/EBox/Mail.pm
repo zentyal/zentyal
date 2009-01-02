@@ -462,13 +462,21 @@ sub _fqdn
     return $fqdn;
 }
 
+sub isGreylistEnabled
+{
+    my ($self) = @_;
+    return $self->greylist()->service();
+}
+
 #  Method: _daemons
 #
 #   Override <EBox::ServiceModule::ServiceInterface::_daemons>
 #
 sub _daemons
 {
-    return [
+    my ($self) = @_;
+
+    my $daemons = [
         {
             'name' => MAILINIT,
             'type' => 'init.d'
@@ -494,8 +502,12 @@ sub _daemons
             'name' => AUTHLDAPINIT,
             'type' => 'init.d',
             'pidfile' => AUTHLDAPPIDFILE
-        }
+        },
     ];
+    my $greylist_daemon = $self->greylist()->daemon();
+    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
+    push(@{$daemons}, $greylist_daemon);
+    return $daemons;
 }
 
 # Method: isServiceRunning
@@ -884,9 +896,8 @@ sub _regenConfig
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
 	}
-    $self->_enforceServiceState();
     $self->greylist()->writeUpstartFile();
-    $self->greylist()->doDaemon($service);
+    $self->_enforceServiceState();
 }
 
 sub isPopEnabled
@@ -1048,7 +1059,7 @@ sub _filterDashboardSection
     $section->add( new EBox::Dashboard::Value( __('Status'), $statusValue));
 
     $section->add(
-            new EBox::Summary::Value(__(q{Mail server's filter}),
+            new EBox::Dashboard::Value(__(q{Mail server's filter}),
                 $statusValue)
             );
 
