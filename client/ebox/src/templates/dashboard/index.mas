@@ -127,11 +127,11 @@ function toggleClicked(element) {
     var contentname = element + '_content';
     var toggler = $(togglername);
     if(toggler.hasClassName('minBox')) {
-        $(contentname).hide();
+        Effect.BlindUp(contentname, { duration: 0.5 });
         toggler.removeClassName('minBox');
         toggler.addClassName('maxBox');
     } else {
-        $(contentname).show();
+        Effect.BlindDown(contentname, { duration: 0.5 });
         toggler.removeClassName('maxBox');
         toggler.addClassName('minBox');
     }
