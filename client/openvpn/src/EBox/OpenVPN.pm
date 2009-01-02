@@ -48,8 +48,6 @@ use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
                                           # correctly in ifconfig
 use constant RESERVED_PREFIX => 'R_D_';
 
-use constant STATUS_PATH => '/home/isaac/openvpn/';
-
 my @daemonTypes   = qw(server client); # in the daemons method they will appear in this order
 my $anyDaemonType = any @daemonTypes;
 
@@ -180,7 +178,7 @@ sub _prepareLogFiles
     my ($self) = @_;
 
     my $logDir = $self->logDir();
-    foreach my $name ($self->daemonsNames()) {
+    foreach my $name (@{$self->daemonsNames()}) {
         for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
             try {
                 EBox::Sudo::root("test -e $file");
@@ -361,7 +359,7 @@ sub daemonsNames
     push @daemonsNames, $self->$nameSub();
   }
 
-  return @daemonsNames;
+  return \@daemonsNames;
 }
 
 
