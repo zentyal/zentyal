@@ -278,7 +278,7 @@ sub _regenConfig
 	my $self = shift;
 
 	$self->_setJabberConf;
-	$self->_doDaemon();
+	$self->_enforceServiceState();
 }
 
 sub _setJabberConf
