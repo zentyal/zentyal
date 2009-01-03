@@ -155,7 +155,7 @@ sub _regenConfig
     my ($self) = @_;
 
     $self->_setWebServerConf();
-    $self->_doDaemon();
+    $self->_enforceServiceState();
 
 }
 
