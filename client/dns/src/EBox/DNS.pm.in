@@ -675,7 +675,6 @@ sub usedFiles
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-dns/ebox-dns-enable');
-    $self->configureFirewall();    
 }
 
 
@@ -699,6 +698,20 @@ sub _daemons
             'name' => 'ebox.bind9'
         }
     ];
+}
+
+# Method: enableService
+#
+# Overrides:
+#
+#  <EBox::ServiceModule::ServiceInterface::enableService>
+#
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+    $self->configureFirewall();    
 }
 
 # Method: _regenConfig
@@ -775,8 +788,13 @@ sub configureFirewall
 
     my $fw = EBox::Global->modInstance('firewall'); 
 
-    $fw->addOutputRule('udp', 53);
-    $fw->addOutputRule('tcp', 53);
+    if ($self->isEnabled()) {
+        $fw->addOutputRule('udp', 53);
+        $fw->addOutputRule('tcp', 53);
+    } else {
+        $fw->removeOutputRule('udp', 53);
+        $fw->removeOutputRule('tcp', 53);
+    }
 }
 
 # Method: menu 
