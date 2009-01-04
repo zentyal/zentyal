@@ -195,5 +195,23 @@ sub _table
     return $dataTable;
 }
 
+# Method: deletedRowNotify
+#
+# 	Overrides <EBox::Model::DataTable::deletedRowNotify> to remove
+# 	mail exchangers referencing the deleted host name.
+#
+sub deletedRowNotify 
+{
+    my ($self, $row) = @_;
+
+    my $mailExModel = $row->parentRow()->subModel('mailExchangers');
+    for my $mailRow (@{$mailExModel->rows()}) {
+        my $hostname = $mailRow->elementByName('hostName');
+        next unless ($hostname->selectedType() eq 'ownerDomain');
+        if ($hostname->value() eq $row->id()) {
+            $mailExModel->removeRow($mailRow->id());
+        }
+    }
+}
 
 1;
