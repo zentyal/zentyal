@@ -1,0 +1,318 @@
+=========================
+Version 0.1: simple field
+=========================
+
+In this version we will let users choose which port they want apache to listen on, 80 by default. We will set apache configuration according to this.
+
+Data model
+==========
+
+By default two fields are added to this model: *Field 1* and *Field 2*.
+
+The next step will be to change these fields to have what we actually want. The
+first version of our module is going to be pretty simple. The only thing we will let the user change will be the port. Roughly speaking, the data model is composed of some fields, you have to tell what kind of data we will store in each field. To do this, we use some classes shipped with the framework which are called
+types.
+
+These are some of the types you can currently find in eBox:
+
+* Text
+* Int
+* Boolean
+* Select
+* Port
+* Password
+* PortRange
+* Service
+* HostIP
+* Host
+* IPAddr
+* ...
+
+Note that each one of these classes are namespaced with *EBox::Types*. Remember that in Perl to import a class you have to use the keyword *use*.
+
+Let's take a look at our current model. The code is in *src/EBox/Model/Settings.pm*::
+
+    #!perl
+    # Class: EBox::Apache2::Model::Settings
+    #
+    #   TODO: Document class
+    #
+
+    package EBox::Apache2::Model::Settings;
+
+    use EBox::Gettext;
+    use EBox::Validate qw(:all);
+    use EBox::Types::Text;
+
+    use strict;
+    use warnings;
+
+    use base 'EBox::Model::DataForm';
+
+    sub new
+    {
+        my $class = shift;
+        my %parms = @_;
+        my $self = $class->SUPER::new(@_);
+        bless($self, $class);
+
+        return $self;
+    }
+
+    sub _table
+    {
+
+        my @tableHead =
+        (
+            new EBox::Types::Text(
+                'fieldName' => 'field1',
+                'printableName' => __('Field 1'),
+                'size' => '8',
+                'unique' => 1,
+                'editable' => 1
+            ),
+            new EBox::Types::Text(
+                'fieldName' => 'field2',
+                'printableName' => __('Field 2'),
+                'size' => '8',
+                'unique' => 1,
+                'editable' => 1
+            ),
+        );
+
+        my $dataTable =
+        {
+            'tableName' => 'Settings',
+            'printableTableName' => __('Settings'),
+            'modelDomain' => 'Apache2',
+            'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
+            'tableDescription' => \@tableHead,
+            'help' => *, # FIXME
+        };
+
+        return $dataTable;
+    }
+
+    1;
+
+Let's make some changes:
+
+* We won't be using a *Text* type at the moment, so we will get rid of it. Instead, we'll use a *Port* type.
+* As we only have one field, we will remove  *Field 2*, and we will change the name of *Field 1* to *Listening Port*, and of course, we need to change its type to *EBox::Types::Port*. Don't forget to change *use* statement from *Ebox::Types::Text* to *EBox::Types::Port*.
+
+Now our code should look like this::
+
+    #!perl
+    package EBox::Apache2::Model::Settings;
+
+    use EBox::Gettext;
+    use EBox::Validate qw(:all);
+    use EBox::Types::Port;
+
+    use strict;
+    use warnings;
+
+    use base 'EBox::Model::DataForm';
+
+    sub new
+    {
+            my $class = shift;
+            my %parms = @_;
+
+            my $self = $class->SUPER::new(@_);
+            bless($self, $class);
+
+            return $self;
+    }
+
+    sub _table
+    {
+
+        my @tableHead =
+        (
+            new EBox::Types::Port(
+                'fieldName' => 'listeningPort',
+                'printableName' => __('Listening port'),
+                'editable' => 1
+            )
+        );
+
+        my $dataTable =
+        {
+            'tableName' => 'Settings',
+            'printableTableName' => __('Settings'),
+            'modelDomain' => 'Apache2',
+            'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
+               'tableDescription' => \@tableHead,
+            'help' => *, # FIXME
+        };
+
+        return $dataTable;
+    }
+
+    1;
+
+Build the package as described in :ref:`building-module`.
+
+Here is a tip, you should always check the syntax of the files you modify. Take into account you are using a dynamic language, and debugging errors might be difficult. Every time you modify or create a new Perl file you should run *'perl -c*'::
+
+    perl -c /usr/share/perl5/EBox/Apache2/Model/Settings.pm
+
+Let's go back to the code::
+
+    #!perl
+        my @tableHead =
+        (
+            new EBox::Types::Port(
+                'fieldName' => 'listeningPort',
+                'printableName' => __('Listening port'),
+                'defaultValue' => 80,
+                'editable' => 1
+            )
+        );
+
+The above code shows a constructor for the class *EBox::Types::Port* being called. The arguments are:
+
+* *fieldName*: this is the name of the field that we will always use to deal with it.
+* *printableName*: it's basically the name that the user will see. Note that the string *Listening port* is passed to the function *__()* which is used to translate the string into the user language.
+* *editable*: this tells the framework if the user is allowed to change its value or not from the UI.
+* *defaultValue*: if this parameter exists, the field will be preloaded with this value, otherwise it will be empty
+
+Build and install as usual. If you click on the *Apache2* entry again you will see something like:
+
+.. image:: images/listening-port.png
+
+Fetching the current value
+==========================
+
+We already have a web interface with a simple form where the user can set the Apache port. Let's make a simple script that will show how to fetch this value. The goal of this script is just to show you how we can retrieve values from a data model.
+
+You can save this code into a file and run it with *sudo perl filename*::
+
+    #!perl
+    use EBox;
+    use EBox::Model::ModelManager;
+
+    # This is the very first thing we always have to do from external scripts
+    EBox::init();
+
+    # Instance ModelManager
+    my $manager = EBox::Model::ModelManager->instance();
+
+    # Gently ask for the model called apache2/Settings
+    my $settings = $manager->model('apache2/Settings');
+
+    # Print the value stored in listeningPort
+    print $settings->row()->valueByName('listeningPort') . "\n";
+
+    # We could also use autoload magic to do the same thing as above.
+    print $settings->listeningPortValue() . "\n";
+
+Models always have to be requested through an instance of *EBox::Model::!ModelManager*. Note that to retrieve the model we use::
+
+    #!perl
+    my $settings = $manager->model('apache2/Settings');
+
+The name of our model is *Settings*, but it's namespaced within our module name. If you recall when we created the scaffolding our module name was *apache2*.
+
+The next thing we do is to retrieve the stored value of our field called *listeningPort*. To do that we run::
+
+    #!perl
+    $settings->row()->valueByName('listeningPort')
+
+*$settings* is an instance of our model. The method *row()* returns an instance of *EBox::Model::Row* which we will see in depth later. For now, it's enough to know that it's a class that  will allow us to access all the fields in our model. *valueByName()* is a method to get the value of the given field.
+
+Writing the apache configuration
+================================
+
+The user can set the value for the port. Now we have to set the apache configuration according to this value.
+
+The apache configuration file we are going to modify is */etc/apache2/ports.conf*. The structure of this file is pretty simple::
+
+    Listen 80
+
+In its current version, eBox uses a `template based system <http://www.masonhq.com>` to generate new configuration files.
+
+Let's create our template for this file. Our scaffolding script has already created a template in *stubs/service.conf.mas*. We have to modify it as follows::
+
+    <%args>
+      $port
+    </%args>
+    Listen <% $port %>
+
+You can read a bit about Mason templates if you wish, but in essence, the above template receives a parameter *$port* which will be used and replaced in the line starting with *Listen*.
+
+Let's implement a private function in our main class file (*src/EBox/Apache2.pm*) to use the template and overwrite */etc/apache2/ports.conf*. It would be something like this::
+
+    #!perl
+    # Private functions
+
+    # Method: _writeConfiguration
+    #
+    #       This method uses a mason template to generate and write the configuration for
+    #       /etc/apache2/ports.conf
+    #
+    sub _writeConfiguration
+    {
+            my ($self) = @_;
+
+            my $mgr = EBox::Model::ModelManager->instance();
+            my $port = $mgr->model('apache2/Settings')->row()->valueByName('listeningPort');
+            $self->writeConfFile('/etc/apache2/ports.conf',
+                                 '/apache2/service.conf.mas',
+                                 [ port => $port ]);
+
+    }
+
+We have already seen how to fetch the value from our data model so we will just visit the method *writeConfFile*, this method is implemented by the *EBox::Module* class which our module inherits from. The first parameter is the destination file to be overwritten with the output of our template. The second parameter is our template, templates are stored under */usr/share/ebox/stubs*, and */apache2/service.conf.mas* is relative to that path. The third and last parameter is an array reference with the parameters we pass to the template, in this case we only have one, *port*.
+
+eBox developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, eBox will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report what files your module overwrites::
+
+    #!perl
+    # Method: usedFiles
+    #
+    #   Override EBox::ServiceModule::ServiceInterface::usedFiles
+    #
+    sub usedFiles
+    {
+        return [
+                {
+                  'file' => '/etc/apache2/ports.conf',
+                  'module' => 'apache2',
+                  'reason' => __('To configure the apache port')
+                },
+               ];
+    }
+
+eBox commits its configuration changes as follows:
+
+* The user starts a new web interface session and makes some changes to the configuration.
+* The *Save changes* button on the top-right corner turns red to let the user know there are unsaved changes.
+* When the user clicks on that button to save changes, the framework iterates over all modules with unsaved changes preserving its dependency order to make them commit their new configuration. The relevant method call is *_regenConfig* from our main class.
+
+If you recall our main class is called *Apache2.pm* and lives under *src/EBox/Apache2.pm* in our development directory, or in */usr/share/perl5/EBox/Apache2.pm* when the package is installed.
+
+The following code implements *_regenConfig()*::
+
+    #!perl
+    # Method: _regenConfig
+    #
+    #       Overrides EBox::Module::_regenConfig
+    #
+    sub _regenConfig
+    {
+            my ($self) = @_;
+
+            if ($self->isEnabled()) {
+                    $self->_writeConfiguration();
+                    EBox::Sudo::root('/etc/init.d/apache2 restart');
+            } else {
+                    EBox::Sudo::root('/etc/init.d/apache2 stop');
+            }
+    }
+
+The above function will be called every time we change our module configuration and when the machine boots for first time. The method *isEnabled()* is implemented in the parent class *EBox::ServiceModule::!ServiceInterface*. It tells us if the module is enabled or not, i.e: if the module box is checked in the *Module status* section:
+
+.. image:: images/module-status.png
+
+If the module is enabled we must overwrite */etc/apache2/ports.conf*, to do so we use the convenience method we have created earlier *_writeConfiguration()*. After writing the configuration we restart apache, we use the static method *EBox::Sudo::root()* to run a command through *sudo*. In case the module is disabled by the user we stop apache. Note that this is a pretty trivial implementation of the management of apache. In the next version we will extend it.
