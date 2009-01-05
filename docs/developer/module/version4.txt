@@ -1,0 +1,354 @@
+=========================
+Version 0.4: preload data
+=========================
+
+In our current module version, when our users want to enable or disable a module
+there are two options. If the module row does not exists yet, they have to add
+the row with the desired configuration. In case the module row already exists,
+users have to click on the *edit* -pencil icon- button.
+
+From a UI perspective, it would be nice to have all the module rows added from
+the very begining. This way, our users will always have to interact with the
+table in the same way: clicking on the *edit* button.
+
+In this new version we will learn how to *pre-add* rows to a given table. We
+will see two different approaches. The first one is not the optimal approach
+with the given scenario. However, we will introduce it  because it can be useful
+with other modules managing different sorts of data.
+
+Approach *a*: overriding *rows()*
+=================================
+This first approach uses a very extended practice provided by OO programming:
+overriden a base method.
+
+You must recall that our data models inherit from *EBox::Model::DataTable*.
+When the framework asks for the rows that make up a table, the method
+*EBox::Model::DataTable::rows()* is called.
+
+What we are actually going to do is overriding that method to add the modules
+rows the first time this method is called. Note that this seems to be not
+suboptimal, and in this case it is, but there are some other cases where using
+this technique can be very effective.
+
+The code in *src/EBox/Model/Modules.pm* will be something like this::
+
+    #!perl
+    # Method: rows
+    #
+    #   Overrides <EBox::Model::DataTable::rows>
+    #   to pre-add module rows.
+    sub rows
+    {
+        my ($self, @params)  = @_;
+
+        # Check if we have already been called before by
+        # calling the parent method and checking if it returns more than
+        # 1 row
+        my $rows = $self->SUPER::rows(@params);
+
+        unless (@{$rows}) {
+            # Parent method returned 0 rows, so we have to add them
+            my @modules = ('ssl', 'info', 'status', 'version');
+            for my $name (@modules) {
+                my $module = new EBox::Types::Select(
+                        fieldName => 'module',
+                        editable => 1,
+                        populate => \&populate_module);
+                $module->setValue($name);
+                my $enabled = new EBox::Types::Boolean(
+                        fieldName => 'enabled',
+                        editable => 1),
+                $enabled->setValue(undef);
+
+                my $paramsRef = { module => $module, enabled => $enabled };
+                $self->addTypedRow($paramsRef);
+            }
+            return $self->SUPER::rows(@params);
+        } else {
+            # Parent method returned > 0 rows, so we just return them
+            return $rows;
+        }
+    }
+
+Let's walk through the above code. The very first thing we do after retrieving
+the parameters is calling our parent method to check if there are already rows.
+To do that we use the Perl syntax to call super class methods. Please take into
+account that you have to pass the right parameters to the parent method, pay
+attention to how we fetched the parameters and how we do not pass *$self*::
+
+    #!perl
+    $self->SUPER::rows(@params);
+
+We dereference *$rows* to check if it's an empty array or not. In eBox almost
+any public method that returns an array returns an array reference.
+
+In case the rows are empty we will start to do some magic to add the rows.
+*@modules* contains all the modules we are going to add. Note that it would be
+better coding practice to store them into a constant array. For the sake of
+clarity we declare them there.
+
+We have to add a new row for every module. To add a new row we need to
+instance the fields that compose the row. *$module* and *$enabled* contain
+instances of our types. Note that we don't instance *currentStatus* as it's
+optional and it's not necessary. We set the proper values for every type using
+the method *setValue*. As you can see, the default value for the field enabled
+is *undef* which is used to represent the value of a false set boolean. And of
+course we use the variable *$name* which contains the module name.
+
+We have instanced and set our fields. The last step is adding the row with these
+fields. For that purpose *EBox::Model::DataTable::addTypedRow* comes in
+handy. It first argument is a hash reference that must contain our field
+instances using the field name as key::
+
+    #!perl
+    my $paramsRef = { module => $module, enabled => $enabled };
+
+As you can see the keys in that hash are: *module* and *enabled* which are
+the names of the fields that we have declared in our data model.
+
+Once we have added all the rows, we just return all them by calling our parent
+method.
+
+There is a quicker way to implement this approach. We could use *addRow* instead
+of *addTypedRow*. The former does not receive instances of eBox types, it just
+receives field names and values. Our code would look like this::
+
+    #!perl
+
+    # Method: rows
+    #
+    #   Overrides <EBox::Model::DataTable::rows>
+    #
+    sub rows
+    {
+        my ($self, @params)  = @_;
+
+        # Check if we have already been called before by
+        # calling the parent method and checking if it returns more than
+        # 1 row
+        my $rows = $self->SUPER::rows(@params);
+
+        unless (@{$rows}) {
+            # Parent method returned 0 rows, so we have to add them
+            my @modules = ('ssl', 'info', 'status', 'version');
+            for my $name (@modules) {
+                $self->addRow(module => $name, enabled => undef);
+            }
+            return $self->SUPER::rows(@params);
+        } else {
+            # Parent method returned > 0 rows, so we just return them
+            return $rows;
+        }
+    }
+
+Although the use of *addRow()* instead of *addTypedRow()* seems shorter and
+easier, it can be more complicated when we are dealing with more complex types
+which are composed of several parameters.
+
+Approach *b*: migration
+=======================
+
+There are a few things about approach *a* that are not cool. Amongst them: the
+fact that we have to override the method *addRow()* to take an action -adding rows- that should only happen once.
+
+It would be much better to have an external script that is run once and takes
+care of adding the rows.
+
+The migration scripts are helpful to add or migrate data. They are usually
+used when a new version of an eBox module is released and its data model has
+changed. They are also useful to populate values in our models.
+
+A migration script is run only once if there is not any error during
+its execution.
+
+Let's use a new *ebox-moddev* command to add our first migration script.
+Within your module directory run::
+
+    ebox-moddev-migration  --main-class apache2 --version 1
+
+This will create our first migration script in *migration/1.pl* that will look
+like this::
+
+    #!perl
+    #  Migration between gconf data version X and Y
+    #
+    #       This migration script takes care of... TODO
+    #
+    use strict;
+    use warnings;
+
+    package EBox::Migration;
+    use base 'EBox::MigrationBase';
+
+    use strict;
+    use warnings;
+
+    use EBox;
+    use EBox::Global;
+    use EBox::Config;
+    use EBox::Sudo;
+
+    # Method: runGConf
+    #
+    #   Overrides <EBox::MigrationBase::runGConf>
+    #
+    sub runGConf
+    {
+        my ($self) = @_;
+
+    }
+
+    # Main
+
+    EBox::init();
+
+    my $module = EBox::Global->modInstance('apache2');
+    my $migration = new EBox::Migration(
+            'gconfmodule' => $module,
+            'version' => 1,
+            );
+    $migration->execute();
+
+    1;
+
+First of all, we need to include *EBox::Apache2::Model::Modules* as we will be
+using one of its functions::
+
+    #!perl
+    use EBox::Apache2::Model::Modules;
+
+Now we will implement the method *runGConf* which will carry out the data
+population. The whole file should look like this::
+
+    #!perl
+    #
+    #  Migration between gconf data version X and Y
+    #
+    #       This migration script takes care of... TODO
+    #
+    use strict;
+    use warnings;
+
+    package EBox::Migration;
+    use base 'EBox::MigrationBase';
+
+    use strict;
+    use warnings;
+
+    use EBox;
+    use EBox::Global;
+    use EBox::Config;
+    use EBox::Sudo;
+    use EBox::Apache2::Model::Modules;
+
+    # Method: runGConf
+    #
+    #   Overrides <EBox::MigrationBase::runGConf>
+    #
+    sub runGConf
+    {
+        my ($self) = @_;
+
+        # Fetch the 'apache2/Modules' model to populate
+        # $self->{gconfmodule} contains an instance of 'apache2'
+        my $model = $self->{gconfmodule}->model('apache2/Modules');
+
+        # We write down those modules that have been already added, if any
+        my %existingModels;
+        for my $row (@{$model->rows()}) {
+            $existingModels{$row->valueByName('module')} = 1;
+        }
+
+        my @modules = ('ssl', 'info', 'status', 'version');
+        for my $name (@modules) {
+            # If the module has not been added we add it
+            next if (exists $existingModels{$name});
+            my $module = new EBox::Types::Select(
+                    fieldName => 'module',
+                    editable => 1,
+                    populate => \&EBox::Apache2::Model::Modules::populate_module);
+            my $enabled = new EBox::Types::Boolean(
+                    fieldName => 'enabled',
+                    editable => 1),
+            $module->setValue($name);
+            $enabled->setValue(undef);
+            my $paramsRef = { module => $module, enabled => $enabled};
+            $model->addTypedRow($paramsRef);
+
+        }
+    }
+    # Main
+
+    EBox::init();
+
+    my $module = EBox::Global->modInstance('apache2');
+    my $migration = new EBox::Migration(
+            'gconfmodule' => $module,
+            'version' => 1,
+            );
+    $migration->execute();
+
+    1;
+
+And again, we could get a shorter version if we use *addRow()* instead of *addTypedRow*. If we did that our whole file would like like this::
+
+    #!perl
+    #
+    #  Migration between gconf data version X and Y
+    #
+    #       This migration script takes care of... TODO
+    #
+    use strict;
+    use warnings;
+
+    package EBox::Migration;
+    use base 'EBox::MigrationBase';
+
+    use strict;
+    use warnings;
+
+    use EBox;
+    use EBox::Global;
+    use EBox::Config;
+    use EBox::Sudo;
+    use EBox::Apache2::Model::Modules;
+
+    # Method: runGConf
+    #
+    #   Overrides <EBox::MigrationBase::runGConf>
+    #
+    sub runGConf
+    {
+        my ($self) = @_;
+
+        # Fetch the 'apache2/Modules' model to populate
+        # $self->{gconfmodule} contains an instance of 'apache2'
+        my $model = $self->{gconfmodule}->model('apache2/Modules');
+
+        # We write down those modules that have been already added, if any
+        my %existingModels;
+        for my $row (@{$model->rows()}) {
+            $existingModels{$row->valueByName('module')} = 1;
+        }
+
+        my @modules = ('ssl', 'info', 'status', 'version');
+        for my $name (@modules) {
+            # If the module has not been added we add it
+            next if (exists $existingModels{$name});
+            $model->addTyped( module => $name, enabled => undef );
+        }
+    }
+
+    # Main
+
+    EBox::init();
+
+    my $module = EBox::Global->modInstance('apache2');
+    my $migration = new EBox::Migration( 
+            'gconfmodule' => $module,
+            'version' => 1,
+            );
+    $migration->execute();
+
+    1;
+
