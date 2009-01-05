@@ -20,7 +20,6 @@ my $id = $tableName . '_' . $data->fieldName();
   <& $simpleType->HTMLSetter(),
      data => $simpleType,
      tableName => $tableName,
-     cssClass  => $cssClass
   &>
 % }
 </span>
