@@ -201,6 +201,11 @@ sub usedFiles
               'module' => 'mail'
             },
             {
+              'file' => SASL_PASSWD_FILE,
+              'reason' => __('To configure smart host authentication'),
+              'module' => 'mail'
+            },
+            {
               'file' => '/etc/ldap/slapd.conf',
               'reason' => __('To add the LDAP schemas used by eBox mail'),
               'module' => 'users'
@@ -345,11 +350,8 @@ sub _setMailConf
     my @array = ();
     my $users = EBox::Global->modInstance('users');
     my $ldap = EBox::Ldap->instance();
-    my $allowedaddrs = "127.0.0.0/8";
 
-    foreach my $addr (@{ $self->allowedAddresses }) {
-        $allowedaddrs .= " $addr";
-    }
+    my $allowedaddrs .= join(', ', '127.0.0.0/8', @{$self->allowedAddresses});
 
     push(@array, fqdn => $self->_fqdn());
     push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
