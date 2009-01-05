@@ -219,49 +219,6 @@ sub enableModDepends
     return ['firewall'];
 }
 
-
-sub _doDaemon
-{
-        my $self = shift;
-        my $action = undef;
-
-        if ($self->service and $self->isRunning) {
-                $action = 'restart';
-        } elsif ($self->service) {
-                $action = 'start';
-        } elsif ($self->isRunning) {
-                $action = 'stop';
-        } else {
-                return;
-        }
-
-        EBox::Service::manage('ebox.squid', $action);
-}
-
-sub _doDGDaemon
-{
-        my $self = shift;
-        my $action = undef;
-
-        if ($self->_dgNeeded and $self->DGIsRunning) {
-                $action = 'restart';
-        } elsif ($self->_dgNeeded) {
-                $action = 'start';
-        } elsif ($self->DGIsRunning) {
-                $action = 'stop';
-        } else {
-                return;
-        }
-
-        EBox::Service::manage('ebox.dansguardian', $action);
-}
-
-sub _stopService 
-{
-        EBox::Service::manage('ebox.squid', 'stop');
-        EBox::Service::manage('ebox.dansguardian', 'stop');
-}
-
 # Method: _regenConfig
 #
 #       Overrides base method. It regenerates the configuration
@@ -271,8 +228,7 @@ sub _regenConfig
 {
         my $self = shift;
         $self->_setSquidConf();
-        $self->_doDaemon();
-        $self->_doDGDaemon();
+        $self->_enforceServiceState();
 }
 
 sub _cache_mem 
@@ -807,6 +763,24 @@ sub menu
 
 
         $root->add($folder);
+}
+
+#  Method: _daemons
+#
+#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#
+#
+sub _daemons
+{
+    return [
+        {
+            'name' => 'ebox.squid'
+        },
+        {
+            'name' => 'ebox.dansguardian',
+            'precondition' => \&_dgNeeded
+        }
+    ];
 }
 
 # Impelment LogHelper interface
