@@ -429,28 +429,17 @@ sub _daemons
 sub _startDaemon
 {
     my($self, $daemon) = @_;
-    if(daemon_type($daemon) eq 'upstart') {
-        if(EBox::Service::running($daemon->{'name'})) {
-            EBox::Service::manage($daemon->{'name'},'restart');
-        } else {
-            EBox::Service::manage($daemon->{'name'},'start');
-        }
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $pidfile = $daemon->{'pidfile'};
-        if(!defined($pidfile)) {
-            throw EBox::Exceptions::Internal(
-                "init.d-based daemons must include a 'pidfile'");
-        }
-        my $script = INITDPATH . $daemon->{'name'};
-        if($self->pidFileRunning($pidfile)) {
-            $script = $script . ' ' . 'restart';
-        } else {
-            $script = $script . ' ' . 'start';
-        }
-        EBox::Sudo::root($script);
+    my $action;
+    if($self->_isDaemonRunning($daemon->{'name'})) {
+        $action = 'restart';
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        $action = 'start';
+    }
+    if(daemon_type($daemon) eq 'upstart') {
+        EBox::Service::manage($daemon->{'name'}, $action);
+    } else {
+        my $script = INITDPATH . $daemon->{'name'} . ' ' . $action;
+        EBox::Sudo::root($script);
     }
 }
 
