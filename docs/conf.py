@@ -40,7 +40,7 @@ copyright = 'eBox Technologies S.L.'
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = 'SVN'
+version = 'trunk'
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -120,7 +120,7 @@ htmlhelp_basename = 'Djangodoc'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
-#latex_documents = []
+latex_documents = [('developer/module/guide','moddev.tex','eBox module development guide', 'eBox Technologies S.L.', 'manual')]
 
 # Additional stuff for the LaTeX preamble.
 #latex_preamble = ''
