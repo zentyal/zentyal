@@ -133,7 +133,7 @@ sub validateTypedRow
                     __x('There is an alias with the same name "{name}" '
                         . 'for "{hostname}" in the same domain',
                          name     => $newHostName,
-                         hostname => $subRow->valueByName('hostname')));
+                         hostname => $row->valueByName('hostname')));
             }
         }
     }
