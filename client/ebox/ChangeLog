@@ -11,6 +11,7 @@
 	+ Now the modules can have more than one tableInfo for logging information
 	+ Improve model debugging 
 	+ Improve restart debugging
+	+ Backups and bug reports can be made from the command line
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically

@@ -329,10 +329,13 @@ sub _createSizeFile
 sub _bug # (dir) 
 {
     my ($self, $dir) = @_;
-    `/bin/ps aux > $dir/processes`;
-    `/bin/df -k > $dir/disks`;
-    `/bin/netstat -n -a --inet > $dir/sockets`;
-    `/sbin/ifconfig -a > $dir/interfaces`;
+
+    system "/bin/ps aux > $dir/processes";
+    system "/bin/df -k > $dir/disks";
+    system "/sbin/route -n  > $dir/routes";
+    system "/bin/netstat -n -a --inet > $dir/sockets";
+    system "/sbin/ifconfig -a > $dir/interfaces";
+    system "cp /etc/resolv.conf  $dir/resolv.conf";
 
     try {
         root("/sbin/iptables -nvL > $dir/iptables-filter");
@@ -612,12 +615,30 @@ sub prepareMakeBackup
 {
   my ($self, %options) = @_;
 
-  # make sure description is scaped
-  $options{description} = q{'} . $options{description} . q{'};
-  my @scriptParams = %options; 
+  my $scriptParams = '';
+
+  if (exists $options{description}) {
+      $scriptParams .= ' --description ';
+      # make sure description is scaped
+      $scriptParams .= q{'} . $options{description} . q{'};
+  }
+
+
+  if ($options{fullBackup}) {
+      $scriptParams .= ' --full-backup';
+  }
+  else {
+      $scriptParams .= ' --config-backup';
+  }
+  
+
+  if ($options{bug}) {
+      $scriptParams .= ' --bug-report';
+  }
+
 
   my $makeBackupScript = EBox::Config::pkgdata() . 'ebox-make-backup';
-  $makeBackupScript    .= "  @scriptParams";
+  $makeBackupScript    .=  $scriptParams;
   
   my $global     = EBox::Global->getInstance();
   my $totalTicks = scalar @{ $global->modNames } + 2; # there are one task for
