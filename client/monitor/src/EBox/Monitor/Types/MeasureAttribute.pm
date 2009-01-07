@@ -148,15 +148,13 @@ sub populate
             }
         } elsif ($self->attribute() eq 'dataSource') {
             my $dataSources = $measureInstance->dataSources();
-            my $printableValue = __('not applicable');
             if ( @{$dataSources} > 1 ) {
                 @options = map {
                     { value => $_,
                       printableValue => $measureInstance->printableDataSource($_) }
                 } @{$dataSources};
-                $printableValue = __('any');
             } elsif ( @options == 0 ) {
-                push(@options, { value => 'none', printableValue => $printableValue});
+                push(@options, { value => 'none', printableValue => __('not applicable') });
             }
         }
         return \@options;
