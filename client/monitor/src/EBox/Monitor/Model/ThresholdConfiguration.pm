@@ -105,16 +105,18 @@ sub validateTypedRow
 
     my $excStr = __('This threshold rule will override the current ones');
     # Try not to override a rule with the remainder ones
-    if (exists($changedFields->{typeInstance}) or exists($changedFields->{measureInstance})) {
+    if (exists($changedFields->{typeInstance}) or exists($changedFields->{measureInstance})
+        or exists($changedFields->{dataSource}) ) {
         my $matchedRows;
-        # If there two are any-any, then only your row must be on the table
+        # If there two are any-any, then only a row must be on the table
         if ( $allFields->{typeInstance}->value() eq 'none'
-            and $allFields->{measureInstance}->value() eq 'none') {
+            and $allFields->{measureInstance}->value() eq 'none'
+            and $allFields->{dataSource}->value() eq 'none') {
             if ( ($action eq 'add' and $self->size() > 0)
                   or
                  ($action eq 'update' and $self->size() > 1)
-               ) {
-                    throw EBox::Exceptions::External($excStr);
+                ) {
+                throw EBox::Exceptions::External($excStr);
             }
         }
 
@@ -125,21 +127,25 @@ sub validateTypedRow
         }
         foreach my $row (@{$matchedRows}) {
             next if (($action eq 'update') and ($row->id() eq $allFields->{id}));
-            if ( $allFields->{typeInstance}->value() eq 'none' ) {
+            if ( $allFields->{typeInstance}->value() eq 'none'
+                 and $row->elementByName('dataSource')->isEqualTo($allFields->{dataSource})) {
                 # There should be no more typeInstance with the same measure instance
                 throw EBox::Exceptions::External($excStr);
             } else {
                 if ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
-                     and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
+                     and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})
+                     and $row->elementByName('dataSource')->isEqualTo($allFields->{dataSource})) {
                     throw EBox::Exceptions::DataExists(
-                        data  => $allFields->{typeInstance}->printableName(),
-                        value => $allFields->{typeInstance}->printableValue(),
+                        data  => $self->printableRowName(),
+                        value => '',
                        );
                 } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
                             and
-                         ($row->valueByName('measureInstance') eq 'none'
+                         ( ( $row->valueByName('measureInstance') eq 'none'
+                             and $row->valueByName('dataSource') eq 'none')
                             or
-                          $allFields->{measureInstance}->value() eq 'none')
+                           ( $allFields->{measureInstance}->value() eq 'none'
+                             and $allFields->{dataSource}->value() eq 'none'))
                         ) {
                     throw EBox::Exceptions::External($excStr);
                 }
@@ -211,13 +217,12 @@ sub _table
               attribute     => 'typeInstance',
               editable      => 1,
              ),
-#           new EBox::Monitor::Types::MeasureAttribute(
-#               fieldName     => 'dataSource',
-#               printableName => __('Data Source'),
-#               attribute     => 'dataSource',
-#               editable      => 1,
-#               unique        => 1,
-#              ),
+          new EBox::Monitor::Types::MeasureAttribute(
+              fieldName     => 'dataSource',
+              printableName => __('Data Source'),
+              attribute     => 'dataSource',
+              editable      => 1,
+             ),
          );
 
     my $dataTable = {
