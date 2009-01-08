@@ -228,12 +228,40 @@ sub _parseEvent
 
     my $event = undef;
     try {
-        $event = new EBox::Event(%{$hashRef});
+        if ( $self->_filterDataSource($hashRef->{message}) ) {
+            $event = new EBox::Event(%{$hashRef});
+        }
     } otherwise {
         my ($exc) = @_;
         EBox::error("Cannot parse a hash ref to EBox::Event: $!");
     };
     return $event;
+}
+
+# Method: _filterDataSource
+#
+#     Filter Data Source (Collectd from 4.4 onwards, do itself) so
+#     that an event notification is done only on those data source
+#     from a threshold configuration row indicated by the user. This
+#     is mandatory, for instance, for getting notification when free
+#     disk space is lower than a certain threshold for a partition.
+#
+# Returns:
+#
+#     true - if the message contains a data source and there is a row
+#     in threshold configuration or there is no data source applicable
+#
+#     false - if the message contains a data source and there is no
+#     row in threshold configuration
+#
+sub _filterDataSource
+{
+    my ($self, $message) = @_;
+
+    my ($plugin, $dataSource) = $message =~ m:.*plugin (.*?) .*Data source "(.*?)":ig;
+    my $monMod = EBox::Global->modInstance('monitor');
+    return $monMod->thresholdConfigured($plugin, $dataSource);
+
 }
 
 1;
