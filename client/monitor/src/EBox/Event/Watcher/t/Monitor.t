@@ -23,11 +23,11 @@ use Test::Exception;
 my @trueCases = (
     'Host ebox-ubuntu-0.11.99, plugin load type load: Data source "midterm" is currently 0.490000. That is below the failure threshold of 1.000000.',
     'Host ebox-ubuntu-0.11.99, plugin load type load: Data source "shortterm" is currently 0.490000. That is below the failure threshold of 1.000000.',
-    'Host ebox-ubuntu-0.11.99, plugin cpu (instance 0) type cpu (instance user): Data source "value" is currently 0.000000. That is below the warning threshold of 2.000000.',
 );
 
 my @falseCases = (
     'Host ebox-ubuntu-0.11.99, plugin load type load: Data source "longterm" is currently 0.490000. That is below the failure threshold of 1.000000.',
+    'Host ebox-ubuntu-0.11.99, plugin cpu (instance 0) type cpu (instance user): Data source "value" is currently 0.000000. That is below the warning threshold of 2.000000.',
 );
 
 BEGIN {
