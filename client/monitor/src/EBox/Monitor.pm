@@ -322,7 +322,7 @@ sub thresholdConfigured
     my $measureWatchersMod = $self->model('MeasureWatchers');
     my $row = $measureWatchersMod->findValue(measure => $measure->name());
     if ( defined($row) ) {
-        my $thresholds = $row->submodel('thresholds');
+        my $thresholds = $row->subModel('thresholds');
         my $threshold = $thresholds->findValue(dataSource => $dataSource);
         return defined($threshold);
     } else {
