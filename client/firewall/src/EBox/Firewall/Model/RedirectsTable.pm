@@ -117,6 +117,9 @@ sub validateTypedRow
     my $new_source = $allFields->{source};
 
     foreach my $row (@{$self->rows()}) {
+        if ($action eq 'update' and $row->id() eq $changedFields->{id}) {
+            next; # We must not check against the row that is being modified
+        }
         my $iface = $row->elementByName('interface');
         my $eport = $row->elementByName('external_port');
         my $protocol = $row->elementByName('protocol');
