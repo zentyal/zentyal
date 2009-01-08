@@ -163,6 +163,14 @@ sub notificationAddress
 }
 
 
+# Method: headTitle
+#
+#   Overrides <EBox::Model::Component::headTitle> to not
+#   write a head title within the tabbed composite
+sub headTitle
+{
+    return undef;
+}
 
 1;
 
