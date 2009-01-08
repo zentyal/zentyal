@@ -283,6 +283,37 @@ sub measures
     return $self->{measureManager}->measures();
 }
 
+# Method: measure
+#
+#      Return the instance of a measure
+#
+# Parameters:
+#
+#      name - String the measure's name (class or simple name)
+#
+# Returns:
+#
+#      an instance of a subclass of <EBox::Monitor::Measure::Base>
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given measure
+#      name does not exist in the measure set
+#
+sub measure
+{
+    my ($self, $name) = @_;
+
+    $name or throw EBox::Exceptions::MissingArgument('name');
+
+    return $self->{measureManager}->measure($name);
+
+}
+
+
 # Method: thresholdConfigured
 #
 #      Return if a measure with a given data source is configured in

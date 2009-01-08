@@ -229,6 +229,7 @@ sub _parseEvent
     my $event = undef;
     try {
         if ( $self->_filterDataSource($hashRef->{message}) ) {
+            $hashRef->{message} = $self->_i18n($hashRef->{message});
             $event = new EBox::Event(%{$hashRef});
         }
     } otherwise {
@@ -261,6 +262,59 @@ sub _filterDataSource
     my ($plugin, $dataSource) = $message =~ m:.*plugin (.*?) .*Data source "(.*?)":ig;
     my $monMod = EBox::Global->modInstance('monitor');
     return $monMod->thresholdConfigured($plugin, $dataSource);
+
+}
+
+# From collectd strings
+#: Data source "%s" is currently %f. That is within the %s region of %f and %f.
+#: Data source "%s" is currently %f. That is %s the %s threshold of %f.
+
+# Internalization of the message
+sub _i18n
+{
+    my ($self, $severity, $message) = @_;
+
+    my ($measureName, $typeName, $waste,$dataSource, $currentValue) =
+      $message =~ m/plugin (.*?) .*type (.*?)(| .*): Data source "(.*?)" is currently (.*?)\. /g;
+
+    my ($measureInstance) = $message =~ m/plugin.*?\(instance (.*?)\)/g;
+    my ($typeInstance)    = $message =~ m/type.*?\(instance (.*?)\)/g;
+
+    my $monMod = EBox::Global->modInstance('monitor');
+    my $measure = $monMod->measure($measureName);
+
+    my $what = $measure->printableName();
+    if (defined($measureInstance)) {
+        $what = $measure->printableInstance($measureInstance);
+    }
+
+    my $printableDataSource = $measure->printableDataSource($dataSource);
+    if ( defined($typeInstance) ) {
+        $printableDataSource = $measure->printableTypeInstance($typeInstance);
+    }
+
+    my $printableMsg = __x('{what} "{dS}" is currently {value}.', what => $what, dS => $printableDataSource,
+                           value => $currentValue);
+    $printableMsg .= ' ';
+
+    if ( $message =~ m:region of:g ) {
+        my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)$:;
+        $printableMsg .= __x('That is within the {severity} region of {minBound} and {maxBound}.',
+                             severity => $severity, minBound => $minBound,
+                             maxBound => $maxBound);
+    }
+    if ( $message =~ m:threshold of:g ) {
+        my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)$:g;
+        if ( $adverb eq 'above') {
+            $printableMsg .= __x('That is above the {severity} threshold of {bound}',
+                                 severity => $severity, bound => $bound);
+        } elsif ( $adverb eq 'below') {
+            $printableMsg .= __x('That is below the {severity} threshold of {bound}',
+                                 severity => $severity, bound => $bound);
+        }
+    }
+
+    return $printableMsg;
 
 }
 

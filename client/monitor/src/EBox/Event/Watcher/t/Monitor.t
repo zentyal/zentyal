@@ -57,4 +57,9 @@ foreach my $case (@falseCases) {
     ok(! $watcher->_filterDataSource($case));
 }
 
+push(@trueCases, @falseCases);
+foreach my $case (@trueCases) {
+    ok($watcher->_i18n('failure', $case));
+}
+
 1;
