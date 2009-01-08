@@ -111,7 +111,7 @@ sub validateTypedRow
         # If there two are any-any, then only a row must be on the table
         if ( $allFields->{typeInstance}->value() eq 'none'
             and $allFields->{measureInstance}->value() eq 'none'
-            and $allFields->{dataSource}->value() eq 'none') {
+            and $allFields->{dataSource}->value() eq 'value') {
             if ( ($action eq 'add' and $self->size() > 0)
                   or
                  ($action eq 'update' and $self->size() > 1)
@@ -142,10 +142,10 @@ sub validateTypedRow
                 } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
                             and
                          ( ( $row->valueByName('measureInstance') eq 'none'
-                             and $row->valueByName('dataSource') eq 'none')
+                             and $row->valueByName('dataSource') eq 'value')
                             or
                            ( $allFields->{measureInstance}->value() eq 'none'
-                             and $allFields->{dataSource}->value() eq 'none'))
+                             and $allFields->{dataSource}->value() eq 'value'))
                         ) {
                     throw EBox::Exceptions::External($excStr);
                 }

@@ -154,7 +154,7 @@ sub populate
                       printableValue => $measureInstance->printableDataSource($_) }
                 } @{$dataSources};
             } elsif ( @options == 0 ) {
-                push(@options, { value => 'none', printableValue => __('not applicable') });
+                push(@options, { value => 'value', printableValue => __('not applicable') });
             }
         }
         return \@options;

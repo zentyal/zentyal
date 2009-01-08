@@ -283,6 +283,55 @@ sub measures
     return $self->{measureManager}->measures();
 }
 
+# Method: thresholdConfigured
+#
+#      Return if a measure with a given data source is configured in
+#      the threshold configuration
+#
+# Parameters:
+#
+#      measureName - String the measure name to search for a threshold
+#      configuration
+#
+#      dataSource - String the data source name to filter the
+#      threshold
+#
+# Returns:
+#
+#      true - if there is a configured threshold for this measure with
+#      this data source
+#
+#      false - otherwise
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given measure
+#      name does not exist in the measure set
+#
+sub thresholdConfigured
+{
+    my ($self, $measureName, $dataSource) = @_;
+
+    $measureName or throw EBox::Exceptions::MissingArgument('measureName');
+    $dataSource or throw EBox::Exceptions::MissingArgument('dataSource');
+
+    my $measure = $self->{measureManager}->measure($measureName);
+    my $measureWatchersMod = $self->model('MeasureWatchers');
+    my $row = $measureWatchersMod->findValue(measure => $measure->name());
+    if ( defined($row) ) {
+        my $thresholds = $row->submodel('thresholds');
+        my $threshold = $thresholds->findValue(dataSource => $dataSource);
+        return defined($threshold);
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'measure name',
+                                             value => $measure->name());
+    }
+
+}
+
 # Group: Public static methods
 
 # Method: RRDBaseDirPath
