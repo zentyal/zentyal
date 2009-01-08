@@ -1,7 +1,7 @@
 <%init>
 use EBox::Gettext;
-my $warp = q{<a href='http://www.warp.es'>Warp Networks S.L.</a>};
-my $ebox = q{<a href='http://www.ebox-platform.com'>eBox</a>};
+my $warp = q{<a href='http://warp.es/'>Warp Networks S.L.</a>};
+my $ebox = q{<a href='http://ebox-platform.com/'>eBox</a>};
 
 my $copy = __x('{ebox} created by {warp}',
 ebox => $ebox, warp => $warp);

@@ -39,7 +39,7 @@ use EBox::Gettext;
 	</div>
 	</div>
 </center>
-<div id="footer"><% __x("Created by {href}", href => "<a href='http://www.warp.es'>Warp Networks</a>") %></div>
+<div id="footer"><% __x("Created by {href}", href => "<a href='http://warp.es/'>Warp Networks</a>") %></div>
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
 </html>
