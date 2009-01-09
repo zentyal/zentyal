@@ -39,6 +39,7 @@ use EBox::MailFirewall;
 use EBox::Mail::Greylist;
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
+use EBox::ServiceModule::Manager;
 
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
@@ -448,7 +449,11 @@ sub _setMailConf
                           mode => '0600',
                          }
                         );
-    EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
+    my $manager = new EBox::ServiceModule::Manager;
+    # Do not run postmap if can overrite SASL_PASSWD_FILE
+    unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
+        EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
+    }
 }
 
 sub _fqdn
