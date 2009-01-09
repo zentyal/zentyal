@@ -43,6 +43,7 @@ use EBox::NetWrappers qw();
 use EBox::FileSystem;
 
 use Perl6::Junction qw(any);
+use File::Slurp;
 use Error qw(:try);
 
 use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
