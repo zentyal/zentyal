@@ -103,8 +103,8 @@ sub validateTypedRow
            );
     }
 
-    my $excStr = __('This threshold rule will override the current ones');
     # Try not to override a rule with the remainder ones
+    my $excStr = __('This threshold rule will override the current ones');
     if (exists($changedFields->{typeInstance}) or exists($changedFields->{measureInstance})
         or exists($changedFields->{dataSource}) ) {
         my $matchedRows;
@@ -148,6 +148,12 @@ sub validateTypedRow
                              and $allFields->{dataSource}->value() eq 'value'))
                         ) {
                     throw EBox::Exceptions::External($excStr);
+                } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
+                            and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
+                    # TODO: with collectd 4.4 onwards this check must be removed
+                    throw EBox::Exceptions::External(
+                        __('Current monitoring tool version does not support distinction among data sources')
+                       );
                 }
             }
         }
@@ -209,14 +215,14 @@ sub _table
     my @tableDesc =
       (
           new EBox::Types::Float(
-              fieldName     => 'warningMin',
-              printableName => __('Warning minimum'),
+              fieldName     => 'failureMin',
+              printableName => __('Failure minimum'),
               optional      => 1,
               editable      => 1,
              ),
           new EBox::Types::Float(
-              fieldName     => 'failureMin',
-              printableName => __('Failure minimum'),
+              fieldName     => 'warningMin',
+              printableName => __('Warning minimum'),
               optional      => 1,
               editable      => 1,
              ),
