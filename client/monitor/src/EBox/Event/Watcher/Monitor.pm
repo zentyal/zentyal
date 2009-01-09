@@ -298,18 +298,18 @@ sub _i18n
     $printableMsg .= ' ';
 
     if ( $message =~ m:region of:g ) {
-        my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)$:;
+        my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)\.$:;
         $printableMsg .= __x('That is within the {severity} region of {minBound} and {maxBound}.',
                              severity => $severity, minBound => $minBound,
                              maxBound => $maxBound);
     }
     if ( $message =~ m:threshold of:g ) {
-        my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)$:g;
+        my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)\.$:;
         if ( $adverb eq 'above') {
-            $printableMsg .= __x('That is above the {severity} threshold of {bound}',
+            $printableMsg .= __x('That is above the {severity} threshold of {bound}.',
                                  severity => $severity, bound => $bound);
         } elsif ( $adverb eq 'below') {
-            $printableMsg .= __x('That is below the {severity} threshold of {bound}',
+            $printableMsg .= __x('That is below the {severity} threshold of {bound}.',
                                  severity => $severity, bound => $bound);
         }
     }
