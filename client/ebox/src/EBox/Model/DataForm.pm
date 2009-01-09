@@ -642,6 +642,14 @@ sub AUTOLOAD
           return;
       }
 
+      unless ( UNIVERSAL::can($self, 'row') ) {
+          use Devel::StackTrace;
+          my $trace = new Devel::StackTrace();
+          EBox::debug($trace->as_string());
+          throw EBox::Exceptions::Internal("Not valid autoload method $methodName since "
+                                           . "$self is not a EBox::Model::DataForm");
+      }
+
       my $row = $self->row();
 
       # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
