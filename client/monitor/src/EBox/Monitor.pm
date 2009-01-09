@@ -515,11 +515,11 @@ sub _setThresholdConf
             foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
                 my $confModel = $measureWatcher->subModel('thresholds');
                 my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
-                my @thresholdsPerMeasure = ();
                 foreach my $confRow (@{$confModel->findDumpThresholds()}) {
-                    my %threshold = ( type     => $measureInstance->simpleName(),
-                                      invert   => $confRow->valueByName('invert'),
-                                      persist  => $confRow->valueByName('persist'),
+                    my %threshold = ( measure => $measureInstance->simpleName(),
+                                      type    => $measureInstance->simpleName(),
+                                      invert  => $confRow->valueByName('invert'),
+                                      persist => $confRow->valueByName('persist'),
                                      );
                     if ( $confRow->valueByName('measureInstance') ne 'none' ) {
                         $threshold{instance} = $confRow->valueByName('measureInstance');
@@ -533,10 +533,14 @@ sub _setThresholdConf
                             $threshold{$bound} = $boundValue;
                         }
                     }
-                    push(@thresholdsPerMeasure, \%threshold);
-                }
-                if ( @thresholdsPerMeasure > 0 ) {
-                    $thresholds{$measureInstance->simpleName()} = \@thresholdsPerMeasure;
+                    my $key = $measureInstance->simpleName();
+                    if ( exists($threshold{instance}) ) {
+                        $key .= '-' . $threshold{instance};
+                    }
+                    unless (exists ( $thresholds{key} )) {
+                        $thresholds{$key} = [];
+                    }
+                    push(@{$thresholds{$key}}, \%threshold);
                 }
             }
         } else {
