@@ -450,7 +450,7 @@ sub _setMailConf
                          }
                         );
     my $manager = new EBox::ServiceModule::Manager;
-    # Do not run postmap if can overrite SASL_PASSWD_FILE
+    # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
     unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
         EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     }
