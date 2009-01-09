@@ -32,14 +32,13 @@ use EBox::Event;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Monitor::Configuration;
 
 # Core modules
 use File::Tail;
 use Error qw(:try);
 
 # Constants
-use constant EVENTS_DIR       => EBox::Config::var() . 'run/ebox/events/incoming/';
-use constant EVENTS_READY_DIR => EVENTS_DIR . 'ready/';
 
 # Group: Public methods
 
@@ -169,7 +168,7 @@ sub _description
 # Method: _readEventsFromDir
 #
 #       Read events from watchers from the exchange directory
-#       EVENTS_READY_DIR
+#       EBox::Monitor::Configuration::EventsReadyDir()
 #
 #       After reading the event, the file is deleted.
 #
@@ -183,12 +182,12 @@ sub _readEventsFromDir
 
     my $events = [];
 
-    opendir(my $dir, EVENTS_READY_DIR)
+    opendir(my $dir, EBox::Monitor::Configuration::EventsReadyDir())
       or return undef;
 
     my $filename;
     while(defined($filename = readdir($dir))) {
-        my $fullName = EVENTS_READY_DIR . $filename;
+        my $fullName = EBox::Monitor::Configuration::EventsReadyDir() . $filename;
         next unless (-l $fullName);
         my $hashRef;
         {
@@ -199,7 +198,7 @@ sub _readEventsFromDir
         if ( UNIVERSAL::isa($event, 'EBox::Event')) {
             push(@{$events}, $event);
             unlink($fullName);
-            unlink(EVENTS_DIR . $filename);
+            unlink(EBox::Monitor::Configuration::EventsDir() . $filename);
         } else {
             EBox::warn("File $fullName does not contain an hash reference");
         }

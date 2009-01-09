@@ -47,6 +47,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
+use EBox::Monitor::Configuration;
 # Measures
 use EBox::Monitor::Measure::Manager;
 
@@ -58,8 +59,6 @@ use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
 use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 use constant QUERY_INTERVAL      => 10;
-use constant MAIN_VAR_RUN        => EBox::Config::var() . 'run/ebox/';
-use constant EVENTS_INCOMING_READY_DIR => MAIN_VAR_RUN . 'events/incoming/';
 
 # Method: _create
 #
@@ -434,11 +433,11 @@ sub _regenConfig
 #
 sub _setDirs
 {
-    unless (-d EVENTS_INCOMING_READY_DIR ) {
-        EBox::Sudo::root('mkdir -p ' . EVENTS_INCOMING_READY_DIR);
+    unless (-d EBox::Monitor::Configuration::EventsReadyDir() ) {
+        EBox::Sudo::root('mkdir -p ' . EBox::Monitor::Configuration::EventsReadyDir());
     }
     my $eBoxUser = EBox::Config::user();
-    EBox::Sudo::root("chown -R $eBoxUser.$eBoxUser " . MAIN_VAR_RUN);
+    EBox::Sudo::root("chown -R $eBoxUser.$eBoxUser " . EBox::Monitor::Configuration::MainVarRun());
 
 }
 
