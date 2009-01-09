@@ -236,9 +236,13 @@ sub AUTOLOAD
 
       $methodName =~ s/.*:://;
 
-      my $exposedMethods = $self->_exposedMethods();
-      if ( exists $exposedMethods->{$methodName} ) {
-          return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
+      if ( UNIVERSAL::can($self, '_exposedMethods') ) {
+          my $exposedMethods = $self->_exposedMethods();
+          if ( exists $exposedMethods->{$methodName} ) {
+              return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
+          } else {
+              throw EBox::Exceptions::Internal("Undefined method $methodName");
+          }
       } else {
           throw EBox::Exceptions::Internal("Undefined method $methodName");
       }
