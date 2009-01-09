@@ -3,9 +3,8 @@
 
   Parameters:
 
-    thresholds - array the elements are hash ref with the following
-    elements:
-       measure - String the measure's simple name
+    thresholds - hash indexed by measure's simple name whose value is a array ref
+                 whose elements are hash ref with the following elements:
        instance - String the measure's instance if any *(Optional)*
        type    - String the type's name
        typeInstance - String the type instance if any *(Optional)*
@@ -18,46 +17,49 @@
 
 </%doc>
 <%args>
- @thresholds => ()
+ %thresholds => ()
 </%args>
 # Threshold configuration for collectd(1).
 #
 # See the section "THRESHOLD CONFIGURATION" in collectd.conf(5) for details.
-% if (@thresholds > 0 ) {
+% if (keys(%thresholds) > 0 ) {
 <Threshold>
-%    foreach my $threshold (@thresholds) {
-  <Plugin "<% $threshold->{measure} %>">
-%        if ( defined($threshold->{instance}) ) {
+%    foreach my $measure (keys(%thresholds)) {
+%        my $thresholdsPerPlugin = $thresholds{$measure};
+  <Plugin "<% $measure %>">
+%        foreach my $threshold (@{$thresholdsPerPlugin}) {
+%            if ( defined($threshold->{instance}) ) {
     Instance "<% $threshold->{instance} %>"
-%        }
+%            }
     <Type "<% $threshold->{type} %>">
-%        if ( defined($threshold->{typeInstance}) ) {
+%            if ( defined($threshold->{typeInstance}) ) {
         Instance "<% $threshold->{typeInstance} %>"
-%        }
-%        if ( defined($threshold->{warningMin}) ) {
+%            }
+%            if ( defined($threshold->{warningMin}) ) {
         WarningMin <% $threshold->{warningMin} %>
-%        }
-%        if ( defined($threshold->{failureMin}) ) {
+%            }
+%            if ( defined($threshold->{failureMin}) ) {
         FailureMin <% $threshold->{failureMin} %>
-%        }
-%        if ( defined($threshold->{warningMax}) ) {
+%            }
+%            if ( defined($threshold->{warningMax}) ) {
         WarningMax <% $threshold->{warningMax} %>
-%        }
-%        if ( defined($threshold->{failureMax}) ) {
+%            }
+%            if ( defined($threshold->{failureMax}) ) {
         FailureMax <% $threshold->{failureMax} %>
-%        }
-%        if ( defined($threshold->{warningMin}) ) {
+%            }
+%            if ( defined($threshold->{warningMin}) ) {
         WarningMin <% $threshold->{warningMin} %>
-%        }
-%        if ( defined($threshold->{invert}) ) {
-%            my $invert = $threshold->{invert} ? 'true' : 'false';
+%            }
+%            if ( defined($threshold->{invert}) ) {
+%                my $invert = $threshold->{invert} ? 'true' : 'false';
         Invert <% $invert %>
-%        }
-%        if ( defined($threshold->{persist}) ) {
-%            my $persist = $threshold->{persist} ? 'true' : 'false';
+%            }
+%            if ( defined($threshold->{persist}) ) {
+%                my $persist = $threshold->{persist} ? 'true' : 'false';
         Persist <% $persist %>
-%        }
+%            }
     </Type>
+%       }
   </Plugin>
 %    }
 </Threshold>

@@ -34,11 +34,12 @@ use warnings;
 use base qw(EBox::GConfModule EBox::Model::ModelProvider
             EBox::ServiceModule::ServiceInterface);
 
-use EBox::Validate qw( :all );
+use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
+use EBox::Validate qw( :all );
 
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
@@ -57,6 +58,8 @@ use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
 use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 use constant QUERY_INTERVAL      => 10;
+use constant MAIN_VAR_RUN        => EBox::Config::var() . 'run/ebox/';
+use constant EVENTS_INCOMING_READY_DIR => MAIN_VAR_RUN . 'events/incoming/';
 
 # Method: _create
 #
@@ -416,12 +419,28 @@ sub _regenConfig
 {
     my ($self) = @_;
 
+    $self->_setDirs();
     $self->_setMonitorConf();
     $self->_doDaemon();
 
 }
 
 # Group: Private methods
+
+# Method: _setDirs
+#
+#    Create and set the directories required to communicate eBox event
+#    daemon and monitor modules
+#
+sub _setDirs
+{
+    unless (-d EVENTS_INCOMING_READY_DIR ) {
+        EBox::Sudo::root('mkdir -p ' . EVENTS_INCOMING_READY_DIR);
+    }
+    my $eBoxUser = EBox::Config::user();
+    EBox::Sudo::root("chown -R $eBoxUser.$eBoxUser " . MAIN_VAR_RUN);
+
+}
 
 # Method: _setMonitorConf
 #
@@ -488,7 +507,7 @@ sub _setThresholdConf
     my ($self) = @_;
 
     my $measureWatchersModel = $self->model('MeasureWatchers');
-    my @thresholds = ();
+    my %thresholds = ();
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('events') ) {
@@ -497,9 +516,9 @@ sub _setThresholdConf
             foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
                 my $confModel = $measureWatcher->subModel('thresholds');
                 my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
-                foreach my $confRow (@{$confModel->findAll(enabled => 1)}) {
-                    my %threshold = ( measure  => $measureInstance->simpleName(),
-                                      type     => $measureInstance->simpleName(),
+                my @thresholdsPerMeasure = ();
+                foreach my $confRow (@{$confModel->findDumpThresholds()}) {
+                    my %threshold = ( type     => $measureInstance->simpleName(),
                                       invert   => $confRow->valueByName('invert'),
                                       persist  => $confRow->valueByName('persist'),
                                      );
@@ -515,7 +534,10 @@ sub _setThresholdConf
                             $threshold{$bound} = $boundValue;
                         }
                     }
-                    push(@thresholds, \%threshold);
+                    push(@thresholdsPerMeasure, \%threshold);
+                }
+                if ( @thresholdsPerMeasure > 0 ) {
+                    $thresholds{$measureInstance->simpleName()} = \@thresholdsPerMeasure;
                 }
             }
         } else {
@@ -523,14 +545,14 @@ sub _setThresholdConf
                        . 'or events module are not enabled');
         }
     }
-    if (@thresholds > 0) {
+    if (keys(%thresholds) > 0) {
         $self->{thresholdConfigured} = 1;
     }
 
     $self->writeConfFile(THRESHOLD_CONF_FILE,
                          'monitor/thresholds.conf.mas',
                          [
-                             (thresholds => \@thresholds),
+                             (thresholds => \%thresholds),
                             ]
                         );
 
