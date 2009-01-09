@@ -60,6 +60,7 @@ foreach my $case (@falseCases) {
 push(@trueCases, @falseCases);
 foreach my $case (@trueCases) {
     ok($watcher->_i18n('failure', $case));
+    print $watcher->_i18n('error', $case) . $/;
 }
 
 1;
