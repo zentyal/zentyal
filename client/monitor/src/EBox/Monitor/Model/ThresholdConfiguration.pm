@@ -155,6 +155,45 @@ sub validateTypedRow
 
 }
 
+# Method: findDumpThresholds
+#
+#     Return those thresholds which are enabled and it does not
+#     overlap in threshold configuration file
+#
+#     This happens because of collectd 4.3 does not support DataSource
+#     filter in notification system. Newer releases does support that
+#
+# Returns:
+#
+#     array ref - those rows which must be dumped to the threshold
+#     configuration file
+#
+sub findDumpThresholds
+{
+    my ($self) = @_;
+
+    my $enabledRows = $self->findAll(enabled => 1);
+
+    my @dumpedRows = ();
+    foreach my $aRow (@{$enabledRows}) {
+        my $dump = 1;
+        foreach my $anotherRow (@dumpedRows) {
+            next if ($aRow->id() eq $anotherRow->id());
+            if ( $aRow->elementByName('measureInstance')->isEqualTo($anotherRow->elementByName('measureInstance'))
+                 and $aRow->elementByName('typeInstance')->isEqualTo($anotherRow->elementByName('typeInstance'))) {
+                $dump = 0;
+                last;
+            }
+        }
+        if ($dump) {
+            push(@dumpedRows, $aRow);
+        }
+    }
+
+    return \@dumpedRows;
+
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -239,7 +278,8 @@ sub _table
                                . __x('Take into account this configuration will be '
                                      . 'only applied if monitor {openhref}event watcher is enabled{closehref}',
                                      openhref  => '<a href="/ebox/Events/Composite/GeneralComposite">',
-                                     closehref => '</a>'),
+                                     closehref => '</a>')
+                               ,
         enableProperty      => 1,
         defaultEnabledValue => 1,
         automaticRemove     => 1,
