@@ -40,6 +40,51 @@ sub new
         return $self;
 }
 
+# Method: isEqualTo
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::isEqualTo>
+#
+sub isEqualTo
+{
+    my ($self, $other) = @_;
+
+    return $self->cmp($other) == 0;
+
+}
+
+# Method: cmp
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $other) = @_;
+
+    if ((ref $self) ne (ref $other)) {
+        return undef;
+    }
+
+    my $ownValue = $self->value();
+    my $otherValue = $other->value();
+
+
+    if ($ownValue and (not $otherValue)) {
+        return 1;
+    }
+    elsif ((not $ownValue) and $otherValue) {
+        return -1;
+    }
+    else {
+        # the two values are both true or false
+        return 0;
+    }
+
+}
+
 # Group: Protected methods
 
 # Method: _setMemValue
@@ -118,43 +163,5 @@ sub _paramIsSet
       }
 
   }
-
-
-
-
-
-# Method: cmp
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::cmp>
-#
-sub cmp
-{
-    my ($self, $other) = @_;
-    
-    if ((ref $self) ne (ref $other)) {
-        return undef;
-    }
-
-    my $ownValue = $self->value();
-    my $otherValue = $other->value();
-
-
-    if ($ownValue and (not $otherValue)) {
-        return 1;
-    }
-    elsif ((not $ownValue) and $otherValue) {
-        return -1;
-    }
-    else {
-        # the two values are both true or false
-        return 0;
-    }
-
-}
-
-
-
 
 1;

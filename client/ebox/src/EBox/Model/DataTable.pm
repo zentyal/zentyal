@@ -1359,6 +1359,7 @@ sub setTypedRow
       }
 
       $changedElements->{id} = $id;
+      $allHashElements->{id} = $id;
       $self->validateTypedRow('update', $changedElements, $allHashElements);
 
       # If force != true automaticRemove is enabled it means
