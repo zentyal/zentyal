@@ -47,9 +47,6 @@
 %            if ( defined($threshold->{failureMax}) ) {
         FailureMax <% $threshold->{failureMax} %>
 %            }
-%            if ( defined($threshold->{warningMin}) ) {
-        WarningMin <% $threshold->{warningMin} %>
-%            }
 %            if ( defined($threshold->{invert}) ) {
 %                my $invert = $threshold->{invert} ? 'true' : 'false';
         Invert <% $invert %>

@@ -35,7 +35,7 @@ use EBox::Global;
 use EBox::Monitor::Configuration;
 
 # Core modules
-use File::Tail;
+use File::Slurp;
 use Error qw(:try);
 
 # Constants
@@ -197,11 +197,12 @@ sub _readEventsFromDir
         my $event = $self->_parseEvent($hashRef);
         if ( UNIVERSAL::isa($event, 'EBox::Event')) {
             push(@{$events}, $event);
-            unlink($fullName);
-            unlink(EBox::Monitor::Configuration::EventsDir() . $filename);
         } else {
             EBox::warn("File $fullName does not contain an hash reference");
+#            EBox::warn("Its content is: " . File::Slurp::read_file($fullName));
         }
+        unlink($fullName);
+        unlink(EBox::Monitor::Configuration::EventsDir() . $filename);
     }
 
     return $events;
@@ -228,12 +229,12 @@ sub _parseEvent
     my $event = undef;
     try {
         if ( $self->_filterDataSource($hashRef->{message}) ) {
-            $hashRef->{message} = $self->_i18n($hashRef->{message});
+            $hashRef->{message} = $self->_i18n($hashRef->{level}, $hashRef->{message});
             $event = new EBox::Event(%{$hashRef});
         }
     } otherwise {
         my ($exc) = @_;
-        EBox::error("Cannot parse a hash ref to EBox::Event: $!");
+        EBox::error("Cannot parse a hash ref to EBox::Event: $! $exc");
     };
     return $event;
 }
@@ -259,6 +260,10 @@ sub _filterDataSource
     my ($self, $message) = @_;
 
     my ($plugin, $dataSource) = $message =~ m:.*plugin (.*?) .*Data source "(.*?)":ig;
+
+    # Default data source is called value (not applicable in Web UI)
+    return 1 if ($dataSource eq 'value');
+
     my $monMod = EBox::Global->modInstance('monitor');
     return $monMod->thresholdConfigured($plugin, $dataSource);
 
