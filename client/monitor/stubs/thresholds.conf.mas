@@ -3,8 +3,11 @@
 
   Parameters:
 
-    thresholds - hash indexed by measure's simple name whose value is a array ref
-                 whose elements are hash ref with the following elements:
+    thresholds - hash indexed by a composition between measure's
+                 simple name and measure's instance (if any) whose value is a array ref
+                 whose elements are hash ref with the following
+                 elements:
+       measure  - String the measure's simple name
        instance - String the measure's instance if any *(Optional)*
        type    - String the type's name
        typeInstance - String the type instance if any *(Optional)*
@@ -24,13 +27,13 @@
 # See the section "THRESHOLD CONFIGURATION" in collectd.conf(5) for details.
 % if (keys(%thresholds) > 0 ) {
 <Threshold>
-%    foreach my $measure (keys(%thresholds)) {
-%        my $thresholdsPerPlugin = $thresholds{$measure};
-  <Plugin "<% $measure %>">
-%        foreach my $threshold (@{$thresholdsPerPlugin}) {
-%            if ( defined($threshold->{instance}) ) {
-    Instance "<% $threshold->{instance} %>"
-%            }
+%    foreach my $key (keys(%thresholds)) {
+%        my $thresholdsPerBlock = $thresholds{$key};
+  <Plugin "<% $thresholdsPerBlock->[0]->{measure} %>">
+%        if ( defined($thresholdsPerBlock->[0]->{instance}) ) {
+    Instance "<% $thresholdsPerBlock->[0]->{instance} %>"
+%        }
+%        foreach my $threshold (@{$thresholdsPerBlock}) {
     <Type "<% $threshold->{type} %>">
 %            if ( defined($threshold->{typeInstance}) ) {
         Instance "<% $threshold->{typeInstance} %>"
