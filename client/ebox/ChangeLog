@@ -12,6 +12,7 @@
 	+ Improve model debugging 
 	+ Improve restart debugging
 	+ Backups and bug reports can be made from the command line
+	+ Bugfix: `isEqualTo` is working now for `Boolean` types
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
