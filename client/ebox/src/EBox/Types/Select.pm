@@ -24,6 +24,7 @@ use base 'EBox::Types::Basic';
 use EBox;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 ##################
 # Dependencies:
@@ -36,7 +37,7 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    
+
     unless (exists $opts{'HTMLSetter'}) {
         $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
     }
@@ -44,7 +45,7 @@ sub new
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
     $opts{'type'} = 'select';
-    
+
     my $self = $class->SUPER::new(%opts);
 
     # This doesn't check if the option method is implemented
@@ -103,17 +104,23 @@ sub options
 
     if ( exists $self->{'foreignModel'}) {
         $self->{'options'} = $self->_optionsFromForeignModel();
-        } else {
-            unless (exists $self->{'options'}) {
-                my $populateFunc = $self->populate();
-                $self->{'options'} = &$populateFunc();
-            }
+    } else {
+        unless (exists $self->{'options'}) {
+            my $populateFunc = $self->populate();
+            $self->{'options'} = &$populateFunc();
         }
+    }
 
 
     return $self->{'options'};
 }
 
+# Method: printableValue
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::printableValue>
+#
 sub printableValue
 {
     my ($self) = @_;
@@ -121,7 +128,7 @@ sub printableValue
     # Cache the current options
     my $options = $self->options();
     return '' unless (defined($options));
-    
+
     foreach my $option (@{$options}) {
         if ($option->{'value'} eq $self->{'value'}) {
             return $option->{'printableValue'};
@@ -130,6 +137,12 @@ sub printableValue
 
 }
 
+# Method: value
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::value>
+#
 sub value
 {
     my ($self) = @_;
@@ -349,7 +362,7 @@ sub _filterOptions
 #
 #
 #  Warning:
-#  We compare printableValues becasue it has more sense for the user 
+#  We compare printableValues because it has more sense for the user 
 #  (especially when we have a foreignModel and the values are row Ids). 
 #  However there may be many cases when this would not be appropiate.
 #

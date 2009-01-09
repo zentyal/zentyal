@@ -720,7 +720,7 @@ sub makeBackup # (options)
   my $backupFinalPath;
   try {
       $progress->notifyTick();
-      $progress->setMessage(__('Writing backup file to hard disK'));
+      $progress->setMessage(__('Writing backup file to hard disk'));
 
       $backupFinalPath = $self->_moveToArchives($filename, $backupdir);   
 
