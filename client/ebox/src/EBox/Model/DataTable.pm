@@ -694,7 +694,7 @@ sub validateTypedRow
 }
 
 # Method: addedRowNotify
-#    
+#
 #    Override this method to be notified whenever
 #    a new row is added
 #
@@ -703,7 +703,7 @@ sub validateTypedRow
 #     row - hash ref containing fields and values of the new
 #     row
 #
-sub addedRowNotify 
+sub addedRowNotify
 {
 
 }
