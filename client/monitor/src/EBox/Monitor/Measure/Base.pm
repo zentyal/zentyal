@@ -112,6 +112,9 @@ sub simpleName
 #      end - Int the end of the time series in seconds since
 #      epoch. *(Optional)* Default value: now
 #
+#      resolution - Int the resolution in seconds *(Optional)+ Default
+#      value: highest resolution (10 s)
+#
 # Returns:
 #
 #      hash ref - containing the data defined in this
@@ -143,7 +146,8 @@ sub fetchData
 {
     my ($self, %params) = @_;
 
-    my ($instance, $start, $end) = ($params{instance}, $params{start}, $params{end});
+    my ($instance, $start, $end, $resolution) =
+      ($params{instance}, $params{start}, $params{end}, $params{resolution});
     if ( defined($instance) and $instance ne '') {
         unless ( scalar(grep { $_ eq $instance } @{$self->{instances}}) == 1 ) {
             throw EBox::Exceptions::InvalidData(data   => 'instance',
@@ -154,6 +158,12 @@ sub fetchData
     } else {
         $instance = $self->{instances}->[0];
     }
+    my $resStr;
+    if ( defined($resolution) ) {
+        $resStr = "-r $resolution";
+    } else {
+        $resStr = '';
+    }
     if ( defined($start) ) {
         $start = "-s $start";
     } else {
@@ -161,6 +171,9 @@ sub fetchData
     }
     if ( defined($end) ) {
         $end = "-e $end";
+    } elsif ( defined($resolution) ) {
+        my $ctime = time();
+        $end = "-e " . int($ctime/$resolution)*$resolution;
     } else {
         $end = '';
     }
