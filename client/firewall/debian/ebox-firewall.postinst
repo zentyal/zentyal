@@ -22,10 +22,6 @@ case "$1" in
 
 
 		invoke-rc.d ebox firewall restart
-
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-
 	;;
 esac
 

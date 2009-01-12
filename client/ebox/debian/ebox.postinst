@@ -121,6 +121,9 @@ case "$1" in
         /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration
 
         ;;
+	triggered)
+        invoke-rc.d ebox apache restart || true
+        ;;
 esac
 
 

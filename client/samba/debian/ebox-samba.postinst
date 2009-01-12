@@ -12,13 +12,7 @@ case "$1" in
 
       # migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/	
-
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-
-
     ;;
-
 esac
 
 exit 0

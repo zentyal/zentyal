@@ -31,10 +31,6 @@ case "$1" in
 
         # restart module
         invoke-rc.d ebox mailfilter restart
-
-        # restart apache
-        invoke-rc.d ebox apache restart || true
-
 esac
 
 
