@@ -1,3 +1,10 @@
+esofttool (0.5.2) hardy; urgency=low
+
+  * Bugfix: Avoid std::string::out_of_range exception in replace by catching
+    the exception
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Wed, 07 Jan 2009 16:43:37 +0100
+
 esofttool (0.5.1) hardy; urgency=low
 
   * Bugfix: Use `SmartTargetPkg` to select the best option when several dependencies options are available

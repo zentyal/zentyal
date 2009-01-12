@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <exception>
 #include <stdio.h>
 
 #include <set>
@@ -203,10 +204,16 @@ std::string _escapeQuote(const std::string str) {
 
          uint pos;
          std::string retStr(str);
-         pos = retStr.find("'",0);
-         while (pos != std::string::npos){
-           retStr.replace(pos,1,"\\'");
-           pos = retStr.find("'",pos+2);
+
+         try {
+           pos = retStr.find("'",0);
+           while (pos != std::string::npos){
+             retStr.replace(pos,1,"\\'");
+             pos = retStr.find("'",pos+2);
+           }
+         } catch (std::exception& exc) {
+           Log << "String: " << retStr << std::endl << "launch this exception: "
+               << exc.what() << std::endl;
          }
 
          return retStr;
