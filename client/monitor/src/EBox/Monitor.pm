@@ -58,7 +58,6 @@ use constant COLLECTD_SERVICE    => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
 use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
-use constant QUERY_INTERVAL      => 10;
 
 # Method: _create
 #
@@ -378,19 +377,6 @@ sub thresholdConfigured
 sub RRDBaseDirPath
 {
     return RRD_BASE_DIR;
-}
-
-# Method: QueryInterval
-#
-#      Return the collectd query interval to plugins
-#
-# Return:
-#
-#      Int - the query interval
-#
-sub QueryInterval
-{
-    return QUERY_INTERVAL;
 }
 
 # Group: Protected methods
