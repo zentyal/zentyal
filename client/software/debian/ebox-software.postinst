@@ -7,8 +7,6 @@ case "$1" in
 
         # migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-software/migration/	
-
-        invoke-rc.d ebox apache restart || true
     ;;
 
 esac

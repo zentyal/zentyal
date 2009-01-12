@@ -18,10 +18,6 @@ case "$1" in
 
         # Restart dhcp module
         invoke-rc.d ebox dhcp restart || true
-
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-
 esac
 
 

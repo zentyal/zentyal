@@ -16,10 +16,7 @@ case "$1" in
         /usr/share/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql
 
         # Do migration scripts
-	/usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/
-
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/
 
      ;;
 esac

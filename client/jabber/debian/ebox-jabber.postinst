@@ -5,12 +5,6 @@
 case "$1" in
 	configure)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
-		# restart apache 
-	    invoke-rc.d ebox apache restart	
-
 esac
-
-
 
 exit 0

@@ -12,12 +12,8 @@ case "$1" in
 			/usr/share/ebox-ntp/ebox-timezone-import
 		fi
            
-                # Migrate data if needed
+        # Migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-ntp/migration/
-
-        if [ -z "$EBOX_SOFTWARE" ]; then
-		    invoke-rc.d ebox apache restart
-        fi
 esac
 
 

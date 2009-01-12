@@ -8,12 +8,7 @@ case "$1" in
 
 		# Migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-trafficshaping/migration/
-
-		invoke-rc.d ebox apache restart || true
 		;;
-
 esac
-
-
 
 exit 0
