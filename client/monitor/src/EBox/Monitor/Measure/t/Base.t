@@ -166,7 +166,7 @@ lives_ok {
 cmp_deeply($returnVal,
            {
              id    => str($load->{name}),
-             title => str($load->printableInstance()),
+             title => str($load->printableName()),
              help  => str($load->{help}),
              type  => any(@{$load->Types()}),
              series => array_each({ label => any(@{$load->{printableLabels}}),
@@ -188,6 +188,39 @@ throws_ok {
     $load->fetchData(end => 'foobar');
 } 'EBox::Exceptions::Command',
   'Trying to fetch data with a bad end point';
+
+# Testing different periods of time
+
+lives_ok {
+    $returnVal = $load->fetchData(start => 'end-1h');
+} 'Fetching data from last hour';
+
+cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 370,
+       'Getting 370 values or less');
+
+lives_ok {
+    $returnVal = $load->fetchData(resolution => 900,
+                                  start      => 'end-1d');
+} 'Fetching data from last day with 15m resolution';
+
+cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 200,
+       'Getting 200 value or less');
+
+lives_ok {
+    $returnVal = $load->fetchData(resolution => 21600,
+                                  start      => 'end-1month');
+} 'Fetching data from last month with 1/4 day resolution';
+
+cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 105,
+       'Getting 100 value or less');
+
+lives_ok {
+    $returnVal = $load->fetchData(resolution => (60*60*24),
+                                  start      => 'end-1year');
+} 'Fetching data from last year with day resolution';
+
+cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 105,
+       'Getting 100 value or less');
 
 rmdir('/tmp/base');
 
