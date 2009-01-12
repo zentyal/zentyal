@@ -59,7 +59,7 @@ sub run # (url)
         eval "use $classname"; 
         if ($@) {
                 try {
-                  $cgi = $self->_lookupViewController($classname);
+                  $cgi = $self->lookupViewController($classname);
                 }
                 catch EBox::Exceptions::DataNotFound with {
                   # path not valid
@@ -90,12 +90,12 @@ sub run # (url)
 
 # Helper functions
 
-# Method:: _lookupViewController
+# Method:: lookupViewController
 #
 #       Check if a classname must be mapped to a View or Controller
 #       cgi class from a model or a composite
 #
-sub _lookupViewController
+sub lookupViewController
 {
         my ($self, $classname) = @_;
 
