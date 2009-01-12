@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Monitor;
+use EBox::Monitor::Configuration;
 use EBox::Sudo;
 
 # Constants
@@ -98,6 +99,9 @@ sub simpleName
 #
 #      Get data for a certain time period from a measure
 #
+#      Check man page for *rrdtool fetch* tool to get more information
+#      about different ways to set the period
+#
 # Named parameters:
 #
 #      instance - String the instance to get data from *(Optional)*
@@ -162,6 +166,7 @@ sub fetchData
     if ( defined($resolution) ) {
         $resStr = "-r $resolution";
     } else {
+        $resolution = EBox::Monitor::Configuration::QueryInterval();
         $resStr = '';
     }
     if ( defined($start) ) {
@@ -202,17 +207,16 @@ sub fetchData
         my $output = EBox::Sudo::command($cmd);
         # Treat output
         my $previousTime = 0;
-        my $interval = EBox::Monitor->QueryInterval();
         foreach my $line (@{$output}) {
             my ($time, $remainder) = $line =~ m/([0-9]+):\s(.*)$/g;
             if ( defined($time) ) {
                 my @values = split(/\s/, $remainder, scalar(@{$self->{dataSources}}));
                 # Check no gaps between values
-                if ( ($previousTime != 0) and ($time - $previousTime != $interval)) {
+                if ( ($previousTime != 0) and ($time - $previousTime != $resolution)) {
                     # Fill gaps with NaN numbers
                     my $gapTime = $previousTime;
                     while ($gapTime != $time) {
-                        $gapTime += $interval;
+                        $gapTime += $resolution;
                         for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
                             push( @{$returnData[$valIdx + $rrdIdx]},
                                   [ $gapTime, "NaN" ]);
@@ -230,7 +234,9 @@ sub fetchData
     }
     # Truncating for testing purposes
     foreach my $data (@returnData) {
-        @{$data} = @{$data}[-361 .. -1];
+        if ( @{$data} > 360 ) {
+            @{$data} = @{$data}[-361 .. -1];
+        }
     }
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;

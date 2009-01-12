@@ -31,6 +31,7 @@ use EBox::Config;
 use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/ebox/';
 use constant EVENTS_DIR       => MAIN_VAR_RUN . '/events/incoming/';
 use constant EVENTS_READY_DIR => EVENTS_DIR . 'ready/';
+use constant QUERY_INTERVAL      => 10;
 
 # Group: Public class methods
 
@@ -67,6 +68,19 @@ sub EventsDir
 sub EventsReadyDir
 {
     return EVENTS_READY_DIR;
+}
+
+# Method: QueryInterval
+#
+#      Return the collectd query interval to plugins
+#
+# Return:
+#
+#      Int - the query interval
+#
+sub QueryInterval
+{
+    return QUERY_INTERVAL;
 }
 
 1;
