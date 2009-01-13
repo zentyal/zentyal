@@ -48,7 +48,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Monitor;
+use EBox::Monitor::Configuration;
 use EBox::Monitor::Types::MeasureAttribute;
 use EBox::Types::Boolean;
 use EBox::Types::Float;
@@ -57,7 +57,7 @@ use EBox::Types::Float;
 use Error qw(:try);
 
 # Constants
-use constant RESOLUTION => EBox::Monitor::QueryInterval();
+use constant RESOLUTION => EBox::Monitor::Configuration::QueryInterval();
 
 # Group: Public methods
 
