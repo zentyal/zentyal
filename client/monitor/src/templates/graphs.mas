@@ -4,10 +4,12 @@
 Parameters:
 
   graphs - array the data to use in graphs
+  period - String the time period to show
 
 </%doc>
 <%args>
   @graphs
+  $period => 'lastHour'
 </%args>
 <%init>
 </%init>
@@ -36,8 +38,10 @@ function updateGraphs() {
                         { method: 'get',
                           asynchronous : true,
                           evalScripts : true,
-                          parameters: { 'measure'  : parts[0],
-                                        'instance' : parts[1]},
+                          parameters: { 'period'   : '<% $period %>',
+                                        'measure'  : parts[0],
+                                        'instance' : parts[1],
+                                        },
                         });                                        
    }); 
 }

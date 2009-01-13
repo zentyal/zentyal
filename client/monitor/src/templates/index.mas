@@ -50,7 +50,10 @@ Parameters:
 </div>
   <!-- The content will lay on here -->
 <div id="<% "tabData_$tabName" | h %>">
-  <& /monitor/graphs.mas, graphs => \@initialGraphs &>
+  <& /monitor/graphs.mas,
+      graphs => \@initialGraphs,
+      period => $periods[$idx]->{name},
+       &>
 </div>
 </div>
 

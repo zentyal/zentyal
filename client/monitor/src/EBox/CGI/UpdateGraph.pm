@@ -75,7 +75,7 @@ sub optionalParameters
 #
 sub requiredParameters
 {
-    return [ 'measure' ];
+    return [ 'measure', 'period' ];
 }
 
 
@@ -98,7 +98,7 @@ sub masonParameters
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
-    my $measuredData = $mon->measuredData($measure, $instance);
+    my $measuredData = $mon->measuredData($measure, $params->{period}, $instance);
 
     return [ id     => $measuredData->{id},
              type   => $measuredData->{type},
