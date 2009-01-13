@@ -34,9 +34,6 @@ case "$1" in
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
 
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-
         # Comment out due to a bug LP: 220205
         # create directory for RRD databases
         # RRD_DIR=`perl -MEBox::Network::Report::ByteRate -e'$d = EBox::Network::Report::ByteRate::_rrdDir(); print $d; 1'`
