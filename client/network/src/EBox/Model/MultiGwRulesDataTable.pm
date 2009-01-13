@@ -199,7 +199,7 @@ sub _table
 			'tableDescription' => \@tableHead,
 			'class' => 'dataTable',
 			'order' => 1,
-			'help' => __('You can decide what kind of traffic goes out by each gateway. This way, you can force a subnet, service, destiantion and so forth  to use the router you choose. Please, bear in mind that rules will be applied in order, from top to bottom, you can reorder them once they are added. If you do not set a port or an IP address, then the rule will match all of them'),
+			'help' => __('You can decide what kind of traffic goes out by each gateway. This way, you can force a subnet, service, destination and so forth  to use the router you choose. Please, bear in mind that rules will be applied in order, from top to bottom, you can reorder them once they are added. If you do not set a port or an IP address, then the rule will match all of them'),
 		        'rowUnique' => 0,
 		        'printableRowName' => __('rule'),
 		};
