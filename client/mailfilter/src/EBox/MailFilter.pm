@@ -109,7 +109,7 @@ sub usedFiles
 {
     my @usedFiles;
     
-    push (@usedFiles, @{EBox::MailFilter::Amavis::usedFiles()@});
+    push (@usedFiles, @{EBox::MailFilter::Amavis::usedFiles()});
     push (@usedFiles, EBox::MailFilter::ClamAV::usedFiles());
     push (@usedFiles, EBox::MailFilter::SpamAssassin::usedFiles());
     push (@usedFiles, EBox::MailFilter::POPProxy::usedFiles());    
