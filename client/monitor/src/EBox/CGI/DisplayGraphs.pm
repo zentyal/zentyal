@@ -101,7 +101,8 @@ sub masonParameters
     my $measuredData = $mon->allMeasuredData($params->{period});
 
     return [
-        graphs => $measuredData
+        graphs => $measuredData,
+        period => $params->{period},
        ];
 
 }

@@ -214,6 +214,8 @@ sub menu
 #
 #      measureName - String the measure name
 #
+#      period - String the period's time
+#
 #      instance - String the instance name *(Optional)* Default value: the
 #      first described instance in the measure
 #
@@ -230,14 +232,27 @@ sub menu
 #      <EBox::Exceptions::DataNotFound> - thrown if the given measure
 #      name does not exist in the measure set
 #
+#      <EBox::Exceptions::InvalidData> - thrown if the given period is
+#      not one of the defined ones
+#
 sub measuredData
 {
-    my ($self, $measureName, $instance) = @_;
+    my ($self, $measureName, $period, $instance) = @_;
 
     $measureName or throw EBox::Exceptions::MissingArgument('measureName');
+    my ($periodData) = grep { $_->{name} eq $period } @{EBox::Monitor::Configuration::TimePeriods()};
+    unless(defined($periodData)) {
+        throw EBox::Exceptions::InvalidData(
+            data   => 'period',
+            value  => $period,
+            advice => 'It must be one of the following: '
+                      . join(', ', map { $_->{name} } @{EBox::Monitor::Configuration::TimePeriods()}));
+    }
 
     my $measure = $self->{measureManager}->measure($measureName);
-    return $measure->fetchData(instance => $instance);
+    return $measure->fetchData(instance   => $instance,
+                               resolution => $periodData->{resolution},
+                               start      => 'end-' . $periodData->{timeValue});
 
 }
 
