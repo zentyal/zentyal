@@ -1,50 +1,70 @@
 <%doc>
-  Show all the monitored graphs in a page
+  Show all the tabs with different periods of time
 
 Parameters:
 
-  graphs - array the data to use in graphs
-
+  URL     - String the URL to call for displaying the graphs
+  periods - array the time periods to show in tabs
+  initialGraphs - array the initial data to display
+  tabName - String name used by tab in order not to have problems
+            when more than one tab is used at the same page
+            *(Optional)* Default value: empty string
+  selectedTab - Integer the index for the selected tab. *(Optional)* Default
+                value: 0
 </%doc>
 <%args>
-  @graphs
+  $URL
+  @periods
+  @initialGraphs
+  $tabName => ''
+  $selectedTab => 0
 </%args>
 <%init>
+  use EBox::Gettext;
 </%init>
-<script type="text/javascript" src="/data/js/flotr.js"></script>
-<script type="text/javascript" src="/data/js/excanvas.js"></script>
-% foreach my $graph (@graphs) {
-<h3><% $graph->{title} %></h3>
-  <div class="help">
-    <% $graph->{help} %>
-  </div>
-  <div id="<% $graph->{id} %>_container">
-    <& /graph.mas,
-       id => $graph->{id},
-       type => $graph->{type},
-       series => $graph->{series}
-    &>
-  </div>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/tabMenu.js">//</script>
+<ul id="<% "tabMenu_$tabName" | h %>" class="tabs">
+<%perl>
+  my $idx = 0;
+  foreach my $periodData (@periods) {
+</%perl>
+  <li>
+    <a id="<% $periodData->{name} %>"
+       href="#<% $periodData->{name} %>"
+%     # Set the CSS class
+%     if ( $idx == $selectedTab ) {
+         class="current"
+%     }
+         onclick="return false;">
+       <% $periodData->{printableName} %>
+    </a>
+  </li>
+%    $idx++;
 % }
+</ul>
+<div class="insideTab">
+  <!-- The error will lay on here -->
+<div id="<% "errorTabData_$tabName" | h %>">
+</div>
+  <!-- The content will lay on here -->
+<div id="<% "tabData_$tabName" | h %>">
+  <& /monitor/graphs.mas, graphs => \@initialGraphs &>
+</div>
+</div>
+
 <script type="text/javascript">
-function updateGraphs() {
-   var graphs = $$('div.graph');
-   graphs.each(function(graph) {
-       var url = '/ebox/Monitor/UpdateGraph';
-       var parts = graph.id.split('.');
-       new Ajax.Updater(graph.id + '_container', url,
-                        { method: 'get',
-                          asynchronous : true,
-                          evalScripts : true,
-                          parameters: { 'measure'  : parts[0],
-                                        'instance' : parts[1]},
-                        });                                        
-   }); 
-}
-
-Event.observe(window, 'load', function() {
-  // Update graphs every 30s   
-  new PeriodicalExecuter(updateGraphs, 30);
-});
-
+  // Where the required attributes from model will be stored
+  var modelAttrs_<% $tabName | hu %> = new Object();
+<%perl>
+  # Store the action under a hash using [] operator from Object JS
+  foreach my $periodData (@periods) {
+</%perl>
+  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'] = new Object();
+  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].action =
+       '<% "${URL}?period=$periodData->{name}" %>';
+% }
+  var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>
+

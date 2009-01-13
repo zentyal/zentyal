@@ -26,6 +26,7 @@ use warnings;
 
 # eBox uses
 use EBox::Config;
+use EBox::Gettext;
 
 # Constants
 use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/ebox/';
@@ -81,6 +82,44 @@ sub EventsReadyDir
 sub QueryInterval
 {
     return QUERY_INTERVAL;
+}
+
+# Method: TimePeriods
+#
+#      Return the configured time periods for Monitoring
+#
+# Return:
+#
+#      array ref - the time periods with the following values:
+#
+#        name          - String the period's name
+#        printableName - String the printable name
+#        resolution    - Int the resolution in seconds
+#        timeValue     - String to send to 'rrdtool fetch' app. ie '1d'
+#
+sub TimePeriods
+{
+    return [ { name => 'lastHour',
+               printableName => __('Last hour'),
+               resolution    => 10,
+               timeValue     => '1h'
+              },
+             { name => 'lastDay',
+               printableName => __('Last day'),
+               resolution    => (15 * 60),
+               timeValue     => '1d'
+              },
+             { name => 'lastMonth',
+               printableName => __('Last month'),
+               resolution    => 21600,
+               timeValue     => '1month'
+              },
+             { name => 'lastYear',
+               printableName => __('Last year'),
+               resolution    => (60*60*24),
+               timeValue     => '1y'
+              }
+            ];
 }
 
 1;

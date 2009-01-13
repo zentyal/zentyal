@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/monitor
 
-template_DATA = index.mas 
+template_DATA = index.mas graphs.mas
 
 EXTRA_DIST = $(template_DATA)
 

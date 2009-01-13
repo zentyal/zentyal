@@ -245,24 +245,52 @@ sub measuredData
 #
 #      Return all the measured data to be displayed in graphs
 #
+# Parameters:
+#
+#      period - String the period to return data.  It must be one of
+#               the returned by
+#               <EBox::Monitor::Configuration::TimePeriods> as keys
+#               *(Optional)* Default value: 'lastHour'
+#
 # Returns:
 #
 #      array ref - each element contained data to be displayed in graphs
 #      as it is described in <EBox::Monitor::Measure::Base::fetchData>
 #
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the given period is
+#      not one of the selectable ones
+#
 sub allMeasuredData
 {
-    my ($self) = @_;
+    my ($self, $period) = @_;
+
+    unless(defined($period)) {
+        $period = 'lastHour';
+    }
+    my $timePeriods = EBox::Monitor::Configuration->TimePeriods();
+    my ($periodData) = grep { $period eq $_->{name} } @{$timePeriods};
+    unless(defined($periodData)) {
+        throw EBox::Exceptions::InvalidData(data   => 'period',
+                                            value  => $period,
+                                            advice => 'It must be one of the following: '
+                                              . join(', ', map { $_->{name} }@{$timePeriods}));
+    }
 
     my @measuredData;
     foreach my $measure (@{$self->{measureManager}->measures()}) {
         if(@{$measure->instances()} > 0) {
             foreach my $instance (@{$measure->instances()}) {
                 push(@measuredData,
-                     $measure->fetchData(instance => $instance));
+                     $measure->fetchData(instance   => $instance,
+                                         resolution => $periodData->{resolution},
+                                         start      => 'end-' . $periodData->{timeValue}));
             }
         } else {
-            push(@measuredData, $measure->fetchData());
+            push(@measuredData,
+                 $measure->fetchData(resolution => $periodData->{resolution},
+                                     start      => 'end-' . $periodData->{timeValue}));
         }
     }
 
@@ -480,7 +508,7 @@ sub _setMainConf
     $self->writeConfFile(COLLECTD_CONF_FILE,
                          'monitor/collectd.conf.mas',
                          [
-                          (interval       => $self->QueryInterval()),
+                          (interval       => EBox::Monitor::Configuration->QueryInterval()),
                           (loadPerlPlugin => $self->_thresholdConfigured()),
                          ]
                         );

@@ -13,12 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Monitor::Index;
+package EBox::CGI::Monitor::DisplayGraphs;
+
+# Class: EBox::CGI::Monitor::DisplayGraphs
+#
+#     CGI to display measures graph under a tab
+#
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -27,7 +32,7 @@ use EBox::Global;
 
 # Method: new
 #
-#       Constructor for Index CGI
+#       Constructor for UpdateGraph CGI
 #
 # Returns:
 #
@@ -38,9 +43,10 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Monitoring'),
-                                  'template' => 'monitor/index.mas',
-				  @_);
+    my $self = $class->SUPER::new(
+        template => '/monitor/graphs.mas',
+        @_
+       );
 
     $self->{domain} = 'ebox-monitor';
     bless($self, $class);
@@ -48,6 +54,30 @@ sub new
     return $self;
 
 }
+
+# Method: optionalParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::optionalParameters>
+#
+sub optionalParameters
+{
+    return [ 'period' ];
+}
+
+
+# Method: requiredParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::requiredParameters>
+#
+sub requiredParameters
+{
+    return [ ];
+}
+
 
 # Method: masonParameters
 #
@@ -60,15 +90,18 @@ sub masonParameters
 
     my ($self) = @_;
 
+    my $params = $self->paramsAsHash();
+
+    unless(exists($params->{period})) {
+        $params->{period} = 'lastHour';
+    }
+
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
-    my $measuredData = $mon->allMeasuredData();
+    my $measuredData = $mon->allMeasuredData($params->{period});
 
     return [
-        URL           => '/ebox/Monitor/DisplayGraphs',
-        periods       => EBox::Monitor::Configuration::TimePeriods(),
-        initialGraphs => $measuredData,
-        tabName       => 'timePeriods',
+        graphs => $measuredData
        ];
 
 }
