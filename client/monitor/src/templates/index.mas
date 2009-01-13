@@ -52,8 +52,8 @@ Parameters:
 <div id="<% "tabData_$tabName" | h %>">
   <& /monitor/graphs.mas,
       graphs => \@initialGraphs,
-      period => $periods[$idx]->{name},
-       &>
+      period => $periods[$selectedTab]->{name},
+  &>
 </div>
 </div>
 
@@ -66,7 +66,9 @@ Parameters:
 </%perl>
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'] = new Object();
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].action =
-       '<% "${URL}?period=$periodData->{name}" %>';
+       '<% $URL %>';
+  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].additionalParams = 
+       [ { 'name' : 'period', 'value' : '<% $periodData->{name} %>' }];
 % }
   var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>

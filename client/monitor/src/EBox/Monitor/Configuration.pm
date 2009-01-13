@@ -96,28 +96,33 @@ sub QueryInterval
 #        printableName - String the printable name
 #        resolution    - Int the resolution in seconds
 #        timeValue     - String to send to 'rrdtool fetch' app. ie '1d'
+#        timeType      - String the time type to use in the graphs
 #
 sub TimePeriods
 {
     return [ { name => 'lastHour',
                printableName => __('Last hour'),
                resolution    => 10,
-               timeValue     => '1h'
+               timeValue     => '1h',
+               timeType      => 'time',
               },
              { name => 'lastDay',
                printableName => __('Last day'),
                resolution    => (15 * 60),
-               timeValue     => '1d'
+               timeValue     => '1d',
+               timeType      => 'time',
               },
              { name => 'lastMonth',
                printableName => __('Last month'),
                resolution    => 21600,
-               timeValue     => '1month'
+               timeValue     => '1month',
+               timeType      => 'date',
               },
              { name => 'lastYear',
                printableName => __('Last year'),
                resolution    => (60*60*24),
-               timeValue     => '1y'
+               timeValue     => '1y',
+               timeType      => 'date',
               }
             ];
 }

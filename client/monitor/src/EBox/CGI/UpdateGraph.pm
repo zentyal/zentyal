@@ -27,6 +27,7 @@ use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Monitor::Configuration;
 
 # Group: Public methods
 
@@ -98,11 +99,15 @@ sub masonParameters
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
+    my ($periodData) = grep { $_->{name} eq $params->{period} } @{EBox::Monitor::Configuration::TimePeriods()};
+
     my $measuredData = $mon->measuredData($measure, $params->{period}, $instance);
 
-    return [ id     => $measuredData->{id},
-             type   => $measuredData->{type},
-             series => $measuredData->{series} ];
+    return [ id       => $measuredData->{id},
+             type     => $measuredData->{type},
+             series   => $measuredData->{series},
+             timetype => $periodData->{timeType},
+            ];
 
 }
 

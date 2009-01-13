@@ -9,27 +9,33 @@ Parameters:
 </%doc>
 <%args>
   @graphs
-  $period => 'lastHour'
+  $period
 </%args>
 <%init>
+  use EBox::Monitor::Configuration;
+  my ($periodData) = grep { $_->{name} eq $period } @{EBox::Monitor::Configuration::TimePeriods()};
 </%init>
 <script type="text/javascript" src="/data/js/flotr.js"></script>
 <script type="text/javascript" src="/data/js/excanvas.js"></script>
 % foreach my $graph (@graphs) {
 <h3><% $graph->{title} %></h3>
+  <span id="timePeriod" style="display: none;" value='<% $period %>'></span>
   <div class="help">
     <% $graph->{help} %>
   </div>
   <div id="<% $graph->{id} %>_container">
     <& /graph.mas,
-       id => $graph->{id},
-       type => $graph->{type},
-       series => $graph->{series}
+       id       => $graph->{id},
+       type     => $graph->{type},
+       series   => $graph->{series},
+       timetype => $periodData->{timeType},
     &>
   </div>
 % }
 <script type="text/javascript">
 function updateGraphs() {
+   // Time period is sent using the tab
+   var period = $('timePeriod').getAttribute('value');
    var graphs = $$('div.graph');
    graphs.each(function(graph) {
        var url = '/ebox/Monitor/UpdateGraph';
@@ -38,7 +44,7 @@ function updateGraphs() {
                         { method: 'get',
                           asynchronous : true,
                           evalScripts : true,
-                          parameters: { 'period'   : '<% $period %>',
+                          parameters: { 'period'   : period,
                                         'measure'  : parts[0],
                                         'instance' : parts[1],
                                         },
