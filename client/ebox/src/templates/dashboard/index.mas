@@ -293,7 +293,10 @@ function updateWidgets() {
     });
 }
 
-new PeriodicalExecuter(updateWidgets, 10);
+Event.observe(window, 'load', function() {
+  // Update widgets every 30s
+  new PeriodicalExecuter(updateWidgets, 30);
+});
 
 //]]>
 </script>
