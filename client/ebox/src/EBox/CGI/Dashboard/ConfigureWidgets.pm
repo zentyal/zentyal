@@ -33,15 +33,21 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-sub _process
+# Method: masonParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
 {
-	my ($self) = @_;
-	my $global = EBox::Global->getInstance(1);
-	my @modNames = @{$global->modNames};
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance(1);
+    my @modNames = @{$global->modNames()};
     my $modules = [];
-    
+
     my $present_widgets = {};
-	my $sysinfo = $global->modInstance('sysinfo');
+    my $sysinfo = $global->modInstance('sysinfo');
 
     for my $wname (@{$sysinfo->getDashboard('dashboard1')}) {
         $present_widgets->{$wname} = 1;
@@ -50,20 +56,20 @@ sub _process
         $present_widgets->{$wname} = 1;
     }
 
-	foreach my $name (@modNames) {
+    foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
         settextdomain($mod->domain);
         my $widgets = $mod->widgets();
-        if(%{$widgets}) {
+        if (%{$widgets}) {
             my $modtitle = $mod->{'printableName'};
-            if(not defined($modtitle)) {
+            if (not defined($modtitle)) {
                 $modtitle = $mod->{'title'};
             }
             my $module = {
                 'title' => $modtitle,
                 'name' => $mod->{'name'},
                 'widgets' => []
-            };
+               };
             for my $k (sort keys %{$widgets}) {
                 my $wid = {'name' => $k, 'title' => $widgets->{$k}->{'title'}};
                 $wid->{'present'} = $present_widgets->{$name . ':' . $k};
@@ -75,7 +81,7 @@ sub _process
 
     my @params = ();
     push(@params, 'modules' => $modules);
-    $self->{params} = \@params;
+    return \@params;
 }
 
 1;
