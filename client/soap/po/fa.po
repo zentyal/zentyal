@@ -1,0 +1,174 @@
+# Persian translations for ebox-soap package.
+# Copyright (C) 2009 Warp S.L.
+# This file is distributed under the same license as the ebox-soap package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-soap 0.11.99"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
+"PO-Revision-Date: 2008-12-04 10:39+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:38
+msgid "Enable SOAP service"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr ""
+
+#: src/EBox/CGI/DeleteBundle.pm:34
+msgid "Bundle Deleted"
+msgstr ""
+
+#: src/EBox/CGI/DeleteBundle.pm:74
+msgid ""
+"The previous bundle has been deleted. Upload a new one to establish a "
+"communication with an eBox control center"
+msgstr ""
+
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr ""
+
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr ""
+
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr ""
+
+#: src/EBox/SOAP.pm:168
+msgid "SOAP"
+msgstr ""
+
+#: src/EBox/SOAP.pm:309
+#, perl-brace-format
+msgid "Missing uploaded file: {uploadedFile}"
+msgstr ""
+
+#: src/EBox/SOAP.pm:321
+#, perl-brace-format
+msgid ""
+"Uploaded file is a type of {type1}  but it should be a file of type {type2}"
+msgstr ""
+
+#: src/EBox/SOAP.pm:333
+#, perl-brace-format
+msgid ""
+"Uploaded file does not contain the four mandatory files. It contains "
+"{number} "
+msgstr ""
+
+#: src/EBox/SOAP.pm:368
+msgid "It is required to upload a bundle to delete it"
+msgstr ""
+
+#: src/EBox/SOAP.pm:437
+msgid "You should enable the service to test the connectivity"
+msgstr ""
+
+#: src/EBox/SOAP.pm:881
+msgid "The OpenVPN client configuration file is missing"
+msgstr ""
+
+#: src/EBox/SOAP.pm:888
+msgid "The OpenVPN client configuration file is not well formatted "
+msgstr ""
+
+#: src/EBox/SOAP.pm:918
+msgid "Some certificate is missing"
+msgstr ""
+
+#: src/EBox/SOAP.pm:925
+#, perl-brace-format
+msgid ""
+"You cannot upload this bundle since the name {name} has been already used "
+"for a bundle which will be cleaned up. If you want to upload the bundle, "
+"please save changes first"
+msgstr ""
+
+#: src/EBox/SOAP.pm:958
+msgid "Certificate file is missing"
+msgstr ""
+
+#: src/EBox/SOAP.pm:961
+msgid "Private key file is missing"
+msgstr ""
+
+#: src/EBox/SOAP.pm:964
+msgid "Certification Authority file is missing"
+msgstr ""
+
+#: src/EBox/SOAP.pm:1016
+msgid ""
+"You should upload a bundle to be able to communicate with the control center"
+msgstr ""
+
+#: src/EBox/SOAP.pm:1025
+msgid ""
+"The OpenVPN client is not running. You may need to save changes in order to "
+"set up the OpenVPN client"
+msgstr ""
+
+#: src/templates/index.mas:27
+msgid "General configuration for"
+msgstr ""
+
+#: src/templates/index.mas:52
+#, perl-brace-format
+msgid ""
+"The connection seems to be {state}. The percentage of loss was {percent}%"
+msgstr ""
+
+#: src/templates/index.mas:54
+msgid "ok"
+msgstr ""
+
+#: src/templates/index.mas:54
+msgid "down"
+msgstr ""
+
+#: src/templates/index.mas:83
+msgid "eBox Control Center bundle"
+msgstr ""
+
+#: src/templates/index.mas:84
+msgid ""
+"Archive which contains all elements needed to establish the communication "
+"between eBox and the control center"
+msgstr ""
+
+#: src/templates/index.mas:90
+msgid "Upload"
+msgstr ""
