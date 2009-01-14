@@ -73,9 +73,12 @@
 % }
 % else
 % {
+%   my $failMsg =  $model->preconditionFailMsg();
+%   if ($failMsg) {
 <div class="note">
-  <% $model->preconditionFailMsg() %>
+  <% $failMsg %>
 </div>
+%   }
 % }
 </%method>
 
