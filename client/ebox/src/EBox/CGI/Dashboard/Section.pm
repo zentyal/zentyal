@@ -35,23 +35,35 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
+# Method: requiredParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::requiredParameters>
+#
 sub requiredParameters
 {
     return ['module', 'widget', 'section'];
 }
 
-sub _process
+# Method: masonParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
 {
-	my ($self) = @_;
-	my $global = EBox::Global->getInstance(1);
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance(1);
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
     my $sectionname = $self->param('section');
-	my $module = $global->modInstance($modname);
+    my $module = $global->modInstance($modname);
     my $widget = $module->widget($widgetname);
     my $sect;
     foreach my $section (@{$widget->sections()}) {
-        if($section->{name} eq $sectionname) {
+        if ($section->{name} eq $sectionname) {
             $sect = $section;
             last;
         }
@@ -61,7 +73,7 @@ sub _process
     my $namespace = $modname . ":" . $widgetname;
     push(@params, 'section' => $sect);
     push(@params, 'namespace' => $namespace);
-    $self->{params} = \@params;
+    return \@params;
 }
 
 1;
