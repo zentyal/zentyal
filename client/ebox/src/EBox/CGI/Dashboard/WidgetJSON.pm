@@ -40,19 +40,19 @@ sub requiredParameters
     return ['module', 'widget'];
 }
 
-sub _process
+sub actuate
 {
-	my ($self) = @_;
-	my $global = EBox::Global->getInstance(1);
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance(1);
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
-	my $module = $global->modInstance($modname);
+    my $module = $global->modInstance($modname);
     $self->{widget} = $module->widget($widgetname);
 }
 
 sub _print
 {
-	my ($self) = @_;
+    my ($self) = @_;
     print($self->cgi()->header(-charset=>'utf-8',-type=>'application/json'));
 
     local $JSON::ConvBlessed = 1;
