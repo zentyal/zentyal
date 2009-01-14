@@ -1,6 +1,7 @@
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes
+	+ Fix: precondition fail message is not showed when it does not exist
 0.12.99
 	+ Add new table view without actions
 	+ Add javascript library to generate report charts
