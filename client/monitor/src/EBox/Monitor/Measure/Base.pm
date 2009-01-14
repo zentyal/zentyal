@@ -224,10 +224,8 @@ sub fetchData
                     }
                 } else {
                     for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
-                        if ( $values[$valIdx] ne 'nan' ) {
-                            push( @{$returnData[$valIdx + $rrdIdx]},
-                                  [ $time, $values[$valIdx] + 0]);
-                        }
+                        push( @{$returnData[$valIdx + $rrdIdx]},
+                              [ $time, $values[$valIdx] + 0]);
                     }
                 }
             }
