@@ -1,0 +1,612 @@
+# Persian translations for ebox-samba package.
+# Copyright (C) 2009 Warp S.L.
+# This file is distributed under the same license as the ebox-samba package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-samba 0.12.100"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-12-04 10:39+0100\n"
+"PO-Revision-Date: 2008-12-04 10:39+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:97
+#: src/EBox/Samba/Model/SambaShares.pm:97
+msgid "Share name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:103
+#: src/EBox/Samba/Model/SambaShares.pm:103
+msgid "Share path"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:109
+#: src/EBox/Samba/Model/SambaShares.pm:109
+msgid "Directory under eBox"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:115
+#: src/EBox/Samba/Model/SambaShares.pm:115
+msgid "File system path"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:123
+#: src/EBox/Samba/Model/SambaShares.pm:123
+msgid "Comment"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:128
+#: src/EBox/Samba/Model/SambaShares.pm:128
+msgid "Access control"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaShares.pm:138
+msgid "List of samba shares"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:139
+#: src/EBox/Samba/Model/SambaShares.pm:139
+msgid "Samba shares"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:147
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:153
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "share"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:177
+#: src/EBox/Samba/Model/SambaShares.pm:177
+msgid "Path not allowed"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:185
+#: src/EBox/Samba/Model/SambaShares.pm:185
+msgid "Only alphanumeric characters plus _ are valid for a path"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:219
+#: src/EBox/Samba/Model/SambaShares.pm:219
+msgid "The directory is not empty. Are you sure you want to remove it?"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:276
+#: src/EBox/Samba/Model/SambaShares.pm:276
+msgid ""
+"<i>Directory under eBox</i> will automatically create the share.directory "
+"in /home/samba/shares <br><i>File system path</i> will allow you to share an "
+"existing directory within your file system. "
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:286
+#: src/EBox/Samba/Model/SambaShares.pm:286
+msgid ""
+"Here you can create shares with more fine-grained permission control. You "
+"can use an existing directory or pick a name and let eBox create it for you."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:113
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:122
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:152
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
+msgid "Todo"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:91
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:91
+msgid "Read only"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:95
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:95
+msgid "Read and write"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:99
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:99
+msgid "Administrator"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:120
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:120
+msgid "User/Group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+msgid "User"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:130
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:130
+msgid "Group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:137
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:137
+msgid "Permissions"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:146
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:146
+msgid "Samba share configuration"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:180
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:180
+msgid ""
+"Be careful if you grant <i>administrator</i> privileges.User will be able to "
+"read and write any file in the share"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:44
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActivePrinting.pm:48
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:773
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:801
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:852
+#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
+#: src/EBox/SambaLdapUser.pm:773 src/EBox/SambaLdapUser.pm:801
+#: src/EBox/SambaLdapUser.pm:852
+msgid "group name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:47
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:66
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActivePrinting.pm:44
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
+msgid "user name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:69
+#: src/EBox/CGI/ActiveSharing.pm:69
+msgid "active"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Index.pm:30
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Index.pm:40
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:539
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:548
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:539
+#: src/EBox/Samba.pm:548
+msgid "File sharing"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Enable.pm:42
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:44
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:759
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:759
+msgid "netbios"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:45
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:808
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:808
+msgid "working group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:46
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "working mode"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:47
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:777
+#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:777
+msgid "description"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:48
+#: src/EBox/CGI/SambaConf.pm:48
+msgid "user quota"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:49
+#: src/EBox/CGI/SambaConf.pm:49
+msgid "roaming profiles"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:53
+#: src/EBox/CGI/SambaConf.pm:53
+msgid "Netbios and workgroup must have different names"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:75 src/EBox/Samba.pm:75
+msgid "file sharing"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:95 src/EBox/Samba.pm:95
+msgid "Create Samba home directory for users and groups"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:96 src/EBox/Samba.pm:96
+msgid ""
+"eBox will create the home directories for Samba users and groups under /home/"
+"samba."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:101 src/EBox/Samba.pm:101
+msgid "Add LDAP schemas"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:102 src/EBox/Samba.pm:102
+msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:107
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:113 src/EBox/Samba.pm:107
+#: src/EBox/Samba.pm:113
+msgid "Set Samba LDAP admin dn password"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:108
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:114 src/EBox/Samba.pm:108
+#: src/EBox/Samba.pm:114
+msgid "eBox will configure Samba to use the LDAP admin dn password."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:130 src/EBox/Samba.pm:130
+msgid "To set up Samba according to your configuration"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:135 src/EBox/Samba.pm:135
+msgid "To set up smbldap-tools according to your configuration"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:141 src/EBox/Samba.pm:141
+msgid "To set up smbldap-tools according to your LDAP configuration"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:147 src/EBox/Samba.pm:147
+msgid "To add two new schemas and the set ACLs"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:152 src/EBox/Samba.pm:152
+msgid ""
+"To make NSS use LDAP resolution for user and group accounts. Needed for "
+"Samba PDC configuration."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:158 src/EBox/Samba.pm:158
+msgid "To let NSS know how to access LDAP accounts"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:163 src/EBox/Samba.pm:163
+msgid ""
+"To copy LDAP admin password generated by eBox and allow NSS to access LDAP"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:169 src/EBox/Samba.pm:169
+msgid "To add quota support to /home partition"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:551 src/EBox/Samba.pm:551
+msgid "General settings"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:554 src/EBox/Samba.pm:554
+msgid "Shares"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:826 src/EBox/Samba.pm:826
+msgid "quota"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1137
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1156 src/EBox/Samba.pm:1137
+#: src/EBox/Samba.pm:1156
+msgid "user"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1140
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1170
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:922
+#: src/EBox/Samba.pm:1140 src/EBox/Samba.pm:1170 src/EBox/SambaLdapUser.pm:922
+msgid "group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1143 src/EBox/Samba.pm:1143
+msgid "printer"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1608 src/EBox/Samba.pm:1608
+msgid "User's files"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1610 src/EBox/Samba.pm:1610
+msgid "Group's files"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:291
+#: src/EBox/SambaLdapUser.pm:291
+msgid "This user has a sharing directory associated which contains data"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:355
+#: src/EBox/SambaLdapUser.pm:355
+#, perl-brace-format
+msgid "Incorrect SID: {s}"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:359
+#: src/EBox/SambaLdapUser.pm:359
+#, perl-brace-format
+msgid "User {u} does not exists"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:363
+#: src/EBox/SambaLdapUser.pm:363
+#, perl-brace-format
+msgid "User {u} is not a samba user"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:373
+#: src/EBox/SambaLdapUser.pm:373
+#, perl-brace-format
+msgid "Incoorect SID: {s}"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:377
+#: src/EBox/SambaLdapUser.pm:377
+#, perl-brace-format
+msgid "Group {g} does not exists"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:381
+#: src/EBox/SambaLdapUser.pm:381
+#, perl-brace-format
+msgid "Group {g} is not a samba group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:428
+#: src/EBox/SambaLdapUser.pm:428
+msgid "This group has a sharing directory associatedwhich conatins data"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:687
+#: src/EBox/SambaLdapUser.pm:687
+#, perl-brace-format
+msgid "{g} group does not exist"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:806
+#: src/EBox/SambaLdapUser.pm:806
+msgid "A name should be provided for the share"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:814
+#: src/EBox/SambaLdapUser.pm:814
+msgid "sharing resource"
+msgstr ""
+
+#: migration/0001_add_samba_service.pl:113
+msgid "File sharing (Samba) protocol"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:9
+#: src/templates/samba.mas:9
+msgid "PDC/File sharing account"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:16
+#: src/templates/samba.mas:16
+msgid "User account"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:21
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:24
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:83
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:85
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+#: src/templates/index.mas:83 src/templates/index.mas:85
+msgid "Disabled"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:22
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:25
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:82
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:86
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+#: src/templates/index.mas:82 src/templates/index.mas:86
+msgid "Enabled"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:32
+#: src/templates/samba.mas:32
+msgid "Administration rights"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:46
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:47
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:76
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:77
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:147
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:148
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:95
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:96
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+#: src/templates/index.mas:95 src/templates/index.mas:96
+msgid "Change"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:55
+#: src/templates/samba.mas:55
+msgid "Sharing directory for this group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:58
+#: src/templates/samba.mas:58
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:66
+#: src/templates/samba.mas:66
+msgid "This resource name is longer than 12 characters."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:69
+#: src/templates/samba.mas:69
+msgid "Directory name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:79
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:80
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:18
+#: src/templates/delete.mas:18 src/templates/samba.mas:79
+#: src/templates/samba.mas:80
+msgid "Delete"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:83
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:84
+#: src/templates/samba.mas:83 src/templates/samba.mas:84
+msgid "Add"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:91
+#: src/templates/samba.mas:91
+msgid "Printers"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:95
+#: src/templates/samba.mas:95
+msgid "Select the printers this user will have access to."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:105
+#: src/templates/samba.mas:105
+msgid "Printer"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:106
+#: src/templates/samba.mas:106
+msgid "Allow"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:128
+#: src/templates/samba.mas:128
+msgid "Allow all printers"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:159
+#: src/templates/samba.mas:159
+msgid "printers module"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:170
+#: src/templates/samba.mas:170
+msgid "file sharing module"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:17
+#: src/templates/index.mas:17
+msgid "General Settings"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:19
+#: src/templates/index.mas:19
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:25
+#: src/templates/index.mas:25
+msgid "Working mode"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:30
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:33
+#: src/templates/index.mas:30 src/templates/index.mas:33
+msgid "File server"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:31
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:34
+#: src/templates/index.mas:31 src/templates/index.mas:34
+msgid "PDC"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:42
+#: src/templates/index.mas:42
+msgid "Domain name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:44
+#: src/templates/index.mas:44
+msgid "Working group"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:54
+#: src/templates/index.mas:54
+msgid "Netbios name"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:62
+#: src/templates/index.mas:62
+msgid "Description"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:69
+#: src/templates/index.mas:69
+msgid "Quota limit"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:77
+#: src/templates/index.mas:77
+msgid "Roaming profiles"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:11
+#: src/templates/delete.mas:11
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:21
+#: src/templates/delete.mas:21
+msgid "Cancel"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/stubs/samba/smb.conf.mas:97
+#: stubs/smb.conf.mas:97
+msgid "Home Directories"
+msgstr ""
+
+#: debian/ebox-samba/usr/share/ebox/stubs/samba/smb.conf.mas:104
+#: stubs/smb.conf.mas:104
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr ""
