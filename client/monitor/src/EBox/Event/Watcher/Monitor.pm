@@ -199,7 +199,7 @@ sub _readEventsFromDir
             push(@{$events}, $event);
         } else {
             EBox::warn("File $fullName does not contain an hash reference");
-#            EBox::warn("Its content is: " . File::Slurp::read_file($fullName));
+##            EBox::warn("Its content is: " . File::Slurp::read_file($fullName));
         }
         unlink($fullName);
         unlink(EBox::Monitor::Configuration::EventsDir() . $filename);
@@ -281,8 +281,8 @@ sub _i18n
     my ($measureName, $typeName, $waste,$dataSource, $currentValue) =
       $message =~ m/plugin (.*?) .*type (.*?)(| .*): Data source "(.*?)" is currently (.*?)\. /g;
 
-    my ($measureInstance) = $message =~ m/plugin.*?\(instance (.*?)\)/g;
-    my ($typeInstance)    = $message =~ m/type.*?\(instance (.*?)\)/g;
+    my ($measureInstance) = $message =~ m/plugin.*?\(instance (.*?)\) type/g;
+    my ($typeInstance)    = $message =~ m/type.*?\(instance (.*?)\):/g;
 
     my $monMod = EBox::Global->modInstance('monitor');
     my $measure = $monMod->measure($measureName);
@@ -294,7 +294,11 @@ sub _i18n
 
     my $printableDataSource = $measure->printableDataSource($dataSource);
     if ( defined($typeInstance) ) {
-        $printableDataSource = $measure->printableTypeInstance($typeInstance);
+        if ( $dataSource eq 'value' ) {
+            $printableDataSource = $measure->printableTypeInstance($typeInstance);
+        } else {
+            $printableDataSource = $measure->printableTypeInstance($typeInstance) . " $printableDataSource";
+        }
     }
 
     my $printableMsg = __x('{what} "{dS}" is currently {value}.', what => $what, dS => $printableDataSource,
