@@ -35,11 +35,23 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
+# Method: requiredParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::requiredParameters>
+#
 sub requiredParameters
 {
     return ['module', 'widget'];
 }
 
+# Method: actuate
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::actuate>
+#
 sub actuate
 {
     my ($self) = @_;
@@ -50,6 +62,12 @@ sub actuate
     $self->{widget} = $module->widget($widgetname);
 }
 
+# Method: _print
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::_print>
+#
 sub _print
 {
     my ($self) = @_;

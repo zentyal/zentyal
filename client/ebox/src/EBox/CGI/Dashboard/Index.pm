@@ -35,29 +35,35 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-sub _process
+# Method: masonParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
 {
-	my ($self) = @_;
-	my $global = EBox::Global->getInstance(1);
-	my $sysinfo = $global->modInstance('sysinfo');
-	my @modNames = @{$global->modNames};
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance(1);
+    my $sysinfo = $global->modInstance('sysinfo');
+    my @modNames = @{$global->modNames};
     my $widgets = {};
-	foreach my $name (@modNames) {
-		my $mod = $global->modInstance($name);
-		settextdomain($mod->domain);
-		my $wnames = $mod->widgets();
+    foreach my $name (@modNames) {
+        my $mod = $global->modInstance($name);
+        settextdomain($mod->domain);
+        my $wnames = $mod->widgets();
         for my $wname (keys(%{$wnames})) {
             my $widget = $mod->widget($wname);
-		    defined($widget) or next;
-		    $widgets->{$name . ':' . $wname} = $widget;
+            defined($widget) or next;
+            $widgets->{$name . ':' . $wname} = $widget;
         }
-	}
+    }
 
     #put the widgets in the dashboards according to the last configuration
     my @dashboard1 = ();
     for my $wname (@{$sysinfo->getDashboard('dashboard1')}) {
         my $widget = delete $widgets->{$wname};
-        if($widget) {
+        if ($widget) {
             push(@dashboard1, $widget);
         }
     }
@@ -65,18 +71,18 @@ sub _process
     my @dashboard2 = ();
     for my $wname (@{$sysinfo->getDashboard('dashboard2')}) {
         my $widget = delete $widgets->{$wname};
-        if($widget) {
+        if ($widget) {
             push(@dashboard2, $widget);
         }
     }
 
     #put the remaining widgets in the dashboards trying to balance them
     foreach my $wname (keys %{$widgets}) {
-        if(!$sysinfo->isWidgetKnown($wname)) {
+        if (!$sysinfo->isWidgetKnown($wname)) {
             $sysinfo->addKnownWidget($wname);
             my $widget = delete $widgets->{$wname};
-            if($widget->{'default'}) {
-                if(scalar(@dashboard1) <= scalar(@dashboard2)) {
+            if ($widget->{'default'}) {
+                if (scalar(@dashboard1) <= scalar(@dashboard2)) {
                     push(@dashboard1, $widget);
                 } else {
                     push(@dashboard2, $widget);
@@ -95,7 +101,7 @@ sub _process
     push(@params, 'dashboard1' => \@dashboard1);
     push(@params, 'dashboard2' => \@dashboard2);
     push(@params, 'toggled' => $sysinfo->toggledElements());
-    $self->{params} = \@params;
+    return \@params;
 }
 
 1;
