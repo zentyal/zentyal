@@ -88,7 +88,7 @@ sub generalWidget
         __("System load"), join(', ', Sys::CpuLoad::load)));
 }
 
-sub testWidget
+sub processesWidget
 {
     my ($self, $widget) = @_;
     my $section = new EBox::Dashboard::Section('foo');
@@ -125,18 +125,10 @@ sub widgets
             'widget' => \&generalWidget,
             'default' => 1
         },
-        'test' => {
-            'title' => __("Test"),
-            'widget' => \&testWidget
+        'processes' => {
+            'title' => __("Processes' list"),
+            'widget' => \&processesWidget
         },
-        'test2' => {
-            'title' => __("Test2"),
-            'widget' => \&testWidget
-        },
-        'test3' => {
-            'title' => __("Test3"),
-            'widget' => \&testWidget
-        }
     };
 }
 

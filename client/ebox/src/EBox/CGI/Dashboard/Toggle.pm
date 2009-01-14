@@ -32,9 +32,26 @@ sub new
 	return $self;
 }
 
-sub _process
+# Method: requiredParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::requiredParameters>
+#
+sub requiredParameters
 {
-	my $self = shift;
+    return [ 'element' ];
+}
+
+# Method: actuate
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::actuate>
+#
+sub actuate
+{
+    my ($self) = @_;
     my $global = EBox::Global->getInstance();
     my $sysinfo = $global->modInstance('sysinfo');
     my $element = $self->unsafeParam("element");
