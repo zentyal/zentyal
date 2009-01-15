@@ -67,7 +67,8 @@ sub ebox_notify
     my ($not) = @_;
 
     my $src = 'monitor-' . $not->{plugin};
-    $src .= '-' . $not->{plugin_instance} if ($not->{plugin_instance} ne '');
+    $src .= '-' . $not->{plugin_instance} if (defined($not->{plugin_instance})
+                                              and $not->{plugin_instance} ne '');
     $src .= '-' . $not->{type};
     $src .= '-' . $not->{type_instance} if ($not->{type_instance} ne '');
 
