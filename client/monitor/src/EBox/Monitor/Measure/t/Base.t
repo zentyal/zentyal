@@ -158,6 +158,25 @@ throws_ok {
 } 'EBox::Exceptions::Internal',
   'Trying to get a printable type instance from a measure which does not have any';
 
+# Printable label tests
+
+throws_ok {
+    $load->printableLabel('foo','bar');
+} 'EBox::Exceptions::DataNotFound', 'Type instance "foo" does not exists in Load measure';
+
+throws_ok {
+    $load->printableLabel(undef,'bar');
+} 'EBox::Exceptions::DataNotFound', 'Data source "bar" does not exists in Load measure';
+
+cmp_ok($load->printableLabel(undef, 'shortterm'), 'eq', __('short term'),
+       'Testing data source');
+cmp_ok($load->printableLabel(undef, 'midterm'), 'eq', __('mid term'),
+       'Testing data source');
+cmp_ok($load->printableLabel(undef, 'longterm'), 'eq', __('long term'),
+       'Testing data source');
+
+# Fetch data tests
+
 my $returnVal;
 lives_ok {
   $returnVal = $load->fetchData();

@@ -82,9 +82,6 @@ sub _description
         dataSources     => [ 'free', 'used' ],
         printableLabels => \@printableLabels,
         typeInstances   => \@typeInstances,
-        printableDataSource => { free => __('free'),
-                                 used => __('used'),
-                             },
         type            => 'byte',
     };
 }

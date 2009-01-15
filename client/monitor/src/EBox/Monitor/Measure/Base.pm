@@ -423,6 +423,65 @@ sub printableDataSource
     }
 }
 
+# Method: printableLabel
+#
+#      Get the printable label using type instance and data source
+#
+# Parameters:
+#
+#      typeInstance - String the type instance
+#
+#      dataSource - String the data source
+#
+# Returns:
+#
+#      String - the printable label associated to that typeInstance
+#      and dataSource
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given type
+#      instance or data source is not defined in this measure
+#
+sub printableLabel
+{
+    my ($self, $typeInstance, $dataSource) = @_;
+
+    my ($idxTI, $idxDS, $found) = (0,0,0);
+
+    if (defined($typeInstance)) {
+        for(my $idx = 0; $idx < @{$self->{typeInstances}}; $idx++) {
+            if ($self->{typeInstances}->[$idx] eq $typeInstance) {
+                $idxTI = $idx;
+                $found = 1;
+                last;
+            }
+        }
+        unless($found) {
+            throw EBox::Exceptions::DataNotFound(data  => 'typeInstance',
+                                                 value => $typeInstance);
+        }
+    }
+    if (defined($dataSource)) {
+        $found = 0;
+        for(my $idx = 0; $idx < @{$self->{dataSources}}; $idx++) {
+            if ($self->{dataSources}->[$idx] eq $dataSource) {
+                $idxDS = $idx;
+                $found = 1;
+                last;
+            }
+        }
+        unless($found) {
+            throw EBox::Exceptions::DataNotFound(data  => 'dataSource',
+                                                 value => $dataSource);
+        }
+    }
+    my $nDS = scalar(@{$self->{dataSources}});
+
+    return $self->{printableLabels}->[($idxTI * $nDS) + $idxDS];
+
+}
+
 # Group: Class methods
 
 # Method: Types
