@@ -297,7 +297,7 @@ sub _i18n
         if ( $dataSource eq 'value' ) {
             $printableDataSource = $measure->printableTypeInstance($typeInstance);
         } else {
-            $printableDataSource = $measure->printableTypeInstance($typeInstance) . " $printableDataSource";
+            $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
         }
     }
 
