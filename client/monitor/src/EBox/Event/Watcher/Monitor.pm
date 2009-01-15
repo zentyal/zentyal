@@ -292,6 +292,7 @@ sub _i18n
         $what = $measure->printableInstance($measureInstance);
     }
 
+    my $printableDataSource;
     if ( defined($typeInstance) and  $dataSource eq 'value' ) {
         $printableDataSource = $measure->printableTypeInstance($typeInstance);
     } else {

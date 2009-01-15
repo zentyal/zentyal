@@ -524,7 +524,7 @@ sub _setMainConf
                          'monitor/collectd.conf.mas',
                          [
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
-                          (loadPerlPlugin => $self->_thresholdConfigured()),
+                          (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
                          ]
                         );
 }

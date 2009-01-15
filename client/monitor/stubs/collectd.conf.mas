@@ -154,7 +154,7 @@ LoadPlugin syslog
 #</Plugin>
 
 #<Plugin logfile>
-#       LogLevel "info"
+#       LogLevel "debug"
 #       File "/var/log/collectd.log"
 #       Timestamp true
 #</Plugin>
@@ -218,6 +218,7 @@ LoadPlugin syslog
        BaseName "EBox::Collectd"
 #       EnableDebugger ""
        LoadPlugin "Plugin"
+       LoadPlugin "Thermal"
 #       LoadPlugin "bar"
 </Plugin>
 % }
