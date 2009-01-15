@@ -219,36 +219,54 @@ sub _table
               printableName => __('Failure minimum'),
               optional      => 1,
               editable      => 1,
+              help          => __('Set the lower bound of acceptable values. '
+                                  . 'If unset defaults to negative infinity.'),
              ),
           new EBox::Types::Float(
               fieldName     => 'warningMin',
               printableName => __('Warning minimum'),
               optional      => 1,
               editable      => 1,
+              help          => __x('If the value is less than this value '
+                                  . 'and greater than {fmin} a warn event is sent',
+                                  fmin => __('failure minimum')),
              ),
           new EBox::Types::Float(
               fieldName     => 'warningMax',
               printableName => __('Warning maximum'),
               optional      => 1,
               editable      => 1,
+              help          => __x('If the value is greater than this value '
+                                  . 'and less than {fmax} a warn event is sent',
+                                  fmax => __('failure maximum')),
              ),
           new EBox::Types::Float(
               fieldName     => 'failureMax',
               printableName => __('Failure maximum'),
               optional      => 1,
               editable      => 1,
+              help          => __('Set the upper bound of acceptable values. '
+                                  . 'If unset defaults to positive infinity.'),
              ),
           new EBox::Types::Boolean(
               fieldName     => 'invert',
               printableName => __('Invert'),
               defaultValue  => 0,
               editable      => 1,
+              help          => __x('If set to true, the range of acceptable values is inverted, '
+                                  . 'i.e. values between {fmin} and {fmax} ({wmin} and {wmax}) are '
+                                  . 'not okay.', fmin => __('failure minimum'), fmax => __('failure maximum'),
+                                  wmin => __('warning minimum'), wmax => __('warning maximum')),
              ),
           new EBox::Types::Boolean(
               fieldName     => 'persist',
               printableName => __('Persistent'),
               defaultValue  => 1,
               editable      => 1,
+              help          => __('If set to true, an event will be dispatched '
+                                  . 'for each value that is out of the acceptable range. '
+                                  . 'If set to false, only a change from an acceptable '
+                                  . 'value to an unacceptable one will be dispatched'),
              ),
           new EBox::Monitor::Types::MeasureAttribute(
               fieldName     => 'measureInstance',
