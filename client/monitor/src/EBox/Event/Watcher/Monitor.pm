@@ -292,13 +292,10 @@ sub _i18n
         $what = $measure->printableInstance($measureInstance);
     }
 
-    my $printableDataSource = $measure->printableDataSource($dataSource);
-    if ( defined($typeInstance) ) {
-        if ( $dataSource eq 'value' ) {
-            $printableDataSource = $measure->printableTypeInstance($typeInstance);
-        } else {
-            $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
-        }
+    if ( defined($typeInstance) and  $dataSource eq 'value' ) {
+        $printableDataSource = $measure->printableTypeInstance($typeInstance);
+    } else {
+        $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
     }
 
     my $printableMsg = __x('{what} "{dS}" is currently {value}.', what => $what, dS => $printableDataSource,
