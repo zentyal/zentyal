@@ -1158,7 +1158,7 @@ sub groupOfUsers # (user)
 #
 # Returns:
 #
-#       array ref - holding the groups
+#       array ref - holding the users
 #
 # Exceptions:
 #
