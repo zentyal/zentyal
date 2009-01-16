@@ -277,6 +277,10 @@ function hangTable(successId, errorId, url, formId, loadingId)
       stripe('dataTable', '#ecf5da', '#ffffff'); 
       completedAjaxRequest();
     },
+        onComplete: function(t) {
+          stripe('dataTable', '#ecf5da', '#ffffff'); 
+          completedAjaxRequest();
+        },
 	onFailure: function(t) {
 	  restoreHidden(loadingId);
 	}

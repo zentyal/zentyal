@@ -119,7 +119,7 @@ sub _set_packagedomain
 {
 	my ($package, $filename, $line) = caller 1;
 	my $domain = undef;
-	eval {$domain = $package->domain};
+	eval {$domain = $package->domain()};
 	if ($domain) {
 		$old_domain = settextdomain($domain);
 	} else {

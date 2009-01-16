@@ -46,6 +46,26 @@ sub var
 	return $ref->{localstatedir};
 }
 
+# Function: configkeyFromFile
+#
+#      Get a configuration key from the specified file
+#
+# Parameters:
+#
+#      key - String the configuration key
+#      file - String the configuration file path
+#
+# Returns:
+#
+#      String - the configuration value for that key if found
+#
+#      undef - if the configuration key is not in the configuration file
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the file cannot be
+#      opened
+#
 sub configkeyFromFile # (key, file)
 {
 	my ($key, $file) = @_;
@@ -93,6 +113,53 @@ sub configkeys # (key)
 		push (@values, $value) if defined($value);
 	}
 	return \@values;
+}
+
+# Function: configKeysFromFile
+#
+#      Get all configuration keys from a file
+#
+# Parameters:
+#
+#      file - String the configuration file path
+#
+# Returns:
+#
+#      hash ref - the keys with their values as it follows:
+#
+#         key - String the key name
+#         value - String the value for that key
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the file cannot be
+#      opened
+#
+sub configKeysFromFile # (file)
+{
+	my ($file) = @_;
+
+	my $value = undef;
+	open(my $CONF, $file) or
+          throw EBox::Exceptions::DataNotFound(data => 'config file',
+                                               value => $file);
+        my %configKeys = ();
+	while (<$CONF>) {
+		$_ =~ s/\s//g;
+		$_ =~ s/#.*//g;
+		($_ eq '') and next;
+		my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
+                # Support for several values for a single key if comma is set
+                if ( $nvalue =~ m/,/g ) {
+                    my @values = split( ',', $nvalue);
+                    $configKeys{$nkey} = \@values;
+                } else {
+                    $configKeys{$nkey} = $nvalue;
+                }
+	}
+	close($CONF);
+	return \%configKeys;
+
 }
 
 sub user
@@ -206,18 +273,18 @@ sub sessionid
     return $ref->{localstatedir} . 'lib/ebox/conf/ebox.sid';
   }
 
-# Method: soapSession
+# Method: scriptSession
 #
-#      Get the path where the SOAP session identifier is stored
+#      Get the path where the script session identifier is stored
 #
 # Returns:
 #
 #      String - the path to that file
 #
-sub soapSession
-  {
-    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.soap-sid';
-  }
+sub scriptSession
+{
+    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.script-sid';
+}
 
 sub log 
 {

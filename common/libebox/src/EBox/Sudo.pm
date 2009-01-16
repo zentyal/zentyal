@@ -70,6 +70,7 @@ Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #       something different than zero and it was not signaled
 #
 # Returns:
+#
 # 	array ref - Returns the output of the command in an array
 #
 sub command # (command) 
@@ -181,7 +182,6 @@ sub _rootError
       throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running ebox-sudoers-friendly maybe can fix this problem");
     } 
   }
-
   throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)
 }
 

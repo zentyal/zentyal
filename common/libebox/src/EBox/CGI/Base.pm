@@ -323,9 +323,8 @@ sub run
 		my $url = "$protocol://${host}/ebox/" . $self->{redirect};
 		print($self->cgi()->redirect($url));
 		return;
-	} 
+	}
 
-	
 
 	try  { 
 	  settextdomain('ebox');
@@ -763,7 +762,9 @@ sub actuate
 {}
 
 # Method: masonParameters
-#   This method must be overriden by the different child to return the adequate template parameter for his state. 
+#
+#    This method must be overriden by the different child to return
+#    the adequate template parameter for its state.
 #
 # Returns:
 #  a  reference to a list which contains the names and values of the different mason parameters

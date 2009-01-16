@@ -11,7 +11,7 @@
  * *                         optional - defaults to true
  * * @return string        : the converted size
  * */
-function getHumanSize(size,precision,longName,realSize) {
+function getBytes(size,precision,longName,realSize) {
    if (typeof precision=="undefined") {
       precision=2;
    }
@@ -52,4 +52,23 @@ function getSizePrefix(pos) {
       case  9: return "xenna";
       default: return "?-";
    }
+}
+
+function getDegrees(degrees) {
+    return degrees + "°";
+}
+
+function getTime(seconds) {
+    var d = new Date(seconds * 1000);
+    return d.toLocaleTimeString();
+}
+
+function getDate(seconds) {
+    var d = new Date(seconds * 1000);
+    return d.toLocaleDateString();
+}
+
+function getFullDate(seconds) {
+    var d = new Date(seconds * 1000);
+    return d.toLocaleString();
 }

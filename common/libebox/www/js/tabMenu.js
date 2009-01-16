@@ -42,6 +42,10 @@ EBox.Tabs.prototype = {
      modelAttrs   - Associative array indexing by element identifier
                     containing the following properties:
                      action -  URL for the actions to perform by an AJAX request
+                     additionalParams - array containing associative arrays with
+                                        the following elements:
+                         name  - String the param's name
+                         value - String the param's value
                      directory - a parameter to send specific for the tab model
      options      - Associate array which can contain the following
                     optional parameters:
@@ -155,6 +159,8 @@ EBox.Tabs.prototype = {
       tab.addClassName(this.activeClassName);
       // Set the correct form values
       // this._setDirInput();
+      // Set additional parameters
+      this._setAdditionalParams();
       // Load the content from table-helper
       hangTable( 'tabData_' + this.tabName , 'errorTabData_' + this.tabName,
                  this.modelAttrs[ tab.id ].action, 'tableForm',
@@ -293,6 +299,30 @@ EBox.Tabs.prototype = {
       dirInput.setAttribute('value', this.modelAttrs[this.activeTab.id].directory);
       $('tableForm').appendChild(dirInput);
     }
+  },
+
+  /* Method: _setAdditionalParams
+
+     Set the additional parameters to be sent in POST request.
+
+  */
+  _setAdditionalParams : function() {
+
+    for(var idx=0; idx < this.modelAttrs[this.activeTab.id].additionalParams.length; idx++) {
+      var param = this.modelAttrs[this.activeTab.id].additionalParams[idx];
+      var input = $('tableForm')[param.name];
+      if ( input ) {
+        // Input is defined
+        input.setAttribute('value', param.value);
+      } else {
+        // Create the input
+        var dirInput = document.createElement('input');
+        dirInput.setAttribute('name', param.name);
+        dirInput.setAttribute('type', 'hidden');
+        dirInput.setAttribute('value', param.value);
+        $('tableForm').appendChild(dirInput);
+      }
+    } 
 
   }
     

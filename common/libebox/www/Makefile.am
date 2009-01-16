@@ -23,12 +23,12 @@ images = images/delete.gif images/show.gif \
   images/non_r.gif  images/non_rw.gif images/feed-icon.gif \
   images/spinner.gif images/widget_controls.png images/triangles.png
 
-js = js/csshover.htc js/common.js \
+js = js/base64.js js/csshover.htc js/common.js \
   js/help.js js/table-helper.js js/prototype.js \
   js/fileUpload.js js/image-helper.js \
   js/tabMenu.js js/format.js \
   js/modalbox.js  js/prototype.js  \
-  js/flotr.js     js/excanvas.js \
+  js/flotr.js     js/excanvas.js js/format.js \
   js/scriptaculous/controls.js \
   js/scriptaculous/unittest.js \
   js/scriptaculous/sound.js \

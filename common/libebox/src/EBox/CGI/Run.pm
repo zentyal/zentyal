@@ -56,7 +56,7 @@ sub run # (url)
         settextdomain('ebox');
 
         my $cgi;
-        eval "use $classname"; 
+        eval "use $classname";
         if ($@) {
                 try {
                   $cgi = $self->_lookupViewController($classname);
@@ -65,7 +65,6 @@ sub run # (url)
                   # path not valid
                   $cgi = undef;
                 };
-                
                 if (not $cgi) {
                         my $log = EBox::logger;
                         $log->error("Unable to import cgi: " 
@@ -73,17 +72,17 @@ sub run # (url)
 
                         my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
                         eval "use $error_cgi"; 
-                        $cgi = new $error_cgi;
+                        $cgi = new $error_cgi();
                 } else {
                       #  EBox::debug("$classname mapped to " 
                       #  . " Controller/Viewer CGI");
                 }
         } 
         else {
-                $cgi = new $classname;
+                $cgi = new $classname();
         }
 
-        $cgi->run;
+        $cgi->run();
 }
 
 
@@ -121,6 +120,7 @@ sub _lookupViewController
             } else {
                 $modelName = '/' . lc ( $namespaces[2] ) . "/$modelName";
             }
+            # TODO: Catch when the instancement launches an exception
             my $manager = EBox::Model::ModelManager->instance();
             my ($model, $action) = undef;
             try {
@@ -135,7 +135,7 @@ sub _lookupViewController
                 if (($modelName) ne '') {
                     $model = $manager->model($modelName);
                 } else {
-                    throw EBox::Exceptions::DataNotFound();	
+                    throw EBox::Exceptions::DataNotFound();
                 }
             };
 

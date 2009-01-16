@@ -1,4 +1,22 @@
+<%doc>
+  This template is intended to show a simple message on HTML format as
+  informative note or a warning
+
+Parameters:
+
+  msg - String the message itself
+  
+  class - String the message kind (note, warning) are the
+  possibilites. Optional. Default value: note
+
+</%doc>
 <%args>
-	$msg
+  $msg
+  $class => 'note'
 </%args>
+<%init>
+  if ( $class ne 'note' and $class ne 'warning' ) {
+    $class = 'note';
+  } 
+</%init>
 <div class='note'><% $msg %></div>

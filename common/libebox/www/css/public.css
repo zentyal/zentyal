@@ -40,6 +40,13 @@
 #hmenu #m { background-color: #b5d448; }
 #hmenu #m:hover { background-color: #C5E64E; }
 
+#hmenu #remote_services_link {
+        background-color: #bbe03a;
+}
+#hmenu #remote_services_link:hover {
+        background-color: #cce86c;
+}
+
 
 #top {
 	padding:0;
@@ -721,6 +728,11 @@ a.changed:hover {
         margin-left: 5px;
         padding-left: 5px;
         border-left: 1px solid #767676;
+}
+
+.graph {
+    width: 350px;
+    height: 200px;
 }
 
 #finishForm {
