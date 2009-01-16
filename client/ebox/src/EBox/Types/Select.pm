@@ -111,7 +111,6 @@ sub options
         }
     }
 
-
     return $self->{'options'};
 }
 
@@ -328,23 +327,23 @@ sub _optionsFromForeignModel
 sub _filterOptions
 {
     my ($self, $options) = @_;
-    
+
     my $model = $self->model();
-    
+
     return $options unless defined ( $model );
-    
+
     my $field  = $self->fieldName();
-    
+
     my @optionsAlreadyModel = ();
     my $rows = $model->rows();
-    
+
     foreach my $row (@{$rows}) {
         push( @optionsAlreadyModel, $row->{valueHash}->{$field});
     }
-    
+
     # Difference among optionsAlreadyModel and options arrays
     my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
-    
+
     # Add the current value if the action is an edition
     if ( $self->value() ) {
         push ( @filteredOptions, {
@@ -353,7 +352,7 @@ sub _filterOptions
                                  }
              );
     }
-    
+
     return \@filteredOptions;
 
 }

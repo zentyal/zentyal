@@ -278,7 +278,6 @@ sub partitionsFileSystems
 {
   my %fileSys = %{  EBox::FileSystem::fileSystems() };
 
-#  my @fileSystems = keys %fileSys;
   foreach my $fs (keys %fileSys) {
     # remove not-device filesystems
     if (not $fs =~ m{^/dev/}) {

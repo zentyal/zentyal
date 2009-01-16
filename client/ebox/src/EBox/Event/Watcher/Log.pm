@@ -349,7 +349,7 @@ sub _logSubModel
 {
     my ($self) = @_;
 
-    return $self->configurationSubModel(__PACKAGE__); 
+    return $self->configurationSubModel(__PACKAGE__);
 }
 
 1;
