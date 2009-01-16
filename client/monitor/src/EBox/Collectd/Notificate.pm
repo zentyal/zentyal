@@ -13,16 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Collectd::Plugin
+# Class: EBox::Collectd::Notificate
 #
-#    Add the eBox own plugin to collectd.
+#    Add the eBox own notification plugin to collectd.
 #
 #    Documentation is available on:
 #
 #     http://collectd.org/documentation/manpages/collectd-perl.5.shtml
 #
 
-package EBox::Collectd::Plugin;
+package EBox::Collectd::Notificate;
 
 use strict;
 use warnings;
@@ -43,7 +43,7 @@ use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
 use constant EBOX_USER                 => 'ebox';
 
-plugin_register(TYPE_NOTIF, 'plugin', 'ebox_notify');
+plugin_register(TYPE_NOTIF, 'notificate', 'ebox_notify');
 
 # Procedure: ebox_notify
 #

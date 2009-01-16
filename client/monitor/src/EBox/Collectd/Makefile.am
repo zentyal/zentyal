@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Collectd
 
-nobase_perl_DATA = Plugin.pm Thermal.pm
+nobase_perl_DATA = Notificate.pm Thermal.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

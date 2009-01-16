@@ -1,4 +1,4 @@
-# Copyright 2008 (C) eBox Technologies S.L.
+# Copyright 2009 (C) eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,9 @@
 #
 #    Backporting thermal plugin from collectd 4.5.2.
 #
+#    Original C code
+#    Copyright (C) 2008  Michał Mirosław
+#
 #    Documentation is available on:
 #
 #     http://collectd.org/documentation/manpages/collectd-perl.5.shtml
@@ -33,10 +36,8 @@ use warnings;
 use Collectd qw(:all);
 
 # Constants
-# use constant DIRNAME_SYSFS => '/sys/class/thermal';
-# use constant DIRNAME_PROCFS => '/proc/acpi/thermal_zone';
-use constant DIRNAME_SYSFS => '/tmp/thermal';
-use constant DIRNAME_PROCFS => '/tmp/proc/acpi/thermal_zone';
+use constant DIRNAME_SYSFS => '/sys/class/thermal';
+use constant DIRNAME_PROCFS => '/proc/acpi/thermal_zone';
 use constant {
     TEMP => 0,
     COOLING_DEV => 1,
@@ -104,8 +105,8 @@ sub thermal_shutdown
 #
 sub thermal_sysfs_read
 {
-    INFO('Entering into thermal_sysfs_read');
     return walk_directory(DIRNAME_SYSFS, \&thermal_sysfs_device_read, undef);
+
 }
 
 # Procedure: thermal_procfs_read
@@ -114,7 +115,6 @@ sub thermal_sysfs_read
 #
 sub thermal_procfs_read
 {
-    INFO('Entering into thermal_procfs_read');
     return walk_directory(DIRNAME_PROCFS, \&thermal_procfs_device_read, undef);
 }
 
@@ -146,8 +146,6 @@ sub thermal_sysfs_device_read
     chomp($data[0]);
     my $temp = $data[0] / 1000.0;
 
-    INFO("Temp $temp for $fileName");
-
     if (defined($temp)) {
         thermal_submit($name, TEMP, $temp);
         $ok++;
@@ -164,8 +162,6 @@ sub thermal_sysfs_device_read
 
     chomp($data[0]);
     my $state = $data[0] + 0;
-
-    INFO("State $state for $fileName");
 
     if ( defined($state) ) {
         thermal_submit($name, COOLING_DEV, $state);
@@ -193,7 +189,7 @@ sub thermal_procfs_device_read
     # temperature:             55 C
 
     my $fileName = sprintf('%s/%s/temperature', DIRNAME_PROCFS, $name);
-    unless ( $fileName > 0) {
+    unless ( length($fileName) > 0) {
         return 0;
     }
 
@@ -238,10 +234,10 @@ sub walk_directory
     while(defined($file = readdir($dir))) {
         next if ($file eq '.' or $file eq '..');
         my $status = $func_p->($dirName, $file, $user_data);
-        if ( $status != 0) {
-            $failure++;
-        } else {
+        if ( $status ) {
             $success++;
+        } else {
+            $failure++;
         }
     }
     closedir($dir);

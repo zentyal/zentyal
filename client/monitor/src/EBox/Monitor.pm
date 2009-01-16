@@ -592,6 +592,7 @@ sub _setThresholdConf
 
 # Check if there is threshold configuration and it is enabled or not
 # Done by <_setThresholdConf> as a side effect
+# FIXME: Until collectd 4.5.2 this code will not be used
 sub _thresholdConfigured
 {
     my ($self) = @_;

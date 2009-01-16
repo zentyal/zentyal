@@ -217,7 +217,7 @@ LoadPlugin syslog
 #      IncludeDir "/my/include/path"
        BaseName "EBox::Collectd"
 #       EnableDebugger ""
-       LoadPlugin "Plugin"
+       LoadPlugin "Notificate"
        LoadPlugin "Thermal"
 #       LoadPlugin "bar"
 </Plugin>
