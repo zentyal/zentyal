@@ -1,3 +1,16 @@
+1.1
+	+ Added support for remote services in control center (remote
+	configuration backup, remote access, remote job execution and
+	event central point)
+	+ Added Float type
+	+ Apache module allows to add configuration includes from other modules
+	+ Display remote services button if subscribed
+	+ Event daemon may received events through a named pipe
+	+ Bugfix. SysInfo revokes its config correctly
+	+ Added storer property to types in order to store the data in
+	somewhere different from GConf
+	+ Added protected property 'volatile' to the models to indicate
+	that they store nothing in GConf but in somewhere different
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs
@@ -96,11 +109,6 @@
 	+ Do not exec() to restart apache outside mod_perl
 	+ Improve apache restart script
 	+ Improve progress screen 
-	+ Bugfix. SysInfo revokes its config correctly
-	+ Added storer property to types in order to store the data in
-	somewhere different from GConf
-	+ Added protected property 'volatile' to the models to indicate
-	that they store nothing in GConf but in somewhere different
 0.11.99
 	+ DataTable contains the property 'enableProperty' to set a column
 	called 'enabled' to enable/disable rows from the user point of
