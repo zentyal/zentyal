@@ -251,5 +251,4 @@ sub _compositeUsesDbTable
     return $usesDbTable;
 }
 
-
 1;

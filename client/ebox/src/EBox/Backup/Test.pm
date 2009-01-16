@@ -494,7 +494,7 @@ sub restoreConfigurationBackupTest : Test(16)
 }
 
 
-sub restoreBugreportTest : Test(14)
+sub restoreBugreportTest : Test(13)
 {
   my ($self) = @_;
 

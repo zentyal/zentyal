@@ -359,7 +359,6 @@ sub stateAsString
       }
     }
 
-
   }
   else {
     $state = 'running';

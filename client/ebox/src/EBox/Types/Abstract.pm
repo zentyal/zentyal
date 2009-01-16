@@ -140,7 +140,8 @@ sub unique
 # Method: editable
 #
 #      A type is editable when it is possible to change its value by
-#      the user. If the type is volatile, the type cannot be editable.
+#      the user. If the type is volatile, the type cannot be editable
+#      unless a <EBox::Types::Abstract::storer> was defined.
 #
 # Returns:
 #
@@ -150,11 +151,12 @@ sub editable
 {
     my ($self) = @_;
 
-    if ( $self->volatile() ) {
+    if ( $self->volatile() and not $self->storer()) {
         return 0;
     } else {
         return $self->{'editable'};
     }
+
 }
 
 sub fieldName
@@ -342,7 +344,7 @@ sub storeInGConf
     if ( $self->volatile() ) {
         if ( $self->storer() ) {
               my $storerProc = $self->storer();
-              &$storerProc($self);
+              &$storerProc($self, @params);
           }
     } else {
         $self->_storeInGConf(@params);
@@ -395,7 +397,7 @@ sub setMemValue
 
     # Set the memory value only if persistent kind of type
     my $toSet = $self->volatile() ? 0 : 1;
-    $toSet = $toSet or ( $self->volatile() and $self->storer() );
+    $toSet = ($toSet or ( $self->volatile() and (ref($self->storer()) eq 'CODE')));
 
     if ( $toSet ) {
         # Check if the parameters hasn't had an empty value
@@ -469,10 +471,10 @@ sub cmp
 sub restoreFromHash
 {
     my ($self, $hashRef) = @_;
-    
+
     if ( $self->volatile() ) {
         my $volatileFunc = $self->{acquirer};
-          $volatileFunc = \&_identity unless defined ( $volatileFunc );
+        $volatileFunc = \&_identity unless defined ( $volatileFunc );
         $self->{value} = &$volatileFunc($self);
     } else {
         $self->_restoreFromHash($hashRef);
@@ -527,8 +529,7 @@ sub storer
 #
 #  returns if a type object is equal to another
 #  default implementation uses the cmp method
-#  soon to be deprecated. 
-
+#  soon to be deprecated.
 sub isEqualTo 
 {
     my ($self, $other) = @_;
@@ -645,7 +646,6 @@ sub _storeInGConf
 {
 
 }
-
 
 # Method: _restoreFromHash
 #

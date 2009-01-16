@@ -15,19 +15,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test restricted resources methods on Apache module
+# A module to test restricted resources and includes methods on Apache module
 
 use warnings;
 use strict;
 
-use Test::More tests => 14;
+use Test::More tests => 24;
 use Test::Exception;
 use Test::Deep;
 
 use lib '../../..';
 
 BEGIN {
-    diag('Starting test for restricted resources method on Apache module');
+    diag('Starting test for some methods on Apache module');
     use_ok('EBox::Apache')
       or die;
 }
@@ -100,5 +100,46 @@ lives_ok {
 throws_ok {
     $apacheMod->delRestrictedResource($resourceNames[2]);
 } 'EBox::Exceptions::DataNotFound', 'Given resource name not found';
+
+# Include related tests
+my @includes = ( '/bin/true', '/bin/false' );
+my @deviantIncludes = ( '/bin/dafdfa' );
+
+throws_ok {
+    $apacheMod->addInclude();
+} 'EBox::Exceptions::MissingArgument', 'No file to include';
+
+throws_ok {
+    $apacheMod->addInclude($deviantIncludes[0]);
+} 'EBox::Exceptions::Internal', 'File to include does not exits';
+
+lives_ok {
+    $apacheMod->addInclude($_) foreach (@includes);
+} 'Adding some includes';
+
+cmp_deeply($apacheMod->_includes(), \@includes,
+       'The two includes added');
+
+lives_ok {
+    $apacheMod->addInclude($_) foreach (@includes);
+} 'Trying to add the same again';
+
+cmp_deeply($apacheMod->_includes(), \@includes,
+           'Only the two includes are there');
+
+throws_ok {
+    $apacheMod->removeInclude();
+} 'EBox::Exceptions::MissingArgument', 'No file to exclude';
+
+throws_ok {
+    $apacheMod->removeInclude($deviantIncludes[0]);
+} 'EBox::Exceptions::Internal', 'No file to remove';
+
+lives_ok {
+    $apacheMod->removeInclude($_) foreach (@includes);
+} 'Removing all the include files';
+
+cmp_ok(@{$apacheMod->_includes()}, '==', 0,
+       'Nothing has been left');
 
 1;

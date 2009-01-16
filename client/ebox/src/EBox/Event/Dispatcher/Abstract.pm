@@ -33,6 +33,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Event;
 use EBox::Gettext;
+use EBox::Model::ModelManager;
 
 # Constructor: new
 #

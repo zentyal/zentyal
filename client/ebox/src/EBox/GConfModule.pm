@@ -196,12 +196,10 @@ sub revokeConfig
 	$self->{ro} = undef;
 	$self->_load_from_file();
 
-	if ($self->isa('EBox::Model::ModelProvider')) {
-	  $self->modelsRevokeConfig();
-	}
-
-
-	$self->{ro} = $ro;
+        if ($self->isa('EBox::Model::ModelProvider')) {
+          $self->modelsRevokeConfig();
+        }
+        $self->{ro} = $ro;
 }
 
 

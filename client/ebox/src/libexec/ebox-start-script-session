@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Config;
+use Fcntl qw(:flock);
+
+EBox::init();
+
+my $time = time();
+if ( @ARGV > 0 ) {
+    $time = $ARGV[0];
+}
+
+my $sessionFile;
+my $openMode = '>';
+if ( -f EBox::Config->scriptSession() ) {
+    $openMode = '+<';
+}
+open ($sessionFile, $openMode, EBox::Config->scriptSession() )
+  or die 'Could not open ' . EBox::Config->scriptSession() . ": $!";
+
+# Lock the file in exclusive mode
+flock($sessionFile, LOCK_EX)
+  or die 'Could not get the lock for ' . EBox::Config->scriptSession() . ": $!";
+
+# Truncate the file before writing
+truncate( $sessionFile, 0);
+print $sessionFile "$time$/";
+
+# Release the lock and close the file
+flock($sessionFile, LOCK_UN);
+close($sessionFile);

@@ -272,8 +272,8 @@ sub _addEventToRSS
     $self->LockRSSFile(1);
 
     my $rssComplaintDate = $self->_currentDate();
-	my $create = undef;
-	
+    my $create = undef;
+
     if ( not -r RSS_FILE ) {
         $create = 1;
     } else {
@@ -284,7 +284,7 @@ sub _addEventToRSS
             $rss = new XML::RSS(version => '2.0');
         }
     }
-	
+
     if ($create) {
         # Create the channel if it does not exist
         $rss->channel(title         => __x('eBox alerts channel for {hostname}',

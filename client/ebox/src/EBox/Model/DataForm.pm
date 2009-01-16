@@ -637,6 +637,10 @@ sub AUTOLOAD
 
       $methodName =~ s/.*:://;
 
+      if ( $methodName eq 'domain' ) {
+          return $self->{gconfmodule}->domain();
+      }
+
       # Ignore DESTROY callings (the Perl destructor)
       if ( $methodName eq 'DESTROY' ) {
           return;
@@ -837,8 +841,6 @@ sub _setTypedRow
 
     my $dir = $self->{'directory'};
     my $gconfmod = $self->{'gconfmodule'};
-    
-    
 
     my $oldRow = $self->row();
     my $oldValues = $oldRow->hashElements();
@@ -920,12 +922,11 @@ sub _row
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
 
-      
-      unless ($gconfmod->dir_exists("$dir")) {
+      if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
           # Return default values instead
           return $self->_defaultRow();
       }
-      
+
       my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
       $row->setModel($self);
 

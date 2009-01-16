@@ -13,8 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Test::ConfigureLog
-
+# Class: EBox::Logs::Composite::ConfigureLog
 
 package EBox::Logs::Composite::ConfigureLog;
 
@@ -30,11 +29,11 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#         Constructor for the test Composite
+#         Constructor for the configure logs composite
 #
 # Returns:
 #
-#       <EBox::Model::Composite> - a test composite
+#       <EBox::Logs::Composite::ConfigureLog> - the configure logs composite
 #
 sub new
   {

@@ -93,6 +93,7 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
+stubs/remoteservices/Makefile
 tools/Makefile
 tools/sqllog/Makefile
 tools/cron/Makefile
@@ -107,6 +108,8 @@ src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
 src/templates/report/Makefile
+src/templates/RemoteServices/Makefile
+src/templates/RemoteServices/Backup/Makefile
 src/templates/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -148,6 +151,12 @@ src/EBox/Model/DataForm/Makefile
 src/EBox/Model/DataTable/Makefile
 src/EBox/Model/Composite/Makefile
 src/EBox/Model/DataForm/t/Makefile
+src/EBox/RemoteServices/Makefile
+src/EBox/RemoteServices/t/Makefile
+src/EBox/RemoteServices/Composite/Makefile
+src/EBox/RemoteServices/Model/Makefile
+src/EBox/RemoteServices/Server/Makefile
+src/EBox/RemoteServices/Server/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/File/Makefile
 src/EBox/Types/t/Makefile
@@ -161,6 +170,8 @@ src/EBox/CGI/Dashboard/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Controller/Makefile
 src/EBox/CGI/Controller/Downloader/Makefile
+src/EBox/CGI/RemoteServices/Makefile
+src/EBox/CGI/RemoteServices/Backup/Makefile
 src/EBox/CGI/ServiceModule/Makefile
 src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile

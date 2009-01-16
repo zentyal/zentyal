@@ -255,12 +255,22 @@ sub compareToHash
 
 }
 
-
+# Method: isEqualTo
+#
+# Overrides:
+#
+#   <EBox::Types::Abstract::isEqualTo>
+#
 sub isEqualTo
 {
     my ($self, $newObject) = @_;
+    my $comparison = $self->cmp($newObject);
+    if ( defined($comparison) ) {
+        return $comparison == 0;
+    } else {
+        return 0;
+    }
 
-    return $self->cmp($newObject) == 0;
 }
 
 # Method: HTMLSetter

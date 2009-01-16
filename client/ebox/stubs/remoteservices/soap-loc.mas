@@ -1,0 +1,55 @@
+<%doc>
+  This template is intended to set up the configuration for the SOAP
+  server configuration in current apache server
+</%doc>
+<%args>
+   $soapHandler
+   $domainName
+   $allowedClientCNs
+   $caPath
+   $confDirPath
+</%args>
+<%init>
+  my $internalDomainName = "internal.$domainName";
+</%init>
+SSLCACertificatePath <% $caPath %>
+<Location /soap>
+   SetHandler perl-script
+   PerlHandler <% $soapHandler %>
+   <IfModule mod_ssl.c>
+        SSLRequireSSL
+        SSLVerifyClient require
+        SSLVerifyDepth 1
+        SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $domainName %>" and %{SSL_CLIENT_I_DN_O} eq "<% $domainName %>" \
+                   and %{SSL_CLIENT_S_DN_CN} =~ m/<% $allowedClientCNs %>/
+        SSLOptions +StdEnvVars
+   </IfModule>
+   Order allow,deny
+   Allow from all
+   AllowOverride None
+</Location>
+<IfModule mod_rewrite.c>
+   RewriteLock <% $confDirPath %>rewrite.lck
+
+   RewriteCond %{HTTP:Via}   www
+   RewriteCond %{HTTP_COOKIE} !Auth_EBox
+   RewriteRule ^/ebox           /LOGIN_CC [L]
+</IfModule>
+<Files LOGIN_CC>
+   <IfModule mod_ssl.c>
+       SSLRequireSSL
+       SSLVerifyClient require
+       SSLVerifyDepth 1
+       SSLRequire %{SSL_CLIENT_S_DN_O} eq "<% $domainName %>" \
+                  and %{SSL_CLIENT_I_DN_O} eq "<% $domainName %>" \
+                  and %{SSL_CLIENT_S_DN_CN} =~ m/<% $allowedClientCNs %>/
+       SSLOptions +StdEnvVars +OptRenegotiate
+   </IfModule>
+   AuthType EBox::Auth
+   AuthName EBox
+   SetHandler perl-script
+   PerlHandler EBox::Auth->loginCC
+
+   Order deny,allow
+   Allow from all
+</Files>

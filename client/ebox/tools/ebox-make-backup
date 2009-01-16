@@ -4,6 +4,7 @@ use warnings;
 
 use EBox;
 use EBox::Backup;
+use EBox::RemoteServices::Backup;
 use EBox::ProgressIndicator;
 
 use Error qw(:try);
@@ -15,7 +16,7 @@ EBox::init();
 # process cli
 my $progressId = undef;
 
-
+my $remoteBackupName = delete $params{remoteBackup};
 my $configBackup = 0;
 my $fullBackup   = 0;
 my $bugReport    = 0;
@@ -92,13 +93,16 @@ try {
     if (not $bugReport) {
         my $file = EBox::Backup->makeBackup(%params);
         print "Backup stored into file $file\n";
-    }
-    else {
+        if ($remoteBackupName) {
+            my $backupService = EBox::RemoteServices::Backup->new();
+            my $description = $params{description};
+            $backupService->sendRemoteBackup($file, $remoteBackupName, $description);
+        }
+    } else {
         # with bug report we ignore all other options
         my $reportFile = EBox::Backup->makeBugReport();
         print "Bug report stored into file $reportFile\n";
     }
-
 
 }
 otherwise {

@@ -35,6 +35,7 @@ use Perl6::Junction qw(any);
 
 sub new
 {
+
     my $class = shift;
     my %opts = @_;
 
@@ -42,10 +43,9 @@ sub new
         $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
     }
     unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
-        }
+        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+    }
     $opts{'type'} = 'select';
-
     my $self = $class->SUPER::new(%opts);
 
     # This doesn't check if the option method is implemented
@@ -112,6 +112,7 @@ sub options
     }
 
     return $self->{'options'};
+
 }
 
 # Method: printableValue
@@ -190,6 +191,28 @@ sub populate
     }
     
     return $self->{'populate'};
+
+}
+
+#  Method: cmp
+#
+#
+#  Warning:
+#  We compare printableValues because it has more sense for the user 
+#  (especially when we have a foreignModel and the values are row Ids). 
+#  However there may be many cases when this would not be appropiate.
+#
+#  Overrides:
+#  <EBox::Types::Abstract>
+sub cmp
+{
+    my ($self, $other) = @_;
+
+    if (ref($self) ne ref($other)) {
+        return undef;
+    }
+
+    return ($self->printableValue() cmp $other->printableValue());
 
 }
 
@@ -356,28 +379,5 @@ sub _filterOptions
     return \@filteredOptions;
 
 }
-
-#  Method: cmp
-#
-#
-#  Warning:
-#  We compare printableValues because it has more sense for the user 
-#  (especially when we have a foreignModel and the values are row Ids). 
-#  However there may be many cases when this would not be appropiate.
-#
-#  Overrides:
-#  <EBox::Types::Abstract>
-sub cmp
-{
-    my ($self, $other) = @_;
-
-    if (ref($self) ne ref($other)) {
-        return undef;
-    }
-
-    return ($self->printableValue() cmp $other->printableValue());
-
-}
-
 
 1;

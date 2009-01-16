@@ -33,7 +33,7 @@ use EBox::Types::Text;
 sub creationTest
 {
     my @validCases = (
-                      # no defiend bounds
+                      # no defined bounds
                       [
                        value => 0,
                       ],
@@ -51,26 +51,24 @@ sub creationTest
                        max => 2,
                        value => 1,
                       ],
-                      # equal tan min value
+                      # equal than min value
                       [
                        min => -4,
                        value => -4,
                       ],
-                      # equal tan max value
+                      # equal than max value
                       [
                        max => 5,
                        value => 5,
                       ],
-                  
                      );
-
 
     my @deviantCases = (
                         # default min value must be zero, so no negatives allowed
                         [
                          value => -1,
                         ],
-                        # mix and max missmatch
+                        # mix and max mismatch
                         [
                          max => 4,
                          min => 7,
@@ -88,7 +86,6 @@ sub creationTest
                          value => 1,
                         ]
                        );
-
 
 
 
@@ -113,7 +110,6 @@ sub creationTest
     }
 
 }
-
 
 sub cmpTest
 {
@@ -153,24 +149,24 @@ sub cmpTest
                                      value => 'ea',
                                     );
 
-    ok $four->isEqualTo($otherFour), 'chekcing isEqualTo for equality';
+    ok $four->isEqualTo($otherFour), 'checking isEqualTo for equality';
     ok((not $four->isEqualTo($two)), 'checking isEqualTo for inequality');
 
     is $four->cmp($otherFour), 0,
         'checking cmp method for equality';
     is $four->cmp($two), 1,
         'checking cmp method with a lesser other';
-   is $four->cmp($seven), -1,
+    is $four->cmp($seven), -1,
         'checking cmp method with a greater other';
 
-    is $four->cmp($fourWithMin), undef,
-        'whether  Int with different lower bound is incomparable';
-    is $four->cmp($fourWithMax), undef,
-        'whether  Int with different upper bound is incomparable';
+    cmp_ok($four->cmp($fourWithMin), '==', 0,
+           'checking cmp for equalify though the bounds');
+
+    cmp_ok($four->cmp($fourWithMax), '==', 0,
+           'checking cmp for equalify though the bounds');
 
     is $four->cmp($text), undef,
         'whether different types are incomparable';
-
 
 }
 

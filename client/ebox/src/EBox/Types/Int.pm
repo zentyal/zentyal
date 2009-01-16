@@ -30,7 +30,7 @@ use EBox::Gettext;
 #
 #   Parameters:
 #       (in addition of base classes parameters)
-#       max - maximum integer value allowed 
+#       max - maximum integer value allowed
 #       min - minimum integer value allowed (default: 0)
 sub new
 {
@@ -57,9 +57,8 @@ sub new
             }
         }
 
-
         $opts{'type'} = 'int';
-        
+
         my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
@@ -88,16 +87,32 @@ sub cmp
         return undef;
     }
 
-    # cannot compare int with different upper or lower bounds
-    if ($self->max != $other->max) {
-        return undef;
-    }
-    if ($self->min != $other->min) {
-        return undef;
-    }
-
     return $self->value() <=> $other->value();
 
+}
+
+
+# Method: max
+#
+#  Returns:
+#       the maximum value allowed (undef means no maximum)
+#
+sub max
+{
+    my ($self) = @_;
+    return $self->{max};
+}
+
+# Method: min
+#
+# Returns:
+#
+#       the minimum value allowed (default: 0)
+#
+sub min
+{
+    my ($self) = @_;
+    return $self->{min};
 }
 
 # Group: Protected methods
@@ -119,6 +134,7 @@ sub _storeInGConf
         } else {
                 $gconfmod->unset($fieldKey);
         }
+
 }
 
 # Method: _paramIsValid
@@ -136,7 +152,7 @@ sub _paramIsValid
         unless ($value =~ /^-?[0-9]+$/) {
             throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                                  value  => $value,
-                                                 advice => __('Write down a number'));
+                                                 advice => __('Enter an integer number'));
         }
 
         my $max = $self->max();
@@ -153,38 +169,13 @@ sub _paramIsValid
         if (defined $min and ($value < $min)) {
             throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                                  value  => $value,
-          advice => __x(q|The value shouldn't be lesser than {m}|, m => $min)
-
+          advice => __x(q|The value shouldn't be less than {m}|, m => $min)
                                                );
         }
 
         return 1;
 
 }
-
-
-# Method: max
-#
-#  Returns:
-#       the maximum value allowed (undef means no maximum)
-#
-sub max
-{
-    my ($self) = @_;
-    return $self->{max};
-}
-
-# Method: min
-#
-#  Returns:
-#       the minimum value allowed (default: 0)
-#
-sub min
-{
-    my ($self) = @_;
-    return $self->{min};
-}
-
 
 # Method: _paramIsSet
 #

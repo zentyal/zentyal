@@ -4,7 +4,7 @@ SUBDIRS = t
 
 perldir = @PERLPATH@/EBox/Event/Dispatcher
 
-nobase_perl_DATA = Abstract.pm Jabber.pm Log.pm RSS.pm
+nobase_perl_DATA = Abstract.pm ControlCenter.pm Jabber.pm Log.pm RSS.pm
 
 SOURCES = $(nobase_perl_DATA)
 

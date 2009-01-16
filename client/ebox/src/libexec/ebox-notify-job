@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2008 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to notify CC using a SOAP call
+
+use EBox;
+use EBox::Exceptions::External;
+use EBox::RemoteServices::Jobs;
+use File::Basename;
+use File::Slurp;
+use Getopt::Long;
+use Pod::Usage;
+
+# Do notify
+sub _notify
+{
+    my ($jobDir) = @_;
+    chomp($jobDir);
+    my ($jobId) = File::Basename::fileparse($jobDir);
+    my %results;
+    foreach my $filePath (qw(stdout stderr exitValue)) {
+        $results{$filePath} = File::Slurp::read_file("$jobDir/$filePath");
+    }
+
+    # Notify CC
+    my $notifier = new EBox::RemoteServices::Jobs();
+    $notifier->jobResult(jobId     => $jobId,
+                         stdout    => $results{stdout},
+                         stderr    => $results{stderr},
+                         exitValue => $results{exitValue});
+    unlink($jobDir);
+}
+
+# MAIN
+
+# Get arguments
+my ($usage, $foreground) = (0, 0);
+my $correct = GetOptions(
+    'usage|help' => \$usage
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+if ( @ARGV != 1 ) {
+    pod2usage({ -message => 'A compulsory directory is missing',
+                -exitval => 2});
+}
+
+_notify($ARGV[0]);
+
+__END__
+
+=head1 NAME
+
+ebox-notify-job - Utility to notify the CC that a job has finished with its result.
+                  Its usage is completely internal
+
+=head1 SYNOPSIS
+
+ebox-notify-job [--usage|help] directory
+
+ Options:
+    --usage|help  Print this help and exit
+    directory     Directory where a job has left its results with these files:
+                  'stdout' - the standard output
+                  'stderr' - the standard error
+                  'exitValue' - the exit value
+
+=cut

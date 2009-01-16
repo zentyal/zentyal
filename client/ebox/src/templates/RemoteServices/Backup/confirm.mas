@@ -1,0 +1,80 @@
+<%args>
+	$backup
+
+	$actionCGI
+        @extraActionParams => ()
+
+        $text    => ''
+	$okText  => 'OK'
+</%args>
+<%init>
+use EBox::Gettext;
+
+my %extraParams = @extraActionParams;
+
+</%init>
+<div class='note'>
+<% $text %>
+</div>
+<br/>
+<table class='formTable'>
+	<tbody>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Name') %>:</span>
+			</td>
+			<td>
+				<% $backup->{Filename} %>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Date') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'Date'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Description') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'Comment'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Archive size') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'printableSize'} %>
+			</td>
+		</tr>
+
+	<form action='<% $actionCGI %>' method='POST'>
+		<tr>
+			<td></td>
+			<td>
+                                        <& /input/hidden.mas,
+                                               name => 'name',
+					       value => $backup->{'Filename'},
+                                        &>
+%                                      while (my ($name, $value) = each %extraParams) {
+                                          <& /input/hidden.mas,
+					      name => $name,
+					      value => $value,
+                                          &>
+%                                      }
+
+					<input class='inputButton' type='submit'
+							name='ok' value='<%$okText%>' alt='<%$okText%>'/>
+					<input class='inputButton' type='submit'
+							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+
+				</form>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br/>

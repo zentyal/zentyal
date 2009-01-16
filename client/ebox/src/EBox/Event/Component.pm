@@ -144,6 +144,21 @@ sub ConfigureModel
 
 }
 
+# Method: EditableByUser
+#
+#       Check if the given event component is editable
+#       (enable/disable) by user or only by eBox code
+#
+# Returns:
+#
+#       Boolean - indicating if editable by user or not
+#
+sub EditableByUser
+{
+    return 1;
+}
+
+
 # Group: Protected methods
 
 # Method: _name

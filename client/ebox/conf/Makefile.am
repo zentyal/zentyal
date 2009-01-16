@@ -3,7 +3,8 @@
 SUBDIRS = logrotate
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 70runitfinisher.conf 90eboxpglogger.conf  80eboxclient.conf
+Etc_DATA = 70runitfinisher.conf 78remoteservices.conf 90eboxpglogger.conf \
+	80eboxclient.conf
 
 Presavedir = $(Etcdir)/pre-save
 Presave_DATA =

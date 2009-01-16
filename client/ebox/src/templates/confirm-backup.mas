@@ -67,10 +67,11 @@ if ($restoreAction) {
 			<td>
                                         <& .backupIdentifier, backup => $backup &>
 
-					<input class='inputButton' type='submit'
-							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
+
 					<input class='inputButton' type='submit'
 							name='<%$action%>' value='<%$actiontext%>' alt='<%$actiontext%>'/>
+					<input class='inputButton' type='submit'
+							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
 				</form>
 			</td>
 		</tr>

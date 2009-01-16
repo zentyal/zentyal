@@ -209,12 +209,12 @@ sub modNames
 #
 # Returns:
 #
-#       array ref - each element contains the module's name
+#   	boolean - indicating if at least a module has unsaved changes
 #
 sub unsaved
 {
         my $self = shift;
-        my @names = @{$self->modNames};
+        my @names = @{$self->modNames()};
         foreach (@names) {
                 $self->modIsChanged($_) or next;
                 return 1;

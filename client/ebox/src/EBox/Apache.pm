@@ -43,6 +43,7 @@ use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
 use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
 use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
 use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
+use constant INCLUDE_KEY => 'includes';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
 
@@ -185,6 +186,7 @@ sub _writeHttpdConfFile
 	push @confFileParams, ( serverroot => $self->serverroot());
 	push @confFileParams, ( tmpdir => EBox::Config::tmp());
         push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
+        push @confFileParams, ( includes => $self->_includes() );
 
         my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
 	push @confFileParams, ( debug => $debugMode);
@@ -432,12 +434,92 @@ sub _restrictedResources
     return \@restrictedResources;
 }
 
-#Method: isEnabled
+
+# Method: isEnabled
 #
-# As it's not a service but it expects to behave like one, implement isEnabled
+#      As it's not a service but it expects to behave like one,
+#      implement isEnabled
+#
 sub isEnabled
 {
     return 1;
+}
+
+# Method: addInclude
+#
+#      Add an "include" directive to the apache configuration
+#
+# Parameters:
+#
+#      includeFilePath - String the configuration file path to include
+#      in apache configuration
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file does
+#      not exists
+#
+sub addInclude
+{
+    my ($self, $includeFilePath) = @_;
+
+    unless(defined($includeFilePath)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $includeFilePath and -r $includeFilePath) {
+        throw EBox::Exceptions::Internal(
+            "File $includeFilePath cannot be read or it is not a file"
+           );
+    }
+    my @includes = @{$self->_includes()};
+    unless ( grep { $_ eq $includeFilePath } @includes) {
+        push(@includes, $includeFilePath);
+        $self->set_list(INCLUDE_KEY, 'string', \@includes);
+    }
+
+}
+
+# Method: removeInclude
+#
+#      Remove an "include" directive to the apache configuration
+#
+# Parameters:
+#
+#      includeFilePath - String the configuration file path to remove
+#      from apache configuration
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file has not
+#      been included previously
+#
+sub removeInclude
+{
+    my ($self, $includeFilePath) = @_;
+
+    unless(defined($includeFilePath)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    my @includes = @{$self->_includes()};
+    my @newIncludes = grep { $_ ne $includeFilePath } @includes;
+    if ( @newIncludes eq @includes ) {
+        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously");
+    }
+    $self->set_list(INCLUDE_KEY, 'string', \@newIncludes);
+
+}
+
+# Return those include files that has been added
+sub _includes
+{
+    my ($self) = @_;
+    return $self->get_list(INCLUDE_KEY);
 }
 
 1;

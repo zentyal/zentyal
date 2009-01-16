@@ -32,7 +32,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('System backups'),
-				      'template' => '/backup.mas',
+				      'template' => '/backupTabs.mas',
 				      @_);
 	$self->{errorchain} = "EBox/Backup";
 	bless($self, $class);
@@ -94,7 +94,7 @@ sub optionalParameters
     return ['.*'];
   }   
 
-  return [];
+  return ['selected'];
 }
 
 
@@ -137,7 +137,7 @@ sub masonParameters
   my $global = EBox::Global->getInstance();
   my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
   push @params, (modulesChanged => $modulesChanged);
-
+  push @params, (selected => 'local');
 
 
   return \@params;
@@ -256,7 +256,7 @@ sub _showRestoreProgress
 		      currentItemCaption =>   __('Module') ,
 		      itemsLeftMessage   =>   __('modules left to restore'),
 		      endNote            =>   __('Restore successful'),
-		      reloadInterval     =>   2,
+		      reloadInterval     =>   4,
 );
 }
 

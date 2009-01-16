@@ -57,8 +57,8 @@ sub _process
 	my $destination = _requestDestination($r);
 
 	my $reason;
-	if ( (defined ($envre) ) and ($envre eq 'SOAP active') ) {
-	  $reason = __('There is a Web service script running. ' .
+	if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
+	  $reason = __('There is a script which has asked to run in eBox exclusively. ' .
 		       'Please, wait patiently until it is done');
 	}
 	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){

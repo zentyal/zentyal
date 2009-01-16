@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec /usr/share/ebox/ebox-start-script-session 0

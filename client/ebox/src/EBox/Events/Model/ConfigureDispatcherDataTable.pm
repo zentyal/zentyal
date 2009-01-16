@@ -154,10 +154,11 @@ sub rows
                         'eventDispatcher'        => $dispatcher,
                         # The value is obtained dynamically
                         'receiver'               => '',
-                        # The events are disabled by default
+                        # The dispatchers are disabled by default
                         'enabled'                => 0,
                         'configuration_selected' => 'configuration_' .
                                                     $dispatcher->ConfigurationMethod(),
+                        'readOnly'               => not $dispatcher->EditableByUser(),
                        );
 
           if ( $dispatcher->ConfigurationMethod() eq 'none') {

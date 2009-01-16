@@ -33,6 +33,8 @@ my $configRestore = 0;
 my $fullRestore   = 0;
 my $dataRestore   = 0;
 
+my $deleteBackup = 0;
+
 my $forceDependencies = 0;
 
 my $help = 0;;
@@ -45,6 +47,7 @@ my $optionsOk = GetOptions(
 			   'full-restore'  => \$fullRestore,
 			   'data-restore'  => \$dataRestore,
 			   'force-dependencies' => \$forceDependencies,
+			   'delete-backup'      => \$deleteBackup,
 
 			   'info'       => \$info,
 
@@ -103,6 +106,7 @@ if (@modsToRestore) {
 $restoreParams{fullRestore}       = $fullRestore;
 $restoreParams{dataRestore}       = $dataRestore;
 $restoreParams{forceDependencies} = $forceDependencies;
+$restoreParams{deleteBackup}      = $deleteBackup;
 
 try {
   EBox::Backup->restoreBackup($file, %restoreParams);
@@ -155,6 +159,8 @@ sub usage
     --full-restore
 
     --force-dependencies
+
+    --delete-backup
 
     --progress-id
 END

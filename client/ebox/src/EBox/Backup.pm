@@ -601,11 +601,16 @@ sub _ensureBackupdirExistence
 #
 # Parameters:
 #
-#                   description - backup's description (backwards compability mode)
-#                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
+#                   description - backup's description (default: 'Backup')
+#                   fullBackup  - whether do a full backup or  backup only configuration (default: false)
+#                   bug         - whether this backup is intended for a bug report
+#                                 (one consequence of this is that we must clear
+#                                  private data) 
 #
-#  Returns:
-#    the progress indicator object whihc represents the progress of the restauration
+#                   remoteBackup -- whether this a backup intended to be a remote backup
+#
+# Returns:
+#     progress indicator object of the operation
 #
 # Exceptions:
 #       
@@ -615,7 +620,12 @@ sub prepareMakeBackup
 {
   my ($self, %options) = @_;
 
-  my $scriptParams = '';
+  # make sure description and name is escaped
+  $options{description} = q{'} . $options{description} . q{'};
+  if ( $options{remoteBackup} ) {
+      $options{remoteBackup} = q{'} . $options{remoteBackup} . q{'};
+  }
+  my @scriptParams = %options;
 
   if (exists $options{description}) {
       $scriptParams .= ' --description ';
@@ -647,10 +657,14 @@ sub prepareMakeBackup
                                                       # archive  file
            
 
-  my $progressIndicator =  EBox::ProgressIndicator->create(
+  my @progressIndicatorParams = (
                              executable => $makeBackupScript,
                              totalTicks => $totalTicks,
                                                     );
+
+  my $progressIndicator =  EBox::ProgressIndicator->create(
+							@progressIndicatorParams
+						    );
 
   $progressIndicator->runExecutable();
 
@@ -668,7 +682,13 @@ sub prepareMakeBackup
 #                   progress-  progress indicator 
 #                       associated with this operation (optionak)
 #                   description - backup's description (default: 'Backup')
-#                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
+#                   fullBackup  - whether do a full backup or  backup only configuration (default: false)
+#                   bug         - whether this backup is intended for a bug report
+#                                 (one consequence of this is that we must clear
+#                                  private data) 
+#
+#  Returns:
+#         - path to the new backup archive
 #
 # Exceptions:
 #       
@@ -920,11 +940,13 @@ sub  _checkSize
 #
 # Parameters:
 #
-#       file - backup's file (as positional parameter) fullRestore - wether do a
-#       full restore or restore only configuration (default: false) 
-#
+#       file - backup's file (as positional parameter) 
+# fullRestore - wether do a full restore or restore only configuration (default: false)
+#       dataRestore - wether do a data-only restore
+#       forceDependencies - wether ignore dependency errors between modules
+#        deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #  Returns:
-#    the progress indicator object whihc represents the progress of the restauration
+#    the progress indicator object which represents the progress of the restauration
 #
 # Exceptions:
 #       
@@ -947,6 +969,12 @@ sub prepareRestoreBackup
   if (exists $options{forceDependencies}) {
     if ($options{forceDependencies}) {
       $execOptions .= '--force-dependencies ';
+    }
+  }
+
+  if (exists $options{deleteBackup}) {
+    if ($options{deleteBackup}) {
+      $execOptions .= '--delete-backup ';
     }
   }
 
@@ -983,6 +1011,9 @@ sub prepareRestoreBackup
 #       progressIndicator - Progress indicator associated
 #                       with htis operation (optional )
 # fullRestore - wether do a full restore or restore only configuration (default: false)
+#       dataRestore - wether do a data-only restore
+#       forceDependencies - wether ignore dependency errors between modules
+#        deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #
 # Exceptions:
 #       
@@ -994,33 +1025,31 @@ sub restoreBackup # (file, %options)
   defined $file or throw EBox::Exceptions::MissingArgument('Backup file');
 
   validate_with ( params => [%options], 
-                  spec => { 
-                           progress    => {
-                                           optional => 1,
-                                           isa => 'EBox::ProgressIndicator',
-                                          },
-                           modsToRestore => {
-                                            type => ARRAYREF,
-                                            optional => 1,
-                                           },
-                           fullRestore => { default => 0 },
-                           dataRestore    => { 
-                                           default => 0 ,
-                                           # incompatible with fullRestore ..
-                                           callbacks => {
-                                                         incompatibleRestores =>  
-                                                         sub {
-                                                           (not $_[0]) or (not $_[1]->{fullRestore})
-                                                         },
-                                                        },
-                                              
-                                          },
-                           forceDependencies => {default => 0 },
-                          }
-                );
-
-  _ensureBackupdirExistence();
-  $self->_checkSize($file);
+		  spec => { 
+			   progress    => {
+					   optional => 1,
+					   isa => 'EBox::ProgressIndicator',
+					  },
+			   modsToRestore => {
+					    type => ARRAYREF,
+					    optional => 1,
+					   },
+			   fullRestore => { default => 0 },
+			   dataRestore    => { 
+					   default => 0 ,
+					   # incompatible with fullRestore ..
+					   callbacks => {
+							 incompatibleRestores =>  
+							 sub {
+							   (not $_[0]) or (not $_[1]->{fullRestore})
+							 },
+							},
+					      
+					  },
+			   forceDependencies => {default => 0 },
+			   deleteBackup      => { default => 0},
+			  }
+		);
 
   my $progress = $options{progress};
   if (not $progress) {
@@ -1028,15 +1057,18 @@ sub restoreBackup # (file, %options)
     $options{progress} = $progress;
   }
 
-
-
   EBox::debug("restore backup id: " . $progress->id);
   $progress->started or
     throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
 
-  my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
-
+  my $tempdir;
   try {
+    _ensureBackupdirExistence();
+
+    $self->_checkSize($file);
+
+    $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
+
     $self->_unpackModulesRestoreData($tempdir);
 
     my @modules  = @{ $self->_modInstancesForRestore($file, %options) };
@@ -1067,7 +1099,13 @@ sub restoreBackup # (file, %options)
     $progress->setAsFinished(); 
   }
   finally {
+    if ($tempdir) {
       system 'rm -rf $tempdir';
+    }
+    if ($options{deleteBackup}) {
+      unlink $file;
+    }
+
   };
 }
 

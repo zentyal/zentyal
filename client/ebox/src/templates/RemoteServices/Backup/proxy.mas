@@ -1,0 +1,165 @@
+<%args>
+  $remoteServicesActive
+  %backups => ()
+
+  $user     => undef
+  $password => undef
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+
+% if (not $remoteServicesActive) {
+<& /RemoteServices/NoActive.mas &>
+% return
+% }
+% elsif ($user and $password) {
+<& .listSection,
+         user     => $user,
+         password => $password,
+         backups => \%backups 
+&>
+% }
+% else {
+ <& .encode64JS &>
+ <& .passwdSection &>
+% }
+
+
+
+
+<%def .listSection>
+<%args>
+$user
+$password
+%backups
+</%args>
+<%init>
+
+
+my @columnTitles = (
+                    __('eBox host'),
+		    __('Name'),
+		    __('Date'),
+		    __('Description'),
+                    __('Archive size'),
+		    __('Actions'),
+		   );
+
+my $downloadImg  = "/data/images/down.gif";
+my $applyImg = "/data/images/apply.gif";
+
+
+my @orderedCN = sort keys %backups;
+
+my @rows;
+foreach my $eboxCN (@orderedCN) {
+  my $eboxBackups = $backups{$eboxCN};
+  foreach my $properties (values %{ $eboxBackups }) {
+    my $name       =  $properties->{Filename};
+
+
+    my @row;
+    push @row, (
+		$eboxCN, 
+		$name, 
+		$properties->{Date}, 
+		$properties->{Comment},
+                $properties->{printableSize},
+	       );
+    # action element
+
+    my $autenticateParams = "cn=$eboxCN&name=$name&user=$user&password=$password";         
+    push @row, [
+		{
+		 name => __('Restore'),
+		 icon => $applyImg,
+		 url => "Confirm?action=restoreProxy&$autenticateParams",
+		},
+
+		{
+		 name => __('Download'),
+		 icon => $downloadImg,
+		 url => "DownloadProxyRemoteBackup?$autenticateParams",
+		},
+
+	       ];
+
+    push @rows, \@row;
+  }
+
+}
+
+
+
+my @legendElements = (
+		      { 
+		       imgFile => $applyImg,
+		       imgName => __('restore') ,
+		      },
+		      { 
+		       imgFile => $downloadImg,
+		       imgName => __('download'),
+		      },
+
+		     );
+</%init>
+% if (keys %backups) {
+<h3><% __("Backups' list") %></h3>
+<& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
+<br />
+
+<& /legendTable.mas, elements => \@legendElements, nColumns => 2 &>
+% }
+% elsif (not $password) {
+<& /msg.mas, msg => __('You must enter a valid user and password to '
+   . 'see this list'), class => 'warning' &>
+
+% }
+% else {
+<& /msg.mas, msg => __('No backups were made by this user') &>
+% }
+</%def>
+
+
+<%def .passwdSection>
+<%init>
+my @rows = (
+        [ 
+          name => 'user',
+          input => 'text',
+	  printableName => __('User'),
+        ],
+        [ 
+          name => 'password',
+          id    => 'password',
+          input => 'password',
+	  printableName => __('Password'),
+        ],
+	[ 
+           name => 'submitAuth',
+	   input => 'submit',
+           value => __('Submit'),
+	],
+);
+</%init>
+<h3><% __('Enter user and password') %></h3>
+<form action='Proxy' onsubmit='encodePassword()'>
+<& /formTable.mas, rows => \@rows &>
+</form>
+
+</%def>
+
+<%def .encode64JS>
+<script src="/data/js/base64.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+function encodePassword() {
+    var password = document.getElementById("password");
+    var unencoded = password.value;
+    var encoded = encode_base64(unencoded);
+    password.value = encoded;
+}
+</script>
+</%def>

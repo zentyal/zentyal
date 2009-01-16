@@ -1,0 +1,18 @@
+<%init>
+use EBox::Gettext;
+use EBox::Config;
+
+my $text = __x('This feature is only available if you get eBox '
+               . ' Services. You can contract them at '
+               . '{url1}. If you are already '
+               . 'registered, then subscribe this eBox at {url2}',
+               url1 => '<a href="http://'
+                       . EBox::Config::configkey('ebox_services_www')
+                       . '">' . EBox::Config::configkey('ebox_services_www')
+                       . '</a>',
+               url2 => '<a href="/ebox/RemoteServices/View/Subscription">'
+                       . __('subscription page') . '</a>',
+              );
+
+</%init>
+<& /msg.mas, msg => $text &>

@@ -1,8 +1,12 @@
 <%args>
-$save 
+$save
 $logout
 $finishClass
+$remoteServicesURL => ''
 </%args>
+<%init>
+use EBox::Gettext;
+</%init>
 <div id="top"></div>
 	<div id="header">
           <a href="/ebox">
@@ -10,6 +14,11 @@ $finishClass
           </a>
         </div>
 	<div id="hmenu">
-	<a id="m" href="/ebox/Logout/Index"><% $logout %></a>
-	<a class="<% $finishClass %>" id="changes_menu" href="/ebox/Finish"><% $save %></a>
+% if ( $remoteServicesURL ne '' ) {          
+          <a id="remote_services_link" href="<% $remoteServicesURL %>">
+            <% __('Remote services control panel') %>
+          </a>
+% }
+	  <a id="m" href="/ebox/Logout/Index"><% $logout %></a>
+	  <a class="<% $finishClass %>" id="changes_menu" href="/ebox/Finish"><% $save %></a>
 	</div>

@@ -42,6 +42,8 @@ use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 
 
+use base 'EBox::Model::Component';
+
 # TODO
 #     
 #    Factor findValue, find, findAll and findAllValue
@@ -141,11 +143,10 @@ sub _setupTable
     for my $field (@{$self->{'table'}->{'tableDescription'}}) {
         my $name = $field->fieldName();
         $name or throw EBox::Exceptions::Internal('empty field name in type object in tableDescription');
-        
+
         if (exists $self->{'table'}->{'tableDescriptionByName'}->{$name} ) {
             throw EBox::Exceptions::Internal(
                   "Repeated field  name in tableDescription: $name"
-                                             
                                             );
         }
 
@@ -155,7 +156,8 @@ sub _setupTable
         $field->setModel($self);
       }
 
-    
+    # If all fields are volatile, then the model is volatile
+    $self->_setIfVolatile();
 
     # Some default values
     unless (defined($self->{'table'}->{'class'})) {
@@ -180,7 +182,7 @@ sub checkTable
                                          'tableDescription has not any field'
                                         );
     }
-    
+
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -1273,20 +1275,20 @@ sub setRow
 
     $self->validateRow('update', @_);
 
-        # We can only set those types which have setters
-        my @newValues = @{$self->setterTypes()};
+    # We can only set those types which have setters
+    my @newValues = @{$self->setterTypes()};
 
-        my $changedData;
-        for (my $i = 0; $i < @newValues ; $i++) {
-            my $newData = $newValues[$i]->clone();
-            $newData->setMemValue(\%params);
+    my $changedData;
+    for (my $i = 0; $i < @newValues ; $i++) {
+        my $newData = $newValues[$i]->clone();
+        $newData->setMemValue(\%params);
 
-            $changedData->{$newData->fieldName()} = $newData;
-        }
+        $changedData->{$newData->fieldName()} = $newData;
+    }
 
-        $self->setTypedRow( $id, $changedData,
-                            force => $force,
-                            readOnly => $params{'readOnly'});
+    $self->setTypedRow( $id, $changedData,
+                        force => $force,
+                        readOnly => $params{'readOnly'});
 
 }
 
@@ -1457,7 +1459,11 @@ sub rows
         $storedVersion = 0;
     }
 
-    if (not defined($cachedVersion)) {
+    # If the model is volatile, don't check the cached version since
+    # it should exist
+    if ( $self->_volatile() ) {
+        $self->{'cachedRows'} = $self->_rows();
+    } elsif (not defined($cachedVersion)) {
         $self->{'cachedRows'} = $self->_rows();
         $self->{'cachedVersion'} = 0;
     } else {
@@ -1468,7 +1474,7 @@ sub rows
     }
 
     if ( $self->order() == 1) {
-        return $self->_filterRows($self->{'cachedRows'}, $filter, 
+        return $self->_filterRows($self->{'cachedRows'}, $filter,
                 $page);
     } else {
         return $self->_filterRows(
@@ -1476,7 +1482,6 @@ sub rows
                 $filter, $page);
     }
 }
-
 
 # Method: enabledRows
 #
@@ -1558,7 +1563,12 @@ sub _rows
 
 sub _setCacheDirty
 {
-    my $self = shift;
+    my ($self) = @_;
+
+    # If the model is volatile, just return
+    if ( $self->_volatile() ) {
+        return;
+    }
 
     my $gconfmod = $self->{'gconfmodule'};
     my $storedVerKey = $self->{'directory'} . '/version';
@@ -1790,7 +1800,6 @@ sub directory
 sub menuNamespace 
 {
     my ($self) = @_;
-
 
     if (exists $self->table()->{'menuNamespace'}) {
         return $self->table()->{'menuNamespace'};
@@ -2845,6 +2854,66 @@ sub actionClickedJS
             $page);
 }
 
+sub backupFiles
+{
+  my ($self) = @_;
+
+  my @files = $self->_fileFields();
+  @files or return;
+
+  foreach my $file (@files) {
+    $file->backup();
+  }
+  
+}
+
+
+sub restoreFiles
+{
+  my ($self) = @_;
+
+  my @files = $self->_fileFields();
+  @files or return;
+
+  foreach my $file (@files) {
+    $file->restore();
+  }
+}
+
+sub backupFilesPaths
+{
+  my ($self) = @_;
+
+  my @paths =  map {
+    $_->path();
+  }  grep {  
+    $_->exist()
+  }
+ $self->_fileFields();
+
+  return \@paths;
+}
+
+# Method: reloadTable
+#
+#     This method is intended to reload the information from the table
+#     description. It is useful when the table description may change
+#     on the fly due to some state
+#
+# Returns:
+#
+#     <EBox::Model::DataTable> - the same info that
+#     <EBox::Model::DataTable::table> returned value
+#
+sub reloadTable
+{
+    my ($self) = @_;
+
+    undef $self->{'table'};
+    return $self->table();
+
+}
+
 # Group: Protected methods
 
 # Method: _setDefaultMessages
@@ -2879,6 +2948,25 @@ sub _setDefaultMessages
 
 }
 
+# Method: _volatile
+#
+#       Check if this model is volatile. That is, the data is not
+#       stored in GConf but it is done by the storer and restored by
+#       the acquirer. Every type must be volatile in order to have a
+#       model as volatile
+#
+# Returns:
+#
+#       Boolean - indicating if the table is volatile or not
+#
+sub _volatile
+{
+    my ($self) = @_;
+
+    return $self->{'volatile'};
+
+}
+
 # Group: Private helper functions
 
 # Method: _find
@@ -2895,7 +2983,7 @@ sub _setDefaultMessages
 #    value - value we want to match
 #    allMatches -   1 or undef to tell the method to return just the
 #        first match or all of them
-#
+#	
 #    kind - String if 'printableValue' match against
 #    printableValue, if 'value' against value, 'row' match against
 #    value returning the row *(Optional)* Default value: 'value'
@@ -4148,46 +4236,17 @@ sub _fileFields
     return @files;
 }
 
-
-sub backupFiles
+# Set the table as volatile if all its fields are so
+sub _setIfVolatile
 {
     my ($self) = @_;
 
-    my @files = $self->_fileFields();
-    @files or return;
-
-    foreach my $file (@files) {
-        $file->backup();
+    my $desc = $self->{table}->{tableDescription};
+    foreach my $field (@{$desc}) {
+        return if ( not $field->volatile());
     }
+    $self->{volatile} = 1;
 
 }
-
-
-sub restoreFiles
-{
-    my ($self) = @_;
-
-    my @files = $self->_fileFields();
-    @files or return;
-
-    foreach my $file (@files) {
-        $file->restore();
-    }
-}
-
-sub backupFilesPaths
-{
-    my ($self) = @_;
-
-    my @paths =  map {
-        $_->path();
-    }  grep {  
-        $_->exist()
-    }
-    $self->_fileFields();
-
-    return \@paths;
-}
-
 
 1;

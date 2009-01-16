@@ -22,6 +22,7 @@ use warnings;
 use base qw(Apache2::AuthCookie);
 
 use EBox;
+use EBox::CGI::Run;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -29,14 +30,18 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::LogAdmin;
 use Apache2::Connection;
+use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
 use Digest::MD5;
 use Fcntl qw(:flock);
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
-# By now, the expiration time for a SOAP session
-use constant MAX_SOAP_SESSION => 10; # In seconds
+# By now, the expiration time for a script session
+use constant MAX_SCRIPT_SESSION => 10; # In seconds
+# CC cookie
+use constant CC_COOKIE_NAME => 'EBox_Services_Remote_Access';
+use constant CC_DOMAIN => 'dynamic.ebox-services.com';
 
 sub new 
 {
@@ -155,36 +160,39 @@ sub setPassword # (password)
 #
 #   	Overriden method from <Apache2::AuthCookie>.
 #
-sub authen_cred  # (request, password)
+sub authen_cred  # (request, password, fromCC)
 {
-    my ($self, $r, $passwd) = @_;
+    my ($self, $r, $passwd, $fromCC) = @_;
 
-    # If there's a SOAP session opened, give it priority to the
+    # If there's a script session opened, give it priority to the
     # Web interface session
-    if ( $self->_activeSOAPSession() ){
-      EBox::warn('Failed login since a SOAP session is opened');
-      $r->subprocess_env(LoginReason => 'SOAP active');
+    if ( $self->_actionScriptSession() ){
+      EBox::warn('Failed login since a script session is opened');
+      $r->subprocess_env(LoginReason => 'Script active');
       return;
     }
 
-    unless ($self->checkPassword($passwd)) {
-	my $log = EBox->logger;
-	my $ip  = $r->connection->remote_host();
-	$log->warn("Failed login from: $ip");
-	return;
+    # Unless it is a CC session or password does
+    if ( not (defined($fromCC) and $fromCC) ) {
+        unless ($self->checkPassword($passwd)) {
+            my $log = EBox->logger();
+            my $ip  = $r->connection->remote_host();
+            $log->warn("Failed login from: $ip");
+            return;
+        }
     }
 
     my $rndStr;
     for my $i (1..64) {
         $rndStr .= rand (2**32);
     }
-    my $md5 = Digest::MD5->new;
+    my $md5 = Digest::MD5->new();
     $md5->add($rndStr);
-    my $sid = $md5->hexdigest;
+    my $sid = $md5->hexdigest();
     _savesession($sid);
 
     my $global = EBox::Global->getInstance();
-    $global->revokeAllModules;
+    $global->revokeAllModules();
 
     return $sid;
 }
@@ -202,8 +210,8 @@ sub authen_ses_key  # (request, session_key)
 
     my $expired =  _timeExpired($lastime);
 
-    if ( $self->_activeSOAPSession() ) {
-      $r->subprocess_env(LoginReason => 'SOAP active');
+    if ( $self->_actionScriptSession() ) {
+      $r->subprocess_env(LoginReason => 'Script active');
       _savesession(undef);
     }
     elsif(($session_key eq $sid) and (!$expired )){
@@ -219,6 +227,42 @@ sub authen_ses_key  # (request, session_key)
     }
 
     return;
+}
+
+# Method: loginCC
+#
+#      Login from Control Center, which is different if the
+#      passwordless option is activated
+#
+# Parameters:
+#
+#      request - <Apache2::RequestRec> the HTTP request
+#
+# Return:
+#
+#     the same response as <Apache2::AuthCookie::login> gives back
+#
+sub loginCC
+{
+    my ($self, $req) = @_;
+
+    if ( $self->recognize_user($req) == OK ) {
+        return $self->authenticate($req);
+    } else {
+        my $remoteServMod = EBox::Global->modInstance('remoteservices');
+        if ( $remoteServMod->eBoxSubscribed()
+               and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
+            # Do what login does
+            my $sessionKey = $self->authen_cred($req,'',1);
+            $self->send_cookie($req, $sessionKey);
+            $self->handle_cache($req);
+            $req->headers_out()->set('Location' => '/ebox/');
+            return HTTP_MOVED_TEMPORARILY;
+        } else {
+            return EBox::CGI::Run->run('/Login/Index');
+        }
+    }
+
 }
 
 # XXX not sure if this will be useful, if not remove
@@ -253,8 +297,8 @@ sub _currentSessionId
 {
     my $SID_F; # sid file handle
 
-    unless( -e EBox::Config->sessionid){
-	unless  (open ($SID_F,  ">". EBox::Config->sessionid)){
+    unless( -e EBox::Config->sessionid()){
+	unless  (open ($SID_F,  ">". EBox::Config->sessionid())){
 	    throw EBox::Exceptions::Internal(
 					     "Could not create  ". 
 					     EBox::Config->sessionid);
@@ -262,7 +306,7 @@ sub _currentSessionId
 	close($SID_F);
 	return;
     }
-    unless   (open ($SID_F,  EBox::Config->sessionid)){
+    unless   (open ($SID_F,  EBox::Config->sessionid())){
 	throw EBox::Exceptions::Internal(
 					 "Could not open ".
 					 EBox::Config->sessionid);
@@ -299,50 +343,49 @@ sub _timeExpired
     return $expired;
 }
 
-# Method: _activeSOAPSession
+# Method: _actionScriptSession
 #
-#       Check whether a SOAP session is already opened or not
+#       Check whether a script session is already opened or not
 #
 # Returns:
 #
-#       Boolean - indicate if a SOAP session is already opened
+#       Boolean - indicate if a script session is already opened
 #
-sub _activeSOAPSession
-  {
+sub _actionScriptSession
+{
 
     my ($self) = @_;
 
-    # The SOAP session filehandle
-    my $soapSessionFile;
+    # The script session filehandle
+    my $scriptSessionFile;
 
-    unless ( -e EBox::Config->soapSession() ){
-      return undef;
+    unless ( -e EBox::Config->scriptSession() ){
+        return undef;
     }
 
-    # Trying to open the soap sid
-    open( $soapSessionFile, '<', EBox::Config->soapSession() ) or
+    # Trying to open the script sid
+    open( $scriptSessionFile, '<', EBox::Config->scriptSession() ) or
       throw EBox::Exceptions::Internal('Could not open ' .
-				       EBox::Config->soapSession());
+                                       EBox::Config->scriptSession());
 
     # Lock in shared mode
-    flock($soapSessionFile, LOCK_SH)
+    flock($scriptSessionFile, LOCK_SH)
       or throw EBox::Exceptions::Lock($self);
 
     # The file structure is the following:
     # TIMESTAMP
-    my ($timeStamp) = <$soapSessionFile>;
+    my ($timeStamp) = <$scriptSessionFile>;
 
     # Release the lock and close the file
-    flock($soapSessionFile, LOCK_UN);
-    close($soapSessionFile);
+    flock($scriptSessionFile, LOCK_UN);
+    close($scriptSessionFile);
 
     # time() return the # of seconds since an epoch (1 Jan 1970
     # typically)
 
-    my $expireTime = $timeStamp + MAX_SOAP_SESSION;
+    my $expireTime = $timeStamp + MAX_SCRIPT_SESSION;
     return ( $expireTime >= time() );
 
-  }
-
+}
 
 1;

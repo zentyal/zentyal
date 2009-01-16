@@ -30,7 +30,7 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Configuration backups'),
+	my $self = $class->SUPER::new('title' => __('Configuration backup'),
 				      'template' => '/confirm-backup.mas',
 				      @_);
 	bless($self, $class);

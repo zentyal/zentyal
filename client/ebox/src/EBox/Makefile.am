@@ -3,8 +3,8 @@
 perldir = @PERLPATH@/EBox
 
 mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
-	Events.pm EventDaemon.pm GConfConfig.pm GConfHelper.pm \
-	GConfModule.pm GConfState.pm Global.pm Html.pm \
+	RemoteServices.pm Events.pm EventDaemon.pm GConfConfig.pm \
+	GConfHelper.pm GConfModule.pm GConfState.pm Global.pm Html.pm \
         Logs.pm  LogAdmin.pm LogHelper.pm LogObserver.pm Loggerd.pm \
         Module.pm  \
 	Order.pm ProgressIndicator.pm \
@@ -16,7 +16,7 @@ nobase_perl_DATA = $(mods)
 
 
 SUBDIRS = Backup CGI Common Dashboard GConfModule interactiveTest Event Events Global Logs \
-	Model   ProgressIndicator Report Dashboard t Test Types ServiceModule
+	Model   ProgressIndicator RemoteServices Report t Test Types ServiceModule
 
 SOURCES = $(nobase_perl_DATA)
 

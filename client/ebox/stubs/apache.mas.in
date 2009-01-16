@@ -17,6 +17,8 @@ Parameters:
                                for accessing this resource
                 - name - String the resource name
                 - type - String the resource type. Options: file, directory or location.
+   includes - Array containing those file includes we want to add
+              this Apache configuration
 </%doc>
 <%args>
 	$port
@@ -26,6 +28,7 @@ Parameters:
 	$tmpdir
         $debug => 'no'
         @restrictedResources => ()
+        @includes => ()
 </%args>
 
 Timeout 300
@@ -140,6 +143,9 @@ if ( @restrictedResources > 0 ) {
 %   }
 % }
 
+% foreach my $includeFile (@includes) {
+Include <% $includeFile %>
+% }
 
 UseCanonicalName Off
 TypesConfig /etc/mime.types
@@ -209,9 +215,9 @@ PerlSetVar AuthCookieDebug 0
 </Files>
 
 <Directory @CGIPATH@>
-   <IfModule mod_ssl.c>
+        <IfModule mod_ssl.c>
 	   SSLOptions +StdEnvVars
-   </IfModule>
+        </IfModule>
 
 	AuthType EBox::Auth
 	AuthName EBox

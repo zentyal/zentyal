@@ -1,0 +1,22 @@
+<%init>
+use EBox::Gettext;
+
+my $text = __( 
+             'Cannot proceed with your request because it was a connection problem. Possible causes are:'
+          );
+
+my @causes = (
+    __(q{Your computer has not internet connection}),
+    __(q{Your computer has not a correct system date}),
+    __(q{You are using the wrong certificates}),
+    __(q{This eBox has been removed from your registered eBoxes}),
+);
+</%init>
+<div class="warning">
+  <% $text %>
+  <list>
+% foreach my $cause  (@causes) {
+    <ul><% $cause %></ul>
+% }
+  </list>
+</div>

@@ -36,8 +36,8 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
-use EBox::Types::Boolean;
 use EBox::Types::HasMany;
+use EBox::Types::Link;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
@@ -235,7 +235,7 @@ sub headTitle
 #
 #       name        - <EBox::Types::Text>
 #       description - <EBox::Types::Text>
-#       enabled     - <EBox::Types::Boolean>
+#       configuration - <EBox::Types::Union>
 #
 #       You can only edit enabled field to activate or deactivate the
 #       event. The event name and description are read-only fields.
@@ -268,6 +268,11 @@ sub _table
                                 editable      => 0,
                                 subtypes      =>
                                 [
+                                 new EBox::Types::Link(
+                                                       fieldName               => 'configuration_link',
+                                                       volatile                => 1,
+                                                       acquirer                => \&acquireURL,
+                                                      ),
                                  new EBox::Types::HasMany(
                                                           fieldName            => 'configuration_model',
                                                           foreignModelAcquirer => \&acquireConfModel,
@@ -397,6 +402,38 @@ sub acquireConfModel
       return $className->ConfigureModel();
 
   }
+
+# Function: acquireURL
+#
+#      Callback function used to gather the URL that will fill the
+#      value for the link
+#
+# Parameters:
+#
+#      instancedType - <EBox::Types::Abstract> the cell which will contain
+#      the URL
+#
+# Returns:
+#
+#      String - the URL
+#
+sub acquireURL
+{
+
+    my ($instancedType) = @_;
+
+    my $className = $instancedType->row()->valueByName('eventWatcher');
+
+    eval "use $className";
+    if ( $@ ) {
+        # Error loading class -> dispatcher to remove
+        return;
+    }
+
+    return $className->ConfigureURL();
+
+}
+
 
 # Group: Private methods
 

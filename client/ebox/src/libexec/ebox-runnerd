@@ -1,0 +1,301 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2008 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::Command;
+use EBox::Exceptions::External;
+use EBox::Sudo;
+use Error qw(:try);
+use Getopt::Long;
+use Linux::Inotify2;
+use POSIX qw(SIG_IGN SIGHUP);
+use Pod::Usage;
+
+use constant JOBS_DIR      => EBox::Config::conf() . 'remoteservices/jobs/';
+use constant INCOMING_DIR  => JOBS_DIR . 'incoming/';
+use constant OUTCOMING_DIR => JOBS_DIR . 'outcoming/';
+
+# Common variables in the daemon processes
+
+
+# Procedure: _daemonise
+#
+#     Daemonise the current script to become a daemon following the
+#     Stevens chapter 13 coding rules
+#
+# Parameters:
+#
+#     foreground - Boolean indicating if the daemon must be launched
+#     in foreground *(Optional)* Default value: false
+#
+#
+sub _daemonise
+{
+    my ($foreground) = @_;
+
+    # Clear the file creation mask
+    umask(0);
+
+    unless ( $foreground ) {
+    # Become a session leader to lose controlling TTY
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid != 0 ) {
+            # Parent must die
+            exit(0);
+        }
+    }
+    POSIX::setsid();
+
+    # Ensure future opens won't allocate controlling TTYs
+    POSIX::sigaction(POSIX::SIGHUP, POSIX::SigAction->new( POSIX::SIG_IGN ))
+        or throw EBox::Exceptions::External( "Cannot ignore SIGHUP: $!");
+    unless ( $foreground ) {
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid != 0 ) {
+            # Parent must die
+            exit(0);
+        }
+    }
+
+    # Change current working directory to roo so we won't prevent file
+    # systems from being unmounted
+    chdir('/') or throw EBox::Exceptions::External( "Cannot change directory to / $!" );
+
+    POSIX::close($_) foreach (0 .. 64);
+
+    open( STDIN, '<', '/dev/null');
+    open( STDOUT, '+>', '/dev/null');
+    open( STDERR, '+>', '/dev/null');
+
+}
+
+# Procedure: _callbackDispatcher
+#
+#     Dispatch to the appropiate callback depending on the job
+#     directory given as parameter.
+#
+#     If the job directory belongs to the INCOMING_DIR, then <_run>
+#     will be called.
+#
+#     However, if the job directory belongs to the OUTCOMING_DIR, then
+#     <_notify> callback will be run.
+#
+# Parameters:
+#
+#     jobDir - String the directory path to apply an action on
+#
+sub _callbackDispatcher
+{
+    my ($jobDir) = @_;
+
+    my $incomingDir  = INCOMING_DIR;
+    my $outcomingDir = OUTCOMING_DIR;
+    if ( $jobDir =~ m:$incomingDir:g ) {
+        _run($jobDir);
+    } elsif ( $jobDir =~ m:$outcomingDir:g ) {
+        _notify($jobDir);
+    }
+}
+
+# Procedure: _run
+#
+#     Run the script store in the directory called 'script' with the
+#     arguments stored in 'args' file. The results are stored in
+#     outcoming directory within the same number.
+#
+#     As well as remove given path
+#
+# Parameters:
+#
+#     jobDir - String the directory path to run the script which will be
+#     stored in 'script' file and the given arguments will be stored
+#     in 'args' file
+#
+sub _run
+{
+    my ($jobDir) = @_;
+
+    try {
+        chomp($jobDir);
+        my ($jobId) = $jobDir =~ m:^.*/(.*?)$:g;
+        system( "xargs -a $jobDir/args $jobDir/script > $jobDir/stdout 2> $jobDir/stderr");
+        my $retValue = $?;
+        open (my $returnedFile,  '>', "$jobDir/exitValue")
+          or throw EBox::Exceptions::External( "Cannot open file:$jobDir/exitValue: $!");
+        print $returnedFile $retValue;
+        close($returnedFile);
+        unless ( -d OUTCOMING_DIR . $jobId ) {
+            my $realJobDir = JOBS_DIR . $jobId;
+            symlink( $realJobDir, OUTCOMING_DIR . $jobId);
+        }
+        unlink($jobDir);
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error($exc);
+    };
+
+}
+
+# Procedure: _notify
+#
+#     Notify the CC of the results given by the parameter jobs. It
+#     will notify of the standard output, standard input and exit value.
+#
+#     Finally, it will remove the given directory
+#
+# Parameters:
+#
+#     jobDir - String the directory path to the job results which will
+#     be stored in 'stdout', 'stderr' and 'exitValue' files that will
+#     be notified to the CC
+#
+sub _notify
+{
+    my ($jobDir) = @_;
+
+    try {
+        EBox::Sudo::command("/usr/share/ebox/ebox-notify-job $jobDir");
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        EBox::error($exc);
+    };
+}
+
+# Procedure: _actRemainder
+#
+#     Act (run, notify) those jobs which are in the watched directory
+#     and it was not acted upon because daemon was stopped
+#
+# Parameters:
+#
+#     watchedDir - String the watched directory path
+#     actionSub  - Code Pointer sub which stores the action to perform
+#
+sub _actRemainder
+{
+    my ($watchedDir, $actionSub) = @_;
+
+    opendir(my $dir, $watchedDir)
+      or throw EBox::Exceptions::External( "Cannot open directory: $!");
+    while(my $filePath = readdir($dir)) {
+        next if ( $filePath eq '.' or $filePath eq '..' );
+        my $fullPath = $watchedDir . $filePath;
+        next unless (-d $fullPath);
+        $actionSub->($fullPath);
+    }
+    closedir($dir);
+}
+
+# Procedure: _mainActionLoop
+#
+#     A process which acts as watcher of a given directory that
+#     perform an action which is done by actionSub which receives as
+#     parameter a directory
+#
+# Parameters:
+#
+#     watchedDirs - Array ref containing the watched directories full
+#                   paths in String format
+#
+#     actionSub  - Code pointer to the action whose signature has as
+#     parameter a path to a subdirectory within the watchedDir
+#
+sub _mainActionLoop
+{
+    my ($watchedDirs, $actionSub) = @_;
+    my $eventSub = sub {
+        my ($event) = @_;
+        if (defined($event)) {
+            if ($event->IN_CREATE) {
+                $actionSub->($event->{w}{name} . $event->name());
+            } elsif ( $event->IN_Q_OVERFLOW ) {
+                EBox::warn("Events for " . $event->{w}{name}
+                           . " have been lost!");
+            }
+        }
+    };
+
+    my $inotify = new Linux::Inotify2()
+      or throw EBox::Exceptions::External("Unable to create a new inotify object: $!");
+
+    foreach my $watchedDir (@{$watchedDirs}) {
+        # Act upon those directories which have not acted previously
+        _actRemainder($watchedDir, $actionSub);
+        # It's high time to watch them
+        $inotify->watch($watchedDir, IN_CREATE|IN_DELETE_SELF, $eventSub);
+    }
+    while (1) {
+        my @events = $inotify->read();
+        unless(@events > 0) {
+            EBox::error("Read error: $!");
+            last;
+        }
+        foreach my $evt (@events) {
+            if ( $evt->IN_DELETE_SELF ) {
+                EBox::warn($evt->{w}{name} . " has been deleted! Stopping daemon...");
+                exit(1);
+            }
+            # Run the watcher callback
+            $evt->{w}{cb}();
+        }
+    }
+
+}
+
+# MAIN
+
+# Get arguments
+my ($usage, $foreground) = (0, 0);
+my $correct = GetOptions(
+    'foreground' => \$foreground,
+    'usage|help' => \$usage
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+_daemonise($foreground);
+
+_mainActionLoop([ OUTCOMING_DIR, INCOMING_DIR ],
+                \&_callbackDispatcher);
+
+1;
+
+__END__
+
+=head1 NAME
+
+ebox-runnerd - Daemon intended to run scripts which is placed under a
+               fixed directory which is watched by the daemon
+
+=head1 SYNOPSIS
+
+ebox-runnerd [--usage|help] [--foreground]
+
+ Options:
+    --foreground  Flag to indicate if daemon must be launched in foreground
+                  Default value: false
+    --usage|help  Print this help and exit
+
+=cut

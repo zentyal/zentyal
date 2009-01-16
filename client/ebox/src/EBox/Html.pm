@@ -26,13 +26,13 @@ use EBox::Menu::Root;
 use HTML::Mason;
 
 #
-# Method: title 
+# Method: title
 #
 #	Returns the html code for the title
 #
 # Returns:
 #
-#      	string - containg the html code for the title 
+#      	string - containg the html code for the title
 #
 sub title
 {
@@ -41,14 +41,25 @@ sub title
 
 	my $global = EBox::Global->getInstance();
 	my $finishClass;
-	if ($global->unsaved) {
+	if ($global->unsaved()) {
 		$finishClass = "changed";
 	} else {
 		$finishClass = "notchanged";
 	}
 
+        # Display control panel button only if the eBox is subscribed
+        my $remoteServicesMod = $global->modInstance('remoteservices');
+        my $remoteServicesURL = '';
+        if ( $remoteServicesMod->eBoxSubscribed() ) {
+            $remoteServicesURL = $remoteServicesMod->controlPanelURL();
+        }
 
-	my $html = _makeHtml('headTitle.mas', save => $save, logout => $logout, finishClass => $finishClass  );
+	my $html = _makeHtml('headTitle.mas',
+                             save => $save,
+                             logout => $logout,
+                             finishClass => $finishClass,
+                             remoteServicesURL => $remoteServicesURL,
+                            );
 	return $html;
 }
 

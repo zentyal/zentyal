@@ -247,7 +247,7 @@ sub _confClient
           if ( $self->{subscribe} ) {
               # Try to register the user
               my @registerResult = @{$self->_register()};
-
+              
               if ( $registerResult[0] eq 'ok' ) {
                   # Registration was ok
                   $self->{subscribe} = 0;

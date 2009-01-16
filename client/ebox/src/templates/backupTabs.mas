@@ -1,0 +1,47 @@
+<%init>
+use EBox::Gettext;
+
+my %args = @_;
+
+my $selected = delete $args{selected};
+$selected or $selected = 'local';
+
+my %tabs = (
+	    local => {
+		      component =>  'backup.mas',
+		      title     =>  __('Local backup'),
+                      url       => '/ebox/EBox/Backup?selected=local',
+		     },
+	    remote => {
+		      component =>  '/RemoteServices/Backup/index.mas',
+		      title     =>  __('Remote backup'),
+                      url       => '/ebox/RemoteServices/Backup/Index?selected=remote',
+		     },
+	    proxy => {
+		      component =>  '/RemoteServices/Backup/proxy.mas',
+		      title     =>  __('Remote backup from other subscribed hosts'),
+                      url       => '/ebox/RemoteServices/Backup/Proxy?selected=proxy',
+		     },
+	   );
+my @tabsOrder = qw(local remote proxy);
+
+
+
+if (not exists $tabs{$selected}) {
+  $m->abort("bad selected value $selected");
+}
+</%init>
+<div class='ifaces'>
+% foreach my $tab (@tabsOrder) {
+%     if($selected eq $tab) {
+    <span class='selected'><% $tabs{$tab}->{title} %></span>
+%     } else {
+    <a href='<% $tabs{$tab}->{url} %>'><%  $tabs{$tab}->{title} %></a>
+%    }
+% }
+
+
+</div>
+<& $tabs{$selected}->{component}, %args &>
+
+

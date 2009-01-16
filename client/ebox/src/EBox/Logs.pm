@@ -100,14 +100,16 @@ sub serviceModuleName
 
 sub _regenConfig
 {
+
     my ($self) = @_;
-        
+
     $self->_saveEnabledLogsModules();
     _stopService();
 
     return unless ($self->isEnabled());
 
     EBox::Service::manage(LOG_DAEMON, 'start');
+
 }
 
 sub _stopService
@@ -225,7 +227,6 @@ sub allEnabledLogHelpers
             push (@enabledObjects, $mod->logHelper());
         }
     }
-
 
     return \@enabledObjects;
 }
@@ -456,6 +457,17 @@ sub search {
                 $self->_addRegExp($field, $filters->{$field});
             }
         }
+    }
+    
+    $self->_addSelect('COUNT(*)');
+        my @count = @{$dbengine->query($self->_sqlStmnt())};
+    my $tcount = $count[0]{'count'};
+    
+    # Do not go on if you don't have any result
+    if ( $tcount == 0 ) {
+        return { 'totalret' => $tcount,
+                     'arrayret' => [],
+               };
     }
     
     $self->_addSelect('COUNT(*)');
@@ -841,7 +853,7 @@ sub purge
   }
 }
 
-
+# Transform an hour into a localtime
 
 
 

@@ -27,6 +27,10 @@ package EBox::EventDaemon;
 # used. Dinamically, you can upload a dispatcher to send the event
 # wherever the event said.
 #
+# You may send events (Dumped <EBox::Event> object) to dispatch through a
+# named pipe which is pointed by the file name
+# "/var/lib/ebox/tmp/events-fifo'.
+
 
 use strict;
 use warnings;
@@ -41,17 +45,24 @@ use EBox::Config;
 
 # Core modules
 use File::stat;
+use File::Slurp;
 use IO::Handle;
+use IO::Select;
 use Error qw(:try);
+use POSIX;
+use UNIVERSAL;
 
 # Constants:
 #
 #      WATCHERS_DIR - String directory where the Watchers lie
 #      DISPATCHERS_DIR - String directory where the Dispatchers lie
+#      EVENTS_FIFO - String the path to the named pipe to send events to
+#      dispatch
 #      SCANNING_INTERVAL - Integer interval between scannings
 #
 use constant WATCHERS_DIR      => EBox::Config::conf() . 'events/WatcherEnabled/';
 use constant DISPATCHERS_DIR   => EBox::Config::conf() . 'events/DispatcherEnabled/';
+use constant EVENTS_FIFO       => EBox::Config::tmp() . 'events-fifo';
 use constant SCANNING_INTERVAL => 60;
 
 # Group: Public methods
@@ -113,7 +124,7 @@ sub run
       } else {
           # Child code
           # STDIN will have the read code
-          $self->_mainDispatcherLoop();
+           $self->_mainDispatcherLoop();
           exit;
       }
 
@@ -134,6 +145,13 @@ sub _init
       my ($self) = @_;
 
       EBox::init();
+
+      # Create the named pipe
+      unless ( -p EVENTS_FIFO ) {
+          unlink(EVENTS_FIFO);
+          POSIX::mkfifo(EVENTS_FIFO, 0700)
+              or die "Can't make a named pipe: $!";
+      }
 
 #      foreach my $fd (0 .. 64) { POSIX::close($fd); }
 #
@@ -220,22 +238,33 @@ sub _mainWatcherLoop
 #
 #
 sub _mainDispatcherLoop
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      # Load dispatcher classes
-      $self->_loadModules('Dispatcher');
-      while (<STDIN>) {
-          chomp;
-          my $event;
-          { no strict 'vars'; $event = eval $_; }
-          $self->_dispatchEventByDispatcher($event);
-          if ( time() - $self->{lastDispatcherScan} > SCANNING_INTERVAL ) {
-              $self->_loadModules('Dispatcher');
-          }
-      }
-  }
+    # Load dispatcher classes
+    $self->_loadModules('Dispatcher');
+    # Start main loop with a select
+    open(my $fifo, '+<', EVENTS_FIFO);
+    my $select = new IO::Select();
+    $select->add(\*STDIN);
+    $select->add($fifo);
+    while (1) {
+        my @ready = $select->can_read(SCANNING_INTERVAL);
+        foreach my $fh (@ready) {
+            my $data = readline($fh);
+            EBox::debug("Read from a filehandle: $data");
+            my $event;
+            {
+                no strict 'vars'; $event = eval $data;
+            }
+            $self->_dispatchEventByDispatcher($event);
+        }
+        if ( time() - $self->{lastDispatcherScan} > SCANNING_INTERVAL ) {
+            $self->_loadModules('Dispatcher');
+        }
+    }
+}
 
 # Group: Private helper functions
 
@@ -306,7 +335,7 @@ sub _loadModules
                       $instance = $className->new();
                       $self->{$registeredField}->{$className} = $instance;
                   } else {
-                      EBox::info("Class $className not derived from EBox::Event::Dispatcher::Base");
+                      EBox::info("Class $className not derived from EBox::Event::Dispatcher::Abstract");
                   }
               }
           } else {
@@ -432,7 +461,9 @@ sub _dispatchEventByDispatcher
               $dispatcher->enable();
               $dispatcher->send($event);
           } catch EBox::Exceptions::External with {
+              my ($exc) = @_;
               EBox::warn($dispatcher->name() . ' is not enabled to send messages');
+              EBox::error($exc->stringify());
               # TODO: Disable dispatcher since it's not enabled to
               # send events
               eval { require 'EBox::Global'};
@@ -472,6 +503,7 @@ sub _addToDispatch
       print $eventPipe ( $eventStr . $/ );
 
   }
+
 
 ###############
 # Main program

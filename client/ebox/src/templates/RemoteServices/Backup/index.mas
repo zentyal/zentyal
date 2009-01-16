@@ -1,0 +1,130 @@
+<%args>
+  $subscribed
+  %backups
+  $modulesChanged
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if (not $subscribed) {
+<& /RemoteServices/NoActive.mas &>
+% return;
+% }
+<& .backupSection, modulesChanged => $modulesChanged &>
+<& .listSection, backups => \%backups &>
+<%def .backupSection>
+<%args>
+$modulesChanged
+</%args>
+<%init>
+my @formElements = (
+		 [
+		  name => 'name',
+		  printableName => __('Name'),
+		 ],
+		 [
+		  name => 'description',
+		  printableName => __('Description'),
+		 ],
+		 [
+		  input => 'submit',
+		  name  => 'backup',
+		  value => __('Back up'),
+		  $modulesChanged ? (disabled => 'disabled') : (),
+		 ]
+
+);
+</%init>
+<h3><% __('Back up the current configuration state') %></h3>
+<div class='help'>
+
+</div>	
+% if ($modulesChanged) {
+  <div class='warning'>
+	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
+  </div>   
+% }
+<p>
+<table class='formTable'>
+    <tbody>
+       <form action='MakeRemoteBackup' method='POST'>
+             <& /formTable.mas, rows => \@formElements &>
+	</form>
+    </tbody>
+</table>
+</p>
+</%def>
+
+
+
+<%def .listSection>
+<%args>
+%backups
+</%args>
+<%init>
+
+my @columnTitles = (
+		    __('Name'),
+		    __('Date'),
+		    __('Description'),
+                    __('Archive size'),
+		    __('Actions'),
+		   );
+
+my $downloadImg  = "/data/images/down.gif";
+my $applyImg = "/data/images/apply.gif";
+my $deleteImg = "/data/images/delete.gif";
+
+my @rows = map {
+             my @row;
+	     my $name =  $_->{Filename};
+	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
+	     # action element
+	     push @row, [
+			 {
+			  name => __('Restore'),
+			  icon => $applyImg,
+			  url => "Confirm?action=restore&name=$name",
+			 },
+
+			 {
+			  name => __('Download'),
+			  icon => $downloadImg,
+			  url => "DownloadRemoteBackup?name=$name",
+			 },
+			 {
+			  name => __('Delete'),
+			  icon => $deleteImg,
+			  url  => "Confirm?action=delete&name=$name",
+			 },
+			 
+			];
+
+	     [@row]
+			
+          } values %backups; 
+
+my @legendElements = (
+		      { 
+		       imgFile => $applyImg,
+		       imgName => __('restore') ,
+		      },
+		      { 
+		       imgFile => $downloadImg,
+		       imgName => __('download'),
+		      },
+		      { 
+		       imgFile => $deleteImg,
+		       imgName => __('delete') 
+		      },
+		     );
+</%init>
+% if (keys %backups) {
+<h3><% __("Configuration backups' list") %></h3>
+<& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
+<br />
+
+<& /legendTable.mas, elements => \@legendElements, nColumns => 2 &>
+% }
+</%def>
+
