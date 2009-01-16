@@ -1,3 +1,12 @@
+1.1
+	+ Fixing bogus div and missing items to make eBox Web UI more w3c
+	complaint
+	+ Added generic JS graph class using flotr with mouse tracking and
+	legend
+	+ Added remote services link button
+	+ Added support for `additionalParameters` to `EBox.TabMenu` JS
+	prototype
+	+ Added `configKeysFromFile` to `EBox::Config`
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes
