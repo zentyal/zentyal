@@ -28,11 +28,15 @@ use warnings;
 use EBox::Config;
 use EBox::Gettext;
 
+# Core modules
+use Sys::Hostname;
+
 # Constants
 use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/ebox/';
 use constant EVENTS_DIR       => MAIN_VAR_RUN . '/events/incoming/';
 use constant EVENTS_READY_DIR => EVENTS_DIR . 'ready/';
-use constant QUERY_INTERVAL      => 10;
+use constant QUERY_INTERVAL   => 10;
+use constant RRD_BASE_DIR     => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 
 # Group: Public class methods
 
@@ -82,6 +86,19 @@ sub EventsReadyDir
 sub QueryInterval
 {
     return QUERY_INTERVAL;
+}
+
+# Method: RRDBaseDirPath
+#
+#      Return the RRD base directory path
+#
+# Returns:
+#
+#      String - the RRD base directory Path
+#
+sub RRDBaseDirPath
+{
+    return RRD_BASE_DIR;
 }
 
 # Method: TimePeriods

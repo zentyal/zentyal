@@ -17,8 +17,10 @@
 
 # A module to test Manager measure module
 
+use EBox::Monitor::Measure::Thermal;
+
 use Test::Deep;
-use Test::More tests => 15;
+use Test::More tests => 16;
 use Test::Exception;
 
 BEGIN {
@@ -50,6 +52,11 @@ ok($manager->register('EBox::Monitor::Measure::Load'),
 
 ok($manager->register('EBox::Monitor::Measure::CPU'),
    'Registering another one was going well');
+
+*EBox::Monitor::Measure::Thermal::enabled = sub { return 0; };
+
+cmp_ok($manager->register('EBox::Monitor::Measure::Thermal'), '==', 0,
+       'Registering a disabled measure is not possible');
 
 my $measures;
 lives_ok {

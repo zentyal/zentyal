@@ -18,12 +18,12 @@
 # A module to test Base measure module
 
 use Clone;
-use EBox::Monitor;
+use EBox::Monitor::Configuration;
 use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
-use Test::More tests => 47;
+use Test::More tests => 63;
 use Test::Exception;
 
 BEGIN {
@@ -45,8 +45,8 @@ my $greatDescription = {
    typeInstances   => [ $basename ]
   };
 
-my $oldBaseDirFunc = \&EBox::Monitor::RRDBaseDirPath;
-*EBox::Monitor::RRDBaseDirPath = sub { '/tmp/'; };
+my $oldBaseDirFunc = \&EBox::Monitor::Configuration::RRDBaseDirPath;
+*EBox::Monitor::Configuration::RRDBaseDirPath = sub { '/tmp/'; };
 
 throws_ok {
     EBox::Monitor::Measure::Base->new();
@@ -68,6 +68,7 @@ cmp_ok( $measure->{printableName}, 'eq', '');
 is_deeply( $measure->{dataSources}, ['value']);
 is_deeply( $measure->{printableLabels}, [ __('value') ]);
 cmp_ok( $measure->{type}, 'eq', 'int');
+is_deeply( $measure->{types}, [ $measure->simpleName() ]);
 cmp_ok( $measure->printableInstance(), 'eq', 'base',
         'Checking default value for printable instance without printableName neither instances');
 cmp_ok( $measure->printableDataSource(), 'eq', 'value',
@@ -102,7 +103,7 @@ foreach my $printableMethod (qw(printableInstance printableTypeInstance)) {
 }
 
 # Data set, typeInstances, printable ones bad types
-foreach my $attr (qw(dataSources instances printableLabels printableInstances printableTypeInstances printableDataSources)) {
+foreach my $attr (qw(dataSources types instances printableLabels printableInstances printableTypeInstances printableDataSources)) {
     my $badDescription = Clone::clone($greatDescription);
     $badDescription->{$attr} = 'foo';
     throws_ok {
@@ -144,7 +145,7 @@ throws_ok {
 
 # Load testing
 
-*EBox::Monitor::RRDBaseDirPath = $oldBaseDirFunc;
+*EBox::Monitor::Configuration::RRDBaseDirPath = $oldBaseDirFunc;
 
 my $load;
 lives_ok {
@@ -157,6 +158,8 @@ throws_ok {
     $load->printableTypeInstance();
 } 'EBox::Exceptions::Internal',
   'Trying to get a printable type instance from a measure which does not have any';
+
+ok( $load->enabled(), 'Load measure is enabled to collect data');
 
 # Printable label tests
 
@@ -238,8 +241,8 @@ lives_ok {
                                   start      => 'end-1year');
 } 'Fetching data from last year with day resolution';
 
-cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 105,
-       'Getting 100 value or less');
+cmp_ok(scalar(@{$returnVal->{series}->[0]->{data}}), '<=', 370,
+       'Getting 370 value or less');
 
 rmdir('/tmp/base');
 

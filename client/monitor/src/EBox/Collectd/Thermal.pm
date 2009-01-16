@@ -72,14 +72,16 @@ sub thermal_init
     }
 
     if ( $ret ) {
-        $vl_temp_template = {
+        my %vl_temp_template = (
             interval      => $interval_g,
             host          => $hostname_g,
             plugin        => 'thermal',
             type_instance => 'temperature'
-           };
-        $vl_state_template = $vl_temp_template;
-        $vl_state_template->{type_instance} = 'cooling_state';
+           );
+        my %vl_state_template = %vl_temp_template;
+        $vl_state_template{type_instance} = 'cooling_state';
+        $vl_temp_template  = \%vl_temp_template;
+        $vl_state_template = \%vl_state_template;
     }
 
     return $ret;

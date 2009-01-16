@@ -2,7 +2,7 @@
 perldir = @PERLPATH@/EBox/Monitor/Measure
 
 nobase_perl_DATA = Base.pm CPU.pm Df.pm Load.pm Manager.pm \
-		   Memory.pm
+		   Memory.pm Thermal.pm
 
 SUBDIRS = t
 

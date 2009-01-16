@@ -87,9 +87,15 @@ sub register
         throw EBox::Exceptions::InvalidType(arg => $measureToRegister,
                                             type => 'child of EBox::Monitor::Measure::Base');
     }
-    $self->{measures}->{$measureToRegister} = $measureToRegister->new();
-
-    return 1;
+    my $measureInstance = $measureToRegister->new();
+    if ( $measureInstance->enabled() ) {
+        $self->{measures}->{$measureToRegister} = $measureInstance;
+        push(@{$self->{order}}, $measureToRegister);
+        return 1;
+    } else {
+        EBox::info("$measureToRegister is not enabled to collect data");
+        return 0;
+    }
 
 }
 
@@ -106,7 +112,7 @@ sub measures
 {
     my ($self) = @_;
 
-    my @measureInstances = values(%{$self->{measures}});
+    my @measureInstances = map { $self->{measures}->{$_} } @{ $self->{order} };
     return \@measureInstances;
 }
 
@@ -156,7 +162,7 @@ sub _new
 {
     my ($class) = @_;
 
-    my $self = {measures => {}};
+    my $self = {measures => {}, order => []};
     bless($self, $class);
     return $self;
 }

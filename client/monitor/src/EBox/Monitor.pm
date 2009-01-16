@@ -51,13 +51,10 @@ use EBox::Monitor::Configuration;
 # Measures
 use EBox::Monitor::Measure::Manager;
 
-use Sys::Hostname;
-
 # Constants
 use constant COLLECTD_SERVICE    => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
 use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
-use constant RRD_BASE_DIR        => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
 
 # Method: _create
 #
@@ -407,21 +404,6 @@ sub thresholdConfigured
 
 }
 
-# Group: Public static methods
-
-# Method: RRDBaseDirPath
-#
-#      Return the RRD base directory path
-#
-# Returns:
-#
-#      String - the RRD base directory Path
-#
-sub RRDBaseDirPath
-{
-    return RRD_BASE_DIR;
-}
-
 # Group: Protected methods
 
 # Method: _stopService
@@ -512,6 +494,7 @@ sub _setupMeasures
     $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
     $self->{measureManager}->register('EBox::Monitor::Measure::Df');
     $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
+    $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
 
 }
 

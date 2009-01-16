@@ -23,16 +23,16 @@ package EBox::Monitor::Measure::Base;
 use strict;
 use warnings;
 
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
-use EBox::Monitor;
 use EBox::Monitor::Configuration;
 use EBox::Sudo;
 
 # Constants
-use constant TYPES => qw(int percentage byte grade);
+use constant TYPES => qw(int percentage byte degree);
 
 # Constructor: new
 #
@@ -185,11 +185,12 @@ sub fetchData
 
     my @returnData = map { [] } 1 .. $self->{nLines};
     my @rrds = ();
-    if (@{$self->{typeInstances}} > 0) {
-        @rrds = map { $self->{simpleName} . '-' . $_ . '.rrd' }
-          @{$self->{typeInstances}};
-    } else {
-        push(@rrds, $self->{simpleName} . '.rrd');
+    foreach my $type ( @{$self->{types}} ) {
+        if (@{$self->{typeInstances}} > 0) {
+            @rrds = map { $type . '-' . $_ . '.rrd' } @{$self->{typeInstances}};
+        } else {
+            push(@rrds, $type . '.rrd');
+        }
     }
     my $prefix = $self->{simpleName};
     if ( defined($instance) ) {
@@ -197,7 +198,7 @@ sub fetchData
     }
     @rrds = map { "$prefix/$_" } @rrds;
 
-    my $baseDir = EBox::Monitor::RRDBaseDirPath();
+    my $baseDir = EBox::Monitor::Configuration::RRDBaseDirPath();
     my $rrdIdx = 0;
     foreach my $rrdFile (@rrds) {
         # FIXME: use RRDs when it is fixed in Hardy
@@ -482,6 +483,24 @@ sub printableLabel
 
 }
 
+# Method: enabled
+#
+#      A measure may be enabled, it is able to collect data from the
+#      host
+#
+#      Default returned value is true.
+#
+# Returns:
+#
+#      true - if it is possible to collect data
+#
+#      false - otherwise
+#
+sub enabled
+{
+    return 1;
+}
+
 # Group: Class methods
 
 # Method: Types
@@ -519,6 +538,9 @@ sub Types
 #         explanation about the measure and measurement
 #         *(Optional)*
 #
+#         types - array ref the measure's types as defined by collectd
+#         *(Optional)* Default value: [ $self->simpleName ]
+#
 #         dataSources - array ref the data name for each CDP (consolidated
 #         data point) *(Optional)* Default value: [ 'value' ]
 #
@@ -548,7 +570,7 @@ sub Types
 #         name indexed by type instance. *(Optional)*
 #
 #         type - String the measure's gauge type. Possible values:
-#         int, grade, percentage and byte
+#         int, degree, percentage and byte
 #         *(Optional)* Default value: 'int'
 #
 #
@@ -583,7 +605,6 @@ sub _setDescription
     $self->{name} = ref( $self );
     ($self->{simpleName}) = $self->{name} =~ m/.*::(.*?)$/g;
     $self->{simpleName} = lc($self->{simpleName});
-    my $prefix = $self->{simpleName};
     $self->{help} = exists($description->{help}) ? $description->{help} : '';
     $self->{printableName} =
       exists($description->{printableName}) ? $description->{printableName} : '';
@@ -603,7 +624,8 @@ sub _setDescription
         $self->{printableLabels} = $description->{printableLabels};
     }
 
-    my $baseDir = EBox::Monitor->RRDBaseDirPath();
+    my $baseDir = EBox::Monitor::Configuration->RRDBaseDirPath();
+    my $prefix = $self->{simpleName};
     $self->{instances} = [];
     if ( exists($description->{instances}) ) {
         unless ( ref($description->{instances}) eq 'ARRAY' ) {
@@ -624,6 +646,14 @@ sub _setDescription
         }
     }
 
+    $self->{types} = [ $self->simpleName() ];
+    if ( exists($description->{types}) ) {
+        unless( ref($description->{types}) eq 'ARRAY' ) {
+            throw EBox::Exceptions::InvalidType($description->{types}, 'array ref');
+        }
+        $self->{types} = \@{$description->{types}};
+    }
+
     $self->{typeInstances} = [];
     if ( exists($description->{typeInstances}) ) {
         unless ( ref($description->{typeInstances}) eq 'ARRAY' ) {
@@ -633,16 +663,20 @@ sub _setDescription
             if (@{$self->{instances}}) {
                 foreach my $instance (@{$self->{instances}}) {
                     my $instanceDir = "${baseDir}${prefix}-${instance}/";
-                    my $rrdPath = "${instanceDir}${prefix}-${typeInstance}.rrd";
-                    unless ( -f $rrdPath ) {
-                        throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                    foreach my $type ( @{$self->{types}} ) {
+                        my $rrdPath = "${instanceDir}${type}-${typeInstance}.rrd";
+                        unless ( -f $rrdPath ) {
+                            throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                        }
                     }
                 }
             } else {
                 # Testing against the prefix
-                my $rrdPath = "$baseDir$prefix/${prefix}-${typeInstance}.rrd";
-                unless ( -f $rrdPath ) {
-                    throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                foreach my $type ( @{$self->{types}} ) {
+                    my $rrdPath = "$baseDir$prefix/${type}-${typeInstance}.rrd";
+                    unless ( -f $rrdPath ) {
+                        throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                    }
                 }
             }
             push(@{$self->{typeInstances}}, $typeInstance);
@@ -650,14 +684,18 @@ sub _setDescription
     } else {
         if (@{$self->{instances}}) {
             foreach my $instance (@{$self->{instances}}) {
-                my $rrdPath = "${baseDir}${prefix}-$instance/${prefix}.rrd";
-                unless (-f $rrdPath) {
-                    throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                foreach my $type ( @{$self->{types}} ) {
+                    my $rrdPath = "${baseDir}${prefix}-$instance/${type}.rrd";
+                    unless (-f $rrdPath) {
+                        throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
+                    }
                 }
             }
         } else {
-            unless ( -f "${baseDir}${prefix}/${prefix}.rrd" ) {
-                throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
+            foreach my $type (@{$self->{types}}) {
+                unless ( -f "${baseDir}${prefix}/${type}.rrd" ) {
+                    throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
+                }
             }
         }
     }
