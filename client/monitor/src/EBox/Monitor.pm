@@ -31,7 +31,8 @@ package EBox::Monitor;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider
+use base qw(EBox::GConfModule
+            EBox::Model::ModelProvider
             EBox::ServiceModule::ServiceInterface);
 
 use EBox::Config;
@@ -50,6 +51,9 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Monitor::Configuration;
 # Measures
 use EBox::Monitor::Measure::Manager;
+
+# Core modules
+use Error qw(:try);
 
 # Constants
 use constant COLLECTD_SERVICE    => 'ebox.collectd';
@@ -72,6 +76,7 @@ sub _create
     bless($self, $class);
 
     $self->_setupMeasures();
+
     return $self;
 }
 
@@ -155,17 +160,6 @@ sub enableActions
 sub serviceModuleName
 {
     return 'monitor';
-}
-
-# Method: isRunning
-#
-# Overrides:
-#
-#       <EBox::ServiceModule::ServiceInterface::isRunning>
-#
-sub isRunning
-{
-    return EBox::Service::running(COLLECTD_SERVICE);
 }
 
 # Method: statusSummary
@@ -406,20 +400,9 @@ sub thresholdConfigured
 
 # Group: Protected methods
 
-# Method: _stopService
-#
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-{
-    EBox::Service::manage(COLLECTD_SERVICE, 'stop');
-}
-
 # Method: _regenConfig
 #
-#      It regenertates the monitor service configuration
+#      It regenerates the monitor service configuration
 #
 # Overrides:
 #
@@ -431,8 +414,25 @@ sub _regenConfig
 
     $self->_setDirs();
     $self->_setMonitorConf();
-    $self->_doDaemon();
+    $self->_enforceServiceState();
 
+}
+
+# Method: _daemons
+#
+#      Services manages by monitor module
+#
+# Overrides:
+#
+#      <EBox::ServiceModule::ServiceInterface::_daemons>
+#
+sub _daemons
+{
+    return [
+        {
+            name => COLLECTD_SERVICE,
+        },
+    ];
 }
 
 # Group: Private methods
@@ -460,26 +460,10 @@ sub _setMonitorConf
 {
     my ($self) = @_;
 
-    # Order is important, don't swap procedure calls :D
-    $self->_setThresholdConf();
-    $self->_setMainConf();
-
-}
-
-# Method: _doDaemon
-#
-#    Set status for collectd daemon
-#
-sub _doDaemon
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled() and $self->isRunning()) {
-        EBox::Service::manage(COLLECTD_SERVICE,'restart');
-    } elsif ($self->isEnabled()) {
-        EBox::Service::manage(COLLECTD_SERVICE,'start');
-    } elsif (not $self->isEnabled() and $self->isRunning()) {
-        EBox::Service::manage(COLLECTD_SERVICE,'stop');
+    if ( $self->isEnabled() ) {
+        # Order is important, don't swap procedure calls :D
+        $self->_setThresholdConf();
+        $self->_setMainConf();
     }
 
 }
@@ -489,12 +473,17 @@ sub _setupMeasures
 {
     my ($self) = @_;
 
-    $self->{measureManager} = EBox::Monitor::Measure::Manager->Instance();
-    $self->{measureManager}->register('EBox::Monitor::Measure::Load');
-    $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
-    $self->{measureManager}->register('EBox::Monitor::Measure::Df');
-    $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
-    $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
+    try {
+        $self->{measureManager} = EBox::Monitor::Measure::Manager->Instance();
+        $self->{measureManager}->register('EBox::Monitor::Measure::Load');
+        $self->{measureManager}->register('EBox::Monitor::Measure::CPU');
+        $self->{measureManager}->register('EBox::Monitor::Measure::Df');
+        $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
+        $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
+    } catch EBox::Exceptions::Internal with {
+        # Catch exceptions since it is possible that the monitor
+        # module has never been configured (enable once)
+    };
 
 }
 
