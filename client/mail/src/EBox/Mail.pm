@@ -109,23 +109,25 @@ sub actions
 {
     return [
             {
-              'action' => __('Add postfix to sasl group'),
-              'reason' => __('To allow postfix to connect with saslauthd via ' .
-                  'unix socket'),
+              'action' => __x('Add {user} to {group} group',
+                             user => 'postfix', group => 'sasl'),
+              'reason' => __x('To allow {daemon} to connect with {otherDaemon} via ' .
+                              'unix socket',
+                              daemon => 'Postfix', otherDaemon => 'saslauthd'),
               'module' => 'mail'
             },
             {
               'action' => __('Generate mail aliases'),
               'reason' =>
-                __('eBox will execute /usr/sbin/postalias /etc/aliases '),
+                __x('eBox will execute {cmd}' cmd => '/usr/sbin/postalias /etc/aliases'),
               'module' => 'mail'
             },
             {
               'action' => __('Add LDAP schemas'),
-              'reason' => __(
-                          'eBox will add two LDAP schemas: authldap.schema and '
-                            .'eboximail.schema.'
-              ),
+              'reason' => __x(
+                          'eBox will add two LDAP schemas: {schema1} and {schema2}.',
+                          schema1 => 'authldap.schema', schema2 => 'eboximail.schema'
+                         ),
               'module' => 'mail'
             },
     ];
@@ -574,7 +576,7 @@ sub externalFilter
 sub _assureCustomFilter
 {
     my ($self) = @_;
-    if ($self->externalFilter ne 'custom') {
+    if ($self->externalFilter() ne 'custom') {
         throw EBox::Exceptions::External(
                     __('Cannot change this parameter for a non-custom filter'));
     }
@@ -617,8 +619,9 @@ sub _assureFilterIsActive
 
     if (not $filters_r->{$name}->{active}) {
         throw EBox::Exceptions::External(
-            __(
-'The mail filter $name is not active. Please set another mail filter or disable it'
+            __x(
+'The mail filter {name} is not active. Please set another mail filter or disable it',
+name => $name
             )
         );
     }
