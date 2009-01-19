@@ -125,12 +125,12 @@ sub usage
   $0  --help
   
   Options:
-    --config-backup (default backuo mode)
+    --config-backup (default backup mode)
     --full-backup
     --bug-report
 
-    --description
-
+    --description <description>
+    --remote-backup <name>
     --progress-id (only needed for web framework)
 END
 }
