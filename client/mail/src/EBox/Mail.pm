@@ -119,7 +119,7 @@ sub actions
             {
               'action' => __('Generate mail aliases'),
               'reason' =>
-                __x('eBox will execute {cmd}' cmd => '/usr/sbin/postalias /etc/aliases'),
+                __x('eBox will execute {cmd}', cmd => '/usr/sbin/postalias /etc/aliases'),
               'module' => 'mail'
             },
             {
