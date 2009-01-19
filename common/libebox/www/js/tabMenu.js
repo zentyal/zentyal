@@ -308,22 +308,24 @@ EBox.Tabs.prototype = {
   */
   _setAdditionalParams : function() {
 
-    for(var idx=0; idx < this.modelAttrs[this.activeTab.id].additionalParams.length; idx++) {
-      var param = this.modelAttrs[this.activeTab.id].additionalParams[idx];
-      var input = $('tableForm')[param.name];
-      if ( input ) {
-        // Input is defined
-        input.setAttribute('value', param.value);
-      } else {
-        // Create the input
-        var dirInput = document.createElement('input');
-        dirInput.setAttribute('name', param.name);
-        dirInput.setAttribute('type', 'hidden');
-        dirInput.setAttribute('value', param.value);
-        $('tableForm').appendChild(dirInput);
-      }
-    } 
-
+    // Check if additionalParams is defined
+    if ( this.modelAttrs[this.activeTab.id].additionalParams ) {
+      for(var idx=0; idx < this.modelAttrs[this.activeTab.id].additionalParams.length; idx++) {
+        var param = this.modelAttrs[this.activeTab.id].additionalParams[idx];
+        var input = $('tableForm')[param.name];
+        if ( input ) {
+          // Input is defined
+          input.setAttribute('value', param.value);
+        } else {
+          // Create the input
+          var dirInput = document.createElement('input');
+          dirInput.setAttribute('name', param.name);
+          dirInput.setAttribute('type', 'hidden');
+          dirInput.setAttribute('value', param.value);
+          $('tableForm').appendChild(dirInput);
+        }
+      } 
+    }
   }
     
 }
