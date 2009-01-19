@@ -106,6 +106,10 @@ sub serviceModuleName
 	return 'events';
 }
 
+sub _daemons
+{
+    return [ { 'name' => SERVICE } ];
+}
 
 # Method: _regenConfig
 #
@@ -121,38 +125,16 @@ sub serviceModuleName
 #       dispatcher are enabled
 #
 sub _regenConfig
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      unless ( $self->isReadOnly() ) {
-          # Do the movements to make EventDaemon notice to work
-          $self->_submitEventElements();
-      }
-
-      # Check for admin dumbness, it can throw an exception
-      if ( $self->_adminDumbness() ) {
-          $self->_stopService();
-          return;
-      }
-
-      $self->_doDaemon();
-
-  }
-
-# Method: _stopService
-#
-#        Stop the event service
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-  {
-
-      EBox::Service::manage(SERVICE, 'stop');
-
-  }
+    unless ( $self->isReadOnly() ) {
+    # Do the movements to make EventDaemon notice to work
+        $self->_submitEventElements();
+    }
+    $self->_enforceServiceState();
+}
 
 # Group: Public methods
 
