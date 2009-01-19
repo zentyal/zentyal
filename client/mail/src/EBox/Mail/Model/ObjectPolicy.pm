@@ -97,8 +97,8 @@ sub _table
          editable      => 1,
          defaultValue  => 1,
          help          => __('Tick this to allow the machines within the ' .
-                             'above object to send mails through this ' . 
-                             ' server.'),
+                             'above object to send mails through this ' .
+                             'server.'),
          ),
     );
 
@@ -118,7 +118,7 @@ sub _table
      order              => 0,
      rowUnique          => 1,
      printableRowName   => __("object's relay policy"),
-     help               => __("Here you can allow mail relay per network object"),
+     help               => __("You may allow mail relay per network object"),
     };
 
 }

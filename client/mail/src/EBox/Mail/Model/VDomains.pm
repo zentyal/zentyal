@@ -80,8 +80,8 @@ sub _table
                         'help' => '',
                         'printableRowName' => __('virtual domain'),
                         'sortedBy' => 'vdomain',
-                        'messages' => { add => __('Virtual domain added.' .
-                                'You need to save changes to use this domain')
+                        'messages' => { add => __('Virtual domain added. ' .
+                                'You must save changes to use this domain')
                             },
                 };
 
@@ -110,7 +110,7 @@ sub precondition
 #       <EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-        return __('You must enable the module mail in the module ' .
+        return __('You must enable the mail module in module ' .
                   'status section in order to use it.');
 }
 
