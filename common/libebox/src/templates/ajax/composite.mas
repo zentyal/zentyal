@@ -31,17 +31,14 @@
 <div class="help">
   <% $model->help() %>
 </div>
-<strong>Directory before switch: <% $model->directory() %> </strong>
 %    }
 %    if ( $model->layout() eq 'tabbed' )
 %    {
-<strong>Directory before call: <% $model->directory() %> </strong>
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
-   directory  => $model->directory(),
 &>
 %    }
 %    elsif ( $model->layout() eq 'top-bottom' )
