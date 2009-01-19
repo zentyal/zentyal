@@ -47,7 +47,7 @@ use constant EBOX_SHARE_DIR => EBox::SambaLdapUser::basePath() . '/shares/';
 
 # Constructor: new
 #
-#     Create the new Samba shares table
+#     Create the new deleted Samba shares table
 #
 # Overrides:
 #
@@ -55,7 +55,7 @@ use constant EBOX_SHARE_DIR => EBox::SambaLdapUser::basePath() . '/shares/';
 #
 # Returns:
 #
-#     <EBox::Samba::Model::SambaShares> - the newly created object
+#     <EBox::Samba::Model::DeletedSambaShares> - the newly created object
 #     instance
 #
 sub new
@@ -119,13 +119,13 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'DeletedSambaShares',
-                     printableTableName => __('Deleted Samba shares'),
+                     printableTableName => 'Deleted Samba shares',
                      modelDomain        => 'Samba',
                      defaultActions     => [ 'add', 'del', 
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',
-                     help               => __('Todo'),
+                     help               => '',
                      printableRowName   => __('share'),
                     };
 

@@ -149,7 +149,7 @@ sub _table
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',
-                     help               => __('Todo'),
+                     help               => '',
                      printableRowName   => __('share'),
                      insertPosition     => 'back',
                     };
