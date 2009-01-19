@@ -35,7 +35,7 @@ Flotr.draw(
     }],
     {
         xaxis: { noTicks: 0 },
-        yaxis: { noTicks: 2, tickFormatter: getHumanSize },
+        yaxis: { noTicks: 2, tickFormatter: getBytes },
     }
 );
 </script>
