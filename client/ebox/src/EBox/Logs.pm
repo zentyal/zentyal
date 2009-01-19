@@ -469,17 +469,6 @@ sub search {
                      'arrayret' => [],
                };
     }
-    
-    $self->_addSelect('COUNT(*)');
-        my @count = @{$dbengine->query($self->_sqlStmnt())};
-    my $tcount = $count[0]{'count'};
-    
-    # Do not go on if you don't have any result
-    if ( $tcount == 0 ) {
-        return { 'totalret' => $tcount,
-                     'arrayret' => [],
-               };
-    }
 
     my $tpages = ceil($tcount / $pagesize) - 1;
     

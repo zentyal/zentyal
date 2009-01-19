@@ -388,9 +388,10 @@ sub daemon_type
 #
 # Returns:
 #
-#   An array of hashes containing keys 'name' and 'type', 'name' being the
-#   name of the service and 'type' either 'upstart' or 'init.d', depending
-#   on how the module should be managed.
+#   An array of hashes containing keys 'name' and 'type', 'name' being
+#   the name of the service and 'type' either 'upstart' or 'init.d',
+#   depending on how the module should be managed. 'upstart' is
+#   assumed if 'type' key is not present.
 #
 #   If the type is 'init.d' an extra 'pidfile' key is needed with the path
 #   to the pidfile the daemon uses. This will be used to check the status.
@@ -404,7 +405,7 @@ sub daemon_type
 #   sub externalConnection
 #   {
 #     my ($self) = @_;
-#     return $self->isExternal;
+#     return $self->isExternal();
 #   }
 #
 #   sub _daemons

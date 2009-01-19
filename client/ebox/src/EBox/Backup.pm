@@ -620,12 +620,13 @@ sub prepareMakeBackup
 {
   my ($self, %options) = @_;
 
-  # make sure description and name is escaped
-  $options{description} = q{'} . $options{description} . q{'};
+  my $scriptParams = '';
+
   if ( $options{remoteBackup} ) {
-      $options{remoteBackup} = q{'} . $options{remoteBackup} . q{'};
+      $scriptParams .= ' --remote-backup ';
+      # Make sure remote backup name is scaped
+      $scriptParams .= q{'} . $options{remoteBackup} . q{'};
   }
-  my @scriptParams = %options;
 
   if (exists $options{description}) {
       $scriptParams .= ' --description ';
@@ -633,29 +634,25 @@ sub prepareMakeBackup
       $scriptParams .= q{'} . $options{description} . q{'};
   }
 
-
   if ($options{fullBackup}) {
       $scriptParams .= ' --full-backup';
   }
   else {
       $scriptParams .= ' --config-backup';
   }
-  
 
   if ($options{bug}) {
       $scriptParams .= ' --bug-report';
   }
 
-
   my $makeBackupScript = EBox::Config::pkgdata() . 'ebox-make-backup';
   $makeBackupScript    .=  $scriptParams;
-  
+
   my $global     = EBox::Global->getInstance();
-  my $totalTicks = scalar @{ $global->modNames } + 2; # there are one task for
+  my $totalTicks = scalar @{ $global->modNames() } + 2; # there are one task for
                                                       # each module plus two
                                                       # tasks for writing the
                                                       # archive  file
-           
 
   my @progressIndicatorParams = (
                              executable => $makeBackupScript,
@@ -691,9 +688,9 @@ sub prepareMakeBackup
 #         - path to the new backup archive
 #
 # Exceptions:
-#       
+#
 #       Internal - If backup fails
-#       Exteanl   - If modules have unsaved changes
+#       External - If modules have unsaved changes
 sub makeBackup # (options) 
 {
   my ($self, %options) = @_;

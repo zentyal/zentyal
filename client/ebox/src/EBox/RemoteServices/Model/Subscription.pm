@@ -202,9 +202,13 @@ sub eBoxSubscribed
 sub precondition
 {
     my $global = EBox::Global->getInstance();
-    my $vpn = $global->modInstance('openvpn');
-    return (not $global->modIsChanged('openvpn')
-            and $vpn->isEnabled());
+    if ( $global->modExists('openvpn') ) {
+        my $vpn = $global->modInstance('openvpn');
+        return (not $global->modIsChanged('openvpn')
+                  and $vpn->isEnabled());
+    } else {
+        return 0;
+    }
 }
 
 # Method: preconditionFailMsg

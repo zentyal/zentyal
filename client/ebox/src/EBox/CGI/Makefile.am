@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CGI
 
 nobase_perl_DATA = ClientBase.pm ClientRawBase.pm Finish.pm Progress.pm ProgressClient.pm Temp.pm
 
-SUBDIRS = Dashboard EBox Login Logout Logs Summary Controller View Report RemoteServices ServiceModule
+SUBDIRS = Dashboard EBox Login Logout Logs Controller View Report RemoteServices ServiceModule
 
 SOURCES = $(nobase_perl_DATA)
 
