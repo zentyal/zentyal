@@ -541,6 +541,16 @@ sub _enforceServiceState
     }
 }
 
+# Method: _supportsActions
+# 
+#   This method determines if the service will have a button to start/restart
+#   it in the module status widget. By default services will have the button
+#   unless this method is overriden to return undef
+sub _supportsActions
+{
+    return 1;
+}
+
 sub _gconfModule
 {
     my ($self) = @_;

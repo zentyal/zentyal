@@ -1999,6 +1999,17 @@ sub _multigwRoutes
 
 }
 
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
+
+sub _supportsActions
+{
+    return undef;
+}
+
 # Method: _regenConfig
 #       
 #       Overrides base method. It regenertates the network  configuration.
