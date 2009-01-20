@@ -112,6 +112,10 @@ sub processesWidget
 #
 #   Overriden method that returns the widgets offered by this module
 #
+# Overrides:
+#
+#       <EBox::Module::widgets>
+#
 sub widgets
 {
     return {
@@ -126,7 +130,7 @@ sub widgets
             'default' => 1
         },
         'processes' => {
-            'title' => __("Processes' list"),
+            'title' => __("Process' list"),
             'widget' => \&processesWidget
         },
     };
