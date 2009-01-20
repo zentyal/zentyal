@@ -267,14 +267,17 @@ sub _regenConfig
     my ($self) = @_;
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
-    return unless ($self->isEnabled());
-    $ipt->start();
+    if($self->isEnabled()) {
+        $ipt->start();
+    } else {
+        $ipt->stop();
+    }
 }
 
 sub _stopService
 {
     my ($self) = @_;
-    
+
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
     $ipt->stop();
