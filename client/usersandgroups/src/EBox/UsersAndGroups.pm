@@ -1523,10 +1523,28 @@ sub allWarnings
     return \@allWarns;
 }
 
+# Method: isRunning
+#
+#       Overrides EBox::ServiceModule::ServiceInterface method.
+#
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
+
+# Method: _supportsActions
+#
+#       Overrides EBox::ServiceModule::ServiceInterface method.
+#
+sub _supportsActions
+{
+    return undef;
+}
+
 # Method: menu 
 #
 #       Overrides EBox::Module method.
-#   
 #
 sub menu
 {
