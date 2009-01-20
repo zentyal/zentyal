@@ -172,6 +172,7 @@ sub _table
                                                . 'currently configured'),
                        printableRowName   => __('static route'),
                        sortedBy           => 'gateway',
+                       index              => 'network',
                      };
 
       return $dataTable;
