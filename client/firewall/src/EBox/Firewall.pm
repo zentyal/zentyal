@@ -251,20 +251,33 @@ sub _checkAction # (action, name?)
 
 
 ## api functions
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
+
+sub _supportsActions
+{
+    return undef;
+}
 
 sub _regenConfig
 {
     my ($self) = @_;
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
-    return unless ($self->isEnabled());
-    $ipt->start();
+    if($self->isEnabled()) {
+        $ipt->start();
+    } else {
+        $ipt->stop();
+    }
 }
 
 sub _stopService
 {
     my ($self) = @_;
-    
+
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
     $ipt->stop();

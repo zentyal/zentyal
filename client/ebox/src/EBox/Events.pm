@@ -106,6 +106,10 @@ sub serviceModuleName
 	return 'events';
 }
 
+sub _daemons
+{
+    return [ { 'name' => SERVICE } ];
+}
 
 # Method: _regenConfig
 #
@@ -121,38 +125,21 @@ sub serviceModuleName
 #       dispatcher are enabled
 #
 sub _regenConfig
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      unless ( $self->isReadOnly() ) {
-          # Do the movements to make EventDaemon notice to work
-          $self->_submitEventElements();
-      }
-
-      # Check for admin dumbness, it can throw an exception
-      if ( $self->_adminDumbness() ) {
-          $self->_stopService();
-          return;
-      }
-
-      $self->_doDaemon();
-
-  }
-
-# Method: _stopService
-#
-#        Stop the event service
-# Overrides:
-#
-#       <EBox::Module::_stopService>
-#
-sub _stopService
-  {
-
-      EBox::Service::manage(SERVICE, 'stop');
-
-  }
+    unless ( $self->isReadOnly() ) {
+    # Do the movements to make EventDaemon notice to work
+        $self->_submitEventElements();
+    }
+    # Check for admin dumbness, it can throw an exception
+    if ( $self->_adminDumbness() ) {
+        $self->_stopService();
+        return;
+    }
+    $self->_enforceServiceState();
+}
 
 # Group: Public methods
 
@@ -420,21 +407,6 @@ sub enableEventElement # ($className, $enabled)
   }
 
 # Group: Private methods
-
-sub _doDaemon
-  {
-
-      my ($self) = @_;
-
-      if ( $self->running() and $self->service() ) {
-          EBox::Service::manage(SERVICE, 'restart');
-      } elsif ( $self->service() ) {
-          EBox::Service::manage(SERVICE, 'start');
-      } else {
-          EBox::Service::manage(SERVICE, 'stop');
-      }
-
-  }
 
 # Check if at least one watcher and one dispatcher are enabled
 sub _adminDumbness

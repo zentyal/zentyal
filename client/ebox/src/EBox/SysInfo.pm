@@ -67,7 +67,7 @@ sub modulesWidget
         my $modPrintName = ucfirst($class->printableName());
         my $enabled = $class->isEnabled();
         my $running = $class->isRunning();
-        $section->add(new EBox::Dashboard::ModuleStatus($modName, $modPrintName, $enabled, $running));
+        $section->add(new EBox::Dashboard::ModuleStatus($modName, $modPrintName, $enabled, $running, not $class->_supportsActions()));
     }
 }
 
