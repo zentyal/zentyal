@@ -68,6 +68,7 @@ sub _description
         } else {
             my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
             $mountPoint =~ s:/:-:g;
+            $mountPoint = substr($mountPoint, 1);
             push(@typeInstances, $mountPoint);
         }
         push(@printableLabels, __x('free in {partition}',
