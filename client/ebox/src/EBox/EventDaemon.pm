@@ -253,7 +253,6 @@ sub _mainDispatcherLoop
         my @ready = $select->can_read(SCANNING_INTERVAL);
         foreach my $fh (@ready) {
             my $data = readline($fh);
-            EBox::debug("Read from a filehandle: $data");
             my $event;
             {
                 no strict 'vars'; $event = eval $data;
