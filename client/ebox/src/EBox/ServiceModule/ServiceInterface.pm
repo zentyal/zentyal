@@ -238,7 +238,7 @@ sub isEnabled
         throw EBox::Exceptions::Internal(
             "EBox::ServiceModule::ServiceInterface::isEnabled() must be " .
             " overriden or " .
-            " EBox::Serice::Module::ServiceInterface::serviceModuleName must " .
+            " EBox::Service::Module::ServiceInterface::serviceModuleName must " .
             " return a valid gconf module");
     }
 
