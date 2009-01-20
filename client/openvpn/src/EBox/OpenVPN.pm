@@ -15,11 +15,14 @@
 
 package EBox::OpenVPN;
 use base qw(
-             EBox::GConfModule  EBox::ServiceModule::ServiceInterface
-             EBox::Model::ModelProvider  EBox::Model::CompositeProvider
-           EBox::NetworkObserver  EBox::LogObserver
-           EBox::FirewallObserver EBox::CA::Observer
-           EBox::ServiceModule::ServiceInterface);
+             EBox::GConfModule
+             EBox::Model::ModelProvider
+             EBox::Model::CompositeProvider
+             EBox::NetworkObserver
+             EBox::LogObserver
+             EBox::FirewallObserver
+             EBox::CA::Observer
+             EBox::ServiceModule::ServiceInterface);
 
 use strict;
 use warnings;
@@ -1532,10 +1535,16 @@ sub openVPNDaemonsWidget
     }
 }
 
+# Method: widgets
+#
+# Overrides:
+#
+#      <EBox::Module::widgets>
+#
 sub widgets
 {
     my ($self) = @_;
-    my $openvpns = $self->daemonsNames();
+    my @openvpns = $self->daemons();
 
     my $widgets = {
         'openvpndaemons' => {
@@ -1544,13 +1553,15 @@ sub widgets
             'default' => 1
         }
     };
-    foreach my $ovpn (@{$openvpns}) {
-        my $widget = {
-            'title' => $ovpn,
-            'widget' => \&openVPNWidget,
-            'parameter' => $ovpn
-        };
-        $widgets->{'vpn' . $ovpn} = $widget;
+    foreach my $ovpn (@openvpns) {
+        unless ( $ovpn->internal() ) {
+            my $widget = {
+                'title' => $ovpn->name(),
+                'widget' => \&openVPNWidget,
+                'parameter' => $ovpn->name()
+               };
+            $widgets->{'vpn' . $ovpn->name()} = $widget;
+        }
     }
     return $widgets;
 }
