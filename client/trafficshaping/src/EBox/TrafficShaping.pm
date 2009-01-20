@@ -159,6 +159,18 @@ sub enableModDepends
     return ['network'];
 }
 
+# Method: isRunning
+#
+# Overrides:
+#
+#       <EBox::ServiceModule::ServiceInterface::isRunning>
+#
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
+
 # Method: _regenConfig
 #
 # Overrides:

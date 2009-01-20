@@ -449,6 +449,23 @@ sub setAutomaticUpdates # (auto)
 	$self->set_bool('automatic', $auto);
 }
 
+# Method: _supportsActions
+#
+#       Overrides EBox::ServiceModule::ServiceInterface method.
+sub _supportsActions
+{
+    return undef;
+}
+
+# Method: isRunning
+#
+#       Overrides EBox::ServiceModule::ServiceInterface method.
+#
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
 
 # Method: menu
 #

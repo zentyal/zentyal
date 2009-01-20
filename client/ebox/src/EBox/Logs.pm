@@ -97,24 +97,21 @@ sub serviceModuleName
     return 'logs';
 }
 
+sub _daemons
+{
+    return [
+        {
+            'name' => LOG_DAEMON
+        }
+    ];
+}
 
 sub _regenConfig
 {
     my ($self) = @_;
         
     $self->_saveEnabledLogsModules();
-    _stopService();
-
-    return unless ($self->isEnabled());
-
-    EBox::Service::manage(LOG_DAEMON, 'start');
-}
-
-sub _stopService
-{
-    if (EBox::Service::running(LOG_DAEMON)) {
-        EBox::Service::manage(LOG_DAEMON, 'stop');
-    }
+    $self->_enforceServiceState();
 }
 
 sub cleanup 
@@ -123,14 +120,7 @@ sub cleanup
     $self->SUPER::revokeConfig();
 }
 
-#       Module API      
-
-
-
-
-
-
-
+#       Module API
 sub modelClasses
 {
     return [
