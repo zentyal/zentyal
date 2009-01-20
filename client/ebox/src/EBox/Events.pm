@@ -133,6 +133,11 @@ sub _regenConfig
     # Do the movements to make EventDaemon notice to work
         $self->_submitEventElements();
     }
+    # Check for admin dumbness, it can throw an exception
+    if ( $self->_adminDumbness() ) {
+        $self->_stopService();
+        return;
+    }
     $self->_enforceServiceState();
 }
 
@@ -402,21 +407,6 @@ sub enableEventElement # ($className, $enabled)
   }
 
 # Group: Private methods
-
-sub _doDaemon
-  {
-
-      my ($self) = @_;
-
-      if ( $self->running() and $self->service() ) {
-          EBox::Service::manage(SERVICE, 'restart');
-      } elsif ( $self->service() ) {
-          EBox::Service::manage(SERVICE, 'start');
-      } else {
-          EBox::Service::manage(SERVICE, 'stop');
-      }
-
-  }
 
 # Check if at least one watcher and one dispatcher are enabled
 sub _adminDumbness
