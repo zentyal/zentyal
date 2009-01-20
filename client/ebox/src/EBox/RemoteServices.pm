@@ -287,9 +287,11 @@ sub _confSOAPService
             mkdir(CA_DIR);
         }
         my $caLinkPath = $self->_caLinkPath();
-        unless ( -l $caLinkPath ) {
-            symlink($self->_caCertPath(), $caLinkPath );
+        if ( -l $caLinkPath ) {
+            unlink($caLinkPath);
         }
+        symlink($self->_caCertPath(), $caLinkPath );
+
         $apacheMod->addInclude($confFile);
     } else {
         unlink($confFile);
