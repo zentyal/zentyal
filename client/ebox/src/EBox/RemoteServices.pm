@@ -36,6 +36,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::RemoteServices::Auth;
 use EBox::RemoteServices::Subscription;
 use EBox::Sudo;
 
@@ -102,6 +103,7 @@ sub _regenConfig
       my ($self) = @_;
 
       $self->_confSOAPService();
+      $self->_establishVPNConnection();
       $self->_doDaemon();
 
       return;
@@ -307,6 +309,18 @@ sub _confSOAPService
         };
     }
     $apacheMod->save();
+
+}
+
+# Assure the VPN connection with our VPN servers is established
+sub _establishVPNConnection
+{
+    my ($self) = @_;
+
+    if ( $self->eBoxSubscribed() ) {
+        my $authConnection = new EBox::RemoteServices::Auth();
+        $authConnection->connection();
+    }
 
 }
 

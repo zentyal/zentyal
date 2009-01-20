@@ -45,8 +45,6 @@ sub new
 
     my $self = $class->SUPER::new();
 
-    $self->{rs} = EBox::Global->modInstance('remoteservices');
-
     # Merge self with the certs
     my %certificates = %{$self->_certificates()};
     while ( my ($key, $value) = each(%certificates)) {
@@ -416,12 +414,18 @@ sub _vpnClientforServices
 sub _cn
 {
     my ($self) = @_;
+    unless ( defined($self->{rs}) ) {
+        $self->{rs} = EBox::Global->modInstance('remoteservices');
+    }
     return $self->{rs}->eBoxCommonName();
 }
 
 sub _userName
 {
     my ($self) = @_;
+    unless ( defined($self->{rs}) ) {
+        $self->{rs} = EBox::Global->modInstance('remoteservices');
+    }
     return $self->{rs}->subscriberUsername();
 }
 

@@ -58,7 +58,10 @@ sub new
 
 # Method: connection
 #
-#     Accessor to the connection among server and client
+#     Accessor to the connection among server and client.
+#
+#     It establishes the connection (service-oriented one) if it is
+#     not ready yet
 #
 # Returns:
 #
