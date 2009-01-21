@@ -37,6 +37,7 @@ use EBox::Types::Boolean;
 
 # Dependencies
 use Clone;
+use Encode;
 use Error qw(:try);
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
@@ -4247,6 +4248,40 @@ sub _setIfVolatile
     }
     $self->{volatile} = 1;
 
+}
+
+sub _parse_words
+{
+    my ($str) = @_;
+    my @w = ();
+    if(defined($str)) {
+        Encode::_utf8_on($str);
+        @w = split('\W+', lc($str));
+        use Data::Dumper;
+        EBox::debug(Dumper(\@w));
+    }
+    return @w;
+}
+
+sub keywords
+{
+    my ($self) = @_;
+
+    my @words = ();
+
+    push(@words, _parse_words($self->pageTitle()));
+    push(@words, _parse_words($self->headTitle()));
+    push(@words, _parse_words($self->printableName()));
+    push(@words, _parse_words($self->printableModelName()));
+    push(@words, _parse_words($self->printableRowName()));
+    push(@words, _parse_words($self->help()));
+
+    for my $fieldName (@{$self->fields()}) {
+        my $field = $self->fieldHeader($fieldName);
+        push(@words, _parse_words($field->printableName()));
+        push(@words, _parse_words($field->help()));
+    }
+    return \@words;
 }
 
 1;

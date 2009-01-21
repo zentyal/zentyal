@@ -876,4 +876,12 @@ sub _setDefaultActions
 
   }
 
+sub keywords
+{
+    my ($self) = @_;
+    #get the keywords from every component plus own ones and flatten them into
+    #an array
+    return [@{$self->SUPER::keywords()}, map { @{$_->keywords()} } @{$self->components()}];
+}
+
 1;

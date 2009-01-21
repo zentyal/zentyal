@@ -53,16 +53,17 @@ sub html
 
 	(length($text) == 0) and return $html;
 
-	my $idcurrent = "";
+	my $class = "";
 	if ($current eq $url) {
-		$idcurrent="id='currentmenuentry'";
+		$class = "current ";
 	}
-
 	if (defined($self->{style})) {
-		$html .= "<li $idcurrent class='$self->{style}'>\n";
-	} else {
-		$html .= "<li $idcurrent>\n";
-	}
+		$class .= $self->{style};
+    }
+    if($class) {
+        $class = "class='$class'";
+    }
+	$html .= "<li id='" . $self->{id} . "' $class>\n";
 
 	$html .= qq{<a title="$text" href="/ebox/$url" class="navc" }
 		 . qq{ target="_parent">$text</a>\n};

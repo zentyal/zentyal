@@ -49,9 +49,9 @@ sub html
 	(scalar(@{$self->items()}) == 0) and return;
 
 	if (defined($self->{style})) {
-		$html .= "<li class='$self->{style}'>\n";
+		$html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
 	} else {
-		$html .= "<li>\n";
+		$html .= "<li id='" . $self->{id} . "'>\n";
 	}
 
 	if (defined($url)) {

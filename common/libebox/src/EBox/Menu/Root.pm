@@ -28,6 +28,7 @@ sub new
 	my %opts = @_;
 	my $self = $class->SUPER::new(@_);
 	$self->{'current'} = delete $opts{'current'};
+	$self->{'id'} = 'menu';
 	bless($self, $class);
 	return $self;
 }

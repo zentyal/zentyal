@@ -29,6 +29,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 
 # Other modules uses
+use Encode;
 use Error qw(:try);
 
 
@@ -101,4 +102,30 @@ sub headTitle
 
     return undef;
 }
+
+# Method: help
+#
+#     Get the help message from the model
+#
+# Returns:
+#
+#     string - containing the i18n help message
+sub help
+{
+    return '';
+}
+
+# Method: keywords
+#
+# Return:
+#
+#   string array
+sub keywords
+{
+    my ($self) = @_;
+    my $help = $self->help();
+    Encode::_utf8_on($help);
+    return [split('\W+', lc($help))];
+}
+
 1;

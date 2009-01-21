@@ -20,6 +20,7 @@ use warnings;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
+use EBox::CGI::Run;
 
 sub new 
 {
@@ -40,8 +41,7 @@ sub new
 
 sub add # (item) 
 {
-	my $self = shift;
-	my $item = shift;
+	my ($self,$item) = @_;
 	(defined($item)) or return;
 	$item->isa('EBox::Menu::Node') or
 		throw EBox::Exceptions::Internal(
@@ -54,6 +54,14 @@ sub add # (item)
 		}
 	}
 
+    if(defined($self->{id})) {
+        $item->{id} = $self->{id} . '_' . scalar(@{$self->{items}});
+        my $i = 0;
+        for my $it (@{$item->{items}}) {
+            $it->{id} = $item->{id} . '_' . $i;
+            $i++;
+        }
+    }
 	push(@{$self->{items}}, $item);
 }
 

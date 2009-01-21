@@ -21,7 +21,10 @@ use warnings;
 use base 'EBox::CGI::Base';
 
 use EBox;
+use EBox::Menu;
+use EBox::Config;
 use EBox::Gettext;
+use EBox::Sudo;
 use POSIX qw(setlocale LC_ALL);
 
 sub new # (cgi=?)
@@ -40,6 +43,7 @@ sub _process
 	if (defined($self->param('setlang'))) {
 		EBox::setLocale($self->param('lang'));
 		POSIX::setlocale(LC_ALL, EBox::locale());
+        EBox::Menu::regenMenuCache();
 	}
 }
 

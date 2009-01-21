@@ -122,6 +122,10 @@ case "$1" in
 
         ;;
 	triggered)
+        #remove the menu cache
+        rm -f /var/lib/ebox/tmp/menucache
+
+        #restart ebox
         invoke-rc.d ebox apache restart || true
         ;;
 esac
