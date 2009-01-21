@@ -5,201 +5,201 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: libebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:50+0000\n"
-"PO-Revision-Date: 2008-11-10 08:50+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-08 01:19+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} 不存在."
 
 #: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "{data} 是空白的."
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "無效的 {data} 值: {value}."
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} 已經存在."
 
 #: src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "用 {user} 使用者執行指令 '{cmd}' 失敗"
 
 #: src/EBox/Validate.pm:689
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
-msgstr ""
+msgstr "無法在此目錄: {dir}. 這可能是此目錄並不存在或是沒有權限存取它"
 
 #: src/EBox/Validate.pm:694
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
+msgstr "此目錄 {dir} 並不是您私人的;因為這是其他使用者所擁有的"
 
 #: src/EBox/Validate.pm:769
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
-msgstr ""
+msgstr "提供的檔案路徑是無效的.(目前並不完整支援檔案字元) "
 
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "檔案路徑必須使用絕對路徑"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
-msgstr ""
+msgstr "找不到頁面"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
-msgstr ""
+msgstr "輸入的內容有無效的字元.所有的數字,加上非數字的字元: /.?&+:-@ 和空白才是允許的."
 
 #: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
-msgstr ""
+msgstr "內部發生錯誤.這大部份是 bug,可以在日誌中找到有關的資訊."
 
 #: src/EBox/CGI/Base.pm:344
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr ""
+msgstr "內部的相關模組發生錯誤.這是 bug,可以在日誌中找到有關的資訊."
 
 #: src/EBox/CGI/Base.pm:569
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
-msgstr ""
+msgstr "內部發生意外的錯誤.這是 bug,可以在日誌中找到有關的資訊."
 
 #: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr ""
+msgstr "在 eBox 您只要點選一個 bug.請看技術支援."
 
 #: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
-msgstr ""
+msgstr "因為有不正確的參數所以您可能不能執行"
 
 #: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
-msgstr ""
+msgstr "因為缺少必要的參數所以您可能不能執行"
 
 #: src/EBox/CGI/Base.pm:826
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "上傳無效的檔案."
 
 #: src/EBox/CGI/Base.pm:832
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "無法上傳模組檔案"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
-msgstr ""
+msgstr "介面"
 
 #: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "無法開啟設置檔 {file}."
 
 #: src/EBox/Config.pm.in:102
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "eBox 使用者無法設定設置檔"
 
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "找不到目錄: {d}"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "選擇一個選項來顯示相關表格"
 
 #: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
-msgstr ""
+msgstr "選擇一個..."
 
 #: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
 #: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
 msgid "Inverse match"
-msgstr ""
+msgstr "反向符合"
 
 #: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:20
 msgid "From"
-msgstr ""
+msgstr "從"
 
 #: src/templates/ajax/setter/portRangeSetter.mas:25
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr ""
+msgstr "第一個"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr ""
+msgstr "上一個"
 
 #: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
 #: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
-msgstr ""
+msgstr "下一個"
 
 #: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
 #: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr ""
+msgstr "最後"
 
 #: src/templates/ajax/modelViewer.mas:228
 msgid "Optional"
-msgstr ""
+msgstr "選擇"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "下載"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
-msgstr ""
+msgstr "eBox的首頁"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr ""
+msgstr "假如您手動輸入網址,請檢查"
 
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in eBox's configuration or software made no longer available "
 "the requested page"
-msgstr ""
+msgstr "可能改變在 eBox 的設置或是軟體造成沒有提供所需要的網頁"
 
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
@@ -207,46 +207,48 @@ msgid ""
 "If you need more help, you may want visit {homepage} for\n"
 "   documentation and mailing lists"
 msgstr ""
+"假如您需要更多幫忙,您可能要拜訪 {homepage} 的\n"
+"   文件和郵件列表清單"
 
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "we're sorry"
-msgstr ""
+msgstr "我們很抱歉"
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page cannot be found"
-msgstr ""
+msgstr "此頁面找不到"
 
 #: src/templates/enable.mas:9
 msgid "Service configuration"
-msgstr ""
+msgstr "服務設置"
 
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "停用"
 
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "啟用"
 
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
 #: src/templates/language.mas:23
 msgid "Change"
-msgstr ""
+msgstr "變更"
 
 #: src/templates/title.mas:12
 msgid "show help"
-msgstr ""
+msgstr "顯示求助"
 
 #: src/templates/title.mas:13
 msgid "hide help"
-msgstr ""
+msgstr "隱藏求助"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr ""
+msgstr "語言選擇"
 
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
-msgstr ""
+msgstr "變更語言會自動生效,不需要儲存設置"

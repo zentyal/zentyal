@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:50+0000\n"
-"PO-Revision-Date: 2007-05-16 13:08+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2008-12-12 09:32+0000\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -202,15 +202,15 @@ msgstr "último"
 
 #: src/templates/ajax/modelViewer.mas:228
 msgid "Optional"
-msgstr ""
+msgstr "Opcional"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Borrar"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
@@ -242,7 +242,6 @@ msgid "we're sorry"
 msgstr "lo sentimos"
 
 #: src/templates/ebox/pageNotFound.mas:14
-#, fuzzy
 msgid "The page cannot be found"
 msgstr "La página no pudo encontrarse"
 
