@@ -232,7 +232,7 @@ sub _table
                       defaultActions      => [ 'editField', 'changeView' ],
                       tableDescription    => \@tableDesc,
                       class               => 'dataTable',
-                      help                => __(''),
+                      help                => '',
                       enableProperty      => 1,
                       defaultEnabledValue => 0,
                      };

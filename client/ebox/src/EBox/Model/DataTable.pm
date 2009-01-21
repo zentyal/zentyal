@@ -2416,7 +2416,7 @@ sub findId
 
     foreach my $row (@{$rows}) {
         my $element = $row->elementByName($fieldName);
-        my $plainValue = $element->value(); 
+        my $plainValue = $element->value();
         my $printableValue = $element->printableValue();
         if ((defined($plainValue) and $plainValue eq $value) 
             or (defined($printableValue) and $printableValue eq $value)) {

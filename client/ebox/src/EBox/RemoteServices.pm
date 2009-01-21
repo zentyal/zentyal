@@ -36,7 +36,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
-use EBox::RemoteServices::Auth;
+use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Subscription;
 use EBox::Sudo;
 
@@ -320,7 +320,7 @@ sub _establishVPNConnection
     my ($self) = @_;
 
     if ( $self->eBoxSubscribed() ) {
-        my $authConnection = new EBox::RemoteServices::Auth();
+        my $authConnection = new EBox::RemoteServices::Backup();
         $authConnection->connection();
     }
 
