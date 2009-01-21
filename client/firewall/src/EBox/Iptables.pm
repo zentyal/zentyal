@@ -16,6 +16,9 @@
 package EBox::Iptables;
 # Package to manage iptables command utility
 
+use strict;
+use warnings;
+
 use EBox::Firewall;
 use EBox::Config;
 use EBox::Global;
@@ -236,11 +239,34 @@ sub setDNS # (dns)
 #
 #       interface - 
 #
-sub setDHCP 
+sub setDHCP
 {
 	my $self = shift;
 	my $interface = shift;
 	pf "-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT";
+}
+
+# Method: setRemoteServices
+#
+#       Set output rules required to remote services to work
+#
+#
+sub setRemoteServices
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('remoteservices') ) {
+        my $rsMod = $gl->modInstance('remoteservices');
+        if ( $rsMod->eBoxSubscribed() ) {
+            my $vpnIface = $rsMod->ifaceVPN();
+            pf "-A ointernal $new -o $vpnIface -j ACCEPT";
+            my ($vpnIPAddr, $vpnPort) = @{$rsMod->vpnSettings()};
+            # We assume UDP
+            pf "-A ointernal $new -p udp -d $vpnIPAddr --dport $vpnPort -j ACCEPT";
+        }
+    }
+
 }
 
 # Method: nospoof
@@ -260,7 +286,7 @@ sub setDHCP
 sub nospoof # (interface, \@addresses)
 {
 	my $self = shift;
-	my ($iface, $addreses) = @_;
+	my ($iface, $addresses) = @_;
 	foreach (@{$addresses}) {
 		my $addr = $_->{address};
 		my $mask = $_->{netmask};
@@ -393,6 +419,8 @@ sub start
 		}
 	}
 
+        $self->setRemoteServices();
+
     $self->_redirects();
 
 	@ifaces = @{$self->{net}->ExternalIfaces()};
@@ -431,7 +459,7 @@ sub start
 	}
 
 	$self->_fglobal();
-	
+
 	$self->_ffwdrules();
 
 	$self->_oglobal();
@@ -448,12 +476,12 @@ sub start
 	foreach my $mod (@mods) {
 		my $helper = $mod->firewallHelper();
 		($helper) or next;
-		$self->_doRuleset('nat', 'premodules', $helper->prerouting);
-		$self->_doRuleset('nat', 'postmodules', $helper->postrouting);
-		$self->_doRuleset('filter', 'fmodules', $helper->forward);
-		$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput);
-		$self->_doRuleset('filter', 'imodules', $helper->input);
-		$self->_doRuleset('filter', 'omodules', $helper->output);
+		$self->_doRuleset('nat', 'premodules', $helper->prerouting());
+		$self->_doRuleset('nat', 'postmodules', $helper->postrouting());
+		$self->_doRuleset('filter', 'fmodules', $helper->forward());
+		$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput());
+		$self->_doRuleset('filter', 'imodules', $helper->input());
+		$self->_doRuleset('filter', 'omodules', $helper->output());
 	}
 }
 

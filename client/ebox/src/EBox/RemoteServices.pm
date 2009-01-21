@@ -256,6 +256,47 @@ sub controlPanelURL
     return "https://${url}/"
 }
 
+# Method: ifaceVPN
+#
+#        Return the virtual VPN interface for the secure connection
+#        between this eBox and remote services
+#
+# Return:
+#
+#        String - the interface name
+#
+sub ifaceVPN
+{
+    my ($self) = @_;
+
+    my $authRS = new EBox::RemoteServices::Backup();
+    my $vpnClient = $authRS->vpnClientForServices();
+    return $vpnClient->iface();
+
+}
+
+# Method: vpnSettings
+#
+#        Return the virtual VPN settings for the secure connection
+#        between this eBox and remote services
+#
+# Return:
+#
+#        array ref - containing the two following elements
+#
+#             ipAddr - String the VPN IP address
+#             port   - Int the port to connect to
+#
+sub vpnSettings
+{
+    my ($self) = @_;
+
+    my $authRS = new EBox::RemoteServices::Backup();
+    return $authRS->vpnAddressAndPort();
+
+}
+
+
 # Group: Private methods
 
 # Configure the SOAP server

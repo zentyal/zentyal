@@ -30,6 +30,8 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::RemoteServices::Configuration;
 
 use Archive::Tar;
 use Cwd;
@@ -162,6 +164,9 @@ sub subscribeEBox
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
+    # Ensure firewall rules are opened
+    $self->_openHTTPSConnection();
+
     my $bundleContent;
     my $new = 0;
     try {
@@ -204,6 +209,12 @@ sub subscribeEBox
             $certFile = $filePath;
         }
     }
+
+    my $confKeys = EBox::Config::configKeysFromFile("$dirPath/$confFile");
+    $self->_openVPNandCloseHTTPSConnection(
+        $confKeys->{vpnIPAddr},
+        $confKeys->{vpnPort},
+       );
 
     # Remove everything we created before
     unlink($tmp->filename());
@@ -262,5 +273,71 @@ sub deleteData
 }
 
 # Group: Private methods
+
+# Open up the HTTPS connections
+sub _openHTTPSConnection
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('firewall') ) {
+        my $fw = $gl->modInstance('firewall');
+        if ( $fw->isEnabled() ) {
+            eval "use EBox::Iptables";
+            my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
+            my $output = EBox::Iptables::pf('-L ointernal');
+            my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
+            if ( $matches < $mirrorCount ) {
+                foreach my $no ( 1 .. $mirrorCount ) {
+                    my $site = EBox::RemoteServices::Configuration::PublicWebServer();
+                    $site =~ s:\.:$no.:;
+                    EBox::Iptables::pf(
+                        "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                       );
+                }
+                my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
+                EBox::Iptables::pf(
+                    "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                   );
+            }
+        }
+    }
+
+}
+
+# Close down HTTPS connections and open up VPN one
+sub _openVPNandCloseHTTPSConnection #(ipaddr, port)
+{
+    my ($self, $ipAddr, $port) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('firewall') ) {
+        my $fw = $gl->modInstance('firewall');
+        if ( $fw->isEnabled() ) {
+            eval "use EBox::Iptables";
+            my $output = EBox::Iptables::pf('-L ointernal');
+            my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
+            my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
+            if ( $matches >= $mirrorCount ) {
+                foreach my $no ( 1 .. $mirrorCount ) {
+                    my $site = EBox::RemoteServices::Configuration::PublicWebServer();
+                    $site =~ s:\.:$no.:;
+                    EBox::Iptables::pf(
+                        "-D ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                       );
+                }
+                my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
+                EBox::Iptables::pf(
+                    "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                   );
+            }
+            # We assume UDP
+            EBox::Iptables::pf(
+                "-A ointernal -p udp -d $ipAddr --dport $port -j ACCEPT"
+               );
+        }
+    }
+}
+
 
 1;

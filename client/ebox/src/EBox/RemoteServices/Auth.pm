@@ -147,6 +147,72 @@ sub serviceHostName
     return $host;
 }
 
+# Method: vpnClientForServices
+#
+#     Get the VPN client class for remote services
+#
+# Returns:
+#
+#     <EBox::OpenVPN::Client> - the OpenVPN client instance
+#
+sub vpnClientForServices
+{
+    my ($self) = @_;
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+
+    my $client;
+    my $clientName = $self->clientNameForRemoteServices();
+
+    if ($openvpn->clientExists($clientName)) {
+        $client = $openvpn->client($clientName);
+    } else {
+        my ($address, $port) = @{$self->vpnAddressAndPort()};
+
+        $client = $openvpn->newClient(
+            $clientName,
+            internal       => 1,
+            service        => 1,
+            proto          => 'udp',
+            servers        => [
+                [$address => $port],
+               ],
+            caCertificate  => $self->{caCertificate},
+            certificate    => $self->{certificate},
+            certificateKey => $self->{certificateKey},
+            ripPasswd      => '123456' # Not used
+           );
+        $openvpn->save();
+    }
+
+    return $client;
+}
+
+# Method: vpnAddressAndPort
+#
+#     Get the VPN server IP address and port
+#
+#     We assume UDP protocol.
+#
+# Returns:
+#
+#     array ref - containing the two following elements
+#
+#             ipAddr - String the VPN IP address
+#             port   - Int the port to connect to
+#
+sub vpnAddressAndPort
+{
+    my ($self) = @_;
+
+    my $address = EBox::Config::configkeyFromFile('vpnIPAddr',
+                                                  $self->_confFile());
+    my $port    = EBox::Config::configkeyFromFile('vpnPort',
+                                                  $self->_confFile());
+
+    return [$address, $port];
+}
+
 # Group: Protected methods
 
 # Method: _connect
@@ -339,7 +405,7 @@ sub _vpnConnect
   my ($self) = @_;
 
   my $openvpn = EBox::Global->modInstance('openvpn');
-  my $client = $self->_vpnClientforServices();
+  my $client = $self->vpnClientForServices();
 
   my $connected = $client->running(); # XXX change for other thing
 
@@ -354,7 +420,7 @@ sub _vpnDisconnect
   my ($self) = @_;
 
   my $openvpnMod = EBox::Global->modInstance('openvpn');
-  my $client = $self->_vpnClientforServices();
+  my $client = $self->vpnClientForServices();
   if ( $client ) {
       $client->stop() if $client->running();
 #     $client->delete();
@@ -362,52 +428,6 @@ sub _vpnDisconnect
       $openvpnMod->save();
   }
 
-}
-
-sub _vpnAddressAndPort
-{
-  my ($self) = @_;
-
-  my $address = EBox::Config::configkeyFromFile('vpnIPAddr',
-                                                $self->_confFile());
-  my $port    = EBox::Config::configkeyFromFile('vpnPort',
-                                                $self->_confFile());
-
-  return ($address, $port);
-}
-
-sub _vpnClientforServices
-{
-  my ($self) = @_;
-
-  my $openvpn = EBox::Global->modInstance('openvpn');
-
-  my $client;
-  my $clientName = $self->clientNameForRemoteServices();
-
-  if ($openvpn->clientExists($clientName)) {
-    $client = $openvpn->client($clientName);
-  }
-  else {
-    my ($address, $port) = $self->_vpnAddressAndPort();
-
-    $client = $openvpn->newClient(
-			$clientName,
-			internal       => 1,
-			service        => 1,
-			proto          => 'udp',
-			servers        => [
-				           [$address => $port],
-                                          ],
-			caCertificate  => $self->{caCertificate},
-			certificate    => $self->{certificate},
-			certificateKey => $self->{certificateKey},
-                        ripPasswd      => '123456' # Not used
-		       );
-    $openvpn->save();
-  }
-
-  return $client;
 }
 
 # Remote services options
