@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:39+0000\n"
+"POT-Creation-Date: 2009-01-21 10:15+0100\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,63 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
-#: src/EBox/Network.pm:2533
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Ifaces.pm:29
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2625
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/Network.pm:2625
 msgid "Network interfaces"
 msgstr "ネットワークインタフェース"
 
-#: src/EBox/CGI/VIface.pm:43 src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:42
-#: src/EBox/CGI/Iface.pm:59
-msgid "network interface"
-msgstr "ネットワークインタフェース"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "バーチャルインタフェースアクション"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
-#: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
-#: src/EBox/Network.pm:2327 src/EBox/Network.pm:2459 src/EBox/Network.pm:2578
-#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
-msgid "IP address"
-msgstr "IPアドレス"
-
-#: src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Iface.pm:88
-msgid "netmask"
-msgstr "ネットマスク"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "バーチャルインタフェース名"
-
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
-msgid "Balance traffic and multigateway rules"
-msgstr "トラフィックとマルチゲートウェイルールを調整"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network diagnosis"
-msgstr "ネットワーク診断"
-
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
-msgid "Host"
-msgstr "ホスト"
-
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2520
-msgid "host name"
-msgstr "ホスト名"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "トラフィックバランス"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-msgid "Set default gateway"
-msgstr "デフォルトゲートウェイを設定"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr "後でメニューのNetwork/Routesからゲートウェイを変更できます"
-
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:25
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
@@ -80,417 +32,369 @@ msgid ""
 msgstr ""
 "初期設定後はメニューのNetwork/Interfacesからこのページを訪れることができます"
 
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "ゲートウェイが設定されました"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "メニューのNetwork/DNSからもこのページを訪れることができます"
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNSが設定されました"
-
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Iface.pm:45
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
 msgstr "ネットワークインタフェースが設定されました"
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1201
-#: src/EBox/Network.pm:1230 src/templates/ifaces.mas:148
-msgid "VLAN Id"
-msgstr "VLAN ID"
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/DNS.pm:41
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr "メニューのNetwork/DNSからもこのページを訪れることができます"
 
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Nameservers.pm:44
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr "DNSが設定されました"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:29
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+msgid "Set default gateway"
+msgstr "デフォルトゲートウェイを設定"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:43
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
+msgstr "後でメニューのNetwork/Routesからゲートウェイを変更できます"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Gateway.pm:41
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr "ゲートウェイが設定されました"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/View/MultiGwRulesDataTable.pm:32
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
+msgid "Balance traffic and multigateway rules"
+msgstr "トラフィックとマルチゲートウェイルールを調整"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:29
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:41
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network diagnosis"
+msgstr "ネットワーク診断"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:51
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:14
+#: src/templates/diag.mas:14
+msgid "Host"
+msgstr "ホスト"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:58
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2532
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2532
+msgid "host name"
+msgstr "ホスト名"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:42
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:59
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:43
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Vlan.pm:40
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
+#: src/EBox/CGI/Vlan.pm:40
+msgid "network interface"
+msgstr "ネットワークインタフェース"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:58
 #: src/EBox/CGI/Iface.pm:58
 msgid "method"
 msgstr "方式"
 
-#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayTable.pm:174
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:87
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:174
+#: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "IPアドレス"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2267
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:88
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:63
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "ネットマスク"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:44
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "バーチャルインタフェースアクション"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:62
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:700
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:705
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1009
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1030
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2324
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2339
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2471
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2588
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:700 src/EBox/Network.pm:705
+#: src/EBox/Network.pm:1009 src/EBox/Network.pm:1030 src/EBox/Network.pm:2324
+#: src/EBox/Network.pm:2339 src/EBox/Network.pm:2471 src/EBox/Network.pm:2588
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:91
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:206
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
+msgid "IP address"
+msgstr "IPアドレス"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:64
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:70
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "バーチャルインタフェース名"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Vlan.pm:50
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Vlan.pm:53
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1202
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1231
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1202
+#: src/EBox/Network.pm:1231
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:148
+#: src/templates/ifaces.mas:148
+msgid "VLAN Id"
+msgstr "VLAN ID"
+
+#: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/EnableBalanceTraffic.pm:42
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "トラフィックバランス"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:134
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Composite/ByteRate.pm:74
+#: src/EBox/Network/Composite/ByteRate.pm:74
+#: src/EBox/Network/Report/ByteRate.pm:134
+msgid "Traffic rate monitoring"
+msgstr "トラフィックレート監視"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2577
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2577
+msgid "Status"
+msgstr "状態"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
+#: src/EBox/Network/Report/ByteRate.pm:136
+msgid "Running"
+msgstr "動作"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:756
+#: src/EBox/Network/Report/ByteRate.pm:756
+msgid "bytes/second"
+msgstr "bytes/second"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:823
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:929
+#: src/EBox/Network/Report/ByteRate.pm:823
+#: src/EBox/Network/Report/ByteRate.pm:929
+msgid "Traffic data for source"
+msgstr "送信元へのトラフィックデータ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:843
+#: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "ゲートウェイ {gw} に到達できません"
+msgid "Network traffic from {src}"
+msgstr "{src} からのネットワークトラフィック"
 
-#: src/EBox/Model/ByteRateSettings.pm:80
-msgid "Interface to listen"
-msgstr "受信するインタフェース"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:877
+#: src/EBox/Network/Report/ByteRate.pm:877
+msgid "Traffic data not found for service"
+msgstr "サービスへのトラフィックデータが見つかりません"
 
-#: src/EBox/Model/ByteRateSettings.pm:89
-msgid "Traffic rate monitor settings"
-msgstr "トラフィックレート監視設定"
-
-#: src/EBox/Model/ByteRateSettings.pm:93
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "変更はすぐにトラフィックレート監視に適用されます"
-
-#: src/EBox/Model/ByteRateSettings.pm:96
-msgid "Settings changed"
-msgstr "設定が変更されました"
-
-#: src/EBox/Model/ByteRateSettings.pm:115
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:887
+#: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (内部インタフェース)"
+msgid "Network traffic for {service}"
+msgstr "{service} へのネットワークトラフィック"
 
-#: src/EBox/Model/ByteRateSettings.pm:122
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:937
+#: src/EBox/Network/Report/ByteRate.pm:937
+msgid "Traffic data for service"
+msgstr "サービスへのトラフィックデータ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:946
+#: src/EBox/Network/Report/ByteRate.pm:946
+msgid "Traffic data not found for source and service pair"
+msgstr "送信元とサービスの組のトラフィックデータが見つかりません"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:948
+#: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (外部インタフェース)"
+msgid "source {src} and service {service}"
+msgstr "送信元 {src} とサービス {service}"
 
-#: src/EBox/Model/ByteRateSettings.pm:129
-msgid "all"
-msgstr "全て"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:962
+#: src/EBox/Network/Report/ByteRate.pm:962
+#, perl-brace-format
+msgid "Network traffic from source {src} and for service {service}"
+msgstr "送信元 {src} からサービス {service} へのネットワークトラフィック"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:58
-#: src/EBox/Model/MultiGwRulesDataTable.pm:389
-msgid "any"
-msgstr "全て"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:989
+#: src/EBox/Network/Report/ByteRate.pm:989
+msgid "All active services"
+msgstr "全てのアクティブなサービス"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:94
-msgid "Protocol"
-msgstr "プロトコル"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:994
+#: src/EBox/Network/Report/ByteRate.pm:994
+msgid "Traffic data for "
+msgstr "次の送信先へのトラフィックデータ"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:100
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:792
-#: src/EBox/Network.pm:824 src/EBox/Network.pm:869 src/EBox/Network.pm:903
-#: src/EBox/Network.pm:928 src/EBox/Network.pm:1004 src/EBox/Network.pm:1127
-#: src/EBox/Network.pm:1322 src/EBox/Network.pm:1382 src/EBox/Network.pm:1417
-#: src/EBox/Network.pm:1454 src/EBox/Network.pm:1487 src/EBox/Network.pm:2310
-#: src/EBox/Network.pm:2342 src/EBox/Network.pm:2415 src/EBox/Network.pm:2435
-#: src/EBox/Network.pm:2456 src/EBox/Network.pm:2479
-msgid "Interface"
-msgstr "インタフェース"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:995
+#: src/EBox/Network/Report/ByteRate.pm:995
+msgid "all services"
+msgstr "全てのサービス"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:103
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1040
+#: src/EBox/Network/Report/ByteRate.pm:1040
+msgid "All active sources"
+msgstr "全てのアクティブな送信元"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:109
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-msgid "Source"
-msgstr "送信元"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1045
+#: src/EBox/Network/Report/ByteRate.pm:1045
+msgid "Traffic data for"
+msgstr "次の送信先へのトラフィックデータ"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:114
-#: src/EBox/Model/MultiGwRulesDataTable.pm:146
-msgid "Any"
-msgstr "全て"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1046
+#: src/EBox/Network/Report/ByteRate.pm:1046
+msgid "all sources"
+msgstr "全ての送信元"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:117
-msgid "Source IP"
-msgstr "送信元IP"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1084
+#: src/EBox/Network/Report/ByteRate.pm:1084
+#, perl-brace-format
+msgid "Total traffic rate from {src}"
+msgstr "{src} からのトラフィックレート合計"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:122
-msgid "Source object"
-msgstr "送信元オブジェクト"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1099
+#: src/EBox/Network/Report/ByteRate.pm:1099
+#, perl-brace-format
+msgid "Total traffic rate for {service}"
+msgstr "{service} へのトラフィックレート合計"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:133
-#: src/EBox/Model/MultiGwRulesDataTable.pm:166
-msgid "Port"
-msgstr "ポート"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1123
+#: src/EBox/Network/Report/ByteRate.pm:1123
+#, perl-brace-format
+msgid "Traffic rate from {src} for {service}"
+msgstr "{src} から {service} へのトラフィックレート"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Leave it blank  to select any port"
-msgstr ""
+#: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:14
+#: src/EBox/Network/FirstTime.pm:14
+msgid "Configure network interfaces"
+msgstr "ネットワークインタフェースを設定"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:141
-msgid "Destination"
-msgstr "送信先"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:15
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr "ネームサーバを設定"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:149
-msgid "Destination IP"
-msgstr "送信先IP"
+#: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:16
+#: src/EBox/Network/FirstTime.pm:16
+msgid "Configure default gateway"
+msgstr "デフォルトゲートウェイを設定"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:154
-msgid "Destination object"
-msgstr "送信先オブジェクト"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170
-msgid "Leave it blank if to select any port"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:174
-#: src/EBox/Model/StaticRoute.pm:148
-msgid "Gateway"
-msgstr "ゲートウェイ"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:178
-msgid "Gateway to route packets matchingthis rule"
-msgstr ""
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:188
-msgid "Multigateway rules"
-msgstr "マルチゲートウェイルール"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:202
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destiantion and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"ゲートウェイ毎にトラフィックの種類を決めることができます。この方法を取ること"
-"で、サブネット、サービス、送信先などに対して通過するルータを強制させることが"
-"できます。ルールは最初の行から最後の行まで順番に適用されます。追加された後で"
-"も順番は並び替えることができます。ポートやIPアドレスを別途設定していない場"
-"合、ルールは全てのものに適用されます。"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:204
-msgid "rule"
-msgstr "ルール"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:222
-msgid "Destination port"
-msgstr "送信先ポート"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:227
-msgid "Source port"
-msgstr "送信元ポート"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:237
-msgid "Port cannot be set if no protocol is selected"
-msgstr "プロトコルが選択されていないとポートは設定できません。"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "トラフィックのグラフィックを選択"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"パラメタ設定に応じて表示が変わります。グラフの種類によってはホストIPアドレス"
-"とサービスを/etc/servicesに基づいて設定されたグラフ凡例のテキストと一致させる"
-"必要があるかもしれません。フロー表示はそれに従って変更されます。"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "グラフの種類"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "送信元による全てのアクティブなトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "サービスによる全てのアクティブなトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "選択された送信元によるトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "選択されたサービスによるトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "送信元とサービスによるトラフィック"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-msgid "Service"
-msgstr "サービス"
-
-#: src/EBox/Model/DNSResolver.pm:78
-msgid "IP address of the DNS server that eBox will use to resolve names"
-msgstr ""
-
-#: src/EBox/Model/DNSResolver.pm:84
-msgid "Name server"
-msgstr "ネームサーバ"
-
-#: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
-msgid "Name server resolver list"
-msgstr "ネームサーバリゾルバ"
-
-#: src/EBox/Model/DNSResolver.pm:94
-#, fuzzy
-msgid "Name server resolver"
-msgstr "ネームサーバリゾルバ"
-
-#: src/EBox/Model/DNSResolver.pm:100
-msgid "name server"
-msgstr "ネームサーバ"
-
-#: src/EBox/Model/DNSResolver.pm:112
-msgid ""
-"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
-"that these settings may be overriden if you have any network interface "
-"configured via DHCP</p>"
-msgstr ""
-
-#: src/EBox/Model/VlanInterfaceTable.pm:61
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:82
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:60
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:61
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:74
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
-#: src/EBox/Model/GatewayTable.pm:82 src/templates/ifaces.mas:26
-#: src/templates/ifaces.mas:205
+#: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:26
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:205
+#: src/templates/ifaces.mas:26 src/templates/ifaces.mas:205
 msgid "Name"
 msgstr "名前"
 
-#: src/EBox/Model/VlanInterfaceTable.pm:70
-msgid "Physical interface"
-msgstr "物理インタフェース"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:85
-msgid "Vlan interface list"
-msgstr "VLANインタフェースリスト"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:92
-msgid "These are the vlan interfaces which are available in your system."
-msgstr "これらがシステムで利用可能なVLANインタフェースです。"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:94
-#: src/EBox/Model/PhysicalInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
-msgid "interface"
-msgstr "インタフェース"
-
-#: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:66
-#: src/EBox/Network.pm:2602
-msgid "Network"
-msgstr "ネットワーク"
-
-#: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
-msgid "IP or network address"
-msgstr "ネットワークアドレス"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "Gateway used to reach the above network  address"
-msgstr ""
-
-#: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:149
-msgid "Description"
-msgstr "内容"
-
-#: src/EBox/Model/StaticRoute.pm:158
-msgid "Optional description for this route"
-msgstr ""
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Static routes"
-msgstr "静的経路"
-
-#: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
-msgid "Static route list"
-msgstr "静的経路"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
-"能である必要があります"
-
-#: src/EBox/Model/StaticRoute.pm:173
-msgid "static route"
-msgstr "静的ルート"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:74
-msgid "Physical interface list"
-msgstr "物理インタフェース一覧"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:81
-msgid "These are the physical interfaces which are available in your system."
-msgstr "これらがシステムで利用可能な物理インタフェースです。"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
-#: src/templates/ifaces.mas:37
-msgid "Method"
-msgstr "方式"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
-#: src/templates/ifaces.mas:74
-msgid "External"
-msgstr "外部"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
-msgid "Configurable interface list"
-msgstr "設定可能なインタフェース一覧"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
-msgid "These are the interfaces which can be configured"
-msgstr "これらが設定可能なインタフェースです"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:71
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"トラフィックレート監視を開始しています。グラフが表示されるまでお待ちください"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:74
-msgid "Stopping traffic rate monitoring"
-msgstr "トラフィックレート監視を停止しています。"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:87
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"トラフィックレート監視は要求に応じて自動で開始/停止します。最初に変更を保存す"
-"る必要はありません。"
-
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:89
 #: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
 msgstr "IPアドレス"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:96
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:100
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:65
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:793
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:825
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:870
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:904
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:929
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1005
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1128
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1323
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1383
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1418
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1455
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1488
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2322
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2354
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2427
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2447
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2468
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2491
+#: src/EBox/Model/MultiGwRulesDataTable.pm:100
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:793
+#: src/EBox/Network.pm:825 src/EBox/Network.pm:870 src/EBox/Network.pm:904
+#: src/EBox/Network.pm:929 src/EBox/Network.pm:1005 src/EBox/Network.pm:1128
+#: src/EBox/Network.pm:1323 src/EBox/Network.pm:1383 src/EBox/Network.pm:1418
+#: src/EBox/Network.pm:1455 src/EBox/Network.pm:1488 src/EBox/Network.pm:2322
+#: src/EBox/Network.pm:2354 src/EBox/Network.pm:2427 src/EBox/Network.pm:2447
+#: src/EBox/Network.pm:2468 src/EBox/Network.pm:2491
+msgid "Interface"
+msgstr "インタフェース"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:99
 #: src/EBox/Model/GatewayTable.pm:99
 #, fuzzy
 msgid "Interface connected to this gateway"
 msgstr "受信するインタフェース"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:103
 #: src/EBox/Model/GatewayTable.pm:103
 msgid "Upload"
 msgstr "アップロード"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:107
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
 msgstr ""
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:112
 #: src/EBox/Model/GatewayTable.pm:112
 msgid "Download"
 msgstr "ダウンロード"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:116
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
 msgstr ""
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:120
 #: src/EBox/Model/GatewayTable.pm:120
 msgid "Weight"
 msgstr "ウェイト"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:124
 #: src/EBox/Model/GatewayTable.pm:124
 msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130
 msgid "Default"
 msgstr "デフォルト"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:140
 #: src/EBox/Model/GatewayTable.pm:140
 msgid "Gateway list"
 msgstr "ゲートウェイ一覧"
 
-#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2615
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:141
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2654
+#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2654
 msgid "Gateways"
 msgstr "ゲートウェイ"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:155
 #: src/EBox/Model/GatewayTable.pm:155
 #, perl-brace-format
 msgid ""
@@ -506,15 +410,409 @@ msgstr ""
 "ります。トラフィック整形モジュールが正しく動作するためにはこのフィールドに正"
 "しい値が設定されている必要があります。"
 
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:157
 #: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
 msgstr "ゲートウェイ"
 
-#: src/EBox/Network.pm:84
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:58
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:389
+#: src/EBox/Model/MultiGwRulesDataTable.pm:58
+#: src/EBox/Model/MultiGwRulesDataTable.pm:389
+msgid "any"
+msgstr "全て"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:94
+#: src/EBox/Model/MultiGwRulesDataTable.pm:94
+msgid "Protocol"
+msgstr "プロトコル"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:103
+#: src/EBox/Model/MultiGwRulesDataTable.pm:103
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:109
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:109
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+msgid "Source"
+msgstr "送信元"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:114
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:146
+#: src/EBox/Model/MultiGwRulesDataTable.pm:114
+#: src/EBox/Model/MultiGwRulesDataTable.pm:146
+msgid "Any"
+msgstr "全て"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:117
+#: src/EBox/Model/MultiGwRulesDataTable.pm:117
+msgid "Source IP"
+msgstr "送信元IP"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:122
+#: src/EBox/Model/MultiGwRulesDataTable.pm:122
+msgid "Source object"
+msgstr "送信元オブジェクト"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:133
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:166
+#: src/EBox/Model/MultiGwRulesDataTable.pm:133
+#: src/EBox/Model/MultiGwRulesDataTable.pm:166
+msgid "Port"
+msgstr "ポート"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:137
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Leave it blank  to select any port"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:141
+#: src/EBox/Model/MultiGwRulesDataTable.pm:141
+msgid "Destination"
+msgstr "送信先"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:149
+#: src/EBox/Model/MultiGwRulesDataTable.pm:149
+msgid "Destination IP"
+msgstr "送信先IP"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:154
+#: src/EBox/Model/MultiGwRulesDataTable.pm:154
+msgid "Destination object"
+msgstr "送信先オブジェクト"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:170
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170
+msgid "Leave it blank if to select any port"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:174
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:148
+#: src/EBox/Model/MultiGwRulesDataTable.pm:174
+#: src/EBox/Model/StaticRoute.pm:148
+msgid "Gateway"
+msgstr "ゲートウェイ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:178
+#: src/EBox/Model/MultiGwRulesDataTable.pm:178
+msgid "Gateway to route packets matchingthis rule"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:188
+#: src/EBox/Model/MultiGwRulesDataTable.pm:188
+msgid "Multigateway rules"
+msgstr "マルチゲートウェイルール"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:202
+#: src/EBox/Model/MultiGwRulesDataTable.pm:202
+#, fuzzy
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"ゲートウェイ毎にトラフィックの種類を決めることができます。この方法を取ること"
+"で、サブネット、サービス、送信先などに対して通過するルータを強制させることが"
+"できます。ルールは最初の行から最後の行まで順番に適用されます。追加された後で"
+"も順番は並び替えることができます。ポートやIPアドレスを別途設定していない場"
+"合、ルールは全てのものに適用されます。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:204
+#: src/EBox/Model/MultiGwRulesDataTable.pm:204
+msgid "rule"
+msgstr "ルール"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:222
+#: src/EBox/Model/MultiGwRulesDataTable.pm:222
+msgid "Destination port"
+msgstr "送信先ポート"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:227
+#: src/EBox/Model/MultiGwRulesDataTable.pm:227
+msgid "Source port"
+msgstr "送信元ポート"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:237
+#: src/EBox/Model/MultiGwRulesDataTable.pm:237
+msgid "Port cannot be set if no protocol is selected"
+msgstr "プロトコルが選択されていないとポートは設定できません。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:74
+#: src/EBox/Model/PhysicalInterfaceTable.pm:74
+msgid "Physical interface list"
+msgstr "物理インタフェース一覧"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:81
+#: src/EBox/Model/PhysicalInterfaceTable.pm:81
+msgid "These are the physical interfaces which are available in your system."
+msgstr "これらがシステムで利用可能な物理インタフェースです。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:83
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:94
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:117
+#: src/EBox/Model/PhysicalInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
+#: src/EBox/Model/VlanInterfaceTable.pm:94
+msgid "interface"
+msgstr "インタフェース"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:70
+#: src/EBox/Model/VlanInterfaceTable.pm:70
+msgid "Physical interface"
+msgstr "物理インタフェース"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:85
+#: src/EBox/Model/VlanInterfaceTable.pm:85
+msgid "Vlan interface list"
+msgstr "VLANインタフェースリスト"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:92
+#: src/EBox/Model/VlanInterfaceTable.pm:92
+msgid "These are the vlan interfaces which are available in your system."
+msgstr "これらがシステムで利用可能なVLANインタフェースです。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:83
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:218
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:37
+#: src/templates/ifaces.mas:37
+msgid "Method"
+msgstr "方式"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:92
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:250
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:74
+#: src/templates/ifaces.mas:74
+msgid "External"
+msgstr "外部"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:108
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
+msgid "Configurable interface list"
+msgstr "設定可能なインタフェース一覧"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:115
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
+msgid "These are the interfaces which can be configured"
+msgstr "これらが設定可能なインタフェースです"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:46
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "トラフィックのグラフィックを選択"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:57
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"パラメタ設定に応じて表示が変わります。グラフの種類によってはホストIPアドレス"
+"とサービスを/etc/servicesに基づいて設定されたグラフ凡例のテキストと一致させる"
+"必要があるかもしれません。フロー表示はそれに従って変更されます。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:78
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "グラフの種類"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:85
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "送信元による全てのアクティブなトラフィック"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:89
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "サービスによる全てのアクティブなトラフィック"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:93
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "選択された送信元によるトラフィック"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:99
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "選択されたサービスによるトラフィック"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:105
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "送信元とサービスによるトラフィック"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:117
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+msgid "Service"
+msgstr "サービス"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:80
+#: src/EBox/Model/ByteRateSettings.pm:80
+msgid "Interface to listen"
+msgstr "受信するインタフェース"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:89
+#: src/EBox/Model/ByteRateSettings.pm:89
+msgid "Traffic rate monitor settings"
+msgstr "トラフィックレート監視設定"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:93
+#: src/EBox/Model/ByteRateSettings.pm:93
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "変更はすぐにトラフィックレート監視に適用されます"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:96
+#: src/EBox/Model/ByteRateSettings.pm:96
+msgid "Settings changed"
+msgstr "設定が変更されました"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:115
+#: src/EBox/Model/ByteRateSettings.pm:115
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (内部インタフェース)"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:122
+#: src/EBox/Model/ByteRateSettings.pm:122
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (外部インタフェース)"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:129
+#: src/EBox/Model/ByteRateSettings.pm:129
+msgid "all"
+msgstr "全て"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:71
+#: src/EBox/Model/ByteRateEnableForm.pm:71
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"トラフィックレート監視を開始しています。グラフが表示されるまでお待ちください"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:74
+#: src/EBox/Model/ByteRateEnableForm.pm:74
+msgid "Stopping traffic rate monitoring"
+msgstr "トラフィックレート監視を停止しています。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:87
+#: src/EBox/Model/ByteRateEnableForm.pm:87
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"トラフィックレート監視は要求に応じて自動で開始/停止します。最初に変更を保存す"
+"る必要はありません。"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:141
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:67
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2641
+#: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:67
+#: src/EBox/Network.pm:2641
+msgid "Network"
+msgstr "ネットワーク"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:144
+#: src/EBox/Model/StaticRoute.pm:144
+#, fuzzy
+msgid "IP or network address"
+msgstr "ネットワークアドレス"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:150
+#: src/EBox/Model/StaticRoute.pm:150
+msgid "Gateway used to reach the above network  address"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:155
+#: src/EBox/Model/StaticRoute.pm:155
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:149
+#: src/templates/ifaces.mas:149
+msgid "Description"
+msgstr "内容"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:158
+#: src/EBox/Model/StaticRoute.pm:158
+msgid "Optional description for this route"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:164
+#: src/EBox/Model/StaticRoute.pm:164
+msgid "Static routes"
+msgstr "静的経路"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:165
+#: src/EBox/Model/StaticRoute.pm:165
+#, fuzzy
+msgid "Static route list"
+msgstr "静的経路"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:170
+#: src/EBox/Model/StaticRoute.pm:170
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"入力したすべてのゲートウェイは設定済みのネットワークインタフェースから接続可"
+"能である必要があります"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:173
+#: src/EBox/Model/StaticRoute.pm:173
+msgid "static route"
+msgstr "静的ルート"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:78
+#: src/EBox/Model/DNSResolver.pm:78
+msgid "IP address of the DNS server that eBox will use to resolve names"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:84
+#: src/EBox/Model/DNSResolver.pm:84
+msgid "Name server"
+msgstr "ネームサーバ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:93
+#: src/EBox/Model/DNSResolver.pm:93
+#, fuzzy
+msgid "Name server resolver list"
+msgstr "ネームサーバリゾルバ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:94
+#: src/EBox/Model/DNSResolver.pm:94
+#, fuzzy
+msgid "Name server resolver"
+msgstr "ネームサーバリゾルバ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:100
+#: src/EBox/Model/DNSResolver.pm:100
+msgid "name server"
+msgstr "ネームサーバ"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:112
+#: src/EBox/Model/DNSResolver.pm:112
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:85
+#: src/EBox/Network.pm:85
 msgid "Add default routers to the default table"
 msgstr "デフォルトルータをデフォルトテーブルに追加"
 
-#: src/EBox/Network.pm:85
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:86
+#: src/EBox/Network.pm:86
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -522,11 +820,13 @@ msgstr ""
 "複数ゲートウェイ構成の場合にこれは必要になります。デフォルトのルートを表示す"
 "るには次のものを実行します: "
 
-#: src/EBox/Network.pm:91
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:92
+#: src/EBox/Network.pm:92
 msgid "Enable eBox DHCP hook"
 msgstr "eBox DHCP hookを有効化"
 
-#: src/EBox/Network.pm:92
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:93
+#: src/EBox/Network.pm:93
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -534,26 +834,36 @@ msgstr ""
 "これはDHCPサーバから提供されたデフォルトルートをデフォルトテーブルに追加しま"
 "す"
 
-#: src/EBox/Network.pm:108
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:109
+#: src/EBox/Network.pm:109
 msgid "eBox will set your network configuration"
 msgstr "eBoxはネットワーク情報を設定します"
 
-#: src/EBox/Network.pm:696 src/EBox/Network.pm:700
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:697
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:701
+#: src/EBox/Network.pm:697 src/EBox/Network.pm:701
 msgid "Virtual interface name"
 msgstr "バーチャルインタフェース名"
 
-#: src/EBox/Network.pm:699 src/EBox/Network.pm:1008 src/EBox/Network.pm:2312
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:700
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1009
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2324
+#: src/EBox/Network.pm:700 src/EBox/Network.pm:1009 src/EBox/Network.pm:2324
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:104
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:207
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr "ネットマスク"
 
-#: src/EBox/Network.pm:1132
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1133
+#: src/EBox/Network.pm:1133
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "このインタフェースはトランクモードでは使用できません。VLANのインタフェースで"
 "す。"
 
-#: src/EBox/Network.pm:1177
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1178
+#: src/EBox/Network.pm:1178
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -561,14 +871,16 @@ msgstr ""
 "このインタフェースはトランクモードです。設定モードを変更する前にこのトランク"
 "の全てのVLANインタフェースの設定を解除してください。"
 
-#: src/EBox/Network.pm:1210
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1211
+#: src/EBox/Network.pm:1211
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
 "があります。"
 
-#: src/EBox/Network.pm:2202
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2214
+#: src/EBox/Network.pm:2214
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -576,7 +888,15 @@ msgstr ""
 "リクエストされた操作によって設定済みのルータに到達できなくなります。変更を適"
 "用する前にルータを削除してください。"
 
-#: src/EBox/Network.pm:2270
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2279
+#: debian/ebox-network/usr/share/perl5/EBox/NetworkUtil.pm:55
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2279
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "ゲートウェイ {gw} に到達できません"
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2282
+#: src/EBox/Network.pm:2282
 #, fuzzy, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -585,165 +905,69 @@ msgstr ""
 "ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があり"
 "ます。 現在は静的でないインタフェース {iface} から到達可能です。"
 
-#: src/EBox/Network.pm:2501
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2513
+#: src/EBox/Network.pm:2513
 msgid "Host name"
 msgstr "ホスト名"
 
-#: src/EBox/Network.pm:2552
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2562
+#: src/EBox/Network.pm:2562
 msgid "down"
 msgstr "停止"
 
-#: src/EBox/Network.pm:2558
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2568
+#: src/EBox/Network.pm:2568
 msgid "up"
 msgstr "正常"
 
-#: src/EBox/Network.pm:2562
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2572
+#: src/EBox/Network.pm:2572
 msgid "link ok"
 msgstr "正常なリンク"
 
-#: src/EBox/Network.pm:2564
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2574
+#: src/EBox/Network.pm:2574
 msgid "no link"
 msgstr "リンクなし"
 
-#: src/EBox/Network.pm:2567 src/EBox/Network/Report/ByteRate.pm:136
-msgid "Status"
-msgstr "状態"
-
-#: src/EBox/Network.pm:2572
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2582
+#: src/EBox/Network.pm:2582
 msgid "MAC address"
 msgstr "MACアドレス"
 
-#: src/EBox/Network.pm:2606
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
+#: src/EBox/Network.pm:2599
+msgid "Tx bytes"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
+#: src/EBox/Network.pm:2608
+msgid "Rx bytes"
+msgstr ""
+
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
+#: src/EBox/Network.pm:2645
 msgid "Interfaces"
 msgstr "インタフェース"
 
-#: src/EBox/Network.pm:2610
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2649
+#: src/EBox/Network.pm:2649
 msgid "Routes"
 msgstr "経路"
 
-#: src/EBox/Network.pm:2612
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2651
+#: src/EBox/Network.pm:2651
 msgid "Diagnosis"
 msgstr "診断"
 
-#: src/EBox/Network.pm:2618
+#: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2657
+#: src/EBox/Network.pm:2657
 msgid "Balance traffic"
 msgstr "トラフィック調整"
 
-#: src/EBox/Network/FirstTime.pm:14
-msgid "Configure network interfaces"
-msgstr "ネットワークインタフェースを設定"
-
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr "ネームサーバを設定"
-
-#: src/EBox/Network/FirstTime.pm:16
-msgid "Configure default gateway"
-msgstr "デフォルトゲートウェイを設定"
-
-#: src/EBox/Network/Report/ByteRate.pm:134
-#: src/EBox/Network/Composite/ByteRate.pm:74
-msgid "Traffic rate monitoring"
-msgstr "トラフィックレート監視"
-
-#: src/EBox/Network/Report/ByteRate.pm:136
-msgid "Running"
-msgstr "動作"
-
-#: src/EBox/Network/Report/ByteRate.pm:756
-msgid "bytes/second"
-msgstr "bytes/second"
-
-#: src/EBox/Network/Report/ByteRate.pm:823
-#: src/EBox/Network/Report/ByteRate.pm:929
-msgid "Traffic data for source"
-msgstr "送信元へのトラフィックデータ"
-
-#: src/EBox/Network/Report/ByteRate.pm:843
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr "{src} からのネットワークトラフィック"
-
-#: src/EBox/Network/Report/ByteRate.pm:877
-msgid "Traffic data not found for service"
-msgstr "サービスへのトラフィックデータが見つかりません"
-
-#: src/EBox/Network/Report/ByteRate.pm:887
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr "{service} へのネットワークトラフィック"
-
-#: src/EBox/Network/Report/ByteRate.pm:937
-msgid "Traffic data for service"
-msgstr "サービスへのトラフィックデータ"
-
-#: src/EBox/Network/Report/ByteRate.pm:946
-msgid "Traffic data not found for source and service pair"
-msgstr "送信元とサービスの組のトラフィックデータが見つかりません"
-
-#: src/EBox/Network/Report/ByteRate.pm:948
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr "送信元 {src} とサービス {service}"
-
-#: src/EBox/Network/Report/ByteRate.pm:962
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr "送信元 {src} からサービス {service} へのネットワークトラフィック"
-
-#: src/EBox/Network/Report/ByteRate.pm:989
-msgid "All active services"
-msgstr "全てのアクティブなサービス"
-
-#: src/EBox/Network/Report/ByteRate.pm:994
-msgid "Traffic data for "
-msgstr "次の送信先へのトラフィックデータ"
-
-#: src/EBox/Network/Report/ByteRate.pm:995
-msgid "all services"
-msgstr "全てのサービス"
-
-#: src/EBox/Network/Report/ByteRate.pm:1040
-msgid "All active sources"
-msgstr "全てのアクティブな送信元"
-
-#: src/EBox/Network/Report/ByteRate.pm:1045
-msgid "Traffic data for"
-msgstr "次の送信先へのトラフィックデータ"
-
-#: src/EBox/Network/Report/ByteRate.pm:1046
-msgid "all sources"
-msgstr "全ての送信元"
-
-#: src/EBox/Network/Report/ByteRate.pm:1084
-#, perl-brace-format
-msgid "Total traffic rate from {src}"
-msgstr "{src} からのトラフィックレート合計"
-
-#: src/EBox/Network/Report/ByteRate.pm:1099
-#, perl-brace-format
-msgid "Total traffic rate for {service}"
-msgstr "{service} へのトラフィックレート合計"
-
-#: src/EBox/Network/Report/ByteRate.pm:1123
-#, perl-brace-format
-msgid "Traffic rate from {src} for {service}"
-msgstr "{src} から {service} へのトラフィックレート"
-
-#: src/templates/gwrules.mas:19
-#, fuzzy
-msgid ""
-"To be able to use this feature, you need, at least, two gateways. You can "
-"add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
-msgstr ""
-"この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/ebox/"
-"Network/View/GatewayDataTable\">ここから</a>追加できます。"
-
-#: src/templates/gwrules.mas:25
-msgid "Traffic balancing"
-msgstr "トラフィック調整"
-
-#: src/templates/confirm.mas:14 src/templates/confirmremove.mas:11
+#: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:14
+#: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:11
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
@@ -751,7 +975,9 @@ msgstr ""
 "適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
 "ジュールに影響します。"
 
-#: src/templates/confirm.mas:17 src/templates/confirmremove.mas:14
+#: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:17
+#: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:14
+#: src/templates/confirmremove.mas:14 src/templates/confirm.mas:17
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
@@ -761,34 +987,19 @@ msgstr ""
 "ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
 "ルしてください。"
 
-#: src/templates/confirm.mas:31 src/templates/confirmremove.mas:24
+#: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:31
+#: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:24
+#: src/templates/confirmremove.mas:24 src/templates/confirm.mas:31
 msgid "Ok"
 msgstr "はい"
 
-#: src/templates/confirm.mas:33 src/templates/confirmremove.mas:26
+#: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:33
+#: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:26
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
-msgid "Ping"
-msgstr "PING"
-
-#: src/templates/diag.mas:22
-msgid "Name resolution"
-msgstr "名前解決"
-
-#: src/templates/diag.mas:23
-msgid "Domain name"
-msgstr "ドメイン名"
-
-#: src/templates/diag.mas:27
-msgid "Lookup"
-msgstr "参照"
-
-#: src/templates/diag.mas:29
-msgid "Output"
-msgstr "出力"
-
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:11
 #: src/templates/ifaces.mas:11
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
@@ -797,6 +1008,7 @@ msgstr ""
 "ネットワークインタフェースの設定を変更すると管理ページへの接続が切断されるか"
 "もしれません。"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:14
 #: src/templates/ifaces.mas:14
 msgid ""
 "Traffic being routed through interfaces marked as external will be NATed.  "
@@ -807,45 +1019,109 @@ msgstr ""
 "となります。また、LAN内のユーザ向けのサービスは外部インタフェースでは利用でき"
 "ません。"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:43
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:45
 #: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"
 msgstr "静的"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:56
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:58
 #: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
 msgstr "トランク (802.1q)"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:63
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:65
 #: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"
 msgstr "未設定"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:135
 #: src/templates/ifaces.mas:135
 msgid "Change"
 msgstr "変更"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:143
 #: src/templates/ifaces.mas:143
 msgid "VLAN List"
 msgstr "VLAN一覧"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:150
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:208
 #: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
 msgid "Action"
 msgstr "アクション"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:166
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:167
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:168
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:246
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:247
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:248
 #: src/templates/ifaces.mas:166 src/templates/ifaces.mas:167
 #: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
 #: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
 msgid "Add"
 msgstr "追加"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:185
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:186
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:187
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:273
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:274
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:275
 #: src/templates/ifaces.mas:185 src/templates/ifaces.mas:186
 #: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
 #: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
 msgid "Delete"
 msgstr "削除"
 
+#: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:200
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
 msgstr "バーチャルインタフェース"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:13
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:18
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
+msgid "Ping"
+msgstr "PING"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:22
+#: src/templates/diag.mas:22
+msgid "Name resolution"
+msgstr "名前解決"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:23
+#: src/templates/diag.mas:23
+msgid "Domain name"
+msgstr "ドメイン名"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:27
+#: src/templates/diag.mas:27
+msgid "Lookup"
+msgstr "参照"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:29
+#: src/templates/diag.mas:29
+msgid "Output"
+msgstr "出力"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:19
+#: src/templates/gwrules.mas:19
+#, fuzzy
+msgid ""
+"To be able to use this feature, you need, at least, two gateways. You can "
+"add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
+msgstr ""
+"この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/ebox/"
+"Network/View/GatewayDataTable\">ここから</a>追加できます。"
+
+#: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:25
+#: src/templates/gwrules.mas:25
+msgid "Traffic balancing"
+msgstr "トラフィック調整"
 
 #~ msgid ""
 #~ "Having network interfaces configured via DHCP may cause this settings to "

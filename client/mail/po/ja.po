@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:33+0000\n"
+"POT-Creation-Date: 2009-01-21 10:14+0100\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,64 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/MQRemove.pm:42 src/EBox/CGI/MQRequeue.pm:42
-#: src/templates/qmanager.mas:17
-msgid "Queue ID"
-msgstr "キューID"
-
-#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAccount.pm:42
-#: src/EBox/CGI/DelAccount.pm:42 src/EBox/CGI/CreateAlias.pm:42
-msgid "username"
-msgstr "ユーザ名"
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "メールエイリアス"
-
-#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1089
-msgid "Queue Management"
-msgstr "キュー管理"
-
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:63
-#: src/EBox/MailVDomainsLdap.pm:122 src/EBox/Mail/Model/VDomains.pm:81
-msgid "virtual domain"
-msgstr "バーチャルドメイン"
-
-#: src/EBox/CGI/CreateAccount.pm:50
-msgid "Mail address"
-msgstr "メールアドレス"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "グループ"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
-msgid "account name"
-msgstr "アカウント名"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
-msgid "domain name"
-msgstr "ドメイン名"
-
-#: src/EBox/CGI/DelGroupAlias.pm:47
-msgid "group alias mail"
-msgstr "グループエイリアスメール"
-
-#: src/EBox/CGI/DelAccount.pm:46
-msgid "user mail"
-msgstr "ユーザメール"
-
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "メールドロップ"
-
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
 msgstr "管理者宛メール受信者"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:994
-#: src/EBox/Mail.pm:1069 src/EBox/Mail.pm:1142
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:1053
+#: src/EBox/Mail.pm:1109 src/EBox/Mail.pm:1190
 msgid "Mail"
 msgstr "メール"
 
@@ -88,23 +36,100 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 "SMTPでイベントを送信するためにサーバ {hostname} に接続することができません"
 
-#: src/EBox/MailVDomainsLdap.pm:332
-msgid "Size quota"
-msgstr "サイズクォータ"
+#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr "キューID"
 
-#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
-#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
-#: src/EBox/Mail.pm:1280 src/EBox/MailUserLdap.pm:725
-#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
-#: src/EBox/MailUserLdap.pm:799
-msgid "maildir size"
-msgstr "メールディレクトリサイズ"
+#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
+msgid "username"
+msgstr "ユーザ名"
 
-#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
-#: src/EBox/Mail/Composite/General.pm:77
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "メールドロップ"
+
+#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
+msgid "account name"
+msgstr "アカウント名"
+
+#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
+msgid "domain name"
+msgstr "ドメイン名"
+
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "メールエイリアス"
+
+#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
+#: src/EBox/Mail.pm:1135
+msgid "Queue Management"
+msgstr "キュー管理"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
+#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
+msgid "virtual domain"
+msgstr "バーチャルドメイン"
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr "メールアドレス"
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr "ユーザメール"
+
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "グループ"
+
+#: src/EBox/CGI/DelGroupAlias.pm:47
+msgid "group alias mail"
+msgstr "グループエイリアスメール"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
+msgstr "題目"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr "[EBox-event] {hostName} でイベントが発生しました"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1159
+msgid "To"
+msgstr "To"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr "メールディスパッチャーを設定"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+msgid ""
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+"メールを設定するにはイベントディスパッチャーがeBoxからのメールサービスを有効"
+"にしている必要があります"
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
+msgstr "メールディスパッチャーの設定が更新されました"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:85
+msgid ""
+"Users will have to authenticate to be able to send mails through this server"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:93
 #, fuzzy
-msgid "Mail server options"
-msgstr "メールサービス設定"
+msgid "Authentication"
+msgstr "認証エラー"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:123
+msgid "Cannot require authentication when TLS is inactive"
+msgstr ""
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 #, fuzzy
@@ -116,43 +141,25 @@ msgstr "題目"
 msgid "Allow relay"
 msgstr "許可"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:98
+#: src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
-"through this  server."
+"through this server."
 msgstr ""
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:107
+#: src/EBox/Mail/Model/ObjectPolicy.pm:108
 #, fuzzy
 msgid "Relay policy for network objects"
 msgstr "オブジェクトのリレーポリシー"
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:119
+#: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
 msgstr ""
 
-#: src/EBox/Mail/Model/ObjectPolicy.pm:120
-msgid "Here you can allow mail relay per network object"
-msgstr ""
-
-#: src/EBox/Mail/Model/VDomains.pm:57
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Mail/Model/VDomains.pm:72
+#: src/EBox/Mail/Model/ObjectPolicy.pm:121
 #, fuzzy
-msgid "Mail virtual domains"
-msgstr "バーチャルドメイン"
-
-#: src/EBox/Mail/Model/VDomains.pm:83
-msgid "Virtual domain added.You need to save changes to use this domain"
-msgstr ""
-
-#: src/EBox/Mail/Model/VDomains.pm:113
-msgid ""
-"You must enable the module mail in the module status section in order to use "
-"it."
-msgstr ""
+msgid "You may allow mail relay per network object"
+msgstr "オブジェクトのリレーポリシー"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
@@ -186,57 +193,68 @@ msgstr "なし"
 msgid "custom"
 msgstr "カスタム"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:82
+#: src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost to send mail"
 msgstr "メール送信のためのスマートホスト"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:89
+#: src/EBox/Mail/Model/SMTPOptions.pm:90
+#, fuzzy
+msgid "Smarthost authentication"
+msgstr "認証エラー"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:95
+#, fuzzy
+msgid "None"
+msgstr "なし"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:99
+msgid "User and password"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:105
+msgid "User"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:111
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:123
 #, fuzzy
 msgid "Maximum message size accepted"
 msgstr "メッセージサイズ最大値を超えています"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:93 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:127 src/templates/createaccount.mas:78
 #: src/templates/alias.mas:140
 msgid "Unlimited size"
 msgstr "サイズ無制限"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:97
+#: src/EBox/Mail/Model/SMTPOptions.pm:131
 msgid "size in Mb"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:109
+#: src/EBox/Mail/Model/SMTPOptions.pm:143
 #, fuzzy
 msgid "Options"
 msgstr "任意"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
-msgid "Subject"
-msgstr "題目"
+#: src/EBox/Mail/Model/VDomains.pm:57
+msgid "Name"
+msgstr "名前"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
-#, perl-brace-format
-msgid "[EBox-event] An event has happened at {hostName}"
-msgstr "[EBox-event] {hostName} でイベントが発生しました"
+#: src/EBox/Mail/Model/VDomains.pm:72
+#, fuzzy
+msgid "Mail virtual domains"
+msgstr "バーチャルドメイン"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1113
-msgid "To"
-msgstr "To"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
-msgid "Configure mail dispatcher"
-msgstr "メールディスパッチャーを設定"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-msgid ""
-"In order to configure the Mail event dispatcher is required to enable the "
-"mail service from eBox"
+#: src/EBox/Mail/Model/VDomains.pm:83
+msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
-"メールを設定するにはイベントディスパッチャーがeBoxからのメールサービスを有効"
-"にしている必要があります"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
-msgid "Mail dispatcher configuration updated"
-msgstr "メールディスパッチャーの設定が更新されました"
+#: src/EBox/Mail/Model/VDomains.pm:113
+msgid ""
+"You must enable the mail module in module status section in order to use it."
+msgstr ""
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:87
 msgid "SSL Support"
@@ -259,239 +277,302 @@ msgstr "任意"
 msgid "Required"
 msgstr "必須"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:85
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:64
+msgid "Enabled"
+msgstr "有効"
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:70
+msgid "Greylist duration (seconds)"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:78
+msgid "Retry window (hours)"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid ""
-"Users will have to authenticate to be able to send mails through this server"
+"Time that will have the mail sender to retry before it will be greylisted "
+"again"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:93
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:87
+msgid "Entries time to live (days)"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:88
+msgid "Period after that unseen entries will be deleted"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 #, fuzzy
-msgid "Authentication"
-msgstr "認証エラー"
+msgid "Greylist configuration"
+msgstr "メールディスパッチャーの設定が更新されました"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:123
-msgid "Cannot require authentication when TLS is inactive"
+#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
+#: src/EBox/Mail/Composite/General.pm:77
+#, fuzzy
+msgid "Mail server options"
+msgstr "メールサービス設定"
+
+#: src/EBox/Mail/Greylist.pm:53
+msgid "To configure whitelist for greylisting"
 msgstr ""
 
-#: src/EBox/Mail.pm:75
+#: src/EBox/MailVDomainsLdap.pm:332
+msgid "Size quota"
+msgstr "サイズクォータ"
+
+#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
+#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
+#: src/EBox/Mail.pm:1327 src/EBox/MailUserLdap.pm:725
+#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
+#: src/EBox/MailUserLdap.pm:799
+msgid "maildir size"
+msgstr "メールディレクトリサイズ"
+
+#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
+#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
+#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
+#: src/EBox/MailUserLdap.pm:76
+msgid "mail account"
+msgstr "メールアカウント"
+
+#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
+#: src/EBox/MailAliasLdap.pm:228
+msgid "mail alias account"
+msgstr "メールエイリアスアカウント"
+
+#: src/EBox/Mail.pm:78
 msgid "mail"
 msgstr "メール"
 
-#: src/EBox/Mail.pm:101
-msgid "Add postfix to sasl group"
+#: src/EBox/Mail.pm:112
+#, perl-brace-format
+msgid "Add {user} to {group} group"
 msgstr ""
 
-#: src/EBox/Mail.pm:102
-#, fuzzy
-msgid "To allow postfix to connect with saslauthd via unix socket"
+#: src/EBox/Mail.pm:114
+#, fuzzy, perl-brace-format
+msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
 msgstr "postfixとsaslauthdの通信を許可"
 
-#: src/EBox/Mail.pm:107
+#: src/EBox/Mail.pm:120
 msgid "Generate mail aliases"
 msgstr "メールエイリアスを作成"
 
-#: src/EBox/Mail.pm:109
-msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
-msgstr "eBoxは/usr/sbin/postalias /etc/aliasesを実行します"
+#: src/EBox/Mail.pm:122
+#, perl-brace-format
+msgid "eBox will execute {cmd}"
+msgstr ""
 
-#: src/EBox/Mail.pm:113
+#: src/EBox/Mail.pm:126
 msgid "Add LDAP schemas"
 msgstr "LDAPスキーマを追加"
 
-#: src/EBox/Mail.pm:115
-msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
+#: src/EBox/Mail.pm:128
+#, fuzzy, perl-brace-format
+msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
 msgstr "eBoxは二つのLDAPスキーマを追加します: authldap.schema eboximail.schema"
 
-#: src/EBox/Mail.pm:132
+#: src/EBox/Mail.pm:147
 msgid "To configure postfix"
 msgstr "postfixの設定"
 
-#: src/EBox/Mail.pm:138
+#: src/EBox/Mail.pm:153
 msgid "To define how client programs connect to services in  postfix"
 msgstr "クライアントプログラムがどのようにpostfixのサービスに接続するか定義"
 
-#: src/EBox/Mail.pm:146
+#: src/EBox/Mail.pm:161
 msgid "To configure courier to authenticate against LDAP"
 msgstr "courierがLDAPに対して認証するように設定"
 
-#: src/EBox/Mail.pm:151
+#: src/EBox/Mail.pm:166
 msgid "To let courier know how to access LDAP"
 msgstr "courierにLDAPへのアクセス方法を通知"
 
-#: src/EBox/Mail.pm:156
+#: src/EBox/Mail.pm:171
 msgid "To configure courier POP3"
 msgstr "courier POP3の設定"
 
-#: src/EBox/Mail.pm:161
+#: src/EBox/Mail.pm:176
 msgid "To configure POP3 with SSL support"
 msgstr "POP3をSSLサポート付きで設定"
 
-#: src/EBox/Mail.pm:166
+#: src/EBox/Mail.pm:181
 msgid "To configure IMAP"
 msgstr "IMAPを設定"
 
-#: src/EBox/Mail.pm:171
+#: src/EBox/Mail.pm:186
 msgid "To configure IMAP with SSL support"
 msgstr "IMAPをSSLサポート付きで設定"
 
-#: src/EBox/Mail.pm:177 src/EBox/Mail.pm:183
+#: src/EBox/Mail.pm:192 src/EBox/Mail.pm:198
 msgid "To configure saslauthd to authenticate against LDAP "
 msgstr "saslauthdをLDAP認証するよう設定"
 
-#: src/EBox/Mail.pm:188
+#: src/EBox/Mail.pm:203
 msgid "To configure saslauthd to use LDAP"
 msgstr "saslauthdがLDAPを使うよう設定"
 
-#: src/EBox/Mail.pm:193
+#: src/EBox/Mail.pm:208
+#, fuzzy
+msgid "To configure smart host authentication"
+msgstr "saslauthdをLDAP認証するよう設定"
+
+#: src/EBox/Mail.pm:213
 msgid "To add the LDAP schemas used by eBox mail"
 msgstr "eBox mailに使われるLDAPスキーマを追加"
 
-#: src/EBox/Mail.pm:515
+#: src/EBox/Mail.pm:581
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "カスタムされていないフィルタではこのパラメタを変更できません"
 
-#: src/EBox/Mail.pm:531 src/EBox/Mail.pm:551
+#: src/EBox/Mail.pm:596 src/EBox/Mail.pm:616
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "メールフィルタが存在しません。別のメールフィルタを設定するか、無効にしてくだ"
 "さい"
 
-#: src/EBox/Mail.pm:558
+#: src/EBox/Mail.pm:623
+#, fuzzy, perl-brace-format
 msgid ""
-"The mail filter $name is not active. Please set another mail filter or "
+"The mail filter {name} is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 "メールフィルタ{$name}はアクティブではありません。他のメールフィルタを使うか、"
 "無効にしてください"
 
-#: src/EBox/Mail.pm:995
-msgid "Mail services"
-msgstr "メールサービス"
-
-#: src/EBox/Mail.pm:999
+#: src/EBox/Mail.pm:1031
 msgid "POP3 service"
 msgstr "POP3サービス"
 
-#: src/EBox/Mail.pm:1004
+#: src/EBox/Mail.pm:1033
 msgid "IMAP service"
 msgstr "IMAPサービス"
 
-#: src/EBox/Mail.pm:1024
+#: src/EBox/Mail.pm:1067
 msgid "enabled"
 msgstr "有効"
 
-#: src/EBox/Mail.pm:1024
+#: src/EBox/Mail.pm:1067
 msgid "disabled"
 msgstr "無効"
 
-#: src/EBox/Mail.pm:1026 src/EBox/Mail.pm:1118
+#: src/EBox/Mail.pm:1069 src/EBox/Mail.pm:1164
 msgid "Status"
 msgstr "状態"
 
-#: src/EBox/Mail.pm:1033 src/EBox/Mail.pm:1039
-msgid "Filter"
+#: src/EBox/Mail.pm:1072
+#, fuzzy
+msgid "Mail server's filter"
+msgstr "メールサービス設定"
+
+#: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
+#, fuzzy
+msgid "Filter type"
 msgstr "フィルタ"
 
-#: src/EBox/Mail.pm:1033
+#: src/EBox/Mail.pm:1082
 msgid "Custom"
 msgstr "カスタム"
 
-#: src/EBox/Mail.pm:1035
+#: src/EBox/Mail.pm:1084
 msgid "Address"
 msgstr "アドレス"
 
-#: src/EBox/Mail.pm:1058
-msgid "Mail system"
-msgstr "メールシステム"
-
-#: src/EBox/Mail.pm:1075
+#: src/EBox/Mail.pm:1115
 msgid "General"
 msgstr "全般"
 
-#: src/EBox/Mail.pm:1082
+#: src/EBox/Mail.pm:1122
 #, fuzzy
 msgid "Virtual mail domains"
 msgstr "バーチャルドメイン"
 
-#: src/EBox/Mail.pm:1110 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:1128
+msgid "Greylist"
+msgstr ""
+
+#: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/Mail.pm:1111
+#: src/EBox/Mail.pm:1157
 msgid "Message ID"
 msgstr "メッセージID"
 
-#: src/EBox/Mail.pm:1112
+#: src/EBox/Mail.pm:1158
 msgid "From"
 msgstr "From"
 
-#: src/EBox/Mail.pm:1114
+#: src/EBox/Mail.pm:1160
 msgid "From hostname"
 msgstr "ホスト名から"
 
-#: src/EBox/Mail.pm:1115
+#: src/EBox/Mail.pm:1161
 msgid "From host ip"
 msgstr "ホストIPから"
 
-#: src/EBox/Mail.pm:1116 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1162 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "サイズ (bytes)"
 
-#: src/EBox/Mail.pm:1117
+#: src/EBox/Mail.pm:1163
 msgid "Relay"
 msgstr "リレー"
 
-#: src/EBox/Mail.pm:1119
+#: src/EBox/Mail.pm:1165
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/Mail.pm:1120
+#: src/EBox/Mail.pm:1166
 msgid "Aditional Info"
 msgstr "追加情報"
 
-#: src/EBox/Mail.pm:1131
+#: src/EBox/Mail.pm:1177
 msgid "Successful messages"
 msgstr "メッセージ"
 
-#: src/EBox/Mail.pm:1132
+#: src/EBox/Mail.pm:1178
 msgid "Maximum message size exceeded"
 msgstr "メッセージサイズ最大値を超えています"
 
-#: src/EBox/Mail.pm:1133
+#: src/EBox/Mail.pm:1179
 msgid "User quote exceeded"
 msgstr "ユーザクォータを超えています"
 
-#: src/EBox/Mail.pm:1134
+#: src/EBox/Mail.pm:1180
 msgid "Relay access denied"
 msgstr "リレーアクセスが拒否されました"
 
-#: src/EBox/Mail.pm:1135
+#: src/EBox/Mail.pm:1181
 msgid "Account does not exist"
 msgstr "アカウントが存在しません"
 
-#: src/EBox/Mail.pm:1136
+#: src/EBox/Mail.pm:1182
 msgid "Host unreachable"
 msgstr "ホストに到達できません"
 
-#: src/EBox/Mail.pm:1137
+#: src/EBox/Mail.pm:1183
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: src/EBox/Mail.pm:1138
+#: src/EBox/Mail.pm:1184
+msgid "Relay denied by the smarthost"
+msgstr ""
+
+#: src/EBox/Mail.pm:1185
+msgid "Greylisted"
+msgstr ""
+
+#: src/EBox/Mail.pm:1186
 msgid "Other events"
 msgstr "その他のイベント"
 
-#: src/EBox/Mail.pm:1244
+#: src/EBox/Mail.pm:1291
 msgid "Mailboxes"
 msgstr "メールボックス"
-
-#: src/EBox/MailUserLdap.pm:71 src/EBox/MailUserLdap.pm:76
-#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
-#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
-#: src/EBox/MailAliasLdap.pm:140
-msgid "mail account"
-msgstr "メールアカウント"
 
 #: src/EBox/MailUserLdap.pm:320
 msgid "This group has a mail alias"
@@ -500,11 +581,6 @@ msgstr "このグループはメールエイリアスを持っています"
 #: src/EBox/MailUserLdap.pm:347
 msgid "This user has a mail account"
 msgstr "このユーザはメールアカウントを持っています"
-
-#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
-#: src/EBox/MailAliasLdap.pm:228
-msgid "mail alias account"
-msgstr "メールエイリアスアカウント"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -525,8 +601,8 @@ msgstr ""
 msgid "Delete"
 msgstr "削除"
 
-#: src/templates/warnvd.mas:32 src/templates/warnusermdsize.mas:26
-#: src/templates/warnvdmdsize.mas:36
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -561,6 +637,15 @@ msgstr "作成"
 msgid "Mail alias settings"
 msgstr "メールエイリアス設定"
 
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr "メールモジュール有効のときのみ以下の設定が適用されます"
+
+#: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
+msgid "Change"
+msgstr "変更"
+
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
 msgstr "メールアカウントを作成"
@@ -577,14 +662,29 @@ msgstr "ドメイン名"
 msgid "Maildir size"
 msgstr "メールディレクトリサイズ"
 
-#: src/templates/warnusermdsize.mas:23 src/templates/warnvdmdsize.mas:33
-msgid "Change"
-msgstr "変更"
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr "メールアカウント設定"
 
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the mail module is enabled"
-msgstr "メールモジュール有効のときのみ以下の設定が適用されます"
+#: src/templates/alias.mas:34
+msgid "Create mail aliases"
+msgstr "メールエイリアスを作成"
+
+#: src/templates/alias.mas:39
+msgid "Mail alias"
+msgstr "メールエイリアス"
+
+#: src/templates/alias.mas:42
+msgid "Action"
+msgstr "アクション"
+
+#: src/templates/alias.mas:126
+msgid "Default maildir size (MB)"
+msgstr "デフォルトのメールディレクトリサイズ (MB)"
+
+#: src/templates/alias.mas:151 src/templates/alias.mas:152
+msgid "Modify"
+msgstr "修正"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"
@@ -638,30 +738,6 @@ msgstr "最後"
 msgid "There is no messages in queue or the service is stopped"
 msgstr "キューにメッセージがないか、サービスが停止しています"
 
-#: src/templates/alias.mas:11
-msgid "Mail account settings"
-msgstr "メールアカウント設定"
-
-#: src/templates/alias.mas:34
-msgid "Create mail aliases"
-msgstr "メールエイリアスを作成"
-
-#: src/templates/alias.mas:39
-msgid "Mail alias"
-msgstr "メールエイリアス"
-
-#: src/templates/alias.mas:42
-msgid "Action"
-msgstr "アクション"
-
-#: src/templates/alias.mas:126
-msgid "Default maildir size (MB)"
-msgstr "デフォルトのメールディレクトリサイズ (MB)"
-
-#: src/templates/alias.mas:151 src/templates/alias.mas:152
-msgid "Modify"
-msgstr "修正"
-
 #: src/templates/account.mas:22
 msgid "Mail account"
 msgstr "メールアカウント"
@@ -669,6 +745,15 @@ msgstr "メールアカウント"
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
 msgstr "新規バーチャルドメインを作成するにはここをクリックしてください"
+
+#~ msgid "eBox will execute /usr/sbin/postalias /etc/aliases "
+#~ msgstr "eBoxは/usr/sbin/postalias /etc/aliasesを実行します"
+
+#~ msgid "Mail services"
+#~ msgstr "メールサービス"
+
+#~ msgid "Mail system"
+#~ msgstr "メールシステム"
 
 #~ msgid "To allow postfix communicate with saslauthd "
 #~ msgstr "postfixとsaslauthdの通信を許可"
@@ -728,9 +813,6 @@ msgstr "新規バーチャルドメインを作成するにはここをクリッ
 
 #~ msgid "Service"
 #~ msgstr "サービス"
-
-#~ msgid "Enabled"
-#~ msgstr "有効"
 
 #~ msgid "Apply Changes"
 #~ msgstr "変更を適用"

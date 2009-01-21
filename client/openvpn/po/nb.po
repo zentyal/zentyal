@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.12.99"
+"Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:38+0100\n"
+"POT-Creation-Date: 2009-01-21 10:15+0100\n"
 "PO-Revision-Date: 2008-12-04 10:38+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -648,169 +648,184 @@ msgstr ""
 msgid "Connection target"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:67
-#: src/EBox/OpenVPN.pm:67
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:68
+#: src/EBox/OpenVPN.pm:71
 msgid "openVPN"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:140
-#: src/EBox/OpenVPN.pm:140
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:141
+#: src/EBox/OpenVPN.pm:144
 msgid "To configure Quagga to run ripd and zebra"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:146
-#: src/EBox/OpenVPN.pm:146
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:147
+#: src/EBox/OpenVPN.pm:150
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:151
-#: src/EBox/OpenVPN.pm:151
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:152
+#: src/EBox/OpenVPN.pm:155
 msgid "Main zebra configuration file"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:157
-#: src/EBox/OpenVPN.pm:157
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:158
+#: src/EBox/OpenVPN.pm:161
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:648
-#: src/EBox/OpenVPN.pm:648
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:669
+#: src/EBox/OpenVPN.pm:672
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:661
-#: src/EBox/OpenVPN.pm:661
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:682
+#: src/EBox/OpenVPN.pm:685
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:672
-#: src/EBox/OpenVPN.pm:672
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:693
+#: src/EBox/OpenVPN.pm:696
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:694
-#: src/EBox/OpenVPN.pm:694
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:715
+#: src/EBox/OpenVPN.pm:718
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:703
-#: src/EBox/OpenVPN.pm:703
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:724
+#: src/EBox/OpenVPN.pm:727
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1417
-#: src/EBox/OpenVPN.pm:1417
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1438
+#: src/EBox/OpenVPN.pm:1441
 #, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1437
-#: src/EBox/OpenVPN.pm:1437
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1458
+#: src/EBox/OpenVPN.pm:1461
 msgid "VPN"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1443
-#: src/EBox/OpenVPN.pm:1443
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1464
+#: src/EBox/OpenVPN.pm:1467
 msgid "Servers"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1449
-#: src/EBox/OpenVPN.pm:1449
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1470
+#: src/EBox/OpenVPN.pm:1473
 msgid "Clients"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1466
-#: src/EBox/OpenVPN.pm:1466
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
+#: src/EBox/OpenVPN.pm:1490
+msgid "Common name"
+msgstr ""
+
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
+#: src/EBox/OpenVPN.pm:1490
+msgid "Address"
+msgstr ""
+
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
+#: src/EBox/OpenVPN.pm:1490
+msgid "Connected since"
+msgstr ""
+
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1507
+#: src/EBox/OpenVPN.pm:1510
+msgid "No users connected to the VPN"
+msgstr ""
+
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1542
+#: src/EBox/OpenVPN.pm:1551
 msgid "OpenVPN daemons"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1491
-#: src/EBox/OpenVPN.pm:1491
-msgid "OpenVPN service"
-msgstr ""
-
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1545
-#: src/EBox/OpenVPN.pm:1545
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1606
+#: src/EBox/OpenVPN.pm:1617
 msgid "Date"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1546
-#: src/EBox/OpenVPN.pm:1546
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1607
+#: src/EBox/OpenVPN.pm:1618
 msgid "Event"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1548
-#: src/EBox/OpenVPN.pm:1548
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1609
+#: src/EBox/OpenVPN.pm:1620
 msgid "Type"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1549
-#: src/EBox/OpenVPN.pm:1549
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1610
+#: src/EBox/OpenVPN.pm:1621
 msgid "Remote IP"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1550
-#: src/EBox/OpenVPN.pm:1550
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1611
+#: src/EBox/OpenVPN.pm:1622
 msgid "Remote Certificate"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1555
-#: src/EBox/OpenVPN.pm:1555
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1616
+#: src/EBox/OpenVPN.pm:1627
 msgid "Initialization sequence completed"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1557
-#: src/EBox/OpenVPN.pm:1557
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1618
+#: src/EBox/OpenVPN.pm:1629
 msgid "Certificate issuer not authorized"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1558
-#: src/EBox/OpenVPN.pm:1558
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1619
+#: src/EBox/OpenVPN.pm:1630
 msgid "Certificate common name not authorized"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1559
-#: src/EBox/OpenVPN.pm:1559
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1620
+#: src/EBox/OpenVPN.pm:1631
 msgid "Certificate verification failed"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1561
-#: src/EBox/OpenVPN.pm:1561
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1622
+#: src/EBox/OpenVPN.pm:1633
 msgid "Client connection initiated"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1562
-#: src/EBox/OpenVPN.pm:1562
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1623
+#: src/EBox/OpenVPN.pm:1634
 msgid "Client connection terminated"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1564
-#: src/EBox/OpenVPN.pm:1564
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1625
+#: src/EBox/OpenVPN.pm:1636
 msgid "Connection to server initiated"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1565
-#: src/EBox/OpenVPN.pm:1565
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1626
+#: src/EBox/OpenVPN.pm:1637
 msgid "Server connection terminated"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1569
-#: src/EBox/OpenVPN.pm:1569
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1630
+#: src/EBox/OpenVPN.pm:1641
 msgid "OpenVPN"
 msgstr ""
 
-#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1594
-#: src/EBox/OpenVPN.pm:1594
+#: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1655
+#: src/EBox/OpenVPN.pm:1666
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""

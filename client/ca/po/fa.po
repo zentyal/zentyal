@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.12.100"
+"Project-Id-Version: ebox-ca 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:26+0100\n"
+"POT-Creation-Date: 2009-01-21 09:58+0100\n"
 "PO-Revision-Date: 2008-12-04 10:26+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,50 +15,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:44
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:43
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/Index.pm:39
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:44
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:43
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:43
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:42
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:42
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:41
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:43
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:43
+#: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:42
 msgid "Certification Authority Management"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:109
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:84
-#: src/EBox/CGI/CreateCA.pm:109 src/EBox/CGI/IssueCertificate.pm:84
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:108
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
+#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
 msgid "CA passphrases do NOT match"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:119
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:92
-#: src/EBox/CGI/CreateCA.pm:119 src/EBox/CGI/IssueCertificate.pm:92
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
+#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:124
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:102
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:89
-#: src/EBox/CGI/CreateCA.pm:124 src/EBox/CGI/IssueCertificate.pm:102
-#: src/EBox/CGI/RenewCertificate.pm:89
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:88
+#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
+#: src/EBox/CGI/RenewCertificate.pm:88
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:135
-#: src/EBox/CGI/CreateCA.pm:135
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:134
+#: src/EBox/CGI/CreateCA.pm:134
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:70
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:75
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:69
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:74
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:76
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:62
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:438
@@ -69,8 +69,8 @@ msgstr ""
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1187
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1229
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1328 src/EBox/CGI/ShowForm.pm:62
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:70
-#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:75
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
 #: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
 #: src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706 src/EBox/CA.pm:872
 #: src/EBox/CA.pm:1187 src/EBox/CA.pm:1229 src/EBox/CA.pm:1328
@@ -94,12 +94,12 @@ msgstr ""
 msgid "Error creating file"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:68
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:67
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:154
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:254
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:214
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:488
-#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA/TestStub.pm:154
+#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA/TestStub.pm:154
 #: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:214 src/EBox/CA.pm:488
 #: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:7
 #: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:37
@@ -110,9 +110,9 @@ msgstr ""
 msgid "Organization Name"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:73
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:70
-#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:70
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:72
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
+#: src/EBox/CGI/IssueCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:69
 #: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:9
 #: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:13
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:28
@@ -121,46 +121,46 @@ msgstr ""
 msgid "Days to expire"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:109
-#: src/EBox/CGI/IssueCertificate.pm:109
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:108
+#: src/EBox/CGI/IssueCertificate.pm:108
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
-#: src/EBox/CGI/IssueCertificate.pm:128
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:127
+#: src/EBox/CGI/IssueCertificate.pm:127
 msgid "The certificate has been issued"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:129
-#: src/EBox/CGI/IssueCertificate.pm:129
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
+#: src/EBox/CGI/IssueCertificate.pm:128
 msgid "The new CA certificate has been issued"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:65
-#: src/EBox/CGI/RenewCertificate.pm:65
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:68
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:70
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:136
-#: src/EBox/CGI/RenewCertificate.pm:136
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:135
+#: src/EBox/CGI/RenewCertificate.pm:135
 msgid "The certificate CANNOT be renewed"
+msgstr ""
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:137
+#: src/EBox/CGI/RenewCertificate.pm:137
+msgid "The certificate has been renewed"
 msgstr ""
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:138
 #: src/EBox/CGI/RenewCertificate.pm:138
-msgid "The certificate has been renewed"
-msgstr ""
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:139
-#: src/EBox/CGI/RenewCertificate.pm:139
 msgid "The new CA certificate has been renewed"
 msgstr ""
 

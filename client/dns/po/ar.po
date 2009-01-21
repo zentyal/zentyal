@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:26+0100\n"
-"PO-Revision-Date: 2006-11-27 12:41+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2009-01-21 10:01+0100\n"
+"PO-Revision-Date: 2008-12-12 13:39+0000\n"
+"Last-Translator: Ali Alawi AlTakyah <tatsoft@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 && n<=10 ? "
-"3 : n>=11 && n<=99 ? 4 : 5;\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:79
 #: src/EBox/Model/AliasTable.pm:79
@@ -46,17 +46,17 @@ msgstr ""
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:85
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "اسم بديل"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:143
 #: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
-msgstr ""
+msgstr "اسم بديل"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:66
 #: src/EBox/Model/DomainTable.pm:66
 msgid "Domain"
-msgstr ""
+msgstr "النطاق"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:74
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:184
@@ -64,30 +64,30 @@ msgstr ""
 #: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
 #: src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
-msgstr ""
+msgstr "أسماء المضيف"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:83
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "بدالات البريد"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:91
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:165
 #: src/EBox/Model/HostnameTable.pm:165 src/EBox/Model/DomainTable.pm:91
 msgid "IP Address"
-msgstr ""
+msgstr "عنوان الـIP"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:101
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:107
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 msgid "Domains"
-msgstr ""
+msgstr "النطاقات"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:108
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:345
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:343
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:343
 msgid "domain"
-msgstr ""
+msgstr "النطاق"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:133
 #: src/EBox/Model/HostnameTable.pm:133
@@ -100,35 +100,33 @@ msgstr ""
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:157
 #: src/EBox/Model/HostnameTable.pm:157
 msgid "Hostname"
-msgstr ""
+msgstr "اسم المضبف"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:191
 #: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
-msgstr ""
+msgstr "اسم المضيف"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:75
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:833
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:861
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
-#: src/EBox/DNS.pm.in:861
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:808
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:808
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:77
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "خادم ال DNS يسمح لك بحجز أسماء لنطاقك الخاص"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:84
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "تمكين الخدمة"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:86
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "تعطيل الخدمة"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:86
 #: src/EBox/Model/MailExchanger.pm:86
@@ -141,27 +139,27 @@ msgstr ""
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:20
 #: src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "اسم المضيف"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:117
 #: src/EBox/Model/MailExchanger.pm:117
 msgid "Owner domain"
-msgstr ""
+msgstr "مالك النطاق"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:125
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "مخصص"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:133
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "اعدادات"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:142
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "بدالات البريد"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:148
 #: src/EBox/Model/MailExchanger.pm:148
@@ -176,22 +174,22 @@ msgstr ""
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:154
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "سجل بدالة البريد"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:53 src/EBox/DNS.pm.in:53
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:51 src/EBox/DNS.pm.in:51
 msgid "Domain Name System"
-msgstr ""
+msgstr "نظام اسم النطاق"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:90 src/EBox/DNS.pm.in:90
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:88 src/EBox/DNS.pm.in:88
 msgid "DNS Server"
-msgstr ""
+msgstr "خادم DNS"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:648 src/EBox/DNS.pm.in:648
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:646 src/EBox/DNS.pm.in:646
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:664 src/EBox/DNS.pm.in:664
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:662 src/EBox/DNS.pm.in:662
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""
@@ -199,18 +197,18 @@ msgstr ""
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:16
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "قائمة النطاق"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:21
 #: src/templates/index.mas:21
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:24
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:23
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
-msgstr ""
+msgstr "التاثير"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:37
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:38
@@ -227,12 +225,12 @@ msgstr ""
 #: src/templates/index.mas:37 src/templates/index.mas:38
 #: src/templates/index.mas:39
 msgid "Add"
-msgstr ""
+msgstr "اضافة"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:49
 #: src/templates/index.mas:49
 msgid "Edit"
-msgstr ""
+msgstr "تحرير"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:53
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:54
@@ -244,26 +242,26 @@ msgstr ""
 #: src/templates/edit.mas:93 src/templates/edit.mas:94
 #: src/templates/index.mas:53 src/templates/index.mas:54
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:65
 #: src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "تحرير"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:70
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:110
 #: src/templates/edit.mas:110 src/templates/index.mas:70
 msgid "delete"
-msgstr ""
+msgstr "حذف"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:12
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "{domain} قائمة  المضيف للنطاق"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:17
 #: src/templates/edit.mas:17
 msgid "IP"
-msgstr ""
+msgstr "IP"

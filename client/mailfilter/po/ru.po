@@ -7,225 +7,225 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:34+0000\n"
+"POT-Creation-Date: 2009-01-21 10:14+0100\n"
 "PO-Revision-Date: 2008-11-16 16:23+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/MailFilter.pm:95
-msgid "Add clamav user to amavis group"
-msgstr "Добавить пользователя clamav в группу amavis"
+#: src/EBox/MailFilter/SpamAssassin.pm:40
+msgid " To configure spamassassin daemon"
+msgstr " Настройка spamassassin демона"
 
-#: src/EBox/MailFilter.pm:96
-msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
+#: src/EBox/MailFilter/SpamAssassin.pm:308
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
+#: src/EBox/MailFilter/Model/VDomains.pm:91
+msgid "Spam threshold"
+msgstr "Порог спама"
 
-#: src/EBox/MailFilter.pm:100
-msgid "Update LDAP"
-msgstr "Обновить LDAP"
+#: src/EBox/MailFilter/SpamAssassin.pm:308
+msgid "It must be a number(decimal point allowed)"
+msgstr "Это должно быть числом (десятичная точка разрешена)"
 
-#: src/EBox/MailFilter.pm:101
-msgid "Add amavis specific classes and fields"
-msgstr "Добавить определенные классы и поля amavis"
+#: src/EBox/MailFilter/SpamAssassin.pm:318
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr "Порог спама не может быть выше порога авто-обучения"
 
-#: src/EBox/MailFilter.pm:117
-msgid "To configure amavis"
-msgstr "Настроить amavis"
-
-#: src/EBox/MailFilter.pm:122
-msgid "To add the LDAP schemas used by eBox mailfilter"
-msgstr "Добавить LDAP схему используемую почтовыми фильтрами eBox"
-
-#: src/EBox/MailFilter.pm:452
-msgid "Cannot proceed because the filter is in use"
-msgstr "Не воможно фильтр используется"
-
-#: src/EBox/MailFilter.pm:699
-msgid "Mail filter system"
-msgstr "Система почтовых фильтров"
-
-#: src/EBox/MailFilter.pm:714
-msgid "Mail filter settings"
-msgstr "Настройки почтовых фильтров"
-
-#: src/EBox/MailFilter.pm:773
-msgid "eBox internal mail filter"
-msgstr "eBox внутрений почтовый фильтр"
-
-#: src/EBox/MailFilter.pm:793 src/EBox/MailFilter/Composite/Antivirus.pm:63
-msgid "Antivirus"
-msgstr "Антивирус"
-
-#: src/EBox/MailFilter.pm:803 src/EBox/MailFilter/Composite/Antispam.pm:64
-msgid "Antispam"
-msgstr "Антиспам"
-
-#: src/EBox/MailFilter.pm:829 src/EBox/MailFilter/Model/FreshclamStatus.pm:63
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
-msgid "Date"
-msgstr "Дата"
-
-#: src/EBox/MailFilter.pm:831
-msgid "Action"
-msgstr "Действие"
-
-#: src/EBox/MailFilter.pm:832
-msgid "Event"
-msgstr "Событие"
-
-#: src/EBox/MailFilter.pm:834
-msgid "Sender address"
-msgstr "Адрес отправителя"
-
-#: src/EBox/MailFilter.pm:835
-msgid "Recipient address"
-msgstr "Адрес получателя"
-
-#: src/EBox/MailFilter.pm:837
-msgid "Spam hits"
-msgstr "Спам хиты"
-
-#: src/EBox/MailFilter.pm:842
-msgid "Bad header found"
-msgstr "Обнаружен плохой заголовок"
-
-#: src/EBox/MailFilter.pm:843
-msgid "Spam found"
-msgstr "Обнаружен спам"
-
-#: src/EBox/MailFilter.pm:844
-msgid "Forbidden attached file  found"
-msgstr "Обнаружен запрещенный прикрепленный файл  "
-
-#: src/EBox/MailFilter.pm:845
-msgid "Address in blacklist found"
-msgstr "Обнаружен адрес из черного списка"
-
-#: src/EBox/MailFilter.pm:846
-msgid "Virus found"
-msgstr "Обнаружен вирус"
-
-#: src/EBox/MailFilter.pm:847
-msgid "Clean message"
-msgstr "Чистое сообщение"
-
-#: src/EBox/MailFilter.pm:857
-msgid "Mail Filter"
-msgstr "Почтовые фильтры"
-
-#: src/EBox/MailFilter/Types/MIMEType.pm:61
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
-msgid "MIME type"
-msgstr "MIME тип"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:79
-msgid "domain name"
-msgstr "имя домена"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:83
-msgid "email address"
-msgstr "почтовый адрес"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+#: src/EBox/MailFilter/SpamAssassin.pm:322
 msgid ""
-"The sender ought be either an email address or a domain name prefixed with "
-"'@'"
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr "Порог спама не может быть равным или меньше порога авто-обучения ham"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:359
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
 msgstr ""
-"Отправитель должен быть либо почтовым адресом либо именем домена с префиксом "
-"'@'"
+"Невозможно обучение так как Байесовский фильтр отключен в текущей "
+"конфигурации. Для обучение необходимо включить Байесовский фильтр и записать "
+"изменение"
 
-#: src/EBox/MailFilter/Types/Policy.pm:30
-msgid "Pass"
-msgstr "Разрешить"
-
-#: src/EBox/MailFilter/Types/Policy.pm:31
-msgid "Reject"
-msgstr "Отклонить"
-
-#: src/EBox/MailFilter/Types/Policy.pm:32
-msgid "Bounce"
-msgstr "Возвратить"
-
-#: src/EBox/MailFilter/Types/Policy.pm:33
-msgid "Discard"
-msgstr "Отбросить"
-
-#: src/EBox/MailFilter/Types/Policy.pm:53
-msgid "Mailfilter's policy"
-msgstr "Политика почтовых фильтров"
-
-#: src/EBox/MailFilter/Types/FileExtension.pm:59
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
-msgid "file extension"
-msgstr "файловые расширения"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
-msgid "Write down a decimal number"
-msgstr "Напишите десятичное число"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
-msgid "Only non-zero positive numbers are allowed"
-msgstr "Разрешено ненулевое положительное число"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
+#: src/EBox/MailFilter/SpamAssassin.pm:374
 #, perl-brace-format
-msgid "Write down a number lesser than {m}"
-msgstr "Напишите число меньшее {m}"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
-#, perl-brace-format
-msgid "Write down a number greater  than {m}"
-msgstr "Напишите число большее {m}"
-
-#: src/EBox/MailFilter/ClamAV.pm:51
-msgid "To configure freshclam updater daemon"
-msgstr "Настроить демон обновления freshclam"
+msgid "Unsupported or incorrect input source fonrmat: {format}"
+msgstr "неподдерживаемый или некорректный формат источника: {format}"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "Виртуальный почтовый домен {vd} не существует"
 
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
-msgid "Mail filter report"
-msgstr "Отчет почтового фильтра"
+#: src/EBox/MailFilter/ClamAV.pm:56
+msgid "To configure freshclam updater daemon"
+msgstr "Настроить демон обновления freshclam"
 
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
-msgid "Mail Filter report"
-msgstr "Отчет почтового фильтра"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
+msgid "The score threshold to mark a message as spam"
+msgstr "Порог балов, для пометки сообщения, как спам."
 
-#: src/EBox/MailFilter/Composite/Index.pm:70
-msgid "Internal mailfilter"
-msgstr "Внутренний почтовый фильтр"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:71
+msgid "Spam subject tag"
+msgstr "Признак спама"
 
-#: src/EBox/MailFilter/Composite/GeneralAndBadHeader.pm:64
-msgid "Options"
-msgstr "Параметры"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:74
+msgid "Tag which will be added to the spam mail subject"
+msgstr "Признак спама, который будет добавлен в тему письма"
 
-#: src/EBox/MailFilter/Composite/FileFilter.pm:64
-msgid "Attached files filter"
-msgstr "Фильтр почтовых вложений"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
+msgid "Use bayesian classifier"
+msgstr "Использовать классификатор Байеса"
 
-#: src/EBox/MailFilter/Composite/FileFilter.pm:66
-msgid "Filter mail messages according attached files"
-msgstr "Фильтр почтовых сообщений содержащих вложения"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84
+msgid "Auto-whitelist"
+msgstr "Автоматический белый список"
 
-#: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
-msgid "External connections"
-msgstr "Внешние соединения"
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
+msgid "Change the score of mail according to the sender history"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
+msgid "Auto-learn"
+msgstr "Авто-обучение"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
+msgid "Feedback the learning system with messages that reach the threshold"
+msgstr "Обратная связь между системой обучения с балами сообщения"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:99
+msgid "Autolearn spam threshold"
+msgstr "Авто-обучения порога спама"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:103
+msgid ""
+"Spam messages with a score equal or greater than this threshold will be "
+"added to the learning system "
+msgstr ""
+"Спам балл сообщения равен или превышает порог и будет добавлено в систему "
+"обучения"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
+msgid "Autolearn ham threshold"
+msgstr "Авто-обучение ham порог"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:110
+msgid ""
+"Ham messages with a score below this threshold will be added to the learning "
+"system"
+msgstr "Ham  балл сообщения ниже порога будет добавлен в обучающуюся систему "
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
+msgid "Antispam configuration"
+msgstr "Настройка антиспам"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:168
+msgid ""
+"You must define autolearn spam threshold when autolearn option is active"
+msgstr ""
+"Необходимо определить порог спама, когда вы включаете опцию авто-обучения"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:174
+msgid "You must define autolearn ham threshold when autolearn option is active"
+msgstr ""
+"Необходимо определить порог ham, когда вы включаете опцию авто-обучения"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:180
+msgid ""
+"The spam's autolearn threshold cannot be lower than the default spam's "
+"treshold "
+msgstr ""
+"Порог спама авто-обучения не должно быть ниже порога спама по умолчанию"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:186
+msgid ""
+"The ham's autolearn threshold canot be higher or equal than the default spam "
+"level"
+msgstr "Порог ham авто-обучения не должен быть ниже порога спам по умолчанию"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
+msgid "External mail server"
+msgstr "Внешний почтовый сервер"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
+msgid "Allow connection"
+msgstr "Разрешить соединения"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
+msgid "External mail servers"
+msgstr "Внешние почтовые сервера"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
+msgid "external mail server"
+msgstr "внешний почтовый сервер"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+"Здесь можно указать, какие внешние почтовые сервера могут соединяться с "
+"почтовым фильтром"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:143
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+"Не действительный внешний MTA {mta} . Локальные сетевые адреса не разрешены."
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
+msgid "Mailbox"
+msgstr "Почтовый ящик"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
+msgid "Mailbox contains"
+msgstr "Содержимое почтового ящика"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
+msgid "Train bayesian spam filter"
+msgstr "Обучение спам фильтра Байеса"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
+msgid "Learned from messages"
+msgstr "Обучение по сообщениям"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
+msgid "spam"
+msgstr "спам"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:98
+msgid "ham"
+msgstr "ham"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:130
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "Неправильный тип почтового ящика: {type}"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:59
+#: src/EBox/MailFilter/Amavis.pm:428 src/EBox/MailFilter/POPProxy.pm:329
 msgid "Status"
 msgstr "Состояние"
 
+#: src/EBox/MailFilter/Model/FreshclamStatus.pm:63
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
+#: src/EBox/MailFilter.pm:556 src/EBox/MailFilter.pm:603
+msgid "Date"
+msgstr "Дата"
+
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
-msgid "Database update status"
+#, fuzzy
+msgid "Antivirus database update status"
 msgstr "Состояние обновления базы данных"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:126
@@ -260,279 +260,100 @@ msgstr "Последнее обновление прошло успешно"
 msgid "Unknown event {event}"
 msgstr "Неизвестное событие {event}"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
-msgid "External mail server"
-msgstr "Внешний почтовый сервер"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
+msgid "MIME Type"
+msgstr "MIME тип"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
-msgid "Allow connection"
-msgstr "Разрешить соединения"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
+msgid "Allow"
+msgstr "Разрешить"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
-msgid "External mail servers"
-msgstr "Внешние почтовые сервера"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
+msgid "MIME types"
+msgstr "MIME типы"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
-msgid "external mail server"
-msgstr "внешний почтовый сервер"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+#: src/EBox/MailFilter/Types/MIMEType.pm:61
+msgid "MIME type"
+msgstr "MIME тип"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
+#, fuzzy
 msgid ""
-"Here you can specify which external mail servers can connect to the mail "
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr "MIME типы не перечисленные ниже разрешены"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "Внешний почтовый домен"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "Внешние почтовые домены"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
+msgid "external mail domain"
+msgstr "внешний почтовый домен"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
-"Здесь можно указать, какие внешние почтовые сервера могут соединяться с "
-"почтовым фильтром"
+"Здесь можно указать, какие внешние домены могут подключаться к почтовому "
+"фильтру"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:143
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
 #, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr ""
-"Не действительный внешний MTA {mta} . Локальные сетевые адреса не разрешены."
+msgid "{d} is a internal eBox's virtual main domain"
+msgstr "{d} внутренний виртуальный домен eBox"
 
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:64
-msgid "Antispam enabled"
-msgstr "Антиспам включен"
+#: src/EBox/MailFilter/Model/AntispamACL.pm:62
+msgid "Mail sender"
+msgstr "Почтовый отправитель"
 
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:70
-msgid "Spam policy"
-msgstr "Политика спам"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
-#: src/EBox/MailFilter/Model/VDomains.pm:91
-#: src/EBox/MailFilter/SpamAssassin.pm:303
-msgid "Spam threshold"
-msgstr "Порог спама"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:80
-msgid "The score threshold to mark a message as spam"
-msgstr "Порог балов, для пометки сообщения, как спам."
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84
-msgid "Spam subject tag"
-msgstr "Признак спама"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
-msgid "Tag which will be added to the spam mail subject"
-msgstr "Признак спама, который будет добавлен в тему письма"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
-msgid "Use bayesian classifier"
-msgstr "Использовать классификатор Байеса"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:97
-msgid "Auto-whitelist"
-msgstr "Автоматический белый список"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:100
-msgid "Change the score of mail according to the sender history"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:104
-msgid "Auto-learn"
-msgstr "Авто-обучение"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
-msgid "Feedback the learning system with messages that reach the threshold"
-msgstr "Обратная связь между системой обучения с балами сообщения"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:112
-msgid "Autolearn spam threshold"
-msgstr "Авто-обучения порога спама"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
-msgid ""
-"Spam messages with a score equal or greater than this threshold will be "
-"added to the learning system "
-msgstr ""
-"Спам балл сообщения равен или превышает порог и будет добавлено в систему "
-"обучения"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:120
-msgid "Autolearn ham threshold"
-msgstr "Авто-обучение ham порог"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:123
-msgid ""
-"Ham messages with a score below this threshold will be added to the learning "
-"system"
-msgstr "Ham  балл сообщения ниже порога будет добавлен в обучающуюся систему "
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:129
-msgid "Antispam configuration"
-msgstr "Настройка антиспам"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:181
-msgid ""
-"You must define autolearn spam threshold when autolearn option is active"
-msgstr ""
-"Необходимо определить порог спама, когда вы включаете опцию авто-обучения"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:187
-msgid "You must define autolearn ham threshold when autolearn option is active"
-msgstr "Необходимо определить порог ham, когда вы включаете опцию авто-обучения"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:193
-msgid ""
-"The spam's autolearn threshold cannot be lower than the default spam's "
-"treshold "
-msgstr "Порог спама авто-обучения не должно быть ниже порога спама по умолчанию"
-
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:199
-msgid ""
-"The ham's autolearn threshold canot be higher or equal than the default spam "
-"level"
-msgstr "Порог ham авто-обучения не должен быть ниже порога спам по умолчанию"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-msgid "Mail filter graph"
-msgstr "График почтового фильтра"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-msgid "clean messages"
-msgstr "чистые сообщения"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
-msgid "spam"
-msgstr "спам"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
-msgid "banned files"
-msgstr "заблокированные файлы"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
-msgid "infected"
-msgstr "инфицирован"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
-msgid "bad header"
-msgstr "испорченный заголовок"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-msgid "blacklisted"
-msgstr "черный список"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
-msgid "Filter traffic"
-msgstr "Фильтр трафика"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
-msgid "blacklisted senders"
-msgstr "черный список отправителей"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-msgid "bad message header"
-msgstr "плохой заголовок"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
-msgid "Filter traffic details"
-msgstr "Подробности фильтра трафика"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
-msgid "traffic"
-msgstr "трафик"
-
-#: src/EBox/MailFilter/Model/General.pm:64
-msgid "Service's port"
-msgstr "Порт службы"
-
-#: src/EBox/MailFilter/Model/General.pm:71
-#, fuzzy
-msgid "Notify of non-spam problematic messages"
-msgstr "Сообщение не спам проблемное сообщение"
-
-#: src/EBox/MailFilter/Model/General.pm:75
-msgid "Disabled"
-msgstr "Отключено"
-
-#: src/EBox/MailFilter/Model/General.pm:80
-msgid "mail address"
-msgstr "почтовый адрес"
-
-#: src/EBox/MailFilter/Model/General.pm:90
-msgid "General settings"
-msgstr "Общие настройки"
-
-#: src/EBox/MailFilter/Model/General.pm:121
-#, perl-brace-format
-msgid "The port {port} is already used by module {mod}"
-msgstr "Порт {port} уже используется модулем {mod}"
-
-#: src/EBox/MailFilter/Model/BannedFilesPolicy.pm:63
 #: src/EBox/MailFilter/Model/AntispamACL.pm:68
-#: src/EBox/MailFilter/Model/BadHeadersPolicy.pm:63
 msgid "Policy"
 msgstr "Политика"
 
-#: src/EBox/MailFilter/Model/BannedFilesPolicy.pm:73
-msgid "Banned files policy"
-msgstr "Политика блокирования файлов"
+#: src/EBox/MailFilter/Model/AntispamACL.pm:77
+msgid "Sender policy"
+msgstr "Политика отправителей"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:89
+msgid "sender policy"
+msgstr "политика отправителей"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:98
+msgid "whitelist"
+msgstr "белый список"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:99
+msgid "blacklist"
+msgstr "черный список"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:100
+msgid "process"
+msgstr "процесс"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
 msgstr "Файловое расширение"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
-msgid "Allow"
-msgstr "Разрешить"
-
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
 msgid "File extensions"
 msgstr "Файловые расширения"
 
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
+#: src/EBox/MailFilter/Types/FileExtension.pm:59
+msgid "file extension"
+msgstr "файловые расширения"
+
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
 msgid "Extensions which are not listed below are allowed"
 msgstr "Расширение не перечисленные ниже разрешены"
-
-#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:58
-msgid "Antivirus enabled"
-msgstr "Антивирус включен"
-
-#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:64
-msgid "Virus policy"
-msgstr "Политика вирусов"
-
-#: src/EBox/MailFilter/Model/AntivirusConfiguration.pm:72
-msgid "Antivirus configuration"
-msgstr "конфигурация антивируса"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
-msgid "Mailbox"
-msgstr "Почтовый ящик"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
-msgid "Mailbox contains"
-msgstr "Содержимое почтового ящика"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
-msgid "Train bayesian spam filter"
-msgstr "Обучение спам фильтра Байеса"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
-msgid "Learned from messages"
-msgstr "Обучение по сообщениям"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:98
-msgid "ham"
-msgstr "ham"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:130
-#, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr "Неправильный тип почтового ящика: {type}"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:69
 msgid "Domain"
@@ -592,100 +413,474 @@ msgstr "Настройка виртуальных доменов"
 msgid "virtual domain"
 msgstr "виртуальный домен"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
-msgid "MIME Type"
-msgstr "MIME тип"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
+msgid "Mail filter graph"
+msgstr "График почтового фильтра"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
-msgid "MIME types"
-msgstr "MIME типы"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
+msgid "clean messages"
+msgstr "чистые сообщения"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
-msgid "MIME types which are not listed below are allowed"
-msgstr "MIME типы не перечисленные ниже разрешены"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
+msgid "banned files"
+msgstr "заблокированные файлы"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
-msgid "External mail domain"
-msgstr "Внешний почтовый домен"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
+msgid "infected"
+msgstr "инфицирован"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
-msgid "External mail domains"
-msgstr "Внешние почтовые домены"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
+msgid "bad header"
+msgstr "испорченный заголовок"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
-msgid "external mail domain"
-msgstr "внешний почтовый домен"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
-msgid ""
-"Here you can specify which external mail domains can connect to the mail "
-"filter"
-msgstr ""
-"Здесь можно указать, какие внешние домены могут подключаться к почтовому "
-"фильтру"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
-#, perl-brace-format
-msgid "{d} is a internal eBox's virtual main domain"
-msgstr "{d} внутренний виртуальный домен eBox"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:62
-msgid "Mail sender"
-msgstr "Почтовый отправитель"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:77
-msgid "Sender policy"
-msgstr "Политика отправителей"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:89
-msgid "sender policy"
-msgstr "политика отправителей"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:98
-msgid "whitelist"
-msgstr "белый список"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:99
-msgid "blacklist"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
+msgid "blacklisted"
 msgstr "черный список"
 
-#: src/EBox/MailFilter/Model/AntispamACL.pm:100
-msgid "process"
-msgstr "процесс"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
+msgid "Filter traffic"
+msgstr "Фильтр трафика"
 
-#: src/EBox/MailFilter/Model/BadHeadersPolicy.pm:73
-msgid "Bad headers policy"
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+msgid "blacklisted senders"
+msgstr "черный список отправителей"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
+msgid "bad message header"
+msgstr "плохой заголовок"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
+msgid "Filter traffic details"
+msgstr "Подробности фильтра трафика"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
+msgid "traffic"
+msgstr "трафик"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
+#, fuzzy
+msgid "total messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
+#, fuzzy
+msgid "infected messages "
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
+#, fuzzy
+msgid "spam messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
+#, fuzzy
+msgid "infected messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
+#, fuzzy
+msgid "Transparent POP proxy traffic details"
+msgstr "Подробности фильтра трафика"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
+msgid "POP proxy graph"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
+msgid "Transparent POP proxy traffic"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:64
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
+#, fuzzy
+msgid "Enabled"
+msgstr "Отключено"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:70
+msgid "Antivirus enabled"
+msgstr "Антивирус включен"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:76
+msgid "Antispam enabled"
+msgstr "Антиспам включен"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:83
+msgid "Service's port"
+msgstr "Порт службы"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
+#, fuzzy
+msgid "Notify of non-spam problematic messages"
+msgstr "Сообщение не спам проблемное сообщение"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:94
+msgid "Disabled"
+msgstr "Отключено"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:99
+msgid "mail address"
+msgstr "почтовый адрес"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:109
+#, fuzzy
+msgid "General  settings"
+msgstr "Общие настройки"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:140
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Порт {port} уже используется модулем {mod}"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
+#, fuzzy
+msgid "Filter virus"
+msgstr "Фильтр трафика"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
+#, fuzzy
+msgid "Filter spam"
+msgstr "Фильтр трафика"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
+#, fuzzy
+msgid "ISP spam subject"
+msgstr "Признак спама"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
+msgid ""
+"This option allows you to set the string your ISP uses if\n"
+"it processes your email for SPAM."
+msgstr ""
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+#, fuzzy
+msgid "POP transparent proxy configuration"
+msgstr "Настройка антиспам"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+msgid ""
+"The POP transparent proxy must scan for something to be useful. If you do "
+"not need either antivirus of spam scan we suggest you turn it off"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
+msgid "Virus policy"
+msgstr "Политика вирусов"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
+msgid "Spam policy"
+msgstr "Политика спам"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
+msgid "Banned files policy"
+msgstr "Политика блокирования файлов"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
+#, fuzzy
+msgid "Bad header policy"
 msgstr "Политика плохих заголовков"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:40
-msgid " To configure spamassassin daemon"
-msgstr " Настройка spamassassin демона"
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
+#, fuzzy
+msgid "SMTP filter policies"
+msgstr "Политика почтовых фильтров"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:303
-msgid "It must be a number(decimal point allowed)"
-msgstr "Это должно быть числом (десятичная точка разрешена)"
+#: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
+msgid "External connections"
+msgstr "Внешние соединения"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:313
-msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr "Порог спама не может быть выше порога авто-обучения"
+#: src/EBox/MailFilter/Composite/FileFilter.pm:63
+msgid "Attached files filter"
+msgstr "Фильтр почтовых вложений"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:317
+#: src/EBox/MailFilter/Composite/FileFilter.pm:65
+#, fuzzy
 msgid ""
-"The spam's threshold cannot be lower or equal than its ham's autolearn "
-"threshold"
-msgstr "Порог спама не может быть равным или меньше порога авто-обучения ham"
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr "Фильтр почтовых сообщений содержащих вложения"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:354
-msgid ""
-"Cannot learn because bayesian filter is disabled in the current "
-"configuration. In order to be able to learn enable the bayesian filter and "
-"save changes"
+#: src/EBox/MailFilter/Composite/Antispam.pm:64
+#: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:352
+#: src/EBox/MailFilter.pm:748
+msgid "Antispam"
+msgstr "Антиспам"
+
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
+msgid "Mail filter report"
+msgstr "Отчет почтового фильтра"
+
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
+msgid "Mail Filter report"
+msgstr "Отчет почтового фильтра"
+
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
+msgid "Transparent POP proxy report"
 msgstr ""
-"Невозможно обучение так как Байесовский фильтр отключен в текущей "
-"конфигурации. Для обучение необходимо включить Байесовский фильтр и записать "
-"изменение"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:369
+#: src/EBox/MailFilter/Composite/Amavis.pm:69
+#: src/EBox/MailFilter/POPProxy.pm:323 src/EBox/MailFilter.pm:584
+#, fuzzy
+msgid "SMTP filter"
+msgstr "Почтовые фильтры"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
+msgid "Write down a decimal number"
+msgstr "Напишите десятичное число"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
+msgid "Only non-zero positive numbers are allowed"
+msgstr "Разрешено ненулевое положительное число"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
 #, perl-brace-format
-msgid "Unsupported or incorrect input source fonrmat: {format}"
-msgstr "неподдерживаемый или некорректный формат источника: {format}"
+msgid "Write down a number lesser than {m}"
+msgstr "Напишите число меньшее {m}"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "Напишите число большее {m}"
+
+#: src/EBox/MailFilter/Types/Policy.pm:30
+msgid "Pass"
+msgstr "Разрешить"
+
+#: src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Reject"
+msgstr "Отклонить"
+
+#: src/EBox/MailFilter/Types/Policy.pm:32
+msgid "Bounce"
+msgstr "Возвратить"
+
+#: src/EBox/MailFilter/Types/Policy.pm:33
+msgid "Discard"
+msgstr "Отбросить"
+
+#: src/EBox/MailFilter/Types/Policy.pm:53
+msgid "Mailfilter's policy"
+msgstr "Политика почтовых фильтров"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:79
+msgid "domain name"
+msgstr "имя домена"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:83
+msgid "email address"
+msgstr "почтовый адрес"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"Отправитель должен быть либо почтовым адресом либо именем домена с префиксом "
+"'@'"
+
+#: src/EBox/MailFilter/Amavis.pm:46
+msgid "To configure amavis"
+msgstr "Настроить amavis"
+
+#: src/EBox/MailFilter/Amavis.pm:51
+msgid "To add the LDAP schemas used by eBox mailfilter"
+msgstr "Добавить LDAP схему используемую почтовыми фильтрами eBox"
+
+#: src/EBox/MailFilter/Amavis.pm:408
+msgid "eBox internal mail filter"
+msgstr "eBox внутрений почтовый фильтр"
+
+#: src/EBox/MailFilter/Amavis.pm:422 src/EBox/MailFilter.pm:734
+#: migration/0004_add_firewall_services.pl:32
+msgid "POP transparent proxy"
+msgstr ""
+
+#: src/EBox/MailFilter/Amavis.pm:445 src/EBox/MailFilter/POPProxy.pm:343
+#: src/EBox/MailFilter.pm:741
+msgid "Antivirus"
+msgstr "Антивирус"
+
+#: src/EBox/MailFilter/POPProxy.pm:47
+#, fuzzy
+msgid " To configure p3scan"
+msgstr "Настроить amavis"
+
+#: src/EBox/MailFilter/POPProxy.pm:52
+#, fuzzy
+msgid "To configure renattach"
+msgstr "Настроить amavis"
+
+#: src/EBox/MailFilter.pm:86
+msgid "Add clamav user to amavis group"
+msgstr "Добавить пользователя clamav в группу amavis"
+
+#: src/EBox/MailFilter.pm:87
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
+
+#: src/EBox/MailFilter.pm:91
+#, fuzzy
+msgid "Add clamav user to p3scan group"
+msgstr "Добавить пользователя clamav в группу amavis"
+
+#: src/EBox/MailFilter.pm:92
+#, fuzzy
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
+
+#: src/EBox/MailFilter.pm:96
+msgid "Update LDAP"
+msgstr "Обновить LDAP"
+
+#: src/EBox/MailFilter.pm:97
+msgid "Add amavis specific classes and fields"
+msgstr "Добавить определенные классы и поля amavis"
+
+#: src/EBox/MailFilter.pm:405
+msgid "Cannot proceed because the filter is in use"
+msgstr "Не воможно фильтр используется"
+
+#: src/EBox/MailFilter.pm:535
+#, fuzzy
+msgid "Mail filter"
+msgstr "Почтовые фильтры"
+
+#: src/EBox/MailFilter.pm:558
+msgid "Action"
+msgstr "Действие"
+
+#: src/EBox/MailFilter.pm:559 src/EBox/MailFilter.pm:607
+msgid "Event"
+msgstr "Событие"
+
+#: src/EBox/MailFilter.pm:561
+msgid "Sender address"
+msgstr "Адрес отправителя"
+
+#: src/EBox/MailFilter.pm:562
+msgid "Recipient address"
+msgstr "Адрес получателя"
+
+#: src/EBox/MailFilter.pm:564
+msgid "Spam hits"
+msgstr "Спам хиты"
+
+#: src/EBox/MailFilter.pm:569
+msgid "Bad header found"
+msgstr "Обнаружен плохой заголовок"
+
+#: src/EBox/MailFilter.pm:570
+msgid "Spam found"
+msgstr "Обнаружен спам"
+
+#: src/EBox/MailFilter.pm:571
+msgid "Forbidden attached file  found"
+msgstr "Обнаружен запрещенный прикрепленный файл  "
+
+#: src/EBox/MailFilter.pm:572
+msgid "Address in blacklist found"
+msgstr "Обнаружен адрес из черного списка"
+
+#: src/EBox/MailFilter.pm:573
+msgid "Virus found"
+msgstr "Обнаружен вирус"
+
+#: src/EBox/MailFilter.pm:574
+msgid "Clean message"
+msgstr "Чистое сообщение"
+
+#: src/EBox/MailFilter.pm:605
+#, fuzzy
+msgid "Account"
+msgstr "Действие"
+
+#: src/EBox/MailFilter.pm:606
+#, fuzzy
+msgid "Client's address"
+msgstr "Адрес получателя"
+
+#: src/EBox/MailFilter.pm:609
+#, fuzzy
+msgid "Total messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter.pm:610
+#, fuzzy
+msgid "Clean messages"
+msgstr "Чистое сообщение"
+
+#: src/EBox/MailFilter.pm:611
+#, fuzzy
+msgid "Virus messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter.pm:612
+#, fuzzy
+msgid "Spam messages"
+msgstr "чистые сообщения"
+
+#: src/EBox/MailFilter.pm:619
+msgid "POP3 transmission complete"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:621
+msgid "POP3 transmission aborted"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:629
+msgid "POP3 proxy"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:721
+msgid "Mail Filter"
+msgstr "Почтовые фильтры"
+
+#: src/EBox/MailFilter.pm:727
+#, fuzzy
+msgid "SMTP mail filter"
+msgstr "Почтовые фильтры"
+
+#: src/EBox/MailFilter.pm:755
+msgid "Files ACL"
+msgstr ""
+
+#: migration/0004_add_firewall_services.pl:50
+msgid "POP3 protocol"
+msgstr ""
+
+#: stubs/p3scan.conf.mas:15
+msgid "[Virus] found in a mail to you:"
+msgstr ""
+
+#~ msgid "Mail filter system"
+#~ msgstr "Система почтовых фильтров"
+
+#~ msgid "Mail filter settings"
+#~ msgstr "Настройки почтовых фильтров"
+
+#~ msgid "Internal mailfilter"
+#~ msgstr "Внутренний почтовый фильтр"
+
+#~ msgid "Options"
+#~ msgstr "Параметры"
+
+#~ msgid "Antivirus configuration"
+#~ msgstr "конфигурация антивируса"

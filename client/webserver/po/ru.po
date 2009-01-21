@@ -7,21 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:47+0000\n"
+"POT-Creation-Date: 2009-01-21 10:17+0100\n"
 "PO-Revision-Date: 2008-11-14 09:33+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
 msgstr "Веб-служба"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:83
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
@@ -30,10 +32,52 @@ msgstr ""
 "Веб-служба EBox позволяет вам создавать веб-сайты с веб-страницами в формате "
 "обычного HTML на различных виртуальных узлах"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
+#: src/EBox/WebServer/Model/GeneralSettings.pm:90
+msgid "listening port"
+msgstr "слушающий порт"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+msgid "Listening port"
+msgstr "Слушающий порт"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Включить доступ пользователям {dirName}"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
+#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+msgid "General configuration settings"
+msgstr "Общие параметры конфигурации"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be got from "
+"another service. If you enable user to publish their own html pages, the "
+"pages will be loaded from {dirName} directory from their samba home "
+"directories"
+msgstr ""
+"Общая конфигурация Web-сервера. Слушающий порт не должен быть занят другими "
+"службами. Если Вы позволяете пользователям публиковать страницы html, то "
+"страницы будут загружены из {dirName} каталога относительно их домашних "
+"каталогов самбы"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
+#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+msgid "General Web server configuration settings updated"
+msgstr "Общая конфигурация Web-сервера обновлена."
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
 msgstr "Имена виртуальных узлов"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:140
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
 msgid ""
@@ -43,6 +87,7 @@ msgstr ""
 "Виртуальный узел {vhost} добавлен. Домен {domain} был создан, с отображаемым "
 "именем  {name} - IP-адресом {ip} "
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
 msgid ""
@@ -52,6 +97,7 @@ msgstr ""
 "Виртуальный узел {vhost} добавлен. Отображаемое имя name {name} - IP-адрес "
 "{ip} был добавлен в домен {domain}"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
@@ -59,26 +105,32 @@ msgstr ""
 "Виртуальный узел {vhost} добавлен, как псевдоним {alias} имени узла "
 "{hostname}"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "Виртуальный узел {vhost} добавлен"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
-"Нет статического внутреннего интерфейса, чтобы установить ip-адрес "
-"веб-сервера"
+"Нет статического внутреннего интерфейса, чтобы установить ip-адрес веб-"
+"сервера"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
 msgstr "Имя"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
 msgstr "Виртуальные узлы"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
 msgid ""
@@ -93,81 +145,53 @@ msgstr ""
 "DNS будет автоматически создана, если это возможно. Содержание должно быть "
 "помещено в каталог {docRoot}/vHostName "
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
 msgstr "виртуальный узел"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:90
-msgid "listening port"
-msgstr "слушающий порт"
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "HTTP (протокол передачи гипертекста)"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
-msgid "Listening port"
-msgstr "Слушающий порт"
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
+#: src/EBox/WebServer.pm:176
+msgid "Web"
+msgstr "Веб"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
+#: src/EBox/WebServer.pm:196
+msgid "Web service status"
+msgstr "Статус веб-службы"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
+#: src/EBox/WebServer.pm:366
 #, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Включить доступ пользователям {dirName}"
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "{userDirConfFile} отсутствует! Пожалуйста восстановите его"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
-"Если вы отметите данное поле, каждый пользователь сможет заводить свой "
-"веб-сайт в его домашнем каталоге в public_html"
+"Если вы отметите данное поле, каждый пользователь сможет заводить свой веб-"
+"сайт в его домашнем каталоге в public_html"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
-msgid "General configuration settings"
-msgstr "Общие параметры конфигурации"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories"
-msgstr ""
-"Общая конфигурация Web-сервера. Слушающий порт не должен быть занят другими "
-"службами. Если Вы позволяете пользователям публиковать страницы html, то "
-"страницы будут загружены из {dirName} каталога относительно их домашних "
-"каталогов самбы"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
-msgid "General Web server configuration settings updated"
-msgstr "Общая конфигурация Web-сервера обновлена."
-
-#: src/EBox/WebServer.pm:97
+#: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
 msgstr "Установить слушающий порт веб-сервера"
 
-#: src/EBox/WebServer.pm:102
+#: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
 msgstr "Установить HTML каталог, для публикаций пользователей "
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:129
 msgid "Enable apache LDAP user module"
 msgstr "Включить модуль apache LDAP user"
 
-#: src/EBox/WebServer.pm:132
+#: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"
 msgstr "Перенести домашние каталоги из LDAP"
-
-#: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
-msgid "Web"
-msgstr "Веб"
-
-#: src/EBox/WebServer.pm:236
-msgid "Web service status"
-msgstr "Статус веб-службы"
-
-#: src/EBox/WebServer.pm:409
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "{userDirConfFile} отсутствует! Пожалуйста восстановите его"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "HTTP (протокол передачи гипертекста)"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:39+0000\n"
+"POT-Creation-Date: 2009-01-21 10:15+0100\n"
 "PO-Revision-Date: 2006-11-16 15:11+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -22,147 +22,257 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Timezone settings"
-msgstr "Opciones de la zona horaria"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "estado de sincronización externa"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "país"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "continente"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "primer servidor ntp"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:244
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Servidor primario"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:258
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "Servidor secundario"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "Servidor terciario"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Opciones de fecha y hora"
-
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:41
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
 msgstr "Día"
 
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:42
 #: src/EBox/CGI/ChangeDate.pm:42
 msgid "Month"
 msgstr "Mes"
 
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:43
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Year"
 msgstr "Año"
 
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:44
 #: src/EBox/CGI/ChangeDate.pm:44
 msgid "Hour"
 msgstr "Hora"
 
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:45
 #: src/EBox/CGI/ChangeDate.pm:45
 msgid "Minutes"
 msgstr "Minutos"
 
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeDate.pm:46
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "Segundos"
 
-#: src/EBox/NTP.pm:71
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/Synch.pm:41
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "estado de sincronización externa"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/AddServers.pm:42
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "primer servidor ntp"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/AddServers.pm:45
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:244
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:240
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:16
+#: src/templates/servers.mas:16
+msgid "Primary server"
+msgstr "Servidor primario"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/AddServers.pm:51
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:258
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:254
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:27
+#: src/templates/servers.mas:27
+msgid "Secondary server"
+msgstr "Servidor secundario"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/AddServers.pm:55
+#: src/EBox/CGI/AddServers.pm:55
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:38
+#: src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr "Servidor terciario"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/Datetime.pm:30
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Opciones de fecha y hora"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/Timezone.pm:30
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Timezone settings"
+msgstr "Opciones de la zona horaria"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeTimeZone.pm:41
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "país"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/CGI/NTP/ChangeTimeZone.pm:42
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "continente"
+
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:71 src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
 msgstr ""
 
-#: src/EBox/NTP.pm:72
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:72 src/EBox/NTP.pm:68
 msgid "eBox will take care of starting and stopping the services."
 msgstr ""
 
-#: src/EBox/NTP.pm:246
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:246 src/EBox/NTP.pm:242
 msgid "primary server"
 msgstr "servidor primario"
 
-#: src/EBox/NTP.pm:251 src/EBox/NTP.pm:270
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:251
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:270 src/EBox/NTP.pm:247
+#: src/EBox/NTP.pm:266
 msgid "Primary and secondary server must be different"
 msgstr "Los servidores primario y secundario deben ser diferentes"
 
-#: src/EBox/NTP.pm:254
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:254 src/EBox/NTP.pm:250
 msgid "secondary server"
 msgstr "servidor secundario"
 
-#: src/EBox/NTP.pm:267
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:267 src/EBox/NTP.pm:263
 msgid "Primary and tertiary server must be different"
 msgstr "Los servidores primario y terciario deben ser diferentes"
 
-#: src/EBox/NTP.pm:273
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:273 src/EBox/NTP.pm:269
 msgid "tertiary server"
 msgstr "servidor terciario"
 
-#: src/EBox/NTP.pm:289
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:289 src/EBox/NTP.pm:285
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "dirección IP {name}"
 
-#: src/EBox/NTP.pm:292
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:292 src/EBox/NTP.pm:288
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "nombre de máquina {name}"
 
-#: src/EBox/NTP.pm:434
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:434
 msgid "NTP local server"
 msgstr "Servidor local NTP"
 
-#: src/EBox/NTP.pm:447
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:447 src/EBox/NTP.pm:435
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/NTP.pm:450
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:450 src/EBox/NTP.pm:438
 msgid "Date/time"
 msgstr "Fecha/hora"
 
-#: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
+#: debian/ebox-ntp/usr/share/perl5/EBox/NTP.pm:453 src/EBox/NTP.pm:441
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/timezone.mas:15
+#: src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Zona horaria"
 
-#: src/templates/timezone.mas:18
-msgid "A time zone change will cause all eBox services to be restarted"
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:10
+#: src/templates/date.mas:10
+msgid ""
+"A change in the date or time will cause all eBox services to be restarted"
 msgstr ""
-"Un cambio en la zona horaria provocará que se reinicien todos los servicios "
-"de ebox"
+"Un cambio en la fecha u hora provocará que se reinicien todos los servicios "
+"de eBox"
 
-#: src/templates/timezone.mas:35 src/templates/timezone.mas:36
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:15
+#: src/templates/date.mas:15
+msgid "Date"
+msgstr "Fecha"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "January"
+msgstr "Enero"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "February"
+msgstr "Febrero"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "March"
+msgstr "Marzo"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "April"
+msgstr "Abril"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "May"
+msgstr "Mayo"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "June"
+msgstr "Junio"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "July"
+msgstr "Julio"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "August"
+msgstr "Agosto"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "September"
+msgstr "Septiembre"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "October"
+msgstr "Octubre"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "November"
+msgstr "Noviembre"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:30
+#: src/templates/date.mas:30
+msgid "December"
+msgstr "Diciembre"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:55
+#: src/templates/date.mas:55
+msgid "Time"
+msgstr "Hora"
+
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:96
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/date.mas:97
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:19
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:20
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:50
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/timezone.mas:35
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/timezone.mas:36
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/date.mas:96
+#: src/templates/servers.mas:50 src/templates/timezone.mas:35
+#: src/templates/timezone.mas:36 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
 msgstr "Cambiar"
 
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:11
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:14
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Desactivado"
 
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:12
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/synch.mas:15
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Activado"
 
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:7
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "Servidores NTP"
 
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/servers.mas:10
 #: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
@@ -171,68 +281,12 @@ msgstr ""
 "Recuerde configurar su zona horaria para que la sincronización funcione "
 "correctamente."
 
-#: src/templates/date.mas:10
-msgid ""
-"A change in the date or time will cause all eBox services to be restarted"
+#: debian/ebox-ntp/usr/share/ebox/templates/ntp/timezone.mas:18
+#: src/templates/timezone.mas:18
+msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
-"Un cambio en la fecha u hora provocará que se reinicien todos los servicios "
-"de eBox"
-
-#: src/templates/date.mas:15
-msgid "Date"
-msgstr "Fecha"
-
-#: src/templates/date.mas:30
-msgid "January"
-msgstr "Enero"
-
-#: src/templates/date.mas:30
-msgid "February"
-msgstr "Febrero"
-
-#: src/templates/date.mas:30
-msgid "March"
-msgstr "Marzo"
-
-#: src/templates/date.mas:30
-msgid "April"
-msgstr "Abril"
-
-#: src/templates/date.mas:30
-msgid "May"
-msgstr "Mayo"
-
-#: src/templates/date.mas:30
-msgid "June"
-msgstr "Junio"
-
-#: src/templates/date.mas:30
-msgid "July"
-msgstr "Julio"
-
-#: src/templates/date.mas:30
-msgid "August"
-msgstr "Agosto"
-
-#: src/templates/date.mas:30
-msgid "September"
-msgstr "Septiembre"
-
-#: src/templates/date.mas:30
-msgid "October"
-msgstr "Octubre"
-
-#: src/templates/date.mas:30
-msgid "November"
-msgstr "Noviembre"
-
-#: src/templates/date.mas:30
-msgid "December"
-msgstr "Diciembre"
-
-#: src/templates/date.mas:55
-msgid "Time"
-msgstr "Hora"
+"Un cambio en la zona horaria provocará que se reinicien todos los servicios "
+"de ebox"
 
 #~ msgid "module status"
 #~ msgstr "estado del módulo"

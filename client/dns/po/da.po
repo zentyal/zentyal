@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:26+0100\n"
+"POT-Creation-Date: 2009-01-21 10:01+0100\n"
 "PO-Revision-Date: 2007-07-24 12:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -83,8 +83,8 @@ msgid "Domains"
 msgstr "Domæner"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:108
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:345
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:343
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "domæne"
 
@@ -109,10 +109,8 @@ msgid "hostname"
 msgstr "hostnavn"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:75
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:833
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:861
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
-#: src/EBox/DNS.pm.in:861
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:808
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:808
 msgid "DNS"
 msgstr "DNS"
 
@@ -182,21 +180,21 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Mailserver record"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:53 src/EBox/DNS.pm.in:53
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:51 src/EBox/DNS.pm.in:51
 #, fuzzy
 msgid "Domain Name System"
 msgstr "Domæne navn"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:90 src/EBox/DNS.pm.in:90
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:88 src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "DNS server"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:648 src/EBox/DNS.pm.in:648
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:646 src/EBox/DNS.pm.in:646
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "Konfiguration for {zone} zonen"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:664 src/EBox/DNS.pm.in:664
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:662 src/EBox/DNS.pm.in:662
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Konfiguration for reverse zonen {zone}"

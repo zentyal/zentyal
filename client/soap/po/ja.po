@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:39+0100\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Control center admin at a log file"
 msgstr "ログファイルのコントロールセンター管理者"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:170
 msgid "Control center"
 msgstr "コントロールセンター"
 
@@ -71,16 +71,12 @@ msgstr "{method} は定義されたメソッドではありません"
 msgid "{module} does not exist"
 msgstr "{module} が存在しません"
 
-#: src/EBox/SOAP.pm:168
-msgid "SOAP"
-msgstr "SOAP"
-
-#: src/EBox/SOAP.pm:309
+#: src/EBox/SOAP.pm:288
 #, perl-brace-format
 msgid "Missing uploaded file: {uploadedFile}"
 msgstr "アップロードされたファイルが破損しています: {uploadedFile}"
 
-#: src/EBox/SOAP.pm:321
+#: src/EBox/SOAP.pm:300
 #, perl-brace-format
 msgid ""
 "Uploaded file is a type of {type1}  but it should be a file of type {type2}"
@@ -88,7 +84,7 @@ msgstr ""
 "アップロードされたファイルは {type1} 型です。 ファイルは {type2} 型である必要"
 "があります"
 
-#: src/EBox/SOAP.pm:333
+#: src/EBox/SOAP.pm:312
 #, perl-brace-format
 msgid ""
 "Uploaded file does not contain the four mandatory files. It contains "
@@ -97,27 +93,27 @@ msgstr ""
 "アップロードされたファイルには4つの必須ファイルが含まれていません。{number} "
 "個のみが含まれています"
 
-#: src/EBox/SOAP.pm:368
+#: src/EBox/SOAP.pm:347
 msgid "It is required to upload a bundle to delete it"
 msgstr "削除するためにはバンドルをアップロードする必要があります"
 
-#: src/EBox/SOAP.pm:437
+#: src/EBox/SOAP.pm:416
 msgid "You should enable the service to test the connectivity"
 msgstr "接続をテストするにはサービスを有効にしてください"
 
-#: src/EBox/SOAP.pm:881
+#: src/EBox/SOAP.pm:860
 msgid "The OpenVPN client configuration file is missing"
 msgstr "OpenVPNクライアントの設定ファイルが破損しています"
 
-#: src/EBox/SOAP.pm:888
+#: src/EBox/SOAP.pm:867
 msgid "The OpenVPN client configuration file is not well formatted "
 msgstr "OpenVPNクライアントの設定ファイルの書式が誤っています"
 
-#: src/EBox/SOAP.pm:918
+#: src/EBox/SOAP.pm:897
 msgid "Some certificate is missing"
 msgstr "破損している証明書があります"
 
-#: src/EBox/SOAP.pm:925
+#: src/EBox/SOAP.pm:904
 #, perl-brace-format
 msgid ""
 "You cannot upload this bundle since the name {name} has been already used "
@@ -128,25 +124,25 @@ msgstr ""
 "をアップロードする事ができません。アップロードするにはまず変更を保存してくだ"
 "さい"
 
-#: src/EBox/SOAP.pm:958
+#: src/EBox/SOAP.pm:937
 msgid "Certificate file is missing"
 msgstr "証明書ファイルが破損しています"
 
-#: src/EBox/SOAP.pm:961
+#: src/EBox/SOAP.pm:940
 msgid "Private key file is missing"
 msgstr "プライベートキーファイルが破損しています"
 
-#: src/EBox/SOAP.pm:964
+#: src/EBox/SOAP.pm:943
 msgid "Certification Authority file is missing"
 msgstr "認証局ファイルが破損しています"
 
-#: src/EBox/SOAP.pm:1016
+#: src/EBox/SOAP.pm:995
 msgid ""
 "You should upload a bundle to be able to communicate with the control center"
 msgstr ""
 "コントロールセンターと通信するためにはバンドルをアップロードしてください"
 
-#: src/EBox/SOAP.pm:1025
+#: src/EBox/SOAP.pm:1004
 msgid ""
 "The OpenVPN client is not running. You may need to save changes in order to "
 "set up the OpenVPN client"
@@ -187,3 +183,6 @@ msgstr ""
 #: src/templates/index.mas:90
 msgid "Upload"
 msgstr "アップロード"
+
+#~ msgid "SOAP"
+#~ msgstr "SOAP"
