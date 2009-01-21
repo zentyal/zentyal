@@ -4263,6 +4263,12 @@ sub _parse_words
     return @w;
 }
 
+# Method: keywords
+#
+# Overrides:
+#
+#   <EBox::Model::Component::keywords>
+#
 sub keywords
 {
     my ($self) = @_;

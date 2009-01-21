@@ -31,6 +31,18 @@ use CGI;
 
 use Error qw(:try);
 
+# Method: classFromUrl
+#
+#   Map from an URL to the name of the CGI class that needs to be run when
+#   the URL is accessed
+#
+# Parameters:
+#
+#   url - URL to map to a CGI classname
+#
+# Returns:
+#   the name of the CGI class
+#
 sub classFromUrl
 {
     my ($url) = @_;
@@ -95,10 +107,22 @@ sub run # (url)
         $cgi->run();
 }
 
-
-
 # Helper functions
 
+# Method: lookupModel
+#
+#   Map from a CGI class name to the appropriate model
+#
+# Parameters:
+#
+#   classname - CGI class name to map to a model and an action
+#
+# Returns:
+#   the model and action appropriate for the classname
+#
+# Exceptions:
+#   <EBox::Exceptions::DataNotFound> - thrown if the CGI doesn't use models
+#
 sub lookupModel
 {
     my ($classname) = @_;

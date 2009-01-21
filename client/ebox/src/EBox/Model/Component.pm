@@ -117,9 +117,14 @@ sub help
 
 # Method: keywords
 #
+#   Returns words related to the model, extracted from different sources such
+#   as row names, help, ..., that can be used to make lookups from words to
+#   models, menus, ...
+#
 # Return:
 #
-#   string array
+#   string array - the keywords
+#
 sub keywords
 {
     my ($self) = @_;
