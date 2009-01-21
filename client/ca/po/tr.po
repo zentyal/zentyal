@@ -7,33 +7,202 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-05-15 13:12+0000\n"
-"Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
+"POT-Creation-Date: 2009-01-21 09:58+0100\n"
+"PO-Revision-Date: 2009-01-16 10:29+0000\n"
+"Last-Translator: Kerem Can Karakaş <kerem@blockdiagram.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
-#: src/templates/index.mas:22 src/templates/formRevoke.mas:22
-#: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
-msgid "Organization Name"
-msgstr "Organizasyon İsmi"
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:43
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/Index.pm:39
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:43
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:42
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:42
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:41
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:43
+#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
+#: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:42
+msgid "Certification Authority Management"
+msgstr "Yetki Yönetimini Belgelendirme"
 
-#: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:108
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
+#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
+msgid "CA passphrases do NOT match"
+msgstr "CA parolası uymuyor"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
+#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
-msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Gün azami {days} olarak ayarlandı : 2038 yılı hatası"
+msgid "CA Passphrase should be at least {length} characters"
+msgstr "CA parolası en az {length} karakter olmalı"
 
-#: src/EBox/CA.pm:347
-msgid "The remove operation cannot be finished. Reason: "
-msgstr "Kaldırma işlemi bitirilemedi. Sepep:"
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:88
+#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
+#: src/EBox/CGI/RenewCertificate.pm:88
+#, fuzzy, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Sona ermesine kalan gün doğal bir sayı olmalıdır"
 
-#: src/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:134
+#: src/EBox/CGI/CreateCA.pm:134
+msgid "Problems creating Certification Authority has happened"
+msgstr "Yetki Belgelendirme yaratma sırasında problemler oluştu"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:69
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:74
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:76
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:62
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:438
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:516
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:642
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:706
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:872
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1187
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1229
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1328 src/EBox/CGI/ShowForm.pm:62
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706 src/EBox/CA.pm:872
+#: src/EBox/CA.pm:1187 src/EBox/CA.pm:1229 src/EBox/CA.pm:1328
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:43
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:28
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:23
+#: src/templates/formRenew.mas:43 src/templates/index.mas:23
+#: src/templates/formRevoke.mas:28
+msgid "Common Name"
+msgstr "Genel İsim"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:79
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:81
+#: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
+#, perl-brace-format
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "Genel isim : {cn} veritabanında bulunmamaktadır"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:127
+#: src/EBox/CGI/DownloadFiles.pm:127
+msgid "Error creating file"
+msgstr "Dosya yaratmada hata"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:67
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:154
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:254
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:214
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:488
+#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA/TestStub.pm:154
+#: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:214 src/EBox/CA.pm:488
+#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:7
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:37
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:22
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:22
+#: src/templates/formRenew.mas:37 src/templates/createCA.mas:7
+#: src/templates/index.mas:22 src/templates/formRevoke.mas:22
+msgid "Organization Name"
+msgstr "Organizasyon Adı"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:72
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
+#: src/EBox/CGI/IssueCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:69
+#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:9
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:13
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:28
+#: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
+#: src/templates/index.mas:28
+msgid "Days to expire"
+msgstr "Sona ermesine kalan gün"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:108
+#: src/EBox/CGI/IssueCertificate.pm:108
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
+msgstr ""
+"Girdi geçersiz karakterler içermektedir. Tüm metin ve rakam bileşenli "
+"karakterlerin yanısıra  .?&+:\\@ ve boşluk kullanımına izin verilmektedir"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:127
+#: src/EBox/CGI/IssueCertificate.pm:127
+msgid "The certificate has been issued"
+msgstr "Sertifika yayımlandı"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
+#: src/EBox/CGI/IssueCertificate.pm:128
+msgid "The new CA certificate has been issued"
+msgstr "Yeni CA sertifikası yayımlandı"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:64
+msgid "The certificate has NOT been renewed"
+msgstr "Sertifika yenilenmemiş"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:68
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:70
+#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Boolean değeri sertifikayı onaylayan kurumun doğrulama numarasıdır."
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:135
+#: src/EBox/CGI/RenewCertificate.pm:135
+msgid "The certificate CANNOT be renewed"
+msgstr "Sertifika yenilemenez"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:137
+#: src/EBox/CGI/RenewCertificate.pm:137
+msgid "The certificate has been renewed"
+msgstr "Sertifika yenilendi"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:138
+#: src/EBox/CGI/RenewCertificate.pm:138
+msgid "The new CA certificate has been renewed"
+msgstr "CA Sertifikası yenilendi"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:64
+#: src/EBox/CGI/RevokeCertificate.pm:64
+msgid "The certificate has NOT been revoked"
+msgstr "Sertifika geri alınamadı"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:71
+#: src/EBox/CGI/RevokeCertificate.pm:71
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:57
+#: src/templates/formRevoke.mas:57
+msgid "Reason"
+msgstr "Sebeb"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:131
+#: src/EBox/CGI/RevokeCertificate.pm:131
+msgid "The certificate has been revoked"
+msgstr "Sertifika geçersiz"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:132
+#: src/EBox/CGI/RevokeCertificate.pm:132
+msgid "The CA certificate has been revoked"
+msgstr "Sertifika onaylama geçersiz"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:63
+#: src/EBox/CGI/ShowForm.pm:63
+msgid "Action"
+msgstr "Faaliyet"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:73
+#: src/EBox/CGI/ShowForm.pm:73
+msgid "Only revoke and renew actions are performed"
+msgstr "Sadece yenileme ve geri alma faaliyetleri yapıldı"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:259
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:502
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -41,56 +210,74 @@ msgstr ""
 "Yeni bir sertifika düzenlenmeden önce, eski sertifikanın geçersiz olması "
 "veya onaylayan makam tarafından iptal edilmesi gerekir."
 
-#: src/EBox/CA.pm:706 src/EBox/CA.pm:872 src/EBox/CA.pm:1187
-#: src/EBox/CA.pm:1229 src/EBox/CA.pm:1328 src/EBox/CGI/RenewCertificate.pm:75
-#: src/EBox/CGI/IssueCertificate.pm:70 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/ShowForm.pm:62
-#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
-#: src/EBox/CA/TestStub.pm:642 src/templates/index.mas:23
-#: src/templates/formRevoke.mas:28 src/templates/formRenew.mas:43
-msgid "Common Name"
-msgstr "Genel İsim"
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:654
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "{commonName} kullanıcı ismi kayıtlı değil"
 
-#: src/EBox/CA.pm:743 src/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:720
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Tarih bir sonraki zamana ayarlandı: 2038 yıl hatası"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:729
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:743
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:743 src/EBox/CA.pm:1324
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "CA sertifikası sona ermesinden sonraki bitiş tarihi"
 
-#: src/EBox/CA.pm:885 src/EBox/CA.pm:1198
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:255
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:723
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1303 src/EBox/CA.pm:255
+#: src/EBox/CA.pm:723 src/EBox/CA.pm:1303
+#, perl-brace-format
+msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
+msgstr "Gün azami {days} olarak ayarlandı : 2038 yılı hatası"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:347 src/EBox/CA.pm:347
+msgid "The remove operation cannot be finished. Reason: "
+msgstr "Kaldırma işlemi aşşağıdaki nedenlere bağlı olarak bitirilemedi:"
+
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:885
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1198 src/EBox/CA.pm:885
+#: src/EBox/CA.pm:1198
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Genel isimli {cn} sertifika mevcut değil"
 
-#: src/EBox/CA.pm:889
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:889 src/EBox/CA.pm:889
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
-"Sebep, {reason} uygulanabilir değil.\n"
+"{reason} uygulanabilir bir sebep değil.\n"
 "Seçenekler:"
 
-#: src/EBox/CA.pm:1102
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1102 src/EBox/CA.pm:1102
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "Genel isim, ayrılan isim ve seri numara geçti"
+msgstr "Genel isim, ayrılan isim ve seri numarasından birisi dikkate alınmadı"
 
-#: src/EBox/CA.pm:1329
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1329 src/EBox/CA.pm:1329
 msgid "or"
 msgstr "ya da"
 
-#: src/EBox/CA.pm:1330
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1330 src/EBox/CA.pm:1330
 msgid "Certificate file"
 msgstr "Sertifika dosyası"
 
-#: src/EBox/CA.pm:1352
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1352 src/EBox/CA.pm:1352
 msgid "The certificate to renew does NOT exist"
 msgstr "Yenilenecek sertifika yok"
 
-#: src/EBox/CA.pm:1391
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1391 src/EBox/CA.pm:1391
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Bu genel isimli {cn} sertifika bu CA'da mevcut değil"
 
-#: src/EBox/CA.pm:1419
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1419 src/EBox/CA.pm:1419
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -98,36 +285,36 @@ msgstr ""
 "Özel anahtar parola-ifadesi yeni bir istek yaratacak. Yenileme olmadı. Yeni "
 "anahtarlarla yeni bir sertifika yayımlayın."
 
-#: src/EBox/CA.pm:1649
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1649 src/EBox/CA.pm:1649
 msgid "Certificate Manager"
 msgstr "Sertifika Yöneticisi"
 
-#: src/EBox/CA.pm:2173
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2173 src/EBox/CA.pm:2173
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "İşaretlenemiyor. Yanlış parola-ifadesi veya CA özel anahtarı kaybolmuş."
 
-#: src/EBox/CA.pm:2175
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2175 src/EBox/CA.pm:2175
 msgid "Database corruption"
 msgstr "Veritabanı bozulması"
 
-#: src/EBox/CA.pm:2177
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2177 src/EBox/CA.pm:2177
 msgid "Identifier duplicated in Database"
 msgstr "Veritabanında tanımlayıcı kopyası"
 
-#: src/EBox/CA.pm:2179
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2179 src/EBox/CA.pm:2179
 msgid "Certificate already revoked"
 msgstr "Sertifika zaten iptal edildi"
 
-#: src/EBox/CA.pm:2182
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2182 src/EBox/CA.pm:2182
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 alan uzunluğu çok fazla. Azami Boyut:"
 
-#: src/EBox/CA.pm:2184
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2184 src/EBox/CA.pm:2184
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Bilinmeyen hata. Verilen OpenSSL çıktısı:"
 
-#: src/EBox/CA.pm:2257
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2257 src/EBox/CA.pm:2257
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -136,17 +323,17 @@ msgstr ""
 "Sertifikasyon Yetkilisi organizasyon ismi {orgName} olarak ve {days} gün "
 "geçerli olmak üzere oluşturuldu."
 
-#: src/EBox/CA.pm:2259
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2259 src/EBox/CA.pm:2259
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "{orgName} isimli Sertifikasyon Yetkilisi yok edildi "
 
-#: src/EBox/CA.pm:2261
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2261 src/EBox/CA.pm:2261
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "CA sertifikası {reason} sebebinden ötürü iptale zorlandı: {force}"
 
-#: src/EBox/CA.pm:2263
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2263 src/EBox/CA.pm:2263
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -155,7 +342,7 @@ msgstr ""
 "{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yayımlanan CA "
 "sertifikası"
 
-#: src/EBox/CA.pm:2265
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2265 src/EBox/CA.pm:2265
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -164,13 +351,13 @@ msgstr ""
 "{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yenilenen CA "
 "sertifikası"
 
-#: src/EBox/CA.pm:2267
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2267 src/EBox/CA.pm:2267
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "{cn} genel ismi ve {days} gün geçerli olmak üzere yayımlanan CA sertifikası"
 
-#: src/EBox/CA.pm:2269
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2269 src/EBox/CA.pm:2269
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -178,145 +365,52 @@ msgstr ""
 "{cn} genel isimli certifika {reason} sebebinden ötürü iptale zorlandı: "
 "{force}"
 
-#: src/EBox/CA.pm:2271
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2271 src/EBox/CA.pm:2271
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "{cn} genel ismi ve {days} gün geçerli olmak üzere yenilenen CA sertifikası"
 
-#: src/EBox/CA.pm:2273
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2273 src/EBox/CA.pm:2273
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Sertifika veritabanı güncellendi. {number} sertifika sona erdi"
 
-#: src/EBox/CA.pm:2356
+#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2356 src/EBox/CA.pm:2356
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSL kabuğu(shell) açılamıyor. ({errval})"
 
-#: src/EBox/CGI/RenewCertificate.pm:43 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:44
-#: src/EBox/CGI/ShowForm.pm:41
-msgid "Certification Authority Management"
-msgstr "Yetki Yönetimini Belgelendirme"
+#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:15
+#: src/templates/createCA.mas:15
+msgid "Create"
+msgstr "Oluştur"
 
-#: src/EBox/CGI/RenewCertificate.pm:65
-msgid "The certificate has NOT been renewed"
-msgstr "Sertifika yenilenmemiş"
+#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:23
+#: src/templates/createCA.mas:23
+msgid "Create Certification Authority Certificate"
+msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
 
-#: src/EBox/CGI/RenewCertificate.pm:69 src/EBox/CGI/RevokeCertificate.pm:70
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Boolean değeri sertifikayı onaylayan kurumun doğrulama numarasıdır."
-
-#: src/EBox/CGI/RenewCertificate.pm:70 src/EBox/CGI/IssueCertificate.pm:73
-#: src/templates/index.mas:28 src/templates/createCA.mas:9
-#: src/templates/formRenew.mas:13
-msgid "Days to expire"
-msgstr "Sona ermesine kalan gün"
-
-#: src/EBox/CGI/RenewCertificate.pm:89 src/EBox/CGI/IssueCertificate.pm:102
-#: src/EBox/CGI/CreateCA.pm:124
-#, fuzzy, perl-brace-format
-msgid "Days to expire ({days}) must be a positive number"
-msgstr "Sona ermesine kalan gün doğal bir sayı olmalıdır"
-
-#: src/EBox/CGI/RenewCertificate.pm:136
-msgid "The certificate CANNOT be renewed"
-msgstr "Sertifika yenilemenez"
-
-#: src/EBox/CGI/RenewCertificate.pm:138
-msgid "The certificate has been renewed"
-msgstr "Sertifika yenilendi"
-
-#: src/EBox/CGI/RenewCertificate.pm:139
-msgid "The new CA certificate has been renewed"
-msgstr "CA Sertifikası yenilendi"
-
-#: src/EBox/CGI/IssueCertificate.pm:84 src/EBox/CGI/CreateCA.pm:109
-msgid "CA passphrases do NOT match"
-msgstr "CA parolası uymuyor"
-
-#: src/EBox/CGI/IssueCertificate.pm:92 src/EBox/CGI/CreateCA.pm:119
-#, perl-brace-format
-msgid "CA Passphrase should be at least {length} characters"
-msgstr "CA parolası en az {length} karakter olmalı"
-
-#: src/EBox/CGI/IssueCertificate.pm:109
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
-msgstr ""
-"Girdi geçersiz karakterler içermektedir. Tüm metin ve rakam bileşenli "
-"karakterlerin yanısıra  .?&+:\\@ ve boşluk kullanımına izin verilmektedir"
-
-#: src/EBox/CGI/IssueCertificate.pm:128
-msgid "The certificate has been issued"
-msgstr "Sertifika yayımlandı"
-
-#: src/EBox/CGI/IssueCertificate.pm:129
-msgid "The new CA certificate has been issued"
-msgstr "Yeni CA sertifikası yayımlandı"
-
-#: src/EBox/CGI/RevokeCertificate.pm:64
-msgid "The certificate has NOT been revoked"
-msgstr "Sertifika geri alınamadı"
-
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
-msgid "Reason"
-msgstr "Sebeb"
-
-#: src/EBox/CGI/RevokeCertificate.pm:131
-msgid "The certificate has been revoked"
-msgstr "Sertifika geçersiz"
-
-#: src/EBox/CGI/RevokeCertificate.pm:132
-msgid "The CA certificate has been revoked"
-msgstr "Sertifika onaylama geçersiz"
-
-#: src/EBox/CGI/DownloadFiles.pm:79 src/EBox/CGI/ShowForm.pm:81
-#, perl-brace-format
-msgid "Common name: {cn} does NOT exist in database"
-msgstr "Genel isim : {cn} veritabanında bulunmamaktadır"
-
-#: src/EBox/CGI/DownloadFiles.pm:127
-msgid "Error creating file"
-msgstr "Dosya yaratmada hata"
-
-#: src/EBox/CGI/CreateCA.pm:135
-msgid "Problems creating Certification Authority has happened"
-msgstr "Yetki Belgelendirme yaratma sırasında problemler oluştu"
-
-#: src/EBox/CGI/ShowForm.pm:63
-msgid "Action"
-msgstr "Faaliyet"
-
-#: src/EBox/CGI/ShowForm.pm:73
-msgid "Only revoke and renew actions are performed"
-msgstr "Sadece yenileme ve geri alma faaliyetleri yapıldı"
-
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "{commonName} kullanıcı ismi kayıtlı değil"
-
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Tarih bir sonraki zamana ayarlandı: 2038 yıl hatası"
-
-#: src/templates/forceRenew.mas:27 src/templates/index.mas:149
-#: src/templates/index.mas:166 src/templates/formRenew.mas:23
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:27
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:23
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:149
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:166
+#: src/templates/formRenew.mas:23 src/templates/index.mas:149
+#: src/templates/index.mas:166 src/templates/forceRenew.mas:27
 msgid "Renew"
 msgstr "Yenileme"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:42
 #: src/templates/forceRenew.mas:42
 msgid "Renewing CA certificate"
 msgstr "CA sertifikası yenilemesi"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:44
 #: src/templates/forceRenew.mas:44
 msgid "Renewing certificate"
 msgstr "Serifika yenilemesi"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:50
 #: src/templates/forceRenew.mas:50
 #, perl-brace-format
 msgid ""
@@ -328,6 +422,7 @@ msgstr ""
 "lütfen {on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız "
 "veya etkisi kılacağınızdan emin olun."
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:53
 #: src/templates/forceRenew.mas:53
 #, perl-brace-format
 msgid ""
@@ -339,108 +434,17 @@ msgstr ""
 "kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
 "kılmayı istediğinizi onaylayın"
 
-#: src/templates/index.mas:34 src/templates/formRevoke.mas:65
-#: src/templates/formRenew.mas:17
-msgid "CA Passphrase"
-msgstr "CA Parolası"
-
-#: src/templates/index.mas:41
-msgid "Re CA Passphrase"
-msgstr "CA Parolası (tekrar)"
-
-#: src/templates/index.mas:46
-msgid "Issue"
-msgstr "Yayımla"
-
-#: src/templates/index.mas:51
-msgid "Certificate changes will take effect immediately"
-msgstr "Sertifika değişikliği derhal uygulanacak"
-
-#: src/templates/index.mas:53
-msgid "The CA passphrase is optional"
-msgstr "CA parolası isteğe bağlıdı"
-
-#: src/templates/index.mas:57
-msgid "Issue the Certification Authority Certificate"
-msgstr "Sertifikasyon Yetkili Sertifikasını Yayımla"
-
-#: src/templates/index.mas:59
-msgid "Issue a new certificate"
-msgstr "Yeni bir sertifika yayımla"
-
-#: src/templates/index.mas:66
-msgid "Current Certificate List"
-msgstr "Mevcut Sertifika Listesi"
-
-#: src/templates/index.mas:68
-msgid ""
-"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
-"Revoked certificates respectively"
-msgstr ""
-"Geçerli/Süresi Geçen'deki Bitiş Tarihi tarihi ve İptal Edilen "
-"sertifikalardaki İptal Tarihi"
-
-#: src/templates/index.mas:72
-msgid "Name"
-msgstr "İsim"
-
-#: src/templates/index.mas:73
-msgid "State"
-msgstr "Durum"
-
-#: src/templates/index.mas:74
-msgid "Date"
-msgstr "Tarih"
-
-#: src/templates/index.mas:75
-msgid "Actions"
-msgstr "Faaliyetler"
-
-#: src/templates/index.mas:86
-msgid "from"
-msgstr "den/dan"
-
-#: src/templates/index.mas:97
-msgid "Valid"
-msgstr "Geçerli"
-
-#: src/templates/index.mas:99
-msgid "Expired"
-msgstr "Sona Ermiş"
-
-#: src/templates/index.mas:101
-msgid "Revoked"
-msgstr "İptal Edilmiş"
-
-#: src/templates/index.mas:130 src/templates/index.mas:162
-#: src/templates/formRevoke.mas:71 src/templates/forceRevoke.mas:42
-msgid "Revoke"
-msgstr "İptal"
-
-#: src/templates/index.mas:139 src/templates/index.mas:164
-msgid "Download Key(s) and Certificate"
-msgstr "Anahtar(lar)ı ve Sertifikayı indir"
-
-#: src/templates/formRevoke.mas:10
-msgid "Revoke a certificate"
-msgstr "Bir sertifika iptal et"
-
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Seçilen sertifikayı iptal et"
-
-#: src/templates/formRevoke.mas:33 src/templates/formRenew.mas:48
-msgid "Expiration Date"
-msgstr "Bitiş Tarihi"
-
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:13
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
 msgstr "CA sertifikası iptali"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:15
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
 msgstr "Sertifika iptali"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:21
 #: src/templates/forceRevoke.mas:21
 #, perl-brace-format
 msgid ""
@@ -452,6 +456,7 @@ msgstr ""
 "{on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız veya "
 "etkisi kılacağınızdan emin olun."
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:24
 #: src/templates/forceRevoke.mas:24
 #, perl-brace-format
 msgid ""
@@ -463,21 +468,138 @@ msgstr ""
 "kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
 "kılmayı istediğinizi onaylayın"
 
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:42
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:71
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:130
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:162
+#: src/templates/index.mas:130 src/templates/index.mas:162
+#: src/templates/forceRevoke.mas:42 src/templates/formRevoke.mas:71
+msgid "Revoke"
+msgstr "İptal"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:45
 #: src/templates/forceRevoke.mas:45
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/templates/createCA.mas:15
-msgid "Create"
-msgstr "Oluştur"
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:17
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:65
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:34
+#: src/templates/formRenew.mas:17 src/templates/index.mas:34
+#: src/templates/formRevoke.mas:65
+msgid "CA Passphrase"
+msgstr "CA Parolası"
 
-#: src/templates/createCA.mas:23
-msgid "Create Certification Authority Certificate"
-msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
-
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:28
 #: src/templates/formRenew.mas:28
 msgid "Renew a certificate"
 msgstr "Bir sertifika yenileme"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:48
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:33
+#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
+msgid "Expiration Date"
+msgstr "Bitiş Tarihi"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:10
+#: src/templates/formRevoke.mas:10
+msgid "Revoke a certificate"
+msgstr "Bir sertifika iptal et"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:18
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Seçilen sertifikayı iptal et"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:41
+#: src/templates/index.mas:41
+msgid "Re CA Passphrase"
+msgstr "CA Parolası (tekrar)"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:46
+#: src/templates/index.mas:46
+msgid "Issue"
+msgstr "Yayımla"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:51
+#: src/templates/index.mas:51
+msgid "Certificate changes will take effect immediately"
+msgstr "Sertifika değişikliği derhal uygulanacak"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:53
+#: src/templates/index.mas:53
+msgid "The CA passphrase is optional"
+msgstr "CA parolası isteğe bağlıdı"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:57
+#: src/templates/index.mas:57
+msgid "Issue the Certification Authority Certificate"
+msgstr "Sertifikasyon Yetkili Sertifikasını Yayımla"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:59
+#: src/templates/index.mas:59
+msgid "Issue a new certificate"
+msgstr "Yeni bir sertifika yayımla"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:66
+#: src/templates/index.mas:66
+msgid "Current Certificate List"
+msgstr "Mevcut Sertifika Listesi"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:68
+#: src/templates/index.mas:68
+msgid ""
+"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+"Revoked certificates respectively"
+msgstr ""
+"Geçerli/Süresi Geçen'deki Bitiş Tarihi tarihi ve İptal Edilen "
+"sertifikalardaki İptal Tarihi"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:72
+#: src/templates/index.mas:72
+msgid "Name"
+msgstr "İsim"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:73
+#: src/templates/index.mas:73
+msgid "State"
+msgstr "Durum"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:74
+#: src/templates/index.mas:74
+msgid "Date"
+msgstr "Tarih"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:75
+#: src/templates/index.mas:75
+msgid "Actions"
+msgstr "Faaliyetler"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:86
+#: src/templates/index.mas:86
+msgid "from"
+msgstr "den/dan"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:97
+#: src/templates/index.mas:97
+msgid "Valid"
+msgstr "Geçerli"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:99
+#: src/templates/index.mas:99
+msgid "Expired"
+msgstr "Sona Ermiş"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:101
+#: src/templates/index.mas:101
+msgid "Revoked"
+msgstr "İptal Edilmiş"
+
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:139
+#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:164
+#: src/templates/index.mas:139 src/templates/index.mas:164
+msgid "Download Key(s) and Certificate"
+msgstr "Anahtar(lar)ı ve Sertifikayı indir"
 
 #~ msgid "Passphrase"
 #~ msgstr "Parola"

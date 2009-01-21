@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.12.100"
+"Project-Id-Version: ebox-trafficshaping 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 12:04+0100\n"
-"PO-Revision-Date: 2008-12-04 12:04+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"PO-Revision-Date: 2009-01-14 15:32+0330\n"
+"Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,25 +18,25 @@ msgstr ""
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
 msgid "Change or remove some rules on {contextName}"
-msgstr ""
+msgstr "تغییر یا حذف برخی قواعد از {contextName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:270
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (رابط داخلی)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:273
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (رابط خارجی)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:300
 msgid "Guaranteed rate"
-msgstr ""
+msgstr "سرعت تضمین شده"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:305
 msgid "Limited rate"
-msgstr ""
+msgstr "سرعت محدود"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:316
 #, perl-brace-format
@@ -44,105 +44,111 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"شی {object} هیچ عضوی ندارد. لطفا حداقل یک نمونه اضافه کنید تا با استفاده از "
+"این شی قواعد اضافه کرد."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:343
 msgid "If service is any, some source ordestination should be provided"
-msgstr ""
+msgstr "اگر سرویس هرچه باشد، مبدا و مقصدی بایستی وارد شود"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:478
 msgid "Service"
-msgstr ""
+msgstr "سرویس"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
 msgid "Port based service"
-msgstr ""
+msgstr "سرویس بر اساس پورت"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 msgid "Source"
-msgstr ""
+msgstr "مبدا"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:500
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:528
 msgid "Any"
-msgstr ""
+msgstr "هر چه"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:503
 msgid "Source IP"
-msgstr ""
+msgstr "آی‌پی مبدا"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:508
 msgid "Source MAC"
-msgstr ""
+msgstr "MAC مبدا"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:513
 msgid "Source object"
-msgstr ""
+msgstr "شی مبدا"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:523
 msgid "Destination"
-msgstr ""
+msgstr "مقصد"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:531
 msgid "Destination IP"
-msgstr ""
+msgstr "آی‌پی مقصد"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:536
 msgid "Destination object"
-msgstr ""
+msgstr "شی مقصد"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1550
+#: src/EBox/TrafficShaping.pm:1559
 msgid "Priority"
-msgstr ""
+msgstr "اولویت"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "پایین‌ترین اولویت: ۷ بالاترین محدودیت: ۰"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping.pm:1557
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "سرعت تضمین شده"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:571
 msgid "Kbit/s"
-msgstr ""
+msgstr "کیلوبیت/ثانیه"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
+"توجه نمایید که مجموع تمامی سرعت‌های تضمین شده نمی‌تواند از پهنای باند کلی شما "
+"بیشتر شود. ۰ به معنی سرعت نامحدود است."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping.pm:1558
 msgid "Limited Rate"
-msgstr ""
+msgstr "سرعت محدود"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr ""
+msgstr "ترافیک به این سرعت نخواهد رسید ۰ به معنی بدون محدودیت است."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "فهرست قواعد برای {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"توجه نمایید که اگر این رابط داخلی باشد، جریان ترافیک از اینترنت به درون و "
+"اگر خارجی باشد برعکس خواهد بود"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
-msgstr ""
+msgstr "قاعده"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:656
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "حذف {num} قاعده از {modelName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:703
 #, perl-brace-format
@@ -152,6 +158,10 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
+"نرمال‌سازی سرعت‌ها: قواعد {limitNum} سرعت محدودش را به {limitRate} محدود کرده "
+"است، قواعد {guaranNum} سرعت تضمین‌شده‌اش را برای نگهداری سهم یکسانی که آن قبلا "
+"داشته است نرمال‌سازی کرده است و {removeNum} به دلیل اینکه سرعت تضمین شده اش "
+"کمتر از کمینه مجاز بوده حذف شده است"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:760
 msgid ""
@@ -159,16 +169,19 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"پروتکل‌های برمبنای پورت برای تطابق با یک سرویس از شماره پورت استفاده می‌کنند، "
+"درحالیکه پروتکل‌های برمبنای برنامه کندتر هستند اما به دلیل بررسی محتوای هر "
+"بسته با یک سرویس بسیار کارا هستند."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:776
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:793
 msgid "Application based service"
-msgstr ""
+msgstr "سرویس برمبنای برنامه"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:784
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:800
 msgid "Application based service group"
-msgstr ""
+msgstr "گروه سرویس برمبنای برنامه"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -177,6 +190,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"شکل‌دهی ترافیک هنگامیکه ای‌باکس به عنوان یک‌ گذرگاه عمل می‌کند، اعمال می‌گردد. "
+"برای رسیدن به این، شما نیاز دازید حداقل یک رابط داخلی و خارجی داشته باشید. "
+"پیکربندی رابط را برای تطابق با آن در {openhref}شبکه->رابط‌ها{closehref} بررسی "
+"نمایید"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
@@ -186,25 +203,31 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
+"شکل‌دهی ترافیک تنها اگر گذرگاه‌هایی با یک سرعت آپلود مربوط با یک رابط خارجی "
+"باشد اعمال می‌گردد. برای این کار، یک گذرگاه در {openhref}شبکه->گذرگاه‌ها"
+"{closehref} با تنظیم رابط به یک رابط خارجی ایجاد نمایید."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
-msgstr ""
+msgstr "فهرست قواعد برای هر رابط"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"یک رابط برای افزودن قواعد شکل‌دهی ترافیک انتخاب نمایید. درنظر داشته باشید که "
+"اگر شما شکل‌دهی را در رابط داخلی انجام‌ می‌دهید، شما در حال شکل‌دهی ingress "
+"هستید."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "انتخاب یک رابط برای شکل‌دهی"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr ""
+msgstr "سرعت تضمین‌شده از سرعت مجاز بیشتر شده است: {rate} کیلوبیت/ثانیه"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -212,6 +235,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"سرعت تضمین شده بایستی در این بازه باشد: ( {minRate}, {maxRate} ) کیلوبیت/"
+"ثانیه"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:422
@@ -219,6 +244,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از سرعت تضمین شده {gR} کیلوبیت/ثانیه "
+"بیشتر باشد"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
@@ -227,11 +254,14 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
+"سرعت محدودشده {lR} کیلوبیت/ثانیه بایستی از {maxLR} کیلوبیت/ثانیه کمتر باشد "
+"یا شما باید بیشینه ترافیک آپلود به گذرگاه‌های مربوط به این رابط خارجی را "
+"افزایش دهید"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "سرعت تضمین شده بر سرعت مجاز برتری یافته است: {rate}"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
@@ -239,76 +269,83 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"سرعت مجاز {lR} کیلوبیت/ثانیه بایستی از {maxLR} کمتر باشد یا بیشینه ترافیک "
+"مجاز را افزایش دهید"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "شناسه کلاس برگ"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr ""
+msgstr "نشانی"
 
 #: src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "گزینه‌ها"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:415
-#: src/EBox/TrafficShaping.pm:565 src/EBox/TrafficShaping.pm:952
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:429
+#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:961
 msgid "Interface"
-msgstr ""
+msgstr "رابط"
 
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
+#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:375
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping.pm:95
+#: src/EBox/TrafficShaping.pm:94
 msgid "traffic shaping"
-msgstr ""
+msgstr "شکل‌دهی ترافیک"
+
+#: src/EBox/TrafficShaping.pm:132
+msgid "Add iptables rules to mangle table"
+msgstr "افزودن قواعد iptables به جدول mangle"
 
 #: src/EBox/TrafficShaping.pm:133
-msgid "Add iptables rules to mangle table"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "نشان‌گذاری بسته‌ها با اولویت‌ها و سرعت‌های متفاوت"
+
+#: src/EBox/TrafficShaping.pm:137
+msgid "Add tc rules"
+msgstr "افزودن قواعد tc"
 
 #: src/EBox/TrafficShaping.pm:138
-msgid "Add tc rules"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "برای پیاده‌سازی قواعد شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping.pm:428
+#: src/EBox/TrafficShaping.pm:442
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"بیشترین قاعده حساب {max} رسیده شد، لطفا حداقل برای افزودن یک نمونه دیگر یکی "
+"را حذف نمایید"
 
-#: src/EBox/TrafficShaping.pm:969
+#: src/EBox/TrafficShaping.pm:978
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr ""
+"شکل‌دهی ترافیک می‌تواند در رابط‌های خارجی که گذرگاه‌ها به‌ آنها مربوط هستند انجام "
+"شود"
 
-#: src/EBox/TrafficShaping.pm:1058
+#: src/EBox/TrafficShaping.pm:1067
 msgid "type"
-msgstr ""
+msgstr "نوع"
 
-#: src/EBox/TrafficShaping.pm:1081
+#: src/EBox/TrafficShaping.pm:1090
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"رابط {iface} بایستی یک پهنای باند بیشینه برای انجام شکل‌دهی ترافیک داشته باشد"
 
-#: src/EBox/TrafficShaping.pm:1546
+#: src/EBox/TrafficShaping.pm:1555
 msgid "Protocol"
-msgstr ""
+msgstr "پروتکل"
 
-#: src/EBox/TrafficShaping.pm:1547
+#: src/EBox/TrafficShaping.pm:1556
 msgid "Port"
-msgstr ""
+msgstr "پورت"

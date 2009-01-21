@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 12:31+0100\n"
+"POT-Creation-Date: 2009-01-21 10:17+0100\n"
 "PO-Revision-Date: 2008-12-04 12:31+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -137,17 +138,17 @@ msgstr ""
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
-#: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
+#: src/EBox/WebServer.pm:176
 msgid "Web"
 msgstr ""
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
-#: src/EBox/WebServer.pm:236
+#: src/EBox/WebServer.pm:196
 msgid "Web service status"
 msgstr ""
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
-#: src/EBox/WebServer.pm:409
+#: src/EBox/WebServer.pm:366
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""
@@ -158,18 +159,18 @@ msgid ""
 "home directory under public_html"
 msgstr ""
 
-#: src/EBox/WebServer.pm:97
+#: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
 msgstr ""
 
-#: src/EBox/WebServer.pm:102
+#: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
 msgstr ""
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:129
 msgid "Enable apache LDAP user module"
 msgstr ""
 
-#: src/EBox/WebServer.pm:132
+#: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:39+0100\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-11-04 13:22+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Kontrollzentrum-Administrator in eine Log-Datei?? (Control center admin at a "
 "log file)"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:170
 msgid "Control center"
 msgstr "Kontrollzentrum"
 
@@ -75,23 +75,19 @@ msgstr "{method} ist keine definierte Methode"
 msgid "{module} does not exist"
 msgstr "Das Modul {module} existiert nicht"
 
-#: src/EBox/SOAP.pm:168
-msgid "SOAP"
-msgstr "SOAP"
-
-#: src/EBox/SOAP.pm:309
+#: src/EBox/SOAP.pm:288
 #, perl-brace-format
 msgid "Missing uploaded file: {uploadedFile}"
 msgstr "Die hochgeladene Datei {uploadedFile} fehlt"
 
-#: src/EBox/SOAP.pm:321
+#: src/EBox/SOAP.pm:300
 #, perl-brace-format
 msgid ""
 "Uploaded file is a type of {type1}  but it should be a file of type {type2}"
 msgstr ""
 "Die hochgeladene Datei ist vom Typ {type1}, sollte aber vom Typ {type2} sein"
 
-#: src/EBox/SOAP.pm:333
+#: src/EBox/SOAP.pm:312
 #, perl-brace-format
 msgid ""
 "Uploaded file does not contain the four mandatory files. It contains "
@@ -100,27 +96,27 @@ msgstr ""
 "Die hochgeladene Datei enthält die vier nötigen Dateien nicht. Es enthält "
 "nur {number}"
 
-#: src/EBox/SOAP.pm:368
+#: src/EBox/SOAP.pm:347
 msgid "It is required to upload a bundle to delete it"
 msgstr "Um ein Bündel zu löschen, müssen Sie ein anderes hochladen"
 
-#: src/EBox/SOAP.pm:437
+#: src/EBox/SOAP.pm:416
 msgid "You should enable the service to test the connectivity"
 msgstr "Sie sollten den Dienst aktivieren, um die Verbindung zu testen"
 
-#: src/EBox/SOAP.pm:881
+#: src/EBox/SOAP.pm:860
 msgid "The OpenVPN client configuration file is missing"
 msgstr "Die OpenVPN-Client-Konfigurationsdatei fehlt"
 
-#: src/EBox/SOAP.pm:888
+#: src/EBox/SOAP.pm:867
 msgid "The OpenVPN client configuration file is not well formatted "
 msgstr "Die OpenVPN-Benutzerkonfiguration ist in einem ungültigen Format"
 
-#: src/EBox/SOAP.pm:918
+#: src/EBox/SOAP.pm:897
 msgid "Some certificate is missing"
 msgstr "Ein Zertifikat fehlt"
 
-#: src/EBox/SOAP.pm:925
+#: src/EBox/SOAP.pm:904
 #, perl-brace-format
 msgid ""
 "You cannot upload this bundle since the name {name} has been already used "
@@ -131,26 +127,26 @@ msgstr ""
 "ein gelöschtes Bündel verwendet wird, welches noch nicht entfernt ist. Falls "
 "Sie das Bündel hochladen möchten, speichern Sie zuerst die Änderungen"
 
-#: src/EBox/SOAP.pm:958
+#: src/EBox/SOAP.pm:937
 msgid "Certificate file is missing"
 msgstr "Die Zertifikats-Datei fehlt"
 
-#: src/EBox/SOAP.pm:961
+#: src/EBox/SOAP.pm:940
 msgid "Private key file is missing"
 msgstr "Ddie private Schlüssel-Datei fehlt"
 
-#: src/EBox/SOAP.pm:964
+#: src/EBox/SOAP.pm:943
 msgid "Certification Authority file is missing"
 msgstr "Das Zertifikat der Zertifizierungsstelle fehlt"
 
-#: src/EBox/SOAP.pm:1016
+#: src/EBox/SOAP.pm:995
 msgid ""
 "You should upload a bundle to be able to communicate with the control center"
 msgstr ""
 "Sie sollten ein Bündel hochladen, um mit dem Kontrollzentrum kommunizieren "
 "zu können"
 
-#: src/EBox/SOAP.pm:1025
+#: src/EBox/SOAP.pm:1004
 msgid ""
 "The OpenVPN client is not running. You may need to save changes in order to "
 "set up the OpenVPN client"
@@ -192,6 +188,9 @@ msgstr ""
 #: src/templates/index.mas:90
 msgid "Upload"
 msgstr "Hochladen"
+
+#~ msgid "SOAP"
+#~ msgstr "SOAP"
 
 #~ msgid "You can manage here the communication between control "
 #~ msgstr ""

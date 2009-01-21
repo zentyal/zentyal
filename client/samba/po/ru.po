@@ -7,146 +7,93 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2008-12-03 11:41+0000\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"PO-Revision-Date: 2008-12-19 15:43+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
-#: src/EBox/Samba.pm:545
-msgid "File sharing"
-msgstr "Совместное использование файлов"
-
-#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:756
-msgid "netbios"
-msgstr "netbios"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:805
-msgid "working group"
-msgstr "рабочая группа"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "working mode"
-msgstr "рабочий режим"
-
-#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:774
-msgid "description"
-msgstr "описание"
-
-#: src/EBox/CGI/SambaConf.pm:48
-msgid "user quota"
-msgstr "квота пользователя"
-
-#: src/EBox/CGI/SambaConf.pm:49
-msgid "roaming profiles"
-msgstr "перемещаемые профили"
-
-#: src/EBox/CGI/SambaConf.pm:53
-msgid "Netbios and workgroup must have different names"
-msgstr "Netbios и рабочая группа должны иметь разные имена"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "статус модуля"
-
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
-msgid "user name"
-msgstr "имя пользователя"
-
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:769 src/EBox/SambaLdapUser.pm:797
-#: src/EBox/SambaLdapUser.pm:848
-msgid "group name"
-msgstr "имя группы"
-
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "имя ресурса"
-
-#: src/EBox/CGI/ActiveSharing.pm:69
-msgid "active"
-msgstr "активно"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
-msgid "path"
-msgstr "путь"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:122
-msgid "Deleted Samba shares"
-msgstr "Удалить ресурсы Самбы"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:128
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:152
-#, fuzzy
-msgid "Todo"
-msgstr "Todo"
-
-#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
-#: src/EBox/Samba/Model/SambaShares.pm:147
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
-msgid "share"
-msgstr "ресурс"
-
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:97
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
-msgstr "Имя ресурса"
+msgstr "Имя общего ресурса"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:103
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr "Путь ресурса"
+msgstr "Путь к общему ресурсу   "
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:109
 #: src/EBox/Samba/Model/SambaShares.pm:109
 msgid "Directory under eBox"
 msgstr "Каталог под eBox"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:115
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
 msgstr "Путь в файловой системе"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:123
 #: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
 msgstr "Комментарий"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:128
 #: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
 msgstr "Контроль доступа"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:138
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "List of samba shares"
 msgstr "Список общих ресурсов"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:139
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Samba shares"
 msgstr "Общие ресурсы"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:147
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:153
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:129
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "share"
+msgstr "общий ресурс"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:177
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr "Путь не разрешен"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:185
 #: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "В пути могут использоваться только алфавитно-цифровые символы и _ "
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:219
 #: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Каталог не пустой. Вы действительно хотите его удалить?"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:276
 #: src/EBox/Samba/Model/SambaShares.pm:276
 msgid ""
 "<i>Directory under eBox</i> will automatically create the share.directory "
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
-"<i>Каталог для eBox</i> автоматически создает каталог ресурсав "
-"/home/samba/shares <br><i>Путь в фаловой системе</i> разрешает создавать "
-"ресурсы из каталогов существующих в файловой системе. "
+"<i>Каталог для eBox</i> автоматически создает каталог ресурса в /home/samba/"
+"shares <br><i>Путь в фаловой системе</i> разрешает создавать ресурсы из "
+"каталогов существующих в файловой системе.  "
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaShares.pm:286
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
@@ -155,38 +102,62 @@ msgstr ""
 "Здесь вы можете создать ресурс с контролем доступа. Вы можете задать уже "
 "существующий каталог или задать имя и eBox создаст его для вас."
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:113
+#: src/EBox/Samba/Model/DeletedSambaShares.pm:113
+msgid "path"
+msgstr "путь"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:122
+msgid "Deleted Samba shares"
+msgstr "Удалить ресурсы Самбы"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/DeletedSambaShares.pm:128
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:152
+#, fuzzy
+msgid "Todo"
+msgstr "Todo"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:91
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
 msgstr "Только чтение"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:95
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:95
 msgid "Read and write"
 msgstr "Чтение и запись"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:99
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:99
 msgid "Administrator"
 msgstr "Администратор"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:120
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:120
 msgid "User/Group"
 msgstr "Пользователь/Группа"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:125
+#: src/EBox/Samba.pm:545 src/EBox/Samba/Model/SambaSharePermissions.pm:125
 msgid "User"
 msgstr "Пользователь"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:130
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:130
 msgid "Group"
 msgstr "Группа"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:137
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
 msgstr "Разрешения"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:146
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Samba share configuration"
 msgstr "Конфигурация ресурсов Самбы"
 
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba/Model/SambaSharePermissions.pm:180
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:180
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
@@ -195,54 +166,136 @@ msgstr ""
 "Будьте осторожны, если вы обладаете правами <i>administrator</i>. "
 "Пользователи могут читать и писать в любой файл ресурса"
 
-#: src/EBox/Samba.pm:75
-msgid "file sharing"
-msgstr "файловый ресурс"
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:44
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActivePrinting.pm:48
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:773
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:801
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:852
+#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
+#: src/EBox/SambaLdapUser.pm:775 src/EBox/SambaLdapUser.pm:803
+#: src/EBox/SambaLdapUser.pm:854
+msgid "group name"
+msgstr "имя группы"
 
-#: src/EBox/Samba.pm:95
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:47
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "имя общего ресурса"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:66
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActivePrinting.pm:44
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:67
+msgid "user name"
+msgstr "имя пользователя"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/ActiveSharing.pm:69
+#: src/EBox/CGI/ActiveSharing.pm:70
+msgid "active"
+msgstr "активно"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Index.pm:30
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Index.pm:40
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:539
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:548
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:633
+msgid "File sharing"
+msgstr "Совместное использование файлов"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/Enable.pm:42
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "статус модуля"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:44
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:759
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:815
+msgid "netbios"
+msgstr "netbios"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:45
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:808
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:864
+msgid "working group"
+msgstr "рабочая группа"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:46
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "working mode"
+msgstr "рабочий режим"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:47
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:777
+#: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:833
+msgid "description"
+msgstr "описание"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:48
+#: src/EBox/CGI/SambaConf.pm:48
+msgid "user quota"
+msgstr "квота пользователя"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:49
+#: src/EBox/CGI/SambaConf.pm:49
+msgid "roaming profiles"
+msgstr "перемещаемые профили"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/CGI/Samba/SambaConf.pm:53
+#: src/EBox/CGI/SambaConf.pm:53
+msgid "Netbios and workgroup must have different names"
+msgstr "Netbios и рабочая группа должны иметь разные имена"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:75 src/EBox/Samba.pm:76
+msgid "file sharing"
+msgstr "расшаривание"
+
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:95 src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
 msgstr "Создать домашний каталог для пользователей и групп Samba"
 
-#: src/EBox/Samba.pm:96
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:96 src/EBox/Samba.pm:97
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
 "eBox создаст домашний каталог для пользователей и групп Самбы в /home/samba."
 
-#: src/EBox/Samba.pm:101
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:101 src/EBox/Samba.pm:102
 msgid "Add LDAP schemas"
 msgstr "Добавить схемы LDAP"
 
-#: src/EBox/Samba.pm:102
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:102 src/EBox/Samba.pm:103
 msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
 msgstr "eBox создаст две схемы LDAP: samba.schema и ebox.schema."
 
-#: src/EBox/Samba.pm:107 src/EBox/Samba.pm:113
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:107
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:113 src/EBox/Samba.pm:108
+#: src/EBox/Samba.pm:114
 msgid "Set Samba LDAP admin dn password"
 msgstr "Установить пароль LDAP admin dn для Самбы"
 
-#: src/EBox/Samba.pm:108 src/EBox/Samba.pm:114
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:108
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:114 src/EBox/Samba.pm:109
+#: src/EBox/Samba.pm:115
 msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr "eBox настроит Самба для использования пароля LDAP admin dn."
 
-#: src/EBox/Samba.pm:130
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:130 src/EBox/Samba.pm:131
 msgid "To set up Samba according to your configuration"
 msgstr "Настроить Самбу согласно вашей конфигурации"
 
-#: src/EBox/Samba.pm:135
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:135 src/EBox/Samba.pm:136
 msgid "To set up smbldap-tools according to your configuration"
 msgstr "Настроить smbldap-tools согласно вашей конфигурации"
 
-#: src/EBox/Samba.pm:141
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:141 src/EBox/Samba.pm:142
 msgid "To set up smbldap-tools according to your LDAP configuration"
 msgstr "Настроить smbldap-tools согласно вашей LDAP конфигурации"
 
-#: src/EBox/Samba.pm:147
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:147 src/EBox/Samba.pm:148
 msgid "To add two new schemas and the set ACLs"
 msgstr "Добавить две новых схемы и установить ACL"
 
-#: src/EBox/Samba.pm:152
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:152 src/EBox/Samba.pm:153
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -250,115 +303,334 @@ msgstr ""
 "Сделать NSS для использования LDAP при разрешения пользоватлей и групп. "
 "Необходимо  Самбе в режиме PDC."
 
-#: src/EBox/Samba.pm:158
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:158 src/EBox/Samba.pm:159
 msgid "To let NSS know how to access LDAP accounts"
 msgstr "Указать NSS доступ к акаунтам LDAP"
 
-#: src/EBox/Samba.pm:163
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:163 src/EBox/Samba.pm:164
 msgid ""
 "To copy LDAP admin password generated by eBox and allow NSS to access LDAP"
 msgstr ""
 
-#: src/EBox/Samba.pm:169
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:169 src/EBox/Samba.pm:170
 msgid "To add quota support to /home partition"
 msgstr "Добавить поддержку квот для раздела /home"
 
-#: src/EBox/Samba.pm:548
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:551 src/EBox/Samba.pm:636
 msgid "General settings"
 msgstr "Общие настройки"
 
-#: src/EBox/Samba.pm:551
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:554 src/EBox/Samba.pm:639
 msgid "Shares"
 msgstr "Ресурсы"
 
-#: src/EBox/Samba.pm:823
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:826 src/EBox/Samba.pm:882
+#: src/EBox/Samba.pm:1314
 msgid "quota"
 msgstr "квота"
 
-#: src/EBox/Samba.pm:1107 src/EBox/Samba.pm:1126
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1137
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1156 src/EBox/Samba.pm:1200
+#: src/EBox/Samba.pm:1219
 msgid "user"
 msgstr "пользователь"
 
-#: src/EBox/Samba.pm:1110 src/EBox/Samba.pm:1140 src/EBox/SambaLdapUser.pm:918
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1140
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1170
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:922
+#: src/EBox/Samba.pm:1203 src/EBox/Samba.pm:1233 src/EBox/SambaLdapUser.pm:924
 msgid "group"
 msgstr "группа"
 
-#: src/EBox/Samba.pm:1113
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1143 src/EBox/Samba.pm:1206
 msgid "printer"
 msgstr "принтер"
 
-#: src/EBox/Samba.pm:1578
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1608 src/EBox/Samba.pm:1729
 msgid "User's files"
 msgstr "Файлы пользователей"
 
-#: src/EBox/Samba.pm:1580
+#: debian/ebox-samba/usr/share/perl5/EBox/Samba.pm:1610 src/EBox/Samba.pm:1731
 msgid "Group's files"
 msgstr "Файлы групп"
 
-#: src/EBox/SambaLdapUser.pm:287
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:291
+#: src/EBox/SambaLdapUser.pm:291
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Этот пользователь имеет совместный каталог, который содержит данные"
 
-#: src/EBox/SambaLdapUser.pm:351
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:355
+#: src/EBox/SambaLdapUser.pm:355
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Не корректный SID: {s}"
 
-#: src/EBox/SambaLdapUser.pm:355
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:359
+#: src/EBox/SambaLdapUser.pm:359
 #, perl-brace-format
 msgid "User {u} does not exists"
 msgstr "Пользователь {u} не существует"
 
-#: src/EBox/SambaLdapUser.pm:359
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:363
+#: src/EBox/SambaLdapUser.pm:363
 #, perl-brace-format
 msgid "User {u} is not a samba user"
 msgstr "Пользователь {u} не является пользователем Самбы"
 
-#: src/EBox/SambaLdapUser.pm:369
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:373
+#: src/EBox/SambaLdapUser.pm:373
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
 msgstr "Не корректный SID: {s}"
 
-#: src/EBox/SambaLdapUser.pm:373
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:377
+#: src/EBox/SambaLdapUser.pm:377
 #, perl-brace-format
 msgid "Group {g} does not exists"
 msgstr "Группа {g} не существует"
 
-#: src/EBox/SambaLdapUser.pm:377
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:381
+#: src/EBox/SambaLdapUser.pm:381
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
 msgstr "Группа {g} не является группой Самбы"
 
-#: src/EBox/SambaLdapUser.pm:424
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:428
+#: src/EBox/SambaLdapUser.pm:428
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Эта группа имеет совместный каталог, в котором содержатся данные"
 
-#: src/EBox/SambaLdapUser.pm:683
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:687
+#: src/EBox/SambaLdapUser.pm:689
 #, perl-brace-format
 msgid "{g} group does not exist"
 msgstr "{g} группа не существует"
 
-#: src/EBox/SambaLdapUser.pm:802
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:806
+#: src/EBox/SambaLdapUser.pm:808
 msgid "A name should be provided for the share"
 msgstr "Необходимо имя для ресурса"
 
-#: src/EBox/SambaLdapUser.pm:810
+#: debian/ebox-samba/usr/share/perl5/EBox/SambaLdapUser.pm:814
+#: src/EBox/SambaLdapUser.pm:816
 msgid "sharing resource"
 msgstr "ресурсы совместного доступа"
+
+#: src/EBox/CGI/ActiveSharing.pm:71
+#, fuzzy
+msgid "Disk quota limit"
+msgstr "Квота"
+
+#: src/EBox/Samba.pm:524
+#, fuzzy
+msgid "Share"
+msgstr "Ресурсы"
+
+#: src/EBox/Samba.pm:524 src/EBox/Samba.pm:545
+msgid "Source machine"
+msgstr ""
+
+#: src/EBox/Samba.pm:524 src/EBox/Samba.pm:545
+msgid "Connected since"
+msgstr ""
+
+#: src/EBox/Samba.pm:565
+#, fuzzy
+msgid "Shares by user"
+msgstr "Ресурсы"
+
+#: src/EBox/Samba.pm:570
+msgid "Users by share"
+msgstr ""
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"
 msgstr "Протокол файловых ресурсов (Samba) "
 
-#: stubs/smb.conf.mas:97
-msgid "Home Directories"
-msgstr "Домашний каталог"
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:9
+#: src/templates/samba.mas:9
+msgid "PDC/File sharing account"
+msgstr "PDC/File sharing аккаунт "
 
-#: stubs/smb.conf.mas:104
-#, perl-brace-format
-msgid "{group} share directory"
-msgstr "{group} каталог ресурсов"
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:16
+#: src/templates/samba.mas:16
+msgid "User account"
+msgstr "Пользовательский аккаунт"
 
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:21
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:24
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:83
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:85
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+#: src/templates/index.mas:83 src/templates/index.mas:85
+msgid "Disabled"
+msgstr "Отключено"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:22
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:25
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:82
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:86
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+#: src/templates/index.mas:82 src/templates/index.mas:86
+msgid "Enabled"
+msgstr "Включено"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:32
+#: src/templates/samba.mas:32
+msgid "Administration rights"
+msgstr "Администраторские права"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:46
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:47
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:76
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:77
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:147
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:148
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:95
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:96
+#: src/templates/samba.mas:56 src/templates/samba.mas:57
+#: src/templates/samba.mas:86 src/templates/samba.mas:87
+#: src/templates/samba.mas:157 src/templates/samba.mas:158
+#: src/templates/index.mas:95 src/templates/index.mas:96
+msgid "Change"
+msgstr "Изменить"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:55
+#: src/templates/samba.mas:65
+msgid "Sharing directory for this group"
+msgstr "Каталог совместного доступа для этой группы"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:58
+#: src/templates/samba.mas:68
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+"Вы можете установить каталог совместного доступа для этой группы, но вы "
+"должны помнить, что Microsoft Windows 98 и Millenium не видят имена длиннее "
+"12 символов"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:66
+#: src/templates/samba.mas:76
+msgid "This resource name is longer than 12 characters."
+msgstr "Имя этого ресурса длиннее 12 символов"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:69
+#: src/templates/samba.mas:79
+msgid "Directory name"
+msgstr "Имя каталога"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:79
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:80
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:18
+#: src/templates/delete.mas:18 src/templates/samba.mas:89
+#: src/templates/samba.mas:90
+msgid "Delete"
+msgstr "Удалить"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:83
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:84
+#: src/templates/samba.mas:93 src/templates/samba.mas:94
+msgid "Add"
+msgstr "Добавить"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:91
+#: src/templates/samba.mas:101
+msgid "Printers"
+msgstr "Принтеры"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:95
+#: src/templates/samba.mas:105
+msgid "Select the printers this user will have access to."
+msgstr "Выберите принтеры, к которым будет доступ у этого пользователя. "
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:105
+#: src/templates/samba.mas:115
+msgid "Printer"
+msgstr "Принтер"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:106
+#: src/templates/samba.mas:116
+msgid "Allow"
+msgstr "Разрешить"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:128
+#: src/templates/samba.mas:138
+msgid "Allow all printers"
+msgstr "Разрешить все принтеры"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:159
+#: src/templates/samba.mas:169
+msgid "printers module"
+msgstr "модуль принтеров"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/samba.mas:170
+#: src/templates/samba.mas:180
+msgid "file sharing module"
+msgstr "модуль файловых ресурсов"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:17
+#: src/templates/index.mas:17
+msgid "General Settings"
+msgstr "Общие настройки"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:19
+#: src/templates/index.mas:19
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"Для неограниченного использования дискового пространства пользователями, "
+"установите в ноль пользовательскую квоту. "
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:25
+#: src/templates/index.mas:25
+msgid "Working mode"
+msgstr "Рабочий режим"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:30
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:33
+#: src/templates/index.mas:30 src/templates/index.mas:33
+msgid "File server"
+msgstr "Файловый сервер"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:31
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:34
+#: src/templates/index.mas:31 src/templates/index.mas:34
+msgid "PDC"
+msgstr "PDC"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:42
+#: src/templates/index.mas:42
+msgid "Domain name"
+msgstr "Имя домена"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:44
+#: src/templates/index.mas:44
+msgid "Working group"
+msgstr "Рабочая группа"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:54
+#: src/templates/index.mas:54
+msgid "Netbios name"
+msgstr "Netbios имя"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:62
+#: src/templates/index.mas:62
+msgid "Description"
+msgstr "Описание"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:69
+#: src/templates/index.mas:69
+msgid "Quota limit"
+msgstr "Квота"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/index.mas:77
+#: src/templates/index.mas:77
+msgid "Roaming profiles"
+msgstr "Перемещаемые профили"
+
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:11
 #: src/templates/delete.mas:11
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
@@ -369,141 +641,23 @@ msgstr ""
 "удалите ее все данные будут удалены. Пожалуйста, подтвердите, что вы "
 "действительно хотите удалить их."
 
-#: src/templates/delete.mas:18 src/templates/samba.mas:79
-#: src/templates/samba.mas:80
-msgid "Delete"
-msgstr "Удалить"
-
+#: debian/ebox-samba/usr/share/ebox/templates/samba/delete.mas:21
 #: src/templates/delete.mas:21
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/templates/index.mas:17
-msgid "General Settings"
-msgstr "Общие настройки"
+#: debian/ebox-samba/usr/share/ebox/stubs/samba/smb.conf.mas:97
+#: stubs/smb.conf.mas:97
+msgid "Home Directories"
+msgstr "Домашний каталог"
 
-#: src/templates/index.mas:19
-msgid ""
-"To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"Для неограниченного использования дискового пространства пользователями, "
-"установите в ноль пользовательскую квоту. "
+#: debian/ebox-samba/usr/share/ebox/stubs/samba/smb.conf.mas:104
+#: stubs/smb.conf.mas:104
+#, perl-brace-format
+msgid "{group} share directory"
+msgstr "{group} каталог ресурсов"
 
-#: src/templates/index.mas:25
-msgid "Working mode"
-msgstr "Рабочий режим"
-
-#: src/templates/index.mas:30 src/templates/index.mas:33
-msgid "File server"
-msgstr "Файловый сервер"
-
-#: src/templates/index.mas:31 src/templates/index.mas:34
-msgid "PDC"
-msgstr "PDC"
-
-#: src/templates/index.mas:42
-msgid "Domain name"
-msgstr "Имя домена"
-
-#: src/templates/index.mas:44
-msgid "Working group"
-msgstr "Рабочая группа"
-
-#: src/templates/index.mas:54
-msgid "Netbios name"
-msgstr "Netbios имя"
-
-#: src/templates/index.mas:62
-msgid "Description"
-msgstr "Описание"
-
-#: src/templates/index.mas:69
-msgid "Quota limit"
+#: src/templates/samba.mas:44
+#, fuzzy
+msgid "Disk quota limit (MB)"
 msgstr "Квота"
-
-#: src/templates/index.mas:77
-msgid "Roaming profiles"
-msgstr "Перемещаемые профили"
-
-#: src/templates/index.mas:82 src/templates/index.mas:86
-#: src/templates/samba.mas:22 src/templates/samba.mas:25
-msgid "Enabled"
-msgstr "Включено"
-
-#: src/templates/index.mas:83 src/templates/index.mas:85
-#: src/templates/samba.mas:21 src/templates/samba.mas:24
-msgid "Disabled"
-msgstr "Отключено"
-
-#: src/templates/index.mas:95 src/templates/index.mas:96
-#: src/templates/samba.mas:46 src/templates/samba.mas:47
-#: src/templates/samba.mas:76 src/templates/samba.mas:77
-#: src/templates/samba.mas:147 src/templates/samba.mas:148
-msgid "Change"
-msgstr "Изменить"
-
-#: src/templates/samba.mas:9
-msgid "PDC/File sharing account"
-msgstr "PDC/File sharing аккаунт "
-
-#: src/templates/samba.mas:16
-msgid "User account"
-msgstr "Пользовательский аккаунт"
-
-#: src/templates/samba.mas:32
-msgid "Administration rights"
-msgstr "Администраторские права"
-
-#: src/templates/samba.mas:55
-msgid "Sharing directory for this group"
-msgstr "Каталог совместного доступа для этой группы"
-
-#: src/templates/samba.mas:58
-msgid ""
-"You can set a share directory for this group, but you should keep in mind "
-"that Microsoft Windows 98 and Millenium will not be able to see names longer "
-"than 12 characters"
-msgstr ""
-"Вы можете установить каталог совместного доступа для этой группы, но вы "
-"должны помнить, что Microsoft Windows 98 и Millenium не видят имена длиннее "
-"12 символов"
-
-#: src/templates/samba.mas:66
-msgid "This resource name is longer than 12 characters."
-msgstr "Имя этого ресурса длиннее 12 символов"
-
-#: src/templates/samba.mas:69
-msgid "Directory name"
-msgstr "Имя каталога"
-
-#: src/templates/samba.mas:83 src/templates/samba.mas:84
-msgid "Add"
-msgstr "Добавить"
-
-#: src/templates/samba.mas:91
-msgid "Printers"
-msgstr "Принтеры"
-
-#: src/templates/samba.mas:95
-msgid "Select the printers this user will have access to."
-msgstr "Выберите принтеры, к которым будет доступ у этого пользователя. "
-
-#: src/templates/samba.mas:105
-msgid "Printer"
-msgstr "Принтер"
-
-#: src/templates/samba.mas:106
-msgid "Allow"
-msgstr "Разрешить"
-
-#: src/templates/samba.mas:128
-msgid "Allow all printers"
-msgstr "Разрешить все принтеры"
-
-#: src/templates/samba.mas:159
-msgid "printers module"
-msgstr "модуль принтеров"
-
-#: src/templates/samba.mas:170
-msgid "file sharing module"
-msgstr "модуль файловых ресурсов"

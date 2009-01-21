@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:30+0000\n"
+"POT-Creation-Date: 2009-01-21 10:14+0100\n"
 "PO-Revision-Date: 2007-03-16 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,50 +16,58 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
+#: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/Index.pm:30
+#: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/Index.pm:40
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:344
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberUserOptions.pm:44
-msgid "username"
-msgstr "nome utente"
-
+#: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/Enable.pm:41
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "stato modulo"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
+#: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/JabberConf.pm:42
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:279
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:253
 msgid "domain"
 msgstr "dominio"
 
-#: src/EBox/Jabber.pm:71
+#: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/JabberUserOptions.pm:44
+#: src/EBox/CGI/JabberUserOptions.pm:44
+msgid "username"
+msgstr "nome utente"
+
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:71 src/EBox/Jabber.pm:69
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
 msgstr ""
 
-#: src/EBox/Jabber.pm:72
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:72 src/EBox/Jabber.pm:70
 msgid "eBox will need this schema to store jabber users"
 msgstr ""
 
-#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:89
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:94 src/EBox/Jabber.pm:87
+#: src/EBox/Jabber.pm:92
 msgid "To properly configure jabberd2"
 msgstr ""
 
-#: src/EBox/Jabber.pm:98
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:98 src/EBox/Jabber.pm:96
 msgid "To add the LDAP schemas used by eBox jabber"
 msgstr ""
 
-#: src/EBox/Jabber.pm:356
+#: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:356
+#: src/EBox/Jabber.pm:322
 msgid "Jabber Service"
 msgstr "Servizio Jabber"
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
-msgstr "Inserisci un nome utente e password per registrarti su questo server."
-
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:16
 #: src/templates/index.mas:16
 msgid "General Settings"
 msgstr "Impostazioni Generali"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:18
 #: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
@@ -69,64 +77,93 @@ msgstr ""
 "potresti non essere in grado di utilizzare il servizio. Ciò si applica per "
 "le connessioni interne ed esterne."
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:24
 #: src/templates/index.mas:24
 msgid "Domain name"
 msgstr "Nome dominio"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:32
 #: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
 msgstr "Connetti a network Jabber globale"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:44
 #: src/templates/index.mas:44
 msgid "SSL Support"
 msgstr "Supporto SSL"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:49
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:53
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:57
 #: src/templates/index.mas:49 src/templates/index.mas:53
 #: src/templates/index.mas:57
 msgid "No"
 msgstr "No"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:50
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:54
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:58
 #: src/templates/index.mas:50 src/templates/index.mas:54
 #: src/templates/index.mas:58
 msgid "Optional"
 msgstr "Opzionale"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:51
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:55
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:59
 #: src/templates/index.mas:51 src/templates/index.mas:55
 #: src/templates/index.mas:59
 msgid "Required"
 msgstr "Obbligatorio"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:68
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:69
 #: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
 msgstr "Applica Modifiche"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:8
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
 msgstr "Account Jabber"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:9
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
 msgstr "La password per il servizio Jabber è la password utente"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:18
 #: src/templates/jabber.mas:18
 msgid "User account"
 msgstr "Account utente"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:23
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:26
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
 msgstr "Inattivo"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:24
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:27
 #: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr "Attivo"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:34
 #: src/templates/jabber.mas:34
 msgid "Administration rights"
 msgstr "Privilegi di amministratore"
 
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:48
+#: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:49
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
 msgstr "Modifica"
+
+#: debian/ebox-jabber/usr/share/ebox/stubs/jabber/c2s.xml.mas:77
+#: stubs/c2s.xml.mas:77
+msgid "Enter a username and password to register with this server."
+msgstr "Inserisci un nome utente e password per registrarti su questo server."
 
 #~ msgid "listening port"
 #~ msgstr "porta di ascolto"
