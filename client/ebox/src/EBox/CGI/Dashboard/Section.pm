@@ -58,7 +58,7 @@ sub masonParameters
     my $global = EBox::Global->getInstance(1);
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
-    my $sectionname = $self->param('section');
+    my $sectionname = $self->unsafeParam('section');
     my $module = $global->modInstance($modname);
     my $widget = $module->widget($widgetname);
     my $sect;
