@@ -7,88 +7,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:45+0000\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-11-14 05:49+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:152
-msgid "Services"
-msgstr "Службы"
-
-#: src/EBox/Services.pm:327
-msgid "port"
-msgstr "порт"
-
-#: src/EBox/Services.pm:329
-#: migration/0001_import_services_from_firewall.pl:108
-msgid "eBox administration"
-msgstr "eBox администрирование"
-
-#: src/EBox/Services.pm:330
-#: migration/0001_import_services_from_firewall.pl:109
-msgid "eBox Administration port"
-msgstr "порт администрирования eBox"
-
-#: src/EBox/Services.pm:331 migration/0001_import_services_from_firewall.pl:71
-#: migration/0001_import_services_from_firewall.pl:82
-#: migration/0001_import_services_from_firewall.pl:94
-#: migration/0001_import_services_from_firewall.pl:110
-#: migration/0001_import_services_from_firewall.pl:125
-msgid "ebox-services"
-msgstr "ebox-службы"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:111
-msgid "Protocol"
-msgstr "Протокол"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:117
-msgid "Source port"
-msgstr "Исходный порт"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:119
-msgid "This field is usually set to any"
-msgstr "Обычно это поле устанавливается всегда"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:123
-msgid "Destination port"
-msgstr "Порт назначения"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:133
-msgid "Service configuration"
-msgstr "Настройка служб"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:142
-#: src/EBox/Model/ServiceTable.pm:161
-msgid "service"
-msgstr "служба"
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:165
-msgid "This protocol does not use ports"
-msgstr "Этот протокол не использует порты"
-
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:107
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
 msgstr "Домен"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:114
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
 msgstr "Имя службы"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:122
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
 msgstr "Описание"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:129
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
 msgstr "Внутрений"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:130
 #: src/EBox/Model/ServiceTable.pm:130
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
@@ -98,14 +48,30 @@ msgstr ""
 "Отметьте поле, если фактическая служба использует порты настроенные для этой "
 "службы. Это поможет eBox знать какие порты уже заняты."
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:139
 #: src/EBox/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "Настройка"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:151
 #: src/EBox/Model/ServiceTable.pm:151
 msgid "List of services"
 msgstr "Список служб"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:152
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:47
+#: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
+msgid "Services"
+msgstr "Службы"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:161
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:142
+#: src/EBox/Model/ServiceTable.pm:161
+#: src/EBox/Model/ServiceConfigurationTable.pm:142
+msgid "service"
+msgstr "служба"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:540
 #: src/EBox/Model/ServiceTable.pm:540
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
@@ -113,6 +79,62 @@ msgid ""
 msgstr ""
 "Служба абстрагирования для одного или нескольких протоколов, которые могут "
 "быть использованы другими модулями, например: файервол, учет трафика ..."
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:111
+#: src/EBox/Model/ServiceConfigurationTable.pm:111
+msgid "Protocol"
+msgstr "Протокол"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:117
+#: src/EBox/Model/ServiceConfigurationTable.pm:117
+msgid "Source port"
+msgstr "Исходный порт"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:119
+#: src/EBox/Model/ServiceConfigurationTable.pm:119
+msgid "This field is usually set to any"
+msgstr "Обычно это поле устанавливается всегда"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:123
+#: src/EBox/Model/ServiceConfigurationTable.pm:123
+msgid "Destination port"
+msgstr "Порт назначения"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:133
+#: src/EBox/Model/ServiceConfigurationTable.pm:133
+msgid "Service configuration"
+msgstr "Настройка служб"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:165
+#: src/EBox/Model/ServiceConfigurationTable.pm:165
+msgid "This protocol does not use ports"
+msgstr "Этот протокол не использует порты"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:327
+#: src/EBox/Services.pm:327
+msgid "port"
+msgstr "порт"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:329
+#: src/EBox/Services.pm:329
+#: migration/0001_import_services_from_firewall.pl:108
+msgid "eBox administration"
+msgstr "eBox администрирование"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:330
+#: src/EBox/Services.pm:330
+#: migration/0001_import_services_from_firewall.pl:109
+msgid "eBox Administration port"
+msgstr "порт администрирования eBox"
+
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:331
+#: src/EBox/Services.pm:331 migration/0001_import_services_from_firewall.pl:71
+#: migration/0001_import_services_from_firewall.pl:82
+#: migration/0001_import_services_from_firewall.pl:94
+#: migration/0001_import_services_from_firewall.pl:110
+#: migration/0001_import_services_from_firewall.pl:125
+msgid "ebox-services"
+msgstr "ebox-службы"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"

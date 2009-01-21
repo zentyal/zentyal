@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:46+0000\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,51 +16,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "自動アップデート設定"
-
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:30
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:40
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:466
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:466
+#: src/EBox/Software.pm:483
 msgid "System updates"
 msgstr "システムアップデート"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:45
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
 msgstr "ソフトウェアアップデートは自動で適用されます"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:52
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
 msgstr "システムは最新の状態です"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "自動ソフトウェアアップデート"
-
-#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:145
-msgid "Upgrading"
-msgstr "アップグレードしています"
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:464
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:30
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:40
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:464
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:481
 msgid "eBox components"
 msgstr "eBoxコンポーネント"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:84
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "アップデートするパッケージはありませんでした"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:145
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
+msgid "Upgrading"
+msgstr "アップグレードしています"
+
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:146
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
 msgstr "パッケージをアップグレードしています"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:147
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:167
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
 msgstr "現在のパッケージ"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:148
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
 msgstr "残りのインストールパッケージ"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:149
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -70,6 +78,7 @@ msgstr ""
 "パッケージのインストールが完了しました。数秒の間、管理インタフェースが応答し"
 "ないかもしれません。システムが再起動するまでお待ちください"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:153
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
@@ -77,18 +86,22 @@ msgid ""
 msgstr ""
 "パッケージのインストールは正常に終了しませんでした。詳細はログを見てください"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
 msgstr "パッケージを削除"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
 msgstr "選択したパッケージを依存パッケージとともに削除"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
 msgstr "削除予定のパッケージ"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:169
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
 "The packages removal has finished successfully. The administration interface "
@@ -98,31 +111,48 @@ msgstr ""
 "パッケージは正常に削除されました。管理インタフェースが数秒間反応しなくなりま"
 "すが、再起動が完了するまで少々お待ちください"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:173
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "パッケージは正常に削除されませんでした。詳細はログに記録されています"
 
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:31
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:41
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "自動ソフトウェアアップデート"
+
+#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Enable.pm:41
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "自動アップデート設定"
+
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:85
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
 msgstr "更新をダウンロードするためにcronスクリプトを有効化"
 
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:86
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr "eBoxは設定済みのapt sourcesから利用可能な更新をダウンロードします。"
 
-#: src/EBox/Software.pm:461
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:461
+#: src/EBox/Software.pm:478
 msgid "Software management"
 msgstr "ソフトウェアの管理"
 
-#: src/EBox/Software.pm:468
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:468
+#: src/EBox/Software.pm:485
 msgid "Automatic updates"
 msgstr "自動アップデート"
 
-#: src/EBox/Software.pm:559
+#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:559
+#: src/EBox/Software.pm:576
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -171,54 +201,59 @@ msgid "eBox - Mail filter module"
 msgstr "eBox - メールフィルタモジュール"
 
 #: src/EBox/PackageDescriptions.pm:11
+#, fuzzy
+msgid "eBox - Monitoring module  "
+msgstr "eBox - メールフィルタモジュール"
+
+#: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - Network configuration module"
 msgstr "eBox - ネットワーク設定モジュール"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - NTP server"
 msgstr "eBox - NTPサーバ"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - Object management"
 msgstr "eBox - オブジェクト管理"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - OpenVPN server module"
 msgstr "eBox - OpenVPNサーバモジュール"
 
-#: src/EBox/PackageDescriptions.pm:15
+#: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Printer sharing"
 msgstr "eBox - プリンタ共有"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - File sharing"
 msgstr "eBox - ファイル共有"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Services management"
 msgstr "eBox - サービス管理"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 msgid "SOAP server to communicate with eBox control center"
 msgstr "eBoxコントロールセンターと接続するSOAPサーバ"
 
-#: src/EBox/PackageDescriptions.pm:19
+#: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Software management"
 msgstr "eBox - ソフトウェアの管理"
 
-#: src/EBox/PackageDescriptions.pm:20
+#: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Proxy cache and content filter"
 msgstr "eBox - プロキシキャッシュとコンテンツフィルタ"
 
-#: src/EBox/PackageDescriptions.pm:21
+#: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - Traffic shaper for eBox"
 msgstr "eBox - eBoxのためのトラフィック整形"
 
-#: src/EBox/PackageDescriptions.pm:22
+#: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - User and Group management"
 msgstr "eBox - ユーザグループ管理"
 
-#: src/EBox/PackageDescriptions.pm:23
+#: src/EBox/PackageDescriptions.pm:24
 #, fuzzy
 msgid "eBox - Web Server"
 msgstr "Webサーバ"
@@ -235,79 +270,100 @@ msgstr "aptを利用したパッケージ更新ソフトウェアサービス"
 msgid "rule to allow apt updates"
 msgstr "aptアップデートの許可ルール"
 
-#: src/templates/updates.mas:11
-msgid "Updates are available for the following system components"
-msgstr "次のシステムコンポーネントのアップデートが利用可能です"
+#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:14
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "次のパッケージがインストールされます"
 
+#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:16
+#: src/templates/del.mas:16
+msgid "The following packages will be removed"
+msgstr "次のパッケージが削除されます"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:32
+#: src/templates/del.mas:32
+msgid "Ok"
+msgstr "はい"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:33
+#: src/templates/del.mas:33
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:14
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:16
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "コンポーネント"
 
-#: src/templates/updates.mas:17
-msgid "Description"
-msgstr "内容"
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:15
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "インストール済みバージョン"
 
-#: src/templates/updates.mas:18
-msgid "Version"
-msgstr ""
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:16
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "最新バージョン"
 
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:17
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "アクション"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:27
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:19
 #: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "アップデート"
 
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:33
+#: src/templates/ebox.mas:33
+msgid "Install"
+msgstr "インストール"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:35
+#: src/templates/ebox.mas:35
+msgid "none"
+msgstr "なし"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:57
+#: src/templates/ebox.mas:57
+msgid "Remove"
+msgstr "削除"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:74
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:53
 #: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "全てアップデート"
 
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:11
+#: src/templates/updates.mas:11
+msgid "Updates are available for the following system components"
+msgstr "次のシステムコンポーネントのアップデートが利用可能です"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:17
+#: src/templates/updates.mas:17
+msgid "Description"
+msgstr "内容"
+
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:18
+#: src/templates/updates.mas:18
+msgid "Version"
+msgstr ""
+
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:64
 #: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr "この処理はしばらく時間がかかるかもしれません。"
 
+#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:67
 #: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "アップグレード"
-
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "インストール済みバージョン"
-
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "最新バージョン"
-
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "アクション"
-
-#: src/templates/ebox.mas:33
-msgid "Install"
-msgstr "インストール"
-
-#: src/templates/ebox.mas:35
-msgid "none"
-msgstr "なし"
-
-#: src/templates/ebox.mas:57
-msgid "Remove"
-msgstr "削除"
-
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "次のパッケージがインストールされます"
-
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
-msgstr "次のパッケージが削除されます"
-
-#: src/templates/del.mas:32
-msgid "Ok"
-msgstr "はい"
-
-#: src/templates/del.mas:33
-msgid "Cancel"
-msgstr "キャンセル"
 
 #, fuzzy
 #~ msgid "eBox- Web Server"

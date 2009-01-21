@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 12:05+0100\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-11-20 16:40+0000\n"
 "Last-Translator: Christian Merlin <nuandavr@gmail.com>\n"
 "Language-Team: none\n"
@@ -24,13 +24,13 @@ msgstr ""
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1537
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:76
-#: src/EBox/UsersAndGroups.pm:1537
+#: src/EBox/UsersAndGroups.pm:1554
 msgid "Users"
 msgstr "Utenti"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Groups.pm:43
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1545
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1545
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1562
 msgid "Groups"
 msgstr "Gruppi"
 
@@ -44,10 +44,10 @@ msgstr "Gruppi"
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1172
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1275
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:785 src/EBox/UsersAndGroups.pm:790
-#: src/EBox/UsersAndGroups.pm:937 src/EBox/UsersAndGroups.pm:1066
-#: src/EBox/UsersAndGroups.pm:1100 src/EBox/UsersAndGroups.pm:1172
-#: src/EBox/UsersAndGroups.pm:1275
+#: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:789
+#: src/EBox/UsersAndGroups.pm:936 src/EBox/UsersAndGroups.pm:1065
+#: src/EBox/UsersAndGroups.pm:1099 src/EBox/UsersAndGroups.pm:1171
+#: src/EBox/UsersAndGroups.pm:1274
 msgid "group name"
 msgstr "nome gruppo"
 
@@ -64,11 +64,11 @@ msgstr "nome gruppo"
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1095
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1131
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:360 src/EBox/UsersAndGroups.pm:366
-#: src/EBox/UsersAndGroups.pm:491 src/EBox/UsersAndGroups.pm:543
-#: src/EBox/UsersAndGroups.pm:572 src/EBox/UsersAndGroups.pm:903
-#: src/EBox/UsersAndGroups.pm:965 src/EBox/UsersAndGroups.pm:1061
-#: src/EBox/UsersAndGroups.pm:1095 src/EBox/UsersAndGroups.pm:1131
+#: src/EBox/UsersAndGroups.pm:359 src/EBox/UsersAndGroups.pm:365
+#: src/EBox/UsersAndGroups.pm:490 src/EBox/UsersAndGroups.pm:542
+#: src/EBox/UsersAndGroups.pm:571 src/EBox/UsersAndGroups.pm:902
+#: src/EBox/UsersAndGroups.pm:964 src/EBox/UsersAndGroups.pm:1060
+#: src/EBox/UsersAndGroups.pm:1094 src/EBox/UsersAndGroups.pm:1130
 msgid "user name"
 msgstr "nome utente"
 
@@ -198,7 +198,6 @@ msgid "users and groups"
 msgstr "utenti e gruppi"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:74
-#: src/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
@@ -229,19 +228,19 @@ msgstr ""
 "ACL utilizzati da __ modulo basato su LDAP di eBox"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:355
-#: src/EBox/UsersAndGroups.pm:355
+#: src/EBox/UsersAndGroups.pm:354
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Il nome utente non deve essere più lungo di {maxuserlength} caratteri"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:410
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:832
-#: src/EBox/UsersAndGroups.pm:410 src/EBox/UsersAndGroups.pm:832
+#: src/EBox/UsersAndGroups.pm:409 src/EBox/UsersAndGroups.pm:831
 msgid "Maximum number of system users reached"
 msgstr "Numero massimo di utenti di sistema raggiunto"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:427
-#: src/EBox/UsersAndGroups.pm:427
+#: src/EBox/UsersAndGroups.pm:426
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -249,26 +248,26 @@ msgstr ""
 "UID {uid} errato per un utente. Lo UID deve essere uguale o maggiore di {min}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:438
-#: src/EBox/UsersAndGroups.pm:438
+#: src/EBox/UsersAndGroups.pm:437
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "UID {uid} errato per un utente di sistema. Lo UID deve essere minore di {max}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:773
-#: src/EBox/UsersAndGroups.pm:773
+#: src/EBox/UsersAndGroups.pm:772
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr ""
 "Il nome del gruppo non deve essere più lungo di {maxGroupLength} caratteri"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:779
-#: src/EBox/UsersAndGroups.pm:779
+#: src/EBox/UsersAndGroups.pm:778
 msgid "The group name is not valid because it is used internally"
 msgstr "Il nome gruppo non è valido perché usato internamente"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:849
-#: src/EBox/UsersAndGroups.pm:849
+#: src/EBox/UsersAndGroups.pm:848
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -276,25 +275,25 @@ msgstr ""
 "GID {gid} errato per un gruppo. Il GID deve essere uguale o maggiore di {min}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:859
-#: src/EBox/UsersAndGroups.pm:859
+#: src/EBox/UsersAndGroups.pm:858
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "GID {gid} errato per un gruppo di sistema. Il GID deve essere minore di {max}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1343
-#: src/EBox/UsersAndGroups.pm:1343
+#: src/EBox/UsersAndGroups.pm:1342
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La password non deve essere più lunga di {maxPwdLength} caratteri"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1539
-#: src/EBox/UsersAndGroups.pm:1539
+#: src/EBox/UsersAndGroups.pm:1556
 msgid "Add user"
 msgstr "Aggiungi utente"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1542
-#: src/EBox/UsersAndGroups.pm:1542
+#: src/EBox/UsersAndGroups.pm:1559
 msgid "Edit user"
 msgstr "Modifica utente"
 
@@ -302,6 +301,14 @@ msgstr "Modifica utente"
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
 msgstr "Questo gruppo contiene utenti"
+
+#: src/EBox/UsersAndGroups.pm:74
+#, fuzzy
+msgid ""
+"Your current openLDAP database will be replaced and backed up in /var/"
+"backups/slapd"
+msgstr ""
+"Il tuo database openLDAP verrà sostituito e salvato in /var/backups/slapd"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/ajax/tableUser.mas:88
 #: src/templates/ajax/tableUser.mas:88
@@ -476,7 +483,6 @@ msgid "Delete user"
 msgstr "Elimina utente"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:73
-#: src/templates/user.mas:73
 msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
@@ -511,6 +517,15 @@ msgstr "Elimina"
 #: src/templates/del.mas:46
 msgid "Cancel"
 msgstr "Annulla"
+
+#: src/templates/user.mas:73
+#, fuzzy
+msgid ""
+"This operation will cause the removal of the user and all the dependent "
+"data; such as mail accounts, user files, ..."
+msgstr ""
+"Questa operazione causerà l'eliminazione dell'utente e di tutte le sue "
+"dipendenze; come ad esempio l'account di mail, i dati utente..."
 
 #~ msgid "retype password"
 #~ msgstr "ridigita la password"

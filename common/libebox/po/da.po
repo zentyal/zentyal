@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:50+0000\n"
+"POT-Creation-Date: 2009-01-21 10:19+0100\n"
 "PO-Revision-Date: 2007-09-28 10:49+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,31 +16,104 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} findes ikke."
+#: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
+#: src/EBox/CGI/EBox/PageNotFound.pm:12
+msgid "Page not found"
+msgstr "Siden kunne ikke findes"
 
-#: src/EBox/Exceptions/DataMissing.pm:36
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} er tom."
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:196
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
+msgstr ""
+"Ugyldigt input. Kun bogstaver og tal plus disse tegn: /.?&+:-@ og mellemrum "
+"er tilladt."
 
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:333
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:562
+#: src/EBox/CGI/Base.pm:333 src/EBox/CGI/Base.pm:562
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"En intern fejl er opstået. Dette er højst sandsynligt en fejl. Relevant "
+"information kan findes i logs."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:343
+#: src/EBox/CGI/Base.pm:343
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"En intern fejl relateret til \"template\" er opstået. Dette er en fejl. "
+"Relevant info kan findes i logs."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:568
+#: src/EBox/CGI/Base.pm:568
+msgid ""
+"An unexpected internal error has ocurred. This is a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"En uventet intern fejl er opstået. Dette er en fejl. Relevant information "
+"kan findes i dine logs."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:574
+#: src/EBox/CGI/Base.pm:574
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr "Du har fundet en fejl i eBox. Kontakt venligst teknisk support."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:661
+#: src/EBox/CGI/Base.pm:661
+msgid ""
+"Your request could not be processed because it had some incorrect parameters"
+msgstr ""
+"Din anmodning kunne ikke sendes, fordi den indeholdt ukorrekte parametre."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:676
+#: src/EBox/CGI/Base.pm:676
+msgid ""
+"Your request could not be processed because it lacked some required "
+"parameters"
+msgstr ""
+"Din anmodning kunne ikke sendes, fordi alle nødvendige parametre ikke er "
+"udfyldt."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:827
+#: src/EBox/CGI/Base.pm:827
+msgid "Invalid uploaded file."
+msgstr "Den uploadede fil er ikke tilgængelig."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:833
+#: src/EBox/CGI/Base.pm:833
+msgid "Cannot create a temporally file for the upload"
+msgstr "Det er ikke muligt at danne en midlertidig fil for dette upload."
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:37
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Ugyldig værdi for {data}: {value}."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataExists.pm:36
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} eksisterer allerede."
 
-#: src/EBox/Sudo.pm:237
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Dit forsøg med kommandoen '{cmd}' som {user} mislykkedes."
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} findes ikke."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataMissing.pm:36
+#: src/EBox/Exceptions/DataMissing.pm:36
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} er tom."
+
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:689
 #: src/EBox/Validate.pm:689
 #, perl-brace-format
 msgid ""
@@ -50,11 +123,13 @@ msgstr ""
 "Kan ikke få status på {dir}. Det kan skyldes at folderen ikke findes, eller "
 "at der ikke er nok rettigheder til det"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:694
 #: src/EBox/Validate.pm:694
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "Directoriet {dir} er ikke privat, det er ejet af en anden bruger"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:769
 #: src/EBox/Validate.pm:769
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
@@ -62,154 +137,52 @@ msgid ""
 msgstr ""
 "Filnavnet er ugyldigt. (I øjeblikket er alle gyldige tegn ikke supporteret)"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:797
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
 msgstr "Stien til filen skal være absolut"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:12
-msgid "Page not found"
-msgstr "Siden kunne ikke findes"
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:237 src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Dit forsøg med kommandoen '{cmd}' som {user} mislykkedes."
 
-#: src/EBox/CGI/Base.pm:196
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
-msgstr ""
-"Ugyldigt input. Kun bogstaver og tal plus disse tegn: /.?&+:-@ og mellemrum "
-"er tilladt."
-
-#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"En intern fejl er opstået. Dette er højst sandsynligt en fejl. Relevant "
-"information kan findes i logs."
-
-#: src/EBox/CGI/Base.pm:344
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"En intern fejl relateret til \"template\" er opstået. Dette er en fejl. "
-"Relevant info kan findes i logs."
-
-#: src/EBox/CGI/Base.pm:569
-msgid ""
-"An unexpected internal error has ocurred. This is a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"En uventet intern fejl er opstået. Dette er en fejl. Relevant information "
-"kan findes i dine logs."
-
-#: src/EBox/CGI/Base.pm:575
-msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Du har fundet en fejl i eBox. Kontakt venligst teknisk support."
-
-#: src/EBox/CGI/Base.pm:662
-msgid ""
-"Your request could not be processed because it had some incorrect parameters"
-msgstr ""
-"Din anmodning kunne ikke sendes, fordi den indeholdt ukorrekte parametre."
-
-#: src/EBox/CGI/Base.pm:677
-msgid ""
-"Your request could not be processed because it lacked some required "
-"parameters"
-msgstr ""
-"Din anmodning kunne ikke sendes, fordi alle nødvendige parametre ikke er "
-"udfyldt."
-
-#: src/EBox/CGI/Base.pm:826
-msgid "Invalid uploaded file."
-msgstr "Den uploadede fil er ikke tilgængelig."
-
-#: src/EBox/CGI/Base.pm:832
-msgid "Cannot create a temporally file for the upload"
-msgstr "Det er ikke muligt at danne en midlertidig fil for dette upload."
-
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:164
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:266
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
 msgstr "Brugerflade"
 
-#: src/EBox/Config.pm.in:55
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Kunne ikke åbne konfigurationsfilen {file}."
-
-#: src/EBox/Config.pm.in:102
-msgid "The ebox user has not been set in the config file."
-msgstr "eBox brugeren er ikke blevet defineret i konfigurationsfilen."
-
+#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:176
+#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:263
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Directory blev ikke fundet: {d}"
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Vælg en af mulighederne for at vise tabellen."
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:75 src/EBox/Config.pm.in:75
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Kunne ikke åbne konfigurationsfilen {file}."
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Vælg en..."
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:169 src/EBox/Config.pm.in:169
+msgid "The ebox user has not been set in the config file."
+msgstr "eBox brugeren er ikke blevet defineret i konfigurationsfilen."
 
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-msgid "Inverse match"
-msgstr "Baglæns match"
-
-#: src/templates/ajax/setter/serviceSetter.mas:23
-msgid "port"
-msgstr "Port"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:20
-msgid "From"
-msgstr "Fra"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:25
-msgid "To"
-msgstr "Til"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "Første"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "Forrige"
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "Næste"
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "Sidste"
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr ""
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr ""
-
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:3
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
 msgstr "eBox's hjemmeside"
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:7
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Tjek venligst din adresselinje hvis du skrev URL'en manuelt."
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:8
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in eBox's configuration or software made no longer available "
@@ -218,6 +191,7 @@ msgstr ""
 "Måske er siden ikke tilgængelig længere på grund af en ændring i eBoxs "
 "opsætning eller software"
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:9
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
@@ -227,50 +201,142 @@ msgstr ""
 "Hvis du har brug for mere hjælp, kan du besøge {homepage} for dokumentation "
 "og maillister."
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:13
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "we're sorry"
 msgstr "Vi undskylder."
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:14
 #: src/templates/ebox/pageNotFound.mas:14
 #, fuzzy
 msgid "The page cannot be found"
 msgstr "Siden kan ikke vises."
 
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:20
+#: src/templates/ajax/setter/portRangeSetter.mas:20
+msgid "From"
+msgstr "Fra"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:25
+#: src/templates/ajax/setter/portRangeSetter.mas:25
+msgid "To"
+msgstr "Til"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+msgid "Inverse match"
+msgstr "Baglæns match"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/serviceSetter.mas:23
+#: src/templates/ajax/setter/serviceSetter.mas:23
+msgid "port"
+msgstr "Port"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:22
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:33
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr ""
+
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:26
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr ""
+
+#: debian/libebox/usr/share/ebox/templates/ajax/modelViewer.mas:231
+#: src/templates/ajax/modelViewer.mas:231
+msgid "Optional"
+msgstr ""
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:14
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Vælg en af mulighederne for at vise tabellen."
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:32
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Vælg en..."
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:60
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:66
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "Første"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:62
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:67
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "Forrige"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:73
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:74
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:85
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:86
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "Næste"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:79
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:80
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:89
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:90
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "Sidste"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:9
 #: src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Service konfiguration"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:21
+#: debian/libebox/usr/share/ebox/templates/enable.mas:24
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
 msgstr "Slået fra"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:22
+#: debian/libebox/usr/share/ebox/templates/enable.mas:25
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Slået til"
 
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: debian/libebox/usr/share/ebox/templates/enable.mas:29
+#: debian/libebox/usr/share/ebox/templates/enable.mas:30
+#: debian/libebox/usr/share/ebox/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Skift"
 
-#: src/templates/title.mas:12
-msgid "show help"
-msgstr "Vis hjælp"
-
-#: src/templates/title.mas:13
-msgid "hide help"
-msgstr "Skjul hjælp"
-
+#: debian/libebox/usr/share/ebox/templates/language.mas:10
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr "Sprogvalg"
 
+#: debian/libebox/usr/share/ebox/templates/language.mas:11
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr ""
 "Sprogskift sker automatisk, og du skal derfor ikke gemme konfigurationen."
+
+#: debian/libebox/usr/share/ebox/templates/title.mas:12
+#: src/templates/title.mas:12
+msgid "show help"
+msgstr "Vis hjælp"
+
+#: debian/libebox/usr/share/ebox/templates/title.mas:13
+#: src/templates/title.mas:13
+msgid "hide help"
+msgstr "Skjul hjælp"
 
 #~ msgid "Add new"
 #~ msgstr "Tilføj ny"

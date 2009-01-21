@@ -7,107 +7,211 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:23+0000\n"
+"POT-Creation-Date: 2009-01-21 09:59+0100\n"
 "PO-Revision-Date: 2008-12-03 07:25+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/DHCP.pm:497 src/EBox/DHCP.pm:533
-#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681 src/EBox/DHCP.pm:735
-#: src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851 src/EBox/DHCP.pm:1237
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
-#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MAC-адрес"
-
-#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:223 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "IP-адрес"
-
-#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:211
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Имя"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Статус модуля"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "статус модуля"
-
-#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:217
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "От"
-
-#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:223
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "До"
-
-#: src/EBox/Composite/General.pm:79
-#, perl-brace-format
-msgid ""
-"An interface must set as static to configure the DHCP service on it. To do "
-"so, change {openhref}interfaces configuration{closehref} in network module"
-msgstr ""
-"Для настройки службы DHCP необходимо на интерфейсе установить статический "
-"адрес. Чтобы это сделать необходимо изменить {openhref}конфигурация "
-"интерфейсов{closehref} в модуле сеть"
-
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/FixedAddressTable.pm:94
+#: src/EBox/Model/ThinClientOptions.pm:118
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #: src/EBox/Composite/OptionsTab.pm:87
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
-#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
-#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/ThinClientOptions.pm:118
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "Интерфейс {iface}"
 
-#: src/EBox/Composite/AdvancedOptions.pm:133
-msgid "Advanced options"
-msgstr "Дополнительные опции"
+#: src/EBox/Model/RangeTable.pm:117
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} ошибочный диапазон"
 
-#: src/EBox/Composite/Interfaces.pm:108
-msgid "Choose a static interface to configure:"
-msgstr "Выберите статический интерфейс для настройки:"
+#: src/EBox/Model/RangeTable.pm:128
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr "Диапазон {from}-{to} не принадлежит сети {net}"
 
-#: src/EBox/Composite/Interfaces.pm:109
-msgid "Service configuration"
-msgstr "Настройка службы"
+#: src/EBox/Model/RangeTable.pm:141
+#, perl-brace-format
+msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
+msgstr "Диапазон {from}-{to} включает интерфейс с IP-адресом: {ifaceIP}"
 
-#: src/EBox/Composite/Interfaces.pm:110
-msgid ""
-"In order to serve IP addresses on an interface, it is required to set at "
-"least a range or a fixed address."
-msgstr ""
-"Для работы службы на интерфейсе необходимо назначить диапазон адресов или "
-"фиксированные адреса."
-
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
-"In order to serve IP addresses on a external interface, you must open the "
-"service on {openhref}firewall module{closehref}"
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"Для работы службы на внешенем интерфейсе необходимо открыть ее "
-"{openhref}модуль файрвол{closehref}"
+"Диапазон {newFrom}-{newTo} перекрывает диапазон '{range}': {oldFrom}-{oldTo}"
+
+#: src/EBox/Model/RangeTable.pm:180
+#, perl-brace-format
+msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
+msgstr "Диапазон {from}-{to} включает фиксированный адрес '{name}': {fixedIP}"
+
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
+#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Имя"
+
+#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "От"
+
+#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "До"
+
+#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "Диапазоны"
+
+#: src/EBox/Model/RangeTable.pm:238
+msgid "range"
+msgstr "диапазон"
+
+#: src/EBox/Model/RangeInfo.pm:143
+msgid "Interface IP address"
+msgstr "IP-адрес интерфейса"
+
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "Подсеть"
+
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "Доступный диапазон"
+
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "Диапазоны DHCP"
+
+#: src/EBox/Model/LeaseTimes.pm:132
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Срок аренды по умолчанию должен быть больше 0 секунд"
+
+#: src/EBox/Model/LeaseTimes.pm:138
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"Срок аренды по умолчанию {default} должен быть меньше максимального {max}"
+
+#: src/EBox/Model/LeaseTimes.pm:150
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Максимальный срок аренды должен быть больше 0 секунд"
+
+#: src/EBox/Model/LeaseTimes.pm:156
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"максимальный срок аренды {max} должен быть выше срока по умолчанию {default}"
+
+#: src/EBox/Model/LeaseTimes.pm:200
+msgid "Default leased time"
+msgstr "Срок аренды по умолчанию"
+
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+msgid "seconds"
+msgstr "секунды"
+
+#: src/EBox/Model/LeaseTimes.pm:207
+msgid "Maximum leased time"
+msgstr "Максимальный срок аренды"
+
+#: src/EBox/Model/LeaseTimes.pm:216
+msgid "Lease times"
+msgstr "Сроки аренды"
+
+#: src/EBox/Model/LeaseTimes.pm:221
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr "Срок ареднды это время на которое выдается ip-адрес DHCP сервером "
+
+#: src/EBox/Model/Options.pm:157
+#, perl-brace-format
+msgid "{gateway} is not in the current network"
+msgstr "{gateway} не принадлежит этой сети"
+
+#: src/EBox/Model/Options.pm:169
+msgid ""
+"DNS service must be active to as primary nameserver the local eBox DNS server"
+msgstr ""
+"Служба DNS включена, как первичный сервер имен локального eBox DNS сервера "
+
+#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
+msgid "Custom"
+msgstr "Пользовательский"
+
+#: src/EBox/Model/Options.pm:323
+msgid "eBox's domain"
+msgstr "Домен eBox's"
+
+#: src/EBox/Model/Options.pm:331
+msgid "local eBox DNS"
+msgstr "локальный eBox DNS"
+
+#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
+#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:236
+msgid "None"
+msgstr "Ничего"
+
+#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
+msgid "Default gateway"
+msgstr "Основной шлюз"
+
+#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:239
+msgid "eBox"
+msgstr "eBox"
+
+#: src/EBox/Model/Options.pm:366
+msgid "Custom IP address"
+msgstr "Пользовательский IP-адрес"
+
+#: src/EBox/Model/Options.pm:376
+msgid "Configured ones"
+msgstr "Сконфигурирован"
+
+#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
+msgid "Search domain"
+msgstr "Поисковый домен"
+
+#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
+msgid "Primary nameserver"
+msgstr "Основной сервер имен"
+
+#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
+msgid "Secondary nameserver"
+msgstr "Вторичный сервер имен"
+
+#: src/EBox/Model/Options.pm:405
+msgid "Common options"
+msgstr "Общие опции"
+
+#: src/EBox/Model/Options.pm:410
+msgid ""
+"Setting \"eBox\" as default gateway will set as default gateway the "
+"interface address. If you set a \"name\", you may choose one the configured "
+"gateways. As \"search domain\" value, one of the configured DNS domains on "
+"eBox might be chosen. If you set the \"Primary nameserver\" the \"eBox DNS\" "
+"if installed, the eBox server may act as cache DNS server. All fields are "
+"optionals setting its value as \"None\" or leaving blank."
+msgstr ""
+"Установив \"eBox\", как шлюз по умолчанию, вы устанавливаете адрес "
+"интерфейса в качестве шлюза по умолчанию. Если устанавливаете \"name\", вы "
+"можете выбрать одни настроенный шлюз. Значение \"search domain\", может быть "
+"выбрано одино из настроенных доменов DNS в eBox. Если устанавливаете "
+"\"Primary nameserver\" в \"eBox DNS\", то сервер eBox может выступать как "
+"кэширующий сервер DNS. Все optionals поля \"None\" или оставлять пустыми."
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
@@ -146,6 +250,17 @@ msgstr ""
 "Вы не можете {action} использовать фиксированный адрес, если он уже "
 "используемый в другой адресной таблице"
 
+#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/DHCP.pm:1153 src/EBox/DHCP.pm:1221 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC-адрес"
+
+#: src/EBox/Model/FixedAddressTable.pm:221
+#: src/EBox/Model/ThinClientOptions.pm:242 src/EBox/CGI/AddFixed.pm:44
+#: src/EBox/DHCP.pm:1221 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IP-адрес"
+
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
@@ -160,208 +275,61 @@ msgstr "Фиксированные адреса"
 msgid "fixed address"
 msgstr "фиксированный адрес"
 
-#: src/EBox/Model/RangeTable.pm:117
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} ошибочный диапазон"
-
-#: src/EBox/Model/RangeTable.pm:128
-#, perl-brace-format
-msgid "Range {from}-{to} is not in network {net}"
-msgstr "Диапазон {from}-{to} не принадлежит сети {net}"
-
-#: src/EBox/Model/RangeTable.pm:141
-#, perl-brace-format
-msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Диапазон {from}-{to} включает интерфейс с IP-адресом: {ifaceIP}"
-
-#: src/EBox/Model/RangeTable.pm:163
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"Диапазон {newFrom}-{newTo} перекрывает диапазон '{range}': {oldFrom}-{oldTo}"
-
-#: src/EBox/Model/RangeTable.pm:180
-#, perl-brace-format
-msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Диапазон {from}-{to} включает фиксированный адрес '{name}': {fixedIP}"
-
-#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
-msgid "Ranges"
-msgstr "Диапазоны"
-
-#: src/EBox/Model/RangeTable.pm:238
-msgid "range"
-msgstr "диапазон"
-
-#: src/EBox/Model/RangeInfo.pm:143
-msgid "Interface IP address"
-msgstr "IP-адрес интерфейса"
-
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
-msgid "Subnet"
-msgstr "Подсеть"
-
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-msgid "Available range"
-msgstr "Доступный диапазон"
-
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "Диапазоны DHCP"
-
-#: src/EBox/Model/Options.pm:157
-#, perl-brace-format
-msgid "{gateway} is not in the current network"
-msgstr "{gateway} не принадлежит этой сети"
-
-#: src/EBox/Model/Options.pm:169
-msgid ""
-"DNS service must be active to as primary nameserver the local eBox DNS server"
-msgstr ""
-"Служба DNS включена, как первичный сервер имен локального eBox DNS сервера "
-
-#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
-msgid "Custom"
-msgstr "Пользовательский"
-
-#: src/EBox/Model/Options.pm:323
-msgid "eBox's domain"
-msgstr "Домен eBox's"
-
-#: src/EBox/Model/Options.pm:331
-msgid "local eBox DNS"
-msgstr "локальный eBox DNS"
-
-#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
-#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
-msgid "None"
-msgstr "Ничего"
-
-#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
-msgid "Default gateway"
-msgstr "Основной шлюз"
-
-#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:220
-msgid "eBox"
-msgstr "eBox"
-
-#: src/EBox/Model/Options.pm:366
-msgid "Custom IP address"
-msgstr "Пользовательский IP-адрес"
-
-#: src/EBox/Model/Options.pm:376
-msgid "Configured ones"
-msgstr "Сконфигурирован"
-
-#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
-msgid "Search domain"
-msgstr "Поисковый домен"
-
-#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
-msgid "Primary nameserver"
-msgstr "Основной сервер имен"
-
-#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
-msgid "Secondary nameserver"
-msgstr "Вторичный сервер имен"
-
-#: src/EBox/Model/Options.pm:405
-msgid "Common options"
-msgstr "Общие опции"
-
-#: src/EBox/Model/Options.pm:410
-msgid ""
-"Setting \"eBox\" as default gateway will set as default gateway the "
-"interface address. If you set a \"name\", you may choose one the configured "
-"gateways. As \"search domain\" value, one of the configured DNS domains on "
-"eBox might be chosen. If you set the \"Primary nameserver\" the \"eBox DNS\" "
-"if installed, the eBox server may act as cache DNS server. All fields are "
-"optionals setting its value as \"None\" or leaving blank."
-msgstr ""
-"Установив \"eBox\", как шлюз по умолчанию, вы устанавливаете адрес интерфейса "
-"в качестве шлюза по умолчанию. Если устанавливаете \"name\", вы можете выбрать "
-"одни настроенный шлюз. Значение \"search domain\", может быть выбрано одино "
-"из настроенных доменов DNS в eBox. Если устанавливаете \"Primary nameserver\" "
-"в \"eBox DNS\", то сервер eBox может выступать как кэширующий сервер DNS. Все "
-"optionals поля \"None\" или оставлять пустыми."
-
-#: src/EBox/Model/LeaseTimes.pm:133
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Срок аренды по умолчанию должен быть больше 0 секунд"
-
-#: src/EBox/Model/LeaseTimes.pm:139
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"Срок аренды по умолчанию {default} должен быть меньше максимального {max}"
-
-#: src/EBox/Model/LeaseTimes.pm:151
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Максимальный срок аренды должен быть больше 0 секунд"
-
-#: src/EBox/Model/LeaseTimes.pm:157
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"максимальный срок аренды {max} должен быть выше срока по умолчанию {default}"
-
-#: src/EBox/Model/LeaseTimes.pm:201
-msgid "Default leased time"
-msgstr "Срок аренды по умолчанию"
-
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
-msgid "seconds"
-msgstr "секунды"
-
-#: src/EBox/Model/LeaseTimes.pm:208
-msgid "Maximum leased time"
-msgstr "Максимальный срок аренды"
-
-#: src/EBox/Model/LeaseTimes.pm:217
-msgid "Lease times"
-msgstr "Сроки аренды"
-
-#: src/EBox/Model/LeaseTimes.pm:222
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr "Срок ареднды это время на которое выдается ip-адрес DHCP сервером "
-
-#: src/EBox/Model/ThinClientOptions.pm:137
-msgid ""
-"In order to upload firmware to boot PCs to eBox, you need to set eBox as "
-"next server"
+#: src/EBox/Model/ThinClientOptions.pm:139
+#, fuzzy
+msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
 "Для загрузки firmware на загружаемый ПК eBox, необходимо установить eBox как "
 "следующий сервер"
 
-#: src/EBox/Model/ThinClientOptions.pm:190
-#, perl-brace-format
+#: src/EBox/Model/ThinClientOptions.pm:146
+#, fuzzy
 msgid ""
-"Unlinked previous uploaded firmware since next server option has been "
+"In order to upload a boot image to eBox, you need to set eBox as next server"
+msgstr ""
+"Для загрузки firmware на загружаемый ПК eBox, необходимо установить eBox как "
+"следующий сервер"
+
+#: src/EBox/Model/ThinClientOptions.pm:153
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:158
+msgid ""
+"You can only specify a file\n"
+"              name if you have a next server and it is not eBox"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:209
+#, fuzzy, perl-brace-format
+msgid ""
+"Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
 "Предыдущая загруженная прошивка не связанна, настройки изменены от eBox до "
 "{option}"
 
-#: src/EBox/Model/ThinClientOptions.pm:213
+#: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
 msgstr "Следующий сервер"
 
-#: src/EBox/Model/ThinClientOptions.pm:227
+#: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "имя"
 
-#: src/EBox/Model/ThinClientOptions.pm:233
+#: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
 msgstr "Имя файла"
 
-#: src/EBox/Model/ThinClientOptions.pm:244
+#: src/EBox/Model/ThinClientOptions.pm:261
+msgid "File path in next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
 msgstr "Тонкий клиент"
 
-#: src/EBox/Model/ThinClientOptions.pm:249
+#: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -370,21 +338,78 @@ msgstr ""
 "Вы можете настроить опции тонких клиентов. Для этого вы должны поместить все "
 "необходимые файлы в каталог {path}"
 
-#: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:412
+#: src/EBox/DHCP.pm:448 src/EBox/DHCP.pm:498 src/EBox/DHCP.pm:596
+#: src/EBox/DHCP.pm:650 src/EBox/DHCP.pm:710 src/EBox/DHCP.pm:766
+#: src/EBox/DHCP.pm:1152
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "статус модуля"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Статус модуля"
+
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#, perl-brace-format
+msgid ""
+"In order to serve IP addresses on a external interface, you must open the "
+"service on {openhref}firewall module{closehref}"
+msgstr ""
+"Для работы службы на внешенем интерфейсе необходимо открыть ее {openhref}"
+"модуль файрвол{closehref}"
+
+#: src/EBox/Composite/General.pm:79
+#, perl-brace-format
+msgid ""
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
+msgstr ""
+"Для настройки службы DHCP необходимо на интерфейсе установить статический "
+"адрес. Чтобы это сделать необходимо изменить {openhref}конфигурация "
+"интерфейсов{closehref} в модуле сеть"
+
+#: src/EBox/Composite/AdvancedOptions.pm:133
+msgid "Advanced options"
+msgstr "Дополнительные опции"
+
+#: src/EBox/Composite/Interfaces.pm:108
+msgid "Choose a static interface to configure:"
+msgstr "Выберите статический интерфейс для настройки:"
+
+#: src/EBox/Composite/Interfaces.pm:109
+msgid "Service configuration"
+msgstr "Настройка службы"
+
+#: src/EBox/Composite/Interfaces.pm:110
+msgid ""
+"In order to serve IP addresses on an interface, it is required to set at "
+"least a range or a fixed address."
+msgstr ""
+"Для работы службы на интерфейсе необходимо назначить диапазон адресов или "
+"фиксированные адреса."
+
+#: src/EBox/DHCP.pm:418 src/EBox/DHCP.pm:454 src/EBox/DHCP.pm:504
+#: src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:716 src/EBox/DHCP.pm:772
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} не статический"
 
-#: src/EBox/DHCP.pm:673
+#: src/EBox/DHCP.pm:588
 msgid "Not a valid action: add, set and del are available"
 msgstr "Не возможное действие, возможны: добавить, установить и удалить"
 
-#: src/EBox/DHCP.pm:787
+#: src/EBox/DHCP.pm:702
 msgid "No valid action. Available ones are: add, set and del"
-msgstr "Не возможное действие. Возможно одно из: добавить, установить и удалить"
+msgstr ""
+"Не возможное действие. Возможно одно из: добавить, установить и удалить"
 
-#: src/EBox/DHCP.pm:1024
+#: src/EBox/DHCP.pm:939
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -395,7 +420,7 @@ msgstr ""
 "используется в диапазоне DHCP '{range}' на интерфейсе '{iface}'. Удалите его "
 "перед тем, как назначить его виртуальному интерфейсу."
 
-#: src/EBox/DHCP.pm:1042
+#: src/EBox/DHCP.pm:957
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -406,29 +431,39 @@ msgstr ""
 "используется DHCP как фиксированный адрес '{fixed}' на интерфейсе '{iface}'. "
 "Удалите его перед тем, как назначить его виртуальному интерфейсу."
 
-#: src/EBox/DHCP.pm:1236
+#: src/EBox/DHCP.pm:1151
 msgid "Date"
 msgstr "Дата"
 
-#: src/EBox/DHCP.pm:1239
+#: src/EBox/DHCP.pm:1154
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1240
+#: src/EBox/DHCP.pm:1155
 msgid "Event"
 msgstr "Событие"
 
-#: src/EBox/DHCP.pm:1243
+#: src/EBox/DHCP.pm:1158
 msgid "Leased"
 msgstr "Зарезервировано"
 
-#: src/EBox/DHCP.pm:1243
+#: src/EBox/DHCP.pm:1158
 msgid "Released"
 msgstr "Свободно"
 
-#: src/EBox/DHCP.pm:1246
+#: src/EBox/DHCP.pm:1161
 msgid "DHCP"
 msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1221
+#, fuzzy
+msgid "Host name"
+msgstr "имя"
+
+#: src/EBox/DHCP.pm:1248
+#, fuzzy
+msgid "DHCP leases"
+msgstr "Диапазоны DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
@@ -437,6 +472,22 @@ msgstr "TFTP (простой протокол передачи файлов)"
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
 msgstr "DHCP (протокол динамической конфигурации узла)"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Опции"
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+"Вы можете не заполнять поле Основной шлюз если eBox используется как "
+"основной шлюз для этой подсети"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Применить"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -461,22 +512,6 @@ msgstr "Маска подсети"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Удалить"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Опции"
-
-#: src/templates/options.mas:10
-msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
-msgstr ""
-"Вы можете не заполнять поле Основной шлюз если eBox используется как "
-"основной шлюз для этой подсети"
-
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Применить"
 
 #, fuzzy
 #~ msgid "DHCP service status"

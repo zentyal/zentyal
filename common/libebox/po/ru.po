@@ -7,42 +7,113 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:50+0000\n"
+"POT-Creation-Date: 2009-01-21 10:19+0100\n"
 "PO-Revision-Date: 2008-12-05 08:00+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} не существует."
+#: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
+#: src/EBox/CGI/EBox/PageNotFound.pm:12
+msgid "Page not found"
+msgstr "Страница не найдена"
 
-#: src/EBox/Exceptions/DataMissing.pm:36
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} пусто."
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:196
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
+msgstr ""
+"Ввод содержит некорректные символы. Все буквенно-цифровые символы, так же "
+"символы: /.?&+:-@ и пробелы - разрешены."
 
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:333
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:562
+#: src/EBox/CGI/Base.pm:333 src/EBox/CGI/Base.pm:562
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Внутренняя ошибка. Доп. информацию, скорее всего, можно найти в журналах."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:343
+#: src/EBox/CGI/Base.pm:343
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Внутренняя ошибка связанная с шаблоном. Доп. информацию, скорее всего, можно "
+"найти в журналах."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:568
+#: src/EBox/CGI/Base.pm:568
+msgid ""
+"An unexpected internal error has ocurred. This is a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Непредвиденная внутренняя ошибка. Доп. информацию, скорее всего, можно найти "
+"в журналах."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:574
+#: src/EBox/CGI/Base.pm:574
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr "Пожалуйста, обратитесь в техническую поддержку."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:661
+#: src/EBox/CGI/Base.pm:661
+msgid ""
+"Your request could not be processed because it had some incorrect parameters"
+msgstr "Ваш запрос не будет обработан т.к. содержит некорректные параметры"
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:676
+#: src/EBox/CGI/Base.pm:676
+msgid ""
+"Your request could not be processed because it lacked some required "
+"parameters"
+msgstr ""
+"Ваш запрос не будет обработан т.к. отсутствуют некоторые обязательные "
+"параметры"
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:827
+#: src/EBox/CGI/Base.pm:827
+msgid "Invalid uploaded file."
+msgstr "Недопустимый загруженный файл."
+
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:833
+#: src/EBox/CGI/Base.pm:833
+msgid "Cannot create a temporally file for the upload"
+msgstr "Не могу создать временный файл для загрузки"
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:37
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Неправильное значение {data}: {value}."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataExists.pm:36
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} уже существует."
 
-#: src/EBox/Sudo.pm:237
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Запуск команды '{cmd}' от {user} не удался"
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} не существует."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataMissing.pm:36
+#: src/EBox/Exceptions/DataMissing.pm:36
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} пусто."
+
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:689
 #: src/EBox/Validate.pm:689
 #, perl-brace-format
 msgid ""
@@ -52,12 +123,14 @@ msgstr ""
 "Нет статистики по каталогу {dir}. Это может значить что каталог не "
 "существует или права доступа запрещают доступ к нему"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:694
 #: src/EBox/Validate.pm:694
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Каталог {dir} не приватный; пока владельцем являеться другой пользователь."
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:769
 #: src/EBox/Validate.pm:769
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
@@ -66,152 +139,52 @@ msgstr ""
 "Путь к файлу не дейстивителен. (В настоящее время не все символы  имени "
 "файлов поддерживаются) "
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:797
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
 msgstr "Путь может быть абсолютным"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:12
-msgid "Page not found"
-msgstr "Страница не найдена"
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:237 src/EBox/Sudo.pm:237
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Запуск команды '{cmd}' от {user} не удался"
 
-#: src/EBox/CGI/Base.pm:196
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
-msgstr ""
-"Ввод содержит некорректные символы. Все буквенно-цифровые символы, так же "
-"символы: /.?&+:-@ и пробелы - разрешены."
-
-#: src/EBox/CGI/Base.pm:334 src/EBox/CGI/Base.pm:563
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Внутренняя ошибка. Доп. информацию, скорее всего, можно найти в журналах."
-
-#: src/EBox/CGI/Base.pm:344
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Внутренняя ошибка связанная с шаблоном. Доп. информацию, скорее всего, можно "
-"найти в журналах."
-
-#: src/EBox/CGI/Base.pm:569
-msgid ""
-"An unexpected internal error has ocurred. This is a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Непредвиденная внутренняя ошибка. Доп. информацию, скорее всего, можно найти "
-"в журналах."
-
-#: src/EBox/CGI/Base.pm:575
-msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Пожалуйста, обратитесь в техническую поддержку."
-
-#: src/EBox/CGI/Base.pm:662
-msgid ""
-"Your request could not be processed because it had some incorrect parameters"
-msgstr "Ваш запрос не будет обработан т.к. содержит некорректные параметры"
-
-#: src/EBox/CGI/Base.pm:677
-msgid ""
-"Your request could not be processed because it lacked some required "
-"parameters"
-msgstr ""
-"Ваш запрос не будет обработан т.к. отсутствуют некоторые обязательные "
-"параметры"
-
-#: src/EBox/CGI/Base.pm:826
-msgid "Invalid uploaded file."
-msgstr "Недопустимый загруженный файл."
-
-#: src/EBox/CGI/Base.pm:832
-msgid "Cannot create a temporally file for the upload"
-msgstr "Не могу создать временный файл для загрузки"
-
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:164
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:266
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
 msgstr "Интерфейс"
 
-#: src/EBox/Config.pm.in:55
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Не могу открыть конфигурационный файл {file}."
-
-#: src/EBox/Config.pm.in:102
-msgid "The ebox user has not been set in the config file."
-msgstr "Пользователь eBox не указан в конфигурационном файле."
-
+#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:176
+#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:263
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Каталог не найден: {d}"
 
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Выберите один из параметров, чтобы показать связанную таблицу"
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:75 src/EBox/Config.pm.in:75
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "Не могу открыть конфигурационный файл {file}."
 
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Выберите одно ..."
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:169 src/EBox/Config.pm.in:169
+msgid "The ebox user has not been set in the config file."
+msgstr "Пользователь eBox не указан в конфигурационном файле."
 
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-msgid "Inverse match"
-msgstr "Обратное соответствие"
-
-#: src/templates/ajax/setter/serviceSetter.mas:23
-msgid "port"
-msgstr "порт"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:20
-msgid "From"
-msgstr "Из"
-
-#: src/templates/ajax/setter/portRangeSetter.mas:25
-msgid "To"
-msgstr "На"
-
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "первый"
-
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "пред."
-
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "след."
-
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "последний"
-
-#: src/templates/ajax/modelViewer.mas:228
-msgid "Optional"
-msgstr "Дополнительно"
-
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Загрузить"
-
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Удалить"
-
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:3
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
 msgstr "Домашняя страница eBox "
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:7
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Если вы ввели URL вручную, пожалуйста проверьте еще раз."
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:8
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in eBox's configuration or software made no longer available "
@@ -220,6 +193,7 @@ msgstr ""
 "Возможно изменение конфигурации eBox или программного обеспечение сделало "
 "запрашиваемую страницу недоступной"
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:9
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
@@ -229,45 +203,137 @@ msgstr ""
 "Если вам необходимо, вы можете посетить {homepage} для чтения\n"
 "   документации и списков рассылки"
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:13
 #: src/templates/ebox/pageNotFound.mas:13
 msgid "we're sorry"
 msgstr "мы извиняемся "
 
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:14
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page cannot be found"
 msgstr "Страница не найдена"
 
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:20
+#: src/templates/ajax/setter/portRangeSetter.mas:20
+msgid "From"
+msgstr "Из"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:25
+#: src/templates/ajax/setter/portRangeSetter.mas:25
+msgid "To"
+msgstr "На"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+msgid "Inverse match"
+msgstr "Обратное соответствие"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/setter/serviceSetter.mas:23
+#: src/templates/ajax/setter/serviceSetter.mas:23
+msgid "port"
+msgstr "порт"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:22
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:33
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Загрузить"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:26
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Удалить"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/modelViewer.mas:231
+#: src/templates/ajax/modelViewer.mas:231
+msgid "Optional"
+msgstr "Дополнительно"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:14
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Выберите один из параметров, чтобы показать связанную таблицу"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:32
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Выберите одно ..."
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:60
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:66
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
+msgid "first"
+msgstr "первый"
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:62
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:67
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
+msgid "prev"
+msgstr "пред."
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:73
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:74
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:85
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:86
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
+msgid "next"
+msgstr "след."
+
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:79
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:80
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:89
+#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:90
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
+msgid "last"
+msgstr "последний"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:9
 #: src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Настройка службы"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:21
+#: debian/libebox/usr/share/ebox/templates/enable.mas:24
 #: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
 msgstr "Отключено"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:22
+#: debian/libebox/usr/share/ebox/templates/enable.mas:25
 #: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Включено"
 
-#: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: debian/libebox/usr/share/ebox/templates/enable.mas:29
+#: debian/libebox/usr/share/ebox/templates/enable.mas:30
+#: debian/libebox/usr/share/ebox/templates/language.mas:23
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Изменить"
 
-#: src/templates/title.mas:12
-msgid "show help"
-msgstr "показать помощь"
-
-#: src/templates/title.mas:13
-msgid "hide help"
-msgstr "скрыть помощь"
-
+#: debian/libebox/usr/share/ebox/templates/language.mas:10
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr "Выбор языка"
 
+#: debian/libebox/usr/share/ebox/templates/language.mas:11
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr "Изменение языка происходит автоматически, запись конфигурации не нужна"
+
+#: debian/libebox/usr/share/ebox/templates/title.mas:12
+#: src/templates/title.mas:12
+msgid "show help"
+msgstr "показать помощь"
+
+#: debian/libebox/usr/share/ebox/templates/title.mas:13
+#: src/templates/title.mas:13
+msgid "hide help"
+msgstr "скрыть помощь"

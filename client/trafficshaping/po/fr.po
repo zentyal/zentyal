@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:47+0000\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2007-05-15 14:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -15,134 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:361
-msgid "Traffic Shaping"
-msgstr "Lissage de trafic"
-
-#: src/EBox/TrafficShaping.pm:95
-msgid "traffic shaping"
-msgstr "lissage de trafic"
-
-#: src/EBox/TrafficShaping.pm:133
-msgid "Add iptables rules to mangle table"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:134
-msgid "To mark packets with different priorities and rates"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:138
-#, fuzzy
-msgid "Add tc rules"
-msgstr "Adresse"
-
-#: src/EBox/TrafficShaping.pm:139
-#, fuzzy
-msgid "To implement the traffic shaping rules"
-msgstr "Règles de lissage du trafic"
-
-#: src/EBox/TrafficShaping.pm:415 src/EBox/TrafficShaping.pm:565
-#: src/EBox/TrafficShaping.pm:952 src/EBox/TC.pm:107
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/TrafficShaping.pm:428
-#, perl-brace-format
-msgid ""
-"The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
-msgstr ""
-"Le nombre maximum de compte de règles {max} est atteint. Veuillez en effacer "
-"au moins une"
-
-#: src/EBox/TrafficShaping.pm:969
-msgid ""
-"Traffic shaping can be only done in external interfaces which have gateways "
-"associated to"
-msgstr ""
-"Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
-"ont une passerelle associée"
-
-#: src/EBox/TrafficShaping.pm:1058
-msgid "type"
-msgstr "type"
-
-#: src/EBox/TrafficShaping.pm:1081
-#, perl-brace-format
-msgid ""
-"Interface {iface} should have a maximum bandwidth rate in order to do "
-"traffic shaping"
-msgstr ""
-"L'interface {iface} doit avoir un taux de transfert maximum afin de pouvoir "
-"lisser le trafic"
-
-#: src/EBox/TrafficShaping.pm:1546
-msgid "Protocol"
-msgstr "Protocole"
-
-#: src/EBox/TrafficShaping.pm:1547
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/TrafficShaping.pm:1548
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-msgid "Guaranteed Rate"
-msgstr "Taux garanti"
-
-#: src/EBox/TrafficShaping.pm:1549
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-msgid "Limited Rate"
-msgstr "Taux limité"
-
-#: src/EBox/TrafficShaping.pm:1550
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-msgid "Priority"
-msgstr "Priorité"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "options"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, fuzzy, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"Le lissage de trafic est actif lorsqu'eBox fonctionne en mode passerelle. "
-"Vous devez avoir au moins une interface interne et une externe. Vérifiez "
-"votre configuration dans {openhref} Réseau->Interfaces{closehref}"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"Le lissage de trafic ne peut être appliqué qu'aux passerelles avec un taux "
-"d'envoi défini, lié a une interface externe. Créer une passerelle dans le "
-"menu {openhref}Réseau->Passerelles{closehref}."
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-msgid "Rules list per interface"
-msgstr "Liste de règles par interface"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-"Sélectionner une interface pour ajouter des règles de lissage de trafic. "
-"Garder à l'esprit que si vous faites de l'équilibrage de charge sur une "
-"interface interne, vous limiterez le trafic d'entrée."
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr "Choisissez une interface à lisser"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -224,9 +96,19 @@ msgstr "IP de destination"
 msgid "Destination object"
 msgstr "Objet de destination"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:546
+#: src/EBox/TrafficShaping.pm:1559
+msgid "Priority"
+msgstr "Priorité"
+
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
+#: src/EBox/TrafficShaping.pm:1557
+msgid "Guaranteed Rate"
+msgstr "Taux garanti"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:557
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:571
@@ -238,6 +120,11 @@ msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:566
+#: src/EBox/TrafficShaping.pm:1558
+msgid "Limited Rate"
+msgstr "Taux limité"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -293,6 +180,46 @@ msgstr ""
 msgid "Application based service group"
 msgstr ""
 
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"Le lissage de trafic est actif lorsqu'eBox fonctionne en mode passerelle. "
+"Vous devez avoir au moins une interface interne et une externe. Vérifiez "
+"votre configuration dans {openhref} Réseau->Interfaces{closehref}"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"Le lissage de trafic ne peut être appliqué qu'aux passerelles avec un taux "
+"d'envoi défini, lié a une interface externe. Créer une passerelle dans le "
+"menu {openhref}Réseau->Passerelles{closehref}."
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+msgid "Rules list per interface"
+msgstr "Liste de règles par interface"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"Sélectionner une interface pour ajouter des règles de lissage de trafic. "
+"Garder à l'esprit que si vous faites de l'équilibrage de charge sur une "
+"interface interne, vous limiterez le trafic d'entrée."
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr "Choisissez une interface à lisser"
+
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
@@ -347,6 +274,79 @@ msgstr "Marque de classe de feuille"
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
 msgstr "Adresse"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "options"
+
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:429
+#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:961
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:375
+msgid "Traffic Shaping"
+msgstr "Lissage de trafic"
+
+#: src/EBox/TrafficShaping.pm:94
+msgid "traffic shaping"
+msgstr "lissage de trafic"
+
+#: src/EBox/TrafficShaping.pm:132
+msgid "Add iptables rules to mangle table"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:133
+msgid "To mark packets with different priorities and rates"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:137
+#, fuzzy
+msgid "Add tc rules"
+msgstr "Adresse"
+
+#: src/EBox/TrafficShaping.pm:138
+#, fuzzy
+msgid "To implement the traffic shaping rules"
+msgstr "Règles de lissage du trafic"
+
+#: src/EBox/TrafficShaping.pm:442
+#, perl-brace-format
+msgid ""
+"The maximum rule account {max} is reached, please delete at least one in "
+"order to to add a new one"
+msgstr ""
+"Le nombre maximum de compte de règles {max} est atteint. Veuillez en effacer "
+"au moins une"
+
+#: src/EBox/TrafficShaping.pm:978
+msgid ""
+"Traffic shaping can be only done in external interfaces which have gateways "
+"associated to"
+msgstr ""
+"Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
+"ont une passerelle associée"
+
+#: src/EBox/TrafficShaping.pm:1067
+msgid "type"
+msgstr "type"
+
+#: src/EBox/TrafficShaping.pm:1090
+#, perl-brace-format
+msgid ""
+"Interface {iface} should have a maximum bandwidth rate in order to do "
+"traffic shaping"
+msgstr ""
+"L'interface {iface} doit avoir un taux de transfert maximum afin de pouvoir "
+"lisser le trafic"
+
+#: src/EBox/TrafficShaping.pm:1555
+msgid "Protocol"
+msgstr "Protocole"
+
+#: src/EBox/TrafficShaping.pm:1556
+msgid "Port"
+msgstr "Port"
 
 #~ msgid "If service is any, some source or destination should be provided"
 #~ msgstr ""

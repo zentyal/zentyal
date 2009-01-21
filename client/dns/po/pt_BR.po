@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:26+0100\n"
+"POT-Creation-Date: 2009-01-21 10:01+0100\n"
 "PO-Revision-Date: 2009-01-20 17:00+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
-"O alias não pode ter o nome \"{ns}\" do servidor de nomes. Utilize um nome de "
-"máquina no lugar"
+"O alias não pode ter o nome \"{ns}\" do servidor de nomes. Utilize um nome "
+"de máquina no lugar"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:92
 #: src/EBox/Model/AliasTable.pm:92
@@ -85,8 +85,8 @@ msgid "Domains"
 msgstr "Domínios"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:108
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:345
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:343
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:343
 msgid "domain"
 msgstr "domínio"
 
@@ -110,10 +110,8 @@ msgid "hostname"
 msgstr "máquina"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:75
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:833
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:861
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
-#: src/EBox/DNS.pm.in:861
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:808
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:808
 msgid "DNS"
 msgstr "DNS"
 
@@ -185,20 +183,20 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Registro de servidor de email"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:53 src/EBox/DNS.pm.in:53
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:51 src/EBox/DNS.pm.in:51
 msgid "Domain Name System"
 msgstr "Domain Name System"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:90 src/EBox/DNS.pm.in:90
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:88 src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "Servidor DNS"
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:648 src/EBox/DNS.pm.in:648
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:646 src/EBox/DNS.pm.in:646
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:664 src/EBox/DNS.pm.in:664
+#: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:662 src/EBox/DNS.pm.in:662
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""

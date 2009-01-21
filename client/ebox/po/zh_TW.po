@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 10:34+0100\n"
+"POT-Creation-Date: 2009-01-21 10:07+0100\n"
 "PO-Revision-Date: 2008-12-11 06:34+0000\n"
 "Last-Translator: Chao-Hsiung Liao <pesder@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,136 +16,551 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
-msgstr "管理 Jabber 帳戶"
+#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:52
+#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:87
+#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
+#, fuzzy
+msgid "Configure widgets"
+msgstr "設置事件"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
-#, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber 伺服器 {serverName} 已離線或是不允許連線"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
-#, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "訂閱失敗: {message}"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "驗證失敗: {result} - {message}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:219
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSS 檔案: {path}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
-msgstr "eBox 警告頻道 {hostname}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:293
-msgid "This channel tracks what happens on this eBox machine along the time"
+#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/Index.pm:32
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:201
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
+msgid "Dashboard"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/RSS.pm:313
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/CGI/EBox/Backup.pm:34
+msgid "System backups"
+msgstr "系統備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:160
+#: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
-msgstr "此事件已發生在 eBox {hostname} 的 {source}"
+msgid "Unknown backup mode: {mode}"
+msgstr "未知的備份模式： {mode}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:317
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:192
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:273
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:286
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:147
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1323
+#: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
+#: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
+#: src/EBox/Backup.pm:1323
+msgid "The input contains invalid characters"
+msgstr "輸入包含無效的字元"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:226
+#: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "到您的 {url} 來確認狀態."
+msgid "Unknown restore mode: {mode}"
+msgstr "未知的還原模式： {mode}"
 
-#: src/EBox/Event/Dispatcher/Log.pm:116
-msgid "Log file"
-msgstr "日誌檔案"
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:239
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "備份"
 
-#: src/EBox/Event/Dispatcher/Log.pm:129
-msgid "Log"
-msgstr "日誌"
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:240
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "備份模組"
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:140
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:241
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
+#: src/EBox/CGI/EBox/Backup.pm:241
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
+msgstr "操作"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:242
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
+#: src/EBox/CGI/EBox/Backup.pm:242
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
+msgstr "完成備份的操作"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:243
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
+#: src/EBox/CGI/EBox/Backup.pm:243
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
+msgstr "備份成功"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:254
+#: src/EBox/CGI/EBox/Backup.pm:254
+msgid "Restoring backup"
+msgstr "正在還原備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:255
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring modules"
+msgstr "正在還原模組"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:256
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:640
+#: src/EBox/CGI/EBox/Backup.pm:256
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
+#: src/EBox/Logs.pm:640 debian/ebox/usr/share/ebox/templates/finish.mas:106
+#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:58
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+msgid "Module"
+msgstr "模組"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:257
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
+#: src/EBox/CGI/EBox/Backup.pm:257
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
+msgid "modules left to restore"
+msgstr "剩下要還原的模組"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:258
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
+#: src/EBox/CGI/EBox/Backup.pm:258
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
+msgid "Restore successful"
+msgstr "還原成功"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Bug.pm:29
+#: src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "錯誤回報"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:33
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:176
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr "組態備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:105
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "請確認您想要刪除下列備份檔："
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:107
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:96
+#: debian/ebox/usr/share/ebox/templates/backup.mas:172
+#: debian/ebox/usr/share/ebox/templates/backup.mas:173
+#: src/templates/backup.mas:172 src/templates/backup.mas:173
+#: src/templates/RemoteServices/Backup/index.mas:96
+msgid "Delete"
+msgstr "刪除"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:130
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "請確認您想要使用這個備份檔來還原："
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:132
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:85
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:76
+#: debian/ebox/usr/share/ebox/templates/backup.mas:95
+#: src/templates/backup.mas:95
+#: src/templates/RemoteServices/Backup/proxy.mas:76
+#: src/templates/RemoteServices/Backup/index.mas:85
+msgid "Restore"
+msgstr "還原"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:179
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "完整資料與組態備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:182
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "錯誤回報設置備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/CurrentProgress.pm:36
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "正在更新"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/General.pm:30
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "一般組態"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:30
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "關機或重新開機"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:43
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBox 正要準備關機"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:46
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBox 正要準備重新開機"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:49
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "不正確的密碼。"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:54
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "新的密碼不符。"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:58
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "密碼長度必須至少有 6 個字元"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:62
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "密碼已經成功的改變。"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:48
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "模組名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:52
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "該模組已正確的還原。"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:61
+#: src/EBox/CGI/Login/Index.pm:61
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
+msgstr "還有網頁服務命令稿在執行。請耐心等候它完成"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:65
+#: src/EBox/CGI/Login/Index.pm:65
+msgid "Incorrect password"
+msgstr "不正確的密碼"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:68
+#: src/EBox/CGI/Login/Index.pm:68
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "為了安全理由您的 session 已經過期"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:71
+#: src/EBox/CGI/Login/Index.pm:71
+msgid "You have been logged out because a new session has been opened"
+msgstr "因為新的 session 已被開啟所以您已經被登出"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Logout/Index.pm:29
+#: debian/ebox/usr/share/perl5/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
+#: src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "登出"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Logs/Index.pm:35
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:619 src/EBox/CGI/Logs/Index.pm:35
+#: src/EBox/Logs.pm:619
+msgid "Logs"
+msgstr "紀錄檔"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Report/DiskUsage.pm:31
+#: src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "磁碟使用量"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/CGI/Report/RAID.pm:30
+msgid "RAID report"
+msgstr "磁碟陣列報告"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Index.pm:36
+#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
+#, fuzzy
+msgid "Remote system backups"
+msgstr "系統備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
+#, fuzzy
+msgid "Backing up modules "
+msgstr "備份模組"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
+#, fuzzy
+msgid "Restoring remote backup"
+msgstr "正在還原備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
+#, fuzzy
+msgid "Restoring modules from remote backup"
+msgstr "從備份還原"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
+#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
+#, fuzzy
+msgid "Backup deleted"
+msgstr "備份模式"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
+#, fuzzy
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr "請確認您想要刪除下列備份檔："
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
+#, fuzzy
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr "請確認您想要刪除下列備份檔："
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "調整 {name} 未設置為啟動"
+msgid "Inexistent action: {a}"
+msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
+#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
+#, fuzzy
+msgid "Remote system backups proxy"
+msgstr "系統備份"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/NoConnection.pm:31
+#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
+#, fuzzy
+msgid "Connection error"
+msgstr "操作"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/ServiceModule/StatusView.pm:39
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+msgid "Module status configuration"
+msgstr "模組狀態組態"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/ClientRawBase.pm:191
+#: src/EBox/CGI/ClientRawBase.pm:191
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr "內部錯誤已產生.這多半是 bug,有關資訊可以在日誌上找到"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/ClientRawBase.pm:201
+#: src/EBox/CGI/ClientRawBase.pm:201
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr "有關於內部範本有錯誤.這是 bug,有關資訊可以在日誌上找到"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:32 src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "儲存設置"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:76 src/EBox/CGI/Finish.pm:76
+msgid "Saving changes"
+msgstr "儲存變更"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:77 src/EBox/CGI/Finish.pm:77
+msgid "Saving changes in modules"
+msgstr "儲存模組變更"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:78
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:203
+#: src/templates/report/raid.mas:203
+msgid "Current operation"
+msgstr "目前操作"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
+msgstr "操作"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:80 src/EBox/CGI/Finish.pm:80
+msgid "Changes saved"
+msgstr "變更已儲存"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:81 src/EBox/CGI/Finish.pm:81
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr "當儲存時一些模組回報有錯誤.更多資訊在 {dir} 的日誌上"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes"
+msgstr "註銷變更"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:102
+msgid "Revoking changes in modules"
+msgstr "註銷模組上的變更"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
+msgstr "目前的模組"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:104
+msgid "modules revoked"
+msgstr "模組已註銷"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
+msgstr "變更已註銷"
+
+#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:106
+#: src/EBox/CGI/Finish.pm:106
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr "當放棄變更時一些模組回報有錯誤.更多的資訊在 {dir} 的日誌上"
+
+#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:100
+#: src/EBox/Common/Model/EnableForm.pm:100
+msgid "Service enabled"
+msgstr "服務啟動"
+
+#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:102
+#: src/EBox/Common/Model/EnableForm.pm:102
+msgid "Service disabled"
+msgstr "服務停止"
+
+#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:146
+#: src/EBox/Common/Model/EnableForm.pm:146
+msgid "Enable service"
+msgstr "啟用服務"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr "此檔案系統 {fs}, 掛載在 {mp}, 沒有空間"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:167
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
 msgstr "剩餘儲存空間"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:184
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
 msgstr "假如磁碟分割區沒有儲存空間時檢查"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Log.pm:203
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr "日誌觀察者"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Log.pm:230
+#: src/EBox/Event/Watcher/Log.pm:230
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "當日誌 ({loggers}) 有紀錄到任何事情時通知我"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "磁碟陣列"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:199
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
 msgstr "假如任何事件發生在磁碟陣列子系統時檢查"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:265
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
 msgstr "新的磁碟陣列裝置 {devName} 資訊:"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:267
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
 msgstr "狀態: {state}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:268
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
 msgstr "類型: {type}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:269
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
 msgstr "需要啟動的裝置: {nb}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:270
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
 msgstr "啟動裝置: {nb}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:272
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
 msgstr "正在執行的動作: {operation}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:274
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
 msgstr "操作完成百分比: {per}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:276
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
 msgstr "估計操作完成時間: {time}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:280
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
 msgstr "磁碟陣列元件 {nb}: 裝置 {device} 狀態 {state}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:335
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
 msgid ""
@@ -153,11 +568,13 @@ msgid ""
 "configured appears to no longer be configured"
 msgstr "磁碟陣列裝置 {name} 已不存在: 磁碟陣列在之前的設置似乎已不存在"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:355
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr "磁碟陣列裝置 {name} 已改變狀態從 {oldState} 到 {newState}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:375
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
 msgid ""
@@ -165,37 +582,44 @@ msgid ""
 "to {newNum}"
 msgstr "磁碟陣列裝置 {name} 已改變啟動的元件數量從 {oldNum} 到 {newNum}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:399
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
 msgstr "磁碟陣列裝置 {name} 已經開始動作 {opName}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:405
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
 msgstr "磁碟陣列裝置 {name} 已經完成動作 {opName} 或是已取消"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:411
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started {newOpName}"
 msgstr "磁碟陣列裝置 {name} 已經完成動作 {oldOpName} 以及啟動 {newOpName}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:421
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
 msgstr "磁碟陣列裝置 {name} 正在執行動作 {opName}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:430
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
 msgstr "狀態: {percentage} 已完成"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:432
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
 msgstr "估計完成時間: {time}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:463
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
 msgid ""
@@ -203,6 +627,7 @@ msgid ""
 "faulty"
 msgstr "在磁碟陣列 {arrayName} 的啟動元件 {compName} 已被標記為故障"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:472
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
 msgid ""
@@ -211,6 +636,7 @@ msgid ""
 msgstr ""
 "在磁碟陣列 {arrayName} 的備用元件 {compName} 正在重建並置換已故障的裝置"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:482
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
 msgid ""
@@ -221,6 +647,7 @@ msgstr ""
 "在磁碟陣列 {arrayName} 的備用元件 {compName} 重建並置換故障裝置已經完成且使之"
 "啟動"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:495
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
 msgid ""
@@ -229,6 +656,7 @@ msgid ""
 msgstr ""
 "新的元件 {compName} 已經新增到磁碟陣列裝置 {arrayName} 且狀態為 {status}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:508
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
 msgid ""
@@ -237,97 +665,105 @@ msgid ""
 msgstr ""
 "當狀態為 {status} 時此元件 {compName} 已經從磁碟陣列 {arrayName} 中移除了"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:534
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:575
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:101
 #: src/templates/report/raid.mas:101
 msgid "active"
 msgstr "啟動"
 
-#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:536
+#: src/EBox/Event/Watcher/RAID.pm:536
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:103
+#: src/templates/report/raid.mas:103
 msgid "degraded"
 msgstr "降級"
 
-#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:538
+#: src/EBox/Event/Watcher/RAID.pm:538
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:105
+#: src/templates/report/raid.mas:105
 msgid "recovering"
 msgstr "回覆"
 
-#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:540
+#: src/EBox/Event/Watcher/RAID.pm:540
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:107
+#: src/templates/report/raid.mas:107
 msgid "resyncing"
 msgstr "重新同步"
 
-#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:542
+#: src/EBox/Event/Watcher/RAID.pm:542
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:111
+#: src/templates/report/raid.mas:111
 msgid "rebuilding"
 msgstr "重建"
 
-#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:544
+#: src/EBox/Event/Watcher/RAID.pm:544
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:109
+#: src/templates/report/raid.mas:109
 msgid "reshaping"
 msgstr "重整"
 
-#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:546
+#: src/EBox/Event/Watcher/RAID.pm:546
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:113
+#: src/templates/report/raid.mas:113
 msgid "failed"
 msgstr "失敗"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:558
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
 msgstr "重新同步"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:560
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
 msgstr "重建"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:562
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
 msgstr "重整"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:564
 #: src/EBox/Event/Watcher/RAID.pm:564
 msgid "recovery"
 msgstr "回覆"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:577
 #: src/EBox/Event/Watcher/RAID.pm:577
 msgid "faulty"
 msgstr "故障"
 
-#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:579
+#: src/EBox/Event/Watcher/RAID.pm:579
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:223
+#: src/templates/report/raid.mas:223
 msgid "spare"
 msgstr "備用"
 
-#: src/EBox/Event/Watcher/State.pm:126
-msgid "eBox is up and running"
-msgstr "eBox 已啟動並執行中"
-
-#: src/EBox/Event/Watcher/State.pm:132
-msgid "eBox is critically down"
-msgstr "eBox 正緊急停止"
-
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
-msgid "State"
-msgstr "狀態"
-
-#: src/EBox/Event/Watcher/State.pm:174
-msgid "Check if eBox is currently up or down"
-msgstr "假如 eBox 目前是啟動或停止時檢查"
-
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr "日誌觀察者"
-
-#: src/EBox/Event/Watcher/Log.pm:230
-#, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "當日誌 ({loggers}) 有紀錄到任何事情時通知我"
-
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:113
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
 msgstr "以下的模組沒有啟動: {modules}\n"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:142
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "服務"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:159
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
 msgstr "假如任何 eBox 服務應該啟動時沒有啟動時檢查"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:229
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
@@ -335,158 +771,746 @@ msgid ""
 "and it has been stopped"
 msgstr "服務 {service} 已經重新啟動 {restart} 時間在 {time} 秒中且這個已停止"
 
-#: src/EBox/Common/Model/EnableForm.pm:100
-msgid "Service enabled"
-msgstr "服務啟動"
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:126
+#: src/EBox/Event/Watcher/State.pm:126
+msgid "eBox is up and running"
+msgstr "eBox 已啟動並執行中"
 
-#: src/EBox/Common/Model/EnableForm.pm:102
-msgid "Service disabled"
-msgstr "服務停止"
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:132
+#: src/EBox/Event/Watcher/State.pm:132
+msgid "eBox is critically down"
+msgstr "eBox 正緊急停止"
 
-#: src/EBox/Common/Model/EnableForm.pm:146
-msgid "Enable service"
-msgstr "啟用服務"
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:157
+#: src/EBox/Event/Watcher/State.pm:157
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:216
+#: src/templates/report/raid.mas:216
+msgid "State"
+msgstr "狀態"
 
-#: src/EBox/Types/Select.pm:225
+#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:174
+#: src/EBox/Event/Watcher/State.pm:174
+msgid "Check if eBox is currently up or down"
+msgstr "假如 eBox 目前是啟動或停止時檢查"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Abstract.pm:141
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "選擇一個值並設定: {set}"
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "調整 {name} 未設置為啟動"
 
-#: src/EBox/Types/Int.pm:139
-msgid "Write down a number"
-msgstr "寫下數字"
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/ControlCenter.pm:148
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr ""
 
-#: src/EBox/Types/Int.pm:146
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/ControlCenter.pm:161
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:166
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "管理 Jabber 帳戶"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:179
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:229
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
-msgid "The value shouldn't be greater than {m}"
-msgstr "這個值不應該大過 {m}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabber 伺服器 {serverName} 已離線或是不允許連線"
 
-#: src/EBox/Types/Int.pm:156
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:259
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
-msgid "The value shouldn't be lesser than {m}"
-msgstr "這個值不應該小於 {m}"
+msgid "Subscription failed: {message}"
+msgstr "訂閱失敗: {message}"
 
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:266
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "驗證失敗: {result} - {message}"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Log.pm:116
+#: src/EBox/Event/Dispatcher/Log.pm:116
+msgid "Log file"
+msgstr "日誌檔案"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Log.pm:129
+#: src/EBox/Event/Dispatcher/Log.pm:129
+msgid "Log"
+msgstr "日誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:219
+#: src/EBox/Event/Dispatcher/RSS.pm:219
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "RSS 檔案: {path}"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:233
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:290
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, perl-brace-format
+msgid "eBox alerts channel for {hostname}"
+msgstr "eBox 警告頻道 {hostname}"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:293
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:313
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, perl-brace-format
+msgid "The event has happened in eBox {hostname} from {source}"
+msgstr "此事件已發生在 eBox {hostname} 的 {source}"
+
+#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:317
+#: src/EBox/Event/Dispatcher/RSS.pm:317
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "到您的 {url} 來確認狀態."
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:191
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr "Jabber 伺服器名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+msgid "Jabber server to send the messages"
+msgstr "Jabber 伺服器來傳送訊息"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:198
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+msgid "Port"
+msgstr "連接埠"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:205
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+msgid "Jabber user name"
+msgstr "Jabber 使用者名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr "Jabber 帳號的 ID 將可以傳送訊息.提示:不要使用@domain,只有使用者名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:214
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+msgid "User password"
+msgstr "使用者密碼"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:276
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: src/EBox/RemoteServices/Model/Subscription.pm:276
+msgid "Subscribe"
+msgstr "訂閱"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:224
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid ""
+"Tick this option if you want eBox to create an account for the above user"
+msgstr "假如您想要 eBox 去建立帳號給以下的使用者請勾選這個選項"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+msgid "Administrator Jabber Identifier"
+msgstr "Jabber 管理員標誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+msgid ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
+msgstr ""
+"用 eBox 產生 Jabber ID 的訊息目的,例如:您, eBox 管理者.提示您需要在任何 "
+"jabber 伺服器上手動註冊這個帳號"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:243
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+msgid "Configure Jabber dispatcher"
+msgstr "設置 Jabber"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:248
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "這個調整將會傳送事件到 jabber 帳號"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber 設置已更新"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:275
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "應該用以下的樣式 'user@domain[/resource]'"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:148
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+msgid "Nobody"
+msgstr "Nobody"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:152
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+msgid "IP address"
+msgstr "IP 位址"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:159
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Object"
+msgstr "單位"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:168
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+msgid "Public"
+msgstr "公開"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:175
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Channel link"
+msgstr "頻道連結"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:182
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+msgid "Allowed readers"
+msgstr "已允許的讀取者"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the access control for the channel"
+msgstr "使用這個功能去設定此頻道的存取控制"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:190
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr "同步這個 RSS"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:200
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+msgid "Configure RSS dispatcher"
+msgstr "設置 RSS"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:205
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr "頻道連結是同步您最愛的 RSS 內容連結"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:208
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+msgid "RSS dispatcher configuration updated"
+msgstr "RSS 設置已更新"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr "每個檔案系統最小剩餘空間"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr "當磁碟可用空間百分比在任何磁碟分割區低於這個值的時候事件會觸發."
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+msgid "Configure disk free space watcher"
+msgstr "設置監視磁碟可用空間"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:168
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:192
+#: src/EBox/Events/Model/Watcher/Log.pm:168
+#: src/EBox/Events/Model/Watcher/Log.pm:192
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr "警告!日誌監視未啟用.當日誌發生時可以啟用通知."
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:216
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:357
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:121
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
+#: src/EBox/Logs/Model/SelectLog.pm:121
+#: src/EBox/Events/Model/Watcher/Log.pm:216
+msgid "Domain"
+msgstr "網域"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:221
+#: src/EBox/Events/Model/Watcher/Log.pm:221
+msgid "Filtering"
+msgstr "過濾"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:229
+#: src/EBox/Events/Model/Watcher/Log.pm:229
+msgid "Configure log watchers"
+msgstr "設置日誌監視"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:231
+#: src/EBox/Events/Model/Watcher/Log.pm:231
+msgid "Log watcher"
+msgstr "日誌監視"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "網域日誌 {logDomain}"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: debian/ebox/usr/share/perl5/EBox/Types/Service.pm:212
+#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:289
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:185
 #: src/templates/logs/index.mas:185
 msgid "Any"
 msgstr "任何"
 
-#: src/EBox/Types/PortRange.pm:138
-msgid "any"
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:183
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "事件"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "從 {logDomain} 過濾套用要通知的日誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:185
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:189
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr "過濾"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:250
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:23
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:67
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:24
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:43
+#: src/templates/RemoteServices/Backup/proxy.mas:43
+#: src/templates/RemoteServices/Backup/index.mas:23
+#: src/templates/RemoteServices/Backup/index.mas:67
+#: src/templates/RemoteServices/Backup/confirm.mas:24
+msgid "Name"
+msgstr "名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:27
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:69
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:40
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:45
+#: debian/ebox/usr/share/ebox/templates/backup.mas:44
+#: debian/ebox/usr/share/ebox/templates/backup.mas:126
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:36
+#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
+#: src/templates/backup.mas:126
+#: src/templates/RemoteServices/Backup/proxy.mas:45
+#: src/templates/RemoteServices/Backup/index.mas:27
+#: src/templates/RemoteServices/Backup/index.mas:69
+#: src/templates/RemoteServices/Backup/confirm.mas:40
+msgid "Description"
+msgstr "說明"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+msgid "Configuration"
+msgstr "設置"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:283
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+msgid "None"
+msgstr "沒有"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:292
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
+msgid "Configure events"
+msgstr "設置事件"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:300
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+msgid "event"
+msgstr "事件"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:301
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "啟用/停用事件監視器"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:488
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"警告!這裡沒有啟用網域日誌監視.請到 '設置' 啟用至少一個通知當網域日誌發生時. "
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+msgid "Receiver"
+msgstr "接收者"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:365
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:4221
+#: src/EBox/Model/DataTable.pm:4221
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Enabled"
+msgstr "已啟用"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+msgid "Configure dispatchers"
+msgstr "設置"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+msgid "dispatcher"
+msgstr "調整"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+msgid "Enable/Disable each event dispatcher"
+msgstr "啟用/停用事件調整"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr "為了啟用設置事件,您需要先設置"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/GeneralComposite.pm:76
+#: debian/ebox/usr/share/perl5/EBox/Events.pm:160
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+msgid "Events"
+msgstr "事件"
+
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/GeneralComposite.pm:78
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module configures eBox to help informing you about events that happen"
+msgstr "eBox 的事件模組設置幫助通知您有關事件的發生"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/Details.pm:197
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/Details.pm:230
+#: src/EBox/Logs/Model/Report/Details.pm:197
+#: src/EBox/Logs/Model/Report/Details.pm:230
+msgid "All"
+msgstr "預期應為 EBox::GConfModule 的子類別之實體"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:40
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:40
+msgid "hour"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:41
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:41
+#, fuzzy
+msgid "day"
 msgstr "任何"
 
-#: src/EBox/Types/PortRange.pm:398
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:42
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:42
+msgid "week"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:43
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:43
+msgid "month"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:79
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:79
+msgid "Report time period"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:101
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:101
+msgid "Report options"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+msgid "never purge"
+msgstr "從不清除"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:126
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: src/EBox/Logs/Model/ForcePurge.pm:126
+msgid "one hour"
+msgstr "一小時"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:130
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: src/EBox/Logs/Model/ForcePurge.pm:130
+msgid "twelve hours"
+msgstr "12小時"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:134
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: src/EBox/Logs/Model/ForcePurge.pm:134
+msgid "one day"
+msgstr "一天"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:138
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: src/EBox/Logs/Model/ForcePurge.pm:138
+msgid "three days"
+msgstr "三天"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:142
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: src/EBox/Logs/Model/ForcePurge.pm:142
+msgid "one week"
+msgstr "一星期"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:146
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: src/EBox/Logs/Model/ForcePurge.pm:146
+msgid "fifteeen days"
+msgstr "15天"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:150
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: src/EBox/Logs/Model/ForcePurge.pm:150
+msgid "thirty days"
+msgstr "30天"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:154
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: src/EBox/Logs/Model/ForcePurge.pm:154
+msgid "ninety days"
+msgstr "90天"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:100
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: src/EBox/Logs/Model/ForcePurge.pm:100
+msgid "Purge logs older than"
+msgstr "清除舊的日誌超過"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+msgid "Current configuration"
+msgstr "目前設置"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+msgid "Logs configuration"
+msgstr "日誌設置"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+msgid "Enable/disable logging per-module basis"
+msgstr "啟用/停用每一個模組基本日誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:398
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:153
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:58
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
+#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
+msgid "logs"
+msgstr "日誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:109
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr "強制清除日誌"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:112
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+msgid "Purge"
+msgstr "清除"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:129
+#: src/EBox/Logs/Model/SelectLog.pm:129
+msgid "Full report"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:135
+#: src/EBox/Logs/Model/SelectLog.pm:135
+msgid "Summarized report"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:146
+#: src/EBox/Logs/Model/SelectLog.pm:146
+msgid "Select report"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:322
+#: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
-msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr "\"從\" {from} 必須大於 \"到\" {to}"
+msgid "It should be one of following values: {values}"
+msgstr "應該為下列其中之一的數值： {values}"
 
-#: src/EBox/Types/Password.pm:132
+#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:623
+#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:638
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1962
+#: debian/ebox/usr/share/perl5/EBox/Model/DataMultiTable.pm:168
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:641
+#: src/EBox/Model/DataTable.pm:1962 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
+#: src/EBox/Logs.pm:641
+msgid "Action"
+msgstr "動作"
+
+#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:625
+#: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
-msgid "The password should have at least {minLength} characters"
-msgstr "密碼應該有至少 {minLength} 字元"
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "允許的動作是: {view} 和 {cView}"
 
-#: src/EBox/Types/Password.pm:142
+#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:748
+#: src/EBox/Model/Composite.pm:748
+msgid "Choose one of the following:"
+msgstr "選擇下列其中之一："
+
+#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:544
+#: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
-msgid "The password should have at most {maxLength} characters"
-msgstr "密碼應該不超過 {maxLength} 字元"
+msgid "Remove data from {model}{br}"
+msgstr "移除資料從 {model}{br}"
 
-#: src/EBox/Summary/Status.pm:44
-msgid "Restart"
-msgstr "重新啟動"
+#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:594
+#: src/EBox/Model/DataForm.pm:594
+#: debian/ebox/usr/share/ebox/templates/password.mas:53
+#: debian/ebox/usr/share/ebox/templates/port.mas:14
+#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:25
+#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:34
+#: src/templates/password.mas:53 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
+msgid "Change"
+msgstr "改變"
 
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr "執行中"
+#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:699
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:171
+#: src/EBox/Model/DataForm.pm:699
+#: src/EBox/RemoteServices/Model/Subscription.pm:171
+#: debian/ebox/usr/share/ebox/templates/progress.mas:22
+#: src/templates/progress.mas:22
+msgid "Done"
+msgstr "完成"
 
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr "已停止"
-
-#: src/EBox/Summary/Status.pm:52
-msgid "Start"
-msgstr "啟動"
-
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
-msgstr "停用"
-
-#: src/EBox/Model/DataTable.pm:319
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:321
+#: src/EBox/Model/DataTable.pm:321
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} 在 {module} 模組中"
 
-#: src/EBox/Model/DataTable.pm:323
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:325
+#: src/EBox/Model/DataTable.pm:325
 msgid "at"
 msgstr "在"
 
-#: src/EBox/Model/DataTable.pm:544
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:546
+#: src/EBox/Model/DataTable.pm:546
 msgid "field"
 msgstr "欄位"
 
-#: src/EBox/Model/DataTable.pm:1438
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1441
+#: src/EBox/Model/DataTable.pm:1441
 msgid "page"
 msgstr "頁"
 
-#: src/EBox/Model/DataTable.pm:1441
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1444
+#: src/EBox/Model/DataTable.pm:1444
 msgid "Page must be a number equal or greater than zero"
 msgstr "頁必須為大於或等於 0 的數字"
 
-#: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
-#: src/EBox/Logs.pm:623
-msgid "Action"
-msgstr "動作"
-
-#: src/EBox/Model/DataTable.pm:2603
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2621
+#: src/EBox/Model/DataTable.pm:2621
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "從 {model}{br} 移除 {num} 行 {rowName} "
 
-#: src/EBox/Model/DataTable.pm:2674
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2692
+#: src/EBox/Model/DataTable.pm:2692
 msgid "Page size"
 msgstr "頁面大小"
 
-#: src/EBox/Model/DataTable.pm:2677
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2695
+#: src/EBox/Model/DataTable.pm:2695
 msgid "Must be either a positive number or zero"
 msgstr "必須為正數或 0"
 
-#: src/EBox/Model/DataTable.pm:2858
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2936
+#: src/EBox/Model/DataTable.pm:2936
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} 已新增"
 
-#: src/EBox/Model/DataTable.pm:2859
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2937
+#: src/EBox/Model/DataTable.pm:2937
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} 已刪除"
 
-#: src/EBox/Model/DataTable.pm:2860
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2938
+#: src/EBox/Model/DataTable.pm:2938
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} 已更新"
 
-#: src/EBox/Model/DataTable.pm:2861
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2939
+#: src/EBox/Model/DataTable.pm:2939
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} 已往上移"
 
-#: src/EBox/Model/DataTable.pm:2862
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2940
+#: src/EBox/Model/DataTable.pm:2940
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} 已往下移"
 
-#: src/EBox/Model/DataTable.pm:4124
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:310
-msgid "Enabled"
-msgstr "已啟用"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "索引 {i} 所提供單位不存在"
-
+#: debian/ebox/usr/share/perl5/EBox/Model/ModelManager.pm:466
 #: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
@@ -495,6 +1519,7 @@ msgstr ""
 "您要移除的資料已經使用在\n"
 "                    以下的功能:"
 
+#: debian/ebox/usr/share/perl5/EBox/Model/ModelManager.pm:513
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
@@ -503,676 +1528,159 @@ msgstr ""
 "您要修改的資料已經使用在\n"
 "\t\t\t以下的功能:"
 
-#: src/EBox/Model/DataForm.pm:544
+#: debian/ebox/usr/share/perl5/EBox/Model/ProviderBase.pm:246
+#: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "移除資料從 {model}{br}"
+msgid "Provided object with index {i} does not exist"
+msgstr "索引 {i} 所提供單位不存在"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14
-msgid "Change"
-msgstr "改變"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Composite/General.pm:73
+#: src/EBox/RemoteServices/Composite/General.pm:73
+#, fuzzy
+msgid "Remote services"
+msgstr "事件服務狀態"
 
-#: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
-msgid "Done"
-msgstr "完成"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Composite/General.pm:74
+#: src/EBox/RemoteServices/Composite/General.pm:74
+msgid ""
+"Remote services from eBox are paid services to enhance your eBox experience"
+msgstr ""
 
-#: src/EBox/Model/Composite.pm:322
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "應該為下列其中之一的數值： {values}"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/AccessSettings.pm:79
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+msgid "Access from control panel without password"
+msgstr ""
 
-#: src/EBox/Model/Composite.pm:625
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "允許的動作是: {view} 和 {cView}"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/AccessSettings.pm:86
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+msgid "Access settings"
+msgstr ""
 
-#: src/EBox/Model/Composite.pm:748
-msgid "Choose one of the following:"
-msgstr "選擇下列其中之一："
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:143
+#: src/EBox/RemoteServices/Model/Subscription.pm:143
+msgid ""
+"Subscription was done correctly. Wait a minute to let the subscription be "
+"propagated throughout the system"
+msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
-#: src/templates/moduleStatusTable.mas:60
-msgid "Status"
-msgstr "狀態"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:146
+#: src/EBox/RemoteServices/Model/Subscription.pm:146
+msgid "Subscription data retrieved correctly"
+msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "錯誤"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:224
+#: src/EBox/RemoteServices/Model/Subscription.pm:224
+msgid ""
+"Prior to make a subscription on remote services, enable the OpenVPN module "
+"and save or discard its changes"
+msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:34
-msgid "System backups"
-msgstr "系統備份"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:245
+#: src/EBox/RemoteServices/Model/Subscription.pm:245
+#, fuzzy
+msgid "User name"
+msgstr "主機名稱"
 
-#: src/EBox/CGI/EBox/Backup.pm:160
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "未知的備份模式： {mode}"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:253
+#: src/EBox/RemoteServices/Model/Subscription.pm:253
+msgid "eBox common name"
+msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
-#: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
-#: src/EBox/Backup.pm:1248
-msgid "The input contains invalid characters"
-msgstr "輸入包含無效的字元"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:263
+#: src/EBox/RemoteServices/Model/Subscription.pm:263
+#: debian/ebox/usr/share/ebox/templates/login/index.mas:29
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:138
+#: src/templates/login/index.mas:29
+#: src/templates/RemoteServices/Backup/proxy.mas:138
+msgid "Password"
+msgstr "密碼"
 
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "未知的還原模式： {mode}"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:271
+#: src/EBox/RemoteServices/Model/Subscription.pm:271
+msgid "eBox suscription details"
+msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "備份"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "備份模組"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "操作"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "完成備份的操作"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "備份成功"
-
-#: src/EBox/CGI/EBox/Backup.pm:254
-msgid "Restoring backup"
-msgstr "正在還原備份"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring modules"
-msgstr "正在還原模組"
-
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:622
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
-msgid "Module"
-msgstr "模組"
-
-#: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "剩下要還原的模組"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "Restore successful"
-msgstr "還原成功"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "模組名稱"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "該模組已正確的還原。"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "正在更新"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "關機或重新開機"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox 正要準備關機"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox 正要準備重新開機"
-
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "錯誤回報"
-
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "一般組態"
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "不正確的密碼。"
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "新的密碼不符。"
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "密碼長度必須至少有 6 個字元"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "密碼已經成功的改變。"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-msgid "Configuration backups"
-msgstr "組態備份"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "請確認您想要刪除下列備份檔："
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
-#: src/templates/backup.mas:169
-msgid "Delete"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:272
+#: src/EBox/RemoteServices/Model/Subscription.pm:272
+#, fuzzy
+msgid "Delete data"
 msgstr "刪除"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "請確認您想要使用這個備份檔來還原："
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
-msgid "Restore"
-msgstr "還原"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "組態備份"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "完整資料與組態備份"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "錯誤回報設置備份"
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
-#: src/templates/moduleStatusTable.mas:60
-msgid "Status"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:275
+#: src/EBox/RemoteServices/Model/Subscription.pm:275
+msgid "Subscription to remote services"
 msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:601
-msgid "Logs"
-msgstr "紀錄檔"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-msgid "Module status configuration"
-msgstr "模組狀態組態"
-
-#: src/EBox/CGI/Login/Index.pm:61
-msgid ""
-"There is a Web service script running. Please, wait patiently until it is "
-"done"
-msgstr "還有網頁服務命令稿在執行。請耐心等候它完成"
-
-#: src/EBox/CGI/Login/Index.pm:65
-msgid "Incorrect password"
-msgstr "不正確的密碼"
-
-#: src/EBox/CGI/Login/Index.pm:68
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "為了安全理由您的 session 已經過期"
-
-#: src/EBox/CGI/Login/Index.pm:71
-msgid "You have been logged out because a new session has been opened"
-msgstr "因為新的 session 已被開啟所以您已經被登出"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "登出"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31
-msgid "Disk Usage"
-msgstr "磁碟使用量"
-
-#: src/EBox/CGI/Report/RAID.pm:30
-msgid "RAID report"
-msgstr "磁碟陣列報告"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "儲存設置"
-
-#: src/EBox/CGI/Finish.pm:76
-msgid "Saving changes"
-msgstr "儲存變更"
-
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes in modules"
-msgstr "儲存模組變更"
-
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
-msgid "Current operation"
-msgstr "目前操作"
-
-#: src/EBox/CGI/Finish.pm:79
-msgid "operations performed"
-msgstr "操作"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "Changes saved"
-msgstr "變更已儲存"
-
-#: src/EBox/CGI/Finish.pm:81
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:286
+#: src/EBox/RemoteServices/Model/Subscription.pm:286
 #, perl-brace-format
 msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr "當儲存時一些模組回報有錯誤.更多資訊在 {dir} 的日誌上"
+"In order to subscribe an eBox remote services {url}. You will have remote "
+"backup facilities and much more"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes"
-msgstr "註銷變更"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Auth.pm:124
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:102
-msgid "Revoking changes in modules"
-msgstr "註銷模組上的變更"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Auth.pm:143
+#: src/EBox/RemoteServices/Auth.pm:143
+msgid "Key for service proxy not found"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr "目前的模組"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:213
+#: src/EBox/RemoteServices/Base.pm:213
+msgid "No ebox-services DNS key found"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:104
-msgid "modules revoked"
-msgstr "模組已註銷"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:256
+#: src/EBox/RemoteServices/Base.pm:256
+msgid "Cannot create SOAP connection"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr "變更已註銷"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:272
+#: src/EBox/RemoteServices/Base.pm:272
+msgid "No domain key found for this service"
+msgstr ""
 
-#: src/EBox/CGI/Finish.pm:106
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:284
+#: src/EBox/RemoteServices/Base.pm:284
 #, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr "當放棄變更時一些模組回報有錯誤.更多的資訊在 {dir} 的日誌上"
-
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr "內部錯誤已產生.這多半是 bug,有關資訊可以在日誌上找到"
-
-#: src/EBox/CGI/ClientRawBase.pm:201
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr "有關於內部範本有錯誤.這是 bug,有關資訊可以在日誌上找到"
-
-#: src/EBox/Logs/Model/Report/Details.pm:197
-#: src/EBox/Logs/Model/Report/Details.pm:230
-msgid "All"
-msgstr "預期應為 EBox::GConfModule 的子類別之實體"
-
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:40
-msgid "hour"
+msgid "Server {s} not found via DNS server {d}"
 msgstr ""
 
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-#, fuzzy
-msgid "day"
-msgstr "任何"
-
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:42
-msgid "week"
-msgstr ""
-
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:43
-msgid "month"
-msgstr ""
-
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:79
-msgid "Report time period"
-msgstr ""
-
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-msgid "Report options"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
-msgid "never purge"
-msgstr "從不清除"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
-#: src/EBox/Logs/Model/ForcePurge.pm:126
-msgid "one hour"
-msgstr "一小時"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
-#: src/EBox/Logs/Model/ForcePurge.pm:130
-msgid "twelve hours"
-msgstr "12小時"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
-#: src/EBox/Logs/Model/ForcePurge.pm:134
-msgid "one day"
-msgstr "一天"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
-#: src/EBox/Logs/Model/ForcePurge.pm:138
-msgid "three days"
-msgstr "三天"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
-#: src/EBox/Logs/Model/ForcePurge.pm:142
-msgid "one week"
-msgstr "一星期"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
-#: src/EBox/Logs/Model/ForcePurge.pm:146
-msgid "fifteeen days"
-msgstr "15天"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
-#: src/EBox/Logs/Model/ForcePurge.pm:150
-msgid "thirty days"
-msgstr "30天"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
-#: src/EBox/Logs/Model/ForcePurge.pm:154
-msgid "ninety days"
-msgstr "90天"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
-#: src/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Events/Model/Watcher/Log.pm:216
-msgid "Domain"
-msgstr "網域"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
-#: src/EBox/Logs/Model/ForcePurge.pm:100
-msgid "Purge logs older than"
-msgstr "清除舊的日誌超過"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
-msgid "Current configuration"
-msgstr "目前設置"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-msgid "Logs configuration"
-msgstr "日誌設置"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
-msgid "Enable/disable logging per-module basis"
-msgstr "啟用/停用每一個模組基本日誌"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355
-#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:59
-msgid "logs"
-msgstr "日誌"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr "強制清除日誌"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:112
-msgid "Purge"
-msgstr "清除"
-
-#: src/EBox/Logs/Model/SelectLog.pm:129
-msgid "Full report"
-msgstr ""
-
-#: src/EBox/Logs/Model/SelectLog.pm:135
-msgid "Summarized report"
-msgstr ""
-
-#: src/EBox/Logs/Model/SelectLog.pm:146
-msgid "Select report"
-msgstr ""
-
-#: src/EBox/Logs/Report.pm:68
-#, fuzzy
-msgid "Day"
-msgstr "任何"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
-msgid "Jabber server name"
-msgstr "Jabber 伺服器名稱"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-msgid "Jabber server to send the messages"
-msgstr "Jabber 伺服器來傳送訊息"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-msgid "Port"
-msgstr "連接埠"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
-msgid "Jabber user name"
-msgstr "Jabber 使用者名稱"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr "Jabber 帳號的 ID 將可以傳送訊息.提示:不要使用@domain,只有使用者名稱"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-msgid "User password"
-msgstr "使用者密碼"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-msgid "Subscribe"
-msgstr "訂閱"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid ""
-"Tick this option if you want eBox to create an account for the above user"
-msgstr "假如您想要 eBox 去建立帳號給以下的使用者請勾選這個選項"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-msgid "Administrator Jabber Identifier"
-msgstr "Jabber 管理員標誌"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
-msgstr "用 eBox 產生 Jabber ID 的訊息目的,例如:您, eBox 管理者.提示您需要在任何 jabber 伺服器上手動註冊這個帳號"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-msgid "Configure Jabber dispatcher"
-msgstr "設置 Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "這個調整將會傳送事件到 jabber 帳號"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabber 設置已更新"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "應該用以下的樣式 'user@domain[/resource]'"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
-msgid "Nobody"
-msgstr "Nobody"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-msgid "IP address"
-msgstr "IP 位址"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
-msgid "Object"
-msgstr "單位"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
-msgid "Public"
-msgstr "公開"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
-msgid "Channel link"
-msgstr "頻道連結"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
-msgid "Allowed readers"
-msgstr "已允許的讀取者"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-msgid "Use this field to set the access control for the channel"
-msgstr "使用這個功能去設定此頻道的存取控制"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr "同步這個 RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-msgid "Configure RSS dispatcher"
-msgstr "設置 RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr "頻道連結是同步您最愛的 RSS 內容連結"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-msgid "RSS dispatcher configuration updated"
-msgstr "RSS 設置已更新"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Backup.pm:211
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:203
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "網域日誌 {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "事件"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "從 {logDomain} 過濾套用要通知的日誌"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
+msgid "Inexistent backup: {n}"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr "過濾"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:198
+#: src/EBox/RemoteServices/ProxyBackup.pm:198
+#, perl-brace-format
+msgid "No backups in server for host: {h}"
+msgstr ""
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-msgid "Minimum free disk space per filesystem"
-msgstr "每個檔案系統最小剩餘空間"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:238
+#: src/EBox/RemoteServices/ProxyBackup.pm:238
+msgid "Key for proxy backup service not found"
+msgstr ""
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr "當磁碟可用空間百分比在任何磁碟分割區低於這個值的時候事件會觸發."
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Subscription.pm:102
+#: src/EBox/RemoteServices/Subscription.pm:102
+msgid "Key for web subscription service not found"
+msgstr ""
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-msgid "Configure disk free space watcher"
-msgstr "設置監視磁碟可用空間"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:168
-#: src/EBox/Events/Model/Watcher/Log.pm:192
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr "警告!日誌監視未啟用.當日誌發生時可以啟用通知."
-
-#: src/EBox/Events/Model/Watcher/Log.pm:221
-msgid "Filtering"
-msgstr "過濾"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:229
-msgid "Configure log watchers"
-msgstr "設置日誌監視"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:231
-msgid "Log watcher"
-msgstr "日誌監視"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:262
-msgid "Name"
-msgstr "名稱"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
-#: src/templates/backup.mas:126
-msgid "Description"
-msgstr "說明"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:284
-msgid "Configuration"
-msgstr "設置"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:278
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-msgid "None"
-msgstr "沒有"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:287
-msgid "Configure events"
-msgstr "設置事件"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:295
-msgid "event"
-msgstr "事件"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "啟用/停用事件監視器"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:451
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr "警告!這裡沒有啟用網域日誌監視.請到 '設置' 啟用至少一個通知當網域日誌發生時. "
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:272
-msgid "Receiver"
-msgstr "接收者"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:327
-msgid "Configure dispatchers"
-msgstr "設置"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:336
-msgid "dispatcher"
-msgstr "調整"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
-msgid "Enable/Disable each event dispatcher"
-msgstr "啟用/停用事件調整"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:525
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr "為了啟用設置事件,您需要先設置"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:174
-#: src/EBox/Events.pm:197
-msgid "Events"
-msgstr "事件"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-msgid ""
-"Events module configures eBox to help informing you about events that happen"
-msgstr "eBox 的事件模組設置幫助通知您有關事件的發生"
-
+#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:61
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr "沒有資料給 {d} 使用.您確定這是正確的磁碟?"
 
+#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:210
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
 msgid ""
@@ -1180,840 +1688,1257 @@ msgid ""
 "are accepted"
 msgstr "無效的檔案系統: {f}.只有標準的和非移動式媒體檔案系統才可以"
 
-#: src/EBox/Report/DiskUsage.pm:321
+#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:320
+#: src/EBox/Report/DiskUsage.pm:320
 msgid "Free space"
 msgstr "可用空間"
 
-#: src/EBox/Report/DiskUsage.pm:324 src/EBox/SysInfo.pm:129
+#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:323
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:210
+#: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
 msgid "System"
 msgstr "系統"
 
-#: src/EBox/Apache.pm:234 src/EBox/Apache.pm:243
+#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:155 src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
+msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:162
+#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:105
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
+#, perl-brace-format
+msgid "The value shouldn't be greater than {m}"
+msgstr "這個值不應該大過 {m}"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:172
+#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:114
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
+#, fuzzy, perl-brace-format
+msgid "The value shouldn't be less than {m}"
+msgstr "這個值不應該小於 {m}"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Select.pm:260
+#: src/EBox/Types/Select.pm:260
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "選擇一個值並設定: {set}"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:138
+#: src/EBox/Types/PortRange.pm:138
+msgid "any"
+msgstr "任何"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:398
+#: src/EBox/Types/PortRange.pm:398
+#, perl-brace-format
+msgid "\"From\" {from} must be greater than \"To\" {to}"
+msgstr "\"從\" {from} 必須大於 \"到\" {to}"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Password.pm:132
+#: src/EBox/Types/Password.pm:132
+#, perl-brace-format
+msgid "The password should have at least {minLength} characters"
+msgstr "密碼應該有至少 {minLength} 字元"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Password.pm:142
+#: src/EBox/Types/Password.pm:142
+#, perl-brace-format
+msgid "The password should have at most {maxLength} characters"
+msgstr "密碼應該不超過 {maxLength} 字元"
+
+#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:97
+#: src/EBox/Types/Float.pm:97
+#, fuzzy
+msgid "Enter a float number"
+msgstr "寫下數字"
+
+#: debian/ebox/usr/share/perl5/EBox/Apache.pm:248
+#: debian/ebox/usr/share/perl5/EBox/Apache.pm:257 src/EBox/Apache.pm:248
+#: src/EBox/Apache.pm:257
 msgid "port"
 msgstr "連接埠"
 
-#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
-#, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "儲存 {modName} 模組中"
+#: debian/ebox/usr/share/perl5/EBox/Auth.pm:155 src/EBox/Auth.pm:155
+msgid "Password changed"
+msgstr "密碼已變更"
 
-#: src/EBox/Global.pm:816
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "執行 {scriptName} script中"
-
-#: src/EBox/Events.pm:91
-msgid "events"
-msgstr ""
-
-#: src/EBox/Events.pm:646
-msgid "Event service status"
-msgstr ""
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr ""
-
-#: src/EBox/Logs.pm:75
-msgid "Create logs database"
-msgstr "建立日誌資料庫"
-
-#: src/EBox/Logs.pm:76
-msgid "eBox store its logs in the database"
-msgstr "eBox 日誌儲存在資料庫"
-
-#: src/EBox/Logs.pm:407
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Table {table} 不存在"
-
-#: src/EBox/Logs.pm:604
-msgid "Query logs"
-msgstr "佇列日誌"
-
-#: src/EBox/Logs.pm:607
-msgid "Configure logs"
-msgstr "設置日誌"
-
-#: src/EBox/Logs.pm:620 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:128 src/templates/finish.mas:105
-msgid "Date"
-msgstr "日期"
-
-#: src/EBox/Logs.pm:621
-msgid "Client Address"
-msgstr "客戶端位址"
-
-#: src/EBox/Logs.pm:624
-msgid "Params"
-msgstr "參數"
-
-#: src/EBox/Logs.pm:625
-msgid "Committed"
-msgstr "Committed"
-
-#: src/EBox/Logs.pm:630
-msgid "Admin"
-msgstr "管理"
-
-#: src/EBox/Logs.pm:724
-msgid "Log messages"
-msgstr "日誌訊息"
-
-#: src/EBox/Logs.pm:751
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "上線參數必須是小時的整數"
-
-#: src/EBox/EventDaemon.pm:443
-#, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr "儲存變更"
-
-#: src/EBox/Events.pm:91
-msgid "events"
-msgstr "事件"
-
-#: src/EBox/Events.pm:646
-msgid "Event service status"
-msgstr "事件服務狀態"
-
-#: src/EBox/Backup.pm:96
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:96 src/EBox/Backup.pm:96
 msgid "Creating backup archive"
 msgstr "建立備份壓縮"
 
-#: src/EBox/Backup.pm:142
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:142 src/EBox/Backup.pm:142
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
 msgstr "備份模組 {m} 的設置"
 
-#: src/EBox/Backup.pm:302
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:302 src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
 msgstr "可能不能建立備份壓縮"
 
-#: src/EBox/Backup.pm:309
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:309 src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
 msgstr "可能不能附加資料到備份壓縮"
 
-#: src/EBox/Backup.pm:420
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:423 src/EBox/Backup.pm:423
 msgid "Unknown"
 msgstr "不明"
 
-#: src/EBox/Backup.pm:454
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:476 src/EBox/Backup.pm:476
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "可能不能解開必須的備份檔: {files}"
 
-#: src/EBox/Backup.pm:457 src/EBox/Backup.pm:1046
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:479
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1121 src/EBox/Backup.pm:479
+#: src/EBox/Backup.pm:1121
 msgid "Could not unpack the backup"
 msgstr "可能不能解壓縮備份"
 
-#: src/EBox/Backup.pm:647 src/EBox/SysInfo.pm:146
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:704
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:227 src/EBox/Backup.pm:704
+#: src/EBox/SysInfo.pm:227
 msgid "Backup"
 msgstr "備份"
 
-#: src/EBox/Backup.pm:683
-msgid "Writing backup file to hard disK"
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:740 src/EBox/Backup.pm:740
+#, fuzzy
+msgid "Writing backup file to hard disk"
 msgstr "把備份檔寫到硬碟"
 
-#: src/EBox/Backup.pm:708
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:765 src/EBox/Backup.pm:765
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr "一些模組沒有儲存變更.之前做的備份您必須儲存或是放棄他們"
 
-#: src/EBox/Backup.pm:763
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:820 src/EBox/Backup.pm:820
 msgid "Incorrect or corrupt backup file"
 msgstr "不正確或損毀的備份檔"
 
-#: src/EBox/Backup.pm:792
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:849 src/EBox/Backup.pm:849
 msgid "The backup file is corrupt: could not open archive"
 msgstr "此備份檔是損毀的:可能不能開啟壓縮"
 
-#: src/EBox/Backup.pm:804
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:861 src/EBox/Backup.pm:861
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "此備份檔是損毀的:可能不能開啟備份檢查碼"
 
-#: src/EBox/Backup.pm:811
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:868 src/EBox/Backup.pm:868
 msgid "The backup file is corrupt."
 msgstr "此備份檔是損毀的."
 
-#: src/EBox/Backup.pm:829
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:886 src/EBox/Backup.pm:886
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr "此備份壓縮是無效的類型.可能檔案已損毀或是您使用不相容的 eBox 版本"
 
-#: src/EBox/Backup.pm:835
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:892 src/EBox/Backup.pm:892
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr "此壓縮檔不包括完整備份,是不可能完整還原.可能要設置回復."
 
-#: src/EBox/Backup.pm:870
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:927 src/EBox/Backup.pm:927
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
-msgstr "這裡的硬碟沒有足夠的空間來完成還原執行. {size} Kb 是必要的.有足夠的空間再試一次"
+msgstr ""
+"這裡的硬碟沒有足夠的空間來完成還原執行. {size} Kb 是必要的.有足夠的空間再試一"
+"次"
 
-#: src/EBox/Backup.pm:1133
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1208 src/EBox/Backup.pm:1208
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "在備份中找不到模組 {m}"
 
-#: src/EBox/Backup.pm:1162
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1237 src/EBox/Backup.pm:1237
 msgid "No modules to restore"
 msgstr "沒有要還原的模組"
 
-#: src/EBox/Backup.pm:1227
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1302 src/EBox/Backup.pm:1302
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr "模組 {topModule} 有未解決的還原相依性問題：{modName} 並未安裝"
 
-#: src/EBox/Backup.pm:1270
+#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1345 src/EBox/Backup.pm:1345
 msgid "Backup's archives"
 msgstr "備份的壓縮檔"
 
-#: src/EBox/SysInfo.pm:41
-msgid "system information"
-msgstr "系統資訊"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices.pm:71
+#: src/EBox/RemoteServices.pm:71
+msgid "eBox remote services"
+msgstr ""
 
-#: src/EBox/SysInfo.pm:68
-msgid "Services"
-msgstr "服務"
+#: debian/ebox/usr/share/perl5/EBox/RemoteServices.pm:133
+#: src/EBox/RemoteServices.pm:133
+msgid "Remote services subscription"
+msgstr ""
 
-#: src/EBox/SysInfo.pm:85
-msgid "General information"
-msgstr "一般資訊"
+#: debian/ebox/usr/share/perl5/EBox/Events.pm:90 src/EBox/Events.pm:90
+msgid "events"
+msgstr "事件"
 
-#: src/EBox/SysInfo.pm:93
-msgid "Time"
-msgstr "時刻"
+#: debian/ebox/usr/share/perl5/EBox/Events.pm:595 src/EBox/Events.pm:595
+msgid "Event service status"
+msgstr "事件服務狀態"
 
-#: src/EBox/SysInfo.pm:94
-msgid "Host name"
-msgstr "主機名稱"
+#: debian/ebox/usr/share/perl5/EBox/EventDaemon.pm:473
+#: src/EBox/EventDaemon.pm:473
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr "儲存變更 {name}"
 
-#: src/EBox/SysInfo.pm:96
-msgid "eBox version"
-msgstr "eBox 版本"
+#: debian/ebox/usr/share/perl5/EBox/Global.pm:369
+#: debian/ebox/usr/share/perl5/EBox/Global.pm:390 src/EBox/Global.pm:369
+#: src/EBox/Global.pm:390
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "儲存 {modName} 模組中"
 
-#: src/EBox/SysInfo.pm:99
-msgid "System load"
-msgstr "系統負載"
+#: debian/ebox/usr/share/perl5/EBox/Global.pm:816 src/EBox/Global.pm:816
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "執行 {scriptName} script中"
 
-#: src/EBox/SysInfo.pm:120
-msgid "Summary"
-msgstr "摘要"
+#: debian/ebox/usr/share/perl5/EBox/Html.pm:39 src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr ""
 
-#: src/EBox/SysInfo.pm:124
-msgid "Module status"
-msgstr "模組狀態"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:74 src/EBox/Logs.pm:74
+msgid "Create logs database"
+msgstr "建立日誌資料庫"
 
-#: src/EBox/SysInfo.pm:133
-msgid "General"
-msgstr "一般"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:75 src/EBox/Logs.pm:75
+msgid "eBox store its logs in the database"
+msgstr "eBox 日誌儲存在資料庫"
 
-#: src/EBox/SysInfo.pm:136
-msgid "Disk usage Information"
-msgstr "磁碟用量資訊"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:425 src/EBox/Logs.pm:425
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Table {table} 不存在"
 
-#: src/EBox/SysInfo.pm:140
-msgid "RAID Information"
-msgstr "RAID 資訊"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:622 src/EBox/Logs.pm:622
+msgid "Query logs"
+msgstr "佇列日誌"
 
-#: src/EBox/SysInfo.pm:149
-msgid "Halt/Reboot"
-msgstr "關機/重新開機"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:625 src/EBox/Logs.pm:625
+msgid "Configure logs"
+msgstr "設置日誌"
 
-#: src/EBox/Auth.pm:150
-msgid "Password changed"
-msgstr "密碼已變更"
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:638 src/EBox/Logs.pm:638
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:68
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:32
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:44
+#: debian/ebox/usr/share/ebox/templates/backup.mas:128
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:28
+#: debian/ebox/usr/share/ebox/templates/finish.mas:105
+#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
+#: src/templates/finish.mas:105
+#: src/templates/RemoteServices/Backup/proxy.mas:44
+#: src/templates/RemoteServices/Backup/index.mas:68
+#: src/templates/RemoteServices/Backup/confirm.mas:32
+msgid "Date"
+msgstr "日期"
 
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:639 src/EBox/Logs.pm:639
+msgid "Client Address"
+msgstr "客戶端位址"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:642 src/EBox/Logs.pm:642
+msgid "Params"
+msgstr "參數"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:643 src/EBox/Logs.pm:643
+msgid "Committed"
+msgstr "Committed"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:648 src/EBox/Logs.pm:648
+msgid "Admin"
+msgstr "管理"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:742 src/EBox/Logs.pm:742
+msgid "Log messages"
+msgstr "日誌訊息"
+
+#: debian/ebox/usr/share/perl5/EBox/Logs.pm:769 src/EBox/Logs.pm:769
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "上線參數必須是小時的整數"
+
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:41
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
 msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:43
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
 msgstr "它必須為非零的正數"
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:51
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "不能執行  {exe}"
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:101
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "找不到 id 為 {id} 的程序指示器"
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:139
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
 msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:141
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
 msgstr "必須大於零"
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:147
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
 msgstr "可執行檔尚未執行過"
 
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:264
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
 msgstr "可執行檔尚未執行"
 
-#: src/EBox/ProgressIndicator.pm:396
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:395
+#: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
 msgstr "可執行檔已經啟動"
 
-#: src/EBox/ProgressIndicator.pm:400
+#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:399
+#: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
 msgstr "可執行檔已經結束"
 
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
+#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:50
+#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:63
+#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:76 src/EBox/PgDBEngine.pm:50
+#: src/EBox/PgDBEngine.pm:63 src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "您必須在 ebox 組態檔案中設定 {variable} 變數"
 
+#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:272
 #: src/EBox/PgDBEngine.pm:272
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:290
 #: src/EBox/PgDBEngine.pm:290
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:43 src/EBox/SysInfo.pm:43
+#, fuzzy
+msgid "System information"
+msgstr "系統資訊"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:82 src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr "時刻"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:83 src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr "主機名稱"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:85 src/EBox/SysInfo.pm:85
+msgid "eBox version"
+msgstr "eBox 版本"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:88 src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr "系統負載"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:123
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:205 src/EBox/SysInfo.pm:123
+#: src/EBox/SysInfo.pm:205
+msgid "Module status"
+msgstr "模組狀態"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:128 src/EBox/SysInfo.pm:128
+msgid "General information"
+msgstr "一般資訊"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:133
+#, fuzzy
+msgid "Process' list"
+msgstr "備份的清單"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:214 src/EBox/SysInfo.pm:214
+msgid "General"
+msgstr "一般"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:217 src/EBox/SysInfo.pm:217
+msgid "Disk usage Information"
+msgstr "磁碟用量資訊"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:221 src/EBox/SysInfo.pm:221
+msgid "RAID Information"
+msgstr "RAID 資訊"
+
+#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:230 src/EBox/SysInfo.pm:230
+msgid "Halt/Reboot"
+msgstr "關機/重新開機"
+
+#: src/EBox/Logs/Report.pm:68
+#, fuzzy
+msgid "Day"
+msgstr "任何"
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/list.mas:43
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:9
+#: src/templates/dashboard/status.mas:9
+msgid "Restart"
+msgstr "重新啟動"
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:12
+#: src/templates/dashboard/status.mas:12
+msgid "Running"
+msgstr "執行中"
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:15
+#: src/templates/dashboard/status.mas:15
+msgid "Stopped"
+msgstr "已停止"
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:17
+#: src/templates/dashboard/status.mas:17
+msgid "Start"
+msgstr "啟動"
+
+#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:19
+#: src/templates/dashboard/status.mas:19
+msgid "Disabled"
+msgstr "停用"
+
+#: debian/ebox/usr/share/ebox/templates/login/index.mas:26
+#: src/templates/login/index.mas:26
+msgid "Warning: Caps Lock is enabled"
+msgstr "警告：已開啟 Caps Lock"
+
+#: debian/ebox/usr/share/ebox/templates/login/index.mas:36
+#: src/templates/login/index.mas:36
+msgid "Enter"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/login/index.mas:42
+#: src/templates/login/index.mas:42
+#, perl-brace-format
+msgid "Created by {href}"
+msgstr "由 {href} 建立"
+
+#: debian/ebox/usr/share/ebox/templates/logout/index.mas:11
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "還有未儲存的變更，如果您現在登出它們將會消失。"
+
+#: debian/ebox/usr/share/ebox/templates/logout/index.mas:15
+#: src/templates/logout/index.mas:15
+msgid "There are no unsaved changes in this session."
+msgstr "在這個作業階段中沒有未儲存的變更。"
+
+#: debian/ebox/usr/share/ebox/templates/logout/index.mas:19
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "離開"
+
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:22
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr "選取某元件時會顯示最後幾小時的紀錄"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:23
 #: src/templates/logs/index.mas:23
 msgid "Select available full reports"
 msgstr "選取可用的紀錄檔"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:35
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:36
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:37
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
 msgstr "檢視"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:44
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
 msgstr "自訂查詢"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:50
 #: src/templates/logs/index.mas:50
 msgid "From date:"
 msgstr "開始日期:"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
 msgstr "一月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
 msgstr "二月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
 msgstr "三月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
 msgstr "四月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
 msgstr "五月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
 msgstr "六月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
 msgstr "七月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
 msgstr "八月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
 msgstr "九月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
 msgstr "十月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
 msgstr "十一月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
 msgstr "十二月"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:108
 #: src/templates/logs/index.mas:108
 msgid "Refresh logs"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:116
 #: src/templates/logs/index.mas:116
 msgid "To date:"
 msgstr "結束日期:"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:203
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:204
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
 msgstr "搜尋"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:208
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:209
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
 msgstr "儲存為事件"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:235
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
 msgstr "沒有紀錄檔符合目前的條件"
 
+#: debian/ebox/usr/share/ebox/templates/logs/index.mas:239
 #: src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
 msgstr "沒有這個網域的紀錄檔"
 
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:87
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:88
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
 msgstr "第一項"
 
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:91
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:92
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
 msgstr "前一項"
 
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:111
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:112
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
 msgstr "後一項"
 
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:115
+#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:116
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
 msgstr "最末項"
 
-#: src/templates/login/index.mas:26
-msgid "Warning: Caps Lock is enabled"
-msgstr "警告：已開啟 Caps Lock"
-
-#: src/templates/login/index.mas:29
-msgid "Password"
-msgstr "密碼"
-
-#: src/templates/login/index.mas:36
-msgid "Enter"
-msgstr ""
-
-#: src/templates/login/index.mas:42
-#, perl-brace-format
-msgid "Created by {href}"
-msgstr "由 <a href='http://www.warp.es'>Warp Networks</a> 建立"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "還有未儲存的變更，如果您現在登出它們將會消失。"
-
-#: src/templates/logout/index.mas:15
-msgid "There are no unsaved changes in this session."
-msgstr "在這個作業階段中沒有未儲存的變更。"
-
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "離開"
-
+#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:29
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
 msgstr "掛載於"
 
+#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:30
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:121
+#: debian/ebox/usr/share/ebox/templates/backup.mas:127
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:44
 #: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
 msgstr "類型"
 
+#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:31
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
 msgstr "選項"
 
+#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:34
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition properties"
 msgstr "分割區屬性"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:13
 #: src/templates/report/raid.mas:13
 msgid "No RAID devices present"
 msgstr "沒有 RAID 裝置"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:17
 #: src/templates/report/raid.mas:17
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr ""
 
-#: src/templates/report/raid.mas:76
-msgid "RAID 0"
-msgstr "RAID 0"
-
-#: src/templates/report/raid.mas:77
-msgid "RAID 1"
-msgstr "RAID 1"
-
-#: src/templates/report/raid.mas:78
-msgid "RAID 2"
-msgstr "RAID 2"
-
-#: src/templates/report/raid.mas:79
-msgid "RAID 3"
-msgstr "RAID 3"
-
-#: src/templates/report/raid.mas:80
-msgid "RAID 4"
-msgstr "RAID 4"
-
-#: src/templates/report/raid.mas:81
-msgid "RAID 5"
-msgstr "RAID 5"
-
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:84
 #: src/templates/report/raid.mas:84
 msgid "left-asymmetric"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:85
 #: src/templates/report/raid.mas:85
 msgid "right-asymmetric"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:86
 #: src/templates/report/raid.mas:86
 msgid "left-symmetric"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:87
 #: src/templates/report/raid.mas:87
 msgid "right-symmetric"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:94
+#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:60
+#: src/templates/report/raid.mas:94 src/templates/moduleStatusTable.mas:60
+msgid "Status"
+msgstr "狀態"
+
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:132
 #: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
 msgstr "使用中的 RAID 裝置"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:133
 #: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
 msgstr "需要使用中的 RAID 裝置"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:134
 #: src/templates/report/raid.mas:134
 msgid "Size in blocks"
 msgstr "區塊大小"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:135
 #: src/templates/report/raid.mas:135
 msgid "Chunk size"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:138
 #: src/templates/report/raid.mas:138
 msgid "Parity algorithm"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:170
 #: src/templates/report/raid.mas:170
 msgid "Array properties"
 msgstr "陣列屬性"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:185
 #: src/templates/report/raid.mas:185
 msgid "Resyncing array"
 msgstr "重新同步陣列"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:186
 #: src/templates/report/raid.mas:186
 msgid "Rebuild array"
 msgstr "重建陣列"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:187
 #: src/templates/report/raid.mas:187
 msgid "Reshape array"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:195
 #: src/templates/report/raid.mas:195
 msgid "Operation type"
 msgstr "操作類型"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:197
 #: src/templates/report/raid.mas:197
 msgid "Percentage completed"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:199
 #: src/templates/report/raid.mas:199
 msgid "Estimated time left"
 msgstr "預估剩餘時間"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:201
 #: src/templates/report/raid.mas:201
 msgid "Operation speed"
 msgstr "操作速度"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:214
 #: src/templates/report/raid.mas:214
 msgid "RAID device number"
 msgstr "RAID 裝置編號"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:215
 #: src/templates/report/raid.mas:215
 msgid "Device"
 msgstr "裝置"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:221
 #: src/templates/report/raid.mas:221
 msgid "up"
 msgstr ""
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:222
 #: src/templates/report/raid.mas:222
 msgid "failure"
 msgstr "失敗"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:251
 #: src/templates/report/raid.mas:251
 msgid "No unused RAID devices"
 msgstr "沒有未使用的 RAID 裝置"
 
+#: debian/ebox/usr/share/ebox/templates/report/raid.mas:254
 #: src/templates/report/raid.mas:254
 msgid "Unused RAID arrays"
 msgstr "未使用的 RAID 陣列"
 
-#: src/templates/confirm-backup.mas:60 src/templates/dataInUse.mas:41
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:32
+#: debian/ebox/usr/share/ebox/templates/backup.mas:64
+#: src/templates/backup.mas:64
+#: src/templates/RemoteServices/Backup/index.mas:32
+msgid "Back up"
+msgstr "備份"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:38
+#: src/templates/RemoteServices/Backup/index.mas:38
+#, fuzzy
+msgid "Back up the current configuration state"
+msgstr "備份目前的狀態"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:44
+#: debian/ebox/usr/share/ebox/templates/backup.mas:35
+#: src/templates/backup.mas:35
+#: src/templates/RemoteServices/Backup/index.mas:44
+msgid ""
+"Backup is disabled because there are unsaved configuration changes. Please, "
+"save or discard them to be able to backup the configuration"
+msgstr "由於尚有未儲存的組態變更，備份已被停用。請儲存或放棄它們才能備份組態"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:70
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:48
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:46
+#: debian/ebox/usr/share/ebox/templates/backup.mas:129
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:53
+#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
+#: src/templates/RemoteServices/Backup/proxy.mas:46
+#: src/templates/RemoteServices/Backup/index.mas:70
+#: src/templates/RemoteServices/Backup/confirm.mas:48
+msgid "Archive size"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:71
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:47
+#: debian/ebox/usr/share/ebox/templates/backup.mas:130
+#: src/templates/backup.mas:130
+#: src/templates/RemoteServices/Backup/proxy.mas:47
+#: src/templates/RemoteServices/Backup/index.mas:71
+msgid "Actions"
+msgstr "動作"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:91
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:82
+#: debian/ebox/usr/share/ebox/templates/backup.mas:166
+#: debian/ebox/usr/share/ebox/templates/backup.mas:167
+#: src/templates/backup.mas:166 src/templates/backup.mas:167
+#: src/templates/RemoteServices/Backup/proxy.mas:82
+#: src/templates/RemoteServices/Backup/index.mas:91
+msgid "Download"
+msgstr "下載"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:110
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:99
+#: debian/ebox/usr/share/ebox/templates/backup.mas:188
+#: src/templates/backup.mas:188
+#: src/templates/RemoteServices/Backup/proxy.mas:99
+#: src/templates/RemoteServices/Backup/index.mas:110
+msgid "restore"
+msgstr "還原"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:114
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:103
+#: debian/ebox/usr/share/ebox/templates/backup.mas:186
+#: src/templates/backup.mas:186
+#: src/templates/RemoteServices/Backup/proxy.mas:103
+#: src/templates/RemoteServices/Backup/index.mas:114
+msgid "download"
+msgstr "下載"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:118
+#: debian/ebox/usr/share/ebox/templates/backup.mas:190
+#: src/templates/backup.mas:190
+#: src/templates/RemoteServices/Backup/index.mas:118
+msgid "delete"
+msgstr "刪除"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:123
+#: src/templates/RemoteServices/Backup/index.mas:123
+#, fuzzy
+msgid "Configuration backups' list"
+msgstr "組態備份"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:73
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:74
+#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:41
+#: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
+#: src/templates/RemoteServices/Backup/confirm.mas:73
 msgid "Cancel"
 msgstr "取消"
 
-#: src/templates/confirm-backup.mas:98
-msgid "Full Restore"
-msgstr "完整還原"
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:42
+#: src/templates/RemoteServices/Backup/proxy.mas:42
+msgid "eBox host"
+msgstr ""
 
-#: src/templates/confirm-backup.mas:99
-msgid "Configuration Restore"
-msgstr "組態還原"
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:109
+#: debian/ebox/usr/share/ebox/templates/backup.mas:122
+#: src/templates/backup.mas:122
+#: src/templates/RemoteServices/Backup/proxy.mas:109
+msgid "Backups' list"
+msgstr "備份的清單"
 
-#: src/templates/confirm-backup.mas:104
-msgid "Restore mode"
-msgstr "還原模式"
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:132
+#: src/templates/RemoteServices/Backup/proxy.mas:132
+msgid "User"
+msgstr ""
 
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "相依性"
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:143
+#: src/templates/RemoteServices/Backup/proxy.mas:143
+msgid "Submit"
+msgstr ""
 
-#: src/templates/moduleStatusTable.mas:85
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:147
+#: src/templates/RemoteServices/Backup/proxy.mas:147
+#, fuzzy
+msgid "Enter user and password"
+msgstr "使用者密碼"
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:5
+#: src/templates/RemoteServices/NoConnection.mas:5
+msgid ""
+"Cannot proceed with your request because it was a connection problem. "
+"Possible causes are:"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:9
+#: src/templates/RemoteServices/NoConnection.mas:9
+msgid "Your computer has not internet connection"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:10
+#: src/templates/RemoteServices/NoConnection.mas:10
+msgid "Your computer has not a correct system date"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:11
+#: src/templates/RemoteServices/NoConnection.mas:11
+msgid "You are using the wrong certificates"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:12
+#: src/templates/RemoteServices/NoConnection.mas:12
+msgid "This eBox has been removed from your registered eBoxes"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoActive.mas:5
+#: src/templates/RemoteServices/NoActive.mas:5
 #, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "設定模組： {module}"
+msgid ""
+"This feature is only available if you get eBox  Services. You can contract "
+"them at {url1}. If you are already registered, then subscribe this eBox at "
+"{url2}"
+msgstr ""
 
-#: src/templates/password.mas:4
-msgid "Change password"
-msgstr "改變密碼"
+#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoActive.mas:14
+#: src/templates/RemoteServices/NoActive.mas:14
+#, fuzzy
+msgid "subscription page"
+msgstr "說明"
 
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "您的密碼長度必須至少有 6 個字元。"
-
-#: src/templates/password.mas:11
-msgid "Current password"
-msgstr "目前的密碼"
-
-#: src/templates/password.mas:25
-msgid "New password"
-msgstr "新的密碼"
-
-#: src/templates/password.mas:39
-msgid "Confirm password"
-msgstr "確認密碼"
-
-#: src/templates/progress.mas:20
-msgid "Item"
-msgstr "項目"
-
-#: src/templates/progress.mas:21
-msgid "items left"
-msgstr "剩餘項目"
-
-#: src/templates/progress.mas:23
-msgid "Some error has happened in eBox: "
-msgstr "在 eBox 中發生了某些錯誤： "
-
-#: src/templates/progress.mas:38
-msgid "Starting..."
-msgstr "正在啟動..."
-
+#: debian/ebox/usr/share/ebox/templates/backup.mas:17
 #: src/templates/backup.mas:17
 msgid "Full Backup"
 msgstr "完整備份"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:18
 #: src/templates/backup.mas:18
 msgid "Configuration Backup"
 msgstr "組態備份"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:24
 #: src/templates/backup.mas:24
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "module status{closeref} section will be ignored in both backup and restore "
 "operations"
-msgstr "這些在 {openref}模組狀態{closeref} 中從未啟用過的模組在備份與還原的操作中都會被略過"
+msgstr ""
+"這些在 {openref}模組狀態{closeref} 中從未啟用過的模組在備份與還原的操作中都會"
+"被略過"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:26
 #: src/templates/backup.mas:26
 msgid "Back up the current state"
 msgstr "備份目前的狀態"
 
-#: src/templates/backup.mas:35
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
-msgstr "由於尚有未儲存的組態變更，備份已被停用。請儲存或放棄它們才能備份組態"
-
+#: debian/ebox/usr/share/ebox/templates/backup.mas:52
 #: src/templates/backup.mas:52
 msgid "Backup mode"
 msgstr "備份模式"
 
-#: src/templates/backup.mas:64
-msgid "Back up"
-msgstr "備份"
-
+#: debian/ebox/usr/share/ebox/templates/backup.mas:74
 #: src/templates/backup.mas:74
 msgid "Restore backup from file"
 msgstr "從檔案還原備份"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:76
 #: src/templates/backup.mas:76
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)"
-msgstr "您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔案 (>= 1 Gb)"
+msgstr ""
+"您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔"
+"案 (>= 1 Gb)"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:84
 #: src/templates/backup.mas:84
 msgid "Backup file"
 msgstr "備份檔案"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:114
 #: src/templates/backup.mas:114
 msgid "Full"
 msgstr "完整"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:115
 #: src/templates/backup.mas:115
 msgid "Configuration only"
 msgstr "只有組態"
 
+#: debian/ebox/usr/share/ebox/templates/backup.mas:116
 #: src/templates/backup.mas:116
 msgid "Unknown type"
 msgstr "未知的類型"
 
-#: src/templates/backup.mas:122
-msgid "Backups' list"
-msgstr "備份的清單"
-
-#: src/templates/backup.mas:129
-msgid "Actions"
-msgstr "動作"
-
-#: src/templates/backup.mas:156
+#: debian/ebox/usr/share/ebox/templates/backup.mas:160
+#: src/templates/backup.mas:160
 msgid "Restore configuration using this file"
 msgstr "使用這個檔案還原組態"
 
-#: src/templates/backup.mas:157
+#: debian/ebox/usr/share/ebox/templates/backup.mas:161
+#: src/templates/backup.mas:161
 msgid "Restore from backup"
 msgstr "從備份還原"
 
-#: src/templates/backup.mas:162 src/templates/backup.mas:163
-msgid "Download"
-msgstr "下載"
-
-#: src/templates/backup.mas:182
-msgid "download"
-msgstr "下載"
-
-#: src/templates/backup.mas:184
-msgid "restore"
-msgstr "還原"
-
-#: src/templates/backup.mas:186
-msgid "delete"
-msgstr "刪除"
-
-#: src/templates/configureView.mas:16
-msgid ""
-"Enabling this module will cause eBox to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr "啟用這個模組會使 eBox 進行下面列出的動作與檔案的修改。您必須明確的接受這些變更才能啟用這個模組。"
-
-#: src/templates/configureView.mas:20
-msgid "Actions to perform by eBox"
-msgstr "eBox 要進行的動作"
-
-#: src/templates/configureView.mas:35
-msgid "Files to modify by eBox"
-msgstr "eBox 要修改的檔案"
-
-#: src/templates/configureView.mas:54
-msgid "Accept"
-msgstr "接受"
-
-#: src/templates/bug.mas:9
+#: debian/ebox/usr/share/ebox/templates/bug.mas:9 src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a bug in eBox."
-msgstr "這個頁面讓您產生一份關於您的系統狀態資訊的檔案。如果您要回報 eBox 的錯誤這個檔案會很有用。"
+msgstr ""
+"這個頁面讓您產生一份關於您的系統狀態資訊的檔案。如果您要回報 eBox 的錯誤這個"
+"檔案會很有用。"
 
-#: src/templates/bug.mas:14
+#: debian/ebox/usr/share/ebox/templates/bug.mas:14 src/templates/bug.mas:14
 msgid "Download bug report file"
 msgstr "下載錯誤回報檔案"
 
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:110
+#: src/templates/confirm-backup.mas:110
+msgid "Full Restore"
+msgstr "完整還原"
+
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:111
+#: src/templates/confirm-backup.mas:111
+msgid "Configuration Restore"
+msgstr "組態還原"
+
+#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:116
+#: src/templates/confirm-backup.mas:116
+msgid "Restore mode"
+msgstr "還原模式"
+
+#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:12
+#: src/templates/backupTabs.mas:12
+#, fuzzy
+msgid "Local backup"
+msgstr "完整備份"
+
+#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:17
+#: src/templates/backupTabs.mas:17
+#, fuzzy
+msgid "Remote backup"
+msgstr "正在還原備份"
+
+#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:22
+#: src/templates/backupTabs.mas:22
+msgid "Remote backup from other subscribed hosts"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/finish.mas:82
 #: src/templates/finish.mas:82
 msgid "Warning"
 msgstr "警告"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:96
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
 msgstr "在一或多個模組中有未儲存的變更，您可以儲存或放棄這些變更。"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:99
 #: src/templates/finish.mas:99
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
-msgstr "如果您對網路介面卡或管理用連接埠做了變更，您可能需要手動重新修正網址才能再次存取管理介面。"
+msgstr ""
+"如果您對網路介面卡或管理用連接埠做了變更，您可能需要手動重新修正網址才能再次"
+"存取管理介面。"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:107
 #: src/templates/finish.mas:107
 msgid "Message"
 msgstr "訊息"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:123
 #: src/templates/finish.mas:123
 msgid "Save"
 msgstr "儲存"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:125
 #: src/templates/finish.mas:125
 msgid "Discard changes"
 msgstr "放棄變更"
 
+#: debian/ebox/usr/share/ebox/templates/finish.mas:130
 #: src/templates/finish.mas:130
 msgid "There are no unsaved changes."
 msgstr "還有未儲存的變更。"
 
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "管理介面 TCP 連接埠"
-
-#: src/templates/halt.mas:10
+#: debian/ebox/usr/share/ebox/templates/halt.mas:10 src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr "如果這台機器關機您可能會失去網路連線。"
 
-#: src/templates/halt.mas:14
+#: debian/ebox/usr/share/ebox/templates/halt.mas:14 src/templates/halt.mas:14
 msgid "Halt"
 msgstr "關機"
 
-#: src/templates/halt.mas:16
+#: debian/ebox/usr/share/ebox/templates/halt.mas:16 src/templates/halt.mas:16
 msgid "Reboot"
 msgstr "重新開機"
 
-#: src/templates/configurationFiles.mas:28
-msgid "Do you wish to overwrite these files?"
-msgstr "是否要覆蓋這些檔案？"
+#: debian/ebox/usr/share/ebox/templates/password.mas:4
+#: src/templates/password.mas:4
+msgid "Change password"
+msgstr "改變密碼"
 
-#: src/templates/configurationFiles.mas:35
-msgid "Keep current file"
-msgstr "保留目前的檔案"
+#: debian/ebox/usr/share/ebox/templates/password.mas:5
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "您的密碼長度必須至少有 6 個字元。"
 
-#: src/templates/configurationFiles.mas:39
-msgid "Modify"
-msgstr "修改"
+#: debian/ebox/usr/share/ebox/templates/password.mas:11
+#: src/templates/password.mas:11
+msgid "Current password"
+msgstr "目前的密碼"
 
+#: debian/ebox/usr/share/ebox/templates/password.mas:25
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "新的密碼"
+
+#: debian/ebox/usr/share/ebox/templates/password.mas:39
+#: src/templates/password.mas:39
+msgid "Confirm password"
+msgstr "確認密碼"
+
+#: debian/ebox/usr/share/ebox/templates/port.mas:9 src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "管理介面 TCP 連接埠"
+
+#: debian/ebox/usr/share/ebox/templates/progress.mas:20
+#: src/templates/progress.mas:20
+msgid "Item"
+msgstr "項目"
+
+#: debian/ebox/usr/share/ebox/templates/progress.mas:21
+#: src/templates/progress.mas:21
+msgid "items left"
+msgstr "剩餘項目"
+
+#: debian/ebox/usr/share/ebox/templates/progress.mas:23
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox: "
+msgstr "在 eBox 中發生了某些錯誤： "
+
+#: debian/ebox/usr/share/ebox/templates/progress.mas:38
+#: src/templates/progress.mas:38
+msgid "Starting..."
+msgstr "正在啟動..."
+
+#: debian/ebox/usr/share/ebox/templates/headTitle.mas:19
+#: src/templates/headTitle.mas:19
+msgid "Remote services control panel"
+msgstr ""
+
+#: debian/ebox/usr/share/ebox/templates/footer.mas:6
 #: src/templates/footer.mas:6
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} 由 {warp} 建立"
+
+#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:28
+#: src/templates/configurationFiles.mas:28
+msgid "Do you wish to overwrite these files?"
+msgstr "是否要覆蓋這些檔案？"
+
+#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:35
+#: src/templates/configurationFiles.mas:35
+msgid "Keep current file"
+msgstr "保留目前的檔案"
+
+#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:39
+#: src/templates/configurationFiles.mas:39
+msgid "Modify"
+msgstr "修改"
+
+#: debian/ebox/usr/share/ebox/templates/configureView.mas:16
+#: src/templates/configureView.mas:16
+msgid ""
+"Enabling this module will cause eBox to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+"啟用這個模組會使 eBox 進行下面列出的動作與檔案的修改。您必須明確的接受這些變"
+"更才能啟用這個模組。"
+
+#: debian/ebox/usr/share/ebox/templates/configureView.mas:20
+#: src/templates/configureView.mas:20
+msgid "Actions to perform by eBox"
+msgstr "eBox 要進行的動作"
+
+#: debian/ebox/usr/share/ebox/templates/configureView.mas:35
+#: src/templates/configureView.mas:35
+msgid "Files to modify by eBox"
+msgstr "eBox 要修改的檔案"
+
+#: debian/ebox/usr/share/ebox/templates/configureView.mas:54
+#: src/templates/configureView.mas:54
+msgid "Accept"
+msgstr "接受"
+
+#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:59
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "相依性"
+
+#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:85
+#: src/templates/moduleStatusTable.mas:85
+#, perl-brace-format
+msgid "Configure module: {module}"
+msgstr "設定模組： {module}"
+
+#~ msgid "Error"
+#~ msgstr "錯誤"
+
+#~ msgid "Services"
+#~ msgstr "服務"
+
+#~ msgid "Summary"
+#~ msgstr "摘要"
+
+#~ msgid "RAID 0"
+#~ msgstr "RAID 0"
+
+#~ msgid "RAID 1"
+#~ msgstr "RAID 1"
+
+#~ msgid "RAID 2"
+#~ msgstr "RAID 2"
+
+#~ msgid "RAID 3"
+#~ msgstr "RAID 3"
+
+#~ msgid "RAID 4"
+#~ msgstr "RAID 4"
+
+#~ msgid "RAID 5"
+#~ msgstr "RAID 5"

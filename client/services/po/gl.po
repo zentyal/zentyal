@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:33+0200\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
 "PO-Revision-Date: 2008-11-10 19:05+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -15,22 +16,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:107
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
 msgstr "Dominio"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:114
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
 msgstr "Nome do servizo"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:122
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
 msgstr "Descrición"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:129
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
 msgstr "Interno"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:130
 #: src/EBox/Model/ServiceTable.pm:130
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
@@ -41,23 +47,30 @@ msgstr ""
 "empregando os portos configurados para este servizo. Esto axudará a eBox a "
 "coñecer que portos están ocupados"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:139
 #: src/EBox/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "Configuración"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:151
 #: src/EBox/Model/ServiceTable.pm:151
 msgid "List of services"
 msgstr "Listado de servizos"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:152
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:47
 #: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
 msgid "Services"
 msgstr "Servizos"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:161
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:142
 #: src/EBox/Model/ServiceTable.pm:161
 #: src/EBox/Model/ServiceConfigurationTable.pm:142
 msgid "service"
 msgstr "Servizo"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:540
 #: src/EBox/Model/ServiceTable.pm:540
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
@@ -66,44 +79,54 @@ msgstr ""
 "Un servizo é unha abstracción dun ou máis protocolos de rede os cales poden "
 "ser empregados por outros módulos coma: cortalume, control do tráfico..."
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:111
 #: src/EBox/Model/ServiceConfigurationTable.pm:111
 msgid "Protocol"
 msgstr "Protocolo"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:117
 #: src/EBox/Model/ServiceConfigurationTable.pm:117
 msgid "Source port"
 msgstr "Porto fonte"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:119
 #: src/EBox/Model/ServiceConfigurationTable.pm:119
 msgid "This field is usually set to any"
 msgstr "Este campo fíxase a calquera"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:123
 #: src/EBox/Model/ServiceConfigurationTable.pm:123
 msgid "Destination port"
 msgstr "Porto destino"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:133
 #: src/EBox/Model/ServiceConfigurationTable.pm:133
 msgid "Service configuration"
 msgstr "Configuración do servizo"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:165
 #: src/EBox/Model/ServiceConfigurationTable.pm:165
 msgid "This protocol does not use ports"
 msgstr "Este protocolo non emprega portos"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:327
 #: src/EBox/Services.pm:327
 msgid "port"
 msgstr "porto"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:329
 #: src/EBox/Services.pm:329
 #: migration/0001_import_services_from_firewall.pl:108
 msgid "eBox administration"
 msgstr "Administración eBox"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:330
 #: src/EBox/Services.pm:330
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration port"
 msgstr "Porto de Administración eBox"
 
+#: debian/ebox-services/usr/share/perl5/EBox/Services.pm:331
 #: src/EBox/Services.pm:331 migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
 #: migration/0001_import_services_from_firewall.pl:94

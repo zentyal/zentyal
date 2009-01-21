@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-09-01 08:30+0200\n"
+"POT-Creation-Date: 2009-01-21 09:59+0100\n"
 "PO-Revision-Date: 2009-01-15 02:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,10 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Model/RangeTable.pm:95
-#: src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:113
-#: src/EBox/Model/Options.pm:119
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
 #: src/EBox/Model/FixedAddressTable.pm:94
 #: src/EBox/Model/ThinClientOptions.pm:118
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
@@ -55,29 +53,23 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 
-#: src/EBox/Model/RangeTable.pm:211
-#: src/EBox/Model/FixedAddressTable.pm:209
-#: src/EBox/CGI/AddRange.pm:43
-#: src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8
-#: src/templates/ranges.mas:53
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
+#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "نام"
 
-#: src/EBox/Model/RangeTable.pm:217
-#: src/EBox/CGI/AddRange.pm:44
+#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
 msgstr "از"
 
-#: src/EBox/Model/RangeTable.pm:223
-#: src/EBox/CGI/AddRange.pm:45
+#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
 msgstr "به"
 
-#: src/EBox/Model/RangeTable.pm:231
-#: src/templates/ranges.mas:49
+#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "بازه‌ها"
 
@@ -89,57 +81,53 @@ msgstr "بازه"
 msgid "Interface IP address"
 msgstr "نشانی آی‌پی رابط"
 
-#: src/EBox/Model/RangeInfo.pm:147
-#: src/templates/ranges.mas:20
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
 msgstr "زیرشبکه"
 
-#: src/EBox/Model/RangeInfo.pm:151
-#: src/templates/ranges.mas:40
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
 msgstr "بازه موجود"
 
-#: src/EBox/Model/RangeInfo.pm:157
-#: src/templates/ranges.mas:15
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "بازه‌های DHCP"
 
-#: src/EBox/Model/LeaseTimes.pm:133
+#: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
 msgstr "زمان اجاره پیش‌فرض بایستی از ۰ ثانیه بیشتر باشد"
 
-#: src/EBox/Model/LeaseTimes.pm:139
+#: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:151
+#: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "بیشینه زمان اجاره بایستی از ۰ ثانیه بیشتر باشد"
 
-#: src/EBox/Model/LeaseTimes.pm:157
+#: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 
-#: src/EBox/Model/LeaseTimes.pm:201
+#: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
 msgstr "زمان اجاره پیش‌فرض"
 
-#: src/EBox/Model/LeaseTimes.pm:204
-#: src/EBox/Model/LeaseTimes.pm:211
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
 msgstr "ثانیه"
 
-#: src/EBox/Model/LeaseTimes.pm:208
+#: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
 msgstr "بیشترین زمان اجاره"
 
-#: src/EBox/Model/LeaseTimes.pm:217
+#: src/EBox/Model/LeaseTimes.pm:216
 msgid "Lease times"
 msgstr "زمان‌های اجاره"
 
-#: src/EBox/Model/LeaseTimes.pm:222
+#: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
@@ -154,8 +142,7 @@ msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:315
-#: src/EBox/Model/Options.pm:343
+#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
 msgstr "سفارشی"
 
@@ -167,20 +154,16 @@ msgstr "دامنه ای‌باکس"
 msgid "local eBox DNS"
 msgstr "DNS محلی ای‌باکس"
 
-#: src/EBox/Model/Options.pm:338
-#: src/EBox/Model/Options.pm:349
-#: src/EBox/Model/Options.pm:372
-#: src/EBox/Model/ThinClientOptions.pm:217
+#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
+#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:236
 msgid "None"
 msgstr "هیچ‌کدام"
 
-#: src/EBox/Model/Options.pm:356
-#: src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "گذرگاه پیش‌فرض"
 
-#: src/EBox/Model/Options.pm:362
-#: src/EBox/Model/ThinClientOptions.pm:220
+#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:239
 msgid "eBox"
 msgstr "ای‌باکس"
 
@@ -192,18 +175,15 @@ msgstr "نشانی آی‌پی سفارشی"
 msgid "Configured ones"
 msgstr "پیکربندی‌ شده‌ها"
 
-#: src/EBox/Model/Options.pm:385
-#: src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "جستجوی دامنه"
 
-#: src/EBox/Model/Options.pm:391
-#: src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "سرور نام اولیه"
 
-#: src/EBox/Model/Options.pm:397
-#: src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "سرور نام ثانویه"
 
@@ -256,17 +236,14 @@ msgid ""
 "other fixed address table"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:215
-#: src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1238
-#: src/templates/fixed.mas:9
+#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/DHCP.pm:1153 src/EBox/DHCP.pm:1221 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "نشانی MAC"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:223
-#: src/EBox/CGI/AddFixed.pm:44
-#: src/templates/fixed.mas:10
+#: src/EBox/Model/ThinClientOptions.pm:242 src/EBox/CGI/AddFixed.pm:44
+#: src/EBox/DHCP.pm:1221 src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "نشانی آی‌پی"
 
@@ -274,8 +251,7 @@ msgstr "نشانی آی‌پی"
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:231
-#: src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "نشانی‌های ثابت"
 
@@ -283,55 +259,65 @@ msgstr "نشانی‌های ثابت"
 msgid "fixed address"
 msgstr "نشانی ثابت"
 
-#: src/EBox/Model/ThinClientOptions.pm:137
-msgid ""
-"In order to upload firmware to boot PCs to eBox, you need to set eBox as "
-"next server"
+#: src/EBox/Model/ThinClientOptions.pm:139
+msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:190
+#: src/EBox/Model/ThinClientOptions.pm:146
+msgid ""
+"In order to upload a boot image to eBox, you need to set eBox as next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:153
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:158
+msgid ""
+"You can only specify a file\n"
+"              name if you have a next server and it is not eBox"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
 msgid ""
-"Unlinked previous uploaded firmware since next server option has been "
+"Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:213
+#: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
 msgstr "سرور بعدی"
 
-#: src/EBox/Model/ThinClientOptions.pm:227
+#: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "نام"
 
-#: src/EBox/Model/ThinClientOptions.pm:233
+#: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
 msgstr "نام فایل"
 
-#: src/EBox/Model/ThinClientOptions.pm:244
+#: src/EBox/Model/ThinClientOptions.pm:261
+msgid "File path in next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
 msgstr "کلاینت سبک"
 
-#: src/EBox/Model/ThinClientOptions.pm:249
+#: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
 
-#: src/EBox/CGI/AddRange.pm:39
-#: src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/DHCP.pm:497
-#: src/EBox/DHCP.pm:533
-#: src/EBox/DHCP.pm:583
-#: src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735
-#: src/EBox/DHCP.pm:795
-#: src/EBox/DHCP.pm:851
-#: src/EBox/DHCP.pm:1237
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:412
+#: src/EBox/DHCP.pm:448 src/EBox/DHCP.pm:498 src/EBox/DHCP.pm:596
+#: src/EBox/DHCP.pm:650 src/EBox/DHCP.pm:710 src/EBox/DHCP.pm:766
+#: src/EBox/DHCP.pm:1152
 msgid "Interface"
 msgstr "رابط"
 
@@ -375,25 +361,21 @@ msgid ""
 "least a range or a fixed address."
 msgstr ""
 
-#: src/EBox/DHCP.pm:503
-#: src/EBox/DHCP.pm:539
-#: src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687
-#: src/EBox/DHCP.pm:801
-#: src/EBox/DHCP.pm:857
+#: src/EBox/DHCP.pm:418 src/EBox/DHCP.pm:454 src/EBox/DHCP.pm:504
+#: src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:716 src/EBox/DHCP.pm:772
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} استاتیک نیست"
 
-#: src/EBox/DHCP.pm:673
+#: src/EBox/DHCP.pm:588
 msgid "Not a valid action: add, set and del are available"
 msgstr ""
 
-#: src/EBox/DHCP.pm:787
+#: src/EBox/DHCP.pm:702
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1024
+#: src/EBox/DHCP.pm:939
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -401,7 +383,7 @@ msgid ""
 "it before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:1042
+#: src/EBox/DHCP.pm:957
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -409,29 +391,39 @@ msgid ""
 "remove it before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:1236
+#: src/EBox/DHCP.pm:1151
 msgid "Date"
 msgstr "تاریخ"
 
-#: src/EBox/DHCP.pm:1239
+#: src/EBox/DHCP.pm:1154
 msgid "IP"
 msgstr "آی‌پی"
 
-#: src/EBox/DHCP.pm:1240
+#: src/EBox/DHCP.pm:1155
 msgid "Event"
 msgstr "رویداد"
 
-#: src/EBox/DHCP.pm:1243
+#: src/EBox/DHCP.pm:1158
 msgid "Leased"
 msgstr "اجاره"
 
-#: src/EBox/DHCP.pm:1243
+#: src/EBox/DHCP.pm:1158
 msgid "Released"
 msgstr "منتشرشده"
 
-#: src/EBox/DHCP.pm:1246
+#: src/EBox/DHCP.pm:1161
 msgid "DHCP"
 msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1221
+#, fuzzy
+msgid "Host name"
+msgstr "نام"
+
+#: src/EBox/DHCP.pm:1248
+#, fuzzy
+msgid "DHCP leases"
+msgstr "بازه‌های DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
@@ -455,22 +447,17 @@ msgstr ""
 msgid "Apply"
 msgstr "اعمال"
 
-#: src/templates/fixed.mas:11
-#: src/templates/ranges.mas:56
+#: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
 msgstr "عمل"
 
-#: src/templates/fixed.mas:34
-#: src/templates/fixed.mas:37
-#: src/templates/fixed.mas:38
-#: src/templates/ranges.mas:74
-#: src/templates/ranges.mas:75
-#: src/templates/ranges.mas:76
+#: src/templates/fixed.mas:34 src/templates/fixed.mas:37
+#: src/templates/fixed.mas:38 src/templates/ranges.mas:74
+#: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
 msgstr "افزودن"
 
-#: src/templates/fixed.mas:51
-#: src/templates/fixed.mas:53
+#: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
 msgstr "حذف"
@@ -479,8 +466,7 @@ msgstr "حذف"
 msgid "Subnet netmask"
 msgstr "ماسک زیرشبکه"
 
-#: src/templates/ranges.mas:91
-#: src/templates/ranges.mas:92
+#: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "حذف"

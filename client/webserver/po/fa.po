@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-12-04 12:31+0100\n"
+"POT-Creation-Date: 2009-01-21 10:17+0100\n"
 "PO-Revision-Date: 2009-01-14 21:09+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -60,8 +60,8 @@ msgid ""
 "directories"
 msgstr ""
 "پیکربندی عمومی سرور وب. پورت در حال شنود نباید از سرویس دیگری گرفته شود. اگر "
-"شما به کاربران اجازه انتشار صفحات وب مخصوص به خودشان را داده باشید، صفحات "
-"از پوشه {dirName} از پوشه خانه سامبای آنها بارگذاری خواهد شد"
+"شما به کاربران اجازه انتشار صفحات وب مخصوص به خودشان را داده باشید، صفحات از "
+"پوشه {dirName} از پوشه خانه سامبای آنها بارگذاری خواهد شد"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
@@ -135,9 +135,9 @@ msgid ""
 "directory"
 msgstr ""
 "میزبان‌های مجازی یک نوعی از سرویس وب در جاییکه تعدادی سرور وب بر روی یک سرور "
-"فیزیکی میزبانی شده باشند می‌باشد. نام‌های میزبان‌های متفاوت به یک سرور وب "
-"اشاره می‌کنند. ورودی DNS به طور خودکار در صورت امکان ایجاد خواهد شد. محتوا "
-"بایستی در پوشه {docRoot}/vHostName قرار گیرد"
+"فیزیکی میزبانی شده باشند می‌باشد. نام‌های میزبان‌های متفاوت به یک سرور وب اشاره "
+"می‌کنند. ورودی DNS به طور خودکار در صورت امکان ایجاد خواهد شد. محتوا بایستی "
+"در پوشه {docRoot}/vHostName قرار گیرد"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
 #: src/EBox/WebServer/Model/VHostTable.pm:237
@@ -151,18 +151,17 @@ msgstr "پروتکل انتقال فرامتن (وب)"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
-#: src/EBox/WebServer.pm:193
-#: src/EBox/WebServer.pm:217
+#: src/EBox/WebServer.pm:176
 msgid "Web"
 msgstr "وب"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
-#: src/EBox/WebServer.pm:236
+#: src/EBox/WebServer.pm:196
 msgid "Web service status"
 msgstr "وضعیت سرویس وب"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
-#: src/EBox/WebServer.pm:409
+#: src/EBox/WebServer.pm:366
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "{userDirConfFile} وجود ندارد! لطفا آنرا بازیابی نمایید"
@@ -175,18 +174,18 @@ msgstr ""
 "اگر شما این گزینه را انتخاب نمایید، هر کاربر اجازه خواهد داشت تا یک وب‌سایت "
 "در پوشه خانه اش زیر شاخه public_html داشته باشد"
 
-#: src/EBox/WebServer.pm:97
+#: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
 msgstr "تنظیم پورت در حال شنود سرور وب"
 
-#: src/EBox/WebServer.pm:102
+#: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
 msgstr "پیکربندی پوشه HTML عمومی برای هر کاربر"
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:129
 msgid "Enable apache LDAP user module"
 msgstr "فعال‌سازی ماجول کاربر LDAP آپاچی"
 
-#: src/EBox/WebServer.pm:132
+#: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"
 msgstr "دریافت پوشه‌های خانه از LDAP"

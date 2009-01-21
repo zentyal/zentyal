@@ -5,8 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:47+0000\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
+"es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-01-21 10:17+0100\n"
 "PO-Revision-Date: 2008-12-05 03:30+0000\n"
 "Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
@@ -15,57 +17,111 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
 msgstr "網頁伺服器"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:83
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr "eBox 的網頁伺服器允許您在主機上架設HTML網頁以及多個虛擬主機"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
+#: src/EBox/WebServer/Model/GeneralSettings.pm:90
+msgid "listening port"
+msgstr "監聽連接埠"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+msgid "Listening port"
+msgstr "監聽連接埠"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "啟用每個使用者 {dirName}"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
+#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+msgid "General configuration settings"
+msgstr "一般設置設定"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be got from "
+"another service. If you enable user to publish their own html pages, the "
+"pages will be loaded from {dirName} directory from their samba home "
+"directories"
+msgstr ""
+"一般網頁伺服器設置.監聽連接埠必須不能被其他服務使用.假如您啟用使用者發佈他們"
+"的自己的 html 網頁,則網頁將會從他們的 samba 家目錄的 {dirName} 目錄中讀取"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
+#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+msgid "General Web server configuration settings updated"
+msgstr "一般網頁伺服器設置設定已更新"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
 msgstr "虛擬主機名稱"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:140
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
-msgstr "虛擬主機 {vhost} 已新增.網域 {domain} 已經建立並有對應的名稱 {name} - IP 位址 {ip} "
+msgstr ""
+"虛擬主機 {vhost} 已新增.網域 {domain} 已經建立並有對應的名稱 {name} - IP 位"
+"址 {ip} "
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
-msgstr "虛擬主機 {vhost} 已新增.對應名稱 {name} - IP 位址 {ip} 已經新增到 {domain} 的網域"
+msgstr ""
+"虛擬主機 {vhost} 已新增.對應名稱 {name} - IP 位址 {ip} 已經新增到 {domain} 的"
+"網域"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr "虛擬主機 {vhost} 已新增一個別名 {alias} 到主機名稱 {hostname}"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "虛擬主機 {vhost} 已新增"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr "這裡沒有固定的外網介面來設定網頁伺服器 IP 位址"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
 msgstr "名稱"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
 msgstr "虛擬主機"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
 msgid ""
@@ -75,80 +131,57 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
-"虛擬主機是一個網頁託管服務,是把許多網頁伺服器需要的功能集中在一台實體伺服器上.不同的主機名稱將會對應到同一個網頁伺服器.有可能 DNS "
-"名稱也會自動的建立.而網頁內容必須放在 {docRoot}/vHostName 目錄下"
+"虛擬主機是一個網頁託管服務,是把許多網頁伺服器需要的功能集中在一台實體伺服器"
+"上.不同的主機名稱將會對應到同一個網頁伺服器.有可能 DNS 名稱也會自動的建立.而"
+"網頁內容必須放在 {docRoot}/vHostName 目錄下"
 
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
 msgstr "虛擬主機"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:90
-msgid "listening port"
-msgstr "監聽連接埠"
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "HyperText Transport Protocol"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
-msgid "Listening port"
-msgstr "監聽連接埠"
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
+#: src/EBox/WebServer.pm:176
+msgid "Web"
+msgstr "網頁"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
+#: src/EBox/WebServer.pm:196
+msgid "Web service status"
+msgstr "網頁伺服器狀態"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
+#: src/EBox/WebServer.pm:366
 #, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "啟用每個使用者 {dirName}"
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "此 {userDirConfFile} 已遺失!請回復"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
-msgstr "假如您勾選這個功能,每個使用者都會允許有一個網站在他們的家目錄中放置 public_html"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
-msgid "General configuration settings"
-msgstr "一般設置設定"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories"
 msgstr ""
-"一般網頁伺服器設置.監聽連接埠必須不能被其他服務使用.假如您啟用使用者發佈他們的自己的 html 網頁,則網頁將會從他們的 samba 家目錄的 "
-"{dirName} 目錄中讀取"
+"假如您勾選這個功能,每個使用者都會允許有一個網站在他們的家目錄中放置 "
+"public_html"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
-msgid "General Web server configuration settings updated"
-msgstr "一般網頁伺服器設置設定已更新"
-
-#: src/EBox/WebServer.pm:97
+#: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
 msgstr "設定網頁伺服器監聽連接埠"
 
-#: src/EBox/WebServer.pm:102
+#: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
 msgstr "設置每個使用者公用 HTML 目錄"
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:129
 msgid "Enable apache LDAP user module"
 msgstr "啟用 apache LDAP 使用者模組"
 
-#: src/EBox/WebServer.pm:132
+#: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"
 msgstr "從 LDAP 抓取家目錄"
-
-#: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
-msgid "Web"
-msgstr "網頁"
-
-#: src/EBox/WebServer.pm:236
-msgid "Web service status"
-msgstr "網頁伺服器狀態"
-
-#: src/EBox/WebServer.pm:409
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "此 {userDirConfFile} 已遺失!請回復"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "HyperText Transport Protocol"
