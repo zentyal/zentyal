@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:40+0000\n"
-"PO-Revision-Date: 2008-11-24 00:40+0000\n"
+"PO-Revision-Date: 2008-12-05 19:33+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -602,6 +602,7 @@ msgstr ""
 msgid "Main zebra configuration file"
 msgstr "Zentrale Konfigurationsdatei für zebra"
 
+# what is a dhcp hook? or what is that doing. maybe then it's possible to translate.
 #: src/EBox/OpenVPN.pm:157
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""

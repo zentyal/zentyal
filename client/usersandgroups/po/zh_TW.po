@@ -9,7 +9,7 @@ msgstr ""
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 12:05+0100\n"
-"PO-Revision-Date: 2008-12-04 06:23+0000\n"
+"PO-Revision-Date: 2008-12-09 01:28+0000\n"
 "Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -96,12 +96,12 @@ msgstr "密碼不符合"
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:65
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr "object 名稱"
+msgstr "單位名稱"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:70
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr "object 類型"
+msgstr "單位類型"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Del.pm:90
 #: src/EBox/CGI/Del.pm:90

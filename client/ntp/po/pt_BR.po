@@ -8,48 +8,48 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:39+0000\n"
-"PO-Revision-Date: 2007-04-15 19:07+0000\n"
-"Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
+"PO-Revision-Date: 2009-01-09 11:57+0000\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
-msgstr "Configurações "
+msgstr "Configurações do Fuso horário"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr "Status de sincronização externa"
+msgstr "status de sincronização externa"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
-msgstr "País"
+msgstr "país"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
-msgstr "Continente"
+msgstr "continente"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
-msgstr "Primeiro servidor ntp"
+msgstr "primeiro servidor ntp"
 
 #: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:244
 #: src/templates/servers.mas:16
 msgid "Primary server"
-msgstr "Servidor primário"
+msgstr "servidor primário"
 
 #: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:258
 #: src/templates/servers.mas:27
 msgid "Secondary server"
-msgstr "Servidor Secundário"
+msgstr "Servidor secundário"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
-msgstr "Servidor Terciário"
+msgstr "Servidor terciário"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
@@ -81,34 +81,31 @@ msgstr "Segundos"
 
 #: src/EBox/NTP.pm:71
 msgid "Remove ntp init script links"
-msgstr ""
+msgstr "Remover links dos scripts de inicialização do ntp"
 
 #: src/EBox/NTP.pm:72
 msgid "eBox will take care of starting and stopping the services."
-msgstr ""
+msgstr "o eBox cuidará de iniciar e finalizar os serviços."
 
 #: src/EBox/NTP.pm:246
-#, fuzzy
 msgid "primary server"
-msgstr "Servidor primário"
+msgstr "servidor primário"
 
 #: src/EBox/NTP.pm:251 src/EBox/NTP.pm:270
 msgid "Primary and secondary server must be different"
-msgstr "Servidor primário e secundário têm de ser diferentes"
+msgstr "Servidor primário e secundário devem ser diferentes"
 
 #: src/EBox/NTP.pm:254
-#, fuzzy
 msgid "secondary server"
-msgstr "Servidor Secundário"
+msgstr "servidor secundário"
 
 #: src/EBox/NTP.pm:267
 msgid "Primary and tertiary server must be different"
-msgstr "Servidor primário e terciário têm de ser diferentes"
+msgstr "Servidor primário e terciário devem ser diferentes"
 
 #: src/EBox/NTP.pm:273
-#, fuzzy
 msgid "tertiary server"
-msgstr "Servidor Terciário"
+msgstr "servidor terciário"
 
 #: src/EBox/NTP.pm:289
 #, perl-brace-format
@@ -134,19 +131,19 @@ msgstr "Data/Hora"
 
 #: src/EBox/NTP.pm:453 src/templates/timezone.mas:15
 msgid "Time zone"
-msgstr "Fusorário"
+msgstr "Fuso horário"
 
 #: src/templates/timezone.mas:18
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
-"Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
+"Uma mudança no fuso horário fará com que o Ebox reinicie todos os serviços"
 
 #: src/templates/timezone.mas:35 src/templates/timezone.mas:36
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
 #: src/templates/servers.mas:50 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
-msgstr "Servidores NTP"
+msgstr "Alterar"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
@@ -157,24 +154,22 @@ msgid "Enabled"
 msgstr "Habilitado"
 
 #: src/templates/servers.mas:7
-#, fuzzy
 msgid "NTP servers"
-msgstr "Servidor NTP"
+msgstr "Servidores NTP"
 
 #: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
-"Você deve se lembrar de configurar o seu fusorário para que a sincronização "
-"funcione corretamente"
+"Você deve se lembrar de configurar o seu fuso horário para que a "
+"sincronização funcione corretamente"
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted"
 msgstr ""
-"Uma Mudança na data ou hora vai fazer com que o eBox reinicie todos os "
-"serviços"
+"Uma mudança na data ou hora fará com que o eBox reinicie todos os serviços"
 
 #: src/templates/date.mas:15
 msgid "Date"

@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:34+0100\n"
-"PO-Revision-Date: 2006-11-10 10:55+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-12 13:44+0000\n"
+"Last-Translator: Ali Alawi AlTakyah <tatsoft@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 && n<=10 ? "
-"3 : n>=11 && n<=99 ? 4 : 5;\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "انشاء نسخة احتياطية"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
@@ -33,26 +33,30 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "غير قادر على انشاء النسخة الاحتياطية"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "غير قادر على اضافة البيانات الى النسخة الاحتياطية"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:219
+#: src/EBox/Backup.pm:420
+msgid "Unknown"
+msgstr "غير معروف"
+
+#: src/EBox/Backup.pm:454
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "غير قادر على استخراج الملفات للنسخة الاحتياطية المطلوبة:{files}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "غير قادر على فك النسخة الاحتياطية"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "نسخ احتياطي"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"

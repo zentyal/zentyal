@@ -5,39 +5,39 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:30+0000\n"
-"PO-Revision-Date: 2008-11-10 08:30+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-08 01:46+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr ""
+msgstr "複製 jabber ldap schema 到 /etc/ldap/schemas"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "eBox 需要這個 schema 來儲存 jabber 使用者"
 
 #: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
 msgid "To properly configure jabberd2"

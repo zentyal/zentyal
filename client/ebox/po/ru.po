@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:34+0100\n"
-"PO-Revision-Date: 2008-12-03 15:02+0000\n"
+"PO-Revision-Date: 2009-01-19 08:31+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
@@ -351,37 +351,35 @@ msgstr ""
 "остановлена"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
-#, fuzzy
 msgid "Service enabled"
-msgstr "Сервис"
+msgstr "Служба включена"
 
 #: src/EBox/Common/Model/EnableForm.pm:102
-#, fuzzy
 msgid "Service disabled"
-msgstr "Службы"
+msgstr "Служба отключена"
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "Включенная служба"
 
 #: src/EBox/Types/Select.pm:225
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Выберите значение из набора: {set}"
 
 #: src/EBox/Types/Int.pm:139
 msgid "Write down a number"
-msgstr ""
+msgstr "Напишите номер"
 
 #: src/EBox/Types/Int.pm:146
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Значение не должно быть больше {m}"
 
 #: src/EBox/Types/Int.pm:156
 #, perl-brace-format
 msgid "The value shouldn't be lesser than {m}"
-msgstr ""
+msgstr "Значение не должно быть меньше {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
@@ -390,24 +388,24 @@ msgid "Any"
 msgstr "Разное"
 
 #: src/EBox/Types/PortRange.pm:138
-#, fuzzy
 msgid "any"
-msgstr "Разное"
+msgstr "разное"
 
 #: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
+#, fuzzy
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"From\" {from} должно быть больше \"To\" {to}"
 
 #: src/EBox/Types/Password.pm:132
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr "Пароль должен содержать не менее 6 символов"
+msgstr "Длина пароля не может быть менее {minLength} символов"
 
 #: src/EBox/Types/Password.pm:142
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr "Пароль должен содержать не менее 6 символов"
+msgstr "Длина пароля не может превышать {maxLength} символов"
 
 #: src/EBox/Summary/Status.pm:44
 msgid "Restart"
@@ -415,7 +413,7 @@ msgstr "Перезапуск"
 
 #: src/EBox/Summary/Status.pm:47
 msgid "Running"
-msgstr "Работает"
+msgstr "Запущено"
 
 #: src/EBox/Summary/Status.pm:50
 msgid "Stopped"
@@ -432,25 +430,23 @@ msgstr "Отключено"
 #: src/EBox/Model/DataTable.pm:319
 #, perl-brace-format
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} в {module} модуле"
 
 #: src/EBox/Model/DataTable.pm:323
-#, fuzzy
 msgid "at"
-msgstr "Дата"
+msgstr "около"
 
 #: src/EBox/Model/DataTable.pm:544
 msgid "field"
-msgstr ""
+msgstr "поле"
 
 #: src/EBox/Model/DataTable.pm:1438
-#, fuzzy
 msgid "page"
-msgstr "Страница"
+msgstr "страница"
 
 #: src/EBox/Model/DataTable.pm:1441
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Число страниц должно быть большим или равным 0"
 
 #: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
@@ -461,41 +457,40 @@ msgstr "Действие"
 #: src/EBox/Model/DataTable.pm:2603
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Удалить {num} строк {rowName} из {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2674
-#, fuzzy
 msgid "Page size"
-msgstr "Страница"
+msgstr "Размер страницы"
 
 #: src/EBox/Model/DataTable.pm:2677
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Должно быть положительным числом или 0"
 
 #: src/EBox/Model/DataTable.pm:2858
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{row} added"
-msgstr "удалить"
+msgstr "{row} добавленно"
 
 #: src/EBox/Model/DataTable.pm:2859
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{row} deleted"
-msgstr "удалить"
+msgstr "{row} удаленно"
 
 #: src/EBox/Model/DataTable.pm:2860
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{row} updated"
-msgstr "От:"
+msgstr "{row} обновлено "
 
 #: src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} перемещено вверх"
 
 #: src/EBox/Model/DataTable.pm:2862
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} перемещено вниз"
 
 #: src/EBox/Model/DataTable.pm:4124
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
@@ -504,26 +499,30 @@ msgid "Enabled"
 msgstr "Включено"
 
 #: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr "Поле {field} не существует"
+msgstr "Предусмотренный объект с индексом {i} не существует"
 
 #: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Удаляеммые данные используются\n"
+"                    в следующих разделах:"
 
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Изменяеммые данные используются \n"
+"\t\t\tв следующих разделах:"
 
 #: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Удалить данные из {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
@@ -532,14 +531,13 @@ msgid "Change"
 msgstr "Изменить"
 
 #: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
-#, fuzzy
 msgid "Done"
-msgstr "Домен"
+msgstr "Готово"
 
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Должно быть одним из следующих значений: {values}"
 
 #: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
@@ -548,7 +546,7 @@ msgstr ""
 
 #: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Выберите одно из следующих "
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
@@ -825,77 +823,75 @@ msgstr ""
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
-msgstr ""
+msgstr "час"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-#, fuzzy
 msgid "day"
-msgstr "Разное"
+msgstr "день"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "week"
-msgstr ""
+msgstr "неделя"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "месяц"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Отчетный период"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-#, fuzzy
 msgid "Report options"
-msgstr "Описание"
+msgstr "Опции отчета"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
-msgstr ""
+msgstr "никогда не очищать"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "один час"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "двенадцать часов"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "один день"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "три дня"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "одна неделя"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "пятнадцать дней"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "тридцать дней"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "девяноста дней"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
 #: src/EBox/Logs/Model/SelectLog.pm:121
@@ -906,17 +902,15 @@ msgstr "Домен"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
-msgstr ""
+msgstr "Очистить журналы старше чем"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
-#, fuzzy
 msgid "Current configuration"
-msgstr "Сохранить настройки"
+msgstr "Текущая конфигурация"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
-#, fuzzy
 msgid "Logs configuration"
-msgstr "Сохранить настройки"
+msgstr "Журналы конфигурации"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
@@ -929,151 +923,153 @@ msgstr "Журналы"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
-msgstr ""
+msgstr "Принудительно очистить журнал"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
-#, fuzzy
 msgid "Purge"
-msgstr "Страница"
+msgstr "Очистка"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
-#, fuzzy
 msgid "Full report"
-msgstr "Отчет об ошибках"
+msgstr "Полный отчет"
 
 #: src/EBox/Logs/Model/SelectLog.pm:135
 msgid "Summarized report"
-msgstr ""
+msgstr "Суммарный отчет"
 
 #: src/EBox/Logs/Model/SelectLog.pm:146
-#, fuzzy
 msgid "Select report"
-msgstr "Отчет об ошибках"
+msgstr "Выборочный отчет"
 
 #: src/EBox/Logs/Report.pm:68
-#, fuzzy
 msgid "Day"
-msgstr "Разное"
+msgstr "День"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
-msgstr ""
+msgstr "Имя жаббер сервера"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Жаббер сервер для отправки сообщений"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-#, fuzzy
 msgid "Port"
-msgstr "порт"
+msgstr "Порт"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
 msgid "Jabber user name"
-msgstr ""
+msgstr "Имя пользователя жаббер"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Жаббер ID для отправки сообщений. Подсказка: не вводите @domain, только имя "
+"пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-#, fuzzy
 msgid "User password"
-msgstr "Установите пароль"
+msgstr "Пароль пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
 msgid "Subscribe"
-msgstr ""
+msgstr "Подписаться"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
+"Отметьте эту опцию если вы хотите, чтобы eBox создал учетную запись для "
+"пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Идентификатор администратора жаббер"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#, fuzzy
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
 "server"
 msgstr ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-#, fuzzy
 msgid "Configure Jabber dispatcher"
-msgstr "Настроить журналы"
+msgstr "Настройка диспетчера жаббер"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "Этот диспетчер отправляет события на учетную запись жаббера"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Конфигурация диспетчера жаббер обновлена"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "Должно быть по образцу 'user@domain[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:148
 msgid "Nobody"
-msgstr ""
+msgstr "Никто"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-#, fuzzy
 msgid "IP address"
-msgstr "Адрес Клиента"
+msgstr "IP адрес"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:159
 msgid "Object"
-msgstr ""
+msgstr "Объект"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:168
 msgid "Public"
-msgstr ""
+msgstr "Открытый"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:175
 msgid "Channel link"
-msgstr ""
+msgstr "Канал связи"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:182
 msgid "Allowed readers"
-msgstr ""
+msgstr "Разрешенные читатели"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Используйте данное поле для установки контроля доступа к каналу"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+#, fuzzy
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "Syndicate this RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-#, fuzzy
 msgid "Configure RSS dispatcher"
-msgstr "Настроить журналы"
+msgstr "Настроить диспетчер RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#, fuzzy
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
 msgstr ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-#, fuzzy
 msgid "RSS dispatcher configuration updated"
-msgstr "Сохранить настройки"
+msgstr "Конфигурация диспетчера RSS одновлена"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Журнал домена {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
@@ -1093,11 +1089,11 @@ msgstr ""
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "фильтр"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Минимальное свободное дисковое пространство на файловой системе"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
 msgid ""
@@ -1133,7 +1129,7 @@ msgstr ""
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:262
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
@@ -1143,23 +1139,19 @@ msgstr "Описание"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:284
-#, fuzzy
 msgid "Configuration"
-msgstr "Бэкап настроек"
+msgstr "Конфигурация"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:278
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
-#, fuzzy
 msgid "None"
-msgstr "Домен"
+msgstr "Ничего"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:287
-#, fuzzy
 msgid "Configure events"
-msgstr "Настроить журналы"
+msgstr "Настроить события"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:295
-#, fuzzy
 msgid "event"
 msgstr "Событие"
 
@@ -1175,23 +1167,20 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:272
-#, fuzzy
 msgid "Receiver"
-msgstr "Декабрь"
+msgstr "Получатель"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:327
-#, fuzzy
 msgid "Configure dispatchers"
-msgstr "Настроить журналы"
+msgstr "Настроика диспетчеров"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:336
-#, fuzzy
 msgid "dispatcher"
-msgstr "Отменить изменения"
+msgstr "диспетчер"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Включить / Выключить каждый диспетчер событий"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:525
 msgid ""
@@ -1201,14 +1190,15 @@ msgstr ""
 
 #: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:174
 #: src/EBox/Events.pm:197
-#, fuzzy
 msgid "Events"
-msgstr "Событие"
+msgstr "События"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:78
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
+"Модуль событий конфигурируется eBox, чтобы помогать информировать вас о "
+"происходящих событиях"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
@@ -1217,10 +1207,13 @@ msgstr "Нет данных об использовании {d}. Вы увере
 
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
 
 #: src/EBox/Report/DiskUsage.pm:321
 msgid "Free space"
@@ -1235,23 +1228,22 @@ msgid "port"
 msgstr "порт"
 
 #: src/EBox/Global.pm:369 src/EBox/Global.pm:390
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Saving {modName} module"
-msgstr "Бэкап режим"
+msgstr "Сохранение {modName} модуля"
 
 #: src/EBox/Global.pm:816
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "запуск {scriptName} скрипта"
 
 #: src/EBox/Events.pm:91
-#, fuzzy
 msgid "events"
-msgstr "Событие"
+msgstr "события"
 
 #: src/EBox/Events.pm:646
 msgid "Event service status"
-msgstr ""
+msgstr "Статус службы событий"
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
@@ -1259,11 +1251,11 @@ msgstr "Сохранить изменения"
 
 #: src/EBox/Logs.pm:75
 msgid "Create logs database"
-msgstr ""
+msgstr "Создание журналов базы данных"
 
 #: src/EBox/Logs.pm:76
 msgid "eBox store its logs in the database"
-msgstr ""
+msgstr "eBox сохраняет свои журналы в базе данных"
 
 #: src/EBox/Logs.pm:407
 #, perl-brace-format
@@ -1300,13 +1292,12 @@ msgid "Admin"
 msgstr "Админ"
 
 #: src/EBox/Logs.pm:724
-#, fuzzy
 msgid "Log messages"
-msgstr "Сообщение"
+msgstr "Журнал сообщений"
 
 #: src/EBox/Logs.pm:751
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "Параметр времени жизни должен быть положительным числом в часах"
 
 #: src/EBox/EventDaemon.pm:443
 #, perl-brace-format
@@ -1423,9 +1414,8 @@ msgid "Backup's archives"
 msgstr "Список архивов резервных копий"
 
 #: src/EBox/SysInfo.pm:41
-#, fuzzy
 msgid "system information"
-msgstr "Общая информация"
+msgstr "системная информация"
 
 #: src/EBox/SysInfo.pm:68
 msgid "Services"
@@ -1453,12 +1443,11 @@ msgstr "Загрузка системы"
 
 #: src/EBox/SysInfo.pm:120
 msgid "Summary"
-msgstr ""
+msgstr "Суммарный"
 
 #: src/EBox/SysInfo.pm:124
-#, fuzzy
 msgid "Module status"
-msgstr "Модуль"
+msgstr "Статус модуля"
 
 #: src/EBox/SysInfo.pm:133
 msgid "General"
@@ -1466,12 +1455,11 @@ msgstr "Общее"
 
 #: src/EBox/SysInfo.pm:136
 msgid "Disk usage Information"
-msgstr ""
+msgstr "Информация о использовании диска"
 
 #: src/EBox/SysInfo.pm:140
-#, fuzzy
 msgid "RAID Information"
-msgstr "Общая информация"
+msgstr "Информация о RAID"
 
 #: src/EBox/SysInfo.pm:149
 msgid "Halt/Reboot"
@@ -1482,22 +1470,23 @@ msgid "Password changed"
 msgstr "Пароль изменен"
 
 #: src/EBox/ProgressIndicator.pm:41
+#, fuzzy
 msgid "Total ticks"
-msgstr ""
+msgstr "Total ticks"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
-msgstr ""
+msgstr "Должно быть не 0 положительным числом"
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "Невозможно выполнить {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgstr "Индикатор прогресса с индификатором {id} не найден"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
@@ -1505,24 +1494,25 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "должно быть больше 0"
 
 #: src/EBox/ProgressIndicator.pm:147
+#, fuzzy
 msgid "Executable has not been run"
-msgstr ""
+msgstr "Выполнение не запущено"
 
 #: src/EBox/ProgressIndicator.pm:264
+#, fuzzy
 msgid "The executable has not run"
-msgstr ""
+msgstr "Выполнение не запущено"
 
 #: src/EBox/ProgressIndicator.pm:396
 msgid "The executable has already been started"
-msgstr ""
+msgstr "Выполнение уже начато"
 
 #: src/EBox/ProgressIndicator.pm:400
-#, fuzzy
 msgid "The executable has already finished"
-msgstr "eBox уже инициализирован"
+msgstr "Выполнение уже закончено"
 
 #: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
 #: src/EBox/PgDBEngine.pm:76
@@ -1613,9 +1603,8 @@ msgid "December"
 msgstr "Декабрь"
 
 #: src/templates/logs/index.mas:108
-#, fuzzy
 msgid "Refresh logs"
-msgstr "Журнал запросов"
+msgstr "Обновить журналы"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
@@ -1627,7 +1616,7 @@ msgstr "Поиск"
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
-msgstr ""
+msgstr "Записать, как событие"
 
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
@@ -1656,7 +1645,7 @@ msgstr "последняя"
 
 #: src/templates/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Предупреждение: включен Caps Lock"
 
 #: src/templates/login/index.mas:29
 msgid "Password"
@@ -1667,9 +1656,9 @@ msgid "Enter"
 msgstr "Ввести"
 
 #: src/templates/login/index.mas:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Created by {href}"
-msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
+msgstr "Создан {href}"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -1685,7 +1674,7 @@ msgstr "Выход"
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
-msgstr ""
+msgstr "Примонтирован на"
 
 #: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
@@ -1693,116 +1682,113 @@ msgid "Type"
 msgstr "Тип"
 
 #: src/templates/report/diskUsage.mas:31
-#, fuzzy
 msgid "Options"
-msgstr "Действия"
+msgstr "Опции"
 
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition properties"
-msgstr ""
+msgstr "Свойства раздела"
 
 #: src/templates/report/raid.mas:13
 msgid "No RAID devices present"
-msgstr ""
+msgstr "RAID устройства не представлены"
 
 #: src/templates/report/raid.mas:17
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
-msgstr ""
+msgstr "Существует RAID массив {a}"
 
 #: src/templates/report/raid.mas:84
 msgid "left-asymmetric"
-msgstr ""
+msgstr "лево-асимметричный "
 
 #: src/templates/report/raid.mas:85
 msgid "right-asymmetric"
-msgstr ""
+msgstr "право-асимметричный"
 
 #: src/templates/report/raid.mas:86
 msgid "left-symmetric"
-msgstr ""
+msgstr "лево-симметричный"
 
 #: src/templates/report/raid.mas:87
 msgid "right-symmetric"
-msgstr ""
+msgstr "право-симметричный"
 
 #: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
-msgstr ""
+msgstr "Активные RAID устройства"
 
 #: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
-msgstr ""
+msgstr "Необходимые активные RAID устройства"
 
 #: src/templates/report/raid.mas:134
 msgid "Size in blocks"
-msgstr ""
+msgstr "Размер блоков"
 
 #: src/templates/report/raid.mas:135
 msgid "Chunk size"
-msgstr ""
+msgstr "Размер участка памяти"
 
 #: src/templates/report/raid.mas:138
 msgid "Parity algorithm"
-msgstr ""
+msgstr "Алгоритм четности"
 
 #: src/templates/report/raid.mas:170
 msgid "Array properties"
-msgstr ""
+msgstr "Свойства массива"
 
 #: src/templates/report/raid.mas:185
 msgid "Resyncing array"
-msgstr ""
+msgstr "Ресинхронизровать массив"
 
 #: src/templates/report/raid.mas:186
 msgid "Rebuild array"
-msgstr ""
+msgstr "Перестроить массив"
 
 #: src/templates/report/raid.mas:187
 msgid "Reshape array"
-msgstr ""
+msgstr "Изменить массив"
 
 #: src/templates/report/raid.mas:195
 msgid "Operation type"
-msgstr ""
+msgstr "Тип операции"
 
 #: src/templates/report/raid.mas:197
 msgid "Percentage completed"
-msgstr ""
+msgstr "Процентов завершено"
 
 #: src/templates/report/raid.mas:199
 msgid "Estimated time left"
-msgstr ""
+msgstr "Предполагаемое время завершения"
 
 #: src/templates/report/raid.mas:201
 msgid "Operation speed"
-msgstr ""
+msgstr "Скорость операции"
 
 #: src/templates/report/raid.mas:214
-#, fuzzy
 msgid "RAID device number"
-msgstr "Декабрь"
+msgstr "Номер RAID устройства"
 
 #: src/templates/report/raid.mas:215
-#, fuzzy
 msgid "Device"
-msgstr "Сервис"
+msgstr "Устройство"
 
 #: src/templates/report/raid.mas:221
 msgid "up"
-msgstr ""
+msgstr "up"
 
 #: src/templates/report/raid.mas:222
 msgid "failure"
-msgstr ""
+msgstr "сбой"
 
 #: src/templates/report/raid.mas:251
 msgid "No unused RAID devices"
-msgstr ""
+msgstr "Нет не использующихся RAID устройств"
 
 #: src/templates/report/raid.mas:254
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "Неиспользуемые RAID массивы"
 
 #: src/templates/confirm-backup.mas:60 src/templates/dataInUse.mas:41
 msgid "Cancel"
@@ -1821,14 +1807,13 @@ msgid "Restore mode"
 msgstr "Режим восстановления"
 
 #: src/templates/moduleStatusTable.mas:59
-#, fuzzy
 msgid "Depends"
-msgstr "Событие"
+msgstr "Зависимости"
 
 #: src/templates/moduleStatusTable.mas:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure module: {module}"
-msgstr "Неизвестный режим восстановления: {mode}"
+msgstr "Настройка модуля: {module}"
 
 #: src/templates/password.mas:4
 msgid "Change password"
@@ -1851,22 +1836,20 @@ msgid "Confirm password"
 msgstr "Подтверждение пароля"
 
 #: src/templates/progress.mas:20
-#, fuzzy
 msgid "Item"
-msgstr "Система"
+msgstr "Элемент"
 
 #: src/templates/progress.mas:21
 msgid "items left"
-msgstr ""
+msgstr "элементы слева"
 
 #: src/templates/progress.mas:23
 msgid "Some error has happened in eBox: "
-msgstr ""
+msgstr "Произошли ошибки в Ebox:"
 
 #: src/templates/progress.mas:38
-#, fuzzy
 msgid "Starting..."
-msgstr "Запуск"
+msgstr "Запуск..."
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
@@ -1919,15 +1902,15 @@ msgstr "Файл бэкапа"
 
 #: src/templates/backup.mas:114
 msgid "Full"
-msgstr ""
+msgstr "Полный"
 
 #: src/templates/backup.mas:115
 msgid "Configuration only"
-msgstr ""
+msgstr "Только конфигурации"
 
 #: src/templates/backup.mas:116
 msgid "Unknown type"
-msgstr ""
+msgstr "неизвестный тип"
 
 #: src/templates/backup.mas:122
 msgid "Backups' list"
@@ -1978,7 +1961,7 @@ msgstr ""
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
-msgstr ""
+msgstr "Принять"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -1994,7 +1977,7 @@ msgstr "Загрузить файл отчета об ошибках"
 
 #: src/templates/finish.mas:82
 msgid "Warning"
-msgstr ""
+msgstr "Предупреждение"
 
 #: src/templates/finish.mas:96
 msgid ""
@@ -2048,20 +2031,20 @@ msgstr "Перезагрузить"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Вы хотите переписать эти файлы?"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "Сохранение текущего файла"
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "Изменение"
 
 #: src/templates/footer.mas:6
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ebox} created by {warp}"
-msgstr "{ebox} создан {warp} в сотрудничестве с {dbs}"
+msgstr "{ebox} создан {warp}"
 
 #, fuzzy
 #~ msgid "Event configuration"

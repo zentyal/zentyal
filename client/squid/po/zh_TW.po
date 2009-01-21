@@ -5,69 +5,69 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-04 10:53+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Object"
-msgstr ""
+msgstr "單位"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 #: src/EBox/Squid/Model/DomainFilter.pm:98
 msgid "Policy"
-msgstr ""
+msgstr "政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Configure network objects' policies"
-msgstr ""
+msgstr "設置網路單位的政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:105
 msgid "List of objects"
-msgstr ""
+msgstr "單位列表"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "object's policy"
-msgstr ""
+msgstr "單位的政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "Here you can establish a custom policy per network object"
-msgstr ""
+msgstr "這裡您可以建立每一個網路單位的自訂政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:120
 msgid "Added object's policy"
-msgstr ""
+msgstr "已新增單位政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:121
 msgid "Removed object's policy"
-msgstr ""
+msgstr "已移除單位政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:122
 msgid "Updated object's policy"
-msgstr ""
+msgstr "已更新單位政策"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
 msgid "MIME types"
-msgstr ""
+msgstr "MIME 類型"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
 msgid "Set policy for all MIME types"
-msgstr ""
+msgstr "設定政策給所有 MIME 類型"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
 msgid "elements"
-msgstr ""
+msgstr "內容"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr ""
+msgstr "允許所有 {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
 msgid "Use this field to change the value of  all the above rows at once"
@@ -75,96 +75,96 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Threshold"
-msgstr ""
+msgstr "等級"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:81
 msgid "Content filter threshold"
-msgstr ""
+msgstr "內容過濾等級"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:87
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "內容過濾等級已變更"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:102 src/EBox/Squid.pm.in:764
 msgid "Disabled"
-msgstr ""
+msgstr "停用"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:103
 msgid "Very permissive"
-msgstr ""
+msgstr "非常寬鬆"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:104
 msgid "Permissive"
-msgstr ""
+msgstr "寬鬆"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:105
 msgid "Medium"
-msgstr ""
+msgstr "普通"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:106
 msgid "Strict"
-msgstr ""
+msgstr "嚴格"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:107
 msgid "Very strict"
-msgstr ""
+msgstr "非常嚴格"
 
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:114
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "這可以指定內容過濾要怎麼樣的嚴格"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:91
 #: src/EBox/Squid/Model/DomainFilter.pm:143
 msgid "Domain"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:106
 msgid "Domains list"
-msgstr ""
+msgstr "網域列表"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:119
 msgid "internet domain"
-msgstr ""
+msgstr "網路網域"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:120
 msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
-msgstr ""
+msgstr "允許/拒絕 HTTP 流量從/到已列出網路網域."
 
 #: src/EBox/Squid/Model/DomainFilter.pm:122
 msgid "Domain added"
-msgstr ""
+msgstr "網域已新增"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:123
 msgid "Domain removed"
-msgstr ""
+msgstr "網域已移除"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:124
 msgid "Domain updated"
-msgstr ""
+msgstr "網域已更新"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:145
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "您不需要在網域前加上www"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:92
 #: src/EBox/Squid/Model/MIMEFilter.pm:196
 #: src/EBox/Squid/Model/MIMEFilter.pm:205
 #: src/EBox/Squid/Model/MIMEFilter.pm:216
 msgid "MIME Type"
-msgstr ""
+msgstr "MIME 類型"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:99
 #: src/EBox/Squid/Model/ExtensionFilter.pm:140 src/EBox/Squid.pm.in:769
 msgid "Allow"
-msgstr ""
+msgstr "允許"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:111
 msgid "Configure allowed MIME types"
-msgstr ""
+msgstr "設置已允許的 MIME 類型"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:123
 msgid "MIME type"
-msgstr ""
+msgstr "MIME 類型"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:124
 msgid ""

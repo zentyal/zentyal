@@ -5,133 +5,133 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2008-11-10 08:45+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-08 03:37+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
 #: src/EBox/Samba.pm:545
 msgid "File sharing"
-msgstr ""
+msgstr "檔案分享"
 
 #: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:756
 msgid "netbios"
-msgstr ""
+msgstr "netbios"
 
 #: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:805
 msgid "working group"
-msgstr ""
+msgstr "工作群組"
 
 #: src/EBox/CGI/SambaConf.pm:46
 msgid "working mode"
-msgstr ""
+msgstr "工作模式"
 
 #: src/EBox/CGI/SambaConf.pm:47 src/EBox/Samba.pm:774
 msgid "description"
-msgstr ""
+msgstr "說明"
 
 #: src/EBox/CGI/SambaConf.pm:48
 msgid "user quota"
-msgstr ""
+msgstr "使用者額度"
 
 #: src/EBox/CGI/SambaConf.pm:49
 msgid "roaming profiles"
-msgstr ""
+msgstr "漫遊設定檔"
 
 #: src/EBox/CGI/SambaConf.pm:53
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Netbios 和工作群組必須是不同的名稱"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
 #: src/EBox/SambaLdapUser.pm:769 src/EBox/SambaLdapUser.pm:797
 #: src/EBox/SambaLdapUser.pm:848
 msgid "group name"
-msgstr ""
+msgstr "群組名稱"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr ""
+msgstr "分享名稱"
 
 #: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
-msgstr ""
+msgstr "啟動"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
-msgstr ""
+msgstr "路徑"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:122
 msgid "Deleted Samba shares"
-msgstr ""
+msgstr "刪除 Samba 的分享"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:128
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:152
 msgid "Todo"
-msgstr ""
+msgstr "Todo"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:129
 #: src/EBox/Samba/Model/SambaShares.pm:147
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr ""
+msgstr "分享"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
-msgstr ""
+msgstr "分享名稱"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr ""
+msgstr "分享路徑"
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
 msgid "Directory under eBox"
-msgstr ""
+msgstr "在 eBox 下的目錄"
 
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
-msgstr ""
+msgstr "檔案系統路徑"
 
 #: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
-msgstr ""
+msgstr "註解"
 
 #: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
-msgstr ""
+msgstr "權限控制"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "List of samba shares"
-msgstr ""
+msgstr "網芳分享列表"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Samba shares"
-msgstr ""
+msgstr "網芳分享"
 
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
-msgstr ""
+msgstr "不允許的路徑"
 
 #: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "只能有數字字元加上 _ 是有效的路徑"
 
 #: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "目錄不是空的.您確定要移除嗎?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:276
 msgid ""
@@ -139,76 +139,78 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
+"<i>在 eBox 下的目錄</i> 會自動建立網芳分享.目錄在 /home/samba/shares "
+"<br><i>檔案系統路徑</i>將會允許您在您的檔案系統下分享已存在的路徑. "
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
-msgstr ""
+msgstr "在這您可以建立更細部的權限控制.您可以使用在已存在的目錄或是給個名稱讓 eBox 幫您建立."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
-msgstr ""
+msgstr "唯讀"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:95
 msgid "Read and write"
-msgstr ""
+msgstr "可讀寫"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:99
 msgid "Administrator"
-msgstr ""
+msgstr "管理者(Administrator)"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:120
 msgid "User/Group"
-msgstr ""
+msgstr "使用者/群組"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:125
 msgid "User"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:130
 msgid "Group"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
-msgstr ""
+msgstr "權限"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Samba share configuration"
-msgstr ""
+msgstr "網芳分享設置"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:180
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
-msgstr ""
+msgstr "注意假如您讓 <i>管理者(administrator)</i>使用特殊權限.使用者將在網芳中可以讀寫任何檔案"
 
 #: src/EBox/Samba.pm:75
 msgid "file sharing"
-msgstr ""
+msgstr "檔案分享"
 
 #: src/EBox/Samba.pm:95
 msgid "Create Samba home directory for users and groups"
-msgstr ""
+msgstr "建立使用者和群組的 Samba 家目錄"
 
 #: src/EBox/Samba.pm:96
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
-msgstr ""
+msgstr "eBox 將建立 Samba 使用者和群組的家目錄在 /home/samba."
 
 #: src/EBox/Samba.pm:101
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "新增 LDAP schemas"
 
 #: src/EBox/Samba.pm:102
 msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
-msgstr ""
+msgstr "eBox 將會新增兩個 LDAP schemas: samba.schema 和 ebox.schema."
 
 #: src/EBox/Samba.pm:107 src/EBox/Samba.pm:113
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "設定 Samba LDAP admin dn password"
 
 #: src/EBox/Samba.pm:108 src/EBox/Samba.pm:114
 msgid "eBox will configure Samba to use the LDAP admin dn password."

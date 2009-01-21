@@ -8,21 +8,21 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:23+0000\n"
-"PO-Revision-Date: 2007-05-15 13:12+0000\n"
-"Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
+"PO-Revision-Date: 2009-01-16 10:29+0000\n"
+"Last-Translator: Kerem Can Karakaş <kerem@blockdiagram.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CGI/IssueCertificate.pm:68
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 #: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
 msgid "Organization Name"
-msgstr "Organizasyon İsmi"
+msgstr "Organizasyon Adı"
 
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
@@ -31,7 +31,7 @@ msgstr "Gün azami {days} olarak ayarlandı : 2038 yılı hatası"
 
 #: src/EBox/CA.pm:347
 msgid "The remove operation cannot be finished. Reason: "
-msgstr "Kaldırma işlemi bitirilemedi. Sepep:"
+msgstr "Kaldırma işlemi aşşağıdaki nedenlere bağlı olarak bitirilemedi:"
 
 #: src/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
 msgid ""
@@ -66,12 +66,12 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
-"Sebep, {reason} uygulanabilir değil.\n"
+"{reason} uygulanabilir bir sebep değil.\n"
 "Seçenekler:"
 
 #: src/EBox/CA.pm:1102
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "Genel isim, ayrılan isim ve seri numara geçti"
+msgstr "Genel isim, ayrılan isim ve seri numarasından birisi dikkate alınmadı"
 
 #: src/EBox/CA.pm:1329
 msgid "or"

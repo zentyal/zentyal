@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2008-12-04 08:05+0000\n"
+"PO-Revision-Date: 2008-12-09 02:23+0000\n"
 "Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "來源 IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:122
 msgid "Source object"
-msgstr "來源 object"
+msgstr "來源單位"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:133
 #: src/EBox/Model/MultiGwRulesDataTable.pm:166
@@ -79,7 +79,7 @@ msgstr "目的 IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:154
 msgid "Destination object"
-msgstr "目的 object"
+msgstr "目的單位"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
@@ -92,7 +92,7 @@ msgstr "通訊閘"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
-msgstr ""
+msgstr "通訊閘到路由封包符合這個規則"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
 msgid "Multigateway rules"
@@ -184,7 +184,7 @@ msgstr "IP 或網路位址"
 
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "通訊閘使用以下的網路位址來連線"
 
 #: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:149
 msgid "Description"
@@ -287,6 +287,8 @@ msgid ""
 "towards the gateway. The correct value of these fields is critical to ensure "
 "a correct functionality of the traffic shaping module"
 msgstr ""
+"您可以新增很多您想要的通訊閘.假如您想要分開您的網路流量在多個連結時這是常用的.{br}下載跟上傳的欄位必須設定您連線的通訊閘每個速率.正確的數據是非常"
+"的重要且與流量控制模組有關"
 
 #: src/EBox/Model/GatewayTable.pm:157
 msgid "gateway"
@@ -364,246 +366,247 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"根據參數的選擇會顯示多個檢視.而主機 IP 和服務,必須符合在 /etc/services 的圖形基礎上,可能需要圖形類型.且會因流量而有所改變"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "圖形類型"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr ""
+msgstr "依來源顯示所有啟動流量"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
-msgstr ""
+msgstr "依服務顯示所有啟動流量"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "依選擇的來源顯示流量"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
-msgstr ""
+msgstr "依選擇的服務顯示流量"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr ""
+msgstr "依選擇的來源和服務顯示流量"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:117
 msgid "Service"
-msgstr ""
+msgstr "服務"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "您可以在選單中的 網路/DNS 重新檢視這個頁面"
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
-msgstr ""
+msgstr "網路介面已設置"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2533
 msgid "Network interfaces"
-msgstr ""
+msgstr "網路介面"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
-msgstr ""
+msgstr "在初始化設置之後您可以在選單中的 網路/介面 重新檢視這個頁面"
 
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNS 已設置"
 
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "通訊閘已設置"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
-msgstr ""
+msgstr "設定預設通訊閘"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "您可以在 網路/路由 選單選項中變更之後的通訊閘"
 
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr ""
+msgstr "負載平衡和多線路由規則"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
-msgstr ""
+msgstr "診斷網路"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
 msgid "Host"
-msgstr ""
+msgstr "主機"
 
 #: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2520
 msgid "host name"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "網路介面"
 
 #: src/EBox/CGI/Iface.pm:58
 msgid "method"
-msgstr ""
+msgstr "method"
 
 #: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
 msgid "netmask"
-msgstr ""
+msgstr "子網路遮罩"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
-msgstr ""
+msgstr "負載平衡"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr ""
+msgstr "虛擬介面動作"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:699 src/EBox/Network.pm:704
 #: src/EBox/Network.pm:1008 src/EBox/Network.pm:1029 src/EBox/Network.pm:2312
 #: src/EBox/Network.pm:2327 src/EBox/Network.pm:2459 src/EBox/Network.pm:2578
 #: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
-msgstr ""
+msgstr "虛擬介面名稱"
 
 #: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1201
 #: src/EBox/Network.pm:1230 src/templates/ifaces.mas:148
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN Id"
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:134
 msgid "Traffic rate monitoring"
-msgstr ""
+msgstr "流量速率監控"
 
 #: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2567
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
-msgstr ""
+msgstr "執行中"
 
 #: src/EBox/Network/Report/ByteRate.pm:756
 msgid "bytes/second"
-msgstr ""
+msgstr "位元組/秒"
 
 #: src/EBox/Network/Report/ByteRate.pm:823
 #: src/EBox/Network/Report/ByteRate.pm:929
 msgid "Traffic data for source"
-msgstr ""
+msgstr "來源的流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
 msgid "Network traffic from {src}"
-msgstr ""
+msgstr "從 {src} 網路流量"
 
 #: src/EBox/Network/Report/ByteRate.pm:877
 msgid "Traffic data not found for service"
-msgstr ""
+msgstr "沒有找到依服務的流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
 msgid "Network traffic for {service}"
-msgstr ""
+msgstr "依 {service} 的網路流量"
 
 #: src/EBox/Network/Report/ByteRate.pm:937
 msgid "Traffic data for service"
-msgstr ""
+msgstr "服務的流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
-msgstr ""
+msgstr "沒有找到依來源和服務的流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
 msgid "source {src} and service {service}"
-msgstr ""
+msgstr "來源 {src} 和服務 {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:962
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
-msgstr ""
+msgstr "從來源 {src} 和服務 {service} 的網路流量"
 
 #: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
-msgstr ""
+msgstr "所有啟用的服務"
 
 #: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
-msgstr ""
+msgstr "流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:995
 msgid "all services"
-msgstr ""
+msgstr "所有服務"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr ""
+msgstr "所有啟用的來源"
 
 #: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "Traffic data for"
-msgstr ""
+msgstr "流量資料"
 
 #: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr ""
+msgstr "所有來源"
 
 #: src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr ""
+msgstr "{src} 的總流量"
 
 #: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr ""
+msgstr "{service} 的總流量"
 
 #: src/EBox/Network/Report/ByteRate.pm:1123
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
-msgstr ""
+msgstr "{src} 到 {service} 的總流量"
 
 #: src/EBox/Network/FirstTime.pm:14
 msgid "Configure network interfaces"
-msgstr ""
+msgstr "設置網路介面"
 
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "設置名稱伺服器"
 
 #: src/EBox/Network/FirstTime.pm:16
 msgid "Configure default gateway"
-msgstr ""
+msgstr "設置預設通訊閘"
 
 #: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2267
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
-msgstr ""
+msgstr "通訊閘 {gw} 不能連線"
 
 #: src/EBox/Network.pm:84
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "新增預設路由到預設 table"
 
 #: src/EBox/Network.pm:85
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
-msgstr ""
+msgstr "多線路由能動作是需要設置的.提示這些列出來的預設路由您必須要執行:"
 
 #: src/EBox/Network.pm:91
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "啟用 eBox DHCP hook"
 
 #: src/EBox/Network.pm:92
 msgid ""

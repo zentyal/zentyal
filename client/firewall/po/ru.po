@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:25+0000\n"
-"PO-Revision-Date: 2008-12-03 15:15+0000\n"
+"PO-Revision-Date: 2008-12-05 07:43+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,10 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Только несколько соединений разрешены по умолчанию. Убедитесь, что вы "
+"добавляете правильные входящие и исходящие правила для работы вашей системы. "
+"Обычно все внешние соединения запрещены по умолчанию и только SSH и HTTPS "
+"разрешены для внутренних соединений."
 
 #: src/EBox/Firewall.pm:354
 #, perl-brace-format
@@ -185,19 +189,16 @@ msgstr "Перенаправления"
 
 #: src/EBox/Firewall.pm:936
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#, fuzzy
 msgid "Date"
-msgstr "Удалить"
+msgstr "Дата"
 
 #: src/EBox/Firewall.pm:937
-#, fuzzy
 msgid "Input interface"
-msgstr "сетевой интерфейс"
+msgstr "Входящий интерфейс"
 
 #: src/EBox/Firewall.pm:938
-#, fuzzy
 msgid "Output interface"
-msgstr "сетевой интерфейс"
+msgstr "Исходящий интерфейс"
 
 #: src/EBox/Firewall.pm:939 src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: src/templates/fwdrules.mas:161
@@ -226,114 +227,102 @@ msgid "Destination port"
 msgstr "Порт назначения"
 
 #: src/EBox/Firewall.pm:944 src/EBox/Firewall/Model/BaseRuleTable.pm:112
-#, fuzzy
 msgid "Decision"
-msgstr "Запретить действие"
+msgstr "Решение"
 
 #: src/EBox/Firewall.pm:949
 msgid "DROP"
-msgstr ""
+msgstr "ОТБРОСИТЬ"
 
 #: src/EBox/Firewall.pm:949 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
-msgstr ""
+msgstr "ЖУРНАЛ"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Отчет по трафику пакетов"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Отчет по трафику пакетов файервола"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #: src/templates/filter.mas:17
-#, fuzzy
 msgid "Filtering rules for internal networks"
 msgstr "Правила Фильтрации между внутренними сетями"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 msgid "packets dropped"
-msgstr ""
+msgstr "пакеты отброшены"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Пакеты отброшены"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Детали трафика пакетов"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "трафик"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Диаграмма пакетов трафика файервола"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-#, fuzzy
 msgid "Packet traffic"
-msgstr "Фильтрация пакетов"
+msgstr "трафик пакетов"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #: src/templates/filter.mas:25
-#, fuzzy
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr "Правила фильтрации для доступа в Интернет"
+msgstr "Правила фильтрации для трафика исходящего из eBox"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:44
-#, fuzzy
 msgid "Filtering rules from external networks to internal networks"
-msgstr "Правила Фильтрации между внутренними сетями"
+msgstr "Правила Фильтрации из внешних сетей на внутренние сети"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Filtering rules from  external networks to eBox"
-msgstr "Правила Фильтрации между внутренними сетями"
+msgstr "Правила фильтрации из  внешних сетей на eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:10
-#, fuzzy
 msgid "Filtering rules from internal networks to eBox"
-msgstr "Правила Фильтрации между внутренними сетями"
+msgstr "Правила фильтрации из внутренних сетей на eBox"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "ПРИНЯТЬ"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "ОТКЛОНИТЬ"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-#, fuzzy
 msgid "Any"
-msgstr "любой"
+msgstr "Любой"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-#, fuzzy
 msgid "Source IP"
-msgstr "Источник"
+msgstr "IP источник"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-#, fuzzy
 msgid "Source object"
-msgstr "Исходный порт"
+msgstr "Источник объект"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-#, fuzzy
 msgid "Destination IP"
-msgstr "Назначение"
+msgstr "IP назначение"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-#, fuzzy
 msgid "Destination object"
-msgstr "Порт назначения"
+msgstr "Объект назначения"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:175
 #: src/templates/objectService.mas:46
@@ -345,11 +334,12 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Если будет отмечено обратное сопоставление любая служба выбранная однажды "
+"будет соответствовать этому правилу"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-#, fuzzy
 msgid "Description"
-msgstr "Назначение"
+msgstr "Описание"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
@@ -446,7 +436,7 @@ msgstr "Исходный адрес"
 #: src/templates/fwdruleedit.mas:141 src/templates/fwdruleedit.mas:144
 #: src/templates/fwdruleedit.mas:173 src/templates/fwdruleedit.mas:176
 msgid "is not"
-msgstr ""
+msgstr "если не"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdrules.mas:82
 #: src/templates/fwdrules.mas:101 src/templates/fwdrules.mas:130
@@ -455,12 +445,12 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:145
 #: src/templates/fwdruleedit.mas:174 src/templates/fwdruleedit.mas:177
 msgid "is"
-msgstr ""
+msgstr "если"
 
 #: src/templates/fwdrules.mas:86 src/templates/fwdrules.mas:134
 #: src/templates/fwdruleedit.mas:125 src/templates/fwdruleedit.mas:183
 msgid "to"
-msgstr ""
+msgstr "к"
 
 #: src/templates/fwdrules.mas:95 src/templates/fwdruleedit.mas:135
 #: src/templates/object.mas:49
@@ -497,7 +487,7 @@ msgstr "запретить (отключено)"
 #: src/templates/fwdrules.mas:258 src/templates/fwdrules.mas:259
 #: src/templates/fwdrules.mas:313 src/templates/fwdrules.mas:314
 msgid "inverse match"
-msgstr ""
+msgstr "обратное соответствие"
 
 #: src/templates/fwdrules.mas:268 src/templates/fwdrules.mas:269
 #: src/templates/fwdrules.mas:270
@@ -508,13 +498,13 @@ msgstr "Редактировать"
 #: src/templates/fwdrules.mas:282 src/templates/object.mas:201
 #: src/templates/object.mas:202 src/templates/object.mas:203
 msgid "Up"
-msgstr ""
+msgstr "Поднять"
 
 #: src/templates/fwdrules.mas:286 src/templates/fwdrules.mas:287
 #: src/templates/fwdrules.mas:288 src/templates/object.mas:209
 #: src/templates/object.mas:210 src/templates/object.mas:211
 msgid "Down"
-msgstr ""
+msgstr "Опустить"
 
 #: src/templates/fwdrules.mas:307 src/templates/fwdrules.mas:308
 msgid "delete"
@@ -553,6 +543,8 @@ msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"Эти правила разрешают контролировать доступ с интерфейса внутренней сети  на "
+" службы eBox"
 
 #: src/templates/filter.mas:14 src/templates/filter.mas:22
 #: src/templates/filter.mas:30 src/templates/filter.mas:41
@@ -566,21 +558,26 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"Эти правила разрешают контролировать доступ с ваших внутренних сетей к "
+"Интернет и трафиком между внутренними сетями. Если вы желаете иметь доступ к "
+"службам eBox, вам необходимо использовать секцию выше."
 
 #: src/templates/filter.mas:27
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"Эти правила разрешают вам контролировать доступ из Ebox на внешние службы"
 
 #: src/templates/filter.mas:33
-#, fuzzy
 msgid "Filtering rules from external networks to eBox"
-msgstr "Правила Фильтрации между внутренними сетями"
+msgstr "Правила фильтрации из внешних сетей на eBox"
 
 #: src/templates/filter.mas:35
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Эти правила позволяют контролировать доступ из внешних сетей к службам "
+"запущенным на машине eBox"
 
 #: src/templates/filter.mas:38 src/templates/filter.mas:49
 msgid ""
@@ -588,13 +585,17 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"Имейте ввиду что добавление правил в этой секции могут поставить под угрозу "
+"вашу сеть, поскольку вы можете предоставить доступ из ненадежных сетей. "
+"Пожалуйста, не используйте это, если вы знаете, что вы делаете"
 
 #: src/templates/filter.mas:46
-#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
-msgstr "Правила Фильтрации между внутренними сетями"
+msgstr ""
+"Эти правила позволяют контролировать доступ из внешних сетей на внутренние "
+"сети"
 
 #: src/templates/object.mas:39
 msgid ""

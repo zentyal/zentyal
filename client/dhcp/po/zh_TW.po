@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2008-12-03 10:37+0000\n"
+"PO-Revision-Date: 2008-12-08 02:48+0000\n"
 "Last-Translator: akong <akong@aspa.idv.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -199,6 +199,9 @@ msgid ""
 "if installed, the eBox server may act as cache DNS server. All fields are "
 "optionals setting its value as \"None\" or leaving blank."
 msgstr ""
+"設定 \"eBox\" 的預設閘道將會設定網路介面的預設閘道.假如您設定\"名稱\",您可能要選擇一個預設閘道.而\"搜尋網域\"的值,必須要選擇一個來設置 DNS "
+"網域在 eBox 上.假如您設定 \"主要名稱伺服器\" 且 \"eBox DNS\" 也已安裝,則 eBox 伺服器可以動作並成為 cache DNS "
+"伺服器.所有的欄位都是可選擇的設定且這些值可以 \"沒有\" 或是空白."
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
@@ -358,7 +361,7 @@ msgstr "不是正確的動作: 新增, 設定和刪除才是有效的"
 
 #: src/EBox/DHCP.pm:787
 msgid "No valid action. Available ones are: add, set and del"
-msgstr "不是正確的動作. 有效的是: 新增, 設定和刪除"
+msgstr "不是正確的動作. 可以做的動作是: 新增, 設定和刪除"
 
 #: src/EBox/DHCP.pm:1024
 #, perl-brace-format
@@ -367,6 +370,7 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"您試著要新增到虛擬介面上的 IP 位址已經在介面 '{iface}' 的 DHCP 範圍 '{range}' 中.請在試著新增虛擬介面使用前移除它."
 
 #: src/EBox/DHCP.pm:1042
 #, perl-brace-format
@@ -375,73 +379,74 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"您試著要新增到虛擬介面上的 IP 位址已經在介面 '{iface}' 的 DHCP 實體位址 '{fixed}' 中.請在試著新增虛擬介面使用前移除它."
 
 #: src/EBox/DHCP.pm:1236
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/DHCP.pm:1239
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1240
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Leased"
-msgstr ""
+msgstr "租約"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Released"
-msgstr ""
+msgstr "釋出"
 
 #: src/EBox/DHCP.pm:1246
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Trivial 檔案傳輸通訊協定 (TFTP)"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "動態主機設置通訊協定 (DHCP)"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "選項"
 
 #: src/templates/options.mas:10
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
-msgstr ""
+msgstr "您可以在預設閘道的欄位上留空白然後使用 eBox 預設閘道給這個子網路"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "套用"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "子網路遮罩"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "刪除"

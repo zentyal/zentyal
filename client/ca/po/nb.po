@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.12.99"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:26+0100\n"
-"PO-Revision-Date: 2008-12-04 10:26+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-17 11:48+0000\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:44
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
@@ -28,20 +28,20 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:43
 msgid "Certification Authority Management"
-msgstr ""
+msgstr "Sertifiserings Autoritet behandling"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:109
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:84
 #: src/EBox/CGI/CreateCA.pm:109 src/EBox/CGI/IssueCertificate.pm:84
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "SA passord er IKKE like"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:119
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:92
 #: src/EBox/CGI/CreateCA.pm:119 src/EBox/CGI/IssueCertificate.pm:92
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "SA Passord bør være minst {length} karakterer"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:124
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:102
@@ -50,12 +50,12 @@ msgstr ""
 #: src/EBox/CGI/RenewCertificate.pm:89
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr ""
+msgstr "Dager til utløp ({days}) må være et positivt tall"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:135
 #: src/EBox/CGI/CreateCA.pm:135
 msgid "Problems creating Certification Authority has happened"
-msgstr ""
+msgstr "Problemer med å opprette Sertifiserings Autoritet"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:70
@@ -93,7 +93,7 @@ msgstr ""
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:127
 #: src/EBox/CGI/DownloadFiles.pm:127
 msgid "Error creating file"
-msgstr ""
+msgstr "Klarte ikke opprette fil"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:68
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:154
@@ -109,7 +109,7 @@ msgstr ""
 #: src/templates/formRenew.mas:37 src/templates/createCA.mas:7
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 msgid "Organization Name"
-msgstr ""
+msgstr "Organisasjonsnavn"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:73
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:70
@@ -120,7 +120,7 @@ msgstr ""
 #: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
 #: src/templates/index.mas:28
 msgid "Days to expire"
-msgstr ""
+msgstr "Dager til utløp"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:109
 #: src/EBox/CGI/IssueCertificate.pm:109
@@ -128,21 +128,23 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
 msgstr ""
+"Teksten inneholder ugyldige tegn. Alle aphanumeriske tegn, og disse ikke "
+"alphanumeriske tegnene: .?&+:\\@ og mellomrom er tillatt."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
 #: src/EBox/CGI/IssueCertificate.pm:128
 msgid "The certificate has been issued"
-msgstr ""
+msgstr "Sertifikatet er utgitt"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:129
 #: src/EBox/CGI/IssueCertificate.pm:129
 msgid "The new CA certificate has been issued"
-msgstr ""
+msgstr "Nytt SA sertifikat er utgitt"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:65
 #: src/EBox/CGI/RenewCertificate.pm:65
 msgid "The certificate has NOT been renewed"
-msgstr ""
+msgstr "Sertifikatet er IKKE fornyet"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:70
@@ -153,17 +155,17 @@ msgstr ""
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:136
 #: src/EBox/CGI/RenewCertificate.pm:136
 msgid "The certificate CANNOT be renewed"
-msgstr ""
+msgstr "Sertifikatet kan IKKE fornyes"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:138
 #: src/EBox/CGI/RenewCertificate.pm:138
 msgid "The certificate has been renewed"
-msgstr ""
+msgstr "Sertifikatet er fornyet"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:139
 #: src/EBox/CGI/RenewCertificate.pm:139
 msgid "The new CA certificate has been renewed"
-msgstr ""
+msgstr "Det nye SA sertifikatet er fornyet"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:64
 #: src/EBox/CGI/RevokeCertificate.pm:64

@@ -7,89 +7,89 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:39+0000\n"
-"PO-Revision-Date: 2005-11-11 13:18+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-01-13 17:45+0000\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Objects.pm:40 src/EBox/Model/MemberTable.pm:93
 #: src/EBox/Model/ObjectTable.pm:82
 msgid "Objects"
-msgstr ""
+msgstr "Objetos"
 
 #: src/EBox/Objects.pm:45
 #, perl-brace-format
 msgid "Added object {object}"
-msgstr ""
+msgstr "Objeto {object} adicionado"
 
 #: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr ""
+msgstr "Adicionado {nname} ({ip}/{mask} [{mac}]) no objeto {object}"
 
 #: src/EBox/Objects.pm:48
 #, perl-brace-format
 msgid "Removed object {object}"
-msgstr ""
+msgstr "Objeto {object} removido"
 
 #: src/EBox/Objects.pm:50
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
-msgstr ""
+msgstr "Objeto {object} removido à força"
 
 #: src/EBox/Objects.pm:52
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
-msgstr ""
+msgstr "Removido {nname} do objeto {object}"
 
 #: src/EBox/Objects.pm:270
 msgid "Object"
-msgstr ""
+msgstr "Objeto"
 
 #: src/EBox/Model/MemberTable.pm:63 src/EBox/Model/ObjectTable.pm:63
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP Address"
-msgstr ""
+msgstr "Endereço IP"
 
 #: src/EBox/Model/MemberTable.pm:76
 msgid "MAC Address"
-msgstr ""
+msgstr "Endereço MAC"
 
 #: src/EBox/Model/MemberTable.pm:87 src/EBox/Model/ObjectTable.pm:71
 msgid "Members"
-msgstr ""
+msgstr "Membros"
 
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
-msgstr ""
+msgstr "membro"
 
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Você só pode utilizar endereço MAC com hosts"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 #: src/EBox/Model/MemberTable.pm:124
 msgid "network address"
-msgstr ""
+msgstr "endereço de rede"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Object list"
-msgstr ""
+msgstr "Lista de objetos"
 
 #: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
-msgstr ""
+msgstr "objeto"
 
 #: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "O objeto esta sendo utilizado por outro módulo"
 
 #: src/EBox/Model/ObjectTable.pm:184
 msgid ""
@@ -97,3 +97,6 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Objetos são uma abstração de máquinas e endereços de rede que podem ser "
+"utilizados em outros módulos. Qualquer alteração em um objeto é "
+"automaticamente sincronizada em todos os módulos que usam-no"

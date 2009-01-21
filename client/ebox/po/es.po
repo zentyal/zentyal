@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:34+0100\n"
-"PO-Revision-Date: 2008-11-18 09:12+0000\n"
+"PO-Revision-Date: 2009-01-09 09:01+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -473,14 +473,12 @@ msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Borra {num} filas de {rowName} de {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2674
-#, fuzzy
 msgid "Page size"
-msgstr "Página"
+msgstr "Tamaño de página"
 
 #: src/EBox/Model/DataTable.pm:2677
-#, fuzzy
 msgid "Must be either a positive number or zero"
-msgstr "Debe ser un número positivo distinto de cero"
+msgstr "Debe ser un número positivo o cero"
 
 #: src/EBox/Model/DataTable.pm:2858
 #, perl-brace-format
@@ -838,35 +836,31 @@ msgstr ""
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
-#, fuzzy
 msgid "hour"
-msgstr "una hora"
+msgstr "hora"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-#, fuzzy
 msgid "day"
-msgstr "cualquiera"
+msgstr "día"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
-#, fuzzy
 msgid "week"
-msgstr "una semana"
+msgstr "semana"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "mes"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Período del informe"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-#, fuzzy
 msgid "Report options"
-msgstr "Descripción"
+msgstr "Opciones del informe"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
@@ -949,23 +943,20 @@ msgid "Purge"
 msgstr "Purgar"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
-#, fuzzy
 msgid "Full report"
-msgstr "Informe de error"
+msgstr "Informe completo"
 
 #: src/EBox/Logs/Model/SelectLog.pm:135
 msgid "Summarized report"
-msgstr ""
+msgstr "Informe resumido"
 
 #: src/EBox/Logs/Model/SelectLog.pm:146
-#, fuzzy
 msgid "Select report"
-msgstr "Informe de error"
+msgstr "Informe de selección"
 
 #: src/EBox/Logs/Report.pm:68
-#, fuzzy
 msgid "Day"
-msgstr "cualquiera"
+msgstr "Día"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
@@ -1003,6 +994,8 @@ msgstr "Subscribirse"
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
+"Tilda esta opción si quieres que eBox cree una cuenta para el usuario "
+"mostrado previamente"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
@@ -1015,6 +1008,9 @@ msgid ""
 "admin. Note that you need to register this  account manually in any jabber "
 "server"
 msgstr ""
+"ID Jabber destino de los mensajes generados por eBox, es decir, tú el "
+"administrador de eBox. Ten en cuenta que tienes que registrar esta cuenta "
+"manualmente en algún servidor Jabber."
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
@@ -1022,7 +1018,7 @@ msgstr "Configurar el emisor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "Este emisor enviará eventos a una cuenta Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
@@ -1058,7 +1054,7 @@ msgstr "Lectores permitidos"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Usa este campo para establecer el control de acceso para el canal"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
 msgid "Syndicate this RSS"
@@ -1558,9 +1554,8 @@ msgstr ""
 "Los logs de la última hora se mostrarán cuando se selecciona un componente"
 
 #: src/templates/logs/index.mas:23
-#, fuzzy
 msgid "Select available full reports"
-msgstr "Selecciona los logs disponibles"
+msgstr "Selecciona los informes completos disponibles"
 
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
@@ -1624,9 +1619,8 @@ msgid "December"
 msgstr "Diciembre"
 
 #: src/templates/logs/index.mas:108
-#, fuzzy
 msgid "Refresh logs"
-msgstr "Consulta registros"
+msgstr "Refresca los registros"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
@@ -1645,7 +1639,6 @@ msgid "No logs matching current criterion"
 msgstr "Ningún log concuerda con el criterio actual"
 
 #: src/templates/logs/index.mas:239
-#, fuzzy
 msgid "There are no logs for this domain"
 msgstr "No hay registros para este dominio"
 
@@ -1678,9 +1671,9 @@ msgid "Enter"
 msgstr "Entrar"
 
 #: src/templates/login/index.mas:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Created by {href}"
-msgstr "{ebox} creado por {warp}"
+msgstr "Creado por {href}"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -1833,7 +1826,7 @@ msgid "Depends"
 msgstr "Depende"
 
 #: src/templates/moduleStatusTable.mas:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Configurar módulo: {module}"
 

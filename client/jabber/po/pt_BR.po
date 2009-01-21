@@ -7,120 +7,122 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:30+0000\n"
-"PO-Revision-Date: 2006-11-23 16:53+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-01-13 20:15+0000\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "usuário"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "status do módulo"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
 msgid "domain"
-msgstr ""
+msgstr "domínio"
 
 #: src/EBox/Jabber.pm:71
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr ""
+msgstr "Copie o esquema ldap do jabber para /etc/ldap/schemas"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "o eBox irá requerer o esquema para armazenar os usuários jabber"
 
 #: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "Para configurar corretamente o jabberd2"
 
 #: src/EBox/Jabber.pm:98
 msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
+msgstr "Para adicionar os esquemas LDAP utilizados pelo eBox jabber"
 
 #: src/EBox/Jabber.pm:356
 msgid "Jabber Service"
-msgstr ""
+msgstr "Serviço Jabber"
 
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "Entre com usuário e senha para se registrar neste servidor."
 
 #: src/templates/index.mas:16
 msgid "General Settings"
-msgstr ""
+msgstr "Preferências Gerais"
 
 #: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"O domínio deve estar disponível na rede. Senão, você não poderá utilizar "
+"este serviço. Isso vale para conexões internas e externas."
 
 #: src/templates/index.mas:24
 msgid "Domain name"
-msgstr ""
+msgstr "Domínio"
 
 #: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "Conectar na rede global do Jabber"
 
 #: src/templates/index.mas:44
 msgid "SSL Support"
-msgstr ""
+msgstr "Suporte SSL"
 
 #: src/templates/index.mas:49 src/templates/index.mas:53
 #: src/templates/index.mas:57
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: src/templates/index.mas:50 src/templates/index.mas:54
 #: src/templates/index.mas:58
 msgid "Optional"
-msgstr ""
+msgstr "Opcional"
 
 #: src/templates/index.mas:51 src/templates/index.mas:55
 #: src/templates/index.mas:59
 msgid "Required"
-msgstr ""
+msgstr "Requerido"
 
 #: src/templates/index.mas:68 src/templates/index.mas:69
 msgid "Apply Changes"
-msgstr ""
+msgstr "Aplicar Alterações"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Conta Jabber"
 
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "A senha para o serviço do Jabber é a senha do usuário"
 
 #: src/templates/jabber.mas:18
 msgid "User account"
-msgstr ""
+msgstr "Conta do usuário"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
-msgstr ""
+msgstr "Desabilitado"
 
 #: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitado"
 
 #: src/templates/jabber.mas:34
 msgid "Administration rights"
-msgstr ""
+msgstr "Direitos administrativos"
 
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
-msgstr ""
+msgstr "Alterar"

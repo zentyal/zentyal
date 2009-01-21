@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:47+0000\n"
-"PO-Revision-Date: 2008-12-03 08:34+0000\n"
+"PO-Revision-Date: 2008-12-05 06:42+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +31,8 @@ msgid "Add iptables rules to mangle table"
 msgstr "Добавить правило iptables в таблицу mangle"
 
 #: src/EBox/TrafficShaping.pm:134
-#, fuzzy
 msgid "To mark packets with different priorities and rates"
-msgstr "Чтобы отметить пакеты с различным приоритетом и ценной(весом) "
+msgstr "Чтобы отметить пакеты с различным приоритетом и полосой"
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
@@ -71,6 +70,8 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"Интерфейс {iface} должен иметь максимальную норму пропускной способности для "
+"управления трафиком"
 
 #: src/EBox/TrafficShaping.pm:1546
 msgid "Protocol"
@@ -83,12 +84,12 @@ msgstr "Порт"
 #: src/EBox/TrafficShaping.pm:1548
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Гарантируемая полоса"
 
 #: src/EBox/TrafficShaping.pm:1549
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
 msgid "Limited Rate"
-msgstr ""
+msgstr "Ограниченная полоса"
 
 #: src/EBox/TrafficShaping.pm:1550
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
@@ -128,30 +129,30 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "Выберите интерфейс для управления "
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
 msgid "Change or remove some rules on {contextName}"
-msgstr ""
+msgstr "Изменить или удалить некоторые правила касающиеся {contextName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:270
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (внутренний интерфейс)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:273
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (внешний интерфрейс)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:300
 msgid "Guaranteed rate"
-msgstr ""
+msgstr "Гарантируемая полоса"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:305
 msgid "Limited rate"
-msgstr ""
+msgstr "Ограниченная полоса"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:316
 #, perl-brace-format
@@ -159,6 +160,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Объект {object} не имеет членов. Пожалуйста добавьте хотя-бы одного, для "
+"добавления правил к объекту."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:343
 msgid "If service is any, some source ordestination should be provided"
@@ -219,6 +222,8 @@ msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
+"Замечание,  сумма всех полос не должна превышать полосу пропускания. 0 "
+"неограниченная норма."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -273,7 +278,7 @@ msgstr ""
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr ""
+msgstr "Гарантирован полоса превышает допустимую полоса: {rate} кбит/сек"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -281,6 +286,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"Гарантированная полоса должна быть в интервале: ( {minRate}, {maxRate} ) "
+"кбит/сек"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:422
@@ -288,6 +295,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"Ограничительная полоса {lR} кбит/сек должна быть выше гарантированной полосы "
+"{gR} кбит/сек"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
@@ -296,11 +305,14 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
+"Ограничительная полоса {lR} кбит/сек дожна быть ниже {maxLR}kbit/s или вам "
+"необходимо увеличить максимальную входящий трафик на шлюзе связанном с этим "
+"внешним интерфейсом"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "Гарантированная полоса превысила возможную полосу: {rate}"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
@@ -311,7 +323,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Список идентификаторов класса"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"

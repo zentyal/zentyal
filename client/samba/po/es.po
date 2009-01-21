@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2006-10-25 13:00+0200\n"
-"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"PO-Revision-Date: 2009-01-19 17:39+0000\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:536
 #: src/EBox/Samba.pm:545
@@ -48,7 +48,7 @@ msgstr "cuota de usuario"
 
 #: src/EBox/CGI/SambaConf.pm:49
 msgid "roaming profiles"
-msgstr ""
+msgstr "perfiles móviles"
 
 #: src/EBox/CGI/SambaConf.pm:53
 msgid "Netbios and workgroup must have different names"
@@ -78,7 +78,7 @@ msgstr "activo"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
-msgstr ""
+msgstr "ruta"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:122
 msgid "Deleted Samba shares"
@@ -93,53 +93,51 @@ msgstr ""
 #: src/EBox/Samba/Model/SambaShares.pm:147
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr ""
+msgstr "recurso compartido"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
-#, fuzzy
 msgid "Share name"
-msgstr "nombre del recurso compartido"
+msgstr "Nombre del recurso compartido"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr ""
+msgstr "Ruta del recurso compartido"
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
-#, fuzzy
 msgid "Directory under eBox"
-msgstr "Nombre del directorio"
+msgstr "Directorio bajo eBox"
 
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
-msgstr ""
+msgstr "Ruta del sistema de ficheros"
 
 #: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
-msgstr ""
+msgstr "Comentario"
 
 #: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
-msgstr ""
+msgstr "Control de acceso"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "List of samba shares"
-msgstr ""
+msgstr "Lista de recursos compartido samba"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Samba shares"
-msgstr ""
+msgstr "Recursos compartidos Samba"
 
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
-msgstr ""
+msgstr "Ruta no permitida"
 
 #: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Sólo se permiten caracteres alfanúmericos y _ para una ruta"
 
 #: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "El directorio no está vacío. ¿Estás seguro que quieres borrarlo?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:276
 msgid ""

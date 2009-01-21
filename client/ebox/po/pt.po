@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:34+0100\n"
-"PO-Revision-Date: 2007-06-06 09:37+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2008-12-23 17:41+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
@@ -91,7 +92,7 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr "Espaço livre do disco"
+msgstr "Espaço livre em disco"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 #, fuzzy
@@ -334,7 +335,7 @@ msgstr "Notificar quando um logger ({loggers}) registou qualquer coisa"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Os seguintes módulos não estão a correr: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -342,7 +343,7 @@ msgstr "Serviço"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Verifique se há algum serviço eBox que não está a correr quando devia"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -403,12 +404,12 @@ msgstr "\"From\" {from} deve ser maior do que \"To\" {to}"
 #: src/EBox/Types/Password.pm:132
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr "A palavra-pass deve ter pelo menos {minLength} caracteres"
+msgstr "A palavra-passe deve ter pelo menos {minLength} caracteres"
 
 #: src/EBox/Types/Password.pm:142
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr "A palavra-pass deve ter no máximo {maxLength} caracteres"
+msgstr "A palavra-passe deve ter no máximo {maxLength} caracteres"
 
 #: src/EBox/Summary/Status.pm:44
 msgid "Restart"
@@ -723,8 +724,8 @@ msgid ""
 "There is a Web service script running. Please, wait patiently until it is "
 "done"
 msgstr ""
-"Está uma script de um serviço web a correr. Por favor, espere até estar "
-"comcluído"
+"Está a correr um script de um serviço web . Por favor, espere até estar "
+"concluído"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
@@ -748,35 +749,31 @@ msgstr "Utilização do disco"
 
 #: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID report"
-msgstr "RAID report "
+msgstr "relatório RAID"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Guardar configuração"
 
 #: src/EBox/CGI/Finish.pm:76
-#, fuzzy
 msgid "Saving changes"
 msgstr "Guardar alterações"
 
 #: src/EBox/CGI/Finish.pm:77
-#, fuzzy
 msgid "Saving changes in modules"
-msgstr "Criar backup dos módulos"
+msgstr "Guardar alterações dos módulos"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
 msgid "Current operation"
 msgstr "Operação actual"
 
 #: src/EBox/CGI/Finish.pm:79
-#, fuzzy
 msgid "operations performed"
-msgstr "Velocidade da operação"
+msgstr "operações efectuadas"
 
 #: src/EBox/CGI/Finish.pm:80
-#, fuzzy
 msgid "Changes saved"
-msgstr "Mudar"
+msgstr "Alterações guardadas"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -820,7 +817,7 @@ msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Um erro interno ocorreu. Isto é devido provavelmente a um erro, pode "
+"Ocorreu um erro interno. Isto é provavelmente devido a um erro, pode "
 "encontrar mais informações nos logs."
 
 #: src/EBox/CGI/ClientRawBase.pm:201
@@ -828,45 +825,42 @@ msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"Um erro interno ocorreu relacionado com uma template. Isto é devido "
+"Ocorreu um erro interno relacionado com uma template. Isto é devido "
 "provavelmente a um erro, pode encontrar mais informações nos logs."
 
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
-#, fuzzy
 msgid "hour"
-msgstr "uma hora"
+msgstr "hora"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-#, fuzzy
 msgid "day"
-msgstr "qualquer"
+msgstr "dia"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
-#, fuzzy
 msgid "week"
-msgstr "uma semana"
+msgstr "semana"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "mês"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Periodo de tempo do relatório"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 #, fuzzy
 msgid "Report options"
-msgstr "Outras opções"
+msgstr "Opções do relatório"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
-msgstr "never purge"
+msgstr "nunca limpar"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:126
@@ -922,16 +916,16 @@ msgstr "Eliminar logs mais antigos que"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
 #, fuzzy
 msgid "Current configuration"
-msgstr "Configurar logs"
+msgstr "Configuração actual"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
 #, fuzzy
 msgid "Logs configuration"
-msgstr "Guardar configuração"
+msgstr "Configuração dos logs"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
-msgstr "Activar/desactivar logs per-module"
+msgstr "Activar/desactivar modularmente os logs"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355
 #: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:59
@@ -940,16 +934,15 @@ msgstr "logs"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
-msgstr "Forçar limpar logs"
+msgstr "Forçar limpeza dos logs"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
 msgstr "Limpar"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
-#, fuzzy
 msgid "Full report"
-msgstr "Relatório de erros"
+msgstr "Relatório completo"
 
 #: src/EBox/Logs/Model/SelectLog.pm:135
 msgid "Summarized report"

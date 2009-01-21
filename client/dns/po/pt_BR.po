@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:26+0100\n"
-"PO-Revision-Date: 2006-10-18 19:03-0200\n"
-"Last-Translator: junior\n"
+"PO-Revision-Date: 2009-01-20 17:00+0000\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:79
 #: src/EBox/Model/AliasTable.pm:79
@@ -22,18 +22,20 @@ msgstr ""
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
+"O alias não pode ter o nome \"{ns}\" do servidor de nomes. Utilize um nome de "
+"máquina no lugar"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:92
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "Já existe uma máquina com o nome \"{name}\" no domínio"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:100
 #: src/EBox/Model/AliasTable.pm:100
 #, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "Já existe um alias com o nome \"{name}\" no domínio"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:126
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:136
@@ -45,17 +47,17 @@ msgstr ""
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:85
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:143
 #: src/EBox/Model/AliasTable.pm:143
 msgid "alias"
-msgstr ""
+msgstr "alias"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:66
 #: src/EBox/Model/DomainTable.pm:66
 msgid "Domain"
-msgstr ""
+msgstr "Domínio"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:74
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:184
@@ -63,30 +65,30 @@ msgstr ""
 #: src/EBox/Model/HostnameTable.pm:184 src/EBox/Model/HostnameTable.pm:190
 #: src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
-msgstr ""
+msgstr "Nome de Máquinas"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:83
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Servidores de Email MX"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:91
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:165
 #: src/EBox/Model/HostnameTable.pm:165 src/EBox/Model/DomainTable.pm:91
 msgid "IP Address"
-msgstr ""
+msgstr "Endereços IPs"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:101
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:107
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 msgid "Domains"
-msgstr ""
+msgstr "Domínios"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:108
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:345
 #: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
 msgid "domain"
-msgstr ""
+msgstr "domínio"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:133
 #: src/EBox/Model/HostnameTable.pm:133
@@ -95,16 +97,17 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
+"Já existe um alias com o nome \"{name}\" para \"{hostname}\" no mesmo domínio"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:157
 #: src/EBox/Model/HostnameTable.pm:157
 msgid "Hostname"
-msgstr ""
+msgstr "Máquina"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:191
 #: src/EBox/Model/HostnameTable.pm:191
 msgid "hostname"
-msgstr ""
+msgstr "máquina"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:75
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:833
@@ -112,55 +115,56 @@ msgstr ""
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:833
 #: src/EBox/DNS.pm.in:861
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:77
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
+"O servidor de DNS permite você resolver nomes para seus próprios domínios."
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:84
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Serviço ligado"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:86
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Serviço desligado"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:86
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Número prioritário inválido. Faixa permitida: ({min}, {max})"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:110
 #: src/EBox/Model/MailExchanger.pm:110
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:20
 #: src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "Nome de máquina"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:117
 #: src/EBox/Model/MailExchanger.pm:117
 msgid "Owner domain"
-msgstr ""
+msgstr "Domínio próprios"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:125
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "Personalizar"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:133
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "Prioridade"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:142
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Servidores de email"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:148
 #: src/EBox/Model/MailExchanger.pm:148
@@ -171,19 +175,23 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"O menor número preferencial tem a maior prioridade  e é o primeiro servidor "
+"a ser tentado quando um cliente remoto (tipicamente outro servidor de email) "
+"faz uma pesquisa MX para o nome de domínio. Intervalo permitido para "
+"preferecia = ({min}, {max})"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:154
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "Registro de servidor de email"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:53 src/EBox/DNS.pm.in:53
 msgid "Domain Name System"
-msgstr ""
+msgstr "Domain Name System"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:90 src/EBox/DNS.pm.in:90
 msgid "DNS Server"
-msgstr ""
+msgstr "Servidor DNS"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:648 src/EBox/DNS.pm.in:648
 #, perl-brace-format

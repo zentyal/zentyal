@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:39+0000\n"
-"PO-Revision-Date: 2008-11-05 08:33+0000\n"
+"PO-Revision-Date: 2008-12-05 19:34+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -544,6 +544,7 @@ msgstr ""
 "Dies wird für eine Multigateway-Konfiguration benötigt. Beachten Sie, dass "
 "Sie zum Auflisten der Standard-Routen folgendes ausführen müssen:  "
 
+# what is a dhcp hook? or what is that doing. maybe then it's possible to translate.
 #: src/EBox/Network.pm:91
 msgid "Enable eBox DHCP hook"
 msgstr ""

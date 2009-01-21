@@ -5,18 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.12.100"
+"Project-Id-Version: ebox-dhcp 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:30+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-01-15 02:49+0330\n"
+"Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/LeaseTimes.pm:113
+#: src/EBox/Model/Options.pm:119
 #: src/EBox/Model/FixedAddressTable.pm:94
 #: src/EBox/Model/ThinClientOptions.pm:118
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
@@ -24,77 +26,87 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "رابط {iface}"
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "{from} - {to} یک بازه معتبر نیست"
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "بازه {from}-{to} در شبکه {net} نیست"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
+"بازه {newFrom}-{newTo} با بازه '{range}': {oldFrom}-{oldTo} هم‌پوشانی دارد"
 
 #: src/EBox/Model/RangeTable.pm:180
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+#: src/EBox/Model/RangeTable.pm:211
+#: src/EBox/Model/FixedAddressTable.pm:209
+#: src/EBox/CGI/AddRange.pm:43
+#: src/EBox/CGI/AddFixed.pm:45
+#: src/templates/fixed.mas:8
+#: src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
-#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
+#: src/EBox/Model/RangeTable.pm:217
+#: src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "از"
 
-#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
+#: src/EBox/Model/RangeTable.pm:223
+#: src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "به"
 
-#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
+#: src/EBox/Model/RangeTable.pm:231
+#: src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "بازه‌ها"
 
 #: src/EBox/Model/RangeTable.pm:238
 msgid "range"
-msgstr ""
+msgstr "بازه"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "نشانی آی‌پی رابط"
 
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+#: src/EBox/Model/RangeInfo.pm:147
+#: src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "زیرشبکه"
 
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+#: src/EBox/Model/RangeInfo.pm:151
+#: src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "بازه موجود"
 
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+#: src/EBox/Model/RangeInfo.pm:157
+#: src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "بازه‌های DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "زمان اجاره پیش‌فرض بایستی از ۰ ثانیه بیشتر باشد"
 
 #: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
@@ -103,7 +115,7 @@ msgstr ""
 
 #: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "بیشینه زمان اجاره بایستی از ۰ ثانیه بیشتر باشد"
 
 #: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
@@ -112,19 +124,20 @@ msgstr ""
 
 #: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
-msgstr ""
+msgstr "زمان اجاره پیش‌فرض"
 
-#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
+#: src/EBox/Model/LeaseTimes.pm:204
+#: src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
-msgstr ""
+msgstr "ثانیه"
 
 #: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
-msgstr ""
+msgstr "بیشترین زمان اجاره"
 
 #: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
-msgstr ""
+msgstr "زمان‌های اجاره"
 
 #: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
@@ -134,61 +147,69 @@ msgstr ""
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway} در شبکه فعلی نیست"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
+#: src/EBox/Model/Options.pm:315
+#: src/EBox/Model/Options.pm:343
 msgid "Custom"
-msgstr ""
+msgstr "سفارشی"
 
 #: src/EBox/Model/Options.pm:323
 msgid "eBox's domain"
-msgstr ""
+msgstr "دامنه ای‌باکس"
 
 #: src/EBox/Model/Options.pm:331
 msgid "local eBox DNS"
-msgstr ""
+msgstr "DNS محلی ای‌باکس"
 
-#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
-#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:217
+#: src/EBox/Model/Options.pm:338
+#: src/EBox/Model/Options.pm:349
+#: src/EBox/Model/Options.pm:372
+#: src/EBox/Model/ThinClientOptions.pm:217
 msgid "None"
-msgstr ""
+msgstr "هیچ‌کدام"
 
-#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:356
+#: src/templates/options.mas:18
 msgid "Default gateway"
-msgstr ""
+msgstr "گذرگاه پیش‌فرض"
 
-#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:220
+#: src/EBox/Model/Options.pm:362
+#: src/EBox/Model/ThinClientOptions.pm:220
 msgid "eBox"
-msgstr ""
+msgstr "ای‌باکس"
 
 #: src/EBox/Model/Options.pm:366
 msgid "Custom IP address"
-msgstr ""
+msgstr "نشانی آی‌پی سفارشی"
 
 #: src/EBox/Model/Options.pm:376
 msgid "Configured ones"
-msgstr ""
+msgstr "پیکربندی‌ شده‌ها"
 
-#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:385
+#: src/templates/options.mas:29
 msgid "Search domain"
-msgstr ""
+msgstr "جستجوی دامنه"
 
-#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:391
+#: src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "سرور نام اولیه"
 
-#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:397
+#: src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "سرور نام ثانویه"
 
 #: src/EBox/Model/Options.pm:405
 msgid "Common options"
-msgstr ""
+msgstr "گزینه‌های مشترک"
 
 #: src/EBox/Model/Options.pm:410
 msgid ""
@@ -203,7 +224,7 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "نشانی آی‌پی {ip} در شبکه {net} نیست"
 
 #: src/EBox/Model/FixedAddressTable.pm:131
 #, perl-brace-format
@@ -218,15 +239,15 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:159
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr ""
+msgstr "{name} نمی‌تواند حاوی کاراکترهای فاصله باشد"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
-msgstr ""
+msgstr "به روزرسانی"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
-msgstr ""
+msgstr "افزودن"
 
 #: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
@@ -235,28 +256,32 @@ msgid ""
 "other fixed address table"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1238 src/templates/fixed.mas:9
+#: src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/DHCP.pm:1238
+#: src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "نشانی MAC"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:223 src/EBox/CGI/AddFixed.pm:44
+#: src/EBox/Model/ThinClientOptions.pm:223
+#: src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "نشانی آی‌پی"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:231
+#: src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "نشانی‌های ثابت"
 
 #: src/EBox/Model/FixedAddressTable.pm:238
 msgid "fixed address"
-msgstr ""
+msgstr "نشانی ثابت"
 
 #: src/EBox/Model/ThinClientOptions.pm:137
 msgid ""
@@ -273,19 +298,19 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:213
 msgid "Next server"
-msgstr ""
+msgstr "سرور بعدی"
 
 #: src/EBox/Model/ThinClientOptions.pm:227
 msgid "name"
-msgstr ""
+msgstr "نام"
 
 #: src/EBox/Model/ThinClientOptions.pm:233
 msgid "File name"
-msgstr ""
+msgstr "نام فایل"
 
 #: src/EBox/Model/ThinClientOptions.pm:244
 msgid "Thin client"
-msgstr ""
+msgstr "کلاینت سبک"
 
 #: src/EBox/Model/ThinClientOptions.pm:249
 #, perl-brace-format
@@ -294,22 +319,29 @@ msgid ""
 "all the files you require under {path} directory"
 msgstr ""
 
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:497
-#: src/EBox/DHCP.pm:533 src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:681
-#: src/EBox/DHCP.pm:735 src/EBox/DHCP.pm:795 src/EBox/DHCP.pm:851
+#: src/EBox/CGI/AddRange.pm:39
+#: src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39
+#: src/EBox/DHCP.pm:497
+#: src/EBox/DHCP.pm:533
+#: src/EBox/DHCP.pm:583
+#: src/EBox/DHCP.pm:681
+#: src/EBox/DHCP.pm:735
+#: src/EBox/DHCP.pm:795
+#: src/EBox/DHCP.pm:851
 #: src/EBox/DHCP.pm:1237
 msgid "Interface"
-msgstr ""
+msgstr "رابط"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "حالت ماجول"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "حالت ماجول"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -327,15 +359,15 @@ msgstr ""
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr ""
+msgstr "گزینه‌های پیشرفته"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "انتخاب یک رابط استاتیک برای پیکربندی:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
-msgstr ""
+msgstr "پیکربندی سرویس"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid ""
@@ -343,11 +375,15 @@ msgid ""
 "least a range or a fixed address."
 msgstr ""
 
-#: src/EBox/DHCP.pm:503 src/EBox/DHCP.pm:539 src/EBox/DHCP.pm:589
-#: src/EBox/DHCP.pm:687 src/EBox/DHCP.pm:801 src/EBox/DHCP.pm:857
+#: src/EBox/DHCP.pm:503
+#: src/EBox/DHCP.pm:539
+#: src/EBox/DHCP.pm:589
+#: src/EBox/DHCP.pm:687
+#: src/EBox/DHCP.pm:801
+#: src/EBox/DHCP.pm:857
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} استاتیک نیست"
 
 #: src/EBox/DHCP.pm:673
 msgid "Not a valid action: add, set and del are available"
@@ -375,39 +411,39 @@ msgstr ""
 
 #: src/EBox/DHCP.pm:1236
 msgid "Date"
-msgstr ""
+msgstr "تاریخ"
 
 #: src/EBox/DHCP.pm:1239
 msgid "IP"
-msgstr ""
+msgstr "آی‌پی"
 
 #: src/EBox/DHCP.pm:1240
 msgid "Event"
-msgstr ""
+msgstr "رویداد"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Leased"
-msgstr ""
+msgstr "اجاره"
 
 #: src/EBox/DHCP.pm:1243
 msgid "Released"
-msgstr ""
+msgstr "منتشرشده"
 
 #: src/EBox/DHCP.pm:1246
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "پروتکل انتقال فایل ناچیز"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "پروتکل پیکربندی میزبان دینامیک"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "گزینه‌ها"
 
 #: src/templates/options.mas:10
 msgid ""
@@ -417,28 +453,34 @@ msgstr ""
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "اعمال"
 
-#: src/templates/fixed.mas:11 src/templates/ranges.mas:56
+#: src/templates/fixed.mas:11
+#: src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "عمل"
 
-#: src/templates/fixed.mas:34 src/templates/fixed.mas:37
-#: src/templates/fixed.mas:38 src/templates/ranges.mas:74
-#: src/templates/ranges.mas:75 src/templates/ranges.mas:76
+#: src/templates/fixed.mas:34
+#: src/templates/fixed.mas:37
+#: src/templates/fixed.mas:38
+#: src/templates/ranges.mas:74
+#: src/templates/ranges.mas:75
+#: src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "افزودن"
 
-#: src/templates/fixed.mas:51 src/templates/fixed.mas:53
+#: src/templates/fixed.mas:51
+#: src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "حذف"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "ماسک زیرشبکه"
 
-#: src/templates/ranges.mas:91 src/templates/ranges.mas:92
+#: src/templates/ranges.mas:91
+#: src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "حذف"

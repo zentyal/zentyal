@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:45+0000\n"
-"PO-Revision-Date: 2008-12-03 11:41+0000\n"
+"PO-Revision-Date: 2008-12-19 15:43+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "имя группы"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr "имя ресурса"
+msgstr "имя общего ресурса"
 
 #: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
@@ -91,15 +91,15 @@ msgstr "Todo"
 #: src/EBox/Samba/Model/SambaShares.pm:147
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr "ресурс"
+msgstr "общий ресурс"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
-msgstr "Имя ресурса"
+msgstr "Имя общего ресурса"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr "Путь ресурса"
+msgstr "Путь к общему ресурсу   "
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
 msgid "Directory under eBox"
@@ -143,9 +143,9 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
-"<i>Каталог для eBox</i> автоматически создает каталог ресурсав "
+"<i>Каталог для eBox</i> автоматически создает каталог ресурса в "
 "/home/samba/shares <br><i>Путь в фаловой системе</i> разрешает создавать "
-"ресурсы из каталогов существующих в файловой системе. "
+"ресурсы из каталогов существующих в файловой системе.  "
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
@@ -197,7 +197,7 @@ msgstr ""
 
 #: src/EBox/Samba.pm:75
 msgid "file sharing"
-msgstr "файловый ресурс"
+msgstr "расшаривание"
 
 #: src/EBox/Samba.pm:95
 msgid "Create Samba home directory for users and groups"

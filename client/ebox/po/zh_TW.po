@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-12-04 10:34+0100\n"
-"PO-Revision-Date: 2008-12-04 01:08+0000\n"
-"Last-Translator: akong <akong@aspa.idv.tw>\n"
+"PO-Revision-Date: 2008-12-11 06:34+0000\n"
+"Last-Translator: Chao-Hsiung Liao <pesder@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -422,255 +422,268 @@ msgstr "在"
 
 #: src/EBox/Model/DataTable.pm:544
 msgid "field"
-msgstr ""
+msgstr "欄位"
 
 #: src/EBox/Model/DataTable.pm:1438
 msgid "page"
-msgstr ""
+msgstr "頁"
 
 #: src/EBox/Model/DataTable.pm:1441
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "頁必須為大於或等於 0 的數字"
 
 #: src/EBox/Model/DataTable.pm:1952 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:623
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: src/EBox/Model/DataTable.pm:2603
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "從 {model}{br} 移除 {num} 行 {rowName} "
 
 #: src/EBox/Model/DataTable.pm:2674
 msgid "Page size"
-msgstr ""
+msgstr "頁面大小"
 
 #: src/EBox/Model/DataTable.pm:2677
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "必須為正數或 0"
 
 #: src/EBox/Model/DataTable.pm:2858
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} 已新增"
 
 #: src/EBox/Model/DataTable.pm:2859
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} 已刪除"
 
 #: src/EBox/Model/DataTable.pm:2860
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} 已更新"
 
 #: src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} 已往上移"
 
 #: src/EBox/Model/DataTable.pm:2862
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} 已往下移"
 
 #: src/EBox/Model/DataTable.pm:4124
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:322
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:310
 msgid "Enabled"
-msgstr ""
+msgstr "已啟用"
 
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "索引 {i} 所提供單位不存在"
 
 #: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"您要移除的資料已經使用在\n"
+"                    以下的功能:"
 
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"您要修改的資料已經使用在\n"
+"\t\t\t以下的功能:"
 
 #: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "移除資料從 {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "改變"
 
 #: src/EBox/Model/DataForm.pm:687 src/templates/progress.mas:22
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "應該為下列其中之一的數值： {values}"
 
 #: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgstr "允許的動作是: {view} 和 {cView}"
 
 #: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "選擇下列其中之一："
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
+#: src/templates/moduleStatusTable.mas:60
+msgid "Status"
+msgstr "狀態"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "錯誤"
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
-msgstr ""
+msgstr "系統備份"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "未知的備份模式： {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
 #: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
 #: src/EBox/Backup.pm:1248
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "輸入包含無效的字元"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "未知的還原模式： {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "備份"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "備份模組"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "操作"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "完成備份的操作"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "備份成功"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "正在還原備份"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "正在還原模組"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:622
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
-msgstr ""
+msgstr "模組"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "剩下要還原的模組"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "還原成功"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "模組名稱"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "該模組已正確的還原。"
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "正在更新"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
-msgstr ""
+msgstr "關機或重新開機"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox 正要準備關機"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBox 正要準備重新開機"
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "錯誤回報"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
-msgstr ""
+msgstr "一般組態"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr ""
+msgstr "不正確的密碼。"
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr ""
+msgstr "新的密碼不符。"
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "密碼長度必須至少有 6 個字元"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "密碼已經成功的改變。"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
-msgstr ""
+msgstr "組態備份"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
+msgstr "請確認您想要刪除下列備份檔："
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:168
 #: src/templates/backup.mas:169
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
+msgstr "請確認您想要使用這個備份檔來還原："
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr ""
+msgstr "還原"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"
-msgstr ""
+msgstr "組態備份"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr ""
+msgstr "完整資料與組態備份"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
 msgid "Bug-report configuration dump"
-msgstr ""
+msgstr "錯誤回報設置備份"
 
 #: src/EBox/CGI/Summary/Index.pm:35 src/templates/report/raid.mas:94
 #: src/templates/moduleStatusTable.mas:60
@@ -683,116 +696,116 @@ msgstr ""
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:601
 msgid "Logs"
-msgstr ""
+msgstr "紀錄檔"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module status configuration"
-msgstr ""
+msgstr "模組狀態組態"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
 "There is a Web service script running. Please, wait patiently until it is "
 "done"
-msgstr ""
+msgstr "還有網頁服務命令稿在執行。請耐心等候它完成"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
-msgstr ""
+msgstr "不正確的密碼"
 
 #: src/EBox/CGI/Login/Index.pm:68
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "為了安全理由您的 session 已經過期"
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "因為新的 session 已被開啟所以您已經被登出"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "登出"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "磁碟使用量"
 
 #: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID report"
-msgstr ""
+msgstr "磁碟陣列報告"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "儲存設置"
 
 #: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
-msgstr ""
+msgstr "儲存變更"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "儲存模組變更"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
 msgid "Current operation"
-msgstr ""
+msgstr "目前操作"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "操作"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "Changes saved"
-msgstr ""
+msgstr "變更已儲存"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
-msgstr ""
+msgstr "當儲存時一些模組回報有錯誤.更多資訊在 {dir} 的日誌上"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr ""
+msgstr "註銷變更"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "註銷模組上的變更"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
-msgstr ""
+msgstr "目前的模組"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr ""
+msgstr "模組已註銷"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
-msgstr ""
+msgstr "變更已註銷"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
-msgstr ""
+msgstr "當放棄變更時一些模組回報有錯誤.更多的資訊在 {dir} 的日誌上"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
-msgstr ""
+msgstr "內部錯誤已產生.這多半是 bug,有關資訊可以在日誌上找到"
 
 #: src/EBox/CGI/ClientRawBase.pm:201
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr ""
+msgstr "有關於內部範本有錯誤.這是 bug,有關資訊可以在日誌上找到"
 
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "預期應為 EBox::GConfModule 的子類別之實體"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
@@ -821,83 +834,83 @@ msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 msgid "never purge"
-msgstr ""
+msgstr "從不清除"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "一小時"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "12小時"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "一天"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "三天"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "一星期"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "15天"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "30天"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:243
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "90天"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:314
 #: src/EBox/Logs/Model/SelectLog.pm:121
 #: src/EBox/Events/Model/Watcher/Log.pm:216
 msgid "Domain"
-msgstr ""
+msgstr "網域"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
-msgstr ""
+msgstr "清除舊的日誌超過"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:346
 msgid "Current configuration"
-msgstr ""
+msgstr "目前設置"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:347
 msgid "Logs configuration"
-msgstr ""
+msgstr "日誌設置"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:353
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "啟用/停用每一個模組基本日誌"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:355
 #: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:59
 msgid "logs"
-msgstr ""
+msgstr "日誌"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
-msgstr ""
+msgstr "強制清除日誌"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
-msgstr ""
+msgstr "清除"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
 msgid "Full report"
@@ -918,127 +931,127 @@ msgstr "任何"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
-msgstr ""
+msgstr "Jabber 伺服器名稱"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabber 伺服器來傳送訊息"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabber 使用者名稱"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
-msgstr ""
+msgstr "Jabber 帳號的 ID 將可以傳送訊息.提示:不要使用@domain,只有使用者名稱"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
-msgstr ""
+msgstr "使用者密碼"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
 msgid "Subscribe"
-msgstr ""
+msgstr "訂閱"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
-msgstr ""
+msgstr "假如您想要 eBox 去建立帳號給以下的使用者請勾選這個選項"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Jabber 管理員標誌"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
 "server"
-msgstr ""
+msgstr "用 eBox 產生 Jabber ID 的訊息目的,例如:您, eBox 管理者.提示您需要在任何 jabber 伺服器上手動註冊這個帳號"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
-msgstr ""
+msgstr "設置 Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "這個調整將會傳送事件到 jabber 帳號"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Jabber 設置已更新"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "應該用以下的樣式 'user@domain[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:148
 msgid "Nobody"
-msgstr ""
+msgstr "Nobody"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:152
 msgid "IP address"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:159
 msgid "Object"
-msgstr ""
+msgstr "單位"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:168
 msgid "Public"
-msgstr ""
+msgstr "公開"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:175
 msgid "Channel link"
-msgstr ""
+msgstr "頻道連結"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:182
 msgid "Allowed readers"
-msgstr ""
+msgstr "已允許的讀取者"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "使用這個功能去設定此頻道的存取控制"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "同步這個 RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:200
 msgid "Configure RSS dispatcher"
-msgstr ""
+msgstr "設置 RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:205
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
-msgstr ""
+msgstr "頻道連結是同步您最愛的 RSS 內容連結"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:208
 msgid "RSS dispatcher configuration updated"
-msgstr ""
+msgstr "RSS 設置已更新"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "網域日誌 {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
+msgstr "從 {logDomain} 過濾套用要通知的日誌"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
 msgid ""
@@ -1048,146 +1061,146 @@ msgstr ""
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "過濾"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "每個檔案系統最小剩餘空間"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
-msgstr ""
+msgstr "當磁碟可用空間百分比在任何磁碟分割區低於這個值的時候事件會觸發."
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
 msgid "Configure disk free space watcher"
-msgstr ""
+msgstr "設置監視磁碟可用空間"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:168
 #: src/EBox/Events/Model/Watcher/Log.pm:192
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
-msgstr ""
+msgstr "警告!日誌監視未啟用.當日誌發生時可以啟用通知."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:221
 msgid "Filtering"
-msgstr ""
+msgstr "過濾"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:229
 msgid "Configure log watchers"
-msgstr ""
+msgstr "設置日誌監視"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:231
 msgid "Log watcher"
-msgstr ""
+msgstr "日誌監視"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:262
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
 msgid "Description"
-msgstr ""
+msgstr "說明"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:284
 msgid "Configuration"
-msgstr ""
+msgstr "設置"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:278
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
 msgid "None"
-msgstr ""
+msgstr "沒有"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:287
 msgid "Configure events"
-msgstr ""
+msgstr "設置事件"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:295
 msgid "event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "啟用/停用事件監視器"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:451
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
-msgstr ""
+msgstr "警告!這裡沒有啟用網域日誌監視.請到 '設置' 啟用至少一個通知當網域日誌發生時. "
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:272
 msgid "Receiver"
-msgstr ""
+msgstr "接收者"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:327
 msgid "Configure dispatchers"
-msgstr ""
+msgstr "設置"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:336
 msgid "dispatcher"
-msgstr ""
+msgstr "調整"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "啟用/停用事件調整"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:525
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
-msgstr ""
+msgstr "為了啟用設置事件,您需要先設置"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:174
 #: src/EBox/Events.pm:197
 msgid "Events"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:78
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
-msgstr ""
+msgstr "eBox 的事件模組設置幫助通知您有關事件的發生"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
+msgstr "沒有資料給 {d} 使用.您確定這是正確的磁碟?"
 
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
 msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
-msgstr ""
+msgstr "無效的檔案系統: {f}.只有標準的和非移動式媒體檔案系統才可以"
 
 #: src/EBox/Report/DiskUsage.pm:321
 msgid "Free space"
-msgstr ""
+msgstr "可用空間"
 
 #: src/EBox/Report/DiskUsage.pm:324 src/EBox/SysInfo.pm:129
 msgid "System"
-msgstr ""
+msgstr "系統"
 
 #: src/EBox/Apache.pm:234 src/EBox/Apache.pm:243
 msgid "port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/EBox/Global.pm:369 src/EBox/Global.pm:390
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr ""
+msgstr "儲存 {modName} 模組中"
 
 #: src/EBox/Global.pm:816
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "執行 {scriptName} script中"
 
 #: src/EBox/Events.pm:91
 msgid "events"
@@ -1203,213 +1216,221 @@ msgstr ""
 
 #: src/EBox/Logs.pm:75
 msgid "Create logs database"
-msgstr ""
+msgstr "建立日誌資料庫"
 
 #: src/EBox/Logs.pm:76
 msgid "eBox store its logs in the database"
-msgstr ""
+msgstr "eBox 日誌儲存在資料庫"
 
 #: src/EBox/Logs.pm:407
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Table {table} 不存在"
 
 #: src/EBox/Logs.pm:604
 msgid "Query logs"
-msgstr ""
+msgstr "佇列日誌"
 
 #: src/EBox/Logs.pm:607
 msgid "Configure logs"
-msgstr ""
+msgstr "設置日誌"
 
 #: src/EBox/Logs.pm:620 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Logs.pm:621
 msgid "Client Address"
-msgstr ""
+msgstr "客戶端位址"
 
 #: src/EBox/Logs.pm:624
 msgid "Params"
-msgstr ""
+msgstr "參數"
 
 #: src/EBox/Logs.pm:625
 msgid "Committed"
-msgstr ""
+msgstr "Committed"
 
 #: src/EBox/Logs.pm:630
 msgid "Admin"
-msgstr ""
+msgstr "管理"
 
 #: src/EBox/Logs.pm:724
 msgid "Log messages"
-msgstr ""
+msgstr "日誌訊息"
 
 #: src/EBox/Logs.pm:751
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "上線參數必須是小時的整數"
 
 #: src/EBox/EventDaemon.pm:443
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
+msgstr "儲存變更"
+
+#: src/EBox/Events.pm:91
+msgid "events"
+msgstr "事件"
+
+#: src/EBox/Events.pm:646
+msgid "Event service status"
+msgstr "事件服務狀態"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
-msgstr ""
+msgstr "建立備份壓縮"
 
 #: src/EBox/Backup.pm:142
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr ""
+msgstr "備份模組 {m} 的設置"
 
 #: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
-msgstr ""
+msgstr "可能不能建立備份壓縮"
 
 #: src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
-msgstr ""
+msgstr "可能不能附加資料到備份壓縮"
 
 #: src/EBox/Backup.pm:420
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #: src/EBox/Backup.pm:454
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr ""
+msgstr "可能不能解開必須的備份檔: {files}"
 
 #: src/EBox/Backup.pm:457 src/EBox/Backup.pm:1046
 msgid "Could not unpack the backup"
-msgstr ""
+msgstr "可能不能解壓縮備份"
 
 #: src/EBox/Backup.pm:647 src/EBox/SysInfo.pm:146
 msgid "Backup"
-msgstr ""
+msgstr "備份"
 
 #: src/EBox/Backup.pm:683
 msgid "Writing backup file to hard disK"
-msgstr ""
+msgstr "把備份檔寫到硬碟"
 
 #: src/EBox/Backup.pm:708
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
-msgstr ""
+msgstr "一些模組沒有儲存變更.之前做的備份您必須儲存或是放棄他們"
 
 #: src/EBox/Backup.pm:763
 msgid "Incorrect or corrupt backup file"
-msgstr ""
+msgstr "不正確或損毀的備份檔"
 
 #: src/EBox/Backup.pm:792
 msgid "The backup file is corrupt: could not open archive"
-msgstr ""
+msgstr "此備份檔是損毀的:可能不能開啟壓縮"
 
 #: src/EBox/Backup.pm:804
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
+msgstr "此備份檔是損毀的:可能不能開啟備份檢查碼"
 
 #: src/EBox/Backup.pm:811
 msgid "The backup file is corrupt."
-msgstr ""
+msgstr "此備份檔是損毀的."
 
 #: src/EBox/Backup.pm:829
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
-msgstr ""
+msgstr "此備份壓縮是無效的類型.可能檔案已損毀或是您使用不相容的 eBox 版本"
 
 #: src/EBox/Backup.pm:835
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
-msgstr ""
+msgstr "此壓縮檔不包括完整備份,是不可能完整還原.可能要設置回復."
 
 #: src/EBox/Backup.pm:870
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
-msgstr ""
+msgstr "這裡的硬碟沒有足夠的空間來完成還原執行. {size} Kb 是必要的.有足夠的空間再試一次"
 
 #: src/EBox/Backup.pm:1133
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "在備份中找不到模組 {m}"
 
 #: src/EBox/Backup.pm:1162
 msgid "No modules to restore"
-msgstr ""
+msgstr "沒有要還原的模組"
 
 #: src/EBox/Backup.pm:1227
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
-msgstr ""
+msgstr "模組 {topModule} 有未解決的還原相依性問題：{modName} 並未安裝"
 
 #: src/EBox/Backup.pm:1270
 msgid "Backup's archives"
-msgstr ""
+msgstr "備份的壓縮檔"
 
 #: src/EBox/SysInfo.pm:41
 msgid "system information"
-msgstr ""
+msgstr "系統資訊"
 
 #: src/EBox/SysInfo.pm:68
 msgid "Services"
-msgstr ""
+msgstr "服務"
 
 #: src/EBox/SysInfo.pm:85
 msgid "General information"
-msgstr ""
+msgstr "一般資訊"
 
 #: src/EBox/SysInfo.pm:93
 msgid "Time"
-msgstr ""
+msgstr "時刻"
 
 #: src/EBox/SysInfo.pm:94
 msgid "Host name"
-msgstr ""
+msgstr "主機名稱"
 
 #: src/EBox/SysInfo.pm:96
 msgid "eBox version"
-msgstr ""
+msgstr "eBox 版本"
 
 #: src/EBox/SysInfo.pm:99
 msgid "System load"
-msgstr ""
+msgstr "系統負載"
 
 #: src/EBox/SysInfo.pm:120
 msgid "Summary"
-msgstr ""
+msgstr "摘要"
 
 #: src/EBox/SysInfo.pm:124
 msgid "Module status"
-msgstr ""
+msgstr "模組狀態"
 
 #: src/EBox/SysInfo.pm:133
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: src/EBox/SysInfo.pm:136
 msgid "Disk usage Information"
-msgstr ""
+msgstr "磁碟用量資訊"
 
 #: src/EBox/SysInfo.pm:140
 msgid "RAID Information"
-msgstr ""
+msgstr "RAID 資訊"
 
 #: src/EBox/SysInfo.pm:149
 msgid "Halt/Reboot"
-msgstr ""
+msgstr "關機/重新開機"
 
 #: src/EBox/Auth.pm:150
 msgid "Password changed"
-msgstr ""
+msgstr "密碼已變更"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
@@ -1417,17 +1438,17 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
-msgstr ""
+msgstr "它必須為非零的正數"
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "不能執行  {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgstr "找不到 id 為 {id} 的程序指示器"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
@@ -1435,29 +1456,29 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "必須大於零"
 
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
-msgstr ""
+msgstr "可執行檔尚未執行過"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr ""
+msgstr "可執行檔尚未執行"
 
 #: src/EBox/ProgressIndicator.pm:396
 msgid "The executable has already been started"
-msgstr ""
+msgstr "可執行檔已經啟動"
 
 #: src/EBox/ProgressIndicator.pm:400
 msgid "The executable has already finished"
-msgstr ""
+msgstr "可執行檔已經結束"
 
 #: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
 #: src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr ""
+msgstr "您必須在 ebox 組態檔案中設定 {variable} 變數"
 
 #: src/EBox/PgDBEngine.pm:272
 #, perl-brace-format
@@ -1471,72 +1492,72 @@ msgstr ""
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
+msgstr "選取某元件時會顯示最後幾小時的紀錄"
 
 #: src/templates/logs/index.mas:23
 msgid "Select available full reports"
-msgstr ""
+msgstr "選取可用的紀錄檔"
 
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
-msgstr ""
+msgstr "檢視"
 
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
-msgstr ""
+msgstr "自訂查詢"
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
-msgstr ""
+msgstr "開始日期:"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
-msgstr ""
+msgstr "一月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
-msgstr ""
+msgstr "二月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
-msgstr ""
+msgstr "三月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
-msgstr ""
+msgstr "四月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
-msgstr ""
+msgstr "五月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
-msgstr ""
+msgstr "六月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
-msgstr ""
+msgstr "七月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
-msgstr ""
+msgstr "八月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
-msgstr ""
+msgstr "九月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
-msgstr ""
+msgstr "十月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
-msgstr ""
+msgstr "十一月"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
-msgstr ""
+msgstr "十二月"
 
 #: src/templates/logs/index.mas:108
 msgid "Refresh logs"
@@ -1544,47 +1565,47 @@ msgstr ""
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
-msgstr ""
+msgstr "結束日期:"
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
-msgstr ""
+msgstr "儲存為事件"
 
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
-msgstr ""
+msgstr "沒有紀錄檔符合目前的條件"
 
 #: src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
-msgstr ""
+msgstr "沒有這個網域的紀錄檔"
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
-msgstr ""
+msgstr "第一項"
 
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
-msgstr ""
+msgstr "前一項"
 
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
-msgstr ""
+msgstr "後一項"
 
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
-msgstr ""
+msgstr "最末項"
 
 #: src/templates/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "警告：已開啟 Caps Lock"
 
 #: src/templates/login/index.mas:29
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/templates/login/index.mas:36
 msgid "Enter"
@@ -1593,45 +1614,69 @@ msgstr ""
 #: src/templates/login/index.mas:42
 #, perl-brace-format
 msgid "Created by {href}"
-msgstr ""
+msgstr "由 <a href='http://www.warp.es'>Warp Networks</a> 建立"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
+msgstr "還有未儲存的變更，如果您現在登出它們將會消失。"
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr ""
+msgstr "在這個作業階段中沒有未儲存的變更。"
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "離開"
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
-msgstr ""
+msgstr "掛載於"
 
 #: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
-msgstr ""
+msgstr "選項"
 
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition properties"
-msgstr ""
+msgstr "分割區屬性"
 
 #: src/templates/report/raid.mas:13
 msgid "No RAID devices present"
-msgstr ""
+msgstr "沒有 RAID 裝置"
 
 #: src/templates/report/raid.mas:17
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr ""
+
+#: src/templates/report/raid.mas:76
+msgid "RAID 0"
+msgstr "RAID 0"
+
+#: src/templates/report/raid.mas:77
+msgid "RAID 1"
+msgstr "RAID 1"
+
+#: src/templates/report/raid.mas:78
+msgid "RAID 2"
+msgstr "RAID 2"
+
+#: src/templates/report/raid.mas:79
+msgid "RAID 3"
+msgstr "RAID 3"
+
+#: src/templates/report/raid.mas:80
+msgid "RAID 4"
+msgstr "RAID 4"
+
+#: src/templates/report/raid.mas:81
+msgid "RAID 5"
+msgstr "RAID 5"
 
 #: src/templates/report/raid.mas:84
 msgid "left-asymmetric"
@@ -1651,15 +1696,15 @@ msgstr ""
 
 #: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
-msgstr ""
+msgstr "使用中的 RAID 裝置"
 
 #: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
-msgstr ""
+msgstr "需要使用中的 RAID 裝置"
 
 #: src/templates/report/raid.mas:134
 msgid "Size in blocks"
-msgstr ""
+msgstr "區塊大小"
 
 #: src/templates/report/raid.mas:135
 msgid "Chunk size"
@@ -1671,15 +1716,15 @@ msgstr ""
 
 #: src/templates/report/raid.mas:170
 msgid "Array properties"
-msgstr ""
+msgstr "陣列屬性"
 
 #: src/templates/report/raid.mas:185
 msgid "Resyncing array"
-msgstr ""
+msgstr "重新同步陣列"
 
 #: src/templates/report/raid.mas:186
 msgid "Rebuild array"
-msgstr ""
+msgstr "重建陣列"
 
 #: src/templates/report/raid.mas:187
 msgid "Reshape array"
@@ -1687,7 +1732,7 @@ msgstr ""
 
 #: src/templates/report/raid.mas:195
 msgid "Operation type"
-msgstr ""
+msgstr "操作類型"
 
 #: src/templates/report/raid.mas:197
 msgid "Percentage completed"
@@ -1695,19 +1740,19 @@ msgstr ""
 
 #: src/templates/report/raid.mas:199
 msgid "Estimated time left"
-msgstr ""
+msgstr "預估剩餘時間"
 
 #: src/templates/report/raid.mas:201
 msgid "Operation speed"
-msgstr ""
+msgstr "操作速度"
 
 #: src/templates/report/raid.mas:214
 msgid "RAID device number"
-msgstr ""
+msgstr "RAID 裝置編號"
 
 #: src/templates/report/raid.mas:215
 msgid "Device"
-msgstr ""
+msgstr "裝置"
 
 #: src/templates/report/raid.mas:221
 msgid "up"
@@ -1715,84 +1760,84 @@ msgstr ""
 
 #: src/templates/report/raid.mas:222
 msgid "failure"
-msgstr ""
+msgstr "失敗"
 
 #: src/templates/report/raid.mas:251
 msgid "No unused RAID devices"
-msgstr ""
+msgstr "沒有未使用的 RAID 裝置"
 
 #: src/templates/report/raid.mas:254
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "未使用的 RAID 陣列"
 
 #: src/templates/confirm-backup.mas:60 src/templates/dataInUse.mas:41
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/templates/confirm-backup.mas:98
 msgid "Full Restore"
-msgstr ""
+msgstr "完整還原"
 
 #: src/templates/confirm-backup.mas:99
 msgid "Configuration Restore"
-msgstr ""
+msgstr "組態還原"
 
 #: src/templates/confirm-backup.mas:104
 msgid "Restore mode"
-msgstr ""
+msgstr "還原模式"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
-msgstr ""
+msgstr "相依性"
 
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
 msgid "Configure module: {module}"
-msgstr ""
+msgstr "設定模組： {module}"
 
 #: src/templates/password.mas:4
 msgid "Change password"
-msgstr ""
+msgstr "改變密碼"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr ""
+msgstr "您的密碼長度必須至少有 6 個字元。"
 
 #: src/templates/password.mas:11
 msgid "Current password"
-msgstr ""
+msgstr "目前的密碼"
 
 #: src/templates/password.mas:25
 msgid "New password"
-msgstr ""
+msgstr "新的密碼"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr ""
+msgstr "確認密碼"
 
 #: src/templates/progress.mas:20
 msgid "Item"
-msgstr ""
+msgstr "項目"
 
 #: src/templates/progress.mas:21
 msgid "items left"
-msgstr ""
+msgstr "剩餘項目"
 
 #: src/templates/progress.mas:23
 msgid "Some error has happened in eBox: "
-msgstr ""
+msgstr "在 eBox 中發生了某些錯誤： "
 
 #: src/templates/progress.mas:38
 msgid "Starting..."
-msgstr ""
+msgstr "正在啟動..."
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
-msgstr ""
+msgstr "完整備份"
 
 #: src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr ""
+msgstr "組態備份"
 
 #: src/templates/backup.mas:24
 #, perl-brace-format
@@ -1800,175 +1845,175 @@ msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "module status{closeref} section will be ignored in both backup and restore "
 "operations"
-msgstr ""
+msgstr "這些在 {openref}模組狀態{closeref} 中從未啟用過的模組在備份與還原的操作中都會被略過"
 
 #: src/templates/backup.mas:26
 msgid "Back up the current state"
-msgstr ""
+msgstr "備份目前的狀態"
 
 #: src/templates/backup.mas:35
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
-msgstr ""
+msgstr "由於尚有未儲存的組態變更，備份已被停用。請儲存或放棄它們才能備份組態"
 
 #: src/templates/backup.mas:52
 msgid "Backup mode"
-msgstr ""
+msgstr "備份模式"
 
 #: src/templates/backup.mas:64
 msgid "Back up"
-msgstr ""
+msgstr "備份"
 
 #: src/templates/backup.mas:74
 msgid "Restore backup from file"
-msgstr ""
+msgstr "從檔案還原備份"
 
 #: src/templates/backup.mas:76
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)"
-msgstr ""
+msgstr "您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔案 (>= 1 Gb)"
 
 #: src/templates/backup.mas:84
 msgid "Backup file"
-msgstr ""
+msgstr "備份檔案"
 
 #: src/templates/backup.mas:114
 msgid "Full"
-msgstr ""
+msgstr "完整"
 
 #: src/templates/backup.mas:115
 msgid "Configuration only"
-msgstr ""
+msgstr "只有組態"
 
 #: src/templates/backup.mas:116
 msgid "Unknown type"
-msgstr ""
+msgstr "未知的類型"
 
 #: src/templates/backup.mas:122
 msgid "Backups' list"
-msgstr ""
+msgstr "備份的清單"
 
 #: src/templates/backup.mas:129
 msgid "Actions"
-msgstr ""
+msgstr "動作"
 
 #: src/templates/backup.mas:156
 msgid "Restore configuration using this file"
-msgstr ""
+msgstr "使用這個檔案還原組態"
 
 #: src/templates/backup.mas:157
 msgid "Restore from backup"
-msgstr ""
+msgstr "從備份還原"
 
 #: src/templates/backup.mas:162 src/templates/backup.mas:163
 msgid "Download"
-msgstr ""
+msgstr "下載"
 
 #: src/templates/backup.mas:182
 msgid "download"
-msgstr ""
+msgstr "下載"
 
 #: src/templates/backup.mas:184
 msgid "restore"
-msgstr ""
+msgstr "還原"
 
 #: src/templates/backup.mas:186
 msgid "delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/templates/configureView.mas:16
 msgid ""
 "Enabling this module will cause eBox to perform the actions and file "
 "modifications listed below. You must explicitly accept these changes to "
 "enable the module."
-msgstr ""
+msgstr "啟用這個模組會使 eBox 進行下面列出的動作與檔案的修改。您必須明確的接受這些變更才能啟用這個模組。"
 
 #: src/templates/configureView.mas:20
 msgid "Actions to perform by eBox"
-msgstr ""
+msgstr "eBox 要進行的動作"
 
 #: src/templates/configureView.mas:35
 msgid "Files to modify by eBox"
-msgstr ""
+msgstr "eBox 要修改的檔案"
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
-msgstr ""
+msgstr "接受"
 
 #: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a bug in eBox."
-msgstr ""
+msgstr "這個頁面讓您產生一份關於您的系統狀態資訊的檔案。如果您要回報 eBox 的錯誤這個檔案會很有用。"
 
 #: src/templates/bug.mas:14
 msgid "Download bug report file"
-msgstr ""
+msgstr "下載錯誤回報檔案"
 
 #: src/templates/finish.mas:82
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
-msgstr ""
+msgstr "在一或多個模組中有未儲存的變更，您可以儲存或放棄這些變更。"
 
 #: src/templates/finish.mas:99
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
-msgstr ""
+msgstr "如果您對網路介面卡或管理用連接埠做了變更，您可能需要手動重新修正網址才能再次存取管理介面。"
 
 #: src/templates/finish.mas:107
 msgid "Message"
-msgstr ""
+msgstr "訊息"
 
 #: src/templates/finish.mas:123
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: src/templates/finish.mas:125
 msgid "Discard changes"
-msgstr ""
+msgstr "放棄變更"
 
 #: src/templates/finish.mas:130
 msgid "There are no unsaved changes."
-msgstr ""
+msgstr "還有未儲存的變更。"
 
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"
-msgstr ""
+msgstr "管理介面 TCP 連接埠"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+msgstr "如果這台機器關機您可能會失去網路連線。"
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "關機"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "重新開機"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "是否要覆蓋這些檔案？"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "保留目前的檔案"
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "修改"
 
 #: src/templates/footer.mas:6
 #, perl-brace-format
 msgid "{ebox} created by {warp}"
-msgstr ""
+msgstr "{ebox} 由 {warp} 建立"
