@@ -19,13 +19,12 @@ use strict;
 use warnings;
 
 use base (
-          'EBox::GConfModule', 
+          'EBox::Module::Service', 
           'EBox::VDomainModule',
           'EBox::LdapModule',
           'EBox::Mail::FilterProvider', 
           'EBox::FirewallObserver',
           'EBox::LogObserver',
-          'EBox::ServiceModule::ServiceInterface',
           'EBox::Model::ModelProvider',
           'EBox::Model::CompositeProvider',
          );
@@ -77,7 +76,7 @@ sub domain
 
 # Method: actions
 #
-#       Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -103,7 +102,7 @@ sub actions
 
 # Method: usedFiles 
 #
-#       Override EBox::ServiceModule::ServiceInterface::files
+#       Override EBox::Module::Service::files
 #
 sub usedFiles 
 {
@@ -119,7 +118,7 @@ sub usedFiles
 
 # Method: enableActions 
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
@@ -128,18 +127,9 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-mailfilter/ebox-mailfilter-enable');
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'mailfilter';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 #  The mail dependency only exists bz we need the ldap mail data or we wil lrun
 #  in error when seting mail domains options

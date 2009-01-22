@@ -113,7 +113,7 @@ sub setUpConfiguration : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Service::TestStub::setConfig();
 
 
 }

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::ServiceModule::Manager
+# Class: EBox::ServiceManager
 #
 #   This class is responsible to check if a given module is going to
 #   modify a file which has previously been modifyed by a user.
@@ -21,7 +21,7 @@
 #   It uses MD5 digests to track the changes
 #
 #
-package EBox::ServiceModule::Manager;
+package EBox::ServiceManager;
 
 use strict;
 use warnings;
@@ -36,7 +36,7 @@ use Error qw(:try);
 use File::Basename;
 
 use constant GCONF_DIR => 'ServiceModule/';
-use constant CLASS => 'EBox::ServiceModule::ServiceInterface';
+use constant CLASS => 'EBox::Module::Service';
 use constant OVERRIDE_USER_MODIFICATIONS_KEY => 'override_user_modification';
 
 # Group: Public methods
@@ -354,7 +354,7 @@ sub updateDigests
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $class = 'EBox::ServiceModule::ServiceInterface';
+    my $class = 'EBox::Module::Service';
     
     for my $mod (@{$global->modInstancesOfType($class)}) {
         for my $file (@{$mod->usedFiles()}) { 
@@ -402,7 +402,7 @@ sub updateModuleDigests
 # Method: enableAllModules
 #
 #	This method enables all modules implementing
-#	<EBox::ServiceModule::ServiceInterface>
+#	<EBox::Module::Service>
 #
 sub enableAllModules
 {
@@ -471,19 +471,18 @@ sub _dependencyTree
     my $global = $self->{'gconfmodule'};
 
     my $numMods = @{$tree};
-    for my $modInstance (@{$global->modInstancesOfType(CLASS)}) {
-        my $mod = $modInstance->serviceModuleName();
-        next if (exists $hash->{$mod});
+    for my $mod (@{$global->modInstancesOfType(CLASS)}) {
+        next if (exists $hash->{$mod->{'name'}});
         my $depOk = 1;
-        for my $modDep (@{$modInstance->enableModDepends()}) {
+        for my $modDep (@{$mod->enableModDepends()}) {
             unless (exists $hash->{$modDep}) {
                 $depOk = undef;
                 last;
             }
         }
         if ($depOk) {
-            push (@{$tree}, $mod);
-            $hash->{$mod} = 1;
+            push (@{$tree}, $mod->{'name'});
+            $hash->{$mod->{'name'}} = 1;
         }
     }
 

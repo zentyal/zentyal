@@ -19,11 +19,10 @@ use strict;
 use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
-#use base qw(EBox::GConfModule EBox::LogObserver);
-use base qw(EBox::GConfModule 
+#use base qw(EBox::Module::Service EBox::LogObserver);
+use base qw(EBox::Module::Service 
             EBox::Model::ModelProvider EBox::Model::CompositeProvider 
-            EBox::Report::DiskUsageProvider
-                        EBox::ServiceModule::ServiceInterface);
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -46,7 +45,7 @@ use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
 use constant PG_DATA_DIR           => '/var/lib/postgres/data';
 
 
-#       EBox::GConfModule interface
+#       EBox::Module::Service interface
 #
 
 sub _create 
@@ -65,7 +64,7 @@ sub _create
 
 # Method: actions
 #
-#       Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -81,20 +80,11 @@ sub actions
 
 # Method: enableActions 
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     EBox::Sudo::root(EBox::Config::share() . '/ebox/ebox-logs-enable');
-}
-
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'logs';
 }
 
 sub _daemons
@@ -106,9 +96,20 @@ sub _daemons
     ];
 }
 
+# Method: isRunning
+#
+# Overrides:
+#
+#      <EBox::Module::Service::isRunning>
+#
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
+
 sub _regenConfig
 {
-
     my ($self) = @_;
 
     $self->_saveEnabledLogsModules();

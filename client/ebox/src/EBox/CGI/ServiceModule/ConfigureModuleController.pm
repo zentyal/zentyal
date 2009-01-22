@@ -26,7 +26,7 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
@@ -54,7 +54,7 @@ sub _process
 
     $self->_requireParam('module');
     my $modName = $self->param('module');
-    my $manager = new EBox::ServiceModule::Manager();
+    my $manager = new EBox::ServiceManager();
     my $module = EBox::Global->modInstance($modName);
 
     $module->setConfigured(1);

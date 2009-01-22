@@ -23,10 +23,10 @@ package EBox::ModuleName;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule
+use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
-            EBox::ServiceModule::ServiceInterface);
+           );
 
 use EBox::Gettext;
 use EBox::Service;
@@ -40,7 +40,7 @@ use EBox::Dashboard::Module;
 #
 # Overrides:
 #
-#        <EBox::GConfModule::_create>
+#        <EBox::Module::Service::_create>
 #
 # Returns:
 #
@@ -67,21 +67,6 @@ sub _regenConfig
 }
 
 # Group: Public methods
-
-# Method: statusSummary
-#
-#       Show the module summary
-#
-# Overrides:
-#
-#       <EBox::Module::summary>
-#
-sub summary
-{
-	my ($self) = @_;
-	my $item = new EBox::Dashboard::Module(__("ModuleName stuff"));
-	return $item;
-}
 
 # Method: menu
 #
@@ -129,7 +114,7 @@ sub compositeClasses
 #
 # Overrides:
 #
-#        <EBox::ServiceModule::ServiceInterface::usedFiles>
+#        <EBox::Module::Service::usedFiles>
 #
 sub usedFiles
 {
@@ -143,7 +128,7 @@ sub usedFiles
 #
 # Overrides:
 #
-#        <EBox::ServiceModule::ServiceInterface::actions>
+#        <EBox::Module::Service::actions>
 sub actions
 {
     return [];
@@ -155,7 +140,7 @@ sub actions
 #
 # Overrides:
 #
-#        <EBox::ServiceModule::ServiceInterface::enableActions>
+#        <EBox::Module::Service::enableActions>
 #
 sub enableActions
 {
@@ -169,20 +154,9 @@ sub enableActions
 #
 # Overrides:
 #
-#        <EBox::ServiceModule::ServiceInterface::disableActions>
+#        <EBox::Module::Service::disableActions>
 #
 sub disableActions
-{
-
-}
-
-# Method: serviceModuleName
-#
-# Overrides:
-#
-#        <EBox::ServiceModule::ServiceInterface::serviceModuleName>
-#
-sub serviceModuleName
 {
 
 }
@@ -193,7 +167,7 @@ sub serviceModuleName
 #
 # Overrides:
 #
-#        <EBox::ServiceModule::ServiceInterface::isRunning>
+#        <EBox::Module::Service::isRunning>
 #
 sub isRunning
 {

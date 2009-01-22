@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Module;
+package EBox::Module::Base;
 
 use strict;
 use warnings;
@@ -29,14 +29,12 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Gettext;
 use EBox::FileSystem;
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
 use Error qw(:try);
 use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
-
-use constant SER_IFACE_CLASS => 'EBox::ServiceModule::ServiceInterface';
 
 # Method: _create 
 #
@@ -100,48 +98,6 @@ sub _saveConfig
 {
 	# default empty implementation. It should be overriden by subclasses as
 	# needed
-}
-
-# Method: _regenConfig
-#
-#	Base method to regenerate configuration. It should be overriden
-#	by subclasses as needed
-#
-sub _regenConfig 
-{
-	# default empty implementation. It should be overriden by subclasses as
-	# needed
-}
-
-# Method: _restartService
-#
-#        This method will try to restart the module's service by means of
-#        calling _regenConfig. The method call has the named
-#        parameter restart with true value
-#
-sub restartService
-{
-	my $self = shift;
-
-	$self->_lock();
-	my $global = EBox::Global->getInstance();
-	my $log = EBox::logger;
-	
-	if ($self->isa(SER_IFACE_CLASS) and not $self->isEnabled()) {
-		$log->info("Skipping restart for $self->{name} as it's disabled");
-		return;
-	}
-
-	$log->info("Restarting service for module: " . $self->name);
-	try {
-            $self->_regenConfig('restart' => 1);
-	} otherwise  {
-            my ($ex) = @_;
-            $log->error("Error restarting service: $ex");
-            throw $ex;
-        } finally {
-		$self->_unlock();
-	};
 }
 
 # Method: save
@@ -214,8 +170,6 @@ sub _saveConfigRecursive
     $modInstance->saveConfig();
     $global->modRestarted($module);
 }
-
-
 
 sub _unlock
 {
@@ -823,13 +777,11 @@ sub writeConfFile # (file, component, params, defaults)
     validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
     my $manager;
-    if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
-        $manager = new EBox::ServiceModule::Manager();
-        if ($manager->checkUserModifications()
-            and $manager->skipModification($self->serviceModuleName(), $file)) {
-            EBox::info("Skipping modification of $file");
-            return;
-        }
+    $manager = new EBox::ServiceManager();
+    if ($manager->checkUserModifications()
+        and $manager->skipModification($self->{'name'}, $file)) {
+        EBox::info("Skipping modification of $file");
+        return;
     }
 
 
@@ -851,7 +803,7 @@ sub writeConfFile # (file, component, params, defaults)
     my $comp = $interp->make_component(comp_file =>
                                          EBox::Config::stubs . "/" . $compname);
 
-    # Workaround bogus mason warnings, redirect stderr to /dev/null not to
+    # Workaround bogus mason warnings, redirect stderr to /dev/null to not
     # scare users. New mason version fixes this issue
     my $old_stderr;
     my $tmpErr = EBox::Config::tmp() . 'mason.err';
@@ -883,11 +835,7 @@ sub writeConfFile # (file, component, params, defaults)
     EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
 
 
-    if ($self->isa('EBox::ServiceModule::ServiceInterface')) {
-        $manager->updateFileDigest($self->serviceModuleName(), $file);
-    }
-
-
+    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 1;

@@ -18,10 +18,9 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule
+use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::Model::ModelProvider
-            EBox::ServiceModule::ServiceInterface
           );
 
 use EBox::Global;
@@ -65,7 +64,7 @@ sub _create
 
 # Method: actions
 #
-#       Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -82,7 +81,7 @@ sub actions
 
 # Method: usedFiles
 #
-#       Override EBox::ServiceModule::ServiceInterface::files
+#       Override EBox::Module::Service::files
 #
 sub usedFiles
 {
@@ -104,20 +103,11 @@ sub usedFiles
 
 # Method: enableActions
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     command(EBox::Config::share() . '/ebox-usersandgroups/ebox-init-ldap init');
-}
-
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-    return 'users';
 }
 
 # Method: _regenConfig
@@ -1533,11 +1523,11 @@ sub isRunning
     return $self->isEnabled();
 }
 
-# Method: _supportsActions
+# Method: _supportActions
 #
 #       Overrides EBox::ServiceModule::ServiceInterface method.
 #
-sub _supportsActions
+sub _supportActions
 {
     return undef;
 }

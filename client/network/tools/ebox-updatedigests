@@ -4,11 +4,11 @@ use warnings;
 use strict;
 
 use EBox;
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 
 EBox::init();
 
-my $mgr = new EBox::ServiceModule::Manager;
+my $mgr = new EBox::ServiceManager;
 $mgr->updateModuleDigests('network');
 
 exit 0;

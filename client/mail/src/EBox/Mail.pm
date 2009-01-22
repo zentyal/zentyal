@@ -18,11 +18,10 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
+use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider
-            EBox::ServiceModule::ServiceInterface
            );
 
 use EBox::Sudo qw( :all );
@@ -103,7 +102,7 @@ sub greylist
 
 # Method: actions
 #
-#       Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -135,7 +134,7 @@ sub actions
 
 # Method: usedFiles
 #
-#       Override EBox::ServiceModule::ServiceInterface::files
+#       Override EBox::Module::Service::files
 #
 sub usedFiles
 {
@@ -221,25 +220,16 @@ sub usedFiles
 
 # Method: enableActions
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'mail';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends
 {
@@ -479,7 +469,7 @@ sub isGreylistEnabled
 
 #  Method: _daemons
 #
-#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#   Override <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {

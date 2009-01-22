@@ -18,7 +18,7 @@ package EBox::NTP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::Module::Service);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -58,7 +58,7 @@ sub domain
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -75,7 +75,7 @@ sub actions
 
 # Method: usedFiles
 #
-#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#	Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -90,20 +90,11 @@ sub usedFiles
 
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+# 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-ntp/ebox-ntp-enable');
-}
-
-# Method: serviceModuleName 
-#
-# 	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'ntp';
 }
 
 sub _doDaemon

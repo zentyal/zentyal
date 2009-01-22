@@ -18,10 +18,9 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
+use base qw(EBox::Module::Service 
 			EBox::LdapModule 
 			EBox::FirewallObserver
-			EBox::ServiceModule::ServiceInterface
 			);
 
 use EBox::Exceptions::DataExists;
@@ -60,7 +59,7 @@ sub domain
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -76,7 +75,7 @@ sub actions
 
 # Method: usedFiles
 #
-#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#	Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -100,26 +99,16 @@ sub usedFiles
 }
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+# 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-jabber/ebox-enable-jabber');
 }
 
-
-# Method: serviceModuleName 
-#
-#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-	return 'jabber';
-}
-
 #  Method: enableModDepends
 #
-#   Override <EBox::ServiceModule::ServiceInterface::enableModDepends>
+#   Override <EBox::Module::Service::enableModDepends>
 #
 sub enableModDepends 
 {
@@ -128,7 +117,7 @@ sub enableModDepends
 
 #  Method: _daemons
 #
-#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#   Override <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {

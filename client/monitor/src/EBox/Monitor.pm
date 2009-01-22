@@ -31,9 +31,7 @@ package EBox::Monitor;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule
-            EBox::Model::ModelProvider
-            EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::Module::Service EBox::Model::ModelProvider);
 
 use EBox::Config;
 use EBox::Global;
@@ -112,7 +110,7 @@ sub modelClasses
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::actions>
+#       <EBox::Module::Service::actions>
 #
 sub actions
 {
@@ -124,7 +122,7 @@ sub actions
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::usedFiles>
+#       <EBox::Module::Service::usedFiles>
 #
 sub usedFiles
 {
@@ -144,40 +142,11 @@ sub usedFiles
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::enableActions>
+#       <EBox::Module::Service::enableActions>
 #
 sub enableActions
 {
     EBox::Sudo::root(EBox::Config::share() . '/ebox-monitor/ebox-monitor-enable');
-}
-
-# Method: serviceModuleName
-#
-# Overrides:
-#
-#       <EBox::ServiceModule::ServiceInterface::serviceModuleName>
-#
-sub serviceModuleName
-{
-    return 'monitor';
-}
-
-# Method: statusSummary
-#
-# Overrides:
-#
-#     <EBox::Module::statusSummary>
-#
-# Returns:
-#
-#   <EBox::Summary::Status> - the summary components
-#
-sub statusSummary
-{
-    my ($self) = @_;
-    return new EBox::Summary::Status('monitor', 'Monitor',
-                                     $self->isRunning(),
-                                     $self->isEnabled());
 }
 
 # Method: menu

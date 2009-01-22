@@ -12,7 +12,7 @@ use EBox::Gettext;
 
 
 # ebox 
-use EBox::GConfModule;
+use EBox::Module::Service;
 use EBox::Global;
 use EBox::AbstractDaemon;
 use EBox::Service;

@@ -27,7 +27,7 @@ use EBox::CGI::Run;
 #use EBox::CGI::MenuCSS;
 
 # ebox 
-use EBox::GConfModule;
+use EBox::Module::Service;
 use EBox::Global;
 use EBox::AbstractDaemon;
 use EBox::Service;

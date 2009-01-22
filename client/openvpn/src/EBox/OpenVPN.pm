@@ -15,14 +15,13 @@
 
 package EBox::OpenVPN;
 use base qw(
-             EBox::GConfModule
+             EBox::Module::Service
              EBox::Model::ModelProvider
              EBox::Model::CompositeProvider
              EBox::NetworkObserver
              EBox::LogObserver
              EBox::FirewallObserver
-             EBox::CA::Observer
-             EBox::ServiceModule::ServiceInterface);
+             EBox::CA::Observer);
 
 use strict;
 use warnings;
@@ -133,7 +132,7 @@ sub _initializeInterfaces
 
 # Method: usedFiles
 #
-#       Override EBox::ServiceModule::ServiceInterface::usedFiles
+#       Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -167,7 +166,7 @@ sub usedFiles
 
 # Method: enableActions
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
@@ -176,18 +175,9 @@ sub enableActions
                     );
 }
 
-# Method: serviceModuleName
-#
-#       Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'openvpn';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends
 {
@@ -281,7 +271,7 @@ sub _prepareLogFiles
     };
 
     # XXX ugly hack until writeConfFile had different behaviour
-    EBox::GConfModule->writeConfFile('/etc/logrotate.d/ebox-openvpn',
+    EBox::Module::Service->writeConfFile('/etc/logrotate.d/ebox-openvpn',
                          '/openvpn/logrotate.mas',
                          [
                           logFiles => \@logFiles,

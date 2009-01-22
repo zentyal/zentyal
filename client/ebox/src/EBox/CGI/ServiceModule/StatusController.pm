@@ -26,7 +26,7 @@ use warnings;
 
 use base 'EBox::CGI::ClientRawBase';
 
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
@@ -62,7 +62,7 @@ sub _process
 #     use Data::Dumper;
 #     EBox::debug(Dumper \%modules);
 
-    my $manager = new EBox::ServiceModule::Manager();
+    my $manager = new EBox::ServiceManager();
     $manager->enableServices(\%modules);
 
     my $modules = $manager->moduleStatus();

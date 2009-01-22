@@ -18,8 +18,7 @@ package EBox::Printers;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::LogObserver
-			EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -66,7 +65,7 @@ sub domain
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -94,7 +93,7 @@ sub actions
 
 # Method: usedFiles 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::files
+# 	Override EBox::Module::Service::files
 #
 sub usedFiles 
 {
@@ -115,7 +114,7 @@ sub usedFiles
 
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+# 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
@@ -126,7 +125,7 @@ sub enableActions
 #
 # Overrides:
 #
-#  <EBox::ServiceModule::ServiceInterface::enableService>
+#  <EBox::Module::Service::enableService>
 #
 sub enableService
 {
@@ -138,18 +137,9 @@ sub enableService
     $samba->setPrinterService($status);
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-	return 'printers';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {
@@ -1249,10 +1239,10 @@ sub _mergeCupsConf
 {
 	my ($self) = @_;
 
-	my  $manager = new EBox::ServiceModule::Manager();
+	my  $manager = new EBox::ServiceManager();
         if ($manager->checkUserModifications()
             and $manager->skipModification(
-		$self->serviceModuleName(), CUPSPRINTERS)) {
+		$self->{'name'}, CUPSPRINTERS)) {
             EBox::info('Skipping modification of ' . CUPSPRINTERS);
             #return;
         }
@@ -1313,7 +1303,7 @@ sub _mergeCupsConf
 	root("cp $file " . CUPSPRINTERS);
 	close ($fd);
 
-        $manager->updateFileDigest($self->serviceModuleName(), CUPSPRINTERS);
+        $manager->updateFileDigest($self->{'name'}, CUPSPRINTERS);
 }
 
 # Method: fetchExternalCUPSPrinters

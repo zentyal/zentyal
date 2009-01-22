@@ -18,9 +18,8 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver
+use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
             EBox::Report::DiskUsageProvider 
-            EBox::ServiceModule::ServiceInterface
             EBox::Model::ModelProvider);
 
 
@@ -87,7 +86,7 @@ sub domain
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -121,7 +120,7 @@ sub actions
 
 # Method: usedFiles 
 #
-#   Override EBox::ServiceModule::ServiceInterface::files
+#   Override EBox::Module::Service::files
 #
 sub usedFiles 
 {
@@ -175,25 +174,16 @@ sub usedFiles
 
 # Method: enableActions 
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableActions
+#   Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-samba/ebox-samba-enable');
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-    return 'samba';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {
@@ -576,7 +566,7 @@ sub widgets
 
 # Method: _daemons
 #
-# 	Override EBox::ServiceModule::ServiceInterface::_daemons
+# 	Override EBox::Module::Service::_daemons
 #
 sub _daemons
 {

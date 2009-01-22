@@ -42,7 +42,7 @@ sub fakeConfig : Test(setup)
 		  '/ebox/modules/openvpn/client/titi/port'   => 1394,
 		  '/ebox/modules/openvpn/client/titi/proto'  => 'udp',
 		      );
-  EBox::GConfModule::TestStub::setConfig(@config);
+  EBox::Module::Service::TestStub::setConfig(@config);
 }
 
 # XXX this  must be deleted if #848 is fixed 
@@ -60,7 +60,7 @@ sub fakePopulateConfFiles : Test(startup)
 
 sub tearDownConfig: Test(teardown)
 {
-  EBox::GConfModule::TestStub::setConfig();
+  EBox::Module::Service::TestStub::setConfig();
 }
 
 sub _confDir

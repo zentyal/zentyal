@@ -30,7 +30,6 @@ use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
 use File::Copy::Recursive qw(dircopy fcopy);
 
-# CA inherits from GConfModule
 use base 'EBox::GConfModule';
 
 use EBox::CA::DN;

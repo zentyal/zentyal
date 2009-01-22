@@ -19,12 +19,11 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule
+use base qw(EBox::Module::Service
 		EBox::NetworkObserver
 		EBox::LogObserver
 		EBox::Model::ModelProvider
-		EBox::Model::CompositeProvider
-		EBox::ServiceModule::ServiceInterface);
+		EBox::Model::CompositeProvider);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -83,7 +82,7 @@ use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 #
 # Overrides:
 #
-#    <EBox::GConfModule::_create>
+#    <EBox::Module::Service::_create>
 #
 sub _create
 {
@@ -104,7 +103,7 @@ sub domain
 
 # Method: usedFiles
 #
-#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#	Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -119,7 +118,7 @@ sub usedFiles
 
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {
@@ -128,26 +127,16 @@ sub enableModDepends
 
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+# 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-dhcp/ebox-dhcp-enable');
 }
 
-
-# Method: serviceModuleName
-#
-#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-	return 'dhcp';
-}
-
 # Method: _daemons
 #
-#	Override EBox::ServiceModule::ServiceInterface::daemons
+#	Override EBox::Module::Service::daemons
 #
 sub _daemons
 {

@@ -18,10 +18,10 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule
+use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
-            EBox::ServiceModule::ServiceInterface);
+            );
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -608,7 +608,7 @@ sub switchToReverseInfoData
 
 # Method: usedFiles
 #
-# Override EBox::ServiceModule::ServiceInterface::usedFiles
+# Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -670,26 +670,16 @@ sub usedFiles
 
 # Method: enableActions 
 #
-#  Override EBox::ServiceModule::ServiceInterface::enableActions
+#  Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-dns/ebox-dns-enable');
 }
 
-
-# Method: serviceModuleName 
-#
-# Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'dns';
-}
-
 # Method: _daemons
 #
-#  Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#  Override <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
@@ -704,7 +694,7 @@ sub _daemons
 #
 # Overrides:
 #
-#  <EBox::ServiceModule::ServiceInterface::enableService>
+#  <EBox::Module::Service::enableService>
 #
 sub enableService
 {
@@ -714,21 +704,13 @@ sub enableService
     $self->configureFirewall();    
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
 # Overrides:
 #
-#  <EBox::Module::_regenConfig>
+#  <EBox::Module::Service::_setConf>
 #
-sub _regenConfig
-{
-    my $self = shift;
-
-    $self->_setBindConf();
-    $self->_enforceServiceState();
-}
-
-sub _setBindConf
+sub _setConf
 {
     my $self = shift;
     my @array = ();

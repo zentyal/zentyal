@@ -18,12 +18,11 @@ package EBox::Firewall;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
+use base qw(EBox::Module::Service 
                 EBox::ObjectsObserver 
                 EBox::NetworkObserver
                 EBox::LogObserver
                 EBox::Model::ModelProvider
-                EBox::ServiceModule::ServiceInterface
                 EBox::Model::CompositeProvider
                 );
 
@@ -117,7 +116,7 @@ sub _create
 
 # Method: actions
 #
-#       Override EBox::ServiceModule::ServiceInterface::actions
+#       Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -141,18 +140,9 @@ sub actions
         ];
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-    return 'firewall';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {
@@ -257,7 +247,7 @@ sub isRunning
     return $self->isEnabled();
 }
 
-sub _supportsActions
+sub _supportActions
 {
     return undef;
 }

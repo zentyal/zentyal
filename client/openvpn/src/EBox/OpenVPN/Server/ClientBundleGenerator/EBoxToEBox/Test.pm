@@ -128,7 +128,7 @@ sub setUpConfiguration : Test(setup)
 		  '/ebox/modules/openvpn/interface_count' => 0,
 		  );
 
-    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Module::Service::TestStub::setConfig(@config);
 
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
     EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
@@ -157,7 +157,7 @@ sub setUpConfiguration : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Service::TestStub::setConfig();
 }
 
 

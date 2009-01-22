@@ -20,9 +20,8 @@ use strict;
 use warnings;
 
 use base qw(
-            EBox::GConfModule
+            EBox::Module::Service
             EBox::Model::ModelProvider
-            EBox::ServiceModule::ServiceInterface
            );
 
 # Interfaces list which will be ignored
@@ -36,7 +35,7 @@ use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
 use EBox::Order;
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataInUse;
@@ -76,7 +75,7 @@ sub _create
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -99,7 +98,7 @@ sub actions
 
 # Method: usedFiles
 #
-# 	Override EBox::ServiceModule::ServiceInterface::usedFiles
+# 	Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -110,15 +109,6 @@ sub usedFiles
 		'module' => 'network'
 	}
 	];
-}
-
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-	return 'network';
 }
 
 sub modelClasses
@@ -1819,7 +1809,7 @@ sub generateInterfaces
 	my $tmpfile = EBox::Config::tmp . '/interfaces';
 	my $iflist = $self->allIfacesWithRemoved();
 
-	my $manager = new EBox::ServiceModule::Manager();
+	my $manager = new EBox::ServiceManager();
 	if ($manager->skipModification('network', $file)) {
 		EBox::info("Skipping modification of $file");
 		return;
@@ -2005,7 +1995,7 @@ sub isRunning
     return $self->isEnabled();
 }
 
-sub _supportsActions
+sub _supportActions
 {
     return undef;
 }

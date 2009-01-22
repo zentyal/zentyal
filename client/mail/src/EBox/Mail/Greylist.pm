@@ -25,7 +25,7 @@ use Perl6::Junction qw(any all);
 use EBox::Service;
 use EBox::Gettext;
 use EBox::NetWrappers;
-use EBox::Module;
+use EBox::Module::Base;
 use EBox::Global;
 
 use constant { 
@@ -123,7 +123,7 @@ sub writeUpstartFile
                         mode => '0644',
                        };
 
-   EBox::GConfModule->writeConfFile(
+   EBox::Module::Base->writeConfFile(
                                     $path,
                                     '/mail/ebox.postgrey.mas',
                                     [ 
@@ -171,7 +171,7 @@ sub writeConf
                         mode => '0644',
                        };
 
-   EBox::GConfModule->writeConfFile(
+   EBox::Module::Base->writeConfFile(
                                     WHITELIST_CLIENTS_FILE,
                                     '/mail/whitelist_clients.mas',
                                     [ 

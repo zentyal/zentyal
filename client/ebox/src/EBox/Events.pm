@@ -24,10 +24,9 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::GConfModule 
+use base qw(EBox::Module::Service 
             EBox::Model::ModelProvider 
             EBox::Model::CompositeProvider
-			EBox::ServiceModule::ServiceInterface
             );
 
 use strict;
@@ -74,7 +73,7 @@ use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
 #
 # Overrides:
 #
-#        <EBox::GConfModule::_create>
+#        <EBox::Module::Service::_create>
 #
 # Returns:
 #
@@ -97,15 +96,6 @@ sub _create
 
   }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
-#
-sub serviceModuleName
-{
-	return 'events';
-}
-
 sub _daemons
 {
     return [ { 'name' => SERVICE } ];
@@ -126,7 +116,6 @@ sub _daemons
 #
 sub _regenConfig
 {
-
     my ($self) = @_;
 
     unless ( $self->isReadOnly() ) {
@@ -299,53 +288,17 @@ sub configureDispatcherModel
 
   }
 
-# Method: running
+# Method: isRunning
 #
-#      Request to know if the event daemon is running or not
+# Overrides:
 #
-# Returns:
+#      <EBox::Module::Service::isRunning>
 #
-#      boolean - the event daemon is running or not
-#
-sub running
-  {
-
-      return EBox::Service::running(SERVICE);
-
-  }
-
-# Method: service
-#
-#      Check whether the Events service is enabled or not
-#
-# Returns:
-#
-#      boolean - the service is enabled or not
-#
-sub service
-  {
-
-      my ($self) = @_;
-
-	  return $self->isEnabled();
-
-  }
-
-# Method: setService
-#
-#      Set if the events service is enabled or not
-#
-# Parameters:
-#
-#      enabled - boolean service to be enabled or not
-#
-sub setService
-  {
-
-      my ($self, $enabled) = @_;
-      
-      $self->enableService($enabled);
-  }
+sub isRunning
+{
+    my ($self) = @_;
+    return $self->isEnabled();
+}
 
 # Method: enableEventElement
 #

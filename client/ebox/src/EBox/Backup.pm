@@ -188,7 +188,7 @@ sub _configuredModInstances
   }
   # leave aside not configured modules
 #   @modules = grep {
-# #    (not $_->isa('EBox::ServiceModule::ServiceInterface') or
+# #    (not $_->isa('EBox::Module::Service') or
 # #    ($_->configured())) 
 #     $_->configured()
 #   } @modules;

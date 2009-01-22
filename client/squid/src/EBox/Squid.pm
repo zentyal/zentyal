@@ -18,11 +18,10 @@ use strict;
 use warnings;
 
 use base qw(
-                EBox::GConfModule 
+                EBox::Module::Service 
                 EBox::Model::ModelProvider EBox::Model::CompositeProvider
                 EBox::FirewallObserver  EBox::LogObserver   
                 EBox::Report::DiskUsageProvider
-                EBox::ServiceModule::ServiceInterface
                 );
 
 use EBox::Service;
@@ -144,7 +143,7 @@ sub DGIsRunning
 
 # Method: usedFiles
 #
-#       Override EBox::ServiceModule::ServiceInterface::usedFiles
+#       Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -193,26 +192,16 @@ sub usedFiles
 }
 # Method: enableActions 
 #
-#       Override EBox::ServiceModule::ServiceInterface::enableActions
+#       Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
 }
 
-
-# Method: serviceModuleName 
-#
-#       Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-        return 'squid';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {

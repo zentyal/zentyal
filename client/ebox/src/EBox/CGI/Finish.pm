@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::LogAdmin qw(:all);
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -49,7 +49,7 @@ sub _process
 	    $self->revokeAllModulesAction();
 	} else {
 		if ($global->unsaved) {
-            my $manager = new EBox::ServiceModule::Manager();
+            my $manager = new EBox::ServiceManager();
             my $askPermission = defined @{$manager->checkFiles()};
 			my @array = ();
 			push(@array, 'unsaved' => 'yes');

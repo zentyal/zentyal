@@ -19,7 +19,7 @@ package EBox::Software;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::Module::Service);
 
 use EBox;
 use EBox::Config;
@@ -58,25 +58,16 @@ sub _create
 
 # Method: enableActions 
 #
-# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+# 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-software/ebox-software-enable');
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-	return 'software';
-}
-
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -449,10 +440,10 @@ sub setAutomaticUpdates # (auto)
 	$self->set_bool('automatic', $auto);
 }
 
-# Method: _supportsActions
+# Method: _supportActions
 #
 #       Overrides EBox::ServiceModule::ServiceInterface method.
-sub _supportsActions
+sub _supportActions
 {
     return undef;
 }

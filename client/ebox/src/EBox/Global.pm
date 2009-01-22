@@ -373,7 +373,7 @@ sub saveAllModules
                 $progress->notifyTick();
 
                 my $mod = $self->modInstance($name);
-                my $class = 'EBox::ServiceModule::ServiceInterface';
+                my $class = 'EBox::Module::Service';
                 if ($mod->isa($class) and not $mod->configured()) {
                         $mod->_saveConfig();
                         $self->modRestarted($name);

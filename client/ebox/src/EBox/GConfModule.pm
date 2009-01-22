@@ -18,7 +18,7 @@ package EBox::GConfModule;
 use strict;
 use warnings;
 
-use base 'EBox::Module';
+use base 'EBox::Module::Base';
 
 use Gnome2::GConf;
 use EBox::Config;

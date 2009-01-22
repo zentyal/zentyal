@@ -24,10 +24,10 @@ package EBox::WebServer;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
+use base qw(EBox::Module::Service 
             EBox::Model::ModelProvider 
             EBox::Model::CompositeProvider
-            EBox::ServiceModule::ServiceInterface);
+            );
 
 # eBox uses
 use EBox::Common::Model::EnableForm;
@@ -63,7 +63,7 @@ use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
 #
 # Overrides:
 #
-#        <EBox::GConfModule::_create>
+#        <EBox::Module::Service::_create>
 #
 # Returns:
 #
@@ -84,7 +84,7 @@ sub _create
 
 # Method: usedFiles
 #
-#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#	Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -120,7 +120,7 @@ sub usedFiles
 
 # Method: actions 
 #
-#	Override EBox::ServiceModule::ServiceInterface::actions
+#	Override EBox::Module::Service::actions
 #
 sub actions 
 {
@@ -131,32 +131,6 @@ sub actions
         'reason' => __('To fetch home directories from LDAP')
     },
         ];
-}
-# Method: serviceModuleName 
-#
-#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'webserver';
-}
-
-# Method: _regenConfig
-#
-#        Regenerate the configuration
-#
-# Overrides:
-#
-#       <EBox::Module::_regenConfig>
-#
-sub _regenConfig
-{
-
-    my ($self) = @_;
-
-    $self->_setWebServerConf();
-    $self->_enforceServiceState();
-
 }
 
 # Method: menu
@@ -259,7 +233,7 @@ sub _exposedMethods
 
 #  Method: _daemons
 #
-#   Override <EBox::ServiceModule::ServiceInterface::_daemons>
+#   Override <EBox::Module::Service::_daemons>
 #
 
 sub _daemons
@@ -319,10 +293,16 @@ sub VHostPrefix
 
 # Group: Private methods
 
-######################################
-# Setting web server configuration
-######################################
-sub _setWebServerConf
+# Method: _setConf
+#
+#        Regenerate the webserver configuration
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_setConf>
+#
+
+sub _setConf
 {
 
     my ($self) = @_;

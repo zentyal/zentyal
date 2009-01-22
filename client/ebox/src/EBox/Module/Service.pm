@@ -13,15 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::ConfigurationFile::ServiceInterface
-#
-#   This class is meant to be used by those modules which are going
-#   to modify configuration files
-#
-#   FIXME:
-#
-#   Among others: provide a method to set a default status
-package EBox::ServiceModule::ServiceInterface;
+package EBox::Module::Service;
+
+#FIXME: as the only way to store stuff in gconf is to inherit from GConfModule
+# we'll do it for now, but GConfModule has to go soon and the storage system
+# reworked
+use base qw(EBox::GConfModule);
 
 use EBox::Global;
 use EBox::Sudo;
@@ -33,7 +30,7 @@ use warnings;
 
 use constant INITDPATH => '/etc/init.d/';
 
-# Method: usedFiles 
+# Method: usedFiles
 #
 #   This method is mainly used to show information to the user
 #   about the files which are going to be modified by the service
@@ -169,21 +166,11 @@ sub configured
         return 1;
     }
 
-
-    my $gconf = $self->_gconfModule();
-    unless (defined($gconf)) {
-        throw EBox::Exceptions::Internal(
-            "EBox::ServiceModule::ServiceInterface:configured() must be " .
-            " overriden or " .
-            " EBox::Service::Module::ServiceInterface::serviceModuleName must " .
-            " return a valid gconf module");
-    }
-
-    if ($gconf->st_get_bool('_serviceConfigured') eq '') {
+    if ($self->st_get_bool('_serviceConfigured') eq '') {
         return undef; 
     }
 
-    return $gconf->st_get_bool('_serviceConfigured');
+    return $self->st_get_bool('_serviceConfigured');
 }
 
 # Method: setConfigured 
@@ -206,19 +193,8 @@ sub setConfigured
 {
     my ($self, $status) = @_;
 
-    my $gconf = $self->_gconfModule();
-    unless (defined($gconf)) {
-        throw EBox::Exceptions::Internal(
-            "EBox::ServiceModule::ServiceInterface:setConfigured() must be " .
-            " overriden or " .
-            " EBox::Serice::Module::ServiceInterface::serviceModuleName must " .
-            " return a valid gconf module");
-    }
-
     return unless ($self->configured() xor $status);
-
-
-    return $gconf->st_set_bool('_serviceConfigured', $status);
+    return $self->st_set_bool('_serviceConfigured', $status);
 }
 
 
@@ -233,20 +209,11 @@ sub isEnabled
 {
     my ($self) = @_;
 
-    my $gconf = $self->_gconfModule();
-    unless (defined($gconf)) {
-        throw EBox::Exceptions::Internal(
-            "EBox::ServiceModule::ServiceInterface::isEnabled() must be " .
-            " overriden or " .
-            " EBox::Service::Module::ServiceInterface::serviceModuleName must " .
-            " return a valid gconf module");
-    }
-
-    if ($gconf->get_bool('_serviceModuleStatus') eq '') {
+    if ($self->get_bool('_serviceModuleStatus') eq '') {
         return $self->defaultStatus();
     }
 
-    return $gconf->get_bool('_serviceModuleStatus');
+    return $self->get_bool('_serviceModuleStatus');
 }
 
 # Method: _isDaemonRunning
@@ -316,9 +283,6 @@ sub isRunning
             $check = $pre->($self);
         }
         $check or next;
-        unless($self->_isDaemonRunning($daemon->{'name'})) {
-            return undef;
-        }
     }
     return 1;
 }
@@ -335,31 +299,9 @@ sub enableService
 {
     my ($self, $status) = @_;
 
-    my $gconf = $self->_gconfModule();
-    unless (defined($gconf)) {
-        throw EBox::Exceptions::Internal(
-            "EBox::ServiceModule::ServiceInterface::enableService() must be " .
-            " overriden or " .
-            " EBox::Serice::Module::ServiceInterface::serviceModuleName must " .
-            " return a valid gconf module");
-    }
-
     return unless ($self->isEnabled() xor $status);
 
-    $gconf->set_bool('_serviceModuleStatus', $status);
-}
-
-# Method: serviceModuleName
-#
-#   This method must be overriden if you want to automatically use the methods
-#   isEnabled and enableService.
-#
-# Returns:
-#
-#   The name of a valid gconf module
-sub serviceModuleName
-{
-    return undef;
+    $self->set_bool('_serviceModuleStatus', $status);
 }
 
 # Method: defaultStatus
@@ -391,10 +333,9 @@ sub daemon_type
 #
 # Returns:
 #
-#   An array of hashes containing keys 'name' and 'type', 'name' being
-#   the name of the service and 'type' either 'upstart' or 'init.d',
-#   depending on how the module should be managed. 'upstart' is
-#   assumed if 'type' key is not present.
+#   An array of hashes containing keys 'name' and 'type', 'name' being the
+#   name of the service and 'type' either 'upstart' or 'init.d', depending
+#   on how the module should be managed.
 #
 #   If the type is 'init.d' an extra 'pidfile' key is needed with the path
 #   to the pidfile the daemon uses. This will be used to check the status.
@@ -408,7 +349,7 @@ sub daemon_type
 #   sub externalConnection
 #   {
 #     my ($self) = @_;
-#     return $self->isExternal();
+#     return $self->isExternal;
 #   }
 #
 #   sub _daemons
@@ -433,17 +374,28 @@ sub _daemons
 sub _startDaemon
 {
     my($self, $daemon) = @_;
-    my $action;
-    if($self->_isDaemonRunning($daemon->{'name'})) {
-        $action = 'restart';
-    } else {
-        $action = 'start';
-    }
     if(daemon_type($daemon) eq 'upstart') {
-        EBox::Service::manage($daemon->{'name'}, $action);
-    } else {
-        my $script = INITDPATH . $daemon->{'name'} . ' ' . $action;
+        if(EBox::Service::running($daemon->{'name'})) {
+            EBox::Service::manage($daemon->{'name'},'restart');
+        } else {
+            EBox::Service::manage($daemon->{'name'},'start');
+        }
+    } elsif(daemon_type($daemon) eq 'init.d') {
+        my $pidfile = $daemon->{'pidfile'};
+        if(!defined($pidfile)) {
+            throw EBox::Exceptions::Internal(
+                "init.d-based daemons must include a 'pidfile'");
+        }
+        my $script = INITDPATH . $daemon->{'name'};
+        if($self->pidFileRunning($pidfile)) {
+            $script = $script . ' ' . 'restart';
+        } else {
+            $script = $script . ' ' . 'start';
+        }
         EBox::Sudo::root($script);
+    } else {
+        throw EBox::Exceptions::Internal(
+            "Service type must be either 'upstart' or 'init.d'");
     }
 }
 
@@ -526,6 +478,71 @@ sub _stopService
     $self->_manageService('stop');
 }
 
+# Method: _regenConfig
+#
+#	Base method to regenerate configuration. It should be overriden
+#	by subclasses as needed
+#
+sub _regenConfig 
+{
+    my ($self) = @_;
+
+    $self->_setConf();
+    $self->_enforceServiceState();
+}
+
+# Method: _setConf
+#
+#	Base method to write the configuration. It should be overriden
+#	by subclasses as needed
+#
+sub _setConf
+{
+	# default empty implementation. It should be overriden by subclasses as
+	# needed
+}
+
+# Method: restartService
+#
+#        This method will try to restart the module's service by means of
+#        calling _regenConfig. The method call has the named
+#        parameter restart with true value
+#
+sub restartService
+{
+	my $self = shift;
+
+	$self->_lock();
+	my $global = EBox::Global->getInstance();
+	my $log = EBox::logger;
+
+	if (not $self->isEnabled()) {
+		$log->info("Skipping restart for $self->{name} as it's disabled");
+		return;
+	}
+
+	$log->info("Restarting service for module: " . $self->name);
+	try {
+            $self->_regenConfig('restart' => 1);
+	} otherwise  {
+            my ($ex) = @_;
+            $log->error("Error restarting service: $ex");
+            throw $ex;
+        } finally {
+		$self->_unlock();
+	};
+}
+
+# Method: _supportActions
+#
+#   This method determines if the service will have a button to start/restart
+#   it in the module status widget. By default services will have the button
+#   unless this method is overriden to return undef
+sub _supportActions
+{
+    return 1;
+}
+
 # Method: _enforceServiceState
 #
 #   This method will start, restart or stop the associated daemons to 
@@ -539,28 +556,6 @@ sub _enforceServiceState
     } else {
         $self->_stopService();
     }
-}
-
-# Method: _supportsActions
-# 
-#   This method determines if the service will have a button to start/restart
-#   it in the module status widget. By default services will have the button
-#   unless this method is overriden to return undef
-sub _supportsActions
-{
-    return 1;
-}
-
-sub _gconfModule
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->instance();
-
-    my $name = $self->serviceModuleName();
-    return undef unless(defined($name) and $global->modExists($name));
-
-    return $global->modInstance($name);
 }
 
 1;

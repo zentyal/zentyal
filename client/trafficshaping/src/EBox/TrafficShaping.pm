@@ -35,11 +35,10 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule 
+use base qw(EBox::Module::Service 
             EBox::NetworkObserver 
             EBox::Model::ModelProvider 
             EBox::Model::CompositeProvider
-            EBox::ServiceModule::ServiceInterface
             );
 
 ######################################
@@ -123,7 +122,7 @@ sub startUp
 
 # Method: actions
 #
-# 	Override EBox::ServiceModule::ServiceInterface::actions
+# 	Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -141,18 +140,9 @@ sub actions
     ];
 }
 
-#  Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-	return 'trafficshaping';
-}
-
 #  Method: enableModDepends
 #
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {

@@ -24,7 +24,7 @@ package EBox::SOAP;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base 'EBox::Module::Service';
 
 use Error qw(:try);
 
@@ -99,7 +99,7 @@ sub _create
 
 # Method: _regenConfig
 #
-#     Override <EBox::GConfModule::_regenConfig> method
+#     Override <EBox::Module::Service::_regenConfig> method
 #
 sub _regenConfig
   {
@@ -132,7 +132,7 @@ sub _regenConfig
 
 # Method: _stopService
 #
-#      Override <EBox::GConfModule::_stopService> method
+#      Override <EBox::Module::Service::_stopService> method
 #
 sub _stopService
   {
@@ -143,7 +143,7 @@ sub _stopService
 
 # Method: summary
 #
-#       Override <EBox::GConfModule::summary> method
+#       Override <EBox::Module::Service::summary> method
 #
 sub summary
   {
@@ -154,7 +154,7 @@ sub summary
 
 # Method: menu
 #
-#       Add SOAP module to eBox menu. Overrides <EBox::GConfModule::menu> method.
+#       Add SOAP module to eBox menu. Overrides <EBox::Module::Service::menu> method.
 #
 # Parameters:
 #

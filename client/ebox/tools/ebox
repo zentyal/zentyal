@@ -22,7 +22,7 @@ my $global = EBox::Global->getInstance(1);
 sub moduleList {
     my $modules = "apache";
     print "Module list: \n";
-    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+    my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
     for my $mod (@mods) {
         $modules .= ", " . $mod->{'name'}
     }
@@ -46,7 +46,7 @@ sub checkModule {
     }
     if(!(
                 ($modname eq 'apache') or
-                $mod->isa("EBox::ServiceModule::ServiceInterface"))) {
+                $mod->isa("EBox::Module::Service"))) {
         print STDERR "$modname is a not manageable module name\n";
         moduleList();
         exit 2;
@@ -55,7 +55,7 @@ sub checkModule {
 }
 
 sub start() {
-    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+    my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
 	my @names = map { $_->{'name'} } @mods;
 	push(@names, 'apache');
 
@@ -65,7 +65,7 @@ sub start() {
 }
 
 sub stop() {
-    my @mods = @{$global->modInstancesOfType('EBox::ServiceModule::ServiceInterface')};
+    my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
 	my @names = map { $_->{'name'} } @mods;
 	push(@names, 'apache');
 

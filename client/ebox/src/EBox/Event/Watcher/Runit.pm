@@ -169,7 +169,7 @@ sub _runningAlertServices
 
     my $gl = EBox::Global->getInstance(1);
 
-    my $class = 'EBox::ServiceModule::ServiceInterface';
+    my $class = 'EBox::Module::Service';
     my @mods;
     for my $mod (@{$gl->modInstancesOfType($class)}) {
         next unless ($mod->can('isRunning'));
