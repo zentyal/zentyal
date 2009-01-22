@@ -41,7 +41,7 @@ sub _setUpDirs
 {
     my ($self) = @_;
 
-    foreach my $dirPath (qw(JOBS_DIR INCOMING_DIR OUTCOMING_DIR)) {
+    foreach my $dirPath ((JOBS_DIR, INCOMING_DIR, OUTCOMING_DIR)) {
         unless ( -d $dirPath ) {
             mkdir($dirPath);
         }
