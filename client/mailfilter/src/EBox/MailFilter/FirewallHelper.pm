@@ -45,6 +45,11 @@ sub input
 
   }
 
+  if ($self->{POPProxy}) {
+      my $port = $self->{POPProxyPort};
+      push @rules, "-m state --state NEW --protocol tcp --dport $port   -j ACCEPT";
+  }
+
   return \@rules;
 }
 
@@ -109,10 +114,11 @@ sub prerouting
     foreach my $int (@internals) {
       foreach my $addr (@addrs) {
             push @rules,
-                "-p tcp -i $int --destination ! $addr  --dport $popPort -j REDIRECT --to $port";
+                "-p tcp -i $int --destination  $addr  --dport $popPort -j RETURN";
       }
-
-
+    }
+    foreach my $int (@internals) {
+        push @rules, "-p tcp -i $int --dport $popPort -j REDIRECT --to $port";  
     }
 
     return \@rules;
