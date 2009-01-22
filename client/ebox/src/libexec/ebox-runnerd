@@ -32,6 +32,21 @@ use constant OUTCOMING_DIR => JOBS_DIR . 'outcoming/';
 
 # Common variables in the daemon processes
 
+# Procedure: _setUpDirs
+#
+#     Set up the incoming and outcoming job directories if they are
+#     not created
+#
+sub _setUpDirs
+{
+    my ($self) = @_;
+
+    foreach my $dirPath (qw(JOBS_DIR INCOMING_DIR OUTCOMING_DIR)) {
+        unless ( -d $dirPath ) {
+            mkdir($dirPath);
+        }
+    }
+}
 
 # Procedure: _daemonise
 #
@@ -275,6 +290,9 @@ if ( $usage or (not $correct)) {
 }
 
 EBox::init();
+
+_setUpDirs();
+
 _daemonise($foreground);
 
 _mainActionLoop([ OUTCOMING_DIR, INCOMING_DIR ],
