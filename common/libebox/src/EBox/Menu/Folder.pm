@@ -70,7 +70,7 @@ sub html
 
 
 	foreach my $item (@{$self->items}) {
-		if($item->{url} eq $current) {
+		if(defined($current) and ($item->{url} eq $current)) {
 			$show = 1;
 		}
 		$item->{style} = "menu$self->{name}";

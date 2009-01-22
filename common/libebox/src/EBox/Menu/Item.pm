@@ -54,7 +54,7 @@ sub html
 	(length($text) == 0) and return $html;
 
 	my $class = "";
-	if ($current eq $url) {
+	if (defined($current) and ($current eq $url)) {
 		$class = "current ";
 	}
 	if (defined($self->{style})) {
