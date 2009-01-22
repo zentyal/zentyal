@@ -353,7 +353,7 @@ sub saveAllModules
         }
 
         my @mods = @{$self->modifiedModules()};
-        my $modNames = join(' ', @mods);
+        my $modNames = join (' ', @mods);
 
         $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
