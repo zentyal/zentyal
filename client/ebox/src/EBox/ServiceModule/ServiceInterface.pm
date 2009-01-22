@@ -275,11 +275,22 @@ sub _isDaemonRunning
         return $self->pidFileRunning($pidfile);
     }
     if(daemon_type($daemon) eq 'upstart') {
-        return EBox::Service::running($daemon->{'name'});
+        return EBox::Service::running($dname);
     } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output = EBox::Sudo::root(INITDPATH . $daemon->{'name'} . ' ' . 'status');
+        my $output;
+        my $notOk;
+        try {
+            $output = EBox::Sudo::root(INITDPATH .
+                $dname . ' ' . 'status');
+        } catch EBox::Exceptions::Sudo::Command with {
+            # Command returned != 0
+            $notOk = 1;
+        };
+        if ($notOk) {
+            return 0;
+        }
         my $status = @{$output}[0];
-        if ($status =~ m{^$daemon .* running}) {
+        if ($status =~ m{$dname .* running}) {
             return 1;
         } else {
             return 0;
