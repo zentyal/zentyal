@@ -31,7 +31,7 @@ sub new
     $self->{size} = shift;
     $self->{novalues} = 20;
     $self->{type} = 'graph';
-    if($self->{size} eq 'small') {
+    if(defined($self->{size}) and ($self->{size} eq 'small')) {
         $self->{width} = 175;
         $self->{height} = 100;
     } else {
