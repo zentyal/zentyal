@@ -305,21 +305,16 @@ Let's add a new menu entry in the *menu()* entry to *src/EBox/Apache2.pm* as we 
             }
     }
 
-    # Method: _regenConfig
+    # Method: _setConf
     #
-    #       Overrides EBox::Module::_regenConfig
+    #       Overrides <EBox::Module::Service::_setConf>
     #
-    sub _regenConfig
+    sub _setConf
     {
             my ($self) = @_;
 
-            if ($self->isEnabled()) {
-                    $self->_writeConfiguration();
-                    $self->_configureModules();
-                    EBox::Sudo::root('/etc/init.d/apache2 restart');
-            } else {
-                    EBox::Sudo::root('/etc/init.d/apache2 stop');
-            }
+            $self->_writeConfiguration();
+            $self->_configureModules();
     }
 
     # Method: menu
@@ -531,25 +526,20 @@ As we are modifying files we have to let the framework know with which files we 
             return \@usedFiles;
     }
 
-The last change is actually calling the *_setVirtualHost()* method from *_regenConfig*::
+The last change is actually calling the *_setVirtualHost()* method from *_setConf*::
 
     #!perl
-    # Method: _regenConfig
+    # Method: _setConf
     #
-    #       Overrides EBox::Module::_regenConfig
+    #       Overrides EBox::Module::Service::_setConf
     #
-    sub _regenConfig
+    sub _setConf
     {
             my ($self) = @_;
 
-            if ($self->isEnabled()) {
-                    $self->_writeConfiguration();
-                    $self->_configureModules();
-                    $self->_setVirtualHosts();
-                    EBox::Sudo::root('/etc/init.d/apache2 restart');
-            } else {
-                    EBox::Sudo::root('/etc/init.d/apache2 stop');
-            }
+            $self->_writeConfiguration();
+            $self->_configureModules();
+            $self->_setVirtualHosts();
     }
 
 Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
@@ -728,25 +718,20 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
     }
 
 
-    # Method: _regenConfig
+    # Method: _setConf
     #
-    #       Overrides EBox::Module::_regenConfig
+    #       Overrides <EBox::Module::Service::_setConf>
     #
-    sub _regenConfig
+    sub _setConf
     {
             my ($self) = @_;
 
-            if ($self->isEnabled()) {
-                    $self->_writeConfiguration();
-                    $self->_configureModules();
-                    $self->_setVirtualHosts();
-                    EBox::Sudo::root('/etc/init.d/apache2 restart');
-            } else {
-                    EBox::Sudo::root('/etc/init.d/apache2 stop');
-            }
+            $self->_writeConfiguration();
+            $self->_configureModules();
+            $self->_setVirtualHosts();
     }
 
-    # Method: menu 
+    # Method: menu
     #
     #       Overrides EBox::Module method.
     #   

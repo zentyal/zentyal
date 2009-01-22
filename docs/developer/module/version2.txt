@@ -190,22 +190,17 @@ In our main class (*src/EBox/Apache2.pm*) we will implement a private method cal
             }
     }
 
-The last thing is calling this method from the  *_regenConfig* method. Remember that that's the method is run when the user saves changes. It would be something like this::
+The last thing is calling this method from the  *_setConf* method. Remember that that's the method which is called by *_regenConfig* when the user saves changes. It would be something like this::
 
     #!perl
-    # Method: _regenConfig
+    # Method: _setConf
     #
-    #       Overrides EBox::Module::_regenConfig
+    #       Overrides <EBox::Module::Service::_setConf>
     #
-    sub _regenConfig
+    sub _setConf
     {
             my ($self) = @_;
 
-            if ($self->isEnabled()) {
-                    $self->_writeConfiguration();
-                    $self->_configureModules();
-                    EBox::Sudo::root('/etc/init.d/apache2 restart');
-            } else {
-                    EBox::Sudo::root('/etc/init.d/apache2 stop');
-            }
+            $self->_writeConfiguration();
+            $self->_configureModules();
     }

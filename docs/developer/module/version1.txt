@@ -225,6 +225,24 @@ The next thing we do is to retrieve the stored value of our field called *listen
 Writing the apache configuration
 ================================
 
+eBox commits its configuration changes as follows:
+
+* The user starts a new web interface session and makes some changes to the configuration.
+* The *Save changes* button on the top-right corner turns red to let the user know there are unsaved changes.
+* When the user clicks on that button to save changes, the framework iterates over all modules with unsaved changes preserving its dependency order to make them commit their new configuration. The relevant method call is *EBox::Module::Service::_regenConfig*.
+
+*_regenConfig* can be overriden if we require some really specific behaviour, but its default behaviour should be
+good enough for most modules.
+
+By default, *_regenConfig* does the two following things:
+
+* Calls the method *_setConf()*, which is in charge of writing the required configuration files from the information we have gathered through the web interface and should be overriden by our module
+* Calls *EBox::Module::Service::_enforceServiceState*, which takes care of making sure the services we are managing are running if needed and stopped otherwise.
+
+If these facilities seem to be enough for your module, you only need to declare two functions, *_setConf* and *_daemons* in our main class.
+
+If you recall, our main class is called *Apache2.pm* and lives under *src/EBox/Apache2.pm* in our development directory, or in */usr/share/perl5/EBox/Apache2.pm* when the package is installed.
+
 The user can set the value for the port. Now we have to set the apache configuration according to this value.
 
 The apache configuration file we are going to modify is */etc/apache2/ports.conf*. The structure of this file is pretty simple::
@@ -242,10 +260,9 @@ Let's create our template for this file. Our scaffolding script has already crea
 
 You can read a bit about Mason templates if you wish, but in essence, the above template receives a parameter *$port* which will be used and replaced in the line starting with *Listen*.
 
-Let's implement a private function in our main class file (*src/EBox/Apache2.pm*) to use the template and overwrite */etc/apache2/ports.conf*. It would be something like this::
+Let's write a private function in our main class file (*src/EBox/Apache2.pm*) to use the template and overwrite */etc/apache2/ports.conf* and override *_setConf* so our function is called. It would be something like this::
 
     #!perl
-    # Private functions
 
     # Method: _writeConfiguration
     #
@@ -264,14 +281,47 @@ Let's implement a private function in our main class file (*src/EBox/Apache2.pm*
 
     }
 
-We have already seen how to fetch the value from our data model so we will just visit the method *writeConfFile*, this method is implemented by the *EBox::Module* class which our module inherits from. The first parameter is the destination file to be overwritten with the output of our template. The second parameter is our template, templates are stored under */usr/share/ebox/stubs*, and */apache2/service.conf.mas* is relative to that path. The third and last parameter is an array reference with the parameters we pass to the template, in this case we only have one, *port*.
+    # Method: _setConf
+    #
+    #   Overrides: <EBox::Module::Service::_setConf>
+    #
+    sub _setConf
+    {
+        my ($self) = @_;
+        $self->_writeConfiguration();
+    }
+
+We have already seen how to fetch the value from our data model so we will just visit the method *writeConfFile*, this method is implemented by the *EBox::Module::Base* class which our module inherits from. The first parameter is the destination file to be overwritten with the output of our template. The second parameter is our template, templates are stored under */usr/share/ebox/stubs*, and */apache2/service.conf.mas* is relative to that path. The third and last parameter is an array reference with the parameters we pass to the template, in this case we only have one, *port*.
+
+The other method, *_daemons*, is used to let the service framework which daemons our module uses by returning an
+array with the required information. In our case it should look like this::
+
+    #!perl
+    # Method: _daemons
+    #
+    #       Overrides EBox::Module::Service::_daemons
+    #
+    sub _daemons
+    {
+        return [
+            {
+                'name' => 'apache2',
+                'type' => 'init.d'
+            }
+        ];
+    }
+
+The *_enforceServiceState* method will use this information and the method *isEnabled()* to launch and stop the
+daemons when required.
+
+The *_regenConfig* function will be called every time we change our module configuration and when the machine boots for first time.
 
 eBox developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, eBox will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report what files your module overwrites::
 
     #!perl
     # Method: usedFiles
     #
-    #   Override EBox::ServiceModule::ServiceInterface::usedFiles
+    #   Override EBox::Module::Service::usedFiles
     #
     sub usedFiles
     {
@@ -283,35 +333,6 @@ eBox developers love to party, and they also love to be nice and friendly to use
                 },
                ];
     }
-
-eBox commits its configuration changes as follows:
-
-* The user starts a new web interface session and makes some changes to the configuration.
-* The *Save changes* button on the top-right corner turns red to let the user know there are unsaved changes.
-* When the user clicks on that button to save changes, the framework iterates over all modules with unsaved changes preserving its dependency order to make them commit their new configuration. The relevant method call is *_regenConfig* from our main class.
-
-If you recall our main class is called *Apache2.pm* and lives under *src/EBox/Apache2.pm* in our development directory, or in */usr/share/perl5/EBox/Apache2.pm* when the package is installed.
-
-The following code implements *_regenConfig()*::
-
-    #!perl
-    # Method: _regenConfig
-    #
-    #       Overrides EBox::Module::_regenConfig
-    #
-    sub _regenConfig
-    {
-            my ($self) = @_;
-
-            if ($self->isEnabled()) {
-                    $self->_writeConfiguration();
-                    EBox::Sudo::root('/etc/init.d/apache2 restart');
-            } else {
-                    EBox::Sudo::root('/etc/init.d/apache2 stop');
-            }
-    }
-
-The above function will be called every time we change our module configuration and when the machine boots for first time. The method *isEnabled()* is implemented in the parent class *EBox::ServiceModule::!ServiceInterface*. It tells us if the module is enabled or not, i.e: if the module box is checked in the *Module status* section:
 
 .. image:: images/module-status.png
 
