@@ -279,7 +279,7 @@ sub revokeAllModules
 sub modifiedModules
 {
     my ($self) = @_;
-        my @names = @{$self->modNames};
+    my @names = @{$self->modNames};
     my @mods;
 
         if ($self->modExists('firewall')) {
@@ -291,7 +291,7 @@ sub modifiedModules
                 unless (grep(/^$modname$/, @mods)) {
                         push(@mods, $modname);
                 }
-                
+
                 my @deps = @{$self->modRevDepends($modname)};
                 foreach my $aux (@deps) {
                         unless (grep(/^$aux$/, @mods)) {
@@ -353,8 +353,9 @@ sub saveAllModules
         }
 
         my @mods = @{$self->modifiedModules()};
+        my $modNames = join(' ', @mods);
 
-        $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, @mods);
+        $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
         my $msg = "Saving config and restarting services: @mods";
 
@@ -401,7 +402,7 @@ sub saveAllModules
 
         }
         if ($failed eq "") {
-            $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, @mods);
+            $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
             $progress->setAsFinished();
             return;
         }
@@ -783,7 +784,7 @@ sub init
 #      progress - <EBox::ProgressIndicator> to indicate the user how
 #      the actions are being performed
 #
-#       mods - array of names of modified modules
+#      modNames - string with the names of modified modules
 #
 # Exceptions:
 #
@@ -791,7 +792,7 @@ sub init
 #
 sub _runExecFromDir
 {
-    my ($self, $dirPath, $progress, @mods) = @_;
+    my ($self, $dirPath, $progress, $modNames) = @_;
 
     unless ( -e $dirPath ) {
         throw EBox::Exceptions::DataNotFound(data  => 'directory',
@@ -819,7 +820,7 @@ sub _runExecFromDir
                 $progress->setMessage(__x('running {scriptName} script',
                                           scriptName => scalar(File::Basename::fileparse($exec))));
                 $progress->notifyTick();
-                my $output = EBox::Sudo::command("$exec @mods");
+                my $output = EBox::Sudo::command("$exec $modNames");
                 if ( @{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");
                 }
