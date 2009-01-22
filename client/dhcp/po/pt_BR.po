@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:59+0100\n"
-"PO-Revision-Date: 2009-01-10 00:12+0000\n"
+"PO-Revision-Date: 2009-01-21 14:36+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "Faixa disponível"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr "Faixa DHCP"
+msgstr "Faixas DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
@@ -279,37 +279,39 @@ msgid "fixed address"
 msgstr "endereços fixos"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
-"Para subir para o eBox firmware de boot para PCs, você precisa configurar o "
-"eBox como próximo servidor"
+"Você precisa subir uma imagem de boot para o eBox, caso você configure-o "
+"como próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
-"Para subir para o eBox firmware de boot para PCs, você precisa configurar o "
-"eBox como próximo servidor"
+"Para subir uma imagem de boot para o eBox, você precisa configurá-lo como "
+"próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
+"Você precisa especificar o caminho para a imagem de boot no servidor remoto"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file\n"
 "              name if you have a next server and it is not eBox"
 msgstr ""
+"Você só pode especificar um arquivo\n"
+"                                     caso tenha um \"próximo servidor\" e ele "
+"não seja o eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"Removido o firmware anterior desde que a opção de próximo servidor foi "
+"Remover a imagem de boot desde que a opção de \"próximo servidor\" tenha sido "
 "alterada no eBox para {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
@@ -326,7 +328,7 @@ msgstr "Nome do arquivo"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "Caminho do arquivo no próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
@@ -458,14 +460,12 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1221
-#, fuzzy
 msgid "Host name"
-msgstr "nome"
+msgstr "Nome de máquina"
 
 #: src/EBox/DHCP.pm:1248
-#, fuzzy
 msgid "DHCP leases"
-msgstr "Faixa DHCP"
+msgstr "DHCP leases"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
