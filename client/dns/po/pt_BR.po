@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:01+0100\n"
-"PO-Revision-Date: 2009-01-20 17:00+0000\n"
+"PO-Revision-Date: 2009-01-21 13:30+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,13 +70,13 @@ msgstr "Nome de Máquinas"
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:83
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr "Servidores de Email MX"
+msgstr "Servidores de Email"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:91
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:165
 #: src/EBox/Model/HostnameTable.pm:165 src/EBox/Model/DomainTable.pm:91
 msgid "IP Address"
-msgstr "Endereços IPs"
+msgstr "Endereço IP"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:101
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:107
@@ -157,7 +157,7 @@ msgstr "Personalizar"
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:133
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr "Prioridade"
+msgstr "Preferência"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:142
 #: src/EBox/Model/MailExchanger.pm:142
@@ -173,10 +173,10 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"O menor número preferencial tem a maior prioridade  e é o primeiro servidor "
-"a ser tentado quando um cliente remoto (tipicamente outro servidor de email) "
-"faz uma pesquisa MX para o nome de domínio. Intervalo permitido para "
-"preferecia = ({min}, {max})"
+"A preferência com menor número tem a maior prioridade e é o primeiro "
+"servidor a ser utilizado quando um cliente remoto (tipicamente outro "
+"servidor de email) faz uma pesquisa MX para o domínio. Intervalo permitido "
+"para preferêcia = ({min}, {max})"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:154
 #: src/EBox/Model/MailExchanger.pm:154
@@ -194,28 +194,28 @@ msgstr "Servidor DNS"
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:646 src/EBox/DNS.pm.in:646
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "arquivo de configuração para a zona {zone}"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:662 src/EBox/DNS.pm.in:662
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "arquivo de configuração para a zona reversa {zone}"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:16
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "Lista de domínios"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:21
 #: src/templates/index.mas:21
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:24
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:23
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
-msgstr ""
+msgstr "Ação"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:37
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:38
@@ -232,12 +232,12 @@ msgstr ""
 #: src/templates/index.mas:37 src/templates/index.mas:38
 #: src/templates/index.mas:39
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:49
 #: src/templates/index.mas:49
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:53
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:54
@@ -249,29 +249,29 @@ msgstr ""
 #: src/templates/edit.mas:93 src/templates/edit.mas:94
 #: src/templates/index.mas:53 src/templates/index.mas:54
 msgid "Delete"
-msgstr ""
+msgstr "Remover"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:65
 #: src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:70
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:110
 #: src/templates/edit.mas:110 src/templates/index.mas:70
 msgid "delete"
-msgstr ""
+msgstr "remover"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:12
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "Lista de máquinas para o domínio {domain}"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:17
 #: src/templates/edit.mas:17
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #~ msgid "module status"
 #~ msgstr "Status do Módulo"

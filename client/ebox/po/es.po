@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:07+0100\n"
-"PO-Revision-Date: 2009-01-09 09:01+0000\n"
+"PO-Revision-Date: 2009-01-22 09:24+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1249,7 +1249,7 @@ msgstr "Receptor"
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Enabled"
-msgstr "Deshabilitado"
+msgstr "Habilitado"
 
 #: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
