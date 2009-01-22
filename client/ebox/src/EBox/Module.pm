@@ -786,11 +786,14 @@ sub pidRunning
 sub pidFileRunning
 {
 	my ($self, $file) = @_;
-	(-f $file) or return undef;
-	open(PIDF, $file) or return undef;
-	my $pid = <PIDF>;
+    my $pid;
+    try {
+	    my $output = EBox::Sudo::root("cat $file");
+        $pid = @{$output}[0];
+    } otherwise {
+        return undef;
+    };
 	chomp($pid);
-	close(PIDF);
 	defined($pid) or return undef;
 	($pid ne "") or return undef;
 	return $self->pidRunning($pid);
