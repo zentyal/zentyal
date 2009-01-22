@@ -4257,8 +4257,8 @@ sub _parse_words
     if(defined($str)) {
         Encode::_utf8_on($str);
         @w = split('\W+', lc($str));
-        use Data::Dumper;
-        EBox::debug(Dumper(\@w));
+#         use Data::Dumper;
+#         EBox::debug(Dumper(\@w));
     }
     return @w;
 }

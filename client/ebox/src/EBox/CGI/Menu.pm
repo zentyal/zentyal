@@ -35,9 +35,26 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-sub _process
+# Method: requiredParameters
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::requiredParameters>
+#
+sub requiredParameters
 {
-	my ($self) = @_;
+    return ['search'];
+}
+
+# Method: actuate
+#
+# Overrides:
+#
+#   <EBox::CGI::Base::actuate>
+#
+sub actuate
+{
+    my ($self) = @_;
     my $search = $self->param('search');
 
     my $file = EBox::Config::tmp . "menucache";
