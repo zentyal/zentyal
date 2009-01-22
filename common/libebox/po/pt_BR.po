@@ -7,19 +7,19 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:19+0100\n"
-"PO-Revision-Date: 2007-04-15 19:22+0000\n"
-"Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
+"PO-Revision-Date: 2009-01-21 18:21+0000\n"
+"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
-msgstr "A página não pode ser encontrada."
+msgstr "Página não encontrada"
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:196
 #: src/EBox/CGI/Base.pm:196
@@ -38,7 +38,7 @@ msgid ""
 "information can be found in the logs."
 msgstr ""
 "Ocorreu um erro interno, este erro é provavelmente um BUG, informações "
-"importantes podem ser encontradas nos logs"
+"importantes podem ser encontradas nos logs."
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:343
 #: src/EBox/CGI/Base.pm:343
@@ -51,25 +51,23 @@ msgstr ""
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:568
 #: src/EBox/CGI/Base.pm:568
-#, fuzzy
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Ocorreu um erro interno desconhecido, Isto é um BUG, informações importantes "
+"Ocorreu um erro interno inesperado. Isto é um BUG, informações importantes "
 "podem ser encontradas nos logs."
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:574
 #: src/EBox/CGI/Base.pm:574
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Você encontrou um BUg no eBox. Por Favor procure suporte técnico."
+msgstr "Você encontrou um BUG no eBox. Por favor procure o suporte técnico."
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:661
 #: src/EBox/CGI/Base.pm:661
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
-msgstr ""
-"O seu pedido não pode ser processado porque tem parametros incorrectos."
+msgstr "O seu pedido não pode ser processado porque tem parâmetros incorretos"
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:676
 #: src/EBox/CGI/Base.pm:676
@@ -77,17 +75,17 @@ msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
-"O seu pedido não pode ser processado porque faltam parametros necessários."
+"O seu pedido não pode ser processado porque faltam parametros necessários"
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:827
 #: src/EBox/CGI/Base.pm:827
 msgid "Invalid uploaded file."
-msgstr "Upload de ficheiro inválido."
+msgstr "Arquivo inválido."
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:833
 #: src/EBox/CGI/Base.pm:833
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Não foi possível criar o arquivo temporário"
 
 #: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:37
 #: src/EBox/Exceptions/InvalidData.pm:37
@@ -120,12 +118,15 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Não é possível utilizar o diretório: {dir}. Significa que ele não existe ou "
+"as permissões proíbem o acesso"
 
 #: debian/libebox/usr/share/perl5/EBox/Validate.pm:694
 #: src/EBox/Validate.pm:694
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"O diretório {dir} não é privativo; porque é de propriedade de outro usuário"
 
 #: debian/libebox/usr/share/perl5/EBox/Validate.pm:769
 #: src/EBox/Validate.pm:769
@@ -133,16 +134,18 @@ msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"O caminho indicado não é válido. (Atualmente nem todos os caracteres dos "
+"arquivos válidos são suportados) "
 
 #: debian/libebox/usr/share/perl5/EBox/Validate.pm:797
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "O caminho do arquivo deve ser absoluto"
 
 #: debian/libebox/usr/share/perl5/EBox/Sudo.pm:237 src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr "Ao executar o comando '{cmd}' como usuário '{user}' falhou."
+msgstr "A execução do comando '{cmd}' como usuário '{user}' falhou"
 
 #: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
 #: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
@@ -158,7 +161,7 @@ msgstr "Interface"
 #: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
 msgid "Directory not found: {d}"
-msgstr ""
+msgstr "Ciretório não encontrado: {d}"
 
 #: debian/libebox/usr/share/perl5/EBox/Config.pm:75 src/EBox/Config.pm.in:75
 #, perl-brace-format
