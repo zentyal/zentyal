@@ -724,7 +724,7 @@ sub _setDescription
     }
 
     # Calculate the lines per graph
-    my $nTI = (0,0);
+    my $nTI = 0;
     if(@{$self->{typeInstances}}) {
         $nTI = scalar(@{$self->{typeInstances}});
     } else {

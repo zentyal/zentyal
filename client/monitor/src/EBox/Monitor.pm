@@ -369,21 +369,20 @@ sub thresholdConfigured
 
 # Group: Protected methods
 
-# Method: _regenConfig
+# Method: _setConf
 #
 #      It regenerates the monitor service configuration
 #
 # Overrides:
 #
-#      <EBox::Module::_regenConfig>
+#      <EBox::Module::Service::_setConf>
 #
-sub _regenConfig
+sub _setConf
 {
     my ($self) = @_;
 
     $self->_setDirs();
     $self->_setMonitorConf();
-    $self->_enforceServiceState();
 
 }
 
@@ -393,7 +392,7 @@ sub _regenConfig
 #
 # Overrides:
 #
-#      <EBox::ServiceModule::ServiceInterface::_daemons>
+#      <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
