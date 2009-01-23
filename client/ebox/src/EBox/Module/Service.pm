@@ -363,6 +363,22 @@ sub daemon_type
     }
 }
 
+# Method: showModuleStatus
+#
+#   Indicate to ServiceManager if the module must be shown in Module
+#   status configuration.
+#
+#   It must be overridden in rare cases
+#
+# Returns:
+#
+#   true
+#
+sub showModuleStatus
+{
+    return 1;
+}
+
 # Method: _daemons
 #
 #   This method must be overriden to return the services required by this

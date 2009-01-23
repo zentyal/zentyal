@@ -148,6 +148,17 @@ sub addModuleStatus
         statusStr     => $subscriptionStatus));
 }
 
+# Method: showModuleStatus
+#
+# Overrides:
+#
+#       <EBox::Module::Service::showModuleStatus>
+#
+sub showModuleStatus
+{
+    return 0;
+}
+
 sub menu
 {
     my ($self, $root) = @_;

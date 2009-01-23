@@ -95,7 +95,9 @@ sub moduleStatus
             $status->{'status'} = undef;
             $mod->enableService(undef);
         }
-        push (@mods, $status); 
+        if ( $mod->showModuleStatus() ) {
+            push (@mods, $status);
+        }
     }
 
     return \@mods;
