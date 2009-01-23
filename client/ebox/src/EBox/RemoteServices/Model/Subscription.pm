@@ -36,14 +36,18 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::RemoteServices::Backup;
-use EBox::RemoteServices::Subscription;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
+use EBox::RemoteServices::Backup;
+use EBox::RemoteServices::Subscription;
 use EBox::Types::Password;
 use EBox::Types::Text;
 use EBox::Validate;
+
+# Core modules
+use Error qw(:try);
 
 # Constants
 use constant {
@@ -169,6 +173,15 @@ sub setTypedRow
         $self->{returnedMsg} = '';
     } else {
         $self->setMessage(__('Done'));
+    }
+
+    if ( not $subs ) {
+        try {
+            # Establish VPN connection after subscribing and store data in backend
+            EBox::RemoteServices::Backup->new()->connection();
+        } catch EBox::Exceptions::External with {
+            EBox::warn("Impossible to establish the connection to the name server. Firewall is not restarted yet");
+        };
     }
 
 }

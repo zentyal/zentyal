@@ -211,7 +211,7 @@ sub subscribeEBox
     }
 
     my $confKeys = EBox::Config::configKeysFromFile("$dirPath/$confFile");
-    $self->_openVPNandCloseHTTPSConnection(
+    $self->_openVPNConnection(
         $confKeys->{vpnIPAddr},
         $confKeys->{vpnPort},
        );
@@ -306,7 +306,7 @@ sub _openHTTPSConnection
 }
 
 # Close down HTTPS connections and open up VPN one
-sub _openVPNandCloseHTTPSConnection #(ipaddr, port)
+sub _openVPNConnection #(ipaddr, port)
 {
     my ($self, $ipAddr, $port) = @_;
 
@@ -315,22 +315,23 @@ sub _openVPNandCloseHTTPSConnection #(ipaddr, port)
         my $fw = $gl->modInstance('firewall');
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
-            my $output = EBox::Iptables::pf('-L ointernal');
-            my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-            my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-            if ( $matches >= $mirrorCount ) {
-                foreach my $no ( 1 .. $mirrorCount ) {
-                    my $site = EBox::RemoteServices::Configuration::PublicWebServer();
-                    $site =~ s:\.:$no.:;
-                    EBox::Iptables::pf(
-                        "-D ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-                       );
-                }
-                my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
-                EBox::Iptables::pf(
-                    "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
-                   );
-            }
+            # Comment out to allow connections
+#             my $output = EBox::Iptables::pf('-L ointernal');
+#             my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
+#             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
+#             if ( $matches >= $mirrorCount ) {
+#                 foreach my $no ( 1 .. $mirrorCount ) {
+#                     my $site = EBox::RemoteServices::Configuration::PublicWebServer();
+#                     $site =~ s:\.:$no.:;
+#                     EBox::Iptables::pf(
+#                         "-D ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+#                        );
+#                 }
+#                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
+#                 EBox::Iptables::pf(
+#                     "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+#                    );
+#             }
             # We assume UDP
             EBox::Iptables::pf(
                 "-A ointernal -p udp -d $ipAddr --dport $port -j ACCEPT"

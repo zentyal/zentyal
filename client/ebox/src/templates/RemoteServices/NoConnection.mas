@@ -7,6 +7,7 @@ my $text = __(
 
 my @causes = (
     __(q{Your computer has not internet connection}),
+    __(q{Firewall is blocking the connection. Try to restart firewall module}),
     __(q{Your computer has not a correct system date}),
     __(q{You are using the wrong certificates}),
     __(q{This eBox has been removed from your registered eBoxes}),

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:07+0100\n"
+"POT-Creation-Date: 2009-01-22 10:47+0100\n"
 "PO-Revision-Date: 2008-12-23 17:41+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,470 +17,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:52
-#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:87
-#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
-#, fuzzy
-msgid "Configure widgets"
-msgstr "Configurar eventos"
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "Conta Jabber Admin"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/Index.pm:32
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:201
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
-msgid "Dashboard"
-msgstr ""
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/CGI/EBox/Backup.pm:34
-msgid "System backups"
-msgstr "Cópias de segurança do sistema"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:160
-#: src/EBox/CGI/EBox/Backup.pm:160
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Modo desconhecido de cópia de segurança: {mode}"
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabber server {serverName} está em baixo ou conecção não é permitida"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:192
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:273
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:286
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:147
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1323
-#: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
-#: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
-#: src/EBox/Backup.pm:1323
-msgid "The input contains invalid characters"
-msgstr "Contém caracteres inválidos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:226
-#: src/EBox/CGI/EBox/Backup.pm:226
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Modo de restauração desconhecido: {mode}"
+msgid "Subscription failed: {message}"
+msgstr "Subscrição falhou: {message}"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:239
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "A executar o backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:240
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "Criar backup dos módulos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:241
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
-#: src/EBox/CGI/EBox/Backup.pm:241
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
-msgstr "Operação"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:242
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
-#: src/EBox/CGI/EBox/Backup.pm:242
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
-msgstr "Operações restantes para finalizar o backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:243
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
-#: src/EBox/CGI/EBox/Backup.pm:243
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
-msgid "Backup successful"
-msgstr "Backup com sucesso"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:254
-#: src/EBox/CGI/EBox/Backup.pm:254
-msgid "Restoring backup"
-msgstr "Restaurar backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:255
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring modules"
-msgstr "Restaurar módulos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:256
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:640
-#: src/EBox/CGI/EBox/Backup.pm:256
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/Logs.pm:640 debian/ebox/usr/share/ebox/templates/finish.mas:106
-#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:58
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
-msgid "Module"
-msgstr "Módulo"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:257
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
-#: src/EBox/CGI/EBox/Backup.pm:257
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr "Módulos restantes a restaurar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:258
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
-#: src/EBox/CGI/EBox/Backup.pm:258
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "Restauro efectuado com sucesso"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Bug.pm:29
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Relatório de erros"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:33
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr "Backup das configurações"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:105
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:96
-#: debian/ebox/usr/share/ebox/templates/backup.mas:172
-#: debian/ebox/usr/share/ebox/templates/backup.mas:173
-#: src/templates/backup.mas:172 src/templates/backup.mas:173
-#: src/templates/RemoteServices/Backup/index.mas:96
-msgid "Delete"
-msgstr "Apagar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:130
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Confirme se quer restaurar utilizando este ficheiro de backup:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:85
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:76
-#: debian/ebox/usr/share/ebox/templates/backup.mas:95
-#: src/templates/backup.mas:95
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
-msgid "Restore"
-msgstr "Restaurar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:179
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Backup das configurações e de todos os dados"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:182
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "Bug-report configuration dump"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/CurrentProgress.pm:36
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "Actualizando"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/General.pm:30
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Configuração geral"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:30
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "Desligar ou reiniciar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:43
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox vai abaixo para desligar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:46
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox vai abaixo para reiniciar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:49
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Palavra-passe incorrecta."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:54
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Nova palavra-passe não coincide."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:58
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "A palavra-passe deve ter pelo menos 6 caracteres"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:62
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "A password foi modificada com sucesso"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:48
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "Nome do módulo"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:52
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "O módulo foi reiniciado com sucesso"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:61
-#: src/EBox/CGI/Login/Index.pm:61
-#, fuzzy
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
-msgstr ""
-"Está a correr um script de um serviço web . Por favor, espere até estar "
-"concluído"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:65
-#: src/EBox/CGI/Login/Index.pm:65
-msgid "Incorrect password"
-msgstr "Password incorrecta"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:68
-#: src/EBox/CGI/Login/Index.pm:68
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Por razões de segurança a sua sessão expirou devido a inactividade"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:71
-#: src/EBox/CGI/Login/Index.pm:71
-msgid "You have been logged out because a new session has been opened"
-msgstr "Foi desconectado porque uma nova sessão foi iniciada"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Logout/Index.pm:29
-#: debian/ebox/usr/share/perl5/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
-#: src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Sair"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Logs/Index.pm:35
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:619 src/EBox/CGI/Logs/Index.pm:35
-#: src/EBox/Logs.pm:619
-msgid "Logs"
-msgstr "Logs"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Report/DiskUsage.pm:31
-#: src/EBox/CGI/Report/DiskUsage.pm:31
-msgid "Disk Usage"
-msgstr "Utilização do disco"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/CGI/Report/RAID.pm:30
-msgid "RAID report"
-msgstr "relatório RAID"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#, fuzzy
-msgid "Remote system backups"
-msgstr "Cópias de segurança do sistema"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
-#, fuzzy
-msgid "Backing up modules "
-msgstr "Criar backup dos módulos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
-#, fuzzy
-msgid "Restoring remote backup"
-msgstr "Restaurar backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
-#, fuzzy
-msgid "Restoring modules from remote backup"
-msgstr "Restaurar a partir de backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
-#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
-#, fuzzy
-msgid "Backup deleted"
-msgstr "Modo de backup"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
-#, fuzzy
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
-#, fuzzy
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
-#, fuzzy, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "RAID array {a} inexistente"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
-#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
-#, fuzzy
-msgid "Remote system backups proxy"
-msgstr "Cópias de segurança do sistema"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/NoConnection.pm:31
-#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
-#, fuzzy
-msgid "Connection error"
-msgstr "operações efectuadas"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/ServiceModule/StatusView.pm:39
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
-msgid "Module status configuration"
-msgstr "Configurar logs"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/ClientRawBase.pm:191
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Ocorreu um erro interno. Isto é provavelmente devido a um erro, pode "
-"encontrar mais informações nos logs."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/ClientRawBase.pm:201
-#: src/EBox/CGI/ClientRawBase.pm:201
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Ocorreu um erro interno relacionado com uma template. Isto é devido "
-"provavelmente a um erro, pode encontrar mais informações nos logs."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:32 src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Guardar configuração"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:76 src/EBox/CGI/Finish.pm:76
-msgid "Saving changes"
-msgstr "Guardar alterações"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:77 src/EBox/CGI/Finish.pm:77
-msgid "Saving changes in modules"
-msgstr "Guardar alterações dos módulos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:78 src/EBox/CGI/Finish.pm:78
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:203
-#: src/templates/report/raid.mas:203
-msgid "Current operation"
-msgstr "Operação actual"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:79 src/EBox/CGI/Finish.pm:79
-msgid "operations performed"
-msgstr "operações efectuadas"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:80 src/EBox/CGI/Finish.pm:80
-msgid "Changes saved"
-msgstr "Alterações guardadas"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:81 src/EBox/CGI/Finish.pm:81
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
+msgid "Authorization failed: {result} - {message}"
+msgstr "Falhou autorização: {result} - {message}"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:101
-#: src/EBox/CGI/Finish.pm:101
-#, fuzzy
-msgid "Revoking changes"
-msgstr "Guardar alterações"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:102
-#: src/EBox/CGI/Finish.pm:102
-#, fuzzy
-msgid "Revoking changes in modules"
-msgstr "Restaurar módulos"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:103
-#: src/EBox/CGI/Finish.pm:103
-msgid "Current module"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:104
-#: src/EBox/CGI/Finish.pm:104
-#, fuzzy
-msgid "modules revoked"
-msgstr "Módulos restantes a restaurar"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:105
-#: src/EBox/CGI/Finish.pm:105
-msgid "Changes revoked"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Finish.pm:106
-#: src/EBox/CGI/Finish.pm:106
+#: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
+msgid "RSS file: {path}"
+msgstr "Ficheiro RSS: {path}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, perl-brace-format
+msgid "eBox alerts channel for {hostname}"
+msgstr "Canal de alertas ebox de {hostname}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr ""
+"Este canal faz o registo do que se passa com esta máquina ebox ao longo do "
+"tempo"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, perl-brace-format
+msgid "The event has happened in eBox {hostname} from {source}"
+msgstr "Este evento ocorreu no ebox {hostname} de {source}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:317
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "Vá a {url} para verificar o seu estado"
+
+#: src/EBox/Event/Dispatcher/Log.pm:116
+msgid "Log file"
+msgstr "Ficheiro de registo (Log)"
+
+#: src/EBox/Event/Dispatcher/Log.pm:129
+msgid "Log"
+msgstr "Registo (Log)"
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "Expedidor (dispatcher) {name} não está configurado para ser activado"
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:100
-#: src/EBox/Common/Model/EnableForm.pm:100
-msgid "Service enabled"
-msgstr "Serviço activado"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:102
-#: src/EBox/Common/Model/EnableForm.pm:102
-msgid "Service disabled"
-msgstr "Serviço desactivado"
-
-#: debian/ebox/usr/share/perl5/EBox/Common/Model/EnableForm.pm:146
-#: src/EBox/Common/Model/EnableForm.pm:146
-msgid "Enable service"
-msgstr "Activar serviço"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
@@ -488,93 +98,68 @@ msgstr ""
 "O sistema de ficheiros {fs}, montado no {mp}, não contém espaço livre "
 "disponível"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:167
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
 msgstr "Espaço livre em disco"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/DiskFreeSpace.pm:184
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 #, fuzzy
 msgid "Check if any disk partition has no storage space left"
 msgstr "Verifique se alguma partição não contém espaço livre disponível"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Log.pm:203
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr "Log observer"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Log.pm:230
-#: src/EBox/Event/Watcher/Log.pm:230
-#, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Notificar quando um logger ({loggers}) registou qualquer coisa"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:199
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
 msgstr "Verifique se algum evento ocorreu no sub-sistema RAID"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:265
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
 msgstr "Novo array RAID, informação do dispositivo {devName}:"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:267
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
 msgstr "Estado: {state}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:268
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
 msgstr "Tipo: {type}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:269
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
 msgstr "Dispositivos activos necessários: {nb}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:270
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
 msgstr "Dispositivos activos: {nb}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:272
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
 msgstr "Operação em progresso: {operation}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:274
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
 msgstr "Percentagem da operação completa: {per}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:276
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
 msgstr "Fim estimado da operação: {time}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:280
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
 msgstr "Componente RAID {nb}: dispositivo {device} estado {state}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:335
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
 msgid ""
@@ -584,14 +169,12 @@ msgstr ""
 "Dispositivo RAID {name} desapareceu: O array RAID configurado anteriormente, "
 "aparentemente já não se encontra configurado"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:355
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr ""
 "Dispositivo RAID {name} alrerou o seu estado de {oldState} para {newState}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:375
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
 msgid ""
@@ -601,19 +184,16 @@ msgstr ""
 "Dispositivo RAID {name} mudou o seu número de componentes activos de "
 "{oldNum} para {newNum}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:399
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
 msgstr "Dispositivo RAID {name} iniciou a operação {opName}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:405
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
 msgstr "Dispositivo RAID {name} terminou a operação {opName} ou foi abortada"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:411
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
@@ -621,25 +201,21 @@ msgid ""
 msgstr ""
 "Dispositivo RAID {name} terminou a operação {oldOpName} e iniciou {newOpName}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:421
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
 msgstr "ispositivo RAID {name} está arealizar a operação {opName}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:430
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, fuzzy, perl-brace-format
 msgid "Status: {percentage} completed"
 msgstr "Estado: {percentage}% completa "
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:432
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
 msgstr "Tempo de finalização estimado: {time}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:463
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
 msgid ""
@@ -649,7 +225,6 @@ msgstr ""
 "Componente activo {compName} do array RAID {arrayName} foi marcado como em "
 "estado de erro"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:472
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
 msgid ""
@@ -659,7 +234,6 @@ msgstr ""
 "Componente extra {compName} do array RAID {arrayName} que foi reconstruído "
 "para substituir o dispositivo em erro, falhou"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:482
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
 msgid ""
@@ -670,7 +244,6 @@ msgstr ""
 "Componente extra {compName} do array RAID {arrayName} foi reconstruído para "
 "substituir o dispositivo em erro com sucesso"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:495
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
 msgid ""
@@ -680,7 +253,6 @@ msgstr ""
 "Um novo componente {compName} foi adicionado ao dispositivo RAID {arrayName} "
 "com status {status}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:508
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
 msgid ""
@@ -690,105 +262,97 @@ msgstr ""
 "O componente {compName} foi removido ao dispositivo RAID {arrayName} quando "
 "o seu status foi {status}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:534
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:575
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:101
 #: src/templates/report/raid.mas:101
 msgid "active"
 msgstr "activo"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:536
-#: src/EBox/Event/Watcher/RAID.pm:536
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:103
-#: src/templates/report/raid.mas:103
+#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
 msgid "degraded"
 msgstr "degradado"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:538
-#: src/EBox/Event/Watcher/RAID.pm:538
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:105
-#: src/templates/report/raid.mas:105
+#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
 msgid "recovering"
 msgstr "recuperando"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:540
-#: src/EBox/Event/Watcher/RAID.pm:540
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:107
-#: src/templates/report/raid.mas:107
+#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
 msgid "resyncing"
 msgstr "resincronizando"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:542
-#: src/EBox/Event/Watcher/RAID.pm:542
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:111
-#: src/templates/report/raid.mas:111
+#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
 msgid "rebuilding"
 msgstr "reconstruindo"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:544
-#: src/EBox/Event/Watcher/RAID.pm:544
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:109
-#: src/templates/report/raid.mas:109
+#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
 msgid "reshaping"
 msgstr "Remodelando"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:546
-#: src/EBox/Event/Watcher/RAID.pm:546
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:113
-#: src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
 msgid "failed"
 msgstr "falhou"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:558
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
 msgstr "resincronizar"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:560
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
 msgstr "reconstruir"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:562
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
 msgstr "remodelar"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:564
 #: src/EBox/Event/Watcher/RAID.pm:564
 msgid "recovery"
 msgstr "recuperar"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:577
 #: src/EBox/Event/Watcher/RAID.pm:577
 msgid "faulty"
 msgstr "defeituoso(a)"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/RAID.pm:579
-#: src/EBox/Event/Watcher/RAID.pm:579
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:223
-#: src/templates/report/raid.mas:223
+#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
 msgid "spare"
 msgstr "sobreselente"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:113
+#: src/EBox/Event/Watcher/State.pm:126
+msgid "eBox is up and running"
+msgstr "eBox está a correr"
+
+#: src/EBox/Event/Watcher/State.pm:132
+msgid "eBox is critically down"
+msgstr "eBox está em baixo"
+
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
+msgid "State"
+msgstr "Estado"
+
+#: src/EBox/Event/Watcher/State.pm:174
+msgid "Check if eBox is currently up or down"
+msgstr "Verifique se o eBox está a correr ou em baixo"
+
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr "Log observer"
+
+#: src/EBox/Event/Watcher/Log.pm:230
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Notificar quando um logger ({loggers}) registou qualquer coisa"
+
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
 msgstr "Os seguintes módulos não estão a correr: {modules}\n"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:142
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "Serviço"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:159
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
 msgstr "Verifique se há algum serviço eBox que não está a correr quando devia"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/Runit.pm:229
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
@@ -798,763 +362,147 @@ msgstr ""
 "O serviço {service} foi reiniciado {restart} vezes em {time} segundos e foi "
 "parado"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:126
-#: src/EBox/Event/Watcher/State.pm:126
-msgid "eBox is up and running"
-msgstr "eBox está a correr"
+#: src/EBox/Common/Model/EnableForm.pm:100
+msgid "Service enabled"
+msgstr "Serviço activado"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:132
-#: src/EBox/Event/Watcher/State.pm:132
-msgid "eBox is critically down"
-msgstr "eBox está em baixo"
+#: src/EBox/Common/Model/EnableForm.pm:102
+msgid "Service disabled"
+msgstr "Serviço desactivado"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:157
-#: src/EBox/Event/Watcher/State.pm:157
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:216
-#: src/templates/report/raid.mas:216
-msgid "State"
-msgstr "Estado"
+#: src/EBox/Common/Model/EnableForm.pm:146
+msgid "Enable service"
+msgstr "Activar serviço"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Watcher/State.pm:174
-#: src/EBox/Event/Watcher/State.pm:174
-msgid "Check if eBox is currently up or down"
-msgstr "Verifique se o eBox está a correr ou em baixo"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Abstract.pm:141
-#: src/EBox/Event/Dispatcher/Abstract.pm:141
+#: src/EBox/Types/Select.pm:260
 #, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "Expedidor (dispatcher) {name} não está configurado para ser activado"
+msgid "Choose a value within the value set: {set}"
+msgstr "Escolha um valor do seguinte conjunto: {set}"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/ControlCenter.pm:148
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
+#: src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/ControlCenter.pm:161
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr ""
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
+#, fuzzy, perl-brace-format
+msgid "The value shouldn't be greater than {m}"
+msgstr "deve ser superior a zero"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:166
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
-msgstr "Conta Jabber Admin"
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
+#, fuzzy, perl-brace-format
+msgid "The value shouldn't be less than {m}"
+msgstr "deve ser superior a zero"
 
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:179
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
-msgstr "Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:229
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
-#, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber server {serverName} está em baixo ou conecção não é permitida"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:259
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
-#, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Subscrição falhou: {message}"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Jabber.pm:266
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Falhou autorização: {result} - {message}"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Log.pm:116
-#: src/EBox/Event/Dispatcher/Log.pm:116
-msgid "Log file"
-msgstr "Ficheiro de registo (Log)"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/Log.pm:129
-#: src/EBox/Event/Dispatcher/Log.pm:129
-msgid "Log"
-msgstr "Registo (Log)"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:219
-#: src/EBox/Event/Dispatcher/RSS.pm:219
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "Ficheiro RSS: {path}"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:233
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:290
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
-msgstr "Canal de alertas ebox de {hostname}"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:293
-#: src/EBox/Event/Dispatcher/RSS.pm:293
-msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
-"Este canal faz o registo do que se passa com esta máquina ebox ao longo do "
-"tempo"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:313
-#: src/EBox/Event/Dispatcher/RSS.pm:313
-#, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
-msgstr "Este evento ocorreu no ebox {hostname} de {source}"
-
-#: debian/ebox/usr/share/perl5/EBox/Event/Dispatcher/RSS.pm:317
-#: src/EBox/Event/Dispatcher/RSS.pm:317
-#, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Vá a {url} para verificar o seu estado"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:191
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
-msgid "Jabber server name"
-msgstr "Nome servidor Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:194
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-#, fuzzy
-msgid "Jabber server to send the messages"
-msgstr "Nome servidor Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:198
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-msgid "Port"
-msgstr "Porto"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:205
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
-msgid "Jabber user name"
-msgstr "Nome utilizador Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:208
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:214
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-msgid "User password"
-msgstr "Definir palavra-passe"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:222
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:276
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-#: src/EBox/RemoteServices/Model/Subscription.pm:276
-msgid "Subscribe"
-msgstr "Subscrever"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:224
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid ""
-"Tick this option if you want eBox to create an account for the above user"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:273
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-msgid "Administrator Jabber Identifier"
-msgstr "Identificador administração Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:234
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:243
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-msgid "Configure Jabber dispatcher"
-msgstr "Configurar expedidor Jabber "
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:248
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:251
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
-msgid "Jabber dispatcher configuration updated"
-msgstr "Configuração do expedidor Jabber actualizado"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/Jabber.pm:275
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "Deve ter o seguinte formato 'user@dominio[/resource]"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:148
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
-msgid "Nobody"
-msgstr "Ninguém"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:152
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-msgid "IP address"
-msgstr "Endereço IP"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:159
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
-msgid "Object"
-msgstr "Objecto"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:168
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
-msgid "Public"
-msgstr "Público"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:175
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
-msgid "Channel link"
-msgstr "Link canal RSS"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:182
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
-msgid "Allowed readers"
-msgstr "Leitores permitidos"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:185
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-msgid "Use this field to set the access control for the channel"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:190
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:200
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-msgid "Configure RSS dispatcher"
-msgstr "Configurar expedidor RSS"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:205
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:208
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-msgid "RSS dispatcher configuration updated"
-msgstr "Configuração do expedidor RSS actualizado"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-msgid "Minimum free disk space per filesystem"
-msgstr "Espaço em disco mínimo para o sistema de ficheiros"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-msgid "Configure disk free space watcher"
-msgstr "Configurar monitor de espaço livre no disco"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:168
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:192
-#: src/EBox/Events/Model/Watcher/Log.pm:168
-#: src/EBox/Events/Model/Watcher/Log.pm:192
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"Atenção! O verificador de logs não está activado. Active-o para ser "
-"notificado quando ocorrerem logs."
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:216
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:357
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
-#: src/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Events/Model/Watcher/Log.pm:216
-msgid "Domain"
-msgstr "Domínio"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:221
-#: src/EBox/Events/Model/Watcher/Log.pm:221
-msgid "Filtering"
-msgstr "Filtrando"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:229
-#: src/EBox/Events/Model/Watcher/Log.pm:229
-msgid "Configure log watchers"
-msgstr "Configurar verificador de logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:231
-#: src/EBox/Events/Model/Watcher/Log.pm:231
-msgid "Log watcher"
-msgstr "verificador de logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:109
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "Log domínio {logDomain}"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: debian/ebox/usr/share/perl5/EBox/Types/Service.pm:212
-#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:289
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:185
 #: src/templates/logs/index.mas:185
 msgid "Any"
 msgstr "Qualquer"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:183
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "Evento"
+#: src/EBox/Types/PortRange.pm:138
+msgid "any"
+msgstr "qualquer"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:177
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "Filtros a aplicar para notificar logs de {logDomain}"
+msgid "\"From\" {from} must be greater than \"To\" {to}"
+msgstr "\"From\" {from} deve ser maior do que \"To\" {to}"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:185
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"Cada filtro adicionado é acumulativo. Logo, cada linha de log que se "
-"verifique num dos filtros serão notificados"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/LogFiltering.pm:189
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr "filtro"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:23
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:67
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:24
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/index.mas:23
-#: src/templates/RemoteServices/Backup/index.mas:67
-#: src/templates/RemoteServices/Backup/confirm.mas:24
-msgid "Name"
-msgstr "Nome"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:258
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:27
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:69
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:40
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:45
-#: debian/ebox/usr/share/ebox/templates/backup.mas:44
-#: debian/ebox/usr/share/ebox/templates/backup.mas:126
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:36
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
-#: src/templates/backup.mas:126
-#: src/templates/RemoteServices/Backup/proxy.mas:45
-#: src/templates/RemoteServices/Backup/index.mas:27
-#: src/templates/RemoteServices/Backup/index.mas:69
-#: src/templates/RemoteServices/Backup/confirm.mas:40
-msgid "Description"
-msgstr "Descrição"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
-msgid "Configuration"
-msgstr "Configuraração"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:283
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
-msgid "None"
-msgstr "Nome"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:292
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
-msgid "Configure events"
-msgstr "Configurar eventos"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:300
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
-msgid "event"
-msgstr "evento"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:301
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "Activar/desactivar cada monitorizador de eventos"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureEventDataTable.pm:488
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"Aviso! Não existe verificador de log activado. Vá a 'Configuração' para "
-"activar pelo menos um para ser notificado quando um log existir neste domínio"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
-msgid "Receiver"
-msgstr "Receptor"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:365
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:4221
-#: src/EBox/Model/DataTable.pm:4221
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
-msgid "Enabled"
-msgstr "Activado"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
-msgid "Configure dispatchers"
-msgstr "Configurar expedidores"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
-msgid "dispatcher"
-msgstr "expedidor"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
-msgid "Enable/Disable each event dispatcher"
-msgstr "Activar/desactivar cada expedidor de eventos"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"DE forma a poder activar um expedidor de eventos configurável, tem que "
-"configurá-lo primeiro"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/GeneralComposite.pm:76
-#: debian/ebox/usr/share/perl5/EBox/Events.pm:160
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
-msgid "Events"
-msgstr "Eventos"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/GeneralComposite.pm:78
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-msgid ""
-"Events module configures eBox to help informing you about events that happen"
-msgstr ""
-"Módulo de eventos configura o eBox para o ajudar acerca dos eventos que "
-"ocorrem"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/Details.pm:197
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/Details.pm:230
-#: src/EBox/Logs/Model/Report/Details.pm:197
-#: src/EBox/Logs/Model/Report/Details.pm:230
-msgid "All"
-msgstr "Todos"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:40
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:40
-msgid "hour"
-msgstr "hora"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:41
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:41
-msgid "day"
-msgstr "dia"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:42
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:42
-msgid "week"
-msgstr "semana"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:43
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:43
-msgid "month"
-msgstr "mês"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:79
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:79
-msgid "Report time period"
-msgstr "Periodo de tempo do relatório"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/Report/OptionsBase.pm:101
-#: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-#, fuzzy
-msgid "Report options"
-msgstr "Opções do relatório"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:254
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
-msgid "never purge"
-msgstr "nunca limpar"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:258
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:126
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
-#: src/EBox/Logs/Model/ForcePurge.pm:126
-msgid "one hour"
-msgstr "uma hora"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:262
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:130
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
-#: src/EBox/Logs/Model/ForcePurge.pm:130
-msgid "twelve hours"
-msgstr "doze horas"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:266
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:134
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
-#: src/EBox/Logs/Model/ForcePurge.pm:134
-msgid "one day"
-msgstr "um dia"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:270
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:138
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
-#: src/EBox/Logs/Model/ForcePurge.pm:138
-msgid "three days"
-msgstr "três dias"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:274
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:142
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
-#: src/EBox/Logs/Model/ForcePurge.pm:142
-msgid "one week"
-msgstr "uma semana"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:278
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:146
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
-#: src/EBox/Logs/Model/ForcePurge.pm:146
-msgid "fifteeen days"
-msgstr "quinze dias"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:282
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:150
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
-#: src/EBox/Logs/Model/ForcePurge.pm:150
-msgid "thirty days"
-msgstr "trinta dias"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:286
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:154
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
-#: src/EBox/Logs/Model/ForcePurge.pm:154
-msgid "ninety days"
-msgstr "noventa dias"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:372
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:100
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
-#: src/EBox/Logs/Model/ForcePurge.pm:100
-msgid "Purge logs older than"
-msgstr "Eliminar logs mais antigos que"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:389
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
-#, fuzzy
-msgid "Current configuration"
-msgstr "Configuração actual"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:390
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
-#, fuzzy
-msgid "Logs configuration"
-msgstr "Configuração dos logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:396
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
-msgid "Enable/disable logging per-module basis"
-msgstr "Activar/desactivar modularmente os logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ConfigureLogDataTable.pm:398
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:153
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:58
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
-#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
-msgid "logs"
-msgstr "logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:109
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr "Forçar limpeza dos logs"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/ForcePurge.pm:112
-#: src/EBox/Logs/Model/ForcePurge.pm:112
-msgid "Purge"
-msgstr "Limpar"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:129
-#: src/EBox/Logs/Model/SelectLog.pm:129
-msgid "Full report"
-msgstr "Relatório completo"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:135
-#: src/EBox/Logs/Model/SelectLog.pm:135
-msgid "Summarized report"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Logs/Model/SelectLog.pm:146
-#: src/EBox/Logs/Model/SelectLog.pm:146
-#, fuzzy
-msgid "Select report"
-msgstr "Relatório de erros"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:322
-#: src/EBox/Model/Composite.pm:322
+#: src/EBox/Types/Password.pm:132
 #, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "Deve ser um dos seguintes valores: {values}"
+msgid "The password should have at least {minLength} characters"
+msgstr "A palavra-passe deve ter pelo menos {minLength} caracteres"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:623
-#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:638
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1962
-#: debian/ebox/usr/share/perl5/EBox/Model/DataMultiTable.pm:168
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:641
-#: src/EBox/Model/DataTable.pm:1962 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Types/Password.pm:142
+#, perl-brace-format
+msgid "The password should have at most {maxLength} characters"
+msgstr "A palavra-passe deve ter no máximo {maxLength} caracteres"
+
+#: src/EBox/Types/Float.pm:97
+#, fuzzy
+msgid "Enter a float number"
+msgstr "Escreva um número positivo"
+
+#: src/EBox/Model/DataTable.pm:322
+#, perl-brace-format
+msgid "{model} in {module} module"
+msgstr "{model} no {module} modulo"
+
+#: src/EBox/Model/DataTable.pm:326
+#, fuzzy
+msgid "at"
+msgstr "no"
+
+#: src/EBox/Model/DataTable.pm:547
+msgid "field"
+msgstr "campo"
+
+#: src/EBox/Model/DataTable.pm:1442
+#, fuzzy
+msgid "page"
+msgstr "sobreselente"
+
+#: src/EBox/Model/DataTable.pm:1445
+#, fuzzy
+msgid "Page must be a number equal or greater than zero"
+msgstr "deve ser superior a zero"
+
+#: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:641
 msgid "Action"
 msgstr "Acção"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:625
-#: src/EBox/Model/Composite.pm:625
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Acções permitidas são:  {view} e {cView}"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/Composite.pm:748
-#: src/EBox/Model/Composite.pm:748
-msgid "Choose one of the following:"
-msgstr "Escolha uma das seguintes:"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:544
-#: src/EBox/Model/DataForm.pm:544
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "Remover dados de {model}{br}"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:594
-#: src/EBox/Model/DataForm.pm:594
-#: debian/ebox/usr/share/ebox/templates/password.mas:53
-#: debian/ebox/usr/share/ebox/templates/port.mas:14
-#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:25
-#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:34
-#: src/templates/password.mas:53 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
-msgid "Change"
-msgstr "Mudar"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataForm.pm:699
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:171
-#: src/EBox/Model/DataForm.pm:699
-#: src/EBox/RemoteServices/Model/Subscription.pm:171
-#: debian/ebox/usr/share/ebox/templates/progress.mas:22
-#: src/templates/progress.mas:22
-msgid "Done"
-msgstr "Concluído"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:321
-#: src/EBox/Model/DataTable.pm:321
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} no {module} modulo"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:325
-#: src/EBox/Model/DataTable.pm:325
-#, fuzzy
-msgid "at"
-msgstr "no"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:546
-#: src/EBox/Model/DataTable.pm:546
-msgid "field"
-msgstr "campo"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1441
-#: src/EBox/Model/DataTable.pm:1441
-#, fuzzy
-msgid "page"
-msgstr "sobreselente"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1444
-#: src/EBox/Model/DataTable.pm:1444
-#, fuzzy
-msgid "Page must be a number equal or greater than zero"
-msgstr "deve ser superior a zero"
-
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2621
-#: src/EBox/Model/DataTable.pm:2621
+#: src/EBox/Model/DataTable.pm:2622
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Remove {num} linhas de {rowName} de {model}{br}"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2692
-#: src/EBox/Model/DataTable.pm:2692
+#: src/EBox/Model/DataTable.pm:2693
 msgid "Page size"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2695
-#: src/EBox/Model/DataTable.pm:2695
+#: src/EBox/Model/DataTable.pm:2696
 #, fuzzy
 msgid "Must be either a positive number or zero"
 msgstr "Deve ser um número positivo diferente de zero"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2936
-#: src/EBox/Model/DataTable.pm:2936
+#: src/EBox/Model/DataTable.pm:2937
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} adicionada"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2937
-#: src/EBox/Model/DataTable.pm:2937
+#: src/EBox/Model/DataTable.pm:2938
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} apagada"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2938
-#: src/EBox/Model/DataTable.pm:2938
+#: src/EBox/Model/DataTable.pm:2939
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} actualizada"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2939
-#: src/EBox/Model/DataTable.pm:2939
+#: src/EBox/Model/DataTable.pm:2940
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} movida para cima"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2940
-#: src/EBox/Model/DataTable.pm:2940
+#: src/EBox/Model/DataTable.pm:2941
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} movida para baixo"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/ModelManager.pm:466
+#: src/EBox/Model/DataTable.pm:4222
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Enabled"
+msgstr "Activado"
+
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "Objecto provido com index {i} não existe"
+
 #: src/EBox/Model/ModelManager.pm:466
 #, fuzzy
 msgid ""
@@ -1564,7 +512,6 @@ msgstr ""
 "Os dados que está a remover está a ser utilizada por \n"
 "\t\t\t secções seguintes:"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/ModelManager.pm:513
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
@@ -1573,159 +520,777 @@ msgstr ""
 "Os dados que está a modificar está a ser utilizada por \n"
 "\t\t\t secções seguintes:"
 
-#: debian/ebox/usr/share/perl5/EBox/Model/ProviderBase.pm:246
-#: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "Objecto provido com index {i} não existe"
+#: src/EBox/Model/DataForm.pm:544
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "Remover dados de {model}{br}"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Composite/General.pm:73
-#: src/EBox/RemoteServices/Composite/General.pm:73
-#, fuzzy
-msgid "Remote services"
-msgstr "Estado do serviço de eventos"
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
+msgid "Change"
+msgstr "Mudar"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Composite/General.pm:74
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
+#: src/EBox/Model/DataForm.pm:699
+#: src/EBox/RemoteServices/Model/Subscription.pm:171
+#: src/templates/progress.mas:22
+msgid "Done"
+msgstr "Concluído"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/AccessSettings.pm:79
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr ""
+#: src/EBox/Model/Composite.pm:322
+#, perl-brace-format
+msgid "It should be one of following values: {values}"
+msgstr "Deve ser um dos seguintes valores: {values}"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/AccessSettings.pm:86
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr ""
+#: src/EBox/Model/Composite.pm:625
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Acções permitidas são:  {view} e {cView}"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:143
-#: src/EBox/RemoteServices/Model/Subscription.pm:143
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
-msgstr ""
+#: src/EBox/Model/Composite.pm:748
+msgid "Choose one of the following:"
+msgstr "Escolha uma das seguintes:"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:146
-#: src/EBox/RemoteServices/Model/Subscription.pm:146
-msgid "Subscription data retrieved correctly"
-msgstr ""
+#: src/EBox/CGI/EBox/Backup.pm:34
+msgid "System backups"
+msgstr "Cópias de segurança do sistema"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:224
-#: src/EBox/RemoteServices/Model/Subscription.pm:224
-msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
-msgstr ""
+#: src/EBox/CGI/EBox/Backup.pm:160
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Modo desconhecido de cópia de segurança: {mode}"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:245
-#: src/EBox/RemoteServices/Model/Subscription.pm:245
-#, fuzzy
-msgid "User name"
-msgstr "Nome do host"
+#: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
+#: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
+#: src/EBox/Backup.pm:1323
+msgid "The input contains invalid characters"
+msgstr "Contém caracteres inválidos"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:253
-#: src/EBox/RemoteServices/Model/Subscription.pm:253
-msgid "eBox common name"
-msgstr ""
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Modo de restauração desconhecido: {mode}"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:263
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-#: debian/ebox/usr/share/ebox/templates/login/index.mas:29
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:138
-#: src/templates/login/index.mas:29
-#: src/templates/RemoteServices/Backup/proxy.mas:138
-msgid "Password"
-msgstr "Palavra-passe"
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "A executar o backup"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:271
-#: src/EBox/RemoteServices/Model/Subscription.pm:271
-msgid "eBox suscription details"
-msgstr ""
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "Criar backup dos módulos"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:272
-#: src/EBox/RemoteServices/Model/Subscription.pm:272
-#, fuzzy
-msgid "Delete data"
+#: src/EBox/CGI/EBox/Backup.pm:241
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
+msgstr "Operação"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
+msgstr "Operações restantes para finalizar o backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
+msgstr "Backup com sucesso"
+
+#: src/EBox/CGI/EBox/Backup.pm:254
+msgid "Restoring backup"
+msgstr "Restaurar backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring modules"
+msgstr "Restaurar módulos"
+
+#: src/EBox/CGI/EBox/Backup.pm:256
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
+#: src/EBox/Logs.pm:640 src/templates/moduleStatusTable.mas:58
+#: src/templates/finish.mas:106
+msgid "Module"
+msgstr "Módulo"
+
+#: src/EBox/CGI/EBox/Backup.pm:257
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
+msgid "modules left to restore"
+msgstr "Módulos restantes a restaurar"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
+msgid "Restore successful"
+msgstr "Restauro efectuado com sucesso"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "Nome do módulo"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "O módulo foi reiniciado com sucesso"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "Actualizando"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "Desligar ou reiniciar"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBox vai abaixo para desligar"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBox vai abaixo para reiniciar"
+
+#: src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "Relatório de erros"
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Configuração geral"
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Palavra-passe incorrecta."
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Nova palavra-passe não coincide."
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "A palavra-passe deve ter pelo menos 6 caracteres"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "A password foi modificada com sucesso"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr "Backup das configurações"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
+#: src/templates/backup.mas:172 src/templates/backup.mas:173
+#: src/templates/RemoteServices/Backup/index.mas:96
+msgid "Delete"
 msgstr "Apagar"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:275
-#: src/EBox/RemoteServices/Model/Subscription.pm:275
-msgid "Subscription to remote services"
-msgstr ""
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Confirme se quer restaurar utilizando este ficheiro de backup:"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Model/Subscription.pm:286
-#: src/EBox/RemoteServices/Model/Subscription.pm:286
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
+#: src/templates/backup.mas:95
+#: src/templates/RemoteServices/Backup/proxy.mas:76
+#: src/templates/RemoteServices/Backup/index.mas:85
+msgid "Restore"
+msgstr "Restaurar"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Backup das configurações e de todos os dados"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "Bug-report configuration dump"
+
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:619
+msgid "Logs"
+msgstr "Logs"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+#, fuzzy
+msgid "Module status configuration"
+msgstr "Configurar logs"
+
+#: src/EBox/CGI/Login/Index.pm:61
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
+msgstr ""
+"Está a correr um script de um serviço web . Por favor, espere até estar "
+"concluído"
+
+#: src/EBox/CGI/Login/Index.pm:65
+msgid "Incorrect password"
+msgstr "Password incorrecta"
+
+#: src/EBox/CGI/Login/Index.pm:68
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Por razões de segurança a sua sessão expirou devido a inactividade"
+
+#: src/EBox/CGI/Login/Index.pm:71
+msgid "You have been logged out because a new session has been opened"
+msgstr "Foi desconectado porque uma nova sessão foi iniciada"
+
+#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Sair"
+
+#: src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Utilização do disco"
+
+#: src/EBox/CGI/Report/RAID.pm:30
+msgid "RAID report"
+msgstr "relatório RAID"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Guardar configuração"
+
+#: src/EBox/CGI/Finish.pm:76
+msgid "Saving changes"
+msgstr "Guardar alterações"
+
+#: src/EBox/CGI/Finish.pm:77
+msgid "Saving changes in modules"
+msgstr "Guardar alterações dos módulos"
+
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
+msgid "Current operation"
+msgstr "Operação actual"
+
+#: src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
+msgstr "operações efectuadas"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "Changes saved"
+msgstr "Alterações guardadas"
+
+#: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
 msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Auth.pm:124
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
+#: src/EBox/CGI/Finish.pm:101
+#, fuzzy
+msgid "Revoking changes"
+msgstr "Guardar alterações"
+
+#: src/EBox/CGI/Finish.pm:102
+#, fuzzy
+msgid "Revoking changes in modules"
+msgstr "Restaurar módulos"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "Current module"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Auth.pm:143
-#: src/EBox/RemoteServices/Auth.pm:143
-msgid "Key for service proxy not found"
+#: src/EBox/CGI/Finish.pm:104
+#, fuzzy
+msgid "modules revoked"
+msgstr "Módulos restantes a restaurar"
+
+#: src/EBox/CGI/Finish.pm:105
+msgid "Changes revoked"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:213
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:256
-#: src/EBox/RemoteServices/Base.pm:256
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:272
-#: src/EBox/RemoteServices/Base.pm:272
-msgid "No domain key found for this service"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Base.pm:284
-#: src/EBox/RemoteServices/Base.pm:284
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Backup.pm:211
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:203
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
+#: src/EBox/CGI/ClientRawBase.pm:191
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Ocorreu um erro interno. Isto é provavelmente devido a um erro, pode "
+"encontrar mais informações nos logs."
+
+#: src/EBox/CGI/ClientRawBase.pm:201
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Ocorreu um erro interno relacionado com uma template. Isto é devido "
+"provavelmente a um erro, pode encontrar mais informações nos logs."
+
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
+msgid "Dashboard"
+msgstr ""
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
+#, fuzzy
+msgid "Configure widgets"
+msgstr "Configurar eventos"
+
+#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
+#, fuzzy
+msgid "Backup deleted"
+msgstr "Modo de backup"
+
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
+#, fuzzy
+msgid "Restoring remote backup"
+msgstr "Restaurar backup"
+
+#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
+#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
+#, fuzzy
+msgid "Restoring modules from remote backup"
+msgstr "Restaurar a partir de backup"
+
+#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
+#, fuzzy
+msgid "Remote system backups"
+msgstr "Cópias de segurança do sistema"
+
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
+#, fuzzy
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
+
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
+#, fuzzy
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr "Confirme se quer apagar o seguinte ficheiro de backup:"
+
+#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
 #, fuzzy, perl-brace-format
-msgid "Inexistent backup: {n}"
+msgid "Inexistent action: {a}"
 msgstr "RAID array {a} inexistente"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:198
-#: src/EBox/RemoteServices/ProxyBackup.pm:198
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
+msgstr ""
+
+#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
+#, fuzzy
+msgid "Backing up modules "
+msgstr "Criar backup dos módulos"
+
+#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
+#, fuzzy
+msgid "Remote system backups proxy"
+msgstr "Cópias de segurança do sistema"
+
+#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
+#, fuzzy
+msgid "Connection error"
+msgstr "operações efectuadas"
+
+#: src/EBox/Logs/Model/Report/Details.pm:197
+#: src/EBox/Logs/Model/Report/Details.pm:230
+msgid "All"
+msgstr "Todos"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:40
+msgid "hour"
+msgstr "hora"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:41
+msgid "day"
+msgstr "dia"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:42
+msgid "week"
+msgstr "semana"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:43
+msgid "month"
+msgstr "mês"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:79
+msgid "Report time period"
+msgstr "Periodo de tempo do relatório"
+
+#: src/EBox/Logs/Model/Report/OptionsBase.pm:101
+#, fuzzy
+msgid "Report options"
+msgstr "Opções do relatório"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+msgid "never purge"
+msgstr "nunca limpar"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: src/EBox/Logs/Model/ForcePurge.pm:126
+msgid "one hour"
+msgstr "uma hora"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: src/EBox/Logs/Model/ForcePurge.pm:130
+msgid "twelve hours"
+msgstr "doze horas"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: src/EBox/Logs/Model/ForcePurge.pm:134
+msgid "one day"
+msgstr "um dia"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: src/EBox/Logs/Model/ForcePurge.pm:138
+msgid "three days"
+msgstr "três dias"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: src/EBox/Logs/Model/ForcePurge.pm:142
+msgid "one week"
+msgstr "uma semana"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: src/EBox/Logs/Model/ForcePurge.pm:146
+msgid "fifteeen days"
+msgstr "quinze dias"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: src/EBox/Logs/Model/ForcePurge.pm:150
+msgid "thirty days"
+msgstr "trinta dias"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: src/EBox/Logs/Model/ForcePurge.pm:154
+msgid "ninety days"
+msgstr "noventa dias"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
+#: src/EBox/Logs/Model/SelectLog.pm:121
+#: src/EBox/Events/Model/Watcher/Log.pm:216
+msgid "Domain"
+msgstr "Domínio"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: src/EBox/Logs/Model/ForcePurge.pm:100
+msgid "Purge logs older than"
+msgstr "Eliminar logs mais antigos que"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+#, fuzzy
+msgid "Current configuration"
+msgstr "Configuração actual"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+#, fuzzy
+msgid "Logs configuration"
+msgstr "Configuração dos logs"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+msgid "Enable/disable logging per-module basis"
+msgstr "Activar/desactivar modularmente os logs"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
+#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
+msgid "logs"
+msgstr "logs"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr "Forçar limpeza dos logs"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+msgid "Purge"
+msgstr "Limpar"
+
+#: src/EBox/Logs/Model/SelectLog.pm:129
+msgid "Full report"
+msgstr "Relatório completo"
+
+#: src/EBox/Logs/Model/SelectLog.pm:135
+msgid "Summarized report"
+msgstr ""
+
+#: src/EBox/Logs/Model/SelectLog.pm:146
+#, fuzzy
+msgid "Select report"
+msgstr "Relatório de erros"
+
+#: src/EBox/Logs/Report.pm:68
+#, fuzzy
+msgid "Day"
+msgstr "qualquer"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr "Nome servidor Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#, fuzzy
+msgid "Jabber server to send the messages"
+msgstr "Nome servidor Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+msgid "Port"
+msgstr "Porto"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+msgid "Jabber user name"
+msgstr "Nome utilizador Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+msgid "User password"
+msgstr "Definir palavra-passe"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: src/EBox/RemoteServices/Model/Subscription.pm:276
+msgid "Subscribe"
+msgstr "Subscrever"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid ""
+"Tick this option if you want eBox to create an account for the above user"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+msgid "Administrator Jabber Identifier"
+msgstr "Identificador administração Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+msgid ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+msgid "Configure Jabber dispatcher"
+msgstr "Configurar expedidor Jabber "
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+msgid "This dispatcher will send events to an Jabber account"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+msgid "Jabber dispatcher configuration updated"
+msgstr "Configuração do expedidor Jabber actualizado"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Deve ter o seguinte formato 'user@dominio[/resource]"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+msgid "Nobody"
+msgstr "Ninguém"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+msgid "IP address"
+msgstr "Endereço IP"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Object"
+msgstr "Objecto"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+msgid "Public"
+msgstr "Público"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Channel link"
+msgstr "Link canal RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+msgid "Allowed readers"
+msgstr "Leitores permitidos"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the access control for the channel"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+msgid "Configure RSS dispatcher"
+msgstr "Configurar expedidor RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+msgid "RSS dispatcher configuration updated"
+msgstr "Configuração do expedidor RSS actualizado"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
-msgid "No backups in server for host: {h}"
+msgid "Log domain {logDomain}"
+msgstr "Log domínio {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "Evento"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "Filtros a aplicar para notificar logs de {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"Cada filtro adicionado é acumulativo. Logo, cada linha de log que se "
+"verifique num dos filtros serão notificados"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr "filtro"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr "Espaço em disco mínimo para o sistema de ficheiros"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/ProxyBackup.pm:238
-#: src/EBox/RemoteServices/ProxyBackup.pm:238
-msgid "Key for proxy backup service not found"
-msgstr ""
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+msgid "Configure disk free space watcher"
+msgstr "Configurar monitor de espaço livre no disco"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices/Subscription.pm:102
-#: src/EBox/RemoteServices/Subscription.pm:102
-msgid "Key for web subscription service not found"
+#: src/EBox/Events/Model/Watcher/Log.pm:168
+#: src/EBox/Events/Model/Watcher/Log.pm:192
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
 msgstr ""
+"Atenção! O verificador de logs não está activado. Active-o para ser "
+"notificado quando ocorrerem logs."
 
-#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:61
+#: src/EBox/Events/Model/Watcher/Log.pm:221
+msgid "Filtering"
+msgstr "Filtrando"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:229
+msgid "Configure log watchers"
+msgstr "Configurar verificador de logs"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:231
+msgid "Log watcher"
+msgstr "verificador de logs"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
+#: src/templates/RemoteServices/Backup/proxy.mas:43
+#: src/templates/RemoteServices/Backup/index.mas:23
+#: src/templates/RemoteServices/Backup/index.mas:67
+#: src/templates/RemoteServices/Backup/confirm.mas:24
+msgid "Name"
+msgstr "Nome"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
+#: src/templates/backup.mas:126
+#: src/templates/RemoteServices/Backup/proxy.mas:45
+#: src/templates/RemoteServices/Backup/index.mas:27
+#: src/templates/RemoteServices/Backup/index.mas:69
+#: src/templates/RemoteServices/Backup/confirm.mas:40
+msgid "Description"
+msgstr "Descrição"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+msgid "Configuration"
+msgstr "Configuraração"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+msgid "None"
+msgstr "Nome"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
+msgid "Configure events"
+msgstr "Configurar eventos"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+msgid "event"
+msgstr "evento"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Activar/desactivar cada monitorizador de eventos"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"Aviso! Não existe verificador de log activado. Vá a 'Configuração' para "
+"activar pelo menos um para ser notificado quando um log existir neste domínio"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+msgid "Receiver"
+msgstr "Receptor"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+msgid "Configure dispatchers"
+msgstr "Configurar expedidores"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+msgid "dispatcher"
+msgstr "expedidor"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+msgid "Enable/Disable each event dispatcher"
+msgstr "Activar/desactivar cada expedidor de eventos"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"DE forma a poder activar um expedidor de eventos configurável, tem que "
+"configurá-lo primeiro"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+msgid "Events"
+msgstr "Eventos"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module configures eBox to help informing you about events that happen"
+msgstr ""
+"Módulo de eventos configura o eBox para o ajudar acerca dos eventos que "
+"ocorrem"
+
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr "Não existem dados em {d}. Tem a certeza que é um disco válido?"
 
-#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:210
 #: src/EBox/Report/DiskUsage.pm:210
 #, fuzzy, perl-brace-format
 msgid ""
@@ -1734,124 +1299,139 @@ msgid ""
 msgstr ""
 "Sistema de ficheiros inválido: {f}. Só são válidos discos não removíveis"
 
-#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:320
 #: src/EBox/Report/DiskUsage.pm:320
 msgid "Free space"
 msgstr "Espaço livre"
 
-#: debian/ebox/usr/share/perl5/EBox/Report/DiskUsage.pm:323
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:210
 #: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
 msgid "System"
 msgstr "Sistema"
 
-#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:155 src/EBox/Types/Int.pm:155
-msgid "Enter an integer number"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:162
-#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:105
-#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
-#, fuzzy, perl-brace-format
-msgid "The value shouldn't be greater than {m}"
-msgstr "deve ser superior a zero"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:172
-#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:114
-#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
-#, fuzzy, perl-brace-format
-msgid "The value shouldn't be less than {m}"
-msgstr "deve ser superior a zero"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Select.pm:260
-#: src/EBox/Types/Select.pm:260
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Escolha um valor do seguinte conjunto: {set}"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:138
-#: src/EBox/Types/PortRange.pm:138
-msgid "any"
-msgstr "qualquer"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/PortRange.pm:398
-#: src/EBox/Types/PortRange.pm:398
-#, perl-brace-format
-msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr "\"From\" {from} deve ser maior do que \"To\" {to}"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Password.pm:132
-#: src/EBox/Types/Password.pm:132
-#, perl-brace-format
-msgid "The password should have at least {minLength} characters"
-msgstr "A palavra-passe deve ter pelo menos {minLength} caracteres"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Password.pm:142
-#: src/EBox/Types/Password.pm:142
-#, perl-brace-format
-msgid "The password should have at most {maxLength} characters"
-msgstr "A palavra-passe deve ter no máximo {maxLength} caracteres"
-
-#: debian/ebox/usr/share/perl5/EBox/Types/Float.pm:97
-#: src/EBox/Types/Float.pm:97
-#, fuzzy
-msgid "Enter a float number"
-msgstr "Escreva um número positivo"
-
-#: debian/ebox/usr/share/perl5/EBox/Apache.pm:248
-#: debian/ebox/usr/share/perl5/EBox/Apache.pm:257 src/EBox/Apache.pm:248
-#: src/EBox/Apache.pm:257
+#: src/EBox/Apache.pm:248 src/EBox/Apache.pm:257
 msgid "port"
 msgstr "porto"
 
-#: debian/ebox/usr/share/perl5/EBox/Auth.pm:155 src/EBox/Auth.pm:155
-msgid "Password changed"
-msgstr "Palavra-passe mudada"
+#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
+#, fuzzy, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Criar backup dos módulos"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:96 src/EBox/Backup.pm:96
+#: src/EBox/Global.pm:816
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr ""
+
+#: src/EBox/Events.pm:90
+msgid "events"
+msgstr "eventos"
+
+#: src/EBox/Events.pm:595
+msgid "Event service status"
+msgstr "Estado do serviço de eventos"
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Guardar alterações"
+
+#: src/EBox/Logs.pm:74
+msgid "Create logs database"
+msgstr ""
+
+#: src/EBox/Logs.pm:75
+msgid "eBox store its logs in the database"
+msgstr ""
+
+#: src/EBox/Logs.pm:425
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tabela {table} não existe"
+
+#: src/EBox/Logs.pm:622
+msgid "Query logs"
+msgstr "Consultar logs"
+
+#: src/EBox/Logs.pm:625
+msgid "Configure logs"
+msgstr "Configurar logs"
+
+#: src/EBox/Logs.pm:638 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:128 src/templates/finish.mas:105
+#: src/templates/RemoteServices/Backup/proxy.mas:44
+#: src/templates/RemoteServices/Backup/index.mas:68
+#: src/templates/RemoteServices/Backup/confirm.mas:32
+msgid "Date"
+msgstr "Data"
+
+#: src/EBox/Logs.pm:639
+msgid "Client Address"
+msgstr "Endereço do cliente"
+
+#: src/EBox/Logs.pm:642
+msgid "Params"
+msgstr "Params"
+
+#: src/EBox/Logs.pm:643
+msgid "Committed"
+msgstr "Empenhado"
+
+#: src/EBox/Logs.pm:648
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs.pm:742
+msgid "Log messages"
+msgstr "Mensagens de log"
+
+#: src/EBox/Logs.pm:769
+msgid "Lifetime parameter must be a positive number of hours"
+msgstr "Parâmetro para sempre deve ser um número positivo de horas"
+
+#: src/EBox/EventDaemon.pm:473
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr ""
+"Expedidor {name} desactivado, uma vez que não é possível enviar eventos"
+
+#: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
 msgstr "Criando arquivo de backup"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:142 src/EBox/Backup.pm:142
+#: src/EBox/Backup.pm:142
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
 msgstr "Desfazer configuração do módulo {m}"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:302 src/EBox/Backup.pm:302
+#: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
 msgstr "Não pode ser criado arquivo de backup"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:309 src/EBox/Backup.pm:309
+#: src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
 msgstr "Não pôde ser anexado dados ao ficheiro de backup "
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:423 src/EBox/Backup.pm:423
+#: src/EBox/Backup.pm:423
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:476 src/EBox/Backup.pm:476
+#: src/EBox/Backup.pm:476
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Não foi possível extrair os ficheiros de backup pedidos: {files}"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:479
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1121 src/EBox/Backup.pm:479
-#: src/EBox/Backup.pm:1121
+#: src/EBox/Backup.pm:479 src/EBox/Backup.pm:1121
 msgid "Could not unpack the backup"
 msgstr "Não foi possível descomprimir o backup"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:704
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:227 src/EBox/Backup.pm:704
-#: src/EBox/SysInfo.pm:227
+#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:227
 msgid "Backup"
 msgstr "Backup"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:740 src/EBox/Backup.pm:740
+#: src/EBox/Backup.pm:740
 #, fuzzy
 msgid "Writing backup file to hard disk"
 msgstr "A escrever o ficheiro de backup no disco rígido."
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:765 src/EBox/Backup.pm:765
+#: src/EBox/Backup.pm:765
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1859,23 +1439,23 @@ msgstr ""
 " Alguns módulos ainda não estão actualizados. Antes de executar o backup "
 "deve grava-los ou descarta-los"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:820 src/EBox/Backup.pm:820
+#: src/EBox/Backup.pm:820
 msgid "Incorrect or corrupt backup file"
 msgstr "Ficheiro de backup incorrecto ou corrompido"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:849 src/EBox/Backup.pm:849
+#: src/EBox/Backup.pm:849
 msgid "The backup file is corrupt: could not open archive"
 msgstr "O ficheiro de backup está corrompido"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:861 src/EBox/Backup.pm:861
+#: src/EBox/Backup.pm:861
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "O ficheiro de backup está corrompido"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:868 src/EBox/Backup.pm:868
+#: src/EBox/Backup.pm:868
 msgid "The backup file is corrupt."
 msgstr "O ficheiro de backup está corrompido"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:886 src/EBox/Backup.pm:886
+#: src/EBox/Backup.pm:886
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1883,7 +1463,7 @@ msgstr ""
 "O ficheiro de backup é de tipo inválido. Pode ser por estar corrompido ou "
 "está a utilizar uma versão eBox incompativel"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:892 src/EBox/Backup.pm:892
+#: src/EBox/Backup.pm:892
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1891,7 +1471,7 @@ msgstr ""
 "O arquivo não tem um backup completo, o que torna uma restauração completa "
 "impossível. No entanto pode ser possível uma recuperação de configuração "
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:927 src/EBox/Backup.pm:927
+#: src/EBox/Backup.pm:927
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1901,17 +1481,17 @@ msgstr ""
 "de restauração. {size} Kb necessários. Liberte espaço suficiente e tente "
 "novamente "
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1208 src/EBox/Backup.pm:1208
+#: src/EBox/Backup.pm:1208
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr ""
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1237 src/EBox/Backup.pm:1237
+#: src/EBox/Backup.pm:1237
 #, fuzzy
 msgid "No modules to restore"
 msgstr "Módulos restantes a restaurar"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1302 src/EBox/Backup.pm:1302
+#: src/EBox/Backup.pm:1302
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1920,631 +1500,596 @@ msgstr ""
 "Não foi possível restaurar a dependência do módulo {topModule}: {modName} "
 "não foi instalado"
 
-#: debian/ebox/usr/share/perl5/EBox/Backup.pm:1345 src/EBox/Backup.pm:1345
+#: src/EBox/Backup.pm:1345
 msgid "Backup's archives"
 msgstr "Arquivos de backup"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices.pm:71
-#: src/EBox/RemoteServices.pm:71
-msgid "eBox remote services"
-msgstr ""
+#: src/EBox/SysInfo.pm:43
+#, fuzzy
+msgid "System information"
+msgstr "informação do sistema"
 
-#: debian/ebox/usr/share/perl5/EBox/RemoteServices.pm:133
-#: src/EBox/RemoteServices.pm:133
-msgid "Remote services subscription"
-msgstr ""
+#: src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr "Hora"
 
-#: debian/ebox/usr/share/perl5/EBox/Events.pm:90 src/EBox/Events.pm:90
-msgid "events"
-msgstr "eventos"
+#: src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr "Nome do host"
 
-#: debian/ebox/usr/share/perl5/EBox/Events.pm:595 src/EBox/Events.pm:595
-msgid "Event service status"
-msgstr "Estado do serviço de eventos"
+#: src/EBox/SysInfo.pm:85
+msgid "eBox version"
+msgstr "Versão do eBox"
 
-#: debian/ebox/usr/share/perl5/EBox/EventDaemon.pm:473
-#: src/EBox/EventDaemon.pm:473
-#, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
-"Expedidor {name} desactivado, uma vez que não é possível enviar eventos"
+#: src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr "Carga do sistema"
 
-#: debian/ebox/usr/share/perl5/EBox/Global.pm:369
-#: debian/ebox/usr/share/perl5/EBox/Global.pm:390 src/EBox/Global.pm:369
-#: src/EBox/Global.pm:390
-#, fuzzy, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Criar backup dos módulos"
+#: src/EBox/SysInfo.pm:123 src/EBox/SysInfo.pm:205
+#, fuzzy
+msgid "Module status"
+msgstr "Módulo"
 
-#: debian/ebox/usr/share/perl5/EBox/Global.pm:816 src/EBox/Global.pm:816
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr ""
+#: src/EBox/SysInfo.pm:128
+msgid "General information"
+msgstr "Informação geral"
 
-#: debian/ebox/usr/share/perl5/EBox/Html.pm:39 src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Guardar alterações"
+#: src/EBox/SysInfo.pm:133
+#, fuzzy
+msgid "Process' list"
+msgstr "Lista de backups"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:74 src/EBox/Logs.pm:74
-msgid "Create logs database"
-msgstr ""
+#: src/EBox/SysInfo.pm:214
+msgid "General"
+msgstr "Geral"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:75 src/EBox/Logs.pm:75
-msgid "eBox store its logs in the database"
-msgstr ""
+#: src/EBox/SysInfo.pm:217
+msgid "Disk usage Information"
+msgstr "Informação da utilização do disco"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:425 src/EBox/Logs.pm:425
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tabela {table} não existe"
+#: src/EBox/SysInfo.pm:221
+msgid "RAID Information"
+msgstr "Informação RAID"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:622 src/EBox/Logs.pm:622
-msgid "Query logs"
-msgstr "Consultar logs"
+#: src/EBox/SysInfo.pm:230
+msgid "Halt/Reboot"
+msgstr "Desligar/reiniciar"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:625 src/EBox/Logs.pm:625
-msgid "Configure logs"
-msgstr "Configurar logs"
+#: src/EBox/Auth.pm:155
+msgid "Password changed"
+msgstr "Palavra-passe mudada"
 
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:638 src/EBox/Logs.pm:638
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:68
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:32
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:44
-#: debian/ebox/usr/share/ebox/templates/backup.mas:128
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:28
-#: debian/ebox/usr/share/ebox/templates/finish.mas:105
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
-#: src/templates/finish.mas:105
-#: src/templates/RemoteServices/Backup/proxy.mas:44
-#: src/templates/RemoteServices/Backup/index.mas:68
-#: src/templates/RemoteServices/Backup/confirm.mas:32
-msgid "Date"
-msgstr "Data"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:639 src/EBox/Logs.pm:639
-msgid "Client Address"
-msgstr "Endereço do cliente"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:642 src/EBox/Logs.pm:642
-msgid "Params"
-msgstr "Params"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:643 src/EBox/Logs.pm:643
-msgid "Committed"
-msgstr "Empenhado"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:648 src/EBox/Logs.pm:648
-msgid "Admin"
-msgstr "Admin"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:742 src/EBox/Logs.pm:742
-msgid "Log messages"
-msgstr "Mensagens de log"
-
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:769 src/EBox/Logs.pm:769
-msgid "Lifetime parameter must be a positive number of hours"
-msgstr "Parâmetro para sempre deve ser um número positivo de horas"
-
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:41
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
 msgstr "Total ticks"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:43
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
 msgstr "Deve ser um número positivo diferente de zero"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:51
 #: src/EBox/ProgressIndicator.pm:51
 #, fuzzy, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Não foi possível executar {exe}"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:101
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Indicação do progresso com id {id} não encontrado"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:139
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
 msgstr "Número de ticks para notificar"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:141
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
 msgstr "deve ser superior a zero"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:147
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
 msgstr "Executável não foi executado"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:264
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
 msgstr "Executável não foi executado"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:395
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
 msgstr "O executável já está a correr"
 
-#: debian/ebox/usr/share/perl5/EBox/ProgressIndicator.pm:399
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
 msgstr "O executável já terminou a execução"
 
-#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:50
-#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:63
-#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:76 src/EBox/PgDBEngine.pm:50
-#: src/EBox/PgDBEngine.pm:63 src/EBox/PgDBEngine.pm:76
+#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Deve definir a variável {variable} no ficheiro de configuração do eBox"
 
-#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:272
 #: src/EBox/PgDBEngine.pm:272
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Erro \"dumping\" na base de dados postgresql {name}"
 
-#: debian/ebox/usr/share/perl5/EBox/PgDBEngine.pm:290
 #: src/EBox/PgDBEngine.pm:290
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "DB dump {file} não está acessível"
 
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:43 src/EBox/SysInfo.pm:43
-#, fuzzy
-msgid "System information"
-msgstr "informação do sistema"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:82 src/EBox/SysInfo.pm:82
-msgid "Time"
-msgstr "Hora"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:83 src/EBox/SysInfo.pm:83
-msgid "Host name"
-msgstr "Nome do host"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:85 src/EBox/SysInfo.pm:85
-msgid "eBox version"
-msgstr "Versão do eBox"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:88 src/EBox/SysInfo.pm:88
-msgid "System load"
-msgstr "Carga do sistema"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:123
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:205 src/EBox/SysInfo.pm:123
-#: src/EBox/SysInfo.pm:205
-#, fuzzy
-msgid "Module status"
-msgstr "Módulo"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:128 src/EBox/SysInfo.pm:128
-msgid "General information"
-msgstr "Informação geral"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:133
-#, fuzzy
-msgid "Process' list"
-msgstr "Lista de backups"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:214 src/EBox/SysInfo.pm:214
-msgid "General"
-msgstr "Geral"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:217 src/EBox/SysInfo.pm:217
-msgid "Disk usage Information"
-msgstr "Informação da utilização do disco"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:221 src/EBox/SysInfo.pm:221
-msgid "RAID Information"
-msgstr "Informação RAID"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:230 src/EBox/SysInfo.pm:230
-msgid "Halt/Reboot"
-msgstr "Desligar/reiniciar"
-
-#: src/EBox/Logs/Report.pm:68
-#, fuzzy
-msgid "Day"
-msgstr "qualquer"
-
-#: debian/ebox/usr/share/ebox/templates/dashboard/list.mas:43
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
+#: src/EBox/RemoteServices/Subscription.pm:104
+msgid "Key for web subscription service not found"
 msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:9
-#: src/templates/dashboard/status.mas:9
-msgid "Restart"
-msgstr "Reiniciar"
-
-#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:12
-#: src/templates/dashboard/status.mas:12
-msgid "Running"
-msgstr "A correr"
-
-#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:15
-#: src/templates/dashboard/status.mas:15
-msgid "Stopped"
-msgstr "Parado"
-
-#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:17
-#: src/templates/dashboard/status.mas:17
-msgid "Start"
-msgstr "Iniciar"
-
-#: debian/ebox/usr/share/ebox/templates/dashboard/status.mas:19
-#: src/templates/dashboard/status.mas:19
-msgid "Disabled"
-msgstr "Disabled"
-
-#: debian/ebox/usr/share/ebox/templates/login/index.mas:26
-#: src/templates/login/index.mas:26
-msgid "Warning: Caps Lock is enabled"
-msgstr "Atenção: Caps Lock está activo"
-
-#: debian/ebox/usr/share/ebox/templates/login/index.mas:36
-#: src/templates/login/index.mas:36
-msgid "Enter"
-msgstr "Enter"
-
-#: debian/ebox/usr/share/ebox/templates/login/index.mas:42
-#: src/templates/login/index.mas:42
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, fuzzy, perl-brace-format
-msgid "Created by {href}"
-msgstr "{ebox} criada por {warp} em colaboração com {dbs}"
+msgid "Inexistent backup: {n}"
+msgstr "RAID array {a} inexistente"
 
-#: debian/ebox/usr/share/ebox/templates/logout/index.mas:11
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "Há alterações não guardadas, se fizer o logout agora serão perdidas"
+#: src/EBox/RemoteServices/Model/Subscription.pm:143
+msgid ""
+"Subscription was done correctly. Wait a minute to let the subscription be "
+"propagated throughout the system"
+msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/logout/index.mas:15
-#: src/templates/logout/index.mas:15
-msgid "There are no unsaved changes in this session."
-msgstr "Não existem alterações por gravar nesta sessão."
+#: src/EBox/RemoteServices/Model/Subscription.pm:146
+msgid "Subscription data retrieved correctly"
+msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/logout/index.mas:19
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "Sair"
+#: src/EBox/RemoteServices/Model/Subscription.pm:224
+msgid ""
+"Prior to make a subscription on remote services, enable the OpenVPN module "
+"and save or discard its changes"
+msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:22
+#: src/EBox/RemoteServices/Model/Subscription.pm:245
+#, fuzzy
+msgid "User name"
+msgstr "Nome do host"
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:253
+msgid "eBox common name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:263
+#: src/templates/login/index.mas:29
+#: src/templates/RemoteServices/Backup/proxy.mas:138
+msgid "Password"
+msgstr "Palavra-passe"
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:271
+msgid "eBox suscription details"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:272
+#, fuzzy
+msgid "Delete data"
+msgstr "Apagar"
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:275
+msgid "Subscription to remote services"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:286
+#, perl-brace-format
+msgid ""
+"In order to subscribe an eBox remote services {url}. You will have remote "
+"backup facilities and much more"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+msgid "Access from control panel without password"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+msgid "Access settings"
+msgstr ""
+
+#: src/EBox/RemoteServices/Composite/General.pm:73
+#, fuzzy
+msgid "Remote services"
+msgstr "Estado do serviço de eventos"
+
+#: src/EBox/RemoteServices/Composite/General.pm:74
+msgid ""
+"Remote services from eBox are paid services to enhance your eBox experience"
+msgstr ""
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:198
+#, perl-brace-format
+msgid "No backups in server for host: {h}"
+msgstr ""
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:238
+msgid "Key for proxy backup service not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:213
+msgid "No ebox-services DNS key found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:256
+msgid "Cannot create SOAP connection"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:272
+msgid "No domain key found for this service"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:284
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:143
+msgid "Key for service proxy not found"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:71
+msgid "eBox remote services"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:133
+msgid "Remote services subscription"
+msgstr ""
+
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr "Ao seleccionar um componente, será mostrado o log da última hora"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:23
 #: src/templates/logs/index.mas:23
 #, fuzzy
 msgid "Select available full reports"
 msgstr "Seleccione os logs disponíveis"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:35
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:36
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:37
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
 msgstr "Ver"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:44
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
 msgstr "Definir consulta"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:50
 #: src/templates/logs/index.mas:50
 msgid "From date:"
 msgstr "A partir da data:"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
 msgstr "Janeiro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
 msgstr "Fevereiro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
 msgstr "Março"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
 msgstr "Abril"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
 msgstr "Maio"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
 msgstr "Junho"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
 msgstr "Julho"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
 msgstr "Agosto"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
 msgstr "Setembro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
 msgstr "Outubro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
 msgstr "Novembro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:62
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:128
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
 msgstr "Dezembro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:108
 #: src/templates/logs/index.mas:108
 #, fuzzy
 msgid "Refresh logs"
 msgstr "Consultar logs"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:116
 #: src/templates/logs/index.mas:116
 msgid "To date:"
 msgstr "Até à data:"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:203
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:204
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
 msgstr "Procurar"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:208
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:209
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
 msgstr "Guardar como evento"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:235
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
 msgstr "Nenhum log satisfaz o critério"
 
-#: debian/ebox/usr/share/ebox/templates/logs/index.mas:239
 #: src/templates/logs/index.mas:239
 msgid "There are no logs for this domain"
 msgstr "Não existem logs para este domínio"
 
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:87
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:88
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
 msgstr "primeiro"
 
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:91
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:92
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
 msgstr "anterior"
 
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:111
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:112
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
 msgstr "próximo"
 
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:115
-#: debian/ebox/usr/share/ebox/templates/logs/dbtable.mas:116
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
 msgstr "último"
 
-#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:29
+#: src/templates/login/index.mas:26
+msgid "Warning: Caps Lock is enabled"
+msgstr "Atenção: Caps Lock está activo"
+
+#: src/templates/login/index.mas:36
+msgid "Enter"
+msgstr "Enter"
+
+#: src/templates/login/index.mas:42
+#, fuzzy, perl-brace-format
+msgid "Created by {href}"
+msgstr "{ebox} criada por {warp} em colaboração com {dbs}"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "Há alterações não guardadas, se fizer o logout agora serão perdidas"
+
+#: src/templates/logout/index.mas:15
+msgid "There are no unsaved changes in this session."
+msgstr "Não existem alterações por gravar nesta sessão."
+
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "Sair"
+
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
 msgstr "Montado em"
 
-#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:30
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:121
-#: debian/ebox/usr/share/ebox/templates/backup.mas:127
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:44
 #: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
 msgstr "Tipo"
 
-#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:31
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
 msgstr "Opções"
 
-#: debian/ebox/usr/share/ebox/templates/report/diskUsage.mas:34
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition properties"
 msgstr "Propriedades da partição"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:13
 #: src/templates/report/raid.mas:13
 msgid "No RAID devices present"
 msgstr "Não existem dispositivos RAID presentes"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:17
 #: src/templates/report/raid.mas:17
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr "RAID array {a} inexistente"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:84
 #: src/templates/report/raid.mas:84
 msgid "left-asymmetric"
 msgstr "left-asymmetric"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:85
 #: src/templates/report/raid.mas:85
 msgid "right-asymmetric"
 msgstr "right-asymmetric"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:86
 #: src/templates/report/raid.mas:86
 msgid "left-symmetric"
 msgstr "left-symmetric"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:87
 #: src/templates/report/raid.mas:87
 msgid "right-symmetric"
 msgstr "right-symmetric"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:94
-#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:60
 #: src/templates/report/raid.mas:94 src/templates/moduleStatusTable.mas:60
 msgid "Status"
 msgstr "Estado"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:132
 #: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
 msgstr "Dispositivos RAID activos"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:133
 #: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
 msgstr "Dispositivos RAID activos necessários"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:134
 #: src/templates/report/raid.mas:134
 msgid "Size in blocks"
 msgstr "Tamanho em blocos"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:135
 #: src/templates/report/raid.mas:135
 msgid "Chunk size"
 msgstr "Chunk size"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:138
 #: src/templates/report/raid.mas:138
 msgid "Parity algorithm"
 msgstr "Algoritmo de paridade"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:170
 #: src/templates/report/raid.mas:170
 msgid "Array properties"
 msgstr "Propriedades do array"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:185
 #: src/templates/report/raid.mas:185
 msgid "Resyncing array"
 msgstr "Ressincronizando o array"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:186
 #: src/templates/report/raid.mas:186
 msgid "Rebuild array"
 msgstr "Reconstruindo o array"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:187
 #: src/templates/report/raid.mas:187
 msgid "Reshape array"
 msgstr "Remodelar o array"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:195
 #: src/templates/report/raid.mas:195
 msgid "Operation type"
 msgstr "Tipo de operação"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:197
 #: src/templates/report/raid.mas:197
 msgid "Percentage completed"
 msgstr "Percentagem completa"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:199
 #: src/templates/report/raid.mas:199
 msgid "Estimated time left"
 msgstr "Tempo em falta estimado"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:201
 #: src/templates/report/raid.mas:201
 msgid "Operation speed"
 msgstr "Velocidade da operação"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:214
 #: src/templates/report/raid.mas:214
 msgid "RAID device number"
 msgstr "Número do dispositivo RAID"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:215
 #: src/templates/report/raid.mas:215
 msgid "Device"
 msgstr "Dispositivo"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:221
 #: src/templates/report/raid.mas:221
 msgid "up"
 msgstr "\"up\""
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:222
 #: src/templates/report/raid.mas:222
 msgid "failure"
 msgstr "falha"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:251
 #: src/templates/report/raid.mas:251
 msgid "No unused RAID devices"
 msgstr "Não existem dispositivos RAID por usar"
 
-#: debian/ebox/usr/share/ebox/templates/report/raid.mas:254
 #: src/templates/report/raid.mas:254
 msgid "Unused RAID arrays"
 msgstr "Dispositivos RAID por usar"
 
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:32
-#: debian/ebox/usr/share/ebox/templates/backup.mas:64
-#: src/templates/backup.mas:64
-#: src/templates/RemoteServices/Backup/index.mas:32
-msgid "Back up"
-msgstr "Backup"
+#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
+#: src/templates/RemoteServices/Backup/proxy.mas:46
+#: src/templates/RemoteServices/Backup/index.mas:70
+#: src/templates/RemoteServices/Backup/confirm.mas:48
+msgid "Archive size"
+msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:38
-#: src/templates/RemoteServices/Backup/index.mas:38
+#: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
+#: src/templates/RemoteServices/Backup/confirm.mas:73
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/templates/confirm-backup.mas:110
+msgid "Full Restore"
+msgstr "Restauração completa"
+
+#: src/templates/confirm-backup.mas:111
+msgid "Configuration Restore"
+msgstr "Restaurar configuração"
+
+#: src/templates/confirm-backup.mas:116
+msgid "Restore mode"
+msgstr "Modo de restauro"
+
+#: src/templates/moduleStatusTable.mas:59
 #, fuzzy
-msgid "Back up the current configuration state"
+msgid "Depends"
+msgstr "eventos"
+
+#: src/templates/moduleStatusTable.mas:85
+#, fuzzy, perl-brace-format
+msgid "Configure module: {module}"
+msgstr "Modo de restauração desconhecido: {mode}"
+
+#: src/templates/password.mas:4
+msgid "Change password"
+msgstr "Mude a palavra-passe"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "A sua palavra-passe deve ter pelo menos 6 caracteres."
+
+#: src/templates/password.mas:11
+msgid "Current password"
+msgstr "Palavra-passe actual"
+
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "Nova palavra-passe"
+
+#: src/templates/password.mas:39
+msgid "Confirm password"
+msgstr "Confirme palavra-passe"
+
+#: src/templates/headTitle.mas:19
+msgid "Remote services control panel"
+msgstr ""
+
+#: src/templates/progress.mas:20
+msgid "Item"
+msgstr "Item"
+
+#: src/templates/progress.mas:21
+msgid "items left"
+msgstr "Itens restantes"
+
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox: "
+msgstr ""
+
+#: src/templates/progress.mas:38
+msgid "Starting..."
+msgstr "A iniciar..."
+
+#: src/templates/backup.mas:17
+msgid "Full Backup"
+msgstr "Backup completo"
+
+#: src/templates/backup.mas:18
+msgid "Configuration Backup"
+msgstr "Backup de configuração"
+
+#: src/templates/backup.mas:24
+#, perl-brace-format
+msgid ""
+"Those modules which have not been enabled for first time in the {openref}"
+"module status{closeref} section will be ignored in both backup and restore "
+"operations"
+msgstr ""
+
+#: src/templates/backup.mas:26
+msgid "Back up the current state"
 msgstr "Backup do estado actual"
 
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:44
-#: debian/ebox/usr/share/ebox/templates/backup.mas:35
 #: src/templates/backup.mas:35
 #: src/templates/RemoteServices/Backup/index.mas:44
 msgid ""
@@ -2554,181 +2099,19 @@ msgstr ""
 "O backup está desactivado porque há alterações não gravadas. Grave-as ou "
 "descarte-as para poder fazer o backup da configuração"
 
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:70
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:48
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:46
-#: debian/ebox/usr/share/ebox/templates/backup.mas:129
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:53
-#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-#: src/templates/RemoteServices/Backup/proxy.mas:46
-#: src/templates/RemoteServices/Backup/index.mas:70
-#: src/templates/RemoteServices/Backup/confirm.mas:48
-msgid "Archive size"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:71
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:47
-#: debian/ebox/usr/share/ebox/templates/backup.mas:130
-#: src/templates/backup.mas:130
-#: src/templates/RemoteServices/Backup/proxy.mas:47
-#: src/templates/RemoteServices/Backup/index.mas:71
-msgid "Actions"
-msgstr "Acções"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:91
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:82
-#: debian/ebox/usr/share/ebox/templates/backup.mas:166
-#: debian/ebox/usr/share/ebox/templates/backup.mas:167
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
-#: src/templates/RemoteServices/Backup/proxy.mas:82
-#: src/templates/RemoteServices/Backup/index.mas:91
-msgid "Download"
-msgstr "Download"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:110
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:99
-#: debian/ebox/usr/share/ebox/templates/backup.mas:188
-#: src/templates/backup.mas:188
-#: src/templates/RemoteServices/Backup/proxy.mas:99
-#: src/templates/RemoteServices/Backup/index.mas:110
-msgid "restore"
-msgstr "restaurar"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:114
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:103
-#: debian/ebox/usr/share/ebox/templates/backup.mas:186
-#: src/templates/backup.mas:186
-#: src/templates/RemoteServices/Backup/proxy.mas:103
-#: src/templates/RemoteServices/Backup/index.mas:114
-msgid "download"
-msgstr "download"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:118
-#: debian/ebox/usr/share/ebox/templates/backup.mas:190
-#: src/templates/backup.mas:190
-#: src/templates/RemoteServices/Backup/index.mas:118
-msgid "delete"
-msgstr "eliminar"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:123
-#: src/templates/RemoteServices/Backup/index.mas:123
-#, fuzzy
-msgid "Configuration backups' list"
-msgstr "Backups de configuração"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:73
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:74
-#: debian/ebox/usr/share/ebox/templates/dataInUse.mas:41
-#: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
-#: src/templates/RemoteServices/Backup/confirm.mas:73
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:42
-#: src/templates/RemoteServices/Backup/proxy.mas:42
-msgid "eBox host"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:109
-#: debian/ebox/usr/share/ebox/templates/backup.mas:122
-#: src/templates/backup.mas:122
-#: src/templates/RemoteServices/Backup/proxy.mas:109
-msgid "Backups' list"
-msgstr "Lista de backups"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:132
-#: src/templates/RemoteServices/Backup/proxy.mas:132
-msgid "User"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:143
-#: src/templates/RemoteServices/Backup/proxy.mas:143
-msgid "Submit"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:147
-#: src/templates/RemoteServices/Backup/proxy.mas:147
-#, fuzzy
-msgid "Enter user and password"
-msgstr "Definir palavra-passe"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:5
-#: src/templates/RemoteServices/NoConnection.mas:5
-msgid ""
-"Cannot proceed with your request because it was a connection problem. "
-"Possible causes are:"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:9
-#: src/templates/RemoteServices/NoConnection.mas:9
-msgid "Your computer has not internet connection"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:10
-#: src/templates/RemoteServices/NoConnection.mas:10
-msgid "Your computer has not a correct system date"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:11
-#: src/templates/RemoteServices/NoConnection.mas:11
-msgid "You are using the wrong certificates"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoConnection.mas:12
-#: src/templates/RemoteServices/NoConnection.mas:12
-msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoActive.mas:5
-#: src/templates/RemoteServices/NoActive.mas:5
-#, perl-brace-format
-msgid ""
-"This feature is only available if you get eBox  Services. You can contract "
-"them at {url1}. If you are already registered, then subscribe this eBox at "
-"{url2}"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/NoActive.mas:14
-#: src/templates/RemoteServices/NoActive.mas:14
-#, fuzzy
-msgid "subscription page"
-msgstr "Descrição"
-
-#: debian/ebox/usr/share/ebox/templates/backup.mas:17
-#: src/templates/backup.mas:17
-msgid "Full Backup"
-msgstr "Backup completo"
-
-#: debian/ebox/usr/share/ebox/templates/backup.mas:18
-#: src/templates/backup.mas:18
-msgid "Configuration Backup"
-msgstr "Backup de configuração"
-
-#: debian/ebox/usr/share/ebox/templates/backup.mas:24
-#: src/templates/backup.mas:24
-#, perl-brace-format
-msgid ""
-"Those modules which have not been enabled for first time in the {openref}"
-"module status{closeref} section will be ignored in both backup and restore "
-"operations"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/backup.mas:26
-#: src/templates/backup.mas:26
-msgid "Back up the current state"
-msgstr "Backup do estado actual"
-
-#: debian/ebox/usr/share/ebox/templates/backup.mas:52
 #: src/templates/backup.mas:52
 msgid "Backup mode"
 msgstr "Modo de backup"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:74
+#: src/templates/backup.mas:64
+#: src/templates/RemoteServices/Backup/index.mas:32
+msgid "Back up"
+msgstr "Backup"
+
 #: src/templates/backup.mas:74
 msgid "Restore backup from file"
 msgstr "Restaurar backup do ficheiro"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:76
 #: src/templates/backup.mas:76
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
@@ -2738,37 +2121,84 @@ msgstr ""
 "upload de ficheiros grandes (>= 1Gb), tenha em atenção que alguns servidores "
 "web não o suportam"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:84
 #: src/templates/backup.mas:84
 msgid "Backup file"
 msgstr "Ficheiro de backup"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:114
 #: src/templates/backup.mas:114
 msgid "Full"
 msgstr "Cheio"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:115
 #: src/templates/backup.mas:115
 msgid "Configuration only"
 msgstr "Somente de configuração"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:116
 #: src/templates/backup.mas:116
 msgid "Unknown type"
 msgstr "Tipo desconhecido"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:160
+#: src/templates/backup.mas:122
+#: src/templates/RemoteServices/Backup/proxy.mas:109
+msgid "Backups' list"
+msgstr "Lista de backups"
+
+#: src/templates/backup.mas:130
+#: src/templates/RemoteServices/Backup/proxy.mas:47
+#: src/templates/RemoteServices/Backup/index.mas:71
+msgid "Actions"
+msgstr "Acções"
+
 #: src/templates/backup.mas:160
 msgid "Restore configuration using this file"
 msgstr "Restaurar configuração usando este ficheiro"
 
-#: debian/ebox/usr/share/ebox/templates/backup.mas:161
 #: src/templates/backup.mas:161
 msgid "Restore from backup"
 msgstr "Restaurar a partir de backup"
 
-#: debian/ebox/usr/share/ebox/templates/bug.mas:9 src/templates/bug.mas:9
+#: src/templates/backup.mas:166 src/templates/backup.mas:167
+#: src/templates/RemoteServices/Backup/proxy.mas:82
+#: src/templates/RemoteServices/Backup/index.mas:91
+msgid "Download"
+msgstr "Download"
+
+#: src/templates/backup.mas:186
+#: src/templates/RemoteServices/Backup/proxy.mas:103
+#: src/templates/RemoteServices/Backup/index.mas:114
+msgid "download"
+msgstr "download"
+
+#: src/templates/backup.mas:188
+#: src/templates/RemoteServices/Backup/proxy.mas:99
+#: src/templates/RemoteServices/Backup/index.mas:110
+msgid "restore"
+msgstr "restaurar"
+
+#: src/templates/backup.mas:190
+#: src/templates/RemoteServices/Backup/index.mas:118
+msgid "delete"
+msgstr "eliminar"
+
+#: src/templates/configureView.mas:16
+msgid ""
+"Enabling this module will cause eBox to perform the actions and file "
+"modifications listed below. You must explicitly accept these changes to "
+"enable the module."
+msgstr ""
+
+#: src/templates/configureView.mas:20
+msgid "Actions to perform by eBox"
+msgstr ""
+
+#: src/templates/configureView.mas:35
+msgid "Files to modify by eBox"
+msgstr ""
+
+#: src/templates/configureView.mas:54
+msgid "Accept"
+msgstr ""
+
+#: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a bug in eBox."
@@ -2776,48 +2206,14 @@ msgstr ""
 "Esta página permite criar um ficheiro com a informação do seu sistema. Este "
 "pode ser útil para reportar um erro no eBox."
 
-#: debian/ebox/usr/share/ebox/templates/bug.mas:14 src/templates/bug.mas:14
+#: src/templates/bug.mas:14
 msgid "Download bug report file"
 msgstr "Fazer o download do ficheiro de erros"
 
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:110
-#: src/templates/confirm-backup.mas:110
-msgid "Full Restore"
-msgstr "Restauração completa"
-
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:111
-#: src/templates/confirm-backup.mas:111
-msgid "Configuration Restore"
-msgstr "Restaurar configuração"
-
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:116
-#: src/templates/confirm-backup.mas:116
-msgid "Restore mode"
-msgstr "Modo de restauro"
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:12
-#: src/templates/backupTabs.mas:12
-#, fuzzy
-msgid "Local backup"
-msgstr "Backup completo"
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:17
-#: src/templates/backupTabs.mas:17
-#, fuzzy
-msgid "Remote backup"
-msgstr "Restaurar backup"
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:22
-#: src/templates/backupTabs.mas:22
-msgid "Remote backup from other subscribed hosts"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/finish.mas:82
 #: src/templates/finish.mas:82
 msgid "Warning"
 msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:96
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
@@ -2826,7 +2222,6 @@ msgstr ""
 "Existem alteração não gravadas num ou mais módulos, pode guardá-las ou "
 "descartá-las."
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:99
 #: src/templates/finish.mas:99
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
@@ -2837,147 +2232,154 @@ msgstr ""
 "de alterar manualmente a url de modo a aceder ao interface de administração "
 "novamente."
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:107
 #: src/templates/finish.mas:107
 msgid "Message"
 msgstr "Mensagem"
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:123
 #: src/templates/finish.mas:123
 msgid "Save"
 msgstr "Guardar"
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:125
 #: src/templates/finish.mas:125
 msgid "Discard changes"
 msgstr "Descartar alterações"
 
-#: debian/ebox/usr/share/ebox/templates/finish.mas:130
 #: src/templates/finish.mas:130
 msgid "There are no unsaved changes."
 msgstr "Não existem alterações por guardar."
 
-#: debian/ebox/usr/share/ebox/templates/halt.mas:10 src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "Pode perder a ligação à Internet se esta máquina for parada."
-
-#: debian/ebox/usr/share/ebox/templates/halt.mas:14 src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Parar"
-
-#: debian/ebox/usr/share/ebox/templates/halt.mas:16 src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Reiniciar"
-
-#: debian/ebox/usr/share/ebox/templates/password.mas:4
-#: src/templates/password.mas:4
-msgid "Change password"
-msgstr "Mude a palavra-passe"
-
-#: debian/ebox/usr/share/ebox/templates/password.mas:5
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "A sua palavra-passe deve ter pelo menos 6 caracteres."
-
-#: debian/ebox/usr/share/ebox/templates/password.mas:11
-#: src/templates/password.mas:11
-msgid "Current password"
-msgstr "Palavra-passe actual"
-
-#: debian/ebox/usr/share/ebox/templates/password.mas:25
-#: src/templates/password.mas:25
-msgid "New password"
-msgstr "Nova palavra-passe"
-
-#: debian/ebox/usr/share/ebox/templates/password.mas:39
-#: src/templates/password.mas:39
-msgid "Confirm password"
-msgstr "Confirme palavra-passe"
-
-#: debian/ebox/usr/share/ebox/templates/port.mas:9 src/templates/port.mas:9
+#: src/templates/port.mas:9
 msgid "Administration interface TCP port"
 msgstr "Interface de administração portos TCP"
 
-#: debian/ebox/usr/share/ebox/templates/progress.mas:20
-#: src/templates/progress.mas:20
-msgid "Item"
-msgstr "Item"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "Pode perder a ligação à Internet se esta máquina for parada."
 
-#: debian/ebox/usr/share/ebox/templates/progress.mas:21
-#: src/templates/progress.mas:21
-msgid "items left"
-msgstr "Itens restantes"
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Parar"
 
-#: debian/ebox/usr/share/ebox/templates/progress.mas:23
-#: src/templates/progress.mas:23
-msgid "Some error has happened in eBox: "
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Reiniciar"
+
+#: src/templates/configurationFiles.mas:28
+msgid "Do you wish to overwrite these files?"
 msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/progress.mas:38
-#: src/templates/progress.mas:38
-msgid "Starting..."
-msgstr "A iniciar..."
-
-#: debian/ebox/usr/share/ebox/templates/headTitle.mas:19
-#: src/templates/headTitle.mas:19
-msgid "Remote services control panel"
+#: src/templates/configurationFiles.mas:35
+msgid "Keep current file"
 msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/footer.mas:6
+#: src/templates/configurationFiles.mas:39
+msgid "Modify"
+msgstr ""
+
 #: src/templates/footer.mas:6
 #, fuzzy, perl-brace-format
 msgid "{ebox} created by {warp}"
 msgstr "{ebox} criada por {warp} em colaboração com {dbs}"
 
-#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:28
-#: src/templates/configurationFiles.mas:28
-msgid "Do you wish to overwrite these files?"
+#: src/templates/dashboard/status.mas:9
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/templates/dashboard/status.mas:12
+msgid "Running"
+msgstr "A correr"
+
+#: src/templates/dashboard/status.mas:15
+msgid "Stopped"
+msgstr "Parado"
+
+#: src/templates/dashboard/status.mas:17
+msgid "Start"
+msgstr "Iniciar"
+
+#: src/templates/dashboard/status.mas:19
+msgid "Disabled"
+msgstr "Disabled"
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
 msgstr ""
 
-#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:35
-#: src/templates/configurationFiles.mas:35
-msgid "Keep current file"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/configurationFiles.mas:39
-#: src/templates/configurationFiles.mas:39
-msgid "Modify"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/configureView.mas:16
-#: src/templates/configureView.mas:16
-msgid ""
-"Enabling this module will cause eBox to perform the actions and file "
-"modifications listed below. You must explicitly accept these changes to "
-"enable the module."
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/configureView.mas:20
-#: src/templates/configureView.mas:20
-msgid "Actions to perform by eBox"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/configureView.mas:35
-#: src/templates/configureView.mas:35
-msgid "Files to modify by eBox"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/configureView.mas:54
-#: src/templates/configureView.mas:54
-msgid "Accept"
-msgstr ""
-
-#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:59
-#: src/templates/moduleStatusTable.mas:59
+#: src/templates/backupTabs.mas:12
 #, fuzzy
-msgid "Depends"
-msgstr "eventos"
+msgid "Local backup"
+msgstr "Backup completo"
 
-#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:85
-#: src/templates/moduleStatusTable.mas:85
-#, fuzzy, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "Modo de restauração desconhecido: {mode}"
+#: src/templates/backupTabs.mas:17
+#, fuzzy
+msgid "Remote backup"
+msgstr "Restaurar backup"
+
+#: src/templates/backupTabs.mas:22
+msgid "Remote backup from other subscribed hosts"
+msgstr ""
+
+#: src/templates/RemoteServices/Backup/proxy.mas:42
+msgid "eBox host"
+msgstr ""
+
+#: src/templates/RemoteServices/Backup/proxy.mas:132
+msgid "User"
+msgstr ""
+
+#: src/templates/RemoteServices/Backup/proxy.mas:143
+msgid "Submit"
+msgstr ""
+
+#: src/templates/RemoteServices/Backup/proxy.mas:147
+#, fuzzy
+msgid "Enter user and password"
+msgstr "Definir palavra-passe"
+
+#: src/templates/RemoteServices/Backup/index.mas:38
+#, fuzzy
+msgid "Back up the current configuration state"
+msgstr "Backup do estado actual"
+
+#: src/templates/RemoteServices/Backup/index.mas:123
+#, fuzzy
+msgid "Configuration backups' list"
+msgstr "Backups de configuração"
+
+#: src/templates/RemoteServices/NoActive.mas:5
+#, perl-brace-format
+msgid ""
+"This feature is only available if you get eBox  Services. You can contract "
+"them at {url1}. If you are already registered, then subscribe this eBox at "
+"{url2}"
+msgstr ""
+
+#: src/templates/RemoteServices/NoActive.mas:14
+#, fuzzy
+msgid "subscription page"
+msgstr "Descrição"
+
+#: src/templates/RemoteServices/NoConnection.mas:5
+msgid ""
+"Cannot proceed with your request because it was a connection problem. "
+"Possible causes are:"
+msgstr ""
+
+#: src/templates/RemoteServices/NoConnection.mas:9
+msgid "Your computer has not internet connection"
+msgstr ""
+
+#: src/templates/RemoteServices/NoConnection.mas:10
+msgid "Your computer has not a correct system date"
+msgstr ""
+
+#: src/templates/RemoteServices/NoConnection.mas:11
+msgid "You are using the wrong certificates"
+msgstr ""
+
+#: src/templates/RemoteServices/NoConnection.mas:12
+msgid "This eBox has been removed from your registered eBoxes"
+msgstr ""
 
 #~ msgid "Error"
 #~ msgstr "Erro"

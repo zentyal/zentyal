@@ -52,9 +52,7 @@ otherwise {
 
   my $errorTxt = $ex->text();
   if ( EBox::Config::configkey('debug') eq 'yes' ) {
-      use Devel::StackTrace;
-      my $trace = Devel::StackTrace->new();
-      $errorTxt .= $trace->as_string();
+      $errorTxt .= $ex->stacktrace();
   }
   $progress->setAsFinished(1, $ex->text);
 
