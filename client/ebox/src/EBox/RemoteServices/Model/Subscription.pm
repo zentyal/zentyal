@@ -281,7 +281,7 @@ sub _table
 
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
-        $printableTableName = __('eBox suscription details');
+        $printableTableName = __('eBox subscription details');
         $actionName = __('Delete data');
     } else {
         splice(@tableDesc, 1, 0, $passType);
