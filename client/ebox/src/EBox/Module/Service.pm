@@ -298,6 +298,26 @@ sub isRunning
     return 1;
 }
 
+# Method: addModuleStatus
+#
+#   Called by the sysinfo module status widget to give the desired information
+#   about the current module status. This default implementation should be ok
+#   for most modules but it can be overriden to provide a custom one (or none).
+#
+# Parameters:
+#
+#   section - the section the information is added to
+#
+sub addModuleStatus
+{
+    my ($self, $section) = @_;
+    my $enabled = $self->isEnabled();
+    my $running = $self->isRunning();
+    my $name = $self->name();
+    my $modPrintName = ucfirst($self->printableName());
+    $section->add(new EBox::Dashboard::ModuleStatus($name, $modPrintName, $enabled, $running, not $self->_supportActions()));
+}
+
 # Method: enableService
 #
 #   Used to enable a service

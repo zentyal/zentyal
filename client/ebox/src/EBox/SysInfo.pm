@@ -63,11 +63,7 @@ sub modulesWidget
     my $typeClass = 'EBox::Module::Service';
     my %moduleStatus;
     for my $class (@{$global->modInstancesOfType($typeClass)}) {
-        my $modName = $class->name();
-        my $modPrintName = ucfirst($class->printableName());
-        my $enabled = $class->isEnabled();
-        my $running = $class->isRunning();
-        $section->add(new EBox::Dashboard::ModuleStatus($modName, $modPrintName, $enabled, $running, not $class->_supportActions()));
+        $class->addModuleStatus($section);
     }
 }
 
