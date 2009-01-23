@@ -23,53 +23,54 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:194
 msgid "Monitor"
-msgstr ""
+msgstr "Monitoração"
 
 #: src/EBox/Monitor.pm:134
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:134
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "Arquivo de configuração principal do Collectd"
 
 #: src/EBox/Monitor.pm:138
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:138
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "Arquivo de configuração de threshold do Collectd"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "Carga do sistema"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Coleta a carga do sistema que nos da um resumo bruto da utilização do sistema"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "curto prazo"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "prazo médio"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "longo prazo"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "Utilização da CPU {no}"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "Utilização da CPU"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:66
@@ -78,30 +79,32 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"Coleta o tempo gasto pela CPU em vários estados, o mais notável é execução "
+"por usuário, execuções do sistema, espera por operações de IO e inatividade"
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "inatividade"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "usuário"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:75
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "interrupção"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "nice"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:77
