@@ -50,6 +50,7 @@ sub _process
 	$self->{chain} = "/Dashboard/Index";
 	$mod->restartService();
 	$self->{msg} = __('The module was restarted correctly.');
+        $self->cgi()->delete_all();
 }
 
 1;
