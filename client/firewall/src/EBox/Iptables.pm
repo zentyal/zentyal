@@ -264,6 +264,21 @@ sub setRemoteServices
             my ($vpnIPAddr, $vpnPort) = @{$rsMod->vpnSettings()};
             # We assume UDP
             pf "-A ointernal $new -p udp -d $vpnIPAddr --dport $vpnPort -j ACCEPT";
+            # Allow communications between ns and www
+            eval "use EBox::RemoteServices::Configuration";
+            my ($dnsServer, $publicWebServer, $mirrorCount) = (
+                EBox::RemoteServices::Configuration->DNSServer(),
+                EBox::RemoteServices::Configuration->PublicWebServer(),
+                EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
+               );
+            # We are assuming just one name server
+            pf "-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT";
+            # Public WWW servers to connect to
+            for my $no ( 1 .. $mirrorCount ) {
+                my $site = $publicWebServer;
+                $site =~ s:\.:$no.:;
+                pf "-A ointernal $new -p tcp -d $site --dport 443 -j ACCEPT";
+            }
         }
     }
 
