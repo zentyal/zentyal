@@ -21,15 +21,33 @@ use warnings;
 use base 'EBox::Dashboard::Item';
 use EBox::Gettext;
 
+# Constructor: new
+#
+#     Create a Dashboard Module status item
+#
+# Named parameters:
+#
+#     module - String the module to print
+#
+#     printableName - String the module printable name
+#
+#     enabled - Boolean indicating whether the module is enabled or
+#               not
+#
+#     running - Boolean indicating whether the service module is
+#               running or not
+#
+#     nobutton - Boolean indicating if the button is not necessary
+#
+#     statusStr - String you may override the status displayed screen
+#
 sub new  # (key, prettykey, value)
 {
-	my $class = shift;
+	my ($class, %params) = @_;
 	my $self = $class->SUPER::new();
-	$self->{module} = shift;
-	$self->{printableName} = shift;
-	$self->{enabled} = shift;
-	$self->{running} = shift;
-	$self->{nobutton} = shift;
+        while(my ($key, $value) = each(%params)) {
+            $self->{$key} = $value;
+        }
 	bless($self, $class);
 	return $self;
 }

@@ -315,7 +315,13 @@ sub addModuleStatus
     my $running = $self->isRunning();
     my $name = $self->name();
     my $modPrintName = ucfirst($self->printableName());
-    $section->add(new EBox::Dashboard::ModuleStatus($name, $modPrintName, $enabled, $running, not $self->_supportActions()));
+    $section->add(new EBox::Dashboard::ModuleStatus(
+        module        => $name,
+        printableName => $modPrintName,
+        enabled       => $enabled,
+        running       => $running,
+        nobutton      => not $self->_supportActions()
+       ));
 }
 
 # Method: enableService

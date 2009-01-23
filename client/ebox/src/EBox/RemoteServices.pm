@@ -20,7 +20,7 @@ package EBox::RemoteServices;
 #      RemoteServices module to handle everything related to the remote
 #      services offered
 #
-use base qw(EBox::GConfModule
+use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
            );
@@ -32,6 +32,7 @@ use Error qw(:try);
 
 # eBox uses
 use EBox::Config;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
@@ -89,41 +90,63 @@ sub domain
     return 'ebox-remoteservices';
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
 #        Regenerate the configuration for the remote services module
 #
 # Overrides:
 #
-#       <EBox::Module::_regenConfig>
+#       <EBox::Module::Service::_setConf>
 #
-sub _regenConfig
+sub _setConf
 {
 
       my ($self) = @_;
 
       $self->_confSOAPService();
       $self->_establishVPNConnection();
-      $self->_doDaemon();
 
-      return;
 }
 
-# Method: _stopService
+# Method: _daemons
 #
-#        Stop the event service
 # Overrides:
 #
-#       <EBox::Module::_stopService>
+#       <EBox::Module::Service::_daemons>
 #
-sub _stopService
+sub _daemons
 {
-    my ($self) = @_;
-
-    EBox::Service::manage(RUNNERD_SERVICE, 'stop');
+    return [
+        {
+            'name'         => RUNNERD_SERVICE,
+            'precondition' => \&eBoxSubscribed,
+        }
+       ];
 }
 
 # Group: Public methods
+
+# Method: addModuleStatus
+#
+# Overrides:
+#
+#       <EBox::Module::Service::addModuleStatus>
+#
+sub addModuleStatus
+{
+    my ($self, $section) = @_;
+
+    my $subscriptionStatus = __('Not subscribed');
+    if ( $self->eBoxSubscribed() ) {
+        $subscriptionStatus = __('Subscribed');
+    }
+
+    $section->add(new EBox::Dashboard::ModuleStatus(
+        module        => $self->name(),
+        printableName => $self->printableName(),
+        nobutton      => 1,
+        statusStr     => $subscriptionStatus));
+}
 
 sub menu
 {

@@ -424,12 +424,12 @@ sub summary
 
     my $service = $self->service();
     my $status =  new EBox::Dashboard::ModuleStatus(
-                                        'mailfilter',
-                                        __('Status'),
-                                        $self->isRunning(),
-                                        $self->service(),
-                                        1);
-    
+        module        => 'mailfilter',
+        printableName => __('Status'),
+        running       => $self->isRunning(),
+        enabled       => $self->service(),
+        nobutton      => 1);
+
     $section->add($status);
 
     $service or
@@ -441,20 +441,20 @@ sub summary
             
 
     my $antivirus = new EBox::Dashboard::ModuleStatus(
-                                              'mailfilter',
-                                              __('Antivirus'),
-                                              $self->antivirus(),
-                                              $mailfilter->antivirus()->isRunning,
-                                              1);
+        module        => 'mailfilter',
+        printableName => __('Antivirus'),
+        enabled       => $self->antivirus(),
+        running       => $mailfilter->antivirus()->isRunning(),
+        nobutton      => 1);
     $section->add($antivirus);
 
 
    my $antispam = new EBox::Dashboard::ModuleStatus(
-                                              'mailfilter',
-                                              __('Antispam'),
-                                              $self->antispam(),
-                                              $mailfilter->antispam()->isRunning,
-                                              1);
+       module        => 'mailfilter',
+       printableName =>__('Antispam'),
+       enabled       => $self->antispam(),
+       running       => $mailfilter->antispam()->isRunning(),
+       nobutton      => 1);
     $section->add($antispam);
 }
 

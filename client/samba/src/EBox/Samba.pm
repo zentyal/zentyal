@@ -31,7 +31,6 @@ use EBox::SambaLdapUser qw(PROFILESPATH);
 use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
-use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;

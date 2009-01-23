@@ -8,16 +8,20 @@ my $status_str;
 my $status_class;
 my $restart = __('Restart');
 
-if ($item->{running}) {
-    $status_str = __('Running');
-    $status_class = 'summaryRunning';
-} elsif ($item->{enabled}) {
-    $status_str = __('Stopped');
-    $status_class = 'summaryStopped';
-    $restart = __('Start');
+if ( $item->{statusStr} ) {
+    $status_str = $item->{statusStr};
 } else {
-    $status_str = __('Disabled');
-    $status_class = 'summaryDisabled';
+    if ($item->{running}) {
+        $status_str = __('Running');
+        $status_class = 'summaryRunning';
+    } elsif ($item->{enabled}) {
+        $status_str = __('Stopped');
+        $status_class = 'summaryStopped';
+        $restart = __('Start');
+    } else {
+        $status_str = __('Disabled');
+        $status_class = 'summaryDisabled';
+    }
 }
 </%init>
 <tr>

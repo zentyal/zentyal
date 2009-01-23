@@ -30,7 +30,6 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 use EBox::Dashboard::Value;
-use EBox::Dashboard::ModuleStatus;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::RAID;
