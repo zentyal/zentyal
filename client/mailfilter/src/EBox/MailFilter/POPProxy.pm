@@ -320,7 +320,8 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("SMTP filter"));
+    my $section = new EBox::Dashboard::Section('pop_filter', 
+        __("Transparent POP3 filter"));
     $summary->add($section);
 
     my $service = $self->service();

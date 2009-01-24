@@ -419,7 +419,8 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("POP transparent proxy"));
+    my $section = new EBox::Dashboard::Section('smtp_filter', 
+        __("SMTP filter"));
     $summary->add($section);
 
     my $service = $self->service();
