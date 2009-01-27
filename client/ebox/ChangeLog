@@ -13,6 +13,8 @@
 	+ Improve restart debugging
 	+ Backups and bug reports can be made from the command line
 	+ Bugfix: `isEqualTo` is working now for `Boolean` types
+	+ Bugfix: check if we must disable file modification checks in
+	Manager::skipModification
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically
