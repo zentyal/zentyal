@@ -507,11 +507,11 @@ sub _daemons
             'type' => 'init.d',
             'pidfile' => AUTHDAEMONPIDFILE
         },
-        {
-            'name' => AUTHLDAPINIT,
-            'type' => 'init.d',
-            'pidfile' => AUTHLDAPPIDFILE
-        },
+#        {
+#            'name' => AUTHLDAPINIT,
+#            'type' => 'init.d',
+#            'pidfile' => AUTHLDAPPIDFILE
+#        },
     ];
     my $greylist_daemon = $self->greylist()->daemon();
     $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
