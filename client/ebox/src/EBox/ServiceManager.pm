@@ -313,7 +313,9 @@ sub modificationAllowed
 sub skipModification 
 {
     my ($self, $module, $file) = @_;
-    
+
+    return 0 unless ($self->checkUserModifications());
+ 
     my $gconf = $self->{'gconfmodule'};
 
     return 1 unless ($self->modificationAllowed($module, $file));

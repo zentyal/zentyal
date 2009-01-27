@@ -781,8 +781,7 @@ sub writeConfFile # (file, component, params, defaults)
 
     my $manager;
     $manager = new EBox::ServiceManager();
-    if ($manager->checkUserModifications()
-        and $manager->skipModification($self->{'name'}, $file)) {
+    if ($manager->skipModification($self->{'name'}, $file)) {
         EBox::info("Skipping modification of $file");
         return;
     }
