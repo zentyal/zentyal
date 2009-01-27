@@ -92,7 +92,7 @@ virtual_alias_maps = ldap:valiases
 valiases_server_host = <% $ldapi %>
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
-valiases_result_attribute = maildropv
+valiases_result_attribute = maildrop
 aliases_bind = no
 
 # Virtual Domains
