@@ -7,6 +7,7 @@
 	+ Added support for `additionalParameters` to `EBox.TabMenu` JS
 	prototype
 	+ Added `configKeysFromFile` to `EBox::Config`
+	+ Bugfix: make boolean setter honour editable attribute
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes
@@ -16,6 +17,9 @@
 	+ Add javascript library to generate report charts
 	+ Fixing redirect URL coming from proxy
 	+ Added Chinese from Taiwan and Galician translations
+0.12.2
+	+ Bugfix: Fix an issue with javascript and the union type that prevented
+	things like samba share UI from working ok
 0.12.1
 	+ Bugfix: Get logger from EBox category if it is not set explicity
 	to allow external programs to log using eBox log helper functions

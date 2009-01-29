@@ -3,12 +3,17 @@ $tableName
 $data
 $cssClass => ''
 </%args>
-% my $id = $tableName . '_' . $data->fieldName();
+<%perl>
+my $id = $tableName . '_' . $data->fieldName();
 
-<& /input/checkbox.mas,
-    'name'  => "$id",
+my %args = ('name'  => "$id",
     'value' => $data->printableValue(),
     'id'    => "$id",
-    'class' => "$cssClass",
-&>
+    'class' => "$cssClass");
+
+unless ($data->editable()) {
+  $args{'disabled'} = 'disabled';
+}
+</%perl>
+<& /input/checkbox.mas, %args &>
 <% $data->trailingText() %>
