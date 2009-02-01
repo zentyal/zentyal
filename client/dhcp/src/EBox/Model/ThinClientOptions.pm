@@ -155,8 +155,8 @@ sub validateTypedRow
         }
     } else {
         if ( $allFields->{remoteFilename}->value() ne '') {
-            throw EBox::Exceptions::External(__('You can only specify a file
-              name if you have a next server and it is not eBox'));
+            throw EBox::Exceptions::External(__('You can only specify a file '
+             . 'name if you have a next server and it is not eBox'));
         }
     }
 }
