@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 26;
+use Test::More tests => 27;
 use Test::Exception;
 use Test::Differences;
 use Data::Dumper; # bug in Test::Differences requires e must load this in order to get normal results
@@ -24,33 +24,33 @@ unfakeTest();
 sub ifaceTest
 {
   my %fakeIfaces = (
-		    'eth0' => {
-			        up => 1,
-			        address => {
-					    '192.168.3.4' => '255.255.255.0',
-					    },
-			       mac_address => '00:EE:11:CC:CE:8D',
+                    'eth0' => {
+                                up => 1,
+                                address => {
+                                            '192.168.3.4' => '255.255.255.0',
+                                            },
+                               mac_address => '00:EE:11:CC:CE:8D',
 
-			      },
-		    'eth1' => {
-			        up => 1,
-			        address => {
-					    '192.168.45.4' => '255.255.255.0',
-					    '10.0.0.7'     => '255.0.0.0',
-					    },
-			       mac_address => '00:11:11:CC:CE:8D',
+                              },
+                    'eth1' => {
+                                up => 1,
+                                address => {
+                                            '192.168.45.4' => '255.255.255.0',
+                                            '10.0.0.7'     => '255.0.0.0',
+                                            },
+                               mac_address => '00:11:11:CC:CE:8D',
 
-			      },
-		    'eth2' => {
-			        up => 0,
-			        address => {
-					    '142.120.45.4' => '255.255.255.0',
-					    '44.0.0.7'     => '255.0.0.0',
-					    },
-			       mac_address => '00:11:11:CC:AA:8D',
-			      },
+                              },
+                    'eth2' => {
+                                up => 0,
+                                address => {
+                                            '142.120.45.4' => '255.255.255.0',
+                                            '44.0.0.7'     => '255.0.0.0',
+                                            },
+                               mac_address => '00:11:11:CC:AA:8D',
+                              },
 
-		   );
+                   );
 
   EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
   
@@ -79,18 +79,18 @@ sub ifaceTest
 sub routesTest 
 {
   my %routes = (
-		'192.168.45.0' => '0.0.0.0',
-		'0.0.0.0'      => '10.0.1.100',
-		'10.0.0.0'     => '192.168.45.123',
-	       );
+                '192.168.45.0' => '0.0.0.0',
+                '0.0.0.0'      => '10.0.1.100',
+                '10.0.0.0'     => '192.168.45.123',
+               );
 
   EBox::NetWrappers::TestStub::setFakeRoutes(\%routes);
 
   my @expectedListedRoutes = sort  (
-			       { network => '192.168.45.0' , router => '0.0.0.0'},
-			       { network => '0.0.0.0' , router => '10.0.1.100'},
-			       { network => '10.0.0.0' , router => '192.168.45.123'}
-			      );
+                               { network => '192.168.45.0' , router => '0.0.0.0'},
+                               { network => '0.0.0.0' , router => '10.0.1.100'},
+                               { network => '10.0.0.0' , router => '192.168.45.123'}
+                              );
 
 
   my @actualListedRoutes = sort (EBox::NetWrappers::list_routes());
@@ -106,10 +106,10 @@ sub routesTest
   }
  
   my %inexistentRoutes = (
-		'192.168.0.0' => '0.0.0.0',         # gateway matchs but net not
-		'10.0.0.0'     => '192.168.45.200',  # net match but gateway not
-		'120.34.23.13'      => '34.32.61.34', # neither match
-	       );
+                '192.168.0.0' => '0.0.0.0',         # gateway matchs but net not
+                '10.0.0.0'     => '192.168.45.200',  # net match but gateway not
+                '120.34.23.13'      => '34.32.61.34', # neither match
+               );
   
   while (my ($net, $router) = each %inexistentRoutes) {
     ok !EBox::NetWrappers::route_is_up($net, $router), "Checking route_is_up($net, $router) with inexistent routes"
@@ -123,16 +123,16 @@ sub unfakeTest
   my $fakeIface = 'warp35';
 
   my %fakeIfaces = (
-		    $fakeIface => {
-			        up => 1,
-			        address => {
-					    '192.193.194.195' => '255.255.255.0',
-					    },
-			       mac_address => 'ww:ww:ww:ww:ww:ww',
+                    $fakeIface => {
+                                up => 1,
+                                address => {
+                                            '192.193.194.195' => '255.255.255.0',
+                                            },
+                               mac_address => 'ww:ww:ww:ww:ww:ww',
 
-			      },
+                              },
 
-		   );
+                   );
 
   EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
 
