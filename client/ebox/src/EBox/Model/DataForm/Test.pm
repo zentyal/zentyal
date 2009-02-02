@@ -99,7 +99,7 @@ sub clearGConf : Test(teardown)
 
 
 
-sub deviantFormTest : Test(7)
+sub deviantFormTest : Test(6)
 {
     my ($self) = @_;
 
@@ -115,16 +115,7 @@ sub deviantFormTest : Test(7)
                          }
 
                   ];
-    push @cases, [
-                  'empty field name' => {
-                                               tableDescription => [
-                                                     new EBox::Types::Abstract()               
-                                                                    
-                                                                   ],
-                                                tableName => 'test',
-                                              }
-                  
-                 ];
+
     push @cases, [
                   'repeated field name' => {
                                                tableDescription => [
