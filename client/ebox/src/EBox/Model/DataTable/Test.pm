@@ -99,7 +99,7 @@ sub clearGConf : Test(teardown)
 }
 
 
-sub deviantTableTest : Test(7)
+sub deviantTableTest : Test(6)
 {
     my ($self) = @_;
 
@@ -115,16 +115,7 @@ sub deviantTableTest : Test(7)
                          }
 
                   ];
-    push @cases, [
-                  'empty field name' => {
-                                               tableDescription => [
-                                                     new EBox::Types::Abstract()               
-                                                                    
-                                                                   ],
-                                                tableName => 'test',
-                                              }
-                  
-                 ];
+
     push @cases, [
                   'repeated field name' => {
                                                tableDescription => [
@@ -154,20 +145,21 @@ sub deviantTableTest : Test(7)
                   
                  ];
 
-    push @cases, [
-                  'sortedBy uses unexistent field' => {
-                                               tableDescription => [
-                                                 new EBox::Types::Abstract(
-                                                       fieldName => 'field1',
-                                                                          ),
+#  XXX this feature was temporally removed form DataTable
+#     push @cases, [
+#                   'sortedBy uses unexistent field' => {
+#                                                tableDescription => [
+#                                                  new EBox::Types::Abstract(
+#                                                        fieldName => 'field1',
+#                                                                           ),
                                                                    
-                                                                   ],
+#                                                                    ],
 
-                                                tableName => 'test',
-                                                sortedBy => 'unexistentField',
-                                              }
+#                                                 tableName => 'test',
+#                                                 sortedBy => 'unexistentField',
+#                                               }
                   
-                 ];
+#                  ];
 
     push @cases, [
                   'sortedBy and order are both set' => {
