@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 123;
+use Test::More tests => 125;
 use Test::Exception;
 use Fatal qw(mkdir);
 
