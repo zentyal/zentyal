@@ -9,30 +9,40 @@ my %tabPrintableNames = (
 </%once>
 <%init>
 use EBox::Gettext;
- defined $raidInfo or
-  $m->abort( __('No RAID devices present'));
-if ($array) {
-  exists $raidInfo->{$array} or
-    $m->abort(
-           __x('Inexistent RAID array {a}', a => $array)
-	     );
+
+my $unusedDevices;
+my @raidArrays;
+
+if (defined $raidInfo) {
+  if ($array) {
+    exists $raidInfo->{$array} or
+      $m->abort(
+             __x('Inexistent RAID array {a}', a => $array)
+	      );
+  }
+
+  $unusedDevices = delete $raidInfo->{unusedDevices};
+
+  @raidArrays = sort keys %{ $raidInfo };
+  if (not $array) {
+      $array = $raidArrays[0];
+  }
+
+
+  if (@{ $unusedDevices } > 0) {
+      push @raidArrays, 'unusedDevices'; # it must be  the last
+  }
+
 }
-
-my $unusedDevices = delete $raidInfo->{unusedDevices};
-
-my @raidArrays = sort keys %{ $raidInfo };
-if (not $array) {
-  $array = $raidArrays[0];
-}
-
-
-if (@{ $unusedDevices } > 0) {
-   push @raidArrays, 'unusedDevices'; # it must be  the last
- }
 
 
 </%init>
-
+% if (not defined $raidInfo) {
+<p>
+<% __('RAID is not enabled in this system') %>
+</p>
+% return;
+% }
 
 <& .menuTabs, selected => $array, tabs => \@raidArrays &>
 <br/>

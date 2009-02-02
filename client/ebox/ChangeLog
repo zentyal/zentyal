@@ -11,6 +11,8 @@
 	somewhere different from GConf
 	+ Added protected property 'volatile' to the models to indicate
 	that they store nothing in GConf but in somewhere different
+	+ System Menu item element 'RAID' is always visible even when RAID
+	is not installed
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs

@@ -210,12 +210,11 @@ sub menu
 
 	$folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
 					  'text' => __('Disk usage Information')));
-	if (EBox::Report::RAID::enabled()) {
+
 	$folder->add(new EBox::Menu::Item(
 			 'url' => 'Report/RAID',
              'text' => __('RAID Information'))
 		    );
-	}
 
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
