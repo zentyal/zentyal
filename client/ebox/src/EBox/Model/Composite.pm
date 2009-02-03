@@ -88,6 +88,11 @@ sub new
       my $description = $self->_description();
       $self->_setDescription($description);
 
+      # gconfdirectory mut not be null
+      if (not exists $self->{gconfdir}) {
+          $self->{gconfdir} = '';
+      }
+
       return $self;
 
   }
@@ -104,7 +109,6 @@ sub new
 #
 sub components
   {
-
       my ($self) = @_;
 
       for (my $idx = 0; $idx < scalar (@{$self->{components}}); $idx++) {
@@ -119,6 +123,7 @@ sub components
                                                       );
               }
               if ( ref ( $component ) eq 'ARRAY' ) {
+
                   # More than one component to store in
                   my @remainder = ();
                   if ( $idx + 1 <= $#{$self->{components}} ) {
@@ -140,6 +145,9 @@ sub components
       return $self->{components};
 
   }
+
+
+
 
 # Method: addComponent
 #
@@ -192,8 +200,10 @@ sub addComponent
 
     push ( @{$self->{components}}, $component );
 
-    return;
 
+    $component->setParentComposite($component);
+
+    return;
 }
 
 # Method: delComponent
@@ -284,6 +294,35 @@ sub delComponent
 
 }
 
+
+sub componentByName
+{
+    my ($self, $name, $recursive) = @_;
+    $name or
+        throw EBox::Exceptions::MissingArgument('name');
+
+    my $components = $self->components();
+    foreach my $comp (@{ $components }) {
+        if ($name eq $comp->name()) {
+            return $comp;
+        }
+
+        if ($recursive) {
+            if ($comp->can('componentByName')) {
+                my $compFromChild;
+                $compFromChild = $comp->componentByName($name, 1);
+                if (defined $compFromChild) {
+                    return $compFromChild;
+                }
+            }
+        }
+
+    }
+
+    return undef;
+}
+
+
 # Method: setLayout
 #
 #      Set the layout where the elements will be displayed.
@@ -352,10 +391,8 @@ sub layout
 # Returns:
 #
 #      String - the composite's name
-#
 sub name
 {
-
     my ($self) = @_;
 
     return $self->{name};
@@ -815,14 +852,13 @@ sub _setDescription
 #    <EBox::Model::DataTable>
 #
 sub _lookupComponent
-  {
-
+{
       my ($self, $componentName) = @_;
 
       my $components;
 
-      my $compManager = EBox::Model::CompositeManager->Instance();
       try {
+          my $compManager = EBox::Model::CompositeManager->Instance();
           $components = $compManager->composite($componentName);
       } catch EBox::Exceptions::DataNotFound with {
           # Look up the model manager
@@ -834,12 +870,27 @@ sub _lookupComponent
               my $modelManager = EBox::Model::ModelManager->instance();
               $components = $modelManager->model($componentName);
           } catch EBox::Exceptions::DataNotFound with {
-              $components = undef;
-          };
+             $components = undef;
+         };
       }
 
-      return $components;
+      if (not defined $components) {
+          return undef;
+      }
 
+      # set directories and parentComposite
+      if (ref $components eq 'ARRAY') {
+          foreach my $comp (@{ $components }) {
+              $self->setComponentDirectory($comp);
+              $comp->setParentComposite($self);
+
+          }
+      } else {
+          $self->setComponentDirectory($components);
+          $components->setParentComposite($self);
+      }
+      
+      return $components;
   }
 
 # Method: _setDefaultActions
@@ -876,6 +927,7 @@ sub _setDefaultActions
 
   }
 
+
 sub keywords
 {
     my ($self) = @_;
@@ -883,5 +935,99 @@ sub keywords
     #an array
     return [@{$self->SUPER::keywords()}, map { @{$_->keywords()} } @{$self->components()}];
 }
+
+
+
+# XXX seemes neccesary
+# Method: setDirectory
+#
+#    Use this method to set the current directory. This method
+#    comes in handy to manage several tables with same model
+#
+# Parameters:
+#
+#     directory - string containing the name
+#
+sub setDirectory
+{
+    my ($self, $dir) = @_;
+
+    unless (defined $dir) {
+        throw EBox::Exceptions::MissingArgument('dir');
+    }
+
+    $self->{'gconfdir'} = $dir;
+
+    foreach my $component (@{ $self->components() }) {
+        $self->setComponentDirectory($component);
+    }
+
+}
+
+
+# Method: directory
+#
+#        Get the current directory. 
+#
+# Returns:
+#
+#        String - Containing the directory
+#
+sub directory
+  {
+
+    my ($self) = @_;
+
+    return $self->{'gconfdir'};
+
+  }
+
+
+sub setComponentDirectory
+{
+    my ($self, $comp) = @_;
+    my $compositeDir = $self->directory();
+
+    my $compDir = '' ;
+
+    if ($comp->isa('EBox::Model::Composite')) {
+        # this strange hack is for backwards compability:
+        #  before the composites never have directory so we
+        # must take care to not set nested directories here
+        $compDir = $compositeDir;
+    }
+    elsif ($compositeDir) {
+        $compDir = $compositeDir . '/' . $comp->name();
+    }
+    else {
+        $compDir =  $comp->name();        
+    }
+
+    $comp->setDirectory($compDir);
+    
+
+}
+
+
+
+
+
+sub parentRow
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    if (not $parent) {
+        return undef;
+    }
+
+    my $dir = $self->directory();
+    my @parts = split '/', $dir;
+    my $rowId = $parts[-2];
+
+
+    return $parent->row($rowId);
+}
+
 
 1;

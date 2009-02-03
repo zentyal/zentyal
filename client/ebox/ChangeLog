@@ -13,6 +13,8 @@
 	that they store nothing in GConf but in somewhere different
 	+ System Menu item element 'RAID' is always visible even when RAID
 	is not installed
+        + Files in deleted rows are deleted when the changes are saved
+	+ Components can be subModels of the HasMany type
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs
@@ -30,6 +32,7 @@
 	+ Bugfix: `isEqualTo` is working now for `Boolean` types
 	+ Bugfix: check if we must disable file modification checks in
 	Manager::skipModification
+
 0.12.99
 	+ Add support for reporting
 	+ Refresh logs automatically

@@ -75,6 +75,27 @@ sub parentComposite
     }
 }
 
+
+sub topParentComposite
+{
+    my ($self) = @_;
+
+    my $parentComposite = $self->parentComposite();
+    if (not defined $parentComposite) {
+        return undef;
+    }
+
+    while (1) {
+        my $newParent = $parentComposite->parentComposite();
+        if (not defined $newParent) {
+            return $parentComposite;
+        }
+        $parentComposite = $newParent;
+    }
+
+}
+
+
 # Method: pageTitle
 #
 #   This method must be overriden by the component to show a page title
@@ -132,5 +153,53 @@ sub keywords
     Encode::_utf8_on($help);
     return [split('\W+', lc($help))];
 }
+
+
+
+# Method: parent
+#
+#   Return component's parent. 
+#   If the component is child of a composite the parent is the top's composite parent
+#
+# Returns:
+#
+#      
+#   An instance of a class implementing <EBox::Model::DataTable>
+sub parent
+{
+    my ($self) = @_;
+    my $parentComposite = $self->parentComposite();
+    if ($parentComposite) {
+        return $parentComposite->parent();
+    }
+
+    return $self->{'parent'};
+}
+
+
+# Method: setParent
+#
+#   Set model's parent
+#
+# Parameters:
+#
+#   An instance of a class implementing <EBox::Model::DataTable>
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidType>
+sub setParent 
+{
+    my ($self, $parent) = @_;
+
+    if (defined($parent) and (not $parent->isa('EBox::Model::DataTable'))) {
+        throw EBox::Exceptions::InvalidType( 'argument' => 'parent', 
+                                             'type' => ref $parent);
+    }
+
+    $self->{'parent'} = $parent;
+
+}
+
 
 1;

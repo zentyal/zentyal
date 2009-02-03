@@ -40,6 +40,7 @@ use base 'EBox::Types::Abstract';
 
 # eBox uses
 use EBox::Model::ModelManager;
+use EBox::Model::CompositeManager;
 
 # Core modules
 use Error qw(:try);
@@ -86,6 +87,18 @@ sub value
 
 }
 
+# Method: foreignModelIsComposite
+#
+# Returns:
+#
+#      bool - wether the foreign model is compostie or not
+#
+sub foreignModelIsComposite
+{
+    my ($self) = @_;
+    return $self->{'foreignModelIsComposite'};
+}
+
 # Method: foreignModel
 #
 #      Get the foreign model which the hasMany type retrieves its
@@ -128,7 +141,14 @@ sub foreignModelInstance
     $directory or
         return undef;
 
-    my $model = EBox::Model::ModelManager->instance()->model($modelName);
+    my $model;
+    if ($self->foreignModelIsComposite()) {
+        $model = EBox::Model::CompositeManager->Instance()->composite($modelName);                
+    } else {
+        $model = EBox::Model::ModelManager->instance()->model($modelName);        
+    }
+
+
     $model->setDirectory($directory);
 
     return $model;
@@ -307,7 +327,7 @@ sub _restoreFromHash
           my $acquirerFunc = $self->foreignModelAcquirer();
           $self->{'foreignModel'} = &$acquirerFunc($hashRef);
           try {
-              my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
+              my $model = $self->foreignModelInstance();
               $self->{'view'} = '/ebox/' . $model->menuNamespace();
               $self->setDirectory($model->directory());
           } catch EBox::Exceptions::DataNotFound with {
@@ -342,5 +362,21 @@ sub _paramIsSet
       return 1;
 
   }
+
+
+sub filesToRemoveIfDeleted
+{
+    my ($self) = @_;
+    my $subModel = $self->foreignModelInstance();
+
+    if ($subModel->can('filesToRemoveIfDeleted')) {
+        return $subModel->filesToRemoveIfDeleted();
+    }
+    else {
+        return []
+    }
+}
+
+
 
 1;

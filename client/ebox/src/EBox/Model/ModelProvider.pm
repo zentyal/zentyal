@@ -375,6 +375,9 @@ sub modelsSaveConfig
     if ($model->can('backupFiles')) {
       $model->backupFiles();
     }
+    if ($model->can('commitFilesToRemove')) {
+        $model->commitFilesToRemove();
+    }
 
   }
 
@@ -387,6 +390,9 @@ sub modelsRevokeConfig
   foreach my $model ( @{ $self->models() } ) {
     if ($model->can('restoreFiles')) {
       $model->restoreFiles();
+    }
+    if ($model->can('revokeFilesToRemove')) {
+        $model->revokeFilesToRemove();
     }
   }
 

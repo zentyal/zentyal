@@ -305,6 +305,99 @@ sub unionTest : Test(6)
 }
 
 
+sub filesToRemoveTest : Test(3)
+{
+    my ($self) = @_;
+    my $row    = $self->_newRow();
+    
+    my $element1 = _filesToRemoveIfDeleted('element1');
+    my $element2 = _filesToRemoveIfDeleted('element2');
+    
+
+    $row->addElement(
+                     new EBox::Types::Abstract(
+                                               fieldName => "1",
+                                               printableName => "1",
+                                              )
+                    );
+    $row->addElement(
+                     new EBox::Types::Abstract(
+                                               fieldName => "2",
+                                               printableName => "2",
+                                              )
+                    );
+    $row->addElement($element1);
+    
+    $row->addElement(
+                     new EBox::Types::Abstract(
+                                               fieldName => "5",
+                                               printableName => "5",
+                                              )
+                    );
+    $row->addElement($element2);
+
+    is_deeply(
+              $row->filesToRemoveIfDeleted(),
+              [],
+            'Checking filesToRemoveIfDeleted when there are not files to remove'
+             );
+
+    my @element1Files = qw(aFile);
+   $row->elementByName('element1')->_setFilesToRemoveIfDeleted(\@element1Files);
+    is_deeply(
+              $row->filesToRemoveIfDeleted(),
+              [@element1Files],
+ 'Checking filesToRemoveIfDeleted when there is a element with files to remove'
+             );
+
+    my @element2Files = qw(bFile cFile);
+    $row->elementByName('element2')->_setFilesToRemoveIfDeleted(\@element2Files);
+    is_deeply(
+              $row->filesToRemoveIfDeleted(),
+              [@element1Files, @element2Files],
+ 'Checking filesToRemoveIfDeleted when there are toe element with files to remove'
+             );
+
+    
+    
+}
+
+
+sub _filesToRemoveIfDeleted
+{
+    my ($fieldName) = @_;
+    my $object =    new EBox::Types::Abstract(
+                                               fieldName => $fieldName,
+                                               printableName => $fieldName,
+                                              );
+
+    $object = Test::MockObject::Extends->new( $object );
+
+    $object->mock('_setFilesToRemoveIfDeleted',
+                  sub {  
+                      my ($self, $f) = @_;
+                      $self->{_filesToRemove} = $f;
+                  }
+                 );
+
+
+    $object->mock('filesToRemoveIfDeleted',
+                  sub {  
+                      my ($self) = @_;
+                      return exists $self->{_filesToRemove} ?
+                                    $self->{_filesToRemove} :
+                                        [];
+                  }
+                 );
+
+    $object->can('filesToRemoveIfDeleted') or die 'AAAAAAAa';
+
+    
+    return $object;
+}
+
+
+
 sub _populateRow
 {
     my ($self, $row) = @_;

@@ -201,6 +201,7 @@ sub existsTest : Test(2)
 
 
 
+
 sub printableValueTest : Test(2)
 {
     my $path = '/tmp/ea.jpg';
@@ -226,6 +227,35 @@ sub printableValueTest : Test(2)
         $expectedPrintableValue,
             'checking printableValue in file with dynamic path';
 }
+
+
+
+
+
+sub filesToRemoveIfDeleted : Test(2)
+{
+    my $file = EBox::Types::File->new(
+                                      filePath => $path,
+                                      fieldName => 'fileTest',
+                                     );
+
+    is_deeply( 
+              $file->filesToRemoveIfDeleted(), 
+              [],
+     'Checking return value of filesToRemoveIfDeleted when no file is present '
+             );
+
+    write_file($path, $content);
+    is_deeply (
+               $file->filesToRemoveIfDeleted(), 
+               [ $path ],
+        'Checking return value of filesToRemoveIfDeleted when file is present '
+              );
+    
+
+}
+
+
 
 sub newFile
 {

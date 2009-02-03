@@ -68,7 +68,26 @@ sub new
 
   }
 
-# Neither optionalParameters nor requiredParameters are required
+
+
+sub _process
+{
+    my ($self) = @_;
+
+    my $composite = $self->{composite};
+
+    my $directory = $self->param('directory');
+    
+    if (defined $directory) {
+        $composite->setDirectory($directory);
+    }
+    else {
+        $composite->setDirectory('');
+    }
+
+    $self->{params} = $self->masonParameters();
+}
+
 
 # Method: masonParameters
 #

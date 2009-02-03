@@ -31,6 +31,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
+use EBox::Model::CompositeManager;
 use Error qw(:try);
 
 # Constant
@@ -118,7 +119,7 @@ sub model
 
 
     unless (  $path ) {
-        throw EBox::Exceptions::MissingArgument('path');
+        throw EBox::Exceptions::MissingArgument(q{model's path});
     }
 
     my ($moduleName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
@@ -574,8 +575,21 @@ sub _setRelationship
     my ($self) = @_;
 
     # Set parent models given by hasMany relationships
+
+    my $compositeManager = EBox::Model::CompositeManager->Instance();
+
     for my $childName (keys %{$self->{'childOf'}}) {
-        $self->model($childName)->setParent($self->{'childOf'}->{$childName});
+        my $parent       = $self->{'childOf'}->{$childName}->{'parent'};
+        my $childIsComposite = $self->{'childOf'}->{$childName}->{'childIsComposite'};
+
+        my $child;
+        if ($childIsComposite) {
+            $child = $compositeManager->composite($childName);     
+        } else {
+            $child = $self->model($childName);            
+        }
+        
+        $child->setParent($parent);
     }
 
 
@@ -634,15 +648,22 @@ sub _setUpModelsFromProvider
             }
             for my $type (@{$dependentTypes->{'hasMany'}}) {
                 my $foreignModel;
+                my $isComposite;
                 try {
                     $foreignModel = $type->foreignModel();
+                    $isComposite  = $type->foreignModelIsComposite();
                 } otherwise {
                     my ($exc) = @_;
                     EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
                     EBox::warn("Error: $exc");
                 };
                 next unless (defined($foreignModel) and $foreignModel ne '');
-                $self->{'childOf'}->{$foreignModel} = $model;
+
+
+                $self->{'childOf'}->{$foreignModel} = {
+                                                       parent => $model,
+                                                       childIsComposite => $isComposite,
+                                                      };
             }
 
         }

@@ -32,6 +32,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::NotImplemented;
+use EBox::Sudo;
 
 use EBox::Types::Boolean;
 
@@ -199,6 +200,7 @@ sub checkTable
     }
 
 
+# XXX i dont remember the reaseon i commented out this!
 #     if (exists $table->{sortedBy} ) {
 #         my $found = 0;
 #         my $sortField = $table->{sortedBy};
@@ -369,47 +371,6 @@ sub printableIndex
 
     return '';
 
-}
-
-# Method: parent
-#
-#   Return model's parent
-#
-# Returns:
-#
-#      
-#   An instance of a class implementing <EBox::Model::DataTable>
-#   or undef if it's not set
-#
-sub parent
-{
-    my ($self) = @_;
-
-    return $self->{'parent'};
-}
-
-# Method: setParent
-#
-#   Set model's parent
-#
-# Parameters:
-#
-#   An instance of a class implementing <EBox::Model::DataTable>
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::InvalidType>
-sub setParent 
-{
-    my ($self, $parent) = @_;
-
-    my $type = 'EBox::Model::DataTable';
-    if (defined($parent) and (not $parent->isa($type))) {
-        throw EBox::Exceptions::InvalidType( 'argument' => 'parent', 
-                                             'type' => $type);
-    }
-
-    $self->{'parent'} = $parent;
 }
 
 # Method: precondition
@@ -1130,6 +1091,13 @@ sub removeRow
 
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
+
+    # check if there are files to delete
+    my $filesToRemove =   $self->filesToRemoveIfDeletedForRow($row);
+    foreach my $file (@{  $filesToRemove }) {
+        $self->addFileToRemoveIfDeleted($file);
+    }
+
 
     # Workaround: It seems that deleting a dir in gconf doesn't work
     # ok sometimes and it keeps available after deleting it for a while.
@@ -4288,6 +4256,105 @@ sub keywords
         push(@words, _parse_words($field->help()));
     }
     return \@words;
+}
+
+
+sub addFileToRemoveIfDeleted
+{
+    my ($self, $file) = @_;
+    my $dir = $self->_filesToRemoveIfDeletedDir();
+    my $key  = $dir . '/' . $self->{gconfmodule}->get_unique_id('toremove', $dir);
+
+   $self->{gconfmodule}->set_string($key, $file);
+}
+
+sub commitFilesToRemove
+{
+    my ($self) = @_;
+    my $dir = $self->_filesToRemoveIfDeletedDir();
+    my @allEntries = $self->{gconfmodule}->all_entries($dir);
+    foreach my $entry ( @allEntries  ) {
+        my $file = $self->{gconfmodule}->get_string($entry);
+        EBox::Sudo::root("rm -rf '$file'");
+    }
+
+
+    $self->_clearFilesToRemoveList();
+}
+
+
+sub revokeFilesToRemove
+{
+    my ($self) = @_;
+    $self->_clearFilesToRemoveList();
+}
+
+
+sub _filesToRemoveIfDeletedDir
+{
+  my ($self) = @_;
+  my $dir = $self->directory();
+  return "$dir/filesToRemoveIfDeleted";
+} 
+
+
+sub _clearFilesToRemoveList
+{
+  my ($self) = @_;
+  my $dir = $self->_filesToRemoveIfDeletedDir();
+  if ($self->{gconfmodule}->dir_exists($dir)) {
+      $self->{gconfmodule}->delete_dir($dir);
+  }
+}
+
+
+# This is neccesary bz dataTable may be a submodel of another thinf
+sub filesToRemoveIfDeleted
+{
+    my ($self) = @_;
+    
+    my @files = map {
+        @{ $_->filesToRemoveIfDeleted()  }
+    } @{ $self->rows() };
+
+
+    return \@files;
+}
+
+
+#  Warning:
+# we need to do this bz we cannot override row's methods for specific models!
+sub filesToRemoveIfDeletedForRow
+{
+    my ($self, $row) = @_;
+    return $row->filesToRemoveIfDeleted();
+}
+
+sub parentRow
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    if (not $parent) {
+        return undef;
+    }
+
+    my $dirsToRowId;
+    if ($self->parentComposite()) {
+        $dirsToRowId = 3;
+    }
+    else {
+        $dirsToRowId = 2;
+    }
+
+
+    my $dir = $self->directory();
+    my @parts = split '/', $dir;
+#    my $rowId = $parts[-2];
+#    my $rowId = $parts[-3];
+    my $rowId = $parts[-$dirsToRowId];
+
+    return $parent->row($rowId);
 }
 
 1;

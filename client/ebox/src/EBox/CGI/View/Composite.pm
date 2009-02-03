@@ -65,8 +65,24 @@ sub new
 
   }
 
-# The optionalParameters can be as many as needed since it can be as
-# many directories as submodel can appear
+
+sub _process
+{
+    my ($self) = @_;
+
+    my $composite = $self->{'composite'};
+    my $directory = $self->param('directory');
+
+    if (defined $directory) {
+        $composite->setDirectory($directory);
+    }
+    else {
+        $composite->setDirectory('');
+    }
+
+    
+    $self->{params} = $self->masonParameters();
+}
 
 # Method: masonParameters
 #
@@ -86,17 +102,6 @@ sub masonParameters
 
   }
 
-# Method: actuate
-#
-#      Overrides <EBox::CGI::ClientBase::actuate>
-#
-sub actuate
-  {
 
-      my ($self) = @_;
-
-      # FIXME: setDirectory for every submodel
-
-  }
 
 1;
