@@ -772,19 +772,30 @@ sub pidFileRunning
 #
 # Returns:
 #
-#	boolean - True if it's running , false otherwise
+#       boolean - True if it's running , false otherwise
 #
 sub writeConfFile # (file, component, params, defaults)
 {
     my ($self, $file, $compname, $params, $defaults) = @_;
     validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
+
+    # we will avoid check modification when the method is called as class method
+    #  this is awkward but is the fudge we had used to date for files created
+    #  by ebox which rhe user shoudn't give their permission to modify
+    #   maybe we need to add some parameter to better reflect this?
+    my $checkModifications = ref $self ? 1 : 0;
+
     my $manager;
-    $manager = new EBox::ServiceManager();
-    if ($manager->skipModification($self->{'name'}, $file)) {
-        EBox::info("Skipping modification of $file");
-        return;
+
+    if ($checkModifications) {
+        $manager = new EBox::ServiceManager();
+        if ($manager->skipModification($self->{'name'}, $file)) {
+            EBox::info("Skipping modification of $file");
+            return;
+        }
     }
+
 
 
     my $oldUmask = umask 0007;
@@ -837,7 +848,10 @@ sub writeConfFile # (file, component, params, defaults)
     EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
 
 
-    $manager->updateFileDigest($self->{'name'}, $file);
+    if ($checkModifications) {
+        $manager->updateFileDigest($self->{'name'}, $file);
+    }
+
 }
 
 1;
