@@ -106,10 +106,10 @@ sub cmpTest
 
 
     is $netA->cmp($netA->clone), 0, 'checking cmp for equality within nets';
-    is $netA->cmp($netB), -1, 'checking cmp for inequality within nets';
+    is $netA->cmp($netB), 1, 'checking cmp for inequality within nets';
     is $netA->cmp($netC), 1, 
         'checking cmp for inequality within nets with the same mask';
-    is $netA->cmp($hostA), -1, 
+    is $netA->cmp($hostA), 1, 
         'checking cmp for inequality within a net and a host';
 
     is $hostA->cmp($hostEqA), 0,
