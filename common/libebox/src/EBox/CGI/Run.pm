@@ -153,7 +153,7 @@ sub lookupModel
             if (($modelName) ne '') {
                 $model = $manager->model($modelName);
             } else {
-                throw EBox::Exceptions::DataNotFound();	
+                throw EBox::Exceptions::DataNotFound(q{model's name});	
             }
         };
     } elsif ( $namespace eq 'Composite' ) {
@@ -186,7 +186,7 @@ sub _lookupViewController
 {
         my ($classname) = @_;
 
-#       my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
+
         # URL to map:
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
         # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model index action

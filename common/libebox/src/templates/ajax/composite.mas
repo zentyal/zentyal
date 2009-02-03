@@ -39,6 +39,7 @@
    selectedTab => 0,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
+   directory  => $model->directory(),
 &>
 %    }
 %    elsif ( $model->layout() eq 'top-bottom' )

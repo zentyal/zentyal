@@ -16,6 +16,7 @@
   $models      => []
   $selectedTab => 0
   $hasChanged  => 0
+  $directory   => ''
 </%args>
 <%init>
 use EBox::Gettext;
@@ -26,11 +27,17 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
+
+
+
 <ul id="<% "tabMenu_$tabName" | h %>" class="tabs">
 <%perl>
   for ( my $idx = 0; $idx < scalar(@{$models}); $idx++) {
       my $modelElement = ${$models}[$idx];
 </%perl>
+
+
+
   <li>
     <a id="<% $modelElement->name() . "_$idx" %>"
          href="#<% $modelElement->name() %>"
@@ -66,9 +73,12 @@ use EBox::Gettext;
   # Store the action under a hash using [] operator from Object JS
   for ( my $idx = 0; $idx < scalar(@{$models}); $idx++) {
       my $modelElement = ${$models}[$idx];
+      my $name         = $modelElement->name();
+      my $action       =  $modelElement->action('changeView');
 </%perl>
-  modelAttrs_<% $tabName | hu %>['<% $modelElement->name() . "_$idx" %>'] = new Object();
-  modelAttrs_<% $tabName | hu %>['<% $modelElement->name() . "_$idx" %>'].action = '<% $modelElement->action('changeView') %>';
+  modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'] = new Object();
+  modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].action = '<% $action %>';
+  modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].directory = '<% $directory %>';
 % }
   var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>

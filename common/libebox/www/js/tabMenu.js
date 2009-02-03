@@ -158,7 +158,7 @@ EBox.Tabs.prototype = {
       // Show the tab
       tab.addClassName(this.activeClassName);
       // Set the correct form values
-      // this._setDirInput();
+        this._setDirInput();
       // Set additional parameters
       this._setAdditionalParams();
       // Load the content from table-helper
