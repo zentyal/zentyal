@@ -39,14 +39,14 @@ sub diskUsage
   my %moduleDiskUsage;
 
   while (my ($facility, $dirs_r) = each %facilities) {
-    my $total = 0;
     foreach my $dir (@{ $dirs_r }) {
-      (-d $dir)	or next;
+      (-d $dir) or 
+          next;
 
       my $filesys = EBox::FileSystem::dirFileSystem($dir);
       if (defined $fileSystemToScan) {
-	($filesys eq $fileSystemToScan)
-	  or next;
+        ($filesys eq $fileSystemToScan)
+          or next;
       }
 
       $moduleDiskUsage{$filesys}->{$facility} += EBox::FileSystem::dirDiskUsage($dir, $blockSize);
