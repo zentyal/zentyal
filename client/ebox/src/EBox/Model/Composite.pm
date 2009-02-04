@@ -127,7 +127,7 @@ sub components
                   # More than one component to store in
                   my @remainder = ();
                   if ( $idx + 1 <= $#{$self->{components}} ) {
-                      @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
+                     @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
                       # Remove remainder elements
                       $self->{components}->[$idx .. $#{$self->{components}}] = ();
                   } else {
@@ -883,7 +883,6 @@ sub _lookupComponent
           foreach my $comp (@{ $components }) {
               $self->setComponentDirectory($comp);
               $comp->setParentComposite($self);
-
           }
       } else {
           $self->setComponentDirectory($components);
@@ -957,6 +956,14 @@ sub setDirectory
     }
 
     $self->{'gconfdir'} = $dir;
+
+    if (not $self->precondition()) {
+        # we dont bother to initialize components bz their wont be displayed
+        # moreover some variable components may not be able to initialize if the
+        # precondition fails
+        return;
+    }
+
 
     foreach my $component (@{ $self->components() }) {
         $self->setComponentDirectory($component);
