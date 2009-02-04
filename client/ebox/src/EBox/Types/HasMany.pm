@@ -179,8 +179,13 @@ sub setDirectory
 sub directory
 {
     my ($self) = @_;
+    my $row = $self->row();
 
-    my $directory = $self->row()->dir() . '/' . $self->row()->id();
+    if (not $row) {
+        return undef;
+    }
+
+    my $directory = $row->dir() . '/' . $row->id();
     $directory .= '/' . $self->fieldName();
 
     return $directory;
@@ -325,9 +330,14 @@ sub _restoreFromHash
 
       if ( defined ( $self->foreignModelAcquirer() )) {
           my $acquirerFunc = $self->foreignModelAcquirer();
-          $self->{'foreignModel'} = &$acquirerFunc($hashRef);
+          $self->{'foreignModel'} = $acquirerFunc->($hashRef);
           try {
               my $model = $self->foreignModelInstance();
+              if (not $model) {
+                  throw  EBox::Exceptions::DataNotFound();
+              }
+
+
               $self->{'view'} = '/ebox/' . $model->menuNamespace();
               $self->setDirectory($model->directory());
           } catch EBox::Exceptions::DataNotFound with {
