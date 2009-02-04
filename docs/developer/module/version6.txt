@@ -98,12 +98,12 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
 
     1;
 
-The next step is making the *VirtualHosts* model use our recently created *!ServerAliases*. To do so we will have to modify *src/EBox/Model/VirtualHosts.pm*. First of all, we will have to use a new type *EBox::Types::!HasMany* which is used to store *submodels*::
+The next step is making the *VirtualHosts* model use our recently created *ServerAliases*. To do so we will have to modify *src/EBox/Model/VirtualHosts.pm*. First of all, we will have to use a new type *EBox::Types::HasMany* which is used to store *submodels*::
 
     #!perl
     use EBox::Types::HasMany;
 
-Now we will have to modify the model to actually use this new type and the *SeverAliases* model::
+Now we will have to modify the model to actually use this new type and the *ServerAliases* model::
 
     #!perl
             new EBox::Types::HasMany(
@@ -187,7 +187,7 @@ Build and install the package. Click on *Apache2->Virtual Hosts* and you will se
 Fetching the stored values
 ==========================
 
-Let's make a simple script to retrieve the stored values. Note that there is something important to learn here, and that is the way we deal with *submodels* when it comes to fetching data.
+Let's make a simple script to retrieve the stored values. Note that there is something important to learn here: the way we deal with *submodels* when it comes to fetching data.
 
 Here is the script::
 
@@ -218,7 +218,7 @@ Here is the script::
 
     }
 
-Note that within the first loop we iterate over the virtual hosts, and the inner loop is used to iterate over each alias of the virtual host. To be able to fetch the *aliases* rows we call the method *subModel('aliases')* from the a virtual host row, *subModel* receives the name of a *EBox::Types::HasMany* field which exists in a given model and does the magic to return a submodel which can be used just like if you were using a normal model, and that's why we call *rows()*.
+Note that within the first loop we iterate over the virtual hosts, and the inner loop is used to iterate over each alias of the virtual host. To be able to fetch the *aliases* rows we call the method *subModel('aliases')* from the a virtual host row, *subModel* receives the name of a *EBox::Types::HasMany* field which exists in a given model and does the magic to return a submodel which can be used just like you were using a normal model; that's why we call *rows()*.
 
 Setting the Apache configuration
 ================================
@@ -261,7 +261,7 @@ We will have to slightly modify the template used to generate the virtual host c
 
 Note the changes: we have added a new parameter *@alias*, an array used to receive all the aliases for this virtual host, and a loop to iterate over them and write *ServerAlias name*.
 
-If we add a new parameter to the template, we will need to modify *src/EBox/Apache2.pm* to set and pass the *@alias* parameter properly. We modify the *_setVirtualHosts* method to do this, using the *subModel* method to iterate over the aliases and setting the array::
+If we add a new parameter to the template, we need to modify *src/EBox/Apache2.pm* to set and pass the *@alias* parameter properly. We modify the *_setVirtualHosts* method to do this, using the *subModel* method to iterate over the aliases and set each position in the array::
 
     #!perl
     # Method: _setVirtualHosts

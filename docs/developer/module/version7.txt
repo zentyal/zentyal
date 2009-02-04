@@ -2,12 +2,12 @@
 Version 0.7: composites
 =======================
 
-So far we have three different models with three different menu entries that help us to show their default views. It would be nice to be able to tell the framework to render the some modules together, setting a given layout. That's where *Composites* come in handy. *Composites* help us to group our model views.
+So far we have three different models with three different menu entries that help us to show their default views. It would be nice to be able to tell the framework to render the some modules together, using a given layout. That's where *Composites* come in handy. *Composites* help us to group our model views.
 
 Composite view
 ==============
 
-There is already a default composite created with *emoddev*. This composite is configured with a top-bottom layout. However, its model list is empty. We will have to populate it with our models. The default composite lives in *src/EBox/Composite/Composite.pm*. You should add our models to *components* and set *printableName* to *Apache2 configuration*. This is how this file should look::
+There is already a default composite created with *emoddev*. This composite is configured with a top-bottom layout. However, its model list is empty. We will have to populate it with our models. The default composite lives in *src/EBox/Composite/Composite.pm*. We should add our models to *components* and set *printableName* to *Apache2 configuration*. This is how this file should then look::
 
     #!perl
     # Class: EBox::Apache2::Composite::Composite

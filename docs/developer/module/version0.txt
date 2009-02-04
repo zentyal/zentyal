@@ -41,6 +41,6 @@ The above command will build a debian package with your new module. You will fin
 
     sudo dpkg -i ebox-apache2_0.1_all.deb
 
-Fire up your browser to check the results of this operation. You should see now a new menu entry called Apache2. Click on this entry. You will see something like this:
+Fire up your browser to check the results of this operation. You should now see a new menu entry called Apache2. Click on this entry. You will see something like this:
 
 .. image:: images/just-installed.png

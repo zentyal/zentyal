@@ -4,10 +4,10 @@ Version 0.3: custom data type
 
 The next step is providing our apache module rows with a new field that shows
 the current state of the module at every moment. This means that the value
-will not be stored in disk, hence it will not be retrieved from disk
+will not be stored on disk, hence it will not be retrieved from disk
 either. This value will be computed every time the row is rendered.
 
-To provide this functionality we will need to introduce how eBox types
+To provide this functionality we need to introduce how eBox types
 work and how we can create our own type to achieve this behavior. In a
 nutshell, eBox types provide a convenient way to store and represent
 certain data. Most of them are stored and automatically retrieved from our
@@ -121,7 +121,7 @@ Now you will have a stub type in *src/EBox/Types/CurrentStatus.pm*. Modify this 
 
 The only relevant method that is worth commenting  with a few lines is *value()*. *storeInGconf()* and *restoreFromHash()* are only  overridden to provide an empty implementation, while *printableValue()* just calls *value()*.
 
-In *value* we have to do the following: we need to return true or false depending on if the apache module is enabled or not. This method will be called for every row in the table. First question is how do we know what apache module we have to check? Take a look at the code::
+In *value* we have to do the following: we need to return true or false depending on if the apache module is enabled or disabled. This method will be called for every row in the table. First question is: how do we know what apache module we have to check? Take a look at the code::
 
     #!perl
     sub value
@@ -140,18 +140,18 @@ In *value* we have to do the following: we need to return true or false dependin
         return ( -f "/etc/apache2/mods-enabled/$name.load" );
     }
 
-Remember that the method *value()* belongs to a field, that is a class implementing *EBox::Types::Abstract*. A row is composed of several fields. In our model these fields are: *module*, *enabled* and a new field *current* of type *EBox::Types::CurrentStatus* that we are creating now. We are interested to fetch the value of the field *module* within the field *current*. The method *row()* within a given field returns *undef* or the row this field belongs to, once we have the row we get the value of the field *module* in that row by running *valueByName('module')* from the row object.
+Remember that the method *value()* belongs to a field, that is a class implementing *EBox::Types::Abstract*. A row is composed of several fields. In our model, these fields are: *module*, *enabled* and a new field *current* of type *EBox::Types::CurrentStatus* that we are creating now. We are interested in fetching the value of the field *module* within the field *current*. The method *row()* within a given field returns *undef* or the row this field belongs to, once we have the row we get the value of the field *module* in that row by running *valueByName('module')* from the row object.
 
-Once we have the name of the module we only need to check if the file */etc/apache2/mods-enabled/$name.load* exists as we do in the last line of the method.
+Once we have the name of the module we only need to check if the file */etc/apache2/mods-enabled/$name.load* exists; this we do in the last line of the method.
 
 Now it's time to modify our *Modules* model to use this new type, so we only have to add a few lines to *src/EBox/Model/Modules.pm*.
 
-Firstly, we need to let Perl know we will be using this type::
+First, we need to let Perl know we will be using this type::
 
     #!perl
     use EBox::Apache2::Types::CurrentStatus;
 
-Secondly, we extend our table to use this type::
+Second, we extend our table to use this type::
 
     #!perl
         my @tableHead =
@@ -278,7 +278,7 @@ Menu
 
 The current entry menu for our module is still pointing to the *Settings* model that is created by default by *emoddev*. It would be nice to have a menu entry to access our *modules* model.
 
-The process to built the eBox menu works as follows: the framework will ask every main class in run-time to return a data structure by calling the method *menu()*. This data structure can contain a single menu entry with its name and URL, or it might be a bit more complex and return a folder with no URLs and several entries with URLs contained in that folder.
+The process to build the eBox menu works as follows: the framework will ask every main class in run-time to return a data structure by calling the method *menu()*. This data structure can contain a single menu entry with its name and URL, or it might be a bit more complex and return a folder with no URLs and several entries with URLs contained in that folder.
 
 Let's see an example of how to return a folder called *Apache2* and two entries pointing to *Settings* and *Modules*. The method to modify is *menu()* in *src/EBox/Apache2.pm*, and it should look like this::
 
@@ -309,6 +309,6 @@ Let's see an example of how to return a folder called *Apache2* and two entries 
         $root->add($folder);
     }
 
-After this modifications if you click on the entry menu labeled as *Apache2* you will see:
+After these modifications, when you click on the entry menu labeled *Apache2* you will see:
 
 .. image:: images/menu.png

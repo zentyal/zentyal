@@ -9,9 +9,7 @@ Data model
 
 By default two fields are added to this model: *Field 1* and *Field 2*.
 
-The next step will be to change these fields to have what we actually want. The
-first version of our module is going to be pretty simple. The only thing we will let the user change will be the port. Roughly speaking, the data model is composed of some fields, you have to tell what kind of data we will store in each field. To do this, we use some classes shipped with the framework which are called
-types.
+The next step will be to change these fields to have the name and content that we actually want. The first version of our module is going to be pretty simple. The only thing we will let the user change will be the port. Roughly speaking, the data model is composed of some fields, you have to decide what kind of data we will store in each field. To do this, we use some classes shipped with the framework which are called types.
 
 These are some of the types you can currently find in eBox:
 
@@ -174,7 +172,7 @@ Let's go back to the code::
 The above code shows a constructor for the class *EBox::Types::Port* being called. The arguments are:
 
 * *fieldName*: this is the name of the field that we will always use to deal with it.
-* *printableName*: it's basically the name that the user will see. Note that the string *Listening port* is passed to the function *__()* which is used to translate the string into the user language.
+* *printableName*: this is the name that the user will see. Note that the string *Listening port* is passed to the function *__()* which is used to translate the string into the user language.
 * *editable*: this tells the framework if the user is allowed to change its value or not from the UI.
 * *defaultValue*: if this parameter exists, the field will be preloaded with this value, otherwise it will be empty
 
@@ -185,7 +183,7 @@ Build and install as usual. If you click on the *Apache2* entry again you will s
 Fetching the current value
 ==========================
 
-We already have a web interface with a simple form where the user can set the Apache port. Let's make a simple script that will show how to fetch this value. The goal of this script is just to show you how we can retrieve values from a data model.
+We already have a web interface with a simple form where the user can set the Apache port. Let's make a simple script that will show how to fetch this value. The goal of this script is to show you how we can retrieve values from a data model.
 
 You can save this code into a file and run it with *sudo perl filename*::
 
@@ -208,19 +206,19 @@ You can save this code into a file and run it with *sudo perl filename*::
     # We could also use autoload magic to do the same thing as above.
     print $settings->listeningPortValue() . "\n";
 
-Models always have to be requested through an instance of *EBox::Model::!ModelManager*. Note that to retrieve the model we use::
+Models must always be requested through an instance of *EBox::Model::!ModelManager*. Note that to retrieve the model we use::
 
     #!perl
     my $settings = $manager->model('apache2/Settings');
 
-The name of our model is *Settings*, but it's namespaced within our module name. If you recall when we created the scaffolding our module name was *apache2*.
+The name of our model is *Settings*, but it's namespaced within our module name. You should recall, when we created the scaffolding, our module name was *apache2*.
 
 The next thing we do is to retrieve the stored value of our field called *listeningPort*. To do that we run::
 
     #!perl
     $settings->row()->valueByName('listeningPort')
 
-*$settings* is an instance of our model. The method *row()* returns an instance of *EBox::Model::Row* which we will see in depth later. For now, it's enough to know that it's a class that  will allow us to access all the fields in our model. *valueByName()* is a method to get the value of the given field.
+*$settings* is an instance of our model. The method *row()* returns an instance of *EBox::Model::Row* which we will see in depth later. For now, it is enough to know that it's a class that  will allow us to access all of the fields in our model. *valueByName()* is a method to get the value of the given field.
 
 Writing the apache configuration
 ================================
@@ -234,7 +232,7 @@ eBox commits its configuration changes as follows:
 *_regenConfig* can be overriden if we require some really specific behaviour, but its default behaviour should be
 good enough for most modules.
 
-By default, *_regenConfig* does the two following things:
+By default, *_regenConfig* does the following two things:
 
 * Calls the method *_setConf()*, which is in charge of writing the required configuration files from the information we have gathered through the web interface and should be overriden by our module
 * Calls *EBox::Module::Service::_enforceServiceState*, which takes care of making sure the services we are managing are running if needed and stopped otherwise.
@@ -291,10 +289,9 @@ Let's write a private function in our main class file (*src/EBox/Apache2.pm*) to
         $self->_writeConfiguration();
     }
 
-We have already seen how to fetch the value from our data model so we will just visit the method *writeConfFile*, this method is implemented by the *EBox::Module::Base* class which our module inherits from. The first parameter is the destination file to be overwritten with the output of our template. The second parameter is our template, templates are stored under */usr/share/ebox/stubs*, and */apache2/service.conf.mas* is relative to that path. The third and last parameter is an array reference with the parameters we pass to the template, in this case we only have one, *port*.
+We have already seen how to fetch the value from our data model, so we will just visit the method *writeConfFile*, this method is implemented by the *EBox::Module::Base* class which our module inherits from. The first parameter is the destination file to be overwritten with the output of our template. The second parameter is our template, templates are stored under */usr/share/ebox/stubs*, and */apache2/service.conf.mas* is relative to that path. The third and last parameter is an array reference with the parameters we pass to the template, in this case we only have one, *port*.
 
-The other method, *_daemons*, is used to let the service framework which daemons our module uses by returning an
-array with the required information. In our case it should look like this::
+The other method, *_daemons*, is used to let the service framework know which daemons our module uses by returning an array with the required information. In our case it should look like this::
 
     #!perl
     # Method: _daemons
@@ -316,7 +313,7 @@ daemons when required.
 
 The *_regenConfig* function will be called every time we change our module configuration and when the machine boots for first time.
 
-eBox developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, eBox will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report what files your module overwrites::
+eBox developers love to party, and they also love to be nice and friendly to users. That is why you have to tell the framework that your module will modify a system file, in this case, */etc/apache2/ports.conf*. By doing so, eBox will detect if the user has modified that file manually before overwriting, and will ask permission to do it as courtesy to our beloved users. In your main class you will have to override the *usedFiles()* function to report which files your module overwrites::
 
     #!perl
     # Method: usedFiles
@@ -336,4 +333,4 @@ eBox developers love to party, and they also love to be nice and friendly to use
 
 .. image:: images/module-status.png
 
-If the module is enabled we must overwrite */etc/apache2/ports.conf*, to do so we use the convenience method we have created earlier *_writeConfiguration()*. After writing the configuration we restart apache, we use the static method *EBox::Sudo::root()* to run a command through *sudo*. In case the module is disabled by the user we stop apache. Note that this is a pretty trivial implementation of the management of apache. In the next version we will extend it.
+If the module is enabled we must overwrite */etc/apache2/ports.conf*. To do so we use the convenience method we created earlier, *_writeConfiguration()*. After writing the configuration we restart apache. We use the static method *EBox::Sudo::root()* to run a command through *sudo*. In case the module is disabled by the user, we stop apache. Note that this is a pretty trivial implementation of the management of apache. In the next version we will extend it.

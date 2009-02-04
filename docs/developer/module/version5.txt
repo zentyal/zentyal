@@ -9,10 +9,10 @@ features.
 Data model
 ==========
 
-We will need to create a new model to store the virtual hosts. This initial
+We need to create a new model to store the virtual hosts. This initial
 version will only have one field called *name* which obviously will store the
 name of the virtual host. This field must store fully qualified domain names
-(FQDN) and must check that its stored data has a valid syntax. eBox has already
+(FQDN) and must check that its stored data has a valid syntax. eBox already has
 a type that meets our needs: *EBox::Types::DomainName*.
 
 Let's use our beloved *emoddev* tool::
@@ -357,7 +357,7 @@ and you will see something like this:
 
 .. image:: images/virtual-host-1.png
 
-Now we would like to let the user to enable and disable any virtual host. You
+Now we would like to let the user to enable and disable any virtual host. Your
 first thought should be just adding a new boolean field as we did with the *Modules* model. This is not necessary as eBox does it automatically for you under the hood if you set the *enableProperty* value to true. By doing this you are telling the framework to automatically add a new boolean field.
 
 In the method *_table()* in *src/EBox/Model/VirtualHosts.pm* you have to set
@@ -399,7 +399,7 @@ Build, install and check it out now:
 Fetching the stored values
 ==========================
 
-As we did with the previous versions, let's code a simple script to show how we can retrieve the stored values::
+As we did with the previous versions, let's code a simple script so that we can retrieve the stored values::
 
     #!perl
     use EBox;
@@ -425,9 +425,9 @@ As we did with the previous versions, let's code a simple script to show how we 
 Setting the apache configuration
 ================================
 
-For every virtual host we will create a file in */etc/apache2/sites-available/*, and for those that are available, we will create a link in */etc/apache2/sites-enabled*.
+For every virtual host we will create a file in */etc/apache2/sites-available/*. For those that are available, we will create a link in */etc/apache2/sites-enabled*.
 
-We will need to create a *Mason* template to configure every Apache virtual host::
+We need to create a *Mason* template to configure every Apache virtual host::
 
     ebox-moddev-stub --main-class apache2 --name virtual-host.conf
 
@@ -449,7 +449,7 @@ The above command will create a file in *stubs/virtual-host.conf*. You should ad
                     Options Indexes FollowSymLinks MultiViews
                     AllowOverride None
                     Order allow,deny
-                    allow from all
+                    Allow from all
             </Directory>
 
             ErrorLog /var/log/apache2/error.log
@@ -461,7 +461,7 @@ The above command will create a file in *stubs/virtual-host.conf*. You should ad
             CustomLog /var/log/apache2/access.log combined
     </VirtualHost>
 
-As you can see the only parameter that this template receives is the name of the virtual host. This name is used to configure the *ServerName* and its document root. Check the apache documentation if you want to now what the other parameters mean.
+As you can see, the only parameter that this template receives is the name of the virtual host. This name is used to configure the *ServerName* and its document root. Check the apache documentation if you want to know what the other parameters mean.
 
 Now it's time to do stuff in our main class to generate the configuration for each virtual host. Roughly speaking, we will do the following: for each virtual host we will create/modify a file in */etc/apache2/sites-available*. We will use the apache2 tools *a2ensite* and *a2dissite* to enable or disable the virtual hosts according to the user configuration.
 
@@ -502,7 +502,7 @@ Let's create a private method called *_setVirtualHosts()* in our main class *src
             }
     }
 
-As we are modifying files we have to let the framework know with which files we are messing with. If you remember, we have to implement the method *usedFiles()* in our main class. We have to return an array reference containing all these files. So the code will look like::
+As we are modifying files, we have to let the framework know which files we are working with. You should remember, we have to implement the method *usedFiles()* in our main class. We have to return an array reference containing all these files. So the code will look like::
 
     #!perl
     # Method: usedFiles
