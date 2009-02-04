@@ -77,21 +77,21 @@ sub _chart
   my $textSpace  = 2;
  
   my %colors = (
-		dataset0 => [18, 130, 76],
-	       );
+                dataset0 => [18, 130, 76],
+               );
 
   my $chartParams = {
-		     transparent => 'true',
-		     grey_background => 'false',
-		     
-		     precision       => 2,
-		     
-		     legend          => 'bottom',
-		     colors => \%colors,
-		     label_font => $labelFont,
-		     legend_font => $legendFont,
-		     text_space  => $textSpace,
-		    };
+                     transparent => 'true',
+                     grey_background => 'false',
+                     
+                     precision       => 2,
+                     
+                     legend          => 'bottom',
+                     colors => \%colors,
+                     label_font => $labelFont,
+                     legend_font => $legendFont,
+                     text_space  => $textSpace,
+                    };
 
 
   my $chart = new Chart::Pie( _calcGraphSize($datasets, $chartParams)  );
@@ -99,8 +99,8 @@ sub _chart
 
 
   $chart->set (
-	       %{ $chartParams  }
-	    );
+               %{ $chartParams  }
+            );
 
   foreach my $ds_r (@{ $datasets }) {
     $chart->add_dataset(  @{ $ds_r  });
@@ -167,7 +167,7 @@ sub _calcGraphSize
   my $legend_row_height = $params->{legend_font}->height + $params->{text_space};
 
   $graphHeight += ($rows * $legend_row_height) + $params->{text_space}
-			      + (2 * $params->{'legend_space'});
+                              + (2 * $params->{'legend_space'});
 
   if ($graphHeight < MIN_GRAPH_HEIGHT) {
     $graphHeight = MIN_GRAPH_HEIGHT;
@@ -208,9 +208,9 @@ sub usage
     if ($fileSystemToScan ne all keys %{ $fileSystems }) {
       throw EBox::Exceptions::External(
         __x('Invalid file system: {f}. Only regular and no removable media file systems are accepted',
-	    f => $fileSystemToScan
-	   )
-				      );
+            f => $fileSystemToScan
+           )
+                                      );
     }
   }
 
@@ -232,8 +232,8 @@ sub usage
 
     while (my ($filesys, $usage) = each %{ $modUsage }) {
       while (my ($facility, $blocks) = each %{ $usage }) {
-	$usageByFilesys{$filesys}->{facilitiesUsage} += $blocks;
-	$usageByFilesys{$filesys}->{$facility}       += $blocks;
+        $usageByFilesys{$filesys}->{facilitiesUsage} += $blocks;
+        $usageByFilesys{$filesys}->{$facility}       += $blocks;
       }
     }
     
@@ -257,7 +257,7 @@ sub usage
     $usageByFilesys{$fileSys}->{system} = $systemUsage;
     $usageByFilesys{$fileSys}->{free}   = $freeSpace;
   }
-		   
+                   
 
 
   return \%usageByFilesys;
@@ -332,9 +332,9 @@ sub _chartDatasets
   }
 
   return [
-	  \@labels,
-	  \@diskUsage,
-	 ];
+          \@labels,
+          \@diskUsage,
+         ];
 }
 
 
