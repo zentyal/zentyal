@@ -3,7 +3,7 @@ function getElementByClass(classname) {
 	var inc=0;
 	var alltags=document.getElementsByTagName("*");
 	for (i=0; i<alltags.length; i++){
-		if (alltags[i].className==classname)
+		if (alltags[i].hasClassName(classname))
 			ccollect[inc++]=alltags[i];
 	}
 	return ccollect;

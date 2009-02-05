@@ -1,5 +1,6 @@
 <%args>
 @items
+$current => 'none'
 </%args>
 <script type="text/javascript">
 var old_results = null;
@@ -95,6 +96,6 @@ document.onkeyup = filterMenu;
             <input id='menusearch' type='text'/>
         </li>
 % foreach my $item (@items) {
-        <% $item->html($self->{'current'}) %>
+        <% $item->html($current) %>
 % }
 </ul></div>

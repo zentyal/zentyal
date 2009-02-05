@@ -44,6 +44,7 @@ sub html
 
     my @params;
     push(@params, 'items' => $self->items);
+    push(@params, 'current' => $self->{'current'});
     $interp->exec($comp, @params);
 
 	return $output;
