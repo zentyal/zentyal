@@ -1,8 +1,10 @@
 <%args>
-	$port
-	$lang
-	$squidport
-        $weightedPhraseThreshold
+    $port
+    $lang
+    $squidport
+    $weightedPhraseThreshold
+    
+    $nGroups
 </%args>
 
 reportinglevel = 3
@@ -47,7 +49,7 @@ custombannedimagefile = '/etc/dansguardian/transparent1x1.gif'
 
 
 
-filtergroups = 1
+filtergroups = <% $nGroups %>
 filtergroupslist = '/etc/dansguardian/filtergroupslist'
 
 # Authentication files location
@@ -91,7 +93,7 @@ usernameidmethodproxyauth = on
 usernameidmethodntlm = off # **NOT IMPLEMENTED**
 usernameidmethodident = off
 
-preemptivebanning = off
+preemptivebanning = on
 
 
 forwardedfor = on

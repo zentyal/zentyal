@@ -1,5 +1,6 @@
 <%args>
 @domains
+@includes => ()
 </%args>
 
 #domains in grey list
@@ -32,4 +33,10 @@
 #List other sites to block:
 % foreach my $domain (@domains) {
 <% $domain %>
+% }
+
+# included files
+% foreach my $path (@includes) {
+%   $path = '<' . $path . '>';
+.Include<% $path %>
 % }

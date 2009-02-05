@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.
 perldir = @PERLPATH@/EBox/Squid/Types
 
-nobase_perl_DATA =  Policy.pm 
+nobase_perl_DATA =  Policy.pm DomainPolicy.pm TimePeriod.pm WeightedPhrasesThreshold.pm
 
 DISTCLEANFILES =
 

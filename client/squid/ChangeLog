@@ -1,7 +1,14 @@
 0.12.100
 	+ New release
+	+ Added filter profiles
+	+ Added group polices
+	+ Added time period option to policies
+	+ Added per-object group policies
 0.12.99
 	+ Add support for reporting
+	+ User support
+	+ Exemption for cache option added
+	+ Adapted to objects with overlapping addresses
 0.12
 	+ Use the new EBox::Model::Row api
 	+ Add field help to models

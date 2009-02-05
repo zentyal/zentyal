@@ -3,8 +3,12 @@ SUBDIRS=Report
 
 perldir = @PERLPATH@/EBox/Squid/Composite
 
-nobase_perl_DATA =  General.pm Extensions.pm MIME.pm Domains.pm \
-	 FilterTabs.pm FilterSettings.pm 
+nobase_perl_DATA =  General.pm \
+	 FilterTabs.pm FilterSettings.pm  \
+         Extensions.pm MIME.pm Domains.pm \
+         FilterGroupSettings.pm FilterGroupTabs.pm \
+	 FilterGroupExtensions.pm FilterGroupMIME.pm  FilterGroupDomains.pm
+
 
 DISTCLEANFILES =
 

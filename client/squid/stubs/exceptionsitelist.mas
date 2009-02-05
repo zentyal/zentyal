@@ -1,5 +1,6 @@
 <%args>
-	@domains
+    @domains
+    @includes => ()
 </%args>
 
 #Sites in exception list
@@ -18,4 +19,11 @@
 % foreach my $domain (@domains) {
 <% $domain %>
 	
+% }
+
+
+# included files
+% foreach my $path (@includes) {
+%   $path = '<' . $path . '>';
+.Include<% $path %>
 % }

@@ -1,0 +1,42 @@
+<%args>
+    @domains
+    @includes => ()
+</%args>
+#URLs in banned list
+#Don't bother with the http:// or the www
+
+#The bannedurllist is for blocking PART of a site
+#The bannedsitelist is for blocking ALL of a site
+
+#The 'grey' lists override the 'banned' lists.
+#The 'exception' lists override the 'banned' lists also.
+#The difference is that the 'exception' lists completely switch
+#off *all* other filtering for the match.  'grey' lists only
+#stop the URL filtering and allow the normal filtering to work.
+
+#An example of grey list use is when in Blanket Block (whitelist)
+#mode and you want to allow some sites but still filter as normal
+#on their content
+
+#Another example of grey list use is when you ban a site but want
+#to allow part of it.
+
+#To include additional files in this list use this example:
+#.Include</etc/dansguardian/anotherbannedurllist>
+
+#You can have multiple .Includes.
+
+#List other URLs to block:
+
+% foreach my $domain (@domains) {
+<% $domain %>
+	
+% }
+
+
+# included files
+% foreach my $path (@includes) {
+%   $path = '<' . $path . '>';
+.Include<% $path %>
+% }
+

@@ -1,0 +1,58 @@
+<%args>
+    $threshold
+    $group
+    %defaults  => ()
+    $groupName => undef
+</%args>
+<%init>
+my @groupConfigFiles = (
+      'bannedsitelist',
+      'bannedurllist',
+      'greysitelist',
+      'greyurllist',
+      'exceptionsitelist',
+      'exceptionurllist',
+      'bannedextensionlist',
+      'bannedmimetypelist',
+    );
+
+defined $groupName or
+     $groupName = 'group' . $group;
+</%init>
+# DansGuardian filter group config file for version 2.8.0
+
+# Filter group name
+# Used to fill in the -FILTERGROUP- placeholder in the HTML template file and to
+# name the group in the access logs
+# Defaults to empty string
+groupname = '<% $groupName %>'
+
+# Content filtering files location
+bannedphraselist = '/etc/dansguardian/bannedphraselist'
+weightedphraselist = '/etc/dansguardian/weightedphraselist'
+exceptionphraselist = '/etc/dansguardian/exceptionphraselist'
+
+% foreach my $configFile (@groupConfigFiles) {
+%    my $number = $group;
+%    if ($defaults{$configFile} ) {
+%       $number = 1;
+%    }
+<% $configFile %> = '/etc/dansguardian/<% $configFile . $number %>'
+% }
+
+bannedregexpurllist = '/etc/dansguardian/bannedregexpurllist'
+picsfile = '/etc/dansguardian/pics'
+contentregexplist = '/etc/dansguardian/contentregexplist'
+
+# 50 is for young children,  100 for old children,  160 for young adults.
+% if ($threshold == 0) {
+# weighted phrase list is disabled in this filter grouo, sos we put here a
+# big value 
+naughtynesslimit = 9999
+% } else {
+naughtynesslimit = <% $threshold %>
+% }
+
+bypass = 0
+
+bypasskey = ''

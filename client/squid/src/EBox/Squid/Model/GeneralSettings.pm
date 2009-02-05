@@ -13,17 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
-#   EBox::Squid::Model::ConfigureLogDataTable
-#
-#   This class is used as a model to describe a table which will be
-#   used to select the logs domains the user wants to enable/disable.
-#
-#   It subclasses <EBox::Model::DataTable>
-#
-#  
-# 
+
 
 package EBox::Squid::Model::GeneralSettings;
 use base 'EBox::Model::DataForm';
@@ -58,18 +48,7 @@ sub new
 }
 
 
-# Method:  _table
-#
-# This method overrides <EBox::Model::DataTable::_table> to return
-# a table model description.
-#
-# This table is composed of two fields:
-#
-#   domain (<EBox::Types::Text>)    
-#   enabled (EBox::Types::Boolean>)
-# 
-# The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+
 sub _table
 {
     my @tableDesc = 
@@ -114,10 +93,17 @@ sub _table
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r) = @_;
+  my ($self, $action, $params_r, $actual_r) = @_;
 
   if (exists $params_r->{port}) {
     $self->_checkPortAvailable($params_r->{port}->value());
+  }
+
+  if (exists $params_r->{transparentProxy} or 
+      exists $params_r->{globalPolicy}) {
+
+    $self->_checkPolicyWithTransProxy($params_r, $actual_r);
+    $self->_checkNoAuthPolicy($params_r, $actual_r);
   }
 
 }
@@ -143,6 +129,58 @@ sub _checkPortAvailable
               );
   }
 }
+
+
+sub _checkPolicyWithTransProxy
+{
+  my ($self, $params_r, $actual_r) = @_;
+
+  my $trans = exists $params_r->{transparentProxy} ?
+                     $params_r->{transparentProxy}->value() :
+                     $actual_r->{transparentProxy}->value() ;
+
+  if (not $trans) {
+    return;
+  }
+
+
+  my $pol = exists $params_r->{globalPolicy} ?
+                     $params_r->{globalPolicy} :
+                     $actual_r->{globalPolicy} ;
+
+  if ($pol->usesAuth()) {
+    throw EBox::Exceptions::External(
+       __('Transparent proxy option is not compatible with authorization policy')
+                                    );
+  }
+
+  my $objectPolicy = EBox::Global->modInstance('squid')->model('squid/ObjectPolicy');
+  if ($objectPolicy->existsAuthObjects()) {
+    throw EBox::Exceptions::External(
+     __('Transparent proxy is incompatible with the authorization policy found in some objects')
+                                    );
+  }
+}
+
+
+sub _checkNoAuthPolicy
+{
+    my ($self, $params_r, $actual_r) = @_;
+    my $pol = exists $params_r->{globalPolicy} ?
+        $params_r->{globalPolicy} :
+            $actual_r->{globalPolicy} ;
+
+    if (not $pol->usesAuth()) {
+        my $squid = EBox::Global->modInstance('squid');
+        my $groupsPolicies = $squid->model('GlobalGroupPolicy')->groupsPolicies();
+        if (@{ $groupsPolicies }) {
+            throw EBox::Exceptions::External(
+  __('You need to use authorization policies wuth global group policies')
+                                            );
+        }
+    }
+}
+
 
 sub _policyHelp
 {

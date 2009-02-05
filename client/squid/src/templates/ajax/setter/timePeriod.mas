@@ -1,0 +1,37 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+my $fieldName = $data->fieldName();
+my $id = $tableName . '_' . $fieldName;
+
+my @days =  @{ $data->days() };
+           
+
+</%init>
+
+<span id="<% $id %>" class="<% $cssClass %>">
+	  <%__('From')%>
+	  <input type="text" class="inputText"
+		 value="<% $data->from() %>"
+		 size="5" id ="<% $id . '_from' %>"
+		 name='<% $id . '_from' %>' />
+	  <%__('To')%>
+	  <input type="text" class="inputText"
+		 value="<% $data->to() %>"
+		 size="5" id ="<% $id . '_to' %>"
+		 name='<% $id . '_to' %>' />
+          <% __('Days of the week') %>
+%       foreach my $day (@days) {
+%          my $letter = $data->dayToPrintableLetter($day);
+         <% $letter %>
+         <& /input/checkbox.mas,
+               'name' => $id . "_$day",
+               'id'   => $id . "_$day",
+               'value' => $data->$day(),
+         &>
+        
+%      }
+</span>

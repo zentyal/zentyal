@@ -2,6 +2,7 @@
   @domains
   $blockIp
   $blanketBlock     
+  @includes => ()
 </%args>
 
 #domains in banned list
@@ -77,3 +78,9 @@
 #.Include</etc/dansguardian/blacklists/violence/domains>
 #.Include</etc/dansguardian/blacklists/virusinfected/domains>
 #.Include</etc/dansguardian/blacklists/warez/domains>
+
+
+% foreach my $path (@includes) {
+%   $path = '<' . $path . '>';
+.Include<% $path %>
+% }

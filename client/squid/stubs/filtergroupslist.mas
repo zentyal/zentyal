@@ -1,0 +1,27 @@
+<%args>
+@groups
+</%args>
+<%init>
+my $lastReservedNumber = 1;
+</%init>
+# Filter Groups List file for DansGuardian
+#
+# Format is <user>=filter<1-99> where 1-99 are the groups
+#
+# Eg:
+# daniel=filter2
+#
+# This file is only of use if you have more than 1 filter group
+#
+<%perl>
+ foreach my $group (@groups) {
+      my $number = $group->{number};
+      if ($number <= $lastReservedNumber) {
+         next;
+      }
+
+     foreach my $user (@{ $group->{users} }) {
+</%perl>
+<% $user %>=filter<% $number %>
+%    }
+% }

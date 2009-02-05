@@ -83,8 +83,9 @@ sub _description
       my $description =
         {
          components      => [
-			     'DomainFilterSettings',
+                             'DomainFilterSettings',
                              'DomainFilter',
+                             'DomainFilterFiles',
                             ],
          layout          => 'top-bottom',
          name            => 'Domains',

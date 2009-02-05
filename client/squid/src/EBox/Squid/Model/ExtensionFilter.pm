@@ -14,16 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::ExtensionFilter;
-
-# Class:
-#
-#    EBox::Squid::Model::ExtensionFilter
-#
-#
-#   It subclasses <EBox::Model::DataTable>
-#
-
-use base 'EBox::Model::DataTable';
+use base 'EBox::Squid::Model::ExtensionFilterBase';
 
 use strict;
 use warnings;
@@ -105,45 +96,13 @@ sub banned
 
 # Group: Protected methods
 
-# Method: _table
-#
-#       The table description which consists of three fields:
-#
-#       name          - <EBox::Types::Text>
-#       description   - <EBox::Types::Text>
-#       configuration - <EBox::Types::Union>. It could have one of the following:
-#                     - model - <EBox::Types::HasMany>
-#                     - link  - <EBox::Types::Link>
-#                     - none  - <EBox::Types::Union::Text>
-#       enabled       - <EBox::Types::Boolean>
-#
-#       You can only edit enabled and configuration fields. The event
-#       name and description are read-only fields.
-#
+
 sub _table
 {
+    my ($self) = @_;
+    my $warnMsg = q{The extension filter needs a 'filter' policy to take effect};
 
-  my $warnMsg = q{The extension filter needs a 'filter' policy to take effect};
 
-
-  my @tableHeader =
-    (
-     new EBox::Types::Text(
-			   fieldName     => 'extension',
-			   printableName => __('Extension'),
-			   unique        => 1,
-			   editable      => 1,
-			   optional      => 0,
-			  ),
-     new EBox::Types::Boolean(
-			      fieldName     => 'allowed',
-			      printableName => __('Allow'),
- 
-			      optional      => 0,
-			      editable      => 1,
-			      defaultValue  => 1,
-			     ),
-    );
 
   my $dataTable =
     {
@@ -157,7 +116,7 @@ sub _table
       'editField',
       'changeView'
      ],
-     tableDescription   => \@tableHeader,
+     tableDescription   => $self->_tableHeader(),
      class              => 'dataTable',
      order              => 0,
      rowUnique          => 1,

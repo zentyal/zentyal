@@ -25,6 +25,10 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
+use Perl6::Junction qw(any);
+
+
+
 sub new 
 {
     my $class = shift;
@@ -34,28 +38,15 @@ sub new
     return $self;
 }
 
-sub _squidAddrs
+
+sub _objectsPolicies
 {
     my $sq = EBox::Global->modInstance('squid');
     my $objPolicy = $sq->model('ObjectPolicy');
-    
-    my @addrs = (
-                 @{ $objPolicy->unfilteredAddresses() },
-                 @{ $objPolicy->bannedAddresses()     },
-                );
-
-    return @addrs;
+    return $objPolicy->objectsPolicies();
 }
 
-sub _dgAddrs
-{
-    my $sq = EBox::Global->modInstance('squid');
-    my $objPolicy = $sq->model('ObjectPolicy');
-    
-    my @addrs = @{$objPolicy->filteredAddresses()};
-    
-    return @addrs;
-}
+
 
 sub _normal_prerouting
 {
@@ -67,28 +58,53 @@ sub _normal_prerouting
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
 
+    my @objsPolicies = @{ $self->_objectsPolicies() };
     my @ifaces = @{$net->InternalIfaces()};
-    my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $addr = $net->ifaceAddress($ifc);
         (defined($addr) && $addr ne "") or next;
         
-        foreach my $client ($self->_squidAddrs()) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
-                "--dport $sqport -j RETURN";
-            push(@rules, $r);
-        }
-        
-        foreach my $client ($self->_dgAddrs()) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
-                "--dport $sqport -j REDIRECT --to-ports $dgport";
-            push(@rules, $r);
-        }
-        
-        if ($pol eq 'filter') {
+        foreach my $obPolicy (@objsPolicies) {
+            push @rules,
+                @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
+        }       
+    
+
+        if ($sq->globalPolicyUsesFilter()) {
             my $r = "-i $ifc -d $addr -p tcp --dport $sqport ".
                 "-j REDIRECT --to-ports $dgport";
-            push(@rules, $r);
+            push @rules, $r;
+        }
+
+    }
+
+    return \@rules;
+}
+
+
+sub _normal_prerouting_object_rules
+{
+    my ($self, $obPolicy, $ifc, $addr) = @_;
+
+    my $sq = EBox::Global->modInstance('squid');
+    my $net = EBox::Global->modInstance('network');
+    my $sqport = $sq->port();
+    my $dgport = $sq->dansguardianPort();
+
+    my @rules;
+
+    if (not $obPolicy->{filter}) {
+        foreach my $client ( @{ $obPolicy->{addresses}  }) {
+            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
+                "--dport $sqport -j RETURN";
+            push @rules, $r;
+        }
+    }
+    else {
+        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
+            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
+                "--dport $sqport -j REDIRECT --to-ports $dgport";
+            push @rules, $r;
         }
     }
 
@@ -104,25 +120,26 @@ sub _trans_prerouting
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
     
+    my $anyFilterPolicy = $self->_anyFilterPolicy();
+    my $anySquidPolicy  = $self->_anySquidPolicy();
+
+    my @objsPolicies = @{ $self->_objectsPolicies() };
+
     my @ifaces = @{$net->InternalIfaces()};
-    my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $addr = $net->ifaceAddress($ifc);
         (defined($addr) && $addr ne "") or next;
         
-        foreach my $client ($self->_squidAddrs()) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
-                "--dport 80 -j REDIRECT --to-ports $sqport";
-            push(@rules, $r);
+        foreach my $obPolicy (@objsPolicies) {
+            push @rules,
+                @{ $self->_normal_trans_prerouting_object_rules(
+                                                               $obPolicy,
+                                                               $ifc,
+                                                               $addr
+                                                              ) };
         }
-        
-        foreach my $client ($self->_dgAddrs()) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
-                "--dport 80 -j REDIRECT --to-ports $dgport";
-            push(@rules, $r);
-        }
-        
-        if ($pol eq 'filter') {
+
+        if ($sq->globalPolicyUsesFilter()) {
             my $r = "-i $ifc -d ! $addr -p tcp --dport 80 ".
                 "-j REDIRECT --to-ports $dgport";
                         push(@rules, $r);
@@ -132,6 +149,38 @@ sub _trans_prerouting
             push(@rules, $r);
         }
     }
+    return \@rules;
+}
+
+
+sub _normal_trans_prerouting_object_rules
+{
+    my ($self, $obPolicy, $ifc, $addr) = @_;
+
+    my $sq = EBox::Global->modInstance('squid');
+    my $net = EBox::Global->modInstance('network');
+    my $sqport = $sq->port();
+    my $dgport = $sq->dansguardianPort();
+
+    my @rules;
+
+    my $policy = $obPolicy->{policy};
+    if (not $obPolicy->{filter}) {
+        foreach my $client ( @{ $obPolicy->{addresses}  }) {
+            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
+                "--dport 80 -j REDIRECT --to-ports $sqport";
+            push @rules, $r;
+        }
+    }
+    else {
+        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
+            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
+                "--dport 80 -j REDIRECT --to-ports $dgport";
+            push @rules, $r;
+        }
+    }
+
+
     return \@rules;
 }
 
@@ -154,29 +203,16 @@ sub input
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
-    
+
+    my @objsPolicies = @{ $self->_objectsPolicies() };    
     my @ifaces = @{$net->InternalIfaces()};
-    my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
-        foreach my $client ($self->_squidAddrs()) {
-            my $r = "-m state --state NEW -i $ifc -s $client ".
-                "-p tcp --dport $sqport -j ACCEPT";
-            push(@rules, $r);
-            $r = "-m state --state NEW -i $ifc -s $client ".
-                "-p tcp --dport $dgport -j DROP";
-            push(@rules, $r);
+        foreach my $obPolicy (@objsPolicies) {
+            push @rules,
+                @{ $self->_input_object_rules($obPolicy, $ifc ) };
         }
         
-        foreach my $client ($self->_dgAddrs()) {
-            my $r = "-m state --state NEW -i $ifc -s $client ".
-                "-p tcp --dport $dgport -j ACCEPT";
-            push(@rules, $r);
-            $r = "-m state --state NEW -i $ifc -s $client ".
-                "-p tcp --dport $sqport -j DROP";
-            push(@rules, $r);
-        }
-        
-        if ($pol eq 'filter') {
+        if ($sq->globalPolicyUsesFilter()) {
             my $r = "-m state --state NEW -i $ifc ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push(@rules, $r);
@@ -189,6 +225,48 @@ sub input
     push(@rules, "-m state --state NEW -p tcp --dport $sqport -j DROP");
     return \@rules;
 }
+
+
+sub _input_object_rules
+{
+    my ($self, $obPolicy, $ifc, $addr) = @_;
+
+    my $sq = EBox::Global->modInstance('squid');
+    my $net = EBox::Global->modInstance('network');
+    my $sqport = $sq->port();
+    my $dgport = $sq->dansguardianPort();
+
+    my @rules;
+
+
+    if (not $obPolicy->{filter}) {
+        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
+            my $r = "-m state --state NEW -i $ifc -s $client ".
+                "-p tcp --dport $sqport -j ACCEPT";
+            push @rules, $r;
+            
+            $r = "-m state --state NEW -i $ifc -s $client ".
+                "-p tcp --dport $dgport -j DROP";
+            push @rules, $r;
+        }
+    }
+    else {
+        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
+            my $r = "-m state --state NEW -i $ifc -s $client ".
+                "-p tcp --dport $dgport -j ACCEPT";
+            push @rules, $r;
+            
+            $r = "-m state --state NEW -i $ifc -s $client ".
+                "-p tcp --dport $sqport -j DROP";
+            push @rules, $r;
+        }
+    }
+
+
+    return \@rules;
+}
+
+
 
 sub output
 {

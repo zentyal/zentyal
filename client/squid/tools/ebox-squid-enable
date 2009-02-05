@@ -2,4 +2,5 @@
 
 # stop daemons 
 invoke-rc.d squid stop
-invoke-rc.d dansguardian stop
+invoke-rc.d dansguardian stop || true # if dansguardian has not been configured 
+                                      # it will fail always the first time

@@ -57,18 +57,19 @@ use constant DGDIR => '/etc/dansguardian';
 
 sub _create
 {
-        my $class = shift;
-        my $self  = $class->SUPER::_create(name => 'squid', 
-                                           domain => 'ebox-squid',
-                                           @_);
-        $self->{logger} = EBox::logger();
-        bless ($self, $class);
-        return $self;
+    my $class = shift;
+    my $self  = $class->SUPER::_create(name => 'squid', 
+                                       domain => 'ebox-squid',
+                                       printableName => __('HTTP proxy'),
+                                       @_);
+    $self->{logger} = EBox::logger();
+    bless ($self, $class);
+    return $self;
 }
 
 sub domain
 {
-        return 'ebox-squid';
+    return 'ebox-squid';
 }
 
 # Method: modelClasses
@@ -94,14 +95,39 @@ sub modelClasses
 
           'EBox::Squid::Model::DomainFilterSettings',
           'EBox::Squid::Model::DomainFilter',
+          'EBox::Squid::Model::DomainFilterFiles',
+          'EBox::Squid::Model::DomainFilterCategories',
+
+          'EBox::Squid::Model::GlobalGroupPolicy',
 
           'EBox::Squid::Model::ObjectPolicy',
+          'EBox::Squid::Model::ObjectGroupPolicy',
+          
+          'EBox::Squid::Model::NoCacheDomains',
 
+          'EBox::Squid::Model::FilterGroup',        
+  
+          'EBox::Squid::Model::FilterGroupContentFilterThreshold',
+
+          'EBox::Squid::Model::UseDefaultExtensionFilter',
+          'EBox::Squid::Model::FilterGroupExtensionFilter',
+          'EBox::Squid::Model::FilterGroupApplyAllowToAllExtensions',
+
+          'EBox::Squid::Model::UseDefaultMIMEFilter',
+          'EBox::Squid::Model::FilterGroupMIMEFilter',
+          'EBox::Squid::Model::FilterGroupApplyAllowToAllMIME',
+
+          'EBox::Squid::Model::UseDefaultDomainFilter',
+          'EBox::Squid::Model::FilterGroupDomainFilter',
+          'EBox::Squid::Model::FilterGroupDomainFilterFiles',
+          'EBox::Squid::Model::FilterGroupDomainFilterCategories',     
+          'EBox::Squid::Model::FilterGroupDomainFilterSettings',    
+ 
           # Report clases
-          'EBox::Squid::Model::Report::RequestsGraph',
-          'EBox::Squid::Model::Report::TrafficSizeGraph',
-          'EBox::Squid::Model::Report::TrafficDetails',
-          'EBox::Squid::Model::Report::TrafficReportOptions',
+#           'EBox::Squid::Model::Report::RequestsGraph',
+#           'EBox::Squid::Model::Report::TrafficSizeGraph',
+#           'EBox::Squid::Model::Report::TrafficDetails',
+#           'EBox::Squid::Model::Report::TrafficReportOptions',
          ]; 
 }
 
@@ -115,22 +141,28 @@ sub modelClasses
 sub compositeClasses
 {
  return [
-            'EBox::Squid::Composite::General',
-            'EBox::Squid::Composite::Extensions',
-            'EBox::Squid::Composite::MIME',
-            'EBox::Squid::Composite::Domains',
+         'EBox::Squid::Composite::General',
 
-            'EBox::Squid::Composite::FilterTabs',
-            'EBox::Squid::Composite::FilterSettings',
+         'EBox::Squid::Composite::FilterTabs',
+         'EBox::Squid::Composite::FilterSettings',
+         'EBox::Squid::Composite::Extensions',
+         'EBox::Squid::Composite::MIME',
+         'EBox::Squid::Composite::Domains',
 
-              'EBox::Squid::Composite::Report::TrafficReport',
-         ];
+         'EBox::Squid::Composite::FilterGroupTabs',
+         'EBox::Squid::Composite::FilterGroupSettings',
+         'EBox::Squid::Composite::FilterGroupExtensions',
+         'EBox::Squid::Composite::FilterGroupMIME',
+         'EBox::Squid::Composite::FilterGroupDomains',
+
+         #              'EBox::Squid::Composite::Report::TrafficReport',
+        ];
 }
 
 
 sub isRunning
 {
-        return EBox::Service::running('ebox.squid');
+  return EBox::Service::running('ebox.squid');
 }
 
 
@@ -138,7 +170,7 @@ sub isRunning
 
 sub DGIsRunning
 {
-        return EBox::Service::running('ebox.dansguardian');
+  return EBox::Service::running('ebox.dansguardian');
 }
 
 # Method: usedFiles
@@ -147,48 +179,69 @@ sub DGIsRunning
 #
 sub usedFiles
 {
-        return [
-                {
-                 'file' => '/etc/squid/squid.conf',
+    return [
+            {
+             'file' => '/etc/squid/squid.conf',
+             'module' => 'squid',
+             'reason' => __('HTTP proxy configuration file')
+            },
+            {
+             'file' => DGDIR . '/dansguardian.conf',
+             'module' => 'squid',
+                 'reason' => __('Content filter configuration file')
+            },
+            {
+             'file' => DGDIR . '/dansguardianf1.conf',
+             'module' => 'squid',
+             'reason' => __('Default filter group configuration')
+            },
+            {
+             'file' => DGDIR . '/filtergroupslist',
                  'module' => 'squid',
-                 'reason' => 'HTTP proxy configuration file'
-                },
-                {
-                 'file' => DGDIR . '/dansguardian.conf',
+             'reason' => __('Filter groups membership')
+            },
+            {
+             'file' => DGDIR . '/bannedextensionlist',
+             'module' => 'squid',
+             'reason' => __('Content filter banned extension list')
+            },
+            {
+             'file' => DGDIR . '/bannedmimetypelist',
                  'module' => 'squid',
-                 'reason' => 'Content filter configuration file'
-                },
-                {
-                 'file' => DGDIR . "/dansguardianf1.conf",
-                 'module' => 'squid',
-                 'reason' => 'Content filter threshold'
-                },
-                {
-                 'file' => DGDIR . "/bannedextensionlist",
-                 'module' => 'squid',
-                 'reason' => 'Content filter banned extension list'
-                },
-                {
-                 'file' => DGDIR . "/bannedmimetypelist",
-                 'module' => 'squid',
-                 'reason' => 'Content filter banned mime type list'
-                },
-                {
-                 'file' => DGDIR . "/exceptionsitelist",
-                 'module' => 'squid',
-                 'reason' => 'Content filter exception site list'
-                },
-                {
-                 'file' => DGDIR . "/greysitelist",
-                 'module' => 'squid',
-                 'reason' => 'Content filter grey site list'
-                },
-                {
-                 'file' => DGDIR . "/bannedsitelist",
-                 'module' => 'squid',
-                 'reason' => 'Content filter banned site list'
-                }
-               ];
+             'reason' => __('Content filter banned mime type list')
+            },
+            {
+             'file' => DGDIR . '/exceptionsitelist',
+             'module' => 'squid',
+             'reason' => __('Content filter exception site list')
+            },
+            {
+             'file' => DGDIR . '/greysitelist',
+             'module' => 'squid',
+             'reason' => __('Content filter grey site list')
+            },
+            {
+             'file' => DGDIR . '/bannedsitelist',
+             'module' => 'squid',
+                 'reason' => __('Content filter banned site list')
+            },
+            {
+             'file' => DGDIR . '/exceptionurllist',
+             'module' => 'squid',
+             'reason' => __('Content filter exception URL list')
+            },
+            {
+             'file' => DGDIR . '/greyurllist',
+             'module' => 'squid',
+             'reason' => __('Content filter grey URL list')
+            },
+            {
+             'file' => DGDIR . '/bannedurllist',
+             'module' => 'squid',
+                 'reason' => __('Content filter banned URL list')
+            }
+
+           ];
 }
 # Method: enableActions 
 #
@@ -199,14 +252,71 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
 }
 
+
+
+# Method: serviceModuleName 
+#
+#       Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+    return 'squid';
+}
+
+
 #  Method: enableModDepends
 #
 #   Override EBox::Module::Service::enableModDepends
 #
 sub enableModDepends 
 {
-    return ['firewall'];
+    return ['firewall', 'users'];
 }
+
+
+
+sub _doDaemon
+{
+    my ($self) = @_;
+    my $action = undef;
+    
+    if ($self->service and $self->isRunning) {
+        $action = 'restart';
+    } elsif ($self->service) {
+        $action = 'start';
+    } elsif ($self->isRunning) {
+        $action = 'stop';
+    } else {
+        return;
+    }
+
+    EBox::Service::manage('ebox.squid', $action);
+}
+
+sub _doDGDaemon
+{
+    my ($self) = @_;
+    my $action = undef;
+    
+    if ($self->_dgNeeded and $self->DGIsRunning) {
+        $action = 'restart';
+    } elsif ($self->_dgNeeded) {
+        $action = 'start';
+    } elsif ($self->DGIsRunning) {
+        $action = 'stop';
+    } else {
+        return;
+    }
+    
+    EBox::Service::manage('ebox.dansguardian', $action);
+}
+
+sub _stopService 
+{
+    EBox::Service::manage('ebox.squid', 'stop');
+    EBox::Service::manage('ebox.dansguardian', 'stop');
+}
+
 
 # Method: _regenConfig
 #
@@ -215,52 +325,26 @@ sub enableModDepends
 #
 sub _regenConfig 
 {
-        my $self = shift;
-        $self->_setSquidConf();
-        $self->_enforceServiceState();
+    my ($self) = @_;
+    $self->_setSquidConf();
+    $self->_enforceServiceState();
+    $self->_doDaemon();
+    $self->_doDGDaemon();
 }
 
 sub _cache_mem 
 {
-        my $cache_mem = EBox::Config::configkey('cache_mem');
-        ($cache_mem) or
-                throw EBox::Exceptions::External(__('You must set the '.
+    my $cache_mem = EBox::Config::configkey('cache_mem');
+    ($cache_mem) or
+        throw EBox::Exceptions::External(__('You must set the '.
                         'cache_mem variable in the ebox configuration file'));
-        return $cache_mem;
+    return $cache_mem;
 }
 
 
 
 
 
-# Method: setAuth
-#
-#       Set authentication
-#
-# Parameters:
-#
-#       auth - boolean: the authentication 
-sub setAuth # (auth)
-{
-        my ($self, $auth) = @_;
-        ($auth and $self->auth) and return;
-        (!$auth and !$self->auth) and return;
-        $self->set_bool('auth', $auth);
-}
-
-
-# Method: auth
-#
-#       Return authentication
-#
-# Returns:
-#
-#       boolean - 
-sub auth
-{
-        my $self = shift;
-        return $self->get_bool('auth');
-}
 
 # Method: setService 
 #
@@ -272,8 +356,8 @@ sub auth
 #
 sub setService # (enabled) 
 {
-        my ($self, $active) = @_;
-        $self->enableService($active);
+    my ($self, $active) = @_;
+    $self->enableService($active);
 }
 
 # Method: service 
@@ -285,40 +369,40 @@ sub setService # (enabled)
 #       boolean - true if enabled, otherwise undef   
 sub service
 {
-      my ($self) = @_;
+    my ($self) = @_;
 
-      return $self->isEnabled();
+    return $self->isEnabled();
 }
 
 
 
 sub _setGeneralSetting
 {
-        my ($self, $setting, $value) = @_;
-
-        my $model = $self->model('GeneralSettings');
-
-        my $oldValueGetter = $setting . 'Value';
-        my $oldValue       = $model->$oldValueGetter;
-
-        ($value xor $oldValue) or
+    my ($self, $setting, $value) = @_;
+    
+    my $model = $self->model('GeneralSettings');
+    
+    my $oldValueGetter = $setting . 'Value';
+    my $oldValue       = $model->$oldValueGetter;
+    
+    ($value xor $oldValue) or
           return;
-
-        my $row = $model->row();
-        my %fields = %{ $row->{plainValueHash} };
-        $fields{$setting} = $value;
-
-        $model->setRow(0, %fields);
+    
+    my $row = $model->row();
+    my %fields = %{ $row->{plainValueHash} };
+    $fields{$setting} = $value;
+    
+    $model->setRow(0, %fields);
 }
 
 sub _generalSetting
 {
-        my ($self, $setting, $value) = @_;
+    my ($self, $setting, $value) = @_;
 
-        my $model = $self->model('GeneralSettings');
-
-        my $valueGetter = $setting . 'Value';
-        return $model->$valueGetter();
+    my $model = $self->model('GeneralSettings');
+    
+    my $valueGetter = $setting . 'Value';
+    return $model->$valueGetter();
 }
 
 
@@ -332,8 +416,8 @@ sub _generalSetting
 #
 sub setTransproxy # (enabled)
 {
-        my ($self, $trans) = @_;
-        $self->_setGeneralSetting('transparentProxy', $trans);
+    my ($self, $trans) = @_;
+    $self->_setGeneralSetting('transparentProxy', $trans);
 
 }
 
@@ -347,8 +431,8 @@ sub setTransproxy # (enabled)
 #
 sub transproxy
 {
-        my $self = shift;
-        return $self->_generalSetting('transparentProxy');
+    my ($self) = @_;;
+    return $self->_generalSetting('transparentProxy');
 }
 
 # Method: setPort
@@ -361,8 +445,8 @@ sub transproxy
 #
 sub setPort # (port)
 {
-        my ($self, $port) = @_;
-        $self->_setGeneralSetting('port', $port);
+    my ($self, $port) = @_;
+    $self->_setGeneralSetting('port', $port);
 }
 
 
@@ -376,7 +460,7 @@ sub setPort # (port)
 #
 sub port
 {
-  my $self = shift;     
+    my ($self) = @_;
 
   # FIXME Workaround. It seems that in some migrations the 
   # port variable gets ereased and returns an empty value
@@ -400,12 +484,12 @@ sub port
 # 
 # Returns:
 #
-#       string - allow | deny | filter
+#       string - allow | deny | filter | auth | authAndFilter
 #
 sub globalPolicy #
 {
-        my $self = shift;
-        return $self->_generalSetting('globalPolicy');
+    my ($self) = @_;
+    return $self->_generalSetting('globalPolicy');
 }
 
 # Method: setGlobalPolicy
@@ -415,14 +499,41 @@ sub globalPolicy #
 # 
 # Parameters:
 #
-#       policy  - allow | deny | filter
+#       policy  - allow | deny | filter | auth | authAndFilter
 #
 sub setGlobalPolicy # (policy)
 {
-        my ($self, $policy) = @_;
-        $self->_setGeneralSetting('globalPolicy', $policy);
+    my ($self, $policy) = @_;
+    $self->_setGeneralSetting('globalPolicy', $policy);
 }
 
+
+sub globalPolicyUsesFilter
+{
+  my ($self) = @_;
+
+  my $generalSettingsRow = $self->model('GeneralSettings')->row();
+  my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
+  return $globalPolicy->usesFilter();
+}
+
+sub globalPolicyUsesAllowAll
+{
+  my ($self) = @_;
+
+  my $generalSettingsRow = $self->model('GeneralSettings')->row();
+  my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
+  return $globalPolicy->usesAllowAll();
+}
+
+sub globalPolicyUsesAuth
+{
+  my ($self) = @_;
+
+  my $generalSettingsRow = $self->model('GeneralSettings')->row();
+  my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
+  return $globalPolicy->usesAuth();
+}
 
 
 
@@ -435,55 +546,53 @@ sub setGlobalPolicy # (policy)
 #       A positive integer with the current ban threshold.
 sub banThreshold
 {
-        my ($self) = @_;
-        my $model = $self->model('ContentFilterThreshold');
-        return $model->contentFilterThresholdValue();
+    my ($self) = @_;
+    my $model = $self->model('ContentFilterThreshold');
+    return $model->contentFilterThresholdValue();
 }       
 
 sub _dgNeeded
  {
-         my ($self) = @_;
+     my ($self) = @_;
+     
+     if (not $self->service) {
+         return undef;
+      }  
+     
+     if ($self->globalPolicyUsesFilter()) {
+         return 1;
+     }
+     elsif ($self->_banThresholdActive()) {
+         return 1;
+     }
 
-        if (not $self->service) {
-          return undef;
-        }  
-
-        if ($self->globalPolicy eq 'filter') {
-            return 1;
-        }
-        elsif ($self->banThreshold > 0) {
-           return 1;
-        }
-
-
-        my $domainFilter = $self->model('DomainFilter');
-        if ( @{ $domainFilter->banned } )  {
-            return 1;
-        }
-        elsif ( @{ $domainFilter->allowed } ) {
-                return 1;
-        }
-        elsif ( @{ $domainFilter->filtered } ) {
-                return 1;
-        }
+     my $domainFilter = $self->model('DomainFilter');
+     if ( @{ $domainFilter->banned } )  {
+         return 1;
+     }
+     elsif ( @{ $domainFilter->allowed } ) {
+         return 1;
+     }
+     elsif ( @{ $domainFilter->filtered } ) {
+         return 1;
+     }
         
 
-        my $domainFilterSettings = $self->model('DomainFilterSettings');
-        if ($domainFilterSettings->blanketBlockValue) {
-          return 1;
-        }
-        elsif ($domainFilterSettings->blockIpValue) {
-          return 1;
-        }
-        
-        
-        my $objectPolicy = $self->model('ObjectPolicy');
-        if ( @{ $objectPolicy->filteredAddresses() } ) {
-          return 1;
-        }
-
-
-        return undef;
+     my $domainFilterSettings = $self->model('DomainFilterSettings');
+     if ($domainFilterSettings->blanketBlockValue) {
+         return 1;
+     }
+     elsif ($domainFilterSettings->blockIpValue) {
+         return 1;
+     }
+     
+     
+     my $objectPolicy = $self->model('ObjectPolicy');
+     if ( $objectPolicy->existsFilteredObjects() ) {
+         return 1;
+     }
+     
+     return undef;
 }
 
 # Function: usesPort
@@ -492,62 +601,28 @@ sub _dgNeeded
 #
 sub usesPort # (protocol, port, iface)
 {
-        my ($self, $protocol, $port, $iface) = @_;
-        ($protocol eq 'tcp') or return undef;
-        # DGPORT is hard-coded, it is reported as used even if
-        # the service is disabled.
-        ($port eq DGPORT) and return 1;
-        # the port selected by the user (by default SQUIDPORT) is only reported
-        # if the service is enabled
-        ($self->service) or return undef;
-        ($port eq $self->port) and return 1;
-        return undef;
+    my ($self, $protocol, $port, $iface) = @_;
+    ($protocol eq 'tcp') or return undef;
+    # DGPORT is hard-coded, it is reported as used even if
+    # the service is disabled.
+    ($port eq DGPORT) and return 1;
+    # the port selected by the user (by default SQUIDPORT) is only reported
+    # if the service is enabled
+    ($self->service) or return undef;
+    ($port eq $self->port) and return 1;
+    return undef;
 }
 
 sub _setSquidConf
 {
-        my $self = shift;
-        if ($self->_dgNeeded) {
-                $self->_squidAndDG;
-        } else {
-                $self->_squidOnly;
-        }
+  my ($self) = @_;
+  $self->_writeSquidConf();
+
+  if ($self->_dgNeeded()) {
+      $self->_writeDgConf();
+  }
 }
 
-sub _squidOnly
-{
-        my $self = shift;
-#       my $ob = EBox::Global->modInstance('objects');
-        my $objects;
-        my $policy = $self->globalPolicy;
-        my $squidpolicy = $policy;
-        my $trans = 'no';
-        my @exceptions = ();
-        ($self->transproxy) and $trans = 'yes';
-
-        my $objectPolicy = $self->model('ObjectPolicy');
-
-        if ($policy eq 'deny') {
-                push(@exceptions, @{$objectPolicy->filteredAddresses});
-                push(@exceptions, @{$objectPolicy->unfilteredAddresses});
-        } else {
-                $squidpolicy = "allow";
-                push(@exceptions, @{$objectPolicy->bannedAddresses});
-        }
-        
-        foreach my $addr (@exceptions) {
-                $objects .= "acl objects src  $addr\n";
-        }
-
-        my @array = ();
-        push(@array, 'port'  => $self->port);
-        push(@array, 'transparent'  => $trans);
-        push(@array, 'policy'  => $squidpolicy);
-        push(@array, 'objects' => $objects);
-        push(@array, 'memory' => $self->_cache_mem);
-
-        $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@array);
-}
 
 # Function: dansguardianPort 
 #
@@ -558,130 +633,230 @@ sub _squidOnly
 #       string - listening port
 sub dansguardianPort
 {
-        return DGPORT;
-}
-
-sub _squidAndDG
-{
-        my $self = shift;
-#       my $ob = EBox::Global->modInstance('objects');
-        my $objects;
-
-
-
-        my $policy = $self->globalPolicy;
-        my $squidpolicy = $policy;
-        my $trans = 'no';
-
-        my @exceptions = ();
-        my $threshold = $self->banThreshold;
-        ($self->transproxy) and $trans = 'yes';
-
-
-        my $objectPolicy = $self->model('ObjectPolicy');        
-
-        if ($policy eq 'allow') {
-                push(@exceptions, @{$objectPolicy->bannedAddresses});
-                push(@exceptions, @{$objectPolicy->filteredAddresses});
-        } else {
-                $squidpolicy = "deny";
-                push(@exceptions, @{$objectPolicy->unfilteredAddresses});
-        }
-
-        foreach my $addr (@exceptions) {
-                $objects .= "acl objects src  $addr\n";
-        }
-
-        my @writeParam = ();
-        push(@writeParam, 'port'  => $self->port);
-        push(@writeParam, 'transparent'  => $trans);
-        push(@writeParam, 'policy'  => $squidpolicy);
-        push(@writeParam, 'objects' => $objects);
-        push(@writeParam, 'memory' => $self->_cache_mem);
-
-        $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
-
-        # FIXME - get a proper lang name for the current locale
-        my $lang = $self->_DGLang();
-
-        @writeParam = ();
-        push(@writeParam, 'port'  => DGPORT);
-        push(@writeParam, 'lang'  => $lang);
-        push(@writeParam, 'squidport'  => $self->port);
-        push(@writeParam, weightedPhraseThreshold  => $threshold);
-        $self->writeConfFile(DGDIR . "/dansguardian.conf",
-                                "squid/dansguardian.conf.mas", \@writeParam);
-
-        @writeParam = ();
-        push(@writeParam, 'threshold'  => $threshold);
-        $self->writeConfFile(DGDIR . "/dansguardianf1.conf",
-                                "squid/dansguardianf1.conf.mas", \@writeParam);
-
-
-        @writeParam = ();
-        my $extensionFilter = $self->model('ExtensionFilter');
-        push(@writeParam, 'extensions'  => $extensionFilter->banned);
-        $self->writeConfFile(DGDIR . "/bannedextensionlist",
-                                "squid/bannedextensionlist.mas", \@writeParam);
-        # Write down the banned mime type list
-        @writeParam = ();
-        my $mimeFilter = $self->model('MIMEFilter');
-        push(@writeParam, 'mimeTypes' => $mimeFilter->banned);
-        $self->writeConfFile(DGDIR . "/bannedmimetypelist",
-                             "squid/bannedmimetypelist.mas", \@writeParam);
-
-        $self->_writeDgDomainsConf();
+    return DGPORT;
 }
 
 
-sub _writeDgDomainsConf
+sub _writeSquidConf
 {
   my ($self) = @_;
 
-  my $domainFilter = $self->model('DomainFilter');
+  my $trans = $self->transproxy() ? 'yes' : 'no';
+  my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();       
+  my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();       
+  
+
+  my @writeParam = ();
+  push @writeParam, ('port'  => $self->port);
+  push @writeParam, ('transparent'  => $trans);
+  push @writeParam, ('authNeeded'  => $self->globalPolicyUsesAuth);
+  push @writeParam, ('allowAll'  => $self->globalPolicyUsesAllowAll);
+  push @writeParam, ('groupsPolicies' => $groupsPolicies);
+  push @writeParam, ('objectsPolicies' => $objectsPolicies);
+  push @writeParam, ('memory' => $self->_cache_mem);
+  push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
+
+  $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
+}
+
+
+
+sub _writeDgConf
+{
+  my ($self) = @_;
+
+
+  # FIXME - get a proper lang name for the current locale
+  my $lang = $self->_DGLang();
+
+  my @dgFilterGroups = @{ $self->_dgFilterGroups };
+
+  my @writeParam = ();
+  push(@writeParam, 'port'  => DGPORT);
+  push(@writeParam, 'lang'  => $lang);
+  push(@writeParam, 'squidport'  => $self->port);
+  push(@writeParam, weightedPhraseThreshold  => $self->_banThresholdActive);
+  push(@writeParam, nGroups => scalar @dgFilterGroups);
+
+  $self->writeConfFile(DGDIR . "/dansguardian.conf",
+                       "squid/dansguardian.conf.mas", \@writeParam);
+
+
+   # write group lists  
+    $self->writeConfFile(DGDIR . "/filtergroupslist",
+                         "squid/filtergroupslist.mas", 
+                         [
+                          groups => \@dgFilterGroups,
+                         ]
+                        );
+
+
+  foreach my $group (@dgFilterGroups) {
+      my $number = $group->{number};
+
+      @writeParam = ();
+
+
+      push(@writeParam, 'group'  => $number);
+      push(@writeParam, 'threshold'  => $group->{threshold});
+      push(@writeParam, 'groupName'  => $group->{groupName});
+      push(@writeParam, 'defaults'      => $group->{defaults});
+      EBox::Module::Service->writeConfFile(DGDIR . "/dansguardianf$number.conf",
+                       "squid/dansguardianfN.conf.mas", \@writeParam);
+
+      if (not exists $group->{defaults}->{bannedextensionlist}) {
+          @writeParam = ();
+          push(@writeParam, 'extensions'  => $group->{bannedExtensions});
+          EBox::Module::Service->writeConfFile(DGDIR . "/bannedextensionlist$number",
+                                      "squid/bannedextensionlist.mas", \@writeParam);
+      }
+
+      if (not exists $group->{defaults}->{bannedmimetypelist}) {
+          @writeParam = ();
+          push(@writeParam, 'mimeTypes' => $group->{bannedMIMETypes});
+          EBox::Module::Service->writeConfFile(DGDIR . "/bannedmimetypelist$number",
+                           "squid/bannedmimetypelist.mas", \@writeParam);
+      }
+
+      $self->_writeDgDomainsConf($group);
+  }
+
+
+  # purge empty file list directories XXX is not the ideal palce to do this but
+  # we don't have options bz deletedRowNotify is called before deleting the file
+  # so the directory is not empty
+  my $domainFilterFiles = $self->model('DomainFilterFiles');
+  $domainFilterFiles->cleanEmptyDirs();
+}
+
+
+
+sub _banThresholdActive
+{
+    my ($self) = @_;
+
+    my @dgFilterGroups = @{ $self->_dgFilterGroups };
+    foreach my $group (@dgFilterGroups) {
+        if ($group->{threshold} > 0) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub _notCachedDomains
+{
+    my ($self) = @_;
+    my $model = $self->model('NoCacheDomains');
+    return $model->notCachedDomains();
+}
+
+
+sub _dgFilterGroups
+{
+    my ($self) = @_;
+
+    my $filterGroupModel = $self->model('FilterGroup');
+    return $filterGroupModel->filterGroups();
+}
+
+
+# sub _defaultGroup
+# {
+#     my ($self) = @_;
+
+#     my $default = {
+#                    number => 1,
+#                    groupName => 'default',
+#                    threshold => $self->banThreshold,
+#                    bannedExtensions =>  $self->model('ExtensionFilter')->banned(),
+#                    bannedMIMETypes =>  $self->model('MIMEFilter')->banned(),
+#                    defaults => {},
+#                   };
+
+#     my $domainFilter      = $self->model('DomainFilter');
+#     my $domainFilterFiles = $self->model('DomainFilterFiles');
+
+#     $default->{exceptionsitelist} = [ 
+#                         domains => $domainFilter->allowed(),
+#                                      includes => $domainFilterFiles->allowed(),
+#                        ];
+
+#     $default->{exceptionurllist} = [
+#                                     domains => [],
+#                                     includes => $domainFilterFiles->allowedUrls(),
+#                                    ];
+
+#     $default->{greysitelist} = [ 
+#                         domains => $domainFilter->filtered(),
+#                         includes => $domainFilterFiles->filtered(),
+#                        ];
+  
+#     $default->{greyurllist} = [ 
+#                         domains => [],
+#                         includes => $domainFilterFiles->filteredUrls(),
+#                        ];
+
+
+
+#     $default->{bannedurllist} = [ 
+#                         domains => [],
+#                         includes => $domainFilterFiles->bannedUrls(),
+#                        ];
 
   
   
-  my $allowed = $domainFilter->allowed;
-  $self->writeConfFile(DGDIR . "/exceptionsitelist",
-                       "squid/exceptionsitelist.mas", 
-                       [ domains => $allowed ],
-                      );
-  
-  my $filtered = $domainFilter->filtered;  
-  $self->writeConfFile(DGDIR . "/greysitelist",
-                       "squid/greysitelist.mas", 
-                       [ domains => $filtered ],
-                      );
-  
-  
-  my $domainFilterSettings = $self->model('DomainFilterSettings');
-  my $banned = $domainFilter->banned;
-  my $banOptions = [
-                    blockIp       => $domainFilterSettings->blockIpValue,
-                    blanketBlock  => $domainFilterSettings->blanketBlockValue,
-                    domains       => $banned,
+#   my $domainFilterSettings = $self->model('DomainFilterSettings');
+    
+#   $default->{bannedsitelist} = [
+#                     blockIp       => $domainFilterSettings->blockIpValue,
+#                     blanketBlock  => $domainFilterSettings->blanketBlockValue,
+#                     domains       => $domainFilter->banned(),
+#                     includes      => $domainFilterFiles->banned(),
+#                    ];
 
-                   ];
+#     return $default;
+# }
+
+sub _writeDgDomainsConf
+{
+  my ($self, $group) = @_;
+
+  my $number = $group->{number};
+
+  my @domainsFiles = (
+      'bannedsitelist'  , 'bannedurllist', 
+      'greysitelist'    , 'greyurllist',
+      'exceptionsitelist', 'exceptionurllist',
+    );
   
-  $self->writeConfFile( DGDIR . "/bannedsitelist",
-                       "squid/bannedsitelist.mas", 
-                       $banOptions
-                       );
-                                 
+  foreach my $file (@domainsFiles) {
+      if (exists $group->{defaults}->{$file}) {
+          next;
+      }
+
+      my $path     = DGDIR . '/' . $file . $number;
+      my $template = "squid/$file.mas";
+      EBox::Module::Service->writeConfFile($path,
+                                  $template, 
+                                  $group->{$file},
+                                 );
+  }
+
 }
 
 sub firewallHelper 
 {
-        my $self = shift;
-        if ($self->service) {
-                if ($self->_dgNeeded()) {
-                        return new EBox::SquidFirewall();
-                } else  {
-                        return new EBox::SquidOnlyFirewall();
-                }
+    my ($self) = @_;
+    if ($self->service) {
+        if ($self->_dgNeeded()) {
+            return new EBox::SquidFirewall();
+        } else  {
+            return new EBox::SquidOnlyFirewall();
         }
-        return undef;
+    }
+    return undef;
 }
 
 sub proxyWidget
@@ -736,22 +911,28 @@ sub widgets
 #
 sub menu
 {
-        my ($self, $root) = @_;
-        my $folder = new EBox::Menu::Folder('name' => 'Squid',
-                                            'text' => __('HTTP proxy'));
-
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
-                                          'text' => __('General')));
-
+    my ($self, $root) = @_;
+    my $folder = new EBox::Menu::Folder('name' => 'Squid',
+                                        'text' => $self->printableName());
+    
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
+                                      'text' => __('General')));
+    
 
         $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
                                           'text' => __(q{Objects' Policy})));
 
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/FilterSettings',
-                                          'text' => __('Filter settings')));
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/GlobalGroupPolicy',
+                                      'text' => __(q{Groups' Policy})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterGroup',
+                                      'text' => __(q{Filter profiles})));
+
+#     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/FilterSettings',
+#                                       'text' => __('Filter settings')));
 
 
-        $root->add($folder);
+    $root->add($folder);
 }
 
 #  Method: _daemons
@@ -773,33 +954,34 @@ sub _daemons
 }
 
 # Impelment LogHelper interface
-sub tableInfo {
-        my $self = shift;
-        my $titles = { 'timestamp' => __('Date'),
-                        'remotehost' => __('Host'),
-                        'url'   => __('URL'),
-                        'bytes' => __('Bytes'),
-                        'mimetype' => __('Mime/type'),
-                        'event' => __('Event')
-        };
-        my @order = ( 'timestamp', 'remotehost', 'url', 
-                        'bytes', 'mimetype', 'event');
+sub tableInfo 
+{
+    my ($self) =@_;
+    my $titles = { 'timestamp' => __('Date'),
+                   'remotehost' => __('Host'),
+                   'url'   => __('URL'),
+                   'bytes' => __('Bytes'),
+                   'mimetype' => __('Mime/type'),
+                   'event' => __('Event')
+                 };
+    my @order = ( 'timestamp', 'remotehost', 'url', 
+                  'bytes', 'mimetype', 'event');
 
-        my $events = { 'accepted' => __('Accepted'), 
-                        'denied' => __('Denied'),
-                        'filtered' => __('Filtered') };
-        return {
-                'name' => __('HTTP proxy'),
-                'index' => 'squid',
-                'titles' => $titles,
-                'order' => \@order,
-                'tablename' => 'access',
-                'timecol' => 'timestamp',
-                'filter' => ['url', 'remotehost'],
-                'events' => $events,
-                'eventcol' => 'event',
-                'consolidate' => $self->_consolidateConfiguration(),
-        };
+    my $events = { 'accepted' => __('Accepted'), 
+                   'denied' => __('Denied'),
+                   'filtered' => __('Filtered') };
+    return {
+            'name' => __('HTTP proxy'),
+            'index' => 'squid',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'access',
+            'timecol' => 'timestamp',
+            'filter' => ['url', 'remotehost'],
+            'events' => $events,
+            'eventcol' => 'event',
+            'consolidate' => $self->_consolidateConfiguration(),
+           };
 }
 
 
@@ -851,9 +1033,8 @@ sub _consolidateConfiguration
 
 sub logHelper
 {
-        my $self = shift;
-
-        return (new EBox::SquidLogHelper);
+    my ($self) = @_;
+    return (new EBox::SquidLogHelper);
 }
 
 

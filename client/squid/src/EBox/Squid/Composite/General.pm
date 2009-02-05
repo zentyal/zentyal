@@ -69,6 +69,7 @@ sub _description
         {
          components      => [
                              '/squid/GeneralSettings',
+                             '/squid/NoCacheDomains',
                             ],
          layout          => 'top-bottom',
          name            => 'General',

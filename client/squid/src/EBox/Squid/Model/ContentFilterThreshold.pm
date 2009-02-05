@@ -34,8 +34,8 @@ use warnings;
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Types::Select;
 
+use  EBox::Squid::Types::WeightedPhrasesThreshold;
 
 
 # eBox exceptions used 
@@ -64,13 +64,10 @@ sub _table
     my @tableDesc = 
         ( 
 
-         new EBox::Types::Select(
+         new  EBox::Squid::Types::WeightedPhrasesThreshold(
              fieldName => 'contentFilterThreshold',
              printableName => __('Threshold'),
              editable => 1,
-             defaultValue  => 0,
-             populate => \&_populateContentFilterThreshold ,
-             help     => _thresholdHelp(),
              ), 
 
 
@@ -96,23 +93,7 @@ sub _table
 
 
 
-sub _populateContentFilterThreshold
-  {
-      return [
-      { value => 0, printableValue => __('Disabled'),  },
-      { value => 200, printableValue => __('Very permissive'),  },
-      { value => 160, printableValue => __('Permissive'),  },
-      { value => 120, printableValue => __('Medium'),  },
-      { value => 80, printableValue => __('Strict'),  },
-      { value => 50, printableValue => __('Very strict'),  },
-      ];
 
-  }
-
-sub _thresholdHelp
-{
-    return __('This specifies how strict the content filter is.');
-}
 
 
 

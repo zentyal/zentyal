@@ -1,0 +1,31 @@
+<%args>
+    @domains
+    @includes => ()
+</%args>
+#URLs in exception list
+#Don't bother with the www. or
+#the http://
+#
+#These are parts of sites that filtering should
+#be switched off for.
+#
+#These should not be domains, i.e. entire sites,
+#they should be a domain with a path.
+#
+#For example 'foo.bar' is no good, you need
+#to just have 'foo.bar/porn/'.
+#
+#Another example:
+#generallybadsite.tld/partthatsok/
+
+% foreach my $domain (@domains) {
+<% $domain %>
+	
+% }
+
+
+# included files
+% foreach my $path (@includes) {
+%   $path = '<' . $path . '>';
+.Include<% $path %>
+% }

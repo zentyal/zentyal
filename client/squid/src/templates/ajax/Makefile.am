@@ -5,10 +5,10 @@
 #
 # Makefile configuration - processed by automake.
 #
-
+SUBDIRS=setter
 
 templatedir = $(datadir)/ebox/templates/ajax/squid
-template_DATA =  applyAllForm.mas
+template_DATA =  applyAllForm.mas 
 
 EXTRA_DIST = $(template_DATA)
 

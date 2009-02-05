@@ -14,28 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::DomainFilter;
-
-# Class:
-#
-#    EBox::Squid::Model::DomainFilter
-#
-#
-#   It subclasses <EBox::Model::DataTable>
-#
-
-use base 'EBox::Model::DataTable';
+use base 'EBox::Squid::Model::DomainFilterBase';
 
 use strict;
 use warnings;
 
-# eBox uses
-use EBox;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Squid::Types::Policy;
-use EBox::Types::Text;
-use EBox::Validate;
 
 # Group: Public methods
 
@@ -64,46 +50,19 @@ sub new
 
   }
 
-# Group: Protected methods
+
 
 # Method: _table
 #
-#       The table description which consists of three fields:
-#
-#       name          - <EBox::Types::Text>
-#       description   - <EBox::Types::Text>
-#       configuration - <EBox::Types::Union>. It could have one of the following:
-#                     - model - <EBox::Types::HasMany>
-#                     - link  - <EBox::Types::Link>
-#                     - none  - <EBox::Types::Union::Text>
-#       enabled       - <EBox::Types::Boolean>
-#
-#       You can only edit enabled and configuration fields. The event
-#       name and description are read-only fields.
 #
 sub _table
   {
-
-      my @tableHeader =
-        (
-         new EBox::Types::Text(
-                               fieldName     => 'domain',
-                               printableName => __('Domain'),
-                               unique        => 1,
-                               editable      => 1,
-                               optional      => 0,
-                              ),
-         new EBox::Squid::Types::Policy(
-                               fieldName     => 'policy',
-                               printableName => __('Policy'),
-                               defaultValue  => 'filter',
-                              ),
-        );
+      my ($self) = @_;
 
       my $dataTable =
       {
           tableName          => 'DomainFilter',
-          printableTableName => __('Domains list'),
+          printableTableName => __('Domains rules'),
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/DomainFilter',
           'defaultActions' =>
@@ -112,7 +71,7 @@ sub _table
               'editField',
               'changeView'
               ],
-          tableDescription   => \@tableHeader,
+          tableDescription   => $self->_tableHeader(),
           class              => 'dataTable',
           order              => 0,
           rowUnique          => 1,
@@ -129,83 +88,6 @@ sub _table
 
   }
 
-
-sub validateTypedRow
-{
-  my ($self, $action, $params_r) = @_;
-
-  return unless (exists $params_r->{domain});
-
-  my $domain = $params_r->{domain}->value();
-
-  if ($domain =~ m{^www\.}) {
-    throw EBox::Exceptions::InvalidData(
-            data => __('Domain'),
-            value => $domain,
-            advice => __('You must not prefix the domain with www.'),
-            );
-  }
-
-  EBox::Validate::checkDomainName($domain);
-}
-
-
-# Function: banned
-#
-#	Fetch the banned domains
-#
-# Returns:
-#
-# 	Array ref - containing the domains
-sub banned
-{
-  my ($self) = @_;
-  return $self->_domainsByPolicy('deny');
-}
-
-
-# Function: allowed
-#
-#	Fetch the allowed domains
-#
-# Returns:
-#
-# 	Array ref - containing the domains
-sub allowed
-{
-  my ($self) = @_;
-  return $self->_domainsByPolicy('allow');
-}
-
-
-# Function: filtered
-#
-#	Fetch the filtered domains
-#
-# Returns:
-#
-# 	Array ref - containing the domains
-sub filtered
-{
-  my ($self) = @_;
-  return $self->_domainsByPolicy('filter');
-}
-
-
-
-sub _domainsByPolicy
-{
-  my ($self, $policy) = @_;
-
-  my @domains;
-  for my $row (@{$self->rows()}) {
-        if ($row->valueByName('policy') eq $policy) {
-            push (@domains, $row->valueByName('domain'));
-        }
-  }
-
-  return \@domains;
-}
 
 1;
 

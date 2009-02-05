@@ -14,16 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::DomainFilterSettings;
+use base 'EBox::Squid::Model::DomainFilterSettingsBase';
 
-# Class:
-#
-#    EBox::Squid::Model::DomainFilter
-#
-#
-#   It subclasses <EBox::Model::DataTable>
-#
-
-use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
@@ -64,22 +56,10 @@ sub new
 
   }
 
-# Group: Protected methods
+
 
 # Method: _table
 #
-#       The table description which consists of three fields:
-#
-#       name          - <EBox::Types::Text>
-#       description   - <EBox::Types::Text>
-#       configuration - <EBox::Types::Union>. It could have one of the following:
-#                     - model - <EBox::Types::HasMany>
-#                     - link  - <EBox::Types::Link>
-#                     - none  - <EBox::Types::Union::Text>
-#       enabled       - <EBox::Types::Boolean>
-#
-#       You can only edit enabled and configuration fields. The event
-#       name and description are read-only fields.
 #
 sub _table
 {

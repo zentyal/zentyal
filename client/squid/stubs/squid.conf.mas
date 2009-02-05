@@ -1,10 +1,35 @@
 <%args>
 	$port
 	$transparent
-	$policy
-	$objects
+        $authNeeded
+        $allowAll
+	@objectsPolicies
+        @groupsPolicies
+        @notCachedDomains
 	$memory
 </%args>
+<%perl>
+sub _timeAclsInPolicy
+{
+   my ($policy, @ids) = @_;
+   my $id = join '_', @ids;
+
+   my $acls = '';
+
+   if ($policy->{timeDays}) {
+      $acls = 'timeDays_' . $id;
+      $acls .= ' ';
+   }
+
+   if ($policy->{timeHours}) {
+       $acls .= 'timeHours_' . $id;;
+   }
+
+
+   return $acls;
+}
+
+</%perl>
 # <EBOX> TAG_HTTPORT #
 % my $transKey = '';
 % if ($transparent eq 'yes') { 
@@ -27,8 +52,24 @@ cache_mem <% $memory %> MB
 access_log /var/log/squid/access.log squid
 
 
+
 # <EBOX> TAG_ACL #
-<% $objects %>
+auth_param basic realm eBox HTTP proxy
+auth_param basic program /usr/lib/squid/ldap_auth -b  ou=Users,dc=ebox  -u uid  -D cn=admin,dn=ebox -w /var/lib/ebox/conf/ebox-ldap.passwd       
+acl authorized  proxy_auth required
+
+<& .groupsACLs, 
+    groupsPolicies => \@groupsPolicies,
+    objectsPolicies => \@objectsPolicies,
+ &>
+
+<& .objectsACLs, objectsPolicies => \@objectsPolicies &>
+
+# no cache domains acl
+% foreach my  $domain (@notCachedDomains) {
+acl noCached dstdomain <% $domain %>
+% }
+
 # END_TAG #
 acl localhost src 127.0.0.0/8
 acl localhostdst dst 127.0.0.0/8
@@ -52,20 +93,177 @@ acl Safe_ports port 873		# rsync
 acl Safe_ports port 901		# SWAT
 acl purge method PURGE
 acl CONNECT method CONNECT
- 
+
+follow_x_forwarded_for allow localhost 
 http_access allow localhost 
+
 http_access deny manager
 http_access deny purge
 http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 http_reply_access allow all
  
+
+
+
 # <EBOX> TAG_HTTP_ACCESS #
-% my $obpolicy = $policy eq 'allow' ? 'deny' : 'allow';
-% if ($objects) {
-http_access <% $obpolicy %> objects
+
+
+% if (@notCachedDomains) {
+cache deny noCached
 % }
-http_access <% $policy %> all
+
+% if ( @groupsPolicies) {
+%# if we use global group policies we must force always the authorization first
+%#http_access allow authorized all
+
+<& .groupsAccess, 
+                groupsPolicies => \@groupsPolicies, 
+&>
+% }
+
+
+<& .objectsAccess, 
+                  objectsPolicies => \@objectsPolicies, 
+&>
+
+# default policy section
+
+
+% if ( $authNeeded ) {
+%     if (not @groupsPolicies ) {
+%#      we force auth here to not force to authorize objects
+%#      which dont need auth
+http_access allow authorized all
+%     }
+% } 
+% if ($allowAll) {
+http_access allow all
+% } else {
+http_access deny all
+% }
+
+
+
 # END_TAG #
 
+
 always_direct allow localhostdst
+
+<%def .groupsAccess>
+<%args>
+@groupsPolicies
+$object => undef
+</%args>
+% foreach my $groupPol (@groupsPolicies) {
+%   my $group = $groupPol->{'group'};
+%   my $acls;
+%   my $timeAcls;
+%   if ($object) {
+%       $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
+%       $acls = "$timeAcls $object $group";
+%   }
+%   else {
+%      $timeAcls = _timeAclsInPolicy($groupPol, $group);
+%      $acls     = "$timeAcls $group";
+%   }
+%   
+%
+%
+%  my $access = $groupPol->{'allow'} ?  'allow' : 'deny';
+%       # this command is to assure we have credentials
+http_access <% $access %> <% $timeAcls %> <% defined $object ? $object : '' %> authorized <% $group %> 
+http_access <% $access %> <% $acls %>
+% }
+
+</%def>
+
+
+<%def .objectsAccess>
+<%args>
+@objectsPolicies
+</%args>
+% foreach my $objPol (@objectsPolicies) {
+%   my $object = $objPol->{'object'};
+  <& .groupsAccess, 
+           groupsPolicies =>  $objPol->{groupsPolicies},
+           object => $object,
+   &>
+%   my $timeAcls = _timeAclsInPolicy($objPol, $object);
+%   my $acls      = "$timeAcls $object"; 
+%   if ($objPol->{'auth'}) {
+http_access allow <% $timeAcls %> <% $object %>  authorized 
+%   } 
+% if ($objPol->{'allowAll'}) {
+http_access allow <% $acls %>
+%   } else {
+http_access deny <% $acls %>
+%   }
+
+% }
+
+</%def>
+
+
+<%def .groupsACLs>
+<%args>
+@groupsPolicies
+@objectsPolicies
+</%args>
+<%init>
+my %groups = map {
+        ($_ ->{group} => , $_->{users})
+} @groupsPolicies;
+
+foreach my $obPol (@objectsPolicies) {
+  foreach my $grPol (@{ $obPol->{groupsPolicies} } ) {
+        $groups{ $grPol->{group} } = $grPol->{users};
+ }
+}
+
+
+</%init>
+% while (my ($group, $users) = each %groups)  {
+acl <% $group %> proxy_auth <% join ' ', @{ $users } %>
+% }
+
+
+% foreach my $groupPol (@groupsPolicies) {
+     <& .timeACLs, policy => $groupPol, ids => [$groupPol->{group}] &>
+% }
+</%def>
+ 
+
+<%def .objectsACLs>
+<%args>
+@objectsPolicies
+</%args>
+% foreach my $objPol (@objectsPolicies) {
+%   my $object = $objPol->{object};
+acl <% $object %> src <% join ' ', @{ $objPol->{addresses} } %>
+<& .timeACLs, policy => $objPol, ids => [ $object ] &>
+%   foreach my $groupPol (@{ $objPol->{groupsPolicies} }) {
+     <& .timeACLs, policy => $groupPol, ids => [$object, $groupPol->{group}] &>
+%  }
+% }  
+</%def>
+
+
+<%def .timeACLs>
+<%args>
+$policy
+@ids
+</%args>
+<%init>
+my $id = join '_', @ids;
+</%init>
+% if ($policy->{timeDays}) {
+acl <% 'timeDays_' . $id %> time <% $policy->{timeDays} %>
+% }
+
+% if ($policy->{timeHours}) {
+acl <% 'timeHours_' . $id %> time <% $policy->{timeHours} %>
+% }
+
+
+</%def>

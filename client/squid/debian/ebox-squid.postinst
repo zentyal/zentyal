@@ -15,6 +15,10 @@ case "$1" in
         # migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-squid/migration/
 
+        # directory for extra dg domain lists
+        DG_EXTRALISTS=/etc/dansguardian/extralists
+        test -d $DG_EXTRALISTS || mkdir -p -m 0755 $DG_EXTRALISTS
+
         # restart logs
         invoke-rc.d ebox logs restart || true
         # restart squid module

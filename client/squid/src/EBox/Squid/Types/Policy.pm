@@ -6,9 +6,39 @@ use warnings;
 
 use EBox::Gettext;
 
-use Perl6::Junction qw(all);
+my %policies = (
+                allow => {
+                          allowAll => 1,
+                          auth     => 0,
+                          filter   => 0,
+                         },
+                deny => {
+                          allowAll => 0,
+                          auth     => 0,
+                          filter   => 0,
+                         },
+                filter => {
+                          allowAll => 1,
+                          auth     => 0,
+                          filter   => 1,
+                         },
+                auth => {
+                          allowAll => 1,
+                          auth     => 1,
+                          filter   => 0,
+                         },
+                authAndDeny=> {
+                          allowAll => 0,
+                          auth     => 1,
+                          filter   => 0,
+                         },
+                authAndFilter=> {
+                          allowAll => 1,
+                          auth     => 1,
+                          filter   => 1,
+                         },
+               );
 
-my $allPolicies = all qw(allow deny filter);
 
 sub new
 {
@@ -31,10 +61,13 @@ sub new
 sub _populate
 {
   my @elements = (
-		  { value => 'allow',  printableValue => __('Always allow') },
-		  { value => 'filter', printableValue => __('Filter') },
-		  { value => 'deny',   printableValue => __('Always deny') },
-		 );
+                  { value => 'allow',  printableValue => __('Always allow') },
+                  { value => 'filter', printableValue => __('Filter') },
+                  { value => 'deny',   printableValue => __('Always deny') },
+                  { value => 'auth',   printableValue => __('Authorize and allow') },
+                  { value => 'authAndFilter',   printableValue => __('Authorize and filter') },
+                  { value => 'authAndDeny',   printableValue => __('Authorize and deny') },
+                 );
 
   return \@elements;
 }
@@ -51,13 +84,35 @@ sub _paramIsValid
 sub checkPolicy
 {
   my ($class, $policy) = @_;
-  if ($policy ne $allPolicies) {
+  if (not exists $policies{$policy}) {
     throw EBox::Exceptions::InvalidData(
-					data  => __(q{Squid's policy}),
-					value => $policy,
-				       );
+                                        data  => __(q{Squid's policy}),
+                                        value => $policy,
+                                       );
   }
 }
 
+sub usesFilter
+{
+    my ($self) = @_;
+    my $policy = $self->value();
+    return $policies{$policy}->{filter};
+}
+
+
+sub usesAuth
+{
+    my ($self) = @_;
+    my $policy = $self->value();
+    return $policies{$policy}->{auth};
+}
+
+
+sub usesAllowAll
+{
+    my ($self) = @_;
+    my $policy = $self->value();
+    return $policies{$policy}->{allowAll};
+}
 
 1;

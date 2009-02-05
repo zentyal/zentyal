@@ -68,7 +68,7 @@ sub _description
       my $description =
         {
          components      => [
-			     'ContentFilterThreshold',
+                             'ContentFilterThreshold',
                              'FilterTabs',
                             ],
          layout          => 'top-bottom',
