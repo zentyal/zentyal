@@ -64,9 +64,10 @@ src/EBox/Squid/Model/Report/Makefile
 src/EBox/Squid/Composite/Makefile
 src/EBox/Squid/Composite/Report/Makefile
 src/EBox/Squid/Types/Makefile
-src/EBox/t/Makefile
+src/EBox/Squid/Types/t/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
+src/templates/ajax/setter/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

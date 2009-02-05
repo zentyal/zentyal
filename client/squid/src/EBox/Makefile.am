@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Squid  t 
+SUBDIRS = Squid 
 
 perldir = @PERLPATH@/EBox
 

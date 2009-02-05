@@ -1,8 +1,9 @@
-test_scripts = Squid.t
+test_scripts = TimePeriod.t
+
 
 EXTRA_DIST = $(test_scripts)
 
 MAINTAINERCLEANFILES = Makefile.in
 
 check:
-	prove
+	prove $(test_scripts)
