@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox
 Architecture: all
-Depends: libebox (>= 0.12.99), libebox (<= 0.12.110), apache2-mpm-prefork | apache2-mpm-worker, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-copy-recursive-perl, libfile-mmagic-perl, libxml-rss-perl, libtime-piece-perl, libjson-perl, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl
+Depends: libebox (>= 1.1), libebox (<= 1.2), apache2-mpm-prefork | apache2-mpm-worker, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-copy-recursive-perl, libfile-mmagic-perl, libxml-rss-perl, libtime-piece-perl, libjson-perl, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl
 Replaces: libebox (<< 0.12.99)
 Description: the eBox platform - Base framework
  eBox is a framework for the development and deployment of security-wise
