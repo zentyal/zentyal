@@ -63,42 +63,24 @@ sub new
 #
 sub _table
 {
+    my ($self) = @_;
 
-      my @tableDesc =
-        (
-         new EBox::Types::Boolean(
-                               fieldName     => 'blanketBlock',
-                               printableName => __('Block not listed domains'),
-                               defaultValue     => 0,
-                               help         => __('If this is enabled, ' .
-                                'any domain which is not allowed in the ' .
-                                '<i>Domains list</i> section below will be ' .
-                                'forbidden.'),
-                              ),
-         new EBox::Types::Boolean(
-                               fieldName     => 'blockIp',
-                               printableName => __('Block sites specified only as IP'),
-                               defaultValue  => 0,
-                              ),
-        );
-
- 
-
-      my $dataForm = {
-                      tableName          => 'DomainFilterSettings',
-                      printableTableName => __('Domain filter settings'),
-                      modelDomain        => 'Squid',
-                      defaultActions     => [ 'editField', 'changeView' ],
-                      tableDescription   => \@tableDesc,
-
-
-                      messages           => {
-                          update => __('Filtering settings changed'),
-                                            },
+    
+    my $dataForm = {
+                    tableName          => 'DomainFilterSettings',
+                    printableTableName => __('Domain filter settings'),
+                    modelDomain        => 'Squid',
+                    defaultActions     => [ 'editField', 'changeView' ],
+                    tableDescription   => $self->_tableHeader(),
+                    
+                    
+                    messages           => {
+                                update => __('Filtering settings changed'),
+                                          },
                      };
 
 
-      return $dataForm;
+    return $dataForm;
 }
 
 
