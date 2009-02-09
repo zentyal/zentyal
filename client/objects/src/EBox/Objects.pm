@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 package EBox::Objects;
 
 use strict;
@@ -35,31 +34,32 @@ use EBox::LogAdmin qw(:all);
 
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'objects',
-					title => __n('Objects'),
-					domain => 'ebox-objects',
-					@_);
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'objects',
+                                      title => __n('Objects'),
+                                      domain => 'ebox-objects',
+                                      @_);
+    
+    $self->{'actions'} = {};
+    $self->{'actions'}->{'addObject'} = __n('Added object {object}');
+        $self->{'actions'}->{'addToObject'} = 
+            __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
+    $self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
+    $self->{'actions'}->{'removeObjectForce'} = 
+        __n('Forcefully removed object {object}');
+    $self->{'actions'}->{'removeFromObject'} =
+        __n('Removed {nname} from object {object}');
+    
+    $self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
+                                                    'gconfmodule' => $self,
+                                                    'directory' => 'objectTable',
+                                                                  );
+    $self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
+                                                                   'gconfmodule' => $self,
+                                                                   'directory' => 'memberTable');
 
-	$self->{'actions'} = {};
-	$self->{'actions'}->{'addObject'} = __n('Added object {object}');
-	$self->{'actions'}->{'addToObject'} = 
-		__n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-	$self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
-	$self->{'actions'}->{'removeObjectForce'} = 
-		__n('Forcefully removed object {object}');
-	$self->{'actions'}->{'removeFromObject'} =
-		__n('Removed {nname} from object {object}');
-
-	$self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
-					'gconfmodule' => $self,
-					'directory' => 'objectTable');
-	$self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
-					'gconfmodule' => $self,
-					'directory' => 'memberTable');
-
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 ## api functions
@@ -81,11 +81,10 @@ sub models {
 #      <EBox::Model::ModelProvider::_exposedMethods>
 #
 sub _exposedMethods
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      my %exposedMethods =
+    my %exposedMethods =
         (
          'objectDescription1' => { action   => 'get',
                                    path     => [ 'ObjectTable' ],
@@ -118,23 +117,22 @@ sub _exposedMethods
                            },
          );
 
-      return \%exposedMethods;
-
-  }
+    return \%exposedMethods;
+}
 
 # Method: objects
 #
-# 	Return all object names
+#       Return all object names
 #
 # Returns:
 #
-# 	Array ref. Each element is a hash ref containing:
+#       Array ref. Each element is a hash ref containing:
 #
-# 	id - object's id
-# 	name - object's name
+#       id - object's id
+#       name - object's name
 sub objects
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
     my @objects;
     for my $object (@{$self->{objectModel}->rows()}) {
@@ -149,38 +147,38 @@ sub objects
 
 # Method: objectIds
 #
-#   	Return all object ids
+#       Return all object ids
 #
 # Returns:
 #
-#	Array ref - containing ids
+#       Array ref - containing ids
 sub objectIds # (object) 
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my @ids = map { $_->{'id'} }  @{$self->objects()};
-	return  \@ids;
+    my @ids = map { $_->{'id'} }  @{$self->objects()};
+    return  \@ids;
 }
 
 # objectMembers
 #
-#   	Return the members belonging to an object
+#       Return the members belonging to an object
 #
 # Parameters:
-#	
-#	(POSITIONAL)
+#       
+#       (POSITIONAL)
 #
-#	id - object's id
+#       id - object's id
 #
 # Returns:
 #
-#   	array ref - each element contains a hash with the member keys 'nname' 
-#   	(member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
-#   	'macaddr', (mac address' member)
+#       array ref - each element contains a hash with the member keys 'nname' 
+#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
+#       'macaddr', (mac address' member)
 #
 # Exceptions:
 #
-# 	<EBox::Exceptions::MissingArgument>
+#       <EBox::Exceptions::MissingArgument>
 sub objectMembers # (object) 
 {
     my ($self, $id) = @_;
@@ -212,16 +210,16 @@ sub objectMembers # (object)
 
 # objectAddresses
 #
-#   	Return the network addresses of a member 
+#       Return the network addresses of a member 
 #
 # Parameters:
 #
-#	id - object's id
+#       id - object's id
 #
 # Returns:
 #
-#	array ref - containing an ip for each element, empty array if
-#	there are no members in the object
+#       array ref - containing an ip for each element, empty array if
+#       there are no members in the object
 #
 sub objectAddresses # (object)
 {
@@ -244,19 +242,19 @@ sub objectAddresses # (object)
 
 # Method: objectDescription
 #   
-# 	Return the description of an Object
+#       Return the description of an Object
 #
 # Parameters:
 #   
-#	id - object's id
+#       id - object's id
 #
 # Returns:
 #
-# 	string - description of the Object
+#       string - description of the Object
 #
 # Exceptions: 
 #
-# 	DataNotFound - if the Object does not exist
+#       DataNotFound - if the Object does not exist
 sub objectDescription  # (object) 
 {
     my ( $self, $id ) = @_;
@@ -277,76 +275,77 @@ sub objectDescription  # (object)
 
 # Method: objectInUse
 #
-#   	Asks all installed modules if they are currently using an Object.
+#       Asks all installed modules if they are currently using an Object.
 #
 # Parameters:
 #
-# 	object - the name of an Object
+#       object - the name of an Object
 #
 # Returns:
 #   
-# 	boolean - true if there is a module which uses the Object, otherwise 
-# 	false
+#       boolean - true if there is a module which uses the Object, otherwise 
+#       false
 sub objectInUse # (object) 
 {
-	my ($self, $object ) = @_;
+    my ($self, $object ) = @_;
 
-	unless (defined($object)) {
-		throw EBox::Exceptions::MissingArgument("id");
-	}
-
-	my $global = EBox::Global->getInstance();
-	my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
-	foreach my $mod (@mods) {
-		if ($mod->usesObject($object)) {
-			return 1;
-		}
-	}
-	return undef;
+    unless (defined($object)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+    
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
+    foreach my $mod (@mods) {
+        if ($mod->usesObject($object)) {
+            return 1;
+        }
+    }
+ 
+    return undef;
 }
 
 # Method: objectExists
 #
-#   	Checks if a given object exists
-#   	
+#       Checks if a given object exists
+#       
 # Parameters:
 #   
-# 	id - object's id 
+#       id - object's id 
 #
 # Returns:
 #
-# 	boolean - true if the Object exists, otherwise false
-sub objectExists # (name) 
+#       boolean - true if the Object exists, otherwise false
+sub objectExists 
 {
-	my ($self, $id) = @_;
-	
-	unless (defined($id)) {
-		throw EBox::Exceptions::MissingArgument("id");
-	}
-	
-	return defined($self->{'objectModel'}->row($id));
+    my ($self, $id) = @_;
+        
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+    
+    return defined($self->{'objectModel'}->row($id));
 }
 
-# return defined ( $self->{objectModel}->get($id) );
+
 
 # Method: removeObjectForce 
 #
-#   	Forces an object to be deleted
-#   	
+#       Forces an object to be deleted
+#       
 # Parameters:
 #   
-# 	object - object description
+#       object - object description
 #
 sub removeObjectForce # (object) 
 {
-	#action: removeObjectForce
-	
-	my ($self, $object)  = @_;
-	my $global = EBox::Global->getInstance();
-	my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
-	foreach my $mod (@mods) {
-		$mod->freeObject($object);
-	}
+    #action: removeObjectForce
+        
+    my ($self, $object)  = @_;
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
+    foreach my $mod (@mods) {
+        $mod->freeObject($object);
+    }
 }
 
 # Method: addObject
@@ -384,7 +383,7 @@ sub removeObjectForce # (object)
 sub addObject
 {
     my ($self, %params) = @_;
-    	
+        
     $self->{'objectModel'}->addObject(%params);
 }
 
@@ -403,12 +402,17 @@ sub addObject
 #
 sub menu
 {
-	my ($self, $root) = @_;
-	my $item = new EBox::Menu::Item(
-				'url' => 'Objects/View/ObjectTable',
-				'text' => __($self->title),
-				'order' => 3);
-	$root->add($item);
+    my ($self, $root) = @_;
+    my $item = new EBox::Menu::Item(
+                                    'url' => 'Objects/View/ObjectTable',
+                                    'text' => __($self->title),
+                                    'order' => 3);
+    $root->add($item);
+}
+
+# XXX bz none of the parent provides a basic implementation of _regenConfig
+sub _regenConfig
+{
 }
 
 1;

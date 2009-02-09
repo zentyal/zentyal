@@ -119,51 +119,49 @@ sub validateRow()
     checkIP($ip, __('network address'));
     checkCIDR("$ip/$mask", __('network address'));
 
-    if ($self->_alreadyInObject($id, $ip, $mask)) {
-         throw EBox::Exceptions::DataExists(
-                                            'data' => __('network address'),
-                                            'value' => "$ip/$mask");
-    }
 
+    if ($self->_alreadyInSameObject($id, $ip, $mask)) {
+         throw EBox::Exceptions::External(
+          __x(
+              q{{ip} overlaps with the address or another object's member},
+              ip => "$ip/$mask"
+             )
+                                         );
+    }
 }
 
-# Method: alreadyInObject
+# Method: alreadyInSameObject
 #
-#       Checks if a member (i.e: its ip and mask) are already in some object
+#       Checks if a member (i.e: its ip and mask) overlaps with another object's member
 #
 # Parameters:
 #
-#	    (POSITIONAL)
-#	    
+#           (POSITIONAL)
+#           
 #        memberId - memberId
 #       ip - IPv4 address
 #       mask - network masl
 #
 # Returns:
 #   
-#       booelan - true if it's already in other object, otherwise false
-sub _alreadyInObject # (ip, mask) 
+#       booelan - true if it overlaps, otherwise false
+sub _alreadyInSameObject 
 {
     my ($self, $memberId, $iparg, $maskarg) = @_;
-     
-    my $model = EBox::Model::ModelManager->instance()->model('ObjectTable');
-    return unless (defined($model));
 
-    my $olddir = $self->directory();
 
-    for my $row (@{$model->rows()}) {
-        for my $subRow (@{$row->subModel('members')->rows()}) {
-            next if ($subRow->id() eq $memberId);
-            my $memaddr = new Net::IP($subRow->printableValueByName('ipaddr'));
-            my $new = new Net::IP("$iparg/$maskarg");
-            if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
-                return 1;
-            }
 
+    foreach my $subRow (@{$self->rows()}) {
+        next if ($subRow->id() eq $memberId);
+        my $memaddr = new Net::IP($subRow->printableValueByName('ipaddr'));
+        my $new = new Net::IP("$iparg/$maskarg");
+        if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
+            return 1;
         }
+        
     }
 
-    $self->setDirectory($olddir);
+
 
     return undef;
 }
