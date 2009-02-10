@@ -1795,7 +1795,6 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
     $self->_commonArgs('req', \$cmd);
 
     $cmd .= '-new ';
-    $self->_commonArgs('req', \$cmd);
     if ($args{genKey}) {
       $cmd .= qq{-keyout '$args{privKey}' };
       if (defined($args{keyPassword})) {
