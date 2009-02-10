@@ -358,10 +358,25 @@ sub run
 
 }
 
-
-
-
-
+# Method: unsafeParam
+#
+#     Get the CGI parameter value in an unsafe way allowing all
+#     character
+#
+#     This is a security risk and it must be used with caution
+#
+# Parameters:
+#
+#     param - String the parameter's name to get the value from
+#
+# Returns:
+#
+#     string - the parameter's value without any security check if the
+#     context is scalar
+#
+#     array - containing the string values for the given parameter if
+#     the context is an array
+#
 sub unsafeParam # (param) 
 {
 	my ($self, $param) = @_;
@@ -508,8 +523,7 @@ sub _process
     }
     otherwise {
       my $e = shift;
-      
-      EBox::error("Error in masonParameters");
+      EBox::error("Error in masonParameters $e");
       $self->setErrorFromException($e) if !exists $self->{error};
 
     };
