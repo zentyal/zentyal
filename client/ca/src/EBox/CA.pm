@@ -1309,7 +1309,7 @@ sub renewCertificate
       if (defined($args{endDate}) and not UNIVERSAL::isa($args{endDate}, "Date::Calc"));
 
     # Check the expiration date unless issuing the CA cert
-    unless (defined($args{certFile}) or $args{certFile} eq CACERT) {
+    unless (defined($args{certFile}) and $args{certFile} eq CACERT) {
       my $userExpDay = undef;
       if ( defined($args{days}) ) {
 	$userExpDay = Date::Calc::Object->now() + [0, 0, +$args{days}, 0, 0, 0];
@@ -1880,7 +1880,8 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
     }
     $cmd .= "-outdir " . CERTSDIR . " ";
     $cmd .= "-out \'$args{userCertFile}\' " if defined($args{userCertFile});
-    $cmd .= "-extensions v3_ca " if ( EXTENSIONS_V3);
+    $cmd .= '-extensions v3_ca ' if ( EXTENSIONS_V3 and $args{selfsigned});
+    $cmd .= '-extensions usr_cert ' if ( EXTENSIONS_V3 and not $args{selfsigned});
     # Only available in OpenSSL 0.9.8
     $cmd .= "-selfsign " if ($args{selfsigned});
     $cmd .= "-policy $policy ";
