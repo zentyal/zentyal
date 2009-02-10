@@ -20,8 +20,11 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
+use Error qw(:try);
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
@@ -63,15 +66,17 @@ sub _process
     my $issueCA = $self->param('caNeeded');
     $issueCA = 0 unless defined($issueCA);
 
-    if ($issueCA) {
-      $self->_requireParam('name', __('Organization Name') );
-    } else {
-      $self->_requireParam('name', __('Common Name') );
+    my $name = $self->unsafeParam('name');
+    unless (defined($name) and ($name ne '')) {
+        if ($issueCA) {
+            throw EBox::Exceptions::DataMissing(data =>  __('Organization Name') );
+        } else {
+            throw EBox::Exceptions::DataMissing(data =>  __('Common Name') );
+        }
     }
     # Common parameters
     $self->_requireParam('expiryDays', __('Days to expire') );
 
-    my $name = $self->param('name');
     my $days = $self->param('expiryDays');
     my $caPass = $self->param('caPassphrase');
     my $reCAPass = $self->param('reCAPassphrase');
@@ -103,11 +108,11 @@ sub _process
                                              days => $days));
     }
 
-    # Only valid chars minus '/' --> security risk
-    unless ( index ( $name, '/' ) == -1 ) {
+    # Only valid chars minus '/' plus '*' --> security risk
+    unless ( $name =~ m{^[\w .?&+:\-\@\*]*$} ) {
       throw EBox::Exceptions::External(__('The input contains invalid ' .
 					  'characters. All alphanumeric characters, ' .
-					  'plus these non alphanumeric chars: .?&+:\@ ' .
+					  'plus these non alphanumeric chars: .?&+:-@* ' .
 					  'and spaces are allowed.'));
     }
 

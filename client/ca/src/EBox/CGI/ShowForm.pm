@@ -59,10 +59,20 @@ sub _process
 
     my @array = ();
 
-    $self->_requireParam('cn', __('Common Name'));
+    my $cn = $self->unsafeParam('cn');
+    unless (defined($cn) and ($cn ne '')) {
+        throw EBox::Exceptions::DataMissing(data =>  __('Common Name') );
+    }
+    # Only valid chars minus '/' plus '*' --> security risk
+    unless ( $cn =~ m{^[\w .?&+:\-\@\*]*$} ) {
+        throw EBox::Exceptions::External(__('The input contains invalid ' .
+                                         'characters. All alphanumeric characters, ' .
+					 'plus these non alphanumeric chars: .?&+:-@* ' .
+					 'and spaces are allowed.'));
+    }
+
     $self->_requireParam('action', __('Action'));
 
-    my $cn = $self->param('cn');
     my $action = $self->param('action');
 
     if ($action eq "revoke") {

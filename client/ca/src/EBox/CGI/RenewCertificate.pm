@@ -70,8 +70,15 @@ sub _process
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually
-    if ( not defined($commonName) or $commonName eq "" ) {
-      throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    if ( not defined($commonName) or $commonName eq '' ) {
+        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    }
+    # Only valid chars minus '/' plus '*' --> security risk
+    unless ( $commonName =~ m{^[\w .?&+:\-\@\*]*$} ) {
+        throw EBox::Exceptions::External(__('The input contains invalid ' .
+                                            'characters. All alphanumeric characters, ' .
+					    'plus these non alphanumeric chars: .?&+:-@* ' .
+					    'and spaces are allowed.'));
     }
 
     # Transform %40 in @ 
