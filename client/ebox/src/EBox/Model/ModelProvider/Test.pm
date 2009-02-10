@@ -23,17 +23,17 @@ use constant TYPE          =>  'model' ;
 sub _classesProvidedByName
 {
   return  {
-	   Canoply => 'EBox::Jungle::Model::Canoply',
-	   Monkeys => {
-		       class      => 'EBox::Jungle::Model::Monkeys',
-		       parameters => [specie => 'gibbon'],
-		       },
-	   # multiple instances model
-	   Humans => {
-		      class => 'EBox::Jungle::Model::Humans',
-		      multiple => 1,
-		     },
-	  };
+           Canoply => 'EBox::Jungle::Model::Canoply',
+           Monkeys => {
+                       class      => 'EBox::Jungle::Model::Monkeys',
+                       parameters => [specie => 'gibbon'],
+                       },
+           # multiple instances model
+           Humans => {
+                      class => 'EBox::Jungle::Model::Humans',
+                      multiple => 1,
+                     },
+          };
 }
 
 
@@ -58,20 +58,20 @@ sub addAndRemoveModelInstanceTest : Test(15)
 {
   my ($self) = @_;
   $self->SUPER::addAndRemoveInstancesTest(
-					  getterMethod => 'model',
-					  addMethod   => 'addModelInstance',
-					  removeMethod => 'removeModelInstance',
-					 );
+                                          getterMethod => 'model',
+                                          addMethod   => 'addModelInstance',
+                                          removeMethod => 'removeModelInstance',
+                                         );
 }
 
 sub removeAllModelInstancesTest  : Test(2)
 {
   my ($self) = @_;
   $self->SUPER::removeAllInstancesTest(
-				       getAllMethod => 'models',
-				       addMethod    => 'addModelInstance',
-				       removeAllMethod => 'removeAllModelInstances',
-				      );
+                                       getAllMethod => 'models',
+                                       addMethod    => 'addModelInstance',
+                                       removeAllMethod => 'removeAllModelInstances',
+                                      );
 
 }
 
@@ -92,9 +92,9 @@ sub _providerInstance
 
   $instance = Test::MockObject::Extends->new($instance);
   $instance->mock('modelClasses' => sub {
-		                          return [values %modelClassesByName]
-	                                }
-	      );
+                                          return [values %modelClassesByName]
+                                        }
+              );
   $instance->mock( 'name' =>   sub { return 'moduleName'  }  );
 
   $instance->set_isa('EBox::Model::ModelProvider', 'EBox::GConfModule');
@@ -109,9 +109,9 @@ sub _providedInstance
 
   my $provider = $self->_providerInstance();
   my $instance = $provider->newModelInstance(
-					     $class,
-					     name => $class->nameFromClass,
-					    );
+                                             $class,
+                                             name => $class->nameFromClass,
+                                            );
 }
 
 
