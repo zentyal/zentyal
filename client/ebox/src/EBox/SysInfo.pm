@@ -231,9 +231,4 @@ sub menu
 	$root->add($folder);
 }
 
-
-# XXX no longer default _regenConfig provided so we had to oofer a empty one
-sub _regenConfig
-{}
-
 1;

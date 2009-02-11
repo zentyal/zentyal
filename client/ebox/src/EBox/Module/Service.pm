@@ -544,17 +544,6 @@ sub _regenConfig
     $self->_enforceServiceState();
 }
 
-# Method: _setConf
-#
-#	Base method to write the configuration. It should be overriden
-#	by subclasses as needed
-#
-sub _setConf
-{
-	# default empty implementation. It should be overriden by subclasses as
-	# needed
-}
-
 # Method: restartService
 #
 #        This method will try to restart the module's service by means of

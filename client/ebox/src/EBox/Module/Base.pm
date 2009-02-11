@@ -753,6 +753,27 @@ sub pidFileRunning
     return $self->pidRunning($pid);
 }
 
+# Method: _setConf
+#
+#   Base method to write the configuration. It should be overriden
+#   by subclasses as needed
+#
+sub _setConf
+{
+    # default empty implementation. It should be overriden by subclasses as
+    # needed
+}
+
+# Method: _regenConfig
+#
+#   Base method to regenerate configuration. It should be overriden
+#   by subclasses as needed
+#
+sub _regenConfig
+{
+    $self->_setConf();
+}
+
 #
 # Method: writeConfFile
 #
