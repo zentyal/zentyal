@@ -1037,4 +1037,20 @@ sub parentRow
 }
 
 
+sub filesPaths
+{
+    my ($self) = @_;
+
+    my @paths;
+    foreach my $comp (@{ $self->components() }) {
+        if ($comp->can('filesPaths')) {
+            push @paths, @{ $comp->filesPaths() };
+        }
+    }
+
+
+    return \@paths;
+}
+
+
 1;

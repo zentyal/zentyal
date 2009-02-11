@@ -656,18 +656,20 @@ sub subModel
 
 
 
-sub filesToRemoveIfDeleted
+sub filesPaths
 {
     my ($self) = @_;
     my @files;
 
     foreach my $element ( @{ $self->elements() } ) {
-        if ($element->can('filesToRemoveIfDeleted')) {
-            push @files, @{ $element->filesToRemoveIfDeleted() };
+        if ($element->can('filesPaths')) {
+            push @files, @{ $element->filesPaths() };
         }
     }
 
     return \@files;
 }
+
+
 
 1;

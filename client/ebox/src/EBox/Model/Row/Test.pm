@@ -310,8 +310,8 @@ sub filesToRemoveTest : Test(3)
     my ($self) = @_;
     my $row    = $self->_newRow();
     
-    my $element1 = _filesToRemoveIfDeleted('element1');
-    my $element2 = _filesToRemoveIfDeleted('element2');
+    my $element1 = _filesPaths('element1');
+    my $element2 = _filesPaths('element2');
     
 
     $row->addElement(
@@ -337,25 +337,25 @@ sub filesToRemoveTest : Test(3)
     $row->addElement($element2);
 
     is_deeply(
-              $row->filesToRemoveIfDeleted(),
+              $row->filesPaths(),
               [],
-            'Checking filesToRemoveIfDeleted when there are not files to remove'
+            'Checking filesPaths when there are not files to remove'
              );
 
     my @element1Files = qw(aFile);
    $row->elementByName('element1')->_setFilesToRemoveIfDeleted(\@element1Files);
     is_deeply(
-              $row->filesToRemoveIfDeleted(),
+              $row->filesPaths(),
               [@element1Files],
- 'Checking filesToRemoveIfDeleted when there is a element with files to remove'
+ 'Checking filesPaths when there is a element with files to remove'
              );
 
     my @element2Files = qw(bFile cFile);
     $row->elementByName('element2')->_setFilesToRemoveIfDeleted(\@element2Files);
     is_deeply(
-              $row->filesToRemoveIfDeleted(),
+              $row->filesPaths(),
               [@element1Files, @element2Files],
- 'Checking filesToRemoveIfDeleted when there are toe element with files to remove'
+ 'Checking filesPaths when there are toe element with files to remove'
              );
 
     
@@ -363,7 +363,7 @@ sub filesToRemoveTest : Test(3)
 }
 
 
-sub _filesToRemoveIfDeleted
+sub _filesPaths
 {
     my ($fieldName) = @_;
     my $object =    new EBox::Types::Abstract(
@@ -381,7 +381,7 @@ sub _filesToRemoveIfDeleted
                  );
 
 
-    $object->mock('filesToRemoveIfDeleted',
+    $object->mock('filesPaths',
                   sub {  
                       my ($self) = @_;
                       return exists $self->{_filesToRemove} ?
@@ -390,7 +390,7 @@ sub _filesToRemoveIfDeleted
                   }
                  );
 
-    $object->can('filesToRemoveIfDeleted') or die 'AAAAAAAa';
+    $object->can('filesPaths') or die 'AAAAAAAa';
 
     
     return $object;

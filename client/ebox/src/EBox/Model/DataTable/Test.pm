@@ -1070,40 +1070,6 @@ sub pageTest : Test(38)
 }
 
 
-sub filesToRemoveIfDeletedTest  : Test(6)
-{
-    my ($self) = @_;
-    my $dataTable = $self->_newPopulatedDataTable();
-
-    my @files = ('/tmp/test-datatable.1', '/tmp/test-datatable.2');
-    foreach my $f (@files) {
-        system "touch $f";
-    }
-
-    lives_ok {
-        foreach my $f (@files) {
-            $dataTable->addFileToRemoveIfDeleted($f);
-        }
-        
-        $dataTable->revokeFilesToRemove();
-        $dataTable->commitFilesToRemove();
-    } 'Adding files, revoking removal and commiting removal';
-
-    foreach my $f (@files) {
-        Test::File::file_exists_ok($f, 'checking that file was left untouched');
-    }
-    
-    lives_ok {
-        foreach my $f (@files) {
-            $dataTable->addFileToRemoveIfDeleted($f);
-        }
-        $dataTable->commitFilesToRemove();
-    } 'Adding files and committing removal';
-    foreach my $f (@files) {
-        Test::File::file_not_exists_ok($f, 'checking that file was deleted');
-    }
-    
-}
 
 
 sub _newDataTable

@@ -229,7 +229,12 @@ sub group
 #
 sub exist
 {
-    my ($self) = @_;
+    my ($self, $path) = @_;
+    defined $path or
+        $path = $self->path();
+    $path or 
+        return undef;
+
 
     if ( $self->path() ) {
         return EBox::Sudo::fileTest('-f', $self->path);
@@ -254,7 +259,7 @@ sub toRemove
 }
 
 
-sub filesToRemoveIfDeleted
+sub filesPaths
 {
     my ($self) = @_;
     if ($self->exist()) {
@@ -521,9 +526,11 @@ sub _paramIsSet
 
 sub backupPath
 {
-  my ($self) = @_;
-  my $path = $self->path();
-  $path or return undef;
+  my ($self, $path) = @_;
+  defined $path or
+      $path = $self->path();
+  $path or 
+      return undef;
 
   my $backupPath = $path . '.bak';
   return $backupPath;
@@ -531,9 +538,11 @@ sub backupPath
 
 sub noPreviousFilePath
 {
-  my ($self) = @_;
-  my $path = $self->path();
-  $path or return undef;
+  my ($self, $path) = @_;
+  defined $path or
+      $path = $self->path();
+  $path or 
+      return undef;
 
   my $backupPath = $path . '.noprevious.bak';
   return $backupPath;
@@ -543,14 +552,16 @@ sub noPreviousFilePath
 #  in backup and restore method is assummed that all files are owned by ebox
 sub backup
 {
-  my ($self) = @_;
-  my $path        = $self->path();
+  my ($self, $path) = @_;
+  defined $path or
+      $path = $self->path();
   $path or return;
 
-  my $backupPath = $self->backupPath();
-  my $noPreviousFilePath = $self->noPreviousFilePath();
 
-  if ($self->exist()) {
+  my $backupPath = $self->backupPath($path);
+  my $noPreviousFilePath = $self->noPreviousFilePath($path);
+
+  if ($self->exist($path)) {
 
     $backupPath or return;
 
@@ -567,18 +578,18 @@ sub backup
 
 sub restore
 {
-  my ($self) = @_;
-
-  my $path = $self->path();
+  my ($self, $path) = @_;
+  defined $path or
+      $path = $self->path();
   $path or return;
 
-  my $backupPath = $self->backupPath();
+  my $backupPath = $self->backupPath($path);
   if ( EBox::Sudo::fileTest('-f', $backupPath) ) {
       EBox::Sudo::root("cp -p $backupPath $path");
       return;
   }
   
-  my $noPreviousFilePath = $self->noPreviousFilePath();
+  my $noPreviousFilePath = $self->noPreviousFilePath($path);
   if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
       EBox::Sudo::root("rm -f $path");
   }

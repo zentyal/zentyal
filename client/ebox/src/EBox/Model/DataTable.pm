@@ -897,7 +897,7 @@ sub addTypedRow
       $self->_notifyCompositeManager('add', $self->row($id));
 
       # check if there are files to delete if revoked
-      my $filesToRemove =   $self->filesToRemoveIfRevokedForRow($row);
+      my $filesToRemove =   $self->filesPathsForRow($row);
       foreach my $file (@{  $filesToRemove }) {
           $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
       }
@@ -1137,7 +1137,7 @@ sub removeRow
     }
 
     # check if there are files to delete
-    my $filesToRemove =   $self->filesToRemoveIfDeletedForRow($row);
+    my $filesToRemove =   $self->filesPathsForRow($row);
     foreach my $file (@{  $filesToRemove }) {
         $self->{gconfmodule}->addFileToRemoveIfCommitted($file);
     }
@@ -2867,8 +2867,10 @@ sub backupFilesPaths
     $_->path();
   }  grep {  
     $_->exist()
-  }
- $self->_fileFields();
+  } $self->_fileFields();
+
+  
+
 
   return \@paths;
 }
@@ -4275,12 +4277,12 @@ sub keywords
 
 
 # This is neccesary bz dataTable may be a submodel of another thing
-sub filesToRemoveIfDeleted
+sub filesPaths
 {
     my ($self) = @_;
     
     my @files = map {
-        @{ $_->filesToRemoveIfDeleted()  }
+        @{ $_->filesPaths()  }
     } @{ $self->rows() };
 
 
@@ -4290,21 +4292,10 @@ sub filesToRemoveIfDeleted
 
 #  Warning:
 # we need to do this bz we cannot override row's methods for specific models!
-sub filesToRemoveIfDeletedForRow
+sub filesPathsForRow
 {
     my ($self, $row) = @_;
-    return $row->filesToRemoveIfDeleted();
-}
-
-
-
-#  Warning:
-# we need to do this bz we cannot override row's methods for specific models!
-sub filesToRemoveIfRevokedForRow
-{
-    my ($self, $row) = @_;
-    # filesToRemoveIfDeleted are the same will be deleted if removed the row
-    return $row->filesToRemoveIfDeleted();
+    return $row->filesPaths();
 }
 
 

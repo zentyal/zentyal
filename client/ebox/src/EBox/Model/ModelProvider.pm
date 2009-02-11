@@ -413,8 +413,8 @@ sub backupFilesInArchive
 
   my @filesToBackup;
   foreach my $model ( @{ $self->models() } ) {
-    if ($model->can('backupFilesPaths')) {
-      push @filesToBackup, @{ $model->backupFilesPaths() };
+    if ($model->can('filesPaths')) {
+      push @filesToBackup, @{ $model->filesPaths() };
     }
   }
 

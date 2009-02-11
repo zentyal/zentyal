@@ -232,7 +232,7 @@ sub printableValueTest : Test(2)
 
 
 
-sub filesToRemoveIfDeleted : Test(2)
+sub filesPaths : Test(2)
 {
     my $file = EBox::Types::File->new(
                                       filePath => $path,
@@ -240,16 +240,16 @@ sub filesToRemoveIfDeleted : Test(2)
                                      );
 
     is_deeply( 
-              $file->filesToRemoveIfDeleted(), 
+              $file->filesPaths(), 
               [],
-     'Checking return value of filesToRemoveIfDeleted when no file is present '
+     'Checking return value of filesPaths when no file is present '
              );
 
     write_file($path, $content);
     is_deeply (
-               $file->filesToRemoveIfDeleted(), 
+               $file->filesPaths(), 
                [ $path ],
-        'Checking return value of filesToRemoveIfDeleted when file is present '
+        'Checking return value of filesPaths when file is present '
               );
     
 

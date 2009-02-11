@@ -374,13 +374,16 @@ sub _paramIsSet
   }
 
 
-sub filesToRemoveIfDeleted
+sub filesPaths
 {
     my ($self) = @_;
     my $subModel = $self->foreignModelInstance();
+    if (not $subModel) {
+        return [];
+    }
 
-    if ($subModel->can('filesToRemoveIfDeleted')) {
-        return $subModel->filesToRemoveIfDeleted();
+    if ($subModel->can('filesPaths')) {
+        return $subModel->filesPaths();
     }
     else {
         return []
