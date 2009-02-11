@@ -896,6 +896,13 @@ sub addTypedRow
       $self->_notifyModelManager('add', $self->row($id));
       $self->_notifyCompositeManager('add', $self->row($id));
 
+      # check if there are files to delete if revoked
+      my $filesToRemove =   $self->filesToRemoveIfRevokedForRow($row);
+      foreach my $file (@{  $filesToRemove }) {
+          $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
+      }
+
+
       $self->_setCacheDirty();
 
       return $id;
@@ -1092,11 +1099,7 @@ sub removeRow
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
 
-    # check if there are files to delete
-    my $filesToRemove =   $self->filesToRemoveIfDeletedForRow($row);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->addFileToRemoveIfDeleted($file);
-    }
+
 
 
     # Workaround: It seems that deleting a dir in gconf doesn't work
@@ -1132,6 +1135,13 @@ sub removeRow
             $userMsg .= "<br><br>$depModelMsg";
         }
     }
+
+    # check if there are files to delete
+    my $filesToRemove =   $self->filesToRemoveIfDeletedForRow($row);
+    foreach my $file (@{  $filesToRemove }) {
+        $self->{gconfmodule}->addFileToRemoveIfCommitted($file);
+    }
+
     $self->setMessage($userMsg);
     $self->deletedRowNotify($row, $force);
 
@@ -4259,56 +4269,12 @@ sub keywords
 }
 
 
-sub addFileToRemoveIfDeleted
-{
-    my ($self, $file) = @_;
-    my $dir = $self->_filesToRemoveIfDeletedDir();
-    my $key  = $dir . '/' . $self->{gconfmodule}->get_unique_id('toremove', $dir);
-
-   $self->{gconfmodule}->set_string($key, $file);
-}
-
-sub commitFilesToRemove
-{
-    my ($self) = @_;
-    my $dir = $self->_filesToRemoveIfDeletedDir();
-    my @allEntries = $self->{gconfmodule}->all_entries($dir);
-    foreach my $entry ( @allEntries  ) {
-        my $file = $self->{gconfmodule}->get_string($entry);
-        EBox::Sudo::root("rm -rf '$file'");
-    }
+  
 
 
-    $self->_clearFilesToRemoveList();
-}
 
 
-sub revokeFilesToRemove
-{
-    my ($self) = @_;
-    $self->_clearFilesToRemoveList();
-}
-
-
-sub _filesToRemoveIfDeletedDir
-{
-  my ($self) = @_;
-  my $dir = $self->directory();
-  return "$dir/filesToRemoveIfDeleted";
-} 
-
-
-sub _clearFilesToRemoveList
-{
-  my ($self) = @_;
-  my $dir = $self->_filesToRemoveIfDeletedDir();
-  if ($self->{gconfmodule}->dir_exists($dir)) {
-      $self->{gconfmodule}->delete_dir($dir);
-  }
-}
-
-
-# This is neccesary bz dataTable may be a submodel of another thinf
+# This is neccesary bz dataTable may be a submodel of another thing
 sub filesToRemoveIfDeleted
 {
     my ($self) = @_;
@@ -4330,6 +4296,19 @@ sub filesToRemoveIfDeletedForRow
     return $row->filesToRemoveIfDeleted();
 }
 
+
+
+#  Warning:
+# we need to do this bz we cannot override row's methods for specific models!
+sub filesToRemoveIfRevokedForRow
+{
+    my ($self, $row) = @_;
+    # filesToRemoveIfDeleted are the same will be deleted if removed the row
+    return $row->filesToRemoveIfDeleted();
+}
+
+
+
 sub parentRow
 {
     my ($self) = @_;
@@ -4340,7 +4319,8 @@ sub parentRow
     }
 
     my $dirsToRowId;
-    if ($self->parentComposite()) {
+    my $parentComposite = $self->parentComposite();
+    if ($parentComposite) {
         $dirsToRowId = 3;
     }
     else {
@@ -4350,11 +4330,41 @@ sub parentRow
 
     my $dir = $self->directory();
     my @parts = split '/', $dir;
-#    my $rowId = $parts[-2];
-#    my $rowId = $parts[-3];
     my $rowId = $parts[-$dirsToRowId];
 
-    return $parent->row($rowId);
+    my $row =  $parent->row($rowId);
+    $row or
+        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
+
+    return $row;
 }
+
+
+# # return all child instances
+# sub childs
+# {
+#     my ($self, $recursive) = @_;
+#     defined $recursive or
+#         $recursive = 1;
+    
+#     my @childs;
+#     foreach my $row (@{ $self->rows()  }) {
+#         my @rowModels = @{  $row->subModels() };
+#         push @childs, @rowModels;
+
+#         if ($recursive) {
+#             foreach my $model (@rowModels) {
+#                 if ($model->can('childs')) {
+#                     push @childs, @{ $model->childs(1) };
+#                 }
+#             }
+#         }
+
+#     }
+
+#     return \@childs;
+
+# }
+
 
 1;

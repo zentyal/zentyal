@@ -29,6 +29,7 @@ use EBox::GConfState;
 use EBox::GConfConfig;
 use File::Basename;
 
+
 sub _create # (name)
 {
 	my $class = shift;
@@ -190,15 +191,19 @@ sub revokeConfig
 	my $global = EBox::Global->getInstance();
 
 	$global->modIsChanged($self->name) or return;
+
+        if ($self->isa('EBox::Model::ModelProvider')) {
+          $self->modelsRevokeConfig();
+        }
+
+        $self->_revokeConfigFiles();
+
 	$global->modRestarted($self->name);
 
 	my $ro = $self->{ro};
 	$self->{ro} = undef;
 	$self->_load_from_file();
 
-        if ($self->isa('EBox::Model::ModelProvider')) {
-          $self->modelsRevokeConfig();
-        }
         $self->{ro} = $ro;
 }
 
@@ -226,6 +231,7 @@ sub _saveConfig
 	}
 
 	$self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
+        $self->_saveConfigFiles();
 }
 
 sub _backup
@@ -1019,5 +1025,142 @@ sub _get_unique_id
 	}
 	return $id;
 }
+
+
+# files stuff we have to put this stuff in gconfmodule bz if we put into models
+# we lost data due to the parent/child relations
+
+sub _filesToRemoveIfCommittedDir
+{
+  my ($self) = @_;
+  return 'filesToRemoveIfComitted';
+} 
+
+
+sub _filesToRemoveIfRevokedDir
+{
+  my ($self) = @_;
+  return 'filesToRemoveIfRevoked';
+} 
+
+
+
+sub addFileToRemoveIfCommitted
+{
+    my ($self, $file) = @_;
+    my $dir = $self->_filesToRemoveIfCommittedDir();
+    $self->_addFileToList($file, $dir);
+}
+
+
+sub addFileToRemoveIfRevoked
+{
+    my ($self, $file) = @_;
+    my $dir = $self->_filesToRemoveIfRevokedDir();
+    $self->_addFileToList($file, $dir);
+}
+
+
+
+sub _fileListDirs
+{
+    my ($self) = @_;
+
+    my @dirs = (
+                $self->_filesToRemoveIfCommittedDir(),
+                $self->_filesToRemoveIfRevokedDir(),
+             );
+    
+    return \@dirs;
+}
+
+sub _addFileToList
+{
+    my ($self, $file, $dir) = @_;
+    my $key = $file;
+    $key =~ s{/}{N1N}g; #escape path, we do not intend that we can unescape them
+                        #but we need a predecible value to remove repeated keys
+
+    # remove references to file in another lists
+    my @dirs = @{ $self->_fileListDirs() };
+    foreach my $listDir (@dirs) {
+        my $listKey = $listDir . '/' . $key;
+        $self->unset($listKey);
+    }
+
+
+    my $fullKey  = $dir . '/' . $key;
+    $self->set_string($fullKey, $file);
+}
+
+sub _fileList 
+{
+    my ($self, $dir) = @_;
+
+    if (not $self->dir_exists($dir)) {
+        return [];
+    }
+
+    my @files  = map {
+        $self->get_string($_);
+    } $self->all_entries($dir);
+
+    return \@files;
+}
+
+sub _saveConfigFiles
+{
+    my ($self) = @_;
+    my $dir = $self->_filesToRemoveIfCommittedDir();
+    my @files = @{ $self->_fileList($dir) };
+
+
+    foreach my $file ( @files  ) {
+        EBox::Sudo::root("rm -rf '$file'");
+    }
+
+
+    # XXX discard file backups
+
+    $self->_clearFilesToRemoveLists();
+}
+
+
+sub _clearFilesToRemoveLists
+{
+  my ($self) = @_;
+
+  my @dirs = @{ $self->_fileListDirs() };
+
+  foreach my $dir (@dirs) {
+      if ($self->dir_exists($dir)) {
+          $self->delete_dir($dir);
+      }
+  }
+
+}
+
+
+
+
+
+sub _revokeConfigFiles
+{
+    my ($self) = @_;
+
+    my $dir = $self->_filesToRemoveIfRevokedDir();
+
+
+    my @files = @{ $self->_fileList($dir) };
+    foreach my $file ( @files  ) {
+        EBox::Sudo::root("rm -rf '$file'");
+    }
+
+
+    # XXX restore files backups
+
+    $self->_clearFilesToRemoveLists();
+}
+
 
 1;

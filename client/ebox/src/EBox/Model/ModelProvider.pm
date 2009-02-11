@@ -375,9 +375,9 @@ sub modelsSaveConfig
     if ($model->can('backupFiles')) {
       $model->backupFiles();
     }
-    if ($model->can('commitFilesToRemove')) {
-        $model->commitFilesToRemove();
-    }
+#     if ($model->can('commitFilesToRemove')) {
+#         $model->commitFilesToRemove();
+#     }
 
   }
 
@@ -391,9 +391,10 @@ sub modelsRevokeConfig
     if ($model->can('restoreFiles')) {
       $model->restoreFiles();
     }
-    if ($model->can('revokeFilesToRemove')) {
-        $model->revokeFilesToRemove();
-    }
+
+#     if ($model->can('revokeFilesToRemove')) {
+#         $model->revokeFilesToRemove();
+#     }
   }
 
 }
@@ -449,5 +450,35 @@ sub restoreFilesFromArchive
   my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
   EBox::Sudo::root($restoreCmd);
 }
+
+
+# # all model instances in the current module config
+# sub allModelInstances
+# {
+#     my ($self) = @_;
+    
+#     my @instances;
+
+#     my @models = @{ $self->models() };
+#     my %parents;
+
+#     foreach my $model (@models) {
+#         my $parent = $model->parent();
+#         EBox::debug($model->name(). " parent $parent");
+
+#         if ($parent) {
+#             $parents{$parent->name()} = $parent;
+#         } else {
+#             push @instances, $model;
+#         }
+#     }
+
+
+#     foreach my $parent (values %parents) {
+#         push @models, @{ $parent->childs(1) };
+#     }
+
+#     return \@models;
+# }
 
 1;
