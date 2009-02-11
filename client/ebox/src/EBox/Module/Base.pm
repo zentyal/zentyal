@@ -771,6 +771,7 @@ sub _setConf
 #
 sub _regenConfig
 {
+    my ($self) = @_;
     $self->_setConf();
 }
 
