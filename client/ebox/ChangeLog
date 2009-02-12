@@ -14,6 +14,7 @@
 	+ System Menu item element 'RAID' is always visible even when RAID
 	is not installed
         + Files in deleted rows are deleted when the changes are saved
+	+ Fixed some bug whens backing and restore files
 	+ Components can be subModels of the HasMany type
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path

@@ -1112,17 +1112,7 @@ sub _saveConfigFiles
 {
     my ($self) = @_;
     my $dir = $self->_filesToRemoveIfCommittedDir();
-    my @files = @{ $self->_fileList($dir) };
-
-
-    foreach my $file ( @files  ) {
-        EBox::Sudo::root("rm -rf '$file'");
-    }
-
-
-    # XXX discard file backups
-
-    $self->_clearFilesToRemoveLists();
+    $self->_removeFilesFromList($dir);
 }
 
 
@@ -1149,17 +1139,24 @@ sub _revokeConfigFiles
     my ($self) = @_;
 
     my $dir = $self->_filesToRemoveIfRevokedDir();
+    $self->_removeFilesFromList($dir);
+}
 
+
+sub _removeFilesFromList
+{
+    my ($self, $dir) = @_;
 
     my @files = @{ $self->_fileList($dir) };
     foreach my $file ( @files  ) {
-        EBox::Sudo::root("rm -rf '$file'");
+        my $backupPath         = EBox::Types::File->backupPath($file);
+        my $noPreviousFilePath = EBox::Types::File->noPreviousFilePath($file);
+
+        EBox::Sudo::root("rm -rf '$file' '$backupPath' '$noPreviousFilePath'");
     }
 
-
-    # XXX restore files backups
-
     $self->_clearFilesToRemoveLists();
+
 }
 
 

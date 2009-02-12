@@ -390,6 +390,36 @@ sub filesPaths
     }
 }
 
+sub backupFiles
+{
+  my ($self) = @_;
+
+  my $subModel = $self->foreignModelInstance();
+  if (not $subModel) {
+      return;
+  }
+
+  if ($subModel->can('backupFiles')) {
+      return $subModel->backupFiles();
+  }
+
+}
+
+
+sub restoreFiles
+{
+  my ($self) = @_;
+
+  my $subModel = $self->foreignModelInstance();
+  if (not $subModel) {
+      return;
+  }
+
+  if ($subModel->can('restoreFiles')) {
+      return $subModel->restoreFiles();
+  }
+}
+
 
 
 1;

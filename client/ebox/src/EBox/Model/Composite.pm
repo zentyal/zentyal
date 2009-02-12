@@ -1053,4 +1053,30 @@ sub filesPaths
 }
 
 
+sub backupFiles
+{
+  my ($self) = @_;
+
+    foreach my $comp (@{ $self->components() }) {
+        if ($comp->can('backupFiles')) {
+            $comp->backupFiles();
+        }
+    }
+
+}
+
+sub restoreFiles
+{
+  my ($self) = @_;
+
+    foreach my $comp (@{ $self->components() }) {
+        if ($comp->can('restoreFiles')) {
+            $comp->restoreFiles();
+        }
+    }
+
+}
+
+
+
 1;

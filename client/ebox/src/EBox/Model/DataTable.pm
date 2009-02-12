@@ -2837,12 +2837,13 @@ sub backupFiles
 {
   my ($self) = @_;
 
-  my @files = $self->_fileFields();
-  @files or return;
+  $self->_hasFileFields() or
+      return;
 
-  foreach my $file (@files) {
-    $file->backup();
+  foreach my $row (@{ $self->rows() } ) {
+      $row->backupFiles();
   }
+
   
 }
 
@@ -2851,29 +2852,34 @@ sub restoreFiles
 {
   my ($self) = @_;
 
-  my @files = $self->_fileFields();
-  @files or return;
+  $self->_hasFileFields() or
+      return;
 
-  foreach my $file (@files) {
-    $file->restore();
+  foreach my $row (@{ $self->rows() } ) {
+      $row->restoreFiles();
   }
+
 }
 
-sub backupFilesPaths
+
+sub _hasFileFields
 {
-  my ($self) = @_;
+    my ($self) = @_;
+ 
+    my $tableDesc = $self->table()->{tableDescription};
+    foreach my $header  (  @{ $tableDesc } ) {
+        if ($header->can('filesPaths')) {
+            return 1;
+        }
+    }
 
-  my @paths =  map {
-    $_->path();
-  }  grep {  
-    $_->exist()
-  } $self->_fileFields();
 
-  
-
-
-  return \@paths;
+ 
+    return 0;
 }
+
+
+
 
 # Method: reloadTable
 #
@@ -4207,15 +4213,7 @@ sub _setEnabledAsFieldInTable
 }
 
 
-sub _fileFields
-{
-    my ($self) = @_;
 
-    my $tableDesc = $self->table()->{tableDescription};
-    my @files = grep { $_->isa('EBox::Types::File') } @{ $tableDesc };
-
-    return @files;
-}
 
 # Set the table as volatile if all its fields are so
 sub _setIfVolatile
@@ -4281,6 +4279,9 @@ sub filesPaths
 {
     my ($self) = @_;
     
+    $self->_hasFileFields() or
+        return [];
+
     my @files = map {
         @{ $_->filesPaths()  }
     } @{ $self->rows() };
@@ -4331,31 +4332,6 @@ sub parentRow
 }
 
 
-# # return all child instances
-# sub childs
-# {
-#     my ($self, $recursive) = @_;
-#     defined $recursive or
-#         $recursive = 1;
-    
-#     my @childs;
-#     foreach my $row (@{ $self->rows()  }) {
-#         my @rowModels = @{  $row->subModels() };
-#         push @childs, @rowModels;
-
-#         if ($recursive) {
-#             foreach my $model (@rowModels) {
-#                 if ($model->can('childs')) {
-#                     push @childs, @{ $model->childs(1) };
-#                 }
-#             }
-#         }
-
-#     }
-
-#     return \@childs;
-
-# }
 
 
 1;

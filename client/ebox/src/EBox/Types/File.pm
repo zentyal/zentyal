@@ -412,8 +412,10 @@ sub _storeInGConf
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
+
     if ($self->path() and $self->userPath()) {
         $gconfmod->set_string($keyField, $self->path());
+
         # Do actually move
         $self->_moveToPath();
 
@@ -434,6 +436,11 @@ sub _storeInGConf
 sub _moveToPath
 {
     my ($self) = @_;
+
+#     # assure we have backuped the current config
+#     my $gconfmod = $self->model()->{gconfmodule};
+#     $gconfmod->_backup();
+
 
     my $path   = $self->path();
 
@@ -550,7 +557,7 @@ sub noPreviousFilePath
 
 
 #  in backup and restore method is assummed that all files are owned by ebox
-sub backup
+sub backupFiles
 {
   my ($self, $path) = @_;
   defined $path or
@@ -576,7 +583,7 @@ sub backup
 }
 
 
-sub restore
+sub restoreFiles
 {
   my ($self, $path) = @_;
   defined $path or

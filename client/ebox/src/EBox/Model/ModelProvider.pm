@@ -371,19 +371,32 @@ sub modelsSaveConfig
 {
   my ($self) = @_;
 
-  foreach my $model ( @{ $self->models() } ) {
-    if ($model->can('backupFiles')) {
-      $model->backupFiles();
-    }
-#     if ($model->can('commitFilesToRemove')) {
-#         $model->commitFilesToRemove();
-#     }
+  $self->modelsBackupFiles();
+}
 
-  }
+
+
+sub modelsRevokeConfig
+{
+  my ($self) = @_;
+
+  $self->modelsRestoreFiles();
 
 }
 
-sub modelsRevokeConfig
+sub modelsBackupFiles
+{
+  my ($self) = @_;
+
+  foreach my $model ( @{ $self->models() } ) {
+      if ($model->can('backupFiles')) {
+          $model->backupFiles();
+      }
+  }
+}
+
+
+sub modelsRestoreFiles
 {
   my ($self) = @_;
 
@@ -392,14 +405,10 @@ sub modelsRevokeConfig
       $model->restoreFiles();
     }
 
-#     if ($model->can('revokeFilesToRemove')) {
-#         $model->revokeFilesToRemove();
-#     }
+
   }
 
 }
-
-
 
 sub _filesArchive
 {
@@ -452,33 +461,5 @@ sub restoreFilesFromArchive
 }
 
 
-# # all model instances in the current module config
-# sub allModelInstances
-# {
-#     my ($self) = @_;
-    
-#     my @instances;
-
-#     my @models = @{ $self->models() };
-#     my %parents;
-
-#     foreach my $model (@models) {
-#         my $parent = $model->parent();
-#         EBox::debug($model->name(). " parent $parent");
-
-#         if ($parent) {
-#             $parents{$parent->name()} = $parent;
-#         } else {
-#             push @instances, $model;
-#         }
-#     }
-
-
-#     foreach my $parent (values %parents) {
-#         push @models, @{ $parent->childs(1) };
-#     }
-
-#     return \@models;
-# }
 
 1;

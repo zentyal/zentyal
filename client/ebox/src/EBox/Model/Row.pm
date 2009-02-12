@@ -670,6 +670,30 @@ sub filesPaths
     return \@files;
 }
 
+sub backupFiles
+{
+  my ($self) = @_;
+
+  foreach my $element ( @{ $self->elements() } ) {
+      if ($element->can('backupFiles')) {
+          $element->backupFiles();
+      } 
+  }
+  
+}
+
+
+sub restoreFiles
+{
+  my ($self) = @_;
+
+  foreach my $element ( @{ $self->elements() } ) {
+      if ($element->can('restoreFiles')) {
+          $element->restoreFiles();
+      } 
+  }
+
+}
 
 
 1;

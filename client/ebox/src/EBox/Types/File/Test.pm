@@ -75,7 +75,7 @@ sub restoreWithoutBackup : Test(2)
     my $file = newFile();
 
     lives_ok {
-        $file->restore()
+        $file->restoreFiles()
     } ' restore without previous backup or file';
     write_file($path, $content);
     
@@ -89,7 +89,7 @@ sub restoreWithoutBackup: Test(4)
 
     write_file($path, $content);
     lives_ok {
-        $file->restore()
+        $file->restoreFiles()
     } ' restore with backup of no existent file';
 
     my $actualContent = read_file($path);
@@ -99,7 +99,7 @@ sub restoreWithoutBackup: Test(4)
     unlink $path;
 
         lives_ok {
-        $file->restore()
+        $file->restoreFiles()
     } ' restore with backup of no existent file';
 
     Test::File::file_not_exists_ok($path, "checking that restore without backup does not bring back deleted files");
@@ -114,13 +114,13 @@ sub restoreWithoutPreviousFile : Test(3)
     
     # backup of a not existent file
     lives_ok {
-        $file->backup()
+        $file->backupFiles()
     } 'backup of a not existent file';
     
 
     write_file($path, $content);
     lives_ok {
-        $file->restore()
+        $file->restoreFiles()
     } ' restore with backup of no existent file';
 
     Test::File::file_not_exists_ok($path, "checking that restore bckup done without files erases the new file");
@@ -134,12 +134,12 @@ sub restoreWithPreviousFile : Test(5)
     write_file($path, $content);
 
     lives_ok {
-        $file->backup()
+        $file->backupFiles()
     } 'backup with file';
 
     unlink $path;
     lives_ok {
-        $file->restore();
+        $file->restoreFiles();
     } 'restore after deleting file';
     my $actualContent = read_file($path);
     is $actualContent, $content, 
@@ -148,7 +148,7 @@ sub restoreWithPreviousFile : Test(5)
 
     write_file($path, $secondContent);
     lives_ok {
-        $file->restore();
+        $file->restoreFiles();
     } 'restore after replacing file with another';
     is $actualContent, $content, 
         'Checking if the restored file after being replaced has the right content';
