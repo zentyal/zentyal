@@ -159,6 +159,7 @@ src/EBox/RemoteServices/Server/Makefile
 src/EBox/RemoteServices/Server/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/File/Makefile
+src/EBox/Types/Text/Makefile
 src/EBox/Types/t/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/ProgressIndicator/Makefile
