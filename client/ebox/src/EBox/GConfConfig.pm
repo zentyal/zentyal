@@ -84,6 +84,16 @@ sub backup
 	$self->{mod}->_dump_to_file;
 
 	$global->modChange($self->{mod}->name);
+
+        # XXX I had placed this after the modChange mark bz otherway i get a
+        # infintie loop. It would be better untangle the problem and had it
+        # before the changed mark
+        if ($self->{mod}->isa('EBox::Model::ModelProvider')) {
+            $self->{mod}->modelsBackupFiles();
+        }
+
+
+
 }
 
 1;
