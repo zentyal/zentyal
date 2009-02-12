@@ -183,12 +183,18 @@ sub parent
     my $rowId = $parts[-6]; # 8
 
     my $granparentRow = $filterProfiles->row($rowId);
+    use Devel::StackTrace;
+      my $trace = Devel::StackTrace->new;
+
+    EBox::debug($trace->as_string);
+
+    EBox::debug("grandparent id: $rowId dir: $dir row: $granparentRow");
     my $filterPolicy  = $granparentRow->elementByName('filterPolicy')->foreignModelInstance();
 
     
     my $parent =  $filterPolicy->componentByName('FilterGroupDomainFilterFiles', 1);
 
-    EBox::debug("PPARENT $parent");
+#    EBox::debug("PPARENT $parent");
 
     return $parent;
 }

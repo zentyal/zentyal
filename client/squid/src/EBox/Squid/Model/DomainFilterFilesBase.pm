@@ -23,7 +23,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Squid::Types::DomainPolicy;
 use EBox::Types::File;
-use EBox::Types::Text;
+use EBox::Types::Text::WriteOnce;
 use EBox::Types::HasMany;
 
 use Error qw(:try);
@@ -54,7 +54,7 @@ sub _tableHeader
 
       my @tableHeader =
         (
-         new EBox::Types::Text(
+         new EBox::Types::Text::WriteOnce(
                                fieldName => 'description',
                                printableName => ('Description'),
                                unique   => 1,
@@ -110,8 +110,7 @@ sub _listFilePath
     my $path = $model->listFileDir(); 
     $path .= '/' . $id;
 
-    EBox::debug("File path $path");
-
+#    EBox::debug("File path $path");
 
     return $path;
 }
@@ -137,6 +136,9 @@ sub _fileId
 sub archiveContentsDir
 {
     my ($self, $id) = @_;
+    defined $id or
+        $id = '';
+
     my $dir = $self->listFileDir() . '/archives/' . $id;
     if (-d $dir) {
         EBox::Sudo::root("mkdir -m 0755 -p $dir");
@@ -513,6 +515,47 @@ sub _populateCategories
 
 
 
+
+sub cleanOrphanedFiles
+{
+    my ($self) = @_;
+
+    my $dir = $self->listFileDir();
+    (-d $dir) or
+        return;
+
+
+    my @listFiles = EBox::Sudo::root("find $dir -maxdepth 1 -type f");
+
+
+    my %expectedFiles = map {
+        chomp $_;
+            ($_ => 1);
+    }   @listFiles;
+
+    my $archivesDirBase = $self->archiveContentsDir();
+    (-d $archivesDirBase) or
+        return;
+
+    my $archivesDirs = EBox::Sudo::root("find $archivesDirBase -maxdepth 1 -type d");
+    foreach my $archDir (@{ $archivesDirs }) {
+        chomp $archDir;
+        if ($archDir eq $archivesDirBase) {
+            next;
+        }
+
+        $archDir =~ m{/(.*?)$};
+        my $basename = $1;
+        my $archiveFile = $dir . '/' . $basename;
+        if (exists $expectedFiles{$archiveFile}) {
+            next;
+        }
+
+        EBox::debug("Orphaned content dir $archDir. (Looked for file $archiveFile. Will be removed");
+        EBox::Sudo::root("rm -rf $archDir");
+        
+    }
+}
 
 
 sub cleanEmptyDirs

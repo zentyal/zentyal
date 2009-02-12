@@ -328,8 +328,6 @@ sub _regenConfig
     my ($self) = @_;
     $self->_setSquidConf();
     $self->_enforceServiceState();
-    $self->_doDaemon();
-    $self->_doDGDaemon();
 }
 
 sub _cache_mem 
@@ -722,14 +720,50 @@ sub _writeDgConf
   }
 
 
-  # purge empty file list directories XXX is not the ideal palce to do this but
-  # we don't have options bz deletedRowNotify is called before deleting the file
-  # so the directory is not empty
-  my $domainFilterFiles = $self->model('DomainFilterFiles');
-  $domainFilterFiles->cleanEmptyDirs();
+  $self->_cleanDomainFilterFiles();
+
 }
 
 
+sub revokeConfig
+{
+    my ($self) = @_;
+    $self->_cleanDomainFilterFiles();
+
+    return $self->SUPER::revokeConfig();
+}
+
+
+sub _cleanDomainFilterFiles
+{
+    my ($self) = @_;
+  # purge empty file list directories and orphaned files/directories
+  # XXX is not the ideal palce to
+  # do this but we don't have options bz deletedRowNotify is called before
+  # deleting the file so the directory is not empty
+
+    # XXX we clean the DomainFilterFiles aside bz it has at FilterFiles
+    # componet with distinct name
+    my $domainFilterFiles = $self->model('DomainFilterFiles');
+    $domainFilterFiles->cleanOrphanedFiles();
+
+    my $filterGroups = $self->model('FilterGroup');
+    my $defaultGroupName = $filterGroups->defaultGroupName();
+    foreach my $row ( @{ $filterGroups->rows() } ) {
+        if ($row->valueByName('name') eq $defaultGroupName) {
+            next;
+        }
+
+        my $filterPolicy =   $row->elementByName('filterPolicy');
+        my $fgSettings = $filterPolicy->foreignModelInstance();
+        my $fgDomainFilterFiles = $fgSettings->componentByName('FilterGroupDomainFilterFiles', 1);
+        $fgDomainFilterFiles->cleanOrphanedFiles();
+    }
+
+
+    $domainFilterFiles->cleanEmptyDirs(); # this only need to be called one time
+                                          # for all profiles
+}
 
 sub _banThresholdActive
 {
