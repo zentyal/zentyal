@@ -1,5 +1,8 @@
+0.12.101
+	+ Add missing backslash to display update form correctly
 0.12.100
-	+ Restart apache once and not for every package when upgrading or installing
+	+ Restart apache once and not for every package when upgrading or
+	installing
 0.12.99
 	+ New release
 0.12.2
