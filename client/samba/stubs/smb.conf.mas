@@ -105,8 +105,8 @@ use EBox::Gettext;
 	path = <% $group->{'path'} %>
 	valid users = @"<% $group->{'groupname'} %>"
 	force group = "<% $group->{'groupname'} %>"
-	force create mode = 0770
-	force directory mode = 0770
+	force create mode = 0660
+	force directory mode = 0660
 	printable = No
 	read only = No
 	browseable = Yes
@@ -135,6 +135,8 @@ use EBox::Gettext;
  admin users = <% $share->{administrators} %>
  read only = No
  browseable = Yes
+ force create mode = 0660
+ force directory mode = 0660
 
 % }
 

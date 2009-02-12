@@ -1,3 +1,5 @@
+0.12.101
+	+ Bugfix: set force directory mode and force create mode to 0660 in shares
 0.12.100
 	+ Admin user method is more robust in face of user's incomplete
 	groups membership
