@@ -34,7 +34,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
-
+use EBox::Types::Text::WriteOnce;
 
 #use EBox::OpenVPN::Model::ClientConfiguration;
 
@@ -54,7 +54,7 @@ sub _table
     my @tableHead = 
         ( 
 
-            new EBox::Types::Text
+         new EBox::Types::Text::WriteOnce
                             (
                                 'fieldName' => 'name',
                                 'printableName' => __('Name'),

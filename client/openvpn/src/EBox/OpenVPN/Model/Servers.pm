@@ -31,7 +31,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
 use EBox::Types::HasMany;
-use EBox::OpenVPN::Types::WriteOnceText;
+use EBox::Types::Text::WriteOnce;
 use EBox::Types::Boolean;
 
 use EBox::OpenVPN::Server;
@@ -62,7 +62,7 @@ sub _table
 
                                       defaultValue => 0,
                                      ),
-            new EBox::OpenVPN::Types::WriteOnceText
+            new EBox::Types::Text::WriteOnce
                             (
                                 'fieldName' => 'name',
                                 'printableName' => __('Name'),

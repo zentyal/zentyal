@@ -1,5 +1,7 @@
 1.1
 	+ Show status for non-internal VPN daemons in dashboard
+	+ Using EBox::Types::Text::WriteOnce instead of EBox::Types::OpenVPN::WriteOnceText
+        
 0.12.100
         + Daemon names are restricted to alphanumerics and '-'. '_', '.'
 	characters
