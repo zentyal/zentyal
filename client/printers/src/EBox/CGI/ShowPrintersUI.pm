@@ -45,7 +45,7 @@ sub _process($) {
 	
 	my $printers = EBox::Global->modInstance('printers');
 	my $active;
-	if ($printers->service()) {
+	if ($printers->isEnabled()) {
 		$active = 'yes';
 	} else {
 		$active = 'no';

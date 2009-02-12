@@ -1,3 +1,7 @@
+0.12.101
+	+ Bug fix: Use isEnabled() instead of deprecated service()
+0.12.100
+	+ New release
 0.12.1
 	+ Add support for external printers configured with CUPS 
 0.12
