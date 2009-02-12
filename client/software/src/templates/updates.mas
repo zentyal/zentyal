@@ -55,7 +55,7 @@ use EBox::Gettext;
 				<td class='tcenter'>
 					<input type='checkbox' value='on'
 						onclick="checkAll('updates', 'allbox');"
-						name='allbox'>
+						name='allbox'/>
 				</td>
 			</tr>
 		</tbody>
