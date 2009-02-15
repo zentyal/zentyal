@@ -108,6 +108,8 @@ sub _addTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
     $users->modifyUserPwdCon($ldap, $user, $pass1->value());
+    EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
+
     $self->setMessage(__('Password successfully updated'));
 }
 

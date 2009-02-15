@@ -54,13 +54,43 @@ sub new
 # Parameters:
 #
 #   - user name
-#   - session id : if the id is undef, it truncates the session file
+#   - password
+#   - session id: if the id is undef, it creates a new one
+#   - key: key for rijndael, if sid is undef creates a new one
 # Exceptions:
 # 	- Internal
 # 		- When session file cannot be opened to write
-sub _savesession # (user, session_id)
+sub _savesession
 {
-	my ($user, $sid, $cryptedpass) = @_;
+	my ($user, $passwd, $sid, $key) = @_;
+
+    if(not defined($sid)) {
+        my $rndStr;
+        for my $i (1..64) {
+            $rndStr .= rand (2**32);
+        }
+
+        my $md5 = Digest::MD5->new();
+        $md5->add($rndStr);
+        $sid = $md5->hexdigest();
+
+        for my $i (1..64) {
+            $rndStr .= rand (2**32);
+        }
+        $md5 = Digest::MD5->new();
+        $md5->add($rndStr);
+
+        $key = $md5->hexdigest();
+    }
+
+    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
+
+    my $len = length($passwd);
+    my $newlen = (int(($len-1)/16) + 1) * 16;
+
+    $passwd = $passwd . ("\0" x ($newlen - $len));
+
+    my $cryptedpass = $cipher->encrypt($passwd);
 	my $sidFile;
 	my $filename = EBox::UserCorner::usersessiondir() . $user;
     unless  ( open ( $sidFile, '>', $filename )){
@@ -76,6 +106,8 @@ sub _savesession # (user, session_id)
     # Release the lock
     flock($sidFile, LOCK_UN);
 	close($sidFile);
+
+    return $sid . $key;
 }
 
 # Method: checkPassword
@@ -102,6 +134,25 @@ sub checkPassword # (user, password)
     return $users->authUser($user, $passwd);
 }
 
+# Method: updatePassword
+#
+#   Updates the current session information with the new password
+#
+# Parameters:
+#
+#       passwd - string containing the plain password
+#
+sub updatePassword
+{
+    my ($self, $user, $passwd) = @_;
+    my $r = Apache2::RequestUtil->request();
+
+    my $session_info = EBox::UserCorner::Auth->key($r);
+    my $sid = substr($session_info, 0, 32);
+    my $key = substr($session_info, 32, 32);
+    _savesession($user, $passwd, $sid, $key);
+}
+
 # Method: authen_cred
 #
 #   	Overriden method from <Apache2::AuthCookie>.
@@ -118,34 +169,7 @@ sub authen_cred  # (request, user, password)
         return;
     }
 
-    my $rndStr;
-    for my $i (1..64) {
-        $rndStr .= rand (2**32);
-    }
-
-    my $md5 = Digest::MD5->new();
-    $md5->add($rndStr);
-    my $sid = $md5->hexdigest();
-
-    for my $i (1..64) {
-        $rndStr .= rand (2**32);
-    }
-    $md5 = Digest::MD5->new();
-    $md5->add($rndStr);
-
-    my $key = $md5->hexdigest();
-
-    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
-
-    my $len = length($passwd);
-    my $newlen = (int(($len-1)/16) + 1) * 16;
-
-    $passwd = $passwd . ("\0" x ($newlen - $len));
-
-    my $cryptedpass = $cipher->encrypt($passwd);
-    _savesession($user, $sid, $cryptedpass);
-
-    return $sid . $key;
+    return _savesession($user, $passwd);
 }
 
 # Method: credentials
