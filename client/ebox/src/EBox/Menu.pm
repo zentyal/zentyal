@@ -37,7 +37,7 @@ sub _addWord
     }
 }
 
-sub _getKeywords
+sub getKeywords
 {
     my ($keywords, $item) = @_;
     if(defined($item->{'text'})) {
@@ -65,12 +65,17 @@ sub _getKeywords
     }
     if($item->items()) {
         for my $i (@{$item->items()}) {
-            _getKeywords($keywords, $i);
+            getKeywords($keywords, $i);
         }
     }
 }
 
-sub regenMenuCache
+sub cacheFile
+{
+    return EBox::Config::tmp . 'menucache';
+}
+
+sub regenCache
 {
     my $keywords = {};
 
@@ -84,9 +89,9 @@ sub regenMenuCache
         $mod->menu($root);
     }
 
-    _getKeywords($keywords, $root);
+    getKeywords($keywords, $root);
 
-    my $file = EBox::Config::tmp . "menucache";
+    my $file = cacheFile();
     store($keywords, $file);
 }
 

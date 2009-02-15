@@ -163,7 +163,7 @@ sub writeConf
                      gid   => $gid,
                     };
 
-    EBox::Module->writeConfFile(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
+    EBox::Module::Base::writeConfFileNoCheck(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
 }
 
 

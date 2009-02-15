@@ -63,7 +63,7 @@ sub _generateClientConf
                            mode => '0666',
     };
 
-    EBox::Module::Service->writeConfFile($file,
+    EBox::Module::Base::writeConfFileNoCheck($file,
                                      'openvpn/noebox-openvpn-client.conf.mas',
                                      \@confParams, $fileOptions);
 }

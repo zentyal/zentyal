@@ -699,20 +699,20 @@ sub _writeDgConf
       push(@writeParam, 'threshold'  => $group->{threshold});
       push(@writeParam, 'groupName'  => $group->{groupName});
       push(@writeParam, 'defaults'      => $group->{defaults});
-      EBox::Module::Service->writeConfFile(DGDIR . "/dansguardianf$number.conf",
+      EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
                        "squid/dansguardianfN.conf.mas", \@writeParam);
 
       if (not exists $group->{defaults}->{bannedextensionlist}) {
           @writeParam = ();
           push(@writeParam, 'extensions'  => $group->{bannedExtensions});
-          EBox::Module::Service->writeConfFile(DGDIR . "/bannedextensionlist$number",
+          EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/bannedextensionlist$number",
                                       "squid/bannedextensionlist.mas", \@writeParam);
       }
 
       if (not exists $group->{defaults}->{bannedmimetypelist}) {
           @writeParam = ();
           push(@writeParam, 'mimeTypes' => $group->{bannedMIMETypes});
-          EBox::Module::Service->writeConfFile(DGDIR . "/bannedmimetypelist$number",
+          EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/bannedmimetypelist$number",
                            "squid/bannedmimetypelist.mas", \@writeParam);
       }
 
@@ -872,7 +872,7 @@ sub _writeDgDomainsConf
 
       my $path     = DGDIR . '/' . $file . $number;
       my $template = "squid/$file.mas";
-      EBox::Module::Service->writeConfFile($path,
+      EBox::Module::Base::writeConfFileNoCheck($path,
                                   $template, 
                                   $group->{$file},
                                  );

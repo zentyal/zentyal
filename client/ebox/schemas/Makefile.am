@@ -1,20 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-schemadir   = @GCONF_SCHEMA_FILE_DIR@
-schema_DATA = global.schemas sysinfo.schemas apache.schemas firsttime.schemas logs.schemas events.schemas \
-	remoteservices.schemas
+moduledir   = @DATADIR@/ebox/modules
+module_DATA = apache.yaml events.yaml global.yaml logs.yaml remoteservices.yaml sysinfo.yaml
 
-if GCONF_SCHEMAS_INSTALL
-install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
-
-uninstall-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $(srcdir)/$(schema_DATA)
-else
-install-data-local:
-
-endif
-
-EXTRA_DIST = $(schema_DATA)
+EXTRA_DIST = $(module_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

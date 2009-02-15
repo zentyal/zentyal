@@ -173,7 +173,7 @@ sub writeConf
                 localSocket => $localSocket,
                );
 
-  EBox::Module->writeConfFile(CLAMD_CONF_FILE, "mailfilter/clamd.conf.mas", \@clamdParams);
+  EBox::Module::Base::writeConfFileNoCheck(CLAMD_CONF_FILE, "mailfilter/clamd.conf.mas", \@clamdParams);
 
 
 
@@ -185,12 +185,12 @@ sub writeConf
                         );
 
 
-  EBox::Module->writeConfFile(FRESHCLAM_CONF_FILE, "mailfilter/freshclam.conf.mas", \@freshclamParams);
+  EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CONF_FILE, "mailfilter/freshclam.conf.mas", \@freshclamParams);
 
   my $antivirusService = $self->service;
   if ($antivirusService and $globalService) {
     # regenerate freshclam cron hourly script
-    EBox::Module->writeConfFile(FRESHCLAM_CRON_SCRIPT, "mailfilter/freshclam-cron.mas", []);
+    EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "mailfilter/freshclam-cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . FRESHCLAM_CRON_SCRIPT);
   }
   else {

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model ImportFromLdif
+SUBDIRS = Model ImportFromLdif Types
 
 perldir = @PERLPATH@/EBox/UsersAndGroups
 

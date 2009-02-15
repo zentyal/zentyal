@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/UsersAndGroups/Model
 
-nobase_perl_DATA = Users.pm
+nobase_perl_DATA = Password.pm Users.pm
 
 DISTCLEANFILES = 
 

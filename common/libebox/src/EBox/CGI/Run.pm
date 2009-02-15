@@ -45,9 +45,9 @@ use Error qw(:try);
 #
 sub classFromUrl
 {
-    my ($url) = @_;
+    my ($url, $namespace) = @_;
 
-    my $classname = "EBox::CGI::";
+    my $classname = $namespace . "::CGI::";
 
     defined($url) or exit;
 
@@ -62,7 +62,7 @@ sub classFromUrl
     $classname =~ s/::$//;
 
 
-    if ($classname eq 'EBox::CGI') {
+    if ($classname eq ("$namespace" . "::CGI")) {
         $classname .= '::Dashboard::Index';
     }
 
@@ -71,16 +71,16 @@ sub classFromUrl
 
 sub run # (url)
 {
-        my ($self, $url) = @_;
+        my ($self, $url, $namespace) = @_;
         
-        my $classname = classFromUrl($url);
+        my $classname = classFromUrl($url, $namespace);
         settextdomain('ebox');
 
         my $cgi;
         eval "use $classname"; 
         if ($@) {
                 try {
-                  $cgi = _lookupViewController($classname);
+                  $cgi = _lookupViewController($classname, $namespace);
                 }
                 catch EBox::Exceptions::DataNotFound with {
                   # path not valid
@@ -93,8 +93,8 @@ sub run # (url)
                                 . "$classname Eval error: $@");
 
                         my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
-                        eval "use $error_cgi"; 
-                        $cgi = new $error_cgi();
+                        eval "use $error_cgi";
+                        $cgi = new $error_cgi('namespace' => $namespace);
                 } else {
                       #  EBox::debug("$classname mapped to " 
                       #  . " Controller/Viewer CGI");
@@ -108,6 +108,19 @@ sub run # (url)
 }
 
 # Helper functions
+
+sub _posAfterCGI
+{
+    my ($namespaces) = @_;
+    my $i = 0;
+    for my $namespace (@{$namespaces}) {
+        if ($namespace eq 'CGI') {
+            last;
+        }
+        $i++;
+    }
+    return $i+1;
+}
 
 # Method: lookupModel
 #
@@ -127,27 +140,28 @@ sub lookupModel
 {
     my ($classname) = @_;
     my @namespaces = split ('::', $classname);
+    my $pos = _posAfterCGI(\@namespaces);
 
-    my ($namespace, $modelName) = ($namespaces[3], $namespaces[4]);
+    my ($namespace, $modelName) = ($namespaces[$pos+1], $namespaces[$pos+2]);
     my ($model, $action) = (undef, undef);
 
     if ( ($namespace eq 'View') or
             ($namespace eq 'Controller')) {
 
-        if ( defined ( $namespaces[5] ) ) {
+        if ( defined ( $namespaces[$pos+3] ) ) {
 # Set as model name, the context name
-            $modelName = '/' . lc ( $namespaces[2] ) . '/' . $modelName . '/' . $namespaces[5];
+            $modelName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
         } else {
-            $modelName = '/' . lc ( $namespaces[2] ) . "/$modelName";
+            $modelName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
         }
         my $manager = EBox::Model::ModelManager->instance();
         try {
             $model = $manager->model($modelName);
-            if ( @namespaces >= 6 ) {
-                $action = splice ( @namespaces, 6, 1 );
+            if ( @namespaces >= $pos+4 ) {
+                $action = splice ( @namespaces, $pos+4, 1 );
             }
         } catch EBox::Exceptions::DataNotFound with {
-            $action = $namespaces[5];
+            $action = $namespaces[$pos+3];
 # Remove the previous thought index
             $modelName =~ s:/.*?$::g;
             if (($modelName) ne '') {
@@ -158,19 +172,19 @@ sub lookupModel
         };
     } elsif ( $namespace eq 'Composite' ) {
         my $compManager = EBox::Model::CompositeManager->Instance();
-        if ( defined ( $namespaces[5] )) {
+        if ( defined ( $namespaces[$pos+3] )) {
 # It may be the index or the action
 # Compose the composite context name
-            my $contextName = '/' . lc ( $namespaces[2] ) . '/' . $modelName . '/' . $namespaces[5];
+            my $contextName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
             try {
                 $model = $compManager->composite($contextName);
-                $action = $namespaces[6];
+                $action = $namespaces[$pos+4];
             } catch EBox::Exceptions::DataNotFound with {
-                $action = $namespaces[5];
+                $action = $namespaces[$pos+3];
             };
         }
         unless ( defined ( $model)) {
-            my $contextName = '/' . lc ( $namespaces[2] ) . "/$modelName";
+            my $contextName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
             $model = $compManager->composite($contextName);
         }
     }
@@ -184,7 +198,7 @@ sub lookupModel
 #
 sub _lookupViewController
 {
-        my ($classname) = @_;
+        my ($classname, $cginamespace) = @_;
 
 
         # URL to map:
@@ -200,26 +214,31 @@ sub _lookupViewController
     
         if($model) {
             my @namespaces = split ( '::', $classname);
+            my $pos = _posAfterCGI(\@namespaces);
 
-            my ($namespace, $modelName) = ($namespaces[3], $namespaces[4]);
+            my ($namespace, $modelName) = ($namespaces[$pos+1], $namespaces[$pos+2]);
 
             $menuNamespace = $model->menuNamespace();
             if ( $namespace eq 'View' ) {
                     $cgi = EBox::CGI::View::DataTable->new(
-                                                           'tableModel' => $model);
+                        'tableModel' => $model,
+                        'namespace' => $cginamespace);
             } elsif ( $namespace eq 'Controller' ) {
                     $cgi = EBox::CGI::Controller::DataTable->new(
-                                                            'tableModel' => $model);
+                        'tableModel' => $model,
+                        'namespace' => $cginamespace);
             } elsif ( $namespace eq 'Composite' ) {
                 # Check if the action is defined URL: Composite/<compName>/<action>
                 if ( defined ( $action )) {
                     $cgi = new EBox::CGI::Controller::Composite(
-                                                                composite => $model,
-                                                                action    => $action,
+                        composite => $model,
+                        action    => $action,
+                        'namespace' => $cginamespace
                                                                );
                 } else {
                     $cgi = new EBox::CGI::View::Composite(
-                                                          composite => $model
+                        composite => $model,
+                        'namespace' => $cginamespace
                                                          );
                 }
             }

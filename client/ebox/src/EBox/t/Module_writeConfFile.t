@@ -42,7 +42,7 @@ sub writeConfFileTest
     ## Test cases:
 
     # file exists and stat succeed case
-    lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent, $masonParams) } 'EBox::Module::writeConfFile execution upon a existent file';
+    lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams) } 'EBox::Module::Base::writeConfFileNoCheck execution upon a existent file';
     # check results
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
@@ -52,7 +52,7 @@ sub writeConfFileTest
     unlink $testFile or die "Cannot unlink test file $testFile";
     my @gids =  split '\s', $GID ;
     my $defaults = { mode => $wantedMode, uid => $UID, gid => $gids[0] };
-    lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::writeConfFile execution upon a inexistent file';
+    lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::Base::writeConfFileNoCheck execution upon a inexistent file';
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
 
@@ -60,7 +60,7 @@ sub writeConfFileTest
 #     # called without any optional parameter
 #     my $defaultMode = '0644';
 #     unlink $testFile or die "Cannot unlink test file $testFile";
-#     lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent) } 'EBox::Module::writeConfFile execution without any optional parameter';
+#     lives_ok {  EBox::Module::Base::writeConfFileNoCheck($testFile, $masonComponent) } 'EBox::Module::Base::writeConfFileNoCheck execution without any optional parameter';
 #     file_exists_ok $testFile;
 #     file_mode_is ($testFile, oct '0644');
 }

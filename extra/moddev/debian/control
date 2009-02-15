@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: emoddev
 Architecture: all
-Depends: make, dpkg-dev, autotools-dev, autoconf, cdbs, automake, fakeroot
+Depends: make, dpkg-dev, autotools-dev, autoconf, cdbs, automake1.9 | automake, fakeroot
 Recommends: ebox
 Description: eBox  module development scripts
  This package ships scripts to ease the development of modules for the

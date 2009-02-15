@@ -56,10 +56,12 @@ sub actuate
 {
     my ($self) = @_;
     my $search = $self->param('search');
+    my $menuclass = $self->{namespace} . '::Menu';
 
-    my $file = EBox::Config::tmp . "menucache";
+    eval "use $menuclass";
+    my $file = $menuclass->cacheFile();
     unless (-f $file) {
-        EBox::Menu::regenMenuCache();
+        $menuclass->regenCache();
     }
     my $keywords = retrieve($file);
     my @search_items = split(/\W+/, $search);

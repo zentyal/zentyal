@@ -34,6 +34,8 @@ use EBox::ProgressIndicator::Dummy;
 use EBox::Sudo;
 use EBox::Validate qw( :all );
 use File::Basename;
+use File::Glob;
+use YAML::Tiny;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 
@@ -64,11 +66,32 @@ sub isReadOnly
         return $self->{ro};
 }
 
+sub _readModInfo # (module)
+{
+    my ($self, $name) = @_;
+    my $yaml = YAML::Tiny->read(EBox::Config::share() . "/ebox/modules/$name.yaml");
+    return $yaml->[0];
+}
 
+sub _className
+{
+    my ($self, $name) = @_;
+    my $info = $self->_readModInfo($name);
+    defined($info) or return undef;
+    return $info->{'class'};
+}
 
-# Method: modExists 
+sub _writeModInfo
+{
+    my ($self, $name, $info) = @_;
+    my $yaml = YAML::Tiny->new;
+    $yaml->[0] = $info;
+    $yaml->write(EBox::Config::share() . "/ebox/modules/$name.yaml");
+}
+
+# Method: modExists
 #
-#      Check if a module exists 
+#      Check if a module exists
 #
 # Parameters:
 #
@@ -81,19 +104,7 @@ sub isReadOnly
 sub modExists # (module) 
 {
         my ($self, $name) = @_;
-
-        my $class = $self->get_string("modules/$name/class");
-        return undef unless(defined($class));
-
-        # Try to dectect if gconf is messing with us,
-        # and a removed module is still there
-        eval "use $class";
-        if ($@) {
-            EBox::error("Error loading class $class: $@");
-        }
-        return undef if ($@);
-
-        return 1;
+        return defined($self->_className($name));
 }
 
 #
@@ -115,9 +126,13 @@ sub modExists # (module)
 sub modIsChanged # (module) 
 {
         my ($self, $name) = @_;
+
         defined($name) or return undef;
         ($name ne 'global') or return undef;
+
         $self->modExists($name) or return undef;
+
+        my $info = $self->_readModInfo($name);
         return $self->get_bool("modules/$name/changed");
 }
 
@@ -138,10 +153,10 @@ sub modChange # (module)
         defined($name) or return;
         ($name ne 'global') or return;
 
-        return if $self->get_bool("modules/$name/changed");
+        return if $self->modIsChanged($name);
 
         my $mod = $self->modInstance($name);
-        defined $mod or throw EBox::Exceptions::Internal("Module $name does not exist");
+        defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
 
         $mod->initChangedState();
 
@@ -163,9 +178,9 @@ sub modRestarted # (module)
         defined($name) or return;
         ($name ne 'global') or return;
         $self->modExists($name) or return;
+
         $self->set_bool("modules/$name/changed", undef);
 }
-
 
 #
 # Method: modNames
@@ -187,16 +202,14 @@ sub modNames
                         push(@allmods, $_);
                 }
         }
-        foreach my $mod (@{$self->all_dirs_base("modules")}) {
+        my @files = glob(EBox::Config::share() . '/ebox/modules/*.yaml');
+        my @mods = map { basename($_) =~ m/(.*)\.yaml/ ; $1 } @files;
+        foreach my $mod (@mods) {
                 next unless ($self->modExists($mod));
                 next if (grep(/^$mod$/, @allmods));
-                my $class = $global->get_string("modules/$mod/class");
-                unless (defined($class) and ($class ne '')) {
-                        $global->delete_dir("modules/$mod");
-                        $log->info("Removing module $mod as it seems " .
-                                   "to be empty");
-                } else {
-                        push(@allmods, $mod);                           
+                my $class = $self->_className($mod);
+                if(defined($class)) {
+                        push(@allmods, $mod);
                 }
         }
         return \@allmods;
@@ -475,7 +488,7 @@ sub stopAllModules
                 };
 
         }
-        
+
         if ($failed eq "") {
                 return;
         }
@@ -613,7 +626,6 @@ sub modInstance # (module)
                                              "EBox::Global modInstance(), the first parameter is not a class".
                                          " nor an instance.");
     }
-    
 
     if ($name eq 'global') {
         return $global;
@@ -625,9 +637,9 @@ sub modInstance # (module)
             return $modInstance;
                     }
     }
-    
+
     $global->modExists($name) or return undef;
-    my $classname = $global->get_string("modules/$name/class");
+    my $classname = $global->_className($name);
     unless ($classname) {
         throw EBox::Exceptions::Internal("Module '$name' ".
                                          "declared, but it has no classname.");
@@ -693,8 +705,8 @@ sub modDepends # (module)
 {
         my ($self, $name) = @_;
         $self->modExists($name) or return undef;
-        my @list = map {s/^\s+//; $_} 
-                    @{$self->get_list("modules/$name/depends")};
+        my $info = $self->_readModInfo($name);
+        my @list = map {s/^\s+//; $_} @{$info->{'depends'}};
         if (@list) {
                 return \@list;
         } else {

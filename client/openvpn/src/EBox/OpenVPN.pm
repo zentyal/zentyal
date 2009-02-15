@@ -270,8 +270,7 @@ sub _prepareLogFiles
                      mode => '0644',
     };
 
-    # XXX ugly hack until writeConfFile had different behaviour
-    EBox::Module::Service->writeConfFile('/etc/logrotate.d/ebox-openvpn',
+    EBox::Module::Base::writeConfFileNoCheck('/etc/logrotate.d/ebox-openvpn',
                          '/openvpn/logrotate.mas',
                          [
                           logFiles => \@logFiles,

@@ -8,7 +8,7 @@ mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
     Logs.pm  LogAdmin.pm LogHelper.pm LogObserver.pm Loggerd.pm \
 	Menu.pm Order.pm ProgressIndicator.pm ServiceManager.pm \
 	PgDBEngine.pm Service.pm SysInfo.pm Test.pm \
-	TestStubs.pm MigrationBase.pm
+	TestStubs.pm MigrationBase.pm HtmlBlocks.pm
 
 
 nobase_perl_DATA = $(mods)

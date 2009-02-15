@@ -21,6 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::Model::ModelProvider
+            EBox::UserCorner::Provider
           );
 
 use EBox::Global;
@@ -137,7 +138,10 @@ sub _regenConfig
 #
 sub modelClasses
 {
-    return ['EBox::UsersAndGroups::Model::Users'];
+    return [
+        'EBox::UsersAndGroups::Model::Users',
+        'EBox::UsersAndGroups::Model::Password',
+    ];
 }
 
 # Method: groupsDn
@@ -439,11 +443,17 @@ sub _modifyUserPwd
 {
     my ($self, $user, $pwd) = @_;
 
+    $self->modifyUserPwdCon($self->{'ldap'}->{'ldap'}, $user, $pwd);
+}
+
+sub modifyUserPwdCon
+{
+    my ($self, $ldap, $user, $pwd) = @_;
+
     $self->_checkPwdLength($pwd);
-    my $dn = "uid=" . $user . "," . $self->usersDn; 
-    my $r = $self->{'ldap'}->modify($dn, { 
-                                          replace => { 'userPassword' => $pwd }});
-    
+    my $dn = "uid=" . $user . "," . $self->usersDn;
+    my %args = ( replace => { 'userPassword' => $pwd });
+    $ldap->modify($dn, %args);
 }
 
 sub _updateUser
@@ -1552,7 +1562,19 @@ sub menu
                                     'text' => __('Groups')));
 }
 
-# LdapModule implmentation 
+# EBox::UserCorner::Provider implementation
+
+# Method: userMenu
+#
+sub userMenu
+{
+    my ($self, $root) = @_;
+
+    $root->add(new EBox::Menu::Item('url' => '/Users/View/Password',
+                                      'text' => __('Password')));
+}
+
+# LdapModule implementation 
 sub _ldapModImplementation 
 {
     return new EBox::LdapUserImplementation();
@@ -1640,6 +1662,23 @@ sub minGid
 sub defaultGroup
 {
     return DEFAULTGROUP;
+}
+
+# Method: authUser
+#
+#   try to authenticate the given user with the given password
+#
+sub authUser
+{
+    my ($self, $user, $password) = @_;
+    my $ldap = Net::LDAP->new(EBox::Ldap::LDAPI);
+    $ldap or return undef;
+    my $res = $ldap->bind("uid=$user," . $self->usersDn(), password => $password);
+    if ($res->{'resultCode'} == 0) {
+        return $ldap;
+    } else {
+        return undef;
+    }
 }
 
 1;

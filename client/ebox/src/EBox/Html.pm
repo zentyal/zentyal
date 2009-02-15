@@ -54,7 +54,7 @@ sub title
             $remoteServicesURL = $remoteServicesMod->controlPanelURL();
         }
 
-	my $html = _makeHtml('headTitle.mas',
+	my $html = makeHtml('headTitle.mas',
                              save => $save,
                              logout => $logout,
                              finishClass => $finishClass,
@@ -99,10 +99,9 @@ sub menu
 #
 #      	string - containg the html code for the footer page
 #
-sub footer($) # (module)
+sub footer
 {
-    my ($module) = @_;  # XXX unused arg
-    my $html = _makeHtml('footer.mas');
+    my $html = makeHtml('footer.mas');
     return $html;
 }
 
@@ -119,13 +118,13 @@ sub header # (title)
 {
 	my ($title) = @_;
 
-	my $html = _makeHtml('header.mas', title => $title );
+	my $html = makeHtml('header.mas', title => $title );
 	return $html;
 
 }
 
 
-sub _makeHtml
+sub makeHtml
 {
     my ($filename, @params) = @_;
 

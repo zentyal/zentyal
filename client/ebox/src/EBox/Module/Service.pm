@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Sudo;
 
 use Error qw(:try);
+use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
 
 use strict;
 use warnings;
@@ -598,6 +599,47 @@ sub _enforceServiceState
     } else {
         $self->_stopService();
     }
+}
+
+#
+# Method: writeConfFile
+#
+#    It executes a given mason component with the passed parameters over 
+#    a file. It becomes handy to set configuration files for services. 
+#    Also, its file permissions will be kept.
+#    It can be called as class method. (XXX: this design or is an implementation accident?)
+#    XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
+#
+#
+# Parameters:
+#
+#    file      - file name which will be overwritten with the execution output
+#    component - mason component
+#    params    - parameters for the mason component. Optional. Defaults to no parameters
+#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#
+sub writeConfFile # (file, component, params, defaults)
+{
+    my ($self, $file, $compname, $params, $defaults) = @_;
+    validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
+
+
+    # we will avoid check modification when the method is called as class method
+    #  this is awkward but is the fudge we had used to date for files created
+    #  by ebox which rhe user shoudn't give their permission to modify
+    #   maybe we need to add some parameter to better reflect this?
+
+    my $manager;
+
+    $manager = new EBox::ServiceManager();
+    if ($manager->skipModification($self->{'name'}, $file)) {
+        EBox::info("Skipping modification of $file");
+        return;
+    }
+
+    EBox::Module::Base::writeConfFileNoCheck($file, $compname, $params, $defaults);
+
+    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 1;

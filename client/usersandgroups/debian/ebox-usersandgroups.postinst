@@ -8,7 +8,26 @@
 
 case "$1" in
     configure)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
+        #add the ebox group and user
+        if ! getent group ebox-usercorner > /dev/null 2>&1
+        then
+            addgroup --system ebox-usercorner
+        fi
+        if ! getent passwd ebox-usercorner > /dev/null 2>&1
+        then
+            adduser --system --home /var/lib/ebox-usercorner/ \
+                --disabled-password --ingroup ebox-usercorner ebox-usercorner
+        fi
+
+        mkdir -p /var/log/ebox-usercorner/
+        chown -R ebox-usercorner.ebox-usercorner /var/log/ebox-usercorner
+
+        # create user session ids directory
+        mkdir -p /var/lib/ebox-usercorner/sids/
+        chown -R ebox-usercorner.ebox-usercorner /var/lib/ebox-usercorner
+
+        # create ebox user corner apache certificates
+        /usr/share/ebox/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1
 
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-usersandgroups/migration/

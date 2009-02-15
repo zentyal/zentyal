@@ -123,7 +123,7 @@ sub writeUpstartFile
                         mode => '0644',
                        };
 
-   EBox::Module::Base->writeConfFile(
+   EBox::Module::Base::writeConfFileNoCheck(
                                     $path,
                                     '/mail/ebox.postgrey.mas',
                                     [ 
@@ -171,7 +171,7 @@ sub writeConf
                         mode => '0644',
                        };
 
-   EBox::Module::Base->writeConfFile(
+   EBox::Module::Base::writeConfFileNoCheck(
                                     WHITELIST_CLIENTS_FILE,
                                     '/mail/whitelist_clients.mas',
                                     [ 

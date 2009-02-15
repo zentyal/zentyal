@@ -46,6 +46,7 @@ use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant INCLUDE_KEY => 'includes';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
+use constant APACHE_PORT => 443;
 
 sub _create
 {
@@ -235,7 +236,7 @@ sub _writeStartupFile
 
     my $startupFile = _startupFile();
     my ($primaryGid) = split / /, $GID, 2;
-    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $primaryGid});
+    EBox::Module::Base::writeConfFileNoCheck($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $primaryGid});
 
 }
 
@@ -255,7 +256,9 @@ sub _startupFile
 sub port
 {
 	my $self = shift;
-	return $self->get_int('port');
+	my $port = $self->get_int('port');
+    $port or $port = APACHE_PORT;
+    return $port;
 }
 
 # Method: setPort

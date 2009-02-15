@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/usersandgroups
 
-nobase_Stub_DATA = slapd.conf.mas
+nobase_Stub_DATA = slapd.conf.mas user-apache2.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

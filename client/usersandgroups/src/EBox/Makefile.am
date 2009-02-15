@@ -1,11 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI UsersAndGroups rootTests 
+SUBDIRS = CGI UsersAndGroups UserCorner UserCornerWebServer rootTests
 
 perldir = @PERLPATH@/EBox
 
-
 nobase_perl_DATA = Ldap.pm UsersAndGroups.pm LdapUserBase.pm LdapModule.pm \
-		   LdapUserImplementation.pm
+		   LdapUserImplementation.pm UserCorner.pm UserCornerWebServer.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

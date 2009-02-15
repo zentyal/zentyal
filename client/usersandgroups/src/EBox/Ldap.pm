@@ -608,7 +608,6 @@ sub importLdapData
   EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
 }
 
-
 sub _chownDatadir
 {
         return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();

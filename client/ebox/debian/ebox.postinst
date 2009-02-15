@@ -36,15 +36,12 @@ create_db()
 
 case "$1" in
 	configure)
-        
+
         # Create log directory
         test -d /var/log/ebox || mkdir /var/log/ebox
-       
-        # This needs to be done to make the gconf keys appear
-        pkill -u ebox gconfd-2 || true
 
         # create ebox's' apache certificates
-        /usr/share/ebox/ebox-create-certificate > /dev/null 2>&1
+        /usr/share/ebox/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
 
         #add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1

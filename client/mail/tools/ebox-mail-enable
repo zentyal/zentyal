@@ -11,9 +11,10 @@ test -d $SASLAUTHD || mkdir -p $SASLAUTHD
 adduser  postfix sasl
 
 # Create certificates for smptd
-/usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl/
-mv /etc/postfix/sasl/smtp.key /etc/postfix/sasl/smtpd-key.pem
-mv /etc/postfix/sasl/smtp.cert /etc/postfix/sasl/smtpd.pem
+/usr/share/ebox/ebox-create-certificate /etc/postfix/sasl > /dev/null 2>&1
+
+mv /etc/postfix/sasl/ssl.key /etc/postfix/sasl/smtpd-key.pem
+mv /etc/postfix/sasl/ssl.cert /etc/postfix/sasl/smtpd.pem
 
 # Generate mail aliases
 touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present

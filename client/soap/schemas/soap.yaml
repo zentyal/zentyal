@@ -1,0 +1,3 @@
+class: 'EBox::SOAP'
+depends:
+    - openvpn

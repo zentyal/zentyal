@@ -334,7 +334,7 @@ sub writeConfFile
                       mode => '0400',
     };
 
-    EBox::Module::Service->writeConfFile(
+    EBox::Module::Service->writeConfFileNoCheck(
                                      $confFilePath, $templatePath,
                                      $templateParams, $fileAttrs
     );
@@ -585,7 +585,7 @@ sub writeUpstartFile
                         mode => '0644',
     };
 
-    EBox::Module::Service->writeConfFile($path,'/openvpn/upstart.mas',
+    EBox::Module::Service->writeConfFileNoCheck($path,'/openvpn/upstart.mas',
                                      [ cmd => $cmd],$fileAttrs);
 
 }

@@ -205,7 +205,7 @@ sub _writeConfFile
 
   } @internalIfaces;
 
-  EBox::Module->writeConfFile(
+  EBox::Module::Base::writeConfFileNoCheck(
 			      CONF_FILE,
 			      'network/jnettop.conf.mas',
 			      [ localNetworks => \@localNets,  ],

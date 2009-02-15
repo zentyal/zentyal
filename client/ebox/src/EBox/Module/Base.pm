@@ -775,8 +775,7 @@ sub _regenConfig
     $self->_setConf();
 }
 
-#
-# Method: writeConfFile
+# Method: writeConfFileNoCheck
 #
 #    It executes a given mason component with the passed parameters over 
 #    a file. It becomes handy to set configuration files for services. 
@@ -792,33 +791,10 @@ sub _regenConfig
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
 #    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
 #
-# Returns:
-#
-#       boolean - True if it's running , false otherwise
-#
-sub writeConfFile # (file, component, params, defaults)
+sub writeConfFileNoCheck # (file, component, params, defaults)
 {
-    my ($self, $file, $compname, $params, $defaults) = @_;
-    validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
-
-
-    # we will avoid check modification when the method is called as class method
-    #  this is awkward but is the fudge we had used to date for files created
-    #  by ebox which rhe user shoudn't give their permission to modify
-    #   maybe we need to add some parameter to better reflect this?
-    my $checkModifications = ref $self ? 1 : 0;
-
-    my $manager;
-
-    if ($checkModifications) {
-        $manager = new EBox::ServiceManager();
-        if ($manager->skipModification($self->{'name'}, $file)) {
-            EBox::info("Skipping modification of $file");
-            return;
-        }
-    }
-
-
+    my ($file, $compname, $params, $defaults) = @_;
+    validate_pos(@_, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
     my $oldUmask = umask 0007;
     my ($fh,$tmpfile);
@@ -868,12 +844,6 @@ sub writeConfFile # (file, component, params, defaults)
     EBox::Sudo::root("/bin/mv $tmpfile  '$file'");
     EBox::Sudo::root("/bin/chmod $mode '$file'");
     EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
-
-
-    if ($checkModifications) {
-        $manager->updateFileDigest($self->{'name'}, $file);
-    }
-
 }
 
 1;

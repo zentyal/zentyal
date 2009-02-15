@@ -1,0 +1,5 @@
+class: 'EBox::Mail'
+depends:
+    - users
+    - network
+    - objects

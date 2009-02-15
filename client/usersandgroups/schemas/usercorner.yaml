@@ -1,0 +1,3 @@
+class: 'EBox::UserCornerWebServer'
+depends:
+    - users

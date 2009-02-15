@@ -42,10 +42,15 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	my %opts = @_;
 
 	my $self = $class->SUPER::new(@_);
+    my $namespace = delete $opts{'namespace'};
 	my $tmp = $class;
-	$tmp =~ s/^.*?::.*?::(.*?)::(.*)//;
-	$self->{module} = $1;
-	$self->{cginame} = $2;
+    $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
+    if(not $namespace) {
+        $namespace = $1;
+    }
+    $self->{namespace} = $namespace;
+	$self->{module} = $2;
+	$self->{cginame} = $3;
 	if (defined($self->{cginame})) {
 		$self->{url} = $self->{module} . "/" . $self->{cginame};
 	} else {

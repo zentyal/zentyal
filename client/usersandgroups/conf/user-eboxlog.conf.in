@@ -1,0 +1,6 @@
+log4perl.logger.EBox=DEBUG, A1
+log4perl.appender.A1=Log::Dispatch::File
+log4perl.appender.A1.filename=@LOCALSTATEDIR@/log/ebox-usercorner/ebox.log
+log4perl.appender.A1.mode=append
+log4perl.appender.A1.layout=Log::Log4perl::Layout::PatternLayout
+log4perl.appender.A1.layout.ConversionPattern=%d %p> %F{1}:%L %M - %m%n

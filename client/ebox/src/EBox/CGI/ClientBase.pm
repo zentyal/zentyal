@@ -33,10 +33,19 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	my %opts = @_;
 
 	my $self = $class->SUPER::new(@_);
+    my $namespace = delete $opts{'namespace'};
 	my $tmp = $class;
-	$tmp =~ s/^.*?::.*?::(.*?)::(.*)//;
-	$self->{module} = $1;
-	$self->{cginame} = $2;
+    $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
+
+    if(not $namespace) {
+        $namespace = $1;
+    }
+    my $classname = $namespace . "::HtmlBlocks";
+    eval "use $classname";
+
+    $self->{htmlblocks} = $classname;
+	$self->{module} = $2;
+	$self->{cginame} = $3;
 	$self->{cginame} =~ s|::|/|g;
 	if (defined($self->{cginame})) {
 		$self->{url} = $self->{module} . "/" . $self->{cginame};
@@ -58,19 +67,19 @@ sub _header
 sub _top
 {
 	my $self = shift;
-	print(EBox::Html::title());
+	print($self->{htmlblocks}->title());
 }
 
 sub _menu
 {
 	my $self = shift;
-	print(EBox::Html::menu($self->menuNamespace()));
+	print($self->{htmlblocks}->menu($self->menuNamespace()));
 }
 
 sub _footer
 {
 	my $self = shift;
-	print(EBox::Html::footer($self->{module}));
+	print($self->{htmlblocks}->footer());
 }
 
 1;

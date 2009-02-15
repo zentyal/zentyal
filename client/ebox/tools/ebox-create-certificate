@@ -4,6 +4,8 @@ use warnings;
 use English '-no_match_vars';
 
 
+my $destDir = $ARGV[0];
+
 my $RSA_LENGTH = 1024;
 
 my %COMPROMISED_FILES_SUMS = (
@@ -12,15 +14,17 @@ my %COMPROMISED_FILES_SUMS = (
 			'pem' => '9b51c428fe86e6ac03fc1427c5bc0958',
 		       );
 
+unless (defined($destDir)) {
+   print "Usage:$0 prefix destDir\n";
+   exit 1;
+}
 
 _checkCredentials();
 _checkPrograms();
 
-my $eboxDir  = '/var/lib/ebox/conf/';
-
-my ($keyFile, $keyUpdated)  = _generateRSAKey($eboxDir, $RSA_LENGTH);
-my $certFile = _generateCert($eboxDir, $keyFile, $keyUpdated);
-_generatePem($eboxDir, $certFile, $keyFile, $keyUpdated);
+my ($keyFile, $keyUpdated)  = _generateRSAKey($destDir, $RSA_LENGTH);
+my $certFile = _generateCert($destDir, $keyFile, $keyUpdated);
+_generatePem($destDir, $certFile, $keyFile, $keyUpdated);
 print "All server's certificate files in place\n\n";
 
 sub _checkCredentials
@@ -48,10 +52,10 @@ sub _checkPrograms
 
 sub _generateRSAKey
 {
-  my ($eboxDir, $length) = @_;
+  my ($destDir, $length) = @_;
 
   my $type    = 'key';
-  my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir);
+  my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir);
 
   return  ($keyFile, 0)  if   $alreadyExists;
 
@@ -71,31 +75,16 @@ sub _generateRSAKey
   return ($keyFile, 1);
 }
 
-
-sub _eboxDir
-{
-  my ($sysconfDir) = @_;
-  
-  my $eboxDir = "$sysconfDir/ebox";
-  if (not -d $eboxDir) {
-    die "eBox's directory $eboxDir not found";
-  }
-  
-
-  return $eboxDir;
-}
-
-
 sub _generateCert
 {
-  my ($eboxDir, $keyFile, $keyUpdated) = @_;
+  my ($destDir, $keyFile, $keyUpdated) = @_;
 
   my $type = 'crt';
-  my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir, $keyUpdated, 'cert');
+  my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated, 'cert');
 
   return $certFile if $alreadyExists;
 
-  my $subject = q{/CN=eBox\'s\ Server/};
+  my $subject = q{/CN=eBox\ Server/};
 
   my @cmds = (
 	      "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
@@ -116,10 +105,10 @@ sub _generateCert
 
 sub _generatePem
 {
-  my ($eboxDir, $certFile, $keyFile, $keyUpdated) = @_;
+  my ($destDir, $certFile, $keyFile, $keyUpdated) = @_;
 
   my $type = 'pem';
-  my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir, $keyUpdated);
+  my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated);
 
   return $pemFile if $alreadyExists;
 
@@ -141,12 +130,12 @@ sub _generatePem
 
 sub _generateFileInfraestructure
 {
-  my ($type, $eboxDir, $alwaysDelete, $extension) = @_;
+  my ($type, $destDir, $alwaysDelete, $extension) = @_;
   defined $alwaysDelete or $alwaysDelete = 0;
   $extension            or $extension    = $type;
 
-  my $sslDir  = _sslDir($eboxDir, $type);
-  my $file     = "$sslDir/ebox.$extension";
+  my $sslDir  = _sslDir($destDir, $type);
+  my $file     = "$sslDir/ssl.$extension";
 
   if (_correctFileExists($type, $file, $alwaysDelete)) {
     print "$file already exists. Skipping generation\n";
@@ -171,11 +160,11 @@ sub _generateFileInfraestructure
 
 sub _sslDir
 {
-  my ($eboxDir, $postfix) = @_;
+  my ($destDir, $postfix) = @_;
 
-  my $sslDir = "$eboxDir/ssl.$postfix";
+  my $sslDir = "$destDir";
   if (not -d $sslDir) {
-    print "Creating eBox's ssl.$postfix directory\n";
+    print "Creating eBox's $destDir SSL directory\n";
     mkdir $sslDir, 0600;
   }
 

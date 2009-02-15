@@ -1,0 +1,3 @@
+class: 'EBox::Monitor'
+depends:
+    - events

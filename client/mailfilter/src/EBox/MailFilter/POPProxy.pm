@@ -272,7 +272,7 @@ sub writeConf
   my ($self) = @_;
   
 
-  EBox::Module->writeConfFile(P3SCAN_CONF_FILE, 
+  EBox::Module::Base::writeConfFileNoCheck(P3SCAN_CONF_FILE, 
                               "mailfilter/p3scan.conf.mas", 
                               [ 
                                antivirus => $self->antivirus(),
@@ -288,7 +288,7 @@ sub writeConf
   my $mailfilter = EBox::Global->modInstance('mailfilter');
   my $badExtensions = $mailfilter->model('FileExtensionACL')->banned();
 
-  EBox::Module->writeConfFile(RENATTACH_CONF_FILE, 
+  EBox::Module::Base::writeConfFileNoCheck(RENATTACH_CONF_FILE, 
                               "mailfilter/renattach.conf.mas", 
                               [
                                badExtensions =>  $badExtensions,

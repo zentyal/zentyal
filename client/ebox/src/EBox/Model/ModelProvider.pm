@@ -241,9 +241,17 @@ sub AUTOLOAD
           if ( exists $exposedMethods->{$methodName} ) {
               return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
           } else {
+              use Devel::StackTrace;
+              my $trace = new Devel::StackTrace();
+              EBox::debug($trace->as_string());
+
               throw EBox::Exceptions::Internal("Undefined method $methodName");
           }
       } else {
+          use Devel::StackTrace;
+          my $trace = new Devel::StackTrace();
+          EBox::debug($trace->as_string());
+
           throw EBox::Exceptions::Internal("Undefined method $methodName");
       }
 

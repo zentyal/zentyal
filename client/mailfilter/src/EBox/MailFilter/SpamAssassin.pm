@@ -170,7 +170,7 @@ sub writeConf
     push @confParams, (spamSubject => $self->spamSubjectTag());
 
 
-    EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
+    EBox::Module::Base::writeConfFileNoCheck(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
     
 #    $self->_vdomains->updateControlAccounts();
 }

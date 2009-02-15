@@ -71,15 +71,26 @@ sub warn # (msg)
 	$Log::Log4perl::caller_depth -=1;
 }
 
-# initializes Log4perl if necessary, returns the logger for the caller package
+sub initLogger
+{
+    my ($conffile) = @_;
+    unless ($loginit) {
+        Log::Log4perl->init(EBox::Config::conf() . '/' . $conffile);
+        $loginit = 1;
+    }
+}
+
+# returns the logger for the caller package, initLogger must be called before
 sub logger # (caller?) 
 {
 	my ($cat) = @_;
 	defined($cat) or $cat = LOGGER_CAT;
-	unless ($loginit) {
-		Log::Log4perl->init(EBox::Config::conf() . "/eboxlog.conf");
-		$loginit = 1;
-	}
+	if(not $loginit) {
+        use Devel::StackTrace;
+
+        my $trace = Devel::StackTrace->new;
+        print STDERR $trace->as_string;
+    }
 	return Log::Log4perl->get_logger($cat);
 }
 
@@ -108,6 +119,8 @@ sub locale
 
 sub init
 {
+    EBox::initLogger('eboxlog.conf');
+
 	POSIX::setlocale(LC_ALL, EBox::locale());
 	POSIX::setlocale(LC_NUMERIC, 'C');
 

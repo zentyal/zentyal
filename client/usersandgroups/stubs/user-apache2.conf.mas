@@ -1,0 +1,187 @@
+<%args>
+    $port
+</%args>
+
+Timeout 300
+KeepAlive Off
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+AddDefaultCharset utf-8
+
+PidFile /var/lib/ebox-usercorner/user-apache.pid
+
+<IfModule mpm_prefork_module>
+    StartServers          1
+    MinSpareServers       1
+    MaxSpareServers       1
+    MaxClients            2
+    MaxRequestsPerChild   20
+</IfModule>
+
+# worker MPM
+# StartServers: initial number of server processes to start
+# MaxClients: maximum number of simultaneous client connections
+# MinSpareThreads: minimum number of worker threads which are kept spare
+# MaxSpareThreads: maximum number of worker threads which are kept spare
+# ThreadsPerChild: constant number of worker threads in each server process
+# MaxRequestsPerChild: maximum number of requests a server process serves
+<IfModule mpm_worker_module>
+    StartServers         1
+    MaxClients           5
+    MinSpareThreads      1
+    MaxSpareThreads      1
+    ThreadsPerChild      1
+    MaxRequestsPerChild   20
+</IfModule>
+
+PerlInterpMaxRequests 20
+
+Include /etc/apache2/mods-available/auth_basic.load
+Include /etc/apache2/mods-available/authn_file.load
+Include /etc/apache2/mods-available/authz_default.load
+Include /etc/apache2/mods-available/authz_groupfile.load
+Include /etc/apache2/mods-available/authz_host.load
+Include /etc/apache2/mods-available/authz_user.load
+Include /etc/apache2/mods-available/autoindex.load
+Include /etc/apache2/mods-available/cgi.load
+Include /etc/apache2/mods-available/deflate.conf
+Include /etc/apache2/mods-available/deflate.load
+Include /etc/apache2/mods-available/dir.conf
+Include /etc/apache2/mods-available/dir.load
+Include /etc/apache2/mods-available/env.load
+Include /etc/apache2/mods-available/mime.load
+Include /etc/apache2/mods-available/negotiation.load
+Include /etc/apache2/mods-available/setenvif.load
+Include /etc/apache2/mods-available/rewrite.load
+Include /etc/apache2/mods-available/ssl.conf
+Include /etc/apache2/mods-available/ssl.load
+Include /etc/apache2/mods-available/status.load
+Include /etc/apache2/mods-available/perl.load
+
+Listen <% $port %>
+User ebox-usercorner
+Group ebox-usercorner
+
+ServerAdmin webmaster@localhost
+ServerName localhost
+
+DocumentRoot /usr/share/ebox/www/
+
+<Directory />
+    Options SymLinksIfOwnerMatch
+    AllowOverride None
+</Directory>
+
+
+<Directory /usr/share/ebox/www/>
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<Directory /var/lib/ebox/dynamicwww>
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+
+
+UseCanonicalName Off
+TypesConfig /etc/mime.types
+DefaultType text/plain
+
+<IfModule mod_mime_magic.c>
+    MIMEMagicFile /usr/share/misc/file/magic.mime
+</IfModule>
+
+HostnameLookups Off
+
+ErrorLog /var/log/ebox-usercorner/error.log
+LogLevel warn
+
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
+
+CustomLog /var/log/ebox-usercorner/access.log combined
+
+<IfModule mod_backtrace.c>
+ EnableExceptionHook On
+</IfModule>
+
+<IfModule mod_whatkilledus.c>
+ EnableExceptionHook On
+</IfModule>
+
+ServerSignature Off
+ServerTokens Min
+AddDefaultCharset on
+
+<IfModule mod_ssl.c>
+SSLEngine on
+SSLProtocol all
+SSLCipherSuite HIGH:MEDIUM
+
+SSLCertificateFile /var/lib/ebox-usercorner/ssl/ssl.cert
+SSLCertificateKeyFile /var/lib/ebox-usercorner/ssl/ssl.key
+</IfModule>
+
+<IfModule mod_setenvif.c>
+    BrowserMatch "Mozilla/2" nokeepalive
+    BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+    BrowserMatch "RealPlayer 4\.0" force-response-1.0
+    BrowserMatch "Java/1\.0" force-response-1.0
+    BrowserMatch "JDK/1\.0" force-response-1.0
+</IfModule>
+
+PerlWarn On
+
+# PerlRequire "/var/lib/ebox/conf/startup.pl"
+
+PerlModule EBox::UserCorner::Auth
+PerlSetVar EBoxPath /
+PerlSetVar EBoxLoginScript /ebox/Login/Index
+PerlSetVar EBoxSatisfy Any
+PerlSetVar AuthCookieDebug 0
+
+<Files LOGIN>
+	AuthType EBox::UserCorner::Auth
+	AuthName EBox
+	SetHandler perl-script
+	PerlHandler EBox::UserCorner::Auth->login
+</Files>
+
+<Directory /usr/share/ebox/cgi/>
+    <IfModule mod_ssl.c>
+       SSLOptions +StdEnvVars
+    </IfModule>
+
+	AuthType EBox::UserCorner::Auth
+	AuthName EBox
+	PerlAuthenHandler EBox::UserCorner::Auth->authenticate
+	PerlAuthzHandler  EBox::UserCorner::Auth->authorize
+	require valid-user
+    SetHandler perl-script
+    PerlHandler ModPerl::Registry
+    PerlSendHeader On
+    AllowOverride None
+    Options +ExecCGI
+    Order allow,deny
+    Allow from all
+</Directory>
+
+RewriteEngine On
+
+# From /ebox to /ebox/ and redirect
+RewriteRule ^/ebox$ /ebox/
+# From / to /ebox and redirect
+RewriteRule ^/$ /ebox/
+# Map /ebox/ebox.cgi to the right Perl CGI and redirect
+RewriteRule ^/ebox/ebox.cgi$ /ebox/
+# From /data/ to / and finish
+RewriteRule ^/data(.*) $1 [L]
+# From /dynamic-data/ to the right directory in FS and finish
+RewriteRule ^/dynamic-data(.*) /var/lib/ebox/dynamicwww$1 [L]
+RewriteRule ^/ebox/(.*) /usr/share/ebox/cgi/user-ebox.cgi [E=script:$1,L]
+
