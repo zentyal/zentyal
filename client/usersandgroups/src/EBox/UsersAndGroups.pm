@@ -31,9 +31,11 @@ use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
 use EBox::FileSystem;
-use Error qw(:try);
 use EBox::LdapUserImplementation;
+use EBox::Config;
 
+use Digest::SHA1;
+use Error qw(:try);
 use File::Copy;
 use Perl6::Junction qw(any);
 
@@ -317,14 +319,14 @@ sub lastUid # (system)
 
 sub _initUser 
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $password) = @_;
 
     # Tell modules depending on users and groups
     # a new new user is created
         my @mods = @{$self->_modsLdapUserBase()};
     
     foreach my $mod (@mods){
-        $mod->_addUser($user);
+        $mod->_addUser($user, $password);
     }
 }
 
@@ -377,7 +379,7 @@ sub addUser # (user, system)
                          'uidNumber'     => $uid,
                          'gidNumber'     => $gid,
                          'homeDirectory' => HOMEPATH ,
-                         'userPassword'  => $user->{'password'},
+                         'userPassword'  => _passwordHash($user->{'password'}),
                          'objectclass'   => ['inetOrgPerson','posixAccount']
                         ]
                );
@@ -388,7 +390,7 @@ sub addUser # (user, system)
     
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
-        $self->_initUser($user->{'user'});
+        $self->_initUser($user->{'user'}, $user->{'password'});
     }
 }
 
@@ -442,40 +444,41 @@ sub _checkUid
 
 sub _modifyUserPwd
 {
-    my ($self, $user, $pwd) = @_;
-
-    $self->modifyUserPwdCon($self->{'ldap'}->{'ldap'}, $user, $pwd);
+    my ($self, $user, $passwd) = @_;
+    $self->modifyUserPwdCon($self->{'ldap'}->{'ldap'}, $user, $passwd);
 }
 
 sub modifyUserPwdCon
 {
-    my ($self, $ldap, $user, $pwd) = @_;
+    my ($self, $ldap, $user, $passwd) = @_;
 
-    $self->_checkPwdLength($pwd);
+    $self->_checkPwdLength($passwd);
+
+    my $hash = _passwordHash($passwd);
     my $dn = "uid=" . $user . "," . $self->usersDn;
-    my %args = ( replace => { 'userPassword' => $pwd });
+    my %args = ( replace => { 'userPassword' => $hash });
     $ldap->modify($dn, %args);
 }
 
 sub _updateUser
 {
-    my ($self, $user) = @_;
-        
+    my ($self, $user, $password) = @_;
+
     # Tell modules depending on users and groups
     # a user  has been updated
     my @mods = @{$self->_modsLdapUserBase()};
-    
+
     foreach my $mod (@mods){
-        $mod->_modifyUser($user);
+        $mod->_modifyUser($user, $password);
     }
 }
 
-# Method: modifyUser 
+# Method: modifyUser
 #
 #       Modifies  user's attributes
-#   
+#
 # Parameters:
-#       
+#
 #       user - hash ref containing: 'user' (user name), 'fullname', 'password',
 #       and comment. The only mandatory parameter is 'user' the other attribute
 #       parameters would be ignored if they are missing.
@@ -491,20 +494,19 @@ sub modifyUser # (\%user)
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
                                              'value' => $cn);
     }
-    
+
     foreach my $field (keys %{$user}) {
         if ($field eq 'comment') {
-            $self->_changeAttribute($dn, 'description', 
+            $self->_changeAttribute($dn, 'description',
                                     $user->{'comment'});
         } elsif ($field eq 'fullname') {
             $self->_changeAttribute($dn, 'sn', $user->{'fullname'});
         } elsif ($field eq 'password') {
-            $self->_modifyUserPwd($user->{'username'}, 
-                                  $user->{'password'});
+            my $pass = $user->{'password'};
+            $self->_modifyUserPwd($user->{'username'}, $pass);
         }
     }
-    
-    $self->_updateUser($cn);
+    $self->_updateUser($cn, $user->{'password'});
 }
 
 # Clean user stuff when deleting a user
@@ -1286,16 +1288,16 @@ sub groupGid # (group)
                  scope => 'one',
                  attr => ['cn']
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return $result->entry(0)->get_value('gidNumber');
 }
 
 sub _groupIsEmpty
 {
     my ($self, $group) = @_;
-        
+
     my @users = @{$self->usersInGroup($group)};
 
     return @users ? undef : 1;
@@ -1309,46 +1311,43 @@ sub _changeAttribute
         $value = undef;
     }
     my %args = (
-                base => $dn,
-                filter => 'objectclass=*',
-                scope =>  'base'
-               );
-    
+            base => $dn,
+            filter => 'objectclass=*',
+            scope =>  'base'
+            );
+
     my $result = $self->{ldap}->search(\%args);
 
     my $entry = $result->pop_entry();
     my $oldvalue = $entry->get_value($attr);
 
-    # There is no value 
-    return if ( (not $value) and (not $oldvalue));  
+    # There is no value
+    return if ( (not $value) and (not $oldvalue));
+
     # There is no change
-    return if (($oldvalue and $value) and $oldvalue eq $value); 
-    
+    return if (($oldvalue and $value) and $oldvalue eq $value);
+
     if (($oldvalue and $value) and $value ne $oldvalue) {
         $entry->replace($attr => $value);
     } elsif ((not $value) and $oldvalue) {
         $entry->delete($attr);
-        } elsif (($value) and (not $oldvalue)) {
-            $entry->add($attr => $value);
-        }
-    
+    } elsif (($value) and (not $oldvalue)) {
+        $entry->add($attr => $value);
+    }
+
     $entry->update($self->{ldap}->ldapCon);
-        
 }
-
-
 
 sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
-        
+
     if (length($pwd) > MAXPWDLENGTH) {
         throw EBox::Exceptions::External(
-                                         __x("Password must not be longer than {maxPwdLength} characters",
-                                             maxPwdLength => MAXPWDLENGTH));
+            __x("Password must not be longer than {maxPwdLength} characters",
+            maxPwdLength => MAXPWDLENGTH));
     }
 }
-
 
 sub _checkName
 {
@@ -1368,15 +1367,15 @@ sub _modsLdapUserBase
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
-    
+
     my @modules;
     foreach my $name (@names) {
-                my $mod = EBox::Global->modInstance($name);
-                if ($mod->isa('EBox::LdapModule')) {
-                    push (@modules, $mod->_ldapModImplementation);
-                }
-            }
-    
+        my $mod = EBox::Global->modInstance($name);
+        if ($mod->isa('EBox::LdapModule')) {
+            push (@modules, $mod->_ldapModImplementation);
+        }
+    }
+
     return \@modules;
 }
 
@@ -1384,9 +1383,9 @@ sub _modsLdapUserBase
 #
 #       Returns all the mason components from those modules implementing
 #       the function _userAddOns from EBox::LdapUserBase
-#   
+#
 # Parameters:
-#       
+#
 #       user - username
 #
 # Returns:
@@ -1690,6 +1689,19 @@ sub authUser
         return $ldap;
     } else {
         return undef;
+    }
+}
+
+sub _passwordHash
+{
+    my ($password) = @_;
+
+    my $enableHash = EBox::Config::configkey('enable_password_hash');
+
+    if (defined($enableHash) and $enableHash eq 'yes') {
+        return '{SHA}' . Digest::SHA1::sha1_base64($password);
+    } else {
+        return $password;
     }
 }
 

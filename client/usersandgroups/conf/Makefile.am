@@ -3,7 +3,10 @@
 Confdir = $(localstatedir)/lib/ebox/conf
 Conf_DATA = user-eboxlog.conf
 
-EXTRA_DIST = $(Conf_DATA)
+Etcdir = $(sysconfdir)/ebox
+Etc_DATA = 80users.conf
+
+EXTRA_DIST = $(Conf_DATA) $(Etc_DATA) 
 
 MAINTAINERCLEANFILES = Makefile.in
 

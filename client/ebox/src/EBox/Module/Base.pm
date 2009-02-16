@@ -219,12 +219,6 @@ sub makeBackup # (dir, %options)
 {
   my ($self, $dir, %options) = @_;
   defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
-  validate_with ( params => [%options],
-		  spec =>  { 
-			    fullBackup     => { default => 0},  
-                             bug            => { default => 0 },
-			     progress        => {optional => 1},
-			   } );
 
   my $backupDir = $self->_createBackupDir($dir);
 
@@ -305,22 +299,7 @@ sub restoreBackup # (dir, %options)
 {
   my ($self, $dir, %options) = @_;
   defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
-  validate_with ( params => [%options],
-		  spec =>  { 
-			    fullRestore => { default => 0},
-			    dataRestore => {
-					    default => 0,
-					    # incompatible with fullRestore ..
-					    callbacks => {
-							  incompatibleRestores =>  
-							  sub {
-							    (not $_[0]) or (not $_[1]->{fullRestore})
-							  },
-							 },
-					   },
-			   },
-		);
-  
+
   my $backupDir = $self->backupDir($dir);
   (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 

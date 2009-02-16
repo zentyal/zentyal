@@ -134,7 +134,7 @@ sub _userCommonLdapAttrs
 
 sub _addUserLdapAttrs
 {
-  my ($self, $user, $unixuid) = @_;
+  my ($self, $user, $unixuid, $password) = @_;
 
   my $ldap = $self->{ldap};
   my $users = EBox::Global->modInstance('users');
@@ -144,7 +144,7 @@ sub _addUserLdapAttrs
   my $sid      = alwaysGetSID();
   my $sambaSID = $sid . '-' .  $rid;
   my $userinfo = $users->userInfo($user);
-  my ($lm ,$nt) = ntlmgen $userinfo->{'password'};
+  my ($lm ,$nt) = ntlmgen ($password);
   
   my $dn = "uid=$user," .  $users->usersDn;
   my %userCommonAttrs =   %{ $self->_userCommonLdapAttrs() };
@@ -208,9 +208,9 @@ sub _addUserLdapAttrs
 
 
 # Implements LdapUserBase interface
-sub _addUser ($$)
+sub _addUser 
 {
-	my ($self, $user) = @_;
+	my ($self, $user, $password) = @_;
 	
 	return unless ($self->{samba}->configured());
 
@@ -218,7 +218,7 @@ sub _addUser ($$)
 	my $userInfo = $users->userInfo($user);
 	my $unixuid = $userInfo->{uid};
 
-	$self->_addUserLdapAttrs($user, $unixuid);
+	$self->_addUserLdapAttrs($user, $unixuid, $password);
 	
 	# Add user to Domain Users group
 	unless ($self->_domainUser($user)) {
@@ -234,6 +234,7 @@ sub _addUser ($$)
 sub _modifyUser($$) {
 	my $self = shift;
 	my $user   = shift;
+	my $password = shift;
 
 	return unless ($self->{samba}->configured());
 
@@ -253,8 +254,8 @@ sub _modifyUser($$) {
 	
 	my $entry = $result->pop_entry();
 	# We are only interested in seeing if the pwd has changed
-	if ($self->_pwdChanged($entry)) {
-		my ($lm, $nt) = ntlmgen ($entry->get_value('userPassword'));
+	if ($password) {
+		my ($lm, $nt) = ntlmgen ($password);
 		$entry->replace( 'sambaNTPassword' => $nt , 
 				 'sambaLMPassword' => $lm );
 		$entry->update($ldap->ldapCon);
@@ -871,12 +872,12 @@ sub removeSharingName($$) {
 
 sub _pwdChanged ($$) {
 	my $self = shift;
-	my $result   = shift;
-	
-	my $ntpwd = $result->get_value('sambaNTPassword');
-	my $userpwd = $result->get_value('userPassword');
-	
-	return ($ntpwd ne nthash($userpwd));
+	my $entry = shift;
+	my $newPassword = shift;
+
+	my $ntpwd = $entry->get_value('sambaNTPassword');
+
+	return ($ntpwd ne nthash($newPassword));
 }
 
 

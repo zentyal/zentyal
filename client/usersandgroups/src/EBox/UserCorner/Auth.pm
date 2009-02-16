@@ -207,7 +207,7 @@ sub credentials
     my $pass = $cipher->decrypt($cryptedpass);
     $pass =~ s/\x00+$//;
 
-    return $pass;
+    return { 'user' => $user, 'pass' => $pass };
 }
 
 # Method: authen_ses_key
