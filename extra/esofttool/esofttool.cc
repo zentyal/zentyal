@@ -202,9 +202,9 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
  */
 std::string _escapeQuote(const std::string str) {
 
-         uint pos;
+         std::string::size_type pos;
          std::string retStr(str);
-
+         
          try {
            pos = retStr.find("'",0);
            while (pos != std::string::npos){

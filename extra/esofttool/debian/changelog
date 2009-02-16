@@ -1,3 +1,10 @@
+esofttool (0.5.3) hardy; urgency=low
+
+  * Bugfix: Use the right returned type from STL find function.
+            Only affects to architectures different from 32 bits
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Mon, 16 Feb 2009 13:28:16 +0100
+
 esofttool (0.5.2) hardy; urgency=low
 
   * Bugfix: Avoid std::string::out_of_range exception in replace by catching
