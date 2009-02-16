@@ -61,6 +61,23 @@ sub new
 }
 
 
+sub precondition
+{
+    my ($self) = @_;
+    my $users = EBox::Global->modInstance('users');
+    return $users->configured();
+
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    return __(
+              'User and groups module must have been enabled to configure this section'
+             )
+
+
+}
 
 
 sub tableHeader
