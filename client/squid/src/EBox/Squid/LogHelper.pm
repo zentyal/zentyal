@@ -13,8 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::SquidLogHelper;
-package EBox::SquidLogHelper;
+package EBox::Squid::LogHelper;
 
 use strict;
 use warnings;
@@ -84,15 +83,23 @@ sub processLine # (file, line, logger)
 		$event = 'accepted';
 	}	
 	
-	my $time = localtime $fields[0];
-	my $data = { 'timestamp' => $time, 'elapsed' => $fields[1], 
-		     'remotehost' => $fields[2], 'code' => $fields[3],
-		     'bytes' => $fields[4], 'method' => $fields[5],
-		     'url' => $fields[6], 'rfc931' => $fields[7],
-		     'peer' => $fields[8], 'mimetype' => $fields[9],
-		     'event' => $event};
-	
 
+        my $time = localtime $fields[0];
+        my $data = { 
+            'timestamp' => $time, 
+            'elapsed' => $fields[1], 
+            'remotehost' => $fields[2], 
+            'code' => $fields[3],
+            'bytes' => $fields[4], 
+            'method' => $fields[5],
+            'url' => $fields[6], 
+            'rfc931' => $fields[7],
+            'peer' => $fields[8], 
+            'mimetype' => $fields[9],
+            'event' => $event
+           };
+	
+        
 	$dbengine->insert('access', $data);
 }
 

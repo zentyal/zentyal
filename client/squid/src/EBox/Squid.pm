@@ -34,7 +34,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
-use EBox::SquidLogHelper;
+use EBox::Squid::LogHelper;
 use EBox::SquidOnlyFirewall;
 use EBox::Dashboard::Value;
 use EBox::Dashboard::Section;
@@ -124,10 +124,10 @@ sub modelClasses
           'EBox::Squid::Model::FilterGroupDomainFilterSettings',    
  
           # Report clases
-#           'EBox::Squid::Model::Report::RequestsGraph',
-#           'EBox::Squid::Model::Report::TrafficSizeGraph',
-#           'EBox::Squid::Model::Report::TrafficDetails',
-#           'EBox::Squid::Model::Report::TrafficReportOptions',
+           'EBox::Squid::Model::Report::RequestsGraph',
+           'EBox::Squid::Model::Report::TrafficSizeGraph',
+           'EBox::Squid::Model::Report::TrafficDetails',
+           'EBox::Squid::Model::Report::TrafficReportOptions',
          ]; 
 }
 
@@ -318,17 +318,17 @@ sub _stopService
 }
 
 
-# Method: _regenConfig
-#
-#       Overrides base method. It regenerates the configuration
-#       for squid and dansguardian.
-#
-sub _regenConfig 
-{
-    my ($self) = @_;
-    $self->_setSquidConf();
-    $self->_enforceServiceState();
-}
+# # Method: _regenConfig
+# #
+# #       Overrides base method. It regenerates the configuration
+# #       for squid and dansguardian.
+# #
+# sub _regenConfig 
+# {
+#     my ($self) = @_;
+#     $self->_setSquidConf();
+#     $self->_enforceServiceState();
+# }
 
 sub _cache_mem 
 {
@@ -611,7 +611,7 @@ sub usesPort # (protocol, port, iface)
     return undef;
 }
 
-sub _setSquidConf
+sub _setConf
 {
   my ($self) = @_;
   $self->_writeSquidConf();
@@ -728,11 +728,13 @@ sub _writeDgConf
 sub revokeConfig
 {
     my ($self) = @_;
+
+    my $res = $self->SUPER::revokeConfig();
+
     $self->_cleanDomainFilterFiles();
 
-    return $self->SUPER::revokeConfig();
+    return $res;
 }
-
 
 sub _cleanDomainFilterFiles
 {
@@ -993,12 +995,13 @@ sub tableInfo
     my ($self) =@_;
     my $titles = { 'timestamp' => __('Date'),
                    'remotehost' => __('Host'),
+                   'rfc931'     => __('User'),
                    'url'   => __('URL'),
                    'bytes' => __('Bytes'),
                    'mimetype' => __('Mime/type'),
                    'event' => __('Event')
                  };
-    my @order = ( 'timestamp', 'remotehost', 'url', 
+    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url', 
                   'bytes', 'mimetype', 'event');
 
     my $events = { 'accepted' => __('Accepted'), 
@@ -1034,6 +1037,7 @@ sub _consolidateConfiguration
                                           filtered_size => 0,
                                          },
                    consolidateColumns => {
+#                       rfc931 => {},
                        event => {
                                  conversor => sub { return 1 },
                                  accummulate => sub {
@@ -1068,7 +1072,7 @@ sub _consolidateConfiguration
 sub logHelper
 {
     my ($self) = @_;
-    return (new EBox::SquidLogHelper);
+    return (new EBox::Squid::LogHelper);
 }
 
 
