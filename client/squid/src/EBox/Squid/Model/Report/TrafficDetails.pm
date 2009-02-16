@@ -47,7 +47,9 @@ sub dbFields
         requests => {
                      printableName => __('Requests') 
                     },
-
+       rfc931 => {
+                  printableName => __('User') 
+                  },
         accepted => {
                      printableName => __('Accepted requests') 
                     },
@@ -93,6 +95,10 @@ sub _table
                                             printableName => __('Date') 
                                            ),
                      new EBox::Types::Text (
+                                            fieldName => 'rfc931',
+                                            printableName => __('User') 
+                                           ),
+                     new EBox::Types::Text (
                                             fieldName => 'requests',
                                             printableName => __('Requests') 
                                            ),
@@ -136,13 +142,11 @@ sub _table
         { 
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Web traffic details'),
-#            'pageTitle' => __('Mail traffic'),
             'defaultController' => '/ebox/Mail/Controller/TrafficReport',
             'defaultActions' => [ 'changeView' ],
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,
-#            'help' => __x('Enable/disable logging per-module basis'),
             'rowUnique' => 0,
             'printableRowName' => __('traffic'),
             'sortedBy' => 'date',

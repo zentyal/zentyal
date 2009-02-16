@@ -155,7 +155,7 @@ sub compositeClasses
          'EBox::Squid::Composite::FilterGroupMIME',
          'EBox::Squid::Composite::FilterGroupDomains',
 
-         #              'EBox::Squid::Composite::Report::TrafficReport',
+         'EBox::Squid::Composite::Report::TrafficReport',
         ];
 }
 
