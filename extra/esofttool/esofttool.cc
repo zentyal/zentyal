@@ -476,7 +476,7 @@ void listUpgradablePkgs() {
 		file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
 
 		std::string filename = file.str();
-                uint pos = filename.find(':');
+                std::string::size_type pos = filename.find(':');
                 if ( pos != std::string::npos ) {
                   filename.replace(pos, 1, "%3a");
                 }
