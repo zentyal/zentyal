@@ -1,6 +1,8 @@
 CREATE TABLE squid_traffic (
         date TIMESTAMP, 
 
+         rfc931 CHAR(255) DEFAULT '-',
+
         requests BIGINT DEFAULT 0,
 
         accepted BIGINT DEFAULT 0,

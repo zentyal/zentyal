@@ -1037,7 +1037,7 @@ sub _consolidateConfiguration
                                           filtered_size => 0,
                                          },
                    consolidateColumns => {
-#                       rfc931 => {},
+                       rfc931 => {},
                        event => {
                                  conversor => sub { return 1 },
                                  accummulate => sub {

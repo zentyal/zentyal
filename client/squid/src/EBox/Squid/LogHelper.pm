@@ -67,6 +67,7 @@ sub logFiles
 sub processLine # (file, line, logger) 
 {
 	my ($self, $file, $line, $dbengine) = @_;
+        chomp $line;
 		
 	my @fields = split (/\s+/, $line);
 	
