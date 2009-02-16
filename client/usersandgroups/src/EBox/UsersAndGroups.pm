@@ -140,6 +140,7 @@ sub modelClasses
 {
     return [
         'EBox::UsersAndGroups::Model::Users',
+        'EBox::UsersAndGroups::Model::Groups',
         'EBox::UsersAndGroups::Model::Password',
     ];
 }
