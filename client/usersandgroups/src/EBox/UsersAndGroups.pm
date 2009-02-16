@@ -1699,7 +1699,7 @@ sub _passwordHash
     my $enableHash = EBox::Config::configkey('enable_password_hash');
 
     if (defined($enableHash) and $enableHash eq 'yes') {
-        return '{SHA}' . Digest::SHA1::sha1_base64($password);
+        return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
     } else {
         return $password;
     }
