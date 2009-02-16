@@ -2,6 +2,7 @@
     $mainClass
     $modelName
     $printableTableName
+    $printableRowName
     $rowName
     $modelDomain
 </%args>
@@ -73,6 +74,7 @@ sub _table
         'tableName' => '<% $modelName %>',
         'automaticRemove' => 1,
         'printableTableName' => __('<% $printableTableName %>'),
+        'printableRowName' => __('<% $printableRowName %>'),
         'modelDomain' => '<% $modelDomain %>',
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],

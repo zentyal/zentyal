@@ -2,6 +2,7 @@
     $mainClass
     $modelName
     $printableTableName
+    $printableRowName
     $rowName
     $modelDomain
     $modelType => 'form'
@@ -104,6 +105,7 @@ sub _table
     { 
         'tableName' => '<% $modelName %>',
         'printableTableName' => __('<% $printableTableName %>'),
+        'printableRowName' => __('<% $printableRowName %>'),
         'modelDomain' => '<% $modelDomain %>',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

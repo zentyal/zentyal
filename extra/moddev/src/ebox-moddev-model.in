@@ -162,6 +162,7 @@ sub _src_EBox_Model
             ( mainClass => 'EBox::' . $options->{mainClass},
               modelName => $options->{name},
               printableTableName => $options->{name}, 
+              printableRowName => $options->{name}, 
               rowName   => $options->{name},
               modelDomain => $options->{mainClass},
               fields    => $options->{parsedFields},
@@ -182,7 +183,7 @@ sub _addModelsToMainClass
     my $code = "    return [\n";
     for my $model (@{_models($dir)}) {
         $code .= ' ' x 8;
-        $model =~ s/\.pm//;
+        $model =~ s/\.pm$//;
         $code .= "'EBox::${mainClass}::Model::$model',\n";
     }
     $code .= "    ];\n";
