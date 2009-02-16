@@ -74,10 +74,12 @@ sub warn # (msg)
 sub initLogger
 {
     my ($conffile) = @_;
+    my $umask = umask(022);
     unless ($loginit) {
         Log::Log4perl->init(EBox::Config::conf() . '/' . $conffile);
         $loginit = 1;
     }
+    umask($umask);
 }
 
 # returns the logger for the caller package, initLogger must be called before
@@ -119,8 +121,6 @@ sub locale
 
 sub init
 {
-    EBox::initLogger('eboxlog.conf');
-
 	POSIX::setlocale(LC_ALL, EBox::locale());
 	POSIX::setlocale(LC_NUMERIC, 'C');
 
@@ -134,6 +134,8 @@ sub init
 	my $user = EBox::Config::user();
 	my $uid = getpwnam($user);
 	setuid($uid) or die "Cannot change user to $user";
+
+    EBox::initLogger('eboxlog.conf');
 }
 
 1;
