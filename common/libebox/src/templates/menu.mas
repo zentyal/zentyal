@@ -3,6 +3,7 @@
 $current => 'none'
 </%args>
 <script type="text/javascript">
+<![CDATA[
 var old_results = null;
 
 function hideMenuEntry(id) {
@@ -89,6 +90,7 @@ function filterMenu(event) {
 }
 
 document.onkeyup = filterMenu;
+//]]>
 </script>
 <div id='menu'>
     <ul id='nav'>
