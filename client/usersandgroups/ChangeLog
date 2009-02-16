@@ -4,6 +4,10 @@
 	+ Make and restore backup more robust: removed slapd.conf
 	parameters in both slapadd and slapcat invokations, so we can use
 	the module with sldap with configuration in the directory itself
+	+ Added bind v2 compability needed by squid auth, slapd conf
+	regenerated and daemon restarted in postinst to commit possibles
+	changes in configuration
+	+ Added group model
 0.12.99
 	+ New release
 0.12.1

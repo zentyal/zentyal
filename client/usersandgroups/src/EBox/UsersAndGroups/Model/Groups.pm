@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersAndGroups::Model::Users;
+package EBox::UsersAndGroups::Model::Groups;
 
-# Class: EBox::UsersAndGroups::Model::Users
+# Class: EBox::UsersAndGroups::Model::Groups
 #
-#       This a class used as a proxy for the users stored in LDAP.
-#       It is meant to improve the user experience when managing users,
+#       This a class used as a proxy for the groups stored in LDAP.
+#       It is meant to improve the user experience when managing groups,
 #       but it's just an interim solution. An integral approach needs to 
 #       be done.
 #       
@@ -59,9 +59,9 @@ sub _table
              'size' => '12',
              ),
          new EBox::Types::Text(
-             'fieldName' => 'fullname',
-             'printableName' => __('Full name'),
-             'size' => '12',
+             'fieldName' => 'description',
+             'printableName' => __('Description'),
+             'size' => '30',
              ),
          new EBox::Types::Link(
              'fieldName' => 'edit',
@@ -72,21 +72,23 @@ sub _table
 
     my $dataTable = 
     { 
-        'tableName' => 'Users',
-        'printableTableName' => __('Users'),
+        'tableName' => 'Groups',
+        'printableTableName' => __('Groups'),
         'defaultController' =>
-            '/ebox/Users/Controller/Users',
+            '/ebox/UsersAndGroups/Controller/Groups',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
-        'menuNamespace' => 'UsersAndGroups/Users',
-        'help' => __x('foo'),
-        'printableRowName' => __('user'),
+        'menuNamespace' => 'UsersAndGroups/Groups',
+#        'help' => __x('foo'),
+        'printableRowName' => __('group'),
         'sortedBy' => 'name',
     };
 
     return $dataTable;
 }
+
+
 
 # Method: precondition
 #
@@ -98,14 +100,14 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
-    my $users = EBox::Global->modInstance('users');
-    unless ($users->configured()) {
+    my $usersMod = EBox::Global->modInstance('users');
+    unless ($usersMod->configured()) {
         $self->{preconFail} = 'notConfigured';
         return undef;
     }
 
-    unless ($users->users()) {
-        $self->{preconFail} = 'noUsers';
+    unless ($usersMod->groups()) {
+        $self->{preconFail} = 'noGroups';
         return undef;
     }
 
@@ -127,7 +129,7 @@ sub preconditionFailMsg
         return __('You must enable the module Users in the module ' .
                 'status section in order to use it.');
     } else {
-        return __('There are no users at the moment.');
+        return __('There are no groups at the moment.');
 
     }
 }
@@ -146,41 +148,43 @@ sub rows
     }
 
     my @rows;
-    for my $userInfo ($userMod->users()) {
-        my $user = new EBox::Types::Text(
+    foreach my $groupInfo ($userMod->groups()) {
+        my $group = new EBox::Types::Text(
                 'fieldName' => 'name',
                 'printableName' => __('Name'),
                 'size' => '12',
                 'editable' => 1
                 );
-        my $userName = $userInfo->{'username'};
-        $user->setValue($userName);
+        my $groupName = $groupInfo->{'account'};
+        $group->setValue($groupName);
 
-        my $fullName = new EBox::Types::Text(
-                'fieldName' => 'fullname',
-                'printableName' => __('Full name'),
-                'size' => '12',
+        my $description = new EBox::Types::Text(
+                'fieldName' => 'description',
+                'printableName' => __('Description'),
+                'size' => '30',
                 'editable' => 1
                 );
-        my $full = $userInfo->{'fullname'};
-        $fullName->setValue($full);
+        my $desc = $groupInfo->{'desc'};
+        defined $desc or
+            $desc = '';
+        $description->setValue($desc);
 
         my $link = new EBox::Types::Link(
                 'fieldName' => 'edit',
                 'printableName' => __('Edit'),
                 );
-        my $linkValue = "/ebox/UsersAndGroups/User?username=$userName";
-        $link->setValue($linkValue);
+         my $linkValue =  "/ebox/UsersAndGroups/Group?group=$groupName";
+         $link->setValue($linkValue);
 
         my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
         $row->setModel($self);
         $row->setId('NOT_USED');
         $row->setReadOnly(1);
-        $row->addElement($user);
-        $row->addElement($fullName);
+        $row->addElement($group);
+        $row->addElement($description);
         $row->addElement($link);
 
-        push (@rows, $row); 
+        push @rows, $row; 
     }
 
     return $self->_filterRows(\@rows, $filter, $page);

@@ -1003,6 +1003,10 @@ sub groupInfo # (group)
 #
 #       array - holding the groups
 #
+# Warning:
+#
+#   the group hashes are NOT the sames that we get from groupInfo, the keys are:
+#     account(group name), desc (description) and gid
 sub groups 
 {
     my ($self, $system) = @_;
@@ -1034,7 +1038,7 @@ sub groups
             $info->{'desc'} = $desc;
         }
         
-        @groups = (@groups, $info);
+        push @groups, $info;
     }
     
     return @groups;
@@ -1558,8 +1562,15 @@ sub menu
                                       'url' => '/Users/View/Users',
                                       'text' => __('Edit user')));
     $root->add($folder);
-    $root->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
-                                    'text' => __('Groups')));
+
+    $folder = new EBox::Menu::Folder('name' => 'Group',
+                                        'text' => __('Groups'));
+    $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
+                                    'text' => __('Add group')));
+    $folder->add(new EBox::Menu::Item('url' => 'Users/View/Groups',
+                                    'text' => __('Edit group')));
+
+    $root->add($folder);
 }
 
 # EBox::UserCorner::Provider implementation

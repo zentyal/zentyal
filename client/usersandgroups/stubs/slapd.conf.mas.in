@@ -4,6 +4,7 @@
 	$dn
         @acls
 	@schemas
+	$allowV2 => 1
 </%args>
 
 
@@ -41,6 +42,11 @@ sizelimit 500
 # for indexing.
 tool-threads 1
 
+% if ($allowV2) {
+      allow bind_v2
+% }
+
+
 #######################################################################
 # Specific Backend Directives for hdb:
 # Backend specific directives apply to this backend until another
@@ -58,6 +64,7 @@ backend		hdb
 # Database specific directives apply to this databasse until another
 # 'database' directive occurs
 database        hdb
+
 
 
 # The base of your directory in database #1

@@ -31,6 +31,13 @@ case "$1" in
 
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-usersandgroups/migration/
+
+        # regenrate slap configuration and restart
+        #  this is needed bz it may be changes in slapd configuration
+        invoke-rc.d ebox users  restart || true
+        invoke-rc.d slapd restart || true
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
     ;;
 esac
 
