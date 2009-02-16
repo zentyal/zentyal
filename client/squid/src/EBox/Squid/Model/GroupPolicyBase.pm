@@ -99,7 +99,8 @@ sub tableHeader
          ),
      new EBox::Squid::Types::TimePeriod(
                            fieldName => 'timePeriod',
-                           printableName => __('Time period'),
+                           printableName => __('Allowed time period'),
+                           help          => __('Time period when the access is allowed'),
                            editable => 1,
                           ),
     );
