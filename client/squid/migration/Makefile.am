@@ -3,7 +3,7 @@
 Migrationsdir = @DATADIR@/ebox-squid/migration
 
 
-nobase_Migrations_SCRIPTS = 0001_replace_deprecated_gconf_keys.pl 
+nobase_Migrations_SCRIPTS = 0001_replace_deprecated_gconf_keys.pl 0002_policies_with_timeperiod.pl 0003_migrate_to_default_profile.pl
 
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
