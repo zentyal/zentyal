@@ -34,7 +34,6 @@ use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
 use Error qw(:try);
-use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
 
 # Method: _create 
 #
@@ -256,7 +255,6 @@ sub extendedBackup
 sub backupDir
 {
   my ($self, $dir) = @_;
-  validate_pos(@_, 1, 1);
 
   # avoid duplicate paths problem
   my $modulePathPart =  '/' . $self->name() . '.bak';
@@ -280,7 +278,6 @@ sub backupDir
 sub _createBackupDir
 {
   my ($self, $dir) = @_;
-  validate_pos(@_, 1, 1);
 
   my $backupDir = $self->backupDir($dir);
 
@@ -421,7 +418,6 @@ sub aroundDumpConfig
 sub restoreConfig
 {
   my ($self, $dir) = @_;
-  validate_pos(@_, 1, 1);
 }
 
 
@@ -438,7 +434,6 @@ sub restoreConfig
 sub aroundRestoreConfig
 {
     my ($self, $dir) = @_;
-    validate_pos(@_, 1, 1);
 
     $self->restoreConfig($dir);
 }
@@ -794,7 +789,6 @@ sub _regenConfig
 sub writeConfFileNoCheck # (file, component, params, defaults)
 {
     my ($file, $compname, $params, $defaults) = @_;
-    validate_pos(@_, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
     my $oldUmask = umask 0007;
     my ($fh,$tmpfile);

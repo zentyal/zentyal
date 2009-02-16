@@ -24,7 +24,6 @@ use EBox::Global;
 use EBox::Sudo;
 
 use Error qw(:try);
-use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
 
 use strict;
 use warnings;
@@ -621,8 +620,6 @@ sub _enforceServiceState
 sub writeConfFile # (file, component, params, defaults)
 {
     my ($self, $file, $compname, $params, $defaults) = @_;
-    validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
-
 
     # we will avoid check modification when the method is called as class method
     #  this is awkward but is the fudge we had used to date for files created
