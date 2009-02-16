@@ -163,22 +163,6 @@ sub udpatedRowNotify
   $self->_checkRow($row);
 }
 
-sub  deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    my $fileList =  $row->elementByName('fileList');
-    if (not $fileList->exist()) {
-        return;
-    }
-
-    my $path = $fileList->path();
-    if ($self->_fileIsArchive($path)) {
-        my $fileId =  $self->_fileId($row);
-        $self->_cleanArchive($fileId);
-    }
-        
-}
 
 
 
