@@ -93,7 +93,16 @@ usernameidmethodproxyauth = on
 usernameidmethodntlm = off # **NOT IMPLEMENTED**
 usernameidmethodident = off
 
-preemptivebanning = on
+# Preemptive banning - this means that if you have proxy auth enabled and a user accesses
+# a site banned by URL for example they will be denied straight away without a request
+# for their user and pass.  This has the effect of requiring the user to visit a clean
+# site first before it knows who they are and thus maybe an admin user.
+# This is how DansGuardian has always worked but in some situations it is less than
+# ideal.  So you can optionally disable it.  Default is on.
+# As a side effect disabling this makes AD image replacement work better as the mime
+# type is know.
+
+preemptivebanning = off
 
 
 forwardedfor = on
