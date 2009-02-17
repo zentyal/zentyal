@@ -116,15 +116,6 @@ sub usedFiles
 	       ];
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends 
-{
-    return ['network'];
-}
-
 # Method: enableActions 
 #
 # 	Override EBox::Module::Service::enableActions

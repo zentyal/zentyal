@@ -66,9 +66,13 @@ sub isReadOnly
         return $self->{ro};
 }
 
-sub _readModInfo # (module)
+#Method: readModInfo
+#
+#   Static method which returns the information found in the module's yaml file
+#
+sub readModInfo # (module)
 {
-    my ($self, $name) = @_;
+    my ($name) = @_;
     my $yaml = YAML::Tiny->read(EBox::Config::share() . "/ebox/modules/$name.yaml");
     return $yaml->[0];
 }
@@ -76,7 +80,7 @@ sub _readModInfo # (module)
 sub _className
 {
     my ($self, $name) = @_;
-    my $info = $self->_readModInfo($name);
+    my $info = readModInfo($name);
     defined($info) or return undef;
     return $info->{'class'};
 }
@@ -132,7 +136,7 @@ sub modIsChanged # (module)
 
         $self->modExists($name) or return undef;
 
-        my $info = $self->_readModInfo($name);
+        my $info = readModInfo($name);
         return $self->get_bool("modules/$name/changed");
 }
 
@@ -687,7 +691,6 @@ sub logger # (caller?)
         return EBox::logger(shift);
 }
 
-# 
 # Method: modDepends 
 #
 #       Return an array ref with the names of the modules that the requested
@@ -705,7 +708,7 @@ sub modDepends # (module)
 {
         my ($self, $name) = @_;
         $self->modExists($name) or return undef;
-        my $info = $self->_readModInfo($name);
+        my $info = readModInfo($name);
         my @list = map {s/^\s+//; $_} @{$info->{'depends'}};
         if (@list) {
                 return \@list;

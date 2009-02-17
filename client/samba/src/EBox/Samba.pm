@@ -180,16 +180,6 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-samba/ebox-samba-enable');
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends 
-{
-    return ['network', 'users'];
-}
-
-
 # Method: models
 #
 # Overrides:

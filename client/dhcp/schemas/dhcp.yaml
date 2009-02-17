@@ -1,3 +1,7 @@
 class: 'EBox::DHCP'
+
 depends:
+    - network
+
+enabledepends:
     - network

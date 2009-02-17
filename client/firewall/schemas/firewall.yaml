@@ -1,5 +1,9 @@
 class: 'EBox::Firewall'
+
 depends:
     - objects
     - network
     - services
+
+enabledepends:
+    - network

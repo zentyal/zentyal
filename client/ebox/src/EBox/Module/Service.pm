@@ -129,6 +129,10 @@ sub disableActions
 #
 #   For example: the firewall module needs the network module.
 #
+#   By default it returns the modules established in the enabledepends list
+#   in the module YAML file. Override the method if you need something more
+#   specific, e.g., having a dynamic list.
+#
 # Returns:
 #
 #    array ref containing the dependencies.
@@ -139,7 +143,13 @@ sub disableActions
 #
 sub enableModDepends
 {
-    return [];
+    my ($self) = @_;
+    my $depends = $self->info()->{'enabledepends'};
+    if(not defined($depends)) {
+        return [];
+    } else {
+        return $depends;
+    }
 }
 
 # Method: configured 

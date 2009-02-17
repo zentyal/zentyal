@@ -73,6 +73,16 @@ sub _create # (name, domain?)
 	return $self;
 }
 
+# Method: info
+#
+#   Read module information from YAML file
+#
+sub info
+{
+    my ($self) = @_;
+    return EBox::Global::readModInfo($self->{name});
+}
+
 # Method: revokeConfig 
 #
 #   	Base method to revoke config. It just notifies that he module has been

@@ -1,5 +1,9 @@
 class: 'EBox::TrafficShaping'
+
 depends:
     - network
     - objects
     - services
+
+enabledepends:
+    - network

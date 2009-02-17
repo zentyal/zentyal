@@ -137,15 +137,6 @@ sub enableService
     $samba->setPrinterService($status);
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends 
-{
-    return ['samba'];
-}
-
 sub firewallHelper
 {
         my $self = shift;

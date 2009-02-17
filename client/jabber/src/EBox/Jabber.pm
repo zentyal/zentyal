@@ -106,15 +106,6 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-jabber/ebox-enable-jabber');
 }
 
-#  Method: enableModDepends
-#
-#   Override <EBox::Module::Service::enableModDepends>
-#
-sub enableModDepends 
-{
-    return ['users'];
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>

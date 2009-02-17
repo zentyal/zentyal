@@ -263,18 +263,6 @@ sub serviceModuleName
     return 'squid';
 }
 
-
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends 
-{
-    return ['firewall', 'users'];
-}
-
-
-
 sub _doDaemon
 {
     my ($self) = @_;

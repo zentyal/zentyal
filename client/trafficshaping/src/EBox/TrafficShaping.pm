@@ -140,15 +140,6 @@ sub actions
     ];
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends 
-{
-    return ['network'];
-}
-
 # Method: isRunning
 #
 # Overrides:
