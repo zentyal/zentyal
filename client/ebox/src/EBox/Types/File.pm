@@ -530,7 +530,13 @@ sub _paramIsSet
 }
 
 
-
+#  Method: backupPath
+#
+#   return the path to the actual configuration backup
+# 
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
 sub backupPath
 {
   my ($self, $path) = @_;
@@ -543,6 +549,14 @@ sub backupPath
   return $backupPath;
 }
 
+#  Method: noPreviousFilePath
+#
+#   return the path to the file to signals to the actual configuration backup
+#   that there wasn't any file before
+# 
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
 sub noPreviousFilePath
 {
   my ($self, $path) = @_;
@@ -556,7 +570,14 @@ sub noPreviousFilePath
 }
 
 
-#  in backup and restore method is assummed that all files are owned by ebox
+# Method: backupFiles
+#
+#   Make an actual configuration backup of the file.. This backup will used to
+#   discard changes when revoking the configuration
+#
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
 sub backupFiles
 {
   my ($self, $path) = @_;
@@ -582,7 +603,14 @@ sub backupFiles
 
 }
 
-
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of the file, thus discarding last
+#  changes 
+#
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
 sub restoreFiles
 {
   my ($self, $path) = @_;

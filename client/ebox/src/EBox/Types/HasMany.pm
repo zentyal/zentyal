@@ -373,7 +373,10 @@ sub _paramIsSet
 
   }
 
-
+# Method: filesPaths
+#
+#   Returns:
+#     the paths of the files managed by the submodel and possible rows and sub-submodels
 sub filesPaths
 {
     my ($self) = @_;
@@ -390,6 +393,10 @@ sub filesPaths
     }
 }
 
+# Method: backupFiles
+#
+#   Make an actual configuration backup of all the files contained in the
+#   submodel and potentials rows and nested submodels. This backup will used to discard changes if needed
 sub backupFiles
 {
   my ($self) = @_;
@@ -405,7 +412,10 @@ sub backupFiles
 
 }
 
-
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of files, thus discarding last
+#  changes in files
 sub restoreFiles
 {
   my ($self) = @_;
