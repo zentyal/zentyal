@@ -481,7 +481,8 @@ sub _setThresholdConf
     if ( $gl->modExists('events') ) {
         my $evtsMod = $gl->modInstance('events');
         if ( $evtsMod->isEnabled() and $evtsMod->isEnabledWatcher('EBox::Event::Watcher::Monitor')->value() ) {
-            foreach my $measureWatcher (@{$measureWatchersModel->rows()}) {
+            foreach my $id (@{$measureWatchersModel->ids()}) {
+                my $measureWatcher = $measureWatchersModel->row($id);
                 my $confModel = $measureWatcher->subModel('thresholds');
                 my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
                 foreach my $confRow (@{$confModel->findDumpThresholds()}) {

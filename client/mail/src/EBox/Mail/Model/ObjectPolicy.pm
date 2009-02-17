@@ -159,7 +159,7 @@ sub _objectsByAllowPolicy
 
   my $objectsModel = $self->objectModel();
   my @objects = map {
-      my $id  = $_->elementByName('object')->value();
+      my $id  = $self->row($_)->elementByName('object')->value();
       $id
   }  @{ $rows_r };
 
@@ -182,7 +182,7 @@ sub isAllowed
       return undef;
   }
 
-  return $objectRow->elementByName('allow')->value() ? 1 : undef;
+  return $self->row($objectRow)->elementByName('allow')->value() ? 1 : undef;
 }
 
 

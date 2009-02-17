@@ -245,7 +245,8 @@ sub _uniqPortAndProtocol
 
     my $nIdentical = 0;
     my $olddir = $self->directory();
-    foreach my $row ( @{ $serverList->rows}) {
+    foreach my $id ( @{ $serverList->ids()}) {
+        my $row = $serverList->row($id);
         my $serverConf = $row->subModel('configuration');
         my $other      = $serverConf->portAndProtocolType();
 

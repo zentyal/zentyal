@@ -188,8 +188,8 @@ sub clients
 {
     my ($self) = @_;
     my @clients = map {
-        EBox::OpenVPN::Client->new( $_ )
-    } @{  $self->rows() };
+        EBox::OpenVPN::Client->new( $self->row($_) )
+    } @{  $self->ids() };
     
     return \@clients;
 

@@ -186,6 +186,7 @@ sub setModel
 {
     my ($self, $model) = @_;
     
+    $self->SUPER::setModel($model);
     $AUTOLOAD = 'setModel';
     return $self->AUTOLOAD($model);
 }
@@ -194,6 +195,7 @@ sub setRow
 {
     my ($self, $row) = @_;
     
+    $self->SUPER::setRow($row);
     # Call AUTOLOAD method in order not to repeat code
     $AUTOLOAD = 'setRow';
     return $self->AUTOLOAD($row);
@@ -345,6 +347,13 @@ sub AUTOLOAD
     if ( $methodName eq 'DESTROY' ) {
         return;
     }
+
+    # setRow and setModel must be run for all subtypes
+    if ($methodName eq 'setRow' or $methodName eq 'setModel') {
+        foreach my $subtype (@{$self->{'subtypes'}}) {
+            $subtype->$methodName(@params);
+        }
+    }
     
     # Call the method from the selected type
     my $selected = $self->selectedType();
@@ -428,12 +437,18 @@ sub _restoreFromHash
     
     my $selPar = $self->fieldName() . '_selected';
     
-    my $selected = $hash->{$selPar};
-        
+    return unless ($self->row());
+    my $selected;
+    unless ($selected = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        my $path = $self->_path(); 
+        $selected =  $gconf->get_string($path . '/' . $selPar);
+        $self->_addToCache($selected);
+    }
+
     foreach my $type (@{$self->{'subtypes'}}) {
         next unless ($type->fieldName() eq $selected);
-        
-        $type->restoreFromHash($hash);
+        $type->restoreFromHash();
         $self->setSelectedType($selected);
     }
         

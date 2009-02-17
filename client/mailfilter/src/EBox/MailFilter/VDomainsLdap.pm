@@ -642,7 +642,8 @@ sub regenConfig
     my $mf =  EBox::Global->modInstance('mailfilter');
     my $vdomainsTable = $mf->model('VDomains');
 
-    foreach my $vdRow (@{ $vdomainsTable->rows() }) {
+    foreach my $id (@{ $vdomainsTable->ids() }) {
+        my $vdRow = $vdomainsTable->row($id);
         my $vdomain     = $vdomainsTable->nameFromRow($vdRow);
         my $antivirus   = $vdRow->elementByName('antivirus')->value();
         my $antispam    = $vdRow->elementByName('antispam')->value();
@@ -663,7 +664,8 @@ sub regenConfig
         my @blacklist;
 
         my $acl = $vdRow->subModel('acl');
-        foreach my $aclRow (@{ $acl->rows  }) {
+        foreach my $id (@{ $acl->ids()  }) {
+            my $aclRow = $acl->row($id);
             my $sender = $aclRow->elementByName('sender')->value();
             my $policy = $aclRow->elementByName('policy')->value();
 

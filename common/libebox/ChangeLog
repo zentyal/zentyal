@@ -8,6 +8,7 @@
 	prototype
 	+ Added `configKeysFromFile` to `EBox::Config`
 	+ Bugfix: make boolean setter honour editable attribute
+	+ Change tableBody to fetch each row instead of all rows at the same time
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes

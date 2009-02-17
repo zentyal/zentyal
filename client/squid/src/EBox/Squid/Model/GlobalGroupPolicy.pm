@@ -188,7 +188,8 @@ sub usersByFilterGroup
     my $usersMod = EBox::Global->modInstance('users');
     my $filterGroupsModel = EBox::Global->modInstance('squid')->model('FilterGroup');
 
-    foreach my $row (@{ $self->rows() }) {
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
         my $userGroup   = $row->elementByName('group')->printableValue();
 #         my $filterGroupRowId = $row->valueByName('filterGroup');
 #         my $filterGroup  = $filterGroupsModel->row($filterGroupRowId)->valueByName('name');

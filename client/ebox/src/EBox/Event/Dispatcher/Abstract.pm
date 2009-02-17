@@ -197,8 +197,11 @@ sub configurationSubModel
 
     my $manager = EBox::Model::ModelManager->instance();
     my $watchers = $manager->model('/events/ConfigureDispatcherDataTable');
-    my $row = $watchers->findValue('eventDispatcher' => $package);
-    return $row->subModel('configuration_model');
+    for my $id (@{$watchers->ids()}) {
+	my $row = $watchers->row($id);
+	next unless ($row->valueByName('eventDispatcher') eq $package);
+	return $row->subModel('configuration_model');
+    }
 }
 # Group: Protected method
 

@@ -183,9 +183,9 @@ sub servers
     my ($self) = @_;
     my @servers = map {
         EBox::OpenVPN::Server->new(
-                                    $_
+                                    $self->row($_)
                                   )
-    } @{  $self->rows() };
+    } @{  $self->ids() };
     
     return \@servers;
 

@@ -104,9 +104,8 @@ sub usedFiles
    
    my $vHostModel = $self->model('VHostTable');
 
-    my $vHosts = $vHostModel->rows();
-
-    foreach my $vHost (@{$vHostModel->rows()}) {
+    foreach my $id (@{$vHostModel->ids()}) {
+        my $vHost = $vHostModel->row($id);
         # Access to the field values for every virtual host
         my $vHostName = $vHost->valueByName('name');
 
@@ -264,7 +263,8 @@ sub virtualHosts
 
     my $vHostModel = $self->model('VHostTable');
     my @vHosts;
-    foreach my $rowVHost (@{$vHostModel->rows()}) {
+    foreach my $id (@{$vHostModel->ids()}) {
+        my $rowVHost = $vHostModel->row($id);
         push ( @vHosts, {
                          name => $rowVHost->valueByName('name'), 
                          enabled => $rowVHost->valueByName('enabled'), 
@@ -417,13 +417,12 @@ sub _setVHosts
 
     my $vHostModel = $self->model('VHostTable');
 
-    my $vHosts = $vHostModel->rows();
-
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
     EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . "$vHostPattern");
     my %sitesToRemove = %{_availableSites()};
-    foreach my $vHost (@{$vHostModel->rows()}) {
+    foreach my $id (@{$vHostModel->ids()}) {
+        my $vHost = $vHostModel->row($id);
         # Access to the field values for every virtual host
         my $vHostName  = $vHost->valueByName('name');
 

@@ -150,7 +150,6 @@ sub _alreadyInSameObject
     my ($self, $memberId, $iparg, $maskarg) = @_;
 
 
-
     foreach my $subRow (@{$self->rows()}) {
         next if ($subRow->id() eq $memberId);
         my $memaddr = new Net::IP($subRow->printableValueByName('ipaddr'));

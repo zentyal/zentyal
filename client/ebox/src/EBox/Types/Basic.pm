@@ -104,8 +104,14 @@ sub _setMemValue
 sub _restoreFromHash
 {
     my ($self, $hash) = @_;
-
-    $self->{'value'} = $hash->{$self->fieldName()};
+    return unless ($self->row());
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        $value =  $gconf->get_string($self->_path() . '/' . $self->fieldName());
+        $self->_addToCache($value);
+    }
+    $self->{'value'} = $value;
 }
 
 # Method: _setValue

@@ -371,9 +371,10 @@ sub availablePort # (proto, port, interface)
         my $tmp = $network->InternalIfaces();
         @ifaces = @{$tmp};
     }
-    my $redirs = $self->{'RedirectsTable'}->rows();
+    my $redirs = $self->{'RedirectsTable'}->ids();
     foreach my $ifc (@ifaces) {
-        foreach my $red (@{$redirs}) {
+        foreach my $id (@{$redirs}) {
+            my $red = $self->{'RedirectsTable'}->row($id);
             ($red->valueByName('protocol') eq $proto) or next;
             ($red->valueByName('interface') eq $ifc) or next;
             ($red->valueByName('external_port') eq $port) and return undef;

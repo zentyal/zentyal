@@ -1,14 +1,12 @@
 1.1
 	+ Added required output rules to connect remote services when the
 	eBox is subscribed
+	+ Use the new ids() and row() API
 0.12.100
 	+ New release
 0.12.99
 	+ Add support for reporting 
 	+ Add rules to allow DHCP requests from interfaces configured via DHCP
-0.12.4
-	+ Bugfix. Do not apply rules to internal connections in "From external to
-	internal"
 0.12.1
 	+ Add log decision to firewall rules
 	+ Add conf parameter to disable NAT

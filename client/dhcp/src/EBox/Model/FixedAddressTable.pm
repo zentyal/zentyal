@@ -139,7 +139,8 @@ sub validateTypedRow
         # my $rangeModel = $dhcp->model('RangeTable');
         my $rangeModel = EBox::Model::ModelManager->instance()->model('/dhcp/RangeTable/'
                                                                       . $self->{interface});
-        foreach my $rangeRow (@{$rangeModel->rows()}) {
+        foreach my $id (@{$rangeModel->ids()}) {
+            my $rangeRow = $rangeModel->row($id);
             my $from = $rangeRow->valueByName('from');
             my $to   = $rangeRow->valueByName('to');
             my $range = new Net::IP( $from . '-' . $to);
@@ -168,10 +169,10 @@ sub validateTypedRow
         @fixedAddressTables = grep { $_->index() ne $self->index() }
           @fixedAddressTables;
 
-        my @repRows = grep { $_->findValue( name => $newName ) }
+        my $row = grep { $_->findValue( name => $newName ) }
           @fixedAddressTables;
 
-        if ( @repRows > 0 ) {
+        if ( $row ) {
             my $i18nAction = '';
             if ( $action eq 'update' ) {
                 $i18nAction = __('update');

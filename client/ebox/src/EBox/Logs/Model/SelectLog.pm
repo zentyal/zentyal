@@ -36,44 +36,64 @@ sub new
     return $self;
 }
 
-sub rows
-{
-    my ($self, @p) = @_;
-
-    $self->refreshRows();
-
-    return $self->SUPER::rows(@p);
-}
-
-sub refreshRows
+# Method: ids
+#
+#   Override <EBox::Model::DataTable::ids> as we don't need to
+#   store these rows. Actually, the rows returned by this model
+#   are built in runtime. All their elements are read only so
+#   there is no need to store anything.
+#
+#   We simply create an id array using an integer for every
+#   row.
+#
+#   This id will be used to build the row in runtime in
+#   <EBox::Model::SelectLog::row)
+sub ids
 {
     my ($self) = @_;
 
-    my $global  = EBox::Global->getInstance();
-    my $modName = $self->{gconfmodule}->name();
-    
-    my $alreadyChanged = $global->modIsChanged($modName);
-
-    try {
-        $self->removeAll(1);
-        
-        my @mods = @{ $global->modInstancesOfType('EBox::LogObserver') };
-        foreach my $mod (@mods) {
-            foreach my $urlGroup (@{ $mod->reportUrls }) {
-                $self->addRow( @{ $urlGroup } )
-            }
+    my @ids;
+    my @mods = @{ EBox::Global->modInstancesOfType('EBox::LogObserver') };
+    my $idx = 0;
+    foreach my $mod (@mods) {
+        foreach my $urlGroup (@{ $mod->reportUrls }) {
+            push (@ids, $idx);
+            $idx++;
         }
-
     }
-   finally {
-       if (not $alreadyChanged) {
-           # unmark module as changed
-           $global->modRestarted($modName);
-       }
-   };
-
+    return \@ids;
 }
 
+# Method: row
+#
+#   Override <EBox::Model::DataTable::row> as we don't need to
+#   store these rows. Actually, the rows returned by this model
+#   are built in runtime. All their elements are read only so
+#   there is no need to store anything.
+#
+#   Use one of the id returned by <EBox::Model::SelectLog::ids>
+#   to build and return the requested row
+
+sub row
+{
+    my ($self, $id) = @_;
+
+    my @mods = @{ EBox::Global->modInstancesOfType('EBox::LogObserver') };
+    my $idx = 0;
+    my $rowValues;
+    foreach my $mod (@mods) {
+        foreach my $urlGroup (@{ $mod->reportUrls }) {
+            if ($idx == $id) {
+                my $row = $self->_setValueRow(%{$urlGroup});
+                $row->setId($id);
+                $row->setReadOnly(1);
+                return $row;
+            }
+            $idx++;
+        }
+    }
+    return undef; 
+}
 
 sub logRows
 {

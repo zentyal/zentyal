@@ -165,17 +165,27 @@ sub _initDefaultRow
     $defaultRow->setReadOnly(1);
 }
 
-sub rows
+sub _ids
 {
-    my ($self, @params) = @_;
+    my ($self) = @_;
+
+    my $ids = $self->SUPER::_ids();
+    unshift (@{$ids}, 'default');
+    return $ids;
+}
+
+sub row 
+{
+    my ($self, $id) = @_;
+
+    unless ($id eq 'default') {
+        return $self->SUPER::row($id);
+    }
 
     defined $defaultRow or
         $self->_initDefaultRow();
 
-    my $rows = $self->SUPER::rows(@params);
-    unshift @{ $rows }, $defaultRow;
-
-    return $rows;
+    return $defaultRow;
 }
 
 sub name
@@ -213,9 +223,9 @@ sub filterGroups
               # the first to be getted
 
 
-  foreach my $row ( @{ $self->rows() } ) {
+  foreach my $rowId ( @{ $self->ids() } ) {
+      my $row = $self->row($rowId);
       my $name  = $row->valueByName('name');
-      my $rowId = $row->id();
       
       $id += 1 ; 
       if ($id > MAX_DG_GROUP) {

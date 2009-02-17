@@ -301,7 +301,8 @@ sub _isLoggerEnabled
 
     unless (exists $self->{logger}->{$logger}) {
         my $confModel = $self->_logSubModel(); 
-        my $row = $confModel->find(domain => $logger);
+        my $id = $confModel->find(domain => $logger);
+        my $row = $confModel->row($id);
         $self->{logger}->{$logger} = $row->valueByName('enabled');
     }
 
@@ -317,12 +318,14 @@ sub _filters
     unless ($self->{filters}->{$logger}) {
         my $logConfModel = $self->_logSubModel(); 
 
-        my $loggerConfRow = $logConfModel->findValue(domain => $logger);
+        my $id  = $logConfModel->findValue(domain => $logger);
+        my $loggerConfRow = $logConfModel->row($id);
 
         my $filterModel = $loggerConfRow->subModel('filters'); 
 
         my @filterSearchs = ();
-        foreach my $filterRow (@{$filterModel->rows()}) {
+        foreach my $id (@{$filterModel->ids()}) {
+            my $filterRow = $filterModel->row($id);
             my $filterSearch = {};
             foreach my $filterField (@{$filterRow->elements()}) {
                 if ( $filterField->value() ) {

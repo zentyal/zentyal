@@ -69,7 +69,8 @@ sub initializeInterfaces
 {
     my ($self) = @_;
 
-    foreach my $row ( @{ $self->rows() }) {
+    foreach my $id ( @{ $self->ids() }) {
+        my$row = $self->row($id);
         my $interfaceNumber = $row->elementByName('interfaceNumber');
         next if $interfaceNumber->value() != -1;
 

@@ -108,14 +108,13 @@ sub _table
 sub banned
 {
     my ($self) = @_;
-    my @banned = grep {
-        not $_->elementByName('allow')->value()
-    } @{  $self->rows() };
-
-    @banned = map {
-        $_->elementByName('extension')->value()
-    } @banned;
-
+    my @banned;
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        unless ($row->valueByName('allow')) {
+            push (@banned, $row->valueByName('extension'));
+        }
+    } 
     return \@banned;
 }
 

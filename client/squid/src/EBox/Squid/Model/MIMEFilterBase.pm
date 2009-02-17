@@ -91,7 +91,8 @@ sub banned
   my ($self) = @_;
 
   my @banned;
-  for my $row (@{$self->rows()}) {
+  for my $id (@{$self->ids()}) {
+    my $row = $self->row($id);
     if (not $row->valueByName('allowed')) {
         push (@banned, $row->valueByName('MIMEType'));
     }

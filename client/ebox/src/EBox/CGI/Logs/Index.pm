@@ -227,6 +227,7 @@ sub _saveAsEvent
     my $hfilters = $self->_paramFilters();
     my $selected = $self->param('selected');
 
+    # TODO Use new row/ids API
     my $manager = EBox::Model::ModelManager->instance();
     my $logConfModel = $manager->model('/events/LogWatcherConfiguration');
     my $loggerConfRow = $logConfModel->findValue(domain => $selected);

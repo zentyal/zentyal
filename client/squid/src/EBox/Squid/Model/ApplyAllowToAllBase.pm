@@ -36,14 +36,10 @@ sub setRow
 
     my $listModel = $self->listModel();
 
-    my $rows_r = $listModel->rows();
-
-    foreach my $row (@{ $rows_r }) {
-        my $id       = $row->id();
+    foreach my $id (@{ $listModel->ids()}) {
+        my $row = $listModel->row($id);
         my $allowed = $row->elementByName('allowed');
         $allowed->setValue($allowValue);
-
-
         $listModel->setTypedRow($id, { allowed => $allowed } );
     }
     ;

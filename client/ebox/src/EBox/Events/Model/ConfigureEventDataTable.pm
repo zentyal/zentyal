@@ -86,7 +86,7 @@ sub new
 
   }
 
-# Method: rows
+# Method: ids
 #
 #      This method is overridden since the showed data is managed
 #      differently.
@@ -101,22 +101,19 @@ sub new
 #
 #        <EBox::Model::DataTable::rows>
 #
-sub rows
+sub syncRows
   {
 
-      my ($self, $filter, $page) = @_;
+      my ($self, $currentRows) = @_;
 
       # If the GConf module is readonly, return current rows
       if ( $self->{'gconfmodule'}->isReadOnly() ) {
-          return $self->SUPER::rows($filter, $page);
+          return undef;
       }
 
-      # Fetch the current event watchers from gconf
-      my $currentRows = $self->SUPER::rows();
-
-
       my %storedEventWatchers;
-      foreach my $currentRow (@{$currentRows}) {
+      foreach my $id (@{$currentRows}) {
+          my $currentRow = $self->row($id);
           $storedEventWatchers{$currentRow->valueByName('eventWatcher')} = 'true';
       }
 
@@ -127,6 +124,7 @@ sub rows
       }
 
       # Adding new ones
+      my $modified = undef;
       foreach my $watcher (keys ( %currentEventWatchers )) {
           next if ( exists ( $storedEventWatchers{$watcher} ));
           my %params = ('eventWatcher' => $watcher,
@@ -142,10 +140,12 @@ sub rows
               $params{configuration_none} = '';
           }
           $self->addRow( %params );
+          $modified = 1;
       }
 
       # Removing old ones
-      foreach my $row (@{$currentRows}) {
+      foreach my $id (@{$currentRows}) {
+          my $row = $self->row($id);
           my $stored = $row->valueByName('eventWatcher');
           if ( exists ( $currentEventWatchers{$stored} )) {
               # Check its ability
@@ -154,10 +154,11 @@ sub rows
           } else {
               $self->removeRow( $row->{id} );
           }
+          $modified = 1;
       }
 
 
-      return $self->SUPER::rows($filter, $page);
+      return $modified;
 
   }
 
@@ -391,7 +392,7 @@ sub acquireConfModel
 
       my ($row) = @_;
 
-      my $className = $row->{eventWatcher};
+      my $className = $row->valueByName('eventWatcher');
 
       eval "use $className";
       if ( $@ ) {

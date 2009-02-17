@@ -654,6 +654,32 @@ sub subModel
     return $model;
 }
 
+# Method: matchFilter
+#
+#  Check if any of the printable values of the row matches a given filter 
+#
+# Parameters:
+#
+#   filter - string containing the filter
+#
+# Returns:
+#
+#   boolean - true if it matches, false otherwise
+#
+sub matchFilter
+{
+    my ($self, $filter) = @_;
+
+    unless ($filter) {
+        throw EBox::Exceptions::MissingArgument('filter');
+    }
+
+    for my $value (@{$self->{values}}) {
+        return 1 if ($value->printableValue() =~ /$filter/);
+    }
+
+    return undef;
+}
 
 # Method: filesPaths
 #

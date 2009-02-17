@@ -61,23 +61,6 @@ sub new
 }
 
 
-sub precondition
-{
-    my ($self) = @_;
-    my $users = EBox::Global->modInstance('users');
-    return $users->configured();
-
-}
-
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-    return __(
-              'User and groups module must have been enabled to configure this section'
-             )
-
-
-}
 
 
 sub tableHeader
@@ -116,8 +99,7 @@ sub tableHeader
          ),
      new EBox::Squid::Types::TimePeriod(
                            fieldName => 'timePeriod',
-                           printableName => __('Allowed time period'),
-                           help          => __('Time period when the access is allowed'),
+                           printableName => __('Time period'),
                            editable => 1,
                           ),
     );
@@ -137,23 +119,22 @@ sub populateGroups
     return \@groups;
 }
 
-sub rows
+sub syncRows 
 {
-    my ($self, $filter, $page) = @_;
+    my ($self, $currentIds) = @_;
 
     my $userMod = EBox::Global->modInstance('users');
 
-    my $rows = $self->SUPER::rows($filter, $page);
-    my $filteredRows = [];
-    foreach my $row (@{$rows}) {
-        my $userGroup = $row->valueByName('group');
-        if (defined($userGroup) and $userMod->groupExists($userGroup)) {
-            push (@{$filteredRows}, $row);
-        } else {
-            $self->removeRow($row->{id}, 1);
+  my $anyChange = undef;
+    for my $id (@{$currentIds}) {
+        my $userGroup = $self->row($id)->valueByName('group');
+        unless(defined($userGroup) and length ($userGroup) > 0) {
+            $self->removeRow($id, 1);
+            $anyChange = 1;
         }
     }
-    return $filteredRows;
+    return $anyChange;
+
 }
 
 
@@ -164,7 +145,7 @@ sub rows
 sub existsGroupPolicy
 {
     my ($self) = @_;
-    my $nPolicies = @{ $self->rows() };
+    my $nPolicies = @{ $self->ids() };
     return ($nPolicies > 0);
 }
 
@@ -176,9 +157,10 @@ sub groupsPolicies
   my $userMod = EBox::Global->modInstance('users');  
 
   my @groupsPol = map {
-    my $group =  $_->valueByName('group');
-    my $allow = $_->valueByName('policy') eq 'allow';
-    my $time = $_->elementByName('timePeriod');
+    my $row = $self->row($_);
+    my $group =  $row->valueByName('group');
+    my $allow = $row->valueByName('policy') eq 'allow';
+    my $time = $row->elementByName('timePeriod');
     my $users =  $userMod->usersInGroup($group);
 
     if (@{ $users }) {
@@ -200,7 +182,7 @@ sub groupsPolicies
       ()
     }
 
-  } @{ $self->rows()  };
+  } @{ $self->ids()  };
 
   return \@groupsPol;
 }

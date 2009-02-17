@@ -125,7 +125,8 @@ sub validateTypedRow
         } else {
             $matchedRows = $self->findAllValue(typeInstance => $allFields->{typeInstance}->value());
         }
-        foreach my $row (@{$matchedRows}) {
+        foreach my $id (@{$matchedRows}) {
+            my $row = $self->row($id);
             next if (($action eq 'update') and ($row->id() eq $allFields->{id}));
             if ( $allFields->{typeInstance}->value() eq 'none'
                  and $row->elementByName('dataSource')->isEqualTo($allFields->{dataSource})) {
@@ -181,10 +182,11 @@ sub findDumpThresholds
     my $enabledRows = $self->findAll(enabled => 1);
 
     my @dumpedRows = ();
-    foreach my $aRow (@{$enabledRows}) {
+    foreach my $id (@{$enabledRows}) {
+        my $aRow = $self->row($id);
         my $dump = 1;
         foreach my $anotherRow (@dumpedRows) {
-            next if ($aRow->id() eq $anotherRow->id());
+            next if ($id eq $anotherRow->id());
             if ( $aRow->elementByName('measureInstance')->isEqualTo($anotherRow->elementByName('measureInstance'))
                  and $aRow->elementByName('typeInstance')->isEqualTo($anotherRow->elementByName('typeInstance'))) {
                 $dump = 0;

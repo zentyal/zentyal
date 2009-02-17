@@ -739,7 +739,8 @@ sub _cleanDomainFilterFiles
 
     my $filterGroups = $self->model('FilterGroup');
     my $defaultGroupName = $filterGroups->defaultGroupName();
-    foreach my $row ( @{ $filterGroups->rows() } ) {
+    foreach my $id ( @{ $filterGroups->ids() } ) {
+        my $row = $filterGroups->row($id);
         if ($row->valueByName('name') eq $defaultGroupName) {
             next;
         }

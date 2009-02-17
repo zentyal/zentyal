@@ -149,13 +149,20 @@ As we did in version 0.1, let's implement a simple external script to read the v
     my $modules= $manager->model('apache2/Modules');
 
     # Iterates over the rows and print info
-    for my $row (@{$modules->rows()}) {
+    for my $id (@{$modules->ids()}) {
+            my $row = $modules->row($id);
             my $name = $row->valueByName('module');
             my $enabled = $row->valueByName('enabled');
             print "Module: $name enabled $enabled\n";
     }
 
-We will skip the first part and we will go directly into the loop. As you can see, we iterate over every row that is stored in our model. We use the method *rows()* (remember our model inherits from *EBox::Model::DataTable*) and for every row we fetch the value for the two fields that make it up: *module*, and *enabled*. The method *valueByName*, as we have already seen, takes care of looking up the field and returning its value.
+We will skip the first part and we will go directly into the loop. As you
+can see, we iterate over every row that is stored in our model. We use the
+method *ids()* (remember our model inherits from *EBox::Model::DataTable*)
+to fetch the row identifiers. And for every identifier we retrieve its row
+by calling *row()*. Then we fetch the value for the two fields that make it
+up: *module*, and *enabled*. The method *valueByName*, as we have already
+seen, takes care of looking up the field and returning its value.
 
 Writing the apache configuration
 ================================
@@ -179,7 +186,8 @@ In our main class (*src/EBox/Apache2.pm*) we will implement a private method cal
             my $mgr = EBox::Model::ModelManager->instance();
             my $model = $mgr->model('apache2/Modules');
 
-            for my $row (@{$model->rows()}) {
+            for my $id (@{$model->ids()}) {
+                    my $row = $model->row($id);
                     my $module = $row->valueByName('module');
                     my $enabled = $row->valueByName('enabled');
                     if ($enabled) {

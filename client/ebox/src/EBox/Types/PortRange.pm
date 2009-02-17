@@ -363,11 +363,27 @@ sub _restoreFromHash
 {
     my ($self, $hash) = @_;
 
-    my $name = $self->fieldName();
-    $self->{'range_type'} = $hash->{$name . '_range_type'};
-    $self->{'from'} = $hash->{$name . '_from_port'};
-    $self->{'to'} = $hash->{$name . '_to_port'};
-    $self->{'single'} = $hash->{$name . '_single_port'};
+    return unless ($self->row());
+    my $range = $self->fieldName() . '_range_type';
+    my $from = $self->fieldName() . '_from_port';
+    my $to = $self->fieldName() . '_to_port';
+    my $single = $self->fieldName() . '_single_port';
+
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        my $path = $self->_path(); 
+        $value->{range} =  $gconf->get_string($path . '/' . $range);
+        $value->{from} =  $gconf->get_string($path . '/' . $from);
+        $value->{to} =  $gconf->get_string($path . '/' . $to);
+        $value->{single} =  $gconf->get_string($path . '/' . $single);
+        $self->_addToCache($value);
+    }
+
+    $self->{'range_type'} = $value->{range}; 
+    $self->{'from'} = $value->{from}; 
+    $self->{'to'} = $value->{to};
+    $self->{'single'} = $value->{single}; 
 
 }
 

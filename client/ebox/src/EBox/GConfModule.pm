@@ -514,6 +514,13 @@ sub get_bool # (key)
     return $self->_get_bool($key);
 }
 
+sub get # (key) 
+{
+	my ($self, $key) = @_;
+	$self->_config;
+	return $self->_get($key);
+}
+
 sub st_get_bool # (key) 
 {
     my ($self, $key) = @_;
@@ -919,6 +926,7 @@ sub _delete_dir # (key)
     $self->_backup;
     $dir = $self->_key($dir);
     $self->_delete_dir_internal($dir);
+	$self->gconf->suggest_sync;;
 }
 
 #

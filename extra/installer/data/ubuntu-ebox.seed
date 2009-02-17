@@ -6,8 +6,10 @@ d-i	pkgsel/language-pack-patterns	string
 d-i	pkgsel/install-language-support	boolean false
 
 # install ebox dependencies and ssh
-d-i pkgsel/include string adduser amavisd-new  arj bind9 bzip2 clamav clamav-daemon clamav-freshclam courier-authdaemon courier-imap courier-imap-ssl courier-ldap courier-pop courier-pop-ssl cupsys dansguardian debconf dhcp3-client dhcp3-server dnsutils foomatic-db foomatic-db-engine foomatic-db-hpijs foomatic-filters gconf2 gettext iproute iptables jabber-common jabberd2-ldap-bdb jnettop libapache-authcookie-perl libapache-singleton-perl libapache2-mod-ldap-userdir libapache2-mod-perl2 libchart-perl libclone-perl libconfig-tiny-perl libcrypt-smbhash-perl libdate-calc-perl libdbd-pg-perl libdevel-stacktrace-perl liberror-perl libexporter-cluster-perl libfile-copy-recursive-perl libfile-mmagic-perl libfile-slurp-perl libfile-tail-perl libfilesys-df-perl libgnome2-gconf-perl libhtml-mason-perl libintl-perl liblocale-gettext-perl liblog-dispatch-perl liblog-log4perl-perl libmail-rfc822-address-perl libnet-arp-perl libnet-cups-perl libnet-dns-perl libnet-ip-perl libnet-jabber-perl libnet-ldap-perl libnss-ldap libperl6-junction-perl libproc-process-perl libreadonly-perl libreadonly-xs-perl librrds-perl libsasl2-2 libsasl2-modules libsoap-lite-perl libsys-cpu-perl libsys-cpuload-perl libtree-perl libxml-rss-perl net-tools ntp ntpdate openssl openvpn postfix-ldap quagga quota rrdtool samba sasl2-bin slapd smbldap-tools spamassassin squid ssh sudo tftpd-hpa unzoo vlan zip 
+d-i pkgsel/include ssh 
 
+# Add eBox repository
+d-i apt-setup/local0/key string deb http://ppa.launchpad.net/ebox/ubuntu hardy main
 
 
 # Uncomment to ease installation testing
@@ -52,7 +54,6 @@ d-i pkgsel/include string adduser amavisd-new  arj bind9 bzip2 clamav clamav-dae
 
 
 tasksel        tasksel/first  multiselect
-
 # postfix answers
 postfix	postfix/main_mailer_type	select	No configuration
 

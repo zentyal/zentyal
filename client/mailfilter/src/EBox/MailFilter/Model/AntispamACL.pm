@@ -160,14 +160,13 @@ sub _listByPolicy
 {
     my ($self, $policy) = @_;
 
-    my @list = grep {
-        $_->elementByName('policy')->value() eq $policy
-    } @{  $self->rows() };
-
-    @list = map {
-        $_->elementByName('sender')->value()
-    } @list;
-
+    my @list;
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('policy') eq $policy) {
+            push (@list, $row->valueByName('sender'));
+        }
+    }
     return \@list;
 }
 

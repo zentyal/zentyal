@@ -128,7 +128,8 @@ sub filesPerPolicy
 
     my $defaultPolicy  = $self->parentRow()->valueByName('policy');
 
-    foreach my $row ( @{ $self->rows() } ) {
+    foreach my $id ( @{ $self->ids() } ) {
+        my $row = $self->row($id);
         my $catPolicy = $row->valueByName('policy');
         if ($catPolicy eq 'default') {
             $catPolicy = $defaultPolicy;

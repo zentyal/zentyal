@@ -1507,8 +1507,8 @@ sub nameservers
 # 	}
 # 	return \@array;
         my $resolverModel = $self->model('DNSResolver');
-        my $rows = $resolverModel->rows();
-        @array = map { $_->valueByName('nameserver') } @{$rows};
+        my $ids = $resolverModel->ids();
+        @array = map { $resolverModel->row($_)->valueByName('nameserver') } @{$ids};
         return \@array;
 }
 
@@ -1627,7 +1627,8 @@ sub routes
 
     my $staticRouteModel = $self->model('StaticRoute');
     my @routes;
-    for my $row (@{$staticRouteModel->rows()}) {
+    for my $id (@{$staticRouteModel->ids()}) {
+        my $row = $staticRouteModel->row($id);
         push (@routes, { network => $row->printableValueByName('network'),
                          gateway => $row->printableValueByName('gateway')});
     }
@@ -1882,8 +1883,10 @@ sub _removeRoutes
 {
     my ($self) = @_;
 
+    return if ($self->isReadOnly());
     my $deletedModel = $self->model('DeletedStaticRoute');
-    foreach my $row (@{$deletedModel->rows()}) {
+    foreach my $id (@{$deletedModel->ids()}) {
+        my $row = $deletedModel->row($id);
         my $network = $row->elementByName('network')->printableValue();
         my $gateway = $row->elementByName('gateway')->printableValue();
         if ( route_is_up($network, $gateway)) {
@@ -2721,10 +2724,10 @@ sub _defaultGwAndIface
 {
 	my ($self) = @_;
 
-	my $row = $self->gatewayModel()->find('default' => 1);
+	my $gw = $self->gatewayModel()->find('default' => 1);
 
-	if ($row) {
-		return ($row->{'interface'}, $row->{'ip'});
+	if ($gw) {
+		return ($gw->valueByName('interface'), $gw->valueByName('ip'));
 	} else {
 		return (undef, undef);
 	}

@@ -252,7 +252,8 @@ sub createDirs
 {
     my ($self) = @_;
 
-    for my $row (@{$self->rows()}) {
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         my $pathType =  $row->elementByName('path');
         next unless ( $pathType->selectedType() eq 'ebox');
         my $path = EBOX_SHARE_DIR . $pathType->value();

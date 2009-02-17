@@ -116,7 +116,8 @@ sub validateTypedRow
     my $new_protocol = $allFields->{protocol};
     my $new_source = $allFields->{source};
 
-    foreach my $row (@{$self->rows()}) {
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         if ($action eq 'update' and $row->id() eq $changedFields->{id}) {
             next; # We must not check against the row that is being modified
         }

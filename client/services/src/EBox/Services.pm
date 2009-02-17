@@ -180,7 +180,8 @@ sub serviceConfiguration
     my $model = $row->subModel('configuration');
 
     my @conf;
-    for my $subRow (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+	my $subRow = $model->row($id);
         push (@conf, { 
                         'protocol' => $subRow->valueByName('protocol'),
                         'source' => $subRow->valueByName('source'),

@@ -4,7 +4,7 @@
 
 #exec $STARTUP
 
-exec firefox-2 https://127.0.0.1 &
+exec firefox-3 https://127.0.0.1 &
 exec icewm
 
 # vim:set ai et sts=2 sw=2 tw=80:

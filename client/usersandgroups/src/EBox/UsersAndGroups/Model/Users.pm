@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 
 use EBox::Types::Text;
@@ -80,7 +81,7 @@ sub _table
             ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Users',
-        'help' => __x('foo'),
+        'help' => __x('Users'),
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
     };
@@ -104,7 +105,7 @@ sub precondition
         return undef;
     }
 
-    unless ($users->users()) {
+    unless (@{$self->ids()}) {
         $self->{preconFail} = 'noUsers';
         return undef;
     }
@@ -132,63 +133,51 @@ sub preconditionFailMsg
     }
 }
 
-sub rows
+# Method: ids
+#
+#   Override <EBox::Model::DataTable::ids> to return rows identifiers
+#   based on the users stored in LDAP
+#
+sub ids
 {
-    my ($self, $filter, $page) = @_;
+    my ($self) = @_;
 
-    my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-
-    my $userMod = EBox::Global->modInstance('users');
-
-    unless ($userMod->configured()) {
+    my $users = EBox::Global->modInstance('users');
+    unless ($users->configured()) {
         return [];
     }
 
-    my @rows;
-    for my $userInfo ($userMod->users()) {
-        my $user = new EBox::Types::Text(
-                'fieldName' => 'name',
-                'printableName' => __('Name'),
-                'size' => '12',
-                'editable' => 1
-                );
+    return $users->uidList();
+}
+
+# Method: row
+#
+#   Override <EBox::Model::DataTable::row> to build and return a
+#   row dependening on the user uid which is the id passwd.
+#
+sub row
+{
+    my ($self, $id) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    if ($users->userExists($id)) {
+        my $userInfo  = $users->userInfo($id);
         my $userName = $userInfo->{'username'};
-        $user->setValue($userName);
-
-        my $fullName = new EBox::Types::Text(
-                'fieldName' => 'fullname',
-                'printableName' => __('Full name'),
-                'size' => '12',
-                'editable' => 1
-                );
         my $full = $userInfo->{'fullname'};
-        $fullName->setValue($full);
-
-        my $link = new EBox::Types::Link(
-                'fieldName' => 'edit',
-                'printableName' => __('Edit'),
-                );
-        my $linkValue = "/ebox/UsersAndGroups/User?username=$userName";
-        $link->setValue($linkValue);
-
-        my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-        $row->setModel($self);
-        $row->setId('NOT_USED');
+        my $link = "/ebox/UsersAndGroups/User?username=$userName";
+        my $row = $self->_setValueRow(name => $userName, 
+                fullname => $full,
+                'edit' => $link);
+        $row->setId($id);
         $row->setReadOnly(1);
-        $row->addElement($user);
-        $row->addElement($fullName);
-        $row->addElement($link);
-
-        push (@rows, $row); 
+    } else {
+        throw EBox::Exceptions::Internal("user $id does not exist");
     }
-
-    return $self->_filterRows(\@rows, $filter, $page);
 }
 
 sub Viewer
 {
-    return '/ajax/tableUser.mas';
+    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;

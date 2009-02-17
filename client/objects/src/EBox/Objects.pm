@@ -135,9 +135,10 @@ sub objects
     my ($self) = @_;
 
     my @objects;
-    for my $object (@{$self->{objectModel}->rows()}) {
+    for my $id (@{$self->{objectModel}->ids()}) {
+	my $object = $self->{objectModel}->row($id);
         push (@objects, {
-                            id => $object->id(),
+                            id => $id,
                             name => $object->valueByName('name')
                          });
     }
@@ -191,7 +192,8 @@ sub objectMembers # (object)
     return undef unless defined($object);
 
     my @members;
-    for my $member (@{$object->subModel('members')->rows()}) {
+    for my $id (@{$object->subModel('members')->ids()}) {
+	my $member = $object->subModel('members')->row($id);
         my $ipaddr = $member->elementByName('ipaddr');
         push (@members, {
                             ipaddr => $ipaddr->printableValue(),

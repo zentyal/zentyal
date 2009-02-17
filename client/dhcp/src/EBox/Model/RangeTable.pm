@@ -149,7 +149,8 @@ sub validateTypedRow
         if ( $action eq 'update' ) {
             $currentId = $allFields->{name}->row()->id();
         }
-        foreach my $row ( @{$self->rows()} ) {
+        foreach my $id ( @{$self->ids()} ) {
+            my $row = $self->row($id);
             my $compareId = $row->id();
             # If the action is an update, does not check the same row
             if ( $action eq 'update' and $compareId eq $currentId ) {
@@ -174,7 +175,8 @@ sub validateTypedRow
         #my $fixedAddressModel = $self->{gconfmodule}->model('FixedAddressTable');
         my $fixedAddressModel = EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/'
                                                                              . $self->{interface});
-        foreach my $map ( @{$fixedAddressModel->rows()} ) {
+        foreach my $id ( @{$fixedAddressModel->ids()} ) {
+            my $map = $fixedAddressModel->row($id);
             my $fixedIP = new Net::IP($map->valueByName('ip'));
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('Range {from}-{to} includes fixed '

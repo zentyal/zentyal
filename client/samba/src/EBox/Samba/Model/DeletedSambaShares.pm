@@ -78,7 +78,8 @@ sub removeDirs
 {
     my ($self) = @_;
 
-    for my $row ( @{$self->rows()}) {
+    for my $id ( @{$self->ids()}) {
+        my $row = $self->row($id);
         my $path = EBOX_SHARE_DIR;
         $path .= $row->elementByName('path')->value();
         unless ( -d $path ) {
@@ -90,7 +91,7 @@ sub removeDirs
         } otherwise {
             EBox::warn("Couldn't remove $path");
         };
-        $self->removeRow($row->id(), 1);
+        $self->removeRow($id, 1);
     }
 }
 

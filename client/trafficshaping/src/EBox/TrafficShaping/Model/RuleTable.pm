@@ -644,17 +644,16 @@ sub _removeRules
 
     my ($self) = @_;
 
-    my $rows = $self->rows();
-
-    foreach my $row (@{$rows}) {
-        $self->removeRow( $row->{id}, 1);
+    my $removedRows = 0;
+    foreach my $id (@{$self->ids()}) {
+        $self->removeRow( $id, 1);
+        $removedRows++;
     }
 
     my $msg = '';
-    my $numRows = scalar(@{$rows});
-    if ($numRows > 0) {
+    if ($removedRows > 0) {
         $msg = __x('Remove {num} rules at {modelName}',
-               num => $numRows,
+               num => $removedRows,
                modelName => $self->printableContextName());
     }
     return $msg;

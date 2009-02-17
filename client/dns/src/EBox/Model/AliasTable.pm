@@ -70,36 +70,25 @@ sub validateTypedRow
 
     return unless ( exists $changedFields->{alias} );
     my $alias = $changedFields->{alias};
+    my $olddir = $alias->model()->directory();
 
-    # Check it is not the nameserver hostname
-    my $dnsMod = EBox::Global->modInstance('dns');
-    my $newAlias = $alias->value();
-    if ($newAlias eq $dnsMod->NameserverHost()) {
-        throw EBox::Exceptions::External(
-            __x('An alias cannot be the nameserver host name "{ns}". '
-                . 'Use a hostname instead',
-                 ns => $dnsMod->NameserverHost()));
-    }
-
-    my $olddir = $self->directory();
-
-    # Check there is no A RR in the domain with the same name
-    my $domain = $alias->row()->parentRow()->parentRow()->valueByName('domain');
-    
-    for my $hostname (@{$dnsMod->getHostnames($domain)}) {
-        if ($hostname->{name} eq $newAlias) {
+    for my $hostId (@{$alias->row()->parentRow()->model()->ids()}) {
+        my $hostRow = $alias->row()->parentRow()->model()->row($hostId);
+        if ($hostRow->valueByName('hostname') eq $alias->value()) {
             throw EBox::Exceptions::External(
-                        __x('There is a hostname with the same name "{name}" '
-                            . 'in the same domain',
-                             name     => $newAlias));
-
+                    __x('There is a hostname with the same name "{name}" '
+                        . 'in the same domain',
+                        name     => $alias->value()));
         }
-        for my $alias (@{$hostname->{'aliases'}}) {
-            if ($hostname->{name} eq $newAlias) {
+        for my $aliasId (@{$hostRow->subModel('alias')->ids()}) {
+            my $aliasRow = $hostRow->subModel('alias')->row($aliasId);
+            next if ($aliasId eq $alias->row()->id());
+            if ($aliasRow->valueByName('alias') eq $alias->value()) {
                 throw EBox::Exceptions::External(
                         __x('There is an alias with the same name "{name}" '
                             . 'in the same domain',
-                             name     => $newAlias));
+                            name     => $alias->value()));
+
             }
         }
     }

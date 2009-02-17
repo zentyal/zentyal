@@ -156,8 +156,10 @@ sub refreshTable
     if ( defined ( $pageSize )) {
         $model->setPageSize($pageSize);
     }
-    my $rows = $model->rows($filter, $page);
-    my $tpages = $model->pages($filter);
+#    my $rows = $model->rows($filter, $page);
+#    my $tpages = $model->pages($filter);
+    my $rows = undef;
+    my $tpages = 1000;
     my @params;
     push(@params, 'data' => $rows);
     push(@params, 'dataTable' => $model->table());

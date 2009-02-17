@@ -244,7 +244,8 @@ sub removeRulesUsingRouter
 {
 	my ($self, $router) = @_;
 
-	for my $row (@{$self->rows()}) {
+	for my $id (@{$self->ids()}) {
+		my $row = $self->row($id);
 		my $rowRouter = $row->valueByName('gateway');
 		if ($rowRouter eq $router) {
 			$self->removeRow($row->id());
@@ -257,7 +258,8 @@ sub iptablesRules
 	my $self = shift;
 
 	my @rules;
-	for my $row (@{$self->rows()}) {
+	for my $id (@{$self->ids()}) {
+		my $row = $self->row($id);
 		my @rule = $self->_buildIptablesRule($row);
 		if (@rule) {
 			push (@rules, @rule);

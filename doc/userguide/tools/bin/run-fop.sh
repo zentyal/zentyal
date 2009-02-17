@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # run-fop: Attempt to run fop (or fop.sh), fail articulately otherwise.
 #

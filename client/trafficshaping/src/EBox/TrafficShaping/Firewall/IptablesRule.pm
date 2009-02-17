@@ -175,7 +175,8 @@ sub setL7GroupedService
     }
 
     my @protocols;
-    for my $subRow (@{$row->subModel('protocols')->rows()}) {
+    for my $id (@{$row->subModel('protocols')->ids()}) {
+        my $subRow = $row->subModel('protocols')->row($id);
         my $ser =  $subRow->valueByName('protocol');
         push (@{$self->{'service'}}, " -m layer7 --l7proto $inverse $ser");
     }

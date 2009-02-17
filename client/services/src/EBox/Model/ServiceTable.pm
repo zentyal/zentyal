@@ -213,7 +213,8 @@ sub availablePort
 
     my $internals = $self->findAll('internal' => 1);
 
-    for my $service (@{$internals}) {
+    for my $id (@{$internals}) {
+	my $service = $self->row($id);
         my $serviceConf = $service->subModel('configuration');
         for my $conf (@{$serviceConf->findAllValue('destination' => $port)}) {
             return undef if ($conf->valueByName('protocol') eq $protocol);
@@ -329,13 +330,13 @@ sub setService
 
 
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
-    my @rows = @{$serviceConf->rows()};
-    unless (@rows > 0) {
+    my @ids = @{$serviceConf->ids()};
+    unless (@ids) {
         throw EBox::Exceptions::External(
                 "This service has no protocols configured");
     }
 
-    my $idConf = $rows[0]->id();
+    my $idConf = $ids[0];
     
     
     my %confParams = _serviceConfParams(%params);

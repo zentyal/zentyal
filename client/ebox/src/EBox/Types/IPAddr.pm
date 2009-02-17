@@ -196,13 +196,23 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-        my ($self, $hash) = @_;
+    my ($self, $hash) = @_;
 
-        my $ip = $self->fieldName() . '_ip';
-        my $mask = $self->fieldName() . '_mask';
+    return unless ($self->row());
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        $self->{'ip'} = $hash->{$ip};
-        $self->{'mask'} = $hash->{$mask};
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        my $path = $self->_path();
+        $value->{ip} =  $gconf->get_string($path . '/' . $ip);
+        $value->{mask} =  $gconf->get_string($path . '/' . $mask);
+        $self->_addToCache($value);
+    }
+
+    $self->{'ip'} = $value->{ip};
+    $self->{'mask'} = $value->{mask};
 }
 
 

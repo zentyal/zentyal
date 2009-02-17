@@ -483,10 +483,11 @@ sub listRules
     my $ruleModel = $self->ruleModel($iface);
 
     my @rules = ();
-    foreach my $row (@{$ruleModel->rows()}) {
+    foreach my $id (@{$ruleModel->ids()}) {
+        my $row = $ruleModel->row($id);
         my $ruleRef =
           {
-           ruleId      => $row->id(),
+           ruleId      => $id,
            service     => $row->elementByName('service'),
            source      => $row->elementByName('source')->subtype(),
            destination => $row->elementByName('destination')->subtype(),
@@ -1089,10 +1090,10 @@ sub _buildGConfRules # (iface, regenConfig)
 
     my $model = $self->ruleModel($iface);
 
-    my $rows = $model->rows();
     my $rulesRef = [];
 
-    foreach my $row (@{$rows}) {
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $ruleRef = {};
         $ruleRef->{identifier} = $self->_nextMap($row->{id});
         $ruleRef->{service} = $row->elementByName('service');

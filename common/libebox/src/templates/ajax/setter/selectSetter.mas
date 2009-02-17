@@ -30,12 +30,10 @@ if ( $data->unique() ) {
     if ( defined ( $model )) {
         my $field  = $data->fieldName();
 
-#        my @optionsAlreadyModel = ();
-        my $rows = $model->rows();
-
-        foreach my $row (@{$rows}) {
+        foreach my $id (@{$model->ids()}) {
             # Check if the element exists to avoid nasty issues
             # with union types
+	    my $row = $model->row($id);
             next unless ($row->elementByName($field));
             push( @optionsAlreadyModel,
                   $row->valueByName($field) );

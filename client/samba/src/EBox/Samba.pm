@@ -223,7 +223,8 @@ sub shares
     my $shares = $self->model('SambaShares');
     my @shares;
 
-    for my $row (@{$shares->rows()}) {
+    for my $id (@{$shares->ids()}) {
+        my $row = $shares->row($id);
         my @readOnly;
         my @readWrite;
         my @administrators;
@@ -239,7 +240,8 @@ sub shares
         }
         $shareConf->{'path'} .= $path->value();
 
-        for my $subRow (@{$row->subModel('access')->rows()}) {
+        for my $subId (@{$row->subModel('access')->ids()}) {
+            my $subRow = $row->subModel('access')->row($subId);
             my $userType = $subRow->elementByName('user_group');
             my $preCar = '';
             if ($userType->selectedType() eq 'group') {

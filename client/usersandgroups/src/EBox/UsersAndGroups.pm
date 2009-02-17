@@ -615,6 +615,39 @@ sub userInfo # (user, entry)
     return $userinfo;
 }
 
+# Method: uidList
+#
+#       Returns an ordered array containing all uid
+#
+# Returns:
+#
+#       array - holding the uid
+#
+sub uidList 
+{
+    my ($self, $system) = @_;
+
+    my %args = (
+                base => $self->usersDn,
+                filter => 'objectclass=*',
+                scope => 'one',
+                attrs => ['uid', 'uidNumber']
+               );
+    
+    my $result = $self->{ldap}->search(\%args);
+    
+    my @users = ();
+    foreach my $user ($result->sorted('uid'))
+        {
+            if (not $system) {
+                next if ($user->get_value('uidNumber') < MINUID);
+            }
+            push (@users, $user->get_value('uid'));
+        }
+    
+    return \@users;
+}
+
 # Method: users
 #
 #       Returns an array containing all the users (not system users)
@@ -654,6 +687,42 @@ sub users
     
     return @users;
 }
+
+# Method: usersList
+#
+#       Returns an array containing all the users (not system users)
+#
+# Returns:
+#
+#       array ref - containing hash refs with the following keys
+#
+#            user => user name
+#            uid => uid number
+#
+sub usersList
+{
+    my ($self) = @_;
+
+    my %args = (
+                base => $self->usersDn,
+                filter => 'objectclass=*',
+                scope => 'one',
+                attrs => ['uid', 'uidNumber']
+               );
+    
+    my $result = $self->{ldap}->search(\%args);
+    
+    my @users = ();
+    foreach my $user ($result->sorted('uid'))
+        {
+            next if ($user->get_value('uidNumber') < MINUID);
+            push (@users,  { user => $user->get_value('uid'), 
+                    uid => $user->get_value('uidNumber') });
+        }
+    
+    return \@users;
+}
+
 
 # Method: groupExists
 #

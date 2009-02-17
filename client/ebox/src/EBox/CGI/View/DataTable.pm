@@ -54,15 +54,15 @@ sub _process
         if ( $self->param('action') eq 'presetUpdate' ) {
             $self->_presetUpdate();
         } else {
-            my $rows = $model->rows(undef, 0);
+#            my $rows = $model->rows(undef, 0);
 
-            my $tpages = $model->pages(undef);
+ #           my $tpages = $model->pages(undef);
             my @params;
-            push(@params, 'data' => $rows);
+            push(@params, 'data' => undef );
             push(@params, 'dataTable' => $model->table());
             push(@params, 'model'      => $model);
             push(@params, 'hasChanged' => $global->unsaved());
-            push(@params, 'tpages' => $tpages);
+            push(@params, 'tpages' => 0);
             push(@params, 'page' => 0);
 
             $self->{'params'} = \@params;
@@ -129,8 +129,8 @@ sub _findEqualRow
     my ($self, $model, $presetParams) = @_;
 
     my $foundId = 0;
-    my $rows = $model->rows();
-    foreach my $row (@{$rows}) {
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $valueHash = $row->{'valueHash'};
         my $nEqual = grep { $valueHash->{$_}->isEqualTo($presetParams->{$_}) }
           @{$model->fields()};

@@ -120,22 +120,20 @@ sub headTitle
 #
 #        <EBox::Model::DataTable::rows>
 #
-sub rows
+sub syncRows
   {
 
-      my ($self, $filter, $page) = @_;
+      my ($self, $currentRows) = @_;
 
       # If the GConf module is readonly, return current rows
       if ( $self->{'gconfmodule'}->isReadOnly() ) {
-          return $self->SUPER::rows($filter, $page);
+          return undef; 
       }
-
-      # Fetch the current event watchers from gconf
-      my $currentRows = $self->SUPER::rows();
 
       my %storedEventDispatchers;
       foreach my $currentRow (@{$currentRows}) {
-          $storedEventDispatchers{$currentRow->valueByName('eventDispatcher')} = 'true';
+          my $row = $self->row($currentRow);
+          $storedEventDispatchers{$row->valueByName('eventDispatcher')} = 'true';
       }
 
       my %currentEventDispatchers;
@@ -144,6 +142,7 @@ sub rows
           $currentEventDispatchers{$dispatcherFetched} = 'true';
       }
 
+      my $modified = undef;
       # Adding new ones
       foreach my $dispatcher (keys ( %currentEventDispatchers )) {
           next if ( exists ( $storedEventDispatchers{$dispatcher} ));
@@ -166,17 +165,19 @@ sub rows
           }
 
           $self->addRow(%params);
+          $modified = 1;
       }
 
       # Removing old ones
-      foreach my $row (@{$currentRows}) {
+      foreach my $id (@{$currentRows}) {
+          my $row = $self->row($id);
           my $stored = $row->valueByName('eventDispatcher');
           next if ( exists ( $currentEventDispatchers{$stored} ));
           $self->removeRow( $row->id() );
+          $modified = 1;
       }
 
-      return $self->SUPER::rows($filter, $page);
-
+      return $modified;
   }
 
 # Method: updatedRowNotify
@@ -456,7 +457,7 @@ sub acquireConfModel
 
       my ($row) = @_;
 
-      my $className = $row->{eventDispatcher};
+      my $className = $row->valueByName('eventDispatcher');
 
       eval "use $className";
       if ( $@ ) {

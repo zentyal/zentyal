@@ -1,13 +1,14 @@
 <%args>
+$mainClass
 $name
 $compositeDomain
 </%args>
-# Class: EBox::Squid::Composite::<% $name %>
+# Class: EBox::<% $compositeDomain %>::Composite::<% $name %>
 #
 #   TODO
 #
 
-package EBox::Squid::Composite::<% $name %>;
+package EBox::<% $compositeDomain %>::Composite::<% $name %>;
 
 use base 'EBox::Model::Composite';
 
@@ -22,11 +23,6 @@ use EBox::Gettext;
 # Constructor: new
 #
 #         Constructor for composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
 #
 sub new
   {

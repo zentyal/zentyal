@@ -231,7 +231,7 @@ sub objectsPolicies
   my $objectMod = EBox::Global->modInstance('objects');
   
   my @obsPol = map {
-      my $row = $_;
+      my $row = $self->row($_);
 
       my $obj           = $row->valueByName('object');
       my $addresses     = $objectMod->objectAddresses($obj);
@@ -272,7 +272,7 @@ sub objectsPolicies
       ()
     }
 
-  } @{ $self->rows()  };
+  } @{ $self->ids()  };
 
   return \@obsPol;
 }
@@ -281,9 +281,10 @@ sub existsAuthObjects
 {
   my ($self) = @_;
 
-  foreach  ( @{ $self->rows() } )  {
-    my $obPolicy = $_->valueByName('policy');
-    my $groupPolicy = $_->subModel('groupPolicy');
+  foreach my $id ( @{ $self->ids() } )  {
+    my $row = $self->row($id);
+    my $obPolicy = $row->valueByName('policy');
+    my $groupPolicy = $row->subModel('groupPolicy');
 
     return 1 if $obPolicy eq 'auth';
     return 1 if $obPolicy eq 'authAndFilter';
@@ -302,8 +303,8 @@ sub existsFilteredObjects
 {
   my ($self) = @_;
 
-  foreach  ( @{ $self->rows() } )  {
-    my $obPolicy = $_->valueByName('policy');
+  foreach my $id ( @{ $self->ids() } )  {
+    my $obPolicy = $self->row($id)->valueByName('policy');
     return 1 if $obPolicy eq 'filter';
     return 1 if $obPolicy eq 'authAndFilter';
   }
@@ -319,10 +320,11 @@ sub _objectsByPolicy
     
 
     my @objects = map {
-        my $obPolicy = $_->valueByName('policy');
-        ($obPolicy eq $policy) ? $_->valueByName('object') : ()
+        my $row = $self->row($_);
+        my $obPolicy = $row->valueByName('policy');
+        ($obPolicy eq $policy) ? $row->valueByName('object') : ()
         
-    } @{ $self->rows()  };
+    } @{ $self->ids()  };
 
 
     

@@ -371,7 +371,8 @@ sub _filesByPolicy
       throw EBox::Exceptions::Internal("Bad scope $scope");
 
   my @files = ();
-  foreach my $row (@{$self->rows()}) {
+  foreach my $id (@{$self->ids()}) {
+      my $row = $self->row($id);
       my $file = $row->elementByName('fileList');
       $file->exist() or 
           next;

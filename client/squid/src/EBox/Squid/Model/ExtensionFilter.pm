@@ -86,7 +86,8 @@ sub banned
   
   my @bannedExtensions;
 
-  for my $row (@{$self->rows()}) {
+  for my $id (@{$self->ids()}) {
+    my $row = $self->row($id);
     if (not $row->valueByName('allowed')) {
         push (@bannedExtensions, $row->valueByName('extension'));
     }

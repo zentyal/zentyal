@@ -451,13 +451,14 @@ sub advertisedNets
 
     my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
     my @nets =   map {
-        my $netObj = $_->elementByName('network');
+        my $row = $advertisedNetsModel->row($_);
+        my $netObj = $row->elementByName('network');
         my $net  = $netObj->ip();
         my $maskBits = $netObj->mask();
         my $mask = EBox::NetWrappers::mask_from_bits($maskBits);
 
         [$net, $mask]
-    } @{ $advertisedNetsModel->rows() };
+    } @{ $advertisedNetsModel->ids() };
 
     return @nets;
 }

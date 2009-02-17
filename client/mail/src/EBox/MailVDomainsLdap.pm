@@ -300,7 +300,8 @@ sub regenConfig
     my $mf =  EBox::Global->modInstance('mail');
     my $vdomainsTable = $mf->model('VDomains');
 
-    foreach my $vdRow (@{ $vdomainsTable->rows() }) {
+    foreach my $id (@{ $vdomainsTable->ids() }) {
+        my $vdRow = $vdomainsTable->row($id);
         my $vdomain     = $vdRow->elementByName('vdomain')->value();
 
         if (not $self->vdomainExists($vdomain)) {

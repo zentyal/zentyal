@@ -195,4 +195,25 @@ sub _paramIsSet
 
   }
 
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+{
+    my ($self, $hash) = @_;
+
+    return unless ($self->row());
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        $value =  $gconf->get_int($self->_path() . '/' . $self->fieldName());
+        $self->_addToCache($value);
+    }
+    $self->{'value'} = $value;
+}
+
+
 1;

@@ -36,9 +36,8 @@ sub _migrateObjectPolicies
 
     my $squid = EBox::Global->modInstance('squid');
     my $objectPolicies = $squid->model('ObjectPolicy');
-    my @rows = @{  $objectPolicies->rows() };
-    
-    foreach my $row (@rows) {
+    foreach my $id (@{$objectPolicies->ids()}) {
+        my $row = $objectPolicies->row($id);
         my $timePeriod = $row->elementByName('timePeriod');
         $timePeriod->setValue('MTWHFAS');
         $row->store();

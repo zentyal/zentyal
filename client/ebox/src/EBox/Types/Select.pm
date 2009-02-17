@@ -358,10 +358,10 @@ sub _filterOptions
     my $field  = $self->fieldName();
 
     my @optionsAlreadyModel = ();
-    my $rows = $model->rows();
 
-    foreach my $row (@{$rows}) {
-        push( @optionsAlreadyModel, $row->{valueHash}->{$field});
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        push( @optionsAlreadyModel, $row->valueByName($field));
     }
 
     # Difference among optionsAlreadyModel and options arrays

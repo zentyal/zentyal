@@ -119,13 +119,14 @@ sub notCachedDomains
   my ($self, $policy) = @_;
 
   my @domains = map {
-      if ($_->valueByName('noCache')) {
-          $_->valueByName('domain');
+      my $row = $self->row($_); 
+      if ($row->valueByName('noCache')) {
+          $row->valueByName('domain');
       }
       else {
           ()
       }
-  } @{ $self->rows() };
+  } @{ $self->ids() };
 
 
   return \@domains;

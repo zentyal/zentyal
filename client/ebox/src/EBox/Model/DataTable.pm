@@ -31,6 +31,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 
@@ -90,7 +91,7 @@ sub new
             'directory' => "$directory/keys",
             'order' => "$directory/order", 
             'table' => undef,
-            'cachedVersion' => undef,
+            'cachedVersion' => 0,
             'domain' => $domain,
         };
 
@@ -547,14 +548,15 @@ sub optionsFromForeignModel
     my $cache = $self->{'optionsCache'};
     if ($self->_isOptionsCacheDirty($field)) {
         my @options;
-        for my $row (@{$self->rows()}) {
+        for my $id (@{$self->ids()}) {
+            my $row = $self->row($id);
             push (@options, {
-                    'value' => $row->id(),
+                    'value' => $id,
                     'printableValue' => $row->printableValueByName($field)
                     });
         }
         $cache->{$field}->{'values'} = \@options;
-        $cache->{$field}->{'cachedVersion'} = $self->_cachedVersion();
+        $cache->{$field}->{'cachedVersion'} = $self->_storedVersion();
     }
 
     return $cache->{$field}->{'values'};
@@ -887,6 +889,8 @@ sub addTypedRow
               }
           }
           $self->_insertPos($id, $pos);
+      } else {
+          $gconfmod->set_list($self->{'order'}, 'string', []);
       }
 
       $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
@@ -939,17 +943,15 @@ sub row
 
     $self->{'cacheOptions'} = {};
 
-    my $gconfData = $gconfmod->hash_from_dir("$dir/$id");
-
     $row->setId($id);
-    $row->setReadOnly($gconfData->{'readOnly'});
+    # TODO ReadOnly rows
+    $row->setReadOnly(undef);
     $row->setModel($self);
-    $row->setOrder($self->_rowOrder($id));    
-    
+
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();
-	$element->setRow($row);
-        $element->restoreFromHash($gconfData);
+        $element->setRow($row);
+        $element->restoreFromHash();
         $row->addElement($element);
     }
 
@@ -1114,6 +1116,8 @@ sub removeRow
 
     if ($self->table()->{'order'}) {
         $self->_removeOrderId($id);
+    } else {
+        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
     }
 
     my $userMsg = $self->message('del');
@@ -1388,8 +1392,14 @@ sub _storedVersion
 
     my $gconfmod = $self->{'gconfmodule'};
     my $storedVerKey = $self->{'directory'} . '/version';
+    my $storedVer = $gconfmod->get_int($storedVerKey);
 
-    return ($gconfmod->get_int($storedVerKey));
+    if (defined($storedVer)) {
+        return $storedVer;
+    } else {
+        return 0;
+    }
+
 }
 
 sub _cachedVersion
@@ -1415,6 +1425,9 @@ sub _cachedVersion
 sub rows
 {
     my ($self, $filter, $page)  = @_;
+
+    throw EBox::Exceptions::DeprecatedMethod();
+
     if (defined $page and ($page < 0)) {
         throw EBox::Exceptions::InvalidData(
                                             data => __('page'),
@@ -1479,7 +1492,7 @@ sub enabledRows
 
     my $fields = $self->fields();
     unless ( grep { $_ eq 'enabled' } @{$fields}) {
-        return $self->rows();
+        return $self->ids();
     }
     return $self->_find('enabled' => 1, 1, 'row');
 
@@ -1501,6 +1514,101 @@ sub size
       return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
 
   }
+
+# Method: syncRows
+#
+# 	This method might be useful to add or remove rows before they
+# 	are presented. In that case you must override this method.
+#
+# 	Warning: You should never call <EBox::Model::DataTable::ids>
+# 	within this function or you will enter into a deep recursion
+#
+# Parameters:
+#
+#	(POSITIONAL)
+#
+# 	currentIds - array ref containing the current row indentifiers 
+#
+# Returns:
+#
+# 	boolean - true if the current rows have been modified, i.e: there's
+# 	been a row addition or row removal
+#
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    return 0;
+}
+
+# Method: ids
+#
+#
+#   Return an array containing the identifiers of each  table row.
+#   The ids are ordered by the field specified by the model.
+#
+#   This method will call <EBox::Model::DataTable::syncRows>
+#
+# Returns:
+#
+#   array ref - containing the ids
+#
+sub ids
+{
+    my ($self) = @_;
+
+    my $currentIds = $self->_ids();
+    my $changed = $self->syncRows($currentIds);
+    if ($changed) {
+        return $self->_ids();
+    } else {
+        return $currentIds;
+    }
+}
+
+# Method: _ids
+#
+#   (PROTECTED)
+#
+#   Return an array containing the identifiers of each  table row.
+#   The ids are ordered by the field specified by the model
+#
+# Returns:
+#
+#   array ref - containing the ids
+#
+sub _ids 
+{
+    my ($self, $notOrder) =  @_;
+    my $gconfmod = $self->{'gconfmodule'};
+
+    my $storedVersion = $self->_storedVersion();
+    my $cachedVersion = $self->_cachedVersion();;
+    if ($storedVersion != $cachedVersion) {
+        $self->{'dataCache'} = undef;
+        $self->{'cachedVersion'} = $storedVersion;
+    }
+
+    my $ids = $gconfmod->get_list($self->{'order'});
+    unless (@{$ids}) {
+        $ids = $gconfmod->all_dirs_base($self->{'directory'});
+        return $ids if ($notOrder);
+        my $sortedBy = $self->sortedBy();
+        my %idsToOrder;
+        if (@{$ids} and $sortedBy) {
+            for my $id (@{$ids}) {
+                $idsToOrder{$id} = $self->row($id)
+                        ->printableValueByName($sortedBy); 
+            }
+            $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
+        }
+        unless ($gconfmod->isReadOnly()) {
+            $gconfmod->set_list($self->{'order'}, 'string', $ids);
+        } 
+    } 
+    return $ids;
+}
+
 
 sub _rows
 {
@@ -2182,7 +2290,7 @@ sub filter
 sub pages 
 {
     my ($self, $filter) = @_;
-
+    return 1;
     my $pageSize = $self->pageSize();
     unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
         return 1;
@@ -2236,7 +2344,7 @@ sub find
     my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
 
     if (@matched) {
-        return $matched[0];
+        return $self->row($matched[0]);
     } else {
         return undef;
     }
@@ -2244,7 +2352,7 @@ sub find
 
 # Method: findAll
 #
-#    Return all the rows which matches the value of the given
+#    Return all the id rows that match the value of the given
 #    field against the data returned by the method printableValue()
 #
 #    If you want to match against value use
@@ -2281,7 +2389,7 @@ sub findAll
 
 # Method: findValue
 #
-#    Return the first row which matches the value of the given
+#    Return the first row that matches the value of the given
 #    field against the data returned by the method value()
 #
 #    If you want to match against printable value use
@@ -2314,7 +2422,7 @@ sub findValue
     my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
 
     if (@matched) {
-        return $matched[0];
+        return $self->row($matched[0]);
     } else {
         return undef;
     }
@@ -2322,7 +2430,7 @@ sub findValue
 
 # Method: findAllValue
 #
-#    Return all the rows which matches the value of the given
+#    Return all the rows that match the value of the given
 #    field against the data returned by the method value()
 #
 #    If you want to match against value use
@@ -2391,16 +2499,15 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
 
-    my $rows = $self->rows();
-
-    foreach my $row (@{$rows}) {
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         my $element = $row->elementByName($fieldName);
         my $plainValue = $element->value();
         my $printableValue = $element->printableValue();
         if ((defined($plainValue) and $plainValue eq $value) 
             or (defined($printableValue) and $printableValue eq $value)) {
 
-            return $row->id();
+            return $id;
         }
     }
 
@@ -2410,7 +2517,7 @@ sub findId
 
 # Method: findRow
 #
-#    Return the first row which matches the value of the given field
+#    Return the first row that matches the value of the given field
 #    against the data returned by the method printableValue() or
 #    method value()
 #
@@ -2845,8 +2952,8 @@ sub backupFiles
   $self->_hasFileFields() or
       return;
 
-  foreach my $row (@{ $self->rows() } ) {
-      $row->backupFiles();
+  foreach my $row (@{ $self->ids() } ) {
+      $self->row($row)->backupFiles();
   }
 
   
@@ -2864,8 +2971,8 @@ sub restoreFiles
   $self->_hasFileFields() or
       return;
 
-  foreach my $row (@{ $self->rows() } ) {
-      $row->restoreFiles();
+  foreach my $row (@{ $self->ids() } ) {
+      $self->row($row)->restoreFiles();
   }
 
 }
@@ -2912,6 +3019,48 @@ sub reloadTable
 }
 
 # Group: Protected methods
+
+# Method: _prepareRow
+#
+#     Returns a new row instance with all its elements cloned
+#     and ready to be set 
+#
+sub _prepareRow
+{
+
+    my ($self) = @_;
+    my $row = EBox::Model::Row->new(dir => $self->directory(),
+            gconfmodule => $self->{gconfmodule});
+    $row->setModel($self);
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $data = $type->clone();
+        $row->addElement($data);
+    }
+    return $row;
+}
+
+# Method: _setValueRow
+#
+#     Returns a new row instance with all its elements cloned
+#     and set to the passed value.
+#
+# Parameters:
+#
+#   (NAMED)
+#
+#     Hash containing field names as keys, and values that will
+#     be passed to setValue for every element.    
+#
+sub _setValueRow
+{
+    my ($self, %values) = @_;
+
+    my $row = $self->_prepareRow();
+    while (my ($key, $value) = each %values) {
+        $row->elementByName($key)->setValue($value);
+    }
+    return $row;
+}
 
 # Method: _setDefaultMessages
 #
@@ -3004,10 +3153,10 @@ sub _find
 
     $kind = 'value' unless defined ( $kind );
 
-    my $rows = $self->rows();
 
     my @matched;
-    foreach my $row (@{$rows}) {
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         my $element = $row->elementByName($fieldName);
         next unless (defined($element));
 
@@ -3020,7 +3169,7 @@ sub _find
         next unless ($eValue eq $value);
         my $match;
         
-        push (@matched, $row);
+        push (@matched, $id);
         return (\@matched) unless ($allMatches);
     }
 
@@ -3032,8 +3181,8 @@ sub _checkFieldIsUnique
     my ($self, $newData) = @_;
 
     # Call _rows instead of rows because of deep recursion
-    my $rows = $self->_rows();
-    foreach my $row (@{$rows}) {
+    foreach my $id (@{$self->_ids(1)}) {
+        my $row = $self->row($id);
         my $rowField = $row->elementByName($newData->fieldName());
         if ( $newData->isEqualTo($rowField) ) {
             throw EBox::Exceptions::DataExists(
@@ -3041,6 +3190,7 @@ sub _checkFieldIsUnique
                 'value' => $newData->printableValue(),
                );
         }
+#	$row->DESTROY();
     }
     return 0;
 }
@@ -3063,7 +3213,9 @@ sub _checkRowIsUnique # (rowId, row_ref)
         my @fieldsWithoutEnabled = grep { $_ ne 'enabled' } @{$fields};
         $fields = \@fieldsWithoutEnabled;
     }
-    foreach my $row (@{$rows}) {
+    
+    foreach my $id (@{$self->_ids()}) {
+        my $row = $self->row($id);
         # Compare if the row identifier is different
         next if ( defined($rowId) and $row->{'id'} eq $rowId);
         my $nEqual = grep
@@ -3518,7 +3670,6 @@ sub _isOptionsCacheDirty
 
     my $cachedVersion = 
         $self->{'optionsCache'}->{$field}->{'cachedVersion'};
-
     return ($cachedVersion ne $self->_storedVersion());
 }
 
@@ -4117,7 +4268,7 @@ sub _autoloadGetId
     if ( defined ( $model->indexField() )) {
         $id = $model->findId( $model->indexField() => $paramsRef->[0] );
         unless ( defined ( $id )) {
-            unless ( defined ( $model->find( id => $paramsRef->[0] ))) {
+            unless ( defined ( $model->row($paramsRef->[0] ))) {
                 throw EBox::Exceptions::DataNotFound( data => 'identifier',
                         value => $paramsRef->[0]);
             }
@@ -4129,9 +4280,9 @@ sub _autoloadGetId
         unless ( defined ( $model->row($paramsRef->[0]) )) {
             # the given id is a number (position)
             if ( $paramsRef->[0] =~ m/^\d+$/ ) {
-                my $rows = $model->rows();
-                if ( exists ( $rows->[$paramsRef->[0]] )) {
-                    $id = $rows->[$paramsRef->[0]]->{id};
+                my @ids = @{$model->ids()};
+                if ( exists ( $ids[$paramsRef->[0]] )) {
+                    $id =  $ids[$paramsRef->[0]];
                 }
             }
         }
@@ -4297,8 +4448,8 @@ sub filesPaths
         return [];
 
     my @files = map {
-        @{ $_->filesPaths()  }
-    } @{ $self->rows() };
+        @{ $self->row($_)->filesPaths()  }
+    } @{ $self->ids() };
 
 
     return \@files;

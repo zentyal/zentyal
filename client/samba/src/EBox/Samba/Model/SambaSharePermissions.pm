@@ -64,8 +64,8 @@ sub populateUser
     my @users = map (
                 {
                     value => $_->{uid}, 
-                    printableValue => $_->{username}
-                }, $userMod->users()
+                    printableValue => $_->{user}
+                }, @{$userMod->usersList()}
             );
     return \@users;
 }
@@ -157,21 +157,19 @@ sub _table
       return $dataTable;
 }
 
-sub rows
+sub syncRows
 {
-    my ($self, $filter, $page) = @_;
+    my ($self, $currentIds) = @_;
 
-    my $rows = $self->SUPER::rows($filter, $page);
-    my $filteredRows = [];
-    for my $row (@{$rows}) {
-        my $userGroup = $row->printableValueByName('user_group');
-        if (defined($userGroup) and length ($userGroup) > 0) {
-            push (@{$filteredRows}, $row);
-        } else {
-            $self->removeRow($row->{id}, 1);
+    my $anyChange = undef;
+    for my $id (@{$currentIds}) {
+        my $userGroup = $self->row($id)->printableValueByName('user_group');
+        unless(defined($userGroup) and length ($userGroup) > 0) {
+            $self->removeRow($id, 1);
+            $anyChange = 1;
         }
     }
-    return $filteredRows;
+    return $anyChange;
 }
 
 # Private methods

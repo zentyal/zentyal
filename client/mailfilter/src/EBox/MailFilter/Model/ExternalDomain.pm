@@ -129,14 +129,13 @@ sub validateTypedRow
 sub allowed
 {
     my ($self) = @_;
-    my @allowed = grep {
-        $_->elementByName('allow')->value()
-    } @{  $self->rows() };
-
-    @allowed = map {
-        $_->elementByName('domain')->value()
-    } @allowed;
-
+    my @allowed;
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('allow')) {
+            push (@allowed, $row->valueByName('domain'));
+        }
+    }
     return \@allowed;
 }
 

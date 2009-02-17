@@ -185,7 +185,7 @@ sub reportUrls
 
 
       if (not $tableInfo->{consolidate}) {
-          push @urls, [ domain => $tableInfo->{name},  raw => $rawUrl, ];
+          push @urls, { domain => $tableInfo->{name},  raw => $rawUrl, };
           next;
       }
       
@@ -205,23 +205,23 @@ sub reportUrls
       my $first = 1;
       foreach my $comp (@reportComposites) {
           my $compName = $comp->name();
-          my @compUrls =(
+          my %compUrls =(
                          domain => $tableInfo->{name},
                          summary => "/ebox/$urlModName/Composite/$compName",
                       );
           if ($first) {
-              push @compUrls, (raw => $rawUrl );
+              $compUrls{raw} = $rawUrl;
               $first =0;
           }    
           else {
-              push @compUrls, ( raw => undef);
+              $compUrls{raw} = undef;
           }
           
-          push @urls, \@compUrls;
+          push @urls, \%compUrls;
       }
       
       if (not @reportComposites) {
-          push @urls, [ domain => $tableInfo->{name},  raw => $rawUrl, ];
+          push @urls, { domain => $tableInfo->{name},  raw => $rawUrl } ;
           
       }
       

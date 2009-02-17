@@ -179,10 +179,10 @@ sub validateRow()
 	# Check if there's only one default gw
 	my $currentRow = $params{'id'};
 	my $defaultRow = $self->find('default' => 1);
-	if (defined($defaultRow) and ($currentRow ne $defaultRow->id())) {
-		my $default = $defaultRow->elementByName('default');
+	if (defined($defaultRow) and ($currentRow ne $defaultRow)) {
+		my $default = $self->row($defaultRow)->elementByName('default');
 		$default->setValue(undef);
-		$defaultRow->storeElementByName('default');
+		$self->row($defaultRow)->storeElementByName('default');
 	}
 }
 
@@ -190,8 +190,9 @@ sub defaultGateway()
 {
 	my $self = shift;
 
-	my $default = $self->find('default' => 1);
-	if ($default) {
+	my $id = $self->find('default' => 1);
+	if ($id) {
+		my $default = $self->row($id);
 		return $default->valueByName('ip');
 	} else {
 		return undef;
@@ -203,8 +204,8 @@ sub iproute2TableIds()
 	my $self = shift;
 
 	my @ids;
-	for my $row (@{$self->rows()}) {
-		push (@ids, $row->id());
+	for my $id (@{$self->ids()}) {
+		push (@ids, $id);
 	}
 
 	return \@ids;
@@ -232,7 +233,8 @@ sub gateways()
 
 	my @gateways;
 
-	foreach my $gw (@{$self->rows()}) {
+	foreach my $id (@{$self->ids()}) {
+		my $gw = $self->row($id);
 		push (@gateways, {
 							id => $gw->id(),
 							name => $gw->valueByName('name'),

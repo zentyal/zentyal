@@ -225,8 +225,9 @@ sub domains
 
     my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
 
-    foreach my $row(@{$model->rows()})
+    foreach my $id (@{$model->ids()})
     {
+        my $row = $model->row($id);
         my $domaindata;
 
         $domaindata->{'name'} = $row->valueByName('domain');
@@ -242,7 +243,7 @@ sub domains
 #  returns an array with all hostname structure
 #
 # Parameters:
-#  array with all printable values of a domain
+#   model to iterate over
 #
 # Returns:
 #  array ref with this structure data:
@@ -253,17 +254,18 @@ sub domains
 #  
 sub _hostnames
 {
-    my ($self, $data) = @_;
+    my ($self, $model) = @_;
     my @array;
 
-    foreach my $hostname (@{$data})
+    foreach my $id (@{$model->ids()})
     {
+        my $hostname = $model->row($id);
         my $hostdata;
 
         $hostdata->{'name'} = $hostname->valueByName('hostname');
         $hostdata->{'ip'} = $hostname->valueByName('ipaddr');
         $hostdata->{'aliases'} = 
-            $self->aliases($hostname->subModel('alias')->rows());
+            $self->aliases($hostname->subModel('alias'));
 
         push(@array, $hostdata);
     }
@@ -279,8 +281,7 @@ sub _hostnames
 #
 # Parameters:
 #
-#       mailExchangers - array ref of <EBox::Model::Row> returned
-#                        by the proper model
+#       mailExchangers - model to iterate over 
 #
 #            hostName - String the host's name
 #            id - String the row identifier
@@ -299,7 +300,8 @@ sub _formatMailExchangers
     my ($self, $mailExchangers) = @_;
 
     my @mailExchangers;
-    foreach my $mx (@{$mailExchangers}) {
+    foreach my $id (@{$mailExchangers->ids()}) {
+        my $mx = $mailExchangers->row($id);
         my $hostName = $mx->valueByName('hostName');
         if ($mx->elementByName('hostName')->selectedType() eq 'custom') {
             unless ( $hostName =~ m:\.$: ) {
@@ -344,7 +346,7 @@ sub getHostnames
                                              value => $domain);
     }
 
-    return $self->_hostnames($domainRow->subModel('hostnames')->rows());
+    return $self->_hostnames($domainRow->subModel('hostnames'));
 
 }
 
@@ -352,7 +354,7 @@ sub getHostnames
 #  returns an array with all alias structure of a hostname
 #
 # Parameters:
-#  array with all printable values of a hostname
+#   model to iterate over
 #
 # Returns:
 #  array ref with this structure data:
@@ -361,11 +363,12 @@ sub getHostnames
 #  
 sub aliases
 {
-    my ($self, $data) = @_;
+    my ($self, $model) = @_;
     my @array;
 
-    foreach my $alias(@{$data})
+    foreach my $id (@{$model->ids()})
     {
+        my $alias = $model->row($id);
         my $aliasdata;
 
         $aliasdata->{'name'} = $alias->valueByName('alias');
@@ -407,13 +410,16 @@ sub findAlias
 
     my $domModel = $self->model('DomainTable');
     $domModel->{cachedVersion} = 0;
-    my $row = $domModel->find(domain => $domainName);
-    unless ( defined($row)) {
+    my $id = $domModel->find(domain => $domainName);
+    unless ( defined($id)) {
         throw EBox::Exceptions::DataNotFound(data => 'domain',
                                              value => $domainName);
     }
-    foreach my $hostnameRow (@{$row->subModel('hostnames')->rows()}) {
-        for my $aliasRow (@{$hostnameRow->subModel('alias')->rows()}) {
+    my $row = $domModel->row($id);
+    foreach my $ids (@{$row->subModel('hostnames')->ids()}) {
+        my $hostnameRow = $row->subModel('hostnames')->row($id);
+        for my $aliasId (@{$hostnameRow->subModel('alias')->ids()}) {
+            my $aliasRow = hostnameRow->subModel('alias')->row($aliasId);
             if ($alias eq $aliasRow->valueByName('alias')) {
                 return $hostnameRow->valueByName('hostname');
             }
@@ -465,10 +471,10 @@ sub _completeDomain # (domain)
     $domdata->{'name'} = $domain->{'name'};
     $domdata->{'ipaddr'} = $domain->{'ipaddr'};
     $domdata->{'hosts'} = $self->_hostnames(
-            $row->subModel('hostnames')->rows());
+            $row->subModel('hostnames'));
 
-    my $rows = $row->subModel('mailExchangers')->rows();
-    $domdata->{'mailExchangers'} = $self->_formatMailExchangers($rows);
+    my $subModel = $row->subModel('mailExchangers');
+    $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
 
     return $domdata;
 }

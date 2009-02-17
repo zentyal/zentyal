@@ -104,11 +104,12 @@ sub daemons
     my ($self) = @_;
 
     my @daemons = map {
+        my $row = $self->row($_);
         my $name = $_->elementByName('name')->value();
         my $type = $_->elementByName('type')->value();
 
         { name => $name, type => $type }
-    } @{  $self->rows };
+    } @{  $self->ids() };
 
     return \@daemons;
 }

@@ -46,17 +46,14 @@ sub _process
 	my $network = $global->modInstance('network');
 	my $model = $network->multigwrulesModel();
 	my @gateways = @{$network->gateways()};
-	my $rows = $model->rows(undef, 0);
-	my $tpages = $model->pages(undef);
 	
 	my @params;
-	push(@params, 'data' => $rows);
+	push(@params, 'data' => undef);
 	push(@params, 'dataTable' => $model->table());
-        push(@params, 'model'      => $model);
+    push(@params, 'model'      => $model);
 	push(@params, 'hasChanged' => $global->unsaved());
 	push(@params, 'tpages' => $tpages);
 	push(@params, 'balanceTraffic' => $network->balanceTraffic());
-	push(@params, 'tpages' => $tpages);
 	push(@params, 'page' => 0);
 
 

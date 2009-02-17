@@ -25,7 +25,7 @@ use base 'EBox::Types::Basic';
 sub new
 {
         my $class = shift;
-    	my %opts = @_;
+        my %opts = @_;
 
         unless (exists $opts{'HTMLSetter'}) {
             $opts{'HTMLSetter'} ='/ajax/setter/booleanSetter.mas';
@@ -33,7 +33,7 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/booleanViewer.mas';
         }
-	$opts{'type'} = 'boolean';
+        $opts{'type'} = 'boolean';
 
         my $self = $class->SUPER::new(%opts);
         bless($self, $class);
@@ -95,10 +95,10 @@ sub cmp
 #
 sub _setMemValue
 {
-	my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-        $self->{'value'} = $params->{$self->fieldName()};
-        $self->{'value'} = 0 unless ( defined ($self->{'value'}) );
+    $self->{'value'} = $params->{$self->fieldName()};
+    $self->{'value'} = 0 unless ( defined ($self->{'value'}) );
 
 }
 
@@ -110,14 +110,14 @@ sub _setMemValue
 #
 sub _storeInGConf
 {
-        my ($self, $gconfmod, $key) = @_;
+    my ($self, $gconfmod, $key) = @_;
 
-	if (defined($self->memValue())) {
-        	$gconfmod->set_bool("$key/" . $self->fieldName(),
-			$self->memValue());
-	} else {
-		$gconfmod->unset("$key/" . $self->fieldName());
-	}
+    if (defined($self->memValue())) {
+        $gconfmod->set_bool("$key/" . $self->fieldName(),
+                $self->memValue());
+    } else {
+        $gconfmod->unset("$key/" . $self->fieldName());
+    }
 }
 
 # Method: _paramIsValid
@@ -163,5 +163,25 @@ sub _paramIsSet
       }
 
   }
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+{
+    my ($self, $hash) = @_;
+    return unless ($self->row());
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        $value =  $gconf->get_bool($self->_path() . '/' . $self->fieldName());
+        $self->_addToCache($value);
+    }
+    $self->{'value'} = $value;
+}
+
 
 1;

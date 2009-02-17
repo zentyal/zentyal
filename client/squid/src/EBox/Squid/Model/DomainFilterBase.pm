@@ -117,7 +117,8 @@ sub _domainsByPolicy
   my ($self, $policy) = @_;
 
   my @domains;
-  for my $row (@{$self->rows()}) {
+  for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         if ($row->valueByName('policy') eq $policy) {
             push (@domains, $row->valueByName('domain'));
         }

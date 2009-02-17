@@ -392,15 +392,15 @@ sub _prepareRestoreBackup
     my ($self) = @_;
 
     my $eventModel = $self->configureEventModel();
-    my @enableEvents =  map { $_->{'eventWatcher'} } 
+    my @enableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') } 
     @{$eventModel->findAllValue (enabled => 1)};
-    my @disableEvents =  map { $_->{'eventWatcher'} } 
+    my @disableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') } 
     @{$eventModel->findAllValue (enabled => 0)};
 
     my $dispatcherModel = $self->configureDispatcherModel();
-    my @enableDispatchers =  map { $_->{'eventDispatcher'} } 
+    my @enableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') } 
     @{$dispatcherModel->findAllValue (enabled => 1)};
-    my @disableDispatchers =  map { $_->{'eventDispatcher'} } 
+    my @disableDispatchers =  map { $dispatcherModel->row($_)->valueByName->('eventDispatcher') } 
     @{$dispatcherModel->findAllValue (enabled => 0)};
 
     $self->set_list('watcher_to_enable', 'string', \@enableEvents);

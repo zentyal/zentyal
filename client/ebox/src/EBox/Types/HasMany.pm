@@ -330,7 +330,7 @@ sub _restoreFromHash
 
       if ( defined ( $self->foreignModelAcquirer() )) {
           my $acquirerFunc = $self->foreignModelAcquirer();
-          $self->{'foreignModel'} = $acquirerFunc->($hashRef);
+          $self->{'foreignModel'} = &$acquirerFunc($self->row());
           try {
               my $model = $self->foreignModelInstance();
               if (not $model) {

@@ -25,36 +25,68 @@ use EBox::Gettext;
 use Perl6::Junction qw(all);
 use Error qw(:try);
 
-
-
-
-
-sub refreshRows
+# Method: ids
+#
+#   Override <EBox::Model::DataTable::ids> as we don't need to
+#   store these rows. Actually, the rows returned by this model
+#   are built in runtime. All their elements are read only so
+#   there is no need to store anything.
+#
+#   The data is actually fectched from the a relational DB, as
+#   that's where the logs are stored.
+#
+#   We simply create an id array using an integer for every
+#   row.
+#   
+#   The last row uses 'total' as its identifier. This is
+#   a special case to compute the agreggation of the other
+#   rows.
+#
+#   Note that we add it at the end of the returned array.
+#
+#   This id will be used to build the row in runtime in
+#   <EBox::Model::SelectLog::row)
+#
+#   TODO: Do not fetch all data to compute the ids array.
+#   Use count to improve performance.
+sub ids
 {
-    my ($self, $timePeriod) = @_;
+    my ($self) = @_;
 
-    my $global  = EBox::Global->getInstance();
-    my $modName = $self->{gconfmodule}->name();
-    
-    my $alreadyChanged = $global->modIsChanged($modName);
+    my $dbRows = $self->reportRows($self->timePeriod());
+    return [ 0 .. scalar({@{$dbRows}) - 1, 'total'];
+}
 
-    try {
-        $self->removeAll(1);
-        
-        my $dbRows = $self->reportRows($timePeriod);
-        foreach my $row (@{ $dbRows }) {
-            $self->addRow( %{ $row }  );
-        }
+# Method: row
+#
+#   Override <EBox::Model::DataTable::row> as we don't need to
+#   store these rows. Actually, the rows returned by this model
+#   are built in runtime. All their elements are read only so
+#   there is no need to store anything.
+#
+#   The data is actually fectched from the a relational DB, as
+#   that's where the logs are stored.
+#
+#   We just return a row containing the fields stored on the DB.
+#
+#   The last row uses 'total' as its identifier. This is
+#   a special case to compute the agreggation of the other
+#   rows.
+#
+sub row 
+{
+    my ($self, $id) = @_;
 
-        $self->_addTotalRow($dbRows);
+    my $row;
+    if ($id ne 'total') {
+        my $dbRows = $self->reportRows($self->timePeriod());
+        $row = $self->_setValueRow($dbRows->[$id]);
+    } else {
+        $row = $self->_totalRow();
     }
-   finally {
-       if (not $alreadyChanged) {
-           # unmark module as changed
-           $global->modRestarted($modName);
-       }
-   };
-
+    $row->setId($id);
+    $row->setReadOnly(1);
+    return $row;
 }
 
 
@@ -117,19 +149,6 @@ sub _needUpdate
 }
 
 
-sub rows
-{
-    my ($self, @p) = @_;
-    my $timePeriod = $self->timePeriod();
-
-#    we don't cache anything bz we're not sure it is really needed
-#    if ( $self->_needUpdate($timePeriod)) {
-        $self->refreshRows($timePeriod);
-#    }
-
-    return $self->SUPER::rows(@p);
-}
-
 # Method: sortedBy
 #
 #   we override this so by default is sortedBy the field 'date'. It can be changed
@@ -189,7 +208,7 @@ sub Viewer
 
 
 
-sub _addTotalRow
+sub _totalRow
 {
     my ($self, $dbRows) = @_;
 
@@ -212,7 +231,7 @@ sub _addTotalRow
         $row->{$name} = $total;
     }
 
-    $self->addRow( %{ $row } );
+    $self->_setValueRow( %{ $row } );
 }
 
 sub _tailoredOrder # (rows)

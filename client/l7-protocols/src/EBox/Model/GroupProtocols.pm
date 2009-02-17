@@ -45,7 +45,8 @@ sub protocols
 {
     my $model = EBox::Global->modInstance('l7-protocols')->model('Protocols');
     my @protocols;
-    for my $protocol (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $protocol = $model->row($id);
         push (@protocols, { value => $protocol->id(), 
                             printableValue => $protocol->valueByName('protocol')
                           });

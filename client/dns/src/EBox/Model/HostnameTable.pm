@@ -90,7 +90,7 @@ sub addHostname
    my $id = $self->addRow('hostname' => $name, 'ipaddr' => $ip);
 
    unless (defined($id)) {
-       throw EBox::Exceptions::Internal("Couldn't add hostname: $name");
+       throw EBox::Exceptions::Internal("Couldn't add host name: $name");
    }
 
    my $aliases = delete $params{'aliases'};
@@ -126,8 +126,10 @@ sub validateTypedRow
     my $newHostName = $changedFields->{hostname}->value();
     my $domainModel = $changedFields->{hostname}->row()->model();
 
-    for my $row (@{$domainModel->rows()}) {
-        for my $subRow (@{$row->subModel('alias')->rows()}) {
+    for my $id (@{$domainModel->ids()}) {
+        my $row = $domainModel->row($id);
+        for my $id (@{$row->subModel('alias')->ids()}) {
+           my $subRow = $row->subModel('alias')->row($id);
            if ($subRow->valueByName('alias') eq $newHostName) {
                 throw EBox::Exceptions::External(
                     __x('There is an alias with the same name "{name}" '
@@ -154,7 +156,7 @@ sub _table
             new EBox::Types::DomainName
                             (
                                 'fieldName' => 'hostname',
-                                'printableName' => __('Hostname'),
+                                'printableName' => __('Host name'),
                                 'size' => '20',
                                 'unique' => 1,
                                 'editable' => 1
@@ -181,14 +183,14 @@ sub _table
     my $dataTable = 
         {
             'tableName' => 'HostnameTable',
-            'printableTableName' => __('Hostnames'),
+            'printableTableName' => __('Host names'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Dns/Controller/HostnameTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => __('Hostnames'),
-            'printableRowName' => __('hostname'),
+            'printableRowName' => __('host name'),
             'sortedBy' => 'hostname',
         };
 

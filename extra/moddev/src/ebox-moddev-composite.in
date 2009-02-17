@@ -112,6 +112,7 @@ sub _src_EBox_Composite
     ${$output} = '';
     $interp->exec($comp, 
             ( 
+              mainClass => $options->{mainClass},
               name => $options->{name},
               compositeDomain => $options->{mainClass},
               ));

@@ -83,39 +83,17 @@ sub enabledLogs
     my ($self) = @_;
 
     my %enabledLogs;
-    for my $row (@{$self->rows()}) {
+    for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
         next unless ($row->valueByName('enabled'));
         $enabledLogs{$row->valueByName('domain')}  = 1;
     }
     return \%enabledLogs;
 }
 
-
-
-# sub enabledLogsModules
-# {
-#     my ($self) = @_;
-
-#     my %modules;
-
-#     my $enabledLogs = $self->enabledLogs();
-#     my $allTables  = EBox::Global->modInstance('logs')->getAllTables();
-#     foreach my $index  (keys %{ $enabledLogs }) {
-#         exists $allTables->{$index} or 
-#             throw EBox::Exceptions::Internal(
-#                      "$index not found in log tables"
-#                                             );
-
-#         my $mod = $allTables->{$index}->{'helper'};
-#         $modules{$mod->name()} = $mod;
-#     }
-
-#     return [ values %modules  ];
-# }
-
-# Method: rows 
+# Method: syncRows
 #
-#       Override <EBox::Model::DataTable>
+#       Override <EBox::Model::DataTable::syncRows>
 #
 #   It is overriden because this table is kind of different in 
 #   comparation to the normal use of generic data tables.
@@ -127,31 +105,24 @@ sub enabledLogs
 #   when a new module is installed or an existing one is removed.
 #
 #   
-sub rows
+sub syncRows 
 {
-    my ($self, $filter, $page) = @_;
+    my ($self, $currentRows) = @_;
 
     my $logs = EBox::Global->modInstance('logs');
 
     # Fetch the current log domains stored in gconf 
-    my $currentRows = $self->SUPER::rows();
     my %storedLogDomains;
-    foreach my $row (@{$currentRows}) {
+    foreach my $id (@{$currentRows}) {
+        my $row = $self->row($id);
         $storedLogDomains{$row->valueByName('domain')} = 1;
     }
 
     # Fetch the current available log domains
     my %currentLogDomains;
-#%#    my $currentTables = $logs->getAllTables();
     foreach my $mod (@{ $logs->getLogsModules()}  ) {
-#      $currentTables{$mod->name} = 1;
       $currentLogDomains{$mod->name} = $mod;
     }
-
-
-#     foreach my $table (keys (%{$currentTables})) {
-#         $currentLogDomains{$table} = 1;
-#     }
 
     # Add new domains to gconf
     foreach my $domain (keys %currentLogDomains) {
@@ -182,13 +153,13 @@ sub rows
     }
 
     # Remove non-existing domains from gconf
-    foreach my $row (@{$currentRows}) {
+    foreach my $id (@{$currentRows}) {
+        my $row = $self->row($id);
         my $domain = $row->valueByName('domain');
         next if (exists $currentLogDomains{$domain});
         $self->removeRow($row->id());
     }
 
-    return $self->SUPER::rows($filter, $page);
 }
 
 # Method: validateTypedRow
@@ -312,7 +283,8 @@ sub acquireEventConfURL
     my $modelManager = EBox::Model::ModelManager->instance();
 
     my $logConfModel  = $modelManager->model('/events/LogWatcherConfiguration');
-    my $loggerConfRow = $logConfModel->findValue(domain => $logDomain);
+    my $id  = $logConfModel->findValue(domain => $logDomain);
+    my $loggerConfRow = $logConfModel->row($id);
     my $filterDirectory = $loggerConfRow->{filters}->{directory};
 
     my $logFilteringWatcher;

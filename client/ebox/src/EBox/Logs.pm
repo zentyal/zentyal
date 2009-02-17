@@ -803,7 +803,9 @@ sub purge
   my %thresholdByModule = ();
 
   # get the threshold date for each domain
-  foreach my $row_r ( @{ $self->model('ConfigureLogTable')->rows() } ) {
+  
+  foreach my $id ( @{ $self->model('ConfigureLogTable')->ids() } ) {
+    my $row_r = $self->model('ConfigureLogTable')->row($id);
     my $lifeTime = $row_r->valueByName('lifeTime');
     
     # if lifeTime == 0, it should never expire

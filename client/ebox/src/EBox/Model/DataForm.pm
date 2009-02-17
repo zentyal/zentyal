@@ -447,9 +447,9 @@ sub order
 sub sortedBy
 {
 
-    throw EBox::Exceptions::Internal(
-         'It has no sense sortedBy in an one-rowed table'
-                                    );
+    #throw EBox::Exceptions::Internal(
+     #    'It has no sense sortedBy in an one-rowed table'
+      #                              );
 
 }
 
@@ -883,10 +883,9 @@ sub _setTypedRow
         $manager->warnOnChangeOnId($self->tableName(), 0, $changedData, $oldRow);
     }
 
-    my $modified = undef;
+    my $modified = @changedData;
     for my $data (@changedData) {
-        $data->storeInGConf($gconfmod, "$dir");
-        $modified = 1;
+        $data->storeInGConf($gconfmod, $dir);
     }
 
     # update readonly if change
@@ -922,6 +921,14 @@ sub _row
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
 
+    my $storedVersion = $self->_storedVersion();
+    my $cachedVersion = $self->_cachedVersion();;
+    if ($storedVersion != $cachedVersion) {
+        $self->{'dataCache'} = undef;
+        $self->{'cachedVersion'} = $storedVersion;
+    }
+
+
       if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
           # Return default values instead
           return $self->_defaultRow();
@@ -932,11 +939,10 @@ sub _row
 
       my @values;
       $self->{'cacheOptions'} = {};
-      my $gconfData = $gconfmod->hash_from_dir("$dir");
-      $row->setReadOnly($gconfData->{'readOnly'});
       foreach my $type (@{$self->table()->{'tableDescription'}}) {
           my $element = $type->clone();
-          $element->restoreFromHash($gconfData);
+          $element->setRow($row);
+          $element->restoreFromHash();
           $row->addElement($element);
       }
       # Dummy id for dataform

@@ -60,7 +60,8 @@ sub ToInternetRuleTable
             "Cant' get ToInternetRuleTableModel");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'fglobal');
         $self->_addAddressToRule($rule, $row, 'source');
@@ -90,7 +91,8 @@ sub ExternalToInternalRuleTable
             "Cant' get ExternalToInternalRuleTableModel");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'ffwdrules');
         $self->_addAddressToRule($rule, $row, 'source');
@@ -119,7 +121,8 @@ sub InternalToEBoxRuleTable
             "Cant' get InternalToEBoxRuleTableModel");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iglobal');
         $rule->setState('new' => 1);
@@ -148,7 +151,8 @@ sub ExternalToEBoxRuleTable
             "Cant' get ExternalToEBoxRuleTableModel");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'iexternal');
         $rule->setState('new' => 1);
@@ -177,7 +181,8 @@ sub EBoxOutputRuleTable
             "Cant' get EBoxOutputRuleTableModel");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'oglobal');
         $rule->setState('new' => 1);
@@ -206,7 +211,8 @@ sub RedirectsRuleTable
             "Can't get RedirectsTable Model");
 
     my @rules;
-    for my $row (@{$model->rows()}) {
+    for my $id (@{$model->ids()}) {
+	my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRedirectRule();
         $rule->setState('new' => 1);
         $self->_addIfaceToRule($rule, $row);
