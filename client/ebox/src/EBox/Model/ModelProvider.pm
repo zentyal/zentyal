@@ -374,7 +374,9 @@ sub _callExposedMethod
 
 
 
-
+# Method: modelsSaveConfig
+#
+#    Method called when the conifguraiton of a modules is saved
 sub modelsSaveConfig
 {
   my ($self) = @_;
@@ -383,7 +385,9 @@ sub modelsSaveConfig
 }
 
 
-
+# Method: modelsRevokeConfig
+#
+#    Method called when the conifguraiton of a modules is revoked
 sub modelsRevokeConfig
 {
   my ($self) = @_;
@@ -392,6 +396,10 @@ sub modelsRevokeConfig
 
 }
 
+# Method: backupFiles
+#
+#   Make an actual configuration backup of all the files contained in the
+#   models
 sub modelsBackupFiles
 {
   my ($self) = @_;
@@ -403,7 +411,10 @@ sub modelsBackupFiles
   }
 }
 
-
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of files in the models , thus
+#  discarding the lasts changes in files
 sub modelsRestoreFiles
 {
   my ($self) = @_;
@@ -424,6 +435,14 @@ sub _filesArchive
   return "$dir/modelsFiles.tar";
 }
 
+
+# Method: backupFilesInArchive
+#
+#  Backup all the modules' files in a compressed archive in the given dir
+#  This is used to create backups
+#
+#   Parameters:
+#   dir - directory where the archive will be stored
 sub backupFilesInArchive
 {
   my ($self, $dir) = @_;
@@ -455,7 +474,13 @@ sub backupFilesInArchive
   }
 }
 
-
+# Method: restoreFilesFromArchive
+#
+#  Restore all the module's file from the compressed archive in the given dir
+#  This is used to restore backups
+#
+#   Parameters:
+#   dir - directory where the archive is stored
 sub restoreFilesFromArchive
 {
   my ($self, $dir) = @_;

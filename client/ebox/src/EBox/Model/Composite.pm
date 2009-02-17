@@ -295,6 +295,16 @@ sub delComponent
 }
 
 
+#  Method: componentByName
+#
+#     get a specific component from the composite
+#
+#  Parameters:
+#    name - the name of the component to fetch
+#    recursive - searchs inside the components (default: false)
+#
+#  Returns:
+#    the component or undef if there is not any component with the given name
 sub componentByName
 {
     my ($self, $name, $recursive) = @_;
@@ -990,6 +1000,12 @@ sub directory
   }
 
 
+# Method: setComponentDirectory
+#
+#      set the correct diectory for a componnent
+#
+#   Parameterss:
+#        comp - component
 sub setComponentDirectory
 {
     my ($self, $comp) = @_;
@@ -1018,7 +1034,16 @@ sub setComponentDirectory
 
 
 
-
+#  Method: parentRow
+#
+#    if the composite is a submodel of a DataTable (or nested inside one),
+#    return the row where the submodel resides
+#
+#   Returns:
+#       row object or undef if there is not 
+#
+#   Warning:
+#      this method is affected fby the bug in ::Composite::parent()
 sub parentRow
 {
     my ($self) = @_;
@@ -1036,7 +1061,10 @@ sub parentRow
     return $parent->row($rowId);
 }
 
-
+# Method: filesPaths
+#
+#   Returns:
+#     the paths of the files managed by the composite and all of its nested components
 sub filesPaths
 {
     my ($self) = @_;
@@ -1053,6 +1081,10 @@ sub filesPaths
 }
 
 
+# Method: backupFiles
+#
+#   Make an actual configuration backup of  all the files contained in the
+#   components. This backup will used to discard cahnges if needed
 sub backupFiles
 {
   my ($self) = @_;
@@ -1065,6 +1097,10 @@ sub backupFiles
 
 }
 
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of files, thus discarding last
+#  changes in files
 sub restoreFiles
 {
   my ($self) = @_;

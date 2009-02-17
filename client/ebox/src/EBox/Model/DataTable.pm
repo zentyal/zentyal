@@ -2833,6 +2833,11 @@ sub actionClickedJS
             $page);
 }
 
+# Method: backupFiles
+#
+#   Make an actual configuration backup of all the files contained in the
+#   datatable and its submodels. This backup will used to discard cahnges if
+#   needed
 sub backupFiles
 {
   my ($self) = @_;
@@ -2848,6 +2853,10 @@ sub backupFiles
 }
 
 
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of files, thus discarding lasts
+#  changes in files
 sub restoreFiles
 {
   my ($self) = @_;
@@ -2861,7 +2870,10 @@ sub restoreFiles
 
 }
 
-
+#  Method: _hasFileFields
+#
+# Returns:
+#  wether the types in the tableDescription could manage any file
 sub _hasFileFields
 {
     my ($self) = @_;
@@ -2873,8 +2885,6 @@ sub _hasFileFields
         }
     }
 
-
- 
     return 0;
 }
 
@@ -4274,7 +4284,11 @@ sub keywords
 
 
 
-# This is neccesary bz dataTable may be a submodel of another thing
+
+# Method: filesPaths
+#
+#   Returns:
+#     the paths of the files managed by the datatable and its submodels
 sub filesPaths
 {
     my ($self) = @_;
@@ -4291,8 +4305,12 @@ sub filesPaths
 }
 
 
-#  Warning:
-# we need to do this bz we cannot override row's methods for specific models!
+#  Method: filesPathsForRow 
+#
+#   returns the file paths for a given row.
+#
+#   Warnings:
+#   we need to do this bz we cannot override row's methods for specific models!
 sub filesPathsForRow
 {
     my ($self, $row) = @_;
@@ -4301,6 +4319,17 @@ sub filesPathsForRow
 
 
 
+
+#  Method: parentRow
+#
+#    if the DataTaBele is a submodel of a DataTable return the row where the
+#    submodel resides
+#
+#   Returns:
+#       row object or undef if there is not 
+#
+# Warning: this method is affected fby the bug in ::Composite::parent() in case
+#      that the datatable is contained in a Composite
 sub parentRow
 {
     my ($self) = @_;

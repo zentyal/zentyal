@@ -58,7 +58,7 @@ sub setParentComposite
 
 # Method: parentComposite
 #
-#   Return the parent composite of this composite object
+#   Return the parent composite of this component object
 #
 # Returns:
 #
@@ -75,7 +75,15 @@ sub parentComposite
     }
 }
 
-
+# Method: topParentComposite
+#
+#   Return the top parent of the composite hierarchy where this component is
+#   containded 
+#
+# Returns:
+#
+#      component - an instance of <EBox::Model::Composite>
+#      or undef if there's any
 sub topParentComposite
 {
     my ($self) = @_;
@@ -162,9 +170,12 @@ sub keywords
 #   If the component is child of a composite the parent is the top's composite parent
 #
 # Returns:
-#
 #      
 #   An instance of a class implementing <EBox::Model::DataTable>
+#
+#  Warning: there are bug with this method for composites which are submodel of
+#  a DataTable. A workaround is to reimplement this method in the class in a
+#  less-general fashion
 sub parent
 {
     my ($self) = @_;
