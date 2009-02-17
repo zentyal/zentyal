@@ -491,7 +491,15 @@ sub _get_bool # (key)
     my ($self, $key) = @_;
     $key = $self->_key($key);
     $self->gconf->suggest_sync;
-    return $self->_gconf_wrapper("get_bool", $key);
+    my $value = $self->_gconf_wrapper("get", $key);
+    unless(defined($value) and ($value->{type} eq 'bool')) {
+        return undef;
+    }
+    if($value->{value}) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 #
@@ -570,7 +578,11 @@ sub _get_int # (key)
     my ($self, $key) = @_;
     $key = $self->_key($key);
     $self->gconf->suggest_sync;
-    return $self->_gconf_wrapper("get_int", $key);
+    my $value = $self->_gconf_wrapper("get", $key);
+    unless(defined($value) and ($value->{type} eq 'int')) {
+        return undef;
+    }
+    return $value->{value};
 }
 
 #

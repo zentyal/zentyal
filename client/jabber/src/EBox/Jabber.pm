@@ -177,11 +177,15 @@ sub setExternalConnection
 #
 # Returns:
 #
-#       boolean. True, connects. undef, not connects.
+#       boolean. 1, connects. 0, not connects.
 sub externalConnection
 {
     my $self = shift;
-    return $self->get_bool('external_connection');
+    my $external = $self->get_bool('external_connection');
+    if(not defined($external)) {
+        $external = 1;
+    }
+    return $external;
 }
 
 # Method: setSsl
@@ -213,7 +217,11 @@ sub setSsl
 sub ssl
 {
     my $self = shift;
-    return $self->get_string('ssl');
+    my $ssl = $self->get_string('ssl');
+    if(not defined($ssl)) {
+        $ssl = 'no';
+    }
+    return $ssl;
 }
 
 # Method: setJabberDomain
@@ -246,7 +254,11 @@ sub setJabberDomain
 sub jabberDomain
 {
 	my $self = shift;
-	return $self->get_string('domain');
+	my $domain = $self->get_string('domain');
+    if(not defined($domain)) {
+        $domain = 'ebox';
+    }
+    return $domain;
 }
 
 # Method: _regenConfig
