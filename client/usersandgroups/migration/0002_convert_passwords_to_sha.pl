@@ -17,6 +17,7 @@ use EBox;
 use EBox::Global;
 use EBox::Config;
 use EBox::Sudo;
+use EBox::UsersAndGroups;
 
 # Method: runGConf
 #
@@ -30,7 +31,7 @@ sub runGConf
 
     my @users = $mod->users();
     foreach my $user (@users) {
-        if (not ($user->{password} =~ /\{SHA\}[0-9a-zA-Z\+\/]{27}=/)) {
+        unless (EBox::UsersAndGroups::isHashed($user->{password})) {
             $mod->modifyUserPwd($user->{username}, $user->{password});
         }
     }
