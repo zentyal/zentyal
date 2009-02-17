@@ -252,6 +252,19 @@ sub usage
     my $facilitiesUsage = delete $usageByFilesys{$fileSys}->{facilitiesUsage};
     my $totalUsage      = sprintf ("%.2f", $df->{used});
     my $systemUsage     = $totalUsage - $facilitiesUsage;
+    if ($systemUsage < 0) {
+        if ($systemUsage > -1000) {
+            # small round error, approximate to zero
+            $systemUsage = 0;
+        } else {
+            EBox::error(
+"Error calculating system usage. Result: $systemUsage. Set to zero for avoid error"
+                       );
+            $systemUsage = 0;
+        }
+
+    }
+
     my $freeSpace       = sprintf ("%.2f", $df->{bfree});
     
     $usageByFilesys{$fileSys}->{system} = $systemUsage;
