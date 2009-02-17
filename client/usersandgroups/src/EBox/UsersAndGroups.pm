@@ -442,9 +442,13 @@ sub _checkUid
 
 }
 
-sub _modifyUserPwd
+sub modifyUserPwd
 {
     my ($self, $user, $passwd) = @_;
+
+    #make sure the LDAP connection is up
+    $self->{'ldap'}->ldapCon;
+
     $self->modifyUserPwdCon($self->{'ldap'}->{'ldap'}, $user, $passwd);
 }
 
@@ -503,7 +507,7 @@ sub modifyUser # (\%user)
             $self->_changeAttribute($dn, 'sn', $user->{'fullname'});
         } elsif ($field eq 'password') {
             my $pass = $user->{'password'};
-            $self->_modifyUserPwd($user->{'username'}, $pass);
+            $self->modifyUserPwd($user->{'username'}, $pass);
         }
     }
     $self->_updateUser($cn, $user->{'password'});
