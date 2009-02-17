@@ -277,7 +277,11 @@ sub _stopService
 sub denyAction
 {
     my ($self) = @_;
-    return $self->get_string("deny");
+    my $deny = $self->get_string("deny");
+    if(not defined($deny)) {
+        $deny = 'DROP';
+    }
+    return $deny;
 }
 
 #
@@ -297,12 +301,12 @@ sub setDenyAction # (action)
 {
     my ($self, $action) = @_;
     if ($action ne "DROP" && $action ne "REJECT") {
-                throw EBox::Exceptions::InvalidData('data' => __('action'),
-                                                    'value' => $action);
-            } elsif ($action eq $self->denyAction()) {
-                return;
-            }
-        $self->set_string("deny", $action);
+        throw EBox::Exceptions::InvalidData('data' => __('action'),
+                'value' => $action);
+    } elsif ($action eq $self->denyAction()) {
+        return;
+    }
+    $self->set_string("deny", $action);
 }
 
 # Method: removePortRedirectionsOnIface
