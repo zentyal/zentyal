@@ -1,5 +1,8 @@
 1.1
 	+ Use new row() and ids() API
+0.12.101
+	+ Check two hostnames or alias are equal using type method to do
+	so
 0.12.100
 	+ Added optional IP address for domains
 	+ Bugfix: Show correct message when editing a hostname
