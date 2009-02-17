@@ -72,23 +72,40 @@ sub validateTypedRow
     my $alias = $changedFields->{alias};
     my $olddir = $alias->model()->directory();
 
-    for my $hostId (@{$alias->row()->parentRow()->model()->ids()}) {
-        my $hostRow = $alias->row()->parentRow()->model()->row($hostId);
-        if ($hostRow->valueByName('hostname') eq $alias->value()) {
-            throw EBox::Exceptions::External(
-                    __x('There is a hostname with the same name "{name}" '
-                        . 'in the same domain',
-                        name     => $alias->value()));
-        }
-        for my $aliasId (@{$hostRow->subModel('alias')->ids()}) {
-            my $aliasRow = $hostRow->subModel('alias')->row($aliasId);
-            next if ($aliasId eq $alias->row()->id());
-            if ($aliasRow->valueByName('alias') eq $alias->value()) {
-                throw EBox::Exceptions::External(
-                        __x('There is an alias with the same name "{name}" '
-                            . 'in the same domain',
-                            name     => $alias->value()));
+    # Check it is not the nameserver hostname
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $newAlias = $alias->value();
+    if (uc($newAlias) eq uc($dnsMod->NameserverHost())) {
+        throw EBox::Exceptions::External(
+            __x('An alias cannot be the nameserver host name "{ns}". '
+                . 'Use a hostname instead',
+                 ns => $dnsMod->NameserverHost()));
+    }
 
+    my $olddir = $self->directory();
+
+    # Check there is no A RR in the domain with the same name
+    my $domain = $alias->row()->parentRow()->parentRow()->valueByName('domain');
+
+    my $hostnameIds = $alias->row()->parentRow()->model()->ids();
+    for my $hostId (@{$hostnameIds}) {
+        my $hostname = $alias->row()->parentRow()->model()->row($hostId);
+        if ($hostname->elementByName('hostname')->isEqualTo($alias)) {
+            throw EBox::Exceptions::External(
+                        __x('There is a hostname with the same name "{name}" '
+                            . 'in the same domain',
+                             name     => $hostname->valueByName('hostname')));
+        }
+        foreach my $aliasId (@{$hostname->subModel('alias')->ids()}) {
+            my $anAlias = $hostname->subModel('alias')->row($aliasId);
+            next if ($aliasId eq $alias->row()->id());
+            if ($anAlias->elementByName('alias')->isEqualTo($alias)) {
+                throw EBox::Exceptions::External(
+                        __x('There is an alias for {hostname} hostname '
+			    . 'with the same name "{name}" '
+                            . 'in the same domain',
+			     hostname => $hostname->valueByName('hostname'),
+                             name     => $anAlias->valueByName('alias')));
             }
         }
     }

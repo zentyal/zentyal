@@ -123,18 +123,18 @@ sub validateTypedRow
     return unless ( exists $changedFields->{hostname} );
 
     # Check there is no CNAME RR in the domain with the same name
-    my $newHostName = $changedFields->{hostname}->value();
+    my $newHostName = $changedFields->{hostname};
     my $domainModel = $changedFields->{hostname}->row()->model();
 
     for my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
         for my $id (@{$row->subModel('alias')->ids()}) {
            my $subRow = $row->subModel('alias')->row($id);
-           if ($subRow->valueByName('alias') eq $newHostName) {
+           if ($subRow->elementByName('alias')->isEqualTo($newHostName)) {
                 throw EBox::Exceptions::External(
                     __x('There is an alias with the same name "{name}" '
                         . 'for "{hostname}" in the same domain',
-                         name     => $newHostName,
+                         name     => $subRow->valueByName('alias'),
                          hostname => $row->valueByName('hostname')));
             }
         }
