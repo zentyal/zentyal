@@ -46,6 +46,37 @@ sub new
         return $self;
 }
 
+# Method: isEqualTo
+#
+# Overrides:
+#
+#      <EBox::Types::Basic::isEqualTo>
+#
+sub isEqualTo
+{
+    my ($self, $compareType) = @_;
+
+    return ($self->cmp($compareType) == 0);
+}
+
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Text::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( (ref $self) eq (ref $compareType) ) {
+        return undef;
+    }
+
+    return uc($self->value()) cmp uc($compareType->value());
+
+}
+
 # Group: Protected methods
 
 # Method: _paramIsValid

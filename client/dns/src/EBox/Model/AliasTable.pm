@@ -74,7 +74,7 @@ sub validateTypedRow
     # Check it is not the nameserver hostname
     my $dnsMod = EBox::Global->modInstance('dns');
     my $newAlias = $alias->value();
-    if ($newAlias eq $dnsMod->NameserverHost()) {
+    if (uc($newAlias) eq uc($dnsMod->NameserverHost())) {
         throw EBox::Exceptions::External(
             __x('An alias cannot be the nameserver host name "{ns}". '
                 . 'Use a hostname instead',
@@ -85,21 +85,24 @@ sub validateTypedRow
 
     # Check there is no A RR in the domain with the same name
     my $domain = $alias->row()->parentRow()->parentRow()->valueByName('domain');
-    
-    for my $hostname (@{$dnsMod->getHostnames($domain)}) {
-        if ($hostname->{name} eq $newAlias) {
+
+    my $hostnameRows = $alias->row()->parentRow()->model()->rows();
+    for my $hostname (@{$hostnameRows}) {
+        if ($hostname->elementByName('hostname')->isEqualTo($alias)) {
             throw EBox::Exceptions::External(
                         __x('There is a hostname with the same name "{name}" '
                             . 'in the same domain',
-                             name     => $newAlias));
-
+                             name     => $hostname->valueByName('hostname')));
         }
-        for my $alias (@{$hostname->{'aliases'}}) {
-            if ($hostname->{name} eq $newAlias) {
+        foreach my $anAlias (@{$hostname->subModel('alias')->rows()}) {
+            next if ($anAlias->id() eq $alias->row()->id());
+            if ($anAlias->elementByName('alias')->isEqualTo($alias)) {
                 throw EBox::Exceptions::External(
-                        __x('There is an alias with the same name "{name}" '
+                        __x('There is an alias for {hostname} hostname '
+			    . 'with the same name "{name}" '
                             . 'in the same domain',
-                             name     => $newAlias));
+			     hostname => $hostname->valueByName('hostname'),
+                             name     => $anAlias->valueByName('alias')));
             }
         }
     }
