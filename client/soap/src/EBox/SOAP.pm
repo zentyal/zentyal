@@ -231,13 +231,15 @@ sub setEnabled
 #
 
 sub listeningPort
-  {
+{
+    my ($self) = @_;
 
-      my ( $self ) = @_;
-
-      return $self->get_int('listeningPort');
-
-  }
+    my $port = $self->get_int('listeningPort');
+    unless(defined $port) {
+        $port = 4430;
+    }
+    return $port;
+}
 
 # Method: running
 #
@@ -384,13 +386,15 @@ sub deleteBundleUploaded
 #    boolean - true if it's already uploaded, undef otherwise
 #
 sub bundleUploaded
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->get_bool('bundle_uploaded');
-
-  }
+    my $bundle = $self->get_bool('bundle_uploaded');
+    if ($bundle == 0) {
+        $bundle = undef;
+    }
+    return $bundle;
+}
 
 # Method: connectivityTest
 #
