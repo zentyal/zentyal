@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = AntiVirus
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/AntiVirus/Model
 
-nobase_perl_DATA = AntiVirus.pm
+nobase_perl_DATA = FreshclamStatus.pm
 
 DISTCLEANFILES = 
 

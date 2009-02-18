@@ -1,0 +1,40 @@
+<%args>
+$localSocket  => '/var/run/clamav/clamd.ctl'
+$maxThreads   => 12
+$strictMode   => 0
+</%args>
+
+
+Foreground true
+LocalSocket <% $localSocket %>
+FixStaleSocket true
+User clamav
+AllowSupplementaryGroups  true
+ArchiveMaxRecursion 5
+ArchiveMaxFiles 1000
+ArchiveMaxFileSize 10M
+ArchiveMaxCompressionRatio 250
+ReadTimeout 180
+MaxThreads <% $maxThreads %>
+MaxConnectionQueueLength 15
+LogFile /var/log/clamav/clamav.log
+LogTime true
+LogFileMaxSize 0
+LogVerbose  true
+PidFile /var/run/clamav/clamd.pid
+DatabaseDirectory /var/lib/clamav
+SelfCheck 3600
+
+ScanOLE2 true
+ScanPE    true
+ScanELF   true
+ScanMail  true
+DetectBrokenExecutables  true
+ScanHTML  true
+
+ScanArchive true
+% if ($strictMode) {
+ArchiveBlockMax true
+ArchiveBlockEncrypted true
+ScanPDF true
+% }

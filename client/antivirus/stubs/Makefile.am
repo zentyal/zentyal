@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
-Stubdir = @STUBSPATH@/modulename
+Stubdir = @STUBSPATH@/antivirus
 
 
-nobase_Stub_DATA =
+nobase_Stub_DATA = clamd.conf.mas  freshclam-cron.mas  freshclam.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

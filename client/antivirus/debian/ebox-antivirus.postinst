@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+	configure)
+
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-antivirus/migration/
+
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # restart module
+        invoke-rc.d ebox antivirus restart
+
+        invoke-rc.d ebox apache restart || true
+esac
+
+
+
+exit 0
+
+

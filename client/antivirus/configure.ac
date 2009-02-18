@@ -1,7 +1,7 @@
 AC_INIT([EBox-modulename], [0.1])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/ModuleName.pm])
+AC_CONFIG_SRCDIR([src/EBox/AntiVirus.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -55,8 +55,8 @@ AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
-src/EBox/CGI/Makefile
-src/EBox/Model/Makefile
+src/EBox/AntiVirus/Makefile
+src/EBox/AntiVirus/Model/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile

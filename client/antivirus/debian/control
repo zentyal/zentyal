@@ -1,0 +1,19 @@
+Source: ebox-antivirus
+Section: web
+Priority: optional
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
+
+Package: ebox-antivirus
+Architecture: all
+Depends: ebox (>= 1.1), ebox (<< 1.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), ${misc:Depends}
+Conflicts: ebox (<< 0.11.99)
+Description: eBox - Antivirus module
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds an antivirus scanner server to your eBox installation, allowingits use by other eBox services that needs to scan for viruses.
