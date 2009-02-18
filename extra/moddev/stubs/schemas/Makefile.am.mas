@@ -1,11 +1,11 @@
 <%args>
-    $schema
+    $yaml
 </%args>
 ## Process this file with automake to produce Makefile.in
 
-schemadir   = @GCONF_SCHEMA_FILE_DIR@
-schema_DATA = <% $schema %> 
+moduledir   = @DATADIR@/ebox/modules
+module_DATA = <% $yaml%>
 
-EXTRA_DIST = $(schema_DATA)
+EXTRA_DIST = $(module_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
