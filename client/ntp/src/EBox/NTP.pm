@@ -210,7 +210,11 @@ sub setSynchronized # (synchro)
 sub synchronized
 {
 	my $self = shift;
-	return $self->get_bool('synchronized');
+	my $sync = $self->get_bool('synchronized');
+    if ($sync == 0) {
+        $sync = undef;
+    }
+    return $sync;
 }
 
 # Method: setServers
@@ -291,10 +295,13 @@ sub _checkServer
 #	array - holding the ntp servers
 sub servers {
 	my $self = shift;
-	my @servers;
-	
-	@servers = grep { defined $_ and ($_ ne '')   } ($self->get_string('server1'),	$self->get_string('server2'),	$self->get_string('server3'));
-
+    my @servers = ($self->get_string('server1'),
+                     $self->get_string('server2'),
+                     $self->get_string('server3'));
+    unless(defined($servers[0])) {
+        $servers[0] = '0.pool.ntp.org';
+    }
+	@servers = grep { defined $_ and ($_ ne '')   } @servers;
 	return @servers;
 }
 
