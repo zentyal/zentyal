@@ -48,21 +48,21 @@ use EBox::Dashboard::Module;
 #
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'modulename');
-	bless($self, $class);
-	return $self;
+        my $class = shift;
+        my $self = $class->SUPER::_create(name => 'modulename');
+        bless($self, $class);
+        return $self;
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
 #        Regenerate the configuration
 #
 # Overrides:
 #
-#       <EBox::Module::_regenConfig>
+#       <EBox::Module::Service::_setConf>
 #
-sub _regenConfig
+sub _setConf
 {
 }
 
