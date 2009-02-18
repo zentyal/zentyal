@@ -54,7 +54,7 @@ sub ids
     my ($self) = @_;
 
     my $dbRows = $self->reportRows($self->timePeriod());
-    return [ 0 .. scalar({@{$dbRows}) - 1, 'total'];
+    return [ 0 .. scalar(@{$dbRows}) - 1, 'total'];
 }
 
 # Method: row
@@ -223,8 +223,8 @@ sub _totalRow
         }
         else {
             $total = 0;
-            foreach my $row (@{ $dbRows }) {
-                $total += $row->{$name};
+            foreach my $r (@{ $dbRows }) {
+                $total += $r->{$name};
             }
         }
 
