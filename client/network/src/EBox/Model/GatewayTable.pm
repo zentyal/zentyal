@@ -179,10 +179,10 @@ sub validateRow()
 	# Check if there's only one default gw
 	my $currentRow = $params{'id'};
 	my $defaultRow = $self->find('default' => 1);
-	if (defined($defaultRow) and ($currentRow ne $defaultRow)) {
-		my $default = $self->row($defaultRow)->elementByName('default');
+	if (defined($defaultRow) and ($currentRow ne $defaultRow->id())) {
+		my $default = $defaultRow->elementByName('default');
 		$default->setValue(undef);
-		$self->row($defaultRow)->storeElementByName('default');
+		$defaultRow->storeElementByName('default');
 	}
 }
 
@@ -190,10 +190,9 @@ sub defaultGateway()
 {
 	my $self = shift;
 
-	my $id = $self->find('default' => 1);
-	if ($id) {
-		my $default = $self->row($id);
-		return $default->valueByName('ip');
+	my $row = $self->find('default' => 1);
+	if ($row) {
+		return $row->valueByName('ip');
 	} else {
 		return undef;
 	}
