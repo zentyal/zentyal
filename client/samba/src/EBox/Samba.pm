@@ -47,6 +47,7 @@ use EBox::Model::ModelManager;
 use File::Slurp qw(read_file write_file);
 use Perl6::Junction qw(all any);
 use Error qw(:try);
+use Sys::Hostname;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/ldap.conf';
@@ -710,7 +711,12 @@ sub printerService
 sub pdc
 {
     my ($self) = @_;
-    return $self->get_bool('pdc');
+    my $pdc = $self->get_bool('pdc');
+    if((not defined($pdc)) or $pdc) {
+        return 1;
+    } else {
+        return undef;
+    }
 }
 
 #   Method: setPdc
@@ -788,7 +794,7 @@ sub  setAdminUser
     }
 }
 
-sub setNetbios # (enabled) 
+sub setNetbios
 {
     my ($self, $netbios) = @_;
     unless (_checkNetbiosName($netbios)) {
@@ -803,10 +809,16 @@ sub setNetbios # (enabled)
 sub netbios
 {
     my $self = shift;
-    return $self->get_string('netbios');
+    my $netbios = $self->get_string('netbios');
+    unless(defined($netbios)) {
+        $netbios = Sys::Hostname::hostname();
+        $netbios = substr($netbios, 0, MAXNETBIOSLENGTH);
+        $self->setNetbios($netbios);
+    }
+    return $netbios;
 }
 
-sub setDescription # (enabled) 
+sub setDescription
 {
     my ($self, $description) = @_;
     unless (_checkDescriptionName($description)) {
@@ -820,7 +832,11 @@ sub setDescription # (enabled)
 sub roamingProfiles
 {
     my ($self) = @_;
-    return $self->get_bool('roaming');
+    my $roaming = $self->get_bool('roaming');
+    if($roaming == 0) {
+        $roaming = undef;
+    }
+    return $roaming;
 }
 
 sub setRoamingProfiles # (enabled) 
@@ -834,10 +850,14 @@ sub setRoamingProfiles # (enabled)
 sub description
 {
     my $self = shift;
-    return $self->get_string('description');
+    my $desc = $self->get_string('description');
+    unless (defined $desc) {
+        $desc = 'EBox Samba Server';
+    }
+    return $desc;
 }
 
-sub setWorkgroup # (enabled) 
+sub setWorkgroup
 {
     my ($self, $workgroup) = @_;
     unless (_checkWorkgroupName($workgroup)) {
@@ -852,7 +872,11 @@ sub setWorkgroup # (enabled)
 sub workgroup
 {
     my $self = shift;
-    return $self->get_string('workgroup');
+    my $workgroup = $self->get_string('workgroup');
+    unless (defined $workgroup) {
+        $workgroup = 'EBOX';
+    }
+    return $workgroup;
 }
 
 sub setDefaultUserQuota # (enabled) 
@@ -870,7 +894,11 @@ sub setDefaultUserQuota # (enabled)
 sub defaultUserQuota
 {
     my $self = shift;
-    return $self->get_int('userquota');
+    my $userquota = $self->get_int('userquota');
+    unless(defined $userquota) {
+        $userquota = 100;
+    }
+    return $userquota;
 }
 
 # LdapModule implmentation    
