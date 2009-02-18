@@ -423,7 +423,11 @@ sub _packageDepends
 sub getAutomaticUpdates
 {
 	my $self = shift;
-	return $self->get_bool('automatic');
+	my $auto = $self->get_bool('automatic');
+    if ($auto == 0) {
+        $auto = undef;
+    }
+    return $auto;
 }
 
 # Method: setAutomaticUpdates 
