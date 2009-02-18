@@ -3,7 +3,7 @@
 $current => 'none'
 </%args>
 <script type="text/javascript">
-<![CDATA[
+//<![CDATA[
 var old_results = null;
 
 function hideMenuEntry(id) {
