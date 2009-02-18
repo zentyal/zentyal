@@ -44,7 +44,7 @@ PidFile <% $tmpdir %>/apache.pid
     MinSpareServers       1 
     MaxSpareServers       1
     MaxClients            2 
-    MaxRequestsPerChild   20
+    MaxRequestsPerChild   200
 </IfModule>
 
 # worker MPM
