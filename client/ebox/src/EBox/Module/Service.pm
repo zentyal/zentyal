@@ -176,7 +176,7 @@ sub configured
         return 1;
     }
 
-    if ($self->st_get_bool('_serviceConfigured') eq '') {
+    unless ($self->st_get_bool('_serviceConfigured')) {
         return undef; 
     }
 
@@ -219,7 +219,7 @@ sub isEnabled
 {
     my ($self) = @_;
 
-    if ($self->get_bool('_serviceModuleStatus') eq '') {
+    unless ($self->get_bool('_serviceModuleStatus')) {
         return $self->defaultStatus();
     }
 
