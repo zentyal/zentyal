@@ -170,6 +170,7 @@ sub row
                 'edit' => $link);
         $row->setId($id);
         $row->setReadOnly(1);
+        return $row;
     } else {
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
