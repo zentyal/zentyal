@@ -813,7 +813,7 @@ sub netbios
     unless(defined($netbios)) {
         $netbios = Sys::Hostname::hostname();
         $netbios = substr($netbios, 0, MAXNETBIOSLENGTH);
-        $self->setNetbios($netbios);
+        $self->set_string('netbios', $netbios);
     }
     return $netbios;
 }
