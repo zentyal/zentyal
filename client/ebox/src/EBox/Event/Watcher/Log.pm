@@ -318,9 +318,7 @@ sub _filters
     unless ($self->{filters}->{$logger}) {
         my $logConfModel = $self->_logSubModel(); 
 
-        my $id  = $logConfModel->findValue(domain => $logger);
-        my $loggerConfRow = $logConfModel->row($id);
-
+        my $loggerConfRow = $logConfModel->findValue(domain => $logger);
         my $filterModel = $loggerConfRow->subModel('filters'); 
 
         my @filterSearchs = ();
