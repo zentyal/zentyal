@@ -266,7 +266,7 @@ sub acquireFilteringModel
 
     my ($row) = @_;
 
-    my $logDomain = $row->{domain};
+    my $logDomain = $row->valueByName('domain');
 
     return '/events/' . FILTERING_MODEL_NAME . "/$logDomain";
 
