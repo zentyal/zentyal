@@ -255,7 +255,7 @@ sub _schemas
 
     my $dir = $options->{destdir} . '/schemas';
     my $module = $options->{moduleName};
-    my $schema = "ebox-$module.schemas";
+    my $yaml = "$module.yaml";
     my $mainClass = 'EBox::' . $options->{mainClass};
 
     mkdir ("$dir") or die "Can't create $dir";
@@ -264,17 +264,15 @@ sub _schemas
             comp_file => STUBS_PATH .  '/schemas/Makefile.am.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( schema => $schema));
+    $interp->exec($comp, ( yaml => $yaml));
     write_file($dir . '/Makefile.am', ${$output});
 
     $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/schemas/gconf.schemas.mas',
+            comp_file => STUBS_PATH .  '/schemas/yaml.mas',
             );
     ${$output} = '';
-    $interp->exec($comp, ( module => $module, mainClass => $mainClass));
-    write_file($dir . "/$schema", ${$output});
-
-  
+    $interp->exec($comp, ( mainClass => $mainClass));
+    write_file($dir . "/$yaml", ${$output});
 }
 
 sub _stubs

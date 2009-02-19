@@ -29,7 +29,7 @@ stubsmigrationbasedir = $(datadir)/emoddev/stubs/migration
 
 stubsmigrationbase_DATA = migration/migration.pl.mas
 
-stubsschemas_DATA = schemas/Makefile.am.mas  schemas/gconf.schemas.mas
+stubsschemas_DATA = schemas/Makefile.am.mas  schemas/yaml.mas
 
 stubssrcdir = $(datadir)/emoddev/stubs/src
 
