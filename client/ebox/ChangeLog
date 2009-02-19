@@ -21,6 +21,7 @@
 	performance and reduce memory use.
 	+ Do not suggest_sync after read operations in gconf
 	+ Increase MaxRequestsPerChild to 200 in eBox's apache
+	+ Make apache spawn only one child process
 0.12.101
 	+ Bugfix: DomainName type make comparisons case insensitive
 	according to RFC 1035
