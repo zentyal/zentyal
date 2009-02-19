@@ -91,11 +91,11 @@ sub subModels
 
 }
 
-# Method: rows
+# Method: syncrows
 #
 # Overrides:
 #
-#        <EBox::Model::DataTable>
+#        <EBox::Model::DataTable::syncRows>
 #
 #   It is overriden because this table is kind of different in
 #   comparation to the normal use of generic data tables.
@@ -106,19 +106,20 @@ sub subModels
 #   - We check if we have to add/remove one the log domains. That happens
 #   when a new module is installed or an existing one is removed.
 #
-sub rows
+sub syncRows 
 {
-    my ($self, $filter, $page) = @_;
+    my ($self, $currentIds) = @_;
 
+    my $anyChange = undef;
     my $logs = $self->{logs};
 
     # Set up every model
     $self->_setUpModels();
 
     # Fetch the current log domains stored in gconf
-    my $currentRows = $self->SUPER::rows();
     my %storedLogDomains;
-    foreach my $row (@{$currentRows}) {
+    foreach my $id (@{$currentIds}) {
+        my $row = $self->row($id);
         $storedLogDomains{$row->valueByName('domain')} = 1;
     }
 
@@ -133,18 +134,20 @@ sub rows
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
         $self->addRow('domain' => $domain, 'enabled' => 0);
+        $anyChange = 1;
     }
 
     # Remove non-existing domains from gconf
-    foreach my $row (@{$currentRows}) {
+    foreach my $id (@{$currentIds}) {
+        my $row = $self->row($id);
         my $domain = $row->valueByName('domain');
         next if (exists $currentLogDomains{$domain});
-        $self->removeRow($row->id());
+        $self->removeRow($id);
         $self->_removeFilteringModel($domain);
+        $anyChange = 1;
     }
 
-    return $self->SUPER::rows($filter, $page);
-
+    return $anyChange;
 }
 
 # Method: updatedRowNotify
