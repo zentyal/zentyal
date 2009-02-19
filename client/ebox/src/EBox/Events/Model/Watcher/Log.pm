@@ -167,7 +167,7 @@ sub updatedRowNotify
         my $manager = EBox::Model::ModelManager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
-        unless ( $logConfRow->{enabled} ) {
+        unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
                                  . 'Enable to be notified when logs happen. '
                                  . $self->message()));
@@ -191,7 +191,7 @@ sub addedRowNotify
         my $manager = EBox::Model::ModelManager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
-        unless ( $logConfRow->{enabled} ) {
+        unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
                                  . 'Enable to be notified when logs happen. '
                                  . $self->message()));
