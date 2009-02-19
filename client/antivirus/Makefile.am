@@ -1,4 +1,4 @@
-## Process this file with automake to produce Makefile.in
+##  Process this file with automake to produce Makefile.in
 
 SUBDIRS = migration po src schemas stubs
 
