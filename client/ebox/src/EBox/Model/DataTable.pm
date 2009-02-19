@@ -2943,7 +2943,7 @@ sub actionClickedJS
 # Method: backupFiles
 #
 #   Make an actual configuration backup of all the files contained in the
-#   datatable and its submodels. This backup will used to discard cahnges if
+#   datatable and its submodels. This backup will used to discard changes if
 #   needed
 sub backupFiles
 {
@@ -2962,7 +2962,7 @@ sub backupFiles
 
 # Method: restoreFiles
 #
-#  Restores the actual configuration backup of files, thus discarding lasts
+#  Restores the actual configuration backup of files, thus discarding last
 #  changes in files
 sub restoreFiles
 {
