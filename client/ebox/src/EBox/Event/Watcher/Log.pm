@@ -301,8 +301,7 @@ sub _isLoggerEnabled
 
     unless (exists $self->{logger}->{$logger}) {
         my $confModel = $self->_logSubModel(); 
-        my $id = $confModel->find(domain => $logger);
-        my $row = $confModel->row($id);
+        my $row = $confModel->find(domain => $logger);
         $self->{logger}->{$logger} = $row->valueByName('enabled');
     }
 
