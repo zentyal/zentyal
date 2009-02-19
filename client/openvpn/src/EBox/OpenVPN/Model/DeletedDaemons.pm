@@ -105,8 +105,8 @@ sub daemons
 
     my @daemons = map {
         my $row = $self->row($_);
-        my $name = $_->elementByName('name')->value();
-        my $type = $_->elementByName('type')->value();
+        my $name = $row->elementByName('name')->value();
+        my $type = $row->elementByName('type')->value();
 
         { name => $name, type => $type }
     } @{  $self->ids() };
