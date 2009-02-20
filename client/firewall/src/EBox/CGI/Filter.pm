@@ -20,9 +20,6 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
-use EBox::Global;
-use EBox::Firewall;
-use EBox::Objects;
 use EBox::Gettext;
 
 sub new # (error=?, msg=?, cgi=?)
@@ -34,24 +31,6 @@ sub new # (error=?, msg=?, cgi=?)
 	$self->{domain} = 'ebox-firewall';
 	bless($self, $class);
 	return $self;
-}
-
-sub _process
-{
-	my $self = shift;
-	$self->{title} = __('Packet filtering');
-	my $firewall = EBox::Global->modInstance('firewall');
-	my $objects = EBox::Global->modInstance('objects');
-
-	my $objectlist = $objects->objects();
-
-	my @array = ();
-
-	push(@array, 'deny' => $firewall->denyAction);
-	if ($objectlist && length(@{$objectlist}) > 0) {
-		push(@array, 'objects' => $objectlist);
-	}
-	$self->{params} = \@array;
 }
 
 1;

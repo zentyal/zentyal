@@ -1,7 +1,3 @@
-<%args>
-	$deny
-	@objects => ()
-</%args>
 <%init>
 use EBox::Gettext;
 </%init>
