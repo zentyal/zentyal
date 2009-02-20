@@ -1,0 +1,72 @@
+# French translations for EBox-modulename package.
+# Copyright (C) 2009 Warp S.L.
+# This file is distributed under the same license as the EBox-modulename package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-antivirus 0.1\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-02-20 11:10+0100\n"
+"PO-Revision-Date: 2009-02-20 11:10+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+msgid "Status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+msgid "Date"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+msgid "Antivirus database update status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+msgid ""
+"The antivirus database has not been updated since the  mailfilter eBox's "
+"module was installed"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+msgid "The last update failed"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#, perl-brace-format
+msgid ""
+"Update failed.\n"
+"Your version of freshclam  is outdated.Please, install version {version} or "
+"higher"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+msgid "Last update successful"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#, perl-brace-format
+msgid "Unknown event {event}"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:69
+msgid "antivirus"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:94
+msgid "Update status"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:175
+msgid " To configure clamd daemon"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:180
+msgid "To configure freshclam updater daemon"
+msgstr ""
