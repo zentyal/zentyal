@@ -202,9 +202,10 @@ sub confFileParams
 
 # Method: servers
 #
-# gets the servers to which the client will try to connecet
+#   Get the servers to which the client will try to connecet
 #
 # Returns:
+#
 #  a reference to the list of server. Each item in the list of
 #  servers is a reference to a list which contains the IP address
 #  and port of one server

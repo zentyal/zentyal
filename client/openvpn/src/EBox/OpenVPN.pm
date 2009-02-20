@@ -1279,9 +1279,6 @@ sub newClient
       caCertificate certificate certificateKey
       ripPasswd
       service internal);
-    
-    EBox::debug("PARAMS @_");
-
 
     if (( exists $params{bundle} ) and ($params{bundle})) {
         %params = (
@@ -1294,12 +1291,9 @@ sub newClient
     }
 
     foreach my $param (@paramsNeeded) {
-        EBox::debug("param |$param|");
         exists $params{$param}
           or throw EBox::Exceptions::MissingArgument($param);
     }
-
-    EBox::debug("AAA");
 
     my $client;
     try {

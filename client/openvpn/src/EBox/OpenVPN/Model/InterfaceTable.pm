@@ -70,13 +70,12 @@ sub initializeInterfaces
     my ($self) = @_;
 
     foreach my $id ( @{ $self->ids() }) {
-        my$row = $self->row($id);
+        my $row = $self->row($id);
         my $interfaceNumber = $row->elementByName('interfaceNumber');
         next if $interfaceNumber->value() != -1;
 
         my $interfaceType = $row->elementByName('interfaceType');
         $interfaceType->setValue('tap');
-
 
         my $number = $self->_nextInterfaceNumber();
         $interfaceNumber->setValue($number);
@@ -125,11 +124,12 @@ sub _usedIfaceNumbers
     my @numbers;
     foreach my $ifaceTable (@interfaceTables) {
         my @tableNumbers =  map {
-                                   my $number = $_->elementByName('interfaceNumber')->value();
-                                   ($number >= 0) ? $number : ()
-                               }  @{ $ifaceTable->rows() };
+            my $row = $ifaceTable->row($_);
+            my $number = $row->elementByName('interfaceNumber')->value();
+            ($number >= 0) ? $number : ()
+        }  @{ $ifaceTable->ids() };
 
-        push @numbers, @tableNumbers;
+        push(@numbers, @tableNumbers);
     }
 
     @numbers = sort @numbers;
