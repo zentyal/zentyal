@@ -130,8 +130,8 @@ sub _content
     }
     elsif ($event eq 'outdated') {
         my $version = $eventInfo;
-        $msg = __x("Update failed.\n" .
-                      'Your version of freshclam  is outdated.' .
+        $msg = __x("Update successful but your version of freshclam  is outdated.\n" .
+                      'The anitvirus will not be able to use all the signatures.' .
                       'Please, install version {version} or higher',
                       version => $version,
                      );

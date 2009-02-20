@@ -219,7 +219,7 @@ sub _setConf
 
 
 
-  my $observerScript = EBox::Config::share() . '/antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
+  my $observerScript = EBox::Config::share() . '/ebox-antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
 
   my @freshclamParams = (
                          clamdConfFile   => CLAMD_CONF_FILE,
