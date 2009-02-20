@@ -1602,7 +1602,7 @@ sub _ids
             }
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
         }
-        unless ($gconfmod->isReadOnly()) {
+        if ( not $gconfmod->isReadOnly() and @{$ids} ) {
             $gconfmod->set_list($self->{'order'}, 'string', $ids);
         } 
     } 
