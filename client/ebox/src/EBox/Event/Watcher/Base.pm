@@ -186,8 +186,7 @@ sub configurationSubModel
 
     my $manager = EBox::Model::ModelManager->instance();
     my $watchers = $manager->model('/events/ConfigureEventDataTable');
-    my $id = $watchers->findValue('eventWatcher' => $package);
-    my $row = $watchers->row($id);
+    my $row = $watchers->findValue('eventWatcher' => $package);
     return $row->subModel('configuration_model');
 }
 
