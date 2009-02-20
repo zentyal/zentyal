@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-02-20 11:10+0100\n"
+"POT-Creation-Date: 2009-02-20 12:17+0100\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -56,17 +56,21 @@ msgid "Unknown event {event}"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:69
-msgid "antivirus"
+msgid "Antivirus"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:94
 msgid "Update status"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:175
+#: src/EBox/AntiVirus.pm:174
 msgid " To configure clamd daemon"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:180
-msgid "To configure freshclam updater daemon"
+#: src/EBox/AntiVirus.pm:179
+msgid "To configure freshclam updater"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:184
+msgid "To schendule the launch of the updater"
 msgstr ""

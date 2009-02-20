@@ -57,7 +57,6 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/AntiVirus/Makefile
 src/EBox/AntiVirus/Model/Makefile
-src/templates/Makefile
 schemas/Makefile
 stubs/Makefile
 Makefile
