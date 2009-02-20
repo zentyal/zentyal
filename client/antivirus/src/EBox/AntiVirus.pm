@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-package EBox::ModuleName;
+package EBox::AntiVirus;
 
 use strict;
 use warnings;
@@ -60,13 +60,13 @@ use constant {
 #
 # Returns:
 #
-#        <EBox::ModuleName> - the recently created module
+#        <EBox::AntiVirus> - the recently created module
 #
 sub _create
 {
         my $class = shift;
         my $self = $class->SUPER::_create(name => 'antivirus',
-                                          printableName => __('antivirus')
+                                          printableName => __('Antivirus')
                                          );
         bless($self, $class);
         return $self;
@@ -150,7 +150,6 @@ sub actions
 sub enableActions
 {
     my ($self) = @_;
-    root(EBox::Config::share() . '/ebox-antivirus/ebox-antivirus-enable');
 }
 
 # Method: disableActions
@@ -169,18 +168,23 @@ sub disableActions
 
 sub usedFiles
 {
-  return (
+  return [
         {
          file => CLAMD_CONF_FILE,
          reason => __(' To configure clamd daemon'),
          module => 'antivirus',
         },
-          {
+        {
            file => FRESHCLAM_CONF_FILE,
-           reason => __('To configure freshclam updater daemon'),
-           module => 'anitvirus',
-          },
-         );
+           reason => __('To configure freshclam updater'),
+           module => 'antivirus',
+       },
+       {
+           file => FRESHCLAM_CRON_SCRIPT,
+           reason => __('To schendule the launch of the updater'),
+           module => 'antivirus',
+          }, 
+         ];
 }
 
 
@@ -201,7 +205,7 @@ sub localSocket
 
 
 
-sub _writeConf
+sub _setConf
 {
   my ($self) = @_;
 
@@ -215,7 +219,7 @@ sub _writeConf
 
 
 
-  my $observerScript = EBox::Config::share() . '/ebox-antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
+  my $observerScript = EBox::Config::share() . '/antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
 
   my @freshclamParams = (
                          clamdConfFile   => CLAMD_CONF_FILE,
@@ -225,8 +229,7 @@ sub _writeConf
 
   $self->writeConfFile(FRESHCLAM_CONF_FILE, "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-  my $antivirusService = $self->service;
-  if ($antivirusService) {
+  if ($self->isEnabled()) {
     # regenerate freshclam cron hourly script
     EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "antivirus/freshclam-cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . FRESHCLAM_CRON_SCRIPT);
