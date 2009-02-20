@@ -371,16 +371,27 @@ sub _storeInGConf
 #       <EBox::Types::Abstract::_restoreFromHash>
 #
 sub _restoreFromHash
-  {
+{
     my ($self, $hash) = @_;
 
-    my $proto = $self->fieldName() . '_protocol';
+    return unless ($self->row());
+    my $protocol= $self->fieldName() . '_protocol';
     my $port = $self->fieldName() . '_port';
 
-    $self->{protocol} = $hash->{$proto};
-    $self->{port} = $hash->{$port};
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        my $path = $self->_path(); 
+        $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
+        $value->{port} =  $gconf->get_int($path . '/' . $port);
+	EBox::debug($path . '/' . $port);
+        $self->_addToCache($value);
+    }
 
-  }
+    $self->{'protocol'} = $value->{protocol}; 
+    $self->{'port'} = $value->{port}; 
+    
+}
 
 # Method: _paramIsValid
 #
