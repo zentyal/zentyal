@@ -66,6 +66,7 @@ use constant AUTHDAEMONPIDFILE		=> "/var/run/courier/authdaemon/pid";
 use constant AUTHLDAPPIDFILE		=> "/var/run/courier/ldapaliasd.pid";
 use constant BYTES				=> '1048576';
 use constant MAXMGSIZE				=> '104857600';
+use constant MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 
@@ -478,7 +479,8 @@ sub _daemons
     my $daemons = [
         {
             'name' => MAILINIT,
-            'type' => 'init.d'
+            'type' => 'init.d',
+            'pidfile' => MASTER_PID_FILE,
         },
         {
             'name' => POPINIT,
