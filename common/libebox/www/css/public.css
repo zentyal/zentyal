@@ -662,7 +662,7 @@ a.changed:hover {
 }
 
 .bDataTable {
-	border-bottom: 0;
+	border-bottom: 1px solid #d6dbbe;
 	border-top: 1px solid #d6dbbe;
 }
 .button {

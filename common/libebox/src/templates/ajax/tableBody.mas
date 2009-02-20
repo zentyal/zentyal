@@ -254,12 +254,21 @@ use POSIX;
 %   }  
     </tbody>
 </table>
-<& /ajax/tablePager.mas,
-  model => $model,
-  page => $page,
-  tpages => POSIX::ceil($matches / $model->pageSize()) - 1,
-  pageSize => $model->pageSize()
+
+<table class="bDataTable">
+    <tr>
+    <td class="tright">
+ <& /ajax/tablePager.mas,
+   model => $model,
+   page => $page,
+   tpages => POSIX::ceil($matches / $model->pageSize()) - 1,
+   pageSize => $model->pageSize()
 &>
+    </td>
+    </tr>
+</table>
+
+
 % } else {
 <input type="hidden" 
   id="<% $model->tableName() . '_pageSize' %>"

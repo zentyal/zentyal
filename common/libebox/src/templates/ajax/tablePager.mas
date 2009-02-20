@@ -51,8 +51,6 @@
 %   }
 
 &nbsp;
-</td>
-<td class="tright">
 %   my $pagerId = $tableName . '_pagerId';
  	<span id="<% $pagerId %>"></span> 	
 %   if ($page != 0) {
