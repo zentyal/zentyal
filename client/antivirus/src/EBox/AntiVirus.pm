@@ -22,17 +22,18 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
+            EBox::FirewallObserver
            );
 
 use EBox::Gettext;
 use EBox::Service;
 #use EBox::Dashboard::Module;
 
-use Perl6::Junction qw(any all);
-use File::Slurp qw(read_file write_file);
+#use Perl6::Junction qw(any all);
+#use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Global;
-
+use EBox::AntiVirus::FirewallHelper;
 
 use constant {
   CLAMAVPIDFILE                 => '/var/run/clamav/clamd.pid',
@@ -312,6 +313,33 @@ sub notifyFreshclamEvent
   write_file($class->freshclamStateFile(), $statePairs);
 }
 
+
+sub firewallHelper
+{
+    my ($self) = @_;
+    if ($self->isEnabled()) {
+        return EBox::AntiVirus::FirewallHelper->new();
+    }
+
+    return undef;
+}
+
+
+sub summary
+{
+    my ($self, $summary) = @_;
+
+    my $section = new EBox::Dashboard::Section(__("Antivirus"));
+    $summary->add($section);
+
+    my $antivirus = new EBox::Dashboard::ModuleStatus(
+        module        => 'antivirus',
+        printableName => __('Antivirus'),
+        enabled       => $self->isEnabled(),
+        running       => $self->isRunning(),
+        nobutton      => 0);
+    $section->add($antivirus);
+}
 
 1;
 
