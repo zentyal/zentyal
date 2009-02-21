@@ -252,6 +252,15 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
 }
 
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends
+{
+    return ['firewall', 'users'];
+}
+
 
 
 # Method: serviceModuleName 
