@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-02-20 12:17+0100\n"
+"POT-Creation-Date: 2009-02-21 15:14+0100\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,61 +15,77 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus database update status"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format
 msgid ""
-"Update failed.\n"
-"Your version of freshclam  is outdated.Please, install version {version} or "
-"higher"
+"Update successful but your version of freshclam  is outdated.\n"
+"The anitvirus will not be able to use all the signatures.Please, install "
+"version {version} or higher"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful"
 msgstr ""
 
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:69
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:70
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:332
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:337
+#: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:332
+#: src/EBox/AntiVirus.pm:337
 msgid "Antivirus"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:94
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:95
+#: src/EBox/AntiVirus.pm:95
 msgid "Update status"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:174
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:175
+#: src/EBox/AntiVirus.pm:175
 msgid " To configure clamd daemon"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:179
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:180
+#: src/EBox/AntiVirus.pm:180
 msgid "To configure freshclam updater"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:184
+#: debian/ebox-antivirus/usr/share/perl5/EBox/AntiVirus.pm:185
+#: src/EBox/AntiVirus.pm:185
 msgid "To schendule the launch of the updater"
 msgstr ""

@@ -29,8 +29,8 @@ use EBox::Gettext;
 use EBox::Service;
 #use EBox::Dashboard::Module;
 
-#use Perl6::Junction qw(any all);
-#use File::Slurp qw(read_file write_file);
+use Perl6::Junction qw(any);
+use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Global;
 use EBox::AntiVirus::FirewallHelper;

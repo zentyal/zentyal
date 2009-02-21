@@ -55,6 +55,7 @@ AC_CONFIG_FILES([
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
+src/EBox/t/Makefile
 src/EBox/AntiVirus/Makefile
 src/EBox/AntiVirus/Model/Makefile
 src/libexec/Makefile
