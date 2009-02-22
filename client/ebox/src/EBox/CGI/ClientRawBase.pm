@@ -195,8 +195,7 @@ sub run
 	  $self->_print 
 	} catch EBox::Exceptions::Internal with {
 	  my $ex = shift;
-	  $self->setErrorFromException($ex);
-	  $self->_print_error($self->{error});
+	  $self->_print_error($ex->stacktrace());
 	} 
 	otherwise {
 	    my $ex = shift;
