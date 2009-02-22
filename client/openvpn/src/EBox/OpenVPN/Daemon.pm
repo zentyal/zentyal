@@ -94,7 +94,7 @@ sub _configAttr
 sub upstartName
 {
     my ($self)  = @_;
-    return __PACKAGE__->upstartNameForDaemon($self->name, $self->type);
+    return __PACKAGE__->upstartNameForDaemon($self->name(), $self->type());
 }
 
 #
@@ -519,7 +519,7 @@ sub _rootCommandForStartDaemon
 {
     my ($self) = @_;
 
-    my $name    = $self->name;
+    my $name    = $self->name();
     my $bin     = $self->_openvpnModule->openvpnBin();
     my $confDir = $self->_openvpnModule->confDir();
     my $confFilePath =   $self->confFile($confDir);

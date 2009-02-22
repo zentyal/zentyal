@@ -1272,6 +1272,42 @@ sub _anyDaemonReturnsTrue
     return undef;
 }
 
+# Method: newClient
+#
+#    Create a new VPN client from API
+#
+# Positional parameters:
+#
+#    name - String the name to set the VPN client
+#
+# Named parameters:
+#
+#    internal - Boolean indicating whether the client is internal or
+#               not
+#
+#    service - Boolean indicating whether the new client must be up or
+#              not
+#
+#    proto - String the protocol used by client. Options: 'udp' or
+#            'tcp'
+#
+#    servers - Array ref containing tuples with two elements: the VPN
+#              server IP address and the port which is listening to
+#
+#    caCertificate - String the path to the CA certificate
+#
+#    certificate   - String the path to the VPN client certificate
+#
+#    certificateKey - String the path to the VPN client private key
+#    corresponding to the previous certificate
+#
+#    ripPasswd     - String the RIP password to exchange routes with
+#
+# Returns:
+#
+#    <EBox::OpenVPN::Client> - the newly created VPN client daemon
+#    instance
+#
 sub newClient
 {
     my ($self, $name, %params) = @_;
@@ -1332,10 +1368,8 @@ sub _doNewClient
                      name => $name,
                      internal => $params{internal},
                      service => 0,
-                     hidden  => $hidden,
+                     readOnly  => $hidden,
                     );
-
-    EBox::debug("ADDED");
 
     $self->_setClientConf($name, %params);
 

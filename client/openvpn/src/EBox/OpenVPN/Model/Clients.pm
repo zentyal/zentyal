@@ -51,8 +51,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text::WriteOnce
                             (
