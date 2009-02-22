@@ -330,10 +330,9 @@ sub run
 	  settextdomain('ebox');
 	  $self->_print 
 	} catch EBox::Exceptions::Internal with {
-	  my $error = __("An internal error has ocurred. " . 
-			 "This is most probably a bug, relevant ". 
-			 "information can be found in the logs.");
-	  $self->_print_error($error);
+	  my $ex = shift;
+	  $self->setErrorFromException($ex);
+	  $self->_print_error($self->{error});
 	} 
 	otherwise {
 	    my $ex = shift;
