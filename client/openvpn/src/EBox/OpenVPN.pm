@@ -232,7 +232,7 @@ sub _writeConfFiles
 
     $self->_writeRIPDaemonConf(); # XXX RIP stuff
 
-    my $confDir = $self->confDir;
+    my $confDir = $self->confDir();
 
     my @daemons = $self->daemons();
     foreach my $daemon (@daemons) {
@@ -1403,23 +1403,6 @@ sub _setClientConf
                                       certificateKey => $params{certificateKey},
                                                       );
 
-    my $clientConfDir = EBox::OpenVPN::Client->privateDirForName($name);
-
-    
-
-    my @files = qw(caCertificate certificate certificateKey );
-    foreach my $f (@files) {
-
-# the destination must be firstly the same than the vlaue obtained with
-# tmpPath in the EBox::Type::File to assure the checks and then te final destination
-        my $tmpDest =  EBox::Config::tmp() . $f . '_path';
-        EBox::Sudo::root('cp ' . $params{$f} . " $tmpDest");
-
-        my $finalDest = "$clientConfDir/$f";
-        EBox::Sudo::root('cp ' . $params{$f} . " $finalDest");
-        EBox::Sudo::root("chmod 0400 $finalDest");
-    }
-
     # set config
     my $configRow =  $clientRow->subModel('configuration')->row();
     my %configToSet = (
@@ -1433,7 +1416,7 @@ sub _setClientConf
     }
     $configRow->store();
 
-    # remove leftover upload temprary files bz they arent needed more
+    # remove leftover upload temporary files bz they aren't needed anymore
     foreach my $f (@files) {
         my $path =  EBox::Config::tmp() . $f . '_path';
         EBox::Sudo::root("rm -rf $path");

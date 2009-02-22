@@ -422,8 +422,8 @@ sub setCertificatesFilesForName
     my @files = qw(caCertificate certificate certificateKey );
     foreach my $f (@files) {
 
-# the destination must be firstly the same than the vlaue obtained with
-# tmpPath in the EBox::Type::File to assure the checks and then te final destination
+# the destination must be firstly the same as the value obtained with
+# tmpPath in the EBox::Type::File to assure the checks and then the final destination
         my $tmpDest =  EBox::Config::tmp() . $f . '_path';
         EBox::Sudo::root('cp ' . $pathByFile{$f} . " $tmpDest");
 
