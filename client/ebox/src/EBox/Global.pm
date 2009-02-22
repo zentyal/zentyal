@@ -651,7 +651,7 @@ sub modInstance # (module)
     eval "use $classname";
     if ($@) {
         throw EBox::Exceptions::Internal("Error loading ".
-                                         "class: $classname");
+                                         "class: $classname error: $@");
     }
     if ($global->isReadOnly()) {
         $global->{'mod_instances'}->{$name} =
