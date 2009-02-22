@@ -232,7 +232,7 @@ sub exist
     my ($self, $path) = @_;
     defined $path or
         $path = $self->path();
-    $path or 
+    $path or
         return undef;
 
 
@@ -372,6 +372,107 @@ sub userPath
     my ($self) = @_;
 
     return $self->{userPath};
+
+}
+
+#  Method: backupPath
+#
+#   return the path to the actual configuration backup
+# 
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
+sub backupPath
+{
+    my ($self, $path) = @_;
+    defined $path or
+      $path = $self->path();
+    $path or
+      return undef;
+
+    my $backupPath = $path . '.bak';
+    return $backupPath;
+}
+
+#  Method: noPreviousFilePath
+#
+#   return the path to the file to signals to the actual configuration backup
+#   that there wasn't any file before
+# 
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
+sub noPreviousFilePath
+{
+    my ($self, $path) = @_;
+    defined $path or
+      $path = $self->path();
+    $path or 
+      return undef;
+
+    my $backupPath = $path . '.noprevious.bak';
+    return $backupPath;
+}
+
+# Method: backupFiles
+#
+#   Make an actual configuration backup of the file.. This backup will used to
+#   discard changes when revoking the configuration
+#
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
+sub backupFiles
+{
+    my ($self, $path) = @_;
+    defined $path or
+      $path = $self->path();
+    $path or return;
+
+
+    my $backupPath = $self->backupPath($path);
+    my $noPreviousFilePath = $self->noPreviousFilePath($path);
+
+    if ($self->exist($path)) {
+
+        $backupPath or return;
+
+        EBox::Sudo::root("cp -p $path $backupPath");
+        EBox::Sudo::root("rm -f $noPreviousFilePath");
+    } else {
+        EBox::Sudo::root("touch $noPreviousFilePath");
+        EBox::Sudo::root("rm -f $backupPath");
+    }
+
+}
+
+# Method: restoreFiles
+#
+#  Restores the actual configuration backup of the file, thus discarding last
+#  changes 
+#
+# Parameters: 
+#   path - path of the file which owns the backup, if it is not
+#       provided the path() method will be used
+sub restoreFiles
+{
+    my ($self, $path) = @_;
+    defined $path or
+      $path = $self->path();
+    $path or return;
+
+    my $backupPath = $self->backupPath($path);
+    if ( EBox::Sudo::fileTest('-f', $backupPath) ) {
+        EBox::Sudo::root("cp -p $backupPath $path");
+        return;
+    }
+  
+    my $noPreviousFilePath = $self->noPreviousFilePath($path);
+    if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
+        EBox::Sudo::root("rm -f $path");
+    }
+  
+
 
 }
 
@@ -526,110 +627,6 @@ sub _paramIsSet
     return 1 if ($removeValue);
     return 1 if (defined ( $pathValue ));
     return (-f $self->tmpPath());
-
-}
-
-
-#  Method: backupPath
-#
-#   return the path to the actual configuration backup
-# 
-# Parameters: 
-#   path - path of the file which owns the backup, if it is not
-#       provided the path() method will be used
-sub backupPath
-{
-  my ($self, $path) = @_;
-  defined $path or
-      $path = $self->path();
-  $path or 
-      return undef;
-
-  my $backupPath = $path . '.bak';
-  return $backupPath;
-}
-
-#  Method: noPreviousFilePath
-#
-#   return the path to the file to signals to the actual configuration backup
-#   that there wasn't any file before
-# 
-# Parameters: 
-#   path - path of the file which owns the backup, if it is not
-#       provided the path() method will be used
-sub noPreviousFilePath
-{
-  my ($self, $path) = @_;
-  defined $path or
-      $path = $self->path();
-  $path or 
-      return undef;
-
-  my $backupPath = $path . '.noprevious.bak';
-  return $backupPath;
-}
-
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of the file.. This backup will used to
-#   discard changes when revoking the configuration
-#
-# Parameters: 
-#   path - path of the file which owns the backup, if it is not
-#       provided the path() method will be used
-sub backupFiles
-{
-  my ($self, $path) = @_;
-  defined $path or
-      $path = $self->path();
-  $path or return;
-
-
-  my $backupPath = $self->backupPath($path);
-  my $noPreviousFilePath = $self->noPreviousFilePath($path);
-
-  if ($self->exist($path)) {
-
-    $backupPath or return;
-
-    EBox::Sudo::root("cp -p $path $backupPath");
-    EBox::Sudo::root("rm -f $noPreviousFilePath");
-  }
-  else {
-    EBox::Sudo::root("touch $noPreviousFilePath");
-    EBox::Sudo::root("rm -f $backupPath");
-  }
-
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of the file, thus discarding last
-#  changes 
-#
-# Parameters: 
-#   path - path of the file which owns the backup, if it is not
-#       provided the path() method will be used
-sub restoreFiles
-{
-  my ($self, $path) = @_;
-  defined $path or
-      $path = $self->path();
-  $path or return;
-
-  my $backupPath = $self->backupPath($path);
-  if ( EBox::Sudo::fileTest('-f', $backupPath) ) {
-      EBox::Sudo::root("cp -p $backupPath $path");
-      return;
-  }
-  
-  my $noPreviousFilePath = $self->noPreviousFilePath($path);
-  if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
-      EBox::Sudo::root("rm -f $path");
-  }
-  
-
 
 }
 

@@ -2624,6 +2624,19 @@ sub DESTROY { ; }
 #    none, the identifier may be used. The values can be multiple
 #    using array references.
 #
+# Returns:
+#
+#    String - the newly added row identifier if the AUTOLOAD method is
+#             an addition
+#
+#    <EBox::Model::Row> - if the AUTOLOAD method is a getter and it
+#    returns a single row
+#
+#    <EBox::Types::Abstract> - if the AUTOLOAD method is a getter and
+#    it returns a single field from a row
+#
+#    Array ref - if the AUTOLOAD method is a getter and it returns
+#    more than one row. Each component is a <EBox::Model::Row>.
 #
 # Exceptions:
 #
