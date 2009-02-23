@@ -532,52 +532,6 @@ sub _storeInGConf
     }
 }
 
-
-
-sub _moveToPath
-{
-    my ($self) = @_;
-
-#     # assure we have backuped the current config
-#     my $gconfmod = $self->model()->{gconfmodule};
-#     $gconfmod->_backup();
-
-
-    my $path   = $self->path();
-
-    my $tmpPath = $self->tmpPath();
-    if (not -f $tmpPath) {
-        throw EBox::Exceptions::Internal("No file found at $tmpPath for moving to $path");
-    }
-
-    my $user = $self->user();
-    my $group = $self->group();
-
-    if (($user eq  'root') or ($group eq 'root')) {
-        EBox::Sudo::root("mv $tmpPath $path");
-        try {
-            EBox::Sudo::root("chown $user.$group $path");
-        }
-        otherwise {
-            my $ex = shift;
-            EBox::Sudo::root("rm -f $path");
-            $ex->throw();
-        };
-    }
-    elsif (($user eq 'ebox') and ($group eq 'ebox')) {
-        File::Copy::move($tmpPath, $self->path()) or
-              throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
-                                               . ' to ' . $self->path());
-    }
-    else {
-        throw EBox::Exceptions::NotImplemented(
-                 "user and group combination not supported"
-                                              );
-    }
-
-}
-
-
 # Method: _restoreFromHash
 #
 # Overrides:
@@ -627,6 +581,87 @@ sub _paramIsSet
     return 1 if ($removeValue);
     return 1 if (defined ( $pathValue ));
     return (-f $self->tmpPath());
+
+}
+
+# Method: _setValue
+#
+#    Set the value for the file.
+#
+#    Two choices are available:
+#
+#         - give a path where the file will be stored (given a
+#         non-empty string). The file must be set in
+#         <EBox::Config::tmp> and the name must match "$fieldName" + '_path'
+#
+#         - remove the current value passing (given an empty string or undef)
+#
+# Overrides:
+#
+#    <EBox::Types::Abstract::_setValue>
+#
+# Parameters:
+#
+#    value - String the path to store in file type or an empty string
+#    to remove it
+#
+sub _setValue #(value)
+{
+    my ($self, $value) = @_;
+
+    my $params = {};
+    if ( $value ) {
+        $params->{$self->fieldName() . '_path'} = $value;
+    } else {
+        $params->{$self->fieldName() . '_remove'} = $value;
+    }
+
+    $self->setMemValue($params);
+
+}
+
+# Group: Private methods
+
+sub _moveToPath
+{
+    my ($self) = @_;
+
+#     # assure we have backuped the current config
+#     my $gconfmod = $self->model()->{gconfmodule};
+#     $gconfmod->_backup();
+
+
+    my $path   = $self->path();
+
+    my $tmpPath = $self->tmpPath();
+    if (not -f $tmpPath) {
+        throw EBox::Exceptions::Internal("No file found at $tmpPath for moving to $path");
+    }
+
+    my $user = $self->user();
+    my $group = $self->group();
+
+    if (($user eq  'root') or ($group eq 'root')) {
+        EBox::Sudo::root("mv $tmpPath $path");
+        try {
+            EBox::Sudo::root("chown $user.$group $path");
+        }
+        otherwise {
+            my $ex = shift;
+            EBox::Sudo::root("rm -f $path");
+            $ex->throw();
+        };
+    }
+    elsif (($user eq 'ebox') and ($group eq 'ebox')) {
+        File::Copy::move($tmpPath, $self->path()) or
+              throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
+                                               . ' to ' . $self->path());
+    }
+    else {
+        throw EBox::Exceptions::NotImplemented(
+                 "user and group combination not supported"
+                                              );
+    }
 
 }
 
