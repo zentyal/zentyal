@@ -43,7 +43,8 @@ sub proto
 
     my $config = $self->{row}->subModel('configuration');
 
-    my $portAndProtocol =  $config->serverPortAndProtocolType();
+    my $configRow = $conf->row();
+    my $portAndProtocol =  $configRow->elementByName('serverPortAndProtocol');
     return $portAndProtocol->protocol();
 }
 
@@ -52,9 +53,8 @@ sub _filePath
     my ($self, $name) = @_;
 
     my $conf = $self->{row}->subModel('configuration');
-    my $fileFieldAccessor = $name . 'Type';
-
-    my $fileField = $conf->$fileFieldAccessor();
+    my $configRow = $conf->row();
+    my $fileField = $configRow->elementByName($name);
     return $fileField->path();
 }
 
@@ -217,7 +217,7 @@ sub servers
 
     my $server = $config->server();
 
-    my $portAndProtocol =  $config->serverPortAndProtocolType();
+    my $portAndProtocol =  $config->row()->elementByName('serverPortAndProtocol');
     my $port = $portAndProtocol->port();
 
     my @servers = ([ $server => $port ]);

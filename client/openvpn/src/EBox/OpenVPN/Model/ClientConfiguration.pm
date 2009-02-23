@@ -75,7 +75,6 @@ sub _table
                                optional => 1,
                               ),
          new EBox::OpenVPN::Types::PortAndProtocol(
-                                                    
                                                     fieldName => 'serverPortAndProtocol',
                                                     printableName => __('Server port'),
                                                     editable => 1,
