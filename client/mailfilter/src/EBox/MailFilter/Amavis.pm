@@ -400,7 +400,14 @@ sub mailFilter
 
 
   my $name       = $self->mailFilterName;
-  my $active     = $self->service ? 1 : 0;
+  my $active;
+
+  my $module = EBox::Global->modInstance('mailfilter');
+  if (not $module->isEnabled()) {
+      $active = 0;
+  }  else {
+      $active = $self->service ? 1 : 0;      
+  }
   my %properties = (
                      address     => '127.0.0.1',
                      port        => $self->port(),
