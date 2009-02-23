@@ -413,11 +413,31 @@ sub restoreCertificates
 
 }
 
-
+# Method: setCertificatesFilesForName
+#
+#      Copy certificates and private key to the final destination
+#
+# Parameters:
+#
+#      name - String the client's name
+#
+#      pathByFile - Hash containing the certificate file paths with
+#      the following keys:
+#
+#          caCertificate
+#          certificate
+#          certificateKey
+#
+# Returns:
+#
+#      hash ref - containing the new paths for certificates and key
+#      with the same keys as parameter pathByFile
+#
 sub setCertificatesFilesForName
 {
     my ($class, $name, %pathByFile) = @_;
 
+    my %retValue = ();
     my $clientConfDir = $class->privateDirForName($name);
     my @files = qw(caCertificate certificate certificateKey );
     foreach my $f (@files) {
@@ -430,7 +450,10 @@ sub setCertificatesFilesForName
         my $finalDest = "$clientConfDir/$f";
         EBox::Sudo::root('cp ' . $pathByFile{$f} . " $finalDest");
         EBox::Sudo::root("chmod 0400 $finalDest");
+        $retValue{$f} = $finalDest;
     }
+
+    return \%retValue;
 
 }
 

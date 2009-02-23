@@ -204,7 +204,7 @@ sub client
 
     my $row = $self->findRow(name => $name);
     defined $row or
-        throw EBox::Exceptions::Internal("Client $name  does not exist");
+        throw EBox::Exceptions::Internal("Client $name does not exist");
 
     return EBox::OpenVPN::Client->new($row);
 }

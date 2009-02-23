@@ -1360,25 +1360,24 @@ sub _doNewClient
 
     # create client
 
-
     my $clients = $self->model('Clients');
 
     my $hidden = $params{internal} ? 1 : 0;
-    $clients->addRow(
-                     name => $name,
-                     internal => $params{internal},
-                     service => 0,
-                     readOnly  => $hidden,
-                    );
+    my $addedId = $clients->add(
+        name => $name,
+        internal => $params{internal},
+        service => 0,
+       );
+    my $clientRow = $clients->row($addedId);
+    $clientRow->setReadOnly($hidden);
 
     $self->_setClientConf($name, %params);
 
     # config complete! we can set service to 1
     if ($params{service}) {
-        my $clientRow =  $clients->findRow(name => $name);
         $clientRow->elementByName('service')->setValue(1);
-        $clientRow->store();
     }
+    $clientRow->store();
 
     return $clients->client($name);
 }
@@ -1394,14 +1393,14 @@ sub _setClientConf
     my $serverPortAndProtocol = "$serverPort/" . $params{proto};
 
     my $clients   = $self->model('Clients');
-    my $clientRow =  $clients->findRow(name => $name);
+    my $clientRow = $clients->findRow(name => $name);
 
-    EBox::OpenVPN::Client->setCertificatesFilesForName(
-                                       $name,
-                                      caCertificate => $params{caCertificate},
-                                      certificate => $params{certificate},
-                                      certificateKey => $params{certificateKey},
-                                                      );
+    my $certPaths = EBox::OpenVPN::Client->setCertificatesFilesForName(
+        $name,
+        caCertificate => $params{caCertificate},
+        certificate => $params{certificate},
+        certificateKey => $params{certificateKey},
+       );
 
     # set config
     my $configRow =  $clientRow->subModel('configuration')->row();
@@ -1409,6 +1408,7 @@ sub _setClientConf
                        server => $server,
                        serverPortAndProtocol =>  $serverPortAndProtocol,
                        ripPasswd             => $params{ripPasswd},
+                       %{$certPaths},
                       );
 
     while (my ($attr, $value) = each %configToSet) {
@@ -1417,7 +1417,7 @@ sub _setClientConf
     $configRow->store();
 
     # remove leftover upload temporary files bz they aren't needed anymore
-    foreach my $f (@files) {
+    foreach my $f (qw(caCertificate certificate certificateKey)) {
         my $path =  EBox::Config::tmp() . $f . '_path';
         EBox::Sudo::root("rm -rf $path");
     }
