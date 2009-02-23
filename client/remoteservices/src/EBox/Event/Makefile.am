@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS =  EBox libexec templates
+SUBDIRS = Dispatcher
+
+perldir = @PERLPATH@/EBox/Event
 
 MAINTAINERCLEANFILES = Makefile.in

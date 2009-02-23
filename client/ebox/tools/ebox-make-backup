@@ -5,7 +5,7 @@ use warnings;
 
 use EBox;
 use EBox::Backup;
-use EBox::RemoteServices::Backup;
+use EBox::Global;
 use EBox::ProgressIndicator;
 
 use Error qw(:try);
@@ -85,14 +85,12 @@ if ($fullBackup) {
     $params{fullBackup} = 1;
 }
 
-
-
-
 try {
     if (not $bugReport) {
         my $file = EBox::Backup->makeBackup(%params);
         print "Backup stored into file $file\n";
-        if ($remoteBackupName) {
+        if ($remoteBackupName and EBox::Global->modExists('remoteservices')) {
+            eval 'use EBox::RemoteServices::Backup';
             my $backupService = EBox::RemoteServices::Backup->new();
             my $description = $params{description};
             $backupService->sendRemoteBackup($file, $remoteBackupName, $description);
@@ -121,9 +119,9 @@ sub usage
 {
   print <<END;
   Usage:
-  $0  [OPTION\]... 
+  $0  [OPTION\]...
   $0  --help
-  
+
   Options:
     --config-backup (default backup mode)
     --full-backup

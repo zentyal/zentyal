@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = t
-
 perldir = @PERLPATH@/EBox/Event/Dispatcher
 
-nobase_perl_DATA = Abstract.pm Jabber.pm Log.pm RSS.pm
+nobase_perl_DATA = ControlCenter.pm
 
 SOURCES = $(nobase_perl_DATA)
 

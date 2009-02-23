@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Composite Model Types
+SUBDIRS = CGI Event RemoteServices
 
 perldir = @PERLPATH@/EBox
 

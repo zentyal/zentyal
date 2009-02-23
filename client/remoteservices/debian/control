@@ -7,11 +7,13 @@ Standards-Version: 3.7.3
 
 Package: ebox-remoteservices
 Architecture: all
-Depends: ebox (>= 0.12), ebox (<< 0.12.10), ${misc:Depends}
-Description: eBox - module  
+Depends: ebox (>= 1.1), ebox (<< 1.2), ebox-openvpn, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, ${misc:Depends}
+Description: eBox - client for remote services   
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
  .
- This module has been automatically created by ebox-moddev
+ This module is the eBox side to perform remote services from Control
+ Center system such as remote configuration backup, remote access, job execution
+ in bulk (including security updates), remote alert and stats monitoring.

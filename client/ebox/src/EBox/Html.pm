@@ -48,10 +48,12 @@ sub title
 	}
 
         # Display control panel button only if the eBox is subscribed
-        my $remoteServicesMod = $global->modInstance('remoteservices');
         my $remoteServicesURL = '';
-        if ( $remoteServicesMod->eBoxSubscribed() ) {
-            $remoteServicesURL = $remoteServicesMod->controlPanelURL();
+        if ( $global->modExists('remoteservices') ) {
+            my $remoteServicesMod = $global->modInstance('remoteservices');
+            if ( $remoteServicesMod->eBoxSubscribed() ) {
+                $remoteServicesURL = $remoteServicesMod->controlPanelURL();
+            }
         }
 
 	my $html = makeHtml('headTitle.mas',

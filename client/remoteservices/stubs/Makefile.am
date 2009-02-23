@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/remoteservices
 
-nobase_Stub_DATA = service.conf.mas
+nobase_Stub_DATA = soap-loc.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

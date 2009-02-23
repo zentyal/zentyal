@@ -38,27 +38,27 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance();
 
 
-	if (defined($self->param('save'))) {
-	    $self->saveAllModulesAction();
-	} elsif (defined($self->param('cancel'))) {
-	    $self->revokeAllModulesAction();
-	} else {
-		if ($global->unsaved) {
+    if (defined($self->param('save'))) {
+        $self->saveAllModulesAction();
+    } elsif (defined($self->param('cancel'))) {
+        $self->revokeAllModulesAction();
+    } else {
+        if ($global->unsaved) {
             my $manager = new EBox::ServiceManager();
             my $askPermission = defined @{$manager->checkFiles()};
-			my @array = ();
-			push(@array, 'unsaved' => 'yes');
+            my @array = ();
+            push(@array, 'unsaved' => 'yes');
             push(@array, 'askPermission' => $askPermission);
-			#FIXME: uncomment to enable logadmin stuff
-			#push(@array, 'actions' => pendingActions());
-			$self->{params} = \@array;
-		}
-	}
+            #FIXME: uncomment to enable logadmin stuff
+            #push(@array, 'actions' => pendingActions());
+            $self->{params} = \@array;
+        }
+    }
 }
 
 
@@ -96,18 +96,17 @@ sub revokeAllModulesAction
     my $progressIndicator = $global->prepareRevokeAllModules();
 
     $self->showProgress(
-			progressIndicator => $progressIndicator,
-
-		      title    => __('Revoking changes'),
-		      text     => __('Revoking changes in modules'),
-		      currentItemCaption  =>  __("Current module"),
-		      itemsLeftMessage  => __('modules revoked'),
-		      endNote  =>  __('Changes revoked'),
-                      errorNote => __x('Some modules reported error when discarding changes '
-                                      . '. More information on the logs in {dir}',
-                                      dir => EBox::Config->log()),
-		      reloadInterval  => 2,
-		     );
+        progressIndicator => $progressIndicator,
+        title    => __('Revoking changes'),
+        text     => __('Revoking changes in modules'),
+        currentItemCaption  =>  __("Current module"),
+        itemsLeftMessage  => __('modules revoked'),
+        endNote  =>  __('Changes revoked'),
+        errorNote => __x('Some modules reported error when discarding changes '
+                           . '. More information on the logs in {dir}',
+                         dir => EBox::Config->log()),
+        reloadInterval  => 2,
+       );
 }
 
 

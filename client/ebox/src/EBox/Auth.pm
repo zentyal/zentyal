@@ -249,18 +249,19 @@ sub loginCC
     if ( $self->recognize_user($req) == OK ) {
         return $self->authenticate($req);
     } else {
-        my $remoteServMod = EBox::Global->modInstance('remoteservices');
-        if ( $remoteServMod->eBoxSubscribed()
-               and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
-            # Do what login does
-            my $sessionKey = $self->authen_cred($req,'',1);
-            $self->send_cookie($req, $sessionKey);
-            $self->handle_cache($req);
-            $req->headers_out()->set('Location' => '/ebox/');
-            return HTTP_MOVED_TEMPORARILY;
-        } else {
-            return EBox::CGI::Run->run('/Login/Index');
+        if ( EBox::Global->modExists('remoteservices') ) {
+            my $remoteServMod = EBox::Global->modInstance('remoteservices');
+            if ( $remoteServMod->eBoxSubscribed()
+                   and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
+                # Do what login does
+                my $sessionKey = $self->authen_cred($req,'',1);
+                $self->send_cookie($req, $sessionKey);
+                $self->handle_cache($req);
+                $req->headers_out()->set('Location' => '/ebox/');
+                return HTTP_MOVED_TEMPORARILY;
+            }
         }
+        return EBox::CGI::Run->run('/Login/Index');
     }
 
 }

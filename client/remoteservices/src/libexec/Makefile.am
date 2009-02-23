@@ -2,7 +2,8 @@
 
 scriptsdir = @DATADIR@/ebox
 
-scripts_SCRIPTS = ebox-loggerd ebox-kill-pid
+scripts_SCRIPTS = ebox-finish-script-session ebox-start-script-session \
+		  ebox-notify-job ebox-runnerd
 
 MAINTAINERCLEANFILES = Makefile.in
 

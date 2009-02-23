@@ -1,5 +1,6 @@
 <%init>
 use EBox::Gettext;
+use EBox::Global;
 
 my %args = @_;
 
@@ -23,9 +24,12 @@ my %tabs = (
                       url       => '/ebox/RemoteServices/Backup/Proxy?selected=proxy',
 		     },
 	   );
-my @tabsOrder = qw(local remote proxy);
-
-
+my @tabsOrder;
+if ( EBox::Global->modExists('remoteservices') ) {
+    @tabsOrder = qw(local remote proxy);
+} else {
+    @tabsOrder = qw(local);
+}
 
 if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");

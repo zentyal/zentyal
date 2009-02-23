@@ -86,7 +86,7 @@ sub new
 
   }
 
-# Method: ids
+# Method: syncRows
 #
 #      This method is overridden since the showed data is managed
 #      differently.
@@ -94,17 +94,17 @@ sub new
 #      - The data is already available from the eBox installation
 #
 #      - The adding/removal of event watchers is done dynamically
-#      reading the directories where the event watchers lies
+#      reading the directories where the event watchers are placed
 #
 #
 # Overrides:
 #
-#        <EBox::Model::DataTable::rows>
+#        <EBox::Model::DataTable::syncRows>
 #
 sub syncRows
   {
 
-      my ($self, $currentRows) = @_;
+      my ($self, $currentIds) = @_;
 
       # If the GConf module is readonly, return current rows
       if ( $self->{'gconfmodule'}->isReadOnly() ) {
@@ -112,7 +112,7 @@ sub syncRows
       }
 
       my %storedEventWatchers;
-      foreach my $id (@{$currentRows}) {
+      foreach my $id (@{$currentIds}) {
           my $currentRow = $self->row($id);
           $storedEventWatchers{$currentRow->valueByName('eventWatcher')} = 'true';
       }
@@ -144,15 +144,15 @@ sub syncRows
       }
 
       # Removing old ones
-      foreach my $id (@{$currentRows}) {
+      foreach my $id (@{$currentIds}) {
           my $row = $self->row($id);
           my $stored = $row->valueByName('eventWatcher');
           if ( exists ( $currentEventWatchers{$stored} )) {
               # Check its ability
               my $able = $self->_checkWatcherAbility($stored);
-              $self->setTypedRow($row->{id}, undef, readOnly => ! $able);
+              $self->setTypedRow($id, undef, readOnly => ! $able);
           } else {
-              $self->removeRow( $row->{id} );
+              $self->removeRow( $id );
           }
           $modified = 1;
       }

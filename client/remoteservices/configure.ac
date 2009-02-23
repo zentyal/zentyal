@@ -52,12 +52,24 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
+conf/Makefile
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
-src/EBox/Model/Makefile
-src/EBox/Composite/Makefile
-src/EBox/Types/Makefile
+src/EBox/CGI/Makefile
+src/EBox/CGI/Backup/Makefile
+src/EBox/Event/Makefile
+src/EBox/Event/Dispatcher/Makefile
+src/EBox/RemoteServices/Makefile
+src/EBox/RemoteServices/t/Makefile
+src/EBox/RemoteServices/Composite/Makefile
+src/EBox/RemoteServices/Model/Makefile
+src/EBox/RemoteServices/Server/Makefile
+src/EBox/RemoteServices/Server/t/Makefile
+src/libexec/Makefile
+src/templates/Makefile
+src/templates/RemoteServices/Makefile
+src/templates/RemoteServices/Backup/Makefile
 schemas/Makefile
 stubs/Makefile
 Makefile

@@ -48,7 +48,7 @@ sub showProgress
 
   $self->cgi()->delete(@{ $self->params() });
 
-  $self->cgi()->param('progress' => $progressIndicator->id);
+  $self->cgi()->param('progress' => $progressIndicator->id());
   $self->keepParam('progress');
 
   # put the optional parameters in the CGI

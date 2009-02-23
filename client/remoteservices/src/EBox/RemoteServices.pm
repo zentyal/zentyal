@@ -356,8 +356,10 @@ sub _confSOAPService
             (allowedClientCNs => $self->_allowedClientCNRegexp()),
             (caPath           => CA_DIR),
             (confDirPath      => EBox::Config::conf()));
-        $self->writeConfFile( $confFile, 'remoteservices/soap-loc.mas',
-                              \@tmplParams);
+        EBox::Module::Base::writeConfFileNoCheck(
+            $confFile,
+            'remoteservices/soap-loc.mas',
+            \@tmplParams);
         unless ( -d CA_DIR ) {
             mkdir(CA_DIR);
         }
