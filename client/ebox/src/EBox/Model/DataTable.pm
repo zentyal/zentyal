@@ -1421,7 +1421,7 @@ sub _cachedVersion
 #     
 # Returns:
 #
-#    Array ref containing the rows 
+#    Array ref containing the rows
 sub rows
 {
     my ($self, $filter, $page)  = @_;
@@ -1577,14 +1577,14 @@ sub ids
 #
 #   array ref - containing the ids
 #
-sub _ids 
+sub _ids
 {
     my ($self, $notOrder) =  @_;
     my $gconfmod = $self->{'gconfmodule'};
 
     my $storedVersion = $self->_storedVersion();
     my $cachedVersion = $self->_cachedVersion();;
-    if ($storedVersion != $cachedVersion) {
+    if ((not defined($cachedVersion)) or $storedVersion != $cachedVersion) {
         $self->{'dataCache'} = undef;
         $self->{'cachedVersion'} = $storedVersion;
     }
@@ -2405,9 +2405,9 @@ sub findAll
 # Returns:
 #
 #    An object of <EBox::Model::Row>
-#    
+#
 #    undef if there was not any match
-#     
+#
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2604,7 +2604,7 @@ sub DESTROY { ; }
 #          <EBox::Model::DataTable::row> method does except if one
 #          field is requested when just one type is returned. In order
 #          to make queries about multiple rows, use
-#          <EBox::Model::DataTable::rows>,
+#          <EBox::Model::DataTable::ids>,
 #          <EBox::Model::DataTable::findAll> methods or similars.
 #
 #       - Update
@@ -2667,8 +2667,8 @@ sub AUTOLOAD
         return $self->{gconfmodule}->domain();
     }
 
-# Depending on the method name beginning, the action to be
-# performed is selected
+    # Depending on the method name beginning, the action to be
+    # performed is selected
     if ( $methodName =~ m/^add/ ) {
         return $self->_autoloadAdd($methodName, \@params);
     } elsif ( $methodName =~ m/^del/ ) {
@@ -2965,11 +2965,10 @@ sub backupFiles
   $self->_hasFileFields() or
       return;
 
-  foreach my $row (@{ $self->ids() } ) {
-      $self->row($row)->backupFiles();
+  foreach my $id (@{ $self->ids() } ) {
+      $self->row($id)->backupFiles();
   }
 
-  
 }
 
 

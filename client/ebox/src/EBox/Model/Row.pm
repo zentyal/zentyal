@@ -351,7 +351,6 @@ sub addElement
                                         );
     }
 
-
     $element->setRow($self);
     $element->setModel($self->model());
 
@@ -576,9 +575,9 @@ sub store
         throw EBox::Exceptions::Internal('Cannot store a row without a model');
     }
 
-    $model->setTypedRow($self->id(), 
+    $model->setTypedRow($self->id(),
                         $self->{'valueHash'}, 
-                        readOnly => $self->readOnly(), 
+                        readOnly => $self->readOnly(),
                         force => 1);
 }
 
@@ -711,9 +710,9 @@ sub backupFiles
   foreach my $element ( @{ $self->elements() } ) {
       if ($element->can('backupFiles')) {
           $element->backupFiles();
-      } 
+      }
   }
-  
+
 }
 
 # Method: restoreFiles

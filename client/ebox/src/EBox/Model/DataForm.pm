@@ -600,7 +600,7 @@ sub printableActionName
 
 # Method: AUTOLOAD
 #
-#      This method will intercept any call done to undefinede
+#      This method will intercept any call done to undefined
 #      methods. It is used to return the value, printableValue or Type
 #      from an attribute which belongs to the form.
 #
