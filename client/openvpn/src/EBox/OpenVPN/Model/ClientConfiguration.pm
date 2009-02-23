@@ -148,15 +148,18 @@ sub configured
 {
     my ($self) = @_;
 
-    $self->server()                                or return 0;
-    $self->serverPortAndProtocolType()->port()     or return 0;
-    $self->serverPortAndProtocolType()->protocol() or return 0;
+    my $row = $self->row();
 
-    $self->caCertificateType()->exist()            or return 0;
-    $self->certificateType()->exist()              or return 0;
-    $self->certificateKeyType()->exist()           or return 0;
+    $row->valueByName('server') or return 0;
+    my $serverService = $row->elementByName('serverPortAndProtocol');
+    $serverService->port()      or return 0;
+    $serverService->protocol()  or return 0;
 
-    $self->ripPasswd()                             or return 0;
+    $row->elementByName('caCertificate')->exist()  or return 0;
+    $row->elementByName('certificate')->exist()    or return 0;
+    $row->elementByName('certificateKey')->exist() or return 0;
+
+    $row->valueByName('ripPasswd')                 or return 0;
 
     return 1;
 }
