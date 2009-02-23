@@ -26,17 +26,33 @@ use EBox::Gettext;
 
 sub new 
 {
-	my $class = shift;
+    my $class = shift;
 
-	local $Error::Depth = $Error::Depth + 3;
-	local $Error::Debug = 1;
+    local $Error::Depth = $Error::Depth + 3;
+    local $Error::Debug = 1;
 
-	$Log::Log4perl::caller_depth += 3;
-	$self = $class->SUPER::new("Call to deprecated method.");
-	$Log::Log4perl::caller_depth -= 3;
+    my ($package, $filename, $line, $subroutine) = caller(2);
 
-	bless ($self, $class);
+    # this is to avoid anonymous subroutines created by try/catch
+    if ($subroutine eq 'main::__ANON__') {
+        # check for try presence
+        my ($idle1, $idle2, $idle3, $subroutine4th) = caller(4);
+        if ($subroutine4th eq 'Error::subs::try') {
+            ($package, $filename, $line, $subroutine) = caller(5);
+        }
 
-	return $self;
+    }
+
+    my $errorTxt = 
+        "Call to deprecated method $subroutine in $filename line $line";
+
+    $Log::Log4perl::caller_depth += 3;
+    $self = $class->SUPER::new($errorTxt);
+    $Log::Log4perl::caller_depth -= 3;
+
+    bless ($self, $class);
+
+    return $self;
 }
+
 1;
