@@ -21,6 +21,7 @@ package EBox::Module::Service;
 use base qw(EBox::GConfModule);
 
 use EBox::Global;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
 
 use Error qw(:try);
