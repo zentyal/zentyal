@@ -63,33 +63,21 @@ sub strings
     my $state = $self->state();
     my $modulesConf = $self->modulesConf();
     my $iface = $self->interface();
-    my $netModule = EBox::Global->modInstance('network');
-
-    my $extaddr;
-    my $method = $netModule->ifaceMethod($iface);
-    if ($method eq 'dhcp') {
-        $extaddr = $netModule->DHCPAddress($iface);
-    } elsif ($method eq 'static'){
-        $extaddr =  $netModule->ifaceAddress($iface);
-    }
-
-    unless (defined($extaddr) and length($extaddr) > 0) {
-        return [];
-    }
-
 
     foreach my $src (@{$self->{'source'}}) {
-        my ($dst, $toDst) = @{$self->{'destination'}};
+    	foreach my $origDst (@{$self->{'destination'}}) {
+        my ($dst, $toDst) = @{$self->{'destinationNAT'}};
         foreach my $service (@{$self->{'service'}}) {
             my ($natSvc, $filterSvc) = @{$service};
             my $natRule = "-t nat -A PREROUTING $modulesConf " .
-                "-i $iface $src $natSvc -d $extaddr -j DNAT $toDst";
+                "-i $iface $src $natSvc $origDst -j DNAT $toDst";
 
             my $filterRule = "-A fredirects $state $modulesConf " .
                 "-i $iface $src $filterSvc $dst -j ACCEPT";
 
             push (@rules, $natRule, $filterRule);
         }
+	}
     }
 
     return \@rules;
@@ -152,7 +140,7 @@ sub setDestination
     if (defined ($port)) {
         $toDestination .= ":$port";
     }
-    $self->{'destination'} = [$destination, $toDestination];
+    $self->{'destinationNAT'} = [$destination, $toDestination];
 }
 
 # Method: setCustomService

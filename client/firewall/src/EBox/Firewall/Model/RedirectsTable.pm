@@ -116,8 +116,7 @@ sub validateTypedRow
     my $new_protocol = $allFields->{protocol};
     my $new_source = $allFields->{source};
 
-    foreach my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
+    foreach my $row (@{$self->rows()}) {
         if ($action eq 'update' and $row->id() eq $changedFields->{id}) {
             next; # We must not check against the row that is being modified
         }
@@ -240,9 +239,32 @@ sub _fieldDescription
              'editable' => 1);
     push (@tableHead, $iface);
 
+    my $origDest = new EBox::Types::Union(
+            'fieldName' => 'origDest',
+            'printableName' => __('Original destination'),
+            'subtypes' =>
+            [
+            new EBox::Types::Union::Text(
+                'fieldName' => 'origDest_ebox',
+                'printableName' => __('eBox')),
+            new EBox::Types::IPAddr(
+                'fieldName' => 'origDest_ipaddr',
+                'printableName' => __('IP Address'),
+                'editable' => 1,),
+            new EBox::Types::Select(
+                'fieldName' => 'origDest_object',
+                'printableName' => __('Object'),
+                'foreignModel' => \&objectModel,
+                'foreignField' => 'name',
+                'editable' => 1),
+
+            ]);
+
+    push (@tableHead, $origDest);
+
     my $external_port = new EBox::Types::PortRange(
             'fieldName' => 'external_port',
-            'printableName' => __('External port'),
+            'printableName' => __('Original destination port'),
             );
     push (@tableHead, $external_port);
 

@@ -2,6 +2,8 @@
 	+ Added required output rules to connect remote services when the
 	eBox is subscribed
 	+ Use the new ids() and row() API
+	+ Added support to redirects to introduce the origin destination address.
+	  So far, only local address could be used.
 0.12.101
 	+ Bugfix: Add redirect migration script to Makefile.am
 0.12.100

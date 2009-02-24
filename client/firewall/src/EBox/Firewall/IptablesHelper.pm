@@ -212,10 +212,11 @@ sub RedirectsRuleTable
 
     my @rules;
     for my $id (@{$model->ids()}) {
-	my $row = $model->row($id);
+        my $row = $model->row($id);
         my $rule = new EBox::Firewall::IptablesRedirectRule();
         $rule->setState('new' => 1);
         $self->_addIfaceToRule($rule, $row);
+        $self->_addOrigAddressToRule($rule, $row);
         $self->_addCustomServiceToRule($rule, $row);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addDestinationToRule($rule, $row);
@@ -223,6 +224,46 @@ sub RedirectsRuleTable
     }
 
     return \@rules;
+}
+
+sub _addOrigAddressToRule                                                                          
+{                                                                                                  
+    my ($self, $rule, $row) = @_;                                                                  
+
+    my %params;
+    my $addr = $row->elementByName('origDest');
+    my $type = $addr->selectedType();
+    if ($type  eq 'origDest_ebox') {
+        my $iface = $row->valueByName('interface');
+        my $netModule = EBox::Global->modInstance('network');
+
+        my $extaddr;
+        my $method = $netModule->ifaceMethod($iface);
+        if ($method eq 'dhcp') {
+            $extaddr = $netModule->DHCPAddress($iface);
+        } elsif ($method eq 'static'){
+            $extaddr =  $netModule->ifaceAddress($iface);
+        }
+
+        unless (defined($extaddr) and length($extaddr) > 0) {
+            return;
+        }
+
+        my $addr = new EBox::Types::IPAddr( fieldName => 'ip');
+        $addr->setValue("$extaddr/32");
+        $params{'destinationAddress'} = $addr;
+    } else {
+        if ($type eq 'origDest_ipaddr') {
+            $params{'destinationAddress'} = $addr->subtype();
+        } elsif ($type eq 'origDest_object') {
+            $params{'destinationObject'} = $addr->value();
+        }
+        if ($addr->isa('EBox::Types::InverseMatchUnion')) {
+            $params{'inverseMatch'} = $addr->inverseMatch();
+        }
+    }
+
+    $rule->setDestinationAddress(%params);
 }
 
 sub _addAddressToRule

@@ -70,7 +70,7 @@ sub strings
         foreach my $dst (@{$self->{'destination'}}) {
             foreach my $service (@{$self->{'service'}}) {
                 my $rule = "$table $chain $modulesConf " .
-		           "$src $dst $service $state $decision";
+                    "$src $dst $service $state $decision";
                 push (@rules, $rule);
             }
         }
