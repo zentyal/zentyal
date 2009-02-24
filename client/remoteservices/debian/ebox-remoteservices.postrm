@@ -15,6 +15,8 @@ fi
 case "$1" in
     remove)
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
+        # Restart event daemon
+        invoke-rc.d ebox events restart || true
         # Restart eBox apache
         invoke-rc.d ebox apache restart || true
 

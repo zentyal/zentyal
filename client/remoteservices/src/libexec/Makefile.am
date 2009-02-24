@@ -3,7 +3,7 @@
 scriptsdir = @DATADIR@/ebox
 
 scripts_SCRIPTS = ebox-finish-script-session ebox-start-script-session \
-		  ebox-notify-job ebox-runnerd
+		  ebox-notify-job ebox-runnerd ebox-unsubscribe
 
 MAINTAINERCLEANFILES = Makefile.in
 

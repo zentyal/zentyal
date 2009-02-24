@@ -221,6 +221,25 @@ sub eBoxSubscribed
 
 }
 
+# Method: unsubscribe
+#
+#        Delete every data related to the eBox subscription and stop any
+#        related service associated with it
+#
+# Returns:
+#
+#        True  - if the eBox is subscribed and now it is not
+#
+#        False - if the eBox was not subscribed before
+#
+sub unsubscribe
+{
+    my ($self) = @_;
+
+    return $self->model('Subscription')->unsubscribe();
+
+}
+
 # Method: eBoxCommonName
 #
 #        The common name to be used as unique which is subscribed by

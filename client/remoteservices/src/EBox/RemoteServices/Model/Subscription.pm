@@ -204,6 +204,34 @@ sub eBoxSubscribed
 
 }
 
+# Method: unsubscribe
+#
+#      Delete every data related to the eBox subscription and stop any
+#      related service associated with it
+#
+# Returns:
+#
+#      True  - if the eBox is subscribed and now it is not
+#
+#      False - if the eBox was not subscribed before
+#
+sub unsubscribe
+{
+    my ($self) = @_;
+
+    if ( $self->eBoxSubscribed() ) {
+        my $row = $self->row();
+        # Storing again make subscription if it is already done and
+        # unsubscribing if the eBox is subscribed
+        $row->store();
+        return 1;
+    } else {
+        return 0;
+    }
+
+}
+
+
 # Method: precondition
 #
 #       Only allowed when the openvpn is saved its changes
