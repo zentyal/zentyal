@@ -9,3 +9,5 @@ SOURCES = $(nobase_perl_DATA)
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(nobase_perl_DATA)
+
+SUBDIRS = t

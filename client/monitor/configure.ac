@@ -1,4 +1,4 @@
-AC_INIT([EBox-monitor], [0.1])
+AC_INIT([EBox-monitor], [1.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Monitor.pm])
@@ -63,6 +63,7 @@ src/EBox/Event/Watcher/Makefile
 src/EBox/Event/Watcher/t/Makefile
 src/EBox/Monitor/Makefile
 src/EBox/Monitor/Measure/Makefile
+src/EBox/Monitor/Measure/t/Makefile
 src/EBox/Monitor/Model/Makefile
 src/EBox/Monitor/Types/Makefile
 schemas/Makefile
