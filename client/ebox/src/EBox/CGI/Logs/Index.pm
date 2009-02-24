@@ -294,7 +294,7 @@ sub _header
 
 
     print($self->cgi()->header(-charset=>'utf-8'));
-    my $html = EBox::Html::_makeHtml(
+    my $html = EBox::Html::makeHtml(
                                      'headerWithRefresh.mas',
                                      title => $self->{title},
                                      destination => $destination
