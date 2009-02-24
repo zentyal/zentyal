@@ -35,7 +35,7 @@ use Error qw(:try);
 
 # Constructor: new
 #
-#     Construct a new <EBox::RemoteServices::Backup> object
+#     Construct a new <EBox::RemoteServices::Jobs> object
 #
 sub new
 {
