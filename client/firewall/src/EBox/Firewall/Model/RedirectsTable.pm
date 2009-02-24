@@ -116,8 +116,9 @@ sub validateTypedRow
     my $new_protocol = $allFields->{protocol};
     my $new_source = $allFields->{source};
 
-    foreach my $row (@{$self->rows()}) {
-        if ($action eq 'update' and $row->id() eq $changedFields->{id}) {
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($action eq 'update' and $id eq $changedFields->{id}) {
             next; # We must not check against the row that is being modified
         }
         my $iface = $row->elementByName('interface');
