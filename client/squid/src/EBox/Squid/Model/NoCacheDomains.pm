@@ -79,6 +79,7 @@ sub _table
                                fieldName     => 'noCache',
                                printableName => __('Exempt domain from caching'),
                                defaultValue  => 1,
+                               editable      => 1,
                               ),
         );
 
