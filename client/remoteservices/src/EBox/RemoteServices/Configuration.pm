@@ -67,4 +67,23 @@ sub PublicWebServer
     return EBox::Config::configkey('ebox_services_www');
 }
 
+# Method: OldTarLocation
+#
+#      Get the latest tarball sent to the CC
+#
+# Returns:
+#
+#      String - the latest tarball location
+#
+sub OldTarLocation
+{
+
+    my $oldTarLocation = EBox::Config::conf() . 'remoteservices/monitor';
+    unless (-d $oldTarLocation ) {
+        mkdir($oldTarLocation);
+    }
+    return "$oldTarLocation/latest.tar";
+
+}
+
 1;

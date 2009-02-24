@@ -15,9 +15,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This script is intended to unsubscribe this eBox from CC, that is,
-# stop VPN connection and remove every remote services subcription
-# data
+# Description:
+#
+#  This script is intended to unsubscribe this eBox from CC, that is,
+#  stop VPN connection and remove every remote services subcription
+#  data
 
 use EBox;
 use EBox::Global;
