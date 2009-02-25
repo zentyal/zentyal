@@ -3,6 +3,8 @@
 moduledir   = @DATADIR@/ebox/modules
 module_DATA = usercorner.yaml users.yaml
 
-EXTRA_DIST = $(module_DATA)
+pkgdata_DATA = passwords.schema
+
+EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

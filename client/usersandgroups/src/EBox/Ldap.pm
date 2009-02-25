@@ -18,6 +18,13 @@ package EBox::Ldap;
 use strict;
 use warnings;
 
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
+use EBox::UsersAndGroups::ImportFromLdif::Engine;
+use EBox::Gettext;
+
 use Net::LDAP;
 use Net::LDAP::Constant;
 use Net::LDAP::Message;
@@ -26,17 +33,11 @@ use Net::LDAP::LDIF;
 use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::Internal;
-use EBox::Exceptions::DataNotFound;
-use EBox::Exceptions::Internal;
-use EBox::UsersAndGroups::ImportFromLdif::Engine;
-use EBox::Gettext;
 use Data::Dumper;
 use Encode qw( :all );
-
 use Error qw(:try);
 use File::Slurp qw(read_file);
+use Apache2::RequestUtil;
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
@@ -100,9 +101,6 @@ sub ldapCon {
                                 scope => 'base',                 
                                 filter => "(cn=*)",
                                 );
-                
-
-
                 if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
                   $self->{ldap}->unbind;
                   $reconnect = 1;
@@ -128,9 +126,31 @@ sub ldapCon {
                         throw EBox::Exceptions::Internal(
                                         "Can't create ldapi connection");
                 }
-                $self->{ldap}->bind(ROOTDN, password => getPassword());
-        }
+                my $global = EBox::Global->getInstance();
+                my ($dn, $pass);
+                my $auth_type = undef;
+                try {
+                    my $r = Apache2::RequestUtil->request();
+                    $auth_type = $r->auth_type;
+                } catch Error with {};
 
+                if ((not defined($auth_type)) or ($auth_type eq 'EBox::Auth')) {
+                    $dn = ROOTDN;
+                    $pass = getPassword();
+                } elsif ($auth_type eq 'EBox::UserCorner::Auth') {
+                    eval "use EBox::UserCorner::Auth";
+                    if ($@) {
+                        throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
+                    }
+                    my $credentials = EBox::UserCorner::Auth->credentials();
+                    my $users = EBox::Global->modInstance('users');
+                    $dn = $users->userDn($credentials->{'user'});
+                    $pass = $credentials->{'pass'};
+                } else {
+                    throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
+                }
+                $self->{ldap}->bind($dn, password => $pass);
+        }
         return $self->{ldap};
 }
 

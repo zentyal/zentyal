@@ -46,6 +46,8 @@ sub init
         }
     }
 
+    root("cp " . EBox::Config::share() . "/ebox-usersandgroups/*.schema /etc/ldap/schema");
+
     # Modify /etc/ldap/slapd.conf
     gen_config();
 

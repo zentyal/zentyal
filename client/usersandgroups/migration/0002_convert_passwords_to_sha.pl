@@ -19,6 +19,8 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::UsersAndGroups;
 
+use Error qw(:try);
+
 # Method: runGConf
 #
 #   Overrides <EBox::MigrationBase::runGConf>
@@ -29,7 +31,11 @@ sub runGConf
 
     my $mod =$self->{'gconfmodule'};
 
-    my @users = $mod->users();
+    my @users;
+    # if LDAP is not yet initialized, users() will fail
+    try {
+        @users = $mod->users();
+    } catch Error with {};
     foreach my $user (@users) {
         unless (EBox::UsersAndGroups::isHashed($user->{password})) {
             $mod->modifyUserPwd($user->{username}, $user->{password});

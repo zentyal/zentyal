@@ -100,14 +100,14 @@ sub _addTypedRow
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
-    my $ldap = $users->authUser($user, $oldpass->value());
-    if (not defined($ldap)) {
+    my $res = $users->authUser($user, $oldpass->value());
+    if (not $res) {
         throw EBox::Exceptions::External(__('Invalid old password.'));
     }
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
-    $users->modifyUserPwdCon($ldap, $user, $pass1->value());
+    $users->modifyUser($user, { 'password' => $pass1->value() } );
     EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
 
     $self->setMessage(__('Password successfully updated'));

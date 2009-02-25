@@ -45,4 +45,9 @@ sub _delGroupWarning($$) {
 	return undef;
 }
 
+sub _includeLDAPSchemas
+{
+    return ['/etc/ldap/schema/passwords.schema'];
+}
+
 1;

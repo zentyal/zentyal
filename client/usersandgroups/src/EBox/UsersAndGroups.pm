@@ -442,26 +442,15 @@ sub _checkUid
 
 }
 
-sub modifyUserPwd
+sub _modifyUserPwd
 {
     my ($self, $user, $passwd) = @_;
-
-    #make sure the LDAP connection is up
-    $self->{'ldap'}->ldapCon;
-
-    $self->modifyUserPwdCon($self->{'ldap'}->{'ldap'}, $user, $passwd);
-}
-
-sub modifyUserPwdCon
-{
-    my ($self, $ldap, $user, $passwd) = @_;
 
     $self->_checkPwdLength($passwd);
 
     my $hash = _passwordHash($passwd);
     my $dn = "uid=" . $user . "," . $self->usersDn;
-    my %args = ( replace => { 'userPassword' => $hash });
-    $ldap->modify($dn, %args);
+    $self->{ldap}->modify($dn, { replace => { 'userPassword' => $hash } } );
 }
 
 sub _updateUser
@@ -492,7 +481,7 @@ sub modifyUser # (\%user)
     my ($self, $user) = @_;
 
     my $cn = $user->{'username'};
-    my $dn = "uid=$cn," . $self->usersDn;
+    my $dn = $self->userDn($cn);
     # Verify user  exists
     unless ($self->userExists($user->{'username'})) {
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
@@ -507,7 +496,7 @@ sub modifyUser # (\%user)
             $self->_changeAttribute($dn, 'sn', $user->{'fullname'});
         } elsif ($field eq 'password') {
             my $pass = $user->{'password'};
-            $self->modifyUserPwd($user->{'username'}, $pass);
+            $self->_modifyUserPwd($user->{'username'}, $pass);
         }
     }
     $self->_updateUser($cn, $user->{'password'});
@@ -1761,12 +1750,8 @@ sub authUser
     my ($self, $user, $password) = @_;
     my $ldap = Net::LDAP->new(EBox::Ldap::LDAPI);
     $ldap or return undef;
-    my $res = $ldap->bind("uid=$user," . $self->usersDn(), password => $password);
-    if ($res->{'resultCode'} == 0) {
-        return $ldap;
-    } else {
-        return undef;
-    }
+    my $res = $ldap->bind($self->userDn($user), password => $password);
+    return ($res->{'resultCode'} == 0);
 }
 
 sub isHashed # (pwd)
