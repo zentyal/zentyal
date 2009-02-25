@@ -151,6 +151,8 @@ sub actions
 sub enableActions
 {
     my ($self) = @_;
+#     EBox::Sudo::root(EBox::Config::share() . 
+#                      '/ebox-antivirus/ebox-antivirus-enable');
 }
 
 # Method: disableActions

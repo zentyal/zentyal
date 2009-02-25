@@ -24,16 +24,18 @@ sub runGConf
 {
   my ($self) = @_;
 
-  my $mailfilter = EBox::Global->modInstance('mailfilter');
-  if (not $mailfilter->isEnabled()) {
-      # nothing to do then..
+  my $mailfilter = $self->_moduleService('mailfilter');
+  my $squid = $self->_moduleService('squid');
+
+  if (not ($mailfilter or $squid)) {
+      # no needed antivirus activation
       return;
   }
 
   my $antivirus = $self->{gconfmodule};
   unless ( $antivirus->configured() ) {
       $antivirus->setConfigured(1);
-      $antivirus->enabledActions();
+      $antivirus->enableActions();
       $antivirus->save();
   }
   unless ( $antivirus->isEnabled() ) {
@@ -41,9 +43,33 @@ sub runGConf
       $antivirus->save();
   }
 
+
+  foreach my $mod ($mailfilter, $squid) {
+      $mod or 
+          next;
+
+      $mod->setAsChanged();
+      $mod->save();
+  }
+
 }
 
 
+
+sub _moduleService
+{
+    my ($self, $modName) = @_;
+    my $mod = EBox::Global->modInstance($modName);
+    if (not $mod) {
+        return 0;
+    }
+
+    if (not $mod->isEnabled()) {
+        return 0;
+    }
+
+    return $mod;
+}
 
 
 

@@ -61,6 +61,7 @@ src/EBox/AntiVirus/Model/Makefile
 src/libexec/Makefile
 schemas/Makefile
 stubs/Makefile
+tools/Makefile
 Makefile
 ])
 

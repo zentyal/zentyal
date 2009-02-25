@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-modulename/migration
+Migrationsdir = @DATADIR@/ebox-antivirus/migration
 
 nobase_Migrations_SCRIPTS =  0001_preserve_service_status.pl
 
