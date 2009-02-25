@@ -51,106 +51,105 @@ $samba->restartService();
 
 sub _setLocalSID
 {
-  my ($domainID) = @_;
-  my $cmd = "net  SETLOCALSID $domainID";
-  EBox::Sudo::root($cmd);
+    my ($domainID) = @_;
+    my $cmd = "net  SETLOCALSID $domainID";
+    EBox::Sudo::root($cmd);
 }
 
 
 sub _setDomainSID
 {
-  my ($domainID) = @_;
-  my $cmd = "net  SETDOMAINSID $domainID";
-  EBox::Sudo::root($cmd);
+    my ($domainID) = @_;
+    my $cmd = "net  SETDOMAINSID $domainID";
+    EBox::Sudo::root($cmd);
 }
 
 # remove all attributes sambaDomainName. those attributes refer to the previous
 # domain name and are recreated by samba start
 sub _removeSambaDomainName
 {
-  my $smbldap = new EBox::SambaLdapUser;
-  $smbldap->deleteSambaDomainNameAttrs();
+    my $smbldap = new EBox::SambaLdapUser;
+    $smbldap->deleteSambaDomainNameAttrs();
 }
 
 # remove the sambaDomain objects, those objects are recreated correctly by the
 # samba start
 sub _removeSambaDomain
 {
-  my $smbldap = new EBox::SambaLdapUser;
-  $smbldap->deleteSambaDomains();
+    my $smbldap = new EBox::SambaLdapUser;
+    $smbldap->deleteSambaDomains();
 }
 
 # change all SIDs to refer to the new domain
 sub _fixLdapSIDs
 {
+    my ($domainID) = @_;
 
-  my ($domainID) = @_;
+    my $ldap = EBox::Ldap->instance();
+    my @sidAttrs = ('sambaSID', 'sambaPrimaryGroupSID');
 
-  my $ldap = EBox::Ldap->instance();
-  my @sidAttrs = ('sambaSID', 'sambaPrimaryGroupSID');
+    my $sidFilter = '(|';
+    foreach my $attr (@sidAttrs) {
+        $sidFilter .= "($attr=*)";
+    }
+    $sidFilter .= ')';
 
-  my $sidFilter = '(|';
-  foreach my $attr (@sidAttrs) {
-    $sidFilter .= "($attr=*)";
-  }
-  $sidFilter .= ')';
-
-  my $result = $ldap->search(
-			     {
-			      base => $ldap->dn(),
-			      filter => $sidFilter,		     
-			      scope => 'sub',
-			      attrs => \@sidAttrs,
-			     }
-	       );
+    my $result = $ldap->search(
+                               {
+                                base => $ldap->dn(),
+                                filter => $sidFilter,		     
+                                scope => 'sub',
+                                attrs => \@sidAttrs,
+                               }
+                              );
 
   
-  foreach my $entry ($result->entries()) {
-    my @attrs = $entry->attributes;
+    foreach my $entry ($result->entries()) {
+        my @attrs = $entry->attributes;
 
-    my $changed = 0;
-    foreach my $attr (@attrs) {
-      my $oldSid = $entry->get_value($attr); # we just use the first attr value
-                                             # bz it must be only one, anyway if
-                                             # we have multiple entries we don't
-                                             # know what we must use to get the
-                                             # old SID
-      defined $oldSid or
-	next;
+        my $changed = 0;
+        foreach my $attr (@attrs) {
+            my $oldSid = $entry->get_value($attr); 
+            # we just use the first attr value
+            # bz it must be only one, anyway if
+            # we have multiple entries we don't
+            # know what we must use to get the
+            # old SID
+            defined $oldSid or
+                next;
 
-      my $newSid = _newSID($oldSid, $domainID);
-      defined $newSid
-	or next;
+            my $newSid = _newSID($oldSid, $domainID);
+            defined $newSid
+                or next;
 
-      $entry->replace($attr => $newSid);
-      $changed = 1;
+            $entry->replace($attr => $newSid);
+            $changed = 1;
+        }
+
+        if ($changed) {
+            $entry->update($ldap->ldapCon);
+        }
+
     }
-
-    if ($changed) {
-      $entry->update($ldap->ldapCon);
-    }
-
-  }
 }
 
 
 
 sub _newSID
 {
-  my ($oldSid, $domainId) = @_;
+    my ($oldSid, $domainId) = @_;
 
-  my @sidPortions = split '-', $oldSid;
-  if (@sidPortions < MIN_ELEMENTS_SID_WITH_DOMAIN ) { # SID not contains domain 
-                                                      # portion so there is no
-                                                      # need of a new SID
-    return undef;
-  }
+    my @sidPortions = split '-', $oldSid;
+    if (@sidPortions < MIN_ELEMENTS_SID_WITH_DOMAIN ) {# SID not contains domain 
+                                                       # portion so there is no
+                                                       # need of a new SID
+        return undef;
+    }
 
-  my $RID = pop @sidPortions;
-
-  my $newSid = "$domainId-$RID";
-  return $newSid;
-
+    my $RID = pop @sidPortions;
+    
+    my $newSid = "$domainId-$RID";
+    return $newSid;
 }
 
 
