@@ -60,7 +60,7 @@ sub _enableUsersAndGroups
 
     unless ( $usersMod->configured() ) {
         $usersMod->setConfigured(1);
-        $usersMod->enabledActions();
+        $usersMod->enableActions();
         $usersMod->save();
     }
     unless ( $usersMod->isEnabled() ) {
