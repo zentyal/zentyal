@@ -35,6 +35,9 @@ use EBox::LdapUserImplementation;
 use EBox::Config;
 
 use Digest::SHA1;
+use Digest::MD5;
+use Crypt::SmbHash;
+
 use Error qw(:try);
 use File::Copy;
 use Perl6::Junction qw(any);
@@ -331,21 +334,21 @@ sub _initUser
 }
 
 
-# Method: addUser 
+# Method: addUser
 #
 #       Adds a user
-#   
+#
 # Parameters:
-#       
-#       user - hash ref containing: 'user' (user name), 'fullname' and 'password'
+#
+#       user - hash ref containing: 'user'(user name), 'fullname' and 'password'
 #       and comment
-#       system - boolan: if true it adds the user as system user, otherwise as 
+#       system - boolan: if true it adds the user as system user, otherwise as
 #       normal user
 #       uidNumber (optional and named)
 sub addUser # (user, system)
 {
     my ($self, $user, $system, %params) = @_;
-    
+
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
                                          __x("Username must not be longer than {maxuserlength} characters",
@@ -356,38 +359,39 @@ sub addUser # (user, system)
                                             'data' => __('user name'),
                                             'value' => $user->{'user'});
     }
-    
-         # Verify user exists
+
+    # Verify user exists
     if ($self->userExists($user->{'user'})) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
     }
-    
+
     my $uid = exists $params{uidNumber} ?
         $params{uidNumber} :
             $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
-    
+
     my $gid = $self->groupGid(DEFAULTGROUP);
-    
+
     $self->_checkPwdLength($user->{'password'});
-    my %args = ( 
-                attr => [
-                         'cn'            => $user->{'user'},
-                         'uid'           => $user->{'user'},
-                         'sn'            => $user->{'fullname'},
-                         'uidNumber'     => $uid,
-                         'gidNumber'     => $gid,
-                         'homeDirectory' => HOMEPATH ,
-                         'userPassword'  => _passwordHash($user->{'password'}),
-                         'objectclass'   => ['inetOrgPerson','posixAccount']
-                        ]
-               );
-    
-    my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;       
+    my @attr =  (
+        'cn'            => $user->{'user'},
+        'uid'           => $user->{'user'},
+        'sn'            => $user->{'fullname'},
+        'uidNumber'     => $uid,
+        'gidNumber'     => $gid,
+        'homeDirectory' => HOMEPATH ,
+        'userPassword'  => defaultPasswordHash($user->{'password'}),
+        'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
+        @{additionalPasswords($user->{'password'})}
+    );
+
+    my %args = ( attr => \@attr );
+
+    my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
     my $r = $self->{'ldap'}->add($dn, \%args);
-    
-    
+
+
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
         $self->_initUser($user->{'user'}, $user->{'password'});
@@ -403,7 +407,7 @@ sub _newUserUidNumber
         $uid = $self->lastUid(1) + 1;
         if ($uid == MINUID) {
             throw EBox::Exceptions::Internal(
-                                              __('Maximum number of system users reached'));
+                __('Maximum number of system users reached'));
         }
     } else {
         $uid = $self->lastUid + 1;
@@ -447,8 +451,7 @@ sub _modifyUserPwd
     my ($self, $user, $passwd) = @_;
 
     $self->_checkPwdLength($passwd);
-
-    my $hash = _passwordHash($passwd);
+    my $hash = defaultPasswordHash($passwd);
     my $dn = "uid=" . $user . "," . $self->usersDn;
     $self->{ldap}->modify($dn, { replace => { 'userPassword' => $hash } } );
 }
@@ -1400,11 +1403,17 @@ sub _changeAttribute
     $entry->update($self->{ldap}->ldapCon);
 }
 
+sub _isHashed
+{
+    my ($pwd) = @_;
+    return ($pwd =~ /^\{[0-9A-Z]+\}/);
+}
+
 sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
 
-    if (hashEnabled() and isHashed($pwd)) {
+    if (_isHashed($pwd)) {
         return;
     }
 
@@ -1754,31 +1763,73 @@ sub authUser
     return ($res->{'resultCode'} == 0);
 }
 
-sub isHashed # (pwd)
+sub shaHasher
 {
-    my ($pwd) = @_;
-
-    return ($pwd =~ /\{SHA\}[0-9a-zA-Z\+\/]{27}=/);
+    my ($password) = @_;
+    return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
 }
 
-sub hashEnabled
+sub md5Hasher
 {
-    my $enableHash = EBox::Config::configkey('enable_password_hash');
-
-    return (defined($enableHash) and $enableHash eq 'yes');
+    my ($password) = @_;
+    return '{MD5}' . Digest::MD5::md5_base64($password) . '==';
 }
 
-sub _passwordHash
+sub lmHasher
+{
+    my ($password) = @_;
+    return Crypt::SmbHash::lmhash($password);
+}
+
+sub ntHasher
+{
+    my ($password) = @_;
+    return Crypt::SmbHash::nthash($password);
+}
+
+sub passwordHasher
+{
+    my ($format) = @_;
+
+    my $hashers = {
+        'sha1' => \&shaHasher,
+        'md5' => \&md5Hasher,
+        'lm' => \&lmHasher,
+        'nt' => \&ntHasher,
+    };
+    return $hashers->{$format};
+}
+
+sub defaultPasswordHash
 {
     my ($password) = @_;
 
-    if (hashEnabled()) {
-        unless (isHashed($password)) {
-            return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
-        }
-    } else {
-        return $password;
+    my $format = EBox::Config::configkey('default_password_format');
+    if (not defined($format)) {
+        $format = 'sha1';
     }
+    my $hasher = passwordHasher($format);
+    my $hash = $hasher->($password);
+    return $hash;
+}
+
+sub additionalPasswords
+{
+    my ($password) = @_;
+
+    my $passwords = [];
+
+    my $format_string = EBox::Config::configkey('password_formats');
+    if (not defined($format_string)) {
+        $format_string = 'sha1,md5,lm,nt';
+    }
+    my @formats = split(',', $format_string);
+    for my $format (@formats) {
+        my $hasher = passwordHasher($format);
+        my $hash = $hasher->($password);
+        push(@{$passwords}, 'ebox' . ucfirst($format) . 'Password', $hash);
+    }
+    return $passwords;
 }
 
 1;

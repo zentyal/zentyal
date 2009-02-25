@@ -107,7 +107,8 @@ sub _addTypedRow
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
-    $users->modifyUser($user, { 'password' => $pass1->value() } );
+    my $userinfo = { 'username' => $user, 'password' => $pass1->value() };
+    $users->modifyUser($userinfo);
     EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
