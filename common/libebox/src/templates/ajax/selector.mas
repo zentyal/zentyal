@@ -69,7 +69,6 @@ foreach my $component (@{$components}) {
                                            "loadingTable_$compName");
                    /,
   &>
-</%doc>
   <span id="<% qq{loadingTable_$compName} | h %>"></span>
 </form>
 

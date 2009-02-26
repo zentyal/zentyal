@@ -1,3 +1,7 @@
+0.12.101
+	+ Bugfix: Remove bogus mason tags
+	+ Bugfix: Use 'window' as variable instead of 'Window' since it is
+	more portable
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes
