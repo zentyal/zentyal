@@ -902,7 +902,7 @@ sub service
 sub _doDaemon
 {
     my ($self) = @_;
-    my $running = $self->running();
+    my $running = $self->isRunning();
 
     if ($self->service) {
         if ($running) {
@@ -929,7 +929,7 @@ sub _doDaemon
     }
 }
 
-sub running
+sub isRunning
 {
     my ($self) = @_;
 
