@@ -26,9 +26,9 @@ use Archive::Tar;
 
 use EBox;
 use EBox::Config;
-use EBox::Global;
 use EBox::Monitor::Configuration;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Monitor;
 use EBox::Sudo;
 
 use File::Temp;
@@ -54,17 +54,17 @@ EBox::Sudo::command(
     'tar cf ' . $currentTar->filename() . " $rrdDir"
 );
 
-#my $monSrv = new EBox::RemoteServices::Monitor();
+my $monSrv = new EBox::RemoteServices::Monitor();
 my $retValue = 1;
 my $oldTar = EBox::RemoteServices::Configuration::OldTarLocation();
 if ( -r $oldTar and -f $oldTar ) {
     my $deltaFile = new File::Temp(DIR => EBox::Config::tmp());
     EBox::Sudo::command(
-        "xdelta delta $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
+        "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
        );
-#   $retValue = $monSrv->sendDelta($deltaFile->filename());
+    $retValue = $monSrv->sendDelta($deltaFile->filename());
 } else {
-#    $retValue = $monSrv->sendAll($currentTar->filename());
+    $retValue = $monSrv->sendAll($currentTar->filename());
 }
 
 if ($retValue) {

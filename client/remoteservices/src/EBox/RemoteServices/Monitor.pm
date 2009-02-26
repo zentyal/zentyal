@@ -32,6 +32,9 @@ use EBox::Exceptions::DataNotFound;
 
 use Error qw(:try);
 use File::Slurp;
+use SOAP::Lite;
+
+use constant CHUNK_SIZE => 1024 * 1024;
 
 # Group: Public methods
 
@@ -67,9 +70,19 @@ sub sendAll
 {
     my ($self, $tarFilePath) = @_;
 
-    my $tarContent = File::Slurp::read_file($tarFilePath);
+    open(my $fh, '<', $tarFilePath);
+    my ($pos, $chunk) = (0, '');
+    do {
+        my $bytesRead = ($fh, $chunk, CHUNK_SIZE);
+        last if ($bytesRead == 0);
+        $self->soapCall('createStats',
+                        tarRRDDir => $chunk,
+                        append => ($pos != 0));
+        $pos += $bytesRead;
+    } until( eof($fh) );
 
-    $self->soapCall('createStats', tarRRDDir => $tarContent);
+    return 1;
+
 }
 
 # Method: sendDelta
