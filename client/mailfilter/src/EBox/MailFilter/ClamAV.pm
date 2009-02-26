@@ -64,10 +64,10 @@ sub doDaemon
   {
     my ($self, $mailfilterService) = @_;
 
-    if ($mailfilterService and $self->service() and $self->isRunning()) {
+    if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
       $self->_daemon('restart');
     } 
-    elsif ($mailfilterService and $self->service()) {
+    elsif ($mailfilterService and $self->isEnabled()) {
       $self->_daemon('start');
     } 
     elsif ($self->isRunning()) {
@@ -95,7 +95,7 @@ sub _daemon
 
 
 # the service is when requested by any subservice
-sub service
+sub isEnabled
 {
   my ($self) = @_;
 
@@ -187,7 +187,7 @@ sub writeConf
 
   EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CONF_FILE, "mailfilter/freshclam.conf.mas", \@freshclamParams);
 
-  my $antivirusService = $self->service;
+  my $antivirusService = $self->isEnabled();
   if ($antivirusService and $globalService) {
     # regenerate freshclam cron hourly script
     EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "mailfilter/freshclam-cron.mas", []);

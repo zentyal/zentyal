@@ -83,10 +83,10 @@ sub doDaemon
 {
     my ($self, $mailfilterService) = @_;
     
-    if ($mailfilterService and $self->service() and $self->isRunning()) {
+    if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
         $self->_manageServices('restart');
     } 
-    elsif ($mailfilterService and $self->service()) {
+    elsif ($mailfilterService and $self->isEnabled()) {
         $self->_manageServices('start');
     } 
     elsif ($self->isRunning()) {
@@ -115,7 +115,7 @@ sub stopService
 #
 #  boolean - true if it's active, otherwise false
 #
-sub service
+sub isEnabled
 {
     my ($self) = @_;
 

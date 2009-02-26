@@ -72,7 +72,7 @@ use constant {
 #       boolean - true if the traffic monitoring is enabled, false
 #       otherwise
 #
-sub service
+sub isEnabled
 {
   my ($class) = @_;
 
@@ -109,14 +109,14 @@ sub _regenConfig
 
   $class->_writeConfFile();
 
-  my $service = $class->service();
-  my $running = $class->running();
+  my $enabled = $class->isEnabled();
+  my $running = $class->isRunning();
 
   if ($running) {
     $class->stopService();
   }
 
-  if ( $service) {
+  if ($enabled) {
     $class->startService();
   }
 
@@ -130,7 +130,7 @@ sub summary
 {
     my ($class) = @_;
 
-    if ( $class->service() ) {
+    if ( $class->isEnabled() ) {
         my $item = new EBox::Dashboard::Module(__('Traffic rate monitoring'));
         my $section = new EBox::Dashboard::Section('');
         $section->add(new EBox::Dashboard::Value(__('Status'), __('Running')));
