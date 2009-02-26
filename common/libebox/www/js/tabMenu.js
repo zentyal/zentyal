@@ -242,7 +242,7 @@ EBox.Tabs.prototype = {
 
       var clickHandler = function(linkElement) {
         if ( window.event ) {
-          Event.stop( Window.event );
+          Event.stop( window.event );
         }
         this.showActiveTab(linkElement);
         return false;
