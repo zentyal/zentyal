@@ -372,7 +372,7 @@ sub _setMailConf
 
     # greylist parameters
     my $greylist = $self->greylist();
-    push(@array, 'greylist',     $greylist->service() );
+    push(@array, 'greylist',     $greylist->isEnabled() );
     push(@array, 'greylistAddr', $greylist->address());
     push(@array, 'greylistPort', $greylist->port());
 
@@ -465,7 +465,7 @@ sub _fqdn
 sub isGreylistEnabled
 {
     my ($self) = @_;
-    return $self->greylist()->service();
+    return $self->greylist()->isEnabled();
 }
 
 #  Method: _daemons
@@ -1006,7 +1006,7 @@ sub notifyAntispamACL
     my ($self) = @_;
 
     # greylist must be notified of antispam changes
-    if (not $self->greylist()->service()) {
+    if (not $self->greylist()->isEnabled()) {
         return;
     }
 

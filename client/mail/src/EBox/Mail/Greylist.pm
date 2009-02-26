@@ -71,7 +71,7 @@ sub daemon
     };
 }
 
-sub service
+sub isEnabled
 {
   my ($self) = @_;
   return $self->_confAttr('service');
