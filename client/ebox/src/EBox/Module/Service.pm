@@ -432,7 +432,7 @@ sub showModuleStatus
 #   }
 sub _daemons
 {
-    return undef;
+    return [];
 }
 
 sub _startDaemon
