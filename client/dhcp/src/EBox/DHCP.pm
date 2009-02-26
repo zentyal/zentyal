@@ -279,7 +279,7 @@ sub _exposedMethods
 #
 # Overrides:
 #
-#     <EBox::Model::ModelProvider::composites>
+#     <EBox::Model::CompositeProvider::composites>
 #
 sub composites
 {

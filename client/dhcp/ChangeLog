@@ -1,5 +1,7 @@
 1.1
 	+ Use the new ids() and row() API
+0.12.101
+	+ Bugfix: Use the new API for services
 0.12.100
 	+ Bugfix: two wrong calls to EBox::Model::Row API fixed
 0.12.99

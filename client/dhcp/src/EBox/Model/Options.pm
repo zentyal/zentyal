@@ -165,7 +165,7 @@ sub validateTypedRow
         # Check if chosen is DNS to check if it's enabled
         if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
             my $dns = EBox::Global->modInstance('dns');
-            unless ( $dns->service() ) {
+            unless ( $dns->isEnabled() ) {
                 throw EBox::Exceptions::External(__('DNS service must be active to as primary '
                                                     . 'nameserver the local eBox DNS server'));
             }
