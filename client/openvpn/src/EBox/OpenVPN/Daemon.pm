@@ -62,7 +62,7 @@ sub type
     throw EBox::Exceptions::NotImplemented('type class method');
 }
 
-sub service
+sub isEnabled
 {
     my ($self) = @_;
     return $self->_rowAttr('service');
@@ -316,7 +316,7 @@ sub writeConfFile
 {
     my ($self, $confDir) = @_;
 
-    return if not $self->service();
+    return if not $self->isEnabled();
 
     my $confFilePath   = $self->confFile($confDir);
     my $templatePath   = $self->confFileTemplate();
@@ -557,11 +557,11 @@ sub pid
 }
 
 #
-# Method: running
+# Method: isRunning
 #
 # Returns:
-#    bool - wether the daemon is running
-sub running
+#    bool - whether the daemon is running
+sub isRunning
 {
     my ($self) = @_;
 

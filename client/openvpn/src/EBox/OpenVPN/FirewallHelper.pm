@@ -23,7 +23,7 @@ sub new
     return $self;
 }
 
-sub service
+sub isEnabled
 {
     my ($self) = @_;
     return $self->{service};
@@ -69,7 +69,7 @@ sub _inputRules
 {
     my ($self, $external) = @_;
 
-    $self->service() or return [];
+    $self->isEnabled() or return [];
 
     my @rules;
 
@@ -100,7 +100,7 @@ sub output
     my ($self) = @_;
     my @rules;
 
-    if ($self->service()) {
+    if ($self->isEnabled()) {
 
         # allow rip traffic in openvpn virtual ifaces
         foreach my $iface (@{ $self->ifaces() }) {

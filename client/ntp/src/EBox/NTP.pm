@@ -47,7 +47,7 @@ sub isRunning
 	my ($self) = @_;
 	# return undef if service is not enabled
 	# otherwise it might be misleading if time synchronization is set
-	($self->service) or return undef;
+	($self->isEnabled()) or return undef;
 	return EBox::Service::running('ebox.ntpd');
 }
 
@@ -102,7 +102,7 @@ sub _doDaemon
    my $self = shift;
 	my $logger = EBox::logger();
 
-  if (($self->service or $self->synchronized) and $self->isRunning) {
+  if (($self->isEnabled() or $self->synchronized) and $self->isRunning()) {
       EBox::Service::manage('ebox.ntpd','stop');
 		sleep 2;
 		if ($self->synchronized) {
@@ -114,7 +114,7 @@ sub _doDaemon
 			};
 		}
       EBox::Service::manage('ebox.ntpd','start');
-   } elsif ($self->service or $self->synchronized) {    
+   } elsif ($self->isEnabled() or $self->synchronized) {    
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
 			try { 
@@ -160,24 +160,10 @@ sub _configureFirewall($){
 sub setService # (active)
 {
 	my ($self, $active) = @_;
-	($active and $self->service) and return;
-	(!$active and !$self->service) and return;
+	($active and $self->isEnabled()) and return;
+	(!$active and !$self->isEnabled()) and return;
 	$self->enableService($active);
 	$self->_configureFirewall;
-}
-
-# Method: service               
-#               
-#       Returns if the ntp service is enabled  
-#                       
-# Returns:      
-#       
-#       boolean - true if enabled, otherwise undef
-sub service
-{
-   my $self = shift;
-
-	return $self->isEnabled();
 }
 
 # Method: setSynchronized
@@ -327,7 +313,7 @@ sub _setNTPConf
 	my $active = 'no';
 	
 	($self->synchronized) and $synch = 'yes';
-	($self->service) and $active = 'yes';
+	($self->isEnabled()) and $active = 'yes';
 
 	push(@array, 'active'	=> $active);
 	push(@array, 'synchronized'  => $synch);

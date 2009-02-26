@@ -367,7 +367,7 @@ sub daemons
 sub activeDaemons
 {
     my ($self) = @_;
-    return grep { $_->service } $self->daemons();
+    return grep { $_->isEnabled() } $self->daemons();
 }
 
 #
@@ -421,7 +421,7 @@ sub servers
 sub activeServers
 {
     my ($self) = @_;
-    return grep { $_->service } $self->servers();
+    return grep { $_->isEnabled() } $self->servers();
 }
 
 #
@@ -534,7 +534,7 @@ sub clients
 sub activeClients
 {
     my ($self) = @_;
-    return grep { $_->service } $self->clients();
+    return grep { $_->isEnabled() } $self->clients();
 }
 
 #
@@ -813,10 +813,10 @@ sub firewallHelper
 {
     my ($self) = @_;
 
-    my $service = $self->service();
+    my $enabled = $self->isEnabled();
 
     # Initialize interfaces before setting fw rules
-    if ($service and EBox::Global->getInstance()->modIsChanged('openvpn')) {
+    if ($enabled and EBox::Global->getInstance()->modIsChanged('openvpn')) {
         $self->_initializeInterfaces();
     }
 
@@ -849,7 +849,7 @@ sub firewallHelper
     my $serversToConnect = $self->_serversToConnect();
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper(
-        service          => $service,
+        service          => $enabled,
         ifaces           => \@ifaces,
         ports     => \@ports,
         serversToConnect => $serversToConnect,
@@ -884,19 +884,12 @@ sub CAIsReady
     return $ready;
 }
 
-sub service
-{
-    my ($self) = @_;
-
-    return $self->isEnabled();
-}
-
 sub _doDaemon
 {
     my ($self) = @_;
-    my $running = $self->running();
+    my $running = $self->isRunning();
 
-    if ($self->service) {
+    if ($self->isEnabled()) {
         if ($running) {
             $self->_stopDaemon();
             $self->_startDaemon();
@@ -921,14 +914,14 @@ sub _doDaemon
     }
 }
 
-sub running
+sub isRunning
 {
     my ($self) = @_;
 
     if ($self->_runningInstances()) {
         return 1;
-    }elsif ($self->service) {
-        my @activeDaemons = grep { (not $_->service)  } $self->daemons;
+    }elsif ($self->isEnabled()) {
+        my @activeDaemons = grep { (not $_->isEnabled())  } $self->daemons;
         return (@activeDaemons == 0) ? 1 : 0;
     }
 
@@ -946,16 +939,16 @@ sub userRunning
     foreach my $daemon (@daemons) {
         next if $daemon->internal();
 
-        return 1 if $daemon->running;
+        return 1 if $daemon->isRunning();
         
-        if ($daemon->service()) {
+        if ($daemon->isEnabled()) {
             $noneDaemonEnabled = 0;
         }
     }
 
 
     if ($noneDaemonEnabled) {
-        return 1 if $self->service()
+        return 1 if $self->isEnabled()
     }
 
     return 0;   # XXX control that there isn't any user daemon incorrectly running
@@ -966,7 +959,7 @@ sub _startDaemon
     my ($self) = @_;
 
     try {
-        my @daemons =  grep { $_->service   } $self->daemons;
+        my @daemons =  grep { $_->isEnabled() } $self->daemons;
 
         foreach my $daemon (@daemons) {
             $daemon->start();
@@ -996,7 +989,7 @@ sub _runningInstances
 
     my @daemons = $self->daemons();
     foreach my $d (@daemons) {
-        return 1 if $d->running;
+        return 1 if $d->isRunning;
     }
 
     return 0;

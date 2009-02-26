@@ -310,7 +310,7 @@ sub ripDaemon
 {
     my ($self) = @_;
 
-    $self->service()
+    $self->isEnabled()
       or return undef;
 
     $self->pullRoutes()
@@ -394,7 +394,7 @@ sub _confFileLocalParam
     return (local => $localParamValue);
 }
 
-sub service
+sub isEnabled
 {
     my ($self) = @_;
     return $self->_rowAttr('service');
@@ -565,7 +565,7 @@ sub _deactivate
     $self->{row}->elementByName('service')->setValue(0);
 
    # we stop daemon to not accept more conexions with the invalidate certificate
-    $self->stop() if $self->running();
+    $self->stop() if $self->isRunning();
 }
 
 sub usesPort
@@ -692,10 +692,10 @@ sub summary
     my @summary;
     push @summary, __x('Server {name}', name => $self->name);
 
-    my $service = $self->service ? __('Enabled') : __('Disabled');
+    my $service = $self->isEnabled() ? __('Enabled') : __('Disabled');
     push @summary, (__('Service'), $service);
 
-    my $running = $self->running ? __('Running') : __('Stopped');
+    my $running = $self->isRunning ? __('Running') : __('Stopped');
     push @summary,(__('Daemon status'), $running);
 
     my $localAddress = $self->localAddress();

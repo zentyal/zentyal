@@ -92,7 +92,7 @@ sub _logFilesFromDaemons
     my %logFiles;
 
     foreach my $daemon ($self->{openvpn}->daemons) {
-        next if not $daemon->service;
+        next if not $daemon->isEnabled();
 
         my $file = $daemon->logFile;
         my $name = $daemon->name;

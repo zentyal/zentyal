@@ -232,8 +232,7 @@ sub ripDaemon
     (not $self->internal)
       or return undef;
 
-    $self->service()
-      or return undef;
+    $self->isEnabled() or return undef;
 
     my $iface = $self->ifaceWithRipPasswd();
     return { iface => $iface, redistribute => 1 };
@@ -263,7 +262,7 @@ sub freeIface
     my $ifaces = $self->_availableIfaces();
     if ($ifaces == 1) {
         $self->{row}->elementByName('service')->setValue(0);
-        $self->stop() if $self->running();
+        $self->stop() if $self->isRunning();
 
         EBox::warn("OpenVPN client "
             . $self->name
@@ -311,10 +310,10 @@ sub summary
     my @summary;
     push @summary, __x('Client {name}', name => $self->name);
 
-    my $service = $self->service ? __('Enabled') : __('Disabled');
+    my $service = $self->isEnabled() ? __('Enabled') : __('Disabled');
     push @summary,__('Service'), $service;
 
-    my $running = $self->running ? __('Running') : __('Stopped');
+    my $running = $self->isRunning() ? __('Running') : __('Stopped');
     push @summary,__('Daemon status'), $running;
 
     my $proto   = $self->proto();

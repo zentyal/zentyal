@@ -290,7 +290,7 @@ sub certificateExpiredTest : Test(8)
         lives_ok { $server->certificateExpired( @{$case_r} ) }
         'Notifying server of innocuous certificate expiration';
 
-        ok $server->service(),
+        ok $server->isEnabled(),
           'Checking wether service status of the server was left untouched';
     }
 
@@ -298,7 +298,7 @@ sub certificateExpiredTest : Test(8)
         lives_ok { $server->certificateExpired( @{$case_r} ) }
         'Notifying server of  certificate expiration';
 
-        ok !$server->service(),
+        ok !$server->isEnabled(),
 'Checking wether the server was disabled after certification expiration';
 
         # restoring server state
@@ -322,12 +322,12 @@ sub freeCertificateTest : Test(5)
     'Forcing server to free a certificate which does not uses';
     is $server->certificate(), $serverCertificate,
       'Checking wether server certificate was left unchanged';
-    ok $server->service(),
+    ok $server->isEnabled(),
       'Checking wether service status of the server was left untouched';
 
     lives_ok { $server->freeCertificate($serverCertificate) }
     'Forcing serve to release his certificate';
-    ok !$server->service(), 'Checking wether the server was disabled';
+    ok !$server->isEnabled(), 'Checking wether the server was disabled';
 
 }
 
@@ -440,21 +440,21 @@ sub freeIfaceTest : Test(4)
                                          portAndProtocol => '777/tcp',
     );
 
-    ok $serverOnAll->service(),
+    ok $serverOnAll->isEnabled(),
 'Checking wether freeing a interface which is not the local interface in a system which has more interfaces available does not deactivate the server';
 
     $serverOnEth0->freeIface('eth0');
-    ok !$serverOnEth0->service(),
+    ok !$serverOnEth0->isEnabled(),
 'Checking wether freeing a interface which is the local interface in a system which has more interfaces available  deactivates the server';
 
     EBox::OpenVPN::Test::fakeNetworkModule(['eth2'], []);
 
     $serverOnAll->freeIface('eth2');
-    ok !$serverOnAll->service(),
+    ok !$serverOnAll->isEnabled(),
 'Checking wether freeing a interface which is not the local interface in a system which has only this  interface available  deactivates the server';
 
     $serverOnEth2->freeIface('eth2');
-    ok !$serverOnEth2->service(),
+    ok !$serverOnEth2->isEnabled(),
 'Checking wether freeing a interface which is the local interface in a system which has only this  interface available  deactivates the server';
 }
 
@@ -482,21 +482,21 @@ sub freeVifaceTest : Test(4)
     );
 
     $serverOnAll->freeViface('eth0', 'eth8');
-    ok $serverOnAll->service(),
+    ok $serverOnAll->isEnabled(),
 'Checking wether freeing a virtual interface which is not the local virtual interface in a system which has more virtual interfaces available does not deactivate the server';
 
     $serverOnEth0->freeViface('eth8', 'eth0');
-    ok !$serverOnEth0->service(),
+    ok !$serverOnEth0->isEnabled(),
 'Checking wether freeing a virtual interface which is the local virtual interface in a system which has more virtual interfaces available  deactivates the server';
 
     EBox::OpenVPN::Test::fakeNetworkModule(['eth2'], []);
 
     $serverOnAll->freeViface('eth0', 'eth2');
-    ok !$serverOnAll->service(),
+    ok !$serverOnAll->isEnabled(),
 'Checking wether freeing a virtual interface which is not the local virtual interface in a system which has only this  virtual interface available  deactivates the server';
 
     $serverOnEth2->freeViface('eth0', 'eth2');
-    ok !$serverOnEth2->service(),
+    ok !$serverOnEth2->isEnabled(),
 'Checking wether freeing a virtual interface which is the local virtual interface in a system which has only this  virtual interface available  deactivates the server';
 }
 
