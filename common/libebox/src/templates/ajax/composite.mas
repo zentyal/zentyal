@@ -18,7 +18,6 @@
 <& .pageTitle,
    title => $model->pageTitle()
 &>
-</%init>
 <& .headTitle,
    title => $model->headTitle()
 &>

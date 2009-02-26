@@ -10,6 +10,10 @@
 	+ Bugfix: make boolean setter honour editable attribute
 	+ Change tableBody to fetch each row instead of all rows at the same time
 	+ Place pager on the bottom-right corner of the table
+0.12.101
+	+ Bugfix: Remove bogus mason tags
+	+ Bugfix: Use 'window' as variable instead of 'Window' since it is
+	more portable
 0.12.100
 	+ Remove bogus div end tag
 	+ Fix items list for titles with single quotes
