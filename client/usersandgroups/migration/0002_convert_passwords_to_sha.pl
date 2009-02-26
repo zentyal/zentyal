@@ -38,7 +38,7 @@ sub runGConf
     } catch Error with {};
     foreach my $user (@users) {
         unless (EBox::UsersAndGroups::isHashed($user->{password})) {
-            $mod->modifyUserPwd($user->{username}, $user->{password});
+            $mod->modifyUser($user);
         }
     }
 }

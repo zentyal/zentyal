@@ -144,8 +144,14 @@ sub _addUserLdapAttrs
   my $sid      = alwaysGetSID();
   my $sambaSID = $sid . '-' .  $rid;
   my $userinfo = $users->userInfo($user);
-  my ($lm ,$nt) = ntlmgen ($password);
-  
+
+  my ($lm ,$nt);
+  if (EBox::UsersAndGroups::isHashed($password)) {
+     $lm = $userinfo->{extra_passwords}->{'lm'};
+     $nt = $userinfo->{extra_passwords}->{'nt'};
+  } else {
+     ($lm, $nt) = ntlmgen($password);
+  }
   my $dn = "uid=$user," .  $users->usersDn;
   my %userCommonAttrs =   %{ $self->_userCommonLdapAttrs() };
 
@@ -249,13 +255,13 @@ sub _modifyUser($$) {
 				    'userPassword' ],
 			scope  => 'base'
 		    );
-	
+
 	my $result = $ldap->search(\%attrs);
-	
+
 	my $entry = $result->pop_entry();
 	# We are only interested in seeing if the pwd has changed
 	if ($password) {
-		my ($lm, $nt) = ntlmgen ($password);
+        my ($lm, $nt) = ntlmgen ($password);
 		$entry->replace( 'sambaNTPassword' => $nt , 
 				 'sambaLMPassword' => $lm );
 		$entry->update($ldap->ldapCon);

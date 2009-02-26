@@ -485,7 +485,7 @@ sub modifyUser # (\%user)
 
     my $cn = $user->{'username'};
     my $dn = $self->userDn($cn);
-    # Verify user  exists
+    # Verify user exists
     unless ($self->userExists($user->{'username'})) {
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
                                              'value' => $cn);
@@ -578,8 +578,7 @@ sub userInfo # (user, entry)
                     base => $self->usersDn,
                     filter => "&(objectclass=*)(uid=$user)",
                     scope => 'one',
-                    attrs => ['cn', 'description', 'userPassword', 'sn', 
-                              'homeDirectory', 'uidNumber', 'gidNumber']
+                    attrs => ['*'],
                    );
         
         my $result = $self->{ldap}->search(\%args);
@@ -594,8 +593,16 @@ sub userInfo # (user, entry)
                     homeDirectory => $entry->get_value('homeDirectory'),
                     uid => $entry->get_value('uidNumber'),
                     group => $entry->get_value('gidNumber'),
+                    extra_passwords => {}
                    };
-    
+
+    foreach my $attr ($entry->attributes) {
+        if ($attr =~ m/^ebox(.*)Password$/) {
+            my $format = lc($1);
+            $userinfo->{extra_passwords}->{$format} = $entry->get_value($attr);
+        }
+    }
+
     # Optional Data
     my $desc = $entry->get_value('description');
     if ($desc) {
@@ -1403,7 +1410,7 @@ sub _changeAttribute
     $entry->update($self->{ldap}->ldapCon);
 }
 
-sub _isHashed
+sub isHashed
 {
     my ($pwd) = @_;
     return ($pwd =~ /^\{[0-9A-Z]+\}/);
@@ -1413,7 +1420,7 @@ sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
 
-    if (_isHashed($pwd)) {
+    if (isHashed($pwd)) {
         return;
     }
 
