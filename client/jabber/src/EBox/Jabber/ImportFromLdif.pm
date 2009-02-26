@@ -15,7 +15,6 @@
 
 package EBox::Jabber::ImportFromLdif;
 use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
-#
 
 use strict;
 use warnings;
@@ -27,9 +26,9 @@ use EBox::JabberLdapUser;
 sub classesToProcess
 {
     return [
-	    { class => 'userJabberAccount',           priority => 10 },
+            { class => 'userJabberAccount',           priority => 10 },
 
-	   ];
+           ];
 }
 
 
@@ -44,18 +43,14 @@ sub processUserJabberAccount
     my $jabberUid = $entry->get_value('jabberUid');
     my $jabberAdmin = $entry->get_value('jabberAdmin');
 
-    print "jabberUid $jabberUid jabberAdmin $jabberAdmin\n\n";
-
     my $enableAccount = 0;
     if (($jabberAdmin eq 'TRUE') or ($jabberAdmin eq 'FALSE')) {
-	$enableAccount = 1;
+        $enableAccount = 1;
     }
-
-    print "enableAccount $enableAccount\n";
 
     $ldapUser->setHasAccount($username, $enableAccount);
     if ($jabberAdmin eq 'TRUE') {
-	$ldapUser->setIsAdmin($username, 1);
+        $ldapUser->setIsAdmin($username, 1);
     }
 
 
