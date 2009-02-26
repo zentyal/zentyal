@@ -63,7 +63,7 @@ sub _table
                                fieldName => 'service',
                                printableName => __('Enabled'),
                                editable => 1,
-                               defaultValue => 1,
+                               defaultValue => 0,
                               ),
          new EBox::Types::Int(
                               fieldName => 'delay',

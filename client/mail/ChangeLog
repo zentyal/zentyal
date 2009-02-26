@@ -1,3 +1,5 @@
+0.12.101
+	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
 	+ EBox::MailUserLdap::userAccount and
 	EBox::MailUserLdap::getUserLdapValue  dont longer assumme that the
