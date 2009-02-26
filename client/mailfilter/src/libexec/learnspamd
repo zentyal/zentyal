@@ -78,7 +78,7 @@ sub _checkMailfilter
     }
     else {
 	my $antispam = $mf->antispam();
-	if (not $antispam->service()) {
+	if (not $antispam->isEnabled()) {
 	    die "Antispam service is disabled";
 	}
 	elsif (not $antispam->bayes()) {
