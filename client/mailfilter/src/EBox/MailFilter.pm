@@ -146,7 +146,7 @@ sub enableModDepends
     }
 
     
-    if ($self->popProxy->service()) {
+    if ($self->popProxy->isEnabled()) {
         # requires firewall to do the port redirection
         push @depends, 'firewall';
     }
@@ -265,12 +265,12 @@ sub antivirusNeeded
 {
     my ($self) = @_;
 
-    if ($self->smtpFilter()->service() and  $self->smtpFilter()->antivirus()) {
+    if ($self->smtpFilter()->isEnabled() and  $self->smtpFilter()->antivirus()) {
         return 1;
     }
 
 
-    if ($self->popProxy()->service() and $self->popProxy()->antivirus()) {
+    if ($self->popProxy()->isEnabled() and $self->popProxy()->antivirus()) {
         return 1;
     }
 
@@ -282,11 +282,11 @@ sub antispamNeeded
 {
     my ($self) = @_;
 
-    if ($self->smtpFilter()->service() and $self->smtpFilter()->antispam()) {
+    if ($self->smtpFilter()->isEnabled() and $self->smtpFilter()->antispam()) {
         return 1;
     }
 
-    if ($self->popProxy()->service() and $self->popProxy()->antispam()) {
+    if ($self->popProxy()->isEnabled() and $self->popProxy()->antispam()) {
         return 1;
     }
 
@@ -303,11 +303,11 @@ sub antispamNeeded
 sub _regenConfig
 {
     my ($self) = @_;
-    my $service = $self->service();
+    my $enabled = $self->isEnabled();
 
-    if ($service) {
+    if ($enabled) {
         $self->smtpFilter->writeConf();
-        $self->antivirus()->writeConf($service);
+        $self->antivirus()->writeConf($enabled);
         $self->antispam()->writeConf();
         $self->popProxy()->writeConf();
 
@@ -317,10 +317,10 @@ sub _regenConfig
     }
     
 
-    $self->antivirus()->doDaemon($service);
-    $self->antispam()->doDaemon($service);
-    $self->smtpFilter()->doDaemon($service);
-    $self->popProxy()->doDaemon($service);
+    $self->antivirus()->doDaemon($enabled);
+    $self->antispam()->doDaemon($enabled);
+    $self->smtpFilter()->doDaemon($enabled);
+    $self->popProxy()->doDaemon($enabled);
 
 }
 
@@ -345,12 +345,12 @@ sub isRunning
     }
 
     if (
-        (not $self->smtpFilter()->service) and
-        (not $self->popProxy()->service)
+        (not $self->smtpFilter()->isEnabled()) and
+        (not $self->popProxy()->isEnabled())
        ) 
         {
             # none service is enabled but module is -> running = 1
-            if ($self->service()) {
+            if ($self->isEnabled()) {
                 return 1;
             }
 
@@ -359,26 +359,6 @@ sub isRunning
 
     return 0;
 }
-
-
-
-#
-# Method: service
-#
-#  Returns the state of the service.
-#
-# Returns:
-#
-#  boolean - true if it's active, otherwise false
-#
-sub service
-{
-    my ($self) = @_;
-    return $self->isEnabled();
-}
-
-
-
 
 sub _assureFilterNotInUse
 {

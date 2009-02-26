@@ -61,10 +61,10 @@ sub doDaemon
     {
     my ($self, $mailfilterService) = @_;
 
-    if ($mailfilterService and $self->service() and $self->isRunning()) {
+    if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
       $self->_daemon('restart');
     } 
-    elsif ($mailfilterService and $self->service()) {
+    elsif ($mailfilterService and $self->isEnabled()) {
       $self->_daemon('start');
     } 
     elsif ($self->isRunning()) {
@@ -78,7 +78,7 @@ sub _daemon
       EBox::Service::manage(AMAVIS_SERVICE, $action);
 }
 
-sub service
+sub isEnabled
 {
   my ($self) = @_;
   return $self->_confAttr('enabled');
@@ -406,7 +406,7 @@ sub mailFilter
   if (not $module->isEnabled()) {
       $active = 0;
   }  else {
-      $active = $self->service ? 1 : 0;      
+      $active = $self->isEnabled() ? 1 : 0;      
   }
   my %properties = (
                      address     => '127.0.0.1',
@@ -429,23 +429,19 @@ sub summary
     my $section = new EBox::Dashboard::Section(__("POP transparent proxy"));
     $summary->add($section);
 
-    my $service = $self->service();
+    my $enabled = $self->isEnabled();
     my $status =  new EBox::Dashboard::ModuleStatus(
         module        => 'mailfilter',
         printableName => __('Status'),
         running       => $self->isRunning(),
-        enabled       => $self->service(),
+        enabled       => $self->isEnabled(),
         nobutton      => 1);
 
     $section->add($status);
 
-    $service or
-        return ;
-
-    
+    $enabled or return;
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
-            
 
     my $antivirus = new EBox::Dashboard::ModuleStatus(
         module        => 'mailfilter',

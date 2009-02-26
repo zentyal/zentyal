@@ -60,10 +60,10 @@ sub doDaemon
 {
     my ($self, $mailfilterService) = @_;
  
-    my $service = $self->service();
+    my $enabled = $self->isEnabled();
     my $running = $self->isRunning();
 
-    if ($service and $mailfilterService) {
+    if ($enabled and $mailfilterService) {
         if ($running) {
             $self->_daemon('restart');
         }
@@ -220,7 +220,7 @@ sub _confAttr
 
 
 
-sub service
+sub isEnabled
 {
   my ($self) = @_;
   return $self->_confAttr('enabled');
@@ -323,20 +323,18 @@ sub summary
     my $section = new EBox::Dashboard::Section(__("SMTP filter"));
     $summary->add($section);
 
-    my $service = $self->service();
+    my $enabled = $self->isEnabled();
     my $status =  new EBox::Dashboard::ModuleStatus(
         module        => 'mailfilter',
         printableName => __('Status'),
         running       => $self->isRunning(),
-        enabled       => $self->service(),
+        enabled       => $self->isEnabled(),
         nobutton      => 1);
     $section->add($status);
 
-    $service or
-        return ;
+    $enabled or return ;
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
-            
 
     my $antivirus = new EBox::Dashboard::ModuleStatus(
         module        => 'mailfilter',
