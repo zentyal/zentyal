@@ -41,7 +41,7 @@ sub proto
 {
     my ($self) = @_;
 
-    my $config = $self->{row}->subModel('configuration');
+    my $conf = $self->{row}->subModel('configuration');
 
     my $configRow = $conf->row();
     my $portAndProtocol =  $configRow->elementByName('serverPortAndProtocol');
