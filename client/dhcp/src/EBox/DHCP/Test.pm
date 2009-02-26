@@ -50,13 +50,13 @@ sub setServiceTest : Test(6)
   my $dhcp = EBox::Global->modInstance('dhcp');
   $nStaticIfacesReturnValue = 1;
   lives_ok { $dhcp->setService(1)  } 'Setting active service with static ifaces';
-  ok $dhcp->service(), 'Checking that server is now active';
+  ok $dhcp->isEnabled(), 'Checking that server is now active';
   lives_ok { $dhcp->setService(0)  } 'Unsetting service';
-  ok !$dhcp->service(), 'Checking that server is now inactive';
+  ok !$dhcp->isEnabled(), 'Checking that server is now inactive';
 
   $nStaticIfacesReturnValue = 0;
   dies_ok { $dhcp->setService(1)  } 'Attempt to set the server active without static ifaces must raise error';
-    ok !$dhcp->service(), 'Checking that server state remains inactive';
+    ok !$dhcp->isEnabled(), 'Checking that server state remains inactive';
 }
 
 sub ifaceMethodChangedTest : Test(32)

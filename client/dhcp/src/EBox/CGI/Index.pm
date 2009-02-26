@@ -91,7 +91,7 @@ sub _process($) {
 	push (@array, 'nameserver1'	=> $nameserver1);
 	push (@array, 'nameserver2'	=> $nameserver2);
 	push (@array, 'search'		=> $search);
-	push (@array, 'active'		=> $dhcp->service() ? 'yes' : 'no' );
+	push (@array, 'active'		=> $dhcp->isEnabled() ? 'yes' : 'no' );
 	$self->{params} = \@array;
 }
 

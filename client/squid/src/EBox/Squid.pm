@@ -272,60 +272,11 @@ sub serviceModuleName
     return 'squid';
 }
 
-sub _doDaemon
-{
-    my ($self) = @_;
-    my $action = undef;
-    
-    if ($self->service and $self->isRunning) {
-        $action = 'restart';
-    } elsif ($self->service) {
-        $action = 'start';
-    } elsif ($self->isRunning) {
-        $action = 'stop';
-    } else {
-        return;
-    }
-
-    EBox::Service::manage('ebox.squid', $action);
-}
-
-sub _doDGDaemon
-{
-    my ($self) = @_;
-    my $action = undef;
-    
-    if ($self->_dgNeeded and $self->DGIsRunning) {
-        $action = 'restart';
-    } elsif ($self->_dgNeeded) {
-        $action = 'start';
-    } elsif ($self->DGIsRunning) {
-        $action = 'stop';
-    } else {
-        return;
-    }
-    
-    EBox::Service::manage('ebox.dansguardian', $action);
-}
-
 sub _stopService 
 {
     EBox::Service::manage('ebox.squid', 'stop');
     EBox::Service::manage('ebox.dansguardian', 'stop');
 }
-
-
-# # Method: _regenConfig
-# #
-# #       Overrides base method. It regenerates the configuration
-# #       for squid and dansguardian.
-# #
-# sub _regenConfig 
-# {
-#     my ($self) = @_;
-#     $self->_setSquidConf();
-#     $self->_enforceServiceState();
-# }
 
 sub _cache_mem 
 {
@@ -335,11 +286,6 @@ sub _cache_mem
                         'cache_mem variable in the ebox configuration file'));
     return $cache_mem;
 }
-
-
-
-
-
 
 # Method: setService 
 #
@@ -355,38 +301,21 @@ sub setService # (enabled)
     $self->enableService($active);
 }
 
-# Method: service 
-#
-#       Returns if the proxy service is enabled  
-#
-# Returns:
-#
-#       boolean - true if enabled, otherwise undef   
-sub service
-{
-    my ($self) = @_;
-
-    return $self->isEnabled();
-}
-
-
-
 sub _setGeneralSetting
 {
     my ($self, $setting, $value) = @_;
-    
+
     my $model = $self->model('GeneralSettings');
-    
+
     my $oldValueGetter = $setting . 'Value';
     my $oldValue       = $model->$oldValueGetter;
-    
-    ($value xor $oldValue) or
-          return;
-    
+
+    ($value xor $oldValue) or return;
+
     my $row = $model->row();
     my %fields = %{ $row->{plainValueHash} };
     $fields{$setting} = $value;
-    
+
     $model->setRow(0, %fields);
 }
 
@@ -395,7 +324,7 @@ sub _generalSetting
     my ($self, $setting, $value) = @_;
 
     my $model = $self->model('GeneralSettings');
-    
+
     my $valueGetter = $setting . 'Value';
     return $model->$valueGetter();
 }
@@ -550,7 +479,7 @@ sub _dgNeeded
  {
      my ($self) = @_;
      
-     if (not $self->service) {
+     if (not $self->isEnabled()) {
          return undef;
       }  
      
@@ -603,7 +532,7 @@ sub usesPort # (protocol, port, iface)
     ($port eq DGPORT) and return 1;
     # the port selected by the user (by default SQUIDPORT) is only reported
     # if the service is enabled
-    ($self->service) or return undef;
+    ($self->isEnabled()) or return undef;
     ($port eq $self->port) and return 1;
     return undef;
 }
@@ -883,7 +812,7 @@ sub _writeDgDomainsConf
 sub firewallHelper 
 {
     my ($self) = @_;
-    if ($self->service) {
+    if ($self->isEnabled()) {
         if ($self->_dgNeeded()) {
             return new EBox::SquidFirewall();
         } else  {
