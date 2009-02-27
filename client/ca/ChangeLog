@@ -1,5 +1,8 @@
 1.1
 	+ Allow * character in common names
+	+ Updating in certificate authority DB is now working to show
+	expired certificates in the list and call observer when this
+	event happens
 0.12.101
 	+ Set SSLv3 extensions correctly to user certificates
 0.12.100

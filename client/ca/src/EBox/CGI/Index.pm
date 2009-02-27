@@ -46,12 +46,13 @@ sub new
 
   }
 
-# Method: _process
+# Method: masonParameters
 #
-#      Process the HTTP query
-#      Accept the caNeeded parameter to issue a new CA certificate
-
-sub _process
+# Overrides:
+#
+#     <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
   {
 
     my $self = shift;
@@ -63,6 +64,8 @@ sub _process
 
     if ( $ca->isCreated() ) {
       $self->{'template'} = "ca/index.mas";
+      # Update CA DB prior to displaying certificates
+      $ca->updateDB();
       push( @array, 'certs' => $ca->listCertificates() );
 
       # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
@@ -76,7 +79,7 @@ sub _process
       $self->{'template'} = "ca/createCA.mas";
     }
 
-    $self->{params} = \@array;
+    return \@array;
   }
 
 

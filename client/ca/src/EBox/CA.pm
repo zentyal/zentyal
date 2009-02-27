@@ -1024,10 +1024,10 @@ sub listCertificates
       $element{'serialNumber'} = $line[SERIAL_IDX];
 
       # Set paramaters regarding to certificate validity
-      if ($element{'state'} eq 'V') {
+      if (($element{'state'} eq 'V') or ($element{'state'} eq 'E')) {
 	$element{'expiryDate'} = $self->_parseDate($line[EXPIRE_DATE_IDX]);
 	$element{'isCACert'} = $self->_isCACert($element{'dn'});
-      } else {
+      } elsif ( $element{'state'} eq 'R' ) {
 	my $field = $line[REV_DATE_REASON_IDX];
 	my ($revDate, $reason) = split(',', $field);
 	$element{'revokeDate'} = $self->_parseDate($revDate);
@@ -1510,7 +1510,7 @@ sub updateDB
       $self->{caKeyPassword} = $caKeyPassword;
     }
 
-    my @expiredCertsBefore = $self->listCertificates(state => 'E');
+    my @expiredCertsBefore = @{$self->listCertificates(state => 'E')};
 
     my $cmd = "ca";
     $self->_commonArgs("ca", \$cmd);
@@ -1519,18 +1519,21 @@ sub updateDB
       $cmd .= "-passin env:PASS ";
     }
 
-    $ENV{'PASS'} = $self->{caKeyPassword};
+    $ENV{'PASS'} = $self->{caKeyPassword} if defined($self->{caKeyPassword});
     my ($retVal, $output) = $self->_executeCommand( COMMAND => $cmd );
     delete( $ENV{'PASS'} );
 
-    my @expiredCertsAfter = $self->listCertificates(state => 'E');
-    # Finding elements in one array but not another
-    # T. Christiansen & N. Torkington, Perl Cookbook 2nd edition, pg. 126
+    my @expiredCertsAfter = @{$self->listCertificates(state => 'E')};
     my %seen;
-    @seen {@expiredCertsAfter} = ();
-    delete @seen {@expiredCertsBefore};
+    my @diff;
+    foreach my $item (@expiredCertsBefore) {
+        $seen{$item->{serialNumber}} = 1;
+    }
+    foreach my $item (@expiredCertsAfter) {
+        next if ( $seen{$item->{serialNumber}} );
+        push(@diff, $item);
+    }
 
-    my @diff = keys %seen;
     # Tells other modules the following certs have expired
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::CA::Observer')};
