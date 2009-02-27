@@ -1,0 +1,63 @@
+
+== Change available on >= 1.1 ==
+
+    TODO: Ilustrate this changes with some examples
+
+    Some changes have been introduced since 1.1 to EBox::Model::DataTable. Prior to
+    1.1, to iterate over each row we had to call EBox::Model::DataTable::rows()
+    which returned an array reference containing all the rows in a model. That was a
+    pretty naive implementation that didn't worked ok when dealing with thousands of
+    entries for obvious reasons.
+
+    Now you will need to call EBox::Model::DataTable::ids() to retrieve all the row
+    identifiers that make up a table. Once you have the id array, you just need to
+    iterate over it and fetch every row with EBox::Model::DataTable::row($id).
+
+    This approach let us manage more entries using less memory, although you will
+    have an extra line code to retrieve the ids. 
+
+
+    Deprecated methods
+    ==================
+    EBox::Model::DataTable::rows()
+
+    New methods
+    ===========
+
+    EBox::Model::DataTable::syncRows
+
+       This method might be useful to add or remove rows before they
+       are presented. In that case you must override this method.
+
+       Warning: You should never call <EBox::Model::DataTable::ids>
+       within this function or you will enter into a deep recursion
+
+     Parameters:
+
+       (POSITIONAL)
+
+       currentIds - array ref containing the current row indentifiers
+
+     Returns:
+
+       boolean - true if the current rows have been modified, i.e: there's
+       been a row addition or row removal
+
+    EBox::Model::DataTable::ids
+
+       Return an array containing the identifiers of each  table row.
+       The ids are ordered by the field specified by the model.
+
+       This method will call <EBox::Model::DataTable::syncRows>
+
+     Returns:
+
+       array ref - containing t
+
+    Changed methods
+    ===============
+
+    All find* method that returned more than one row have been changed. Now they
+    return an array of id rows.
+
+== End of Change ==
