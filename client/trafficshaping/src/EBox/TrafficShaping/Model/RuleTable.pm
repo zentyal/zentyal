@@ -806,8 +806,9 @@ sub _l7Types
 
 sub _l7FilterEnabled
 {
-    return (EBox::Global->getInstance()->modExists('l7-protocols')
-            and `uname -a | grep l7filter`);
+    return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
+    my $out = `modinfo xt_layer7 2>&1`;
+    return ( $? == 0 );
 }
 
 1;
