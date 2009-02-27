@@ -39,6 +39,7 @@ case "$1" in
         
         # Create log directory
         test -d /var/log/ebox || mkdir /var/log/ebox
+        chmod 0750 /var/log/ebox
        
         # This needs to be done to make the gconf keys appear
         pkill -u ebox gconfd-2 || true
