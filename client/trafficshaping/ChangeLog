@@ -1,3 +1,5 @@
+0.12.101
+	+ Detect if there's a l7 capable kernel using modinfo xt_layer7
 0.12.100
 	+ Add traffic shaping rules to POSTROUTING 
 0.12.99
