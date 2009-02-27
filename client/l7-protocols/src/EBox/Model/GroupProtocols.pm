@@ -64,7 +64,7 @@ sub _table
                     'printableName' => __('Protocol'),
                     'populate' => \&protocols,
                     'editable' => 1,
-                    'help' => __('foo')
+                    'help' => '', # FIXME
                 )
 
     );
