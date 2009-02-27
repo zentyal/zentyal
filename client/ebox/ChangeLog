@@ -1,8 +1,7 @@
-
 0.12.101
+	+ Backport fix for EBox::Types::Union::isEqualTo
 	+ Bugfix: DomainName type make comparisons case insensitive
 	according to RFC 1035
-
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs
