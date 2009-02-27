@@ -39,6 +39,7 @@ case "$1" in
 
         # Create log directory
         test -d /var/log/ebox || mkdir /var/log/ebox
+        chmod 750 /var/log/ebox
 
         # create ebox's' apache certificates
         /usr/share/ebox/ebox-create-certificate /var/lib/ebox/conf/ssl > /dev/null 2>&1
