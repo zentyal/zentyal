@@ -146,7 +146,7 @@ sub _addUserLdapAttrs
   my $userinfo = $users->userInfo($user);
 
   my ($lm ,$nt);
-  if (EBox::UsersAndGroups::isHashed($password)) {
+  if (not defined($password) or EBox::UsersAndGroups::isHashed($password)) {
      $lm = $userinfo->{extra_passwords}->{'lm'};
      $nt = $userinfo->{extra_passwords}->{'nt'};
   } else {

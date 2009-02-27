@@ -453,7 +453,32 @@ sub _modifyUserPwd
     $self->_checkPwdLength($passwd);
     my $hash = defaultPasswordHash($passwd);
     my $dn = "uid=" . $user . "," . $self->usersDn;
-    $self->{ldap}->modify($dn, { replace => { 'userPassword' => $hash } } );
+
+    my %args = (
+                base => $self->usersDn,
+                filter => "&(objectclass=*)(uid=$user)",
+                scope => 'one',
+                attrs => ['*'],
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+    my $entry = $result->entry(0);
+
+    #remove old passwords
+    my $delattrs = [];
+    foreach my $attr ($entry->attributes) {
+        if ($attr =~ m/^ebox(.*)Password$/) {
+            push(@{$delattrs}, $attr);
+        }
+    }
+    $self->{ldap}->modify($dn, { 'delete' => $delattrs } );
+
+    #add new passwords
+    my %attrs = (
+        'userPassword' => $hash,
+        @{additionalPasswords($passwd)}
+    );
+    $self->{ldap}->modify($dn, { replace => \%attrs } );
 }
 
 sub _updateUser
