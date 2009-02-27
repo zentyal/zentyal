@@ -260,7 +260,12 @@ sub isEqualTo
 {
     my ($self, $newObject) = @_;
 
-    return $self->cmp($newObject) == 0;
+    my $comparison = $self->cmp($newObject);
+    if ( defined($comparison) ) {
+        return $comparison == 0;
+    } else {
+        return 0;
+    }
 }
 
 # Method: HTMLSetter
