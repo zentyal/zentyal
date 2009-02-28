@@ -138,6 +138,8 @@ sub _process
       my $msg = __("The certificate has been revoked");
       $msg = __("The CA certificate has been revoked") if ($isCACert);
       $self->setMsg($msg);
+      # No parameters to send to CA/Index
+      $self->cgi()->delete_all();
     }
 
   }

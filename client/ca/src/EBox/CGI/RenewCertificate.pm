@@ -144,6 +144,7 @@ sub _process
 	my $msg = __("The certificate has been renewed");
 	$msg = __("The new CA certificate has been renewed") if ($isCACert);
 	$self->setMsg($msg);
+        $self->cgi()->delete_all();
       }
     }
 

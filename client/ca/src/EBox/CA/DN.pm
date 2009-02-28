@@ -22,11 +22,6 @@ use warnings;
 use Storable qw(dclone);
 use EBox;
 
-# Constants
-use constant COUNTRY_DEF => "ES";
-use constant LOCALITY_DEF => "Nowhere";
-use constant STATE_DEF   => "Nation";
-
 
 # Constructor: new
 #
@@ -54,12 +49,9 @@ sub new {
 
 	bless($self, $class);
 
-	$self->{countryName} = $args{countryName};
-	$self->{countryName} = COUNTRY_DEF unless ( $self->{countryName} );
-	$self->{stateName} = $args{stateName};
-	$self->{stateName} = STATE_DEF unless ( $self->{stateName} );
-	$self->{localityName} = $args{localityName};
-	$self->{localityName} = LOCALITY_DEF unless ( $self->{localityName} );
+	$self->{countryName} = $args{countryName} if defined($args{countryName});
+	$self->{stateName} = $args{stateName} if defined($args{stateName});
+	$self->{localityName} = $args{localityName} if defined($args{localityName});
 	$self->{organizationName} = $args{organizationName};
 	$self->{organizationNameUnit} = $args{organizationNameUnit};
 	$self->{commonName} = $args{commonName};

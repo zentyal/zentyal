@@ -1,4 +1,5 @@
 # Copyright (C) 2006 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -78,7 +79,7 @@ sub optionalParameters
 
       my ($self) = @_;
 
-      return [qw(caPassphrase reCAPassphrase)];
+      return [qw(countryName stateName localityName caPassphrase reCAPassphrase)];
 
   }
 
@@ -90,50 +91,57 @@ sub optionalParameters
 #     <EBox::CGI::Base::actuate>
 #
 sub actuate
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $gl = EBox::Global->getInstance();
+    my $ca = $gl->modInstance('ca');
 
-      my $gl = EBox::Global->getInstance();
-      my $ca = $gl->modInstance('ca');
+    my $orgName = $self->param('orgName');
+    my $countryName = $self->param('countryName');
+    my $localityName = $self->param('localityName');
+    my $stateName = $self->param('stateName');
+    my $days = $self->param('expiryDays');
+    my $caPass = $self->param('caPassphrase');
+    my $reCAPass = $self->param('reCAPassphrase');
 
-      my $orgName = $self->param('orgName');
-      my $days = $self->param('expiryDays');
-      my $caPass = $self->param('caPassphrase');
-      my $reCAPass = $self->param('reCAPassphrase');
+    # Check passpharses
+    if ( defined ( $caPass ) and defined ( $reCAPass )) {
+        unless ( $caPass eq $reCAPass ) {
+            throw EBox::Exceptions::External(__('CA passphrases do NOT match'));
+        }
+        # Set no pass if the pass is empty
+        if ( $caPass eq '' ) {
+            $caPass = undef;
+        }
+    }
 
-      # Check passpharses
-      if ( defined ( $caPass ) and defined ( $reCAPass )) {
-          unless ( $caPass eq $reCAPass ) {
-              throw EBox::Exceptions::External(__('CA passphrases do NOT match'));
-          }
-          # Set no pass if the pass is empty
-          if ( $caPass eq '' ) {
-              $caPass = undef;
-          }
-      }
+    # Check length
+    if ( defined ( $caPass ) and length ( $caPass ) < MIN_PASS_LENGTH ) {
+        throw EBox::Exceptions::External(__x('CA Passphrase should be at least {length} characters',
+                                             length => MIN_PASS_LENGTH));
+    }
 
-      # Check length
-      if ( defined ( $caPass ) and length ( $caPass ) < MIN_PASS_LENGTH ) {
-          throw EBox::Exceptions::External(__x('CA Passphrase should be at least {length} characters',
-                                               length => MIN_PASS_LENGTH));
-      }
-
-      unless ($days > 0) {
-          throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
+    unless ($days > 0) {
+        throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
                                                . 'a positive number',
-                                               days => $days));
-      }
+                                             days => $days));
+    }
 
-      my $retVal = $ca->createCA( orgName       => $orgName,
-                                  days          => $days,
-                                  caKeyPassword => $caPass,
-                                );
+    my $retVal = $ca->createCA( orgName       => $orgName,
+                                countryName   => $countryName,
+                                localityName  => $localityName,
+                                stateName     => $stateName,
+                                days          => $days,
+                                caKeyPassword => $caPass,
+                               );
 
-      if (not defined($retVal) ) {
-          throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
-      }
+    if (not defined($retVal) ) {
+        throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
+    }
 
-  }
+    $self->cgi()->delete_all();
+
+}
 
 1;

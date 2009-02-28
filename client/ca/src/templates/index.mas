@@ -21,26 +21,37 @@ use EBox::CA::DN;
 
   my $printableName = __('Organization Name');
   $printableName = __('Common Name') unless ($caNeeded);
-  push ( @issueTable, ([ name => 'name',
-			 printableName => $printableName,
-			 input => 'text' ],
-		       [ name => 'expiryDays',
-			 printableName => __('Days to expire'),
-			 input => 'text' ])
+  push ( @issueTable, [ name => 'name',
+			printableName => $printableName,
+			input => 'text' ],
        );
 
-  if ( $passRequired or $caNeeded ) {
-    push ( @issueTable, [ name => 'caPassphrase', input => 'password',
-                          printableName => __('CA Passphrase') ]);
-
-  }
+#  if ( $passRequired or $caNeeded ) {
+#    push ( @issueTable, [ name => 'caPassphrase', input => 'password',
+#                          printableName => __('CA Passphrase') ]);
+#    
+#  }
 
   if ( $caNeeded ) {
-    push ( @issueTable, [ name => 'reCAPassphrase',
-                          input => 'password',
-                          printableName => __('Re CA Passphrase')]
-         );
+#    push ( @issueTable, [ name => 'reCAPassphrase',
+#                          input => 'password',
+#                          printableName => __('Re CA Passphrase')]
+#         );
+      push( @issueTable, [ name => 'countryName', input => 'text',
+                           printableName => __('Country code'),
+                           size => 2, optional => 1 ]);
+      push( @issueTable, [ name => 'localityName', input => 'text',
+                           printableName => __('City'),
+                           optional => 1 ]);
+      push( @issueTable, [ name => 'stateName', input => 'text',
+                           printableName => __('State'),
+                           optional => 1 ]);
+
   }
+  push( @issueTable,[ name => 'expiryDays',
+	              printableName => __('Days to expire'),
+		      size => 5, input => 'text' ]);
+
 
   push ( @issueTable, [ name => 'certificate',
 			value => __('Issue'),

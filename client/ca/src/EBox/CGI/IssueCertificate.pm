@@ -54,9 +54,36 @@ sub new
 
   }
 
-# Process the HTTP query
+# Method: requiredParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::requiredParameters>
+#
+sub requiredParameters
+{
+    return ['name', 'expiryDays', 'certificate' ];
+}
 
-sub _process
+# Method: optionalParameters
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::optionalParameters>
+#
+sub optionalParameters
+{
+    return ['caNeeded', 'caPassphrase', 'reCAPassphrase',
+            'countryName', 'stateName', 'localityName'];
+}
+
+# Method: actuate
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::actuate>
+#
+sub actuate
   {
 
     my $self = shift;
@@ -74,10 +101,10 @@ sub _process
             throw EBox::Exceptions::DataMissing(data =>  __('Common Name') );
         }
     }
-    # Common parameters
-    $self->_requireParam('expiryDays', __('Days to expire') );
-
     my $days = $self->param('expiryDays');
+    my $countryName = $self->param('countryName');
+    my $localityName = $self->param('localityName');
+    my $stateName = $self->param('stateName');
     my $caPass = $self->param('caPassphrase');
     my $reCAPass = $self->param('reCAPassphrase');
 
@@ -120,6 +147,9 @@ sub _process
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,
 					   days          => $days,
+                                           countryName   => $countryName,
+                                           localityName  => $localityName,
+                                           stateName     => $stateName,
                                            caKeyPassword => $caPass,
 					   genPair       => 1);
     } else {
@@ -132,6 +162,8 @@ sub _process
     my $msg = __("The certificate has been issued");
     $msg = __("The new CA certificate has been issued") if ($issueCA);
     $self->setMsg($msg);
+    # Delete all CGI parameters for CA/Index
+    $self->cgi()->delete_all();
 
   }
 
