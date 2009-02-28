@@ -79,7 +79,7 @@ function updateGraph(element,value) {
         }],
         {
             xaxis: { noTicks: 0 },
-            yaxis: { noTicks: 2, tickFormatter: getHumanSize },
+            yaxis: { noTicks: 2, tickFormatter: getBytes },
         }
     );
 }
