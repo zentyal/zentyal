@@ -59,6 +59,7 @@ src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CA/Makefile
 src/EBox/t/Makefile
+src/libexec/Makefile
 src/templates/Makefile
 schemas/Makefile
 Makefile
