@@ -101,7 +101,7 @@ sub logAdminNow
 	_logAdmin($module, $action, $params, 'true');
 }
 
-# Method: rollbackPending
+# Method: commitPending
 sub commitPending
 {
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
