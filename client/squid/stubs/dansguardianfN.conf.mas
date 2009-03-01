@@ -3,6 +3,8 @@
     $group
     %defaults  => ()
     $groupName => undef
+
+    $antivirus => 1
 </%args>
 <%init>
 my @groupConfigFiles = (
@@ -56,3 +58,39 @@ naughtynesslimit = <% $threshold %>
 bypass = 0
 
 bypasskey = ''
+
+
+% if ($antivirus) {
+#  ANTIVIRUS SETTINGS for this group
+# --------------------
+
+# OPTION: virusscan
+# If on, content will be scanned using virus engine setup in dansguardian.conf.
+# More options are available in dansguardian.conf.
+virusscan = on
+
+# OPTION: exceptionvirusextensionlist
+# The following file allow you to define file extensions
+# that should not be virus scanned.
+exceptionvirusextensionlist = '/etc/dansguardian/exceptionvirusextensionlist'
+# OPTION: exceptionvirusmimetypelist
+# The following file allow you to define mime types
+# that should not be virus scanned.
+exceptionvirusmimetypelist = '/etc/dansguardian/exceptionvirusmimetypelist'
+
+# OPTION: exceptionvirussitelist
+# File location of definition of sites not be virus scanned.
+exceptionvirussitelist = '/etc/dansguardian/exceptionvirussitelist'
+
+# OPTION: exceptionvirusurllist
+# File location of definition of URLs not be virus scanned.
+exceptionvirusurllist = '/etc/dansguardian/exceptionvirusurllist'
+
+# OPTION: dlmgrextensionlist
+# File location of file extensions to be handled by embedded download manager.
+dlmgrextensionlist = '/etc/dansguardian/dlmgrextensionlist'
+
+% } else {
+virusscan = off
+
+% }

@@ -5,6 +5,8 @@
     $weightedPhraseThreshold
     
     $nGroups
+
+    $antivirus => 1
 </%args>
 
 reportinglevel = 3
@@ -139,6 +141,28 @@ nologger = off
 
 softrestart = off
 
+% if ($antivirus) {
+virusscan = on
+% } else {
 virusscan = off
+
+% }
+
+
+virusengine = 'clamav'
 forkscanlength = 32768
+notify = 0 # change values when mail is ocnfigured
+
+#urlcachecleanonly =off
+
+#tricklelength = -1
+#tricklelength  = -1024
+# emaildomain, emailserver
+
+# XXX unbable to make clamd to work, so we will use clamscan for now
+#virusengine = 'clamd'
+#    $clamdSocket   => '/var/run/clamav/clamd.ctl' (in %args)
+%#clamdsocket = '<% $clamdSocket %>'
+
+
 

@@ -68,6 +68,7 @@ sub _description
       my $description =
         {
          components      => [
+                            'FilterGroupAntiVirus',
                             'FilterGroupContentFilterThreshold',
                              'FilterGroupTabs',
                             ],

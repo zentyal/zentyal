@@ -256,6 +256,9 @@ sub filterGroups
 
       my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
+      $group{antivirus} =
+          $policy->componentByName('FilterGroupAntiVirus', 1)->active(),
+
       $group{threshold} = 
         $policy->componentByName('FilterGroupContentFilterThreshold', 1)->threshold();
 
@@ -358,13 +361,11 @@ sub _defaultFilterGroup
 
     my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
 
-    
-
-
-
     my $default = {
                    number => 1,
                    groupName => 'default',
+                   antivirus =>
+                      $policy->componentByName('DefaultAntiVirus', 1)->active(),
                    threshold => 
                       $policy->componentByName('ContentFilterThreshold', 1)->contentFilterThresholdValue(),
                    bannedExtensions => 

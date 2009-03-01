@@ -122,6 +122,10 @@ sub modelClasses
           'EBox::Squid::Model::FilterGroupDomainFilterFiles',
           'EBox::Squid::Model::FilterGroupDomainFilterCategories',     
           'EBox::Squid::Model::FilterGroupDomainFilterSettings',    
+
+          'EBox::Squid::Model::DefaultAntiVirus',
+          'EBox::Squid::Model::FilterGroupAntiVirus',
+
  
           # Report clases
            'EBox::Squid::Model::Report::RequestsGraph',
@@ -252,15 +256,22 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
 }
 
+
 #  Method: enableModDepends
 #
 #   Override EBox::ServiceModule::ServiceInterface::enableModDepends
 #
 sub enableModDepends
 {
-    return ['firewall', 'users'];
-}
+    my ($self) = @_;
+    my @mods = ('firewall', 'users');
+    if ($self->_antivirusNeeded()) {
+        push @mods,  'antivirus';
+    }
 
+
+    return \@mods;
+}
 
 
 # Method: serviceModuleName 
@@ -272,11 +283,6 @@ sub serviceModuleName
     return 'squid';
 }
 
-sub _stopService 
-{
-    EBox::Service::manage('ebox.squid', 'stop');
-    EBox::Service::manage('ebox.dansguardian', 'stop');
-}
 
 sub _cache_mem 
 {
@@ -561,6 +567,22 @@ sub dansguardianPort
 }
 
 
+sub _antivirusNeeded
+{
+    my ($self, $filterGroups_r) = @_;
+    if (not $filterGroups_r) {
+        $filterGroups_r = $self->_dgFilterGroups();
+    }
+
+    foreach my $filterGroup (@{ $filterGroups_r }) {
+        if ($filterGroup->{antivirus}) {
+            return 1;
+        }
+    }
+
+    return 0;
+} 
+
 sub _writeSquidConf
 {
   my ($self) = @_;
@@ -594,13 +616,18 @@ sub _writeDgConf
   my $lang = $self->_DGLang();
 
   my @dgFilterGroups = @{ $self->_dgFilterGroups };
+  
 
   my @writeParam = ();
+
   push(@writeParam, 'port'  => DGPORT);
   push(@writeParam, 'lang'  => $lang);
   push(@writeParam, 'squidport'  => $self->port);
   push(@writeParam, weightedPhraseThreshold  => $self->_banThresholdActive);
   push(@writeParam, nGroups => scalar @dgFilterGroups);
+
+  my $antivirus = $self->_antivirusNeeded(\@dgFilterGroups);
+  push(@writeParam, 'antivirus' => $antivirus);
 
   $self->writeConfFile(DGDIR . "/dansguardian.conf",
                        "squid/dansguardian.conf.mas", \@writeParam);
@@ -622,6 +649,7 @@ sub _writeDgConf
 
 
       push(@writeParam, 'group'  => $number);
+      push(@writeParam, 'antivirus', $group->{antivirus});
       push(@writeParam, 'threshold'  => $group->{threshold});
       push(@writeParam, 'groupName'  => $group->{groupName});
       push(@writeParam, 'defaults'      => $group->{defaults});
@@ -650,6 +678,11 @@ sub _writeDgConf
 
 }
 
+
+sub _antivirusUsed
+{
+
+}
 
 sub revokeConfig
 {
@@ -725,62 +758,6 @@ sub _dgFilterGroups
 }
 
 
-# sub _defaultGroup
-# {
-#     my ($self) = @_;
-
-#     my $default = {
-#                    number => 1,
-#                    groupName => 'default',
-#                    threshold => $self->banThreshold,
-#                    bannedExtensions =>  $self->model('ExtensionFilter')->banned(),
-#                    bannedMIMETypes =>  $self->model('MIMEFilter')->banned(),
-#                    defaults => {},
-#                   };
-
-#     my $domainFilter      = $self->model('DomainFilter');
-#     my $domainFilterFiles = $self->model('DomainFilterFiles');
-
-#     $default->{exceptionsitelist} = [ 
-#                         domains => $domainFilter->allowed(),
-#                                      includes => $domainFilterFiles->allowed(),
-#                        ];
-
-#     $default->{exceptionurllist} = [
-#                                     domains => [],
-#                                     includes => $domainFilterFiles->allowedUrls(),
-#                                    ];
-
-#     $default->{greysitelist} = [ 
-#                         domains => $domainFilter->filtered(),
-#                         includes => $domainFilterFiles->filtered(),
-#                        ];
-  
-#     $default->{greyurllist} = [ 
-#                         domains => [],
-#                         includes => $domainFilterFiles->filteredUrls(),
-#                        ];
-
-
-
-#     $default->{bannedurllist} = [ 
-#                         domains => [],
-#                         includes => $domainFilterFiles->bannedUrls(),
-#                        ];
-
-  
-  
-#   my $domainFilterSettings = $self->model('DomainFilterSettings');
-    
-#   $default->{bannedsitelist} = [
-#                     blockIp       => $domainFilterSettings->blockIpValue,
-#                     blanketBlock  => $domainFilterSettings->blanketBlockValue,
-#                     domains       => $domainFilter->banned(),
-#                     includes      => $domainFilterFiles->banned(),
-#                    ];
-
-#     return $default;
-# }
 
 sub _writeDgDomainsConf
 {
