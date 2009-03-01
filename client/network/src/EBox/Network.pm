@@ -2597,7 +2597,7 @@ sub interfacesWidget
 
         $graphs->add(new EBox::Dashboard::CounterGraph
             (__("Tx bytes"),
-            "txbytes",
+            $iface . "_txbytes",
             `$cmd`,
             'small'));
 
@@ -2606,7 +2606,7 @@ sub interfacesWidget
 
         $graphs->add(new EBox::Dashboard::CounterGraph
             (__("Rx bytes"),
-            "rxbytes",
+            $iface . "_rxbytes",
             `$cmd`,
             'small'));
     }
