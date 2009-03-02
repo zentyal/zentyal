@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-24 00:55+0000\n"
+"PO-Revision-Date: 2009-01-29 12:05+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -242,7 +242,6 @@ msgid "Date"
 msgstr "Datum"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Antivirus database update status"
 msgstr "Status der Antivirus-Aktualisierung"
 
@@ -491,27 +490,23 @@ msgstr "Verkehr"
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
-#, fuzzy
 msgid "total messages"
-msgstr "saubere Nachrichten"
+msgstr "Gesamt Nachrichten"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
-#, fuzzy
 msgid "infected messages "
-msgstr "saubere Nachrichten"
+msgstr "infizierte Nachrichten"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
-#, fuzzy
 msgid "spam messages"
-msgstr "saubere Nachrichten"
+msgstr "Spam-Nachrichten"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
-#, fuzzy
 msgid "infected messages"
-msgstr "saubere Nachrichten"
+msgstr "infizierte Nachrichten"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
 #, fuzzy
@@ -528,9 +523,8 @@ msgstr ""
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:64
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
-#, fuzzy
 msgid "Enabled"
-msgstr "Deaktiviert"
+msgstr "Aktiviert"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:70
 msgid "Antivirus enabled"
@@ -557,7 +551,6 @@ msgid "mail address"
 msgstr "E-Mail-Adresse"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:109
-#, fuzzy
 msgid "General  settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -567,14 +560,12 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
-#, fuzzy
 msgid "Filter virus"
-msgstr "Filter-Verkehr"
+msgstr "Virus filtern"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
-#, fuzzy
 msgid "Filter spam"
-msgstr "E-Mail Filter System"
+msgstr "Spam filtern"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
 #, fuzzy
@@ -840,32 +831,29 @@ msgid "Client's address"
 msgstr "Adresse des Empfängers"
 
 #: src/EBox/MailFilter.pm:609
-#, fuzzy
 msgid "Total messages"
-msgstr "saubere Nachrichten"
+msgstr "Gesamte Nachrichten"
 
 #: src/EBox/MailFilter.pm:610
-#, fuzzy
 msgid "Clean messages"
-msgstr "saubere Nachrichten"
+msgstr "Saubere Nachrichten"
 
 #: src/EBox/MailFilter.pm:611
-#, fuzzy
 msgid "Virus messages"
-msgstr "saubere Nachrichten"
+msgstr "Nachrichten mit Virus"
 
 #: src/EBox/MailFilter.pm:612
-#, fuzzy
 msgid "Spam messages"
-msgstr "saubere Nachrichten"
+msgstr "Spam-Nachrichten"
 
 #: src/EBox/MailFilter.pm:619
+#, fuzzy
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "POP3-Übertragung fertig"
 
 #: src/EBox/MailFilter.pm:621
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "POP3-Übertragung abgebrochen"
 
 #: src/EBox/MailFilter.pm:629
 msgid "POP3 proxy"
@@ -878,7 +866,7 @@ msgstr "Mailfilter"
 #: src/EBox/MailFilter.pm:727
 #, fuzzy
 msgid "SMTP mail filter"
-msgstr "Mailfilter"
+msgstr "SMTP-Mailfilter"
 
 #: src/EBox/MailFilter.pm:755
 msgid "Files ACL"
@@ -886,11 +874,11 @@ msgstr ""
 
 #: migration/0004_add_firewall_services.pl:50
 msgid "POP3 protocol"
-msgstr ""
+msgstr "POP3-Protokoll"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
-msgstr ""
+msgstr "[Virus] wurde in einer Mail an Sie gefunden:"
 
 #~ msgid "Mail filter system"
 #~ msgstr "E-Mail Filter-System"

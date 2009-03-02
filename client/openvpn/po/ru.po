@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-04-11 16:24+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-02-08 19:13+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
@@ -35,42 +36,41 @@ msgstr "Не могу получить адрес для этого сервер
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
-#, fuzzy
 msgid "The client certificate can't be the same than the server's one"
 msgstr "Сертификат клиента не может быть таким же как у сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Несуществующий файл {path}"
+msgstr "Файл сертификата CA существует {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Изменить клиентский сертификат"
+msgstr "Клиентский файл сертификатат существует {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Файл сертифакта приватного ключа существует {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Файл представленный, как сертификат  CA не действителен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Файл представленный, как клиентский сертификат не действителен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:99
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:99
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Файл представленный, как клиентский приватный ключ не действителен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:112
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
@@ -78,6 +78,8 @@ msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Файл представленный, как клиентский сертификат не соответствует файлу "
+"представленному,  как CA серификат"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:141
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
@@ -85,6 +87,8 @@ msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Файл представленный, как клиентский сертификат не соответствует файлу "
+"представленному, как сертификат приватного ключа"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:60
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:694
@@ -106,9 +110,8 @@ msgstr "Имя"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:76
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:75
 #: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
-#, fuzzy
 msgid "Configuration"
-msgstr "Конфигурация клиента {name}"
+msgstr "Конфигурация"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:85
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
@@ -122,27 +125,24 @@ msgstr "Объявленные сети"
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 msgid "Download client bundle"
-msgstr ""
+msgstr "Загрузить клиентский пакет"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:106
 #: src/EBox/OpenVPN/Model/Servers.pm:106
-#, fuzzy
 msgid "List of servers"
-msgstr "Служба OpenVPN"
+msgstr "Список серверов"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:107
 #: src/EBox/OpenVPN/Model/Servers.pm:107
-#, fuzzy
 msgid "VPN servers"
-msgstr "Служба OpenVPN"
+msgstr "VPN сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:113
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 #: src/EBox/OpenVPN/Model/Servers.pm:113
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
-#, fuzzy
 msgid "server"
-msgstr "Сервер"
+msgstr "сервер"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:158
 #: src/EBox/OpenVPN/Model/Servers.pm:158
@@ -153,12 +153,16 @@ msgid ""
 "manager module{closehref} and create new certificates.{closepar}{openpar}You "
 "will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
+"{openpar}Вы не можете создать VPN сервера поскольку не имеете необходимого "
+"числа сертификатов.{closepar}{openpar}Пожалуйста, перейдите{openhref} в "
+"модуль менеджера сертификатов{closehref} и создайте новые "
+"сертификаты.{closepar}{openpar}Вам по крайне мере необходим один CA и один "
+"сертификат.{closepar}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:173
 #: src/EBox/OpenVPN/Model/Servers.pm:173
-#, fuzzy
 msgid "Server creation"
-msgstr "Создание сервера OpenVPN"
+msgstr "Создание сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:271
 #: src/EBox/OpenVPN/Model/Servers.pm:271
@@ -166,12 +170,13 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Невозможно активировать сервер он не полностью сконфигурирован, пожалуйста "
+"отредактируйте конфигурацию и вернитесь"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:278
 #: src/EBox/OpenVPN/Model/Servers.pm:278
-#, fuzzy
 msgid "Server activation"
-msgstr "Конфигурация сервера {name}"
+msgstr "Активация сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:305
 #: src/EBox/OpenVPN/Model/Servers.pm:305
@@ -180,6 +185,9 @@ msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
+"{act} не возможно, потому что нет никакого доступных сертификатов. "
+"Пожалуйста, перейдите в модуль авторизации сертификатов и создайте новые "
+"сертификаты"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:318
 #: src/EBox/OpenVPN/Model/Servers.pm:318
@@ -192,31 +200,37 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Вы можете настроить openVPN сервера, для простого подключения "
+"удаленных офисов и пользователей.{closepar}{openpar}Нажмите "
+"{openit}Конфигурация{closeit} установите параметры "
+"VPN.{closepar}{openpar}{openit}Объявленные сети{closeit} позволяет настроить "
+"сети, которые вы хотите сделать доступными для удаленных "
+"пользователей.{openpar}После того, как вы сделаете конфигурацию, вы сможете "
+"загрузить файл-пакет для операционной системы используемой на ваших "
+"клиентах."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
-#, fuzzy
 msgid "Server port"
 msgstr "Порт сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
-#, fuzzy
 msgid "VPN address"
-msgstr "Адрес сети"
+msgstr "VPN адрес"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "Use a network address which is not used by this machine"
 msgstr ""
+"Используйте сетевой адреса, который не используется на данном компьютере"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:85
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:85
-#, fuzzy
 msgid "Server certificate"
-msgstr "Сертификат"
+msgstr "Сертификат сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:92
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:92
@@ -228,17 +242,17 @@ msgstr "Авторизация клиента по имени"
 msgid ""
 "If disabled all clients with a certificate generated by eBox could connect"
 msgstr ""
+"Если отключить все клиенты с сертификатами выданными Ebox для подключения"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:99
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:99
-#, fuzzy
 msgid "Network Address Translation"
-msgstr "адрес сети"
+msgstr "Network Address Translation"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:102
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:102
 msgid "Enable it if you only have one network interface"
-msgstr ""
+msgstr "Включите это, если у вас только один сетевой интерфейс"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:106
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:106
@@ -248,7 +262,7 @@ msgstr "Разрешить client-to-client соединения"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:109
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:109
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr ""
+msgstr "Включите это, чтобы клиентские машины этого VPN видели друг друга"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:114
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:114
@@ -258,13 +272,12 @@ msgstr "Разрешить eBox-to-eBox туннели"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:117
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:117
 msgid "Enable it if this VPN is used to connect to another eBox"
-msgstr ""
+msgstr "Включите это, если этот VPN используется для подключения к другому eBox"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:122
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:122
-#, fuzzy
 msgid "eBox-to-eBox tunnel password"
-msgstr "Разрешить eBox-to-eBox туннели"
+msgstr "Пароль туннеля eBox-to-eBox"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:130
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:130
@@ -273,44 +286,41 @@ msgstr "Прослушиваемый интерфейс"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
-#, fuzzy
 msgid "Server configuration"
-msgstr "Конфигурация сервера {name}"
+msgstr "Конфигурация сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:178
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:178
-#, fuzzy
 msgid "All network interfaces"
-msgstr "Все внешние интерфейсы"
+msgstr "Все сетевые интерфейсы"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:229
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:229
-#, fuzzy
 msgid "eBox to eBox tunel option requieres a RIP password"
-msgstr "Разрешить eBox-to-eBox туннели"
+msgstr "Настройка туннель eBox-to-eBox требующего пароль RIP"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:254
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:254
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Другой сервер прослушивает этот же порт"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:301
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:301
 #, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "Порт {p} не доступен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:360
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:360
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr "Сертификат {cn} не существует"
+msgstr "Интерфейс {iface} не существует"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:365
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:365
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Интерфейс {iface} не настроен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:383
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:383
@@ -318,6 +328,8 @@ msgid ""
 "Cannot use Network Address translation beacuse it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Не возможно использовать Network Address Translation так как требуется "
+"модуль файрвола. Модуль  или не установлен или не активизирован."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:390
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:390
@@ -325,6 +337,8 @@ msgid ""
 "Cannot use Network Address translation beacuse it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Не возможно использовать Network Address Translation так как требуется "
+"модуль файрвола. Пожалуйста активизируйте его и попробуйте еще раз"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:427
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:427
@@ -332,26 +346,26 @@ msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Когда опция network address translation включена, необходим по крайне мере "
+"один внешний интерфейс для поключения к серверу. "
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:436
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:436
 msgid ""
 "The interface must be a external interface, unless masuqerade option is on"
-msgstr ""
+msgstr "Необходим внешний интерфейс, если не получается с маскарадингом."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
-#, fuzzy
 msgid "Advertised network"
 msgstr "Объявленные сети"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
-#, fuzzy
 msgid "List of networks"
-msgstr "Объявленные сети"
+msgstr "Список сетей"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
@@ -364,30 +378,28 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
-#, fuzzy
 msgid "Client's type"
-msgstr "Клиенты"
+msgstr "Типы клиентов"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
 msgid "Client's certificate"
-msgstr "Сертификат клиента"
+msgstr "Сертификаты клиентов"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Добавить установщик OpenVPN в пакет"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Установщик OpenVPN для Microsoft Windows"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
-#, fuzzy
 msgid "Server address"
 msgstr "Адрес сервера"
 
@@ -397,26 +409,25 @@ msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Это адрес, который будет использваться вашими клиентами для подключения к "
+"серверу. Обычно, это либо публичный IP либо имя узла."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
-#, fuzzy
 msgid "Additional server address (optional)"
-msgstr "Адрес сервера"
+msgstr "Дополнительный адрес сервера (не обязательный)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-#, fuzzy
 msgid "Configure bundle"
-msgstr "Настройки клиента {name} обновлены"
+msgstr "Настройка пакета"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
-#, fuzzy
 msgid "EBox to EBox tunnel"
-msgstr "Разрешить eBox-to-eBox туннели"
+msgstr "EBox to EBox туннель"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
@@ -424,27 +435,28 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Невозможно сделать пакет, сервер не сконфигурирован. Пожалуйста "
+"отредактируйте конфигурацию и попытайтесь заново."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
-#, fuzzy
 msgid "Cannot use for the bundle the server's certificate"
-msgstr "Секретный ключ использован для создания клиентского сертификата"
+msgstr "НЕ возможно использовать для пакета сертификат сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
-msgstr ""
+msgstr "Неправильный тип клиента: cервер не разрешает тунели eBox-to-eBox"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
-msgstr ""
+msgstr "Неправильный тип клиента: сервер предназначен для тунелей eBox-to-eBox"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Установщик доступен только для Windows клиентов"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
@@ -452,6 +464,8 @@ msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Клиентский пакет является файлом содержащим готовые конфигурации для ваших "
+"клиентов."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:67
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:695
@@ -463,17 +477,15 @@ msgstr "Служба"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:94
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-#, fuzzy
 msgid "VPN clients"
-msgstr "Клиенты"
+msgstr "VPN клиенты"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:100
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:134
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:134
 #: src/EBox/OpenVPN/Model/Clients.pm:100
-#, fuzzy
 msgid "client"
-msgstr "Клиент"
+msgstr "клиент"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:143
 #: src/EBox/OpenVPN/Model/Clients.pm:143
@@ -481,17 +493,18 @@ msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Не возможно активировать клиента так как не полностью сконфигурирован. "
+"Пожалуйста отредактируйте конфиграцию и вернитесь сюда позже."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:180
 #: src/EBox/OpenVPN/Model/Clients.pm:180
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "Пароль RIP обязателен"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-#, fuzzy
 msgid "Upload configuration's bundle"
-msgstr "Настройки клиента {name} обновлены"
+msgstr "Загрузка пакета конфигурации"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
@@ -506,36 +519,33 @@ msgstr "CA-сертификат"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:107
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:107
 msgid "Client's private key"
-msgstr "Секретный ключ клиента"
+msgstr "Приватный ключ клиента"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:117
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:117
-#, fuzzy
 msgid "Server tunnel password"
-msgstr "Разрешить eBox-to-eBox туннели"
+msgstr "Пароль туннеля сервера"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:128
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:128
-#, fuzzy
 msgid "Client configuration"
-msgstr "Конфигурация клиента {name}"
+msgstr "Конфигурация клиента"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:227
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:227
 #, perl-brace-format
 msgid "No file supplied or already setted for {f}"
-msgstr ""
+msgstr "Нет представленного файла или уже установлен для {f}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
-#, fuzzy
 msgid "Deleted daemons"
-msgstr "Демоны OpenVPN"
+msgstr "Удаление демона"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr ""
+msgstr "демон"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Types/TlsRemote.pm:52
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
@@ -546,7 +556,7 @@ msgstr "отключено"
 #: src/EBox/OpenVPN/Server.pm:84
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "Порт {p}/{pro} уже используется"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:180
 #: src/EBox/OpenVPN/Server.pm:180
@@ -591,13 +601,13 @@ msgstr "Не найден IP-адрес для интерфейса {iface}"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:479
 #: src/EBox/OpenVPN/Server.pm:479
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "OpenVPN сервера не могут быть использованы для внутренних служб"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:503
 #: src/EBox/OpenVPN/Server.pm:503
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Не поддерживаемый тип клиента: {ct}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:692
 #: src/EBox/OpenVPN/Server.pm:692
@@ -651,9 +661,8 @@ msgstr "VPN-подсеть"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:713
 #: src/EBox/OpenVPN/Server.pm:713
-#, fuzzy
 msgid "VPN network interface"
-msgstr "маска VPN-подсети"
+msgstr "VPN сетевой интерфейс"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:717
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:719
@@ -661,16 +670,14 @@ msgstr "маска VPN-подсети"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:331
 #: src/EBox/OpenVPN/Server.pm:717 src/EBox/OpenVPN/Server.pm:719
 #: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
-#, fuzzy
 msgid "VPN interface address"
-msgstr "адрес сети"
+msgstr "VPN адрес интерфейса"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:719
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:331
 #: src/EBox/OpenVPN/Server.pm:719 src/EBox/OpenVPN/Client.pm:331
-#, fuzzy
 msgid "No active"
-msgstr "Активный"
+msgstr "Не активный"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:311
 #: src/EBox/OpenVPN/Client.pm:311
@@ -685,52 +692,52 @@ msgstr "Объект подключения"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:68
 #: src/EBox/OpenVPN.pm:71
-#, fuzzy
 msgid "openVPN"
-msgstr "OpenVPN"
+msgstr "openVPN"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:141
 #: src/EBox/OpenVPN.pm:144
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "Для настройки Quagga сначала запустите ripd и zebra"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:147
 #: src/EBox/OpenVPN.pm:150
 msgid "To configure Quagga to listen on the given interfaces"
-msgstr ""
+msgstr "Настроить Quagga на прослушивание данных интерфейсов"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:152
 #: src/EBox/OpenVPN.pm:155
-#, fuzzy
 msgid "Main zebra configuration file"
-msgstr "Конфигурация клиента {name}"
+msgstr "Главный конфигурационный файл zebra"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:158
 #: src/EBox/OpenVPN.pm:161
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
+"Настройка ripd по обмену маршрутами с клиентом для клиентского подключения"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:669
 #: src/EBox/OpenVPN.pm:672
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
 "{name} - неверное имя для демона OpenVPN. Только буквенно-цифровые символы и "
-"символ подчеркивания разрешены"
+"символы '-','_','.' разрешены"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:682
 #: src/EBox/OpenVPN.pm:685
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
+"Не возможно использовать имя {n} пока другой клиент использует такое же имя."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:693
 #: src/EBox/OpenVPN.pm:696
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr ""
+msgstr "Не возможно использовать имя {n} пока сервер использует такое же имя"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:715
 #: src/EBox/OpenVPN.pm:718
@@ -739,6 +746,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Неправильное имя {name}. Имена начинающиеся с приставки {pf} зарезерфированы "
+"для внутреннего использования"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:724
 #: src/EBox/OpenVPN.pm:727
@@ -747,18 +756,19 @@ msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Неправильное имя {name}. Имя внутренего демона должно начинатся с приставки "
+"{pf}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1438
 #: src/EBox/OpenVPN.pm:1441
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exists"
-msgstr "Сертификат {cn} не существует"
+msgstr "Клиент {c} не существует"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1458
 #: src/EBox/OpenVPN.pm:1461
-#, fuzzy
 msgid "VPN"
-msgstr "OpenVPN"
+msgstr "VPN"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1464
 #: src/EBox/OpenVPN.pm:1467
@@ -772,26 +782,23 @@ msgstr "Клиенты"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
-#, fuzzy
 msgid "Common name"
-msgstr "Имя клиента"
+msgstr "Канноническое имя"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
-#, fuzzy
 msgid "Address"
-msgstr "Адрес сети"
+msgstr "Адрес"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
-#, fuzzy
 msgid "Connected since"
-msgstr "Объект подключения"
+msgstr "Подключенные"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1507
 #: src/EBox/OpenVPN.pm:1510
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Нет пользователей подключенных к VPN"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1542
 #: src/EBox/OpenVPN.pm:1551
@@ -800,74 +807,69 @@ msgstr "Демоны OpenVPN"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1606
 #: src/EBox/OpenVPN.pm:1617
-#, fuzzy
 msgid "Date"
-msgstr "Создать"
+msgstr "Дата"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1607
 #: src/EBox/OpenVPN.pm:1618
 msgid "Event"
-msgstr ""
+msgstr "Событие"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1609
 #: src/EBox/OpenVPN.pm:1620
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1610
 #: src/EBox/OpenVPN.pm:1621
 msgid "Remote IP"
-msgstr ""
+msgstr "Удаленный IP"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1611
 #: src/EBox/OpenVPN.pm:1622
-#, fuzzy
 msgid "Remote Certificate"
-msgstr "Сертификат"
+msgstr "Сертификат удаленного"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1616
 #: src/EBox/OpenVPN.pm:1627
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Последовательность инициализации закончена"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1618
 #: src/EBox/OpenVPN.pm:1629
+#, fuzzy
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Не разрешенный сертификат"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1619
 #: src/EBox/OpenVPN.pm:1630
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Не разрешенный сертификат имени"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1620
 #: src/EBox/OpenVPN.pm:1631
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Неудачная проверка сертификата"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1622
 #: src/EBox/OpenVPN.pm:1633
-#, fuzzy
 msgid "Client connection initiated"
-msgstr "Сертификат клиента"
+msgstr "Инициализация клиентского соединения"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1623
 #: src/EBox/OpenVPN.pm:1634
-#, fuzzy
 msgid "Client connection terminated"
-msgstr "Сертификат клиента"
+msgstr "Окончание клиентского соединения"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1625
 #: src/EBox/OpenVPN.pm:1636
-#, fuzzy
 msgid "Connection to server initiated"
-msgstr "Объект подключения"
+msgstr "Инициализация подключения к серверу"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1626
 #: src/EBox/OpenVPN.pm:1637
-#, fuzzy
 msgid "Server connection terminated"
-msgstr "Настройки сервера {name} обновлены"
+msgstr "Окончание подключения к серверу"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1630
 #: src/EBox/OpenVPN.pm:1641
@@ -877,7 +879,7 @@ msgstr "OpenVPN"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1655
 #: src/EBox/OpenVPN.pm:1666
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Вы должны установить insecure_rip_conf в yes или no"
 
 #~ msgid "OpenVPN service"
 #~ msgstr "Служба OpenVPN"

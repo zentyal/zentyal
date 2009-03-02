@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-24 01:07+0000\n"
+"PO-Revision-Date: 2009-01-30 17:55+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -204,7 +204,7 @@ msgstr "IP-Adresse eines Smarthost, der E-Mails versendet"
 #: src/EBox/Mail/Model/SMTPOptions.pm:90
 #, fuzzy
 msgid "Smarthost authentication"
-msgstr "Anmeldung erforderlich"
+msgstr "Smarthost Authentifikation"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:95
 #, fuzzy
@@ -213,15 +213,15 @@ msgstr "keiner"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User and password"
-msgstr ""
+msgstr "Benutzer und Passwort"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:105
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:123
 msgid "Maximum message size accepted"
@@ -249,14 +249,12 @@ msgid "Mail virtual domains"
 msgstr "Virtuelle Mail-Domäne"
 
 #: src/EBox/Mail/Model/VDomains.pm:83
-#, fuzzy
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
 "Virtuelle Domäne hinzügefügt. Sie müssen die Änderungen speichern um diese "
 "Domäne zu nutzen"
 
 #: src/EBox/Mail/Model/VDomains.pm:113
-#, fuzzy
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
@@ -311,7 +309,7 @@ msgstr ""
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 #, fuzzy
 msgid "Greylist configuration"
-msgstr "Die Einstellungen für den Mailverteiler wurden aktualisiert"
+msgstr "Greylist Konfiguration"
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
@@ -353,7 +351,7 @@ msgstr "Mail"
 #: src/EBox/Mail.pm:112
 #, perl-brace-format
 msgid "Add {user} to {group} group"
-msgstr ""
+msgstr "Füge {user} zur Gruppe {group} hinzu"
 
 #: src/EBox/Mail.pm:114
 #, fuzzy, perl-brace-format
@@ -367,17 +365,16 @@ msgstr "Neue Mail-Aliases erstellen"
 #: src/EBox/Mail.pm:122
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr ""
+msgstr "eBox wird {cmd} ausführen"
 
 #: src/EBox/Mail.pm:126
 msgid "Add LDAP schemas"
 msgstr "LDAP-Schemas hinzufügen"
 
 #: src/EBox/Mail.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
-msgstr ""
-"eBox wird zwei LDAP-Schemas hinzufügen: authldap.schema und eboximail.schema"
+msgstr "eBox wird zwei LDAP-Schemas hinzufügen: {schema1} und {schema2}."
 
 #: src/EBox/Mail.pm:147
 msgid "To configure postfix"
@@ -443,12 +440,12 @@ msgstr ""
 "deaktivieren Sie es"
 
 #: src/EBox/Mail.pm:623
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The mail filter {name} is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"Den Mailfilter $name gibt es nicht. Bitte wählen Sie einen anderen "
+"Der Mailfilter {name} ist nicht aktiv. Bitte wählen Sie einen anderen "
 "Mailfilter oder deaktivieren Sie ihn"
 
 #: src/EBox/Mail.pm:1031
@@ -472,14 +469,12 @@ msgid "Status"
 msgstr "Status"
 
 #: src/EBox/Mail.pm:1072
-#, fuzzy
 msgid "Mail server's filter"
-msgstr "Mail-Server Einstellungen"
+msgstr "Filter des Mail-Servers"
 
 #: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
-#, fuzzy
 msgid "Filter type"
-msgstr "Filter"
+msgstr "Filter-Art"
 
 #: src/EBox/Mail.pm:1082
 msgid "Custom"
@@ -497,9 +492,11 @@ msgstr "Allgemein"
 msgid "Virtual mail domains"
 msgstr "Virtuelle Mail-Domänen"
 
+# no common german expression
 #: src/EBox/Mail.pm:1128
+#, fuzzy
 msgid "Greylist"
-msgstr ""
+msgstr "Greylist"
 
 #: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
 msgid "Date"

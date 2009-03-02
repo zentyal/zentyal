@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-01-29 11:41+0000\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor.pm:73 src/EBox/Monitor.pm:194
 #: src/EBox/Event/Watcher/Monitor.pm:145
@@ -37,7 +38,7 @@ msgstr ""
 #: src/EBox/Monitor/Measure/Load.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "Systemauslastung"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
@@ -88,7 +89,7 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:75
@@ -167,7 +168,7 @@ msgstr ""
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "frei"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
@@ -189,7 +190,7 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:104
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:110
 msgid "temperature"
-msgstr ""
+msgstr "Temperatur"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:117
@@ -205,7 +206,7 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:121
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "Temperatur für {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:127
@@ -349,7 +350,7 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 msgid "Data Source"
-msgstr ""
+msgstr "Datenquelle"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293

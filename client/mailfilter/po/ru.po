@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-16 16:23+0000\n"
+"PO-Revision-Date: 2009-01-25 14:18+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:40
@@ -88,7 +88,7 @@ msgstr "Автоматический белый список"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "Изменение баллов почты согласно истории отправителя"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
 msgid "Auto-learn"
@@ -224,9 +224,8 @@ msgid "Date"
 msgstr "Дата"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Antivirus database update status"
-msgstr "Состояние обновления базы данных"
+msgstr "Состояние обновления антивирусной базы"
 
 #: src/EBox/MailFilter/Model/FreshclamStatus.pm:126
 msgid ""
@@ -279,11 +278,12 @@ msgid "MIME type"
 msgstr "MIME тип"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
-#, fuzzy
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
-msgstr "MIME типы не перечисленные ниже разрешены"
+msgstr ""
+"MIME типы не перечисленные ниже разрешены. MIME типы не используются POP "
+"прозрачном прокси"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -472,46 +472,40 @@ msgstr "трафик"
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
-#, fuzzy
 msgid "total messages"
-msgstr "чистые сообщения"
+msgstr "всего сообщений"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
-#, fuzzy
 msgid "infected messages "
-msgstr "чистые сообщения"
+msgstr "зараженных сообщений"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
-#, fuzzy
 msgid "spam messages"
-msgstr "чистые сообщения"
+msgstr "спам сообщений"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
-#, fuzzy
 msgid "infected messages"
-msgstr "чистые сообщения"
+msgstr "зараженных сообщений"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
-#, fuzzy
 msgid "Transparent POP proxy traffic details"
-msgstr "Подробности фильтра трафика"
+msgstr "Подробности трафика POP прозрачного прокси "
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
-msgstr ""
+msgstr "График POP прокси"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
 msgid "Transparent POP proxy traffic"
-msgstr ""
+msgstr "Трафик POP прозрачного прокси"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:64
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
-#, fuzzy
 msgid "Enabled"
-msgstr "Отключено"
+msgstr "Включено"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:70
 msgid "Antivirus enabled"
@@ -526,9 +520,8 @@ msgid "Service's port"
 msgstr "Порт службы"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#, fuzzy
 msgid "Notify of non-spam problematic messages"
-msgstr "Сообщение не спам проблемное сообщение"
+msgstr "Уведомление проблемное сообщение не спам"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:94
 msgid "Disabled"
@@ -539,7 +532,6 @@ msgid "mail address"
 msgstr "почтовый адрес"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:109
-#, fuzzy
 msgid "General  settings"
 msgstr "Общие настройки"
 
@@ -549,36 +541,36 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "Порт {port} уже используется модулем {mod}"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
-#, fuzzy
 msgid "Filter virus"
-msgstr "Фильтр трафика"
+msgstr "Фильтр вирусов"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
-#, fuzzy
 msgid "Filter spam"
-msgstr "Фильтр трафика"
+msgstr "Фильтр спама"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-#, fuzzy
 msgid "ISP spam subject"
-msgstr "Признак спама"
+msgstr "Предположение ISP спам "
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Опция позволяет устанавливать строку ваш ISP использует если\n"
+", он обрабатывает почтовый спам."
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#, fuzzy
 msgid "POP transparent proxy configuration"
-msgstr "Настройка антиспам"
+msgstr "Настройка POP прозрачный прокси"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"Прозрачный POP прокси должен сканировать, чтобы быть полезным. Если вам не "
+"нужно антивирусное и спам сканирование мы предлагаем отключить его."
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
 msgid "Virus policy"
@@ -593,14 +585,12 @@ msgid "Banned files policy"
 msgstr "Политика блокирования файлов"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
-#, fuzzy
 msgid "Bad header policy"
 msgstr "Политика плохих заголовков"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "SMTP filter policies"
-msgstr "Политика почтовых фильтров"
+msgstr "Политики SMTP фильтра"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
 msgid "External connections"
@@ -611,11 +601,12 @@ msgid "Attached files filter"
 msgstr "Фильтр почтовых вложений"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:65
-#, fuzzy
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
-msgstr "Фильтр почтовых сообщений содержащих вложения"
+msgstr ""
+"Фильтр почтовых сообщений содержащих вложения. В прозрачном POP прокси, "
+"только фильтр по расширению"
 
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 #: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:352
@@ -634,13 +625,12 @@ msgstr "Отчет почтового фильтра"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Отчет прозрачного POP прокси"
 
 #: src/EBox/MailFilter/Composite/Amavis.pm:69
 #: src/EBox/MailFilter/POPProxy.pm:323 src/EBox/MailFilter.pm:584
-#, fuzzy
 msgid "SMTP filter"
-msgstr "Почтовые фильтры"
+msgstr "SMTP фильтр"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
 msgid "Write down a decimal number"
@@ -711,7 +701,7 @@ msgstr "eBox внутрений почтовый фильтр"
 #: src/EBox/MailFilter/Amavis.pm:422 src/EBox/MailFilter.pm:734
 #: migration/0004_add_firewall_services.pl:32
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "Прозрачный POP прокси"
 
 #: src/EBox/MailFilter/Amavis.pm:445 src/EBox/MailFilter/POPProxy.pm:343
 #: src/EBox/MailFilter.pm:741
@@ -719,14 +709,12 @@ msgid "Antivirus"
 msgstr "Антивирус"
 
 #: src/EBox/MailFilter/POPProxy.pm:47
-#, fuzzy
 msgid " To configure p3scan"
-msgstr "Настроить amavis"
+msgstr "Настроить p3scan"
 
 #: src/EBox/MailFilter/POPProxy.pm:52
-#, fuzzy
 msgid "To configure renattach"
-msgstr "Настроить amavis"
+msgstr "Настроить renattach"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Add clamav user to amavis group"
@@ -737,14 +725,12 @@ msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
 
 #: src/EBox/MailFilter.pm:91
-#, fuzzy
 msgid "Add clamav user to p3scan group"
-msgstr "Добавить пользователя clamav в группу amavis"
+msgstr "Добавить пользователя clamav в группу p3scan"
 
 #: src/EBox/MailFilter.pm:92
-#, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
+msgstr "Clamav необходим доступ к p3scan полям, чтобы сканировать POP прокси"
 
 #: src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
@@ -759,9 +745,8 @@ msgid "Cannot proceed because the filter is in use"
 msgstr "Не воможно фильтр используется"
 
 #: src/EBox/MailFilter.pm:535
-#, fuzzy
 msgid "Mail filter"
-msgstr "Почтовые фильтры"
+msgstr "Почтовый фильтр"
 
 #: src/EBox/MailFilter.pm:558
 msgid "Action"
@@ -808,67 +793,60 @@ msgid "Clean message"
 msgstr "Чистое сообщение"
 
 #: src/EBox/MailFilter.pm:605
-#, fuzzy
 msgid "Account"
-msgstr "Действие"
+msgstr "Аккаунт"
 
 #: src/EBox/MailFilter.pm:606
-#, fuzzy
 msgid "Client's address"
-msgstr "Адрес получателя"
+msgstr "Адреса клиентов"
 
 #: src/EBox/MailFilter.pm:609
-#, fuzzy
 msgid "Total messages"
-msgstr "чистые сообщения"
+msgstr "Всего сообщений"
 
 #: src/EBox/MailFilter.pm:610
-#, fuzzy
 msgid "Clean messages"
-msgstr "Чистое сообщение"
+msgstr "Чистые сообщения"
 
 #: src/EBox/MailFilter.pm:611
-#, fuzzy
 msgid "Virus messages"
-msgstr "чистые сообщения"
+msgstr "Зараженные сообщения"
 
 #: src/EBox/MailFilter.pm:612
-#, fuzzy
 msgid "Spam messages"
-msgstr "чистые сообщения"
+msgstr "Спам сообщения"
 
 #: src/EBox/MailFilter.pm:619
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "POP3 передача завершена"
 
 #: src/EBox/MailFilter.pm:621
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "POP3 передача прервана"
 
 #: src/EBox/MailFilter.pm:629
 msgid "POP3 proxy"
-msgstr ""
+msgstr "POP3 прокси"
 
 #: src/EBox/MailFilter.pm:721
 msgid "Mail Filter"
-msgstr "Почтовые фильтры"
+msgstr "Почтовый фильтр"
 
 #: src/EBox/MailFilter.pm:727
-#, fuzzy
 msgid "SMTP mail filter"
-msgstr "Почтовые фильтры"
+msgstr "SMTP почтовые фильтр"
 
 #: src/EBox/MailFilter.pm:755
 msgid "Files ACL"
-msgstr ""
+msgstr "ACL файлы"
 
 #: migration/0004_add_firewall_services.pl:50
 msgid "POP3 protocol"
-msgstr ""
+msgstr "Протокол POP3"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
-msgstr ""
+msgstr "Обнаружен [Virus] в почтовом сообщении:"
 
 #~ msgid "Mail filter system"
 #~ msgstr "Система почтовых фильтров"

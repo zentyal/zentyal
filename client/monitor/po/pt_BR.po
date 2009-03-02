@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-01-21 14:47+0000\n"
+"PO-Revision-Date: 2009-01-23 22:57+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -110,111 +110,113 @@ msgstr "nice"
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:77
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "interrupção leve"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:78
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "roubar"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:79
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "sistema"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:80
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "espera"
 
 #: src/EBox/Monitor/Measure/Base.pm:619
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Base.pm:619
 msgid "value"
-msgstr ""
+msgstr "valor"
 
 #: src/EBox/Monitor/Measure/Df.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:73
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "livre no {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:75
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "utilizado no {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:81
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:80
 msgid "File system usage"
-msgstr ""
+msgstr "Utilização do sistema de arquivos"
 
 #: src/EBox/Monitor/Measure/Df.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:81
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"Coleta informações de utilização do sistema de arquivos como o comando \"df\" "
+"faz"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Utilização de memória física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Coleta a utilização de memória física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "livre"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "cache de página"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "cache de buffer"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "utilizado"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:104
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:110
 msgid "temperature"
-msgstr ""
+msgstr "temperatura"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:117
 msgid "cooling device"
-msgstr ""
+msgstr "dispositivo de resfriamento"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:119
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:119
 msgid "sensor"
-msgstr ""
+msgstr "sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:121
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "Temperatura para {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:127
 msgid "Thermal"
-msgstr ""
+msgstr "Térmico"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:128
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:128
@@ -222,16 +224,18 @@ msgstr ""
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Coleta informações térmicas (sensores de temperatura da CPU) caso possível "
+"do {dir}"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Ao menos um threshold (máximo ou mínimo) deve ser configurado"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Esta regra de threshold irá sobrepor a atual"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:155
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:155
@@ -239,11 +243,13 @@ msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"A versão atual da ferramenta de monitoração não suporta distinção entre as "
+"origens dos dados"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 msgid "Failure minimum"
-msgstr ""
+msgstr "Falha mínima"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:222
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:222
@@ -251,11 +257,13 @@ msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Defina o menor limite de valores aceitaveis. Caso não definido o padrão será "
+"negativo ao infinito."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 msgid "Warning minimum"
-msgstr ""
+msgstr "Aviso mínimo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:230
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:230
@@ -264,18 +272,20 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Se o valor for menor que este valor e maior que {fmin} um aviso de alerta é "
+"enviado"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 msgid "failure minimum"
-msgstr ""
+msgstr "falha mínima"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 msgid "Warning maximum"
-msgstr ""
+msgstr "Aviso máximo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:239
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:239
@@ -284,18 +294,20 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Se o valor for maior que este valor e meor que {fmax} um aviso de alerta é "
+"enviado"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 msgid "failure maximum"
-msgstr ""
+msgstr "falha máxima"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:245
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:245
 msgid "Failure maximum"
-msgstr ""
+msgstr "Falha máxima"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:248
@@ -303,11 +315,13 @@ msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Defina o maior limite de valores aceitaveis. Caso não definido o padrão será "
+"positivo ao infinito."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:253
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:253
 msgid "Invert"
-msgstr ""
+msgstr "Inverter"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:256
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:256
@@ -316,21 +330,23 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Se definido como verdadeiro, a faixa de valores aceitaveis é invertida, ex. "
+"valores entre {fmin} e {fmax} ({wmin} e {wmax}) não são válidos."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 msgid "warning minimum"
-msgstr ""
+msgstr "aviso mínimo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 msgid "warning maximum"
-msgstr ""
+msgstr "aviso máximo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:263
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:263
 msgid "Persistent"
-msgstr ""
+msgstr "Persistente"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:266
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:266
@@ -339,43 +355,46 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Se definido como verdadeiro, um evento será expedido para cada valor fora da "
+"faixa aceitável. Se definido como falso, somente uma alteração de um valor "
+"aceitável para um inaceitável será expedido"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 msgid "Measure instance"
-msgstr ""
+msgstr "Medida exemplo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 msgid "Data Source"
-msgstr ""
+msgstr "Data de Origem"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Configuração de Threshold"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 msgid "Threshold's list"
-msgstr ""
+msgstr "Lista de Threshold"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold"
-msgstr ""
+msgstr "Threshold"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
+msgstr "Cada checagem é feita com a máxima resolução possível: {nSec} segundos"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:302
@@ -384,31 +403,33 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Aplicar esta configuração na conta será possível apenas se o monitor "
+"{openhref}observador de evento está ligado{closehref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:120
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:120
 msgid "Measure"
-msgstr ""
+msgstr "Medida"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:126
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:126
 msgid "Thresholds"
-msgstr ""
+msgstr "Thresholds"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:135
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Configurar observadores"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:136
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:136
 msgid "measure"
-msgstr ""
+msgstr "medida"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:141
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:141
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Cada medidor pode ter diversos thresholds para monitorar"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
@@ -417,65 +438,67 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "não aplicável"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "qualquer"
 
 #: src/EBox/Monitor/Configuration.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Última hora"
 
 #: src/EBox/Monitor/Configuration.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Último dia"
 
 #: src/EBox/Monitor/Configuration.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Último mês"
 
 #: src/EBox/Monitor/Configuration.pm:139
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Último ano"
 
 #: src/EBox/CGI/Index.pm:41
 #: debian/ebox-monitor/usr/share/perl5/EBox/CGI/Monitor/Index.pm:41
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitoração"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
 msgstr ""
+"Notificar quando um determinado valor tiver alcançado um determinado "
+"threshold"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" está atualmente {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "Isso está dentro da {severity} região de {minBound} e {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Isso está acima da {severity} threshold do {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Isso está abaixo da {severity} threshold do {bound}."

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-03 10:45+0000\n"
+"PO-Revision-Date: 2009-01-25 14:07+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
@@ -433,13 +433,12 @@ msgstr "Протокол"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:103
 #: src/EBox/Model/MultiGwRulesDataTable.pm:103
-#, fuzzy
 msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"Входящий интерфейс соответствующие пакеты. Если вы  соответствующую подсеть, "
-"вы должны выбрать  интерфейс этой подсети"
+"Входящий интерфейс соответствующим пакетам. Если вам нужна  соответствующую "
+"подсеть, вы должны выбрать  интерфейс этой подсети"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:109
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:111
@@ -516,7 +515,6 @@ msgstr "Мультишлюзовые правила"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:202
 #: src/EBox/Model/MultiGwRulesDataTable.pm:202
-#, fuzzy
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destination and so forth  to use the router you "
@@ -525,10 +523,11 @@ msgid ""
 "port or an IP address, then the rule will match all of them"
 msgstr ""
 "Вы можете решать какой тип трафика пускать через каждый шлюз. Таким образом, "
-"Вы можете заставить подсеть, службу, пункт назначения и т.п. использовать "
-"выбранный Вами роутер. Помните: правила применяются в последовательности "
-"\"сверху-вниз\". Вы можете поменять их положение. Если Вы не указали порт "
-"или IP-адрес, правило будет применяться ко всем значениям этих полей."
+"Вы можете заставить соответсвующую подсеть, службу, пункт назначения и т.п. "
+"использовать выбранный Вами роутер. Помните: правила применяются в "
+"последовательности \"сверху-вниз\". Вы можете поменять их положение. Если Вы "
+"не указали порт или IP-адрес, правило будет применяться ко всем значениям "
+"этих полей."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:204
 #: src/EBox/Model/MultiGwRulesDataTable.pm:204
@@ -944,12 +943,12 @@ msgstr "MAC-адрес"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
 #: src/EBox/Network.pm:2599
 msgid "Tx bytes"
-msgstr ""
+msgstr "Tx байт"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
 #: src/EBox/Network.pm:2608
 msgid "Rx bytes"
-msgstr ""
+msgstr "Rx байт"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
 #: src/EBox/Network.pm:2645

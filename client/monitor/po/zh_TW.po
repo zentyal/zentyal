@@ -8,20 +8,22 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-01 16:11+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Monitor.pm:73 src/EBox/Monitor.pm:194
+#: src/EBox/Monitor.pm:73
+#: src/EBox/Monitor.pm:194
 #: src/EBox/Event/Watcher/Monitor.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:194
+#, fuzzy
 msgid "Monitor"
-msgstr ""
+msgstr "監視器"
 
 #: src/EBox/Monitor.pm:134
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:134
@@ -35,8 +37,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:55
+#, fuzzy
 msgid "System load"
-msgstr ""
+msgstr "載入圖片(_I)"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
@@ -45,8 +48,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
+#, fuzzy
 msgid "short term"
-msgstr ""
+msgstr "ç§ç¹æ¯å¥"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
@@ -55,19 +59,22 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
+#, fuzzy
 msgid "long term"
-msgstr ""
+msgstr "é·ç"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "憑證金鑰使用"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:65
+#, fuzzy
 msgid "CPU usage"
-msgstr ""
+msgstr "限制用量"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:66
@@ -77,75 +84,92 @@ msgid ""
 "being idle"
 msgstr ""
 
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:73
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
+#, fuzzy
 msgid "idle"
-msgstr ""
+msgstr "閒置"
 
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:74
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
+#, fuzzy
 msgid "user"
-msgstr ""
+msgstr "使用者"
 
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:75
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:75
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
 msgstr ""
 
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:76
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
+#, fuzzy
 msgid "nice"
-msgstr ""
+msgstr "å°¼æ¯"
 
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:77
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:77
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
 msgstr ""
 
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:78
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:78
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
 msgstr ""
 
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+#: src/EBox/Monitor/Measure/CPU.pm:79
+#: src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:79
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
+#, fuzzy
 msgid "system"
-msgstr ""
+msgstr "系統"
 
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+#: src/EBox/Monitor/Measure/CPU.pm:80
+#: src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:80
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
+#, fuzzy
 msgid "wait"
-msgstr ""
+msgstr "請稍候。"
 
 #: src/EBox/Monitor/Measure/Base.pm:619
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Base.pm:619
+#, fuzzy
 msgid "value"
-msgstr ""
+msgstr "數值"
 
 #: src/EBox/Monitor/Measure/Df.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:73
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "<b>頁面中的表單</b>"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:75
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "在檔案編輯器中使用的字型。"
 
 #: src/EBox/Monitor/Measure/Df.pm:81
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:80
+#, fuzzy
 msgid "File system usage"
-msgstr ""
+msgstr "使用另一個系統 gimprc 檔案"
 
 #: src/EBox/Monitor/Measure/Df.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:81
@@ -155,8 +179,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:55
+#, fuzzy
 msgid "Physical memory usage"
-msgstr ""
+msgstr "憑證金鑰使用"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:56
@@ -165,35 +190,41 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
 msgid "free"
-msgstr ""
+msgstr "可用:"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
 msgid "page cache"
-msgstr ""
+msgstr "磁碟快取資料"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
 msgid "buffer cache"
-msgstr ""
+msgstr "磁碟快取資料"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
 msgid "used"
-msgstr ""
+msgstr "已用:"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:104
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:110
+#, fuzzy
 msgid "temperature"
-msgstr ""
+msgstr "溫度:"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:117
+#, fuzzy
 msgid "cooling device"
-msgstr ""
+msgstr "網路裝置：\t%s\n"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:119
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:119
@@ -203,13 +234,15 @@ msgstr ""
 #: src/EBox/Monitor/Measure/Thermal.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:121
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "檢查垃圾郵件(_J)"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:127
+#, fuzzy
 msgid "Thermal"
-msgstr ""
+msgstr "Thermal"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:128
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:128
@@ -237,8 +270,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:219
+#, fuzzy
 msgid "Failure minimum"
-msgstr ""
+msgstr "最小寬度"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:222
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:222
@@ -249,8 +283,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:227
+#, fuzzy
 msgid "Warning minimum"
-msgstr ""
+msgstr "最小寬度"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:230
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:230
@@ -264,13 +299,15 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
+#, fuzzy
 msgid "failure minimum"
-msgstr ""
+msgstr "最小寬度"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:236
+#, fuzzy
 msgid "Warning maximum"
-msgstr ""
+msgstr "最大值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:239
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:239
@@ -284,13 +321,15 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
+#, fuzzy
 msgid "failure maximum"
-msgstr ""
+msgstr "最大值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:245
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:245
+#, fuzzy
 msgid "Failure maximum"
-msgstr ""
+msgstr "最大值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:248
@@ -301,8 +340,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:253
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:253
+#, fuzzy
 msgid "Invert"
-msgstr ""
+msgstr "反向選擇(_I)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:256
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:256
@@ -314,13 +354,15 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
+#, fuzzy
 msgid "warning minimum"
-msgstr ""
+msgstr "最小寬度"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
+#, fuzzy
 msgid "warning maximum"
-msgstr ""
+msgstr "最大值"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:263
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:263
@@ -337,33 +379,39 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:273
+#, fuzzy
 msgid "Measure instance"
-msgstr ""
+msgstr "限此例項"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:279
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
+#, fuzzy
 msgid "Data Source"
-msgstr ""
+msgstr "IP 來源"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293
+#, fuzzy
 msgid "Threshold configuration"
-msgstr ""
+msgstr "郵件組態"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:294
+#, fuzzy
 msgid "Threshold's list"
-msgstr ""
+msgstr "到會者清單"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:296
+#, fuzzy
 msgid "Threshold"
-msgstr ""
+msgstr "界限長度"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:300
@@ -392,8 +440,9 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:135
+#, fuzzy
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "設定硬體時鐘"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:136
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:136
@@ -411,35 +460,41 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:157
+#, fuzzy
 msgid "not applicable"
-msgstr ""
+msgstr "不能接受"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:145
+#, fuzzy
 msgid "any"
-msgstr ""
+msgstr "任何分類"
 
 #: src/EBox/Monitor/Configuration.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:121
+#, fuzzy
 msgid "Last hour"
-msgstr ""
+msgstr "12 小時"
 
 #: src/EBox/Monitor/Configuration.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:127
+#, fuzzy
 msgid "Last day"
-msgstr ""
+msgstr "日檢視"
 
 #: src/EBox/Monitor/Configuration.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:133
+#, fuzzy
 msgid "Last month"
-msgstr ""
+msgstr "月檢視"
 
 #: src/EBox/Monitor/Configuration.pm:139
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:139
+#, fuzzy
 msgid "Last year"
-msgstr ""
+msgstr "今年"
 
 #: src/EBox/CGI/Index.pm:41
 #: debian/ebox-monitor/usr/share/perl5/EBox/CGI/Monitor/Index.pm:41

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-24 00:59+0000\n"
+"PO-Revision-Date: 2009-01-29 12:07+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:133
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Widersprechende Regel gefunden. Entferne Sie diese zuerst"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:237
 #: src/EBox/Firewall/Model/RedirectsTable.pm:237
@@ -188,9 +188,8 @@ msgstr "Port-Weiterleitung"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:320
 #: src/EBox/Firewall/Model/RedirectsTable.pm:320
-#, fuzzy
 msgid "redirect"
-msgstr "Weiterleitungen"
+msgstr "umleiten"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68

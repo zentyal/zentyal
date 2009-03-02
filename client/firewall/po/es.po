@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-18 09:15+0000\n"
+"PO-Revision-Date: 2009-01-26 19:00+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgstr "Reglas de filtrado para el tráfico saliente de eBox"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:133
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Regla contradictoria encontrada. Bórrala primero"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:237
 #: src/EBox/Firewall/Model/RedirectsTable.pm:237
@@ -172,12 +172,12 @@ msgstr "Puerto"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:291
 #: src/EBox/Firewall/Model/RedirectsTable.pm:291
 msgid "Same"
-msgstr ""
+msgstr "Mismo"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:294
 #: src/EBox/Firewall/Model/RedirectsTable.pm:294
 msgid "Other"
-msgstr ""
+msgstr "Otro"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:311
 #: src/EBox/Firewall/Model/RedirectsTable.pm:311
@@ -186,9 +186,8 @@ msgstr "Redirecciones de puertos"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:320
 #: src/EBox/Firewall/Model/RedirectsTable.pm:320
-#, fuzzy
 msgid "redirect"
-msgstr "Redirecciones"
+msgstr "redirigir"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68

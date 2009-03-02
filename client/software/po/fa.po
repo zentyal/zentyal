@@ -5,12 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-02-10 18:49+0330\n"
+"Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,54 +18,59 @@ msgstr ""
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:30
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:40
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:466
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/CGI/Updates.pm:30
+#: src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:483
 msgid "System updates"
-msgstr ""
+msgstr "به‌روزرسانی‌های سامانه"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:45
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "به‌روزرسانی‌های نرم‌افزاری به‌صورت خودکار انجام‌شد"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:52
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "سامانه به‌روز است"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:30
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:40
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:464
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:481
+#: src/EBox/CGI/EBox.pm:30
+#: src/EBox/CGI/EBox.pm:40
+#: src/EBox/Software.pm:481
 msgid "eBox components"
-msgstr ""
+msgstr "مولفه‌های ای‌باکس"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:84
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "بسته‌هایی برای به‌روزرسانی باقی نمانده است"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:145
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/CurrentPackage.pm:31
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/InstallPkgs.pm:145
+#: src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "ارتقا"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:146
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "بسته‌های ارتقا"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:147
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:167
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:147
+#: src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "بسته کنونی"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:148
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "بسته‌های باقیمانده برای نصب"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:149
 #: src/EBox/CGI/InstallPkgs.pm:149
@@ -75,28 +79,30 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"نصب بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
+"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:153
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
-msgstr ""
+msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "حذف بسته"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "حذف بسته انتخاب شده و بسته‌های وابسته آن"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "بسته‌های باقیمانده برای حذف"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:169
 #: src/EBox/CGI/InstallPkgs.pm:169
@@ -105,29 +111,32 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"حذف بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
+"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:173
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
-msgstr ""
+msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:31
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:41
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+#: src/EBox/CGI/Config.pm:31
+#: src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Enable.pm:41
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:85
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "فعال‌سازی اسکریپت‌های کرون برای دانلود به‌روزرسانی‌ها"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:86
 #: src/EBox/Software.pm:86
@@ -135,16 +144,17 @@ msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"نرم‌افزار ای‌باکس به‌روزرسانی‌ها را از مخازن پیکربندی apt شما دانلود می‌کند."
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:461
 #: src/EBox/Software.pm:478
 msgid "Software management"
-msgstr ""
+msgstr "مدیریت نرم‌افزار"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:468
 #: src/EBox/Software.pm:485
 msgid "Automatic updates"
-msgstr ""
+msgstr "به‌روزرسانی‌های خودکار"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:559
 #: src/EBox/Software.pm:576
@@ -152,197 +162,202 @@ msgstr ""
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
+"نمایید"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "ای‌باکس - مدیر صدور گواهینامه برای ای‌باکس"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "ای‌باکس - ماجول سرور DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "ای‌باکس - سرور DNS"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "پلتفرم ای‌باکس - چارچوب پایه"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "ای‌باکس - دیواره آتش"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "وی پی ان‌ های IPsec"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
+msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "ای‌باکس - پروتکل‌های لایه ۷"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "ای‌باکس - سرور نامه"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
-msgstr ""
+msgstr "ای‌باکس - ماجول فیلتر نامه"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Monitoring module  "
-msgstr ""
+msgstr "ای‌باکس - ماجول دیده‌بانی"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - Network configuration module"
-msgstr ""
+msgstr "ای‌باکس - ماجول پیکربندی شبکه"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - NTP server"
-msgstr ""
+msgstr "ای‌باکس - سرور NTP"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - Object management"
-msgstr ""
+msgstr "ای‌باکس - مدیریت شی"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "ای‌باکس - ماجول سرور OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "ای‌باکس - اشتراک‌گذاری چاپگر"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - File sharing"
-msgstr ""
+msgstr "ای‌باکس - اشتراک‌گذاری فایل"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Services management"
-msgstr ""
+msgstr "ای‌باکس - مدیریت سرویس"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "سرور SOAP برای ارتباط با مرکز کنترل ای‌باکس"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Software management"
-msgstr ""
+msgstr "ای‌باکس - مدیریت نرم‌افزار"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "ای‌باکس - کش پروکسی و فیلتر محتوا"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "ای‌باکس - شکل‌دهنده ترافیک برای ای‌باکس"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "ای‌باکس - مدیریت کاربر و گروه"
 
 #: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "ای‌باکس - سرور وب"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "نرم‌افزار HTTP"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "سرویس نرم‌افزاری برای به‌روزرسانی بسته‌ها از طریق apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "قانون برای اجازه به‌روزرسانی‌های apt"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:14
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "بسته‌های زیر نصب خواهند شد"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:16
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "بسته‌های زیر حذف خواهند شد"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:32
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "صحیح"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:33
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:14
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:16
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+#: src/templates/updates.mas:16
+#: src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "مولفه"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:15
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "نسخه نصب‌شده"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:16
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "آخرین نسخه"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:17
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "اقدامات"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:27
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:19
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+#: src/templates/updates.mas:19
+#: src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "به‌روزرسانی"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:33
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "نصب"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:35
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "هیچ کدام"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:57
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "حذف"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:74
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:53
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53
+#: src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "به‌روزرسانی "
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:11
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "به‌روزرسانی‌ها برای مولفه‌های سامانه زیر در دسترس هستند"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:17
 #: src/templates/updates.mas:17
 msgid "Description"
-msgstr ""
+msgstr "توضیح"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:18
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "نسخه"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:64
 #: src/templates/updates.mas:64
@@ -350,8 +365,10 @@ msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"این اقدام مقداری زمان می‌گیرد، اگر پس از فشار دادن دکمه ارتقا ای‌باکس "
+"غیرداسخگو به نظر‌ آمد نگران نباشید."
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:67
 #: src/templates/updates.mas:67
 msgid "Upgrade"
-msgstr ""
+msgstr "ارتقا"

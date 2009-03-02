@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:59+0100\n"
-"PO-Revision-Date: 2008-12-08 02:48+0000\n"
-"Last-Translator: akong <akong@aspa.idv.tw>\n"
+"PO-Revision-Date: 2009-02-22 11:54+0000\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -266,57 +266,58 @@ msgstr "固定位址"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
-msgstr ""
+msgstr "您需要先上傳一個開機映像檔到 eBox 才能將它設為下一個伺服器"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
-msgstr ""
+msgstr "為了上個開機映像檔到 eBox，您需要將 eBox 設為下一個伺服器"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "您需要指定到遠端伺服器中開機映像檔的路徑"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file\n"
 "              name if you have a next server and it is not eBox"
 msgstr ""
+"只有在您有下一個伺服器而它不是 eBox 時\n"
+"才能指定檔案名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
-msgstr ""
+msgstr "正在移除前一個上傳的開機映像檔，因為下一個伺服器選項已經從 eBox 改變為 {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr ""
+msgstr "下一個伺服器"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
-#, fuzzy
 msgid "File name"
 msgstr "檔案名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "下一個伺服器中的檔案路徑"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
-msgstr ""
+msgstr "精簡客戶端"
 
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
-msgstr ""
+msgstr "您可能想要自訂您的精簡客戶端選項。要這麽做，您可以在 {path} 目錄下包含所有的檔案"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -324,12 +325,10 @@ msgstr ""
 #: src/EBox/DHCP.pm:448 src/EBox/DHCP.pm:498 src/EBox/DHCP.pm:596
 #: src/EBox/DHCP.pm:650 src/EBox/DHCP.pm:710 src/EBox/DHCP.pm:766
 #: src/EBox/DHCP.pm:1152
-#, fuzzy
 msgid "Interface"
 msgstr "介面"
 
 #: src/EBox/CGI/Enable.pm:39
-#, fuzzy
 msgid "module status"
 msgstr "模組狀態"
 
@@ -432,14 +431,12 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1221
-#, fuzzy
 msgid "Host name"
-msgstr "名稱"
+msgstr "主機名稱"
 
 #: src/EBox/DHCP.pm:1248
-#, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP 範圍"
+msgstr "DHCP 保留"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"

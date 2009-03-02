@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-22 10:47+0100\n"
-"PO-Revision-Date: 2008-12-23 17:41+0000\n"
+"PO-Revision-Date: 2009-02-15 22:16+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -381,7 +381,7 @@ msgstr "Escolha um valor do seguinte conjunto: {set}"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Painel de controle"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
 #, fuzzy, perl-brace-format
@@ -442,11 +442,6 @@ msgstr "campo"
 msgid "page"
 msgstr "sobreselente"
 
-#: src/EBox/Model/DataTable.pm:1445
-#, fuzzy
-msgid "Page must be a number equal or greater than zero"
-msgstr "deve ser superior a zero"
-
 #: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:641
@@ -497,11 +492,6 @@ msgstr "{row} movida para baixo"
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Enabled"
 msgstr "Activado"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "Objecto provido com index {i} não existe"
 
 #: src/EBox/Model/ModelManager.pm:466
 #, fuzzy
@@ -579,15 +569,15 @@ msgstr "A executar o backup"
 msgid "Backing up modules"
 msgstr "Criar backup dos módulos"
 
-#: src/EBox/CGI/EBox/Backup.pm:241
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
-msgstr "Operação"
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the access control for the channel"
+msgstr "usar este campo para definir o controle de acesso para o canal"
 
-#: src/EBox/CGI/EBox/Backup.pm:242
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
-msgstr "Operações restantes para finalizar o backup"
+#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:190
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr "Subscreva esta RSS"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
@@ -615,6 +605,8 @@ msgstr "Módulo"
 #: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
 msgstr "Módulos restantes a restaurar"
+"Quando o espaço livre de qualquer disco está abaixo deste valor o evento é "
+"despoletado"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
@@ -924,7 +916,6 @@ msgid "Report time period"
 msgstr "Periodo de tempo do relatório"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
-#, fuzzy
 msgid "Report options"
 msgstr "Opções do relatório"
 
@@ -984,12 +975,10 @@ msgid "Purge logs older than"
 msgstr "Eliminar logs mais antigos que"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
-#, fuzzy
 msgid "Current configuration"
 msgstr "Configuração actual"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
-#, fuzzy
 msgid "Logs configuration"
 msgstr "Configuração dos logs"
 
@@ -1019,9 +1008,8 @@ msgid "Summarized report"
 msgstr ""
 
 #: src/EBox/Logs/Model/SelectLog.pm:146
-#, fuzzy
 msgid "Select report"
-msgstr "Relatório de erros"
+msgstr "Seleccionar relatório"
 
 #: src/EBox/Logs/Report.pm:68
 #, fuzzy
@@ -1077,13 +1065,30 @@ msgid ""
 "server"
 msgstr ""
 
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:1444
+#: src/EBox/Model/DataTable.pm:1444
+msgid "Page must be a number equal or greater than zero"
+msgstr "Página deve ser igual ou superior a zero"
+
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
 msgstr "Configurar expedidor Jabber "
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2621
+#: src/EBox/Model/DataTable.pm:2621
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "Remover {num} linhas de {rowName} de {model}{br}"
+
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2692
+#: src/EBox/Model/DataTable.pm:2692
+msgid "Page size"
+msgstr "Tamanho da página"
+
+#: debian/ebox/usr/share/perl5/EBox/Model/DataTable.pm:2695
+#: src/EBox/Model/DataTable.pm:2695
+msgid "Must be either a positive number or zero"
+msgstr "Deve ser um número positivo ou zero"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
@@ -1134,6 +1139,12 @@ msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
 msgstr ""
+
+#: debian/ebox/usr/share/perl5/EBox/Model/ProviderBase.pm:246
+#: src/EBox/Model/ProviderBase.pm:246
+#, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "O objecto disponibilizado com o index {i} não existe"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:208
 msgid "RSS dispatcher configuration updated"
@@ -1247,7 +1258,7 @@ msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
-msgstr ""
+msgstr "Não é possivel criar ligação SOAP"
 "Aviso! Não existe verificador de log activado. Vá a 'Configuração' para "
 "activar pelo menos um para ser notificado quando um log existir neste domínio"
 
@@ -1620,12 +1631,6 @@ msgstr "DB dump {file} não está acessível"
 #: src/EBox/RemoteServices/Subscription.pm:104
 msgid "Key for web subscription service not found"
 msgstr ""
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
-#, fuzzy, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "RAID array {a} inexistente"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:143
 msgid ""

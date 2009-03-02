@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2009-01-12 13:19+0000\n"
+"PO-Revision-Date: 2009-02-03 15:18+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "O sistema está ao día"
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:464
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:481
 msgid "eBox components"
-msgstr ""
+msgstr "Compoñentes eBox"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:84
 #: src/EBox/CGI/InstallPkgs.pm:84
@@ -64,10 +64,12 @@ msgstr "Actualizando paquetes"
 msgid "Current package"
 msgstr "Paquete actual"
 
+# Ver no contexto
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:148
 #: src/EBox/CGI/InstallPkgs.pm:148
+#, fuzzy
 msgid "packages left to install"
-msgstr ""
+msgstr "paquetes a esquerda para instalar"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:149
 #: src/EBox/CGI/InstallPkgs.pm:149
@@ -76,18 +78,25 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"Os paquetes de instalación remataron con éxito. A interface de "
+"administración pode ser que non responda durante un tempo. Sexa paciente até "
+"o sistema se reinicie completamente"
 
+# Dúbidas se empregar logs ou históricos
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:153
 #: src/EBox/CGI/InstallPkgs.pm:153
+#, fuzzy
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Os paquetes de instalación non remataron correctamente. Máis información nos "
+"logs"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "Eliminando paquetes"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166

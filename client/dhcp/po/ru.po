@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:59+0100\n"
-"PO-Revision-Date: 2008-12-03 07:25+0000\n"
+"PO-Revision-Date: 2009-01-25 08:14+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
@@ -276,38 +276,38 @@ msgid "fixed address"
 msgstr "фиксированный адрес"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
-"Для загрузки firmware на загружаемый ПК eBox, необходимо установить eBox как "
+"Вам необходимо загрузить загрузочный образ eBox, если вы установили его, как "
 "следующий сервер"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
-"Для загрузки firmware на загружаемый ПК eBox, необходимо установить eBox как "
+"Для загрузки загрузочного образа eBox, вам необходимо установить eBox, как "
 "следующий сервер"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "Вы должны указать путь к загрузочному образу на удаленном сервере"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file\n"
 "              name if you have a next server and it is not eBox"
 msgstr ""
+"Вы можете указать только файла\n"
+"              имя,  если следующий сервер не eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"Предыдущая загруженная прошивка не связанна, настройки изменены от eBox до "
-"{option}"
+"Удаление предыдущего загрузочного образа, так как оция следующего сервера "
+"изменена с eBox на {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
@@ -323,7 +323,7 @@ msgstr "Имя файла"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "Путь к фалу на следующем сервере"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
@@ -456,14 +456,12 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1221
-#, fuzzy
 msgid "Host name"
-msgstr "имя"
+msgstr "Имя узла"
 
 #: src/EBox/DHCP.pm:1248
-#, fuzzy
 msgid "DHCP leases"
-msgstr "Диапазоны DHCP"
+msgstr "Аренда DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"

@@ -8,66 +8,70 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-02-05 07:40+0000\n"
+"Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Monitor.pm:73 src/EBox/Monitor.pm:194
+#: src/EBox/Monitor.pm:73
+#: src/EBox/Monitor.pm:194
 #: src/EBox/Event/Watcher/Monitor.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:194
 msgid "Monitor"
-msgstr ""
+msgstr "مانیتور"
 
 #: src/EBox/Monitor.pm:134
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:134
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "فایل پیکربندی اصلی را جمع آوری کن"
 
 #: src/EBox/Monitor.pm:138
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:138
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "بار سیستم"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"بار سیستم را که یک دید کلی از فضای مورد استفاده دیسک می دهد، جمع آوری کن"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "دوره کوتاه"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "دوره متوسط"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "دوره بلند"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "CPU {no} usage"
 msgstr ""
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "فضای مورد استفاده توسط سی پی یو"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:66
@@ -76,140 +80,153 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"میزان زمانی را که توسط سی پی یو در وضعیت های مختلف سپری شده، جمع آوری "
+"کن.بیشتر کدهای اجرایی مخصوص کاربر، کدهای اجرایی سیستم، انتظار برای اعمال "
+"ورودی/خروجی و بی کار بودن"
 
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:73
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "بی کار"
 
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:74
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "کاربر"
 
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+#: src/EBox/Monitor/Measure/CPU.pm:75
+#: src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:75
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "وقفه"
 
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:76
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "مطلوب"
 
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:77
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:77
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "وقفه سبک"
 
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+#: src/EBox/Monitor/Measure/CPU.pm:78
+#: src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:78
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "به سرقت بردن"
 
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+#: src/EBox/Monitor/Measure/CPU.pm:79
+#: src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:79
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "سیستم"
 
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+#: src/EBox/Monitor/Measure/CPU.pm:80
+#: src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:80
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "انتظار"
 
 #: src/EBox/Monitor/Measure/Base.pm:619
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Base.pm:619
 msgid "value"
-msgstr ""
+msgstr "مقدار"
 
 #: src/EBox/Monitor/Measure/Df.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:73
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "فضای آزاد در {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:75
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "فضای استفاده شده در {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:81
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:80
 msgid "File system usage"
-msgstr ""
+msgstr "فضای مورد استفاده توسط فایل سیستم"
 
 #: src/EBox/Monitor/Measure/Df.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:81
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"هنگامی که فرمان \"df\" اجرا شد، اطلاعات مربوط به فضای مورد استفاده توسط فایل "
+"سیستم را جمع آوری کن"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "فضای مورد استفاده توسط حافظه فیزیکی"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "اطلاعات مربوط به فضای مورد استفاده توسظ حافظه فیزیکی را جمع آوری کن"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "آزاد"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "کش صفحه"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "کش بافر"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "استفاده شده"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:104
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:110
 msgid "temperature"
-msgstr ""
+msgstr "درجه حرارت"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:117
 msgid "cooling device"
-msgstr ""
+msgstr "ابزارهای خنک کننده"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:119
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:119
 msgid "sensor"
-msgstr ""
+msgstr "حس گر"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:121
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "درجه حرارت برای {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:127
 msgid "Thermal"
-msgstr ""
+msgstr "گرمایی"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:128
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:128
@@ -217,16 +234,18 @@ msgstr ""
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"اطلاعات گرمایی (درجه حرارت حس گر سی پی یو) را اگر ممکن است از {dir} جمع آوری "
+"کن"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "حداقل یک سطح آستانه (حداکثر یا حداقل) باید تنظیم شود "
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "این قانون سطح آستانه قوانین جاری را لغو خواهد کرد"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:155
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:155
@@ -234,11 +253,13 @@ msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"ورژن ابزار مانیتورینگ جاری تشخیص تفاوت میان مبدأ های داده را پشتیبانی نمی "
+"کند"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 msgid "Failure minimum"
-msgstr ""
+msgstr "عدم موفقیت برای مقدار حداقل"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:222
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:222
@@ -246,11 +267,13 @@ msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"حداقل محدوده مقادیر قابل قبول را تنظیم کن. اگر تنظیم نشده باشد مقدار پیش فرض "
+"منفی بینهایت می باشد"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 msgid "Warning minimum"
-msgstr ""
+msgstr "اخطار برای مقدار حداقل"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:230
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:230
@@ -259,18 +282,20 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"اگر مقدار مورد نظر کمتر از این مقدار و بیشتر از {fmin} باشد یک رویداد هشدار "
+"ارسال شود"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 msgid "failure minimum"
-msgstr ""
+msgstr "عدم موفقیت برای مقدار حداقل"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 msgid "Warning maximum"
-msgstr ""
+msgstr "اخطار برای مقدار حداکثر"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:239
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:239
@@ -279,18 +304,20 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"اگر مقدار مورد نظر بیشتر از این مقدار و کمتر از {fmax} باشد یک رویداد هشدار "
+"ارسال شود"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 msgid "failure maximum"
-msgstr ""
+msgstr "عدم موفقیت برای مقدار حداکثر"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:245
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:245
 msgid "Failure maximum"
-msgstr ""
+msgstr "عدم موفقیت برای مقدار حداکثر"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:248
@@ -298,11 +325,13 @@ msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"حداکثر محدوده مقادیر قابل قبول را تنظیم کن. اگر تنظیم نشده باشد مقدار پیش "
+"فرض مثبت بینهایت می باشد"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:253
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:253
 msgid "Invert"
-msgstr ""
+msgstr "معکوس کردن"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:256
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:256
@@ -311,21 +340,23 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"اگر به عنوان صحیح تنظیم شود، محدوده مقادیر قابل قبول معکوس می شود، یعنی "
+"مقادیر میان {fmin} و {fmax} ) {wmin} و {wmax} ) پذیرفته نمی شوند"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 msgid "warning minimum"
-msgstr ""
+msgstr "اخطار برای مقدار حداقل"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:259
 msgid "warning maximum"
-msgstr ""
+msgstr "اخطار برای مقدار حداکثر"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:263
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:263
 msgid "Persistent"
-msgstr ""
+msgstr "ماندگار"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:266
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:266
@@ -334,43 +365,46 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"اگر به عنوان صحیح تنظیم شود، یک هشدار برای هر مقداری که خارج از محدوده قابل "
+"قبول می باشد، فرستاده خواهد شد. اگر به عنوان ناصحیح تنظیم شود، تنها یک تغییر "
+"از یک مقدار قابل قبول تا یک مقدار غیرقابل قبول فرستاده خواهد شد"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:273
 msgid "Measure instance"
-msgstr ""
+msgstr "نمونه اندازه گیری"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 msgid "Data Source"
-msgstr ""
+msgstr "منبع داده"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 msgid "Threshold configuration"
-msgstr ""
+msgstr "پیکربندی سطح آستانه"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 msgid "Threshold's list"
-msgstr ""
+msgstr "لیست سطح آستانه"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold"
-msgstr ""
+msgstr "سطح آستانه"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
+msgstr "هر گونه بررسی با بالاترین دقت ممکن انجام شده است: {nSec} ثانیه"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:302
@@ -383,27 +417,28 @@ msgstr ""
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:120
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:120
 msgid "Measure"
-msgstr ""
+msgstr "اندازه گیری"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:126
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:126
 msgid "Thresholds"
-msgstr ""
+msgstr "سطوح آستانه"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:135
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "پیکربندی تماشاکنندگان مانیتور"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:136
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:136
 msgid "measure"
-msgstr ""
+msgstr "اندازه گیری"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:141
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:141
 msgid "Every measure may have several thresholds to monitor"
 msgstr ""
+"هر اندازه گیری ای ممکن است سطوح آستانه مختلقی برای مانیتور کردن داشته باشد"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
@@ -412,65 +447,65 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "غیر قابل اجرا"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "هیچ"
 
 #: src/EBox/Monitor/Configuration.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "ساعت قبل"
 
 #: src/EBox/Monitor/Configuration.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "روز قبل"
 
 #: src/EBox/Monitor/Configuration.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "ماه قبل"
 
 #: src/EBox/Monitor/Configuration.pm:139
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "سال قبل"
 
 #: src/EBox/CGI/Index.pm:41
 #: debian/ebox-monitor/usr/share/perl5/EBox/CGI/Monitor/Index.pm:41
 msgid "Monitoring"
-msgstr ""
+msgstr "مانیتورینگ"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "هنگامی که یک مقدار مشخص به یک سطح آستانه مشخص رسید، اعلام کن"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" در حال حاضر {value} می باشد"
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "آن درون ناحیه {severity} از {minBound} و {maxBound} می باشد"
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "آن بالای سطح آستانه {severity} از {bound} می باشد"
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "آن زیر سطح آستانه {severity} از {bound} می باشد"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-11-23 13:44+0000\n"
+"PO-Revision-Date: 2009-01-26 18:35+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:97
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Peticións"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:52
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:102
@@ -42,7 +42,7 @@ msgstr "Aceptado"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:107
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Tamaño de tráfico aceptado (Kb)"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:61
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:113
@@ -51,7 +51,7 @@ msgstr ""
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
-msgstr ""
+msgstr "Peticións denegadas"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:65
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:118
@@ -59,8 +59,9 @@ msgstr ""
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:65
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:118
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+#, fuzzy
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Tamaño de tráfico denegado (Kb)"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:70
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:124
@@ -68,9 +69,8 @@ msgstr ""
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:70
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
-#, fuzzy
 msgid "Filtered requests"
-msgstr "Filtrado"
+msgstr "Peticións filtradas"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:74
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:129
@@ -79,7 +79,7 @@ msgstr "Filtrado"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:129
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Tamaño de tráfico filtrado (Kb)"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:93
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:821
@@ -90,33 +90,34 @@ msgstr "Data"
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:138
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:138
 msgid "Web traffic details"
-msgstr ""
+msgstr "Detalles do tráfico web"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:147
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:147
-#, fuzzy
 msgid "traffic"
-msgstr "Estrito"
+msgstr "Tráfico"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:48
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
+#, fuzzy
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Gráfica de peticións de tráfico do Squid"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:100
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Peticións de acceso"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Gráfica de tamaño de tráfico do Squid"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+#, fuzzy
 msgid "Traffic size"
-msgstr ""
+msgstr "Tamaño de tráfico"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:79
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
@@ -499,7 +500,7 @@ msgstr "Establecer a política para todos os tipos MIME"
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
 msgid "HTTP proxy traffic report"
-msgstr ""
+msgstr "Informar do tráfico do proxy HTTP"
 
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/General.pm:75
 #: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:750

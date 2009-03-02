@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:17+0100\n"
-"PO-Revision-Date: 2009-01-08 20:46+0000\n"
+"PO-Revision-Date: 2009-01-24 23:50+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -29,28 +29,28 @@ msgid ""
 "different virtual hosts"
 msgstr ""
 "O serviço Web do eBox permite que você hospede páginas HTML dentro de "
-"diferentes hosts virtuais"
+"diferentes servidores virtuais"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "ouvir na porta"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Ouvir na porta"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Habilitar por usuário {dirName}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Opções gerais"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
@@ -61,11 +61,14 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Configuração do servidor Web. A porta ouvida não pode estar em uso por outro "
+"serviço. Se você permitir usuários a publicar suas páginas, elas serão "
+"carregadas do diretório {dirName}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Opções do servidor Web atualizadas"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
 #: src/EBox/WebServer/Model/VHostTable.pm:92
@@ -89,12 +92,16 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Servidor virtual {vhost} adicionado. O mapeamento {name} - endereço IP {ip} "
+"foi adicionado ao domínio {domain}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Servidor virtual {vhost} adicionado como o aliás {alias} para o servidor "
+"{hostname}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
@@ -102,22 +109,24 @@ msgstr ""
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Servidor virtual {vhost} adicionado"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Não existe interface interna estática para definir o endereço IP do servidor "
+"Web"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Servidores virtuais"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
 #: src/EBox/WebServer/Model/VHostTable.pm:230
@@ -129,52 +138,59 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"Servidores virtuais são uma forma de hospedagem web onde muitas instâncias "
+"do mesmo servidor web são hospedadas em um único servidor físico. Diferentes "
+"nomes de servidores apontarão para o mesmo servidor web. A entrada do DNS "
+"será automaticamente criada caso possível. O conteúdo deve ser colocado no "
+"diretório {docRoot}/vHostName"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "virtual host"
-msgstr ""
+msgstr "servidor virtual"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HTTP Protoloco de Transporte de HiperTexto"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
 #: src/EBox/WebServer.pm:176
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
 #: src/EBox/WebServer.pm:196
 msgid "Web service status"
-msgstr ""
+msgstr "Status do servidor Web"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
 #: src/EBox/WebServer.pm:366
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "O {userDirConfFile} esta faltando! Favor restaurá-lo"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Se marcar este campo, cada usuário poderá ter um website na sua pasta "
+"pessoal dentro de public_html"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Para definir a porta servidor Web"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Para configurar o diretório público HTML por usuário"
 
 #: src/EBox/WebServer.pm:129
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Habilitar o módulo LDAP do apache"
 
 #: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Para pegar o diretório do usuário no LDAP"

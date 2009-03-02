@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-11-24 01:01+0000\n"
+"PO-Revision-Date: 2009-01-30 17:56+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -422,12 +422,10 @@ msgid "sharing resource"
 msgstr "Ressource freigegeben"
 
 #: src/EBox/CGI/ActiveSharing.pm:71
-#, fuzzy
 msgid "Disk quota limit"
-msgstr "Speicherlimit"
+msgstr "Festplatten-Speicherlimit"
 
 #: src/EBox/Samba.pm:524
-#, fuzzy
 msgid "Share"
 msgstr "Freigabe"
 
@@ -437,12 +435,12 @@ msgstr ""
 
 #: src/EBox/Samba.pm:524 src/EBox/Samba.pm:545
 msgid "Connected since"
-msgstr ""
+msgstr "Verbunden seit"
 
 #: src/EBox/Samba.pm:565
 #, fuzzy
 msgid "Shares by user"
-msgstr "Freigabe"
+msgstr "Freigabe der Benutzer"
 
 #: src/EBox/Samba.pm:570
 msgid "Users by share"
@@ -665,7 +663,7 @@ msgstr "{group} Freigabe-Verzeichnis"
 #: src/templates/samba.mas:44
 #, fuzzy
 msgid "Disk quota limit (MB)"
-msgstr "Speicherlimit"
+msgstr "Speicherlimit (MB)"
 
 #~ msgid "listening port"
 #~ msgstr "Auf diesen Port hören"
