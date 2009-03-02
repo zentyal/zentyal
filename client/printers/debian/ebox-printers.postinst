@@ -18,6 +18,7 @@ case "$1" in
         # Do migration scripts
         /usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/
 
+        dpkg-trigger --no-await ebox
      ;;
 esac
 
