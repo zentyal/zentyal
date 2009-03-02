@@ -587,7 +587,7 @@ sub _lastConsolidationDate
                                         );
     }
 
-    return $rows[0]->{lastDate};
+    return $rows[0]->{lastdate};
 
 }
 
@@ -606,7 +606,7 @@ sub _updateLastConsolidationDate
     my $lastDate = $lastRow->{$dateCol};
 
 
-    my $updateSt = "UPDATE consolidation SET lastDate ='$lastDate' " .
+    my $updateSt = "UPDATE consolidation SET lastdate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
 
     

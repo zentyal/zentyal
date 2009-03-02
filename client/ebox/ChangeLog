@@ -1,3 +1,5 @@
+0.12.102
+	+ Bugfix: consolidate logs using the last date and not starting from scratch 
 0.12.101
 	+ Backport fix for EBox::Types::Union::isEqualTo
 	+ Bugfix: DomainName type make comparisons case insensitive
