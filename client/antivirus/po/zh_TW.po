@@ -18,21 +18,21 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus database update status"
-msgstr ""
+msgstr ""資料庫更新狀態
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed"
-msgstr ""
+msgstr "防毒資料庫至從 eBox 的郵件過濾模組安裝後都沒有更新"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
@@ -48,17 +48,17 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful"
-msgstr ""
+msgstr "最近更新成功"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}"
-msgstr ""
+msgstr "不明的事件 {event}"
 
 #: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
 #: src/EBox/AntiVirus.pm:339
 msgid "Antivirus"
-msgstr ""
+msgstr "防毒"
 
 #: src/EBox/AntiVirus.pm:95
 msgid "Update status"
