@@ -36,6 +36,8 @@ case "$1" in
         invoke-rc.d ebox openvpn restart || true
         # restart module
         invoke-rc.d ebox firewall restart || true
+
+        dpkg-trigger --no-await ebox
     esac
 
 exit 0

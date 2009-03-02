@@ -7,6 +7,8 @@ case "$1" in
 
         # migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-software/migration/	
+
+        dpkg-trigger --no-await ebox
     ;;
 
 esac
