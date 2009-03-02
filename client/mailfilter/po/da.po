@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:14+0100\n"
+"POT-Creation-Date: 2009-03-02 19:45+0100\n"
 "PO-Revision-Date: 2007-09-28 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -61,10 +61,6 @@ msgstr "Ikke understøttet eller ukorrekt input source format: {format}"
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "Virtuelt mail domæne {vd} eksisterer ikke"
-
-#: src/EBox/MailFilter/ClamAV.pm:56
-msgid "To configure freshclam updater daemon"
-msgstr ""
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
 msgid "The score threshold to mark a message as spam"
@@ -178,7 +174,7 @@ msgid ""
 "filter"
 msgstr ""
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:143
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr "Ugyldig extern MTA {mta}. Lokale netværk adresser er ikke tilladt"
@@ -216,54 +212,6 @@ msgstr "ham"
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "Ugyldig mailbox type: {type}"
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:59
-#: src/EBox/MailFilter/Amavis.pm:428 src/EBox/MailFilter/POPProxy.pm:329
-msgid "Status"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:63
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
-#: src/EBox/MailFilter.pm:556 src/EBox/MailFilter.pm:603
-#, fuzzy
-msgid "Date"
-msgstr "Slet"
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:71
-#, fuzzy
-msgid "Antivirus database update status"
-msgstr "Virus database updatering status"
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:126
-msgid ""
-"The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:129
-#, fuzzy
-msgid "The last update failed"
-msgstr "Den sidste opdatering mislykkedes d. {date}"
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:133
-#, fuzzy, perl-brace-format
-msgid ""
-"Update failed.\n"
-"Your version of freshclam  is outdated.Please, install version {version} or "
-"higher"
-msgstr ""
-"Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
-"Installér venligst version {version} eller højere"
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:140
-msgid "Last update successful"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/FreshclamStatus.pm:143
-#, perl-brace-format
-msgid "Unknown event {event}"
-msgstr ""
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 #, fuzzy
@@ -470,6 +418,13 @@ msgstr "Blacklist/uønskede"
 msgid "Filter traffic"
 msgstr ""
 
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
+#: src/EBox/MailFilter.pm:488 src/EBox/MailFilter.pm:535
+#, fuzzy
+msgid "Date"
+msgstr "Slet"
+
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 #, fuzzy
 msgid "blacklisted senders"
@@ -624,25 +579,25 @@ msgstr "Bad headers politik"
 msgid "SMTP filter policies"
 msgstr "Mailfilter's port"
 
-#: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
+#: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 #, fuzzy
 msgid "External connections"
 msgstr "Externe mail domæner"
 
-#: src/EBox/MailFilter/Composite/FileFilter.pm:63
+#: src/EBox/MailFilter/Composite/FileFilter.pm:59
 #, fuzzy
 msgid "Attached files filter"
 msgstr "Mail filter"
 
-#: src/EBox/MailFilter/Composite/FileFilter.pm:65
+#: src/EBox/MailFilter/Composite/FileFilter.pm:61
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
 
-#: src/EBox/MailFilter/Composite/Antispam.pm:64
-#: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:352
-#: src/EBox/MailFilter.pm:748
+#: src/EBox/MailFilter/Composite/Antispam.pm:63
+#: src/EBox/MailFilter/Amavis.pm:452 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:674
 msgid "Antispam"
 msgstr "Antispam"
 
@@ -661,8 +616,7 @@ msgstr "Mailfilter's port"
 msgid "Transparent POP proxy report"
 msgstr ""
 
-#: src/EBox/MailFilter/Composite/Amavis.pm:69
-#: src/EBox/MailFilter/POPProxy.pm:323 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter/Composite/Amavis.pm:61 src/EBox/MailFilter.pm:516
 #, fuzzy
 msgid "SMTP filter"
 msgstr "MIME Type filter"
@@ -731,19 +685,18 @@ msgstr ""
 msgid "To add the LDAP schemas used by eBox mailfilter"
 msgstr ""
 
-#: src/EBox/MailFilter/Amavis.pm:408
+#: src/EBox/MailFilter/Amavis.pm:416
 msgid "eBox internal mail filter"
 msgstr "eBox internt mail filter"
 
-#: src/EBox/MailFilter/Amavis.pm:422 src/EBox/MailFilter.pm:734
-#: migration/0004_add_firewall_services.pl:32
-msgid "POP transparent proxy"
-msgstr ""
+#: src/EBox/MailFilter/Amavis.pm:430
+#, fuzzy
+msgid "SMTP filter proxy"
+msgstr "MIME Type filter"
 
-#: src/EBox/MailFilter/Amavis.pm:445 src/EBox/MailFilter/POPProxy.pm:343
-#: src/EBox/MailFilter.pm:741
-msgid "Antivirus"
-msgstr "Antivirus"
+#: src/EBox/MailFilter/Amavis.pm:436 src/EBox/MailFilter/POPProxy.pm:329
+msgid "Status"
+msgstr ""
 
 #: src/EBox/MailFilter/POPProxy.pm:47
 msgid " To configure p3scan"
@@ -753,143 +706,151 @@ msgstr ""
 msgid "To configure renattach"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter/POPProxy.pm:323
+msgid "Transparent POP Proxy"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:83
 msgid "Add clamav user to amavis group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:87
+#: src/EBox/MailFilter.pm:84
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:88
 msgid "Add clamav user to p3scan group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:92
+#: src/EBox/MailFilter.pm:89
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:96
+#: src/EBox/MailFilter.pm:93
 msgid "Update LDAP"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:94
 msgid "Add amavis specific classes and fields"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:405
+#: src/EBox/MailFilter.pm:339
 msgid "Cannot proceed because the filter is in use"
 msgstr "Kan ikke fortsætte fordi filter er i brug"
 
-#: src/EBox/MailFilter.pm:535
+#: src/EBox/MailFilter.pm:467
 #, fuzzy
 msgid "Mail filter"
 msgstr "Mail filter"
 
-#: src/EBox/MailFilter.pm:558
+#: src/EBox/MailFilter.pm:490
 #, fuzzy
 msgid "Action"
 msgstr "Handlinger"
 
-#: src/EBox/MailFilter.pm:559 src/EBox/MailFilter.pm:607
+#: src/EBox/MailFilter.pm:491 src/EBox/MailFilter.pm:539
 msgid "Event"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:561
+#: src/EBox/MailFilter.pm:493
 #, fuzzy
 msgid "Sender address"
 msgstr "email adresse"
 
-#: src/EBox/MailFilter.pm:562
+#: src/EBox/MailFilter.pm:494
 #, fuzzy
 msgid "Recipient address"
 msgstr "email adresse"
 
-#: src/EBox/MailFilter.pm:564
+#: src/EBox/MailFilter.pm:496
 #, fuzzy
 msgid "Spam hits"
 msgstr "Spam tærskel"
 
-#: src/EBox/MailFilter.pm:569
+#: src/EBox/MailFilter.pm:501
 #, fuzzy
 msgid "Bad header found"
 msgstr "Bad headers politik"
 
-#: src/EBox/MailFilter.pm:570
+#: src/EBox/MailFilter.pm:502
 msgid "Spam found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:571
+#: src/EBox/MailFilter.pm:503
 msgid "Forbidden attached file  found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:572
+#: src/EBox/MailFilter.pm:504
 msgid "Address in blacklist found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:573
+#: src/EBox/MailFilter.pm:505
 #, fuzzy
 msgid "Virus found"
 msgstr "Virus politik"
 
-#: src/EBox/MailFilter.pm:574
+#: src/EBox/MailFilter.pm:506
 #, fuzzy
 msgid "Clean message"
 msgstr "Lært fra mailbox file"
 
-#: src/EBox/MailFilter.pm:605
+#: src/EBox/MailFilter.pm:537
 #, fuzzy
 msgid "Account"
 msgstr "Handlinger"
 
-#: src/EBox/MailFilter.pm:606
+#: src/EBox/MailFilter.pm:538
 #, fuzzy
 msgid "Client's address"
 msgstr "email adresse"
 
-#: src/EBox/MailFilter.pm:609
+#: src/EBox/MailFilter.pm:541
 #, fuzzy
 msgid "Total messages"
 msgstr "Lært fra mailbox file"
 
-#: src/EBox/MailFilter.pm:610
+#: src/EBox/MailFilter.pm:542
 #, fuzzy
 msgid "Clean messages"
 msgstr "Lært fra mailbox file"
 
-#: src/EBox/MailFilter.pm:611
+#: src/EBox/MailFilter.pm:543
 #, fuzzy
 msgid "Virus messages"
 msgstr "Lært fra mailbox file"
 
-#: src/EBox/MailFilter.pm:612
+#: src/EBox/MailFilter.pm:544
 #, fuzzy
 msgid "Spam messages"
 msgstr "Lært fra mailbox file"
 
-#: src/EBox/MailFilter.pm:619
+#: src/EBox/MailFilter.pm:551
 msgid "POP3 transmission complete"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:621
+#: src/EBox/MailFilter.pm:553
 msgid "POP3 transmission aborted"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:629
+#: src/EBox/MailFilter.pm:561
 msgid "POP3 proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:721
+#: src/EBox/MailFilter.pm:653
 #, fuzzy
 msgid "Mail Filter"
 msgstr "Mail filter"
 
-#: src/EBox/MailFilter.pm:727
+#: src/EBox/MailFilter.pm:659
 #, fuzzy
 msgid "SMTP mail filter"
 msgstr "Mail filter"
 
-#: src/EBox/MailFilter.pm:755
+#: src/EBox/MailFilter.pm:666 migration/0004_add_firewall_services.pl:32
+msgid "POP transparent proxy"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:681
 msgid "Files ACL"
 msgstr ""
 
@@ -900,6 +861,26 @@ msgstr ""
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Antivirus database update status"
+#~ msgstr "Virus database updatering status"
+
+#, fuzzy
+#~ msgid "The last update failed"
+#~ msgstr "Den sidste opdatering mislykkedes d. {date}"
+
+#, fuzzy
+#~ msgid ""
+#~ "Update failed.\n"
+#~ "Your version of freshclam  is outdated.Please, install version {version} "
+#~ "or higher"
+#~ msgstr ""
+#~ "Opdatering mislykkedes d. {date}.Din version af freshclam  er forældet. "
+#~ "Installér venligst version {version} eller højere"
+
+#~ msgid "Antivirus"
+#~ msgstr "Antivirus"
 
 #~ msgid "Mail filter system"
 #~ msgstr "Mail filter system"
