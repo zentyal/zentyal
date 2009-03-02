@@ -13,7 +13,7 @@ sub new
     my ($class, %params) = @_;
     my $self = $class->SUPER::new(%params);
 
-    my @paramNames = qw(smtpFilter antivirusActive port externalMTAs fwport 
+    my @paramNames = qw(smtpFilter  port externalMTAs fwport 
             POPProxy POPProxyPort
             );
     foreach my $p (@paramNames) {
@@ -69,10 +69,7 @@ sub output
     }
 
 
-    if ($self->{antivirusActive}) {
-        # freshclam update service
-        push (@rules, '--protocol tcp --dport 80 -j ACCEPT');
-    }
+
 
     return \@rules;
 }

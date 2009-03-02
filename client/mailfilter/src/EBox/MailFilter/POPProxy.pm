@@ -320,7 +320,7 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("SMTP filter"));
+    my $section = new EBox::Dashboard::Section(__("Transparent POP Proxy"));
     $summary->add($section);
 
     my $enabled = $self->isEnabled();
@@ -336,13 +336,13 @@ sub summary
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
 
-    my $antivirus = new EBox::Dashboard::ModuleStatus(
-        module        => 'mailfilter',
-        printableName => __('Antivirus'),
-        enabled       => $self->antivirus(),
-        running       => $mailfilter->antivirus()->isRunning(),
-        nobutton      => 1);
-    $section->add($antivirus);
+#     my $antivirus = new EBox::Dashboard::ModuleStatus(
+#         module        => 'mailfilter',
+#         printableName => __('Antivirus'),
+#         enabled       => $self->antivirus(),
+#         running       => $mailfilter->antivirus()->isRunning(),
+#         nobutton      => 1);
+#     $section->add($antivirus);
 
 
    my $antispam = new EBox::Dashboard::ModuleStatus(

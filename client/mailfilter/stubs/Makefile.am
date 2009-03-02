@@ -5,7 +5,6 @@ Stubdir = @STUBSPATH@/mailfilter
 
 
 nobase_Stub_DATA =  amavisd.conf.mas \
-       clamd.conf.mas  freshclam.conf.mas freshclam-cron.mas \
        local.cf.mas \
 	p3scan.conf.mas renattach.conf.mas
 

@@ -62,7 +62,6 @@ src/EBox/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/MailFilter/Makefile
 src/EBox/MailFilter/t/Makefile
-src/EBox/MailFilter/ClamAV/Makefile
 src/EBox/MailFilter/Types/Makefile
 src/EBox/MailFilter/Types/t/Makefile
 src/EBox/MailFilter/Model/Makefile

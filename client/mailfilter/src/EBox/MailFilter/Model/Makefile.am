@@ -5,7 +5,6 @@ perldir = @PERLPATH@/EBox/MailFilter/Model
 
 nobase_perl_DATA =   AmavisConfiguration.pm AmavisPolicy.pm ExternalMTA.pm ExternalDomain.pm \
                      FileExtensionACL.pm MIMETypeACL.pm \
-                     FreshclamStatus.pm \
                     AntispamConfiguration.pm AntispamACL.pm AntispamTraining.pm \
                     VDomains.pm \
                     POPProxyConfiguration.pm

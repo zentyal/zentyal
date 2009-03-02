@@ -27,14 +27,7 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
+
 #
 sub new
 {

@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = ClamAV  Model Composite Types t LogHelper
+SUBDIRS =  Model Composite Types t LogHelper
 
 perldir = @PERLPATH@/EBox/MailFilter
 
-nobase_perl_DATA =  Amavis.pm  VDomainsLdap.pm ClamAV.pm SpamAssassin.pm  \
+nobase_perl_DATA =  Amavis.pm  VDomainsLdap.pm  SpamAssassin.pm  \
    FirewallHelper.pm   Test.pm  ImportFromLdif.pm LogHelper.pm \
    POPProxy.pm
 

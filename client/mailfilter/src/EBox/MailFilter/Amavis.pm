@@ -111,9 +111,9 @@ sub stopService
 sub writeConf
 {
     my ($self) = @_;
-    
+
+    my $antivirus   = EBox::Global->modInstance('antivirus');    
     my $mailfilter  = EBox::Global->modInstance('mailfilter');
-    my $antivirus   = $mailfilter->antivirus();
     my $antispam   = $mailfilter->antispam();
 
     my @masonParams;
@@ -408,6 +408,7 @@ sub mailFilter
   }  else {
       $active = $self->isEnabled() ? 1 : 0;      
   }
+
   my %properties = (
                      address     => '127.0.0.1',
                      port        => $self->port(),
@@ -426,7 +427,7 @@ sub summary
 {
     my ($self, $summary) = @_;
 
-    my $section = new EBox::Dashboard::Section(__("POP transparent proxy"));
+    my $section = new EBox::Dashboard::Section(__("SMTP filter proxy"));
     $summary->add($section);
 
     my $enabled = $self->isEnabled();
@@ -443,13 +444,7 @@ sub summary
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
 
-    my $antivirus = new EBox::Dashboard::ModuleStatus(
-        module        => 'mailfilter',
-        printableName => __('Antivirus'),
-        enabled       => $self->antivirus(),
-        running       => $mailfilter->antivirus()->isRunning(),
-        nobutton      => 1);
-    $section->add($antivirus);
+
 
 
    my $antispam = new EBox::Dashboard::ModuleStatus(

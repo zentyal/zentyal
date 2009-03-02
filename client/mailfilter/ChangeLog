@@ -1,6 +1,7 @@
 1.1
 	+ Use the new row() and ids() API
 	+ bugfix: if the module is disabled the filter now appears as disabled as it should be
+	+ Now antivirus service has its own eBox module
 0.12.100
 	+ Bugfix: validation of General model now works properly
 	+ Added POP transparent proxy

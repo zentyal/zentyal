@@ -2,7 +2,7 @@
 
 scriptsdir = @DATADIR@/ebox-mailfilter
 
-scripts_SCRIPTS = freshclam-observer learnspamd
+scripts_SCRIPTS = learnspamd
 
 MAINTAINERCLEANFILES = Makefile.in
 

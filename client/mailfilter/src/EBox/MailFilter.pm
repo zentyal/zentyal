@@ -43,7 +43,6 @@ use EBox::Config;
 use EBox::Global;
 
 use EBox::MailFilter::Amavis;
-use EBox::MailFilter::ClamAV;
 use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::POPProxy;
 
@@ -61,7 +60,6 @@ sub _create
     bless($self, $class);
     
     $self->{smtpFilter} = new EBox::MailFilter::Amavis();
-    $self->{antivirus} = new EBox::MailFilter::ClamAV();
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
     $self->{popProxy}  = new EBox::MailFilter::POPProxy();
     
@@ -109,7 +107,6 @@ sub usedFiles
     my @usedFiles;
     
     push (@usedFiles, @{EBox::MailFilter::Amavis::usedFiles()});
-    push (@usedFiles, EBox::MailFilter::ClamAV::usedFiles());
     push (@usedFiles, EBox::MailFilter::SpamAssassin::usedFiles());
     push (@usedFiles, EBox::MailFilter::POPProxy::usedFiles());    
 
@@ -131,12 +128,12 @@ sub enableActions
 #
 #   Override EBox::Module::Service::enableModDepends
 #
-#  The mail dependency only exists bz we need the ldap mail data or we wil lrun
+#  The mail dependency only exists bz we need the ldap mail data or we will run
 #  in error when seting mail domains options
 sub enableModDepends 
 {
     my ($self) = @_;
-    my @depends = qw(network);
+    my @depends = qw(network antivirus);
 
     my $mail = EBox::Global->modInstance('mail');
     if ($mail) {
@@ -175,9 +172,6 @@ sub modelClasses
             'EBox::MailFilter::Model::FileExtensionACL',
             'EBox::MailFilter::Model::MIMETypeACL',
 
-            
-            'EBox::MailFilter::Model::FreshclamStatus',       
-     
             'EBox::MailFilter::Model::AntispamConfiguration',
             'EBox::MailFilter::Model::AntispamACL',
             'EBox::MailFilter::Model::AntispamTraining',
@@ -227,16 +221,7 @@ sub smtpFilter
     return $self->{smtpFilter};
 }
 
-#
-# Method: antivirus
-#
-# Returns:
-#   - the antivirus object. This a instance of EBox::MailFilter::ClamAV
-sub antivirus
-{
-    my ($self) = @_;
-    return $self->{antivirus};
-}
+
 
 #
 # Method: antispam
@@ -260,23 +245,6 @@ sub popProxy
     return $self->{popProxy};
 }
 
-
-sub antivirusNeeded
-{
-    my ($self) = @_;
-
-    if ($self->smtpFilter()->isEnabled() and  $self->smtpFilter()->antivirus()) {
-        return 1;
-    }
-
-
-    if ($self->popProxy()->isEnabled() and $self->popProxy()->antivirus()) {
-        return 1;
-    }
-
-
-    return 0;
-}
 
 sub antispamNeeded
 {
@@ -307,21 +275,17 @@ sub _regenConfig
 
     if ($enabled) {
         $self->smtpFilter->writeConf();
-        $self->antivirus()->writeConf($enabled);
         $self->antispam()->writeConf();
         $self->popProxy()->writeConf();
 
-  
         my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
         $vdomainsLdap->regenConfig();
     }
     
 
-    $self->antivirus()->doDaemon($enabled);
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
     $self->popProxy()->doDaemon($enabled);
-
 }
 
 #
@@ -337,7 +301,7 @@ sub isRunning
 {
     my ($self) = @_;
     
-    foreach my $componentName qw(smtpFilter antivirus antispam popProxy) {
+    foreach my $componentName qw(smtpFilter  antispam popProxy) {
         my $component = $self->$componentName();
         if ( $component->isRunning) {
             return 1;
@@ -391,7 +355,6 @@ sub _stopService
 
     $self->smtpFilter()->stopService();
     $self->antispam()->stopService();
-    $self->antivirus()->stopService();
     $self->popProxy()->stopService();
 }
 
@@ -418,19 +381,18 @@ sub firewallHelper
 {
   my ($self) = @_;
 
-  if (not $self->service()) {
+  if (not $self->isEnabled()) {
       return undef;
   }
 
 
   my $externalMTAs = $self->smtpFilter()->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
-                              smtpFilter          => $self->smtpFilter()->service,
-                              antivirusActive => $self->antivirus->service,
+                              smtpFilter          => $self->smtpFilter()->isEnabled(),
                               port            => $self->smtpFilter()->port,
                               fwport          => $self->smtpFilter()->fwport,
                               externalMTAs    => $externalMTAs,
-                              POPProxy        => $self->popProxy->service,
+                              POPProxy        => $self->popProxy->isEnabled(),
                               POPProxyPort    => $self->popProxy->port,
                                              );
 }
@@ -705,12 +667,6 @@ sub menu
                  )
     );
 
-    $folder->add(
-                 new EBox::Menu::Item(
-                                      'url' => 'MailFilter/View/FreshclamStatus',
-                                      'text' => __('Antivirus'),
-                 )
-    );
 
     $folder->add(
                  new EBox::Menu::Item(

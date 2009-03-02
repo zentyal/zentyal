@@ -27,10 +27,6 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
 
 sub new
 {

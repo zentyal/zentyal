@@ -1,4 +1,4 @@
-test_scripts = ClamAV.t  LogHelper.t
+test_scripts = LogHelper.t
 
 EXTRA_DIST = $(test_scripts)
 
