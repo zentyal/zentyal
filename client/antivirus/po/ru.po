@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:13+0100\n"
+"POT-Creation-Date: 2009-03-02 19:43+0100\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,25 +19,26 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Состояние"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus database update status"
-msgstr ""
+msgstr "Состояние обновления антивирусной базы"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed"
-msgstr ""
+"Антивирусная база не обновлялась с момента установки модуля почтовых "
+"фильтров eBox"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
-msgstr ""
+msgstr "Последнее обновление неудачно"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format
@@ -49,24 +50,24 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful"
-msgstr ""
+msgstr "Последнее обновление прошло успешно"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}"
-msgstr ""
+msgstr "Неизвестное событие {event}"
 
 #: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
 #: src/EBox/AntiVirus.pm:339
 msgid "Antivirus"
-msgstr ""
+msgstr "Антивирус"
 
 #: src/EBox/AntiVirus.pm:95
 msgid "Update status"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
-msgid " To configure clamd daemon"
+msgid "To configure clamd daemon"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:182
