@@ -184,7 +184,7 @@ sub usedFiles
        },
        {
            file => FRESHCLAM_CRON_SCRIPT,
-           reason => __('To schendule the launch of the updater'),
+           reason => __('To schedule the launch of the updater'),
            module => 'antivirus',
           }, 
          ];
