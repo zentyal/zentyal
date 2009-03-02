@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:13+0100\n"
+"POT-Creation-Date: 2009-03-02 19:43+0100\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -26,7 +26,7 @@ msgstr "日期"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus database update status"
-msgstr ""資料庫更新狀態
+msgstr "資料庫更新狀態"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
@@ -65,7 +65,7 @@ msgid "Update status"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
-msgid " To configure clamd daemon"
+msgid "To configure clamd daemon"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:182
