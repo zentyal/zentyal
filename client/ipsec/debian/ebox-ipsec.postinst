@@ -28,6 +28,8 @@ case "$1" in
 		chmod 0440 /etc/sudoers
 
 		invoke-rc.d ebox ipsec restart
+
+        dpkg-trigger --no-await ebox
 esac
 
 #DEBHELPER#

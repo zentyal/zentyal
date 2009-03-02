@@ -36,8 +36,8 @@ case "$1" in
         #  this is needed bz it may be changes in slapd configuration
         invoke-rc.d ebox users  restart || true
         invoke-rc.d slapd restart || true
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
+
+        dpkg-trigger --no-await ebox
     ;;
 esac
 

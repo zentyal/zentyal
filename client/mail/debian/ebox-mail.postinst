@@ -17,6 +17,8 @@ case "$1" in
 
         # restart module
         invoke-rc.d ebox mail restart
+
+        dpkg-trigger --no-await ebox
 esac
 
 

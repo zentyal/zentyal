@@ -25,6 +25,8 @@ case "$1" in
         invoke-rc.d ebox squid restart || true
         # restart firewall module
         invoke-rc.d ebox firewall restart || true 
+
+        dpkg-trigger --no-await ebox
     ;;
 
 esac

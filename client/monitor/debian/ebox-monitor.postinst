@@ -14,6 +14,8 @@ case "$1" in
 
         # Restart the module itself
         invoke-rc.d ebox monitor restart || true
+
+        dpkg-trigger --no-await ebox
     ;;
 esac
 

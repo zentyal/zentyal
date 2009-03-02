@@ -18,6 +18,8 @@ case "$1" in
 
         # Restart dhcp module
         invoke-rc.d ebox dhcp restart || true
+
+        dpkg-trigger --no-await ebox
 esac
 
 

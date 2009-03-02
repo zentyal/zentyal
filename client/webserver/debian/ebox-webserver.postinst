@@ -11,6 +11,8 @@ case "$1" in
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-webserver/migration/
 
 		invoke-rc.d ebox webserver restart || true
+
+        dpkg-trigger --no-await ebox
 esac
 
 
