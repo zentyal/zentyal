@@ -266,8 +266,6 @@ sub _copyMissingFields
 
     foreach my $attr ($ldifEntry->attributes()) {
         if ($entry->exists($attr)) {
-            EBox::debug("$attr is not missing. Skipping it");
-            
             next;
         }
 
@@ -280,7 +278,6 @@ sub _copyMissingFields
         @values or
             next;
 
-        EBox::debug("Adding $attr with values @values");
         $entry->add($attr => \@values);
     }
 
