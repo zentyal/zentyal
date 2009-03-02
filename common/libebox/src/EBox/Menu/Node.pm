@@ -87,7 +87,9 @@ sub _compare # (node)
 sub _merge # (node)
 {
 	my ($self, $node) = @_;
-	push(@{$self->{items}}, @{$node->{items}});
+    foreach my $item (@{$node->{items}}) { 
+        $self->add($item);
+    }
 }
 
 sub html

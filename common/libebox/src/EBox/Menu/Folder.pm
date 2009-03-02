@@ -109,7 +109,9 @@ sub _merge # (node)
 	if (defined($self->{text}) and (length($self->{text}) != 0)) {
 		$node->{text} = $self->{text};
 	}
-	push(@{$self->{items}}, @{$node->{items}});
+    foreach my $item (@{$node->{items}}) { 
+        $self->add($item);
+    }
 }
 
 1;
