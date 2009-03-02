@@ -45,16 +45,6 @@ sub _mailfilterModule
 
 
 
-# the service is when requested by any subservice
-sub service
-{
-  my ($self) = @_;
-
-  my $mailfilter = EBox::Global->modInstance('mailfilter');
-  return $mailfilter->antivirusNeeded();
-}
-
-
 sub setVDomainService
 {
   my ($self, $vdomain, $service) = @_;

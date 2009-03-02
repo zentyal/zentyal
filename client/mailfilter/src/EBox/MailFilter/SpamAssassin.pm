@@ -107,7 +107,7 @@ sub stopService
 
 
 #
-# Method: service
+# Method: isEnabled
 #
 #  Returns the state of the service.
 #
