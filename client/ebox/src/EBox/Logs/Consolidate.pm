@@ -552,12 +552,13 @@ sub _sourceRows
     defined $dateCol or
         $dateCol = 'date';
 
-    my $select = "SELECT * FROM $table  ORDER BY $dateCol ";
+    my $select = "SELECT * FROM $table";
 
     my $lastConsolidationDate = $self->_lastConsolidationDate($dbengine, $table);
     if (defined $lastConsolidationDate) {
-        $select .= " WHERE $dateCol > $lastConsolidationDate";
+        $select .= " WHERE $dateCol > '$lastConsolidationDate'";
     }
+    $select .= " ORDER BY $dateCol ";
 
 
     my $res = $dbengine->query($select);
