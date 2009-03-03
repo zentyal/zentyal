@@ -108,12 +108,17 @@ sub isRunning
     return $self->isEnabled();
 }
 
-sub _regenConfig
+# Method: _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Base::_setConf>
+#
+sub _setConf
 {
     my ($self) = @_;
 
     $self->_saveEnabledLogsModules();
-    $self->_enforceServiceState();
 }
 
 sub cleanup 
@@ -666,7 +671,7 @@ sub tableInfo
 #       We have to do this beacuse the logger daemon will request this
 #       configuration as root user.
 #
-#       Anotther approach could be creating a separated script to
+#       Another approach could be creating a separated script to
 #       query ebox conf.
 #
 sub _saveEnabledLogsModules
