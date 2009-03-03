@@ -157,6 +157,9 @@ sub _processUserAccount
     my $flags = $entry->get_value('sambaAcctFlags');
     my $sharing = not ($flags =~ /D/) ? 'yes' : 'no';
     $sambaUser->setUserSharing($username, $sharing);
+
+    my $dn = $entry->dn();
+    $package->_copyMissingFields($dn, $entry);
 }
 
 
@@ -169,36 +172,13 @@ sub _processComputerAccount
     # when proccessing sambaSamDomian
     my $account = $entry->get_value('cn');
     my $sambaSID = $entry->get_value('sambaSID');
-#     my $lmPasswd = $entry->get_value('lmPassword');
-#     my $ntPasswd = $entry->get_value('sambaNTPassword');
 
     $package->_addComputerAccount($account, $sambaSID);
 
     my $dn = $entry->dn();
     $package->_copyMissingFields($dn, $entry);
-
-#     my %attrs = (
-#                  sambaSID => $sambaSID,
-#                  objectClass => 'sambaSamAccount',
-#                 );
-#     if ($ntPasswd) {
-#         $attrs{sambaNTPassword} = $ntPasswd;
-#     }
-
-
-#     if ($lmPasswd) {
-#         $attrs{lmPassword} = $lmPasswd;
-#     }
-    
-
-#     my $ldap = EBox::Ldap->instance();
-#     my $dn = "uid=$account," . $package->_computersDn();
-#     print "dn to add $dn\n";
-
-#     $ldap->modify($dn, { add => \%attrs } );
-
-#     print "MODIFED\n";
 }
+
 
 # TODO we can move all computer account utility method to its own class but for
 # now it is not neccessary
