@@ -115,7 +115,7 @@ sub _regenConfig
           # clicked.
           my $gl = EBox::Global->getInstance(1);
           my $openvpn = $gl->modInstance('openvpn');
-          $openvpn->_regenConfig(restart => 1);
+          $openvpn->restartService();
       } else {
           # Delete the certificates only when saving changes are done
           $self->_deleteUnusedCerts();

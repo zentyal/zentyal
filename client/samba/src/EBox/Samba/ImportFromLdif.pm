@@ -94,7 +94,7 @@ sub processSambaDomain
 
  #   $samba->fixSIDs(); 
 # fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
-    $samba->_regenConfig();
+    $samba->restartService();
 
     $package->_addDomainUsersAccount();
 

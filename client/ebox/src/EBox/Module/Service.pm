@@ -576,7 +576,7 @@ sub restartService
 
 	$log->info("Restarting service for module: " . $self->name);
 	try {
-            $self->_regenConfig('restart' => 1);
+            $self->_regenConfig();
 	} otherwise  {
             my ($ex) = @_;
             $log->error("Error restarting service: $ex");

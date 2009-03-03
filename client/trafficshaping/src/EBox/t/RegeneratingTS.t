@@ -47,6 +47,6 @@ lives_ok {
   'Getting a traffic shaping instance';
 
 lives_ok {
-  $ts->_regenConfig();
+  $ts->restartService();
 }
   'Regeneration config';

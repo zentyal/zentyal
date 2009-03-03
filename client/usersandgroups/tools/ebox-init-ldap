@@ -102,7 +102,7 @@ sub clean
 
 sub gen_config
 {
-	$users->_regenConfig;
+	$users->restartService();
 }
 
 sub addSysUser

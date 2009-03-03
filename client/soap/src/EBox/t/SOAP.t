@@ -82,5 +82,5 @@ ok ( ! $soap->bundleUploaded(), 'Bundle deleted correctly');
 throws_ok { $soap->deleteBundleUploaded() }
      'EBox::Exceptions::External', 'Deleting an existing bundle';
 
-lives_ok { $soap->_regenConfig(restart => 1) }
+lives_ok { $soap->restartService() }
   'Restarting the service';

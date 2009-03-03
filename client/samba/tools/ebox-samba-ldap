@@ -285,7 +285,7 @@ sub updateUsers
 sub gen_config
 {
 	my $samba = EBox::Global->modInstance('samba');
-	$samba->_regenConfig;
+	$samba->restartService();
 }
 
 

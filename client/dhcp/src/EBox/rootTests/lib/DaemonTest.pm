@@ -174,7 +174,7 @@ sub _checkService
   my @serviceSequences = qw(0 0 1 1 0);
   foreach my $service (@serviceSequences) {
     $dhcp->setService($service);
-    lives_ok { $dhcp->_regenConfig()  } 'Regenerating configuration for dhcp server';
+    lives_ok { $dhcp->restartService()  } 'Regenerating configuration for dhcp server';
     sleep 1; # avoid race problems
     my $actualService = EBox::Service::running('dhcpd3') ? 1 : 0;
     is $actualService, $service, 'Checking if service is the expected';
