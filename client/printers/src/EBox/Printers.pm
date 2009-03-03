@@ -171,7 +171,11 @@ sub writeOldCupsConf
 
 }
 
-sub _setCupsConf
+# Method: actions
+#
+#	Override EBox::Module::Base::_setConf
+#
+sub _setConf
 {
 	my $self = shift;
 
@@ -196,13 +200,6 @@ sub _daemons
             'name' => 'ebox.cups'
         }
     ];
-}
-
-sub _regenConfig
-{
-	my $self = shift;
-	$self->_setCupsConf();
-	$self->_enforceServiceState();
 }
 
 sub summary
