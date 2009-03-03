@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-22 10:47+0100\n"
+"POT-Creation-Date: 2009-03-03 19:21+0100\n"
 "PO-Revision-Date: 2007-07-24 15:21+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -80,14 +80,6 @@ msgstr "Log"
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "Senderen {name} er ikke sat til."
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
@@ -243,34 +235,34 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
-#: src/templates/report/raid.mas:101
+#: src/templates/report/raid.mas:111
 #, fuzzy
 msgid "active"
 msgstr "Aktivt"
 
-#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
+#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
+#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:115
 #, fuzzy
 msgid "recovering"
 msgstr "eBox version"
 
-#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
+#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:117
 #, fuzzy
 msgid "resyncing"
 msgstr "Arrayet syncer"
 
-#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
+#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
+#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:123
 #, fuzzy
 msgid "failed"
 msgstr "fejl"
@@ -299,7 +291,7 @@ msgstr "Modtager"
 msgid "faulty"
 msgstr "Juli"
 
-#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
+#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:233
 msgid "spare"
 msgstr "reserve"
 
@@ -311,7 +303,7 @@ msgstr "eBox er started og kører"
 msgid "eBox is critically down"
 msgstr "eBox er ikke korrekt"
 
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Status"
 
@@ -391,7 +383,7 @@ msgstr "Alle"
 msgid "any"
 msgstr "alle"
 
-#: src/EBox/Types/PortRange.pm:398
+#: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"fra\" {from} skal være større end \"til\" {to}"
@@ -411,78 +403,78 @@ msgstr "Passwordet bør have højst {maxLength} tegn"
 msgid "Enter a float number"
 msgstr "Skriv et positivt tal"
 
-#: src/EBox/Model/DataTable.pm:322
+#: src/EBox/Model/DataTable.pm:325
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} i {module} modul"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:329
 #, fuzzy
 msgid "at"
 msgstr "i"
 
-#: src/EBox/Model/DataTable.pm:547
+#: src/EBox/Model/DataTable.pm:509
 msgid "field"
 msgstr "felt"
 
-#: src/EBox/Model/DataTable.pm:1442
+#: src/EBox/Model/DataTable.pm:1433
 #, fuzzy
 msgid "page"
 msgstr "reserve"
 
-#: src/EBox/Model/DataTable.pm:1445
+#: src/EBox/Model/DataTable.pm:1436
 #, fuzzy
 msgid "Page must be a number equal or greater than zero"
 msgstr "skal være større end nul"
 
-#: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
-#: src/EBox/Logs.pm:641
+#: src/EBox/Model/DataTable.pm:2049 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
+#: src/EBox/Logs.pm:647
 msgid "Action"
 msgstr "Handling"
 
-#: src/EBox/Model/DataTable.pm:2622
+#: src/EBox/Model/DataTable.pm:2720
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Fjern {num} rækker{rowName} fra {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2693
+#: src/EBox/Model/DataTable.pm:2791
 msgid "Page size"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2696
+#: src/EBox/Model/DataTable.pm:2794
 #, fuzzy
 msgid "Must be either a positive number or zero"
 msgstr "Det skal være et positivt tal"
 
-#: src/EBox/Model/DataTable.pm:2937
+#: src/EBox/Model/DataTable.pm:3094
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} tilføjet"
 
-#: src/EBox/Model/DataTable.pm:2938
+#: src/EBox/Model/DataTable.pm:3095
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} slettet"
 
-#: src/EBox/Model/DataTable.pm:2939
+#: src/EBox/Model/DataTable.pm:3096
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} ændret"
 
-#: src/EBox/Model/DataTable.pm:2940
+#: src/EBox/Model/DataTable.pm:3097
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} flyttet op"
 
-#: src/EBox/Model/DataTable.pm:2941
+#: src/EBox/Model/DataTable.pm:3098
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} flyttet ned"
 
-#: src/EBox/Model/DataTable.pm:4222
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: src/EBox/Model/DataTable.pm:4381
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:312
 msgid "Enabled"
 msgstr "Slået til"
 
@@ -491,7 +483,7 @@ msgstr "Slået til"
 msgid "Provided object with index {i} does not exist"
 msgstr "Objektet med index {i} eksisterer ikke"
 
-#: src/EBox/Model/ModelManager.pm:466
+#: src/EBox/Model/ModelManager.pm:467
 #, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
@@ -500,7 +492,7 @@ msgstr ""
 "De data som du sletter bliver brugt af\n"
 "\t\t følgende moduler:"
 
-#: src/EBox/Model/ModelManager.pm:513
+#: src/EBox/Model/ModelManager.pm:514
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -519,23 +511,21 @@ msgstr "Slet data fra {model}{br}"
 msgid "Change"
 msgstr "Foretag ændring"
 
-#: src/EBox/Model/DataForm.pm:699
-#: src/EBox/RemoteServices/Model/Subscription.pm:171
-#: src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Færdig"
 
-#: src/EBox/Model/Composite.pm:322
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr "Det bør være en af følgende værdier: {values}"
 
-#: src/EBox/Model/Composite.pm:625
+#: src/EBox/Model/Composite.pm:672
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "De tilladte handlinger er: {view} og {cView}"
 
-#: src/EBox/Model/Composite.pm:748
+#: src/EBox/Model/Composite.pm:795
 msgid "Choose one of the following:"
 msgstr "Vælg en af følgende: "
 
@@ -568,17 +558,14 @@ msgid "Backing up modules"
 msgstr "Backup af moduler"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
 msgstr "Operation"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
 msgstr "Operationer der mangler før backup er færdig"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
 msgstr "Backup lykkedes"
 
@@ -590,23 +577,16 @@ msgstr "Restore af backup"
 msgid "Restoring modules"
 msgstr "Restore af moduler"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/Logs.pm:640 src/templates/moduleStatusTable.mas:58
-#: src/templates/finish.mas:106
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:646
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
 msgstr "moduler der mangler at bliver restored"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
 msgid "Restore successful"
 msgstr "Restore lykkedes"
 
@@ -660,7 +640,6 @@ msgstr "Passwordet blev ændret"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
 msgid "Configuration backup"
 msgstr "Backup af konfiguration"
 
@@ -668,10 +647,8 @@ msgstr "Backup af konfiguration"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Bekræft venligst at du vil slette følgende backup fil:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: src/templates/backup.mas:172 src/templates/backup.mas:173
-#: src/templates/RemoteServices/Backup/index.mas:96
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
 msgid "Delete"
 msgstr "Slet"
 
@@ -681,12 +658,7 @@ msgid "Please confirm that you want to restore using this backup file:"
 msgstr "Bekræft at du vil læse denne backup ind"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: src/templates/backup.mas:95
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
 msgstr "Genetabler"
 
@@ -698,7 +670,7 @@ msgstr "Fuld backup af data og konfiguration"
 msgid "Bug-report configuration dump"
 msgstr "Lav en bug-report konfigurations dump"
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:619
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
 msgid "Logs"
 msgstr "Logs"
 
@@ -752,7 +724,7 @@ msgstr "Gem ændringer"
 msgid "Saving changes in modules"
 msgstr "Backup af moduler"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Nuværende operation"
 
@@ -773,47 +745,39 @@ msgid ""
 "logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:100
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Gem ændringer"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:101
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Restore af moduler"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Current module"
 msgstr "Nuværende password"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "modules revoked"
 msgstr "moduler der mangler at bliver restored"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Skift password"
 
-#: src/EBox/CGI/Finish.pm:106
+#: src/EBox/CGI/Finish.pm:105
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"En intern fejl er opstået. Det skyldes nok en fejl i programmet, du kan "
-"måske finde en forklaring i loggen."
-
-#: src/EBox/CGI/ClientRawBase.pm:201
+#: src/EBox/CGI/ClientRawBase.pm:205
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -821,77 +785,18 @@ msgstr ""
 "En intern fejl i forbindelse med en skabelon er opstået. Det er en fejl i "
 "programmet, du kan måske finde en forklaring i loggen."
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
 msgid "Dashboard"
 msgstr ""
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
+#: src/templates/dashboard/index.mas:53 src/templates/dashboard/index.mas:89
 #, fuzzy
 msgid "Configure widgets"
 msgstr "Sæt handlinger op"
 
-#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
-#, fuzzy
-msgid "Backup deleted"
-msgstr "Backup metode"
-
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
-#, fuzzy
-msgid "Restoring remote backup"
-msgstr "Restore af backup"
-
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
-#, fuzzy
-msgid "Restoring modules from remote backup"
-msgstr "Restore fra backup"
-
-#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#, fuzzy
-msgid "Remote system backups"
-msgstr "System backuper"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
-#, fuzzy
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "Bekræft venligst at du vil slette følgende backup fil:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
-#, fuzzy
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Bekræft venligst at du vil slette følgende backup fil:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
-#, fuzzy, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "RAID arrayet {a} findes ikke"
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr ""
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
-#, fuzzy
-msgid "Backing up modules "
-msgstr "Backup af moduler"
-
-#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
-#, fuzzy
-msgid "Remote system backups proxy"
-msgstr "System backuper"
-
-#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
-#, fuzzy
-msgid "Connection error"
-msgstr "Operationens hastighed"
-
-#: src/EBox/Logs/Model/Report/Details.pm:197
-#: src/EBox/Logs/Model/Report/Details.pm:230
+#: src/EBox/Logs/Model/Report/Details.pm:216
+#: src/EBox/Logs/Model/Report/Details.pm:249
 msgid "All"
 msgstr ""
 
@@ -923,77 +828,77 @@ msgstr ""
 msgid "Report options"
 msgstr "Andre valg"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:225
 msgid "never purge"
 msgstr "Slet aldrig"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
 msgstr "En time"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
 msgstr "12 timer"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
 msgstr "En dag"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
 msgstr "3 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
 msgstr "En uge"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
 msgstr "15 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
 msgstr "30 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
 msgstr "90 dage"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
-#: src/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Events/Model/Watcher/Log.pm:216
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:219
 msgid "Domain"
 msgstr "Domæne"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:344
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
 msgstr "Slet logfiler, der er ældre end"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:361
 #, fuzzy
 msgid "Current configuration"
 msgstr "Gem konfiguration"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:362
 #, fuzzy
 msgid "Logs configuration"
 msgstr "Gem konfiguration"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
 msgid "Enable/disable logging per-module basis"
 msgstr "Enable/disable logning per modul"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
-#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:370
+#: src/EBox/Logs/Model/SelectLog.pm:173 src/EBox/Logs.pm:57
 msgid "logs"
 msgstr "Logs"
 
@@ -1005,16 +910,16 @@ msgstr "Slet logfiler nu"
 msgid "Purge"
 msgstr "Slet"
 
-#: src/EBox/Logs/Model/SelectLog.pm:129
+#: src/EBox/Logs/Model/SelectLog.pm:149
 #, fuzzy
 msgid "Full report"
 msgstr "Fejl report"
 
-#: src/EBox/Logs/Model/SelectLog.pm:135
+#: src/EBox/Logs/Model/SelectLog.pm:155
 msgid "Summarized report"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:146
+#: src/EBox/Logs/Model/SelectLog.pm:166
 #, fuzzy
 msgid "Select report"
 msgstr "Fejl report"
@@ -1052,7 +957,6 @@ msgid "User password"
 msgstr "Bruger password"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-#: src/EBox/RemoteServices/Model/Subscription.pm:276
 msgid "Subscribe"
 msgstr "Tilmeld"
 
@@ -1179,91 +1083,83 @@ msgstr ""
 msgid "Configure disk free space watcher"
 msgstr "Konfigurer sendere"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:168
-#: src/EBox/Events/Model/Watcher/Log.pm:192
+#: src/EBox/Events/Model/Watcher/Log.pm:171
+#: src/EBox/Events/Model/Watcher/Log.pm:195
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:221
+#: src/EBox/Events/Model/Watcher/Log.pm:224
 msgid "Filtering"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:229
+#: src/EBox/Events/Model/Watcher/Log.pm:232
 #, fuzzy
 msgid "Configure log watchers"
 msgstr "Konfigurer sendere"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:231
+#: src/EBox/Events/Model/Watcher/Log.pm:234
 msgid "Log watcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
-#: src/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/index.mas:23
-#: src/templates/RemoteServices/Backup/index.mas:67
-#: src/templates/RemoteServices/Backup/confirm.mas:24
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:251
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:264
 msgid "Name"
 msgstr "Navn"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:259
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
-#: src/templates/RemoteServices/Backup/proxy.mas:45
-#: src/templates/RemoteServices/Backup/index.mas:27
-#: src/templates/RemoteServices/Backup/index.mas:69
-#: src/templates/RemoteServices/Backup/confirm.mas:40
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:268
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:286
 msgid "Configuration"
 msgstr "Konfiguration"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
 msgid "None"
 msgstr "Ingen"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:293
 msgid "Configure events"
 msgstr "Sæt handlinger op"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
 msgid "event"
 msgstr "handling"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Enable/disable hver overvågning af handlinger"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:489
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:274
 msgid "Receiver"
 msgstr "Modtager"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
 msgid "Configure dispatchers"
 msgstr "Konfigurer sendere"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
 msgid "dispatcher"
 msgstr "sender"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:339
 msgid "Enable/Disable each event dispatcher"
 msgstr "Enable/disable hver handlings sender"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:527
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -1271,7 +1167,7 @@ msgstr ""
 "For at kunne slå en konfigurerbar handlings sender til, skal den først "
 "konfigureres"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:147
 msgid "Events"
 msgstr "Handlinger"
 
@@ -1297,33 +1193,33 @@ msgstr ""
 "Ugyldigt filsystem: {f}. Det er kun almindelige og ikke flytbare medier, der "
 "kan akcepteres"
 
-#: src/EBox/Report/DiskUsage.pm:320
+#: src/EBox/Report/DiskUsage.pm:333
 msgid "Free space"
 msgstr "Ledig plads"
 
-#: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
+#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:205
 msgid "System"
 msgstr "System"
 
-#: src/EBox/Apache.pm:248 src/EBox/Apache.pm:257
+#: src/EBox/Apache.pm:276 src/EBox/Apache.pm:285
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
+#: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Backup af moduler"
 
-#: src/EBox/Global.pm:816
+#: src/EBox/Global.pm:835
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
 
-#: src/EBox/Events.pm:90
+#: src/EBox/Events.pm:89
 msgid "events"
 msgstr "handlinger"
 
-#: src/EBox/Events.pm:595
+#: src/EBox/Events.pm:546
 msgid "Event service status"
 msgstr "Handlings status"
 
@@ -1331,56 +1227,53 @@ msgstr "Handlings status"
 msgid "Save changes"
 msgstr "Gem ændringer"
 
-#: src/EBox/Logs.pm:74
+#: src/EBox/Logs.pm:73
 msgid "Create logs database"
 msgstr ""
 
-#: src/EBox/Logs.pm:75
+#: src/EBox/Logs.pm:74
 msgid "eBox store its logs in the database"
 msgstr ""
 
-#: src/EBox/Logs.pm:425
+#: src/EBox/Logs.pm:431
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tabellen {table} findes ikke"
 
-#: src/EBox/Logs.pm:622
+#: src/EBox/Logs.pm:628
 msgid "Query logs"
 msgstr "Database logfiler"
 
-#: src/EBox/Logs.pm:625
+#: src/EBox/Logs.pm:631
 msgid "Configure logs"
 msgstr "Konfigurer logfiler"
 
-#: src/EBox/Logs.pm:638 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:644 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
-#: src/templates/RemoteServices/Backup/proxy.mas:44
-#: src/templates/RemoteServices/Backup/index.mas:68
-#: src/templates/RemoteServices/Backup/confirm.mas:32
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Logs.pm:639
+#: src/EBox/Logs.pm:645
 msgid "Client Address"
 msgstr "Klient adresse"
 
-#: src/EBox/Logs.pm:642
+#: src/EBox/Logs.pm:648
 msgid "Params"
 msgstr "Parametre"
 
-#: src/EBox/Logs.pm:643
+#: src/EBox/Logs.pm:649
 msgid "Committed"
 msgstr "Er gemt"
 
-#: src/EBox/Logs.pm:648
+#: src/EBox/Logs.pm:654
 msgid "Admin"
 msgstr "Administrator"
 
-#: src/EBox/Logs.pm:742
+#: src/EBox/Logs.pm:748
 msgid "Log messages"
 msgstr "Log meddelelser"
 
-#: src/EBox/Logs.pm:769
+#: src/EBox/Logs.pm:775
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Levetids parameter skal være et positivt antal timer"
 
@@ -1419,7 +1312,7 @@ msgstr "Kunne ikke finde de ønskede backup filer: {files}"
 msgid "Could not unpack the backup"
 msgstr "Kunne ikke pakke backuppen ud"
 
-#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:227
+#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:221
 msgid "Backup"
 msgstr "Backup"
 
@@ -1500,54 +1393,54 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "Backup filer"
 
-#: src/EBox/SysInfo.pm:43
+#: src/EBox/SysInfo.pm:42
 #, fuzzy
 msgid "System information"
 msgstr "system information"
 
-#: src/EBox/SysInfo.pm:82
+#: src/EBox/SysInfo.pm:77
 msgid "Time"
 msgstr "Tid"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:78
 msgid "Host name"
 msgstr "Hostnavn"
 
-#: src/EBox/SysInfo.pm:85
+#: src/EBox/SysInfo.pm:80
 msgid "eBox version"
 msgstr "eBox version"
 
-#: src/EBox/SysInfo.pm:88
+#: src/EBox/SysInfo.pm:83
 msgid "System load"
 msgstr "Serverens belastning"
 
-#: src/EBox/SysInfo.pm:123 src/EBox/SysInfo.pm:205
+#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
 #, fuzzy
 msgid "Module status"
 msgstr "Modul"
 
-#: src/EBox/SysInfo.pm:128
+#: src/EBox/SysInfo.pm:123
 msgid "General information"
 msgstr "Generel information"
 
-#: src/EBox/SysInfo.pm:133
+#: src/EBox/SysInfo.pm:128
 #, fuzzy
 msgid "Process' list"
 msgstr "Backup liste"
 
-#: src/EBox/SysInfo.pm:214
+#: src/EBox/SysInfo.pm:209
 msgid "General"
 msgstr "Generelt"
 
-#: src/EBox/SysInfo.pm:217
+#: src/EBox/SysInfo.pm:212
 msgid "Disk usage Information"
 msgstr "Disk forbrug"
 
-#: src/EBox/SysInfo.pm:221
+#: src/EBox/SysInfo.pm:216
 msgid "RAID Information"
 msgstr "RAID information"
 
-#: src/EBox/SysInfo.pm:230
+#: src/EBox/SysInfo.pm:224
 msgid "Halt/Reboot"
 msgstr "Stop/reboot"
 
@@ -1612,127 +1505,6 @@ msgstr "Fejl ved udlæsning af postgresql databasen {name}"
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Database dumpet {file} kan ikke læses ind"
-
-#: src/EBox/RemoteServices/Subscription.pm:104
-msgid "Key for web subscription service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
-#, fuzzy, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "RAID arrayet {a} findes ikke"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:143
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:146
-msgid "Subscription data retrieved correctly"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:224
-msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:245
-#, fuzzy
-msgid "User name"
-msgstr "Hostnavn"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:253
-msgid "eBox common name"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-#: src/templates/login/index.mas:29
-#: src/templates/RemoteServices/Backup/proxy.mas:138
-msgid "Password"
-msgstr "Password"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:271
-msgid "eBox suscription details"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:272
-#, fuzzy
-msgid "Delete data"
-msgstr "Slet"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:275
-msgid "Subscription to remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:286
-#, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr ""
-
-#: src/EBox/RemoteServices/Composite/General.pm:73
-#, fuzzy
-msgid "Remote services"
-msgstr "Handlings status"
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:198
-#, perl-brace-format
-msgid "No backups in server for host: {h}"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:238
-msgid "Key for proxy backup service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:256
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:272
-msgid "No domain key found for this service"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:284
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:143
-msgid "Key for service proxy not found"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:71
-msgid "eBox remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:133
-msgid "Remote services subscription"
-msgstr ""
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1850,6 +1622,10 @@ msgstr "sidste"
 msgid "Warning: Caps Lock is enabled"
 msgstr ""
 
+#: src/templates/login/index.mas:29
+msgid "Password"
+msgstr "Password"
+
 #: src/templates/login/index.mas:36
 msgid "Enter"
 msgstr "Enter"
@@ -1876,7 +1652,7 @@ msgstr "Exit"
 msgid "Mounted on"
 msgstr "Mounted på"
 
-#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
+#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:131
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
 msgstr "Type"
@@ -1889,120 +1665,116 @@ msgstr "Muligheder"
 msgid "Partition properties"
 msgstr "Partitionens værdier"
 
-#: src/templates/report/raid.mas:13
-msgid "No RAID devices present"
-msgstr "Der en ikke noget RAID enheder til stede"
-
-#: src/templates/report/raid.mas:17
+#: src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr "RAID arrayet {a} findes ikke"
 
-#: src/templates/report/raid.mas:84
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system"
+msgstr ""
+
+#: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
 msgstr "venstre-asymmetrisk"
 
-#: src/templates/report/raid.mas:85
+#: src/templates/report/raid.mas:95
 msgid "right-asymmetric"
 msgstr "højre-asymmetrisk"
 
-#: src/templates/report/raid.mas:86
+#: src/templates/report/raid.mas:96
 msgid "left-symmetric"
 msgstr "venstre-symmetrisk"
 
-#: src/templates/report/raid.mas:87
+#: src/templates/report/raid.mas:97
 msgid "right-symmetric"
 msgstr "højre-symmetrisk"
 
-#: src/templates/report/raid.mas:94 src/templates/moduleStatusTable.mas:60
+#: src/templates/report/raid.mas:104 src/templates/moduleStatusTable.mas:60
 msgid "Status"
 msgstr "Status"
 
-#: src/templates/report/raid.mas:132
+#: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
 msgstr "Aktive RAID enheder"
 
-#: src/templates/report/raid.mas:133
+#: src/templates/report/raid.mas:143
 msgid "Active RAID devices needed"
 msgstr "Manglende aktive RAID enheder"
 
-#: src/templates/report/raid.mas:134
+#: src/templates/report/raid.mas:144
 msgid "Size in blocks"
 msgstr "Størrelse i blokke"
 
-#: src/templates/report/raid.mas:135
+#: src/templates/report/raid.mas:145
 msgid "Chunk size"
 msgstr "Chunk størrelse"
 
-#: src/templates/report/raid.mas:138
+#: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
 msgstr "Paritets algoritme"
 
-#: src/templates/report/raid.mas:170
+#: src/templates/report/raid.mas:180
 msgid "Array properties"
 msgstr "Array værdier"
 
-#: src/templates/report/raid.mas:185
+#: src/templates/report/raid.mas:195
 msgid "Resyncing array"
 msgstr "Arrayet syncer"
 
-#: src/templates/report/raid.mas:186
+#: src/templates/report/raid.mas:196
 msgid "Rebuild array"
 msgstr "Arrayet genopbygges"
 
-#: src/templates/report/raid.mas:187
+#: src/templates/report/raid.mas:197
 msgid "Reshape array"
 msgstr "Arrayet genskabes"
 
-#: src/templates/report/raid.mas:195
+#: src/templates/report/raid.mas:205
 msgid "Operation type"
 msgstr "Operationens type"
 
-#: src/templates/report/raid.mas:197
+#: src/templates/report/raid.mas:207
 msgid "Percentage completed"
 msgstr "Procent færdig"
 
-#: src/templates/report/raid.mas:199
+#: src/templates/report/raid.mas:209
 msgid "Estimated time left"
 msgstr "Ca. tid tilbage"
 
-#: src/templates/report/raid.mas:201
+#: src/templates/report/raid.mas:211
 msgid "Operation speed"
 msgstr "Operationens hastighed"
 
-#: src/templates/report/raid.mas:214
+#: src/templates/report/raid.mas:224
 msgid "RAID device number"
 msgstr "RAID enheds nummer"
 
-#: src/templates/report/raid.mas:215
+#: src/templates/report/raid.mas:225
 msgid "Device"
 msgstr "Enhed"
 
-#: src/templates/report/raid.mas:221
+#: src/templates/report/raid.mas:231
 msgid "up"
 msgstr "up"
 
-#: src/templates/report/raid.mas:222
+#: src/templates/report/raid.mas:232
 msgid "failure"
 msgstr "fejl"
 
-#: src/templates/report/raid.mas:251
+#: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
 msgstr "Der er ingen ubrugte RAID enheder"
 
-#: src/templates/report/raid.mas:254
+#: src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
 msgstr "Ubrugte RAID enheder"
 
 #: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-#: src/templates/RemoteServices/Backup/proxy.mas:46
-#: src/templates/RemoteServices/Backup/index.mas:70
-#: src/templates/RemoteServices/Backup/confirm.mas:48
 msgid "Archive size"
 msgstr ""
 
 #: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
-#: src/templates/RemoteServices/Backup/confirm.mas:73
 msgid "Cancel"
 msgstr "Fortryd"
 
@@ -2089,7 +1861,6 @@ msgid "Back up the current state"
 msgstr "Lav backup af nuværende setup"
 
 #: src/templates/backup.mas:35
-#: src/templates/RemoteServices/Backup/index.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -2102,7 +1873,6 @@ msgid "Backup mode"
 msgstr "Backup metode"
 
 #: src/templates/backup.mas:64
-#: src/templates/RemoteServices/Backup/index.mas:32
 msgid "Back up"
 msgstr "Backup"
 
@@ -2135,13 +1905,10 @@ msgid "Unknown type"
 msgstr "Ukendt type"
 
 #: src/templates/backup.mas:122
-#: src/templates/RemoteServices/Backup/proxy.mas:109
 msgid "Backups' list"
 msgstr "Backup liste"
 
 #: src/templates/backup.mas:130
-#: src/templates/RemoteServices/Backup/proxy.mas:47
-#: src/templates/RemoteServices/Backup/index.mas:71
 msgid "Actions"
 msgstr "Handlinger"
 
@@ -2154,25 +1921,18 @@ msgid "Restore from backup"
 msgstr "Restore fra backup"
 
 #: src/templates/backup.mas:166 src/templates/backup.mas:167
-#: src/templates/RemoteServices/Backup/proxy.mas:82
-#: src/templates/RemoteServices/Backup/index.mas:91
 msgid "Download"
 msgstr "Download"
 
 #: src/templates/backup.mas:186
-#: src/templates/RemoteServices/Backup/proxy.mas:103
-#: src/templates/RemoteServices/Backup/index.mas:114
 msgid "download"
 msgstr "download"
 
 #: src/templates/backup.mas:188
-#: src/templates/RemoteServices/Backup/proxy.mas:99
-#: src/templates/RemoteServices/Backup/index.mas:110
 msgid "restore"
 msgstr "restore"
 
 #: src/templates/backup.mas:190
-#: src/templates/RemoteServices/Backup/index.mas:118
 msgid "delete"
 msgstr "slet"
 
@@ -2284,19 +2044,19 @@ msgstr "{ebox} er udviklet af {warp} i samarbejde med {dbs}"
 msgid "Restart"
 msgstr "Genstart"
 
-#: src/templates/dashboard/status.mas:12
+#: src/templates/dashboard/status.mas:15
 msgid "Running"
 msgstr "Kører"
 
-#: src/templates/dashboard/status.mas:15
+#: src/templates/dashboard/status.mas:18
 msgid "Stopped"
 msgstr "Stoppet"
 
-#: src/templates/dashboard/status.mas:17
+#: src/templates/dashboard/status.mas:20
 msgid "Start"
 msgstr "Start"
 
-#: src/templates/dashboard/status.mas:19
+#: src/templates/dashboard/status.mas:22
 msgid "Disabled"
 msgstr "Slået fra"
 
@@ -2304,81 +2064,103 @@ msgstr "Slået fra"
 msgid "No entries in this list"
 msgstr ""
 
-#: src/templates/backupTabs.mas:12
+#: src/templates/backupTabs.mas:13
 #, fuzzy
 msgid "Local backup"
 msgstr "Fuld backup"
 
-#: src/templates/backupTabs.mas:17
+#: src/templates/backupTabs.mas:18
 #, fuzzy
 msgid "Remote backup"
 msgstr "Restore af backup"
 
-#: src/templates/backupTabs.mas:22
+#: src/templates/backupTabs.mas:23
 msgid "Remote backup from other subscribed hosts"
 msgstr ""
 
-#: src/templates/RemoteServices/Backup/proxy.mas:42
-msgid "eBox host"
-msgstr ""
+#~ msgid ""
+#~ "An internal error has ocurred. This is most probably a bug, relevant "
+#~ "information can be found in the logs."
+#~ msgstr ""
+#~ "En intern fejl er opstået. Det skyldes nok en fejl i programmet, du kan "
+#~ "måske finde en forklaring i loggen."
 
-#: src/templates/RemoteServices/Backup/proxy.mas:132
-msgid "User"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:143
-msgid "Submit"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:147
 #, fuzzy
-msgid "Enter user and password"
-msgstr "Bruger password"
+#~ msgid "Backup deleted"
+#~ msgstr "Backup metode"
 
-#: src/templates/RemoteServices/Backup/index.mas:38
 #, fuzzy
-msgid "Back up the current configuration state"
-msgstr "Lav backup af nuværende setup"
+#~ msgid "Restoring remote backup"
+#~ msgstr "Restore af backup"
 
-#: src/templates/RemoteServices/Backup/index.mas:123
 #, fuzzy
-msgid "Configuration backups' list"
-msgstr "Backup af indstillinger"
+#~ msgid "Restoring modules from remote backup"
+#~ msgstr "Restore fra backup"
 
-#: src/templates/RemoteServices/NoActive.mas:5
-#, perl-brace-format
-msgid ""
-"This feature is only available if you get eBox  Services. You can contract "
-"them at {url1}. If you are already registered, then subscribe this eBox at "
-"{url2}"
-msgstr ""
-
-#: src/templates/RemoteServices/NoActive.mas:14
 #, fuzzy
-msgid "subscription page"
-msgstr "Beskrivelse"
+#~ msgid "Remote system backups"
+#~ msgstr "System backuper"
 
-#: src/templates/RemoteServices/NoConnection.mas:5
-msgid ""
-"Cannot proceed with your request because it was a connection problem. "
-"Possible causes are:"
-msgstr ""
+#, fuzzy
+#~ msgid ""
+#~ "Please confirm that you want to restore the configuraction using the "
+#~ "following remote backup:"
+#~ msgstr "Bekræft venligst at du vil slette følgende backup fil:"
 
-#: src/templates/RemoteServices/NoConnection.mas:9
-msgid "Your computer has not internet connection"
-msgstr ""
+#, fuzzy
+#~ msgid "Please confirm that you want to delete the following remote backup:"
+#~ msgstr "Bekræft venligst at du vil slette følgende backup fil:"
 
-#: src/templates/RemoteServices/NoConnection.mas:10
-msgid "Your computer has not a correct system date"
-msgstr ""
+#, fuzzy
+#~ msgid "Inexistent action: {a}"
+#~ msgstr "RAID arrayet {a} findes ikke"
 
-#: src/templates/RemoteServices/NoConnection.mas:11
-msgid "You are using the wrong certificates"
-msgstr ""
+#, fuzzy
+#~ msgid "Backing up modules "
+#~ msgstr "Backup af moduler"
 
-#: src/templates/RemoteServices/NoConnection.mas:12
-msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
+#, fuzzy
+#~ msgid "Remote system backups proxy"
+#~ msgstr "System backuper"
+
+#, fuzzy
+#~ msgid "Connection error"
+#~ msgstr "Operationens hastighed"
+
+#, fuzzy
+#~ msgid "Inexistent backup: {n}"
+#~ msgstr "RAID arrayet {a} findes ikke"
+
+#, fuzzy
+#~ msgid "User name"
+#~ msgstr "Hostnavn"
+
+#, fuzzy
+#~ msgid "Delete data"
+#~ msgstr "Slet"
+
+#, fuzzy
+#~ msgid "Remote services"
+#~ msgstr "Handlings status"
+
+#~ msgid "No RAID devices present"
+#~ msgstr "Der en ikke noget RAID enheder til stede"
+
+#, fuzzy
+#~ msgid "Enter user and password"
+#~ msgstr "Bruger password"
+
+#, fuzzy
+#~ msgid "Back up the current configuration state"
+#~ msgstr "Lav backup af nuværende setup"
+
+#, fuzzy
+#~ msgid "Configuration backups' list"
+#~ msgstr "Backup af indstillinger"
+
+#, fuzzy
+#~ msgid "subscription page"
+#~ msgstr "Beskrivelse"
 
 #~ msgid "Error"
 #~ msgstr "Fejl"

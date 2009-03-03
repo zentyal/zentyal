@@ -7,34 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-22 10:47+0100\n"
+"POT-Creation-Date: 2009-03-03 19:21+0100\n"
 "PO-Revision-Date: 2009-01-25 18:22+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:52
-#: debian/ebox/usr/share/ebox/templates/dashboard/index.mas:87
-#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
-msgid "Configure widgets"
-msgstr "Настройка виджетов"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
 msgstr "Аккаунт администратора Jabber"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Dashboard/Index.pm:32
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:201
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
-msgid "Dashboard"
-msgstr "Инструментальная панель"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
@@ -87,196 +73,9 @@ msgstr "Перейти на {url} для проверки его статуса.
 msgid "Log file"
 msgstr "Файл журнала"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:255
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring modules"
-msgstr "Модуль восстановления"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:256
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:640
-#: src/EBox/CGI/EBox/Backup.pm:256
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/Logs.pm:640 debian/ebox/usr/share/ebox/templates/finish.mas:106
-#: debian/ebox/usr/share/ebox/templates/moduleStatusTable.mas:58
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
-msgid "Module"
-msgstr "Модуль"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:257
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
-#: src/EBox/CGI/EBox/Backup.pm:257
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr "модули оставленные для восстановления"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Backup.pm:258
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
-#: src/EBox/CGI/EBox/Backup.pm:258
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "Восстановление успешно"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Bug.pm:29
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Отчет об ошибках"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:33
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr "Бэкап настроек"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:105
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:96
-#: debian/ebox/usr/share/ebox/templates/backup.mas:172
-#: debian/ebox/usr/share/ebox/templates/backup.mas:173
-#: src/templates/backup.mas:172 src/templates/backup.mas:173
-#: src/templates/RemoteServices/Backup/index.mas:96
-msgid "Delete"
-msgstr "Удалить"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:130
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Пожалуйста подтвердите восстановление из данного бэкап-файла:"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:85
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:76
-#: debian/ebox/usr/share/ebox/templates/backup.mas:95
-#: src/templates/backup.mas:95
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
-msgid "Restore"
-msgstr "Восстановить"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:179
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Полная резервная копия данных и настроек"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/ConfirmBackup.pm:182
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "Хранилище настроек отчетов об ошибках"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/CurrentProgress.pm:36
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "Модернизация"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/General.pm:30
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Основная конфигурация"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:30
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "Выключение или перезагрузка"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:43
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox готовится к выключению"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Halt.pm:46
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox готовится к перезагрузке"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:49
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Неверный пароль."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:54
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Новые пароли не совпадают."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:58
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "Пароль должен содержать не менее 6 символов"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/Password.pm:62
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "Пароль изменен."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:48
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "название модуля"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/EBox/RestartService.pm:52
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "Модуль был корректно перезапущен."
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:61
-#: src/EBox/CGI/Login/Index.pm:61
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
-msgstr ""
-"Выполняется скрипт запущенный эксклюзивно в eBox. Пожалуйста, подождите пока "
-"он не выполнится"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:65
-#: src/EBox/CGI/Login/Index.pm:65
-msgid "Incorrect password"
-msgstr "Неверный пароль"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:68
-#: src/EBox/CGI/Login/Index.pm:68
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Ваш сеанс закрыт по соображениям безопасности"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Login/Index.pm:71
-#: src/EBox/CGI/Login/Index.pm:71
-msgid "You have been logged out because a new session has been opened"
-msgstr "Ваш сеанс был закрыт т.к. был открыт новый сеанс"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Logout/Index.pm:29
-#: debian/ebox/usr/share/perl5/EBox/Html.pm:40 src/EBox/CGI/Logout/Index.pm:29
-#: src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Выход"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/Logs/Index.pm:35
-#: debian/ebox/usr/share/perl5/EBox/Logs.pm:619 src/EBox/CGI/Logs/Index.pm:35
-#: src/EBox/Logs.pm:619
-msgid "Logs"
+#: src/EBox/Event/Dispatcher/Log.pm:129
+#, fuzzy
+msgid "Log"
 msgstr "Журналы"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
@@ -284,30 +83,15 @@ msgstr "Журналы"
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "Диспетчер {name} не сконфигурирован для включения"
 
-#: debian/ebox/usr/share/perl5/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/CGI/Report/RAID.pm:30
-msgid "RAID report"
-msgstr "Отчет по RAID"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "Удаленная система резервного копирования"
-
-#: debian/ebox/usr/share/perl5/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr "Создание удаленной резервной копии"
-
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr ""
-"В файловой системе {fs}, при монтированной в  {mp}, нет свободного места"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+#, fuzzy
 msgid "Free storage space"
-msgstr "Свободное место для хранения"
+msgstr "Свободное пространство"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
@@ -470,31 +254,31 @@ msgstr ""
 "статус которого был {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
-#: src/templates/report/raid.mas:101
+#: src/templates/report/raid.mas:111
 msgid "active"
 msgstr "активно"
 
-#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
+#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr "ухудшено"
 
-#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
+#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:115
 msgid "recovering"
 msgstr "востановлено"
 
-#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
+#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:117
 msgid "resyncing"
 msgstr "синхронизировано"
 
-#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
+#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr "перестроено"
 
-#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
+#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr "изменено"
 
-#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:123
 msgid "failed"
 msgstr "сбой"
 
@@ -518,7 +302,7 @@ msgstr "восстановить"
 msgid "faulty"
 msgstr "дефектный"
 
-#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
+#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:233
 msgid "spare"
 msgstr "запасной"
 
@@ -530,7 +314,7 @@ msgstr "eBox поднят и запущен"
 msgid "eBox is critically down"
 msgstr "eBox упал сильно"
 
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Состояние"
 
@@ -586,6 +370,15 @@ msgstr "Включенная служба"
 msgid "Choose a value within the value set: {set}"
 msgstr "Выберите значение из набора: {set}"
 
+#: src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
+msgstr "Введите целое число"
+
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
+#, fuzzy, perl-brace-format
+msgid "The value shouldn't be greater than {m}"
+msgstr "Значение не должно быть меньше {m}"
+
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
 #, fuzzy, perl-brace-format
 msgid "The value shouldn't be less than {m}"
@@ -601,7 +394,7 @@ msgstr "Разное"
 msgid "any"
 msgstr "разное"
 
-#: src/EBox/Types/PortRange.pm:398
+#: src/EBox/Types/PortRange.pm:414
 #, fuzzy, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"From\" {from} должно быть больше \"To\" {to}"
@@ -620,74 +413,74 @@ msgstr "Длина пароля не может превышать {maxLength} �
 msgid "Enter a float number"
 msgstr "Введите число с плавающей запятой (float)"
 
-#: src/EBox/Model/DataTable.pm:322
+#: src/EBox/Model/DataTable.pm:325
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} в {module} модуле"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:329
 msgid "at"
 msgstr "около"
 
-#: src/EBox/Model/DataTable.pm:547
+#: src/EBox/Model/DataTable.pm:509
 msgid "field"
 msgstr "поле"
 
-#: src/EBox/Model/DataTable.pm:1442
+#: src/EBox/Model/DataTable.pm:1433
 msgid "page"
 msgstr "страница"
 
-#: src/EBox/Model/DataTable.pm:1445
+#: src/EBox/Model/DataTable.pm:1436
 msgid "Page must be a number equal or greater than zero"
 msgstr "Число страниц должно быть большим или равным 0"
 
-#: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
-#: src/EBox/Logs.pm:641
+#: src/EBox/Model/DataTable.pm:2049 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
+#: src/EBox/Logs.pm:647
 msgid "Action"
 msgstr "Действие"
 
-#: src/EBox/Model/DataTable.pm:2622
+#: src/EBox/Model/DataTable.pm:2720
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Удалить {num} строк {rowName} из {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2693
+#: src/EBox/Model/DataTable.pm:2791
 msgid "Page size"
 msgstr "Размер страницы"
 
-#: src/EBox/Model/DataTable.pm:2696
+#: src/EBox/Model/DataTable.pm:2794
 msgid "Must be either a positive number or zero"
 msgstr "Должно быть положительным числом или 0"
 
-#: src/EBox/Model/DataTable.pm:2937
+#: src/EBox/Model/DataTable.pm:3094
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} добавленно"
 
-#: src/EBox/Model/DataTable.pm:2938
+#: src/EBox/Model/DataTable.pm:3095
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} удаленно"
 
-#: src/EBox/Model/DataTable.pm:2939
+#: src/EBox/Model/DataTable.pm:3096
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} обновлено "
 
-#: src/EBox/Model/DataTable.pm:2940
+#: src/EBox/Model/DataTable.pm:3097
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} перемещено вверх"
 
-#: src/EBox/Model/DataTable.pm:2941
+#: src/EBox/Model/DataTable.pm:3098
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} перемещено вниз"
 
-#: src/EBox/Model/DataTable.pm:4222
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: src/EBox/Model/DataTable.pm:4381
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:312
 msgid "Enabled"
 msgstr "Включено"
 
@@ -696,7 +489,7 @@ msgstr "Включено"
 msgid "Provided object with index {i} does not exist"
 msgstr "Предусмотренный объект с индексом {i} не существует"
 
-#: src/EBox/Model/ModelManager.pm:466
+#: src/EBox/Model/ModelManager.pm:467
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
@@ -704,7 +497,7 @@ msgstr ""
 "Удаляеммые данные используются\n"
 "                    в следующих разделах:"
 
-#: src/EBox/Model/ModelManager.pm:513
+#: src/EBox/Model/ModelManager.pm:514
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -723,23 +516,21 @@ msgstr "Удалить данные из {model}{br}"
 msgid "Change"
 msgstr "Изменить"
 
-#: src/EBox/Model/DataForm.pm:699
-#: src/EBox/RemoteServices/Model/Subscription.pm:171
-#: src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Готово"
 
-#: src/EBox/Model/Composite.pm:322
+#: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr "Должно быть одним из следующих значений: {values}"
 
-#: src/EBox/Model/Composite.pm:625
+#: src/EBox/Model/Composite.pm:672
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:748
+#: src/EBox/Model/Composite.pm:795
 msgid "Choose one of the following:"
 msgstr "Выберите одно из следующих "
 
@@ -772,17 +563,14 @@ msgid "Backing up modules"
 msgstr "Модуль резервного копирования"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
 msgstr "Операция"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
 msgstr "операции отложены до завершения резервного копирования"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
 msgstr "Резервное копирование успешно завершено"
 
@@ -790,28 +578,20 @@ msgstr "Резервное копирование успешно заверше�
 msgid "Restoring backup"
 msgstr "Восстановление из резервной копии"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Dispatcher/RSS.pm:190
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr "Объединить эту RSS"
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring modules"
+msgstr "Модуль восстановления"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/Logs.pm:640 src/templates/moduleStatusTable.mas:58
-#: src/templates/finish.mas:106
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:646
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Модуль"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
 msgstr "модули оставленные для восстановления"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
 msgid "Restore successful"
 msgstr "Восстановление успешно"
 
@@ -865,7 +645,6 @@ msgstr "Пароль изменен."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
 msgid "Configuration backup"
 msgstr "Бэкап настроек"
 
@@ -873,10 +652,8 @@ msgstr "Бэкап настроек"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: src/templates/backup.mas:172 src/templates/backup.mas:173
-#: src/templates/RemoteServices/Backup/index.mas:96
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
 msgid "Delete"
 msgstr "Удалить"
 
@@ -886,12 +663,7 @@ msgid "Please confirm that you want to restore using this backup file:"
 msgstr "Пожалуйста подтвердите восстановление из данного бэкап-файла:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: src/templates/backup.mas:95
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
 msgstr "Восстановить"
 
@@ -903,7 +675,7 @@ msgstr "Полная резервная копия данных и настро�
 msgid "Bug-report configuration dump"
 msgstr "Хранилище настроек отчетов об ошибках"
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:619
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
 msgid "Logs"
 msgstr "Журналы"
 
@@ -915,7 +687,9 @@ msgstr "Конфигурация статуса модуля"
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr "Запущен скрипт Web сервиса. Потерпите немного :)"
+msgstr ""
+"Выполняется скрипт запущенный эксклюзивно в eBox. Пожалуйста, подождите пока "
+"он не выполнится"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
@@ -927,54 +701,39 @@ msgstr "Ваш сеанс закрыт по соображениям безоп�
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr "Ваш сеанс был закрыт т.к. был открыт новый сеанс"
-"Когда свободное дисковое пространство в процентах любого раздела меньше "
-"этого значения вызывается событие "
+msgstr ""
+"Ваш сеанс был закрыт т.к. был открыт новый сеансКогда свободное дисковое "
+"пространство в процентах любого раздела меньше этого значения вызывается "
+"событие "
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-msgid "Configure disk free space watcher"
-msgstr "Конфигурация наблюдателя свободного дискового пространства"
+#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Выход"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr "Использование Диска"
-"Внимание! Журнал наблюдений не включен. Включите чтобы были уведомления "
-"когда случается журналирование."
+msgstr ""
+"Использование ДискаВнимание! Журнал наблюдений не включен. Включите чтобы "
+"были уведомления когда случается журналирование."
 
 #: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID report"
 msgstr "Отчет по RAID"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:221
-#: src/EBox/Events/Model/Watcher/Log.pm:221
-msgid "Filtering"
-msgstr "Фильтрация"
-
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
 msgstr "Сохранить настройки"
 
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:229
-#: src/EBox/Events/Model/Watcher/Log.pm:229
-msgid "Configure log watchers"
-msgstr "Настройка наблюдателя журнала"
-
 #: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
 msgstr "Сохранение изменений"
-
-#: debian/ebox/usr/share/perl5/EBox/Events/Model/Watcher/Log.pm:231
-#: src/EBox/Events/Model/Watcher/Log.pm:231
-msgid "Log watcher"
-msgstr "Наблюдатель журнала"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
 msgstr "Сохранение изменений в модулях"
 
 # Instead of word "operation" there was "password" as well.  Fixed.
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Текущая операция"
 
@@ -997,27 +756,27 @@ msgstr ""
 "Некоторые модули сообщили об ошибках при сохранении. Больше информации можно "
 "узнать из журналов {dir}"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:100
 msgid "Revoking changes"
 msgstr "Отмена изменений"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes in modules"
 msgstr "Отмена изменений в модулях"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:102
 msgid "Current module"
 msgstr "Текущий модуль"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:103
 msgid "modules revoked"
 msgstr "модули отозваны"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:104
 msgid "Changes revoked"
 msgstr "Изменения отозваны"
 
-#: src/EBox/CGI/Finish.pm:106
+#: src/EBox/CGI/Finish.pm:105
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1026,15 +785,7 @@ msgstr ""
 "Некоторые модули сообщили об ошибках при отмене изменений. Больше информации "
 "вы найдете в журналах {dir}"
 
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Обнаружена внутренняя ошибка. Доп. информацию, скорее всего, можно найти в "
-"журналах."
-
-#: src/EBox/CGI/ClientRawBase.pm:201
+#: src/EBox/CGI/ClientRawBase.pm:205
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -1042,67 +793,17 @@ msgstr ""
 "Внутренняя ошибка связанная с шаблоном. Доп. информацию, скорее всего, можно "
 "найти в журналах."
 
-#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
-#, fuzzy
-msgid "Backup deleted"
-msgstr "Бэкап режим"
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
+msgid "Dashboard"
+msgstr "Инструментальная панель"
 
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
-#, fuzzy
-msgid "Restoring remote backup"
-msgstr "Восстановление из резервной копии"
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:53 src/templates/dashboard/index.mas:89
+msgid "Configure widgets"
+msgstr "Настройка виджетов"
 
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
-#, fuzzy
-msgid "Restoring modules from remote backup"
-msgstr "Восстановить из бэкапа"
-
-#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#, fuzzy
-msgid "Remote system backups"
-msgstr "Резервные копии системы"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
-#, fuzzy
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
-#, fuzzy
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
-#, fuzzy, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "Существует RAID массив {a}"
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr ""
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
-#, fuzzy
-msgid "Backing up modules "
-msgstr "Модуль резервного копирования"
-
-#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
-#, fuzzy
-msgid "Remote system backups proxy"
-msgstr "Резервные копии системы"
-
-#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
-#, fuzzy
-msgid "Connection error"
-msgstr "выполненные операции"
-
-#: src/EBox/Logs/Model/Report/Details.pm:197
-#: src/EBox/Logs/Model/Report/Details.pm:230
+#: src/EBox/Logs/Model/Report/Details.pm:216
+#: src/EBox/Logs/Model/Report/Details.pm:249
 msgid "All"
 msgstr "Все"
 
@@ -1130,75 +831,75 @@ msgstr "Отчетный период"
 msgid "Report options"
 msgstr "Опции отчета"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:225
 msgid "never purge"
 msgstr "никогда не очищать"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
 msgstr "один час"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
 msgstr "двенадцать часов"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
 msgstr "один день"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
 msgstr "три дня"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
 msgstr "одна неделя"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
 msgstr "пятнадцать дней"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
 msgstr "тридцать дней"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
 msgstr "девяноста дней"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
-#: src/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Events/Model/Watcher/Log.pm:216
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:219
 msgid "Domain"
 msgstr "Домен"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:344
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
 msgstr "Очистить журналы старше чем"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:361
 msgid "Current configuration"
 msgstr "Текущая конфигурация"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:362
 msgid "Logs configuration"
 msgstr "Журналы конфигурации"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
 msgid "Enable/disable logging per-module basis"
 msgstr "Включить/отключить аутентификацию на основе модулей"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
-#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:370
+#: src/EBox/Logs/Model/SelectLog.pm:173 src/EBox/Logs.pm:57
 msgid "logs"
 msgstr "Журналы"
 
@@ -1210,15 +911,15 @@ msgstr "Принудительно очистить журнал"
 msgid "Purge"
 msgstr "Очистка"
 
-#: src/EBox/Logs/Model/SelectLog.pm:129
+#: src/EBox/Logs/Model/SelectLog.pm:149
 msgid "Full report"
 msgstr "Полный отчет"
 
-#: src/EBox/Logs/Model/SelectLog.pm:135
+#: src/EBox/Logs/Model/SelectLog.pm:155
 msgid "Summarized report"
 msgstr "Суммарный отчет"
 
-#: src/EBox/Logs/Model/SelectLog.pm:146
+#: src/EBox/Logs/Model/SelectLog.pm:166
 msgid "Select report"
 msgstr "Выборочный отчет"
 
@@ -1246,16 +947,15 @@ msgstr "Имя пользователя жаббер"
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
-msgstr "Действия, которые будут разрешены: {view} и {cView}"
-"Жаббер ID для отправки сообщений. Подсказка: не вводите @domain, только имя "
-"пользователя"
+msgstr ""
+"Действия, которые будут разрешены: {view} и {cView}Жаббер ID для отправки "
+"сообщений. Подсказка: не вводите @domain, только имя пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
 msgstr "Пароль пользователя"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-#: src/EBox/RemoteServices/Model/Subscription.pm:276
 msgid "Subscribe"
 msgstr "Подписаться"
 
@@ -1326,6 +1026,10 @@ msgstr "Разрешенные читатели"
 msgid "Use this field to set the access control for the channel"
 msgstr "Используйте данное поле для установки контроля доступа к каналу"
 
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr "Объединить эту RSS"
+
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:200
 msgid "Configure RSS dispatcher"
 msgstr "Настроить диспетчер RSS"
@@ -1376,96 +1080,103 @@ msgid ""
 "event is triggered."
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:168
-#: src/EBox/Events/Model/Watcher/Log.pm:192
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+msgid "Configure disk free space watcher"
+msgstr "Конфигурация наблюдателя свободного дискового пространства"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:171
+#: src/EBox/Events/Model/Watcher/Log.pm:195
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:229
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
-#: src/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/index.mas:23
-#: src/templates/RemoteServices/Backup/index.mas:67
-#: src/templates/RemoteServices/Backup/confirm.mas:24
+#: src/EBox/Events/Model/Watcher/Log.pm:224
+msgid "Filtering"
+msgstr "Фильтрация"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:232
+msgid "Configure log watchers"
+msgstr "Настройка наблюдателя журнала"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:234
+msgid "Log watcher"
+msgstr "Наблюдатель журнала"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:251
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:264
 msgid "Name"
 msgstr "Имя"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:259
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
-#: src/templates/RemoteServices/Backup/proxy.mas:45
-#: src/templates/RemoteServices/Backup/index.mas:27
-#: src/templates/RemoteServices/Backup/index.mas:69
-#: src/templates/RemoteServices/Backup/confirm.mas:40
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:268
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:286
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
 msgid "None"
 msgstr "Ничего"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:293
 msgid "Configure events"
-msgstr "Настроить события"
-"Для подписки на удаленные услуги eBox  {URL}. Вы будете иметь удаленную "
-"резервную копию и многое другое"
+msgstr ""
+"Настроить событияДля подписки на удаленные услуги eBox  {URL}. Вы будете "
+"иметь удаленную резервную копию и многое другое"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
 msgid "event"
 msgstr "Событие"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Ключ для службы прокси не найден"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:489
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:274
 msgid "Receiver"
 msgstr "Получатель"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
 msgid "Configure dispatchers"
 msgstr "Настроика диспетчеров"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
 msgid "dispatcher"
 msgstr "диспетчер"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:339
 msgid "Enable/Disable each event dispatcher"
 msgstr "Включить / Выключить каждый диспетчер событий"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:527
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr "На сервере нет резервных копий для хоста: {h}"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:147
 msgid "Events"
 msgstr "События"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:78
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
-msgstr "Ключ для веб подписки не найден"
-"Модуль событий конфигурируется eBox, чтобы помогать информировать вас о "
-"происходящих событиях"
+msgstr ""
+"Ключ для веб подписки не найденМодуль событий конфигурируется eBox, чтобы "
+"помогать информировать вас о происходящих событиях"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
@@ -1481,37 +1192,33 @@ msgstr ""
 "Не правильная файловая система: {f}. Только постоянные и не сменные файловые "
 "системы доступны"
 
-#: src/EBox/Report/DiskUsage.pm:320
+#: src/EBox/Report/DiskUsage.pm:333
 msgid "Free space"
 msgstr "Свободное пространство"
 
-#: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
+#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:205
 msgid "System"
 msgstr "Система"
 
-#: debian/ebox/usr/share/perl5/EBox/Types/Int.pm:155 src/EBox/Types/Int.pm:155
-msgid "Enter an integer number"
-msgstr "Введите целое число"
-
-#: src/EBox/Apache.pm:248 src/EBox/Apache.pm:257
+#: src/EBox/Apache.pm:276 src/EBox/Apache.pm:285
 msgid "port"
 msgstr "порт"
 
-#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
+#: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Сохранение {modName} модуля"
 
-#: src/EBox/Global.pm:816
+#: src/EBox/Global.pm:835
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "запуск {scriptName} скрипта"
 
-#: src/EBox/Events.pm:90
+#: src/EBox/Events.pm:89
 msgid "events"
 msgstr "события"
 
-#: src/EBox/Events.pm:595
+#: src/EBox/Events.pm:546
 msgid "Event service status"
 msgstr "Статус службы событий"
 
@@ -1519,56 +1226,53 @@ msgstr "Статус службы событий"
 msgid "Save changes"
 msgstr "Сохранить изменения"
 
-#: src/EBox/Logs.pm:74
+#: src/EBox/Logs.pm:73
 msgid "Create logs database"
 msgstr "Создание журналов базы данных"
 
-#: src/EBox/Logs.pm:75
+#: src/EBox/Logs.pm:74
 msgid "eBox store its logs in the database"
 msgstr "eBox сохраняет свои журналы в базе данных"
 
-#: src/EBox/Logs.pm:425
+#: src/EBox/Logs.pm:431
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Таблица {table} не существует"
 
-#: src/EBox/Logs.pm:622
+#: src/EBox/Logs.pm:628
 msgid "Query logs"
 msgstr "Журнал запросов"
 
-#: src/EBox/Logs.pm:625
+#: src/EBox/Logs.pm:631
 msgid "Configure logs"
 msgstr "Настроить журналы"
 
-#: src/EBox/Logs.pm:638 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:644 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
-#: src/templates/RemoteServices/Backup/proxy.mas:44
-#: src/templates/RemoteServices/Backup/index.mas:68
-#: src/templates/RemoteServices/Backup/confirm.mas:32
 msgid "Date"
 msgstr "Дата"
 
-#: src/EBox/Logs.pm:639
+#: src/EBox/Logs.pm:645
 msgid "Client Address"
 msgstr "Адрес Клиента"
 
-#: src/EBox/Logs.pm:642
+#: src/EBox/Logs.pm:648
 msgid "Params"
 msgstr "Параметры"
 
-#: src/EBox/Logs.pm:643
+#: src/EBox/Logs.pm:649
 msgid "Committed"
 msgstr "Привязанный"
 
-#: src/EBox/Logs.pm:648
+#: src/EBox/Logs.pm:654
 msgid "Admin"
 msgstr "Админ"
 
-#: src/EBox/Logs.pm:742
+#: src/EBox/Logs.pm:748
 msgid "Log messages"
 msgstr "Журнал сообщений"
 
-#: src/EBox/Logs.pm:769
+#: src/EBox/Logs.pm:775
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Параметр времени жизни должен быть положительным числом в часах"
 
@@ -1607,7 +1311,7 @@ msgstr "Не могу извлечь запрошенные резервные �
 msgid "Could not unpack the backup"
 msgstr "Не могу распаковать резервную копию"
 
-#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:227
+#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:221
 msgid "Backup"
 msgstr "Резервная копия"
 
@@ -1686,43 +1390,51 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "Список архивов резервных копий"
 
-#: src/EBox/SysInfo.pm:82
+#: src/EBox/SysInfo.pm:42
+msgid "System information"
+msgstr "Системная информация"
+
+#: src/EBox/SysInfo.pm:77
 msgid "Time"
 msgstr "Время"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:78
 msgid "Host name"
 msgstr "Имя узла"
 
-#: src/EBox/SysInfo.pm:85
+#: src/EBox/SysInfo.pm:80
 msgid "eBox version"
 msgstr "Версия eBox"
 
-#: src/EBox/SysInfo.pm:88
+#: src/EBox/SysInfo.pm:83
 msgid "System load"
 msgstr "Загрузка системы"
 
-#: src/EBox/SysInfo.pm:123 src/EBox/SysInfo.pm:205
+#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
 msgid "Module status"
 msgstr "Статус модуля"
 
-#: src/EBox/SysInfo.pm:128
+#: src/EBox/SysInfo.pm:123
 msgid "General information"
 msgstr "Общая информация"
 
-#: src/EBox/SysInfo.pm:214
+#: src/EBox/SysInfo.pm:128
+msgid "Process' list"
+msgstr "Список процессов"
+
+#: src/EBox/SysInfo.pm:209
 msgid "General"
 msgstr "Общее"
 
-#: src/EBox/SysInfo.pm:217
+#: src/EBox/SysInfo.pm:212
 msgid "Disk usage Information"
 msgstr "Информация о использовании диска"
 
-#: src/EBox/SysInfo.pm:221
+#: src/EBox/SysInfo.pm:216
 msgid "RAID Information"
 msgstr "Информация о RAID"
 
-#: src/EBox/SysInfo.pm:230
+#: src/EBox/SysInfo.pm:224
 msgid "Halt/Reboot"
 msgstr "Выключить/Перезагрузить"
 
@@ -1791,125 +1503,6 @@ msgstr "Ошибка сброса базы данных {name} PostgreSQL"
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Дамп-файл {file} БД не читается"
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:43 src/EBox/SysInfo.pm:43
-msgid "System information"
-msgstr "Системная информация"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:143
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:146
-msgid "Subscription data retrieved correctly"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:224
-msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:245
-#, fuzzy
-msgid "User name"
-msgstr "Имя узла"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:253
-msgid "eBox common name"
-msgstr ""
-
-#: debian/ebox/usr/share/perl5/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:133
-msgid "Process' list"
-msgstr "Список процессов"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-#: src/templates/login/index.mas:29
-#: src/templates/RemoteServices/Backup/proxy.mas:138
-msgid "Password"
-msgstr "Пароль"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:271
-msgid "eBox suscription details"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:272
-#, fuzzy
-msgid "Delete data"
-msgstr "Удалить"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:275
-msgid "Subscription to remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:286
-#, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr "Нет вхождений в этот список"
-
-#: src/EBox/RemoteServices/Composite/General.pm:73
-#, fuzzy
-msgid "Remote services"
-msgstr "Статус службы событий"
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:198
-#, perl-brace-format
-msgid "No backups in server for host: {h}"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:238
-msgid "Key for proxy backup service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:256
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:272
-msgid "No domain key found for this service"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:284
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:143
-msgid "Key for service proxy not found"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:71
-msgid "eBox remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:133
-msgid "Remote services subscription"
-msgstr ""
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -2024,6 +1617,10 @@ msgstr "последняя"
 msgid "Warning: Caps Lock is enabled"
 msgstr "Предупреждение: включен Caps Lock"
 
+#: src/templates/login/index.mas:29
+msgid "Password"
+msgstr "Пароль"
+
 #: src/templates/login/index.mas:36
 msgid "Enter"
 msgstr "Ввести"
@@ -2049,7 +1646,7 @@ msgstr "Выход"
 msgid "Mounted on"
 msgstr "Примонтирован на"
 
-#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
+#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:131
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
 msgstr "Тип"
@@ -2062,162 +1659,122 @@ msgstr "Опции"
 msgid "Partition properties"
 msgstr "Свойства раздела"
 
-#: src/templates/report/raid.mas:13
-msgid "No RAID devices present"
-msgstr "RAID устройства не представлены"
-
-#: src/templates/report/raid.mas:17
+#: src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr "Существует RAID массив {a}"
 
-#: src/templates/report/raid.mas:84
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system"
+msgstr ""
+
+#: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
 msgstr "лево-асимметричный "
 
-#: src/templates/report/raid.mas:85
+#: src/templates/report/raid.mas:95
 msgid "right-asymmetric"
 msgstr "право-асимметричный"
 
-#: src/templates/report/raid.mas:86
+#: src/templates/report/raid.mas:96
 msgid "left-symmetric"
 msgstr "лево-симметричный"
 
-#: src/templates/report/raid.mas:87
+#: src/templates/report/raid.mas:97
 msgid "right-symmetric"
 msgstr "право-симметричный"
 
-#: src/templates/report/raid.mas:94 src/templates/moduleStatusTable.mas:60
+#: src/templates/report/raid.mas:104 src/templates/moduleStatusTable.mas:60
 msgid "Status"
 msgstr "Состояние"
 
-#: src/templates/report/raid.mas:132
+#: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
 msgstr "Активные RAID устройства"
 
-#: src/templates/report/raid.mas:133
+#: src/templates/report/raid.mas:143
 msgid "Active RAID devices needed"
 msgstr "Необходимые активные RAID устройства"
 
-#: src/templates/report/raid.mas:134
+#: src/templates/report/raid.mas:144
 msgid "Size in blocks"
 msgstr "Размер блоков"
 
-#: src/templates/report/raid.mas:135
+#: src/templates/report/raid.mas:145
 msgid "Chunk size"
 msgstr "Размер участка памяти"
 
-#: src/templates/report/raid.mas:138
+#: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
 msgstr "Алгоритм четности"
 
-#: src/templates/report/raid.mas:170
+#: src/templates/report/raid.mas:180
 msgid "Array properties"
 msgstr "Свойства массива"
 
-#: src/templates/report/raid.mas:185
+#: src/templates/report/raid.mas:195
 msgid "Resyncing array"
 msgstr "Ресинхронизровать массив"
 
-#: src/templates/report/raid.mas:186
+#: src/templates/report/raid.mas:196
 msgid "Rebuild array"
 msgstr "Перестроить массив"
 
-#: src/templates/report/raid.mas:187
+#: src/templates/report/raid.mas:197
 msgid "Reshape array"
 msgstr "Изменить массив"
 
-#: src/templates/report/raid.mas:195
+#: src/templates/report/raid.mas:205
 msgid "Operation type"
 msgstr "Тип операции"
 
-#: src/templates/report/raid.mas:197
+#: src/templates/report/raid.mas:207
 msgid "Percentage completed"
 msgstr "Процентов завершено"
 
-#: src/templates/report/raid.mas:199
+#: src/templates/report/raid.mas:209
 msgid "Estimated time left"
 msgstr "Предполагаемое время завершения"
 
-#: src/templates/report/raid.mas:201
+#: src/templates/report/raid.mas:211
 msgid "Operation speed"
 msgstr "Скорость операции"
 
-#: src/templates/report/raid.mas:214
+#: src/templates/report/raid.mas:224
 msgid "RAID device number"
 msgstr "Номер RAID устройства"
 
-#: src/templates/report/raid.mas:215
+#: src/templates/report/raid.mas:225
 msgid "Device"
 msgstr "Устройство"
 
-#: src/templates/report/raid.mas:221
+#: src/templates/report/raid.mas:231
 msgid "up"
 msgstr "up"
 
-#: src/templates/report/raid.mas:222
+#: src/templates/report/raid.mas:232
 msgid "failure"
 msgstr "сбой"
 
-#: src/templates/report/raid.mas:251
+#: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
 msgstr "Нет не использующихся RAID устройств"
 
-#: src/templates/report/raid.mas:254
+#: src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
 msgstr "Неиспользуемые RAID массивы"
 
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:32
-#: debian/ebox/usr/share/ebox/templates/backup.mas:64
-#: src/templates/backup.mas:64
-#: src/templates/RemoteServices/Backup/index.mas:32
-msgid "Back up"
-msgstr "Резервная копия"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:38
-#: src/templates/RemoteServices/Backup/index.mas:38
-msgid "Back up the current configuration state"
-msgstr "Сделать резервную копию текущего состояния"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:44
-#: debian/ebox/usr/share/ebox/templates/backup.mas:35
-#: src/templates/backup.mas:35
-#: src/templates/RemoteServices/Backup/index.mas:44
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
-msgstr ""
-"Резервное копирование отключено пока не записаны изменения в "
-"конфигурационный файл. Пожалуйста, запишите или отмените их, чтобы можно "
-"было сделать резервное копирование конфигурации"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/index.mas:70
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/confirm.mas:48
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:46
-#: debian/ebox/usr/share/ebox/templates/backup.mas:129
-#: debian/ebox/usr/share/ebox/templates/confirm-backup.mas:53
 #: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-#: src/templates/RemoteServices/Backup/proxy.mas:46
-#: src/templates/RemoteServices/Backup/index.mas:70
-#: src/templates/RemoteServices/Backup/confirm.mas:48
 msgid "Archive size"
 msgstr "Размер архива"
 
 #: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
-#: src/templates/RemoteServices/Backup/confirm.mas:73
 msgid "Cancel"
 msgstr "Отмена"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
 msgstr "Полное восстановление"
-
-#: debian/ebox/usr/share/ebox/templates/RemoteServices/Backup/proxy.mas:109
-#: debian/ebox/usr/share/ebox/templates/backup.mas:122
-#: src/templates/backup.mas:122
-#: src/templates/RemoteServices/Backup/proxy.mas:109
-msgid "Backups' list"
-msgstr "Список резервных копий"
 
 #: src/templates/confirm-backup.mas:111
 msgid "Configuration Restore"
@@ -2238,9 +1795,9 @@ msgstr "Настройка модуля: {module}"
 
 #: src/templates/password.mas:4
 msgid "Change password"
-msgstr "Изменить пароль"
-"Не удается выполнить запрос, поскольку были проблемы связи. Возможные "
-"причины:"
+msgstr ""
+"Изменить парольНе удается выполнить запрос, поскольку были проблемы связи. "
+"Возможные причины:"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
@@ -2289,8 +1846,7 @@ msgid "Configuration Backup"
 msgstr "Резервное копирование конфигурации"
 
 #: src/templates/backup.mas:24
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "module status{closeref} section will be ignored in both backup and restore "
@@ -2305,15 +1861,21 @@ msgid "Back up the current state"
 msgstr "Сделать бэкап текущего состояния"
 
 #: src/templates/backup.mas:35
-#: src/templates/RemoteServices/Backup/index.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
+"Резервное копирование отключено пока не записаны изменения в "
+"конфигурационный файл. Пожалуйста, запишите или отмените их, чтобы можно "
+"было сделать резервное копирование конфигурации"
 
 #: src/templates/backup.mas:52
 msgid "Backup mode"
 msgstr "Режим резервного копирования"
+
+#: src/templates/backup.mas:64
+msgid "Back up"
+msgstr "Резервная копия"
 
 #: src/templates/backup.mas:74
 msgid "Restore backup from file"
@@ -2344,9 +1906,11 @@ msgstr "Только конфигурации"
 msgid "Unknown type"
 msgstr "неизвестный тип"
 
+#: src/templates/backup.mas:122
+msgid "Backups' list"
+msgstr "Список резервных копий"
+
 #: src/templates/backup.mas:130
-#: src/templates/RemoteServices/Backup/proxy.mas:47
-#: src/templates/RemoteServices/Backup/index.mas:71
 msgid "Actions"
 msgstr "Действия"
 
@@ -2359,25 +1923,18 @@ msgid "Restore from backup"
 msgstr "Восстановить из бэкапа"
 
 #: src/templates/backup.mas:166 src/templates/backup.mas:167
-#: src/templates/RemoteServices/Backup/proxy.mas:82
-#: src/templates/RemoteServices/Backup/index.mas:91
 msgid "Download"
 msgstr "Загрузить"
 
 #: src/templates/backup.mas:186
-#: src/templates/RemoteServices/Backup/proxy.mas:103
-#: src/templates/RemoteServices/Backup/index.mas:114
 msgid "download"
 msgstr "загрузить"
 
 #: src/templates/backup.mas:188
-#: src/templates/RemoteServices/Backup/proxy.mas:99
-#: src/templates/RemoteServices/Backup/index.mas:110
 msgid "restore"
 msgstr "восстановить"
 
 #: src/templates/backup.mas:190
-#: src/templates/RemoteServices/Backup/index.mas:118
 msgid "delete"
 msgstr "удалить"
 
@@ -2411,22 +1968,6 @@ msgstr ""
 #: src/templates/bug.mas:14
 msgid "Download bug report file"
 msgstr "Загрузить файл отчета об ошибках"
-
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:12
-#: src/templates/backupTabs.mas:12
-msgid "Local backup"
-msgstr "Локальное резервное копирование"
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:17
-#: src/templates/backupTabs.mas:17
-msgid "Remote backup"
-msgstr "Удаленное резервное копирование"
-
-#: debian/ebox/usr/share/ebox/templates/backupTabs.mas:22
-#: src/templates/backupTabs.mas:22
-msgid "Remote backup from other subscribed hosts"
-msgstr "Удаленное копирование с других подписанных узлов"
 
 #: src/templates/finish.mas:82
 msgid "Warning"
@@ -2503,19 +2044,19 @@ msgstr "{ebox} создан {warp}"
 msgid "Restart"
 msgstr "Перезапуск"
 
-#: src/templates/dashboard/status.mas:12
+#: src/templates/dashboard/status.mas:15
 msgid "Running"
 msgstr "Запущено"
 
-#: src/templates/dashboard/status.mas:15
+#: src/templates/dashboard/status.mas:18
 msgid "Stopped"
 msgstr "Остановлено"
 
-#: src/templates/dashboard/status.mas:17
+#: src/templates/dashboard/status.mas:20
 msgid "Start"
 msgstr "Запуск"
 
-#: src/templates/dashboard/status.mas:19
+#: src/templates/dashboard/status.mas:22
 msgid "Disabled"
 msgstr "Отключено"
 
@@ -2523,70 +2064,109 @@ msgstr "Отключено"
 msgid "No entries in this list"
 msgstr ""
 
-#: src/templates/RemoteServices/Backup/proxy.mas:42
-msgid "eBox host"
-msgstr ""
+#: src/templates/backupTabs.mas:13
+msgid "Local backup"
+msgstr "Локальное резервное копирование"
 
-#: src/templates/RemoteServices/Backup/proxy.mas:132
-msgid "User"
-msgstr ""
+#: src/templates/backupTabs.mas:18
+msgid "Remote backup"
+msgstr "Удаленное резервное копирование"
 
-#: src/templates/RemoteServices/Backup/proxy.mas:143
-msgid "Submit"
-msgstr ""
+#: src/templates/backupTabs.mas:23
+msgid "Remote backup from other subscribed hosts"
+msgstr "Удаленное копирование с других подписанных узлов"
 
-#: src/templates/RemoteServices/Backup/proxy.mas:147
+#~ msgid "Remote system backups"
+#~ msgstr "Удаленная система резервного копирования"
+
+#~ msgid "Making remote backup"
+#~ msgstr "Создание удаленной резервной копии"
+
+#~ msgid ""
+#~ "An internal error has ocurred. This is most probably a bug, relevant "
+#~ "information can be found in the logs."
+#~ msgstr ""
+#~ "Обнаружена внутренняя ошибка. Доп. информацию, скорее всего, можно найти "
+#~ "в журналах."
+
 #, fuzzy
-msgid "Enter user and password"
-msgstr "Пароль пользователя"
+#~ msgid "Backup deleted"
+#~ msgstr "Бэкап режим"
 
-#: src/templates/RemoteServices/Backup/index.mas:38
 #, fuzzy
-msgid "Back up the current configuration state"
-msgstr "Сделать бэкап текущего состояния"
+#~ msgid "Restoring remote backup"
+#~ msgstr "Восстановление из резервной копии"
 
-#: src/templates/RemoteServices/Backup/index.mas:123
 #, fuzzy
-msgid "Configuration backups' list"
-msgstr "Резервная копия настроек"
+#~ msgid "Restoring modules from remote backup"
+#~ msgstr "Восстановить из бэкапа"
 
-#: src/templates/RemoteServices/NoActive.mas:5
-#, perl-brace-format
-msgid ""
-"This feature is only available if you get eBox  Services. You can contract "
-"them at {url1}. If you are already registered, then subscribe this eBox at "
-"{url2}"
-msgstr ""
-"Включение данного модуля заставит eBox выполнить действия и модификацию "
-"файлов, перечисленных ниже. Вы должны принять эти изменения для включения "
-"модуля."
-
-#: src/templates/RemoteServices/NoActive.mas:14
 #, fuzzy
-msgid "subscription page"
-msgstr "Описание"
+#~ msgid ""
+#~ "Please confirm that you want to restore the configuraction using the "
+#~ "following remote backup:"
+#~ msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
 
-#: src/templates/RemoteServices/NoConnection.mas:5
-msgid ""
-"Cannot proceed with your request because it was a connection problem. "
-"Possible causes are:"
-msgstr "Действия выполняются на eBox"
+#, fuzzy
+#~ msgid "Please confirm that you want to delete the following remote backup:"
+#~ msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
 
-#: src/templates/RemoteServices/NoConnection.mas:9
-msgid "Your computer has not internet connection"
-msgstr "Файлы изменяемые eBox"
+#, fuzzy
+#~ msgid "Inexistent action: {a}"
+#~ msgstr "Существует RAID массив {a}"
 
-#: src/templates/RemoteServices/NoConnection.mas:10
-msgid "Your computer has not a correct system date"
-msgstr ""
+#, fuzzy
+#~ msgid "Backing up modules "
+#~ msgstr "Модуль резервного копирования"
 
-#: src/templates/RemoteServices/NoConnection.mas:11
-msgid "You are using the wrong certificates"
-msgstr ""
+#, fuzzy
+#~ msgid "Remote system backups proxy"
+#~ msgstr "Резервные копии системы"
 
-#: src/templates/RemoteServices/NoConnection.mas:12
-msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
+#, fuzzy
+#~ msgid "Connection error"
+#~ msgstr "выполненные операции"
+
+#, fuzzy
+#~ msgid "User name"
+#~ msgstr "Имя узла"
+
+#, fuzzy
+#~ msgid "Delete data"
+#~ msgstr "Удалить"
+
+#~ msgid "Access settings"
+#~ msgstr "Нет вхождений в этот список"
+
+#, fuzzy
+#~ msgid "Remote services"
+#~ msgstr "Статус службы событий"
+
+#~ msgid "No RAID devices present"
+#~ msgstr "RAID устройства не представлены"
+
+#~ msgid "Back up the current configuration state"
+#~ msgstr "Сделать резервную копию текущего состояния"
+
+#, fuzzy
+#~ msgid "Enter user and password"
+#~ msgstr "Пароль пользователя"
+
+#, fuzzy
+#~ msgid "Configuration backups' list"
+#~ msgstr "Резервная копия настроек"
+
+#, fuzzy
+#~ msgid "subscription page"
+#~ msgstr "Описание"
+
+#~ msgid ""
+#~ "Cannot proceed with your request because it was a connection problem. "
+#~ "Possible causes are:"
+#~ msgstr "Действия выполняются на eBox"
+
+#~ msgid "Your computer has not internet connection"
+#~ msgstr "Файлы изменяемые eBox"
 
 #~ msgid "Error"
 #~ msgstr "Ошибка"

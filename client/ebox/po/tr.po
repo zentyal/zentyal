@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-22 10:47+0100\n"
+"POT-Creation-Date: 2009-03-03 19:21+0100\n"
 "PO-Revision-Date: 2007-05-13 00:27+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -81,14 +81,6 @@ msgstr "Günlük "
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr "{name} işlemci zamanlayıcısı etkinleştirebilmek için yapılandırılmamış"
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, fuzzy, perl-brace-format
@@ -244,33 +236,33 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
-#: src/templates/report/raid.mas:101
+#: src/templates/report/raid.mas:111
 #, fuzzy
 msgid "active"
 msgstr "İşlem"
 
-#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
+#: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
+#: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:115
 #, fuzzy
 msgid "recovering"
 msgstr "eBox sürümü"
 
-#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
+#: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:117
 msgid "resyncing"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
+#: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
+#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr ""
 
-#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:123
 #, fuzzy
 msgid "failed"
 msgstr "alan"
@@ -297,7 +289,7 @@ msgstr "Alıcı"
 msgid "faulty"
 msgstr "Temmuz"
 
-#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
+#: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:233
 #, fuzzy
 msgid "spare"
 msgstr "önceki"
@@ -310,7 +302,7 @@ msgstr "eBox etkin ve çalışıyor"
 msgid "eBox is critically down"
 msgstr "eBox kritik olarak çalışmıyor"
 
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Durum"
 
@@ -392,7 +384,7 @@ msgstr "Herhangi bir"
 msgid "any"
 msgstr "herhangi bir"
 
-#: src/EBox/Types/PortRange.pm:398
+#: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr ""
@@ -413,80 +405,80 @@ msgstr "Parola en az 6 karakter olmak zorunda"
 msgid "Enter a float number"
 msgstr "Bir pozitif sayı yazın"
 
-#: src/EBox/Model/DataTable.pm:322
+#: src/EBox/Model/DataTable.pm:325
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:329
 #, fuzzy
 msgid "at"
 msgstr "Tarih"
 
-#: src/EBox/Model/DataTable.pm:547
+#: src/EBox/Model/DataTable.pm:509
 msgid "field"
 msgstr "alan"
 
-#: src/EBox/Model/DataTable.pm:1442
+#: src/EBox/Model/DataTable.pm:1433
 #, fuzzy
 msgid "page"
 msgstr "sayfa"
 
-#: src/EBox/Model/DataTable.pm:1445
+#: src/EBox/Model/DataTable.pm:1436
 #, fuzzy
 msgid "Page must be a number equal or greater than zero"
 msgstr ""
 "{from} \"Gönderen\" bölümü {to} \"Alıcı\" bölümünden büyük olmak zorundadır"
 
-#: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
-#: src/EBox/Logs.pm:641
+#: src/EBox/Model/DataTable.pm:2049 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
+#: src/EBox/Logs.pm:647
 msgid "Action"
 msgstr "İşlem"
 
-#: src/EBox/Model/DataTable.pm:2622
+#: src/EBox/Model/DataTable.pm:2720
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2693
+#: src/EBox/Model/DataTable.pm:2791
 #, fuzzy
 msgid "Page size"
 msgstr "sayfa"
 
-#: src/EBox/Model/DataTable.pm:2696
+#: src/EBox/Model/DataTable.pm:2794
 #, fuzzy
 msgid "Must be either a positive number or zero"
 msgstr "Bir pozitif sayı yazın"
 
-#: src/EBox/Model/DataTable.pm:2937
+#: src/EBox/Model/DataTable.pm:3094
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} eklendi"
 
-#: src/EBox/Model/DataTable.pm:2938
+#: src/EBox/Model/DataTable.pm:3095
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} silindi"
 
-#: src/EBox/Model/DataTable.pm:2939
+#: src/EBox/Model/DataTable.pm:3096
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} güncellendi"
 
-#: src/EBox/Model/DataTable.pm:2940
+#: src/EBox/Model/DataTable.pm:3097
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} üste kaydırıldı"
 
-#: src/EBox/Model/DataTable.pm:2941
+#: src/EBox/Model/DataTable.pm:3098
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} alta kaydırıldı"
 
-#: src/EBox/Model/DataTable.pm:4222
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#: src/EBox/Model/DataTable.pm:4381
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:312
 msgid "Enabled"
 msgstr "Etkinleşti"
 
@@ -495,7 +487,7 @@ msgstr "Etkinleşti"
 msgid "Provided object with index {i} does not exist"
 msgstr "{field} alanı mevcut değil."
 
-#: src/EBox/Model/ModelManager.pm:466
+#: src/EBox/Model/ModelManager.pm:467
 #, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
@@ -504,7 +496,7 @@ msgstr ""
 "Silmek üzere olduğunuz veri aşağıdaki\n"
 "\t\t\ttablolar tarafından kullanılıyor:"
 
-#: src/EBox/Model/ModelManager.pm:513
+#: src/EBox/Model/ModelManager.pm:514
 #, fuzzy
 msgid ""
 "The data you are modifying is being used by\n"
@@ -524,23 +516,21 @@ msgstr ""
 msgid "Change"
 msgstr "Değiştir"
 
-#: src/EBox/Model/DataForm.pm:699
-#: src/EBox/RemoteServices/Model/Subscription.pm:171
-#: src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Tamam"
 
-#: src/EBox/Model/Composite.pm:322
+#: src/EBox/Model/Composite.pm:371
 #, fuzzy, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr "Şu değerler olmalı: top-bottom veya tabbed"
 
-#: src/EBox/Model/Composite.pm:625
+#: src/EBox/Model/Composite.pm:672
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Burdaki izin verilen işlemler: {view} ve {cView}"
 
-#: src/EBox/Model/Composite.pm:748
+#: src/EBox/Model/Composite.pm:795
 msgid "Choose one of the following:"
 msgstr ""
 
@@ -575,18 +565,15 @@ msgid "Backing up modules"
 msgstr "Yedekleme modu"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
 #, fuzzy
 msgid "Operation"
 msgstr "Diğer seçenekler"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:243
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
 #, fuzzy
 msgid "Backup successful"
 msgstr "Yedekleme dosyası"
@@ -601,23 +588,16 @@ msgstr "Yedekleme üzerinden geri yükle"
 msgid "Restoring modules"
 msgstr "Geri yükleme modu"
 
-#: src/EBox/CGI/EBox/Backup.pm:256
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:83
-#: src/EBox/Logs.pm:640 src/templates/moduleStatusTable.mas:58
-#: src/templates/finish.mas:106
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:646
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Moduller"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:258
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
 #, fuzzy
 msgid "Restore successful"
 msgstr "Geri yükleme modu"
@@ -672,7 +652,6 @@ msgstr "Parola başarılı bir şekilde değiştirildi"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
 msgid "Configuration backup"
 msgstr "Ayarlarımı yedekle"
 
@@ -680,10 +659,8 @@ msgstr "Ayarlarımı yedekle"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
-#: src/templates/backup.mas:172 src/templates/backup.mas:173
-#: src/templates/RemoteServices/Backup/index.mas:96
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
 msgid "Delete"
 msgstr "Sil"
 
@@ -693,12 +670,7 @@ msgid "Please confirm that you want to restore using this backup file:"
 msgstr "Yedekten geri yüklemek istediğiniz dosya(emin olun):"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:98
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:111
-#: src/templates/backup.mas:95
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
 msgstr "Geri yükleme"
 
@@ -710,7 +682,7 @@ msgstr "Tüm verileri ve ayarlarımı yedekle"
 msgid "Bug-report configuration dump"
 msgstr "Hata raporlama ayar bilgisi"
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:619
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
 msgid "Logs"
 msgstr "Günlük"
 
@@ -767,7 +739,7 @@ msgstr "Değişiklikleri kaydet"
 msgid "Saving changes in modules"
 msgstr "Yedekleme modu"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
 #, fuzzy
 msgid "Current operation"
 msgstr "Güncel parola"
@@ -789,47 +761,39 @@ msgid ""
 "logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:100
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:101
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Geri yükleme modu"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Current module"
 msgstr "Güncel parola"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "modules revoked"
 msgstr "Modul ismi"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Parolayı değiştir"
 
-#: src/EBox/CGI/Finish.pm:106
+#: src/EBox/CGI/Finish.pm:105
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Dahili bir hata oluştu. Büyük ihtimal ile bir program hatası. Gerekli diğer "
-"bilgileri günlük dosyasında bulabilirsiniz."
-
-#: src/EBox/CGI/ClientRawBase.pm:201
+#: src/EBox/CGI/ClientRawBase.pm:205
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -837,77 +801,18 @@ msgstr ""
 "Dahili bir şablon hatası oluştu. Bu bir hata ve gerekli bilgileri günlük "
 "dosyasında bulabilirsiniz."
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
 msgid "Dashboard"
 msgstr ""
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
+#: src/templates/dashboard/index.mas:53 src/templates/dashboard/index.mas:89
 #, fuzzy
 msgid "Configure widgets"
 msgstr "Olayları yapılandır"
 
-#: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
-#, fuzzy
-msgid "Backup deleted"
-msgstr "Yedekleme modu"
-
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
-#, fuzzy
-msgid "Restoring remote backup"
-msgstr "Yedekleme üzerinden geri yükle"
-
-#: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
-#, fuzzy
-msgid "Restoring modules from remote backup"
-msgstr "Yedekleme üzerinden geri yükle"
-
-#: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
-#, fuzzy
-msgid "Remote system backups"
-msgstr "Sistem yedekleme"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
-#, fuzzy
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
-#, fuzzy
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
-
-#: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
-#, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr ""
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr ""
-
-#: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
-#, fuzzy
-msgid "Backing up modules "
-msgstr "Yedekleme modu"
-
-#: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
-#, fuzzy
-msgid "Remote system backups proxy"
-msgstr "Sistem yedekleme"
-
-#: src/EBox/CGI/RemoteServices/NoConnection.pm:31
-#, fuzzy
-msgid "Connection error"
-msgstr "Seçmeli Integer değeri"
-
-#: src/EBox/Logs/Model/Report/Details.pm:197
-#: src/EBox/Logs/Model/Report/Details.pm:230
+#: src/EBox/Logs/Model/Report/Details.pm:216
+#: src/EBox/Logs/Model/Report/Details.pm:249
 msgid "All"
 msgstr ""
 
@@ -937,77 +842,77 @@ msgstr ""
 msgid "Report options"
 msgstr "Diğer seçenekler"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:225
 msgid "never purge"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:229
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:233
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:237
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:241
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:245
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:249
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:253
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:257
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
-#: src/EBox/Logs/Model/SelectLog.pm:121
-#: src/EBox/Events/Model/Watcher/Log.pm:216
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:329
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:219
 msgid "Domain"
 msgstr "Alan ismi"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:344
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:361
 #, fuzzy
 msgid "Current configuration"
 msgstr "Ayarları kaydet"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:362
 #, fuzzy
 msgid "Logs configuration"
 msgstr "Ayarları kaydet"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
 msgid "Enable/disable logging per-module basis"
 msgstr "Günlük tutmatı modul yöntemi ile Etkinleştir/Etkisizleştir "
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
-#: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:370
+#: src/EBox/Logs/Model/SelectLog.pm:173 src/EBox/Logs.pm:57
 msgid "logs"
 msgstr "Günlük"
 
@@ -1020,16 +925,16 @@ msgstr ""
 msgid "Purge"
 msgstr "sayfa"
 
-#: src/EBox/Logs/Model/SelectLog.pm:129
+#: src/EBox/Logs/Model/SelectLog.pm:149
 #, fuzzy
 msgid "Full report"
 msgstr "Hata raporlama"
 
-#: src/EBox/Logs/Model/SelectLog.pm:135
+#: src/EBox/Logs/Model/SelectLog.pm:155
 msgid "Summarized report"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:146
+#: src/EBox/Logs/Model/SelectLog.pm:166
 #, fuzzy
 msgid "Select report"
 msgstr "Hata raporlama"
@@ -1067,7 +972,6 @@ msgid "User password"
 msgstr "Kullanıcı parolası"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-#: src/EBox/RemoteServices/Model/Subscription.pm:276
 msgid "Subscribe"
 msgstr "Kayıt ol"
 
@@ -1193,91 +1097,83 @@ msgstr ""
 msgid "Configure disk free space watcher"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:168
-#: src/EBox/Events/Model/Watcher/Log.pm:192
+#: src/EBox/Events/Model/Watcher/Log.pm:171
+#: src/EBox/Events/Model/Watcher/Log.pm:195
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:221
+#: src/EBox/Events/Model/Watcher/Log.pm:224
 msgid "Filtering"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:229
+#: src/EBox/Events/Model/Watcher/Log.pm:232
 #, fuzzy
 msgid "Configure log watchers"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:231
+#: src/EBox/Events/Model/Watcher/Log.pm:234
 msgid "Log watcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
-#: src/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/index.mas:23
-#: src/templates/RemoteServices/Backup/index.mas:67
-#: src/templates/RemoteServices/Backup/confirm.mas:24
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:251
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:264
 msgid "Name"
 msgstr "İsim"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:259
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
 #: src/templates/backup.mas:126
-#: src/templates/RemoteServices/Backup/proxy.mas:45
-#: src/templates/RemoteServices/Backup/index.mas:27
-#: src/templates/RemoteServices/Backup/index.mas:69
-#: src/templates/RemoteServices/Backup/confirm.mas:40
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:268
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:286
 msgid "Configuration"
 msgstr "Yapılandırma"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
 msgid "None"
 msgstr "Hiçbiri"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:293
 msgid "Configure events"
 msgstr "Olayları yapılandır"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
 msgid "event"
 msgstr "olay"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:302
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Herbir olay gözlemleyicisini aç/kapat"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:489
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:274
 msgid "Receiver"
 msgstr "Alıcı"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
 msgid "Configure dispatchers"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
 msgid "dispatcher"
 msgstr "işlemci zamanlayıcı"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:339
 msgid "Enable/Disable each event dispatcher"
 msgstr "Olay işlemci zamanlayıcısını aç/kapat"
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:527
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -1285,7 +1181,7 @@ msgstr ""
 "Yapılandırılabilir bir olay işlemci zamanlayıcısını açmak için önce onu "
 "yapılandırmanız gerekir"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:147
 msgid "Events"
 msgstr "Olaylar"
 
@@ -1309,35 +1205,35 @@ msgid ""
 "are accepted"
 msgstr ""
 
-#: src/EBox/Report/DiskUsage.pm:320
+#: src/EBox/Report/DiskUsage.pm:333
 #, fuzzy
 msgid "Free space"
 msgstr "Boş depolama alanı"
 
-#: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
+#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:205
 msgid "System"
 msgstr "Sistem"
 
-#: src/EBox/Apache.pm:248 src/EBox/Apache.pm:257
+#: src/EBox/Apache.pm:276 src/EBox/Apache.pm:285
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Global.pm:369 src/EBox/Global.pm:390
+#: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Yedekleme modu"
 
-#: src/EBox/Global.pm:816
+#: src/EBox/Global.pm:835
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
 
-#: src/EBox/Events.pm:90
+#: src/EBox/Events.pm:89
 #, fuzzy
 msgid "events"
 msgstr "olay"
 
-#: src/EBox/Events.pm:595
+#: src/EBox/Events.pm:546
 msgid "Event service status"
 msgstr "Olay servisi durumu"
 
@@ -1345,57 +1241,54 @@ msgstr "Olay servisi durumu"
 msgid "Save changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/Logs.pm:74
+#: src/EBox/Logs.pm:73
 msgid "Create logs database"
 msgstr ""
 
-#: src/EBox/Logs.pm:75
+#: src/EBox/Logs.pm:74
 msgid "eBox store its logs in the database"
 msgstr ""
 
-#: src/EBox/Logs.pm:425
+#: src/EBox/Logs.pm:431
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "{table} tablosu mevcut değil."
 
-#: src/EBox/Logs.pm:622
+#: src/EBox/Logs.pm:628
 msgid "Query logs"
 msgstr "Günlük sorgula"
 
-#: src/EBox/Logs.pm:625
+#: src/EBox/Logs.pm:631
 msgid "Configure logs"
 msgstr "Günlükleri ayarla"
 
-#: src/EBox/Logs.pm:638 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:644 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
-#: src/templates/RemoteServices/Backup/proxy.mas:44
-#: src/templates/RemoteServices/Backup/index.mas:68
-#: src/templates/RemoteServices/Backup/confirm.mas:32
 msgid "Date"
 msgstr "Tarih"
 
-#: src/EBox/Logs.pm:639
+#: src/EBox/Logs.pm:645
 msgid "Client Address"
 msgstr "İstemci adresi"
 
-#: src/EBox/Logs.pm:642
+#: src/EBox/Logs.pm:648
 msgid "Params"
 msgstr "Parametreler"
 
-#: src/EBox/Logs.pm:643
+#: src/EBox/Logs.pm:649
 msgid "Committed"
 msgstr "Tamamlandı"
 
-#: src/EBox/Logs.pm:648
+#: src/EBox/Logs.pm:654
 msgid "Admin"
 msgstr "Yönetici"
 
-#: src/EBox/Logs.pm:742
+#: src/EBox/Logs.pm:748
 #, fuzzy
 msgid "Log messages"
 msgstr "Mesajlar"
 
-#: src/EBox/Logs.pm:769
+#: src/EBox/Logs.pm:775
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -1435,7 +1328,7 @@ msgstr "Bu dosyaların yedeklemesi yapılamıyor: {files}"
 msgid "Could not unpack the backup"
 msgstr "Yedekleme dosyası açılamıyor"
 
-#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:227
+#: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:221
 msgid "Backup"
 msgstr "Yedekleme"
 
@@ -1515,55 +1408,55 @@ msgstr "{topModule} modulu için gerekli bulunamıyor: {modName} kurulu değil"
 msgid "Backup's archives"
 msgstr "Yedekleme Listesi"
 
-#: src/EBox/SysInfo.pm:43
+#: src/EBox/SysInfo.pm:42
 #, fuzzy
 msgid "System information"
 msgstr "Genel Bilgiler"
 
-#: src/EBox/SysInfo.pm:82
+#: src/EBox/SysInfo.pm:77
 msgid "Time"
 msgstr "Zaman"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:78
 msgid "Host name"
 msgstr "Makina ismi"
 
-#: src/EBox/SysInfo.pm:85
+#: src/EBox/SysInfo.pm:80
 msgid "eBox version"
 msgstr "eBox sürümü"
 
-#: src/EBox/SysInfo.pm:88
+#: src/EBox/SysInfo.pm:83
 msgid "System load"
 msgstr "Sistem yükü"
 
-#: src/EBox/SysInfo.pm:123 src/EBox/SysInfo.pm:205
+#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
 #, fuzzy
 msgid "Module status"
 msgstr "Moduller"
 
-#: src/EBox/SysInfo.pm:128
+#: src/EBox/SysInfo.pm:123
 msgid "General information"
 msgstr "Genel Bilgiler"
 
-#: src/EBox/SysInfo.pm:133
+#: src/EBox/SysInfo.pm:128
 #, fuzzy
 msgid "Process' list"
 msgstr "Yedekleme Listesi"
 
-#: src/EBox/SysInfo.pm:214
+#: src/EBox/SysInfo.pm:209
 msgid "General"
 msgstr "Genel"
 
-#: src/EBox/SysInfo.pm:217
+#: src/EBox/SysInfo.pm:212
 msgid "Disk usage Information"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:221
+#: src/EBox/SysInfo.pm:216
 #, fuzzy
 msgid "RAID Information"
 msgstr "Genel Bilgiler"
 
-#: src/EBox/SysInfo.pm:230
+#: src/EBox/SysInfo.pm:224
 msgid "Halt/Reboot"
 msgstr "Durdur/Tekrar Başlar"
 
@@ -1632,127 +1525,6 @@ msgstr "Postgresql {name} veribankasının yedeğinin alınmasında hata oluştu
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "{file} yedek dosyası okunabilir bir dosya değil"
-
-#: src/EBox/RemoteServices/Subscription.pm:104
-msgid "Key for web subscription service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
-#, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:143
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:146
-msgid "Subscription data retrieved correctly"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:224
-msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:245
-#, fuzzy
-msgid "User name"
-msgstr "Makina ismi"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:253
-msgid "eBox common name"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-#: src/templates/login/index.mas:29
-#: src/templates/RemoteServices/Backup/proxy.mas:138
-msgid "Password"
-msgstr "Parola"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:271
-msgid "eBox suscription details"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:272
-#, fuzzy
-msgid "Delete data"
-msgstr "Sil"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:275
-msgid "Subscription to remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:286
-#, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr ""
-
-#: src/EBox/RemoteServices/Composite/General.pm:73
-#, fuzzy
-msgid "Remote services"
-msgstr "Olay servisi durumu"
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:198
-#, perl-brace-format
-msgid "No backups in server for host: {h}"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:238
-msgid "Key for proxy backup service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:256
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:272
-msgid "No domain key found for this service"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:284
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:143
-msgid "Key for service proxy not found"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:71
-msgid "eBox remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:133
-msgid "Remote services subscription"
-msgstr ""
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1870,6 +1642,10 @@ msgstr "sonuncu"
 msgid "Warning: Caps Lock is enabled"
 msgstr ""
 
+#: src/templates/login/index.mas:29
+msgid "Password"
+msgstr "Parola"
+
 #: src/templates/login/index.mas:36
 msgid "Enter"
 msgstr "Girin"
@@ -1897,7 +1673,7 @@ msgstr "Çık"
 msgid "Mounted on"
 msgstr ""
 
-#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
+#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:131
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
 msgid "Type"
 msgstr "Tür"
@@ -1911,123 +1687,119 @@ msgstr "İşlemler"
 msgid "Partition properties"
 msgstr ""
 
-#: src/templates/report/raid.mas:13
-msgid "No RAID devices present"
-msgstr ""
-
-#: src/templates/report/raid.mas:17
+#: src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
 msgstr ""
 
-#: src/templates/report/raid.mas:84
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system"
+msgstr ""
+
+#: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
 msgstr ""
 
-#: src/templates/report/raid.mas:85
+#: src/templates/report/raid.mas:95
 msgid "right-asymmetric"
 msgstr ""
 
-#: src/templates/report/raid.mas:86
+#: src/templates/report/raid.mas:96
 msgid "left-symmetric"
 msgstr ""
 
-#: src/templates/report/raid.mas:87
+#: src/templates/report/raid.mas:97
 msgid "right-symmetric"
 msgstr ""
 
-#: src/templates/report/raid.mas:94 src/templates/moduleStatusTable.mas:60
+#: src/templates/report/raid.mas:104 src/templates/moduleStatusTable.mas:60
 msgid "Status"
 msgstr "Durum"
 
-#: src/templates/report/raid.mas:132
+#: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
 msgstr ""
 
-#: src/templates/report/raid.mas:133
+#: src/templates/report/raid.mas:143
 msgid "Active RAID devices needed"
 msgstr ""
 
-#: src/templates/report/raid.mas:134
+#: src/templates/report/raid.mas:144
 msgid "Size in blocks"
 msgstr ""
 
-#: src/templates/report/raid.mas:135
+#: src/templates/report/raid.mas:145
 msgid "Chunk size"
 msgstr ""
 
-#: src/templates/report/raid.mas:138
+#: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
 msgstr ""
 
-#: src/templates/report/raid.mas:170
+#: src/templates/report/raid.mas:180
 msgid "Array properties"
 msgstr ""
 
-#: src/templates/report/raid.mas:185
+#: src/templates/report/raid.mas:195
 msgid "Resyncing array"
 msgstr ""
 
-#: src/templates/report/raid.mas:186
+#: src/templates/report/raid.mas:196
 msgid "Rebuild array"
 msgstr ""
 
-#: src/templates/report/raid.mas:187
+#: src/templates/report/raid.mas:197
 msgid "Reshape array"
 msgstr ""
 
-#: src/templates/report/raid.mas:195
+#: src/templates/report/raid.mas:205
 #, fuzzy
 msgid "Operation type"
 msgstr "Seçmeli Integer değeri"
 
-#: src/templates/report/raid.mas:197
+#: src/templates/report/raid.mas:207
 msgid "Percentage completed"
 msgstr ""
 
-#: src/templates/report/raid.mas:199
+#: src/templates/report/raid.mas:209
 msgid "Estimated time left"
 msgstr ""
 
-#: src/templates/report/raid.mas:201
+#: src/templates/report/raid.mas:211
 msgid "Operation speed"
 msgstr ""
 
-#: src/templates/report/raid.mas:214
+#: src/templates/report/raid.mas:224
 #, fuzzy
 msgid "RAID device number"
 msgstr "Aralık"
 
-#: src/templates/report/raid.mas:215
+#: src/templates/report/raid.mas:225
 #, fuzzy
 msgid "Device"
 msgstr "Servis"
 
-#: src/templates/report/raid.mas:221
+#: src/templates/report/raid.mas:231
 msgid "up"
 msgstr ""
 
-#: src/templates/report/raid.mas:222
+#: src/templates/report/raid.mas:232
 msgid "failure"
 msgstr ""
 
-#: src/templates/report/raid.mas:251
+#: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
 msgstr ""
 
-#: src/templates/report/raid.mas:254
+#: src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
 msgstr ""
 
 #: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-#: src/templates/RemoteServices/Backup/proxy.mas:46
-#: src/templates/RemoteServices/Backup/index.mas:70
-#: src/templates/RemoteServices/Backup/confirm.mas:48
 msgid "Archive size"
 msgstr ""
 
 #: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
-#: src/templates/RemoteServices/Backup/confirm.mas:73
 msgid "Cancel"
 msgstr "Vazgeç"
 
@@ -2116,7 +1888,6 @@ msgid "Back up the current state"
 msgstr "Güncel durumu yedekle"
 
 #: src/templates/backup.mas:35
-#: src/templates/RemoteServices/Backup/index.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -2129,7 +1900,6 @@ msgid "Backup mode"
 msgstr "Yedekleme modu"
 
 #: src/templates/backup.mas:64
-#: src/templates/RemoteServices/Backup/index.mas:32
 #, fuzzy
 msgid "Back up"
 msgstr "Yedekleme"
@@ -2164,13 +1934,10 @@ msgid "Unknown type"
 msgstr "Türü bilinmiyor"
 
 #: src/templates/backup.mas:122
-#: src/templates/RemoteServices/Backup/proxy.mas:109
 msgid "Backups' list"
 msgstr "Yedekleme Listesi"
 
 #: src/templates/backup.mas:130
-#: src/templates/RemoteServices/Backup/proxy.mas:47
-#: src/templates/RemoteServices/Backup/index.mas:71
 msgid "Actions"
 msgstr "İşlemler"
 
@@ -2183,25 +1950,18 @@ msgid "Restore from backup"
 msgstr "Yedekleme üzerinden geri yükle"
 
 #: src/templates/backup.mas:166 src/templates/backup.mas:167
-#: src/templates/RemoteServices/Backup/proxy.mas:82
-#: src/templates/RemoteServices/Backup/index.mas:91
 msgid "Download"
 msgstr "İndir"
 
 #: src/templates/backup.mas:186
-#: src/templates/RemoteServices/Backup/proxy.mas:103
-#: src/templates/RemoteServices/Backup/index.mas:114
 msgid "download"
 msgstr "İndir"
 
 #: src/templates/backup.mas:188
-#: src/templates/RemoteServices/Backup/proxy.mas:99
-#: src/templates/RemoteServices/Backup/index.mas:110
 msgid "restore"
 msgstr "Geri yükle"
 
 #: src/templates/backup.mas:190
-#: src/templates/RemoteServices/Backup/index.mas:118
 msgid "delete"
 msgstr "Sil"
 
@@ -2312,19 +2072,19 @@ msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuşt
 msgid "Restart"
 msgstr "Yeniden başlat"
 
-#: src/templates/dashboard/status.mas:12
+#: src/templates/dashboard/status.mas:15
 msgid "Running"
 msgstr "Çalışıyor"
 
-#: src/templates/dashboard/status.mas:15
+#: src/templates/dashboard/status.mas:18
 msgid "Stopped"
 msgstr "Durduruldu"
 
-#: src/templates/dashboard/status.mas:17
+#: src/templates/dashboard/status.mas:20
 msgid "Start"
 msgstr "Başlat"
 
-#: src/templates/dashboard/status.mas:19
+#: src/templates/dashboard/status.mas:22
 msgid "Disabled"
 msgstr "Etkisiz"
 
@@ -2332,81 +2092,92 @@ msgstr "Etkisiz"
 msgid "No entries in this list"
 msgstr ""
 
-#: src/templates/backupTabs.mas:12
+#: src/templates/backupTabs.mas:13
 #, fuzzy
 msgid "Local backup"
 msgstr "Tüm Yedekleme"
 
-#: src/templates/backupTabs.mas:17
+#: src/templates/backupTabs.mas:18
 #, fuzzy
 msgid "Remote backup"
 msgstr "Yedekleme üzerinden geri yükle"
 
-#: src/templates/backupTabs.mas:22
+#: src/templates/backupTabs.mas:23
 msgid "Remote backup from other subscribed hosts"
 msgstr ""
 
-#: src/templates/RemoteServices/Backup/proxy.mas:42
-msgid "eBox host"
-msgstr ""
+#~ msgid ""
+#~ "An internal error has ocurred. This is most probably a bug, relevant "
+#~ "information can be found in the logs."
+#~ msgstr ""
+#~ "Dahili bir hata oluştu. Büyük ihtimal ile bir program hatası. Gerekli "
+#~ "diğer bilgileri günlük dosyasında bulabilirsiniz."
 
-#: src/templates/RemoteServices/Backup/proxy.mas:132
-msgid "User"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:143
-msgid "Submit"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:147
 #, fuzzy
-msgid "Enter user and password"
-msgstr "Kullanıcı parolası"
+#~ msgid "Backup deleted"
+#~ msgstr "Yedekleme modu"
 
-#: src/templates/RemoteServices/Backup/index.mas:38
 #, fuzzy
-msgid "Back up the current configuration state"
-msgstr "Güncel durumu yedekle"
+#~ msgid "Restoring remote backup"
+#~ msgstr "Yedekleme üzerinden geri yükle"
 
-#: src/templates/RemoteServices/Backup/index.mas:123
 #, fuzzy
-msgid "Configuration backups' list"
-msgstr "Ayarlarımı yedekle"
+#~ msgid "Restoring modules from remote backup"
+#~ msgstr "Yedekleme üzerinden geri yükle"
 
-#: src/templates/RemoteServices/NoActive.mas:5
-#, perl-brace-format
-msgid ""
-"This feature is only available if you get eBox  Services. You can contract "
-"them at {url1}. If you are already registered, then subscribe this eBox at "
-"{url2}"
-msgstr ""
-
-#: src/templates/RemoteServices/NoActive.mas:14
 #, fuzzy
-msgid "subscription page"
-msgstr "Açıklama"
+#~ msgid "Remote system backups"
+#~ msgstr "Sistem yedekleme"
 
-#: src/templates/RemoteServices/NoConnection.mas:5
-msgid ""
-"Cannot proceed with your request because it was a connection problem. "
-"Possible causes are:"
-msgstr ""
+#, fuzzy
+#~ msgid ""
+#~ "Please confirm that you want to restore the configuraction using the "
+#~ "following remote backup:"
+#~ msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
 
-#: src/templates/RemoteServices/NoConnection.mas:9
-msgid "Your computer has not internet connection"
-msgstr ""
+#, fuzzy
+#~ msgid "Please confirm that you want to delete the following remote backup:"
+#~ msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
 
-#: src/templates/RemoteServices/NoConnection.mas:10
-msgid "Your computer has not a correct system date"
-msgstr ""
+#, fuzzy
+#~ msgid "Backing up modules "
+#~ msgstr "Yedekleme modu"
 
-#: src/templates/RemoteServices/NoConnection.mas:11
-msgid "You are using the wrong certificates"
-msgstr ""
+#, fuzzy
+#~ msgid "Remote system backups proxy"
+#~ msgstr "Sistem yedekleme"
 
-#: src/templates/RemoteServices/NoConnection.mas:12
-msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
+#, fuzzy
+#~ msgid "Connection error"
+#~ msgstr "Seçmeli Integer değeri"
+
+#, fuzzy
+#~ msgid "User name"
+#~ msgstr "Makina ismi"
+
+#, fuzzy
+#~ msgid "Delete data"
+#~ msgstr "Sil"
+
+#, fuzzy
+#~ msgid "Remote services"
+#~ msgstr "Olay servisi durumu"
+
+#, fuzzy
+#~ msgid "Enter user and password"
+#~ msgstr "Kullanıcı parolası"
+
+#, fuzzy
+#~ msgid "Back up the current configuration state"
+#~ msgstr "Güncel durumu yedekle"
+
+#, fuzzy
+#~ msgid "Configuration backups' list"
+#~ msgstr "Ayarlarımı yedekle"
+
+#, fuzzy
+#~ msgid "subscription page"
+#~ msgstr "Açıklama"
 
 #~ msgid "Error"
 #~ msgstr "Hata"
