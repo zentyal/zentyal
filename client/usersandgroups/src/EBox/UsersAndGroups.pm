@@ -116,11 +116,11 @@ sub enableActions
     command(EBox::Config::share() . '/ebox-usersandgroups/ebox-init-ldap init');
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
 #       Overrides base method. It regenerates the ldap service configuration
 #
-sub _regenConfig 
+sub _setConf
 {
     my ($self) = @_;
 
