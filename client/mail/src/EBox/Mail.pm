@@ -889,17 +889,14 @@ sub firewallHelper
     return undef;
 }
 
-sub _regenConfig
+sub _setConf
 {
     my ($self) = @_;
 
-	if ($self->isEnabled()) {
-	    $self->_setMailConf;
-        my $vdomainsLdap = new EBox::MailVDomainsLdap;
-        $vdomainsLdap->regenConfig();
-	}
+    $self->_setMailConf;
+    my $vdomainsLdap = new EBox::MailVDomainsLdap;
+    $vdomainsLdap->regenConfig();
     $self->greylist()->writeUpstartFile();
-    $self->_enforceServiceState();
 }
 
 sub isPopEnabled
