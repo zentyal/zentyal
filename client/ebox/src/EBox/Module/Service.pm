@@ -544,10 +544,9 @@ sub _stopService
 
 # Method: _regenConfig
 #
-#	Base method to regenerate configuration. It should be overriden
-#	by subclasses as needed
+#	Base method to regenerate configuration. It should NOT be overriden
 #
-sub _regenConfig 
+sub _regenConfig
 {
     my ($self) = @_;
 
@@ -599,7 +598,8 @@ sub _supportActions
 # Method: _enforceServiceState
 #
 #   This method will start, restart or stop the associated daemons to 
-#   bring them to their desired state
+#   bring them to their desired state. If you need specific behaviour
+#   override this method in your module.
 #
 sub _enforceServiceState
 {
