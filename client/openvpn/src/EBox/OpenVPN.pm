@@ -105,7 +105,12 @@ sub compositeClasses
     return [];
 }
 
-sub _regenConfig
+#TODO: this method needs to be splitted in setConf and enforceServiceState
+# but right now some of the methods invoked do both configuration file
+# handling and daemon stopping/running so they need a lot of work. the only
+# drawback of doing this for now is that the hook between setConf and
+# enforceServiceState won't be useful
+sub _enforceServiceState
 {
     my ($self) = @_;
 
