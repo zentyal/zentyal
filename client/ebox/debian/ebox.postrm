@@ -14,7 +14,7 @@ case "$1" in
 
         # delete eBox logs
         rm -rf /var/log/ebox || true
-        ;
+        ;;
 esac
 
 #DEBHELPER#
