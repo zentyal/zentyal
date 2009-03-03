@@ -152,13 +152,13 @@ sub isRunning
     return $self->isEnabled();
 }
 
-# Method: _regenConfig
+# Method: _enforceServiceState
 #
 # Overrides:
 #
-#       <EBox::Module::_regenConfig>
+#       <EBox::Module::Service::_enforceServiceState>
 #
-sub _regenConfig
+sub _enforceServiceState
 {
 
     my ($self) = @_;
