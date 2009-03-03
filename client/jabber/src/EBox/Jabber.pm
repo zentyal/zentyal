@@ -261,19 +261,11 @@ sub jabberDomain
     return $domain;
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
-#       Overrides base method. It regenerates the jabber service configuration
+#       Overrides base method. It writes the jabber service configuration
 #
-sub _regenConfig
-{
-	my $self = shift;
-
-	$self->_setJabberConf;
-	$self->_enforceServiceState();
-}
-
-sub _setJabberConf
+sub _setConf
 {
 	my $self = shift;
 	my @array = ();
