@@ -2003,12 +2003,12 @@ sub _supportActions
     return undef;
 }
 
-# Method: _regenConfig
-#       
+# Method: _enforceServiceState
+#
 #       Overrides base method. It regenertates the network  configuration.
 #	It will set up the network interfaces, routes, dns...
 
-sub _regenConfig
+sub _enforceServiceState
 {
 	my $self = shift;
 	my %opts = @_;
