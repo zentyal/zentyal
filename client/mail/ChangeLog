@@ -1,5 +1,8 @@
 1.1
 	+ Use the new row() and ids() API
+	+ Bugfix: alias are deleted when user account is deleted
+	+ Bugfix: when already exists the maildir, create a new account is
+	not allowed
 0.12.101
 	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
