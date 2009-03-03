@@ -737,6 +737,35 @@ sub pidFileRunning
     return $self->pidRunning($pid);
 }
 
+# Method: _preSetConf
+#
+#   Base method which is called before _setConf. It should be overriden
+#   by subclasses if you need something to be done before _setConf is run
+#
+sub _preSetConf
+{
+    # default empty implementation. It should be overriden by subclasses as
+    # needed
+}
+
+sub _hook
+{
+    my ($self, $type) = @_;
+    #TODO
+}
+
+sub _preSetConfHook
+{
+    my ($self) = @_;
+    $self->_hook('presetconf');
+}
+
+sub _postSetConfHook
+{
+    my ($self) = @_;
+    $self->_hook('postsetconf');
+}
+
 # Method: _setConf
 #
 #   Base method to write the configuration. It should be overriden
@@ -756,7 +785,10 @@ sub _setConf
 sub _regenConfig
 {
     my ($self) = @_;
+    $self->_preSetConf();
+    $self->_preSetConfHook();
     $self->_setConf();
+    $self->_postSetConfHook();
 }
 
 # Method: writeConfFileNoCheck
