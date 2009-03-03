@@ -97,7 +97,7 @@ sub enableActions
     root(EBox::Config::share() . '/ebox-ntp/ebox-ntp-enable');
 }
 
-sub _doDaemon
+sub _enforceServiceState
 {
    my $self = shift;
 	my $logger = EBox::logger();
@@ -291,20 +291,11 @@ sub servers {
 	return @servers;
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
-#       Overrides base method. It regenertates the configuration
-#       for squid and dansguardian.
+#       Overrides base method. It writes the NTP configuration
 #
-sub _regenConfig
-{
-	my $self = shift;
-
-	$self->_setNTPConf;
-	$self->_doDaemon();
-}
-
-sub _setNTPConf
+sub _setConf
 {
 	my $self = shift;
 	my @array = ();
