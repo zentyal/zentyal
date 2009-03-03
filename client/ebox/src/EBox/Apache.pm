@@ -17,7 +17,7 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base 'EBox::Module::Service';
 
 use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
@@ -135,53 +135,17 @@ sub _stopService
 	$self->_daemon('stop');
 }
 
-sub stopService
+sub _setConf
 {
-    my $self = shift;
-
-    $self->_lock();
-    try {
-        $self->_stopService();
-    } finally {
-        $self->_unlock();
-    };
-}
-
-sub restartService
-{
-	my $self = shift;
-
-	$self->_lock();
-	my $global = EBox::Global->getInstance();
-	my $log = EBox::logger;
-
-	if (not $self->isEnabled()) {
-		$log->info("Skipping restart for $self->{name} as it's disabled");
-		return;
-	}
-
-	$log->info("Restarting service for module: " . $self->name);
-	try {
-            $self->_regenConfig();
-	} otherwise  {
-            my ($ex) = @_;
-            $log->error("Error restarting service: $ex");
-            throw $ex;
-        } finally {
-		$self->_unlock();
-	};
-}
-
-sub _regenConfig
-{
-	my $self = shift;
-
-        # We comment out this in order to make ebox-software
-        # work. State will be removed at ebox initial script
-        # $self->_deleteSessionObjects();
+	my ($self) = @_;
 
 	$self->_writeHttpdConfFile();
 	$self->_writeStartupFile();
+}
+
+sub _enforceServiceState
+{
+	my ($self) = @_;
 
 	$self->_daemon('restart');
 }
@@ -462,15 +426,18 @@ sub _restrictedResources
     return \@restrictedResources;
 }
 
-
-# Method: isEnabled
+# Method: showModuleStatus
 #
-#      As it's not a service but it expects to behave like one,
-#      implement isEnabled
+#   Indicate to ServiceManager if the module must be shown in Module
+#   status configuration.
 #
-sub isEnabled
+# Overrides:
+#   EBox::Module::Service::showModuleStatus
+#
+sub showModuleStatus
 {
-    return 1;
+    # we don't want it to appear in module status
+    return undef;
 }
 
 # Method: addInclude

@@ -23,10 +23,7 @@ sub moduleList {
     my $modules = "apache";
     print "Module list: \n";
     my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
-    for my $mod (@mods) {
-        $modules .= ", " . $mod->{'name'}
-    }
-    print $modules;
+    print join(':', @mods);
     print "\n";
 }
 
@@ -44,9 +41,7 @@ sub checkModule {
         moduleList();
         exit 2;
     }
-    if(!(
-                ($modname eq 'apache') or
-                $mod->isa("EBox::Module::Service"))) {
+    if(!$mod->isa("EBox::Module::Service")) {
         print STDERR "$modname is a not manageable module name\n";
         moduleList();
         exit 2;
@@ -57,6 +52,7 @@ sub checkModule {
 sub start() {
     my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
 	my @names = map { $_->{'name'} } @mods;
+    @names = grep { $_ ne 'apache' } @names;
 	push(@names, 'apache');
 
 	foreach my $modname (@names) {
@@ -67,6 +63,7 @@ sub start() {
 sub stop() {
     my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
 	my @names = map { $_->{'name'} } @mods;
+    @names = grep { $_ ne 'apache' } @names;
 	push(@names, 'apache');
 
 	foreach my $modname (@names) {
