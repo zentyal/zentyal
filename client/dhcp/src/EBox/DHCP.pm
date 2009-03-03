@@ -134,20 +134,19 @@ sub _daemons
     return [ { 'name' => DHCP_SERVICE } ];
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
-#      It regenerates the dhcp service configuration
+#      Writes the configuration files
 #
 # Overrides:
 #
-#      <EBox::Module::_regenConfig>
+#      <EBox::Module::Base::_setConf>
 #
-sub _regenConfig
+sub _setConf
 {
     my ($self) = @_;
     $self->_setDHCPConf();
     $self->_setTFTPDConf();
-    $self->_enforceServiceState();
 }
 
 # Method: menu
