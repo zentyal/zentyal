@@ -101,33 +101,31 @@ sub _daemons
     return [ { 'name' => SERVICE } ];
 }
 
-# Method: _regenConfig
+# Method: _setConf
 #
-#        Regenerate the configuration for the events
+#   Regenerate the configuration for the events
 #
 # Overrides:
 #
-#       <EBox::Module::_regenConfig>
+#       <EBox::Module::Base::_setConf>
 #
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - if no event watcher and event
-#       dispatcher are enabled
-#
-sub _regenConfig
+sub _setConf
 {
     my ($self) = @_;
 
-    unless ( $self->isReadOnly() ) {
     # Do the movements to make EventDaemon notice to work
-        $self->_submitEventElements();
-    }
+    $self->_submitEventElements();
+}
+
+sub _enforceServiceState {
+    my ($self) = @_;
+
     # Check for admin dumbness, it can throw an exception
-    if ( $self->_adminDumbness() ) {
+    if ($self->_adminDumbness()) {
         $self->_stopService();
         return;
     }
-    $self->_enforceServiceState();
+    $self->SUPER::_enforceServiceState();
 }
 
 # Group: Public methods
