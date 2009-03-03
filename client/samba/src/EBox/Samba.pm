@@ -333,9 +333,16 @@ sub _interfacesToListenOn
     return $interfaces;
 }
 
-sub _setSambaConf
+sub _preSetConf
 {
-    my $self = shift;
+    my ($self) = @_;
+
+    $self->_stopService();
+}
+
+sub _setConf
+{
+    my ($self) = @_;
 
     my $net = EBox::Global->modInstance('network');
     my $interfaces = $self->_interfacesToListenOn();
@@ -570,15 +577,6 @@ sub _daemons
             'name' => NMBDSERVICE
         }
     ];
-}
-
-sub _regenConfig
-{
-    my ($self) = @_;
-
-    $self->_stopService();
-    $self->_setSambaConf();
-    $self->_enforceServiceState();
 }
 
 # Function: usesPort
