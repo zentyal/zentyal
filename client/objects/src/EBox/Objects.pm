@@ -412,9 +412,4 @@ sub menu
     $root->add($item);
 }
 
-# XXX bz none of the parent provides a basic implementation of _regenConfig
-sub _regenConfig
-{
-}
-
 1;
