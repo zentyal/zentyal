@@ -13,14 +13,13 @@ fi
 
 case "$1" in
 	remove)
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
+        dpkg-trigger --no-await ebox
 	;;
 
 	purge)
 		/usr/share/ebox/ebox-sql-table drop message_filter || true
 		/usr/share/ebox/ebox-sql-table-with-time-period drop mailfilter_traffic  || true
-	;;		
+	;;
 esac
 
 

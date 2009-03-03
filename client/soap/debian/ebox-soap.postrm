@@ -2,9 +2,8 @@
 
 case "$1" in
 	remove)
-	        /usr/share/ebox/ebox-clean-gconf soap || true
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-		;;		
+	    /usr/share/ebox/ebox-clean-gconf soap || true
+		;;
 esac
 
 #DEBHELPER#

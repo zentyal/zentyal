@@ -13,8 +13,8 @@ fi
 
 case "$1" in
     remove)
-        kill -9 `pidof gconfd-2` >/dev/null 2>&1 || true
-        ;;		
+        dpkg-trigger --no-await ebox
+        ;;
     purge)
         # Delete the issued certificates
         rm -rf /var/lib/ebox/CA

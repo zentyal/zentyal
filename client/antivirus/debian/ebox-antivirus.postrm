@@ -10,16 +10,3 @@ if [ "$1" = "purge" ]; then
 fi
 
 #DEBHELPER#
-
-case "$1" in
-	remove)
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
-	;;
-
-	purge)
-
-	;;		
-esac
-
-

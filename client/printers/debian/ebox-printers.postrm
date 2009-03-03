@@ -13,18 +13,15 @@ fi
 
 case "$1" in
 	remove)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
         # restart logs
         invoke-rc.d ebox logs restart || true
 
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-       ;;		
+        dpkg-trigger --no-await ebox
+       ;;
 	purge)
         # /usr/share/ebox/ebox-sql-table drop jobs || true
 
-        ;;    
+        ;;
 esac
 
 

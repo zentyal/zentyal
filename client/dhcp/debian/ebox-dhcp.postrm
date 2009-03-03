@@ -14,13 +14,10 @@ fi
 
 case "$1" in
     remove)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
         invoke-rc.d ebox logs restart || true
 
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
-
-        ;;		
+        dpkg-trigger --no-await ebox
+        ;;
 
     purge)
         # drop log table
