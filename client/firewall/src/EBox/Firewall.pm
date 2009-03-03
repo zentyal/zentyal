@@ -243,7 +243,7 @@ sub _supportActions
     return undef;
 }
 
-sub _regenConfig
+sub _enforceServiceState
 {
     my ($self) = @_;
     use EBox::Iptables;
