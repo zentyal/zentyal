@@ -266,22 +266,26 @@ sub antispamNeeded
 
 
 #
-# Method: _regenConfig
+# Method: _setConf
 #
-sub _regenConfig
+sub _setConf
 {
     my ($self) = @_;
-    my $enabled = $self->isEnabled();
 
-    if ($enabled) {
-        $self->smtpFilter->writeConf();
-        $self->antispam()->writeConf();
-        $self->popProxy()->writeConf();
+    $self->smtpFilter->writeConf();
+    $self->antispam()->writeConf();
+    $self->popProxy()->writeConf();
 
-        my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
-        $vdomainsLdap->regenConfig();
-    }
-    
+    my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
+    $vdomainsLdap->regenConfig();
+}
+
+#
+# Method: _enforceServiceState
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
 
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
