@@ -426,6 +426,16 @@ sub _restrictedResources
     return \@restrictedResources;
 }
 
+# Method: isEnabled
+#
+# Overrides:
+#   EBox::Module::Service::isEnabled
+sub isEnabled
+{
+    # apache always has to be enabled
+    return 1;
+}
+
 # Method: showModuleStatus
 #
 #   Indicate to ServiceManager if the module must be shown in Module
