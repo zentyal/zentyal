@@ -374,7 +374,8 @@ sub _setTemplate # (template, account) account = (uid | gid) number
         $model =
             $row->elementByName('applications')->foreignModelInstance();
     }
-    my @apps = map ($_->valueByName('app'), @{$model->enabledRows()});
+    my @ids = @{$model->enabledRows()};
+    my @apps = map ($model->row($_)->valueByName('app'), @ids);
 
     # Insert new permissions (changepassword permission only for user accounts)
     my $sql = $account > 0 ?
