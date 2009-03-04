@@ -45,7 +45,7 @@ msgstr "A escutar o porto"
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr "Activar por utilizador {dirname}"
+msgstr "Activar por utilizador {dirName}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
@@ -63,7 +63,7 @@ msgid ""
 msgstr ""
 "Configuração geral do servidor Web. O porto a ser usado não pode estar "
 "associado a outro serviço. Se permitir que o utilizador publique as suas "
-"páginas HTML, as páginas serão carregadas a partir do directório {dirname} "
+"páginas HTML, as páginas serão carregadas a partir do directório {dirName} "
 "da raiz do directório samba"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
@@ -83,8 +83,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
-"O servidor virtual {vhost} foi adicionado. O domínio foi criado com o nome "
-"de mapeamento {name} - Endereço IP {ip}"
+"O servidor virtual {vhost} foi adicionado. O domínio {domain} foi criado com "
+"nome de mapeamento {name} - Endereço IP {ip}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
 #: src/EBox/WebServer/Model/VHostTable.pm:160
@@ -94,13 +94,14 @@ msgid ""
 "added to {domain} domain"
 msgstr ""
 "O servidor virtual {vhost} foi adicionado. O nome de mapeamento {name} - "
-"Endereço IP {ip} foi adicionado ao domínio"
+"Endereço IP {ip} foi adicionado ao domínio {domain}"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
-msgstr "O servidor virtual {vhost} foi adicionado ao servidor {hostname} "
+msgstr "O servidor virtual {vhost} foi adicionado com alias {alias} ao"
+"servidor {hostname} "
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
