@@ -1,5 +1,6 @@
 1.1
 	+ Use new rows() and ids() API
+	+ Bugfix: ebox-netcfg-import uses model API to import default gateway
 0.12.99
 	+ New release
 0.12

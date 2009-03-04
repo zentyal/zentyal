@@ -13,7 +13,7 @@ use constant DEFAULT_IFACE => 'eth0';
 use constant DEFAULT_UPLOAD => '1024';
 use constant DEFAULT_DOWNLOAD => '1024';
 use constant DEFAULT_NAME => 'default';
-use constant BASE_KEY => 'gatewaytable/keys/todo1111';
+use constant DEFAULT_WEIGHT => 1;
 
 
 EBox::init();
@@ -86,21 +86,16 @@ foreach my $iface (get_interfaces) {
 	if ($iface->{'method'} eq 'static') {
 		$network->setIfaceStatic($iface->{'name'}, $iface->{'address'},
 					 $iface->{'netmask'}, undef, 1);
-		
 		if ($iface->{'gateway'}){
-			$network->set_string(BASE_KEY . '/ip',
-				$iface->{'gateway'});
-			$network->set_string(BASE_KEY . '/interface', 
-				$iface->{'name'});
-			$network->set_string(BASE_KEY . '/name', 
-				DEFAULT_NAME);
-			$network->set_bool(BASE_KEY . '/default', 1);
-			$network->set_int(BASE_KEY . '/upload', 
-				DEFAULT_UPLOAD);
-			$network->set_int(BASE_KEY . '/download', 
-				DEFAULT_DOWNLOAD);
-		}
-		
+                    my $gwModel = $network->model('GatewayTable');
+                    $gwModel->add(name      => DEFAULT_NAME,
+                                  ip        => $iface->{'gateway'},
+                                  interface => $iface->{'name'},
+                                  upload    => DEFAULT_UPLOAD,
+                                  download  => DEFAULT_DOWNLOAD,
+                                  weight    => DEFAULT_WEIGHT,
+                                  default   => 1);
+                }
 	} elsif ($iface->{'method'} eq 'dhcp') {
 		$network->setIfaceDHCP($iface->{'name'}, 0, 1);
 	}
