@@ -51,7 +51,7 @@ use constant MINGID         => 2000;
 use constant HOMEPATH       => '/nonexistent';
 use constant MAXUSERLENGTH  => 24;
 use constant MAXGROUPLENGTH => 24;
-use constant MAXPWDLENGTH   => 15;
+use constant MAXPWDLENGTH   => 512;
 use constant DEFAULTGROUP   => '__USERS__';
 
 sub _create
@@ -114,6 +114,16 @@ sub usedFiles
 sub enableActions
 {
     command(EBox::Config::share() . '/ebox-usersandgroups/ebox-init-ldap init');
+}
+
+# Method: writeLDAPConf
+#
+#  Public method to generate slapd.conf
+#
+sub writeLDAPConf
+{
+    my ($self) =  @_;
+    $self->_setConf();
 }
 
 # Method: _setConf

@@ -102,7 +102,7 @@ sub clean
 
 sub gen_config
 {
-	$users->restartService();
+	$users->writeLDAPConf();
 }
 
 sub addSysUser
