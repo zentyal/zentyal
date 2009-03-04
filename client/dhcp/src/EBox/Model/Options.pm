@@ -378,19 +378,26 @@ sub _table
                                                        foreignModel  => \&_gatewayModel,
                                                        foreignField  => 'name'
                                                       ),
-                              ]
+                              ],
+                              help          => __('Setting "eBox" as default gateway will set the interface '
+                                                  . 'IP address as gateway'),
+
                              ),
        new EBox::Types::Union(
                               fieldName     => 'search_domain',
                               printableName => __('Search domain'),
                               editable      => 1,
                               subtypes      => \@searchDomainSubtypes,
+                              help          => __('The selected domain will complete on your clients '
+                                                  . 'those DNS queries which are not fully qualified'),
                              ),
        new EBox::Types::Union(
                               fieldName      => 'primary_ns',
                               printableName  => __('Primary nameserver'),
                               editable       => 1,
                               subtypes       => \@primaryNSSubtypes,
+                              help           => __('If "eBox DNS" is present and selected, the eBox server will act '
+                                                   . 'as cache DNS server'),
                              ),
        new EBox::Types::HostIP(
                                fieldName     => 'secondary_ns',
@@ -407,14 +414,11 @@ sub _table
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
-                      help               => __('Setting "eBox" as default gateway will set '
-                                               . 'as default gateway the interface address. '
-                                               . 'If you set a "name", you may choose one the configured '
-                                               . 'gateways. As "search domain" value, '
-                                               . 'one of the configured DNS domains on eBox might be chosen. '
-                                               . 'If you set the "Primary nameserver" the "eBox '
-                                               . 'DNS" if installed, the eBox server may act as '
-                                               . 'cache DNS server. All fields are optionals setting '
+                      help               => __('If you set a "configured ones" as default gateway, '
+                                               . 'you may choose one the configured gateways. As '
+                                               . '"search domain" value, one of the configured '
+                                               . 'DNS domains on eBox might be chosen. '
+                                               . 'All fields are optionals setting '
                                                . 'its value as "None" or leaving blank.'),
                      };
 
