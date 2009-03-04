@@ -1,0 +1,105 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+    settextdomain('ebox-egroupware');
+</%init>
+% if ($params->{'username'}) {
+    <h3><% __('eGroupware account') %></h3>
+    <div class="help"><%__('Password for eGroupware service is the user password')%></div>
+% } else {
+    <h3><% __('eGroupware group') %></h3>
+% }
+    <& .egroupwareDisabledWarning, $params &>
+    <& .egroupwareNoVDomainWarning, $params &>
+    <& .egroupwareInvalidMailWarning, $params &>
+
+    <table class="formTable">
+% if ($params->{'username'}) {
+    <form action='/ebox/EGroupware/EGroupwareUserOptions' method='post'>
+        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+% } else {
+    <form action='/ebox/EGroupware/EGroupwareGroupOptions' method='post'>
+        <input type="hidden" name="groupname" value="<% $params->{'groupname'} %>">
+% }
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('Permissions template') %>:</span>
+        </td>
+        <td>
+            <select name="template" enabled>
+%   foreach my $template (@{$params->{'templates'}}) {
+%       if ($template eq $params->{'currentTemplate'}) {
+                <option selected value="<% $template %>">
+%       } else {
+                <option value="<% $template %>">
+%       }
+%       if ($template eq 'default') {
+                    <% __('Default') %>
+%       } else {
+                    <% $template %>
+%       }
+                </option>
+%   }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input class='inputButton' type='submit' name='change'
+                    value="<% __('Change') %>"
+                    alt="<% __('Change') %>">
+        </td>
+    </tr>
+    </form>
+    </table>
+
+<%def .egroupwareDisabledWarning>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+
+</%init>
+
+<div class='warning'>
+<% __(
+       q{The following settings will take effect only when the egroupware module will be enabled},
+    )
+%>
+</div>
+</%def>
+
+<%def .egroupwareNoVDomainWarning>
+<%init>
+my ($params) = @_;
+return unless $params->{username};
+return if $params->{egwDomain};
+my $vdomainUrl = '/ebox/EGroupware/Composite/General#VMailDomain';
+</%init>
+
+<div class='warning'>
+<% __(q{Mail account is unavailable for eGroupware because either there isn't any mail virtual
+ domain created or you need to select one of the existent domains and save changes.} ) %><br/>
+<a href='<% $vdomainUrl %>'><% __('Click here to select a virtual domain') %></a>
+</div>
+</%def>
+
+<%def .egroupwareInvalidMailWarning>
+<%init>
+my ($params) = @_;
+return if $params->{validMail};
+return unless $params->{username};
+return unless $params->{egwDomain};
+
+my $acc = $params->{username} . '@' . $params->{egwDomain};
+
+</%init>
+
+<div class='warning'>
+<% __x('The mail account of the user must be {acc} in order to be used by eGroupware.',
+       'acc' => $acc)
+%>
+</div>
+</%def>

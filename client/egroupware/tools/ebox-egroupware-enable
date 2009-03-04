@@ -1,0 +1,55 @@
+#!/bin/sh
+
+EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
+
+PASS=`cat $EGROUPWARE_DB_PASS`
+export EGW_CLI_PASSWORD=$PASS
+
+LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
+
+su postgres -c "psql -c \"CREATE ROLE egroupware UNENCRYPTED PASSWORD '$PASS' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\""
+su postgres -c "createdb --encoding=utf-8 --owner egroupware egroupware"
+
+PG_HBA_FILE=/etc/postgresql/8.3/main/pg_hba.conf
+
+if ! grep -q egroupware $PG_HBA_FILE; then
+    echo "# Added by ebox-egroupware" >> $PG_HBA_FILE
+    echo "host egroupware egroupware 127.0.0.1/32 password" >> $PG_HBA_FILE
+fi
+
+/etc/init.d/postgresql-8.3 restart
+
+cd /usr/share/egroupware/setup
+
+#./setup-cli.php --edit-header $PASS --domain
+
+./setup-cli.php --install default,ebox
+
+./setup-cli.php --config default,ebox --webserver-url /egroupware
+
+./setup-cli.php --config default,ebox --files-dir /var/lib/egroupware/default/files
+./setup-cli.php --config default,ebox --backup-dir /var/lib/egroupware/default/backup
+./setup-cli.php --config default,ebox --temp-dir /tmp
+
+./setup-cli.php --config default,ebox --account-auth ldap,ldap --ldap-host 127.0.0.1 --ldap-root-dn "cn=admin,dc=ebox" --ldap-root-pw $LDAP_PASS --ldap-context "ou=Users,dc=ebox" --ldap-group-context "ou=Groups,dc=ebox"
+
+./setup-cli.php --config default,ebox --smtpserver localhost --postfix yes
+
+# Back to the previous directory
+cd -
+
+# Set minimum account id
+su postgres -c "psql egroupware -c \"INSERT INTO egw_config VALUES ('phpgwapi','account_min_id',2001)\""
+
+# Set default preferences (some egroupware apps doesn't work if they are not set)
+su postgres -c "psql egroupware -c \"INSERT INTO egw_preferences VALUES (-2, 'common', 'a:6:{s:12:\\\"template_set\\\";s:6:\\\"jerryr\\\";s:5:\\\"theme\\\";s:6:\\\"jerryr\\\";s:9:\\\"tz_offset\\\";s:1:\\\"0\\\";s:10:\\\"dateformat\\\";s:5:\\\"m/d/Y\\\";s:10:\\\"timeformat\\\";s:2:\\\"24\\\";s:11:\\\"default_app\\\";s:4:\\\"home\\\";}');\""
+
+# copy ldap schema
+cp /usr/share/ebox-egroupware/ebox-egw-account.schema /etc/ldap/schema/
+
+# regenerate slapd.conf
+/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+
+# restart slapd
+/etc/init.d/slapd restart
+

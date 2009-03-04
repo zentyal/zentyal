@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-egroupware/migration/
+
+        # Restart webserver module
+        invoke-rc.d ebox webserver restart || true
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
+    ;;
+esac
+
+
+
+exit 0

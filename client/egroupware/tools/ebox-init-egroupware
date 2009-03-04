@@ -1,0 +1,106 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+use EBox::Sudo qw(:all);
+use EBox::Exceptions::Internal;
+use EBox::EGroupwareLdapUser;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $users = $global->modInstance('users');
+
+sub init
+{
+    # Create a new password for eGroupware header admin
+    my $EGW_PWD_FILE = EBox::Config::conf() . 'ebox-egroupware.passwd';
+
+    my $pass;
+    my $newpass = undef;
+    if ( -s $EGW_PWD_FILE ) {
+        my $pwdfile;
+        my $fd;
+        unless (open ($fd, "<$EGW_PWD_FILE")) {
+            throw EBox::Exceptions::External("Can't open $EGW_PWD_FILE");
+        }
+        $pass = <$fd>;
+        close($fd)
+    } else {
+        $pass = `tr -dc A-Za-z0-9 < /dev/urandom | head -c8`;
+        $newpass = 1;
+    }
+
+    if ($newpass) {
+        my $fd;
+        unless (open ($fd, ">$EGW_PWD_FILE")) {
+                throw EBox::Exceptions::External("Can't open $EGW_PWD_FILE");
+        }
+        print $fd $pass;
+        close($fd);
+        unless (chmod (0400, $EGW_PWD_FILE)) {
+                throw EBox::Exceptions::External("Can't chmod $EGW_PWD_FILE");
+        }
+    }
+}
+
+
+sub migrate
+{
+    my $egwLdap = new EBox::EGroupwareLdapUser();
+
+    # migrate users
+    foreach my $user ($users->users) {
+        my $username = $user->{'username'};
+        $egwLdap->_addUser($username);
+    }
+
+    # migrate groups
+    foreach my $group ($users->groups) {
+        my $groupname = $group->{'account'};
+        $egwLdap->_addGroup($groupname);
+    }
+}
+
+sub clean
+{
+    my $egwLdap = new EBox::EGroupwareLdapUser();
+
+    # clean eGW info from users
+    foreach my $user ($users->users){
+        my $username = $user->{'username'};
+        $egwLdap->_delUser($username);
+    }
+
+    # clean eGW info from groups
+    foreach my $group ($users->groups){
+        my $groupname = $group->{'account'};
+        $egwLdap->_delGroup($groupname);
+    }
+}
+
+sub usage
+{
+    print "Usage: $0 (init | migrate | clean)\n";
+}
+
+#main
+
+
+if ($#ARGV == -1) {
+    usage();
+    exit(1);
+}
+
+if ($ARGV[0] eq 'clean') {
+    clean();
+} elsif ($ARGV[0] eq 'migrate') {
+    migrate();
+} elsif ($ARGV[0] eq 'init') {
+    init();
+} else {
+    usage();
+}

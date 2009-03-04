@@ -1,0 +1,9 @@
+class: 'EBox::EGroupware'
+
+depends:
+    - users
+    - webserver
+
+enabledepends:
+    - webserver
+    - mail
