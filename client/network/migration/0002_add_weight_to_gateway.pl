@@ -41,7 +41,8 @@ sub runGConf
 
 	for my $gw (@{$network->array_from_dir(BASE_KEY)}) {
 		my $key = BASE_KEY . "/$gw->{'_dir'}/weight";
-		$network->set_int($key, 1);
+		next unless ( defined($network->get_string($key)) );
+		$network->set_string($key, 1);
 	}
 
 }
