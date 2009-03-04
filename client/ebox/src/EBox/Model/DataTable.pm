@@ -1477,14 +1477,13 @@ sub rows
 
 # Method: enabledRows
 #
-#       Returns those rows which are enabled, that is, those whose
+#       Returns those row ids that are enabled, that is, those whose
 #       field 'enabled' is set to true. If there is no enabled field,
 #       all rows are returned.
 #
 # Returns:
 #
-#       The same as <EBox::Model::DataTable::rows> but only including
-#       those are enabled.
+#       Array ref containing the row ids
 #
 sub enabledRows
 {
