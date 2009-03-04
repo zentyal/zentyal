@@ -6,7 +6,7 @@
     Some changes have been introduced since 1.1 to EBox::Model::DataTable. Prior to
     1.1, to iterate over each row we had to call EBox::Model::DataTable::rows()
     which returned an array reference containing all the rows in a model. That was a
-    pretty naive implementation that didn't worked ok when dealing with thousands of
+    pretty naive implementation that didn't work ok when dealing with thousands of
     entries for obvious reasons.
 
     Now you will need to call EBox::Model::DataTable::ids() to retrieve all the row
