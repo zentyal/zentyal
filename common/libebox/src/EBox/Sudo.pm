@@ -26,6 +26,7 @@ use File::Slurp;
 use Error qw(:try);
 use Params::Validate;
 use Perl6::Junction;
+use File::Temp qw(tempfile);
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Sudo::Wrapper;
@@ -113,46 +114,53 @@ sub _commandError
 }
 
 #
-# Procedure: root 
+# Procedure: root
 #
-#	Executes a command through sudo. Use this to execute privileged
-#	commands. 
+#	Executes the commands provided through sudo. Use this to execute privileged
+#	commands.
 #
 # Parameters:
 #
-#       command - string with the command to execute
-#
+#       commands - strings with the commands to execute
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::Sudo::Wrapper> - If command cannot be
+#       <EBox::Exceptions::Sudo::Wrapper> - If a command cannot be
 #       executed or it was signalled
 #
-#       <EBox::Exceptions::Sudo::Command> - If the command fails
+#       <EBox::Exceptions::Sudo::Command> - If  acommand fails
 #       (returning something different than zero) and it was not
 #       signalled
 #
 # Returns:
-# 	array ref - Returns the output of the command in an array
-sub root # (command) 
+#	array ref - Returns the output of the command in an array
+#
+sub root
 {
-  my ($cmd) = @_;
-  validate_pos(@_, 1);
+    my @cmds = @_;
 
-  my $sudocmd = "$SUDO_PATH $cmd 2> $STDERR_FILE";
+    my $commands = join("\n", @cmds);
 
-  my @output = `$sudocmd`;
+    my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
+    write_file($fhCmdFile, $commands);
+    close($fhCmdFile);
+    chmod(0700, $cmdFile);
 
-  if ($? != 0) {
-    my @error;
-    if ( -r $STDERR_FILE) {
-      @error = read_file($STDERR_FILE);
+    my $sudocmd = "$SUDO_PATH $cmdFile 2> $STDERR_FILE";
+
+    my @output = `$sudocmd`;
+
+    if ($? != 0) {
+        my @error;
+        if ( -r $STDERR_FILE) {
+            @error = read_file($STDERR_FILE);
+        }
+        _rootError($sudocmd, $commands, $?, \@output, \@error);
+#    } else {
+        #unlink($cmdFile);
     }
-	  
-    _rootError($sudocmd, $cmd, $?, \@output, \@error);
-  } 
 
-  return \@output;
+    return \@output;
 }
 
 

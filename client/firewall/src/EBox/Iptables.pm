@@ -16,6 +16,9 @@
 package EBox::Iptables;
 # Package to manage iptables command utility
 
+# private functions will return references to sets of commands to be run
+# instead of running the commands themselves
+
 use strict;
 use warnings;
 
@@ -70,8 +73,8 @@ sub new
 #
 sub pf # (options)
 {
-	my $opts = $_[-1];
-	return root("/sbin/iptables $opts");
+	my ($opts) = @_;
+	return "/sbin/iptables $opts";
 }
 
 # Method: startIPForward
@@ -82,12 +85,12 @@ sub pf # (options)
 #
 #       array ref - the output of sysctl command in an array
 #
-sub startIPForward
+sub _startIPForward
 {
-	root('/sbin/sysctl -q -w net.ipv4.ip_forward="1"');
+    return [ '/sbin/sysctl -q -w net.ipv4.ip_forward="1"' ];
 }
 
-# Method: stopIPForward
+# Method: _stopIPForward
 #
 #       Change kernel to stop doing IPv4 forwarding
 #
@@ -95,12 +98,12 @@ sub startIPForward
 #
 #       array ref - the output of sysctl command in an array
 #
-sub stopIPForward
+sub _stopIPForward
 {
-	root('/sbin/sysctl -q -w net.ipv4.ip_forward="0"');
+	return [ '/sbin/sysctl -q -w net.ipv4.ip_forward="0"' ];
 }
 
-# Method: clearTables
+# Method: _clearTables
 #
 #       Clear all tables (user defined and nat), set a policy to
 #       OUTPUT, INPUT and FORWARD chains and allow always traffic
@@ -112,110 +115,125 @@ sub stopIPForward
 #       (ACCEPT|DROP|REJECT|QUEUE|RETURN|user-defined chain)
 #       See iptables TARGETS section
 #
-sub clearTables # (policy)
+sub _clearTables # (policy)
 {
 	my $self = shift;
 	my $policy = shift;
-	pf "-F";
-	pf "-X";
-	pf "-t nat -F";
-	pf "-t nat -X";
+    my @commands;
+    push(@commands,
+        pf("-F"),
+        pf("-X"),
+        pf("-t nat -F"),
+        pf("-t nat -X"),
+    );
 	# Allow loopback 
 	if (($policy eq 'DROP') or ($policy eq 'REJECT')) {
-		pf '-A INPUT -i lo -j ACCEPT';
-		pf '-A OUTPUT -o lo -j ACCEPT';
+        push(@commands,
+		    pf('-A INPUT -i lo -j ACCEPT'),
+		    pf('-A OUTPUT -o lo -j ACCEPT'),
+        );
 	}
-	pf "-P OUTPUT $policy";
-	pf "-P INPUT $policy";
-	pf "-P FORWARD $policy";
+    push(@commands,
+        pf("-P OUTPUT $policy"),
+        pf("-P INPUT $policy"),
+        pf("-P FORWARD $policy"),
+    );
+    return \@commands;
 }
 
-# Method: setStructure
+# Method: _setStructure
 #
 #       Set structure to Firewall module to work
 #
-sub setStructure
+sub _setStructure
 {
-	my $self = shift;
-	$self->clearTables("DROP");
+	my ($self) = @_;
+
+    my @commands = ();
+    push(@commands,
+        @{$self->_clearTables("DROP")}
+    );
 
 	# state rules
-	pf '-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT';
-	pf '-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT';
-	pf '-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT';
+    push(@commands,
+	    pf('-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
+	    pf('-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
+        pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT'),
 
-	pf '-A OUTPUT -p icmp ! -f -j ACCEPT';
-	pf '-A INPUT -p icmp ! -f -j ACCEPT';
-	pf '-A FORWARD -p icmp ! -f -j ACCEPT';
+        pf('-A OUTPUT -p icmp ! -f -j ACCEPT'),
+        pf('-A INPUT -p icmp ! -f -j ACCEPT'),
+        pf('-A FORWARD -p icmp ! -f -j ACCEPT'),
 
-	pf '-t nat -N premodules';
+        pf('-t nat -N premodules'),
 
-	pf '-t nat -N postmodules';
+        pf('-t nat -N postmodules'),
 
-	pf '-N fnospoof';
-	pf '-N fredirects';
-	pf '-N fmodules';
-	pf '-N ffwdrules';
-	pf '-N fnoexternal';
-	pf '-N fdns';
-	pf '-N fobjects';
-	pf '-N fglobal';
-	pf '-N fdrop';
-	pf '-N ftoexternalonly';
+        pf('-N fnospoof'),
+        pf('-N fredirects'),
+        pf('-N fmodules'),
+        pf('-N ffwdrules'),
+        pf('-N fnoexternal'),
+        pf('-N fdns'),
+        pf('-N fobjects'),
+        pf('-N fglobal'),
+        pf('-N fdrop'),
+        pf('-N ftoexternalonly'),
 
-	pf '-N inospoof';
-	pf '-N inointernal';
-	pf '-N iexternalmodules';
-	pf '-N iexternal';
-	pf '-N inoexternal';
-	pf '-N imodules';
-	pf '-N iintservs';
-	pf '-N iglobal';
-	pf '-N idrop';
+        pf('-N inospoof'),
+        pf('-N inointernal'),
+        pf('-N iexternalmodules'),
+        pf('-N iexternal'),
+        pf('-N inoexternal'),
+        pf('-N imodules'),
+        pf('-N iintservs'),
+        pf('-N iglobal'),
+        pf('-N idrop'),
 
-	pf '-N drop';
+        pf('-N drop'),
 
-	pf '-N log';
+        pf('-N log'),
 
-	pf '-N ointernal';
-	pf '-N omodules';
-	pf '-N oglobal';
-	pf '-N odrop';
+        pf('-N ointernal'),
+        pf('-N omodules'),
+        pf('-N oglobal'),
+        pf('-N odrop'),
 
-	pf '-t nat -A PREROUTING -j premodules';
+        pf('-t nat -A PREROUTING -j premodules'),
 
-	pf '-t nat -A POSTROUTING -j postmodules';
+        pf('-t nat -A POSTROUTING -j postmodules'),
 
-	pf '-A FORWARD -j fnospoof';
-	pf '-A FORWARD -j fredirects';
-	pf '-A FORWARD -j fmodules';
-	pf '-A FORWARD -j ffwdrules';
-	pf '-A FORWARD -j fnoexternal';
-	pf '-A FORWARD -j fdns';
-	pf '-A FORWARD -j fobjects';
-	pf '-A FORWARD -j fglobal';
-	pf '-A FORWARD -j fdrop';
+        pf('-A FORWARD -j fnospoof'),
+        pf('-A FORWARD -j fredirects'),
+        pf('-A FORWARD -j fmodules'),
+        pf('-A FORWARD -j ffwdrules'),
+        pf('-A FORWARD -j fnoexternal'),
+        pf('-A FORWARD -j fdns'),
+        pf('-A FORWARD -j fobjects'),
+        pf('-A FORWARD -j fglobal'),
+        pf('-A FORWARD -j fdrop'),
 
-	pf '-A INPUT -j inospoof';
-	pf '-A INPUT -j iexternalmodules';
-	pf '-A INPUT -j iexternal';
-	pf '-A INPUT -j inoexternal';
-	pf '-A INPUT -j imodules';
-	pf '-A INPUT -j iintservs';
-	pf '-A INPUT -j iglobal';
-	pf '-A INPUT -j idrop';
+        pf('-A INPUT -j inospoof'),
+        pf('-A INPUT -j iexternalmodules'),
+        pf('-A INPUT -j iexternal'),
+        pf('-A INPUT -j inoexternal'),
+        pf('-A INPUT -j imodules'),
+        pf('-A INPUT -j iintservs'),
+        pf('-A INPUT -j iglobal'),
+        pf('-A INPUT -j idrop'),
 
-	pf '-A OUTPUT -j ointernal';
-	pf '-A OUTPUT -j omodules';
-	pf '-A OUTPUT -j oglobal';
-	pf '-A OUTPUT -j odrop';
+        pf('-A OUTPUT -j ointernal'),
+        pf('-A OUTPUT -j omodules'),
+        pf('-A OUTPUT -j oglobal'),
+        pf('-A OUTPUT -j odrop'),
 
-	pf "-A idrop -j drop";
-	pf "-A odrop -j drop";
-	pf "-A fdrop -j drop";
+        pf("-A idrop -j drop"),
+        pf("-A odrop -j drop"),
+	    pf("-A fdrop -j drop"),
+    );
+    return \@commands;
 }
 
-# Method: setDNS
+# Method: _setDNS
 #
 #       Set DNS traffic for forwarding and output with destination dns
 #
@@ -223,15 +241,18 @@ sub setStructure
 #
 #       dns - address/[mask] destination to accept DNS traffic
 #
-sub setDNS # (dns)
+sub _setDNS # (dns)
 {
 	my $self = shift;
 	my $dns = shift;
-	pf "-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT";
-	pf "-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT";
+    my @commands = (
+        pf("-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT"),
+        pf("-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT"),
+    );
+    return \@commands;
 }
 
-# Method: setDHCP
+# Method: _setDHCP
 #
 #       Set output DHCP traffic 
 #
@@ -239,31 +260,36 @@ sub setDNS # (dns)
 #
 #       interface - 
 #
-sub setDHCP
+sub _setDHCP
 {
-	my $self = shift;
-	my $interface = shift;
-	pf "-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT";
+	my ($self, $interface) = @_;
+	return [ pf("-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT") ];
 }
 
-# Method: setRemoteServices
+# Method: _setRemoteServices
 #
 #       Set output rules required to remote services to work
 #
 #
-sub setRemoteServices
+sub _setRemoteServices
 {
     my ($self) = @_;
+
+    my @commands;
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('remoteservices') ) {
         my $rsMod = $gl->modInstance('remoteservices');
         if ( $rsMod->eBoxSubscribed() ) {
             my $vpnIface = $rsMod->ifaceVPN();
-            pf "-A ointernal $new -o $vpnIface -j ACCEPT";
+            push(@commands,
+                pf("-A ointernal $new -o $vpnIface -j ACCEPT")
+            );
             my ($vpnIPAddr, $vpnPort) = @{$rsMod->vpnSettings()};
             # We assume UDP
-            pf "-A ointernal $new -p udp -d $vpnIPAddr --dport $vpnPort -j ACCEPT";
+            push(@commands,
+                pf("-A ointernal $new -p udp -d $vpnIPAddr --dport $vpnPort -j ACCEPT")
+            );
             # Allow communications between ns and www
             eval "use EBox::RemoteServices::Configuration";
             my ($dnsServer, $publicWebServer, $mirrorCount) = (
@@ -272,19 +298,23 @@ sub setRemoteServices
                 EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
                );
             # We are assuming just one name server
-            pf "-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT";
+            push(@commands,
+                pf("-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT")
+            );
             # Public WWW servers to connect to
             for my $no ( 1 .. $mirrorCount ) {
                 my $site = $publicWebServer;
                 $site =~ s:\.:$no.:;
-                pf "-A ointernal $new -p tcp -d $site --dport 443 -j ACCEPT";
+                push(@commands,
+                    pf("-A ointernal $new -p tcp -d $site --dport 443 -j ACCEPT")
+                );
             }
         }
     }
-
+    return \@commands;
 }
 
-# Method: nospoof
+# Method: _nospoof
 #
 #       Set no IP spoofing (forged) for the given addresses to the
 #       interface given
@@ -298,28 +328,33 @@ sub setRemoteServices
 #                - address - the IP address
 #                - netmask - the IP network mask
 
-sub nospoof # (interface, \@addresses)
+sub _nospoof # (interface, \@addresses)
 {
 	my $self = shift;
 	my ($iface, $addresses) = @_;
+    my @commands;
 	foreach (@{$addresses}) {
 		my $addr = $_->{address};
 		my $mask = $_->{netmask};
-		pf "-A fnospoof -s $addr/$mask -i ! $iface -j fdrop";
-		pf "-A inospoof -s $addr/$mask -i ! $iface -j idrop";
-		pf "-A inospoof -i ! $iface -d $addr -j idrop";
+        push(@commands,
+            pf("-A fnospoof -s $addr/$mask -i ! $iface -j fdrop"),
+		    pf("-A inospoof -s $addr/$mask -i ! $iface -j idrop"),
+		    pf("-A inospoof -i ! $iface -d $addr -j idrop"),
+        );
 	}
+    return \@commands;
 }
 
-# Method: localRedirects
+# Method: _localRedirects
 #
 #       Do effective local redirections. Done via
 #       <EBox::Firewall::addLocalRedirect> using NAT.
 #
-sub localRedirects
+sub _localRedirects
 {
 	my $self = shift;
 	my $redirects = $self->{firewall}->localRedirects();
+    my @commands;
 	foreach my $redir (@{$redirects}) {
 		my $service = $redir->{service};
 		my $protocol = $self->{firewall}->serviceProtocol($service);
@@ -329,33 +364,14 @@ sub localRedirects
 		foreach my $ifc (@ifaces) {
 			my $addr = $self->{net}->ifaceAddress($ifc);
 			(defined($addr) && $addr ne "") or next;
-			pf "-t nat -A PREROUTING -i $ifc -p $protocol ".
-			   "-d ! $addr --dport $eport " .
-			   "-j REDIRECT --to-ports $dport";
+            push(@commands,
+                pf("-t nat -A PREROUTING -i $ifc -p $protocol ".
+                   "-d ! $addr --dport $eport " .
+                   "-j REDIRECT --to-ports $dport")
+            );
 		}
 	}
-}
-
-# Method: doService
-#
-#       Set available an specific internal service
-#
-# Parameters:
-#
-#       service - a hash containing the following elements:
-#           - port     - destination port
-#           - protocol - destination protocol
-#           - name     - name of service
-#
-sub doService # (service)
-{
-	my ($self, $srv) = @_;
-	my $port = $srv->{port};
-	my $protocol = $srv->{protocol};
-	my $name = $srv->{name};
-	if ($self->{firewall}->serviceIsInternal($name)) {
-		pf "-A iintservs -p $protocol --dport $port -j ACCEPT";
-	}
+    return \@commands;
 }
 
 # Method: stop
@@ -366,8 +382,10 @@ sub doService # (service)
 sub stop
 {
 	my $self = shift;
-	stopIPForward();
-	$self->clearTables("ACCEPT");
+    my @commands;
+    push(@commands, @{_stopIPForward()});
+	push(@commands, @{$self->_clearTables("ACCEPT")});
+    root(@commands);
 }
 
 # Method: vifaceRealname
@@ -398,13 +416,15 @@ sub start
 {
 	my $self = shift;
 
-	$self->_loadIptModules();
+    my @commands;
 
-	$self->setStructure();
+	push(@commands, @{$self->_loadIptModules()});
+
+    push(@commands, @{$self->_setStructure()});
 
 	my @dns = @{$self->{net}->nameservers()};
 	foreach (@dns) {
-		$self->setDNS($_);
+        push(@commands, @{$self->_setDNS($_)});
 	}
 
 	foreach my $object (@{$self->{objects}->objects}) {
@@ -414,76 +434,84 @@ sub start
 			defined($mac) or next;
 			($mac ne "") or next;
 			my $address = $member->{ipaddr};
-			pf "-A inospoof -m mac -s $address " .
-			   "--mac-source ! $mac -j idrop";
-			pf "-A fnospoof -m mac -s $address " .
-			   "--mac-source ! $mac -j fdrop";
+            push(@commands,
+                pf("-A inospoof -m mac -s $address " .
+                   "--mac-source ! $mac -j idrop"),
+                pf("-A fnospoof -m mac -s $address " .
+                   "--mac-source ! $mac -j fdrop"),
+            );
 		}
 	}
 
 	my @ifaces = @{$self->{net}->ifaces()};
 	foreach my $ifc (@ifaces) {
 		my $addrs = $self->{net}->ifaceAddresses($ifc);
-		$self->nospoof($ifc, $addrs);
+		push(@commands, @{$self->_nospoof($ifc, $addrs)});
 		if ($self->{net}->ifaceMethod($ifc) eq 'dhcp') {
-			$self->setDHCP($ifc);
+			push(@commands, @{$self->_setDHCP($ifc)});;
 			my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
 			foreach my $srv (@{$dnsSrvs}) {
-				$self->setDNS($srv);
+                push(@commands, @{$self->_setDNS($srv)});
 			}
 		}
 	}
 
-        $self->setRemoteServices();
+    push(@commands, @{$self->_setRemoteServices()});
 
-    $self->_redirects();
+    push(@commands, @{$self->_redirects()});
 
 	@ifaces = @{$self->{net}->ExternalIfaces()};
 	foreach my $if (@ifaces) {
-		pf "-A fnoexternal $new -i $if -j fdrop";
-		pf "-A inoexternal $new -i $if -j idrop";
-		pf "-A ftoexternalonly -o $if -j ACCEPT";
+        push(@commands,
+            pf("-A fnoexternal $new -i $if -j fdrop"),
+            pf("-A inoexternal $new -i $if -j idrop"),
+            pf("-A ftoexternalonly -o $if -j ACCEPT"),
+        );
 
 		next unless (_natEnabled());
 
 		if ($self->{net}->ifaceMethod($if) eq 'static') {
 			my $addr = $self->{net}->ifaceAddress($if);
-			pf "-t nat -A POSTROUTING -s ! $addr -o $if " .
-			   "-j SNAT --to $addr"
+            push(@commands,
+			    pf("-t nat -A POSTROUTING -s ! $addr -o $if " .
+			   "-j SNAT --to $addr")
+            );
 		} elsif ($self->{net}->ifaceMethod($if) eq 'dhcp') {
-			pf "-t nat -A POSTROUTING -o $if -j MASQUERADE";
+            push(@commands,
+			    pf("-t nat -A POSTROUTING -o $if -j MASQUERADE")
+            );
 		}
 	}
 
-	$self->_drop();
+	push(@commands, @{$self->_drop()});
 
-	$self->_log();
+	push(@commands, @{$self->_log()});
 
-	$self->_iexternal();
-	$self->_iglobal();
+    push(@commands, @{$self->_iexternal()});
 
+    push(@commands, @{$self->_iglobal()});
 
-	pf "-A ftoexternalonly -j fdrop";
+	push(@commands, pf("-A ftoexternalonly -j fdrop"));
 
 	my $rules = $self->{firewall}->OutputRules();
 	foreach my $rule (@{$rules}) {
 		defined($rule) or next;
 		my $port = $rule->{port};
 		my $proto = $rule->{protocol};
-		pf "-A ointernal $new  -p $proto --dport $port -j ACCEPT";
+        push(@commands,
+            pf("-A ointernal $new  -p $proto --dport $port -j ACCEPT")
+        );
 	}
 
-	$self->_fglobal();
+	push(@commands, @{$self->_fglobal()});
 
-	$self->_ffwdrules();
+	push(@commands, @{$self->_ffwdrules()});
 
-	$self->_oglobal();
+	push(@commands, @{$self->_oglobal()});
 
+	push(@commands, @{$self->_localRedirects()});
 
-	$self->localRedirects();
-
-	startIPForward();
-
+	push(@commands, @{_startIPForward()});
 
 	my $global = EBox::Global->getInstance();
 	my @modNames = @{$global->modNames}; 
@@ -491,31 +519,46 @@ sub start
 	foreach my $mod (@mods) {
 		my $helper = $mod->firewallHelper();
 		($helper) or next;
-		$self->_doRuleset('nat', 'premodules', $helper->prerouting());
-		$self->_doRuleset('nat', 'postmodules', $helper->postrouting());
-		$self->_doRuleset('filter', 'fmodules', $helper->forward());
-		$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput());
-		$self->_doRuleset('filter', 'imodules', $helper->input());
-		$self->_doRuleset('filter', 'omodules', $helper->output());
+        push(@commands,
+            @{$self->_doRuleset('nat', 'premodules', $helper->prerouting())}
+        );
+        push(@commands,
+            @{$self->_doRuleset('nat', 'postmodules', $helper->postrouting())}
+        );
+        push(@commands,
+            @{$self->_doRuleset('filter', 'fmodules', $helper->forward())}
+        );
+        push(@commands,
+		    @{$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput())}
+        );
+        push(@commands,
+		    @{$self->_doRuleset('filter', 'imodules', $helper->input())}
+        );
+        push(@commands,
+            @{$self->_doRuleset('filter', 'omodules', $helper->output())}
+        );
 	}
+    root(@commands);
 }
 
-sub _loadIptModules 
+sub _loadIptModules
 {
+    my @commands;
 	foreach my $module (IPT_MODULES) {
-		try {
-			root("modprobe $module");
-		} catch EBox::Exceptions::Internal with {};
+        push(@commands, "modprobe $module || true");
 	}
+    return \@commands;
 }
 
 sub _doRuleset # (table, chain, \@rules)
 {
 	my ($self, $table, $chain, $rules) = @_;
 
+    my @commands;
 	foreach my $rule (@{$rules}) {
-		pf "-t $table -A $chain $rule";
+        push(@commands, pf("-t $table -A $chain $rule"));
 	}
+    return \@commands;
 }
 
 # Method: _iexternalCheckInit
@@ -526,11 +569,16 @@ sub _iexternalCheckInit
 {
     my ($self) = @_;
 
+    my @commands;
+
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
-        pf "-A iexternalmodules -i $if -j RETURN";
-        pf "-A iexternal -i $if -j RETURN";
+        push(@commands,
+            pf("-A iexternalmodules -i $if -j RETURN"),
+            pf("-A iexternal -i $if -j RETURN"),
+        );
     }
+    return \@commands;
 }
 
 # Method: _iexternal
@@ -541,12 +589,14 @@ sub _iexternal
 {
     my ($self) = @_;
 
+    my @commands;
+
     $self->_iexternalCheckInit();
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToEBoxRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
-    
+    return \@commands;
 }
 
 # Method: _iglobal
@@ -557,11 +607,13 @@ sub _iglobal
 {
     my ($self) = @_;
 
+    my @commands;
+
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->InternalToEBoxRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
-    
+    return \@commands;
 }
 
 # Method: _oglobal
@@ -572,11 +624,13 @@ sub _oglobal
 {
     my ($self) = @_;
 
+    my @commands;
+
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->EBoxOutputRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
-    
+    return \@commands;
 }
 
 
@@ -588,14 +642,14 @@ sub _fglobal
 {
     my ($self) = @_;
 
+    my @commands;
+
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ToInternetRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
-    
+    return \@commands;
 }
-
-
 
 # Method: _ffwdrules
 #
@@ -605,17 +659,18 @@ sub _ffwdrules
 {
     my ($self) = @_;
 
+    my @commands;
+
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
-        pf " -A ffwdrules -i $if -j RETURN";
+        push(@commands, pf("-A ffwdrules -i $if -j RETURN"));
     }
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToInternalRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
-    
+    return \@commands;
 }
-
 
 # Method: _redirects
 #
@@ -624,10 +679,13 @@ sub _redirects
 {
     my ($self) = @_;
 
+    my @commands;
+
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->RedirectsRuleTable()}) {
-        pf "$rule";
+        push(@commands, pf("$rule"));
     }
+    return \@commands;
 }
 
 # Method: _drop
@@ -638,62 +696,71 @@ sub _drop
 {
     my ($self) = @_;
 
-   
-
-    pf '-I drop -j DROP';
+    my @commands;
+    push(@commands, pf('-I drop -j DROP'));
 
     # If logging is disabled we are done
-    return unless ($self->{firewall}->logging());
+    if($self->{firewall}->logging()) {
 
-    my $limit = EBox::Config::configkey('iptables_log_limit');
-    my $burst = EBox::Config::configkey('iptables_log_burst');
+        my $limit = EBox::Config::configkey('iptables_log_limit');
+        my $burst = EBox::Config::configkey('iptables_log_burst');
 
-    unless (defined($limit) and $limit =~ /^\d+$/) {
-	throw EBox::Exceptions::External(__('You must set the ' .
-		'iptables_log_limit variable in the ebox configuration file'));
+        unless (defined($limit) and $limit =~ /^\d+$/) {
+        throw EBox::Exceptions::External(__('You must set the ' .
+            'iptables_log_limit variable in the ebox configuration file'));
 
+        }
+
+        unless (defined($burst) and $burst =~ /^\d+$/) {
+        throw EBox::Exceptions::External(__('You must set the ' .
+            'iptables_log_burst variable in the ebox configuration file'));
+
+        }
+        push(@commands,
+            pf("-I drop -j LOG -m limit --limit $limit/min " .
+            "--limit-burst $burst" . 
+            ' --log-level ' . SYSLOG_LEVEL . 
+            ' --log-prefix "ebox-firewall drop "')
+        );
     }
-
-    unless (defined($burst) and $burst =~ /^\d+$/) {
-	throw EBox::Exceptions::External(__('You must set the ' .
-		'iptables_log_burst variable in the ebox configuration file'));
-
-    }
-    pf "-I drop -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
-       ' --log-level ' . SYSLOG_LEVEL . 
-       ' --log-prefix "ebox-firewall drop "';
+    return \@commands;
 }
 
 # Method: _log
 #
 #	Set up log chain. Log rule and return rule
-#	
+#
 sub _log
 {
     my ($self) = @_;
 
-    pf '-I log -j RETURN';
+    my @commands;
+    push(@commands, pf('-I log -j RETURN'));
 
     # If logging is disabled we are done
-    return unless ($self->{firewall}->logging());
+    if ($self->{firewall}->logging()) {
+        my $limit = EBox::Config::configkey('iptables_log_limit');
+        my $burst = EBox::Config::configkey('iptables_log_burst');
 
-    my $limit = EBox::Config::configkey('iptables_log_limit');
-    my $burst = EBox::Config::configkey('iptables_log_burst');
+        unless (defined($limit) and $limit =~ /^\d+$/) {
+        throw EBox::Exceptions::External(__('You must set the ' .
+            'iptables_log_limit variable in the ebox configuration file'));
 
-    unless (defined($limit) and $limit =~ /^\d+$/) {
-	throw EBox::Exceptions::External(__('You must set the ' .
-		'iptables_log_limit variable in the ebox configuration file'));
+        }
 
+        unless (defined($burst) and $burst =~ /^\d+$/) {
+        throw EBox::Exceptions::External(__('You must set the ' .
+            'iptables_log_burst variable in the ebox configuration file'));
+
+        }
+        push(@commands,
+            pf("-I log -j LOG -m limit --limit $limit/min " .
+            "--limit-burst $burst" . 
+            ' --log-level ' . SYSLOG_LEVEL . 
+            ' --log-prefix "ebox-firewall log "')
+        );
     }
-
-    unless (defined($burst) and $burst =~ /^\d+$/) {
-	throw EBox::Exceptions::External(__('You must set the ' .
-		'iptables_log_burst variable in the ebox configuration file'));
-
-    }
-    pf "-I log -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
-       ' --log-level ' . SYSLOG_LEVEL . 
-       ' --log-prefix "ebox-firewall log "';
+    return \@commands;
 }
 
 # Method: _natEnabled

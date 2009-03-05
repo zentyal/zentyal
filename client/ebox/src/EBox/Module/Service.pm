@@ -542,6 +542,18 @@ sub _stopService
     $self->_manageService('stop');
 }
 
+sub _preServiceHook
+{
+    my ($self, $enabled) = @_;
+    $self->_hook('preservice', $enabled);
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+    $self->_hook('postservice', $enabled);
+}
+
 # Method: _regenConfig
 #
 #	Base method to regenerate configuration. It should NOT be overriden
@@ -550,8 +562,11 @@ sub _regenConfig
 {
     my ($self) = @_;
 
-    $self->_setConf();
+    $self->SUPER::_regenConfig();
+    my $enabled = ($self->isEnabled() or 0);
+    $self->_preServiceHook($enabled);
     $self->_enforceServiceState();
+    $self->_postServiceHook($enabled);
 }
 
 # Method: restartService

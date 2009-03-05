@@ -750,8 +750,16 @@ sub _preSetConf
 
 sub _hook
 {
-    my ($self, $type) = @_;
-    #TODO
+    my ($self, $type, @params) = @_;
+
+    my $hookfile = EBox::Config::etc() . "hooks/" . $self->{'name'} . "." . $type;
+    if (-x "$hookfile") {
+        my $log = EBox::logger;
+        my $command = $hookfile . " " . join(" ", @params);
+        $log->info("Running hook: " . $command);
+
+        EBox::Sudo::root("$command");
+    }
 }
 
 sub _preSetConfHook
