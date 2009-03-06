@@ -41,6 +41,8 @@ sizelimit 500
 # for indexing.
 tool-threads 1
 
+allow bind_v2
+
 #######################################################################
 # Specific Backend Directives for hdb:
 # Backend specific directives apply to this backend until another
