@@ -47,14 +47,16 @@ This is the method you must add to *src/EBox/Model/ServerAliases.pm*::
             # Keep the current directory
             my $directory = $self->directory();
 
-            for my $row (@{$parentModel->rows()}) {
+            for my $id (@{$parentModel->ids()}) {
+                    my $row = $parantModel->row($id);
                     my $virtualHost = $row->valueByName('name');
                     if ($virtualHost eq $newName) {
                             my $virtEx = __x('There is already a virtual host named {name}',
                                     name => $newName);
                             throw EBox::Exceptions::External($virtEx);
                     }
-                    for my $subRow (@{$row->subModel('aliases')->rows()}) {
+                    for my $subId (@{$row->subModel('aliases')->ids()}) {
+                            my $subRow = $row->subModel('aliases')->row($subId);
                             if ($subRow->valueByName('name') eq $newName) {
                                     my $virtEx = __x('There is already a server alias named {name} '
                                                      . 'in virtual host {virtual}',
@@ -127,14 +129,16 @@ Finally, we have to implement a similar method in *src/EBox/Model/VirtualHosts*.
             return unless (exists $params->{name});
             my $newName = $params->{name}->value();
 
-            for my $row (@{$self->rows()}) {
+            for my $id (@{$self->ids()}) {
+                    my $row = $self->row($id);
                     my $virtualHost = $row->valueByName('name');
                     if ($virtualHost eq $newName) {
                             my $virtEx = __x('There is already a virtual host named {name}',
                                     name => $newName);
                             throw EBox::Exceptions::External($virtEx);
                     }
-                    for my $subRow (@{$row->subModel('aliases')->rows()}) {
+                    for my $subId (@{$row->subModel('aliases')->ids()}) {
+                            my $subRow = $row->subModel('aliases')->row($subId);
                             if ($subRow->valueByName('name') eq $newName) {
                                     my $virtEx = __x('There is already a server alias named {name} '
                                                      . 'in virtual host {virtual}',

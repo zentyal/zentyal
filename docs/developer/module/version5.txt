@@ -294,7 +294,8 @@ Let's add a new menu entry in the *menu()* entry to *src/EBox/Apache2.pm* as we 
             my $mgr = EBox::Model::ModelManager->instance();
             my $model = $mgr->model('apache2/Modules');
 
-            for my $row (@{$model->rows()}) {
+            for my $id (@{$model->ids()}) {
+                    my $row = $self->row($id);
                     my $module = $row->valueByName('module');
                     my $enabled = $row->valueByName('enabled');
                     if ($enabled) {
@@ -416,7 +417,8 @@ As we did with the previous versions, let's code a simple script so that we can 
     my $modules= $manager->model('apache2/VirtualHosts');
 
     # Iterates over the rows and print info
-    for my $row (@{$modules->rows()}) {
+    for my $id (@{$modules->ids()}) {
+            my $row = $modules->row($id);
             my $name = $row->valueByName('name');
             my $enabled = $row->valueByName('enabled');
             print "Module: $name enabled $enabled\n";
@@ -480,7 +482,8 @@ Let's create a private method called *_setVirtualHosts()* in our main class *src
             my $model = $mgr->model('apache2/VirtualHosts');
 
             # Iterate over the virtual host table
-            for my $row (@{$model->rows()}) {
+            for my $id (@{$model->ids()}) {
+                    my $row = $model->row($id);
                     my $name = $row->valueByName('name');
                     my $enabled = $row->valueByName('enabled');
                     my $outputFile = "/etc/apache2/sites-available/ebox-$name";
@@ -489,7 +492,7 @@ Let's create a private method called *_setVirtualHosts()* in our main class *src
                     $self->writeConfFile($outputFile, 'apache2/virtual-host.conf.mas', \@params);
 
                     # Create the document root directory if it does not exist
-                    my $docRoot = "/var/www/$name";
+                                        my $row = $model->row($id);my $docRoot = "/var/www/$name";
                     unless ( -d $docRoot ) {
                             EBox::Sudo::root("mkdir $docRoot");
                     }
@@ -515,7 +518,8 @@ As we are modifying files, we have to let the framework know which files we are 
             my $model = $mgr->model('apache2/VirtualHosts');
 
             my @usedFiles;
-            for my $row (@{$model->rows()}) {
+            for my $id (@{$model->ids()}) {
+                    my $row = $model->row($id);
                     my $name = $row->valueByName('name');
                     push (@usedFiles, { file => "/etc/apache2/sites-available/ebox-$name",
                                        module => 'apache2',
@@ -632,13 +636,14 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
             my $model = $mgr->model('apache2/VirtualHosts');
         
         my @usedFiles;
-            for my $row (@{$model->rows()}) {
-                    my $name = $row->valueByName('name');
-            push (@usedFiles, { file => "/etc/apache2/sites-available/ebox-$name",
-                       module => 'apache2',
-                           reason => __('To configure the virtual host')
-                      });
-            }
+        for my $id (@{$model->ids()}) {
+                my $row = $model->row($id);
+                my $name = $row->valueByName('name');
+                push (@usedFiles, { file => "/etc/apache2/sites-available/ebox-$name",
+                   module => 'apache2',
+                       reason => __('To configure the virtual host')
+                  });
+        }
 
             return \@usedFiles;
     }
@@ -672,7 +677,8 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
             my $mgr = EBox::Model::ModelManager->instance();
             my $model = $mgr->model('apache2/Modules');
 
-            for my $row (@{$model->rows()}) {
+            for my $id (@{$model->ids()}) {
+                    my $row = $model->row($id);
                     my $module = $row->valueByName('module');
                     my $enabled = $row->valueByName('enabled');
                     if ($enabled) {
@@ -694,26 +700,27 @@ Let's recap all the changes that we need to make to *src/EBox/Apache2.pm*::
             my $mgr = EBox::Model::ModelManager->instance();
             my $model = $mgr->model('apache2/VirtualHosts');
 
-        # Iterate over the virtual host table
-            for my $row (@{$model->rows()}) {
-                    my $name = $row->valueByName('name');
-                    my $enabled = $row->valueByName('enabled');
-            my $outputFile = "/etc/apache2/sites-available/ebox-$name";
-            my @params = (name => $name);
-            # Write virtual host configuration file 
-            $self->writeConfFile($outputFile, 'apache2/virtual-host.conf.mas', \@params);
+            # Iterate over the virtual host table
+            for my $id (@{$model->ids()}) {
+                my $row = $model->row($id);
+                my $name = $row->valueByName('name');
+                my $enabled = $row->valueByName('enabled');
+                my $outputFile = "/etc/apache2/sites-available/ebox-$name";
+                my @params = (name => $name);
+                # Write virtual host configuration file 
+                $self->writeConfFile($outputFile, 'apache2/virtual-host.conf.mas', \@params);
 
-            # Create the document root directory if it does not exist
-            my $docRoot = "/var/www/$name";
-            unless ( -d $docRoot ) {
-                EBox::Sudo::root("mkdir $docRoot");
-            }
-            # Enable or disable the virtual host depending on the user configuration
-            if ($enabled) {
-                            EBox::Sudo::root("a2ensite ebox-$name");
-                    } else {
-                            EBox::Sudo::root("a2dissite ebox-$name");
-                    }
+                # Create the document root directory if it does not exist
+                my $docRoot = "/var/www/$name";
+                unless ( -d $docRoot ) {
+                    EBox::Sudo::root("mkdir $docRoot");
+                }
+                # Enable or disable the virtual host depending on the user configuration
+                if ($enabled) {
+                                EBox::Sudo::root("a2ensite ebox-$name");
+                        } else {
+                                EBox::Sudo::root("a2dissite ebox-$name");
+                        }
             }
     }
 
