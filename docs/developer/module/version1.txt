@@ -303,7 +303,8 @@ The other method, *_daemons*, is used to let the service framework know which da
         return [
             {
                 'name' => 'apache2',
-                'type' => 'init.d'
+                'type' => 'init.d',
+                'pidfile' => '/var/run/apache2.pid'
             }
         ];
     }
