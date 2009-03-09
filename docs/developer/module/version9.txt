@@ -1,9 +1,9 @@
-===============================
-Version 0.9: 
-===============================
+=================================================
+Version 0.9: Making changes take immediate effect
+=================================================
 
 In this version you will learn how to create a model that does not store
-anything in gconf, and commit its configuration changes inmediately. Although
+anything on disk, and commits its configuration changes inmediately. Although
 this is not the preferred way to do this, it can be useful for some scenarios.
 
 If you remember, most of the modules in eBox let the user make
@@ -16,7 +16,7 @@ Data model
 ==========
 
 
-Let's create our new model called *AllModules* by running:
+Let's create our new model called *AllModules* by running:::
 
      ebox-moddev-model  --main-class Apache2 --name AllModules --field module:Text --field enabled:Boolean --model table
 
@@ -32,7 +32,7 @@ will be using the name of the apache modules as row identifiers. We will
 override *EBox::Model::DataTable::ids()* to return our row identifier vector
 based on the available modules
 
-The code to carry out that task will look like:
+The code to carry out that task will look like:::
 
     # Method: ids
     #
@@ -52,7 +52,7 @@ The code to carry out that task will look like:
     }
 
 The next step is overriding *EBox::Model::DataTable::row* to build and
-return a row.
+return a row.::
 
     # Method: row
     #
@@ -71,7 +71,7 @@ return a row.
     }
 
 *row()* receives the row identifier as parameter. As this identifier is the
-name of the apache module, we check if the module is enabled or notwith:
+name of the apache module, we check if the module is enabled or notwith:::
 
     my $enabled = ( -f "/etc/apache2/mods-enabled/$id.load" );
 
@@ -79,7 +79,7 @@ We build a row using the convenient method
 *EBox::Model::DataTable::_setValueRow* with its values. And after setting
 its row identifier, we return the row.
 
-We also need to modify the field attributes that make up our table:
+We also need to modify the field attributes that make up our table:::
 
     sub _table
     {
@@ -124,7 +124,7 @@ pointers. This is a convenience way of changing the behavior of an				.
 existing type without extending it.
 
 As we are not storing or restoring anything from disk, we set the *storer*
-and *acquierer* attributes of our *module* field to:
+and *acquierer* attributes of our *module* field to::
 
     sub { }
 
@@ -138,7 +138,7 @@ what the user chooses. That is why we set *storer* to a function pointer.
 Whenever the user enables or disables a module *enableModule* will be
 called.
 
-This method will look like:
+This method will look like:::
 
     sub enableModule
     {
@@ -154,7 +154,9 @@ This method will look like:
 
 *$self->value()* returns the status that the user would like to set.
 
-There is only one detail left. We have to override a couple of methods in order to avoid the *Save changes* button turns red. These methods are: *_checkRowExist* and *_setCacheDirty*.
+There is only one detail left. We have to override a couple of methods in order
+to avoid the *Save changes* button turns red. These methods are:
+*_checkRowExist* and *_setCacheDirty*.::
 
     # Method: _checkRowExists
     #
@@ -173,7 +175,7 @@ There is only one detail left. We have to override a couple of methods in order 
 
     }
 
-Let's recap how the whole code:
+Let's recap how the whole code:::
 
     package EBox::Apache2::Model::AllModules;
 

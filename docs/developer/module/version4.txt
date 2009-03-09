@@ -15,7 +15,7 @@ with the given scenario. However, we will introduce it because it can be useful
 with other modules managing different sorts of data.
 
 Approach *a*: overriding *syncRows()*
-=================================
+=====================================
 *syncRows()* is a method that can be implemented if you wish to add or delete
 some rows before the actual row identifiers array is returned.
 
