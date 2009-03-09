@@ -30,7 +30,6 @@ use base qw(EBox::Module::Service
 
 use EBox::Gettext;
 use EBox::Service;
-use EBox::Dashboard::Module;
 
 # Group: Protected methods
 
