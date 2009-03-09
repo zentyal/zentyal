@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = logrotate
+SUBDIRS = logrotate hooks
 
 Etcdir = $(sysconfdir)/ebox
 Etc_DATA = 70runitfinisher.conf 90eboxpglogger.conf 80eboxclient.conf

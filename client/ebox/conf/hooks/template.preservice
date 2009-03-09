@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This is a sample preservice script.
+
+# preservice scripts are run before the services associated to a given service
+# module are run. The module will check if an executable file called
+# <module>.preservice exists in /etc/ebox/hooks and will try to run it.
+
+# The script will receive a command line argument indicating whether the
+# module is enabled (1) or not (0).
+
+# Copy this file or create a script with the appropriate name if you want
+# to run some customization script before a module runs its services.
+
+exit 0

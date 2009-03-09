@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# This is a sample postsetconf script.
+
+# postsetconf scripts are run after the configuration for a given module is
+# written. The module will check if an executable file called
+# <module>.presetconf exists in /etc/ebox/hooks and will try to run it
+
+# Copy this file or create a script with the appropriate name if you want
+# to run some customization script after a module writes its configuration
+
+exit 0
