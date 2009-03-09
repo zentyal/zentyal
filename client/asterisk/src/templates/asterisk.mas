@@ -1,0 +1,54 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+    settextdomain('ebox-asterisk');
+</%init>
+    <h3><% __('Asterisk account') %></h3>
+    <div class="help"><%__('Password for Asterisk service is the user password')%></div>
+    <& .asteriskDisabledWarning, $params &>
+
+    <table class="formTable">
+    <form action='/ebox/Asterisk/AsteriskUserOptions' method='post'>
+        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('User account') %>:</span>
+        </td>
+        <td>
+            <select name="active" enabled>
+%       if($params->{'active'} eq 'yes') {
+            <option value='no' ><% __('Disabled') %></option>
+            <option selected value='yes' ><% __('Enabled') %></option>
+%       } else {
+            <option selected value='no' ><% __('Disabled') %></option>
+            <option value='yes' ><% __('Enabled') %></option>
+%       }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input class='inputButton' type='submit' name='change'
+                    value="<% __('Change') %>"
+                    alt="<% __('Change') %>">
+        </td>
+    </tr>
+    </form>
+    </table>
+
+<%def .asteriskDisabledWarning>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+</%init>
+
+<div class='warning'>
+<% __(
+       q{The following settings will take effect only when the asterisk module will be enabled},
+    )
+%>
+</div>
+</%def>

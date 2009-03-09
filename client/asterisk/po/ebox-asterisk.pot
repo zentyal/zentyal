@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-03-08 15:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Model/GeneralSettings.pm:73
+msgid "Enable incoming calls"
+msgstr ""
+
+#: src/EBox/Model/GeneralSettings.pm:79
+msgid "Enable outgoing calls"
+msgstr ""
+
+#: src/EBox/Model/GeneralSettings.pm:88
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/Model/GeneralSettings.pm:92
+msgid "General Asterisk server configuration."
+msgstr ""
+
+#: src/EBox/Model/GeneralSettings.pm:94
+msgid "General Asterisk server configuration settings updated"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:74
+msgid "Name"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:81
+msgid "Username"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:88
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:95
+msgid "Server"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:105
+msgid "SIP provider"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:109
+msgid "SIP provider configuration."
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:111
+msgid "SIP provider configuration settings updated"
+msgstr ""
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:42
+msgid "username"
+msgstr ""
+
+#: src/EBox/Composite/General.pm:64
+msgid "Asterisk module"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
+msgid "Asterisk"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:86
+msgid "To configure Asterisk enabled and disabled modules."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:91
+msgid "To configure the SIP trunk for local users and external providers."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:96
+msgid "To configure the Realtime interface."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:101
+msgid "To configure the LDAP Realtime driver."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:106
+msgid "To configure the Asterisk dialplan."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:111
+msgid "To add a new schema"
+msgstr ""
+
+#: src/templates/asterisk.mas:8
+msgid "Asterisk account"
+msgstr ""
+
+#: src/templates/asterisk.mas:9
+msgid "Password for Asterisk service is the user password"
+msgstr ""
+
+#: src/templates/asterisk.mas:17
+msgid "User account"
+msgstr ""
+
+#: src/templates/asterisk.mas:22 src/templates/asterisk.mas:25
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/asterisk.mas:23 src/templates/asterisk.mas:26
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
+msgid "Change"
+msgstr ""

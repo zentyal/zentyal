@@ -1,0 +1,21 @@
+;
+; Asterisk configuration file
+;
+; Module Loader configuration file
+;
+
+[modules]
+autoload=yes
+
+; res_phoneprov requires func_strings.so to be loaded:
+preload => func_strings.so
+
+noload => pbx_gtkconsole.so
+noload => chan_alsa.so
+
+load => res_musiconhold.so
+
+noload => chan_skinny.so
+noload => chan_unistim.so
+noload => pbx_dundi.so
+noload => chan_mgcp.so

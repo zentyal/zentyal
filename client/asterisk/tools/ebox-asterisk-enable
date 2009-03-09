@@ -1,0 +1,10 @@
+#!/bin/bash -x
+
+# copy LDAP schemas
+cp /usr/share/ebox-asterisk/*.schema /etc/ldap/schema
+
+# regenerate slapd.conf
+/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+
+# restart slapd
+invoke-rc.d slapd restart
