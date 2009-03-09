@@ -18,7 +18,8 @@ $(patsubst %,binary-install/%,ebox) :: binary-install/%:
 		install -d -m 755 debian/$(cdbs_curpkg)/etc/event.d; \
 		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart//g')); \
 		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/event.d/$$DESTFILE; \
-	done; 
+	done; \
+    chmod ugo+x debian/$(cdbs_curpkg)/etc/ebox/hooks/*
 
 binary-predeb/ebox::
 	perl -w debian/dh_installscripts-common -p ebox
