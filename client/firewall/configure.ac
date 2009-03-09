@@ -56,6 +56,7 @@ AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
 conf/Makefile
+conf/hooks/Makefile
 migration/Makefile
 src/Makefile
 src/EBox/Makefile

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# This is the firewall postservice script and it's run after eBox has finished
+# setting up the firewall.
+
+# You can add here custom rules that you might need for your firewall
+
+# The script will receive a command line argument indicating whether the
+# module is enabled (1) or not (0).
+
+if [ "$1" -eq "1" ]
+then
+    #add custom rules here
+    true
+fi
+
+exit 0

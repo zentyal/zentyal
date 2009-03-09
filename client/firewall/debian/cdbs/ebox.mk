@@ -16,5 +16,5 @@ $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
 	do  \
 		mkdir -p debian/$(cdbs_curpkg)/etc/event.d; \
 		cp "$$serv" debian/$(cdbs_curpkg)/etc/event.d; \
-	done || true
-
+	done || true ; \
+    chmod ugo+x debian/$(cdbs_curpkg)/etc/ebox/hooks/*
