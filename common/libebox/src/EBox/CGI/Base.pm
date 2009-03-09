@@ -260,6 +260,10 @@ sub run
 	    settextdomain($self->domain());
 	    $self->_process();
 	  } 
+	  catch EBox::Exceptions::Internal with {
+	    my $e = shift;
+	    throw $e; 
+	  }
 	  catch EBox::Exceptions::Base with {
 	    my $e = shift;
 	    $self->setErrorFromException($e);
@@ -269,8 +273,8 @@ sub run
 	  } 
 	  otherwise {
 	    my $e = shift;
-	    $self->setErrorFromException($e);	 
-	  }
+        throw $e;
+	  };
 	}
 	
 	if (defined($self->{error})) {
@@ -507,25 +511,9 @@ sub _process
 {
     my ($self) = @_;
 
-    try {
 	$self->_validateParams();
 	$self->actuate();
-    }
-    otherwise {
-	my $e = shift;
-	$self->setErrorFromException($e);
-
-    };
-
-  try {
       $self->{params} = $self->masonParameters();
-    }
-    otherwise {
-      my $e = shift;
-      EBox::error("Error in masonParameters $e");
-      $self->setErrorFromException($e) if !exists $self->{error};
-
-    };
 }
 
 # Method: setMsg

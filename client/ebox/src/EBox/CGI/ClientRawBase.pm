@@ -169,22 +169,21 @@ sub run
 	  try {
 	    settextdomain($self->domain());
 	    $self->_process();
-
+	  } catch EBox::Exceptions::Internal with {
+	  	my $e = shift;
+		throw $e;
 	  } catch EBox::Exceptions::DataInUse with {
 	  	my $e = shift;
 		$self->_print_warning($e->text());
 		$finish = 1;
 	  } catch EBox::Exceptions::Base with {
 		  my $e = shift;
-		  EBox::debug("aqui co");
 		  $self->setErrorFromException($e);	 
 		  $self->_error();
 	  	  $finish = 1;
 	  } otherwise {
 		  my $e = shift;
-		  $self->setErrorFromException($e);	 
-		  $self->_error();
-		  $finish = 1;
+		  throw $e;
 	  };
 	}
 	
