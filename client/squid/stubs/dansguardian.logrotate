@@ -1,0 +1,10 @@
+/var/log/dansguardian/access.log {
+	rotate 5
+	daily
+	prerotate
+		/etc/init.d/ebox squid stop > /dev/null 2>&1 || true
+	endscript
+	postrotate
+		/etc/init.d/ebox squid start > /dev/null 2>&1
+	endscript
+}

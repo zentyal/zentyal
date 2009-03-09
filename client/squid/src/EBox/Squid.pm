@@ -53,7 +53,7 @@ use constant MAXDOMAINSIZ => 255;
 use constant SQUIDPORT => '3128';
 use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
-
+use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
 
 sub _create
 {
@@ -243,7 +243,12 @@ sub usedFiles
              'file' => DGDIR . '/bannedurllist',
              'module' => 'squid',
                  'reason' => __('Content filter banned URL list')
-            }
+            },
+            {
+             'file' => DG_LOGROTATE_CONF,
+             'module' => 'squid',
+             'reason' => __(q{Dansguardian's log rotation configuration}),
+            },
 
            ];
 }
@@ -676,13 +681,20 @@ sub _writeDgConf
 
   $self->_cleanDomainFilterFiles();
 
+  $self->_writeDgLogrotate();
 }
 
 
-sub _antivirusUsed
+sub _writeDgLogrotate
 {
-
+    my ($self) = @_;
+    $self->writeConfFile(DG_LOGROTATE_CONF,
+                        'squid/dansguardian.logrotate',
+                        []
+                        );
 }
+
+
 
 sub revokeConfig
 {
