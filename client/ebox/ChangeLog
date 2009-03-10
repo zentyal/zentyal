@@ -22,10 +22,13 @@
 	+ Do not suggest_sync after read operations in gconf
 	+ Increase MaxRequestsPerChild to 200 in eBox's apache
 	+ Make apache spawn only one child process
+0.12.103
+	+ Bugfix: fix SQL statement to fetch last rows to consolidate
+0.12.102
+	+ Bugfix: consolidate logs using the last date and not starting from scratch 
 0.12.101
 	+ Bugfix: DomainName type make comparisons case insensitive
 	according to RFC 1035
-
 0.12.100
 	+ EBox::Module::writeConfFile and EBox::Service scape file's path
 	+ Bugfix. Configure logrotate to actually rotate ebox logs

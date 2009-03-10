@@ -552,12 +552,13 @@ sub _sourceRows
     defined $dateCol or
         $dateCol = 'date';
 
-    my $select = "SELECT * FROM $table  ORDER BY $dateCol ";
+    my $select = "SELECT * FROM $table";
 
     my $lastConsolidationDate = $self->_lastConsolidationDate($dbengine, $table);
     if (defined $lastConsolidationDate) {
-        $select .= " WHERE $dateCol > $lastConsolidationDate";
+        $select .= " WHERE $dateCol > '$lastConsolidationDate'";
     }
+    $select .= " ORDER BY $dateCol ";
 
 
     my $res = $dbengine->query($select);
@@ -587,7 +588,7 @@ sub _lastConsolidationDate
                                         );
     }
 
-    return $rows[0]->{lastDate};
+    return $rows[0]->{lastdate};
 
 }
 
@@ -606,7 +607,7 @@ sub _updateLastConsolidationDate
     my $lastDate = $lastRow->{$dateCol};
 
 
-    my $updateSt = "UPDATE consolidation SET lastDate ='$lastDate' " .
+    my $updateSt = "UPDATE consolidation SET lastdate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
 
     
