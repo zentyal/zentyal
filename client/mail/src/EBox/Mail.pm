@@ -388,6 +388,19 @@ sub _retrievalProtocols
     return $model->activeProtocos();
 }
 
+
+# Method: pop3
+#
+#  Returns:
+#     bool - wether the POP3 service is enabled
+sub pop3
+{
+    my ($self) = @_;
+
+    my $model = $self->model('RetrievalServices');
+    return $model->pop3Value();
+}
+
 # Method: pop3s
 #
 #  Returns:
@@ -398,6 +411,18 @@ sub pop3s
 
     my $model = $self->model('RetrievalServices');
     return $model->pop3sValue();
+}
+
+# Method: imap
+#
+#  Returns:
+#     bool - wether the IMAP service is enabled
+sub imap
+{
+    my ($self) = @_;
+
+    my $model = $self->model('RetrievalServices');
+    return $model->imapValue();
 }
 
 # Method: imaps
@@ -509,7 +534,23 @@ sub isRunning
 
 sub _dovecotIsRunning
 {
-    my ($self) = @_;
+    my ($self, $subService) = @_;
+
+    if ($subService) {
+        if (not $self->$subService()) {
+            # ignore dovecot running status if it is needed for another service
+            if ( @{ $self->_retrievalProtocols } > 0 ) {
+                return 0;
+            }
+
+            # dovecot is also needed for smtp auth
+            if ($self->saslService()) {
+                return 0;
+            }
+        }
+        
+    }
+
     return EBox::Service::running(DOVECOT_SERVICE);
 }
 
@@ -1019,22 +1060,36 @@ sub mailServicesWidget
                                         );
 
     my $pop = new EBox::Dashboard::ModuleStatus(
-                                            module => 'mail', 
-                                            printableName => __('POP3 service'),
-                                            running => $self->isRunning('pop'),
-                                            service => $self->service('pop'), 
+                                   module => 'mail', 
+                                   printableName => __('POP3 service'),
+                                   running => $self->_dovecotIsRunning('pop3'),
+                                   service => $self->pop3, 
+                                          );
+    my $pops = new EBox::Dashboard::ModuleStatus(
+                                   module => 'mail', 
+                                   printableName => __('POP3S service'),
+                                   running => $self->_dovecotIsRunning('pop3s'),
+                                   service => $self->pop3s, 
                                           );
     my $imap = new EBox::Dashboard::ModuleStatus(
-                                            module => 'mail', 
-                                            printableName => __('IMAP service'),
-                                            running => $self->isRunning('imap'),
-                                            service => $self->service('imap')
+                                    module => 'mail', 
+                                    printableName => __('IMAP service'),
+                                    running => $self->_dovecotIsRunning('imap'),
+                                    service => $self->imap
+                                             );
+    my $imaps = new EBox::Dashboard::ModuleStatus(
+                                   module => 'mail', 
+                                   printableName => __('IMAPS service'),
+                                   running => $self->_dovecotIsRunning('imaps'),
+                                   service => $self->imaps
                                              );
     my $greylist = $self->greylist()->serviceWidget();
 
     $section->add($smtp);
     $section->add($pop);
+    $section->add($pops);
     $section->add($imap);
+    $section->add($imaps);
     $section->add($greylist);
 
     my $filterSection = $self->_filterDashboardSection();
