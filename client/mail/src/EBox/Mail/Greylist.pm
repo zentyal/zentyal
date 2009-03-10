@@ -267,7 +267,7 @@ sub serviceWidget
                                                 module => 'mail', 
                                                 printableName => __('Greylist service'),
                                                 running => $self->isRunning(),
-                                                service => $self->isEnabled(), 
+                                                enabled => $self->isEnabled(), 
                                                );
 
     return $widget;

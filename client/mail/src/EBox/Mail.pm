@@ -1056,32 +1056,32 @@ sub mailServicesWidget
                                           module => 'mail', 
                                           printableName => __('SMTP service'),
                                           running => $self->isRunning('active'),
-                                          service => $self->service(),           
+                                          enabled => $self->service(),           
                                         );
 
     my $pop = new EBox::Dashboard::ModuleStatus(
                                    module => 'mail', 
                                    printableName => __('POP3 service'),
                                    running => $self->_dovecotIsRunning('pop3'),
-                                   service => $self->pop3, 
+                                   enabled => $self->pop3, 
                                           );
     my $pops = new EBox::Dashboard::ModuleStatus(
                                    module => 'mail', 
                                    printableName => __('POP3S service'),
                                    running => $self->_dovecotIsRunning('pop3s'),
-                                   service => $self->pop3s, 
+                                   enabled => $self->pop3s, 
                                           );
     my $imap = new EBox::Dashboard::ModuleStatus(
                                     module => 'mail', 
                                     printableName => __('IMAP service'),
                                     running => $self->_dovecotIsRunning('imap'),
-                                    service => $self->imap
+                                    enabled => $self->imap
                                              );
     my $imaps = new EBox::Dashboard::ModuleStatus(
                                    module => 'mail', 
                                    printableName => __('IMAPS service'),
                                    running => $self->_dovecotIsRunning('imaps'),
-                                   service => $self->imaps
+                                   enabled => $self->imaps
                                              );
     my $greylist = $self->greylist()->serviceWidget();
 
