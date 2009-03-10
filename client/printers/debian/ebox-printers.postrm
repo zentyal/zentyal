@@ -18,8 +18,9 @@ case "$1" in
         # restart logs
         invoke-rc.d ebox logs restart || true
 
-        dpkg-trigger --no-await ebox
-       ;;
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+       ;;		
 	purge)
         # /usr/share/ebox/ebox-sql-table drop jobs || true
 

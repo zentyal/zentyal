@@ -16,8 +16,10 @@ case "$1" in
     remove)
         kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-        dpkg-trigger --no-await ebox
-    ;;
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
+    ;;		
 esac
 
 
