@@ -9,8 +9,6 @@ case "$1" in
 		kill -9 `pidof gconfd-2` >/dev/null 2>&1 || true
 		# Migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-ca/migration/
-
-        dpkg-trigger --no-await ebox
     ;;
 esac
 

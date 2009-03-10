@@ -22,8 +22,6 @@ case "$1" in
 
 
 		invoke-rc.d ebox firewall restart
-
-        dpkg-trigger --no-await ebox
 	;;
 esac
 
