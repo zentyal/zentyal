@@ -561,13 +561,13 @@ sub setErrorFromException
     }
     elsif ($ex->isa('EBox::Exceptions::Internal')) {
       $self->{error} = __("An internal error has ".
-			  "ocurred. This is most probably a ".
+			  "occurred. This is most probably a ".
 			  "bug, relevant information can be ".
 			  "found in the logs.");
     }
     elsif ($ex->isa('EBox::Exceptions::Base')) {
       $self->{error} = __("An unexpected internal ".
-			  "error has ocurred. This is a bug, ".
+			  "error has occurred. This is a bug, ".
 			  "relevant information can be found ".
 			  "in the logs.");
     }
