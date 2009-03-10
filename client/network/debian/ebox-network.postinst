@@ -51,7 +51,6 @@ case "$1" in
 
         invoke-rc.d ebox network restart
 
-        dpkg-trigger --no-await ebox
     ;;
 esac
 

@@ -31,8 +31,6 @@ case "$1" in
 
         # restart module
         invoke-rc.d ebox mailfilter restart
-
-        dpkg-trigger --no-await ebox
 esac
 
 
