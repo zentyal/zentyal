@@ -150,9 +150,11 @@ sub _alreadyInSameObject
     my ($self, $memberId, $iparg, $maskarg) = @_;
 
 
-    foreach my $subRow (@{$self->rows()}) {
-        next if ($subRow->id() eq $memberId);
-        my $memaddr = new Net::IP($subRow->printableValueByName('ipaddr'));
+    foreach my $id (@{$self->ids()}) {
+        next if ($id eq $memberId);
+        
+        my $row  = $self->row($id);
+        my $memaddr = new Net::IP($row->printableValueByName('ipaddr'));
         my $new = new Net::IP("$iparg/$maskarg");
         if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
             return 1;
