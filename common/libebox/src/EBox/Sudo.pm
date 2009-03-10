@@ -156,8 +156,8 @@ sub root
             @error = read_file($STDERR_FILE);
         }
         _rootError($sudocmd, $commands, $?, \@output, \@error);
-#    } else {
-        #unlink($cmdFile);
+    } else {
+        unlink($cmdFile);
     }
 
     return \@output;
