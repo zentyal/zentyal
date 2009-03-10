@@ -29,9 +29,8 @@ package <% $class %>;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider 
-            EBox::ServiceModule::ServiceInterface);
+use base qw(EBox::Module::Service EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider);
 
 
 use EBox::Validate qw( :all );
@@ -114,15 +113,6 @@ sub usedFiles
 #
 sub enableActions
 {
-}
-
-# Method: serviceModuleName 
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return '<% $name %>';
 }
 
 # Method: menu 
