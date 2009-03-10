@@ -18,8 +18,8 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-
-use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
+use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface
+            EBox::LdapModule EBox::ObjectsObserver
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider 
@@ -29,6 +29,8 @@ use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Summary::Module;
+use EBox::Summary::Status;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::MailVDomainsLdap;
@@ -36,31 +38,25 @@ use EBox::MailUserLdap;
 use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
-use EBox::Mail::Greylist;
 use EBox::Service;
 
 use EBox::Exceptions::InvalidData;
-use EBox::Dashboard::ModuleStatus;
-use EBox::ServiceManager;
-
 
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 
 use constant MAILMAINCONFFILE                   => '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE                 => '/etc/postfix/master.cf';
-use constant MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid';
 
 use constant DOVECOT_CONFFILE                   => '/etc/dovecot/dovecot.conf';
 use constant DOVECOT_LDAP_CONFFILE              =>  '/etc/dovecot/dovecot-ldap.conf';
 
-use constant MAILINIT                           => 'postfix';
+use constant MAILINIT                           => '/etc/init.d/postfix';
 
 use constant BYTES                              => '1048576';
 
 use constant DOVECOT_SERVICE                    => 'ebox.dovecot';
 
-use constant SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 
@@ -77,7 +73,6 @@ sub _create
     $self->{vdomains} = new EBox::MailVDomainsLdap;
     $self->{musers} = new EBox::MailUserLdap;
     $self->{malias} = new EBox::MailAliasLdap;
-    $self->{greylist} = new EBox::Mail::Greylist;
 
     bless($self, $class);
     return $self;
@@ -88,24 +83,9 @@ sub domain
     return 'ebox-mail';
 }
 
-sub greylist
-{
-    my ($self) = @_;
-    return $self->{greylist};
-}
-
-# neccesary for daemon precondition
-sub greylistIsEnabled
-{
-    my ($self) = @_;
-    return $self->greylist()->isEnabled();
-}
-
-
-
 # Method: actions
 #
-#       Override EBox::Module::Service::actions
+#       Override EBox::ServiceModule::ServiceInterface::actions
 #
 sub actions
 {
@@ -113,8 +93,7 @@ sub actions
             {
               'action' => __('Generate mail aliases'),
               'reason' =>
-                __x('eBox will execute {cmd}', cmd => '/usr/sbin/postalias /etc/aliases'),
-
+                __('eBox will execute /usr/sbin/postalias /etc/aliases '),
               'module' => 'mail'
             },
             {
@@ -130,14 +109,10 @@ sub actions
 
 # Method: usedFiles
 #
-#       Override EBox::Module::Service::files
+#       Override EBox::ServiceModule::ServiceInterface::files
 #
 sub usedFiles
 {
-    my ($self) = @_;
-
-    my @greylistFiles =   @{ $self->greylist()->usedFiles() };
-
     return [
             {
               'file' => MAILMAINCONFFILE,
@@ -166,28 +141,31 @@ sub usedFiles
               'file' => '/etc/ldap/slapd.conf',
               'reason' => __('To add the LDAP schemas used by eBox mail'),
               'module' => 'users'
-            } ,
-            {
-              'file' => SASL_PASSWD_FILE,
-              'reason' => __('To configure smart host authentication'),
-              'module' => 'mail'
-            },
-            @greylistFiles
+            } 
     ];
 }
 
 # Method: enableActions
 #
-#       Override EBox::Module::Service::enableActions
+#       Override EBox::ServiceModule::ServiceInterface::enableActions
 #
 sub enableActions
 {
     root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
 }
 
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+    return 'mail';
+}
+
 #  Method: enableModDepends
 #
-#   Override EBox::Module::Service::enableModDepends
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
 #
 sub enableModDepends
 {
@@ -224,8 +202,6 @@ sub modelClasses
             'EBox::Mail::Model::ExternalFilter',
 
             'EBox::Mail::Model::Dispatcher::Mail',
-
-            'EBox::Mail::Model::GreylistConfiguration',
            ];
 }
 
@@ -311,7 +287,6 @@ sub _setMailConf
     push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
     push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push(@array, 'relay', $self->relay());
-    push(@array, 'relayAuth', $self->relayAuth());
     push(@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
     push(@array, 'allowed', $allowedaddrs);
     push(@array, 'aliasDN', $self->{malias}->aliasDn());
@@ -327,11 +302,6 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'ipfilter', $self->ipfilter());
     push(@array, 'portfilter', $self->portfilter());
-    # greylist parameters
-    my $greylist = $self->greylist();
-    push(@array, 'greylist',     $greylist->isEnabled() );
-    push(@array, 'greylistAddr', $greylist->address());
-    push(@array, 'greylistPort', $greylist->port());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
@@ -341,38 +311,19 @@ sub _setMailConf
     push(@array, 'ipfilter', $self->ipfilter());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
+    my $uid = scalar(getpwnam('ebox'));
+    my $gid = scalar(getgrnam('ebox'));
     @array = ();
-    push(@array, 'uid', scalar(getpwnam('ebox')));
-    push(@array, 'gid', scalar(getgrnam('ebox')));
-    push(@array, 'protocols' , $self->_retrievalProtocols());
-
-
+    push @array, ('uid' => $uid);
+    push @array, ('protocols' , $self->_retrievalProtocols());
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@array);
 
     @array = ();
+    push @array, ('uid' => $uid);    
+    push @array, ('gid' => $gid);
+    push @array, ('mailboxesDir' => EBox::MailUserLdap->mailboxesDir());
     push @array, ('usersDn', $users->usersDn());
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@array);
-
-    # greylist configuration files
-    $greylist->writeConf();
-
-    $self->writeConfFile(SASL_PASSWD_FILE,
-                         'mail/sasl_passwd.mas',
-                         [
-                          relayHost => $self->relay(),
-                          relayAuth => $self->relayAuth(),
-                         ],
-                         {
-                          uid  => 0,
-                          gid  => 0,
-                          mode => '0600',
-                         }
-                        );
-    my $manager = new EBox::ServiceManager;
-    # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
-    unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
-        EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
-    }
 }
 
 
@@ -391,7 +342,6 @@ sub pop3s
     my $model = $self->model('RetrievalServices');
     return $model->pop3sValue();
 }
-
 
 sub imaps
 {
@@ -416,64 +366,6 @@ sub _fqdn
     return $fqdn;
 }
 
-
-
-sub isGreylistEnabled
-{
-    my ($self) = @_;
-    return $self->greylist()->isEnabled();
-}
-
-#  Method: _daemons
-
-#   Override <EBox::Module::Service::_daemons>
-#
-sub _daemons
-{
-    my ($self) = @_;
-
-    my $daemons = [
-        {
-            'name' => MAILINIT,
-            'type' => 'init.d',
-            'pidfile' => MASTER_PID_FILE,
-        },
-        {
-         name => DOVECOT_SERVICE,
-         precondition => \&_dovecotService,
-        },
-
-#         {
-#             'name' => POPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => POPPIDFILE,
-#             'precondition' => \&isPopEnabled
-#         },
-#         {
-#             'name' => IMAPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => IMAPPIDFILE,
-#             'precondition' => \&isImapEnabled
-#         },
-#         {
-#             'name' => AUTHDAEMONINIT,
-#             'type' => 'init.d',
-#             'pidfile' => AUTHDAEMONPIDFILE
-#         },
-#         {
-#             'name' => AUTHLDAPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => AUTHLDAPPIDFILE
-#         },
-    ];
-
-    my $greylist_daemon = $self->greylist()->daemon();
-    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
-    push(@{$daemons}, $greylist_daemon);
-
-    return $daemons;
-}
-
 # Method: isRunning
 #
 #  This method returns if the service is running
@@ -493,31 +385,23 @@ sub isRunning
     my ($self, $service) = @_;
 
     if (not defined($service)) {
-        if ($self->_dovecotService()) {
-            if ($self->_dovecotIsRunning()) {
-                return 1;
-            } elsif ($self->greylist()->isRunning()) {
-                return 1;
-            }
+        return undef unless $self->_postfixIsRunning();
 
-            return undef;
+        if (@{ $self->_retrievalProtocols() } or $self->saslService()) {
+            return undef unless $self->_retrievalServicesAreRunning();
         }
 
-        return $self->_postfixIsRunning();
+        return 1;
     } elsif ($service eq 'active') {
         return $self->_postfixIsRunning();
     } elsif ($service eq 'pop') {
-        return $self->_dovecotIsRunning();
+        return $self->_retrievalServicesAreRunning();
     } elsif ($service eq 'imap') {
-        return $self->_dovecotIsRunning();
+        return $self->_retrievalServicesAreRunning();
     }
 }
 
-
-
-
-
-sub _dovecotIsRunning
+sub _retrievalServicesAreRunning
 {
     my ($self) = @_;
     return EBox::Service::running(DOVECOT_SERVICE);
@@ -700,21 +584,6 @@ sub relay
 }
 
 
-sub relayAuth
-{
-    my ($self) = @_;
-    my $smtpOptions = $self->model('SMTPOptions');
-    my $auth = $smtpOptions->row()->elementByName('smarthostAuth');
-
-    my $selectedType = $auth->selectedType();
-    if ($selectedType eq 'userandpassword') {
-        return $auth->value();
-    }
-
-    return undef;
-}
-
-
 # Method: getMaxMsgSize
 #
 #  This method returns the maximum message size
@@ -778,7 +647,7 @@ sub allowedAddresses
 #
 #  boolean - true if it's set as allowed, otherwise false
 #
-sub isAllowedxb
+sub isAllowed
 {
     my ($self, $object)  = @_;
     my $objectPolicy = $self->model('ObjectPolicy');
@@ -856,6 +725,7 @@ sub firewallHelper
 
 
 
+
 sub _doPostfixDaemon
 {
     my ($self, $action) = @_;
@@ -907,12 +777,6 @@ sub _dovecotService
 {
     my ($self) = @_;
 
-
-    # if main service is disabled, dovecot too!
-    if (not $self->service('active')) {
-        return undef;
-    }
-
     if ( @{ $self->_retrievalProtocols } > 0 ) {
         return 1;
     }
@@ -923,33 +787,32 @@ sub _dovecotService
     }
 
 
-    return undef;
-
+    return 0;
 }
 
-# sub _stopService
-# {
-#     my ($self) = @_;
-#     if ($self->isRunning('active')) {
-#         $self->_doPostfixDaemon('stop');
-#     }
+sub _stopService
+{
+    my ($self) = @_;
+    if ($self->isRunning('active')) {
+        $self->_doPostfixDaemon('stop');
+    }
 
-#     $self->_doDovecotDaemon('stop');
-# }
+    $self->_doDovecotDaemon('stop');
+}
 
 sub _regenConfig
 {
-    my ($self) = @_;
+    my $self = shift;
 
     if ($self->service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
         $vdomainsLdap->regenConfig();
-
     }
 
-    $self->greylist()->writeUpstartFile();
-    $self->_enforceServiceState();
+    $self->_doDovecotDaemon(); 
+    $self->_doPostfixDaemon();
+
 
 }
 
@@ -1044,105 +907,77 @@ sub _ldapModImplementation
     return new EBox::MailUserLdap();
 }
 
-
-sub notifyAntispamACL
+sub summary
 {
-    my ($self) = @_;
+    my $self = shift;
 
-    # greylist must be notified of antispam changes
-    if (not $self->greylist()->service()) {
-        return;
-    }
-
-    $self->setAsChanged();
-}
-
-
-sub mailServicesWidget
-{
-    my ($self, $widget) = @_;
-    my $section = new EBox::Dashboard::Section('mailservices', 'Services');
-    $widget->add($section);
-
-    my $pop = new EBox::Dashboard::ModuleStatus(
-                                                module => 'mail', 
-                                                printableName => __('POP3 service'),
-                                                running => $self->isRunning('pop'),
-                                                service => $self->service('pop'),                                                );
-    my $imap = new EBox::Dashboard::ModuleStatus(
-                                                 module => 'mail', 
-                                                 printableName => __('IMAP service'),
-                                                running => $self->isRunning('imap'),
-                                                service => $self->service('imap')
-                                                                         );
-    my $greylist = $self->greylist()->serviceWidget();
+    my $summary = new EBox::Summary::Module(__("Mail"));
+    my $section = new EBox::Summary::Section(__("Mail services"));
+    $summary->add($section);
+    my $pop = new EBox::Summary::Status(
+                                        'mail',
+                                        __('POP3 service'),
+                                        $self->isRunning('pop'),
+                                        $self->service('pop'),
+                                        1
+    );
+    my $imap = new EBox::Summary::Status('mail', __('IMAP service'),
+                                         $self->isRunning('imap'),
+                                         $self->service('imap'), 1);
 
     $section->add($pop);
     $section->add($imap);
-    $section->add($greylist);
 
-    my $filterSection = $self->_filterDashboardSection();
-    $widget->add($filterSection);
+    my $filterSection = $self->_filterSummarySection();
+    $summary->add($filterSection);
+
+    return $summary;
 }
 
-#
-## Method: widgets
-#
-#       Overriden method that returns summary components
-#       for system information
-#
-sub widgets
-{
-    return {
-        'mail' => {
-            'title' => __("Mail"),
-            'widget' => \&mailServicesWidget,
-            'default' => 1
-        }
-    };
-}
-
-sub _filterDashboardSection
+sub _filterSummarySection
 {
     my ($self) = @_;
 
-    my $section = new EBox::Dashboard::Section('mailfilter', 'Mail filter');
+    my $section = new EBox::Summary::Section('Mail filter');
 
     my $service     = $self->service('filter');
     my $statusValue =  $service ? __('enabled') : __('disabled');
 
-    $section->add( new EBox::Dashboard::Value( __('Status'), $statusValue));
-
-    $section->add(
-            new EBox::Dashboard::Value(__(q{Mail server's filter}),
-                $statusValue)
-            );
+    $section->add( new EBox::Summary::Value(__('Status'),$statusValue));
 
     $service or return $section;
 
     my $filter = $self->externalFilter();
 
     if ($filter eq 'custom') {
-        $section->add(new EBox::Dashboard::Value(__('Filter type') =>
-            __('Custom')));
-        my $address = $self->ipfilter() . ':' . $self->portfilter();
-        $section->add(new EBox::Dashboard::Value(__('Address') => $address));
+        $section->add(new EBox::Summary::Value(__('Filter') => __('Custom')));
+        my   $address = $self->ipfilter() . ':' . $self->portfilter();
+        $section->add(new EBox::Summary::Value(__('Address') => $address));
     }else {
         $section->add(
-                new EBox::Dashboard::Value(
-                    __('Filter type') => $self->_filterAttr($filter,
-                        'prettyName')
-                    )
-                );
+                   new EBox::Summary::Value(
+                       __('Filter') => $self->_filterAttr($filter, 'prettyName')
+                   )
+        );
 
         my $global = EBox::Global->getInstance(1);
         my ($filterInstance) =
           grep {$_->mailFilterName eq $filter}
           @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-        $filterInstance->mailFilterDashboard($section);
+
+        $filterInstance->mailFilterSummary($section);
     }
 
     return $section;
+}
+
+sub statusSummary
+{
+    my $self = shift;
+    return
+      new EBox::Summary::Status('mail', __('Mail system'),
+                                $self->isRunning('active'),
+                                $self->service('active'));
 }
 
 sub menu
@@ -1167,12 +1002,7 @@ sub menu
                                       'text' => __('Virtual mail domains')
                  )
     );
-    $folder->add(
-                 new EBox::Menu::Item(
-                                      'url' => 'Mail/View/GreylistConfiguration',
-                                      'text' => __('Greylist')
-                                     ),
-                );
+
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/QueueManager',

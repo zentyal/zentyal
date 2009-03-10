@@ -3,11 +3,10 @@
 Stubdir = @STUBSPATH@/mail
 
 
-nobase_Stub_DATA = main.cf.mas master.cf.mas pop3d.mas imapd.mas \
-						 authldaprc.mas authdaemonrc.mas pop3d-ssl.mas \
-						 imapd-ssl.mas smtpd.conf.mas saslauthd.conf.mas\
-						 ebox.postgrey.mas whitelist_clients.mas \
-						 saslauthd.mas sasl_passwd.mas
+nobase_Stub_DATA = main.cf.mas master.cf.mas \
+               sasl_passwd.mas \
+  ebox.postgrey.mas whitelist_clients.mas \
+          dovecot.conf.mas dovecot-ldap.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

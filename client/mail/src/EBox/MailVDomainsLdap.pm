@@ -420,7 +420,7 @@ sub setMDSize
      my $mail = EBox::Global->modInstance('mail');
      $mail->assureMdQuotaIsAvailable();
      
-     unless (isZeroOrNaturalNumber($mdsize)) {
+     unless (isAPositiveNumber($mdsize)) {
          throw EBox::Exceptions::InvalidData(
                                              'data'  => __('maildir size'),
                                              'value' => $mdsize);
@@ -470,7 +470,7 @@ sub _addVDomainWiithMdQuota
     my ($self, $dn, $dftmdsize) = @_;
     defined $dftmdsize or $dftmdsize = 0;
 
-    unless (isZeroOrNaturalNumber($dftmdsize)) {
+    unless (isAPositiveNumber($dftmdsize)) {
         throw EBox::Exceptions::InvalidData(
                                             'data'  => __('maildir size'),
                                             'value' => $dftmdsize);

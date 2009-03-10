@@ -150,7 +150,12 @@ smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain =
 broken_sasl_auth_clients = yes
 smtpd_tls_auth_only = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_local_domain = <% $fqdn %>
 % }
+
+
 
 
 % if ($filter) {

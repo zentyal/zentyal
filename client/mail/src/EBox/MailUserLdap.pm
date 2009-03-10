@@ -48,6 +48,16 @@ sub new
     return $self;
 }
 
+# Method: mailboxesDir
+#
+#  Returns:
+#    directory where the mailboxes resides 
+sub mailboxesDir
+{
+    return DIRVMAIL;
+}
+
+
 # Method: setUserAccount
 #
 #  This method sets a mail account to a user
@@ -179,7 +189,6 @@ sub delUserAccount   #username, mail
 # Method: userAccount
 #
 #  return the user mail account or undef if it doesn't exists
-#  In case the user does not exist undef is also returned
 #
 sub userAccount
 {
@@ -198,10 +207,6 @@ sub userAccount
     
     my $result = $self->{ldap}->search(\%args);
     my $entry = $result->entry(0);
-    if (not defined $entry) {
-        EBox::warn("Asked for user account or inexistent user $username");
-        return undef;
-    }
     
     my $usermail = $entry->get_value('mail');
     
@@ -237,10 +242,6 @@ sub delAccountsFromVDomain   #vdomain
 #
 #               uid - uid of the user
 #               value - the atribute name
-#
-# Returns: 
-#    the value of the attribute. Undef if either the user ot the attribute
-#    does not exists
 sub getUserLdapValue   #uid, ldap value
 {
     my ($self, $uid, $value) = @_;
@@ -255,27 +256,10 @@ sub getUserLdapValue   #uid, ldap value
     
     my $result = $self->{ldap}->search(\%args);
     my $entry = $result->entry(0);
-    if (not defined $entry) {
-        EBox::warn("Inexistent user $uid asked for LDAP attribute $value");
-        return undef;
-    }
-
     
     return $entry->get_value($value);
 }
 
-
-# Method: existsUserLdapValue
-#
-#   checks whether a LDAP attribute exists on a given user
-#
-# Parameters:
-#
-#               uid - uid of the user
-#               value - the atribute name
-#  Returns:
-#       true if the user and the LDAP attribute exist.  Undef if either the user ot the attribute
-#    does not exists
 sub existsUserLdapValue  
 {
     my ($self, $uid, $value) = @_;
@@ -644,15 +628,17 @@ sub _checkMaildirNotExists
 sub _createMaildir
 {
     my ($self, $lhs, $vdomain) = @_;
+    my $vdomainDir = "/var/vmail/$vdomain";
+    my $userDir   =  "$vdomainDir/$lhs/";
     
     root("/bin/mkdir -p /var/vmail");
     root("/bin/chmod 2775 /var/mail/");
     root("/bin/chown ebox.ebox /var/vmail/");
     
-    root("/bin/mkdir -p /var/vmail/$vdomain");
-    root("/bin/chown ebox.ebox /var/vmail/$vdomain");
-    root("/usr/bin/maildirmake /var/vmail/$vdomain/$lhs/");
-    root("/bin/chown ebox.ebox -R /var/vmail/$vdomain/$lhs/");
+    root("/bin/mkdir -p $vdomainDir");
+    root("/bin/chown ebox.ebox $vdomainDir");
+    root("/usr/bin/maildirmake.dovecot $userDir ebox");
+    root("/bin/chown ebox.ebox -R $userDir");
 }
 
 
@@ -741,7 +727,7 @@ sub _setUserAccountWithMdQuota
   my ($self, $dn, $mdsize) = @_;
   defined $mdsize  or $mdsize = 0;
 
-  unless (isZeroOrNaturalNumber($mdsize)) {
+  unless (isAPositiveNumber($mdsize)) {
     throw EBox::Exceptions::InvalidData(
                                         'data'  => __('maildir size'),
                                         'value' => $mdsize);
@@ -809,7 +795,7 @@ sub setMDSize {
 
         my $users = EBox::Global->modInstance('users');
         
-        unless (isZeroOrNaturalNumber($mdsize)) {
+        unless (isAPositiveNumber($mdsize)) {
                 throw EBox::Exceptions::InvalidData(
                         'data'  => __('maildir size'),
                         'value' => $mdsize);
@@ -846,10 +832,6 @@ sub _mdQuotaAccountAddonParams
   
   my $result = $self->{ldap}->search(\%args);
   my $entry = $result->entry(0);
-  if (not defined $entry) {
-      EBox::warn("Inexistent user: $username");
-      return ();
-  }
 
   my $mdsize = $entry->get_value('userMaildirSize');
 

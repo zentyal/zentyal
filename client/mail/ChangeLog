@@ -1,4 +1,5 @@
 1.1
+	+ Replaced courier with dovecot
 	+ Use the new row() and ids() API
 	+ Bugfix: alias are deleted when user account is deleted
 	+ Bugfix: when already exists the maildir, create a new account is
@@ -18,6 +19,8 @@
 	+ Added greylist support
 	+ Added authentication for external smarthost
 	+ Added TLS support for external smarthost
+	+ Replaced courier with dovecot
+	+ Simpler interface to choose mail retrieval protocols
 0.12.99
 	+ Add support for reporting
 0.12.2

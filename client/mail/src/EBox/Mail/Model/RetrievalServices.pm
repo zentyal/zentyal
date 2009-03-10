@@ -78,17 +78,20 @@ sub _table
                                   editable => 1,
                                  ),
          new EBox::Types::Boolean(
+                                  fieldName => 'pop3s',
+                                  printableName => 'Secure POP3S service enabled',
+                                  editable => 1,
+                                 ),
+         new EBox::Types::Boolean(
                                   fieldName => 'imap',
                                   printableName => 'IMAP service enabled',
                                   editable => 1,
                                  ),
-         new EBox::Types::Select(
-                                 fieldName => 'ssl',
-                                 printableName =>  __('SSL Support'),
-                                 editable => 1,
-                                 populate => \&_sslSupportOptions,
-                                 defaultValue => 'no',
-                                ),
+         new EBox::Types::Boolean(
+                                  fieldName => 'imaps',
+                                  printableName => 'Secure IMAPS service enabled',
+                                  editable => 1,
+                                 ),
         );
 
       my $dataForm = {
@@ -106,19 +109,31 @@ sub _table
 }
 
 
-
-
-sub _sslSupportOptions
+sub activeProtocos
 {
-    my @options = (
-                   { value =>'no' , printableValue =>  __('No') },
-                   { value =>'optional' , printableValue =>  __('Optional') },
-                   { value =>'required' , printableValue =>  __('Required') },
-                   
-                  );
+    my ($self) = @_;
+    my @protocols;
 
-    return \@options;
+    if ($self->pop3Value()) {
+        push @protocols, 'pop3';
+    }
+
+    if ($self->pop3sValue()) {
+        push @protocols, 'pop3s';
+    }
+
+    if ($self->imapValue()) {
+        push @protocols, 'imap';
+    }
+
+    if ($self->imapsValue()) {
+        push @protocols, 'imaps';
+    }
+
+    return \@protocols;
 }
+
+
 
 
 1;

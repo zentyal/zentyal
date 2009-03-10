@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::NetWrappers;
 use EBox::Module::Base;
 use EBox::Global;
+use EBox::Dashboard::ModuleStatus;
 
 use constant { 
     GREYLIST_SERVICE => 'ebox.postgrey',
@@ -67,14 +68,23 @@ sub usedFiles
 sub daemon
 {
     return {
-            'name' => GREYLIST_SERVICE
-    };
+            'name' => GREYLIST_SERVICE,
+            'precondition' => \&EBox::Mail::greylistIsEnabledm #  awkward but
+                   # precondition  method must reside in the main package
+           };
 }
 
 sub isEnabled
 {
   my ($self) = @_;
   return $self->_confAttr('service');
+}
+
+
+sub isRunning
+{
+    my ($self) = @_;
+    return EBox::Service::running(GREYLIST_SERVICE);
 }
 
 sub delay
@@ -245,6 +255,20 @@ sub usesPort
     }
 
     return 1;
+}
+
+sub serviceWidget
+{
+    my ($self) = @_;
+
+    my $widget = new EBox::Dashboard::ModuleStatus(
+                                                module => 'mail', 
+                                                printableName => __('Greylist service'),
+                                                running => $self->isRunning(),
+                                                service => $self->isEnabled(), 
+                                               );
+
+    return $widget;
 }
 
 1;
