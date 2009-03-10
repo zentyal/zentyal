@@ -20,10 +20,12 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
+use EBox;
 use EBox::Global;
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::SambaLdapUser;
+use Perl6::Junction qw(any);
 
 use constant DEFAULT_USERS_GROUP => 'Domain Users';
 
@@ -155,6 +157,9 @@ sub _processUserAccount
     my $flags = $entry->get_value('sambaAcctFlags');
     my $sharing = not ($flags =~ /D/) ? 'yes' : 'no';
     $sambaUser->setUserSharing($username, $sharing);
+
+    my $dn = $entry->dn();
+    $package->_copyMissingFields($dn, $entry);
 }
 
 
@@ -167,9 +172,12 @@ sub _processComputerAccount
     # when proccessing sambaSamDomian
     my $account = $entry->get_value('cn');
     my $sambaSID = $entry->get_value('sambaSID');
-    $package->_addComputerAccount($account, $sambaSID);
-}
 
+    $package->_addComputerAccount($account, $sambaSID);
+
+    my $dn = $entry->dn();
+    $package->_copyMissingFields($dn, $entry);
+}
 
 
 # TODO we can move all computer account utility method to its own class but for
@@ -177,12 +185,84 @@ sub _processComputerAccount
 
 sub _addComputerAccount
 {
-    my ($package, $account, $sid) = @_;
+    my ($package, $account, $sambaSID) = @_;
 
     my $accountAddCmd = "/usr/sbin/smbldap-useradd -w $account";
     EBox::Sudo::root($accountAddCmd);
+
+     my %attrs = (
+                  objectClass => 'sambaSamAccount',
+                  sambaSID => $sambaSID,
+                 );
+
+    my $ldap = EBox::Ldap->instance();
+    my $dn = "uid=$account," . $package->_computersDn();
+
+    $ldap->modify($dn, { add => \%attrs } );
 }
 
+
+
+my $anyControlAttr = any(
+                         'entryUUID',
+                         'entryCSN',
+                         'creatorsName',
+                         'modifiersName',
+                         'modifyTimestamp',
+                         'contextCSN',
+                         'structuralObjectClass',
+                         'createTimestamp',
+                        );
+
+sub _copyMissingFields
+{
+    my ($package, $dn, $ldifEntry) = @_;
+
+    my $entry;
+    my $ldap = EBox::Ldap->instance();
+    my $result = $ldap->search(
+                               {
+                                base =>  $dn,#$package->_computersDn,
+                                scope => 'base',
+                                filter => 'cn=*',
+                               }
+                             );
+
+    my $searchEntries = $result->count();
+    if ($searchEntries == 0) {
+        EBox::error("$dn not found in ldap");
+        return;
+    }
+    else {
+        if ($searchEntries > 1) {
+            EBox::error(
+               "More than one entries found for $dn. Using only the first one"
+                       );
+        }
+
+        ($entry) = $result->entries();
+    }
+
+
+    foreach my $attr ($ldifEntry->attributes()) {
+        if ($entry->exists($attr)) {
+            next;
+        }
+
+        if ($attr eq $anyControlAttr) {
+            next;
+        }
+        
+
+        my @values = $ldifEntry->get_value($attr);
+        @values or
+            next;
+
+        $entry->add($attr => \@values);
+    }
+
+    $entry->update($ldap->ldapCon());
+}
 
 sub _computerAccountDn
 {
