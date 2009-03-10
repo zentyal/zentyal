@@ -173,7 +173,8 @@ sub writeConf
     } @internalIf;
 
 
-    
+    my $mail = EBox::Global->modInstance('mail');
+    my $allowedAddresses = $mail->allowedAddresses();
 
     my $fileAttrs    = {
                         uid  => 0,
@@ -188,6 +189,7 @@ sub writeConf
                                      whitelist => [
                                                    @internalNets,
                                                    @{ $self->_antispamWhitelist() },
+                                                   @{ $allowedAddresses },
                                                    ],
                                     ],
 
