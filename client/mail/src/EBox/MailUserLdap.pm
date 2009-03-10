@@ -76,9 +76,9 @@ sub setUserAccount
         throw EBox::Exceptions::DataExists('data' => __('mail account'),
                                            'value' => $email);
     }
-    
-    
 
+    $self->_checkMaildirNotExists($lhs, $rhs);
+    
     my $userinfo = $users->userInfo($user);
     
     my $dn = "uid=$user," .  $users->usersDn;
@@ -117,12 +117,16 @@ sub setUserAccount
 # Parameters:
 #
 #               username - username
-#               usermail - the user's mail address
+#               usermail - the user's mail address (optional)
 sub delUserAccount   #username, mail
 {
     my ($self, $username, $usermail) = @_;
     
     ($self->_accountExists($username)) or return;
+
+    if (not defined $usermail) {
+        $usermail = $self->userAccount($username);
+    }
     
     my $mail = EBox::Global->modInstance('mail');
     my $users = EBox::Global->modInstance('users');
@@ -610,6 +614,23 @@ sub _includeLDAPSchemas
     my @schemas = SCHEMAS;
     
     return \@schemas;
+}
+
+
+
+sub _checkMaildirNotExists
+{
+    my ($self, $lhs, $vdomain) = @_;
+    my $dir = "/var/vmail/$vdomain/$lhs/";
+
+    if (EBox::Sudo::fileTest('-e', $dir)) {
+        throw EBox::Exceptions::External(
+          __x('Cannot create user account: mail directory {d} aready exists',
+             d => $dir
+            )
+                                        );
+    }
+
 }
 
 # Method: _createMaildir
