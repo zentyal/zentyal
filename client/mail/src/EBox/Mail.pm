@@ -88,6 +88,10 @@ sub domain
     return 'ebox-mail';
 }
 
+
+# Method: greylist
+#
+#   return the greylist object
 sub greylist
 {
     my ($self) = @_;
@@ -384,6 +388,10 @@ sub _retrievalProtocols
     return $model->activeProtocos();
 }
 
+# Method: pop3s
+#
+#  Returns:
+#     bool - wether the POP3S service is enabled
 sub pop3s
 {
     my ($self) = @_;
@@ -392,7 +400,10 @@ sub pop3s
     return $model->pop3sValue();
 }
 
-
+# Method: imaps
+#
+#  Returns:
+#     bool - wether the IMAPS service is enabled
 sub imaps
 {
     my ($self) = @_;
@@ -417,7 +428,8 @@ sub _fqdn
 }
 
 
-
+# this method exists to be used as precondition by the EBox::Mail::Greylist
+# package 
 sub isGreylistEnabled
 {
     my ($self) = @_;
@@ -443,28 +455,6 @@ sub _daemons
          precondition => \&_dovecotService,
         },
 
-#         {
-#             'name' => POPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => POPPIDFILE,
-#             'precondition' => \&isPopEnabled
-#         },
-#         {
-#             'name' => IMAPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => IMAPPIDFILE,
-#             'precondition' => \&isImapEnabled
-#         },
-#         {
-#             'name' => AUTHDAEMONINIT,
-#             'type' => 'init.d',
-#             'pidfile' => AUTHDAEMONPIDFILE
-#         },
-#         {
-#             'name' => AUTHLDAPINIT,
-#             'type' => 'init.d',
-#             'pidfile' => AUTHLDAPPIDFILE
-#         },
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
@@ -699,7 +689,14 @@ sub relay
     return $smtpOptions->smarthost();
 }
 
-
+# Method: relayAuth
+#
+#  This method returns the authentication mode used to connect to the smarthost
+#
+#  Returns:
+#      Either undef wether the smarthost does not requires authentication or a
+#      hash reference with username and password fields 
+#
 sub relayAuth
 {
     my ($self) = @_;
@@ -991,7 +988,10 @@ sub _ldapModImplementation
     return new EBox::MailUserLdap();
 }
 
-
+#  Method: notifyAntispamACL
+#
+#   this method is to notify this module of changes in mailfilter's antispam
+#   ACL. This is needed by the greylist service
 sub notifyAntispamACL
 {
     my ($self) = @_;
@@ -1011,19 +1011,28 @@ sub mailServicesWidget
     my $section = new EBox::Dashboard::Section('mailservices', 'Services');
     $widget->add($section);
 
+    my $smtp = new EBox::Dashboard::ModuleStatus(
+                                          module => 'mail', 
+                                          printableName => __('SMTP service'),
+                                          running => $self->isRunning('active'),
+                                          service => $self->service(),           
+                                        );
+
     my $pop = new EBox::Dashboard::ModuleStatus(
-                                                module => 'mail', 
-                                                printableName => __('POP3 service'),
-                                                running => $self->isRunning('pop'),
-                                                service => $self->service('pop'),                                                );
+                                            module => 'mail', 
+                                            printableName => __('POP3 service'),
+                                            running => $self->isRunning('pop'),
+                                            service => $self->service('pop'), 
+                                          );
     my $imap = new EBox::Dashboard::ModuleStatus(
-                                                 module => 'mail', 
-                                                 printableName => __('IMAP service'),
-                                                running => $self->isRunning('imap'),
-                                                service => $self->service('imap')
-                                                                         );
+                                            module => 'mail', 
+                                            printableName => __('IMAP service'),
+                                            running => $self->isRunning('imap'),
+                                            service => $self->service('imap')
+                                             );
     my $greylist = $self->greylist()->serviceWidget();
 
+    $section->add($smtp);
     $section->add($pop);
     $section->add($imap);
     $section->add($greylist);
