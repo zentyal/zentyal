@@ -856,51 +856,6 @@ sub firewallHelper
 
 
 
-sub _doPostfixDaemon
-{
-    my ($self, $action) = @_;
-    
-    if (not defined $action) {
-        if ($self->service('active') ) {
-            if ( $self->isRunning('active')) {
-                $action = 'restart';
-            }
-            else {
-                $action = 'start';      
-            }
-        } else {
-            $action = 'stop';
-        }
-    }
-
-
-    my $command =  EBox::Config::pkgdata() . 'ebox-unblock-exec ';
-    $command    .= MAILINIT . " " . $action;
-    root($command);
-}
-
-sub _doDovecotDaemon
-{
-    my ($self, $action) = @_;
-
-    if (not defined $action) {
-        my $service = $self->_dovecotService();
-        my $running = EBox::Service::running(DOVECOT_SERVICE);
-
-        if ($service) {
-            if ($running) {
-                $action = 'restart';
-            } else {
-                $action = 'start';            
-            }
-        } else {
-            $action = 'stop';
-        }
-    }
-
-
-    EBox::Service::manage(DOVECOT_SERVICE, $action);
-}
 
 
 sub _dovecotService
@@ -927,15 +882,7 @@ sub _dovecotService
 
 }
 
-# sub _stopService
-# {
-#     my ($self) = @_;
-#     if ($self->isRunning('active')) {
-#         $self->_doPostfixDaemon('stop');
-#     }
 
-#     $self->_doDovecotDaemon('stop');
-# }
 
 sub _regenConfig
 {
