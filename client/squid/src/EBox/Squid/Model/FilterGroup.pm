@@ -111,7 +111,7 @@ sub tableHeader
                                  foreignModelIsComposite => 1,
 
                                  'view' => '/ebox/Squid/Composite/FilterGroupSettings',
-                                 'backView' => '/ebox/squid/View/FilterGroup',
+                                 'backView' => '/ebox/Squid/View/FilterGroup',
                                 ),
                          );
 
