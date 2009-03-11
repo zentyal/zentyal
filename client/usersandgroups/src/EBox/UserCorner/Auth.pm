@@ -110,6 +110,33 @@ sub _savesession
     return $sid . $key;
 }
 
+sub _updatesession
+{
+    my ($user) = @_;
+
+    my $sidFile;
+    my $sess_file  = EBox::UserCorner::usersessiondir() . $user;
+    unless (open ($sidFile, '+<', $sess_file)) {
+        throw EBox::Exceptions::Internal("Could not open $sess_file");
+    }
+    # Lock in exclusive
+    flock($sidFile, LOCK_EX)
+        or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
+
+    my $sess_info = <$sidFile>;
+    my ($sid, $cryptedpass, $lastime);
+    ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+
+    # Truncate the file
+    truncate($sidFile, 0);
+    seek($sidFile, 0, 0);
+	print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
+    # Release the lock
+    flock($sidFile, LOCK_UN);
+	close($sidFile);
+}
+
+
 # Method: checkPassword
 #
 #   	Check if a given password matches the stored one after md5 it
@@ -183,6 +210,13 @@ sub credentials
     my $user = $r->user();
 
     my $session_info = EBox::UserCorner::Auth->key($r);
+    return _credentials($user, $session_info);
+}
+
+sub _credentials
+{
+    my ($user, $session_info) = @_;
+
     my $key = substr($session_info, 32, 32);
 
     my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
@@ -249,12 +283,13 @@ sub authen_ses_key  # (request, session_key)
         defined($user) and last;
     }
     if(defined($user) and !$expired) {
+        _updatesession($user);
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
         unlink(EBox::UserCorner::usersessiondir() . $user);
     } else {
-        $r->subprocess_env(LoginReason => "Already");
+        $r->subprocess_env(LoginReason => "NotLoggedIn");
     }
 
     return;

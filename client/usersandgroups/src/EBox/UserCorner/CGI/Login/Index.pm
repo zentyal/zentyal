@@ -71,6 +71,8 @@ sub _process
 	}elsif ((defined $envre and $envre eq 'Already')){
 		$reason = __('You have been logged out because ' . 
 			     'a new session has been opened');
+	}elsif ((defined $envre and $envre eq 'NotLoggedIn')){
+		$reason = __('You are not logged in');
 	}
 	
 

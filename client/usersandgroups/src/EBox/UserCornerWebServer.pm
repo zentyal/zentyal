@@ -112,4 +112,15 @@ sub menu
     $root->add($item);
 }
 
+# Method: port
+#
+#       Returns the port the usercorner webserver is on
+#
+sub port
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    return $settings->portValue();
+}
+
 1;

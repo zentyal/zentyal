@@ -20,6 +20,18 @@ use EBox::Config;
 use strict;
 use warnings;
 
+# Method: usercornerdir
+#
+#      Get the path to the usercorner directory
+#
+# Returns:
+#
+#      String - the path to that directory
+sub usercornerdir
+{
+    return EBox::Config->var() . 'lib/ebox-usercorner/';
+}
+
 # Method: usersessiondir
 #
 #      Get the path where user Web session identifiers are stored
@@ -29,7 +41,7 @@ use warnings;
 #      String - the path to that directory
 sub usersessiondir
 {
-    return EBox::Config->var() . 'lib/ebox-usercorner/sids/';
+    return usercornerdir() . 'sids/';
 }
 
 1;
