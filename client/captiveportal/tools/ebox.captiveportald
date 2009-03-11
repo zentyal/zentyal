@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::CaptivePortal;
+
+EBox::init();
+
+my $userdir = EBox::CaptivePortal::CAPTIVEPORTAL_DIRECTORY;
+chdir($userdir);
+
+my @old_users = ();
+my @users = ();
+while (1) {
+    EBox::CaptivePortal::removeStaleUsers();
+    @users = glob('*');
+    for my $user (@users) {
+        if(!grep(/^$user$/,@old_users)) {
+            EBox::CaptivePortal::addRule(EBox::CaptivePortal::userIP($user));
+        }
+    }
+    @old_users = @users;
+    sleep(60);
+}

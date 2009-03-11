@@ -1,0 +1,41 @@
+# English translations for EBox-captiveportal package.
+# Copyright (C) 2009 Warp S.L.
+# This file is distributed under the same license as the EBox-captiveportal package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EBox-captiveportal 1.1\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-03-09 17:42+0000\n"
+"PO-Revision-Date: 2009-03-09 17:42+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/Composite/Composite.pm:50
+msgid "Composite"
+msgstr "Composite"
+
+#: src/EBox/Model/Settings.pm:53
+msgid "field1"
+msgstr "field1"
+
+#: src/EBox/Model/Settings.pm:60
+msgid "field2"
+msgstr "field2"
+
+#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
+msgid "Settings"
+msgstr "Settings"
+
+#: src/EBox/CaptivePortal.pm:50
+msgid "Captive Portal"
+msgstr "Captive Portal"
+
+#: src/EBox/CaptivePortal.pm:121
+msgid "CaptivePortal"
+msgstr "CaptivePortal"

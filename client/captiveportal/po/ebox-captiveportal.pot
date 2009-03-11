@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-03-09 17:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Composite/Composite.pm:50
+msgid "Composite"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:53
+msgid "field1"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:60
+msgid "field2"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
+msgid "Settings"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:50
+msgid "Captive Portal"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:121
+msgid "CaptivePortal"
+msgstr ""

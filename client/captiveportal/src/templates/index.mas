@@ -1,0 +1,25 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript"><!--
+function popup() {
+    var w = 400;
+    var h = 200;
+    var x = (screen.width-w)/2;
+    var y = (screen.height-h)/2;
+    var settings = '';
+    settings += 'height=' + h + ',';
+    settings += 'width=' + w + ',';
+    settings += 'top=' + y + ',';
+    settings += 'left=' + x + ',';
+    settings += 'scrollbar=no,';
+    settings += 'toolbar=no,';
+    settings += 'location=no,';
+    settings += 'menubar=no';
+    window.open('PopUp','Captive Portal', settings);
+}
+
+popup();
+//--></script>
