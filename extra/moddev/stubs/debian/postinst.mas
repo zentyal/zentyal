@@ -7,14 +7,13 @@
 
 case "$1" in
     configure)
-        kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
         # Migrate data if needed
         /usr/share/ebox/ebox-migrate /usr/share/ebox-<% $module %>/migration/
 
-        # Restart eBox apache
-        invoke-rc.d ebox apache restart || true
+        dpkg-trigger --no-await ebox
 
+        # uncomment if the module provides usercorner pages
+        # dpkg-trigger --no-await ebox-usercorner
     ;;
 esac
 
