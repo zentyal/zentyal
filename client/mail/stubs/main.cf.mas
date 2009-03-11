@@ -2,7 +2,6 @@
 <%args>
         $fqdn
 	$ldapi
-	$vdomainDN
 
 	$relay
         $relayAuth 
@@ -59,7 +58,10 @@ append_dot_mydomain = no
 
 myhostname = <% $fqdn %>
 alias_maps = hash:/etc/aliases
+
 alias_database = hash:/etc/aliases
+local_recipient_maps = proxy:unix:passwd.byname $alias_maps
+
 mydestination = <% $fqdn %>, localhost.localdomain, localhost 
 
 relayhost = <% $relay %>
@@ -104,13 +106,13 @@ ldapvirtualmap_search_base = <% $usersDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
 ldapvirtualmap_result_attribute = mailbox
 
-#virtual_mailbox_domains = $virtual_mailbox_maps hash:/etc/postfix/vmaildomains
 virtual_mailbox_domains = ldap:vmaildomains
 vmaildomains_server_host = <% $ldapi %>
 vmaildomains_bind = no
-vmaildomains_search_base = <% $vdomainDN %>
-vmaildomains_query_filter = (domainComponent=%s)
-vmaildomains_result_attribute = dc
+vmaildomains_search_base =  ou=postfix,dc=ebox
+vmaildomains_query_filter = (|(&(objectclass=domain)(domainComponent=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
+vmaildomains_result_attribute = dc, maildrop
+
 
 virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
