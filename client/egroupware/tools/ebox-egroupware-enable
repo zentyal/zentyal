@@ -10,6 +10,8 @@ LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
 su postgres -c "psql -c \"CREATE ROLE egroupware UNENCRYPTED PASSWORD '$PASS' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\""
 su postgres -c "createdb --encoding=utf-8 --owner egroupware egroupware"
 
+/etc/init.d/postgresql-8.3 stop
+
 PG_HBA_FILE=/etc/postgresql/8.3/main/pg_hba.conf
 
 if ! grep -q egroupware $PG_HBA_FILE; then
@@ -17,7 +19,7 @@ if ! grep -q egroupware $PG_HBA_FILE; then
     echo "host egroupware egroupware 127.0.0.1/32 password" >> $PG_HBA_FILE
 fi
 
-/etc/init.d/postgresql-8.3 restart
+/etc/init.d/postgresql-8.3 start
 
 cd /usr/share/egroupware/setup
 
