@@ -205,20 +205,6 @@ sub _delUser
     my $users = $global->modInstance('users');
     my $uid = $users->userInfo($user)->{uid};
 
-    # Delete LDAP info
-    my $ldap = $self->{ldap};
-    my $dn = "uid=$user," . $users->usersDn;
-
-    my %attrs = (
-        changes => [
-            delete => [
-                objectClass => ['eboxEgwAccount'],
-                egwPermsTemplate => [],
-                ],
-            ]
-        );
-    $ldap->modify($dn, \%attrs);
-
     # Remove egroupware ACL's associated with this user
     $self->_deletePermissions($uid);
 
@@ -240,20 +226,6 @@ sub _delGroup
     my $global = EBox::Global->getInstance(1);
     my $users = $global->modInstance('users');
     my $gid = $users->groupGid($group);
-
-    # Delete LDAP info
-    my $ldap = $self->{ldap};
-    my $dn = "cn=$group," . $users->groupsDn;
-
-    my %attrs = (
-        changes => [
-            delete => [
-                objectClass => ['eboxEgwAccount'],
-                egwPermsTemplate => [],
-                ],
-            ]
-        );
-    $ldap->modify($dn, \%attrs);
 
     # Remove egroupware ACL's associated with this group
     $self->_deletePermissions(-$gid);
