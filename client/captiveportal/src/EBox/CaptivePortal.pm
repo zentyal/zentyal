@@ -87,7 +87,10 @@ sub _daemons
     return [
         {
             'name' => 'ebox.apache2-captiveportal'
-        }
+        },
+        {
+            'name' => 'ebox.captiveportald',
+        },
     ];
 }
 

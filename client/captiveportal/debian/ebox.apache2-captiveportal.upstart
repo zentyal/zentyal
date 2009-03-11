@@ -1,2 +1,2 @@
-exec /usr/share/ebox-usersandgroups/ebox-usercorner-apache2-start
+exec /usr/share/ebox-captiveportal/ebox-captiveportal-apache2-start
 respawn
