@@ -27,7 +27,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-$fqdn or $fqdn = 'ebox';
 
 my $smtpRecipientRestrictions = '';
 if ($sasl) {
@@ -61,7 +60,7 @@ append_dot_mydomain = no
 myhostname = <% $fqdn %>
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = localhost.localdomain, localhost
+mydestination = <% $fqdn %>, localhost.localdomain, localhost 
 
 relayhost = <% $relay %>
 
@@ -75,7 +74,6 @@ smtp_tls_cert_file = <% $certFile %>
 smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
-
 
 % }
 

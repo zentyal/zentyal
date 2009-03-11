@@ -450,6 +450,7 @@ sub _fqdn
           );
     }
 
+    chomp $fqdn;
     return $fqdn;
 }
 
