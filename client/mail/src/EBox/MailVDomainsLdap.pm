@@ -28,6 +28,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use EBox::MailAliasLdap;
 
 use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
 use constant BYTES                              => '1048576';
@@ -295,6 +296,8 @@ sub regenConfig
 {
     my ($self) = @_;
 
+    my $aliasLdap =  new EBox::MailAliasLdap();
+
     my %vdomainsToDelete = map {  $_ => 1 } $self->vdomains();
 
     my $mf =  EBox::Global->modInstance('mail');
@@ -308,6 +311,9 @@ sub regenConfig
             $self->addVDomain($vdomain);
         }
 
+        my $aliasTable = $vdRow->elementByName('aliases')->foreignModelInstance();
+        $aliasLdap->_syncAliasTable($vdomain, $aliasTable);
+
         delete $vdomainsToDelete{$vdomain};
     }
 
@@ -316,6 +322,9 @@ sub regenConfig
         $self->delVDomain($vdomain);
     }
 }
+
+
+
 
 # Mail dir quota methods...
 

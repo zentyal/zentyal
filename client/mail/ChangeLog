@@ -1,5 +1,6 @@
 1.1
 	+ Replaced courier with dovecot
+	+ Added aliases for whole domains
 	+ Use the new row() and ids() API
 	+ Bugfix: alias are deleted when user account is deleted
 	+ Bugfix: when already exists the maildir, create a new account is

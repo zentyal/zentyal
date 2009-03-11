@@ -13,16 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Mail::Model::VDomains;
+package EBox::Mail::Model::VDomainAliases;
 
 use strict;
 use warnings;
 
 use base 'EBox::Model::DataTable';
 
-# Class: EBox::Mail::Model::VDomains
+# Class: EBox::Mail::Model::VDomainAliases
 #
-#       This a class used it as a proxy for the vodmains stored in LDAP.
+#       This a class used it as a proxy for the vodmain alaises stored in LDAP.
 #       It is meant to improve the user experience when managing vdomains,
 #       but it's just a interim solution. An integral approach needs to 
 #       be done.
@@ -33,18 +33,18 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 
 use EBox::Mail::Types::WriteOnceDomain;
-use EBox::Types::HasMany;
+#use EBox::Types::Link;
 
 
 sub new 
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
         
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
         
-        return $self;
+    return $self;
 }
 
 sub _table
@@ -53,40 +53,31 @@ sub _table
          ( 
 
                 new EBox::Mail::Types::WriteOnceDomain(
-                                        'fieldName' => 'vdomain',
-                                        'printableName' => __('Name'),
+                                        'fieldName' => 'alias',
+                                        'printableName' => __('Aliases'),
                                         'size' => '20',
                                         'editable' => 1,
                                         'unique' => 1,
                                       ),
-               new EBox::Types::HasMany(
-                      fieldName => 'aliases',
-                       printableName => __('Aliases'),
-
-                                 foreignModel => 'mail/VDomainAliases',
-
-                                 'view' => '/ebox/Mail/View/VDomainAliases',
-                                 'backView' => '/ebox/Mail/View/VDomains',
-                                ),
 
 
          );
 
         my $dataTable = 
                 { 
-                        'tableName' => 'VDomains',
-                        'printableTableName' => __('Mail virtual domains'),
+                        'tableName' => 'VDomainAliases',
+                        'printableTableName' => __('Aliases'),
                         'defaultController' =>
-            '/ebox/Mail/Controller/VDomains',
+            '/ebox/Mail/Controller/VDomainAliases',
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,
-                        'menuNamespace' => 'Mail/VDomains',
+#                        'menuNamespace' => 'Mail/VDomainAliases',
                         'automaticRemove'  => 1,
                         'help' => '',
-                        'printableRowName' => __('virtual domain'),
-                        'sortedBy' => 'vdomain',
-                        'messages' => { add => __('Virtual domain added. ' .
+                        'printableRowName' => __('virtual domain alias'),
+                        'sortedBy' => 'alias',
+                        'messages' => { add => __('Virtual domain alias added. ' .
                                 'You must save changes to use this domain')
                             },
                 };

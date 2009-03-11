@@ -225,6 +225,7 @@ sub modelClasses
             'EBox::Mail::Model::RetrievalServices',
             'EBox::Mail::Model::ObjectPolicy',
             'EBox::Mail::Model::VDomains',
+            'EBox::Mail::Model::VDomainAliases',
             'EBox::Mail::Model::ExternalFilter',
 
             'EBox::Mail::Model::Dispatcher::Mail',

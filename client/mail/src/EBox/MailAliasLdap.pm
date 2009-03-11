@@ -626,4 +626,33 @@ sub _allAliasFromVDomain () { #vdomain
 	return \@alias;
 }
 
+
+sub _syncAliasTable
+{
+    my ($self, $vdomain, $aliasTable) = @_;
+
+    my %aliasToDelete = map { $_ => 1 } @{ $self->vdomainAliases($vdomain) };
+
+
+    foreach my $id (@{ $aliasTable->ids() }) {
+        my $row = $aliasTable->row($id);
+        my $alias     = $row->valueByName('alias');
+        my $fullAlias = '@' . $alias;
+
+
+        if (not $self->aliasExists($fullAlias)) {
+            $self->addVDomainAlias($vdomain, $alias);
+        }
+
+        delete $aliasToDelete{$fullAlias};
+    }
+
+
+    # alias no present in the table must be deleted
+    foreach my $alias (keys %aliasToDelete) {
+        $self->delAlias($alias);
+    }
+}
+
+
 1;
