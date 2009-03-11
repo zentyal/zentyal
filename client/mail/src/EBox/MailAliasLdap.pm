@@ -27,6 +27,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use EBox::Validate;
+use EBox::MailVDomainsLdap;
 
 use constant ALIASDN     => 'ou=mailalias, ou=postfix';
 
@@ -54,7 +56,7 @@ sub addAlias ($$$$) {
 	my $maildrop = shift;
 	my $id = shift;
 	
-	#RFC compliant
+#	RFC compliant
 	unless ($alias =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
 		throw EBox::Exceptions::InvalidData('data' => __('mail account'),
 														'value' => $alias);
@@ -64,19 +66,8 @@ sub addAlias ($$$$) {
 		throw EBox::Exceptions::DataExists('data' => __('mail account'),
 														'value' => $alias);
 	}
-	
-	my $dn = "mail=$alias, " . $self->aliasDn();
-	my %attrs = ( 
-		attr => [
-			'objectclass'		=> 'couriermailalias',
-			'objectclass'		=>	'account',
-			'userid'				=> $id,
-			'mail'				=>	$alias,
-			'maildrop'			=> $maildrop
-		]
-	);
 
-	my $r = $self->{'ldap'}->add($dn, \%attrs);
+        $self->_addCouriermailAliasLdapElement($id, $alias, $maildrop);
 }
 
 # Method: addGroupAlias
@@ -119,6 +110,108 @@ sub addGroupAlias ($$$) { #mail alias, groupname
 			$self->addMaildrop($alias, $mail);
 		}
 	}
+
+}
+
+
+# Method: addVDomainALias
+#
+#  Creates a new domain alias  for a mail domain
+#
+# Parameters:
+#
+#     vdomain - The mail domain for aliasing
+#     alias   - The mail alias domain  to create
+sub addVDomainAlias
+{
+    my ($self, $vdomain, $alias) = @_;
+    
+
+    EBox::Validate::checkDomainName($alias, __('Domain alias'));
+
+    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    if (not $vdomainsLdap->vdomainExists($vdomain)) {
+        throw EBox::Exceptions::External(__x(
+                                             'Mail domain {d} does not exists',
+                                             d => $vdomain
+                                            )
+                                        );
+    }
+    if ($vdomainsLdap->vdomainExists($alias)) {
+                throw EBox::Exceptions::External(__x(
+  'Cannot use {d} as alias for a mail domain because a domain which this name already exists',
+                                             d => $vdomain
+                                            )
+                                        );
+    }
+
+
+    if ($self->aliasExists($alias)) {
+        throw EBox::Exceptions::DataExists(data => __('Domain alias'));
+    }
+
+    my $id = 0;
+    $alias = '@' . $alias;
+    $vdomain = '@' . $vdomain;
+    $self->_addCouriermailAliasLdapElement($id, $alias, $vdomain);
+}
+
+
+
+# Method: vdomainAliases
+#
+#  return all the domain alias for a domain. 
+#
+# Parameters:
+#
+#     vdomain - The mail domain 
+sub vdomainAliases
+{
+    my ($self, $vdomain) = @_;
+
+    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    if (not $vdomainsLdap->vdomainExists($vdomain)) {
+        throw EBox::Exceptions::External(__x(
+                                             'Mail domain {d} does not exists',
+                                             d => $vdomain
+                                            )
+                                        );
+    }
+
+    my %attrs = (
+            base => $self->aliasDn,
+            filter => "&(objectclass=couriermailalias)(maildrop=@".$vdomain.")",
+            scope => 'sub'
+                );
+
+    my $result = $self->{'ldap'}->search(\%attrs);
+
+    my @alias = map { $_->get_value('mail')} $result->sorted('mail');
+
+    return \@alias;
+}
+
+
+
+
+
+
+sub _addCouriermailAliasLdapElement
+{
+    my ($self, $id, $alias, $maildrop) = @_;
+
+    my $dn = "mail=$alias, " . $self->aliasDn();
+    my %attrs = ( 
+                 attr => [
+                          'objectclass'           => 'couriermailalias',
+                          'objectclass'           =>      'account',
+                          'userid'                => $id,
+                          'mail'                  => $alias,
+                          'maildrop'              => $maildrop
+                         ]
+                );
+    
+    my $r = $self->{'ldap'}->add($dn, \%attrs);
 
 }
 
@@ -249,6 +342,7 @@ sub delAliasesFromVDomain () {
 	foreach (@aliases) {
 		$self->delAlias($_);
 	}
+
 }
 
 # Method: delAliasGroup
@@ -504,7 +598,8 @@ sub accountExists($$) { #mail alias account
 
 # Method: _allAliasFromVDomain
 #
-#	This method returns all mail alias accounts from a virtual domain
+#	This method returns all mail alias accounts and domain aliases from/for
+#	 a virtual domain
 #
 # Parameters:
 #
@@ -525,6 +620,8 @@ sub _allAliasFromVDomain () { #vdomain
 	my $result = $self->{'ldap'}->search(\%attrs);
 
 	my @alias = map { $_->get_value('mail')} $result->sorted('mail');
+
+        push @alias, @{ $self->vdomainAliases($vdomain)  };
 
 	return \@alias;
 }
