@@ -1,4 +1,5 @@
 0.12.102
+	+Backport from trunk:  Added aliases for whole domains
 	+ Bugfix: alias are deleted when user account is deleted
 	+ Bugfix: when already exists the maildir, create a new account is
 	not allowed
