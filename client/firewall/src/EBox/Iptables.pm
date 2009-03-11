@@ -516,28 +516,33 @@ sub start
 	my $global = EBox::Global->getInstance();
 	my @modNames = @{$global->modNames}; 
 	my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
+    my @modRules;
 	foreach my $mod (@mods) {
 		my $helper = $mod->firewallHelper();
 		($helper) or next;
-        push(@commands,
+        # push chain creation directly to commands so they take precedence
+        push(@commands, map { pf("-N $_") } @{$helper->chains()});
+        push(@modRules,
             @{$self->_doRuleset('nat', 'premodules', $helper->prerouting())}
         );
-        push(@commands,
+        push(@modRules,
             @{$self->_doRuleset('nat', 'postmodules', $helper->postrouting())}
         );
-        push(@commands,
+        push(@modRules,
             @{$self->_doRuleset('filter', 'fmodules', $helper->forward())}
         );
-        push(@commands,
+        push(@modRules,
 		    @{$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput())}
         );
-        push(@commands,
+        push(@modRules,
 		    @{$self->_doRuleset('filter', 'imodules', $helper->input())}
         );
-        push(@commands,
+        push(@modRules,
             @{$self->_doRuleset('filter', 'omodules', $helper->output())}
         );
 	}
+    my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @modRules;
+    push(@commands, map { pf($_->{'rule'}) } @sortedRules);
     root(@commands);
 }
 
@@ -555,8 +560,24 @@ sub _doRuleset # (table, chain, \@rules)
 	my ($self, $table, $chain, $rules) = @_;
 
     my @commands;
-	foreach my $rule (@{$rules}) {
-        push(@commands, pf("-t $table -A $chain $rule"));
+	foreach my $r (@{$rules}) {
+        my $priority = 50;
+        my $pfrule;
+        my $pfchain = $chain;
+        if (ref($r) eq 'HASH') {
+            if(defined($r->{'priority'})) {
+                $priority = $r->{'priority'};
+            }
+            if(defined($r->{'chain'})) {
+                $pfchain = $r->{'chain'};
+            }
+            $pfrule = $r->{'rule'};
+        } else {
+            $pfrule = $r;
+        }
+        $pfrule = "-t $table -A $pfchain $pfrule";
+        my $r = { 'priority' => $priority, 'rule' => $pfrule };
+        push(@commands, $r);
 	}
     return \@commands;
 }
