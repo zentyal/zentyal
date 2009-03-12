@@ -148,8 +148,8 @@ sub usesPort # (protocol, port, iface)
 
 sub firewallHelper
 {
-	my $self = shift;
-	if ($self->isEnabled){
+	my ($self) = @_;
+	if ($self->isEnabled()){
 		return new EBox::JabberFirewall();
 	}
 	return undef;
