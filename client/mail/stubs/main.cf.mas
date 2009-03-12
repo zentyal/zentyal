@@ -62,8 +62,6 @@ alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 local_recipient_maps = proxy:unix:passwd.byname $alias_maps
 
-mydestination = <% $fqdn %>, localhost.localdomain, localhost 
-
 relayhost = <% $relay %>
 
 % if ($relay) {
@@ -155,11 +153,9 @@ smtpd_sasl_path = private/auth
 smtpd_sasl_local_domain = <% $fqdn %>
 % }
 
-
-
-
 % if ($filter) {
 content_filter=smtp-amavis:<% $ipfilter %>:<% $portfilter %>
 % }
+
 
 
