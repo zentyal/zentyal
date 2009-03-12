@@ -562,10 +562,13 @@ sub _regenConfig
 {
     my ($self) = @_;
 
+    my @params = (@_);
+    shift(@params);
+
     $self->SUPER::_regenConfig();
     my $enabled = ($self->isEnabled() or 0);
     $self->_preServiceHook($enabled);
-    $self->_enforceServiceState();
+    $self->_enforceServiceState(@params);
     $self->_postServiceHook($enabled);
 }
 
@@ -590,7 +593,7 @@ sub restartService
 
 	$log->info("Restarting service for module: " . $self->name);
 	try {
-            $self->_regenConfig();
+            $self->_regenConfig('restart' => 1);
 	} otherwise  {
             my ($ex) = @_;
             $log->error("Error restarting service: $ex");
