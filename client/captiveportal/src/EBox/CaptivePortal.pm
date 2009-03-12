@@ -1,4 +1,4 @@
-# Copyright (C) 
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,7 +21,6 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
@@ -169,74 +168,38 @@ sub menu
     $root->add($item);
 }
 
-# Group: Network observer implementations
-
-# Method:  vifaceDelete
-#
-# Implements:
-#
-#    <EBox::NetworkObserver::vifaceDelete>
-#
-# Returns:
-#
-#    true - if there is a captive portal configured for this interface
-#    false - otherwise
-#
-sub vifaceDelete # (iface, viface)
+sub usersWidget
 {
-    my ( $self, $iface, $viface) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('users');
+    $widget->add($section);
 
-    my $model = $manager->model("/captiveportal/interfaces/$iface:$viface");
-    my $nr = $model->size();
-    if ( $nr > 0 ) {
-        return 1;
+    my $users = EBox::CaptivePortalHelper::currentUsers();
+    my $titles = [__('User'), 'IP'];
+    my $rows = {};
+    for my $u (@{$users}) {
+        my $id = $u->{'user'};
+        $rows->{$id} = [$u->{'user'}, $u->{'ip'}];
     }
-
-    return 0;
+    my $ids = [sort keys %{$rows}];
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 
-# Function: freeIface
+# Method: widgets
 #
-#    Delete every single row from the models attached to this
-#    interface
+# Overrides:
 #
-# Implements:
+#      <EBox::Module::widgets>
 #
-#    <EBox::NetworkObserver::freeIface>
-#
-#
-sub freeIface #( self, iface )
+sub widgets
 {
-	my ( $self, $iface ) = @_;
-#  FIXME:  $self->_removeDataModelsAttached($iface);
-
-    my $manager = EBox::Model::ModelManager->instance();
-    $manager->markAsChanged();
-    $manager = EBox::Model::CompositeManager->Instance();
-    $manager->markAsChanged();
-}
-
-# Method: freeViface
-#
-#    Delete every single row from the models attached to this virtual
-#    interface
-#
-# Implements:
-#
-#    <EBox::NetworkObserver::freeViface>
-#
-#
-sub freeViface #( self, iface, viface )
-{
-	my ( $self, $iface, $viface ) = @_;
-    $self->_removeDataModelsAttached("$iface:$viface");
-
-    my $manager = EBox::Model::ModelManager->instance();
-    $manager->markAsChanged();
-    $manager = EBox::Model::CompositeManager->Instance();
-    $manager->markAsChanged();
-}
+    return {
+        'users' => {
+            'title' => __('Captive portal users'),
+            'widget' => \&usersWidget
+        },
+    }
+};
 
 # EBox::UserCorner::Provider implementation
 #

@@ -85,7 +85,7 @@ sub syncRows
     return 0 unless (@ifacesToAdd);
 
     for my $iface (@ifacesToAdd) {
-        $self->add( interface => $iface, enabled => 0 );
+        $self->add(interface => $iface, enabled => 0);
     }
 
     return 1;

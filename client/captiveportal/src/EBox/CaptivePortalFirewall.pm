@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
+use EBox::CaptivePortalHelper;
 
 sub new
 {
@@ -92,6 +93,13 @@ sub input
         $r = "-i $ifc -j icaptive";
 		push(@rules, { 'priority' => 5, 'rule' => $r });
 
+        my $users = EBox::CaptivePortalHelper::currentUsers();
+        for my $user (@{$users}) {
+            my $ip = $user->{'ip'};
+            $r = "-s $ip -j RETURN";
+		    push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        }
+
         $r = "-i $ifc -p tcp --dport 53 -j ACCEPT";
 		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         $r = "-i $ifc -p udp --dport 53 -j ACCEPT";
@@ -121,6 +129,13 @@ sub forward
 		my $r;
         $r = "-i $ifc -j fcaptive";
 		push(@rules, { 'priority' => 5, 'rule' => $r });
+
+        my $users = EBox::CaptivePortalHelper::currentUsers();
+        for my $user (@{$users}) {
+            my $ip = $user->{'ip'};
+            $r = "-s $ip -j RETURN";
+		    push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        }
 
         $r = "-i $ifc -p tcp --dport 53 -j ACCEPT";
 		push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
