@@ -1331,6 +1331,7 @@ sub extendedBackup
     my ($self, %options) = @_;
     my $dir     = $options{dir};
 
+    $self->_dumpProfiles($dir);
     $self->_dumpSharesFiles($dir);
 }
 
@@ -1339,6 +1340,7 @@ sub extendedRestore
     my ($self, %options) = @_;
     my $dir     = $options{dir};
 
+    $self->_loadProfiles($dir);
     $self->_loadSharesFiles($dir);
 }
 
@@ -1347,14 +1349,14 @@ sub dumpConfig
     my ($self, $dir) = @_;
 
     $self->_dumpSharesTree($dir);
-    $self->_dumpProfiles($dir);
+
 }
 
 sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-    $self->_loadSharesTree($dir);  $self->_loadProfiles($dir);
+    $self->_loadSharesTree($dir);  
     $self->_fixLeftoverSharedDirectories();
     $self->fixSIDs();
 
