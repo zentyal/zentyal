@@ -58,7 +58,7 @@ local     unix  -       n       n       -       -       local
 virtual   unix  -       n       n       -       -       virtual
 lmtp      unix  -       -       -       -       -       lmtp
 anvil     unix  -       -       -       -       1       anvil
-scache	  unix	-	-	-	-	1	scach
+scache    unix  -       -       -       -       1       scache
 #dovecot   unix  -       n       n        -      -       pipe
 #  flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -d $(recipient)
 #
