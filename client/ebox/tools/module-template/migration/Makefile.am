@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @DATADIR@/ebox-modulename/migration
+Migrationsdir = @DATADIR@/ebox-improxy/migration
 
 nobase_Migrations_SCRIPTS = 
 

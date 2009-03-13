@@ -1,0 +1,2 @@
+exec /usr/sbin/imspector -c /etc/imspector/imspector.conf
+respawn

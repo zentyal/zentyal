@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-Stubdir = @STUBSPATH@/modulename
+Stubdir = @STUBSPATH@/improxy
 
-
-nobase_Stub_DATA =
+nobase_Stub_DATA = imspector.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

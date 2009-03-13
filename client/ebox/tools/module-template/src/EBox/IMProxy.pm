@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::ModuleName
+# Class: EBox::IMProxy
 #
 #      Class description
 #
 
-package EBox::ModuleName;
+package EBox::IMProxy;
 
 use strict;
 use warnings;
@@ -30,6 +30,8 @@ use base qw(EBox::Module::Service
 
 use EBox::Gettext;
 use EBox::Service;
+
+use constant IMSPECTOR_CONF_FILE => "/etc/imspector/imspector.conf";
 
 # Group: Protected methods
 
@@ -43,12 +45,15 @@ use EBox::Service;
 #
 # Returns:
 #
-#        <EBox::ModuleName> - the recently created module
+#        <EBox::IMProxy> - the recently created module
 #
 sub _create
 {
         my $class = shift;
-        my $self = $class->SUPER::_create(name => 'modulename');
+        my $self = $class->SUPER::_create(name => 'improxy',
+            domain => 'ebox-improxy',
+            printableName => __('IM Proxy'),
+            @_);
         bless($self, $class);
         return $self;
 }
@@ -63,6 +68,9 @@ sub _create
 #
 sub _setConf
 {
+    my ($self) = @_;
+
+    $self->writeConfFile(IMSPECTOR_CONF_FILE, "improxy/imspector.conf.mas");
 }
 
 # Group: Public methods
@@ -77,7 +85,9 @@ sub _setConf
 #
 sub menu
 {
-
+    my ($self, $root) = @_;
+    $root->add(new EBox::Menu::Item('url' => 'IMProxy/Composite/General',
+                                    'text' => __('IM Proxy')));
 }
 
 # Method: modelClasses
@@ -90,7 +100,7 @@ sub menu
 #
 sub modelClasses
 {
-    return [];
+    return [ 'EBox::IMProxy::Model::Rules' ];
 }
 
 # Method: compositeClasses
@@ -117,7 +127,13 @@ sub compositeClasses
 #
 sub usedFiles
 {
-    return [];
+    return [
+        {
+            'file' => IMSPECTOR_CONF_FILE,
+            'module' => 'improxy',
+            'reason' => 'imspector configuration file'
+        }
+    ];
 }
 
 # Method: actions
@@ -156,19 +172,6 @@ sub enableActions
 #        <EBox::Module::Service::disableActions>
 #
 sub disableActions
-{
-
-}
-
-# Method: isRunning
-#
-#        Check if the service is running or not
-#
-# Overrides:
-#
-#        <EBox::Module::Service::isRunning>
-#
-sub isRunning
 {
 
 }

@@ -1,10 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/ModuleName/Model
+perldir = @PERLPATH@/EBox/IMProxy/Model
 
 SUBDIRS = 
 
-mods = Model.pm Composite.pm
+mods = Rules.pm Composite.pm
 
 nobase_perl_DATA = $(mods)
 

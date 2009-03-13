@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/ModuleName
+perldir = @PERLPATH@/EBox/CGI/IMProxy
 
 nobase_perl_DATA = 
 

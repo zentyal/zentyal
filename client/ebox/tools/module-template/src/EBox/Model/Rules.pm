@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::ModuleName::Model::Model;
+package EBox::IMProxy::Model::Rules;
 
-# Class: EBox::ModuleName::Model::Model
+# Class: EBox::IMProxy::Model::Rules
 #
 #   Class description
 #
@@ -24,6 +24,8 @@ use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
+
+use EBox::Gettext;
 
 # Group: Public methods
 
@@ -37,7 +39,7 @@ use warnings;
 #
 # Returns:
 #
-#       <EBox::ModuleName::Model::Model> - the recently
+#       <EBox::IMProxy::Model::Model> - the recently
 #       created model
 #
 sub new
@@ -52,6 +54,11 @@ sub new
 
 }
 
+sub objectModel
+{
+    return EBox::Global->modInstance('objects')->{'objectModel'};
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -63,24 +70,32 @@ sub new
 #      <EBox::Model::DataTable::_table>
 #
 sub _table
-  {
+{
+    my @tableHeader = (
+        new EBox::Types::Select(
+            'fieldName' => 'object',
+            'printableName' => __('Object'),
+            'foreignModel' => \&objectModel,
+            'foreignField' => 'name',
+            'editable' => 1),
+        new EBox::Types::Boolean (
+            'fieldName' => 'accept',
+            'printableName' => __('Accept'),
+            'editable' => 1
+        ),
+    );
 
-      my @tableHeader = ();
-
-      my $dataTable =
-        {
-         tableName          => 'tableName',
-         printableTableName => __('table title'),
-         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
-         tableDescription   => \@tableHeader,
-         class              => 'dataTable',
-         printableRowName   => __('row'),
-         help               => __('help message'),
-        };
-
-      return $dataTable;
-
-  }
-
+    my $dataTable =
+    {
+        tableName          => 'Rules',
+        printableTableName => __('Filtering rules'),
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        printableRowName   => __('rule'),
+        help               => __('help message'),
+    };
+    return $dataTable;
+}
 
 1;

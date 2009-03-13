@@ -1,7 +1,7 @@
-AC_INIT([EBox-modulename], [0.1])
+AC_INIT([EBox-improxy], [1.1])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/ModuleName.pm])
+AC_CONFIG_SRCDIR([src/EBox/IMProxy.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 

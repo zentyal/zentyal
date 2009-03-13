@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::ModuleName::Model::Composite
+# Class: EBox::IMProxy::Model::Composite
 #
 #   Class description
 #
 
-package EBox::ModuleName::Model::Composite;
+package EBox::IMProxy::Model::Composite;
 
 use base 'EBox::Model::Composite';
 
@@ -36,7 +36,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#       <EBox::ModuleName::Model::Composite> - a
+#       <EBox::IMProxy::Model::Composite> - a
 #       composite
 #
 sub new
@@ -68,7 +68,7 @@ sub _description
          layout          => 'top-bottom',
          name            => 'Composite',
          printableName   => __('composite title'),
-         compositeDomain => 'ModuleName',
+         compositeDomain => 'IMProxy',
          help            => __('help message'),
         };
 
