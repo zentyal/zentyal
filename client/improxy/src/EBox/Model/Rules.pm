@@ -26,6 +26,8 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Types::Boolean;
+use EBox::Types::Select;
 
 # Group: Public methods
 
@@ -92,6 +94,7 @@ sub _table
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
+        modelDomain        => 'IMProxy',
         printableRowName   => __('rule'),
         help               => __('help message'),
     };
