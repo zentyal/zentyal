@@ -3,12 +3,15 @@ DEPENDENCIES
 
 + eBox components
 
-	+ squid
-    + usersandgroups
+	+ <Add an eBox module>
 
 + Debian packages (apt-get install <package>)
 
-	+ imspector
+	+ <Add a debian package name>
+
++ Others
+
+	+ <Add if any other support is needed, e.g. in Linux kernel>
 
 INSTALLATION
 ------------

@@ -3,7 +3,7 @@ SUBDIRS = CGI Model
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = IMProxy.pm
+nobase_perl_DATA = ModuleName.pm
 
 DISTCLEANFILES = 
 

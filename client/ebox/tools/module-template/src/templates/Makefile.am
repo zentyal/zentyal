@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-templatedir = @TEMPLATESPATH@/improxy
+templatedir = @TEMPLATESPATH@/modulename
 
 template_DATA = 
 

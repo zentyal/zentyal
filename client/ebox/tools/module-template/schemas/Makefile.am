@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 moduledir   = @DATADIR@/ebox/modules
-module_DATA = improxy.yaml
+module_DATA = modulename.yaml
 
 EXTRA_DIST = $(module_DATA)
 
