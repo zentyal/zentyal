@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+
+my $data = 'imspector-outcoming
+client 192.168.122.1
+protocol msn
+localid magnetic@hotmail.com
+remoteid isaac@warp.es
+charset UTF-8
+length 28
+
+Me mola tu gramola';
+
+sub parse_packet
+{
+    my ($data) = @_;
+
+    my $regex = 'imspector-(incoming|outcoming)\n' .
+                'client (.*?)\n' .
+                'protocol (.*?)\n' .
+                'localid (.*?)\n' .
+                'remoteid (.*?)\n' .
+                'charset (.*?)\n' .
+                'length (.*?)\n' .
+                '\n' .
+                '(.*)';
+
+    $data =~ m/$regex/s;
+
+    my $info = {};
+    $info->{'type'} = $1;
+    $info->{'client'} = $2;
+    $info->{'protocol'} = $3;
+    $info->{'localid'} = $4;
+    $info->{'remoteid'} = $5;
+    $info->{'length'} = $7;
+    $info->{'content'} = $8;
+    return $info;
+}
+
+my $info = parse_packet($data);
+use Data::Dumper;
+print Dumper($info);
