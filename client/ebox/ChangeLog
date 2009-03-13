@@ -22,6 +22,8 @@
 	+ Do not suggest_sync after read operations in gconf
 	+ Increase MaxRequestsPerChild to 200 in eBox's apache
 	+ Make apache spawn only one child process
+	+ Log module is backed up and restored normally because the old
+	problem is not longer here
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102

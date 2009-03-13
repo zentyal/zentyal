@@ -133,16 +133,13 @@ sub _dumpModulesBackupData
   my @modules = @{ $self->_modInstancesForBackup() };
   foreach my $mod (@modules) {
     my $modName = $mod->name();
-    # XXX temporally skipping logs
-    next if $modName eq 'logs';
 
     if ($progress) {
       # update progress object
       $progress->notifyTick();
       $progress->setMessage(__x('Dumping configuration of module {m}',
                               m => $modName));
-    }
-
+  }
 
     try {
       EBox::debug("Dumping $modName backup data");
@@ -1229,8 +1226,6 @@ sub _modInstancesForRestore
 
   # we remove global module because it will not  be restored
   @modules   =  grep { $_->name ne 'global' } @modules;   
-  # XXX temporally skipping log module
-  @modules = grep {  $_->name ne 'logs' } @modules;
 
   if (not @modules) {
     throw EBox::Exceptions::External(
