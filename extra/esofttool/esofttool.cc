@@ -407,8 +407,17 @@ void listEBoxPkgs() {
                              (strncmp(d.DepType(),"PreDepends",10)!=0)) {
                             continue;
                           }
-                          depends.insert(depends.begin(),d.SmartTargetPkg().Name());
-                          std::cout << "\t'" << d.SmartTargetPkg().Name()  << "'," << std::endl;
+                          pkgCache::DepIterator pkg = d;
+			  /* Skip OR dependencies */
+			  for (bool LastOR = true; d.end() == false && LastOR == true;)
+			   {
+			     LastOR = (d->CompareOp & pkgCache::Dep::Or) == pkgCache::Dep::Or;
+			     if (LastOR) {
+			       d++;
+			     }
+			   }
+               depends.insert(depends.begin(),pkg.SmartTargetPkg().Name());
+               std::cout << "\t'" << pkg.SmartTargetPkg().Name()  << "'," << std::endl;
 			}
 			std::cout << "]," << std::endl;
 			if(pkgIsFetched(P)){
