@@ -24,12 +24,14 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
+            EBox::FirewallObserver
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
            );
 
 use EBox::Gettext;
 use EBox::Service;
+use EBox::IMProxyFirewall;
 
 use constant IMSPECTOR_CONF_FILE => "/etc/imspector/imspector.conf";
 
@@ -56,6 +58,17 @@ sub _create
             @_);
         bless($self, $class);
         return $self;
+}
+
+# Method: _daemons
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    return [ { 'name' => 'ebox.improxy.imspector' } ];
 }
 
 # Method: _setConf
@@ -86,7 +99,7 @@ sub _setConf
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'IMProxy/Composite/General',
+    $root->add(new EBox::Menu::Item('url' => 'IMProxy/View/Rules',
                                     'text' => __('IM Proxy')));
 }
 
@@ -174,6 +187,15 @@ sub enableActions
 sub disableActions
 {
 
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+    if ($self->isEnabled()){
+        return new EBox::IMProxyFirewall();
+    }
+    return undef;
 }
 
 # Group: Private methods

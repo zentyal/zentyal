@@ -74,11 +74,21 @@ sub objectModel
 sub _table
 {
     my @tableHeader = (
-        new EBox::Types::Select(
+        new EBox::Types::Union(
             'fieldName' => 'object',
             'printableName' => __('Object'),
-            'foreignModel' => \&objectModel,
-            'foreignField' => 'name',
+            'subtypes' => [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'source_any',
+                    'printableName' => __('Any source')),
+                new EBox::Types::Select(
+                    'fieldName' => 'source_object',
+                    'printableName' => __('Source object'),
+                    'foreignModel' => \&objectModel,
+                    'foreignField' => 'name',
+                    'editable' => 1),
+            ],
+            'unique' => 1,
             'editable' => 1),
         new EBox::Types::Boolean (
             'fieldName' => 'accept',

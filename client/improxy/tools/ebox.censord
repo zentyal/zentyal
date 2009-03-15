@@ -1,14 +1,11 @@
 #!/usr/bin/perl
+use strict;
+use warnings;
 
-my $data = 'imspector-outcoming
-client 192.168.122.1
-protocol msn
-localid magnetic@hotmail.com
-remoteid isaac@warp.es
-charset UTF-8
-length 28
+use IO::Socket;
+use constant CENSORD_SOCKET => "/tmp/.censord.sock";
 
-Me mola tu gramola';
+use File::Slurp;
 
 sub parse_packet
 {
@@ -37,6 +34,20 @@ sub parse_packet
     return $info;
 }
 
-my $info = parse_packet($data);
-use Data::Dumper;
-print Dumper($info);
+unlink CENSORD_SOCKET;
+my $server = IO::Socket::UNIX->new(Local => CENSORD_SOCKET,
+                                   Type  => SOCK_STREAM,
+                                   Listen => 5)
+    or die $@;
+
+my $client;
+
+while ($client = $server->accept()) {
+    my $data = read_file($client);
+    my $info = parse_packet($data);
+    use Data::Dumper;
+    print Dumper($info);
+    close($data);
+}
+
+close($server);
