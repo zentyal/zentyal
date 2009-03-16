@@ -44,19 +44,19 @@ msgstr "O certificado de cliente não pode ser o mesmo do servidor"
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "O certificado CA não existe"
+msgstr "O certificado CA não existe {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "O certificado de cliente não existe"
+msgstr "O certificado de cliente não existe {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "O certificado privado não existe"
+msgstr "O certificado privado não existe {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
@@ -727,7 +727,7 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"Nome inválido {nanme}. Somente são permitidos caracteres alfanuméricos e  "
+"Nome inválido {name}. Somente são permitidos caracteres alfanuméricos e  "
 "'-', '_', '.'"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:682
@@ -750,7 +750,7 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
-"Nome inválido {nome}. O nome começa com o prefixo {pf} que está reservado "
+"Nome inválido {name}. O nome começa com o prefixo {pf} que está reservado "
 "para uso interno"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:724
@@ -760,7 +760,7 @@ msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
-"Nome inválido {nome}. Uma rotina interna deve ter um nome que comece com o "
+"Nome inválido {name}. Uma rotina interna deve ter um nome que comece com o "
 "prefixo {pf}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1438
