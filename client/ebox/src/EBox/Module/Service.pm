@@ -220,11 +220,12 @@ sub isEnabled
 {
     my ($self) = @_;
 
-    unless ($self->get_bool('_serviceModuleStatus')) {
+    my $enabled = $self->get_bool('_serviceModuleStatus');
+    if (not defined($enabled)) {
         return $self->defaultStatus();
     }
 
-    return $self->get_bool('_serviceModuleStatus');
+    return $enabled;
 }
 
 # Method: _isDaemonRunning
@@ -361,7 +362,7 @@ sub enableService
 #   boolean
 sub defaultStatus 
 {
-    return undef;
+    return 0;
 }
 
 sub daemon_type
