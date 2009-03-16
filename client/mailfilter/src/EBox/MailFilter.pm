@@ -286,6 +286,7 @@ sub _setConf
 sub _enforceServiceState
 {
     my ($self) = @_;
+    my $enabled = $self->isEnabled();
 
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
