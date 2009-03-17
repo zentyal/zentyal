@@ -62,7 +62,7 @@ return if $params->{service};
 
 <div class='warning'>
 <% __(
-       q{The following settings will take effect only when the jabber module will be enabled},
+       q{The following settings will take effect only when the jabber module is enabled},
     )
 %>
 </div>
