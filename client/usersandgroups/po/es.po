@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-02-02 09:51+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2009-03-06 11:18+0000\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:31
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:56
@@ -160,7 +160,7 @@ msgstr "contraseña de confirmación"
 #: src/EBox/UsersAndGroups/Model/Users.pm:58
 #: src/EBox/UsersAndGroups/Model/Users.pm:153
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:63
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:162
@@ -190,6 +190,8 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"El módulo Usuarios debe estar habilitado en la sección Estado del módulo "
+"para poder usarlo."
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:130
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
@@ -469,7 +471,7 @@ msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
 msgstr ""
-"Si elemina este grupo todos sus datos contenidos en su directorio compartido "
+"Si elimina este grupo todos sus datos contenidos en su directorio compartido "
 "serán eliminados"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/user.mas:71

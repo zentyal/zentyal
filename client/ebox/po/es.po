@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-03 19:21+0100\n"
-"PO-Revision-Date: 2009-01-22 09:24+0000\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
+"PO-Revision-Date: 2009-03-06 11:24+0000\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1501,7 +1501,7 @@ msgstr "El ejecutable no se ha ejecutado"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr ""
+msgstr "El ejecutable no se ha ejecutado"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
@@ -1692,7 +1692,7 @@ msgstr "Vector RAID {a} inexistente"
 
 #: src/templates/report/raid.mas:42
 msgid "RAID is not enabled in this system"
-msgstr ""
+msgstr "RAID no está habilitado en este sistema"
 
 #: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
@@ -1792,7 +1792,7 @@ msgstr "Dispositivos RAID sin usar"
 
 #: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
 msgid "Archive size"
-msgstr ""
+msgstr "Tamaño del archivo"
 
 #: src/templates/confirm-backup.mas:74 src/templates/dataInUse.mas:41
 msgid "Cancel"
@@ -2089,7 +2089,7 @@ msgstr "Deshabilitado"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
-msgstr ""
+msgstr "No hay entradas en la lista"
 
 #: src/templates/backupTabs.mas:13
 #, fuzzy
@@ -2103,7 +2103,7 @@ msgstr "Restaurando el backup"
 
 #: src/templates/backupTabs.mas:23
 msgid "Remote backup from other subscribed hosts"
-msgstr ""
+msgstr "Backup remoto de otras máquinas suscritas"
 
 #~ msgid ""
 #~ "An internal error has ocurred. This is most probably a bug, relevant "

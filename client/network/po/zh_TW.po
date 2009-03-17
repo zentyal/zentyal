@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-09 02:23+0000\n"
-"Last-Translator: akong <akong@aspa.idv.tw>\n"
+"PO-Revision-Date: 2009-03-13 02:57+0000\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -578,7 +578,7 @@ msgstr "這些 vlan 介面在您的系統上是可用的"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:37
 #: src/templates/ifaces.mas:37
 msgid "Method"
-msgstr ""
+msgstr "方法"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:92
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:250
@@ -750,7 +750,7 @@ msgstr "靜態路由列表"
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
-msgstr ""
+msgstr "您在這裡輸入的所有路由必須能從目前所設定的網路介面其中之一可到的才行"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:173
 #: src/EBox/Model/StaticRoute.pm:173
@@ -814,18 +814,18 @@ msgstr "啟用 eBox DHCP hook"
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
-msgstr ""
+msgstr "把透過 DHCP 伺服器配發的預設路由加到預設路由表要特別小心。"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:109
 #: src/EBox/Network.pm:109
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "eBox 會設定您的網路組態"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:697
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:701
 #: src/EBox/Network.pm:697 src/EBox/Network.pm:701
 msgid "Virtual interface name"
-msgstr ""
+msgstr "虛擬介面名稱"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:700
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1009
@@ -835,32 +835,32 @@ msgstr ""
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:207
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
-msgstr ""
+msgstr "子網路遮罩"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1133
 #: src/EBox/Network.pm:1133
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
+msgstr "這個介面不能放在 trunk 模式中，它是一個 vlan 介面。"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1178
 #: src/EBox/Network.pm:1178
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
-msgstr ""
+msgstr "這個介面處於 trunk 模式，在改變其組態模式前您應該先解除這個 trunk 中所有的 vlan 介面的設定。"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1211
 #: src/EBox/Network.pm:1211
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
+msgstr "在將 vlan 加入網路介面前需要先把它們設為 trunk 模式。"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2214
 #: src/EBox/Network.pm:2214
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
-msgstr ""
+msgstr "這個要求的操作會造成已設定的路由之一變得無法使用。如果您真的想要進行這項變更請先將它移除。"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2279
 #: debian/ebox-network/usr/share/perl5/EBox/NetworkUtil.pm:55
@@ -875,67 +875,67 @@ msgstr "通訊閘 {gw} 不能連線"
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
-msgstr ""
+msgstr "通訊閘 {gw} 無法以靜態介面連接。目前可連接它的 {iface} 不是靜態介面"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2513
 #: src/EBox/Network.pm:2513
 msgid "Host name"
-msgstr ""
+msgstr "主機名稱"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2562
 #: src/EBox/Network.pm:2562
 msgid "down"
-msgstr ""
+msgstr "下"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2568
 #: src/EBox/Network.pm:2568
 msgid "up"
-msgstr ""
+msgstr "上"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2572
 #: src/EBox/Network.pm:2572
 msgid "link ok"
-msgstr ""
+msgstr "連線正常"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2574
 #: src/EBox/Network.pm:2574
 msgid "no link"
-msgstr ""
+msgstr "沒有連線"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2582
 #: src/EBox/Network.pm:2582
 msgid "MAC address"
-msgstr ""
+msgstr "MAC 位址"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
 #: src/EBox/Network.pm:2599
 msgid "Tx bytes"
-msgstr ""
+msgstr "Tx 位元組"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
 #: src/EBox/Network.pm:2608
 msgid "Rx bytes"
-msgstr ""
+msgstr "Rx 位元組"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
 #: src/EBox/Network.pm:2645
 msgid "Interfaces"
-msgstr ""
+msgstr "介面"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2649
 #: src/EBox/Network.pm:2649
 msgid "Routes"
-msgstr ""
+msgstr "路由"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2651
 #: src/EBox/Network.pm:2651
 msgid "Diagnosis"
-msgstr ""
+msgstr "診斷"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2657
 #: src/EBox/Network.pm:2657
 msgid "Balance traffic"
-msgstr ""
+msgstr "平衡流量"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:14
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:11
@@ -943,7 +943,7 @@ msgstr ""
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
-msgstr ""
+msgstr "您正在嘗試的變更會影響一或多個使用這個網路介面參照的模組。"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:17
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:14
@@ -952,26 +952,26 @@ msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
-msgstr ""
+msgstr "如果您選擇繼續，所有使用這個網路介面的組態的模組會刪除其組態的相關部分。如果您對這個問題不確定就請選擇「取消」。"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:31
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:24
 #: src/templates/confirmremove.mas:24 src/templates/confirm.mas:31
 msgid "Ok"
-msgstr ""
+msgstr "確定"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:33
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:26
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:11
 #: src/templates/ifaces.mas:11
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
-msgstr ""
+msgstr "請記得改變網路介面組態可能會造成您失去存取管理頁面的能力。"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:14
 #: src/templates/ifaces.mas:14
@@ -979,41 +979,41 @@ msgid ""
 "Traffic being routed through interfaces marked as external will be NATed.  "
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
-msgstr ""
+msgstr "通過標記為外部的介面的流量都會被 NAT 處理。同時，給 LAN 使用者使用的服務在外部介面是無法使用的。"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:43
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:45
 #: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"
-msgstr ""
+msgstr "靜態"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:56
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:58
 #: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Trunk (802.1q)"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:63
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:65
 #: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"
-msgstr ""
+msgstr "未設定"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:135
 #: src/templates/ifaces.mas:135
 msgid "Change"
-msgstr ""
+msgstr "改變"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:143
 #: src/templates/ifaces.mas:143
 msgid "VLAN List"
-msgstr ""
+msgstr "VLAN 清單"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:150
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:208
 #: src/templates/ifaces.mas:150 src/templates/ifaces.mas:208
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:166
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:167
@@ -1025,7 +1025,7 @@ msgstr ""
 #: src/templates/ifaces.mas:168 src/templates/ifaces.mas:246
 #: src/templates/ifaces.mas:247 src/templates/ifaces.mas:248
 msgid "Add"
-msgstr ""
+msgstr "加入"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:185
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:186
@@ -1037,38 +1037,38 @@ msgstr ""
 #: src/templates/ifaces.mas:187 src/templates/ifaces.mas:273
 #: src/templates/ifaces.mas:274 src/templates/ifaces.mas:275
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:200
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
-msgstr ""
+msgstr "虛擬介面"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:13
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:18
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:22
 #: src/templates/diag.mas:22
 msgid "Name resolution"
-msgstr ""
+msgstr "網域名稱解析"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:23
 #: src/templates/diag.mas:23
 msgid "Domain name"
-msgstr ""
+msgstr "網域名稱"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:27
 #: src/templates/diag.mas:27
 msgid "Lookup"
-msgstr ""
+msgstr "查詢"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:29
 #: src/templates/diag.mas:29
 msgid "Output"
-msgstr ""
+msgstr "輸出"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:19
 #: src/templates/gwrules.mas:19
@@ -1076,8 +1076,10 @@ msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
+"要能使用這個功能，您需要至少兩個通訊閘。您可以先在<a "
+"href=\"/ebox/Network/View/GatewayTable\">這裡</a>加入它們"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:25
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
-msgstr ""
+msgstr "流量平衡"

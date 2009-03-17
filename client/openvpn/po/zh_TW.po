@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-11-10 08:40+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-15 07:52+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,8 +17,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
+#, fuzzy
 msgid "Server's address"
-msgstr ""
+msgstr "通訊錄"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
@@ -39,8 +40,9 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "所有的 CA 憑證檔案"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
@@ -86,10 +88,12 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:60
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:694
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:313
-#: src/EBox/OpenVPN/Server.pm:694 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:694
+#: src/EBox/OpenVPN/Client.pm:313
 #: src/EBox/OpenVPN/Model/Servers.pm:60
+#, fuzzy
 msgid "Enabled"
-msgstr ""
+msgstr "已啟用"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:68
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:60
@@ -97,14 +101,17 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 #: src/EBox/OpenVPN/Model/Clients.pm:60
+#, fuzzy
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:76
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:75
-#: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
+#: src/EBox/OpenVPN/Model/Servers.pm:76
+#: src/EBox/OpenVPN/Model/Clients.pm:75
+#, fuzzy
 msgid "Configuration"
-msgstr ""
+msgstr "組態"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:85
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
@@ -117,25 +124,29 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
+#, fuzzy
 msgid "Download client bundle"
-msgstr ""
+msgstr "預設郵件客戶端程式"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:106
 #: src/EBox/OpenVPN/Model/Servers.pm:106
+#, fuzzy
 msgid "List of servers"
-msgstr ""
+msgstr "郵件伺服器"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:107
 #: src/EBox/OpenVPN/Model/Servers.pm:107
+#, fuzzy
 msgid "VPN servers"
-msgstr ""
+msgstr "郵件伺服器"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:113
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 #: src/EBox/OpenVPN/Model/Servers.pm:113
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
+#, fuzzy
 msgid "server"
-msgstr ""
+msgstr "伺服器"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:158
 #: src/EBox/OpenVPN/Model/Servers.pm:158
@@ -149,8 +160,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:173
 #: src/EBox/OpenVPN/Model/Servers.pm:173
+#, fuzzy
 msgid "Server creation"
-msgstr ""
+msgstr "建立日期:"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:271
 #: src/EBox/OpenVPN/Model/Servers.pm:271
@@ -161,8 +173,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:278
 #: src/EBox/OpenVPN/Model/Servers.pm:278
+#, fuzzy
 msgid "Server activation"
-msgstr ""
+msgstr "連接伺服器(_S):"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:305
 #: src/EBox/OpenVPN/Model/Servers.pm:305
@@ -188,13 +201,15 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
+#, fuzzy
 msgid "Server port"
-msgstr ""
+msgstr "通訊埠/服務"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
+#, fuzzy
 msgid "VPN address"
-msgstr ""
+msgstr "通訊錄"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
@@ -203,8 +218,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:85
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:85
+#, fuzzy
 msgid "Server certificate"
-msgstr ""
+msgstr "SSL 伺服器憑證"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:92
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:92
@@ -219,8 +235,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:99
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:99
+#, fuzzy
 msgid "Network Address Translation"
-msgstr ""
+msgstr "反查一個網路位址"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:102
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:102
@@ -254,18 +271,21 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:130
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:130
+#, fuzzy
 msgid "Interface to listen on"
-msgstr ""
+msgstr "工作日結束分鐘，0 到 59。"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
+#, fuzzy
 msgid "Server configuration"
-msgstr ""
+msgstr "郵件組態"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:178
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:178
+#, fuzzy
 msgid "All network interfaces"
-msgstr ""
+msgstr "全天約會(_P)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:229
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:229
@@ -280,14 +300,16 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:301
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:301
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "SpamAssassin 無法使用。"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:360
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:360
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "通訊錄不存在"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:365
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:365
@@ -326,13 +348,15 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
+#, fuzzy
 msgid "Advertised network"
-msgstr ""
+msgstr "網路資訊"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
+#, fuzzy
 msgid "List of networks"
-msgstr ""
+msgstr "到會者清單"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
@@ -345,15 +369,17 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
+#, fuzzy
 msgid "Client's type"
-msgstr ""
+msgstr "位址型態"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
+#, fuzzy
 msgid "Client's certificate"
-msgstr ""
+msgstr "SSL 用戶端憑證"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
@@ -367,8 +393,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
+#, fuzzy
 msgid "Server address"
-msgstr ""
+msgstr "通訊錄"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
@@ -386,13 +413,15 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
+#, fuzzy
 msgid "Configure bundle"
-msgstr ""
+msgstr "設定轉送程式"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#, fuzzy
 msgid "EBox to EBox tunnel"
-msgstr ""
+msgstr "複製至行事曆(_Y)..."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
@@ -431,10 +460,12 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:67
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:695
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:314
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Server.pm:695
+#: src/EBox/OpenVPN/Client.pm:314
 #: src/EBox/OpenVPN/Model/Clients.pm:67
+#, fuzzy
 msgid "Service"
-msgstr ""
+msgstr "服務"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:94
 #: src/EBox/OpenVPN/Model/Clients.pm:94
@@ -445,8 +476,9 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:134
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:134
 #: src/EBox/OpenVPN/Model/Clients.pm:100
+#, fuzzy
 msgid "client"
-msgstr ""
+msgstr "客戶端"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:143
 #: src/EBox/OpenVPN/Model/Clients.pm:143
@@ -462,33 +494,39 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
+#, fuzzy
 msgid "Upload configuration's bundle"
-msgstr ""
+msgstr "手動代理伺服器組態(_M):"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
+#, fuzzy
 msgid "Server"
-msgstr ""
+msgstr "伺服器"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
+#, fuzzy
 msgid "CA's certificate"
-msgstr ""
+msgstr "所有的 CA 憑證檔案"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:107
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:107
+#, fuzzy
 msgid "Client's private key"
-msgstr ""
+msgstr "å¨æ¯ç¹ç¤åå®¶ç§å­¸é¢"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:117
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:117
+#, fuzzy
 msgid "Server tunnel password"
-msgstr ""
+msgstr "輸入 %s 的密碼 "
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:128
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:128
+#, fuzzy
 msgid "Client configuration"
-msgstr ""
+msgstr "郵件組態"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:227
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:227
@@ -498,18 +536,21 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
+#, fuzzy
 msgid "Deleted daemons"
-msgstr ""
+msgstr "隱藏已刪除郵件(_D)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
+#, fuzzy
 msgid "daemon"
-msgstr ""
+msgstr "停止伺服程式(_S)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Types/TlsRemote.pm:52
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+#, fuzzy
 msgid "disabled"
-msgstr ""
+msgstr "Disabled"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:84
 #: src/EBox/OpenVPN/Server.pm:84
@@ -520,14 +561,16 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:180
 #: src/EBox/OpenVPN/Server.pm:180
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "通訊錄不存在"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:183
 #: src/EBox/OpenVPN/Server.pm:183
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "您的密碼已經到期。"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:186
 #: src/EBox/OpenVPN/Server.pm:186
@@ -563,53 +606,66 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:503
 #: src/EBox/OpenVPN/Server.pm:503
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "多部份/已加密不支援的加密類型"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:692
 #: src/EBox/OpenVPN/Server.pm:692
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "帳戶名稱"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:694
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:313
-#: src/EBox/OpenVPN/Server.pm:694 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:694
+#: src/EBox/OpenVPN/Client.pm:313
+#, fuzzy
 msgid "Disabled"
-msgstr ""
+msgstr "Disabled"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:697
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:316
-#: src/EBox/OpenVPN/Server.pm:697 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:697
+#: src/EBox/OpenVPN/Client.pm:316
+#, fuzzy
 msgid "Running"
-msgstr ""
+msgstr "執行中"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:697
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:316
-#: src/EBox/OpenVPN/Server.pm:697 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:697
+#: src/EBox/OpenVPN/Client.pm:316
+#, fuzzy
 msgid "Stopped"
-msgstr ""
+msgstr "停止"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:698
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:317
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:317
+#: src/EBox/OpenVPN/Server.pm:698
+#: src/EBox/OpenVPN/Client.pm:317
+#, fuzzy
 msgid "Daemon status"
-msgstr ""
+msgstr "連絡人狀態"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:701
 #: src/EBox/OpenVPN/Server.pm:701
+#, fuzzy
 msgid "All external interfaces"
-msgstr ""
+msgstr "æ¾³æ´²å¤é¨é å°"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:702
 #: src/EBox/OpenVPN/Server.pm:702
+#, fuzzy
 msgid "Local address"
-msgstr ""
+msgstr "本地端通訊錄"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:707
 #: src/EBox/OpenVPN/Server.pm:707
+#, fuzzy
 msgid "Port"
-msgstr ""
+msgstr "通訊埠"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:710
 #: src/EBox/OpenVPN/Server.pm:710
@@ -618,34 +674,42 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:713
 #: src/EBox/OpenVPN/Server.pm:713
+#, fuzzy
 msgid "VPN network interface"
-msgstr ""
+msgstr "介面\t成員\t群組\n"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:717
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:719
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:329
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:331
-#: src/EBox/OpenVPN/Server.pm:717 src/EBox/OpenVPN/Server.pm:719
-#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:717
+#: src/EBox/OpenVPN/Server.pm:719
+#: src/EBox/OpenVPN/Client.pm:329
+#: src/EBox/OpenVPN/Client.pm:331
+#, fuzzy
 msgid "VPN interface address"
-msgstr ""
+msgstr "新增通訊錄"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:719
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:331
-#: src/EBox/OpenVPN/Server.pm:719 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:719
+#: src/EBox/OpenVPN/Client.pm:331
+#, fuzzy
 msgid "No active"
-msgstr ""
+msgstr "進行中的工作"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:311
 #: src/EBox/OpenVPN/Client.pm:311
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "帳戶名稱"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:325
 #: src/EBox/OpenVPN/Client.pm:325
+#, fuzzy
 msgid "Connection target"
-msgstr ""
+msgstr "目標類型(_Y)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:68
 #: src/EBox/OpenVPN.pm:71
@@ -711,8 +775,9 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1438
 #: src/EBox/OpenVPN.pm:1441
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Client {c} does not exists"
-msgstr ""
+msgstr "該檔案不存在"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1458
 #: src/EBox/OpenVPN.pm:1461
@@ -721,8 +786,9 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1464
 #: src/EBox/OpenVPN.pm:1467
+#, fuzzy
 msgid "Servers"
-msgstr ""
+msgstr "<b>伺服器</b>"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1470
 #: src/EBox/OpenVPN.pm:1473
@@ -731,13 +797,15 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
+#, fuzzy
 msgid "Common name"
-msgstr ""
+msgstr "普通名稱"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
+#, fuzzy
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
@@ -756,38 +824,45 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1606
 #: src/EBox/OpenVPN.pm:1617
+#, fuzzy
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1607
 #: src/EBox/OpenVPN.pm:1618
+#, fuzzy
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1609
 #: src/EBox/OpenVPN.pm:1620
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1610
 #: src/EBox/OpenVPN.pm:1621
+#, fuzzy
 msgid "Remote IP"
-msgstr ""
+msgstr "IP 位址"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1611
 #: src/EBox/OpenVPN.pm:1622
+#, fuzzy
 msgid "Remote Certificate"
-msgstr ""
+msgstr "檢視憑證(_V)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1616
 #: src/EBox/OpenVPN.pm:1627
+#, fuzzy
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "匯出成功"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1618
 #: src/EBox/OpenVPN.pm:1629
+#, fuzzy
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "此憑證無法檢視"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1619
 #: src/EBox/OpenVPN.pm:1630
@@ -796,28 +871,33 @@ msgstr ""
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1620
 #: src/EBox/OpenVPN.pm:1631
+#, fuzzy
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "驗證憑證失敗。\n"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1622
 #: src/EBox/OpenVPN.pm:1633
+#, fuzzy
 msgid "Client connection initiated"
-msgstr ""
+msgstr "使用安全連線(_U):"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1623
 #: src/EBox/OpenVPN.pm:1634
+#, fuzzy
 msgid "Client connection terminated"
-msgstr ""
+msgstr "使用安全連線(_U):"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1625
 #: src/EBox/OpenVPN.pm:1636
+#, fuzzy
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "無法連接至伺服器"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1626
 #: src/EBox/OpenVPN.pm:1637
+#, fuzzy
 msgid "Server connection terminated"
-msgstr ""
+msgstr "使用安全連線(_U):"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1630
 #: src/EBox/OpenVPN.pm:1641

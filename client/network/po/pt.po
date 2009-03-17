@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-06-06 09:39+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-10 23:31+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Ifaces.pm:29
@@ -22,68 +23,68 @@ msgstr ""
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2625
 msgid "Network interfaces"
-msgstr ""
+msgstr "Interfaces de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:25
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
-msgstr ""
+msgstr "Após a configuração inicial pode voltar a Rede/Interfaces no menu"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Iface.pm:45
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
-msgstr ""
+msgstr "Interface de rede configurado"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/DNS.pm:41
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "Pode voltar a Rede/DNS neste menu"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Nameservers.pm:44
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNS configurado"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:29
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
-msgstr ""
+msgstr "Defina a gateway pré-definida"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:43
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "Pode alterar a gateway mais tarde em Rede/Rotas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Gateway.pm:41
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "Gateway configurada"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/View/MultiGwRulesDataTable.pm:32
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr ""
+msgstr "Equilibro de tráfego e regras multigateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:29
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:41
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
-msgstr "Diagnóstico da rede"
+msgstr "Diagnóstico de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:51
 #: src/EBox/CGI/Diag.pm:51
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:14
 #: src/templates/diag.mas:14
 msgid "Host"
-msgstr "Anfitrião"
+msgstr "Hospedeiro"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:58
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2532
 #: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2532
 msgid "host name"
-msgstr "nome de anfitrião"
+msgstr "nome do hospedeiro"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:42
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:59
@@ -92,7 +93,7 @@ msgstr "nome de anfitrião"
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "interface de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:58
 #: src/EBox/CGI/Iface.pm:58
@@ -103,7 +104,7 @@ msgstr "método"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:174
 #: src/EBox/Model/GatewayTable.pm:174 src/EBox/CGI/Iface.pm:87
 msgid "ip address"
-msgstr "endereço ip"
+msgstr "endereço IP"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Iface.pm:88
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:63
@@ -114,7 +115,7 @@ msgstr "máscara de rede"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:44
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr ""
+msgstr "Acção do interface virtual"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:62
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:700
@@ -132,13 +133,13 @@ msgstr ""
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:206
 #: src/templates/ifaces.mas:91 src/templates/ifaces.mas:206
 msgid "IP address"
-msgstr "Endereço de IP"
+msgstr "Endereço IP"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:64
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/VIface.pm:70
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
-msgstr ""
+msgstr "nome do interface virtual"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Vlan.pm:50
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Vlan.pm:53
@@ -149,19 +150,19 @@ msgstr ""
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:148
 #: src/templates/ifaces.mas:148
 msgid "VLAN Id"
-msgstr ""
+msgstr "Identificação da VLAN"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/EnableBalanceTraffic.pm:42
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
-msgstr "balanço de tráfego"
+msgstr "equilíbrio de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:134
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:134
 msgid "Traffic rate monitoring"
-msgstr ""
+msgstr "Monitorização da taxa de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2577
@@ -177,63 +178,63 @@ msgstr "A correr"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:756
 #: src/EBox/Network/Report/ByteRate.pm:756
 msgid "bytes/second"
-msgstr "Bytes/segundo"
+msgstr "bytes/s"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:823
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:929
 #: src/EBox/Network/Report/ByteRate.pm:823
 #: src/EBox/Network/Report/ByteRate.pm:929
 msgid "Traffic data for source"
-msgstr ""
+msgstr "dados de tráfego da fonte"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:843
 #: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
 msgid "Network traffic from {src}"
-msgstr ""
+msgstr "Tráfego de rede de {src}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:877
 #: src/EBox/Network/Report/ByteRate.pm:877
 msgid "Traffic data not found for service"
-msgstr ""
+msgstr "Não foram encontrados dados de tráfego para o serviço"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:887
 #: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
 msgid "Network traffic for {service}"
-msgstr ""
+msgstr "Tráfego de rede para {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:937
 #: src/EBox/Network/Report/ByteRate.pm:937
 msgid "Traffic data for service"
-msgstr ""
+msgstr "Dados de tráfego para o serviço"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:946
 #: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
-msgstr ""
+msgstr "Não foram encontrados dados para a fonte e serviço"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:948
 #: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
 msgid "source {src} and service {service}"
-msgstr ""
+msgstr "fonte {src} e serviço {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:962
 #: src/EBox/Network/Report/ByteRate.pm:962
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
-msgstr ""
+msgstr "Tráfego de rede da fonte {src} e para o serviço {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:989
 #: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
-msgstr ""
+msgstr "Todos os serviços activos"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:994
 #: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
-msgstr ""
+msgstr "Dados de tráfego para"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:995
 #: src/EBox/Network/Report/ByteRate.pm:995
@@ -243,50 +244,50 @@ msgstr "todos os serviços"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1040
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr ""
+msgstr "Todas as fontes activas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1045
 #: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "Traffic data for"
-msgstr ""
+msgstr "Dados de tráfego para"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1046
 #: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr ""
+msgstr "todas as fontes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1084
 #: src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr ""
+msgstr "Taxa total de tráfego de {src}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1099
 #: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr ""
+msgstr "Taxa total de tráfego para {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1123
 #: src/EBox/Network/Report/ByteRate.pm:1123
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
-msgstr ""
+msgstr "Taxa de tráfego de {src} para {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:14
 #: src/EBox/Network/FirstTime.pm:14
 msgid "Configure network interfaces"
-msgstr ""
+msgstr "Configurar interfaces de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:15
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "Configurar os servidores de nome"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/FirstTime.pm:16
 #: src/EBox/Network/FirstTime.pm:16
 msgid "Configure default gateway"
-msgstr ""
+msgstr "Configurar a gateway pré-definida"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:82
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:60
@@ -342,32 +343,32 @@ msgstr "Interface"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:99
 #: src/EBox/Model/GatewayTable.pm:99
 msgid "Interface connected to this gateway"
-msgstr ""
+msgstr "Interface ligado a esta gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:103
 #: src/EBox/Model/GatewayTable.pm:103
 msgid "Upload"
-msgstr "Upload"
+msgstr "Carregar"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:107
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Taxa de carregamento em Kbits/s para esta gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:112
 #: src/EBox/Model/GatewayTable.pm:112
 msgid "Download"
-msgstr "Download"
+msgstr "Descarregar"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:116
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Taxa de descarga em Kbits/s para esta gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:120
 #: src/EBox/Model/GatewayTable.pm:120
 msgid "Weight"
-msgstr "Weight"
+msgstr "Carga"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:124
 #: src/EBox/Model/GatewayTable.pm:124
@@ -375,11 +376,13 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Este campo só é útil se tiver mais que um router e o equilíbrio de tráfego "
+"estiver ligado"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130
 msgid "Default"
-msgstr "Pré-definido"
+msgstr "Omissão"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:140
 #: src/EBox/Model/GatewayTable.pm:140
@@ -390,7 +393,7 @@ msgstr "Lista de gateways"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2654
 #: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2654
 msgid "Gateways"
-msgstr ""
+msgstr "Gateways"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:155
 #: src/EBox/Model/GatewayTable.pm:155
@@ -404,7 +407,9 @@ msgid ""
 msgstr ""
 "Pode adicionar quantos gateways desejar. Isto é útil se desejar dividir o "
 "tráfego por diferentes ligações. {br} Os campos upload e download devem ser "
-"os definidos para cada ligação à Internet."
+"os definidos conforme a largura de banda da sua ligação através da gateway. "
+"O valor correcto é critico para assegurar o funcionamento correcto do módulo "
+"de perfil de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:157
 #: src/EBox/Model/GatewayTable.pm:157
@@ -429,6 +434,8 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"Interface de chegada para comparação de pacotes. Se quiser comparar uma sub-"
+"rede inteira seleccione o interface dessa sub-rede "
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:109
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:111
@@ -447,24 +454,24 @@ msgstr "Qualquer"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:117
 #: src/EBox/Model/MultiGwRulesDataTable.pm:117
 msgid "Source IP"
-msgstr "IP de chegada"
+msgstr "IP da fonte"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:122
 #: src/EBox/Model/MultiGwRulesDataTable.pm:122
 msgid "Source object"
-msgstr "Objecto de chegada"
+msgstr "Objecto da fonte"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:133
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:166
 #: src/EBox/Model/MultiGwRulesDataTable.pm:133
 #: src/EBox/Model/MultiGwRulesDataTable.pm:166
 msgid "Port"
-msgstr "Porta"
+msgstr "Porto"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:137
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr ""
+msgstr "Deixe em branco para seleccionar qualquer porto"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:141
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
@@ -484,7 +491,7 @@ msgstr "Objecto de destino"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:170
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr ""
+msgstr "Deixe em branco se quiser seleccionar qualquer porto"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:174
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:148
@@ -496,7 +503,7 @@ msgstr "Gateway"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:178
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
-msgstr ""
+msgstr "Gateway para rotear pacotes que correspondam a esta regra"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:188
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
@@ -505,14 +512,18 @@ msgstr "Regras Multigateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:202
 #: src/EBox/Model/MultiGwRulesDataTable.pm:202
-#, fuzzy
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destination and so forth  to use the router you "
 "choose. Please, bear in mind that rules will be applied in order, from top "
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
-msgstr "Pode decidir que tipo de tráfico passa por cada gateway"
+msgstr ""
+"Pode decidir que tipo de tráfico passa por cada gateway. neste modo pode "
+"forçar uma sub-rede, serviço, destino, etc a usar a rota que escolher. tenha "
+"em atenção que as regras serão aplicadas de cima para baixo, podendo ser "
+"reordenadas após serem adicionadas. Se não definir um porto ou endereço IP a "
+"regra será para todos"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:204
 #: src/EBox/Model/MultiGwRulesDataTable.pm:204
@@ -522,27 +533,27 @@ msgstr "regra"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:222
 #: src/EBox/Model/MultiGwRulesDataTable.pm:222
 msgid "Destination port"
-msgstr "Porta de destino"
+msgstr "Porto de destino"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:227
 #: src/EBox/Model/MultiGwRulesDataTable.pm:227
 msgid "Source port"
-msgstr "Porta de chegada"
+msgstr "Porto fonte"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:237
 #: src/EBox/Model/MultiGwRulesDataTable.pm:237
 msgid "Port cannot be set if no protocol is selected"
-msgstr "A porta não pode ser ligada se nenhum protocolo é seleccionado"
+msgstr "O porto não pode ser definido se nenhum protocolo for seleccionado"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:74
 #: src/EBox/Model/PhysicalInterfaceTable.pm:74
 msgid "Physical interface list"
-msgstr "Lista de interfaces fisicos"
+msgstr "Lista de interfaces físicos"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:81
 #: src/EBox/Model/PhysicalInterfaceTable.pm:81
 msgid "These are the physical interfaces which are available in your system."
-msgstr "Existem placas de rede disponíveis no sistema"
+msgstr "Estes são os interfaces físicos disponíveis no sistema"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:83
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:94
@@ -566,7 +577,7 @@ msgstr "Lista de interfaces Vlan"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:92
 #: src/EBox/Model/VlanInterfaceTable.pm:92
 msgid "These are the vlan interfaces which are available in your system."
-msgstr ""
+msgstr "Estas são as Vlan disponíveis no sistema"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:83
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:218
@@ -584,7 +595,7 @@ msgstr "Método"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:74
 #: src/templates/ifaces.mas:74
 msgid "External"
-msgstr "Esterior"
+msgstr "Exterior"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:108
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:108
@@ -594,12 +605,12 @@ msgstr "Lista de interfaces configuráveis"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:115
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
 msgid "These are the interfaces which can be configured"
-msgstr "Estes interfaces podem ser configuráveis"
+msgstr "Estes são os interfaces que podem ser configuráveis"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:46
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
-msgstr ""
+msgstr "Seleccione o gráfico de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:57
 #: src/EBox/Model/ByteRateGraphControl.pm:57
@@ -609,36 +620,40 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"Poderão ser mostradas várias vistas dependendo do parâmetro da selecção. "
+"Podem ser necessários Um endereço IP hospedeiro e um serviço que "
+"correspondam à legenda dos gráficos baseados em /etc/services. A vista do "
+"fluxo mudará em acordo"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:78
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "Tipo de gráfico"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:85
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr ""
+msgstr "Todo o tráfego activo por fonte"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:89
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
-msgstr ""
+msgstr "Todo o tráfego activo por serviço"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:93
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "Tráfego por fonte seleccionada"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:99
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
-msgstr ""
+msgstr "Tráfego por serviço seleccionado"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:105
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr ""
+msgstr "Tráfego por fonte e serviço"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:117
 #: src/EBox/Model/ByteRateGraphControl.pm:117
@@ -648,34 +663,35 @@ msgstr "Serviço"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:80
 #: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
-msgstr ""
+msgstr "Interface a escutar"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:89
 #: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
-msgstr ""
+msgstr "Definições da monitorização da taxa de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:93
 #: src/EBox/Model/ByteRateSettings.pm:93
 msgid "Changes will be applied immediately to the traffic rate monitor"
 msgstr ""
+"As alteração serão aplicadas imediatamente ao monitor de taxa de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:96
 #: src/EBox/Model/ByteRateSettings.pm:96
 msgid "Settings changed"
-msgstr ""
+msgstr "Definições alteradas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:115
 #: src/EBox/Model/ByteRateSettings.pm:115
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (interface interno)"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:122
 #: src/EBox/Model/ByteRateSettings.pm:122
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (interface externo)"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:129
 #: src/EBox/Model/ByteRateSettings.pm:129
@@ -686,12 +702,12 @@ msgstr "todos"
 #: src/EBox/Model/ByteRateEnableForm.pm:71
 msgid ""
 "Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
+msgstr "A começar a monitorização do tráfego. Espere até o gráfico aparecer"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:74
 #: src/EBox/Model/ByteRateEnableForm.pm:74
 msgid "Stopping traffic rate monitoring"
-msgstr ""
+msgstr "A parar monitorização da taxa de tráfego"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:87
 #: src/EBox/Model/ByteRateEnableForm.pm:87
@@ -699,6 +715,8 @@ msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
 msgstr ""
+"O monitor da taxa de tráfego pode ser parado ou iniciado sem que seja "
+"necessário gravar as alterações em primeiro lugar"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:141
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:67
@@ -710,14 +728,13 @@ msgstr "Rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:144
 #: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
 msgid "IP or network address"
-msgstr "Endereço de IP"
+msgstr "Endereço IP ou de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:150
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "Gateway usada para encontrar o endereço de rede acima"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:155
 #: src/EBox/Model/StaticRoute.pm:155
@@ -729,7 +746,7 @@ msgstr "Descrição"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:158
 #: src/EBox/Model/StaticRoute.pm:158
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Descrição opcional para esta rota"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:164
 #: src/EBox/Model/StaticRoute.pm:164
@@ -738,9 +755,8 @@ msgstr "Rotas estáticas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:165
 #: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
 msgid "Static route list"
-msgstr "Rotas estáticas"
+msgstr "Lista das rotas estáticas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:170
 #: src/EBox/Model/StaticRoute.pm:170
@@ -748,36 +764,38 @@ msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
+"Todas as gateways que forem definidas deverão poder ser encontradas por um "
+"ou mais do interfaces de rede actualmente configurados"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:173
 #: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
-msgstr ""
+msgstr "rota estática"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:78
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
-msgstr ""
+msgstr "O endereço IP do servidor DNS que a eBox usará para resolver nomes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:84
 #: src/EBox/Model/DNSResolver.pm:84
 msgid "Name server"
-msgstr ""
+msgstr "Nome do servidor"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:93
 #: src/EBox/Model/DNSResolver.pm:93
 msgid "Name server resolver list"
-msgstr ""
+msgstr "Lista dos servidores de resolução de nomes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:94
 #: src/EBox/Model/DNSResolver.pm:94
 msgid "Name server resolver"
-msgstr ""
+msgstr "Servidor de resolução de nomes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:100
 #: src/EBox/Model/DNSResolver.pm:100
 msgid "name server"
-msgstr ""
+msgstr "servidor de nomes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:112
 #: src/EBox/Model/DNSResolver.pm:112
@@ -786,11 +804,14 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+"<p>Aqui poderá adicionar os servidores de resolução de nomes que a eBox irá "
+"usar.</p>Tenha em conta que essas definições podem ser apagadas se tiver "
+"algum interface configurado por DHCP"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:85
 #: src/EBox/Network.pm:85
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "Adicionar os roteadores pré-definidos à tabela pré-definida"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:86
 #: src/EBox/Network.pm:86
@@ -798,11 +819,13 @@ msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Isto é necessário para trabalhar com uma configuração multi-gateway. Tenha "
+"em conta a lista de rotas pré-definida que tem que executar:"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:92
 #: src/EBox/Network.pm:92
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "Activar o gancho eBox DHCP"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:93
 #: src/EBox/Network.pm:93
@@ -810,17 +833,19 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Será adicionada a rota pré-definida estabelecida por um servidor de DHCP "
+"para a tabela de rotas pré-definidas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:109
 #: src/EBox/Network.pm:109
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "A eBox definirá a sua configuração de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:697
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:701
 #: src/EBox/Network.pm:697 src/EBox/Network.pm:701
 msgid "Virtual interface name"
-msgstr ""
+msgstr "Nome do interface virtual"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:700
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1009
@@ -830,12 +855,13 @@ msgstr ""
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:207
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
-msgstr ""
+msgstr "Máscara de rede"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1133
 #: src/EBox/Network.pm:1133
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
+"Este interface não pode ser configurado em modo trunk, é um interface vlan."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1178
 #: src/EBox/Network.pm:1178
@@ -843,12 +869,16 @@ msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
+"Este inrerface está em modo trunk, deve desconfigurar todos os interfaces "
+"vlan neste trunk alterando o seu modo de configuração"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1211
 #: src/EBox/Network.pm:1211
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
+"Os interfaces de rede necessitam de estar em modo trunk antes que seja "
+"possível adicionar mais vlans"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2214
 #: src/EBox/Network.pm:2214
@@ -856,13 +886,15 @@ msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
+"A operação requisitada irá fazer com que não seja possível alcançar um dos "
+"rateadores configurados. Remova-a primeiro se quiser fazer esta alteração"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2279
 #: debian/ebox-network/usr/share/perl5/EBox/NetworkUtil.pm:55
 #: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2279
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
-msgstr ""
+msgstr "A gateway {gw} não pode ser alcançada"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2282
 #: src/EBox/Network.pm:2282
@@ -871,26 +903,28 @@ msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr ""
+"A gateway {gw} dever ser possível de encontrar pelo interface estático. "
+"Actualmente é possível de alcançar por {iface} que não é estático"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2513
 #: src/EBox/Network.pm:2513
 msgid "Host name"
-msgstr ""
+msgstr "Nome do hospedeiro"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2562
 #: src/EBox/Network.pm:2562
 msgid "down"
-msgstr "em baixo"
+msgstr "para baixo"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2568
 #: src/EBox/Network.pm:2568
 msgid "up"
-msgstr "em cima"
+msgstr "para cima"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2572
 #: src/EBox/Network.pm:2572
 msgid "link ok"
-msgstr "ligação ok"
+msgstr "ligação correcta"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2574
 #: src/EBox/Network.pm:2574
@@ -900,22 +934,22 @@ msgstr "sem ligação"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2582
 #: src/EBox/Network.pm:2582
 msgid "MAC address"
-msgstr ""
+msgstr "Endereço MAC"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
 #: src/EBox/Network.pm:2599
 msgid "Tx bytes"
-msgstr ""
+msgstr "Transmissão bytes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
 #: src/EBox/Network.pm:2608
 msgid "Rx bytes"
-msgstr ""
+msgstr "Recepção Bytes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
 #: src/EBox/Network.pm:2645
 msgid "Interfaces"
-msgstr ""
+msgstr "Interfaces"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2649
 #: src/EBox/Network.pm:2649
@@ -925,12 +959,12 @@ msgstr "Rotas"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2651
 #: src/EBox/Network.pm:2651
 msgid "Diagnosis"
-msgstr ""
+msgstr "Diagnostico"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2657
 #: src/EBox/Network.pm:2657
 msgid "Balance traffic"
-msgstr ""
+msgstr "Balanço de tráfego"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:14
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:11
@@ -939,6 +973,8 @@ msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
+"A configuração que está a efectuar afectará um ou mais módulos referenciados "
+"a este interface de rede"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:17
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:14
@@ -948,6 +984,9 @@ msgid ""
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
+"Se escolher continuar, todos os módulos que usam a configuração actual deste "
+"interface de rede apagarão partes relevantes da sua configuração. Escolha "
+"\"Cancelar\" se não tiver se certeza do que está a fazer."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:31
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:24
@@ -967,6 +1006,8 @@ msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
+"Lembre-se que alterar a configuração dos interfaces de rede pode causar a "
+"perda de acesso à página de administração"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:14
 #: src/templates/ifaces.mas:14
@@ -975,6 +1016,9 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
+"O tráfego roteado através de interfaces marcados como externos será tratado "
+"através de NAT. Também, serviços para os utilizadores da rede não estarão "
+"disponíveis nos interfaces externos."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:43
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:45
@@ -986,13 +1030,13 @@ msgstr "Estático"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:58
 #: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Trunk (802.1q)"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:63
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:65
 #: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"
-msgstr "Não definido"
+msgstr "Não está definido"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:135
 #: src/templates/ifaces.mas:135
@@ -1002,7 +1046,7 @@ msgstr "Modificar"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:143
 #: src/templates/ifaces.mas:143
 msgid "VLAN List"
-msgstr ""
+msgstr "Lista VLAN"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:150
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:208
@@ -1037,7 +1081,7 @@ msgstr "Apagar"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:200
 #: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
-msgstr ""
+msgstr "Interfaces virtuais"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:13
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:18
@@ -1048,22 +1092,22 @@ msgstr "Ping"
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:22
 #: src/templates/diag.mas:22
 msgid "Name resolution"
-msgstr ""
+msgstr "Resolução de nomes"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:23
 #: src/templates/diag.mas:23
 msgid "Domain name"
-msgstr ""
+msgstr "Nome do domínio"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:27
 #: src/templates/diag.mas:27
 msgid "Lookup"
-msgstr ""
+msgstr "Busca"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/diag.mas:29
 #: src/templates/diag.mas:29
 msgid "Output"
-msgstr ""
+msgstr "Saída"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:19
 #: src/templates/gwrules.mas:19
@@ -1071,11 +1115,14 @@ msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
+"Para poder usar esta característica necessita de pelo menos duas gateways. "
+"Pode adicioná-las em <a "
+"href=\"/ebox/Network/View/GatewayTable\">aqui</a>primeiro"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:25
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
-msgstr ""
+msgstr "Balanço de tráfego"
 
 #~ msgid "There is already a default gateway"
 #~ msgstr "Já existe um gateway pré-definido"

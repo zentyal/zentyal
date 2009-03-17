@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:58+0100\n"
-"PO-Revision-Date: 2009-02-21 17:40+0000\n"
+"PO-Revision-Date: 2009-03-10 23:51+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -29,20 +29,20 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42
 msgid "Certification Authority Management"
-msgstr "Gestão de Autoridade Certificadora (Certification Authority)"
+msgstr "Gestão de Autoridade Certificadora"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:108
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
 #: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
 msgid "CA passphrases do NOT match"
-msgstr "Palavra passe CA não coincide"
+msgstr "Palavra-passe CA não coincide"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr "Palavra passe CA deve ter {length} caracteres"
+msgstr "Palavra-passe CA deve ter pelo menos {length} caracteres"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
@@ -56,8 +56,7 @@ msgstr "Dias para expirar ({days}) deve ser um número inteiro"
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:134
 #: src/EBox/CGI/CreateCA.pm:134
 msgid "Problems creating Certification Authority has happened"
-msgstr ""
-"Problemas ao criar Certificado de Autoridade \"Certification Autority\""
+msgstr "Problema ao criar Certificado de Autoridade"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:69
@@ -90,7 +89,7 @@ msgstr "Nome comum"
 #: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr "Nome comum: {cn} não existe na base de dados"
+msgstr "Nome comum: {cn} NÃO existe na base de dados"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:127
 #: src/EBox/CGI/DownloadFiles.pm:127
@@ -258,7 +257,7 @@ msgstr ""
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1102 src/EBox/CA.pm:1102
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "Ambos os nomes comuns, nome ou número de série passou"
+msgstr "Ambos os nomes comuns, nome ou número de série passaram"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1329 src/EBox/CA.pm:1329
 msgid "or"
@@ -282,7 +281,7 @@ msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
 msgstr ""
-"A chave privada é necessária para criar um novo pedido. Não foi feito uma "
+"É necessária a chave privada para criar um novo pedido. Não foi feita uma "
 "renovação. Crie um novo certificado com nova chave."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1649 src/EBox/CA.pm:1649
@@ -292,7 +291,8 @@ msgstr "Gestor de Certificados"
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2173 src/EBox/CA.pm:2173
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
-"Incapaz de assinar. Palavra passe CA errada ou chave privada CA desapareceu"
+"Incapaz de assinar. Palavra-passe do CA errada ou chave privada do CA "
+"desapareceu"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2175 src/EBox/CA.pm:2175
 msgid "Database corruption"
@@ -320,14 +320,13 @@ msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr ""
-"Criado Autoridade Certificadora da organização {orgName} válido por {days} "
+"Criada Autoridade Certificadora da organização {orgName} válido por {days} "
 "dias"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2259 src/EBox/CA.pm:2259
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr ""
-"Destruídaa certificação da Autoridade Certificadora da organização {orgName}"
+msgstr "Foi destruída a Autoridade Certificadora da organização {orgName}"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2261 src/EBox/CA.pm:2261
 #, perl-brace-format
@@ -340,7 +339,7 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Criado certificado CA da organização {orgName} com validade de {days} dias"
+"Emitido certificado CA da organização {orgName} com validade de {days} dias"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2265 src/EBox/CA.pm:2265
 #, perl-brace-format
@@ -353,7 +352,7 @@ msgstr ""
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2267 src/EBox/CA.pm:2267
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
-msgstr "Criado certificado de nome comum {cn} com validade de {days} dias"
+msgstr "Emitido certificado de nome comum {cn} com validade de {days} dias"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2269 src/EBox/CA.pm:2269
 #, perl-brace-format
@@ -385,9 +384,7 @@ msgstr "Criar"
 #: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:23
 #: src/templates/createCA.mas:23
 msgid "Create Certification Authority Certificate"
-msgstr ""
-"Criar Certificado de Autoridade Certificadora (Certification Authority "
-"Certificate - CA)"
+msgstr "Criar Certificado de Autoridade Certificadora"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:27
 #: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:23
@@ -428,9 +425,9 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
-"O certificado cujo nome comun é {cn} que tentou renovar está a ser utilizado "
-"por algum módulo, por favor confirme se tem a certeza que quer renovar e "
-"ficar com serviço(s) instáveis ou desactivados."
+"O certificado cujo nome comum é {cn} e que tentou renovar está a ser "
+"utilizado por algum módulo, por favor confirme se tem a certeza que quer "
+"renovar e ficar com serviço(s) instáveis ou desactivados."
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:13
 #: src/templates/forceRevoke.mas:13
@@ -450,9 +447,9 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
-"Esta revogação pode afectar a funcionalidade de outros módulos, por favor "
-"confirme se tem certeza que quer revogar toda a autoridade certificadora de "
-"{on} e deixar os serviço(s) instáveis ou desabilitados"
+"Esta revogação pode afectar a funcionalidade de outros módulos, confirme se "
+"tem certeza que quer revogar toda a autoridade certificadora de {on} e "
+"deixar os serviço(s) instáveis ou desabilitados"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:24
 #: src/templates/forceRevoke.mas:24
@@ -532,7 +529,7 @@ msgstr "A palavra-passe CA é opcional"
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:57
 #: src/templates/index.mas:57
 msgid "Issue the Certification Authority Certificate"
-msgstr "Emissão do certificado de Autoridade Certificadora"
+msgstr "Emite o certificado de Autoridade Certificadora"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:59
 #: src/templates/index.mas:59
@@ -542,7 +539,7 @@ msgstr "Emitir um novo certificado"
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:66
 #: src/templates/index.mas:66
 msgid "Current Certificate List"
-msgstr "Lista actual dos certificados "
+msgstr "Lista actual dos certificados"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:68
 #: src/templates/index.mas:68

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2009-02-23 11:45+0000\n"
+"PO-Revision-Date: 2009-03-10 22:31+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "utilizador"
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/User.pm:46
 #: src/EBox/CGI/User.pm:46
 msgid "username"
-msgstr "nome do utilizador"
+msgstr "utilizador"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/ModifyUser.pm:49
 #: src/EBox/CGI/ModifyUser.pm:49
@@ -184,7 +184,7 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
-"Deve activar o módulo de utilizadores na secção de stus do módulo para o "
+"Deve activar o módulo de utilizadores na secção de status do módulo para o "
 "poder usar"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:130
@@ -232,7 +232,7 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:354
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr "O utilizador não pode ser maior que {maxuserlength} caracteres"
+msgstr "O nomes do utilizador não pode ser maior que {maxuserlength} caracteres"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:410
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:832
@@ -485,7 +485,7 @@ msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
 msgstr ""
-"Esta operação remove o utilizador e todas as suas dependencias tais como "
+"Esta operação remove o utilizador e todas as suas dependências tais como "
 "contas de correio, dados do utilizador, etc."
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/del.mas:15

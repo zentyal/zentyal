@@ -9,8 +9,8 @@ msgstr ""
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-11-10 08:47+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-15 07:54+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,13 +23,15 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:270
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "介面\t成員\t群組\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:273
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "介面\t成員\t群組\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:300
 msgid "Guaranteed rate"
@@ -51,50 +53,61 @@ msgid "If service is any, some source ordestination should be provided"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:478
+#, fuzzy
 msgid "Service"
-msgstr ""
+msgstr "服務"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
+#, fuzzy
 msgid "Port based service"
-msgstr ""
+msgstr "通訊埠\t狀態\t服務\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
+#, fuzzy
 msgid "Source"
-msgstr ""
+msgstr "來源"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:500
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:528
+#, fuzzy
 msgid "Any"
-msgstr ""
+msgstr "任何分類"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:503
+#, fuzzy
 msgid "Source IP"
-msgstr ""
+msgstr "IP 來源"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:508
+#, fuzzy
 msgid "Source MAC"
-msgstr ""
+msgstr "IP 來源"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:513
+#, fuzzy
 msgid "Source object"
-msgstr ""
+msgstr "物件識別碼 (%s)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:523
+#, fuzzy
 msgid "Destination"
-msgstr ""
+msgstr "目的地"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:531
+#, fuzzy
 msgid "Destination IP"
-msgstr ""
+msgstr "IP 位址"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:536
+#, fuzzy
 msgid "Destination object"
-msgstr ""
+msgstr "物件識別碼 (%s)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
 #: src/EBox/TrafficShaping.pm:1559
+#, fuzzy
 msgid "Priority"
-msgstr ""
+msgstr "優先順序"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
@@ -127,8 +140,9 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "完成 uris 清單的 EFolderList xml"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
 msgid ""
@@ -137,8 +151,9 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
+#, fuzzy
 msgid "rule"
-msgstr ""
+msgstr "新增規則"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:656
 #, perl-brace-format
@@ -163,8 +178,9 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:776
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+#, fuzzy
 msgid "Application based service"
-msgstr ""
+msgstr "關於本程式"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:784
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:800
@@ -199,8 +215,9 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#, fuzzy
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "選擇要還原的檔案"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -242,23 +259,30 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
+#, fuzzy
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "憑證管理中心金鑰識別碼"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
+#, fuzzy
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 #: src/EBox/TC.pm:69
+#, fuzzy
 msgid "options"
-msgstr ""
+msgstr "<b>選項</b>"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:429
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:961
+#: src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:429
+#: src/EBox/TrafficShaping.pm:579
+#: src/EBox/TrafficShaping.pm:961
+#, fuzzy
 msgid "Interface"
-msgstr ""
+msgstr "界面"
 
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:375
+#: src/EBox/TrafficShaping.pm:93
+#: src/EBox/TrafficShaping.pm:375
 msgid "Traffic Shaping"
 msgstr ""
 
@@ -275,8 +299,9 @@ msgid "To mark packets with different priorities and rates"
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:137
+#, fuzzy
 msgid "Add tc rules"
-msgstr ""
+msgstr "新增通訊錄"
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
@@ -296,8 +321,9 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:1067
+#, fuzzy
 msgid "type"
-msgstr ""
+msgstr "類型"
 
 #: src/EBox/TrafficShaping.pm:1090
 #, perl-brace-format
@@ -307,9 +333,11 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:1555
+#, fuzzy
 msgid "Protocol"
-msgstr ""
+msgstr "通訊協定"
 
 #: src/EBox/TrafficShaping.pm:1556
+#, fuzzy
 msgid "Port"
-msgstr ""
+msgstr "通訊埠"

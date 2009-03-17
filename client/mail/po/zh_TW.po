@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2009-02-28 11:25+0000\n"
+"PO-Revision-Date: 2009-03-04 04:13+0000\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -279,16 +279,15 @@ msgstr "在灰名單功能中要求郵件寄件者再次送信的時間"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:87
 msgid "Entries time to live (days)"
-msgstr ""
+msgstr "項目存活的時間(天)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:88
 msgid "Period after that unseen entries will be deleted"
 msgstr ""
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:101
-#, fuzzy
 msgid "Greylist configuration"
-msgstr "郵件調整設置已更新"
+msgstr "灰名單組態"
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
@@ -297,7 +296,7 @@ msgstr "郵件伺服器選項"
 
 #: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "設定灰名單功能中的白名單"
 
 #: src/EBox/MailVDomainsLdap.pm:332
 msgid "Size quota"
@@ -330,12 +329,12 @@ msgstr "郵件"
 #: src/EBox/Mail.pm:112
 #, perl-brace-format
 msgid "Add {user} to {group} group"
-msgstr ""
+msgstr "將 {user} 加入 {group} 群組"
 
 #: src/EBox/Mail.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-msgstr "允許 postfix 用 saslauthd 連線到 unix socket"
+msgstr "允許 {daemon} 用 {otherDaemon} 連線到 unix socket"
 
 #: src/EBox/Mail.pm:120
 msgid "Generate mail aliases"
@@ -344,16 +343,16 @@ msgstr "產生郵件別名"
 #: src/EBox/Mail.pm:122
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr ""
+msgstr "eBox 將執行 {cmd}"
 
 #: src/EBox/Mail.pm:126
 msgid "Add LDAP schemas"
 msgstr "新增 LDAP schemas"
 
 #: src/EBox/Mail.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
-msgstr "eBox 將會新增兩個 LDAP schemas: authldap.schema 和 eboximail.schema."
+msgstr "eBox 將會新增兩個 LDAP schemas: {schema1} 和 {schema2}。"
 
 #: src/EBox/Mail.pm:147
 msgid "To configure postfix"
@@ -396,9 +395,8 @@ msgid "To configure saslauthd to use LDAP"
 msgstr "設置 saslauthd 使用 LDAP"
 
 #: src/EBox/Mail.pm:208
-#, fuzzy
 msgid "To configure smart host authentication"
-msgstr "設置讓 saslauthd 用 LDAP 驗證"
+msgstr "設置 smart host 驗證"
 
 #: src/EBox/Mail.pm:213
 msgid "To add the LDAP schemas used by eBox mail"
@@ -414,11 +412,11 @@ msgid ""
 msgstr "郵件過濾器不存在.請設定其他的郵件過濾器或是停用它"
 
 #: src/EBox/Mail.pm:623
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The mail filter {name} is not active. Please set another mail filter or "
 "disable it"
-msgstr "郵件過濾器 $name 沒有啟動.請設定其他的郵件過濾器或是停用它"
+msgstr "郵件過濾器 {name} 沒有啟動。請設定其他的郵件過濾器或是停用它"
 
 #: src/EBox/Mail.pm:1031
 msgid "POP3 service"
@@ -441,14 +439,12 @@ msgid "Status"
 msgstr "狀態"
 
 #: src/EBox/Mail.pm:1072
-#, fuzzy
 msgid "Mail server's filter"
-msgstr "郵件伺服器選項"
+msgstr "郵件伺服器的過濾器"
 
 #: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
-#, fuzzy
 msgid "Filter type"
-msgstr "過濾器"
+msgstr "過濾器類型"
 
 #: src/EBox/Mail.pm:1082
 msgid "Custom"
@@ -468,7 +464,7 @@ msgstr "虛擬郵件網域"
 
 #: src/EBox/Mail.pm:1128
 msgid "Greylist"
-msgstr ""
+msgstr "灰名單"
 
 #: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
 msgid "Date"
@@ -540,7 +536,7 @@ msgstr ""
 
 #: src/EBox/Mail.pm:1185
 msgid "Greylisted"
-msgstr ""
+msgstr "已使用灰名單"
 
 #: src/EBox/Mail.pm:1186
 msgid "Other events"

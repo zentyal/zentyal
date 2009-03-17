@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-06-06 09:40+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-10 22:42+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:30
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:40
@@ -22,51 +23,51 @@ msgstr ""
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:483
 msgid "System updates"
-msgstr ""
+msgstr "Actualizações do sistema"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:45
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "As actualizações de software estão a ser processadas automáticamente"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:52
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "O sistema está actualizado"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:30
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:40
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:464
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:481
 msgid "eBox components"
-msgstr ""
+msgstr "Componentes eBox"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:84
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Não há pacotes para actualizar"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:145
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/CurrentPackage.pm:31
 #: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "Actualizando"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:146
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Actualizando pacotes"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:147
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:167
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "Pacote actual"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:148
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "pacotes que faltam instalar"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:149
 #: src/EBox/CGI/InstallPkgs.pm:149
@@ -75,6 +76,9 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"A instalação de pacotes foi efectuada com sucesso. O interface de "
+"administração poderá não responder durante alguns segundos. Espere até o "
+"sistema ser totalmente reiniciado"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:153
 #: src/EBox/CGI/InstallPkgs.pm:153
@@ -82,21 +86,23 @@ msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"A instalação dos pacotes não foi correcta. Para mais informação consulte os "
+"registos"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "A remover pacote"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Removendo o pacote seleccionado e suas dependências"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "pacotes a remover"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:169
 #: src/EBox/CGI/InstallPkgs.pm:169
@@ -105,6 +111,9 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"A remoção de pacotes terminou com sucesso. O interface de administração "
+"poderá ficar sem resposta durante alguns segundos. Espere até o sistema ter "
+"sido totalmente reiniciado"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:173
 #: src/EBox/CGI/InstallPkgs.pm:173
@@ -112,22 +121,24 @@ msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"A remoção de pacotes não terminou correctamente. para mais informação "
+"consulte os registos"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:31
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:41
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Actualizações automáticas de software"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Enable.pm:41
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "configuração das actualizações automáticas"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:85
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Activar os scripts cron para descarregar actualizações"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:86
 #: src/EBox/Software.pm:86
@@ -135,16 +146,18 @@ msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"O módulo eBox software descarregará as actualizações disponíveis a partir "
+"das fontes apt configuradas"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:461
 #: src/EBox/Software.pm:478
 msgid "Software management"
-msgstr ""
+msgstr "Gestão de software"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:468
 #: src/EBox/Software.pm:485
 msgid "Automatic updates"
-msgstr ""
+msgstr "Actualizações automáticas"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:559
 #: src/EBox/Software.pm:576
@@ -152,197 +165,199 @@ msgstr ""
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"A gestão de software está bloqueada por {locker}. tente de novo mais tarde"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "eBox - Gestor de certificados de autoridade para a eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "eBox - Módulo do servidor DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "eBox - Servidor DNS"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "a plataforma eBox - Estrutura base"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "eBox - Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "VPNs IPsec"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
+msgstr "eBox - Mensagens escritas (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - protocolos camada 7"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "eBox - Servidor de correio electrónico"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
-msgstr ""
+msgstr "eBox - Módulo do filtro de correio electrónico"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Monitoring module  "
-msgstr ""
+msgstr "ebox - Módulo de monitorização"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - Network configuration module"
-msgstr ""
+msgstr "eBox - Módulo de configuração da rede"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - NTP server"
-msgstr ""
+msgstr "ebox - Servidor NTP"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - Gestão de objectos"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "eBox - Módulo do servidor OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "eBox - Partilha de impressoras"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - File sharing"
-msgstr ""
+msgstr "eBox - Partilha de ficheiros"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Services management"
-msgstr ""
+msgstr "eBox - Gestão de serviços"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "Servidor SOAP para comunicar com o centro de controle eBox"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Software management"
-msgstr ""
+msgstr "eBox - Gestão de software"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "eBox - Cache do proxy e filtro de conteúdos"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - Perfil de tráfego para a eBox"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - Gestão de utilizadores e grupos"
 
 #: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "eBox - Servidor Web"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "Software HTTP"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "serviço de software para actualizar pacotes através de apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "regra para permitir actualizações de apt"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:14
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Os seguintes pacotes serão instalados"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:16
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Os seguintes pacotes serão removidos"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:32
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/del.mas:33
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:14
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:16
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Componente"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:15
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "Versão instalada"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:16
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "Ultima versão"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:17
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "Acções"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:27
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:19
 #: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "Actualização"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:33
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "Instalação"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:35
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "nenhum"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:57
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:74
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:53
 #: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "Actualizar todos os pacotes"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:11
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr ""
+"Estão disponíveis actualizações para os seguintes componentes do sistema"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:17
 #: src/templates/updates.mas:17
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:18
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "Versão"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:64
 #: src/templates/updates.mas:64
@@ -350,8 +365,10 @@ msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Esta operação pode demorar algum tempo. Não se preocupe se a ebox parecer "
+"sem resposta depois de premir o botão de actualização"
 
 #: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:67
 #: src/templates/updates.mas:67
 msgid "Upgrade"
-msgstr ""
+msgstr "Actualização"

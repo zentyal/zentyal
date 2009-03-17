@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-02 19:43+0100\n"
-"PO-Revision-Date: 2009-02-20 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-07 09:04+0000\n"
+"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
@@ -36,6 +37,9 @@ msgid ""
 msgstr ""
 "Антивирусная база не обновлялась с момента установки модуля почтовых "
 "фильтров eBox"
+msgstr ""
+"Антивирусная база не обновлялась с момента установки модуля почтовых "
+"фильтров eBox"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
@@ -48,6 +52,9 @@ msgid ""
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher"
 msgstr ""
+"Обновление закончилось успешно, но ваша версия freshclam устарела.\n"
+"Антивирус не сможет использовать все сигнатуры. Пожалуйста, установите "
+"{version} версию или новее"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful"
@@ -65,16 +72,16 @@ msgstr "Антивирус"
 
 #: src/EBox/AntiVirus.pm:95
 msgid "Update status"
-msgstr ""
+msgstr "Состояние обновления"
 
 #: src/EBox/AntiVirus.pm:177
 msgid "To configure clamd daemon"
-msgstr ""
+msgstr "Настройка демона clamd"
 
 #: src/EBox/AntiVirus.pm:182
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "Настройка обновлений freshclam"
 
 #: src/EBox/AntiVirus.pm:187
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "Планирование запуска обновлений"

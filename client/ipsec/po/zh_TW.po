@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:31+0200\n"
-"PO-Revision-Date: 2009-03-01 08:17+0000\n"
+"PO-Revision-Date: 2009-03-03 07:04+0000\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -205,82 +205,75 @@ msgstr "連線名稱是空白的"
 
 #: src/EBox/IPSec.pm:234
 msgid "Error while removing old rsa keys backup"
-msgstr ""
+msgstr "在移除舊的 rsa 金鑰備份時發生錯誤"
 
 #: src/EBox/IPSec.pm:237
 msgid "Error while making backup dir for rsa keys"
-msgstr ""
+msgstr "在建立 rsa 金鑰備份資料夾時發生錯誤"
 
 #: src/EBox/IPSec.pm:243
 msgid "Error while backing up rsa keys"
-msgstr ""
+msgstr "在備份 rsa 金鑰時發生錯誤"
 
 #: src/EBox/IPSec.pm:255
 msgid "rsa keys backup not found"
-msgstr ""
+msgstr "找不到 rsa 金鑰備份"
 
 #: src/EBox/IPSec.pm:258
 msgid "Error while removing rsa keys"
-msgstr ""
+msgstr "在移除 rsa 金鑰時發生錯誤"
 
 #: src/EBox/IPSec.pm:261
 msgid "Error while making dir for rsa keys"
-msgstr ""
+msgstr "在建立 rsa 金鑰資料夾時發生錯誤"
 
 #: src/EBox/IPSec.pm:268
 msgid "Error while restoring rsa keys"
-msgstr ""
+msgstr "在還原 rsa 金鑰時發生錯誤"
 
 #: src/EBox/IPSec.pm:284
 #: src/EBox/IPSec.pm:300
-#, fuzzy
 msgid "Invalid id."
-msgstr "程式識別碼"
+msgstr "無效的 id。"
 
 #: src/EBox/IPSec.pm:365
-#, fuzzy
 msgid "The connection does not exist."
-msgstr "該檔案不存在"
+msgstr "該連線不存在。"
 
 #: src/EBox/IPSec.pm:627
 #: src/EBox/IPSec.pm:660
-#, fuzzy
 msgid "Invalid connection name"
-msgstr "無效的檔案名稱"
+msgstr "無效的連線名稱"
 
 #: src/EBox/IPSec.pm:906
-#, fuzzy
 msgid "Error getting RSA key"
-msgstr "取得書本檢視時發生錯誤"
+msgstr "取得 RSA 金鑰時發生錯誤"
 
 #: src/EBox/IPSec.pm:936
 msgid "Error while generating RSA key"
-msgstr ""
+msgstr "產生 RSA 金鑰時發生錯誤"
 
 #: src/EBox/IPSec.pm:1007
 msgid "There are tunnels configured to use this RSA key, it cannot be deleted."
-msgstr ""
+msgstr "這裡還有設定為使用這個 RSA 金鑰的通道，因此不能刪除它。"
 
 #: src/EBox/IPSec.pm:1031
 #: src/EBox/IPSec.pm:1099
 msgid "IPSec VPNs"
-msgstr ""
+msgstr "IPSec VPNs"
 
 #: src/EBox/IPSec.pm:1039
 #: src/EBox/IPSec.pm:1066
-#, fuzzy
 msgid "Disabled"
-msgstr "Disabled"
+msgstr "已停用"
 
 #: src/EBox/IPSec.pm:1043
 #: src/EBox/IPSec.pm:1070
-#, fuzzy
 msgid "Down"
 msgstr "下"
 
 #: src/EBox/IPSec.pm:1052
 #: src/EBox/IPSec.pm:1079
-#, fuzzy
 msgid "Up"
 msgstr "上"
 
@@ -290,33 +283,27 @@ msgid "Road warriors"
 msgstr ""
 
 #: src/templates/rsa.mas:9
-#, fuzzy
 msgid "New RSA key"
-msgstr "å¨æ¯ç¹ç¤åå®¶ç§å­¸é¢"
+msgstr "新增 RSA 金鑰"
 
 #: src/templates/rsa.mas:12
-#, fuzzy
 msgid "Key ID:"
-msgstr "金鑰 ID"
+msgstr "金鑰 ID:"
 
 #: src/templates/rsa.mas:16
-#, fuzzy
 msgid "Generate"
-msgstr "產生(_G)"
+msgstr "產生"
 
 #: src/templates/rsa.mas:22
-#, fuzzy
 msgid "Key"
-msgstr "設定鍵"
+msgstr "金鑰"
 
 #: src/templates/rsa.mas:23
-#, fuzzy
 msgid "Actions"
-msgstr "行動"
+msgstr "動作"
 
 #: src/templates/rsa.mas:35
 #: src/templates/rsa.mas:36
-#, fuzzy
 msgid "View"
 msgstr "檢視"
 
@@ -329,20 +316,17 @@ msgstr "檢視"
 #: src/templates/roadwarrior.mas:166
 #: src/templates/roadwarrior.mas:167
 #: src/templates/roadwarrior.mas:168
-#, fuzzy
 msgid "Delete"
 msgstr "刪除"
 
 #: src/templates/static.mas:11
-#, fuzzy
 msgid "Add new tunnel"
-msgstr "不能加入新的連絡人"
+msgstr "加入新的通道"
 
 #: src/templates/static.mas:18
 #: src/templates/static-edit.mas:31
 #: src/templates/roadwarrior.mas:18
 #: src/templates/roadwarrior-edit.mas:34
-#, fuzzy
 msgid "Name"
 msgstr "名稱"
 
@@ -350,87 +334,74 @@ msgstr "名稱"
 #: src/templates/static-edit.mas:42
 #: src/templates/roadwarrior.mas:29
 #: src/templates/roadwarrior-edit.mas:46
-#, fuzzy
 msgid "Network interface"
-msgstr "依介面"
+msgstr "網路介面"
 
 #: src/templates/static.mas:47
 #: src/templates/static-edit.mas:61
-#, fuzzy
 msgid "Remote IP address"
-msgstr "新增通訊錄"
+msgstr "遠端 IP 位址"
 
 #: src/templates/static.mas:58
 #: src/templates/static-edit.mas:71
 #: src/templates/roadwarrior.mas:47
 #: src/templates/roadwarrior-edit.mas:70
-#, fuzzy
 msgid "Local subnet"
-msgstr "本地行事曆"
+msgstr "本地端子網路"
 
 #: src/templates/static.mas:81
 #: src/templates/static-edit.mas:91
-#, fuzzy
 msgid "Remote subnet"
-msgstr "遠端存取"
+msgstr "遠端子網路"
 
 #: src/templates/static.mas:104
 #: src/templates/static-edit.mas:111
-#, fuzzy
 msgid "Authentication method"
-msgstr "不支援的驗證方法"
+msgstr "驗證方法"
 
 #: src/templates/static.mas:110
 #: src/templates/static.mas:121
 #: src/templates/static-edit.mas:117
 #: src/templates/static-edit.mas:122
 #: src/templates/static-edit.mas:173
-#, fuzzy
 msgid "Shared secret"
-msgstr "共用備忘錄(_S)"
+msgstr "分享的秘密"
 
 #: src/templates/static.mas:126
-#, fuzzy
 msgid "RSA Key"
-msgstr "捷徑鍵"
+msgstr "RSA 金鑰"
 
 #: src/templates/static.mas:152
 #: src/templates/static-edit.mas:151
 #: src/templates/roadwarrior.mas:111
 #: src/templates/roadwarrior-edit.mas:133
-#, fuzzy
 msgid "Remote ID"
-msgstr "程式識別碼"
+msgstr "遠端 ID"
 
 #: src/templates/static.mas:168
 #: src/templates/static-edit.mas:162
 #: src/templates/roadwarrior.mas:123
 #: src/templates/roadwarrior-edit.mas:145
-#, fuzzy
 msgid "Remote RSA public key"
-msgstr "主旨公鑰資訊"
+msgstr "遠端 RSA 公開金鑰"
 
 #: src/templates/static.mas:184
 #: src/templates/roadwarrior.mas:136
-#, fuzzy
 msgid "Add"
-msgstr "增加"
+msgstr "加入"
 
 #: src/templates/static.mas:192
 #: src/templates/roadwarrior.mas:144
-#, fuzzy
 msgid "Connections"
 msgstr "連線"
 
 #: src/templates/static.mas:196
 #: src/templates/roadwarrior.mas:148
-#, fuzzy
 msgid "Connection"
-msgstr "連接"
+msgstr "連線"
 
 #: src/templates/static.mas:197
 #: src/templates/roadwarrior.mas:149
-#, fuzzy
 msgid "Action"
 msgstr "動作"
 
@@ -438,26 +409,22 @@ msgstr "動作"
 #: src/templates/static.mas:210
 #: src/templates/roadwarrior.mas:161
 #: src/templates/roadwarrior.mas:162
-#, fuzzy
 msgid "Edit"
 msgstr "編輯"
 
 #: src/templates/static-edit.mas:18
 #: src/templates/roadwarrior-edit.mas:19
-#, fuzzy
 msgid "Enabled"
 msgstr "已啟用"
 
 #: src/templates/static-edit.mas:186
 #: src/templates/roadwarrior-edit.mas:158
-#, fuzzy
 msgid "Change"
-msgstr "更改"
+msgstr "改變"
 
 #: src/templates/static-edit.mas:188
-#, fuzzy
 msgid "Back"
-msgstr "上一頁(_B)"
+msgstr "上一頁"
 
 #: src/templates/roadwarrior.mas:11
 msgid "New road warrior connection"
@@ -466,15 +433,13 @@ msgstr ""
 #: src/templates/roadwarrior.mas:70
 #: src/templates/roadwarrior-edit.mas:91
 msgid "Allowed remote subnet range"
-msgstr ""
+msgstr "允許的遠端子網路範圍"
 
 #: src/templates/roadwarrior.mas:93
 #: src/templates/roadwarrior-edit.mas:112
-#, fuzzy
 msgid "Local RSA Key"
-msgstr "å¨æ¯ç¹ç¤åå®¶ç§å­¸é¢"
+msgstr "本地端 RSA 金鑰"
 
 #: src/templates/roadwarrior-edit.mas:160
-#, fuzzy
 msgid "Cancel"
 msgstr "取消"

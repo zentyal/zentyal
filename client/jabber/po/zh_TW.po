@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2009-03-01 16:10+0800\n"
+"PO-Revision-Date: 2009-03-03 07:18+0000\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -55,50 +55,45 @@ msgstr "eBox 需要這個 schema 來儲存 jabber 使用者"
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:94
 #: src/EBox/Jabber.pm:87
 #: src/EBox/Jabber.pm:92
-#, fuzzy
 msgid "To properly configure jabberd2"
-msgstr "設定套用到這個檢視的過濾器"
+msgstr "要適當的設定 jabberd2"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:98
 #: src/EBox/Jabber.pm:96
 msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
+msgstr "加入 eBox jabber 使用的 LDAP schema"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:356
 #: src/EBox/Jabber.pm:322
-#, fuzzy
 msgid "Jabber Service"
-msgstr "<b>偏好的服務</b>"
+msgstr "Jabber 服務"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:16
 #: src/templates/index.mas:16
-#, fuzzy
 msgid "General Settings"
-msgstr "<b>連線設定</b>"
+msgstr "一般設定值"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:18
 #: src/templates/index.mas:18
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
-msgstr ""
+msgstr "網域名稱應該要能在網路上取得。否則，您可能無法使用這個服務。這個選項會套用到外部和內部連線。"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:24
 #: src/templates/index.mas:24
-#, fuzzy
 msgid "Domain name"
-msgstr "帳戶名稱"
+msgstr "網域名稱"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:32
 #: src/templates/index.mas:32
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "連接到全域 Jabber 網路"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:44
 #: src/templates/index.mas:44
-#, fuzzy
 msgid "SSL Support"
-msgstr "使用 _SSL"
+msgstr "SSL 支援"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:49
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:53
@@ -106,7 +101,6 @@ msgstr "使用 _SSL"
 #: src/templates/index.mas:49
 #: src/templates/index.mas:53
 #: src/templates/index.mas:57
-#, fuzzy
 msgid "No"
 msgstr "否"
 
@@ -116,7 +110,6 @@ msgstr "否"
 #: src/templates/index.mas:50
 #: src/templates/index.mas:54
 #: src/templates/index.mas:58
-#, fuzzy
 msgid "Optional"
 msgstr "選擇性"
 
@@ -126,66 +119,58 @@ msgstr "選擇性"
 #: src/templates/index.mas:51
 #: src/templates/index.mas:55
 #: src/templates/index.mas:59
-#, fuzzy
 msgid "Required"
-msgstr "必須"
+msgstr "必須的"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:68
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/index.mas:69
 #: src/templates/index.mas:68
 #: src/templates/index.mas:69
-#, fuzzy
 msgid "Apply Changes"
-msgstr "是否放棄變更？"
+msgstr "套用變更"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:8
 #: src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber account"
-msgstr "帳戶名稱"
+msgstr "Jabber 帳戶"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:9
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "Jabber 服務的密碼是使用者密碼"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:18
 #: src/templates/jabber.mas:18
-#, fuzzy
 msgid "User account"
-msgstr "帳戶名稱"
+msgstr "使用者帳戶"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:23
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:26
 #: src/templates/jabber.mas:23
 #: src/templates/jabber.mas:26
-#, fuzzy
 msgid "Disabled"
-msgstr "Disabled"
+msgstr "已停用"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:24
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:27
 #: src/templates/jabber.mas:24
 #: src/templates/jabber.mas:27
-#, fuzzy
 msgid "Enabled"
 msgstr "已啟用"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:34
 #: src/templates/jabber.mas:34
-#, fuzzy
 msgid "Administration rights"
-msgstr "存取權利"
+msgstr "管理者權限"
 
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:48
 #: debian/ebox-jabber/usr/share/ebox/templates/jabber/jabber.mas:49
 #: src/templates/jabber.mas:48
 #: src/templates/jabber.mas:49
-#, fuzzy
 msgid "Change"
-msgstr "更改"
+msgstr "改變"
 
 #: debian/ebox-jabber/usr/share/ebox/stubs/jabber/c2s.xml.mas:77
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "輸入要在這個伺服器註冊的使用者名稱和密碼。"

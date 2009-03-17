@@ -8,37 +8,39 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2007-06-06 09:38+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-11 17:06+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr "Recipiente de mail Admin"
+msgstr "Recipiente de correio do administrador"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:1053
 #: src/EBox/Mail.pm:1109 src/EBox/Mail.pm:1190
 msgid "Mail"
-msgstr "Mail"
+msgstr "Correio"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr "Não é possivel ligar a {smtp} servidor de e-mail"
+msgstr "Não é possível ligar ao servidor de correio electrónico {smtp} "
 
 #: src/EBox/Event/Dispatcher/Mail.pm:230
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Não é possível ligar ao servidor {hostname} para enviar o evento por SMTP"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr "ID de Fila"
+msgstr "Identificação da fila"
 
 #: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
 #: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
@@ -47,7 +49,7 @@ msgstr "utilizador"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr "maildrop"
+msgstr "descartar correio"
 
 #: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "account name"
@@ -59,12 +61,12 @@ msgstr "nome de domínio"
 
 #: src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr "alias de e-mail"
+msgstr "pseudónimo de correio"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
 #: src/EBox/Mail.pm:1135
 msgid "Queue Management"
-msgstr "Gestão de Fila"
+msgstr "Gestão da Fila"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
 #: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
@@ -73,11 +75,11 @@ msgstr "domínio virtual"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
-msgstr "Endereço de e-mail"
+msgstr "Endereço de correio"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr "E-mail do utilizador"
+msgstr "Correio do utilizador"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
@@ -85,7 +87,7 @@ msgstr "grupo"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
-msgstr "e-mail alias do grupo"
+msgstr "Pseudónimo de correio electrónico do grupo"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -94,7 +96,7 @@ msgstr "Assunto"
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+msgstr "[EBox-event] Aconteceu um evento em {hostname}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1159
 msgid "To"
@@ -102,59 +104,62 @@ msgstr "Para"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
-msgstr ""
+msgstr "Configurar o expedidor de correio"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
+"para configurar o expedidor de eventos de correio é necessário activar o "
+"serviço de correio da eBox"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
-msgstr ""
+msgstr "A configuração de expedição de correio foi actualizada"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:85
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr ""
+"Os utilizadores necessitam de se autenticar para poderem enviar correio "
+"através deste servidor"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:93
-#, fuzzy
 msgid "Authentication"
-msgstr "Erro de autenticação"
+msgstr "Autenticação"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:123
 msgid "Cannot require authentication when TLS is inactive"
-msgstr ""
+msgstr "Não é possível exigir autenticação quando o TLS está inactivo"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
-#, fuzzy
 msgid "Object"
-msgstr "Assunto"
+msgstr "Objecto"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
-#, fuzzy
 msgid "Allow relay"
-msgstr "Permitido"
+msgstr "Permitir encaminhamento"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
+"Marque para permitir que as máquinas pertencentes a esta objecto enviem "
+"correio através deste servidor"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
-msgstr ""
+msgstr "Politica de encaminhamento para objectos de rede"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
-msgstr ""
+msgstr "Politica de encaminhamento para objectos"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:121
 msgid "You may allow mail relay per network object"
-msgstr ""
+msgstr "Pode permitir o encaminhamento por objecto de rede"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:87
 msgid "Filter in use"
@@ -162,20 +167,19 @@ msgstr "Filtro em utilização"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:94
 msgid "Custom filter's mail forward port"
-msgstr ""
+msgstr "Filtro personalizado do porto de encaminhamento"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:100
 msgid "Custom filter's IP address"
-msgstr ""
+msgstr "Filtro personalizado do endereço IP"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:106
 msgid "Custom filter's Port"
-msgstr ""
+msgstr "Filtro personalizado do porto"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:115
-#, fuzzy
 msgid "Mail filter options"
-msgstr "Configuração do serviço de e-mail"
+msgstr "Opções do filtro de correio"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:135
 msgid "none"
@@ -183,36 +187,33 @@ msgstr "nenhum"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:136
 msgid "custom"
-msgstr ""
+msgstr "personalizado"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost to send mail"
-msgstr ""
+msgstr "Smarthost para enviar correio"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:90
-#, fuzzy
 msgid "Smarthost authentication"
-msgstr "Requer autenticação"
+msgstr "Autenticação do smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:95
-#, fuzzy
 msgid "None"
-msgstr "nenhum"
+msgstr "Nenhum"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User and password"
-msgstr ""
+msgstr "Utilizador e palavra-passe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:105
 msgid "User"
-msgstr ""
+msgstr "Utilizador"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Palavra-passe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:123
-#, fuzzy
 msgid "Maximum message size accepted"
 msgstr "Tamanho máximo da mensagem excedido"
 
@@ -223,39 +224,39 @@ msgstr "Tamanho Ilimitado"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:131
 msgid "size in Mb"
-msgstr ""
+msgstr "tamanho em Mb"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:143
-#, fuzzy
 msgid "Options"
-msgstr "Opcional"
+msgstr "Opções"
 
 #: src/EBox/Mail/Model/VDomains.pm:57
 msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Mail/Model/VDomains.pm:72
-#, fuzzy
 msgid "Mail virtual domains"
-msgstr "domínio virtual"
+msgstr "Domínio de correio virtual"
 
 #: src/EBox/Mail/Model/VDomains.pm:83
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
+"Foi adicionado um domínio virtual. Deve guardar as alterações para usar este "
+"domínio"
 
 #: src/EBox/Mail/Model/VDomains.pm:113
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
+"Deve activar o módulo de correio no estado dos módulos para o poder usar"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:87
 msgid "SSL Support"
 msgstr "Suporte SSL"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:96
-#, fuzzy
 msgid "Mail retrieval services"
-msgstr "Serviços de e-mai"
+msgstr "Serviços de descarga de correio"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:114
 msgid "No"
@@ -275,43 +276,45 @@ msgstr "Ligado"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:70
 msgid "Greylist duration (seconds)"
-msgstr ""
+msgstr "Duração da greylist (segundos)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:78
 msgid "Retry window (hours)"
-msgstr ""
+msgstr "Janela de nova tentativa (horas)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid ""
 "Time that will have the mail sender to retry before it will be greylisted "
 "again"
 msgstr ""
+"Tempo em que o remetente deverá repetir antes que seja colocado novamente na "
+"graylist"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:87
 msgid "Entries time to live (days)"
-msgstr ""
+msgstr "Tempo máximo das mensagens na greylist"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:88
 msgid "Period after that unseen entries will be deleted"
-msgstr ""
+msgstr "Período em que as mensagens sem confirmação deverão ser apagadas"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 msgid "Greylist configuration"
-msgstr ""
+msgstr "Configuração da greylist"
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
 #, fuzzy
 msgid "Mail server options"
-msgstr "Configuração do serviço de e-mail"
+msgstr "Configuração do servidor de correio"
 
 #: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "Para configurar a lista branca para o funcionamento do graylist"
 
 #: src/EBox/MailVDomainsLdap.pm:332
 msgid "Size quota"
-msgstr ""
+msgstr "Tamanho da quota"
 
 #: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
 #: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
@@ -319,111 +322,112 @@ msgstr ""
 #: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
 #: src/EBox/MailUserLdap.pm:799
 msgid "maildir size"
-msgstr "tamanho da maildir"
+msgstr "tamanho do directório maildir"
 
 #: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
 #: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
 #: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
 #: src/EBox/MailUserLdap.pm:76
 msgid "mail account"
-msgstr "conta de e-mail"
+msgstr "conta de correio"
 
 #: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
 #: src/EBox/MailAliasLdap.pm:228
 msgid "mail alias account"
-msgstr "alias da conta de e-mail"
+msgstr "pseudónimo da conta de correio"
 
 #: src/EBox/Mail.pm:78
 #, fuzzy
 msgid "mail"
-msgstr "Mail"
+msgstr "correio"
 
 #: src/EBox/Mail.pm:112
 #, perl-brace-format
 msgid "Add {user} to {group} group"
-msgstr ""
+msgstr "Adicionar {user} ao grupo {group}"
 
 #: src/EBox/Mail.pm:114
 #, perl-brace-format
 msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
 msgstr ""
+"Para permitir que {daemon} se ligue a {otherDaemon} através de ligação unix"
 
 #: src/EBox/Mail.pm:120
 #, fuzzy
 msgid "Generate mail aliases"
-msgstr "alias de e-mail"
+msgstr "Gerar pseudónimos de correio"
 
 #: src/EBox/Mail.pm:122
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr ""
+msgstr "A eBox executará {cmd}"
 
 #: src/EBox/Mail.pm:126
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Adicionar esquemas LDAP"
 
 #: src/EBox/Mail.pm:128
 #, perl-brace-format
 msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
-msgstr ""
+msgstr "A eBox adicioanrá dois esquemas LDAP: {schema1} e {schema2}"
 
 #: src/EBox/Mail.pm:147
 msgid "To configure postfix"
-msgstr ""
+msgstr "Para configurar o postfix"
 
 #: src/EBox/Mail.pm:153
 msgid "To define how client programs connect to services in  postfix"
-msgstr ""
+msgstr "para definir como os clientes se ligarão ao postfix"
 
 #: src/EBox/Mail.pm:161
 msgid "To configure courier to authenticate against LDAP"
-msgstr ""
+msgstr "Para configurar a autenticação do courrier no LDAP"
 
 #: src/EBox/Mail.pm:166
 msgid "To let courier know how to access LDAP"
-msgstr ""
+msgstr "Para que o courrier saiba como aceder ao LDAP"
 
 #: src/EBox/Mail.pm:171
 msgid "To configure courier POP3"
-msgstr ""
+msgstr "Para configurar o courrier POP3"
 
 #: src/EBox/Mail.pm:176
 msgid "To configure POP3 with SSL support"
-msgstr ""
+msgstr "Para configurar o suporte SSL do POP3"
 
 #: src/EBox/Mail.pm:181
 msgid "To configure IMAP"
-msgstr ""
+msgstr "Para configurar o IMAP"
 
 #: src/EBox/Mail.pm:186
 msgid "To configure IMAP with SSL support"
-msgstr ""
+msgstr "Para configurar o IMAP com suporte SSL"
 
 #: src/EBox/Mail.pm:192 src/EBox/Mail.pm:198
 msgid "To configure saslauthd to authenticate against LDAP "
-msgstr ""
+msgstr "Para configurar o saslauthd para se autenticar no LDAP"
 
 #: src/EBox/Mail.pm:203
 msgid "To configure saslauthd to use LDAP"
-msgstr ""
+msgstr "Para configurar o sasauthd para usar LDAP"
 
 #: src/EBox/Mail.pm:208
-#, fuzzy
 msgid "To configure smart host authentication"
-msgstr "Requer autenticação"
+msgstr "para configurar a autenticação no smarthost"
 
 #: src/EBox/Mail.pm:213
 msgid "To add the LDAP schemas used by eBox mail"
-msgstr ""
+msgstr "Para adicionar esquemas LDAP usados pelo correio eBox"
 
 #: src/EBox/Mail.pm:581
 msgid "Cannot change this parameter for a non-custom filter"
-msgstr ""
+msgstr "Não é possível alterar este parâmetro para um filtro não personalizado"
 
 #: src/EBox/Mail.pm:596 src/EBox/Mail.pm:616
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
+"O filtro de correio não existe. Defina outro filtro de correio ou desligue-o"
 
 #: src/EBox/Mail.pm:623
 #, perl-brace-format
@@ -431,14 +435,16 @@ msgid ""
 "The mail filter {name} is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
+"O filtro de correio {name} não está activo. Defina outro filtro de correio o "
+"desligue-o"
 
 #: src/EBox/Mail.pm:1031
 msgid "POP3 service"
-msgstr "Serviço de POP3"
+msgstr "Serviço POP3"
 
 #: src/EBox/Mail.pm:1033
 msgid "IMAP service"
-msgstr "Serviço de IMAP"
+msgstr "Serviço IMAP"
 
 #: src/EBox/Mail.pm:1067
 msgid "enabled"
@@ -453,18 +459,16 @@ msgid "Status"
 msgstr "Estado"
 
 #: src/EBox/Mail.pm:1072
-#, fuzzy
 msgid "Mail server's filter"
-msgstr "Configuração do serviço de e-mail"
+msgstr "Filtro do servidor de correio"
 
 #: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
-#, fuzzy
 msgid "Filter type"
-msgstr "Filtro"
+msgstr "Tipo de filtro"
 
 #: src/EBox/Mail.pm:1082
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: src/EBox/Mail.pm:1084
 msgid "Address"
@@ -475,13 +479,12 @@ msgid "General"
 msgstr "Geral"
 
 #: src/EBox/Mail.pm:1122
-#, fuzzy
 msgid "Virtual mail domains"
-msgstr "Domínios virtuais"
+msgstr "Domínios de correio virtuais"
 
 #: src/EBox/Mail.pm:1128
 msgid "Greylist"
-msgstr ""
+msgstr "Greylist"
 
 #: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
 msgid "Date"
@@ -489,7 +492,7 @@ msgstr "Data"
 
 #: src/EBox/Mail.pm:1157
 msgid "Message ID"
-msgstr "ID da mensagem"
+msgstr "Identificação da mensagem"
 
 #: src/EBox/Mail.pm:1158
 msgid "From"
@@ -497,11 +500,11 @@ msgstr "De"
 
 #: src/EBox/Mail.pm:1160
 msgid "From hostname"
-msgstr "De nome do anfitrião"
+msgstr "Do hospedeiro"
 
 #: src/EBox/Mail.pm:1161
 msgid "From host ip"
-msgstr "De ip do anfitrião"
+msgstr "De IP do hospedeiro"
 
 #: src/EBox/Mail.pm:1162 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
@@ -509,7 +512,7 @@ msgstr "Tamanho (bytes)"
 
 #: src/EBox/Mail.pm:1163
 msgid "Relay"
-msgstr "Relay"
+msgstr "Encaminhamento"
 
 #: src/EBox/Mail.pm:1165
 msgid "Event"
@@ -533,16 +536,15 @@ msgstr "Quota de utilizador excedida"
 
 #: src/EBox/Mail.pm:1180
 msgid "Relay access denied"
-msgstr "Acesso de relay negado"
+msgstr "Acesso ao encaminhamento negado"
 
 #: src/EBox/Mail.pm:1181
-#, fuzzy
 msgid "Account does not exist"
 msgstr "A conta não existe"
 
 #: src/EBox/Mail.pm:1182
 msgid "Host unreachable"
-msgstr "Anfitrião inalcançável"
+msgstr "Não é possível alcançar o hospedeiro"
 
 #: src/EBox/Mail.pm:1183
 msgid "Authentication error"
@@ -550,33 +552,31 @@ msgstr "Erro de autenticação"
 
 #: src/EBox/Mail.pm:1184
 msgid "Relay denied by the smarthost"
-msgstr ""
+msgstr "Encaminhamento negado pelo smarthost"
 
 #: src/EBox/Mail.pm:1185
 msgid "Greylisted"
-msgstr ""
+msgstr "Foi colocado no greylist"
 
 #: src/EBox/Mail.pm:1186
 msgid "Other events"
 msgstr "Outros eventos"
 
 #: src/EBox/Mail.pm:1291
-#, fuzzy
 msgid "Mailboxes"
-msgstr "Mail"
+msgstr "Caixas de correio"
 
 #: src/EBox/MailUserLdap.pm:320
 msgid "This group has a mail alias"
-msgstr "Este grupo tem um alias de e-mail"
+msgstr "Este grupo tem um pseudónimo de correio"
 
 #: src/EBox/MailUserLdap.pm:347
 msgid "This user has a mail account"
-msgstr "Este utilizador tem uma conta de e-mail"
+msgstr "Este utilizador tem uma conta de correio"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "eBox Mail System"
-msgstr "Sistema de E-mail"
+msgstr "Sistema de correio da eBox"
 
 #: src/templates/warnvd.mas:14
 msgid ""
@@ -584,7 +584,7 @@ msgid ""
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
 "O domínio virtual que tentou apagar contém dados nos seguintes módulos. Por "
-"favor confirme que deseja remover tudo, incluindo os dados."
+"favor confirme que deseja remover tudo, incluindo os dados correspondentes."
 
 #: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
 #: src/templates/groupalias.mas:65 src/templates/alias.mas:22
@@ -600,19 +600,23 @@ msgstr "Cancelar"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
-msgstr ""
+msgstr "Criar um pseudónimo para a conta de correio do grupo"
 
 #: src/templates/groupalias.mas:16
 msgid ""
 "When the last member of a group is removed, the mail alias account will be "
 "deleted"
 msgstr ""
+"Quando o último membro do grupo é removido o pseudónimo da conta de correio "
+"será apagado"
 
 #: src/templates/groupalias.mas:21
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
+"Não há utilizadores no grupo ou os utilizadores não têm conta de correio, "
+"como tal não pode ser criada a conta de correio do grupo"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
 #: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
@@ -623,12 +627,14 @@ msgstr "Criar"
 
 #: src/templates/groupalias.mas:54
 msgid "Mail alias settings"
-msgstr ""
+msgstr "Definições do pseudónimo do grupo"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+"As definições seguintes só são efectivas quando o módulo de correio está "
+"activado"
 
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
@@ -636,7 +642,7 @@ msgstr "Modificar"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
-msgstr ""
+msgstr "Criar conta de correio"
 
 #: src/templates/createaccount.mas:23
 msgid "Account name"
@@ -648,19 +654,19 @@ msgstr "Nome do dominio"
 
 #: src/templates/createaccount.mas:62
 msgid "Maildir size"
-msgstr "Tamanho da Maildir"
+msgstr "Tamanho do directório Maildir"
 
 #: src/templates/alias.mas:11
 msgid "Mail account settings"
-msgstr ""
+msgstr "Definições da conta de correio"
 
 #: src/templates/alias.mas:34
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Criar pseudónimos de correio"
 
 #: src/templates/alias.mas:39
 msgid "Mail alias"
-msgstr ""
+msgstr "Pseudónimo de correio"
 
 #: src/templates/alias.mas:42
 msgid "Action"
@@ -668,7 +674,7 @@ msgstr "Acção"
 
 #: src/templates/alias.mas:126
 msgid "Default maildir size (MB)"
-msgstr ""
+msgstr "Tamanho pré-definido do directório de correio (Mb)"
 
 #: src/templates/alias.mas:151 src/templates/alias.mas:152
 msgid "Modify"
@@ -692,11 +698,11 @@ msgstr "Operar"
 
 #: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
-msgstr ""
+msgstr "Recolocar na fila"
 
 #: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
-msgstr "Mostrar Info"
+msgstr "Mostrar Informação"
 
 #: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
@@ -704,11 +710,11 @@ msgstr "Remover"
 
 #: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
-msgstr "Esconder Info"
+msgstr "Esconder Informação"
 
 #: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
-msgstr "primeira"
+msgstr "primeiro"
 
 #: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
@@ -720,20 +726,19 @@ msgstr "seguinte"
 
 #: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
-msgstr "última"
+msgstr "último"
 
 #: src/templates/qmanager.mas:122
 msgid "There is no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Não há mensagens na fila ou o serviço está parado"
 
 #: src/templates/account.mas:22
-#, fuzzy
 msgid "Mail account"
-msgstr "conta de e-mail"
+msgstr "Conta de correio"
 
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
-msgstr ""
+msgstr "Clique aqui para criar um novo domínio de correio virtual"
 
 #~ msgid "Mail services"
 #~ msgstr "Serviços de e-mai"

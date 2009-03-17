@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-09-03 17:18+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-07 18:48+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:107
 #: src/EBox/Model/ServiceTable.pm:107
@@ -43,6 +44,8 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Marque este campo se actualmente existir um serviço que use mesmos os portos "
+"que este serviço. Isto permitirá que a eBox saiba quais os portos já em uso"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:139
 #: src/EBox/Model/ServiceTable.pm:139
@@ -51,9 +54,8 @@ msgstr "Configuração"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:151
 #: src/EBox/Model/ServiceTable.pm:151
-#, fuzzy
 msgid "List of services"
-msgstr "serviços-ebox"
+msgstr "Lista de serviços"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:152
 #: debian/ebox-services/usr/share/perl5/EBox/Services.pm:47
@@ -74,6 +76,8 @@ msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Um serviço é um interface para um ou mais protocolos que podem ser usados "
+"noutros módulos tais como: firewall, OpenVPN, etc."
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:111
 #: src/EBox/Model/ServiceConfigurationTable.pm:111
@@ -88,12 +92,12 @@ msgstr "Porto fonte"
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:119
 #: src/EBox/Model/ServiceConfigurationTable.pm:119
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Este campo está definido para qualquer"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:123
 #: src/EBox/Model/ServiceConfigurationTable.pm:123
 msgid "Destination port"
-msgstr "Porto destino"
+msgstr "Porto de destino"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:133
 #: src/EBox/Model/ServiceConfigurationTable.pm:133
@@ -114,13 +118,13 @@ msgstr "porto"
 #: src/EBox/Services.pm:329
 #: migration/0001_import_services_from_firewall.pl:108
 msgid "eBox administration"
-msgstr "Administração do ebox"
+msgstr "Administração da ebox"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services.pm:330
 #: src/EBox/Services.pm:330
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration port"
-msgstr "Administração dos portos do ebox"
+msgstr "Administração dos portos da ebox"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services.pm:331
 #: src/EBox/Services.pm:331 migration/0001_import_services_from_firewall.pl:71

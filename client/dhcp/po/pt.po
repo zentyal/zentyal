@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:59+0100\n"
-"PO-Revision-Date: 2007-06-06 09:37+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-10 23:57+0000\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
@@ -30,30 +31,29 @@ msgstr "interface {iface}"
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr "Intervalo não válido {from} - {to} "
+msgstr "Âmbito inválido {from} - {to} "
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr "Intervalo {from} - {to} não pertence à rede {net}"
+msgstr "Âmbito {from} - {to} não pertence à rede {net}"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Intervalo {from}-{to} inclui interface com o endereço IP: {ifaceIP}"
+msgstr "Âmbito {from}-{to} inclui interface com endereço IP: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"Intervalo {newFrom}-{newTo} subrepõem-se ao intervalo '{range}': {oldFrom}-"
-"{oldTo}"
+"Âmbito {newFrom}-{newTo} sobrepõem-se ao âmbito '{range}': {oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:180
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Intervalo {from}-{to} inclui endereço fixo '{name}': {fixedIP}"
+msgstr "Âmbito {from}-{to} inclui endereço fixo '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
@@ -73,11 +73,11 @@ msgstr "Até"
 
 #: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr "Intervalos"
+msgstr "Âmbitos"
 
 #: src/EBox/Model/RangeTable.pm:238
 msgid "range"
-msgstr "intervalo"
+msgstr "âmbito"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -89,11 +89,11 @@ msgstr "Sub-rede"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr "Intervalo disponível"
+msgstr "Ambito disponível"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr "Intervalos DHCP"
+msgstr "Âmbitos DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
@@ -135,19 +135,19 @@ msgstr "Tempos de aluguer"
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Tempo de aluguer é o tempo que o servidor DHCP atribui a um  endereço IP"
+msgstr "Tempo de aluguer é o tempo que o servidor DHCP atribui a um endereço IP"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr "{gateway} não consta da rede actual"
+msgstr "{gateway} não está na rede actual"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
 msgstr ""
-"Serviço DNS deve ser activado como nameserver primário no servidor DNS eBox"
+"O serviço DNS deve ser activado como servidor de nomes primário no servidor "
+"DNS eBox"
 
 #: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
@@ -168,7 +168,7 @@ msgstr "Nenhum"
 
 #: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
-msgstr "Gateway predefinido"
+msgstr "Gateway pré-definido"
 
 #: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:239
 msgid "eBox"
@@ -188,11 +188,11 @@ msgstr "Procurar domínio"
 
 #: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr "Nameserver primário"
+msgstr "Servidor de nomes primário"
 
 #: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr "Nameserver secundário"
+msgstr "Servidor de nomes secundário"
 
 #: src/EBox/Model/Options.pm:405
 msgid "Common options"
@@ -207,34 +207,40 @@ msgid ""
 "if installed, the eBox server may act as cache DNS server. All fields are "
 "optionals setting its value as \"None\" or leaving blank."
 msgstr ""
+"Se definir a eBox como gateway será definida como a gateway pré-definida no "
+"endereço do interface. Se definir um nome pode escolher uma das gateways "
+"configuradas. um dos domínios pode ser escolhido como domínio de procura. Se "
+"definir o servidor de nomes primário como DNS eBox, o mesmo pode actuar "
+"como servidor de cache de DNS. Todos os campos são opcionais definindo o seu "
+"valor como \"nenhum\" ou em branco."
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "O endereço IP {ip} não está na rede {net}"
 
 #: src/EBox/Model/FixedAddressTable.pm:131
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr ""
+msgstr "O IP seleccionado é o endereço do interface IP: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:147
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr ""
+msgstr "O endereço IP {ip} está no âmbito '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:159
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr ""
+msgstr "O {name} não pode conter espaços"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
-msgstr ""
+msgstr "actualização"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
-msgstr ""
+msgstr "adicionar"
 
 #: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
@@ -242,48 +248,57 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"Não pode {action} um endereço físico com um nome que já está em uso noutra "
+"tabela de endereços fixos"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1153 src/EBox/DHCP.pm:1221 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "Endereço MAC"
 
 #: src/EBox/Model/FixedAddressTable.pm:221
 #: src/EBox/Model/ThinClientOptions.pm:242 src/EBox/CGI/AddFixed.pm:44
 #: src/EBox/DHCP.pm:1221 src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "Endereço IP"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "Não pode usar um endereço IP presente nos âmbitos abaixo"
 
 #: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "Endereços fixos"
 
 #: src/EBox/Model/FixedAddressTable.pm:238
 msgid "fixed address"
-msgstr ""
+msgstr "endereço fixo"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
+"Necessita de carregar uma imagem de inicio para a eBox se a definir como "
+"próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
+"Para poder carregar a imagem para a eBox, necessita de a definir como "
+"próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
+"necessita de especificar um caminho para a imagem de inicio no servidor "
+"remoto"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file\n"
 "              name if you have a next server and it is not eBox"
 msgstr ""
+"Só pode especificar um ficheiro se tiver o próximo servidor e não for eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
@@ -291,26 +306,28 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
+"A remover a imagem de inicio carregada porque o próximo servidor for "
+"alterado de eBox para {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr ""
+msgstr "Próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
-msgstr ""
+msgstr "nome"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
-msgstr ""
+msgstr "Nome do ficheiro"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "Caminho do ficheiro no próximo servidor"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
-msgstr ""
+msgstr "Terminal"
 
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
@@ -318,6 +335,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Pode querer personalizar as opções do seu terminal. Para fazer isso, pode "
+"incluir todos os ficheiros que necessitar no directório {path}"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -326,15 +345,15 @@ msgstr ""
 #: src/EBox/DHCP.pm:650 src/EBox/DHCP.pm:710 src/EBox/DHCP.pm:766
 #: src/EBox/DHCP.pm:1152
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "estado do módulo"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Estado do módulo"
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -342,6 +361,8 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Para disponibilizar endereços IP num interface externo deve activar o "
+"serviço em {openhref}módulo da firewall{closehref}"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -349,38 +370,43 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"O interface deve ser definido como estático para poder configurar o serviço "
+"DHCP. para fazer isso altere {openhref}configuração dos "
+"interfaces{closehref} no módulo da rede"
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr ""
+msgstr "Opções avançadas"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "Escolha um interface estático para configurar:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
-msgstr ""
+msgstr "Configuração do serviço"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
+"Para disponibilizar endereços IP num interface é necessário que defina pelo "
+"menos um âmbito ou um endereço fixo"
 
 #: src/EBox/DHCP.pm:418 src/EBox/DHCP.pm:454 src/EBox/DHCP.pm:504
 #: src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:716 src/EBox/DHCP.pm:772
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} não é estático"
 
 #: src/EBox/DHCP.pm:588
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Não é uma acção válida: adicionar, definir e apagar estão disponíveis"
 
 #: src/EBox/DHCP.pm:702
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Não é uma acção válida. As disponíveis são: adicionar, definir e apagar"
 
 #: src/EBox/DHCP.pm:939
 #, perl-brace-format
@@ -389,6 +415,9 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"O endereço IP do interface virtual que esta a tentar adicionar já está a ser "
+"usado pelo âmbito '{range}' no interface '{iface}'. Remova-o antes de "
+"adicionar um interface virtual que o use"
 
 #: src/EBox/DHCP.pm:957
 #, perl-brace-format
@@ -397,82 +426,86 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"O endereço IP do interface virtual que esta a tentar adicionar já está a ser "
+"usado pelo endereço fixo '{fixed}' no interface '{iface}'. Remova-o antes "
+"de tentar adicionar um interface virtual que o use."
 
 #: src/EBox/DHCP.pm:1151
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/DHCP.pm:1154
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1155
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/DHCP.pm:1158
 msgid "Leased"
-msgstr ""
+msgstr "Alugado"
 
 #: src/EBox/DHCP.pm:1158
 msgid "Released"
-msgstr ""
+msgstr "Abandonado"
 
 #: src/EBox/DHCP.pm:1161
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1221
 msgid "Host name"
-msgstr ""
+msgstr "Nome do hospedeiro"
 
 #: src/EBox/DHCP.pm:1248
-#, fuzzy
 msgid "DHCP leases"
-msgstr "Intervalos DHCP"
+msgstr "Alugueres DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "TFTP"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Protocolo de configuração dinâmica do hospedeiro"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "Opções"
 
 #: src/templates/options.mas:10
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
 msgstr ""
+"Pode deixar o campo da gateway pré-definida vazio para a eBox ser a gateway "
+"pré-definida nesta sub-rede"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "Acção"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "Máscara da sub-rede"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"

@@ -8,58 +8,59 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-02 15:36+0000\n"
-"PO-Revision-Date: 2009-02-19 16:28+0100\n"
+"PO-Revision-Date: 2009-03-10 22:57+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Segurança apagada"
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr ""
+msgstr "Seguranças de sistema remotas"
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "A restaurar segurança remota"
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "A restaurar módulos a partir de segurança remota"
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
-msgstr ""
+msgstr "Módulos que faltam restaurar"
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 msgid "Restore successful"
-msgstr ""
+msgstr "Restauro com sucesso"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Proxy da seguranças de sistema remotas"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "A efectuar segurança remota"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "A efectuar segurança dos módulos"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
@@ -67,107 +68,113 @@ msgstr "Operação"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr "Operações restantes para finalizar o back"
+msgstr "operações restantes para finalizar a segurança"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr ""
+msgstr "Segurança com sucesso"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr ""
+msgstr "Segurança da configuração"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Confirme que quer restaurar a configuração usando a seguinte segurança "
+"remota:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 #: src/templates/RemoteServices/Backup/proxy.mas:76
 #: src/templates/RemoteServices/Backup/index.mas:85
 msgid "Restore"
-msgstr ""
+msgstr "Restaurar"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Confirme que quer apagar a seguinte segurança remota:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 #: src/templates/RemoteServices/Backup/index.mas:96
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Acção inexistente: {a}"
 
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Erro de ligação"
 
 #: src/EBox/Model/Settings.pm:53
 msgid "field1"
-msgstr ""
+msgstr "campo1"
 
 #: src/EBox/Model/Settings.pm:60
 msgid "field2"
-msgstr ""
+msgstr "campo2"
 
 #: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
 msgid "Settings"
-msgstr ""
+msgstr "Definições"
 
 #: src/EBox/RemoteServices.pm:72
 msgid "eBox remote services"
-msgstr ""
+msgstr "Serviços remotos eBox"
 
 #: src/EBox/RemoteServices.pm:139
 msgid "Not subscribed"
-msgstr ""
+msgstr "Não subscritos"
 
 #: src/EBox/RemoteServices.pm:141
 msgid "Subscribed"
-msgstr ""
+msgstr "Subscritos"
 
 #: src/EBox/RemoteServices.pm:167
 msgid "Remote services subscription"
-msgstr ""
+msgstr "Subscrição de serviços remotos"
 
 #: src/EBox/RemoteServices/Backup.pm:211
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr "Backup inexistente: {n}"
+msgstr "Seguranças inexistentes: {n}"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
-msgstr ""
+msgstr "Acesso sem palavra-passe a partir do painel de controle"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:86
 msgid "Access settings"
-msgstr ""
+msgstr "Definições de acesso"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:147
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system"
 msgstr ""
+"A subscrição foi feita correctamente. Espere um minuto para ser propagada "
+"pelo sistema"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:150
 msgid "Subscription data retrieved correctly"
-msgstr ""
+msgstr "Os dados da subscrição foram recebidos correctamente"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:175
 msgid "Done"
-msgstr ""
+msgstr "Feito"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:265
 msgid ""
 "Prior to make a subscription on remote services, enable the OpenVPN module "
 "and save or discard its changes"
 msgstr ""
+"Antes que faça a subscrição de serviços remotos, active o módulo OpenVPN e "
+"guarde ou descarte as alterações"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:286
 msgid "User name"
@@ -175,12 +182,12 @@ msgstr "Nome do utilizador"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:294
 msgid "eBox common name"
-msgstr ""
+msgstr "Nome comum da eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:304
 #: src/templates/RemoteServices/Backup/proxy.mas:138
 msgid "Password"
-msgstr ""
+msgstr "Palavra-passe"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:312
 msgid "eBox subscription details"
@@ -204,31 +211,33 @@ msgid ""
 "In order to subscribe an eBox remote services {url}. You will have remote "
 "backup facilities and much more"
 msgstr ""
+"Para subscrever um seviço remoto eBox {url}. Terá que ter capacidade de "
+"seguranças remotas e algumas coisas mais"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:198
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "Não há seguranças no servidor para o hospedeiro: {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:238
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "A chave para o serviço de seguranças prozy não foi encontrada"
 
 #: src/EBox/RemoteServices/Subscription.pm:104
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "A chave para o serviço de subscrição web não foi encontrada"
 
 #: src/EBox/RemoteServices/Base.pm:213
 msgid "No ebox-services DNS key found"
-msgstr "Não foram encontradas chaves para o serviço DNS"
+msgstr "A chave para o serviço DNS não foi encontrada"
 
 #: src/EBox/RemoteServices/Base.pm:256
 msgid "Cannot create SOAP connection"
-msgstr ""
+msgstr "Não é possível criar ligação SOAP"
 
 #: src/EBox/RemoteServices/Base.pm:272
 msgid "No domain key found for this service"
-msgstr "Não foi encontrada a chave do domínio para este serviço"
+msgstr "A chave do domínio para este serviço não foi encontrada "
 
 #: src/EBox/RemoteServices/Base.pm:284
 #, perl-brace-format
@@ -245,144 +254,149 @@ msgstr "A chave para o serviço PROXY não foi encontrada"
 
 #: src/EBox/RemoteServices/Composite/General.pm:73
 msgid "Remote services"
-msgstr ""
+msgstr "Serviços Remotos"
 
 #: src/EBox/RemoteServices/Composite/General.pm:74
 msgid ""
 "Remote services from eBox are paid services to enhance your eBox experience"
 msgstr ""
+"Os serviços remotos da eBox são serviços pagos para aumentar a sua "
+"experiência eBox"
 
 #: src/EBox/Composite/Composite.pm:50
 msgid "Composite"
-msgstr ""
+msgstr "Composto"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
-msgstr "Centro de controle"
+msgstr "Painel de controle"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:161
 msgid "Control center"
-msgstr ""
+msgstr "Centro de controle"
 
 #: src/templates/RemoteServices/NoConnection.mas:5
 msgid ""
 "Cannot proceed with your request because it was a connection problem. "
 "Possible causes are:"
 msgstr ""
+"Não é possível processar o seu pedido porque existem problemas de ligação. "
+"Os problemas possíveis são:"
 
 #: src/templates/RemoteServices/NoConnection.mas:9
 msgid "Your computer has not internet connection"
-msgstr ""
+msgstr "O seu computador não tem ligação à internet"
 
 #: src/templates/RemoteServices/NoConnection.mas:10
 msgid "Firewall is blocking the connection. Try to restart firewall module"
-msgstr ""
+msgstr "A firewall está a bloquear a ligação. Reinicie o módulo firewall"
 
 #: src/templates/RemoteServices/NoConnection.mas:11
 msgid "Your computer has not a correct system date"
-msgstr ""
+msgstr "A data de sistema do seu computador não está correcta"
 
 #: src/templates/RemoteServices/NoConnection.mas:12
 msgid "You are using the wrong certificates"
-msgstr ""
+msgstr "Está a usar os certificados errados"
 
 #: src/templates/RemoteServices/NoConnection.mas:13
 msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
+msgstr "Esta eBox foi removida das eBox registadas"
 
 #: src/templates/RemoteServices/Backup/confirm.mas:24
 #: src/templates/RemoteServices/Backup/proxy.mas:43
 #: src/templates/RemoteServices/Backup/index.mas:23
 #: src/templates/RemoteServices/Backup/index.mas:67
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/templates/RemoteServices/Backup/confirm.mas:32
 #: src/templates/RemoteServices/Backup/proxy.mas:44
 #: src/templates/RemoteServices/Backup/index.mas:68
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/templates/RemoteServices/Backup/confirm.mas:40
 #: src/templates/RemoteServices/Backup/proxy.mas:45
 #: src/templates/RemoteServices/Backup/index.mas:27
 #: src/templates/RemoteServices/Backup/index.mas:69
-#, fuzzy
 msgid "Description"
-msgstr "Operação"
+msgstr "Descrição"
 
 #: src/templates/RemoteServices/Backup/confirm.mas:48
 #: src/templates/RemoteServices/Backup/proxy.mas:46
 #: src/templates/RemoteServices/Backup/index.mas:70
 msgid "Archive size"
-msgstr ""
+msgstr "Tamanho do arquivo"
 
 #: src/templates/RemoteServices/Backup/confirm.mas:73
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:42
 msgid "eBox host"
-msgstr ""
+msgstr "Hospedeiro eBox"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:47
 #: src/templates/RemoteServices/Backup/index.mas:71
 msgid "Actions"
-msgstr ""
+msgstr "Acções"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:82
 #: src/templates/RemoteServices/Backup/index.mas:91
 msgid "Download"
-msgstr ""
+msgstr "Descarregar"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:99
 #: src/templates/RemoteServices/Backup/index.mas:110
 msgid "restore"
-msgstr ""
+msgstr "restaurar"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:103
 #: src/templates/RemoteServices/Backup/index.mas:114
 msgid "download"
-msgstr ""
+msgstr "descarregar"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:109
 msgid "Backups' list"
-msgstr ""
+msgstr "Lista de seguranças"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:132
-#, fuzzy
 msgid "User"
-msgstr "Nome do utilizador"
+msgstr "Utilizador"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:143
 msgid "Submit"
-msgstr ""
+msgstr "Submeter"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:147
 msgid "Enter user and password"
-msgstr ""
+msgstr "Introduza utilizador e palavra-passe"
 
 #: src/templates/RemoteServices/Backup/index.mas:32
 msgid "Back up"
-msgstr ""
+msgstr "Fazer seguranças"
 
 #: src/templates/RemoteServices/Backup/index.mas:38
 msgid "Back up the current configuration state"
-msgstr ""
+msgstr "Faça as seguranças do estado da configuração actual"
 
 #: src/templates/RemoteServices/Backup/index.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
+"As seguranças estão desactivadas porque existem configurações por gravar. "
+"Grave ou descarte as alterações para permitir fazer seguranças da "
+"configuração"
 
 #: src/templates/RemoteServices/Backup/index.mas:118
 msgid "delete"
-msgstr ""
+msgstr "apagar"
 
 #: src/templates/RemoteServices/Backup/index.mas:123
 msgid "Configuration backups' list"
-msgstr ""
+msgstr "Lista de seguranças da configuração"
 
 #: src/templates/RemoteServices/NoActive.mas:5
 #, perl-brace-format
@@ -391,8 +405,9 @@ msgid ""
 "them at {url1}. If you are already registered, then subscribe this eBox at "
 "{url2}"
 msgstr ""
+"Esta facilidade só está disponível se subscrever os Serviços eBox. Podem ser "
+"contratados em {url1}. Se já está registado subscreva esta eBox em {url2}"
 
 #: src/templates/RemoteServices/NoActive.mas:14
-#, fuzzy
 msgid "subscription page"
-msgstr "Detalhes da subscrição eBox"
+msgstr "Página da subscrição"

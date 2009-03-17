@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-02-23 11:48+0000\n"
+"PO-Revision-Date: 2009-03-10 23:15+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "O certificado de cliente não existe {p}"
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "O certificado privado não existe {p}"
+msgstr "A chave privada não existe {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
@@ -123,7 +123,7 @@ msgstr "Redes publicadas"
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 msgid "Download client bundle"
-msgstr "Descarregar o cliente"
+msgstr "Descarregar o pacote de cliente"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:106
 #: src/EBox/OpenVPN/Model/Servers.pm:106
@@ -168,7 +168,7 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Não é possível activar o servidor porque_ _não está totalmente configurado; "
+"Não é possível activar o servidor porque não está totalmente configurado; "
 "Verifique a configuração e tente novamente"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:278
@@ -184,7 +184,7 @@ msgid ""
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
 "{act} não é possível porque não existem certificados disponíveis, vá para o "
-"módulo de gestão de certificados e emita certificados novos."
+"módulo de gestão de certificados e emita novos certificados."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:318
 #: src/EBox/OpenVPN/Model/Servers.pm:318
@@ -197,7 +197,7 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}Pode configurar servidore OpenVPN para ligar instalações ou "
+"{openpar}Pode configurar servidores OpenVPN para ligar instalações ou "
 "utilizadores remotos.{closepar}{openpar}Clique em "
 "{openit}Configuração{closeit} para configurar os parâmetros da "
 "VPN.{closepar}{openpar}{openit}Redes publicadas{closeit} permite a "
@@ -220,7 +220,7 @@ msgstr "Endereço VPN"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "Use a network address which is not used by this machine"
-msgstr "Use um endereço de rede que não seja usadso por esta máquina"
+msgstr "Use um endereço de rede que não seja usado por esta máquina"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:85
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:85
@@ -278,7 +278,7 @@ msgstr "Palavra-passe do túnel eBox para eBox"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:130
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:130
 msgid "Interface to listen on"
-msgstr "Interface ligado em"
+msgstr "Interface a escutar em"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
@@ -298,7 +298,7 @@ msgstr "A opção túnel de eBox para eBox necessita de uma password RIP"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:254
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:254
 msgid "Other server is listening on the same port"
-msgstr "Outro servidor está ligfado ao mesmo porto"
+msgstr "Outro servidor está ligado ao mesmo porto"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:301
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:301
@@ -324,8 +324,8 @@ msgid ""
 "Cannot use Network Address translation beacuse it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Não pode usar NAT porque necessita do módulo firewall. O módulo não está "
-"instalado ou activado"
+"Não é possível usar NAT porque necessita do módulo firewall. O módulo não "
+"está instalado ou activado"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:390
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:390
@@ -333,7 +333,7 @@ msgid ""
 "Cannot use Network Address translation beacuse it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Não é possivel usar NAT porque necessita do módulo firewall activado. Active "
+"Não é possível usar NAT porque necessita do módulo firewall activado. Active "
 "o módulo e tente de novo"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:427
@@ -342,7 +342,7 @@ msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
-"pelo menos um interface de rede externo é necessário a menos que o NAT "
+"Pelo menos um interface de rede externo é necessário a menos que o NAT "
 "esteja activado"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:436
@@ -373,8 +373,8 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
-"{openpar}Pode adicinar as redes que pretende que estejam disponíveis para os "
-"clientes ligados a esta VPN.{closepar}{openpar}Normalmente será "
+"{openpar}Pode adicionar as redes que pretende que estejam disponíveis para "
+"os clientes ligados a esta VPN.{closepar}{openpar}Normalmente será "
 "disponibilizado o acesso à rede publicando os respectivos endereços "
 "aqui{closepar}"
 
@@ -419,17 +419,17 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
 msgid "Additional server address (optional)"
-msgstr "Endereço de servidor adicinal (opcional)"
+msgstr "Endereço de servidor adicional (opcional)"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 msgid "Configure bundle"
-msgstr "Configurar ficheiro"
+msgstr "Configurar pacote"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 msgid "EBox to EBox tunnel"
-msgstr "Tunel eBox-eBox"
+msgstr "Túnel eBox-eBox"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
@@ -437,14 +437,13 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
-"Não é possível gerar o ficheiro de configuração porque o servidor não está "
+"Não é possível gerar o pacote de configuração porque o servidor não está "
 "totalmente configurado; Edite a configuração e tente de novo"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 msgid "Cannot use for the bundle the server's certificate"
-msgstr ""
-"Não é possível usar o certificado de servidor no ficheiro de configuração"
+msgstr "Não é possível usar o certificado de servidor no pacote de configuração"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
@@ -460,7 +459,7 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
-msgstr "O programa de instalação só está diponivel para clientes Windows"
+msgstr "O programa de instalação só está disponível para clientes Windows"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
@@ -468,8 +467,8 @@ msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
-"O ficheiro de configuração contém uma configuração pronta a ser usada nos "
-"seus clientes"
+"O pacote de configuração contém uma configuração pronta a ser usada nos seus "
+"clientes"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:67
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:695
@@ -593,8 +592,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"Não é possível obter chave do servidor {name} porque não tem nenhum "
-"certificado atribuído"
+"Não é possível obter chave do servidor {name} porque não tem certificado "
+"atribuído"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:375
 #: src/EBox/OpenVPN/Server.pm:375
@@ -703,7 +702,7 @@ msgstr "OpenVPN"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:141
 #: src/EBox/OpenVPN.pm:144
 msgid "To configure Quagga to run ripd and zebra"
-msgstr "para configurar o Quagga para correr ripd e zebra"
+msgstr "Para configurar o Quagga para correr ripd e zebra"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:147
 #: src/EBox/OpenVPN.pm:150
