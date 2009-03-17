@@ -1,9 +1,22 @@
+# XXX this file is not toally updated
+
+
 1. Use the installer Cd to install eBox in a virtual machine
+1a. Remove the password for the user in /etc/passwd
+1b. Add user to sudo group  and change /etc/sudoers so the user does not need password
 2. Enable all modules
 3. Install remastersys 
    - can be found at the repository: deb http://www.remastersys.klikit-linux.com/repository remastersys/
 4. Edit /etc/remastersys.conf LIVECDLABEL='eBox Live CD\ and LIVEUSER='eboxlive'
-5. apt-get install startx xfonts-base xserver-xorg
+
+
+5a. Add repositories to have desktop software:
+deb http://es.archive.ubuntu.com/ubuntu/ hardy main restricted universe multiverse
+deb http://es.archive.ubuntu.com/ubuntu/ hardy-updates main restricted universe multiverse
+
+
+#5. apt-get install startx xfonts-base xserver-xorg
+5b. apt-get install xinit xfonts-base xserver-xorg-core 
 6. apt-get install firefox icewm
 7. Start X and tweak firefox:
    - install
@@ -29,4 +42,4 @@ Shortcut:
 
 Shortcut 2:
 The buildLiveCD.sh script takes care of steps 3 to 12, but you must copy the
-files/ directory to the same directory on which is placed the script in the host computer
+files/ directory to the same directory on which is placed the script in the host computer       
