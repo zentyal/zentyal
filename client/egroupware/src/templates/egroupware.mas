@@ -65,7 +65,7 @@ return if $params->{service};
 
 <div class='warning'>
 <% __(
-       q{The following settings will take effect only when the egroupware module will be enabled},
+       q{The following settings will take effect only when the egroupware module is enabled},
     )
 %>
 </div>
