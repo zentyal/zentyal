@@ -2,11 +2,13 @@
 
 FILES_DIR="./files"
 
-PACKAGES_TO_INSTALL="xserver-xorg x-window-system-core xbase-clients firefox-2 icewm"
+PACKAGES_TO_INSTALL="xserver-xorg-base xinit xfonts-base firefox-3 icewm"
 REMASTERSYS_PACKAGES="remastersys"
 
 echo '' >> /etc/apt/sources.list
 echo 'deb http://www.remastersys.klikit-linux.com/repository remastersys/' >> /etc/apt/sources.list
+echo 'deb http://es.archive.ubuntu.com/ubuntu/ hardy main restricted universe multiverse' >> /etc/apt/sources.list
+echo 'deb http://es.archive.ubuntu.com/ubuntu/ hardy-updates main restricted universe multiverse' >> /etc/apt/sources.list
 apt-get update || exit 1
 apt-get install -y $REMASTERSYS_PACKAGES || exit 1
 
@@ -27,7 +29,7 @@ update-rc.d eboxlive start 99 2 .      || exit 1
 
 
 echo Copyng firefox default profile..
-cp -r $FILES_DIR/firefox_profile/* /etc/firefox/profile || exit 1
+cp -r $FILES_DIR/firefox_profile/* /etc/firefox-3.0/profile || exit 1
 
 
 

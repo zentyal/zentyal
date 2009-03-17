@@ -15,7 +15,6 @@ deb http://es.archive.ubuntu.com/ubuntu/ hardy main restricted universe multiver
 deb http://es.archive.ubuntu.com/ubuntu/ hardy-updates main restricted universe multiverse
 
 
-#5. apt-get install startx xfonts-base xserver-xorg
 5b. apt-get install xinit xfonts-base xserver-xorg-core 
 6. apt-get install firefox icewm
 7. Start X and tweak firefox:
