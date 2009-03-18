@@ -1,0 +1,88 @@
+How to create usplash themes
+============================
+
+Usplash in its current incarnation allows for simple and advanced themes. I'll
+start with explaining the basics of a theme and will introduce the more advanced
+topics later. I do assume that the reader has basic C programming knowledge and
+knows what a Makefile is for.
+
+A basic theme
+=============
+
+A basic theme consist of a background picture and color/position definitions for
+various elements. The usplash-theme.h file lists all of them (ignore the
+function pointers for now). If you specify only a background image and
+color/position variables, usplash will take care of drawing a basic progress bar
+and the text. The included usplash-testcard-theme.c is such a basic theme
+
+The image you use should have max. 256 colors. The resolution is up to you, but
+keep in mind that usplash will use the resolution of the image without checking
+whether your display supports it. For themes that are to be default for many
+people, I recommend choosing no higher than 800x600. The utility 'pngtousplash'
+can be used to convert an image to usplash-usable C code. The example-theme
+directory contains a complete them that builds out-of-source. Inspect its
+Makefile to see how to put the pieces together. If you intend to create a
+package, make sure to Build-Depend on usplash-dev, which contains pngtousplash
+and the necessary header files.
+
+You should always allow your theme to display text, the INPUT function of
+usplash will display text, even when not running verbose.
+
+Themes have a ratio field where you can specify either USPLASH_4_3 if the image
+is a true 4:3 image or 16:9 if the image is a 16:9 image, scaled to 4:3. The
+image MUST be a 4:3 image, because usplash can only handle 4:3 video modes
+currently.
+
+Optional 1: Custom font
+=======================
+
+You can include a custom font. You will need to link it into your theme .so file
+and set the .font field in the theme structure. The example theme supplies a
+custom font, so once again: look there. The font should be a bdf font, converted
+with bdftousplash.
+
+Optional 2: Custom drawing functions and animation
+==================================================
+
+Themes can override the functions called for displaying the progress bar and/or
+text. This can be used to create better looking progress bar.  If you supply a
+custom progress bar, you're sort of forced to implement custom animations too,
+since the animation code is also used for displaying a pulsating progress bar.
+
+25 times per second, the animation function is called. This function has one
+argument: whether the progress bar is currently pulsating or not. This allows
+you to create animated themes as well as simply doing a better looking progress
+bar.
+
+If you override the custom drawing functions, please make sure that any images
+you use, use the exact same palette as the background image. You can do this by
+creating one big image containing all components and then cutting out the
+respctive images or by following the instructions on
+http://carol.gimp.org/gimp/resources/palettes/howto.html
+
+For now, you should not override draw_text, because the INPUT function of
+usplash will not use it and thus the txt will look odd in you theme.
+
+The included example theme uses custom animation for the progress bar, so once
+again it can be used as an example.
+
+Optional 3: Multiple themes in one file
+=======================================
+
+Usplash theme librarys can contain multiple themes in a linked list. Each theme
+has a next pointer, which should either be NULL or point to another theme in the
+same file. The example theme includes the same theme at three different
+resolutions.
+
+The first theme in the list should still be called usplash_theme and it should
+be the fallback variant of your theme, lowest resolution and 4:3 scale. This
+because usplash will use the first theme in case no favorable resolution was
+specified on th command line.
+
+The theme selection will also take the ratio of your screen into account, so it
+will favor a low-res 16:9 variant over a high-res 4:3 variant if you have a 16:9
+screen.
+
+--
+Sept. 6 2006
+Dennis Kaarsemaker <dennis@ubuntu.com>
