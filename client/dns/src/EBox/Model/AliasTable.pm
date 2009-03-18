@@ -82,8 +82,6 @@ sub validateTypedRow
                  ns => $dnsMod->NameserverHost()));
     }
 
-    my $olddir = $self->directory();
-
     # Check there is no A RR in the domain with the same name
     my $domain = $alias->row()->parentRow()->parentRow()->valueByName('domain');
 
