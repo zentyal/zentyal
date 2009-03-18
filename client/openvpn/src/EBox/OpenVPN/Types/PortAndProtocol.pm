@@ -62,15 +62,14 @@ sub protocols
     my ($self) = @_;
 
     my @protocols = (
-
-        {
-          value => 'tcp',
-          printableValue => 'TCP',
-          needPort => 1,
-        },
         {
           value => 'udp',
           printableValue => 'UDP',
+          needPort => 1,
+        },
+        {
+          value => 'tcp',
+          printableValue => 'TCP',
           needPort => 1,
         },
 
