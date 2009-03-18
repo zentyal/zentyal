@@ -4,7 +4,7 @@
 1. Use the installer Cd to install eBox in a virtual machine
 1a. Remove the password for the user in /etc/passwd
 1b. Add user to sudo group  and change /etc/sudoers so the user does not need password
-2. Enable all modules
+2. If the installer has not configured the modules, enable all modules 
 3. Install remastersys 
    - can be found at the repository: deb http://www.remastersys.klikit-linux.com/repository remastersys/
 4. Edit /etc/remastersys.conf LIVECDLABEL='eBox Live CD\ and LIVEUSER='eboxlive'
