@@ -32,7 +32,9 @@ update-alternatives --set usplash-artwork.so /usr/lib/usplash/ebox-theme.so
 update-initramfs -u
 
 echo Copyng firefox default profile..
-cp -r $FILES_DIR/firefox_profile/* /etc/firefox/profile || exit 1
+(test -d /etc/firefox) && (cp -r $FILES_DIR/firefox_profile/* /etc/firefox/profile || exit 1)
+(test -d /etc/firefox-3.0) && (cp -r $FILES_DIR/firefox_profile/* /etc/firefox-3.0/profile || exit 1)
+
 
 #echo Creating samba directories...
 #mkdir /home/samba/{users,groups,profiles,netlogon}
