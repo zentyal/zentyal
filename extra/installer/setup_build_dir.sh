@@ -17,6 +17,13 @@ rm -rf $CD_BUILD_DIR || exit 1
 cp -r $MOUNTDIR $CD_BUILD_DIR || exit 1
 chmod a+w -R $CD_BUILD_DIR || exit 1
 
+# Remove ppp-udeb
+rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
+
+# Rebranding
+cp images/* $CD_BUILD_DIR/isolinux/
+sed -i 's/Ubuntu Server/eBox Platform 1.0/g' $CD_BUILD_DIR/isolinux/isolinux.cfg
+
 sudo umount $MOUNTDIR || exit 1
 rmdir $MOUNTDIR
 

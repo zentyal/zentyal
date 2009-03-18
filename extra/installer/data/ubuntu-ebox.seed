@@ -5,8 +5,8 @@ d-i	pkgsel/language-pack-patterns	string
 # No language support packages.
 d-i	pkgsel/install-language-support	boolean false
 
-# install ebox dependencies and ssh
-d-i pkgsel/include ssh 
+# install ssh
+d-i pkgsel/include string ssh
 
 # Add eBox repository
 d-i apt-setup/local0/key string deb http://ppa.launchpad.net/ebox/ubuntu hardy main
@@ -88,12 +88,20 @@ courier-base	courier-base/webadmin-configmode	boolean	false
 # SSL certificate required
 courier-ssl	courier-ssl/certnotice	note
 
-# Ã‰sta orden se ejecuta despuÃ©s de que finalice base-config, y
-# antes de presentar el indicador Â«login:Â». Ã‰sta es una buena forma de
+# egroupware answers:
+egroupware-core egroupware/configuration/note note
+egroupware-core egroupware/header/user  string  admin
+egroupware-core egroupware/header/password  password
+egroupware-core egroupware/header/password/confirm password
+
+
+# Ã‰sta orden se ejecuta despuÃ©s de que finalice base-config, y
+# antes de presentar el indicador Â«login:Â». Ã‰sta es una buena forma de
 # instalar el conjunto de paquetes que desea, o de modificar la
-# configuraciÃ³n del sistema:
+# configuraciÃ³n del sistema:
 
-d-i preseed/late_command string cp /cdrom/ebox/* /target/tmp/ && chroot /target sh /tmp/prepare-ebox-install.sh 
-
-
+d-i preseed/late_command string \
+    cp /cdrom/ebox/* /target/tmp/ || \
+    cp /target/cdrom/ebox/* /target/tmp/ && \
+    chroot /target sh /tmp/prepare-ebox-install.sh
 
