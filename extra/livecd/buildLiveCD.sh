@@ -27,7 +27,7 @@ chmod a+rx  /etc/init.d/eboxlive       || exit 1
 update-rc.d eboxlive start 99 2 .      || exit 1
 
 echo Setting ebox usplash theme...
-cp -v $FILES_DIR/ebox-theme.so /usr/lib/uspash/ebox-theme.so || exit 1
+cp -v $FILES_DIR/ebox-theme.so /usr/lib/usplash/ebox-theme.so || exit 1
 update-alternatives --set usplash-artwork.so /usr/lib/usplash/ebox-theme.so
 update-initramfs -u
 
