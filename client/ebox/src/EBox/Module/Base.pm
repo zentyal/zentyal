@@ -22,6 +22,7 @@ use warnings;
 use File::Copy;
 use Proc::ProcessTable;
 use EBox;
+use EBox::Util::Lock;
 use EBox::Config;
 use EBox::Global;
 use EBox::Sudo qw( :all );
@@ -182,19 +183,14 @@ sub _saveConfigRecursive
 
 sub _unlock
 {
-	my $self = shift;
-	flock(LOCKFILE, LOCK_UN);
-	close(LOCKFILE);
+    my ($self) = @_;
+    EBox::Util::Lock::unlock($self->name);
 }
 
 sub _lock
 {
-	my $self = shift;
-	my $file = EBox::Config::tmp . "/" . $self->name . ".lock";
-	open(LOCKFILE, ">$file") or
-		throw EBox::Exceptions::Internal("Cannot open lockfile: $file");
-	flock(LOCKFILE, LOCK_EX | LOCK_NB) or
-		throw EBox::Exceptions::Lock($self);
+    my ($self) = @_;
+    EBox::Util::Lock::unlock($self->name);
 }
 
 # Method: setAsChanged

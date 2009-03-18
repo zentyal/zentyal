@@ -168,6 +168,7 @@ src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Report/Makefile
+src/EBox/Util/Makefile
 schemas/Makefile
 conf/Makefile
 conf/logrotate/ebox
