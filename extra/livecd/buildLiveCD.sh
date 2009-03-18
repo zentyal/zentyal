@@ -2,7 +2,7 @@
 
 FILES_DIR="./files"
 
-PACKAGES_TO_INSTALL="xserver-xorg-core xinit xfonts-base firefox icewm usplash usplash-ubuntu-theme"
+PACKAGES_TO_INSTALL="xserver-xorg-core xinit xfonts-base firefox icewm usplash usplash-theme-ubuntu"
 REMASTERSYS_PACKAGES="remastersys"
 
 echo '' >> /etc/apt/sources.list
