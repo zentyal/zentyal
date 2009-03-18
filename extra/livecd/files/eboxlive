@@ -7,6 +7,12 @@ USER="eboxlive" # must be the same user than in /etc/remastersys.conf
 
 
 start() {
+    # create samba directories
+    mkdir -p /home/samba/users
+    mkdir -p /home/samba/groups
+    mkdir -p /home/samba/profiles
+    mkdir -p /home/samba/netlogon
+
 #          $START_CMD
            su $USER  -c "sudo startx"
 }
