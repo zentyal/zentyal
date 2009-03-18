@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Util::Lock;
 use EBox::Sudo;
 
 use Error qw(:try);
@@ -80,14 +81,41 @@ sub userIP
     return $ip;
 }
 
+sub addUniqueRule
+{
+    my ($chain, $user, $rule) = @_;
+    my $output = EBox::Sudo::root('/sbin/iptables -L -n --line-numbers');
+    my $inchain = 0;
+    for my $line (@{$output}) {
+        if ($line =~ m/^Chain ([A-Za-z]+) /) {
+            if ($1 eq $chain) {
+                $inchain = 1;
+            } else {
+                $inchain = 0;
+            }
+        } else {
+            if ($inchain) {
+                if($line =~ m/^(\d+) .*user:$user /) {
+                    my $num = $1;
+                    EBox::Sudo::root("/sbin/iptables -D $chain $num");
+                }
+            }
+        }
+    }
+    EBox::Sudo::root("/sbin/iptables -I $chain $rule -m comment --comment 'user:$user'");
+}
+
 sub addRule
 {
     my ($user) = @_;
     my $ip = userIP($user);
     if($ip) {
+        EBox::Util::Lock::lock('firewall');
         EBox::info("Adding rule for user $user with IP $ip");
-        EBox::Sudo::root("/sbin/iptables -I icaptive -s $ip -j RETURN");
-        EBox::Sudo::root("/sbin/iptables -I fcaptive -s $ip -j RETURN");
+        my $rule = "-s $ip -j RETURN";
+        addUniqueRule("icaptive", $user, $rule);
+        addUniqueRule("fcaptive", $user, $rule);
+        EBox::Util::Lock::unlock('firewall');
     }
 }
 
@@ -96,9 +124,11 @@ sub removeRule
     my ($user) = @_;
     my $ip = userIP($user);
     if($ip) {
+        EBox::Util::Lock::lock('firewall');
         EBox::info("Removing rule for user $user with IP $ip");
-        EBox::Sudo::root("/sbin/iptables -D icaptive -s $ip -j RETURN");
-        EBox::Sudo::root("/sbin/iptables -D fcaptive -s $ip -j RETURN");
+        EBox::Sudo::root("/sbin/iptables -D icaptive -s $ip -m comment --comment 'user:$user' -j RETURN");
+        EBox::Sudo::root("/sbin/iptables -D fcaptive -s $ip -m comment --comment 'user:$user' -j RETURN");
+        EBox::Util::Lock::unlock('firewall');
     }
 }
 

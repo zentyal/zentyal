@@ -96,7 +96,8 @@ sub input
         my $users = EBox::CaptivePortalHelper::currentUsers();
         for my $user (@{$users}) {
             my $ip = $user->{'ip'};
-            $r = "-s $ip -j RETURN";
+            my $name = $user->{'user'};
+            $r = "-s $ip -j RETURN -m comment --comment 'user:$name'";
 		    push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         }
 
@@ -133,7 +134,8 @@ sub forward
         my $users = EBox::CaptivePortalHelper::currentUsers();
         for my $user (@{$users}) {
             my $ip = $user->{'ip'};
-            $r = "-s $ip -j RETURN";
+            my $name = $user->{'user'};
+            $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
 		    push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         }
 

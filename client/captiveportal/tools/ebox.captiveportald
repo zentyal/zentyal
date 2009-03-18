@@ -5,7 +5,6 @@ use warnings;
 use EBox;
 use EBox::CaptivePortalHelper;
 
-use File::Basename;
 use Glib;
 use Linux::Inotify2;
 
