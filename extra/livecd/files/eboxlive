@@ -7,6 +7,9 @@ USER="eboxlive" # must be the same user than in /etc/remastersys.conf
 
 
 start() {
+    # set icewm theme
+    mkdir /home/eboxlive/.icewm
+    echo 'Theme="yak/default.theme"' > /home/eboxlive/.icewm/theme
     # create samba directories
     mkdir -p /home/samba/users
     mkdir -p /home/samba/groups
