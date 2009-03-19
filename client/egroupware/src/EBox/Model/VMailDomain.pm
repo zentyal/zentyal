@@ -99,7 +99,7 @@ sub preconditionFailMsg
         return __('You must have at least one virtual mail domain defined.');
     }
 
-    unless ($mail->isImapEnabled()) {
+    unless ($mail->imap()) {
         return __('You must have IMAP service enabled.');
     }
 }
