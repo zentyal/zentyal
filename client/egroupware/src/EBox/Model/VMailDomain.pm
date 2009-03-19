@@ -78,8 +78,9 @@ sub precondition
     my $mail = EBox::Global->getInstance()->modInstance('mail');
     my $model = $mail->model('VDomains');
     my $numDomains = scalar (@{$model->ids()});
+    my $imapEnabled  = $mail->imap();
 
-    return $mail->isImapEnabled() and $numDomains > 0;
+    return $imapEnabled and $numDomains > 0;
 }
 
 # Method: preconditionFailMsg
