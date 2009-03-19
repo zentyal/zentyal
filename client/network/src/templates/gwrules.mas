@@ -5,7 +5,6 @@ $routersAvailable
 $hasChanged
 $balanceTraffic 
 $model
-$tpages
 $page
 </%args>
 	
@@ -51,7 +50,6 @@ use EBox::Gettext;
 				     'dataTable' => $dataTable, 
 				     'hasChanged' => $hasChanged,
 					  'model' => $model,
-					  'tpages' => $tpages,
 					  'page' => $page) &>
 	
 % }

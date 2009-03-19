@@ -50,9 +50,8 @@ sub _process
 	my @params;
 	push(@params, 'data' => undef);
 	push(@params, 'dataTable' => $model->table());
-    push(@params, 'model'      => $model);
+	push(@params, 'model'      => $model);
 	push(@params, 'hasChanged' => $global->unsaved());
-	push(@params, 'tpages' => $tpages);
 	push(@params, 'balanceTraffic' => $network->balanceTraffic());
 	push(@params, 'page' => 0);
 
