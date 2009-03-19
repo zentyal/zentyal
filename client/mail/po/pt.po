@@ -96,7 +96,7 @@ msgstr "Assunto"
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
-msgstr "[EBox-event] Aconteceu um evento em {hostname}"
+msgstr "[EBox-event] Aconteceu um evento em {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1159
 msgid "To"
