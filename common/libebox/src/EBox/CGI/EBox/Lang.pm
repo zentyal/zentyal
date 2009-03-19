@@ -43,7 +43,7 @@ sub _process
 	if (defined($self->param('setlang'))) {
 		EBox::setLocale($self->param('lang'));
 		POSIX::setlocale(LC_ALL, EBox::locale());
-        EBox::Menu::regenMenuCache();
+        EBox::Menu::regenCache();
 	}
 }
 
