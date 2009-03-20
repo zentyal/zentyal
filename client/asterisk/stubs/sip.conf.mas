@@ -1,0 +1,43 @@
+<%args>
+    $outgoingcalls
+    $name
+    $username
+    $password
+    $server
+    $incoming
+</%args>
+;
+; SIP Configuration example for Asterisk
+;
+
+[general]
+context=default
+allowoverlap=no
+realm=ebox
+
+udpbindaddr=0.0.0.0
+tcpenable=no
+tcpbindaddr=0.0.0.0
+
+srvlookup=yes
+disallow=all
+allow=alaw,ulaw
+language=en
+videosupport=yes
+
+[authentication]
+
+% if ($outgoingcalls) {
+register => <% $username %>:<% $password %>@<% $server %>/<% $incoming %>
+[<% $name %>]
+username=<% $username %>
+type=friend
+secret=<% $password %>
+host=<% $server %>
+fromuser=<% $username %>
+context=default
+allow=g729,alaw,ulaw,gsm,ilbc ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
+trustrpid = yes
+sendrpid = yes
+canreinvite = no
+% }

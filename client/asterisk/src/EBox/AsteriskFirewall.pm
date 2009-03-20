@@ -23,9 +23,11 @@ use base 'EBox::FirewallHelper';
 use EBox::Global;
 use EBox::Gettext;
 
-use constant SIPPORT => '5060';
-use constant IAXPORT => '4569';
-use constant RTPPORTRANGE => '10000:20000';
+use constant SIPUDPPORT => '5060';
+use constant H323TCPPORT => '1720'; 
+use constant H323UDPPORTRANGE => '5000:5014'; 
+use constant IAXTCPPORT => '4569';
+use constant RTPUDPPORTRANGE => '10000:20000';
 
 sub new 
 {
@@ -34,33 +36,6 @@ sub new
         my $self = $class->SUPER::new(@_);
         bless($self, $class);
         return $self;
-}
-
-sub input
-{
-	my $self = shift;
-	my @rules = ();
-	
-	my $net = EBox::Global->modInstance('network');
-	my @ifaces = @{$net->InternalIfaces()};
-
-	my @AsteriskPorts = ();
-	push(@AsteriskPorts, SIPPORT);
-	push(@AsteriskPorts, IAXPORT);
-	push(@AsteriskPorts, RTPPORTTANGE);
-
-	foreach my $port (@AsteriskPorts){
-	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -i $ifc  ".
-		        "-p tcp --dport $port -j ACCEPT";
-		push(@rules, $r);
-		$r = "-m state --state NEW -i $ifc  ".
-		     "-p udp --dport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
-	
-	return \@rules;
 }
 
 sub output
@@ -72,17 +47,25 @@ sub output
 	my @ifaces = @{$net->InternalIfaces()};
 
 	my @AsteriskPorts = ();
-	push(@AsteriskPorts, SIPPORT);
-	push(@AsteriskPorts, IAXPORT);
-	push(@AsteriskPorts, RTPPORTTANGE);
+	push(@AsteriskPorts, SIPUDPPORT);
+	push(@AsteriskPorts, H323UDPPORTRANGE);
+	push(@AsteriskPorts, RTPUDPPORTRANGE);
 
 	foreach my $port (@AsteriskrPorts){
 	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --sport $port -j ACCEPT";
-		push(@rules, $r);
 		$r = "-m state --state NEW -o $ifc  ".
 			"-p udp --sport $port -j ACCEPT";
+		push(@rules, $r);
+	    }
+	}
+	
+	my @AsteriskPorts = ();
+	push(@AsteriskPorts, H323TCPPORT);
+
+	foreach my $port (@AsteriskrPorts){
+	    foreach my $ifc (@ifaces) {
+		$r = "-m state --state NEW -o $ifc  ".
+			"-p tcp --sport $port -j ACCEPT";
 		push(@rules, $r);
 	    }
 	}

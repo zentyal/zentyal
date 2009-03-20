@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-asterisk/migration
 
-nobase_Migrations_SCRIPTS =
+nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

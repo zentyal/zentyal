@@ -1,0 +1,10 @@
+;
+; Static and realtime external configuration
+; engine configuration
+;
+ 
+[settings]
+sipusers => ldap,"dc=ebox",sip
+sippeers => ldap,"dc=ebox",sip
+extensions => ldap,"dc=ebox",extensions
+voicemail => ldap,"dc=ebox",voicemail

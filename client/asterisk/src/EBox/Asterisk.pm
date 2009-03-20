@@ -30,6 +30,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 
+use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
+use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
+use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
+use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
+use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
+
 sub _create
 {
     my $class = shift;
@@ -54,6 +60,7 @@ sub modelClasses
     return [
         'EBox::Asterisk::Model::GeneralSettings',
         'EBox::Asterisk::Model::Provider',
+        'EBox::Asterisk::Model::Meetings',
     ];
 }
 
@@ -66,7 +73,9 @@ sub modelClasses
 #
 sub compositeClasses
 {
-    return ['EBox::Asterisk::Composite::General'];
+    return [
+        'EBox::Asterisk::Composite::General',
+    ];
 }
 
 
@@ -80,29 +89,34 @@ sub usedFiles
 {
     my @usedFiles;
 
-    push (@usedFiles, { 'file' => '/etc/asterisk/modules.conf',
+    push (@usedFiles, { 'file' => MODULESCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure Asterisk enabled and disabled modules.')
                       });
 
-    push (@usedFiles, { 'file' => '/etc/asterisk/sip.conf',
-                        'module' => 'asterisk',
-                        'reason' => __('To configure the SIP trunk for local users and external providers.')
-                      });
-
-    push (@usedFiles, { 'file' => '/etc/asterisk/extconfig.conf',
+    push (@usedFiles, { 'file' => EXTCONFIGCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the Realtime interface.')
                       });
 
-    push (@usedFiles, { 'file' => '/etc/asterisk/res_ldap.conf',
+    push (@usedFiles, { 'file' => RESLDAPCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the LDAP Realtime driver.')
+                      });
+
+    push (@usedFiles, { 'file' => SIPCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the SIP trunk for local users and external providers.')
                       });
 
     push (@usedFiles, { 'file' => '/etc/asterisk/extensions.conf',
                         'module' => 'asterisk',
                         'reason' => __('To configure the Asterisk dialplan.')
+                      });
+
+    push (@usedFiles, { 'file' => MEETMECONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the Asterisk conferences.')
                       });
 
     push (@usedFiles, {
@@ -169,8 +183,62 @@ sub enableService
 #
 sub _setConf
 {
-    my $self = shift;
-    my @array = ();
+    my ($self) = @_;
+    
+    $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
+    $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
+
+    $self->_setProvider();
+    $self->_setMeetings();
+    
+}
+
+
+# set up the external provider on sip.conf
+sub _setProvider
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    my $model = $self->model('GeneralSettings');
+
+    push (@params, outgoingcalls => $model->outgoingCallsValue());
+
+    $model = $self->model('Provider');
+   
+    push (@params, name => $model->nameValue());
+    push (@params, username => $model->usernameValue());
+    push (@params, password => $model->passwordValue());
+    push (@params, server => $model->serverValue());
+    push (@params, incoming => $model->incomingValue());
+    
+    $self->writeConfFile(SIPCONFFILE, "asterisk/sip.conf.mas", \@params);
+}
+
+
+# set up the meetings on meetme.conf
+sub _setMeetings
+{
+    my ($self) = @_;
+
+    my $model = $self->model('Meetings');
+
+    my @meetings = ();
+    foreach my $meeting (@{$model->ids()}) {
+        my $row = $model->row($meeting);
+        my $exten = $row->valueByName('exten');
+        my $pin = $row->valueByName('pin');
+        my $adminpin = $row->valueByName('adminpin');
+        push (@meetings, { exten => $exten,
+                           pin => $pin,
+                           adminpin => $adminpin,
+                         });
+    } 
+
+    my @params = ( meetings => \@meetings );
+
+    $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params);
 }
 
 
@@ -191,11 +259,18 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $item = new EBox::Menu::Item(
-            'url' => 'Asterisk/Composite/General',
-            'text' => __('Asterisk'));
+    my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
+                                        'text' => __('Asterisk'));
 
-    $root->add($item);
+    $folder->add(new EBox::Menu::Item(
+            'url' => 'Asterisk/Composite/General',
+            'text' => __('General settings')));
+
+    $folder->add(new EBox::Menu::Item(
+            'url' => 'Asterisk/View/Meetings',
+            'text' => __('Meetings')));
+
+    $root->add($folder);
 }
 
 1;

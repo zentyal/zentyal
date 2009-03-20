@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Asterisk/Model
 
-nobase_perl_DATA = GeneralSettings.pm Provider.pm
+nobase_perl_DATA = GeneralSettings.pm Provider.pm Meetings.pm
 
 DISTCLEANFILES =
 

@@ -79,6 +79,7 @@ objectIdentifier AstAccountIPAddress AstAttrType:46
 objectIdentifier AstAccountDefaultUser AstAttrType:47
 objectIdentifier AstAccountRegistrationServer AstAttrType:48
 objectIdentifier AstAccountUserAgent AstAttrType:49
+objectIdentifier AstAccountVMPassword AstAttrType:50
 
 
 #############################################################################
@@ -88,7 +89,8 @@ objectIdentifier AstObjectClass AsteriskLDAP:2
 objectIdentifier AsteriskExtension AstObjectClass:1
 objectIdentifier AsteriskIAXUser AstObjectClass:2
 objectIdentifier AsteriskSIPUser AstObjectClass:3
-objectIdentifier AsteriskConfig AstObjectClass:4
+objectIdentifier AsteriskVoicemail AstObjectClass:4
+objectIdentifier AsteriskConfig AstObjectClass:5
 
 
 #############################################################################
@@ -470,6 +472,13 @@ attributetype ( AstAccountUserAgent
         SUBSTR caseIgnoreSubstringsMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
 
+attributetype ( AstAccountVMPassword
+        NAME 'AstAccountVMPassword'
+        DESC 'Asterisk Account Voicemail Password' 
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
 #############################################################################
 # Object Class definitions
 #
@@ -577,6 +586,17 @@ objectclass ( AsteriskSIPUser
         AstAccountSecret $ 
         AstAccountName 
     )
+    )
+
+objectclass ( AsteriskVoicemail
+    NAME 'AsteriskVoicemail'
+    DESC 'Voicemail'
+    SUP AsteriskExtension AUXILIARY
+    MUST cn
+    MAY ( 
+        AstAccountMailbox $ 
+        AstAccountVMPassword
+    ) 
     )
 
 #############################################################################

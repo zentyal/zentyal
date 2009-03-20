@@ -1,0 +1,17 @@
+<%args>
+    @meetings
+</%args>
+;
+; Configuration file for MeetMe simple conference
+;
+
+[general]
+;audiobuffers=32
+
+[rooms]
+;
+; Usage is conf => confno[,pin][,adminpin]	
+;
+%    foreach my $meeting (@meetings) {
+<% $meeting->{'exten'} %> => <% $meeting->{'exten'} %>,<% $meeting->{'pin'} %>,<% $meeting->{'adminpin'} %>
+%    }

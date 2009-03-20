@@ -22,6 +22,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
+use EBox::AsteriskExtensions;
 
 use base qw(EBox::LdapUserBase);
 
@@ -56,20 +57,25 @@ sub _addUser
 
     my $dn = "uid=$user," . $users->usersDn;
 
+    my $uid = $users->userInfo($user)->{'uid'};
+
     my %attrs = (changes => [
                              add => [
                                      objectClass => 'AsteriskSIPUser',
-                                     AstAccountCallerID => '2001',
+                                     AstAccountCallerID => $uid,
                                      AstAccountContext => 'default',
                                      AstAccountHost => 'dynamic',
-                                     AstAccountRealmedPassword => '{MD5}a6568057e6a17081bb8832e1b9b9cbde',
-                                     AstAccountFullContact => '0.0.0.0',
+                                     #AstAccountRealmedPassword => '{MD5}a6568057e6a17081bb8832e1b9b9cbde',
+                                     AstAccountFullContact => 'sip:0.0.0.0',
                                      AstAccountRegistrationServer => '0.0.0.0',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
-                                     AstAccountExpirationTimestamp => '1236081820',
-                                     AstAccountUserAgent => '0.0.0.0',
-                                     AstAccountDefaultUser => '0.0.0.0',
+                                     AstAccountExpirationTimestamp => '0',
+                                     AstAccountUserAgent => '0',
+                                     objectClass => 'AsteriskVoicemail',
+                                     AstAccountMailbox => $uid,
+                                     AstAccountVMPassword => $uid,
+                                     #AstVMEmail => '2001@localhost',
                                     ],
                             ]
                 );
@@ -79,6 +85,8 @@ sub _addUser
 
     unless ($result->count > 0) {
         $ldap->modify($dn, \%attrs);
+        my $extensions = new EBox::AsteriskExtensions;
+        $extensions->addUserExtension($user, $uid);
     }
 }
 
@@ -126,28 +134,11 @@ sub _delUser
     my $uid = $users->userInfo($user)->{uid};
 
     # Delete LDAP info
-    my $ldap = $self->{ldap};
+    my $ldap = $users->{ldap};
     my $dn = "uid=$user," . $users->usersDn;
 
-    my %attrs = (
-        changes => [
-            delete => [
-                objectClass => ['AsteriskSIPUser'],
-                AstAccountCallerID => [],
-                AstAccountContext => [],
-                AstAccountHost => [],
-                AstAccountRealmedPassword => [],
-                AstAccountFullContact => [],
-                AstAccountRegistrationServer => [],
-                AstAccountIPAddress => [],
-                AstAccountPort => [],
-                AstAccountExpirationTimestamp => [],
-                AstAccountUserAgent => [],
-                AstAccountDefaultUser => [],
-                ],
-            ]
-        );
-    $ldap->modify($dn, \%attrs);
+    $ldap->delObjectclass($dn, 'AsteriskSIPUser');
+    $ldap->delObjectclass($dn, 'AsteriskVoicemail');
 
     # TODO: Implement also _delUserWarning ??
 }

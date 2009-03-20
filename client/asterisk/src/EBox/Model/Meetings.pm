@@ -13,23 +13,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Asterisk::Model::Provider;
+package EBox::Asterisk::Model::Meetings;
 
 # Class: EBox::Asterisk::Model::Provider
 #
 #   Form to set the configuration settings for the SIP provider
 #
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
-use EBox::Types::Host;
 
 # Group: Public methods
 
@@ -70,50 +70,56 @@ sub _table
 
     my @tableHeader =
       (
-       new EBox::Types::Text(
-                                fieldName     => 'name',
-                                printableName => __('Name'),
-                                size          => 12,
+       new EBox::Types::Int(
+                                fieldName     => 'exten',
+                                printableName => __('Extension'),
+                                size          => 3,
                                 unique        => 1,
                                 editable      => 1,
                                ),
        new EBox::Types::Text(
-                                fieldName     => 'username',
-                                printableName => __('Username'),
+                                fieldName     => 'alias',
+                                printableName => __('Alias'),
                                 size          => 12,
                                 unique        => 1,
                                 editable      => 1,
+                                optional      => 1,
                                ),
        new EBox::Types::Password(
-                                fieldName     => 'password',
+                                fieldName     => 'pin',
                                 printableName => __('Password'),
-                                size          => 12,
-                                unique        => 1,
+                                size          => 6,
+                                unique        => 0,
                                 editable      => 1,
+                                optional      => 1,
                                ),
-       new EBox::Types::Host(
-                                fieldName     => 'server',
-                                printableName => __('Server'),
-                                size          => 12,
-                                unique        => 1,
+       new EBox::Types::Password(
+                                fieldName     => 'adminpin',
+                                printableName => __('Administrator Password'),
+                                size          => 6,
+                                unique        => 0,
                                 editable      => 1,
+                                optional      => 1,
                                ),
        new EBox::Types::Text(
-                                fieldName     => 'incoming',
-                                printableName => __('Recipient of incoming calls'),
+                                fieldName     => 'desc',
+                                printableName => __('Description'),
                                 size          => 12,
-                                unique        => 1,
+                                unique        => 0,
                                 editable      => 1,
+                                optional      => 1,
                                ),
       );
 
     my $dataTable =
       {
-       tableName          => 'Provider',
-       printableTableName => __('SIP provider'),
-       defaultActions     => [ 'editField', 'changeView' ],
+       tableName          => 'Meetings',
+       printableTableName => __('Meetings'),
+       'printableRowName' => __('meeting'),
+       defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
        tableDescription   => \@tableHeader,
-       class              => 'dataForm',
+       class              => 'dataTable',
+       sortedBy           => 'exten',
        help               => __('SIP provider configuration.'),
        messages           => {
                               update => __('SIP provider configuration settings updated'),
