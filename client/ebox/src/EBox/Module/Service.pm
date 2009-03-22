@@ -306,6 +306,9 @@ sub isRunning
             $check = $pre->($self);
         }
         $check or next;
+        unless ($self->_isDaemonRunning($daemon->{'name'})) {
+            return 0;
+        }
     }
     return 1;
 }
