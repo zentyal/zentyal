@@ -1,0 +1,151 @@
+;
+; Configuration file for res_config_ldap
+;
+
+[_general]
+url=ldap://localhost/
+;protocol=3                          ; Version of the LDAP protocol to use; default is 3.
+;basedn=MyRootDN                     ; Base DN
+basedn=dc=ebox
+user=cn=admin,dc=ebox
+pass=
+
+[config]
+filename = AstConfigFilename
+category = AstConfigCategory
+variable_name = AstConfigVariableName
+variable_value = AstConfigVariableValue
+cat_metric = AstConfigCategoryMetric
+commented = AstConfigCommented
+additionalFilter=(objectClass=AstConfig)
+
+[extensions]
+context = AstContext
+exten = AstExtension
+priority = AstPriority
+app = AstApplication
+appdata = AstApplicationData
+additionalFilter=(objectClass=AsteriskExtension)
+
+[sip]
+name = uid
+amaflags = AstAccountAMAFlags
+callgroup = AstAccountCallGroup
+callerid = AstAccountCallerID
+canreinvite = AstAccountCanReinvite
+context = AstAccountContext
+dtmfmode = AstAccountDTMFMode
+fromuser = AstAccountFromUser
+fromdomain = AstAccountFromDomain
+fullcontact = AstAccountFullContact
+host = AstAccountHost
+insecure = AstAccountInsecure
+mailbox = AstAccountMailbox
+;md5secret = eboxRealmPassword
+md5secret = AstAccountRealmedPassword
+nat = AstAccountNAT
+deny = AstAccountDeny
+permit = AstAccountPermit
+pickupgroup = AstAccountPickupGroup
+port = AstAccountPort
+qualify = AstAccountQualify
+restrictcid = AstAccountRestrictCID
+rtptimeout = AstAccountRTPTimeout
+rtpholdtimeout = AstAccountRTPHoldTimeout
+type = AstAccountType
+disallow = AstAccountDisallowedCodec
+allow = AstAccountAllowedCodec
+MusicOnHold = AstAccountMusicOnHold
+regseconds = AstAccountExpirationTimestamp
+regcontext = AstAccountRegistrationContext
+regexten = AstAccountRegistrationExten
+CanCallForward = AstAccountCanCallForward
+ipaddr = AstAccountIPAddress
+defaultuser = uid
+regserver = AstAccountRegistrationServer
+useragent = AstAccountUserAgent
+additionalFilter=(objectClass=AsteriskSIPUser)
+
+[voicemail]
+context = AstAccountContext
+mailbox = AstAccountMailbox
+password = AstAccountVMPassword ;FIXME
+fullname = sn
+;email = AstVMEmail ; FIXME
+email = mail
+pager = AstVMPager
+tz = AstVMTz
+attach = AstVMAttach
+saycid = AstVMSaycid
+dialout = AstVMDialout
+callback = AstVMCallback
+review = AstVMReview
+operator = AstVMOperator
+envelope = AstVMEnvelope
+sayduration = AstVMSayduration
+saydurationm = AstVMSaydurationm
+sendvoicemail = AstVMSendvoicemail
+delete = AstVMDelete
+nextaftercmd = AstVMNextastercmd
+forcename = AstVMForcename
+forcegreetings = AstVMForcegreetings
+hidefromdir = AstVMHidefromdir
+stamp = AstVMStamp
+additionalFilter = (objectClass=AsteriskVoicemail)
+
+[iax]
+amaflags = AstAccountAMAFlags
+callerid = AstAccountCallerID
+context = AstAccountContext
+fullcontact = AstAccountFullContact
+fullcontact = gecos
+host = AstAccountHost
+mailbox = AstAccountMailbox
+md5secret = realmedPassword
+deny = AstAccountDeny
+permit = AstAccountPermit
+port = AstAccountPort
+qualify = AstAccountQualify
+type = AstAccountType
+disallow = AstAccountDisallowedCodec
+allow = AstAccountAllowedCodec
+regseconds = AstAccountExpirationTimestamp
+regcontext = AstAccountRegistrationContext
+regexten = AstAccountRegistrationExten
+notransfer = AstAccountNoTransfer
+additionalFilter=(objectClass=AstAccountIAX)
+
+[accounts]
+amaflags = AstAccountAMAFlags
+callgroup = AstAccountCallGroup
+callerid = AstAccountCallerID
+canreinvite = AstAccountCanReinvite
+context = AstAccountContext
+dtmfmode = AstAccountDTMFMode
+fromuser = AstAccountFromUser
+fromdomain = AstAccountFromDomain
+fullcontact = AstAccountFullContact
+fullcontact = gecos
+host = AstAccountHost
+insecure = AstAccountInsecure
+mailbox = AstAccountMailbox
+md5secret = realmedPassword
+nat = AstAccountNAT
+deny = AstAccountDeny
+permit = AstAccountPermit
+pickupgroup = AstAccountPickupGroup
+port = AstAccountPort
+qualify = AstAccountQualify
+restrictcid = AstAccountRestrictCID
+rtptimeout = AstAccountRTPTimeout
+rtpholdtimeout = AstAccountRTPHoldTimeout
+type = AstAccountType
+disallow = AstAccountDisallowedCodec
+allow = AstAccountAllowedCodec
+MusicOnHold = AstAccountMusicOnHold
+regseconds = AstAccountExpirationTimestamp
+regcontext = AstAccountRegistrationContext
+regexten = AstAccountRegistrationExten
+CanCallForward = AstAccountCanCallForward
+additionalFilter=(objectClass=AstAccount)
+

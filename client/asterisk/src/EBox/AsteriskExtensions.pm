@@ -89,7 +89,7 @@ sub addUserExtension
     }
 
     $self->addExtension($extn, '1', 'Dial', "SIP/$user");
-    $self->addExtension($extn, '2', 'Voicemail', "$user,u");
+    $self->addExtension($extn, '2', 'Voicemail', "$extn,u"); #FIXME voicemail=extn
 }
 
 

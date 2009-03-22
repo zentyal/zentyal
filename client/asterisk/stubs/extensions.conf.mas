@@ -1,0 +1,30 @@
+;
+; extensions.conf - the Asterisk dial plan
+;
+; Static extension configuration file, used by
+; the pbx_config module. This is where you configure all your 
+; inbound and outbound calls in Asterisk. 
+; 
+; This configuration file is reloaded 
+; - With the "dialplan reload" command in the CLI
+; - With the "reload" command (that reloads everything) in the CLI
+
+[general]
+static = yes
+writeprotect = no
+clearglobalvars = no
+ 
+[globals]
+CONSOLE = Console/dsp
+IAXINFO = guest
+TRUNK = DAHDI/G2
+
+TRUNKMSD = 1
+FEATURES = 
+DIALOPTIONS = 
+RINGTIME = 20
+FOLLOWMEOPTIONS = 
+PAGING_HEADER = Intercom
+
+[default]
+switch => Realtime

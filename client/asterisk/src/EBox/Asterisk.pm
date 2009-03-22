@@ -34,6 +34,7 @@ use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
+use constant EXTNCONFIGCONFFILE   => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 
 sub _create
@@ -109,7 +110,7 @@ sub usedFiles
                         'reason' => __('To configure the SIP trunk for local users and external providers.')
                       });
 
-    push (@usedFiles, { 'file' => '/etc/asterisk/extensions.conf',
+    push (@usedFiles, { 'file' => EXTNCONFIGCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the Asterisk dialplan.')
                       });
@@ -187,6 +188,8 @@ sub _setConf
     
     $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
+    $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas");
+    $self->writeConfFile(EXTNCONFIGCONFFILE, "asterisk/extensions.conf.mas");
 
     $self->_setProvider();
     $self->_setMeetings();
