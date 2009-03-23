@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-04-12 11:56+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-03-22 18:59+0000\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:31
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/CGI/UsersAndGroups/Users.pm:56
@@ -287,10 +287,11 @@ msgstr ""
 msgid "Add user"
 msgstr "Ajouter un utilisateur"
 
+# Better translation
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1542
 #: src/EBox/UsersAndGroups.pm:1559
 msgid "Edit user"
-msgstr "Éditer usager"
+msgstr "Modifier un utilisateur"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/LdapUserImplementation.pm:42
 #: src/EBox/LdapUserImplementation.pm:42
@@ -302,6 +303,8 @@ msgid ""
 "Your current openLDAP database will be replaced and backed up in /var/"
 "backups/slapd"
 msgstr ""
+"Votre base de données actuelle d'openLDAP va être remplacée et sauvegardée "
+"dans /var/backups/slapd"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/ajax/tableUser.mas:88
 #: src/templates/ajax/tableUser.mas:88
@@ -331,7 +334,7 @@ msgstr ""
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:14
 #: src/templates/users.mas:14
 msgid "Add User"
-msgstr "Ajouter d'utilisateur"
+msgstr "Ajouter un utilisateur"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/usersandgroups/users.mas:19
 #: src/templates/users.mas:19

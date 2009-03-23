@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-04-12 11:27+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-03-21 13:18+0000\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:30
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:40
@@ -88,20 +88,19 @@ msgstr ""
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
-#, fuzzy
 msgid "Removing package"
-msgstr "Mise-à-jour des paquets"
+msgstr "Suppression du paquet"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Suppression du paquet sélectionné et de ces dépendances"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
 msgid "packages left to remove"
-msgstr "paquets restant à installer"
+msgstr "Paquets restant à supprimer"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:169
 #: src/EBox/CGI/InstallPkgs.pm:169
@@ -110,6 +109,9 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"La suppression des paquets s'est terminé correctement. L'interface "
+"d'administration ne devrait plus répondre pendant quelques secondes. Merci "
+"de patienter pendant que le système redémarre complètement."
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:173
 #: src/EBox/CGI/InstallPkgs.pm:173
@@ -117,6 +119,8 @@ msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"La suppression des paquets a rencontré des problèmes. Plus d'information "
+"disponible dans les logs."
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:31
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:41
@@ -132,7 +136,7 @@ msgstr "configuration des mises-à-jour automatiques"
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:85
 #: src/EBox/Software.pm:85
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Permettre aux taches planifiées le téléchargement des mises à jour"
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:86
 #: src/EBox/Software.pm:86
@@ -140,6 +144,8 @@ msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"le logiciel eBox va télécharger les mises à jour disponibles depuis la liste "
+"des dépôts configurés dans apt."
 
 #: debian/ebox-software/usr/share/perl5/EBox/Software.pm:461
 #: src/EBox/Software.pm:478
@@ -157,107 +163,95 @@ msgstr "Mise-à-jour automatique"
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"La gestion des logiciels est actuellement _ _ bloqué par {locker}. Réessayer "
+"plus tard."
 
 #: src/EBox/PackageDescriptions.pm:1
 #, fuzzy
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "Gestionnaire des certificats d'autorité pour eBox"
+msgstr "eBox - Gestionnaire des certificats d'autorité pour eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
 msgid "eBox - DHCP server module"
-msgstr "Serveur DNS"
+msgstr "eBox - Module Serveur DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
-#, fuzzy
 msgid "eBox - DNS server"
-msgstr "Serveur DNS"
+msgstr "eBox - Serveur DNS"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:5
-#, fuzzy
 msgid "eBox - Firewall"
-msgstr "Parefeu"
+msgstr "eBox - Parefeu"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
 msgstr "VPNs IPsec"
 
 #: src/EBox/PackageDescriptions.pm:7
-#, fuzzy
 msgid "eBox - Instant messaging (Jabber)"
-msgstr "Messagerie instantanée (Jabber)"
+msgstr "eBox - Messagerie instantanée (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
+#, fuzzy
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - Protocoles de niveau 7"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - Mail server"
-msgstr "Serveur de courrier"
+msgstr "eBox - Serveur de courrier"
 
 #: src/EBox/PackageDescriptions.pm:10
-#, fuzzy
 msgid "eBox - Mail filter module"
-msgstr "Module de filtrage mail"
+msgstr "eBox - Module de filtrage des courriers"
 
 #: src/EBox/PackageDescriptions.pm:11
-#, fuzzy
 msgid "eBox - Monitoring module  "
-msgstr "Module de filtrage mail"
+msgstr "eBox - Module de surveillance _ _"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "eBox - Network configuration module"
-msgstr "Configuration du réseau"
+msgstr "eBox - Module de configuration du réseau"
 
 #: src/EBox/PackageDescriptions.pm:13
-#, fuzzy
 msgid "eBox - NTP server"
-msgstr "Serveur DNS"
+msgstr "eBox - Serveur NTP (temps)"
 
 #: src/EBox/PackageDescriptions.pm:14
 #, fuzzy
 msgid "eBox - Object management"
-msgstr "Gestion des objets"
+msgstr "eBox - Gestion des objets"
 
 #: src/EBox/PackageDescriptions.pm:15
-#, fuzzy
 msgid "eBox - OpenVPN server module"
-msgstr "Serveur OpenVPN"
+msgstr "eBox - Module serveur OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:16
-#, fuzzy
 msgid "eBox - Printer sharing"
-msgstr "Partage d'imprimantes"
+msgstr "eBox - Partage d'imprimantes"
 
 #: src/EBox/PackageDescriptions.pm:17
-#, fuzzy
 msgid "eBox - File sharing"
-msgstr "Partage de fichiers"
+msgstr "eBox - Partage de fichiers"
 
 #: src/EBox/PackageDescriptions.pm:18
-#, fuzzy
 msgid "eBox - Services management"
-msgstr "Gestion des services"
+msgstr "eBox - Gestion des services"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "SOAP server to communicate with eBox control center"
 msgstr "Serveur SOAP pour communiquer avec le centre de contrôle eBox"
 
 #: src/EBox/PackageDescriptions.pm:20
-#, fuzzy
 msgid "eBox - Software management"
-msgstr "Gestion des logiciels"
+msgstr "eBox - Gestion des logiciels"
 
 #: src/EBox/PackageDescriptions.pm:21
-#, fuzzy
 msgid "eBox - Proxy cache and content filter"
-msgstr "Cache du proxy et fitrage de contenu"
+msgstr "eBox - Cache du proxy et filtrage de contenu"
 
 #: src/EBox/PackageDescriptions.pm:22
 #, fuzzy
@@ -265,18 +259,16 @@ msgid "eBox - Traffic shaper for eBox"
 msgstr "Gestion du traffic (shaping) pour eBox"
 
 #: src/EBox/PackageDescriptions.pm:23
-#, fuzzy
 msgid "eBox - User and Group management"
-msgstr "Gestion des utilisateurs et groupes"
+msgstr "eBox - Gestion des utilisateurs et groupes"
 
 #: src/EBox/PackageDescriptions.pm:24
-#, fuzzy
 msgid "eBox - Web Server"
-msgstr "Serveur Web"
+msgstr "eBox - Serveur Web"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "Logiciel HTTP"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"

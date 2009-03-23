@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-05-15 10:22+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2009-03-21 14:31+0000\n"
+"Last-Translator: Eduardo Gonzalez <egrueda@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Ifaces.pm:29
@@ -34,7 +34,7 @@ msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
 msgstr ""
-"Tras la configuración inicia puede volver a visitar esta página en el menú "
+"Tras la configuración inicial puede volver a visitar esta página en el menú "
 "Red/Interfaces"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Iface.pm:45
@@ -60,17 +60,17 @@ msgstr "Establecer ruta por defecto"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:43
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
+msgstr "Puede cambiar más tarde la ruta por defecto a través del menú Red/Rutas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Gateway.pm:41
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr "Gateway configurada"
+msgstr "Ruta por defecto configurada"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/View/MultiGwRulesDataTable.pm:32
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr "Balanceo de tráfico y reglas multirouter"
+msgstr "Balanceo de tráfico y reglas multi-rutas"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:29
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Diag.pm:41
@@ -383,6 +383,8 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Este campo solo es útil si usted tiene mas de un router y la función de "
+"balanceo de tráfico esta habilitada."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130

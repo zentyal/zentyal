@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2007-05-15 13:06+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-03-22 19:03+0000\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:31
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:42
@@ -28,7 +28,7 @@ msgstr "Filtrage de paquets"
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "paquets ignorés"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:843
@@ -40,35 +40,34 @@ msgstr "Date"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Paquets Ignorés"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Détails du trafic des paquets"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "trafic"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Graphique du trafic des paquets dans le Parefeu"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-#, fuzzy
 msgid "Packet traffic"
-msgstr "Filtrage de paquets"
+msgstr "Trafic des paquets"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:10
 #: src/templates/filter.mas:10
 msgid "Filtering rules from internal networks to eBox"
-msgstr "Règles de filtrages entre les réseaux internes et eBox"
+msgstr "Règles de filtrages depuis les réseaux internes vers eBox"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ToInternetRuleTable.pm:78
@@ -93,7 +92,7 @@ msgstr "Règles de filtrages pour les réseaux internes"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr "Règles de filtrages entre les réseaux externes et eBox"
+msgstr "Règles de filtrages depuis les réseaux externes vers eBox"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
@@ -105,7 +104,7 @@ msgstr "Règles de filtrage pour le trafic sortant d'eBox"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:133
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Règle contradictoire trouvée. Supprimer la d'abord"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:237
 #: src/EBox/Firewall/Model/RedirectsTable.pm:237
@@ -169,12 +168,12 @@ msgstr "Port"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:291
 #: src/EBox/Firewall/Model/RedirectsTable.pm:291
 msgid "Same"
-msgstr ""
+msgstr "Même"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:294
 #: src/EBox/Firewall/Model/RedirectsTable.pm:294
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:311
 #: src/EBox/Firewall/Model/RedirectsTable.pm:311
@@ -183,9 +182,8 @@ msgstr "Redirections de port"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:320
 #: src/EBox/Firewall/Model/RedirectsTable.pm:320
-#, fuzzy
 msgid "redirect"
-msgstr "Redirections de port"
+msgstr "rediriger"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
@@ -208,7 +206,7 @@ msgstr "REFUSER"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:856
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:856
 msgid "LOG"
-msgstr ""
+msgstr "LOG"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:112
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:851
@@ -238,6 +236,8 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Si la coche est activée, aucun service hormis celui sélectionné prendra en "
+"compte la règle"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:185
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
@@ -247,12 +247,12 @@ msgstr "Description"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Rapport du trafic des paquets"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Rapport du trafic des paquets dans le Parefeu"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:58
 #: src/EBox/Firewall.pm:58
