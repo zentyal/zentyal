@@ -25,8 +25,6 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-use Perl6::Junction qw(any);
-
 
 
 sub new 
@@ -120,9 +118,6 @@ sub _trans_prerouting
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
     
-    my $anyFilterPolicy = $self->_anyFilterPolicy();
-    my $anySquidPolicy  = $self->_anySquidPolicy();
-
     my @objsPolicies = @{ $self->_objectsPolicies() };
 
     my @ifaces = @{$net->InternalIfaces()};
