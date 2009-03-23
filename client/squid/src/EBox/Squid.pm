@@ -595,8 +595,9 @@ sub _writeSquidConf
   my $trans = $self->transproxy() ? 'yes' : 'no';
   my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();       
   my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();       
-  
 
+  my $cacheDirSize = $self->model('GeneralSettings')->cacheDirSizeValue();
+  
   my @writeParam = ();
   push @writeParam, ('port'  => $self->port);
   push @writeParam, ('transparent'  => $trans);
@@ -606,6 +607,7 @@ sub _writeSquidConf
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
   push @writeParam, ('memory' => $self->_cache_mem);
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
+  push @writeParam, ('cacheDirSize'     => $cacheDirSize);
 
   $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 }

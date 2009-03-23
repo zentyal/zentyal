@@ -1,12 +1,14 @@
 <%args>
-	$port
-	$transparent
-        $authNeeded
-        $allowAll
-	@objectsPolicies
-        @groupsPolicies
-        @notCachedDomains
-	$memory
+    $port
+    $transparent
+    $authNeeded
+    $allowAll
+    @objectsPolicies
+    @groupsPolicies
+    @notCachedDomains
+    $memory
+
+    $cacheDirSize
 </%args>
 <%perl>
 sub _timeAclsInPolicy
@@ -50,6 +52,8 @@ cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
 access_log /var/log/squid/access.log squid
+
+cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
 
 

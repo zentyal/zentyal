@@ -66,6 +66,12 @@ sub _table
                     editable => 1,
                     defaultValue   => 3128,
                  ),
+            new EBox::Types::Int(
+                    fieldName => 'cacheDirSize',
+                    printableName => __('Cache files size (MB)'),
+                    editable => 1,
+                    defaultValue   => 100,
+                 ),
             new EBox::Squid::Types::Policy(
                fieldName => 'globalPolicy',
                printableName => __('Default policy'),
@@ -84,7 +90,6 @@ sub _table
                           update => __('Settings changed'),
                       },
                      };
-
 
 
     return $dataForm;
