@@ -40,7 +40,7 @@ msgstr "A assinatura falhou: {message}"
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr "Falha na autenticação : {result} - {messege}"
+msgstr "Falha na autenticação : {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
@@ -216,7 +216,7 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
-"O componente {comName} do conjunto {arrayName} foi marcado como defeituoso."
+"O componente {compName} do conjunto {arrayName} foi marcado como defeituoso."
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
@@ -224,7 +224,7 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
-"Os componentes {comName} da {arrayName} que estava sendo reconstruída para "
+"Os componentes {compName} da {arrayName} que estava sendo reconstruída para "
 "substituir um dispositivo defeituoso falhou"
 
 #: src/EBox/Event/Watcher/RAID.pm:482
@@ -341,7 +341,7 @@ msgstr "Notifique quando um logger ({loggers}) logou algo"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr "O seguinte módulo não esta funcionando: {module}\n"
+msgstr "O seguinte módulo não esta funcionando: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -425,7 +425,7 @@ msgstr "Digite um número float"
 #: src/EBox/Model/DataTable.pm:325
 #, perl-brace-format
 msgid "{model} in {module} module"
-msgstr "model} em {module} módulo"
+msgstr "{model} em {module} módulo"
 
 #: src/EBox/Model/DataTable.pm:329
 msgid "at"
