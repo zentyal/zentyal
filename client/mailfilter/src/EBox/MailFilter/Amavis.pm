@@ -234,6 +234,12 @@ sub _domain
     }
 
     chomp $domain;
+
+    if (not $domain) {
+        return 'localdomain';
+    }
+
+
     return $domain;
 }
 
@@ -249,6 +255,14 @@ sub _fqdn
     }
 
     chomp $fqdn;
+
+    if (not $fqdn =~ m/\./) {
+        my $domain = _domain();
+        return "$fqdn.$domain";
+    }
+
+
+
     return $fqdn;
 }
 
