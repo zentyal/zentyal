@@ -232,8 +232,11 @@ sub _table
                                   . 'single physical server. Different host names will point '
                                   . 'to the same web server. The DNS entry is automatically created'
                                   . ' if this is possible. The content must be placed under '
-                                  . '{docRoot}/vHostName directory',
-                                 docRoot => EBox::WebServer::PlatformPath::DocumentRoot()),
+                                  . '{docRoot} directory. Any particular configuration '
+                                  . 'you want to add must be placed at {userConf} directory',
+                                 docRoot => EBox::WebServer::PlatformPath::DocumentRoot() . '/vHostName',
+                                 userConf => EBox::WebServer::PlatformPath::ConfDirPath()
+                                   . '/sites-available/user-ebox-vHostName'),
        printableRowName    => __('virtual host'),
        modelDomain         => 'WebServer',
        sortedBy            => 'name',
