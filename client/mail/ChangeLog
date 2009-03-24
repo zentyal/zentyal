@@ -5,6 +5,7 @@
 	+ Bugfix: alias are deleted when user account is deleted
 	+ Bugfix: when already exists the maildir, create a new account is
 	not allowed
+	+ Bugfix: fixed error in mail queue template: avoid to reference a possible udefined value
 0.12.101
 	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
