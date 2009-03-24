@@ -29,7 +29,11 @@ use EBox::Gettext;
 	<tr>
 %	foreach my $it (@order) {
 %		if ($it eq 'recipients') {
+%                  if (exists $row->{$it}) {
 			<td><% join(', ', @{$row->{$it}}) %></td>
+%                  } else {
+                        <td></td>
+%                  }
 %		} else {
 			<td><% $row->{$it} %></td>
 %		}
