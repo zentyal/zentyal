@@ -1,3 +1,6 @@
+<%args>
+    $password
+</%args>
 ;
 ; Configuration file for res_config_ldap
 ;
@@ -8,7 +11,7 @@ url=ldap://localhost/
 ;basedn=MyRootDN                     ; Base DN
 basedn=dc=ebox
 user=cn=admin,dc=ebox
-pass=
+pass=<% $password %>
 
 [config]
 filename = AstConfigFilename
@@ -41,8 +44,7 @@ fullcontact = AstAccountFullContact
 host = AstAccountHost
 insecure = AstAccountInsecure
 mailbox = AstAccountMailbox
-;md5secret = eboxRealmPassword
-md5secret = AstAccountRealmedPassword
+md5secret = eboxRealmPassword
 nat = AstAccountNAT
 deny = AstAccountDeny
 permit = AstAccountPermit

@@ -25,6 +25,8 @@ allow=alaw,ulaw
 language=en
 videosupport=yes
 
+rtcachefriends=yes
+
 [authentication]
 
 % if ($outgoingcalls) {

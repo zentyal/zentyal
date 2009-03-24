@@ -51,20 +51,20 @@ sub output
 	push(@AsteriskPorts, H323UDPPORTRANGE);
 	push(@AsteriskPorts, RTPUDPPORTRANGE);
 
-	foreach my $port (@AsteriskrPorts){
+	foreach my $port (@AsteriskPorts){
 	    foreach my $ifc (@ifaces) {
-		$r = "-m state --state NEW -o $ifc  ".
+		my $r = "-m state --state NEW -o $ifc  ".
 			"-p udp --sport $port -j ACCEPT";
 		push(@rules, $r);
 	    }
 	}
 	
-	my @AsteriskPorts = ();
+	@AsteriskPorts = ();
 	push(@AsteriskPorts, H323TCPPORT);
 
-	foreach my $port (@AsteriskrPorts){
+	foreach my $port (@AsteriskPorts){
 	    foreach my $ifc (@ifaces) {
-		$r = "-m state --state NEW -o $ifc  ".
+		my $r = "-m state --state NEW -o $ifc  ".
 			"-p tcp --sport $port -j ACCEPT";
 		push(@rules, $r);
 	    }

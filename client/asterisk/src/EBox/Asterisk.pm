@@ -24,10 +24,12 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule);
+            EBox::Model::CompositeProvider EBox::LdapModule
+            EBox::UserCorner::Provider);
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Ldap;
 use EBox::AsteriskLdapUser;
 
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
@@ -36,6 +38,7 @@ use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
 use constant EXTNCONFIGCONFFILE   => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
+
 
 sub _create
 {
@@ -62,6 +65,7 @@ sub modelClasses
         'EBox::Asterisk::Model::GeneralSettings',
         'EBox::Asterisk::Model::Provider',
         'EBox::Asterisk::Model::Meetings',
+        'EBox::Asterisk::Model::Voicemail',
     ];
 }
 
@@ -185,15 +189,27 @@ sub enableService
 sub _setConf
 {
     my ($self) = @_;
-    
+
     $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
-    $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas");
+    $self->_setRealTime();
     $self->writeConfFile(EXTNCONFIGCONFFILE, "asterisk/extensions.conf.mas");
 
     $self->_setProvider();
     $self->_setMeetings();
-    
+}
+
+
+# set up the RealTime configuration on res_ldap.conf
+sub _setRealTime
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    push (@params, password => EBox::Ldap->getPassword());
+
+    $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params);
 }
 
 
@@ -209,13 +225,13 @@ sub _setProvider
     push (@params, outgoingcalls => $model->outgoingCallsValue());
 
     $model = $self->model('Provider');
-   
+
     push (@params, name => $model->nameValue());
     push (@params, username => $model->usernameValue());
     push (@params, password => $model->passwordValue());
     push (@params, server => $model->serverValue());
     push (@params, incoming => $model->incomingValue());
-    
+
     $self->writeConfFile(SIPCONFFILE, "asterisk/sip.conf.mas", \@params);
 }
 
@@ -237,7 +253,7 @@ sub _setMeetings
                            pin => $pin,
                            adminpin => $adminpin,
                          });
-    } 
+    }
 
     my @params = ( meetings => \@meetings );
 
@@ -274,6 +290,17 @@ sub menu
             'text' => __('Meetings')));
 
     $root->add($folder);
+}
+
+
+# Method: userMenu
+#
+sub userMenu
+{
+    my ($self, $root) = @_;
+
+    $root->add(new EBox::Menu::Item('url' => '/Asterisk/View/Voicemail',
+                                      'text' => __('Voicemail')));
 }
 
 1;

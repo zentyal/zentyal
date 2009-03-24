@@ -13,6 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::AsteriskLdapUser
+#
+#
+
 package EBox::AsteriskLdapUser;
 
 use strict;
@@ -28,6 +32,7 @@ use base qw(EBox::LdapUserBase);
 
 use constant SCHEMAS => ('/etc/ldap/schema/asterisk.schema');
 
+
 sub new
 {
     my $class = shift;
@@ -37,6 +42,7 @@ sub new
     bless($self, $class);
     return $self;
 }
+
 
 # Method: _addUser
 #
@@ -57,24 +63,25 @@ sub _addUser
 
     my $dn = "uid=$user," . $users->usersDn;
 
-    my $uid = $users->userInfo($user)->{'uid'};
+    my $extensions = new EBox::AsteriskExtensions;
+
+    my $extn = $extensions->firstFreeExtension();
 
     my %attrs = (changes => [
                              add => [
                                      objectClass => 'AsteriskSIPUser',
-                                     AstAccountCallerID => $uid,
+                                     AstAccountCallerID => $extn,
                                      AstAccountContext => 'default',
                                      AstAccountHost => 'dynamic',
-                                     #AstAccountRealmedPassword => '{MD5}a6568057e6a17081bb8832e1b9b9cbde',
                                      AstAccountFullContact => 'sip:0.0.0.0',
-                                     AstAccountRegistrationServer => '0.0.0.0',
+                                     #AstAccountRegistrationServer => '0.0.0.0',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
                                      AstAccountExpirationTimestamp => '0',
                                      AstAccountUserAgent => '0',
                                      objectClass => 'AsteriskVoicemail',
-                                     AstAccountMailbox => $uid,
-                                     AstAccountVMPassword => $uid,
+                                     AstAccountMailbox => $extn, #FIXME random?
+                                     AstAccountVMPassword => $extn,
                                      #AstVMEmail => '2001@localhost',
                                     ],
                             ]
@@ -85,10 +92,10 @@ sub _addUser
 
     unless ($result->count > 0) {
         $ldap->modify($dn, \%attrs);
-        my $extensions = new EBox::AsteriskExtensions;
-        $extensions->addUserExtension($user, $uid);
+        $extensions->addUserExtension($user, $extn);
     }
 }
+
 
 # Method: _userAddOns
 #
@@ -116,6 +123,7 @@ sub _userAddOns
              params => $args };
 }
 
+
 # Method: _delUser
 #
 # Implements:
@@ -130,6 +138,9 @@ sub _delUser
         return;
     }
 
+    my $extensions = new EBox::AsteriskExtensions;
+    $extensions->delUserExtension($user);
+
     my $users = EBox::Global->modInstance('users');
     my $uid = $users->userInfo($user)->{uid};
 
@@ -142,6 +153,7 @@ sub _delUser
 
     # TODO: Implement also _delUserWarning ??
 }
+
 
 # Method: _includeLDAPSchemas
 #
@@ -166,6 +178,7 @@ sub _includeLDAPSchemas
     return \@schemas;
 }
 
+
 sub setHasAccount #($username, [01]) 0=disable, 1=enable
 {
     my ($self, $username, $option) = @_;
@@ -176,6 +189,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
         $self->_delUser($username);
     }
 }
+
 
 sub hasAccount #($username)
 {
