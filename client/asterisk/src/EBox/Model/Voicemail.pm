@@ -61,8 +61,8 @@ sub _table
     );
     my $dataTable = 
     { 
-        'tableName' => 'Password',
-        'printableTableName' => __('Password'),
+        'tableName' => 'Voicemail',
+        'printableTableName' => __('Voicemail'),
         'modelDomain' => 'Asterisk',
         'defaultActions' => ['editField', 'changeView' ],
         'tableDescription' => \@tableHead,
@@ -88,7 +88,7 @@ sub _addTypedRow
     my $dn = "uid=" . $user . "," . $users->usersDn;
 
     my %attrs = (
-        'AstAccountVMPasswd' => $pass->value(),
+        'AstAccountVMPassword' => $pass->value(),
     );
 
     $ldap->modify($dn, { replace => \%attrs });

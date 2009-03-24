@@ -179,6 +179,31 @@ sub _includeLDAPSchemas
 }
 
 
+# Method: _includeLDAPAcls
+#
+#   Those modules which need to use their own LDAP ACLs must implement
+#   this method. It must return an array with LDAP ACLs.
+#
+# Returns:
+#
+#       an array ref - containing in each element an ACL for the LDAP
+#       database.
+#
+sub _includeLDAPAcls {
+        my $self = shift;
+
+        return [] unless ($self->{'asterisk'}->configured());
+        my $ldapconf = $self->{ldap}->ldapConf;
+
+        my @acls = ("access to attrs=AstAccountVMPassword\n" .
+                    "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
+                    "\tby self write\n" .
+                    "\tby * none\n");
+
+        return \@acls;
+}
+
+
 sub setHasAccount #($username, [01]) 0=disable, 1=enable
 {
     my ($self, $username, $option) = @_;
