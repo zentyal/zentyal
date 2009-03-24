@@ -393,7 +393,7 @@ sub addUser # (user, system)
         'homeDirectory' => HOMEPATH ,
         'userPassword'  => defaultPasswordHash($user->{'password'}),
         'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
-        @{additionalPasswords($user->{'password'})}
+        @{additionalPasswords($user->{'user'}, $user->{'password'})}
     );
 
     my %args = ( attr => \@attr );
@@ -486,7 +486,7 @@ sub _modifyUserPwd
     #add new passwords
     my %attrs = (
         'userPassword' => $hash,
-        @{additionalPasswords($passwd)}
+        @{additionalPasswords($user, $passwd)}
     );
     $self->{ldap}->modify($dn, { replace => \%attrs } );
 }
@@ -1829,6 +1829,28 @@ sub ntHasher
     return Crypt::SmbHash::nthash($password);
 }
 
+sub digestHasher
+{
+    my ($password, $user) = @_;
+    my $realm = getRealm();
+    my $digest = "$user:$realm:$password";
+    return '{MD5}' . Digest::MD5::md5_base64($digest) . '==';
+}
+
+sub realmHasher
+{
+    my ($password, $user) = @_;
+    my $realm = getRealm();
+    my $digest = "$user:$realm:$password";
+    return '{MD5}' . Digest::MD5::md5_hex($digest);
+}
+
+sub getRealm
+{
+    # FIXME get the LDAP dc as realm when merged iclerencia/ldap-jaunty-ng
+    return 'ebox';
+}
+
 sub passwordHasher
 {
     my ($format) = @_;
@@ -1838,6 +1860,8 @@ sub passwordHasher
         'md5' => \&md5Hasher,
         'lm' => \&lmHasher,
         'nt' => \&ntHasher,
+        'digest' => \&digestHasher,
+        'realm' => \&realmHasher,
     };
     return $hashers->{$format};
 }
@@ -1857,18 +1881,18 @@ sub defaultPasswordHash
 
 sub additionalPasswords
 {
-    my ($password) = @_;
+    my ($user, $password) = @_;
 
     my $passwords = [];
 
     my $format_string = EBox::Config::configkey('password_formats');
     if (not defined($format_string)) {
-        $format_string = 'sha1,md5,lm,nt';
+        $format_string = 'sha1,md5,lm,nt,digest,realm';
     }
     my @formats = split(',', $format_string);
     for my $format (@formats) {
         my $hasher = passwordHasher($format);
-        my $hash = $hasher->($password);
+        my $hash = $hasher->($password, $user);
         push(@{$passwords}, 'ebox' . ucfirst($format) . 'Password', $hash);
     }
     return $passwords;
