@@ -133,7 +133,7 @@ msgstr "O trafego não excederá esta taxa. 0 significa taxa ilimitada."
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Lista de regras para {printableIdex}"
+msgstr "Lista de regras para {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
 msgid ""
@@ -161,7 +161,7 @@ msgid ""
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
 "Taxas normalizadas: {limitNum} regras baixaram a sua taxas limite para "
-"{limitRate}, {guarantNum} regras normalizaram a sua taxa garantida para "
+"{limitRate}, {guaranNum} regras normalizaram a sua taxa garantida para "
 "manter a mesma proporção que tinha previamente e {removeNum} foram apagadas "
 "porque a sua taxa garantida era mais baixa que o mínimo permitido"
 
@@ -192,7 +192,8 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"O perfil de tráfego é aplicado quando a eBox está configurada como gateway"
+"O perfil de tráfego é aplicado quando a eBox está configurada como gateway."
+"{openhref}Network->Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
@@ -266,7 +267,7 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"A taxa limitada {lR} Kbit/s deve ser mais baixa do que {macLR} ou deve "
+"A taxa limitada {lR} Kbit/s deve ser mais baixa do que {maxLR} ou deve "
 "incrementar o tráfego máximo permitido"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
@@ -316,7 +317,7 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
-"O número máximo de regras foi atingido, apague pelo menos uma regra para "
+"O número máximo de regras {max} foi atingido, apague pelo menos uma regra para "
 "poder adicionar outra"
 
 #: src/EBox/TrafficShaping.pm:978
