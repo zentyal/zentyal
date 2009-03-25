@@ -126,18 +126,18 @@ sub startUp
 #
 sub actions
 {
-	return [ 
+    return [
 	{
-		'action' => __('Add iptables rules to mangle table'),
-		'reason' => __('To mark packets with different priorities and rates'),
-		'module' => 'trafficshaping'
+            'action' => __('Add iptables rules to mangle table'),
+            'reason' => __('To mark packets with different priorities and rates'),
+            'module' => 'trafficshaping'
 	},
-    {
-		'action' => __('Add tc rules'),
-		'reason' => __('To implement the traffic shaping rules'),
-		'module' => 'trafficshaping'
+        {
+            'action' => __('Add tc rules'),
+            'reason' => __('To implement the traffic shaping rules'),
+            'module' => 'trafficshaping'
 	}
-    ];
+       ];
 }
 
 # Method: isRunning
@@ -1229,7 +1229,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
             # then attaching filters according to members of this object
             $dst = undef;
             $dstObj =  $rule_ref->{destination} ;
-            return unless (@{$objs->objectAddresses($dstObj)}); 
+            return unless (@{$objs->objectAddresses($dstObj)});
         }
 
         # Set a filter with objects if src or dst are not objects
