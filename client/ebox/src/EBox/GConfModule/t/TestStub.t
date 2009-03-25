@@ -3,7 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 151;
+#use Test::More tests => 151;
+use Test::More qw(no_plan);
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
 use File::Basename;
@@ -15,13 +16,13 @@ use EBox::TestStub;
 BEGIN { use_ok 'EBox::GConfModule::TestStub' }
 mock();
 createTest();
-setAndGetTest();
-setAndGetListTest();
-dirExistsTest();
-allEntriesTest();
-allDirsTest();
-hashFromDirTest();
-deleteDirTest();
+ setAndGetTest();
+# setAndGetListTest();
+# dirExistsTest();
+# allEntriesTest();
+# allDirsTest();
+# hashFromDirTest();
+# deleteDirTest();
 unfakeTest();
 
 sub createTest
@@ -35,62 +36,100 @@ sub createTest
 
 sub setAndGetTest
 {
-    my @gettersNames = qw(get_int get_bool get_string );
-    my @settersNames = qw(set_int set_bool set_string );
-
     my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+
+   my @cases =(
+               {
+                   getter => 'get_int',
+                   setter => 'set_int',
+                   values => [0, 12, -21],
+                   unsetValue => 0,
+               },
+               {
+                   getter => 'get_bool',
+                   setter => 'set_bool',
+                   values => [0, 1, undef],
+                   expectedValues => [0, 1, 0],
+               },
+               {
+                   getter => 'get_string',
+                   setter => 'set_string',
+                   values => ['aaa', ''],
+               },
+              );
+
+   my @gettersNames = map {
+       $_->{getter}
+   } @cases;
+
+
+   my @settersNames = map {
+       $_->{setter}
+   } @cases;
 
     can_ok($gconfModule, @gettersNames);
     can_ok($gconfModule, @settersNames);
 
-    my @setters = map { $gconfModule->can($_) }  @settersNames;
-    my @getters = map { $gconfModule->can($_) }  @gettersNames;
 
+    foreach my $case (@cases) {
+        _setAndGetStraightCasesTest($gconfModule, $case);
+    }
     
-    _setAndGetStraightCasesTest($gconfModule, getters => \@getters, setters => \@setters);
-
 }
 
 sub _setAndGetStraightCasesTest
 {
-    my ($gconfModule, %params) = @_;
-    my @getters = @{ $params{getters}  };
-    my @setters = @{ $params{setters}  };
+    my ($gconfModule, $case) = @_;
+    my $getter = $case->{getter};
+    my $setter = $case->{setter};
+    my @values = @{ $case->{values} };
+    my $unsetValue = undef;
+    if (exists $case->{unsetValue}) {
+        $unsetValue = $case->{unsetValue};
+    }
+    my @expectedValues;
+    if (exists $case->{expectedValues}) {
+        @expectedValues = @{ $case->{expectedValues} };
+    } else {
+        @expectedValues = @values;
+    }
 
+
+    diag "Case for $getter/$setter wirh values @values";
 
     # straight cases...
     # remember that currently the set/get mocks had not type check...
     # so we can set/get any scalar regrdless of gconf type...
     my @keys =  qw(colmillos pelaje/parasitos);
-    my @values = (0, 24, 'ea');
 
-    foreach my $getter_r (@getters) {
-	foreach my $key (@keys) {	
-	    my $actualValue = $getter_r->($gconfModule, $key);
-	    ok !defined $actualValue, 'Checking that no existent keys return undef value';
-	}
+    foreach my $key (@keys) {       
+        my $actualValue = $gconfModule->$getter($key);
+        is $actualValue, $unsetValue, 'Checking that no existent keys return undef value';
     }
 
-    foreach my $getter_r (@getters) {
-	foreach my $setter_r (@setters) {
-	    foreach my $key (@keys) {
-		foreach my $value (@values) {
-		    $setter_r->($gconfModule, $key, $value);
-		    my $actualValue = $getter_r->($gconfModule, $key);
-		    is $actualValue, $value, "setter and getter of gconf simple type";
-		}
-	    }
 
-	    last; # it is pointless to continue te loop, whith tests of pairs of get and set fot the same type we are fine for now 
-	}
+    foreach my $key (@keys) {
+        
+        foreach my $nValue (0 .. (@values -1)) {
+            my $value = $values[$nValue];
+            my $expectedValue = $expectedValues[$nValue];
+
+            $gconfModule->$setter($key, $value);
+            my $actualValue = $gconfModule->$getter($key);
+            use Data::Dumper;
+            print "ACTAUL VALUE " . Dumper($actualValue);
+             
+
+            is $actualValue, $expectedValue, "
+              $setter and $getter test with $value";
+        }
     }
 
-    foreach my $key (@keys) {	
-	$gconfModule->unset($key);
-	foreach my $getter_r (@getters) {
-	    my $actualValue = $getter_r->($gconfModule, $key);
-	    ok !defined $actualValue, 'unset';
-	}
+
+    foreach my $key (@keys) {   
+        $gconfModule->unset($key);
+        my $actualValue = $gconfModule->$getter($key);
+        is $actualValue, $unsetValue, 'checking that after usnet keys return unset value';
     }
 
 }

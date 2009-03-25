@@ -42,52 +42,154 @@ sub unfake
 
 
 my %subByGConfMethod = (
-			get        => \&_getEntry,
+                        get => {
+                                sub_r => \&_getEntry,
+                                type  => undef,
+                                returnValueHash => 1,
+                               },
 
-			get_bool   => \&_getEntry,
-			set_bool   => \&setEntry,
-			get_int    => \&_getEntry,
-			set_int    => \&setEntry,
-			get_string => \&_getEntry,
-			set_string => \&setEntry,
+                        get_bool  => {
+                                      sub_r =>  \&_getEntry,
+                                      type  => 'bool',
+                                      returnValueHash => 1,
+                                     },
+                        set_bool  => {
+                                      sub_r =>  \&setEntry,
+                                      type  => 'bool',
+                                      returnValueHash => 0,
+                                     },
+                        get_int   => {
+                                      sub_r =>  \&_getEntry, 
+                                      type  => 'int',
+                                      returnValueHash => 1,
+                                     },
+                        set_int   => {
+                                      sub_r =>  \&setEntry,
+                                      type  => 'int',
+                                      returnValueHash => 0,
+                                     },
+                        get_string=> {
+                                      sub_r =>  \&_getEntry,
+                                      type  => 'string',
+                                      returnValueHash => 1,
+                                     },
+                        set_string=> {
+                                      sub_r =>  \&setEntry,
+                                      type  => 'string',
+                                      returnValueHash => 0,
+                                     },
 
-		
-			get_list   => \&_getEntry,
-			set_list   => \&_setList,
+                
+                        get_list  => {
+                                      sub_r =>  \&_getEntry,
+                                      type  => 'list',
+                                      returnValueHash => 1,
+                                     },
+                        set_list  => {
+                                      sub_r =>  \&_setList,
+                                      type  => 'list',
+                                      returnValueHash => 0,
+                                     },
 
-			unset      => \&_unsetEntry,
+                        unset     => {
+                                      sub_r =>  \&_unsetEntry,
+                                      type  => undef,
+                                      returnValueHash => 0,
+                                     },
 
-			dir_exists  => \&_dirExists,
-			all_entries => \&_allEntries,
-			all_dirs    => \&_allDirs,
+                        dir_exists => {
+                                       sub_r =>  \&_dirExists,
+                                       type  => undef,
+                                       returnValueHash => 0,
+                                      },
+                        all_entries=> {
+                                       sub_r =>  \&_allEntries,
+                                       type  => undef,
+                                       returnValueHash => 0,
+                                      },
+                        all_dirs   => {
+                                       sub_r =>  \&_allDirs,
+                                       type  => undef,
+                                       returnValueHash => 0,
+                                      },
 
-   );
+                       );
+
+
+#my $lastType;
 
 sub _mockedGConfWrapper
 {
     my ($self, $method, @params) = @_;
 
     (exists $subByGConfMethod{$method}) or  die "GConf method $method was not available";
-    my $methodSub_r = $subByGConfMethod{$method};
 
-    my $scalar;
-    my @array;
-
-    my $ret = wantarray;
-    eval { 
-	if ($ret){
-	    @array = $methodSub_r->(@params);
-	} else {
-	    $scalar = $methodSub_r->(@params);
-	}	
-    };
-    if ($@) {
-	throw EBox::Exceptions::Internal("gconf error using function "
-					 . "$method and params @params"
-					 . "\n $@");
+    # some simple getters are now calling to the 'get' method, this is to found
+    # the equivalent calelr so we don't lose type information
+    if ($method eq 'get') {
+        my ($package, $filename, $line, $parentMethod) = caller(1);
+#        print "PARENT METHOD $parentMethod\n";
+        
+        if ($parentMethod =~ m/^EBox::GConfModule::_get_/) {
+            $method = $parentMethod;
+            $method =~ s/^EBox::GConfModule::_//;
+#            print "NEW method: $method\n\n";
+        }
     }
 
-    return wantarray ? @array : $scalar;	
+    my $methodSub_r = $subByGConfMethod{$method}->{'sub_r'};
+    my $type        = $subByGConfMethod{$method}->{'type'};
+    my $returnValueHash    = $subByGConfMethod{$method}->{'returnValueHash'};
+
+    my $value;
+    my $wantarray = wantarray();
+
+    eval { 
+        if ($wantarray){
+            my @array = $methodSub_r->(@params);
+            $value = \@array;
+        } else {
+            my $scalar = $methodSub_r->(@params);
+            $value = $scalar;
+        }       
+    };
+    if ($@) {
+        throw EBox::Exceptions::Internal("gconf error using function "
+                                         . "$method and params @params"
+                                         . "\n $@");
+    }
+
+    
+    if (not $returnValueHash) {
+        return $wantarray ? @{ $value } : $value;
+    } 
+
+
+    # undef must have some special tratment for some types...
+    if (not defined $value) {
+        if ($type eq 'int') {
+            # no initialzed ints must return 0 only undef uif the type isn't
+            # int, but we dont mock the storage tpyes (we assuem that al ldata
+            # is of the coorect type)
+            $value = 0;
+        }
+        elsif ($type eq 'bool') {
+            # do nothing, undef is a vlaid bool value
+        }
+        else {
+            return undef;            
+        }
+
+    }
+    
+
+    my $resHash = {
+                     value => $value,
+                     type => $type
+                  };
+
+    return $resHash;
+
 }
 
 
