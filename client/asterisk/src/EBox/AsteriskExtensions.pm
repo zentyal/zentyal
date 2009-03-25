@@ -166,6 +166,7 @@ sub addUserExtension
         return;
     }
 
+    $self->addExtension($user, '1', 'Goto', "$extn,1");
     $self->addExtension($extn, '1', 'Dial', "SIP/$user");
     $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
 }
@@ -223,9 +224,12 @@ sub delUserExtension
 
     my @extns = map { $_->get_value('cn')} $result->sorted('cn');
 
+
     foreach (@extns) {
         $self->delExtension($_);
     }
+
+    $self->delExtension("$user-1"); #FIXME not so cool
 }
 
 

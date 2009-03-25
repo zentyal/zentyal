@@ -33,7 +33,7 @@ sub runGConf
                                 {
                                     'protocol' => 'udp',
                                     'sourcePort' => 'any',
-                                    'destinationPort' => '5090',
+                                    'destinationPort' => '5060',
                                 },
                                 {
                                     'protocol' => 'tcp',

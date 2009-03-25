@@ -28,3 +28,5 @@ PAGING_HEADER = Intercom
 
 [default]
 switch => Realtime
+exten => i,1,Playback(invalid); Invalid procedure, retry
+exten => t,1,Hangup; Hang up if nothing else happens
