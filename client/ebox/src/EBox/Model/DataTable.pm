@@ -3191,6 +3191,10 @@ sub _checkFieldIsUnique
 {
     my ($self, $newData) = @_;
 
+    if ($newData->optional() and not defined($newData->value())) {
+        return 0;
+    }
+
     # Call _rows instead of rows because of deep recursion
     foreach my $id (@{$self->_ids(1)}) {
         my $row = $self->row($id);
