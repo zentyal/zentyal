@@ -3,11 +3,11 @@
 use strict;
 
 use EBox::Global;
-use EBox::AsteriskExtensions;
+use EBox::Asterisk::Extensions;
 
 EBox::init();
 
-my $extensions = new EBox::AsteriskExtensions;
+my $extensions = new EBox::Asterisk::Extensions;
 
 sub update {
 	$extensions->{ldap}->ldapCon;
@@ -20,15 +20,16 @@ sub update {
 		'objectClass' => 'organizationalUnit'
 	]);
 	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
+
+         $extensions->addExtension(8000, 1, 'VoicemailMain', 'default');
 }
 
 sub clean {
 	$extensions->{ldap}->ldapCon;
-	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;
+	my $ldap = $extensions->{ldap}->{ldap};
 
 	my @extns = $extensions->extensions;
-
 	foreach (@extns) {
 		$extensions->delExtension($_);
 	}

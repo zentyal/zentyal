@@ -56,8 +56,8 @@ sub _description
     my $description =
         {
             components      => [
-                                'GeneralSettings',
-                                'Provider',
+                                'asterisk/Settings',
+                                'asterisk/Provider',
                                ],
             layout          => 'top-bottom',
             name            =>  __PACKAGE__->nameFromClass,

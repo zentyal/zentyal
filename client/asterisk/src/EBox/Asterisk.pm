@@ -31,12 +31,14 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Ldap;
 use EBox::AsteriskLdapUser;
+use EBox::Asterisk::Extensions;
 
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
-use constant EXTNCONFIGCONFFILE   => '/etc/asterisk/extensions.conf';
+use constant RTPCONFFILE          => '/etc/asterisk/rtp.conf';
+use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 
 
@@ -62,7 +64,7 @@ sub _create
 sub modelClasses
 {
     return [
-        'EBox::Asterisk::Model::GeneralSettings',
+        'EBox::Asterisk::Model::Settings',
         'EBox::Asterisk::Model::Provider',
         'EBox::Asterisk::Model::Meetings',
         'EBox::Asterisk::Model::Voicemail',
@@ -96,7 +98,7 @@ sub usedFiles
 
     push (@usedFiles, { 'file' => MODULESCONFFILE,
                         'module' => 'asterisk',
-                        'reason' => __('To configure Asterisk enabled and disabled modules.')
+                        'reason' => __('To configure enabled and disabled modules.')
                       });
 
     push (@usedFiles, { 'file' => EXTCONFIGCONFFILE,
@@ -114,14 +116,19 @@ sub usedFiles
                         'reason' => __('To configure the SIP trunk for local users and external providers.')
                       });
 
-    push (@usedFiles, { 'file' => EXTNCONFIGCONFFILE,
+    push (@usedFiles, { 'file' => RTPCONFFILE,
                         'module' => 'asterisk',
-                        'reason' => __('To configure the Asterisk dialplan.')
+                        'reason' => __('To configure the RTP port ranges.')
+                      });
+
+    push (@usedFiles, { 'file' => EXTNCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the dialplan.')
                       });
 
     push (@usedFiles, { 'file' => MEETMECONFFILE,
                         'module' => 'asterisk',
-                        'reason' => __('To configure the Asterisk conferences.')
+                        'reason' => __('To configure the conferences.')
                       });
 
     push (@usedFiles, {
@@ -193,8 +200,8 @@ sub _setConf
     $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
     $self->_setRealTime();
-    $self->writeConfFile(EXTNCONFIGCONFFILE, "asterisk/extensions.conf.mas");
-
+    $self->_setExtensions();
+    $self->_setVoicemail();
     $self->_setProvider();
     $self->_setMeetings();
 }
@@ -213,6 +220,44 @@ sub _setRealTime
 }
 
 
+# set up the extensions configuration on extensions.conf
+sub _setExtensions
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    my $model = $self->model('Settings');
+
+    push (@params, outgoingcalls => $model->outgoingCallsValue());
+
+    $model = $self->model('Provider');
+
+    push (@params, name => $model->nameValue());
+
+    $self->writeConfFile(EXTNCONFFILE, "asterisk/extensions.conf.mas", \@params);
+}
+
+
+# set up the Voicemail configuration on LDAP
+sub _setVoicemail
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    my $model = $self->model('Settings');
+    my $vmextn = $model->voicemailExtnValue();
+
+    my $extns = new EBox::Asterisk::Extensions;
+
+    if ($extns->extensionExists($vmextn)) {
+        $extns->delExtension("$vmextn-1");
+    }
+    $extns->addExtension($vmextn, 1, 'VoicemailMain', 'default');
+}
+
+
 # set up the external provider on sip.conf
 sub _setProvider
 {
@@ -220,7 +265,7 @@ sub _setProvider
 
     my @params = ();
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->model('Settings');
 
     push (@params, outgoingcalls => $model->outgoingCallsValue());
 
@@ -243,6 +288,8 @@ sub _setMeetings
 
     my $model = $self->model('Meetings');
 
+    my $extns = new EBox::Asterisk::Extensions;
+
     my @meetings = ();
     foreach my $meeting (@{$model->ids()}) {
         my $row = $model->row($meeting);
@@ -253,6 +300,7 @@ sub _setMeetings
                            pin => $pin,
                            adminpin => $adminpin,
                          });
+        $extns->addExtension($exten, 1, 'MeetMe', $exten);
     }
 
     my @params = ( meetings => \@meetings );
@@ -283,7 +331,7 @@ sub menu
 
     $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/Composite/General',
-            'text' => __('General settings')));
+            'text' => __('General')));
 
     $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/View/Meetings',

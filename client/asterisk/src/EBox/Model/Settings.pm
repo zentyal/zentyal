@@ -13,9 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Asterisk::Model::GeneralSettings;
 
-# Class: EBox::Asterisk::Model::GeneralSettings
+package EBox::Asterisk::Model::Settings;
+
+# Class: EBox::Asterisk::Model::Settings
 #
 #   Form to set the general configuration settings for the Asterisk server
 #
@@ -28,12 +29,14 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Boolean;
+use EBox::Types::Int;
+use EBox::Asterisk::Extensions;
 
 # Group: Public methods
 
 # Constructor: new
 #
-#       Create the new GeneralSettings model
+#       Create the new Settings model
 #
 # Overrides:
 #
@@ -41,7 +44,7 @@ use EBox::Types::Boolean;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::GeneralSettings> - the recently created model
+#       <EBox::Asterisk::Model::Settings> - the recently created model
 #
 sub new
 {
@@ -52,6 +55,43 @@ sub new
     bless ( $self, $class );
 
     return $self;
+}
+
+
+# Method: validateTypedRow
+#
+#      Check the row to add or update if the name contains a valid
+#      extension
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the extension is not
+#      valid
+#
+sub validateTypedRow
+{
+  my ($self, $action, $changedFields) = @_;
+
+  if ( exists $changedFields->{voicemailExtn} ) {
+      EBox::Asterisk::Extensions->checkExtension(
+                                      $changedFields->{voicemailExtn}->value(),
+                                      __(q{extension}),
+                                      EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                      EBox::Asterisk::Extensions->MEETINGMAXEXTN,
+                                      );
+  }
+
+  my $extns = new EBox::Asterisk::Extensions;
+  if ($extns->extensionExists($changedFields->{voicemailExtn}->value())) {
+      throw EBox::Exceptions::DataExists(
+               'data'  => __('listening port'),
+               'value' => $changedFields->{voicemailExtn}->value(),
+            );
+  }
 }
 
 
@@ -69,27 +109,28 @@ sub _table
     my @tableHeader =
       (
        new EBox::Types::Boolean(
-                                fieldName     => 'incomingCalls',
-                                printableName => __('Enable incoming calls'),
-                                editable      => 1,
-                                defaultValue  => 1,
-                               ),
-       new EBox::Types::Boolean(
                                 fieldName     => 'outgoingCalls',
                                 printableName => __('Enable outgoing calls'),
                                 editable      => 1,
-                                defaultValue  => 1,
+                                defaultValue  => 0,
+                               ),
+       new EBox::Types::Int(
+                                fieldName     => 'voicemailExtn',
+                                printableName => __('Voicemail extension'),
+                                editable      => 1,
+                                size          => 4,
+                                defaultValue  => 8000,
                                ),
       );
 
     my $dataTable =
       {
-       tableName          => 'GeneralSettings',
-       printableTableName => __('General configuration settings'),
+       tableName          => 'Settings',
+       printableTableName => __('General settings'),
        defaultActions     => [ 'editField', 'changeView' ],
        tableDescription   => \@tableHeader,
        class              => 'dataForm',
-       help               => __('General Asterisk server configuration.'),
+       help               => __('General Asterisk server configuration'),
        messages           => {
                               update => __('General Asterisk server configuration settings updated'),
                              },

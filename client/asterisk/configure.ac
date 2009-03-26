@@ -55,6 +55,7 @@ AC_CONFIG_FILES([
 src/Makefile
 src/templates/Makefile
 src/EBox/Makefile
+src/EBox/Asterisk/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 src/EBox/CGI/Makefile

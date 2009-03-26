@@ -1,3 +1,9 @@
+<%args>
+    $outgoingcalls
+    $name
+</%args>
+;
+; SIP Configuration example for Asterisk
 ;
 ; extensions.conf - the Asterisk dial plan
 ;
@@ -8,18 +14,15 @@
 ; This configuration file is reloaded 
 ; - With the "dialplan reload" command in the CLI
 ; - With the "reload" command (that reloads everything) in the CLI
+;
 
 [general]
 static = yes
 writeprotect = no
-clearglobalvars = no
  
 [globals]
 CONSOLE = Console/dsp
 IAXINFO = guest
-TRUNK = DAHDI/G2
-
-TRUNKMSD = 1
 FEATURES = 
 DIALOPTIONS = 
 RINGTIME = 20
@@ -28,5 +31,12 @@ PAGING_HEADER = Intercom
 
 [default]
 switch => Realtime
+% if ($outgoingcalls) {
+exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
+exten => _0.,2,Hangup
+% }
+
 exten => i,1,Playback(invalid); Invalid procedure, retry
 exten => t,1,Hangup; Hang up if nothing else happens
+
+#include "extensions.local.conf

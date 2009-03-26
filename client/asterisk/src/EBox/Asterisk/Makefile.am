@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Asterisk Model Composite CGI
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Asterisk
 
-nobase_perl_DATA = Asterisk.pm AsteriskLdapUser.pm AsteriskFirewall.pm
+nobase_perl_DATA = Extensions.pm
 
 DISTCLEANFILES =
 

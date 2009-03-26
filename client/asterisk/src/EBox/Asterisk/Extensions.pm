@@ -14,17 +14,17 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-# Class: EBox::AsteriskExtensions
+# Class: EBox::Asterisk::Extensions
 #
 #
 
-package EBox::AsteriskExtensions;
+package EBox::Asterisk::Extensions;
 
 use strict;
 use warnings;
 
-use EBox::Global;
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Asterisk;
@@ -32,6 +32,8 @@ use EBox::Asterisk;
 # FIXME this fixed range
 use constant MINEXTN             => 1000;
 use constant MAXEXTN             => 7999;
+use constant MEETINGMINEXTN      => 8001;
+use constant MEETINGMAXEXTN      => 8999;
 use constant EXTENSIONSDN        => 'ou=Extensions';
 use constant VOICEMAILDIR        => '/var/spool/asterisk/voicemail/default/';
 
@@ -94,7 +96,6 @@ sub extensions
 # Returns:
 #
 #     integer - extension
-#     FIXME detect if we ran out of free extensions
 #
 sub firstFreeExtension
 {
@@ -113,18 +114,21 @@ sub firstFreeExtension
 
     my $len = @extns;
 
+    my $extn;
     if ($len == 0) {
         return MINEXTN;
     } elsif ($len == 1) {
         return $extns[0]+1;
     } else {
         for (my $i=0; $i < $len-1; $i++) {
-            if ($extns[$i+1]-$extns[$i]() > 1) {
-                return $extns[$i]+1;
+            if ($extns[$i+1]-$extns[$i] > 1) {
+                $extn = $extns[$i]+1;
+                return $extn <= MAXEXTN ? $extn : 0;
             }
         }
     }
-    return $extns[$#extns]+1;
+    $extn = $extns[$#extns]+1;
+    return $extn <= MAXEXTN ? $extn : 0;
 }
 
 
@@ -247,8 +251,19 @@ sub modifyUserExtension
     my $oldextn = $self->getUserExtension($user);
 
     $self->delUserExtension($user);
-    $self->_moveMailBox($oldextn, $newextn);
+    $self->_moveVoicemail($oldextn, $newextn);
     $self->addUserExtension($user, $newextn);
+
+    my $ldap = EBox::Ldap->instance();
+    my $users = EBox::Global->modInstance('users');
+
+    my $dn = "uid=" . $user . "," . $users->usersDn;
+
+    my %attrs = (
+        'AstAccountCallerID' => $newextn,
+    );
+
+    $ldap->modify($dn, { replace => \%attrs });
 }
 
 
@@ -276,7 +291,7 @@ sub addExtension
                          AstApplication => $app,
                          AstApplicationData => $data,
                         ],
-                 
+
                 );
 
     $self->{'ldap'}->add($dn, \%attrs);
@@ -313,5 +328,58 @@ sub _moveVoicemail
     my $newdir = VOICEMAILDIR . $new;
     EBox::Sudo::root("mv $oldir $newdir");
 }
+
+
+# Method: checkExtension
+#
+#       Check the validity for a given extension
+#
+# Parameters:
+#
+#       extension - extension to check
+#       name      - data's name to be used when throwing an Exception
+#       begin     - begin of the range of valid extensions
+#       end       - end of the range of valid extensions
+#
+# Returns:
+#
+#       boolean - True if the extension is correct
+#                 False on failure when parameter name is NOT defined
+#
+# Exceptions:
+#
+#       If name is passed an exception will be raised on failure
+#
+#       <EBox::Exceptions::InvalidData> - extension is incorrect
+#
+sub checkExtension
+{
+    my ($self, $extension, $name, $begin, $end) = @_;
+
+    unless($extension =~/^\d+$/){
+        if ($name) {
+            throw EBox::Exceptions::InvalidData
+                  ('data' => $name, 'value' => $extension);
+        } else {
+            return undef;
+        }
+    }
+
+    if (defined($begin) and defined($end)) {
+        if (($begin <= $extension) and ($extension <= $end)) {
+            return 1;
+        } else {
+            if ($name) {
+                throw EBox::Exceptions::InvalidData
+                      ('data' => $name, 'value' => $extension);
+            } else {
+                return undef;
+            }
+        }
+    } else {
+        return 1;
+    }
+}
+
 
 1;

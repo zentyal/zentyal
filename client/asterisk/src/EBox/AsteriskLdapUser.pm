@@ -26,7 +26,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
-use EBox::AsteriskExtensions;
+use EBox::Asterisk::Extensions;
 
 use base qw(EBox::LdapUserBase);
 
@@ -63,26 +63,24 @@ sub _addUser
 
     my $dn = "uid=$user," . $users->usersDn;
 
-    my $extensions = new EBox::AsteriskExtensions;
+    my $extensions = new EBox::Asterisk::Extensions;
 
     my $extn = $extensions->firstFreeExtension();
 
     my %attrs = (changes => [
                              add => [
                                      objectClass => 'AsteriskSIPUser',
-                                     AstAccountCallerID => $extn,
                                      AstAccountContext => 'default',
+                                     AstAccountCallerID => $extn,
                                      AstAccountHost => 'dynamic',
-                                     AstAccountFullContact => 'sip:0.0.0.0',
-                                     #AstAccountRegistrationServer => '0.0.0.0',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
                                      AstAccountExpirationTimestamp => '0',
                                      AstAccountUserAgent => '0',
+                                     AstAccountFullContact => 'sip:0.0.0.0',
                                      objectClass => 'AsteriskVoicemail',
                                      AstAccountMailbox => $extn, #FIXME random?
                                      AstAccountVMPassword => $extn,
-                                     #AstVMEmail => '2001@localhost',
                                     ],
                             ]
                 );
@@ -92,7 +90,7 @@ sub _addUser
 
     unless ($result->count > 0) {
         $ldap->modify($dn, \%attrs);
-        $extensions->addUserExtension($user, $extn);
+        if ($extn > 0) { $extensions->addUserExtension($user, $extn); }
     }
 }
 
@@ -113,8 +111,12 @@ sub _userAddOns
     my $active = 'no';
     $active = 'yes' if ($self->hasAccount($username));
 
+    my $extensions = new EBox::Asterisk::Extensions;
+    my $extension = $extensions->getUserExtension($username);
+
     my $args = {
         'username' => $username,
+        'extension' => $extension,
         'active'   => $active,
         'service' => $asterisk->isEnabled(),
     };
@@ -138,7 +140,7 @@ sub _delUser
         return;
     }
 
-    my $extensions = new EBox::AsteriskExtensions;
+    my $extensions = new EBox::Asterisk::Extensions;
     $extensions->delUserExtension($user);
 
     my $users = EBox::Global->modInstance('users');

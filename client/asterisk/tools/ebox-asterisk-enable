@@ -9,5 +9,5 @@ cp /usr/share/ebox-asterisk/*.schema /etc/ldap/schema
 # restart slapd
 invoke-rc.d slapd restart
 
-# populate ldap
+# populate LDAP
 /usr/share/ebox-asterisk/ebox-asterisk-ldap update

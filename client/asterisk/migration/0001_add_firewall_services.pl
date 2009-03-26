@@ -22,6 +22,7 @@ sub runGConf
 
     my $service = EBox::Global->getInstance()->modInstance('services');
     my $firewall = EBox::Global->getInstance()->modInstance('firewall');
+
     my $serviceName = 'Asterisk';
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
@@ -29,7 +30,7 @@ sub runGConf
                 'description' => __d('eBox VoIP system'),
                 'translationDomain' => 'ebox-asterisk',
                 'internal' => 1,
-                'services' => [ 
+                'services' => [
                                 {
                                     'protocol' => 'udp',
                                     'sourcePort' => 'any',
@@ -55,13 +56,13 @@ sub runGConf
 
    $firewall->setExternalService($serviceName, 'deny');
    $firewall->setInternalService($serviceName, 'accept');
-   $firewall->saveConfigRecursive(); 
+   $firewall->saveConfigRecursive();
 }
 
 EBox::init();
 
 my $mod = EBox::Global->modInstance('asterisk');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mod,
         'version' => 1
         );

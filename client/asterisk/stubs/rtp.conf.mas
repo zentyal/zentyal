@@ -1,0 +1,10 @@
+;
+; RTP Configuration
+;
+
+[general]
+rtpstart=10000
+rtpend=20000
+
+;rtpchecksums=yes
+;strictrtp=yes

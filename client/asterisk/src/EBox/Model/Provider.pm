@@ -13,6 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+
 package EBox::Asterisk::Model::Provider;
 
 # Class: EBox::Asterisk::Model::Provider
@@ -114,7 +115,7 @@ sub _table
        defaultActions     => [ 'editField', 'changeView' ],
        tableDescription   => \@tableHeader,
        class              => 'dataForm',
-       help               => __('SIP provider configuration.'),
+       help               => __('SIP provider for outgoing calls configuration'),
        messages           => {
                               update => __('SIP provider configuration settings updated'),
                              },

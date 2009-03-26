@@ -1,4 +1,4 @@
-# Copyright  
+# Copyright
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,14 +15,13 @@
 
 
 # Class: EBox::Asterisk::Model::Voicemail
-#   
+#
 #
 
 package EBox::Asterisk::Model::Voicemail;
 
 use EBox::Gettext;
 use EBox::UsersAndGroups::Types::Password;
-use EBox::UserCorner::Auth;
 use Apache2::RequestUtil;
 
 use strict;
@@ -30,7 +29,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -49,8 +48,8 @@ sub pageTitle
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::UsersAndGroups::Types::Password(
             'fieldName' => 'pass',
             'printableName' => __('New password'),
@@ -59,8 +58,8 @@ sub _table
             'editable' => 1
         ),
     );
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Voicemail',
         'printableTableName' => __('Voicemail'),
         'modelDomain' => 'Asterisk',

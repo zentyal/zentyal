@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
+use EBox::Asterisk::Extensions;
 
 ## arguments:
 ##  title [required]
@@ -38,6 +39,7 @@ sub new {
 sub _process($) {
     my $self = shift;
     my $astldap = new EBox::AsteriskLdapUser;
+    my $extensions = new EBox::Asterisk::Extensions;
 
     $self->_requireParam('username', __('username'));
     my $username = $self->param('username');
@@ -47,6 +49,12 @@ sub _process($) {
 
     if ($self->param('active') eq 'yes') {
         $astldap->setHasAccount($username, 1);
+        my $myextn = $extensions->getUserExtension($username);
+        my $newextn = $self->param('extension');
+        if ($newextn eq '') { $newextn = $myextn; }
+        if ($newextn ne $myextn) {
+            $extensions->modifyUserExtension($username, $newextn);
+        }
     } else { # when deleting an account we check if already exists
         if ($astldap->hasAccount($username)) {
             $astldap->setHasAccount($username, 0);
