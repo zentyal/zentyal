@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+
 perldir = @PERLPATH@/EBox/Asterisk/Composite
 
 nobase_perl_DATA = General.pm

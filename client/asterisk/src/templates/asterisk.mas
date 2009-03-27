@@ -34,7 +34,7 @@
             <span class='ftitle'><% __('Extension') %>:</span>
         </td>
         <td>
-            <input type='text' class='inputText' size='4' name='extension' value='<% $params->{'extension'} %>'>
+            <input type='text' class='inputText' size='4' maxlenght='4' name='extension' value='<% $params->{'extension'} %>'>
         </td>
     </tr>
 %       }

@@ -14,21 +14,21 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-# Class: EBox::Asterisk
-#
-#   TODO: Documentation
-
 package EBox::Asterisk;
 
-use strict;
-use warnings;
+# Class: EBox::Asterisk
+#
+#
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
             EBox::Model::CompositeProvider EBox::LdapModule
             EBox::UserCorner::Provider);
 
-use EBox::Global;
+use strict;
+use warnings;
+
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Ldap;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
@@ -41,10 +41,18 @@ use constant RTPCONFFILE          => '/etc/asterisk/rtp.conf';
 use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 
-
+# Constructor: _create
+#
+#      Create a new EBox::Asterisk module object
+#
+# Returns:
+#
+#      <EBox::Asterisk> - the recently created model
+#
 sub _create
 {
     my $class = shift;
+
     my $self = $class->SUPER::_create(name => 'asterisk',
             printableName => __('Asterisk'),
             domain => 'ebox-asterisk',
@@ -59,7 +67,7 @@ sub _create
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::modelClasses>
 #
 sub modelClasses
 {
@@ -76,7 +84,7 @@ sub modelClasses
 #
 # Overrides:
 #
-#       <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::compositeClasses>
 #
 sub compositeClasses
 {
@@ -90,7 +98,7 @@ sub compositeClasses
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::usedFiles>
+#      <EBox::ServiceModule::ServiceInterface::usedFiles>
 #
 sub usedFiles
 {
@@ -145,7 +153,7 @@ sub usedFiles
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::enableActions>
+#      <EBox::ServiceModule::ServiceInterface::enableActions>
 #
 sub enableActions
 {
@@ -160,7 +168,7 @@ sub enableActions
 #
 # Overrides:
 #
-#       <EBox::Module::Service::_daemons>
+#      <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
@@ -176,14 +184,14 @@ sub _daemons
 #
 # Overrides:
 #
-#       <EBox::Module::Service::enableService>
+#      <EBox::Module::Service::enableService>
 #
 sub enableService
 {
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    #$self->configureFirewall(); FIXME
+    #$self->configureFirewall(); FIXME enable firewall XXX
 }
 
 
@@ -191,7 +199,7 @@ sub enableService
 #
 # Overrides:
 #
-#       <EBox::Module::Service::_setConf>
+#      <EBox::Module::Service::_setConf>
 #
 sub _setConf
 {
@@ -244,17 +252,15 @@ sub _setVoicemail
 {
     my ($self) = @_;
 
-    my @params = ();
-
     my $model = $self->model('Settings');
     my $vmextn = $model->voicemailExtnValue();
 
-    my $extns = new EBox::Asterisk::Extensions;
+    my $extensions = new EBox::Asterisk::Extensions;
 
-    if ($extns->extensionExists($vmextn)) {
-        $extns->delExtension("$vmextn-1");
+    if ($extensions->extensionExists($vmextn)) {
+        $extensions->delExtension("$vmextn-1"); #FIXME not so cool
     }
-    $extns->addExtension($vmextn, 1, 'VoicemailMain', 'default');
+    $extensions->addExtension($vmextn, 1, 'VoicemailMain', 'default');
 }
 
 
@@ -290,17 +296,21 @@ sub _setMeetings
 
     my $extns = new EBox::Asterisk::Extensions;
 
+    $extns->cleanUpMeetings();
+
     my @meetings = ();
     foreach my $meeting (@{$model->ids()}) {
         my $row = $model->row($meeting);
         my $exten = $row->valueByName('exten');
+        #my $alias = $row->valueByName('alias'); FIXME not implemented yet
         my $pin = $row->valueByName('pin');
         my $adminpin = $row->valueByName('adminpin');
         push (@meetings, { exten => $exten,
                            pin => $pin,
                            adminpin => $adminpin,
                          });
-        $extns->addExtension($exten, 1, 'MeetMe', $exten);
+        #$extns->addExtension($alias, 1, 'GoTo', $exten); #FIXME when we delete these extensions? XXX
+        $extns->addExtension($exten, 1, 'MeetMe', $exten); #FIXME when we delete these extensions? XXX
     }
 
     my @params = ( meetings => \@meetings );
@@ -311,16 +321,25 @@ sub _setMeetings
 
 # Method: _ldapModImplementation
 #
+#      All modules using any of the functions in LdapUserBase.pm
+#      should override this method to return the implementation
+#      of that interface.
+#
+# Returns:
+#
+#       An object implementing EBox::LdapUserBase
+#
 sub _ldapModImplementation
 {
     return new EBox::AsteriskLdapUser();
 }
 
+
 # Method: menu
 #
 # Overrides:
 #
-#       <EBox::Module::menu>
+#      <EBox::Module::menu>
 #
 sub menu
 {
@@ -343,12 +362,16 @@ sub menu
 
 # Method: userMenu
 #
+# Implements:
+#
+#      <EBox::UserCorner::Provider::userMenu
+#
 sub userMenu
 {
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => '/Asterisk/View/Voicemail',
-                                      'text' => __('Voicemail')));
+                                    'text' => __('Voicemail')));
 }
 
 1;

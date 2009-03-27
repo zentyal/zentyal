@@ -13,42 +13,61 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+
+package EBox::AsteriskLdapUser;
+
 # Class: EBox::AsteriskLdapUser
 #
 #
 
-package EBox::AsteriskLdapUser;
+use base qw(EBox::LdapUserBase);
 
 use strict;
 use warnings;
 
-use EBox::Global;
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Asterisk::Extensions;
 
-use base qw(EBox::LdapUserBase);
-
 use constant SCHEMAS => ('/etc/ldap/schema/asterisk.schema');
 
+# Group: Public methods
 
+# Constructor: new
+#
+#      Create the new LDAP helper
+#
+# Overrides:
+#
+#      <EBox::LdapUserBase>
+#
+# Returns:
+#
+#      <EBox::LdapUserBase> - the recently created model
+#
 sub new
 {
     my $class = shift;
+
     my $self  = {};
     $self->{ldap} = EBox::Ldap->instance();
     $self->{asterisk} = EBox::Global->modInstance('asterisk');
+
     bless($self, $class);
+
     return $self;
 }
 
+
+# Group: Private methods
 
 # Method: _addUser
 #
 # Implements:
 #
-#       <EBox::LdapUserBase::_addUser>
+#      <EBox::LdapUserBase::_addUser>
 #
 sub _addUser
 {
@@ -71,7 +90,7 @@ sub _addUser
                              add => [
                                      objectClass => 'AsteriskSIPUser',
                                      AstAccountContext => 'default',
-                                     AstAccountCallerID => $extn,
+                                     AstAccountCallerID => $extn, #FIXME +fullname?
                                      AstAccountHost => 'dynamic',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
@@ -79,8 +98,8 @@ sub _addUser
                                      AstAccountUserAgent => '0',
                                      AstAccountFullContact => 'sip:0.0.0.0',
                                      objectClass => 'AsteriskVoicemail',
-                                     AstAccountMailbox => $extn, #FIXME random?
-                                     AstAccountVMPassword => $extn,
+                                     AstAccountMailbox => $extn,
+                                     AstAccountVMPassword => $extn, #FIXME random?
                                     ],
                             ]
                 );
@@ -99,24 +118,24 @@ sub _addUser
 #
 # Implements:
 #
-#       <EBox::LdapUserBase::_userAddOns>
+#      <EBox::LdapUserBase::_userAddOns>
 #
 sub _userAddOns
 {
-    my ($self, $username) = @_;
-    my $asterisk = $self->{asterisk};
+    my ($self, $user) = @_;
 
+    my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
 
     my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($username));
+    $active = 'yes' if ($self->hasAccount($user));
 
     my $extensions = new EBox::Asterisk::Extensions;
-    my $extension = $extensions->getUserExtension($username);
+    my $extn = $extensions->getUserExtension($user);
 
     my $args = {
-        'username' => $username,
-        'extension' => $extension,
+        'username' => $user,
+        'extension' => $extn,
         'active'   => $active,
         'service' => $asterisk->isEnabled(),
     };
@@ -130,7 +149,7 @@ sub _userAddOns
 #
 # Implements:
 #
-#       <EBox::LdapUserBase::_delUser>
+#      <EBox::LdapUserBase::_delUser>
 #
 sub _delUser
 {
@@ -140,27 +159,40 @@ sub _delUser
         return;
     }
 
+    $self->_removeVoicemail($user);
+
     my $extensions = new EBox::Asterisk::Extensions;
     $extensions->delUserExtension($user);
 
     my $users = EBox::Global->modInstance('users');
     my $uid = $users->userInfo($user)->{uid};
 
-    # Delete LDAP info
     my $ldap = $users->{ldap};
     my $dn = "uid=$user," . $users->usersDn;
 
     $ldap->delObjectclass($dn, 'AsteriskSIPUser');
     $ldap->delObjectclass($dn, 'AsteriskVoicemail');
+}
 
-    # TODO: Implement also _delUserWarning ??
+
+# FIXME doc
+sub _removeVoicemail
+{
+    my ($self, $user) = @_;
+
+    my $extensions = new EBox::Asterisk::Extensions;
+    my $voicemail = $extensions->getUserExtension($user);
+    if ($voicemail) { # just in case where empty :)
+        my $vmpath = $extensions->VOICEMAILDIR . $voicemail;
+        EBox::Sudo::root("/bin/rm -fr $vmpath");
+    }
 }
 
 
 # Method: _includeLDAPSchemas
 #
-#   Those modules which need to use their own LDAP schemas must implement
-#   this method. It must return an array with LDAP schemas.
+#      Those modules which need to use their own LDAP schemas must implement
+#      this method. It must return an array with LDAP schemas.
 #
 # Returns:
 #
@@ -183,8 +215,8 @@ sub _includeLDAPSchemas
 
 # Method: _includeLDAPAcls
 #
-#   Those modules which need to use their own LDAP ACLs must implement
-#   this method. It must return an array with LDAP ACLs.
+#       Those modules which need to use their own LDAP ACLs must implement
+#       this method. It must return an array with LDAP ACLs.
 #
 # Returns:
 #
@@ -206,7 +238,17 @@ sub _includeLDAPAcls {
 }
 
 
-sub setHasAccount #($username, [01]) 0=disable, 1=enable
+# Method: setHasAccount
+#
+#       Enable or disable the Asterisk account for this user. The way it's
+#       implementated this method actually create or delete the account.
+#
+# Parameters:
+#
+#       username - username object of the action
+#       option - 0=disable, 1=enable the account
+#
+sub setHasAccount
 {
     my ($self, $username, $option) = @_;
 
@@ -218,6 +260,18 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 }
 
 
+# Method: hasAccount
+#
+#       Check if the user has an Asterisk account
+#
+# Parameters:
+#
+#       username - username object of the action
+#
+# Returns:
+#
+#       boolean - true if it exists, otherwise false
+#
 sub hasAccount #($username)
 {
     my ($self, $username) = @_;

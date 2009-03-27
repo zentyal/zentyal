@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Meetings;
 
 # Class: EBox::Asterisk::Model::Meetings
 #
-#   Form to set the configuration settings for the meetings
+#      Form to set the configuration settings for the meetings
 #
 
 use base 'EBox::Model::DataTable';
@@ -61,48 +61,36 @@ sub new
 
 # Method: validateTypedRow
 #
-#      Check the row to add or update if the name contains a valid
-#      extension
+#       Check the row to add or update if contains a valid extension
 #
 # Overrides:
 #
-#      <EBox::Model::DataTable::validateTypedRow>
+#       <EBox::Model::DataTable::validateTypedRow>
 #
 # Exceptions:
 #
-#      <EBox::Exceptions::InvalidData> - thrown if the extension is not
-#      valid
+#       <EBox::Exceptions::InvalidData> - thrown if the extension is not valid
 #
 sub validateTypedRow
 {
-  my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields) = @_;
 
-  if ( exists $changedFields->{exten} ) {
-      EBox::Asterisk::Extensions->checkExtension(
-                                      $changedFields->{exten}->value(),
-                                      __(q{extension}),
-                                      EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                      EBox::Asterisk::Extensions->MEETINGMAXEXTN,
-                                      );
-  }
+    if ( exists $changedFields->{exten} ) {
+        EBox::Asterisk::Extensions->checkExtension(
+                                        $changedFields->{exten}->value(),
+                                        __(q{extension}),
+                                        EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                        EBox::Asterisk::Extensions->MEETINGMAXEXTN,
+                                    );
+    }
 
-}
-
-
-# Method: addedRowNotify
-#
-#      Check the row to add or update if the name contains a valid
-#      extension
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::addedRowNotify>
-#
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-
-
+    my $extensions = new EBox::Asterisk::Extensions;
+    if ($extensions->extensionExists($changedFields->{exten}->value())) {
+        throw EBox::Exceptions::DataExists(
+                  'data'  => __('extension'),
+                  'value' => $changedFields->{voicemailExtn}->value(),
+              );
+    }
 }
 
 
@@ -126,14 +114,15 @@ sub _table
                                 unique        => 1,
                                 editable      => 1,
                                ),
-       new EBox::Types::Text(
-                                fieldName     => 'alias',
-                                printableName => __('Alias'),
-                                size          => 12,
-                                unique        => 1,
-                                editable      => 1,
-                                optional      => 1,
-                               ),
+       # FIXME we still need the infraestructure in Asterisk::Extensions for this
+       #new EBox::Types::Text(
+       #                         fieldName     => 'alias',
+       #                         printableName => __('Alias'),
+       #                         size          => 12,
+       #                         unique        => 1,
+       #                         editable      => 1,
+       #                         optional      => 1,
+       #                        ),
        new EBox::Types::Password(
                                 fieldName     => 'pin',
                                 printableName => __('Password'),
@@ -161,16 +150,16 @@ sub _table
       );
 
     my $dataTable =
-      {
-       tableName          => 'Meetings',
-       printableTableName => __('Meetings'),
-       printableRowName   => __('meeting'),
-       defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
-       tableDescription   => \@tableHeader,
-       class              => 'dataTable',
-       sortedBy           => 'exten',
-       modelDomain        => 'Asterisk',
-      };
+    {
+        tableName          => 'Meetings',
+        printableTableName => __('Meetings'),
+        printableRowName   => __('meeting'),
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataTable',
+        sortedBy           => 'exten',
+        modelDomain        => 'Asterisk',
+    };
 
     return $dataTable;
 

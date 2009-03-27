@@ -13,36 +13,69 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+
 package EBox::AsteriskFirewall;
+
+# Class: EBox::AsteriskFirewall
+#
+#
+#
+
+use base 'EBox::FirewallHelper';
 
 use strict;
 use warnings;
 
-use base 'EBox::FirewallHelper';
-
-use EBox::Global;
 use EBox::Gettext;
+use EBox::Global;
 
 use constant SIPUDPPORT => '5060';
-use constant H323TCPPORT => '1720'; 
-use constant H323UDPPORTRANGE => '5000:5014'; 
+use constant H323TCPPORT => '1720';
+use constant H323UDPPORTRANGE => '5000:5014';
 use constant IAXTCPPORT => '4569';
 use constant RTPUDPPORTRANGE => '10000:20000';
 
-sub new 
+# Group: Public methods
+
+# Constructor: new
+#
+#       Create the new Firewall helper
+#
+# Overrides:
+#
+#       <EBox::FirewallHelper>
+#
+# Returns:
+#
+#       <EBox::AsteriskFirewall> - the recently created model
+#
+sub new
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+
+    my $self = $class->SUPER::new(@_);
+
+    bless($self, $class);
+
+    return $self;
 }
 
+
+# Method: output
+#
+#      Rules returned by this method are added to the OUTPUT chain in
+#      the filter table. You can use them to filter packets originated
+#      within the firewall.
+#
+# Returns:
+#
+#      array ref - containing output rules
+#
 sub output
 {
 	my $self = shift;
 	my @rules = ();
-	
+
 	my $net = EBox::Global->modInstance('network');
 	my @ifaces = @{$net->InternalIfaces()};
 
@@ -58,7 +91,7 @@ sub output
 		push(@rules, $r);
 	    }
 	}
-	
+
 	@AsteriskPorts = ();
 	push(@AsteriskPorts, H323TCPPORT);
 
@@ -69,7 +102,7 @@ sub output
 		push(@rules, $r);
 	    }
 	}
-	
+
 	return \@rules;
 }
 

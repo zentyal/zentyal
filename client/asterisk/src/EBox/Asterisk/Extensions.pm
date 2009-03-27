@@ -32,29 +32,41 @@ use EBox::Asterisk;
 # FIXME this fixed range
 use constant MINEXTN             => 1000;
 use constant MAXEXTN             => 7999;
+use constant VMDFTLEXTN          => 8000;
 use constant MEETINGMINEXTN      => 8001;
 use constant MEETINGMAXEXTN      => 8999;
 use constant EXTENSIONSDN        => 'ou=Extensions';
 use constant VOICEMAILDIR        => '/var/spool/asterisk/voicemail/default/';
 
+# Constructor: new
+#
+#      Create the new Asterisk extensions helper
+#
+# Returns:
+#
+#      <EBox::Asterisk::Extensions> - the recently created model
+#
 sub new
 {
     my $class = shift;
+
     my $self  = {};
     $self->{ldap} = EBox::Ldap->instance();
     $self->{asterisk} = EBox::Global->modInstance('asterisk');
+
     bless($self, $class);
+
     return $self;
 }
 
 
 # Method: extensionsDn
 #
-#       Returns the dn where the extensions are stored in the ldap directory
+#      Returns the dn where the extensions are stored in the LDAP directory
 #
 # Returns:
 #
-#       string - dn
+#      string - dn
 #
 sub extensionsDn
 {
@@ -65,11 +77,11 @@ sub extensionsDn
 
 # Method: extensions
 #
-#  This method returns all defined extensions
+#      This method returns all defined extensions
 #
 # Returns:
 #
-#     array - with all extensions names
+#      array - with all extensions names
 #
 sub extensions
 {
@@ -83,7 +95,7 @@ sub extensions
 
     my $result = $self->{ldap}->search(\%args);
 
-    my @extns = map { $_->get_value('cn')} $result->sorted('cn');
+    my @extns = map { $_->get_value('cn') } $result->sorted('cn');
 
     return @extns;
 }
@@ -91,11 +103,12 @@ sub extensions
 
 # Method: firstFreeExtension
 #
-#  This method returns the first free extension
+#      This method returns the first free extension or 0 if we
+#      ran out of extensions.
 #
 # Returns:
 #
-#     integer - extension
+#      integer - extension
 #
 sub firstFreeExtension
 {
@@ -105,15 +118,16 @@ sub firstFreeExtension
                 base => $self->extensionsDn,
                 filter => 'objectclass=AsteriskExtension',
                 scope => 'sub',
-                attrs => ['AstExtension']
                );
 
     my $result = $self->{ldap}->search(\%args);
 
-    my @extns = map { $_->get_value('cn')} $result->sorted('cn');
+    my @extns = map { $_->get_value('cn') } $result->sorted('cn');
 
     my $len = @extns;
 
+    # FIXME this only works as expected if we begin with a 1000 extension XXX
+    # but i think is still safe to use :=)
     my $extn;
     if ($len == 0) {
         return MINEXTN;
@@ -134,15 +148,15 @@ sub firstFreeExtension
 
 # Method: extensionExists
 #
-#       Checks if a given extension exists
+#      Checks if a given extension exists
 #
 # Parameters:
 #
-#       extn - extension
+#      extn - extension
 #
 # Returns:
 #
-#       boolean - true if it exists, otherwise false
+#      boolean - true if it exists, otherwise false
 #
 sub extensionExists
 {
@@ -162,6 +176,7 @@ sub extensionExists
 
 # Method: addUserExtension
 #
+# FIXME doc
 sub addUserExtension
 {
     my ($self, $user, $extn) = @_;
@@ -181,8 +196,9 @@ sub addUserExtension
 # Returns:
 #
 #      integer - the CallerID should be the user's extension
-#      FIXME but i don't like it :-/
+#                FIXME but i don't like it :-/
 #
+# FIXME doc
 sub getUserExtension
 {
     my ($self, $user) = @_;
@@ -200,14 +216,15 @@ sub getUserExtension
                 );
 
     my $result = $self->{'ldap'}->search(\%attrs);
-    my $entry = $result->entry(0);
 
+    my $entry = $result->entry(0);
     return ($entry->get_value('AstAccountCallerID'));
 }
 
 
 # Method: delUserExtension
 #
+# FIXME doc
 sub delUserExtension
 {
     my ($self, $user) = @_;
@@ -218,6 +235,8 @@ sub delUserExtension
 
     my $extn = $self->getUserExtension($user);
 
+    return unless $extn; # if user doesn't have an extension we are done
+
     my %attrs = (
                  base => $self->extensionsDn,
                  filter => "&(objectclass=*)(AstExtension=$extn)",
@@ -226,7 +245,7 @@ sub delUserExtension
 
     my $result = $self->{'ldap'}->search(\%attrs);
 
-    my @extns = map { $_->get_value('cn')} $result->sorted('cn');
+    my @extns = map { $_->get_value('cn') } $result->sorted('cn');
 
 
     foreach (@extns) {
@@ -239,6 +258,7 @@ sub delUserExtension
 
 # Method: modifyUserExtension
 #
+# FIXME doc
 sub modifyUserExtension
 {
     my ($self, $user, $newextn) = @_;
@@ -250,8 +270,10 @@ sub modifyUserExtension
 
     my $oldextn = $self->getUserExtension($user);
 
-    $self->delUserExtension($user);
-    $self->_moveVoicemail($oldextn, $newextn);
+    if ($oldextn) { # user already had an extension
+        $self->delUserExtension($user);
+        $self->_moveVoicemail($oldextn, $newextn);
+    }
     $self->addUserExtension($user, $newextn);
 
     my $ldap = EBox::Ldap->instance();
@@ -259,16 +281,26 @@ sub modifyUserExtension
 
     my $dn = "uid=" . $user . "," . $users->usersDn;
 
-    my %attrs = (
-        'AstAccountCallerID' => $newextn,
-    );
-
-    $ldap->modify($dn, { replace => \%attrs });
+    if ($oldextn) { # user already had an extension
+        my %attrs = (
+            'AstAccountCallerID' => $newextn, #FIXME if add fullname here this wont work
+            'AstAccountMailbox'  => $newextn  #FIXME random?
+        );
+        $ldap->modify($dn, { replace => \%attrs });
+    } else { # we give a new $newextn extension
+        my %attrs = (
+            'AstAccountCallerID'   => $newextn, #FIXME if add fullname here this wont work
+            'AstAccountMailbox'    => $newextn, #FIXME random?
+            'AstAccountVMPassword' => $newextn
+        );
+        $ldap->modify($dn, { replace => \%attrs });
+    }
 }
 
 
 # Method: addExtension
 #
+# FIXME doc
 sub addExtension
 {
     my ($self, $extn, $prio, $app, $data) = @_;
@@ -300,6 +332,7 @@ sub addExtension
 
 # Method: delExtension
 #
+# FIXME doc
 sub delExtension
 {
     my ($self, $cn) = @_;
@@ -319,38 +352,66 @@ sub delExtension
 # Method: _moveVoicemail
 #
 # FIXME check if .txt files need to be updated
-#
 sub _moveVoicemail
 {
     my ($self, $old, $new) = @_;
 
-    my $oldir = VOICEMAILDIR . $old;
+    my $olddir = VOICEMAILDIR . $old;
     my $newdir = VOICEMAILDIR . $new;
-    EBox::Sudo::root("mv $oldir $newdir");
+    if (-d $olddir) {
+        EBox::Sudo::root("mv $olddir $newdir");
+    }
 }
 
 
+# Method: cleanUpMeetings
+#
+# FIXME doc
+sub cleanUpMeetings
+{
+    my ($self) = @_;
+
+    my %args = (
+                base => $self->extensionsDn,
+                filter => '(&(objectclass=AsteriskExtension)(AstApplication=MeetMe))',
+                scope => 'sub',
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+
+    my @extns = map { {
+                          cn => $_->get_value('cn'),
+                          extn => $_->get_value('AstExtension'),
+                    } } $result->sorted('cn');
+
+    foreach my $extn (@extns) {
+        if (($self->MEETINGMINEXTN < $extn->{'extn'}) and ($extn->{'extn'} < $self->MEETINGMAXEXTN)) {
+            $self->delExtension($extn->{'cn'});
+        }
+    }
+}
+
 # Method: checkExtension
 #
-#       Check the validity for a given extension
+#      Check the validity for a given extension
 #
 # Parameters:
 #
-#       extension - extension to check
-#       name      - data's name to be used when throwing an Exception
-#       begin     - begin of the range of valid extensions
-#       end       - end of the range of valid extensions
+#      extension - extension to check
+#      name      - data's name to be used when throwing an Exception
+#      begin     - (optional) begin of the range of valid extensions
+#      end       - (optional) end of the range of valid extensions
 #
 # Returns:
 #
-#       boolean - True if the extension is correct
-#                 False on failure when parameter name is NOT defined
+#      boolean - True if the extension is correct
+#                False on failure when parameter name is NOT defined
 #
 # Exceptions:
 #
-#       If name is passed an exception will be raised on failure
+#      If name is passed an exception will be raised on failure
 #
-#       <EBox::Exceptions::InvalidData> - extension is incorrect
+#      <EBox::Exceptions::InvalidData> - extension is incorrect
 #
 sub checkExtension
 {
@@ -380,6 +441,5 @@ sub checkExtension
         return 1;
     }
 }
-
 
 1;

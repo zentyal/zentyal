@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Settings;
 
 # Class: EBox::Asterisk::Model::Settings
 #
-#   Form to set the general configuration settings for the Asterisk server
+#       Form to set the general configuration settings for the Asterisk server
 #
 
 use base 'EBox::Model::DataForm';
@@ -28,8 +28,8 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::Boolean;
 use EBox::Types::Int;
+use EBox::Types::Boolean;
 use EBox::Asterisk::Extensions;
 
 # Group: Public methods
@@ -60,8 +60,7 @@ sub new
 
 # Method: validateTypedRow
 #
-#      Check the row to add or update if the name contains a valid
-#      extension
+#      Check the row to add or update if contains a valid extension
 #
 # Overrides:
 #
@@ -69,29 +68,28 @@ sub new
 #
 # Exceptions:
 #
-#      <EBox::Exceptions::InvalidData> - thrown if the extension is not
-#      valid
+#      <EBox::Exceptions::InvalidData> - thrown if the extension is not valid
 #
 sub validateTypedRow
 {
-  my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields) = @_;
 
-  if ( exists $changedFields->{voicemailExtn} ) {
-      EBox::Asterisk::Extensions->checkExtension(
-                                      $changedFields->{voicemailExtn}->value(),
-                                      __(q{extension}),
-                                      EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                      EBox::Asterisk::Extensions->MEETINGMAXEXTN,
-                                      );
-  }
+    if ( exists $changedFields->{voicemailExtn} ) {
+        EBox::Asterisk::Extensions->checkExtension(
+                                        $changedFields->{voicemailExtn}->value(),
+                                        __(q{extension}),
+                                        EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                        EBox::Asterisk::Extensions->MEETINGMAXEXTN,
+                                    );
+    }
 
-  my $extns = new EBox::Asterisk::Extensions;
-  if ($extns->extensionExists($changedFields->{voicemailExtn}->value())) {
-      throw EBox::Exceptions::DataExists(
-               'data'  => __('listening port'),
-               'value' => $changedFields->{voicemailExtn}->value(),
-            );
-  }
+    my $extensions = new EBox::Asterisk::Extensions;
+    if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
+        throw EBox::Exceptions::DataExists(
+                  'data'  => __('Voicemail extension'),
+                  'value' => $changedFields->{voicemailExtn}->value(),
+              );
+    }
 }
 
 
@@ -119,23 +117,23 @@ sub _table
                                 printableName => __('Voicemail extension'),
                                 editable      => 1,
                                 size          => 4,
-                                defaultValue  => 8000,
+                                defaultValue  => EBox::Asterisk::Extensions->VMDFTLEXTN,
                                ),
       );
 
     my $dataTable =
-      {
-       tableName          => 'Settings',
-       printableTableName => __('General settings'),
-       defaultActions     => [ 'editField', 'changeView' ],
-       tableDescription   => \@tableHeader,
-       class              => 'dataForm',
-       help               => __('General Asterisk server configuration'),
-       messages           => {
-                              update => __('General Asterisk server configuration settings updated'),
-                             },
-       modelDomain        => 'Asterisk',
-      };
+    {
+        tableName          => 'Settings',
+        printableTableName => __('General settings'),
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableHeader,
+        class              => 'dataForm',
+        help               => __('General Asterisk server configuration'),
+        messages           => {
+                                  update => __('General Asterisk server configuration updated'),
+                              },
+        modelDomain        => 'Asterisk',
+    };
 
     return $dataTable;
 

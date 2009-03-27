@@ -27,12 +27,11 @@ use EBox::Global;
 
 # Constructor: new
 #
-#       Constructor for the general events composite
+#      Constructor for the General composite
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::GeneralComposite> - a
-#       general events composite
+#      <EBox::Asterisk::Model::GeneralComposite> - the recently created model
 #
 sub new
 {
@@ -42,6 +41,7 @@ sub new
 
     return $self;
 }
+
 
 # Group: Protected methods
 
@@ -54,17 +54,16 @@ sub new
 sub _description
 {
     my $description =
-        {
-            components      => [
-                                'asterisk/Settings',
+    {
+        components      => [
+                               'asterisk/Settings',
                                 'asterisk/Provider',
-                               ],
-            layout          => 'top-bottom',
-            name            =>  __PACKAGE__->nameFromClass,
-            printableName   => __('Asterisk module'),
-            compositeDomain => 'Asterisk',
-#           help            => __(''),
-        };
+                           ],
+        layout          => 'top-bottom',
+        name            => __PACKAGE__->nameFromClass,
+        printableName   => __('Asterisk module'),
+        compositeDomain => 'Asterisk',
+    };
 
     return $description;
 }

@@ -25,16 +25,14 @@ use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
 
-## arguments:
-##  title [required]
 sub new {
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Asterisk', @_);
     $self->{domain} = "ebox-asterisk";
-
     bless($self, $class);
     return $self;
 }
+
 
 sub _process($) {
     my $self = shift;
@@ -44,7 +42,6 @@ sub _process($) {
     $self->_requireParam('username', __('username'));
     my $username = $self->param('username');
     $self->{redirect} = "UsersAndGroups/User?username=$username";
-
     $self->keepParam('username');
 
     if ($self->param('active') eq 'yes') {
