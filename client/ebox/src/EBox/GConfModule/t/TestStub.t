@@ -50,6 +50,7 @@ sub setAndGetTest
                    setter => 'set_bool',
                    values => [0, 1, undef],
                    expectedValues => [0, 1, 0],
+                   unsetValue => 0,
                },
                {
                    getter => 'get_string',
@@ -104,7 +105,7 @@ sub _setAndGetStraightCasesTest
 
     foreach my $key (@keys) {       
         my $actualValue = $gconfModule->$getter($key);
-        is $actualValue, $unsetValue, 'Checking that no existent keys return undef value';
+        is $actualValue, $unsetValue, "Checking that $getter upon no-existent key $key return unset value";
     }
 
 
@@ -116,8 +117,8 @@ sub _setAndGetStraightCasesTest
 
             $gconfModule->$setter($key, $value);
             my $actualValue = $gconfModule->$getter($key);
-            use Data::Dumper;
-            print "ACTAUL VALUE " . Dumper($actualValue);
+#            use Data::Dumper;
+#            print "ACTAUL VALUE " . Dumper($actualValue);
              
 
             is $actualValue, $expectedValue, "

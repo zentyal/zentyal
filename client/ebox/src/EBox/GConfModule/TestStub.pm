@@ -71,7 +71,11 @@ my %subByGConfMethod = (
                         get_string=> {
                                       sub_r =>  \&_getEntry,
                                       type  => 'string',
-                                      returnValueHash => 1,
+                                      # Another irregularity:
+                                      # EBox::GConfModule::get_string calls
+                                      #  get_string in GconfWrapper instead of
+                                      # get
+                                      returnValueHash => 0,
                                      },
                         set_string=> {
                                       sub_r =>  \&setEntry,
@@ -116,7 +120,6 @@ my %subByGConfMethod = (
                        );
 
 
-#my $lastType;
 
 sub _mockedGConfWrapper
 {
@@ -128,12 +131,10 @@ sub _mockedGConfWrapper
     # the equivalent calelr so we don't lose type information
     if ($method eq 'get') {
         my ($package, $filename, $line, $parentMethod) = caller(1);
-#        print "PARENT METHOD $parentMethod\n";
         
         if ($parentMethod =~ m/^EBox::GConfModule::_get_/) {
             $method = $parentMethod;
             $method =~ s/^EBox::GConfModule::_//;
-#            print "NEW method: $method\n\n";
         }
     }
 
@@ -158,6 +159,7 @@ sub _mockedGConfWrapper
                                          . "$method and params @params"
                                          . "\n $@");
     }
+
 
     
     if (not $returnValueHash) {
