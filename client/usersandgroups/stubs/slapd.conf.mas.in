@@ -103,10 +103,6 @@ access to attrs=userPassword,shadowLastChange
 
 access to dn.base="" by * read
 
-access to *
-        by dn="<% $rootdn %>" write
-	        by * read
-
 # ACLs needed by ebox modules
 # 
 
@@ -114,3 +110,6 @@ access to *
 	<% $acl %>
 % }
 
+access to *
+        by dn="<% $rootdn %>" write
+	    by * read
