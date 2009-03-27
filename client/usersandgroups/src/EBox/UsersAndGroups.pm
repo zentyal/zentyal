@@ -33,6 +33,7 @@ use EBox::Sudo qw( :all );
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
+use EBox::UsersAndGroups::Passwords;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -393,7 +394,8 @@ sub addUser # (user, system)
         'homeDirectory' => HOMEPATH ,
         'userPassword'  => defaultPasswordHash($user->{'password'}),
         'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
-        @{additionalPasswords($user->{'user'}, $user->{'password'})}
+        @{EBox::UsersAndGroups::Passwords::additionalPasswords(
+            $user->{'user'}, $user->{'password'})}
     );
 
     my %args = ( attr => \@attr );
@@ -486,7 +488,7 @@ sub _modifyUserPwd
     #add new passwords
     my %attrs = (
         'userPassword' => $hash,
-        @{additionalPasswords($user, $passwd)}
+        @{EBox::UsersAndGroups::Passwords::additionalPasswords($user, $passwd)}
     );
     $self->{ldap}->modify($dn, { replace => \%attrs } );
 }
@@ -1877,25 +1879,6 @@ sub defaultPasswordHash
     my $hasher = passwordHasher($format);
     my $hash = $hasher->($password);
     return $hash;
-}
-
-sub additionalPasswords
-{
-    my ($user, $password) = @_;
-
-    my $passwords = [];
-
-    my $format_string = EBox::Config::configkey('password_formats');
-    if (not defined($format_string)) {
-        $format_string = 'sha1,md5,lm,nt,digest,realm';
-    }
-    my @formats = split(',', $format_string);
-    for my $format (@formats) {
-        my $hasher = passwordHasher($format);
-        my $hash = $hasher->($password, $user);
-        push(@{$passwords}, 'ebox' . ucfirst($format) . 'Password', $hash);
-    }
-    return $passwords;
 }
 
 1;
