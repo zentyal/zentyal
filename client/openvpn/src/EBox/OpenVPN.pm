@@ -1481,26 +1481,29 @@ sub openVPNWidget
     my $section = new EBox::Dashboard::Section($ovpn);
     $widget->add($section);
 
-    my $path = $self->logDir() . '/' . 'status-' . $ovpn . '.log';
-    my @status = read_file($path);
-    my $state = 0;
-
     my $titles = [__('Common name'),__('Address'), __('Connected since')];
     my $rows = {};
 
-    for my $line (@status) {
-        chomp($line);
-        if($state == 0) {
-            if($line =~m/^Common Name,/) {
-                $state = 1;
+    my $path = $self->logDir() . '/' . 'status-' . $ovpn . '.log';
+
+    if (-f $path) {
+        my @status = read_file($path);
+        my $state = 0;
+
+        for my $line (@status) {
+            chomp($line);
+            if($state == 0) {
+                if($line =~m/^Common Name,/) {
+                    $state = 1;
+                }
+            } elsif($state == 1) {
+                my @fields = split(',', $line);
+                if(@fields != 5) {
+                    last;
+                }
+                my ($cname,$address,$recv,$sent,$date) = @fields;
+                $rows->{$cname} = [$cname,$address,$date];
             }
-        } elsif($state == 1) {
-            my @fields = split(',', $line);
-            if(@fields != 5) {
-                last;
-            }
-            my ($cname,$address,$recv,$sent,$date) = @fields;
-            $rows->{$cname} = [$cname,$address,$date];
         }
     }
     my $ids = [sort keys %{$rows}];
@@ -1515,7 +1518,7 @@ sub openVPNDaemonsWidget
     my @daemons = $self->daemons();
 
     if ( @daemons == 0 ) {
-        return undef;
+        return;
     }
 
     foreach my $daemon (@daemons) {
