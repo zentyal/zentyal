@@ -87,7 +87,9 @@ my %subByGConfMethod = (
                         get_list  => {
                                       sub_r =>  \&_getEntry,
                                       type  => 'list',
-                                      returnValueHash => 1,
+                                      # calls the warpper with uses get_list
+                                      # instead of 'get'
+                                      returnValueHash => 0,
                                      },
                         set_list  => {
                                       sub_r =>  \&_setList,

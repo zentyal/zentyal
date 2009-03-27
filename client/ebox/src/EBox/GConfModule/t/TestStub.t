@@ -16,8 +16,8 @@ use EBox::TestStub;
 BEGIN { use_ok 'EBox::GConfModule::TestStub' }
 mock();
 createTest();
- setAndGetTest();
-# setAndGetListTest();
+setAndGetTest();
+setAndGetListTest();
 # dirExistsTest();
 # allEntriesTest();
 # allDirsTest();
@@ -140,16 +140,16 @@ sub setAndGetListTest
     my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
     my $key = "lista";
     my @lists = (
-		 [1],
-		 [1, 3, "ea"],
-		 [],
-	 );
+                 [1],
+                 [1, 3, "ea"],
+                 [],
+         );
 
     foreach my $list_r (@lists) {
-	$gconfModule->set_list($key, "Ignored parameter for now",  $list_r);
-	my $actualValue_r = $gconfModule->get_list($key);
+        $gconfModule->set_list($key, "Ignored parameter for now",  $list_r);
+        my $actualValue_r = $gconfModule->get_list($key);
 
-	cmp_deeply $actualValue_r, $list_r, "set_list and get_list";
+        cmp_deeply $actualValue_r, $list_r, "set_list and get_list";
     }
 
     $gconfModule->unset($key);
