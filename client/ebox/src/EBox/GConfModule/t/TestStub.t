@@ -18,11 +18,11 @@ mock();
 createTest();
 setAndGetTest();
 setAndGetListTest();
-# dirExistsTest();
-# allEntriesTest();
-# allDirsTest();
-# hashFromDirTest();
-# deleteDirTest();
+dirExistsTest();
+allEntriesTest();
+allDirsTest();
+hashFromDirTest();
+deleteDirTest();
 unfakeTest();
 
 sub createTest
