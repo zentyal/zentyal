@@ -58,6 +58,8 @@ sub _includeLDAPAcls {
     my ($self) = @_;
 
 	my $users = EBox::Global->modInstance('users');
+    my $ldap = EBox::Ldap->instance();
+    my $ldapconf = $ldap->ldapConf();
 
     return [] unless ($users->configured());
 
