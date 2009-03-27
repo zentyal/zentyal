@@ -70,6 +70,8 @@ sub _includeLDAPAcls {
             "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
             "\tby self write\n" .
             "\tby * none\n");
+
+    return \@acls;
 }
 
 1;
