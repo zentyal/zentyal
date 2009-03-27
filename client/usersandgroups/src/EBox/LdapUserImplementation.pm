@@ -47,7 +47,25 @@ sub _delGroupWarning($$) {
 
 sub _includeLDAPSchemas
 {
+	my $users = EBox::Global->modInstance('users');
+
+    return [] unless ($users->configured());
+
     return ['/etc/ldap/schema/passwords.schema'];
+}
+
+sub _includeLDAPAcls {
+    my ($self) = @_;
+
+	my $users = EBox::Global->modInstance('users');
+
+    return [] unless ($users->configured());
+
+
+    my @acls = ("access to attrs=eboxSha1Password,eboxMd5Password,eboxLmPassword, eboxNtPassword,eboxDigestPassword,eboxRealmPassword\n" .
+            "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
+            "\tby self write\n" .
+            "\tby * none\n");
 }
 
 1;
