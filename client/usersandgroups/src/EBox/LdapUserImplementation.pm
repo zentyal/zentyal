@@ -66,7 +66,7 @@ sub _includeLDAPAcls {
     my $passFormats = EBox::UsersAndGroups::Passwords::allPasswordFieldNames();
     my $attrs = join(',', @{$passFormats});
 
-    my @acls = ("access to attrs=$passFormats\n" .
+    my @acls = ("access to attrs=$attrs\n" .
             "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
             "\tby self write\n" .
             "\tby * none\n");
