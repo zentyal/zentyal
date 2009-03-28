@@ -20,10 +20,10 @@ EBox::init();
 my $global = EBox::Global->getInstance(1);
 
 sub moduleList {
-    my $modules = "apache";
     print "Module list: \n";
     my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
-    print join(':', @mods);
+    my @names = map { $_->{name} } @mods;
+    print join(' ', @names);
     print "\n";
 }
 
