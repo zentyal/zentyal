@@ -18,6 +18,8 @@ package EBox::UsersAndGroups::Passwords;
 use strict;
 use warnings;
 
+use EBox::UsersAndGroups;
+
 sub allPasswordFormats
 {
     return 'sha1,md5,lm,nt,digest,realm';
@@ -42,7 +44,7 @@ sub additionalPasswords
     }
     my @formats = split(',', $format_string);
     for my $format (@formats) {
-        my $hasher = passwordHasher($format);
+        my $hasher = EBox::UsersAndGroups::passwordHasher($format);
         my $hash = $hasher->($password, $user);
         push(@{$passwords}, 'ebox' . ucfirst($format) . 'Password', $hash);
     }
