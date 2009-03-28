@@ -152,6 +152,10 @@ sub enableActions
     EBox::Sudo::root(EBox::Config::share() .
                      '/ebox-egroupware/ebox-egroupware-enable');
 
+    # Install all languages by default
+    EBox::Sudo::root(EBox::Config::share() .
+                     '/ebox-egroupware/ebox-egroupware-install-all-languages');
+
     # Migrate existing users
     EBox::Sudo::root(EBox::Config::share() .
                     '/ebox-egroupware/ebox-init-egroupware migrate');

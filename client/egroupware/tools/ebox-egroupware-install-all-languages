@@ -1,0 +1,7 @@
+#!/bin/sh
+
+LANGS_DIR=/usr/share/egroupware/setup/lang
+
+LANGS=`ls $LANGS_DIR/*.lang | cut -d_ -f2 | cut -d. -f1 | tr '\n' ','`
+
+/usr/share/ebox-egroupware/ebox-egroupware-set-languages $LANGS
