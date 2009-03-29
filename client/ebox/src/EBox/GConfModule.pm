@@ -28,7 +28,7 @@ use EBox::Gettext;
 use EBox::GConfState;
 use EBox::GConfConfig;
 use File::Basename;
-
+use EBox::Types::File;
 
 sub _create # (name)
 {
