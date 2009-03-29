@@ -53,13 +53,6 @@ sub _table
     my @tableHead = 
     ( 
         new EBox::UsersAndGroups::Types::Password(
-            'fieldName' => 'oldpass',
-            'printableName' => __('Old password'),
-            'size' => '8',
-            'unique' => 1,
-            'editable' => 1
-        ),
-        new EBox::UsersAndGroups::Types::Password(
             'fieldName' => 'pass1',
             'printableName' => __('New password'),
             'size' => '8',
@@ -91,7 +84,6 @@ sub _addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
 
-    my $oldpass = $paramsRef->{'oldpass'};
     my $pass1 = $paramsRef->{'pass1'};
     my $pass2 = $paramsRef->{'pass2'};
 
@@ -100,10 +92,6 @@ sub _addTypedRow
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
-    my $res = $users->authUser($user, $oldpass->value());
-    if (not $res) {
-        throw EBox::Exceptions::External(__('Invalid old password.'));
-    }
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
