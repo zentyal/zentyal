@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Ldap;
 use EBox::LogAdmin;
 use EBox::UserCorner;
 use Crypt::Rijndael;
@@ -283,6 +284,8 @@ sub authen_ses_key  # (request, session_key)
         defined($user) and last;
     }
     if(defined($user) and !$expired) {
+        my $ldap = EBox::Ldap->instance();
+        $ldap->refreshLdap();
         _updatesession($user);
         return $user;
     } elsif (defined($user) and $expired) {
