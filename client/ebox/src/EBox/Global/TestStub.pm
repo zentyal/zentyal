@@ -65,6 +65,12 @@ sub  _fakedWriteModInfo
     $modulesInfo{$name} = $info;
 }
 
+
+sub _fakedModNames
+{
+    return [keys %modulesInfo];
+}
+
 sub fake
 {
     EBox::GConfModule::TestStub::fake(); # needed by some method, like changed
@@ -72,6 +78,7 @@ sub fake
     Test::MockObject->fake_module('EBox::Global',
                                   readModInfo => \&_fakedReadModInfo,
                                   writeModInfo => \&_fakedWriteModInfo,
+                                  modNames     => \&_fakedModNames,
                               );
 
     
