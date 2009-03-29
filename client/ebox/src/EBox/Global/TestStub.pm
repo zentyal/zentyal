@@ -4,9 +4,13 @@ package EBox::Global::TestStub;
 use strict;
 use warnings;
 
-use EBox::GConfModule::TestStub;
+use Test::MockObject;
 use Params::Validate;
+use EBox::Global;
+use EBox::GConfModule::TestStub;
 
+
+my %modulesInfo;
 
 sub setAllEBoxModules
 {
@@ -20,33 +24,57 @@ sub setAllEBoxModules
 
 sub setEBoxModule
 {
-    my ($name, $module, $depends) = @_;
+    my ($name, $class, $depends) = @_;
     validate_pos(@_ ,1, 1, 0);
 
-    EBox::GConfModule::TestStub::setEntry("/ebox/modules/global/modules/$name/class", $module);
-    EBox::GConfModule::TestStub::setEntry("/ebox/modules/global/modules/$name/changed", undef);
-    EBox::GConfModule::TestStub::setEntry("/ebox/modules/global/modules/$name/depends", $depends) if defined $depends;
+    defined $depends or
+        $depends = [];
+        
+
+    $modulesInfo{$name} = {
+        class => $class,
+        depends => $depends,
+        changed => 0,
+       };
+
+
 
 }
 
 sub clear
 {
-    my %config = @{ EBox::GConfModule::TestStub::dumpConfig() };
+    %modulesInfo = ();
+}
 
-    my @globalKeys = grep { m{^/ebox/modules/global/}  } keys %config;
-    foreach my $key (@globalKeys) {
-	delete $config{$key};
+sub _fakedReadModInfo
+{
+    my ($name) = @_;
+
+    if (exists $modulesInfo{$name}) {
+        return $modulesInfo{$name};
     }
-    
-    EBox::GConfModule::TestStub::setConfig(%config);
+
+    return undef;
 }
 
 
+sub  _fakedWriteModInfo
+{
+    my ($self, $name, $info) = @_;
 
+    $modulesInfo{$name} = $info;
+}
 
 sub fake
 {
-  EBox::GConfModule::TestStub::fake(); # just to be sure..
+    EBox::GConfModule::TestStub::fake(); # needed by some method, like changed
+                                         # state of modules
+    Test::MockObject->fake_module('EBox::Global',
+                                  readModInfo => \&_fakedReadModInfo,
+                                  writeModInfo => \&_fakedWriteModInfo,
+                              );
+
+    
 }
 
 # only for interface completion
