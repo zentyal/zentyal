@@ -2003,20 +2003,17 @@ sub _supportActions
     return undef;
 }
 
-# Method: _enforceServiceState
+# Method: _preSetConf
 #
-#       Overrides base method. It regenertates the network  configuration.
-#	It will set up the network interfaces, routes, dns...
-
-sub _enforceServiceState
+#   Overrides <EBox::Module::Base::_preSetConf>
+sub _preSetConf
 {
-	my $self = shift;
-	my %opts = @_;
-	my $restart = delete $opts{restart};
+    my $self = shift;
 
-	my $gateway = $self->gateway;
-	my $skipdns = undef;
+	my %opts = @_;
 	my $file = INTERFACES_FILE;
+	my $restart = delete $opts{restart};
+	$self->{'skipdns'} = undef;
 
 	try {
 		root("/sbin/modprobe 8021q");
@@ -2046,7 +2043,7 @@ sub _enforceServiceState
 		if ($self->ifaceMethod($if) eq 'dhcp') {
 			my @servers = @{$self->DHCPNameservers($if)};
 			if (scalar(@servers) > 0) {
-				$skipdns = 1;
+	            $self->{'skipdns'} = 1;
 			}
 		} else {
 			#clean up dhcp state if interface is not DHCP
@@ -2055,10 +2052,15 @@ sub _enforceServiceState
 			$self->DHCPCleanUp($if);
 		}
 	}
+}
+
+sub _setConf
+{
+    my ($self) = @_;
 
 	$self->generateInterfaces();
 
-	unless ($skipdns) {
+	unless ($self->{'skipdns'}) {
 		# FIXME: there is a corner case when this won't be enough:
 		# if the dhcp server serves some dns serves, those will be used,
 		# but if it stops serving them at some point, the statically
@@ -2068,8 +2070,23 @@ sub _enforceServiceState
 		# Ok.
 		$self->_generateResolver;
 	}
+}
+
+# Method: _enforceServiceState
+#
+#       Overrides base method. It regenertates the network  configuration.
+#	It will set up the network interfaces, routes, dns...
+sub _enforceServiceState
+{
+	my $self = shift;
+	my %opts = @_;
+	my $restart = delete $opts{restart};
+
+	my $gateway = $self->gateway;
+	my $file = INTERFACES_FILE;
 
 	my @ifups = ();
+	my $iflist = $self->allIfacesWithRemoved();
 	$iflist = $self->allIfacesWithRemoved();
 	foreach (@{$iflist}) {
 		if ($self->_hasChanged($_) or $restart) {
@@ -2091,10 +2108,7 @@ sub _enforceServiceState
 		try {
 			root("/sbin/ip route del default");
 		} catch EBox::Exceptions::Internal with {};
-	
 	}
-
-
 
 	my $multipathCmd = $self->_multipathCommand();
 	if ($gateway) {
