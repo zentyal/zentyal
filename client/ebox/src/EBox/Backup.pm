@@ -114,7 +114,7 @@ sub _makeBackup # (description, bug?)
         
     }
     finally {
-        system "rm -rf $tempdir";
+        system "rm -rf '$tempdir'";
         if ($? != 0) {
             EBox::error("$auxDir cannot be deleted: $!. Please do it manually");
         }
@@ -198,10 +198,10 @@ sub  _createFilesArchive
 {
   my ($self, $auxDir, $filesArchive) = @_;
 
-  if (`umask 0077; tar czf $filesArchive -C $auxDir .`) {
+  if (`umask 0077; tar czf '$filesArchive' -C '$auxDir' .`) {
     throw EBox::Exceptions::Internal("Could not create archive.");
   }
-  `rm -rf $auxDir`;
+  system "rm -rf '$auxDir'";
 
 } 
 
@@ -299,7 +299,7 @@ sub  _createBackupArchive
     throw EBox::Exceptions::External(__('Could not create backup archive'));
   }
 
-  $cmd = "tar --append -f $backupArchive  -C $tempdir $filesArchive 2>&1";
+  $cmd = "tar --append -f '$backupArchive'  -C '$tempdir' '$filesArchive' 2>&1";
   @output = `$cmd`;
   if ($? != 0) {
     EBox::error("Failed command: $cmd. Output: @output");
@@ -430,7 +430,7 @@ sub backupDetailsFromArchive
   $backupDetails->{file} = $archive; 
   $backupDetails->{size} = $self->_printableSize($archive);
 
-  system "rm -rf $tempDir";
+  system "rm -rf '$tempDir'";
   return $backupDetails;
 }
 
@@ -463,11 +463,11 @@ sub _unpackArchive
   EBox::Sudo::command("chmod 0700 $tempDir");
 
   my $filesWithPath =  @files > 0 ?
-    join ' ', map { 'eboxbackup/' . $_  } @files : '';
+    join ' ', map { q{'eboxbackup/} . $_  . q{'} } @files : '';
 
   try {
     
-    my $tarCommand = "/bin/tar xf $archive -C $tempDir $filesWithPath";
+    my $tarCommand = "/bin/tar xf '$archive' -C '$tempDir' $filesWithPath";
     if (system $tarCommand) {
       if (@files > 0) {
         throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
@@ -481,7 +481,7 @@ sub _unpackArchive
   otherwise {
     my $ex = shift;
     
-    system("rm -rf $tempDir");
+    system("rm -rf '$tempDir'");
     ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
 
     $ex->throw();
@@ -824,7 +824,7 @@ sub _unpackAndVerify # (file, fullRestore)
     my $ex = shift;
 
     if (defined $tempdir) {
-      system("rm -rf $tempdir");
+      system("rm -rf '$tempdir'");
       ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
     }
 
@@ -911,7 +911,7 @@ sub  _checkSize
   }
   finally {
     if (defined $tempDir) {
-      system("rm -rf $tempDir");
+      system("rm -rf '$tempDir'");
       ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
     }
   };
@@ -1094,7 +1094,7 @@ sub restoreBackup # (file, %options)
   }
   finally {
     if ($tempdir) {
-      system 'rm -rf $tempdir';
+      system "rm -rf '$tempdir'";
     }
     if ($options{deleteBackup}) {
       unlink $file;
@@ -1108,12 +1108,12 @@ sub _unpackModulesRestoreData
 {
   my ($self, $tempdir) = @_;
 
-  my $unpackCmd = "tar xzf $tempdir/eboxbackup/files.tgz -C $tempdir/eboxbackup";
+  my $unpackCmd = "tar xzf '$tempdir/eboxbackup/files.tgz' -C '$tempdir/eboxbackup'";
 
   system $unpackCmd;
 
   if ($? != 0) {
-    system 'rm -rf $tempdir';
+    system "rm -rf '$tempdir'";
     throw EBox::Exceptions::External(
                                      __('Could not unpack the backup')
                                     );
