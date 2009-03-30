@@ -29,12 +29,16 @@ use warnings;
 
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
+use EBox::Sudo;
 
+use Digest::SHA;
 use Error qw(:try);
 use File::Slurp;
 use SOAP::Lite;
 
-use constant CHUNK_SIZE => 1024 * 1024;
+use constant CREATE_MON_STATS => 'createMonStats';
+use constant SYNC_MON_STATS   => 'syncMonStats';
+use constant STORAGE_HOST_KEY => 'storageHost';
 
 # Group: Public methods
 
@@ -70,18 +74,7 @@ sub sendAll
 {
     my ($self, $tarFilePath) = @_;
 
-    open(my $fh, '<', $tarFilePath);
-    my ($pos, $chunk) = (0, '');
-    do {
-        my $bytesRead = ($fh, $chunk, CHUNK_SIZE);
-        last if ($bytesRead == 0);
-        $self->soapCall('createStats',
-                        tarRRDDir => $chunk,
-                        append => ($pos != 0));
-        $pos += $bytesRead;
-    } until( eof($fh) );
-
-    return 1;
+    return $self->_uploadLargeFile($tarFilePath, CREATE_MON_STATS);
 
 }
 
@@ -104,11 +97,9 @@ sub sendDelta
 {
     my ($self, $deltaFilePath) = @_;
 
-    my $deltaContent = File::Slurp::read_file($deltaFilePath);
+    return $self->_uploadLargeFile($deltaFilePath, SYNC_MON_STATS);
 
-    $self->soapCall('syncStats', deltaFile => $deltaContent);
 }
-
 
 # Group: Protected methods
 
@@ -132,6 +123,51 @@ sub _serviceUrnKey
 sub _serviceHostNameKey
 {
     return 'managementProxy';
+}
+
+# Group: Private methods
+
+# Send a large file using Out-of-bound communication
+sub _uploadLargeFile
+{
+    my ($self, $filePath, $kind) = @_;
+
+    my @wsParams = (kind => $kind);
+
+    my $digestName = $self->soapCall('uploadLargeFile', @wsParams);
+
+    # Using FTP over SSL send the file
+    $self->_sendFile($filePath, $digestName);
+
+    my $digester = new Digest::SHA(256);
+    $digester->addfile($filePath);
+
+    @wsParams = (filename => $digestName,
+                 digest => $digester->hexdigest());
+
+    $self->soapCall('integrityCheck', @wsParams);
+
+}
+
+# Send the file using FTP over SSL
+sub _sendFile # (origPath, destPath)
+{
+    my ($self, $origPath, $destPath) = @_;
+
+    my ($caCert, $certFile, $keyFile) = ($self->{caCertificate},
+                                         $self->{certificate},
+                                         $self->{certificateKey});
+
+    my $ftpHost = EBox::Config::configkeyFromFile(STORAGE_HOST_KEY,
+                                                  $self->_confFile());
+
+    my $cmd = "/usr/bin/curl --ftp-method nocwd --upload-file $origFile "
+      . '--ftp-ssl-control --ftp-ssl-reqd '
+      . "--cacert $caCert --cert $certFile --key $keyFile "
+      . "ftp://anonymous@${ftpHost}/incoming/$destPath";
+
+    EBox::Sudo::command($cmd);
+
 }
 
 1;

@@ -26,11 +26,13 @@ use Archive::Tar;
 
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::Command;
 use EBox::Monitor::Configuration;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Monitor;
 use EBox::Sudo;
 
+use Error qw(:try);
 use File::Temp;
 use Getopt::Long;
 use Pod::Usage;
@@ -59,9 +61,17 @@ my $retValue = 1;
 my $oldTar = EBox::RemoteServices::Configuration::OldTarLocation();
 if ( -r $oldTar and -f $oldTar ) {
     my $deltaFile = new File::Temp(DIR => EBox::Config::tmp());
-    EBox::Sudo::command(
-        "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
-       );
+    try {
+        EBox::Sudo::command(
+            "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
+           );
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        # See #212189 debian bug report
+        unless ( ($exc->exitValue() == 1) or ($exc->exitValue() == 0)) {
+            throw $exc;
+        }
+    };
     $retValue = $monSrv->sendDelta($deltaFile->filename());
 } else {
     $retValue = $monSrv->sendAll($currentTar->filename());
@@ -84,6 +94,9 @@ ebox-notify-mon-stats - Notify monitoring stats to CC
 =head1 SYNOPSIS
 
 ebox-notify-mon-stats [--usage|help]
+
+ It will send a tar containing the monitoring stats to CC. A delta file
+ using xdelta3 tool if there is already a tar file created previously
 
  Options:
    -- usage|help  Print this help and exit
