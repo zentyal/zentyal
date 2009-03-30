@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 
 use constant { 
+    EVENTD_DIR       => '/etc/event.d',
     GREYLIST_SERVICE => 'ebox.postgrey',
     WHITELIST_CLIENTS_FILE => '/etc/postgrey/whitelist_clients',
 };
@@ -84,6 +85,11 @@ sub isEnabled
 sub isRunning
 {
     my ($self) = @_;
+    my $upstartFile = $self->upstartFile();
+    if (not -e $upstartFile) {
+        return undef;
+    }
+
     return EBox::Service::running(GREYLIST_SERVICE);
 }
 
@@ -124,7 +130,7 @@ sub _confAttr
 sub writeUpstartFile
 {
   my ($self) = @_;
-  my $path = '/etc/event.d/ebox.postgrey';
+  my $path = $self->upstartFile();
 
 
     my $fileAttrs    = {
@@ -148,6 +154,11 @@ sub writeUpstartFile
                                     $fileAttrs
                                    );
   
+}
+
+sub upstartFile
+{
+    return EVENTD_DIR . '/' . GREYLIST_SERVICE;
 }
 
 
