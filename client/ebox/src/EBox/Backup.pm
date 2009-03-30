@@ -546,13 +546,17 @@ sub listBackups
     ($bh) or return \@backups;
     while (defined($backup = $bh->read)) {
         (-f "$backupdir/$backup") or next;
-        $backup =~ s/\.tar$//;
+        my $isTar = $backup =~ s/\.tar$//;
+
+        $isTar or
+            next;
+
         my $entry = undef;
         try {
             $entry = $self->backupDetails($backup);
         } catch EBox::Exceptions::Base with {};
         unless ($entry) {
-            unlink("$backupdir/$backup.tar");
+            EBox::info("File $backupdir.$backup.tar is in backup directorty and is not a backup file");
             next;
         }
         push(@backups, $entry);

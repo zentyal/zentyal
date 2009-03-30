@@ -24,6 +24,8 @@
 	+ Make apache spawn only one child process
 	+ Log module is backed up and restored normally because the old
 	problem is not longer here
+	+ Backup is more gentle with no backup files in backup directory,
+	now it does not delete them
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102

@@ -762,6 +762,12 @@ sub listBackupsTest : Test(5)
     sleep 1;
   }
 
+  # add nobackup files in backup dir to test reliability
+  my $backupsDir = $self->testDir() . '/backups';
+  system "touch $backupsDir/noBackup";
+  system "touch $backupsDir/noBackup.tar";
+
+
   my @backups = @{$backup->listBackups()};
   is @backups, @backupParams, 'Checking number of backups listed';
 
