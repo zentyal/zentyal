@@ -63,7 +63,7 @@ sub new
 #
 sub optionalParameters
 {
-    return [ 'period', 'action' ];
+    return [ 'period', 'action', 'directory' ];
 }
 
 
