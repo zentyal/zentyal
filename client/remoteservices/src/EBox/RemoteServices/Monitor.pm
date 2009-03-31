@@ -34,6 +34,7 @@ use EBox::Sudo;
 use Digest::SHA;
 use Error qw(:try);
 use File::Slurp;
+use Net::DNS::Resolver;
 use SOAP::Lite;
 
 use constant CREATE_MON_STATS => 'createMonStats';
@@ -161,10 +162,12 @@ sub _sendFile # (origPath, destPath)
     my $ftpHost = EBox::Config::configkeyFromFile(STORAGE_HOST_KEY,
                                                   $self->_confFile());
 
-    my $cmd = "/usr/bin/curl --ftp-method nocwd --upload-file $origFile "
-      . '--ftp-ssl-control --ftp-ssl-reqd '
+    my $ftpIPAddr = $self->_queryServicesNameserver($ftpHost);
+
+    my $cmd = "/usr/bin/curl --ftp-method nocwd --upload-file $origPath "
+      . '--ftp-ssl-control --ftp-ssl-reqd --insecure '
       . "--cacert $caCert --cert $certFile --key $keyFile "
-      . "ftp://anonymous@${ftpHost}/incoming/$destPath";
+      . 'ftp://anonymous@' . $ftpIPAddr . "/incoming/$destPath";
 
     EBox::Sudo::command($cmd);
 

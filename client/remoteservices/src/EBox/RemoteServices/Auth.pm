@@ -407,7 +407,7 @@ sub _vpnConnect
   my $openvpn = EBox::Global->modInstance('openvpn');
   my $client = $self->vpnClientForServices();
 
-  my $connected = $client->running(); # XXX change for other thing
+  my $connected = $client->isRunning(); # XXX change for other thing
 
   if (not $connected) {
       $client->start();
@@ -422,7 +422,7 @@ sub _vpnDisconnect
   my $openvpnMod = EBox::Global->modInstance('openvpn');
   my $client = $self->vpnClientForServices();
   if ( $client ) {
-      $client->stop() if $client->running();
+      $client->stop() if $client->isRunning();
 #     $client->delete();
       $openvpnMod->deleteClient($client->name());
       $openvpnMod->save();

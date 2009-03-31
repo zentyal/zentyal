@@ -219,6 +219,55 @@ sub _nameservers
 
 }
 
+# Method: _queryServicesNameserver
+#
+#       Query an A record to the internal name servers.
+#
+#       Internal name servers are defined by <_nameservers> method
+#
+#
+# Parameters:
+#
+#       hostname - String the host name to query
+#
+# Returns:
+#
+#       String - the mapped IP address for this name by the internal
+#       name servers. If there are more than one a naive load
+#       balancing scheme is done (choose one of them randomly)
+#
+sub _queryServicesNameserver
+{
+    my ($self, $hostname) = @_;
+
+    my $nameservers = $self->_nameservers();
+
+    my $resolver = Net::DNS::Resolver->new(
+          nameservers => $nameservers,
+          defnames    => 0, # no default domain
+         );
+
+    my $response = $resolver->query($hostname);
+    if (not defined $response) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Server {s} not found via DNS server {d}',
+                'd' => join(',', @{$nameservers}),
+                's' => $hostname,
+               )
+           )
+    }
+
+    my @addresses =  map { $_->address() } (grep { $_->type() eq 'A' } $response->answer());;
+
+    # Round-robin balancing
+    my $n = int(rand(scalar @addresses));
+    my $address = $addresses[$n];
+
+    return $address;
+
+}
+
 
 # Group: Private methods
 
@@ -264,37 +313,12 @@ sub _servicesServer
 {
   my ($self) = @_;
 
-  my $nameservers = $self->_nameservers();
-
   my $serviceHostName = $self->serviceHostName();
   $serviceHostName or
     throw EBox::Exceptions::External(
                  __('No domain key found for this service')
 				    );
-
-  my $resolver = Net::DNS::Resolver->new(
-					 nameservers => $nameservers,
-					 defnames    => 0, # no default domain
-					);
-
-  my $response = $resolver->query($serviceHostName);
-  if (not defined $response) {
-    throw EBox::Exceptions::External(
-				     __x(
-					 'Server {s} not found via DNS server {d}',
-					 'd' => join(',', @{$nameservers}),
-					 's' => $serviceHostName,
-					)
-				    )
-  }
-
-  my @addresses =  map { $_->address() } (grep { $_->type() eq 'A' } $response->answer());;
-
-  # Round-robin balancing
-  my $n = int(rand(scalar @addresses));
-  my $address = $addresses[$n];
-
-  return $address;
+  return $self->_queryServicesNameserver($serviceHostName);
 }
 
 1;
