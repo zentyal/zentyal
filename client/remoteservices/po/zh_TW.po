@@ -208,7 +208,7 @@ msgstr "為了訂閱 eBox 遠端服務 {url}。您要有遠端備份的能力等
 #: src/EBox/RemoteServices/ProxyBackup.pm:198
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr "訂閱"
+msgstr "訂閱 {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:238
 msgid "Key for proxy backup service not found"
