@@ -43,7 +43,9 @@ sub new
     my $self = { @params };
     bless($self, $class);
 
-    $self->_setDescription($self->_description());
+    if ( $self->enabled() ) {
+        $self->_setDescription($self->_description());
+    }
 
     return $self;
 }
