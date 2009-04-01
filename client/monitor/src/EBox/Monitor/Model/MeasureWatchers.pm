@@ -47,7 +47,7 @@ use Error qw(:try);
 #
 # Returns:
 #
-#     <EBox::Monitor::Model::ThresholdConfiguration>
+#     <EBox::Monitor::Model::MeasureWatchers>
 #
 sub new
 {
@@ -60,45 +60,48 @@ sub new
 
 }
 
-# Method: rows
+# Method: syncRows
 #
 #   It is overriden because this table is kind of different in
-#   comparation to the normal use of generic data tables.
+#   comparison to the normal use of generic data tables.
 #
 #   - The user does not add rows. When we detect the table is
 #   empty we populate the table with the available measures.
 #
 # Overrides:
 #
-#      <EBox::Model::DataTable>
+#      <EBox::Model::DataTable::syncRows>
 #
-sub rows
+sub syncRows
 {
-    my ($self, $filter, $page) = @_;
-
-    my $monitor = EBox::Global->modInstance('monitor');
+    my ($self, $currentRows) = @_;
 
     # Fetch current measures stored in GConf
-    my $currentRows = $self->SUPER::rows();
-    my %storedMeasures = map { $_->valueByName('measure') => 1 } @{$currentRows};
+    my %storedMeasures =
+      map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};
 
+    my $monitor = EBox::Global->modInstance('monitor');
     my $measures = $monitor->measures();
     my %currentMeasures = map { $_->name() => 1 } @{$measures};
+
+    my $modifiedModel = 0;
 
     # Add new measures
     foreach my $measure (keys(%currentMeasures)) {
         next if (exists($storedMeasures{$measure}));
         $self->add(measure => $measure);
+        $modifiedModel = 1;
     }
 
     # Remove removed ones
-    foreach my $row (@{$currentRows}) {
-        my $measure = $row->valueByName('measure');
+    foreach my $rowId (@{$currentRows}) {
+        my $measure = $self->row($rowId)->valueByName('measure');
         next if (exists($currentMeasures{$measure}));
-        $self->removeRow($row->id());
+        $self->removeRow($rowId);
+        $modifiedModel = 1;
     }
 
-    return $self->SUPER::rows($filter, $page);
+    return $modifiedModel;
 
 }
 
