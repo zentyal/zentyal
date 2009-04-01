@@ -165,7 +165,7 @@ sub _sendFile # (origPath, destPath)
     my $ftpIPAddr = $self->_queryServicesNameserver($ftpHost);
 
     my $cmd = "/usr/bin/curl --ftp-method nocwd --upload-file $origPath "
-      . '--ftp-ssl-control --ftp-ssl-reqd --insecure '
+      . '--ftp-ssl-control --insecure '
       . "--cacert $caCert --cert $certFile --key $keyFile "
       . 'ftp://anonymous@' . $ftpIPAddr . "/incoming/$destPath";
 
