@@ -1,0 +1,7 @@
+1.1
+	+ Bugfix: setting permissions template on a group casued an error
+	+ Bugfix: restart postgresql in a safer way during the enable process
+0.12.101
+	+ Bugfix: do not remove objectClass fields when deleting a user or group
+0.12.100
+	+ Initial release
