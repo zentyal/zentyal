@@ -46,15 +46,8 @@ sub _process($) {
 
     $self->keepParam('groupname');
 
-    if ($self->param('enabled')) {
-        $egwldap->setHasGroupAccount($groupname, 1);
-        if (defined($self->param('template'))) {
-            $egwldap->setGroupTemplate($groupname, $self->param('template'));
-        }
-    } else {
-        if ($egwldap->hasGroupAccount($groupname)) {
-            $egwldap->setHasGroupAccount($groupname, 0);
-        }
+    if (defined($self->param('template'))) {
+        $egwldap->setGroupTemplate($groupname, $self->param('template'));
     }
 }
 
