@@ -89,7 +89,7 @@ sub _addUser
     my %attrs = (changes => [
                              add => [
                                      objectClass => 'AsteriskSIPUser',
-                                     AstAccountContext => 'default',
+                                     AstAccountContext => 'users',
                                      AstAccountCallerID => $extn, #FIXME +fullname?
                                      AstAccountHost => 'dynamic',
                                      AstAccountIPAddress => '0.0.0.0',

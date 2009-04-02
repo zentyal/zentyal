@@ -260,7 +260,7 @@ sub _setVoicemail
     if ($extensions->extensionExists($vmextn)) {
         $extensions->delExtension("$vmextn-1"); #FIXME not so cool
     }
-    $extensions->addExtension($vmextn, 1, 'VoicemailMain', 'default');
+    $extensions->addExtension($vmextn, 1, 'VoicemailMain', 'users');
 }
 
 

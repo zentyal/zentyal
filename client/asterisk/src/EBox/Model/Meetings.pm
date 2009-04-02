@@ -88,7 +88,7 @@ sub validateTypedRow
     if ($extensions->extensionExists($changedFields->{exten}->value())) {
         throw EBox::Exceptions::DataExists(
                   'data'  => __('extension'),
-                  'value' => $changedFields->{voicemailExtn}->value(),
+                  'value' => $changedFields->{extn}->value(),
               );
     }
 }

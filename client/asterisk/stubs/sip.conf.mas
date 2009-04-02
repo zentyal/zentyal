@@ -27,6 +27,8 @@ videosupport=yes
 
 rtcachefriends=yes
 
+alwaysauthreject=yes
+
 [authentication]
 
 % if ($outgoingcalls) {

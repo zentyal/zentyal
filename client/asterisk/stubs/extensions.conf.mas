@@ -29,14 +29,22 @@ RINGTIME = 20
 FOLLOWMEOPTIONS = 
 PAGING_HEADER = Intercom
 
+[common]
+; i - invalid call
+exten => i,1,Playback(invalid)
+exten => i,2,Hangup
+; t - terminate call
+exten => t,1,Playback(vm/generic/goodbye)
+exten => t,2,Hangup
+
 [default]
+include => 'common'
 switch => Realtime
+
+[users]
+include => 'default'
 % if ($outgoingcalls) {
 exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
-exten => _0.,2,Hangup
+exten => _0.,2,Congestion()
+exten => _0.,102,Busy()
 % }
-
-exten => i,1,Playback(invalid); Invalid procedure, retry
-exten => t,1,Hangup; Hang up if nothing else happens
-
-#include "extensions.local.conf

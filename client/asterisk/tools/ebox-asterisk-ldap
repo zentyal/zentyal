@@ -21,7 +21,7 @@ sub update {
 	]);
 	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
 
-         $extensions->addExtension($extensions->VMDFTLEXTN, 1, 'VoicemailMain', 'default');
+         $extensions->addExtension($extensions->VMDFTLEXTN, 1, 'VoicemailMain', 'users');
 }
 
 sub clean {

@@ -187,7 +187,9 @@ sub addUserExtension
 
     $self->addExtension($user, '1', 'Goto', "$extn,1");
     $self->addExtension($extn, '1', 'Dial', "SIP/$user");
-    $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
+    $self->addExtension($extn, '2', 'HangUp', 0);
+    $self->addExtension($extn, '102', 'Voicemail', "$extn,u");
+    $self->addExtension($extn, '103', 'HangUp', 0);
 }
 
 
