@@ -107,7 +107,7 @@ sub validateTypedRow
     my $excStr = __('This threshold rule will override the current ones');
     if (exists($changedFields->{typeInstance}) or exists($changedFields->{measureInstance})
         or exists($changedFields->{dataSource}) ) {
-        my $matchedRows;
+        my $matchedIds;
         # If there two are any-any, then only a row must be on the table
         if ( $allFields->{typeInstance}->value() eq 'none'
             and $allFields->{measureInstance}->value() eq 'none'
@@ -121,13 +121,13 @@ sub validateTypedRow
         }
 
         if ( $allFields->{typeInstance}->value() eq 'none' ) {
-            $matchedRows = $self->findAllValue(measureInstance => $allFields->{measureInstance}->value());
+            $matchedIds = $self->findAllValue(measureInstance => $allFields->{measureInstance}->value());
         } else {
-            $matchedRows = $self->findAllValue(typeInstance => $allFields->{typeInstance}->value());
+            $matchedIds = $self->findAllValue(typeInstance => $allFields->{typeInstance}->value());
         }
-        foreach my $id (@{$matchedRows}) {
+        foreach my $id (@{$matchedIds}) {
             my $row = $self->row($id);
-            next if (($action eq 'update') and ($row->id() eq $allFields->{id}));
+            next if (($action eq 'update') and ($id eq $allFields->{id}));
             if ( $allFields->{typeInstance}->value() eq 'none'
                  and $row->elementByName('dataSource')->isEqualTo($allFields->{dataSource})) {
                 # There should be no more typeInstance with the same measure instance
