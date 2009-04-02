@@ -896,9 +896,9 @@ sub addTypedRow
       $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
 
       $self->setMessage($self->message('add'));
-      $self->addedRowNotify($self->row($id));
-      $self->_notifyModelManager('add', $self->row($id));
-      $self->_notifyCompositeManager('add', $self->row($id));
+      $self->addedRowNotify($row);
+      $self->_notifyModelManager('add', $row);
+      $self->_notifyCompositeManager('add', $row);
 
       # check if there are files to delete if revoked
       my $filesToRemove =   $self->filesPathsForRow($row);
@@ -2341,10 +2341,10 @@ sub pages
 #
 # Returns:
 #
-#     Hash ref - containing the printable values of the matched row
+#     <EBox::Model::Row> - The matched row
 #
 #     undef - if there was not any match
-#     
+#
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2383,8 +2383,9 @@ sub find
 #
 # Returns:
 #
-#     Array ref of <EBox::Model::Row> 
-#     
+#     Array ref of ids which reference to the matched
+#     rows (<EBox::Model::Row>)
+#
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
@@ -2419,9 +2420,9 @@ sub findAll
 #
 # Returns:
 #
-#    An object of <EBox::Model::Row>
+#     <EBox::Model::Row> - the matched row
 #
-#    undef if there was not any match
+#     undef if there was not any match
 #
 # Exceptions:
 #
@@ -2462,11 +2463,14 @@ sub findValue
 #
 # Returns:
 #
-#   An array ref of <EBox::Model::Row> objects
-#     
+#     An array ref of ids that reference matched rows
+#     (<EBox::Model::Row>)
+#
+#
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub findAllValue
 {
     my ($self, $fieldName, $value) = @_;
@@ -3167,8 +3171,8 @@ sub _volatile
 #
 # Returns:
 #
-#    An array of hash ref containing the rows with their printable
-#    values
+#    An array of ids which references those rows that match with the
+#    given filter
 #
 sub _find
 {

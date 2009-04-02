@@ -329,11 +329,11 @@ sub modelsUsingId
 #
 #   (POSITIONAL)
 #
-#   model - model name where the action took place 
+#   model - <EBox::Model::DataTable> model name where the action took place 
 #   action - string represting the action: 
 #   	     [ add, del, edit, moveUp, moveDown ]
 #
-#   row  - row modified 
+#   row  - <EBox::Model::Row> row modified
 #
 # Returns:
 #
@@ -348,9 +348,9 @@ sub modelActionTaken
 {
     my ($self, $model, $action, $row) = @_;
 
-    throw EBox::Exceptions::MissingArgument("model") unless (defined($model));
-    throw EBox::Exceptions::MissingArgument("action") unless (defined($action));
-    throw EBox::Exceptions::MissingArgument("row") unless (defined($row));
+    throw EBox::Exceptions::MissingArgument('model') unless (defined($model));
+    throw EBox::Exceptions::MissingArgument('action') unless (defined($action));
+    throw EBox::Exceptions::MissingArgument('row') unless (defined($row));
 
     # if ( defined $row->{'id'} ) {
     #    EBox::debug("$model has taken action '$action' on row $row->{'id'}");

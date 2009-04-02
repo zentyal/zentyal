@@ -73,7 +73,7 @@ sub isReadOnly
 sub readModInfo # (module)
 {
     my ($name) = @_;
-    my $yaml = YAML::Tiny->read(EBox::Config::share() . "/ebox/modules/$name.yaml");
+    my $yaml = YAML::Tiny->read(EBox::Config::share() . "ebox/modules/$name.yaml");
     return $yaml->[0];
 }
 

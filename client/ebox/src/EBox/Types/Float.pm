@@ -78,6 +78,22 @@ sub _storeInGConf
 
 }
 
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+{
+    my ($self, $hash) = @_;
+
+    # Using basic one (get_string from GConf)
+    $self->EBox::Types::Basic::_restoreFromHash($hash);
+
+}
+
+
 # Method: _paramIsValid
 #
 # Overrides:
