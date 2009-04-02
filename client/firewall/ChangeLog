@@ -4,6 +4,8 @@
 	+ Use the new ids() and row() API
 	+ Added support to redirects to introduce the origin destination address.
 	  So far, only local address could be used.
+	+ Bugfix: fix regression that didn't allow to use virtual interfaces on
+	redirections
 0.12.101
 	+ Bugfix: Add redirect migration script to Makefile.am
 0.12.100

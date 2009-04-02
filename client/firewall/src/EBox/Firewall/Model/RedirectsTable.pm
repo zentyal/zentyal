@@ -53,14 +53,17 @@ sub new
 
 sub interface
 {
-    my $ifaces = EBox::Global->modInstance('network')->ifaces();
-
-    my @options;
-    foreach my $iface (@{$ifaces}) {
-        push(@options, { 'value' => $iface, 'printableValue' => $iface });
-    }
-
-    return \@options;
+    my $ifaces = EBox::Global->modInstance('network')->ifaces();                            
+    my $net = EBox::Global->modInstance('network');                                         
+    my $ifaces = $net->allIfaces();                                                         
+                                                                                            
+    my @options;                                                                            
+    foreach my $iface (@{$ifaces}) {                                                        
+        push(@options, { 'value' => $iface, 'printableValue' => $iface });                  
+        push(@options, { 'value' => $iface, 'printableValue' => $net->ifaceAlias($iface) });
+    }                                                                                       
+                                                                                            
+    return \@options; 
 }
 
 sub protocol
