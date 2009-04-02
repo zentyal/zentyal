@@ -1,7 +1,5 @@
 1.1
-	+ Added support for remote services in control center (remote
-	configuration backup, remote access, remote job execution and
-	event central point)
+	+ Added 'parentModule' to model class to avoid recursive problems
 	+ Added Float type
 	+ Apache module allows to add configuration includes from other modules
 	+ Display remote services button if subscribed

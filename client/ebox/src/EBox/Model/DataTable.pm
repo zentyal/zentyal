@@ -1770,6 +1770,22 @@ sub setDirectory
 
 }
 
+# Method: parentModule
+#
+#        Get the parent gconfmodule for the model
+#
+# Returns:
+#
+#        <EBox::Module> - the module
+#
+sub parentModule
+{
+    my ($self) = @_;
+
+    return $self->{'gconfmodule'};
+
+}
+
 # Method: tableName
 #
 #        Get the table name associated to this model

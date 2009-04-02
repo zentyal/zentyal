@@ -80,8 +80,7 @@ sub syncRows
     my %storedMeasures =
       map { $self->row($_)->valueByName('measure') => 1 } @{$currentRows};
 
-    my $monitor = EBox::Global->modInstance('monitor');
-    my $measures = $monitor->measures();
+    my $measures = $self->parentModule()->measures();
     my %currentMeasures = map { $_->name() => 1 } @{$measures};
 
     my $modifiedModel = 0;
@@ -123,6 +122,7 @@ sub _table
               printableName => __('Measure'),
               editable      => 0,
               filter        => \&_printableMeasure,
+              unique        => 1,
              ),
           new EBox::Types::HasMany(
               fieldName     => 'thresholds',
