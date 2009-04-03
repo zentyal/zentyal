@@ -58,7 +58,6 @@ sub interface
                                                                                             
     my @options;                                                                            
     foreach my $iface (@{$ifaces}) {                                                        
-        push(@options, { 'value' => $iface, 'printableValue' => $iface });                  
         push(@options, { 'value' => $iface, 'printableValue' => $net->ifaceAlias($iface) });
     }                                                                                       
                                                                                             
