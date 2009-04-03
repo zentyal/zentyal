@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+my $iface = $ENV{'WLAN_IFACE'};
+
+defined($iface) or exit 0;
+
+my $essid = $ENV{'WLAN_ESSID'};
+
+defined($essid) or exit 0;
+
+my $extra_conf = $ENV{'WLAN_CONF'};
+
+my $conf = "    essid $essid\n";
+
+if(defined($extra_conf)) {
+    $conf .= $extra_conf;
+}
+
+my $ifile = '/etc/network/interfaces';
+my $newifile = '/etc/network/interfaces.new';
+
+open(IFACES, $ifile);
+open(NEW_IFACES, '>', $newifile);
+
+my $print = 1;
+for my $line (<IFACES>) {
+    print NEW_IFACES $line;
+    if ($line =~ m/^iface $iface/) {
+        print NEW_IFACES $conf;
+    }
+}
+
+close(NEW_IFACES);
+close(IFACES);
+
+rename($newifile, $ifile);
