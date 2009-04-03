@@ -53,7 +53,6 @@ sub new
 
 sub interface
 {
-    my $ifaces = EBox::Global->modInstance('network')->ifaces();                            
     my $net = EBox::Global->modInstance('network');                                         
     my $ifaces = $net->allIfaces();                                                         
                                                                                             
