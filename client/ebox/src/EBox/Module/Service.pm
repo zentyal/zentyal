@@ -569,7 +569,7 @@ sub _regenConfig
     my @params = (@_);
     shift(@params);
 
-    $self->SUPER::_regenConfig();
+    $self->SUPER::_regenConfig(@params);
     my $enabled = ($self->isEnabled() or 0);
     $self->_preServiceHook($enabled);
     $self->_enforceServiceState(@params);

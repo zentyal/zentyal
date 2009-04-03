@@ -789,9 +789,13 @@ sub _setConf
 sub _regenConfig
 {
     my ($self) = @_;
-    $self->_preSetConf();
+
+    my @params = (@_);
+    shift(@params);
+
+    $self->_preSetConf(@params);
     $self->_preSetConfHook();
-    $self->_setConf();
+    $self->_setConf(@params);
     $self->_postSetConfHook();
 }
 
