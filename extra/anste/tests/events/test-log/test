@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep "no space left" /var/log/ebox/ebox.log

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox SMTP tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox mail module works properly.
+    </desc>
+
+    <scenario>mail/smtp.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>Enable network, users and mail modules.</desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigMailAccount</name>
+        <desc>
+        Config the mail account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-mail-account</dir>
+        <var name="VDOMAIN" value="foobar.mail"/>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+    <test type="selenium">
+        <name>SetSSLOff</name>
+        <desc>
+        Toggles tls checkbox.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-auth-or-ssl</dir>
+        <var name="OPTION" value="tls"/>
+    </test>
+
+    <test>
+        <name>Test-SMTP-NoAuth-NoSSL</name>
+        <desc>Checks if mail sending works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="eboxtest@foobar.mail"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH" value="0"/>
+    </test>
+
+    <test type="selenium">
+        <name>SetSSLOn</name>
+        <desc>
+        Toggles authentication checkbox.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-auth-or-ssl</dir>
+        <var name="OPTION" value="tls"/>
+    </test>
+
+    <test>
+        <name>Test-SMTP-NoAuth-SSL</name>
+        <desc>Checks if mail sending works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="eboxtest@foobar.mail"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="1"/>
+        <var name="AUTH" value="0"/>
+    </test>
+
+    <test type="selenium">
+        <name>SetAuthOn</name>
+        <desc>
+        Toggles authentication checkbox.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-auth-or-ssl</dir>
+        <var name="OPTION" value="sasl"/>
+    </test>
+
+    <test>
+        <name>Test-SMTP-Auth-SSL</name>
+        <desc>Checks if mail sending works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="eboxtest@foobar.mail"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="1"/>
+        <var name="AUTH" value="1"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModulesSMTP</name>
+        <desc>Enable network, users and mail modules.</desc>
+
+        <host>ebox-smtp</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigMailAccountSMTP</name>
+        <desc>
+        Config the mail account.
+        </desc>
+
+        <host>ebox-smtp</host>
+        <dir>config-mail-account</dir>
+        <var name="VDOMAIN" value="mail.ebox-smtp"/>
+        <var name="USERNAME" value="receiver"/>
+        <var name="PASSWORD" value="receiver"/>
+    </test>
+
+    <test type="selenium">
+        <name>SetSSLOffSMTP</name>
+        <desc>
+        Toggles tls checkbox.
+        </desc>
+
+        <host>ebox-smtp</host>
+        <dir>toggle-auth-or-ssl</dir>
+        <var name="OPTION" value="tls"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddMX</name>
+        <desc>
+        Adds MX and enables DNS.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-mx</dir>
+        <var name="DOMAIN" value="ebox-smtp"/>
+        <var name="HOST" value="mail"/>
+        <var name="ADDRESS" value="192.168.2.100"/>
+    </test>
+
+    <test>
+        <name>WriteResolvConf</name>
+        <desc>Writes resolv.conf with ebox dns server.</desc>
+
+        <host>ebox-server</host>
+        <dir>write-resolv</dir>
+    </test>
+
+    <test>
+        <name>Test-Send-Other-NotAllowed</name>
+        <desc>Checks if mail sending to other smtp works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="receiver@mail.ebox-smtp"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH" value="0"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>AllowRelay</name>
+        <desc>
+        Allow relay to internal network.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>allow-relay</dir>
+    </test>
+
+    <test>
+        <name>Test-Send-Other-Allowed</name>
+        <desc>Checks if mail sending to other smtp works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="receiver@mail.ebox-smtp"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH" value="0"/>
+    </test>
+
+    <test>
+        <name>Test-Receive</name>
+        <desc>Checks if mail is received.</desc>
+
+        <host>ebox-smtp</host>
+        <dir>check-mailbox</dir>
+
+        <var name="USER" value="receiver"/>
+        <var name="VDOMAIN" value="mail.ebox-smtp"/>
+        <var name="PATTERN" value="Cool!"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableMailfilter</name>
+        <desc>
+        Enable mailfilter module and add the virtual domain to its settings.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-mailfilter</dir>
+    </test>
+
+    <test>
+        <name>Send-Virus</name>
+        <desc>Sends a mail with virus attached</desc>
+
+        <host>ebox-server</host>
+        <dir>send-virus</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddBlacklist</name>
+        <desc>
+        Add a sender to the blacklist.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-blacklist</dir>
+        <var name="SENDER" value="spamer@foo.bar"/>
+    </test>
+
+    <test>
+        <name>Test-Spam-Blacklist</name>
+        <desc>Checks if mail sending works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="spamer@foo.bar"/>
+        <var name="TO" value="eboxtest@foobar.mail"/>
+        <var name="TEXT" value="Cool!"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH" value="0"/>
+    </test>
+
+    <test>
+        <name>Check-Spam</name>
+        <desc>Checks if mail is received with spam mark.</desc>
+
+        <host>ebox-server</host>
+        <dir>check-mailbox</dir>
+
+        <var name="USER" value="eboxtest"/>
+        <var name="VDOMAIN" value="foobar.mail"/>
+        <var name="PATTERN" value="Subject: \*\*\*SPAM\*\*\*"/>
+    </test>
+
+</suite>

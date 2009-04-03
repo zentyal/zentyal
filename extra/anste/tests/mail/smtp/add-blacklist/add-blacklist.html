@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>add-blacklist</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add-blacklist</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Mail</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Mail filter settings</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>Antispam_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Sender policy </td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new sender policy </td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>AntispamACL_sender</td>
+	<td>{$SENDER}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>AntispamACL_policy</td>
+	<td>label=blacklist</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>sender policy added</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

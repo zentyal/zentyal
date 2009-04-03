@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox Jabber tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox jabber module works properly.
+    </desc>
+
+    <scenario>jabber.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetSetExternal</name>
+        <desc>Sets eth2 as external.</desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>Enable modules</name>
+        <desc>
+        Enable jabber, network, firewall and users modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>
+        Adds an user and enable jabber account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser2</name>
+        <desc>
+        Adds other user and enable jabber account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+        <var name="USERNAME" value="bar"/>
+        <var name="PASSWORD" value="bar"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigJabberNonSSL</name>
+        <desc>
+        Set server hostname and config jabber in non-ssl mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-jabber-no-ssl</dir>
+    </test>
+
+    <test>
+        <name>TestJabberNoSSL</name>
+        <desc>Try to send and receive a message between the two users.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigJabberSSLOptional</name>
+        <desc>
+        Config jabber in ssl optional mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-jabber-optional</dir>
+    </test>
+
+    <test>
+        <name>TestJabberSSLOptionalWithoutTLS</name>
+        <desc>Try to send and receive a message between the two users.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+        <params>0</params>
+    </test>
+
+    <test>
+        <name>TestJabberSSLOptionalWithTLS</name>
+        <desc>Try to send and receive a message between the two users.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+        <params>1</params>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigJabberSSLRequired</name>
+        <desc>
+        Config jabber in ssl required mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-jabber-ssl</dir>
+    </test>
+
+    <test>
+        <name>TestJabberSSLRequiredWithoutTLS</name>
+        <desc>Try to send and receive a message between the two users.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+        <params>0</params>
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>TestJabberSSLRequiredWithTLS</name>
+        <desc>Try to send and receive a message between the two users.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+        <params>1</params>
+    </test>
+</suite>

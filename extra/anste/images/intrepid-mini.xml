@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+    <name>baseimage-intrepid-mini</name>
+    <desc>Ubuntu Intrepid Ibex</desc>
+
+    <memory>128</memory>
+    
+    <size>500M</size>
+
+    <install method="debootstrap">
+        <dist>intrepid</dist>
+    </install>        
+</image>

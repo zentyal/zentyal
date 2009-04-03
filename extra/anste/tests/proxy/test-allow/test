@@ -1,0 +1,23 @@
+#!/bin/bash
+
+export http_proxy="192.168.2.1:3128"
+
+
+for i in `seq 1 10`
+do
+    [ -f output.html ] && rm output.html
+
+    echo "HTTP request to $HOST"
+    wget -r -t 3 $HOST -O output.html
+
+    if [ $? = 0 -a -f output.html -a `wc -c output.html | cut -d' ' -f1` -gt 0 ]
+    then
+        echo "Access allowed."
+        exit 0
+    else
+        sleep 2
+    fi
+done    
+
+echo "Test failed (timeout)."
+exit 1

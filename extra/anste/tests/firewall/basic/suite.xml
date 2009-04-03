@@ -1,0 +1,63 @@
+<suite>
+    <name>eBox Firewall internal networks to eBox </name>
+    <desc>Contains tests to test the eBox firewall, section internal
+    networks to eBox.</desc>
+
+    <scenario>firewall/basic.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+		Enable firewall and network
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+
+    <test type="selenium">
+        <name>ConfigInternalFw</name>
+        <desc>
+            Add two objects: foo 192.168.2.2 and bar 192.168.2.3. Two services
+            internal-single-service TCP 7888 and internal-range-service TCP/UDP
+            8500/8510. Both marked as internal.
+            Add a firewall rule to deny access from bar to
+            internal-single-service.
+            Add a firewall rule to allow access from foo to
+            internal-range-service.
+            Add a firewall rule to allow access from bar to
+            internal-range-service.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-internal-fw</dir>
+    </test>
+
+    <test>
+        <name>StartServers</name>
+        <desc>Set up servers listening on the above sockets in eBox </desc>
+
+        <host>ebox-server</host>
+        <dir>start-servers</dir>
+    </test>
+
+
+    <test>
+        <name>TestRulesInFoo</name>
+        <desc>Checks above rules are in place.</desc>
+
+        <host>client-foo</host>
+        <dir>test-internal-rules-foo</dir>
+    </test>
+
+    <test>
+        <name>TestRulesInBar</name>
+        <desc>Checks above rules are in place.</desc>
+
+        <host>client-bar</host>
+        <dir>test-internal-rules-bar</dir>
+    </test>
+
+
+</suite>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+    <name>baseimage-jaunty-mini</name>
+    <desc>Ubuntu Jaunty</desc>
+
+    <memory>128</memory>
+    
+    <size>500</size>
+
+    <install method="debootstrap">
+        <dist>jaunty</dist>
+        <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
+    </install>        
+
+    <pre-install>
+        <script>write-jaunty-sources.sh</script>
+    </pre-install>
+
+</image>

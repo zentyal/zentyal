@@ -1,0 +1,86 @@
+<suite>
+    <name>eBox egroupware Test Suite</name>
+    <desc>
+    Contains tests for login and mail sending.
+    </desc>
+
+    <scenario>egroupware.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enables network, webserver, users, mail and egroupware modules
+        and saves changes.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>Adds an user through the ebox web interface
+        and checks if addedd correctly in LDAP database
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-adduser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+    <test>
+        <name>CheckUser</name>
+        <desc>Checks if the user is added correctly on LDAP</desc>
+
+        <host>ebox-server</host>
+        <dir>test-checkuser</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EgwUserLogin</name>
+        <desc>Login with default-created eGroupware user.</desc>
+
+        <host>ebox-server</host>
+        <port>80</port>
+        <dir>egw-login</dir>
+    </test>
+
+    <test type="selenium">
+        <name>SetAdminTemplate</name>
+        <desc>Creates an admin permissions template an assign it
+        to the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>egw-set-admin-template</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EgwAdminLogin</name>
+        <desc>Login with the same user that is now an admin.</desc>
+
+        <host>ebox-server</host>
+        <port>80</port>
+        <dir>egw-admin-login</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigMail</name>
+        <desc>Configure mail vdomain and try to send/receive a mail
+        from inside egroupware.</desc>
+
+        <host>ebox-server</host>
+        <dir>config-mail</dir>
+    </test>
+
+    <test type="selenium">
+        <name>TestMail</name>
+        <desc>Configure mail vdomain and try to send/receive a mail
+        from inside egroupware.</desc>
+
+        <host>ebox-server</host>
+        <port>80</port>
+        <dir>test-mail</dir>
+    </test>
+</suite>

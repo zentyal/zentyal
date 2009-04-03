@@ -1,0 +1,69 @@
+<suite>
+    <name>eBox traffic balance Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that ebox traffic balance capabilities work ok.
+    </desc>
+
+    <scenario>network/balance.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetwork</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateways</name>
+        <desc>Adds the two routers as gateways</desc>
+
+        <host>ebox-server</host>
+        <dir>add-two-gateways</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableBalance</name>
+        <desc>
+        Enable traffic balance.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-traffic-balance</dir>
+    </test>
+
+    <test>
+        <name>TestBalance</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>client</host>
+        <dir>test-balance</dir>
+    </test>
+
+</suite>

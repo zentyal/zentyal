@@ -1,0 +1,21 @@
+#!/bin/bash
+
+LOG="/tmp/anste-traceroute-$(date +%y%m%d%H%M%S)"
+
+for i in `seq 1 20`
+do
+    traceroute -n -m 2 "192.168.45.$i" | grep '192.168.3' >> $LOG
+done
+
+GW1=$(grep '192.168.3.2' $LOG | wc -l)
+GW2=$(grep '192.168.3.3' $LOG | wc -l)
+
+test $GW1 -ge 7 && test $GW2 -ge 7
+
+RET=$?
+
+cat $LOG
+
+rm $LOG
+
+exit $RET

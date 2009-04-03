@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+    <name>baseimage-ubuntu-ebox</name>
+    <desc>Ubuntu Hardy with ebox</desc>
+
+    <memory>512</memory>
+
+    <size>950</size>
+
+    <install method="debootstrap">
+        <dist>hardy</dist>
+        <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
+    </install>
+    
+    <packages>
+        <package>ssl-cert</package>
+        <package>postfix</package>
+        <package>postgresql</package>
+        <package>apache2-mpm-prefork</package>
+        <profile>ebox</profile>
+    </packages>
+
+    <pre-install>
+        <script>write-hardy-ebox-sources.sh</script>
+    </pre-install>
+
+    <post-install>
+        <script>ssl-cert-workaround.sh</script>
+        <script>force-package-install.sh</script>
+        <script>add-services-to-ebox-firewall</script>
+        <script>ebox-non-ssl.sh</script>
+    </post-install>
+
+</image>

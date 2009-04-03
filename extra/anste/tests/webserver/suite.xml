@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox WebServer tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox WebServer module works properly.
+    </desc>
+
+    <scenario>one-client.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable samba, network and users modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>
+        Adds an user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="foobar"/>
+        <var name="PASSWORD" value="foobar"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddVirtualHost</name>
+        <desc>
+        Adds a virtual host for the webserver.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-vhost</dir>
+    </test>
+
+    <test>
+        <name>CreateWebVDomain</name>
+        <desc>Create a example page in the virtual domain directory</desc>
+
+        <host>ebox-server</host>
+        <dir>create-web</dir>
+        <var name="DIR" value="/var/www/foobar.ebox-server"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableWebserver</name>
+        <desc>
+        Enable webserver and DNS modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-webserver</dir>
+    </test>
+
+    <test>
+        <name>TestAccessVDomain</name>
+        <desc>Try to access the virtual domain.</desc>
+
+        <host>test-client</host>
+        <dir>test-access</dir>
+
+        <var name="URL" value="http://foobar.ebox-server"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigWebserverDefault</name>
+        <desc>
+        Toogles webserver user public pages feature and sets
+        the listening port to the specified.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-webserver</dir>
+
+        <var name="PORT" value="80"/>
+    </test>
+
+    <test>
+        <name>CreateWeb</name>
+        <desc>Create a example page in the user directory</desc>
+
+        <host>ebox-server</host>
+        <dir>create-web</dir>
+        <var name="DIR" value="/home/samba/users/foobar/public_html"/>
+    </test>
+
+    <test>
+        <name>TestAccessDefault</name>
+        <desc>Try to access the user page.</desc>
+
+        <host>test-client</host>
+        <dir>test-access</dir>
+
+        <var name="URL" value="http://ebox-server/~foobar"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigWebserverDisabled</name>
+        <desc>
+        Toogles webserver user public pages feature and sets
+        the listening port to the specified.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-webserver</dir>
+
+        <var name="PORT" value="80"/>
+    </test>
+
+    <test>
+        <name>TestAccessDisabled</name>
+        <desc>Try to access the user page.</desc>
+
+        <host>test-client</host>
+        <dir>test-access</dir>
+
+        <var name="URL" value="http://ebox-server/~foobar"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigWebserverOtherPort</name>
+        <desc>
+        Toogles webserver user public pages feature and sets
+        the listening port to the specified.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-webserver</dir>
+
+        <var name="PORT" value="666"/>
+    </test>
+
+    <test>
+        <name>TestAccessOtherPort</name>
+        <desc>Try to access the user page.</desc>
+
+        <host>test-client</host>
+        <dir>test-access</dir>
+
+        <var name="URL" value="http://ebox-server:666/~foobar"/>
+    </test>
+
+
+</suite>

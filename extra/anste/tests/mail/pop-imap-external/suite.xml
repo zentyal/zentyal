@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox POP/IMAP tests from external</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox mail module works properly.
+    </desc>
+
+    <scenario>mail/only-external.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>Enable network, users and mail modules.</desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateway</name>
+        <desc>Adds the scenario router as gateway</desc>
+
+        <host>ebox-server</host>
+        <dir>add-gateway</dir>
+        <var name="GATEWAY" value="192.168.3.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigMailAccount</name>
+        <desc>
+        Config the mail account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-mail-account</dir>
+        <var name="VDOMAIN" value="foobar"/>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+    <test type="selenium">
+        <name>AllowMailFromExternal</name>
+        <desc>Allow mail access from external clients.</desc>
+
+        <host>ebox-server</host>
+        <dir>allow-mail-from-external</dir>
+    </test>
+
+    <test>
+        <name>SetupRouter</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+
+<!-- POP tests -->
+
+    <test>
+        <name>Test-POP-Disabled</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-POP-SSL-Disabled</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnablePOP</name>
+        <desc>
+        Enables POP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="pop3"/>
+    </test>
+
+    <test>
+        <name>Test-POP-NOSSL</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test>
+        <name>Test-POP-SSL-NOSSL</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>Set-POP-SSL-Required</name>
+        <desc>
+        Sets SSL = required.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-ssl</dir>
+        <var name="VALUE" value="Required"/>
+    </test>
+
+    <test>
+        <name>Test-POP-NOSSL-RequiredSSL</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-POP-SSL-RequiredSSL</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>Set-POP-SSL-Optional</name>
+        <desc>
+        Sets SSL = optional.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-ssl</dir>
+        <var name="VALUE" value="Optional"/>
+    </test>
+
+    <test>
+        <name>Test-POP-NOSSL-Optional</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test>
+        <name>Test-POP-SSL-Optional</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+<!-- IMAP tests -->
+
+    <test>
+        <name>Test-IMAP-Disabled</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-IMAP-SSL-Disabled</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnableIMAP</name>
+        <desc>
+        Enables IMAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="imap"/>
+    </test>
+
+    <test type="selenium">
+        <name>Set-NO-SSL</name>
+        <desc>
+        Sets SSL = no.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-ssl</dir>
+        <var name="VALUE" value="No"/>
+    </test>
+
+    <test>
+        <name>Test-IMAP-NOSSL</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test>
+        <name>Test-IMAP-SSL-NOSSL</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>Set-IMAP-SSL-Required</name>
+        <desc>
+        Sets SSL = required.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-ssl</dir>
+        <var name="VALUE" value="Required"/>
+    </test>
+
+    <test>
+        <name>Test-IMAP-NOSSL-RequiredSSL</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-IMAP-SSL-RequiredSSL</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>Set-IMAP-SSL-Optional</name>
+        <desc>
+        Sets SSL = optional.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-ssl</dir>
+        <var name="VALUE" value="Optional"/>
+    </test>
+
+    <test>
+        <name>Test-IMAP-NOSSL-Optional</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+    <test>
+        <name>Test-IMAP-SSL-Optional</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+</suite>

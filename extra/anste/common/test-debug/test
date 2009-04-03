@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "-- netstat --"
+netstat -tlnp
+
+echo "-- iptables --"
+iptables -L -n -v
+
+echo "-- iptables nat --"
+iptables -t nat -L -n -v
+
+echo "-- processes --"
+ps aux
+
+while ps aux | grep ebox-global-action | grep save
+do
+    echo "Waiting for changes saved..."
+    sleep 1
+done

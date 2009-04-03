@@ -1,0 +1,19 @@
+#!/bin/sh
+
+OK=0;
+
+echo "Checking if I can connect to 7888"
+if ! nc 192.168.2.1 7888 | grep foo; then
+    OK=1
+    echo "Failed, couldn't connect to 7888";
+fi
+
+echo "Checking if I cannnot connect to 8500-8510"
+for port in $(seq 8500 8510); do
+    if  nc 192.168.2.1 $port | grep foo; then
+        OK=1
+        echo "Failed, I could connect to $port";
+    fi
+done
+
+exit $OK

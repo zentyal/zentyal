@@ -1,0 +1,17 @@
+#!/bin/bash
+
+for i in `seq 1 30`
+do
+    route -n | grep 192.168.30.0
+    if [ $? == 0 ]
+    then
+        echo "Route found"
+        exit 0
+    else
+        echo "Waiting for route to 192.168.30.0..."
+        sleep 1
+    fi
+done
+
+echo "Timeout waiting for route."
+exit 1

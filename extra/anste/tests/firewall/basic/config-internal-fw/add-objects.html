@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>add-objects</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add-objects</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ebox/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Objects</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new object</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ObjectTable_name</td>
+	<td>foo</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>object added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new object</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ObjectTable_name</td>
+	<td>bar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>object added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[2]/td[2]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new member</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MemberTable_name</td>
+	<td>foo</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MemberTable_ipaddr_ip</td>
+	<td>192.168.2.2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>member added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Objects</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//td[2]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new member</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MemberTable_name</td>
+	<td>bar</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MemberTable_ipaddr_ip</td>
+	<td>192.168.2.3</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>member added</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

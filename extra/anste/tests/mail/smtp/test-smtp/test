@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+
+use Net::SMTP;
+use Net::SMTP::SSL;
+
+my $smtp;
+
+my $TO = $ENV{TO};
+my $FROM = $ENV{FROM};
+my $TEXT = $ENV{TEXT};
+
+if ($ENV{SSL}) {
+    $smtp = new Net::SMTP::SSL($ENV{SERVER}, Port => 465) or 
+        die "CONNECT error: $@";
+}
+else {
+    $smtp = new Net::SMTP($ENV{SERVER}) or die "CONNECT error: $@";
+}
+
+if ($ENV{AUTH}) {
+    $smtp->auth('eboxtest@foobar.mail', 'eboxtest') or die "AUTH error: $@";
+}
+
+$smtp->mail($FROM) or die "MAIL FROM error: $@";
+$smtp->recipient($TO) or die "RCPT TO error: $@";
+
+$smtp->data();
+$smtp->datasend("To: $TO");
+$smtp->datasend("\n");
+$smtp->datasend("$TEXT\n");
+$smtp->dataend() or die "SEND error";
+
+$smtp->quit();

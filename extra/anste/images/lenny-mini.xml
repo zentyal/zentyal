@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+    <name>baseimage-lenny-mini</name>
+    <desc>Debian GNU/Linux lenny</desc>
+
+    <memory>128</memory>
+    
+    <size>500M</size>
+
+    <install method="debootstrap">
+        <dist>lenny</dist>
+        <command>/usr/sbin/debootstrap --exclude=libc6-i686,aptitude</command>
+    </install>        
+</image>

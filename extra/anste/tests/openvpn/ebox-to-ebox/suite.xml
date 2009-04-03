@@ -1,0 +1,250 @@
+<suite>
+    <name>eBox OpenVPN (eBox to eBox) Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that ebox OpenVPN module works ok.
+    </desc>
+
+    <scenario>openvpn/ebox-to-ebox.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetworkServer</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModulesServer</name>
+        <desc>
+        Enable network, firewall and openvpn modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGatewayServer</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGatewayServer</name>
+        <desc>Adds the scenario router as gateway</desc>
+
+        <host>ebox-server</host>
+        <dir>add-gateway</dir>
+        <var name="GATEWAY" value="192.168.3.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigCA</name>
+        <desc>
+        Config CA.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-ca</dir>
+        <var name="ADVERTISED_NETWORK" value="192.168.20.0"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetworkClient</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModulesClient</name>
+        <desc>
+        Enable network, firewall and openvpn modules.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGatewayClient</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGatewayClient</name>
+        <desc>Adds the scenario routers as gateways</desc>
+
+        <host>ebox-client</host>
+        <dir>add-gateway</dir>
+        <var name="GATEWAY" value="192.168.5.2"/>
+    </test>
+
+    <test>
+        <name>SetupRouterA</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router-a</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+    <test>
+        <name>SetupRouterB</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router-b</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.5.1"/>
+    </test>
+
+    <test>
+        <name>GenerateBundle</name>
+        <desc>
+        Generate OpenVPN bundle on eBox server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>generate-bundle</dir>
+        <var name="TYPE" value="EBoxToEBox"/>
+        <var name="CLIENT" value="client"/>
+        <var name="ROUTER" value="192.168.4.2"/>
+    </test>
+
+    <test>
+        <name>DownloadBundle</name>
+        <desc>
+        Download OpenVPN bundle on ebox client.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>download-bundle</dir>
+        <var name="HOST" value="192.168.4.2"/>
+        <var name="CLIENT" value="client"/>
+    </test>
+
+    <test>
+        <name>AddClientFromBundle</name>
+        <desc>
+        Add VPN client from bundle using eBox API.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>add-client-from-bundle</dir>
+        <var name="CLIENT" value="client"/>
+    </test>
+
+    <test type="selenium">
+        <name>CheckClientAdded</name>
+        <desc>
+        Check if client added and save changes.
+        Also allow traffic from internal.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>check-client-added</dir>
+    </test>
+
+    <test>
+        <name>StartServer</name>
+        <desc>
+        Start server on one of the internal clients.
+        </desc>
+
+        <host>internal-a</host>
+        <dir>start-server</dir>
+    </test>
+
+    <test>
+        <name>TestVPNFail</name>
+        <desc>
+        Connect to the VPN and try to access
+        the other machine before enabling
+        ebox to ebox connection.
+        </desc>
+
+        <host>internal-b</host>
+        <dir>test-client</dir>
+        <var name="HOST" value="192.168.20.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>AllowEboxToEbox</name>
+        <desc>
+        Allow ebox to ebox tunnels.
+        Also allow traffic from internal.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>allow-ebox-to-ebox</dir>
+    </test>
+
+    <test>
+        <name>WaitForRoute</name>
+        <desc>Waits until the routes has been interchanged.</desc>
+
+        <host>ebox-server</host>
+        <dir>wait-for-route</dir>
+    </test>
+
+    <test>
+        <name>TestVPN</name>
+        <desc>
+        Connect to the VPN and try to access
+        the other machine after enabling
+        client to client connection.
+        </desc>
+
+        <host>internal-b</host>
+        <dir>test-client</dir>
+        <var name="HOST" value="192.168.20.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogsClient</name>
+        <desc>
+        Query the logs for the connection event.
+        </desc>
+
+        <host>ebox-client</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.2"/>
+        <var name="EVENT" value="Connection to server initiated"/>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogsServer</name>
+        <desc>
+        Query the logs for the connection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.3"/>
+        <var name="EVENT" value="Connection to server initiated"/>
+    </test>
+
+</suite>

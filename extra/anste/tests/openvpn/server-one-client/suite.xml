@@ -1,0 +1,217 @@
+<suite>
+    <name>eBox OpenVPN Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that ebox OpenVPN module works ok.
+    </desc>
+
+    <scenario>openvpn/server-one-client.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetwork</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network, firewall and openvpn modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateway</name>
+        <desc>Adds the scenario router as gateway</desc>
+
+        <host>ebox-server</host>
+        <dir>add-gateway</dir>
+        <var name="GATEWAY" value="192.168.3.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigCA</name>
+        <desc>
+        Config CA.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-ca</dir>
+        <var name="ADVERTISED_NETWORK" value="192.168.2.0"/>
+    </test>
+
+    <test>
+        <name>SetupRouter</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+    <test>
+        <name>GenerateBundle</name>
+        <desc>
+        Generate OpenVPN bundle on eBox server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>generate-bundle</dir>
+        <var name="TYPE" value="linux"/>
+        <var name="CLIENT" value="client"/>
+        <var name="ROUTER" value="router"/>
+    </test>
+
+    <test>
+        <name>StartServer</name>
+        <desc>
+        Start server on the internal machine.
+        </desc>
+
+        <host>internal</host>
+        <dir>start-server</dir>
+    </test>
+
+    <test>
+        <name>DownloadBundle</name>
+        <desc>
+        Generate OpenVPN bundle on eBox server.
+        </desc>
+
+        <host>external</host>
+        <dir>download-bundle</dir>
+        <var name="HOST" value="router"/>
+        <var name="CLIENT" value="client"/>
+    </test>
+
+    <test>
+        <name>TestFailVPN</name>
+        <desc>
+        Assure we can't access to the
+        internal machine if there's no
+        rule in the firewall for it.
+        </desc>
+
+        <host>external</host>
+        <dir>test-vpn</dir>
+        <var name="CLIENT" value="client"/>
+        <var name="HOST" value="192.168.2.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>KillFailVPN</name>
+        <desc>
+        Kill openvpn connection.
+        </desc>
+
+        <host>external</host>
+        <dir>kill-vpn</dir>
+    </test>
+
+    <test type="selenium">
+        <name>FirewallAllowInternal</name>
+        <desc>
+        Allow traffic from internal.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>firewall-allow-internal</dir>
+    </test>
+
+    <test>
+        <name>TestVPN</name>
+        <desc>
+        Connect to the VPN and try to access
+        server on the internal machine.
+        </desc>
+
+        <host>external</host>
+        <dir>test-vpn</dir>
+        <var name="CLIENT" value="client"/>
+        <var name="HOST" value="192.168.2.2"/>
+
+        <assert>passed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogConnect</name>
+        <desc>
+        Query the logs for the connection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.2"/>
+        <var name="EVENT" value="Connection to server initiated"/>
+    </test>
+
+    <test>
+        <name>KillVPN</name>
+        <desc>
+        Kill openvpn connection.
+        </desc>
+
+        <host>external</host>
+        <dir>kill-vpn</dir>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogDisconnect</name>
+        <desc>
+        Query the logs for the disconnection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.2"/>
+        <var name="EVENT" value="Client connection terminated"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableNAT</name>
+        <desc>
+        Enable NAT.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-nat</dir>
+    </test>
+
+    <test>
+        <name>TestVPNwithNAT</name>
+        <desc>
+        Connect to the VPN and try to access
+        server on the internal machine with
+        NAT enabled on the ebox.
+        </desc>
+
+        <host>external</host>
+        <dir>test-vpn</dir>
+        <var name="CLIENT" value="client"/>
+        <var name="HOST" value="192.168.2.2"/>
+
+        <assert>passed</assert>
+    </test>
+
+</suite>

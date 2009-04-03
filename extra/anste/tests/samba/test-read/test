@@ -1,0 +1,24 @@
+#!/bin/bash
+
+LOG=/tmp/smbclient-test-$$.log
+
+[ -f test.bin ] && rm test.bin
+
+sleep 5
+
+echo "Trying to get test.bin"
+smbclient "\\\\192.168.2.1\\$SHARE" $USER -U $PASS -c 'get test.bin' > $LOG 2>&1
+
+cat $LOG
+
+echo "Checking for error $ERROR:"
+grep $ERROR $LOG
+
+if [ $? != 0 -a -f test.bin ] 
+then
+    echo "Test ok."
+    exit 0
+else
+    echo "Failed."
+    exit 1
+fi

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+while true ; do echo foo | netcat -l -p 1100 -q 1 || exit 1 ; done &
+
+sleep 1
+
+exit 0
+

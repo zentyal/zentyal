@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pkill -9 openvpn

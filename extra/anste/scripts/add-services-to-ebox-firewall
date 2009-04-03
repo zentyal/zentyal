@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+# FIXME: ansted and master ports are hardcoded
+my $serviceMod = EBox::Global->modInstance('services');
+unless ($serviceMod->serviceExists('name' => 'ansted')) {
+    $serviceMod->addService('name' => 'ansted',
+                            'description' => 'ANSTE daemon',
+                            'protocol' => 'tcp', 
+                            'sourcePort' => 'any',
+                            'destinationPort' => 8000);
+}
+
+my $firewallMod = EBox::Global->modInstance('firewall');
+$firewallMod->setInternalService('ansted', 'accept');
+$firewallMod->addOutputRule('tcp', '8001');
+
+# Change apache port TODO: To be removed when working with SSL
+my $apacheMod = EBox::Global->modInstance('apache');
+$apacheMod->setPort(1666);
+
+EBox::Global->getInstance()->saveAllModules();
+
+1;
+

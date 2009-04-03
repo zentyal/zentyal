@@ -1,0 +1,51 @@
+<suite>
+    <name>eBox DNS tests</name>
+    <desc>Contains tests for the DNS module.</desc>
+
+    <scenario>dns.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigDNSServer</name>
+        <desc>
+        Enables DNS server and add a domain with a host
+        and an alias.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-dns</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enables network and DNS modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test>
+        <name>TestHost</name>
+        <desc>Checks that the host is correctly resolved.</desc>
+
+        <host>test-client</host>
+        <dir>test-host</dir>
+    </test>
+
+    <test>
+        <name>TestAlias</name>
+        <desc>Checks that the alias is correctly resolved.</desc>
+
+        <host>test-client</host>
+        <dir>test-alias</dir>
+    </test>
+
+    <test>
+        <name>TestInv</name>
+        <desc>Checks that inverse resolution works.</desc>
+
+        <host>test-client</host>
+        <dir>test-inv</dir>
+    </test>
+</suite>

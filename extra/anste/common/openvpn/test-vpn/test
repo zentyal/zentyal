@@ -1,0 +1,28 @@
+#!/bin/bash
+
+TESTFILE=/tmp/anste-openvpn-ready-$$
+
+cd $CLIENT
+
+# FIXME: temporary workaround until fixed in ebox-openvpn
+sed -i 's/^dev uninitialized/dev tap/g' foobar-server-client.conf
+
+openvpn --config foobar-server-client.conf --daemon --route-up "touch $TESTFILE" --log $TESTFILE.log
+
+for i in `seq 1 20`
+do
+    if [ -r $TESTFILE ]
+    then
+        echo "OpenVPN connected"
+        break
+    else
+        sleep 1
+    fi
+done
+
+cat $TESTFILE.log
+
+rm $TESTFILE $TESTFILE.log
+
+echo "Expecting foo on $HOST:1100"
+nc -w 10 $HOST 1100 | grep foo 

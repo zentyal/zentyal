@@ -1,0 +1,259 @@
+<suite>
+    <name>eBox OpenVPN (2 clients) Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that ebox OpenVPN module works ok.
+    </desc>
+
+    <scenario>openvpn/server-two-clients.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetwork</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network, firewall and openvpn modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateways</name>
+        <desc>Adds the scenario routers as gateways</desc>
+
+        <host>ebox-server</host>
+        <dir>add-two-gateways</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigCA</name>
+        <desc>
+        Config CA.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-ca</dir>
+    </test>
+
+    <test>
+        <name>SetupRouterA</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router-a</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+    <test>
+        <name>SetupRouterB</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router-b</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+    <test>
+        <name>GenerateBundleA</name>
+        <desc>
+        Generate OpenVPN bundle on eBox server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>generate-bundle</dir>
+        <var name="TYPE" value="linux"/>
+        <var name="CLIENT" value="client"/>
+        <var name="ROUTER" value="router-a"/>
+    </test>
+
+    <test>
+        <name>GenerateBundleB</name>
+        <desc>
+        Generate OpenVPN bundle on eBox server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>generate-bundle</dir>
+        <var name="TYPE" value="linux"/>
+        <var name="CLIENT" value="client2"/>
+        <var name="ROUTER" value="router-b"/>
+    </test>
+
+    <test>
+        <name>DownloadBundleA</name>
+        <desc>
+        Download OpenVPN bundle on external client A.
+        </desc>
+
+        <host>external-a</host>
+        <dir>download-bundle</dir>
+        <var name="HOST" value="router-a"/>
+        <var name="CLIENT" value="client"/>
+    </test>
+
+    <test>
+        <name>DownloadBundleB</name>
+        <desc>
+        Download OpenVPN bundle on external client B.
+        </desc>
+
+        <host>external-b</host>
+        <dir>download-bundle</dir>
+        <var name="HOST" value="router-b"/>
+        <var name="CLIENT" value="client2"/>
+    </test>
+
+    <test>
+        <name>StartServer</name>
+        <desc>
+        Start server on one of the external clients.
+        </desc>
+
+        <host>external-a</host>
+        <dir>start-server</dir>
+        <var name="CLIENT" value="client"/>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogConnectA</name>
+        <desc>
+        Query the logs for the connection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.4"/>
+        <var name="EVENT" value="Connection to server initiated"/>
+    </test>
+
+    <test>
+        <name>TestVPNFail</name>
+        <desc>
+        Connect to the VPN and try to access
+        the other machine before enabling
+        client to client connection.
+        </desc>
+
+        <host>external-b</host>
+        <dir>test-vpn</dir>
+        <var name="CLIENT" value="client2"/>
+        <var name="HOST" value="192.168.200.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>KillVPNFail</name>
+        <desc>
+        Kill openvpn connection.
+        </desc>
+
+        <host>external-b</host>
+        <dir>kill-vpn</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AllowClientToClient</name>
+        <desc>
+        Allow client to client connections.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>allow-client-to-client</dir>
+    </test>
+
+    <test>
+        <name>TestVPN</name>
+        <desc>
+        Connect to the VPN and try to access
+        the other machine after enabling
+        client to client connection.
+        </desc>
+
+        <host>external-b</host>
+        <dir>test-vpn</dir>
+        <var name="CLIENT" value="client2"/>
+        <var name="HOST" value="192.168.200.2"/>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogConnectB</name>
+        <desc>
+        Query the logs for the connection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.5.4"/>
+        <var name="EVENT" value="Connection to server initiated"/>
+    </test>
+
+    <test>
+        <name>KillVPN-A</name>
+        <desc>
+        Kill openvpn connection.
+        </desc>
+
+        <host>external-a</host>
+        <dir>kill-vpn</dir>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogDisconnectA</name>
+        <desc>
+        Query the logs for the disconnection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.4.4"/>
+        <var name="EVENT" value="Client connection terminated"/>
+    </test>
+
+    <test>
+        <name>KillVPN-B</name>
+        <desc>
+        Kill openvpn connection.
+        </desc>
+
+        <host>external-b</host>
+        <dir>kill-vpn</dir>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogDisconnectB</name>
+        <desc>
+        Query the logs for the disconnection event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="IP" value="192.168.5.4"/>
+        <var name="EVENT" value="Client connection terminated"/>
+    </test>
+
+</suite>

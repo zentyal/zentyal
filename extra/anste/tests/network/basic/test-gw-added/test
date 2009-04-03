@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ip route ls table default | grep 192.168.3.2
+
+exit $?

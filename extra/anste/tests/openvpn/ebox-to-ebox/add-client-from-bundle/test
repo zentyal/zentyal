@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl client-from-bundle foobar-client foobar-server-$CLIENT.tar.gz 1

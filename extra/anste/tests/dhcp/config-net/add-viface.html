@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>add-viface</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add-viface</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ebox//Summary/Index</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Network</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Interfaces</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=eth1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>vif_name</td>
+	<td>foobar</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>vif_address</td>
+	<td>192.168.2.2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@name='accept' and @value='Add']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

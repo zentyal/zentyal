@@ -1,0 +1,27 @@
+<suite>
+    <name>eBox users Test Suite</name>
+    <desc>Contains tests for user addition.
+    </desc>
+
+    <scenario>one-ebox.xml</scenario>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>Adds an user through the ebox web interface
+        and checks if addedd correctly in LDAP database
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>test-adduser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+    <test>
+        <name>CheckUser</name>
+        <desc>Checks if the user is added correctly on LDAP</desc>
+
+        <host>ebox-test</host>
+        <dir>test-checkuser</dir>
+    </test>
+</suite>

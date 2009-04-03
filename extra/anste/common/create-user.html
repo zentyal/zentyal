@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ebox-create-user</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ebox-create-user</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ebox/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Add user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>{$USERNAME}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>fullname</td>
+	<td>ebox test user {$USERNAME}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>{$PASSWORD}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>repassword</td>
+	<td>{$PASSWORD}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>user</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Administration of user {$USERNAME}</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>add-firewall-rues</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add-firewall-rues</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ebox/Firewall/Filter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Firewall</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Packet Filter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Configure rules</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new rule </td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_source_selected</td>
+	<td>label=Source object</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_decision</td>
+	<td>label=DENY</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_service</td>
+	<td>label=internal-service</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>rule added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new rule</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_source_selected</td>
+	<td>label=Source object</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_source_object</td>
+	<td>label=foo</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_service</td>
+	<td>label=internal-service</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>rule added</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Add new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Adding a new rule</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_source_selected</td>
+	<td>label=Source object</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>InternalToEBoxRuleTable_service</td>
+	<td>label=internal-range-service</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>rule added</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

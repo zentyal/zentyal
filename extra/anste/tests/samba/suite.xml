@@ -1,0 +1,516 @@
+<suite>
+    <name>eBox Samba tests</name>
+    <desc>Contains samba-related tests.</desc>
+
+    <scenario>samba.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enables network, firewall, users and samba modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetwork</name>
+        <desc>
+        Set the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigFileServer</name>
+        <desc>
+        Enables file sharing service and sets working mode
+        to File server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-fileserver</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUserFoo</name>
+        <desc>
+        Create a new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+    </test>
+
+    <test>
+        <name>TestUserShareRead</name>
+        <desc>Puts a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestUserShareWrite</name>
+        <desc>Gets a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <name>ChangeQuota</name>
+        <desc>
+        Changes the user quota to 1MB.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>change-quota</dir>
+
+        <var name="quota" value="1"/>
+    </test>
+
+    <test>
+        <name>TestQuota</name>
+        <desc>Try to put a 4MB file in the user share and ensure
+        this cannot be done.
+        </desc>
+
+        <assert>failed</assert>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_DISK_FULL"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddEboxShare</name>
+        <desc>
+        Adds a share under ebox directory and
+        restore quota to 100mb.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-ebox-share</dir>
+        <var name="SHARE" value="foobar"/>
+        <var name="SHARE_PATH" value="foobar"/>
+        <var name="TYPE" value="ebox"/>
+        <var name="TYPE_LABEL" value="Directory under eBox"/>
+        <var name="quota" value="100"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareWriteNoPerm</name>
+        <desc>Write to a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+        <var name="SHARE" value="foobar"/>
+    </test>
+    <test>
+        <name>TestSmbClientEboxShareReadNoPerm</name>
+        <desc>Read from a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantEboxShareReadWrite</name>
+        <desc>
+        Grant read/write perms to the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Read and write"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareWriteWithReadWrite</name>
+        <desc>Write to a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestSmbClientEboxShareReadWithReadWrite</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantEboxShareReadOnly</name>
+        <desc>
+        Grant read only perms to the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>update-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Read only"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareWriteWithReadOnly</name>
+        <desc>Write to a share with ReadOnly perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareReadWithReadOnly</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareReadWithReadOnlyBadLogin</name>
+        <desc>
+        Try to read from a share with read/write perms
+        with incorrect password.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>AddUserAdmin</name>
+        <desc>
+        Create a new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="admin"/>
+        <var name="PASSWORD" value="admin"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantEboxShareAdmin</name>
+        <desc>
+        Grant administrator perms to the new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Administrator"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareWriteAdmin</name>
+        <desc>Write to a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestSmbClientEboxShareReadAdmin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestSmbClientEboxShareReadAdminBadLogin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="badpass"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>AddFileSystemShare</name>
+        <desc>
+        Adds a file system share.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-fs-share</dir>
+        <var name="SHARE" value="myshare"/>
+        <var name="SHARE_PATH" value="/myshare"/>
+        <var name="TYPE" value="system"/>
+        <var name="TYPE_LABEL" value="File system path"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientFileSystemShareWriteNoPerm</name>
+        <desc>Write to a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+        <var name="SHARE" value="myshare"/>
+    </test>
+    <test>
+        <name>TestSmbClientFileSystemShareReadNoPerm</name>
+        <desc>Read from a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantFileSystemShareReadWrite</name>
+        <desc>
+        Grant read/write perms to the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Read and write"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientFileSystemShareWriteWithReadWrite</name>
+        <desc>Write to a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestSmbClientFileSystemShareWriteWithReadWriteBadLogin</name>
+        <desc>Write to a share with read/write perms with bad password</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+    <test>
+        <name>TestSmbClientFileSystemShareReadWithReadWrite</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantFileSystemShareReadOnly</name>
+        <desc>
+        Grant read only perms to the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>update-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Read only"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientFileSystemShareWriteWithReadOnly</name>
+        <desc>Write to a share with ReadOnly perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
+    </test>
+    <test>
+        <name>TestSmbClientFileSystemShareReadWithReadOnly</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <name>GrantFileSystemShareAdmin</name>
+        <desc>
+        Grant administrator perms to the new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Administrator"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientFileSystemShareWriteAdmin</name>
+        <desc>Write to a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestSmbClientFileSystemShareReadAdmin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <name>DeleteEboxShare</name>
+        <desc>
+        Delete share under eBox and expect confirmation because
+        directory is not empty.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>delete-ebox-share</dir>
+        <var name="SHARE" value="foobar"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareDeletedWrite</name>
+        <desc>Write to a share that has been deleted</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test>
+        <name>TestSmbClientEboxShareDeletedRead</name>
+        <desc>Read from a share that has been deleted</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+</suite>

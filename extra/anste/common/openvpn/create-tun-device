@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Create tun device
+[ -e /dev/net ] || mkdir -m 755 /dev/net
+[ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
+

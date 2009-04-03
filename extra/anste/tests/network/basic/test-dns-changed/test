@@ -1,0 +1,5 @@
+#!/bin/sh
+
+grep '192.168.45.3' /etc/resolv.conf
+
+exit $?

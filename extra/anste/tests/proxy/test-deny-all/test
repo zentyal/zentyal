@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export http_proxy="192.168.2.1:3128"
+
+for i in `seq 1 10`
+do
+    echo "HTTP request to www.google.es"
+    wget -r -t 3 www.google.es -O - 2>&1 | grep 403
+    if [ $? = 0 ]
+    then
+        echo "Access denied."
+        exit 0
+    else
+        sleep 1
+    fi
+done    
+
+echo "Test failed (timeout)."
+exit 1

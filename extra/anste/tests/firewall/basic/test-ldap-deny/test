@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ldapsearch -x -h 192.168.2.1 -s base "(objectclass=*)" namingContexts -LLL oa -l 5
+if [ $? == 0 ] ; then
+    exit 1
+else
+    exit 0
+fi

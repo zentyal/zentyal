@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox Events tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox events work properly.
+    </desc>
+
+    <scenario>jabber.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetSetExternal</name>
+        <desc>Sets eth2 as external.</desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable jabber, network, firewall and users modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigDiskSpaceEvent</name>
+        <desc>
+        Set disk space free alert to 90% and enable the event.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-disk-space</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigLogDispatcher</name>
+        <desc>
+        Config event dispatcher to log file.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-log-dispatcher</dir>
+
+        <var name="DISPATCHER" value="Log"/>
+    </test>
+
+    <test>
+        <name>TestLog</name>
+        <desc>Check log for "no space left" message.</desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>
+        Adds an user and enable jabber account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigJabberNonSSL</name>
+        <desc>
+        Set server hostname and config jabber in non-ssl mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-jabber-no-ssl</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigJabberDispatcher</name>
+        <desc>
+        Config event dispatcher to log file.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-jabber-dispatcher</dir>
+
+        <var name="DISPATCHER" value="Jabber"/>
+    </test>
+
+    <test>
+        <name>TestJabber</name>
+        <desc>Try to receive a event message.</desc>
+
+        <host>test-client</host>
+        <dir>test-jabber</dir>
+    </test>
+</suite>
