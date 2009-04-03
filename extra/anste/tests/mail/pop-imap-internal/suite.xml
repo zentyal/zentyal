@@ -132,7 +132,7 @@
     </test>
 
     <test>
-        <name>Test-POP</name>
+        <name>Test-POPS</name>
         <desc>Checks if POPS access works for the user.</desc>
 
         <host>test-client</host>
