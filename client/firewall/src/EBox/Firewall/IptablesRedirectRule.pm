@@ -63,6 +63,8 @@ sub strings
     my $state = $self->state();
     my $modulesConf = $self->modulesConf();
     my $iface = $self->interface();
+    # Iptables needs to use the real interface
+    $iface =~ s/:.*$//;
 
     foreach my $src (@{$self->{'source'}}) {
     	foreach my $origDst (@{$self->{'destination'}}) {
