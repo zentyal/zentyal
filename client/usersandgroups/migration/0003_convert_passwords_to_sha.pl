@@ -50,7 +50,7 @@ EBox::init();
 my $module = EBox::Global->modInstance('users');
 my $migration = new EBox::Migration( 
         'gconfmodule' => $module,
-        'version' => 2,
+        'version' => 3,
         );
 $migration->execute();
 

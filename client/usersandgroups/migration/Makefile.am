@@ -2,7 +2,10 @@
 
 Migrationsdir = @DATADIR@/ebox-usersandgroups/migration
 
-nobase_Migrations_SCRIPTS = 0001_add_ldap_service.pl 0002_convert_passwords_to_sha.pl
+nobase_Migrations_SCRIPTS = 0001_add_ldap_service.pl \
+    0002_convert_passwords_to_sha.pl \
+    0003_users_add_passwords_schema.pl \
+    0001_usercorner_add_webserver_service.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
