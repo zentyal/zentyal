@@ -92,6 +92,10 @@ sub _addUser
                                      AstAccountContext => 'users',
                                      AstAccountCallerID => $extn, #FIXME +fullname?
                                      AstAccountHost => 'dynamic',
+                                     AstAccountNAT => 'yes',
+                                     AstAccountQualify => 'yes',
+                                     AstAccountCanReinvite => 'no',
+                                     AstAccountLastms => '0',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
                                      AstAccountExpirationTimestamp => '0',

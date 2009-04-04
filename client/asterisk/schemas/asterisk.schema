@@ -84,6 +84,7 @@ objectIdentifier AstAccountDefaultUser AstAttrType:47
 objectIdentifier AstAccountRegistrationServer AstAttrType:48
 objectIdentifier AstAccountUserAgent AstAttrType:49
 objectIdentifier AstAccountVMPassword AstAttrType:50
+objectIdentifier AstAccountLastms AstAttrType:51
 
 
 #############################################################################
@@ -482,6 +483,13 @@ attributetype ( AstAccountVMPassword
         SUBSTR caseIgnoreSubstringsMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
 
+attributetype ( AstAccountLastms
+        NAME 'AstAccountLastms'
+        DESC 'Asterisk Last milifoo' 
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
 
 #############################################################################
 # Object Class definitions
@@ -587,7 +595,8 @@ objectclass ( AsteriskSIPUser
         AstAccountUserAgent $
         AstAccountCanCallForward $ 
         AstAccountSecret $ 
-        AstAccountName 
+        AstAccountName $
+        AstAccountLastms
     )
     )
 

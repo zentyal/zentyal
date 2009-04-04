@@ -38,11 +38,11 @@ exten => t,1,Playback(vm/generic/goodbye)
 exten => t,2,Hangup
 
 [default]
-include => 'common'
+include => common
 switch => Realtime
 
 [users]
-include => 'default'
+include => default
 % if ($outgoingcalls) {
 exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
 exten => _0.,2,Congestion()

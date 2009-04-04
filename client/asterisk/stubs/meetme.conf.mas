@@ -13,5 +13,5 @@
 ; Usage is conf => confno[,pin][,adminpin]	
 ;
 %    foreach my $meeting (@meetings) {
-<% $meeting->{'exten'} %> => <% $meeting->{'exten'} %>,<% $meeting->{'pin'} %>,<% $meeting->{'adminpin'} %>
+conf => <% $meeting->{'exten'} %>,<% $meeting->{'pin'} %>,<% $meeting->{'adminpin'} %>
 %    }
