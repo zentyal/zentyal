@@ -28,7 +28,7 @@ bind_policy soft
 # The distinguished name to bind to the server with
 # if the effective user ID is root. Password is
 # stored in /etc/ldap.secret (mode 600)
-rootbindn <% $binddn %>
+rootbinddn <% $binddn %>
 
 nss_base_passwd	        <% $usersdn %>?one
 nss_base_passwd	        <% $computersdn %>?one
