@@ -24,6 +24,9 @@
 	problem is not longer here
 	+ Backup is more gentle with no backup files in backup directory,
 	now it does not delete them
+	+ HasMany  can retrieve again the model and row after the weak
+	refence is garbage-collected. (Added to solve a bug in the doenload
+	bundle dialog)
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102

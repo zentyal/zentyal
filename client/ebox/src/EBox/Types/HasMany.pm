@@ -431,5 +431,88 @@ sub restoreFiles
 }
 
 
+sub setModel
+{
+    my ($self, $model, @extraParams) = @_;
+    $self->SUPER::setModel($model, @extraParams);
+
+    if (defined $model) {
+        $self->{modelName} = $model->name();
+        $self->{moduleName} =$model->{gconfmodule}->name(),
+    } else {
+        delete $self->{modelName} ;
+        delete $self->{moduleName} ;
+    }
+}
+
+sub model
+{
+    my ($self) = @_;
+    my $model = $self->SUPER::model();
+
+    if (defined $model) {
+        return $model;
+    }
+
+    if ((not $self->{moduleName}) or (not $self->{modelName})) {
+        return undef;
+    }
+
+    my $module =  EBox::Global->modInstance($self->{moduleName});
+    if (not $module->can('model')) {
+        EBox::warning(
+        'cannot recreate row for ' .  $self->{fieldName} . 
+       ' because moduel has not model method'
+
+                     );
+        return undef;
+    }
+
+    $model = $module->model($self->{modelName});
+    defined $model or
+        return undef;
+
+    $self->setModel($model);
+    return $model;
+}
+
+
+sub setRow
+{
+    my ($self, $row, @extraParams) = @_;
+    $self->SUPER::setRow($row, @extraParams);
+
+    if (defined $row) {
+        $self->{rowId} = $row->id();
+    } else {
+        delete $self->{rowId};
+    }
+
+}
+
+
+sub row
+{
+    my ($self) = @_;
+    my $row = $self->SUPER::row();
+
+    if (defined $row) {
+        return $row;
+    }
+    
+    if (not ($self->{rowId})) {
+        return undef;
+    }
+
+    my $model = $self->model();
+    $row = $model->row($self->{rowId});
+
+    defined $row or
+        return undef;
+
+    $self->setRow($row);
+    return $row;
+}
 
 1;
+ 
