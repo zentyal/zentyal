@@ -39,7 +39,10 @@ sub new
     my $class = shift;
     my %opts = @_;
 
+    $opts{allowUnsafeChars} = 1;
+
     my $self = $class->SUPER::new(%opts);
+    
 
     bless($self, $class);
     return $self;

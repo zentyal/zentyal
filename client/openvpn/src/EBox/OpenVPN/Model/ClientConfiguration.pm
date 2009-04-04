@@ -90,6 +90,7 @@ sub _table
                                allowDownload => 1,
                                user          => 'root',
                                optional => 1,
+                               allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
                                fieldName => 'certificate',
@@ -100,6 +101,7 @@ sub _table
                                allowDownload => 1,
                                user          => 'root',
                                optional => 1,
+                               allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
                                fieldName => 'certificateKey',
@@ -110,6 +112,7 @@ sub _table
                                allowDownload => 1,
                                user          => 'root',
                                optional => 1,
+                               allowUnsafeChars => 1,
                               ),
         new EBox::Types::Password(
                                   fieldName => 'ripPasswd', 
