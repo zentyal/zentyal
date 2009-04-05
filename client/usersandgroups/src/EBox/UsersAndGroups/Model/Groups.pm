@@ -75,7 +75,7 @@ sub _table
         'tableName' => 'Groups',
         'printableTableName' => __('Groups'),
         'defaultController' =>
-            '/ebox/UsersAndGroups/Controller/Groups',
+            '/ebox/Users/Controller/Groups',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
