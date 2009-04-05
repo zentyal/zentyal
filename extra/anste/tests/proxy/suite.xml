@@ -158,4 +158,18 @@
         <var name="EVENT" value="Accepted"/>
     </test>
 
+    <test type="selenium">
+        <name>AddGroupWithUser</name>
+        <desc>
+        Create a new user and add it to a new group.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user-to-group</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+        <var name="GROUP" value="proxy-test"/>
+    </test>
+
 </suite>
