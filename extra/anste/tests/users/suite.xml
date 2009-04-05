@@ -23,5 +23,28 @@
 
         <host>ebox-test</host>
         <dir>test-checkuser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddGroup</name>
+        <desc>Adds a group through the ebox web interface.
+        And then adds the user created before to the group.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>test-addgroup</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="GROUP" value="foobar"/>
+    </test>
+
+    <test>
+        <name>CheckGroup</name>
+        <desc>Checks if the user is added to the group</desc>
+
+        <host>ebox-test</host>
+        <dir>test-checkgroup</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="GROUP" value="foobar"/>
     </test>
 </suite>

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Checking if group added..."
+slapcat | grep "cn=$GROUP,ou=Groups" || exit 1
+
+echo "Checking if user belongs to group..."
+slapcat | grep "memberUid: $USERNAME"
