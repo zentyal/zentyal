@@ -17,6 +17,9 @@ use EBox::Global;
 use EBox::Config;
 use EBox::MailFilter::VDomainsLdap;
 
+use Error qw(:try);
+use Perl6::Junction qw(all);
+use File::Basename;
 
 sub runGConf
 {
@@ -49,7 +52,12 @@ sub _migrateToGeneral
 {
     my ($self) = @_;
 
-    $self->_migrateToForm(
+    my $mailfilter = $self->{gconfmodule};
+    
+    my $generalModelExists = $self->_modelExists('General');
+
+    if ($generalModelExists) {
+        $self->_migrateToForm(
                           'General',
                           port => {
                                    keyGetter => 'get_int',
@@ -67,35 +75,42 @@ sub _migrateToGeneral
                                                  }           
                                                 },
                          );
+    } else {
+        # we will put the keys in General-like dir so 0005_migrate_old_keys
+        # could pick them i nthe same place
+        $self->_migrateKey(
+                           oldKey => 'port',
+                           newKey => 'General/port',
+                           type  => 'int',
+                          );
+
+        my $admin_address = $mailfilter->get_string('admin_address');
+        if ($admin_address) {
+            $mailfilter->set_string('General/notification_selected', 'address');
+            $self->_migrateKey(
+                               oldKey => 'admin_address',
+                               newKey => 'General/address',
+                               type  => 'string',
+                              );
+        } else {
+            $mailfilter->set_string('General/notification_selected', 'disabled')
+        }
+
+        $mailfilter->unset('admin_address');
+    }
 }
 
 
 sub _migrateToBadHeadersPolicy
 {
     my ($self) = @_;
-
-    $self->_migrateToForm(
-                          'BadHeadersPolicy',
-                          'bhead_policy' => {
-                                   keyGetter => 'get_string',
-                                   formElement => 'policy',
-                                  },
-                         );
-
+    $self->_migratePolicy('BadHeadersPolicy', 'bhead_policy');
 }
 
 sub _migrateToBannedFilesPolicy
 {
     my ($self) = @_;
-
-    $self->_migrateToForm(
-                          'BannedFilesPolicy',
-                          'banned_policy' => {
-                                   keyGetter => 'get_string',
-                                   formElement => 'policy',
-                                  },
-                         );
-
+   $self->_migratePolicy('BannedFilesPolicy', 'banned_policy');
 }
 
 
@@ -153,7 +168,10 @@ sub _migrateToAntivirusConfiguration
 {
     my ($self) = @_;   
 
-    $self->_migrateToForm(
+    my $modelExists = $self->_modelExists('AntivirusConfiguration');
+
+    if ($modelExists) {
+      $self->_migrateToForm(
                           'AntivirusConfiguration',
                           'clamav/active' => {
                                    keyGetter => 'get_bool',
@@ -164,6 +182,14 @@ sub _migrateToAntivirusConfiguration
                                    formElement => 'policy',
                                   },
                          );
+  } else {
+      $self->_migrateKey(
+                         oldKey => 'clamav/active', 
+                         newKey => 'AntivirusConfiguration/enabled',
+                         type  => 'bool',
+                        );
+      $self->_migratePolicy('AntivirusConfiguration', 'virus_policy');
+  }
 }
 
 sub _migrateToAntispamConfiguration 
@@ -343,10 +369,14 @@ sub _migrateToExternalConnectionsList
 
     my @contents = @{  $module->get_list($key) };
     foreach my $element (@contents) {
-                $list->addRow(
-                               $elementName => $element,
-                               allow => 1,
-                              )
+        if ($list->findRow($elementName => $element)) {
+            next;
+        }
+
+        $list->addRow(
+                      $elementName => $element,
+                      allow => 1,
+                     )
     }
 
 }
@@ -368,6 +398,10 @@ sub _migrateToAllowTable
             $element = $adapter->($element);
         }
 
+        if ($table->findRow($elementName => $element)) {
+            next;
+        }
+
         $table->addRow(
                        $elementName => $element,
                        allow        => $allow,
@@ -376,6 +410,130 @@ sub _migrateToAllowTable
 
     $module->delete_dir($directory);
 }
+
+
+
+
+sub _modelExists 
+{
+    my ($self, $model) = @_;
+    my $mailfilter = $self->{gconfmodule};
+
+    my $modelExists;
+    try {
+        $mailfilter->model($model);
+        $modelExists = 1;
+    } catch EBox::Exceptions::Internal with {
+        $modelExists = 0;
+    };
+
+    return $modelExists;
+}
+
+
+sub _migratePolicy
+{
+    my ($self, $model, $oldPolicyName) = @_;
+
+    my $modelExists = $self->_modelExists($model);
+
+
+    if ($modelExists) {
+      $self->_migrateToForm(
+                          $model,
+                          $oldPolicyName => {
+                                   keyGetter => 'get_string',
+                                   formElement => 'policy',
+                                  },
+                         );
+  } else {
+      $self->_migrateKey(
+                         oldKey => $oldPolicyName,
+                         newKey => "$model/policy",
+                         type   => 'string',
+                        );
+  }
+
+}
+
+
+
+sub _migrateKey
+{
+    my ($self, %args) = @_;
+    my $newKey = $args{newKey};
+    my $oldKey = $args{oldKey};
+    my $type   = $args{type};
+    defined $newKey or die;
+    defined $oldKey or die;
+    defined $type   or die;
+
+    my $getter = "get_$type";
+    my $setter = "set_$type";
+
+
+    my $module = $self->{gconfmodule};
+
+
+    $self->_migrateSimpleKeys(
+                              $module,
+                              {
+                               $oldKey => {
+                                           newKey => $newKey,
+                                           getter => $getter,
+                                           setter => $setter
+                                          },
+
+                              }
+
+                             );
+}
+
+
+sub _migrateSimpleKeys
+{
+  my ($self, $mod, $deprecatedKeys_r) = @_;
+  
+  my %allExistentKeysByDir = ();
+
+
+  while (my ($oldKey, $migrationSpec) = each %{ $deprecatedKeys_r }) {
+      my $dir;
+      if ($oldKey =~ m{/}) {
+          $dir = dirname($oldKey);
+      }
+      else {
+          $dir = '';
+      }
+
+      if (not exists $allExistentKeysByDir{$dir}) {
+          my @entries = map {
+              $dir . '/' . $_
+           }  @{ $mod->all_entries_base($dir) };
+
+          $allExistentKeysByDir{$dir} = all (@entries );
+      }
+
+      my $allExistentKeys = $allExistentKeysByDir{$dir};
+      if ( $oldKey ne $allExistentKeys ) {
+          next;
+      }
+      
+
+
+
+      my $newKey = $migrationSpec->{newKey};
+      my $getter = $migrationSpec->{getter};
+      my $setter = $migrationSpec->{setter};
+      
+      
+      my $oldValue  = $mod->$getter($oldKey);
+      $mod->$setter($newKey, $oldValue);
+    
+      $mod->unset($oldKey);
+  }
+}
+
 
 
 EBox::init();
