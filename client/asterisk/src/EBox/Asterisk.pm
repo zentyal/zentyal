@@ -206,7 +206,7 @@ sub firewallHelper
     my ($self, $status) = @_;
 
     if ($self->isEnabled()) {
-        return new EBox::SambaFirewall();
+        return new EBox::AsteriskFirewall();
     }
     return undef;
 }
