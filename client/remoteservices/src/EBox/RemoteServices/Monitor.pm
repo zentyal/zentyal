@@ -128,6 +128,10 @@ sub _serviceHostNameKey
 
 # Group: Private methods
 
+# TODO: These methods must be set in a common class called
+# <EBox::RemoteServices::FileTransfer> to share with remoteDataBackup
+#
+
 # Send a large file using Out-of-bound communication
 sub _uploadLargeFile
 {

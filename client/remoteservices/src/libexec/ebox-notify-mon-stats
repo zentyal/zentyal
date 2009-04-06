@@ -66,17 +66,9 @@ my $retValue = 1;
 my $oldTar = EBox::RemoteServices::Configuration::OldTarLocation();
 if ( -r $oldTar and -f $oldTar ) {
     my $deltaFile = new File::Temp(DIR => EBox::Config::tmp());
-    try {
-        EBox::Sudo::command(
-            "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
-           );
-    } catch EBox::Exceptions::Command with {
-        my ($exc) = @_;
-        # See #212189 debian bug report
-        unless ( ($exc->exitValue() == 1) or ($exc->exitValue() == 0)) {
-            throw $exc;
-        }
-    };
+    EBox::Sudo::command(
+        "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
+       );
     $retValue = $monSrv->sendDelta($deltaFile->filename());
 } else {
     $retValue = $monSrv->sendAll($currentTar->filename());
