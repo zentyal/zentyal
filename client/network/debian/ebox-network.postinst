@@ -27,7 +27,7 @@ case "$1" in
         # import network configuration from system 
         # if installing the first time
         if [ -z "$2" ] ; then
-            /usr/share/ebox-network/ebox-netcfg-import
+            /usr/share/ebox-network/ebox-netcfg-import || true
         fi
 
 
