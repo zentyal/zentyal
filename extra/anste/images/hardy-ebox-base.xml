@@ -29,6 +29,7 @@
         <script>force-package-install.sh</script>
         <script>add-services-to-ebox-firewall</script>
         <script>ebox-non-ssl.sh</script>
+        <script>ebox-set-debug-on.sh</script>
     </post-install>
 
 </image>
