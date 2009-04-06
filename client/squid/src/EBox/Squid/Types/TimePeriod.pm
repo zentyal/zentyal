@@ -481,7 +481,7 @@ sub _hoursParamsAreValid
         }
         else {
             throw EBox::Exceptions::External(
-                   __x('Bad houro f the day format: {h}', h => $hours)
+                   __x('Bad hour of the day format: {h}', h => $hours)
                                             );
         }
 
@@ -495,7 +495,7 @@ sub _hoursParamsAreValid
         else {
             throw EBox::Exceptions::External(
                    __x('Bad minutes  format: {mi}', 'mi' => $minutes)
-                                            );            
+                                            );
         }
     }
 
