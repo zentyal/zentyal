@@ -1472,7 +1472,7 @@ sub _checkName
 {
     my ($name) = @_;
 
-    if ($name =~ /^[\w\d\s_]+\.?[\w\d\s_]+$/) {
+    if ($name =~ /^[\w\d\s_-]+\.?[\w\d\s_-]+$/) {
         return 1;
     } else {
         return undef;

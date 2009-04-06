@@ -5,6 +5,7 @@
 	+ Added group model
 	+ Use the new ids() and row() API to optimize the management of hundreds of
 	users
+	+ Allow dashes in user and group names
 0.12.100
 	+ Restore backup is more robust: inexistent users in a group are
 	ignored
