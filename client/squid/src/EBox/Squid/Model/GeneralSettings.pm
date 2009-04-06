@@ -70,6 +70,7 @@ sub _table
                     fieldName => 'cacheDirSize',
                     printableName => __('Cache files size (MB)'),
                     editable => 1,
+                    size => 5,
                     defaultValue   => 100,
                  ),
             new EBox::Squid::Types::Policy(
