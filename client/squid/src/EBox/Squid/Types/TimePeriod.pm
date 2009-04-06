@@ -409,17 +409,31 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
+    my ($self) = @_;
 
+    return unless ($self->row());
     my $name = $self->fieldName();
-    my @fields = ('from', 'to', @days);
+    my $from = $name . '_from';
+    my $to = $name . '_to';
 
-    foreach my $field (@fields) {
-        my $hashField = $name . '_' . $field;
-        $self->{$field} = $hash->{$hashField};
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        my $path = $self->_path();
+
+        $value->{'from'} = $gconf->get_string("$path/$from");
+        $value->{'to'} = $gconf->get_string("$path/$to");
+        foreach my $day (@days) {
+            $value->{$day} = $gconf->get_bool("$path/$name" . '_' . $day);
+        }
+        $self->_addToCache($value);
     }
 
-
+    $self->{'from'} = $value->{from};
+    $self->{'to'} = $value->{to};
+    foreach my $day (@days) {
+        $self->{$day} = $value->{$day};
+    }
 }
 
 
