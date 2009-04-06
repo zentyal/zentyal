@@ -32,11 +32,23 @@
     <test type="selenium">
         <name>ConfigProxyFilter</name>
         <desc>
-        Config the proxy with filter mode and forbid a host.
+        Config the proxy with filter mode.
         </desc>
 
         <host>ebox-server</host>
-        <dir>config-proxy-filter</dir>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Filter"/>
+    </test>
+
+    <test type="selenium">
+        <name>ForbidHost</name>
+        <desc>
+        Forbid a host.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>forbid-host</dir>
+        <var name="HOST" value="marca.com"/>
     </test>
 
     <test>
@@ -62,7 +74,7 @@
         <desc>Try to download a file of a forbidden host</desc>
 
         <host>test-client</host>
-        <dir>test-deny</dir>
+        <dir>test-filter-deny</dir>
         <var name="HOST" value="www.marca.com"/>
     </test>
     <test type="selenium">
@@ -90,7 +102,7 @@
         <desc>Try to access adult content with "very strict" filter mode</desc>
 
         <host>test-client</host>
-        <dir>test-deny</dir>
+        <dir>test-filter-deny</dir>
         <var name="HOST" value="www.lupaland.com"/>
     </test>
     <test type="selenium">
@@ -110,7 +122,8 @@
         </desc>
 
         <host>ebox-server</host>
-        <dir>config-proxy-deny</dir>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Always deny"/>
     </test>
 
     <test>
@@ -118,7 +131,7 @@
         <desc>Try to access google with deny all mode.</desc>
 
         <host>test-client</host>
-        <dir>test-deny-all</dir>
+        <dir>test-proxy-deny</dir>
     </test>
     <test type="selenium">
         <name>TestLogDenyAll</name>
@@ -137,7 +150,8 @@
         </desc>
 
         <host>ebox-server</host>
-        <dir>config-proxy-allow</dir>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Always allow"/>
     </test>
 
     <test>
@@ -169,7 +183,32 @@
 
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
-        <var name="GROUP" value="proxy-test"/>
+        <var name="GROUP" value="proxytest"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigProxyAuthorizeAndAllow</name>
+        <desc>
+        Config the proxy with authorize and allow mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Authorize and allow"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddGroupPolicyDeny</name>
+        <desc>
+        Add a group policy of Deny within a time period.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-group-policy</dir>
+        <var name="GROUP" value="proxytest"/>
+        <var name="POLICY" value="Deny"/>
+        <var name="FROM" value="10:00"/>
+        <var name="TO" value="11:00"/>
     </test>
 
 </suite>

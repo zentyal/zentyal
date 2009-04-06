@@ -13,7 +13,7 @@ do
     else
         sleep 1
     fi
-done    
+done
 
 echo "Test failed (timeout)."
 exit 1
