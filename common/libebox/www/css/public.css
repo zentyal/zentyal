@@ -228,7 +228,7 @@
 	/*margin-bottom: 20px; */
 }
 .dataTable thead {
-        background:#a3bd5b url('/data/images/thead-b.png') bottom repeat-x;
+        background:#a3bd5b;
         color: white;
 }
 .dataTable th {
