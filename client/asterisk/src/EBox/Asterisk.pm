@@ -22,7 +22,7 @@ package EBox::Asterisk;
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
             EBox::Model::CompositeProvider EBox::LdapModule
-            EBox::UserCorner::Provider);
+            EBox::FirewallObserver EBox::UserCorner::Provider);
 
 use strict;
 use warnings;
@@ -74,6 +74,7 @@ sub modelClasses
     return [
         'EBox::Asterisk::Model::Settings',
         'EBox::Asterisk::Model::Provider',
+        'EBox::Asterisk::Model::NAT',
         'EBox::Asterisk::Model::Meetings',
         'EBox::Asterisk::Model::Voicemail',
     ];
@@ -191,7 +192,23 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    #$self->configureFirewall(); FIXME enable firewall XXX
+}
+
+
+# Method: firewallHelper
+#
+# Overrides:
+#
+#      <EBox::FirewallObserver::firewallHelper>
+#
+sub firewallHelper
+{
+    my ($self, $status) = @_;
+
+    if ($self->isEnabled()) {
+        return new EBox::SambaFirewall();
+    }
+    return undef;
 }
 
 
@@ -210,7 +227,7 @@ sub _setConf
     $self->_setRealTime();
     $self->_setExtensions();
     $self->_setVoicemail();
-    $self->_setProvider();
+    $self->_setSIP();
     $self->_setMeetings();
 }
 
@@ -264,14 +281,29 @@ sub _setVoicemail
 }
 
 
-# set up the external provider on sip.conf
-sub _setProvider
+# set up the sip.conf file
+sub _setSIP
 {
     my ($self) = @_;
 
     my @params = ();
 
-    my $model = $self->model('Settings');
+    my $model = $self->model('NAT');
+
+    my @localnets = ();
+    if ($model->behindNATValue()) {
+        my $network = my $ifaces = EBox::Global->modInstance('network');
+        my $ifaces = $network->InternalIfaces();
+        for my $iface (@{$ifaces}) {
+            push(@localnets, $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface));
+        }
+    }
+
+    push (@params, behindNAT => $model->behindNATValue());
+    push (@params, externalIP => $model->externalIPValue());
+    push (@params, localnets => \@localnets);
+
+    $model = $self->model('Settings');
 
     push (@params, outgoingcalls => $model->outgoingCallsValue());
 

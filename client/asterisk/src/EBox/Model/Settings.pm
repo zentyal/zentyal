@@ -75,20 +75,24 @@ sub validateTypedRow
     my ($self, $action, $changedFields) = @_;
 
     if ( exists $changedFields->{voicemailExtn} ) {
-        EBox::Asterisk::Extensions->checkExtension(
-                                        $changedFields->{voicemailExtn}->value(),
-                                        __(q{extension}),
-                                        EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                        EBox::Asterisk::Extensions->MEETINGMAXEXTN,
-                                    );
-    }
+        if ( $changedFields->{voicemailExtn}->value() ne EBox::Asterisk::Extensions->VMDFTLEXTN ) {
 
-    my $extensions = new EBox::Asterisk::Extensions;
-    if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
-        throw EBox::Exceptions::DataExists(
-                  'data'  => __('Voicemail extension'),
-                  'value' => $changedFields->{voicemailExtn}->value(),
-              );
+            EBox::Asterisk::Extensions->checkExtension(
+                                            $changedFields->{voicemailExtn}->value(),
+                                            __(q{extension}),
+                                            EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                            EBox::Asterisk::Extensions->MEETINGMAXEXTN,
+                                        );
+
+            my $extensions = new EBox::Asterisk::Extensions;
+            if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
+                throw EBox::Exceptions::DataExists(
+                          'data'  => __('Voicemail extension'),
+                          'value' => $changedFields->{voicemailExtn}->value(),
+                      );
+            }
+
+        }
     }
 }
 

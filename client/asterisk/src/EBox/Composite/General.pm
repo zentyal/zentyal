@@ -57,7 +57,8 @@ sub _description
     {
         components      => [
                                'asterisk/Settings',
-                                'asterisk/Provider',
+                               'asterisk/Provider',
+                               'asterisk/NAT',
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,

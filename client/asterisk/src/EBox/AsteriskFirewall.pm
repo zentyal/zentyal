@@ -32,7 +32,8 @@ use EBox::Global;
 use constant SIPUDPPORT => '5060';
 use constant H323TCPPORT => '1720';
 use constant H323UDPPORTRANGE => '5000:5014';
-use constant IAXTCPPORT => '4569';
+use constant IAXUDPPORT => '4569';
+use constant IAX2UDPPORT => '5036';
 use constant RTPUDPPORTRANGE => '10000:20000';
 
 # Group: Public methods
@@ -83,6 +84,8 @@ sub output
 	push(@AsteriskPorts, SIPUDPPORT);
 	push(@AsteriskPorts, H323UDPPORTRANGE);
 	push(@AsteriskPorts, RTPUDPPORTRANGE);
+	push(@AsteriskPorts, IAXUDPPORT);
+	push(@AsteriskPorts, IAX2UDPPORT);
 
 	foreach my $port (@AsteriskPorts){
 	    foreach my $ifc (@ifaces) {

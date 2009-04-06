@@ -1,4 +1,7 @@
 <%args>
+    $behindNAT
+    $externalIP
+    @localnets
     $outgoingcalls
     $name
     $username
@@ -18,6 +21,12 @@ realm=ebox
 udpbindaddr=0.0.0.0
 tcpenable=no
 tcpbindaddr=0.0.0.0
+% if ($behindNAT) {
+externip = <% $externalIP %>
+% foreach my $net (@localnets) {
+localnet = <% $net %>
+% }
+% }
 
 srvlookup=yes
 disallow=all
