@@ -34,7 +34,7 @@ sub runGConf
 
     if ($mod->configured()) {
         EBox::Sudo::root('cp /usr/share/ebox-usersandgroups/passwords.schema /etc/ldap/schema/');
-        $mod->writeLDAPconf();
+        $mod->writeLDAPConf();
         EBox::Sudo::root('invoke-rc.d slapd restart');
     }
 }
