@@ -487,10 +487,17 @@ sub _modifyUserPwd
 
     #add new passwords
     my %attrs = (
-        'userPassword' => $hash,
-        @{EBox::UsersAndGroups::Passwords::additionalPasswords($user, $passwd)}
+        changes => [
+            replace => [
+                'userPassword' => $hash,
+                @{EBox::UsersAndGroups::Passwords::additionalPasswords($user, $passwd)}
+            ]
+        ]
     );
-    $self->{ldap}->modify($dn, { replace => \%attrs } );
+    if(! $self->{ldap}->isObjectClass($dn, 'passwordHolder')) {
+        push(@{$attrs{'changes'}}, 'add', ['objectclass' => 'passwordHolder']);
+    }
+    $self->{ldap}->modify($dn, \%attrs);
 }
 
 sub _updateUser
