@@ -35,6 +35,7 @@ use Apache2::Connection;
 use Apache2::RequestUtil;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
+use MIME::Base64;
 use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
@@ -44,7 +45,7 @@ use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -92,6 +93,7 @@ sub _savesession
     $passwd = $passwd . ("\0" x ($newlen - $len));
 
     my $cryptedpass = $cipher->encrypt($passwd);
+    my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
 	my $sidFile;
 	my $filename = EBox::UserCorner::usersessiondir() . $user;
     unless  ( open ( $sidFile, '>', $filename )){
@@ -103,7 +105,7 @@ sub _savesession
         or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
     # Truncate the file after locking
     truncate($sidFile, 0);
-	print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
+	print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . time if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
 	close($sidFile);
@@ -154,7 +156,7 @@ sub _updatesession
 # Exceptions:
 #
 #       <EBox::Exceptions::Internal> - when password's file cannot be opened
-sub checkPassword # (user, password) 
+sub checkPassword # (user, password)
 {
     my ($self, $user, $passwd) = @_;
 
@@ -239,8 +241,9 @@ sub _credentials
     flock($SID_F, LOCK_UN);
     close($SID_F);
 
-    my $pass = $cipher->decrypt($cryptedpass);
-    $pass =~ s/\x00+$//;
+    my $decodedcryptedpass = MIME::Base64::decode($cryptedpass);
+    my $pass = $cipher->decrypt($decodedcryptedpass);
+    $pass =~ tr/\x00//d;
 
     return { 'user' => $user, 'pass' => $pass };
 }
