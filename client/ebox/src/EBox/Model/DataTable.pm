@@ -21,6 +21,7 @@ use warnings;
 
 
 use EBox;
+use EBox::Global;
 use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
 use EBox::Model::Row;
@@ -1601,8 +1602,10 @@ sub _ids
             }
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
         }
-        if ( not $gconfmod->isReadOnly() and @{$ids} ) {
-            # XXX When set_list is executed, $self->{directory} changes
+        my $global = EBox::Global->getInstance();
+        my $modChanged = $global->modIsChanged($gconfmod->name());
+        if ( not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
+            # XXX When set_list is executed, $self->{directory} changes           
             # This seems like a bug in the gconf library to me.
             my $olddir = $self->{'directory'};
             $gconfmod->set_list($self->{'order'}, 'string', $ids);
