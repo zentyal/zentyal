@@ -1602,7 +1602,11 @@ sub _ids
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
         }
         if ( not $gconfmod->isReadOnly() and @{$ids} ) {
+            # XXX When set_list is executed, $self->{directory} changes
+            # This seems like a bug in the gconf library to me.
+            my $olddir = $self->{'directory'};
             $gconfmod->set_list($self->{'order'}, 'string', $ids);
+            $self->{directory} = $olddir;
         } 
     } 
     return $ids;
