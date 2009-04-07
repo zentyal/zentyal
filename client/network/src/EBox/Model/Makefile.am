@@ -7,7 +7,7 @@ nobase_perl_DATA = GatewayTable.pm MultiGwRulesDataTable.pm \
 		ConfigurableInterfaceTable.pm \
                 ByteRateGraph.pm ByteRateGraphControl.pm ByteRateSettings.pm \
 		ByteRateEnableForm.pm StaticRoute.pm DNSResolver.pm \
-		DeletedStaticRoute.pm
+		DeletedStaticRoute.pm DynDNS.pm
 
 DISTCLEANFILES = 
 

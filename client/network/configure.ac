@@ -74,6 +74,7 @@ migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
 src/libexec/ebox-exit
+conf/Makefile
 stubs/Makefile
 tools/Makefile
 Makefile

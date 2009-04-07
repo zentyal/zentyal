@@ -29,6 +29,8 @@ use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
+use constant DDCLIENT_FILE => '/etc/ddclient.conf';
+use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 
 use Net::IP;
 use EBox::NetWrappers qw(:all);
@@ -54,6 +56,7 @@ use EBox::Sudo qw( :all );
 use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
+use EBox::Common::Model::EnableForm;
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # use EBox::Network::Report::ByteRate;
@@ -107,6 +110,16 @@ sub usedFiles
 		'file' => INTERFACES_FILE,
 		'reason' => __('eBox will set your network configuration'),
 		'module' => 'network'
+	},
+	{	
+		'file' => DEFAULT_DDCLIENT_FILE,
+		'reason' => __('eBox will set your ddclient configuration'),
+		'module' => 'network'
+	},
+	{	
+		'file' => DDCLIENT_FILE,
+		'reason' => __('eBox will set your ddclient configuration'),
+		'module' => 'network'
 	}
 	];
 }
@@ -142,6 +155,7 @@ sub modelClasses
           'EBox::Network::Model::StaticRoute',
           'EBox::Network::Model::DeletedStaticRoute',
           'EBox::Network::Model::DNSResolver',
+          'EBox::Network::Model::DynDNS',
 	 ];
 }
 
@@ -354,7 +368,14 @@ sub ifaceOnConfig # (interface)
 sub _ignoreIface($$)
 {
 	my ($self, $name) = @_;
-	foreach my $ignore (IGNOREIFACES) {
+    my $ignore_ifaces = EBox::Config::configkey('ifaces_to_ignore');
+    my @ifaces_to_ignore;
+    if (defined($ignore_ifaces)) {
+        @ifaces_to_ignore = split(',', $ignore_ifaces);
+    } else {
+        @ifaces_to_ignore = IGNOREIFACES;
+    }
+	foreach my $ignore (@ifaces_to_ignore) {
 		return 1 if  ($name =~ /$ignore.?/);
 	}
 
@@ -1803,6 +1824,41 @@ sub _generateResolver
 	root("/bin/mv " . EBox::Config::tmp . "resolv.conf /etc/resolv.conf");
 }
 
+# 
+sub isDDNSEnabled
+{
+  my $self = shift;
+  my $ddnsModel = $self->model('DynDNS');
+  my $row = $ddnsModel->row();
+  return $row->valueByName('enableDDNS')
+}
+
+# Generate the '/etc/ddclient.conf' configuration file for DynDNS
+sub _generateDDClient
+{
+  my ($self) = @_;
+
+  if ($self->isDDNSEnabled())
+  {
+      my $ddnsModel = $self->model('DynDNS');
+      my $row = $ddnsModel->row();
+      $self->writeConfFile(
+                              DEFAULT_DDCLIENT_FILE,
+                              'network/ddclient.mas',
+                              [],
+                             );
+      $self->writeConfFile(
+                              DDCLIENT_FILE,
+                              'network/ddclient.conf.mas',
+                              [ service  => $row->valueByName('service'),
+                                login => $row->valueByName('username'),
+                                password => $row->valueByName('password'),
+                                hostname => $row->valueByName('hostname'),
+                              ],
+                             );
+  }
+}
+
 sub generateInterfaces
 {
 	my $self = shift;
@@ -2054,6 +2110,18 @@ sub _preSetConf
 	}
 }
 
+sub _daemons
+{
+    return [
+        {
+            'name' => 'ddclient',
+            'type' => 'init.d',
+            'pidfile' => '/var/run/ddclient.pid',
+            'precondition' => \&isDDNSEnabled
+        }
+    ];
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -2069,12 +2137,13 @@ sub _setConf
 		# If the server never gives dns servers, everything should work
 		# Ok.
 		$self->_generateResolver;
+		$self->_generateDDClient;
 	}
 }
 
 # Method: _enforceServiceState
 #
-#       Overrides base method. It regenertates the network  configuration.
+#   Overrides base method. It regenerates the network configuration.
 #	It will set up the network interfaces, routes, dns...
 sub _enforceServiceState
 {
@@ -2126,12 +2195,14 @@ sub _enforceServiceState
 	$self->_multigwRoutes();
 	$self->_cleanupVlanIfaces();
 
+    $self->SUPER::_enforceServiceState();
+
 	# XXX uncomment when DynLoader bug with locales is fixed
 # 	# regenerate config for the bit rate report
 # 	EBox::Network::Report::ByteRate->_regenConfig();
 }
 
-sub stopService
+sub _stopService
 {
 	my $self = shift;
 
@@ -2153,6 +2224,7 @@ sub stopService
 # XXX uncomment when DynLoader bug with locales is fixed
 #	EBox::Network::Report::ByteRate->stopService();
 
+    $self->SUPER::_stopService();
 }
 
 #internal use functions
@@ -2652,6 +2724,8 @@ sub menu
 					  'text' => __('Interfaces')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/DNSResolver',
 					  'text' => 'DNS'));
+	$folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
+					  'text' => 'DynDNS'));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
 					  'text' => __('Routes')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',

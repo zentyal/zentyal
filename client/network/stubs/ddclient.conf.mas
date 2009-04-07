@@ -1,0 +1,46 @@
+<%args>
+$service
+$login
+$password
+$hostname
+</%args>
+# /etc/ddclient.conf
+
+pid=/var/run/ddclient.pid
+ssl=yes
+
+login=<% $login %>
+password='<% $password %>'
+
+% if ($service eq 'dyndns') {
+protocol=dyndns2
+server=members.dyndns.org
+% } elsif ($service eq 'zoneedit') {
+protocol=zoneedit1
+server=www.zoneedit.com
+% } elsif ($service eq 'easydns') {
+protocol=easydns
+server=members.easydns.com
+% } elsif ($service eq 'hn') {
+protocol=hammernode1
+server=dup.hn.org
+% } elsif ($service eq 'dslreports') {
+protocol=dslreports1
+server=members.dslreports.com
+% } elsif ($service eq 'orgdns') {
+protocol=dyndns2
+server=www.orgdns.org
+web=members.orgdns.org/nic/ip
+% } elsif ($service eq 'dnspark') {
+protocol=dnspark
+server=www.dnspark.com
+web=ipdetect.dnspark.com, web-skip='Current Address:'
+% } elsif ($service eq 'namecheap') {
+protocol=namecheap
+server=dynamicdns.park-your-domain.com
+% } elsif ($service eq 'joker') {
+protocol=dyndns2
+server=svc.joker.com
+web=svc.joker.com/nic/checkip, web-skip='IP Address:'
+% }
+<% $hostname %>
