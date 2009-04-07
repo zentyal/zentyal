@@ -211,4 +211,23 @@
         <var name="TO" value="11:00"/>
     </test>
 
+    <test>
+        <name>TestAuthRequired</name>
+        <desc>Try to download without auth and check for error 407.</desc>
+
+        <host>test-client</host>
+        <dir>test-auth-required</dir>
+        <var name="HOST" value="www.google.com"/>
+    </test>
+
+    <test>
+        <name>TestAuthAllow</name>
+        <desc>Try to download with auth</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.google.com"/>
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+    </test>
 </suite>
