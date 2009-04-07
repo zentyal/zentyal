@@ -454,7 +454,10 @@ sub _hasChanged
 
     my ($self) = @_;
 
-    return ($self->{'version'} != $self->_version());
+    my $thisVer = $self->{'version'};
+    my $realVer = $self->_version();
+    return 1 if (not defined($thisVer) or not defined($realVer));
+    return ($thisVer != $realVer);
 
 }
 
