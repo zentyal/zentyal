@@ -26,6 +26,7 @@ sub runGConf
 
     $self->_migrateKeys();
     $self->_migrateNotification();
+    $self->_applyAmavisConfigurationDefaults();
     $self->_removeKeys();
 
 }
@@ -129,9 +130,40 @@ sub _migrateKeys
 
 
   $self->_migrateSimpleKeys($mod, \%deprecatedKeys);
+
+
+
+
 }
 
+sub _applyAmavisConfigurationDefaults
+{
+    my ($self) = @_;
+    my $mod = $self->{gconfmodule};
 
+    my $port = $mod->get_int('AmavisConfiguration/port');
+    my $notification  = $mod->get_string( 'AmavisConfiguration/notification_selected');
+
+    if ((not $port) and (not $notification)) {
+        # no element of AmavisConfiguration form changed, no need to set
+        # defulats manually
+        return;
+    }
+
+    if (not $port) {
+        $mod->set_int('AmavisConfiguration/port', 10024);
+    }
+
+    if (not $notification) {
+        $mod->set_string('AmavisConfiguration/notification_selected', 'disabled');
+    }
+
+
+    my @trueFields = qw(enabled antispam antivirus);
+    foreach my $field (@trueFields) {
+        $mod->set_bool("AmavisConfiguration/$field", 1);
+    }
+}
 
 
 
@@ -153,7 +185,12 @@ sub _migrateSimpleKeys
 
       if (not exists $allExistentKeysByDir{$dir}) {
           my @entries = map {
-              $dir . '/' . $_
+              if ($dir) {
+                  $dir . '/' . $_
+              } else {
+                  $_
+              }
+
            }  @{ $mod->all_entries_base($dir) };
 
           $allExistentKeysByDir{$dir} = all (@entries );

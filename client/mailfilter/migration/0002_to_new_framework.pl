@@ -198,14 +198,7 @@ sub _migrateToAntispamConfiguration
 
     $self->_migrateToForm(
                           'AntispamConfiguration',
-                          'spamassassin/active' => {
-                                   keyGetter => 'get_bool',
-                                   formElement => 'enabled',
-                                  },
-                          'spam_policy' => {
-                                   keyGetter => 'get_string',
-                                   formElement => 'policy',
-                                  },
+
                           'spamassassin/spam_threshold' => {
                                   keyGetter => 'get_string',
                                   formElement => 'spamThreshold',
@@ -235,6 +228,20 @@ sub _migrateToAntispamConfiguration
                                   formElement => 'autolearnHamThreshold',
                                                   },
                          );
+
+    # spam policy and enabled has been removed from new version of AntiVirus
+    # model so we put it manually in place
+     $self->_migrateKey(
+                         oldKey => 'spam_policy',
+                         newKey => 'AntispamConfiguration/policy',
+                         type   => 'string',
+                        );
+
+     $self->_migrateKey(
+                         oldKey => 'spamassasin/active',
+                         newKey => 'AntispamConfiguration/enabled',
+                         type   => 'bool',
+                        );                                      
 }
 
 
@@ -508,7 +515,12 @@ sub _migrateSimpleKeys
 
       if (not exists $allExistentKeysByDir{$dir}) {
           my @entries = map {
-              $dir . '/' . $_
+              if ($dir) {
+                  $dir . '/' . $_
+              } else {
+                  $_
+              }
+
            }  @{ $mod->all_entries_base($dir) };
 
           $allExistentKeysByDir{$dir} = all (@entries );
