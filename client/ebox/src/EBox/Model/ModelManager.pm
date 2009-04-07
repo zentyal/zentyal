@@ -31,6 +31,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataInUse;
 use EBox::Model::CompositeManager;
 use Error qw(:try);
 
@@ -416,11 +417,11 @@ sub removeRowsUsingId
         my $deletedNum = 0;
         for my $fieldName (@{$modelDepHash->{$modelDepName}}) {
             my %rowsDeleted;
-            for my $row (@{$modelDep->findAllValue($fieldName => $rowId)}) {
-                next if (exists $rowsDeleted{$row->{'id'}});
-                $modelDep->removeRow($row->{'id'}, 1);
+            for my $id (@{$modelDep->findAllValue($fieldName => $rowId)}) {
+                next if (exists $rowsDeleted{$id});
+                $modelDep->removeRow($id, 1);
                 $deletedNum++;
-                $rowsDeleted{$row->{'id'}} = 1;
+                $rowsDeleted{$id} = 1;
             }
         }
         if ( $deletedNum > 0 ) {

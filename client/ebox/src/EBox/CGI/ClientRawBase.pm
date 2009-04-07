@@ -169,7 +169,12 @@ sub run
 	  try {
 	    settextdomain($self->domain());
 	    $self->_process();
+	 } catch EBox::Exceptions::DataInUse with {
+	  	my $e = shift;
+		$self->_print_warning($e->text());
+		$finish = 1;
 	  } catch EBox::Exceptions::Internal with {
+
 	  	my $e = shift;
 		throw $e;
 	  } catch EBox::Exceptions::DataInUse with {
