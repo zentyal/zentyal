@@ -783,6 +783,8 @@ sub _identity
 sub _addToCache
 {
     my ($self, $data) = @_;
+
+    my $model = $self->model();
     my $rowId = $self->row()->id();
     $rowId = '1' unless (defined ($rowId));
     my $id = $self->row()->dir() . "/$rowId";
