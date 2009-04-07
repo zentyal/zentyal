@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <image>
-    <name>baseimage-ubuntu-ebox</name>
+    <name>baseimage-hardy-ebox</name>
     <desc>Ubuntu Hardy with ebox</desc>
 
-    <memory>512</memory>
+    <memory>768</memory>
 
     <size>950</size>
 
