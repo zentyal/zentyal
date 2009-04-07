@@ -13,7 +13,7 @@ my $extra_conf = $ENV{'WLAN_CONF'};
 my $conf = "    essid $essid\n";
 
 if(defined($extra_conf)) {
-    $conf .= $extra_conf;
+    $conf .= ($extra_conf . "\n");
 }
 
 my $ifile = '/etc/network/interfaces';
