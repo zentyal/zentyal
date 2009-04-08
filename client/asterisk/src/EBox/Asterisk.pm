@@ -292,7 +292,7 @@ sub _setSIP
 
     my @localnets = ();
     if ($model->behindNATValue()) {
-        my $network = my $ifaces = EBox::Global->modInstance('network');
+        my $network = EBox::Global->modInstance('network');
         my $ifaces = $network->InternalIfaces();
         for my $iface (@{$ifaces}) {
             push(@localnets, $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface));
