@@ -54,7 +54,7 @@ my $rrdDir = EBox::Monitor::Configuration::RRDBaseDirPath();
 my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
 try {
     EBox::Sudo::command(
-        'tar cf ' . $currentTar->filename() . " $rrdDir"
+        'tar cf ' . $currentTar->filename() . " -C $rrdDir ."
        );
 } catch EBox::Exceptions::Command with {
     my ($exc) = @_;
