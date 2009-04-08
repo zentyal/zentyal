@@ -1434,13 +1434,13 @@ sub _thinClientOption # (option, iface)
     my $thinClientModel = $self->_getModel('thinClientModel', $iface);
 
     if ( $option eq 'filename' ) {
-        my $fileType = $thinClientModel->row()->{valueHash}->{filename};
+        my $fileType = $thinClientModel->row()->elementByName('filename');
         if ( $fileType->exist() ) {
             # Write down the one stored in tftpd
             return EBox::DHCP->TftpdRootDir() . $iface . '_firmware';
         } else {
-            my $file = $thinClientModel->row()->{valueHash}->{remoteFilename}->value();
-            if( $file ne '' ) {
+            my $file = $thinClientModel->row()->valueByName('remoteFilename');
+            if( defined($file) and ($file ne '') ) {
                 return $file;
             } else {
                 return undef;
