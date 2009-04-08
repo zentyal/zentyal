@@ -201,7 +201,7 @@ http_access allow <% $timeAcls %> <% $object %>  authorized
 % if ($objPol->{'allowAll'}) {
 http_access allow <% $acls %>
 %   } else {
-http_access deny <% $acls %>
+http_access deny <% $object %>
 %   }
 
 % }
