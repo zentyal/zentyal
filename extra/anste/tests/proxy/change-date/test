@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Setting date to $DATE ..."
+date $DATE

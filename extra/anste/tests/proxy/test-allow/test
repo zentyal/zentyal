@@ -10,12 +10,6 @@ else
 fi
 echo "Using http_proxy=$http_proxy ..."
 
-if [ "x$DATE" != "x" ]
-then
-	echo "Setting date to $DATE ..."
-	date $DATE
-fi
-
 for i in `seq 1 10`
 do
     [ -f output.html ] && rm output.html
