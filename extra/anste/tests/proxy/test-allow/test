@@ -8,15 +8,20 @@ then
 else
     export http_proxy="http://$PROXY/"
 fi
-
 echo "Using http_proxy=$http_proxy ..."
+
+if [ "x$DATE" != "x" ]
+then
+	echo "Setting date to $DATE ..."
+	date $DATE
+fi
 
 for i in `seq 1 10`
 do
     [ -f output.html ] && rm output.html
 
     echo "HTTP request to $HOST"
-    wget -r -t 3 $HOST -O output.html
+    wget -t 3 $HOST -O output.html
 
     if [ $? = 0 -a -f output.html -a `wc -c output.html | cut -d' ' -f1` -gt 0 ]
     then

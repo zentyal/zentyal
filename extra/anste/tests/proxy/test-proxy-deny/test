@@ -1,11 +1,18 @@
 #!/bin/sh
 
+echo "Setting the proxy..."
 export http_proxy="192.168.2.1:3128"
+
+if [ "x$DATE" != "x" ]
+then
+	echo "Setting date to $DATE ..."
+	date $DATE
+fi
 
 for i in `seq 1 10`
 do
     echo "HTTP request to www.google.es"
-    wget -r -t 3 www.google.es -O - 2>&1 | grep 403
+    wget -t 3 www.google.es -O - 2>&1 | grep 403
     if [ $? = 0 ]
     then
         echo "Access denied."

@@ -3,7 +3,7 @@
 export http_proxy="192.168.2.1:3128"
 
 echo "HTTP request to $HOST"
-wget -r -t 3 $HOST 2> wget_error
+wget -t 3 $HOST 2> wget_error
 
 echo "wget error output:"
 cat wget_error

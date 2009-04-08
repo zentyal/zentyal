@@ -217,7 +217,7 @@
 
         <host>test-client</host>
         <dir>test-auth-required</dir>
-        <var name="HOST" value="www.google.com"/>
+        <var name="HOST" value="www.marca.com"/>
     </test>
 
     <test>
@@ -226,8 +226,49 @@
 
         <host>test-client</host>
         <dir>test-allow</dir>
-        <var name="HOST" value="www.google.com"/>
+        <var name="HOST" value="www.marca.com"/>
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddObjectPolicyAlwaysDeny</name>
+        <desc>
+        Add a object policy of Always deny within a time period.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-object-policy</dir>
+        <var name="OBJECT" value="proxyobject"/>
+        <var name="IP" value="192.168.2.2"/>
+        <var name="POLICY" value="Always deny"/>
+        <var name="FROM" value="09:00"/>
+        <var name="TO" value="10:00"/>
+    </test>
+
+    <test>
+        <name>TestObjectAllow</name>
+        <desc>
+			Try to download from a object on an allowed hour.
+			(date 01-01 08:30)
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.marca.com"/>
+        <var name="DATE" value="01010830"/>
+    </test>
+
+    <test>
+        <name>TestObjectDeny</name>
+        <desc>
+			Try to download from a object on an disallowed hour.
+			(date 01-01 09:30)
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-proxy-deny</dir>
+        <var name="HOST" value="www.marca.com"/>
+        <var name="DATE" value="01010930"/>
     </test>
 </suite>
