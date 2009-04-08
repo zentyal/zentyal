@@ -15,8 +15,12 @@ do
     [ -f output.html ] && rm output.html
 
     echo "HTTP request to $HOST"
-    wget -t 3 $HOST -O output.html
+    wget -t 3 $HOST -O output.html > wget_output 2>&1
 
+    echo "wget output:"
+    cat wget_output
+
+    echo "Checking downloaded file size..."
     if [ $? = 0 -a -f output.html -a `wc -c output.html | cut -d' ' -f1` -gt 0 ]
     then
         echo "Access allowed."

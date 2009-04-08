@@ -8,10 +8,13 @@ do
     [ -f output.html ] && rm output.html
 
     echo "HTTP request to $HOST"
-    wget -t 3 $HOST -O output.html
+    wget -t 3 $HOST -O output.html > wget_output 2>&1
+
+    echo "wget output:"
+    cat wget_output
 
     echo "Checking if access was denied"
-    grep "Access has been Denied" output.html 
+    grep "Access has been Denied" output.html
 
     if [ $? = 0 ]
     then
@@ -20,7 +23,7 @@ do
     else
         sleep 2
     fi
-done    
+done
 
 echo "Test failed (timeout)."
 exit 1

@@ -289,8 +289,8 @@
         <var name="GROUP" value="proxytestdeny"/>
         <var name="POLICY" value="Deny"/>
 		<!-- these values are not really used but they need to be here -->
-        <var name="FROM" value="00:00"/>
-        <var name="TO" value="00:00"/>
+<!--        <var name="FROM" value=""/>
+        <var name="TO" value=""/> -->
     </test>
 
     <test>
