@@ -1,4 +1,5 @@
 1.1
+    + Added traceroute on network diagnosis
 	+ Use new rows() and ids() API
 	+ Bugfix: ebox-netcfg-import uses model API to import default gateway
 0.12.99
