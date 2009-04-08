@@ -18,6 +18,15 @@ use EBox::Gettext;
 	  name='accept' value="<% __('Ping') %>" />
 </form>
 <form action='Diag' method='POST'>
+<input type="hidden" name="action" value="traceroute"/>
+<h3><% __('Traceroute') %></h3>
+<% __('Host') %>:
+<input class='inputText' type='text' name='ip'
+	   value="<% $action eq 'traceroute' ? $target : ''%>" />
+<input class='inputButton' type='submit'
+	  name='accept' value="<% __('Trace') %>" />
+</form>
+<form action='Diag' method='POST'>
 <input type="hidden" name="action" value="dns"/>
 <h3><% __('Name resolution') %></h3>
 <% __('Domain name') %>: 

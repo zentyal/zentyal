@@ -2593,6 +2593,27 @@ sub ping # (host)
 	return `ping -c 3 $host 2>&1`;
 }
 
+# Method: traceroute
+#
+#	Performs a traceroute test and returns the output
+#
+# Parameters:
+#
+#	host - host to trace the route (either ip or hostname)
+#
+# Returns:
+#
+#	string - output of the traceroute command
+#
+sub traceroute # (host)
+{
+	my ($self, $host) = @_;
+	(checkIP($host) or checkDomainName($host)) or
+		throw EBox::Exceptions::InvalidData
+			('data' => __('Host name'), 'value' => $host);
+	return `traceroute -n $host 2>&1`;
+}
+
 # Method: resolv
 #
 #	Performs a name resolution (using dig) and returns the output

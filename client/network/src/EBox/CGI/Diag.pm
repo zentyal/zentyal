@@ -54,6 +54,13 @@ sub _process
 			push(@array, 'action' => 'ping');
 			push(@array, 'target' => $ip);
 			push(@array, 'output' => $output);
+		}elsif($action eq "traceroute"){
+			$self->_requireParam("ip", __("Host"));
+			my $ip = $self->param("ip");
+			my $output = $net->traceroute($ip);
+			push(@array, 'action' => 'traceroute');
+			push(@array, 'target' => $ip);
+			push(@array, 'output' => $output);
 		}elsif($action eq "dns"){
 			$self->_requireParam("host", __("host name"));
 			my $host = $self->param("host");
