@@ -26,6 +26,7 @@ use Archive::Tar;
 
 use EBox;
 use EBox::Config;
+use EBox::Global;
 use EBox::Exceptions::Command;
 use EBox::Monitor::Configuration;
 use EBox::RemoteServices::Configuration;
@@ -36,6 +37,8 @@ use Error qw(:try);
 use File::Temp;
 use Getopt::Long;
 use Pod::Usage;
+
+use constant MON_CRON_INTERVAL => 15 * 60;
 
 my @fileList = ();
 my $usage = 0;
@@ -49,12 +52,26 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
+my $rs = EBox::Global->modInstance('remoteservices');
+unless ( $rs->eBoxSubscribed() ) {
+    return;
+}
+my $mon = EBox::Global->modInstance('monitor');
+unless ( $mon->isEnabled() ) {
+    open(my $fd, '<', EBox::RemoteServices::Configuration::MonTimestamp());
+    my $lastTime = <$fd>;
+    close($fd);
+    if ( $lastTime + MON_CRON_INTERVAL < time() ) {
+        return;
+    }
+}
+
 my $rrdDir = EBox::Monitor::Configuration::RRDBaseDirPath();
 
 my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
 try {
     EBox::Sudo::command(
-        'tar cf ' . $currentTar->filename() . " -C $rrdDir ."
+        '/bin/tar cf ' . $currentTar->filename() . " -C $rrdDir ."
        );
 } catch EBox::Exceptions::Command with {
     my ($exc) = @_;
@@ -67,7 +84,7 @@ my $oldTar = EBox::RemoteServices::Configuration::OldTarLocation();
 if ( -r $oldTar and -f $oldTar ) {
     my $deltaFile = new File::Temp(DIR => EBox::Config::tmp());
     EBox::Sudo::command(
-        "xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
+        "/usr/bin/xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
        );
     $retValue = $monSrv->sendDelta($deltaFile->filename());
 } else {
@@ -76,8 +93,12 @@ if ( -r $oldTar and -f $oldTar ) {
 
 if ($retValue) {
     EBox::Sudo::command(
-        'mv ' . $currentTar->filename() . " $oldTar"
+        '/bin/mv ' . $currentTar->filename() . " $oldTar"
        );
+    # Set the monitoring timestamp
+    open(my $fd, '>', EBox::RemoteServices::Configuration::MonTimestamp());
+    print $fd time() . "\n";
+    close($fd);
 }
 
 1;

@@ -86,4 +86,19 @@ sub OldTarLocation
 
 }
 
+# Method: MonTimestamp
+#
+#      Get the latest timestamp for sending monitoring stats file path
+#
+# Returns:
+#
+#      String - the latest tarball location
+#
+sub MonTimestamp
+{
+
+    return EBox::Config::conf() . 'remoteservices/monitor/monStatsSent.time';
+
+}
+
 1;
