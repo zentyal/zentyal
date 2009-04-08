@@ -31,6 +31,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::AsteriskLdapUser;
+use EBox::AsteriskFirewall;
 use EBox::Asterisk::Extensions;
 
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
