@@ -121,15 +121,15 @@ cache deny noCached
 %# if we use global group policies we must force always the authorization first
 %#http_access allow authorized all
 
+<& .objectsAccess, 
+                  objectsPolicies => \@objectsPolicies, 
+&>
+
 <& .groupsAccess, 
                 groupsPolicies => \@groupsPolicies, 
 &>
 % }
 
-
-<& .objectsAccess, 
-                  objectsPolicies => \@objectsPolicies, 
-&>
 
 # default policy section
 
@@ -202,6 +202,7 @@ http_access allow <% $timeAcls %> <% $object %>  authorized
 %   } 
 % if ($objPol->{'allowAll'}) {
 http_access allow <% $acls %>
+http_access deny <% $object %>
 %   } else {
 http_access deny <% $object %>
 %   }
