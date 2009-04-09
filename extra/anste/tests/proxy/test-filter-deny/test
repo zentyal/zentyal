@@ -1,7 +1,14 @@
 #!/bin/bash
 
-echo "Setting the proxy..."
-export http_proxy="192.168.2.1:3128"
+PROXY="192.168.2.1:3128"
+
+if [ "x$PASSWORD" != "x" ]
+then
+    export http_proxy="http://$USERNAME:$PASSWORD@$PROXY/"
+else
+    export http_proxy="http://$PROXY/"
+fi
+echo "Using http_proxy=$http_proxy ..."
 
 for i in `seq 1 10`
 do

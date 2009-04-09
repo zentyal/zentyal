@@ -12,8 +12,8 @@ echo "Using http_proxy=$http_proxy ..."
 
 for i in `seq 1 10`
 do
-    echo "HTTP request to www.google.es"
-    wget -t 3 www.google.es -O - > wget_output 2>&1
+    echo "HTTP request to $HOST"
+    wget -t 3 $HOST -O - > wget_output 2>&1
     echo "wget output:"
     cat wget_output
     echo "Looking for 403 error..."

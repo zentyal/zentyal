@@ -132,6 +132,7 @@
 
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
+		<var name="HOST" value="www.google.com"/>
     </test>
     <test type="selenium">
         <name>TestLogDenyAll</name>
@@ -209,6 +210,7 @@
         <var name="POLICY" value="Allow"/>
         <var name="FROM" value="10:00"/>
         <var name="TO" value="11:00"/>
+		<var name="PROFILE" value="default"/>
     </test>
 
     <test>
@@ -288,14 +290,12 @@
         <dir>add-group-policy</dir>
         <var name="GROUP" value="proxytestdeny"/>
         <var name="POLICY" value="Deny"/>
-		<!-- these values are not really used but they need to be here -->
-<!--        <var name="FROM" value=""/>
-        <var name="TO" value=""/> -->
+		<var name="PROFILE" value="default"/>
     </test>
 
     <test>
         <name>TestAuthDisallowUser</name>
-        <desc>Try to download with auth on forbidden hour</desc>
+        <desc>Try to download with auth with deny policy</desc>
 
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
@@ -362,4 +362,139 @@
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
     </test>
+
+    <test type="selenium">
+        <name>ConfigProxyAuthorizeAndFilter</name>
+        <desc>
+        Config the proxy with authorize and filter mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+		<var name="POLICY" value="Authorize and filter"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddGroupWithUserAV</name>
+        <desc>
+        Create a new user and add it to a new group.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user-to-group</dir>
+
+        <var name="USERNAME" value="avuser"/>
+        <var name="PASSWORD" value="avuser"/>
+        <var name="GROUP" value="antivirusgroup"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddGroupWithUserNO-AV</name>
+        <desc>
+        Create a new user and add it to a new group.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user-to-group</dir>
+
+        <var name="USERNAME" value="noavuser"/>
+        <var name="PASSWORD" value="noavuser"/>
+        <var name="GROUP" value="noantivirusgroup"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFilterProfileWithoutAntivirus</name>
+        <desc>
+		Add a new filter profile with antivirus disabled.
+		Add a group policy with this filter profile.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>add-profile-no-antivirus</dir>
+        <var name="PROFILE" value="filter-no-av"/>
+		<var name="GROUP" value="noantivirusgroup"/>
+		<var name="POLICY" value="Allow"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFilterProfileWithAntivirus</name>
+        <desc>
+		Add a new filter profile with antivirus enabled.
+		Add a group policy with this filter profile.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>add-profile-w-antivirus</dir>
+        <var name="PROFILE" value="filter-av"/>
+		<var name="GROUP" value="antivirusgroup"/>
+		<var name="POLICY" value="Allow"/>
+    </test>
+
+    <test>
+        <name>TestDownloadVirusWithAV</name>
+        <desc>
+		Try to download a virus with antivirus enabled
+		for the user profile.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-filter-deny</dir>
+        <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
+		<var name="USERNAME" value="avuser"/>
+		<var name="PASSWORD" value="avuser"/>
+    </test>
+
+    <test type="selenium">
+        <name>ForbidExtension</name>
+        <desc>
+		Forbids a extension on the default profile and tells another profile to use
+		default extensions filtering.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>forbid-extension</dir>
+        <var name="PROFILE" value="filter-no-av"/>
+		<var name="EXTENSION" value="zip"/>
+    </test>
+
+    <test>
+        <name>TestDownloadForbiddenExtension</name>
+        <desc>
+		Try to download a virus with antivirus disabled
+		but zip extension forbidden.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-filter-deny</dir>
+        <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
+		<var name="USERNAME" value="noavuser"/>
+		<var name="PASSWORD" value="noavuser"/>
+    </test>
+
+    <test type="selenium">
+        <name>AllowExtension</name>
+        <desc>
+		Allows zip extension on the filter-no-av profile.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>allow-extension</dir>
+        <var name="PROFILE" value="filter-no-av"/>
+		<var name="EXTENSION" value="zip"/>
+    </test>
+
+    <test>
+        <name>TestDownloadForbiddenExtension</name>
+        <desc>
+		Try to download a virus with antivirus disabled
+		and zip extension allowed.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
+		<var name="USERNAME" value="noavuser"/>
+		<var name="PASSWORD" value="noavuser"/>
+    </test>
+
 </suite>
