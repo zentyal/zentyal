@@ -175,9 +175,11 @@ $object => undef
 %
 %
 %  my $access = $groupPol->{'allow'} ?  'allow' : 'deny';
-%       # this command is to assure we have credentials
+%  my $invAccess = $access eq 'allow' ? 'deny' : 'access';
+%  # this command is to assure we have credentials
 http_access <% $access %> <% $timeAcls %> <% defined $object ? $object : '' %> authorized <% $group %> 
 http_access <% $access %> <% $acls %>
+http_access <% $invAccess %> <% $group %>
 % }
 
 </%def>
