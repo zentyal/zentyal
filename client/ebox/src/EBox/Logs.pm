@@ -724,6 +724,7 @@ sub _restoreEnabledLogsModules
     
     my $string = <$file>;
     close($file);
+    return undef unless (defined($string));
     
     my %enabled;
     foreach my $domain (split(/,/, $string)) {
