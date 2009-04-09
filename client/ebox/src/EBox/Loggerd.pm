@@ -52,10 +52,9 @@ sub new
 sub run 
 {
     my ($self) = @_;
-    
+
+    $self->initDaemon();   
     EBox::init();
-    
-    $self->initDaemon();
 
     my $global = EBox::Global->getInstance();
     my $log = $global->modInstance('logs');
