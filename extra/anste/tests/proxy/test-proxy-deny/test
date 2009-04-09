@@ -16,8 +16,8 @@ do
     wget -t 3 $HOST -O - > wget_output 2>&1
     echo "wget output:"
     cat wget_output
-    echo "Looking for 403 error..."
-    grep 403 wget_output
+    echo "Looking for $ERROR error..."
+    grep $ERROR wget_output
     if [ $? = 0 ]
     then
         echo "Access denied."

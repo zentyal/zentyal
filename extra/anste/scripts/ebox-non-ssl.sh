@@ -24,7 +24,7 @@ PidFile <% \$tmpdir %>/apache.pid
     MinSpareServers       1
     MaxSpareServers       1
     MaxClients            2 
-    MaxRequestsPerChild   20
+    MaxRequestsPerChild   200
 </IfModule>
 
 # worker MPM
@@ -36,11 +36,11 @@ PidFile <% \$tmpdir %>/apache.pid
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
     StartServers         1 
-    MaxClients         	 5 
+    MaxClients         	 1
     MinSpareThreads      1 
     MaxSpareThreads      1 
     ThreadsPerChild      1
-    MaxRequestsPerChild   20
+    MaxRequestsPerChild   200
 </IfModule>
 
 PerlInterpMaxRequests 20
@@ -157,8 +157,8 @@ PerlSetVar EBoxLoginScript /ebox/Login/Index
 PerlSetVar EBoxSatisfy Any
 PerlSetVar AuthCookieDebug 0
 
-PerlChildInitHandler EBox::dbusInit
-PassEnv DBUS_SESSION_BUS_ADDRESS
+#PerlChildInitHandler EBox::dbusInit
+#PassEnv DBUS_SESSION_BUS_ADDRESS
 
 <Files LOGIN>
 	AuthType EBox::Auth

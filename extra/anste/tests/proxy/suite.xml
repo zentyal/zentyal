@@ -133,6 +133,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
 		<var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
     </test>
     <test type="selenium">
         <name>TestLogDenyAll</name>
@@ -218,8 +219,9 @@
         <desc>Try to download without auth and check for error 407.</desc>
 
         <host>test-client</host>
-        <dir>test-auth-required</dir>
+        <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="407"/>
     </test>
 
     <test>
@@ -262,6 +264,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="407"/>
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
     </test>
@@ -300,6 +303,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="407"/>
         <var name="USERNAME" value="bar"/>
         <var name="PASSWORD" value="bar"/>
     </test>
@@ -361,6 +365,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
     </test>
 
     <test type="selenium">
