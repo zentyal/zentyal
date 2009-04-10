@@ -1,4 +1,7 @@
 #!/bin/sh
 
-# host {name} [server]
-host 192.168.2.1 192.168.2.1 | grep foo.foobar
+echo "Executing command 'host $IP $IP' ..."
+host $IP $IP
+
+echo "Checking inverse resolution of $NAME ..."
+host $IP $IP | grep $NAME

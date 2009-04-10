@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# host {name} [server]
-host bar.foobar 192.168.2.1 | grep "has address 192.168.2.1"

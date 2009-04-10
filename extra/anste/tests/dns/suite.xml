@@ -31,6 +31,8 @@
 
         <host>test-client</host>
         <dir>test-host</dir>
+        <var name="NAME" value="foo.foobar"/>
+        <var name="IP" value="192.168.2.1"/>
     </test>
 
     <test>
@@ -38,7 +40,9 @@
         <desc>Checks that the alias is correctly resolved.</desc>
 
         <host>test-client</host>
-        <dir>test-alias</dir>
+        <dir>test-host</dir>
+        <var name="NAME" value="bar.foobar"/>
+        <var name="IP" value="192.168.2.1"/>
     </test>
 
     <test>
@@ -47,5 +51,7 @@
 
         <host>test-client</host>
         <dir>test-inv</dir>
+        <var name="NAME" value="foo.foobar"/>
+        <var name="IP" value="192.168.2.1"/>
     </test>
 </suite>
