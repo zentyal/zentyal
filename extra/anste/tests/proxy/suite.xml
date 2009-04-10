@@ -175,6 +175,61 @@
     </test>
 
     <test type="selenium">
+        <name>ConfigCacheExempt</name>
+        <desc>
+        Add a cache exempt for a host.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-cache-exempt</dir>
+        <var name="HOST" value="ebox-platform.com"/>
+    </test>
+
+    <test>
+        <name>TestCacheNoExempt</name>
+        <desc>
+			Try to download from a non-cache-exempt host several times.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-cache</dir>
+        <var name="HOST" value="www.unizar.es"/>
+    </test>
+
+    <test>
+        <name>TestCacheNoExemptHIT</name>
+        <desc>
+            Check for the cache HIT on the squid logs.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>test-cache-log-hit</dir>
+        <var name="HOST" value="www.unixar.es"/>
+    </test>
+
+    <test>
+        <name>TestCacheExempt</name>
+        <desc>
+			Try to download from a cache-exempt host several times.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-cache</dir>
+        <var name="HOST" value="www.ebox-platform.com"/>
+    </test>
+
+    <test>
+        <name>TestCacheExemptMISS</name>
+        <desc>
+            Check for non-appearance of cache HIT on the squid logs.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>test-cache-log-miss</dir>
+        <var name="HOST" value="www.ebox-platform.com"/>
+    </test>
+
+    <test type="selenium">
         <name>AddGroupWithUser</name>
         <desc>
         Create a new user and add it to a new group.
@@ -503,58 +558,4 @@
 		<var name="ERROR" value="403"/>
     </test>
 
-    <test type="selenium">
-        <name>ConfigCacheExempt</name>
-        <desc>
-        Add a cache exempt for a host.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>config-cache-exempt</dir>
-        <var name="HOST" value="ebox-platform.com"/>
-    </test>
-
-    <test>
-        <name>TestCacheNoExempt</name>
-        <desc>
-			Try to download from a non-cache-exempt host several times.
-		</desc>
-
-        <host>test-client</host>
-        <dir>test-cache</dir>
-        <var name="HOST" value="www.google.com"/>
-    </test>
-
-    <test>
-        <name>TestCacheNoExemptHIT</name>
-        <desc>
-            Check for the cache HIT on the squid logs.
-		</desc>
-
-        <host>ebox-server</host>
-        <dir>test-cache-log-hit</dir>
-        <var name="HOST" value="www.google.com"/>
-    </test>
-
-    <test>
-        <name>TestCacheExempt</name>
-        <desc>
-			Try to download from a cache-exempt host several times.
-		</desc>
-
-        <host>test-client</host>
-        <dir>test-cache</dir>
-        <var name="HOST" value="www.ebox-platform.com"/>
-    </test>
-
-    <test>
-        <name>TestCacheExemptMISS</name>
-        <desc>
-            Check for non-appearance of cache HIT on the squid logs.
-		</desc>
-
-        <host>ebox-server</host>
-        <dir>test-cache-log-miss</dir>
-        <var name="HOST" value="www.ebox-platform.com"/>
-    </test>
 </suite>
