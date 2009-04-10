@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox Proxy objects tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox HTTP Proxy module works properly
+    with objects and groups.
+    </desc>
+
+    <scenario>proxy/objects.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddObjectPolicyAllowTime1</name>
+        <desc>
+        Add a object policy of Always allow within a time period.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-object-policy</dir>
+        <var name="OBJECT" value="test-client1"/>
+        <var name="IP" value="192.168.2.2"/>
+        <var name="POLICY" value="Always allow"/>
+        <var name="FROM" value="09:00"/>
+        <var name="TO" value="10:00"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddObjectPolicyAllowTime2</name>
+        <desc>
+        Add a object policy of Always allow within a time period.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-object-policy</dir>
+        <var name="OBJECT" value="test-client2"/>
+        <var name="IP" value="192.168.2.3"/>
+        <var name="POLICY" value="Always allow"/>
+        <var name="FROM" value="07:00"/>
+        <var name="TO" value="08:00"/>
+    </test>
+
+    <test>
+        <name>TestChangeDateObjectAllow1</name>
+        <desc>
+			(date 01-01 09:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010930"/>
+    </test>
+
+    <test>
+        <name>TestObjectAllow1</name>
+        <desc>
+			Try to download from a object on an allowed hour.
+		</desc>
+
+        <host>test-client1</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.google.com"/>
+    </test>
+
+    <test>
+        <name>TestChangeDateObjectDisallow1</name>
+        <desc>
+			(date 01-01 08:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010830"/>
+    </test>
+
+    <test>
+        <name>TestObjectDeny1</name>
+        <desc>
+			Try to download from a object on an disallowed hour.
+		</desc>
+
+        <host>test-client1</host>
+        <dir>test-proxy-deny</dir>
+        <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
+    </test>
+
+    <test>
+        <name>TestChangeDateObjectAllow2</name>
+        <desc>
+			(date 01-01 07:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010730"/>
+    </test>
+
+    <test>
+        <name>TestObjectAllow2</name>
+        <desc>
+			Try to download from a object on an allowed hour.
+		</desc>
+
+        <host>test-client2</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.google.com"/>
+    </test>
+
+    <test>
+        <name>TestChangeDateObjectDisallow2</name>
+        <desc>
+			(date 01-01 09:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010930"/>
+    </test>
+
+    <test>
+        <name>TestObjectDeny2</name>
+        <desc>
+			Try to download from a object on an disallowed hour.
+		</desc>
+
+        <host>test-client2</host>
+        <dir>test-proxy-deny</dir>
+        <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddGroupWithUser</name>
+        <desc>
+        Create a new user and add it to a new group.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user-to-group</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+        <var name="GROUP" value="proxytest"/>
+    </test>
+
+</suite>
