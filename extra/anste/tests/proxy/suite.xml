@@ -309,66 +309,6 @@
     </test>
 
     <test type="selenium">
-        <name>AddObjectPolicyAllowTime</name>
-        <desc>
-        Add a object policy of Always allow within a time period.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>add-object-policy</dir>
-        <var name="OBJECT" value="proxyobject"/>
-        <var name="IP" value="192.168.2.2"/>
-        <var name="POLICY" value="Always allow"/>
-        <var name="FROM" value="09:00"/>
-        <var name="TO" value="10:00"/>
-    </test>
-
-    <test>
-        <name>TestChangeDateObjectAllow</name>
-        <desc>
-			(date 01-01 09:30)
-		</desc>
-
-        <host>ebox-server</host>
-        <dir>change-date</dir>
-        <var name="DATE" value="01010930"/>
-    </test>
-
-    <test>
-        <name>TestObjectAllow</name>
-        <desc>
-			Try to download from a object on an allowed hour.
-		</desc>
-
-        <host>test-client</host>
-        <dir>test-allow</dir>
-        <var name="HOST" value="www.google.com"/>
-    </test>
-
-    <test>
-        <name>TestChangeDateObjectDisallow</name>
-        <desc>
-			(date 01-01 08:30)
-		</desc>
-
-        <host>ebox-server</host>
-        <dir>change-date</dir>
-        <var name="DATE" value="01010830"/>
-    </test>
-
-    <test>
-        <name>TestObjectDeny</name>
-        <desc>
-			Try to download from a object on an disallowed hour.
-		</desc>
-
-        <host>test-client</host>
-        <dir>test-proxy-deny</dir>
-        <var name="HOST" value="www.google.com"/>
-		<var name="ERROR" value="403"/>
-    </test>
-
-    <test type="selenium">
         <name>ConfigProxyAuthorizeAndFilter</name>
         <desc>
         Config the proxy with authorize and filter mode.
@@ -450,10 +390,36 @@
     </test>
 
     <test type="selenium">
+        <name>AllowExtension</name>
+        <desc>
+		Allows zip extension on the filter-no-av profile.
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>allow-extension</dir>
+        <var name="PROFILE" value="filter-no-av"/>
+		<var name="EXTENSION" value="zip"/>
+    </test>
+
+    <test>
+        <name>TestDownloadAllowedExtension</name>
+        <desc>
+		Try to download a virus with antivirus disabled
+		and zip extension allowed.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
+		<var name="USERNAME" value="noavuser"/>
+		<var name="PASSWORD" value="noavuser"/>
+    </test>
+
+    <test type="selenium">
         <name>ForbidExtension</name>
         <desc>
-		Forbids a extension on the default profile and tells another profile to use
-		default extensions filtering.
+		Forbids a extension on the default profile and tells another profile
+		to use default extensions filtering.
 		</desc>
 
         <host>ebox-server</host>
@@ -476,30 +442,65 @@
 		<var name="PASSWORD" value="noavuser"/>
     </test>
 
+
     <test type="selenium">
-        <name>AllowExtension</name>
+        <name>AddObjectPolicyAllowTime</name>
         <desc>
-		Allows zip extension on the filter-no-av profile.
-		</desc>
+        Add a object policy of Always allow within a time period.
+        </desc>
 
         <host>ebox-server</host>
-        <dir>allow-extension</dir>
-        <var name="PROFILE" value="filter-no-av"/>
-		<var name="EXTENSION" value="zip"/>
+        <dir>add-object-policy</dir>
+        <var name="OBJECT" value="proxyobject"/>
+        <var name="IP" value="192.168.2.2"/>
+        <var name="POLICY" value="Always allow"/>
+        <var name="FROM" value="09:00"/>
+        <var name="TO" value="10:00"/>
     </test>
 
     <test>
-        <name>TestDownloadForbiddenExtension</name>
+        <name>TestChangeDateObjectAllow</name>
         <desc>
-		Try to download a virus with antivirus disabled
-		and zip extension allowed.
+			(date 01-01 09:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010930"/>
+    </test>
+
+    <test>
+        <name>TestObjectAllow</name>
+        <desc>
+			Try to download from a object on an allowed hour.
 		</desc>
 
         <host>test-client</host>
         <dir>test-allow</dir>
-        <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
-		<var name="USERNAME" value="noavuser"/>
-		<var name="PASSWORD" value="noavuser"/>
+        <var name="HOST" value="www.google.com"/>
+    </test>
+
+    <test>
+        <name>TestChangeDateObjectDisallow</name>
+        <desc>
+			(date 01-01 08:30)
+		</desc>
+
+        <host>ebox-server</host>
+        <dir>change-date</dir>
+        <var name="DATE" value="01010830"/>
+    </test>
+
+    <test>
+        <name>TestObjectDeny</name>
+        <desc>
+			Try to download from a object on an disallowed hour.
+		</desc>
+
+        <host>test-client</host>
+        <dir>test-proxy-deny</dir>
+        <var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
     </test>
 
 </suite>
