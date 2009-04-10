@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite>
-    <name>eBox Proxy tests</name>
+    <name>eBox Proxy basic tests</name>
     <desc>
     Contains a set of tests to check
     that the eBox HTTP Proxy module works properly.
     </desc>
 
-    <scenario>proxy.xml</scenario>
+    <scenario>proxy/basic.xml</scenario>
 
     <test type="selenium">
         <name>EnableModules</name>
