@@ -110,6 +110,7 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my $logs = EBox::Global->modInstance('logs');
+    my $changed = undef;
 
     # Fetch the current log domains stored in gconf 
     my %storedLogDomains;
@@ -150,6 +151,7 @@ sub syncRows
         $self->addRow(domain => $domain, 
                       enabled => $enabled, 
                       lifeTime => 168);
+        $changed = 1;
     }
 
     # Remove non-existing domains from gconf
@@ -158,7 +160,10 @@ sub syncRows
         my $domain = $row->valueByName('domain');
         next if (exists $currentLogDomains{$domain});
         $self->removeRow($row->id());
+        $changed = 1;
     }
+    
+    return $changed;
 
 }
 
