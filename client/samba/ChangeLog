@@ -1,6 +1,7 @@
 1.1
 	+ Use the new row() and ids() API
 	+ Windows user's profiles are backed up only in extended backups
+	+ Enable quota support again
 0.12.101
 	+ Bugfix: set force directory mode and force create mode to 0660 in shares
 0.12.100
