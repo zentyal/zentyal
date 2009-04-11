@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sleep 10
+
+ntpdate $SERVER

@@ -1,0 +1,47 @@
+<suite>
+    <name>eBox NTP Test Suite</name>
+    <desc>Contains tests for eBox as NTP server.
+    </desc>
+
+    <scenario>ntp.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNTP</name>
+        <desc>
+        Set eBox as NTP server.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-ntp</dir>
+    </test>
+
+    <test>
+        <name>TestClient</name>
+        <desc>Try to sinchronize the date against eBox</desc>
+
+        <host>test-client</host>
+        <dir>test-ntpdate</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+    </test>
+</suite>
