@@ -1605,11 +1605,7 @@ sub _ids
         my $global = EBox::Global->getInstance();
         my $modChanged = $global->modIsChanged($gconfmod->name());
         if ( not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
-            # XXX When set_list is executed, $self->{directory} changes           
-            # This seems like a bug in the gconf library to me.
-            my $olddir = $self->{'directory'};
             $gconfmod->set_list($self->{'order'}, 'string', $ids);
-            $self->{directory} = $olddir;
         } 
     } 
     return $ids;
@@ -2987,6 +2983,9 @@ sub actionClickedJS
 sub backupFiles
 {
   my ($self) = @_;
+  # XXX Disable backupFiles as this is messing with the directories
+  # and making eBox fail
+  return;
 
   $self->_hasFileFields() or
       return;
@@ -3005,6 +3004,10 @@ sub backupFiles
 sub restoreFiles
 {
   my ($self) = @_;
+  # XXX Disable restoreFiles as this is messing with the directories
+  # and making eBox fail
+  return;
+
 
   $self->_hasFileFields() or
       return;
