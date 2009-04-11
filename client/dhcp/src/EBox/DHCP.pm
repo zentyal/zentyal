@@ -1294,55 +1294,55 @@ sub _ifacesInfo
   my $ifaces = $net->allIfaces();
 
   my %iflist;
-  foreach (@{$ifaces}) {
-    if ($net->ifaceMethod($_) eq 'static') {
-      my $address = $net->ifaceAddress($_);
-      my $netmask = $net->ifaceNetmask($_);
+  foreach my $iface (@{$ifaces}) {
+    if ($net->ifaceMethod($iface) eq 'static') {
+      my $address = $net->ifaceAddress($iface);
+      my $netmask = $net->ifaceNetmask($iface);
       my $network = ip_network($address, $netmask);
 
-      $iflist{$_}->{'net'} = $network;
-      $iflist{$_}->{'address'} = $address;
-      $iflist{$_}->{'netmask'} = $netmask;
-      $iflist{$_}->{'ranges'} = $self->ranges($_);
-      $iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
+      $iflist{$iface}->{'net'} = $network;
+      $iflist{$iface}->{'address'} = $address;
+      $iflist{$iface}->{'netmask'} = $netmask;
+      $iflist{$iface}->{'ranges'} = $self->ranges($iface);
+      $iflist{$iface}->{'fixed'} = $self->fixedAddresses($iface);
 
       # look if we have static routes for this network
       my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
-       $iflist{$_}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
+       $iflist{$iface}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
 
-      my $gateway = $self->defaultGateway($_);
+      my $gateway = $self->defaultGateway($iface);
       if (defined($gateway) and $gateway ne "") {
-	$iflist{$_}->{'gateway'} = $gateway;
+	$iflist{$iface}->{'gateway'} = $gateway;
       } else {
-	$iflist{$_}->{'gateway'} = $address;
+	$iflist{$iface}->{'gateway'} = $address;
       }
-      my $search = $self->searchDomain($_);
-      $iflist{$_}->{'search'} = $search;
-      my $nameserver1 = $self->nameserver($_,1);
+      my $search = $self->searchDomain($iface);
+      $iflist{$iface}->{'search'} = $search;
+      my $nameserver1 = $self->nameserver($iface,1);
       if (defined($nameserver1) and $nameserver1 ne "") {
-	$iflist{$_}->{'nameserver1'} = $nameserver1;
+	$iflist{$iface}->{'nameserver1'} = $nameserver1;
       }
-      my $nameserver2 = $self->nameserver($_,2);
+      my $nameserver2 = $self->nameserver($iface,2);
       if (defined($nameserver2) and $nameserver2 ne "") {
-	$iflist{$_}->{'nameserver2'} = $nameserver2;
+	$iflist{$iface}->{'nameserver2'} = $nameserver2;
       }
       # Leased times
-      my $defaultLeasedTime = $self->_leasedTime('default', $_);
+      my $defaultLeasedTime = $self->_leasedTime('default', $iface);
       if (defined($defaultLeasedTime)) {
-        $iflist{$_}->{'defaultLeasedTime'} = $defaultLeasedTime;
+        $iflist{$iface}->{'defaultLeasedTime'} = $defaultLeasedTime;
       }
-      my $maxLeasedTime = $self->_leasedTime('max', $_);
+      my $maxLeasedTime = $self->_leasedTime('max', $iface);
       if (defined($maxLeasedTime)) {
-        $iflist{$_}->{'maxLeasedTime'} = $maxLeasedTime;
+        $iflist{$iface}->{'maxLeasedTime'} = $maxLeasedTime;
       }
       # Thin client options
-      my $nextServer = $self->_thinClientOption('nextServer', $_);
+      my $nextServer = $self->_thinClientOption('nextServer', $iface);
       if ($nextServer) {
-        $iflist{$_}->{'nextServer'} = $nextServer;
+        $iflist{$iface}->{'nextServer'} = $nextServer;
       }
-      my $filename = $self->_thinClientOption('filename', $_);
+      my $filename = $self->_thinClientOption('filename', $iface);
       if (defined($filename)) {
-        $iflist{$_}->{'filename'} = $filename;
+        $iflist{$iface}->{'filename'} = $filename;
       }
     }
   }
@@ -1367,9 +1367,9 @@ sub _realIfaces
 
   my $real_ifaces = $net->ifaces();
   my %realifs;
-  foreach (@{$real_ifaces}) {
-    if ($net->ifaceMethod($_) eq 'static') {
-      $realifs{$_} = $net->vifaceNames($_);
+  foreach my $iface (@{$real_ifaces}) {
+    if ($net->ifaceMethod($iface) eq 'static') {
+      $realifs{$iface} = $net->vifaceNames($iface);
     }
 
   }
