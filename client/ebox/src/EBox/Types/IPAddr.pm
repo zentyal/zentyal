@@ -196,7 +196,7 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
+    my ($self) = @_;
 
     return unless ($self->row());
     my $ip = $self->fieldName() . '_ip';
