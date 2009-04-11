@@ -4,7 +4,7 @@ LOG="/tmp/anste-traceroute-$(date +%y%m%d%H%M%S)"
 
 for i in `seq 1 20`
 do
-    traceroute -n -m 2 "192.168.45.$i" | grep '192.168.3' >> $LOG
+    traceroute -n -m 6 "192.168.45.$i" | grep '192.168.3' >> $LOG
 done
 
 GW1=$(grep '192.168.3.2' $LOG | wc -l)
