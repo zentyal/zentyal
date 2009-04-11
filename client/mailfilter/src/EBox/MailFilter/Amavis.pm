@@ -11,6 +11,7 @@ use EBox::Gettext;
 use EBox::Global;
 
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
 
 use EBox::MailFilter::VDomainsLdap;
 use EBox::MailVDomainsLdap;
