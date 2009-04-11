@@ -36,6 +36,48 @@
         <dir>config-ntp</dir>
     </test>
 
+    <test type="selenium">
+        <name>ChangeTimezoneCaracas</name>
+        <desc>
+        Change timezone to America/Caracas.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>change-timezone</dir>
+        <var name="AREA" value="America"/>
+        <var name="ZONE" value="Caracas"/>
+    </test>
+
+    <test>
+        <name>TestTimezoneCaracas</name>
+        <desc>Execute date and grep the timezone</desc>
+
+        <host>ebox-server</host>
+        <dir>test-timezone</dir>
+        <var name="TIMEZONE" value="VET"/>
+    </test>
+
+    <test type="selenium">
+        <name>ChangeTimezoneMadrid</name>
+        <desc>
+        Change timezone to Europe/Madrid.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>change-timezone</dir>
+        <var name="AREA" value="Europe"/>
+        <var name="ZONE" value="Madrid"/>
+    </test>
+
+    <test>
+        <name>TestTimezoneMadrid</name>
+        <desc>Execute date and grep the timezone</desc>
+
+        <host>ebox-server</host>
+        <dir>test-timezone</dir>
+        <var name="TIMEZONE" value="CES?T"/>
+    </test>
+
     <test>
         <name>TestClient</name>
         <desc>Try to sinchronize the date against eBox</desc>

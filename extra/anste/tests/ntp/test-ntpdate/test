@@ -1,5 +1,15 @@
 #!/bin/sh
 
-sleep 10
+for i in `seq 1 30`
+do
+    if ntpdate $SERVER
+    then
+        echo "Date synchronized.\n"
+        exit 0
+    else
+        sleep 10
+    fi
+done
 
-ntpdate $SERVER
+echo "Timeout.\n"
+exit 1
