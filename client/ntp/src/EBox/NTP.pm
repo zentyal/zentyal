@@ -302,7 +302,7 @@ sub _setConf
 	my @servers = $self->servers;
 	my $synch = 'no';
 	my $active = 'no';
-	
+
 	($self->synchronized) and $synch = 'yes';
 	($self->isEnabled()) and $active = 'yes';
 
@@ -335,7 +335,7 @@ sub _restartAllServices
 			"failed while being restarted, their state is ".
 			"unknown: $failed");
 	}
-	
+
 	$log->info("Restarting system logs");
 	try {
 		root("/etc/init.d/sysklogd restart");
@@ -343,7 +343,7 @@ sub _restartAllServices
 		root("/etc/init.d/cron restart");
 	} catch EBox::Exceptions::Internal with {
 	};
-	
+
 }
 
 # Method: setNewDate
@@ -352,7 +352,7 @@ sub _restartAllServices
 #
 # Parameters:
 #
-#	day - 
+#	day -
 #	month -
 #	year -
 #	hour -
@@ -360,13 +360,7 @@ sub _restartAllServices
 #	second -
 sub setNewDate # (day, month, year, hour, minute, second)
 {
-	my $self = shift;
-	my $day = shift;
-	my $month = shift;
-	my $year =  shift;
-	my $hour = shift;
-	my $minute = shift;
-	my $second = shift;
+	my ($self, $day, $month, $year, $hour, $minute, $second) = @_;
 
 	my $newdate = "$year-$month-$day $hour:$minute:$second";
 	my $command = "/bin/date --set \"$newdate\"";
@@ -378,28 +372,23 @@ sub setNewDate # (day, month, year, hour, minute, second)
 
 # Method: setNewTimeZone
 #
-#	Sets the system's time zone 
+#	Sets the system's time zone
 #
 # Parameters:
 #
-#	continent - 
+#	continent -
 #	country -
-sub setNewTimeZone # (continent, country))
+sub setNewTimeZone # (continent, country)
 {
-	my $self = shift;
-	my $continent = shift;
-	my $country = shift;
+	my ($self, $continent, $country) = @_;
 
-	my $command = "ln -s /usr/share/zoneinfo/$continent/$country /etc/localtime";
 	$self->set_string('continent', $continent);
 	$self->set_string('country', $country);
-	root("rm /etc/localtime");
-	root($command);
-#	my $global = EBox::Global->getInstance(1);
-#	$self->_restartAllServices;
-}	
+	root("echo $continent/$country > /etc/timezone");
+	root("cp -f /usr/share/zoneinfo/$continent/$country /etc/localtime");
+}
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #
