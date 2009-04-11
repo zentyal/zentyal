@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-asterisk
 Architecture: all
-Depends: ebox (>= 0.12), ebox-usersandgroups (>= 0.12), ${misc:Depends}
+Depends: ebox (>= 1.1~svn), ebox-usersandgroups, ${misc:Depends}
 Description: eBox - Asterisk
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
