@@ -1011,6 +1011,8 @@ sub setComponentDirectory
     my ($self, $comp) = @_;
     my $compositeDir = $self->directory();
 
+    return if (not defined($compositeDir) or $compositeDir eq '');
+
     my $compDir = '' ;
 
     if ($comp->isa('EBox::Model::Composite')) {
