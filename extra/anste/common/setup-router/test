@@ -1,2 +1,9 @@
-#iptables -t nat -I PREROUTING -i eth2 -j DNAT --to-destination $DEST
-iptables -t nat -I PREROUTING -i eth2 -j DNAT -d $IP --to-destination $DEST
+#!/bin/bash
+
+if [ -n "$IP" ]; then
+ iptables -t nat -I PREROUTING -i eth2 -j DNAT -d $IP --to-destination $DEST
+else
+  iptables -t nat -I PREROUTING -i eth2 -j DNAT --to-destination $DEST
+fi
+
+
