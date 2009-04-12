@@ -39,6 +39,7 @@
         <packages>
             <package>netcat</package>
             <package>openvpn</package>
+            <package>wget</package>
         </packages>
     </host>
 

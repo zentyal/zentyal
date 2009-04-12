@@ -57,6 +57,7 @@
         </network>
         <packages>
             <package>netcat</package>
+            <package>wget</package>
             <package>openvpn</package>
         </packages>
     </host>
@@ -76,6 +77,7 @@
         <packages>
             <package>netcat</package>
             <package>openvpn</package>
+            <package>wget</package>
         </packages>
     </host>
 
