@@ -122,25 +122,21 @@ cache deny noCached
                   objectsPolicies => \@objectsPolicies, 
 &>
 
-% if ( @groupsPolicies) {
-%# if we use global group policies we must force always the authorization first
-%#http_access allow authorized all
-
-<& .groupsAccess, 
+<& .globalGroupsAccess, 
                 groupsPolicies => \@groupsPolicies, 
 &>
-% } 
+
 
 
 # default policy section
 
 
 % if ( $authNeeded ) {
-%     if (not @groupsPolicies ) {
+%#     if (not @groupsPolicies ) {
 %#      we force auth here to not force to authorize objects
 %#      which dont need auth
 http_access allow authorized all
-%     }
+%#     }
 % } 
 % if ($allowAll) {
 http_access allow all
@@ -155,32 +151,55 @@ http_access deny all
 
 always_direct allow localhostdst
 
-<%def .groupsAccess>
+<%def .globalGroupsAccess>
 <%args>
 @groupsPolicies
-$object => undef
+</%args>
+% return if (@groupsPolicies == 0);
+
+%# if we use global group policies we must force always the authorization first
+http_access allow authorized all
+
+
+% foreach my $groupPol (@groupsPolicies) {
+%   my $group = $groupPol->{'group'};
+%   my $timeAcls = _timeAclsInPolicy($groupPol, $group);
+%   my $acls     = "$timeAcls $group";
+%   my $allowPolicy = $groupPol->{'allow'};
+%   if ($allowPolicy) {
+http_access allow  <% $timeAcls %> <% $group %> 
+%    } 
+ 
+%   if ((not $allowPolicy) or $timeAcls ) {
+#   in case of allow + time acl we have to deny otherwise
+#   outsde of the time period we will slip to defualt policy
+htpp_access deny <% $group %>
+%   }
+
+% }
+</%def>
+
+<%def .objectGroupsAccess>
+<%args>
+@groupsPolicies
+$object 
 </%args>
 % foreach my $groupPol (@groupsPolicies) {
 %   my $group = $groupPol->{'group'};
-%   my $acls;
-%   my $timeAcls;
-%   if ($object) {
-%       $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
-%       $acls = "$timeAcls $object $group";
+%   my $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
+%   my $allow = $groupPol->{'allow'};
+
+%   if ($allow) {
+http_access allow <% $timeAcls %> <% $object %> <% $group %>
+%    }
+
+%  if ((not $allow) or $timeAcls ) {
+#   in case of allow + time acl we have to deny otherwise
+#   outsde of the time period we will slip to defualt policy
+htpp_access deny <% $object %> <% $group %>
 %   }
-%   else {
-%      $timeAcls = _timeAclsInPolicy($groupPol, $group);
-%      $acls     = "$timeAcls $group";
-%   }
-%   
-%
-%
-%  my $access = $groupPol->{'allow'} ?  'allow' : 'deny';
-%  my $invAccess = $access eq 'allow' ? 'deny' : 'access';
-%  # this command is to assure we have credentials
-http_access <% $access %> <% $timeAcls %> <% defined $object ? $object : '' %> authorized <% $group %> 
-http_access <% $access %> <% $acls %>
-http_access <% $invAccess %> <% $group %>
+
+
 % }
 
 </%def>
@@ -191,20 +210,27 @@ http_access <% $invAccess %> <% $group %>
 @objectsPolicies
 </%args>
 % foreach my $objPol (@objectsPolicies) {
+
 %   my $object = $objPol->{'object'};
-  <& .groupsAccess, 
+
+  <& .objectGroupsAccess, 
            groupsPolicies =>  $objPol->{groupsPolicies},
            object => $object,
    &>
-%   my $timeAcls = _timeAclsInPolicy($objPol, $object);
-%   my $acls      = "$timeAcls $object"; 
+
+
 %   if ($objPol->{'auth'}) {
-http_access allow <% $timeAcls %> <% $object %>  authorized 
+  http_access allow  <% $object %>  authorized 
 %   } 
+
 % if ($objPol->{'allowAll'}) {
-http_access allow <% $acls %>
+%   my $timeAcls = _timeAclsInPolicy($objPol, $object);
+http_access allow <% $object %> <% $timeAcls %>
+%     if ($timeAcls) {
+%     # to assure we dont slip to default configuration when we have a time acl       
 http_access deny <% $object %>
-%   } else {
+%     }
+% } else {
 http_access deny <% $object %>
 %   }
 
