@@ -17,6 +17,8 @@ Parameters:
 	$dnsone => ""
 	$dnstwo => ""
 </%args>
+# DHCP server is authoritative for all networks
+authoritative;
 
 # extra options
 # RFC3442 routes

@@ -1,5 +1,6 @@
 1.1
 	+ Use the new ids() and row() API
+	+ Bugfix: Set "authoritative" statement to DHCP configuration
 0.12.101
 	+ Bugfix: Use the new API for services
 0.12.100
