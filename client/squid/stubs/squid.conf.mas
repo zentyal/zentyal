@@ -117,18 +117,19 @@ http_reply_access allow all
 cache deny noCached
 % }
 
-% if ( @groupsPolicies) {
-%# if we use global group policies we must force always the authorization first
-%#http_access allow authorized all
 
 <& .objectsAccess, 
                   objectsPolicies => \@objectsPolicies, 
 &>
 
+% if ( @groupsPolicies) {
+%# if we use global group policies we must force always the authorization first
+%#http_access allow authorized all
+
 <& .groupsAccess, 
                 groupsPolicies => \@groupsPolicies, 
 &>
-% }
+% } 
 
 
 # default policy section
