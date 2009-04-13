@@ -82,6 +82,7 @@ sub register
     }
     if ( exists($self->{measures}->{$measureToRegister}) ) {
         EBox::warn("Loading $measureToRegister measure again");
+        return 0;
     }
     unless ( $measureToRegister->isa('EBox::Monitor::Measure::Base') ) {
         throw EBox::Exceptions::InvalidType(arg => $measureToRegister,
