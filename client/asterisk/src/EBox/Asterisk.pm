@@ -37,10 +37,12 @@ use EBox::Asterisk::Extensions;
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
+use constant USERSCONFFILE        => '/etc/asterisk/users.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
 use constant RTPCONFFILE          => '/etc/asterisk/rtp.conf';
 use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
+use constant VOICEMAILCONFFILE    => '/etc/asterisk/voicemail.conf';
 
 # Constructor: _create
 #
@@ -121,6 +123,11 @@ sub usedFiles
                         'reason' => __('To configure the LDAP Realtime driver.')
                       });
 
+    push (@usedFiles, { 'file' => USERSCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the common SIP and IAX users.')
+                      });
+
     push (@usedFiles, { 'file' => SIPCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the SIP trunk for local users and external providers.')
@@ -136,6 +143,11 @@ sub usedFiles
                         'reason' => __('To configure the dialplan.')
                       });
 
+    push (@usedFiles, { 'file' => VOICEMAILCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the voicemail.')
+                      });
+
     push (@usedFiles, { 'file' => MEETMECONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the conferences.')
@@ -143,7 +155,7 @@ sub usedFiles
 
     push (@usedFiles, {
                         'file' => '/etc/ldap/slapd.conf',
-                        'reason' => __('To add a new schema'),
+                        'reason' => __('To add a new schema.'),
                         'module' => 'users'
                       });
 
@@ -225,6 +237,8 @@ sub _setConf
 
     $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
+    $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas");
+    $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas");
     $self->_setRealTime();
     $self->_setExtensions();
     $self->_setVoicemail();
@@ -255,6 +269,7 @@ sub _setExtensions
 
     my $model = $self->model('Settings');
 
+    push (@params, demoextensions => $model->demoExtensionsValue());
     push (@params, outgoingcalls => $model->outgoingCallsValue());
 
     $model = $self->model('Provider');
@@ -291,8 +306,14 @@ sub _setSIP
 
     my $model = $self->model('NAT');
 
+    my $nat = 'no';
+    my $type = '';
+    my $value = '';
     my @localnets = ();
-    if ($model->behindNATValue()) {
+
+    if ($model->getNATType()) {
+        $nat = 'yes';
+        ($type, $value) = @{$model->getNATType()};
         my $network = EBox::Global->modInstance('network');
         my $ifaces = $network->InternalIfaces();
         for my $iface (@{$ifaces}) {
@@ -300,8 +321,9 @@ sub _setSIP
         }
     }
 
-    push (@params, behindNAT => $model->behindNATValue());
-    push (@params, externalIP => $model->externalIPValue());
+    push (@params, nat => $nat);
+    push (@params, type => $type);
+    push (@params, value => $value);
     push (@params, localnets => \@localnets);
 
     $model = $self->model('Settings');

@@ -85,12 +85,15 @@ sub _addUser
     my $extensions = new EBox::Asterisk::Extensions;
 
     my $extn = $extensions->firstFreeExtension();
+    my $mail = $self->_getUserMail($user);
 
     my %attrs = (changes => [
                              add => [
                                      objectClass => 'AsteriskSIPUser',
+                                     AstAccountType => 'friend',
                                      AstAccountContext => 'users',
                                      AstAccountCallerID => $extn, #FIXME +fullname?
+                                     AstAccountMailbox => $extn,
                                      AstAccountHost => 'dynamic',
                                      AstAccountNAT => 'yes',
                                      AstAccountQualify => 'yes',
@@ -99,11 +102,14 @@ sub _addUser
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
                                      AstAccountExpirationTimestamp => '0',
+                                     AstAccountRegistrationServer => '0',
                                      AstAccountUserAgent => '0',
                                      AstAccountFullContact => 'sip:0.0.0.0',
                                      objectClass => 'AsteriskVoicemail',
-                                     AstAccountMailbox => $extn,
                                      AstAccountVMPassword => $extn, #FIXME random?
+                                     AstAccountVMMail => $mail,
+                                     AstAccountVMAttach => 'yes',
+                                     AstAccountVMDelete => 'no',
                                     ],
                             ]
                 );
@@ -115,6 +121,26 @@ sub _addUser
         $ldap->modify($dn, \%attrs);
         if ($extn > 0) { $extensions->addUserExtension($user, $extn); }
     }
+}
+
+
+# FIXME doc
+sub _getUserMail
+{
+    my ($self, $user) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+
+    my %attrs = (
+                 base => $users->usersDn,
+                 filter => "&(objectclass=*)(uid=$user)",
+                 scope => 'one'
+                );
+
+    my $result = $self->{'ldap'}->search(\%attrs);
+
+    my $entry = $result->entry(0);
+    return ($entry->get_value('mail'));
 }
 
 
@@ -233,7 +259,7 @@ sub _includeLDAPAcls {
         return [] unless ($self->{'asterisk'}->configured());
         my $ldapconf = $self->{ldap}->ldapConf;
 
-        my @acls = ("access to attrs=AstAccountVMPassword\n" .
+        my @acls = ("access to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach,AstAccountVMDelete\n" .
                     "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
                     "\tby self write\n" .
                     "\tby * none\n");

@@ -85,6 +85,8 @@ objectIdentifier AstAccountRegistrationServer AstAttrType:48
 objectIdentifier AstAccountUserAgent AstAttrType:49
 objectIdentifier AstAccountVMPassword AstAttrType:50
 objectIdentifier AstAccountLastms AstAttrType:51
+objectIdentifier AstAccountVMAttach AstAttrType:52
+objectIdentifier AstAccountVMMail AstAttrType:53
 
 
 #############################################################################
@@ -485,7 +487,21 @@ attributetype ( AstAccountVMPassword
 
 attributetype ( AstAccountLastms
         NAME 'AstAccountLastms'
-        DESC 'Asterisk Last milifoo' 
+        DESC 'Asterisk Realtime Qualify' 
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
+attributetype ( AstAccountVMAttach
+        NAME 'AstAccountVMAttach'
+        DESC 'Asterisk Account Voicemail Attachment' 
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
+attributetype ( AstAccountVMMail
+        NAME 'AstAccountVMMail'
+        DESC 'Asterisk Account Voicemail Mail' 
         EQUALITY caseIgnoreMatch
         SUBSTR caseIgnoreSubstringsMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
@@ -607,7 +623,9 @@ objectclass ( AsteriskVoicemail
     MUST cn
     MAY ( 
         AstAccountMailbox $ 
-        AstAccountVMPassword
+        AstAccountVMPassword $
+        AstAccountVMMail $
+        AstAccountVMAttach
     ) 
     )
 

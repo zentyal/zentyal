@@ -1,19 +1,10 @@
 <%args>
+    $demoextensions
     $outgoingcalls
     $name
 </%args>
 ;
-; SIP Configuration example for Asterisk
-;
-; extensions.conf - the Asterisk dial plan
-;
-; Static extension configuration file, used by
-; the pbx_config module. This is where you configure all your 
-; inbound and outbound calls in Asterisk. 
-; 
-; This configuration file is reloaded 
-; - With the "dialplan reload" command in the CLI
-; - With the "reload" command (that reloads everything) in the CLI
+; Asterisk dial plan
 ;
 
 [general]
@@ -30,6 +21,16 @@ FOLLOWMEOPTIONS =
 PAGING_HEADER = Intercom
 
 [common]
+% if ($demoextensions) {
+exten => 500,1,Playback(demo-abouttotry)
+exten => 500,n,Dial(IAX2/guest@pbx.digium.com/s@default)
+exten => 500,n,Playback(demo-nogo)
+exten => 500,n,Goto(s,6)
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+exten => 600,n,Playback(demo-echodone)
+exten => 600,n,Goto(s,6)
+% }
 ; i - invalid call
 exten => i,1,Playback(invalid)
 exten => i,2,Hangup

@@ -1,0 +1,44 @@
+;
+; Voicemail Configuration
+;
+
+[general]
+
+format=wav49|gsm|wav
+
+serveremail=asterisk_no-reply@
+
+maxmsg=100 ; max msg
+maxsecs=180 ; max msg length
+minsecs=3 ; min msg lengt
+maxgreet=60 ; max greetings msg
+skipms=3000
+maxsilence=10 ; end after silence seconds
+silencethreshold=128
+maxlogins=3 ; disconect after wrong passwd retries
+
+moveheard=yes
+userscontext=default
+
+;charset=ISO-8859-1
+;fromstring=The Asterisk PBX
+;     VM_NAME, VM_DUR, VM_MSGNUM, VM_MAILBOX, VM_CALLERID, VM_CIDNUM,
+;     VM_CIDNAME, VM_DATE
+; Note: The emailbody config row can only be up to 512 characters due to a
+;emailsubject=[PBX]: New message ${VM_MSGNUM} in mailbox ${VM_MAILBOX}
+;emailbody=Dear ${VM_NAME}:\n\n\tjust wanted to let you know you were just left a ${VM_DUR} long message (number ${VM_MSGNUM})\nin mailbox ${VM_MAILBOX} from ${VM_CALLERID}, on ${VM_DATE}, so you might\nwant to check it when you get a chance. Thanks!\n\n\t\t\t\t--Asterisk\n
+
+emaildateformat=%A, %B %d, %Y at %r
+;emaildateformat=%A, %d %B %Y at %H:%M:%S
+
+sendvoicemail=yes ; allow the user to compose and send a voicemail while inside VoiceMailMain()
+searchcontexts=yes
+
+[zonemessages]
+eastern=America/New_York|'vm-received' Q 'digits/at' IMp
+central=America/Chicago|'vm-received' Q 'digits/at' IMp
+central24=America/Chicago|'vm-received' q 'digits/at' H N 'hours'
+military=Zulu|'vm-received' q 'digits/at' H N 'hours' 'phonetic/z_p'
+european=Europe/Copenhagen|'vm-received' a d b 'digits/at' HM
+
+[default]

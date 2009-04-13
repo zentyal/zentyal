@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Voicemail;
 
 # Class: EBox::Asterisk::Model::Voicemail
 #
-#      Form to change the user Voicemail password in the UserCorner
+#      Form to change the user Voicemail settings in the UserCorner
 #
 
 use base 'EBox::Model::DataForm';
@@ -27,7 +27,9 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-use EBox::UsersAndGroups::Types::Password;
+use EBox::Types::Password;
+use EBox::Types::MailAddress;
+use EBox::Types::Boolean;
 use Apache2::RequestUtil;
 
 
@@ -70,7 +72,7 @@ sub new
 #
 sub pageTitle
 {
-    return __('Voicemail password management');
+    return __('Voicemail settings');
 }
 
 
@@ -87,22 +89,41 @@ sub _table
 
     my @tableHeader =
     (
-        new EBox::UsersAndGroups::Types::Password(
+        new EBox::Types::Password(
             fieldName     => 'pass',
             printableName => __('New password'),
             size          => '4',
             unique        => 1,
             editable      => 1
         ),
+        new EBox::Types::MailAddress(
+            fieldName     => 'mail',
+            printableName => __('Mail address'),
+            size          => '14',
+            unique        => 1,
+            editable      => 1
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'attach',
+            printableName => __('Attach messages'),
+            editable      => 1,
+            defaultValue  => 0,
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'delete',
+            printableName => __('Delete sent messages'),
+            editable      => 1,
+            defaultValue  => 0,
+        ),
     );
     my $dataTable =
     {
         tableName          => 'Voicemail',
-        printableTableName => __('Voicemail password management'),
+        printableTableName => __('Voicemail settings'),
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => 'Change your Voicemail password',
+        help               => 'Change your Voicemail settings',
         modelDomain        => 'Asterisk',
     };
 
@@ -115,7 +136,10 @@ sub _addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
 
-    my $pass = $paramsRef->{'pass'};
+    my $pass = $paramsRef->{'pass'}->value();
+    my $mail = $paramsRef->{'mail'}->value();
+    my $attach = if ($paramsRef->{'attach'}->value()) ? 'yes' : 'no';
+    my $delete = if ($paramsRef->{'delete'}->value()) ? 'yes' : 'no';
 
     my $users = EBox::Global->modInstance('users');
 
@@ -127,12 +151,15 @@ sub _addTypedRow
     my $dn = "uid=" . $user . "," . $users->usersDn;
 
     my %attrs = (
-        'AstAccountVMPassword' => $pass->value(),
+        'AstAccountVMPassword' => $pass,
+        'AstAccountVMMail' => $mail,
+        'AstAccountVMAttach' => $attach,
+        'AstAccountVMDelete' => $delete,
     );
 
     $ldap->modify($dn, { replace => \%attrs });
 
-    $self->setMessage(__('Password successfully updated'));
+    $self->setMessage(__('Settings successfully updated'));
 }
 
 1;

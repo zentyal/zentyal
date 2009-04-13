@@ -1,6 +1,7 @@
 <%args>
-    $behindNAT
-    $externalIP
+    $nat
+    $type
+    $value
     @localnets
     $outgoingcalls
     $name
@@ -10,7 +11,7 @@
     $incoming
 </%args>
 ;
-; SIP Configuration example for Asterisk
+; SIP configuration file
 ;
 
 [general]
@@ -21,10 +22,16 @@ realm=ebox
 udpbindaddr=0.0.0.0
 tcpenable=no
 tcpbindaddr=0.0.0.0
-% if ($behindNAT) {
-externip = <% $externalIP %>
+% if ($nat) {
+% if ($type eq 'fixedIP') {
+externip=<% $value %>
+% }
+% if ($type eq 'dynamicHost') {
+externhost=<% $value %>
+externrefresh=10
+% }
 % foreach my $net (@localnets) {
-localnet = <% $net %>
+localnet=<% $net %>
 % }
 % }
 
@@ -39,7 +46,6 @@ rtcachefriends=yes
 alwaysauthreject=yes
 
 [authentication]
-
 % if ($outgoingcalls) {
 register => <% $username %>:<% $password %>@<% $server %>/<% $incoming %>
 [<% $name %>]

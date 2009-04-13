@@ -111,6 +111,12 @@ sub _table
     my @tableHeader =
       (
        new EBox::Types::Boolean(
+                                fieldName     => 'demoExtensions',
+                                printableName => __('Enable demo extensions'),
+                                editable      => 1,
+                                defaultValue  => 1,
+                               ),
+       new EBox::Types::Boolean(
                                 fieldName     => 'outgoingCalls',
                                 printableName => __('Enable outgoing calls'),
                                 editable      => 1,

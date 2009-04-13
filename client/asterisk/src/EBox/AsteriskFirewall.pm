@@ -82,7 +82,7 @@ sub output
 
 	my @AsteriskPorts = ();
 	push(@AsteriskPorts, SIPUDPPORT);
-	push(@AsteriskPorts, H323UDPPORTRANGE);
+	#push(@AsteriskPorts, H323UDPPORTRANGE);
 	push(@AsteriskPorts, RTPUDPPORTRANGE);
 	push(@AsteriskPorts, IAXUDPPORT);
 	push(@AsteriskPorts, IAX2UDPPORT);
@@ -96,7 +96,7 @@ sub output
 	}
 
 	@AsteriskPorts = ();
-	push(@AsteriskPorts, H323TCPPORT);
+	#push(@AsteriskPorts, H323TCPPORT);
 
 	foreach my $port (@AsteriskPorts){
 	    foreach my $ifc (@ifaces) {

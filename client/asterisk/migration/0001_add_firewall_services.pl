@@ -31,22 +31,22 @@ sub runGConf
                 'translationDomain' => 'ebox-asterisk',
                 'internal' => 1,
                 'services' => [
-                                {
+                                { # sip
                                     'protocol' => 'udp',
                                     'sourcePort' => 'any',
                                     'destinationPort' => '5060',
                                 },
-                                {
-                                    'protocol' => 'tcp',
-                                    'sourcePort' => 'any',
-                                    'destinationPort' => '1720',
-                                },
-                                {
+                                { # iax1
                                     'protocol' => 'udp',
                                     'sourcePort' => 'any',
-                                    'destinationPort' => '5000:5014',
+                                    'destinationPort' => '4569',
                                 },
-                                {
+                                { # iax2
+                                    'protocol' => 'udp',
+                                    'sourcePort' => 'any',
+                                    'destinationPort' => '5036',
+                                },
+                                { # rtp
                                     'protocol' => 'udp',
                                     'sourcePort' => 'any',
                                     'destinationPort' => '10000:20000',

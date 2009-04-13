@@ -28,8 +28,10 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 use EBox::Types::HostIP;
-use EBox::Types::Boolean;
+use EBox::Types::DomainName;
 
 # Group: Public methods
 
@@ -57,6 +59,25 @@ sub new
 }
 
 
+# Method: getNATType
+#
+#  Returns:
+#
+sub getNATType
+{
+    my ($self) = @_;
+
+    my $nat = $self->row()->elementByName('behindNAT');
+    if ($nat->selectedType() eq 'no') {
+        return undef;
+    }
+
+    my $type = $nat->selectedType();
+    my $value = $nat->printableValue();
+    return [$type, $value];
+}
+
+
 # Group: Private methods
 
 # Method: _table
@@ -70,17 +91,27 @@ sub _table
 
     my @tableHeader =
       (
-       new EBox::Types::Boolean(
+       new EBox::Types::Union(
                                 fieldName     => 'behindNAT',
                                 printableName => __('Asterisk is behind NAT'),
                                 editable      => 1,
-                                defaultValue  => 0,
-                               ),
-       new EBox::Types::HostIP(
-                                fieldName     => 'externalIP',
-                                printableName => __('External IP address'),
-                                editable      => 1,
-                               ),
+                                subtypes => [
+                                    new EBox::Types::Union::Text(
+                                        fieldName => 'no',
+                                        printableName => __('No'),
+                                    ),
+                                    new EBox::Types::HostIP(
+                                        fieldName => 'fixedIP',
+                                        printableName => 'Fixed IP address',
+                                        editable => 1,
+                                    ),
+                                    new EBox::Types::DomainName(
+                                        fieldName => 'dynamicHost',
+                                        printableName => 'Dynamic hostname',
+                                        editable => 1,
+                                    ),
+                                ]
+                             ),
       );
 
     my $dataTable =
@@ -90,7 +121,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => __('NAT Asterisk server configuration'),
+        help               => __("NAT Asterisk server configuration"),
         messages           => {
                                   update => __('NAT Asterisk server configuration updated'),
                               },
