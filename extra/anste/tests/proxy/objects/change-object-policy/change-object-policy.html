@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>change-object-policy</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">change-object-policy</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ebox/EBox/General</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=HTTP proxy</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Objects' Policy</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ObjectPolicy_filter</td>
+	<td>{$OBJECT}</td>
+</tr>
+<tr>
+    <td>runScript</td>
+    <td>startAjaxRequest()</td>
+    <td></td>
+</tr>
+<tr>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filter</td>
+	<td></td>
+</tr>
+<tr>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Editing object's policy </td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ObjectPolicy_policy</td>
+	<td>label={$POLICY}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>change</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Updated object's policy</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
