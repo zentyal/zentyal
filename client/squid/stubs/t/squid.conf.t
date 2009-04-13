@@ -32,8 +32,8 @@ my @cases = (
               3128,
               'transparent',
               'no',
-              'policy',
-              'auth',
+              authNeeded => 1,
+              allowAll   => 1,
               'groupsPolicies',
               [],
               'objectsPolicies',
@@ -60,7 +60,8 @@ my @cases = (
               'memory',
               '100',
               'notCachedDomains',
-              []
+              [],
+              cacheDirSize => 1000,
              ],
 
              [
@@ -68,8 +69,8 @@ my @cases = (
               3128,
               'transparent',
               'no',
-              'policy',
-              'filter',
+              authNeeded => 0,
+              allowAll   => 1,
               'groupsPolicies',
               [],
               'objectsPolicies',
@@ -96,8 +97,8 @@ my @cases = (
               'memory',
               '100',
               'notCachedDomains',
-              []
-
+              [],
+              cacheDirSize => 1000,
              ],
 
              [
@@ -105,8 +106,8 @@ my @cases = (
               3128,
               'transparent',
               'no',
-              'policy',
-              'allow',
+              authNeeded => 0,
+              allowAll   => 1,
               'groupsPolicies',
               [],
               'objectsPolicies',
@@ -150,7 +151,8 @@ my @cases = (
               'memory',
               '100',
               'notCachedDomains',
-              []
+              [],
+              cacheDirSize => 1000,
              ],
             );
 
