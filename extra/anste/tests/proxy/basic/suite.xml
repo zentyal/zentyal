@@ -204,7 +204,7 @@
 
         <host>ebox-server</host>
         <dir>test-cache-log-hit</dir>
-        <var name="HOST" value="www.unixar.es"/>
+        <var name="HOST" value="www.unizar.es"/>
     </test>
 
     <test>
