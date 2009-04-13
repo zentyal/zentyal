@@ -196,7 +196,7 @@ http_access allow <% $timeAcls %> <% $object %> <% $group %>
 %  if ((not $allow) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
-htpp_access deny <% $object %> <% $group %>
+http_access deny <% $object %> <% $group %>
 %   }
 
 
@@ -303,3 +303,4 @@ acl <% 'timeHours_' . $id %> time <% $policy->{timeHours} %>
 </%def>
 
 
+%# debug_options 28,3
