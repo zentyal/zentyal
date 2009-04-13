@@ -322,9 +322,10 @@ sub removePortRedirectionsOnIface # (interface)
     my ($self, $iface) = @_;
 
     my $model = $self->{'RedirectsTable'};
-    foreach my $row (@{$model->rows()}) {
+    foreach my $rowId (@{$model->ids()}) {
+        my $row = $model->row($rowId);
         if ($row->valueByName('interface') eq $iface) {
-            $model->removeRow($row->id());
+            $model->removeRow($rowId);
         }
     }
 }
@@ -510,7 +511,8 @@ sub usesIface # (iface)
     my ($self, $iface) = @_;
 
     my $model = $self->{'RedirectsTable'};
-    foreach my $row (@{$model->rows()}) {
+    foreach my $rowId (@{$model->ids()}) {
+        my $row = $model->row($rowId);
         if ($row->valueByName('interface') eq $iface) {
             return 1;
         }
