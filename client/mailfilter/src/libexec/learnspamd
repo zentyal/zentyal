@@ -33,8 +33,8 @@ sub initDaemon
     my ($self) = @_;
     
     unless (POSIX::setsid) {
-	EBox::debug ('Cannot start new session for ', $self->{'name'});
-	exit 1;
+        EBox::debug ('Cannot start new session for ', $self->{'name'});
+        exit 1;
     }
     
  #   foreach my $fd (0 .. 64) { POSIX::close($fd); }
@@ -42,8 +42,8 @@ sub initDaemon
     my $tmp = EBox::Config::tmp();
     open(STDIN,  "+<$tmp/stdin");
     if (EBox::Config::configkey('debug') eq 'yes') {
-	open(STDOUT, "+>$tmp/stout");
-	open(STDERR, "+>$tmp/stderr");
+        open(STDOUT, "+>$tmp/stout");
+        open(STDERR, "+>$tmp/stderr");
     }
     
 }
@@ -52,7 +52,7 @@ sub initDaemon
 sub run 
 {
     my ($self) = @_;
-	
+        
     EBox::init();
     
     $self->_checkMailfilter();
@@ -72,10 +72,10 @@ sub _checkMailfilter
     my $mf = EBox::Global->modInstance('mailfilter');
 
     if (not $mf->configured()) {
-	die "Mailfilter module is not configured";
+        die "Mailfilter module is not configured";
     }
     elsif (not $mf->isEnabled()) {
-	die "Mailfilter module is not enabled";
+        die "Mailfilter module is not enabled";
     }
 
     my $antispam = $mf->antispam();
@@ -104,31 +104,20 @@ sub _prepare
 
     my @users = qw(spam ham);
     foreach my $user (@users) {
-	my $account = $mailUserLdap->userAccount($user);
-	defined $account or
-	    next; 
-	
-	my ($mailName, $vdomain) = split '@', $account;
-	my $mailDir    = $mailUserLdap->maildir($mailName, $vdomain);
-	my $newMailDir = $mailDir. "new";
+        my $account = $mailUserLdap->userAccount($user);
+        defined $account or
+            next; 
+        
+        my ($mailName, $vdomain) = split '@', $account;
+        my $mailDir    = $mailUserLdap->maildir($mailName, $vdomain);
+        my $newMailDir = $mailDir. "new";
 
-	$mailDirsByType{$user} = $newMailDir;
+        $mailDirsByType{$user} = $newMailDir;
     }
 
 
 }
 
-
-sub _users
-{
-    my @users;
-    my $vdomains = EBox::MailFilter::VDomainsLdap->new();
-
-    push @users, 'spam' if $vdomains->spamAccount;
-    push @users, 'ham'  if $vdomains->hamAccount;
-
-    return \@users;
-}
 
 
 sub _mainloop
@@ -138,34 +127,34 @@ sub _mainloop
     my $antispam =  EBox::Global->modInstance('mailfilter')->antispam();
 
     while (1) {
-	if ($wait) {
-	    sleep WAIT_INTERVAL;
-	}
-	$wait = 1;
+        if ($wait) {
+            sleep WAIT_INTERVAL;
+        }
+        $wait = 1;
 
-	while (my ($type, $dir) = each %mailDirsByType) {
-	    my $isSpam = ($type eq 'spam');
+        while (my ($type, $dir) = each %mailDirsByType) {
+            my $isSpam = ($type eq 'spam');
 
-	    opendir my $DH,  $dir or
-		die "Cannot open directory $dir";
-	    while (my $msg = readdir($DH)) {
-		if (($msg eq '.') or ($msg eq '..')) {
-		    next;
-		}
+            opendir my $DH,  $dir or
+                die "Cannot open directory $dir";
+            while (my $msg = readdir($DH)) {
+                if (($msg eq '.') or ($msg eq '..')) {
+                    next;
+                }
 
-		my $path = "$dir/$msg";
+                my $path = "$dir/$msg";
 
-		$antispam->learn(
-				 input => $path,
-				 isSpam => $isSpam,
-				);
-		unlink $path;
-		$wait = 0;
-	    }
-	    
-	    closedir $DH;
-	}
-	
+                $antispam->learn(
+                                 input => $path,
+                                 isSpam => $isSpam,
+                                );
+                unlink $path;
+                $wait = 0;
+            }
+            
+            closedir $DH;
+        }
+        
 
     }
     
