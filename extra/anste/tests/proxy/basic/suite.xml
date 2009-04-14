@@ -319,7 +319,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
-		<var name="ERROR" value="407"/>
+		<var name="ERROR" value="403"/>
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
     </test>
@@ -358,7 +358,7 @@
         <host>test-client</host>
         <dir>test-proxy-deny</dir>
         <var name="HOST" value="www.google.com"/>
-		<var name="ERROR" value="407"/>
+		<var name="ERROR" value="403"/>
         <var name="USERNAME" value="bar"/>
         <var name="PASSWORD" value="bar"/>
     </test>
