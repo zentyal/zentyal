@@ -28,7 +28,7 @@ use EBox::Types::HasMany;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
-
+use File::Basename;
 
 
 use constant LIST_FILE_DIR => '/etc/dansguardian/extralists';
@@ -510,13 +510,14 @@ sub cleanOrphanedFiles
         return;
 
 
-    my @listFiles = EBox::Sudo::root("find $dir -maxdepth 1 -type f");
+    my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") }; 
 
 
     my %expectedFiles = map {
         chomp $_;
             ($_ => 1);
     }   @listFiles;
+
 
     my $archivesDirBase = $self->archiveContentsDir();
     (-d $archivesDirBase) or
@@ -529,8 +530,7 @@ sub cleanOrphanedFiles
             next;
         }
 
-        $archDir =~ m{/(.*?)$};
-        my $basename = $1;
+        my $basename = basename($archDir);
         my $archiveFile = $dir . '/' . $basename;
         if (exists $expectedFiles{$archiveFile}) {
             next;
