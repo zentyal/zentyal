@@ -30,11 +30,7 @@ defined $groupName or
 groupname = '<% $groupName %>'
 
 # Content filtering files location
-% if ($threshold > 0) {
 bannedphraselist = '/etc/dansguardian/bannedphraselist'
-% } else {
-bannedphraselist = 
-% }
 weightedphraselist = '/etc/dansguardian/weightedphraselist'
 exceptionphraselist = '/etc/dansguardian/exceptionphraselist'
 
