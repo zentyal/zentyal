@@ -15,7 +15,7 @@ password='<% $password %>'
 % if ($service eq 'dyndns') {
 protocol=dyndns2
 server=members.dyndns.org
-web=checkip.dyndns.com/, web-skip='IP Address'
+use=web, web=checkip.dyndns.com/, web-skip='IP Address'
 % } elsif ($service eq 'zoneedit') {
 protocol=zoneedit1
 server=www.zoneedit.com
@@ -35,13 +35,13 @@ web=members.orgdns.org/nic/ip
 % } elsif ($service eq 'dnspark') {
 protocol=dnspark
 server=www.dnspark.com
-web=ipdetect.dnspark.com, web-skip='Current Address:'
+use=web, web=ipdetect.dnspark.com, web-skip='Current Address:'
 % } elsif ($service eq 'namecheap') {
 protocol=namecheap
 server=dynamicdns.park-your-domain.com
 % } elsif ($service eq 'joker') {
 protocol=dyndns2
 server=svc.joker.com
-web=svc.joker.com/nic/checkip, web-skip='IP Address:'
+use=web, web=svc.joker.com/nic/checkip, web-skip='IP Address:'
 % }
 <% $hostname %>
