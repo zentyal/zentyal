@@ -26,6 +26,7 @@ use base 'EBox::Types::Text';
 
 # eBox uses
 use EBox::Validate;
+use EBox::Gettext;
 
 # Group: Public methods
 
@@ -108,6 +109,15 @@ sub _paramIsValid
 
     if (defined ( $value )) {
         EBox::Validate::checkDomainName($value, $self->printableName());
+
+        my $seemsIp = EBox::Validate::checkIP($value);
+        if ($seemsIp) {
+            throw EBox::Exceptions::InvalidData
+                ('data' => $self->printableName(), 
+                 'value' => $value,
+                 'advice' => __('IP addresses are not allowed'),
+                );
+        }
     }
 
     return 1;

@@ -1,4 +1,5 @@
-test_scripts = Boolean.t File.t Float.t Host.t IPNetwork.t Int.t
+test_scripts = Boolean.t File.t Float.t  Int.t \
+              Host.t IPAddr.t IPNetwork.t DomainName.t
 
 EXTRA_DIST = $(test_scripts)
 
