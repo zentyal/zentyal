@@ -63,11 +63,7 @@ sub services
       push @providers, { 'value' => 'dyndns', printableValue => 'DynDNS' };
       push @providers, { 'value' => 'zoneedit', printableValue => 'ZoneEdit' };
       push @providers, { 'value' => 'easydns', printableValue => 'EasyDNS' };
-      push @providers, { 'value' => 'hn', printableValue => 'Hammernode' };
-      push @providers, { 'value' => 'dslreports', printableValue => 'dslreports.com' };
-      push @providers, { 'value' => 'orgdns', printableValue => 'OrgDNS.org' };
       push @providers, { 'value' => 'dnspark', printableValue => 'dnspark.com' };
-      push @providers, { 'value' => 'namecheap', printableValue => 'NameCheap' };
       push @providers, { 'value' => 'joker', printableValue => 'Joker.com' };
       return \@providers;
 }

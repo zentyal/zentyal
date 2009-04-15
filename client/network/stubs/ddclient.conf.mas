@@ -15,33 +15,22 @@ password='<% $password %>'
 % if ($service eq 'dyndns') {
 protocol=dyndns2
 server=members.dyndns.org
-use=web, web=checkip.dyndns.com/, web-skip='IP Address'
+web=checkip.dyndns.com, web-skip='Current IP Address:'
 % } elsif ($service eq 'zoneedit') {
 protocol=zoneedit1
-server=www.zoneedit.com
+server=dynamic.zoneedit.com
+web=www.zoneedit.com/checkip.html, web-skip='Current IP Address:'
 % } elsif ($service eq 'easydns') {
 protocol=easydns
 server=members.easydns.com
-% } elsif ($service eq 'hn') {
-protocol=hammernode1
-server=dup.hn.org
-% } elsif ($service eq 'dslreports') {
-protocol=dslreports1
-server=members.dslreports.com
-% } elsif ($service eq 'orgdns') {
-protocol=dyndns2
-server=www.orgdns.org
-web=members.orgdns.org/nic/ip
+web=checkip.dyndns.com, web-skip='Current IP Address:'
 % } elsif ($service eq 'dnspark') {
 protocol=dnspark
 server=www.dnspark.com
-use=web, web=ipdetect.dnspark.com, web-skip='Current Address:'
-% } elsif ($service eq 'namecheap') {
-protocol=namecheap
-server=dynamicdns.park-your-domain.com
+web=ipdetect.dnspark.com, web-skip='Current Address:'
 % } elsif ($service eq 'joker') {
 protocol=dyndns2
 server=svc.joker.com
-use=web, web=svc.joker.com/nic/checkip, web-skip='IP Address:'
+web=svc.joker.com/nic/checkip, web-skip='Current IP Address:'
 % }
 <% $hostname %>
