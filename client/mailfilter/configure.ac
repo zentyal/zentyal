@@ -59,7 +59,6 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
-src/EBox/Types/Makefile
 src/EBox/MailFilter/Makefile
 src/EBox/MailFilter/t/Makefile
 src/EBox/MailFilter/Types/Makefile
