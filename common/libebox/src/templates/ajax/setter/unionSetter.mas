@@ -20,7 +20,7 @@ foreach my $type (@{$data->subtypes()}) {
        'value'       => $data->selectedType(),
        'options'     => \@options,
        'id'          => "$id",
-       'onchange'    => qq{showSelected("$id","selectValues_$id", "$tableName");}
+       'onchange'    => qq{showSelected(this);}
   &>
   <span id="selectValues_<% $id %>">
 <%perl>
@@ -37,12 +37,13 @@ foreach my $type (@{$data->subtypes()}) {
       if ( defined ( $type->HTMLSetter() ))
       {
 </%perl>
+      <span id='<% "${id}_" . $type->fieldName() . '_container' %>' class='<% $cssClass %>'>
       <& $type->HTMLSetter(),
           'data' => $type,
           'tableName' => $tableName,
-          'cssClass' => $cssClass
       &>
 %     }
+      </span>
 % }
     </span>
 </span>

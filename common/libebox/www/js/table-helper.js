@@ -361,39 +361,23 @@ Function: showSelected
 
 Parameters:
 
-        selectId - the select identifier
-	nodeId   - the HTML node where all setters hang
-	tableName - the table name to build the id
+        selectElement - HTMLSelectElement 
 
 */
-function showSelected (selectId, nodeId, tableName)
+function showSelected (selectElement)
 {
 
-  var selectedIdx =  $(selectId).selectedIndex;
-
-  // If there is any selected value
-  if ( selectedIdx != -1 ) {
-    var selectedValue = $(selectId).options[selectedIdx].value;
-    // Build the value
-    selectedValue = tableName + "_" + selectedValue;
-
-    // Set every child as hidden except for the selected
-    for(var idx = 0; idx < $(nodeId).childNodes.length; idx++) {
-      var node = $(nodeId).childNodes[idx];
-      // I'd like to use constant but in IE 6 simply they don't exist
-      if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
-	var descendants = $(node).descendants();
-	if ( node.id == selectedValue ) {
-	  show( node.id );
-	} 
-	else {
-	  // Hide not only the selected by its children
-	  hide( node.id );
-	}
-      }
-    }
-  }
-
+   selectedValue = $F(selectElement) 
+   var options = selectElement.options; 
+   for (var i = 0; i < options.length; i++) {
+     var option = options[i].value;
+     var childId = selectElement.id + "_" + option + "_container";
+     if (selectedValue == option) {
+       show(childId);
+     } else {
+       hide(childId);
+     }
+   }   
 }
 
 /*
