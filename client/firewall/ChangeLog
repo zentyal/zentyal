@@ -6,6 +6,7 @@
 	  So far, only local address could be used.
 	+ Bugfix: fix regression that didn't allow to use virtual interfaces on
 	redirections
+	+ Allow outgoing connections from eBox by default
 0.12.101
 	+ Bugfix: Add redirect migration script to Makefile.am
 0.12.100
