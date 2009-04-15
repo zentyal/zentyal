@@ -80,7 +80,7 @@ sub _table
             ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Groups',
-#        'help' => __x('foo'),
+        'help' => '',
         'printableRowName' => __('group'),
         'sortedBy' => 'name',
     };
@@ -134,65 +134,48 @@ sub preconditionFailMsg
     }
 }
 
-sub rows
+# Method: ids
+#
+#   Override <EBox::Model::DataTable::ids> to return rows identifiers
+#   based on the groups stored in LDAP
+#
+sub ids
 {
-    my ($self, $filter, $page) = @_;
+    my ($self) = @_;
 
-    my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-
-    my $userMod = EBox::Global->modInstance('users');
-
-    unless ($userMod->configured()) {
+    my $users = EBox::Global->modInstance('users');
+    unless ($users->configured()) {
         return [];
     }
 
-    my @rows;
-    foreach my $groupInfo ($userMod->groups()) {
-        my $group = new EBox::Types::Text(
-                'fieldName' => 'name',
-                'printableName' => __('Name'),
-                'size' => '12',
-                'editable' => 1
-                );
-        my $groupName = $groupInfo->{'account'};
-        $group->setValue($groupName);
+    return [ map {$_->{gid}} $users->groups() ];
+}
 
-        my $description = new EBox::Types::Text(
-                'fieldName' => 'description',
-                'printableName' => __('Description'),
-                'size' => '30',
-                'editable' => 1
-                );
-        my $desc = $groupInfo->{'desc'};
-        defined $desc or
-            $desc = '';
-        $description->setValue($desc);
+# Method: row
+#
+#   Override <EBox::Model::DataTable::row> to build and return a
+#   row dependening on the user gid which is the id passwd.
+#
+sub row
+{
+    my ($self, $id) = @_;
 
-        my $link = new EBox::Types::Link(
-                'fieldName' => 'edit',
-                'printableName' => __('Edit'),
-                );
-         my $linkValue =  "/ebox/UsersAndGroups/Group?group=$groupName";
-         $link->setValue($linkValue);
-
-        my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-        $row->setModel($self);
-        $row->setId('NOT_USED');
-        $row->setReadOnly(1);
-        $row->addElement($group);
-        $row->addElement($description);
-        $row->addElement($link);
-
-        push @rows, $row; 
-    }
-
-    return $self->_filterRows(\@rows, $filter, $page);
+    my $users = EBox::Global->modInstance('users');
+    my $gidName = $users->gidGroup($id);
+    my $groupInfo  = $users->groupInfo($gidName);
+    my $desc = $groupInfo->{comment};
+    my $link = "/ebox/UsersAndGroups/Group?group=$gidName";
+    my $row = $self->_setValueRow(name => $gidName, 
+            description => defined($desc) ? $desc : '-',
+            edit => $link);
+    $row->setId($id);
+    $row->setReadOnly(1);
+    return $row;
 }
 
 sub Viewer
 {
-    return '/ajax/tableUser.mas';
+    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;
