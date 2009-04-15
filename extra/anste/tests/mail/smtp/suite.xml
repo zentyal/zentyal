@@ -36,7 +36,7 @@
         </desc>
 
         <host>ebox-server</host>
-        <dir>toggle-auth-or-ssl</dir>
+        <dir>disable-auth-option</dir>
         <var name="OPTION" value="tls"/>
     </test>
 
@@ -61,7 +61,7 @@
         </desc>
 
         <host>ebox-server</host>
-        <dir>toggle-auth-or-ssl</dir>
+        <dir>enable-auth-option</dir>
         <var name="OPTION" value="tls"/>
     </test>
 
@@ -86,7 +86,7 @@
         </desc>
 
         <host>ebox-server</host>
-        <dir>toggle-auth-or-ssl</dir>
+        <dir>enable-auth-option</dir>
         <var name="OPTION" value="sasl"/>
     </test>
 
@@ -132,7 +132,7 @@
         </desc>
 
         <host>ebox-smtp</host>
-        <dir>toggle-auth-or-ssl</dir>
+        <dir>enable-auth-option</dir>>
         <var name="OPTION" value="tls"/>
     </test>
 
@@ -159,7 +159,7 @@
 
     <test>
         <name>Test-Send-Other-NotAllowed</name>
-        <desc>Checks if mail sending to other smtp works.</desc>
+        <desc>Checks if mail relay to other smtp is forbidden.</desc>
 
         <host>test-client</host>
         <dir>test-smtp</dir>
@@ -185,7 +185,7 @@
 
     <test>
         <name>Test-Send-Other-Allowed</name>
-        <desc>Checks if mail sending to other smtp works.</desc>
+        <desc>Checks if mail relay to other smtp works.</desc>
 
         <host>test-client</host>
         <dir>test-smtp</dir>

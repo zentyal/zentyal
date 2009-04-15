@@ -1,33 +1,36 @@
 #!/usr/bin/perl
 
-use Net::SMTP;
-use Net::SMTP::SSL;
 
-my $smtp;
+my $TO     = $ENV{TO};
+my $FROM   = $ENV{FROM};
+my $TEXT   = $ENV{TEXT};
+my $SSL    = $ENV{SSL};
+my $SERVER = $ENV{SERVER};
+my $AUTH_USER   = $ENV{AUTH_USER};
+my $AUTH_PASSWD = $ENV{AUTH_PASSWD};
 
-my $TO = $ENV{TO};
-my $FROM = $ENV{FROM};
-my $TEXT = $ENV{TEXT};
-
-if ($ENV{SSL}) {
-    $smtp = new Net::SMTP::SSL($ENV{SERVER}, Port => 465) or 
-        die "CONNECT error: $@";
-}
-else {
-    $smtp = new Net::SMTP($ENV{SERVER}) or die "CONNECT error: $@";
+my $cmd = "sendEmail -f $FROM -t $TO -u '$TEXT' -m '$TEXT' -s $SERVER ";
+$cmd .= ' -o tls=yes' if $SSL;
+if ($AUTH_USER) {
+    $cmd .=  " -xu $AUTH_USER -xp $AUTH_PASSWD";
 }
 
-if ($ENV{AUTH}) {
-    $smtp->auth('eboxtest@foobar.mail', 'eboxtest') or die "AUTH error: $@";
+sleep 100; # XXX assure the serve is ain good state. move to the test usite
+           # itself?
+
+my @output = `$cmd`;
+
+my $success = grep {
+    m/Email was sent successfully/
+} @output;
+
+if (not $success) {
+    die "@output";
 }
 
-$smtp->mail($FROM) or die "MAIL FROM error: $@";
-$smtp->recipient($TO) or die "RCPT TO error: $@";
+print "@output";
 
-$smtp->data();
-$smtp->datasend("To: $TO");
-$smtp->datasend("\n");
-$smtp->datasend("$TEXT\n");
-$smtp->dataend() or die "SEND error";
 
-$smtp->quit();
+1;
+
+
