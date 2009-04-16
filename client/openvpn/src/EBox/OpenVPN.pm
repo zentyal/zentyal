@@ -828,19 +828,15 @@ sub firewallHelper
     my @ifaces = map {$_->iface() } $self->activeDaemons();
 
     my @activeServers =  $self->activeServers();
-    my @ports = map {
-        my $port = $_->port();
-        my $proto = $_->proto();
-        my $external = $_->runningOnInternalIface ? 0 : 1;
-        my $listen   = $_->local();
-
-        {
-           port => $port,
-           proto => $proto,
-           external => $external,
-           listen => $listen
-        }
-    }  @activeServers;
+    my @ports;
+    for my $server (@activeServers) {
+        push @ports, {
+           port => $server->port(),
+           proto => $server->proto(),
+           external => $server->runningOnInternalIface() ? 0 : 1,
+           listen => $server->local()
+        };
+    }
 
     my %networksToMasquerade = map {
         my $network = $_->subnet();
