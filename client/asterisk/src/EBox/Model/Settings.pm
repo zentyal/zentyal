@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Settings;
 
 # Class: EBox::Asterisk::Model::Settings
 #
-#       Form to set the general configuration settings for the Asterisk server
+#       Form to set the general configuration for the Asterisk server
 #
 
 use base 'EBox::Model::DataForm';
@@ -134,7 +134,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Settings',
-        printableTableName => __('General settings'),
+        printableTableName => __('General configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',

@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Provider;
 
 # Class: EBox::Asterisk::Model::Provider
 #
-#      Form to set the configuration settings for the SIP provider
+#      Form to set the configuration for the SIP provider
 #
 
 use base 'EBox::Model::DataForm';
@@ -117,7 +117,7 @@ sub _table
         class              => 'dataForm',
         help               => __('SIP provider for outgoing calls configuration'),
         messages           => {
-                                  update => __('SIP provider configuration settings updated'),
+                                  update => __('SIP provider configuration updated'),
                               },
         modelDomain        => 'Asterisk',
     };

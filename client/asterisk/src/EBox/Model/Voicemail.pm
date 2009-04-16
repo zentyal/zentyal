@@ -138,8 +138,18 @@ sub _addTypedRow
 
     my $pass = $paramsRef->{'pass'}->value();
     my $mail = $paramsRef->{'mail'}->value();
-    my $attach = if ($paramsRef->{'attach'}->value()) ? 'yes' : 'no';
-    my $delete = if ($paramsRef->{'delete'}->value()) ? 'yes' : 'no';
+    my $attach;
+    if ($paramsRef->{'attach'}->value()) {
+       $attach = 'yes';
+    } else {
+       $attach = 'no';
+    }
+    my $delete;
+    if ($paramsRef->{'delete'}->value()) {
+       $delete = 'yes';
+    } else {
+       $delete = 'no';
+    }
 
     my $users = EBox::Global->modInstance('users');
 

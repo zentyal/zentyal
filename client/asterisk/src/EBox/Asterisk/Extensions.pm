@@ -126,13 +126,12 @@ sub firstFreeExtension
 
     my $len = @extns;
 
-    # FIXME this only works as expected if we begin with a 1000 extension XXX
-    # but i think is still safe to use :=)
     my $extn;
-    if ($len == 0) {
+    if ($len == 0) { # this is needed in case the array is empty
         return MINEXTN;
-    } elsif ($len == 1) {
-        return $extns[0]+1;
+    } elsif (($extns[0] ne MINEXTN)) { # if first range value is free we return
+        # it, this assures next code allways fill in the full range
+        return MINEXTN;
     } else {
         for (my $i=0; $i < $len-1; $i++) {
             if ($extns[$i+1]-$extns[$i] > 1) {
@@ -140,7 +139,7 @@ sub firstFreeExtension
                 return $extn <= MAXEXTN ? $extn : 0;
             }
         }
-    }
+    } # we didn't find any hole
     $extn = $extns[$#extns]+1;
     return $extn <= MAXEXTN ? $extn : 0;
 }

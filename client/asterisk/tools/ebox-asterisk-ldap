@@ -20,8 +20,6 @@ sub update {
 		'objectClass' => 'organizationalUnit'
 	]);
 	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
-
-         $extensions->addExtension($extensions->VMDFTLEXTN, 1, 'VoicemailMain', 'users');
 }
 
 sub clean {
@@ -54,4 +52,3 @@ if ($ARGV[0] eq 'update') {
 } else {
 	usage();
 }
-

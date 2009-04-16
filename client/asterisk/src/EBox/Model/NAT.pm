@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::NAT;
 
 # Class: EBox::Asterisk::Model::NAT
 #
-#       Form to set the NAT configuration settings for the Asterisk server
+#       Form to set the NAT configuration for the Asterisk server
 #
 
 use base 'EBox::Model::DataForm';
@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-use EBox::Types::HostIP;
+use EBox::Types::Host;
 use EBox::Types::DomainName;
 
 # Group: Public methods
@@ -100,7 +100,7 @@ sub _table
                                         fieldName => 'no',
                                         printableName => __('No'),
                                     ),
-                                    new EBox::Types::HostIP(
+                                    new EBox::Types::Host(
                                         fieldName => 'fixedIP',
                                         printableName => 'Fixed IP address',
                                         editable => 1,
@@ -117,7 +117,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'NAT',
-        printableTableName => __('NAT settings'),
+        printableTableName => __('NAT configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',

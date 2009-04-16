@@ -365,7 +365,7 @@ sub _setMeetings
                            adminpin => $adminpin,
                          });
         #$extns->addExtension($alias, 1, 'GoTo', $exten); #FIXME when we delete these extensions? XXX
-        $extns->addExtension($exten, 1, 'MeetMe', $exten); #FIXME when we delete these extensions? XXX
+        $extns->addExtension($exten, 1, 'MeetMe', $exten);
     }
 
     my @params = ( meetings => \@meetings );

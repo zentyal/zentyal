@@ -1,2 +1,2 @@
-exec /usr/sbin/asterisk
+exec /usr/sbin/asterisk -f
 respawn
