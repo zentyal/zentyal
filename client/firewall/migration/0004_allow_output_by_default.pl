@@ -39,7 +39,7 @@ sub runGConf
     }
     $fw->add(
             decision => 'accept',
-            destination => { 'destination_any' => undef},
+            destination => { destination_any => undef },
             description => '',
             service => $anyRow->id()
             );
