@@ -32,7 +32,7 @@
     <test type="selenium">
         <name>SetSSLOff</name>
         <desc>
-        Toggles tls checkbox.
+        Disable tls checkbox.
         </desc>
 
         <host>ebox-server</host>
@@ -42,16 +42,15 @@
 
     <test>
         <name>Test-SMTP-NoAuth-NoSSL</name>
-        <desc>Checks if mail sending works.</desc>
+        <desc>Checks if mail reception for a domain account works.</desc>
 
         <host>test-client</host>
         <dir>test-smtp</dir>
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="0"/>
-        <var name="AUTH" value="0"/>
     </test>
 
     <test type="selenium">
@@ -65,18 +64,37 @@
         <var name="OPTION" value="tls"/>
     </test>
 
-    <test>
-        <name>Test-SMTP-NoAuth-SSL</name>
-        <desc>Checks if mail sending works.</desc>
+        <test>
+        <name>Test-SMTP-NoAuth-NoTSL-NeedTSL</name>
+        <desc>
+        Checks if mail reception for a domain account requires TSL when TSL isoption is enabled
+        </desc>
 
         <host>test-client</host>
         <dir>test-smtp</dir>
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
+        <var name="SSL" value="0"/>
+
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-SMTP-NoAuth-SSL</name>
+        <desc>Checks if mail reception for a domain account works.</desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="eboxtest@foobar.mail"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="1"/>
-        <var name="AUTH" value="0"/>
+
+        <var name="SLEEP" value="0"/>
     </test>
 
     <test type="selenium">
@@ -92,16 +110,17 @@
 
     <test>
         <name>Test-SMTP-Auth-SSL</name>
-        <desc>Checks if mail sending works.</desc>
+        <desc>Checks if mail domain account can receive mail
+              with the authorization
+        </desc>
 
         <host>test-client</host>
         <dir>test-smtp</dir>
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="1"/>
-        <var name="AUTH" value="1"/>
     </test>
 
     <test type="selenium">
@@ -166,12 +185,49 @@
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="0"/>
-        <var name="AUTH" value="0"/>
 
-        <assert>failed</assert>
+        <var name="LOOK_FOR" value="Relay access denied" />
     </test>
+
+    <test>
+        <name>Test-Send-Other-Allowed-With-Auth</name>
+        <desc>Checks if mail relay to other smtp works.
+              with authorization
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="receiver@mail.ebox-smtp"/>
+        <var name="TEXT" value="Cool"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
+        <var name="AUTH_PASSWD" value="eboxtest"/>
+    </test>
+
+    <test>
+        <name>Test-Send-Other-Allowed-With-Invalid-Auth</name>
+        <desc>
+           Checks that is unable to send mail with wrong credentials
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-smtp</dir>
+        <var name="SERVER" value="192.168.2.1"/>
+        <var name="FROM" value="eboxtest@foobar.mail"/>
+        <var name="TO" value="receiver@mail.ebox-smtp"/>
+        <var name="TEXT" value="Cool"/>
+        <var name="SSL" value="0"/>
+        <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
+        <var name="AUTH_PASSWD" value="wrongPassword"/>
+
+        <var name="LOOK_FOR" value="authentication failed"/>
+        <var name="SLEEP" value="0"/>
+    </test>
+
 
     <test type="selenium">
         <name>AllowRelay</name>
@@ -184,7 +240,7 @@
     </test>
 
     <test>
-        <name>Test-Send-Other-Allowed</name>
+        <name>Test-Send-Other-Allowed-With-Relay</name>
         <desc>Checks if mail relay to other smtp works.</desc>
 
         <host>test-client</host>
@@ -192,9 +248,8 @@
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="0"/>
-        <var name="AUTH" value="0"/>
     </test>
 
     <test>
@@ -206,7 +261,7 @@
 
         <var name="USER" value="receiver"/>
         <var name="VDOMAIN" value="mail.ebox-smtp"/>
-        <var name="PATTERN" value="Cool!"/>
+        <var name="PATTERN" value="Cool"/>
     </test>
 
     <test type="selenium">
@@ -247,9 +302,8 @@
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="spamer@foo.bar"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
-        <var name="TEXT" value="Cool!"/>
+        <var name="TEXT" value="Cool"/>
         <var name="SSL" value="0"/>
-        <var name="AUTH" value="0"/>
     </test>
 
     <test>

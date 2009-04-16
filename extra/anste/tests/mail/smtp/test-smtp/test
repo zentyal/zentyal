@@ -9,19 +9,27 @@ my $SERVER = $ENV{SERVER};
 my $AUTH_USER   = $ENV{AUTH_USER};
 my $AUTH_PASSWD = $ENV{AUTH_PASSWD};
 
+my $LOOK_FOR  = $ENV{LOOK_FOR};
+defined $LOOK_FOR or
+    $LOOK_FOR = 'Email was sent successfully';
+
+my $SLEEP = $ENV{SLEEP};
+defined $SLEEP or
+    $SLEEP = 100;
+
 my $cmd = "sendEmail -f $FROM -t $TO -u '$TEXT' -m '$TEXT' -s $SERVER ";
 $cmd .= ' -o tls=yes' if $SSL;
 if ($AUTH_USER) {
     $cmd .=  " -xu $AUTH_USER -xp $AUTH_PASSWD";
 }
 
-sleep 100; # XXX assure the serve is ain good state. move to the test usite
+sleep $SLEEP; # XXX assure the serve is ain good state. move to the test usite
            # itself?
 
 my @output = `$cmd`;
 
 my $success = grep {
-    m/Email was sent successfully/
+    m/$LOOK_FOR/
 } @output;
 
 if (not $success) {
