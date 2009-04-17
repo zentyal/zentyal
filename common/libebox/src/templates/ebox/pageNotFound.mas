@@ -6,8 +6,7 @@ my $eboxHomepageAHref = "<a href='http://www.ebox-platform.com'>$eboxHomepageNam
 my @tipList = (
    __(q{If you typed the URL manually, please check it}),
    __(q{Maybe a change in eBox's configuration or software made no longer available the requested page}),
-   __x(q{If you need more help, you may want visit {homepage} for
-   documentation and mailing lists}, homepage => $eboxHomepageAHref),
+   __x(q{If you need more help, you may want visit {homepage} for documentation and mailing lists}, homepage => $eboxHomepageAHref),
 );
 </%init>
 <h4><% __(q{we're sorry}) %></h4>

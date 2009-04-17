@@ -629,9 +629,9 @@ sub setErrorchain
 
 # Method: paramsAsHash
 #  		
-# Returns:
-#    a reference to a hash wich contains the CGI parameters and his values as keys and values of the hash	
-# 
+# Returns: a reference to a hash which contains the CGI parameters and
+#    its values as keys and values of the hash
+#
 # Possible implentation improvements:
 #  maybe it will be good idea cache this in some field of the instance
 sub paramsAsHash
