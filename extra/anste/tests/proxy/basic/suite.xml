@@ -410,7 +410,8 @@
 		</desc>
 
         <host>ebox-server</host>
-        <dir>add-profile-no-antivirus</dir>
+        <dir>add-profile-antivirus</dir>
+        <var name="ANTIVIRUS_ACTION" value="uncheck"/>
         <var name="PROFILE" value="filter-no-av"/>
 		<var name="GROUP" value="noantivirusgroup"/>
 		<var name="POLICY" value="Allow"/>
@@ -424,7 +425,8 @@
 		</desc>
 
         <host>ebox-server</host>
-        <dir>add-profile-w-antivirus</dir>
+        <dir>add-profile-antivirus</dir>
+        <var name="ANTIVIRUS_ACTION" value="check"/>
         <var name="PROFILE" value="filter-av"/>
 		<var name="GROUP" value="antivirusgroup"/>
 		<var name="POLICY" value="Allow"/>
