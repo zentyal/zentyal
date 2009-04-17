@@ -360,6 +360,7 @@ sub _addVDomain
         my $add = $ldap->modify($dn, \%attrs ); 
     }
 
+    $self->_vdomainsListChanged();
 }
 
 
@@ -527,7 +528,8 @@ sub _delVDomain
     if ( $ldap->isObjectClass($dn, 'vdmailfilter')) {
         $ldap->delObjectclass($dn, 'vdmailfilter');
     }
-
+    
+    $self->_vdomainsListChanged();
 }
 
 sub _modifyVDomain
@@ -538,7 +540,17 @@ sub _delVDomainWarning
 {
 }
 
+sub _vdomainsListChanged
+{
+    my ($self) = @_;
 
+    my $mf =  EBox::Global->modInstance('mailfilter');
+    my $smtpFilter = $mf->smtpFilter();
+    # only the smtp filter needs to renerate its config
+    if ($smtpFilter->isEnabled()) {
+        $mf->setAsChanged();
+    }
+}
 
 
 sub _includeLDAPSchemas 

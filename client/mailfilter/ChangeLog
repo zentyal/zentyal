@@ -3,6 +3,8 @@
 	+ bugfix: if the module is disabled the filter now appears as disabled as it should be
 	+ Now antivirus service has its own eBox module
 	+ Fixed migration script that broke in new  versions
+	+ Bug fix: when adding/removing vdomains we assure that amavis is
+	notified of the changes
 0.12.100
 	+ Bugfix: validation of General model now works properly
 	+ Added POP transparent proxy
