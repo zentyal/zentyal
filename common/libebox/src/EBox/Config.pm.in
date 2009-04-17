@@ -73,11 +73,12 @@ sub configkeyFromFile # (key, file)
 	open(my $CONF, $file) or 
 		throw EBox::Exceptions::External(
 					__x('Could not open the config file {file}.', file => $file));
-	while (<$CONF>) {
-		$_ =~ s/\s//g;
-		$_ =~ s/#.*//g;
-		($_ eq '') and next;
-		my ($nkey, $nvalue) = $_ =~ /(.*?)=(.*)/;
+	my @lines = <$CONF>;
+	for my $line (@lines) {
+		$line =~ s/\s//g;
+		$line =~ s/#.*//g;
+		($line eq '') and next;
+		my ($nkey, $nvalue) = $line =~ /(.*?)=(.*)/;
 		if ($nkey eq $key) {
 			$value = $nvalue;
 			last;
