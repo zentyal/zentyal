@@ -612,7 +612,7 @@ sub _iexternal
 
     my @commands;
 
-    $self->_iexternalCheckInit();
+    push (@commands, @{$self->_iexternalCheckInit()});
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToEBoxRuleTable()}) {
         push(@commands, pf("$rule"));
