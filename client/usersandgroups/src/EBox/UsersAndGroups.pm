@@ -1496,8 +1496,13 @@ sub _modsLdapUserBase
 
     my @modules;
     foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
+         my $mod = EBox::Global->modInstance($name);
+        
         if ($mod->isa('EBox::LdapModule')) {
+            if ($mod->isa('EBox::Module::Service')) {
+                $mod->configured() or
+                    next;
+            }   
             push (@modules, $mod->_ldapModImplementation);
         }
     }
