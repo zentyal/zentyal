@@ -1500,8 +1500,10 @@ sub _modsLdapUserBase
         
         if ($mod->isa('EBox::LdapModule')) {
             if ($mod->isa('EBox::Module::Service')) {
-                $mod->configured() or
-                    next;
+                if ($name ne $self->name()) {
+                    $mod->configured() or
+                        next;
+                }
             }   
             push (@modules, $mod->_ldapModImplementation);
         }
