@@ -203,6 +203,8 @@ sub configured
 sub setConfigured 
 {
     my ($self, $status) = @_;
+    defined $status or
+        $status = 0;
 
     return unless ($self->configured() xor $status);
     return $self->st_set_bool('_serviceConfigured', $status);
@@ -350,6 +352,8 @@ sub addModuleStatus
 sub enableService
 {
     my ($self, $status) = @_;
+    defined $status or
+        $status = 0;
 
     return unless ($self->isEnabled() xor $status);
 
