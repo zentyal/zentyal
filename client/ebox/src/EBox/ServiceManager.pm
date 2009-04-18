@@ -421,7 +421,7 @@ sub enableAllModules
         try {
             $module->enableActions();
         } otherwise {
-            my $ex = @_;
+            my ($ex) = @_;
             $module->setConfigured(undef);
             $module->enableService(undef);
             EBox::warn("Falied to enable module $modName: "  . $ex->text());
