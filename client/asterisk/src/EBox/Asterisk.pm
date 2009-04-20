@@ -254,6 +254,9 @@ sub _setRealTime
 
     my @params = ();
 
+    push (@params, url => EBox::Ldap->ldapConf->{'ldap'});
+    push (@params, dn => EBox::Ldap->ldapConf->{'dn'});
+    push (@params, rootdn => EBox::Ldap->ldapConf->{'rootdn'});
     push (@params, password => EBox::Ldap->getPassword());
 
     $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params);
@@ -271,10 +274,20 @@ sub _setExtensions
 
     push (@params, demoextensions => $model->demoExtensionsValue());
     push (@params, outgoingcalls => $model->outgoingCallsValue());
+    push (@params, domain => $model->domainValue());
 
     $model = $self->model('Provider');
 
     push (@params, name => $model->nameValue());
+
+    my $network = EBox::Global->modInstance('network');
+    my $ifaces = $network->InternalIfaces();
+    my @localaddrs = ();
+    for my $iface (@{$ifaces}) {
+        push(@localaddrs, $network->ifaceAddress($iface));
+    }
+
+    push (@params, localaddrs => \@localaddrs);
 
     $self->writeConfFile(EXTNCONFFILE, "asterisk/extensions.conf.mas", \@params);
 }
@@ -328,6 +341,7 @@ sub _setSIP
 
     $model = $self->model('Settings');
 
+    push (@params, domain => $model->domainValue());
     push (@params, outgoingcalls => $model->outgoingCallsValue());
 
     $model = $self->model('Provider');
@@ -371,6 +385,22 @@ sub _setMeetings
     my @params = ( meetings => \@meetings );
 
     $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params);
+}
+
+
+# Method: fqdn
+#FIXME doc
+sub fqdn
+{
+    my $fqdn = `hostname --fqdn`;
+    if ($? != 0) {
+        throw EBox::Exceptions::Internal(
+        'eBox was unable to get the full qualified domain name for his host./'
+        .'Please, check that your name resolver and /etc/hosts are properly configured.'
+        );
+    }
+    chomp $fqdn;
+    return $fqdn;
 }
 
 

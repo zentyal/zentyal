@@ -30,6 +30,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;
 use EBox::Types::Boolean;
+use EBox::Types::DomainName;
+use EBox::Asterisk;
 use EBox::Asterisk::Extensions;
 
 # Group: Public methods
@@ -128,6 +130,12 @@ sub _table
                                 editable      => 1,
                                 size          => 4,
                                 defaultValue  => EBox::Asterisk::Extensions->VMDFTLEXTN,
+                               ),
+       new EBox::Types::DomainName(
+                                fieldName     => 'domain',
+                                printableName => __('VoIP domain'),
+                                editable      => 1,
+                                defaultValue  => EBox::Asterisk->fqdn(),
                                ),
       );
 

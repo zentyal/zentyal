@@ -2,6 +2,8 @@
     $demoextensions
     $outgoingcalls
     $name
+    @localaddrs
+    $domain
 </%args>
 ;
 ; Asterisk dial plan configuration file
@@ -43,9 +45,39 @@ include => common
 switch => Realtime
 
 [users]
-include => default
+exten => s,1,Set(CALLERID(number)=${CALLERID(number)}@<% $domain %>)
 % if ($outgoingcalls) {
+include => dial-uri
 exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
 exten => _0.,2,Congestion()
 exten => _0.,102,Busy()
+% } else {
+include => default
 % }
+
+[dial-uri]
+% my $i = 0;
+% foreach my $addr (@localaddrs) {
+% $i++;
+exten => _.,1,Set(AsteriskIP<% $i %>=<% $addr %>)
+% }
+exten => _.,n,Set(AsteriskDNS=<% $domain %>)
+
+exten => _.,n,GotoIf($[${LEN(${SIPDOMAIN})} = 0]?local) ; if there is no domain in the URI, the call is considered local
+exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskDNS}]?local) ; the call is considered local (for our Intranet)
+exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskDNS}:5060]?local) ; the same with a port number appending
+% $i = 0;
+% foreach my $addr (@localaddrs) {
+% $i++;
+exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}]?local) ; for phones appending the proxy IP adress
+exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}:5060]?local) ; same with port number appending
+% }
+
+exten => _.,n,Macro(uridial,${EXTEN}@${SIPDOMAIN})
+exten => _.,n,HangUp()
+exten => _.,n(local),Goto(default,${EXTEN},1)
+exten => h,1,HangUp()
+
+[macro-uridial]
+exten => s,1,Dial(SIP/${ARG1},120)
+exten => s,n,Congestion()

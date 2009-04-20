@@ -1,4 +1,7 @@
 <%args>
+    $url
+    $dn
+    $rootdn
     $password
 </%args>
 ;
@@ -6,11 +9,10 @@
 ;
 
 [_general]
-url=ldap://localhost/
-;protocol=3                          ; Version of the LDAP protocol to use; default is 3.
-;basedn=MyRootDN                     ; Base DN
-basedn=dc=ebox
-user=cn=admin,dc=ebox
+protocol=3
+url=<% $url %>
+basedn=<% $dn %>
+user=<% $rootdn %>
 pass=<% $password %>
 
 [config]

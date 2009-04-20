@@ -3,6 +3,7 @@
     $type
     $value
     @localnets
+    $domain
     $outgoingcalls
     $name
     $username
@@ -18,6 +19,7 @@
 context=default
 allowoverlap=no
 realm=ebox
+fromdomain=<% $domain %>
 
 udpbindaddr=0.0.0.0
 tcpenable=no

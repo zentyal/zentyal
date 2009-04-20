@@ -6,7 +6,7 @@
 
 format=wav49|gsm|wav
 
-serveremail=asterisk_no-reply@
+serveremail=asterisk_no-reply@localhost
 
 maxmsg=100 ; max msg
 maxsecs=180 ; max msg length
