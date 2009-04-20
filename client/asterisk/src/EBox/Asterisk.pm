@@ -155,7 +155,7 @@ sub usedFiles
 
     push (@usedFiles, {
                         'file' => '/etc/ldap/slapd.conf',
-                        'reason' => __('To add a new schema.'),
+                        'reason' => __('To add the Asterisk schema and ACLs.'),
                         'module' => 'users'
                       });
 

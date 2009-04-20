@@ -4,12 +4,12 @@
     $name
 </%args>
 ;
-; Asterisk dial plan
+; Asterisk dial plan configuration file
 ;
 
 [general]
 static = yes
-writeprotect = no
+writeprotect = yes
  
 [globals]
 CONSOLE = Console/dsp

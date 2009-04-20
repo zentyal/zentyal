@@ -140,7 +140,11 @@ sub _getUserMail
     my $result = $self->{'ldap'}->search(\%attrs);
 
     my $entry = $result->entry(0);
-    return ($entry->get_value('mail'));
+    if ( $entry->get_value('mail') ) {
+        return $entry->get_value('mail');
+    } else {
+        return "user\@domain";
+    }
 }
 
 

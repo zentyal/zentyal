@@ -87,6 +87,7 @@ objectIdentifier AstAccountVMPassword AstAttrType:50
 objectIdentifier AstAccountLastms AstAttrType:51
 objectIdentifier AstAccountVMAttach AstAttrType:52
 objectIdentifier AstAccountVMMail AstAttrType:53
+objectIdentifier AstAccountVMDelete AstAttrType:54
 
 
 #############################################################################
@@ -506,6 +507,13 @@ attributetype ( AstAccountVMMail
         SUBSTR caseIgnoreSubstringsMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
 
+attributetype ( AstAccountVMDelete
+        NAME 'AstAccountVMDelete'
+        DESC 'Asterisk Account Voicemail Delete' 
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+
 
 #############################################################################
 # Object Class definitions
@@ -625,7 +633,8 @@ objectclass ( AsteriskVoicemail
         AstAccountMailbox $ 
         AstAccountVMPassword $
         AstAccountVMMail $
-        AstAccountVMAttach
+        AstAccountVMAttach $
+        AstAccountVMDelete
     ) 
     )
 

@@ -129,7 +129,7 @@ sub firstFreeExtension
     my $extn;
     if ($len == 0) { # this is needed in case the array is empty
         return MINEXTN;
-    } elsif (($extns[0] ne MINEXTN)) { # if first range value is free we return
+    } elsif (($extns[0] ne MINEXTN."-1")) { # if first range value is free we return
         # it, this assures next code allways fill in the full range
         return MINEXTN;
     } else {
@@ -185,9 +185,10 @@ sub addUserExtension
     }
 
     $self->addExtension($user, '1', 'Goto', "$extn,1");
-    $self->addExtension($extn, '1', 'Dial', "SIP/$user");
-    $self->addExtension($extn, '2', 'HangUp', 0);
-    $self->addExtension($extn, '102', 'Voicemail', "$extn,u");
+    $self->addExtension($extn, '1', 'Dial', "SIP/$user,15");
+    $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
+    $self->addExtension($extn, '3', 'HangUp', 0);
+    $self->addExtension($extn, '102', 'Voicemail', "$extn,b");
     $self->addExtension($extn, '103', 'HangUp', 0);
 }
 
