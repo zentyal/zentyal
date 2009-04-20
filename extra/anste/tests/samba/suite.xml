@@ -26,14 +26,26 @@
     </test>
 
     <test type="selenium">
-        <name>ConfigFileServer</name>
+        <name>DisablePDC</name>
         <desc>
-        Enables file sharing service and sets working mode
-        to File server.
+        Disable PDC.
         </desc>
 
         <host>ebox-server</host>
-        <dir>config-fileserver</dir>
+        <dir>toggle-pdc</dir>
+        <var name="PDC_ACTION" value="uncheck"/>
+    </test>
+
+    <test type="selenium">
+        <name>ChangeDefaultQuota</name>
+        <desc>
+        Changes the default quota to 1MB.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>change-default-quota</dir>
+
+        <var name="QUOTA" value="1"/>
     </test>
 
     <test type="selenium">
@@ -47,41 +59,6 @@
 
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
-    </test>
-
-    <test>
-        <name>TestUserShareRead</name>
-        <desc>Puts a file into the created user account</desc>
-
-        <host>test-client</host>
-        <dir>test-write</dir>
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
-        <var name="SHARE" value="foo"/>
-        <var name="ERROR" value="NT_"/>
-    </test>
-    <test>
-        <name>TestUserShareWrite</name>
-        <desc>Gets a file into the created user account</desc>
-
-        <host>test-client</host>
-        <dir>test-read</dir>
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
-        <var name="SHARE" value="foo"/>
-        <var name="ERROR" value="NT_"/>
-    </test>
-
-    <test type="selenium">
-        <name>ChangeQuota</name>
-        <desc>
-        Changes the user quota to 1MB.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>change-quota</dir>
-
-        <var name="quota" value="1"/>
     </test>
 
     <test>
@@ -101,6 +78,42 @@
     </test>
 
     <test type="selenium">
+        <name>ChangeUserQuota</name>
+        <desc>
+        Changes the user quota to 15MB.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-user-quota</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="QUOTA" value="15"/>
+    </test>
+
+    <test>
+        <name>TestUserShareWrite</name>
+        <desc>Puts a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <name>TestUserShareRead</name>
+        <desc>Gets a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
         <name>AddEboxShare</name>
         <desc>
         Adds a share under ebox directory and
@@ -113,7 +126,7 @@
         <var name="SHARE_PATH" value="foobar"/>
         <var name="TYPE" value="ebox"/>
         <var name="TYPE_LABEL" value="Directory under eBox"/>
-        <var name="quota" value="100"/>
+        <var name="QUOTA" value="100"/>
     </test>
 
     <test>
@@ -512,5 +525,26 @@
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnablePDC</name>
+        <desc>
+        Enable PDC.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-pdc</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnablePDC</name>
+        <desc>
+        Enable PDC.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-pdc</dir>
+        <var name="PDC_ACTION" value="check"/>
     </test>
 </suite>

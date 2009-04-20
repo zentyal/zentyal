@@ -2,8 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Samba
 
-nobase_perl_DATA = ActiveSharing.pm ActivePrinting.pm Index.pm \
-		   Enable.pm SambaConf.pm
+nobase_perl_DATA = ActiveSharing.pm ActivePrinting.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

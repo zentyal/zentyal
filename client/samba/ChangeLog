@@ -1,4 +1,7 @@
 1.1
+    + Bugfix: issue with codepages on shares
+    + Home drive letter can be changed now from general settings
+    + Added new PDC model with password settings
 	+ Use the new row() and ids() API
 	+ Windows user's profiles are backed up only in extended backups
 	+ Enable quota support again

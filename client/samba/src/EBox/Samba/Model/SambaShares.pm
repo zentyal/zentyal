@@ -135,10 +135,9 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'SambaShares',
-                     printableTableName => __('List of samba shares'),
-                     pageTitle          => __('Samba shares'),
+                     printableTableName => __('Shares'),
                      modelDomain        => 'Samba',
-                     defaultActions     => [ 'add', 'del', 
+                     defaultActions     => [ 'add', 'del',
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      menuNamespace      => 'Samba/View/SambaShares',
@@ -261,12 +260,12 @@ sub createDirs
         try {
             EBox::Sudo::root("mkdir -p $path");
             EBox::Sudo::root('chmod ' . DEFAULT_MASK . " $path");
-            EBox::Sudo::root('chown ' . DEFAULT_USER . ':' 
+            EBox::Sudo::root('chown ' . DEFAULT_USER . ':'
                              .  DEFAULT_GROUP . " $path");
         } otherwise {
             EBox::debug("Couldn't create dir $path");
         };
-       
+
     }
 }
 

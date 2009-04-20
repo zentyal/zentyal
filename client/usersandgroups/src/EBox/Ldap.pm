@@ -52,13 +52,14 @@ use constant LDAP_GROUP    => 'openldap';
 # Singleton variable
 my $_instance = undef;
 
-sub _new_instance {
-        my $class = shift;
+sub _new_instance
+{
+    my $class = shift;
 
-        my $self = {};
-        $self->{ldap} = undef;
-        bless($self, $class);
-        return $self;
+    my $self = {};
+    $self->{ldap} = undef;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: instance
@@ -79,401 +80,482 @@ sub instance
     return $_instance;
 }
 
-# Method: ldapCon 
+# Method: ldapCon
 #
 #       Returns the Net::LDAP connection
-#       
-# Returns:    
-#               
-#       An object of class Net::LDAP whose connection has already bound       
 #
-# Exceptions: 
-#               
+# Returns:
+#
+#       An object of class Net::LDAP whose connection has already bound
+#
+# Exceptions:
+#
 #       Internal - If connection can't be created
-sub ldapCon {
-        my $self = shift;
-        # Workaround to detect if connection is broken and force reconnection
+sub ldapCon
+{
+    my ($self) = @_;
 
-        my $reconnect;
-        if ($self->{ldap}) {
-                my $mesg = $self->{ldap}->search(
-                                base   => 'dc=ebox',
-                                scope => 'base',                 
-                                filter => "(cn=*)",
-                                );
-                if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
-                  $self->{ldap}->unbind;
-                  $reconnect = 1;
-                }
+    # Workaround to detect if connection is broken and force reconnection
+    my $reconnect;
+    if ($self->{ldap}) {
+        my $mesg = $self->{ldap}->search(
+                base   => 'dc=ebox',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
+            $self->{ldap}->unbind;
+            $reconnect = 1;
         }
+    }
 
 
-        if ((not defined $self->{ldap}) or $reconnect) {
-                # We try to connect 5 times in 5 seconds, as we might need to 
-                # give slapd some time to accept connections after a
-                # slapd restart
-                my $connected = undef;
-                for (0..4) {
-                        $self->{ldap} = Net::LDAP->new (LDAPI);
-                        if ($self->{ldap}) {
-                                $connected = 1;
-                                last;
-                        } else {
-                                sleep (1);
-                        }       
-                }
-                unless ($connected) {
-                        throw EBox::Exceptions::Internal(
-                                        "Can't create ldapi connection");
-                }
-                my $global = EBox::Global->getInstance();
-                my ($dn, $pass);
-                my $auth_type = undef;
-                try {
-                    my $r = Apache2::RequestUtil->request();
-                    $auth_type = $r->auth_type;
-                } catch Error with {};
-
-                if ((not defined($auth_type)) or ($auth_type eq 'EBox::Auth')) {
-                    $dn = ROOTDN;
-                    $pass = getPassword();
-                } elsif ($auth_type eq 'EBox::UserCorner::Auth') {
-                    eval "use EBox::UserCorner::Auth";
-                    if ($@) {
-                        throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
-                    }
-                    my $credentials = EBox::UserCorner::Auth->credentials();
-                    my $users = EBox::Global->modInstance('users');
-                    $dn = $users->userDn($credentials->{'user'});
-                    $pass = $credentials->{'pass'};
-                } else {
-                    throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
-                }
-                $self->{ldap}->bind($dn, password => $pass);
+    if ((not defined $self->{ldap}) or $reconnect) {
+        # We try to connect 5 times in 5 seconds, as we might need to
+        # give slapd some time to accept connections after a
+        # slapd restart
+        my $connected = undef;
+        for (0..4) {
+            $self->{ldap} = Net::LDAP->new (LDAPI);
+            if ($self->{ldap}) {
+                $connected = 1;
+                last;
+            } else {
+                sleep (1);
+            }
         }
-        return $self->{ldap};
+        unless ($connected) {
+            throw EBox::Exceptions::Internal(
+                    "Can't create ldapi connection");
+        }
+        my $global = EBox::Global->getInstance();
+        my ($dn, $pass);
+        my $auth_type = undef;
+        try {
+            my $r = Apache2::RequestUtil->request();
+            $auth_type = $r->auth_type;
+        } catch Error with {};
+
+        if ((not defined($auth_type)) or ($auth_type eq 'EBox::Auth')) {
+            $dn = ROOTDN;
+            $pass = getPassword();
+        } elsif ($auth_type eq 'EBox::UserCorner::Auth') {
+            eval "use EBox::UserCorner::Auth";
+            if ($@) {
+                throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
+            }
+            my $credentials = EBox::UserCorner::Auth->credentials();
+            my $users = EBox::Global->modInstance('users');
+            $dn = $users->userDn($credentials->{'user'});
+            $pass = $credentials->{'pass'};
+        } else {
+            throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
+        }
+        $self->{ldap}->bind($dn, password => $pass);
+    }
+    return $self->{ldap};
 }
 
-# Method: getPassword 
+# Method: getPassword
 #
 #       Returns the password used to connect to the LDAP directory
-#       
-# Returns:    
-#               
+#
+# Returns:
+#
 #       string - password
 #
-# Exceptions: 
-#               
+# Exceptions:
+#
 #       Internal - If password can't be read
-sub getPassword {
+sub getPassword
+{
+    my $path = EBox::Config->conf . "/ebox-ldap.passwd";
+    open(PASSWD, $path) or
+        throw EBox::Exceptions::Internal("Could not open $path to " .
+                "get ldap password");
 
-        my $path = EBox::Config->conf . "/ebox-ldap.passwd";
-        open(PASSWD, $path) or
-                throw EBox::Exceptions::Internal("Could not open $path to " .
-                                                 "get ldap password");
+    my $pwd = <PASSWD>;
+    close(PASSWD);
 
-        my $pwd = <PASSWD>;
-        close(PASSWD);
+    $pwd =~ s/[\n\r]//g;
 
-        $pwd =~ s/[\n\r]//g;
-
-        return $pwd;
+    return $pwd;
 }
 
 
 # Method: dn
 #
 #       Returns the dn
-#       
-# Returns:    
-#               
+#
+# Returns:
+#
 #       string - dn
 #
-sub dn {
-        return DN;
+sub dn
+{
+    return DN;
 }
 
 # Method: rootDn
 #
 #       Returns the dn of the priviliged user
-#       
-# Returns:    
-#               
+#
+# Returns:
+#
 #       string - rootdn
 #
-sub rootDn {
-        return ROOTDN
+sub rootDn
+{
+    return ROOTDN
 }
 
 # Method: rootPw
 #
 #       Returns the password of the priviliged user
-#       
-# Returns:    
-#               
+#
+# Returns:
+#
 #       string - password
 #
-sub rootPw {
-        return getPassword();
+sub rootPw
+{
+    return getPassword();
 }
 
 # Method: slapdConfFile
 #
 #       Returns the location of the slapd's configuration file
-#       
-# Returns:    
-#               
+#
+# Returns:
+#
 #       string - location
 #
-sub slapdConfFile {
-        return SLAPDCONFFILE;
+sub slapdConfFile
+{
+    return SLAPDCONFFILE;
 }
 
 # Method: ldapConf
 #
 #       Returns the current configuration for LDAP: 'dn', 'ldapi', 'rootdn'
-#       
-# Returns:    
-#               
-#     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn' 
 #
-sub ldapConf {
-        my ($class) = @_;
-        
-        my $conf = {
-                     'dn'     => DN,
-                     'ldapi'  => LDAPI,
-                     'ldap'   => LDAP,
-                     'rootdn' => ROOTDN,
-                   };
-        return $conf;
+# Returns:
+#
+#     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn'
+#
+sub ldapConf
+{
+    my ($class) = @_;
+
+    my $conf = {
+        'dn'     => DN,
+        'ldapi'  => LDAPI,
+        'ldap'   => LDAP,
+        'rootdn' => ROOTDN,
+    };
+    return $conf;
 }
 
 # Method: search
 #
-#       Performs a search in the LDAP directory using Net::LDAP. 
-#       
+#       Performs a search in the LDAP directory using Net::LDAP.
+#
 # Parameters:
 #
 #       args - arguments to pass to Net::LDAP->search()
-#               
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the search
-sub search($$) # (args)
+sub search # (args)
 {
-        my $self = shift;
-        my $args = shift;
+    my ($self, $args) = @_;
 
-        $self->ldapCon; 
-        my $result = $self->{ldap}->search(%{$args});
-        _errorOnLdap($result, $args);
-        return $result;
-        
+    $self->ldapCon;
+    my $result = $self->{ldap}->search(%{$args});
+    _errorOnLdap($result, $args);
+    return $result;
+
 }
 
 # Method: modify
 #
-#       Performs  a  modification in the LDAP directory using Net::LDAP. 
-#       
+#       Performs  a  modification in the LDAP directory using Net::LDAP.
+#
 # Parameters:
 #
-#       dn - dn where to perform the modification 
+#       dn - dn where to perform the modification
 #       args - parameters to pass to Net::LDAP->modify()
-#               
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the search
-sub modify($$) {
-        my $self = shift;
-        my $dn   = shift;
-        my $args = shift;
+sub modify
+{
+    my ($self, $dn, $args) = @_;
 
-        $self->ldapCon; 
-        my $result = $self->{ldap}->modify($dn, %{$args});
-        _errorOnLdap($result, $args);
-        return $result;
+    $self->ldapCon;
+    my $result = $self->{ldap}->modify($dn, %{$args});
+    _errorOnLdap($result, $args);
+    return $result;
 
 }
 
 # Method: delete
 #
-#       Performs  a deletion  in the LDAP directory using Net::LDAP. 
-#       
+#       Performs  a deletion  in the LDAP directory using Net::LDAP.
+#
 # Parameters:
 #
-#       dn - dn to delete 
-#               
+#       dn - dn to delete
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the search
-sub delete($$) {
-        my $self = shift;
-        my $dn   = shift;
-        
-        $self->ldapCon; 
-        my $result =  $self->{ldap}->delete($dn);
-        _errorOnLdap($result, $dn);
-        return $result;
+sub delete
+{
+    my ($self, $dn) = @_;
 
+    $self->ldapCon;
+    my $result =  $self->{ldap}->delete($dn);
+    _errorOnLdap($result, $dn);
+    return $result;
 }
 
 # Method: add
 #
-#       Adds an object or attributes  in the LDAP directory using Net::LDAP. 
-#       
+#       Adds an object or attributes  in the LDAP directory using Net::LDAP.
+#
 # Parameters:
 #
 #       dn - dn to add
 #       args - parameters to pass to Net::LDAP->add()
-#               
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the search
 
-sub add($$) {
-        my $self = shift;
-        my $dn   = shift;
-        my $args = shift;
-        
-        $self->ldapCon; 
-        my $result =  $self->{ldap}->add($dn, %{$args});
-        _errorOnLdap($result, $args);
-        return $result;
+sub add # (dn, args)
+{
+    my ($self, $dn, $args) = @_;
+
+    $self->ldapCon;
+    my $result =  $self->{ldap}->add($dn, %{$args});
+    _errorOnLdap($result, $args);
+    return $result;
 }
 
 # Method: delObjectclass
 #
 #       Remove an objectclass from an object an all its associated attributes
-#       
+#
 # Parameters:
 #
 #       dn - object's dn
 #       objectclass - objectclass
-#               
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the search
 sub delObjectclass # (dn, objectclass);
 {
-        my $self = shift;
-        my $dn   = shift;
-        my $objectclass = shift;
+    my ($self, $dn, $objectclass) = @_;
 
-        my $schema = $self->ldapCon->schema();
-        my $msg = $self->search(
-                                { base => $dn, scope => 'base',
-                                  filter => "(objectclass=$objectclass)"
-                                });
-        _errorOnLdap($msg);
-        return unless ($msg->entries > 0);
+    my $schema = $self->ldapCon->schema();
+    my $msg = $self->search(
+            { base => $dn, scope => 'base',
+            filter => "(objectclass=$objectclass)"
+            });
+    _errorOnLdap($msg);
+    return unless ($msg->entries > 0);
 
-        my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
+    my %attrexist = map {$_ => 1} $msg->pop_entry->attributes;
 
 
-        $msg = $self->search(
-                                { base => $dn, scope => 'base',
-                                  attrs => ['objectClass'], 
-                                  filter => '(objectclass=*)'
-                                });
-        _errorOnLdap($msg);
-        my %attrs;
-        for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
-                # get objectclass attributes
-                my @ocattrs =  map { 
-                  $_->{name}
-                }  ($schema->must($oc), $schema->may($oc));
+    $msg = $self->search(
+            { base => $dn, scope => 'base',
+            attrs => ['objectClass'],
+            filter => '(objectclass=*)'
+            });
+    _errorOnLdap($msg);
+    my %attrs;
+    for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
+        # get objectclass attributes
+        my @ocattrs =  map {
+            $_->{name}
+        }  ($schema->must($oc), $schema->may($oc));
 
-                # mark objectclass attributes as seen
-                foreach (@ocattrs) {
-                  $attrs{$_ } = 1;
-                }
-              }
-
-        # get the attributes of the object class which will be deleted
-        my @objectAttrs = map {
-          $_->{name}
-        }  ($schema->must($objectclass), $schema->may($objectclass));
-
-
-        my %attr2del;
-        for my $attr (@objectAttrs) {
-                # Skip if the attribute belongs to another objectclass
-                next if (exists $attrs{$attr});
-                # Skip if the attribute is not stored in the object
-                next unless (exists $attrexist{$attr});
-                $attr2del{$attr} = [];
+        # mark objectclass attributes as seen
+        foreach (@ocattrs) {
+            $attrs{$_ } = 1;
         }
+    }
 
-        my $result;
-        if (%attr2del) {
-                $result = $self->modify($dn, { changes => 
-                        [delete =>[ objectclass => $objectclass, %attr2del ] ] });
-                _errorOnLdap($msg);
-        } else {
-                $result = $self->modify($dn, { changes => 
-                        [delete =>[ objectclass => $objectclass ] ] });
-                _errorOnLdap($msg);
-        }
-        return $result;
+    # get the attributes of the object class which will be deleted
+    my @objectAttrs = map {
+        $_->{name}
+    }  ($schema->must($objectclass), $schema->may($objectclass));
+
+
+    my %attr2del;
+    for my $attr (@objectAttrs) {
+        # Skip if the attribute belongs to another objectclass
+        next if (exists $attrs{$attr});
+        # Skip if the attribute is not stored in the object
+        next unless (exists $attrexist{$attr});
+        $attr2del{$attr} = [];
+    }
+
+    my $result;
+    if (%attr2del) {
+        $result = $self->modify($dn, { changes =>
+                [delete =>[ objectclass => $objectclass, %attr2del ] ] });
+        _errorOnLdap($msg);
+    } else {
+        $result = $self->modify($dn, { changes =>
+                [delete =>[ objectclass => $objectclass ] ] });
+        _errorOnLdap($msg);
+    }
+    return $result;
 }
 
-# Method: modifyAttribute 
+# Method: modifyAttribute
 #
 #       Modify an attribute from a given dn
-#       
+#
 # Parameters:
 #
 #       dn - object's dn
 #       attribute - attribute to change
 #       value - new value
-#               
+#
 # Exceptions:
 #
 #       Internal - If there is an error during the modification
-#       
+#
 sub modifyAttribute # (dn, attribute, value);
 {
-        my ($self, $dn, $attribute, $value) = @_;
+    my ($self, $dn, $attribute, $value) = @_;
 
-        my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
-        $self->modify($dn, \%attrs ); 
+    my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
+    $self->modify($dn, \%attrs );
+}
+
+# Method: setAttribute
+#
+#       Modify the value of an attribute from a given dn if it exists
+#       Add the attribute with the given value if it doesn't exist
+#
+# Parameters:
+#
+#       dn - object's dn
+#       attribute - attribute to add/change
+#       value - new value
+#
+# Exceptions:
+#
+#       Internal - If there is an error during the modification
+#
+sub setAttribute # (dn, attribute, value);
+{
+    my ($self, $dn, $attribute, $value) = @_;
+
+    my %args = (base => $dn, filter => "$attribute=*");
+    my $result = $self->search(\%args);
+    my $action = $result->count > 0 ? 'replace' : 'add';
+
+    my %attrs = ( changes => [ $action => [ $attribute => $value ] ]);
+    $self->modify($dn, \%attrs);
+}
+
+# Method: delAttribute
+#
+#       Delete an attribute from a given dn if it exists
+#
+# Parameters:
+#
+#       dn - object's dn
+#       attribute - attribute to delete
+#
+# Exceptions:
+#
+#       Internal - If there is an error during the modification
+#
+sub delAttribute # (dn, attribute);
+{
+    my ($self, $dn, $attribute, $value) = @_;
+
+    my %args = (base => $dn, filter => "$attribute=*");
+    my $result = $self->search(\%args);
+    if ($result->count > 0) {
+        my %attrs = ( changes => [ delete => [ $attribute => [] ] ]);
+        $self->modify($dn, \%attrs);
+    }
+}
+
+# Method: getAttribute
+#
+#       Get the value for the given attribute.
+#       If there are more than one, the first is returned.
+#
+# Parameters:
+#
+#       dn - object's dn
+#       attribute - attribute to get its value
+#
+# Returns:
+#       string - attribute value if present
+#       undef  - if attribute not present
+#
+# Exceptions:
+#
+#       Internal - If there is an error during the modification
+#
+sub getAttribute # (dn, attribute);
+{
+    my ($self, $dn, $attribute) = @_;
+
+    my %args = (base => $dn, filter => "$attribute=*");
+    my $result = $self->search(\%args);
+
+    return undef unless ($result->count > 0);
+
+    return $result->entry(0)->get_value($attribute);
 }
 
 
-#
-#   Method: isObjectClass
+# Method: isObjectClass
 #
 #      check if a object is member of a given objectclass
 #
 # Parameters:
 #          dn          - the object's dn
 #          objectclass - the name of the objectclass
-# 
+#
 #  Returns:
 #    boolean - wether the object is member of the objectclass or not
 sub isObjectClass
 {
-  my ($self, $dn, $objectClass) = @_;
+    my ($self, $dn, $objectClass) = @_;
 
 
-  my %attrs = (
-               base   => $dn,
-               filter => "(objectclass=$objectClass)",
-               attrs  => [ 'objectClass'],
-               scope  => 'base'
-              );
-  
-  my $result = $self->search(\%attrs);
-  
-  if ($result->count ==  1) {
-      return 1;
-  }
+    my %attrs = (
+            base   => $dn,
+            filter => "(objectclass=$objectClass)",
+            attrs  => [ 'objectClass'],
+            scope  => 'base'
+            );
 
-  return undef;
+    my $result = $self->search(\%attrs);
+
+    if ($result->count ==  1) {
+        return 1;
+    }
+
+    return undef;
 }
 
-sub _errorOnLdap 
+sub _errorOnLdap
 {
     my ($result, $args) = @_;
 
@@ -497,7 +579,7 @@ sub _utf8Attrs # (result)
     my @entries = $result->entries;
     foreach my $attr (@{$entries[0]->{'asn'}->{'attributes'}}) {
         my @vals = @{$attr->{vals}};
-                next unless (@vals);
+        next unless (@vals);
         my @utfvals;
         foreach my $val (@vals) {
             _utf8_on($val);
@@ -513,102 +595,101 @@ sub _utf8Attrs # (result)
 
 sub  dataDir
 {
-  my ($self) = @_;
-  return DATA_DIR;
+    my ($self) = @_;
+    return DATA_DIR;
 #   my @conf = read_file(slapdConfFile());
-  
+
 #   @conf = map { my ($withoutComments) = split '#', $_; $withoutComments    } @conf;
 #   my ($directoryLine) = grep { m/^\s*directory\s+/ } @conf;
 #   chomp $directoryLine;
 #   my ($keyword, $value) = split '\s+', $directoryLine;
-  
+
 #   $value or throw EBox::Exceptions::External((__('Can not get data directory path from ldap')));
 
 #   return $value;
-
-} 
+}
 
 sub stop
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  EBox::Sudo::root(INIT_SCRIPT . ' stop');
+    EBox::Sudo::root(INIT_SCRIPT . ' stop');
 
-  sleep 1;  
-  return  $self->refreshLdap();
-} 
+    sleep 1;
+    return  $self->refreshLdap();
+}
 
 sub  start
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  EBox::Sudo::root(INIT_SCRIPT . ' start');
+    EBox::Sudo::root(INIT_SCRIPT . ' start');
 
-  sleep 1;
-  return  $self->refreshLdap();
-} 
+    sleep 1;
+    return  $self->refreshLdap();
+}
 
 
 sub refreshLdap
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->{ldap} = undef;
-  return $self;
+    $self->{ldap} = undef;
+    return $self;
 }
 
 
 
 sub ldifFile
 {
-  my ($self, $dir) = @_;
-  return "$dir/ldap.ldif";
+    my ($self, $dir) = @_;
+    return "$dir/ldap.ldif";
 }
 
 # Method: dumpLdapData
 #
 #  dump the LDAP contents to a LDIF file in the given directory. The exact file
 #  path can be retrevied using the method ldifFile
-#  
+#
 #    Parameters:
 #       dir - directory in which put the LDIF file
 sub dumpLdapData
 {
-  my ($self, $dir) = @_;
-  
-  my $ldapDir       = EBox::Ldap::dataDir();
-  my $user  = EBox::Config::user();
-  my $group = EBox::Config::group();
-  my $ldifFile = $self->ldifFile($dir);
+    my ($self, $dir) = @_;
 
-  my $slapcatCommand = $self->_slapcatCmd($ldifFile);
-  my $chownCommand = "/bin/chown $user.$group $ldifFile";
+    my $ldapDir = EBox::Ldap::dataDir();
+    my $user  = EBox::Config::user();
+    my $group = EBox::Config::group();
+    my $ldifFile = $self->ldifFile($dir);
 
-  $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
-} 
+    my $slapcatCommand = $self->_slapcatCmd($ldifFile);
+    my $chownCommand = "/bin/chown $user.$group $ldifFile";
+
+    $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
+}
 
 # Method: loadLdapData
 #
 #  load all the raw LDAP data found in the LDIF file
-#  
+#
 #    Parameters:
 #       dir - directory in which is the LDIF file
 # XXX: todo add on error sub
 sub loadLdapData
 {
-  my ($self, $dir) = @_;
-  
-  my $ldapDir   = EBox::Ldap::dataDir();
-  my $ldifFile = $self->ldifFile($dir);
+    my ($self, $dir) = @_;
 
-  my $backupCommand = $self->_backupSystemDirectory();
-  my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
-  my $slapaddCommand = $self->_slapaddCmd($ldifFile);
-  my $chownDataCommand = $self->_chownDatadir;
-  
-  $self->_pauseAndExecute(
-                cmds => [$backupCommand, $rmCommand, 
-                         $slapaddCommand, $chownDataCommand 
+    my $ldapDir  = EBox::Ldap::dataDir();
+    my $ldifFile = $self->ldifFile($dir);
+
+    my $backupCommand = $self->_backupSystemDirectory();
+    my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
+    my $slapaddCommand = $self->_slapaddCmd($ldifFile);
+    my $chownDataCommand = $self->_chownDatadir;
+
+    $self->_pauseAndExecute(
+                cmds => [$backupCommand, $rmCommand,
+                         $slapaddCommand, $chownDataCommand
                         ]);
 }
 
@@ -616,74 +697,74 @@ sub loadLdapData
 #
 #    import in eBox the data found in LDIF file. Import classes for the various
 #    modules are used to load the data
-#  
+#
 #    Parameters:
 #       dir - directory in which is the LDIF file
 sub importLdapData
 {
-  my ($self, $dir) = @_;
-  
-  my $ldifFile = $self->ldifFile($dir);
+    my ($self, $dir) = @_;
 
-  EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
+    my $ldifFile = $self->ldifFile($dir);
+
+    EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
 }
 
 sub _chownDatadir
 {
-        return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
+    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
 }
 
 sub _slapcatCmd
 {
-  my ($self, $ldifFile) = @_;
-  return  "/usr/sbin/slapcat  > $ldifFile";
+    my ($self, $ldifFile) = @_;
+    return  "/usr/sbin/slapcat  > $ldifFile";
 }
 
 sub _slapaddCmd
 {
-  my ($self, $ldifFile) = @_;
-  return  "/usr/sbin/slapadd  -c  < $ldifFile" ;
+    my ($self, $ldifFile) = @_;
+    return  "/usr/sbin/slapadd  -c  < $ldifFile" ;
 }
 
 sub _rmLdapDirCmd
 {
-  my ($self, $ldapDir)   = @_;
-  $ldapDir .= '/*' if  defined $ldapDir ;
+    my ($self, $ldapDir)   = @_;
+    $ldapDir .= '/*' if  defined $ldapDir ;
 
-  return "sh -c '/bin/rm -rf $ldapDir'";
+    return "sh -c '/bin/rm -rf $ldapDir'";
 }
 
 sub _backupSystemDirectory
 {
-  my ($self) = @_;
-  
-  return EBox::Config::share() . '/ebox-usersandgroups/slapd.backup';
+    my ($self) = @_;
+
+    return EBox::Config::share() . '/ebox-usersandgroups/slapd.backup';
 }
 
 sub _pauseAndExecute
 {
-  my ($self, %params) = @_;
-  my @cmds = @{ $params{cmds}  };
-  my $onError = $params{onError};
+    my ($self, %params) = @_;
+    my @cmds = @{ $params{cmds}  };
+    my $onError = $params{onError};
 
-  $self->stop();
-  try {
-    foreach my $cmd (@cmds) {
-      EBox::Sudo::root($cmd);
+    $self->stop();
+    try {
+        foreach my $cmd (@cmds) {
+            EBox::Sudo::root($cmd);
+        }
     }
-   }
-  otherwise {
-    my $ex = shift;
+    otherwise {
+        my $ex = shift;
 
-    if ($onError) {
-      $onError->($self);
+        if ($onError) {
+            $onError->($self);
+        }
+
+        throw $ex;
     }
-
-    throw $ex;
-  }
-  finally {
-    $self->start();
-  };
+    finally {
+        $self->start();
+    };
 }
 
 

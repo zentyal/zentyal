@@ -143,7 +143,7 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'SambaSharePermissions',
-                     printableTableName => __('Samba share configuration'),
+                     printableTableName => __('Share configuration'),
                      modelDomain        => 'Samba',
                      menuNamespace      => 'Samba/View/SambaShares',
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],

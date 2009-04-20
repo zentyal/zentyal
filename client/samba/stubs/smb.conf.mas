@@ -12,12 +12,12 @@
 	$backup_path
 	$roaming
 	@shares
+    $drive
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
 [global]
- unix charset = LOCALE
  workgroup = <% $workgroup %> 
  netbios name = <% $netbios %>
  server string = <% $desc %>
@@ -51,7 +51,7 @@ use EBox::Gettext;
  mangling method = hash2
 
  logon script = logon.bat
- logon drive = H:
+ logon drive = <% $drive %>
  logon home =
 %  if ($roaming) {
  logon path = \\<% $netbios %>\profiles\%U

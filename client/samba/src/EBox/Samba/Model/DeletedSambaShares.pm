@@ -120,9 +120,9 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'DeletedSambaShares',
-                     printableTableName => 'Deleted Samba shares',
+                     printableTableName => 'Deleted shares',
                      modelDomain        => 'Samba',
-                     defaultActions     => [ 'add', 'del', 
+                     defaultActions     => [ 'add', 'del',
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',

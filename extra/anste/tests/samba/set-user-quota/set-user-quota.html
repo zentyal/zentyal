@@ -4,22 +4,32 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>create-share</title>
+<title>set-user-quota</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">create-share</td></tr>
+<tr><td rowspan="1" colspan="3">set-user-quota</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/</td>
+	<td>/ebox/EBox/General</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Users</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=File sharing</td>
+	<td>link=Edit user</td>
 	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Users_filter</td>
+	<td>{$USERNAME}</td>
 </tr>
 <tr>
 	<td>runScript</td>
@@ -33,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>SambaShares_2</td>
+	<td>filter</td>
 	<td></td>
 </tr>
 <tr>
@@ -42,43 +52,18 @@
 	<td>0</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>link=Add new</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForTextPresent</td>
-	<td>Adding a new share </td>
+	<td>clickAndWait</td>
+	<td>//td[3]/a/img</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>SambaShares_share</td>
-	<td>{$SHARE}</td>
+	<td>quota</td>
+	<td>{$QUOTA}</td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>SambaShares_path_selected</td>
-	<td>label={$TYPE_LABEL}</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>SambaShares_{$TYPE}</td>
-	<td>{$SHARE_PATH}</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>SambaShares_comment</td>
-	<td>{$SHARE} share</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>add</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForTextPresent</td>
-	<td>share added</td>
+	<td>clickAndWait</td>
+	<td>change</td>
 	<td></td>
 </tr>
 

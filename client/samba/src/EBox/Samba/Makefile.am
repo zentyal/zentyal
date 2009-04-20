@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model Types
+SUBDIRS = Model Types Composite
 
 perldir = @PERLPATH@/EBox/Samba
 

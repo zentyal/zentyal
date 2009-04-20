@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/samba
 
-template_DATA = samba.mas index.mas delete.mas
+template_DATA = samba.mas delete.mas
 
 EXTRA_DIST = $(template_DATA)
 

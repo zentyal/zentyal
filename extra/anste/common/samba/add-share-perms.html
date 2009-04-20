@@ -17,19 +17,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>link=File sharing</td>
 	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Shares</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>SambaShares_filter</td>
-	<td>{$SHARE}</td>
 </tr>
 <tr>
 	<td>runScript</td>
@@ -43,13 +33,23 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>filter</td>
+	<td>SambaShares_2</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForValue</td>
 	<td>ajax_request_cookie</td>
 	<td>0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>SambaShares_filter</td>
+	<td>{$SHARE}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>filter</td>
+	<td></td>
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
