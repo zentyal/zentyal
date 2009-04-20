@@ -71,7 +71,8 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->pdc();
+    my $mod = $self->parentModule();
+    return $mod->configured() and $mod->pdc();
 }
 
 # Method: preconditionFailMsg
@@ -82,7 +83,9 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('PDC is not enabled.');
+    my $mod = $self->parentModule();
+    return __('File sharing module is not enabled.') unless $mod->configured();
+    return __('PDC is not enabled.') unless $mod->pdc();
 }
 
 sub _table
