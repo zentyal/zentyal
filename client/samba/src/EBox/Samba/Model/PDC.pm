@@ -49,16 +49,6 @@ sub new
         return $self;
 }
 
-# Method: validateTypedRow
-#
-#       Override <EBox::Model::DataTable::validateTypedRow> method
-#
-sub validateTypedRow
-{
-    my ($self, $action, $oldParams, $newParams) = @_;
-
-}
-
 # Method: precondition
 #
 #   Check if PDC is enabled.
@@ -170,7 +160,6 @@ sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    my $roaming = $paramsRef->{'roaming'}->value();
     my $minPwdLength = $paramsRef->{'minPwdLength'}->value();
     if ($minPwdLength eq 'minPwdLength_disabled') {
         $minPwdLength = 0;
