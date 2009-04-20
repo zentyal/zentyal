@@ -27,7 +27,9 @@
 	+ HasMany  can retrieve again the model and row after the weak
 	refence is garbage-collected. (Added to solve a bug in the doenload
 	bundle dialog)
-	+ EBox::Types::DomainName no longer accepts IP addresses as domain names
+	+ EBox::Types::DomainName no longer accepts IP addresses as domain
+	names
+	+Bugfix: modules that fail when conifugree no longer appear as enabled
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
