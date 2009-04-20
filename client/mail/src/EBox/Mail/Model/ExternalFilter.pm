@@ -138,13 +138,13 @@ sub _availableFilters
 
     my $mail = EBox::Global->modInstance('mail');
     my %availableFilters = %{ $mail->externalFiltersFromModules() };
-    while (my ($name, $propierties) = each %availableFilters) {
+    while (my ($name, $properties) = each %availableFilters) {
         my $option = {
                       value => $name,
-                      printableValue => $propierties->{prettyName},
+                      printableValue => $properties->{prettyName},
                      };
 
-        if (not $propierties->{active}) {
+        if (not $properties->{active}) {
             $option->{disabled} = 'disabled';
         }
         
