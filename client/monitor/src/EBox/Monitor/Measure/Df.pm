@@ -60,16 +60,18 @@ sub _description
     # TODO: Move this method to EBox::FileSystem
     my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
 
-    my @typeInstances = ();
+    my (@typeInstances, %printableTypeInstances) = ((),());
     my @printableLabels = ();
     foreach my $fileSys (keys %{$fileSysS}) {
         if ( $fileSysS->{$fileSys}->{mountPoint} eq '/' ) {
             push(@typeInstances, 'root');
+            $printableTypeInstances{'root'} = '/';
         } else {
             my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
             $mountPoint =~ s:/:-:g;
             $mountPoint = substr($mountPoint, 1);
             push(@typeInstances, $mountPoint);
+            $printableTypeInstances{$mountPoint} = $fileSysS->{$fileSys}->{mountPoint};
         }
         push(@printableLabels, __x('free in {partition}',
                                    partition => $fileSysS->{$fileSys}->{mountPoint}));
@@ -82,6 +84,7 @@ sub _description
         help            => __('Collect the mounted file system usage information as "df" command does'),
         dataSources     => [ 'free', 'used' ],
         printableLabels => \@printableLabels,
+        printableTypeInstances => \%printableTypeInstances,
         typeInstances   => \@typeInstances,
         type            => 'byte',
     };

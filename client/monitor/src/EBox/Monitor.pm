@@ -465,6 +465,7 @@ sub _setMainConf
                          [
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
                           (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
+                          (devices        => $self->_devicesToMonitor()),
                          ]
                         );
 }
@@ -544,6 +545,17 @@ sub _thresholdConfigured
         return 0;
     }
 
+}
+
+# Return those devices which are good to monitor
+# That is, the ones which have a device
+sub _devicesToMonitor
+{
+    my ($self) = @_;
+
+    my $dfMeasure = $self->{measureManager}->measure('Df');
+    my @printableTypeInstances = map { $dfMeasure->printableTypeInstance($_) } @{$dfMeasure->typeInstances()};
+    return \@printableTypeInstances;
 }
 
 1;

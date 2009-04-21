@@ -2,6 +2,7 @@
   Template to dump the main configuration for collectd
 
 Parameters:
+  devices  - Array containing paths to the real I/O devices to monitor
 
   interval - Int the query interval for collectd
              *(Optional)* Default value: 10s
@@ -10,6 +11,7 @@ Parameters:
              *(Optional)* Default value: false
 </%doc>
 <%args>
+  @devices
   $interval => 10
   $loadPerlPlugin => 0
 </%args>
@@ -97,13 +99,16 @@ LoadPlugin syslog
 #       StoreRates false
 #</Plugin>
 
-#<Plugin df>
+<Plugin df>
+% foreach my $device (@devices) {
+        Device "<% $device %>"
+% }
 #       Device "/dev/sda1"
 #       Device "192.168.0.2:/mnt/nfs"
 #       MountPoint "/home"
 #       FSType "ext3"
 #       IgnoreSelected false
-#</Plugin>
+</Plugin>
 
 #<Plugin dns>
 #       Interface "eth0"
