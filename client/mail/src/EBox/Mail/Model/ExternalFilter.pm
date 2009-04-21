@@ -88,6 +88,7 @@ sub _table
                                  editable => 1,
                                  populate => \&_availableFilters,
                                  defaultValue => 'none',
+                                 disableCache => 1,
                                 ),
          new EBox::Types::Port(
                                fieldName => 'fwport',
