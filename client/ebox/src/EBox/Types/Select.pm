@@ -45,6 +45,9 @@ sub new
     unless (exists $opts{'HTMLViewer'}) {
         $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
     }
+    unless (exists $opts{'disableCache'}) {
+        $opts{'disableCache'} = 0;
+    }
     $opts{'type'} = 'select';
     my $self = $class->SUPER::new(%opts);
 
@@ -82,7 +85,39 @@ sub size
     return $self->{'size'};
 }
 
+# Method: disableCache
+#
+#   Return if we must disable the options cache.
+#   For performance reasons, eBox caches the options given for a select type
+#
+# Returns:
+#
+#   boolean - true means it mustn't cache,  false it will cache 
+#             By default, it will return false
+#   
+sub disableCache
+{
+    my ($self) = @_;
 
+    return $self->{disableCache};
+}
+
+# Method: setDisableCache
+#
+#   Set if we must disable the options cache.
+#   For performance reasons, eBox caches the options given for a select type
+#   By default, it will cache 
+#
+# Parameters:
+#
+#   boolean - true means it mustn't cache,  false it will cache 
+#      
+sub setDisableCache
+{
+    my ($self, $disable) = @_;
+
+    $self->{disableCache} = $disable;
+}
 
 # Method: options
 #
@@ -105,7 +140,7 @@ sub options
     if ( exists $self->{'foreignModel'}) {
         $self->{'options'} = $self->_optionsFromForeignModel();
     } else {
-        unless (exists $self->{'options'}) {
+        if ((not exists $self->{'options'}) or $self->disableCache()) {
             my $populateFunc = $self->populate();
             $self->{'options'} = &$populateFunc();
         }

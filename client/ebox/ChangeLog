@@ -29,7 +29,8 @@
 	bundle dialog)
 	+ EBox::Types::DomainName no longer accepts IP addresses as domain
 	names
-	+Bugfix: modules that fail when conifugree no longer appear as enabled
+	+ Bugfix: modules that fail at configuration stage no longer appear as enabled
+	+ Add parameter to EBox::Types::Select to disable options cache
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
