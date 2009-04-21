@@ -8,34 +8,34 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:01+0100\n"
-"PO-Revision-Date: 2007-04-03 14:37+0000\n"
-"Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
+"PO-Revision-Date: 2009-04-02 04:14+0200\n"
+"Last-Translator: Piotr Kirklewski <pkirklewski@gabaedevelopment.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:79
 #: src/EBox/Model/AliasTable.pm:79
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
+msgstr "Alias nie może być nazwa servera DNS .”{ns}” Uzyj nazwy hosta"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:92
 #: src/EBox/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "Istnieje juz host o tej samej nazwie \"{name}\" w tej samej domenie"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:100
 #: src/EBox/Model/AliasTable.pm:100
 #, perl-brace-format
 msgid "There is an alias with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "Istnieje juz alias o tej samej nazwie \"{name}\" w tej samej domenie"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:126
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/AliasTable.pm:136
@@ -53,7 +53,7 @@ msgstr "Alias"
 #: src/EBox/Model/AliasTable.pm:143
 #, fuzzy
 msgid "alias"
-msgstr "Alias"
+msgstr "alias"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:66
 #: src/EBox/Model/DomainTable.pm:66
@@ -67,26 +67,26 @@ msgstr "Domena"
 #: src/EBox/Model/DomainTable.pm:74
 #, fuzzy
 msgid "Hostnames"
-msgstr "Nazwa hosta"
+msgstr "Nazwy hosta"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:83
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Wpisy MX"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:91
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:165
 #: src/EBox/Model/HostnameTable.pm:165 src/EBox/Model/DomainTable.pm:91
 #, fuzzy
 msgid "IP Address"
-msgstr "adres IP"
+msgstr "Adres IP"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:101
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:107
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 #, fuzzy
 msgid "Domains"
-msgstr "Domena"
+msgstr "Domeny"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DomainTable.pm:108
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:343
@@ -101,6 +101,8 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
+"Istnieje juz alias o tej samej nazwie \"{name}\" dla \"{hostname}\" w tej samej "
+"domenie"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/HostnameTable.pm:157
 #: src/EBox/Model/HostnameTable.pm:157
@@ -123,23 +125,23 @@ msgstr "DNS"
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/DNSComposite.pm:77
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "Serwer DNS umozliwia translacje nazw w twoich domenach."
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:84
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Serwis wlaczony"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/EnableFormDNS.pm:86
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Serwis wylaczony"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:86
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Bledny numer preferencji. Dostepny zakres: ({min}, {max})"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:110
 #: src/EBox/Model/MailExchanger.pm:110
@@ -152,22 +154,22 @@ msgstr "Nazwa hosta"
 #: src/EBox/Model/MailExchanger.pm:117
 #, fuzzy
 msgid "Owner domain"
-msgstr "domena"
+msgstr "Domena"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:125
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "Uzytkownika"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:133
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "Preferencja"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:142
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Wpisy MX"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:148
 #: src/EBox/Model/MailExchanger.pm:148
@@ -178,35 +180,39 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"Najmniejszy numer posiada najwiekszy priorytet i okresla pierwszy serwer "
+"sprawdzany przez zdalnego klienta (zazwyczaj inny serwer mailowy) podczas "
+"procesu  translacji zapisow MX dla nazwy domeny.Dozwolony zakres = ({min}, "
+"{max})"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS/Model/MailExchanger.pm:154
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "Zapis MX"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:51 src/EBox/DNS.pm.in:51
 #, fuzzy
 msgid "Domain Name System"
-msgstr "Nazwa domeny"
+msgstr "System Nazw Domenowych"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:88 src/EBox/DNS.pm.in:88
 msgid "DNS Server"
-msgstr ""
+msgstr "Serwer DNS"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:646 src/EBox/DNS.pm.in:646
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "Plik konfiguracyjny dla strefy {zone}"
 
 #: debian/ebox-dns/usr/share/perl5/EBox/DNS.pm:662 src/EBox/DNS.pm.in:662
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "Plik konfiguracyjny dla strefy odwrotnej translacji adresow {zone}"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:16
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr "Lista domeny"
+msgstr "Lista domen"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:21
 #: src/templates/index.mas:21
@@ -217,7 +223,7 @@ msgstr "Nazwa"
 #: debian/ebox-dns/usr/share/ebox/templates/dns/edit.mas:23
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
-msgstr "Akcia"
+msgstr "Akcja"
 
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:37
 #: debian/ebox-dns/usr/share/ebox/templates/dns/index.mas:38

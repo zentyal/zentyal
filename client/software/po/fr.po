@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2009-03-21 13:18+0000\n"
+"PO-Revision-Date: 2009-04-05 18:58+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,6 @@ msgstr "Suppression du paquet sélectionné et de ces dépendances"
 
 #: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "packages left to remove"
 msgstr "Paquets restant à supprimer"
 
@@ -167,13 +166,12 @@ msgstr ""
 "plus tard."
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Certificate Authority Manager for eBox"
 msgstr "eBox - Gestionnaire des certificats d'autorité pour eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr "eBox - Module Serveur DHCP"
+msgstr "eBox - Module serveur DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
@@ -181,7 +179,7 @@ msgstr "eBox - Serveur DNS"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "La plateforme eBox - Framework de base"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
@@ -196,7 +194,6 @@ msgid "eBox - Instant messaging (Jabber)"
 msgstr "eBox - Messagerie instantanée (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
-#, fuzzy
 msgid "eBox - layer 7 protocols"
 msgstr "eBox - Protocoles de niveau 7"
 
@@ -254,9 +251,8 @@ msgid "eBox - Proxy cache and content filter"
 msgstr "eBox - Cache du proxy et filtrage de contenu"
 
 #: src/EBox/PackageDescriptions.pm:22
-#, fuzzy
 msgid "eBox - Traffic shaper for eBox"
-msgstr "Gestion du traffic (shaping) pour eBox"
+msgstr "eBox - Gestion du trafic pour eBox"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - User and Group management"
@@ -272,7 +268,7 @@ msgstr "Logiciel HTTP"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "service logiciel pour la mise à jour des paquets avec apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 #, fuzzy

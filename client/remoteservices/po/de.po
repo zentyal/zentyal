@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-02 15:36+0000\n"
-"PO-Revision-Date: 2009-02-19 16:28+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-04-17 14:49+0200\n"
+"Last-Translator: Michael Korte <michael.korte@cutall.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
@@ -78,10 +79,13 @@ msgid "Configuration backup"
 msgstr "Sichern der Konfiguration"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+#, fuzzy
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Bitte bestätigen sie, das Sie das folgende remote Backup wieder herstellen "
+"wollen:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 #: src/templates/RemoteServices/Backup/proxy.mas:76
@@ -92,6 +96,7 @@ msgstr "Wiederherstellen"
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
 msgstr ""
+"Bitte bestätigen Sie, das Sie das folgende remote Backup löschen wollen:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 #: src/templates/RemoteServices/Backup/index.mas:96
@@ -101,23 +106,23 @@ msgstr "Löschen"
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Nicht vorhandene Aktion :{a}"
 
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Verbindungsfehler"
 
 #: src/EBox/Model/Settings.pm:53
 msgid "field1"
-msgstr ""
+msgstr "Feld1"
 
 #: src/EBox/Model/Settings.pm:60
 msgid "field2"
-msgstr ""
+msgstr "Feld2"
 
 #: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: src/EBox/RemoteServices.pm:72
 msgid "eBox remote services"
@@ -125,11 +130,11 @@ msgstr ""
 
 #: src/EBox/RemoteServices.pm:139
 msgid "Not subscribed"
-msgstr ""
+msgstr "Nicht angemeldet "
 
 #: src/EBox/RemoteServices.pm:141
 msgid "Subscribed"
-msgstr ""
+msgstr "angemeldet"
 
 #: src/EBox/RemoteServices.pm:167
 msgid "Remote services subscription"
@@ -139,7 +144,7 @@ msgstr ""
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr ""
+msgstr "nicht vorhandene Sicherung "
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -147,7 +152,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:86
 msgid "Access settings"
-msgstr ""
+msgstr "Zugriffs Einstellungen"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:147
 msgid ""
@@ -188,7 +193,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:313
 msgid "Delete data"
-msgstr ""
+msgstr "Datenlöschen"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:316
 msgid "Subscription to remote services"
@@ -196,7 +201,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:317
 msgid "Subscribe"
-msgstr "Einschreiben"
+msgstr "Anmelden"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:327
 #, perl-brace-format
@@ -350,7 +355,7 @@ msgstr "Liste aller Sicherungen"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:132
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/templates/RemoteServices/Backup/proxy.mas:143
 msgid "Submit"
@@ -358,7 +363,7 @@ msgstr ""
 
 #: src/templates/RemoteServices/Backup/proxy.mas:147
 msgid "Enter user and password"
-msgstr ""
+msgstr "Benutzer und Passwort eingeben"
 
 #: src/templates/RemoteServices/Backup/index.mas:32
 msgid "Back up"
@@ -392,6 +397,9 @@ msgid ""
 "them at {url1}. If you are already registered, then subscribe this eBox at "
 "{url2}"
 msgstr ""
+"Dieses Feature ist nur dann verfügbar, wenn Sie eBox  Services beziehen. Sie "
+"können diese hier {url1} bestellen. Sollten Sie schon registriert sein, "
+"melden Sie diese ebox hier {url2}"
 
 #: src/templates/RemoteServices/NoActive.mas:14
 msgid "subscription page"

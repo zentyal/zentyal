@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:58+0100\n"
-"PO-Revision-Date: 2007-04-05 13:40+0000\n"
-"Last-Translator: Michal Marek Sarna <michalsarna@gmail.com>\n"
+"PO-Revision-Date: 2009-04-02 04:20+0200\n"
+"Last-Translator: Piotr Kirklewski <pkirklewski@gabaedevelopment.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:43
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
@@ -36,14 +36,14 @@ msgstr "Zarządzanie ważnością certyfikatów"
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
 #: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "Hasla CA nie zgadzaja sie "
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "Haslo CA powinno miec dlugosc co najmniej {length}"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
@@ -500,7 +500,7 @@ msgstr "Anuluj"
 #: src/templates/formRenew.mas:17 src/templates/index.mas:34
 #: src/templates/formRevoke.mas:65
 msgid "CA Passphrase"
-msgstr ""
+msgstr "Haslo CA"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:28
 #: src/templates/formRenew.mas:28
@@ -526,7 +526,7 @@ msgstr "Odwołaj wybrany certyfikat"
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:41
 #: src/templates/index.mas:41
 msgid "Re CA Passphrase"
-msgstr ""
+msgstr "Odwolaj Haslo CA"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:46
 #: src/templates/index.mas:46
@@ -541,7 +541,7 @@ msgstr "Zmiany w certyfikacie będą skutkowały natychmiast"
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:53
 #: src/templates/index.mas:53
 msgid "The CA passphrase is optional"
-msgstr ""
+msgstr "Haslo CA jest opcjonale"
 
 #: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:57
 #: src/templates/index.mas:57

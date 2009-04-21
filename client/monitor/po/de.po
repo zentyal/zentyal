@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-01-29 11:41+0000\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2009-04-17 15:03+0200\n"
+"Last-Translator: Michael Korte <michael.korte@cutall.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:194
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: src/EBox/Monitor.pm:134
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:134
@@ -44,32 +44,34 @@ msgstr "Systemauslastung"
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Erfasst die Sytemauslastung und gibt einen groben Überblick über die "
+"Systemnutzung "
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "kurzfristig"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "mittelfristig"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "langfristig"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "CPU {no} Auslastung"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "CPU Auslastung"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:66
@@ -78,12 +80,15 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"Ermittelt die CPU-Last für alle möglichen unterschiedlichen Systemzustände - "
+"Mittelwert aus den Werten für die Ausführung von benutzereigenen Tasks, "
+"Systemtasks, Wartezeiten auf Ein- und Ausgabeoperationen sowie Leerlaufzeit"
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "Leerlauf"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:74
@@ -95,75 +100,77 @@ msgstr "Benutzer"
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:75
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "Interrupt"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "nett "
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:77
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "Software-Interrupt"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:78
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "Fest"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:79
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "System"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:80
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "Warten"
 
 #: src/EBox/Monitor/Measure/Base.pm:619
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Base.pm:619
 msgid "value"
-msgstr ""
+msgstr "Wert"
 
 #: src/EBox/Monitor/Measure/Df.pm:74
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:73
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "Frei in {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:75
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "Belegt in {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:81
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:80
 msgid "File system usage"
-msgstr ""
+msgstr "Dateisystem-Auslastung"
 
 #: src/EBox/Monitor/Measure/Df.pm:82
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Df.pm:81
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"Ermittelt Informationen zur Dateisystembelegung entsprechend dem Kommando "
+"\"df\""
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Arbeitsspeicher-Auslastung"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Ermittelt die Arbeitsspeicher-Auslastung"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
@@ -173,17 +180,17 @@ msgstr "frei"
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "Seiten-Cache"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "Buffer-Cache"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "benutzt"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
@@ -195,12 +202,12 @@ msgstr "Temperatur"
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:117
 msgid "cooling device"
-msgstr ""
+msgstr "Kühler / Lüfter"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:119
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:119
 msgid "sensor"
-msgstr ""
+msgstr "Sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:121
@@ -211,7 +218,7 @@ msgstr "Temperatur für {what}"
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:127
 msgid "Thermal"
-msgstr ""
+msgstr "Thermisch"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:128
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Thermal.pm:128
@@ -219,16 +226,17 @@ msgstr ""
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Ermittels Temperaturdaten (CPU-Temperatursensor) - falls möglich - aus {dir}"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Mindestens ein Schwellwert (max. oder min.) muss gesetzt sein"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Die neuen Schwellwerte werden die aktuellen überschreiben"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:155
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:155
@@ -236,11 +244,12 @@ msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"Das aktuelle Monitor-Tool kann nicht zwischen den Datenquellen unterscheiden"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:219
 msgid "Failure minimum"
-msgstr ""
+msgstr "Fehlerminimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:222
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:222
@@ -248,6 +257,8 @@ msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Setzt den unteren akzeptablen Wert. Falls nicht gesetzt, wird negativer Wert "
+"benutzt."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:227
@@ -257,17 +268,20 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:230
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:230
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Wenn der Wert unter diesem Wert und grösser als {fmin} ist wird eine Warung "
+"gesendet. "
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 msgid "failure minimum"
-msgstr ""
+msgstr "Fehlerminimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:236
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:236
@@ -345,7 +359,7 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
@@ -355,17 +369,17 @@ msgstr "Datenquelle"
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Grenzwert Konfiguration"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 msgid "Threshold's list"
-msgstr ""
+msgstr "Grenzwert Liste"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold"
-msgstr ""
+msgstr "Grenzwert"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:300
@@ -426,22 +440,22 @@ msgstr ""
 #: src/EBox/Monitor/Configuration.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "letzte Stunde"
 
 #: src/EBox/Monitor/Configuration.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "letzter Tag"
 
 #: src/EBox/Monitor/Configuration.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "letzter Monat"
 
 #: src/EBox/Monitor/Configuration.pm:139
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Letztes Jahr"
 
 #: src/EBox/CGI/Index.pm:41
 #: debian/ebox-monitor/usr/share/perl5/EBox/CGI/Monitor/Index.pm:41

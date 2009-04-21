@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-02 19:45+0100\n"
-"PO-Revision-Date: 2009-03-22 20:57+0000\n"
+"PO-Revision-Date: 2009-04-05 18:09+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -364,9 +364,8 @@ msgstr ""
 "transférés à cette adresse pour entrainer le filtre"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:137
-#, fuzzy
 msgid "Antispam sender policy"
-msgstr "Listes d'accès d'expéditeur d'Antispam"
+msgstr "Politique Antispam de l'expéditeur"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:148
 msgid "Virtual domains configuration"
@@ -518,18 +517,16 @@ msgid "Filter spam"
 msgstr "Filtre de spam"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-#, fuzzy
 msgid "ISP spam subject"
-msgstr "Etiquette du sujet de spam"
+msgstr "Entête spam du fournisseur d'accès"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
-#, fuzzy
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
-"Cette option vous permet de définir le texte que votre ISP utilise si le "
-"courrier est considéré comme un SPAM"
+"Cette option vous permet de définir le texte que votre Fournisseur d'accès "
+"utilise si le courrier est considéré comme un SPAM"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP transparent proxy configuration"

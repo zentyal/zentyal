@@ -7,19 +7,19 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-01-08 10:05+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-03-25 13:09+0000\n"
+"Last-Translator: Bráulio Weimann Gergull <gergull@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"
-msgstr ""
+msgstr "Endereço do servidor"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2009-01-29 12:05+0000\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2009-04-19 17:37+0200\n"
+"Last-Translator: R. Hempel <ruben@hempelr.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,13 +25,13 @@ msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:40
 msgid " To configure spamassassin daemon"
-msgstr " Um den Hintergrunddienst spamassassin daemon zu konfigurieren"
+msgstr "Dienst Spamassasin konfigurieren"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:308
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
 #: src/EBox/MailFilter/Model/VDomains.pm:91
 msgid "Spam threshold"
-msgstr "Wert für Spam"
+msgstr "Spam - Schwellwert"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:308
 msgid "It must be a number(decimal point allowed)"
@@ -39,9 +39,7 @@ msgstr "Es muss eine Zahl sein (Dezimalstellen mit Punkt schreiben)"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:318
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
-"Der Wert unerwünschter Nachrichten kann nicht grösser sein, als der Wert für "
-"automatisches Lernen unerwünschter Nachrichten"
+msgstr "Die Spam-Schwelle kann nicht höher sein, als die  Autolern-Spamschwelle"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:322
 msgid ""
@@ -299,7 +297,9 @@ msgstr "MIME-Typ"
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
-msgstr "MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt"
+msgstr ""
+"MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt. MIME-Typen die "
+"nicht gefiltert werden."
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -511,11 +511,11 @@ msgstr "infizierte Nachrichten"
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
 #, fuzzy
 msgid "Transparent POP proxy traffic details"
-msgstr "Filter-Verkehr Details"
+msgstr "Filtertraffic Details"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
-msgstr ""
+msgstr "Filter-Grafik"
 
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
 msgid "Transparent POP proxy traffic"
@@ -577,6 +577,8 @@ msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Diese Option erlaubt Ihnen den Filterausdruck Ihres ISPs zu setzen, falls\n"
+"er Ihre Mails nach SPAM durchsucht"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #, fuzzy
@@ -624,7 +626,9 @@ msgstr "Mailanhang-Filter"
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
-msgstr "Nachrichten entsprechend der angehängten Dateien filtern"
+msgstr ""
+"Nachrichten entsprechend der angehängten Dateien filtern, Filter nur nach "
+"Erweiterung"
 
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 #: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:352
@@ -707,11 +711,11 @@ msgstr ""
 
 #: src/EBox/MailFilter/Amavis.pm:46
 msgid "To configure amavis"
-msgstr "Um amavis zu konfigurieren"
+msgstr "Amavis konfigurieren"
 
 #: src/EBox/MailFilter/Amavis.pm:51
 msgid "To add the LDAP schemas used by eBox mailfilter"
-msgstr "Um die von eBox Mailfilter verwendeten LDAP-Schemas hinzuzufügen"
+msgstr "Die von eBox Mailfilter verwendeten LDAP-Schemas hinzuzufügen"
 
 #: src/EBox/MailFilter/Amavis.pm:408
 msgid "eBox internal mail filter"
@@ -730,7 +734,7 @@ msgstr "Antivirus"
 #: src/EBox/MailFilter/POPProxy.pm:47
 #, fuzzy
 msgid " To configure p3scan"
-msgstr "Um amavis zu konfigurieren"
+msgstr "Amavis konfigurieren"
 
 #: src/EBox/MailFilter/POPProxy.pm:52
 #, fuzzy
@@ -750,7 +754,7 @@ msgstr ""
 #: src/EBox/MailFilter.pm:91
 #, fuzzy
 msgid "Add clamav user to p3scan group"
-msgstr "Füge Benutzer clamav zur Gruppe amavis hinzu"
+msgstr "ClamAV-Benutzer zur Gruppe amavis hinzufügen"
 
 #: src/EBox/MailFilter.pm:92
 #, fuzzy
@@ -818,17 +822,17 @@ msgstr "Virus gefunden"
 
 #: src/EBox/MailFilter.pm:574
 msgid "Clean message"
-msgstr "saubere Nachrichten"
+msgstr "Virenfreie Nachricht"
 
 #: src/EBox/MailFilter.pm:605
 #, fuzzy
 msgid "Account"
-msgstr "Aktion"
+msgstr "Konto"
 
 #: src/EBox/MailFilter.pm:606
 #, fuzzy
 msgid "Client's address"
-msgstr "Adresse des Empfängers"
+msgstr "Empfänger-Adresse"
 
 #: src/EBox/MailFilter.pm:609
 msgid "Total messages"
@@ -849,15 +853,16 @@ msgstr "Spam-Nachrichten"
 #: src/EBox/MailFilter.pm:619
 #, fuzzy
 msgid "POP3 transmission complete"
-msgstr "POP3-Übertragung fertig"
+msgstr "POP3-Übertragung abgeschlossen"
 
 #: src/EBox/MailFilter.pm:621
 msgid "POP3 transmission aborted"
 msgstr "POP3-Übertragung abgebrochen"
 
 #: src/EBox/MailFilter.pm:629
+#, fuzzy
 msgid "POP3 proxy"
-msgstr ""
+msgstr "POP3-Proxy / Filter"
 
 #: src/EBox/MailFilter.pm:721
 msgid "Mail Filter"
@@ -869,8 +874,9 @@ msgid "SMTP mail filter"
 msgstr "SMTP-Mailfilter"
 
 #: src/EBox/MailFilter.pm:755
+#, fuzzy
 msgid "Files ACL"
-msgstr ""
+msgstr "Datei-ACL (Zugriffskontrolliste)"
 
 #: migration/0004_add_firewall_services.pl:50
 msgid "POP3 protocol"

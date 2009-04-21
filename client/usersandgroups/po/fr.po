@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2009-03-22 18:59+0000\n"
+"PO-Revision-Date: 2009-04-05 17:43+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -186,23 +186,26 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
+"Vous devez activer le module \"Utilisateurs\" dans la section \"Statut des "
+"modules\" pour pouvoir l'utiliser."
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups/Model/Users.pm:130
 #: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid "There are no users at the moment."
-msgstr ""
+msgstr "Il n'y a pas d'utilisateurs pour le moment."
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:56
 #: src/EBox/UsersAndGroups.pm:56
-#, fuzzy
 msgid "users and groups"
-msgstr "Utilisateurs dans groupe"
+msgstr "groupes et utilisateurs"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:74
 msgid ""
 "Your current openLDAP database will be replaced and backuped in /var/backups/"
 "slapd"
 msgstr ""
+"Votre base de données openLDAP actuelle va être remplacée et sauvegardée "
+"dans /var/backup/slapd"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:76
 #: src/EBox/UsersAndGroups.pm:76
@@ -210,11 +213,13 @@ msgid ""
 "eBox will initialize openLDAP to store its database. It will also overwrite "
 "your current configuration"
 msgstr ""
+"eBox va initialiser open LDAP pour stocker ces bases de données. Cela va "
+"également écraser votre configuration actuelle"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:92
 #: src/EBox/UsersAndGroups.pm:92
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr ""
+msgstr "Pour permettre openLDAP d'écouter les sockets TCP et Unix"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:97
 #: src/EBox/UsersAndGroups.pm:97
@@ -222,6 +227,8 @@ msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
+"Pour configurer la base de données openLDAP avec les entrées dc   , rootpw, "
+"rootdn, schemas et ACLs utilisées par  les modules eBox basés sur LDAP"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:355
 #: src/EBox/UsersAndGroups.pm:354
@@ -243,12 +250,16 @@ msgstr "Nombre maximum d'utilisateurs système atteint"
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"UID {uid} incorrecte pour un utilisateur. L'UID doit être plus grand ou égal "
+"à {min}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:438
 #: src/EBox/UsersAndGroups.pm:437
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"UID {uid} incorrecte pour un utilisateur système. L'UID doit être plus petit "
+"que {max}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:773
 #: src/EBox/UsersAndGroups.pm:772
@@ -268,12 +279,16 @@ msgstr "Le nom du groupe n'est pas valide parce qu'il est employé en interne"
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
+"GID {gid} incorrecte pour un groupe. Le GID doit être plus grand ou égal à "
+"{min}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:859
 #: src/EBox/UsersAndGroups.pm:858
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
+"GID {gid} incorrecte pour un groupe système. Le GID doit être plus petit que "
+"{max}"
 
 #: debian/ebox-usersandgroups/usr/share/perl5/EBox/UsersAndGroups.pm:1343
 #: src/EBox/UsersAndGroups.pm:1342
@@ -517,13 +532,12 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: src/templates/user.mas:73
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all the dependent "
 "data; such as mail accounts, user files, ..."
 msgstr ""
 "Cette opération causera la suppression de l'utilisateur et de toutes ses "
-"dépendances ; comme des comptes de courrier, données ..."
+"données liées; comme les comptes de courrier, fichiers utilisateurs, ..."
 
 #~ msgid "retype password"
 #~ msgstr "reécrire le mot de passe"

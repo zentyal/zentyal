@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-05-15 13:15+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-04-06 23:33+0200\n"
+"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Ifaces.pm:29
@@ -162,9 +162,8 @@ msgstr "équilibrage du trafic"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:134
-#, fuzzy
 msgid "Traffic rate monitoring"
-msgstr "Taux de trafic pour {service}"
+msgstr "Surveillance du taux de trafic"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2577
@@ -175,7 +174,7 @@ msgstr "Statut"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
-msgstr ""
+msgstr "En marche"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:756
 #: src/EBox/Network/Report/ByteRate.pm:756
@@ -186,9 +185,8 @@ msgstr "bytes/seconde"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:929
 #: src/EBox/Network/Report/ByteRate.pm:823
 #: src/EBox/Network/Report/ByteRate.pm:929
-#, fuzzy
 msgid "Traffic data for source"
-msgstr "Taux de trafic pour {service}"
+msgstr "Données de trafic pour la source"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:843
 #: src/EBox/Network/Report/ByteRate.pm:843
@@ -198,9 +196,8 @@ msgstr "Trafic réseau depuis {src}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:877
 #: src/EBox/Network/Report/ByteRate.pm:877
-#, fuzzy
 msgid "Traffic data not found for service"
-msgstr "Aucune donnée de trafic trouvée pour le service {service}"
+msgstr "Aucune donnée de trafic trouvée pour le service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:887
 #: src/EBox/Network/Report/ByteRate.pm:887
@@ -210,23 +207,19 @@ msgstr "Trafic réseau pour {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:937
 #: src/EBox/Network/Report/ByteRate.pm:937
-#, fuzzy
 msgid "Traffic data for service"
-msgstr "Taux de trafic pour {service}"
+msgstr "Données de trafic pour le service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:946
 #: src/EBox/Network/Report/ByteRate.pm:946
-#, fuzzy
 msgid "Traffic data not found for source and service pair"
-msgstr ""
-"Aucune donnée de trafic trouvée pour la source {src} et pour le service "
-"{service}"
+msgstr "Aucune donnée de trafic trouvée pour l'ensemble source et service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:948
 #: src/EBox/Network/Report/ByteRate.pm:948
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "source {src} and service {service}"
-msgstr "Trafic réseau depuis la source {src} et pour le service {service}"
+msgstr "source {src} et service {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:962
 #: src/EBox/Network/Report/ByteRate.pm:962
@@ -236,51 +229,45 @@ msgstr "Trafic réseau depuis la source {src} et pour le service {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:989
 #: src/EBox/Network/Report/ByteRate.pm:989
-#, fuzzy
 msgid "All active services"
-msgstr "Services actifs"
+msgstr "Tous les services actifs"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:994
 #: src/EBox/Network/Report/ByteRate.pm:994
-#, fuzzy
 msgid "Traffic data for "
-msgstr "Taux de trafic depuis {src}"
+msgstr "Données de trafic pour "
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:995
 #: src/EBox/Network/Report/ByteRate.pm:995
-#, fuzzy
 msgid "all services"
-msgstr "Services actifs"
+msgstr "tous les services"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1040
 #: src/EBox/Network/Report/ByteRate.pm:1040
-#, fuzzy
 msgid "All active sources"
-msgstr "Sources actives"
+msgstr "Toutes les sources actives"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1045
 #: src/EBox/Network/Report/ByteRate.pm:1045
-#, fuzzy
 msgid "Traffic data for"
-msgstr "Taux de trafic depuis {src}"
+msgstr "Donnée de trafic pour"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1046
 #: src/EBox/Network/Report/ByteRate.pm:1046
-#, fuzzy
 msgid "all sources"
-msgstr "Sources actives"
+msgstr "toutes les sources"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1084
 #: src/EBox/Network/Report/ByteRate.pm:1084
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr "Taux de trafic depuis {src}"
+msgstr "Taux de trafic total depuis {src}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1099
 #: src/EBox/Network/Report/ByteRate.pm:1099
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr "Taux de trafic pour {service}"
+msgstr "Taux de trafic total pour {service}"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:1123
 #: src/EBox/Network/Report/ByteRate.pm:1123
@@ -356,9 +343,8 @@ msgstr "Interface"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:99
 #: src/EBox/Model/GatewayTable.pm:99
-#, fuzzy
 msgid "Interface connected to this gateway"
-msgstr "Interface à écouter"
+msgstr "Interface connectée à cette passerelle"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:103
 #: src/EBox/Model/GatewayTable.pm:103
@@ -368,7 +354,7 @@ msgstr "Envoi"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:107
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Taux d'envoi en Kbits/s pour cette passerelle."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:112
 #: src/EBox/Model/GatewayTable.pm:112
@@ -378,7 +364,7 @@ msgstr "Téléchargement"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:116
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Taus de téléchargement en Kbits/s pour cette passerelle."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:120
 #: src/EBox/Model/GatewayTable.pm:120
@@ -391,6 +377,8 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Ce champs est utile uniquement dans le cas où vous avez plus d'un routeur et "
+"  si la fonction d'équilibrage du trafic est activée."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130
@@ -482,7 +470,7 @@ msgstr "Port"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:137
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr ""
+msgstr "Laisser le vide  pour sélectionner tous les ports"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:141
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
@@ -502,7 +490,7 @@ msgstr "Objet de destination"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:170
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr ""
+msgstr "Laisser le vide pour sélectionner tous les ports"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:174
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:148
@@ -515,6 +503,7 @@ msgstr "Passerelle"
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
 msgstr ""
+"Passerelle vers laquelle envoyer les paquets qui correspondent à cette règle"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:188
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
@@ -636,42 +625,37 @@ msgstr ""
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:78
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
-msgstr ""
+msgstr "Type de graphique"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:85
 #: src/EBox/Model/ByteRateGraphControl.pm:85
-#, fuzzy
 msgid "All active traffic by source"
-msgstr "Sources actives"
+msgstr "Tous les trafics actifs par source"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:89
 #: src/EBox/Model/ByteRateGraphControl.pm:89
-#, fuzzy
 msgid "All active traffic by service"
-msgstr "Services actifs"
+msgstr "Tous les trafics actifs par service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:93
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr ""
+msgstr "Trafic par source sélectionnée"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:99
 #: src/EBox/Model/ByteRateGraphControl.pm:99
-#, fuzzy
 msgid "Traffic by selected service"
-msgstr "Taux de trafic pour {service}"
+msgstr "Trafic par service sélectionné"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:105
 #: src/EBox/Model/ByteRateGraphControl.pm:105
-#, fuzzy
 msgid "Traffic by source and service"
-msgstr "Taux de trafic pour {service}"
+msgstr "Trafic par source et service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:117
 #: src/EBox/Model/ByteRateGraphControl.pm:117
-#, fuzzy
 msgid "Service"
-msgstr "Source"
+msgstr "Service"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:80
 #: src/EBox/Model/ByteRateSettings.pm:80
@@ -742,14 +726,13 @@ msgstr "Réseau"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:144
 #: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
 msgid "IP or network address"
-msgstr "adresse réseau"
+msgstr "adresse IP ou réseau"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:150
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "Passerelle utilisée pour atteindre la plage d'adresse inférieure"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:155
 #: src/EBox/Model/StaticRoute.pm:155
@@ -761,45 +744,41 @@ msgstr "Description"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:158
 #: src/EBox/Model/StaticRoute.pm:158
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Description optionnelle pour itinéraire"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:164
 #: src/EBox/Model/StaticRoute.pm:164
 msgid "Static routes"
-msgstr "Routes statiques"
+msgstr "Itinéraires statiques"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:165
 #: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
 msgid "Static route list"
-msgstr "Routes statiques"
+msgstr "Liste d'itinéraire statique"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:170
 #: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
-"Tous les routeurs que vous entrez ici doivent être atteignables depuis l'une "
-"des interfaces actuellement configurées."
+"Toutes les passerelles que vous entrez ici doivent être atteignables depuis "
+"l'une des interfaces réseaux actuellement configurées."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:173
 #: src/EBox/Model/StaticRoute.pm:173
-#, fuzzy
 msgid "static route"
-msgstr "Routes statiques"
+msgstr "itinéraire statique"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:78
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
-msgstr ""
+msgstr "Adresse IP du serveur DNS que eBox va utiliser pour résoudre les noms"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:84
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Name server"
-msgstr "Services actifs"
+msgstr "Nom du serveur"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:93
 #: src/EBox/Model/DNSResolver.pm:93

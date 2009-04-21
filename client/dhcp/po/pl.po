@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:59+0100\n"
-"PO-Revision-Date: 2007-04-05 20:45+0000\n"
-"Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
+"PO-Revision-Date: 2009-04-02 04:48+0200\n"
+"Last-Translator: Piotr Kirklewski <pkirklewski@gabaedevelopment.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
@@ -103,7 +103,7 @@ msgstr "zakresy DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Czas przydzialu musi byc wiekszy niz 0 sekund"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
@@ -112,35 +112,37 @@ msgstr ""
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Maksymalny czas przydzialu musi byc wiekszy niz 0 sekund"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"Maksymalny czas przydzialu {max} musi byc wiekszy niz czas przydzialu "
+"{default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 #, fuzzy
 msgid "Default leased time"
-msgstr "Brama domyślna"
+msgstr "Czas przydzialu"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
-msgstr ""
+msgstr "Sekund"
 
 #: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Maksymalny czas przydzialu"
 
 #: src/EBox/Model/LeaseTimes.pm:216
 #, fuzzy
 msgid "Lease times"
-msgstr "Brama domyślna"
+msgstr "Czasy przydzialu"
 
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
+msgstr "Czas przydzialu to okres przez ktory dany adres IP pozostaje wazny "
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -154,7 +156,7 @@ msgstr ""
 
 #: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
 msgid "Custom"
-msgstr ""
+msgstr "Uzytkownika"
 
 #: src/EBox/Model/Options.pm:323
 #, fuzzy
@@ -163,12 +165,12 @@ msgstr "Wyszukaj domene"
 
 #: src/EBox/Model/Options.pm:331
 msgid "local eBox DNS"
-msgstr ""
+msgstr "lokalny DNS serwera eBox"
 
 #: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
 #: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:236
 msgid "None"
-msgstr ""
+msgstr "Zaden"
 
 #: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
 msgid "Default gateway"
@@ -176,7 +178,7 @@ msgstr "Brama domyślna"
 
 #: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:239
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/Options.pm:366
 #, fuzzy
@@ -185,7 +187,7 @@ msgstr "Z adresu IP"
 
 #: src/EBox/Model/Options.pm:376
 msgid "Configured ones"
-msgstr ""
+msgstr "Skonfigurowane"
 
 #: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
 msgid "Search domain"
@@ -249,6 +251,8 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"Nie mozesz {action} ustalonego adresu z nazwa uzyta juz w innej tabeli "
+"adresow"
 
 #: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1153 src/EBox/DHCP.pm:1221 src/templates/fixed.mas:9
@@ -263,7 +267,7 @@ msgstr "adres IP"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "Nie mozesz uzyc adresow z zakresu wskazanego powyzej. "
 
 #: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
 msgid "Fixed addresses"

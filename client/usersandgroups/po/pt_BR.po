@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2009-03-11 02:19+0000\n"
+"PO-Revision-Date: 2009-03-25 03:14+0000\n"
 "Last-Translator: Anderson Portinelli <portinelli@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -305,6 +305,7 @@ msgid ""
 "Your current openLDAP database will be replaced and backed up in /var/"
 "backups/slapd"
 msgstr ""
+"Seu atual openldap base será substituído e quardado em /var/backups/slapd"
 
 #: debian/ebox-usersandgroups/usr/share/ebox/templates/ajax/tableUser.mas:88
 #: src/templates/ajax/tableUser.mas:88
