@@ -395,7 +395,6 @@ sub fqdn
     my $fqdn = `hostname --fqdn`;
     if ($? != 0) {
         $fqdn = 'ebox.localdomain';
-        );
     }
     chomp $fqdn;
     return $fqdn;
