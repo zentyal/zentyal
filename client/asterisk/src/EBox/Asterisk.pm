@@ -394,9 +394,7 @@ sub fqdn
 {
     my $fqdn = `hostname --fqdn`;
     if ($? != 0) {
-        throw EBox::Exceptions::Internal(
-        'eBox was unable to get the full qualified domain name for his host./'
-        .'Please, check that your name resolver and /etc/hosts are properly configured.'
+        $fqdn = 'ebox.localdomain';
         );
     }
     chomp $fqdn;
