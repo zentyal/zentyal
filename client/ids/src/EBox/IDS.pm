@@ -24,16 +24,19 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::FirewallObserver
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
            );
 
+use Error qw(:try);
+
 use EBox::Gettext;
 use EBox::Service;
-use EBox::IDSFirewall;
+use EBox::Sudo;
+use EBox::Exceptions::Sudo::Command;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
+use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
 
 # Group: Protected methods
 
@@ -60,6 +63,24 @@ sub _create
         return $self;
 }
 
+# Method: _isDaemonRunning
+#
+# Overrides:
+#       <EBox::Module::Service::_isDaemonRunning>
+#
+sub _isDaemonRunning
+{
+    my ($self) = @_;
+
+    try {
+        EBox::Sudo::root('/etc/init.d/snort status');
+    } catch EBox::Exceptions::Sudo::Command with {
+        # Command returned != 0
+        return 0;
+    };
+    return 1;
+}
+
 # Method: _daemons
 #
 # Overrides:
@@ -68,7 +89,7 @@ sub _create
 #
 sub _daemons
 {
-    return [ { 'name' => 'ebox.ids.snort' } ];
+    return [ { 'name' => 'snort', 'type' => 'init.d' } ];
 }
 
 # Method: _setConf
@@ -83,7 +104,25 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->writeConfFile(SNORT_CONF_FILE, "ids/snort.conf.mas");
+    my $rulesModel = $self->model('Rules');
+    my @rules = map ($rulesModel->row($_)->valueByName('name'),
+                   @{$rulesModel->enabledRows()});
+
+    $self->writeConfFile(SNORT_CONF_FILE, 'ids/snort.conf.mas',
+                         [ rules => \@rules ]);
+
+    my $net = EBox::Global->modInstance('network');
+    my $ifacesModel = $self->model('Interfaces');
+    my @ifaces;
+    foreach my $row (@{$ifacesModel->enabledRows()}) {
+        my $iface = $ifacesModel->row($row)->valueByName('iface');
+        my $method = $net->ifaceMethod($iface);
+        next if ($method eq 'notset' or $method eq 'trunk');
+        push (@ifaces, $iface);
+    }
+
+    $self->writeConfFile(SNORT_DEBIAN_CONF_FILE, 'ids/snort.debian.conf.mas',
+                         [ ifaces => \@ifaces ]);
 }
 
 # Group: Public methods
@@ -99,7 +138,7 @@ sub _setConf
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'IDS/View/Rules',
+    $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
                                     'text' => __('IDS')));
 }
 
@@ -113,7 +152,8 @@ sub menu
 #
 sub modelClasses
 {
-    return [ 'EBox::IDS::Model::Rules' ];
+    return [ 'EBox::IDS::Model::Interfaces',
+             'EBox::IDS::Model::Rules' ];
 }
 
 # Method: compositeClasses
@@ -126,7 +166,7 @@ sub modelClasses
 #
 sub compositeClasses
 {
-    return [];
+    return [ 'EBox::IDS::Composite::General' ];
 }
 
 # Method: usedFiles
@@ -144,7 +184,12 @@ sub usedFiles
         {
             'file' => SNORT_CONF_FILE,
             'module' => 'ids',
-            'reason' => 'snort configuration file'
+            'reason' => 'Add rules to snort configuration'
+        },
+        {
+            'file' => SNORT_DEBIAN_CONF_FILE,
+            'module' => 'ids',
+            'reason' => 'Add interfaces to snort configuration'
         }
     ];
 }
@@ -187,15 +232,6 @@ sub enableActions
 sub disableActions
 {
 
-}
-
-sub firewallHelper
-{
-    my ($self) = @_;
-    if ($self->isEnabled()){
-        return new EBox::IDSFirewall();
-    }
-    return undef;
 }
 
 # Group: Private methods

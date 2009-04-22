@@ -1,2 +1,0 @@
-exec /usr/sbin/snort -c /etc/snort/snort.conf
-respawn

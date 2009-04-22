@@ -1,3 +1,6 @@
+<%args>
+@rules
+</%args>
 #--------------------------------------------------
 #   http://www.snort.org     Snort 2.7.0 Ruleset
 #     Contact: snort-sigs@lists.sourceforge.net
@@ -283,14 +286,9 @@ preprocessor flow: stats_interval 0 hash 2
 #
 # Frag3 configuration example:
 #preprocessor frag3_global: max_frags 65536 prealloc_frags 262144
-#preprocessor frag3_engine: policy linux \
-#                           bind_to [10.1.1.12/32,10.1.1.13/32] \
-#                           detect_anomalies
-#preprocessor frag3_engine: policy first \
-#                           bind_to 10.2.1.0/24 \
-#                           detect_anomalies
-#preprocessor frag3_engine: policy last \
-#                           bind_to 10.3.1.0/24
+#preprocessor frag3_engine: policy linux #                           bind_to [10.1.1.12/32,10.1.1.13/32] #                           detect_anomalies
+#preprocessor frag3_engine: policy first #                           bind_to 10.2.1.0/24 #                           detect_anomalies
+#preprocessor frag3_engine: policy last #                           bind_to 10.3.1.0/24
 #preprocessor frag3_engine: policy bsd
 
 preprocessor frag3_global: max_frags 65536
@@ -421,8 +419,7 @@ preprocessor frag3_engine: policy first detect_anomalies
 # See README.stream5 for details on the configuration options.
 #
 # Example config (that emulates Stream4 with UDP support compiled in)
-preprocessor stream5_global: max_tcp 8192, track_tcp yes, \
-                             track_udp no
+preprocessor stream5_global: max_tcp 8192, track_tcp yes,                              track_udp no
 preprocessor stream5_tcp: policy first, use_static_footprint_sizes
 # preprocessor stream5_udp: ignore_any_rules
 
@@ -439,25 +436,14 @@ preprocessor stream5_tcp: policy first, use_static_footprint_sizes
 # lots of options available here. See doc/README.http_inspect.
 # unicode.map should be wherever your snort.conf lives, or given
 # a full path to where snort can find it.
-preprocessor http_inspect: global \
-    iis_unicode_map unicode.map 1252 
+preprocessor http_inspect: global     iis_unicode_map unicode.map 1252 
 
-preprocessor http_inspect_server: server default \
-    profile all ports { 80 8080 8180 } oversize_dir_length 500
+preprocessor http_inspect_server: server default     profile all ports { 80 8080 8180 } oversize_dir_length 500
 
 #
 #  Example unique server configuration
 #
-#preprocessor http_inspect_server: server 1.1.1.1 \
-#    ports { 80 3128 8080 } \
-#    flow_depth 0 \
-#    ascii no \
-#    double_decode yes \
-#    non_rfc_char { 0x00 } \
-#    chunk_length 500000 \
-#    non_strict \
-#    oversize_dir_length 300 \
-#    no_alerts
+#preprocessor http_inspect_server: server 1.1.1.1 #    ports { 80 3128 8080 } #    flow_depth 0 #    ascii no #    double_decode yes #    non_rfc_char { 0x00 } #    chunk_length 500000 #    non_strict #    oversize_dir_length 300 #    no_alerts
 
 
 # rpc_decode: normalize RPC traffic
@@ -485,8 +471,7 @@ preprocessor rpc_decode: 111 32771
 #
 # arguments:  
 #   syntax:
-#     preprocessor bo: noalert { client | server | general | snort_attack } \
-#                      drop    { client | server | general | snort_attack }
+#     preprocessor bo: noalert { client | server | general | snort_attack } #                      drop    { client | server | general | snort_attack }
 #   example:
 #     preprocessor bo: noalert { general server } drop { snort_attack }
 
@@ -535,32 +520,18 @@ preprocessor bo
 # or use commandline option
 # --dynamic-preprocessor-lib <full path to libsf_ftptelnet_preproc.so>
 
-preprocessor ftp_telnet: global \
-   encrypted_traffic yes \
-   inspection_type stateful
+preprocessor ftp_telnet: global    encrypted_traffic yes    inspection_type stateful
 
-preprocessor ftp_telnet_protocol: telnet \
-   normalize \
-   ayt_attack_thresh 200
+preprocessor ftp_telnet_protocol: telnet    normalize    ayt_attack_thresh 200
 
 # This is consistent with the FTP rules as of 18 Sept 2004.
 # CWD can have param length of 200
 # MODE has an additional mode of Z (compressed)
 # Check for string formats in USER & PASS commands
 # Check nDTM commands that set modification time on the file.
-preprocessor ftp_telnet_protocol: ftp server default \
-   def_max_param_len 100 \
-   alt_max_param_len 200 { CWD } \
-   cmd_validity MODE < char ASBCZ > \
-   cmd_validity MDTM < [ date nnnnnnnnnnnnnn[.n[n[n]]] ] string > \
-   chk_str_fmt { USER PASS RNFR RNTO SITE MKD } \
-   telnet_cmds yes \
-   data_chan
+preprocessor ftp_telnet_protocol: ftp server default    def_max_param_len 100    alt_max_param_len 200 { CWD }    cmd_validity MODE < char ASBCZ >    cmd_validity MDTM < [ date nnnnnnnnnnnnnn[.n[n[n]]] ] string >    chk_str_fmt { USER PASS RNFR RNTO SITE MKD }    telnet_cmds yes    data_chan
 
-preprocessor ftp_telnet_protocol: ftp client default \
-   max_resp_len 256 \
-   bounce yes \
-   telnet_cmds yes
+preprocessor ftp_telnet_protocol: ftp client default    max_resp_len 256    bounce yes    telnet_cmds yes
 
 # smtp: SMTP normalizer, protocol enforcement and buffer overflow
 # ---------------------------------------------------------------------------
@@ -578,15 +549,7 @@ preprocessor ftp_telnet_protocol: ftp client default \
 # or use commandline option
 # --dynamic-preprocessor-lib <full path to libsf_smtp_preproc.so>
 
-preprocessor smtp: \
-  ports { 25 } \
-  inspection_type stateful \
-  normalize cmds \
-  normalize_cmds { EXPN VRFY RCPT } \
-  alt_max_command_line_len 260 { MAIL } \
-  alt_max_command_line_len 300 { RCPT } \
-  alt_max_command_line_len 500 { HELP HELO ETRN } \
-  alt_max_command_line_len 255 { EXPN VRFY }
+preprocessor smtp:   ports { 25 }   inspection_type stateful   normalize cmds   normalize_cmds { EXPN VRFY RCPT }   alt_max_command_line_len 260 { MAIL }   alt_max_command_line_len 300 { RCPT }   alt_max_command_line_len 500 { HELP HELO ETRN }   alt_max_command_line_len 255 { EXPN VRFY }
 
 # sfPortscan
 # ----------
@@ -642,9 +605,7 @@ preprocessor smtp: \
 #       false alerts, especially under heavy load with dropped packets; which is why
 #       the option is off by default.
 #
-preprocessor sfportscan: proto  { all } \
-                         memcap { 10000000 } \
-                         sense_level { low }
+preprocessor sfportscan: proto  { all }                          memcap { 10000000 }                          sense_level { low }
 
 # arpspoof
 #----------------------------------------
@@ -697,9 +658,7 @@ preprocessor sfportscan: proto  { all } \
 # or use commandline option
 # --dynamic-preprocessor-lib <full path to libsf_ssh_preproc.so>
 #
-#preprocessor ssh: server_ports { 22 } \
-#                  max_client_bytes 19600 \
-#                  max_encrypted_packets 20
+#preprocessor ssh: server_ports { 22 } #                  max_client_bytes 19600 #                  max_encrypted_packets 20
 
 # DCE/RPC
 #----------------------------------------
@@ -738,10 +697,7 @@ preprocessor sfportscan: proto  { all } \
 # or use commandline option
 # --dynamic-preprocessor-lib <full path to libsf_dcerpc_preproc.so>
 
-preprocessor dcerpc: \
-    autodetect \
-    max_frag_size 3000 \
-    memcap 100000
+preprocessor dcerpc:     autodetect     max_frag_size 3000     memcap 100000
 
 # DNS
 #----------------------------------------
@@ -757,9 +713,7 @@ preprocessor dcerpc: \
 # or use commandline option
 # --dynamic-preprocessor-lib <full path to libsf_dns_preproc.so>
 
-preprocessor dns: \
-    ports { 53 } \
-    enable_rdata_overflow
+preprocessor dns:     ports { 53 }     enable_rdata_overflow
 
 ####################################################################
 # Step #4: Configure output plugins
@@ -871,8 +825,7 @@ output log_tcpdump: tcpdump.log
 # }
 #
 # EXAMPLE RULE FOR REDALERT RULETYPE:
-# redalert tcp $HOME_NET any -> $EXTERNAL_NET 31337 \
-#   (msg:"Someone is being LEET"; flags:A+;)
+# redalert tcp $HOME_NET any -> $EXTERNAL_NET 31337 #   (msg:"Someone is being LEET"; flags:A+;)
 
 #
 # Include classification & priority settings
@@ -922,95 +875,14 @@ include reference.config
 #            
 # These rules are either site policy specific or require tuning in order to not
 # generate false positive alerts in most enviornments.
-# 
+#
 # Please read the specific include file for more information and
 # README.alert_order for how rule ordering affects how alerts are triggered.
 #=========================================
 
-include $RULE_PATH/local.rules
-include $RULE_PATH/bad-traffic.rules
-include $RULE_PATH/exploit.rules
-include $RULE_PATH/community-exploit.rules
-include $RULE_PATH/scan.rules
-include $RULE_PATH/finger.rules
-include $RULE_PATH/ftp.rules
-include $RULE_PATH/telnet.rules
-include $RULE_PATH/rpc.rules
-include $RULE_PATH/rservices.rules
-include $RULE_PATH/dos.rules
-include $RULE_PATH/community-dos.rules
-include $RULE_PATH/ddos.rules
-include $RULE_PATH/dns.rules
-include $RULE_PATH/tftp.rules
-
-# Specific web server rules:
-include $RULE_PATH/web-cgi.rules
-include $RULE_PATH/web-coldfusion.rules
-include $RULE_PATH/web-iis.rules
-include $RULE_PATH/web-frontpage.rules
-include $RULE_PATH/web-misc.rules
-include $RULE_PATH/web-client.rules
-include $RULE_PATH/web-php.rules
-include $RULE_PATH/community-sql-injection.rules
-include $RULE_PATH/community-web-client.rules
-include $RULE_PATH/community-web-dos.rules
-include $RULE_PATH/community-web-iis.rules
-include $RULE_PATH/community-web-misc.rules
-include $RULE_PATH/community-web-php.rules
-
-# Rules for other services:
-include $RULE_PATH/sql.rules
-include $RULE_PATH/x11.rules
-include $RULE_PATH/icmp.rules
-include $RULE_PATH/netbios.rules
-include $RULE_PATH/misc.rules
-include $RULE_PATH/attack-responses.rules
-include $RULE_PATH/oracle.rules
-include $RULE_PATH/community-oracle.rules
-include $RULE_PATH/mysql.rules
-include $RULE_PATH/snmp.rules
-include $RULE_PATH/community-ftp.rules
-include $RULE_PATH/smtp.rules
-include $RULE_PATH/community-smtp.rules
-include $RULE_PATH/imap.rules
-include $RULE_PATH/community-imap.rules
-include $RULE_PATH/pop2.rules
-include $RULE_PATH/pop3.rules
-
-include $RULE_PATH/nntp.rules
-include $RULE_PATH/community-nntp.rules
-include $RULE_PATH/community-sip.rules
-include $RULE_PATH/other-ids.rules
-
-# Attack-in-progress rules:
-include $RULE_PATH/web-attacks.rules
-include $RULE_PATH/backdoor.rules
-include $RULE_PATH/community-bot.rules
-include $RULE_PATH/community-virus.rules
-# This ruleset is almost useless currently:
-# include $RULE_PATH/virus.rules
-# Note: this rule is extremely chatty, enable with care
-# include $RULE_PATH/shellcode.rules
-
-# Policy related rules:
-# include $RULE_PATH/policy.rules
-# include $RULE_PATH/community-policy.rules
-# include $RULE_PATH/porn.rules
-# include $RULE_PATH/community-inappropriate.rules
-# include $RULE_PATH/chat.rules
-# include $RULE_PATH/multimedia.rules
-# include $RULE_PATH/p2p.rules
-# include $RULE_PATH/community-game.rules
-# include $RULE_PATH/community-misc.rules
-
-# Extremely chatty rules:
-# include $RULE_PATH/info.rules
-# include $RULE_PATH/icmp-info.rules
-# include $RULE_PATH/community-icmp.rules
-
-# Experimental rules: 
-# NOTICE: this is currently empty
-include $RULE_PATH/experimental.rules
+% foreach my $rule (@rules) {
+include $RULE_PATH/<% $rule %>.rules
+% }
 
 # Include any thresholding or suppression commands. See threshold.conf in the
 # <snort src>/etc directory for details. Commands don't necessarily need to be

@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IDS::Model::Rules;
+package EBox::IDS::Model::Interfaces;
 
-# Class: EBox::IDS::Model::Rules
+# Class: EBox::IDS::Model::Interfaces
 #
 #   Class description
 #
@@ -27,7 +27,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
-use EBox::Types::Select;
+use EBox::Types::Text;
 
 # Group: Public methods
 
@@ -53,7 +53,6 @@ sub new
     bless ( $self, $class );
 
     return $self;
-
 }
 
 # Method: syncRows
@@ -64,33 +63,26 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my @files = </etc/snort/rules/*.rules>;
-
-    my @names;
-    foreach my $file (@files) {
-        my $slash = rindex ($file, '/');
-        my $dot = rindex ($file, '.');
-        my $name = substr ($file, ($slash + 1), ($dot - $slash - 1));
-        push (@names, $name);
-    }
-    my %newNames = map { $_ => 1 } @names;
-
-    my %currentNames =
-        map { $self->row($_)->valueByName('name') => 1 } @{$currentRows};
+    my $net = EBox::Global->modInstance('network');
+    my $ifaces = $net->ifaces();
+    my %newIfaces =
+        map { $_ => 1 } @{$ifaces};
+    my %currentIfaces =
+        map { $self->row($_)->valueByName('iface') => 1 } @{$currentRows};
 
     my $modified = 0;
 
-    my @namesToAdd = grep { not exists $currentNames{$_} } @names;
-    foreach my $name (@namesToAdd) {
-        $self->add(name => $name, enabled => 0);
+    my @ifacesToAdd = grep { not exists $currentIfaces{$_} } @{$ifaces};
+    foreach my $iface (@ifacesToAdd) {
+        $self->add(iface => $iface, enabled => 0);
         $modified = 1;
     }
 
     # Remove old rows
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
-        my $name = $row->valueByName('name');
-        next if exists $newNames{$name};
+        my $ifaceName = $row->valueByName('iface');
+        next if exists $newIfaces{$ifaceName};
         $self->removeRow($id);
         $modified = 1;
     }
@@ -112,8 +104,8 @@ sub _table
 {
     my @tableHeader = (
         new EBox::Types::Text(
-            'fieldName' => 'name',
-            'printableName' => __('Rule set'),
+            'fieldName' => 'iface',
+            'printableName' => __('Interface'),
             'unique' => 1,
             'editable' => 1),
         new EBox::Types::Boolean (
@@ -126,8 +118,8 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'Rules',
-        printableTableName => __('Rules'),
+        tableName          => 'Interfaces',
+        printableTableName => __('Interfaces to listen on'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

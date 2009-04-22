@@ -1,1 +1,7 @@
 class: 'EBox::IDS'
+
+depends:
+    - network
+
+enabledepends:
+    - network

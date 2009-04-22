@@ -1,0 +1,23 @@
+<%args>
+    @ifaces
+</%args>
+# This file is used for options that are changed by Debian to leave
+# the original lib files untouched.
+# You have to use "dpkg-reconfigure snort" to change them.
+
+% my $net_list = '';
+% my $iface_list = '';
+% foreach my $iface (@ifaces) {
+%   $net_list .= '$' . $iface . '_ADDRESS,';
+%   $iface_list .= "$iface ";
+% }
+% $net_list = substr ($net_list, 0, -1);
+% $iface_list = substr ($iface_list, 0, -1);
+
+DEBIAN_SNORT_STARTUP="boot"
+DEBIAN_SNORT_HOME_NET="<% $net_list %>"
+DEBIAN_SNORT_OPTIONS=""
+DEBIAN_SNORT_INTERFACE="<% $iface_list %>"
+DEBIAN_SNORT_SEND_STATS="true"
+DEBIAN_SNORT_STATS_RCPT="root"
+DEBIAN_SNORT_STATS_THRESHOLD="1"

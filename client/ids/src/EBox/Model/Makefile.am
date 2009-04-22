@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/IDS/Model
 
 SUBDIRS =
 
-mods = Rules.pm Composite.pm
+mods = Interfaces.pm Rules.pm
 
 nobase_perl_DATA = $(mods)
 

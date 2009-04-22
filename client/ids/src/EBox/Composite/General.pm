@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::IDS::Model::Composite
+# Class: EBox::IDS::Composite::General
 #
 #   Class description
 #
 
-package EBox::IDS::Model::Composite;
+package EBox::IDS::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -40,15 +40,14 @@ use EBox::Gettext;
 #       composite
 #
 sub new
-  {
+{
 
-      my ($class) = @_;
+    my ($class) = @_;
 
-      my $self = $class->SUPER::new();
+    my $self = $class->SUPER::new();
 
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -59,21 +58,22 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
 
-      my $description =
-        {
-         components      => [
-                            ],
-         layout          => 'top-bottom',
-         name            => 'Composite',
-         printableName   => __('composite title'),
-         compositeDomain => 'IDS',
-         help            => __('help message'),
-        };
+    my $description =
+    {
+        components      => [
+                            'ids/Interfaces',
+                            'ids/Rules',
+                           ],
+        layout          => 'tabbed',
+        name            => __PACKAGE__->nameFromClass,
+        printableName   => __('Intrusion Detection System options'),
+        compositeDomain => 'IDS',
+#        help            => __('help message'),
+    };
 
-      return $description;
-
-  }
+    return $description;
+}
 
 1;
