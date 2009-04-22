@@ -38,7 +38,7 @@ use constant INITDPATH => '/etc/init.d/';
 #   managed  by eBox
 #
 # Returns:
-#   
+#
 #   An array ref of hashes containing the following:
 #
 #       file - file's path
@@ -47,29 +47,29 @@ use constant INITDPATH => '/etc/init.d/';
 #
 #   Example:
 #
-#       [ 
-#           { 
+#       [
+#           {
 #             'file' => '/etc/samba/smb.conf',
 #             'reason' =>  __('The file sharing module needs to modify it' .
 #                           ' to configure samba properly')
-#              'module' => samba 
+#              'module' => samba
 #           }
 #       ]
 #
 #
-sub usedFiles 
+sub usedFiles
 {
     return [];
 }
 
-# Method: actions 
+# Method: actions
 #
 #   This method is mainly used to show information to the user
 #   about the actions that need to be carried out by the service
 #   to configure the system
 #
 # Returns:
-#   
+#
 #   An array ref of hashes containing the following:
 #
 #       action - action to carry out
@@ -78,12 +78,12 @@ sub usedFiles
 #
 #   Example:
 #
-#       [ 
-#           { 
+#       [
+#           {
 #             'action' => 'remove samba init script"
-#             'reason' => 
+#             'reason' =>
 #                   __('eBox will take care of start and stop the service')
-#             'module' => samba 
+#             'module' => samba
 #           }
 #       ]
 #
@@ -93,10 +93,10 @@ sub actions
     return [];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 #   This method is run to carry out the actions that are needed to
-#   enable a module. It usually executes those which are returned 
+#   enable a module. It usually executes those which are returned
 #   by actions.
 #
 #   For example: it could remove the samba init script
@@ -120,7 +120,7 @@ sub disableActions
 
 }
 
-# Method: enableModDepends 
+# Method: enableModDepends
 #
 #   This method is used to declare which modules need to be enabled
 #   to use this module.
@@ -153,7 +153,7 @@ sub enableModDepends
     }
 }
 
-# Method: configured 
+# Method: configured
 #
 #   This method is used to check if the module has been configured.
 #   Configuration is done one time per service package version.
@@ -167,9 +167,9 @@ sub enableModDepends
 #
 # Returns:
 #
-#   boolean 
+#   boolean
 #
-sub configured 
+sub configured
 {
     my ($self) = @_;
 
@@ -178,13 +178,13 @@ sub configured
     }
 
     unless ($self->st_get_bool('_serviceConfigured')) {
-        return undef; 
+        return undef;
     }
 
     return $self->st_get_bool('_serviceConfigured');
 }
 
-# Method: setConfigured 
+# Method: setConfigured
 #
 #   This method is used to set if the module has been configured.
 #   Configuration is done one time per service package version.
@@ -200,7 +200,7 @@ sub configured
 #
 #   boolean - true if configured, false otherwise
 #
-sub setConfigured 
+sub setConfigured
 {
     my ($self, $status) = @_;
     defined $status or
@@ -217,7 +217,7 @@ sub setConfigured
 #
 # Returns:
 #
-#   boolean 
+#   boolean
 sub isEnabled
 {
     my ($self) = @_;
@@ -247,7 +247,7 @@ sub _isDaemonRunning
     if(@ds) {
         $daemon = $ds[0];
     }
-    if(!defined($daemon)) { 
+    if(!defined($daemon)) {
         throw EBox::Exceptions::Internal(
             "no such daemon defined in this module: " . $dname);
     }
@@ -290,7 +290,7 @@ sub _isDaemonRunning
 #   override this method to carry out their custom checks which can
 #   involve checking an upstart script, an existing PID...
 #
-#   By default it returns true if all the system services specified in 
+#   By default it returns true if all the system services specified in
 #   daemons are running
 #
 # Returns:
@@ -367,7 +367,7 @@ sub enableService
 # Returns:
 #
 #   boolean
-sub defaultStatus 
+sub defaultStatus
 {
     return 0;
 }
@@ -446,20 +446,18 @@ sub _daemons
 sub _startDaemon
 {
     my($self, $daemon) = @_;
+
+    my $isRunning = $self->_isDaemonRunning($daemon);
+
     if(daemon_type($daemon) eq 'upstart') {
-        if(EBox::Service::running($daemon->{'name'})) {
+        if($isRunning) {
             EBox::Service::manage($daemon->{'name'},'restart');
         } else {
             EBox::Service::manage($daemon->{'name'},'start');
         }
     } elsif(daemon_type($daemon) eq 'init.d') {
-        my $pidfile = $daemon->{'pidfile'};
-        if(!defined($pidfile)) {
-            throw EBox::Exceptions::Internal(
-                "init.d-based daemons must include a 'pidfile'");
-        }
         my $script = INITDPATH . $daemon->{'name'};
-        if($self->pidFileRunning($pidfile)) {
+        if($isRunning) {
             $script = $script . ' ' . 'restart';
         } else {
             $script = $script . ' ' . 'start';
@@ -487,7 +485,7 @@ sub _stopDaemon
 
 # Method: _manageService
 #
-#   This method will try to perform the action passed as first argument on 
+#   This method will try to perform the action passed as first argument on
 #   all the daemons return by the module's daemons method.
 #
 sub _manageService
@@ -623,7 +621,7 @@ sub _supportActions
 
 # Method: _enforceServiceState
 #
-#   This method will start, restart or stop the associated daemons to 
+#   This method will start, restart or stop the associated daemons to
 #   bring them to their desired state. If you need specific behaviour
 #   override this method in your module.
 #
@@ -640,8 +638,8 @@ sub _enforceServiceState
 #
 # Method: writeConfFile
 #
-#    It executes a given mason component with the passed parameters over 
-#    a file. It becomes handy to set configuration files for services. 
+#    It executes a given mason component with the passed parameters over
+#    a file. It becomes handy to set configuration files for services.
 #    Also, its file permissions will be kept.
 #    It can be called as class method. (XXX: this design or is an implementation accident?)
 #    XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
