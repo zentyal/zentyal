@@ -447,7 +447,7 @@ sub _startDaemon
 {
     my($self, $daemon) = @_;
 
-    my $isRunning = $self->_isDaemonRunning($daemon);
+    my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
 
     if(daemon_type($daemon) eq 'upstart') {
         if($isRunning) {
