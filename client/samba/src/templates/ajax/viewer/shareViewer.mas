@@ -1,0 +1,20 @@
+<%args>
+$data
+</%args>
+<%init>
+</%init>
+% my $type;
+% if ($data->selectedType() eq 'user') {
+%    $type = __('User');
+% } elsif ($data->selectedType() eq 'group') {
+%    $type = __('Group');
+% } elsif ($data->selectedType() eq 'share') {
+%    $type = __('Share');
+% }
+% if (defined($data->printableValue())) {
+<span><% $type %>: <% $data->printableValue() %></span>
+ <% $data->trailingText() %>
+% }
+% else {
+<span>--</span>
+% }

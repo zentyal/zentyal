@@ -10,8 +10,11 @@ case "$1" in
         # FIXME
         initctl list >/dev/null  2>&1 || true
 
-      # migrate data if needed
-		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/	
+        chown root.__USERS__ /var/lib/ebox/quarantine/
+        chmod 730 /var/lib/ebox/quarantine/
+
+        # migrate data if needed
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/
 
         dpkg-trigger --no-await ebox
     ;;

@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = ajax
+templatedir = @TEMPLATESPATH@/ajax/viewer/
 
-templatedir = @TEMPLATESPATH@/samba
-
-template_DATA = samba.mas delete.mas
+template_DATA = shareViewer.mas
 
 EXTRA_DIST = $(template_DATA)
 

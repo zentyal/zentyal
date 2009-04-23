@@ -22,7 +22,6 @@ use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
             EBox::Report::DiskUsageProvider EBox::Model::CompositeProvider
             EBox::Model::ModelProvider);
 
-
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
@@ -50,6 +49,7 @@ use Error qw(:try);
 use Sys::Hostname;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
+use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
 use constant LIBNSSLDAPFILE       => '/etc/ldap.conf';
 use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
 use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
@@ -168,6 +168,11 @@ sub usedFiles
         'file' => '/etc/fstab',
         'reason' => __('To add quota support to /home partition'),
         'module' => 'samba'
+    },
+    {
+        'file' => '/etc/samba/vscan-clamav.conf',
+        'reason' => __('To set the antivirus settings for Samba'),
+        'module' => 'samba'
     }
     ];
 }
@@ -198,6 +203,8 @@ sub modelClasses
                'EBox::Samba::Model::SambaShares',
                'EBox::Samba::Model::SambaSharePermissions',
                'EBox::Samba::Model::DeletedSambaShares',
+               'EBox::Samba::Model::AntivirusDefault',
+               'EBox::Samba::Model::AntivirusExceptions',
            ];
 
 }
@@ -206,14 +213,19 @@ sub modelClasses
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#       <EBox::Model::CompositeProvider::compositeClasses>
 #
 sub compositeClasses
 {
-    return ['EBox::Samba::Composite::General'];
+
+    my ($self) = @_;
+
+    return [
+             'EBox::Samba::Composite::General',
+             'EBox::Samba::Composite::Antivirus',
+           ];
 }
 
-#
 # Method: shares
 #
 #   It returns the custom shares added by the user.
@@ -289,6 +301,35 @@ sub shares
     return \@shares;
 }
 
+sub defaultAntivirusSettings
+{
+    my ($self) = @_;
+    my $antivirus = $self->model('AntivirusDefault');
+    return $antivirus->row()->valueByName('scan');
+}
+
+sub antivirusExceptions
+{
+    my ($self) = @_;
+    my $model = $self->model('AntivirusExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+    return $exceptions;
+}
 
 sub _exposedMethods
 {
@@ -367,6 +408,7 @@ sub _setConf
     $smbimpl->updateNetbiosName($self->netbios);
     $smbimpl->updateSIDEntries();
 
+
     my $ldapconf = $ldap->ldapConf();
     $ldapconf->{'users'} = EBox::UsersAndGroups::USERSDN;
     $ldapconf->{'groups'} = EBox::UsersAndGroups::GROUPSDN;
@@ -385,9 +427,14 @@ sub _setConf
     push(@array, 'pdc' => $self->pdc());
     push(@array, 'roaming' => $self->roamingProfiles());
     push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
+    push(@array, 'quarantine_path' => EBox::Config::var() . '/lib/ebox/quarantine');
     push(@array, 'shares' => $self->shares());
+    push(@array, 'antivirus' => $self->defaultAntivirusSettings());
+    push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
 
     $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
+
+    $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
 
     root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
@@ -406,7 +453,6 @@ sub _setConf
             \@array);
 
     $self->setSambaLdapToolsConf();
-
 
     # Set SIDs using the net tool this is neccesary bz if we change the
     #  domain name we can lost the domain SID
@@ -1679,6 +1725,11 @@ sub _facilitiesForDiskUsage
         $groupsPrintableName  => [ $groupsPath ],
     };
 
+}
+
+sub isAntivirusPresent
+{
+    return (-f '/usr/lib/samba/vfs/vscan-clamav.so');
 }
 
 1;

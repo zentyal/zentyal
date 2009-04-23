@@ -2,9 +2,11 @@
 
 perldir = @PERLPATH@/EBox/Samba/Model
 
-nobase_perl_DATA = GeneralSettings.pm SambaShares.pm DeletedSambaShares.pm SambaSharePermissions.pm PDC.pm
+nobase_perl_DATA = GeneralSettings.pm AntivirusDefault.pm \
+    AntivirusExceptions.pm DeletedSambaShares.pm \
+    SambaSharePermissions.pm SambaShares.pm PDC.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

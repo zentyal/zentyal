@@ -59,12 +59,14 @@ conf/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Samba/Makefile
+src/EBox/Samba/Composite/Makefile
 src/EBox/Samba/Model/Makefile
 src/EBox/Samba/Types/Makefile
-src/EBox/Samba/Composite/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
+src/templates/ajax/Makefile
+src/templates/ajax/viewer/Makefile
 schemas/Makefile
 tools/Makefile
 stubs/Makefile

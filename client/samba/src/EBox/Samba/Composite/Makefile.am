@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
+
 perldir = @PERLPATH@/EBox/Samba/Composite
 
-
-nobase_perl_DATA = General.pm
+nobase_perl_DATA = General.pm Antivirus.pm
 
 DISTCLEANFILES =
 

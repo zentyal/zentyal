@@ -63,7 +63,6 @@ sub new
 #
 sub _description
 {
-
     my $description =
         {
             components      => [
@@ -77,6 +76,11 @@ sub _description
             compositeDomain => 'Samba',
 #           help            => __(''),
         };
+
+    my $samba = EBox::Global->modInstance('samba');
+    if ($samba->isAntivirusPresent()) {
+        push(@{$description->{'components'}}, 'samba/Antivirus');
+    }
 
     return $description;
 }
