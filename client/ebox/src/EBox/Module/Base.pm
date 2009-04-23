@@ -723,11 +723,10 @@ sub pidFileRunning
     my $pid;
     try {
         my $output = EBox::Sudo::root("cat $file");
-        $pid = @{$output}[0];
+        ($pid) = @{$output}[0] =~ m/(\d+)/;
     } otherwise {
         return undef;
     };
-    chomp($pid);
     defined($pid) or return undef;
     ($pid ne "") or return undef;
     return $self->pidRunning($pid);
