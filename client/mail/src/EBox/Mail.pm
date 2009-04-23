@@ -1040,7 +1040,7 @@ sub notifyAntispamACL
     my ($self) = @_;
 
     # greylist must be notified of antispam changes
-    if (not $self->greylist()->service()) {
+    if (not $self->greylist()->isEnabled()) {
         return;
     }
 
