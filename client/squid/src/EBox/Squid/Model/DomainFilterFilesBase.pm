@@ -426,7 +426,9 @@ sub _extractArchive
     my $dir = $self->archiveContentsDir($id);
     EBox::Sudo::root("mkdir -p $dir");
 
-    my $cmd = "tar  xzf $path -C $dir ";
+    my $cmd = "tar  xzf $path -C $dir --keep-old-files "; 
+      # --keep-old-files -> the archive wil be extracted serveral time so we try
+      # to keep the proceess fast
     EBox::Sudo::root($cmd);
     my $owner = $self->_archiveFilesOwner();
 
@@ -489,7 +491,7 @@ sub _populateCategories
 
     # add new categories
     while (my ($category, $dir) = each %categories ) {
-        if (exists $categories{$category}) {
+        if (exists $categoriesInModel{$category}) {
             delete $categoriesInModel{$category};
             next;
         }
@@ -512,10 +514,6 @@ sub setupArchives
 {
     my ($self) = @_;
 
-#     my $dir = $self->listFileDir();
-#     if (not -d $dir) {
-#         EBox::Sudo::root(" mkdir -p -m 0755 $dir");
-#     }
 
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
@@ -695,8 +693,6 @@ sub restoreConfig
 {
     my ($class, $dir)  = @_;
 
- #   $class->_rmAllFilterFiles();
-
     my $archiveFile = $class->_backupFilterFilesArchive($dir);
 
     if (not -r $archiveFile) {
@@ -711,14 +707,6 @@ sub restoreConfig
     my $squid = EBox::Global->modInstance('squid');
     $squid->_cleanDomainFilterFiles(orphanedCheck => 1);
 }
-
-
-sub _rmAllFilterFiles
-{
-    my ($self) = @_;
-    EBox::Sudo::root('rm -rf ' . LIST_FILE_DIR . '/*');
-}
-
 
 
 

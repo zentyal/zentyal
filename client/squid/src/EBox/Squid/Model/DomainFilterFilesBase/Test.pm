@@ -22,6 +22,8 @@ use base 'EBox::Test::Class';
 use Test::MockObject::Extends;
 use Test::Exception;
 use Test::File;
+use Test::Differences;
+use Test::More;
 use File::Basename;
 use English qw(-no_match_vars);
 
@@ -29,6 +31,59 @@ use lib '../../../..';
 
 use EBox::Squid;
 use EBox::Squid::Model::DomainFilterFilesBase;
+
+
+sub addArchiveTest : Test(2)
+{
+    my ($self) = @_;
+
+    my $filterFiles = $self->_newInstance();
+
+    my $dir = $filterFiles->listFileDir();
+    my $shallalist = $self->_shallalistPath();
+    my $id = 'test';
+    my $uploadFile = "/tmp/upload";
+    system "cp $shallalist $uploadFile";
+    system "cp $shallalist $dir/$id";
+
+    $filterFiles->addRow(
+        description => $id,
+        fileList     => $uploadFile,
+        id          => $id,
+       );
+
+    # check if the categories are populated
+    my $row = $filterFiles->row($id);
+    my $catModel = $row->subModel('categories');
+    my %categoriesInModel = map {
+        my $row = $catModel->row($_);
+        ($row->valueByName('category') => 1)
+    } @{ $catModel->ids() };
+
+    my %shallaCategories = map {
+        ( $_ => 1);
+    } @{ $self->_shallalistCategories() };
+
+    eq_or_diff( \%categoriesInModel,
+        \%shallaCategories,
+       'Checkign that categories were loaded in categories model correctly');
+
+    my $allCorrectPolicy = 1;
+    foreach my $id (  @{ $catModel->ids() } ) {
+        my $row = $catModel->row($id);
+        my $policy = $row->valueByName('policy');
+        if ($policy ne 'ignore') {
+            diag 'Bad policy in category ' . 
+                  $row->valueByName('category');
+            $allCorrectPolicy = 0;
+        }
+    }
+
+    ok $allCorrectPolicy,
+        'Checking that all new categories have the "ignore" policy';
+
+}
+
 
 sub dumpAndRestoreConfigTest : Test(11)
 {
@@ -51,7 +106,7 @@ sub dumpAndRestoreConfigTest : Test(11)
     } 'restoring up a empty model';
 
     my $dir = $filterFiles->listFileDir();
-    my $shallalist = '../DomainFilterFilesBase/testdata/shallalist.tar.gz';
+    my $shallalist = $self->_shallalistPath();
     my @filesToSave = ("$dir/save1", "$dir/save2", );
     my @filesToNotSave = ("$dir/noSave1", "$dir/noSave2");
     foreach my $file (@filesToNotSave) {
@@ -119,7 +174,86 @@ sub dumpAndRestoreConfigTest : Test(11)
     
 }
 
+sub _shallalistPath
+{
+    return '../DomainFilterFilesBase/testdata/shallalist.tar.gz';
+}
 
+
+
+sub _shallalistCategories
+{
+    my @cat = (
+        'adv',
+        'aggressive',
+#        'automobile',
+        'astronomy',
+        'banking',
+        'bikes',
+        'boats',
+        'cars',
+        'chat',
+        'chemistry',
+        'cooking',
+        'dating',
+        'downloads',
+        'drugs',
+        'dynamic',
+        'forum',
+        'gamble',
+        'games',
+        'gardening',
+        'hacking',
+#        'hobby',
+        'hospitals',
+        'humor',
+        'insurance',
+        'imagehosting',
+        'isp',
+        'jobsearch',
+        'lingerie',
+        'military',
+        'models',
+        'moneylending',
+        'movies',
+        'music',
+        'news',
+        'other',
+        'pets',
+        'planes',
+        'podcasts',
+        'politics',
+        'porn',
+        'realestate',
+#        'recreation',
+        'redirector',
+        'religion',
+        'remotecontrol',
+        'ringtones',
+#        'science',
+        'searchengines',
+        'shopping',
+        'socialnet',
+        'sports',
+        'spyware',
+        'tracker',
+        'travel',
+        'updatesites',
+        'violence',
+        'warez',
+        'weapons',
+        'webmail',
+        'webphone',
+        'webradio',
+        'webtv',
+        'wellness',
+#        'COPYRIGHT',
+#        'global_usage',
+#        'sex',
+       );
+
+    return \@cat;
+}
 sub orphanTest
 {
 # XXX TODO
@@ -218,10 +352,7 @@ sub _table
   }
 
 
-sub EBox::Squid::Model::DomainFilterFilesBase::_rmAllFilterFiles
-{
-    system "rm -rf /tmp/DomainFilterFilesBase.test/*";
-}
+
 
 sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModel
 {
