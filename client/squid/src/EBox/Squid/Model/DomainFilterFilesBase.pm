@@ -20,6 +20,7 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
+use EBox;
 use EBox::Gettext;
 use EBox::Squid::Types::DomainPolicy;
 use EBox::Types::File;
@@ -427,11 +428,16 @@ sub _extractArchive
 
     my $cmd = "tar  xzf $path -C $dir ";
     EBox::Sudo::root($cmd);
-    EBox::Sudo::root("chown -R root.root $dir");
+    my $owner = $self->_archiveFilesOwner();
+
+    EBox::Sudo::root("chown -R $owner $dir");
 }
 
 
-
+sub _archiveFilesOwner
+{
+    return 'root.root';
+}
 
 
 
@@ -493,13 +499,19 @@ sub _populateCategories
 sub setupArchives
 {
     my ($self) = @_;
+
+#     my $dir = $self->listFileDir();
+#     if (not -d $dir) {
+#         EBox::Sudo::root(" mkdir -p -m 0755 $dir");
+#     }
+
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         my $fileList =  $row->elementByName('fileList');
         my $path = $fileList->path();
 
         if (not $fileList->exist()) {
-         EBox:error(
+         EBox::error(
 "File $path refered as dansguardian domains list does not exists. Skipping"
                    );
             next;
@@ -630,83 +642,87 @@ sub parent
 }
 
 
-# sub _backupFilterFilesArchive
-# {
-#     my ($self, $dir) = @_;
-#     return "$dir/filterFiles.tar.gz";
-# }
+sub _backupFilterFilesArchive
+{
+    my ($self, $dir) = @_;
+    return "$dir/filterFiles.tar.gz";
+}
 
-# sub dumpConfig
-# {
-#     my ($self, $dir) = @_;
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
 
-#     if ($self->size() == 0) {
-#         # nothing to backup then
-#         return;
-#     }
+    if ($self->size() == 0) {
+        # nothing to backup then
+        return;
+    }
 
-#     my $toBackupList = '/tmp/ebox.domainfilesfilter';
-#     open my $fh, ">$toBackupList" or
-#         throw EBox::Exceptions::Internal("$!");
+    my $toBackupList = '/tmp/ebox.domainfilesfilter';
+    open my $fh, ">$toBackupList" or
+        throw EBox::Exceptions::Internal("$!");
 
-#     foreach my $id (@{ $self->ids() } ) {
-#         my $fileField = $self->row($id)->elementByName('fileList');
-#         $fileField->exist() or
-#             next;
-#         print $fh $fileField->path() . "\n";
-#     }
+    foreach my $id (@{ $self->ids() } ) {
+        my $fileField = $self->row($id)->elementByName('fileList');
+        $fileField->exist() or
+            next;
+        print $fh $fileField->path() . "\n";
+    }
     
-#     close $fh or
-#          throw EBox::Exceptions::Internal("$!");
+    close $fh or
+         throw EBox::Exceptions::Internal("$!");
 
 
     
-#     my $archiveFile = $self->_backupFilterFilesArchive($dir);
+    my $archiveFile = $self->_backupFilterFilesArchive($dir);
 
-#     my $tarCmd;
-#     if (not -e $archiveFile) {
-#         $tarCmd = "tar -C '/' -cf $archiveFile --files-from '$toBackupList'";
-#     }else {
-#         $tarCmd = "tar -C '/' -rf $archiveFile --files-from '$toBackupList'";
-#     }
+    my $tarCmd;
+    if (not -e $archiveFile) {
+        $tarCmd = "tar -C '/' -cf $archiveFile --files-from '$toBackupList'";
+    }else {
+        $tarCmd = "tar -C '/' -rf $archiveFile --files-from '$toBackupList'";
+    }
 
-#     EBox::Sudo::root($tarCmd);
-# }
-
-
-# # this must be only called one time
-# sub restoreConfig
-# {
-#     my ($class, $dir)  = @_;
-
-#     if (not -d LIST_FILE_DIR) {
-#         EBox::Sudo::root(" mkdir -p -m 0755 " . LIST_FILE_DIR);
-#     }
-
-#     my $archiveFile = $class->_backupFilterFilesArchive($dir);
-
-#     if (not -r $archiveFile) {
-#         return;
-#     }
-
-#     my $tarCmd = "tar --preserve -C'/' -xf '$archiveFile'";
-#     EBox::Sudo::root($tarCmd);
-
-#     # a little awkward, to call for-and-back but we must asuuse that all fitler
-#     # profiles files are in order
-#     my $squid = EBox::GlobalmodInstance('squid');
-#     $squid->_cleanDomainFilterFiles();
-# }
+    EBox::Sudo::root($tarCmd);
+}
 
 
+# this must be only called one time
+sub restoreConfig
+{
+    my ($class, $dir)  = @_;
+
+ #   $class->_rmAllFilterFiles();
+
+    my $archiveFile = $class->_backupFilterFilesArchive($dir);
+
+    if (not -r $archiveFile) {
+        return;
+    }
+
+    my $tarCmd = "tar --preserve -C'/' -xf '$archiveFile'";
+    EBox::Sudo::root($tarCmd);
+
+    # a little awkward, to call forth-and-back but we must asuuse that all fitler
+    # profiles files are in order
+    my $squid = EBox::Global->modInstance('squid');
+    $squid->_cleanDomainFilterFiles(orphanedCheck => 1);
+}
+
+
+sub _rmAllFilterFiles
+{
+    my ($self) = @_;
+    EBox::Sudo::root('rm -rf ' . LIST_FILE_DIR . '/*');
+}
 
 
 
-# # this two methods ar empty until automatic files backup/restore is fixed
-# # until then we wil l use the custom dumpConfig and restoreConfig methods
-# sub backupFiles
-# {}
 
-# sub restoreFiles
-# {}
+# this two methods ar empty until automatic files backup/restore is fixed
+# until then we wil l use the custom dumpConfig and restoreConfig methods
+sub backupFiles
+{} 
+
+sub restoreFiles
+{}
 1;
