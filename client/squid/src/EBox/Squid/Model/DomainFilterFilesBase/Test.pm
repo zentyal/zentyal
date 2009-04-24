@@ -48,7 +48,6 @@ sub dumpAndRestoreConfigTest : Test(11)
         $filterFiles->restoreConfig($backupDir);
         $filterFiles->setupArchives();
         $filterFiles->cleanOrphanedFiles();
-        $filterFiles->cleanEmptyDirs();
     } 'restoring up a empty model';
 
     my $dir = $filterFiles->listFileDir();
@@ -92,7 +91,6 @@ sub dumpAndRestoreConfigTest : Test(11)
         $filterFiles->restoreConfig($backupDir);
         $filterFiles->setupArchives();
         $filterFiles->cleanOrphanedFiles();
-        $filterFiles->cleanEmptyDirs();
     } 'restoring up a  model';
 
     foreach my $file  (@filesToSave) {

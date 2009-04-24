@@ -717,6 +717,8 @@ sub _cleanDomainFilterFiles
 #                                1;
 
 
+    
+
   # purge empty file list directories and orphaned files/directories
   # XXX is not the ideal palce to
   # do this but we don't have options bz deletedRowNotify is called before
@@ -731,6 +733,7 @@ sub _cleanDomainFilterFiles
         $domainFilterFiles->cleanOrphanedFiles();
  #   }
 
+    my %fgDirs =();
 
     my $filterGroups = $self->model('FilterGroup');
     my $defaultGroupName = $filterGroups->defaultGroupName();
@@ -744,15 +747,34 @@ sub _cleanDomainFilterFiles
         my $fgSettings = $filterPolicy->foreignModelInstance();
         my $fgDomainFilterFiles = $fgSettings->componentByName('FilterGroupDomainFilterFiles', 1);
         $fgDomainFilterFiles->setupArchives();
-#        if ($orphanedCheck) {
-            $fgDomainFilterFiles->cleanOrphanedFiles();
-#        }
+        $fgDomainFilterFiles->cleanOrphanedFiles();
+        $fgDirs{$fgDomainFilterFiles->listFileDir} = 1;
 
     }
 
+    # remove directories no related with a filter grou
+    my $defaultListFileDir = $domainFilterFiles->listFileDir();
+    my $defaultArchivesDir = $defaultListFileDir . '/archives';
 
-    $domainFilterFiles->cleanEmptyDirs(); # this only need to be called one time
-                                          # for all profiles
+
+    my $findCmd = 'find ' .  $defaultListFileDir  . ' -maxdepth 1 -type d';
+    my @dirs = `$findCmd`;
+    foreach my $dir (@dirs) {
+        chomp $dir;
+
+        if ($dir eq $defaultListFileDir) {
+            next;
+        }
+        elsif ($dir eq $defaultArchivesDir) {
+            next;
+        }
+        elsif (exists $fgDirs{$dir}) {
+            next;
+        }
+
+        EBox::Sudo::root("rm -r $dir");
+    }
+
 }
 
 sub _banThresholdActive

@@ -595,38 +595,14 @@ sub cleanOrphanedFiles
 }
 
 
-sub cleanEmptyDirs
-{
-    my ($package) = @_;
 
-    my $findCmd = 'find ' . LIST_FILE_DIR .' -type d';
-    
-    my @dirs = `$findCmd`;
-    my $archivesDir    = LIST_FILE_DIR . '/archives';
-    my $archiveDirsRe = qr/^$archivesDir/;
-    foreach my $dir (@dirs) {
-        chomp $dir;
+# sub _rmDirIfEmpty
+# {
+#     my ($package, $dir) = @_;
 
-        if ($dir eq LIST_FILE_DIR) {
-            next;
-        }
-        elsif ($dir =~ $archiveDirsRe) {
-            next;
-        }
+#     EBox::Sudo::root("rmdir --ignore-fail-on-non-empty $dir");
+# }
 
-
-        $package->_rmDirIfEmpty($dir);
-    }
-
-    # this assummes dirs are executable by all!
-}
-
-sub _rmDirIfEmpty
-{
-    my ($package, $dir) = @_;
-
-    EBox::Sudo::root("rmdir --ignore-fail-on-non-empty $dir");
-}
 
 
 # sub parentRow
