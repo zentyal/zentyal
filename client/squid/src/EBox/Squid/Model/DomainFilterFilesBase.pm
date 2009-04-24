@@ -25,6 +25,7 @@ use EBox::Squid::Types::DomainPolicy;
 use EBox::Types::File;
 use EBox::Types::Text::WriteOnce;
 use EBox::Types::HasMany;
+use EBox::Sudo;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
@@ -36,17 +37,11 @@ use constant LIST_FILE_DIR => '/etc/dansguardian/extralists';
 my $anyArchiveFilesScopes = any(qw(domains urls));
 
 
-# sub new
-#     {
-#         my ($class, @p) = @_;
-
-#     use Devel::StackTrace;
-
-#   my $trace = Devel::StackTrace->new;
-#     EBox::debug($trace->as_string);
-
-#         return $class->SUPER::new(@p);
-# }
+sub new
+{
+    my ($class, @p) = @_;
+    return $class->SUPER::new(@p);
+}
 
 sub _tableHeader
   {
@@ -59,11 +54,6 @@ sub _tableHeader
                                printableName => ('Description'),
                                unique   => 1,
                                editable => 1,
-                              ),
-         new EBox::Squid::Types::DomainPolicy(
-                               fieldName     => 'policy',
-                               printableName => __('Policy'),
-                               defaultValue  => 'deny',
                               ),
          new EBox::Types::HasMany(
                                   'fieldName' => 'categories',
@@ -217,7 +207,7 @@ sub _setUpArchive
     if (not $fileList->exist()) {
         throw EBox::Exceptions::External(
        __('Inexistent archive file')
-                                        )
+                                      );
     }
 
     my $path = $fileList->path();
@@ -234,6 +224,13 @@ sub _checkFileList
 {
     my ($self, $path) = @_;
     
+    # XXX to speed up the release we dont support plain lists yet i nthe next
+    # version we will acommodate them to gui (maybe given it a bogus 'all'
+    # cathegory or whatever'
+    throw EBox::Exceptions::External(
+ __('Plain lists not allowed: is only allowed compressed archives of classified black lists')
+       );
+
     # XXX commented out bz there a lot of 'domains' list that are in 
     # reality 'url' lsits (in DG lingo). so we cannot afford be too strict
 
@@ -483,21 +480,36 @@ sub _populateCategories
 
     while (my ($category, $dir) = each %categories ) {
 
-        my $policy = 'default';
-        if ($category eq 'whitelist' ) {
-            $policy = 'allow';
-        }
-
-
         $domainFilterCategories->addRow( 
                                         category => $category, 
-                                        policy => $policy, 
+                                        policy => 'filter', 
                                         dir    => $dir,
                                        );
     }
          
 }
 
+
+sub setupArchives
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $fileList =  $row->elementByName('fileList');
+        my $path = $fileList->path();
+
+        if (not $fileList->exist()) {
+         EBox:error(
+"File $path refered as dansguardian domains list does not exists. Skipping"
+                   );
+            next;
+        }
+
+      if ($self->_fileIsArchive($path)) {
+          $self->_setUpArchive($row);
+      }
+    }
+}
 
 
 
@@ -547,7 +559,7 @@ sub cleanEmptyDirs
 {
     my ($package) = @_;
 
-    my $findCmd = 'find ' . LIST_FILE_DIR;
+    my $findCmd = 'find ' . LIST_FILE_DIR .' -type d';
     
     my @dirs = `$findCmd`;
     my $archivesDir    = LIST_FILE_DIR . '/archives';
@@ -573,24 +585,7 @@ sub _rmDirIfEmpty
 {
     my ($package, $dir) = @_;
 
-    my $DH;
-    my $opened = opendir $DH, $dir;# this assummes dir is executable by all!
-    if (not $opened) {
-        EBox::error("Cannot open $dir as eBox user");
-        return;
-    }
-
-    while(my $entry = readdir $DH) {
-        next if($entry =~ /^\.\.?$/);
-        closedir $DH;
-        # dir is not empty so we exit
-        return;
-    }
-
-    closedir $DH;
-
-    EBox::Sudo::root("rmdir $dir");
-
+    EBox::Sudo::root("rmdir --ignore-fail-on-non-empty $dir");
 }
 
 
@@ -632,8 +627,86 @@ sub parent
     my $squid     = EBox::Global->modInstance('squid');
     my $filterProfiles = $squid->model('FilterGroup');
     return $filterProfiles;
-
-
 }
 
+
+# sub _backupFilterFilesArchive
+# {
+#     my ($self, $dir) = @_;
+#     return "$dir/filterFiles.tar.gz";
+# }
+
+# sub dumpConfig
+# {
+#     my ($self, $dir) = @_;
+
+#     if ($self->size() == 0) {
+#         # nothing to backup then
+#         return;
+#     }
+
+#     my $toBackupList = '/tmp/ebox.domainfilesfilter';
+#     open my $fh, ">$toBackupList" or
+#         throw EBox::Exceptions::Internal("$!");
+
+#     foreach my $id (@{ $self->ids() } ) {
+#         my $fileField = $self->row($id)->elementByName('fileList');
+#         $fileField->exist() or
+#             next;
+#         print $fh $fileField->path() . "\n";
+#     }
+    
+#     close $fh or
+#          throw EBox::Exceptions::Internal("$!");
+
+
+    
+#     my $archiveFile = $self->_backupFilterFilesArchive($dir);
+
+#     my $tarCmd;
+#     if (not -e $archiveFile) {
+#         $tarCmd = "tar -C '/' -cf $archiveFile --files-from '$toBackupList'";
+#     }else {
+#         $tarCmd = "tar -C '/' -rf $archiveFile --files-from '$toBackupList'";
+#     }
+
+#     EBox::Sudo::root($tarCmd);
+# }
+
+
+# # this must be only called one time
+# sub restoreConfig
+# {
+#     my ($class, $dir)  = @_;
+
+#     if (not -d LIST_FILE_DIR) {
+#         EBox::Sudo::root(" mkdir -p -m 0755 " . LIST_FILE_DIR);
+#     }
+
+#     my $archiveFile = $class->_backupFilterFilesArchive($dir);
+
+#     if (not -r $archiveFile) {
+#         return;
+#     }
+
+#     my $tarCmd = "tar --preserve -C'/' -xf '$archiveFile'";
+#     EBox::Sudo::root($tarCmd);
+
+#     # a little awkward, to call for-and-back but we must asuuse that all fitler
+#     # profiles files are in order
+#     my $squid = EBox::GlobalmodInstance('squid');
+#     $squid->_cleanDomainFilterFiles();
+# }
+
+
+
+
+
+# # this two methods ar empty until automatic files backup/restore is fixed
+# # until then we wil l use the custom dumpConfig and restoreConfig methods
+# sub backupFiles
+# {}
+
+# sub restoreFiles
+# {}
 1;

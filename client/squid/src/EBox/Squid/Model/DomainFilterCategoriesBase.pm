@@ -80,6 +80,7 @@ sub _tableHeader
                                fieldName     => 'policy',
                                printableName => __('Policy'),
                                populate   => \&_populate,
+                               defaultValue => 'ignore',
                                editable => 1,
                               ),
          new EBox::Types::Text(
@@ -99,10 +100,10 @@ sub _tableHeader
 sub _populate
 {
   my @elements = (
-                  { value => 'default', printableValue => __(q{Default list's police}) },
                   { value => 'allow',  printableValue => __('Always allow') },
                   { value => 'filter', printableValue => __('Filter') },
                   { value => 'deny',   printableValue => __('Always deny') },
+                  { value => 'ignore',   printableValue => __('Ignore') },
                  );
 
   return \@elements;
@@ -126,14 +127,10 @@ sub filesPerPolicy
 
     my @files = ();
 
-    my $defaultPolicy  = $self->parentRow()->valueByName('policy');
 
     foreach my $id ( @{ $self->ids() } ) {
         my $row = $self->row($id);
         my $catPolicy = $row->valueByName('policy');
-        if ($catPolicy eq 'default') {
-            $catPolicy = $defaultPolicy;
-        }
 
         if ($catPolicy ne $policy) {
             next;
