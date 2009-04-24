@@ -482,17 +482,29 @@ sub _populateCategories
     
     
     my $domainFilterCategories = $row->subModel('categories');
-    $domainFilterCategories->removeAll();
 
+    my %categoriesInModel = map { 
+                                     ($_ => 1)  
+                              } @{ $domainFilterCategories->categories() };
+
+    # add new categories
     while (my ($category, $dir) = each %categories ) {
+        if (exists $categories{$category}) {
+            delete $categoriesInModel{$category};
+            next;
+        }
 
         $domainFilterCategories->addRow( 
                                         category => $category, 
-                                        policy => 'filter', 
+                                        policy => 'ignore', 
                                         dir    => $dir,
                                        );
     }
-         
+        
+    # remov categories not longer existent
+    foreach my $category (keys %categoriesInModel) {
+        $domainFilterCategories->deleteCategory($category);
+    }
 }
 
 
@@ -533,20 +545,36 @@ sub cleanOrphanedFiles
     (-d $dir) or
         return;
 
+    my %expectedFiles;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $fileList = $row->elementByName('fileList');
+        my $path = $fileList->path();
+        if (not $fileList->exist()) {
+            EBox::error(
+  "Expected file does not exist: $path. Skipping it"
+               );
+            next;
+        }
+
+        $expectedFiles{$path} = 1;
+    }
 
     my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") }; 
+    foreach my $file (@listFiles) {
+        chomp $file;
 
-
-    my %expectedFiles = map {
-        chomp $_;
-            ($_ => 1);
-    }   @listFiles;
-
+        # see if is a correct file, otherwise delete it
+        if (not exists $expectedFiles{$file}) {
+            EBox::Sudo::root("rm $file");
+        }
+    }
 
     my $archivesDirBase = $self->archiveContentsDir();
     (-d $archivesDirBase) or
         return;
 
+    # now check the arvhice dirs and delete leftovers
     my $archivesDirs = EBox::Sudo::root("find $archivesDirBase -maxdepth 1 -type d");
     foreach my $archDir (@{ $archivesDirs }) {
         chomp $archDir;

@@ -155,6 +155,32 @@ sub filesPerPolicy
     return \@files;
 }
 
+
+sub categories
+{
+    my ($self) = @_;
+
+    my @categories = ();
+    foreach my $id ( @{ $self->ids() } ) {
+        my $row = $self->row($id);
+        my $cat = $row->valueByName('category');
+        push @categories, $cat;
+    }
+
+    return \@categories;
+}
+
+sub deleteCategory
+{
+    my ($self, $category) = @_;
+    my $id = $self->findId(category => $category);
+    if (not $id) {
+        throw EBox::Exceptions::Internal("Inexistent category: $category");
+    }
+
+    $self->removeRow($id);
+}
+
 # # XXX ad-hack reimplementation until the bug in coposite's parent would be
 # # solved 
 # use EBox::Global;

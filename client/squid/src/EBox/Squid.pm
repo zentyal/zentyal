@@ -711,7 +711,12 @@ sub revokeConfig
 
 sub _cleanDomainFilterFiles
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
+#     my $orphanedCheck = exists $params{orphanedCheck} ?
+#                                $params{orphanedCheck} :
+#                                1;
+
+
   # purge empty file list directories and orphaned files/directories
   # XXX is not the ideal palce to
   # do this but we don't have options bz deletedRowNotify is called before
@@ -720,7 +725,12 @@ sub _cleanDomainFilterFiles
     # XXX we clean the DomainFilterFiles aside bz it has at FilterFiles
     # componet with distinct name
     my $domainFilterFiles = $self->model('DomainFilterFiles');
-    $domainFilterFiles->cleanOrphanedFiles();
+
+    $domainFilterFiles->setupArchives();
+#    if ($orphanedCheck) {
+        $domainFilterFiles->cleanOrphanedFiles();
+ #   }
+
 
     my $filterGroups = $self->model('FilterGroup');
     my $defaultGroupName = $filterGroups->defaultGroupName();
@@ -733,7 +743,11 @@ sub _cleanDomainFilterFiles
         my $filterPolicy =   $row->elementByName('filterPolicy');
         my $fgSettings = $filterPolicy->foreignModelInstance();
         my $fgDomainFilterFiles = $fgSettings->componentByName('FilterGroupDomainFilterFiles', 1);
-        $fgDomainFilterFiles->cleanOrphanedFiles();
+        $fgDomainFilterFiles->setupArchives();
+#        if ($orphanedCheck) {
+            $fgDomainFilterFiles->cleanOrphanedFiles();
+#        }
+
     }
 
 
@@ -1036,7 +1050,21 @@ sub _DGLang
     }
 
     return $lang;
+}
 
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    my $filterGroups = $self->model('FilterGroup');
+    $filterGroups->dumpConfig($dir);
+}
+
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+    my $filterGroups = $self->model('FilterGroup');
+    $filterGroups->restoreConfig($dir);
 }
 
 1;
