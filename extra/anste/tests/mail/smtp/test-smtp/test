@@ -4,7 +4,7 @@
 my $TO     = $ENV{TO};
 my $FROM   = $ENV{FROM};
 my $TEXT   = $ENV{TEXT};
-my $SSL    = $ENV{SSL};
+my $TSL    = $ENV{TSL};
 my $SERVER = $ENV{SERVER};
 my $AUTH_USER   = $ENV{AUTH_USER};
 my $AUTH_PASSWD = $ENV{AUTH_PASSWD};
@@ -13,24 +13,41 @@ my $LOOK_FOR  = $ENV{LOOK_FOR};
 defined $LOOK_FOR or
     $LOOK_FOR = 'Email was sent successfully';
 
+my @lookups = split 'AND', $LOOK_FOR;
+
 my $SLEEP = $ENV{SLEEP};
 defined $SLEEP or
     $SLEEP = 100;
 
-my $cmd = "sendEmail -f $FROM -t $TO -u '$TEXT' -m '$TEXT' -s $SERVER ";
-$cmd .= ' -o tls=yes' if $SSL;
+my $cmd = "sendEmail -v -f $FROM -t $TO -u '$TEXT' -m '$TEXT' -s $SERVER ";
+if ($TSL) {
+    $cmd .= ' -o tls=yes';
+} else {
+    $cmd .= ' -o tls=no';    
+}
+
 if ($AUTH_USER) {
-    $cmd .=  " -xu $AUTH_USER -xp $AUTH_PASSWD";
+    $cmd .=  " -xu '$AUTH_USER' -xp '$AUTH_PASSWD'";
 }
 
 sleep $SLEEP; # XXX assure the serve is ain good state. move to the test usite
            # itself?
 
+print "$cmd\n";
 my @output = `$cmd`;
 
-my $success = grep {
-    m/$LOOK_FOR/
-} @output;
+my $success =  1;
+foreach my $lookup (@lookups) {
+    my $found = grep {
+        m/$lookup/
+    } @output;
+
+    if (not $found) {
+        $success = 0;
+        last;
+    }
+}
+;
 
 if (not $success) {
     die "@output";
