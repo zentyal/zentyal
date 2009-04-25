@@ -60,6 +60,7 @@ src/EBox/Composite/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 Makefile
 ])
 

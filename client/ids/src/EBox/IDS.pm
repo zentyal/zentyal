@@ -26,6 +26,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
+            EBox::LogObserver
            );
 
 use Error qw(:try);
@@ -34,6 +35,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
+use EBox::IDSLogHelper;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
 use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
@@ -232,6 +234,55 @@ sub enableActions
 sub disableActions
 {
 
+}
+
+# Method: logHelper
+#
+# Overrides:
+#
+#       <EBox::LogObserver::logHelper>
+#
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::IDSLogHelper);
+}
+
+# Method: tableInfo
+#
+# Overrides:
+#
+#       <EBox::LogObserver::tableInfo>
+#
+sub tableInfo
+{
+    my ($self) = @_ ;
+
+    my $titles = {
+                  'timestamp'   => __('Date'),
+                  'priority'    => __('Priority'),
+                  'description' => __('Description'),
+                  'source'      => __('Source'),
+                  'dest'        => __('Destination'),
+                  'protocol'    => __('Protocol'),
+                  'event'       => __('Event'),
+                 };
+
+    my @order = qw(timestamp priority description source dest protocol event);
+
+    return [{
+            'name' => __('IDS'),
+            'index' => 'ids',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'ids',
+            'timecol' => 'timestamp',
+            'events' => { 'alert' => __('Alert') },
+            'eventcol' => 'event',
+            'filter' => ['priority', 'description', 'source', 'dest'],
+            'disabledByDefault' => 1,
+           }];
 }
 
 # Group: Private methods

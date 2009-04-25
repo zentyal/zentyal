@@ -3,7 +3,7 @@ SUBDIRS = Model Composite
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = IDS.pm
+nobase_perl_DATA = IDS.pm IDSLogHelper.pm
 
 DISTCLEANFILES =
 

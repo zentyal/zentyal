@@ -82,7 +82,7 @@ sub syncRows
 
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
     foreach my $name (@namesToAdd) {
-        $self->add(name => $name, enabled => 0);
+        $self->add(name => $name, enabled => 1);
         $modified = 1;
     }
 
@@ -119,7 +119,7 @@ sub _table
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
             'printableName' => __('Enabled'),
-            'defaultValue' => 0,
+            'defaultValue' => 1,
             'editable' => 1
         ),
     );

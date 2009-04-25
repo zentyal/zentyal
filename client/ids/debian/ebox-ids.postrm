@@ -16,6 +16,10 @@ case "$1" in
 	remove)
         dpkg-trigger --no-await ebox
         ;;
+
+    purge)
+        /usr/share/ebox/ebox-sql-table drop ids || true
+        ;;
 esac
 
 
