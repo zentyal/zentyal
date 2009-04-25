@@ -10,6 +10,7 @@ case "$1" in
 
         # create log table
         /usr/share/ebox/ebox-sql-table add ids /usr/share/ebox/sqllog/ids.sql
+        /usr/share/ebox/ebox-sql-table-with-time-period add ids_alert /usr/share/ebox/sqllog/ids_alert.sql
 
         # restart logs
         invoke-rc.d ebox logs restart || true

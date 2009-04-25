@@ -154,8 +154,14 @@ sub menu
 #
 sub modelClasses
 {
-    return [ 'EBox::IDS::Model::Interfaces',
-             'EBox::IDS::Model::Rules' ];
+    return [
+            'EBox::IDS::Model::Interfaces',
+            'EBox::IDS::Model::Rules',
+
+            'EBox::IDS::Model::Report::AlertDetails',
+            'EBox::IDS::Model::Report::AlertGraph',
+            'EBox::IDS::Model::Report::AlertReportOptions',
+           ];
 }
 
 # Method: compositeClasses
@@ -168,7 +174,10 @@ sub modelClasses
 #
 sub compositeClasses
 {
-    return [ 'EBox::IDS::Composite::General' ];
+    return [
+            'EBox::IDS::Composite::General',
+            'EBox::IDS::Composite::Report::AlertReport',
+           ];
 }
 
 # Method: usedFiles
@@ -282,7 +291,27 @@ sub tableInfo
             'eventcol' => 'event',
             'filter' => ['priority', 'description', 'source', 'dest'],
             'disabledByDefault' => 1,
+            'consolidate' => $self->_consolidate(),
            }];
+}
+
+sub _consolidate
+{
+    my ($self) = @_;
+
+    my $table = 'ids_alert';
+
+    my $spec = {
+        accumulateColumns  => { alert => 0 },
+        consolidateColumns => {
+                                event => {
+                                          conversor => sub { return 1; },
+                                          accumulate => sub { return 'alert'; }
+                                         },
+                              },
+    };
+
+    return { $table => $spec };
 }
 
 # Group: Private methods

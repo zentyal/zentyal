@@ -1,9 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-perldir = @PERLPATH@/EBox/IDS/Composite
+perldir = @PERLPATH@/EBox/IDS/Composite/Report
 
-SUBDIRS = Report
 
-nobase_perl_DATA = General.pm
+nobase_perl_DATA = AlertReport.pm
+
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

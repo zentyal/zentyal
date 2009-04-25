@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/IDS/Model
 
-SUBDIRS =
+SUBDIRS = Report
 
 mods = Interfaces.pm Rules.pm
 

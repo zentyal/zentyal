@@ -2,7 +2,7 @@
 
 Sqllogdir = @DATADIR@/ebox/sqllog/
 
-nobase_Sqllog_DATA = ids.sql
+nobase_Sqllog_DATA = ids.sql ids_alert.sql
 
 EXTRA_DIST = $(nobase_Sqllog_DATA)
 
