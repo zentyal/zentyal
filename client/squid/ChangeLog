@@ -1,11 +1,14 @@
 0.12.100
 	+ New release
+	+ Added user based authorization
 	+ Added filter profiles
 	+ Added group polices
 	+ Added time period option to policies
 	+ Added per-object group policies
 	+ Added antivirus support
 	+ Added dansguardian's custom logrotate file
+	+ Added cache exceptions
+	+ Added cache size
 0.12.99
 	+ Add support for reporting
 	+ User support
