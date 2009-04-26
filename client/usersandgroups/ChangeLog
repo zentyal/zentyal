@@ -6,6 +6,8 @@
 	+ Use the new ids() and row() API to optimize the management of hundreds of
 	users
 	+ Allow dashes in user and group names
+	+ Initial release of UserCorner which allow users to change their password
+	+ Store multiple password hashes and scrap clear text passwords
 0.12.100
 	+ Restore backup is more robust: inexistent users in a group are
 	ignored
