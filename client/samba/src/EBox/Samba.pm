@@ -20,7 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
             EBox::Report::DiskUsageProvider EBox::Model::CompositeProvider
-            EBox::Model::ModelProvider);
+            EBox::Model::ModelProvider EBox::LogObserver);
 
 use EBox::Sudo qw( :all );
 use EBox::Global;
@@ -30,6 +30,7 @@ use EBox::SambaLdapUser qw(PROFILESPATH);
 use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
+use EBox::SambaLogHelper;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
@@ -1725,6 +1726,92 @@ sub _facilitiesForDiskUsage
         $groupsPrintableName  => [ $groupsPath ],
     };
 
+}
+
+# Implement LogHelper interface
+sub tableInfo
+{
+    my ($self) = @_;
+
+    my $access_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
+        'event' => __('Action'),
+        'resource' => __('Recurso'),
+    };
+    my @access_order = qw(timestamp client username event resource);;
+    my $access_events = {
+        'connect' => __('Connect'),
+        'opendir' => __('Access to directory'),
+        'readfile' => __('Read file'),
+        'writefile' => __('Write file'),
+        'disconnect' => __('Disconnect'),
+        'unlink' => __('Remove'),
+        'mkdir' => __('Create directory'),
+        'rmdir' => __('Remove directory'),
+        'rename' => __('Rename'),
+    };
+
+    my $virus_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'filename' => __('File name'),
+        'virus' => __('Virus'),
+        'event' => __('Type'),
+    };
+    my @virus_order = qw(timestamp client filename virus event);;
+    my $virus_events = { 'virus' => __('Virus') };
+
+    my $quarantine_titles = {
+        'timestamp' => __('Date'),
+        'filename' => __('File name'),
+        'qfilename' => __('Quarantined file name'),
+        'event' => __('Quarantine'),
+    };
+    my @quarantine_order = qw(timestamp filename qfilename event);
+    my $quarantine_events = { 'quarantine' => __('Quarantine') };
+
+    return [{
+        'name' => __('Samba access'),
+        'index' => 'samba_access',
+        'titles' => $access_titles,
+        'order' => \@access_order,
+        'tablename' => 'samba_access',
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'username', 'resource'],
+        'events' => $access_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba virus'),
+        'index' => 'samba_virus',
+        'titles' => $virus_titles,
+        'order' => \@virus_order,
+        'tablename' => 'samba_virus',
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'filename', 'virus'],
+        'events' => $virus_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba quarantine'),
+        'index' => 'samba_quarantine',
+        'titles' => $quarantine_titles,
+        'order' => \@quarantine_order,
+        'tablename' => 'samba_quarantine',
+        'timecol' => 'timestamp',
+        'filter' => ['filename'],
+        'events' => $quarantine_events,
+        'eventcol' => 'event'
+    }];
+}
+
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::SambaLogHelper);
 }
 
 sub isAntivirusPresent

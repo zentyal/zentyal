@@ -3,7 +3,7 @@ SUBDIRS = Samba CGI rootTests
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Samba.pm SambaFirewall.pm SambaLdapUser.pm
+nobase_perl_DATA = Samba.pm SambaFirewall.pm SambaLdapUser.pm SambaLogHelper.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

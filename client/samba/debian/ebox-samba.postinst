@@ -16,6 +16,11 @@ case "$1" in
         # migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/
 
+        #create log tables
+        /usr/share/ebox/ebox-sql-table add samba_access /usr/share/ebox/sqllog/samba_access.sql
+        /usr/share/ebox/ebox-sql-table add samba_virus /usr/share/ebox/sqllog/samba_virus.sql
+        /usr/share/ebox/ebox-sql-table add samba_quarantine /usr/share/ebox/sqllog/samba_quarantine.sql
+
         dpkg-trigger --no-await ebox
     ;;
 esac
