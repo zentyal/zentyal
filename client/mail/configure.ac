@@ -1,4 +1,4 @@
-AC_INIT([EBox-mail], [1.1])
+AC_INIT([EBox-mail], [1.1.10])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Mail.pm])

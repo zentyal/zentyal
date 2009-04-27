@@ -1,4 +1,4 @@
-AC_INIT([EBox-antivirus], [1.1])
+AC_INIT([EBox-antivirus], [1.1.10])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/AntiVirus.pm])
@@ -65,5 +65,4 @@ tools/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT
