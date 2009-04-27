@@ -627,12 +627,12 @@ sub usedFiles
        {
            'file' => BIND9CONFOPTIONSFILE,
            'module' => 'dns',
-           'reason' => 'main bind9 options configuration file'
+           'reason' => 'bind9 options configuration file'
        },
        {
            'file' => BIND9CONFLOCALFILE ,
            'module' => 'dns',
-           'reason' => 'local bind9 options configuration file'
+           'reason' => 'local bind9 configuration file'
        }
     ];
 
