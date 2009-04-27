@@ -15,18 +15,27 @@ my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
 my @tasks = arrayFromFile($TASK_FILE);
 my @packages = arrayFromFile($PACKAGE_FILE);
 
+my @selection;
+my $option = '';
 my $ret = 0;
 do {
-    my $option = showMenu();
+    unless ($ret == -1) {
+        $option = showMenu();
+    }
     if ($option eq 'simple') {
         $ret = showChecklist($TASK_TITLE, @tasks);
     } else {
         $ret = showChecklist($PACKAGE_TITLE, @packages);
     }
+    if ($ret == 0) {
+        @selection = arrayFromFile($SELECTION_FILE);
+        unlink ($SELECTION_FILE);
+        if (scalar (@selection) == 0) {
+            showError('You must select at least one package.');
+            $ret = -1;
+        }
+    }
 } while ($ret != 0);
-
-my @selection = arrayFromFile($SELECTION_FILE);
-unlink ($SELECTION_FILE);
 
 foreach my $package (@selection) {
     print "$package ";
@@ -87,4 +96,20 @@ sub showChecklist # (title, options)
     }
 
     system ("$command 2> $SELECTION_FILE");
+}
+
+sub showError # (message)
+{
+    my ($message) = @_;
+
+    my $title = 'Error';
+
+    my $size = 1;
+    my $height = $size + 7;
+    my $width = length($message) + 7;
+
+    my $command = "whiptail $WHIPTAIL_ARGS --title \"$title\" " .
+                  "--msgbox \"$message\" $height $width";
+
+    system ($command);
 }
