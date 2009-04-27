@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox IDS tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox IDS module works properly.
+    </desc>
+
+    <scenario>ids.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>Enable network and ids modules.</desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test>
+        <name>SetupRouter</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router</host>
+        <dir>setup-router</dir>
+        <var name="DEST" value="192.168.3.1"/>
+    </test>
+
+
+</suite>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <name>eBox IDS test scenario</name>
+    <desc>Test ebox-ids (snort) module</desc>
+
+    <host>
+        <name>ebox-server</name>
+        <desc>eBox server</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.3.1</address>
+                <netmask>255.255.255.0</netmask>
+                <gateway>10.6.7.1</gateway>
+            </interface>
+        </network>
+
+        <packages>
+            <package>libnet-rawip-perl</package>
+        </packages>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
+
+    <host type="router">
+        <name>router</name>
+        <desc>Host that acts like a router</desc>
+        <baseimage>hardy-mini</baseimage>
+        <memory>64</memory>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.3.2</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.4.2</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+    </host>
+
+    <host>
+        <name>external</name>
+        <desc>external attacker</desc>
+        <baseimage>hardy-mini</baseimage>
+        <memory>64</memory>
+        <network>
+         <interface type="static">
+            <name>eth1</name>
+            <address>192.168.4.3</address>
+            <netmask>255.255.255.0</netmask>
+         </interface>
+        </network>
+
+	    <packages>
+            <package>nmap</package>
+        </packages>
+    </host>
+</scenario>
