@@ -264,11 +264,31 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     if ( defined ( $self->memValue() )) {
-        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+        $gconfmod->set("$key/" . $self->fieldName(), $self->memValue());
     } else {
         $gconfmod->unset("$key/" . $self->fieldName());
     }
 
+}
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Basic::_restoreFromHash>
+#
+#   We need to use get instead of get_string as basic type does
+sub _restoreFromHash
+{
+    my ($self, $hash) = @_;
+    return unless ($self->row());
+    my $value;
+    unless ($value = $self->_fetchFromCache()) {
+        my $gconf = $self->row()->GConfModule();
+        $value =  $gconf->get($self->_path() . '/' . $self->fieldName());
+        $self->_addToCache($value);
+    }
+    $self->{'value'} = $value;
 }
 
 # Method: _paramIsValid
