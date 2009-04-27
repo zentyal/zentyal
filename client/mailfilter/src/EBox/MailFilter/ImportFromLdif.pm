@@ -47,7 +47,7 @@ sub startupAmavisAccount
 {
     my $vdomainsConfiguration =  
         EBox::Global->modInstance('mailfilter')->model('VDomains');
-    $vdomainsConfiguration->removeAll();
+    $vdomainsConfiguration->removeAll(1);
 }
 
 sub processAmavisAccount

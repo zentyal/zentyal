@@ -112,7 +112,7 @@ sub startupDomain
 
     # clear vdomains table
     my $vdomainsTable = EBox::Global->modInstance('mail')->model('VDomains');
-    $vdomainsTable->removeAll();
+    $vdomainsTable->removeAll(1);
 
     # we remove all domains to avoid conflicts
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
