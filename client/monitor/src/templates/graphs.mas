@@ -25,14 +25,16 @@ Parameters:
   </div>
   <div id="<% $graph->{id} %>_container">
     <& /graph.mas,
-       id       => $graph->{id},
-       type     => $graph->{type},
-       series   => $graph->{series},
-       timetype => $periodData->{timeType},
+       id         => $graph->{id},
+       type       => $graph->{type},
+       series     => $graph->{series},
+       timetype   => $periodData->{timeType},
+       repainting => 0
     &>
   </div>
 % }
 <script type="text/javascript">
+//<![CDATA[
 function updateGraphs() {
    // Time period is sent using the tab
    var period = $('timePeriod').getAttribute('value');
@@ -40,10 +42,10 @@ function updateGraphs() {
    graphs.each(function(graph) {
        var url = '/ebox/Monitor/UpdateGraph';
        var parts = graph.id.split('.');
-       new Ajax.Updater(graph.id + '_container', url,
+       new Ajax.Request(url,
                         { method: 'get',
                           asynchronous : true,
-                          evalScripts : true,
+                          evalJS : true,
                           parameters: { 'period'   : period,
                                         'measure'  : parts[0],
                                         'instance' : parts[1],
@@ -56,5 +58,5 @@ Event.observe(window, 'load', function() {
   // Update graphs every 30s   
   new PeriodicalExecuter(updateGraphs, 30);
 });
-
+//]]>
 </script>

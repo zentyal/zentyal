@@ -11,12 +11,17 @@
     ]
     The template will generate a graph with one line for each different set
     of data.
+
+    Repainting variable indicates the template to print the whole
+    <div> elements and scripts or only update the graph if repainting
+    is done
 </%doc>
 <%args>
     $id
     $type
     $timetype => 'time'
     @series
+    $repainting => 0
 </%args>
 <%init>
 my $formatter;
@@ -35,10 +40,13 @@ if($timetype eq 'time') {
 }
 my $tiny = 0.01;
 </%init>
+% unless ($repainting) {
 <div id='<% $id %>' class='graph'></div>
 <div id='legend_<% $id %>'></div>
 <script type="text/javascript" src="/data/js/format.js"></script>
 <script type="text/javascript">
+//<![CDATA[
+% }
 var track_formatter = function(obj) {
     var time = <% $timeformatter %>(obj.x);
     var other;
@@ -121,4 +129,7 @@ Flotr.draw(
         }
     }
 );
+% unless ( $repainting ) {
+//]]>
 </script>
+% }

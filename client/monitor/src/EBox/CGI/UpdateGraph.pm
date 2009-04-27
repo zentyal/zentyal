@@ -103,11 +103,31 @@ sub masonParameters
 
     my $measuredData = $mon->measuredData($measure, $params->{period}, $instance);
 
-    return [ id       => $measuredData->{id},
-             type     => $measuredData->{type},
-             series   => $measuredData->{series},
-             timetype => $periodData->{timeType},
+    return [ id         => $measuredData->{id},
+             type       => $measuredData->{type},
+             series     => $measuredData->{series},
+             timetype   => $periodData->{timeType},
+             repainting => 1,
             ];
+
+}
+
+# Group: Protected methods
+
+# Method: _header
+#
+#     Print our own header to set javascript MIME type
+#
+# Overrides:
+#
+#     <EBox::CGI::Base::_header>
+#
+sub _header
+{
+    my ($self) = @_;
+
+    print($self->cgi()->header(-charset => 'utf-8',
+                               -type    => 'application/javascript'));
 
 }
 
