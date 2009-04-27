@@ -763,6 +763,74 @@ sub st_get_list # (key)
     return $self->_get_list($key);
 }
 
+# Method: get
+#
+#       Returns the value of a key
+#
+# Parameters:
+#
+#       key -
+#
+# Returns:
+#       
+#   Returns a <Gnome2::Gconf2::value>
+#
+sub get # (key) 
+{
+    my ($self, $key) = @_;
+    $self->_config;
+    return $self->_get($key);
+}
+
+# Method: get
+#
+#       Returns the value of a key
+#
+# Parameters:
+#
+#       key -
+#
+# Returns:
+#       
+#   Returns a <Gnome2::Gconf2::value>
+#
+sub st_get# (key) 
+{
+    my ($self, $key) = @_;
+    $self->_state;
+    return $self->_get($key);
+}
+
+# Method: set
+#
+#      Set an arbitrary key
+#
+# Parameters:
+#
+#       key -
+#
+sub set # (key) 
+{
+    my ($self, $key, $value) = @_;
+    $self->_config;
+    return $self->_set($key, $value);
+}
+
+# Method: set
+#
+#      Set an arbitrary key
+#
+# Parameters:
+#
+#       key -
+#
+sub st_set# (key) 
+{
+    my ($self, $key, $value) = @_;
+    $self->_state;
+    return $self->_set($key, $value);
+}
+
 #############
 
 sub _get # (key) 
@@ -771,6 +839,14 @@ sub _get # (key)
     $key = $self->_key($key);
     $self->gconf->suggest_sync;
     return $self->_gconf_wrapper("get", $key);
+}
+
+sub _set # 
+{
+    my ($self, $key, $value) = @_;
+    $key = $self->_key($key);
+    $self->_gconf_wrapper("unset", $key);
+    return $self->_gconf_wrapper("set_string", $key, $value);
 }
 
 #############
