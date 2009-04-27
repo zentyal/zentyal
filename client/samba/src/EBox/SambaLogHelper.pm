@@ -65,22 +65,21 @@ sub logFiles
 #
 sub processLine # (file, line, logger)
 {
-	my ($self, $file, $line, $dbengine) = @_;
+    my ($self, $file, $line, $dbengine) = @_;
 
-    EBox::debug($line);
-	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd_audit.*?: (.+)/) {
-	    return;
-	}
-	my $date = $1;
-	my $message = $2;
+    return if ($self->_skipLine());
 
-    EBox::debug($date);
-    EBox::debug($message);
+    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd_audit.*?: (.+)/) {
+        return;
+    }
+    my $date = $1;
+    my $message = $2;
 
-	my %dataToInsert;
 
-	my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
-	$dataToInsert{timestamp} = $timestamp;
+    my %dataToInsert;
+
+    my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
+    $dataToInsert{timestamp} = $timestamp;
 
     if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '(.*?)'$/) {
         $dataToInsert{event} = 'virus';
@@ -131,12 +130,41 @@ sub processLine # (file, line, logger)
     }
 
     if ($dataToInsert{event} eq 'virus') {
-	    $dbengine->insert('samba_virus', \%dataToInsert);
+        $dbengine->insert('samba_virus', \%dataToInsert);
     } elsif ($dataToInsert{event} eq 'quarantine') {
-	    $dbengine->insert('samba_quarantine', \%dataToInsert);
+        $dbengine->insert('samba_quarantine', \%dataToInsert);
     } else {
-	    $dbengine->insert('samba_access', \%dataToInsert);
+        $dbengine->insert('samba_access', \%dataToInsert);
     }
 }
+
+
+# Method: _skipLine
+#
+#       Above method "processLine" is called 3 times, because
+#       our 3 loggers are watching the same file.
+#
+#       To avoid insert 3 times the same line log, we keep track
+#       of the times we have been called.
+#
+sub _skipLine
+{
+        my ($self) = @_;
+
+        my $skip = $self->{skip};
+        unless (defined($skip)) {
+                $self->{skip} = 0;
+                return 0;
+        }
+
+        if ($skip == 2) {
+                $self->{skip} = 0;
+                return 0;
+        } else {
+                $self->{skip}++;
+                return 1;
+        }
+}
+
 
 1;
