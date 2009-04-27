@@ -19,10 +19,10 @@ use strict;
 use warnings;
 
 use base (
-          'EBox::Module::Service', 
+          'EBox::Module::Service',
           'EBox::VDomainModule',
           'EBox::LdapModule',
-          'EBox::Mail::FilterProvider', 
+          'EBox::Mail::FilterProvider',
           'EBox::FirewallObserver',
           'EBox::LogObserver',
           'EBox::Model::ModelProvider',
@@ -53,16 +53,16 @@ use EBox::MailFilter::POPProxy;
 #
 #  Constructor of the class
 #
-sub _create 
+sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mailfilter');
     bless($self, $class);
-    
+
     $self->{smtpFilter} = new EBox::MailFilter::Amavis();
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
     $self->{popProxy}  = new EBox::MailFilter::POPProxy();
-    
+
     return $self;
 }
 
@@ -78,7 +78,7 @@ sub domain
 #
 sub actions
 {
-    return [ 
+    return [
             {
              'action' => __('Add clamav user to amavis group'),
              'reason' => __('Clamav need access to amavis fields to properly scan mail'),
@@ -98,22 +98,22 @@ sub actions
 }
 
 
-# Method: usedFiles 
+# Method: usedFiles
 #
 #       Override EBox::Module::Service::files
 #
-sub usedFiles 
+sub usedFiles
 {
     my @usedFiles;
-    
+
     push (@usedFiles, @{EBox::MailFilter::Amavis::usedFiles()});
     push (@usedFiles, EBox::MailFilter::SpamAssassin::usedFiles());
-    push (@usedFiles, EBox::MailFilter::POPProxy::usedFiles());    
+    push (@usedFiles, EBox::MailFilter::POPProxy::usedFiles());
 
     return \@usedFiles;
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
 #
@@ -130,7 +130,7 @@ sub enableActions
 #
 #  The mail dependency only exists bz we need the ldap mail data or we will run
 #  in error when seting mail domains options
-sub enableModDepends 
+sub enableModDepends
 {
     my ($self) = @_;
     my @depends = qw(network antivirus);
@@ -142,7 +142,7 @@ sub enableModDepends
         }
     }
 
-    
+
     if ($self->popProxy->isEnabled()) {
         # requires firewall to do the port redirection
         push @depends, 'firewall';
@@ -305,7 +305,7 @@ sub _enforceServiceState
 sub isRunning
 {
     my ($self) = @_;
-    
+
     foreach my $componentName qw(smtpFilter  antispam popProxy) {
         my $component = $self->$componentName();
         if ( $component->isRunning) {
@@ -316,7 +316,7 @@ sub isRunning
     if (
         (not $self->smtpFilter()->isEnabled()) and
         (not $self->popProxy()->isEnabled())
-       ) 
+       )
         {
             # none service is enabled but module is -> running = 1
             if ($self->isEnabled()) {
@@ -332,12 +332,12 @@ sub isRunning
 sub _assureFilterNotInUse
 {
     my ($self) = @_;
-    
+
     my $mail = EBox::Global->modInstance('mail');
-    
+
     $mail->service('filter') or
         return;
-    
+
     my $filterInUse = $mail->externalFilter();
     if ($filterInUse eq $self->smtpFilter()->mailfilterName()) {
         throw EBox::Exceptions::External(
@@ -435,7 +435,7 @@ sub _vdomainModImplementation
         return new EBox::MailFilter::VDomainsLdap();
 }
 
-   
+
 #  Method: mailFilterName
 #
 #   Implements the method needed for EBox::Mail::FilterProvider
@@ -605,13 +605,13 @@ sub _filterTrafficConsolidationSpec
                                                      if ($v eq 'BAD-HEADER') {
                                                          return 'bad_header';
                                                      }
-                                                     
+
                                                      return lc $v;
                                                  },
                                                 },
                                       },
                };
-        
+
     return $spec;
 }
 
@@ -642,10 +642,10 @@ sub _popProxyFilterConsolidationSpec
                                        spam => {
                                                 accummulate => 'spam',
                                                },
-                                       
+
                                       },
                };
-        
+
     return {  pop_proxy_filter_traffic => $spec };
 }
 
@@ -661,14 +661,14 @@ sub menu
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'MailFilter/Composite/Amavis',
-                                      'text' => __('SMTP mail filter')
+                                      'text' => __('SMTP Mail Filter')
                  )
     );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'MailFilter/View/POPProxyConfiguration',
-                                      'text' => __('POP transparent proxy')
+                                      'text' => __('POP Transparent Proxy')
                  )
     );
 

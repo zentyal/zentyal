@@ -46,17 +46,17 @@ use constant {
 
 # Group: Public methods
 
-sub _create 
+sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'software', 
+	my $self = $class->SUPER::_create(name => 'software',
 						domain => 'ebox-software',
 						@_);
 	bless($self, $class);
 	return $self;
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
 #
@@ -71,7 +71,7 @@ sub enableActions
 #
 sub actions
 {
-	return [ 
+	return [
 	{
 		'action' => __('Enable cron script to download updates'),
 		'reason' => __('eBox software will download the available updates' .
@@ -82,7 +82,7 @@ sub actions
 }
 
 # Method: listEBoxPkgs
-# 	
+#
 # 	Returns an array of hashes with the following fields:
 #	name - name of the package
 #	description - short description of the package
@@ -125,10 +125,10 @@ sub listEBoxPkgs
 	return $eboxlist;
 }
 
-# Method: installPkgs 
-#	
+# Method: installPkgs
+#
 #	Installs a list of packages via apt
-# 
+#
 # Parameters:
 #
 # 	array -  holding the package names
@@ -192,7 +192,7 @@ sub removePkgs # (@pkgs)
 	  return;
 	}
 
-	my $executable = EBox::Config::share() . 
+	my $executable = EBox::Config::share() .
 	  "/ebox-software/ebox-remove-packages @pkgs";
 	my $progress = EBox::ProgressIndicator->create(
 						       totalTicks => scalar @pkgs,
@@ -225,8 +225,8 @@ sub updatePkgList
 	};
 }
 
-# Method: fetchAllPkgs 
-#	
+# Method: fetchAllPkgs
+#
 #	Download all the new ebox packages and the system updates
 #
 # Exceptions:
@@ -268,7 +268,7 @@ sub fetchAllPkgs
 }
 
 # Method: listUpgradablePkgs
-#	
+#
 #	Returns a list of those packages which are ready to be upgraded
 #
 # Parameters:
@@ -317,7 +317,7 @@ sub listUpgradablePkgs
 }
 
 # Method: listPackageInstallDepends
-#	
+#
 #	Returns a list of those ebox packages which will be installed when
 #	trying to install a given set of packages
 #
@@ -327,7 +327,7 @@ sub listUpgradablePkgs
 #
 # Returns:
 #
-#	array ref - holding the names of the ebox packages which will be 
+#	array ref - holding the names of the ebox packages which will be
 #	            installed
 # Exceptions:
 #
@@ -345,7 +345,7 @@ sub listPackageInstallDepends
 }
 
 # Method: listPackageRemoveDepends
-#	
+#
 #	Returns a list of those ebox packages which will be removed when
 #	trying to remove a given set of packages
 #
@@ -379,8 +379,8 @@ sub _packageDepends
     if (($action ne 'install') and ($action ne 'remove')) {
 	throw EBox::Exceptions::Internal("Bad action: $action");
     }
-    
-    my $aptCmd = "apt-get --quiet --quiet --simulate $action " . 
+
+    my $aptCmd = "apt-get --quiet --quiet --simulate $action " .
 	join ' ',  @{ $packages };
 
     my $header;
@@ -402,7 +402,7 @@ sub _packageDepends
              /x
     } @{ $output };
 
-   
+
     @packages = map {
 	chomp $_;
 	my ($h, $p) = split '\s', $_;
@@ -413,8 +413,8 @@ sub _packageDepends
    return \@packages;
 }
 
-# Method: getAutomaticUpdates 
-#	
+# Method: getAutomaticUpdates
+#
 #	Returns if the automatic update mode is enabled
 #
 # Returns:
@@ -430,8 +430,8 @@ sub getAutomaticUpdates
     return $auto;
 }
 
-# Method: setAutomaticUpdates 
-#	
+# Method: setAutomaticUpdates
+#
 #	Sets the automatic update mode. If it's enabled the system will
 #	fetch all the updates silently and automatically.
 #
@@ -470,14 +470,14 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => __('Software management'));
+                                           'text' => __('Software Management'));
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
-                                          'text' => __('eBox components')));
+                                          'text' => __('eBox Components')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Updates',
-                                          'text' => __('System updates')));
+                                          'text' => __('System Updates')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Config',
-                                          'text' => __('Automatic updates')));
+                                          'text' => __('Automatic Updates')));
         $root->add($folder);
 }
 

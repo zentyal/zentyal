@@ -1,4 +1,4 @@
-# Copyright (C) 2008 eBox technologies 
+# Copyright (C) 2008 eBox technologies
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::L7Protocols
-#   
+#
 #   FIXME
 #
 
@@ -38,7 +38,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
-use constant PROTOCOL_DIRS => ('/etc/l7-protocols/protocols', 
+use constant PROTOCOL_DIRS => ('/etc/l7-protocols/protocols',
                                '/etc/l7-protocols/extra');
 use constant INITIAL_GROUPS => qw(streaming_audio remote_access mail
                                   streaming_video chat voip game p2p);
@@ -67,7 +67,7 @@ sub modelClasses
 {
 
     my ($self) = @_;
-    
+
     return  [
                'EBox::L7Protocols::Model::Protocols',
                'EBox::L7Protocols::Model::Groups',
@@ -76,17 +76,17 @@ sub modelClasses
 
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
+#
 #
 sub menu
 {
     my ($self, $root) = @_;
     my $item = new EBox::Menu::Item(
     'url' => 'l7-protocols/View/Groups',
-    'text' => __('Application based protocols'),
+    'text' => __('Application-based Protocols'),
     'order' => 3);
     $root->add($item);
 }
@@ -103,7 +103,7 @@ sub populateProtocols
 
     my $packageProtocols = _fetchProtocols();
     my $protocolModel = $self->model('Protocols');
-    
+
     push (@{$packageProtocols->{protocols}}, ('unknown', 'unset'));
     for my $protocol (sort @{$packageProtocols->{protocols}}) {
         next if ($protocolModel->row($protocol));
@@ -131,7 +131,7 @@ sub populateProtocols
 sub _fetchGroups
 {
     my ($filename) = @_;
-    
+
     open (my $fd, $filename) or return;
 
     for my $line (<$fd>) {
@@ -160,7 +160,7 @@ sub _fetchProtocols
             }
 
         }
-        closedir($DIR); 
+        closedir($DIR);
     }
 
     return { groups => $groups, protocols => \@protocols };

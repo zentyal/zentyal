@@ -26,7 +26,7 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Network diagnosis'),
+	my $self = $class->SUPER::new('title' => __('Network Diagnostic Tools'),
 				      'template' => '/network/diag.mas',
 				      @_);
 	$self->{domain} = 'ebox-network';
@@ -38,7 +38,7 @@ sub new # (error=?, msg=?, cgi=?)
 sub _process
 {
 	my $self = shift;
-	$self->{title} = __('Network diagnosis');
+	$self->{title} = __('Network Diagnostic Tools');
 
 	my $net = EBox::Global->modInstance('network');
 

@@ -22,7 +22,7 @@ use warnings;
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider 
+            EBox::Report::DiskUsageProvider
            );
 
 use EBox::Sudo qw( :all );
@@ -456,7 +456,7 @@ sub _fqdn
 
 
 # this method exists to be used as precondition by the EBox::Mail::Greylist
-# package 
+# package
 sub isGreylistEnabled
 {
     my ($self) = @_;
@@ -550,7 +550,7 @@ sub _dovecotIsRunning
                 return 0;
             }
         }
-        
+
     }
 
     return EBox::Service::running(DOVECOT_SERVICE);
@@ -738,7 +738,7 @@ sub relay
 #
 #  Returns:
 #      Either undef wether the smarthost does not requires authentication or a
-#      hash reference with username and password fields 
+#      hash reference with username and password fields
 #
 sub relayAuth
 {
@@ -839,7 +839,7 @@ sub isAllowedxb
 sub freeObject # (object)
 {
     my ($self, $object) = @_;
-    $object or 
+    $object or
         throw EBox::Exceptions::MissingArgument('object');
 
     my $objectPolicy = $self->model('ObjectPolicy');
@@ -963,14 +963,14 @@ sub service
 
     if ($service eq 'active') {
         return $self->isEnabled();
-    } 
+    }
     elsif ($service eq 'sasl') {
         return $self->saslService();
     }
     elsif ($service eq 'pop') { # that e
         return $self->model('RetrievalServices')->pop3Value() or
             $self->model('RetrievalServices')->pop3sValue();
-    } 
+    }
     elsif ($service eq 'imap') {
         return $self->model('RetrievalServices')->imapValue() or
             $self->model('RetrievalServices')->imapsValue();
@@ -980,7 +980,7 @@ sub service
     }
     else {
         throw EBox::Exceptions::Internal("Unknown service $service");
-    } 
+    }
 }
 
 
@@ -1055,32 +1055,32 @@ sub mailServicesWidget
     $widget->add($section);
 
     my $smtp = new EBox::Dashboard::ModuleStatus(
-                                          module => 'mail', 
+                                          module => 'mail',
                                           printableName => __('SMTP service'),
                                           running => $self->isRunning('active'),
-                                          enabled => $self->service(),           
+                                          enabled => $self->service(),
                                         );
 
     my $pop = new EBox::Dashboard::ModuleStatus(
-                                   module => 'mail', 
+                                   module => 'mail',
                                    printableName => __('POP3 service'),
                                    running => $self->_dovecotIsRunning('pop3'),
-                                   enabled => $self->pop3, 
+                                   enabled => $self->pop3,
                                           );
     my $pops = new EBox::Dashboard::ModuleStatus(
-                                   module => 'mail', 
+                                   module => 'mail',
                                    printableName => __('POP3S service'),
                                    running => $self->_dovecotIsRunning('pop3s'),
-                                   enabled => $self->pop3s, 
+                                   enabled => $self->pop3s,
                                           );
     my $imap = new EBox::Dashboard::ModuleStatus(
-                                    module => 'mail', 
+                                    module => 'mail',
                                     printableName => __('IMAP service'),
                                     running => $self->_dovecotIsRunning('imap'),
                                     enabled => $self->imap
                                              );
     my $imaps = new EBox::Dashboard::ModuleStatus(
-                                   module => 'mail', 
+                                   module => 'mail',
                                    printableName => __('IMAPS service'),
                                    running => $self->_dovecotIsRunning('imaps'),
                                    enabled => $self->imaps
@@ -1177,7 +1177,7 @@ sub menu
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/View/VDomains',
-                                      'text' => __('Virtual mail domains')
+                                      'text' => __('Virtual Mail Domains')
                  )
     );
     $folder->add(

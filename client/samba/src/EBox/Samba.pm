@@ -672,7 +672,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
-               'text' => __('File sharing')));
+               'text' => __('File Sharing')));
 }
 
 #   Function: setFileService

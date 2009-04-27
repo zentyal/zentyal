@@ -18,8 +18,8 @@ package EBox::Firewall;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service 
-                EBox::ObjectsObserver 
+use base qw(EBox::Module::Service
+                EBox::ObjectsObserver
                 EBox::NetworkObserver
                 EBox::LogObserver
                 EBox::Model::ModelProvider
@@ -56,35 +56,35 @@ sub _create
                                      domain => 'ebox-firewall',
                                      printableName => __('firewall'),
                                      @_);
-    $self->{'ToInternetRuleModel'} = 
+    $self->{'ToInternetRuleModel'} =
         new EBox::Firewall::Model::ToInternetRuleTable(
                                                        'gconfmodule' => $self,
                                                        'directory' => 'ToInternetRuleTable',
                                                       );
 
-    $self->{'InternalToEBoxRuleModel'} = 
+    $self->{'InternalToEBoxRuleModel'} =
         new EBox::Firewall::Model::InternalToEBoxRuleTable(
                                                            'gconfmodule' => $self,
                                                            'directory' => 'InternalToEBoxRuleTable',
                                                           );
 
-    $self->{'ExternalToEBoxRuleModel'} = 
+    $self->{'ExternalToEBoxRuleModel'} =
         new EBox::Firewall::Model::ExternalToEBoxRuleTable(
                                                            'gconfmodule' => $self,
                                                            'directory' => 'ExternalToEBoxRuleTable',
                                                           );
 
-    $self->{'EBoxOutputRuleModel'} = 
+    $self->{'EBoxOutputRuleModel'} =
         new EBox::Firewall::Model::EBoxOutputRuleTable(
                                                        'gconfmodule' => $self,
                                                        'directory' => 'EBoxOutputRuleTable',
                                                       );
-    $self->{'ExternalToInternalRuleTable'} = 
+    $self->{'ExternalToInternalRuleTable'} =
         new EBox::Firewall::Model::ExternalToInternalRuleTable(
                                                                'gconfmodule' => $self,
                                                                'directory' => 'ExternalToInternalRuleTable',
                                                               );
-    $self->{'RedirectsTable'} = 
+    $self->{'RedirectsTable'} =
         new EBox::Firewall::Model::RedirectsTable(
                                                      'gconfmodule' => $self,
                                                      'directory' => 'RedirectsTable',
@@ -108,7 +108,7 @@ sub _create
 
 
 
-                                                 
+
 
     bless($self, $class);
     return $self;
@@ -120,7 +120,7 @@ sub _create
 #
 sub actions
 {
-    return [ 
+    return [
         {
                 'action' => __('Flush previous firewall rules'),
                 'reason' => __('The eBox firewall will flush any previous firewall '
@@ -144,7 +144,7 @@ sub actions
 #
 #      Overrides <EBox::Model::ModelProvider::models>
 #
-sub models 
+sub models
 {
     my ($self) = @_;
 
@@ -181,16 +181,16 @@ sub compositeClasses
 sub _exposedMethods
 {
     my %exposedMethods = (
-                addOutputService => { 
+                addOutputService => {
                             action => 'add',
-                            path   => [ 'EBoxOutputRuleTable' ] 
+                            path   => [ 'EBoxOutputRuleTable' ]
                         },
-                removeOutputService => { 
+                removeOutputService => {
                             action => 'del',
                             path   => [ 'EBoxOutputRuleTable' ],
                             indexes => [ 'id' ]
                         },
-                getOutputService => { 
+                getOutputService => {
                             action  => 'get',
                             path    => [ 'EBoxOutputRuleTable' ],
                             indexes => [ 'position' ],
@@ -207,7 +207,7 @@ sub externalIfaceExists
 {
     my $network = EBox::Global->modInstance('network');
     my $externalIfaceExists = @{$network->ExternalIfaces()  } > 0;
-    
+
     return $externalIfaceExists;
 }
 
@@ -266,7 +266,7 @@ sub _stopService
 
 
 #
-# Method: denyAction 
+# Method: denyAction
 #
 #       Returns the deny action
 #
@@ -285,19 +285,19 @@ sub denyAction
 }
 
 #
-# Method: setDenyAction 
+# Method: setDenyAction
 #
 #       Sets the deny action
 #
 # Parameters:
 #
 #       action - 'DROP' or 'REJECT'
-#   
+#
 # Exceptions:
 #
 #       InvalidData - action not valid
 #
-sub setDenyAction # (action) 
+sub setDenyAction # (action)
 {
     my ($self, $action) = @_;
     if ($action ne "DROP" && $action ne "REJECT") {
@@ -312,12 +312,12 @@ sub setDenyAction # (action)
 # Method: removePortRedirectionsOnIface
 #
 #       Removes all the port redirections on a given interface
-#   
+#
 # Parameters:
-#       
+#
 #       iface - network intercace
 #
-sub removePortRedirectionsOnIface # (interface) 
+sub removePortRedirectionsOnIface # (interface)
 {
     my ($self, $iface) = @_;
 
@@ -333,12 +333,12 @@ sub removePortRedirectionsOnIface # (interface)
 # Method: availablePort
 #
 #       Checks if a port is available, i.e: it's not used by any module.
-#   
+#
 # Parameters:
 #
 #       proto - protocol
 #       port - port number
-#       interface - interface 
+#       interface - interface
 #
 # Returns:
 #
@@ -397,7 +397,7 @@ sub availablePort # (proto, port, interface)
 #       Returns a list of local redirections
 #
 # Returns:
-#       
+#
 #       array ref - holding the local redirections
 #
 sub localRedirects
@@ -413,12 +413,12 @@ sub localRedirects
 #       the local machine are redirected to the given port
 #
 # Parameters:
-#       
+#
 #       service - string: name of a service to redirect packets
-#       port - port to redirect from 
+#       port - port to redirect from
 #
 #
-sub addLocalRedirect # (service, port) 
+sub addLocalRedirect # (service, port)
 {
     my ($self, $name, $port) = @_;
     checkName($name) or throw EBox::Exceptions::Internal(
@@ -426,9 +426,9 @@ sub addLocalRedirect # (service, port)
     checkPort($port, __("port"));
 
     my $protocol = $self->serviceProtocol($name);
-    ($protocol && $protocol ne "") or 
+    ($protocol && $protocol ne "") or
         throw EBox::Exceptions::Internal("Unknown service: $name");
-    
+
     my @redirects = $self->all_dirs("localredirects");
     foreach (@redirects) {
         my $tmpsrv = $self->get_string("$_/service");
@@ -446,24 +446,24 @@ sub addLocalRedirect # (service, port)
                 ("Port $port already redirected to service $tmpsrv");
                 }
     }
-    
+
     my $id = $self->get_unique_id("r","localredirects");
-    
+
     $self->set_string("localredirects/$id/service", $name);
     $self->set_int("localredirects/$id/port", $port);
 }
 
 #
-# Method: removeLocalRedirects 
+# Method: removeLocalRedirects
 #
 #       Removes all local redirections for a service
 #
 # Parameters:
-#       
-#       service - string: name of a service to remove local redirections 
+#
+#       service - string: name of a service to remove local redirections
 #
 #
-sub removeLocalRedirects # (service) 
+sub removeLocalRedirects # (service)
 {
     my ($self, $name) = @_;
     checkName($name) or throw EBox::Exceptions::Internal(
@@ -478,16 +478,16 @@ sub removeLocalRedirects # (service)
 }
 
 #
-# Method: removeLocalRedirect 
+# Method: removeLocalRedirect
 #
 #       Removes a local redirection for a service
 #
 # Parameters:
-#       
-#       service - string: name of a service to remove local redirections 
+#
+#       service - string: name of a service to remove local redirections
 #
 #
-sub removeLocalRedirect # (service, port) 
+sub removeLocalRedirect # (service, port)
 {
     my ($self, $name, $port) = @_;
     checkName($name) or throw EBox::Exceptions::Internal(
@@ -501,10 +501,10 @@ sub removeLocalRedirect # (service, port)
     }
 }
 
-# Method: usesIface 
+# Method: usesIface
 #
-#       Implements EBox::NetworkObserver interface. 
-#   
+#       Implements EBox::NetworkObserver interface.
+#
 #
 sub usesIface # (iface)
 {
@@ -521,25 +521,25 @@ sub usesIface # (iface)
     return undef;
 }
 
-# Method: ifaceMethodChanged 
+# Method: ifaceMethodChanged
 #
-#       Implements EBox::NetworkObserver interface. 
-#   
+#       Implements EBox::NetworkObserver interface.
+#
 #
 sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 {
     my ($self, $iface, $oldm, $newm) = @_;
-    
+
     ($newm eq 'static') and return undef;
     ($newm eq 'dhcp') and return undef;
-    
+
     return $self->usesIface($iface);
 }
 
 # Method: vifaceDelete
 #
-#       Implements EBox::NetworkObserver interface. 
-#   
+#       Implements EBox::NetworkObserver interface.
+#
 #
 sub vifaceDelete # (iface, viface)
 {
@@ -549,8 +549,8 @@ sub vifaceDelete # (iface, viface)
 
 # Method: freeIface
 #
-#       Implements EBox::NetworkObserver interface. 
-#   
+#       Implements EBox::NetworkObserver interface.
+#
 #
 sub freeIface # (iface)
 {
@@ -560,8 +560,8 @@ sub freeIface # (iface)
 
 # Method: freeViface
 #
-#       Implements EBox::NetworkObserver interface. 
-#   
+#       Implements EBox::NetworkObserver interface.
+#
 #
 sub freeViface # (iface, viface)
 {
@@ -603,7 +603,7 @@ sub removeOutputRule # (protocol, port)
 
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));
-    
+
     my @rules = $self->all_dirs("rules/output");
     foreach (@rules) {
         ($self->get_string("$_/protocol") eq $protocol) or next;
@@ -614,7 +614,7 @@ sub removeOutputRule # (protocol, port)
     return;
 }
 
-# Method: addOutputRule 
+# Method: addOutputRule
 #
 #       Removes an output rule
 #
@@ -622,17 +622,17 @@ sub removeOutputRule # (protocol, port)
 #
 #       protocol - string: protocol (tcp|udp)
 #       port - string: port number
-sub addOutputRule # (protocol, port) 
+sub addOutputRule # (protocol, port)
 {
     my ($self, $protocol, $port) = @_;
-    
+
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));
-    
+
     $self->removeOutputRule($protocol, $port);
-    
+
     my $id = $self->get_unique_id("r","rules/output");
-    
+
     $self->set_string("rules/output/$id/protocol", $protocol);
     $self->set_int("rules/output/$id/port", $port);
 }
@@ -653,7 +653,7 @@ sub addOutputRule # (protocol, port)
 #
 #   service - service's name
 #   decision - accept or deny
-#       
+#
 # Returns:
 #
 #   boolan - true if the rule has been added, otherwise false and
@@ -686,7 +686,7 @@ sub setInternalService
 #
 #   service - service's name
 #   decision - accept or deny
-#       
+#
 # Returns:
 #
 #   boolan - true if the rule has been added, otherwise false and
@@ -712,13 +712,13 @@ sub _setService
     unless (defined($service)) {
         throw EBox::Exceptions::MissingArgument('service');
     }
-    
+
     unless (defined($decision)) {
         throw EBox::Exceptions::MissingArgument('decision');
     }
 
     unless ($decision eq 'accept' or $decision eq 'deny') {
-        throw EBox::Exceptions::InvalidData('data' => 'decision', 
+        throw EBox::Exceptions::InvalidData('data' => 'decision',
                         value => $decision, 'advice' => 'accept or deny');
     }
 
@@ -737,7 +737,7 @@ sub _setService
             $model = 'ExternalToEBoxRuleModel';
         }
     my $rulesModel = $self->{$model};
-    
+
     # Do not add rule if there is already a rule
     if ($rulesModel->findValue('service' => $serviceId)) {
         EBox::info("Existing rule for $service overrides default rule");
@@ -748,24 +748,24 @@ sub _setService
     $params{'decision'} = $decision;
     $params{'source_selected'} = 'source_any';
     $params{'service'} = $serviceId;
-    
+
     $rulesModel->addRow(%params);
-    
+
     return 1;
 }
-# Method: enableLog 
+# Method: enableLog
 #
 #   Override <EBox::LogObserver>
 #
 #
-sub enableLog 
+sub enableLog
 {
     my ($self, $enable) = @_;
- 
+
     $self->setLogging($enable);
 }
 
-# Method: setLogging 
+# Method: setLogging
 #
 #   This method is used to enable/disable the iptables logging facilities.
 #
@@ -774,25 +774,25 @@ sub enableLog
 #
 # Parameters:
 #
-#   enable - boolean true to enable, false to disable 
+#   enable - boolean true to enable, false to disable
 #
 sub setLogging
 {
     my ($self, $enable) = @_;
-    
+
     if ($enable xor $self->logging()) {
         $self->set_bool('logging', $enable);
     }
 }
 
-# Method: logging 
+# Method: logging
 #
 #   This method is used to fetch the logging status which is set by the user
 #
 #
 # Returns:
 #
-#   boolean true to enable, false to disable 
+#   boolean true to enable, false to disable
 #
 sub logging
 {
@@ -801,33 +801,33 @@ sub logging
     return  $self->get_bool('logging');
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
+#
 sub menu
 {
     my ($self, $root) = @_;
-    
+
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
                                         'text' => __('Firewall'),
                                         'order' => 4);
-    
+
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
                                       'text' => __('Packet Filter')));
-    
+
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/View/RedirectsTable',
                                       'text' => __('Redirects')));
-    
+
     $root->add($folder);
 }
 
 # Impelment LogHelper interface
-sub tableInfo 
+sub tableInfo
 {
     my ($self) = @_ ;
-        
-    my $titles = { 
+
+    my $titles = {
                   'timestamp' => __('Date'),
                   'fw_in'     => __('Input interface'),
                   'fw_out'    => __('Output interface'),
@@ -838,9 +838,9 @@ sub tableInfo
                   'fw_dpt'    => __('Destination port'),
                   'event'     => __('Decision')
                  };
-        
+
     my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt event);
-        
+
     my $events = { 'drop' => __('DROP'), 'log' => __('LOG') };
 
     return [{
@@ -850,7 +850,7 @@ sub tableInfo
             'order' => \@order,
             'tablename' => 'firewall',
             'timecol' => 'timestamp',
-            'filter' => ['fw_in', 'fw_out', 'fw_src', 
+            'filter' => ['fw_in', 'fw_out', 'fw_src',
                          'fw_dst', 'fw_proto', 'fw_spt', 'fw_dpt'],
             'events' => $events,
             'eventcol' => 'event',
@@ -880,8 +880,8 @@ sub _consolidate
                                                 if ($v eq 'drop') {
                                                     return 'drop';
                                                 }
-                                                
-                                                
+
+
                                             },
                                         },
                                       }

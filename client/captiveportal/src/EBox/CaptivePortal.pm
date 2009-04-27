@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: EBox::CaptivePortal 
+# Class: EBox::CaptivePortal
 
 package EBox::CaptivePortal;
 
@@ -57,7 +57,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'captiveportal',
-            printableName => __('Captive portal'),
+            printableName => __('Captive Portal'),
             domain => 'ebox-captiveportal',
             @_);
     bless($self, $class);
@@ -145,7 +145,7 @@ sub usedFiles
     return [];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 #   Override EBox::ServiceModule::ServiceInterface::enableActions
 #
@@ -153,7 +153,7 @@ sub enableActions
 {
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #
@@ -163,7 +163,7 @@ sub menu
     my ($self, $root) = @_;
     my $item = new EBox::Menu::Item(
     'url' => 'CaptivePortal/View/Settings',
-    'text' => __('Captive portal'),
+    'text' => __('Captive Portal'),
     'order' => 3);
     $root->add($item);
 }
@@ -195,7 +195,7 @@ sub widgets
 {
     return {
         'users' => {
-            'title' => __('Captive portal users'),
+            'title' => __('Captive Portal Users'),
             'widget' => \&usersWidget
         },
     }
@@ -210,7 +210,7 @@ sub userMenu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => '/CaptivePortal/Index',
-        'text' => __('Captive portal')));
+        'text' => __('Captive Portal')));
 }
 
 sub firewallHelper
@@ -243,7 +243,7 @@ sub ifaces
     my $model = $self->model('Interfaces');
     my $ids = $model->ids();
     my @ifaces;
-    for my $id (@{$ids}) { 
+    for my $id (@{$ids}) {
         my $row = $model->row($id);
         if($row->valueByName('enabled')) {
             push(@ifaces, $row->valueByName('interface'));

@@ -26,7 +26,7 @@ use warnings;
 
 use Perl6::Junction qw(any);
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self = {};
@@ -35,20 +35,20 @@ sub new
 }
 
 # Method: domain
-#       
+#
 #       Must return the text domain which the package belongs to
 #
-sub domain 
+sub domain
 {
     throw EBox::Exceptions::NotImplemented;
 }
 
-# Method: logHelper 
+# Method: logHelper
 #
 # Returns:
 #
 #       An object implementing EBox::LogHelper
-sub logHelper 
+sub logHelper
 {
     return undef;
 }
@@ -63,7 +63,7 @@ sub logHelper
 #
 #   enable - boolean, true if it's enabled, false it's disabled
 #
-sub enableLog 
+sub enableLog
 {
 }
 
@@ -80,7 +80,7 @@ sub enableLog
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)
-#            
+#
 #
 #  Consolidate hash specification:
 #
@@ -88,7 +88,7 @@ sub enableLog
 #    will be concataned to time periods prefix as daily, hourly).  The values
 #    must be another hash ref with the consolidation parameters. The hash ref
 #    has those fields:
-#       - consolidateColumns:hash ref which a key for each column that should 
+#       - consolidateColumns:hash ref which a key for each column that should
 #           be treated the value is a hash ref with more options:
 #             * conversor: reference to a sub to ocnvert the column value. The
 #                 function will be called with row value as first argument and
@@ -96,7 +96,7 @@ sub enableLog
 #              * accummulate: sginals that the vaule of the column will be
 #                   accummulated and in which column will be accummulated.
 #                   It may be a string to specif a column or a sub ref which
-#                   returns the name of the column to be accummulated. In the 
+#                   returns the name of the column to be accummulated. In the
 #                   last case it is called with the vaule of the column and
 #                   the row as arguments.
 #              * destination: for not-accummulate column this will be the column
@@ -104,15 +104,15 @@ sub enableLog
 #                  the same name
 #       - accummulateColumns: hash ref to signal which data base columns
 #           will be used to accummulate numeric data from other columns.
-#           The keys should be the name of the clumn and the values 
-#           the number will be used to autoincremet the column in each row. 
+#           The keys should be the name of the clumn and the values
+#           the number will be used to autoincremet the column in each row.
 #           Use zero if you don't want autoincrement.
 #            The drfault is a column called count which autoincrements one unit
 #            each time
 
 #       - filter: refrence to a method used to filter out rows, the method will
 #                 be supplied to a reference to a hash with the row values and
-#                 if it returns false the row would be excluded 
+#                 if it returns false the row would be excluded
 sub tableInfo
 {
     throw EBox::Exceptions::NotImplemented;
@@ -158,24 +158,24 @@ sub humanEventMessage
 
 # Method: reportUrls
 #
-#     this  return the nodule's rows for the SelectLog table. 
+#     this  return the nodule's rows for the SelectLog table.
 sub reportUrls
 {
     my ($self) = @_;
 #    my $domain = $self->name();
-        
+
     my @tableInfos;
     my $ti = $self->tableInfo();
     if (ref $ti eq 'HASH') {
-            EBox::warn('tableInfo() in ' . $self->name .  
+            EBox::warn('tableInfo() in ' . $self->name .
                        ' must return a reference to a list of hashes not the hash itself');
-            
+
             @tableInfos = ( $ti );
           }
     else {
       @tableInfos = @{ $ti };
     }
-        
+
 
 
     my @urls;
@@ -188,17 +188,17 @@ sub reportUrls
           push @urls, { domain => $tableInfo->{name},  raw => $rawUrl, };
           next;
       }
-      
+
       my @consolidateTables = keys %{ $tableInfo->{consolidate} };
-      
-      
+
+
       my @reportComposites = grep {
-          ((ref $_) =~ m/::Report::/) and 
+          ((ref $_) =~ m/::Report::/) and
               ($self->_compositeUsesDbTable($_, \@consolidateTables) )
       } @{ $self->composites };
 
 
-      
+
       (ref $self) =~  m/::(.*?)$/;;
       my $urlModName= $1;
 
@@ -212,21 +212,21 @@ sub reportUrls
           if ($first) {
               $compUrls{raw} = $rawUrl;
               $first =0;
-          }    
+          }
           else {
               $compUrls{raw} = undef;
           }
-          
+
           push @urls, \%compUrls;
       }
-      
+
       if (not @reportComposites) {
           push @urls, { domain => $tableInfo->{name},  raw => $rawUrl } ;
-          
+
       }
-      
-      
-      
+
+
+
   }
 
     return \@urls;
@@ -236,7 +236,7 @@ sub reportUrls
 sub _compositeUsesDbTable
 {
     my ($self, $composite, $dbTables_r) = @_;
-    
+
     my $usesDbTable = 0;
     foreach my $component (@{ $composite->components() } ) {
         if ($component->can('dbTableName')) {

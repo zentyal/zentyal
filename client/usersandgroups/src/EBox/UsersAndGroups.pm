@@ -181,7 +181,7 @@ sub groupsDn
 #    Returns the dn for a given group. The group don't have to existst
 #
 #   Parameters:
-#       group 
+#       group
 #
 #  Returns:
 #     dn for the group
@@ -286,10 +286,10 @@ sub uidExists # (uid)
 # Method: lastUid
 #
 #       Returns the last uid used.
-#   
+#
 # Parameters:
-#       
-#       system - boolan: if true, it returns the last uid for system users, 
+#
+#       system - boolan: if true, it returns the last uid for system users,
 #       otherwise the last uid for normal users
 #
 # Returns:
@@ -299,18 +299,18 @@ sub uidExists # (uid)
 sub lastUid # (system)
 {
     my ($self, $system) = @_;
-        
+
     my %args = (
                 base =>  $self->{ldap}->dn(),
                 filter => '(objectclass=posixAccount)',
-                scope => 'sub', 
+                scope => 'sub',
                 attrs => ['uidNumber']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @users = $result->sorted('uidNumber');
-    
+
     my $uid = -1;
     foreach my $user (@users) {
         my $curruid = $user->get_value('uidNumber');
@@ -331,14 +331,14 @@ sub lastUid # (system)
     }
 }
 
-sub _initUser 
+sub _initUser
 {
     my ($self, $user, $password) = @_;
 
     # Tell modules depending on users and groups
     # a new new user is created
         my @mods = @{$self->_modsLdapUserBase()};
-    
+
     foreach my $mod (@mods){
         $mod->_addUser($user, $password);
     }
@@ -453,7 +453,7 @@ sub _checkUid
                                                  )
                                              );
 
-        } 
+        }
     }
 
 }
@@ -555,26 +555,26 @@ sub _cleanUser
     my ($self, $user) = @_;
 
     my @mods = @{$self->_modsLdapUserBase()};
-    
+
     # Tell modules depending on users and groups
-    # an user is to be deleted 
+    # an user is to be deleted
     foreach my $mod (@mods){
         $mod->_delUser($user);
     }
-    
+
     # Delete user from groups
     foreach my $group (@{$self->groupOfUsers($user)}) {
-                $self->delUserFromGroup($user, $group);         
+                $self->delUserFromGroup($user, $group);
             }
 }
 
 # Method: delUser
 #
 #       Removes a given user
-#   
+#
 # Parameters:
-#       
-#       user - user name to be deleted 
+#
+#       user - user name to be deleted
 #
 sub delUser # (user)
 {
@@ -585,24 +585,24 @@ sub delUser # (user)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
-    
-    $self->_cleanUser($user);       
+
+    $self->_cleanUser($user);
     my $r = $self->{'ldap'}->delete("uid=" . $user . "," . $self->usersDn);
-        
+
 }
 
-# Method: userInfo 
+# Method: userInfo
 #
 #       Returns a hash ref containing the inforamtion for a given user
-#   
+#
 # Parameters:
-#       
+#
 #       user - user name to gather information
 #       entry - *optional* ldap entry for the user
 #
 # Returns:
 #
-#       hash ref - holding the keys: 'username', 'fullname', password', 
+#       hash ref - holding the keys: 'username', 'fullname', password',
 #       'homeDirectory', 'uid' and 'group'
 #
 sub userInfo # (user, entry)
@@ -614,7 +614,7 @@ sub userInfo # (user, entry)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
-    
+
     # If $entry is undef we make a search to get the object, otherwise
     # we already have the entry
     unless ($entry) {
@@ -624,11 +624,11 @@ sub userInfo # (user, entry)
                     scope => 'one',
                     attrs => ['*'],
                    );
-        
+
         my $result = $self->{ldap}->search(\%args);
-        $entry = $result->entry(0);     
+        $entry = $result->entry(0);
     }
-    
+
     # Mandatory data
     my $userinfo = {
                     username => $entry->get_value('cn'),
@@ -652,9 +652,9 @@ sub userInfo # (user, entry)
     if ($desc) {
         $userinfo->{'comment'} = $desc;
     } else {
-        $userinfo->{'comment'} = ""; 
+        $userinfo->{'comment'} = "";
     }
-    
+
     return $userinfo;
 }
 
@@ -666,7 +666,7 @@ sub userInfo # (user, entry)
 #
 #       array - holding the uid
 #
-sub uidList 
+sub uidList
 {
     my ($self, $system) = @_;
 
@@ -676,9 +676,9 @@ sub uidList
                 scope => 'one',
                 attrs => ['uid', 'uidNumber']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @users = ();
     foreach my $user ($result->sorted('uid'))
         {
@@ -687,7 +687,7 @@ sub uidList
             }
             push (@users, $user->get_value('uid'));
         }
-    
+
     return \@users;
 }
 
@@ -696,13 +696,13 @@ sub uidList
 #       Returns an array containing all the users (not system users)
 #
 # Parameters:
-#       system - show system groups (default: false)  
+#       system - show system groups (default: false)
 #
 # Returns:
 #
 #       array - holding the users
 #
-sub users 
+sub users
 {
     my ($self, $system) = @_;
 
@@ -710,13 +710,13 @@ sub users
                 base => $self->usersDn,
                 filter => 'objectclass=*',
                 scope => 'one',
-                attrs => ['uid', 'cn', 'sn', 'homeDirectory',  
-                          'userPassword', 'uidNumber', 'gidNumber', 
+                attrs => ['uid', 'cn', 'sn', 'homeDirectory',
+                          'userPassword', 'uidNumber', 'gidNumber',
                           'description']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @users = ();
     foreach my $user ($result->sorted('uid'))
         {
@@ -725,9 +725,9 @@ sub users
             }
 
             @users = (@users,  $self->userInfo($user->get_value('uid'),
-                                               $user))          
+                                               $user))
         }
-    
+
     return @users;
 }
 
@@ -752,17 +752,17 @@ sub usersList
                 scope => 'one',
                 attrs => ['uid', 'uidNumber']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @users = ();
     foreach my $user ($result->sorted('uid'))
         {
             next if ($user->get_value('uidNumber') < MINUID);
-            push (@users,  { user => $user->get_value('uid'), 
+            push (@users,  { user => $user->get_value('uid'),
                     uid => $user->get_value('uidNumber') });
         }
-    
+
     return \@users;
 }
 
@@ -770,16 +770,16 @@ sub usersList
 # Method: groupExists
 #
 #       Checks if a given group name exists
-#   
+#
 # Parameters:
-#       
+#
 #       group - group name
 #
 # Returns:
 #
 #       boolean - true if it exists, otherwise false
 #
-sub groupExists # (group) 
+sub groupExists # (group)
 {
     my ($self, $group) = @_;
 
@@ -788,18 +788,18 @@ sub groupExists # (group)
                  filter => "&(objectclass=*)(cn=$group)",
                  scope => 'one'
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 
 # Method: gidExists
 #
 #       Checks if a given gid number exists
-#   
+#
 # Parameters:
-#       
+#
 #       gid - gid number
 #
 # Returns:
@@ -815,40 +815,40 @@ sub gidExists
                  filter => "&(objectclass=*)(gidNumber=$gid)",
                  scope => 'one'
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 
 # Method: lastGid
 #
 #       Returns the last gid used.
-#   
+#
 # Parameters:
-#       
-#       system - boolan: if true, it returns the last gid for system users, 
+#
+#       system - boolan: if true, it returns the last gid for system users,
 #       otherwise the last gid for normal users
 #
 # Returns:
 #
 #       string - last gid
 #
-sub lastGid # (gid) 
+sub lastGid # (gid)
 {
     my ($self, $system) = @_;
-        
+
     my %args = (
                 base => $self->groupsDn,
                 filter => '(objectclass=posixGroup)',
-                scope => 'one', 
+                scope => 'one',
                 attrs => ['gidNumber']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @users = $result->sorted('gidNumber');
-    
+
     my $gid = -1;
     foreach my $user (@users) {
         my $currgid = $user->get_value('gidNumber');
@@ -857,7 +857,7 @@ sub lastGid # (gid)
                     } else {
                         next if ($currgid < MINGID);
                     }
-        
+
         if ( $currgid > $gid){
             $gid = $currgid;
         }
@@ -868,18 +868,18 @@ sub lastGid # (gid)
     } else {
         return ($gid < MINUID ?  MINUID : $gid);
     }
-    
+
 }
 
 # Method: addGroup
 #
 #       Adds a new group
-#   
+#
 # Parameters:
-#       
+#
 #       group - group name
 #       comment - comment's group
-#       system - boolan: if true it adds the group as system group, 
+#       system - boolan: if true it adds the group as system group,
 #       otherwise as normal group
 #
 sub addGroup # (group, comment, system)
@@ -891,13 +891,13 @@ sub addGroup # (group, comment, system)
                         __x("Groupname must not be longer than {maxGroupLength} characters",
                             maxGroupLength => MAXGROUPLENGTH));
     }
-        
+
     if (($group eq DEFAULTGROUP) and (not $system)) {
         throw EBox::Exceptions::External(
                         __('The group name is not valid because it is used' .
                            ' internally'));
         }
-        
+
     unless (_checkName($group)) {
         throw EBox::Exceptions::InvalidData(
                                             'data' => __('group name'),
@@ -909,26 +909,26 @@ sub addGroup # (group, comment, system)
                                            'value' => $group);
     }
     #FIXME
-    my $gid = exists $params{gidNumber} ? 
+    my $gid = exists $params{gidNumber} ?
         $params{gidNumber} :
             $self->_gidForNewGroup($system);
-    
+
     $self->_checkGid($gid, $system);
 
-    my %args = ( 
+    my %args = (
                 attr => [
                          'cn'        => $group,
                          'gidNumber'   => $gid,
                          'objectclass' => ['posixGroup']
                             ]
                );
-    
+
     my $dn = "cn=" . $group ."," . $self->groupsDn;
-    my $r = $self->{'ldap'}->add($dn, \%args); 
-    
-    
+    my $r = $self->{'ldap'}->add($dn, \%args);
+
+
     $self->_changeAttribute($dn, 'description', $comment);
-    
+
     unless ($system) {
         my @mods = @{$self->_modsLdapUserBase()};
         foreach my $mod (@mods){
@@ -952,7 +952,7 @@ sub _gidForNewGroup
     } else {
         $gid = $self->lastGid + 1;
     }
-    
+
     return $gid;
 }
 
@@ -980,7 +980,7 @@ sub _checkGid
                                                  )
                                              );
 
-        } 
+        }
     }
 
 }
@@ -991,11 +991,11 @@ sub _checkGid
 sub _updateGroup
 {
     my ($self, $group) = @_;
-        
+
     # Tell modules depending on groups and groups
     # a group  has been updated
     my @mods = @{$self->_modsLdapUserBase()};
-    
+
     foreach my $mod (@mods){
         $mod->_modifyGroup($group);
     }
@@ -1004,13 +1004,13 @@ sub _updateGroup
 # Method: modifyGroup
 #
 #       Modifies a group
-#   
+#
 # Parameters:
-#       
+#
 #       hash ref - holding the keys 'groupname' and 'comment'. At the moment
 #       comment is the only modifiable attribute
 #
-sub modifyGroup # (\%groupdata)) 
+sub modifyGroup # (\%groupdata))
 {
     my ($self, $groupdata) = @_;
 
@@ -1021,7 +1021,7 @@ sub modifyGroup # (\%groupdata))
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
                                              'value' => $cn);
     }
-    
+
     $self->_changeAttribute($dn, 'description', $groupdata->{'comment'});
 }
 
@@ -1031,9 +1031,9 @@ sub _cleanGroup
     my ($self, $group) = @_;
 
     my @mods = @{$self->_modsLdapUserBase()};
-    
+
     # Tell modules depending on users and groups
-    # a group is to be deleted 
+    # a group is to be deleted
     foreach my $mod (@mods){
         $mod->_delGroup($group);
     }
@@ -1042,10 +1042,10 @@ sub _cleanGroup
 # Method: delGroup
 #
 #       Removes a given group
-#   
+#
 # Parameters:
-#       
-#       group - group name to be deleted 
+#
+#       group - group name to be deleted
 #
 sub delGroup # (group)
 {
@@ -1055,26 +1055,26 @@ sub delGroup # (group)
         throw EBox::Exceptions::DataNotFoud('data' => __('group name'),
                                             'value' => $group);
     }
-    
+
         $self->_cleanGroup($group);
         my $dn = "cn=" . $group . "," . $self->groupsDn;
         my $result = $self->{'ldap'}->delete($dn);
 
 }
 
-# Method: groupInfo 
+# Method: groupInfo
 #
 #       Returns a hash ref containing the inforamtion for a given group
-#   
+#
 # Parameters:
-#       
+#
 #       group - group name to gather information
 #       entry - *optional* ldap entry for the group
 #
 # Returns:
 #
 #       hash ref - holding the keys: 'groupname' and 'description'
-sub groupInfo # (group) 
+sub groupInfo # (group)
 {
     my ($self, $group) = @_;
 
@@ -1083,40 +1083,40 @@ sub groupInfo # (group)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $group);
     }
-    
+
     my %args = (
                 base => $self->groupsDn,
                 filter => "&(objectclass=*)(cn=$group)",
                 scope => 'one',
                 attrs => ['cn', 'description']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my $entry = $result->entry(0);
     # Mandatory data
     my $groupinfo = {
                      groupname => $entry->get_value('cn'),
                     };
-    
-    
+
+
     my $desc = $entry->get_value('description');
     if ($desc) {
         $groupinfo->{'comment'} = $desc;
     } else {
-        $groupinfo->{'comment'} = ""; 
+        $groupinfo->{'comment'} = "";
     }
-    
+
     return $groupinfo;
 
 }
 
 # Method: groups
 #
-#       Returns an array containing all the groups 
+#       Returns an array containing all the groups
 #
 #   Parameters:
-#       system - show system groups (default: false)  
+#       system - show system groups (default: false)
 #
 # Returns:
 #
@@ -1126,51 +1126,51 @@ sub groupInfo # (group)
 #
 #   the group hashes are NOT the sames that we get from groupInfo, the keys are:
 #     account(group name), desc (description) and gid
-sub groups 
+sub groups
 {
     my ($self, $system) = @_;
     defined $system or $system = 0;
-    
+
     my %args = (
                 base => $self->groupsDn,
                 filter => '(objectclass=*)',
-                scope => 'one', 
+                scope => 'one',
                 attrs => ['cn', 'gidNumber', 'description']
                );
 
     my $result = $self->{ldap}->search(\%args);
-    
+
     my @groups = ();
     foreach ($result->sorted('cn')) {
         if (not $system) {
             next if ($_->get_value('gidNumber') < MINGID);
         }
-        
-        
+
+
         my $info = {
                     'account' => $_->get_value('cn'),
                     'gid' => $_->get_value('gidNumber'),
                    };
-        
+
         my $desc = $_->get_value('description');
         if ($desc) {
             $info->{'desc'} = $desc;
         }
-        
+
         push @groups, $info;
     }
-    
+
     return @groups;
 }
 
-# Method: addUserToGroup 
+# Method: addUserToGroup
 #
 #       Adds a user to a given group
-#   
+#
 # Parameters:
-#       
+#
 #       user - user name to add to the group
-#       group - group name 
+#       group - group name
 #
 # Exceptions:
 #
@@ -1183,28 +1183,28 @@ sub addUserToGroup # (user, group)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
-    
+
     unless ($self->groupExists($group)) {
         throw EBox::Exceptions::DataNotFound('data' => __('group name'),
                                              'value' => $group);
     }
-    
+
     my $dn = "cn=" . $group . "," . $self->groupsDn;
-    
+
     my %attrs = ( add => { memberUid => $user } );
     $self->{'ldap'}->modify($dn, \%attrs);
-    
+
     $self->_updateGroup($group);
 }
 
-# Method: delUserFromGroup 
+# Method: delUserFromGroup
 #
 #       Removes a user from a group
-#   
+#
 # Parameters:
-#       
+#
 #       user - user name to remove  from the group
-#       group - group name 
+#       group - group name
 #
 # Exceptions:
 #
@@ -1217,26 +1217,26 @@ sub delUserFromGroup # (user, group)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
-    
+
     unless ($self->groupExists($group)) {
         throw EBox::Exceptions::DataNotFoud('data' => __('group name'),
                                             'value' => $group);
     }
-    
+
     my $dn = "cn=" . $group . "," . $self->groupsDn;
     my %attrs = ( delete => {  memberUid => $user  } );
         $self->{'ldap'}->modify($dn, \%attrs);
-    
+
     $self->_updateGroup($group);
 }
 
-# Method: groupOfUsers 
+# Method: groupOfUsers
 #
 #       Given a user it returns all the groups which the user belongs to
-#   
+#
 # Parameters:
-#       
-#       user - user name 
+#
+#       user - user name
 #
 # Returns:
 #
@@ -1253,30 +1253,30 @@ sub groupOfUsers # (user)
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
-    
+
     my %attrs = (
                  base => $self->groupsDn,
                  filter => "&(objectclass=*)(memberUid=$user)",
                  scope => 'one',
                  attrs => ['cn']
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     my @groups;
     foreach my $entry ($result->entries){
         push @groups, $entry->get_value('cn');
     }
-    
+
     return \@groups;
 }
 
-# Method: usersInGroup 
+# Method: usersInGroup
 #
 #       Given a group it returns all the users belonging to it
-#   
+#
 # Parameters:
-#       
+#
 #       group - group name
 #
 # Returns:
@@ -1286,7 +1286,7 @@ sub groupOfUsers # (user)
 # Exceptions:
 #
 #       DataNorFound - If group does not  exist
-sub  usersInGroup # (group) 
+sub  usersInGroup # (group)
 {
     my ($self, $group) = @_;
 
@@ -1301,24 +1301,24 @@ sub  usersInGroup # (group)
                  scope => 'one',
                  attrs => ['memberUid']
                 );
-        
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     my @users;
     foreach my $res ($result->sorted('memberUid')){
                 push @users, $res->get_value('memberUid');
             }
-        
+
     return \@users;
 
 }
 
-# Method: usersNotInGroup 
+# Method: usersNotInGroup
 #
 #       Given a group it returns all the users who not belonging to it
-#   
+#
 # Parameters:
-#       
+#
 #       group - group name
 #
 # Returns:
@@ -1328,10 +1328,10 @@ sub  usersInGroup # (group)
 sub usersNotInGroup # (group)
 {
     my ($self, $groupname) = @_;
-        
+
     my $grpusers = $self->usersInGroup($groupname);
     my @allusers = $self->users();
-    
+
     my @users;
     foreach my $user (@allusers){
         my $uid = $user->{username};
@@ -1344,12 +1344,12 @@ sub usersNotInGroup # (group)
 }
 
 
-# Method: gidGroup 
+# Method: gidGroup
 #
 #       Given a gid number it returns its group name
-#   
+#
 # Parameters:
-#       
+#
 #       gid - gid number
 #
 # Returns:
@@ -1366,24 +1366,24 @@ sub gidGroup # (gid)
                  scope => 'one',
                  attr => ['cn']
                 );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     if ($result->count == 0){
         throw EBox::Exceptions::DataNotFound(
                                              'data' => "Gid", 'value' => $gid);
-    }       
+    }
 
     return $result->entry(0)->get_value('cn');
-}       
+}
 
-# Method: groupGid 
+# Method: groupGid
 #
 #       Given a group name  it returns its gid number
-#   
+#
 # Parameters:
-#       
-#       group - group name 
+#
+#       group - group name
 #
 # Returns:
 #
@@ -1419,7 +1419,7 @@ sub _groupIsEmpty
     return @users ? undef : 1;
 }
 
-sub _changeAttribute 
+sub _changeAttribute
 {
     my ($self, $dn, $attr, $value) = @_;
 
@@ -1497,14 +1497,14 @@ sub _modsLdapUserBase
     my @modules;
     foreach my $name (@names) {
          my $mod = EBox::Global->modInstance($name);
-        
+
         if ($mod->isa('EBox::LdapModule')) {
             if ($mod->isa('EBox::Module::Service')) {
                 if ($name ne $self->name()) {
                     $mod->configured() or
                         next;
                 }
-            }   
+            }
             push (@modules, $mod->_ldapModImplementation);
         }
     }
@@ -1531,7 +1531,7 @@ sub allUserAddOns # (user)
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
-    
+
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
@@ -1540,7 +1540,7 @@ sub allUserAddOns # (user)
             push (@components, $comp);
         }
     }
-    
+
     return \@components;
 }
 
@@ -1548,9 +1548,9 @@ sub allUserAddOns # (user)
 #
 #       Returns all the mason components from those modules implementing
 #       the function _groupAddOns from EBox::LdapUserBase
-#   
+#
 # Parameters:
-#       
+#
 #       group  - group name
 #
 # Returns:
@@ -1563,14 +1563,14 @@ sub allGroupAddOns
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
-    
+
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
         my $comp = $mod->_groupAddOns($groupname);
-        push (@components, $comp) if ($comp); 
+        push (@components, $comp) if ($comp);
     }
-    
+
     return \@components;
 }
 
@@ -1578,15 +1578,15 @@ sub allGroupAddOns
 #
 #       Returns all the ldap schemas requested by those modules implementing
 #       the function _includeLDAPSchemas from EBox::LdapUserBase
-#   
+#
 # Returns:
 #
-#       array ref - holding all the schemas 
+#       array ref - holding all the schemas
 #
-sub allLDAPIncludes 
+sub allLDAPIncludes
 {
     my ($self) = @_;
-        
+
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @includes;
     foreach my $mod (@modsFunc) {
@@ -1594,11 +1594,11 @@ sub allLDAPIncludes
             push (@includes,  $path) if ($path);
         }
     }
-    
+
     #We removes duplicated elements
     my %temp = ();
     @includes = grep ++$temp{$_} < 2, @includes;
-    
+
     return \@includes;
 }
 
@@ -1606,12 +1606,12 @@ sub allLDAPIncludes
 #
 #       Returns all the ldap acls requested by those modules implementing
 #       the function _includeLDAPSchemas from EBox::LdapUserBase
-#   
+#
 # Returns:
 #
 #       array ref - holding all the acls
 #
-sub allLDAPAcls 
+sub allLDAPAcls
 {
     my ($self) = @_;
 
@@ -1622,13 +1622,13 @@ sub allLDAPAcls
             push (@allAcls,  $acl) if ($acl);
         }
     }
-    
+
     return \@allAcls;
 }
 
 # Method: allWarning
 #
-#       Returns all the the warnings provided by the modules when a certain 
+#       Returns all the the warnings provided by the modules when a certain
 #       user or group is going to be deleted. Function _delUserWarning or
 #       _delGroupWarning is called in all module implementing them.
 #
@@ -1636,7 +1636,7 @@ sub allLDAPAcls
 #
 #       object - Sort of object: 'user' or 'group'
 #       name - name of the user or group
-#   
+#
 # Returns:
 #
 #       array ref - holding all the warnings
@@ -1644,7 +1644,7 @@ sub allLDAPAcls
 sub allWarnings
 {
     my ($self, $object, $name) = @_;
-        
+
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @allWarns;
     foreach my $mod (@modsFunc) {
@@ -1679,7 +1679,7 @@ sub _supportActions
     return undef;
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #
@@ -1690,18 +1690,18 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'text' => __('Users'));
     $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
-                                      'text' => __('Add user')));
+                                      'text' => __('Add User')));
     $folder->add(new EBox::Menu::Item(
                                       'url' => '/Users/View/Users',
-                                      'text' => __('Edit user')));
+                                      'text' => __('Edit User')));
     $root->add($folder);
 
     $folder = new EBox::Menu::Folder('name' => 'Group',
                                         'text' => __('Groups'));
     $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
-                                    'text' => __('Add group')));
+                                    'text' => __('Add Group')));
     $folder->add(new EBox::Menu::Item('url' => 'Users/View/Groups',
-                                    'text' => __('Edit group')));
+                                    'text' => __('Edit Group')));
 
     $root->add($folder);
 }
@@ -1718,8 +1718,8 @@ sub userMenu
                                       'text' => __('Password')));
 }
 
-# LdapModule implementation 
-sub _ldapModImplementation 
+# LdapModule implementation
+sub _ldapModImplementation
 {
     return new EBox::LdapUserImplementation();
 }
@@ -1755,11 +1755,11 @@ sub _removePasswds
   my ($self, $file) = @_;
 
   my $tmpFile = "/tmp/ea";
-  
+
 
   my $anyPasswdAttr = any(qw(
-                              userPassword 
-                              sambaLMPassword 
+                              userPassword
+                              sambaLMPassword
                               sambaNTPassword
                             )
                          );
@@ -1768,7 +1768,7 @@ sub _removePasswds
   my $FH_IN;
   my $FH_OUT;
 
-  open $FH_IN, "<$file" or 
+  open $FH_IN, "<$file" or
     throw EBox::Exceptions::Internal ("Cannot open $file: $!");
   open $FH_OUT, ">$tmpFile" or
     throw EBox::Exceptions::Internal ("Cannot open $tmpFile: $!");
@@ -1782,11 +1782,11 @@ sub _removePasswds
     print $FH_OUT $line;
   }
 
-  close $FH_IN  or 
+  close $FH_IN  or
     throw EBox::Exceptions::Internal ("Cannot close $file: $!");
   close $FH_OUT or
     throw EBox::Exceptions::Internal ("Cannot close $tmpFile: $!");
-    
+
   File::Copy::move($tmpFile, $file);
   unlink $tmpFile;
 }

@@ -18,9 +18,9 @@ use strict;
 use warnings;
 
 use base qw(
-                EBox::Module::Service 
+                EBox::Module::Service
                 EBox::Model::ModelProvider EBox::Model::CompositeProvider
-                EBox::FirewallObserver  EBox::LogObserver   
+                EBox::FirewallObserver  EBox::LogObserver
                 EBox::Report::DiskUsageProvider
                 );
 
@@ -49,7 +49,7 @@ use HTML::Mason;
 
 #Module local conf stuff
 use constant SQUIDCONFFILE => '/etc/squid/squid.conf';
-use constant MAXDOMAINSIZ => 255; 
+use constant MAXDOMAINSIZ => 255;
 use constant SQUIDPORT => '3128';
 use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
@@ -58,9 +58,9 @@ use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
 sub _create
 {
     my $class = shift;
-    my $self  = $class->SUPER::_create(name => 'squid', 
+    my $self  = $class->SUPER::_create(name => 'squid',
                                        domain => 'ebox-squid',
-                                       printableName => __('HTTP proxy'),
+                                       printableName => __('HTTP Proxy'),
                                        @_);
     $self->{logger} = EBox::logger();
     bless ($self, $class);
@@ -102,11 +102,11 @@ sub modelClasses
 
           'EBox::Squid::Model::ObjectPolicy',
           'EBox::Squid::Model::ObjectGroupPolicy',
-          
+
           'EBox::Squid::Model::NoCacheDomains',
 
-          'EBox::Squid::Model::FilterGroup',        
-  
+          'EBox::Squid::Model::FilterGroup',
+
           'EBox::Squid::Model::FilterGroupContentFilterThreshold',
 
           'EBox::Squid::Model::UseDefaultExtensionFilter',
@@ -120,19 +120,19 @@ sub modelClasses
           'EBox::Squid::Model::UseDefaultDomainFilter',
           'EBox::Squid::Model::FilterGroupDomainFilter',
           'EBox::Squid::Model::FilterGroupDomainFilterFiles',
-          'EBox::Squid::Model::FilterGroupDomainFilterCategories',     
-          'EBox::Squid::Model::FilterGroupDomainFilterSettings',    
+          'EBox::Squid::Model::FilterGroupDomainFilterCategories',
+          'EBox::Squid::Model::FilterGroupDomainFilterSettings',
 
           'EBox::Squid::Model::DefaultAntiVirus',
           'EBox::Squid::Model::FilterGroupAntiVirus',
 
- 
+
           # Report clases
            'EBox::Squid::Model::Report::RequestsGraph',
            'EBox::Squid::Model::Report::TrafficSizeGraph',
            'EBox::Squid::Model::Report::TrafficDetails',
            'EBox::Squid::Model::Report::TrafficReportOptions',
-         ]; 
+         ];
 }
 
 
@@ -187,7 +187,7 @@ sub usedFiles
             {
              'file' => '/etc/squid/squid.conf',
              'module' => 'squid',
-             'reason' => __('HTTP proxy configuration file')
+             'reason' => __('HTTP Proxy configuration file')
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -252,7 +252,7 @@ sub usedFiles
 
            ];
 }
-# Method: enableActions 
+# Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
 #
@@ -279,7 +279,7 @@ sub enableModDepends
 }
 
 
-# Method: serviceModuleName 
+# Method: serviceModuleName
 #
 #       Override EBox::ServiceModule::ServiceInterface::serviceModuleName
 #
@@ -289,7 +289,7 @@ sub serviceModuleName
 }
 
 
-sub _cache_mem 
+sub _cache_mem
 {
     my $cache_mem = EBox::Config::configkey('cache_mem');
     ($cache_mem) or
@@ -298,15 +298,15 @@ sub _cache_mem
     return $cache_mem;
 }
 
-# Method: setService 
+# Method: setService
 #
-#       Enable/Disable the proxy service 
+#       Enable/Disable the proxy service
 #
 # Parameters:
 #
 #       enabled - boolean. True enable, undef disable
 #
-sub setService # (enabled) 
+sub setService # (enabled)
 {
     my ($self, $active) = @_;
     $self->enableService($active);
@@ -343,7 +343,7 @@ sub _generalSetting
 
 # Method: setTransproxy
 #
-#      Sets the transparent proxy mode. 
+#      Sets the transparent proxy mode.
 #
 # Parameters:
 #
@@ -356,13 +356,13 @@ sub setTransproxy # (enabled)
 
 }
 
-# Method: transproxy 
+# Method: transproxy
 #
-#       Returns if the transparent proxy mode is enabled  
+#       Returns if the transparent proxy mode is enabled
 #
 # Returns:
 #
-#       boolean - true if enabled, otherwise undef   
+#       boolean - true if enabled, otherwise undef
 #
 sub transproxy
 {
@@ -397,9 +397,9 @@ sub port
 {
     my ($self) = @_;
 
-  # FIXME Workaround. It seems that in some migrations the 
+  # FIXME Workaround. It seems that in some migrations the
   # port variable gets ereased and returns an empty value
-  
+
   my $port = $self->_generalSetting('port');
 
   unless (defined($port) and ($port =~ /^\d+$/)) {
@@ -416,7 +416,7 @@ sub port
 # Method: globalPolicy
 #
 #       Returns the global policy
-# 
+#
 # Returns:
 #
 #       string - allow | deny | filter | auth | authAndFilter
@@ -431,7 +431,7 @@ sub globalPolicy #
 #
 #       Sets the global policy. This is the policy that will be used for those
 #       objects without an own policy.
-# 
+#
 # Parameters:
 #
 #       policy  - allow | deny | filter | auth | authAndFilter
@@ -484,16 +484,16 @@ sub banThreshold
     my ($self) = @_;
     my $model = $self->model('ContentFilterThreshold');
     return $model->contentFilterThresholdValue();
-}       
+}
 
 sub _dgNeeded
  {
      my ($self) = @_;
-     
+
      if (not $self->isEnabled()) {
          return undef;
-      }  
-     
+      }
+
      if ($self->globalPolicyUsesFilter()) {
          return 1;
      }
@@ -511,7 +511,7 @@ sub _dgNeeded
      elsif ( @{ $domainFilter->filtered } ) {
          return 1;
      }
-        
+
 
      my $domainFilterSettings = $self->model('DomainFilterSettings');
      if ($domainFilterSettings->blanketBlockValue) {
@@ -520,13 +520,13 @@ sub _dgNeeded
      elsif ($domainFilterSettings->blockIpValue) {
          return 1;
      }
-     
-     
+
+
      my $objectPolicy = $self->model('ObjectPolicy');
      if ( $objectPolicy->existsFilteredObjects() ) {
          return 1;
      }
-     
+
      return undef;
 }
 
@@ -559,7 +559,7 @@ sub _setConf
 }
 
 
-# Function: dansguardianPort 
+# Function: dansguardianPort
 #
 #       Returns the listening port for dansguardian
 #
@@ -586,18 +586,18 @@ sub _antivirusNeeded
     }
 
     return 0;
-} 
+}
 
 sub _writeSquidConf
 {
   my ($self) = @_;
 
   my $trans = $self->transproxy() ? 'yes' : 'no';
-  my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();       
-  my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();       
+  my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();
+  my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();
 
   my $cacheDirSize = $self->model('GeneralSettings')->cacheDirSizeValue();
-  
+
   my @writeParam = ();
   push @writeParam, ('port'  => $self->port);
   push @writeParam, ('transparent'  => $trans);
@@ -623,7 +623,7 @@ sub _writeDgConf
   my $lang = $self->_DGLang();
 
   my @dgFilterGroups = @{ $self->_dgFilterGroups };
-  
+
 
   my @writeParam = ();
 
@@ -640,9 +640,9 @@ sub _writeDgConf
                        "squid/dansguardian.conf.mas", \@writeParam);
 
 
-   # write group lists  
+   # write group lists
     $self->writeConfFile(DGDIR . "/filtergroupslist",
-                         "squid/filtergroupslist.mas", 
+                         "squid/filtergroupslist.mas",
                          [
                           groups => \@dgFilterGroups,
                          ]
@@ -717,7 +717,7 @@ sub _cleanDomainFilterFiles
 #                                1;
 
 
-    
+
 
   # purge empty file list directories and orphaned files/directories
   # XXX is not the ideal palce to
@@ -816,11 +816,11 @@ sub _writeDgDomainsConf
   my $number = $group->{number};
 
   my @domainsFiles = (
-      'bannedsitelist'  , 'bannedurllist', 
+      'bannedsitelist'  , 'bannedurllist',
       'greysitelist'    , 'greyurllist',
       'exceptionsitelist', 'exceptionurllist',
     );
-  
+
   foreach my $file (@domainsFiles) {
       if (exists $group->{defaults}->{$file}) {
           next;
@@ -829,14 +829,14 @@ sub _writeDgDomainsConf
       my $path     = DGDIR . '/' . $file . $number;
       my $template = "squid/$file.mas";
       EBox::Module::Base::writeConfFileNoCheck($path,
-                                  $template, 
+                                  $template,
                                   $group->{$file},
                                  );
   }
 
 }
 
-sub firewallHelper 
+sub firewallHelper
 {
     my ($self) = @_;
     if ($self->isEnabled()) {
@@ -876,7 +876,7 @@ sub proxyWidget
 
     $section->add(new EBox::Dashboard::Value(__("Global policy"), $status));
 
-    $section->add(new EBox::Dashboard::Value(__("Listening port"), 
+    $section->add(new EBox::Dashboard::Value(__("Listening port"),
                 $self->port));
 }
 
@@ -888,13 +888,13 @@ sub widgets
 {
     return {
         'proxy' => {
-            'title' => __("HTTP proxy"),
+            'title' => __("HTTP Proxy"),
             'widget' => \&proxyWidget
         }
     };
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #
@@ -904,10 +904,10 @@ sub menu
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
                                         'text' => $self->printableName());
-    
+
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                       'text' => __('General')));
-    
+
 
         $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
                                           'text' => __(q{Objects' Policy})));
@@ -916,10 +916,10 @@ sub menu
                                       'text' => __(q{Groups' Policy})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterGroup',
-                                      'text' => __(q{Filter profiles})));
+                                      'text' => __(q{Filter Profiles})));
 
 #     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/FilterSettings',
-#                                       'text' => __('Filter settings')));
+#                                       'text' => __('Filter Settings')));
 
 
     $root->add($folder);
@@ -944,7 +944,7 @@ sub _daemons
 }
 
 # Impelment LogHelper interface
-sub tableInfo 
+sub tableInfo
 {
     my ($self) =@_;
     my $titles = { 'timestamp' => __('Date'),
@@ -955,14 +955,14 @@ sub tableInfo
                    'mimetype' => __('Mime/type'),
                    'event' => __('Event')
                  };
-    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url', 
+    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url',
                   'bytes', 'mimetype', 'event');
 
-    my $events = { 'accepted' => __('Accepted'), 
+    my $events = { 'accepted' => __('Accepted'),
                    'denied' => __('Denied'),
                    'filtered' => __('Filtered') };
     return {
-            'name' => __('HTTP proxy'),
+            'name' => __('HTTP Proxy'),
             'index' => 'squid',
             'titles' => $titles,
             'order' => \@order,
@@ -996,7 +996,7 @@ sub _consolidateConfiguration
                                  conversor => sub { return 1 },
                                  accummulate => sub {
                                      my ($v) = @_;
-                                     return $v;      
+                                     return $v;
                                    },
                                 },
                        bytes => {
@@ -1036,7 +1036,7 @@ sub logHelper
 sub _facilitiesForDiskUsage
 {
   my ($self) = @_;
-  
+
   my $cachePath          = '/var/spool/squid';
   my $cachePrintableName = __(q{HTTP Proxy's cache files} );
 

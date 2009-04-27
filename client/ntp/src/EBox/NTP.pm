@@ -32,7 +32,7 @@ use EBox;
 
 use constant NTPCONFFILE => "/etc/ntp.conf";
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ntp', printableName => 'ntp',
@@ -62,7 +62,7 @@ sub domain
 #
 sub actions
 {
-	return [ 
+	return [
 	{
 		'action' => __('Remove ntp init script links'),
 		'reason' => __('eBox will take care of starting and stopping ' .
@@ -88,7 +88,7 @@ sub usedFiles
 	       ];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
 #
@@ -107,17 +107,17 @@ sub _enforceServiceState
 		sleep 2;
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
-			try { 
+			try {
 				root("/usr/sbin/ntpdate $exserver");
 			} catch EBox::Exceptions::Internal with {
 				$logger->info("Couldn't execute ntpdata");
 			};
 		}
       EBox::Service::manage('ebox.ntpd','start');
-   } elsif ($self->isEnabled() or $self->synchronized) {    
+   } elsif ($self->isEnabled() or $self->synchronized) {
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
-			try { 
+			try {
 				root("/usr/sbin/ntpdate $exserver");
 			} catch EBox::Exceptions::Internal with {
 				$logger->info("Error no se pudo lanzar ntpdate");
@@ -140,23 +140,23 @@ sub _stopService
 sub _configureFirewall($){
 	my $self = shift;
 	my $fw = EBox::Global->modInstance('firewall');
-	
+
 	if ($self->synchronized) {
 		$fw->addOutputRule('udp', 123);
 	} else {
 		$fw->removeOutputRule('udp', 123);
 	}
-	
+
 }
 
-# Method: setService 
+# Method: setService
 #
-#       Enable/Disable the ntp service 
+#       Enable/Disable the ntp service
 #
 # Parameters:
 #
 #       enabled - boolean. True enable, undef disable
-#       
+#
 sub setService # (active)
 {
 	my ($self, $active) = @_;
@@ -222,7 +222,7 @@ sub setServers # (server1, server2, server3)
 	}
 	_checkServer($s1, __('primary server'));
 
-	
+
 	if (defined $s2 and ($s2 ne '')) {
 	  if ($s2 eq $s1) {
 	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
@@ -247,7 +247,7 @@ sub setServers # (server1, server2, server3)
 	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
 	  }
 
-	  _checkServer($s3, __('tertiary server'));	  
+	  _checkServer($s3, __('tertiary server'));
 	}
 	else {
 	  $s3 = '';
@@ -268,11 +268,11 @@ sub _checkServer
   else {
     checkDomainName($server, __x('{name} host name', name => $serverName));
   }
-  
+
 }
 
 
-# Method: servers 
+# Method: servers
 #
 #	Returns the list of external ntp servers
 #
@@ -399,10 +399,10 @@ sub menu
                                             'text' => __('System'));
 
         $folder->add(new EBox::Menu::Item('url' => 'NTP/Datetime',
-                                          'text' => __('Date/time')));
+                                          'text' => __('Date/Time')));
 
         $folder->add(new EBox::Menu::Item('url' => 'NTP/Timezone',
-                                          'text' => __('Time zone')));
+                                          'text' => __('Time Zone')));
         $root->add($folder);
 }
 

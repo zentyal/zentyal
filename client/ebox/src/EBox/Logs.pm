@@ -20,8 +20,8 @@ use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
 #use base qw(EBox::Module::Service EBox::LogObserver);
-use base qw(EBox::Module::Service 
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider 
+use base qw(EBox::Module::Service
+            EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -48,7 +48,7 @@ use constant PG_DATA_DIR           => '/var/lib/postgres/data';
 #       EBox::Module::Service interface
 #
 
-sub _create 
+sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(
@@ -68,7 +68,7 @@ sub _create
 #
 sub actions
 {
-    return [ 
+    return [
         {
                 'action' => __('Create logs database'),
                 'reason' => __('eBox store its logs in the database'),
@@ -78,7 +78,7 @@ sub actions
 }
 
 
-# Method: enableActions 
+# Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
 #
@@ -121,7 +121,7 @@ sub _setConf
     $self->_saveEnabledLogsModules();
 }
 
-sub cleanup 
+sub cleanup
 {
     my ($self) = @_;
     $self->SUPER::revokeConfig();
@@ -163,7 +163,7 @@ sub compositeClasses
 
 # Method: allLogDomains
 #
-#       This function fetchs all the log domains available throughout 
+#       This function fetchs all the log domains available throughout
 #       ebox. *(Deprecated)*
 #
 # Returns:
@@ -207,14 +207,14 @@ sub allEnabledLogHelpers
 
     my $global = EBox::Global->getInstance();
 
-    my $enabledLogs = $self->_restoreEnabledLogsModules(); 
-        
+    my $enabledLogs = $self->_restoreEnabledLogsModules();
+
     # If there's no configuration stored it means the user
     # has not configured them yet. So by default, we enable all them
     unless (defined($enabledLogs)) {
         return $self->allLogHelpers();
     }
-        
+
     my @enabledObjects;
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
     foreach my $mod  (@mods) {
@@ -226,10 +226,10 @@ sub allEnabledLogHelpers
     return \@enabledObjects;
 }
 
-# Method: allLogHelpers 
+# Method: allLogHelpers
 #
 #       This function fetchs all the classes implemeting the interface
-#       <EBox::LogHelper> and its associated fifo. 
+#       <EBox::LogHelper> and its associated fifo.
 #
 # Returns:
 #
@@ -266,12 +266,12 @@ sub getAllTables
     my ($self) = @_;
     my $global = EBox::Global->getInstance();
     my $tables;
-        
+
     return $self->{tables} if ($self->{tables});
-        
+
     foreach my $mod (@{getLogsModules()}) {
         my @tableInfos = @{ $self->getModTableInfos($mod) };
-        
+
         foreach my $comp (@tableInfos) {
             $comp->{'helper'} = $mod;
             next unless ($comp);
@@ -312,13 +312,13 @@ sub getModTableInfos
         @tableInfos = @{ $ti };
     }
     elsif (ref $ti eq 'HASH') {
-        EBox::warn('tableInfo() in ' . $mod->name .  
+        EBox::warn('tableInfo() in ' . $mod->name .
                    'must return a reference to a list of hashes not the hash itself');
         @tableInfos = ( $ti );
     }
     else {
         throw EBox::Exceptions::Internal(
-                                         $mod->name . 
+                                         $mod->name .
                                          "'s tableInfo returned invalid module"
                                         );
     }
@@ -326,10 +326,10 @@ sub getModTableInfos
     return \@tableInfos;
 }
 
-sub getLogDomains 
+sub getLogDomains
 {
     my ($self) = @_;
-        
+
     my $tables = $self->getAllTables();
     my %logdomains = map { $_ => $tables->{$_}->{'name'} } keys %{$tables};
     return \%logdomains;
@@ -339,7 +339,7 @@ sub extendedBackup
 {
   my ($self, %params) = @_;
   my $dir    = $params{dir};
-  
+
   my $dbengine = EBox::DBEngineFactory::DBEngine();
   my $dumpFile = "$dir/eboxlogs.dump";
 
@@ -363,7 +363,7 @@ sub _checkValidDate # (date)
     my ($datestr) = @_;
 
 
-    my ($date, $time) = split (/ /, $datestr); 
+    my ($date, $time) = split (/ /, $datestr);
     my ($year, $month, $day) = split (/-/, $date);
     my ($hour, $min, $sec) = split (/:/, $time);
 
@@ -417,7 +417,7 @@ sub _checkValidDate # (date)
 #         parameter <EBox::Logs::search::index>.
 #
 sub search {
-    my ($self, $from, $to, $index, 
+    my ($self, $from, $to, $index,
         $pagesize, $page, $timecol, $filters) = @_;
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
@@ -425,14 +425,14 @@ sub search {
     my $tables = $self->getAllTables();
     my $tableinfo = $tables->{$index};
     my $table = $tableinfo->{'tablename'};
-    
+
     unless (defined $tableinfo) {
         throw  EBox::Exceptions::External( __x(
                    'Table {table} does not exist', 'table' => $table));
     }
 
     $self->{'sqlselect'} = { };
-    
+
     $self->_addTableName($table);
     if (_checkValidDate($from)) {
         $self->_addDateFilter($timecol, $from, '>');
@@ -453,11 +453,11 @@ sub search {
             }
         }
     }
-    
+
     $self->_addSelect('COUNT(*)');
         my @count = @{$dbengine->query($self->_sqlStmnt())};
     my $tcount = $count[0]{'count'};
-    
+
     # Do not go on if you don't have any result
     if ( $tcount == 0 ) {
         return { 'totalret' => $tcount,
@@ -466,26 +466,26 @@ sub search {
     }
 
     my $tpages = ceil($tcount / $pagesize) - 1;
-    
+
 
     if ($page < 0) { $page = 0; }
     if ($page > $tpages) { $page = $tpages; }
-    
+
     my $offset = $page * $pagesize;
     $self->_addPager($offset, $pagesize);
     $self->_addOrder("$timecol DESC");
-    
+
     $self->_addSelect('*');
-    
-    
+
+
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
-    
+
         my $hashret = {
                        'totalret' => $tcount,
                        'arrayret' => \@ret
                       };
-        
-        
+
+
     return $hashret;
 }
 
@@ -503,22 +503,22 @@ sub search {
 #
 #       Integer - the number of records for this table
 #
-sub totalRecords 
+sub totalRecords
 {
     my ($self, $table) = @_;
     my $dbengine = EBox::DBEngineFactory::DBEngine();
-    
+
     my $sql = "SELECT COUNT(*) FROM $table";
     my @tarray = @{$dbengine->query($sql)};
     my $tcount = $tarray[0]{'count'};
-    
+
     return $tcount;
 }
 
 sub _addRegExp
 {
     my ($self, $field, $regexp) = @_;
-    return unless (defined($field) and defined($regexp) 
+    return unless (defined($field) and defined($regexp)
                    and length($regexp) > 0);
     $self->{'sqlselect'}->{'regexp'}->{$field} = $regexp;
 }
@@ -526,7 +526,7 @@ sub _addRegExp
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;
-    return unless (defined($field) and defined($filter) 
+    return unless (defined($field) and defined($filter)
                    and length($filter) > 0);
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
 }
@@ -572,11 +572,11 @@ sub _sqlStmnt {
     my @params;
     my $sql = $self->{'sqlselect'};
     my $stmt = "SELECT $sql->{'select'} FROM  $sql->{'table'} ";
-        
+
     if ($sql->{'regexp'} or $sql->{'date'}) {
         $stmt .= 'WHERE ';
     }
-    
+
     my $and = '';
     if ($sql->{'date'}) {
         foreach my $op (keys %{$sql->{'date'}}) {
@@ -585,7 +585,7 @@ sub _sqlStmnt {
             push @params, $sql->{'date'}->{$op}->{'date'};
         }
     }
-    
+
     if ($sql->{'regexp'}) {
         foreach my $field (keys %{$sql->{'regexp'}}) {
             $stmt .= "$and CAST($field as text) ~ ? ";
@@ -600,44 +600,44 @@ sub _sqlStmnt {
             push @params, $sql->{'filter'}->{$field};
         }
     }
-    
+
     if ($sql->{order}) {
         $stmt .= 'ORDER BY ' . $sql->{order} . ' ';
     }
-    
+
     $stmt .= "OFFSET ? LIMIT ?";
     push @params, $sql->{'offset'}, $sql->{'limit'};
-    
+
     return $stmt, @params;
 }
 
 # Implement GConfModule interface
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
+#
 #
 sub menu
 {
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Logs',
                                         'text' => __('Logs'));
-    
+
     $folder->add(new EBox::Menu::Item('url' => 'Logs/View/SelectLog',
-                                      'text' => __('Query logs')));
+                                      'text' => __('Query Logs')));
 
     $folder->add(new EBox::Menu::Item('url' =>'Logs/Composite/ConfigureLog',
-                                      'text' => __('Configure logs')));
-    
-    
+                                      'text' => __('Configure Logs')));
+
+
     $root->add($folder);
 }
 
 
 # Implement LogObserver interface
 
-sub tableInfo 
+sub tableInfo
 {
     my ($self) = @_;
 
@@ -663,10 +663,10 @@ sub tableInfo
 
 # Helper functions
 
-# Method: _saveEnabledLogs 
-#       
+# Method: _saveEnabledLogs
+#
 #       (Private)
-#       
+#
 #       This function saves the enabled logs in a file.
 #       We have to do this beacuse the logger daemon will request this
 #       configuration as root user.
@@ -677,13 +677,13 @@ sub tableInfo
 sub _saveEnabledLogsModules
 {
     my ($self) = @_;
-    
+
     my $enabledLogs = $self->model('ConfigureLogTable')->enabledLogs();
-    
+
     unless (-d ENABLED_LOG_CONF_DIR) {
                 mkdir (ENABLED_LOG_CONF_DIR);
             }
-    
+
     # Create a string of domains separated by comas
     my $enabledLogsString = join (',', keys %{$enabledLogs});
 
@@ -692,15 +692,15 @@ sub _saveEnabledLogsModules
         throw EBox::Exceptions::Internal(
                                          'Cannot open ' . ENABLED_LOG_CONF_FILE);
     }
-    
+
     print $file "$enabledLogsString";
     close($file);
 }
 
-# Method: _restoreEnabledLogsModules 
-#       
+# Method: _restoreEnabledLogsModules
+#
 #       (Private)
-#       
+#
 #       This function restores the  enabled logs saved in a file by
 #       <EBox::Logs::_saveEnabledLogsModules>
 #       We have to do this beacuse the logger daemon will request this
@@ -716,27 +716,27 @@ sub _saveEnabledLogsModules
 sub _restoreEnabledLogsModules
 {
     my ($self) = @_;
-    
+
     my $file;
     unless (open($file, ENABLED_LOG_CONF_FILE)) {
-        return undef;   
+        return undef;
     }
-    
+
     my $string = <$file>;
     close($file);
     return undef unless (defined($string));
-    
+
     my %enabled;
     foreach my $domain (split(/,/, $string)) {
         $enabled{$domain} = 1;
     }
-    
+
     return \%enabled;
 }
 
 
-# Overrides: 
-#  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage 
+# Overrides:
+#  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
 #
 # Warning:
 #   this implies thhat all postgresql data are log, if someday other kind of
@@ -747,7 +747,7 @@ sub _facilitiesForDiskUsage
   my ($self) = @_;
 
   my $printableName = __('Log messages');
-    
+
   return {
           $printableName => [ PG_DATA_DIR ],
          };
@@ -809,11 +809,11 @@ sub purge
   my %thresholdByModule = ();
 
   # get the threshold date for each domain
-  
+
   foreach my $id ( @{ $self->model('ConfigureLogTable')->ids() } ) {
     my $row_r = $self->model('ConfigureLogTable')->row($id);
     my $lifeTime = $row_r->valueByName('lifeTime');
-    
+
     # if lifeTime == 0, it should never expire
     $lifeTime or
       next;

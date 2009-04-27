@@ -35,7 +35,7 @@ use EBox::Menu::Folder;
 use EBox::Report::RAID;
 
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'sysinfo',
@@ -73,7 +73,7 @@ sub generalWidget
     $widget->add($section);
     my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
     my $time = `$time_command`;
-    
+
     $section->add(new EBox::Dashboard::Value(__("Time"), $time));
     $section->add(new EBox::Dashboard::Value(__("Host name"), hostname));
     $section->add(new EBox::Dashboard::Value(
@@ -115,17 +115,17 @@ sub widgets
 {
     return {
         'modules' => {
-            'title' => __("Module status"),
+            'title' => __("Module Status"),
             'widget' => \&modulesWidget,
             'default' => 1
         },
         'general' => {
-            'title' => __("General information"),
+            'title' => __("General Information"),
             'widget' => \&generalWidget,
             'default' => 1
         },
         'processes' => {
-            'title' => __("Process' list"),
+            'title' => __("Process' List"),
             'widget' => \&processesWidget
         },
     };
@@ -179,8 +179,8 @@ sub toggledElements()
 #
 # Method: menu
 #
-#   	Overriden method that returns the core menu entries: 
-#		
+#   	Overriden method that returns the core menu entries:
+#
 #	- Summary
 #	- Save/Cancel
 #	- Logout
@@ -197,7 +197,7 @@ sub menu
 					'order' => 1));
 
 	$root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
-					'text' => __('Module status'),
+					'text' => __('Module Status'),
 					'order' => 2));
 
 
@@ -209,7 +209,7 @@ sub menu
 					  'text' => __('General')));
 
 	$folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-					  'text' => __('Disk usage Information')));
+					  'text' => __('Disk Usage Information')));
 
 	$folder->add(new EBox::Menu::Item(
 			 'url' => 'Report/RAID',

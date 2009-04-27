@@ -46,11 +46,11 @@ use constant CUPSD              => '/etc/cups/cupsd.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
 use constant START_TAG		=> '# __EBOX__ TAG #';
 use constant END_TAG		=> '# END __EBOX__ TAG #';
-	
-sub _create 
+
+sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'printers', 
+	my $self = $class->SUPER::_create(name => 'printers',
 					  printableName => __('printers'),
 					  domain => 'ebox-printers' );
 	bless($self, $class);
@@ -60,7 +60,7 @@ sub _create
 
 sub domain
 {
-	return 'ebox-printers';	
+	return 'ebox-printers';
 }
 
 # Method: actions
@@ -69,20 +69,20 @@ sub domain
 #
 sub actions
 {
-	return [ 
+	return [
 	{
 		'action' => __('Create spool directory for printers'),
 		'reason' => __('eBox will create a spool directory ' .
 						'under /var/spool/samba'),
 		'module' => 'printers'
 	},
-	{	
+	{
 		'action' => __('Add user ebox to lpadmin group'),
 		'reason' => __('In order to manage printers and queues from the ' .
                        'eBox web interface'),
 		'module' => 'printers'
 	},
-	{	
+	{
 		'action' => __('Create log table'),
 		'reason' => __('eBox will create a new table into its log database ' .
 					   'to store printers logs'),
@@ -91,11 +91,11 @@ sub actions
     ];
 }
 
-# Method: usedFiles 
+# Method: usedFiles
 #
 # 	Override EBox::Module::Service::files
 #
-sub usedFiles 
+sub usedFiles
 {
     return [
 	{
@@ -112,7 +112,7 @@ sub usedFiles
 	];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
 #
@@ -130,7 +130,7 @@ sub enableActions
 sub enableService
 {
 	my ($self, $status) = @_;
-	
+
 	$self->SUPER::enableService($status);
 
     my $samba = EBox::Global->modInstance('samba');
@@ -165,8 +165,8 @@ sub writeOldCupsConf
 		push (@conf, $printer );
 	}
 
-	$self->writeConfFile(CUPSPRINTERS, 
-			'printers/printers.conf.mas', 
+	$self->writeConfFile(CUPSPRINTERS,
+			'printers/printers.conf.mas',
 			['printers' => \@conf]);
 
 }
@@ -211,7 +211,7 @@ sub summary
 sub manufacturers
 {
 	shift;
-	
+
 	my $db = new Foomatic::DB;
 	my @makes = sort($db->get_makes());
 	# Add Raw
@@ -236,10 +236,10 @@ sub _printerFromManuModel($$$)
 	shift;
 	my $maker = shift;
 	my $model = shift;
-	
+
 	my $db = new Foomatic::DB;
 	return $db->get_printer_from_make_model($maker, $model);
-}	
+}
 
 sub _printerIdDriver($$$)
 {
@@ -264,16 +264,16 @@ sub driversForPrinter($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	my $printer = $self->_printerIdDriver($id);
 	if ($printer eq 'Raw') {
 		return ['Raw'];
 	}
 	my $db = new Foomatic::DB;
-	#my @drivers = grep(! /^(gimp.*)|(hpdj)/, 
+	#my @drivers = grep(! /^(gimp.*)|(hpdj)/,
 	my @drivers = $db->get_drivers_for_printer($printer);
 	if (@drivers) {
-		return \@drivers;	
+		return \@drivers;
 	} else {
 		return [];
 	}
@@ -283,12 +283,12 @@ sub driversForPrinter($$)
 sub menu
 {
 	my ($self, $root) = @_;
-	
+
 	my $folder = new EBox::Menu::Folder('name' => 'Printers',
 					    'text' => __('Printers'));
 
 	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinterUI',
-					  'text' => __('Add printer')));
+					  'text' => __('Add Printer')));
 
 	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinter',
 					  'text' => ''));
@@ -359,12 +359,12 @@ sub menu
 sub _printerNameExists($$)
 {
 	my ($self, $name) = @_;
-	
+
 	my @idprinters = $self->all_dirs("printers");
 	foreach my $dirid (@idprinters) {
 		my $idname = $self->get_string("$dirid/name");
 		return 1 if ($idname eq $name);
-	}	
+	}
 	return undef;
 }
 
@@ -375,7 +375,7 @@ sub _printerIdExists($$)
 	return $self->dir_exists("printers/$id");
 }
 
-sub _printerInfo($$) 
+sub _printerInfo($$)
 {
 	my ($self, $id) = @_;
 	unless ($self->_printerIdExists($id)) {
@@ -388,7 +388,7 @@ sub _printerInfo($$)
 	return  $self->hash_from_dir("printers/$id");
 }
 
-sub _printerConfigured($$) 
+sub _printerConfigured($$)
 {
 	my ($self, $id) = @_;
 	unless ($self->_printerIdExists($id)) {
@@ -426,7 +426,7 @@ sub printers
 	unless ($self->dir_exists("printers")){
 		return \@printers;
 	}
-	
+
 	my @idprinters = $self->all_dirs("printers");
 	foreach my $dirid (@idprinters) {
 		my $id = $dirid;
@@ -434,17 +434,17 @@ sub printers
 		next unless ($self->_printerConfigured($id));
 		my $name = $self->get_string("$dirid/name");
 		my $info = $self->manufacturer($id) . " " . $self->model($id);
-		push(@printers, 
+		push(@printers,
 			{ 'id' => $id, 'name' => "$name" , 'info' => "$info" });
 	}
-	return \@printers;	
+	return \@printers;
 }
 
 # Method: cleanTempPrinters
 #
-#  	Remove those printers which have not been fully configured	
+#  	Remove those printers which have not been fully configured
 #
-# 	
+#
 sub cleanTempPrinters
 {
 	my $self = shift;
@@ -463,15 +463,15 @@ sub removePrinter # (id)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataExists(
 					'data'  => __('Printer'),
 					'value' => "$id");
 	}
-	
+
 	$self->_removeCacheDrvOptions($id);
-	
+
 	if ($self->_printerConfigured($id)) {
 		my $samba = EBox::Global->modInstance('samba');
 		my $info = $self->_printerInfo($id);
@@ -486,7 +486,7 @@ sub addPrinter($$$)
 	unless (_checkPrinterName($name)) {
                 throw EBox::Exceptions::External
                         __("The printer's name contains characters not valid." .
-                        "Only alphanumeric characters are allowed");	
+                        "Only alphanumeric characters are allowed");
 	}
 	unless (grep(/^$method$/, SUPPORTEDMETHODS)) {
 		throw EBox::Exceptions::InvalidData('data'  => __('Method'),
@@ -503,7 +503,7 @@ sub addPrinter($$$)
         throw EBox::Exceptions::External(
           __('The given name is alreaday used as ') . $rsr);
     }
-	
+
 	my $id = $self->get_unique_id('p', 'printers');
 	$self->set_string("printers/$id/name", $name);
 	$self->set_bool("printers/$id/configured", undef);
@@ -516,7 +516,7 @@ sub _location ($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -535,7 +535,7 @@ sub _location ($$)
 			$smburi = "guest:@".$smburi;
 		} elsif ($conf->{auth} eq 'anonymous') {
 		} elsif ($conf->{auth} eq 'user'){
-			$smburi = $conf->{user} . ":" . $conf->{passwd} . 
+			$smburi = $conf->{user} . ":" . $conf->{passwd} .
 				  "@" . "$smburi";
 		}
 		$location = "smb://$smburi";
@@ -545,7 +545,7 @@ sub _location ($$)
 	} elsif ($conf->{method} eq 'parallel') {
 		$location = "parallel:/dev/" . $conf->{dev};
 	}
-	return $location;	
+	return $location;
 }
 
 sub methodConf($$)
@@ -557,7 +557,7 @@ sub methodConf($$)
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	unless ($self->dir_exists("printers/$id/conf")){
 		return undef;
 	}
@@ -568,7 +568,7 @@ sub setMethod($$$)
 {
 	my $self = shift;;
 	my $id = shift;
-	my $method = shift;;	
+	my $method = shift;;
 
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
@@ -578,7 +578,7 @@ sub setMethod($$$)
 		throw EBox::Exceptions::InvalidData('data'  => __('Method'),
 						    'value' => "$method");
 	}
-	
+
 	return if ($self->get_string("printers/$id/method") eq $method);
 	if ($self->dir_exists("printers/$id/conf")){
 		$self->delete_dir("printers/$id/conf");
@@ -591,12 +591,12 @@ sub setUSBPrinter($$$)
 	my $self = shift;
 	my $id = shift;
 	my $dev = shift ;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	unless ($dev =~ /^usb\d$/) {
 		throw EBox::Exceptions::InvalidData
 			('data' => __('Device'), 'value' => $dev);
@@ -606,7 +606,7 @@ sub setUSBPrinter($$$)
 		throw EBox::Exceptions::External(
 				__("It is not a usb printer"));
 	}
-	
+
 	unless ($self->get_string("printers/$id/conf/dev" eq $dev)){
 		$self->set_string("printers/$id/conf/dev", $dev);
 	}
@@ -617,12 +617,12 @@ sub setParallelPrinter($$$)
 	my $self = shift;
 	my $id = shift;
 	my $dev = shift ;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	unless ($dev =~ /^lp\d$/) {
 		throw EBox::Exceptions::InvalidData
 			('data' => __('Device'), 'value' => $dev);
@@ -632,7 +632,7 @@ sub setParallelPrinter($$$)
 		throw EBox::Exceptions::External(
 				__("It is not a parallel printer"));
 	}
-	
+
 	unless ($self->get_string("printers/$id/conf/dev" eq $dev)){
 		$self->set_string("printers/$id/conf/dev", $dev);
 	}
@@ -644,12 +644,12 @@ sub setNetworkPrinter($$$)
 	my $id = shift;
 	my $ip = shift ;
 	my $port = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	checkIP($ip, __('IP'));
 	checkPort($port, __('Port'));
 
@@ -658,14 +658,14 @@ sub setNetworkPrinter($$$)
 		throw EBox::Exceptions::External(
 				__("It is not a network printer"));
 	}
-	
+
 	unless ($self->get_string("printers/$id/conf/host" eq $ip)){
 		$self->set_string("printers/$id/conf/host", $ip);
 	}
 	unless ($self->get_int("printers/$id/conf/port") eq $port){
 		$self->set_int("printers/$id/conf/port", $port);
 	}
-	
+
 }
 
 sub setSambaPrinter # (id, resource, method, user, passwd)
@@ -676,18 +676,18 @@ sub setSambaPrinter # (id, resource, method, user, passwd)
 	my $auth = shift;
 	my $user= shift ;
 	my $passwd = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	my $method = $self->methodConf($id);
 	unless ($method->{'method'} eq 'samba') {
 		throw EBox::Exceptions::External(
 				__("It is not a samba printer"));
 	}
-	
+
 	unless ($self->get_string("printers/$id/conf/resource" eq $rsrc)){
 		$self->set_string("printers/$id/conf/resource", $rsrc);
 	}
@@ -700,7 +700,7 @@ sub setSambaPrinter # (id, resource, method, user, passwd)
 	unless ($self->get_string("printers/$id/conf/passwd") eq $passwd){
 		$self->set_string("printers/$id/conf/passwd", $passwd);
 	}
-	
+
 }
 
 sub _manufacturerExists($$)
@@ -720,13 +720,13 @@ sub manufacturer($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
 
-	return $self->get_string("printers/$id/manufacturer");	
+	return $self->get_string("printers/$id/manufacturer");
 }
 
 sub setManufacturer($$$)
@@ -734,7 +734,7 @@ sub setManufacturer($$$)
 	my $self = shift;
 	my $id = shift;
 	my $maker = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -743,7 +743,7 @@ sub setManufacturer($$$)
 		throw EBox::Exceptions::DataNotFound(
 			'data'  => __('Manufacturer'), 'value' => "$maker");
 	}
-	
+
 	$self->set_bool("printers/$id/raw", undef);
 	return if ($self->manufacturer($id) eq "$maker");
 
@@ -753,20 +753,20 @@ sub setManufacturer($$$)
 		$self->delete_dir("printers/$id/drvopts");
 	}
 
-	
+
 }
 
 sub model($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
 
-	return $self->get_string("printers/$id/model");	
+	return $self->get_string("printers/$id/model");
 }
 
 sub setModel($$$)
@@ -774,7 +774,7 @@ sub setModel($$$)
 	my $self = shift;
 	my $id = shift;
 	my $model = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -783,7 +783,7 @@ sub setModel($$$)
 		throw EBox::Exceptions::DataNotFound('data'  => __('Model'),
 						     'value' => "$model");
 	}
-	
+
 	$self->set_bool("printers/$id/raw", undef);
 	return if ($self->model($id) eq "$model");
 
@@ -800,13 +800,13 @@ sub driver($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
 
-	return $self->get_string("printers/$id/driver");	
+	return $self->get_string("printers/$id/driver");
 }
 
 sub setDriver($$$)
@@ -814,7 +814,7 @@ sub setDriver($$$)
 	my $self = shift;
 	my $id = shift;
 	my $driver = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -823,7 +823,7 @@ sub setDriver($$$)
 		throw EBox::Exceptions::DataNotFound('data'  => __('Model'),
 						     'value' => "$driver");
 	}
-	
+
 	$self->set_bool("printers/$id/raw", undef);
 	return if ($self->driver($id) eq "$driver");
 
@@ -835,7 +835,7 @@ sub setDriver($$$)
 
 }
 
-sub driverArgs($$) 
+sub driverArgs($$)
 {
 	my $self = shift;
 	my $id = shift;
@@ -844,14 +844,14 @@ sub driverArgs($$)
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	my $driver = $self->driver($id);
 	my $printer = $self->model($id);
 	my $manufacturer = $self->manufacturer($id);
 
 	my $printerid = $self->_printerFromManuModel($manufacturer, $printer);
 	$printerid or return [];
-	
+
 	my $db = new Foomatic::DB;
 	my $dat = $db->getdat($driver, $printerid);
 
@@ -875,7 +875,7 @@ sub driverOptions($$)
 			for my $key (keys %{$opts}){
 				$driveropts->{$key}->{value} = $opts->{$key};
 			}
-			
+
 		}
 	}
 
@@ -887,7 +887,7 @@ sub setDriverOptions($$$)
 	my $self = shift;
 	my $id  = shift;
 	my $defaults = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -898,7 +898,7 @@ sub setDriverOptions($$$)
 	if ($self->dir_exists("printers/$id/drvopts")) {
 		$drvopts = $self->hash_from_dir("printers/$id/drvopts");
 	}
-		
+
 	for my $key (keys %{$defaults}) {
 		my $value = $defaults->{$key};
 		next if ($drvopts and ("$drvopts->{$key}" eq $value));
@@ -918,13 +918,13 @@ sub _checkDriverOpts # (id, options)
 	my $opts = shift;
 
 	my $fileopts = $self->_driverOptionsFile($id);
-	
+
 	for my $opt (keys %{$opts}) {
 		unless(defined($fileopts->{$opt})) {
 			throw EBox::Exceptions::External(
 				$opt . " " . __('is not a valid option'));
 		}
-		
+
 		my $type = $fileopts->{$opt}->{'type'};
 		my $ok;
 		if ($type eq 'enum') {
@@ -937,12 +937,12 @@ sub _checkDriverOpts # (id, options)
 		} elsif (($type eq 'int') or ($type eq 'float')) {
 			my $value = $opts->{$opt};
 			if ($value =~ /\d+(\.\d+)?/) {
-				if (($value >=  $fileopts->{$opt}->{'min'}) and  
+				if (($value >=  $fileopts->{$opt}->{'min'}) and
 				    ($value <= $fileopts->{$opt}->{'max'})) {
 					$ok = 1;
 				}
 			}
-			
+
 		} elsif ($type eq 'bool') {
 			$ok = 1;
 		}
@@ -959,7 +959,7 @@ sub _driverOptionsFile($$)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -967,31 +967,31 @@ sub _driverOptionsFile($$)
 
 	my $options = $self->_cacheDrvOptions($id);
 	return $options if $options;
-	
-	
+
+
 	my $printer = $self->model($id);
 	my $manufacturer = $self->manufacturer($id);
 	my $printerid = $self->_printerFromManuModel($manufacturer, $printer);
 	$printerid or return {};
-	
+
 	my $db = new Foomatic::DB;
 	my $dat = $db->getdat($self->driver($id), $printerid);
 	for my $key (keys %{$dat->{args_byname}}){
 		$options->{$key} = {
 			'text' => $dat->{args_byname}->{$key}->{comment},
 			'value' => $dat->{args_byname}->{$key}->{default} };
-		
+
 		# Values could be int, float, enum, or bool
 		# int and float have valid range
 		my $type = $dat->{args_byname}->{$key}->{'type'};
 		$options->{$key}->{'type'} = $type;
-		if (($type eq 'int') or ($type eq 'float')) { 
-			$options->{$key}->{'min'} =  
+		if (($type eq 'int') or ($type eq 'float')) {
+			$options->{$key}->{'min'} =
 					$dat->{args_byname}->{$key}->{'min'};
-			$options->{$key}->{'max'} =  
+			$options->{$key}->{'max'} =
 				 	 $dat->{args_byname}->{$key}->{'max'};
-		} 
-		
+		}
+
 		my @values;
 		for my $vals (@{$dat->{args_byname}->{$key}->{vals}}) {
 			my $text = $vals->{comment};
@@ -999,7 +999,7 @@ sub _driverOptionsFile($$)
         	}
         	$options->{$key}->{options} = \@values;
 	}
-	
+
 	$self->_saveCacheDrvOptions($id, $options);
 	return $options;
 }
@@ -1008,7 +1008,7 @@ sub _setDriverOptionsToFile($$)
 {
 	my $self = shift;
 	my $id  = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -1016,7 +1016,7 @@ sub _setDriverOptionsToFile($$)
 	unless ($self->_printerConfigured($id)) {
 		throw EBox::Exceptions::External(__('Printer not configured'));
 	}
-	
+
 	my $printer = $self->model($id);
 	if ($printer eq 'Raw') {
 		return;
@@ -1027,7 +1027,7 @@ sub _setDriverOptionsToFile($$)
 
 	my $printerid = $self->_printerFromManuModel($manufacturer, $printer);
 	$printerid or return {};
-	
+
 	my $ppd = EBox::Config::tmp . "/$manufacturer-$printerid-$driver.ppd";
 	command("foomatic-ppdfile -w -p $printerid -d $driver > '$ppd'");
 	my $db = new Foomatic::DB;
@@ -1035,7 +1035,7 @@ sub _setDriverOptionsToFile($$)
 
 	for my $arg (keys %{$defaults}){
 		if (defined($db->{dat}->{args_byname}->{$arg})){
-			$db->{dat}->{args_byname}->{$arg}->{default} = 
+			$db->{dat}->{args_byname}->{$arg}->{default} =
 						     $defaults->{$arg}->{value};
 		} else {
 			throw EBox::Exceptions::External(
@@ -1064,7 +1064,7 @@ sub printerJobs # (printerid, completed)
 
 	my $info = $self->_printerInfo($id);
 	my $printer = $self->{'cups'}->getDestination($info->{'name'});
-	
+
 	my @jobs;
 	if ($printer) {
 		@jobs = $printer->getJobs(0, $completed);
@@ -1082,16 +1082,16 @@ sub cancelJob # (printername, jobid)
 	my $self = shift;
 	my $printer = shift;
 	my $jobid = shift;
-	
+
 	unless ($self->_printerNameExists($printer)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$printer");
 	}
-	
+
 	cupsCancelJob($printer, $jobid);
 }
 
-sub usbDevices 
+sub usbDevices
 {
 	my $self;
 
@@ -1118,14 +1118,14 @@ sub parallelDevices
 # Returns:
 #
 # 	array ref - holding the printer id's
-# 	
+#
 sub networkPrinters
 {
 	my $self = shift;
 
 	my @ids;
 	foreach my $printer (@{$self->printers()}) {
-		my $conf = $self->methodConf($printer->{id});				
+		my $conf = $self->methodConf($printer->{id});
 		push (@ids, $printer->{id}) if ($conf->{method} eq 'network');
 	}
 
@@ -1137,7 +1137,7 @@ sub _saveCacheDrvOptions # (id, options)
 	my $self = shift;
 	my $id = shift;
 	my $options = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
@@ -1152,12 +1152,12 @@ sub _cacheDrvOptions # (id)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	unless ($self->_printerIdExists($id)) {
 		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
 						     'value' => "$id");
 	}
-	
+
 	my $file = EBox::Config::tmp . "printer-$id.st";
 	unless ( -f "$file" ) {
 		return undef;
@@ -1171,12 +1171,12 @@ sub _removeCacheDrvOptions # (id)
 {
 	my $self = shift;
 	my $id = shift;
-	
+
 	my $file = EBox::Config::tmp . "printer-$id.st";
 	unless ( -f "$file" ) {
 		return undef;
 	}
-	
+
 	command("/bin/rm $file");
 }
 
@@ -1203,13 +1203,13 @@ sub tableInfo {
                 'filter' => ['printer', 'owner'],
                 'events' => $events,
                 'eventcol' => 'event'
-								
+
 	}];
 }
 sub logHelper
 {
 	my $self = shift;
-	
+
 	return (new EBox::PrinterLogHelper);
 }
 
@@ -1241,28 +1241,28 @@ sub _mergeCupsConf
 		my $cmd = 'cat ' . CUPSPRINTERS;
 		@file = @{root($cmd)};
 	}
-	my $startTag = START_TAG; 
+	my $startTag = START_TAG;
 	my $endTag = END_TAG;
-	
+
 	my @newFile;
 	my $copy = 1;
 	for my $line (@file) {
 		if ($line =~ /$startTag/) {
 			$copy = undef;
-		} 
+		}
 		push (@newFile, $line) if ($copy);
 		if ((not $copy) and $line =~ /$endTag/) {
 			$copy = 1;
 		}
 	}
-	
+
 	my $output;
 
-	my $interp = HTML::Mason::Interp->new(comp_root => 
+	my $interp = HTML::Mason::Interp->new(comp_root =>
 						EBox::Config::stubs,
 						out_method => \$output);
 	my $comp = $interp->make_component(
-			comp_file => 
+			comp_file =>
 			EBox::Config::stubs() . 'printers/printers.conf.mas');
 	my @conf;
 	my @idprinters = $self->all_dirs("printers");
@@ -1297,7 +1297,7 @@ sub _mergeCupsConf
 # Method: fetchExternalCUPSPrinters
 #
 #	This method returns those printers that haven been configured
-#	by the user using CUPS and not our interface. 
+#	by the user using CUPS and not our interface.
 #
 # Returns:
 #

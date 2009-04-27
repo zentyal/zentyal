@@ -164,7 +164,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                     'name' => 'Subscription',
-                                    'text' => __('Remote services subscription'),
+                                    'text' => __('Remote Services Subscription'),
                                     'order' => 8,
                                    )
               );
