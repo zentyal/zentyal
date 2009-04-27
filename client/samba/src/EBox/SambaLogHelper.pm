@@ -144,7 +144,7 @@ sub processLine # (file, line, logger)
 #       Above method "processLine" is called 3 times, because
 #       our 3 loggers are watching the same file.
 #
-#       To avoid insert 3 times the same line log, we keep track
+#       To avoid inserting the same log line 3 times, we keep track
 #       of the times we have been called.
 #
 sub _skipLine
