@@ -114,7 +114,9 @@ sub _setConf
     my ($self) = @_;
 
     # Do the movements to make EventDaemon notice to work
-    $self->_submitEventElements();
+    unless ($self->isReadOnly()) {
+        $self->_submitEventElements();
+    }
 }
 
 sub _enforceServiceState {
