@@ -65,24 +65,6 @@ sub _create
         return $self;
 }
 
-# Method: _isDaemonRunning
-#
-# Overrides:
-#       <EBox::Module::Service::_isDaemonRunning>
-#
-sub _isDaemonRunning
-{
-    my ($self) = @_;
-
-    try {
-        EBox::Sudo::root('/etc/init.d/snort status');
-    } catch EBox::Exceptions::Sudo::Command with {
-        # Command returned != 0
-        return 0;
-    };
-    return 1;
-}
-
 # Method: _daemons
 #
 # Overrides:
@@ -92,6 +74,18 @@ sub _isDaemonRunning
 sub _daemons
 {
     return [ { 'name' => 'snort', 'type' => 'init.d' } ];
+}
+
+# Method: _preSetConf
+#
+#       Stops snort before writing the configuration
+#       (necessary to avoid problems when interfaces have changed)
+#
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    $self->_stopService();
 }
 
 # Method: _setConf
