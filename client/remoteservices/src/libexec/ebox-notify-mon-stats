@@ -86,7 +86,12 @@ if ( -r $oldTar and -f $oldTar ) {
     EBox::Sudo::command(
         "/usr/bin/xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
        );
-    $retValue = $monSrv->sendDelta($deltaFile->filename());
+    try {
+        $retValue = $monSrv->sendDelta($deltaFile->filename());
+    } catch EBox::Exceptions::Base with {
+        # If anything go wrong with the sending delta, send them all
+        $retValue = $monSrv->sendAll($currentTar->filename());
+    };
 } else {
     $retValue = $monSrv->sendAll($currentTar->filename());
 }
