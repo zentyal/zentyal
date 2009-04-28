@@ -27,6 +27,25 @@
         <dir>enable-modules</dir>
     </test>
 
+    <test type="selenium">
+        <name>RemoveDefaultGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>        
+
+    <test type="selenium">
+        <name>AddGateway</name>
+        <desc>Adds the scenario router as gateway</desc>
+
+        <host>ebox-server</host>
+        <dir>add-gateway</dir>
+        <var name="GATEWAY" value="192.168.3.2"/>
+    </test>
+
     <test>
         <name>SetupRouter</name>
         <desc>
@@ -35,8 +54,101 @@
 
         <host>router</host>
         <dir>setup-router</dir>
+        <var name="IP" value="192.168.4.2"/>
         <var name="DEST" value="192.168.3.1"/>
     </test>
 
+    <test type="selenium">
+        <name>EnableIface</name>
+        <desc>Enable a network interface on the ids config.</desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-iface</dir>
+        <var name="ACTION" value="check"/>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>DisableRule</name>
+        <desc>Disable a rule on the ids config.</desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-rule</dir>
+        <var name="ACTION" value="uncheck"/>
+        <var name="RULE" value="scan"/>
+    </test>
+
+    <test type="selenium">
+        <name>SaveChanges1</name>
+        <desc>Save the changes.</desc>
+
+        <host>ebox-server</host>
+        <dir>save-changes</dir>
+    </test>
+
+    <test>
+        <name>TestPortScanFail</name>
+        <desc>Execute nmap on the external attacker.</desc>
+
+        <host>external</host>
+        <dir>test-scan</dir>
+    </test>
+
+    <test>
+        <name>TestSnortLogsFail</name>
+        <desc>
+        Grep for the expected line in the snort alert log and
+        check it doesn't appear.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-snort-log</dir>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnableRule</name>
+        <desc>Enable a rule on the ids config.</desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-rule</dir>
+        <var name="ACTION" value="check"/>
+        <var name="RULE" value="scan"/>
+    </test>
+
+    <test type="selenium">
+        <name>SaveChanges2</name>
+        <desc>Save the changes.</desc>
+
+        <host>ebox-server</host>
+        <dir>save-changes</dir>
+    </test>
+
+    <test>
+        <name>TestPortScanOK</name>
+        <desc>Execute nmap on the external attacker.</desc>
+
+        <host>external</host>
+        <dir>test-scan</dir>
+    </test>
+
+    <test>
+        <name>TestSnortLogsOK</name>
+        <desc>Grep for the expected line in the snort alert log.</desc>
+
+        <host>ebox-server</host>
+        <dir>test-snort-log</dir>
+    </test>
+
+    <test type="selenium">
+        <name>TestEBoxLogsOK</name>
+        <desc>Check for portscan event in the logs.</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+
+        <assert>failed</assert>
+    </test>
 
 </suite>

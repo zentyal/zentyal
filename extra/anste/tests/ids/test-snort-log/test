@@ -1,0 +1,9 @@
+#!/bin/sh
+
+LOG=/var/log/snort/alert
+
+echo "Display last lines of $LOG..."
+tail $LOG
+
+echo "Checking if Portscan appears..."
+grep Portscan $LOG
