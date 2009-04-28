@@ -115,7 +115,7 @@ sub _table
             'fieldName' => 'name',
             'printableName' => __('Rule set'),
             'unique' => 1,
-            'editable' => 1),
+            'editable' => 0),
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
             'printableName' => __('Enabled'),

@@ -107,7 +107,7 @@ sub _table
             'fieldName' => 'iface',
             'printableName' => __('Interface'),
             'unique' => 1,
-            'editable' => 1),
+            'editable' => 0),
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
             'printableName' => __('Enabled'),
