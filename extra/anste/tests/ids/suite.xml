@@ -147,8 +147,6 @@
 
         <host>ebox-server</host>
         <dir>test-logs</dir>
-
-        <assert>failed</assert>
     </test>
 
 </suite>
