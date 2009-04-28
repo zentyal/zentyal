@@ -60,7 +60,8 @@ sub mailboxesDir
 
 # Method: setUserAccount
 #
-#  This method sets a mail account to a user
+#  This method sets a mail account to a user.
+#  The user may be a system user
 #
 # Parameters:
 #
@@ -88,8 +89,6 @@ sub setUserAccount
     }
 
     $self->_checkMaildirNotExists($lhs, $rhs);
-    
-    my $userinfo = $users->userInfo($user);
     
     my $dn = "uid=$user," .  $users->usersDn;
         my %attrs = ( 
