@@ -150,7 +150,7 @@ sub _uploadLargeFile
     @wsParams = (filename => $digestName,
                  digest => $digester->hexdigest());
 
-    $self->soapCall('integrityCheck', @wsParams);
+    return $self->soapCall('integrityCheck', @wsParams);
 
 }
 
