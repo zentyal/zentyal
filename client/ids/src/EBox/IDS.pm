@@ -290,7 +290,6 @@ sub tableInfo
             'events' => { 'alert' => __('Alert') },
             'eventcol' => 'event',
             'filter' => ['priority', 'description', 'source', 'dest'],
-            'disabledByDefault' => 1,
             'consolidate' => $self->_consolidate(),
            }];
 }

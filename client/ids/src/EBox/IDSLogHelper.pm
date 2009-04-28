@@ -68,8 +68,9 @@ sub processLine # (file, line, logger)
 {
 	my ($self, $file, $line, $dbengine) = @_;
 
-# 04/23-21:49:17.163791  [**] [116:150:1] (snort decoder) Bad Traffic Loopback IP [**] [Priority: 3] {TCP} 127.0.1.1:5100 -> 69.89.31.56:640
-# 04/24-11:45:18.441639  [**] [122:1:0] (portscan) TCP Portscan [**] [Priority: 3] {PROTO:255} 10.6.7.1 -> 10.6.7.10
+    # Example lines to parse:
+    # 04/23-21:49:17.163791  [**] [116:150:1] (snort decoder) Bad Traffic Loopback IP [**] [Priority: 3] {TCP} 127.0.1.1:5100 -> 69.89.31.56:640
+    # 04/24-11:45:18.441639  [**] [122:1:0] (portscan) TCP Portscan [**] [Priority: 3] {PROTO:255} 10.6.7.1 -> 10.6.7.10
 
 	unless ($line =~ /^(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] \((.+)\) (.+) \[\*\*\] \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
 	    return;
