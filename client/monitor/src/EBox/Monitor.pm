@@ -38,6 +38,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
+use Sys::Hostname;
 use EBox::Validate qw( :all );
 
 use EBox::Exceptions::InvalidData;
@@ -466,6 +467,7 @@ sub _setMainConf
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
                           (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
                           (devices        => $self->_devicesToMonitor()),
+                          (hostname       => hostname()),
                          ]
                         );
 }

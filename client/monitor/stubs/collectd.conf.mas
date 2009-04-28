@@ -4,6 +4,10 @@
 Parameters:
   devices  - Array containing paths to the real I/O devices to monitor
 
+  hostname - String the hostname set by Sys::Hostname. Use the same method in 
+             gatherer
+             *(Optional)* Default value: localhost
+
   interval - Int the query interval for collectd
              *(Optional)* Default value: 10s
   loadPerlPlugin - Boolean indicating whether it required to load the perl
@@ -12,6 +16,7 @@ Parameters:
 </%doc>
 <%args>
   @devices
+  $hostname => 'localhost'
   $interval => 10
   $loadPerlPlugin => 0
 </%args>
@@ -23,7 +28,7 @@ Parameters:
 # You should also read /usr/share/doc/collectd/README.Debian.plugins before
 # enabling any more plugins.
 
-#Hostname "localhost"
+Hostname "<% $hostname %>"
 FQDNLookup false
 #BaseDir "/var/lib/collectd"
 #PluginDir "/usr/lib/collectd"
