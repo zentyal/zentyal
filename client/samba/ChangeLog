@@ -1,10 +1,14 @@
 1.1
-    + Bugfix: issue with codepages on shares
-    + Home drive letter can be changed now from general settings
-    + Added new PDC model with password settings
+	+ Bugfix: issue with codepages on shares
+	+ Home drive letter can be changed now from general settings
+	+ Added new PDC model with password settings
 	+ Use the new row() and ids() API
 	+ Windows user's profiles are backed up only in extended backups
 	+ Enable quota support again
+	+ Bugfix: when importing data from ldiff we assure that the
+	default group is created before any group assignment to avoid
+	'group not existent' errors
+
 0.12.101
 	+ Bugfix: set force directory mode and force create mode to 0660 in shares
 0.12.100

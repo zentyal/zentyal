@@ -36,11 +36,26 @@ sub classesToProcess
             { class => 'sambaDomain', priority => -5 },
             { class => 'sambaSamAccount', priority => 10 },
             { class => 'sambaGroupMapping', priority => 15  },
+            { class => 'posixAccount', priority => 0 },  # the priority is the
+                                       # same than posixGroup to make sure that
+                                       # the defuatl group is initialized
            ];
 }
 
 
 
+sub startupPosixAccount
+{
+    my ($package, %params) = @_;
+    # we must assure that the samba default group exists
+    $package->_addDomainUsersAccount();
+}
+
+
+sub processPosixAccount
+{
+    # do nothing.. we are only interested in startupPosixAccount
+}
 
 
 sub _addDomainUsersAccount
@@ -95,8 +110,6 @@ sub processSambaDomain
  #   $samba->fixSIDs(); 
 # fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
     $samba->restartService();
-
-    $package->_addDomainUsersAccount();
 
 }
 
