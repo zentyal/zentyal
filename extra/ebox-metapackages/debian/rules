@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include debian/cdbs/ebox-metapackages.mk
+
+DEB_DH_INSTALLINIT_ARGS = --no-start
+
+install/ebox-metapackages::
+
+cleanbuilddir/ebox-metapackages::
+
+clean::
