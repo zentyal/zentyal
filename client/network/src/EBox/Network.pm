@@ -2291,7 +2291,8 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 		}
 		($reachable) or throw EBox::Exceptions::External(
 			__('The requested operation will cause one of the '.
-			   'configured routers to become unreachable. ' .
+			   '
+configured gateways to become unreachable. ' .
 			   'Please remove it first if you really want to '.
 			   'make this change.'));
 	}
