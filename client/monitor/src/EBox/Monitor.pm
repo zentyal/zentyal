@@ -466,7 +466,7 @@ sub _setMainConf
                          [
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
                           (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
-                          (devices        => $self->_devicesToMonitor()),
+                          (mountPoints    => $self->_mountPointsToMonitor()),
                           (hostname       => hostname()),
                          ]
                         );
@@ -549,9 +549,9 @@ sub _thresholdConfigured
 
 }
 
-# Return those devices which are good to monitor
+# Return those mount points which are good to monitor
 # That is, the ones which have a device
-sub _devicesToMonitor
+sub _mountPointsToMonitor
 {
     my ($self) = @_;
 

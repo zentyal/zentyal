@@ -2,7 +2,7 @@
   Template to dump the main configuration for collectd
 
 Parameters:
-  devices  - Array containing paths to the real I/O devices to monitor
+  mountPoints  - Array containing paths to the mount points to monitor
 
   hostname - String the hostname set by Sys::Hostname. Use the same method in 
              gatherer
@@ -15,7 +15,7 @@ Parameters:
              *(Optional)* Default value: false
 </%doc>
 <%args>
-  @devices
+  @mountPoints
   $hostname => 'localhost'
   $interval => 10
   $loadPerlPlugin => 0
@@ -105,8 +105,8 @@ LoadPlugin syslog
 #</Plugin>
 
 <Plugin df>
-% foreach my $device (@devices) {
-        Device "<% $device %>"
+% foreach my $mountPoint (@mountPoints) {
+        MountPoint "<% $mountPoint %>"
 % }
 #       Device "/dev/sda1"
 #       Device "192.168.0.2:/mnt/nfs"
