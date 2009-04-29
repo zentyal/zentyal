@@ -271,11 +271,13 @@ sub antispamNeeded
 sub _setConf
 {
     my ($self) = @_;
+    $self->isEnabled() or
+        return;
 
     $self->smtpFilter->writeConf();
     $self->antispam()->writeConf();
     $self->popProxy()->writeConf();
-
+    
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     $vdomainsLdap->regenConfig();
 }

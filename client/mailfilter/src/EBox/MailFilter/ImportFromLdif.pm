@@ -32,7 +32,6 @@ sub classesToProcess
            ];
 }
 
-# XXX TODO: borrar todas las entradas anteriores en el modelo VDomains
 
 sub processVdmailfilter
 {
