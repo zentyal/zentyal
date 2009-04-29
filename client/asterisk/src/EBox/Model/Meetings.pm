@@ -113,6 +113,10 @@ sub _table
                                 size          => 4,
                                 unique        => 1,
                                 editable      => 1,
+                                help          => __x('A number between {min} and {max}',
+                                                    min => EBox::Asterisk::Extensions->MEETINGMINEXTN,
+                                                    max => EBox::Asterisk::Extensions->MEETINGMAXEXTN
+                                                    ),
                                ),
        # FIXME we still need the infraestructure in Asterisk::Extensions for this
        #new EBox::Types::Text(

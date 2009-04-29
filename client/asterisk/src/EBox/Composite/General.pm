@@ -20,8 +20,8 @@ use base 'EBox::Model::Composite';
 use strict;
 use warnings;
 
-use EBox::Gettext;
 use EBox::Global;
+use EBox::Gettext;
 
 # Group: Public methods
 
@@ -59,6 +59,7 @@ sub _description
                                'asterisk/Settings',
                                'asterisk/Provider',
                                'asterisk/NAT',
+                               'asterisk/Localnets',
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,

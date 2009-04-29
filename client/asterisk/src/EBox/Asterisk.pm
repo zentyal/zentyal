@@ -78,6 +78,7 @@ sub modelClasses
         'EBox::Asterisk::Model::Settings',
         'EBox::Asterisk::Model::Provider',
         'EBox::Asterisk::Model::NAT',
+        'EBox::Asterisk::Model::Localnets',
         'EBox::Asterisk::Model::Meetings',
         'EBox::Asterisk::Model::Voicemail',
     ];
@@ -259,7 +260,8 @@ sub _setRealTime
     push (@params, rootdn => EBox::Ldap->ldapConf->{'rootdn'});
     push (@params, password => EBox::Ldap->getPassword());
 
-    $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params);
+    $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params,
+                            { 'uid' => 0, 'gid' => 0, mode => '640' });
 }
 
 
@@ -332,6 +334,12 @@ sub _setSIP
         for my $iface (@{$ifaces}) {
             push(@localnets, $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface));
         }
+        $model = $self->model('Localnets');
+        foreach my $id (@{$model->ids()}) {
+            my $row = $model->row($id);
+            my $net = $row->printableValueByName('localnet');
+            push(@localnets, $net);
+        }
     }
 
     push (@params, nat => $nat);
@@ -352,7 +360,8 @@ sub _setSIP
     push (@params, server => $model->serverValue());
     push (@params, incoming => $model->incomingValue());
 
-    $self->writeConfFile(SIPCONFFILE, "asterisk/sip.conf.mas", \@params);
+    $self->writeConfFile(SIPCONFFILE, "asterisk/sip.conf.mas", \@params,
+                            { 'uid' => 0, 'gid' => 0, mode => '640' });
 }
 
 
@@ -384,7 +393,8 @@ sub _setMeetings
 
     my @params = ( meetings => \@meetings );
 
-    $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params);
+    $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params,
+                            { 'uid' => 0, 'gid' => 0, mode => '640' });
 }
 
 
