@@ -188,20 +188,22 @@
   $modelName
   @formData
 </%args>
-<table class="formTable">
-  <tbody>
-    <& SELF:editRowFields,
-       modelName => $modelName,
-       formData => \@formData
-    &>
-    <tr>
-      <td class="tright" 
-          id="applyChanges">
-      </td>
-      <& SELF:buttons &>
-    </tr>
-  </tbody>
-</table>
+<form name="<% $modelName . '_form' %>">
+  <table class="formTable">
+    <tbody>
+      <& SELF:editRowFields,
+         modelName => $modelName,
+         formData => \@formData
+      &>
+      <tr>
+        <td class="tright" 
+            id="applyChanges">
+        </td>
+        <& SELF:buttons &>
+      </tr>
+    </tbody>
+  </table>
+</form>
 </%method>
 
 <%doc>

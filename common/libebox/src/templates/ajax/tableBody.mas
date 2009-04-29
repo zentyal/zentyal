@@ -126,18 +126,19 @@ use POSIX;
                 row => $printableRowName)
 &>
 %   }
-
-<table class='formTable'>
-  <tbody>
-   <col width="1*" />
-   <col width="auto" /
-    <& PARENT:editRowFields,
-       modelName => $tableName,
-       formData => \@formData
-    &>
-    <& SELF:buttons &>
-  </tbody>
-</table>
+<form name="<% $tableName . '_form' %>">
+  <table class='formTable'>
+    <tbody>
+     <col width="1*" />
+     <col width="auto" /
+      <& PARENT:editRowFields,
+         modelName => $tableName,
+         formData => \@formData
+      &>
+      <& SELF:buttons &>
+    </tbody>
+  </table>
+</form>
 %  }
 
 
