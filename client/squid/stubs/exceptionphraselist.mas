@@ -1,0 +1,18 @@
+# EXCEPTIONPHRASELIST - INSTRUCTIONS FOR USE
+#
+# If any of the phrases listed below appear in a web page
+# then it will bypass the filtering and be allowed through
+# eg
+# < medical >
+#
+#
+# Combinations
+# Unblock the page if the following phrases are found on the same page.
+# Each line is a new combination.
+# eg
+#<education>,<biology>,<medical>
+#
+# See the bannedphraselist for more examples.
+
+#.Include</etc/dansguardian/phraselists/goodphrases/exception>
+#.Include</etc/dansguardian/phraselists/goodphrases/exception_email>

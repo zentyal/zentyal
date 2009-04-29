@@ -245,6 +245,16 @@ sub usedFiles
                  'reason' => __('Content filter banned URL list')
             },
             {
+              'file' =>    DGDIR . '/bannedphraselist',
+              'module' => 'squid',
+              'reason' => __('Forbidden phrases list'),
+             },
+            {
+              'file' =>    DGDIR . '/exceptionphraselist',
+              'module' => 'squid',
+              'reason' => __('Exception phrases list'),
+             },
+            {
              'file' => DG_LOGROTATE_CONF,
              'module' => 'squid',
              'reason' => __(q{Dansguardian's log rotation configuration}),
@@ -647,6 +657,16 @@ sub _writeDgConf
                           groups => \@dgFilterGroups,
                          ]
                         );
+
+  # disable banned and exception phgares lists
+  $self->writeConfFile(DGDIR . '/bannedphraselist',
+                       'squid/bannedphraselist.mas',
+                       []
+                      );
+  $self->writeConfFile(DGDIR . '/exceptionphraselist',
+                       'squid/exceptionphraselist.mas',
+                       []
+                      );
 
 
   foreach my $group (@dgFilterGroups) {

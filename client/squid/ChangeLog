@@ -9,6 +9,8 @@
 	+ Added dansguardian's custom logrotate file
 	+ Added cache exceptions
 	+ Added cache size
+	+ Disabled exception and banned phrases to avoid uncontrolled
+	content filter results
 0.12.99
 	+ Add support for reporting
 	+ User support
