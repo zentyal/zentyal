@@ -31,6 +31,8 @@ use EBox::Gettext;
 use EBox::Types::IPAddr;
 use EBox::Types::Text;
 
+use Net::IP;
+
 # Group: Public methods
 
 # Constructor: new
@@ -74,14 +76,16 @@ sub validateTypedRow
     my ($self, $action, $changedFields) = @_;
 
     if ( exists $changedFields->{localnet} ) {
+        my $net = new Net::IP($changedFields->{localnet}->printableValue());
+        my $localnet = $net->ip().'/'.$net->mask();
         my $network = EBox::Global->modInstance('network');
         my $ifaces = $network->InternalIfaces();
         for my $iface (@{$ifaces}) {
-            my $inet = $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface);
-            if ($changedFields->{localnet}->value() eq $inet) {
+            my $ifacenet = $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface);
+            if ($localnet eq $ifacenet) {
                 throw EBox::Exceptions::DataExists(
                     'data'  => __('local network'),
-                    'value' => $changedFields->{localnet}->value(),
+                    'value' => $changedFields->{localnet}->printableValue(),
                 );
             }
         }
