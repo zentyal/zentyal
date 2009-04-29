@@ -10,8 +10,11 @@ case "$1" in
         # FIXME
         initctl list >/dev/null  2>&1 || true
 
-        chown root.__USERS__ /var/lib/ebox/quarantine/
-        chmod 730 /var/lib/ebox/quarantine/
+        QUARANTINE_DIR=/var/lib/ebox/quarantine/
+        mkdir -p $QUARANTINE_DIR
+        chown root.__USERS__  $QUARANTINE_DIR || true # it would fail if samba is not configured
+                                      # for this we will retry it in enable script
+        chmod 730 $QUARANTINE_DIR
 
         # migrate data if needed
 		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/

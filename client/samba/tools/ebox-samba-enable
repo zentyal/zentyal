@@ -104,6 +104,9 @@ for i in passwd group shadow; do
    fi	
 done       
 
+# change group ownership of quarantine_dir to __USERS__
+QUARANTINE_DIR=/var/lib/ebox/quarantine/
+chown root.__USERS__  $QUARANTINE_DIR || true 
 
 invoke-rc.d quota restart 
 
