@@ -34,6 +34,8 @@ use EBox::AsteriskLdapUser;
 use EBox::AsteriskFirewall;
 use EBox::Asterisk::Extensions;
 
+use Net::IP;
+
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
@@ -337,8 +339,8 @@ sub _setSIP
         $model = $self->model('Localnets');
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
-            my $net = $row->printableValueByName('localnet');
-            push(@localnets, $net);
+            my $net = new Net::IP($row->printableValueByName('localnet'));
+            push(@localnets, $net->ip().'/'.$net->mask());
         }
     }
 
