@@ -33,24 +33,17 @@ use EBox::Squid;
 use EBox::Squid::Model::DomainFilterFilesBase;
 
 
+#my $tmpDir = '/home/javier/old/tmp';
+my $tmpDir = '/tmp';
+
 sub addArchiveTest : Test(2)
 {
     my ($self) = @_;
 
     my $filterFiles = $self->_newInstance();
 
-    my $dir = $filterFiles->listFileDir();
-    my $shallalist = $self->_shallalistPath();
     my $id = 'test';
-    my $uploadFile = "/tmp/upload";
-    system "cp $shallalist $uploadFile";
-    system "cp $shallalist $dir/$id";
-
-    $filterFiles->addRow(
-        description => $id,
-        fileList     => $uploadFile,
-        id          => $id,
-       );
+    $self->_addShallaRow($filterFiles, $id);
 
     # check if the categories are populated
     my $row = $filterFiles->row($id);
@@ -85,11 +78,74 @@ sub addArchiveTest : Test(2)
 }
 
 
+sub discardTest : Test(3)
+{
+    my ($self) = @_;
+    my $filterFiles = $self->_newInstance();
+
+    my $id = 'added';
+    $self->_addShallaRow($filterFiles, $id);
+
+    my $file = $filterFiles->row($id)->elementByName('fileList')->path();
+    my $dir  = $filterFiles->archiveContentsDir($id);
+
+    # sanity test!
+    (-e $file) or 
+        die "archive fiel was not added";
+    system "ls $dir/* > /dev/null";
+    ($? == 0) or 
+        die "no archive dir contents";
+
+    my $squidUnmocked = EBox::Global->modInstance('squid');
+    my $squid = new Test::MockObject::Extends($squidUnmocked);
+    $squid->mock('model', 
+                 sub {
+                     my ($self, $name) = @_;
+                     if ($name eq 'DomainFilterFiles') {
+                         return $filterFiles;
+                     }
+
+                     return EBox::Model::ModelProvider::model($self, $name);
+                 }
+                );
+
+    lives_ok {
+        $filterFiles->removeAll(1); # XX needed by test setpu,
+                                   # the nromal discard gconf changes does not
+                                   # not work
+        $squid->revokeConfig();
+    } 'configuration revoked';
+
+    file_not_exists_ok($file, 
+          'checking that revokation deleted archive file');
+    file_not_exists_ok($dir, 
+           'whether revokation removed archives direcotory');
+}
+
+
+sub _addShallaRow
+{
+    my ($self, $filterFiles, $id) = @_;
+
+    my $dir = $filterFiles->listFileDir();
+    my $shallalist = $self->_shallalistPath();
+
+    my $uploadFile = "$tmpDir/upload";
+    system "cp $shallalist $uploadFile";
+    system "cp $shallalist $dir/$id";
+
+    $filterFiles->addRow(
+        description => $id,
+        fileList     => $uploadFile,
+        id          => $id,
+       );
+}
+
 sub dumpAndRestoreConfigTest : Test(11)
 {
     my ($self) = @_;
 
-    my $backupDir = '/tmp/domainfilterfilesbase.test.bdir';
+    my $backupDir = "$tmpDir/domainfilterfilesbase.test.bdir";
     system "rm -rf $backupDir";
     system "mkdir -p $backupDir";
 
@@ -270,7 +326,7 @@ sub startupModules : Test(startup)
 
 sub startupDirectories : Test(startup)
 {
-    EBox::TestStubs::setEBoxConfigKeys('tmp' => '/tmp');
+    EBox::TestStubs::setEBoxConfigKeys('tmp' => $tmpDir);
 }
 
 sub setupListFileDir : Test(setup)
@@ -315,7 +371,7 @@ sub _newInstance
 
 sub _listFileDir
 {
-    return '/tmp/DomainFilterFilesBase.test';
+    return "$tmpDir/DomainFilterFilesBase.test";
 }
 
 sub _table
