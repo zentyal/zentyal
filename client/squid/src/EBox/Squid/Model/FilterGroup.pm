@@ -420,6 +420,45 @@ sub _defaultFilterGroup
 }
 
 
+
+sub antivirusNeeded
+{
+  my ($self) = @_;
+
+  my $id = 0;
+  foreach my $rowId ( @{ $self->ids() } ) {
+      my $antivirusModel;
+      my $row = $self->row($rowId);       
+      my $policy = 
+        $row->elementByName('filterPolicy')->foreignModelInstance();
+
+      if ($id == 0) {
+          # defautl group is always the first
+          $antivirusModel = 
+            $policy->componentByName('DefaultAntiVirus', 1);   
+      } elsif ($id > MAX_DG_GROUP) {
+          my $name  = $row->valueByName('name');
+          EBox::info(
+ "Maximum nuber of dansguardian groups reached, group $name and  following groups antivirus configuration is not used"
+             );
+          last;
+      } else {
+          $antivirusModel = 
+             $policy->componentByName('FilterGroupAntiVirus', 1);   
+      }
+
+      if ($antivirusModel->active()) {
+          return 1;
+      }
+
+      $id += 1 ; 
+  }
+
+  # no profile with antivirus enabled found...
+  return 0;
+}
+
+
 sub dumpConfig
 {
     my ($self, $dir) = @_;

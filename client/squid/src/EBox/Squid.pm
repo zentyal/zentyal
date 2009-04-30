@@ -558,6 +558,20 @@ sub usesPort # (protocol, port, iface)
     return undef;
 }
 
+
+# we override this because we want to call _cleanDomainFilterFiles regardless of
+# th enable state of the service. why?. We dont want to have orphaned domain
+# filter files bz they can spend a lot of space and for this we need to call
+# _cleanDomainFilterFiles after each restart or revokation
+sub restartService
+{
+    my ($self, @params) = @_;
+    $self->SUPER::restartService(@params);
+
+    $self->_cleanDomainFilterFiles();
+}
+
+
 sub _setConf
 {
   my ($self) = @_;
@@ -566,6 +580,7 @@ sub _setConf
   if ($self->_dgNeeded()) {
       $self->_writeDgConf();
   }
+
 }
 
 
@@ -586,7 +601,8 @@ sub _antivirusNeeded
 {
     my ($self, $filterGroups_r) = @_;
     if (not $filterGroups_r) {
-        $filterGroups_r = $self->_dgFilterGroups();
+        my $filterGroups = $self->model('FilterGroup');
+        return $filterGroups->antivirusNeeded();
     }
 
     foreach my $filterGroup (@{ $filterGroups_r }) {
@@ -701,7 +717,7 @@ sub _writeDgConf
   }
 
 
-  $self->_cleanDomainFilterFiles();
+
 
   $self->_writeDgLogrotate();
 }
@@ -732,11 +748,6 @@ sub revokeConfig
 sub _cleanDomainFilterFiles
 {
     my ($self, %params) = @_;
-#     my $orphanedCheck = exists $params{orphanedCheck} ?
-#                                $params{orphanedCheck} :
-#                                1;
-
-
 
 
   # purge empty file list directories and orphaned files/directories
@@ -744,36 +755,31 @@ sub _cleanDomainFilterFiles
   # do this but we don't have options bz deletedRowNotify is called before
   # deleting the file so the directory is not empty
 
-    # XXX we clean the DomainFilterFiles aside bz it has at FilterFiles
-    # componet with distinct name
-    my $domainFilterFiles = $self->model('DomainFilterFiles');
-
-    $domainFilterFiles->setupArchives();
-#    if ($orphanedCheck) {
-        $domainFilterFiles->cleanOrphanedFiles();
- #   }
-
     my %fgDirs =();
 
     my $filterGroups = $self->model('FilterGroup');
     my $defaultGroupName = $filterGroups->defaultGroupName();
     foreach my $id ( @{ $filterGroups->ids() } ) {
         my $row = $filterGroups->row($id);
+        my $filterPolicy =   $row->elementByName('filterPolicy');     
+        my $fSettings = $filterPolicy->foreignModelInstance();
+        
+        my $domainFilterFiles;
         if ($row->valueByName('name') eq $defaultGroupName) {
-            next;
+            $domainFilterFiles = 
+                $fSettings->componentByName('DomainFilterFiles', 1);
+        } else {
+            $domainFilterFiles = 
+                $fSettings->componentByName('FilterGroupDomainFilterFiles', 1);
+            $fgDirs{$domainFilterFiles->listFileDir} = 1;
         }
 
-        my $filterPolicy =   $row->elementByName('filterPolicy');
-        my $fgSettings = $filterPolicy->foreignModelInstance();
-        my $fgDomainFilterFiles = $fgSettings->componentByName('FilterGroupDomainFilterFiles', 1);
-        $fgDomainFilterFiles->setupArchives();
-        $fgDomainFilterFiles->cleanOrphanedFiles();
-        $fgDirs{$fgDomainFilterFiles->listFileDir} = 1;
-
+        $domainFilterFiles->setupArchives();
+        $domainFilterFiles->cleanOrphanedFiles();
     }
 
-    # remove directories no related with a filter grou
-    my $defaultListFileDir = $domainFilterFiles->listFileDir();
+    # remove directories no related with a filter groups
+    my $defaultListFileDir = EBox::Squid::Model::DomainFilterFiles->listFileDir();
     my $defaultArchivesDir = $defaultListFileDir . '/archives';
 
 

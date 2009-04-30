@@ -535,13 +535,9 @@ sub setupArchives
 
 
 
-sub cleanOrphanedFiles
+sub _expectedArchiveFiles
 {
     my ($self) = @_;
-
-    my $dir = $self->listFileDir();
-    (-d $dir) or
-        return;
 
     my %expectedFiles;
     foreach my $id (@{ $self->ids() }) {
@@ -558,22 +554,45 @@ sub cleanOrphanedFiles
         $expectedFiles{$path} = 1;
     }
 
+    return \%expectedFiles;
+}
+
+sub cleanOrphanedFiles
+{
+    my ($self) = @_;
+
+    my $dir = $self->listFileDir();
+    (-d $dir) or
+        return;
+
+    my $archivesDirBase = $self->archiveContentsDir();
+
+    my %expectedFiles = %{ $self->_expectedArchiveFiles() };
+
+    use Data::Dumper; # XXX debug!
+    EBox::debug("Exepcted files " . Dumper(\%expectedFiles));
+
     my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") }; 
+    EBox::debug("list files" . Dumper(\@listFiles));
     foreach my $file (@listFiles) {
         chomp $file;
 
         # see if is a correct file, otherwise delete it
         if (not exists $expectedFiles{$file}) {
             EBox::Sudo::root("rm $file");
+            # try to remove the archive directory if it exists
+            my $basename = basename($file);
+            EBox::Sudo::root("rm -rf $archivesDirBase/$basename");
         }
     }
 
-    my $archivesDirBase = $self->archiveContentsDir();
+
     (-d $archivesDirBase) or
         return;
 
-    # now check the arvhice dirs and delete leftovers
+    # now check the archive dirs for delete leftovers
     my $archivesDirs = EBox::Sudo::root("find $archivesDirBase -maxdepth 1 -type d");
+    EBox::debug("archive files" . Dumper($archivesDirs));
     foreach my $archDir (@{ $archivesDirs }) {
         chomp $archDir;
         if ($archDir eq $archivesDirBase) {

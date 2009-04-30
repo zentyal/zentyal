@@ -33,8 +33,8 @@ use EBox::Squid;
 use EBox::Squid::Model::DomainFilterFilesBase;
 
 
-#my $tmpDir = '/home/javier/old/tmp';
-my $tmpDir = '/tmp';
+my $tmpDir = '/home/javier/old/tmp';
+#my $tmpDir = '/tmp';
 
 sub addArchiveTest : Test(2)
 {
