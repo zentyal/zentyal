@@ -101,7 +101,7 @@ egroupware-core egroupware/header/password/confirm password
 # configuración del sistema:
 
 d-i preseed/late_command string \
-    cp /cdrom/ebox/* /target/tmp/ || \
-    cp /target/cdrom/ebox/* /target/tmp/ && \
+    cp -r /cdrom/ebox/* /target/tmp/ || \
+    cp -r /target/cdrom/ebox/* /target/tmp/ && \
     chroot /target sh /tmp/prepare-ebox-install.sh
 

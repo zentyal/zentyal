@@ -6,6 +6,7 @@ use strict;
 my $TASK_FILE = 'tasks.list';
 my $PACKAGE_FILE = 'packages.list';
 my $SELECTION_FILE = 'selection';
+my $INSTALL_FILES_PATH = '/var/tmp';
 
 my $TASK_TITLE = 'Select eBox tasks to install';
 my $PACKAGE_TITLE = 'Select eBox packages to install';
@@ -47,7 +48,9 @@ sub arrayFromFile # (filename)
     my ($filename) = @_;
 
     my $fh;
-    open ($fh, '<', $filename);
+    open ($fh, '<', "$INSTALL_FILES_PATH/$filename") or
+        open ($fh, '<', $filename) or
+            die "Can't read $filename file";
     my @array = <$fh>;
     chomp (@array);
     close ($fh);

@@ -1,9 +1,11 @@
-#!/bin/bash 
+#!/bin/bash
 # Script to execute after debian installer base-config and before
 # showing login indicator and debian sarge is ready to be fucked up
 
 
 RC_NAME=ebox-installer
+
+LOG=/tmp/ebox-installer.log
 
 mount /cdrom
 apt-cdrom add --no-mount
@@ -15,21 +17,36 @@ if [ $APT_SUCCESS != 0 ]; then
     apt-cdrom add
 fi
 
-# Add stable ebox sources
-echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> /etc/apt/sources.list
+SOURCES=/etc/apt/sources.list
 
-echo Installing eBox...
+# Add hardy sources
+echo "deb http://archive.ubuntu.com/ubuntu/ hardy main restricted" >> $SOURCES
+echo "deb http://archive.ubuntu.com/ubuntu/ hardy universe" >> $SOURCES
+echo "deb http://archive.ubuntu.com/ubuntu/ hardy-updates main restricted" >> $SOURCES
+
+# Add stable ebox sources
+echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
+
+echo Installing base packages...
+apt-get install -y libebox ssh >> $LOG 2>&1
+if [ $? != 0 ]; then
+    echo "Installation failed. Check contents of $LOG to see what happened"
+    exit 1
+fi
+
+echo Launching eBox packages installer...
+EBOX_PACKAGES=`/var/tmp/ebox-tasksel.pl`
 
 export HOME=/root # need for ssl-cert postinst
-apt-get install -y    "^ebox-.*" ssh
+apt-get install -y $EBOX_PACKAGES
 if [ $? != 0 ]; then
-    echo "Installation failed. You can run manually $0 to check what failed"
+    echo "Installation failed. Check contents of $LOG to see what happened"
     exit 1
 fi
 
 # Enable eBox modules
 echo Preconfiguring eBox modules...
-/var/tmp/enable-all-modules.pl > /dev/null 2>&1
+/var/tmp/enable-all-modules.pl >> $LOG 2>&1
 rm /var/tmp/enable-all-modules.pl
 
 
@@ -45,16 +62,19 @@ sort $TMP | uniq > $LOCALES_FILE
 rm -f $TMP
 
 # Regenerate locales to update the new messages from eBox
-/usr/sbin/locale-gen 
+/usr/sbin/locale-gen
 
-/usr/share/ebox/ebox-set-locale $LANG > /dev/null 2>&1
+/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1
 
 # Run ebox-software in order to update packages list (which is done
 # nightly)
 #echo "Updating package list"
 #ebox-software
 
-# delete itself 
+# TODO: Run ebox-first-setup
+# /var/tmp/ebox-first-setup.pl
+
+# delete itself
 echo Cleaning up eBox installer files...
 rm -f /var/tmp/locale.gen
 update-rc.d -f $RC_NAME remove

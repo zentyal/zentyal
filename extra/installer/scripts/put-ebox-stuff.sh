@@ -13,4 +13,4 @@ test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 
 rm -rf $CD_EBOX_DIR/*
 
-cp $DATA_DIR/* $CD_EBOX_DIR/
+cp -r $DATA_DIR/* $CD_EBOX_DIR/
