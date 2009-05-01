@@ -22,7 +22,7 @@ rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
 
 # Rebranding
 cp images/* $CD_BUILD_DIR/isolinux/
-sed -i 's/Ubuntu Server/eBox Platform 1.0/g' $CD_BUILD_DIR/isolinux/isolinux.cfg
+sed -i "s/Ubuntu Server/eBox Platform $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
 
 sudo umount $MOUNTDIR || exit 1
 rmdir $MOUNTDIR
