@@ -1,0 +1,178 @@
+#!/usr/bin/perl
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+#################
+# -- constants --
+#################
+
+my $TASK_FILE = 'tasks.list';
+my $PACKAGE_FILE = 'packages.list';
+my $SELECTION_FILE = 'selection';
+my $INSTALL_FILES_PATH = '/var/tmp';
+my $TASK_TITLE = 'Select eBox tasks to install';
+my $PACKAGE_TITLE = 'Select eBox packages to install';
+my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
+my $LOG = $ENV{LOG};
+
+############################
+# -- installation process --
+############################
+
+my @packages = selectPackagesMenu();
+installPackages(@packages);
+
+###########################
+# -- installer functions --
+###########################
+
+sub installPackages # (packages)
+{
+    my (@packages) = @_;
+
+    my $packageList = join (' ', @packages);
+
+    # Get number of packages to install
+    my $num = `LANG=C apt-get install -s $packageList | grep ^Inst | wc -l`;
+    chomp($num);
+
+    my $aptCmd = 'LANG=C apt-get install -q -y';
+    my $text = 'Installing eBox packages...';
+    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
+    my $gaugeCmd = "$INSTALL_FILES_PATH/ebox-apt-parse $num | $whipCmd";
+    my $ret = system ("$aptCmd $packageList | tee -a $LOG | $gaugeCmd");
+
+    if ($ret != 0) {
+        showError('Installation failed. ' .
+                  "Check contents of $LOG to see what happened");
+        exit (1);
+    }
+}
+
+sub selectPackagesMenu # returns array
+{
+    my @tasks = arrayFromFile($TASK_FILE);
+    my @packages = arrayFromFile($PACKAGE_FILE);
+
+    my @selection;
+    my $option = '';
+    my $ret = 0;
+    do {
+        unless ($ret == -1) {
+            $option = showMenu();
+        }
+        if ($option eq 'simple') {
+            $ret = showChecklist($TASK_TITLE, @tasks);
+        } else {
+            $ret = showChecklist($PACKAGE_TITLE, @packages);
+        }
+        if ($ret == 0) {
+            @selection = arrayFromFile($SELECTION_FILE);
+            unlink ($SELECTION_FILE);
+            if (scalar (@selection) == 0) {
+                showError('You must select at least one package.');
+                $ret = -1;
+            }
+        }
+    } while ($ret != 0);
+
+    return @selection;
+}
+
+#################################
+# -- whiptail helper functions --
+#################################
+
+sub showMenu
+{
+    my $title = 'Choose package selection method';
+
+    my $size = 2;
+    my $height = $size + 7;
+    my $width = 60; # FIXME: find proper size instead of random one
+
+    my $command = "whiptail $WHIPTAIL_ARGS --nocancel --title \"$title\" " .
+                  "--menu \"$title\" $height $width $size ";
+
+    $command .= "simple \"Select typical sets of packages\" ";
+    $command .= "advanced \"Select packages manually\" ";
+
+    my $file = 'selected_option';
+    system ("$command 2> $file");
+    my @lines = arrayFromFile($file);
+    unlink ($file);
+
+    return $lines[0];
+}
+
+sub showChecklist # (title, options)
+{
+    my ($title, @options) = @_;
+
+    my $size = scalar (@options);
+    if ($size > 14) {
+        $size = 14;
+    }
+    my $height = $size + 7;
+    my $width = 60; # FIXME: find proper size instead of random one
+
+    my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
+                  "--checklist \"$title\" $height $width $size ";
+
+    foreach my $option (@options) {
+        $command .= "$option \"FIXME: Description\" 0 ";
+    }
+
+    system ("$command 2> $SELECTION_FILE");
+}
+
+sub showError # (message)
+{
+    my ($message) = @_;
+
+    my $title = 'Error';
+
+    my $size = 1;
+    my $height = $size + 7;
+    my $width = length($message) + 7;
+
+    my $command = "whiptail $WHIPTAIL_ARGS --title \"$title\" " .
+                  "--msgbox \"$message\" $height $width";
+
+    system ($command);
+}
+
+##############################
+# -- other helper functions --
+##############################
+
+sub arrayFromFile # (filename)
+{
+    my ($filename) = @_;
+
+    my $fh;
+    open ($fh, '<', "$INSTALL_FILES_PATH/$filename") or
+        open ($fh, '<', $filename) or
+            die "Can't read $filename file";
+    my @array = <$fh>;
+    chomp (@array);
+    close ($fh);
+
+    return @array;
+}
+

@@ -11,4 +11,4 @@ update-rc.d $INSTALLER start  41 S .
 cp /tmp/locale.gen /var/tmp
 
 cp /tmp/enable-all-modules.pl /var/tmp
-cp -r /tmp/tasksel/* /var/tmp/
+cp -r /tmp/package-installer/* /var/tmp/

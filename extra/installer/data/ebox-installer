@@ -5,7 +5,7 @@
 
 RC_NAME=ebox-installer
 
-LOG=/tmp/ebox-installer.log
+export LOG=/tmp/ebox-installer.log
 
 mount /cdrom
 apt-cdrom add --no-mount
@@ -28,21 +28,16 @@ echo "deb http://archive.ubuntu.com/ubuntu/ hardy-updates main restricted" >> $S
 echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
 
 echo Installing base packages...
-apt-get install -y libebox ssh >> $LOG 2>&1
+apt-get install -y libebox >> $LOG 2>&1
 if [ $? != 0 ]; then
     echo "Installation failed. Check contents of $LOG to see what happened"
     exit 1
 fi
 
-echo Launching eBox packages installer...
-EBOX_PACKAGES=`/var/tmp/ebox-tasksel.pl`
+export HOME=/root # needed for ssl-cert postinst
 
-export HOME=/root # need for ssl-cert postinst
-apt-get install -y $EBOX_PACKAGES
-if [ $? != 0 ]; then
-    echo "Installation failed. Check contents of $LOG to see what happened"
-    exit 1
-fi
+echo Launching eBox package installer...
+/var/tmp/ebox-package-installer
 
 # Enable eBox modules
 echo Preconfiguring eBox modules...
@@ -70,9 +65,6 @@ rm -f $TMP
 # nightly)
 #echo "Updating package list"
 #ebox-software
-
-# TODO: Run ebox-first-setup
-# /var/tmp/ebox-first-setup.pl
 
 # delete itself
 echo Cleaning up eBox installer files...

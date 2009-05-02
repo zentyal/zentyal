@@ -1,0 +1,6 @@
+#!/bin/sh
+
+NUM=$1 # Number of packages to install
+
+echo 0
+grep -e "^Get\|^Fetched\|^Unpacking\|^Setting" | awk "BEGIN {C=0} {C+=25/$NUM ; print int(C)}"
