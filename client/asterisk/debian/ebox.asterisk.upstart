@@ -1,2 +1,6 @@
+pre-start script
+        invoke-rc.d asterisk stop || true
+end script
+
 exec /usr/sbin/asterisk -f
 respawn
