@@ -6,7 +6,7 @@ use EBox::Global;
 
 EBox::init();
 
-if (EBox::Global->modExists('mail')) {
+if (EBox::Global->getInstance()->modExists('mail')) {
     exit (0);
 } else {
     exit (1);
