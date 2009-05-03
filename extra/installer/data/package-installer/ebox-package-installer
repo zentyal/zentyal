@@ -28,6 +28,10 @@ my $INSTALL_FILES_PATH = '/var/tmp';
 my $TASK_TITLE = 'Select eBox tasks to install';
 my $PACKAGE_TITLE = 'Select eBox packages to install';
 my $IFACES_TITLE = 'Select external interfaces';
+my $PASS_TITLE = 'Enter password for eBox interface';
+my $PASS_CONFIRM_TITLE = 'Confirm password for eBox interface';
+
+
 my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
 my $LOG = $ENV{LOG} or '/tmp/ebox-installer.log';
 
@@ -38,7 +42,9 @@ my $LOG = $ENV{LOG} or '/tmp/ebox-installer.log';
 my @packages = selectPackagesMenu();
 installPackages(@packages);
 
-# TODO: Choose eBox password
+# Choose password for eBox interface
+my $password = askPassword();
+system ("$INSTALL_FILES_PATH/ebox-set-password $password >> $LOG 2>&1");
 
 # Choose interfaces to mark as external
 my @selectedIfaces = selectIfacesMenu();
@@ -126,6 +132,22 @@ sub selectIfacesMenu # returns array
     return @selection;
 }
 
+sub askPassword # returns string
+{
+    my $password;
+    my $confirm;
+    do {
+        $password = showPasswordDialog($PASS_TITLE);
+        $confirm = showPasswordDialog($PASS_CONFIRM_TITLE);
+
+        if ($password ne $confirm) {
+            showError("Passwords don't match");
+        }
+    } until ($password eq $confirm);
+
+    return $password;
+}
+
 #################################
 # -- whiptail helper functions --
 #################################
@@ -171,6 +193,26 @@ sub showChecklist # (title, options)
     }
 
     system ("$command 2> $SELECTION_FILE");
+}
+
+sub showPasswordDialog # (title)
+{
+    my ($title) = @_;
+
+    my $height = 8;
+    my $width = 60; # FIXME: find proper size instead of random one
+
+    my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
+                  "--passwordbox \"$title\" $height $width";
+
+    my @selection;
+    do {
+        system ("$command 2> $SELECTION_FILE");
+        @selection = arrayFromFile($SELECTION_FILE);
+        unlink ($SELECTION_FILE);
+    } until (scalar(@selection) > 0);
+
+    return $selection[0];
 }
 
 sub showError # (message)
