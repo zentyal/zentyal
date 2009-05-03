@@ -28,7 +28,7 @@ echo "deb http://archive.ubuntu.com/ubuntu/ hardy-updates main restricted" >> $S
 echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
 
 echo Installing base packages...
-apt-get install -y libebox >> $LOG 2>&1
+apt-get install -y libebox bc >> $LOG 2>&1
 if [ $? != 0 ]; then
     echo "Installation failed. Check contents of $LOG to see what happened"
     exit 1

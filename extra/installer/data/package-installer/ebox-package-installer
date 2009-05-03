@@ -25,6 +25,8 @@ my $TASK_FILE = 'tasks.list';
 my $PACKAGE_FILE = 'packages.list';
 my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES_PATH = '/var/tmp';
+
+my $INSTALLER_TITLE = 'eBox Installer';
 my $TASK_TITLE = 'Select eBox tasks to install';
 my $PACKAGE_TITLE = 'Select eBox packages to install';
 my $IFACES_TITLE = 'Select external interfaces';
@@ -34,9 +36,9 @@ my $MAIL_TITLE = 'Enter default virtual mail domain';
 my $FINAL_TITLE = 'Installation finished';
 my $FINAL_MESSAGE = 'Now you can access eBox interface at https://localhost/';
 
+my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 
-my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
-my $LOG = $ENV{LOG} or '/tmp/ebox-installer.log';
+my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 
 ############################
 # -- installation process --
@@ -78,10 +80,12 @@ sub installPackages # (packages)
     my $num = `LANG=C apt-get install -s $packageList | grep ^Inst | wc -l`;
     chomp($num);
 
-    my $aptCmd = 'LANG=C apt-get install -q -y';
+    my $aptCmd = 'LANG=C apt-get install -y --force-yes';
     my $text = 'Installing eBox packages...';
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
     my $gaugeCmd = "$INSTALL_FILES_PATH/ebox-apt-parse $num | $whipCmd";
+
+    $ENV{DEBIAN_FRONTEND} = 'noninteractive';
     my $ret = system ("$aptCmd $packageList | tee -a $LOG | $gaugeCmd");
 
     if ($ret != 0) {

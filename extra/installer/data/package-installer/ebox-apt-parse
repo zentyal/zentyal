@@ -3,4 +3,5 @@
 NUM=$1 # Number of packages to install
 
 echo 0
-grep -e "^Get\|^Fetched\|^Unpacking\|^Setting" | awk "BEGIN {C=0} {C+=25/$NUM ; print int(C)}"
+grep --line-buffered -e "^Unpacking\|^Setting" | sed -u -n '=' |
+    sed -u -n "s/.*/&\*50\/$NUM/p" | bc
