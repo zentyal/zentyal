@@ -27,8 +27,9 @@ my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES_PATH = '/var/tmp';
 my $TASK_TITLE = 'Select eBox tasks to install';
 my $PACKAGE_TITLE = 'Select eBox packages to install';
+my $IFACES_TITLE = 'Select external interfaces';
 my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
-my $LOG = $ENV{LOG};
+my $LOG = $ENV{LOG} or '/tmp/ebox-installer.log';
 
 ############################
 # -- installation process --
@@ -36,6 +37,18 @@ my $LOG = $ENV{LOG};
 
 my @packages = selectPackagesMenu();
 installPackages(@packages);
+
+# TODO: Choose eBox password
+
+# Choose interfaces to mark as external
+my @selectedIfaces = selectIfacesMenu();
+foreach my $iface (@selectedIfaces) {
+    system ("$INSTALL_FILES_PATH/ebox-set-external $iface >> $LOG 2>&1");
+}
+
+# TODO: Choose mail domain
+
+# TODO: Show instalation complete message with access instructions
 
 ###########################
 # -- installer functions --
@@ -88,6 +101,25 @@ sub selectPackagesMenu # returns array
                 showError('You must select at least one package.');
                 $ret = -1;
             }
+        }
+    } while ($ret != 0);
+
+    return @selection;
+}
+
+sub selectIfacesMenu # returns array
+{
+    my $ifaceList = `$INSTALL_FILES_PATH/ebox-get-ifaces`;
+    my @ifaces = split (' ', $ifaceList);
+
+    my @selection;
+    my $option = '';
+    my $ret = 0;
+    do {
+        $ret = showChecklist($IFACES_TITLE, @ifaces);
+        if ($ret == 0) {
+            @selection = arrayFromFile($SELECTION_FILE);
+            unlink ($SELECTION_FILE);
         }
     } while ($ret != 0);
 

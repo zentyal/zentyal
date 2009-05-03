@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $network = EBox::Global->modInstance('network');
+
+my @ifaces = @{$network->ifaces()};
+
+print join (' ', @ifaces);
+
+1;
+
