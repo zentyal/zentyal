@@ -22,3 +22,6 @@ noload => chan_skinny.so
 noload => chan_unistim.so
 noload => pbx_dundi.so
 noload => chan_mgcp.so
+noload => res_config_pgsql
+noload => app_voicemail_odbc.so
+noload => app_directory_odbc.so
