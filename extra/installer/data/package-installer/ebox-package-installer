@@ -30,6 +30,9 @@ my $PACKAGE_TITLE = 'Select eBox packages to install';
 my $IFACES_TITLE = 'Select external interfaces';
 my $PASS_TITLE = 'Enter password for eBox interface';
 my $PASS_CONFIRM_TITLE = 'Confirm password for eBox interface';
+my $MAIL_TITLE = 'Enter default virtual mail domain';
+my $FINAL_TITLE = 'Installation finished';
+my $FINAL_MESSAGE = 'Now you can access eBox interface at https://localhost/';
 
 
 my $WHIPTAIL_ARGS = '--backtitle "eBox Installer"';
@@ -52,9 +55,14 @@ foreach my $iface (@selectedIfaces) {
     system ("$INSTALL_FILES_PATH/ebox-set-external $iface >> $LOG 2>&1");
 }
 
-# TODO: Choose mail domain
+# Choose mail domain if mail module is installed
+if (system ("$INSTALL_FILES_PATH/ebox-mail-installed") == 0) {
+    my $domain = askMailDomain();
+    system ("$INSTALL_FILES_PATH/ebox-set-maildomain $domain >> $LOG 2>&1");
+}
 
-# TODO: Show instalation complete message with access instructions
+# Show instalation complete message with access instructions
+showDialog($FINAL_TITLE, $FINAL_MESSAGE);
 
 ###########################
 # -- installer functions --
@@ -77,8 +85,8 @@ sub installPackages # (packages)
     my $ret = system ("$aptCmd $packageList | tee -a $LOG | $gaugeCmd");
 
     if ($ret != 0) {
-        showError('Installation failed. ' .
-                  "Check contents of $LOG to see what happened");
+        showDialog('Error', 'Installation failed. ' .
+                   "Check contents of $LOG to see what happened");
         exit (1);
     }
 }
@@ -104,7 +112,7 @@ sub selectPackagesMenu # returns array
             @selection = arrayFromFile($SELECTION_FILE);
             unlink ($SELECTION_FILE);
             if (scalar (@selection) == 0) {
-                showError('You must select at least one package.');
+                showDialog('Error', 'You must select at least one package.');
                 $ret = -1;
             }
         }
@@ -141,11 +149,23 @@ sub askPassword # returns string
         $confirm = showPasswordDialog($PASS_CONFIRM_TITLE);
 
         if ($password ne $confirm) {
-            showError("Passwords don't match");
+            showDialog('Error', "Passwords don't match");
         }
     } until ($password eq $confirm);
 
     return $password;
+}
+
+sub askMailDomain # returns string
+{
+    my $domain;
+    do {
+        $domain = showInputDialog($MAIL_TITLE);
+
+        # TODO: domain validation?
+    } until ($domain);
+
+    return $domain;
 }
 
 #################################
@@ -195,15 +215,29 @@ sub showChecklist # (title, options)
     system ("$command 2> $SELECTION_FILE");
 }
 
+sub showInputDialog # (title)
+{
+    my ($title) = @_;
+
+    showGenericInputDialog('inputbox', $title);
+}
+
 sub showPasswordDialog # (title)
 {
     my ($title) = @_;
+
+    showGenericInputDialog('passwordbox', $title);
+}
+
+sub showGenericInputDialog # (type, title) returns input string
+{
+    my ($type, $title) = @_;
 
     my $height = 8;
     my $width = 60; # FIXME: find proper size instead of random one
 
     my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
-                  "--passwordbox \"$title\" $height $width";
+                  "--$type \"$title\" $height $width";
 
     my @selection;
     do {
@@ -215,11 +249,9 @@ sub showPasswordDialog # (title)
     return $selection[0];
 }
 
-sub showError # (message)
+sub showDialog # (title, message)
 {
-    my ($message) = @_;
-
-    my $title = 'Error';
+    my ($title, $message) = @_;
 
     my $size = 1;
     my $height = $size + 7;

@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $domain = $ARGV[0];
+
+my $mail = EBox::Global->modInstance('mail');
+my $model = $mail->model('VDomains');
+
+$model->addRow(vdomain => $domain, aliases => []);
+
+$mail->save();
+
+1;
+

@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+if (EBox::Global->modExists('mail')) {
+    exit (0);
+} else {
+    exit (1);
+}
+
