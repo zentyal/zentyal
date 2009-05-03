@@ -38,7 +38,8 @@ localnet=<% $net %>
 % }
 
 srvlookup=yes
-allow=all
+disalow=all
+allow=alaw,ulaw,gsm
 language=en
 videosupport=yes
 
