@@ -1,3 +1,5 @@
+1.1.10
+	+ Make slapd listen only on 127.0.0.1
 1.1
 	+ Added bind v2 compability needed by squid auth, slapd conf
 	regenerated and daemon restarted in postinst to commit possibles
