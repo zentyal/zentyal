@@ -756,24 +756,9 @@ sub _cleanDomainFilterFiles
   # deleting the file so the directory is not empty
 
     my %fgDirs =();
-
-    my $filterGroups = $self->model('FilterGroup');
-    my $defaultGroupName = $filterGroups->defaultGroupName();
-    foreach my $id ( @{ $filterGroups->ids() } ) {
-        my $row = $filterGroups->row($id);
-        my $filterPolicy =   $row->elementByName('filterPolicy');     
-        my $fSettings = $filterPolicy->foreignModelInstance();
+    foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
+        $fgDirs{$domainFilterFiles->listFileDir} = 1;
         
-        my $domainFilterFiles;
-        if ($row->valueByName('name') eq $defaultGroupName) {
-            $domainFilterFiles = 
-                $fSettings->componentByName('DomainFilterFiles', 1);
-        } else {
-            $domainFilterFiles = 
-                $fSettings->componentByName('FilterGroupDomainFilterFiles', 1);
-            $fgDirs{$domainFilterFiles->listFileDir} = 1;
-        }
-
         $domainFilterFiles->setupArchives();
         $domainFilterFiles->cleanOrphanedFiles();
     }
@@ -802,6 +787,33 @@ sub _cleanDomainFilterFiles
     }
 
 }
+
+sub _domainFilterFilesComponents
+{
+    my ($self) = @_;
+
+    my @components;
+
+    my $filterGroups = $self->model('FilterGroup');
+    my $defaultGroupName = $filterGroups->defaultGroupName();
+    foreach my $id ( @{ $filterGroups->ids() } ) {
+        my $row = $filterGroups->row($id);
+        my $filterPolicy =   $row->elementByName('filterPolicy');     
+        my $fSettings = $filterPolicy->foreignModelInstance();
+        
+        my $domainFilterFiles;
+        if ($row->valueByName('name') eq $defaultGroupName) {
+            push @components, 
+                $fSettings->componentByName('DomainFilterFiles', 1);
+        } else {
+            push @components,
+                $fSettings->componentByName('FilterGroupDomainFilterFiles', 1);
+        }
+    }
+
+    return \@components;
+}
+
 
 sub _banThresholdActive
 {

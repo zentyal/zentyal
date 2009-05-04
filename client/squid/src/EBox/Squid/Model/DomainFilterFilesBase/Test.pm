@@ -31,10 +31,11 @@ use lib '../../../..';
 
 use EBox::Squid;
 use EBox::Squid::Model::DomainFilterFilesBase;
+use EBox::Squid::Model::FilterGroup;
 
 
-my $tmpDir = '/home/javier/old/tmp';
-#my $tmpDir = '/tmp';
+#my $tmpDir = '/home/javier/old/tmp';
+my $tmpDir = '/tmp';
 
 sub addArchiveTest : Test(2)
 {
@@ -345,6 +346,8 @@ sub _newInstance
     
     my $squid = EBox::Squid->_create();
 
+
+
     my $base = EBox::Squid::Model::DomainFilterFilesBase->new(gconfmodule => $squid,
                                                               directory => 'DomainFilterFilesBaseTest',
                                                              );
@@ -358,13 +361,14 @@ sub _newInstance
                        } 
          );
 
-#     $instance->mock('categoryForeignModel' => \&_categoryForeignModel);
-#     $instance->mock('categoryForeignModelView' => \&_categoryForeignModelView);
-#     $instance->mock('categoryBackView' => &_categoryBackView);
+
+    my $fakeComponentList = [ $instance ];
+    $self->_setFakeDomainFilterFilesComponents($fakeComponentList);
 
     return $instance;
 
 }
+
 
 
 
@@ -408,31 +412,62 @@ sub _table
   }
 
 
-
-
-sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModel
 {
-    return 'DomainFilterCategories';
+    no warnings 'redefine';
+
+    sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModel
+    {
+        return 'DomainFilterCategories';
+    }
+    
+    sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModelView
+    {
+        return '/ebox/Squid/View/DomainFilterCategories';
+    }
+    
+    
+    sub EBox::Squid::Model::DomainFilterFilesBase::categoryBackView
+    {
+        return '/ebox/Squid/Composite/FilterSettings';
+    }
+    
+    
+    
+    sub EBox::Types::Abstract::setRow
+    {
+        my ($self, $row) = @_;
+        $self->{'row'} = $row;
+    }
+    
+    
+    
+    sub EBox::Squid::Model::DomainFilterFiles::listFileDir
+    {
+        return _listFileDir(@_);
+    }
+
+
+    my $fakeDomainFilterFilesComponents;
+    sub _setFakeDomainFilterFilesComponents
+     {
+            my ($self, $fakeList) = @_;
+            $fakeDomainFilterFilesComponents = $fakeList;
+     }
+
+    sub fakeDomainFilterFilesComponents
+     {
+         return $fakeDomainFilterFilesComponents;
+     }
+
+
+    sub EBox::Squid::_domainFilterFilesComponents
+     {
+         return 
+ EBox::Squid::Model::DomainFilterFilesBase::Test::fakeDomainFilterFilesComponents();
+
+
+     }
+    
 }
-
-sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModelView
-{
-    return '/ebox/Squid/View/DomainFilterCategories';
-}
-
-
-sub EBox::Squid::Model::DomainFilterFilesBase::categoryBackView
-{
-    return '/ebox/Squid/Composite/FilterSettings';
-}
-
-
-
-sub EBox::Types::Abstract::setRow
-{
-    my ($self, $row) = @_;
-    $self->{'row'} = $row;
-}
-
 
 1;
