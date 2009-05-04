@@ -10,8 +10,9 @@
 	+ Bugfix: running method in Greylist does not fail if there is not
 	eventd fil
 	+ Bugfix: force removal of previous data in backup
-	+Bugfx: removed bad suprefluous call that was the source of
+	+Bugfix: removed bad suprefluous call that was the source of
 	, at least, restore errors
+	+ More robust mailqueue template
 0.12.101
 	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
