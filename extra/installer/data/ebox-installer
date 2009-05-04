@@ -39,33 +39,6 @@ export HOME=/root # needed for ssl-cert postinst
 echo Launching eBox package installer...
 /var/tmp/ebox-package-installer
 
-# Enable eBox modules
-echo Preconfiguring eBox modules...
-/var/tmp/enable-all-modules.pl >> $LOG 2>&1
-rm /var/tmp/enable-all-modules.pl
-
-
-# load LANG variable with default locale
-. /etc/default/locale
-
-# Append eBox support languages to generate to current supported
-# locales
-LOCALES_FILE=/var/lib/locales/supported.d/local
-TMP=/tmp/local.tmp
-cat /var/tmp/locale.gen $LOCALES_FILE > $TMP
-sort $TMP | uniq > $LOCALES_FILE
-rm -f $TMP
-
-# Regenerate locales to update the new messages from eBox
-/usr/sbin/locale-gen
-
-/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1
-
-# Run ebox-software in order to update packages list (which is done
-# nightly)
-#echo "Updating package list"
-#ebox-software
-
 # delete itself
 echo Cleaning up eBox installer files...
 rm -f /var/tmp/locale.gen

@@ -24,14 +24,14 @@ use strict;
 my $TASK_FILE = 'tasks.list';
 my $PACKAGE_FILE = 'packages.list';
 my $SELECTION_FILE = 'selection';
-my $INSTALL_FILES_PATH = '/var/tmp';
+my $INSTALL_FILES = '/var/tmp';
 
 my $INSTALLER_TITLE = 'eBox Installer';
 my $TASK_TITLE = 'Select eBox tasks to install';
 my $PACKAGE_TITLE = 'Select eBox packages to install';
 my $IFACES_TITLE = 'Select external interfaces';
 my $PASS_TITLE = 'Enter password for eBox interface';
-my $PASS_CONFIRM_TITLE = 'Confirm password for eBox interface';
+my $PASS_CNFIRM_TITLE = 'Confirm password for eBox interface';
 my $MAIL_TITLE = 'Enter default virtual mail domain';
 my $FINAL_TITLE = 'Installation finished';
 my $FINAL_MESSAGE = 'Now you can access eBox interface at https://localhost/';
@@ -39,6 +39,14 @@ my $FINAL_MESSAGE = 'Now you can access eBox interface at https://localhost/';
 my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 
 my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
+
+########################
+# -- global variables --
+########################
+
+my $CNF_password;
+my @CNF_selectedIfaces;
+my $CNF_domain = undef;
 
 ############################
 # -- installation process --
@@ -48,20 +56,17 @@ my @packages = selectPackagesMenu();
 installPackages(@packages);
 
 # Choose password for eBox interface
-my $password = askPassword();
-system ("$INSTALL_FILES_PATH/ebox-set-password $password >> $LOG 2>&1");
+$CNF_password = askPassword();
 
 # Choose interfaces to mark as external
-my @selectedIfaces = selectIfacesMenu();
-foreach my $iface (@selectedIfaces) {
-    system ("$INSTALL_FILES_PATH/ebox-set-external $iface >> $LOG 2>&1");
-}
+@CNF_selectedIfaces = selectIfacesMenu();
 
 # Choose mail domain if mail module is installed
-if (system ("$INSTALL_FILES_PATH/ebox-mail-installed") == 0) {
-    my $domain = askMailDomain();
-    system ("$INSTALL_FILES_PATH/ebox-set-maildomain $domain >> $LOG 2>&1");
+if (system ("$INSTALL_FILES/ebox-mail-installed") == 0) {
+    $CNF_domain = askMailDomain();
 }
+
+preconfiguration();
 
 # Show instalation complete message with access instructions
 showDialog($FINAL_TITLE, $FINAL_MESSAGE);
@@ -83,7 +88,7 @@ sub installPackages # (packages)
     my $aptCmd = 'LANG=C apt-get install -y --force-yes';
     my $text = 'Installing eBox packages...';
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
-    my $gaugeCmd = "$INSTALL_FILES_PATH/ebox-apt-parse $num | $whipCmd";
+    my $gaugeCmd = "$INSTALL_FILES/ebox-apt-parse $num | $whipCmd";
 
     $ENV{DEBIAN_FRONTEND} = 'noninteractive';
     my $ret = system ("$aptCmd $packageList | tee -a $LOG | $gaugeCmd");
@@ -127,7 +132,7 @@ sub selectPackagesMenu # returns array
 
 sub selectIfacesMenu # returns array
 {
-    my $ifaceList = `$INSTALL_FILES_PATH/ebox-get-ifaces`;
+    my $ifaceList = `$INSTALL_FILES/ebox-get-ifaces`;
     my @ifaces = split (' ', $ifaceList);
 
     my @selection;
@@ -150,7 +155,7 @@ sub askPassword # returns string
     my $confirm;
     do {
         $password = showPasswordDialog($PASS_TITLE);
-        $confirm = showPasswordDialog($PASS_CONFIRM_TITLE);
+        $confirm = showPasswordDialog($PASS_CNFIRM_TITLE);
 
         if ($password ne $confirm) {
             showDialog('Error', "Passwords don't match");
@@ -170,6 +175,68 @@ sub askMailDomain # returns string
     } until ($domain);
 
     return $domain;
+}
+
+sub preconfiguration
+{
+    my $text = 'Preconfiguring eBox packages...';
+    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
+    my $PROGRESS;
+    open ($PROGRESS, '|-', $whipCmd);
+
+    # Enable eBox modules
+    system("$INSTALL_FILES/enable-all-modules.pl >> $LOG 2>&1");
+
+    print $PROGRESS "33\n";
+
+    # load LANG variable with default locale
+    my @lines = arrayFromFile('/etc/default/locale');
+    my $LANG = (split ('"', $lines[0]))[1];
+    $ENV{LANG} = $LANG;
+
+    print $PROGRESS "40\n";
+
+    # Append eBox support languages to generate to current supported
+    # locales
+    my $LOCALES_FILE='/var/lib/locales/supported.d/local';
+    my $TMP='/tmp/local.tmp';
+    system("cat /var/tmp/locale.gen $LOCALES_FILE > $TMP");
+    system("sort $TMP | uniq > $LOCALES_FILE");
+    unlink($TMP);
+
+    print $PROGRESS "50\n";
+
+    # Regenerate locales to update the new messages from eBox
+    system('/usr/sbin/locale-gen');
+
+    print $PROGRESS "60\n";
+
+    system("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
+
+    print $PROGRESS "70\n";
+
+    # Run ebox-software in order to update packages list (which is done
+    # nightly)
+    #system('ebox-software');
+
+    # eBox initial setup
+    system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
+
+    print $PROGRESS "80\n";
+
+    foreach my $iface (@CNF_selectedIfaces) {
+        system ("$INSTALL_FILES/ebox-set-external $iface >> $LOG 2>&1");
+    }
+
+    print $PROGRESS "90\n";
+
+    if (defined $CNF_domain) {
+        system ("$INSTALL_FILES/ebox-set-maildomain $CNF_domain >> $LOG 2>&1");
+    }
+
+    print $PROGRESS "100\n";
+
+    close ($PROGRESS);
 }
 
 #################################
@@ -276,7 +343,7 @@ sub arrayFromFile # (filename)
     my ($filename) = @_;
 
     my $fh;
-    open ($fh, '<', "$INSTALL_FILES_PATH/$filename") or
+    open ($fh, '<', "$INSTALL_FILES/$filename") or
         open ($fh, '<', $filename) or
             die "Can't read $filename file";
     my @array = <$fh>;
