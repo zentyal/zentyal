@@ -59,7 +59,6 @@ sub mailQueueList
     my ($class) =  @_;
 
     my $entry = {};
-    my @recipients;
     my @mqarray = ();
 #    use Data::Dumper;
     
@@ -88,7 +87,6 @@ sub mailQueueList
             # empty line signals the boundary between messages
             push(@mqarray, $entry);
             $entry = ();
-            @recipients = [];
         }
     }
     return \@mqarray;
