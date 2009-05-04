@@ -138,6 +138,7 @@ sub writeConf
     
     push @masonParams, ( antispamActive     => $self->antispam());
     push @masonParams, ( spamThreshold => $antispam->spamThreshold());
+    push @masonParams, ( spamSubject   =>  $antispam->spamSubjectTag);
     push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
     push @masonParams, 
         ( antispamWhitelist  => $antispam->whitelistForAmavisConf());
@@ -223,6 +224,8 @@ sub _confAttr
     my $row = $self->{configuration}->row();
     return $row->valueByName($attr);
 }
+
+
 
 sub _domain
 {

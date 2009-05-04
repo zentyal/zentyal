@@ -272,7 +272,17 @@ sub autoWhitelist
 sub spamSubjectTag
 {
     my ($self) = @_;
-    return $self->_confAttr('spamSubjectTag');
+    my $subjectTag =  $self->_confAttr('spamSubjectTag');
+
+    if ($subjectTag) {
+        if (not $subjectTag =~ m/\s$/) {
+            # add withespace to the end of the tag
+            $subjectTag .= ' ';
+        }
+    }
+
+
+    return $subjectTag;
 }
 
 sub spamThreshold

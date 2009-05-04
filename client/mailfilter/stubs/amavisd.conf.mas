@@ -21,7 +21,8 @@ $virusPolicy => 'D_DISCARD'
 $antispamActive     => 1
 $spamPolicy         => 'D_PASS'
 
-$spamThreshold           => 5
+$spamThreshold    => 5
+$spamSubject         
 
 $antispamLocalTestsOnly => 0
 $antispamAutoWhitelist  => 1
@@ -71,6 +72,7 @@ bindPasswd => $ldapBindPasswd,
   active => $antispamActive, 
 
   spamThreshold  => $spamThreshold,
+  spamSubject    => $spamSubject,
   localTestsOnly =>  $antispamLocalTestsOnly,
   autoWhitelist  => $antispamAutoWhitelist,
 
@@ -1153,6 +1155,8 @@ $spamThreshold
 $localTestsOnly
 $autoWhitelist
 
+$spamSubject
+
 @whitelist    => ()
 @blacklist    => ()
 </%args>
@@ -1218,7 +1222,7 @@ $sa_dsn_cutoff_level = undef;  # spam level beyond which a DSN is not sent,
 # tag_level <= tag2_level <= kill_level < $sa_dsn_cutoff_level
 
 # string to prepend to Subject header field when message exceeds tag2 level
-$sa_spam_subject_tag = undef; # disabled, we take care on this in spamassassin
+$sa_spam_subject_tag = '<% $spamSubject %>'; 
 
 			     # (only seen when spam is not to be rejected
 			     # and recipient is in local_domains*)

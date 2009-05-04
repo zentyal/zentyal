@@ -16,6 +16,7 @@
 	+ Fixed bug in learnspamd: adapted to spam/ham accoutns interface
 	change
        + Bugfix: force removal of previous data in backup
+       + Bugfix: fixed regression bug, amavisd now prepends spam subject tag
 0.12.99
 	+ New release
 0.12.1

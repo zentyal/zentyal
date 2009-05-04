@@ -28,6 +28,7 @@ my @mandatoryParams = (
 		       adminAddress => 'alpha@macaco.org',
 
 		       allowedExternalMTAs => [],
+                       spamSubject        => '**SPAM**',
 );
 
 
@@ -58,7 +59,7 @@ sub _checkConfFile
 {
   my ($file) = @_;
 
-  system "grep -v '------' $file > $file"; # XXX FIXME file separator in mason tests
+  system "grep -v -e '------' $file > $file"; # XXX FIXME file separator in mason tests
 
   my $testName = 'Checking wether the amavisd conf file passes the perl compilation';
   my $code =  read_file($file);
