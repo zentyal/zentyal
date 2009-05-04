@@ -58,16 +58,19 @@ sub mailQueueList
 {
     my ($class) =  @_;
 
-    my $entry = {};
+    my $entry = {
+                 recipients => [],
+                };
     my @mqarray = ();
 #    use Data::Dumper;
     
-    my $mailqOutput = root('/usr/bin/mailq');
+    my $mailqOutput = EBox::Sudo::root('/usr/bin/mailq');
+    
+
     foreach my $line (@{ $mailqOutput  }) {
         if ($line =~ m/^-/) {
             next;
-        }
-        elsif ($line =~ m/^\w+\s/) {
+        } elsif ($line =~ m/^\w+\s/) {
             # this is the id + info line
             my ($qid, $size, $dweek, $month, $day, $time, $sender) = 
                 split '\s+', $line;
@@ -79,13 +82,14 @@ sub mailQueueList
             # this is amessage line
             my ($msg) = $line =~ m/^\s*\((.*)\)$/;
             $entry->{'msg'} = $msg;
-        } elsif ($line =~ m/^\s+\w+\@.*$/) {
+        } elsif ($line =~ m/^\s+[^\s]+\@.*$/) {
             # this a recipient line
-            my ($rec) = $line =~ m/^\s+(\w+\@.*).*$/;
+            my ($rec) = $line =~ m/^\s+([^\s]+\@.*).*$/;
             push(@{$entry->{'recipients'}}, $rec);
         } elsif ($line =~ m/^$/) {
             # empty line signals the boundary between messages
             push(@mqarray, $entry);
+#           $entry = { recipients => [] };
             $entry = ();
         }
     }

@@ -12,7 +12,7 @@
 	+ Bugfix: force removal of previous data in backup
 	+Bugfix: removed bad suprefluous call that was the source of
 	, at least, restore errors
-	+ More robust mailqueue template
+	+ Mailqueque parsing error fixed and more robust mailqueue template
 0.12.101
 	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
