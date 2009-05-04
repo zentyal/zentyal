@@ -36,6 +36,9 @@ fi
 
 export HOME=/root # needed for ssl-cert postinst
 
+# Workaround buggy logging system
+sed -i '1 i QUIET=yes' /etc/lsb-base-logging.sh
+
 echo Launching eBox package installer...
 /var/tmp/ebox-package-installer
 
@@ -44,3 +47,5 @@ echo Cleaning up eBox installer files...
 rm -f /var/tmp/locale.gen
 update-rc.d -f $RC_NAME remove
 rm /etc/init.d/$RC_NAME
+# Restore file to its original status
+sed -i '1 d' /etc/lsb-base-logging.sh

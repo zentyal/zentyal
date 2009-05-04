@@ -91,7 +91,7 @@ sub installPackages # (packages)
     my $gaugeCmd = "$INSTALL_FILES/ebox-apt-parse $num | $whipCmd";
 
     $ENV{DEBIAN_FRONTEND} = 'noninteractive';
-    my $ret = system ("$aptCmd $packageList | tee -a $LOG | $gaugeCmd");
+    my $ret = system ("$aptCmd $packageList 2>&1 | tee -a $LOG | $gaugeCmd");
 
     if ($ret != 0) {
         showDialog('Error', 'Installation failed. ' .
@@ -207,7 +207,7 @@ sub preconfiguration
     print $PROGRESS "50\n";
 
     # Regenerate locales to update the new messages from eBox
-    system('/usr/sbin/locale-gen');
+    system("/usr/sbin/locale-gen >> $LOG 2>&1");
 
     print $PROGRESS "60\n";
 
