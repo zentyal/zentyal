@@ -80,7 +80,7 @@ sub _addUser
     my $users = EBox::Global->modInstance('users');
     my $ldap = $self->{ldap};
 
-    my $dn = "uid=$user," . $users->usersDn;
+    my $dn = $users->userDn($user);
 
     my $extensions = new EBox::Asterisk::Extensions;
 
