@@ -79,6 +79,32 @@ sub addArchiveTest : Test(2)
 }
 
 
+
+sub removeAndSaveTest : Test(4)
+{
+    my ($self) = @_;
+
+    my $filterFiles = $self->_newInstance();
+    my $squid = EBox::Global->modInstance('squid');
+
+    my $id = 'removeAndRevokeTest';
+    my $archiveFile = $filterFiles->listFileDir() . '/' . $id;
+    $self->_addShallaRow($filterFiles, $id);
+
+    my $contentsDir = $filterFiles->archiveContentsDir($id);
+
+    lives_ok {
+        $filterFiles->removeRow($id);
+    } 'removing row';
+    lives_ok {
+        $squid->_cleanDomainFilterFiles();
+    } 'configuration saved';
+
+    file_not_exists_ok($archiveFile);
+    file_not_exists_ok($contentsDir);
+
+}
+
 sub discardTest : Test(3)
 {
     my ($self) = @_;
@@ -97,18 +123,7 @@ sub discardTest : Test(3)
     ($? == 0) or 
         die "no archive dir contents";
 
-    my $squidUnmocked = EBox::Global->modInstance('squid');
-    my $squid = new Test::MockObject::Extends($squidUnmocked);
-    $squid->mock('model', 
-                 sub {
-                     my ($self, $name) = @_;
-                     if ($name eq 'DomainFilterFiles') {
-                         return $filterFiles;
-                     }
-
-                     return EBox::Model::ModelProvider::model($self, $name);
-                 }
-                );
+     my $squid = EBox::Global->modInstance('squid');
 
     lives_ok {
         $filterFiles->removeAll(1); # XX needed by test setpu,

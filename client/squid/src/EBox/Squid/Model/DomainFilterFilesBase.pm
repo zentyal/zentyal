@@ -155,6 +155,17 @@ sub udpatedRowNotify
 }
 
 
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    # we remove the files here, if the delete is disacarded we will regenerate
+    # the archive. Otherwise we have the bug that the files are only deleted the
+    # second time
+    my $id = $row->valueByName('description');
+    my $archiveContentsDir = $self->archiveContentsDir($id);
+    EBox::Sudo::root("rm -rf $archiveContentsDir");
+}
+
 
 
 sub _checkRow
@@ -569,11 +580,7 @@ sub cleanOrphanedFiles
 
     my %expectedFiles = %{ $self->_expectedArchiveFiles() };
 
-    use Data::Dumper; # XXX debug!
-    EBox::debug("Exepcted files " . Dumper(\%expectedFiles));
-
     my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") }; 
-    EBox::debug("list files" . Dumper(\@listFiles));
     foreach my $file (@listFiles) {
         chomp $file;
 
@@ -592,7 +599,6 @@ sub cleanOrphanedFiles
 
     # now check the archive dirs for delete leftovers
     my $archivesDirs = EBox::Sudo::root("find $archivesDirBase -maxdepth 1 -type d");
-    EBox::debug("archive files" . Dumper($archivesDirs));
     foreach my $archDir (@{ $archivesDirs }) {
         chomp $archDir;
         if ($archDir eq $archivesDirBase) {
