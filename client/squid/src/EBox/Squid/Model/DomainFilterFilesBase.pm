@@ -161,7 +161,7 @@ sub deletedRowNotify
     # we remove the files here, if the delete is disacarded we will regenerate
     # the archive. Otherwise we have the bug that the files are only deleted the
     # second time
-    my $id = $row->valueByName('description');
+    my $id =  $self->_fileId($row);
     my $archiveContentsDir = $self->archiveContentsDir($id);
     EBox::Sudo::root("rm -rf $archiveContentsDir");
 }
