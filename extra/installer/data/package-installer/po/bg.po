@@ -1,0 +1,129 @@
+# Bulgarian translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2009.
+#
+#: ebox-package-installer:181 ebox-package-installer:184
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-. \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-05 02:23+0200\n"
+"PO-Revision-Date: 2009-05-05 02:23+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ebox-package-installer:27
+msgid "FIXME: ebox-gateway description"
+msgstr ""
+
+#: ebox-package-installer:28
+msgid "FIXME: ebox-security description"
+msgstr ""
+
+#: ebox-package-installer:29
+msgid "FIXME: ebox-infrastructure description"
+msgstr ""
+
+#: ebox-package-installer:30
+msgid "FIXME: ebox-office description"
+msgstr ""
+
+#: ebox-package-installer:31
+msgid "FIXME: ebox-communication description"
+msgstr ""
+
+#: ebox-package-installer:35 ebox-package-installer:36
+#: ebox-package-installer:37 ebox-package-installer:38
+#: ebox-package-installer:39 ebox-package-installer:40
+#: ebox-package-installer:41 ebox-package-installer:42
+#: ebox-package-installer:43 ebox-package-installer:44
+#: ebox-package-installer:45 ebox-package-installer:46
+#: ebox-package-installer:47 ebox-package-installer:48
+#: ebox-package-installer:49 ebox-package-installer:50
+#: ebox-package-installer:51 ebox-package-installer:52
+#: ebox-package-installer:53 ebox-package-installer:54
+#: ebox-package-installer:55 ebox-package-installer:56
+#: ebox-package-installer:57 ebox-package-installer:58
+msgid "FIXME: description"
+msgstr ""
+
+#: ebox-package-installer:70
+msgid "eBox Installer"
+msgstr ""
+
+#: ebox-package-installer:71
+msgid "simple"
+msgstr ""
+
+#: ebox-package-installer:72
+msgid "Select typical sets of packages"
+msgstr ""
+
+#: ebox-package-installer:73
+msgid "advanced"
+msgstr ""
+
+#: ebox-package-installer:74
+msgid "Select packages manually"
+msgstr ""
+
+#: ebox-package-installer:75
+msgid "Select eBox tasks to install"
+msgstr ""
+
+#: ebox-package-installer:76
+msgid "Select eBox packages to install"
+msgstr ""
+
+#: ebox-package-installer:77
+msgid "Select external interfaces"
+msgstr ""
+
+#: ebox-package-installer:78
+msgid "Enter password for eBox interface"
+msgstr ""
+
+#: ebox-package-installer:79
+msgid "Confirm password for eBox interface"
+msgstr ""
+
+#: ebox-package-installer:80
+msgid "Enter default virtual mail domain"
+msgstr ""
+
+#: ebox-package-installer:81
+msgid "Installation finished"
+msgstr ""
+
+#: ebox-package-installer:82
+msgid "Now you can access eBox interface at https://localhost/"
+msgstr ""
+
+#: ebox-package-installer:135
+msgid "Installing eBox packages..."
+msgstr ""
+
+#: ebox-package-installer:143 ebox-package-installer:167
+#: ebox-package-installer:206
+msgid "Error"
+msgstr ""
+
+#: ebox-package-installer:168
+msgid "You must select at least one package."
+msgstr ""
+
+#: ebox-package-installer:206
+msgid "Passwords don't match"
+msgstr ""
+
+#: ebox-package-installer:227
+msgid "Preconfiguring eBox packages..."
+msgstr ""
+
+#: ebox-package-installer:293
+msgid "Choose package selection method"
+msgstr ""

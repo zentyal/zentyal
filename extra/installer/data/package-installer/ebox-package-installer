@@ -62,8 +62,6 @@ my @PACKAGES = (
 # -- constants --
 #################
 
-my $TASK_FILE = 'tasks.list';
-my $PACKAGE_FILE = 'packages.list';
 my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES = '/var/tmp';
 
