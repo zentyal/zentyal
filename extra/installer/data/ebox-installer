@@ -36,6 +36,10 @@ fi
 
 export HOME=/root # needed for ssl-cert postinst
 
+# Copy package-installer .mo files
+cp -r /var/tmp/po/locale /usr/share
+. /etc/default/locale
+
 # Workaround buggy logging system
 sed -i '1 i QUIET=yes' /etc/lsb-base-logging.sh
 

@@ -14,3 +14,8 @@ test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 rm -rf $CD_EBOX_DIR/*
 
 cp -r $DATA_DIR/* $CD_EBOX_DIR/
+
+# Generate mo files
+cd $DATA_DIR/package-installer/po
+./generate-mo-files.sh $CD_EBOX_DIR/
+cd -

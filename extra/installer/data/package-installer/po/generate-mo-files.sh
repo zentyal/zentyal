@@ -6,7 +6,7 @@ DEST=$1
 
 for i in `cat LINGUAS`
 do
-    DIR=$DEST/locale/$i/lC_MESSAGES
+    DIR=$DEST/locale/$i/LC_MESSAGES
     [ -d $DIR ] || mkdir -p $DIR
     msgfmt -o $DIR/ebox-package-installer.mo $i.po
 done
