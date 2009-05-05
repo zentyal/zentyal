@@ -110,6 +110,9 @@ sub extensions
 #
 #      integer - extension
 #
+#  Assumptions:
+#    - non-numeric extension are ignored
+#   
 sub firstFreeExtension
 {
     my ($self) = @_;
@@ -122,26 +125,42 @@ sub firstFreeExtension
 
     my $result = $self->{ldap}->search(\%args);
 
-    my @extns = map { $_->get_value('cn') } $result->sorted('cn');
-
-    my $len = @extns;
-
-    my $extn;
-    if ($len == 0) { # this is needed in case the array is empty
-        return MINEXTN;
-    } elsif (($extns[0] ne MINEXTN."-1")) { # if first range value is free we return
-        # it, this assures next code allways fill in the full range
-        return MINEXTN;
-    } else {
-        for (my $i=0; $i < $len-1; $i++) {
-            if ($extns[$i+1]-$extns[$i] > 1) {
-                $extn = $extns[$i]+1;
-                return $extn <= MAXEXTN ? $extn : 0;
+    my $lastSeen = 0;
+    my @extns = map { 
+        my $cn = $_->get_value('cn') ;
+        if ($cn =~  m/^\d*-?\d+$/)  {
+            my ($ext) = split('-', $cn);
+            if ($ext != $lastSeen) {
+                $lastSeen = $ext;
+                $ext;
+            } else {
+                # repeated number!
+                ()
             }
+        } else {
+            ();
         }
-    } # we didn't find any hole
-    $extn = $extns[$#extns]+1;
-    return $extn <= MAXEXTN ? $extn : 0;
+    } $result->sorted('cn');
+
+    my $candidate = undef;
+    my $lastNumber = MINEXTN -1;
+    # search for holes in the numbers
+    foreach my $number (@extns) {
+        my $expectedNumber = $lastNumber + 1;
+        if ($number != $expectedNumber) {
+            $candidate = $expectedNumber;
+            last;
+        }
+        
+        $lastNumber = $number;
+    }
+
+    if (not $candidate) {
+        # we didn't find any hole
+        $candidate = $lastNumber + 1;
+    }
+
+    return $candidate <= MAXEXTN ? $candidate : 0;
 }
 
 
@@ -442,6 +461,12 @@ sub checkExtension
     } else {
         return 1;
     }
+}
+
+
+sub maxUserExtension
+{
+    return MAXEXTN;
 }
 
 1;
