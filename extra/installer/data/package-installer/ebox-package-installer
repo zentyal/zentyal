@@ -19,6 +19,8 @@ use strict;
 
 use EBox::Gettext;
 
+EBox::Gettext::settextdomain('ebox-package-installer');
+
 #########################
 # -- eBox package data --
 #########################
@@ -102,11 +104,13 @@ installPackages(@packages);
 # Choose password for eBox interface
 $CNF_password = askPassword();
 
-# Choose interfaces to mark as external
-@CNF_selectedIfaces = selectIfacesMenu();
+# Choose interfaces to mark as external if ebox-network is installed
+if (system ("$INSTALL_FILES/ebox-module-installed network") == 0) {
+    @CNF_selectedIfaces = selectIfacesMenu();
+}
 
 # Choose mail domain if mail module is installed
-if (system ("$INSTALL_FILES/ebox-mail-installed") == 0) {
+if (system ("$INSTALL_FILES/ebox-module-installed mail") == 0) {
     $CNF_domain = askMailDomain();
 }
 

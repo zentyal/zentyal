@@ -6,7 +6,11 @@ use EBox::Global;
 
 EBox::init();
 
-if (EBox::Global->getInstance()->modExists('mail')) {
+my $module = $ARGV[0];
+
+die "No module name given" unless ($module);
+
+if (EBox::Global->getInstance()->modExists($module)) {
     exit (0);
 } else {
     exit (1);
