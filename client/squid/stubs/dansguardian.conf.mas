@@ -52,7 +52,7 @@ nonstandarddelimiter = on
 
 
 filtergroups = <% $nGroups %>
-filtergroupslist = '/etc/dansguardian/filtergroupslist'
+filtergroupslist = '/etc/dansguardian/lists/filtergroupslist'
 
 # Authentication files location
 bannediplist = '/etc/dansguardian/lists/bannediplist'

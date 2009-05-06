@@ -30,21 +30,21 @@ defined $groupName or
 groupname = '<% $groupName %>'
 
 # Content filtering files location
-bannedphraselist = '/etc/dansguardian/bannedphraselist'
-weightedphraselist = '/etc/dansguardian/weightedphraselist'
-exceptionphraselist = '/etc/dansguardian/exceptionphraselist'
+bannedphraselist = '/etc/dansguardian/lists/bannedphraselist'
+weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
+exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 
 % foreach my $configFile (@groupConfigFiles) {
 %    my $number = $group;
 %    if ($defaults{$configFile} ) {
 %       $number = 1;
 %    }
-<% $configFile %> = '/etc/dansguardian/<% $configFile . $number %>'
+<% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $number %>'
 % }
 
-bannedregexpurllist = '/etc/dansguardian/bannedregexpurllist'
-picsfile = '/etc/dansguardian/pics'
-contentregexplist = '/etc/dansguardian/contentregexplist'
+bannedregexpurllist = '/etc/dansguardian/lists/bannedregexpurllist'
+picsfile = '/etc/dansguardian/lists/pics'
+contentregexplist = '/etc/dansguardian/lists/contentregexplist'
 
 # 50 is for young children,  100 for old children,  160 for young adults.
 % if ($threshold == 0) {
@@ -72,23 +72,23 @@ virusscan = on
 # OPTION: exceptionvirusextensionlist
 # The following file allow you to define file extensions
 # that should not be virus scanned.
-exceptionvirusextensionlist = '/etc/dansguardian/exceptionvirusextensionlist'
+exceptionvirusextensionlist = '/etc/dansguardian/lists/exceptionvirusextensionlist'
 # OPTION: exceptionvirusmimetypelist
 # The following file allow you to define mime types
 # that should not be virus scanned.
-exceptionvirusmimetypelist = '/etc/dansguardian/exceptionvirusmimetypelist'
+exceptionvirusmimetypelist = '/etc/dansguardian/lists/exceptionvirusmimetypelist'
 
 # OPTION: exceptionvirussitelist
 # File location of definition of sites not be virus scanned.
-exceptionvirussitelist = '/etc/dansguardian/exceptionvirussitelist'
+exceptionvirussitelist = '/etc/dansguardian/lists/exceptionvirussitelist'
 
 # OPTION: exceptionvirusurllist
 # File location of definition of URLs not be virus scanned.
-exceptionvirusurllist = '/etc/dansguardian/exceptionvirusurllist'
+exceptionvirusurllist = '/etc/dansguardian/lists/exceptionvirusurllist'
 
 # OPTION: dlmgrextensionlist
 # File location of file extensions to be handled by embedded download manager.
-dlmgrextensionlist = '/etc/dansguardian/dlmgrextensionlist'
+dlmgrextensionlist = '/etc/dansguardian/lists/dlmgrextensionlist'
 
 % } else {
 virusscan = off

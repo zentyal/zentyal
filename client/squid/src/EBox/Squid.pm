@@ -53,6 +53,7 @@ use constant MAXDOMAINSIZ => 255;
 use constant SQUIDPORT => '3128';
 use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
+use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
 
 sub _create
@@ -200,57 +201,57 @@ sub usedFiles
              'reason' => __('Default filter group configuration')
             },
             {
-             'file' => DGDIR . '/filtergroupslist',
+             'file' => DGLISTSDIR . '/filtergroupslist',
                  'module' => 'squid',
              'reason' => __('Filter groups membership')
             },
             {
-             'file' => DGDIR . '/bannedextensionlist',
+             'file' => DGLISTSDIR . '/bannedextensionlist',
              'module' => 'squid',
              'reason' => __('Content filter banned extension list')
             },
             {
-             'file' => DGDIR . '/bannedmimetypelist',
+             'file' => DGLISTSDIR . '/bannedmimetypelist',
                  'module' => 'squid',
              'reason' => __('Content filter banned mime type list')
             },
             {
-             'file' => DGDIR . '/exceptionsitelist',
+             'file' => DGLISTSDIR . '/exceptionsitelist',
              'module' => 'squid',
              'reason' => __('Content filter exception site list')
             },
             {
-             'file' => DGDIR . '/greysitelist',
+             'file' => DGLISTSDIR . '/greysitelist',
              'module' => 'squid',
              'reason' => __('Content filter grey site list')
             },
             {
-             'file' => DGDIR . '/bannedsitelist',
+             'file' => DGLISTSDIR . '/bannedsitelist',
              'module' => 'squid',
                  'reason' => __('Content filter banned site list')
             },
             {
-             'file' => DGDIR . '/exceptionurllist',
+             'file' => DGLISTSDIR . '/exceptionurllist',
              'module' => 'squid',
              'reason' => __('Content filter exception URL list')
             },
             {
-             'file' => DGDIR . '/greyurllist',
+             'file' => DGLISTSDIR . '/greyurllist',
              'module' => 'squid',
              'reason' => __('Content filter grey URL list')
             },
             {
-             'file' => DGDIR . '/bannedurllist',
+             'file' => DGLISTSDIR . '/bannedurllist',
              'module' => 'squid',
                  'reason' => __('Content filter banned URL list')
             },
             {
-              'file' =>    DGDIR . '/bannedphraselist',
+              'file' =>    DGLISTSDIR . '/bannedphraselist',
               'module' => 'squid',
               'reason' => __('Forbidden phrases list'),
              },
             {
-              'file' =>    DGDIR . '/exceptionphraselist',
+              'file' =>    DGLISTSDIR . '/exceptionphraselist',
               'module' => 'squid',
               'reason' => __('Exception phrases list'),
              },
@@ -667,7 +668,7 @@ sub _writeDgConf
 
 
    # write group lists
-    $self->writeConfFile(DGDIR . "/filtergroupslist",
+    $self->writeConfFile(DGLISTSDIR . "/filtergroupslist",
                          "squid/filtergroupslist.mas",
                          [
                           groups => \@dgFilterGroups,
@@ -675,11 +676,11 @@ sub _writeDgConf
                         );
 
   # disable banned and exception phgares lists
-  $self->writeConfFile(DGDIR . '/bannedphraselist',
+  $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
                        'squid/bannedphraselist.mas',
                        []
                       );
-  $self->writeConfFile(DGDIR . '/exceptionphraselist',
+  $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
                        'squid/exceptionphraselist.mas',
                        []
                       );
@@ -702,14 +703,14 @@ sub _writeDgConf
       if (not exists $group->{defaults}->{bannedextensionlist}) {
           @writeParam = ();
           push(@writeParam, 'extensions'  => $group->{bannedExtensions});
-          EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/bannedextensionlist$number",
+          EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedextensionlist$number",
                                       "squid/bannedextensionlist.mas", \@writeParam);
       }
 
       if (not exists $group->{defaults}->{bannedmimetypelist}) {
           @writeParam = ();
           push(@writeParam, 'mimeTypes' => $group->{bannedMIMETypes});
-          EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/bannedmimetypelist$number",
+          EBox::Module::Base::writeConfFileNoCheck(DGLISTSDIR . "/bannedmimetypelist$number",
                            "squid/bannedmimetypelist.mas", \@writeParam);
       }
 
@@ -864,7 +865,7 @@ sub _writeDgDomainsConf
           next;
       }
 
-      my $path     = DGDIR . '/' . $file . $number;
+      my $path     = DGLISTSDIR . '/' . $file . $number;
       my $template = "squid/$file.mas";
       EBox::Module::Base::writeConfFileNoCheck($path,
                                   $template,
