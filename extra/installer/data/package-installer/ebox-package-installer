@@ -101,6 +101,14 @@ my $CNF_domain = undef;
 my @packages = selectPackagesMenu();
 installPackages(@packages);
 
+# Apache is the most basic module, if it's not installed correctly,
+# we assume that the installation has failed
+if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
+        showDialog(__('Error'), __('Installation failed.') . "\n\n" .
+                   __("Check contents of $LOG to see what happened"));
+        exit (1);
+}
+
 # Choose password for eBox interface
 $CNF_password = askPassword();
 
