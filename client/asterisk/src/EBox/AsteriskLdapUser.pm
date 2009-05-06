@@ -71,7 +71,7 @@ sub new
 #
 sub _addUser
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $passwd) = @_;
 
     unless ($self->{asterisk}->configured()) {
         return;

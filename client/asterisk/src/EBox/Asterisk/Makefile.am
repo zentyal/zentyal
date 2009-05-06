@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Asterisk
 
-nobase_perl_DATA = Extensions.pm
+nobase_perl_DATA = Extensions.pm ImportFromLdif.pm
 
 DISTCLEANFILES =
 
