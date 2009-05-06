@@ -285,6 +285,12 @@ sub _includeLDAPAcls {
 sub setHasAccount
 {
     my ($self, $username, $option) = @_;
+    defined $option or
+        $option = 0;
+
+    my $hasAccount = $self->hasAccount($username);
+    ($hasAccount xor $option) or
+        return;
 
     if ($option) {
         $self->_addUser($username);

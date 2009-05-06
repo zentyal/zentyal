@@ -29,7 +29,7 @@ sub classesToProcess
 {
     return [
             { class => 'AsteriskExtension', priority => 30  },
-            { class => 'AsteriskSIPUser',     priority => 35 },
+            { class => 'posixAccount',     priority => 35 },
            ];
 }
 
@@ -47,24 +47,28 @@ sub _ldapUser
 }
 
 
-sub processAsteriskSIPUser
+sub processPosixAccount
 {
     my ($package, $entry) = @_;
 
     my $username = $entry->get_value('cn');
-    my $extn     = $entry->get_value('AstAccountCallerID');
-    my $mail     = $entry->get_value('AstAccountVMail');
-
-    if (not $extn) {
-        EBox::error("AstAccountCallerID not found for $username. Skipping it");
-        return;
-    }
-
     my $ldapUser = $package->_ldapUser();
-    $ldapUser->_addUser($username,
-                        extn => $extn,
-                        mail => $mail,
-                       );
+
+    # check if the user has asterisk enabled..
+    my @objectClasses = $entry->get_value('objectClass');
+    my $isSIPUser = grep {  $_ eq 'AsteriskSIPUser' } @objectClasses;
+    $ldapUser->setHasAccount($username, $isSIPUser);
+
+    if ($isSIPUser) {
+        my $extensions  = EBox::Asterisk::Extensions->new();
+        my $extn     = $entry->get_value('AstAccountCallerID');
+        
+        if (not $extensions->extensionExists($extn)) {
+            $extensions->modifyUserExtension($username, $extn);
+        }
+
+        #my $mail     = $entry->get_value('AstAccountVMail');
+    }
 
 }
 

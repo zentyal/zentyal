@@ -52,10 +52,8 @@ sub _process($) {
         if ($newextn ne $myextn) {
             $extensions->modifyUserExtension($username, $newextn);
         }
-    } else { # when deleting an account we check if already exists
-        if ($astldap->hasAccount($username)) {
+    } else { 
             $astldap->setHasAccount($username, 0);
-        }
     }
 }
 
