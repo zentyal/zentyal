@@ -384,7 +384,7 @@ sub _restoreFromHash
         my $path = $self->_path(); 
         $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
         $value->{port} =  $gconf->get_int($path . '/' . $port);
-	EBox::debug($path . '/' . $port);
+#	EBox::debug($path . '/' . $port);
         $self->_addToCache($value);
     }
 

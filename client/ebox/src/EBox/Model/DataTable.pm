@@ -896,13 +896,15 @@ sub addTypedRow
 
       $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
 
+      my $newRow = $self->row($id);
+
       $self->setMessage($self->message('add'));
-      $self->addedRowNotify($row);
-      $self->_notifyModelManager('add', $row);
-      $self->_notifyCompositeManager('add', $row);
+      $self->addedRowNotify($newRow);
+      $self->_notifyModelManager('add', $newRow);
+      $self->_notifyCompositeManager('add', $newRow);
 
       # check if there are files to delete if revoked
-      my $filesToRemove =   $self->filesPathsForRow($row);
+      my $filesToRemove =   $self->filesPathsForRow($newRow);
       foreach my $file (@{  $filesToRemove }) {
           $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
       }
