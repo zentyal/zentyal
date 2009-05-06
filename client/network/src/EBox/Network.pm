@@ -2116,7 +2116,7 @@ sub _daemons
         {
             'name' => 'ddclient',
             'type' => 'init.d',
-            'pidfile' => '/var/run/ddclient.pid',
+            'pidfiles' => ['/var/run/ddclient.pid'],
             'precondition' => \&isDDNSEnabled
         }
     ];

@@ -251,9 +251,13 @@ sub _isDaemonRunning
         throw EBox::Exceptions::Internal(
             "no such daemon defined in this module: " . $dname);
     }
-    if(defined($daemon->{'pidfile'})) {
-        my $pidfile = $daemon->{'pidfile'};
-        return $self->pidFileRunning($pidfile);
+    if(defined($daemon->{'pidfiles'})) {
+        foreach my $pidfile (@{$daemon->{'pidfiles'}}) {
+            unless ($self->pidFileRunning($pidfile)) {
+                return 0;
+            }
+        }
+        return 1;
     }
     if(daemon_type($daemon) eq 'upstart') {
         return EBox::Service::running($dname);

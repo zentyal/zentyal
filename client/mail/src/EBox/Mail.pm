@@ -475,7 +475,7 @@ sub _daemons
         {
             'name' => MAILINIT,
             'type' => 'init.d',
-            'pidfile' => MASTER_PID_FILE,
+            'pidfiles' => [MASTER_PID_FILE],
         },
         {
          name => DOVECOT_SERVICE,

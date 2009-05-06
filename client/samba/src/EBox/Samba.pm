@@ -63,8 +63,9 @@ use constant MAXNETBIOSLENGTH     => 32;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
 use constant SMBPORTS => qw(137 138 139 445);
-use constant NMBDSERVICE => 'ebox.nmbd';
-use constant SMBDSERVICE => 'ebox.smbd';
+use constant NMBD_PID => '/var/run/samba/nmbd.pid';
+use constant SMBD_PID => '/var/run/samba/smbd.pid';
+
 
 use constant FIX_SID_PROGRAM => '/usr/share/ebox-samba/ebox-fix-sid';
 use constant QUOTA_PROGRAM => '/usr/share/ebox-samba/ebox-samba-quota';
@@ -632,11 +633,10 @@ sub _daemons
 {
     return [
         {
-            'name' => SMBDSERVICE
+            'name' => 'samba',
+            'type' => 'init.d',
+            'pidfiles' => [SMBD_PID, NMBD_PID],
         },
-        {
-            'name' => NMBDSERVICE
-        }
     ];
 }
 
