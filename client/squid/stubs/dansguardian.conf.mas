@@ -46,8 +46,8 @@ accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/dansguardian.pl'
 nonstandarddelimiter = on
 
 
-usecustombannedimage = 1
-custombannedimagefile = '/etc/dansguardian/transparent1x1.gif'
+#usecustombannedimage = 1
+#custombannedimagefile = '/etc/dansguardian/transparent1x1.gif'
 
 
 
@@ -55,10 +55,10 @@ filtergroups = <% $nGroups %>
 filtergroupslist = '/etc/dansguardian/filtergroupslist'
 
 # Authentication files location
-bannediplist = '/etc/dansguardian/bannediplist'
-exceptioniplist = '/etc/dansguardian/exceptioniplist'
-banneduserlist = '/etc/dansguardian/banneduserlist'
-exceptionuserlist = '/etc/dansguardian/exceptionuserlist'
+bannediplist = '/etc/dansguardian/lists/bannediplist'
+exceptioniplist = '/etc/dansguardian/lists/exceptioniplist'
+#banneduserlist = '/etc/dansguardian/banneduserlist'
+#exceptionuserlist = '/etc/dansguardian/exceptionuserlist'
 
 showweightedfound = on
 
@@ -89,7 +89,107 @@ createlistcachefiles = on
 
 maxuploadsize = -1
 
+
+# Max content filter size
+# Sometimes web servers label binary files as text which can be very
+# large which causes a huge drain on memory and cpu resources.
+# To counter this, you can limit the size of the document to be
+# filtered and get it to just pass it straight through.
+# This setting also applies to content regular expression modification.
+# The value must not be higher than maxcontentramcachescansize
+# The size is in Kibibytes - eg 2048 = 2Mb
+# use 0 to set it to maxcontentramcachescansize
 maxcontentfiltersize = 256
+
+
+
+# Max content ram cache scan size
+# This is only used if you use a content scanner plugin such as AV
+# This is the max size of file that DG will download and cache
+# in RAM.  After this limit is reached it will cache to disk
+# This value must be less than or equal to maxcontentfilecachescansize.
+# The size is in Kibibytes - eg 10240 = 10Mb
+# use 0 to set it to maxcontentfilecachescansize
+# This option may be ignored by the configured download manager.
+maxcontentramcachescansize = 2000
+
+
+
+# Max content file cache scan size
+# This is only used if you use a content scanner plugin such as AV
+# This is the max size file that DG will download
+# so that it can be scanned or virus checked.
+# This value must be greater or equal to maxcontentramcachescansize.
+# The size is in Kibibytes - eg 10240 = 10Mb
+maxcontentfilecachescansize = 20000
+
+# File cache dir
+# Where DG will download files to be scanned if too large for the
+# RAM cache.
+filecachedir = '/tmp'
+
+
+
+# Delete file cache after user completes download
+# When a file gets save to temp it stays there until it is deleted.
+# You can choose to have the file deleted when the user makes a sucessful
+# download.  This will mean if they click on the link to download from
+# the temp store a second time it will give a 404 error.
+# You should configure something to delete old files in temp to stop it filling up.
+# on|off (defaults to on)
+deletedownloadedtempfiles = on
+
+# Initial Trickle delay
+# This is the number of seconds a browser connection is left waiting
+# before first being sent *something* to keep it alive.  The
+# *something* depends on the download manager chosen.
+# Do not choose a value too low or normal web pages will be affected.
+# A value between 20 and 110 would be sensible
+# This may be ignored by the configured download manager.
+initialtrickledelay = 20
+
+
+
+# Trickle delay
+# This is the number of seconds a browser connection is left waiting
+# before being sent more *something* to keep it alive.  The
+# *something* depends on the download manager chosen.
+# This may be ignored by the configured download manager.
+trickledelay = 10
+
+
+
+# Download Managers
+# These handle downloads of files to be filtered and scanned.
+# They differ in the method they deal with large downloads.
+# Files usually need to be downloaded 100% before they can be
+# filtered and scanned before being sent on to the browser.
+# Normally the browser can just wait, but with content scanning,
+# for example to AV, the browser may timeout or the user may get
+# confused so the download manager has to do some sort of
+# 'keep alive'.
+#
+# There are various methods possible but not all are included.
+# The author does not have the time to write them all so I have
+# included a plugin systam.  Also, not all methods work with all
+# browsers and clients.  Specifically some fancy methods don't
+# work with software that downloads updates.  To solve this,
+# each plugin can support a regular expression for matching
+# the client's user-agent string, and lists of the mime types
+# and extensions it should manage.
+#
+# Note that these are the matching methods provided by the base plugin
+# code, and individual plugins may override or add to them.
+# See the individual plugin conf files for supported options.
+#
+# The plugins are matched in the order you specify and the last
+# one is forced to match as the default, regardless of user agent
+# and other matching mechanisms.
+#
+downloadmanager = '/etc/dansguardian/downloadmanagers/fancy.conf'
+#downloadmanager = '/etc/dansguardian/downloadmanagers/trickle.conf'
+downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
+
 
 usernameidmethodproxyauth = on
 usernameidmethodntlm = off # **NOT IMPLEMENTED**
@@ -140,6 +240,38 @@ nologger = off
 # daemongroup = 'nobody'
 
 softrestart = off
+
+# Download Managers
+# These handle downloads of files to be filtered and scanned.
+# They differ in the method they deal with large downloads.
+# Files usually need to be downloaded 100% before they can be
+# filtered and scanned before being sent on to the browser.
+# Normally the browser can just wait, but with content scanning,
+# for example to AV, the browser may timeout or the user may get
+# confused so the download manager has to do some sort of
+# 'keep alive'.
+#
+# There are various methods possible but not all are included.
+# The author does not have the time to write them all so I have
+# included a plugin systam.  Also, not all methods work with all
+# browsers and clients.  Specifically some fancy methods don't
+# work with software that downloads updates.  To solve this,
+# each plugin can support a regular expression for matching
+# the client's user-agent string, and lists of the mime types
+# and extensions it should manage.
+#
+# Note that these are the matching methods provided by the base plugin
+# code, and individual plugins may override or add to them.
+# See the individual plugin conf files for supported options.
+#
+# The plugins are matched in the order you specify and the last
+# one is forced to match as the default, regardless of user agent
+# and other matching mechanisms.
+#
+downloadmanager = '/etc/dansguardian/downloadmanagers/fancy.conf'
+#downloadmanager = '/etc/dansguardian/downloadmanagers/trickle.conf'
+downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
+
 
 % if ($antivirus) {
 virusscan = on
