@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-all
 Architecture: all
-Depends: ebox-gateway, ebox-security, ebox-infrastructure, ebox-office, ebox-communation
+Depends: ebox-gateway, ebox-security, ebox-infrastructure, ebox-office, ebox-communication
 Description: eBox platform - all modules
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
