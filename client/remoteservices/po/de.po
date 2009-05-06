@@ -144,7 +144,7 @@ msgstr ""
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr "nicht vorhandene Sicherung "
+msgstr "nicht vorhandene Sicherung {n}"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"

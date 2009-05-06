@@ -54,7 +54,7 @@ EBox::init();
 
 my $rs = EBox::Global->modInstance('remoteservices');
 unless ( $rs->eBoxSubscribed() ) {
-    return;
+    exit;
 }
 my $mon = EBox::Global->modInstance('monitor');
 unless ( $mon->isEnabled() ) {
@@ -62,7 +62,7 @@ unless ( $mon->isEnabled() ) {
     my $lastTime = <$fd>;
     close($fd);
     if ( $lastTime + MON_CRON_INTERVAL < time() ) {
-        return;
+        exit;
     }
 }
 

@@ -173,7 +173,7 @@ sub vpnClientForServices
             $clientName,
             internal       => 1,
             service        => 1,
-            proto          => 'udp',
+            proto          => 'tcp',
             servers        => [
                 [$address => $port],
                ],
