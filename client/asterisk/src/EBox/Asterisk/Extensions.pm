@@ -203,6 +203,14 @@ sub addUserExtension
         return;
     }
 
+    if (($extn < MINEXTN) or ($extn > MAXEXTN)) {
+        throw EBox::Exceptions::InvalidData(
+              data => __(q{User's extension}),
+              value => $extn,
+           )
+    }
+
+
     $self->addExtension($user, '1', 'Goto', "$extn,1");
     $self->addExtension($extn, '1', 'Dial', "SIP/$user,15");
     $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
@@ -288,6 +296,8 @@ sub modifyUserExtension
         throw EBox::Exceptions::DataExists('data' => __('Extension'),
                                            'value' => $newextn);
     }
+
+
 
     my $oldextn = $self->getUserExtension($user);
 
