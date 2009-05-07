@@ -1177,7 +1177,7 @@ sub updateNetbiosName
 
     for my $entry ($ldap->search(\%attrs)->entries()) {
         my $dn = $entry->dn();
-        my $username = $entry->get_attribute('uid');
+        my $username = $entry->get_value('uid');
         $ldap->modifyAttribute($dn, 'sambaHomePath',
                 "\\\\$netbios\\homes\\$username");
         # XXX Check if we have to add or not, instead of
