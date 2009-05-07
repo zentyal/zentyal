@@ -240,7 +240,7 @@ sub makeBackup # (dir, %options)
 # default implementation: do nothing
 sub extendedBackup
 {
-  # my %params = @_;
+  # my ($self, %params) = @_;
   # my $dir = $params{dir};
 }
 
@@ -323,7 +323,7 @@ sub restoreBackup # (dir, %options)
 # default implementation: do nothing
 sub extendedRestore
 {
-  # my %params = @_;
+  # my ($self, %params) = @_;
   # my $dir = $params{dir};
 }
 
