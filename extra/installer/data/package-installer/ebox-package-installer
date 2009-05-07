@@ -73,11 +73,17 @@ my $SIMPLE_DESC = __('Select typical sets of packages');
 my $ADVANCED_METHOD = __('advanced');
 my $ADVANCED_DESC = __('Select packages manually');
 my $TASK_TITLE = __('Select eBox tasks to install');
+my $TASK_MESSAGE = __('FIXME: Put something here');
 my $PACKAGE_TITLE = __('Select eBox packages to install');
+my $PACKAGE_MESSAGE = __('FIXME: Put something here');
 my $IFACES_TITLE = __('Select external interfaces');
+my $IFACES_MESSAGE = __('FIXME: Put something here');
 my $PASS_TITLE = __('Enter password for eBox interface');
-my $PASS_CNFIRM_TITLE = __('Confirm password for eBox interface');
-my $MAIL_TITLE = __('Enter default virtual mail domain');
+my $PASS_MSG = __('FIXME: Put something here');
+my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
+my $PASS_CONFIRM_MSG = __('FIXME: Put something here');
+my $MAIL_TITLE = __('Mail configuration');
+my $MAIL_MESSAGE = __('Enter default virtual mail domain');
 my $FINAL_TITLE = __('Installation finished');
 my $FINAL_MESSAGE = __('Now you can access eBox interface at ' .
                        'https://localhost/');
@@ -142,8 +148,8 @@ sub installPackages # (packages)
     chomp($num);
 
     my $aptCmd = 'LANG=C apt-get install -y --force-yes';
-    my $text = __('Installing eBox packages...');
-    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
+    my $message = __('Installing eBox packages...');
+    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
     my $gaugeCmd = "$INSTALL_FILES/ebox-apt-parse $num | $whipCmd";
 
     $ENV{DEBIAN_FRONTEND} = 'noninteractive';
@@ -166,9 +172,9 @@ sub selectPackagesMenu # returns array
             $option = showMenu();
         }
         if ($option eq $SIMPLE_METHOD) {
-            $ret = showChecklist($TASK_TITLE, @TASKS);
+            $ret = showChecklist($TASK_TITLE, $TASK_MESSAGE, @TASKS);
         } else {
-            $ret = showChecklist($PACKAGE_TITLE, @PACKAGES);
+            $ret = showChecklist($PACKAGE_TITLE, $PACKAGE_MESSAGE, @PACKAGES);
         }
         if ($ret == 0) {
             @selection = arrayFromFile($SELECTION_FILE);
@@ -194,7 +200,7 @@ sub selectIfacesMenu # returns array
     my $option = '';
     my $ret = 0;
     do {
-        $ret = showChecklist($IFACES_TITLE, @ifacePairs);
+        $ret = showChecklist($IFACES_TITLE, $IFACES_MESSAGE, @ifacePairs);
         if ($ret == 0) {
             @selection = arrayFromFile($SELECTION_FILE);
             unlink ($SELECTION_FILE);
@@ -209,8 +215,8 @@ sub askPassword # returns string
     my $password;
     my $confirm;
     do {
-        $password = showPasswordDialog($PASS_TITLE);
-        $confirm = showPasswordDialog($PASS_CNFIRM_TITLE);
+        $password = showPasswordDialog($PASS_TITLE, $PASS_MSG);
+        $confirm = showPasswordDialog($PASS_CONFIRM_TITLE, $PASS_CONFIRM_MSG);
 
         if ($password ne $confirm) {
             showDialog(__('Error'), __("Passwords don't match"));
@@ -224,7 +230,7 @@ sub askMailDomain # returns string
 {
     my $domain;
     do {
-        $domain = showInputDialog($MAIL_TITLE);
+        $domain = showInputDialog($MAIL_TITLE, $MAIL_MESSAGE);
 
         # TODO: domain validation?
     } until ($domain);
@@ -234,8 +240,8 @@ sub askMailDomain # returns string
 
 sub preconfiguration
 {
-    my $text = __('Preconfiguring eBox packages...');
-    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$text\" 7 64 0";
+    my $message = __('Preconfiguring eBox packages...');
+    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
     my $PROGRESS;
     open ($PROGRESS, '|-', $whipCmd);
 
@@ -301,6 +307,7 @@ sub preconfiguration
 sub showMenu
 {
     my $title = __('Choose package selection method');
+    my $message = __('Select the method that better fits your needs');
 
     my $size = 2;
     my $height = $size + 7;
@@ -312,7 +319,7 @@ sub showMenu
     my $width = 7 + $max_len;
 
     my $command = "whiptail $WHIPTAIL_ARGS --nocancel --title \"$title\" " .
-                  "--menu \"$title\" $height $width $size $arg1 $arg2";
+                  "--menu \"$message\" $height $width $size $arg1 $arg2";
 
     my $file = 'selected_option';
     system ("$command 2> $file");
@@ -322,9 +329,9 @@ sub showMenu
     return $lines[0];
 }
 
-sub showChecklist # (title, options)
+sub showChecklist # (title, message, options)
 {
-    my ($title, @options) = @_;
+    my ($title, $message, @options) = @_;
 
     my $size = scalar (@options);
     if ($size > 14) {
@@ -349,34 +356,36 @@ sub showChecklist # (title, options)
     my $width = 12 + $max_len;
 
     my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
-                  "--checklist \"$title\" $height $width $size $option_args";
+                  "--title \"$title\" " .
+                  "--checklist \"$message\" $height $width $size $option_args";
 
     system ("$command 2> $SELECTION_FILE");
 }
 
-sub showInputDialog # (title)
+sub showInputDialog # (title, message)
 {
-    my ($title) = @_;
+    my ($title, $message) = @_;
 
-    showGenericInputDialog('inputbox', $title);
+    showGenericInputDialog('inputbox', $title, $message);
 }
 
-sub showPasswordDialog # (title)
+sub showPasswordDialog # (title, message)
 {
-    my ($title) = @_;
+    my ($title, $message) = @_;
 
-    showGenericInputDialog('passwordbox', $title);
+    showGenericInputDialog('passwordbox', $title, $message);
 }
 
-sub showGenericInputDialog # (type, title) returns input string
+sub showGenericInputDialog # (type, title, message) returns input string
 {
-    my ($type, $title) = @_;
+    my ($type, $title, $message) = @_;
 
     my $height = 8;
     my $width = 7 + length($title);
 
     my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
-                  "--$type \"$title\" $height $width";
+                  "--title \"$title\" " .
+                  "--$type \"$message\" $height $width";
 
     my @selection;
     do {
