@@ -10,6 +10,13 @@ case "$1" in
        # migrate data if needed
        /usr/share/ebox/ebox-migrate /usr/share/ebox-antivirus/migration/
 
+       # Disable clamd apparmor as it needs some tweaking to make it work with
+       # our configuration
+       APP_PROFILE="/etc/apparmor.d/usr.sbin.clamd"
+       if [ -f $APP_PROFILE ]; then
+           sed -i 's:^/usr/sbin/clamd:/usr/sbin/clamd.off:' $APP_PROFILE || true
+           /etc/init.d/apparmor restart || true
+       fi
 
         # restart logs
         invoke-rc.d ebox logs restart || true
