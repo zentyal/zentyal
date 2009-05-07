@@ -307,6 +307,9 @@ sub createCA {
   # Set the CA certificate expiration date
   $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
+  # Generate CRL
+  $self->generateCRL();
+
   # Logging the action
 #  logAdminNow($self->name, "createCA",
 #	      "orgName=". $self->{dn}->attribute('orgName') . ",days=" . $args{days}
@@ -923,33 +926,8 @@ sub revokeCertificate {
   throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
     if ($retValue eq "ERROR");
 
-  # Generate a new Certification Revocation List (For now in the same
-  # method...)
-
-  # Localtime
-  (my $day, my $month, my $year) = Date::Calc::Today();
-
-  my $date = sprintf("%04d-%02d-%02d", $year+1900, $month+1, $day);
-
-  $cmd= "ca";
-  $self->_commonArgs("ca", \$cmd);
-  $cmd .= "-gencrl ";
-  if ( defined($self->{caKeyPassword}) ){
-    $cmd .= "-passin env:PASS ";
-  }
-  $cmd .= "-out " . CRLDIR . $date . "-crl.pem";
-
-  $ENV{'PASS'} = $self->{caKeyPassword}
-    if (defined($self->{caKeyPassword}));
-  ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
-  delete ($ENV{'PASS'});
-
-  throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
-    if ($retValue eq "ERROR");
-
-  # Set the link to the last
-  unlink (LASTESTCRL) if ( -e LASTESTCRL );
-  symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
+  # Generate a new Certification Revocation List
+  $self->generateCRL();
 
   # Mark this module as changed
   $self->setAsChanged();
@@ -962,6 +940,43 @@ sub revokeCertificate {
   return undef;
 
 }
+
+# Method: generateCRL
+#
+#       Generate a new Certification Revocation List. It will create a
+#       new one with today date and link to the latest.
+#
+sub generateCRL
+{
+    my ($self) = @_;
+
+    # Localtime
+    (my $year, my $month, my $day) = Date::Calc::Today();
+
+    my $date = sprintf("%04d-%02d-%02d", $year, $month, $day);
+
+    my $cmd= "ca";
+    $self->_commonArgs("ca", \$cmd);
+    $cmd .= "-gencrl ";
+    if ( defined($self->{caKeyPassword}) ) {
+        $cmd .= "-passin env:PASS ";
+    }
+    $cmd .= "-out " . CRLDIR . $date . "-crl.pem";
+
+    $ENV{'PASS'} = $self->{caKeyPassword}
+      if (defined($self->{caKeyPassword}));
+    my ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
+    delete ($ENV{'PASS'});
+
+    throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
+      if ($retValue eq "ERROR");
+
+    # Set the link to the last
+    unlink (LASTESTCRL) if ( -e LASTESTCRL );
+    symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
+
+}
+
 
 # Method: listCertificates
 #
