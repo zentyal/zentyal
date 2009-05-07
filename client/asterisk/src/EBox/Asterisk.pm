@@ -46,6 +46,8 @@ use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 use constant VOICEMAILCONFFILE    => '/etc/asterisk/voicemail.conf';
 
+use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
+
 # Constructor: _create
 #
 #      Create a new EBox::Asterisk module object
@@ -466,6 +468,41 @@ sub userMenu
 
     $root->add(new EBox::Menu::Item('url' => '/Asterisk/View/Voicemail',
                                     'text' => __('Voicemail')));
+}
+
+
+
+sub _backupArchiveFile
+{
+    my ($self, $dir) = @_;
+    return "$dir/asterisk.tar";
+}
+
+sub extendedBackup
+{
+  my ($self, %params) = @_;
+  my $dir = $params{dir};
+  my $archiveFile = $self->_backupArchiveFile($dir);
+  
+  my @dirsToBackup = map { "'$_'"  } (
+          VOICEMAIL_DIR,
+         );
+
+  my $tarCmd= "/bin/tar -cf $archiveFile  --atime-preserve --absolute-names --preserve --same-owner @dirsToBackup";
+  EBox::Sudo::root($tarCmd)
+}
+
+sub extendedRestore
+{
+  my ($self, %params) = @_;
+  my $dir = $params{dir};
+  my $archiveFile = $self->_backupArchiveFile($dir);
+  if (not -e $archiveFile) {
+      return;
+  }
+
+  my $tarCmd = "/bin/tar -xf $archiveFile --atime-preserve --absolute-names --preserve --same-owner";
+  EBox::Sudo::root($tarCmd);
 }
 
 1;
