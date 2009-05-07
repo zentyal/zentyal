@@ -167,13 +167,13 @@ sub vpnClientForServices
     if ($openvpn->clientExists($clientName)) {
         $client = $openvpn->client($clientName);
     } else {
-        my ($address, $port) = @{$self->vpnAddressAndPort()};
+        my ($address, $port, $protocol) = @{$self->vpnLocation()};
 
         $client = $openvpn->newClient(
             $clientName,
             internal       => 1,
             service        => 1,
-            proto          => 'tcp',
+            proto          => $protocol,,
             servers        => [
                 [$address => $port],
                ],
@@ -188,11 +188,10 @@ sub vpnClientForServices
     return $client;
 }
 
-# Method: vpnAddressAndPort
+# Method: vpnLocation
 #
-#     Get the VPN server IP address and port
-#
-#     We assume UDP protocol.
+#     Get the VPN server location, that includes IP address, port and
+#     protocol
 #
 # Returns:
 #
@@ -200,17 +199,21 @@ sub vpnClientForServices
 #
 #             ipAddr - String the VPN IP address
 #             port   - Int the port to connect to
+#             protocol - String the protocol 'udp' or 'tcp'
 #
-sub vpnAddressAndPort
+sub vpnLocation
 {
     my ($self) = @_;
 
-    my $address = EBox::Config::configkeyFromFile('vpnIPAddr',
-                                                  $self->_confFile());
-    my $port    = EBox::Config::configkeyFromFile('vpnPort',
-                                                  $self->_confFile());
+    my $serverName = EBox::Config::configkeyFromFile('vpnServer',
+                                                     $self->_confFile());
+    my $address    = $self->_queryServicesNameserver($serverName);
+    my $port       = EBox::Config::configkeyFromFile('vpnPort',
+                                                     $self->_confFile());
+    my $protocol   = EBox::Config::configkeyFromFile('vpnProtocol',
+                                                     $self->_confFile());
 
-    return [$address, $port];
+    return [$address, $port, $protocol];
 }
 
 # Group: Protected methods

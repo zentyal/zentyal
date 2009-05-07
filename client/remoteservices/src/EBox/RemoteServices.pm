@@ -335,20 +335,24 @@ sub ifaceVPN
 #
 # Return:
 #
-#        array ref - containing the two following elements
+#        hash ref - containing the two following elements
 #
 #             ipAddr - String the VPN IP address
 #             port   - Int the port to connect to
+#             protocol - String the protocol associated to that port
 #
 sub vpnSettings
 {
     my ($self) = @_;
 
     my $authRS = new EBox::RemoteServices::Backup();
-    return $authRS->vpnAddressAndPort();
+    my ($ipAddr, $port, $protocol) = @{$authRS->vpnLocation()};
+
+    return { ipAddr => $ipAddr,
+             port => $port,
+             protocol => $protocol };
 
 }
-
 
 # Group: Private methods
 

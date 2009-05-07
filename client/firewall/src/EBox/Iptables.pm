@@ -285,10 +285,10 @@ sub _setRemoteServices
             push(@commands,
                 pf("-A ointernal $new -o $vpnIface -j ACCEPT")
             );
-            my ($vpnIPAddr, $vpnPort) = @{$rsMod->vpnSettings()};
-            # We assume UDP
+            my %vpnSettings = %{$rsMod->vpnSettings()};
             push(@commands,
-                pf("-A ointernal $new -p udp -d $vpnIPAddr --dport $vpnPort -j ACCEPT")
+                pf("-A ointernal $new -p $vpnSettings{protocol} "
+                   . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
             );
             # Allow communications between ns and www
             eval "use EBox::RemoteServices::Configuration";
