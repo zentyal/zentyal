@@ -207,7 +207,8 @@ sub vpnLocation
 
     my $serverName = EBox::Config::configkeyFromFile('vpnServer',
                                                      $self->_confFile());
-    my $address    = $self->_queryServicesNameserver($serverName);
+    my $address    = $self->_queryServicesNameserver($serverName,
+                                                     $self->SUPER::_nameservers());
     my $port       = EBox::Config::configkeyFromFile('vpnPort',
                                                      $self->_confFile());
     my $protocol   = EBox::Config::configkeyFromFile('vpnProtocol',

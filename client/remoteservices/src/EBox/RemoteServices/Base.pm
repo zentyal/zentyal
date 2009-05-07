@@ -230,6 +230,9 @@ sub _nameservers
 #
 #       hostname - String the host name to query
 #
+#       nameservers - Array ref the nameservers to ask
+#                     *(Optional)* Default value: <_nameservers> returned value
+#
 # Returns:
 #
 #       String - the mapped IP address for this name by the internal
@@ -238,9 +241,9 @@ sub _nameservers
 #
 sub _queryServicesNameserver
 {
-    my ($self, $hostname) = @_;
+    my ($self, $hostname, $nameservers) = @_;
 
-    my $nameservers = $self->_nameservers();
+    $nameservers = $self->_nameservers() unless (defined($nameservers));
 
     my $resolver = Net::DNS::Resolver->new(
           nameservers => $nameservers,
