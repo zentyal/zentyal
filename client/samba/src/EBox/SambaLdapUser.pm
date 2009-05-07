@@ -1168,9 +1168,16 @@ sub updateNetbiosName
     my $users = EBox::Global->modInstance('users');
     my $ldap = $self->{'ldap'};
 
-    foreach my $user ($users->users){
-        my $username = $user->{'username'};
-        my $dn = "uid=$username," .  $users->usersDn;
+    my %attrs = (
+            base   => $users->usersDn(),
+            filter => "(objectclass=sambaSamAccount)",
+            attrs => ['uid'],
+            scope  => 'sub'
+            );
+
+    for my $entry ($ldap->search(\%attrs)->entries()) {
+        my $dn = $entry->dn();
+        my $username = $entry->get_attribute('uid');
         $ldap->modifyAttribute($dn, 'sambaHomePath',
                 "\\\\$netbios\\homes\\$username");
         # XXX Check if we have to add or not, instead of
@@ -1182,6 +1189,7 @@ sub updateNetbiosName
                     [ sambaProfilePath => [] ]]);
             $ldap->modify($dn, \%attrs);
         }
+
     }
 }
 

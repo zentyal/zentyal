@@ -1,3 +1,5 @@
+1.1.10
+	+ Only update sambaPaths on users with sambaSamAccount object class
 1.1
 	+ Bugfix: issue with codepages on shares
 	+ Home drive letter can be changed now from general settings
