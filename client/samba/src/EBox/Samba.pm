@@ -1816,7 +1816,11 @@ sub logHelper
 
 sub isAntivirusPresent
 {
-    return (-f '/usr/lib/samba/vfs/vscan-clamav.so');
+    
+    my $global = EBox::Global->getInstance();
+    
+    return ($global->modExists('antivirus')
+             and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
 }
 
 1;
