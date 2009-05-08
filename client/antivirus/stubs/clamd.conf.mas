@@ -10,7 +10,7 @@ LocalSocket <% $localSocket %>
 FixStaleSocket true
 User root 
 AllowSupplementaryGroups  true
-dxReadTimeout 180
+ReadTimeout 180
 MaxThreads <% $maxThreads %>
 MaxConnectionQueueLength 15
 LogFile /var/log/clamav/clamav.log
