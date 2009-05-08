@@ -197,7 +197,7 @@ sub _daemons
         {
             name => CLAMD_INIT,
             type => 'init.d',
-            pidfile => CLAMAVPIDFILE,
+            pidfiles => [CLAMAVPIDFILE],
         },
     ];
 
