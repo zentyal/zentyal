@@ -10,11 +10,7 @@ LocalSocket <% $localSocket %>
 FixStaleSocket true
 User clamav
 AllowSupplementaryGroups  true
-ArchiveMaxRecursion 5
-ArchiveMaxFiles 1000
-ArchiveMaxFileSize 10M
-ArchiveMaxCompressionRatio 250
-ReadTimeout 180
+dxReadTimeout 180
 MaxThreads <% $maxThreads %>
 MaxConnectionQueueLength 15
 LogFile /var/log/clamav/clamav.log
