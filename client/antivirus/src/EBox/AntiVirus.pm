@@ -37,9 +37,8 @@ use EBox::AntiVirus::FirewallHelper;
 
 use constant {
   CLAMAVPIDFILE                 => '/var/run/clamav/clamd.pid',
-  CLAMD_INIT                    => '/etc/init.d/clamav-daemon',
-  CLAMD_SERVICE                  => 'ebox.clamd',
-  CLAMD_CONF_FILE               => '/etc/clamav/ebox.clamd.conf',
+  CLAMD_INIT                    => 'clamav-daemon',
+  CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
 
   CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
@@ -194,11 +193,14 @@ sub usedFiles
 
 sub _daemons
 {
-    return [
-            {
-             name => CLAMD_SERVICE
-            },
-           ];
+	return [
+        {
+            name => CLAMD_INIT,
+            type => 'init.d',
+            pidfile => CLAMAVPIDFILE,
+        },
+    ];
+
 }
 
 sub localSocket

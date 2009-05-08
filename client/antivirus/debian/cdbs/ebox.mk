@@ -13,10 +13,10 @@ DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests
 DEB_MAKE_INVOKE = $(MAKE) $(DEB_MAKE_FLAGS) -C $(DEB_BUILDDIR)
 
 $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
-	for event in debian/*.upstart ; do \
-		[ -f $$event ] || continue; \
-		install -d -m 755 debian/$(cdbs_curpkg)/etc/event.d; \
-		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart//g')); \
-		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/event.d/$$DESTFILE; \
-	done;
-
+    for event in debian/*.upstart ; do \
+        if [ "x$$event" -ne "x" ] ; then \
+            install -d -m 755 debian/$(cdbs_curpkg)/etc/event.d; \
+            DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart//g')); \
+            install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/event.d/$$DESTFILE; \
+        fi \
+    done;

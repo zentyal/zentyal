@@ -5,10 +5,10 @@ $strictMode   => 0
 </%args>
 
 
-Foreground true
+Foreground false
 LocalSocket <% $localSocket %>
 FixStaleSocket true
-User clamav
+User root 
 AllowSupplementaryGroups  true
 dxReadTimeout 180
 MaxThreads <% $maxThreads %>
