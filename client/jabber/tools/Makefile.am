@@ -1,5 +1,5 @@
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgdata_SCRIPTS =  ebox-jabber-ldap ebox-enable-jabber
+pkgdata_SCRIPTS =  ebox-jabber-enable ebox-jabber-ldap
 
 EXTRA_DIST = $(pkgdata_SCRIPTS)

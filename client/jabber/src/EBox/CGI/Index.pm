@@ -50,6 +50,7 @@ sub _process($) {
 	push (@array, 'domain' => $jabber->jabberDomain);
 	push (@array, 'external_connection' => $jabber->externalConnection);
 	push (@array, 'ssl' => $jabber->ssl);
+	push (@array, 'muc' => $jabber->muc);
 
 	$self->{params} = \@array;
 }

@@ -4,8 +4,10 @@
 
 case "$1" in
 	configure)
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-        dpkg-trigger --no-await ebox
+		dpkg-trigger --no-await ebox
+		cp /var/lib/ebox/conf/ssl/ssl.pem /etc/jabberd2/ebox.pem
+		chmod 640 /etc/jabberd2/ebox.pem
+		chown jabber:jabber /etc/jabberd2/ebox.pem
 esac
 
 exit 0

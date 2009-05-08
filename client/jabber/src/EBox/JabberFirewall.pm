@@ -29,7 +29,7 @@ use constant JABBERPORT => '5222';
 use constant JABBERPORTSSL => '5223';
 use constant JABBEREXTERNALPORT => '5269';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %opts = @_;
@@ -42,7 +42,7 @@ sub input
 {
 	my $self = shift;
 	my @rules = ();
-	
+
 	my $net = EBox::Global->modInstance('network');
 	my $jabber = EBox::Global->modInstance('jabber');
 	my @ifaces = @{$net->InternalIfaces()};
@@ -68,7 +68,7 @@ sub input
 		push(@rules, $r);
 	    }
 	}
-	
+
 	return \@rules;
 }
 
@@ -76,7 +76,7 @@ sub output
 {
 	my $self = shift;
 	my @rules = ();
-	
+
 	my $net = EBox::Global->modInstance('network');
 	my $jabber = EBox::Global->modInstance('jabber');
 	my @ifaces = @{$net->InternalIfaces()};
@@ -103,16 +103,10 @@ sub output
 	if ($jabber->externalConnection){
 	    push(@jabberPorts, JABBEREXTERNALPORT);
 	}
-	
+
 	foreach my $port (@jabberPorts){
 	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --dport $port -j ACCEPT";
-		push(@rules, $r);
-		$r = "-m state --state NEW -o $ifc  ".
-			"-p udp --dport $port -j ACCEPT";
-		push(@rules, $r);
-	        $r = "-m state --state NEW -o $ifc  ".
+	        my $r = "-m state --state NEW -o $ifc  ".
 			"-p tcp --sport $port -j ACCEPT";
 		push(@rules, $r);
 		$r = "-m state --state NEW -o $ifc  ".
@@ -120,7 +114,7 @@ sub output
 		push(@rules, $r);
 	    }
 	}
-	
+
 	return \@rules;
 }
 

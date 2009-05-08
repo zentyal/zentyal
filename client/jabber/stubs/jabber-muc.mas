@@ -1,0 +1,15 @@
+<%args>
+	$muc
+</%args>
+# /etc/default/jabber-muc
+
+# user and group
+USER=jabber
+GROUP=jabber
+
+# run muc
+%       if (!($muc eq 'no')) {
+MUC_RUN=1
+% } else {
+MUC_RUN=0
+% }

@@ -5,6 +5,7 @@
 	$domain
 	$ssl
 	$external_connection
+	$muc
 </%args>
 <%init>
 use EBox::Gettext;
@@ -13,7 +14,7 @@ use EBox::Gettext;
 <div class='jabbernew'>
 
 <form action='JabberConf' method='POST'>
-	<h3><% __('General Settings') %></h3>
+	<h3><% __('General configuration') %></h3>
 	<div class='help'>
 		<% __('Domain name should be available on the network. Otherwise, you may not be able to use this service. This applies for internal and external connections.') %>
 	</div>
@@ -29,11 +30,23 @@ use EBox::Gettext;
 	</tr>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Connect to global Jabber network') %>:</span>
+			<span class='ftitle'><% __('Connect to other servers') %>:</span>
 		</td>
 		<td>
 			<input type='checkbox' name='external_connection' id='external' value='yes'
 %			if ($external_connection) {
+				checked
+%			}
+			>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Enable MUC (Multi User Chat)') %>:</span>
+		</td>
+		<td>
+			<input type='checkbox' name='muc' id='external' value='yes'
+%			if ($muc) {
 				checked
 %			}
 			>

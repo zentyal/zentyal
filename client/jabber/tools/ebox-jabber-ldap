@@ -10,54 +10,51 @@ EBox::init();
 my $global = EBox::Global->getInstance(1);
 my $users = $global->modInstance('users');
 $users->{ldap}->ldapCon;
-my $ldap = $users->{ldap};
 
 sub update
 {
 	foreach my $user ($users->users){
-	    my $username = $user->{'username'};
-	    my $dn = "uid=$username," . $users->usersDn;
-	    
-	    print "Checking user: $username\n";
-	    my %args = (base => $users->usersDn,
+		my $username = $user->{'username'};
+		my $dn = "uid=$username," . $users->usersDn;
+
+		print "Checking user: $username\n";
+		my %args = (base => $users->usersDn,
 			filter => "(jabberUid=$username)");
 
-	    my $mesg = $ldap->search(
-				      \%args
-				     );
+		my $ldap = $users->{ldap};
+		my $mesg = $ldap->search(\%args);
 
-	    if (!$mesg->count){
-		print "Adding Jabber account for $username at $dn\n";
-		
-		my %attrs = ( 
-			      changes => [ 
-				   add => [
-					   objectClass => 'userJabberAccount',
-					   jabberUid   => $username,
-					   jabberAdmin => 'FALSE'
-					   ]
-				   ]
-			      );
-		my $result = $ldap->modify($dn, \%attrs ); 
-		($result->is_error) and warn "Error updating user: $username\n\n";
-	    } else {
-		print "User $username already has a Jabber account\n\n";
-	    }
+		if (!$mesg->count){
+			print "Adding Jabber account for $username\n";
+			my %attrs = ( 
+				changes => [ 
+					add => [
+						objectClass => 'userJabberAccount',
+						jabberUid   => $username,
+						jabberAdmin => 'FALSE'
+						]
+					]
+				);
+			my $result = $ldap->modify($dn, \%attrs ); 
+			($result->is_error) and warn "Error updating user: $username\n";
+		} else {
+			print "User $username already has a Jabber account\n";
+		}
 	}
 }
 
-sub clean 
-{
-	my $ldap = EBox::Ldap->instance();
-
-	# clean users
+sub clean {
+	my $ldap = $users->{ldap};
 	foreach my $user ($users->users){
 		my $username = $user->{'username'};
-		my $dn = "uid=$username," .  $users->usersDn;
+		my $dn = "uid=$username," . $users->usersDn;
 		$ldap->delObjectclass($dn, 'userJabberAccount');
-		
 	}
-	
+}
+
+sub usage {
+	print "Usage: $0 update | clean\n";
+	exit 1;
 }
 
 unless ($#ARGV == 0) {

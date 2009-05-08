@@ -1,0 +1,52 @@
+<%args>
+	$domain
+	@admins
+</%args>
+<jcr>
+
+  <name>conference.<% $domain %></name> <!-- the jid of your component -->
+  <host>conference.<% $domain %></host> <!-- this should be the same as above -->
+  <ip>localhost</ip> <!-- adress of the jabber server -->
+  <port>5347</port>  <!-- port used to connect the service to the jabber server -->
+  <secret>secret</secret> <!-- secret shared with the jabber server -->
+
+  <spool>/var/spool/jabber-muc/rooms/</spool> <!-- directory containing the rooms data -->
+  <logdir>/var/log/jabberd2/</logdir> <!-- directory containing the debug log (the file is called mu-conference.log) -->
+  <pidfile>/var/run/jabberd2/muc.pid</pidfile> <!-- file that will contain the PID of the process -->
+
+  <!--   <logstderr/> --> <!-- uncomment to also send log to stderr -->
+
+  <loglevel>124</loglevel> <!-- log verbosity, 255 for very verbose, 0 for quiet -->
+
+    <conference xmlns="jabber:config:conference">
+      <public/> <!-- rooms are public when created, comment to make them private by default -->
+      <!-- the vCard section contains the vCard of the service -->
+      <vCard>
+        <FN>Public Chatrooms</FN>
+        <DESC>This service is for public chatrooms.</DESC>
+        <URL>http://localhost/</URL>
+      </vCard>
+      <history>40</history> <!-- maximum numbers of history lines send when joining a room -->
+      <logdir>./logs/</logdir> <!-- where to store the room logs, comment to disable logging -->
+      <!--logsubdirs/--> <!-- uncomment to stores the room logs in subdirs (for example 2007/08/02) -->
+      <stylesheet>../style.css</stylesheet> <!--URL of the log stylesheet -->
+      <!-- default text to send to legacy clients, will also be used in the logs -->
+      <notice>
+        <join>has become available</join>
+        <leave>has left</leave>
+        <rename>is now known as</rename>
+      </notice>
+      <!-- lists of admins of the service, add a <user/> tag by admin -->
+      <sadmin>
+% foreach my $admin (@admins){	
+        <user><%$admin%>@<%$domain%></user>
+% }
+      </sadmin>
+      <!-- <dynamic/> --> <!-- when uncommented, only dynamic rooms can be created -->
+      <!-- <persistent/> --> <!-- persistent rooms will be created, overide <dynamic/> -->
+      <!-- <locknicks/> --> <!-- enforce the user nickname to the user part of his jid -->
+      <!-- <roomlock/> --> <!-- uncomment to allow only admins to create rooms -->
+      <!-- <hideempty/> --> <!-- uncomment to hide rooms with no participants -->
+    </conference>
+
+</jcr>

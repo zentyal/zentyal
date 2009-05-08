@@ -18,8 +18,8 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service 
-			EBox::LdapModule 
+use base qw(EBox::Module::Service
+			EBox::LdapModule
 			EBox::FirewallObserver
 			);
 
@@ -36,11 +36,14 @@ use EBox::Validate qw ( :all );
 
 use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
 use constant JABBERSMCONFFILE => '/etc/jabberd2/sm.xml';
+use constant JABBERMUCCONFFILE => '/etc/jabberd2/muc.xml';
+use constant JABBERDFLTFILE => '/etc/default/jabberd2';
+use constant JABBERMUCDFLTFILE => '/etc/default/jabber-muc';
 use constant JABBERPORT => '5222';
 use constant JABBERPORTSSL => '5223';
 use constant JABBEREXTERNALPORT => '5269';
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'jabber',
@@ -63,7 +66,7 @@ sub domain
 #
 sub actions
 {
-	return [ 
+	return [
 	{
 		'action' => __('Copy jabber ldap schema to /etc/ldap/schemas'),
 		'reason' => __('eBox will need this schema to store jabber users'),
@@ -91,19 +94,34 @@ sub usedFiles
  	 	 'reason' => __('To properly configure jabberd2')
 		},
 		{
+		 'file' => JABBERDFLTFILE,
+		 'module' => 'jabber',
+ 	 	 'reason' => __('To properly configure jabberd2')
+		},
+		{
+		 'file' => JABBERMUCCONFFILE,
+		 'module' => 'jabber',
+ 	 	 'reason' => __('To properly configure jabberd2 muc')
+		},
+		{
+		 'file' => JABBERMUCDFLTFILE,
+		 'module' => 'jabber',
+ 	 	 'reason' => __('To properly configure jabberd2 muc')
+		},
+		{
 		 'file' => '/etc/ldap/slapd.conf',
 		 'reason' => __('To add the LDAP schemas used by eBox jabber'),
 		 'module' => 'users'
-		} 
+		}
        ];
 }
-# Method: enableActions 
+# Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
-    root(EBox::Config::share() . '/ebox-jabber/ebox-enable-jabber');
+    root(EBox::Config::share() . '/ebox-jabber/ebox-jabber-enable');
 }
 
 #  Method: _daemons
@@ -114,21 +132,9 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.jabber.jabber-router'
-        },
-        {
-            'name' => 'ebox.jabber.jabber-resolver',
-            'precondition' => \&externalConnection
-        },
-        {
-            'name' => 'ebox.jabber.jabber-sm'
-        },
-        {
-            'name' => 'ebox.jabber.jabber-c2s'
-        },
-        {
-            'name' => 'ebox.jabber.jabber-s2s',
-            'precondition' => \&externalConnection
+            'name' => 'jabberd2',
+            'type' => 'init.d',
+            'pidfile' => '/var/run/jabberd2/router.pid'
         }
     ];
 }
@@ -172,7 +178,7 @@ sub setExternalConnection
 
 # Method: externalConnection
 #
-#       Returns if jabber service has to connect with 
+#       Returns if jabber service has to connect with
 #         jabber global network
 #
 # Returns:
@@ -187,6 +193,25 @@ sub externalConnection
     }
     return $external;
 }
+
+
+sub setMuc
+{
+    my ($self, $muc) = @_;
+    ($muc == $self->muc) and return;
+    $self->set_bool('muc', $muc);
+}
+
+sub muc
+{
+    my $self = shift;
+    my $muc = $self->get_bool('muc');
+    if(not defined($muc)) {
+        $muc = 1;
+    }
+    return $muc;
+}
+
 
 # Method: setSsl
 #
@@ -250,7 +275,7 @@ sub setJabberDomain
 #
 # Returns:
 #
-#       string. Current jabber service domain 
+#       string. Current jabber service domain
 sub jabberDomain
 {
 	my $self = shift;
@@ -276,14 +301,13 @@ sub _setConf
 	my $jabberldap = new EBox::JabberLdapUser;
 
 	push (@array, 'domain' => $self->jabberDomain);
-	push (@array, 'binddn' => $ldapconf->{'rootdn'});
-	push (@array, 'bindpw' => $ldap->rootPw);
+	#push (@array, 'binddn' => $ldapconf->{'rootdn'});
+	#push (@array, 'bindpw' => $ldap->rootPw);
 	push (@array, 'basedc' => $ldapconf->{'dn'});
 	push (@array, 'ssl' => $self->ssl);
-
 	$self->writeConfFile(JABBERC2SCONFFILE,
 			     "jabber/c2s.xml.mas",
-			     \@array, { 'uid' => 0, 'gid' => 0, mode => '600' });
+			     \@array, { 'uid' => 0, 'gid' => 0, mode => '644' });
 
 	@array = ();
 
@@ -294,6 +318,31 @@ sub _setConf
 	$self->writeConfFile(JABBERSMCONFFILE,
 			     "jabber/sm.xml.mas",
 			     \@array);
+	$self->writeConfFile(JABBERMUCCONFFILE,
+			     "jabber/muc.xml.mas",
+			     \@array);
+
+	@array = ();
+
+        if ($self->externalConnection) {
+        	push(@array, 'external' => 'yes')
+	} else {
+        	push(@array, 'external' => 'no')
+	}
+	$self->writeConfFile(JABBERDFLTFILE,
+			     "jabber/jabberd2.mas",
+			     \@array);
+
+	@array = ();
+
+        if ($self->muc) {
+        	push(@array, 'muc' => 'yes')
+	} else {
+        	push(@array, 'muc' => 'no')
+	}
+	$self->writeConfFile(JABBERMUCDFLTFILE,
+			     "jabber/jabber-muc.mas",
+			     \@array);
 }
 
 # Method: menu
@@ -303,7 +352,7 @@ sub menu
 {
 	my ($self, $root) = @_;
 	$root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
-					'text' => __('Jabber Service')));
+					'text' => __('Jabber')));
 }
 
 sub _ldapModImplementation

@@ -29,8 +29,8 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Jabber',
 				      @_);
-	$self->{redirect} = "Jabber/Index";	
-	$self->{domain} = "ebox-jabber";	
+	$self->{redirect} = "Jabber/Index";
+	$self->{domain} = "ebox-jabber";
 	bless($self, $class);
 	return $self;
 }
@@ -46,6 +46,11 @@ sub _process($) {
 	    $jabber->setExternalConnection(1);
 	} else {
 	    $jabber->setExternalConnection(0);
+	}
+	if (defined($self->param('muc'))) {
+	    $jabber->setMuc(1);
+	} else {
+	    $jabber->setMuc(0);
 	}
 	$jabber->setSsl($self->param('ssl'));
 }

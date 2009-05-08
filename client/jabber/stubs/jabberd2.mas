@@ -1,0 +1,24 @@
+<%args>
+	$external
+</%args>
+# /etc/default/jabberd2 - default values for jabberd2
+
+# user and group
+USER=jabber
+GROUP=jabber
+
+# run router
+ROUTER_RUN=1
+
+# run sm
+SM_RUN=1
+
+# run s2s
+%       if (!($external eq 'no')) {
+S2S_RUN=1
+% } else {
+S2S_RUN=0
+% }
+
+# run c2s
+C2S_RUN=1
