@@ -522,12 +522,7 @@ sub get_bool # (key)
     return $self->_get_bool($key);
 }
 
-sub get # (key) 
-{
-	my ($self, $key) = @_;
-	$self->_config;
-	return $self->_get($key);
-}
+
 
 sub st_get_bool # (key) 
 {
@@ -598,7 +593,7 @@ sub _get_int # (key)
 #
 #       integer - key's value
 #
-sub get_int # (key) 
+sub get_int # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
