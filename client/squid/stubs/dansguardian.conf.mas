@@ -57,8 +57,6 @@ filtergroupslist = '/etc/dansguardian/lists/filtergroupslist'
 # Authentication files location
 bannediplist = '/etc/dansguardian/lists/bannediplist'
 exceptioniplist = '/etc/dansguardian/lists/exceptioniplist'
-banneduserlist = '/etc/dansguardian/lists/banneduserlist'
-exceptionuserlist = '/etc/dansguardian/lists/exceptionuserlist'
 
 showweightedfound = on
 

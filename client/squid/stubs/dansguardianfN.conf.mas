@@ -16,12 +16,30 @@ my @groupConfigFiles = (
       'exceptionurllist',
       'bannedextensionlist',
       'bannedmimetypelist',
+                        
     );
 
 defined $groupName or
      $groupName = 'group' . $group;
 </%init>
 # DansGuardian filter group config file for version 2.8.0
+
+# Filter group mode
+# This option determines whether members of this group have their web access
+# unfiltered, filtered, or banned. This mechanism replaces the "banneduserlist"
+# and "exceptionuserlist" files from previous versions.
+#
+# 0 = banned
+# 1 = filtered
+# 2 = unfiltered (exception)
+#
+# Only filter groups with a mode of 1 need to define phrase, URL, site, extension,
+# mimetype and PICS lists; in other modes, these options are ignored to conserve
+# memory.
+#
+# Defaults to 0 if unspecified.
+# Unauthenticated users are treated as being in the first filter group.
+groupmode = 1
 
 # Filter group name
 # Used to fill in the -FILTERGROUP- placeholder in the HTML template file and to
@@ -34,6 +52,7 @@ bannedphraselist = '/etc/dansguardian/lists/bannedphraselist'
 weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
 exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 
+
 % foreach my $configFile (@groupConfigFiles) {
 %    my $number = $group;
 %    if ($defaults{$configFile} ) {
@@ -42,9 +61,44 @@ exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
 <% $configFile %> = '/etc/dansguardian/lists/<% $configFile . $number %>'
 % }
 
+exceptionregexpurllist = '/etc/dansguardian/lists/exceptionregexpurllist'
 bannedregexpurllist = '/etc/dansguardian/lists/bannedregexpurllist'
 picsfile = '/etc/dansguardian/lists/pics'
 contentregexplist = '/etc/dansguardian/lists/contentregexplist'
+urlregexplist = '/etc/dansguardian/lists/urlregexplist'
+
+# Filetype filtering
+#
+# Blanket download blocking
+# If enabled, all files will be blocked, unless they match the
+# exceptionextensionlist or exceptionmimetypelist.
+# These lists do not override virus scanning.
+# Exception lists defined above override all types of filtering, including
+# the blanket download block.
+# Defaults to disabled.
+# (on | off)
+#
+blockdownloads = off
+exceptionextensionlist = '/etc/dansguardian/lists/exceptionextensionlist'
+exceptionmimetypelist = '/etc/dansguardian/lists/exceptionmimetypelist'
+#
+# In either file filtering mode, the following list can be used to override
+# MIME type & extension blocks for particular domains & URLs (trusted download sites).
+#
+exceptionfilesitelist = '/etc/dansguardian/lists/exceptionfilesitelist'
+exceptionfileurllist = '/etc/dansguardian/lists/exceptionfileurllist'
+
+# Outgoing HTTP header rules:
+# Optional lists for blocking based on, and modification of, outgoing HTTP
+# request headers.  Format for headerregexplist is one modification rule per
+# line, similar to content/URL modifications.  Format for
+# bannedregexpheaderlist is one regular expression per line, with matching
+# headers causing a request to be blocked.
+# Headers are matched/replaced on a line-by-line basis, not as a contiguous
+# block.
+# Use for example, to remove cookies or prevent certain user-agents.
+headerregexplist = '/etc/dansguardian/lists/headerregexplist'
+bannedregexpheaderlist = '/etc/dansguardian/lists/bannedregexpheaderlist'
 
 # 50 is for young children,  100 for old children,  160 for young adults.
 % if ($threshold == 0) {
@@ -55,9 +109,49 @@ naughtynesslimit = 9999
 naughtynesslimit = <% $threshold %>
 % }
 
+# Category display threshold
+# This option only applies to pages blocked by weighted phrase filtering.
+# Defines the minimum score that must be accumulated within a particular
+# category in order for it to show up on the block pages' category list.
+# All categories under which the page scores positively will be logged; those
+# that were not displayed to the user appear in brackets.
+#
+# -1 = display only the highest scoring category
+# 0 = display all categories (default)
+# > 0 = minimum score for a category to be displayed
+categorydisplaythreshold = 0
+
+# Embedded URL weighting
+# When set to something greater than zero, this option causes URLs embedded within a
+# page's HTML (from links, image tags, etc.) to be extracted and checked against the
+# bannedsitelist and bannedurllist. Each link to a banned page causes the amount set
+# here to be added to the page's weighting.
+# The behaviour of this option with regards to multiple occurrences of a site/URL is
+# affected by the weightedphrasemode setting.
+#
+# NB: Currently, this feature uses regular expressions that require the PCRE library.
+# As such, it is only available if you compiled DansGuardian with '--enable-pcre=yes'.
+# You can check compile-time options by running 'dansguardian -v'.
+#
+# Set to 0 to disable.
+# Defaults to 0.
+# WARNING: This option is highly CPU intensive!
+embeddedurlweight = 0
+
+
+
+# Enable PICS rating support
+#
+# Defaults to disabled
+# (on | off)
+enablepics = off
+
+
+
 bypass = 0
 
 bypasskey = ''
+
 
 
 % if ($antivirus) {
