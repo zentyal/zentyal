@@ -89,10 +89,28 @@ maxuploadsize = -1
 
 maxcontentfiltersize = 256
 
-usernameidmethodproxyauth = on
-usernameidmethodntlm = off # **NOT IMPLEMENTED**
-usernameidmethodident = off
+
 maxcontentramcachescansize = 2000
+
+# Auth plugins
+# These replace the usernameidmethod* options in previous versions. They
+# handle the extraction of client usernames from various sources, such as
+# Proxy-Authorisation headers and ident servers, enabling requests to be
+# handled according to the settings of the user's filter group.
+# Multiple plugins can be specified, and will be queried in order until one
+# of them either finds a username or throws an error. For example, if Squid
+# is configured with both NTLM and Basic auth enabled, and both the 'proxy-basic'
+# and 'proxy-ntlm' auth plugins are enabled here, then clients which do not support
+# NTLM can fall back to Basic without sacrificing access rights.
+#
+# If you do not use multiple filter groups, you need not specify this option.
+#
+authplugin = '/etc/dansguardian/authplugins/proxy-basic.conf'
+#authplugin = '/etc/dansguardian/authplugins/proxy-digest.conf'
+#authplugin = '/etc/dansguardian/authplugins/proxy-ntlm.conf'
+#authplugin = '/etc/dansguardian/authplugins/ident.conf'
+#authplugin = '/etc/dansguardian/authplugins/ip.conf'
+
 # Preemptive banning - this means that if you have proxy auth enabled and a user accesses
 # a site banned by URL for example they will be denied straight away without a request
 # for their user and pass.  This has the effect of requiring the user to visit a clean
