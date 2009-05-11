@@ -134,6 +134,40 @@ trickledelay = 10
 
 downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
 
+# Content Scanners (Also known as AV scanners)
+# These are plugins that scan the content of all files your browser fetches
+# for example to AV scan.  The options are limitless.  Eventually all of
+# DansGuardian will be plugin based.  You can have more than one content
+# scanner. The plugins are run in the order you specify.
+# This is one of the few places you can have multiple options of the same name.
+#
+# Some of the scanner(s) require 3rd party software and libraries eg clamav.
+# See the individual plugin conf file for more options (if any).
+#
+% if ($antivirus) {
+contentscanner = '/etc/dansguardian/contentscanners/clamav.conf'
+% }
+
+
+
+# Content scanner timeout
+# Some of the content scanners support using a timeout value to stop
+# processing (eg AV scanning) the file if it takes too long.
+# If supported this will be used.
+# The default of 60 seconds is probably reasonable.
+contentscannertimeout = 60
+
+
+
+# Content scan exceptions
+# If 'on' exception sites, urls, users etc will be scanned
+# This is probably not desirable behavour as exceptions are
+# supposed to be trusted and will increase load.
+# Correct use of grey lists are a better idea.
+# (on|off) default = off
+contentscanexceptions = off
+
+
 
 preemptivebanning = off
 
@@ -172,29 +206,6 @@ nologger = off
 # daemongroup = 'nobody'
 
 softrestart = off
-
-% if ($antivirus) {
-virusscan = on
-% } else {
-virusscan = off
-
-% }
-
-
-virusengine = 'clamav'
-forkscanlength = 32768
-notify = 0 # change values when mail is ocnfigured
-
-#urlcachecleanonly =off
-
-#tricklelength = -1
-#tricklelength  = -1024
-# emaildomain, emailserver
-
-# XXX unbable to make clamd to work, so we will use clamscan for now
-#virusengine = 'clamd'
-#    $clamdSocket   => '/var/run/clamav/clamd.ctl' (in %args)
-%#clamdsocket = '<% $clamdSocket %>'
 
 
 

@@ -152,39 +152,36 @@ bypass = 0
 
 bypasskey = ''
 
+# Infection/Scan Error Bypass
+# Similar to the 'bypass' setting, but specifically for bypassing files scanned and found
+# to be infected, or files that trigger scanner errors - for example, archive types with
+# recognised but unsupported compression schemes, or corrupt archives.
+# The option specifies the number of seconds for which the bypass link will be valid.
+# 300 = enable for 5 minutes
+# 0 = disable (default)
+# -1 = enable, but require a separate program/CGI to generate a valid link
+infectionbypass = 0
+
+# Infection/Scan Error Bypass Secret Key
+# Same as the 'bypasskey' option, but used for infection bypass mode.
+infectionbypasskey = ''
+
+# Infection/Scan Error Bypass on Scan Errors Only
+# Enable this option to allow infectionbypass links only when virus scanning fails,
+# not when a file is found to contain a virus.
+# on = enable (default and highly recommended)
+# off = disable
+infectionbypasserrorsonly = on
 
 
+
+# Disable content scanning
+# If you enable this option you will disable content scanning for this group.
+# Content scanning primarily is AV scanning (if enabled) but could include
+# other types.
+# (on|off) default = off.
 % if ($antivirus) {
-#  ANTIVIRUS SETTINGS for this group
-# --------------------
-
-# OPTION: virusscan
-# If on, content will be scanned using virus engine setup in dansguardian.conf.
-# More options are available in dansguardian.conf.
-virusscan = on
-
-# OPTION: exceptionvirusextensionlist
-# The following file allow you to define file extensions
-# that should not be virus scanned.
-exceptionvirusextensionlist = '/etc/dansguardian/lists/exceptionvirusextensionlist'
-# OPTION: exceptionvirusmimetypelist
-# The following file allow you to define mime types
-# that should not be virus scanned.
-exceptionvirusmimetypelist = '/etc/dansguardian/lists/exceptionvirusmimetypelist'
-
-# OPTION: exceptionvirussitelist
-# File location of definition of sites not be virus scanned.
-exceptionvirussitelist = '/etc/dansguardian/lists/exceptionvirussitelist'
-
-# OPTION: exceptionvirusurllist
-# File location of definition of URLs not be virus scanned.
-exceptionvirusurllist = '/etc/dansguardian/lists/exceptionvirusurllist'
-
-# OPTION: dlmgrextensionlist
-# File location of file extensions to be handled by embedded download manager.
-dlmgrextensionlist = '/etc/dansguardian/lists/dlmgrextensionlist'
-
+disablecontentscan = off
 % } else {
-virusscan = off
-
+disablecontentscan = on
 % }
