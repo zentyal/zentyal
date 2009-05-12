@@ -5,12 +5,8 @@ d-i	pkgsel/language-pack-patterns	string
 # No language support packages.
 d-i	pkgsel/install-language-support	boolean false
 
-# install ssh
-d-i pkgsel/include string ssh
-
-# Add eBox repository
-d-i apt-setup/local0/key string deb http://ppa.launchpad.net/ebox/ubuntu hardy main
-
+# install ssh and custom l7filter kernel
+d-i pkgsel/include string ssh linux-image-2.6.24-24-l7filter
 
 # Uncomment to ease installation testing
 

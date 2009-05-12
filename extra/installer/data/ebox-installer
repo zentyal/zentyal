@@ -19,11 +19,6 @@ fi
 
 SOURCES=/etc/apt/sources.list
 
-# Add hardy sources
-echo "deb http://archive.ubuntu.com/ubuntu/ hardy main restricted" >> $SOURCES
-echo "deb http://archive.ubuntu.com/ubuntu/ hardy universe" >> $SOURCES
-echo "deb http://archive.ubuntu.com/ubuntu/ hardy-updates main restricted" >> $SOURCES
-
 # Add stable ebox sources
 echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
 
