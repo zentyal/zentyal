@@ -71,6 +71,7 @@ sub _table
                     printableName => __('Cache files size (MB)'),
                     editable => 1,
                     size => 5,
+                    min  => 10,
                     defaultValue   => 100,
                  ),
             new EBox::Squid::Types::Policy(
