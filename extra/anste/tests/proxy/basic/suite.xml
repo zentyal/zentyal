@@ -76,7 +76,9 @@
         <host>test-client</host>
         <dir>test-filter-deny</dir>
         <var name="HOST" value="www.marca.com"/>
+        <var name="LOOK_FOR" value="Banned site"/>
     </test>
+
     <test type="selenium">
         <name>TestLogFilterForbidDownload</name>
         <desc>Tests if proxy logs works ok</desc>
@@ -104,6 +106,7 @@
         <host>test-client</host>
         <dir>test-filter-deny</dir>
         <var name="HOST" value="www.lupaland.com"/>
+        <var name="LOOK_FOR" value="Weighted phrase limit exceeded"/>
     </test>
     <test type="selenium">
         <name>TestLogAdultContent</name>
@@ -442,8 +445,9 @@
         <host>test-client</host>
         <dir>test-filter-deny</dir>
         <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
-		<var name="USERNAME" value="avuser"/>
-		<var name="PASSWORD" value="avuser"/>
+        <var name="USERNAME" value="avuser"/>
+        <var name="PASSWORD" value="avuser"/>
+        <var name="LOOK_FOR" value="Virus or bad content detected. Eicar-Test-Signature"/>
     </test>
 
     <test type="selenium">
@@ -463,7 +467,7 @@
         <desc>
 		Try to download a virus with antivirus disabled
 		and zip extension allowed.
-		</desc>
+        </desc>
 
         <host>test-client</host>
         <dir>test-allow</dir>
@@ -477,12 +481,12 @@
         <desc>
 		Forbids a extension on the default profile and tells another profile
 		to use default extensions filtering.
-		</desc>
+        </desc>
 
         <host>ebox-server</host>
         <dir>forbid-extension</dir>
         <var name="PROFILE" value="filter-no-av"/>
-		<var name="EXTENSION" value="zip"/>
+        <var name="EXTENSION" value="zip"/>
     </test>
 
     <test>
@@ -490,13 +494,14 @@
         <desc>
 		Try to download a virus with antivirus disabled
 		but zip extension forbidden.
-		</desc>
+        </desc>
 
         <host>test-client</host>
         <dir>test-filter-deny</dir>
         <var name="HOST" value="http://www.eicar.org/download/eicar_com.zip"/>
-		<var name="USERNAME" value="noavuser"/>
-		<var name="PASSWORD" value="noavuser"/>
+        <var name="USERNAME" value="noavuser"/>
+        <var name="PASSWORD" value="noavuser"/>
+        <var name="LOOK_FOR" value="Banned extension"/>
     </test>
 
 </suite>
