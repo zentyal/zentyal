@@ -684,7 +684,7 @@ sub dumpConfig
         return;
     }
 
-    my $toBackupList = '/tmp/ebox.domainfilesfilter';
+    my $toBackupList = EBox::Config::tmp() . 'ebox.domainfilesfilter';
     open my $fh, ">$toBackupList" or
         throw EBox::Exceptions::Internal("$!");
 
