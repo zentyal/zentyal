@@ -135,9 +135,9 @@ sub serviceUrn
 #
 sub serviceHostName
 {
-    my ($class) = @_;
+    my ($self) = @_;
 
-    return $class->valueFromBundle(_serviceHostNameKey());
+    return $self->valueFromBundle($self->_serviceHostNameKey());
 
 }
 
