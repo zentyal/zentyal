@@ -160,7 +160,7 @@ sub listRemoteBackups
       my ($name, $value) = split(':', $line, 2);
       $value or next;
 
-      $value =~ s/^\s+//; # remove suprefluous spaces at the begin
+      $value =~ s/^\s+//; # remove superfluous spaces at the begin
       $properties{$name} = $value;
     }
 
@@ -176,6 +176,11 @@ sub listRemoteBackups
 
     if (not exists $metainfo->{$cname}) {
       $metainfo->{$cname} = {};
+    }
+
+    if (exists $properties{'Size'}) {
+        $properties{'printableSize'} =
+          $self->_printableSize($properties{'Size'});
     }
 
     $metainfo->{$cname}->{$fname} = \%properties;

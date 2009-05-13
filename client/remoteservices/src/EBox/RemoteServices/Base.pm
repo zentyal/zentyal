@@ -187,7 +187,7 @@ sub _disconnect
 # Returns:
 #
 #      String - the url suffix to add to the request. Default value:
-#      empty string 
+#      empty string
 #
 sub _urlSuffix
 {
@@ -271,6 +271,38 @@ sub _queryServicesNameserver
 
 }
 
+# Method: _printableSize
+#
+#    Given a size in Bytes, transform to a string using KB, MB or GB
+#
+# Parameters:
+#
+#    size - Int the size in Bytes
+#
+# Returns:
+#
+#    String - the size in KB, MB or GB including the measure at the
+#    end of the string
+#
+# Example:
+#
+#    1024 -> 1 KB
+#
+sub _printableSize
+{
+    my ($self, $size) = @_;
+
+    my @units = qw(KB MB GB);
+    foreach my $unit (@units) {
+        $size = sprintf ("%.2f", $size / 1024);
+        if ($size < 1024) {
+            return "$size $unit";
+        }
+    }
+
+    return $size . ' ' . (pop @units);
+}
+
 
 # Group: Private methods
 
@@ -303,7 +335,7 @@ sub _soapConnect
              );
       }
 
-    defined $soapClient or 
+    defined $soapClient or
       throw EBox::Exceptions::External(
           __('Cannot create SOAP connection')
          );

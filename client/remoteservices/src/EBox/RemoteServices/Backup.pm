@@ -265,7 +265,7 @@ sub _metainfoFromServer
         }
 
         if (exists $properties{Size}) {
-            $properties{printableSize} = 
+            $properties{printableSize} =
               $self->_printableSize($properties{Size});
         }
 
@@ -275,22 +275,6 @@ sub _metainfoFromServer
 
     return $metainfo;
 }
-
-sub _printableSize
-{
-    my ($self, $size) = @_;
-
-    my @units = qw(KB MB GB);
-    foreach my $unit (@units) {
-        $size = sprintf ("%.2f", $size / 1024);
-        if ($size < 1024) {
-            return "$size $unit";
-        }
-    }
-    
-    return $size . ' ' . (pop @units);
-}
-
 
 sub _metainfoFile
 {
