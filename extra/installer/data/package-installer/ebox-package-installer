@@ -26,38 +26,36 @@ EBox::Gettext::settextdomain('ebox-package-installer');
 #########################
 
 my @TASKS = (
-    ['ebox-gateway', __('FIXME: ebox-gateway description')],
-    ['ebox-security', __('FIXME: ebox-security description')],
-    ['ebox-infrastructure', __('FIXME: ebox-infrastructure description')],
-    ['ebox-office', __('FIXME: ebox-office description')],
-    ['ebox-communication', __('FIXME: ebox-communication description')],
+    ['ebox-gateway', __('Firewal, proxy, traffic shaping..')],
+    ['ebox-security', __('Firewall, content and mail filter, VPN, antivirus, IDS')],
+    ['ebox-infrastructure', __('DHCP, DNS, NTP, web server, ')],
+    ['ebox-office', __('File sharing, printers, groupware')],
+    ['ebox-communication', __('Mail, mailfiler, VoIP, instant messaging')],
 );
 
 my @PACKAGES = (
-    ['ebox-network', __('FIXME: description')],
-    ['ebox-firewall', __('FIXME: description')],
-    ['ebox-trafficshaping', __('FIXME: description')],
-    ['ebox-samba', __('FIXME: description')],
-    ['ebox-dns', __('FIXME: description')],
-    ['ebox-dhcp', __('FIXME: description')],
-    ['ebox-squid', __('FIXME: description')],
-    ['ebox-usersandgroups', __('FIXME: description')],
-    ['ebox-software', __('FIXME: description')],
-    ['ebox-ntp', __('FIXME: description')],
-    ['ebox-printers', __('FIXME: description')],
-    ['ebox-jabber', __('FIXME: description')],
-    ['ebox-openvpn', __('FIXME: description')],
-    ['ebox-webserver', __('FIXME: description')],
-    ['ebox-mail', __('FIXME: description')],
-    ['ebox-mailfilter', __('FIXME: description')],
-    ['ebox-mail', __('FIXME: description')],
-    ['ebox-antivirus', __('FIXME: description')],
-    ['ebox-egroupware', __('FIXME: description')],
-    ['ebox-software', __('FIXME: description')],
-    ['ebox-ids', __('FIXME: description')],
-    ['ebox-captiveportal', __('FIXME: description')],
-    ['ebox-asterisk', __('FIXME: description')],
-    ['ebox-improxy', __('FIXME: description')],
+    ['ebox-network', __('Networking')],
+    ['ebox-firewall', __('Firewall and redirections')],
+    ['ebox-trafficshaping', __('Traffic shaping')],
+    ['ebox-samba', __('File sharing, PDC')],
+    ['ebox-dns', __('Domain Name Service')],
+    ['ebox-dhcp', __('DHCP server')],
+    ['ebox-squid', __('HTTP Proxy and content filter')],
+    ['ebox-usersandgroups', __('LDAP users and groups management')],
+    ['ebox-software', __('System and eBox package managmenet')],
+    ['ebox-ntp', __('Network Time Protocol server')],
+    ['ebox-printers', __('Printing service')],
+    ['ebox-jabber', __('XMPP server')],
+    ['ebox-openvpn', __('VPN server')],
+    ['ebox-webserver', __('Web Server')],
+    ['ebox-mail', __('Mail system: SMTP, POP3, IMAP')],
+    ['ebox-mailfilter', __('Anti-virus, Anti-spam, transparent POP proxy')],
+    ['ebox-antivirus', __('Anti-virus')],
+    ['ebox-egroupware', __('Calendar sharing, address book, webmail')],
+    ['ebox-ids', __('Intrusion Detection System')],
+    ['ebox-captiveportal', __('Captive Portal')],
+    ['ebox-asterisk', __('VoIP and PBX')],
+    ['ebox-improxy', __('Instante Messaging Proxy')],
 );
 
 #################
@@ -69,24 +67,24 @@ my $INSTALL_FILES = '/var/tmp';
 
 my $INSTALLER_TITLE = __('eBox Installer');
 my $SIMPLE_METHOD = __('simple');
-my $SIMPLE_DESC = __('Select typical sets of packages');
+my $SIMPLE_DESC = __('Select sets of packages');
 my $ADVANCED_METHOD = __('advanced');
 my $ADVANCED_DESC = __('Select packages manually');
 my $TASK_TITLE = __('Select eBox tasks to install');
-my $TASK_MESSAGE = __('FIXME: Put something here');
+my $TASK_MESSAGE = __('Choose a profile');
 my $PACKAGE_TITLE = __('Select eBox packages to install');
-my $PACKAGE_MESSAGE = __('FIXME: Put something here');
+my $PACKAGE_MESSAGE = __('Choose eBox packages individually');
 my $IFACES_TITLE = __('Select external interfaces');
-my $IFACES_MESSAGE = __('FIXME: Put something here');
+my $IFACES_MESSAGE = __('Strict default policies are applied to incoming traffic through external interfaces');
 my $PASS_TITLE = __('Enter password for eBox interface');
-my $PASS_MSG = __('FIXME: Put something here');
+my $PASS_MSG = __('You will need to use this password to log into the eBox interface');
 my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
-my $PASS_CONFIRM_MSG = __('FIXME: Put something here');
+my $PASS_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
 my $MAIL_MESSAGE = __('Enter default virtual mail domain');
 my $FINAL_TITLE = __('Installation finished');
-my $FINAL_MESSAGE = __('Now you can access eBox interface at ' .
-                       'https://localhost/');
+my $FINAL_MESSAGE = __('Now you can access the eBox interface at ' .
+                       'https://$YOUR_IP/');
 
 my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 
