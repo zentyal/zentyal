@@ -136,15 +136,33 @@ sub serviceUrn
 sub serviceHostName
 {
     my ($class) = @_;
-    my $host = EBox::Config::configkeyFromFile($class->_serviceHostNameKey(),
-                                               $class->_confFile());
-    if ( not $host ) {
+
+    return $class->valueFromBundle(_serviceHostNameKey());
+
+}
+
+# Method: valueFromBundle
+#
+#    Get the value for a key in the given bundle
+#
+# Returns:
+#
+#    String - the value corresponding to that key
+#
+sub valueFromBundle
+{
+    my ($self, $key) = @_;
+
+    my $value = EBox::Config::configkeyFromFile($key,
+                                                $self->_confFile());
+    if ( not $value ) {
         throw EBox::Exceptions::External(
-            __('Key for service proxy not found')
+            __x('Value for key {k} not found', k => $key)
            );
     }
 
-    return $host;
+    return $value;
+
 }
 
 # Method: vpnClientForServices

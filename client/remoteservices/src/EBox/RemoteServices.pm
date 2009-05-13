@@ -47,6 +47,7 @@ use constant CA_DIR              => SERV_DIR . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
+use constant SITE_HOST_KEY       => 'siteHost';
 
 # Group: Protected methods
 
@@ -327,7 +328,7 @@ sub subscriberUsername
 #
 sub controlPanelURL
 {
-    my $url =  EBox::RemoteServices::Subscription::serviceHostName();
+    my $url =  EBox::RemoteServices::Auth->new()->valueFromBundle(SITE_HOST_KEY);
     return "https://${url}/"
 }
 
