@@ -1,13 +1,13 @@
 #!/usr/bin/perl
 use EBox;
 use EBox::Global;
-use EBox::ServiceModule::Manager;
+use EBox::ServiceManager;
 
 EBox::init();
 
 my $global = EBox::Global->getInstance();
 
-my $mgr = EBox::ServiceModule::Manager->new();
+my $mgr = EBox::ServiceManager->new();
 $mgr->enableAllModules();
 
 $global->revokeAllModules();
