@@ -43,7 +43,7 @@ echo Launching eBox package installer...
 # delete itself
 echo Cleaning up eBox installer files...
 rm -f /var/tmp/locale.gen
-update-rc.d -f $RC_NAME remove
-rm /etc/init.d/$RC_NAME
+# restore original rc.local
+cp /var/tmp/rc.local /etc/rc.local
 # Restore file to its original status
 sed -i '1 d' /etc/lsb-base-logging.sh

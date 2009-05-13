@@ -3,9 +3,9 @@
 INSTALLER=ebox-installer
 
 cp /tmp/motd /etc/motd
-cp /tmp/$INSTALLER /etc/init.d/$INSTALLER
-chmod 0755 /etc/init.d/$INSTALLER
-update-rc.d $INSTALLER start  41 S .
+
+cp /etc/rc.local /var/tmp
+cp /tmp/$INSTALLER /etc/rc.local
 
 # Copy locale
 cp /tmp/locale.gen /var/tmp
