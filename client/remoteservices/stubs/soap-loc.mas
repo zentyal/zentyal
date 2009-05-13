@@ -8,6 +8,7 @@
    $allowedClientCNs
    $caPath
    $confDirPath
+   $proxyHostName => 'cc'
 </%args>
 <%init>
   my $internalDomainName = "internal.$domainName";
@@ -31,7 +32,7 @@ SSLCACertificatePath <% $caPath %>
 <IfModule mod_rewrite.c>
    RewriteLock <% $confDirPath %>rewrite.lck
 
-   RewriteCond %{HTTP:Via}   www
+   RewriteCond %{HTTP:Via}   <% $proxyHostName %>
    RewriteCond %{HTTP_COOKIE} !Auth_EBox
    RewriteRule ^/ebox           /LOGIN_CC [L]
 </IfModule>
