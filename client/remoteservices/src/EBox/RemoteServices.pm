@@ -124,6 +124,22 @@ sub _daemons
        ];
 }
 
+# Method: isEnabled
+#
+#       Module is enabled only when the subscription is done
+#
+# Overrides:
+#
+#       <EBox::Module::Service::isEnabled>
+#
+sub isEnabled
+{
+    my ($self) = @_;
+
+    return $self->eBoxSubscribed();
+
+}
+
 # Group: Public methods
 
 # Method: addModuleStatus
@@ -159,6 +175,12 @@ sub showModuleStatus
     return 0;
 }
 
+# Method: menu
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
 sub menu
 {
     my ($self, $root) = @_;
@@ -424,22 +446,6 @@ sub _establishVPNConnection
         $authConnection->connection();
     }
 
-}
-
-# Start/stop/restart runnerd daemon
-sub _doDaemon
-{
-    my ($self) = @_;
-
-    if ( $self->eBoxSubscribed() ) {
-        if ( EBox::Service::running(RUNNERD_SERVICE) ) {
-            EBox::Service::manage(RUNNERD_SERVICE, 'restart');
-        } else {
-            EBox::Service::manage(RUNNERD_SERVICE, 'start');
-        }
-    } else {
-        EBox::Service::manage(RUNNERD_SERVICE, 'stop');
-    }
 }
 
 # Return the allowed client CNs regexp
