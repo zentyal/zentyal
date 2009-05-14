@@ -1,0 +1,11 @@
+Server side changes
+-------------------
+
+Change login_shell from /bin/false to /bin/bash in /etc/ebox/80samba.conf
+
+
+Client actions
+--------------
+apt-get install libpam-ldap
+
+ebox-setup-client <ebox-ldap-address>

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+SERVER=$1
+
+if [ -z $SERVER ]
+then
+    echo "Usage: $0 <server-address>"
+    exit 1
+fi
+
+sed -i "s/^host .*$//" /etc/ldap.conf
+sed -i "1 i host $SERVER" /etc/ldap.conf
+
+if ! grep -v ^# /etc/pam.d/common-account | grep -q pam_ldap.so
+then
+    sed -i "1 i account sufficient pam_ldap.so" /etc/pam.d/common-account
+fi
+
+if ! grep -v ^# /etc/pam.d/common-auth | grep -q pam_ldap.so
+then
+    sed -i "1 i auth sufficient pam_ldap.so" /etc/pam.d/common-auth
+fi
+
+sed -i 's/nullok_secure$/nullok_secure use_first_pass/' /etc/pam.d/common-auth
+
+sed -i 's/compat$/compat ldap/' /etc/nsswitch.conf
