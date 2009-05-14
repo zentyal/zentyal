@@ -413,10 +413,10 @@ sub cleanUpMeetings
     my @extns = map { {
                           cn => $_->get_value('cn'),
                           extn => $_->get_value('AstExtension'),
-                    } } $result->sorted('cn');
+                    } } $result->entries();
 
     foreach my $extn (@extns) {
-        if (($self->MEETINGMINEXTN < $extn->{'extn'}) and ($extn->{'extn'} < $self->MEETINGMAXEXTN)) {
+        if (($self->MEETINGMINEXTN <= $extn->{'extn'}) and ($extn->{'extn'} <= $self->MEETINGMAXEXTN)) {
             $self->delExtension($extn->{'cn'});
         }
     }
