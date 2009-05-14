@@ -134,7 +134,7 @@ sub _daemons
         {
             'name' => 'jabberd2',
             'type' => 'init.d',
-            'pidfile' => '/var/run/jabberd2/router.pid'
+            'pidfiles' => ['/var/run/jabberd2/router.pid']
         }
     ];
 }
