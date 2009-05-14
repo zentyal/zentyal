@@ -25,3 +25,7 @@ noload => chan_mgcp.so
 noload => res_config_pgsql
 noload => app_voicemail_odbc.so
 noload => app_directory_odbc.so
+noload => res_config_odbc.so
+noload => res_odbc.so
+noload => res_snmp.so
+noload => pbx_lua.so
