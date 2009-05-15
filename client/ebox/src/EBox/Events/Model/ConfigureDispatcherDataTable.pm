@@ -43,6 +43,8 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
+use Error qw(:try);
+
 # Constants:
 #
 #      DISPATCHER_DIR - String directory where the Dispatchers are
@@ -95,7 +97,7 @@ sub new
 #
 #   string
 #
-sub headTitle 
+sub headTitle
 {
 
     my ($self) = @_;
@@ -103,7 +105,7 @@ sub headTitle
     return undef;
 }
 
-# Method: rows
+# Method: syncRows
 #
 #      This method is overridden since the showed data is managed
 #      differently.
@@ -118,24 +120,19 @@ sub headTitle
 #
 # Overrides:
 #
-#        <EBox::Model::DataTable::rows>
+#        <EBox::Model::DataTable::syncRows>
 #
 sub syncRows
   {
 
-      my ($self, $currentRows) = @_;
+      my ($self, $currentIds) = @_;
 
       # If the GConf module is readonly, return current rows
       if ( $self->{'gconfmodule'}->isReadOnly() ) {
-          return undef; 
+          return undef;
       }
 
       my %storedEventDispatchers;
-      foreach my $currentRow (@{$currentRows}) {
-          my $row = $self->row($currentRow);
-          $storedEventDispatchers{$row->valueByName('eventDispatcher')} = 'true';
-      }
-
       my %currentEventDispatchers;
       my $dispatchersRef = $self->_fetchDispatchers();
       foreach my $dispatcherFetched (@{$dispatchersRef}) {
@@ -143,6 +140,26 @@ sub syncRows
       }
 
       my $modified = undef;
+
+      # Removing old ones
+      foreach my $id (@{$currentIds}) {
+          my $row;
+          my $removed = 0;
+          try {
+              $row = $self->row($id);
+          } catch EBox::Exceptions::Base with {
+              $self->removeRow( $id );
+              $modified = 1;
+              $removed = 1;
+          };
+          next if ($removed);
+          my $stored = $row->valueByName('eventDispatcher');
+          $storedEventDispatchers{$stored} = 'true';
+          next if ( exists ( $currentEventDispatchers{$stored} ));
+          $self->removeRow( $id );
+          $modified = 1;
+      }
+
       # Adding new ones
       foreach my $dispatcher (keys ( %currentEventDispatchers )) {
           next if ( exists ( $storedEventDispatchers{$dispatcher} ));
@@ -165,15 +182,6 @@ sub syncRows
           }
 
           $self->addRow(%params);
-          $modified = 1;
-      }
-
-      # Removing old ones
-      foreach my $id (@{$currentRows}) {
-          my $row = $self->row($id);
-          my $stored = $row->valueByName('eventDispatcher');
-          next if ( exists ( $currentEventDispatchers{$stored} ));
-          $self->removeRow( $row->id() );
           $modified = 1;
       }
 
@@ -308,7 +316,7 @@ sub _table
                                 ]
                                ),
          new EBox::Types::Boolean(
-                                  fieldName     => 'enabled', 
+                                  fieldName     => 'enabled',
                                   printableName => __('Enabled'),
                                   class         => 'tcenter',
                                   type          => 'boolean',
@@ -462,7 +470,8 @@ sub acquireConfModel
       eval "use $className";
       if ( $@ ) {
           # Error loading class -> dispatcher to remove
-          throw EBox::Exceptions::Internal("Class $className does not compile: $@");
+          # Setting the fallback model
+          return 'Fallback';
       }
 
       return $className->ConfigureModel();

@@ -42,6 +42,8 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
+use Error qw(:try);
+
 # Constants:
 #
 #      WATCHERS_DIR - String directory where the Watchers lie
@@ -112,21 +114,41 @@ sub syncRows
       }
 
       my %storedEventWatchers;
-      foreach my $id (@{$currentIds}) {
-          my $currentRow = $self->row($id);
-          $storedEventWatchers{$currentRow->valueByName('eventWatcher')} = 'true';
-      }
-
       my %currentEventWatchers;
       my $watchersRef = $self->_fetchWatchers();
       foreach my $watcherFetched (@{$watchersRef}) {
           $currentEventWatchers{$watcherFetched} = 'true';
       }
 
-      # Adding new ones
       my $modified = undef;
+      # Removing old ones
+      foreach my $id (@{$currentIds}) {
+          my $row;
+          my $removed = 0;
+          try {
+              $row = $self->row($id);
+          } catch EBox::Exceptions::Base with {
+              $self->removeRow( $id );
+              $modified = 1;
+              $removed  = 1;
+          };
+          next if ($removed);
+          my $stored = $row->valueByName('eventWatcher');
+          $storedEventWatchers{$stored} = 'true';
+          if ( exists ( $currentEventWatchers{$stored} )) {
+              # Check its ability
+              my $able = $self->_checkWatcherAbility($stored);
+              $self->setTypedRow($id, undef, readOnly => ! $able);
+          } else {
+              $self->removeRow( $id );
+          }
+          $modified = 1;
+      }
+
+      # Adding new ones
       foreach my $watcher (keys ( %currentEventWatchers )) {
           next if ( exists ( $storedEventWatchers{$watcher} ));
+          eval "use $watcher";
           my %params = ('eventWatcher' => $watcher,
                          # The value is obtained dynamically
                          'description'  => undef,
@@ -142,21 +164,6 @@ sub syncRows
           $self->addRow( %params );
           $modified = 1;
       }
-
-      # Removing old ones
-      foreach my $id (@{$currentIds}) {
-          my $row = $self->row($id);
-          my $stored = $row->valueByName('eventWatcher');
-          if ( exists ( $currentEventWatchers{$stored} )) {
-              # Check its ability
-              my $able = $self->_checkWatcherAbility($stored);
-              $self->setTypedRow($id, undef, readOnly => ! $able);
-          } else {
-              $self->removeRow( $id );
-          }
-          $modified = 1;
-      }
-
 
       return $modified;
 
@@ -200,14 +207,14 @@ sub updatedRowNotify
 # Method: pageTitle
 #
 #   Overrides:
-#       
+#
 #       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
 #
 #   undef
-sub pageTitle 
+sub pageTitle
 {
     return undef;
 }
@@ -215,14 +222,14 @@ sub pageTitle
 # Method: headTitle
 #
 #   Overrides:
-#       
+#
 #       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
 #
 #   undef
-sub headTitle 
+sub headTitle
 {
     return undef;
 }
@@ -396,8 +403,9 @@ sub acquireConfModel
 
       eval "use $className";
       if ( $@ ) {
-          # Error loading class -> dispatcher to remove
-          throw EBox::Exceptions::Internal("Class $className does not compile: $@");
+          # Error loading class -> watcher to remove
+          # Return the fallback model
+          return 'Fallback';
       }
 
       return $className->ConfigureModel();

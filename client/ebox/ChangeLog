@@ -1,5 +1,6 @@
 1.1.10
-	+ New release
+	+ Bugfix: events models are working again even if an event aware
+	module is uninstalled and it is in a backup to restore
 1.1
 	+ Added 'parentModule' to model class to avoid recursive problems
 	+ Added Float type
