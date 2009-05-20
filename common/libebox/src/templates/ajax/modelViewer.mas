@@ -188,7 +188,7 @@
   $modelName
   @formData
 </%args>
-<form name="<% $modelName . '_form' %>">
+<form name="<% $modelName . '_ajaxform' %>">
   <table class="formTable">
     <tbody>
       <& SELF:editRowFields,

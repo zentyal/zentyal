@@ -126,7 +126,7 @@ use POSIX;
                 row => $printableRowName)
 &>
 %   }
-<form name="<% $tableName . '_form' %>">
+<form name="<% $tableName . '_ajaxform' %>">
   <table class='formTable'>
     <tbody>
      <col width="1*" />
