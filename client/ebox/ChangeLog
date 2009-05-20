@@ -1,4 +1,6 @@
 1.1.10
+	+ Fix issue when there's a file managed by one module that has been modified
+	  when saving changes
 	+ Bugfix: events models are working again even if an event aware
 	module is uninstalled and it is in a backup to restore
 1.1

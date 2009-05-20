@@ -217,6 +217,7 @@ sub checkFiles
     }
 
     my @modified;
+    my %files;
     for my $mod (@mods) {
         next unless ($mod->configured());
         for my $file (@{$mod->usedFiles()}) { 
@@ -224,9 +225,11 @@ sub checkFiles
             $file->{'globalId'} = $file->{'module'} . '_' . $file->{'id'};
             my $mod = $file->{'module'};
             my $path = $file->{'file'};
+            next if (exists $files{$path});
             if  ($self->_fileModified($file) 
                  or (not $self->modificationAllowed($mod, $path))) {
                 push (@modified, $file);
+                $files{$path} = 1;
             }
         }
     }
