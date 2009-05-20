@@ -8,6 +8,7 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
+</form>
  <form action="/ebox/Controller/Uploader"
         method="POST"
         enctype="multipart/form-data"
@@ -27,6 +28,7 @@ $cssClass => ''
     </span>
   </form>
   <input type='hidden' id='<% $id %>_remove' id='<% $id %>_remove' value='0'/> 
+<form>
 </div>
 %   if ( $data->showFileWhenEditing() and (-f $data->path() )) {
   <& $data->HTMLViewer(), data => $data &>
