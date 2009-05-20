@@ -41,9 +41,10 @@ use Pod::Usage;
 use constant MON_CRON_INTERVAL => 15 * 60;
 
 my @fileList = ();
-my $usage = 0;
+my ($usage, $force) = (0,0);
 my $correct = GetOptions(
     "usage|help" => \$usage,
+    "force"      => \$force,
    );
 
 if ( $usage or (not $correct)) {
@@ -68,6 +69,8 @@ unless ( $mon->isEnabled() ) {
 
 my $rrdDir = EBox::Monitor::Configuration::RRDBaseDirPath();
 
+# Stop collectd prior to creating the tar
+$mon->stopService();
 my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
 try {
     EBox::Sudo::command(
@@ -77,11 +80,12 @@ try {
     my ($exc) = @_;
     print STDERR "$exc\n";
 };
+$mon->restartService();
 
 my $monSrv = new EBox::RemoteServices::Monitor();
 my $retValue = 1;
 my $oldTar = EBox::RemoteServices::Configuration::OldTarLocation();
-if ( -r $oldTar and -f $oldTar ) {
+if ( (not $force) and -r $oldTar and -f $oldTar ) {
     my $deltaFile = new File::Temp(DIR => EBox::Config::tmp());
     EBox::Sudo::command(
         "/usr/bin/xdelta3 -fe -s $oldTar " . $currentTar->filename() . ' ' . $deltaFile->filename()
@@ -116,13 +120,16 @@ ebox-notify-mon-stats - Notify monitoring stats to CC
 
 =head1 SYNOPSIS
 
-ebox-notify-mon-stats [--usage|help]
+ebox-notify-mon-stats [--usage|help] [--force]
 
  It will send a tar containing the monitoring stats to CC. A delta file
  using xdelta3 tool if there is already a tar file created previously
 
  Options:
-   -- usage|help  Print this help and exit
+   --usage|help  Print this help and exit
+
+   --force       Send the whole tar file even though you already have
+                 a delta
 
 =cut
 
