@@ -83,22 +83,22 @@ sub initLogger
 }
 
 # returns the logger for the caller package, initLogger must be called before
-sub logger # (caller?) 
+sub logger # (caller?)
 {
 	my ($cat) = @_;
 	defined($cat) or $cat = LOGGER_CAT;
 	if(not $loginit) {
-        use Devel::StackTrace;
+            use Devel::StackTrace;
 
-        my $trace = Devel::StackTrace->new;
-        print STDERR $trace->as_string;
-    }
+            my $trace = Devel::StackTrace->new();
+            print STDERR $trace->as_string();
+        }
 	return Log::Log4perl->get_logger($cat);
 }
 
 # arguments
 # 	- locale: the locale the interface should use
-sub setLocale # (locale) 
+sub setLocale # (locale)
 {
 	my ($locale) = @_;
 	open(LOCALE, ">" . EBox::Config::conf() . "/locale");
@@ -108,7 +108,7 @@ sub setLocale # (locale)
 
 # returns:
 # 	- the locale
-sub locale 
+sub locale
 {
 	my $locale="C";
 	if (-f (EBox::Config::conf() . "locale")) {
@@ -127,7 +127,7 @@ sub init
 	my @groups = @{EBox::Config::groups()};
 	my $gids = '';
 	for my $group (@groups) {
-		$gids .= getgrnam($group) . ' ';	
+		$gids .= getgrnam($group) . ' ';
 	}
 	$GID = $EGID = getgrnam(EBox::Config::group()) . " $gids";
 
@@ -135,7 +135,7 @@ sub init
 	my $uid = getpwnam($user);
 	setuid($uid) or die "Cannot change user to $user";
 
-    EBox::initLogger('eboxlog.conf');
+        EBox::initLogger('eboxlog.conf');
 }
 
 1;

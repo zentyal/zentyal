@@ -54,9 +54,9 @@ Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
 Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
-# Procedure: command 
+# Procedure: command
 #
-#	Executes a command as ebox user 
+#	Executes a command as ebox user
 #
 # Parameters:
 #
@@ -74,43 +74,40 @@ Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # 	array ref - Returns the output of the command in an array
 #
-sub command # (command) 
+sub command # (command)
 {
-  my ($cmd) = @_;
-  validate_pos(@_, 1);
+    my ($cmd) = @_;
+    validate_pos(@_, 1);
 
-  my @output = `$cmd 2> $STDERR_FILE`;
+    my @output = `$cmd 2> $STDERR_FILE`;
 
-  if ($? != 0) {
-    my @error;
-    if ( -r $STDERR_FILE) {
-      @error = read_file($STDERR_FILE);
+    if ($? != 0) {
+        my @error;
+        if ( -r $STDERR_FILE) {
+            @error = read_file($STDERR_FILE);
+        }
+
+        _commandError($cmd, $?, \@output, \@error);
     }
-	  
-    _commandError($cmd, $?, \@output, \@error);
-  } 
 
-
-
-  return \@output;
+    return \@output;
 }
 
 
 sub _commandError
 {
-  my ($cmd, $childError, $output, $error) = @_;
+    my ($cmd, $childError, $output, $error) = @_;
 
-  if ($childError == -1) {
-    throw EBox::Exceptions::Internal("Failed to execute child process $cmd");
-  }
-  elsif ($childError & 127) {
-    my $signal = ($childError & 127);
-    my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
-    throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
-  } 
+    if ($childError == -1) {
+        throw EBox::Exceptions::Internal("Failed to execute child process $cmd");
+    } elsif ($childError & 127) {
+        my $signal = ($childError & 127);
+        my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
+        throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
+    }
 
-  my $exitValue =  $childError >>  8;
-  throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
+    my $exitValue =  $childError >>  8;
+    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
 }
 
 #
@@ -166,31 +163,29 @@ sub root
 
 sub _rootError
 {
-  my ($sudocmd, $cmd, $childError, $output, $error) = @_;
+    my ($sudocmd, $cmd, $childError, $output, $error) = @_;
 
-  if ($childError == -1) {
-    throw EBox::Exceptions::Sudo::Wrapper("Failed to execute $sudocmd");
-  }
-  elsif ($childError & 127) {
-    my $signal = ($childError & 127);
-    my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
-    throw EBox::Exceptions::Sudo::Wrapper("$sudocmd died with signal $signal $coredump");
-  } 
-
-  my $exitValue =  $childError >>  8;
-
-  if ($exitValue == 1 ) {	# may be a sudo-program error 
-    my $errorText =  join "\n", @{$error};
-
-
-    if ($errorText =~ m/^sudo:/m) {
-      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
+    if ($childError == -1) {
+        throw EBox::Exceptions::Sudo::Wrapper("Failed to execute $sudocmd");
+    } elsif ($childError & 127) {
+        my $signal = ($childError & 127);
+        my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
+        throw EBox::Exceptions::Sudo::Wrapper("$sudocmd died with signal $signal $coredump");
     }
-    elsif ($errorText =~ m/is not in the sudoers file/m) {
-      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running ebox-sudoers-friendly maybe can fix this problem");
-    } 
-  }
-  throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)
+
+    my $exitValue =  $childError >>  8;
+
+    if ($exitValue == 1 ) {	# may be a sudo-program error
+        my $errorText =  join "\n", @{$error};
+
+
+        if ($errorText =~ m/^sudo:/m) {
+            throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
+        } elsif ($errorText =~ m/is not in the sudoers file/m) {
+            throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running ebox-sudoers-friendly maybe can fix this problem");
+        }
+    }
+    throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)
 }
 
 # Procedure: rootWithoutException
@@ -205,25 +200,25 @@ sub _rootError
 # 	array ref - Returns the output of the command in an array
 sub rootWithoutException
 {
-  my ($cmd) = @_;
-  validate_pos(@_, 1);
+    my ($cmd) = @_;
+    validate_pos(@_, 1);
 
-  my $output;
-  try {
-    $output =  root($cmd);
-  }
-  catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
-    my $ex = shift @_;  
-    $output = $ex->output();
-  };
+    my $output;
+    try {
+        $output =  root($cmd);
+    }
+      catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
+          my $ex = shift @_;
+          $output = $ex->output();
+      };
 
-  return $output;
+    return $output;
 }
 
-# 
-# Procedure: sudo 
 #
-#	Executes a command through sudo as a given user. 
+# Procedure: sudo
+#
+#	Executes a command through sudo as a given user.
 #
 # Parameters:
 #
@@ -235,75 +230,75 @@ sub rootWithoutException
 #
 #       Internal  - If command fails
 #
-sub sudo # (command, user) 
+sub sudo # (command, user)
 {
-	my ($cmd, $user) = @_;
-	validate_pos(@_, 1 ,1);
+    my ($cmd, $user) = @_;
+    validate_pos(@_, 1 ,1);
 
-	unless (system("$SUDO_PATH -u " . $user . " " . $cmd) == 0) {
-		throw EBox::Exceptions::Internal(
-			__x("Running command '{cmd}' as {user} failed", 
-				cmd => $cmd, user => $user));
-	}
+    unless (system("$SUDO_PATH -u " . $user . " " . $cmd) == 0) {
+        throw EBox::Exceptions::Internal(
+            __x("Running command '{cmd}' as {user} failed",
+                cmd => $cmd, user => $user));
+    }
 }
 
 
 # Procedure: stat
 #   stat a file as root user and returns the information as File::stat object
-#   		
+#
 # Parameters:
 #    $file - file we want stat
 #
 # Returns:
 #	a File::Stat object with the file system status for the file
-# 
+#
 sub stat
 {
-  my ($file) = @_;
-  validate_pos(@_, 1);
-  
-  my $statCmd = "$STAT_CMD '$file'";
-  my $statOutput;
+    my ($file) = @_;
+    validate_pos(@_, 1);
 
-  try {
-    $statOutput = root($statCmd);
-  }
-  catch EBox::Exceptions::Sudo::Command with {
-    $statOutput = undef;
-  };
+    my $statCmd = "$STAT_CMD '$file'";
+    my $statOutput;
+
+    try {
+        $statOutput = root($statCmd);
+    }
+      catch EBox::Exceptions::Sudo::Command with {
+          $statOutput = undef;
+      };
 
 
-  return undef if !defined $statOutput;
+    return undef if !defined $statOutput;
 
-  return undef if !defined $statOutput->[0]; # this is  for systems where stat does not return a different exit code when stating a inexistent file
+    return undef if !defined $statOutput->[0]; # this is  for systems where stat does not return a different exit code when stating a inexistent file
 
-  my @statElements = split '[I\n]', $statOutput->[0]; 
+    my @statElements = split '[I\n]', $statOutput->[0];
 
-  # convert file mode from hexadecimal...
-  $statElements[2]  = hex $statElements[2]; 
+    # convert file mode from hexadecimal...
+    $statElements[2]  = hex $statElements[2];
 
-  # extract minor and major numbers for recereate rdev
-  my $minorNumber =  hex (pop @statElements);
-  my $majorNumber =  hex (pop @statElements);
+    # extract minor and major numbers for recereate rdev
+    my $minorNumber =  hex (pop @statElements);
+    my $majorNumber =  hex (pop @statElements);
 
-  $statElements[6] = _makeRdev($majorNumber, $minorNumber);
+    $statElements[6] = _makeRdev($majorNumber, $minorNumber);
 
-  my $statObject = File::stat::populate( @statElements );
-  return $statObject;
+    my $statObject = File::stat::populate( @statElements );
+    return $statObject;
 }
 
 
 # XXX maybe this should be constants..
-my $MAJOR_MASK  = 03777400;         
-my $MAJOR_SHIFT = 0000010;          
-my $MINOR_MASK  = 037774000377;     
+my $MAJOR_MASK  = 03777400;
+my $MAJOR_SHIFT = 0000010;
+my $MINOR_MASK  = 037774000377;
 my $MINOR_SHIFT = 0000000;
 
 sub _makeRdev
 {
-  my ($major, $minor) = @_;
-  my $rdev =  (($major << $MAJOR_SHIFT) & $MAJOR_MASK) | (($minor << $MINOR_SHIFT) & $MINOR_MASK);
-  return $rdev;
+    my ($major, $minor) = @_;
+    my $rdev =  (($major << $MAJOR_SHIFT) & $MAJOR_MASK) | (($minor << $MINOR_SHIFT) & $MINOR_MASK);
+    return $rdev;
 }
 
 
@@ -322,15 +317,15 @@ my $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k 
 #     bool value with the result of the file test
 sub fileTest
 {
-  my ($test, $file) = @_;
-  validate_pos(@_, 1, 1);
-  
-  ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
+    my ($test, $file) = @_;
+    validate_pos(@_, 1, 1);
 
-  my $testCmd = "$TEST_PATH $test '$file'";
-  rootWithoutException($testCmd);
-  
-  return ($? == 0);  # $? was set by execution of $testCmd
+    ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
+
+    my $testCmd = "$TEST_PATH $test '$file'";
+    rootWithoutException($testCmd);
+
+    return ($? == 0);           # $? was set by execution of $testCmd
 }
 
 1;
