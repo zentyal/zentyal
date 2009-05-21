@@ -138,6 +138,7 @@ sub root
 
     my $commands = join("\n", @cmds);
 
+    # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
     write_file($fhCmdFile, $commands);
     close($fhCmdFile);
