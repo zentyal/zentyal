@@ -22,6 +22,7 @@ use warnings;
 use base qw(
             EBox::Module::Service
             EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider
            );
 
 # Interfaces list which will be ignored
@@ -124,6 +125,9 @@ sub usedFiles
 	];
 }
 
+
+
+
 sub modelClasses
 {
   return [
@@ -139,6 +143,7 @@ sub modelClasses
                           directory => 'multigwrulestable',
                          ],
           },
+          'EBox::Network::Model::MultiGwRulesOptions',
 
 # XXX uncomment when DynLoader bug with locales is fixed
  #          {
@@ -156,9 +161,21 @@ sub modelClasses
           'EBox::Network::Model::DeletedStaticRoute',
           'EBox::Network::Model::DNSResolver',
           'EBox::Network::Model::DynDNS',
+
 	 ];
 }
 
+
+sub compositeClasses
+{
+ return [
+     'EBox::Network::Composite::MultiGw',
+
+# XXX uncomment when DynLoader bug with locales is fixed
+#          'EBox::Network::Composite::ByteRate', 
+         ];
+
+}
 
 # Method: _exposedMethods
 #
@@ -205,18 +222,6 @@ sub _exposedMethods
       );
     return \%exposedMethods;
 }
-
-
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#sub compositeClasses
-#{
-#  return [
-#	  'EBox::Network::Composite::ByteRate',
-#	 ];
-#
-#}
-
 
 # Method: IPAddressExists
 #
@@ -2006,6 +2011,10 @@ sub _multigwRoutes
 		root("/sbin/iptables -t mangle -A PREROUTING "
 		     . "-j CONNMARK --restore-mark");
 	} catch EBox::Exceptions::Internal with {};
+	try {
+		root("/sbin/iptables -t mangle -A OUTPUT "
+		     . "-j CONNMARK --restore-mark");
+	} catch EBox::Exceptions::Internal with {};
 
 	my $defaultRouterMark;
 	foreach my $router (@{$routers}) {
@@ -2043,7 +2052,7 @@ sub _multigwRoutes
 
         try {
                 root("/sbin/iptables -t mangle -I OUTPUT "
-                        ."-j CONNMARK --restore-mark");
+                        ."-j CONNMARK --save-mark");
         } catch EBox::Exceptions::Internal with {};
 
 }
@@ -2756,9 +2765,8 @@ sub menu
 						'Network/View/GatewayTable',
 					  'text' => __('Gateways')));
 	$folder->add(new EBox::Menu::Item('url' =>
-						'Network/View/MultiGwRulesDataTable',
+						'Network/Composite/MultiGw',
 					  'text' => __('Balance Traffic')));
-
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # 	$folder->add(new EBox::Menu::Item('url' =>
@@ -2790,7 +2798,7 @@ sub gatewayModel {
 #
 # Returns:
 #
-# 	MultiGwRuleTableModel
+# 	MultiGwRulesTableModel
 #
 #  XXX delete and replace calls with direct call to the 'model' method
 sub multigwrulesModel {
@@ -2890,9 +2898,12 @@ sub marksForRouters
 #
 sub balanceTraffic
 {
-	my $self = shift;
-
-	return ($self->get_bool('balanceTraffic') and (@{$self->gateways} > 1));
+        my ($self) = @_; 
+        
+        my $multiGwOptions = $self->model('MultiGwRulesOptions'); 
+        my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
+        
+        return ($balanceTraffic and (@{$self->gateways} > 1));
 }
 
 # Method: setBalanceTraffic

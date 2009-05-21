@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Network/Composite
 
-nobase_perl_DATA = ByteRate.pm
+nobase_perl_DATA = ByteRate.pm MultiGw.pm
 
 DISTCLEANFILES = 
 

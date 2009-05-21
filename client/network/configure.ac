@@ -68,7 +68,6 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
 src/EBox/CGI/Makefile
-src/EBox/CGI/View/Makefile
 src/templates/Makefile
 migration/Makefile
 schemas/Makefile

@@ -3,6 +3,8 @@
 	+ Use new rows() and ids() API
 	+ Bugfix: ebox-netcfg-import uses model API to import default gateway
 	+ Support for dyndns
+	+ Gateway models does not use longet custom views
+	+ Gateway rules table now use services
 0.12.99
 	+ New release
 0.12

@@ -134,10 +134,15 @@ sub serviceNames
 {
     my ($self) = @_;
 
+    my $servicesModel = $self->{'serviceModel'};
     my @services;
-    foreach my $service (@{$self->{'serviceModel'}->printableValueRows()}) {
-        push (@services, {'id' => $service->{'id'}, 
-                'name' => $service->{'name'}});
+    
+    foreach my $id (@{$servicesModel->ids()}) {
+        my $name = $servicesModel->row($id)->valueByName('name');
+        push @services, {
+            'id' => $id, 
+            'name' => $name
+           };
     }
 
     return \@services;
