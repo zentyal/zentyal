@@ -19,6 +19,6 @@ $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
 		[ -f $$event ] || continue; \
 		install -d -m 755 debian/$(cdbs_curpkg)/etc/event.d; \
 		DESTFILE=$$(basename $$(echo $$event | sed 's/\.upstart//g')); \
-		install -m 644 "$$serv" debian/$(cdbs_curpkg)/etc/event.d/$$DESTFILE; \
+		install -m 644 "$$event" debian/$(cdbs_curpkg)/etc/event.d/$$DESTFILE; \
 	done;
 
