@@ -8,19 +8,36 @@ then
     exit 1
 fi
 
+ACCOUNT_CONF=/etc/pam.d/common-account
+AUTH_CONF=/etc/pam.d/common-auth
+PASSWORD_CONF=/etc/pam.d/common-password
+SESSION_CONF=/etc/pam.d/common-session
+
 sed -i "s/^host .*$//" /etc/ldap.conf
 sed -i "1 i host $SERVER" /etc/ldap.conf
 
-if ! grep -v ^# /etc/pam.d/common-account | grep -q pam_ldap.so
+if ! grep -v ^# $ACCOUNT_CONF | grep -q "account sufficient pam_ldap.so"
 then
-    sed -i "1 i account sufficient pam_ldap.so" /etc/pam.d/common-account
+    sed -i "1 i account sufficient pam_ldap.so" $ACCOUNT_CONF
 fi
 
-if ! grep -v ^# /etc/pam.d/common-auth | grep -q pam_ldap.so
+if ! grep -v ^# $AUTH_CONF | grep -q "auth sufficient pam_ldap.so"
 then
-    sed -i "1 i auth sufficient pam_ldap.so" /etc/pam.d/common-auth
+    sed -i "1 i auth sufficient pam_ldap.so" $AUTH_CONF
 fi
 
-sed -i 's/nullok_secure$/nullok_secure use_first_pass/' /etc/pam.d/common-auth
+sed -i 's/nullok_secure$/nullok_secure use_first_pass/' $AUTH_CONF
+
+if ! grep -v ^# $PASSWORD_CONF | grep -q "password sufficient pam_ldap.so"
+then
+    sed -i "1 i password sufficient pam_ldap.so" $PASSWORD_CONF
+fi
 
 sed -i 's/compat$/compat ldap/' /etc/nsswitch.conf
+
+SETUP_SCRIPT=/tmp/ebox-setup-user
+
+if ! grep -v ^# $SESSION_CONF | grep -q $SETUP_SCRIPT
+then
+    echo "session optional pam_exec.so /bin/sh $SETUP_SCRIPT" >> $SESSION_CONF
+fi

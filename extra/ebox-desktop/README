@@ -3,9 +3,17 @@ Server side changes
 
 Change login_shell from /bin/false to /bin/bash in /etc/ebox/80samba.conf
 
+Edit /etc/default/slapd:
+
+SLAPD_SERVICES change from 127.0.0.1 to 0.0.0.0
+
+/etc/init.d/slapd restart
+
 
 Client actions
 --------------
 apt-get install libpam-ldap
+
+Replace /etc/ldap.conf with our included ldap.conf
 
 ebox-setup-client <ebox-ldap-address>
