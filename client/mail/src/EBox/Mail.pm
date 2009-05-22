@@ -1164,7 +1164,8 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Mail',
-                                        'text' => __('Mail')
+                                        'text' => __('Mail'),
+                                        'order' => 19
     );
 
     $folder->add(
