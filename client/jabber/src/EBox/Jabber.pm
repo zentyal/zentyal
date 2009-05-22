@@ -352,7 +352,8 @@ sub menu
 {
 	my ($self, $root) = @_;
 	$root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
-					'text' => __('Jabber')));
+					'text' => __('Jabber'),
+                    'order' => 21));
 }
 
 sub _ldapModImplementation
