@@ -442,7 +442,8 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
-                                        'text' => __('Asterisk'));
+                                        'text' => __('Asterisk'),
+                                        'order' => 20);
 
     $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/Composite/General',
