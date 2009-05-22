@@ -293,6 +293,9 @@ sub _enforceServiceState
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
     $self->popProxy()->doDaemon($enabled);
+
+    # Workaround postfix amavis issue. 
+    root("/etc/init.d/postfix restart");
 }
 
 #
@@ -657,7 +660,8 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
-                                        'text' => __('Mail Filter')
+                                        'text' => __('Mail Filter'),
+                                        'order' =>  25
     );
 
     $folder->add(
