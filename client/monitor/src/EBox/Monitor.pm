@@ -162,7 +162,7 @@ sub menu
     my $item = new EBox::Menu::Item(
          'url' => 'Monitor/Index',
          'text' => __('Monitor'),
-         'order' => 3);
+         'order' => 27);
     $root->add($item);
 }
 
