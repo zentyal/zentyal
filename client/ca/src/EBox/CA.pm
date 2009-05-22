@@ -1663,7 +1663,8 @@ sub menu
   my ($self, $root) = @_;
 
   $root->add(new EBox::Menu::Item('url'  => 'CA/Index',
-				  'text' => __('Certificate Manager')));
+              'text' => __('Certificate Manager'),
+              'order' => 12));
 
   }
 
