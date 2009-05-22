@@ -353,7 +353,8 @@ sub menu # (root)
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
-				    'text' => __('Traffic Shaping')));
+                'text' => __('Traffic Shaping'),
+                'oder' => 11));
 
 }
 
