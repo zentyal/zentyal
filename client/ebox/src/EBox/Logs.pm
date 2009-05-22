@@ -622,7 +622,8 @@ sub menu
 {
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Logs',
-                                        'text' => __('Logs'));
+                                        'text' => __('Logs'),
+                                        'order' => 29);
 
     $folder->add(new EBox::Menu::Item('url' => 'Logs/View/SelectLog',
                                       'text' => __('Query Logs')));
