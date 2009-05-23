@@ -11,3 +11,4 @@ install/ebox-desktop::
 cleanbuilddir/ebox-desktop::
 
 clean::
+	debconf-updatepo

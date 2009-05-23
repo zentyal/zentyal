@@ -1,3 +1,9 @@
 #!/bin/sh
 
+. /usr/share/debconf/confmodule
+
 cp /usr/share/ebox-desktop/ldap.conf /etc/ldap.conf
+
+db_get ebox-desktop/server
+server="$RET"
+ebox-setup-client $server
