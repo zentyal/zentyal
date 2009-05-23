@@ -28,7 +28,5 @@ install:
 
 uninstall:
 	rm -f $(DESTDIR)$(SBINDIR)/ebox-setup-client
-	rm -f $(DESTDIR)$(DATADIR)/ebox-setup-user
-	rm -f $(DESTDIR)$(DATADIR)/ldap.conf
-	rm -rf $(DESTDIR)$(DATADIR)/skel
+	rm -rf $(DESTDIR)$(DATADIR)
 
