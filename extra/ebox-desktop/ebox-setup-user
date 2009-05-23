@@ -1,19 +1,19 @@
 #!/bin/bash
 
 USER=$PAM_USER
-SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
-
 USERHOME=/home/samba/users/$USER
+
+CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
+
+# We don't do anything if it's already configured
+[ -f $CONFIGURED_STAMP ] && exit 0
+
+SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 PROFILE=$USERHOME/.profile
 
-# Some of this is for debug purposes only
-
-env > $USERHOME/ENV_OUTPUT
-
-if ! grep -v ^# $PROFILE | grep -q ID_OUTPUT
-then
-    echo "id > $USERHOME/ID_OUTPUT" >> $PROFILE
-fi
+# Debug stuff
+echo "env > $USERHOME/ENV_OUTPUT_DEBUG" >> $PROFILE
+echo "id > $USERHOME/ID_OUTPUT_DEBUG" >> $PROFILE
 
 # Pidgin configuration
 sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/accounts.xml
@@ -26,13 +26,15 @@ mv $USERHOME/pidgin $USERHOME/.purple
 EKIGACONF=$USERHOME/ekiga.gconf
 sed -i "s/USERNAME/$USER/g" $EKIGACONF
 sed -i "s/SERVER/$SERVER/g" $EKIGACONF
-if ! grep -v ^# $PROFILE | grep -q $EKIGACONF
-then
-    echo "[ -r $EKIGACONF ] && gconftool --load $EKIGACONF" >> $PROFILE
-    echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
-fi
+echo "[ -r $EKIGACONF ] && gconftool --load $EKIGACONF" >> $PROFILE
+echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
+
+# Copy system skel after ebox-desktop setup is done
+# This will overwrite our .profile
+echo "shopt -s dotglob" >> $PROFILE
+echo "cp -r /etc/skel/* $USERHOME/" >> $PROFILE
 
 # Restore .profile ownership
 chown $USER: $PROFILE
 
-touch $USERHOME/SETUP_SUCCESSFUL
+touch $CONFIGURED_STAMP
