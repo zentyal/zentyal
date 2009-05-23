@@ -6,7 +6,7 @@ include debian/cdbs/ebox-desktop.mk
 DEB_DH_INSTALLINIT_ARGS = --no-start
 
 install/ebox-desktop::
-	$(MAKE) DESTDIR=`pwd`/debian/$$pkg PREFIX=/usr install
+	$(MAKE) DESTDIR=`pwd`/debian/ebox-desktop PREFIX=/usr install
 
 cleanbuilddir/ebox-desktop::
 
