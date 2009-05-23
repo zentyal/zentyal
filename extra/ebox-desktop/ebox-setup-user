@@ -4,12 +4,11 @@ USER=$PAM_USER
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 
 USERHOME=/home/samba/users/$USER
+PROFILE=$USERHOME/.profile
 
-# Most of this is for debug purposes only
+# Some of this is for debug purposes only
 
 env > $USERHOME/ENV_OUTPUT
-
-PROFILE=$USERHOME/.profile
 
 if ! grep -v ^# $PROFILE | grep -q ID_OUTPUT
 then
@@ -24,6 +23,16 @@ sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/blist.xml
 mv $USERHOME/pidgin $USERHOME/.purple
 
 # Ekiga configuration
-gconftool --type=list --set /apps/ekiga/protocols/accounts_list --list-type=string "[0|1|a8f3cffc-4427-de11-964c-00215d2248ac|$USER|SIP|$SERVER|$SERVER|$USER|$USER@ebox||3600|0]"
+EKIGACONF=$USERHOME/ekiga.gconf
+sed -i "s/USERNAME/$USER/g" $EKIGACONF
+sed -i "s/SERVER/$SERVER/g" $EKIGACONF
+if ! grep -v ^# $PROFILE | grep -q $EKIGACONF
+then
+    echo "[ -r $EKIGACONF ] && gconftool --load $EKIGACONF" >> $PROFILE
+    echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
+fi
+
+# Restore .profile ownership
+chown $USER: $PROFILE
 
 touch $USERHOME/SETUP_SUCCESSFUL

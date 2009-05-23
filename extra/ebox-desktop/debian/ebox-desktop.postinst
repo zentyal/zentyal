@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cp /usr/share/ebox-desktop/ldap.conf /etc/ldap.conf
