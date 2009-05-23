@@ -13,6 +13,10 @@ AUTH_CONF=/etc/pam.d/common-auth
 PASSWORD_CONF=/etc/pam.d/common-password
 SESSION_CONF=/etc/pam.d/common-session
 
+SETUP_SCRIPT=/usr/share/ebox-desktop/ebox-setup-user
+SKEL_DIR=/usr/share/ebox-desktop/skel
+
+
 sed -i "s/^host .*$//" /etc/ldap.conf
 sed -i "1 i host $SERVER" /etc/ldap.conf
 
@@ -35,9 +39,13 @@ fi
 
 sed -i 's/compat$/compat ldap/' /etc/nsswitch.conf
 
-SETUP_SCRIPT=/tmp/ebox-setup-user
+if ! grep -v ^# $SESSION_CONF | grep -q $SKEL_DIR
+then
+    echo "session required pam_mkhomedir.so skel=$SKEL_DIR umask=0022" >> $SESSION_CONF
+fi
 
 if ! grep -v ^# $SESSION_CONF | grep -q $SETUP_SCRIPT
 then
     echo "session optional pam_exec.so /bin/sh $SETUP_SCRIPT" >> $SESSION_CONF
 fi
+

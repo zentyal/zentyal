@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include debian/cdbs/ebox-desktop.mk
+
+DEB_DH_INSTALLINIT_ARGS = --no-start
+
+install/ebox-desktop::
+	$(MAKE) DESTDIR=`pwd`/debian/$$pkg PREFIX=/usr install
+
+cleanbuilddir/ebox-desktop::
+
+clean::

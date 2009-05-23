@@ -1,0 +1,19 @@
+- Samba: Mount username share and all group shares (displayResource) that the
+  user can access (we can get the user groups with the 'id' command).
+
+- Asterisk: We only have to configure the username in Ekiga, the realm will
+  always be 'ebox' and it will go hardcoded.
+
+- Configure evolution with  mailAccount (taken from ldap), the ports will be
+  hardcoded at first.
+
+- Add firefox bookmarks for eGroupware webpage and eBox usercorner
+
+- On the first version usercorner webpage will be hardcoded
+  (https://ebox_ip:8888), later will be able to get a different port it has
+  been changed.
+
+- Pidgin: We will hardcode 'ebox' as domain at first, and we'll set the
+  proper username. The domain will be set correctly later.
+
+- Maybe in the future: ebox-printers?

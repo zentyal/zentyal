@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<account version='1.0'>
+	<account>
+		<protocol>prpl-jabber</protocol>
+		<name>USERNAME@EBOXDOMAIN/eboxuser</name>
+		<alias>USERNAME</alias>
+		<settings>
+			<setting name='check-mail' type='bool'>0</setting>
+			<setting name='connect_server' type='string'>EBOXSERVER</setting>
+			<setting name='old_ssl' type='bool'>1</setting>
+			<setting name='auth_plain_in_clear' type='bool'>0</setting>
+			<setting name='require_tls' type='bool'>1</setting>
+			<setting name='ft_proxies' type='string'>proxy.jabber.org</setting>
+			<setting name='use-global-buddyicon' type='bool'>1</setting>
+			<setting name='custom_smileys' type='bool'>1</setting>
+			<setting name='port' type='int'>5223</setting>
+		</settings>
+		<settings ui='gtk-gaim'>
+			<setting name='auto-login' type='bool'>1</setting>
+		</settings>
+		<current_error/>
+	</account>
+</account>

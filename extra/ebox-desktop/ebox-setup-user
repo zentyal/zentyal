@@ -1,0 +1,7 @@
+#!/bin/sh
+
+USERHOME=/home/$PAM_USER
+
+touch $USERHOME/SETUP_SUCCESSFUL_`date`
+env > $USERHOME/ENV_OUTPUT
+id > $USERHOME/ID_OUTPUT

@@ -1,0 +1,19 @@
+Source: ebox-desktop
+Section: web
+Priority: optional
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.7.3
+
+Package: ebox-desktop
+Architecture: all
+Depends: libpam-ldap
+Description: eBox platform - desktop configuration
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This package configures desktop clients for the eBox services.
+
