@@ -13,4 +13,11 @@ then
     echo "id > $USERHOME/ID_OUTPUT" >> $PROFILE
 fi
 
+# Pidgin configuration
+sed -i "s/USERNAME/$PAM_USER/g" $USERHOME/pidgin/accounts.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/accounts.xml
+sed -i "s/USERNAME/$PAM_USER/g" $USERHOME/pidgin/blist.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/blist.xml
+mv $USERHOME/pidgin $USERHOME/.purple
+
 touch $USERHOME/SETUP_SUCCESSFUL
