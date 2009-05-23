@@ -1,19 +1,19 @@
 PREFIX = /usr/local
 DATADIR = $(PREFIX)/share/ebox-desktop
 SBINDIR = $(PREFIX)/sbin
-EXPORT = ebox-package-build
+EXPORT = ebox-desktop-build
 
 distclean:
 	rm -rf $(EXPORT)
-	rm -f ebox-package.tar.gz
-	rm -f ebox-package_*
+	rm -f ebox-desktop.tar.gz
+	rm -f ebox-desktop_*
 	rm -f *.deb
 
 export: distclean
 	svn export . $(EXPORT)
 
 dist: export
-	tar cvvzf ebox-package.tar.gz $(EXPORT)
+	tar cvvzf ebox-desktop.tar.gz $(EXPORT)
 
 deb: dist
 	cd $(EXPORT) && dpkg-buildpackage -rfakeroot -uc -us
