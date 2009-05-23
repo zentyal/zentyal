@@ -1,7 +1,16 @@
 #!/bin/sh
 
-USERHOME=/home/$PAM_USER
+USERHOME=/home/samba/users/$PAM_USER
 
-touch $USERHOME/SETUP_SUCCESSFUL_`date`
+# Most of this is for debug purposes only
+
 env > $USERHOME/ENV_OUTPUT
-id > $USERHOME/ID_OUTPUT
+
+PROFILE=$USERHOME/.profile
+
+if ! grep -v ^# $PROFILE | grep -q ID_OUTPUT
+then
+    echo "id > $USERHOME/ID_OUTPUT" >> $PROFILE
+fi
+
+touch $USERHOME/SETUP_SUCCESSFUL
