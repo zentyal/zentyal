@@ -3,15 +3,17 @@
 SERVER=$1
 DESKTOP_DIR=`xdg-user-dir DESKTOP`
 
+[ -d $DESKTOP_DIR ] || mkdir $DESKTOP_DIR
+
 create_desktop_link()
 {
-    echo "[Desktop Entry]" > $SHARE.desktop
-    echo "Version=1.0" >> $SHARE.desktop
-    echo "Type=Link" >> $SHARE.desktop
-    echo "Name=$SHARE" >> $SHARE.desktop
-    echo "Comment=$DESC" >> $SHARE.desktop
-    echo "URL=smb://$USER@$SERVER/$SHARE" >> $SHARE.desktop
-    mv $SHARE.desktop $DESKTOP_DIR/
+    LINK="$DESKTOP_DIR/$SHARE.desktop"
+    echo "[Desktop Entry]" > $LINK
+    echo "Version=1.0" >> $LINK
+    echo "Type=Link" >> $LINK
+    echo "Name=$SHARE" >> $LINK
+    echo "Comment=$DESC" >> $LINK
+    echo "URL=smb://$USER@$SERVER/$SHARE" >> $LINK
 }
 
 # Create link to the user share
