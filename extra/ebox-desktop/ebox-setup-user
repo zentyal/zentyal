@@ -31,7 +31,7 @@ echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
 
 # Evolution configuration
 EVOLUTIONCONF=$USERHOME/evolution.gconf
-MAIL_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^mailAccount | head -1 | cut -d' ' -f2`
+MAIL_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^mail: | head -1 | cut -d' ' -f2`
 if [ -n "$MAIL_ACCOUNT" ]
 then
     sed -i "s/MAIL_ACCOUNT/$MAIL_ACCOUNT/g" $EVOLUTIONCONF
