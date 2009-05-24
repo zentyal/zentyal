@@ -1,8 +1,7 @@
-- Samba: Mount username share and all group shares (displayResource) that the
-  user can access (we can get the user groups with the 'id' command).
+- Samba: Change the icon of the shares in the desktop ?
 
-- Configure evolution with  mailAccount (taken from ldap), the ports will be
-  hardcoded at first.
+- Evolution is configured (with hardcoded ports) but something doesn't seem
+  to work.
 
 - Add firefox bookmarks for eGroupware webpage and eBox usercorner
 
