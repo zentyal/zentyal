@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-03-10 23:15+0000\n"
-"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
+"PO-Revision-Date: 2009-05-12 15:16+0200\n"
+"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgstr "A chave privada não existe {p}"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "O certificado CA fornecido não é válido"
+msgstr "O certificado de CA fornecido não é válido"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:84

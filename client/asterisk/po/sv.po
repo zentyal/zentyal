@@ -6,121 +6,123 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-04-25 00:59+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/GeneralSettings.pm:73
 msgid "Enable incoming calls"
-msgstr ""
+msgstr "Aktivera inkommande samtal"
 
 #: src/EBox/Model/GeneralSettings.pm:79
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Aktivera utgående samtal"
 
 #: src/EBox/Model/GeneralSettings.pm:88
 msgid "General configuration settings"
-msgstr ""
+msgstr "Generella konfigurationsinställningar"
 
 #: src/EBox/Model/GeneralSettings.pm:92
 msgid "General Asterisk server configuration."
-msgstr ""
+msgstr "Generell Asterisk serverkonfiguration"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
-msgstr ""
+msgstr "Generella Asterisk server konfigurationsinställningar uppdaterade"
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/EBox/Model/Provider.pm:81
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: src/EBox/Model/Provider.pm:88
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/Model/Provider.pm:105
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP leverantör"
 
 #: src/EBox/Model/Provider.pm:109
 msgid "SIP provider configuration."
-msgstr ""
+msgstr "SIP leverantör konfiguration"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
-msgstr ""
+msgstr "SIP leverantör konfigurationsinställningar uppdaterade"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "användarnamn"
 
 #: src/EBox/Composite/General.pm:64
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk modul"
 
 #: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
-msgstr ""
+msgstr "För att konfigurera Asterisk aktiverade och inaktiverade moduler"
 
 #: src/EBox/Asterisk.pm:91
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
+"För att konfigurera SIP trunken för lokala användare och externa "
+"leverantörer."
 
 #: src/EBox/Asterisk.pm:96
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "För att konfigurera realtidsgränssnittet"
 
 #: src/EBox/Asterisk.pm:101
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "För att konfigurera LDAP realtidsdrivrutinen"
 
 #: src/EBox/Asterisk.pm:106
 msgid "To configure the Asterisk dialplan."
-msgstr ""
+msgstr "För att konfigurera Asterisk samtalsstyrningplan"
 
 #: src/EBox/Asterisk.pm:111
 msgid "To add a new schema"
-msgstr ""
+msgstr "För att lägga till ett nytt schema"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asterisk konto"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Lösenord för Asterisk service är användarlösenordet"
 
 #: src/templates/asterisk.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Användarkonto"
 
 #: src/templates/asterisk.mas:22 src/templates/asterisk.mas:25
 msgid "Disabled"
-msgstr ""
+msgstr "Inaktiverad"
 
 #: src/templates/asterisk.mas:23 src/templates/asterisk.mas:26
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 #: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
 msgid "Change"
-msgstr ""
+msgstr "Ändra"

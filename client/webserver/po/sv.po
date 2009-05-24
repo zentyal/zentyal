@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:17+0100\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-04-21 20:06+0200\n"
+"Last-Translator: Björn Torstensson <b.torstensson@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
 #: src/EBox/WebServer/Composite/General.pm:80
@@ -171,9 +171,8 @@ msgid "To configure the per-user public HTML directory"
 msgstr ""
 
 #: src/EBox/WebServer.pm:129
-#, fuzzy
 msgid "Enable apache LDAP user module"
-msgstr "Aktivera per användare {dirName}"
+msgstr "Aktivera LDAP användarmodul för apache"
 
 #: src/EBox/WebServer.pm:131
 msgid "To fetch home directories from LDAP"

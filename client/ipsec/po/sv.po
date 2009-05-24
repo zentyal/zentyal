@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-11-10 08:25+0000\n"
-"PO-Revision-Date: 2007-06-06 09:38+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-18 22:56+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/IPSec.pm:120 src/EBox/IPSec.pm:178 src/EBox/IPSec.pm:384
 #: src/EBox/IPSec.pm:492
@@ -265,7 +266,7 @@ msgstr "RSA-nyckel"
 #: src/templates/static.mas:152 src/templates/static-edit.mas:151
 #: src/templates/roadwarrior.mas:111 src/templates/roadwarrior-edit.mas:133
 msgid "Remote ID"
-msgstr "Fjärr-id"
+msgstr "Fjärr id"
 
 #: src/templates/static.mas:168 src/templates/static-edit.mas:162
 #: src/templates/roadwarrior.mas:123 src/templates/roadwarrior-edit.mas:145
@@ -330,7 +331,7 @@ msgstr "Ny RSA-nyckel"
 
 #: src/templates/rsa.mas:12
 msgid "Key ID:"
-msgstr "Nyckel-id:"
+msgstr "Nyckel id:"
 
 #: src/templates/rsa.mas:16
 msgid "Generate"

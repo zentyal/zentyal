@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-01-25 07:28+0000\n"
+"PO-Revision-Date: 2009-05-13 11:29+0200\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -259,6 +259,8 @@ msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Установить нижний допустимый порог. Если не установлено то по умолчанию "
+"минус бесконечность."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:227
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:227
@@ -272,6 +274,8 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Если значение - меньше чем это значение и больше чем {fmin}, посылается "
+"предупреждающее сообщение"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
@@ -292,6 +296,8 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Если значение больше чем это значение и меньше чем {fmax}, посылается "
+"предупреждающие сообщение"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
@@ -356,27 +362,27 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:285
 msgid "Data Source"
-msgstr ""
+msgstr "Источник данных"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:293
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Настройки порога"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:294
 msgid "Threshold's list"
-msgstr ""
+msgstr "Список порогов"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold"
-msgstr ""
+msgstr "Порог"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:300
@@ -384,6 +390,8 @@ msgstr ""
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
+"Каждая проверка производится с наибольшим возможным разрешением: {nSec} "
+"секунд"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/ThresholdConfiguration.pm:302
@@ -396,12 +404,12 @@ msgstr ""
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:120
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:120
 msgid "Measure"
-msgstr ""
+msgstr "Мера"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:126
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:126
 msgid "Thresholds"
-msgstr ""
+msgstr "Пороги"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Model/MeasureWatchers.pm:135
@@ -432,58 +440,58 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "любой"
 
 #: src/EBox/Monitor/Configuration.pm:121
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Последний час"
 
 #: src/EBox/Monitor/Configuration.pm:127
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Последний день"
 
 #: src/EBox/Monitor/Configuration.pm:133
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Последний месяц"
 
 #: src/EBox/Monitor/Configuration.pm:139
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Последний год"
 
 #: src/EBox/CGI/Index.pm:41
 #: debian/ebox-monitor/usr/share/perl5/EBox/CGI/Monitor/Index.pm:41
 msgid "Monitoring"
-msgstr ""
+msgstr "Мониторинг"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "Сообщить, когда определенное значение достигло определенного порога"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" сейчас {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "В пределах {severity} зоны от {minBound} до {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "{severity} выше порога {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #: debian/ebox-monitor/usr/share/perl5/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "{severity} ниже порога {bound}."

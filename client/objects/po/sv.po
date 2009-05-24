@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-06-06 09:39+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-05 21:03+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:63
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:63
@@ -26,7 +27,7 @@ msgstr "Namn"
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:87
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
-msgstr ""
+msgstr "Medlemmar"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:82
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:93
@@ -44,12 +45,12 @@ msgstr "Objektlista"
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:90
 #: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
-msgstr ""
+msgstr "objekt"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:112
 #: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Detta objekt används av en annan modul"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:184
 #: src/EBox/Model/ObjectTable.pm:184
@@ -58,26 +59,29 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Objekt är en abstrakt visualisering av maskiner och nätverksadresser som kan "
+"användas i andra modulet. En ändring i ett objekt synkas automatiskt till "
+"alla modulet som använder det."
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:70
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP Address"
-msgstr ""
+msgstr "IP adress"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:76
 #: src/EBox/Model/MemberTable.pm:76
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC adress"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:94
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
-msgstr ""
+msgstr "medlem"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:116
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Du kan bara använda MAC adresser med värdar"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:119
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:120

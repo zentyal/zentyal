@@ -6,32 +6,32 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-06 11:44+0200\n"
+"Last-Translator: Marco Falger <mfalger@aon.at>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/GeneralSettings.pm:73
 msgid "Enable incoming calls"
-msgstr ""
+msgstr "Eingehende Anrufe aktivieren"
 
 #: src/EBox/Model/GeneralSettings.pm:79
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Ausgehende Anrufe aktivieren"
 
 #: src/EBox/Model/GeneralSettings.pm:88
 msgid "General configuration settings"
-msgstr ""
+msgstr "Generelle Konfigurationseinstellungen"
 
 #: src/EBox/Model/GeneralSettings.pm:92
 msgid "General Asterisk server configuration."
-msgstr ""
+msgstr "Generelle Asterisk - Server konfiguration"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
@@ -39,27 +39,27 @@ msgstr ""
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/EBox/Model/Provider.pm:81
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: src/EBox/Model/Provider.pm:88
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/Model/Provider.pm:105
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP - Provider"
 
 #: src/EBox/Model/Provider.pm:109
 msgid "SIP provider configuration."
-msgstr ""
+msgstr "SIP - Provider Konfiguration"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
@@ -67,15 +67,15 @@ msgstr ""
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "Benutzername"
 
 #: src/EBox/Composite/General.pm:64
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk - Modul"
 
 #: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
@@ -99,11 +99,11 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:111
 msgid "To add a new schema"
-msgstr ""
+msgstr "Neues Schema hinzufügen"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asterisk Account"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
@@ -111,16 +111,16 @@ msgstr ""
 
 #: src/templates/asterisk.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Benutzer Account"
 
 #: src/templates/asterisk.mas:22 src/templates/asterisk.mas:25
 msgid "Disabled"
-msgstr ""
+msgstr "deaktiviert"
 
 #: src/templates/asterisk.mas:23 src/templates/asterisk.mas:26
 msgid "Enabled"
-msgstr ""
+msgstr "aktiviert"
 
 #: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
 msgid "Change"
-msgstr ""
+msgstr "ändern"

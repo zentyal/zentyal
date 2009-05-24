@@ -6,121 +6,127 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-04-27 12:31+0200\n"
+"Last-Translator: Edward Lin <lin@101mail.co.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/GeneralSettings.pm:73
 msgid "Enable incoming calls"
-msgstr ""
+msgstr "啟動來電功能"
 
 #: src/EBox/Model/GeneralSettings.pm:79
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "啟動撥出功能"
 
 #: src/EBox/Model/GeneralSettings.pm:88
 msgid "General configuration settings"
-msgstr ""
+msgstr "整體環境設定"
 
+# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
 #: src/EBox/Model/GeneralSettings.pm:92
 msgid "General Asterisk server configuration."
-msgstr ""
+msgstr "整體Asterisk伺服器設定"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
-msgstr ""
+msgstr "整體Asterisk伺服器設定更新"
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
-msgstr ""
+msgstr "使用者姓名"
 
 #: src/EBox/Model/Provider.pm:81
 msgid "Username"
-msgstr ""
+msgstr "帳號"
 
 #: src/EBox/Model/Provider.pm:88
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Server"
-msgstr ""
+msgstr "伺服器"
 
+# SIP 是由網際網路工程任務小組 ( Internet Engineer Task Force ; IETF ) 制定的媒體會議訊息通訊協定。SIP 是以 ASCII 文字資料為基礎，用來建立、維持與結束兩點或多點之間通訊應用程式層次之控制協定。如同其他的 VoIP 通訊協定，SIP的設計目的也是用來定義封包式資料電話網路中的訊號取樣 ( single sampling ) 與通訊階段管理工作。訊號取樣讓通訊內容能轉換成為數位化資訊，得以傳遞到網路各個地區；通訊階段管理則提供通話從開始到結束的所有狀態控制功能。
 #: src/EBox/Model/Provider.pm:105
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP 供應商"
 
 #: src/EBox/Model/Provider.pm:109
 msgid "SIP provider configuration."
-msgstr ""
+msgstr "SIP 供應商設定"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
-msgstr ""
+msgstr "SIP 供應商設定資料更新"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "帳號"
 
 #: src/EBox/Composite/General.pm:64
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk模組"
 
 #: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
-msgstr ""
+msgstr "設定Asterisk模組啟動或停止"
 
+# SIP TRUNK是一個由網路電話服務供應商提供的服務
+# ，SIP TRUNK允許企業利用已安裝的交換機去使用 VoIP，
+# 以和網路連線一樣的方式連接外部網路
 #: src/EBox/Asterisk.pm:91
 msgid "To configure the SIP trunk for local users and external providers."
-msgstr ""
+msgstr "設定區域使用者及外部供應商的SIP Trunk "
 
 #: src/EBox/Asterisk.pm:96
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "設定同步界面"
 
+# LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
 #: src/EBox/Asterisk.pm:101
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "設定LDAP(單一帳號)同步驅動程式"
 
 #: src/EBox/Asterisk.pm:106
 msgid "To configure the Asterisk dialplan."
-msgstr ""
+msgstr "設定Asterisk速撥功能"
 
 #: src/EBox/Asterisk.pm:111
 msgid "To add a new schema"
-msgstr ""
+msgstr "新增模式"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asterisk帳號"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Asterisk伺服器的密碼就是使用的密碼"
 
 #: src/templates/asterisk.mas:17
 msgid "User account"
-msgstr ""
+msgstr "使用者帳號"
 
 #: src/templates/asterisk.mas:22 src/templates/asterisk.mas:25
 msgid "Disabled"
-msgstr ""
+msgstr "禁止"
 
 #: src/templates/asterisk.mas:23 src/templates/asterisk.mas:26
 msgid "Enabled"
-msgstr ""
+msgstr "啟動"
 
 #: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
 msgid "Change"
-msgstr ""
+msgstr "修改"

@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-08 22:30+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor.pm:73 src/EBox/Monitor.pm:194
 #: src/EBox/Event/Watcher/Monitor.pm:145
@@ -22,32 +23,34 @@ msgstr ""
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:73
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:194
 msgid "Monitor"
-msgstr ""
+msgstr "Övervakare"
 
 #: src/EBox/Monitor.pm:134
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:134
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "Collectd huvudkonfigurationsfil"
 
 #: src/EBox/Monitor.pm:138
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor.pm:138
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "Collectd konfigurationsfil för tröskelvärde"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "Systembelastning"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Samla in systembelastningen som ger dig en grov översikt över "
+"systemanvändningen"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "kortsiktig"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
@@ -57,7 +60,7 @@ msgstr ""
 #: src/EBox/Monitor/Measure/Load.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "långsiktigt"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #: debian/ebox-monitor/usr/share/perl5/EBox/Monitor/Measure/CPU.pm:59

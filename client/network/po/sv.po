@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-06-06 09:39+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-19 23:46+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Ifaces.pm:13
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/Ifaces.pm:29
@@ -30,6 +31,8 @@ msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
 msgstr ""
+"Efter den första konfigureringen kan du återvända till denna sida genom "
+"Nätverksgränssnitt menyn"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Iface.pm:45
 #: src/EBox/CGI/FirstTime/Iface.pm:45
@@ -39,7 +42,7 @@ msgstr "Nätverksgränssnitt konfigurerat"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/DNS.pm:41
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "Du kan återkomma till denna sida i Nätverk/DNS på menyn"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Nameservers.pm:44
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
@@ -54,7 +57,7 @@ msgstr "Ange standardgateway"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:43
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "Du kan ändra gateway i Nätverk/Rutter menyn"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Gateway.pm:41
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
@@ -161,7 +164,7 @@ msgstr "trafikbalans"
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:134
 msgid "Traffic rate monitoring"
-msgstr ""
+msgstr "Trafikflödesövervakning"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Report/ByteRate.pm:136
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2577
@@ -341,9 +344,8 @@ msgstr "Nätverksgränssnitt"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:99
 #: src/EBox/Model/GatewayTable.pm:99
-#, fuzzy
 msgid "Interface connected to this gateway"
-msgstr "Gränssnitt att lyssna på"
+msgstr "Gränssnitt som är kopplade till denna gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:103
 #: src/EBox/Model/GatewayTable.pm:103
@@ -353,7 +355,7 @@ msgstr "Sändning"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:107
 #: src/EBox/Model/GatewayTable.pm:107
 msgid "Upload rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Sändningshastighet i Kbit/s för denna gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:112
 #: src/EBox/Model/GatewayTable.pm:112
@@ -363,7 +365,7 @@ msgstr "Hämtning"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:116
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr ""
+msgstr "Nedladdningshastighet  i Kbit/s för denna gateway."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:120
 #: src/EBox/Model/GatewayTable.pm:120
@@ -376,6 +378,8 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Detta fält är bara användbart om du har med än en router och "
+"trafikbalansering är aktiverat"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130
@@ -432,6 +436,8 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"Inkommande gränssnitt att matcha paket mot. Om du vill matcha ett helt "
+"subnet kan du välja gränssnittet för detta subnät"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:109
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:111
@@ -467,7 +473,7 @@ msgstr "Port"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:137
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr ""
+msgstr "Lämna tomt för att välja vilken port somhelst."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:141
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
@@ -487,7 +493,7 @@ msgstr "Målobjekt"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:170
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr ""
+msgstr "Lämna tomt för att välja vilken port somhelst."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:174
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:148
@@ -499,7 +505,7 @@ msgstr "Gateway"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:178
 #: src/EBox/Model/MultiGwRulesDataTable.pm:178
 msgid "Gateway to route packets matchingthis rule"
-msgstr ""
+msgstr "Skicka paket som matchar regeln genom denna gateway"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:188
 #: src/EBox/Model/MultiGwRulesDataTable.pm:188
@@ -515,6 +521,12 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
+"Du kan välja vilken sorts trafik som går ut genom varje gateway. På detta "
+"sätt kan du tvinga ett subnät, en service eller ett mål osv att använda den "
+"router du väljer. Vänligen tänk på att regler appliceras i tur och ordning, "
+"från topp till botten. Du kan arrangera om dem efter att de har lagts till. "
+"Om du inte sätter en port eller en IP adress kommer regeln att matcha dem "
+"alla."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:204
 #: src/EBox/Model/MultiGwRulesDataTable.pm:204
@@ -612,6 +624,9 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"Flertalet vyer visas beroende på parametervalen. En värds ipadress och en "
+"service som matchar texten i /etc/services kan krävas av graftypen. "
+"Flödesvyn kommer att ändras enligt detta."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:78
 #: src/EBox/Model/ByteRateGraphControl.pm:78
@@ -656,12 +671,12 @@ msgstr "Gränssnitt att lyssna på"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:89
 #: src/EBox/Model/ByteRateSettings.pm:89
 msgid "Traffic rate monitor settings"
-msgstr ""
+msgstr "Övervakarinställningar för trafikflöde"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:93
 #: src/EBox/Model/ByteRateSettings.pm:93
 msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
+msgstr "Ändringar appliceras omgående i övervakaren för trafikflöde"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateSettings.pm:96
 #: src/EBox/Model/ByteRateSettings.pm:96
@@ -689,12 +704,12 @@ msgstr "alla"
 #: src/EBox/Model/ByteRateEnableForm.pm:71
 msgid ""
 "Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
+msgstr "Startar trafikflödesövervakning. Vänta tålmodigt tills grafen visas."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:74
 #: src/EBox/Model/ByteRateEnableForm.pm:74
 msgid "Stopping traffic rate monitoring"
-msgstr ""
+msgstr "Stoppar övervakning  av trafikflöde"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateEnableForm.pm:87
 #: src/EBox/Model/ByteRateEnableForm.pm:87
@@ -702,6 +717,8 @@ msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
 msgstr ""
+"Trafikflödesövervakaren startar och stoppar efter behov utan att man måste "
+"spara ändringar först"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:141
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:67
@@ -713,14 +730,13 @@ msgstr "Nätverk"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:144
 #: src/EBox/Model/StaticRoute.pm:144
-#, fuzzy
 msgid "IP or network address"
-msgstr "nätverksadress"
+msgstr "IP eller nätverksadress"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:150
 #: src/EBox/Model/StaticRoute.pm:150
 msgid "Gateway used to reach the above network  address"
-msgstr ""
+msgstr "Gateway som används för att nå ovanstående nätverksadress"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:155
 #: src/EBox/Model/StaticRoute.pm:155
@@ -732,7 +748,7 @@ msgstr "Beskrivning"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:158
 #: src/EBox/Model/StaticRoute.pm:158
 msgid "Optional description for this route"
-msgstr ""
+msgstr "Valfri beskrivning för denna rutt"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:164
 #: src/EBox/Model/StaticRoute.pm:164
@@ -741,9 +757,8 @@ msgstr "Statiska rutter"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:165
 #: src/EBox/Model/StaticRoute.pm:165
-#, fuzzy
 msgid "Static route list"
-msgstr "Statiska rutter"
+msgstr "Lista över statiska rutter"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:170
 #: src/EBox/Model/StaticRoute.pm:170
@@ -751,41 +766,39 @@ msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
 msgstr ""
+"Alla gateways du lägger in här måste vara nåbara genom ett av "
+"nätverksgränsnitten som är konfigurerade"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:173
 #: src/EBox/Model/StaticRoute.pm:173
-#, fuzzy
 msgid "static route"
-msgstr "Statiska rutter"
+msgstr "Statisk rutt"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:78
 #: src/EBox/Model/DNSResolver.pm:78
 msgid "IP address of the DNS server that eBox will use to resolve names"
 msgstr ""
+"IP adress för DNS servern som eBox kommer att använda för att slå upp namn"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:84
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Name server"
-msgstr "Källa"
+msgstr "Namnserver"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:93
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Name server resolver list"
-msgstr "Källa"
+msgstr "Namnserver uppslagslista"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:94
 #: src/EBox/Model/DNSResolver.pm:94
-#, fuzzy
 msgid "Name server resolver"
-msgstr "Källa"
+msgstr "Namnserver uppslag"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:100
 #: src/EBox/Model/DNSResolver.pm:100
-#, fuzzy
 msgid "name server"
-msgstr "Källa"
+msgstr "namnserver"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:112
 #: src/EBox/Model/DNSResolver.pm:112
@@ -794,11 +807,14 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+"<p>Här kan du lägga till de namnservers som eBox kommer att "
+"använda.</p><p>Kom ihåg att dessa inställningar kommer att åsidosättas om du "
+"har något nätverksgränssnitt konfigurerat via DHCP</p>"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:85
 #: src/EBox/Network.pm:85
 msgid "Add default routers to the default table"
-msgstr ""
+msgstr "Lägg in default routers till default tabell"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:86
 #: src/EBox/Network.pm:86
@@ -806,11 +822,13 @@ msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Detta behövs för en konfiguration med flera gateways. Notera att för att "
+"lista default route måste du köra:"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:92
 #: src/EBox/Network.pm:92
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "Aktivera eBox DHCP hake"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:93
 #: src/EBox/Network.pm:93
@@ -818,11 +836,13 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Detta tar hand om att addera default route från DHCP servern till tabellen "
+"för rutter"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:109
 #: src/EBox/Network.pm:109
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "eBox kommer att aktivera din nätverkskonfiguration"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:697
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:701
@@ -844,6 +864,7 @@ msgstr "Nätmask"
 #: src/EBox/Network.pm:1133
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
+"Detta gränssnitt kan inte sättas i trunkläge, det är ett vlan gränssnitt."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1178
 #: src/EBox/Network.pm:1178
@@ -851,12 +872,16 @@ msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
+"Detta gränssnitt är i trunkläge, du borde ta bort alla vlan gränssnitt i "
+"denna trunk innan du ändras dess konfigurationsläge."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:1211
 #: src/EBox/Network.pm:1211
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
+"Nätverksgränssnitten behöver vara i trunkläge innan du lägger till vlan till "
+"dem."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2214
 #: src/EBox/Network.pm:2214
@@ -864,6 +889,9 @@ msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
+"Den efterfrågade åtgärden kommer att göra en av de konfigurerade rutterna "
+"oåtkomlig. Vänligen ta bort den först om du verkligen vill göra denna "
+"ändring."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2279
 #: debian/ebox-network/usr/share/perl5/EBox/NetworkUtil.pm:55
@@ -879,6 +907,8 @@ msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr ""
+"Gateway {gw} måste vara nåbar av ett statiskt gränssnitt. Nu är den nåbar av "
+"{iface} som inte är statiskt"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2513
 #: src/EBox/Network.pm:2513
@@ -913,12 +943,12 @@ msgstr "MAC-adress"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
 #: src/EBox/Network.pm:2599
 msgid "Tx bytes"
-msgstr ""
+msgstr "Tx bytes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
 #: src/EBox/Network.pm:2608
 msgid "Rx bytes"
-msgstr ""
+msgstr "Rx bytes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
 #: src/EBox/Network.pm:2645
@@ -947,6 +977,8 @@ msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
+"Den förändring du försöker göra kommer att påverka konfigurationen av en "
+"eller flera moduler som refererar till detta nätverksgränssnitt."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:17
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:14
@@ -956,6 +988,9 @@ msgid ""
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
+"Om du väljer att fortsätta kommer alla moduler som använder detta gränssnitt "
+"att radera relaterade delar av deras konfiguration. Välj avbryt om du inte "
+"är säker på detta."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:31
 #: debian/ebox-network/usr/share/ebox/templates/network/confirmremove.mas:24
@@ -975,6 +1010,8 @@ msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
+"Kom ihåg att ändringar i konfigurationen för nätverksgränssnitten kan göra "
+"att du tappar kontakten med administrationssidan du just nu är kopplad till."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:14
 #: src/templates/ifaces.mas:14
@@ -983,6 +1020,9 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
+"Trafik som routas genom gränssnitt markerade som externa kommer att bli NAT "
+"(adressöversatta). Services tillägnade LAN användare kommer inte att vara "
+"tillgängliga för externa gränssnitt."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:43
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:45
@@ -1079,6 +1119,8 @@ msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
+"För att kunna använda denna funktion behöver du minst två gateways. Du kan "
+"addera dem <a href=\"/ebox/Network/View/GatewayTable\">här</a> först"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:25
 #: src/templates/gwrules.mas:25

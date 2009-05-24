@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-04-20 23:27+0200\n"
+"PO-Revision-Date: 2009-04-25 21:47+0200\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -820,13 +820,13 @@ msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
-"Isto é necessário para trabalhar com uma configuração multi-gateway. Tenha "
-"em mente que a lista de rotas pré-definida que tem que executar:"
+"Isto é necessário para trabalhar com uma configuração multi-gateway. Veja a "
+"lista de rotas pré-definida que você tem que executar:"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:92
 #: src/EBox/Network.pm:92
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "Habilita eBox DHCP"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:93
 #: src/EBox/Network.pm:93

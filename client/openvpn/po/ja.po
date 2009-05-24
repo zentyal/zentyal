@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-01-08 15:50+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-19 15:40+0200\n"
+"Last-Translator: Taro Yamazaki <taro@plum-systems.co.jp>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
@@ -41,21 +42,21 @@ msgstr "クライアント証明書はサーバ証明書と同一であっては
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "CA証明書を変更"
+msgstr "CA証明書ファイル {p} が存在しません"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "クライアント証明書を変更"
+msgstr "クライアント証明書ファイル {p} が存在しません"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "証明書の秘密鍵ファイル {p} が存在しません"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
@@ -110,9 +111,8 @@ msgstr "名前"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:76
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Clients.pm:75
 #: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
-#, fuzzy
 msgid "Configuration"
-msgstr "クライアント {name} の設定"
+msgstr "設定"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:85
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
@@ -131,21 +131,18 @@ msgstr "クライアントのファイルバンドルをダウンロード"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:106
 #: src/EBox/OpenVPN/Model/Servers.pm:106
-#, fuzzy
 msgid "List of servers"
-msgstr "OpenVPNサービス"
+msgstr "サーバのリスト"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:107
 #: src/EBox/OpenVPN/Model/Servers.pm:107
-#, fuzzy
 msgid "VPN servers"
-msgstr "OpenVPNサービス"
+msgstr "VPNサーバ"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:113
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 #: src/EBox/OpenVPN/Model/Servers.pm:113
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
-#, fuzzy
 msgid "server"
 msgstr "サーバ"
 
@@ -202,15 +199,13 @@ msgstr ""
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:80
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
-#, fuzzy
 msgid "Server port"
 msgstr "サーバのポート"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
-#, fuzzy
 msgid "VPN address"
-msgstr "ネットアドレス"
+msgstr "VPNアドレス"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79

@@ -8,18 +8,19 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-02-24 09:48+0100\n"
-"PO-Revision-Date: 2009-02-24 09:48+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-04-21 11:37+0200\n"
+"Last-Translator: Érdi Olivér <freeoli@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
 #: src/EBox/AntiVirus.pm:339
 msgid "Antivirus"
-msgstr ""
+msgstr "Vírusirtó"
 
 #: src/EBox/AntiVirus.pm:95
 msgid "Update status"
@@ -39,15 +40,15 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Állapot"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus database update status"
-msgstr ""
+msgstr "Vírusirtó adatbázis frissítési állapot"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
@@ -57,7 +58,7 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed"
-msgstr ""
+msgstr "Az utolsó frissítés sikertelen."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format

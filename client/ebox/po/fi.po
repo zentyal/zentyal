@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-03 19:21+0100\n"
-"PO-Revision-Date: 2008-11-03 15:54+0000\n"
-"Last-Translator: Nacho Correas <icorreas@eboxplatform.com>\n"
+"PO-Revision-Date: 2009-05-14 10:19+0200\n"
+"Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,40 +19,42 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Järjestelmävalvoja Jabber tili"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Jabber palvelin {serverName} on alhaalla tai yhteyttä ei sallita"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Tilaus epäonnistui: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
+#, fuzzy
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Tunnistautuminen epäonnistui: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS tiedosto: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
+#, fuzzy
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBox hälyttää kanavan {hostname}:lle"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
@@ -61,20 +63,20 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Tapahtuma on tapahtunut eBox:ssa {hostname}  {source}:sta"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Mene {url} katsoaksesi tilasi."
 
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
-msgstr ""
+msgstr "Logi tiedosto"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
 msgid "Log"
-msgstr ""
+msgstr "Logi"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
@@ -88,11 +90,11 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Vapaa tila"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Tarkista onko joku levyn osio täynnä"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
@@ -115,7 +117,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tyyppi: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
@@ -236,23 +238,23 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "aktiivi"
 
 #: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:113
 msgid "degraded"
-msgstr ""
+msgstr "alennettu"
 
 #: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr ""
+msgstr "palautetaan"
 
 #: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr ""
+msgstr "uudelleensynkronoidaan"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr ""
+msgstr "uudelleenrakennetaan"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:119
 msgid "reshaping"
@@ -260,29 +262,27 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr ""
+msgstr "epäonnistui"
 
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
-msgstr ""
+msgstr "uudelleensynkronoi"
 
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
-msgstr ""
+msgstr "uudelleenrakenna"
 
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:564
-#, fuzzy
 msgid "recovery"
-msgstr "Joulukuu"
+msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:577
-#, fuzzy
 msgid "faulty"
-msgstr "Heinäkuu"
+msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:233
 msgid "spare"
