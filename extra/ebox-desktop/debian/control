@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-desktop
 Architecture: all
-Depends: debconf, libpam-ldap
+Depends: debconf, libpam-ldap, ldap-utils
 Description: eBox platform - desktop configuration
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

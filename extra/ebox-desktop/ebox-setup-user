@@ -29,6 +29,27 @@ sed -i "s/SERVER/$SERVER/g" $EKIGACONF
 echo "[ -r $EKIGACONF ] && gconftool --load $EKIGACONF" >> $PROFILE
 echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
 
+# Evolution configuration
+MAIL_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^mailAccount | head -1 | cut -d' ' -f2`
+if [ -n "$MAIL_ACCOUNT" ]
+then
+    echo $MAIL_ACCOUNT > $USERHOME/MAIL_ACCOUNT_DEBUG
+fi
+
+# eGroupware configuration
+HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^egwPermsTemplate`
+if [ -n "$HAS_EGW_ACCOUNT" ]
+then
+    touch $USERHOME/HAS_EGW_ACCOUNT_DEBUG
+fi
+
+# Samba configuration
+HAS_SAMBA_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep "^objectClass: sambaSamAccount"`
+if [ -n "$HAS_SAMBA_ACCOUNT" ]
+then
+    echo "/usr/share/ebox-desktop/ebox-user-shares $SERVER" >> $PROFILE
+fi
+
 # Copy system skel after ebox-desktop setup is done
 # This will overwrite our .profile
 echo "shopt -s dotglob" >> $PROFILE
