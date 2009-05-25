@@ -7,13 +7,13 @@ TreeDefault {
 };
 
 BinDirectory "pool/main" {
-  Packages "dists/hardy/main/binary-i386/Packages";
+  Packages "dists/hardy/main/binary-ARCH/Packages";
   BinOverride "INDICES/override.hardy.main";
   ExtraOverride "INDICES/override.hardy.extra.main";
 };
 
 BinDirectory "pool/restricted" {
- Packages "dists/hardy/restricted/binary-i386/Packages";
+ Packages "dists/hardy/restricted/binary-ARCH/Packages";
  BinOverride "INDICES/override.hardy.restricted";
 };
 

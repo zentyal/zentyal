@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
@@ -18,8 +18,8 @@ CD_SCRIPTS="\
 10_custom_ubuntu-keyring.sh \
 20_configure_apt_ftparchive.sh \
 30_add_extras_to_pool.sh \
-40_update_md5sum.sh \
 50_put_ebox_stuff.sh \
+59_update_md5sum.sh \
 60_mkisofs.sh"
 for SCRIPT in $CD_SCRIPTS; do
     ./$SCRIPT || (echo "$SCRIPT failed"; false) || exit 1

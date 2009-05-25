@@ -2,7 +2,6 @@
 
 . ../build_cd.conf
 
-
 (test -d $INDICES_DIR) || mkdir -p $INDICES_DIR
 
 pushd $INDICES_DIR
@@ -12,16 +11,14 @@ wget -m http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.{extra.main,m
 
 popd
 
-
-
 pushd $APTCONF_DIR
 
 echo "Writing apt-ftparchive configuration files"
 
-CONF_FILE_TEMPLATES="apt-ftparchive-deb.conf.template apt-ftparchive-udeb.conf.template apt-ftparchive-extras.conf.template"
+CONF_FILE_TEMPLATES="apt-ftparchive-deb.conf.template apt-ftparchive-udeb.conf.template apt-ftparchive-extras.conf.template release.conf.template"
 for TEMPLATE in $CONF_FILE_TEMPLATES; do
    CONF_FILE=`echo $TEMPLATE | sed  -e s/.template//`
-   sed -e s:INDICES:$INDICES_DIR: -e s:ARCHIVE_DIR:$CD_BUILD_DIR: < $TEMPLATE  > $CONF_FILE || exit 1
+   sed -e s:INDICES:$INDICES_DIR: -e s:ARCHIVE_DIR:$CD_BUILD_DIR: -e s:ARCH:$ARCH: < $TEMPLATE  > $CONF_FILE || exit 1
 done
 
 popd

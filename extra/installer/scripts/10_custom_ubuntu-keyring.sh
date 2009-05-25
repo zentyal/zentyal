@@ -12,17 +12,16 @@ popd
 pushd $UBUNTU_KEYRING_DIR/keyrings
 
 gpg --import < ubuntu-archive-keyring.gpg
+# Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>
+# Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>
 gpg --export FBB75451 437D05B5 $YOURKEYID > ubuntu-archive-keyring.gpg
 
 popd
 
-
 pushd $UBUNTU_KEYRING_DIR
 
 rm -f ../ubuntu-keyring*deb
-dpkg-buildpackage -rfakeroot -m"'$MANTAINER_ADDRESS''" -k$YOURKEYID
+dpkg-buildpackage -rfakeroot -m"'$MANTAINER_ADDRESS'" -k$YOURKEYID
 cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
 
 popd
-
-

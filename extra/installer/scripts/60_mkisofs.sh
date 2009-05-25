@@ -1,7 +1,8 @@
 #!/bin/bash
+
 . ../build_cd.conf
 
-mkisofs -r -V "Custom Ubuntu Install CD" \
+mkisofs -r -V "eBox Platform $EBOX_VERSION $ARCH installer" \
             -cache-inodes \
             -J -l -b isolinux/isolinux.bin \
             -c isolinux/boot.cat -no-emul-boot \
