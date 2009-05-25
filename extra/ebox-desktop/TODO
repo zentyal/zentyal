@@ -1,7 +1,7 @@
 - Samba: Change the icon of the shares in the desktop ?
 
-- Evolution is configured (with hardcoded ports) but something doesn't seem
-  to work.
+- Evolution is configured and working with the first user mail account
+  but it has server settings hardcoded (IMAP, no-TLS, etc).
 
 - Add firefox bookmarks for eGroupware webpage and eBox usercorner
 

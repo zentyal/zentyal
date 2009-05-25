@@ -35,9 +35,9 @@ MAIL_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^m
 if [ -n "$MAIL_ACCOUNT" ]
 then
     sed -i "s/USERNAME/$USER/g" $EVOLUTIONCONF
-    sed -i "s/MAIL_ACCOUNT/$MAIL_ACCOUNT/g" $EVOLUTIONCONF
     MAIL_ACCOUNT_ESCAPED=`echo $MAIL_ACCOUNT | sed 's/@/%40/'`
     sed -i "s/MAIL_ACCOUNT_ESCAPED/$MAIL_ACCOUNT_ESCAPED/g" $EVOLUTIONCONF
+    sed -i "s/MAIL_ACCOUNT/$MAIL_ACCOUNT/g" $EVOLUTIONCONF
     sed -i "s/EBOX_SERVER/$SERVER/g" $EVOLUTIONCONF
     echo "[ -r $EVOLUTIONCONF ] && gconftool --load $EVOLUTIONCONF" >> $PROFILE
 fi
