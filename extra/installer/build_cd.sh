@@ -22,7 +22,7 @@ CD_SCRIPTS="\
 50_put_ebox_stuff.sh \
 60_mkisofs.sh"
 for SCRIPT in $CD_SCRIPTS; do
-    $SCRIPT || (echo "$SCRIPT failed"; false) || exit 1
+    ./$SCRIPT || (echo "$SCRIPT failed"; false) || exit 1
 done
 
 popd

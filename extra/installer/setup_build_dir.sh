@@ -12,7 +12,7 @@ sudo mount -o loop $ISO_PATH $CD_MOUNT_DIR || exit 1
 
 rm -rf $CD_BUILD_DIR || exit 1
 cp -r $CD_MOUNT_DIR $CD_BUILD_DIR || exit 1
-chmod o+w -R $CD_BUILD_DIR || exit 1
+chmod u+w -R $CD_BUILD_DIR || exit 1
 
 # remove ppp-udeb
 rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
@@ -24,6 +24,6 @@ sed -i "s/Ubuntu Server/eBox Platform $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/is
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR
 
-echo "installer build directory generated from contents of $ISO"
+echo "installer build directory generated from contents of $ISO_PATH"
 
 exit 0
