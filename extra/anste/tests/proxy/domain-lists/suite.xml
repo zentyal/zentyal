@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox Proxy basic tests</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox HTTP Proxy module works properly.
+    </desc>
+
+    <scenario>proxy/basic.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigProxyFilter</name>
+        <desc>
+        Config the proxy with filter mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Filter"/>
+    </test>
+
+    <test>
+        <name>SetDomainList</name>
+        <desc>
+        Set a domain list archive
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-domain-list</dir>
+        <var name="FILE" value="/var/local/anste/shallalist.tar.gz"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigureDomainList</name>
+        <desc>
+        Conofugre domain lists fro archive
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>conifgure-domain-list</dir>
+        <var name="FILE" value="/var/local/anste/shallalist.tar.gz"/>
+    </test>
+
+
+</suite>

@@ -31,6 +31,12 @@
             <script>ebox-import-network.sh</script>
             <script>ebox-wait-start.sh</script>
         </post-install>
+
+
+        <files>
+        <!-- This file is only needed for the domain-lists test -->
+          <file>shallalist.tar.gz </file>
+        </files>
     </host>
 
     <host type="router">
