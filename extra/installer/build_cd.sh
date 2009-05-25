@@ -1,29 +1,32 @@
 #!/bin/bash
 
+test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
-test -d $CD_BUILD_DIR || (echo "No CD build directory found"; false) || exit 1
-test -d $EXTRAS_DIR   || (echo "No extra packages directory found"; false) || exit 1
+test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
+test -d $EXTRAS_DIR   || (echo "extra packages directory not found."; false) || exit 1
 
-test -d $CD_BUILD_DIR/isolinux || (echo "No isolinux directory found in $CD_BUILD_DIR. Are you sure you had copied correctly the CD data?"; false) || exit 1
-test -d $CD_BUILD_DIR/.disk || (echo "No .disk directory found in $CD_BUILD_DIR. Are you sure you had copied correctly the CD data?"; false) || exit 1
-
+test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
+test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1
 
 pushd $SCRIPTS_DIR
 
-./genLocalesFile.pl $DATA_DIR || (echo "Autogeneration of locales files failed. Make sure you have a updated version of EBox::Gettext in your perl path."; false) || exit 1
+./genLocalesFile.pl $DATA_DIR || (echo "locales files autogeneration failed.";
+                                  echo "make sure you have libebox installed."; false) || exit 1
 
-
-CD_SCRIPTS='./customUbuntuKeyring.sh ./configureAptFtpArchive.sh ./addExtrasToPool.sh ./updateMd5sum.sh ./put-ebox-stuff.sh ./mkisofs.sh'
+CD_SCRIPTS="\
+10_custom_ubuntu-keyring.sh \
+20_configure_apt_ftparchive.sh \
+30_add_extras_to_pool.sh \
+40_update_md5sum.sh \
+50_put_ebox_stuff.sh \
+60_mkisofs.sh"
 for SCRIPT in $CD_SCRIPTS; do
     $SCRIPT || (echo "$SCRIPT failed"; false) || exit 1
 done
 
 popd
 
+echo "installer image created in $ISO_IMAGE."
 
-echo "Installer image created: $ISO_IMAGE"
-
-# XXX remove this step with new apt-key package
-# remove release signature
-#find $BUILD_DIR -name Release.gpg | xargs -n 1 rm -vf
+exit 0

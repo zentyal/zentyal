@@ -1,30 +1,29 @@
-#!/bin/bash
+#!/bin/bash -x
 
+test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
-ISO=$1
-if [ -z $ISO ]; then
-    echo "You must specify the Ubuntu server ISO image as first parameter"
-    exit 1
-fi
+test -d $BASE_DIR || (echo "base_dir directory not found."; false) || exit 1
 
-MOUNTDIR=/tmp/tmpmount || exit 1
+test -r $ISO_PATH || (echo "iso image not found."; false) || exit 1
 
-mkdir -p $MOUNTDIR || exit 1
-sudo mount -o loop $ISO $MOUNTDIR || exit 1
+mkdir -p $CD_MOUNT_DIR || exit 1
+sudo mount -o loop $ISO_PATH $CD_MOUNT_DIR || exit 1
 
 rm -rf $CD_BUILD_DIR || exit 1
-cp -r $MOUNTDIR $CD_BUILD_DIR || exit 1
-chmod a+w -R $CD_BUILD_DIR || exit 1
+cp -r $CD_MOUNT_DIR $CD_BUILD_DIR || exit 1
+chmod o+w -R $CD_BUILD_DIR || exit 1
 
-# Remove ppp-udeb
+# remove ppp-udeb
 rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
 
-# Rebranding
+# rebranding FIXME
 cp images/* $CD_BUILD_DIR/isolinux/
 sed -i "s/Ubuntu Server/eBox Platform $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
 
-sudo umount $MOUNTDIR || exit 1
-rmdir $MOUNTDIR
+sudo umount $CD_MOUNT_DIR || exit 1
+rmdir $CD_MOUNT_DIR
 
-echo "CD Installer build directory generated from contents of $ISO"
+echo "installer build directory generated from contents of $ISO"
+
+exit 0
