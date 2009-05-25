@@ -42,6 +42,7 @@ my @PACKAGES = (
     ['ebox-dhcp', __('DHCP server')],
     ['ebox-squid', __('HTTP Proxy and content filter')],
     ['ebox-usersandgroups', __('LDAP users and groups management')],
+    ['ebox-monitor', __('Monitoring (CPU, memory, ...) graphs and alerts')],
     ['ebox-software', __('System and eBox package managmenet')],
     ['ebox-ntp', __('Network Time Protocol server')],
     ['ebox-printers', __('Printing service')],
