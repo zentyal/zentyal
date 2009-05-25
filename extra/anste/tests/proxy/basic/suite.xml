@@ -177,6 +177,31 @@
         <var name="EVENT" value="Accepted"/>
     </test>
 
+
+    <test type="selenium">
+        <name>SetCacheSize</name>
+        <desc>
+        Change the cache size
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-cache-size</dir>
+        <var name="SIZE" value="333"/>
+    </test>
+
+    <test >
+        <name>TestCacheSize</name>
+        <desc>
+        Test wether the cache size is the expected
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-cache-size</dir>
+        <var name="SIZE" value="333"/>
+    </test>
+
+
+
     <test type="selenium">
         <name>ConfigCacheExempt</name>
         <desc>
