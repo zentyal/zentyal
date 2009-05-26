@@ -24,7 +24,8 @@ sub createBundleCmds
     my @filesInTmpDir = `ls $tmpDir`;
     chomp @filesInTmpDir;
 
-    return ("tar czf $bundleFile -C $tmpDir @filesInTmpDir");
+    return ("tar czf '$bundleFile' -C '$tmpDir' "
+              . join(' ', map { qq{'$_'} } @filesInTmpDir));
 }
 
 sub _createBundleContents

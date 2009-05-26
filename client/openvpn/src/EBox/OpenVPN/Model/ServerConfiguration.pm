@@ -381,14 +381,14 @@ sub _checkMasqueradeIsAvailable
     my $firewall = EBox::Global->modInstance('firewall');
     if (not $firewall) {
         throw EBox::Exceptions::External(
-          __('Cannot use Network Address translation beacuse it requires the ' .
+          __('Cannot use Network Address translation because it requires the ' .
              'firewall module. The module is neither installed or activated')
                                         );
     }
 
     if (not $firewall->isEnabled()) {
         throw EBox::Exceptions::External(
-          __('Cannot use Network Address translation beacuse it requires the ' .
+          __('Cannot use Network Address translation because it requires the ' .
               'firewall module enabled. Please activate it and try again')
                                         );
     }

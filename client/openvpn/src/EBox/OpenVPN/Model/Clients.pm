@@ -89,8 +89,8 @@ sub _table
         );
 
     my $dataTable = 
-        { 
-            'tableName'              => __PACKAGE__->name(),
+        {
+            'tableName'          => __PACKAGE__->name(),
             'printableTableName' => __('VPN clients'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/Clients',

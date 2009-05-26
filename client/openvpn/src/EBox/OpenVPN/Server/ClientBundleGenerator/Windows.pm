@@ -23,7 +23,7 @@ sub createBundleCmds
     my ($class, $bundleFile, $tmpDir, %extraParams) = @_;
 
     my @cmds = (
-        ZIP_PATH . " -j  $bundleFile $tmpDir/*",
+        ZIP_PATH . " -j '$bundleFile' '$tmpDir'/*",
 
     );
 
@@ -45,7 +45,7 @@ sub _installerCmd
     my ($class, $bundleFile) = @_;
     my $installerFile = $class->_windowsClientInstaller();
 
-    return ZIP_PATH . " -g -j $bundleFile $installerFile";
+    return ZIP_PATH . " -g -j '$bundleFile' '$installerFile'";
 }
 
 sub _windowsClientInstaller
