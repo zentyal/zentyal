@@ -40,6 +40,16 @@
         <var name="POLICY" value="Filter"/>
     </test>
 
+    <test type="selenium">
+        <name>ContentFilterStrict</name>
+        <desc>
+	    Configure content filter setting its threshold to very strict.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>content-filter-strict</dir>
+    </test>
+
     <test>
         <name>SetDomainList</name>
         <desc>
@@ -54,13 +64,75 @@
     <test type="selenium">
         <name>ConfigureDomainList</name>
         <desc>
-        Conofugre domain lists fro archive
+        Set porn domains as allowd
         </desc>
 
         <host>ebox-server</host>
-        <dir>conifgure-domain-list</dir>
-        <var name="FILE" value="/var/local/anste/shallalist.tar.gz"/>
+        <dir>configure-domain-list</dir>
+        <var name="CATEGORY" value="porn"/>
+        <var name="POLICY" value="allow" />
     </test>
 
+    <test type="selenium">
+        <name>ConfigureDomainList</name>
+        <desc>
+        Set filter policy for aggressive domains
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>configure-domain-list</dir>
+        <var name="CATEGORY" value="aggressive"/>
+        <var name="POLICY" value="filter" />
+    </test>
+
+    <test type="selenium">
+        <name>ConfigureDomainList</name>
+        <desc>
+        Block astronomy domains
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>configure-domain-list</dir>
+        <var name="CATEGORY" value="astronomy"/>
+        <var name="POLICY" value="deny" />
+    </test>
+
+
+
+    <test>
+        <name>TestAllowDomain</name>
+        <desc>
+          Test a domain of the allowed porn category. If the categroy
+           was not allowed it will be blocked by the content filter
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-domain</dir>
+        <var name="HOST" value="http://www.playboy.com"/> 
+    </test>
+
+    <test>
+        <name>TestFilteredDomain</name>
+        <desc>
+          Check a domain of the filtered 'aggressive' category
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-domain</dir>
+        <var name="HOST" value="http://www.shotgun.com" />  <!-- from aggresive cateogry -->
+    </test>
+
+    <test>
+        <name>TestDeniedDomain</name>
+        <desc>
+          Check a domain of the blocked astronomy category
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-domain</dir>
+        <var name="HOST" value="http://www.satellitentracking.de"/> <!-- from astronomy category -->
+        <var name="LOOK_FOR" value="Banned site"/>
+        <var name="DENIED" value="1" />
+    </test>
 
 </suite>
