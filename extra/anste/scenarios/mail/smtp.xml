@@ -51,6 +51,7 @@
             <package>libio-socket-ssl-perl</package>
             <package>libnet-smtp-ssl-perl</package>
             <package>libnet-smtpauth-perl</package>
+            <package>sendemail</package>
         </packages>
     </host>
 
