@@ -7,12 +7,14 @@ PROFILE_PATH=`firefox -CreateProfile default 2>&1 | cut -d. -f2`
 
 BOOKMARKS_FILE="$HOME/.$PROFILE_PATH.default/bookmarks.html"
 
+ICON_DATA="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/gD+AP7rGNSCAAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAQAAAAEABcxq3DAAAA9UlEQVQ4y7WRMU7DQBBF32xW0FBCzAXiUJAcgHCQcAUUzFli5Q5AxyEIUupEAswF4khUNBTgpcGj3cR2IhC/+jt//8zfWfgj5Obh1NWJF+cLWY47tfrx9atYgOFgzsfnO/utAxXvHvvKD0dPGIxndawmJwDYsnQ/O6uN6YDVpKvn9uhZuTYYDuaB6XbaU95CApMPW2VYxxfw9hP5lwloTtA0HdCF/Qu2/vM2neW446pQGn19nQdLzNNYO0dJtjGtKAraVy8bdcMOyNMYKQ+uCIbt1CBKMhwgIiCGo8uFata/1ARjDHkaEyUZxu6FDfxIdU+o4gDfVFV7/yoGZqUAAAAASUVORK5CYII="
+
 add_bookmark()
 {
     # Append the bookmark two lines before the match
     sed -i "/PERSONAL_TOOLBAR_FOLDER/{
         N;N;a\
-            <DT><A HREF="$URL">$DESC</A>
+            <DT><A HREF=\"$URL\" ICON=\"data:image/png;base64,$ICON_DATA\">$DESC</A>
     }" $BOOKMARKS_FILE
 }
 
