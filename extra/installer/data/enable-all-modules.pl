@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+
 use EBox;
 use EBox::Global;
 use EBox::ServiceManager;
@@ -18,8 +19,6 @@ if ($global->modExists('network')) {
 	$network->saveConfig();
 }
 
-
-# Stop mail sytem
 if ($global->modExists('mail')) {
 	my $mail = $global->modInstance('mail');
 	$mail->enableService(undef);
@@ -32,6 +31,4 @@ if ($global->modExists('mailfilter')) {
 	$mail->save();
 }
 
-
 $mgr->updateDigests();
-

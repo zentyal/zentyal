@@ -2,15 +2,18 @@
 
 INSTALLER=ebox-installer
 
-cp /tmp/motd /etc/motd
+# replace motd
+cp /tmp/motd /etc/motd.tail
 
-cp /etc/rc.local /var/tmp
+# put in place the installer
+cp /etc/rc.local /var/tmp/
 cp /tmp/$INSTALLER /etc/rc.local
 
-# Copy locale
-cp /tmp/locale.gen /var/tmp
-# Copy .mo files
+# copy locale.gen
+cp /tmp/locale.gen /var/tmp/
+# copy .mo files
 cp -r /tmp/locale /usr/share/
 
-cp /tmp/enable-all-modules.pl /var/tmp
+# copy installer files
+cp /tmp/enable-all-modules.pl /var/tmp/
 cp -r /tmp/package-installer/* /var/tmp/
