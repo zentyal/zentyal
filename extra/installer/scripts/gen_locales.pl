@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+
 # Copyright (C) 2008 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,8 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-#
-
 use strict;
 use warnings;
 
@@ -29,15 +28,15 @@ if (not $dstDir) {
   warn "No destination dir provided using actual directory";
 }
 
-
 my $path= "$dstDir/" . FILE_NAME;
 
 my $langs = EBox::Gettext::langs();
 
-open my $FH, ">$path" or 
+open my $FH, ">$path" or
   die  "Cannot open $path: $!";
 
- my  @locales = sort keys %{ $langs };
+my  @locales = sort keys %{ $langs };
+
 foreach my $locale ( @locales ) {
   if ($locale eq 'C') {
     # standard locale 'C' dont need to be generated so we skip it

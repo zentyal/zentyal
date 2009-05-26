@@ -11,16 +11,15 @@ test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR
 
 pushd $SCRIPTS_DIR
 
-./genLocalesFile.pl $DATA_DIR || (echo "locales files autogeneration failed.";
-                                  echo "make sure you have libebox installed."; false) || exit 1
+./gen_locales.pl $DATA_DIR || (echo "locales files autogeneration failed.";
+                               echo "make sure you have libebox installed."; false) || exit 1
 
 CD_SCRIPTS="\
 10_custom_ubuntu-keyring.sh \
 20_configure_apt_ftparchive.sh \
-30_add_extras_to_pool.sh \
-50_put_ebox_stuff.sh \
-59_update_md5sum.sh \
-60_mkisofs.sh"
+30_put_ebox_stuff.sh \
+40_update_md5sum.sh \
+50_mkisofs.sh"
 for SCRIPT in $CD_SCRIPTS; do
     ./$SCRIPT || (echo "$SCRIPT failed"; false) || exit 1
 done

@@ -2,7 +2,7 @@
 
 . ../build_cd.conf
 
-mkisofs -r -V "eBox Platform $EBOX_VERSION $ARCH installer" \
+mkisofs -r -V "eBox Platform $EBOX_VERSION $ARCH" \
             -cache-inodes \
             -J -l -b isolinux/isolinux.bin \
             -c isolinux/boot.cat -no-emul-boot \
