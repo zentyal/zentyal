@@ -8,6 +8,8 @@ BASE_DIR variable.  The UBUNTU_KEYRING_TAR and UBUNTU_KEYRING_DIR must changed
 to reflect the version number of the package.  The VERSION and the
 VERSION_NUMBER keys must reflect the version name and number of the Ubuntu
 version remastered for create the CD.
+Instead of editing 'build_cd.conf' directly you should put your local data
+in the 'build_cd.conf.local' file.
 
 2) Put extra ubuntu packages
 
@@ -20,11 +22,17 @@ is to have a list of packages and use the packagesNotInCd script to see which
 aren't included, anyway check the log ater the installation to find any missing
 package/.
 
+You can put the packages you want included in the installer in the
+'extra-packages.list' file and then use 'generate_extras.sh' script to get them
+and their dependencies on a chrooted debootstrap environment.
+
 2.1) Put eBox metapackages
 
 They are built from trunk/extra/ebox-metapackages, you can export it
 somewhere, run dpkg-buildpackage and then add them to the EXTRAS_DIR
-directory. Remember to regenerate the Packages.gz with apt-ftparchive packages.
+directory. If they are already uploaded to a repository you can simply
+add their names to the 'extra-packages.list' file.
+
 
 3) Change if needed eBox's server files
 
