@@ -25,6 +25,7 @@ install:
 	cp -a templates/* $(DESTDIR)$(DATADIR)/skel
 	install -m755 ebox-setup-user $(DESTDIR)$(DATADIR)
 	install -m755 ebox-user-shares $(DESTDIR)$(DATADIR)
+	install -m755 ebox-firefox-profile $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 
 uninstall:

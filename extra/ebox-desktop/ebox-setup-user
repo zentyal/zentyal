@@ -43,19 +43,15 @@ then
 fi
 echo "[ -r $EVOLUTIONCONF ] && rm $EVOLUTIONCONF" >> $PROFILE
 
-# eGroupware configuration
-HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^egwPermsTemplate`
-if [ -n "$HAS_EGW_ACCOUNT" ]
-then
-    touch $USERHOME/HAS_EGW_ACCOUNT_DEBUG
-fi
-
 # Samba configuration
 HAS_SAMBA_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep "^objectClass: sambaSamAccount"`
 if [ -n "$HAS_SAMBA_ACCOUNT" ]
 then
     echo "/usr/share/ebox-desktop/ebox-user-shares $SERVER" >> $PROFILE
 fi
+
+# Firefox profile configuration
+echo "/usr/share/ebox-desktop/ebox-firefox-profile $SERVER" >> $PROFILE
 
 # Copy system skel after ebox-desktop setup is done
 # This will overwrite our .profile

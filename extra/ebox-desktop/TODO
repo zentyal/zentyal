@@ -3,7 +3,7 @@
 - Evolution is configured and working with the first user mail account
   but it has server settings hardcoded (IMAP, no-TLS, etc).
 
-- Add firefox bookmarks for eGroupware webpage and eBox usercorner
+- Only add eBox usercorner bookmark if it's enabled on eBox
 
 - On the first version usercorner webpage will be hardcoded
   (https://ebox_ip:8888), later will be able to get a different port it has

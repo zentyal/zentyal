@@ -1,0 +1,33 @@
+#!/bin/bash
+
+SERVER=$1
+
+# Create firefox default profile and get its path
+PROFILE_PATH=`firefox -CreateProfile default 2>&1 | cut -d. -f2`
+
+BOOKMARKS_FILE="$HOME/.$PROFILE_PATH.default/bookmarks.html"
+
+add_bookmark()
+{
+    # Append the bookmark two lines before the match
+    sed -i "/PERSONAL_TOOLBAR_FOLDER/{
+        N;N;a\
+            <DT><A HREF="$URL">$DESC</A>
+    }" $BOOKMARKS_FILE
+}
+
+# User Corner bookmark
+# TODO: Check if user corner is enabled
+URL="https://$SERVER:8888"
+DESC="eBox User Corner"
+add_bookmark
+
+# eGroupware bookmark
+HAS_EGW_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^egwPermsTemplate`
+if [ -n "$HAS_EGW_ACCOUNT" ]
+then
+    URL="http://$SERVER/egroupware"
+    DESC="eGroupware"
+    add_bookmark
+fi
+
