@@ -50,7 +50,7 @@ function toggleClose()
 function configureWidgets()
 {
 	Modalbox.show('/ebox/Dashboard/ConfigureWidgets', {
-        title: '<% __("Configure widgets") %>',
+        title: '<% __("Configure Widgets") %>',
         width: 980,
         height: 100,
         overlayOpacity: 0,
@@ -86,7 +86,7 @@ function updateGraph(element,value) {
 //]]>
 </script>
 
-<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
+<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure Widgets') %></a>
 <div style='clear: right;'/>
 <div class='dashboard' id="dashboard1">
 <br/>

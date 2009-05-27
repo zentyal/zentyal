@@ -39,7 +39,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'sysinfo',
-                                          printableName => __('System information'),
+                                          printableName => __('System Information'),
                                           @_);
 	bless($self, $class);
 	return $self;
@@ -75,12 +75,12 @@ sub generalWidget
     my $time = `$time_command`;
 
     $section->add(new EBox::Dashboard::Value(__("Time"), $time));
-    $section->add(new EBox::Dashboard::Value(__("Host name"), hostname));
+    $section->add(new EBox::Dashboard::Value(__("Hostname"), hostname));
     $section->add(new EBox::Dashboard::Value(
-    __("eBox version"),
+    __("eBox Version"),
     EBox::Config::version));
     $section->add(new EBox::Dashboard::Value(
-        __("System load"), join(', ', Sys::CpuLoad::load)));
+        __("System Load"), join(', ', Sys::CpuLoad::load)));
 }
 
 sub processesWidget
@@ -88,7 +88,7 @@ sub processesWidget
     my ($self, $widget) = @_;
     my $section = new EBox::Dashboard::Section('foo');
     $widget->add($section);
-    my $titles = ['PID','name'];
+    my $titles = ['PID','Name'];
     my $ids = [];
     my @processes = `ps ax | grep -v PID| awk '{ print \$1, \$5 }'`;
     my $rows = {};
@@ -125,7 +125,7 @@ sub widgets
             'default' => 1
         },
         'processes' => {
-            'title' => __("Process' List"),
+            'title' => __("Process List"),
             'widget' => \&processesWidget
         },
     };

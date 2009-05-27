@@ -27,7 +27,7 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('Configure widgets'),
+	my $self = $class->SUPER::new(@_, title => __('Configure Widgets'),
                     'template' => '/dashboard/configurewidgets.mas');
 	bless($self, $class);
 	return $self;
