@@ -26,7 +26,7 @@ DUMP=/var/backups/ebox
 mkdir -p $DUMP
 chmod $MODE $DUMP
 chown $OWNER:$GROUP $DUMP
-slapcat | gzip -c > $DUMP/slapd.ldif.gz
+slapcat 2>/dev/null | gzip -c > $DUMP/slapd.ldif.gz
 sudo -u ebox pg_dump eboxlogs | gzip -c > $DUMP/pg.sql.gz
 
 rdiff-backup --exclude $BACKUP --exclude /dev --exclude /proc --exclude /sys / $BACKUP/ > $LOG
