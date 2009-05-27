@@ -11,10 +11,6 @@ CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 PROFILE=$USERHOME/.profile
 
-# Debug stuff
-echo "env > $USERHOME/ENV_OUTPUT_DEBUG" >> $PROFILE
-echo "id > $USERHOME/ID_OUTPUT_DEBUG" >> $PROFILE
-
 # Pidgin configuration
 sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/accounts.xml
 sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/accounts.xml
