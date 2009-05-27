@@ -1,0 +1,151 @@
+# ubuntu-ebox.seed - ebox preseeding for ubuntu server
+
+##
+## ebox stuff
+##
+
+# always install the server kernel
+d-i base-installer/kernel/override-image string linux-server
+# only install basic language packs
+d-i pkgsel/language-pack-patterns string
+# no language support packages
+d-i pkgsel/install-language-support boolean false
+# install ssh and custom l7filter kernel
+d-i pkgsel/include string ssh linux-image-2.6.24-24-l7filter
+
+##
+## partitioning
+##
+
+## lvm auto
+#d-i partman-auto/disk string /dev/sda
+#d-i partman-auto/method string lvm
+#d-i partman-auto/purge_lvm_from_device boolean true
+#d-i partman-lvm/confirm boolean true
+#d-i partman-auto/choose_recipe select Separate /home, /usr, /var, and /tmp partitions
+#d-i partman/confirm_write_new_label boolean true
+#d-i partman/choose_partition select Finish partitioning and write changes to disk
+#d-i partman/confirm boolean true
+
+## ebox custom
+d-i partman-auto/disk string /dev/sda
+d-i partman-auto/method string lvm
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-lvm/device_remove_lvm_span boolean true
+d-i partman-auto/purge_lvm_from_device boolean true
+d-i partman-auto-lvm/new_vg_name string ebox
+#d-i partman-auto/init_automatically_partition select Guided - use entire disk and set up LVM
+d-i partman-auto/expert_recipe string                         \
+      boot-root ::                                            \
+              128 256 256 ext3                                \
+                      $primary{ }                             \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext3 }    \
+                      mountpoint{ /boot }                     \
+              .                                               \
+              4000 20000 10000 ext3                           \
+                      $lvmok{ }                               \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext3 }    \
+                      mountpoint{ / }                         \
+              .                                               \
+              128 20000 2048 linux-swap                       \
+                      $lvmok{ }                               \
+                      method{ swap } format{ }                \
+              .                                               \
+              2000 20000 20000 xfs                            \
+                      $lvmok{ }                               \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ xfs }     \
+                      mountpoint{ /var }                      \
+              .                                               \
+              2000 20000 20000 xfs                            \
+                      $lvmok{ }                               \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ xfs }     \
+                      mountpoint{ /home }                     \
+              .                                               \
+              1000 10000 10000 xfs                            \
+                      $lvmok{ }                               \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ xfs }     \
+                      mountpoint{ /var/vmail }                \
+              .                                               \
+              1000 10000 10000 ext3                           \
+                      $lvmok{ }                               \
+                      method{ keep }                          \
+              .
+
+d-i partman-lvm/confirm boolean true
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select Finish partitioning and write changes to disk
+d-i partman/confirm boolean true
+
+##
+## automatic install (for testing purposes)
+##
+
+# locale sets language and country
+# this preseeding needs to be done in initrd
+#d-i debian-installer/locale string en_US
+#d-i console-setup/ask_detect boolean false
+#d-i console-setup/layoutcode string us
+#d-i console-setup/variant select USA
+
+# network
+#d-i netcfg/choose_interface select auto
+#d-i netcfg/get_hostname string ebox
+#d-i netcfg/get_domain string unassigned-domain
+
+# mirror
+#d-i mirror/http/proxy string
+
+# clock
+#d-i clock-setup/utc boolean true
+
+# to create a normal user account
+#d-i passwd/user-fullname string user
+#d-i passwd/username string user
+#d-i passwd/user-password password user
+#d-i passwd/user-password-again password user
+
+# grub
+d-i grub-installer/only_debian boolean true
+
+# finish
+#d-i finish-install/reboot_in_progress note
+
+##
+## packages configuration preseeding
+##
+
+# tasksel answers
+tasksel tasksel/first multiselect
+# postfix answers
+postfix postfix/main_mailer_type select No configuration
+
+# ldap answers
+slapd slapd/password1 password
+slapd slapd/password2 password
+ldap-auth-config ldap-auth-config/ldapns/ldap_version select 3
+ldap-auth-config ldap-auth-config/binddn string cn=proxyuser,dc=example,dc=net
+ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldapi:///findme
+ldap-auth-config ldap-auth-config/ldapns/base-dn string dc=example,dc=netfindme
+ldap-auth-config ldap-auth-config/dblogin boolean false
+ldap-auth-config ldap-auth-config/dbrootlogin boolean false
+ldap-auth-config ldap-auth-config/rootbinddn string cn=manager,dc=example,dc=net
+ldap-auth-config ldap-auth-config/rootbindpw password
+
+# egroupware answers
+egroupware-core egroupware/configuration/note note
+egroupware-core egroupware/header/user string admin
+egroupware-core egroupware/header/password password
+egroupware-core egroupware/header/password/confirm password
+
+# late command (we prepare here the ebox custom installer)
+d-i preseed/late_command string \
+    lvremove -f ebox/keep_2 \
+    cp -r /cdrom/ebox/* /target/tmp/ || \
+    cp -r /target/cdrom/ebox/* /target/tmp/ && \
+    chroot /target sh /tmp/prepare-ebox-install.sh
+

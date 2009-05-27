@@ -1,101 +1,80 @@
-# Always install the server kernel.
-d-i	base-installer/kernel/override-image	string linux-server
-# Only install basic language packs. Let tasksel ask about tasks.
-d-i	pkgsel/language-pack-patterns	string
-# No language support packages.
-d-i	pkgsel/install-language-support	boolean false
+# ubuntu-ebox.seed - ebox preseeding for ubuntu server
 
+##
+## ebox stuff
+##
+
+# always install the server kernel
+d-i base-installer/kernel/override-image string linux-server
+# only install basic language packs
+d-i pkgsel/language-pack-patterns string
+# no language support packages
+d-i pkgsel/install-language-support boolean false
 # install ssh and custom l7filter kernel
 d-i pkgsel/include string ssh linux-image-2.6.24-24-l7filter
 
-# Uncomment to ease installation testing
+##
+## automatic install (for testing purposes)
+##
 
+# locale sets language and country
+# this preseeding needs to be done in initrd
+#d-i debian-installer/locale string en_US
+#d-i console-setup/ask_detect boolean false
+#d-i console-setup/layoutcode string us
+#d-i console-setup/variant select USA
 
-# # Hostname:
-# netcfg	netcfg/get_hostname	string	ubuntu
+# network
+#d-i netcfg/choose_interface select auto
+#d-i netcfg/get_hostname string ebox
+#d-i netcfg/get_domain string unassigned-domain
 
-# # Is the system clock set to UTC?
-# clock-setup	clock-setup/utc	boolean	false
-# # Initialization vector generation algorithm for this partition:
-# # Choices: 
-# partman-crypto	partman-crypto/ivalgorithm	select	
-# # Dummy template for preseeding unavailable questions
-# d-i	console-keymaps-at/keymap	string	us
-# # Passphrase input error
-# partman-crypto	partman-crypto/passphrase-mismatch	error	
-# # Continue with partitioning?
-# partman-partitioning	partman-partitioning/unknown_label	boolean	true
+# mirror
+#d-i mirror/http/proxy string
 
+# clock
+#d-i clock-setup/utc boolean true
 
-# # Locale sets language and country.
-# d-i debian-installer/locale string en_US
+# to create a normal user account
+#d-i passwd/user-fullname string user
+#d-i passwd/username string user
+#d-i passwd/user-password password user
+#d-i passwd/user-password-again password user
 
+# grub
+#d-i grub-installer/only_debian boolean true
 
-# # Keyboard layout:
-# # Choices: USA - Alternative international (former us_intl), USA - Classic Dvorak, USA - Colemak, USA - Dvorak international, USA - Dvorak, USA - Group toggle on multiply/divide key, USA - International (AltGr dead keys), USA - International (with dead keys), USA - Left handed Dvorak, USA - Macintosh, USA - Right handed Dvorak, USA - Russian phonetic, USA - With EuroSign on 5, USA
-# d-i	console-setup/variant	select	USA
+# finish
+#d-i finish-install/reboot_in_progress note
 
-# #d-i apt-setup/use_mirror boolean false
-# d-i mirror/http/proxy string
-# d-i time/zone string US/Eastern
+##
+## packages configuration preseeding
+##
 
-# # To create a normal user account.
-# d-i passwd/user-fullname string Debian User
-# d-i passwd/username string foobar
-# # Normal user's password, either in clear text
-# d-i passwd/user-password password foobar
-# d-i passwd/user-password-again password foobar
-
-# # XXX END
-
-
-tasksel        tasksel/first  multiselect
+# tasksel answers
+tasksel tasksel/first multiselect
 # postfix answers
-postfix	postfix/main_mailer_type	select	No configuration
+postfix postfix/main_mailer_type select No configuration
 
-#ldap answers
-# Administrator password:
-slapd	slapd/password1	password
-# Confirm password:
-slapd	slapd/password2	password
-# LDAP version to use:
-# Choices: 3, 2
-ldap-auth-config	ldap-auth-config/ldapns/ldap_version	select	3
-# Unprivileged database user:
-ldap-auth-config	ldap-auth-config/binddn	string	cn=proxyuser,dc=example,dc=net
-# LDAP server Uniform Resource Identifier:
-ldap-auth-config	ldap-auth-config/ldapns/ldap-server	string	ldapi:///findme
-# Distinguished name of the search base:
-ldap-auth-config	ldap-auth-config/ldapns/base-dn	string	dc=example,dc=netfindme
-# Does the LDAP database require login?
-ldap-auth-config	ldap-auth-config/dblogin	boolean	false
-# Make local root Database admin:
-ldap-auth-config	ldap-auth-config/dbrootlogin	boolean	false
-# LDAP account for root:
-ldap-auth-config	ldap-auth-config/rootbinddn	string	cn=manager,dc=example,dc=net
-# LDAP root account password:
-ldap-auth-config	ldap-auth-config/rootbindpw	password
+# ldap answers
+slapd slapd/password1 password
+slapd slapd/password2 password
+ldap-auth-config ldap-auth-config/ldapns/ldap_version select 3
+ldap-auth-config ldap-auth-config/binddn string cn=proxyuser,dc=example,dc=net
+ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldapi:///findme
+ldap-auth-config ldap-auth-config/ldapns/base-dn string dc=example,dc=netfindme
+ldap-auth-config ldap-auth-config/dblogin boolean false
+ldap-auth-config ldap-auth-config/dbrootlogin boolean false
+ldap-auth-config ldap-auth-config/rootbinddn string cn=manager,dc=example,dc=net
+ldap-auth-config ldap-auth-config/rootbindpw password
 
-# courier answers:
-# Create directories for web-based administration?
-courier-base	courier-base/webadmin-configmode	boolean	false
-
-# courier-ssl answers:
-# SSL certificate required
-courier-ssl	courier-ssl/certnotice	note
-
-# egroupware answers:
+# egroupware answers
 egroupware-core egroupware/configuration/note note
-egroupware-core egroupware/header/user  string  admin
-egroupware-core egroupware/header/password  password
+egroupware-core egroupware/header/user string admin
+egroupware-core egroupware/header/password password
 egroupware-core egroupware/header/password/confirm password
 
-
-# Ésta orden se ejecuta después de que finalice base-config, y
-# antes de presentar el indicador «login:». Ésta es una buena forma de
-# instalar el conjunto de paquetes que desea, o de modificar la
-# configuración del sistema:
-
+# late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
     cp -r /cdrom/ebox/* /target/tmp/ || \
     cp -r /target/cdrom/ebox/* /target/tmp/ && \
