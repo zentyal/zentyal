@@ -1,0 +1,52 @@
+DEFAULT /install/vmlinuz
+GFXBOOT bootlogo
+APPEND  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
+LABEL autoinstall
+  menu label ^Install eBox Platform VERSION (semi-automatic)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server-auto.seed initrd=/install/initrd.gz quiet --
+LABEL install
+  menu label ^Install eBox Platform VERSION
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
+LABEL linux
+  menu hide
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
+LABEL cdrom
+  menu hide
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
+LABEL expert
+  menu hide
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server.seed priority=low initrd=/install/initrd.gz --
+LABEL check
+  menu label ^Check CD for defects
+  kernel /install/vmlinuz
+  append  MENU=/bin/cdrom-checker-menu initrd=/install/initrd.gz quiet --
+LABEL rescue
+  menu label ^Rescue a broken system
+  kernel /install/vmlinuz
+  append  rescue/enable=true initrd=/install/initrd.gz --
+LABEL memtest
+  menu label Test ^memory
+  kernel /install/mt86plus
+  append -
+LABEL hd
+  menu label ^Boot from first hard disk
+  localboot 0x80
+  append -
+DISPLAY isolinux.txt
+TIMEOUT 0
+PROMPT 1
+F1 f1.txt
+F2 f2.txt
+F3 f3.txt
+F4 f4.txt
+F5 f5.txt
+F6 f6.txt
+F7 f7.txt
+F8 f8.txt
+F9 f9.txt
+F0 f10.txt
