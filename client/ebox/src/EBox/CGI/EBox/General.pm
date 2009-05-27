@@ -27,7 +27,7 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('General configuration'),
+	my $self = $class->SUPER::new('title' => __('General Configuration'),
 				      'template' => '/general.mas',
 				      @_);
 	bless($self, $class);

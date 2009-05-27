@@ -11,12 +11,9 @@ use EBox::Gettext;
 </%init>
 <div>
 	<form name='timezone' action='ChangeTimeZone' method='POST'>
-		<h3>
-			<% __('Time zone')%>
-		</h3>
 		<div class='note'>
 			<% __("You will probably have to restart some services after
-            changing the time zone")%>
+            changing the time zone.")%>
 		</div>
 		<br />
 		<select name="continent" onChange='continentChanged(this)'>

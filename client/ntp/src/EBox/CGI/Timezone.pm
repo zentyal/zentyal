@@ -27,10 +27,10 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('Timezone settings'),
+	my $self = $class->SUPER::new('title'    => __('Time Zone Configuration'),
 				      'template' => 'ntp/timezone.mas',
 				      @_);
-	$self->{domain} = "ebox-ntp";	
+	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
@@ -39,7 +39,7 @@ sub _process($) {
 	my $self = shift;
 	my @array = ();
 	my $ntp = EBox::Global->modInstance('ntp');
-	
+
 	my @zonedata = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|cut -d '/' -f1|sort -u`;
 	my %b;
 	my @zonea;
@@ -56,13 +56,13 @@ sub _process($) {
 	foreach my $item(@zonea) {
 		chomp $item;
 		@list = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|grep \"^$item\"|sed -e 's/$item\\///'| sort -u`;
-		
+
 		foreach my $elem(@list) {
 			chomp $elem;
 			push(@{$table{$item}}, $elem);
 		}
 	}
-	
+
 	my $oldcontinent = $ntp->get_string('continent');
 	my $oldcountry = $ntp->get_string('country');
 

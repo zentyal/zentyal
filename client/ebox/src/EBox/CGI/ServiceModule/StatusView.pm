@@ -33,10 +33,10 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new( 'title' => __('Module status configuration'),
+    my $self = $class->SUPER::new( 'title' => __('Module Status Configuration'),
                                    'template' => '/moduleStatus.mas',
             @_);
 

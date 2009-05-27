@@ -86,7 +86,7 @@ function updateGraph(element,value) {
 //]]>
 </script>
 
-<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure Widgets') %></a>
+<a href="#" onclick='configureWidgets(); return false;' ><% __('Configure widgets') %></a>
 <div style='clear: right;'/>
 <div class='dashboard' id="dashboard1">
 <br/>

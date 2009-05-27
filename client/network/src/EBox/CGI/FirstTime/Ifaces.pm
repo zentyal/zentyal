@@ -10,7 +10,7 @@ use base 'EBox::CGI::Network::Ifaces';
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Network interfaces'),
+	my $self = $class->SUPER::new('title' => __('Network Interfaces'),
 				      'template' => '/network/ifaces.mas',
 				      @_);
 	$self->{domain} = 'ebox-network';

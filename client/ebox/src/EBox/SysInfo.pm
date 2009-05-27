@@ -77,10 +77,10 @@ sub generalWidget
     $section->add(new EBox::Dashboard::Value(__("Time"), $time));
     $section->add(new EBox::Dashboard::Value(__("Hostname"), hostname));
     $section->add(new EBox::Dashboard::Value(
-    __("eBox Version"),
+    __("eBox version"),
     EBox::Config::version));
     $section->add(new EBox::Dashboard::Value(
-        __("System Load"), join(', ', Sys::CpuLoad::load)));
+        __("System load"), join(', ', Sys::CpuLoad::load)));
 }
 
 sub processesWidget
@@ -99,7 +99,7 @@ sub processesWidget
         push(@{$ids}, $foopid);
         $rows->{$foopid} = [$pid,$name];
     }
-    $section->add(new EBox::Dashboard::List('Info', $titles, $ids, $rows));
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 
 #
@@ -209,11 +209,11 @@ sub menu
 					  'text' => __('General')));
 
 	$folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-					  'text' => __('Disk Usage Information')));
+					  'text' => __('Disk Usage')));
 
 	$folder->add(new EBox::Menu::Item(
 			 'url' => 'Report/RAID',
-             'text' => __('RAID Information'))
+             'text' => __('RAID'))
 		    );
 
 

@@ -31,7 +31,7 @@ push @rows, [ __('Type')       => $attrs->{type} ];
 push @rows, [__('Options')     => $attrs->{options}];
 
 my @titles = (
-     __('Partition properties'),
+     __('Partition Properties'),
      ''
 ); 
 </%init>

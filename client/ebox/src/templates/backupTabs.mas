@@ -10,17 +10,17 @@ $selected or $selected = 'local';
 my %tabs = (
 	    local => {
 		      component =>  'backup.mas',
-		      title     =>  __('Local backup'),
+		      title     =>  __('Local Backup'),
                       url       => '/ebox/EBox/Backup?selected=local',
 		     },
 	    remote => {
 		      component =>  '/RemoteServices/Backup/index.mas',
-		      title     =>  __('Remote backup'),
+		      title     =>  __('Remote Backup'),
                       url       => '/ebox/RemoteServices/Backup/Index?selected=remote',
 		     },
 	    proxy => {
 		      component =>  '/RemoteServices/Backup/proxy.mas',
-		      title     =>  __('Remote backup from other subscribed hosts'),
+		      title     =>  __('Remote Backup from Other Subscribed Hosts'),
                       url       => '/ebox/RemoteServices/Backup/Proxy?selected=proxy',
 		     },
 	   );

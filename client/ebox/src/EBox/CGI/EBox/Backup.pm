@@ -31,7 +31,7 @@ use EBox::Exceptions::External;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('System backups'),
+	my $self = $class->SUPER::new('title' => __('Backup'),
 				      'template' => '/backupTabs.mas',
 				      @_);
 	$self->{errorchain} = "EBox/Backup";
@@ -92,7 +92,7 @@ sub optionalParameters
 
   if ($self->param('cancel')) {
     return ['.*'];
-  }   
+  }
 
   return ['selected'];
 }
@@ -106,19 +106,19 @@ sub actuate
 
   if ($self->param('backup')) {
     $self->_backupAction();
-  } 
+  }
   elsif ($self->param('bugreport')) {
     $self->_bugreportAction();
-    } 
+    }
   elsif ($self->param('delete')) {
       $self->_deleteAction();
-    } 
+    }
   elsif ($self->param('download')) {
     $self->_downloadAction();
-  } 
+  }
   elsif ($self->param('restoreFromId')) {
     $self->_restoreFromIdAction();
-  } 
+  }
   elsif ($self->param('restoreFromFile')) {
     $self->_restoreFromFileAction();
   }
@@ -130,7 +130,7 @@ sub masonParameters
 {
   my ($self) = @_;
   my @params = ();
- 
+
   my $backup = EBox::Backup->new();
   push @params, (backups => $backup->listBackups());
 
@@ -168,7 +168,7 @@ sub  _backupAction
   $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
 
   $self->_showBackupProgress($progressIndicator);
-} 
+}
 
 
 
@@ -180,7 +180,7 @@ sub  _restoreFromFileAction
   # poor man decode html entity for '/'
   $filename =~ s{%2F}{/}g;
   $self->_restore($filename);
-} 
+}
 
 sub _restoreFromIdAction
 {
@@ -193,7 +193,7 @@ sub _restoreFromIdAction
   }
 
   $self->_restore(EBox::Config::conf ."/backups/$id.tar");
-}  
+}
 
 
 sub _restore
@@ -204,7 +204,7 @@ sub _restore
 
   my $backup = new EBox::Backup;
 
-  my $progressIndicator = 
+  my $progressIndicator =
     $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
 
   $self->_showRestoreProgress($progressIndicator);
@@ -287,7 +287,7 @@ sub  _deleteAction
   }
   my $backup = EBox::Backup->new();
   $backup->deleteBackup($id);
-} 
+}
 
 sub  _bugreportAction
 {
@@ -297,6 +297,6 @@ sub  _bugreportAction
   $self->{errorchain} = "EBox/Bug";
   $self->{downfile} = $backup->makeBugReport();
   $self->{downfilename} = 'eboxbugreport.tar';
-} 
+}
 
 1;

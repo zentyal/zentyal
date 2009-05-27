@@ -10,11 +10,11 @@ use EBox::Gettext;
 </%init>
 
 <div class='ntpnew'>
-<& /ntp/synch.mas, title => __('Time synchronization with NTP servers'),
+<& /ntp/synch.mas, title => __('Time Synchronization with NTP Servers'),
 synchronized => $synchronized &>
 
 % if ($synchronized eq 'yes') {
-<& /ntp/servers.mas, title => __('External NTP servers'), servers => \@servers &>
+<& /ntp/servers.mas, title => __('External NTP Servers'), servers => \@servers &>
 % }
 
 % if ($synchronized eq 'no') {

@@ -172,7 +172,7 @@ sub compositeClasses
      'EBox::Network::Composite::MultiGw',
 
 # XXX uncomment when DynLoader bug with locales is fixed
-#          'EBox::Network::Composite::ByteRate', 
+#          'EBox::Network::Composite::ByteRate',
          ];
 
 }
@@ -2735,7 +2735,7 @@ sub widgets
 {
     return {
         'interfaces' => {
-            'title' => __("Network interfaces"),
+            'title' => __("Network Interfaces"),
             'widget' => \&interfacesWidget,
             'default' => 1
         }
@@ -2901,11 +2901,11 @@ sub marksForRouters
 #
 sub balanceTraffic
 {
-        my ($self) = @_; 
-        
-        my $multiGwOptions = $self->model('MultiGwRulesOptions'); 
+        my ($self) = @_;
+
+        my $multiGwOptions = $self->model('MultiGwRulesOptions');
         my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
-        
+
         return ($balanceTraffic and (@{$self->gateways} > 1));
 }
 

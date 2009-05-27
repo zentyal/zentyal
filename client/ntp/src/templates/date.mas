@@ -7,7 +7,7 @@
 	<form action='ChangeDate' method='POST'>
 		<h3><%$title %></h3>
 		<div class='note'>
-			<% __("A change in the date or time will cause all eBox services to be restarted")%>
+			<% __("A change in the date or time will cause all eBox services to be restarted.")%>
 		</div>
 		<br />
 		<table class='formTable'>

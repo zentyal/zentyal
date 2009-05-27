@@ -27,10 +27,10 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Date and time settings'),
+	my $self = $class->SUPER::new('title' => __('Date and Time Configuration'),
 				      'template' => 'ntp/datetime.mas',
 				      @_);
-	$self->{domain} = "ebox-ntp";	
+	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
@@ -38,23 +38,23 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $ntp = EBox::Global->modInstance('ntp');
-	
+
 	my @array = ();
 
 	if ($ntp->isEnabled()) {
 		my $synchronized = 'no';
-		
+
 		if ($ntp->synchronized()) {
 			$synchronized = 'yes';
 		}
-		
+
 		my $day;
 		my $month;
 		my $year;
 		my $hour;
 		my $minute;
 		my $second;
-		
+
 		($second,$minute,$hour,$day,$month,$year) = localtime(time);
 
 		$day = sprintf ("%02d", $day);
@@ -66,13 +66,13 @@ sub _process($) {
 
 		my @date = ($day,$month,$year,$hour,$minute,$second);
 		my @servers = $ntp->servers;
-		
+
 		push (@array, 'synchronized'		=> $synchronized);
 		push (@array, 'servers'		=> \@servers);
 		push (@array, 'date'			=> \@date);
 
 	} else {
-		$self->setTemplate('/notConfigured.mas'); 
+		$self->setTemplate('/notConfigured.mas');
 		push(@array, 'module' => 'NTP');
 	}
 	$self->{params} = \@array;

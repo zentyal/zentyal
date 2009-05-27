@@ -27,7 +27,7 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('RAID report'),
+	my $self = $class->SUPER::new('title' => __('RAID'),
 				      'template' => '/report/raid.mas',
 				      @_);
 	bless($self, $class);

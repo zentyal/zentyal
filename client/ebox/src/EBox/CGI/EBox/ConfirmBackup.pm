@@ -30,7 +30,7 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Configuration backup'),
+	my $self = $class->SUPER::new('title' => __('Configuration Backup'),
 				      'template' => '/confirm-backup.mas',
 				      @_);
 	bless($self, $class);
@@ -44,7 +44,7 @@ sub new # (error=?, msg=?, cgi=?)
 sub requiredParameters
 {
   my ($self) = @_;
-  
+
   if ($self->param('download')) {
     return [qw(download id download.x download.y)];
   }
@@ -52,7 +52,7 @@ sub requiredParameters
     return [qw(delete id delete.x delete.y)];
   }
   elsif ($self->param('restoreFromId')) {
-    return [qw(restoreFromId restoreFromId.x restoreFromId.y id)]; 
+    return [qw(restoreFromId restoreFromId.x restoreFromId.y id)];
   }
   elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile)];
@@ -114,7 +114,7 @@ sub  restoreFromIdAction
   $self->{msg} = __('Please confirm that you want to restore using this backup file:');
 
   return ('restoreFromId', __('Restore'), $self->backupDetailsFromId());
-} 
+}
 
 
 
@@ -130,7 +130,7 @@ sub  restoreFromFileAction
   $self->{msg} = __('Please confirm that you want to restore using this backup file:');
 
   return ('restoreFromFile', __('Restore'), $details);
-} 
+}
 
 
 
@@ -177,10 +177,10 @@ sub setPrintabletype
   }
   elsif ($type eq $EBox::Backup::FULL_BACKUP_ID) {
     $printableType = __('Full data and configuration backup');
-  }  
+  }
   elsif ($type eq $EBox::Backup::BUGREPORT_BACKUP_ID) {
     $printableType = __('Bug-report configuration dump');
-  }  
+  }
 
 
   $details_r->{printableType} = $printableType;

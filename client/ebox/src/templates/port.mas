@@ -6,7 +6,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Administration interface TCP port') %></h3>
+<h3><% __('Administration Interface TCP Port') %></h3>
 	<form action='Port' method='POST'>
 		<input type='text' class='inputText' name='port'
 								size='5' value="<% $port %>"/>

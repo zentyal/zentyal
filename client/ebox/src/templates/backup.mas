@@ -21,14 +21,14 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 
 </%init>
 <div class='note'>
-    <% __x('Those modules which have not been enabled for first time in the {openref}module status{closeref} section will be ignored in both backup and restore operations', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
+    <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
 </div>
-<h3><% __('Back up the current state') %></h3>
+<h3><% __('Backup the Current State') %></h3>
 <div class='help'>
 	<% __("Backups will be stored in eBox and then you will be able to
   download them to your hard disk.") %><br/>
         <% __("If you have the file sharing module configured, all users having
-  administration rights will be able to access the backup directory as a shared resource ") %>
+  administration rights will be able to access the backup directory as a shared resource.") %>
 </div>	
 % if ($modulesChanged) {
   <div class='warning'>
@@ -61,7 +61,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
                        </td>						
 			<td>
 				<input class='inputButton' type='submit' 
-				<% $disabledAttr %> name='backup' value="<% __('Back up') %>" />
+				<% $disabledAttr %> name='backup' value="<% __('Backup') %>" />
 			</td>
                 </tr>
 	</form>
@@ -71,9 +71,9 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </%def>
 
 <%def .restoreSection>
-<h3><% __('Restore backup from file') %></h3>
+<h3><% __('Restore Backup from File') %></h3>
 <div class='help'>
-	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb)') %>
+	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
  
   <table class='formTable'>

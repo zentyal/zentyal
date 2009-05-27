@@ -27,7 +27,7 @@ use EBox::Sudo qw( :all );
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Halt or reboot'),
+	my $self = $class->SUPER::new('title' => __('Halt or Reboot'),
 				      'template' => '/halt.mas',
 				      @_);
 	bless($self, $class);
