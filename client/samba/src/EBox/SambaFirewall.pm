@@ -38,29 +38,30 @@ sub new
 
 sub output
 {
-	my $self = shift;
-	my @rules = ();
-	
-	my $net = EBox::Global->modInstance('network');
-	my @ifaces = @{$net->InternalIfaces()};
-	foreach my $ifc (@ifaces) {
-		foreach my $port (SMBPORTS) {
-			my $r = "-m state --state NEW -o $ifc  ".
-				"-p tcp --sport $port -j ACCEPT";
-			push(@rules, $r);
-			$r = "-m state --state NEW -o $ifc  ".
-				"-p udp --sport $port -j ACCEPT";
-			push(@rules, $r);
-			$r = "-m state --state NEW -o $ifc  ".
-				"-p tcp --dport $port -j ACCEPT";
-			push(@rules, $r);
-			$r = "-m state --state NEW -o $ifc  ".
-				"-p udp --dport $port -j ACCEPT";
-			push(@rules, $r);
-		}
-	}
-	
-	return \@rules;
+    my ($self) = @_;
+    my @rules = ();
+        
+    my $samba = EBox::Global->modInstance('samba');
+    my @ifaces = @{ $samba->sambaInterfaces() };
+    foreach my $ifc (@ifaces) {
+
+        foreach my $port (SMBPORTS) {
+            my $r = "-m state --state NEW -o $ifc  ".
+                "-p tcp --sport $port -j ACCEPT";
+            push(@rules, $r);
+            $r = "-m state --state NEW -o $ifc  ".
+                "-p udp --sport $port -j ACCEPT";
+            push(@rules, $r);
+            $r = "-m state --state NEW -o $ifc  ".
+                "-p tcp --dport $port -j ACCEPT";
+            push(@rules, $r);
+            $r = "-m state --state NEW -o $ifc  ".
+                "-p udp --dport $port -j ACCEPT";
+            push(@rules, $r);
+        }
+    }
+        
+    return \@rules;
 }
 
 1;

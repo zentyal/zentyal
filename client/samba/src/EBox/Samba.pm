@@ -361,17 +361,29 @@ sub _exposedMethods
     };
 }
 
-# return interface upon samba should listen as a comma-separated string
+
+
+
+
+# return interface upon samba should listen 
 # XXX this is a quick fix for this version. See #529
-sub _interfacesToListenOn
+sub sambaInterfaces
 {
     my ($self) = @_;
-    my $interfaces;
+    my @ifaces;
 
     my $global = EBox::Global->getInstance();
 
     my $net = $global->modInstance('network');
     my $internalIfaces = $net->InternalIfaces;
+    foreach my $iface (@{ $internalIfaces }) {
+        push @ifaces, $iface;
+        my $vifacesNames = $net->vifaceNames($iface);
+        if (defined $vifacesNames) {
+            push @ifaces, @{  $vifacesNames };
+        }
+
+    }
 
     my @moduleGeneratedIfaces = ();
 
@@ -384,9 +396,8 @@ sub _interfacesToListenOn
         push @moduleGeneratedIfaces, @openvpnIfaces;
     }
 
-
-    $interfaces = join (',', @{$internalIfaces}, @moduleGeneratedIfaces, 'lo');
-    return $interfaces;
+    push @ifaces, @moduleGeneratedIfaces;
+    return \@ifaces;
 }
 
 sub _preSetConf
@@ -401,7 +412,7 @@ sub _setConf
     my ($self) = @_;
 
     my $net = EBox::Global->modInstance('network');
-    my $interfaces = $self->_interfacesToListenOn();
+    my $interfaces = join (',', ('lo', @{ $self->sambaInterfaces() }));
 
     my $ldap = EBox::Ldap->instance();
     my $smbimpl = new EBox::SambaLdapUser;
