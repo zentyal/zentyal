@@ -80,7 +80,11 @@ sub row
     my $row;
     if ($id ne 'total') {
         my $dbRows = $self->reportRows($self->timePeriod());
-        $row = $self->_setValueRow($dbRows->[$id]);
+        my $rowData = $dbRows->[$id];
+        defined $rowData or
+            return undef;
+
+        $row = $self->_setValueRow(%{$rowData});
     } else {
         $row = $self->_totalRow();
     }
