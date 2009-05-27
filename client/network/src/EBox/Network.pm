@@ -551,7 +551,9 @@ sub vifacesConf # (interface)
 	return \@array;
 }
 
-# Method: vifacesNames
+
+
+# Method: vifaceNames
 #
 #       Gathers all the  virtual interface names  from a real interface
 #
@@ -564,6 +566,7 @@ sub vifacesConf # (interface)
 #       an array ref - holding the name of the virtual interfaces. Each name
 #       is a composed name like this: realinterface:virtualinterface
 #       (i.e: eth0:foo)
+# XXX TODO: This method should be calle vifacesNames instead!
 sub vifaceNames # (interface)
 {
 	my ($self, $iface) = @_;
