@@ -14,6 +14,7 @@ PROFILE=$USERHOME/.profile
 # Pidgin configuration
 sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/accounts.xml
 sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/accounts.xml
+sed -i "s/EBOXSERVER/$SERVER/g" $USERHOME/pidgin/accounts.xml
 sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/blist.xml
 sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/blist.xml
 mv $USERHOME/pidgin $USERHOME/.purple
