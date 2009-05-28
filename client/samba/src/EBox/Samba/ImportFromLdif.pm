@@ -102,7 +102,13 @@ sub processSambaDomain
     $package->_delAllComputerAccounts();
 
     my $samba = EBox::Global->modInstance('samba');
-    $samba->setWorkgroup($domainName);
+
+    # set workgroup
+    my $generalSettingsRow = $samba->model('GeneralSettings')->row();
+    my $workgroupField = $generalSettingsRow->elementByName('workgroup');
+    $workgroupField->setValue($domainName);
+    $generalSettingsRow->storeElementByName('workgroup');
+    
     $samba->setNetSID($sambaSID);
 
     print "Restarting samba module..\n";
