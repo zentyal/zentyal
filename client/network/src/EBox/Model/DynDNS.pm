@@ -86,32 +86,27 @@ sub _table
            'fieldName'     => 'enableDDNS',
            'printableName' => __('Enable Dynamic DNS'),
            'editable'      => '1',
-           'help'          => __('Aliasing of dynamic IP to static hostnames.')
            ),
        new EBox::Types::Select(
            'fieldName'     => 'service',
            'printableName' => __('Service'),
            'populate'      => \&services,
            'editable'      => 1,
-           'help'          => __('Dynamic DNS Provider')
            ),
        new EBox::Types::Text(
            'fieldName'     => 'username',
            'printableName' => __('Username'),
            'editable'      => 1,
-           'help'          => __('Username')
            ),
        new EBox::Types::Password(
            'fieldName'     => 'password',
            'printableName' => __('Password'),
            'editable'      => 1,
-           'help'          => __('Password')
            ),
        new EBox::Types::DomainName(
            'fieldName'     => 'hostname',
            'printableName' => __('Hostname'),
            'editable'      => 1,
-           'help'          => __('Hostname')
            ),
       );
 

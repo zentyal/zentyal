@@ -681,7 +681,7 @@ sub CAPublicKey {
 #                        a private key file in the CA (Optional)
 #
 #       requestFile - path to save the new certificate request
-#                    (Optional) 
+#                    (Optional)
 #       certFile - path to store the new certificate file (Optional)
 #
 #
@@ -906,7 +906,7 @@ sub revokeCertificate {
   }
 
   # TODO: Different kinds of revokations (CACompromise,
-  # keyCompromise...) 
+  # keyCompromise...)
   # We can set different arguments regard to revocation reason
   my $cmd = "ca";
   $self->_commonArgs("ca", \$cmd);
@@ -917,7 +917,7 @@ sub revokeCertificate {
   $cmd .= "-crl_reason $reason " if (defined($reason));
 
   # Tell openssl to revoke
-  $ENV{'PASS'} = $self->{caKeyPassword} 
+  $ENV{'PASS'} = $self->{caKeyPassword}
     if (defined($self->{caKeyPassword}));
   my ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
   delete ($ENV{'PASS'});
@@ -1117,7 +1117,7 @@ sub getCertificateMetadata
 					 );
     } elsif ( scalar(keys %args) > 1 ) {
       throw EBox::Exceptions::Internal("Only one parameter is necessary");
-    } elsif ( defined($args{'dn'}) 
+    } elsif ( defined($args{'dn'})
 	      and not $args{'dn'}->isa('EBox::CA::DN') ) {
       throw EBox::Exceptions::Internal("dn parameter should be an instance of EBox::CA::DN");
     }
@@ -1372,7 +1372,7 @@ sub renewCertificate
       $dnFieldHasChanged = "1";
       $userDN->attribute('countryName', $args{countryName});
     }
-    if (defined($args{stateName}) 
+    if (defined($args{stateName})
 	and $args{stateName} ne $userDN->attribute('stateName')) {
       $dnFieldHasChanged = "1" ;
       $userDN->attribute('stateName', $args{stateName});
@@ -1663,7 +1663,7 @@ sub menu
   my ($self, $root) = @_;
 
   $root->add(new EBox::Menu::Item('url'  => 'CA/Index',
-              'text' => __('Certificate Manager'),
+              'text' => __('Certification Authority'),
               'order' => 12));
 
   }
@@ -1726,7 +1726,7 @@ sub restoreConfig
 
 # Group: Private methods
 
-# Obtain the public key given the private key 
+# Obtain the public key given the private key
 #
 # Return public key path if it is correct or undef if password is
 # incorrect
@@ -1747,7 +1747,7 @@ sub _getPubKey # (privKeyFile, pubKeyFile, password?)
       $cmd .= "-passin env:PASS ";
     }
 
-    $ENV{'PASS'} = $password 
+    $ENV{'PASS'} = $password
       if (defined($password));
     my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
     delete( $ENV{'PASS'} );
@@ -1765,7 +1765,7 @@ sub _certFile {
   my $serial = shift;
 
   my $file = CATOPDIR . "newcerts/${serial}.pem";
-  
+
   return $file
 
 }
@@ -1951,8 +1951,8 @@ sub _signSelfSignRequest # (userReqFile, days?, userCertFile,
     }
     $cmd .= "-key $args{keyFile} ";
     $cmd .= "-in \'$args{userReqFile}\' ";
-    
-    $ENV{'PASS'} = $self->{caKeyPassword} 
+
+    $ENV{'PASS'} = $self->{caKeyPassword}
       if (defined($self->{caKeyPassword}));
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete ( $ENV{'PASS'} );
@@ -1967,7 +1967,7 @@ sub _signSelfSignRequest # (userReqFile, days?, userCertFile,
 # Taken the OpenSSL command (req, x509, rsa...)
 # and add to the args the common arguments to all openssl commands
 # For now, to req and ca commands, it adds config file and batch mode
-# 
+#
 sub _commonArgs # (cmd, args)
   {
 
@@ -2026,11 +2026,11 @@ sub _obtain # (certFile, attribute)
     } elsif ($attribute eq 'serial' ) {
       return $output;
     } elsif ($attribute eq 'endDate' ) {
-      my ($monthStr, $day, $hour, $min, $sec, $yyyy) = 
+      my ($monthStr, $day, $hour, $min, $sec, $yyyy) =
 	($output =~ /(.+) (\d+) (\d+):(\d+):(\d+) (\d+) (.+)/);
 
       $monthStr =~ s/ +//g;
-      my $dateObj = Date::Calc->new($yyyy, 
+      my $dateObj = Date::Calc->new($yyyy,
 				    Decode_Month($monthStr),
 				    $day, $hour, $min, $sec);
       return $dateObj;
@@ -2059,7 +2059,7 @@ sub _parseDate
   }
 
 # A private method to flat a Date::Calc::Object to a OpenSSL form like
-# YYMMDDHHMMSSZ 
+# YYMMDDHHMMSSZ
 sub _flatDate # (date)
   {
     my ($self, $date) = @_;
@@ -2095,7 +2095,7 @@ sub _createSerial
   }
 
 # Get the maximum number of days to apply to a certificate expiration.
-# This is the Year 2038 Bug, explained here -> 
+# This is the Year 2038 Bug, explained here ->
 # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
 sub _maxDays
   {
@@ -2113,7 +2113,7 @@ sub _maxDays
 
 # Print the row for CA cert in index.txt file (to fuck them up)
 sub _putInIndex # (EBox::CA::DN dn, String certFile, String
-                  # serialNumber) 
+                  # serialNumber)
   {
 
     my ($self, %args) = @_;
@@ -2149,7 +2149,7 @@ sub _isCACert # (EBox::CA::DN dn)
 
 # Write down the next serial to serial file, given a certificate file
 # Only useful under OpenSSL 0.9.7, later on fixed
-sub _writeDownNextSerial # (certFile) 
+sub _writeDownNextSerial # (certFile)
   {
 
     my ($self, $certFile) = @_;
@@ -2307,14 +2307,14 @@ sub _setLogAdminActions
 ## apply to all code found in this distribution, be it the RC4, RSA,
 ## lhash, DES, etc., code; not just the SSL code.  The documentation
 ## included with this distribution is covered by the same copyright terms
-## 
+##
 ## // Copyright remains Massimiliano Pala's, and as such any Copyright notices
 ## in the code are not to be removed.
 ## If this package is used in a product, Massimiliano Pala should be given
 ## attribution as the author of the parts of the library used.
 ## This can be in the form of a textual message at program startup or
 ## in documentation (online or textual) provided with the package.
-## 
+##
 ## Redistribution and use in source and binary forms, with or without
 ## modification, are permitted provided that the following conditions
 ## are met:
@@ -2327,7 +2327,7 @@ sub _setLogAdminActions
 ##    must display the following acknowledgement:
 ## //   "This product includes OpenCA software written by Massimiliano Pala
 ## //    (madwolf@openca.org) and the OpenCA Group (www.openca.org)"
-## 4. If you include any Windows specific code (or a derivative thereof) from 
+## 4. If you include any Windows specific code (or a derivative thereof) from
 ##    some directory (application code) you must include an acknowledgement:
 ##    "This product includes OpenCA software (www.openca.org)"
 ##

@@ -39,14 +39,14 @@ use base 'EBox::Model::DataTable';
 use constant MAC_FETCH_TRIES => 3;
 
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %parms = @_;
-	
+
 	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
-	
+
 	return $self;
 }
 
@@ -54,7 +54,7 @@ sub weights
 {
 	my @options;
 	for my $weight (1..15) {
-		push @options, { 'value' => $weight, 
+		push @options, { 'value' => $weight,
 				 'printableValue' => $weight};
 	}
 	return \@options;
@@ -63,10 +63,10 @@ sub weights
 sub interfaces
 {
 	my $network = EBox::Global->modInstance('network');
-	my @ifaces = (@{$network->InternalIfaces()}, 
+	my @ifaces = (@{$network->InternalIfaces()},
 		      @{$network->ExternalIfaces()});
-	      
-	my @options = map { 'value' => $_, 
+
+	my @options = map { 'value' => $_,
 			     'printableValue' => $_ }, @ifaces;
 
 	return \@options;
@@ -74,8 +74,8 @@ sub interfaces
 
 sub _table
 {
-	my @tableHead = 
-	 ( 
+	my @tableHead =
+	 (
 
 		new EBox::Types::Text(
 					'fieldName' => 'name',
@@ -86,7 +86,7 @@ sub _table
 				      ),
 		new EBox::Types::Text(
 					'fieldName' => 'ip',
-					'printableName' => __('IP Address'),
+					'printableName' => __('IP address'),
 					'size' => '16',
 					'unique' => 1,
 					'editable' => 1
@@ -105,7 +105,7 @@ sub _table
 					'editable' => 1,
 					'trailingText' => 'Kb/s',
 					'help' => __('Upload rate in Kbits/s for this gateway.')
-								
+
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'download',
@@ -121,7 +121,7 @@ sub _table
 					'size' => '2',
 					'populate' => \&weights,
 					'editable' => 1,
-					'help' => __('This field is only useful if you have ' . 
+					'help' => __('This field is only useful if you have ' .
 								 'more than one router and  the balance ' .
 								 'traffic feature is enabled.')
 				),
@@ -134,16 +134,16 @@ sub _table
 
 	 );
 
-	my $dataTable = 
-		{ 
+	my $dataTable =
+		{
 			'tableName' => 'GatewayTable',
-			'printableTableName' => __('Gateway list'),
+			'printableTableName' => __('Gateways List'),
 			'pageTitle'	=> __('Gateways'),
 			'automaticRemove' => 1,
 			'defaultController' =>
 				'/ebox/Network/Controller/GatewayTable',
 			'defaultActions' =>
-				[	
+				[
 				'add', 'del',
 				'move',  'editField',
 				'changeView'
@@ -222,7 +222,7 @@ sub marksForRouters()
 		$marks->{$id} = $i;
 		$i++;
 	}
-	
+
 	return $marks;
 }
 
@@ -270,7 +270,7 @@ sub _getRouterMac
 	for (0..MAC_FETCH_TRIES) {
 		system("ping -c 1 -W 3 $ip  > /dev/null 2> /dev/null");
 		$mac = Net::ARP::arp_lookup($macif, $ip);
-		return $mac if ($mac ne '00:00:00:00:00:00'); 
+		return $mac if ($mac ne '00:00:00:00:00:00');
 	}
 	return $mac;
 }

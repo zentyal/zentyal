@@ -197,7 +197,7 @@ use EBox::NetWrappers qw(:all);
 
 <div id='virtual'>
 % if ($iface->{"method"} eq "static") {
-<h3><% __('Virtual interfaces') %></h3>
+<h3><% __('Virtual Interfaces') %></h3>
 
 	<table class='dataTable' cellspacing='0'>
 	<thead>

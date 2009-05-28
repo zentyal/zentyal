@@ -161,15 +161,15 @@ sub _table
 
       my $dataTable = {
                        tableName          => 'StaticRoute',
-                       printableTableName => __('Static routes'),
-                       pageTitle          => __('Static route list'),
+                       printableTableName => __('Static Routes List'),
+                       pageTitle          => __('Static Routes'),
                        modelDomain        => 'Network',
                        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                        tableDescription   => \@tableDesc,
                        class              => 'dataTable',
                        help               => __('All gateways you enter here must be reachable '
                                                . 'through one of the network interfaces '
-                                               . 'currently configured'),
+                                               . 'currently configured.'),
                        printableRowName   => __('static route'),
                        sortedBy           => 'gateway',
                        index              => 'network',

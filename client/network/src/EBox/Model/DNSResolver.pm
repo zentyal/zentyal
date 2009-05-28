@@ -76,12 +76,12 @@ sub _table
     my ($self) = @_;
 
     my $helpHostIP = __('IP address of the DNS server that eBox'.
-                        ' will use to resolve names'); 
+                        ' will use to resolve names.');
     my @tableDesc =
       (
        new EBox::Types::HostIP(
                                fieldName     => 'nameserver',
-                               printableName => __('Name server'),
+                               printableName => __('Domain Name Server'),
                                editable      => 1,
                                unique        => 1,
                                help          => $helpHostIP
@@ -90,13 +90,13 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'DNSResolver',
-                     printableTableName => __('Name server resolver list'),
-                     pageTitle          => __('Name server resolver'),
+                     printableTableName => __('Domain Name Server Resolver List'),
+                     pageTitle          => __('Domain Name Server Resolver'),
                      modelDomain        => 'Network',
                      defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',
-                     help               => _help(), 
+                     help               => _help(),
                      printableRowName   => __('name server'),
                      order              => 1,
                      insertPosition     => 'back',

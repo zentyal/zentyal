@@ -2762,14 +2762,12 @@ sub menu
 					  'text' => 'DynDNS'));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
 					  'text' => __('Routes')));
+	$folder->add(new EBox::Menu::Item('url' => 'Network/View/GatewayTable',
+					  'text' => __('Gateways')));
+	$folder->add(new EBox::Menu::Item('url' => 'Network/Composite/MultiGw',
+					  'text' => __('Balance Traffic')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
 					  'text' => __('Diagnostic Tools')));
-	$folder->add(new EBox::Menu::Item('url' =>
-						'Network/View/GatewayTable',
-					  'text' => __('Gateways')));
-	$folder->add(new EBox::Menu::Item('url' =>
-						'Network/Composite/MultiGw',
-					  'text' => __('Balance Traffic')));
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # 	$folder->add(new EBox::Menu::Item('url' =>

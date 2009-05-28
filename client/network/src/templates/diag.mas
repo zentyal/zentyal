@@ -28,7 +28,7 @@ use EBox::Gettext;
 </form>
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="dns"/>
-<h3><% __('Name resolution') %></h3>
+<h3><% __('Domain Name Resolution') %></h3>
 <% __('Domain name') %>: 
 <input class='inputText' type='text' name='host'
 	   value="<% $action eq 'dns' ? $target : ''%>" /> 

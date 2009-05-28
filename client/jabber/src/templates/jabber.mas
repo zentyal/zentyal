@@ -5,8 +5,8 @@
 	use EBox::Gettext;
 	settextdomain('ebox-jabber');
 </%init>
-	<h3><% __('Jabber account') %></h3>
-	<div class="help"><%__('Password for Jabber service is the user password')%></div>
+	<h3><% __('Jabber Account') %></h3>
+	<div class="help"><%__('Password for Jabber service is the user password.')%></div>
 
 	<& .jabberDisabledWarning, $params &>
 

@@ -14,13 +14,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #   EBox::Object::Model::ObjectTable
 #
 #   This class inherits from <EBox::Model::DataTable> and represents the
 #   membembers beloging to an object
 #
-#   
+#
 package EBox::Objects::Model::MemberTable;
 
 use EBox::Global;
@@ -41,7 +41,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -54,8 +54,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
             new EBox::Types::Text
                             (
@@ -67,13 +67,13 @@ sub _table
             new EBox::Types::IPAddr
                             (
                                 'fieldName' => 'ipaddr',
-                                'printableName' => __('IP Address'),
+                                'printableName' => __('IP address'),
                                 'editable'      => 1,
                             ),
             new EBox::Types::MACAddr
                             (
                                 'fieldName' => 'macaddr',
-                                'printableName' => __('MAC Address'),
+                                'printableName' => __('MAC address'),
                                 'editable'      => 1,
                                 'optional' => 1
                             ),
@@ -81,8 +81,8 @@ sub _table
 
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'MemberTable',
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
@@ -115,7 +115,7 @@ sub validateRow()
         throw EBox::Exceptions::External(
             __("You can only use MAC addresses with hosts"));
     }
-    
+
     checkIP($ip, __('network address'));
     checkCIDR("$ip/$mask", __('network address'));
 
@@ -137,29 +137,29 @@ sub validateRow()
 # Parameters:
 #
 #           (POSITIONAL)
-#           
+#
 #        memberId - memberId
 #       ip - IPv4 address
 #       mask - network masl
 #
 # Returns:
-#   
+#
 #       booelan - true if it overlaps, otherwise false
-sub _alreadyInSameObject 
+sub _alreadyInSameObject
 {
     my ($self, $memberId, $iparg, $maskarg) = @_;
 
 
     foreach my $id (@{$self->ids()}) {
         next if ($id eq $memberId);
-        
+
         my $row  = $self->row($id);
         my $memaddr = new Net::IP($row->printableValueByName('ipaddr'));
         my $new = new Net::IP("$iparg/$maskarg");
         if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
             return 1;
         }
-        
+
     }
 
 

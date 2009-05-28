@@ -14,14 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #   EBox::Object::Model::ObjectTable
 #
 #   This class inherits from <EBox::Model::DataTable> and represents the
 #   object table which basically contains object's name and a reference
 #   to a member <EBox::Object::Model::ObjectMemberTable>
 #
-#   
+#
 package EBox::Objects::Model::ObjectTable;
 
 use EBox::Global;
@@ -41,7 +41,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -54,8 +54,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
             new EBox::Types::Text
                             (
@@ -76,11 +76,11 @@ sub _table
 
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'ObjectTable',
             'pageTitle' => __('Objects'),
-            'printableTableName' => __('Object list'),
+            'printableTableName' => __('Objects List'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Objects/Controller/ObjectTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -139,14 +139,14 @@ sub validateRow()
 #   members    - array ref containing the following hash ref in each value:
 #
 #                name        - member's name
-#                ipaddr_ip   - member's ipaddr 
+#                ipaddr_ip   - member's ipaddr
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
 #   Example:
 #
 #       name => 'administration',
-#       members => [ 
+#       members => [
 #                   { 'name'         => 'accounting',
 #                     'ipaddr_ip'    => '192.168.1.3',
 #                     'ipaddr_mask'  => '32',
