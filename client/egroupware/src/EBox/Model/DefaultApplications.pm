@@ -47,7 +47,7 @@ sub _table
     my $table = $self->SUPER::_table();
 
     $table->{'tableName'} = __('DefaultApplications');
-    $table->{'printableTableName'} = __('Default applications');
+    $table->{'printableTableName'} = __('Default Applications');
     $table->{'help'} = __('These are the default application permissions that are given to the new created users or existing ones before enabling eGroupware module.');
 
     return $table;

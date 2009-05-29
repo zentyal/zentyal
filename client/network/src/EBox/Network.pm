@@ -2760,10 +2760,10 @@ sub menu
 					  'text' => 'DNS'));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
 					  'text' => 'DynDNS'));
-	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
-					  'text' => __('Routes')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/View/GatewayTable',
 					  'text' => __('Gateways')));
+	$folder->add(new EBox::Menu::Item('url' => 'Network/View/StaticRoute',
+					  'text' => __('Static Routes')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Composite/MultiGw',
 					  'text' => __('Balance Traffic')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',

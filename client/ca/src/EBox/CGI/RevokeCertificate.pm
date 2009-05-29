@@ -39,7 +39,7 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title' => __('Certification Authority Management'),
+    my $self = $class->SUPER::new('title' => __('Certification Authority'),
 				  @_);
 
     $self->{domain} = "ebox-ca";
@@ -61,7 +61,7 @@ sub _process
     # If it comes from forceRevoke with a cancel button
     if ( defined($self->param("cancel")) ) {
       $self->{chain} = "CA/Index";
-      $self->setMsg( __("The certificate has NOT been revoked") );
+      $self->setMsg( __("The certificate has NOT been revoked.") );
       return;
     }
 
@@ -83,7 +83,7 @@ sub _process
 					    'and spaces are allowed.'));
     }
 
-    # Transform %40 in @ 
+    # Transform %40 in @
     $commonName =~ s/%40/@/g;
     # Transform %20 in space
     $commonName =~ s/%20/ /g;

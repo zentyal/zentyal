@@ -334,7 +334,7 @@ sub _table
       my $dataTable =
         {
          tableName          => 'ConfigureDispatcherDataTable',
-         printableTableName => __('Configure dispatchers'),
+         printableTableName => __('Configure Dispatchers'),
          actions => {
                      editField  => '/ebox/Events/Controller/ConfigureDispatcherDataTable',
                      changeView => '/ebox/Events/Controller/ConfigureDispatcherDataTable',

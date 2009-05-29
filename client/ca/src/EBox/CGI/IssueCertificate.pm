@@ -43,7 +43,7 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title' => __('Certification Authority Management'),
+    my $self = $class->SUPER::new('title' => __('Certification Authority'),
 				  @_);
 
     $self->{domain} = "ebox-ca";
@@ -159,8 +159,8 @@ sub actuate
                                        );
     }
 
-    my $msg = __("The certificate has been issued");
-    $msg = __("The new CA certificate has been issued") if ($issueCA);
+    my $msg = __("The certificate has been issued.");
+    $msg = __("The new CA certificate has been issued.") if ($issueCA);
     $self->setMsg($msg);
     # Delete all CGI parameters for CA/Index
     $self->cgi()->delete_all();

@@ -39,7 +39,7 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Certification Authority Management'),
+    my $self = $class->SUPER::new('title'    => __('Certification Authority'),
 				  @_);
 
     $self->{domain} = "ebox-ca";

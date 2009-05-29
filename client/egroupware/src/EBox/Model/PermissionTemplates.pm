@@ -60,7 +60,7 @@ sub _table
         ),
         new EBox::Types::HasMany(
             'fieldName' => 'applications',
-            'printableName' => __('Applications allowed'),
+            'printableName' => __('Applications Allowed'),
             'foreignModel' => 'Applications',
             'view' => '/ebox/EGroupware/View/Applications',
         ),
@@ -68,7 +68,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'PermissionTemplates',
-        'printableTableName' => __('Permission templates defined by the user'),
+        'printableTableName' => __('User Defined Permission Templates'),
         'modelDomain' => 'EGroupware',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

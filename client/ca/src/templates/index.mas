@@ -67,7 +67,7 @@ use EBox::CA::DN;
 % if ($caNeeded) {
   <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>
 % } else {
-  <h3><% __('Issue a new certificate') |h %></h3>
+  <h3><% __('Issue a New Certificate') |h %></h3>
 % }
 <form action="IssueCertificate" method="post" >
   <& formTable.mas, rows => \@issueTable &>

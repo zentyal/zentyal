@@ -113,7 +113,7 @@ sub _table
     my @tableHeader = (
         new EBox::Types::Text(
             'fieldName' => 'name',
-            'printableName' => __('Rule set'),
+            'printableName' => __('Rule Set'),
             'unique' => 1,
             'editable' => 0),
         new EBox::Types::Boolean (

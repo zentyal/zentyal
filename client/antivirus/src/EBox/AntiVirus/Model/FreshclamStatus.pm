@@ -30,10 +30,10 @@ use EBox::Types::Boolean;
 
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -49,11 +49,11 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Text(
                               fieldName => 'message',
                               printableName => __('Status'),
@@ -68,7 +68,7 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Antivirus database update status'),
+                      printableTableName => __('Antivirus Database Update Status'),
                       modelDomain        => 'AntiVirus',
                       tableDescription   => \@tableDesc,
 
@@ -102,7 +102,7 @@ sub _content
     my $state      = $antivirus->freshclamState;
 
     my $date          = delete $state->{date};
-    
+
     my $event;
     my $eventInfo;
     if (defined $date) {
@@ -113,7 +113,7 @@ sub _content
             if ($eventInfo) {
                 last;
             }
-        }         
+        }
     }
     else {
         $event = 'uninitialized';
@@ -123,24 +123,24 @@ sub _content
     # build appropiate msg
     my $msg;
     if ($event eq 'uninitialized')  {
-        $msg = __(q{The antivirus database has not been updated since the  mailfilter eBox's module was installed});
+        $msg = __(q{The antivirus database has not been updated since the  mailfilter eBox's module was installed.});
     }
     elsif ($event eq 'error') {
-        $msg = __('The last update failed');
+        $msg = __('The last update failed.');
     }
     elsif ($event eq 'outdated') {
         my $version = $eventInfo;
         $msg = __x("Update successful but your freshclam version is outdated.\n" .
                       'The antivirus will not be able to use all the signatures.' .
-                      'Please, install version {version} or higher',
+                      'Please, install version {version} or higher.',
                       version => $version,
                      );
     }
     elsif ($event eq 'update') {
-        $msg = __('Last update successful');
+        $msg = __('Last update successful.');
     }
     else {
-        $msg = __x('Unknown event {event}', event => $event, );
+        $msg = __x('Unknown event {event}.', event => $event, );
     }
 
     my $printableDate =  _formatDate($date);
@@ -155,7 +155,7 @@ sub _formatDate
 {
     my ($date) = @_;
     my $localDate = localtime($date);
-    
+
     return $localDate;
 }
 

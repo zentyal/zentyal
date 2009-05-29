@@ -7,11 +7,11 @@
 use EBox::Gettext;
 </%init>
 <!-- Form to revoke a certificate -->
-<h3><% __('Revoke a certificate') | h%></h3>
+<h3><% __('Revoke a Certificate') | h%></h3>
 % if ( $metaDataCert->{"isCACert"} ) {
   <div class="warning">
     <% __("This operation will revoke all the issued user certificates
-    and the CA Certificate") | h %>
+    and the CA Certificate.") | h %>
   </div>
 % }
 <div class="help">

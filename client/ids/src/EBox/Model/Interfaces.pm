@@ -119,7 +119,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Interfaces',
-        printableTableName => __('Interfaces to listen on'),
+        printableTableName => __('Interfaces'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

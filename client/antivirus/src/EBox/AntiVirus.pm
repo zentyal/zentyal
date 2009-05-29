@@ -43,7 +43,7 @@ use constant {
   CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
-  FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',  
+  FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
 };
 
@@ -92,7 +92,7 @@ sub menu
                                         'order' => 24);
 
     $folder->add(new EBox::Menu::Item('url' => 'AntiVirus/View/FreshclamStatus',
-                                      'text' => __(q{Update status})));
+                                      'text' => __(q{Update Status})));
 
     $root->add($folder);
 }
@@ -151,7 +151,7 @@ sub actions
 sub enableActions
 {
     my ($self) = @_;
-#     EBox::Sudo::root(EBox::Config::share() . 
+#     EBox::Sudo::root(EBox::Config::share() .
 #                      '/ebox-antivirus/ebox-antivirus-enable');
 }
 
@@ -186,7 +186,7 @@ sub usedFiles
            file => FRESHCLAM_CRON_SCRIPT,
            reason => __('To schedule the launch of the updater'),
            module => 'antivirus',
-          }, 
+          },
          ];
 }
 
@@ -249,7 +249,7 @@ sub _setConf
 
 
 
-#   
+#
 #
 #
 sub freshclamState

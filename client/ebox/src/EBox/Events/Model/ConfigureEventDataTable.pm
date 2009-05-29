@@ -297,7 +297,7 @@ sub _table
       my $dataTable =
         {
          tableName           => 'ConfigureEventDataTable',
-         printableTableName  => __('Configure events'),
+         printableTableName  => __('Configure Events'),
          actions => {
                      editField  => '/ebox/Events/Controller/ConfigureEventDataTable',
                      changeView => '/ebox/Events/Controller/ConfigureEventDataTable',

@@ -60,7 +60,7 @@ sub _description
                              'MultiGwRulesDataTable',
                             ],
          layout          => 'top-bottom',
-         printableName   => __('Multi gateway'),
+         printableName   => __('Balance Traffic'),
          compositeDomain => 'Network',
          name            => 'MultiGw',
 #         help            => __(''),

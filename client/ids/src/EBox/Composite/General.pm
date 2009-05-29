@@ -68,7 +68,7 @@ sub _description
                            ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('Intrusion Detection System options'),
+        printableName   => __('Intrusion Detection System Configuration'),
         compositeDomain => 'IDS',
 #        help            => __('help message'),
     };
