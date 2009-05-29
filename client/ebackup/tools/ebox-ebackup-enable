@@ -1,0 +1,13 @@
+#!/bin/bash -x
+
+# copy LDAP schemas
+#cp /usr/share/ebox-ebackup/*.schema /etc/ldap/schema
+
+# regenerate slapd.conf
+#/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+
+# restart slapd
+#invoke-rc.d slapd restart
+
+# populate LDAP
+#/usr/share/ebox-ebackup/ebox-ebackup-ldap update
