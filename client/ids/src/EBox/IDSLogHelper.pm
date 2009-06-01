@@ -71,8 +71,9 @@ sub processLine # (file, line, logger)
     # Example lines to parse:
     # 04/23-21:49:17.163791  [**] [116:150:1] (snort decoder) Bad Traffic Loopback IP [**] [Priority: 3] {TCP} 127.0.1.1:5100 -> 69.89.31.56:640
     # 04/24-11:45:18.441639  [**] [122:1:0] (portscan) TCP Portscan [**] [Priority: 3] {PROTO:255} 10.6.7.1 -> 10.6.7.10
+    # 05/31-20:23:27.212634  [**] [1:1390:5] SHELLCODE x86 inc ebx NOOP [**] [Classification: Executable code was detected] [Priority: 1] {UDP} 192.168.122.1:41190 -> 192.168.122.177:41111
 
-	unless ($line =~ /^(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] \((.+)\) (.+) \[\*\*\] \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
+	unless ($line =~ /^(\d\d)\/(\d\d)-(\d\d:\d\d:\d\d)\..* \[\*\*\] \[(.+)\] ?(?:\((.+)\))? (.+) \[\*\*\] ?(?:\[Classification: (.+)\])? \[Priority: (\d)\] \{(.+)\} (.+) -> (.+)/) {
 	    return;
 	}
 	my $monthNum = $1;
@@ -81,10 +82,14 @@ sub processLine # (file, line, logger)
 	my $id = $4;
 	my $detector = $5;
     my $description = $6;
-    my $prio = $7;
-    my $protocol = $8;
-    my $source = $9;
-    my $dest = $10;
+    my $classification = $7;
+    if (defined $classification) {
+        $description .= " ($classification)";
+    }
+    my $prio = $8;
+    my $protocol = $9;
+    my $source = $10;
+    my $dest = $11;
 
     my @months = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
     my $month = $months[$monthNum - 1];
