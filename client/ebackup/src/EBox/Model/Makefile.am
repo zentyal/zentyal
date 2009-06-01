@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/EBackup/Model
 
-nobase_perl_DATA = Settings.pm Hosts.pm
+nobase_perl_DATA = Local.pm
 
 DISTCLEANFILES =
 

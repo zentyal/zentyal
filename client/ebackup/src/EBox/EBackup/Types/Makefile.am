@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Types
 
-perldir = @PERLPATH@/EBox/EBackup
+perldir = @PERLPATH@/EBox/EBackup/Types
 
-nobase_perl_DATA =
+nobase_perl_DATA = 
 
 DISTCLEANFILES =
 

@@ -30,6 +30,8 @@ use EBox::Gettext;
 use EBox::Global;
 
 use constant DFLTPATH         => '/mnt/backup';
+use constant DFLTDIR          => 'ebox-backup';
+use constant DFLTKEEP         => '90';
 use constant SLBACKUPCONFFILE => '/etc/slbackup/slbackup.conf';
 
 # Constructor: _create
@@ -45,7 +47,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ebackup',
-            printableName => __('Backup'),
+            printableName => __('EBackup'),
             domain => 'ebox-ebackup',
             @_);
 
@@ -63,8 +65,7 @@ sub _create
 sub modelClasses
 {
     return [
-        'EBox::EBackup::Model::Settings',
-        'EBox::EBackup::Model::Hosts',
+        'EBox::EBackup::Model::Local',
     ];
 }
 
@@ -89,17 +90,17 @@ sub compositeClasses
 #
 #      <EBox::ServiceModule::ServiceInterface::usedFiles>
 #
-sub usedFiles
-{
-    my @usedFiles;
-
-    push (@usedFiles, { 'file' => SLBACKUPCONFFILE,
-                        'module' => 'ebackup',
-                        'reason' => __('To configure backups.')
-                      });
-
-    return \@usedFiles;
-}
+#sub usedFiles
+#{
+#    my @usedFiles;
+#
+#    push (@usedFiles, { 'file' => SLBACKUPCONFFILE,
+#                        'module' => 'ebackup',
+#                        'reason' => __('To configure backups.')
+#                      });
+#
+#    return \@usedFiles;
+#}
 
 
 # Method: enableActions
@@ -140,54 +141,39 @@ sub enableService
 sub _setConf
 {
     my ($self) = @_;
-
-    $self->_setSLBackup();
 }
 
 
 # Method: _setSLBackup
 #FIXME doc
-sub _setSLBackup
-{
-    my ($self) = @_;
-
-    my $model = $self->model('Hosts');
-
-    my @hosts = ();
-    foreach my $host (@{$model->ids()}) {
-        my $row = $model->row($host);
-        my $hostname = $row->valueByName('hostname');
-        my $keep = $row->valueByName('keep');
-        push (@hosts, { hostname => $hostname,
-                        keep => $keep,
-                      });
-    }
-
-    $model = $self->model('Settings');
-
-    my $backuppath = $model->backupPathValue();
-
-    my @params = ();
-
-    push (@params, hosts => \@hosts );
-    push (@params, backuppath => $backuppath);
-
-    $self->writeConfFile(SLBACKUPCONFFILE, "ebackup/slbackup.conf.mas", \@params,
-                            { 'uid' => 0, 'gid' => 0, mode => '640' });
-}
-
-
-# Method: fqdn
-#FIXME doc
-sub fqdn
-{
-    my $fqdn = `hostname --fqdn`;
-    if ($? != 0) {
-        $fqdn = 'ebox.localdomain';
-    }
-    chomp $fqdn;
-    return $fqdn;
-}
+#sub _setSLBackup
+#{
+#    my ($self) = @_;
+#
+#    my $model = $self->model('Hosts');
+#
+#    my @hosts = ();
+#    foreach my $host (@{$model->ids()}) {
+#        my $row = $model->row($host);
+#        my $hostname = $row->valueByName('hostname');
+#        my $keep = $row->valueByName('keep');
+#        push (@hosts, { hostname => $hostname,
+#                        keep => $keep,
+#                      });
+#    }
+#
+#    $model = $self->model('Settings');
+#
+#    my $backuppath = $model->backupPathValue();
+#
+#    my @params = ();
+#
+#    #push (@params, hosts => \@hosts );
+#    push (@params, backuppath => $backuppath);
+#
+#    $self->writeConfFile(SLBACKUPCONFFILE, "ebackup/slbackup.conf.mas", \@params,
+#                            { 'uid' => 0, 'gid' => 0, mode => '640' });
+#}
 
 
 # Method: menu

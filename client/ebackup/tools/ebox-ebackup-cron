@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox::Global;
+use EBox::EBackup;
+
+EBox::init();
+
+my $ebackup = new EBox::EBackup;
+
+my $model = $ebackup->model('Local');
+
+sub update {
+	$extensions->{ldap}->ldapCon;
+	my $ldap = $extensions->{ldap}->{ldap};
+	my $edn = $extensions->extensionsDn;
+
+	my $result = $ldap->add($edn, attr => [
+		'ou' => 'Extensions',
+		'objectClass' => 'top',
+		'objectClass' => 'organizationalUnit'
+	]);
+	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
+}
+
+sub clean {
+	$extensions->{ldap}->ldapCon;
+	my $edn = $extensions->extensionsDn;
+	my $ldap = $extensions->{ldap}->{ldap};
+
+	my @extns = $extensions->extensions;
+	foreach (@extns) {
+		$extensions->delExtension($_);
+	}
+
+	my $result = $ldap->delete($edn);
+	($result->is_error) and warn "Can't remove Extensions leaf ".$result->error;
+}
+
+sub usage {
+	print "Usage: $0 update | clean\n";
+	exit 1;
+}
+
+unless ($#ARGV == 0) {
+	usage();
+}
+
+if ($ARGV[0] eq 'update') {
+	update();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
+} else {
+	usage();
+}

@@ -70,7 +70,7 @@ sub _table
       (
        new EBox::Types::Text(
                                 fieldName     => 'backupPath',
-                                printableName => __('Backup Destination'),
+                                printableName => __('Backup destination'),
                                 editable      => 1,
                                 defaultValue  => EBox::EBackup->DFLTPATH,
                             ),
@@ -79,7 +79,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Settings',
-        printableTableName => __('General configuration'),
+        printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',

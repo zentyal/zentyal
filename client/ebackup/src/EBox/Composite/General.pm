@@ -56,10 +56,9 @@ sub _description
     my $description =
     {
         components      => [
-                               'ebackup/Settings',
-                               'ebackup/Hosts',
+                               'ebackup/Local',
                            ],
-        layout          => 'tabbed',
+        layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Backup module'),
         compositeDomain => 'EBackup',

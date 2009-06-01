@@ -58,6 +58,41 @@ sub new
 }
 
 
+# Method: syncRows
+#
+#       Syncronizes rdiff status with the current model.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::syncRows>
+#
+#sub syncRows
+#{
+#    my ($self, $currentRows) = @_;
+#
+#    my @srvs = @{EBox::CA::Certificates->srvsCerts()};
+#    my %currentSrvs = map { $self->row($_)->valueByName('service') => 1 } @{$currentRows};
+#
+#    my @srvsToAdd = grep { not exists $currentSrvs{$_->{'service'}} } @srvs;
+#
+#    return 0 unless (@srvsToAdd);
+#
+#    for my $srv (@srvsToAdd) {
+#        $self->add(module => $srv->{'module'}, service => $srv->{'service'}, cn => 'ebox', enable => 0);
+#    }
+#
+#    my %srvsToAdd = map { $_ => 1 } @srvsToAdd;
+#    for my $id (@{$currentRows}) {
+#        my $currentService = $self->row($id)->valueByName('service');
+#        unless (exists $srvsToAdd{$currentService}) {
+#            $self->removeRow($id);
+#        }
+#    }
+#
+#    return 1;
+#}
+
+
 # Group: Private methods
 
 # Method: _table
@@ -77,9 +112,15 @@ sub _table
                                 unique        => 1,
                                 editable      => 1,
                                ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'status',
+                                printableName => __('Status'),
+                                unique        => 0,
+                                editable      => 0,
+                               ),
        new EBox::Types::Text(
-                                fieldName     => 'desc',
-                                printableName => __('Description'),
+                                fieldName     => 'update',
+                                printableName => __('Last Update'),
                                 size          => 24,
                                 unique        => 0,
                                 editable      => 1,
@@ -91,6 +132,12 @@ sub _table
                                 unique        => 0,
                                 editable      => 1,
                                 optional      => 1,
+                               ),
+       new EBox::Types::Int(
+                                fieldName     => 'size',
+                                printableName => __('Size'),
+                                unique        => 0,
+                                editable      => 0,
                                ),
       );
 
