@@ -2,6 +2,7 @@
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%init>
 my $id = $tableName . '_' . $data->fieldName() . '_selected';
@@ -20,7 +21,8 @@ foreach my $type (@{$data->subtypes()}) {
        'value'       => $data->selectedType(),
        'options'     => \@options,
        'id'          => "$id",
-       'onchange'    => qq{showSelected(this);}
+       'onchange'    => qq{showSelected(this);},
+       'disabled'    => $disabled
   &>
   <span id="selectValues_<% $id %>">
 <%perl>
@@ -41,6 +43,7 @@ foreach my $type (@{$data->subtypes()}) {
       <& $type->HTMLSetter(),
           'data' => $type,
           'tableName' => $tableName,
+          'disabled' => $disabled,
       &>
 %     }
       </span>

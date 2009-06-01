@@ -1,0 +1,11 @@
+<%args>
+    $fieldName
+    $JSONActions
+    $tableName
+</%args>
+<%init>
+my $fullId = "${tableName}_${fieldName}";
+</%init>
+Event.observe($('<% $fullId %>'), 
+    'change', 
+    function (event) { onFieldChange(event, <% $JSONActions %>, '<% $tableName %>') }  );

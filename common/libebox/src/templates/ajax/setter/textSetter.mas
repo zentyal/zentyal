@@ -2,18 +2,20 @@
 $tableName
 $data
 $cssClass => ''
+$disabled
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
+% my $disableAttr = $disabled ? 'disabled' : '';
 
 % if ($data->editable()) {
 %    if ( $data->size() < 40 ) { 
 <input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
- size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' />
+ size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' <% $disableAttr %> />
 %    } else {
 %     my $colSize = 17; # FIXME
 %     my $nRows = $data->size() / $colSize;
 <textarea class="inputText <% $cssClass %>" cols="<% $colSize %>"
- rows="<% $nRows %>" id='<% $id %>' name='<% $id %>'><% $data->printableValue() %></textarea>
+ rows="<% $nRows %>" id='<% $id %>' name='<% $id %> <% $disableAttr %>'><% $data->printableValue() %></textarea>
 %    }
 <% $data->trailingText() %>
 % } else {

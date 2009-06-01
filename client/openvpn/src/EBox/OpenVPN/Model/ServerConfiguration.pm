@@ -45,6 +45,8 @@ use EBox::OpenVPN::Types::PortAndProtocol;
 use EBox::OpenVPN::Types::Certificate;
 use EBox::OpenVPN::Types::TlsRemote;
 
+use EBox::View::Customizer;
+
 use constant ALL_INTERFACES => '_ALL';
 
 
@@ -149,6 +151,28 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to show and hide source and destination ports
+#   depending on the protocol
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions(
+            { pullRoutes =>
+                {
+                on  => { enable => [qw/ripPasswd/] },
+                off => { disable => [qw/ripPasswd/] },
+                }
+            });
+    return $customizer;
 }
 
 
@@ -373,7 +397,10 @@ sub _checkMasqueradeIsAvailable
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-    if (not (exists $params_r->{masquerade} ) ) {
+    my $masquerade = exists $params_r->{masquerade} ?
+                                 $params_r->{masquerade}->value() :
+                                 $actual_r->{masquerade}->value();
+    if (not $masquerade ) {
         return;
     }
 
@@ -397,11 +424,6 @@ sub _checkMasqueradeIsAvailable
 sub _checkIfaceAndMasquerade
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
-    if (not (exists $params_r->{masquerade}  or exists $params_r->{'local'}) ) {
-        return;
-    }
-    
     
     my $masquerade = exists $params_r->{masquerade} ?
                                  $params_r->{masquerade}->value() :

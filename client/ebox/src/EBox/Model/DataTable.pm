@@ -4283,6 +4283,11 @@ sub popRedirection
     return $redirection;
 }
 
+sub viewCustomizer
+{
+    return undef;
+}
+
 # Method: _autoloadGetId
 #
 #      Get the identifier which will be used to set the directory to

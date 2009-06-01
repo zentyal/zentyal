@@ -102,7 +102,7 @@ use POSIX;
                       editId => "undefined", 
                       page => $page,
                       isFilter => 0) 
-                %>;return false'>Add new</a>
+                %>;return false'><% __d('Add new', 'ebox') %></a>
    <br/>
    <br/>
 %    }
@@ -126,6 +126,7 @@ use POSIX;
                 row => $printableRowName)
 &>
 %   }
+
 <form name="<% $tableName . '_ajaxform' %>">
   <table class='formTable'>
     <tbody>
@@ -139,6 +140,13 @@ use POSIX;
     </tbody>
   </table>
 </form>
+
+%   my $customizer = $formData[0]->model()->viewCustomizer();
+%   if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%    }
 %  }
 
 

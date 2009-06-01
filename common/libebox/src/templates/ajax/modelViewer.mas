@@ -204,6 +204,12 @@
     </tbody>
   </table>
 </form>
+%   my $customizer = $formData[0]->model()->viewCustomizer();
+%   if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%    }
 </%method>
 
 <%doc>
@@ -225,7 +231,22 @@
 </%args>
 % foreach my $type (grep { defined($_->HTMLSetter())} @formData) 
 % {
-<tr>
+<%perl>
+    my $viewCustomizer = $type->model()->viewCustomizer();
+    my $rowInit;
+    my $disableSetter = 0;
+    my $displayRow;
+    if ($viewCustomizer) {
+        $rowInit = $viewCustomizer->initHTMLStateField($type->fieldName(), \@formData);
+        if ($rowInit eq 'hide') {
+            $displayRow = 'class="hidden"';
+        } elsif ($rowInit eq 'disable') {
+            $disableSetter = 1;
+        }
+    }
+</%perl>
+<tr id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
+
   <td class='tright'>
     <% $type->printableName() %>:
 % if ($type->optional()) {
@@ -238,7 +259,8 @@
     <&
       $type->HTMLSetter(),
       'data' => $type,
-      'tableName' => "$modelName"
+      'tableName' => "$modelName",
+      'disabled' =>  $disableSetter 
     &>
     <div class="field_help">
     <% $type->help() %>

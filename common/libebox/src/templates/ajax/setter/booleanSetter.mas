@@ -2,6 +2,7 @@
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%perl>
 my $id = $tableName . '_' . $data->fieldName();
@@ -11,7 +12,7 @@ my %args = ('name'  => "$id",
     'id'    => "$id",
     'class' => "$cssClass");
 
-unless ($data->editable()) {
+if (not $data->editable() or $disabled) {
   $args{'disabled'} = 'disabled';
 }
 </%perl>

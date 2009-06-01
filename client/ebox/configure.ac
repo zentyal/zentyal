@@ -106,6 +106,7 @@ src/templates/dashboard/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
+src/templates/js/Makefile
 src/templates/report/Makefile
 src/templates/Makefile
 src/EBox/Makefile
@@ -169,6 +170,7 @@ src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Report/Makefile
 src/EBox/Util/Makefile
+src/EBox/View/Makefile
 schemas/Makefile
 conf/Makefile
 conf/logrotate/ebox

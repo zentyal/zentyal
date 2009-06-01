@@ -182,7 +182,16 @@ sub value
 {
     my ($self) = @_;
 
-    return $self->{'value'};
+    if (defined($self->{'value'})) {
+        return $self->{'value'};
+    } else {
+        my @options = @{$self->options()};
+        if (@options) {
+            return $options[0];
+        } else {
+            return undef;
+        }
+    }
 }
 
 # Method: foreignModel

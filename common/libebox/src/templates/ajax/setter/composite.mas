@@ -6,6 +6,7 @@
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%init>
 my $id = $tableName . '_' . $data->fieldName();
@@ -20,6 +21,7 @@ my $id = $tableName . '_' . $data->fieldName();
   <& $simpleType->HTMLSetter(),
      data => $simpleType,
      tableName => $tableName,
+     disabled => $disabled
   &>
 % }
 </span>

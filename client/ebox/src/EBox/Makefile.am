@@ -15,7 +15,7 @@ nobase_perl_DATA = $(mods)
 
 
 SUBDIRS = Backup CGI Common Dashboard GConfModule interactiveTest Event Events Global Logs \
-	Model ProgressIndicator Report t Test Types Module Util
+	Model ProgressIndicator Report t Test Types Module Util View
 
 SOURCES = $(nobase_perl_DATA)
 

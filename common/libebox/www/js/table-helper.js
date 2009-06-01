@@ -8,6 +8,80 @@ function cleanError(table)
 	$('error_' + table).innerHTML = "";
 }
 
+// Function: setEnableRecursively
+//  
+//  Disable or enable recursively all child elements of a given elment
+//
+// Parameters:
+//  
+//  element - Parent HTMLElement object 
+//  state - boolean, true to enable, false to disable
+//
+function setEnableRecursively(element, state) {
+    element.childElements().each(
+        function (child) {
+            //XXX Should we check child is a From or
+            //    prototype takes care of it?
+            if (state) {
+                Form.Element.enable(child);
+            } else {
+                Form.Element.disable(child);
+            }
+            setEnableRecursively(child, state);
+        }
+    );
+}
+
+
+// Function: onFieldChange
+//  
+//  Function called from onChange events on form and table fields.
+//
+// Parameters:
+//
+//  Event - Event prototype
+//  JSONACtions - JSON Object containing the actions to take
+//
+function onFieldChange(event, JSONActions, table) {
+    var actions = new Hash(JSONActions);
+    var selectedValue = $F(Event.element(event));
+    if (selectedValue == undefined) {
+        selectedValue = 'off';
+    }
+
+    if (! actions.get(selectedValue)) {
+        return;
+    }
+    var onValue = new Hash(actions.get(selectedValue));
+    var supportedActions = new Array('show', 'hide', 'enable', 'disable');
+    supportedActions.each ( 
+        function (action) {
+            if (onValue.get(action) == undefined) {
+                return;
+            }
+            var fields = onValue.get(action);
+            for (var i = 0; i < fields.length; i++) {
+                var fullId = table + '_' + fields[i] + '_row';
+                switch (action)
+                {
+                    case 'show':
+                        show(fullId);
+                        break;
+                    case 'show':
+                        show(fullId);
+                        break;
+                     case 'enable':
+                        setEnableRecursively($(fullId), true);
+                        break;
+                      case 'disable':
+                        setEnableRecursively($(fullId), false);
+                        break;
+                }   
+            }
+        }
+    );
+}
+
 function addNewRow(url, table, fields, directory)
 {
 	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';

@@ -2,6 +2,7 @@
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%init>
 </%init>
@@ -18,13 +19,15 @@ $cssClass => ''
                                       qq{_protocol", "$id} .
                                       qq{_portText", } .
                                       $data->protocolsJS() . ")",
+            'disabled' => $disabled
 	&>
 	<span id="<% $id . '_portText' %>" class="hidden">
 	  <%__('port')%>
 	  <input type="text" class="inputText"
 		 value="<% $data->port() %>"
 		 size="5" id ="<% $id . '_port' %>"
-		 name='<% $id . '_port' %>' />
+		 name='<% $id . '_port' %>'
+         <% $disabled ? 'disabled' : '' %> />
 	</span>
 
 </span>

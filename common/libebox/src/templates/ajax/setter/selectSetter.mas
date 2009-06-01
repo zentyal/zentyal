@@ -2,6 +2,7 @@
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%init>
   use Data::Dumper;
@@ -57,12 +58,15 @@ if ( $data->unique() ) {
 }
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
+% # my $onChange = "eval('OnChangeOn$id(this)')";
+% my $onChange = "OnChangeOn$id(this)";
 <& /input/select.mas,
    'name'    => "$id" ,
    'value'   => $data->value(),
    'options' => $options,
    'id'      => "$id",
    'class'   => "$cssClass",
+   'disabled' => $disabled,
 &>
 <% $data->trailingText() %>
 

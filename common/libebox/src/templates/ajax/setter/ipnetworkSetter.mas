@@ -5,6 +5,7 @@ inherit => '/ajax/setter/ipaddrSetter.mas'
 $tableName
 $data
 $cssClass => ''
+$disabled => undef
 </%args>
 <%init>
 my @masks = (30, 29, 28, 27, 26, 25, 24, 16, 8);
@@ -16,4 +17,5 @@ my @masks = (30, 29, 28, 27, 26, 25, 24, 16, 8);
               cssClass  => $cssClass,
               masks     => \@masks,
               defaultMask => 24,
+              disabled => $disabled
 &>

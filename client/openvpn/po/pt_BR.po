@@ -617,7 +617,7 @@ msgstr "Tipo de cliente não suportado: {ct}"
 #: src/EBox/OpenVPN/Server.pm:692
 #, perl-brace-format
 msgid "Server {name}"
-msgstr "Servidor {nome}"
+msgstr "Servidor {name}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:694
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:313
@@ -687,7 +687,7 @@ msgstr "Não ativado"
 #: src/EBox/OpenVPN/Client.pm:311
 #, perl-brace-format
 msgid "Client {name}"
-msgstr "Cliente {nome}"
+msgstr "Cliente {name}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client.pm:325
 #: src/EBox/OpenVPN/Client.pm:325

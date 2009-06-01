@@ -38,6 +38,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
+use EBox::View::Customizer;
 
 use EBox::Types::Select;
 use EBox::Types::PortRange;
@@ -100,6 +101,33 @@ sub protocols
 
         return \@options;
 
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to show and hide source and destination ports
+#   depending on the protocol
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions( 
+            { protocol => 
+                { 
+                any => { disable => [qw/source destination/] }, 
+                icmp => { disable => [qw/source destination/] }, 
+                gre => { disable => [qw/source destination/] }, 
+                esp => { disable => [qw/source destination/] }, 
+                tcp => { enable => [qw/source destination/] },
+                udp => { enable => [qw/source destination/] },
+                'tcp/udp' => { enable => [qw/source destination/] },
+                }
+                });
+    return $customizer;
 }
 
 sub _table
