@@ -3,8 +3,8 @@
 	  when saving changes
 	+ Bugfix: events models are working again even if an event aware
 	module is uninstalled and it is in a backup to restore
-1.1
-	+ Added 'parentModule' to model class to avoid recursive problems
+	+ Select.pm returns first value in options as default
+       + Added 'parentModule' to model class to avoid recursive problems
 	+ Added Float type
 	+ Apache module allows to add configuration includes from other modules
 	+ Display remote services button if subscribed
