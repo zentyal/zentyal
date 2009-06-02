@@ -19,3 +19,12 @@ if [ ! -d /var/spool/samba ]; then
     chown nobody:nogroup /var/spool/samba
     chmod a+rwt /var/spool/samba
 fi
+
+# Set permissions for printer drivers
+chown -R root:512 /var/lib/samba/printers
+chmod -R g+w /var/lib/samba/printers
+
+# Allow raw printing
+sed 's:#application/octet-stream:application/octet-stream:' /etc/cups/mime.convs
+
+
