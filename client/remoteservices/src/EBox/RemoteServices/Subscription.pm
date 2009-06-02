@@ -42,6 +42,7 @@ use File::Temp;
 
 # Constants
 use constant {
+    SERV_CONF_DIR => 'remoteservices',
     SERV_SUBDIR => 'remoteservices/subscription',
     SERV_CONF_FILE => '78remoteservices.conf',
 };
@@ -188,7 +189,11 @@ sub subscribeEBox
     my @files = $tar->list_files();
     my $cwd = Cwd::getcwd();
 
-    my $dirPath = EBox::Config::conf() . SERV_SUBDIR;
+    my $dirPath = EBox::Config::conf() . SERV_CONF_DIR;
+    unless ( -d $dirPath ) {
+        mkdir($dirPath);
+    }
+    $dirPath = EBox::Config::conf() . SERV_SUBDIR;
     unless (chdir($dirPath)) {
         mkdir($dirPath);
         chdir($dirPath);
