@@ -728,22 +728,18 @@ sub issueCertificate
   }
 
   # Check the expiration date unless issuing the CA
+  my $userExpDay = undef;
   if (not defined($args{certFile}) or
       $args{certFile} ne CACERT) {
-    my $userExpDay = undef;
     if ( defined($days) ) {
       $userExpDay = Date::Calc::Object->now();
       $userExpDay += [0, 0, $days, 0, 0, 0];
     } elsif (defined $args{endDate}) {
       $userExpDay = $args{endDate};
     }
-
-    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
-      unless defined($self->{caExpirationDate});
-
-    if ( $userExpDay gt $self->{caExpirationDate} ) {
-      throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
-    }
+    $userExpDay = $self->_isLaterThanCA($userExpDay);
+    # Set to undef since we are using userExpDay as endDate
+    $days = undef;
   }
 
 
@@ -805,10 +801,10 @@ sub issueCertificate
   }
 
   $output = $self->_signRequest( userReqFile  => $userReq,
-				 days         => $days,
-				 userCertFile => $certFile,
+                                 days         => $days,
+                                 userCertFile => $certFile,
 				 selfsigned   => $selfSigned,
-				 endDate      => $args{endDate}
+				 endDate      => $userExpDay,
 			       );
 
   # Check if something goes wrong
@@ -1323,20 +1319,16 @@ sub renewCertificate
       if (defined($args{endDate}) and not UNIVERSAL::isa($args{endDate}, "Date::Calc"));
 
     # Check the expiration date unless issuing the CA cert
+    my $userExpDay = undef;
     unless (defined($args{certFile}) and $args{certFile} eq CACERT) {
-      my $userExpDay = undef;
       if ( defined($args{days}) ) {
 	$userExpDay = Date::Calc::Object->now() + [0, 0, +$args{days}, 0, 0, 0];
       } elsif ( defined($args{endDate}) ) {
 	$userExpDay = $args{endDate};
       }
-
-      $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
-	unless defined($self->{caExpirationDate});
-
-      if ( $userExpDay gt $self->{caExpirationDate} ) {
-	throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
-      }
+      $userExpDay = $self->_isLaterThanCA($userExpDay);
+      # Set to undef since we are using userExpDay as endDate
+      $args{days} = undef;
     }
 
     throw EBox::Exceptions::DataMissing(data => __('Common Name')
@@ -1455,7 +1447,7 @@ sub renewCertificate
 					selfsigned   => $selfsigned,
 					createSerial => 0,
 # Not in OpenSSL 0.9.7			newSubject   => $newSubject,
-					endDate      => $args{endDate}
+					endDate      => $userExpDay,
 				      );
 
       if (defined($output) ) {
@@ -2291,6 +2283,31 @@ sub _setLogAdminActions
       __n("Updated certificate database. {number} certificates have expired");
 
     return;
+
+}
+
+# Check if a date is later than CA certificate date
+# Returns the value to set the expiration date
+sub _isLaterThanCA # (date)
+{
+    my ($self, $date) = @_;
+
+    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
+      unless defined($self->{caExpirationDate});
+
+    # gt compares date and time
+    if ( $date gt $self->{caExpirationDate} ) {
+        # != compares date
+        if ( $date > $self->{caExpirationDate} ) {
+            throw EBox::Exceptions::External(
+                __('Expiration date later than CA certificate expiration date')
+               );
+        } else {
+            EBox::warn('Defining CA expiration date for a new certificate');
+            return $self->{caExpirationDate};
+        }
+    }
+    return $date;
 
 }
 
