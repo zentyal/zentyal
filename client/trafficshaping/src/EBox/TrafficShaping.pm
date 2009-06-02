@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # FIXME:  Get rid of unnecessary stuff already provided by the framework
-#
+# 
 
 # Class: EBox::TrafficShaping
 #
@@ -35,9 +35,9 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::Model::ModelProvider
+use base qw(EBox::Module::Service 
+            EBox::NetworkObserver 
+            EBox::Model::ModelProvider 
             EBox::Model::CompositeProvider
             );
 
@@ -103,7 +103,7 @@ sub _create
     return $self;
   }
 
-# FIXME
+# FIXME 
 sub startUp
 {
      my ($self) = @_;
@@ -353,8 +353,7 @@ sub menu # (root)
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
-                'text' => __('Traffic Shaping'),
-                'order' => 11));
+				    'text' => __('Traffic Shaping')));
 
 }
 
@@ -890,7 +889,7 @@ sub _createRuleModels
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'};
+    my $network = $self->{'network'}; 
 
     my $ifaces_ref = $network->ifaces();
     foreach my $iface (@{$ifaces_ref}) {
@@ -935,7 +934,7 @@ sub _checkInterface # (iface)
     my ($self, $iface) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'};
+    my $network = $self->{'network'}; 
 
     # Now shaping can be done at internal interfaces to egress traffic
 
@@ -1003,7 +1002,7 @@ sub _ruleDirectory # (iface, ruleId?)
     my ($self, $iface, $ruleId) = @_;
 
     my $dir = $self->ruleModel($iface)->directory() . '/keys';
-
+    
 
     if ( defined ($ruleId) ) {
       return "$dir/$ruleId";
@@ -1321,7 +1320,7 @@ sub _buildObjMembers
 
     # Get the object's members
     my $global = EBox::Global->getInstance();
-    my $objs = $self->{'objects'};
+    my $objs = $self->{'objects'}; 
 
     my $membs_ref = $objs->objectMembers($objectName);
 
@@ -1384,7 +1383,7 @@ sub _buildObjToObj
     my ($self, %args) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $objs = $self->{'objects'};
+    my $objs = $self->{'objects'}; 
 
     my $srcMembs_ref = $objs->objectMembers($args{srcObject});
     my $dstMembs_ref = $objs->objectMembers($args{dstObject});
@@ -1586,8 +1585,8 @@ sub _deleteChains # (iface)
     my ( $self, $iface ) = @_;
 
     try {
-        $self->{ipTables}->pf( "-t mangle -F EBOX-SHAPER-$iface" );
-        $self->{ipTables}->pf( "-t mangle -X EBOX-SHAPER-$iface" );
+        $self->_pf( "-t mangle -F EBOX-SHAPER-$iface" );
+        $self->_pf( "-t mangle -X EBOX-SHAPER-$iface" );
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 2 or
@@ -1608,7 +1607,7 @@ sub _deletePostroutingChain # (iface)
 
     my $chain = "EBOX-SHAPER";
     try {
-        $self->{ipTables}->pf("-t mangle -D POSTROUTING -j EBOX-SHAPER");
+        $self->_pf("-t mangle -D POSTROUTING -j EBOX-SHAPER");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1618,7 +1617,7 @@ sub _deletePostroutingChain # (iface)
     };
 
     try {
-        $self->{ipTables}->pf("-t mangle -F EBOX-SHAPER");
+        $self->_pf("-t mangle -F EBOX-SHAPER");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1628,7 +1627,7 @@ sub _deletePostroutingChain # (iface)
     };
 
     try {
-        $self->{ipTables}->pf("-t mangle -X EBOX-SHAPER");
+        $self->_pf("-t mangle -X EBOX-SHAPER");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1645,7 +1644,7 @@ sub _createPostroutingChain # (iface)
 
     my $chain = "EBOX-SHAPER";
     try {
-        $self->{ipTables}->pf("-t mangle -N  EBOX-SHAPER");
+        $self->_pf("-t mangle -N  EBOX-SHAPER");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1655,7 +1654,7 @@ sub _createPostroutingChain # (iface)
     };
 
     try {
-        $self->{ipTables}->pf("-t mangle -I POSTROUTING -j EBOX-SHAPER");
+        $self->_pf("-t mangle -I POSTROUTING -j EBOX-SHAPER");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1677,7 +1676,7 @@ sub _resetChain # (iface)
 
     my $chain = "EBOX-SHAPER-$iface";
     try {
-        $self->{ipTables}->pf("-t mangle -N $chain");
+        $self->_pf("-t mangle -N $chain");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1687,7 +1686,7 @@ sub _resetChain # (iface)
 
     my $rule = "-t mangle -I EBOX-SHAPER -o $iface -j $chain";
     try {
-        $self->{ipTables}->pf($rule);
+        $self->_pf($rule);
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1704,9 +1703,18 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
 
     foreach my $ipTablesCmd (@{$iptablesCmds_ref}) {
       EBox::info("iptables $ipTablesCmd");
-      $self->{ipTables}->pf($ipTablesCmd);
+      $self->_pf($ipTablesCmd);
     }
 
   }
 
+ 
+ # Run a iptables command
+ sub _pf
+   {
+      my ($self, $cmd) = @_;
+      EBox::Sudo::root("/sbin/iptables $cmd");
+   }
+
 1;
+ 
