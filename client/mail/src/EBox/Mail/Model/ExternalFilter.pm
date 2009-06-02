@@ -32,6 +32,8 @@ use warnings;
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
+
+use EBox::View::Customizer;
 use EBox::Validate qw(:all);
 use EBox::Types::Int;
 use EBox::Types::Text;
@@ -126,6 +128,29 @@ sub _table
 }
 
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to show and hide mailfilter configuration
+#   depending on the filter selected
+#
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+        my $customizer = new EBox::View::Customizer();
+        my $fields = [qw/fwport ipfilter portfilter/];
+        $customizer->setModel($self);
+        $customizer->setOnChangeActions(
+        { externalFilter =>
+            {
+              none  => { hide => $fields },
+              custom => { show => $fields },
+              mailfilter => { hide => $fields },
+            }
+        });
+        return $customizer;
+}
 
 
 
