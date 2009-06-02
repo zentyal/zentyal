@@ -1,5 +1,8 @@
 1.1.10
-	+ Only update sambaPaths on users with sambaSamAccount object class
+	+ Only update sambaPaths on users with sambaSamAccount object
+	class
+	+ UI imrpovement: in general setting some fileds are disabled when
+	PDC is not selected
 1.1
 	+ Bugfix: issue with codepages on shares
 	+ Home drive letter can be changed now from general settings

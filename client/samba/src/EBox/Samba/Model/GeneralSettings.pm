@@ -33,6 +33,7 @@ use EBox::Types::Text;
 use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Config;
+use EBox::View::Customizer;
 
 use strict;
 use warnings;
@@ -143,6 +144,29 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to show and hide source and destination ports
+#   depending on the protocol
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    my $fields = [qw/roaming drive/];
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions( 
+            { pdc => 
+                { 
+                on  => { enable => $fields }, 
+                off => { disable => $fields }, 
+                }
+            });
+    return $customizer;
 }
 
 sub _drive_letters
