@@ -32,6 +32,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::Sudo;
 
 use Archive::Tar;
 use Cwd;
@@ -212,8 +213,9 @@ sub subscribeEBox
 
     my $confKeys = EBox::Config::configKeysFromFile("$dirPath/$confFile");
     $self->_openVPNConnection(
-        $confKeys->{vpnIPAddr},
+        $confKeys->{vpnServer},
         $confKeys->{vpnPort},
+        $confKeys->{vpnProtocol},
        );
 
     # Remove everything we created before
@@ -285,19 +287,23 @@ sub _openHTTPSConnection
         if ( $fw->isEnabled() ) {
             eval "use EBox::Iptables";
             my $mirrorCount = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-            my $output = EBox::Iptables::pf('-L ointernal');
+            my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
             my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
             if ( $matches < $mirrorCount ) {
                 foreach my $no ( 1 .. $mirrorCount ) {
                     my $site = EBox::RemoteServices::Configuration::PublicWebServer();
                     $site =~ s:\.:$no.:;
-                    EBox::Iptables::pf(
-                        "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                    EBox::Sudo::root(
+                        EBox::Iptables::pf(
+                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                           )
                        );
                 }
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
-                EBox::Iptables::pf(
-                    "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                EBox::Sudo::root(
+                    EBox::Iptables::pf(
+                        "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                       )
                    );
             }
         }
@@ -306,9 +312,9 @@ sub _openHTTPSConnection
 }
 
 # Close down HTTPS connections and open up VPN one
-sub _openVPNConnection #(ipaddr, port)
+sub _openVPNConnection #(ipaddr, port, protocol)
 {
-    my ($self, $ipAddr, $port) = @_;
+    my ($self, $ipAddr, $port, $protocol) = @_;
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('firewall') ) {
@@ -333,8 +339,10 @@ sub _openVPNConnection #(ipaddr, port)
 #                    );
 #             }
             # We assume UDP
-            EBox::Iptables::pf(
-                "-A ointernal -p udp -d $ipAddr --dport $port -j ACCEPT"
+            EBox::Sudo::root(
+                EBox::Iptables::pf(
+                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"
+                   )
                );
         }
     }
