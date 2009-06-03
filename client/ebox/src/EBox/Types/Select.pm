@@ -164,8 +164,9 @@ sub printableValue
     my $options = $self->options();
     return '' unless (defined($options));
 
+    my $value = $self->value();
     foreach my $option (@{$options}) {
-        if ($option->{'value'} eq $self->{'value'}) {
+        if ($option->{'value'} eq $value) {
             return $option->{'printableValue'};
         }
     }
@@ -187,7 +188,7 @@ sub value
     } else {
         my @options = @{$self->options()};
         if (@options) {
-            return $options[0];
+            return $options[0]->{'value'};
         } else {
             return undef;
         }
