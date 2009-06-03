@@ -245,17 +245,33 @@ sub preconfiguration
     my $PROGRESS;
     open ($PROGRESS, '|-', $whipCmd);
 
-    # Enable eBox modules
-    system("$INSTALL_FILES/enable-all-modules.pl >> $LOG 2>&1");
+    # Enable all eBox installed modules
 
-    print $PROGRESS "33\n";
+    my $moduleList = `$INSTALL_FILES/ebox-enable-list`;
+    print $PROGRESS "1\n";
+
+    chomp($moduleList);
+    my @modules = split (/\n/, $moduleList);
+    my $numModules = scalar (@modules);
+    if ($numModules > 0) {
+        my $step = 50 / $numModules;
+        my $counter = $step;
+        foreach my $module (@modules) {
+            system("$INSTALL_FILES/ebox-enable-module $module >> $LOG 2>&1");
+            print $PROGRESS int($counter) . "\n";
+            $counter += $step;
+        }
+        system("$INSTALL_FILES/ebox-update-digests >> $LOG 2>&1");
+    }
+
+    print $PROGRESS "55\n";
 
     # load LANG variable with default locale
     my @lines = arrayFromFile('/etc/default/locale');
     my $LANG = (split ('"', $lines[0]))[1];
     $ENV{LANG} = $LANG;
 
-    print $PROGRESS "40\n";
+    print $PROGRESS "60\n";
 
     # Append eBox support languages to generate to current supported
     # locales
@@ -265,16 +281,16 @@ sub preconfiguration
     system("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
-    print $PROGRESS "50\n";
+    print $PROGRESS "65\n";
 
     # Regenerate locales to update the new messages from eBox
     system("/usr/sbin/locale-gen >> $LOG 2>&1");
 
-    print $PROGRESS "60\n";
+    print $PROGRESS "80\n";
 
     system("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
 
-    print $PROGRESS "70\n";
+    print $PROGRESS "85\n";
 
     # Run ebox-software in order to update packages list (which is done
     # nightly)
@@ -283,13 +299,13 @@ sub preconfiguration
     # eBox initial setup
     system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
 
-    print $PROGRESS "80\n";
+    print $PROGRESS "90\n";
 
     foreach my $iface (@CNF_selectedIfaces) {
         system ("$INSTALL_FILES/ebox-set-external $iface >> $LOG 2>&1");
     }
 
-    print $PROGRESS "90\n";
+    print $PROGRESS "95\n";
 
     if (defined $CNF_domain) {
         system ("$INSTALL_FILES/ebox-set-maildomain $CNF_domain >> $LOG 2>&1");
@@ -351,10 +367,11 @@ sub showChecklist # (title, message, options)
         }
         $option_args .= "$arg 0 ";
     }
-    if (length ($title) > $max_len) {
-        $max_len = length ($title);
+    my $width = max(get_dialog_width($title, $message), $max_len + 10);
+    my $max_chars = max(length($title), length($message), $max_len);
+    if ($max_chars > 70) {
+        $height += int($max_chars / 70);
     }
-    my $width = 10 + $max_len;
 
     my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
                   "--title \"$title\" " .
