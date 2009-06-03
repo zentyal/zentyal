@@ -26,26 +26,42 @@
 	<td>link=Query Logs</td>
 	<td></td>
 </tr>
-<tr>
-	<td>select</td>
-	<td>selected</td>
-	<td>label=OpenVPN</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>View</td>
-	<td></td>
-</tr>
+
 <tr>
     <td>type</td>
-    <td>filter-from_ip</td>
-    <td>{$IP}</td>
+    <td>SelectLog_filter</td>
+    <td>openvpn</td>
+</tr>
+
+<tr>
+    <td>runScript</td>
+    <td>startAjaxRequest()</td>
+    <td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>search</td>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>1</td>
+</tr>
+
+<tr>
+	<td>click</td>
+	<td>filter</td>
 	<td></td>
 </tr>
+
+<tr>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>0</td>
+</tr>
+
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr/td[2]/a/img</td> 
+	<td></td>
+</tr>
+
 <tr>
 	<td>verifyTextPresent</td>
 	<td>{$EVENT}</td>
