@@ -254,24 +254,33 @@ sub preconfiguration
     my @modules = split (/\n/, $moduleList);
     my $numModules = scalar (@modules);
     if ($numModules > 0) {
-        my $step = 50 / $numModules;
+        my $step = 40 / $numModules;
         my $counter = $step;
         foreach my $module (@modules) {
             system("$INSTALL_FILES/ebox-enable-module $module >> $LOG 2>&1");
             print $PROGRESS int($counter) . "\n";
             $counter += $step;
         }
+
         system("$INSTALL_FILES/ebox-update-digests >> $LOG 2>&1");
+        $counter = 45;
+        print $PROGRESS "$counter\n";
+
+        # save changes
+        foreach my $module (@modules) {
+            system("$INSTALL_FILES/ebox-save-module $module >> $LOG 2>&1");
+            print $PROGRESS int($counter) . "\n";
+            $counter += $step;
+        }
     }
 
-    print $PROGRESS "55\n";
 
     # load LANG variable with default locale
     my @lines = arrayFromFile('/etc/default/locale');
     my $LANG = (split ('"', $lines[0]))[1];
     $ENV{LANG} = $LANG;
 
-    print $PROGRESS "60\n";
+    print $PROGRESS "86\n";
 
     # Append eBox support languages to generate to current supported
     # locales
@@ -281,16 +290,16 @@ sub preconfiguration
     system("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
-    print $PROGRESS "65\n";
+    print $PROGRESS "87\n";
 
     # Regenerate locales to update the new messages from eBox
     system("/usr/sbin/locale-gen >> $LOG 2>&1");
 
-    print $PROGRESS "80\n";
+    print $PROGRESS "96\n";
 
     system("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
 
-    print $PROGRESS "85\n";
+    print $PROGRESS "97\n";
 
     # Run ebox-software in order to update packages list (which is done
     # nightly)
@@ -299,13 +308,13 @@ sub preconfiguration
     # eBox initial setup
     system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
 
-    print $PROGRESS "90\n";
+    print $PROGRESS "98\n";
 
     foreach my $iface (@CNF_selectedIfaces) {
         system ("$INSTALL_FILES/ebox-set-external $iface >> $LOG 2>&1");
     }
 
-    print $PROGRESS "95\n";
+    print $PROGRESS "99\n";
 
     if (defined $CNF_domain) {
         system ("$INSTALL_FILES/ebox-set-maildomain $CNF_domain >> $LOG 2>&1");
