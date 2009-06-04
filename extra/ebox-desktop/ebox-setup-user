@@ -3,6 +3,9 @@
 USER=$PAM_USER
 USERHOME=/home/samba/users/$USER
 
+# Load configuration variables
+. /etc/ebox-desktop/ebox-desktop.conf
+
 CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
 
 # We don't do anything if it's already configured
@@ -28,6 +31,8 @@ then
     sed -i "s/MAIL_ACCOUNT_ESCAPED/$MAIL_ACCOUNT_ESCAPED/g" $EVOLUTIONCONF
     sed -i "s/MAIL_ACCOUNT/$MAIL_ACCOUNT/g" $EVOLUTIONCONF
     sed -i "s/EBOX_SERVER/$SERVER/g" $EVOLUTIONCONF
+    sed -i "s/MAIL_PROTOCOL/$MAIL_PROTOCOL/g" $EVOLUTIONCONF
+    sed -i "s/MAIL_USE_SSL/$MAIL_USE_SSL/g" $EVOLUTIONCONF
     echo "[ -r $EVOLUTIONCONF ] && gconftool --load $EVOLUTIONCONF" >> $PROFILE
 fi
 echo "[ -r $EVOLUTIONCONF ] && rm $EVOLUTIONCONF" >> $PROFILE
