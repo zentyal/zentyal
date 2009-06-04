@@ -1,0 +1,34 @@
+#!/bin/bash
+
+SERVER=$1
+
+add_conference()
+{
+    GROUP_NAME=$1
+
+    sed -i "/<group/a\
+                <chat proto='prpl-jabber' account='$USER@ebox/eboxuser'>\n\
+\t\t\t<component name='handle'>$USER</component>\n\
+\t\t\t<component name='room'>$GROUP_NAME</component>\n\
+\t\t\t<component name='server'>conference.ebox</component>\n\
+\t\t</chat>\n" $HOME/pidgin/blist.xml
+}
+
+# Replace variables in pidgin config template
+sed -i "s/USERNAME/$USER/g" $HOME/pidgin/accounts.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $HOME/pidgin/accounts.xml
+sed -i "s/EBOXSERVER/$SERVER/g" $HOME/pidgin/accounts.xml
+sed -i "s/USERNAME/$USER/g" $HOME/pidgin/blist.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $HOME/pidgin/blist.xml
+
+# Insert group conferences in buddy list
+for gid in `id -G`
+do
+    if [ $gid -ge 2001 ]
+    then
+        groupname=`getent group $gid | cut -d: -f1`
+        add_conference $groupname
+    fi
+done
+
+mv $HOME/pidgin $HOME/.purple

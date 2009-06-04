@@ -22,16 +22,19 @@ DESC="$USER's share"
 create_desktop_link
 
 # Create links to the group shares if they exist
-SHARE_GROUPS=`id | tr ',' '\n' | tail -n +3 | cut -d'(' -f2 | cut -d')' -f1`
-for i in $SHARE_GROUPS
+for gid in `id -G`
 do
-    SHARE=`ldapsearch -x -b "cn=$i,ou=Groups,dc=ebox" -h $SERVER \
-           | grep ^displayResource | cut -d: -f2 | cut -c2-`
-
-    if [ -n "$SHARE" ]
+    if [ $gid -ge 2001 ]
     then
-        DESC=`ldapsearch -x -b "cn=$i,ou=Groups,dc=ebox" -h $SERVER \
-             | grep ^description | cut -d: -f2 | cut -c2-`
-        create_desktop_link
+        groupname=`getent group $gid | cut -d: -f1`
+        SHARE=`ldapsearch -x -b "cn=$groupname,ou=Groups,dc=ebox" -h $SERVER \
+               | grep ^displayResource | cut -d: -f2 | cut -c2-`
+
+        if [ -n "$SHARE" ]
+        then
+            DESC=`ldapsearch -x -b "cn=$groupname,ou=Groups,dc=ebox" -h $SERVER \
+                 | grep ^description | cut -d: -f2 | cut -c2-`
+            create_desktop_link
+        fi
     fi
 done

@@ -11,14 +11,6 @@ CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 PROFILE=$USERHOME/.profile
 
-# Pidgin configuration
-sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/accounts.xml
-sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/accounts.xml
-sed -i "s/EBOXSERVER/$SERVER/g" $USERHOME/pidgin/accounts.xml
-sed -i "s/USERNAME/$USER/g" $USERHOME/pidgin/blist.xml
-sed -i "s/EBOXDOMAIN/ebox/g" $USERHOME/pidgin/blist.xml
-mv $USERHOME/pidgin $USERHOME/.purple
-
 # Ekiga configuration
 EKIGACONF=$USERHOME/ekiga.gconf
 sed -i "s/USERNAME/$USER/g" $EKIGACONF
@@ -45,6 +37,13 @@ HAS_SAMBA_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | gr
 if [ -n "$HAS_SAMBA_ACCOUNT" ]
 then
     echo "/usr/share/ebox-desktop/ebox-user-shares $SERVER" >> $PROFILE
+fi
+
+# Pidgin configuration
+HAS_JABBER_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep "^objectClass: userJabberAccount"`
+if [ -n "$HAS_JABBER_ACCOUNT" ]
+then
+    echo "/usr/share/ebox-desktop/ebox-jabber-setup $SERVER" >> $PROFILE
 fi
 
 # Firefox profile configuration
