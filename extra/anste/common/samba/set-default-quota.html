@@ -3,39 +3,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="" />
-<title>toggle-pdc</title>
+<link rel="selenium.base" href="http://10.6.7.10:1666/" />
+<title>set-default-quota</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">toggle-pdc</td></tr>
+<tr><td rowspan="1" colspan="3">set-default-quota</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/ebox/EBox/General</td>
+	<td>/ebox/Samba/Composite/General</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
+	<td>click</td>
 	<td>link=File Sharing</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>GeneralSettings_userquota</td>
+	<td>GeneralSettings_userquota_size</td>
 	<td>{$QUOTA}</td>
 </tr>
+
+<tr>
+    <td>runScript</td>
+    <td>startAjaxRequest()</td>
+    <td></td>
+</tr>
+<tr>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>1</td>
+</tr>
+
 <tr>
 	<td>click</td>
 	<td>change</td>
 	<td></td>
 </tr>
+
 <tr>
-	<td>waitForTextPresent</td>
-	<td>Done</td>
-	<td></td>
-</tr>
+    <td>waitForValue</td>
+    <td>ajax_request_cookie</td>
+    <td>0</td>
+</tr> 
+
+<!-- <tr> -->
+<!-- 	<td>waitForTextPresent</td> -->
+<!-- 	<td>Done</td> -->
+<!-- 	<td></td> -->
+<!-- </tr> -->
 
 </tbody></table>
 </body>
