@@ -348,6 +348,7 @@ sub _callTypeMethod # (methodName, args)
     my ($self, $methodName, @args) = @_;
 
     foreach my $simpleType ( @{$self->types()} ) {
+        $simpleType->setRow($self->row());
         $simpleType->$methodName(@args);
     }
 
