@@ -123,11 +123,14 @@ sub dbFields
 
 # Method: reportRows
 #
+# Parameters:
+#    limit - max number of report rows returned
+#
 #   Returns: reference to a list with the rows of the table appropiate to the
 #  selected time period
 sub reportRows
 {
-    my ($self) = @_;
+    my ($self, $limit) = @_;
     my $timePeriod = $self->timePeriod();
 
     my $table  = $self->dbTable($timePeriod) ;
@@ -137,6 +140,9 @@ sub reportRows
 
     my $columns = join ',', ('date', @fields);
     my $query = "SELECT $columns FROM $table ORDER BY date ASC";
+    if ($limit) {
+        $query .= " LIMIT $limit";
+    }
 
     my $dbRows = $dbEngine->query($query);
 

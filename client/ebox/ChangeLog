@@ -36,6 +36,8 @@
 	names
 	+ Bugfix: modules that fail at configuration stage no longer appear as enabled
 	+ Add parameter to EBox::Types::Select to disable options cache
+	+ Bugfix: report models now can use the limit parameter in
+	  reportRows() method
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
