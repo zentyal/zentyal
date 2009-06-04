@@ -16,4 +16,8 @@
         <script>write-hardy-sources.sh</script>
     </pre-install>
 
+    <packages>
+        <package>openssh-server</package>
+    </packages>
+
 </image>
