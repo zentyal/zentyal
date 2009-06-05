@@ -1,0 +1,121 @@
+# eBox: we have disabled all the PICS blocking until we allow to set express
+configuration throught the eBox interface
+#
+
+# A more detailed discussion of the options in this file
+# can be found in the Detailed Installation Guide on
+# the DansGuardian web site.
+
+# The default settings below are aimed at early teens.
+# You may wish to reduce or increase this.
+
+# ICRA is a new version of RSAC
+# 0 = none  1 = some
+ICRAchat = 1
+ICRAmoderatedchat = 1
+ICRAlanguagesexual = 1
+ICRAlanguageprofanity = 1
+ICRAlanguagemildexpletives = 1
+ICRAnuditygraphic = 1
+ICRAnuditymalegraphic = 1
+ICRAnudityfemalegraphic = 1
+ICRAnuditytopless = 1
+ICRAnuditybottoms = 1
+ICRAnuditysexualacts = 1
+ICRAnudityobscuredsexualacts = 1
+ICRAnuditysexualtouching = 1
+ICRAnuditykissing = 1
+ICRAnudityartistic = 1
+ICRAnudityeducational = 1
+ICRAnuditymedical = 1
+ICRAdrugstobacco = 1
+ICRAdrugsalcohol = 1
+ICRAdrugsuse = 1
+ICRAgambling = 1
+ICRAweaponuse = 1
+ICRAintolerance = 1
+ICRAbadexample = 1
+ICRApgmaterial = 1
+ICRAviolencerape = 1
+ICRAviolencetohumans = 1
+ICRAviolencetoanimals = 1
+ICRAviolencetofantasy = 1
+ICRAviolencekillinghumans = 1
+ICRAviolencekillinganimals = 1
+ICRAviolencekillingfantasy = 1
+ICRAviolenceinjuryhumans = 1
+ICRAviolenceinjuryanimals = 1
+ICRAviolenceinjuryfantasy = 1
+ICRAviolenceartisitic = 1
+ICRAviolenceeducational = 1
+ICRAviolencemedical = 1
+ICRAviolencesports = 1
+ICRAviolenceobjects = 1
+
+# RSAC
+# 0 = none  2 = default  4 = wanton and gratuitous
+RSACviolence = 4
+RSACsex = 4
+RSACnudity = 4
+RSAClanguage = 4
+
+
+# evaluWEB
+# 0 = U  1 = PG  2 = 18
+evaluWEBrating = 2
+
+
+# CyberNOT
+# 0 = none  8 = lots
+CyberNOTsex = 8
+CyberNOTother = 8
+
+
+# SafeSurf
+# 0 = full filtering  9 = wanton and gratuitous
+SafeSurfprofanity = 9
+SafeSurfheterosexualthemes = 9
+SafeSurfhomosexualthemes = 9
+SafeSurfnudity = 9
+SafeSurfviolence = 9
+SafeSurfsexviolenceandprofanity = 9
+SafeSurfintolerance = 9
+SafeSurfdruguse = 9
+SafeSurfotheradultthemes = 9
+SafeSurfgambling = 9
+# 1 = All ages  9 = early teens  9 = explicitly for adults
+SafeSurfagerange = 9
+
+
+# Weburbia
+# 0 = U  1 = PG  2 = 18
+Weburbiarating = 2
+
+
+#Vancouver Webpages - low is good high is bad
+Vancouvermulticulturalism = -3  # -3 to 2
+Vancouvereducationalcontent = -3  # -3 to 1
+Vancouverenvironmentalawareness = -3  # -3 to 1
+Vancouvertolerance = -3  # -2 to 4
+Vancouverviolence = 0  # 0 to 5
+Vancouversex = 0  # 0 to 7
+Vancouverprofanity = 0  # 0 to 4
+Vancouversafety = -2  # -2 to 2
+Vancouvercanadiancontent = -2  # -2 to 0
+Vancouvercommercialcontent = 0  # 0 to 3
+Vancouvergambling = -1  # -1 to 3
+
+
+# Korean PICS services
+# Thanks to Richard Lee for outlining tag formats
+
+# ICEC - service.icec.or.kr
+ICECrating = 1 # 0 to 1
+
+# SafeNet - www.safenet.ne.kr
+SafeNetnudity = 4  # 0 to 4
+SafeNetsex = 4  # 0 to 4
+SafeNetviolence = 4  # 0 to 4
+SafeNetlanguage = 4  # 0 to 4
+SafeNetgambling = 1  # 0 to 1
+SafeNetalcoholtobacco = 1 # 0 to 1

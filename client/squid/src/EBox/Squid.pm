@@ -256,6 +256,11 @@ sub usedFiles
               'reason' => __('Exception phrases list'),
              },
             {
+              'file' =>    DGLISTSDIR . '/pics',
+              'module' => 'squid',
+              'reason' => __('PICS ratings configuration'),
+             },
+            {
              'file' => DG_LOGROTATE_CONF,
              'module' => 'squid',
              'reason' => __(q{Dansguardian's log rotation configuration}),
@@ -675,13 +680,17 @@ sub _writeDgConf
                          ]
                         );
 
-  # disable banned and exception phgares lists
+  # disable banned and exception phraes lists and PICS ratings
   $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
                        'squid/bannedphraselist.mas',
                        []
                       );
   $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
                        'squid/exceptionphraselist.mas',
+                       []
+                      );
+  $self->writeConfFile(DGLISTSDIR . '/pics',
+                       'squid/pics.mas',
                        []
                       );
 
@@ -1008,7 +1017,7 @@ sub tableInfo
             'order' => \@order,
             'tablename' => 'access',
             'timecol' => 'timestamp',
-            'filter' => ['url', 'remotehost'],
+            'filter' => ['url', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->_consolidateConfiguration(),
