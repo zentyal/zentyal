@@ -527,24 +527,16 @@
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
 
-    <test type="selenium">
-        <name>EnablePDC</name>
-        <desc>
-        Enable PDC.
-        </desc>
 
-        <host>ebox-server</host>
-        <dir>toggle-pdc</dir>
-    </test>
 
-    <test type="selenium">
-        <name>EnablePDC</name>
-        <desc>
-        Enable PDC.
-        </desc>
+<!--     <test type="selenium"> -->
+<!--         <name>EnablePDC</name> -->
+<!--         <desc> -->
+<!--         Enable PDC. -->
+<!--         </desc> -->
 
-        <host>ebox-server</host>
-        <dir>toggle-pdc</dir>
-        <var name="PDC_ACTION" value="check"/>
-    </test>
+<!--         <host>ebox-server</host> -->
+<!--         <dir>toggle-pdc</dir> -->
+<!--         <var name="PDC_ACTION" value="check"/> -->
+<!--     </test> -->
 </suite>
