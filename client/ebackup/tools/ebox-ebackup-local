@@ -33,9 +33,13 @@ rdiff-backup --exclude $BACKUP --exclude /dev --exclude /proc --exclude /sys / $
 if [ $? -eq 0 ]; then
     rdiff-backup --remove-older-than $MAXAGE --force $BACKUP/ > $LOG 2> $LOG
     rm -f $BACKUP/rdiff-backup.err
+    EXIT=0
 else
     echo $? > $BACKUP/rdiff-backup.err
+    EXIT=1
 fi
 
 ## post-commands
 #umount /mnt/backup
+
+exit $EXIT

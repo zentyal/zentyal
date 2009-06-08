@@ -2,8 +2,14 @@
 
 use strict;
 
+use Data::Dumper;
+
 use EBox::Global;
 use EBox::EBackup;
+use EBox::Event;
+use EBox::Config;
+
+use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 
 EBox::init();
 
@@ -15,4 +21,17 @@ if ( $ebackup->configured() and $model->backupEnableValue()) {
     my $path = $model->backupPathValue();
     my $keep = $model->backupKeepValue();
     system("/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep");
+
+    if ($? != 0) {
+
+        my $event = new EBox::Event(
+                                   message => 'eBox backup failed.',
+                                   source => 'EBackup',
+                                   level => 'error',
+                                   );
+        open(my $fifo, '+<', EVENTS_FIFO) or die;
+        print $fifo Dumper($event);
+        close($fifo);
+
+    }
 }

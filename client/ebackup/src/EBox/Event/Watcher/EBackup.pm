@@ -50,7 +50,7 @@ sub new
     my ($class) = @_;
 
     my $self = $class->SUPER::new(
-                                    period => 10 * 60, #FIXME ??
+                                    period => 0,
                                     domain => 'ebox-ebackup',
                                  );
     bless( $self, $class);
@@ -90,28 +90,6 @@ sub ConfigurationMethod
 #
 sub run
 {
-
-      my ($self) = @_;
-
-      my $ok = undef;
-
-      my $event;
-      if ( $ok ) {
-          $event = new EBox::Event(
-                                   message => __('eBox backup succeded'),
-                                   level   => 'info',
-                                   source  => $self->name(),
-                                  );
-      } else {
-          $event = new EBox::Event(
-                                   message => __('eBox backup didn\'t succeѕs'),
-                                   level   => 'fatal',
-                                   source  => $self->name(),
-                                  );
-      }
-
-      return [ $event ];
-
 }
 
 
