@@ -2,6 +2,8 @@
 
 SERVER=$1
 
+PIDGIN_DIR=$HOME/.ebox-desktop/pidgin
+
 add_conference()
 {
     GROUP_NAME=$1
@@ -11,15 +13,15 @@ add_conference()
 \t\t\t<component name='handle'>$USER</component>\n\
 \t\t\t<component name='room'>$GROUP_NAME</component>\n\
 \t\t\t<component name='server'>conference.ebox</component>\n\
-\t\t</chat>\n" $HOME/pidgin/blist.xml
+\t\t</chat>\n" $PIDGIN_DIR/blist.xml
 }
 
 # Replace variables in pidgin config template
-sed -i "s/USERNAME/$USER/g" $HOME/pidgin/accounts.xml
-sed -i "s/EBOXDOMAIN/ebox/g" $HOME/pidgin/accounts.xml
-sed -i "s/EBOXSERVER/$SERVER/g" $HOME/pidgin/accounts.xml
-sed -i "s/USERNAME/$USER/g" $HOME/pidgin/blist.xml
-sed -i "s/EBOXDOMAIN/ebox/g" $HOME/pidgin/blist.xml
+sed -i "s/USERNAME/$USER/g" $PIDGIN_DIR/accounts.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $PIDGIN_DIR/accounts.xml
+sed -i "s/EBOXSERVER/$SERVER/g" $PIDGIN_DIR/accounts.xml
+sed -i "s/USERNAME/$USER/g" $PIDGIN_DIR/blist.xml
+sed -i "s/EBOXDOMAIN/ebox/g" $PIDGIN_DIR/blist.xml
 
 # Insert group conferences in buddy list
 for gid in `id -G`
@@ -31,4 +33,4 @@ do
     fi
 done
 
-mv $HOME/pidgin $HOME/.purple
+mv $PIDGIN_DIR $HOME/.purple

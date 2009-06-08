@@ -13,7 +13,7 @@ AUTH_CONF=/etc/pam.d/common-auth
 PASSWORD_CONF=/etc/pam.d/common-password
 SESSION_CONF=/etc/pam.d/common-session
 
-SETUP_SCRIPT=/usr/share/ebox-desktop/ebox-setup-user
+SETUP_SCRIPT=/usr/share/ebox-desktop/ebox-prepare-home
 SKEL_DIR=/usr/share/ebox-desktop/skel
 
 
@@ -39,9 +39,9 @@ fi
 
 sed -i 's/compat$/compat ldap/' /etc/nsswitch.conf
 
-if ! grep -v ^# $SESSION_CONF | grep -q $SKEL_DIR
+if ! grep -v ^# $SESSION_CONF | grep -q pam_mkhomedir
 then
-    echo "session required pam_mkhomedir.so skel=$SKEL_DIR umask=0022" >> $SESSION_CONF
+    echo "session required pam_mkhomedir.so skel=/etc/skel umask=0022" >> $SESSION_CONF
 fi
 
 if ! grep -v ^# $SESSION_CONF | grep -q $SETUP_SCRIPT

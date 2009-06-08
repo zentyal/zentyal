@@ -1,33 +1,30 @@
 #!/bin/bash
 
-USER=$PAM_USER
-USERHOME=/home/samba/users/$USER
-
 # Load configuration variables
 . /etc/ebox-desktop/ebox-desktop.conf
 
-CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
-
-# We don't do anything if it's already configured
-[ -f $CONFIGURED_STAMP ] && exit 0
+CONFIGURED_STAMP=~/.ebox-desktop-configured
 
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
-PROFILE=$USERHOME/.profile
 
-EBOX_DESKTOP_DIR=$USERHOME/.ebox-desktop
-mkdir $EBOX_DESKTOP_DIR
+SCRIPTS_DIR=/usr/share/ebox-desktop
+SKEL_DIR=/usr/share/ebox-desktop/skel
+
+EBOX_DESKTOP_DIR=~/.ebox-desktop
+
+[ -d $EBOX_DESKTOP_DIR ] || mkdir $EBOX_DESKTOP_DIR
 
 # Ekiga configuration
-EKIGACONF=$USERHOME/ekiga.gconf
-#FIXME: mv $EKIGACONF $EBOX_DEKSTOP_DIR/ekiga.gconf
-cp /usr/share/ebox-desktop/skel/ekiga.gconf $EBOX_DESKTOP_DIR/ # why the above doesn't work?
-LOCAL_APPS=$USERHOME/.local/share/applications
+EKIGACONF=$EBOX_DESKTOP_DIR/ekiga.gconf
+cp $SKEL_DIR/ekiga.gconf $EKIGACONF
+LOCAL_APPS=$HOME/.local/share/applications
 mkdir -p $LOCAL_APPS
 cp /usr/share/applications/ekiga.desktop $LOCAL_APPS
 sed -i 's:^Exec=ekiga:Exec=/usr/share/ebox-desktop/ekiga-launcher:' $LOCAL_APPS/ekiga.desktop
 
 # Evolution configuration
-EVOLUTIONCONF=$USERHOME/evolution.gconf
+EVOLUTIONCONF=$HOME/evolution.gconf
+cp $SKEL_DIR/evolution.gconf $EVOLUTIONCONF
 MAIL_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep ^mail: | head -1 | cut -d' ' -f2`
 if [ -n "$MAIL_ACCOUNT" ]
 then
@@ -38,37 +35,26 @@ then
     sed -i "s/EBOX_SERVER/$SERVER/g" $EVOLUTIONCONF
     sed -i "s/MAIL_PROTOCOL/$MAIL_PROTOCOL/g" $EVOLUTIONCONF
     sed -i "s/MAIL_USE_SSL/$MAIL_USE_SSL/g" $EVOLUTIONCONF
-    echo "[ -r $EVOLUTIONCONF ] && gconftool --load $EVOLUTIONCONF" >> $PROFILE
+    gconftool --load $EVOLUTIONCONF
 fi
-echo "[ -r $EVOLUTIONCONF ] && rm $EVOLUTIONCONF" >> $PROFILE
+rm $EVOLUTIONCONF
 
 # Samba configuration
 HAS_SAMBA_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep "^objectClass: sambaSamAccount"`
 if [ -n "$HAS_SAMBA_ACCOUNT" ]
 then
-    echo "/usr/share/ebox-desktop/ebox-user-shares $SERVER" >> $PROFILE
+    $SCRIPTS_DIR/ebox-user-shares $SERVER
 fi
 
 # Pidgin configuration
+cp -r $SKEL_DIR/pidgin $EBOX_DESKTOP_DIR
 HAS_JABBER_ACCOUNT=`ldapsearch -x -b "uid=$USER,ou=Users,dc=ebox" -h $SERVER | grep "^objectClass: userJabberAccount"`
 if [ -n "$HAS_JABBER_ACCOUNT" ]
 then
-    echo "/usr/share/ebox-desktop/ebox-jabber-setup $SERVER" >> $PROFILE
+    $SCRIPTS_DIR/ebox-jabber-setup $SERVER
 fi
 
 # Firefox profile configuration
-echo "/usr/share/ebox-desktop/ebox-firefox-profile $SERVER" >> $PROFILE
-
-# Copy system skel after ebox-desktop setup is done
-# This will overwrite our .profile
-echo "shopt -s dotglob" >> $PROFILE
-echo "cp -r /etc/skel/* $USERHOME/" >> $PROFILE
+$SCRIPTS_DIR/ebox-firefox-profile $SERVER
 
 touch $CONFIGURED_STAMP
-
-# Set proper ownerships
-chown $USER: $PROFILE
-chown $USER: $CONFIGURED_STAMP
-chown -R $USER: $USERHOME/.local
-chown -R $USER: $EBOX_DESKTOP_DIR
-

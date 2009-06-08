@@ -1,0 +1,16 @@
+#!/bin/bash
+
+USER=$PAM_USER
+USERHOME=/home/samba/users/$USER
+
+PROFILE=$USERHOME/.profile
+CONFIGURED_STAMP=~/.ebox-desktop-configured
+SETUP_SCRIPT=/usr/share/ebox-desktop/ebox-setup-user
+
+# Execute ebox-desktop setup unless it's already configured
+echo "\n# Added by ebox-desktop" >> $PROFILE
+echo "[ -f $CONFIGURED_STAMP ] || $SETUP_SCRIPT" >> $PROFILE
+
+# Set proper .profile ownership
+chown $USER: $PROFILE
+
