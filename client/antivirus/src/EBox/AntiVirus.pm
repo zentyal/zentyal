@@ -279,10 +279,15 @@ sub freshclamState
 }
 
 
-#XXX fix
+
+sub freshclamEBoxDir
+{
+    EBox::Config::conf() . 'freshclam';
+}
+
 sub freshclamStateFile
 {
-  '/var/run/clamav/freshclam.state';
+    return freshclamEBoxDir() . '/freshclam.state';
 }
 
 sub notifyFreshclamEvent

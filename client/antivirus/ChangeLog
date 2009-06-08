@@ -1,0 +1,10 @@
+1.1.20
+	+  run it as root for now to make it work samba-vscan
+	+  do not use upstart for clamd
+	+ use pidfiles() and pidfile
+	+ freshclam status file is store in a ebox directory with
+	clamav persmisions
+1.1.10
+	+ New release	
+1.1
+	+ Initial release

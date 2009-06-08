@@ -18,6 +18,12 @@ case "$1" in
            /etc/init.d/apparmor restart || true
        fi
 
+
+       # create directory for freshclam data
+        FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir();   1;'); 
+        mkdir -p $FRESHCLAM_DIR
+        chown clamav.clamav $FRESHCLAM_DIR
+
         # restart logs
         invoke-rc.d ebox logs restart || true
 
