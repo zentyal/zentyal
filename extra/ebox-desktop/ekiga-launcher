@@ -1,0 +1,19 @@
+#!/bin/bash
+
+EKIGACONF=$HOME/.ebox-desktop/ekiga.gconf
+if [ -f $EKIGACONF ]
+then
+    while [ -z $PASSWORD ]
+    do
+        PASSWORD=`zenity --entry --title=Ekiga --text=Password: --hide-text \
+                  || exit 256`
+        test $? -eq 0 || exit 256
+    done
+    SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
+    sed -i "s/USERNAME/$USER/g" $EKIGACONF
+    sed -i "s/SERVER/$SERVER/g" $EKIGACONF
+    sed -i "s/PASSWORD/$PASSWORD/g" $EKIGACONF
+    gconftool --load $EKIGACONF
+    rm $EKIGACONF
+fi
+ekiga

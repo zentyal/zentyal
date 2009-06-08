@@ -63,12 +63,6 @@
       </value>
     </entry>
     <entry>
-      <key>codecs/video/enable_video</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
       <key>codecs/video/maximum_video_rx_bitrate</key>
       <schema_key>/schemas/apps/ekiga/codecs/video/maximum_video_rx_bitrate</schema_key>
       <value>
@@ -79,7 +73,7 @@
       <key>codecs/video/maximum_video_tx_bitrate</key>
       <schema_key>/schemas/apps/ekiga/codecs/video/maximum_video_tx_bitrate</schema_key>
       <value>
-        <int>384</int>
+        <int>48</int>
       </value>
     </entry>
     <entry>
@@ -137,7 +131,7 @@
       <key>devices/video/input_device</key>
       <schema_key>/schemas/apps/ekiga/devices/video/input_device</schema_key>
       <value>
-        <string>Moving Logo (Moving Logo/Moving Logo)</string>
+        <string></string>
       </value>
     </entry>
     <entry>
@@ -151,14 +145,14 @@
       <key>devices/video/size</key>
       <schema_key>/schemas/apps/ekiga/devices/video/size</schema_key>
       <value>
-        <int>3</int>
+        <int>0</int>
       </value>
     </entry>
     <entry>
       <key>general/kind_of_net</key>
       <schema_key>/schemas/apps/ekiga/general/kind_of_net</schema_key>
       <value>
-        <int>5</int>
+        <int>0</int>
       </value>
     </entry>
     <entry>
@@ -178,7 +172,7 @@
       <key>general/nat/disable_stun</key>
       <schema_key>/schemas/apps/ekiga/general/nat/disable_stun</schema_key>
       <value>
-        <bool>false</bool>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
@@ -279,7 +273,7 @@
       <key>general/sound_events/incoming_call_sound</key>
       <schema_key>/schemas/apps/ekiga/general/sound_events/incoming_call_sound</schema_key>
       <value>
-        <string>/usr/share/sounds/ekiga/ring.wav</string>
+        <string>ring.wav</string>
       </value>
     </entry>
     <entry>
@@ -328,7 +322,7 @@
       <key>general/user_interface/audio_settings_window/position</key>
       <schema_key>/schemas/apps/ekiga/general/user_interface/audio_settings_window/position</schema_key>
       <value>
-        <string>511,310</string>
+        <string>0,0</string>
       </value>
     </entry>
    <entry>
@@ -370,7 +364,7 @@
       <key>general/user_interface/main_window/panel_section</key>
       <schema_key>/schemas/apps/ekiga/general/user_interface/main_window/panel_section</schema_key>
       <value>
-        <int>1</int>
+        <int>0</int>
       </value>
     </entry>
    <entry>
@@ -463,7 +457,7 @@
       <value>
         <list type="string">
             <value>
-              <string>1|1|661c414b-b61e-de11-930b-26db571696b8|USERNAME|SIP|SERVER|SERVER|USERNAME|USERNAME| |1946288148</string>
+              <string>1|1|661c414b-b61e-de11-930b-26db571696b8|USERNAME|SIP|SERVER|SERVER|USERNAME|USERNAME|PASSWORD|3600</string>
             </value>
         </list>
       </value>

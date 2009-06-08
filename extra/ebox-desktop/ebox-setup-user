@@ -14,12 +14,17 @@ CONFIGURED_STAMP=$USERHOME/.ebox-desktop-configured
 SERVER=`grep ^host /etc/ldap.conf | cut -d' ' -f2`
 PROFILE=$USERHOME/.profile
 
+EBOX_DESKTOP_DIR=$USERHOME/.ebox-desktop
+mkdir $EBOX_DESKTOP_DIR
+
 # Ekiga configuration
 EKIGACONF=$USERHOME/ekiga.gconf
-sed -i "s/USERNAME/$USER/g" $EKIGACONF
-sed -i "s/SERVER/$SERVER/g" $EKIGACONF
-echo "[ -r $EKIGACONF ] && gconftool --load $EKIGACONF" >> $PROFILE
-echo "[ -r $EKIGACONF ] && rm $EKIGACONF" >> $PROFILE
+#FIXME: mv $EKIGACONF $EBOX_DEKSTOP_DIR/ekiga.gconf
+cp /usr/share/ebox-desktop/skel/ekiga.gconf $EBOX_DESKTOP_DIR/ # why the above doesn't work?
+LOCAL_APPS=$USERHOME/.local/share/applications
+mkdir -p $LOCAL_APPS
+cp /usr/share/applications/ekiga.desktop $LOCAL_APPS
+sed -i 's:^Exec=ekiga:Exec=/usr/share/ebox-desktop/ekiga-launcher:' $LOCAL_APPS/ekiga.desktop
 
 # Evolution configuration
 EVOLUTIONCONF=$USERHOME/evolution.gconf
@@ -59,7 +64,11 @@ echo "/usr/share/ebox-desktop/ebox-firefox-profile $SERVER" >> $PROFILE
 echo "shopt -s dotglob" >> $PROFILE
 echo "cp -r /etc/skel/* $USERHOME/" >> $PROFILE
 
-# Restore .profile ownership
-chown $USER: $PROFILE
-
 touch $CONFIGURED_STAMP
+
+# Set proper ownerships
+chown $USER: $PROFILE
+chown $USER: $CONFIGURED_STAMP
+chown -R $USER: $USERHOME/.local
+chown -R $USER: $EBOX_DESKTOP_DIR
+

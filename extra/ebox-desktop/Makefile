@@ -27,6 +27,7 @@ install:
 	install -m755 ebox-user-shares $(DESTDIR)$(DATADIR)
 	install -m755 ebox-firefox-profile $(DESTDIR)$(DATADIR)
 	install -m755 ebox-jabber-setup $(DESTDIR)$(DATADIR)
+	install -m755 ekiga-launcher $(DESTDIR)$(DATADIR)
 	install -m644 ldap.conf $(DESTDIR)$(DATADIR)
 	install -d $(DESTDIR)/etc/ebox-desktop
 	install -m644 ebox-desktop.conf $(DESTDIR)/etc/ebox-desktop
