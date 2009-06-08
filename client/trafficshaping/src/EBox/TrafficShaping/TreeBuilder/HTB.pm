@@ -877,7 +877,7 @@ sub _createExternalStructure  # (defaultClass)
 #  QDisc SFQ FF00:0                              |                           |
 #                                      User defined classes       Default class 1:21
 #                                                |                           |
-#                                        QDisc SFQ (256:0, 512:0, ...)     |
+#                                        QDisc SFQ (256:0, 512:0, ...)       |
 #                                                                      QDisc SFQ 21:0
 #
 #      All filters are associated to the parent Qdisc. To distinguish

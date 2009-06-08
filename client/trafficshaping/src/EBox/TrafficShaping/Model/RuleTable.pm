@@ -559,7 +559,7 @@ sub _table
              help          => __('Note that  ' .
                  'The sum of all guaranteed ' .
                  'rates cannot exceed your ' .
-                 'total bandwidth. 0 means unlimited rate.')
+                 'total bandwidth. 0 means unguaranteed rate.')
               ),
          new EBox::Types::Int(
                  fieldName     => 'limited_rate',
