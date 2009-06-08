@@ -84,6 +84,24 @@ sub compositeClasses
 }
 
 
+# Method: actions
+#
+# Overrides:
+#
+#      <EBox::Module::Service::actions>
+#
+sub actions
+{
+    return [
+    {
+        'action' => __('Install /etc/cron.daily/ebox-ebackup-cron.'),
+        'reason' => __('eBox will run a nightly script to backup your system.'),
+        'module' => 'ebackup'
+    },
+    ];
+}
+
+
 # Method: usedFiles
 #
 # Overrides:
@@ -186,15 +204,9 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Backup',
-                                        'text' => __('Backup'),
-                                        'order' => 20);
-
-    $folder->add(new EBox::Menu::Item(
+    $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/General',
-            'text' => __('General')));
-
-    $root->add($folder);
+            'text' => __('Backup')));
 }
 
 1;

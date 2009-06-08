@@ -1,13 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox
-
-SUBDIRS = EBackup Model Composite CGI Event
+perldir = @PERLPATH@/EBox/Event/Watcher
 
 nobase_perl_DATA = EBackup.pm
 
-DISTCLEANFILES =
-
-EXTRA_DIST = $(nobase_perl_DATA)
+SOURCES = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
+
+EXTRA_DIST = $(nobase_perl_DATA)

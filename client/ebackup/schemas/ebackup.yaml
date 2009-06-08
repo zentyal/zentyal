@@ -1,1 +1,3 @@
 class: 'EBox::EBackup'
+depends:
+    - events

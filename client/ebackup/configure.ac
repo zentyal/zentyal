@@ -57,6 +57,8 @@ src/templates/Makefile
 src/EBox/Makefile
 src/EBox/EBackup/Makefile
 src/EBox/EBackup/Types/Makefile
+src/EBox/Event/Makefile
+src/EBox/Event/Watcher/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 src/EBox/CGI/Makefile

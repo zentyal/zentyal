@@ -31,7 +31,6 @@ use EBox::Global;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
-use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::EBackup;
 
@@ -79,8 +78,8 @@ sub validateTypedRow
 
     if ( exists $allFields->{backupPath} ) {
         unless (-d $allFields->{backupPath}->value()) {
-            throw EBox::Exceptions::InvalidData(__('Local backup directory {p} does not exist',
-                                                   'p' => $allFields->{backupPath}->value()));
+            throw EBox::Exceptions::External(__x('Local backup directory {p} does not exist',
+                                                'p' => $allFields->{backupPath}->value()));
         }
     }
 }
@@ -103,7 +102,7 @@ sub _table
                                 fieldName     => 'backupEnable',
                                 printableName => __('Enable local backup'),
                                 editable      => 1,
-                            ),
+                               ),
        new EBox::Types::Text(
                                 fieldName     => 'backupPath',
                                 printableName => __('Backup destination'),
@@ -115,7 +114,7 @@ sub _table
                                 printableName => __('Days to keep'),
                                 editable      => 1,
                                 defaultValue  => EBox::EBackup->DFLTKEEP,
-                            ),
+                           ),
       );
 
     my $dataTable =
@@ -136,18 +135,38 @@ sub _table
 
 }
 
+
 # Method: _backupStatus
 sub _backupStatus
 {
     my ($self) = @_;
 
-    my $path = EBox::EBackup->DFLTPATH . "/" . EBox::EBackup->DFLTDIR;
+    return undef unless $self->backupEnableValue();
+
+    my $path = $self->backupPathValue();
 
     unless (-d $path) {
-        throw EBox::Exceptions::External(__('Local backup directory {p} does not exist', 'p' => $path));
+        throw EBox::Exceptions::External(__x('Local backup directory {p} does not exist', 'p' => $path));
     }
 
     return `rdiff-backup -l $path`;
+}
+
+
+# Method: _backupStats
+sub _backupStats
+{
+    my ($self) = @_;
+
+    return undef unless $self->backupEnableValue();
+
+    my $path = $self->backupPathValue();
+
+    unless (-d $path) {
+        throw EBox::Exceptions::External(__x('Local backup directory {p} does not exist', 'p' => $path));
+    }
+
+    return `rdiff-backup --calculate-average $path/rdiff-backup-data/session_statistics.*`;
 }
 
 1;
