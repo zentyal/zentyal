@@ -132,7 +132,7 @@ sub _usedIfaceNumbers
         push(@numbers, @tableNumbers);
     }
 
-    @numbers = sort @numbers;
+    @numbers = sort {$a <=> $b} @numbers;
 
     return \@numbers;
 }

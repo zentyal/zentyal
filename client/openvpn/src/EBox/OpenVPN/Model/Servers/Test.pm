@@ -22,6 +22,7 @@ use warnings;
 
 use EBox::Test;
 use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::Network;
 
 use Test::More;
 use Test::Exception;
@@ -95,6 +96,17 @@ sub setUpConfiguration : Test(setup)
                             },
                            ],
                   );
+    fakeEBoxModule(
+                   name => 'network',
+                   package => 'EBox::Network',
+                   subs => [
+                            ifaceMethod => sub {
+                                return 'static'
+                            },
+                           ],
+                  );
+
+
      EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
 
 
@@ -104,7 +116,7 @@ sub setUpConfiguration : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::Module::Service::TestStub::setConfig();
+    EBox::TestStubs::setConfig();
 }
 
 sub clearCertificates : Test(teardown)
@@ -141,7 +153,7 @@ sub ifaceNumbersTest : Test(2)
 
     my $servers = $self->_newServers();
 
-    foreach my $id (0 .. 7) {
+    foreach my $id (0 .. 12) {
         my $name = 'server' . $id;
         $servers->add(
                       name => $name,
@@ -155,7 +167,8 @@ sub ifaceNumbersTest : Test(2)
 
     my $numbersOk = 1;
     my %numbers;
-    foreach my $row (@{ $servers->rows()  }) {
+    foreach my $id (@{ $servers->ids()  }) {
+        my $row  = $servers->row($id);
         my $name = $row->elementByName('name')->value();       
         my $number = $row->elementByName('interfaceNumber')->value();
         if ($number < 0) {
@@ -167,6 +180,8 @@ sub ifaceNumbersTest : Test(2)
             $numbersOk = 0;
             my $other = $numbers{$number};
             diag "Number $number repeated in servers $name and $other";
+            my @allNumbers = keys %numbers;
+            diag "All numbers in list: @allNumbers";
         }
         
         $numbers{$number} = $name;
