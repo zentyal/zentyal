@@ -56,7 +56,7 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:374
 #, perl-brace-format
 msgid "Unsupported or incorrect input source fonrmat: {format}"
-msgstr "O formato da fonte de entrada é incorreto ou não é suportado: {formato}"
+msgstr "O formato da fonte de entrada é incorreto ou não é suportado: {format}"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
