@@ -56,7 +56,7 @@ my @PACKAGES = (
     ['ids', __('Intrusion Detection System')],
     ['captiveportal', __('Captive Portal')],
     ['asterisk', __('VoIP and PBX')],
-    ['improxy', __('Instante Messaging Proxy')],
+    ['improxy', __('Instant Messaging Proxy')],
 );
 
 #################
