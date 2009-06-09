@@ -69,7 +69,20 @@ sub classFromUrl
     return $classname;
 }
 
-sub run # (url)
+# Method: run
+#
+#    Run the given URL and prints out the returned HTML. This is the eBox
+#    Web UI core indeed.
+#
+# Parameters:
+#
+#    url - String the URL to get the CGI from, it will transform
+#    slashes to double colons
+#
+#    namespace - String the namespace to prefix the CGI to extract the
+#                class name, as explained in <classFromUrl>
+#
+sub run # (url, namespace)
 {
         my ($self, $url, $namespace) = @_;
         

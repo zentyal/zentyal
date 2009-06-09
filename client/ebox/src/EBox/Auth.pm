@@ -261,7 +261,7 @@ sub loginCC
                 return HTTP_MOVED_TEMPORARILY;
             }
         }
-        return EBox::CGI::Run->run('/Login/Index');
+        return EBox::CGI::Run->run('/Login/Index', 'EBox');
     }
 
 }
