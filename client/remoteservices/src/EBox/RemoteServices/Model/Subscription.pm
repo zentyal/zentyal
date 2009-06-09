@@ -41,6 +41,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::RemoteServices::Backup;
+use EBox::RemoteServices::Monitor;
 use EBox::RemoteServices::Subscription;
 use EBox::Types::Password;
 use EBox::Types::Text;
@@ -138,6 +139,7 @@ sub setTypedRow
         if ( $subs ) {
             # Desubscribing
             EBox::RemoteServices::Backup->new()->cleanDaemons();
+            EBox::RemoteServices::Monitor->new()->deleteData();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing

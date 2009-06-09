@@ -29,6 +29,7 @@ use warnings;
 
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
+use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 
 use Digest::SHA;
@@ -99,6 +100,21 @@ sub sendDelta
     my ($self, $deltaFilePath) = @_;
 
     return $self->_uploadLargeFile($deltaFilePath, SYNC_MON_STATS);
+
+}
+
+# Method: deleteData
+#
+#      Delete all data related to monitor service
+#
+sub deleteData
+{
+    my ($self) = @_;
+
+    my $tarLocation = EBox::RemoteServices::Configuration::OldTarLocation();
+    if (-e $tarLocation ) {
+        unlink($tarLocation);
+    }
 
 }
 
