@@ -14,8 +14,12 @@ use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 EBox::init();
 
 my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+my $events = EBox::Global->getInstance(1)->modInstance('events');
 
 my $model = $ebackup->model('Local');
+
+exit unless $events->isRunning();
+exit unless $events->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
 
 if ( $ebackup->configured() and $model->backupEnableValue()) {
     my $path = $model->backupPathValue();
