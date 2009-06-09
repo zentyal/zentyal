@@ -350,6 +350,8 @@
 
         <host>ebox-server</host>
         <dir>enable-mailfilter</dir>
+
+        <var name="SPAM_SUBJECT" value="IS_SPAM"/>
     </test>
 
     <test>
@@ -393,7 +395,7 @@
 
         <var name="USER" value="eboxtest"/>
         <var name="VDOMAIN" value="foobar.mail"/>
-        <var name="PATTERN" value="Subject: \*\*\*SPAM\*\*\*"/>
+        <var name="PATTERN" value="Subject: IS_SPAM"/>
     </test>
 
 </suite>
