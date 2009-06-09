@@ -6,6 +6,10 @@ scripts_SCRIPTS = ebox-finish-script-session ebox-start-script-session \
 		  ebox-notify-job ebox-notify-mon-stats \
 	          ebox-runnerd ebox-unsubscribe
 
+helperscriptsdir = @DATADIR@/ebox/remoteservices
+
+helperscripts_SCRIPTS = rrd-dumper
+
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(scripts_SCRIPTS)
+EXTRA_DIST = $(scripts_SCRIPTS) $(helperscripts_SCRIPTS)
