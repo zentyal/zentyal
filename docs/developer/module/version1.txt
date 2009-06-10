@@ -188,6 +188,10 @@ We already have a web interface with a simple form where the user can set the Ap
 You can save this code into a file and run it with *sudo perl filename*::
 
     #!perl
+
+    use strict;
+    use warnings;
+
     use EBox;
     use EBox::Model::ModelManager;
 
