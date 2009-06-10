@@ -6,7 +6,7 @@ scripts_SCRIPTS = ebox-finish-script-session ebox-start-script-session \
 		  ebox-notify-job ebox-notify-mon-stats \
 	          ebox-runnerd ebox-unsubscribe
 
-helperscriptsdir = @DATADIR@/ebox/remoteservices
+helperscriptsdir = @DATADIR@/ebox-remoteservices
 
 helperscripts_SCRIPTS = rrd-dumper
 

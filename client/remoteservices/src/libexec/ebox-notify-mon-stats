@@ -72,13 +72,15 @@ my $rrdDir = EBox::Monitor::Configuration::RRDBaseDirPath();
 # Stop collectd prior to creating the tar
 $mon->stopService();
 my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
+my $tempDir = File::Temp->newdir(DIR => EBox::Config::tmp());
 try {
     EBox::Sudo::command(
-        '/bin/tar cf ' . $currentTar->filename() . " -C $rrdDir ."
+        EBox::Config::share() . 'ebox-remoteservices/rrd-dumper '
+        . "$rrdDir " . $tempDir->dirname() . ' ' . $currentTar->filename()
        );
 } catch EBox::Exceptions::Command with {
     my ($exc) = @_;
-    print STDERR "$exc\n";
+    EBox::error($exc);
 };
 $mon->restartService();
 
