@@ -1,3 +1,14 @@
+1.1.20
+	+ Added custom view support
+	+ Bugfix: report models now can use the limit parameter in
+	  reportRows() method
+	+ use a regexp to fetch the PID in a pidfile, some files such as
+	postfix's add tabs and spaces before the actual number
+	+ Changed "pidfile" to "pidfiles" in _daemons() to allow checking more than
+one (now it is a array ref instead of scalar)
+	+ Modified Service.pm to support another output format for /etc/init.d daemon
+status that returns [OK] instead of "running".
+	+ unuformized case in menu entries and some more visual fixes
 1.1.10
 	+ Fix issue when there's a file managed by one module that has been modified
 	  when saving changes
@@ -36,8 +47,7 @@
 	names
 	+ Bugfix: modules that fail at configuration stage no longer appear as enabled
 	+ Add parameter to EBox::Types::Select to disable options cache
-	+ Bugfix: report models now can use the limit parameter in
-	  reportRows() method
+
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
