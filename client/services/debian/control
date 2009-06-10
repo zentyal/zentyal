@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-services
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ${misc:Depends}
+Depends: ebox (>= 1.1.20~svn), ebox (<< 1.2), ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
 Description: eBox - Services management

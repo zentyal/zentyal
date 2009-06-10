@@ -60,12 +60,12 @@ msgstr "O pacote foi carregado com sucesso"
 #: src/EBox/SOAP/Global.pm:147
 #, perl-brace-format
 msgid "{method} is not a public method"
-msgstr "{metod} não é um método público"
+msgstr "{method} não é um método público"
 
 #: src/EBox/SOAP/Global.pm:175
 #, perl-brace-format
 msgid "{method} is not a defined method"
-msgstr "{metod} não é um método definido"
+msgstr "{method} não é um método definido"
 
 #: src/EBox/SOAP/Global.pm:183
 #, perl-brace-format
@@ -75,7 +75,7 @@ msgstr "{module} não existe"
 #: src/EBox/SOAP.pm:288
 #, perl-brace-format
 msgid "Missing uploaded file: {uploadedFile}"
-msgstr "o ficheiro carregado não se encontra disponível"
+msgstr "o ficheiro carregado não se encontra disponível: {uploadedFile}"
 
 #: src/EBox/SOAP.pm:300
 #, perl-brace-format
@@ -158,7 +158,7 @@ msgstr "Configuração geral para"
 #, perl-brace-format
 msgid ""
 "The connection seems to be {state}. The percentage of loss was {percent}%"
-msgstr "A ligação parece estar {stat}. A percentagem de perdas foi {percent}%"
+msgstr "A ligação parece estar {state}. A percentagem de perdas foi {percent}%"
 
 #: src/templates/index.mas:54
 msgid "ok"

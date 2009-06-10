@@ -1,3 +1,6 @@
+1.1.20
+	+ samba allows the use of internal virtual ifaces now
+	+ bugfix: importFromLdif was calling a maethod that was removed in a previous merge
 1.1.10
 	+ Only update sambaPaths on users with sambaSamAccount object
 	class
