@@ -23,7 +23,7 @@ PidFile <% \$tmpdir %>/apache.pid
     StartServers          1 
     MinSpareServers       1
     MaxSpareServers       1
-    MaxClients            2 
+    MaxClients            1
     MaxRequestsPerChild   200
 </IfModule>
 
