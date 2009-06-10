@@ -46,7 +46,7 @@ BEGIN {
 
 # Function: iface_exists 
 #
-#	Check if a given interface exists in the system using *ifconfig*	 
+#    Check if a given interface exists in the system using *ifconfig*	 
 #
 # Parameters:
 #
@@ -87,7 +87,7 @@ sub list_ifaces
 #
 # Parameters:
 #
-#       iface - Interface's name
+#       iface - Interface's name 
 #
 # Returns:
 #
