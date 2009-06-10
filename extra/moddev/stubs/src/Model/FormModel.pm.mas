@@ -33,8 +33,13 @@ package <% $mainClass %>::Model::<% $modelName %>;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 
+% my %typesSeen;
 % for my $field (@fields) {
-use EBox::Types::<% $field->{type} %>;
+%   my $type = $field->{type};
+%   exists $typesSeen{$type} and
+%     next;
+%   $typesSeen{$type} = 1;
+use EBox::Types::<% $type %>;
 % }
 
 use strict;
