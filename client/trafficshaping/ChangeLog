@@ -1,3 +1,8 @@
+1.1.20
+	+ fix regression introduced when firewall was changed to execute iptables command
+at once
+1.1.10
+	+ Bugfix:Enable module depends on firewall as well as network in order to work
 1.1
 	+ Use the new row() and ids() API
 1.0.1
