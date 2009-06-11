@@ -13,23 +13,33 @@ use EBox::Gettext;
 		<table class='formTable'>
 		<tbody>
 			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Name') %>:
+					</span>
+				</td>
+				<td>
+					<input type='text' class='inputText' name='name' value="<% $user->{'name'} %>">
+				</td>
+			</tr>
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Last name') %>:
+					</span>
+				</td>
+				<td>
+					<input type='text' class='inputText' name='surname' value="<% $user->{'surname'} %>">
+				</td>
+			</tr>
+			<tr>
 				<td class='tright' width="170px">
 					<span class='ftitle'>
 						<% __('Comment') %>:
 					</span>
 				</td>
 				<td>
-					<input type='text' class='inputText' name='comment' value="<% $user->{'comment'} %>"> 
-				</td>
-			</tr>
-			<tr>
-				<td class='tright'>
-					<span class='ftitle'>
-						<% __('Full name') %>:
-					</span>
-				</td>
-				<td>
-					<input type='text' class='inputText' name='fullname' value="<% $user->{'fullname'} %>"> 
+					<input type='text' class='inputText' name='comment' value="<% $user->{'comment'} %>">
 				</td>
 			</tr>
 			<tr>
@@ -56,10 +66,10 @@ use EBox::Gettext;
 				<td>
 				</td>
 				<td>
-					<input class='inputButton' type='submit' name='user' 
+					<input class='inputButton' type='submit' name='user'
 						   value="<% __('Change') %>"
 						   alt="<% __('Change') %>">
-					</form>	
+					</form>
 				<td>
 			</tr>
 		</tbody>

@@ -38,9 +38,9 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $usersandgroups = EBox::Global->modInstance('users');
-	
+
 	$self->{'title'} = __('Users');
-	
+
 	my @args = ();
 
 	$self->_requireParam("username", __('username'));
@@ -48,8 +48,8 @@ sub _process($) {
 	my $user = $self->param('username');
 	my $userinfo = $usersandgroups->userInfo($user);
 	my $components = $usersandgroups->allUserAddOns($user);
-		
-		
+
+
 	push(@args, 'user' => $userinfo);
 	push(@args, 'components' => $components);
 

@@ -38,25 +38,35 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	
+
 	$self->_requireParam('username', __('user name'));
-	my $user = $self->param('username');	
+	my $user = $self->param('username');
 	$self->{errorchain} = "UsersAndGroups/User";
 	$self->keepParam('username');
-	
-	$self->_requireParam('fullname', __('full name'));
+
+	$self->_requireParam('surname', __('last name'));
 	$self->_requireParamAllowEmpty('comment', __('comment'));
 	$self->_requireParamAllowEmpty('password', __('password'));
 	$self->_requireParamAllowEmpty('repassword', __('confirm password'));
-	
 
-	my $userdata   = { 
+    my $name = $self->param('name');
+    my $surname = $self->param('surname');
+    my $fullname;
+    if ($name) {
+        $fullname = "$name $surname";
+    } else {
+        $fullname = $surname;
+    }
+
+	my $userdata   = {
 				'username' => $user,
-				'fullname' => $self->param('fullname'),
+				'name' => $name,
+				'surname' => $surname,
+                'fullname' => $fullname,
 				'comment'  => $self->param('comment')
 			 };
-	
-	# Change password if not empty		 
+
+	# Change password if not empty
 	my $password = $self->unsafeParam('password');
 	if ($password) {
 		my $repassword = $self->unsafeParam('repassword');
@@ -69,7 +79,7 @@ sub _process($) {
 
 	my $usersandgroups = EBox::Global->modInstance('users');
 	$usersandgroups->modifyUser($userdata);
-	
+
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
 
 

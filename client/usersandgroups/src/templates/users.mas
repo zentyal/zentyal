@@ -24,10 +24,18 @@ use EBox::Gettext;
 		</tr>
 		<tr>
 			<td class='tright'>
-				<span class='ftitle'><% __('Full name')%>:</span>
+				<span class='ftitle'><% __('Name')%>:</span>
 			</td>
 			<td>
-				<input type='text' class='inputText' name='fullname'>
+				<input type='text' class='inputText' name='name'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Last name')%>:</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='surname'>
 			</td>
 		</tr>
 		<tr>

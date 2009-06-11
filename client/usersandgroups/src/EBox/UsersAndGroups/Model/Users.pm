@@ -19,9 +19,9 @@ package EBox::UsersAndGroups::Model::Users;
 #
 #       This a class used as a proxy for the users stored in LDAP.
 #       It is meant to improve the user experience when managing users,
-#       but it's just an interim solution. An integral approach needs to 
+#       but it's just an interim solution. An integral approach needs to
 #       be done.
-#       
+#
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -38,7 +38,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -51,8 +51,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text(
              'fieldName' => 'name',
@@ -71,8 +71,8 @@ sub _table
 
         );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Users',
         'printableTableName' => __('Users'),
         'defaultController' =>
@@ -165,7 +165,7 @@ sub row
         my $userName = $userInfo->{'username'};
         my $full = $userInfo->{'fullname'};
         my $link = "/ebox/UsersAndGroups/User?username=$userName";
-        my $row = $self->_setValueRow(name => $userName, 
+        my $row = $self->_setValueRow(name => $userName,
                 fullname => $full,
                 'edit' => $link);
         $row->setId($id);

@@ -351,8 +351,8 @@ sub _initUser
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user'(user name), 'fullname' and 'password'
-#       and comment
+#       user - hash ref containing: 'user'(user name), 'fullname', 'password',
+#       'name', 'surname' and comment
 #       system - boolan: if true it adds the user as system user, otherwise as
 #       normal user
 #       uidNumber (optional and named)
@@ -386,9 +386,9 @@ sub addUser # (user, system)
 
     $self->_checkPwdLength($user->{'password'});
     my @attr =  (
-        'cn'            => $user->{'user'},
+        'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
-        'sn'            => $user->{'fullname'},
+        'sn'            => $user->{'surname'},
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
         'homeDirectory' => HOMEPATH ,
@@ -403,7 +403,7 @@ sub addUser # (user, system)
     my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
     my $r = $self->{'ldap'}->add($dn, \%args);
 
-
+    $self->_changeAttribute($dn, 'givenName', $user->{'name'});
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
         $self->_initUser($user->{'user'}, $user->{'password'});
@@ -519,34 +519,38 @@ sub _updateUser
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user' (user name), 'fullname', 'password',
-#       and comment. The only mandatory parameter is 'user' the other attribute
-#       parameters would be ignored if they are missing.
+#       user - hash ref containing: 'user' (user name), 'name', 'surname',
+#       'password', and comment. The only mandatory parameter is 'user' the
+#       other attribute parameters would be ignored if they are missing.
 #
 sub modifyUser # (\%user)
 {
     my ($self, $user) = @_;
 
-    my $cn = $user->{'username'};
-    my $dn = $self->userDn($cn);
+    my $uid = $user->{'username'};
+    my $dn = $self->userDn($uid);
     # Verify user exists
     unless ($self->userExists($user->{'username'})) {
         throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
-                                             'value' => $cn);
+                                             'value' => $uid);
     }
 
     foreach my $field (keys %{$user}) {
         if ($field eq 'comment') {
             $self->_changeAttribute($dn, 'description',
                                     $user->{'comment'});
+        } elsif ($field eq 'name') {
+            $self->_changeAttribute($dn, 'givenName', $user->{'name'});
+        } elsif ($field eq 'surname') {
+            $self->_changeAttribute($dn, 'sn', $user->{'surname'});
         } elsif ($field eq 'fullname') {
-            $self->_changeAttribute($dn, 'sn', $user->{'fullname'});
+            $self->_changeAttribute($dn, 'cn', $user->{'fullname'});
         } elsif ($field eq 'password') {
             my $pass = $user->{'password'};
             $self->_modifyUserPwd($user->{'username'}, $pass);
         }
     }
-    $self->_updateUser($cn, $user->{'password'});
+    $self->_updateUser($uid, $user->{'password'});
 }
 
 # Clean user stuff when deleting a user
@@ -631,8 +635,9 @@ sub userInfo # (user, entry)
 
     # Mandatory data
     my $userinfo = {
-                    username => $entry->get_value('cn'),
-                    fullname => $entry->get_value('sn'),
+                    username => $entry->get_value('uid'),
+                    fullname => $entry->get_value('cn'),
+                    surname => $entry->get_value('sn'),
                     password => $entry->get_value('userPassword'),
                     homeDirectory => $entry->get_value('homeDirectory'),
                     uid => $entry->get_value('uidNumber'),
@@ -648,11 +653,17 @@ sub userInfo # (user, entry)
     }
 
     # Optional Data
+    my $name = $entry->get_value('givenName');
+    if ($name) {
+        $userinfo->{'name'} = $name;
+    } else {
+        $userinfo->{'name'} = '';
+    }
     my $desc = $entry->get_value('description');
     if ($desc) {
         $userinfo->{'comment'} = $desc;
     } else {
-        $userinfo->{'comment'} = "";
+        $userinfo->{'comment'} = '';
     }
 
     return $userinfo;
@@ -710,7 +721,7 @@ sub users
                 base => $self->usersDn,
                 filter => 'objectclass=*',
                 scope => 'one',
-                attrs => ['uid', 'cn', 'sn', 'homeDirectory',
+                attrs => ['uid', 'cn', 'givenName', 'sn', 'homeDirectory',
                           'userPassword', 'uidNumber', 'gidNumber',
                           'description']
                );

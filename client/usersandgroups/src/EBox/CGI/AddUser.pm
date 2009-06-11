@@ -43,12 +43,18 @@ sub _process($) {
 	my @args = ();
 
 	$self->_requireParam('username', __('user name'));
-	$self->_requireParam('fullname', __('full name'));
+	$self->_requireParam('surname', __('last name'));
 	$self->_requireParamAllowEmpty('comment', __('comment'));
 
 	my $user;
 	$user->{'user'} = $self->param('username');
-	$user->{'fullname'} = $self->param('fullname');
+	$user->{'name'} = $self->param('name');
+	$user->{'surname'} = $self->param('surname');
+    if ($user->{'name'}) {
+        $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
+    } else {
+        $user->{'fullname'} = $user->{'surname'};
+    }
 	$user->{'password'} = $self->unsafeParam('password');
 	$user->{'repassword'} = $self->unsafeParam('repassword');
 	$user->{'group'} = $self->param('group');
@@ -60,7 +66,7 @@ sub _process($) {
 					'data' => __($field));
 		}
 	}
-	
+
 	if ($user->{'password'} ne $user->{'repassword'}){
 		 throw EBox::Exceptions::External(__('Passwords do'.
                                                      ' not match.'));
@@ -69,7 +75,7 @@ sub _process($) {
 
 	$usersandgroups->addUser($user);
 	if ($user->{'group'}) {
-		$usersandgroups->addUserToGroup($user->{'user'}, 
+		$usersandgroups->addUserToGroup($user->{'user'},
 						$user->{'group'});
 	}
 

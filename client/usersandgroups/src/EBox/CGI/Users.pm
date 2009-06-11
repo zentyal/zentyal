@@ -52,11 +52,11 @@ sub _process($) {
         push(@args, 'users' => \@users);
 
     } else {
-        $self->setTemplate('/notConfigured.mas'); 
+        $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));
     }
 
-    $self->{params} = \@args;   
+    $self->{params} = \@args;
 }
 
 1;
