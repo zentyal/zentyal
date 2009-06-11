@@ -1,4 +1,4 @@
-# Copyright
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -130,8 +130,46 @@ sub _table
     return $dataTable;
 }
 
+# Method: row
+#
+#       Return the row reading data from LDAP.
+#
+# Overrides:
+#
+#       <EBox::Model::DataForm::row>
+#
+sub row
+{
+    my ($self) = @_;
 
-# FIXME doc
+    my $users = EBox::Global->modInstance('users');
+    my $ldap = $users->{ldap};
+
+    my $request = Apache2::RequestUtil->request();
+    my $user = $request->user();
+    my $dn = "uid=$user," . $users->usersDn();
+
+    my $pass = $ldap->getAttribute($dn, 'AstAccountVMPassword');
+    my $mail = $ldap->getAttribute($dn, 'AstAccountVMMail');
+    my $attach = $ldap->getAttribute($dn, 'AstAccountVMAttach');
+    my $delete = $ldap->getAttribute($dn, 'AstAccountVMDelete');
+
+    my $row = $self->_setValueRow(pass   => $pass,
+                                  mail   => $mail,
+                                  attach => $attach eq 'yes',
+                                  delete => $delete eq 'yes');
+
+    # Dummy id for dataform
+    $row->setId('dummy');
+    return $row;
+}
+
+# Method: _addTypedRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataForm::_addTypedRow>
+#
 sub _addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
@@ -152,22 +190,16 @@ sub _addTypedRow
     }
 
     my $users = EBox::Global->modInstance('users');
+    my $ldap = $users->{ldap};
 
-    my $ldap = EBox::Ldap->instance();
+    my $request = Apache2::RequestUtil->request();
+    my $user = $request->user();
+    my $dn = "uid=$user," . $users->usersDn();
 
-    my $r = Apache2::RequestUtil->request;
-    my $user = $r->user;
-
-    my $dn = "uid=" . $user . "," . $users->usersDn;
-
-    my %attrs = (
-        'AstAccountVMPassword' => $pass,
-        'AstAccountVMMail' => $mail,
-        'AstAccountVMAttach' => $attach,
-        'AstAccountVMDelete' => $delete,
-    );
-
-    $ldap->modify($dn, { replace => \%attrs });
+    $ldap->setAttribute($dn, 'AstAccountVMPassword', $pass);
+    $ldap->setAttribute($dn, 'AstAccountVMMail', $mail);
+    $ldap->setAttribute($dn, 'AstAccountVMAttach', $attach);
+    $ldap->setAttribute($dn, 'AstAccountVMDelete', $delete);
 
     $self->setMessage(__('Settings successfully updated'));
 }
