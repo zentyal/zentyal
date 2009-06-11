@@ -45,14 +45,21 @@ include => common
 switch => Realtime
 
 [users]
-exten => _.,1,Set(CALLERID(number)=${CALLERID(number)}@<% $domain %>)
-exten => _.,2,NoOP("Incoming call from ${CALLERID} for ${EXTEN}.")
+exten => s,1,Set(CALLERID(number)=${CALLERID(number)}@<% $domain %>)
 % if ($outgoingcalls) {
-exten => _.,3,NoOP("Including outgoing calls dialplan.")
+include => dial-uri
+exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
+exten => _0.,2,Congestion()
+exten => _0.,102,Busy()
+% } else {
+include => default
+% }
+
+[dial-uri]
 % my $i = 0;
 % foreach my $addr (@localaddrs) {
 % $i++;
-exten => _.,<% $i %>,Set(AsteriskIP<% $i %>=<% $addr %>)
+exten => _.,1,Set(AsteriskIP<% $i %>=<% $addr %>)
 % }
 exten => _.,n,Set(AsteriskDNS=<% $domain %>)
 
@@ -66,23 +73,11 @@ exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}]?local) ; for phones
 exten => _.,n,GotoIf($[${SIPDOMAIN} = ${AsteriskIP<% $i %>}:5060]?local) ; same with port number appending
 % }
 
-exten => _.,n,NoOP("Domain @${SIPDOMAIN} is remote, forwarding...")
 exten => _.,n,Macro(uridial,${EXTEN}@${SIPDOMAIN})
 exten => _.,n,HangUp()
-exten => _.,n(local),NoOP("Call is local, forwarding...")
 exten => _.,n(local),Goto(default,${EXTEN},1)
 exten => h,1,HangUp()
-include => external-provider
-% } else {
-exten => _.,3,NoOP("Including default dialplan.")
-include => default
-% }
 
 [macro-uridial]
-exten => _.,1,Dial(SIP/${ARG1},120)
-exten => _.,n,Congestion()
-
-[external-provider]
-exten => _0.,1,Dial(SIP/${EXTEN:1}@<% $name %>)
-exten => _0.,2,Congestion()
-exten => _0.,102,Busy()
+exten => s,1,Dial(SIP/${ARG1},120)
+exten => s,n,Congestion()
