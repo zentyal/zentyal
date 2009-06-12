@@ -44,7 +44,6 @@ echo Launching eBox package installer...
 # clean up
 echo Cleaning up eBox package installer files...
 rm -f /var/tmp/locale.gen
-rm -f /var/tmp/enable-all-modules.pl
 rm -f /var/tmp/ebox-*
 rm -fr /var/tmp/po
 

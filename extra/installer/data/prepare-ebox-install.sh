@@ -15,5 +15,4 @@ cp /tmp/locale.gen /var/tmp/
 cp -r /tmp/locale /usr/share/
 
 # copy installer files
-cp /tmp/enable-all-modules.pl /var/tmp/
 cp -r /tmp/package-installer/* /var/tmp/
