@@ -1,10 +1,11 @@
+1.1.30
+	+ Fixed backup/restore problem with paswords and given/last names
 1.1.20
 	+ Changed the way users are stored in LDAP, added givenName in addition
 	  to sn, now cn=givenName+sn instead of cn=uid, this fixes a
 	  incompatibility bug with eGroupware
     + In the Edit User interface now Name and Last name are separate
 	  fields
-	+ Fixed backup/restore problem with paswords and given/last names
 1.1.10
 	+ Make slapd listen only on 127.0.0.1
 1.1
