@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 # Simple script to import network configuration
 # from a debian based system to ebox
+use warnings;
 use strict;
 
 use EBox;
@@ -19,6 +20,8 @@ use constant DEFAULT_WEIGHT => 1;
 EBox::init();
 my $global = EBox::Global->getInstance();
 
+my $searchdomain = undef;
+
 sub get_dns
 {
 	unless (open(FD, RESOLV)) {
@@ -30,9 +33,11 @@ sub get_dns
 	for my $line (<FD>) {
 		$line =~ s/^\s+//g;
 		my @toks = split (/\s+/, $line);
-		if ($toks[0] eq 'nameserver')	{
+		if ($toks[0] eq 'nameserver') {
 			push (@dns, $toks[1]);
-		}
+		} elsif ($toks[0] eq 'search') {
+            $searchdomain = $toks[1];
+        }
 	}
 
 	return @dns;
@@ -104,6 +109,9 @@ foreach my $iface (get_interfaces) {
 
 my @dns = get_dns();
 $network->setNameservers(@dns);
+if ($searchdomain) {
+    $network->setSearchDomain($searchdomain);
+}
 $network->saveConfig();
 #root("/bin/cp " . INTERFACES . " " . EBox::Config::tmp . "interfaces");
 #root("/bin/chown ebox.ebox " . EBox::Config::tmp . "interfaces");

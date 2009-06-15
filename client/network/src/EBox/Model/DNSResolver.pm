@@ -91,7 +91,6 @@ sub _table
     my $dataTable = {
                      tableName          => 'DNSResolver',
                      printableTableName => __('Domain Name Server Resolver List'),
-                     pageTitle          => __('Domain Name Server Resolver'),
                      modelDomain        => 'Network',
                      defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
