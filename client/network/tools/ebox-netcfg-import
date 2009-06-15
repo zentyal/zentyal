@@ -1,7 +1,7 @@
 #!/usr/bin/perl
-# Simple script to import network configuration 
+# Simple script to import network configuration
 # from a debian based system to ebox
-use strict; 
+use strict;
 
 use EBox;
 use EBox::Global;
@@ -19,14 +19,14 @@ use constant DEFAULT_WEIGHT => 1;
 EBox::init();
 my $global = EBox::Global->getInstance();
 
-sub get_dns {
-	
-	unless (open(FD, RESOLV)) { 
+sub get_dns
+{
+	unless (open(FD, RESOLV)) {
 		warn  "couldn't open " . RESOLV;
 		return [];
 	}
 
-	my @dns;	
+	my @dns;
 	for my $line (<FD>) {
 		$line =~ s/^\s+//g;
 		my @toks = split (/\s+/, $line);
@@ -38,35 +38,35 @@ sub get_dns {
 	return @dns;
 }
 
-sub get_interfaces {
-	
-	unless (open(FD, INTERFACES)) { 
-		warn  "couldn't open " . INTERFACES;
-		return [];
-	}
+sub get_interfaces
+{
+    unless (open(FD, INTERFACES)) {
+        warn  "couldn't open " . INTERFACES;
+        return [];
+    }
 
-	my @interfaces;
-	my $iface;
-	my @fields = qw /address netmask gateway vlan-raw-device/;
-	
-	for my $line (<FD>) {
-		$line =~ s/^\s+//g;
-		my @toks = split (/\s+/, $line);
-		if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
-			next if ($toks[1] eq 'lo');			
-			push (@interfaces, $iface) if ($iface);
-			$iface = { name   => $toks[1],
-				   method => $toks[3]
-				 };
-		}
-	  
-	   if (grep((/^$toks[0]$/), @fields)) {
-	    	$iface->{$toks[0]} = $toks[1]; 
-	   }
-	}
-	push (@interfaces, $iface) if ($iface);
+    my @interfaces;
+    my $iface;
+    my @fields = qw /address netmask gateway vlan-raw-device/;
 
-	return @interfaces;
+    for my $line (<FD>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
+            next if ($toks[1] eq 'lo');
+            push (@interfaces, $iface) if ($iface);
+            $iface = { name   => $toks[1],
+                method => $toks[3]
+            };
+        }
+
+        if (grep((/^$toks[0]$/), @fields)) {
+            $iface->{$toks[0]} = $toks[1];
+        }
+    }
+    push (@interfaces, $iface) if ($iface);
+
+    return @interfaces;
 }
 
 
@@ -75,7 +75,7 @@ my $network = $global->modInstance('network');
 
 foreach my $iface (get_interfaces) {
 	if ($iface->{name} =~ /^vlan/) {
-		($iface->{'vlan-raw-device'}) or 
+		($iface->{'vlan-raw-device'}) or
 			die "vlan interface '$iface->{name}' needs a ".
 			"raw-device declaration";
 		$network->setIfaceTrunk($iface->{'vlan-raw-device'}, 1);
@@ -102,8 +102,7 @@ foreach my $iface (get_interfaces) {
 }
 
 
-
-my @dns    = get_dns();
+my @dns = get_dns();
 $network->setNameservers(@dns);
 $network->saveConfig();
 #root("/bin/cp " . INTERFACES . " " . EBox::Config::tmp . "interfaces");
