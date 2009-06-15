@@ -19,6 +19,9 @@ use base 'EBox::UsersAndGroups::ImportFromLdif::Base';
 use strict;
 use warnings;
 
+use EBox::UsersAndGroups::Passwords;
+
+
 use constant DEFAULTGROUP => '__USERS__';
 
 sub classesToProcess
@@ -61,7 +64,7 @@ sub processPosixAccount
     my $usersMod = EBox::Global->modInstance('users');
     defined $usersMod or die 'Cannot instantiate users and groups module';
     
-    my $name = $entry->get_value('cn');
+    my $name = $entry->get_value('uid');
     if ($name =~ m{\$$}) {
         # windows domain machine name, don't process here
         return;
@@ -70,7 +73,10 @@ sub processPosixAccount
     my $uidNumber = $entry->get_value('uidNumber');
     my $passwd = $entry->get_value('userPassword');
 
-    my $fullName = $entry->get_value('sn');
+    my $fullName = $entry->get_value('cn');
+    my $surName = $entry->get_value('sn');
+    my $givenName = $entry->get_value('givenName');
+
     my $commentary = $entry->get_value('description');
 
     # the system parameter is useless for us bz it is only used to clacualte the
@@ -80,17 +86,44 @@ sub processPosixAccount
                                                 # than the last uid of system
                                                 # user, we have a system user
 
+    my @additionalPasswords = @{ $package->_userAdditionalPasswords($entry) };
 
     my $user = {
                 user => $name,
                 fullname => $fullName,
+                givenname => $givenName,
+                surname  => $surName,
                 password => $passwd, 
                 commentary => $commentary,
                };
 
-    $usersMod->addUser($user, $system, uidNumber => $uidNumber);
+    my @additionalPasswordsParams = @additionalPasswords ?
+        (additionalPasswords => \@additionalPasswords)  : ();
+                                          
+
+    $usersMod->addUser($user, $system, 
+                       uidNumber => $uidNumber,
+                       @additionalPasswordsParams
+                      );
 }
 
+sub _userAdditionalPasswords
+{
+    my ($package, $entry) = @_;
+
+    my @fields = @{ EBox::UsersAndGroups::Passwords::allPasswordFieldNames() };
+    my @additionalPasswords = map {
+        my $fieldName = $_;
+        if ($entry->exists($fieldName)) {
+            my $passwd = $entry->get_value($fieldName);
+            ($fieldName => $passwd);
+        } else {
+            ()
+        }
+    } @fields;
+
+    return \@additionalPasswords;
+}
 
 
 sub processPosixGroup

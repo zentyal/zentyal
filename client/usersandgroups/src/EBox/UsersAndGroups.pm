@@ -352,10 +352,11 @@ sub _initUser
 # Parameters:
 #
 #       user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#       'name', 'surname' and comment
-#       system - boolan: if true it adds the user as system user, otherwise as
+#       'givenname', 'surname' and comment
+#       system - boolean: if true it adds the user as system user, otherwise as
 #       normal user
-#       uidNumber (optional and named)
+#       uidNumber - user UID numberer (optional and named)
+#       additionalPasswords -list with additional passwords (optional)
 sub addUser # (user, system)
 {
     my ($self, $user, $system, %params) = @_;
@@ -384,6 +385,29 @@ sub addUser # (user, system)
 
     my $gid = $self->groupGid(DEFAULTGROUP);
 
+    my $passwd = $user->{'password'};
+    if (not isHashed($passwd)) {
+        $passwd =  defaultPasswordHash($passwd);
+    } 
+
+    my @additionalPasswords = ();
+    if (exists $params{additionalPasswords}) {
+        @additionalPasswords = @{ $params{additionalPasswords} }
+    } else {
+        # build addtional passworfs using not-hashed pasword
+        isHashed($user->{password}) and
+            throw EBox::Exceptions::Internal(
+'The supplied user password is already hashed, you must supply an additional password list'
+)          ;
+
+        @additionalPasswords = @{EBox::UsersAndGroups::Passwords::additionalPasswords(
+            $user->{'user'}, 
+            $user->{'password'}
+           );
+        }
+    }
+
+
     $self->_checkPwdLength($user->{'password'});
     my @attr =  (
         'cn'            => $user->{'fullname'},
@@ -391,19 +415,21 @@ sub addUser # (user, system)
         'sn'            => $user->{'surname'},
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
-        'homeDirectory' => HOMEPATH ,
-        'userPassword'  => defaultPasswordHash($user->{'password'}),
+        'homeDirectory' => HOMEPATH,
+        'userPassword'  => $passwd,
         'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
-        @{EBox::UsersAndGroups::Passwords::additionalPasswords(
-            $user->{'user'}, $user->{'password'})}
+        @additionalPasswords
     );
+
+
 
     my %args = ( attr => \@attr );
 
     my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
     my $r = $self->{'ldap'}->add($dn, \%args);
 
-    $self->_changeAttribute($dn, 'givenName', $user->{'name'});
+   
+    $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
         $self->_initUser($user->{'user'}, $user->{'password'});
@@ -519,7 +545,7 @@ sub _updateUser
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user' (user name), 'name', 'surname',
+#       user - hash ref containing: 'user' (user name), 'givenname', 'surname',
 #       'password', and comment. The only mandatory parameter is 'user' the
 #       other attribute parameters would be ignored if they are missing.
 #
@@ -539,8 +565,8 @@ sub modifyUser # (\%user)
         if ($field eq 'comment') {
             $self->_changeAttribute($dn, 'description',
                                     $user->{'comment'});
-        } elsif ($field eq 'name') {
-            $self->_changeAttribute($dn, 'givenName', $user->{'name'});
+        } elsif ($field eq 'givenname') {
+            $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
         } elsif ($field eq 'surname') {
             $self->_changeAttribute($dn, 'sn', $user->{'surname'});
         } elsif ($field eq 'fullname') {
@@ -606,8 +632,8 @@ sub delUser # (user)
 #
 # Returns:
 #
-#       hash ref - holding the keys: 'username', 'fullname', password',
-#       'homeDirectory', 'uid' and 'group'
+#       hash ref - holding the keys: 'username', 'givenname', 'surname', 'fullname'
+#      password', 'homeDirectory', 'uid' and 'group'
 #
 sub userInfo # (user, entry)
 {
@@ -653,11 +679,11 @@ sub userInfo # (user, entry)
     }
 
     # Optional Data
-    my $name = $entry->get_value('givenName');
-    if ($name) {
-        $userinfo->{'name'} = $name;
+    my $givenName = $entry->get_value('givenName');
+    if ($givenName) {
+        $userinfo->{'givenname'} = $givenName;
     } else {
-        $userinfo->{'name'} = '';
+        $userinfo->{'givenname'} = '';
     }
     my $desc = $entry->get_value('description');
     if ($desc) {
@@ -1901,7 +1927,7 @@ sub defaultPasswordHash
 
     my $format = EBox::Config::configkey('default_password_format');
     if (not defined($format)) {
-        $format = 'sha1';
+        $format = 'shashaHa';
     }
     my $hasher = passwordHasher($format);
     my $hash = $hasher->($password);

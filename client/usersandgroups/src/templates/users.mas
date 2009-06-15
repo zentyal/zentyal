@@ -24,7 +24,7 @@ use EBox::Gettext;
 		</tr>
 		<tr>
 			<td class='tright'>
-				<span class='ftitle'><% __('Name')%>:</span>
+				<span class='ftitle'><% __('First name')%>:</span>
 			</td>
 			<td>
 				<input type='text' class='inputText' name='name'>

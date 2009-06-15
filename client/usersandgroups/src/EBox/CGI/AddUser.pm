@@ -52,8 +52,10 @@ sub _process($) {
 	$user->{'surname'} = $self->param('surname');
     if ($user->{'name'}) {
         $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
+        $user->{'givenname'} = $user->{'name'};
     } else {
         $user->{'fullname'} = $user->{'surname'};
+        $user->{'givenname'} = '';
     }
 	$user->{'password'} = $self->unsafeParam('password');
 	$user->{'repassword'} = $self->unsafeParam('repassword');

@@ -49,18 +49,19 @@ sub _process($) {
 	$self->_requireParamAllowEmpty('password', __('password'));
 	$self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
-    my $name = $self->param('name');
+    my $givenName = $self->param('name');
     my $surname = $self->param('surname');
+
     my $fullname;
-    if ($name) {
-        $fullname = "$name $surname";
+    if ($givenName) {
+        $fullname = "$givenName $surname";
     } else {
         $fullname = $surname;
     }
 
 	my $userdata   = {
 				'username' => $user,
-				'name' => $name,
+				'givenname' => $givenName,
 				'surname' => $surname,
                 'fullname' => $fullname,
 				'comment'  => $self->param('comment')

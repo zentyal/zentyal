@@ -15,11 +15,11 @@ use EBox::Gettext;
 			<tr>
 				<td class='tright'>
 					<span class='ftitle'>
-						<% __('Name') %>:
+						<% __('First name') %>:
 					</span>
 				</td>
 				<td>
-					<input type='text' class='inputText' name='name' value="<% $user->{'name'} %>">
+					<input type='text' class='inputText' name='name' value="<% $user->{'givenname'} %>">
 				</td>
 			</tr>
 			<tr>
