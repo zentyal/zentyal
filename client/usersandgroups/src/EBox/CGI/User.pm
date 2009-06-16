@@ -48,11 +48,13 @@ sub _process($) {
 	my $user = $self->param('username');
 	my $userinfo = $usersandgroups->userInfo($user);
 	my $components = $usersandgroups->allUserAddOns($user);
-
+	my $usergroups = $usersandgroups->groupsOfUser($user);
+	my $remaingroups = $usersandgroups->groupsNotOfUser($user);
 
 	push(@args, 'user' => $userinfo);
+	push(@args, 'usergroups' => $usergroups);
+	push(@args, 'remaingroups' => $remaingroups);
 	push(@args, 'components' => $components);
-
 
 	$self->{params} = \@args;
 }

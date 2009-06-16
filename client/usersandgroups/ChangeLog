@@ -1,4 +1,5 @@
 1.1.30
+    + Added widget to manage group belonging from Edit User page
 	+ Fixed backup/restore problem with paswords and given/last names
 	+ Changed the way users are stored in LDAP, added givenName in addition
 	  to sn, now cn=givenName+sn instead of cn=uid, this fixes a

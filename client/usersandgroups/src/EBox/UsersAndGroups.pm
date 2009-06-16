@@ -388,7 +388,7 @@ sub addUser # (user, system)
     my $passwd = $user->{'password'};
     if (not isHashed($passwd)) {
         $passwd =  defaultPasswordHash($passwd);
-    } 
+    }
 
     my @additionalPasswords = ();
     if (exists $params{additionalPasswords}) {
@@ -401,7 +401,7 @@ sub addUser # (user, system)
 )          ;
 
         @additionalPasswords = @{EBox::UsersAndGroups::Passwords::additionalPasswords(
-            $user->{'user'}, 
+            $user->{'user'},
             $user->{'password'}
            );
         }
@@ -428,7 +428,7 @@ sub addUser # (user, system)
     my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
     my $r = $self->{'ldap'}->add($dn, \%args);
 
-   
+
     $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
@@ -593,7 +593,7 @@ sub _cleanUser
     }
 
     # Delete user from groups
-    foreach my $group (@{$self->groupOfUsers($user)}) {
+    foreach my $group (@{$self->groupsOfUser($user)}) {
                 $self->delUserFromGroup($user, $group);
             }
 }
@@ -1267,7 +1267,7 @@ sub delUserFromGroup # (user, group)
     $self->_updateGroup($group);
 }
 
-# Method: groupOfUsers
+# Method: groupsOfUser
 #
 #       Given a user it returns all the groups which the user belongs to
 #
@@ -1281,19 +1281,55 @@ sub delUserFromGroup # (user, group)
 #
 # Exceptions:
 #
-#       DataNorFound - If user does not  exist
-sub groupOfUsers # (user)
+#       DataNotFound - If user does not  exist
+sub groupsOfUser # (user)
 {
     my ($self, $user) = @_;
+
+    return $self->_ldapSearchUserGroups($user, 0);
+}
+
+# Method: groupsNotOfUser
+#
+#       Given a user it returns all the groups which the user doesn't belong to
+#
+# Parameters:
+#
+#       user - user name
+#
+# Returns:
+#
+#       array ref - holding the groups
+#
+# Exceptions:
+#
+#       DataNotFound - If user does not  exist
+sub groupsNotOfUser # (user)
+{
+    my ($self, $user) = @_;
+
+    return $self->_ldapSearchUserGroups($user, 1);
+}
+
+sub _ldapSearchUserGroups # (user, inverse)
+{
+    my ($self, $user, $inverse) = @_;
 
     unless ($self->userExists($user)) {
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
                                              'value' => $user);
     }
 
+    my $filter = '&(objectClass=*)';
+    if ($inverse) {
+        $filter .= "(!(memberUid=$user))"
+    } else {
+        $filter .= "(memberUid=$user)";
+    }
+
     my %attrs = (
                  base => $self->groupsDn,
-                 filter => "&(objectclass=*)(memberUid=$user)",
+                 filter => $filter,
                  scope => 'one',
                  attrs => ['cn']
                 );
@@ -1323,7 +1359,7 @@ sub groupOfUsers # (user)
 # Exceptions:
 #
 #       DataNorFound - If group does not  exist
-sub  usersInGroup # (group)
+sub usersInGroup # (group)
 {
     my ($self, $group) = @_;
 
