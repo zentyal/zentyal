@@ -59,6 +59,40 @@ sub new
 }
 
 
+# Method: precondition
+#
+#   Check if CA has been created.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    system('dpkg -l dahdi-linux');
+
+    return not $?;
+}
+
+
+# Method: preconditionFailMsg
+#
+#   Returns message to be shown on precondition fail.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('You must install dahdi-linux and dahdi-tools packages to use Meetings.');
+}
+
+
 # Method: validateTypedRow
 #
 #       Check the row to add or update if contains a valid extension
