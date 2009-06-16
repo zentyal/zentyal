@@ -3,8 +3,8 @@
 # copy LDAP schemas
 cp /usr/share/ebox-jabber/*.schema /etc/ldap/schema
 
-# stop jabberd2-ldap-bdb  if it's running as a normal service
-invoke-rc.d jabberd2-ldap-bdb  stop
+# stop jabberd2 if it's running as a normal service
+invoke-rc.d jabberd2 stop
 
 # regenerate slapd.conf
 /usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
