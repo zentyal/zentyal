@@ -2,7 +2,8 @@
 
 Migrationsdir = @DATADIR@/ebox-egroupware/migration
 
-nobase_Migrations_SCRIPTS =
+nobase_Migrations_SCRIPTS = 0001_add_bookmarks_application.pl \
+                            0002_upgrade_from_1_4_to_1_6.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

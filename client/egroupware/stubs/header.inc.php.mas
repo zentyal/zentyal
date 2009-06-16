@@ -5,137 +5,125 @@
     $config_passwd
 </%args>
 <?php
-	/**************************************************************************\
-	* eGroupWare                                                               *
-	* http://www.egroupware.org                                                *
-	* This file was originaly written by Dan Kuykendall                        *
-	* --------------------------------------------                             *
-	*  This program is free software; you can redistribute it and/or modify it *
-	*  under the terms of the GNU General Public License as published by the   *
-	*  Free Software Foundation; either version 2 of the License, or (at your  *
-	*  option) any later version.                                              *
-	\**************************************************************************/
-	/* $Id: header.inc.php.template 20295 2006-02-15 12:31:25Z  $ */
+/**
+ * eGroupWare - configuration file
+ *
+ * Use eGroupWare's setup to create or edit this configuration file.
+ * You do NOT need to copy and edit this file manually!
+ *
+ * @link http://www.egroupware.org
+ * @license http://opensource.org/licenses/gpl-license.php GPL - GNU General Public License
+ * @author RalfBecker@outdoor-training.de
+ * (This file was originaly written by Dan Kuykendall)
+ * @version $Id: header.inc.php.template 26119 2008-10-09 16:22:42Z ralfbecker $
+ */
 
-	/**************************************************************************\
-	* !!!!!!! EDIT THESE LINES !!!!!!!!                                        *
-	* This setting allows you to easily move the include directory and the     *
-	* base of the eGroupWare install. Simple edit the following 2 lines with   *
-	* the absolute path to fit your site, and you should be up and running.    *
-	\**************************************************************************/
-
-	// allow to migrate from phpgw_info to egw_info
-	if (isset($GLOBALS['egw_info']))
-	{
-		$GLOBALS['phpgw_info'] =& $GLOBALS['egw_info'];
-	}
-	else
+// allow to migrate from phpgw_info to egw_info
+if (!isset($GLOBALS['egw_info']) || in_array($GLOBALS['egw_info']['flags']['currentapp'],array('jinn','mydms','tts')))
+{
+	if (!isset($GLOBALS['egw_info']))
 	{
 		$GLOBALS['egw_info'] =& $GLOBALS['phpgw_info'];
 	}
-
-	define('EGW_SERVER_ROOT','/usr/share/egroupware');
-	define('EGW_INCLUDE_ROOT','/usr/share/egroupware');
-	define('PHPGW_SERVER_ROOT','/usr/share/egroupware');
-	define('PHPGW_INCLUDE_ROOT','/usr/share/egroupware');
-	$GLOBALS['egw_info']['server']['header_admin_user'] = 'admin';
-	$GLOBALS['egw_info']['server']['header_admin_password'] = '<% $header_passwd %>';
-	$GLOBALS['egw_info']['server']['setup_acl'] = '';
-
-	/* eGroupWare domain-specific db settings *///
-	$GLOBALS['egw_domain']['default'] = array(
-		'db_host' => 'localhost',
-		'db_port' => '5432',
-		'db_name' => 'egroupware',
-		'db_user' => 'egroupware',
-		'db_pass' => '<% $db_pass %>',
-		// Look at the README file
-		'db_type' => 'pgsql',
-		// This will limit who is allowed to make configuration modifications
-		'config_user'   => '<% $config_user %>',
-		'config_passwd' => '<% $config_passwd %>'
-	);
-
-	/*
-	** If you want to have your domains in a select box, change to True
-	** If not, users will have to login as user@domain
-	** Note: This is only for virtual domain support, default domain users can login only using
-	** there loginid.
-	*/
-	$GLOBALS['egw_info']['server']['show_domain_selectbox'] = false;
-
-	$GLOBALS['egw_info']['server']['db_persistent'] = false;
-
-	/*
-	** eGroupWare can handle session management using the database or 
-	** the session support built into PHP4 which usually gives better
-	** performance. 
-	** Your choices are 'db' or 'php4'
-	*/
-	$GLOBALS['egw_info']['server']['sessions_type'] = 'php4';
-
-	/* Select which login template set you want, most people will use default */
-	$GLOBALS['egw_info']['login_template_set'] = 'idots';
-
-	/* This is used to control mcrypt's use */
-	$GLOBALS['egw_info']['server']['mcrypt_enabled'] = false;
-	/* Set this to 'old' for versions < 2.4, otherwise the exact mcrypt version you use. */
-	$GLOBALS['egw_info']['server']['versions']['mcrypt'] = 'none';
-
-	/*
-	** This is a random string used as the initialization vector for mcrypt
-	** feel free to change it when setting up eGrouWare on a clean database,
-	** but you must not change it after that point!
-	** It should be around 30 bytes in length.
-	*/
-	$GLOBALS['egw_info']['server']['mcrypt_iv'] = 'none';
-
-	if(!isset($GLOBALS['egw_info']['flags']['nocachecontrol']) || !$GLOBALS['egw_info']['flags']['nocachecontrol'])
-	{
-		header('Cache-Control: no-cache, must-revalidate');  // HTTP/1.1
-		header('Pragma: no-cache');                          // HTTP/1.0
-	}
 	else
 	{
-		// allow caching by browser
-		session_cache_limiter(PHP_VERSION >= 4.2 ? 'private_no_expire' : 'private');
+		$GLOBALS['phpgw_info'] =& $GLOBALS['egw_info'];
 	}
+	$GLOBALS['egw_info']['flags']['phpgw_compatibility'] = true;
+}
 
-	/* debugging settings */
-	define('DEBUG_APP',  False);
-	define('DEBUG_API',  False);
-	define('DEBUG_DATATYPES',  True);
-	define('DEBUG_LEVEL',  3);
-	define('DEBUG_OUTPUT', 2); /* 1 = screen,  2 = DB. For both use 3. */
-	define('DEBUG_TIMER', False);
+// eGW install dir, need to be changed if you copy the server to an other directory
+define('EGW_SERVER_ROOT','/usr/share/egroupware');
 
-	function perfgetmicrotime()
-	{
-		list($usec, $sec) = explode(' ',microtime());
-		return ((float)$usec + (float)$sec);
-	}
-	$GLOBALS['egw_info']['flags']['page_start_time'] = perfgetmicrotime();
+// other pathes depending on the one above
+define('EGW_INCLUDE_ROOT',EGW_SERVER_ROOT);
+define('EGW_API_INC',EGW_INCLUDE_ROOT.'/phpgwapi/inc');
 
-	/**************************************************************************\
-	* Do not edit these lines                                                  *
-	\**************************************************************************/
-	define('EGW_API_INC',EGW_INCLUDE_ROOT.'/phpgwapi/inc');
-	define('PHPGW_API_INC',EGW_INCLUDE_ROOT.'/phpgwapi/inc');
-	include(EGW_SERVER_ROOT.'/phpgwapi/setup/setup.inc.php');
-	$GLOBALS['egw_info']['server']['versions']['phpgwapi'] = $setup_info['phpgwapi']['version'];
-	$GLOBALS['egw_info']['server']['versions']['current_header'] = $setup_info['phpgwapi']['versions']['current_header'];
-	unset($setup_info);
-	$GLOBALS['egw_info']['server']['versions']['header'] = '1.28';
-	/* This is a fix for NT */
-	if(!isset($GLOBALS['egw_info']['flags']['noapi']) || !$GLOBALS['egw_info']['flags']['noapi'] == True)
-	{
-		ob_start();	// to prevent error messages to be send before our headers
-		include(EGW_API_INC . '/functions.inc.php');
-		include(EGW_API_INC . '/xml_functions.inc.php');
-		include(EGW_API_INC . '/soap_functions.inc.php');
-	}
+// who is allowed to make changes to THIS config file via eGW's setup
+$GLOBALS['egw_info']['server']['header_admin_user'] = 'admin';
+$GLOBALS['egw_info']['server']['header_admin_password'] = '<% $header_passwd %>';
 
-	/*
-	  Leave off the final php closing tag, some editors will add
-	  a \n or space after which will mess up cookies later on
-	*//**/
+// restrict the access to setup to certain (comma separated) IPs or domains
+$GLOBALS['egw_info']['server']['setup_acl'] = '';
+
+/* eGroupWare domain-specific db settings */
+$GLOBALS['egw_domain']['default'] = array(
+    'db_host' => 'localhost',
+    'db_port' => '5432',
+    'db_name' => 'egroupware',
+    'db_user' => 'egroupware',
+    'db_pass' => '<% $db_pass %>',
+    // Look at the README file
+    'db_type' => 'pgsql',
+    // This will limit who is allowed to make configuration modifications
+    'config_user'   => '<% $config_user %>',
+    'config_passwd' => '<% $config_passwd %>'
+);
+
+
+/*
+** If you want to have your domains in a select box, change to True
+** If not, users will have to login as user@domain
+** Note: This is only for virtual domain support, default domain users (that's everyone
+** form the first domain or if you have only one) can login only using just there loginid.
+*/
+$GLOBALS['egw_info']['server']['show_domain_selectbox'] = false;
+
+$GLOBALS['egw_info']['server']['db_persistent'] = false;
+
+/*
+** used session handler: egw_session_files works for all build in php session handlers
+** other handlers (like egw_session_memcache) can be enabled here
+*/
+$GLOBALS['egw_info']['server']['session_handler'] = '{SESSION_HANDLER}';
+
+/* Select which login template set you want, most people will use idots */
+$GLOBALS['egw_info']['login_template_set'] = 'idots';
+
+/* This is used to control mcrypt's use */
+$GLOBALS['egw_info']['server']['mcrypt_enabled'] = false;
+
+/*
+** This is a random string used as the initialization vector for mcrypt
+** feel free to change it when setting up eGrouWare on a clean database,
+** but you must not change it after that point!
+** It should be around 30 bytes in length.
+*/
+$GLOBALS['egw_info']['server']['mcrypt_iv'] = 'none';
+
+if(!isset($GLOBALS['egw_info']['flags']['nocachecontrol']) || !$GLOBALS['egw_info']['flags']['nocachecontrol'])
+{
+	header('Cache-Control: no-cache, must-revalidate');  // HTTP/1.1
+	header('Pragma: no-cache');                          // HTTP/1.0
+}
+else
+{
+	// allow caching by browser
+	session_cache_limiter('private_no_expire');
+}
+
+$GLOBALS['egw_info']['flags']['page_start_time'] = microtime(true);
+
+define('DEBUG_API',  False);
+define('DEBUG_APP',  False);
+
+include(EGW_SERVER_ROOT.'/phpgwapi/setup/setup.inc.php');
+$GLOBALS['egw_info']['server']['versions']['phpgwapi'] = $setup_info['phpgwapi']['version'];
+$GLOBALS['egw_info']['server']['versions']['current_header'] = $setup_info['phpgwapi']['versions']['current_header'];
+unset($setup_info);
+$GLOBALS['egw_info']['server']['versions']['header'] = '1.29';
+
+if(!isset($GLOBALS['egw_info']['flags']['noapi']) || !$GLOBALS['egw_info']['flags']['noapi'])
+{
+	ob_start();	// to prevent error messages to be send before our headers
+	require_once(EGW_API_INC . '/functions.inc.php');
+}
+else
+{
+	require_once(EGW_API_INC . '/common_functions.inc.php');
+}
+
+/*
+  Leave off the final php closing tag, some editors will add
+  a \n or space after which will mess up cookies later on
+*/

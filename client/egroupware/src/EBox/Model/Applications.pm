@@ -57,6 +57,7 @@ use constant APPS => (
                       'resources',
 #                      'sitemgr',
                       'timesheet',
+                      'bookmarks',
                       'wiki',
 #                      'sitemgr-link',
                       'manual'

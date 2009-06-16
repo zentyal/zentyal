@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Don't do anything if egroupware database doesn't exists
+if ! su postgres -c 'psql egroupware -c "" 2>/dev/null'
+then
+    exit 0
+fi
+
+EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
+
+PASS=`cat $EGROUPWARE_DB_PASS`
+export EGW_CLI_PASSWORD=$PASS
+
+LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
+
+# Recreate database deleting all content
+su postgres -c "dropdb egroupware"
+su postgres -c "createdb --encoding=utf-8 --owner egroupware egroupware"
+
+# Call setup domain script
+/usr/share/ebox-egroupware/ebox-egroupware-setup

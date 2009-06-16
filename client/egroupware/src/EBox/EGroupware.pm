@@ -215,32 +215,30 @@ sub menu
     $root->add($settings);
 }
 
-# Method: makeBackup
+# Method: extendedBackup
 #
-#   Overrides EBox::Module::makeBackup
+#   Overrides EBox::Module::Base::extendedBackup
 #
-sub makeBackup
+sub extendedBackup
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, %options) = @_;
+    my $dir = $options{dir};
 
-    $self->SUPER::makeBackup($dir, %options);
-
-    my $command = 'pg_dump egroupware';
-    EBox::Sudo::root("su postgres -c '$command' > $dir/egroupware.sql");
+    my $command = "ebox-egroupware-backup create $dir/egw-backup.bz2";
+    EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
 }
 
-# Method: restoreBackup
+# Method: extendedRestore
 #
-#   Overrides EBox::Module::restoreBackup
+#   Overrides EBox::Module::Base::extendedRestore
 #
-sub restoreBackup
+sub extendedRestore
 {
-    my ($self, $dir, %options) = @_;
+    my ($self, %options) = @_;
+    my $dir = $options{dir};
 
-    $self->SUPER::restoreBackup($dir, %options);
-
-    my $command = 'psql egroupware';
-    EBox::Sudo::root("su postgres -c '$command' < $dir/egroupware.sql");
+    my $command = "ebox-egroupware-backup restore $dir/egw-backup.bz2";
+    EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
 }
 
 

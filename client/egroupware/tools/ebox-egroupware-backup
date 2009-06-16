@@ -1,0 +1,34 @@
+#!/bin/sh
+
+OPTION=$1
+BACKUP_FILE=$2
+
+[ $# -eq 2 ] || OPTION=show_usage
+
+case $OPTION in
+    create)
+    EGW_SETUP_ARG=--backup
+    ;;
+
+    restore)
+    EGW_SETUP_ARG=--install
+    ;;
+
+    *)
+    echo "Usage: $0 {create|restore} filename"
+    exit 1
+    ;;
+esac
+
+
+EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
+
+EGW_PASS=`cat $EGROUPWARE_DB_PASS`
+
+cd /usr/share/egroupware/setup
+
+./setup-cli.php $EGW_SETUP_ARG default,ebox,$EGW_PASS,$BACKUP_FILE
+
+# Back to the previous directory
+cd -
+

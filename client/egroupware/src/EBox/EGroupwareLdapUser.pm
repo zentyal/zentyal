@@ -349,6 +349,9 @@ sub _setTemplate # (template, account) account = (uid | gid) number
     my @ids = @{$model->enabledRows()};
     my @apps = map ($model->row($_)->valueByName('app'), @ids);
 
+    unless ($self->_databaseExists()) {
+        return;
+    }
     # Insert new permissions (changepassword permission only for user accounts)
     my $sql = $account > 0 ?
               'INSERT INTO egw_acl ' .
@@ -401,8 +404,19 @@ sub _deletePermissions # (account) account = (uid | gid) number
 {
     my ($self, $account) = @_;
 
-    my $sql = "DELETE FROM egw_acl WHERE acl_account=$account;";
-    EBox::Sudo::root("su postgres -c \"psql egroupware -c \\\"$sql\\\"\"");
+    if ($self->_databaseExists()) {
+        my $sql = "DELETE FROM egw_acl WHERE acl_account=$account;";
+        EBox::Sudo::root("su postgres -c \"psql egroupware -c \\\"$sql\\\"\"");
+    }
+}
+
+sub _databaseExists
+{
+    my ($self) = @_;
+
+    my $cmd = "su postgres -c \"psql egroupware -c ''\"";
+    EBox::Sudo::rootWithoutException($cmd);
+    return ($? == 0);
 }
 
 
