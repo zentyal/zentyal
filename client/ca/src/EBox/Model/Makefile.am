@@ -1,10 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CA
+perldir = @PERLPATH@/EBox/CA/Model
 
-nobase_perl_DATA = DN.pm TestStub.pm Observer.pm Certificates.pm
+nobase_perl_DATA = Certificates.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

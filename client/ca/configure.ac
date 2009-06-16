@@ -56,6 +56,7 @@ conf/Makefile
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
+src/EBox/Model/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CA/Makefile
 src/EBox/t/Makefile

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI CA t
+SUBDIRS = CGI CA t Model
 
 perldir = @PERLPATH@/EBox
 

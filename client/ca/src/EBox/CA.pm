@@ -30,7 +30,7 @@ use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
 use File::Copy::Recursive qw(dircopy fcopy);
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
 
 use EBox::CA::DN;
 use EBox::Gettext;
@@ -42,6 +42,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataInUse;
 use EBox;
+use EBox::CA::Certificates;
 
 use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
 use constant OPENSSLPATH => "/usr/bin/openssl";
@@ -150,11 +151,26 @@ sub _create
 # Returns:
 #
 #       string - the gettext domain
-
+#
 sub domain
-  {
+{
     return 'ebox-ca';
-  }
+}
+
+# Method: modelClasses
+#
+#       Return the model classes
+#
+# Returns:
+#
+#       array - the model classes
+#
+sub modelClasses
+{
+    return [
+        'EBox::CA::Model::Certificates',
+    ];
+}
 
 # Method: isCreated
 #
@@ -177,6 +193,28 @@ sub isCreated
     return $retValue;
 
   }
+
+# Method: isAvailable
+#
+#       Check whether the Certification Infrastructure is available or not
+#
+# Returns:
+#
+#       boolean - True, if the Certification Infrastructure is available.
+#                 Undef, otherwise.
+#
+sub isAvailable
+{
+    my ($self) = @_;
+
+    return 0 unless $self->isCreated();
+    my $currentState = $self->currentCACertificateState();
+    if ( $currentState =~ m/[RE]/) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
 # Method: createCA
 #
@@ -843,6 +881,7 @@ sub issueCertificate
 #       caKeyPassword - the CA passpharse (Optional)
 #       certFile - the Certificate to revoke (Optional)
 #       force    - Force the revokation (Optional)
+#       renew    - This revoke is due to a renew (Optional)
 #
 # Returns:
 #
@@ -897,7 +936,7 @@ sub revokeCertificate {
   if ( $args{force} ) {
     $self->_freeCert($commonName, $isCACert);
   }
-  elsif ( $self->_certsInUse($commonName, $isCACert) ) {
+  elsif ( not $args{renew} and $self->_certsInUse($commonName, $isCACert) ) {
     throw EBox::Exceptions::DataInUse("Certificate $commonName in use");
   }
 
@@ -1300,8 +1339,7 @@ sub removePrivateKey
 #
 
 sub renewCertificate
-  {
-
+{
     my ($self, %args) = @_;
 
     if (not defined($args{endDate}) ) {
@@ -1391,6 +1429,7 @@ sub renewCertificate
 					  certFile      => $userCertFile,
 					  caKeyPassword => $args{caKeyPassword},
 					  force         => $args{force},
+                                          renew         => "yes",
 					 );
 
     if (defined($retVal) ) {
@@ -1484,9 +1523,18 @@ sub renewCertificate
 #		"cn=" . $args{commonName} . ",days=" . $args{days}
 #	       );
 
-    return $newCertFile;
+    # Tells other modules the following certs have been renewed
+    my $isCACert = 0;
+    $isCACert = 1 if (defined($args{certFile}) and $args{certFile} eq CACERT);
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $mod (@mods) {
+        $mod->certificateRenewed($userDN->attribute('commonName'), $isCACert);
+    }
+    EBox::CA::Certificates->certificateRenewed($userDN->attribute('commonName'), $isCACert);
 
-  }
+    return $newCertFile;
+}
 
 # Method: updateDB
 #
@@ -1549,6 +1597,7 @@ sub updateDB
 	$mod->certificateExpired($cert->{dn}->attribute('commonName'),
 				 $cert->{isCACert});
       }
+      EBox::CA::Certificates->certificateExpired($cert->{dn}->attribute('commonName'), $cert->{isCACert});
     }
 
     if ($retVal eq "ERROR") {
@@ -1636,10 +1685,6 @@ sub getCurrentCRL
   }
 
 
-# _regenConfig is not longer needed 'cause this module doesn't manage a daemon
-
-# The method summary is not neccessary since it is not a network service
-
 # Method: menu
 #
 #       Add CA module to eBox menu
@@ -1648,17 +1693,18 @@ sub getCurrentCRL
 #
 #       root - the <EBox::Menu::Root> where to leave our items
 #
-
 sub menu
-  {
-
+{
   my ($self, $root) = @_;
 
-  $root->add(new EBox::Menu::Item('url'  => 'CA/Index',
-              'text' => __('Certification Authority'),
-              'order' => 12));
+  $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
+                                    'text' => __('General')));
 
-  }
+  $folder->add(new EBox::Menu::Item('url'  => 'CA/View/Certificates',
+                                    'text' => __('Services Certificates')));
+
+  $root->add($folder);
+}
 
 # Method: dumpConfig
 #
@@ -1716,7 +1762,21 @@ sub restoreConfig
 
   }
 
+
 # Group: Private methods
+
+# Method: _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_setConf>
+#
+sub _setConf
+{
+    my ($self) = @_;
+
+    EBox::CA::Certificates->genCerts();
+}
 
 # Obtain the public key given the private key
 #
@@ -2221,6 +2281,7 @@ sub _certsInUse # (cn?, isCACert?)
 	return 1;
     }
     }
+    return 1 if EBox::CA::Certificates->certificateRevoked($cn, $isCACert);
 
     return undef;
 
@@ -2243,6 +2304,7 @@ sub _freeCert # (cn?, isCACert?)
     foreach my $obs (@observers) {
         $obs->freeCertificate($cn);
     }
+    EBox::CA::Certificates->freeCertificate($cn);
 
   }
 

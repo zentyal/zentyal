@@ -22,10 +22,12 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+
+    my $self = {};
+    bless($self, $class);
+
+    return $self;
 }
 
 # Method: certificateRevoked
@@ -64,8 +66,22 @@ sub certificateRevoked # (commonName, isCACert)
 #       commonName - common name which identifies the certificate
 #       isCACert   - is the CA certificate?
 #
-
 sub certificateExpired # (commonName, isCACert)
+{
+        return undef;
+}
+
+# Method: certificateRenewed
+#
+# 	Invoked when a certificate has been renewed.
+# 	You should override this method if you need to.
+#
+# Parameteres:
+#
+#       commonName - common name which identifies the certificate
+#       isCACert   - is the CA certificate?
+#
+sub certificateRenewed # (commonName, isCACert)
 {
         return undef;
 }
@@ -79,7 +95,6 @@ sub certificateExpired # (commonName, isCACert)
 #
 #       commonName - common name which identifies the certificate
 #
-
 sub freeCertificate # (commonName)
   {
     # default empty implementation. Subclasses should override this as

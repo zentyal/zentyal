@@ -680,4 +680,36 @@ sub writeConfFile # (file, component, params, defaults)
     $manager->updateFileDigest($self->{'name'}, $file);
 }
 
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issuefor this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+#   Example:
+#
+#       [
+#           {
+#             'service' => 'jabberd2',
+#             'path' => '/etc/jabberd2/ebox.pem',
+#             'user' => 'jabber',
+#             'group' => 'jabber',
+#             'mode' => '0640'
+#           }
+#       ]
+#
+sub certificates
+{
+    return [];
+}
+
 1;
