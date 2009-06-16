@@ -1273,7 +1273,8 @@ sub delUserFromGroup # (user, group)
 #
 # Parameters:
 #
-#       user - user name
+#       user   - user name
+#       system - show system groups (default: false) *optional*
 #
 # Returns:
 #
@@ -1281,12 +1282,14 @@ sub delUserFromGroup # (user, group)
 #
 # Exceptions:
 #
-#       DataNotFound - If user does not  exist
-sub groupsOfUser # (user)
+#       DataNotFound - If user does not exist
+#
+sub groupsOfUser # (user, system?)
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $system) = @_;
+    defined $system or $system = 0;
 
-    return $self->_ldapSearchUserGroups($user, 0);
+    return $self->_ldapSearchUserGroups($user, $system, 0);
 }
 
 # Method: groupsNotOfUser
@@ -1295,7 +1298,8 @@ sub groupsOfUser # (user)
 #
 # Parameters:
 #
-#       user - user name
+#       user   - user name
+#       system - show system groups (default: false) *optional*
 #
 # Returns:
 #
@@ -1304,16 +1308,18 @@ sub groupsOfUser # (user)
 # Exceptions:
 #
 #       DataNotFound - If user does not  exist
-sub groupsNotOfUser # (user)
+#
+sub groupsNotOfUser # (user, system?)
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $system) = @_;
+    defined $system or $system = 0;
 
-    return $self->_ldapSearchUserGroups($user, 1);
+    return $self->_ldapSearchUserGroups($user, $system, 1);
 }
 
-sub _ldapSearchUserGroups # (user, inverse)
+sub _ldapSearchUserGroups # (user, system, inverse)
 {
-    my ($self, $user, $inverse) = @_;
+    my ($self, $user, $system, $inverse) = @_;
 
     unless ($self->userExists($user)) {
         throw EBox::Exceptions::DataNotFound('data' => __('user name'),
@@ -1331,13 +1337,16 @@ sub _ldapSearchUserGroups # (user, inverse)
                  base => $self->groupsDn,
                  filter => $filter,
                  scope => 'one',
-                 attrs => ['cn']
+                 attrs => ['cn', 'gidNumber']
                 );
 
     my $result = $self->{'ldap'}->search(\%attrs);
 
     my @groups;
-    foreach my $entry ($result->entries){
+    foreach my $entry ($result->entries) {
+        if (not $system) {
+            next if ($entry->get_value('gidNumber') < MINGID);
+        }
         push @groups, $entry->get_value('cn');
     }
 
