@@ -240,6 +240,13 @@ sub askMailDomain # returns string
 
 sub preconfiguration
 {
+    # Workaround buggy squid without FQDN
+    if (-f '/etc/squid/squid.conf') {
+        system('echo "visible_hostname localhost" >> /etc/squid/squid.conf');
+        system('/etc/init.d/squid stop > /dev/null 2>&1');
+        system('/etc/init.d/squid start > /dev/null 2>&1');
+   }
+
     my $message = __('Preconfiguring eBox packages...');
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
     my $PROGRESS;

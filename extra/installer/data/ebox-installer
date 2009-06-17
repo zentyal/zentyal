@@ -3,7 +3,8 @@
 # script to execute after debian installer base-config and before
 # showing login indicator and debian sarge is ready to be fucked up
 
-RC_NAME=ebox-installer
+
+EXTRA_PACKAGES="libebox bc dahdi-modules-2.6.24-24-l7filter samba-vscan" 
 
 export LOG=/tmp/ebox-installer.log
 
@@ -23,7 +24,13 @@ SOURCES=/etc/apt/sources.list
 echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
 
 echo Installing base packages...
-apt-get install -y libebox bc >> $LOG 2>&1
+apt-get install -y $EXTRA_PACKAGES >> $LOG 2>&1 
+if [ $? != 0 ]; then
+    echo "Installation failed. Check contents of $LOG to see what happened."
+    exit 1
+fi
+
+apt-get install -y dahdi-linux dahdi >> $LOG 2>&1
 if [ $? != 0 ]; then
     echo "Installation failed. Check contents of $LOG to see what happened."
     exit 1
