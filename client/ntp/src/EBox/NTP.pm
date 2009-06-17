@@ -195,9 +195,9 @@ sub setSynchronized # (synchro)
 #
 sub synchronized
 {
-	my $self = shift;
-	my $sync = $self->get_bool('synchronized');
-    if ($sync == 0) {
+    my $self = shift;
+    my $sync = $self->get_bool('synchronized');
+    if (defined($sync) and ($sync == 0)) {
         $sync = undef;
     }
     return $sync;
