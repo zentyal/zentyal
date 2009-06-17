@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
 XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
+Build-Depends: debhelper (>= 4.0.0), cdbs
 Standards-Version: 3.7.3
 
 Package: ebox-all
