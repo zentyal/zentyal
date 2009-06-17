@@ -20,12 +20,14 @@ sub update
     my @controlUsers = (
                         {
                          user => 'spam',
-                         fullname => 'Spam account',
+                         fullname => 'account',
+                         surname => 'account',
                          password => '',
                         },
                         {
                          user => 'ham',
-                         fullname => 'Ham account',
+                         fullname => 'account',
+                         surname => 'account',
                          password => '',
                         },
                      );
