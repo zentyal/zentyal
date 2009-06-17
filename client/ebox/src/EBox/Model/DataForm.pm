@@ -923,7 +923,7 @@ sub _row
 
     my $storedVersion = $self->_storedVersion();
     my $cachedVersion = $self->_cachedVersion();;
-    if ($storedVersion != $cachedVersion) {
+    if ((not defined($cachedVersion)) or ($storedVersion != $cachedVersion)) {
         $self->{'dataCache'} = undef;
         $self->{'cachedVersion'} = $storedVersion;
     }
