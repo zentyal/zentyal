@@ -263,23 +263,23 @@ sub _createEventArrayRaid # (arrayName, raidInfo)
     my ($self, $arrayName, $raidArrayInfo) = @_;
 
     my $msg = __x('New array RAID device {devName} information:',
-                  devName => $arrayName) . '\n';
-    $msg .= __x('State: {state}', state => $raidArrayInfo->{state}) . '\n';
-    $msg .= __x('Type: {type}', type => $raidArrayInfo->{type}) . '\n';
-    $msg .= __x('Active devices needed: {nb}', nb => $raidArrayInfo->{activeDevicesNeeded}) . '\n';
-    $msg .= __x('Active devices: {nb}', nb => $raidArrayInfo->{activeDevices}) . '\n';
+                  devName => $arrayName) . ' ';
+    $msg .= __x('State: {state}', state => $raidArrayInfo->{state}) . ' ';
+    $msg .= __x('Type: {type}', type => $raidArrayInfo->{type}) . ' ';
+    $msg .= __x('Active devices needed: {nb}', nb => $raidArrayInfo->{activeDevicesNeeded}) . ' ';
+    $msg .= __x('Active devices: {nb}', nb => $raidArrayInfo->{activeDevices}) . ' ';
     unless ( $raidArrayInfo eq 'none' ) {
         $msg .= __x('Operation in progress: {operation}',
-                    operation => $raidArrayInfo->{operation}) . '\n';
+                    operation => $raidArrayInfo->{operation}) . ' ';
         $msg .= __x('Completed operation percentage: {per}',
-                    per => $raidArrayInfo->{operationPercentage}) . '\n';
+                    per => $raidArrayInfo->{operationPercentage}) . ' ';
         $msg .= __x('Operation estimated finish time: {time}',
-                    time => $raidArrayInfo->{operationEstimatedTime}) . '\n';
+                    time => $raidArrayInfo->{operationEstimatedTime}) . ' ';
     }
     while (my ($raidCompNum, $raidCompInfo) = each %{$raidArrayInfo->{raidDevices}}) {
         $msg .= __x('Raid component {nb}: device {device} state {state}',
                     nb => $raidCompNum, device => $raidCompInfo->{device},
-                    state => $raidCompInfo->{state}) . '\n';
+                    state => $raidCompInfo->{state}) . ' ';
     }
 
     my $arrayRaidEvent = new EBox::Event(
@@ -396,42 +396,50 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
     my ($evtMsg, $showPer) = ('', 0);
     if ( $storedInfo->{operation} ne $arrayInfo->{operation} ) {
         if ( $storedInfo->{operation} eq 'none' ) {
-             $evtMsg = __x('RAID device {name} has started operation {opName}',
+             $evtMsg = __x('RAID device {name} has started operation {opName}.',
                            name   => $arrayName,
                            opName => $self->_i18nOp($arrayInfo->{operation}),
-                          ) . '\n';
+                          );
              $showPer = 1;
          } elsif ( $arrayInfo->{operation} eq 'none' ) {
              $evtMsg = __x('RAID device {name} has finished operation {opName} '
-                           . 'or it was aborted',
+                           . 'or it was aborted.',
                            name   => $arrayName,
                            opName => $self->_i18nOp($storedInfo->{operation}));
          } else {
              # None is 'none' operation
              $evtMsg = __x('RAID device {name} has finished operation {oldOpName} '
-                           . 'and started {newOpName}',
+                           . 'and started {newOpName}.',
                            name      => $arrayName,
                            oldOpName => $self->_i18nOp($storedInfo->{operation}),
                            newOpName => $self->_i18nOp($arrayInfo->{operation})
-                          ) . '\n';
+                          );
              $showPer = 1;
          }
     } elsif ( $arrayInfo->{operation} ne 'none' ) {
-        # An operation in RAID array is being performed, show percentage
-        $evtMsg = __x('RAID device {name} is performing operation {opName}',
-                      name   => $arrayName,
-                      opName => $self->_i18nOp($arrayInfo->{operation})
-                     ) . '\n';
-        $showPer = 1;
+        # An operation in RAID array is being performed, show we
+        # ignroe this because is very berbose to show various messages for a
+        # verbose operation
+
+#         $evtMsg = __x('RAID device {name} is performing operation {opName}',
+#                       name   => $arrayName,
+#                       opName => $self->_i18nOp($arrayInfo->{operation})
+#                      ) ;
+#         $showPer = 1;
+        return undef;
     }
 
     if ( $evtMsg ) {
         if ( $showPer ) {
-            $evtMsg .= __x('Status: {percentage} completed',
-                           percentage => $arrayInfo->{operationPercentage}) . '%\n';
-            $evtMsg .= __x('Estimated finish time: {time}',
+            $evtMsg .= ' ';
+            my $percentage =  $arrayInfo->{operationPercentage} . '%';
+            $evtMsg .= __x('Status: {percentage} completed.',
+                           percentage => $percentage);
+            $evtMsg .= ' ';
+            $evtMsg .= __x('Estimated finish time: {time}.',
                            time => $arrayInfo->{operationEstimatedTime});
         }
+
         return [ new EBox::Event(level   => 'info',
                                  source  => $self->name(),
                                  message => $evtMsg) ];
@@ -562,8 +570,11 @@ sub _i18nOp
         return __('reshape');
     } elsif ( $op eq 'recovery' ) {
         return __('recovery');
+    } elsif ($op eq 'check') {
+        return __('check');
     }
-    return '';
+
+    return $op;
 }
 
 # Get the component i18ned status message
