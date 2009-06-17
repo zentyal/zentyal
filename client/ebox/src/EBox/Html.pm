@@ -32,7 +32,7 @@ use HTML::Mason;
 #
 # Returns:
 #
-#      	string - containg the html code for the title
+#	string - containg the html code for the title
 #
 sub title
 {
@@ -66,13 +66,13 @@ sub title
 }
 
 #
-# Method: menu 
+# Method: menu
 #
 #	Returns the html code for the menu
 #
 # Returns:
 #
-#      	string - containg the html code for the menu
+#	string - containg the html code for the menu
 #
 sub menu
 {
@@ -93,13 +93,13 @@ sub menu
 }
 
 #
-# Method: footer 
+# Method: footer
 #
 #	Returns the html code for the footer page
 #
 # Returns:
 #
-#      	string - containg the html code for the footer page
+#	string - containg the html code for the footer page
 #
 sub footer
 {
@@ -108,13 +108,13 @@ sub footer
 }
 
 #
-# Method: header 
+# Method: header
 #
 #	Returns the html code for the header page
 #
 # Returns:
 #
-#      	string - containg the html code for the header page
+#	string - containg the html code for the header page
 #
 sub header # (title)
 {
@@ -135,7 +135,7 @@ sub makeHtml
     my $output;
     my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
     my $comp = $interp->make_component(comp_file => $filePath);
-	
+
     $interp->exec($comp, @params);
     return $output;
 }

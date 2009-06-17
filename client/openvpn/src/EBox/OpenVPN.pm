@@ -939,13 +939,13 @@ sub userRunning
 
 
     my $noneDaemonEnabled = 1;
-    
+
     my @daemons =  $self->daemons;
     foreach my $daemon (@daemons) {
         next if $daemon->internal();
 
         return 1 if $daemon->isRunning();
-        
+
         if ($daemon->isEnabled()) {
             $noneDaemonEnabled = 0;
         }
@@ -1457,7 +1457,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'VPN',
                                         'text' => __('VPN'),
-                                        'order' => 13
+                                        'order' => 130
                                        );
 
     $folder->add(
@@ -1525,7 +1525,7 @@ sub openVPNDaemonsWidget
     foreach my $daemon (@daemons) {
         my @daemonSummary = $daemon->summary();
         @daemonSummary or next;
-  
+
         my $name = shift @daemonSummary;
         my $section = new EBox::Dashboard::Section($daemon->name(),$name);
 

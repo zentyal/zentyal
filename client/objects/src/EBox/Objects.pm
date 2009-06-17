@@ -39,17 +39,17 @@ sub _create
                                       title => __n('Objects'),
                                       domain => 'ebox-objects',
                                       @_);
-    
+
     $self->{'actions'} = {};
     $self->{'actions'}->{'addObject'} = __n('Added object {object}');
-        $self->{'actions'}->{'addToObject'} = 
+        $self->{'actions'}->{'addToObject'} =
             __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
     $self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
-    $self->{'actions'}->{'removeObjectForce'} = 
+    $self->{'actions'}->{'removeObjectForce'} =
         __n('Forcefully removed object {object}');
     $self->{'actions'}->{'removeFromObject'} =
         __n('Removed {nname} from object {object}');
-    
+
     $self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
                                                     'gconfmodule' => $self,
                                                     'directory' => 'objectTable',
@@ -142,7 +142,7 @@ sub objects
                             name => $object->valueByName('name')
                          });
     }
-    
+
     return \@objects;
 }
 
@@ -153,7 +153,7 @@ sub objects
 # Returns:
 #
 #       Array ref - containing ids
-sub objectIds # (object) 
+sub objectIds # (object)
 {
     my ($self) = @_;
 
@@ -166,21 +166,21 @@ sub objectIds # (object)
 #       Return the members belonging to an object
 #
 # Parameters:
-#       
+#
 #       (POSITIONAL)
 #
 #       id - object's id
 #
 # Returns:
 #
-#       array ref - each element contains a hash with the member keys 'nname' 
+#       array ref - each element contains a hash with the member keys 'nname'
 #       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
 #       'macaddr', (mac address' member)
 #
 # Exceptions:
 #
 #       <EBox::Exceptions::MissingArgument>
-sub objectMembers # (object) 
+sub objectMembers # (object)
 {
     my ($self, $id) = @_;
 
@@ -212,7 +212,7 @@ sub objectMembers # (object)
 
 # objectAddresses
 #
-#       Return the network addresses of a member 
+#       Return the network addresses of a member
 #
 # Parameters:
 #
@@ -243,21 +243,21 @@ sub objectAddresses # (object)
 # getMembersToObjectTable($id, [ 'ipaddr' ])
 
 # Method: objectDescription
-#   
+#
 #       Return the description of an Object
 #
 # Parameters:
-#   
+#
 #       id - object's id
 #
 # Returns:
 #
 #       string - description of the Object
 #
-# Exceptions: 
+# Exceptions:
 #
 #       DataNotFound - if the Object does not exist
-sub objectDescription  # (object) 
+sub objectDescription  # (object)
 {
     my ( $self, $id ) = @_;
 
@@ -284,17 +284,17 @@ sub objectDescription  # (object)
 #       object - the name of an Object
 #
 # Returns:
-#   
-#       boolean - true if there is a module which uses the Object, otherwise 
+#
+#       boolean - true if there is a module which uses the Object, otherwise
 #       false
-sub objectInUse # (object) 
+sub objectInUse # (object)
 {
     my ($self, $object ) = @_;
 
     unless (defined($object)) {
         throw EBox::Exceptions::MissingArgument("id");
     }
-    
+
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
     foreach my $mod (@mods) {
@@ -302,46 +302,46 @@ sub objectInUse # (object)
             return 1;
         }
     }
- 
+
     return undef;
 }
 
 # Method: objectExists
 #
 #       Checks if a given object exists
-#       
+#
 # Parameters:
-#   
-#       id - object's id 
+#
+#       id - object's id
 #
 # Returns:
 #
 #       boolean - true if the Object exists, otherwise false
-sub objectExists 
+sub objectExists
 {
     my ($self, $id) = @_;
-        
+
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument("id");
     }
-    
+
     return defined($self->{'objectModel'}->row($id));
 }
 
 
 
-# Method: removeObjectForce 
+# Method: removeObjectForce
 #
 #       Forces an object to be deleted
-#       
+#
 # Parameters:
-#   
+#
 #       object - object description
 #
-sub removeObjectForce # (object) 
+sub removeObjectForce # (object)
 {
     #action: removeObjectForce
-        
+
     my ($self, $object)  = @_;
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
@@ -368,14 +368,14 @@ sub removeObjectForce # (object)
 #   members    - array ref containing the following hash ref in each value:
 #
 #                name        - member's name
-#                ipaddr_ip   - member's ipaddr 
+#                ipaddr_ip   - member's ipaddr
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
 # Example:
 #
 #       name => 'administration',
-#       members => [ 
+#       members => [
 #                   { 'name'         => 'accounting',
 #                     'ipaddr_ip'    => '192.168.1.3',
 #                     'ipaddr_mask'  => '32',
@@ -385,7 +385,7 @@ sub removeObjectForce # (object)
 sub addObject
 {
     my ($self, %params) = @_;
-        
+
     $self->{'objectModel'}->addObject(%params);
 }
 
@@ -397,10 +397,10 @@ sub addObject
 #                  },
 #                 ]
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
+#
 #
 sub menu
 {
@@ -408,7 +408,7 @@ sub menu
     my $item = new EBox::Menu::Item(
                                     'url' => 'Objects/View/ObjectTable',
                                     'text' => __($self->title),
-                                    'order' => 4);
+                                    'order' => 40);
     $root->add($item);
 }
 

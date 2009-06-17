@@ -365,7 +365,7 @@ sub _exposedMethods
 
 
 
-# return interface upon samba should listen 
+# return interface upon samba should listen
 # XXX this is a quick fix for this version. See #529
 sub sambaInterfaces
 {
@@ -684,7 +684,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
                'text' => __('File Sharing'),
-               'order' => 16));
+               'order' => 160));
 }
 
 #   Function: setFileService
@@ -1828,9 +1828,9 @@ sub logHelper
 
 sub isAntivirusPresent
 {
-    
+
     my $global = EBox::Global->getInstance();
-    
+
     return ($global->modExists('antivirus')
              and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
 }

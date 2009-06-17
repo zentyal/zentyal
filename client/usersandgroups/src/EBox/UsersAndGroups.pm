@@ -1771,7 +1771,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'text' => __('Users'),
-                                        'order' => 14);
+                                        'order' => 140);
     $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                       'text' => __('Add User')));
     $folder->add(new EBox::Menu::Item(
@@ -1781,7 +1781,7 @@ sub menu
 
     $folder = new EBox::Menu::Folder('name' => 'Group',
                                         'text' => __('Groups'),
-                                     'order' => 15);
+                                     'order' => 141);
     $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
                                     'text' => __('Add Group')));
     $folder->add(new EBox::Menu::Item('url' => 'Users/View/Groups',

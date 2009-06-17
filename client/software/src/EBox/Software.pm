@@ -470,7 +470,8 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => __('Software Management'));
+                                           'text' => __('Software Management'),
+                                           'order' => 400);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
                                           'text' => __('eBox Components')));

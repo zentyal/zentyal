@@ -136,7 +136,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
                                     'text' => __('IDS'),
-                                    'order' => 26));
+                                    'order' => 260));
 }
 
 # Method: modelClasses

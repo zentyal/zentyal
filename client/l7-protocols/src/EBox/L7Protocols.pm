@@ -87,7 +87,7 @@ sub menu
     my $item = new EBox::Menu::Item(
     'url' => 'l7-protocols/View/Groups',
     'text' => __('Application-based Protocols'),
-    'order' => 10);
+    'order' => 100);
     $root->add($item);
 }
 

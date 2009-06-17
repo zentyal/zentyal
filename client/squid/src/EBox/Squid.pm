@@ -768,7 +768,7 @@ sub _cleanDomainFilterFiles
     my %fgDirs =();
     foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
         $fgDirs{$domainFilterFiles->listFileDir} = 1;
-        
+
         $domainFilterFiles->setupArchives();
         $domainFilterFiles->cleanOrphanedFiles();
     }
@@ -808,12 +808,12 @@ sub _domainFilterFilesComponents
     my $defaultGroupName = $filterGroups->defaultGroupName();
     foreach my $id ( @{ $filterGroups->ids() } ) {
         my $row = $filterGroups->row($id);
-        my $filterPolicy =   $row->elementByName('filterPolicy');     
+        my $filterPolicy =   $row->elementByName('filterPolicy');
         my $fSettings = $filterPolicy->foreignModelInstance();
-        
+
         my $domainFilterFiles;
         if ($row->valueByName('name') eq $defaultGroupName) {
-            push @components, 
+            push @components,
                 $fSettings->componentByName('DomainFilterFiles', 1);
         } else {
             push @components,
@@ -952,7 +952,7 @@ sub menu
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
                                         'text' => $self->printableName(),
-                                        'order' => 9);
+                                        'order' => 90);
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                       'text' => __('General')));

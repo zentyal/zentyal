@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,7 +23,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::CGI::Run;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;
@@ -30,18 +31,18 @@ sub new
 	bless($self, $class);
 	$self->{style} = delete $opts{style};
 	my $order = delete $opts{order};
-	if (defined($order) and ($order > 0) and ($order <= 10)) {
+	if (defined($order)) {
 		$self->{order} = $order;
 	} else {
-		$self->{order} = 5;
+		$self->{order} = 999;
 	}
 	$self->{items} = [];
 	return $self;
 }
 
-sub add # (item) 
+sub add # (item)
 {
-	my ($self,$item) = @_;
+	my ($self, $item) = @_;
 	(defined($item)) or return;
 	$item->isa('EBox::Menu::Node') or
 		throw EBox::Exceptions::Internal(
@@ -67,16 +68,11 @@ sub add # (item)
 
 sub items
 {
-	my $self = shift;
-	my @array = ();
-	foreach my $i (1..10) {
-		foreach my $item (@{$self->{items}}) {
-			if ($item->{order} == $i) {
-				push(@array, $item);
-			}
-		}
-	}
-	return \@array;
+	my ($self) = @_;
+
+	my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->{items}};
+
+	return \@sorted;
 }
 
 sub _compare # (node)
@@ -87,7 +83,7 @@ sub _compare # (node)
 sub _merge # (node)
 {
 	my ($self, $node) = @_;
-    foreach my $item (@{$node->{items}}) { 
+    foreach my $item (@{$node->{items}}) {
         $self->add($item);
     }
 }

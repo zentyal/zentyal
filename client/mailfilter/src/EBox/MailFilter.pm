@@ -277,7 +277,7 @@ sub _setConf
     $self->smtpFilter->writeConf();
     $self->antispam()->writeConf();
     $self->popProxy()->writeConf();
-    
+
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     $vdomainsLdap->regenConfig();
 }
@@ -294,7 +294,7 @@ sub _enforceServiceState
     $self->smtpFilter()->doDaemon($enabled);
     $self->popProxy()->doDaemon($enabled);
 
-    # Workaround postfix amavis issue. 
+    # Workaround postfix amavis issue.
     root("/etc/init.d/postfix restart");
 }
 
@@ -661,7 +661,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
                                         'text' => __('Mail Filter'),
-                                        'order' =>  25
+                                        'order' =>  250
     );
 
     $folder->add(

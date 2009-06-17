@@ -18,7 +18,7 @@
 #       This class is used to abstract services composed of
 #       protocols and ports.
 #
-#       
+#
 
 package EBox::Services;
 
@@ -47,11 +47,11 @@ sub _create
             title => __n('Services'),
             domain => 'ebox-services',
             @_);
-    $self->{'serviceModel'} = 
+    $self->{'serviceModel'} =
         new EBox::Services::Model::ServiceTable(
                 'gconfmodule' => $self,
                 'directory' => 'serviceTable');
-    $self->{'serviceConfigurationModel'} = 
+    $self->{'serviceConfigurationModel'} =
         new EBox::Services::Model::ServiceConfigurationTable(
                 'gconfmodule' => $self,
                 'directory' => 'serviceConfigurationTable');
@@ -136,11 +136,11 @@ sub serviceNames
 
     my $servicesModel = $self->{'serviceModel'};
     my @services;
-    
+
     foreach my $id (@{$servicesModel->ids()}) {
         my $name = $servicesModel->row($id)->valueByName('name');
         push @services, {
-            'id' => $id, 
+            'id' => $id,
             'name' => $name
            };
     }
@@ -156,12 +156,12 @@ sub serviceNames
 # Returns:
 #
 #       Array ref of  hash refs which contain:
-#       
+#
 #       protocol - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#       source   - it can take: 
+#       source   - it can take:
 #                       "any"
 #                       An integer from 1 to 65536 -> 22
-#                       Two integers separated by colons -> 22:25 
+#                       Two integers separated by colons -> 22:25
 #       destination - same as source
 #
 #       Example:
@@ -187,7 +187,7 @@ sub serviceConfiguration
     my @conf;
     for my $id (@{$model->ids()}) {
 	my $subRow = $model->row($id);
-        push (@conf, { 
+        push (@conf, {
                         'protocol' => $subRow->valueByName('protocol'),
                         'source' => $subRow->valueByName('source'),
                         'destination' => $subRow->valueByName('destination')
@@ -197,21 +197,21 @@ sub serviceConfiguration
     return \@conf;
 }
 
-# Method: addService 
+# Method: addService
 #
-#   Add a service to the services table 
+#   Add a service to the services table
 #
 # Parameters:
 #
 #   (NAMED)
-#   
+#
 #   name        - service's name
 #   description - service's description
 #       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#       sourcePort  - it can take: 
+#       sourcePort  - it can take:
 #                   "any"
 #                    An integer from 1 to 65536 -> 22
-#                   Two integers separated by colons -> 22:25 
+#                   Two integers separated by colons -> 22:25
 #       destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
@@ -227,22 +227,22 @@ sub serviceConfiguration
 #
 #   Returns:
 #
-#   string - id of the new created row  
-sub addService 
+#   string - id of the new created row
+sub addService
 {
     my ($self, %params) = @_;
 
     return $self->{'serviceModel'}->addService(%params);
 }
 
-# Method: addMultipleService 
+# Method: addMultipleService
 #
-#   Add a multi protocol service to the services table  
+#   Add a multi protocol service to the services table
 #
 # Parameters:
 #
 #   (NAMED)
-#   
+#
 #   name        - service's name
 #   description - service's description
 #   internal - boolean, internal services can't be modified from the UI
@@ -250,11 +250,11 @@ sub addService
 #
 #   services - array ref of hash ref containing:
 #
-#           protocol    - it can take one of these: any, tcp, udp, 
+#           protocol    - it can take one of these: any, tcp, udp,
 #                                                   tcp/udp, grep, icmp
 #           sourcePort  - it can take:  "any"
 #                                   An integer from 1 to 65536 -> 22
-#                                   Two integers separated by colons -> 22:25 
+#                                   Two integers separated by colons -> 22:25
 #           destinationPort - same as source
 #
 #
@@ -262,7 +262,7 @@ sub addService
 #
 #       'name' => 'ssh',
 #       'description' => 'secure shell'.
-#       'services' => [ 
+#       'services' => [
 #                       {
 #                               'protocol' => 'tcp',
 #                               'sourcePort' => 'any',
@@ -277,29 +277,29 @@ sub addService
 #
 #   Returns:
 #
-#   string - id of the new created row  
-sub addMultipleService 
+#   string - id of the new created row
+sub addMultipleService
 {
     my ($self, %params) = @_;
 
     return $self->{'serviceModel'}->addMultipleService(%params);
 }
 
-# Method: setService 
+# Method: setService
 #
-#   Set a existing service to the services table        
+#   Set a existing service to the services table
 #
 # Parameters:
 #
 #   (NAMED)
-#   
+#
 #   name        - service's name
 #   description - service's description
 #       protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#       sourcePort  - it can take: 
+#       sourcePort  - it can take:
 #                   "any"
 #                    An integer from 1 to 65536 -> 22
-#                   Two integers separated by colons -> 22:25 
+#                   Two integers separated by colons -> 22:25
 #       destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
@@ -311,7 +311,7 @@ sub addMultipleService
 #           'protocol' => 'tcp',
 #           'sourcePort' => 'any',
 #       'destinationPort' => '21:22',
-sub setService 
+sub setService
 {
     my ($self, %params) = @_;
 
@@ -325,7 +325,7 @@ sub setService
 # Parameters:
 #
 #       port - port
-#       
+#
 sub setAdministrationPort
 {
     my ($self, $port) = @_;
@@ -343,7 +343,7 @@ sub setAdministrationPort
 
 }
 
-# Method: availablePort 
+# Method: availablePort
 #
 #       Check if a given port for a given protocol is available. That is,
 #       no internal service uses it.
@@ -364,19 +364,19 @@ sub availablePort
     return $self->{'serviceModel'}->availablePort(%params);
 }
 
-# Method: removeService 
+# Method: removeService
 #
-#  Remove a service from the  services table    
+#  Remove a service from the  services table
 #
 # Parameters:
-# 
+#
 #   (NAMED)
-#   
+#
 #   You can select the service using one of the following parameters:
-#       
+#
 #       name - service's name
 #       id - service's id
-sub removeService 
+sub removeService
 {
     my ($self, %params) = @_;
 
@@ -407,7 +407,7 @@ sub removeService
 #
 #   (NAMED)
 #   You can select the service using one of the following parameters:
-#       
+#
 #       name - service's name
 #       id - service's id
 sub serviceExists
@@ -417,7 +417,7 @@ sub serviceExists
     unless (exists $params{'id'} or exists $params{'name'}) {
         throw EBox::Exceptions::MissingArgument('service');
     }
-    
+
     my $model =  $self->{'serviceModel'};
     my $id = $params{'id'};
 
@@ -430,7 +430,7 @@ sub serviceExists
     }
 
     return defined($row);
-}    
+}
 
 # Method: serviceId
 #
@@ -452,17 +452,17 @@ sub serviceId
     unless (defined($name)) {
         throw EBox::Exceptions::MissingArgument('name');
     }
-    
+
     my $model =  $self->{'serviceModel'};
     my $row = $model->findValue('name' => $name);
-    
+
     return $row->id();
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
+#
 #
 sub menu
 {
@@ -470,7 +470,7 @@ sub menu
     my $item = new EBox::Menu::Item(
     'url' => 'Services/View/ServiceTable',
     'text' => __($self->title),
-    'order' => 5);
+    'order' => 50);
     $root->add($item);
 }
 

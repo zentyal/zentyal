@@ -443,7 +443,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
                                         'text' => __('Asterisk'),
-                                        'order' => 20);
+                                        'order' => 200);
 
     $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/Composite/General',
@@ -484,7 +484,7 @@ sub extendedBackup
   my ($self, %params) = @_;
   my $dir = $params{dir};
   my $archiveFile = $self->_backupArchiveFile($dir);
-  
+
   my @dirsToBackup = map { "'$_'"  } (
           VOICEMAIL_DIR,
          );

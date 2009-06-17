@@ -24,8 +24,8 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::Module::Service 
-            EBox::Model::ModelProvider 
+use base qw(EBox::Module::Service
+            EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             );
 
@@ -148,7 +148,7 @@ sub menu
       my $item = new EBox::Menu::Item(name  => 'Events',
                                       text  => __('Events'),
                                       url   => 'Events/Composite/GeneralComposite',
-                                      order => 28);
+                                      order => 280);
 
       $root->add($item);
 
@@ -277,7 +277,7 @@ sub configureDispatcherModel
 
       # Check if it is already cached
       unless ( exists $self->{configureDispatcherModel} ) {
-          $self->{configureDispatcherModel} = 
+          $self->{configureDispatcherModel} =
             new EBox::Events::Model::ConfigureDispatcherDataTable(
                  gconfmodule => $self,
                  directory   => 'configureDispatcherTable'
@@ -392,15 +392,15 @@ sub _prepareRestoreBackup
     my ($self) = @_;
 
     my $eventModel = $self->configureEventModel();
-    my @enableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') } 
+    my @enableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') }
     @{$eventModel->findAllValue (enabled => 1)};
-    my @disableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') } 
+    my @disableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') }
     @{$eventModel->findAllValue (enabled => 0)};
 
     my $dispatcherModel = $self->configureDispatcherModel();
-    my @enableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') } 
+    my @enableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') }
     @{$dispatcherModel->findAllValue (enabled => 1)};
-    my @disableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') } 
+    my @disableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') }
     @{$dispatcherModel->findAllValue (enabled => 0)};
 
     $self->set_list('watcher_to_enable', 'string', \@enableEvents);

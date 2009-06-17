@@ -87,7 +87,7 @@ use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 sub _create
 {
 	my $class = shift;
-	my $self  = $class->SUPER::_create(name => 'dhcp', 
+	my $self  = $class->SUPER::_create(name => 'dhcp',
                                            printableName => 'dhcp server',
                                            domain => 'ebox-dhcp',
                                            @_);
@@ -116,7 +116,7 @@ sub usedFiles
 	       ];
 }
 
-# Method: enableActions 
+# Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
 #
@@ -161,7 +161,7 @@ sub menu
         my ($self, $root) = @_;
         $root->add(new EBox::Menu::Item('url' => 'DHCP/Composite/General',
                                         'text' => 'DHCP',
-                                        'order' => 7));
+                                        'order' => 70));
 }
 
 # Method: models
@@ -635,13 +635,13 @@ sub ranges # (iface)
     my @ranges;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        push (@ranges, { 
+        push (@ranges, {
                 name => $row->valueByName('name'),
                 from => $row->valueByName('from'),
                 to => $row->valueByName('to')
                 });
     }
-    
+
     return \@ranges;
 }
 
@@ -670,7 +670,7 @@ sub ranges # (iface)
 #	DataNotFound - Interface does not exist
 #	External - Interface is not configured as static
 #	External - ip is not in the network for the given interface
-#	External - ip overlap 
+#	External - ip overlap
 #	External - ip already configured as fixed
 #
 sub fixedAddressAction
@@ -729,7 +729,7 @@ sub fixedAddressAction
 #
 # Returns:
 #
-#	array ref - contating the fixed addresses in hash refereces. 
+#	array ref - contating the fixed addresses in hash refereces.
 #	Each hash holds the keys 'mac', 'ip' and 'name'
 #
 # Exceptions:
@@ -758,7 +758,7 @@ sub fixedAddresses # (interface)
 	my @addrs;
 	for my $id (@{$model->ids()}) {
 		my $row = $model->row($id);
-		push (@addrs, { 
+		push (@addrs, {
 				name => $row->valueByName('name'),
 				ip => $row->valueByName('ip'),
 				mac => $row->valueByName('mac')
@@ -1142,7 +1142,7 @@ sub tableInfo {
 	};
 	my @order = ('timestamp', 'ip', 'mac', 'interface', 'event');
 	my $events = {'leased' => __('Leased'), 'released' => __('Released') };
-	
+
 	return [{
 		'name' => __('DHCP'),
 		'index' => 'dhcp',
@@ -1170,7 +1170,7 @@ sub _leaseIDFromIP
     #force every byte to use 3 digits to make sorting trivial
     my @bytes = split('\.', $ip);
     for my $byte (@bytes) {
-        $id .= sprintf("%03d", $byte); 
+        $id .= sprintf("%03d", $byte);
     }
     return $id;
 }

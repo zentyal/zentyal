@@ -24,8 +24,8 @@ package EBox::WebServer;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service 
-            EBox::Model::ModelProvider 
+use base qw(EBox::Module::Service
+            EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             );
 
@@ -100,8 +100,8 @@ sub usedFiles
         'module' => 'webserver',
         'reason' => __('To configure the per-user public HTML directory')
     }
-        ]; 
-   
+        ];
+
    my $vHostModel = $self->model('VHostTable');
 
     foreach my $id (@{$vHostModel->ids()}) {
@@ -110,18 +110,18 @@ sub usedFiles
         my $vHostName = $vHost->valueByName('name');
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
-       push @{$files}, { 'file' => $destFile, 'module' => 'webserver' , 
+       push @{$files}, { 'file' => $destFile, 'module' => 'webserver' ,
                          'reason' => 'To configure every virtual host'};
     }
 
     return $files;
 }
 
-# Method: actions 
+# Method: actions
 #
 #	Override EBox::Module::Service::actions
 #
-sub actions 
+sub actions
 {
     return [
     {
@@ -148,7 +148,7 @@ sub menu
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       text  => __('Web'),
                                       url   => 'WebServer/Composite/General',
-                                      order => 22
+                                      order => 220
                                      );
 
       $root->add($item);
@@ -267,8 +267,8 @@ sub virtualHosts
     foreach my $id (@{$vHostModel->ids()}) {
         my $rowVHost = $vHostModel->row($id);
         push ( @vHosts, {
-                         name => $rowVHost->valueByName('name'), 
-                         enabled => $rowVHost->valueByName('enabled'), 
+                         name => $rowVHost->valueByName('name'),
+                         enabled => $rowVHost->valueByName('enabled'),
                         });
     }
 
@@ -455,7 +455,7 @@ sub _setVHosts
     }
 
     # Remove not used old dirs
-    for my $dir (keys %sitesToRemove) { 
+    for my $dir (keys %sitesToRemove) {
         EBox::Sudo::root("rm -f $dir");
     }
 
@@ -469,8 +469,8 @@ sub _availableSites
     my @dirs;
     try {
       @dirs = @{EBox::Sudo::root($cmd)};
-    } catch EBox::Exceptions::Sudo::Command with { 
-        # No sites 
+    } catch EBox::Exceptions::Sudo::Command with {
+        # No sites
     };
     my %dirs = map  {chop($_); $_ => 1} @dirs;
     return \%dirs;

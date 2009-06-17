@@ -1699,7 +1699,7 @@ sub menu
 
   my $folder = new EBox::Menu::Folder('name' => 'CA',
                     'text' => __('Certification Authority'),
-                    'order' => 12);
+                    'order' => 120);
 
   $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                     'text' => __('General')));

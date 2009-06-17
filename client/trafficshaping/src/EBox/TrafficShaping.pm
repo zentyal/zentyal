@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # FIXME:  Get rid of unnecessary stuff already provided by the framework
-# 
+#
 
 # Class: EBox::TrafficShaping
 #
@@ -35,9 +35,9 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service 
-            EBox::NetworkObserver 
-            EBox::Model::ModelProvider 
+use base qw(EBox::Module::Service
+            EBox::NetworkObserver
+            EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             );
 
@@ -103,7 +103,7 @@ sub _create
     return $self;
   }
 
-# FIXME 
+# FIXME
 sub startUp
 {
      my ($self) = @_;
@@ -353,7 +353,8 @@ sub menu # (root)
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
-				    'text' => __('Traffic Shaping')));
+				                    'text' => __('Traffic Shaping'),
+                                    'order' => 110));
 
 }
 
@@ -889,7 +890,7 @@ sub _createRuleModels
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'}; 
+    my $network = $self->{'network'};
 
     my $ifaces_ref = $network->ifaces();
     foreach my $iface (@{$ifaces_ref}) {
@@ -934,7 +935,7 @@ sub _checkInterface # (iface)
     my ($self, $iface) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'}; 
+    my $network = $self->{'network'};
 
     # Now shaping can be done at internal interfaces to egress traffic
 
@@ -1002,7 +1003,7 @@ sub _ruleDirectory # (iface, ruleId?)
     my ($self, $iface, $ruleId) = @_;
 
     my $dir = $self->ruleModel($iface)->directory() . '/keys';
-    
+
 
     if ( defined ($ruleId) ) {
       return "$dir/$ruleId";
@@ -1320,7 +1321,7 @@ sub _buildObjMembers
 
     # Get the object's members
     my $global = EBox::Global->getInstance();
-    my $objs = $self->{'objects'}; 
+    my $objs = $self->{'objects'};
 
     my $membs_ref = $objs->objectMembers($objectName);
 
@@ -1383,7 +1384,7 @@ sub _buildObjToObj
     my ($self, %args) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $objs = $self->{'objects'}; 
+    my $objs = $self->{'objects'};
 
     my $srcMembs_ref = $objs->objectMembers($args{srcObject});
     my $dstMembs_ref = $objs->objectMembers($args{dstObject});
@@ -1708,7 +1709,7 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
 
   }
 
- 
+
  # Run a iptables command
  sub _pf
    {
@@ -1717,4 +1718,4 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
    }
 
 1;
- 
+

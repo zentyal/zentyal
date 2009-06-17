@@ -194,16 +194,16 @@ sub menu
 
 	$root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
 					'text' => __('Dashboard'),
-					'order' => 1));
+					'order' => 10));
 
 	$root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
 					'text' => __('Module Status'),
-					'order' => 2));
+					'order' => 15));
 
 
 	my $folder = new EBox::Menu::Folder('name' => 'EBox',
 					    'text' => __('System'),
-					    'order' => 3);
+					    'order' => 20);
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/General',
 					  'text' => __('General')));
