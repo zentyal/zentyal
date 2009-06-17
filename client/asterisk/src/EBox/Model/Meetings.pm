@@ -71,9 +71,8 @@ sub precondition
 {
     my ($self) = @_;
 
-    system('dpkg -l dahdi-linux');
-
-    return not $?;
+    my $out = `modinfo dahdi 2>&1`;
+    return ( $? == 0 );
 }
 
 
