@@ -1,4 +1,5 @@
 1.1.30
+	+ Added support for all missing netmasks between /16 and /32
 	+ Added support for search domain in /etc/resolv.conf
 1.1
 	+ Added traceroute on network diagnosis

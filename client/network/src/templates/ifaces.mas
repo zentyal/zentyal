@@ -23,7 +23,7 @@ use EBox::NetWrappers qw(:all);
 	<tr>
 		<td class='tright'>
 			<span class="ftitle">
-				<%__('Name')%>: 
+				<%__('Name')%>:
 			</span>
 		</td>
 		<td class='tright'>
@@ -52,11 +52,11 @@ use EBox::NetWrappers qw(:all);
 % }
 
 % unless ($iface->{'name'} =~ /^vlan/) {
-% 	if ($iface->{'method'} eq 'trunk') {
+%	if ($iface->{'method'} eq 'trunk') {
 				<option selected value='trunk'><%__('Trunk (802.1q)')%></option>
-% 	} else {
+%	} else {
 				<option value='trunk'><%__('Trunk (802.1q)')%></option>
-% 	}
+%	}
 % }
 
 % if ($iface->{'method'} eq 'notset') {
@@ -81,7 +81,7 @@ use EBox::NetWrappers qw(:all);
 %					if ($iface->{'external'} eq 'yes') {
 					checked \
 %					}
-				name="external" /> 
+				name="external" />
 			</div>
 		</td>
 	</tr>
@@ -114,6 +114,7 @@ use EBox::NetWrappers qw(:all);
 %		$netmask = '255.255.255.0';
 %	}
 				<option selected value='<% $netmask %>'><% $netmask %></option>
+				<option value='255.255.255.254'>255.255.255.254</option>
 				<option value='255.255.255.252'>255.255.255.252</option>
 				<option value='255.255.255.248'>255.255.255.248</option>
 				<option value='255.255.255.240'>255.255.255.240</option>
@@ -121,7 +122,13 @@ use EBox::NetWrappers qw(:all);
 				<option value='255.255.255.192'>255.255.255.192</option>
 				<option value='255.255.255.128'>255.255.255.128</option>
 				<option value='255.255.255.0'>255.255.255.0</option>
-                                <option value="255.255.252.0">255.255.252.0</option>
+                <option value="255.255.254.0">255.255.254.0</option>
+                <option value="255.255.252.0">255.255.252.0</option>
+                <option value="255.255.248.0">255.255.248.0</option>
+                <option value="255.255.240.0">255.255.240.0</option>
+                <option value="255.255.224.0">255.255.224.0</option>
+                <option value="255.255.192.0">255.255.192.0</option>
+                <option value="255.255.128.0">255.255.128.0</option>
 				<option value='255.255.0.0'>255.255.0.0</option>
 				<option value='255.0.0.0'>255.0.0.0</option>
 			</select>
@@ -226,17 +233,24 @@ use EBox::NetWrappers qw(:all);
 
 			<td>
 				<select name="vif_netmask">
-					<option selected value="255.255.255.0">255.255.255.0</option>
-                                        <option value='255.255.255.252'>255.255.255.252</option>
-					<option value="255.255.255.248">255.255.255.248</option>
-					<option value="255.255.255.240">255.255.255.240</option>
-					<option value="255.255.255.224">255.255.255.224</option>
-					<option value="255.255.255.192">255.255.255.192</option>
-					<option value="255.255.255.128">255.255.255.128</option>
-					<option value="255.255.255.0">255.255.255.0</option>
-					<option value="255.255.252.0">255.255.252.0</option>
-					<option value="255.255.0.0">255.255.0.0</option>
-					<option value="255.0.0.0">255.0.0.0</option>
+				<option selected value="255.255.255.0">255.255.255.0</option>
+				<option value='255.255.255.254'>255.255.255.254</option>
+				<option value='255.255.255.252'>255.255.255.252</option>
+				<option value='255.255.255.248'>255.255.255.248</option>
+				<option value='255.255.255.240'>255.255.255.240</option>
+				<option value='255.255.255.224'>255.255.255.224</option>
+				<option value='255.255.255.192'>255.255.255.192</option>
+				<option value='255.255.255.128'>255.255.255.128</option>
+				<option value='255.255.255.0'>255.255.255.0</option>
+                <option value="255.255.254.0">255.255.254.0</option>
+                <option value="255.255.252.0">255.255.252.0</option>
+                <option value="255.255.248.0">255.255.248.0</option>
+                <option value="255.255.240.0">255.255.240.0</option>
+                <option value="255.255.224.0">255.255.224.0</option>
+                <option value="255.255.192.0">255.255.192.0</option>
+                <option value="255.255.128.0">255.255.128.0</option>
+				<option value='255.255.0.0'>255.255.0.0</option>
+				<option value='255.0.0.0'>255.0.0.0</option>
 				</select>
 			</td>
 

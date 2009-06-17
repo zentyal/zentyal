@@ -1,8 +1,10 @@
+1.1.30
+	+ Added missing netmask values for network addresses between 16 and 32
 1.1.20
-	+ Support for custom view       
+	+ Support for custom view
 	+ Fix in netwrappers: iface methofd now retuns the ifcaes sorted
 1.1.10
-	+ UI improvement: submit Ajax forms by pressing return 
+	+ UI improvement: submit Ajax forms by pressing return
 1.1
 	+ Fixing bogus div and missing items to make eBox Web UI more w3c
 	complaint

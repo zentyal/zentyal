@@ -33,13 +33,13 @@ BEGIN {
 
         @ISA = qw(Exporter);
         @EXPORT = qw();
-        %EXPORT_TAGS  = (all => [qw{    checkCIDR checkIP checkNetmask 
-                                        checkIPNetmask  
+        %EXPORT_TAGS  = (all => [qw{    checkCIDR checkIP checkNetmask
+                                        checkIPNetmask
                                         checkProtocol checkPort
                                         checkName checkMAC checkVifaceName
                                         checkDomainName  checkHost
                                         isIPInNetwork
-                                        checkVlanID isPrivateDir isANumber 
+                                        checkVlanID isPrivateDir isANumber
                                         isAPositiveNumber
                                         checkFilePath checkAbsoluteFilePath
                                 } ],
@@ -62,13 +62,13 @@ BEGIN {
 #
 # Returns:
 #
-#       boolean - True if the address is within the network, false otherwise 
+#       boolean - True if the address is within the network, false otherwise
 #
 sub isIPInNetwork # net_ip, net_mask, host_ip
 {
         my ($net_ip, $net_mask, $host_ip) = @_;
         my $net_net = EBox::NetWrappers::ip_network($net_ip, $net_mask);
-        
+
         my $bits = EBox::NetWrappers::bits_from_mask($net_mask);
         my $ip = new Net::IP("$net_net/$bits");
         my $ip2 = new Net::IP($host_ip);
@@ -152,7 +152,7 @@ sub checkCIDR # (cidr, name?)
 #
 #       InvalidData - IP is invalid
 #
-sub checkIP # (ip, name?) 
+sub checkIP # (ip, name?)
 {
         my $ip = shift;
         my $name = shift;
@@ -192,7 +192,7 @@ sub checkIP # (ip, name?)
 #
 #       InvalidData - IP is invalid
 #
-sub checkIP6 # (ip, name?) 
+sub checkIP6 # (ip, name?)
 {
    my ($ip, $name) = @_;
 
@@ -209,27 +209,27 @@ sub checkIP6 # (ip, name?)
 }
 
 
-# 
+#
 # Function: checkNetmask
 #
 #       Checks if the string param that holds a network mask is valid .
 #
 # Parameters:
 #
-#       nmask - netowrk mask
+#       nmask - network mask
 #       name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#       
-#       boolean - True if it is a valid network mask, false otherwise 
+#
+#       boolean - True if it is a valid network mask, false otherwise
 #
 # Exceptions:
 #
-#       If name is passed an exception could be raised  
+#       If name is passed an exception could be raised
 #
 #       InvalidData - mask is incorrect
 #
-sub checkNetmask # (mask, name?) 
+sub checkNetmask # (mask, name?)
 {
         my $nmask = shift;
         my $name = shift;
@@ -238,7 +238,7 @@ sub checkNetmask # (mask, name?)
         if("$nmask\." =~ m/^(([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.){4}$/){
                 my $bits;
                 foreach (split(/\./, $nmask)){
-                        $bits .= unpack( "B*", pack( "C", $_ ));        
+                        $bits .= unpack( "B*", pack( "C", $_ ));
                 }
                 unless ($bits =~ /^((0+)|(1+0*))$/){
                         $error = 1;
@@ -258,10 +258,10 @@ sub checkNetmask # (mask, name?)
         return 1;
 }
 
-# 
+#
 # Function: checkIPNetmask
 #
-#       Checks if the IP and the mask are valid and that the IP is not a 
+#       Checks if the IP and the mask are valid and that the IP is not a
 #       network or  broadcast address with the given mask.
 #
 #       Note that both name_ip and name_mask should be set, or not set at all
@@ -270,20 +270,20 @@ sub checkNetmask # (mask, name?)
 # Parameters:
 #
 #       ip - IPv4 address
-#       mask -  network mask address 
+#       mask -  network mask address
 #       name_ip - Data's name to be used when throwing an Exception
 #       name_mask - Data's name to be used when throwing an Exception
 # Returns:
-#       
-#       boolean - True if it is a valid IPv4 address, false otherwise 
+#
+#       boolean - True if it is a valid IPv4 address, false otherwise
 #
 # Exceptions:
 #
-#       If name is passed an exception could be raised  
+#       If name is passed an exception could be raised
 #
 #       InvalidData - ip/mask is incorrect
 #
-sub checkIPNetmask # (ip, mask, name_ip?, name_mask?) 
+sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
 {
         my ($ip,$mask,$name_ip, $name_mask) = @_;
         my $error = 0;
@@ -332,7 +332,7 @@ sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
 #
 #       InvalidData - ip/mask is incorrect
 #
-sub checkPort # (port, name?) 
+sub checkPort # (port, name?)
 {
         my $pnumber = shift;
         my $name = shift;
@@ -358,7 +358,7 @@ sub checkPort # (port, name?)
         }
 }
 
-# 
+#
 # Function: checkVlanID
 #
 #       Checks if the given vlan identifier is valid
@@ -369,16 +369,16 @@ sub checkPort # (port, name?)
 #       name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#       
-#       boolean - True if it is a valid vlan id, false otherwise 
+#
+#       boolean - True if it is a valid vlan id, false otherwise
 #
 # Exceptions:
 #
-#       If name is passed an exception could be raised  
+#       If name is passed an exception could be raised
 #
 #       InvalidData - id is incorrect
 #
-sub checkVlanID # (id, name?) 
+sub checkVlanID # (id, name?)
 {
         my $id = shift;
         my $name = shift;
@@ -471,7 +471,7 @@ sub checkProtocol # (protocol, name?)
 #
 #       InvalidData - protocol is incorrect
 #
-sub checkMAC # (mac, name?) 
+sub checkMAC # (mac, name?)
 {
         my $mac = shift || '';
         my $name = shift;
@@ -503,22 +503,22 @@ sub checkMAC # (mac, name?)
 #       name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#       
-#       boolean - True if it is a valid virtual interface, false otherwise 
+#
+#       boolean - True if it is a valid virtual interface, false otherwise
 #
 # Exceptions:
 #
-#       If name is passed an exception could be raised  
+#       If name is passed an exception could be raised
 #
 #       InvalidData - protocol is incorrect
 #
 
-sub checkVifaceName # (real, virtual, name?) 
+sub checkVifaceName # (real, virtual, name?)
 {
         my $iface  = shift;
         my $viface = shift;
         my $name   = shift;
-        
+
         my $fullname = $iface . ":" . $viface;
         unless (($viface =~ /^\w+$/) and (length($fullname) < IFNAMSIZ)){
                 if ($name) {
@@ -527,11 +527,11 @@ sub checkVifaceName # (real, virtual, name?)
                 } else {
                         return undef;
                 }
-        }       
+        }
         return 1;
 }
 
-# Function: checkName 
+# Function: checkName
 #
 #       Checks if a given name is valid.
 #
@@ -543,13 +543,13 @@ sub checkVifaceName # (real, virtual, name?)
 #
 # Parameters:
 #
-#       name - name to check       
+#       name - name to check
 #
 # Returns:
 #
-#       boolean - True if it is a valid name, false otherwise 
+#       boolean - True if it is a valid name, false otherwise
 #
-sub checkName # (name) 
+sub checkName # (name)
 {
         my $name = shift;
         (length($name) <= 20) or return undef;
@@ -572,18 +572,18 @@ sub _checkDomainName {
         return 1;
 }
 
-# Function: checkDomainName 
+# Function: checkDomainName
 #
 #       Checks if a given domain name is valid.
 #
 # Parameters:
 #
 #       domain - domain to check
-#       name - Data's name to be used when throwing an Exception    
+#       name - Data's name to be used when throwing an Exception
 #
 # Returns:
 #
-#       boolean - True if it is a valid domain name, false otherwise 
+#       boolean - True if it is a valid domain name, false otherwise
 #
 sub checkDomainName # (domain, name?)
 {
@@ -605,23 +605,23 @@ sub checkDomainName # (domain, name?)
 # Function: checkHost
 #
 #       Checks if a given host is valid. It is considered valid either a valid
-#       no-CIDR IP address or a valid hostname 
-#       
+#       no-CIDR IP address or a valid hostname
+#
 #
 # Parameters:
 #
-#       host - host to check       
-#       name - Data's name to be used when throwing an Exception.     
+#       host - host to check
+#       name - Data's name to be used when throwing an Exception.
 #
 # Returns:
 #
-#       boolean - True if it is a valid domain name, false otherwise 
+#       boolean - True if it is a valid domain name, false otherwise
 #
 sub checkHost # (domain, name?)
 {
   my ($host, $name) = @_;
 # if the host is made only of numbers and points we checki it as a IP address otherwise we check it as a hostname
-   if ( $host =~ m/^[\d.]+$/ ) {  
+   if ( $host =~ m/^[\d.]+$/ ) {
     return checkIP($host, $name);
   }
   else {
@@ -663,7 +663,7 @@ sub checkEmailAddress
       return undef;
     }
   }
-  
+
   return 1;
 }
 
@@ -679,7 +679,7 @@ sub checkEmailAddress
 #
 # Returns:
 #       true if the parameter is a number, undef otherwise.
-#       
+#
 sub isPrivateDir
 {
   my ($dir, $throwException) = @_;
@@ -691,7 +691,7 @@ sub isPrivateDir
   }
 
   if ($< != $stat[4]) {
-    throw EBox::Exceptions::External(__x('The directory {dir} is not private; because it is owned by another user', dir => $dir)) if $throwException; 
+    throw EBox::Exceptions::External(__x('The directory {dir} is not private; because it is owned by another user', dir => $dir)) if $throwException;
   }
   my $perm = sprintf ("%04o\n", $stat[2] & 07777);
   unless ($perm =~ /.700/) {
@@ -711,7 +711,7 @@ sub isPrivateDir
 #
 # Returns
 #       true if the parameter is a number, undef otherwise.
-#       
+#
 sub isANumber # (value)
 {
         my $value = shift;
@@ -731,7 +731,7 @@ sub isANumber # (value)
 #
 # Returns:
 #       true if the parameter is a postive number, undef otherwise.
-#       
+#
 sub isZeroOrNaturalNumber # (value)
 {
         my $value = shift;
@@ -744,7 +744,7 @@ sub isZeroOrNaturalNumber # (value)
 # Function: checkFilePath
 #
 #  checks if a given file path is sintaxically correct
-#               
+#
 # Parameters:
 #       $filePath - file path to check
 #       $name - if this parameter is present we will throw a exception when given a non-correct path using this as name of the data
@@ -767,7 +767,7 @@ sub checkFilePath # (filePath, name)
         if ($name) {
             throw EBox::Exceptions::InvalidData
                 ('data' => $name, 'value' => $filePath, 'advice' => __("The file path supplied is not valid. (Currently not all of the valid file's  characters are supported) ") );
-        } 
+        }
         else {
             return undef;
         }
@@ -777,17 +777,17 @@ sub checkFilePath # (filePath, name)
 # Function: checkAbsoluteFilePath
 #
 #  checks if a given absolute file path is sintaxically correct
-#               
+#
 # Parameters:
 #       $filePath - file path to check
 #       $name - if this parameter is present we will throw a exception when given a non-correct path using this as name of the data
 #
 # Returns:
 #  true if the parameter is sintaxically correct and an absolute path, undef otherwise.
-sub checkAbsoluteFilePath 
+sub checkAbsoluteFilePath
 {
    my ($filePath, $name) = @_;
-   
+
    my $isValidPath = checkFilePath($filePath, $name);
    $isValidPath or return undef;
 
@@ -795,7 +795,7 @@ sub checkAbsoluteFilePath
         if ($name) {
             throw EBox::Exceptions::InvalidData
                 ('data' => $name, 'value' => $filePath, 'advice' => __("The file path must be absolute") );
-        } 
+        }
         else {
             return undef;
         }
