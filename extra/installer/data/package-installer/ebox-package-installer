@@ -54,9 +54,9 @@ my @PACKAGES = (
     ['antivirus', __('Antivirus')],
     ['egroupware', __('Calendar sharing, address book, webmail')],
     ['ids', __('Intrusion Detection System')],
-    ['captiveportal', __('Captive Portal')],
+#    ['captiveportal', __('Captive Portal')],
     ['asterisk', __('VoIP and PBX')],
-    ['improxy', __('Instant Messaging Proxy')],
+#    ['improxy', __('Instant Messaging Proxy')],
 );
 
 #################
