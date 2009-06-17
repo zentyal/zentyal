@@ -2655,7 +2655,7 @@ sub ping # (host)
 
 # Method: traceroute
 #
-#   Performs a traceroute test and returns the output
+#   Performs a traceroute test and returns it output
 #
 # Parameters:
 #
@@ -2671,7 +2671,8 @@ sub traceroute # (host)
     (checkIP($host) or checkDomainName($host)) or
         throw EBox::Exceptions::InvalidData
             ('data' => __('Host name'), 'value' => $host);
-    return `traceroute -n $host 2>&1`;
+    my $output = EBox::Sudo::root("traceroute -I -n $host 2>&1");
+    return join("\n", @{$output});
 }
 
 # Method: resolv
