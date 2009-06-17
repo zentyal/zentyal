@@ -407,6 +407,15 @@ sub addUser # (user, system)
         }
     }
 
+    # If fullname is not specified we build it with
+    # givenname and surname
+    unless (defined $user->{'fullname'}) {
+        $user->{'fullname'} = '';
+        if ($user->{'givenname'}) {
+            $user->{'fullname'} = $user->{'givenname'} . ' ';
+        }
+        $user->{'fullname'} .= $user->{'surname'};
+    }
 
     $self->_checkPwdLength($user->{'password'});
     my @attr =  (

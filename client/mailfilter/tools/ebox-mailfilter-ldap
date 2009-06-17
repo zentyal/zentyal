@@ -20,19 +20,19 @@ sub update
     my @controlUsers = (
                         {
                          user => 'spam',
-                         fullname => 'account',
+                         givenname => 'Spam',
                          surname => 'account',
                          password => '',
                         },
                         {
                          user => 'ham',
-                         fullname => 'account',
+                         givenname => 'Ham',
                          surname => 'account',
                          password => '',
                         },
                      );
-    
-    
+
+
     foreach my $user_r (@controlUsers) {
         my $username = $user_r->{user};
         if (not $users->userExists($username)) {
@@ -46,8 +46,8 @@ sub update
             }
         }
     }
-    
-    
+
+
     my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
     my @vdomains = _vdomains();
     foreach my $vdomain (@vdomains) {
@@ -72,7 +72,7 @@ sub _vdomains
     return $vdomainMail->vdomains();
 }
 
-sub usage 
+sub usage
 {
     print "Usage: $0 update | clean\n";
     exit 1;
