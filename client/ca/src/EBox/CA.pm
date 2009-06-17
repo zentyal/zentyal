@@ -1697,6 +1697,10 @@ sub menu
 {
   my ($self, $root) = @_;
 
+  my $folder = new EBox::Menu::Folder('name' => 'CA',
+                    'text' => __('Certification Authority'),
+                    'order' => 12);
+
   $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                     'text' => __('General')));
 
