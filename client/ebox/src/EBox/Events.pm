@@ -148,6 +148,7 @@ sub menu
       my $item = new EBox::Menu::Item(name  => 'Events',
                                       text  => __('Events'),
                                       url   => 'Events/Composite/GeneralComposite',
+                                      separator => __('Monitoring'),
                                       order => 280);
 
       $root->add($item);

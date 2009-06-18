@@ -2799,8 +2799,9 @@ sub menu
 {
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Network',
-                        'text' => __('Network'),
-                        'order' => 30);
+                                        'text' => __('Network'),
+                                        'separator' => __('Core'),
+                                        'order' => 30);
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
                       'text' => __('Interfaces')));

@@ -973,3 +973,9 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 .dashboardTable tr.highlight { background: #E58A22; }
+
+.separator {
+    color: olive;
+    font-style: italic;
+}
+

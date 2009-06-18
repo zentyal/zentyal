@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Menu
 
-nobase_perl_DATA = Folder.pm Item.pm Node.pm Root.pm TextNode.pm
+nobase_perl_DATA = Folder.pm Item.pm Node.pm Root.pm TextNode.pm Separator.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

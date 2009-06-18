@@ -147,8 +147,9 @@ sub menu
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       text  => __('Web'),
+                                      separator => __('Infrastructure'),
                                       url   => 'WebServer/Composite/General',
-                                      order => 220
+                                      order => 115
                                      );
 
       $root->add($item);

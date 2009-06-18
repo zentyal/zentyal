@@ -89,6 +89,7 @@ sub menu
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'AntiVirus',
                                         'text' => $self->printableName(),
+                                        'separator' => __('UTM'),
                                         'order' => 240);
 
     $folder->add(new EBox::Menu::Item('url' => 'AntiVirus/View/FreshclamStatus',

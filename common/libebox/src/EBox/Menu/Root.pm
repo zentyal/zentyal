@@ -42,8 +42,23 @@ sub html
     my $comp = $interp->make_component(
             comp_file => (EBox::Config::templates . '/menu.mas'));
 
+    # Add separators
+    my @items;
+    my $currentSeparator = undef;
+    foreach my $item (@{$self->items}) {
+        my $itemSeparator = $item->{separator};
+        if ($itemSeparator) {
+            if ($itemSeparator ne $currentSeparator) {
+                push (@items, new EBox::Menu::Separator('text' =>
+                                                        $itemSeparator));
+                $currentSeparator = $itemSeparator;
+            }
+        }
+        push (@items, $item);
+    }
+
     my @params;
-    push(@params, 'items' => $self->items);
+    push(@params, 'items' => \@items);
     push(@params, 'current' => $self->{'current'});
     $interp->exec($comp, @params);
 

@@ -1782,9 +1782,11 @@ sub menu
                                         'text' => __('Users'),
                                         'order' => 140);
     $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
+                                      'separator' => __('Office'),
                                       'text' => __('Add User')));
     $folder->add(new EBox::Menu::Item(
                                       'url' => '/Users/View/Users',
+                                      'separator' => __('Office'),
                                       'text' => __('Edit User')));
     $root->add($folder);
 

@@ -661,6 +661,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
                                         'text' => __('Mail Filter'),
+                                        'separator' => __('UTM'),
                                         'order' =>  250
     );
 

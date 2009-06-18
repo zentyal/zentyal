@@ -793,7 +793,9 @@ sub menu
 {
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'DNS/Composite/DNSComposite',
-                'text' => __('DNS'), 'order' => 80));
+                                    'text' => __('DNS'),
+                                    'separator' => __('Infrastructure'),
+                                    'order' => 110));
 }
 
 

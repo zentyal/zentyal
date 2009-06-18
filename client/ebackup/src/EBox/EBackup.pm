@@ -206,6 +206,8 @@ sub menu
 
     $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/General',
+            'separator' => __('Office'),
+            'order' => 175,
             'text' => __('Backup')));
 }
 

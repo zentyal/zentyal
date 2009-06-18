@@ -623,6 +623,7 @@ sub menu
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Logs',
                                         'text' => __('Logs'),
+                                        'separator' => __('Monitoring'),
                                         'order' => 290);
 
     $folder->add(new EBox::Menu::Item('url' => 'Logs/View/SelectLog',

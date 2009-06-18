@@ -354,7 +354,8 @@ sub menu # (root)
 
     $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
 				                    'text' => __('Traffic Shaping'),
-                                    'order' => 110));
+                                    'separator' => __('Gateway'),
+                                    'order' => 80));
 
 }
 

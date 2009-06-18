@@ -161,7 +161,8 @@ sub menu
         my ($self, $root) = @_;
         $root->add(new EBox::Menu::Item('url' => 'DHCP/Composite/General',
                                         'text' => 'DHCP',
-                                        'order' => 70));
+                                        'separator' => __('Infrastructure'),
+                                        'order' => 100));
 }
 
 # Method: models

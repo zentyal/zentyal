@@ -443,6 +443,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
                                         'text' => __('Asterisk'),
+                                        'separator' => __('Communications'),
                                         'order' => 200);
 
     $folder->add(new EBox::Menu::Item(

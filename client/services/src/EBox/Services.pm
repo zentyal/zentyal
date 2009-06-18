@@ -470,6 +470,7 @@ sub menu
     my $item = new EBox::Menu::Item(
     'url' => 'Services/View/ServiceTable',
     'text' => __($self->title),
+    'separator' => __('Core'),
     'order' => 50);
     $root->add($item);
 }

@@ -210,6 +210,7 @@ sub menu
     my $settings = new EBox::Menu::Item(
             'url' => 'EGroupware/Composite/General',
             'text' => __('eGroupware'),
+            'separator' => __('Office'),
             'order' => 180);
 
     $root->add($settings);

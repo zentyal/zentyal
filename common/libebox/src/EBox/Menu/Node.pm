@@ -22,38 +22,40 @@ use warnings;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::CGI::Run;
+use EBox::Menu::Separator;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = {};
-	bless($self, $class);
-	$self->{style} = delete $opts{style};
-	my $order = delete $opts{order};
-	if (defined($order)) {
-		$self->{order} = $order;
-	} else {
-		$self->{order} = 999;
-	}
-	$self->{items} = [];
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = {};
+    bless($self, $class);
+    $self->{style} = delete $opts{style};
+    $self->{separator} = delete $opts{separator};
+    my $order = delete $opts{order};
+    if (defined($order)) {
+        $self->{order} = $order;
+    } else {
+        $self->{order} = 999;
+    }
+    $self->{items} = [];
+    return $self;
 }
 
 sub add # (item)
 {
-	my ($self, $item) = @_;
-	(defined($item)) or return;
-	$item->isa('EBox::Menu::Node') or
-		throw EBox::Exceptions::Internal(
-	"Tried to add an unknown object to an EBox::Menu::Node composite");
+    my ($self, $item) = @_;
+    (defined($item)) or return;
+    $item->isa('EBox::Menu::Node') or
+        throw EBox::Exceptions::Internal(
+    "Tried to add an unknown object to an EBox::Menu::Node composite");
 
-	foreach my $i (@{$self->{items}}) {
-		if ($i->_compare($item)) {
-			$i->_merge($item);
-			return;
-		}
-	}
+    foreach my $i (@{$self->{items}}) {
+        if ($i->_compare($item)) {
+            $i->_merge($item);
+            return;
+        }
+    }
 
     if(defined($self->{id})) {
         $item->{id} = $self->{id} . '_' . scalar(@{$self->{items}});
@@ -63,26 +65,26 @@ sub add # (item)
             $i++;
         }
     }
-	push(@{$self->{items}}, $item);
+    push(@{$self->{items}}, $item);
 }
 
 sub items
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->{items}};
+    my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->{items}};
 
-	return \@sorted;
+    return \@sorted;
 }
 
 sub _compare # (node)
 {
-	return undef;
+    return undef;
 }
 
 sub _merge # (node)
 {
-	my ($self, $node) = @_;
+    my ($self, $node) = @_;
     foreach my $item (@{$node->{items}}) {
         $self->add($item);
     }
@@ -90,7 +92,7 @@ sub _merge # (node)
 
 sub html
 {
-	# default empty implementation
+    # default empty implementation
 }
 
 1;

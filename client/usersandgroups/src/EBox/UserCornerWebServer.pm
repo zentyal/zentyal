@@ -108,7 +108,7 @@ sub menu
     my $item = new EBox::Menu::Item(name => 'UserCorner',
                                     text => __('User corner'),
                                     url => 'UserCorner/View/Settings',
-                                    order => 230
+                                    order => 116
     );
     $root->add($item);
 }
