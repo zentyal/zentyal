@@ -1,0 +1,201 @@
+#!/usr/bin/perl
+
+# eBox technologies, S.L (2009)
+#
+# This script has been created to automatically test some
+# of the features that are included with the eBox asterisk module.
+#
+# It uses linphonec and linphonesh to automatically:
+#
+# - register
+# - place a call
+#
+# These are its arguments:
+#
+#  --check-auth  <username> <password> <host>
+#
+#  --check-call <username> <password> <callee>
+#
+# 
+use File::Slurp;
+
+my $CONF_FILE = '/tmp/conf';
+my $LOG_FILE = '/tmp/log';
+
+
+sub writeConf
+{
+    my ($user, $pass, $host) = @_;
+
+    
+    my $conf=<<EOF
+[net]
+download_bw=0
+upload_bw=0
+firewall_policy=0
+mtu=0 
+
+[video]
+enabled=1
+show_local=0
+display=0
+capture=0
+
+[audio_codec_0]
+mime=speex
+rate=16000
+enabled=0
+
+[audio_codec_1]
+mime=speex
+rate=8000
+enabled=0
+
+[audio_codec_2]
+mime=PCMU
+rate=8000
+enabled=1
+
+[audio_codec_3]
+mime=PCMA
+rate=8000
+enabled=1
+
+[video_codec_0]
+mime=H263-1998
+rate=90000
+enabled=0
+recv_fmtp=CIF=1;QCIF=1
+
+[video_codec_1]
+mime=MP4V-ES
+rate=90000
+enabled=1
+recv_fmtp=profile-level-id=3
+
+[sip]
+sip_port=5060
+guess_hostname=1
+contact=sip:foo@ebox
+use_info=0
+use_ipv6=0
+default_proxy=0
+inc_timeout=15
+
+[rtp]
+audio_rtp_port=7078
+video_rtp_port=9078
+audio_jitt_comp=60
+video_jitt_comp=60
+nortp_timeout=30
+
+[video_codec_2]
+mime=H263
+rate=90000
+enabled=1
+
+[video_codec_3]
+mime=theora
+rate=90000
+enabled=1
+
+[video_codec_4]
+mime=x-snow
+rate=90000
+enabled=1
+
+[sound]
+remote_ring=/usr/share/sounds/linphone/ringback.wav
+
+[auth_info_0]
+username=$user
+passwd=$pass
+realm="ebox"
+
+[proxy_0]
+reg_proxy=sip:$host
+reg_identity=sip:$user@ebox
+reg_expires=3600
+reg_sendregister=1
+publish=0
+
+EOF
+    ;
+
+    File::Slurp::write_file($CONF_FILE, $conf);
+
+}
+
+
+sub _checkAuth
+{
+    my ($arg, $user, $pass, $host ) = @ARGV;
+    
+    # Clean up stuff  
+    if ( `pgrep linphonec` ) {
+        print STDERR "Killing linphonec\n";
+        `pkill linphonec`;
+        sleep 5;
+    }
+    unlink $CONF_FILE;
+    unlink $LOG_FILE;
+
+    # Create configuration file
+    writeConf($user, $pass, $host);
+
+    # Launch linphone daemon
+    system ("linphonec --pipe -d 10 -c $CONF_FILE -l $LOG_FILE &");
+    sleep 1;
+    
+    # Try to register and report result
+    system ("linphonecsh register  --host $host --username $user --password $pass");
+
+    for (1..20) {
+        if (`grep 'is working' $LOG_FILE`) {
+            return 1;
+        }
+        sleep (1);
+    }
+    return 0;
+}
+
+sub checkAuth
+{
+    if (_checkAuth()) {
+        print STDERR "Authentication succeded\n";
+        exit 0;
+    } else {
+        print STDERR "Authentication failure\n";
+        exit 1;
+    }
+}
+
+sub checkCall
+{
+    if (_checkAuth()) {
+        print STDERR "Authentication succeded\n";
+    } else {
+        print STDERR "Authentication failure\n";
+        exit 1;
+    }
+
+    my ($arg, $user, $pass, $host, $callee ) = @ARGV;
+
+    # Try to call
+    system ("linphonecsh dial sip:$callee" . '@' . $host);
+    for (1..20) {
+        if (`grep 'CALL_ANSWERED' $LOG_FILE`) {
+            print STDERR "Call answered\n";
+            exit 0;
+        }
+        sleep (1);
+    }
+     print STDERR "Call not answered\n";
+    exit 1;
+}
+
+if ( $ARGV[0] eq '--check-auth' ) {
+    checkAuth();
+} elsif ( $ARGV[0] eq '--check-call') {
+    checkCall();    
+}
