@@ -1,0 +1,54 @@
+<suite>
+    <name>eBox Samba tests</name>
+    <desc>Contains samba-related tests.</desc>
+
+    <scenario>samba.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enables network, firewall, users and samba modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetwork</name>
+        <desc>
+        Set the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddUserFoo</name>
+        <desc>
+        Create a new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="foo"/>
+    </test>
+
+<test type="selenium">
+        <name>AddUserBar</name>
+        <desc>
+        Create a new user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="bar"/>
+        <var name="PASSWORD" value="bar"/>
+    </test>
+
+</suite>
