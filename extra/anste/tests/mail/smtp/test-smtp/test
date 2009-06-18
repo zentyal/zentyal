@@ -30,7 +30,7 @@ if ($AUTH_USER) {
     $cmd .=  " -xu '$AUTH_USER' -xp '$AUTH_PASSWD'";
 }
 
-sleep $SLEEP; # XXX assure the serve is ain good state. move to the test usite
+#sleep $SLEEP; # XXX assure the serve is ain good state. move to the test usite
            # itself?
 
 print "$cmd\n";
