@@ -891,7 +891,7 @@ sub defaultUserQuota
     my $model = $self->model('GeneralSettings');
 
     my $value = $model->userquotaValue();
-    if ($value eq 'userquota_unlimited') {
+    if ($value eq 'userquota_disabled') {
         $value = 0;
     }
 
