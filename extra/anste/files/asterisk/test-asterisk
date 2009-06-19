@@ -182,7 +182,7 @@ sub checkCall
     my ($arg, $user, $pass, $host, $callee ) = @ARGV;
 
     # Try to call
-    system ("linphonecsh dial sip:$callee" . '@' . $host);
+    system ("linphonecsh dial $callee");
     for (1..20) {
         if (`grep 'CALL_ANSWERED' $LOG_FILE`) {
             print STDERR "Call answered\n";
