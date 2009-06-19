@@ -38,20 +38,20 @@
             <name>eth1</name>
             <address>192.168.2.2</address>
             <netmask>255.255.255.0</netmask>
-            <!-- ebox is the gateway -->
-            <gateway>192.168.2.1</gateway>
          </interface>
         </network>
 
         <packages>
             <package>linphone-nox</package>
+            <package>host</package>
+            <package>wget</package>
+            <package>libfile-slurp-perl</package>
             <package>ssh</package>
         </packages>
 
 	<files>
 		<file>asterisk/test-asterisk</file>
 	</files>
-
     </host>
 
     <host>
@@ -64,20 +64,19 @@
             <name>eth1</name>
             <address>192.168.2.3</address>
             <netmask>255.255.255.0</netmask>
-            <!-- ebox is the gateway -->
-            <gateway>192.168.2.1</gateway>
          </interface>
         </network>
 
         <packages>
             <package>linphone-nox</package>
+            <package>host</package>
+            <package>wget</package>
+            <package>libfile-slurp-perl</package>
             <package>ssh</package>
         </packages>
 	<files>
 		<file>asterisk/test-asterisk</file>
 	</files>
-
-
     </host>
 
 </scenario>
