@@ -38,7 +38,7 @@
         <var name="PASSWORD" value="foo"/>
     </test>
 
-<test type="selenium">
+    <test type="selenium">
         <name>AddUserBar</name>
         <desc>
         Create a new user.
@@ -50,5 +50,16 @@
         <var name="USERNAME" value="bar"/>
         <var name="PASSWORD" value="bar"/>
     </test>
+
+    <test type="selenium">
+        <name>SaveChanges</name>
+        <desc>
+        Save changes
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>save-changes</dir>
+    </test>
+
 
 </suite>
