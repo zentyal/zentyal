@@ -38,7 +38,7 @@ sub processUserJabberAccount
 
     my $ldapUser = EBox::JabberLdapUser->new();
 
-    my $username = $entry->get_value('cn');
+    my $username = $entry->get_value('uid');
 
     my $jabberUid = $entry->get_value('jabberUid');
     my $jabberAdmin = $entry->get_value('jabberAdmin');

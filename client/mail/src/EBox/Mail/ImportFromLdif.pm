@@ -40,7 +40,7 @@ sub processPosixAccount
 {
     my ($package, $entry) = @_;
 
-    my $username = $entry->get_value('cn');
+    my $username = $entry->get_value('uid');
 
     my $email = $entry->get_value('mail');
     
@@ -61,7 +61,7 @@ sub processUsereboxmail
 {
     my ($package, $entry) = @_;
 
-    my $username = $entry->get_value('cn');
+    my $username = $entry->get_value('uid');
     my $mdsize = $entry->get_value('userMaildirSize')   ;
 
     $mdsize or return;

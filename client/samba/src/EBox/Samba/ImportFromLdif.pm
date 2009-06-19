@@ -158,6 +158,8 @@ sub processSambaSamAccount
         $package->_processComputerAccount($entry, @params);
     }
     else {
+        # user real user name is in the uid field
+        $username = $entry->get_value('uid');
         $package->_processUserAccount($entry, @params);
     }
 
@@ -167,7 +169,7 @@ sub _processUserAccount
 {
     my ($package, $entry) = @_;
 
-    my $username = $entry->get_value('cn');
+    my $username = $entry->get_value('uid');
  
     my $samba = EBox::Global->modInstance('samba');
     my $sambaUser = $samba->_ldapModImplementation();

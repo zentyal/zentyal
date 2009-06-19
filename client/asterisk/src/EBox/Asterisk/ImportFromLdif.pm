@@ -51,7 +51,7 @@ sub processPosixAccount
 {
     my ($package, $entry) = @_;
 
-    my $username = $entry->get_value('cn');
+    my $username = $entry->get_value('uid');
     my $ldapUser = $package->_ldapUser();
 
     # check if the user has asterisk enabled..
