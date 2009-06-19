@@ -86,7 +86,12 @@ sub ifaces
     return \@options;
 }
 
-
+# Method: _table
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::_table>
+#
 sub _table
 {
     my @tableHead =
@@ -164,7 +169,7 @@ sub _table
             'foreignModel' => \&gatewayModel,
             'foreignField' => 'name',
             'editable' => 1,
-            'help' => __('Gateway to route packets matching' .
+            'help' => __('Gateway to route packets matching ' .
                         'this rule')
             )
     );
