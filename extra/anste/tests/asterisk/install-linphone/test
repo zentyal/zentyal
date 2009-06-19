@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Install linphone packages
+route add default gw 10.6.7.1
+
+PPA_URL="https://launchpad.net/~juruen/+archive/ppa/+files"
+PACKAGES="host_20000331-9_i386.deb libmediastreamer0_3.1.2-2ubuntu0_i386.deb libortp8_3.1.2-2ubuntu0_i386.deb linphone-common_3.1.2-2ubuntu0_all.deb liblinphone3_3.1.2-2ubuntu0_i386.deb linphone-nox_3.1.2-2ubuntu0_i386.deb"
+
+for p in $PACKAGES; do
+	wget $PPA_URL/$p
+	dpkg -i $p
+done
+
+apt-get -f install

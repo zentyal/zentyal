@@ -62,4 +62,119 @@
     </test>
 
 
+    <test>
+        <name>InstallLinphone1</name>
+        <desc>Install linphone on client1 to be used by next tests</desc>
+
+        <host>test-client1</host>
+        <dir>install-linphone</dir>
+    </test>
+
+    <test>
+        <name>InstallLinphone2</name>
+        <desc>Install linphone on client2 to be used by next tests</desc>
+
+        <host>test-client2</host>
+        <dir>install-linphone</dir>
+    </test>
+
+   <test>
+        <name>TestAuthFoolFail</name>
+        <desc>Check user foo fails to authenticate with a wrong password</desc>
+        <host>test-client1</host>
+        <dir>test-auth</dir>
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="HOST" value="192.168.2.1"/>
+    </test>
+
+
+    <test>
+        <name>TestAuthFoo</name>
+        <desc>Check user foo can authenticate</desc>
+
+        <host>test-client1</host>
+        <dir>test-auth</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestAuthBar</name>
+        <desc>Check user bar can authenticate</desc>
+        <host>test-client2</host>
+        <dir>test-auth</dir>
+        <var name="USER" value="bar"/>
+        <var name="PASS" value="bar"/>
+        <var name="HOST" value="192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestDemoCall500</name>
+        <desc>Test demo call @500</desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:500@192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestDemoCall600</name>
+        <desc>Test demo call @600</desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:600@192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestVoiceMail</name>
+        <desc>Test voice mail @8000</desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:8000@192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestCall1001</name>
+        <desc>Test call @1001</desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:1001@192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestCallbar</name>
+        <desc>Test call @bar</desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:bar@192.168.2.1"/>
+    </test>
+
+    <test>
+        <name>TestExternalCall</name>
+        <desc>Test external call </desc>
+        <host>test-client1</host>
+        <dir>test-call</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="HOST" value="192.168.2.1"/>
+        <var name="CALLEE" value="sip:500@ebox.cauterized.net"/>
+    </test>
+
 </suite>

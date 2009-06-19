@@ -1,0 +1,10 @@
+#/bin/sh
+
+# Test authentication against asterisk
+# 
+# $USER
+# $PASS
+# $HOST
+perl /var/local/anste/test-asterisk --check-auth $USER $PASS $HOST
+
+exit $?
