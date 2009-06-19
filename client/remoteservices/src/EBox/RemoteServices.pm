@@ -33,6 +33,7 @@ use Error qw(:try);
 # eBox uses
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
@@ -443,8 +444,13 @@ sub _establishVPNConnection
     my ($self) = @_;
 
     if ( $self->eBoxSubscribed() ) {
-        my $authConnection = new EBox::RemoteServices::Backup();
-        $authConnection->connection();
+        try {
+            my $authConnection = new EBox::RemoteServices::Backup();
+            $authConnection->connection();
+        } catch EBox::Exceptions::External with {
+            my ($exc) = @_;
+            EBox::error("Cannot contact to Control Center: $exc");
+        };
     }
 
 }

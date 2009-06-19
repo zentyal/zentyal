@@ -22,6 +22,7 @@ package EBox::Iptables;
 use strict;
 use warnings;
 
+use EBox;
 use EBox::Firewall;
 use EBox::Config;
 use EBox::Global;
@@ -29,6 +30,7 @@ use EBox::Gettext;
 use EBox::Objects;
 use EBox::Network;
 use EBox::Firewall::IptablesHelper;
+use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use Error qw( :try );
 use EBox::Sudo qw( :all );
@@ -285,11 +287,17 @@ sub _setRemoteServices
             push(@commands,
                 pf("-A ointernal $new -o $vpnIface -j ACCEPT")
             );
-            my %vpnSettings = %{$rsMod->vpnSettings()};
-            push(@commands,
-                pf("-A ointernal $new -p $vpnSettings{protocol} "
-                   . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
+            try {
+                my %vpnSettings = %{$rsMod->vpnSettings()};
+                push(@commands,
+                     pf("-A ointernal $new -p $vpnSettings{protocol} "
+                          . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
             );
+            } catch EBox::Exceptions::External with {
+                # Cannot contact eBox CC
+                my ($exc) = @_;
+                EBox::error("Cannot contact eBox Control Center: $exc");
+            };
             # Allow communications between ns and www
             eval "use EBox::RemoteServices::Configuration";
             my ($dnsServer, $publicWebServer, $mirrorCount) = (

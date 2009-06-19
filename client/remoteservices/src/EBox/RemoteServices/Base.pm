@@ -248,6 +248,7 @@ sub _queryServicesNameserver
     my $resolver = Net::DNS::Resolver->new(
           nameservers => $nameservers,
           defnames    => 0, # no default domain
+          udp_timeout => 15, # 15 s. prior to timeout
          );
 
     my $response = $resolver->query($hostname);
