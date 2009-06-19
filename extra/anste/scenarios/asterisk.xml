@@ -26,10 +26,7 @@
             <script>ebox-wait-start.sh</script>
         </post-install>
 
-	<files>
-		<file>asterisk/test-asterisk</file>
-	</files>
-    </host>
+	    </host>
 
     <host>
         <name>test-client1</name>
@@ -48,7 +45,13 @@
 
         <packages>
             <package>linphone-nox</package>
+            <package>ssh</package>
         </packages>
+
+	<files>
+		<file>asterisk/test-asterisk</file>
+	</files>
+
     </host>
 
     <host>
@@ -68,7 +71,13 @@
 
         <packages>
             <package>linphone-nox</package>
+            <package>ssh</package>
         </packages>
+	<files>
+		<file>asterisk/test-asterisk</file>
+	</files>
+
+
     </host>
 
 </scenario>
