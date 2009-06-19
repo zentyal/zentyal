@@ -445,6 +445,11 @@ sub _setAccount
 {
     my ($self, $vdomain, $user, $active) = @_;
 
+    # if user does nto exists we dont set anything
+    my $users = EBox::Global->modInstance('users');
+    $users->userExists($user) or
+        return;
+
     if ($active) {
         $self->_addAccount($vdomain, $user);
     }
@@ -487,7 +492,7 @@ sub _addAccount
 sub _removeAccount
 {
     my ($self, $vdomain, $user) = @_;
-    
+
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
 
