@@ -107,7 +107,10 @@ sub processSambaDomain
     my $generalSettingsRow = $samba->model('GeneralSettings')->row();
     my $workgroupField = $generalSettingsRow->elementByName('workgroup');
     $workgroupField->setValue($domainName);
-    $generalSettingsRow->storeElementByName('workgroup');
+
+    $generalSettingsRow->store();
+
+
     
     $samba->setNetSID($sambaSID);
 
@@ -116,7 +119,6 @@ sub processSambaDomain
  #   $samba->fixSIDs(); 
 # fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
     $samba->restartService();
-
 }
 
 

@@ -1,5 +1,6 @@
 1.1.30
 	+ bugfix: add user works if quota is disabled
+	+ bugfix: replaced storeElementByName with store to avoid bug when restoring
 1.1.20
 	+ samba allows the use of internal virtual ifaces now
 	+ bugfix: importFromLdif was calling a maethod that was removed in a previous merge
