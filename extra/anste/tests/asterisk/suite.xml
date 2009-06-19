@@ -1,13 +1,13 @@
 <suite>
-    <name>eBox Samba tests</name>
-    <desc>Contains samba-related tests.</desc>
+    <name>eBox asterisk tests</name>
+    <desc>Contains asterisk-related tests.</desc>
 
-    <scenario>samba.xml</scenario>
+    <scenario>asterisk.xml</scenario>
 
     <test type="selenium">
         <name>EnableModules</name>
         <desc>
-        Enables network, firewall, users and samba modules.
+        Enables network, firewall, users and asterisk modules.
         </desc>
 
         <host>ebox-server</host>
