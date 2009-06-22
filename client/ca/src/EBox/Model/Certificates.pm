@@ -116,7 +116,7 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsToAdd = map { $_ => 1 } @srvsToAdd;
+    my %srvsToAdd = map { $_->{service} => 1 } @srvs;
     for my $id (@{$currentRows}) {
         my $currentService = $self->row($id)->valueByName('service');
         unless (exists $srvsToAdd{$currentService}) {
