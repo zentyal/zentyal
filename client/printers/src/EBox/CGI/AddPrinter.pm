@@ -60,8 +60,12 @@ sub _process($) {
 		$self->{chain} = "Printers/USBPrinterUI";
 	} elsif ($method eq 'parallel') {
 		$self->{chain} = "Printers/ParallelPrinterUI";
-	}
-	
+        } elsif ($method eq 'ipp') {
+                $self->{chain} = "Printers/IPPPrinterUI";
+        } elsif ($method eq 'lpd') {
+                $self->{chain} = "Printers/LPDPrinterUI";
+        }
+        
 }
 
 1;

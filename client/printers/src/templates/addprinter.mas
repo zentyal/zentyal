@@ -26,8 +26,10 @@ use EBox::Gettext;
 			<select name='method'>
 				<option value='usb'>USB</option>
 				<option value='parallel'><% __('Parallel') %> </option>
-				<option value='network'><% __('Network printer') %></option>
+				<option value='network'><% __('AppSocket') %></option>
 				<option value='samba'><% __('Samba') %></option>
+				<option value='ipp'><% __('IPP: Internet printing protocol') %></option>
+				<option value='lpd'><% __('LPD: Line Printer Daemon') %></option>
 			</select>
 		</td>
 	</tr>

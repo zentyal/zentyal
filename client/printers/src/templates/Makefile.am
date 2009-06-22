@@ -3,7 +3,8 @@
 templatedir = @TEMPLATESPATH@/printers
 
 template_DATA = addprinter.mas manufacturer.mas models.mas driver.mas \
-		drvopts.mas network.mas samba.mas usb.mas parallel.mas \
+		drvopts.mas \
+		network.mas samba.mas usb.mas parallel.mas ipp.mas lpd.mas\
 		printers.mas del.mas  printer.mas
 
 EXTRA_DIST = $(template_DATA)

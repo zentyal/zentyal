@@ -40,7 +40,9 @@ use Net::CUPS;
 use Storable;
 
 use constant MAXPRINTERLENGHT 	=> 10;
-use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 'samba');
+use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 
+                                    'samba', 'lpd', 'ipp',
+                                   );
 use constant CUPSPRINTERS     	=> '/etc/cups/printers.conf';
 use constant CUPSD              => '/etc/cups/cupsd.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
@@ -546,7 +548,13 @@ sub _location ($$)
 		$location = "usb:/dev/usb/" . $conf->{dev};
 	} elsif ($conf->{method} eq 'parallel') {
 		$location = "parallel:/dev/" . $conf->{dev};
-	}
+       } elsif ($conf->{method} eq 'lpd') {
+           $location = "lpd://" . $conf->{host} . ":" . $conf->{port};  
+       } elsif ($conf->{method} eq 'ipp') {
+            $location = "ipp://" . $conf->{host} . ":" . $conf->{port};
+       }
+        
+
 	return $location;
 }
 
@@ -702,6 +710,61 @@ sub setSambaPrinter # (id, resource, method, user, passwd)
 	unless ($self->get_string("printers/$id/conf/passwd") eq $passwd){
 		$self->set_string("printers/$id/conf/passwd", $passwd);
 	}
+
+}
+
+sub setIPPPrinter
+{
+    my ($self, $id, $ip, $port) = @_;
+
+    unless ($self->_printerIdExists($id)) {
+        throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
+                                             'value' => "$id");
+    }
+    
+    checkIP($ip, __('IP'));
+    checkPort($port, __('Port'));
+    
+    my $method = $self->methodConf($id);
+    unless ($method->{'method'} eq 'ipp') {
+        throw EBox::Exceptions::External(
+                                         __("It is not a IPP printer"));
+    }
+
+    unless ($self->get_string("printers/$id/conf/host" eq $ip)){
+        $self->set_string("printers/$id/conf/host", $ip);
+    }
+    unless ($self->get_int("printers/$id/conf/port") eq $port){
+        $self->set_int("printers/$id/conf/port", $port);
+    }
+
+}
+
+
+sub setLPDPrinter
+{
+    my ($self, $id, $ip, $port) = @_;
+
+    unless ($self->_printerIdExists($id)) {
+        throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
+                                             'value' => "$id");
+    }
+    
+    checkIP($ip, __('IP'));
+    checkPort($port, __('Port'));
+    
+    my $method = $self->methodConf($id);
+    unless ($method->{'method'} eq 'lpd') {
+        throw EBox::Exceptions::External(
+                                         __("It is not a LPD printer"));
+    }
+
+    unless ($self->get_string("printers/$id/conf/host" eq $ip)){
+        $self->set_string("printers/$id/conf/host", $ip);
+    }
+    unless ($self->get_int("printers/$id/conf/port") eq $port){
+        $self->set_int("printers/$id/conf/port", $port);
+    }
 
 }
 

@@ -52,7 +52,15 @@ use EBox::Gettext;
 
 	<& /printers/parallel.mas, opts => $opts, printerid => $printerid, devices => \@devices, device => $methconf->{dev}, button_val => $button_val, button_name => 'manageprinterui' &>
 	
-% }
+% }  elsif ($methconf->{method} eq 'lpd') {
+
+	<& /printers/lpd.mas, opts => $opts, printerid => $printerid, ip => $methconf->{host}, port => $methconf->{port}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+%	}  elsif ($methconf->{method} eq 'ipp') {
+
+	<& /printers/ipp.mas, opts => $opts, printerid => $printerid, ip => $methconf->{host}, port => $methconf->{port}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+%	}
 
 % } elsif ($selected eq 'jobs') {
 
