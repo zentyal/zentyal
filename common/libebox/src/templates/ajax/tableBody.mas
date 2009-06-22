@@ -429,7 +429,7 @@ $page
             id='actionsCell_<% 
                               $row->{id} 
                             %>'>
-%      my $disabled = $row->{'readOnly'} ? 'disabled' : '';
+%      my $disabled = $row->readOnly() ? 'disabled' : '';
 
 %      if ($actions->{'del'}) 
 %      {

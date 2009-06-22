@@ -948,7 +948,7 @@ sub row
 
     $row->setId($id);
     # TODO ReadOnly rows
-    $row->setReadOnly(undef);
+    $row->setReadOnly($gconfmod->get_bool("$dir/$id/readOnly"));
     $row->setModel($self);
 
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
