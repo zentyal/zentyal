@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -129,7 +130,10 @@ sub preconditionFailMsg
         return __('You must enable the module Users in the module ' .
                 'status section in order to use it.');
     } else {
-        return __('There are no groups at the moment.');
+        return __x('There are no groups at the moment. '
+                   . 'You may want to add some in {openhref}Add group section{closehref}.',
+                   openhref => '<a href="/ebox/UsersAndGroups/Groups">',
+                   closehref => '</a>');
 
     }
 }
