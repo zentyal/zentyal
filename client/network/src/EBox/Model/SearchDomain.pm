@@ -71,6 +71,7 @@ sub _table
            'fieldName'     => 'domain',
            'printableName' => __('Domain'),
            'editable'      => 1,
+           'optional'      => 1,
            ),
       );
 
