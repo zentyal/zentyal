@@ -137,14 +137,20 @@ sub reportRows
     my @fields = keys %{ $self->dbFields()  };
 
     my $dbEngine =  EBox::DBEngineFactory::DBEngine();
-
+    
+    my $orderMode = $limit ? 'DESC' : 'ASC';
     my $columns = join ',', ('date', @fields);
-    my $query = "SELECT $columns FROM $table ORDER BY date ASC";
+    my $query = "SELECT $columns FROM $table ORDER BY date $orderMode";
     if ($limit) {
         $query .= " LIMIT $limit";
     }
 
     my $dbRows = $dbEngine->query($query);
+
+    if ($limit) {
+        # with limit we have used desc order and we must retuen in asc order
+        $dbRows = [ reverse @{ $dbRows }  ];
+    }
 
     return $dbRows;
 }

@@ -22,10 +22,8 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
-use EBox::Exceptions::NotImplemented;
 
 use Time::Local;
-
 
 
 use Error qw(:try);
@@ -80,6 +78,29 @@ sub datasets
     return \@dataSet;
 }
 
+
+# Overrides base method to limit the number of rows according timeperiod
+my %nRowsByTimePeriod = (
+    hourly =>  30,
+    daily  =>  10,
+    weekly =>  10,
+    monthly => 24,
+   );
+
+sub reportRows
+{
+    my ($self) = @_;
+
+    my $limit;
+    my $timePeriod = $self->timePeriod();
+    if (exists $nRowsByTimePeriod{$timePeriod}) {
+        $limit = $nRowsByTimePeriod{$timePeriod};
+    } else {
+        $limit = 30;
+    }
+    
+    return $self->SUPER::reportRows($limit);
+}
 
 sub datasetsLabels
 {

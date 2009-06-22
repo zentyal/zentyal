@@ -212,6 +212,12 @@ sub Viewer
 
 
 
+# lists the fields which should not be aggregated in the 'total' row
+sub _noAggregateFields
+{
+    return [] ;
+}
+
 sub _totalRow
 {
     my ($self, $dbRows) = @_;
@@ -220,6 +226,14 @@ sub _totalRow
     $row->{date} = __('All');
 
     my %dbFields = %{  $self->dbFields() };
+
+    # remove non-aggregate fields
+    my @noAggregateFields = @{ $self->_noAggregateFields() };
+    foreach my $field (@noAggregateFields) {
+        delete $dbFields{$field};
+        $row->{$field} =  __('All');
+    }
+
     while (my ($name, $attr) = each %dbFields) {
         my $total;
         if (exists $attr->{totalSub}) {
@@ -234,6 +248,8 @@ sub _totalRow
 
         $row->{$name} = $total;
     }
+
+
 
     $self->_setValueRow( %{ $row } );
 }
