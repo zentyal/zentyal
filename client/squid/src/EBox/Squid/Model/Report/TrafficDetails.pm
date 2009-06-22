@@ -173,4 +173,10 @@ sub timePeriodModelPath
 }
 
 
+# the user should not be take in accout in the 'all' row
+sub _noAggregateFields
+{
+    return ['rfc931'];
+}
+
 1;
