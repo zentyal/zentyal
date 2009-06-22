@@ -527,4 +527,36 @@ sub _includes
     return $self->get_list(INCLUDE_KEY);
 }
 
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('eBox internal web server'),
+             path    =>  '/var/lib/ebox/conf/ssl/ssl.pem',
+             user => 'ebox',
+             group => 'ebox',
+             mode => '0600',
+            },
+
+           ];
+}
+
+
 1;

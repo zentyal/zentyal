@@ -181,8 +181,7 @@ SSLEngine on
 SSLProtocol all
 SSLCipherSuite HIGH:MEDIUM
 
-SSLCertificateFile /var/lib/ebox/conf/ssl/ssl.cert
-SSLCertificateKeyFile /var/lib/ebox/conf/ssl/ssl.key
+SSLCertificateFile /var/lib/ebox/conf/ssl/ssl.pem
 </IfModule>
 
 <IfModule mod_setenvif.c>
