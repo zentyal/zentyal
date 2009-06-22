@@ -496,7 +496,7 @@ sub ifacesWithRemoved
 #
 # Returns:
 #
-#   an array ref - holding hashees with keys 'address' and 'netmask'
+#	an array ref - holding hashes with keys 'address' and 'netmask'
 sub ifaceAddresses # (interface)
 {
     my ($self, $iface) = @_;
@@ -1855,28 +1855,11 @@ sub _generateResolver
 {
     my ($self) = @_;
 
-    my $manager = new EBox::ServiceManager();
-    if ($manager->skipModification('network', RESOLV_FILE)) {
-        EBox::info("Skipping modification of " . RESOLV_FILE);
-        return;
-    }
+    $self->writeConfFile(RESOLV_FILE,
+                         'network/resolv.conf.mas',
+                         [ searchDomain => $self->searchdomain(),
+                           nameservers  => $self->nameservers() ]);
 
-    my $RESOLVER;
-    my $dnsfile = EBox::Config::tmp() . 'resolv.conf';
-    open($RESOLVER, ">", $dnsfile) or
-        throw EBox::Exceptions::Internal("Could not write on $dnsfile");
-    my $search = $self->searchdomain();
-    if ($search) {
-        print $RESOLVER "search $search\n";
-    }
-    my $dns = $self->nameservers();
-    foreach my $host (@{$dns}) {
-        print $RESOLVER "nameserver $host\n";
-    }
-    close($RESOLVER);
-
-    root("/bin/mv $dnsfile " . RESOLV_FILE);
-    $manager->updateFileDigest('network', RESOLV_FILE);
 }
 
 #
@@ -1975,10 +1958,10 @@ sub generateInterfaces
 sub _generateRoutes
 {
     my ($self) = @_;
-        # Delete those routes which are not useful anymore
-        $self->_removeRoutes();
-        my @routes = @{$self->routes()};
-        (@routes) or return;
+    # Delete those routes which are not useful anymore
+    $self->_removeRoutes();
+    my @routes = @{$self->routes()};
+    (@routes) or return;
     foreach (@routes) {
         my $net = $_->{network};
         my $router = $_->{gateway};
@@ -1987,6 +1970,7 @@ sub _generateRoutes
         }
         root("/sbin/ip route add $net via $router table main || true");
     }
+
 }
 
 # Remove those static routes which user has marked as deleted
@@ -2198,6 +2182,7 @@ sub _setConf
         $self->_generateResolver;
         $self->_generateDDClient;
     }
+
 }
 
 # Method: _enforceServiceState

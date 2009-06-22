@@ -1,0 +1,10 @@
+<%args>
+  $searchDomain => ''
+  @nameservers  => ()
+</%args>
+% if ($searchDomain) {
+search <% $searchDomain %>
+% }
+% foreach my $host (@nameservers) {
+nameserver <% $host %>
+% }
