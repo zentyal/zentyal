@@ -30,7 +30,10 @@ sub init
         $pass = <$fd>;
         close($fd)
     } else {
-        $pass = 'ebox' . rand((2**50));
+        $pass = '';
+        for my $i (1..64) {
+            $pass .= rand (2**32);
+        }
         $newpass = 1;
     }
 
