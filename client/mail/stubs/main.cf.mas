@@ -42,8 +42,8 @@ if ($greylist) {
 }
 
 
-my $certFile = '/etc/postfix/sasl/smtpd.pem';
-my $keyFile  = '/etc/postfix/sasl/smtpd-key.pem';
+my $certFile = '/etc/postfix/sasl/postfix.pem';
+my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 </%init>
 
 # require helo

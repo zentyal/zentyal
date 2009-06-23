@@ -1405,4 +1405,44 @@ sub getMDDefaultSize
     return $self->get_int('mddefaultsize');
 }
 
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('Mail SMTP server'),
+             path    =>  '/etc/postfix/sasl/postfix.pem',
+             user => 'root',
+             group => 'root',
+             mode => '0400',
+            },
+            {
+             service =>  __('Mail retrieval services'),
+             path    =>  '/etc/dovecot/ssl/dovecot.pem',
+             user => 'root',
+             group => 'root',
+             mode => '0400',
+            },
+
+           ];
+}
+
+
 1;
