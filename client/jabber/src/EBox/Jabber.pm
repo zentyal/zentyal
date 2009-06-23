@@ -363,4 +363,24 @@ sub _ldapModImplementation
 
     return new EBox::JabberLdapUser();
 }
+
+
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('Jabber server certificate'),
+             path    =>  ' /etc/jabberd2/ebox.pem',
+             user => 'jabber',
+             group => 'jabber',
+             mode => '0640',
+            },
+
+           ];
+}
+
 1;
+
+
