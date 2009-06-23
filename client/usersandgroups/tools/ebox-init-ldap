@@ -31,7 +31,7 @@ sub init
         close($fd)
     } else {
         $pass = '';
-        for my $i (1..64) {
+        for my $i (1..8) {
             $pass .= rand (2**32);
         }
         $newpass = 1;
