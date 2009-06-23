@@ -144,9 +144,9 @@ sub viewCustomizer
         $customizer->setOnChangeActions(
         { externalFilter =>
             {
-              none  => { hide => $fields },
-              custom => { show => $fields },
-              mailfilter => { hide => $fields },
+              none  => { disable => $fields },
+              custom => { enable => $fields },
+              mailfilter => { disable => $fields },
             }
         });
         return $customizer;
