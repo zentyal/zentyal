@@ -124,4 +124,21 @@ sub port
     return $settings->portValue();
 }
 
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __(q{Users corner certificates}),
+             path    =>  '/var/lib/ebox-usercorner/ssl/ssl.pem',
+             user => 'ebox-usercorner',
+             group => 'ebox-usercorner',
+             mode => '0400',
+            },
+
+           ];
+}
+
+
 1;

@@ -123,8 +123,7 @@ SSLEngine on
 SSLProtocol all
 SSLCipherSuite HIGH:MEDIUM
 
-SSLCertificateFile /var/lib/ebox-usercorner/ssl/ssl.cert
-SSLCertificateKeyFile /var/lib/ebox-usercorner/ssl/ssl.key
+SSLCertificateFile /var/lib/ebox-usercorner/ssl/ssl.pem
 </IfModule>
 
 <IfModule mod_setenvif.c>
