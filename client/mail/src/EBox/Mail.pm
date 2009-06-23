@@ -128,7 +128,14 @@ sub actions
                             .'eboximail.schema.'
               ),
               'module' => 'mail'
-            }
+            },
+            {
+              'action' => __('Create certificates'),
+              'reason' => __(
+                  'eBox will create certificates to use in mail services'
+              ),
+              'module' => 'mail'
+            },
     ];
 }
 

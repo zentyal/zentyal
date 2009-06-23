@@ -100,10 +100,10 @@ sub _retrievalServicesMigration
 
     my $tls   = 0;
     my $noTls = 0;
-    if ($oldTlsValue eq 'required') {
+    if ((defined $oldTlsValue) and ($oldTlsValue eq 'required')) {
         $tls = 1;
     }
-    elsif ($oldTlsValue eq 'optional') {
+    elsif ((defined $oldTlsValue) and($oldTlsValue eq 'optional')) {
         $tls = 1;
         $noTls = 1;
     }
