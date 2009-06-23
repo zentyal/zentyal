@@ -5,15 +5,16 @@ cp /usr/share/ebox-mail/*.schema /etc/ldap/schema
 
 # Create certificates for smptd
 test -d /etc/postfix/sasl || mkdir -p /etc/postfix/sasl
- /usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl/
- mv /etc/postfix/sasl/smtp.key /etc/postfix/sasl/smtpd-key.pem
- mv /etc/postfix/sasl/smtp.cert /etc/postfix/sasl/smtpd.pem
+/usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl
+cat /etc/postfix/sasl/smtp.cert  /etc/postfix/sasl/smtp.key >  /etc/postfix/sasl/postfix.pem
+rm /etc/postfix/sasl/smtp.cert  /etc/postfix/sasl/smtp.key
+
 
 # Create certificates for dovecot
 test -d /etc/dovecot/ssl || mkdir -p /etc/dovecot/ssl
 /usr/share/ebox-mail/ebox-create-certificate /etc/dovecot/ssl
-mv /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/dovecot.pem
-mv /etc/dovecot/ssl/smtp.key /etc/dovecot/ssl/dovecot_key.pem
+cat /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/smtp.key >  /etc/dovecot/ssl/dovecot.pem
+rm /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/smtp.key
 chown root:root /etc/dovecot/ssl/*
 chmod 0400 /etc/dovecot/ssl/*
 
