@@ -213,6 +213,12 @@ sub _table
                                 printableName => __('Module'),
                                 unique        => 0,
                                 editable      => 0,
+                                filter => sub {
+                                    my ($self)  = @_;
+                                    my $modName = $self->value();
+                                    my $mod = EBox::Global->modInstance($modName);
+                                    return $mod->title();
+                                },
                                ),
        new EBox::Types::Text(
                                 fieldName     => 'service',
@@ -246,6 +252,17 @@ sub _table
     };
 
     return $dataTable;
+}
+
+
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+    my $modName = $row->valueByName('module');
+    my $mod = EBox::Global->modInstance($modName);
+    $mod->setAsChanged();
+    
 }
 
 1;
