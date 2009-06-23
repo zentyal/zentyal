@@ -131,6 +131,8 @@ sub _migrateRetrievalServices
 
 sub _migrateObjectPolicy 
 {
+    # XXX this is a weak migration it depends on the existence of 
+    # object policy model
     my ($self) = @_;
     my $mail = $self->{gconfmodule};
     my $objectPolicy = $mail->model('ObjectPolicy');
@@ -205,24 +207,27 @@ sub _migrateDomains
 sub _migrateToForm
 {
     my ($self, $formName, %migrate) = @_;
-    my $mail = $self->{gconfmodule};
-    my $form = $mail->model($formName);
-    
-    my $row = $form->row();
+    my $module = $self->{gconfmodule};
 
-    my $changed = 0;
     while (my ($oldKey, $migrationSpec) = each %migrate) {
         my $keyGetter   = $migrationSpec->{keyGetter};
-        my $formElement = $migrationSpec->{formElement};
+        my $keySetter   = $migrationSpec->{keySetter};
+        if (not defined $keySetter) {
+            $keySetter = $keyGetter;
+            $keyGetter =~ s/get/set/;
+        }
 
-        my $value = $mail->$keyGetter($oldKey);
+        my $formElement = $migrationSpec->{formElement};
+        my $formKey = "$formName/$formElement";
+
+        my $value = $module->$keyGetter($oldKey);
         if (not defined $value) {
             next;
         }
 
         # zero may be the equivalent of undefined value for ints
         if ($keyGetter eq 'get_int') {
-            if ($value == 0 and not $migrate{alowZero}) {
+            if ($value == 0 and not $migrate{allowZero}) {
                 next;
             }
         }
@@ -233,19 +238,12 @@ sub _migrateToForm
         }
 
 
-        my $element = $row->elementByName($formElement);
-        $element->setValue($value);
-        $changed = 1;
+        $module->$keySetter($formKey, $value);
     }
-
-    if ($changed) {
-        $row->store();
-    }
-
 
     # remove old keys
     foreach my $oldKey (keys %migrate) {
-        $mail->unset($oldKey);
+        $module->unset($oldKey);
     }
 
 }
