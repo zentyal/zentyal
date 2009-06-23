@@ -87,15 +87,14 @@ sub _create
 sub menu
 {
     my ($self, $root) = @_;
-    my $folder = new EBox::Menu::Folder('name' => 'AntiVirus',
-                                        'text' => $self->printableName(),
-                                        'separator' => __('UTM'),
-                                        'order' => 240);
+    my $item = new EBox::Menu::Item('name' => 'AntiVirus',
+                                    'text' => $self->printableName(),
+                                    'separator' => __('UTM'),
+                                    'order' => 240,
+                                    'url' => 'AntiVirus/View/FreshclamStatus',
+                                   );
 
-    $folder->add(new EBox::Menu::Item('url' => 'AntiVirus/View/FreshclamStatus',
-                                      'text' => __(q{Update Status})));
-
-    $root->add($folder);
+    $root->add($item);
 }
 
 # Method: modelClasses
