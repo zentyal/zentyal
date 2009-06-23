@@ -244,5 +244,14 @@ sub row
     return $row;
 }
 
+# Method: headTile
+#
+#   Overrides <EBox::Model::DataTable::headTitle> 
+#
+#
+sub headTitle
+{
+        return undef;
+}
 
 1;

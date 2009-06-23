@@ -181,4 +181,14 @@ sub _drive_letters
     return \@letters;
 }
 
+# Method: headTile
+#
+#   Overrides <EBox::Model::DataTable::headTitle> 
+#
+#
+sub headTitle
+{
+        return undef;
+}
+
 1;

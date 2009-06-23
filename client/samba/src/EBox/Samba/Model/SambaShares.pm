@@ -288,4 +288,15 @@ sub _sharesHelp
               'You can use an existing directory or pick a name and let eBox ' .
               'create it for you.');
 }
+
+# Method: headTile
+#
+#   Overrides <EBox::Model::DataTable::headTitle> 
+#
+#
+sub headTitle
+{
+        return undef;
+}
+
 1;
