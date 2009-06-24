@@ -117,7 +117,8 @@ sub objectModel
 #
 #      <EBox::Model::DataTable::validateTypedRow>
 #
-sub validateTypedRow
+# XXX Disabled until we make sure that we don't reject valid rules
+sub validateTypedRowDisable 
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
