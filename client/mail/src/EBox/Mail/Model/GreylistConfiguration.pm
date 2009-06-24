@@ -34,11 +34,11 @@ use EBox::Types::Union::Text;
 use EBox::Types::Port;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -54,11 +54,11 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                                fieldName => 'service',
                                printableName => __('Enabled'),
@@ -68,6 +68,7 @@ sub _table
          new EBox::Types::Int(
                               fieldName => 'delay',
                               printableName => __('Greylist duration (seconds)'),
+                              help => __('During this interval, the mail sender is deferred'),
                               editable => 1,
                               size     => 4,
                               defaultValue => 300,
@@ -76,7 +77,8 @@ sub _table
          new EBox::Types::Int(
                               fieldName => 'retryWindow',
                               printableName => __('Retry window (hours)'),
-                              help => __('Time that will have the mail sender to retry before it will be greylisted again'),
+                              help => __('Time that mail sender has to retry to be added '
+                                         . 'before it will be greylisted again'),
                               editable => 1,
                               size     => 4,
                               defaultValue => 48,
@@ -85,15 +87,12 @@ sub _table
          new EBox::Types::Int(
                               fieldName => 'maxAge',
                               printableName => __('Entries time to live (days)'),
-                              help => __('Period after that unseen entries will be deleted'),
+                              help => __('Period till unseen entries will be deleted'),
                               editable => 1,
                               size     => 4,
                               defaultValue => 35,
                               min => 1,
                              ),
-
-         
-
         );
 
       my $dataForm = {
