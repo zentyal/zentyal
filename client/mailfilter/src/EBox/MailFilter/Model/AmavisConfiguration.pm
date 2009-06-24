@@ -28,11 +28,12 @@ use EBox::Types::Port;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::MailAddress;
+use EBox::View::Customizer;
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -50,15 +51,15 @@ sub new
 #
 # This table is composed of two fields:
 #
-#   domain (<EBox::Types::Text>)    
+#   domain (<EBox::Types::Text>)
 #   enabled (EBox::Types::Boolean>)
-# 
+#
 # The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                                   fieldName => 'enabled',
                                   printableName => __('Enabled'),
@@ -86,7 +87,7 @@ sub _table
                               ),
          new EBox::Types::Union(
                                 fieldName => 'notification',
-                                printableName => 
+                                printableName =>
                                 __('Notify of non-spam problematic messages'),
                                 subtypes => [
                                              new EBox::Types::Union::Text(
@@ -95,7 +96,7 @@ sub _table
                                                                   ),
                                              new EBox::Types::MailAddress(
                                                'fieldName' => 'address',
-                                               'printableName' => 
+                                               'printableName' =>
                                                  __('mail address'),
                                                'editable'  => 1,
                                                                  ),
@@ -130,7 +131,7 @@ sub validateTypedRow
   my $port = $params_r->{port}->value();
 
   my $global  = EBox::Global->getInstance();
-  my @mods = grep {  
+  my @mods = grep {
                  $_->can('usesPort') and ($_->name ne 'mailfilter')
              } @{ $global->modInstances  };
   foreach my $mod (@mods) {
@@ -165,11 +166,40 @@ sub notificationAddress
 
 # Method: headTitle
 #
-#   Overrides <EBox::Model::Component::headTitle> to not
+#   Overrides <EBox::Model::Component::headTitle> not to
 #   write a head title within the tabbed composite
 sub headTitle
 {
     return undef;
+}
+
+# Method: viewCustomizer
+#
+#   Implement a custom behaviour to show and hide mailfilter configuration
+#   depending on the filter selected
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::viewCustomizer>
+#
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    my $fields = [qw(antivirus antispam port notification)];
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions(
+        { enabled =>
+            {
+              on  => { enable  => $fields },
+              off => { disable => $fields },
+            }
+        });
+    return $customizer;
+
 }
 
 1;
