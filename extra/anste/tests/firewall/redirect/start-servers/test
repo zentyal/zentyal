@@ -2,9 +2,9 @@
 
 set -e
 
-while true ; do echo foo | netcat -l 1101 -q 1 || exit 1 ; done &
+while true ; do echo foo | netcat -l -p  1101 -q 1 || exit 1 ; done &
 
-while true ; do echo bar | netcat -l 2202 -q 1 || exit 1 ; done &
+while true ; do echo bar | netcat -l -p 2202 -q 1 || exit 1 ; done &
 
 sleep 1
 
