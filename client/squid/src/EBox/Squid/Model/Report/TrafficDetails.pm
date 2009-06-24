@@ -142,7 +142,7 @@ sub _table
         { 
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Web traffic details'),
-            'defaultController' => '/ebox/Mail/Controller/TrafficReport',
+            'defaultController' => '/ebox/Squid/Controller/TrafficDetails',
             'defaultActions' => [ 'changeView' ],
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
