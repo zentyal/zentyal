@@ -213,7 +213,7 @@ sub Viewer
 
 
 # lists the fields which should not be aggregated in the 'total' row
-sub _noAggregateFields
+sub _noAgreggateFields
 {
     return [] ;
 }
@@ -228,8 +228,8 @@ sub _totalRow
     my %dbFields = %{  $self->dbFields() };
 
     # remove non-aggregate fields
-    my @noAggregateFields = @{ $self->_noAggregateFields() };
-    foreach my $field (@noAggregateFields) {
+    my @noAgreggateFields = @{ $self->_noAgreggateFields() };
+    foreach my $field (@noAgreggateFields) {
         delete $dbFields{$field};
         $row->{$field} =  __('All');
     }
