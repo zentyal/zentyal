@@ -96,7 +96,7 @@ sub protocol
          {
          'value' => 'icmp',
          'printableValue' => 'ICMP'
-         }
+         },
          {
          'value' => 'all',
          'printableValue' => 'All'
