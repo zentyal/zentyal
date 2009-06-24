@@ -82,6 +82,10 @@ sub protocol
          'printableValue' => 'UDP'
          },
          {
+         'value' => 'ah',
+         'printableValue' => 'AH'
+         },
+         {
          'value' => 'esp',
          'printableValue' => 'ESP'
          },
@@ -93,6 +97,10 @@ sub protocol
          'value' => 'icmp',
          'printableValue' => 'ICMP'
          }
+         {
+         'value' => 'all',
+         'printableValue' => 'All'
+         },
     );
 
     return \@options;

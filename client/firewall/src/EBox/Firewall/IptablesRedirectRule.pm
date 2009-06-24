@@ -191,7 +191,7 @@ sub setCustomService
             push (@{$self->{'service'}}, [" -p $protocol $nat", 
                                           " -p $protocol $filter"]); 
         }
-    } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
+    } elsif ($protocol eq any ('gre', 'icmp', 'esp', 'ah', 'all')) {
         my $iptables = " -p $protocol";
         push (@{$self->{'service'}}, [$iptables, $iptables]);
     }
