@@ -76,17 +76,17 @@ sub ids
 sub row 
 {
     my ($self, $id) = @_;
+    my $dbRows = $self->reportRows($self->timePeriod());
 
     my $row;
     if ($id ne 'total') {
-        my $dbRows = $self->reportRows($self->timePeriod());
         my $rowData = $dbRows->[$id];
         defined $rowData or
             return undef;
 
         $row = $self->_setValueRow(%{$rowData});
     } else {
-        $row = $self->_totalRow();
+        $row = $self->_totalRow($dbRows);
     }
     $row->setId($id);
     $row->setReadOnly(1);
@@ -251,7 +251,7 @@ sub _totalRow
 
 
 
-    $self->_setValueRow( %{ $row } );
+    return $self->_setValueRow( %{ $row } );
 }
 
 sub _tailoredOrder # (rows)
