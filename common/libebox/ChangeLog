@@ -1,7 +1,8 @@
 1.1.30
-    + Menu entries are now grouped by functionality
-    + Fixed order of items in menu (no more 'random' order)
+	+ Menu entries are now grouped by functionality
+	+ Fixed order of items in menu (no more 'random' order)
 	+ Added missing netmask values for network addresses between 16 and 32
+	+ Fixed regression with already used values in select types
 1.1.20
 	+ Support for custom view
 	+ Fix in netwrappers: iface methofd now retuns the ifcaes sorted

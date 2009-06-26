@@ -261,6 +261,22 @@ sub cmp
 
 }
 
+# Method: isValueSet 
+#
+#   Check if the type has been set. You can't use value to do this because
+#   it always defaults to the first value of options
+#
+# Return:
+#
+#   boolean  - true is set otherwise false
+#
+sub isValueSet
+{
+    my ($self) = @_;
+
+    return (defined($self->{'value'}));
+}
+
 # Group: Protected methods
 
 # Method: _storeInGConf
@@ -446,4 +462,5 @@ sub _filterOptions
 
 }
 
+ 
 1;

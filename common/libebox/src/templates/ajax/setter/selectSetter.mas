@@ -44,7 +44,7 @@ if ( $data->unique() ) {
         @filteredOptions = grep { ! ($_->{value} eq any(@optionsAlreadyModel)) } @{$options};
 
         # Add the current value if the action is an edition
-        if ( $data->value() ) {
+        if ( $data->isValueSet() ) {
             push ( @filteredOptions, {
                                       value => $data->value(),
                                       printableValue => $data->printableValue(),
