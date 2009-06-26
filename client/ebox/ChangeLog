@@ -7,6 +7,7 @@
 	+ Apache certificate can be replaced by CA module
 	+ Fixed regression in detailed report: total row now aggregates properly
 	+ Fixed regression with already used values in select types
+	+ Do not a button to restart eBox's apache
 1.1.20
 	+ Added custom view support
 	+ Bugfix: report models now can use the limit parameter in

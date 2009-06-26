@@ -450,6 +450,18 @@ sub showModuleStatus
     return undef;
 }
 
+# Method: _supportActions
+#
+#   Overrides <EBox::Module::ServiceBase>
+#
+#   This method determines if the service will have a button to start/restart
+#   it in the module status widget. By default services will have the button
+#   unless this method is overriden to return undef
+sub _supportActions
+{
+    return undef;
+}
+
 # Method: addInclude
 #
 #      Add an "include" directive to the apache configuration
