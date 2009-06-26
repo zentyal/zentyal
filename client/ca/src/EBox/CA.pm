@@ -1767,18 +1767,36 @@ sub restoreConfig
 
   }
 
+# Method: showModuleStatus
+#
+#   Indicate to ServiceManager if the module must be shown in Module
+#   status configuration.
+#
+# Overrides:
+#   EBox::Module::Service::showModuleStatus
+#
+sub showModuleStatus
+{
+    # we don't want it to appear in module status
+    return undef;
+}
+
+# Method: _supportActions
+#
+#   Overrides <EBox::Module::ServiceBase>
+#
+#   This method determines if the service will have a button to start/restart
+#   it in the module status widget. By default services will have the button
+#   unless this method is overriden to return undef
+sub _supportActions
+{
+    return undef;
+}
 
 # Group: Private methods
 
-# Method: _setConf
-#
-# Overrides:
-#
-#      <EBox::Module::Service::_setConf>
-#
-sub _setConf
-{
-    my ($self) = @_;
+# Method: _setConf # # Overrides: # # <EBox::Module::Service::_setConf> #
+sub _setConf { my ($self) = @_;
 
     EBox::CA::Certificates->genCerts();
 }
