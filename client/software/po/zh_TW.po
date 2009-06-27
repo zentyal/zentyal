@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"POT-Creation-Date: 2009-06-28 00:17+0200\n"
 "PO-Revision-Date: 2009-03-13 04:45+0000\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,59 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:30
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:40
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:466
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:483
-msgid "System updates"
-msgstr "系統更新"
-
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:45
-#: src/EBox/CGI/Updates.pm:45
-msgid "Software updates are being handled automatically"
-msgstr "系統更新已被設定為全自動"
-
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Updates.pm:52
-#: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
-msgstr "系統已經是最新的"
-
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:30
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/EBox.pm:40
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:464
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:481
-msgid "eBox components"
-msgstr "eBox 元件"
-
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:84
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
 msgstr "沒有套件需要更新"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:145
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/CurrentPackage.pm:31
 #: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
 msgstr "更新中"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:146
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
 msgstr "更新套件中"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:147
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:167
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
 msgstr "目前套件"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:148
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
 msgstr "套件安裝"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:149
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -78,29 +45,24 @@ msgstr ""
 "套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟"
 "動"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:153
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:165
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
 msgstr "移除套件"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:166
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
 msgstr "移除所選擇的套件及相依性套件"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:168
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
 msgstr "套件移除"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:169
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
 "The packages removal has finished successfully. The administration interface "
@@ -110,146 +72,194 @@ msgstr ""
 "套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新"
 "啟動"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/InstallPkgs.pm:173
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "套件移除沒有完成.在日誌上有更多資訊"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:31
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Config.pm:41
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
 msgstr "自動軟體更新"
 
-#: debian/ebox-software/usr/share/perl5/EBox/CGI/Software/Enable.pm:41
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+msgid "System updates"
+msgstr "系統更新"
+
+#: src/EBox/CGI/Updates.pm:45
+msgid "Software updates are being handled automatically"
+msgstr "系統更新已被設定為全自動"
+
+#: src/EBox/CGI/Updates.pm:52
+msgid "The system is up to date"
+msgstr "系統已經是最新的"
+
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "自動更新設置"
 
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:85
-#: src/EBox/Software.pm:85
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr "eBox 元件"
+
+#: src/EBox/Software.pm:76
 msgid "Enable cron script to download updates"
 msgstr "啟用排程 script 來下載更新"
 
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:86
-#: src/EBox/Software.pm:86
+#: src/EBox/Software.pm:77
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
 
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:461
-#: src/EBox/Software.pm:478
-msgid "Software management"
+#: src/EBox/Software.pm:473
+#, fuzzy
+msgid "Software Management"
 msgstr "軟體管理"
 
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:468
-#: src/EBox/Software.pm:485
-msgid "Automatic updates"
+#: src/EBox/Software.pm:477
+#, fuzzy
+msgid "eBox Components"
+msgstr "eBox 元件"
+
+#: src/EBox/Software.pm:479
+#, fuzzy
+msgid "System Updates"
+msgstr "系統更新"
+
+#: src/EBox/Software.pm:481
+#, fuzzy
+msgid "Automatic Updates"
 msgstr "自動更新"
 
-#: debian/ebox-software/usr/share/perl5/EBox/Software.pm:559
-#: src/EBox/Software.pm:576
+#: src/EBox/Software.pm:572
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
 #: src/EBox/PackageDescriptions.pm:1
+#, fuzzy
+msgid "eBox - Antivirus module"
+msgstr "eBox - 郵件過濾模組"
+
+#: src/EBox/PackageDescriptions.pm:2
+#, fuzzy
+msgid "eBox - Asterisk"
+msgstr "eBox - DNS 伺服器"
+
+#: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - Certificate Authority Manager for eBox"
 msgstr "eBox - Certificate Authority Manager for eBox"
 
-#: src/EBox/PackageDescriptions.pm:2
+#: src/EBox/PackageDescriptions.pm:4
+#, fuzzy
+msgid "eBox - captive portal module"
+msgstr "eBox - 郵件過濾模組"
+
+#: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - DHCP server module"
 msgstr "eBox - DHCP 伺服器模組"
 
-#: src/EBox/PackageDescriptions.pm:3
+#: src/EBox/PackageDescriptions.pm:6
 msgid "eBox - DNS server"
 msgstr "eBox - DNS 伺服器"
 
-#: src/EBox/PackageDescriptions.pm:4
+#: src/EBox/PackageDescriptions.pm:7
+msgid "eBox - Backup"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:8
 msgid "the eBox platform - Base framework"
 msgstr "eBox 系統 - Base framework"
 
-#: src/EBox/PackageDescriptions.pm:5
+#: src/EBox/PackageDescriptions.pm:9
+#, fuzzy
+msgid "eBox - eGroupware"
+msgstr "eBox - 防火牆"
+
+#: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Firewall"
 msgstr "eBox - 防火牆"
 
-#: src/EBox/PackageDescriptions.pm:6
-msgid "IPsec VPNs"
-msgstr "IPsec VPNs"
+#: src/EBox/PackageDescriptions.pm:11
+msgid "eBox - Intrusion Detection System"
+msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:7
+#: src/EBox/PackageDescriptions.pm:12
+#, fuzzy
+msgid "eBox - Instant messaging proxy"
+msgstr "eBox - 即時通訊 (Jabber)"
+
+#: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Instant messaging (Jabber)"
 msgstr "eBox - 即時通訊 (Jabber)"
 
-#: src/EBox/PackageDescriptions.pm:8
+#: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - layer 7 protocols"
 msgstr "eBox - layer 7 protocols"
 
-#: src/EBox/PackageDescriptions.pm:9
+#: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Mail server"
 msgstr "eBox - 郵件伺服器"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Mail filter module"
 msgstr "eBox - 郵件過濾模組"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Monitoring module  "
 msgstr "eBox - 監控模組"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Network configuration module"
 msgstr "eBox - 網路設置模組"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - NTP server"
 msgstr "eBox - NTP 伺服器"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Object management"
 msgstr "eBox - Object 管理"
 
-#: src/EBox/PackageDescriptions.pm:15
+#: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - OpenVPN server module"
 msgstr "eBox - OpenVPN 伺服器模組"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - Printer sharing"
 msgstr "eBox - 印表機分享"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:23
+msgid "eBox - client for remote services   "
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - File sharing"
 msgstr "eBox - 檔案分享"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:25
 msgid "eBox - Services management"
 msgstr "eBox - 服務管理"
 
-#: src/EBox/PackageDescriptions.pm:19
-msgid "SOAP server to communicate with eBox control center"
-msgstr "SOAP 伺服器通訊到 eBox 控制中心"
-
-#: src/EBox/PackageDescriptions.pm:20
+#: src/EBox/PackageDescriptions.pm:26
 msgid "eBox - Software management"
 msgstr "eBox - 軟體管理"
 
-#: src/EBox/PackageDescriptions.pm:21
+#: src/EBox/PackageDescriptions.pm:27
 msgid "eBox - Proxy cache and content filter"
 msgstr "eBox - 代理伺服器和內容過濾"
 
-#: src/EBox/PackageDescriptions.pm:22
+#: src/EBox/PackageDescriptions.pm:28
 msgid "eBox - Traffic shaper for eBox"
 msgstr "eBox - eBox 的流量管理"
 
-#: src/EBox/PackageDescriptions.pm:23
+#: src/EBox/PackageDescriptions.pm:29
 msgid "eBox - User and Group management"
 msgstr "eBox - 使用者和群組管理"
 
-#: src/EBox/PackageDescriptions.pm:24
+#: src/EBox/PackageDescriptions.pm:30
 msgid "eBox - Web Server"
 msgstr "eBox - 網頁伺服器"
 
@@ -265,90 +275,46 @@ msgstr "透過 apt 讓軟體服務來更新套件"
 msgid "rule to allow apt updates"
 msgstr "允許 apt 更新的規則"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:14
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
 msgstr "以下的套件將被安裝"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:16
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
 msgstr "以下的套件將被移除"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:32
 #: src/templates/del.mas:32
 msgid "Ok"
 msgstr "確定"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/del.mas:33
 #: src/templates/del.mas:33
 msgid "Cancel"
 msgstr "取消"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:14
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:16
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
-msgid "Component"
-msgstr "元件"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:15
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "已安裝版本"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:16
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "最新版本"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:17
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "動作"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:27
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:19
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
-msgid "Update"
-msgstr "更新"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:33
-#: src/templates/ebox.mas:33
-msgid "Install"
-msgstr "安裝"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:35
-#: src/templates/ebox.mas:35
-msgid "none"
-msgstr "沒有"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:57
-#: src/templates/ebox.mas:57
-msgid "Remove"
-msgstr "移除"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/ebox.mas:74
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:53
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
-msgid "Update all packages"
-msgstr "更新所有套件"
-
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:11
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
 msgstr "以下的系統元件有可用的更新"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:17
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+msgid "Component"
+msgstr "元件"
+
 #: src/templates/updates.mas:17
 msgid "Description"
 msgstr "說明"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:18
 #: src/templates/updates.mas:18
 msgid "Version"
 msgstr "版本"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:64
+#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+msgid "Update"
+msgstr "更新"
+
+#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+msgid "Update all packages"
+msgstr "更新所有套件"
+
 #: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
@@ -356,7 +322,36 @@ msgid ""
 msgstr ""
 "這個動作會花一些時間,假如 eBox 在按下升級按鈕後看起來沒有回應請不用擔心"
 
-#: debian/ebox-software/usr/share/ebox/templates/software/updates.mas:67
 #: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "升級"
+
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "已安裝版本"
+
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "最新版本"
+
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "動作"
+
+#: src/templates/ebox.mas:33
+msgid "Install"
+msgstr "安裝"
+
+#: src/templates/ebox.mas:35
+msgid "none"
+msgstr "沒有"
+
+#: src/templates/ebox.mas:57
+msgid "Remove"
+msgstr "移除"
+
+#~ msgid "IPsec VPNs"
+#~ msgstr "IPsec VPNs"
+
+#~ msgid "SOAP server to communicate with eBox control center"
+#~ msgstr "SOAP 伺服器通訊到 eBox 控制中心"

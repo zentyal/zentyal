@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:14+0100\n"
+"POT-Creation-Date: 2009-06-28 00:09+0200\n"
 "PO-Revision-Date: 2009-05-04 22:49+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,26 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:155
-msgid "Admin mail recipient"
-msgstr "Mottagare av administratörs-epost"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:1053
-#: src/EBox/Mail.pm:1109 src/EBox/Mail.pm:1190
-msgid "Mail"
-msgstr "E-post"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:189
-#, perl-brace-format
-msgid "Cannot connect to {smtp} mail server"
-msgstr "Kan inte ansluta till mailserver {smtp}"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:230
-#, perl-brace-format
-msgid "Cannot connect to the server {hostname} to send the event through SMTP"
-msgstr ""
-"Kan inte ansluta till server {hostname} för att skicka händelsen via SMTP"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -64,12 +44,16 @@ msgid "mail alias"
 msgstr "e-postalias"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1135
+#: src/EBox/Mail.pm:1201
 msgid "Queue Management"
 msgstr "Köhantering"
 
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
-#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "grupp"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
+#: src/EBox/MailVDomainsLdap.pm:123 src/EBox/Mail/Model/VDomains.pm:87
 msgid "virtual domain"
 msgstr "virtuell domän"
 
@@ -81,13 +65,21 @@ msgstr "E-postadress"
 msgid "user mail"
 msgstr "användar e-post"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "grupp"
-
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
 msgstr "gruppalias e-post"
+
+#: src/EBox/MailVDomainsLdap.pm:342
+msgid "Size quota"
+msgstr "Storlekskvot"
+
+#: src/EBox/MailVDomainsLdap.pm:434 src/EBox/MailVDomainsLdap.pm:440
+#: src/EBox/MailVDomainsLdap.pm:484 src/EBox/MailVDomainsLdap.pm:490
+#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:737
+#: src/EBox/MailUserLdap.pm:799 src/EBox/MailUserLdap.pm:805
+#: src/EBox/Mail.pm:1392
+msgid "maildir size"
+msgstr "maildir storlek"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -98,7 +90,7 @@ msgstr "Ärende"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] En händelse har hänt på {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1159
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1225
 msgid "To"
 msgstr "Till"
 
@@ -112,7 +104,6 @@ msgid ""
 "mail service from eBox"
 msgstr ""
 "För att konfigurera e-post tjänsten måste händelseförmedlaren vara aktiverad "
-""
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
@@ -160,31 +151,31 @@ msgstr "Objektets reläpolicy"
 msgid "You may allow mail relay per network object"
 msgstr "Du kan tillåta ett e-post relä per nätverksobjekt"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:87
+#: src/EBox/Mail/Model/ExternalFilter.pm:89
 msgid "Filter in use"
 msgstr "Filter som används"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:94
+#: src/EBox/Mail/Model/ExternalFilter.pm:97
 msgid "Custom filter's mail forward port"
 msgstr "Vidarebefordrad port för anpassat filter"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:100
+#: src/EBox/Mail/Model/ExternalFilter.pm:103
 msgid "Custom filter's IP address"
 msgstr "IP-adress för anpassat filter"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:106
+#: src/EBox/Mail/Model/ExternalFilter.pm:109
 msgid "Custom filter's Port"
 msgstr "Port för anpassat filter"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:115
+#: src/EBox/Mail/Model/ExternalFilter.pm:118
 msgid "Mail filter options"
 msgstr "Inställningar för e-postfilter"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:135
+#: src/EBox/Mail/Model/ExternalFilter.pm:161
 msgid "none"
 msgstr "ingen"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:136
+#: src/EBox/Mail/Model/ExternalFilter.pm:162
 msgid "custom"
 msgstr "anpassad"
 
@@ -233,41 +224,31 @@ msgstr "Inställningar"
 msgid "Name"
 msgstr "Namn"
 
-#: src/EBox/Mail/Model/VDomains.pm:72
+#: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
+#: src/EBox/Mail/Model/VDomainAliases.pm:69
+msgid "Aliases"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Mail virtual domains"
 msgstr "virtuell domän för e-post"
 
-#: src/EBox/Mail/Model/VDomains.pm:83
+#: src/EBox/Mail/Model/VDomains.pm:89
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
 "Virtuell domän tillagd. Du måste spara ändringarna för att använda denna "
 "domän."
 
-#: src/EBox/Mail/Model/VDomains.pm:113
+#: src/EBox/Mail/Model/VDomains.pm:119
+#: src/EBox/Mail/Model/VDomainAliases.pm:110
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
 "Du måste aktivera e-postmodulen i modulstatussektionen för att använda den."
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:87
-msgid "SSL Support"
-msgstr "SSL-stöd"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:96
+#: src/EBox/Mail/Model/RetrievalServices.pm:99 src/EBox/Mail.pm:1444
 msgid "Mail retrieval services"
 msgstr "E-post hämtningstjänster"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:114
-msgid "No"
-msgstr "Nej"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:115
-msgid "Optional"
-msgstr "Valfritt"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:116
-msgid "Required"
-msgstr "Krävs"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -277,319 +258,347 @@ msgstr "Aktiverad"
 msgid "Greylist duration (seconds)"
 msgstr "Grålistans tidsgräns (sekunder)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:78
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:71
+msgid "During this interval, the mail sender is deferred"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Retry window (hours)"
 msgstr "Tidsfönster för återförsök (timmar)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:79
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:80
+#, fuzzy
 msgid ""
-"Time that will have the mail sender to retry before it will be greylisted "
+"Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr "Tid som avsändaren har på sig innan denne blir grålistad igen."
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:87
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:89
 msgid "Entries time to live (days)"
 msgstr "Tid poster ligger kvar (dagar)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:88
-msgid "Period after that unseen entries will be deleted"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
+#, fuzzy
+msgid "Period till unseen entries will be deleted"
 msgstr "Tid innan osedda poster raderas"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 msgid "Greylist configuration"
 msgstr "Konfiguration av grålistor"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:78
+#, fuzzy
+msgid "virtual domain alias"
+msgstr "virtuell domän"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:80
+#, fuzzy
+msgid "Virtual domain alias added. You must save changes to use this domain"
+msgstr ""
+"Virtuell domän tillagd. Du måste spara ändringarna för att använda denna "
+"domän."
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
 msgid "Mail server options"
 msgstr "Inställningar för e-posttjänst"
 
-#: src/EBox/Mail/Greylist.pm:53
+#: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
 msgstr "För att konfigurera vitlistor för grålistning"
 
-#: src/EBox/MailVDomainsLdap.pm:332
-msgid "Size quota"
-msgstr "Storlekskvot"
+#: src/EBox/Mail/Greylist.pm:279
+#, fuzzy
+msgid "Greylist service"
+msgstr "Grålistad"
 
-#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
-#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
-#: src/EBox/Mail.pm:1327 src/EBox/MailUserLdap.pm:725
-#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
-#: src/EBox/MailUserLdap.pm:799
-msgid "maildir size"
-msgstr "maildir storlek"
-
-#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
-#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
-#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
-#: src/EBox/MailUserLdap.pm:76
+#: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
+#: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
+#: src/EBox/MailAliasLdap.pm:233 src/EBox/MailUserLdap.pm:82
+#: src/EBox/MailUserLdap.pm:87
 msgid "mail account"
 msgstr "mailkonto"
 
-#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
-#: src/EBox/MailAliasLdap.pm:228
+#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
+#, fuzzy
+msgid "Domain alias"
+msgstr "e-postalias"
+
+#: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
+#, fuzzy, perl-brace-format
+msgid "Mail domain {d} does not exists"
+msgstr "Konto existerar ej"
+
+#: src/EBox/MailAliasLdap.pm:142
+#, perl-brace-format
+msgid ""
+"Cannot use {d} as alias for a mail domain because a domain which this name "
+"already exists"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
+#: src/EBox/MailAliasLdap.pm:321
 msgid "mail alias account"
 msgstr "e-postkonto alias"
 
-#: src/EBox/Mail.pm:78
+#: src/EBox/MailUserLdap.pm:307
+msgid "This group has a mail alias"
+msgstr "Denna grupp har ett e-postalias"
+
+#: src/EBox/MailUserLdap.pm:334
+msgid "This user has a mail account"
+msgstr "Denna användare har ett mailkonto"
+
+#: src/EBox/MailUserLdap.pm:611
+#, perl-brace-format
+msgid "Cannot create user account: mail directory {d} aready exists"
+msgstr ""
+
+#: src/EBox/Mail.pm:72
 msgid "mail"
 msgstr "e-post"
 
-#: src/EBox/Mail.pm:112
-#, perl-brace-format
-msgid "Add {user} to {group} group"
-msgstr "Lägg till {user} till gruppen {group}"
-
-#: src/EBox/Mail.pm:114
-#, perl-brace-format
-msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-msgstr "För att tillåta {daemon} att koppla till {otherDaemon} via unix socket"
-
-#: src/EBox/Mail.pm:120
+#: src/EBox/Mail.pm:118
 msgid "Generate mail aliases"
 msgstr "Skapa e-postalias"
 
-#: src/EBox/Mail.pm:122
+#: src/EBox/Mail.pm:120
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr "eBox kommer exekvera {cmd}"
 
-#: src/EBox/Mail.pm:126
+#: src/EBox/Mail.pm:125
 msgid "Add LDAP schemas"
 msgstr "Lägg till LDAP scheman"
 
-#: src/EBox/Mail.pm:128
-#, perl-brace-format
-msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
+#: src/EBox/Mail.pm:127
+#, fuzzy
+msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
 msgstr "eBox kommer lägga till två  LDAP schemas: {schema1} och {schema2}."
 
-#: src/EBox/Mail.pm:147
+#: src/EBox/Mail.pm:133
+#, fuzzy
+msgid "Create certificates"
+msgstr "Skapa e-postalias"
+
+#: src/EBox/Mail.pm:135
+msgid "eBox will create certificates to use in mail services"
+msgstr ""
+
+#: src/EBox/Mail.pm:155
 msgid "To configure postfix"
 msgstr "För att konfigurera postfix"
 
-#: src/EBox/Mail.pm:153
+#: src/EBox/Mail.pm:161
 msgid "To define how client programs connect to services in  postfix"
 msgstr "För att definiera hur klientprogram kontaktar tjänster i postfix"
 
-#: src/EBox/Mail.pm:161
-msgid "To configure courier to authenticate against LDAP"
+#: src/EBox/Mail.pm:168
+#, fuzzy
+msgid "To configure dovecot"
+msgstr "För att konfigurera postfix"
+
+#: src/EBox/Mail.pm:173
+#, fuzzy
+msgid "To configure dovecot to authenticate against LDAP"
 msgstr "För att konfigurera courier att autentisera mot LDAP"
 
-#: src/EBox/Mail.pm:166
-msgid "To let courier know how to access LDAP"
-msgstr "För att låta courier veta hur det ska accessa LDAP"
-
-#: src/EBox/Mail.pm:171
-msgid "To configure courier POP3"
-msgstr "För att konfigurera POP3"
-
-#: src/EBox/Mail.pm:176
-msgid "To configure POP3 with SSL support"
-msgstr "För att konfigurera POP3 med SSL support"
-
-#: src/EBox/Mail.pm:181
-msgid "To configure IMAP"
-msgstr "För att konfigurera IMAP"
-
-#: src/EBox/Mail.pm:186
-msgid "To configure IMAP with SSL support"
-msgstr "För att konfigurera IMAP med SSL support"
-
-#: src/EBox/Mail.pm:192 src/EBox/Mail.pm:198
-msgid "To configure saslauthd to authenticate against LDAP "
-msgstr "För att konfigurera saslauthd att autentisera mot LDAP"
-
-#: src/EBox/Mail.pm:203
-msgid "To configure saslauthd to use LDAP"
-msgstr "För att konfigurera saslauthd att använda LDAP"
-
-#: src/EBox/Mail.pm:208
-msgid "To configure smart host authentication"
-msgstr "För att konfigurera smart host autentisering"
-
-#: src/EBox/Mail.pm:213
+#: src/EBox/Mail.pm:178
 msgid "To add the LDAP schemas used by eBox mail"
 msgstr "För att lägga till LDAP scheman som används av eBox e-post"
 
-#: src/EBox/Mail.pm:581
+#: src/EBox/Mail.pm:183
+msgid "To configure smart host authentication"
+msgstr "För att konfigurera smart host autentisering"
+
+#: src/EBox/Mail.pm:612
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Kan inte ändra denna parameter för ett icke anpassat filter"
 
-#: src/EBox/Mail.pm:596 src/EBox/Mail.pm:616
+#: src/EBox/Mail.pm:628 src/EBox/Mail.pm:648
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "E-post filtret finns inte. Välj ett annat e-postfilter eller avaktivera det"
 
-#: src/EBox/Mail.pm:623
-#, perl-brace-format
+#: src/EBox/Mail.pm:655
+#, fuzzy
 msgid ""
-"The mail filter {name} is not active. Please set another mail filter or "
+"The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 "E-post filtret {name} är inte aktivt. Vänligen välj ett annat e-postfilter "
 "eller avaktivera det"
 
-#: src/EBox/Mail.pm:1031
+#: src/EBox/Mail.pm:1066
+#, fuzzy
+msgid "SMTP service"
+msgstr "IMAP-tjänst"
+
+#: src/EBox/Mail.pm:1073
 msgid "POP3 service"
 msgstr "POP3-tjänst"
 
-#: src/EBox/Mail.pm:1033
+#: src/EBox/Mail.pm:1079
+#, fuzzy
+msgid "POP3S service"
+msgstr "POP3-tjänst"
+
+#: src/EBox/Mail.pm:1085
 msgid "IMAP service"
 msgstr "IMAP-tjänst"
 
-#: src/EBox/Mail.pm:1067
+#: src/EBox/Mail.pm:1091
+#, fuzzy
+msgid "IMAPS service"
+msgstr "IMAP-tjänst"
+
+#: src/EBox/Mail.pm:1118 src/EBox/Mail.pm:1174 src/EBox/Mail.pm:1254
+#: src/EBox/Event/Dispatcher/Mail.pm:168
+msgid "Mail"
+msgstr "E-post"
+
+#: src/EBox/Mail.pm:1132
 msgid "enabled"
 msgstr "aktiv"
 
-#: src/EBox/Mail.pm:1067
+#: src/EBox/Mail.pm:1132
 msgid "disabled"
 msgstr "inaktiv"
 
-#: src/EBox/Mail.pm:1069 src/EBox/Mail.pm:1164
+#: src/EBox/Mail.pm:1134 src/EBox/Mail.pm:1230
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1072
+#: src/EBox/Mail.pm:1137
 msgid "Mail server's filter"
 msgstr "Mailserverns filter"
 
-#: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
+#: src/EBox/Mail.pm:1146 src/EBox/Mail.pm:1153
 msgid "Filter type"
 msgstr "Typ av filter"
 
-#: src/EBox/Mail.pm:1082
+#: src/EBox/Mail.pm:1147
 msgid "Custom"
 msgstr "Anpassat"
 
-#: src/EBox/Mail.pm:1084
+#: src/EBox/Mail.pm:1149
 msgid "Address"
 msgstr "Adress"
 
-#: src/EBox/Mail.pm:1115
+#: src/EBox/Mail.pm:1175
+#, fuzzy
+msgid "Communications"
+msgstr "Autentisering"
+
+#: src/EBox/Mail.pm:1182
 msgid "General"
 msgstr "Allmän"
 
-#: src/EBox/Mail.pm:1122
-msgid "Virtual mail domains"
+#: src/EBox/Mail.pm:1189
+#, fuzzy
+msgid "Virtual Mail Domains"
 msgstr "Virtuella e-postdomäner"
 
-#: src/EBox/Mail.pm:1128
+#: src/EBox/Mail.pm:1195
 msgid "Greylist"
 msgstr "Grålista"
 
-#: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:1222 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Mail.pm:1157
+#: src/EBox/Mail.pm:1223
 msgid "Message ID"
 msgstr "Meddelande ID"
 
-#: src/EBox/Mail.pm:1158
+#: src/EBox/Mail.pm:1224
 msgid "From"
 msgstr "Från"
 
-#: src/EBox/Mail.pm:1160
+#: src/EBox/Mail.pm:1226
 msgid "From hostname"
 msgstr "Från värdnamn"
 
-#: src/EBox/Mail.pm:1161
+#: src/EBox/Mail.pm:1227
 msgid "From host ip"
 msgstr "Från värd-IP"
 
-#: src/EBox/Mail.pm:1162 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1228 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Storlek (bytes)"
 
-#: src/EBox/Mail.pm:1163
+#: src/EBox/Mail.pm:1229
 msgid "Relay"
 msgstr "Relä"
 
-#: src/EBox/Mail.pm:1165
+#: src/EBox/Mail.pm:1231
 msgid "Event"
 msgstr "Händelse"
 
-#: src/EBox/Mail.pm:1166
+#: src/EBox/Mail.pm:1232
 msgid "Aditional Info"
 msgstr "Extra information"
 
-#: src/EBox/Mail.pm:1177
+#: src/EBox/Mail.pm:1243
 msgid "Successful messages"
 msgstr "Lyckade meddelanden"
 
-#: src/EBox/Mail.pm:1178
+#: src/EBox/Mail.pm:1244
 msgid "Maximum message size exceeded"
 msgstr "Maximal meddelandestorlek överskriden"
 
-#: src/EBox/Mail.pm:1179
+#: src/EBox/Mail.pm:1245
 msgid "User quote exceeded"
 msgstr "Användaquota överstigen"
 
-#: src/EBox/Mail.pm:1180
+#: src/EBox/Mail.pm:1246
 msgid "Relay access denied"
 msgstr "Relä åtkomst nekad"
 
-#: src/EBox/Mail.pm:1181
+#: src/EBox/Mail.pm:1247
 msgid "Account does not exist"
 msgstr "Konto existerar ej"
 
-#: src/EBox/Mail.pm:1182
+#: src/EBox/Mail.pm:1248
 msgid "Host unreachable"
 msgstr "Värd ej nåbar"
 
-#: src/EBox/Mail.pm:1183
+#: src/EBox/Mail.pm:1249
 msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
-#: src/EBox/Mail.pm:1184
-msgid "Relay denied by the smarthost"
-msgstr "Relä nekat av smarthost"
-
-#: src/EBox/Mail.pm:1185
-msgid "Greylisted"
-msgstr "Grålistad"
-
-#: src/EBox/Mail.pm:1186
+#: src/EBox/Mail.pm:1250
 msgid "Other events"
 msgstr "Övriga händelser"
 
-#: src/EBox/Mail.pm:1291
+#: src/EBox/Mail.pm:1356
 msgid "Mailboxes"
 msgstr "E-postbrevlådor"
 
-#: src/EBox/MailUserLdap.pm:320
-msgid "This group has a mail alias"
-msgstr "Denna grupp har ett e-postalias"
+#: src/EBox/Mail.pm:1437
+#, fuzzy
+msgid "Mail SMTP server"
+msgstr "TLS för SMTP-server"
 
-#: src/EBox/MailUserLdap.pm:347
-msgid "This user has a mail account"
-msgstr "Denna användare har ett mailkonto"
+#: src/EBox/Event/Dispatcher/Mail.pm:155
+msgid "Admin mail recipient"
+msgstr "Mottagare av administratörs-epost"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:189
+#, perl-brace-format
+msgid "Cannot connect to {smtp} mail server"
+msgstr "Kan inte ansluta till mailserver {smtp}"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:230
+#, perl-brace-format
+msgid "Cannot connect to the server {hostname} to send the event through SMTP"
+msgstr ""
+"Kan inte ansluta till server {hostname} för att skicka händelsen via SMTP"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
 msgstr "eBox e-postsystem"
-
-#: src/templates/warnvd.mas:14
-msgid ""
-"The virtual domain you tried to delete contains data in the following "
-"modules. Please confirm you want to remove it and all its related data"
-msgstr ""
-"Den virtuella domänen du försökte radera innehåller data i följande moduler. "
-"Vänligen bekräfta om du vill radera detta och all relaterad data"
-
-#: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
-#: src/templates/groupalias.mas:65 src/templates/alias.mas:22
-#: src/templates/alias.mas:23 src/templates/alias.mas:24
-#: src/templates/alias.mas:76 src/templates/alias.mas:77
-msgid "Delete"
-msgstr "Ta bort"
-
-#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
-#: src/templates/warnusermdsize.mas:26
-msgid "Cancel"
-msgstr "Avbryt"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
@@ -608,8 +617,8 @@ msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
-"Det finns inga användare i gruppen eller användarna har inte ett "
-"e-postkonto. Därför kan inte ett aliaskonto skapas"
+"Det finns inga användare i gruppen eller användarna har inte ett e-"
+"postkonto. Därför kan inte ett aliaskonto skapas"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
 #: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
@@ -622,12 +631,25 @@ msgstr "Skapa"
 msgid "Mail alias settings"
 msgstr "Inställningar för e-postalias"
 
-#: src/templates/moduleDisabled.mas:5
+#: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
+#: src/templates/warnvd.mas:29 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:24
+#: src/templates/alias.mas:76 src/templates/alias.mas:77
+msgid "Delete"
+msgstr "Ta bort"
+
+#: src/templates/warnvd.mas:14
 msgid ""
-"The following settings only will take effect when the mail module is enabled"
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
 msgstr ""
-"Följande inställningar kommer endast att aktiveras när e-post modulen är "
-"aktiverad"
+"Den virtuella domänen du försökte radera innehåller data i följande moduler. "
+"Vänligen bekräfta om du vill radera detta och all relaterad data"
+
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
@@ -689,39 +711,39 @@ msgstr "Meddelande"
 msgid "Operate"
 msgstr "Åtgärda"
 
-#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
+#: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
 msgid "Requeue"
 msgstr "Köa om"
 
-#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
+#: src/templates/qmanager.mas:49 src/templates/qmanager.mas:50
 msgid "Show Info"
 msgstr "Visa info"
 
-#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
+#: src/templates/qmanager.mas:54 src/templates/qmanager.mas:55
 msgid "Remove"
 msgstr "Ta bort"
 
-#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
+#: src/templates/qmanager.mas:67 src/templates/qmanager.mas:68
 msgid "Hide Info"
 msgstr "Dölj info"
 
-#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "first"
 msgstr "första"
 
-#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+#: src/templates/qmanager.mas:91 src/templates/qmanager.mas:92
 msgid "prev"
 msgstr "föreg"
 
-#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "next"
 msgstr "nästa"
 
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+#: src/templates/qmanager.mas:115 src/templates/qmanager.mas:116
 msgid "last"
 msgstr "sista"
 
-#: src/templates/qmanager.mas:122
+#: src/templates/qmanager.mas:126
 msgid "There is no messages in queue or the service is stopped"
 msgstr "Det finns inga meddelanden i kön eller tjänsten är stoppad"
 
@@ -732,6 +754,56 @@ msgstr "E-postkonto"
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
 msgstr "Klicka här för att lägga till en ny virtuell e-postdomän"
+
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
+"Följande inställningar kommer endast att aktiveras när e-post modulen är "
+"aktiverad"
+
+#~ msgid "SSL Support"
+#~ msgstr "SSL-stöd"
+
+#~ msgid "No"
+#~ msgstr "Nej"
+
+#~ msgid "Optional"
+#~ msgstr "Valfritt"
+
+#~ msgid "Required"
+#~ msgstr "Krävs"
+
+#~ msgid "Add {user} to {group} group"
+#~ msgstr "Lägg till {user} till gruppen {group}"
+
+#~ msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
+#~ msgstr ""
+#~ "För att tillåta {daemon} att koppla till {otherDaemon} via unix socket"
+
+#~ msgid "To let courier know how to access LDAP"
+#~ msgstr "För att låta courier veta hur det ska accessa LDAP"
+
+#~ msgid "To configure courier POP3"
+#~ msgstr "För att konfigurera POP3"
+
+#~ msgid "To configure POP3 with SSL support"
+#~ msgstr "För att konfigurera POP3 med SSL support"
+
+#~ msgid "To configure IMAP"
+#~ msgstr "För att konfigurera IMAP"
+
+#~ msgid "To configure IMAP with SSL support"
+#~ msgstr "För att konfigurera IMAP med SSL support"
+
+#~ msgid "To configure saslauthd to authenticate against LDAP "
+#~ msgstr "För att konfigurera saslauthd att autentisera mot LDAP"
+
+#~ msgid "To configure saslauthd to use LDAP"
+#~ msgstr "För att konfigurera saslauthd att använda LDAP"
+
+#~ msgid "Relay denied by the smarthost"
+#~ msgstr "Relä nekat av smarthost"
 
 #~ msgid "Yes"
 #~ msgstr "Ja"
@@ -762,9 +834,6 @@ msgstr "Klicka här för att lägga till en ny virtuell e-postdomän"
 
 #~ msgid "Settings"
 #~ msgstr "Inställningar"
-
-#~ msgid "TLS for SMTP server"
-#~ msgstr "TLS för SMTP-server"
 
 #~ msgid "POP3"
 #~ msgstr "POP3"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:45+0100\n"
+"POT-Creation-Date: 2009-06-28 00:10+0200\n"
 "PO-Revision-Date: 2009-04-05 18:09+0200\n"
 "Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
 "Language-Team: none\n"
@@ -16,52 +16,113 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:40
-msgid " To configure spamassassin daemon"
-msgstr "Configurer le service SpamAssassin"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
+msgid "total messages"
+msgstr "total des messages"
 
-#: src/EBox/MailFilter/SpamAssassin.pm:308
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
+msgid "clean messages"
+msgstr "messages nettoyés"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
+msgid "infected messages "
+msgstr "messages infectés"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
+msgid "spam messages"
+msgstr "messages spam"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
+#: src/EBox/MailFilter.pm:498 src/EBox/MailFilter.pm:545
+msgid "Date"
+msgstr "Date"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
+msgid "infected messages"
+msgstr "messages infectés"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
+msgid "Transparent POP proxy traffic details"
+msgstr "Détails du trafic du proxy transparent POP"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
+msgid "traffic"
+msgstr "trafic"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
+msgid "Mail filter graph"
+msgstr "Graphique du filtre de courrier"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
+msgid "spam"
+msgstr "spam"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
+msgid "banned files"
+msgstr "fichiers bannis"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
+msgid "infected"
+msgstr "infectés"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
+msgid "bad header"
+msgstr "mauvaise en-têtes"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
+msgid "blacklisted"
+msgstr "mise en liste noire"
+
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
+msgid "Filter traffic"
+msgstr "trafic du filtre"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+msgid "blacklisted senders"
+msgstr "expéditeurs mis en liste noire"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
+msgid "bad message header"
+msgstr "mauvaise entête de message"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
+msgid "Filter traffic details"
+msgstr "Détails du trafic du filtre"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
+msgid "POP proxy graph"
+msgstr "Graphique du proxy POP"
+
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
+msgid "Transparent POP proxy traffic"
+msgstr "Trafic du proxy transparent POP"
+
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
 #: src/EBox/MailFilter/Model/VDomains.pm:91
+#: src/EBox/MailFilter/SpamAssassin.pm:333
 msgid "Spam threshold"
 msgstr "Seuil des spams"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:308
-msgid "It must be a number(decimal point allowed)"
-msgstr "Doit être un nombre (séparateur . de décimale toléré)"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:318
-msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
-"Le seuil des pourriels ne peut être supérieur que son seuil d'auto-"
-"apprentissage"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:322
-msgid ""
-"The spam's threshold cannot be lower or equal than its ham's autolearn "
-"threshold"
-msgstr ""
-"Le seuil de pourriels ne peut pas être inférieur ou égale à son seuil d'auto-"
-"apprentissage de mails valides (ham)"
-
-#: src/EBox/MailFilter/SpamAssassin.pm:359
-msgid ""
-"Cannot learn because bayesian filter is disabled in the current "
-"configuration. In order to be able to learn enable the bayesian filter and "
-"save changes"
-msgstr ""
-"Apprentissage impossible car le filtre bayésien est désactivé dans la "
-"configuration actuelle. "
-
-#: src/EBox/MailFilter/SpamAssassin.pm:374
-#, perl-brace-format
-msgid "Unsupported or incorrect input source fonrmat: {format}"
-msgstr "Format de donnée incorrect ou non supporté : {format}"
-
-#: src/EBox/MailFilter/VDomainsLdap.pm:587
-#, perl-brace-format
-msgid "Virtual mail domain {vd} does not exist"
-msgstr "Le domaine virtuel de courrier {vd} n'existe pas"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
 msgid "The score threshold to mark a message as spam"
@@ -187,6 +248,44 @@ msgstr ""
 "MTA externe invalide {mta}. Les adresses du réseau locale ne sont pas "
 "permises"
 
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
+msgid "Enabled"
+msgstr "Activé"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:71
+msgid "Antivirus enabled"
+msgstr "Antivirus activé"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:77
+msgid "Antispam enabled"
+msgstr "Antispam activé"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:84
+msgid "Service's port"
+msgstr "Port de service"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
+msgid "Notify of non-spam problematic messages"
+msgstr "Avertir en cas de messages problématiques non-spam"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+msgid "mail address"
+msgstr "adresse de courrier"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
+msgid "General  settings"
+msgstr "Paramètres généraux"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Le port {port} est déjà utilisé par le module {mod}"
+
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
 msgid "Mailbox"
 msgstr "Boîte mail"
@@ -203,13 +302,6 @@ msgstr "Entrainer le filtre de spam bayésien"
 msgid "Learned from messages"
 msgstr "Appris depuis des messages"
 
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-msgid "spam"
-msgstr "spam"
-
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 msgid "ham"
 msgstr "Courrier valide"
@@ -218,6 +310,39 @@ msgstr "Courrier valide"
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
 msgstr "Type de boîte mail invalide : {type}"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
+msgid "Filter virus"
+msgstr "Filtre de virus"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
+msgid "Filter spam"
+msgstr "Filtre de spam"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
+msgid "ISP spam subject"
+msgstr "Entête spam du fournisseur d'accès"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
+msgid ""
+"This option allows you to set the string your ISP uses if\n"
+"it processes your email for SPAM."
+msgstr ""
+"Cette option vous permet de définir le texte que votre Fournisseur d'accès "
+"utilise si le courrier est considéré comme un SPAM"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+msgid "POP transparent proxy configuration"
+msgstr "Configuration du proxy transparent POP"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+msgid ""
+"The POP transparent proxy must scan for something to be useful. If you do "
+"not need either antivirus of spam scan we suggest you turn it off"
+msgstr ""
+"Le proxy transparent POP doit analyser quelque chose pour être utile. Si "
+"vous n'avez pas besoin d'un analyseur antivirus ou antispam, nous vous "
+"recommandons de le désactiver"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -315,6 +440,26 @@ msgstr "extension du fichier"
 msgid "Extensions which are not listed below are allowed"
 msgstr "Les extensions listées ci-dessous sont autorisées"
 
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
+msgid "Virus policy"
+msgstr "Politique antivirus"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
+msgid "Spam policy"
+msgstr "Politique antispam"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
+msgid "Banned files policy"
+msgstr "Politique des fichiers bannis"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
+msgid "Bad header policy"
+msgstr "Politique des mauvaise entêtes"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
+msgid "SMTP filter policies"
+msgstr "Politiques des filtres SMTP"
+
 #: src/EBox/MailFilter/Model/VDomains.pm:69
 msgid "Domain"
 msgstr "Domaine"
@@ -375,191 +520,18 @@ msgstr "Configuration des domaines virtuels"
 msgid "virtual domain"
 msgstr "domaine virtuel"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-msgid "Mail filter graph"
-msgstr "Graphique du filtre de courrier"
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
+msgid "Mail filter report"
+msgstr "Rapport du filtre de courrier"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
-msgid "clean messages"
-msgstr "messages nettoyés"
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
+msgid "Transparent POP proxy report"
+msgstr "Rapport du proxy transparent POP"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
-msgid "banned files"
-msgstr "fichiers bannis"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
-msgid "infected"
-msgstr "infectés"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
-msgid "bad header"
-msgstr "mauvaise en-têtes"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-msgid "blacklisted"
-msgstr "mise en liste noire"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
-msgid "Filter traffic"
-msgstr "trafic du filtre"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
-#: src/EBox/MailFilter.pm:488 src/EBox/MailFilter.pm:535
-msgid "Date"
-msgstr "Date"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
-msgid "blacklisted senders"
-msgstr "expéditeurs mis en liste noire"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-msgid "bad message header"
-msgstr "mauvaise entête de message"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
-msgid "Filter traffic details"
-msgstr "Détails du trafic du filtre"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
-msgid "traffic"
-msgstr "trafic"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
-msgid "total messages"
-msgstr "total des messages"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
-msgid "infected messages "
-msgstr "messages infectés"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
-msgid "spam messages"
-msgstr "messages spam"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
-msgid "infected messages"
-msgstr "messages infectés"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
-msgid "Transparent POP proxy traffic details"
-msgstr "Détails du trafic du proxy transparent POP"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
-msgid "POP proxy graph"
-msgstr "Graphique du proxy POP"
-
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
-msgid "Transparent POP proxy traffic"
-msgstr "Trafic du proxy transparent POP"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:64
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
-msgid "Enabled"
-msgstr "Activé"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:70
-msgid "Antivirus enabled"
-msgstr "Antivirus activé"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:76
-msgid "Antispam enabled"
-msgstr "Antispam activé"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:83
-msgid "Service's port"
-msgstr "Port de service"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-msgid "Notify of non-spam problematic messages"
-msgstr "Avertir en cas de messages problématiques non-spam"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:94
-msgid "Disabled"
-msgstr "Désactivé"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:99
-msgid "mail address"
-msgstr "adresse de courrier"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:109
-msgid "General  settings"
-msgstr "Paramètres généraux"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:140
-#, perl-brace-format
-msgid "The port {port} is already used by module {mod}"
-msgstr "Le port {port} est déjà utilisé par le module {mod}"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
-msgid "Filter virus"
-msgstr "Filtre de virus"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
-msgid "Filter spam"
-msgstr "Filtre de spam"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-msgid "ISP spam subject"
-msgstr "Entête spam du fournisseur d'accès"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
-msgid ""
-"This option allows you to set the string your ISP uses if\n"
-"it processes your email for SPAM."
-msgstr ""
-"Cette option vous permet de définir le texte que votre Fournisseur d'accès "
-"utilise si le courrier est considéré comme un SPAM"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-msgid "POP transparent proxy configuration"
-msgstr "Configuration du proxy transparent POP"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
-msgid ""
-"The POP transparent proxy must scan for something to be useful. If you do "
-"not need either antivirus of spam scan we suggest you turn it off"
-msgstr ""
-"Le proxy transparent POP doit analyser quelque chose pour être utile. Si "
-"vous n'avez pas besoin d'un analyseur antivirus ou antispam, nous vous "
-"recommandons de le désactiver"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
-msgid "Virus policy"
-msgstr "Politique antivirus"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
-msgid "Spam policy"
-msgstr "Politique antispam"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
-msgid "Banned files policy"
-msgstr "Politique des fichiers bannis"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
-msgid "Bad header policy"
-msgstr "Politique des mauvaise entêtes"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-msgid "SMTP filter policies"
-msgstr "Politiques des filtres SMTP"
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
+msgid "Mail Filter report"
+msgstr "Rapport du Filtre de courrier"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
@@ -578,25 +550,12 @@ msgstr ""
 "ne fait que du filtrage par extension."
 
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
-#: src/EBox/MailFilter/Amavis.pm:452 src/EBox/MailFilter/POPProxy.pm:350
-#: src/EBox/MailFilter.pm:674
+#: src/EBox/MailFilter/Amavis.pm:470 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:686
 msgid "Antispam"
 msgstr "Antispam"
 
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
-msgid "Mail filter report"
-msgstr "Rapport du filtre de courrier"
-
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
-msgid "Mail Filter report"
-msgstr "Rapport du Filtre de courrier"
-
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
-msgid "Transparent POP proxy report"
-msgstr "Rapport du proxy transparent POP"
-
-#: src/EBox/MailFilter/Composite/Amavis.pm:61 src/EBox/MailFilter.pm:516
+#: src/EBox/MailFilter/Composite/Amavis.pm:61 src/EBox/MailFilter.pm:526
 msgid "SMTP filter"
 msgstr "Filtre SMTP"
 
@@ -654,25 +613,66 @@ msgstr ""
 "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
 "commençant par '@'"
 
-#: src/EBox/MailFilter/Amavis.pm:46
+#: src/EBox/MailFilter/SpamAssassin.pm:55
+msgid " To configure spamassassin daemon"
+msgstr "Configurer le service SpamAssassin"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:333
+msgid "It must be a number(decimal point allowed)"
+msgstr "Doit être un nombre (séparateur . de décimale toléré)"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:343
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
+msgstr ""
+"Le seuil des pourriels ne peut être supérieur que son seuil d'auto-"
+"apprentissage"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:347
+msgid ""
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
+"threshold"
+msgstr ""
+"Le seuil de pourriels ne peut pas être inférieur ou égale à son seuil d'auto-"
+"apprentissage de mails valides (ham)"
+
+#: src/EBox/MailFilter/SpamAssassin.pm:384
+msgid ""
+"Cannot learn because bayesian filter is disabled in the current "
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
+msgstr ""
+"Apprentissage impossible car le filtre bayésien est désactivé dans la "
+"configuration actuelle. "
+
+#: src/EBox/MailFilter/SpamAssassin.pm:399
+#, perl-brace-format
+msgid "Unsupported or incorrect input source fonrmat: {format}"
+msgstr "Format de donnée incorrect ou non supporté : {format}"
+
+#: src/EBox/MailFilter/Amavis.pm:47
 msgid "To configure amavis"
 msgstr "Configurer amavis"
 
-#: src/EBox/MailFilter/Amavis.pm:51
+#: src/EBox/MailFilter/Amavis.pm:52
 msgid "To add the LDAP schemas used by eBox mailfilter"
 msgstr "Ajouter les modèles LDAP utilisés par le filtre de courrier d'eBox"
 
-#: src/EBox/MailFilter/Amavis.pm:416
+#: src/EBox/MailFilter/Amavis.pm:434
 msgid "eBox internal mail filter"
 msgstr "Filtre de courrier interne à eBox"
 
-#: src/EBox/MailFilter/Amavis.pm:430
+#: src/EBox/MailFilter/Amavis.pm:448
 msgid "SMTP filter proxy"
 msgstr "Filtre du proxy SMTP"
 
-#: src/EBox/MailFilter/Amavis.pm:436 src/EBox/MailFilter/POPProxy.pm:329
+#: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:329
 msgid "Status"
 msgstr "Statut"
+
+#: src/EBox/MailFilter/VDomainsLdap.pm:604
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "Le domaine virtuel de courrier {vd} n'existe pas"
 
 #: src/EBox/MailFilter/POPProxy.pm:47
 msgid " To configure p3scan"
@@ -714,109 +714,119 @@ msgstr "Mise à jour du LDAP"
 msgid "Add amavis specific classes and fields"
 msgstr "Ajouter les classes et champs spécifiques d'amavis"
 
-#: src/EBox/MailFilter.pm:339
+#: src/EBox/MailFilter.pm:349
 msgid "Cannot proceed because the filter is in use"
 msgstr "Impossible d'exécuter l'opération car le filtre est utilisé"
 
-#: src/EBox/MailFilter.pm:467
+#: src/EBox/MailFilter.pm:477
 msgid "Mail filter"
 msgstr "Filtre de courrier"
 
-#: src/EBox/MailFilter.pm:490
+#: src/EBox/MailFilter.pm:500
 msgid "Action"
 msgstr "Action"
 
-#: src/EBox/MailFilter.pm:491 src/EBox/MailFilter.pm:539
+#: src/EBox/MailFilter.pm:501 src/EBox/MailFilter.pm:549
 msgid "Event"
 msgstr "Évènement"
 
-#: src/EBox/MailFilter.pm:493
+#: src/EBox/MailFilter.pm:503
 msgid "Sender address"
 msgstr "Adresse de l'expéditeur"
 
-#: src/EBox/MailFilter.pm:494
+#: src/EBox/MailFilter.pm:504
 msgid "Recipient address"
 msgstr "Adresse du destinataire"
 
-#: src/EBox/MailFilter.pm:496
+#: src/EBox/MailFilter.pm:506
 msgid "Spam hits"
 msgstr "Scores des spams"
 
-#: src/EBox/MailFilter.pm:501
+#: src/EBox/MailFilter.pm:511
 msgid "Bad header found"
 msgstr "Mauvaise entête trouvée"
 
-#: src/EBox/MailFilter.pm:502
+#: src/EBox/MailFilter.pm:512
 msgid "Spam found"
 msgstr "Spam trouvé"
 
-#: src/EBox/MailFilter.pm:503
+#: src/EBox/MailFilter.pm:513
 msgid "Forbidden attached file  found"
 msgstr "Pièce jointe interdite trouvée"
 
-#: src/EBox/MailFilter.pm:504
+#: src/EBox/MailFilter.pm:514
 msgid "Address in blacklist found"
 msgstr "Adresse de la liste noire trouvée"
 
-#: src/EBox/MailFilter.pm:505
+#: src/EBox/MailFilter.pm:515
 msgid "Virus found"
 msgstr "Virus trouvé"
 
-#: src/EBox/MailFilter.pm:506
+#: src/EBox/MailFilter.pm:516
 msgid "Clean message"
 msgstr "Message nettoyé"
 
-#: src/EBox/MailFilter.pm:537
+#: src/EBox/MailFilter.pm:547
 msgid "Account"
 msgstr "Compte"
 
-#: src/EBox/MailFilter.pm:538
+#: src/EBox/MailFilter.pm:548
 msgid "Client's address"
 msgstr "Adresse cliente"
 
-#: src/EBox/MailFilter.pm:541
+#: src/EBox/MailFilter.pm:551
 msgid "Total messages"
 msgstr "Total des messages"
 
-#: src/EBox/MailFilter.pm:542
+#: src/EBox/MailFilter.pm:552
 msgid "Clean messages"
 msgstr "Messages propres"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:553
 msgid "Virus messages"
 msgstr "Messages contenant un virus"
 
-#: src/EBox/MailFilter.pm:544
+#: src/EBox/MailFilter.pm:554
 msgid "Spam messages"
 msgstr "Messages contenant un spam"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:561
 msgid "POP3 transmission complete"
 msgstr "Transmission POP3 terminée"
 
-#: src/EBox/MailFilter.pm:553
+#: src/EBox/MailFilter.pm:563
 msgid "POP3 transmission aborted"
 msgstr "Transmission POP3 annulée"
 
-#: src/EBox/MailFilter.pm:561
+#: src/EBox/MailFilter.pm:571
 msgid "POP3 proxy"
 msgstr "Proxy POP3"
 
-#: src/EBox/MailFilter.pm:653
+#: src/EBox/MailFilter.pm:663
 msgid "Mail Filter"
 msgstr "Filtre de courrier"
 
-#: src/EBox/MailFilter.pm:659
-msgid "SMTP mail filter"
+#: src/EBox/MailFilter.pm:664
+msgid "UTM"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:671
+#, fuzzy
+msgid "SMTP Mail Filter"
 msgstr "Filtre de courrier SMTP (sortant)"
 
-#: src/EBox/MailFilter.pm:666 migration/0004_add_firewall_services.pl:32
-msgid "POP transparent proxy"
+#: src/EBox/MailFilter.pm:678
+#, fuzzy
+msgid "POP Transparent Proxy"
 msgstr "Proxy transparent POP"
 
-#: src/EBox/MailFilter.pm:681
+#: src/EBox/MailFilter.pm:693
 msgid "Files ACL"
 msgstr "Fichiers ACL (sécurité)"
+
+#: migration/0004_add_firewall_services.pl:32
+msgid "POP transparent proxy"
+msgstr "Proxy transparent POP"
 
 #: migration/0004_add_firewall_services.pl:50
 msgid "POP3 protocol"

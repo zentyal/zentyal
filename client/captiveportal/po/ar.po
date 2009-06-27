@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-captiveportal 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-09 17:42+0000\n"
+"POT-Creation-Date: 2009-06-28 00:03+0200\n"
 "PO-Revision-Date: 2009-03-09 17:42+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,26 +16,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr "Composite"
+#: src/EBox/Model/Interfaces.pm:50
+msgid "Interface"
+msgstr ""
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr "field1"
+#: src/EBox/Model/Interfaces.pm:57
+msgid "Interfaces"
+msgstr ""
 
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr "field2"
+#: src/EBox/Model/Settings.pm:45 src/EBox/Composite/General.pm:52
+#, fuzzy
+msgid "Captive portal"
+msgstr "Captive Portal"
 
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr "Settings"
+#: src/EBox/Model/Settings.pm:55
+msgid "Port"
+msgstr ""
 
-#: src/EBox/CaptivePortal.pm:50
+#: src/EBox/Model/Settings.pm:63
+msgid "General settings"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:97
+msgid "listening port"
+msgstr ""
+
+#: src/EBox/UserCorner/CGI/Index.pm:30 src/EBox/UserCorner/CGI/PopUp.pm:30
+#: src/EBox/CaptivePortal.pm:60 src/EBox/CaptivePortal.pm:166
+#: src/EBox/CaptivePortal.pm:213
 msgid "Captive Portal"
 msgstr "Captive Portal"
 
-#: src/EBox/CaptivePortal.pm:121
-msgid "CaptivePortal"
-msgstr "CaptivePortal"
+#: src/EBox/CaptivePortal.pm:178
+msgid "User"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:198
+#, fuzzy
+msgid "Captive Portal Users"
+msgstr "Captive Portal"
+
+#~ msgid "Composite"
+#~ msgstr "Composite"
+
+#~ msgid "field1"
+#~ msgstr "field1"
+
+#~ msgid "field2"
+#~ msgstr "field2"
+
+#~ msgid "Settings"
+#~ msgstr "Settings"
+
+#~ msgid "CaptivePortal"
+#~ msgstr "CaptivePortal"

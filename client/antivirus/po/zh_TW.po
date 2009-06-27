@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:43+0100\n"
+"POT-Creation-Date: 2009-06-28 00:01+0200\n"
 "PO-Revision-Date: 2009-03-15 00:02+0000\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -26,50 +26,54 @@ msgid "Date"
 msgstr "日期"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-msgid "Antivirus database update status"
+#, fuzzy
+msgid "Antivirus Database Update Status"
 msgstr "資料庫更新狀態"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed"
+"module was installed."
 msgstr "防毒資料庫至從 eBox 的郵件過濾模組安裝後都沒有更新"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
-msgid "The last update failed"
+#, fuzzy
+msgid "The last update failed."
 msgstr "上次的更新失敗了"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher"
+"version {version} or higher."
 msgstr ""
 "更新是成功的，但是您的 freshclam 版本已過時。\n"
 "因此防毒功能將無法使用完整的病毒碼。請安裝 {version} 版或更高的版本"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
-msgid "Last update successful"
+#, fuzzy
+msgid "Last update successful."
 msgstr "最近更新成功"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
-#, perl-brace-format
-msgid "Unknown event {event}"
+#, fuzzy, perl-brace-format
+msgid "Unknown event {event}."
 msgstr "不明的事件 {event}"
 
-#: src/EBox/AntiVirus.pm:70
-#: src/EBox/AntiVirus.pm:334
-#: src/EBox/AntiVirus.pm:339
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
+#: src/EBox/AntiVirus.pm:347
 msgid "Antivirus"
 msgstr "防毒"
 
-#: src/EBox/AntiVirus.pm:95
-msgid "Update status"
-msgstr "更新狀態"
+#: src/EBox/AntiVirus.pm:92
+msgid "UTM"
+msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
-msgid "To configure clamd daemon"
+#, fuzzy
+msgid " To configure clamd daemon"
 msgstr "設定 clamd 伺服程式"
 
 #: src/EBox/AntiVirus.pm:182
@@ -79,3 +83,6 @@ msgstr "設定 freshclam 更新程式"
 #: src/EBox/AntiVirus.pm:187
 msgid "To schedule the launch of the updater"
 msgstr "設定更新程式執行的時程"
+
+#~ msgid "Update status"
+#~ msgstr "更新狀態"

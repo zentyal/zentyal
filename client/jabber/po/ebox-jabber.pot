@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:30+0000\n"
+"POT-Creation-Date: 2009-06-28 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,20 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:344
-msgid "Jabber"
-msgstr ""
-
-#: src/EBox/CGI/JabberUserOptions.pm:44
-msgid "username"
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
+msgid "domain"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr ""
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:279
-msgid "domain"
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:355
+msgid "Jabber"
+msgstr ""
+
+#: src/EBox/CGI/JabberUserOptions.pm:44
+msgid "username"
 msgstr ""
 
 #: src/EBox/Jabber.pm:71
@@ -40,69 +40,32 @@ msgstr ""
 msgid "eBox will need this schema to store jabber users"
 msgstr ""
 
-#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94
+#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94 src/EBox/Jabber.pm:99
 msgid "To properly configure jabberd2"
 msgstr ""
 
-#: src/EBox/Jabber.pm:98
+#: src/EBox/Jabber.pm:104 src/EBox/Jabber.pm:109
+msgid "To properly configure jabberd2 muc"
+msgstr ""
+
+#: src/EBox/Jabber.pm:113
 msgid "To add the LDAP schemas used by eBox jabber"
 msgstr ""
 
 #: src/EBox/Jabber.pm:356
-msgid "Jabber Service"
+msgid "Communications"
 msgstr ""
 
-#: stubs/c2s.xml.mas:77
-msgid "Enter a username and password to register with this server."
-msgstr ""
-
-#: src/templates/index.mas:16
-msgid "General Settings"
-msgstr ""
-
-#: src/templates/index.mas:18
-msgid ""
-"Domain name should be available on the network. Otherwise, you may not be "
-"able to use this service. This applies for internal and external connections."
-msgstr ""
-
-#: src/templates/index.mas:24
-msgid "Domain name"
-msgstr ""
-
-#: src/templates/index.mas:32
-msgid "Connect to global Jabber network"
-msgstr ""
-
-#: src/templates/index.mas:44
-msgid "SSL Support"
-msgstr ""
-
-#: src/templates/index.mas:49 src/templates/index.mas:53
-#: src/templates/index.mas:57
-msgid "No"
-msgstr ""
-
-#: src/templates/index.mas:50 src/templates/index.mas:54
-#: src/templates/index.mas:58
-msgid "Optional"
-msgstr ""
-
-#: src/templates/index.mas:51 src/templates/index.mas:55
-#: src/templates/index.mas:59
-msgid "Required"
-msgstr ""
-
-#: src/templates/index.mas:68 src/templates/index.mas:69
-msgid "Apply Changes"
+#: src/EBox/Jabber.pm:374
+msgid "Jabber server certificate"
 msgstr ""
 
 #: src/templates/jabber.mas:8
-msgid "Jabber account"
+msgid "Jabber Account"
 msgstr ""
 
 #: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password"
+msgid "Password for Jabber service is the user password."
 msgstr ""
 
 #: src/templates/jabber.mas:18
@@ -122,5 +85,47 @@ msgid "Administration rights"
 msgstr ""
 
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+#: src/templates/index.mas:81 src/templates/index.mas:82
 msgid "Change"
+msgstr ""
+
+#: src/templates/index.mas:17
+msgid "General Configuration"
+msgstr ""
+
+#: src/templates/index.mas:19
+msgid ""
+"Domain name should be available on the network. Otherwise, you may not be "
+"able to use this service. This applies for internal and external connections."
+msgstr ""
+
+#: src/templates/index.mas:25
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/index.mas:33
+msgid "Connect to other servers"
+msgstr ""
+
+#: src/templates/index.mas:45
+msgid "Enable MUC (Multi User Chat)"
+msgstr ""
+
+#: src/templates/index.mas:57
+msgid "SSL support"
+msgstr ""
+
+#: src/templates/index.mas:62 src/templates/index.mas:66
+#: src/templates/index.mas:70
+msgid "No"
+msgstr ""
+
+#: src/templates/index.mas:63 src/templates/index.mas:67
+#: src/templates/index.mas:71
+msgid "Optional"
+msgstr ""
+
+#: src/templates/index.mas:64 src/templates/index.mas:68
+#: src/templates/index.mas:72
+msgid "Required"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:17+0100\n"
+"POT-Creation-Date: 2009-06-28 00:19+0200\n"
 "PO-Revision-Date: 2009-01-14 21:09+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,42 +15,97 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
-#: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "سرویس وب"
+#: src/EBox/WebServer/Model/VHostTable.pm:92
+msgid "Virtual host's name"
+msgstr "نام میزبان مجازی"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:83
-#: src/EBox/WebServer/Composite/General.pm:82
+#: src/EBox/WebServer/Model/VHostTable.pm:142
+#, perl-brace-format
 msgid ""
-"The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip} "
 msgstr ""
-"سرویس وب ای‌باکس به شما اجازه می‌دهد تا صفحات وب تنها HTML را در ویزبان‌های "
-"مجازی مختلف میزبانی کنید"
+"میزبان مجازی {vhost} افزوده شد. یک دامنه {domain} با نگاشت نام {name} - "
+"نشانی آی‌پی {ip} ایجاد شده است"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
+#: src/EBox/WebServer/Model/VHostTable.pm:160
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+"میزبان مجازی {vhost} افزوده شد. یک نگاشت نام {name} - نشانی آی‌پی {ip} به "
+"دامنه {domain} افزوده شده است"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:174
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr ""
+"میزبان مجازی {vhost} به عنوان یک مستعار {alias} به میزبان {hostname} افزوده "
+"شد"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:180
+#: src/EBox/WebServer/Model/VHostTable.pm:185
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr "میزبان مجازی {vhost} افزوده شد"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:190
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr "رابط داخلی استاتیک برای تنظیم نشانی آی‌پی سرور وب وجود ندارد"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:216
+msgid "Name"
+msgstr "نام"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:226
+msgid "Virtual hosts"
+msgstr "میزبان‌های مجازی"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:230
+#, fuzzy, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot} directory. Any "
+"particular configuration you want to add must be placed at {userConf} "
+"directory"
+msgstr ""
+"میزبان‌های مجازی یک نوعی از سرویس وب در جاییکه تعدادی سرور وب بر روی یک سرور "
+"فیزیکی میزبانی شده باشند می‌باشد. نام‌های میزبان‌های متفاوت به یک سرور وب اشاره "
+"می‌کنند. ورودی DNS به طور خودکار در صورت امکان ایجاد خواهد شد. محتوا بایستی "
+"در پوشه {docRoot}/vHostName قرار گیرد"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:240
+msgid "virtual host"
+msgstr "میزبان مجازی"
+
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
 msgstr "پورت در حال شنود"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
 msgstr "پورت در حال شنود"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "فعال‌سازی {dirName} به ازای هر کاربر"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid ""
+"If you tick this field, each user is permitted to have a website in their "
+"home directory under public_html"
+msgstr ""
+"اگر شما این گزینه را انتخاب نمایید، هر کاربر اجازه خواهد داشت تا یک وب‌سایت "
+"در پوشه خانه اش زیر شاخه public_html داشته باشد"
+
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
 msgstr "تنظیمات عمومی پیکربندی"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
 msgid ""
@@ -63,116 +118,21 @@ msgstr ""
 "شما به کاربران اجازه انتشار صفحات وب مخصوص به خودشان را داده باشید، صفحات از "
 "پوشه {dirName} از پوشه خانه سامبای آنها بارگذاری خواهد شد"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
 msgstr "تنظیمات عمومی پیکربندی سرور وب به‌روز رسانی شد"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
-#: src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host's name"
-msgstr "نام میزبان مجازی"
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr "سرویس وب"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:140
-#: src/EBox/WebServer/Model/VHostTable.pm:142
-#, perl-brace-format
+#: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip} "
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
 msgstr ""
-"میزبان مجازی {vhost} افزوده شد. یک دامنه {domain} با نگاشت نام {name} - "
-"نشانی آی‌پی {ip} ایجاد شده است"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
-#: src/EBox/WebServer/Model/VHostTable.pm:160
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
-msgstr ""
-"میزبان مجازی {vhost} افزوده شد. یک نگاشت نام {name} - نشانی آی‌پی {ip} به "
-"دامنه {domain} افزوده شده است"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
-#: src/EBox/WebServer/Model/VHostTable.pm:174
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
-msgstr ""
-"میزبان مجازی {vhost} به عنوان یک مستعار {alias} به میزبان {hostname} افزوده "
-"شد"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
-#: src/EBox/WebServer/Model/VHostTable.pm:180
-#: src/EBox/WebServer/Model/VHostTable.pm:185
-#, perl-brace-format
-msgid "Virtual host {vhost} added"
-msgstr "میزبان مجازی {vhost} افزوده شد"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
-#: src/EBox/WebServer/Model/VHostTable.pm:190
-msgid "There is no static internal interface to set the Web server IP address"
-msgstr "رابط داخلی استاتیک برای تنظیم نشانی آی‌پی سرور وب وجود ندارد"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
-#: src/EBox/WebServer/Model/VHostTable.pm:216
-msgid "Name"
-msgstr "نام"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
-#: src/EBox/WebServer/Model/VHostTable.pm:226
-msgid "Virtual hosts"
-msgstr "میزبان‌های مجازی"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
-#: src/EBox/WebServer/Model/VHostTable.pm:230
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot}/vHostName "
-"directory"
-msgstr ""
-"میزبان‌های مجازی یک نوعی از سرویس وب در جاییکه تعدادی سرور وب بر روی یک سرور "
-"فیزیکی میزبانی شده باشند می‌باشد. نام‌های میزبان‌های متفاوت به یک سرور وب اشاره "
-"می‌کنند. ورودی DNS به طور خودکار در صورت امکان ایجاد خواهد شد. محتوا بایستی "
-"در پوشه {docRoot}/vHostName قرار گیرد"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
-#: src/EBox/WebServer/Model/VHostTable.pm:237
-msgid "virtual host"
-msgstr "میزبان مجازی"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "پروتکل انتقال فرامتن (وب)"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
-#: src/EBox/WebServer.pm:176
-msgid "Web"
-msgstr "وب"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
-#: src/EBox/WebServer.pm:196
-msgid "Web service status"
-msgstr "وضعیت سرویس وب"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
-#: src/EBox/WebServer.pm:366
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "{userDirConfFile} وجود ندارد! لطفا آنرا بازیابی نمایید"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
-msgid ""
-"If you tick this field, each user is permitted to have a website in their "
-"home directory under public_html"
-msgstr ""
-"اگر شما این گزینه را انتخاب نمایید، هر کاربر اجازه خواهد داشت تا یک وب‌سایت "
-"در پوشه خانه اش زیر شاخه public_html داشته باشد"
+"سرویس وب ای‌باکس به شما اجازه می‌دهد تا صفحات وب تنها HTML را در ویزبان‌های "
+"مجازی مختلف میزبانی کنید"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
@@ -182,10 +142,31 @@ msgstr "تنظیم پورت در حال شنود سرور وب"
 msgid "To configure the per-user public HTML directory"
 msgstr "پیکربندی پوشه HTML عمومی برای هر کاربر"
 
-#: src/EBox/WebServer.pm:129
+#: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
 msgstr "فعال‌سازی ماجول کاربر LDAP آپاچی"
 
-#: src/EBox/WebServer.pm:131
+#: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
 msgstr "دریافت پوشه‌های خانه از LDAP"
+
+#: src/EBox/WebServer.pm:149
+msgid "Web"
+msgstr "وب"
+
+#: src/EBox/WebServer.pm:150
+msgid "Infrastructure"
+msgstr ""
+
+#: src/EBox/WebServer.pm:171
+msgid "Web service status"
+msgstr "وضعیت سرویس وب"
+
+#: src/EBox/WebServer.pm:348
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "{userDirConfFile} وجود ندارد! لطفا آنرا بازیابی نمایید"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "پروتکل انتقال فرامتن (وب)"

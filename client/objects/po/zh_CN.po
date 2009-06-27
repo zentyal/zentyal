@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:15+0100\n"
+"POT-Creation-Date: 2009-06-28 00:16+0200\n"
 "PO-Revision-Date: 2005-11-11 13:18+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,42 +16,31 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:63
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:63
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:71
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:87
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:82
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:93
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:40
 #: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:40
+#: src/EBox/Objects.pm:39
 msgid "Objects"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:83
 #: src/EBox/Model/ObjectTable.pm:83
-msgid "Object list"
+msgid "Objects List"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:90
 #: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:112
 #: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:184
 #: src/EBox/Model/ObjectTable.pm:184
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
@@ -59,65 +48,60 @@ msgid ""
 "all the modules using it"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:70
 #: src/EBox/Model/MemberTable.pm:70
-msgid "IP Address"
+msgid "IP address"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:76
 #: src/EBox/Model/MemberTable.pm:76
-msgid "MAC Address"
+msgid "MAC address"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:94
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:116
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:119
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:120
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:124
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
-#: src/EBox/Model/MemberTable.pm:124
 msgid "network address"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:45
-#: src/EBox/Objects.pm:45
+#: src/EBox/Model/MemberTable.pm:126
+#, perl-brace-format
+msgid "{ip} overlaps with the address or another object's member"
+msgstr ""
+
+#: src/EBox/Objects.pm:44
 #, perl-brace-format
 msgid "Added object {object}"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:47
-#: src/EBox/Objects.pm:47
+#: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:48
-#: src/EBox/Objects.pm:48
+#: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Removed object {object}"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:50
-#: src/EBox/Objects.pm:50
+#: src/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:52
-#: src/EBox/Objects.pm:52
+#: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
 msgstr ""
 
-#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:270
 #: src/EBox/Objects.pm:270
 msgid "Object"
+msgstr ""
+
+#: src/EBox/Objects.pm:411
+msgid "Core"
 msgstr ""

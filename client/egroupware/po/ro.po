@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-04 16:07+0100\n"
+"POT-Creation-Date: 2009-06-28 00:05+0200\n"
 "PO-Revision-Date: 2009-03-04 16:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,49 +17,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
+#: src/EBox/Model/Applications.pm:103
+msgid "Application"
 msgstr ""
 
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
+#: src/EBox/Model/Applications.pm:109
+msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Composite/General.pm:76
-msgid "eGroupware Configuration"
+#: src/EBox/Model/Applications.pm:116
+msgid "Applications"
 msgstr ""
 
-#: src/EBox/EGroupware.pm:51 src/EBox/EGroupware.pm:204
-#: src/EBox/EGroupware.pm:235
-msgid "eGroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:99
-msgid "Create PostgreSQL user egroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:100
-msgid "This user will be the owner of the egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:104
-msgid "Create PostgreSQL egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:105
-msgid "This database will store the data needed by eGroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:122
-msgid "To configure eGroupware access settings"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:127
-msgid "To allow local access to egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:132
-msgid "To add a new schema"
+#: src/EBox/Model/Applications.pm:117
+msgid "application"
 msgstr ""
 
 #: src/EBox/Model/PermissionTemplates.pm:57
@@ -67,11 +38,11 @@ msgid "Name"
 msgstr ""
 
 #: src/EBox/Model/PermissionTemplates.pm:63
-msgid "Applications allowed"
+msgid "Applications Allowed"
 msgstr ""
 
 #: src/EBox/Model/PermissionTemplates.pm:71
-msgid "Permission templates defined by the user"
+msgid "User Defined Permission Templates"
 msgstr ""
 
 #: src/EBox/Model/PermissionTemplates.pm:75
@@ -84,28 +55,12 @@ msgid ""
 "assigned to users or groups."
 msgstr ""
 
-#: src/EBox/Model/Applications.pm:108
-msgid "Application"
-msgstr ""
-
-#: src/EBox/Model/Applications.pm:114
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/Model/Applications.pm:121
-msgid "Applications"
-msgstr ""
-
-#: src/EBox/Model/Applications.pm:122
-msgid "application"
-msgstr ""
-
 #: src/EBox/Model/DefaultApplications.pm:49
 msgid "DefaultApplications"
 msgstr ""
 
 #: src/EBox/Model/DefaultApplications.pm:50
-msgid "Default applications"
+msgid "Default Applications"
 msgstr ""
 
 #: src/EBox/Model/DefaultApplications.pm:51
@@ -118,28 +73,77 @@ msgstr ""
 msgid "No domain selected"
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:97
+#: src/EBox/Model/VMailDomain.pm:99
 msgid "You must have at least one virtual mail domain defined."
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:101
+#: src/EBox/Model/VMailDomain.pm:103
 msgid "You must have IMAP service enabled."
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:126
+#: src/EBox/Model/VMailDomain.pm:128
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:141
+#: src/EBox/Model/VMailDomain.pm:143
 msgid "Virtual Domain"
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:150
+#: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Mail Domain"
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:155
+#: src/EBox/Model/VMailDomain.pm:157
 msgid "Select the virtual mail domain to be used for eGroupware"
+msgstr ""
+
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr ""
+
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr ""
+
+#: src/EBox/Composite/General.pm:76
+msgid "eGroupware Configuration"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:49 src/EBox/EGroupware.pm:189
+#: src/EBox/EGroupware.pm:212
+msgid "eGroupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:97
+msgid "Create PostgreSQL user egroupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:98
+msgid "This user will be the owner of the egroupware database"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:102
+msgid "Create PostgreSQL egroupware database"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:103
+msgid "This database will store the data needed by eGroupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:120
+msgid "To configure eGroupware access settings"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:125
+msgid "To allow local access to egroupware database"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:130
+msgid "To add a new schema"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:213
+msgid "Office"
 msgstr ""

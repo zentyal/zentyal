@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:17+0100\n"
+"POT-Creation-Date: 2009-06-28 00:19+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,42 +17,95 @@ msgstr ""
 "es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
-#: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "Webサービス"
+#: src/EBox/WebServer/Model/VHostTable.pm:92
+msgid "Virtual host's name"
+msgstr "バーチャルホスト名"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:83
-#: src/EBox/WebServer/Composite/General.pm:82
+#: src/EBox/WebServer/Model/VHostTable.pm:142
+#, perl-brace-format
 msgid ""
-"The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip} "
 msgstr ""
-"eBox Webサービスでは異なるバーチャルホストでプレーンなHTMLページをホストする"
-"ことを許可しています"
+"バーチャルホスト {vhost} が追加されました。ドメイン {domain} が作成され、名"
+"前 {name} と IPアドレス {ip} のマッピングが作成されました"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
+#: src/EBox/WebServer/Model/VHostTable.pm:160
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+"バーチャルホスト {vhost} が追加されました。ドメイン {domain} に名前 {name} - "
+"IPアドレス {ip} のマッピングが追加されました"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:174
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr ""
+"ホスト名 {hostname} へのエイリアス {alias} としてバーチャルホスト {vhost} が"
+"追加されました"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:180
+#: src/EBox/WebServer/Model/VHostTable.pm:185
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr "バーチャルホスト {vhost} が追加されました"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:190
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr "WebサーバのIPアドレスを設定する静的な内部インタフェースがありません"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:216
+msgid "Name"
+msgstr "名前"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:226
+msgid "Virtual hosts"
+msgstr "バーチャルホスト"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:230
+#, fuzzy, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot} directory. Any "
+"particular configuration you want to add must be placed at {userConf} "
+"directory"
+msgstr ""
+"バーチャルホストは多数の同じWebサーバのインスタンスを単一の物理サーバ上にホス"
+"トするWebホスティングサービスです。異なるホスト名が同一のWebサーバを指すこと"
+"になります。DNSのエントリは可能であれば自動的に作成されます。コンテンツは "
+"{docRoot}/vHostName ディレクトリの下に展開されている必要があります。"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:240
+msgid "virtual host"
+msgstr "バーチャルホスト"
+
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
 msgstr "受信ポート"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
 msgstr "受信ポート"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "ユーザ {dirName} 毎に有効化"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid ""
+"If you tick this field, each user is permitted to have a website in their "
+"home directory under public_html"
+msgstr ""
+
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
 msgstr "全般的設定"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
 msgid ""
@@ -65,114 +118,21 @@ msgstr ""
 "せん。ユーザ毎の公開ページを有効にする場合、ページSambaホームディレクトリの中"
 "の {dirName} ディレクトリから読み込まれます。"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
 msgstr "全般的なWebサーバの設定が更新されました"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
-#: src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host's name"
-msgstr "バーチャルホスト名"
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr "Webサービス"
 
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:140
-#: src/EBox/WebServer/Model/VHostTable.pm:142
-#, perl-brace-format
+#: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip} "
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
 msgstr ""
-"バーチャルホスト {vhost} が追加されました。ドメイン {domain} が作成され、名"
-"前 {name} と IPアドレス {ip} のマッピングが作成されました"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
-#: src/EBox/WebServer/Model/VHostTable.pm:160
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
-msgstr ""
-"バーチャルホスト {vhost} が追加されました。ドメイン {domain} に名前 {name} - "
-"IPアドレス {ip} のマッピングが追加されました"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
-#: src/EBox/WebServer/Model/VHostTable.pm:174
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
-msgstr ""
-"ホスト名 {hostname} へのエイリアス {alias} としてバーチャルホスト {vhost} が"
-"追加されました"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
-#: src/EBox/WebServer/Model/VHostTable.pm:180
-#: src/EBox/WebServer/Model/VHostTable.pm:185
-#, perl-brace-format
-msgid "Virtual host {vhost} added"
-msgstr "バーチャルホスト {vhost} が追加されました"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
-#: src/EBox/WebServer/Model/VHostTable.pm:190
-msgid "There is no static internal interface to set the Web server IP address"
-msgstr "WebサーバのIPアドレスを設定する静的な内部インタフェースがありません"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
-#: src/EBox/WebServer/Model/VHostTable.pm:216
-msgid "Name"
-msgstr "名前"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
-#: src/EBox/WebServer/Model/VHostTable.pm:226
-msgid "Virtual hosts"
-msgstr "バーチャルホスト"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
-#: src/EBox/WebServer/Model/VHostTable.pm:230
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot}/vHostName "
-"directory"
-msgstr ""
-"バーチャルホストは多数の同じWebサーバのインスタンスを単一の物理サーバ上にホス"
-"トするWebホスティングサービスです。異なるホスト名が同一のWebサーバを指すこと"
-"になります。DNSのエントリは可能であれば自動的に作成されます。コンテンツは "
-"{docRoot}/vHostName ディレクトリの下に展開されている必要があります。"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
-#: src/EBox/WebServer/Model/VHostTable.pm:237
-msgid "virtual host"
-msgstr "バーチャルホスト"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "ハイパーテキストトランスポートプロトコル"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
-#: src/EBox/WebServer.pm:176
-msgid "Web"
-msgstr "Web"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
-#: src/EBox/WebServer.pm:196
-msgid "Web service status"
-msgstr "Webサービスの状態"
-
-#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
-#: src/EBox/WebServer.pm:366
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "ファイル {userDirConfFile} がありません！ 修復してください"
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
-msgid ""
-"If you tick this field, each user is permitted to have a website in their "
-"home directory under public_html"
-msgstr ""
+"eBox Webサービスでは異なるバーチャルホストでプレーンなHTMLページをホストする"
+"ことを許可しています"
 
 #: src/EBox/WebServer.pm:96
 #, fuzzy
@@ -183,10 +143,31 @@ msgstr "受信ポート"
 msgid "To configure the per-user public HTML directory"
 msgstr ""
 
-#: src/EBox/WebServer.pm:129
+#: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
 msgstr "Apache LDAPユーザモジュールを有効化"
 
-#: src/EBox/WebServer.pm:131
+#: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
 msgstr "LDAPからホームディレクトリを取得"
+
+#: src/EBox/WebServer.pm:149
+msgid "Web"
+msgstr "Web"
+
+#: src/EBox/WebServer.pm:150
+msgid "Infrastructure"
+msgstr ""
+
+#: src/EBox/WebServer.pm:171
+msgid "Web service status"
+msgstr "Webサービスの状態"
+
+#: src/EBox/WebServer.pm:348
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "ファイル {userDirConfFile} がありません！ 修復してください"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "ハイパーテキストトランスポートプロトコル"

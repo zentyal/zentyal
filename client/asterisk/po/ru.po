@@ -7,101 +7,257 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-08 15:16+0000\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-06-28 00:02+0200\n"
 "PO-Revision-Date: 2009-05-13 12:35+0200\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/GeneralSettings.pm:73
-msgid "Enable incoming calls"
-msgstr "Разрешить входящие вызовы"
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr ""
 
-#: src/EBox/Model/GeneralSettings.pm:79
-msgid "Enable outgoing calls"
-msgstr "Разрешить исходящие вызовы"
+#: src/EBox/Model/Voicemail.pm:94
+#, fuzzy
+msgid "New password"
+msgstr "Пароль"
 
-#: src/EBox/Model/GeneralSettings.pm:88
-msgid "General configuration settings"
-msgstr "Общие параметры настойки "
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr ""
 
-#: src/EBox/Model/GeneralSettings.pm:92
-msgid "General Asterisk server configuration."
-msgstr "Общие настройки сервера Astreisk"
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr ""
 
-#: src/EBox/Model/GeneralSettings.pm:94
-msgid "General Asterisk server configuration settings updated"
-msgstr "Общие параметры настройки сервера Asterisk обновлены"
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr ""
 
-#: src/EBox/Model/Provider.pm:74
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:76
 msgid "Name"
 msgstr "Имя"
 
-#: src/EBox/Model/Provider.pm:81
+#: src/EBox/Model/Provider.pm:83
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: src/EBox/Model/Provider.pm:88
+#: src/EBox/Model/Provider.pm:90 src/EBox/Model/Meetings.pm:165
 msgid "Password"
 msgstr "Пароль"
 
-#: src/EBox/Model/Provider.pm:95
+#: src/EBox/Model/Provider.pm:97
 msgid "Server"
 msgstr "Сервер"
 
-#: src/EBox/Model/Provider.pm:105
+#: src/EBox/Model/Provider.pm:104
+#, fuzzy
+msgid "Recipient of incoming calls"
+msgstr "Разрешить входящие вызовы"
+
+#: src/EBox/Model/Provider.pm:114
 msgid "SIP provider"
 msgstr "Провайдер SIP"
 
-#: src/EBox/Model/Provider.pm:109
-msgid "SIP provider configuration."
+#: src/EBox/Model/Provider.pm:118
+#, fuzzy
+msgid "SIP provider for outgoing calls configuration"
 msgstr "Настройки провайдера SIP"
 
-#: src/EBox/Model/Provider.pm:111
-msgid "SIP provider configuration settings updated"
+#: src/EBox/Model/Provider.pm:120
+#, fuzzy
+msgid "SIP provider configuration updated"
 msgstr "Настройки параметров провайдера SIP обновлены"
+
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Settings.pm:84
+msgid "extension"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:173
+msgid "Administrator password"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:181 src/EBox/Model/Localnets.pm:117
+msgid "Description"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:192 src/EBox/Asterisk.pm:455
+msgid "Meetings"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:193
+msgid "meeting"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Разрешить исходящие вызовы"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:145
+#, fuzzy
+msgid "General configuration"
+msgstr "Общие параметры настойки "
+
+#: src/EBox/Model/Settings.pm:149
+#, fuzzy
+msgid "General Asterisk server configuration"
+msgstr "Общие настройки сервера Astreisk"
+
+#: src/EBox/Model/Settings.pm:151
+#, fuzzy
+msgid "General Asterisk server configuration updated"
+msgstr "Общие параметры настройки сервера Asterisk обновлены"
+
+#: src/EBox/Model/NAT.pm:96
+msgid "Asterisk is behind NAT"
+msgstr ""
+
+#: src/EBox/Model/NAT.pm:101
+msgid "No"
+msgstr ""
+
+#: src/EBox/Model/NAT.pm:120
+#, fuzzy
+msgid "NAT configuration"
+msgstr "Настройки провайдера SIP"
+
+#: src/EBox/Model/NAT.pm:124
+#, fuzzy
+msgid "NAT Asterisk server configuration"
+msgstr "Общие настройки сервера Astreisk"
+
+#: src/EBox/Model/NAT.pm:126
+#, fuzzy
+msgid "NAT Asterisk server configuration updated"
+msgstr "Общие параметры настройки сервера Asterisk обновлены"
+
+#: src/EBox/Model/Localnets.pm:87 src/EBox/Model/Localnets.pm:129
+msgid "local network"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:111
+msgid "Local network"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:128
+msgid "Local networks"
+msgstr ""
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
 msgstr "имя пользователя"
 
-#: src/EBox/Composite/General.pm:64
+#: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Модуль Asterisk"
 
-#: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:64 src/EBox/Asterisk.pm:445
 msgid "Asterisk"
 msgstr "Asterisk"
 
-#: src/EBox/Asterisk.pm:86
-msgid "To configure Asterisk enabled and disabled modules."
+#: src/EBox/Asterisk.pm:118
+#, fuzzy
+msgid "To configure enabled and disabled modules."
 msgstr "Для включения и отключения модуля Asterisk"
 
-#: src/EBox/Asterisk.pm:91
+#: src/EBox/Asterisk.pm:123
+msgid "To configure the Realtime interface."
+msgstr "Для настройки интерфейса Realtime"
+
+#: src/EBox/Asterisk.pm:128
+msgid "To configure the LDAP Realtime driver."
+msgstr "Для настройки LDAP драйвера Realtime"
+
+#: src/EBox/Asterisk.pm:133
+#, fuzzy
+msgid "To configure the common SIP and IAX users."
+msgstr "Для настройки LDAP драйвера Realtime"
+
+#: src/EBox/Asterisk.pm:138
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Для настройки SIP транка для локальных пользователей и внешних провайдеров."
 
-#: src/EBox/Asterisk.pm:96
-msgid "To configure the Realtime interface."
+#: src/EBox/Asterisk.pm:143
+#, fuzzy
+msgid "To configure the RTP port ranges."
 msgstr "Для настройки интерфейса Realtime"
 
-#: src/EBox/Asterisk.pm:101
-msgid "To configure the LDAP Realtime driver."
-msgstr "Для настройки LDAP драйвера Realtime"
-
-#: src/EBox/Asterisk.pm:106
-msgid "To configure the Asterisk dialplan."
+#: src/EBox/Asterisk.pm:148
+#, fuzzy
+msgid "To configure the dialplan."
 msgstr "Для настройки плана набора Astrisk"
 
-#: src/EBox/Asterisk.pm:111
-msgid "To add a new schema"
-msgstr "Для добавления новой схемы"
+#: src/EBox/Asterisk.pm:153
+#, fuzzy
+msgid "To configure the voicemail."
+msgstr "Для настройки плана набора Astrisk"
+
+#: src/EBox/Asterisk.pm:158
+#, fuzzy
+msgid "To configure the conferences."
+msgstr "Для настройки интерфейса Realtime"
+
+#: src/EBox/Asterisk.pm:163
+msgid "To add the Asterisk schema and ACLs."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:446
+msgid "Communications"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:451
+msgid "General"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:472
+msgid "Voicemail"
+msgstr ""
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox VoIP system"
+msgstr ""
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
@@ -123,6 +279,9 @@ msgstr "Отключить"
 msgid "Enabled"
 msgstr "Включить"
 
-#: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
+#: src/templates/asterisk.mas:45 src/templates/asterisk.mas:46
 msgid "Change"
 msgstr "Изменить"
+
+#~ msgid "To add a new schema"
+#~ msgstr "Для добавления новой схемы"

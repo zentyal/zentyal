@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 15:36+0000\n"
+"POT-Creation-Date: 2009-06-28 00:17+0200\n"
 "PO-Revision-Date: 2009-02-19 16:28+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,12 +16,153 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
+#: src/EBox/Model/Settings.pm:53
+msgid "field1"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:60
+msgid "field2"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
+msgid "Settings"
+msgstr ""
+
+#: src/EBox/Composite/Composite.pm:50
+msgid "Composite"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+msgid "Access from control panel without password"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+msgid "Access settings"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:149
+msgid ""
+"Subscription was done correctly. Wait a minute to let the subscription be "
+"propagated throughout the system"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:152
+msgid "Subscription data retrieved correctly"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:177
+msgid "Done"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:267
+msgid ""
+"Prior to make a subscription on remote services, enable the OpenVPN module "
+"and save or discard its changes"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:288
+msgid "User name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:296
+msgid "eBox common name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:306
+msgid "Password"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:314
+msgid "eBox subscription details"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:315
+msgid "Delete data"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:318
+msgid "Subscription to remote services"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:319
+msgid "Subscribe"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:329
+#, perl-brace-format
+msgid ""
+"In order to subscribe an eBox remote services {url}. You will have remote "
+"backup facilities and much more"
+msgstr ""
+
+#: src/EBox/RemoteServices/Composite/General.pm:73
+msgid "Remote services"
+msgstr ""
+
+#: src/EBox/RemoteServices/Composite/General.pm:74
+msgid ""
+"Remote services from eBox are paid services to enhance your eBox experience"
+msgstr ""
+
+#: src/EBox/RemoteServices/Subscription.pm:106
+msgid "Key for web subscription service not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr ""
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:203
+#, perl-brace-format
+msgid "No backups in server for host: {h}"
+msgstr ""
+
+#: src/EBox/RemoteServices/ProxyBackup.pm:243
+msgid "Key for proxy backup service not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:213
+msgid "No ebox-services DNS key found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:258
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:341
+msgid "Cannot create SOAP connection"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:355
+msgid "No domain key found for this service"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr ""
+
+#: src/EBox/RemoteServices/Auth.pm:160
+#, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
 msgstr ""
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
+msgstr ""
+
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
 msgstr ""
 
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
@@ -53,6 +194,33 @@ msgstr ""
 msgid "Remote system backups proxy"
 msgstr ""
 
+#: src/EBox/CGI/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
+msgid "Restore"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:119
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:125
+msgid "Delete"
+msgstr ""
+
+#: src/EBox/CGI/Backup/Confirm.pm:173
+#, perl-brace-format
+msgid "Inexistent action: {a}"
+msgstr ""
+
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
 msgstr ""
@@ -73,323 +241,22 @@ msgstr ""
 msgid "Backup successful"
 msgstr ""
 
-#: src/EBox/CGI/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
-#: src/templates/RemoteServices/Backup/proxy.mas:76
-#: src/templates/RemoteServices/Backup/index.mas:85
-msgid "Restore"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:119
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:125
-#: src/templates/RemoteServices/Backup/index.mas:96
-msgid "Delete"
-msgstr ""
-
-#: src/EBox/CGI/Backup/Confirm.pm:173
-#, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr ""
-
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
 msgstr ""
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr ""
-
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr ""
-
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr ""
-
-#: src/EBox/RemoteServices.pm:72
+#: src/EBox/RemoteServices.pm:74
 msgid "eBox remote services"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:139
+#: src/EBox/RemoteServices.pm:157
 msgid "Not subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:141
+#: src/EBox/RemoteServices.pm:159
 msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:167
-msgid "Remote services subscription"
-msgstr ""
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:203
-#, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:147
-msgid ""
-"Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:150
-msgid "Subscription data retrieved correctly"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:175
-msgid "Done"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:265
-msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:286
-msgid "User name"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:294
-msgid "eBox common name"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:304
-#: src/templates/RemoteServices/Backup/proxy.mas:138
-msgid "Password"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:312
-msgid "eBox subscription details"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:313
-msgid "Delete data"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:316
-msgid "Subscription to remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:317
-msgid "Subscribe"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:327
-#, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:198
-#, perl-brace-format
-msgid "No backups in server for host: {h}"
-msgstr ""
-
-#: src/EBox/RemoteServices/ProxyBackup.pm:238
-msgid "Key for proxy backup service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Subscription.pm:104
-msgid "Key for web subscription service not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:256
-msgid "Cannot create SOAP connection"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:272
-msgid "No domain key found for this service"
-msgstr ""
-
-#: src/EBox/RemoteServices/Base.pm:284
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Auth.pm:143
-msgid "Key for service proxy not found"
-msgstr ""
-
-#: src/EBox/RemoteServices/Composite/General.pm:73
-msgid "Remote services"
-msgstr ""
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:5
-msgid ""
-"Cannot proceed with your request because it was a connection problem. "
-"Possible causes are:"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:9
-msgid "Your computer has not internet connection"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:10
-msgid "Firewall is blocking the connection. Try to restart firewall module"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:11
-msgid "Your computer has not a correct system date"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:12
-msgid "You are using the wrong certificates"
-msgstr ""
-
-#: src/templates/RemoteServices/NoConnection.mas:13
-msgid "This eBox has been removed from your registered eBoxes"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/confirm.mas:24
-#: src/templates/RemoteServices/Backup/proxy.mas:43
-#: src/templates/RemoteServices/Backup/index.mas:23
-#: src/templates/RemoteServices/Backup/index.mas:67
-msgid "Name"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/confirm.mas:32
-#: src/templates/RemoteServices/Backup/proxy.mas:44
-#: src/templates/RemoteServices/Backup/index.mas:68
-msgid "Date"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/confirm.mas:40
-#: src/templates/RemoteServices/Backup/proxy.mas:45
-#: src/templates/RemoteServices/Backup/index.mas:27
-#: src/templates/RemoteServices/Backup/index.mas:69
-msgid "Description"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/confirm.mas:48
-#: src/templates/RemoteServices/Backup/proxy.mas:46
-#: src/templates/RemoteServices/Backup/index.mas:70
-msgid "Archive size"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/confirm.mas:73
-msgid "Cancel"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:42
-msgid "eBox host"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:47
-#: src/templates/RemoteServices/Backup/index.mas:71
-msgid "Actions"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:82
-#: src/templates/RemoteServices/Backup/index.mas:91
-msgid "Download"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:99
-#: src/templates/RemoteServices/Backup/index.mas:110
-msgid "restore"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:103
-#: src/templates/RemoteServices/Backup/index.mas:114
-msgid "download"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:109
-msgid "Backups' list"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:132
-msgid "User"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:143
-msgid "Submit"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/proxy.mas:147
-msgid "Enter user and password"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/index.mas:32
-msgid "Back up"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/index.mas:38
-msgid "Back up the current configuration state"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/index.mas:44
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/index.mas:118
-msgid "delete"
-msgstr ""
-
-#: src/templates/RemoteServices/Backup/index.mas:123
-msgid "Configuration backups' list"
-msgstr ""
-
-#: src/templates/RemoteServices/NoActive.mas:5
-#, perl-brace-format
-msgid ""
-"This feature is only available if you get eBox  Services. You can contract "
-"them at {url1}. If you are already registered, then subscribe this eBox at "
-"{url2}"
-msgstr ""
-
-#: src/templates/RemoteServices/NoActive.mas:14
-msgid "subscription page"
+#: src/EBox/RemoteServices.pm:191
+msgid "Remote Services Subscription"
 msgstr ""

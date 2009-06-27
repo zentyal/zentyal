@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:14+0100\n"
+"POT-Creation-Date: 2009-06-28 00:09+0200\n"
 "PO-Revision-Date: 2007-07-24 12:12+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,26 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:155
-msgid "Admin mail recipient"
-msgstr "Modtager af admin mail"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:1053
-#: src/EBox/Mail.pm:1109 src/EBox/Mail.pm:1190
-msgid "Mail"
-msgstr "Mail"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:189
-#, perl-brace-format
-msgid "Cannot connect to {smtp} mail server"
-msgstr "Kan ikke få forbindelse til {smtp} mailserver"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:230
-#, perl-brace-format
-msgid "Cannot connect to the server {hostname} to send the event through SMTP"
-msgstr ""
-"Kan ikke få forbindelse til serveren {hostname} for at sende mailen via SMTP"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -63,12 +43,16 @@ msgid "mail alias"
 msgstr "mail alias"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1135
+#: src/EBox/Mail.pm:1201
 msgid "Queue Management"
 msgstr "Kø håndtering"
 
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/Mail/Model/VDomains.pm:81
-#: src/EBox/MailVDomainsLdap.pm:63 src/EBox/MailVDomainsLdap.pm:122
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "gruppe"
+
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
+#: src/EBox/MailVDomainsLdap.pm:123 src/EBox/Mail/Model/VDomains.pm:87
 msgid "virtual domain"
 msgstr "virtuelt domæne"
 
@@ -80,13 +64,21 @@ msgstr "mail adresse"
 msgid "user mail"
 msgstr "bruger mail"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "gruppe"
-
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
 msgstr "gruppe alias mail"
+
+#: src/EBox/MailVDomainsLdap.pm:342
+msgid "Size quota"
+msgstr ""
+
+#: src/EBox/MailVDomainsLdap.pm:434 src/EBox/MailVDomainsLdap.pm:440
+#: src/EBox/MailVDomainsLdap.pm:484 src/EBox/MailVDomainsLdap.pm:490
+#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:737
+#: src/EBox/MailUserLdap.pm:799 src/EBox/MailUserLdap.pm:805
+#: src/EBox/Mail.pm:1392
+msgid "maildir size"
+msgstr "maildir størrelse"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -97,7 +89,7 @@ msgstr "Emne"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] der har været en event på {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1159
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1225
 msgid "To"
 msgstr "Til"
 
@@ -160,35 +152,35 @@ msgstr ""
 msgid "You may allow mail relay per network object"
 msgstr "Videresendelses politik for objekter"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:87
+#: src/EBox/Mail/Model/ExternalFilter.pm:89
 msgid "Filter in use"
 msgstr "Filter i brug"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:94
+#: src/EBox/Mail/Model/ExternalFilter.pm:97
 #, fuzzy
 msgid "Custom filter's mail forward port"
 msgstr "Mail forward port"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:100
+#: src/EBox/Mail/Model/ExternalFilter.pm:103
 #, fuzzy
 msgid "Custom filter's IP address"
 msgstr "Filter's IP adresse"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:106
+#: src/EBox/Mail/Model/ExternalFilter.pm:109
 #, fuzzy
 msgid "Custom filter's Port"
 msgstr "Filter's Port"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:115
+#: src/EBox/Mail/Model/ExternalFilter.pm:118
 #, fuzzy
 msgid "Mail filter options"
 msgstr "Mail services"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:135
+#: src/EBox/Mail/Model/ExternalFilter.pm:161
 msgid "none"
 msgstr "ingen"
 
-#: src/EBox/Mail/Model/ExternalFilter.pm:136
+#: src/EBox/Mail/Model/ExternalFilter.pm:162
 msgid "custom"
 msgstr "defineret"
 
@@ -242,40 +234,30 @@ msgstr "Optional/mulig"
 msgid "Name"
 msgstr "Navn"
 
-#: src/EBox/Mail/Model/VDomains.pm:72
+#: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
+#: src/EBox/Mail/Model/VDomainAliases.pm:69
+msgid "Aliases"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:78
 #, fuzzy
 msgid "Mail virtual domains"
 msgstr "virtuelt domæne"
 
-#: src/EBox/Mail/Model/VDomains.pm:83
+#: src/EBox/Mail/Model/VDomains.pm:89
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:113
+#: src/EBox/Mail/Model/VDomains.pm:119
+#: src/EBox/Mail/Model/VDomainAliases.pm:110
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:87
-msgid "SSL Support"
-msgstr "SSL Support"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:96
+#: src/EBox/Mail/Model/RetrievalServices.pm:99 src/EBox/Mail.pm:1444
 #, fuzzy
 msgid "Mail retrieval services"
 msgstr "Mail services"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:114
-msgid "No"
-msgstr "Nej"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:115
-msgid "Optional"
-msgstr "Optional/mulig"
-
-#: src/EBox/Mail/Model/RetrievalServices.pm:116
-msgid "Required"
-msgstr "Krævet"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -285,28 +267,41 @@ msgstr "Aktiveret"
 msgid "Greylist duration (seconds)"
 msgstr ""
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:78
-msgid "Retry window (hours)"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:71
+msgid "During this interval, the mail sender is deferred"
 msgstr ""
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
+msgid "Retry window (hours)"
+msgstr ""
+
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:80
 msgid ""
-"Time that will have the mail sender to retry before it will be greylisted "
+"Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr ""
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:87
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:89
 msgid "Entries time to live (days)"
 msgstr ""
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:88
-msgid "Period after that unseen entries will be deleted"
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
+msgid "Period till unseen entries will be deleted"
 msgstr ""
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:101
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 #, fuzzy
 msgid "Greylist configuration"
 msgstr "Mail håndtering er opdateret"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:78
+#, fuzzy
+msgid "virtual domain alias"
+msgstr "Virtuel domæne liste"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:80
+msgid "Virtual domain alias added. You must save changes to use this domain"
+msgstr ""
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
@@ -314,299 +309,305 @@ msgstr "Mail håndtering er opdateret"
 msgid "Mail server options"
 msgstr "Mail services"
 
-#: src/EBox/Mail/Greylist.pm:53
+#: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
 msgstr ""
 
-#: src/EBox/MailVDomainsLdap.pm:332
-msgid "Size quota"
-msgstr ""
+#: src/EBox/Mail/Greylist.pm:279
+#, fuzzy
+msgid "Greylist service"
+msgstr "Mail services"
 
-#: src/EBox/MailVDomainsLdap.pm:424 src/EBox/MailVDomainsLdap.pm:430
-#: src/EBox/MailVDomainsLdap.pm:474 src/EBox/MailVDomainsLdap.pm:480
-#: src/EBox/Mail.pm:1327 src/EBox/MailUserLdap.pm:725
-#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
-#: src/EBox/MailUserLdap.pm:799
-msgid "maildir size"
-msgstr "maildir størrelse"
-
-#: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
-#: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
-#: src/EBox/MailAliasLdap.pm:140 src/EBox/MailUserLdap.pm:71
-#: src/EBox/MailUserLdap.pm:76
+#: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
+#: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
+#: src/EBox/MailAliasLdap.pm:233 src/EBox/MailUserLdap.pm:82
+#: src/EBox/MailUserLdap.pm:87
 msgid "mail account"
 msgstr "mail konto"
 
-#: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
-#: src/EBox/MailAliasLdap.pm:228
+#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
+#, fuzzy
+msgid "Domain alias"
+msgstr "mail alias"
+
+#: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
+#, fuzzy, perl-brace-format
+msgid "Mail domain {d} does not exists"
+msgstr "Kontoen eksisterer ikke"
+
+#: src/EBox/MailAliasLdap.pm:142
+#, perl-brace-format
+msgid ""
+"Cannot use {d} as alias for a mail domain because a domain which this name "
+"already exists"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
+#: src/EBox/MailAliasLdap.pm:321
 msgid "mail alias account"
 msgstr "mail alias konto"
 
-#: src/EBox/Mail.pm:78
+#: src/EBox/MailUserLdap.pm:307
+msgid "This group has a mail alias"
+msgstr "Denne gruppe har et mail alias"
+
+#: src/EBox/MailUserLdap.pm:334
+msgid "This user has a mail account"
+msgstr "Denne bruger har en mail konto"
+
+#: src/EBox/MailUserLdap.pm:611
+#, perl-brace-format
+msgid "Cannot create user account: mail directory {d} aready exists"
+msgstr ""
+
+#: src/EBox/Mail.pm:72
 #, fuzzy
 msgid "mail"
 msgstr "Mail"
 
-#: src/EBox/Mail.pm:112
-#, perl-brace-format
-msgid "Add {user} to {group} group"
-msgstr ""
-
-#: src/EBox/Mail.pm:114
-#, perl-brace-format
-msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
-msgstr ""
-
-#: src/EBox/Mail.pm:120
+#: src/EBox/Mail.pm:118
 #, fuzzy
 msgid "Generate mail aliases"
 msgstr "Opret mail alias'"
 
-#: src/EBox/Mail.pm:122
+#: src/EBox/Mail.pm:120
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr ""
 
-#: src/EBox/Mail.pm:126
+#: src/EBox/Mail.pm:125
 msgid "Add LDAP schemas"
 msgstr ""
 
-#: src/EBox/Mail.pm:128
-#, perl-brace-format
-msgid "eBox will add two LDAP schemas: {schema1} and {schema2}."
+#: src/EBox/Mail.pm:127
+msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
 msgstr ""
 
-#: src/EBox/Mail.pm:147
+#: src/EBox/Mail.pm:133
+#, fuzzy
+msgid "Create certificates"
+msgstr "Opret mail alias'"
+
+#: src/EBox/Mail.pm:135
+msgid "eBox will create certificates to use in mail services"
+msgstr ""
+
+#: src/EBox/Mail.pm:155
 msgid "To configure postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:153
+#: src/EBox/Mail.pm:161
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:161
-msgid "To configure courier to authenticate against LDAP"
+#: src/EBox/Mail.pm:168
+msgid "To configure dovecot"
 msgstr ""
 
-#: src/EBox/Mail.pm:166
-msgid "To let courier know how to access LDAP"
+#: src/EBox/Mail.pm:173
+msgid "To configure dovecot to authenticate against LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:171
-msgid "To configure courier POP3"
-msgstr ""
-
-#: src/EBox/Mail.pm:176
-msgid "To configure POP3 with SSL support"
-msgstr ""
-
-#: src/EBox/Mail.pm:181
-msgid "To configure IMAP"
-msgstr ""
-
-#: src/EBox/Mail.pm:186
-msgid "To configure IMAP with SSL support"
-msgstr ""
-
-#: src/EBox/Mail.pm:192 src/EBox/Mail.pm:198
-msgid "To configure saslauthd to authenticate against LDAP "
-msgstr ""
-
-#: src/EBox/Mail.pm:203
-msgid "To configure saslauthd to use LDAP"
-msgstr ""
-
-#: src/EBox/Mail.pm:208
-msgid "To configure smart host authentication"
-msgstr ""
-
-#: src/EBox/Mail.pm:213
+#: src/EBox/Mail.pm:178
 msgid "To add the LDAP schemas used by eBox mail"
 msgstr ""
 
-#: src/EBox/Mail.pm:581
+#: src/EBox/Mail.pm:183
+msgid "To configure smart host authentication"
+msgstr ""
+
+#: src/EBox/Mail.pm:612
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Kan ikke ændre disse parametre for et ikke-brugerdefineret filter"
 
-#: src/EBox/Mail.pm:596 src/EBox/Mail.pm:616
+#: src/EBox/Mail.pm:628 src/EBox/Mail.pm:648
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "Dette mail filter eksisterer ikke. Sæt venligst et andet mail filter eller "
 "deaktiver det"
 
-#: src/EBox/Mail.pm:623
-#, fuzzy, perl-brace-format
+#: src/EBox/Mail.pm:655
+#, fuzzy
 msgid ""
-"The mail filter {name} is not active. Please set another mail filter or "
+"The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 "Dette mail filter eksisterer ikke. Sæt venligst et andet mail filter eller "
 "deaktiver det"
 
-#: src/EBox/Mail.pm:1031
+#: src/EBox/Mail.pm:1066
+#, fuzzy
+msgid "SMTP service"
+msgstr "IMAP service"
+
+#: src/EBox/Mail.pm:1073
 msgid "POP3 service"
 msgstr "POP3 service"
 
-#: src/EBox/Mail.pm:1033
+#: src/EBox/Mail.pm:1079
+#, fuzzy
+msgid "POP3S service"
+msgstr "POP3 service"
+
+#: src/EBox/Mail.pm:1085
 msgid "IMAP service"
 msgstr "IMAP service"
 
-#: src/EBox/Mail.pm:1067
+#: src/EBox/Mail.pm:1091
+#, fuzzy
+msgid "IMAPS service"
+msgstr "IMAP service"
+
+#: src/EBox/Mail.pm:1118 src/EBox/Mail.pm:1174 src/EBox/Mail.pm:1254
+#: src/EBox/Event/Dispatcher/Mail.pm:168
+msgid "Mail"
+msgstr "Mail"
+
+#: src/EBox/Mail.pm:1132
 msgid "enabled"
 msgstr "Aktiveret"
 
-#: src/EBox/Mail.pm:1067
+#: src/EBox/Mail.pm:1132
 msgid "disabled"
 msgstr "Deaktiveret"
 
-#: src/EBox/Mail.pm:1069 src/EBox/Mail.pm:1164
+#: src/EBox/Mail.pm:1134 src/EBox/Mail.pm:1230
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1072
+#: src/EBox/Mail.pm:1137
 #, fuzzy
 msgid "Mail server's filter"
 msgstr "Mail services"
 
-#: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
+#: src/EBox/Mail.pm:1146 src/EBox/Mail.pm:1153
 #, fuzzy
 msgid "Filter type"
 msgstr "Filter"
 
-#: src/EBox/Mail.pm:1082
+#: src/EBox/Mail.pm:1147
 msgid "Custom"
 msgstr "Defineret"
 
-#: src/EBox/Mail.pm:1084
+#: src/EBox/Mail.pm:1149
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/Mail.pm:1115
+#: src/EBox/Mail.pm:1175
+#, fuzzy
+msgid "Communications"
+msgstr "Godkendelses fejl"
+
+#: src/EBox/Mail.pm:1182
 msgid "General"
 msgstr "Generel"
 
-#: src/EBox/Mail.pm:1122
+#: src/EBox/Mail.pm:1189
 #, fuzzy
-msgid "Virtual mail domains"
+msgid "Virtual Mail Domains"
 msgstr "Virtuelle domæner"
 
-#: src/EBox/Mail.pm:1128
+#: src/EBox/Mail.pm:1195
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:1222 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Mail.pm:1157
+#: src/EBox/Mail.pm:1223
 msgid "Message ID"
 msgstr "Meddelelses ID"
 
-#: src/EBox/Mail.pm:1158
+#: src/EBox/Mail.pm:1224
 msgid "From"
 msgstr "Fra"
 
-#: src/EBox/Mail.pm:1160
+#: src/EBox/Mail.pm:1226
 msgid "From hostname"
 msgstr "Fra hostname"
 
-#: src/EBox/Mail.pm:1161
+#: src/EBox/Mail.pm:1227
 msgid "From host ip"
 msgstr "FRa host ip"
 
-#: src/EBox/Mail.pm:1162 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1228 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Størrelse (bytes)"
 
-#: src/EBox/Mail.pm:1163
+#: src/EBox/Mail.pm:1229
 msgid "Relay"
 msgstr "Videresende"
 
-#: src/EBox/Mail.pm:1165
+#: src/EBox/Mail.pm:1231
 msgid "Event"
 msgstr "Handling"
 
-#: src/EBox/Mail.pm:1166
+#: src/EBox/Mail.pm:1232
 msgid "Aditional Info"
 msgstr "Yderligere info"
 
-#: src/EBox/Mail.pm:1177
+#: src/EBox/Mail.pm:1243
 msgid "Successful messages"
 msgstr "Succesfulde meddelelser"
 
-#: src/EBox/Mail.pm:1178
+#: src/EBox/Mail.pm:1244
 msgid "Maximum message size exceeded"
 msgstr "Maximum medddelelses størrelse overskredet"
 
-#: src/EBox/Mail.pm:1179
+#: src/EBox/Mail.pm:1245
 msgid "User quote exceeded"
 msgstr "Bruger kvote overskredet"
 
-#: src/EBox/Mail.pm:1180
+#: src/EBox/Mail.pm:1246
 msgid "Relay access denied"
 msgstr "Videresendelse nægtet"
 
-#: src/EBox/Mail.pm:1181
+#: src/EBox/Mail.pm:1247
 msgid "Account does not exist"
 msgstr "Kontoen eksisterer ikke"
 
-#: src/EBox/Mail.pm:1182
+#: src/EBox/Mail.pm:1248
 msgid "Host unreachable"
 msgstr "Host udenfor rækkevidde"
 
-#: src/EBox/Mail.pm:1183
+#: src/EBox/Mail.pm:1249
 msgid "Authentication error"
 msgstr "Godkendelses fejl"
 
-#: src/EBox/Mail.pm:1184
-msgid "Relay denied by the smarthost"
-msgstr ""
-
-#: src/EBox/Mail.pm:1185
-msgid "Greylisted"
-msgstr ""
-
-#: src/EBox/Mail.pm:1186
+#: src/EBox/Mail.pm:1250
 msgid "Other events"
 msgstr "Andre handlinger"
 
-#: src/EBox/Mail.pm:1291
+#: src/EBox/Mail.pm:1356
 msgid "Mailboxes"
 msgstr "Mailboxe"
 
-#: src/EBox/MailUserLdap.pm:320
-msgid "This group has a mail alias"
-msgstr "Denne gruppe har et mail alias"
+#: src/EBox/Mail.pm:1437
+#, fuzzy
+msgid "Mail SMTP server"
+msgstr "Mail services"
 
-#: src/EBox/MailUserLdap.pm:347
-msgid "This user has a mail account"
-msgstr "Denne bruger har en mail konto"
+#: src/EBox/Event/Dispatcher/Mail.pm:155
+msgid "Admin mail recipient"
+msgstr "Modtager af admin mail"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:189
+#, perl-brace-format
+msgid "Cannot connect to {smtp} mail server"
+msgstr "Kan ikke få forbindelse til {smtp} mailserver"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:230
+#, perl-brace-format
+msgid "Cannot connect to the server {hostname} to send the event through SMTP"
+msgstr ""
+"Kan ikke få forbindelse til serveren {hostname} for at sende mailen via SMTP"
 
 #: migration/0001_add_firewall_services.pl:30
 #, fuzzy
 msgid "eBox Mail System"
 msgstr "Mail system"
-
-#: src/templates/warnvd.mas:14
-msgid ""
-"The virtual domain you tried to delete contains data in the following "
-"modules. Please confirm you want to remove it and all its related data"
-msgstr ""
-"Det virtuelle domæne du prøvede at slette indeholder data i følgende "
-"moduler. Bekræft venligst at du ønsker at fjerne det og alle dets data"
-
-#: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
-#: src/templates/groupalias.mas:65 src/templates/alias.mas:22
-#: src/templates/alias.mas:23 src/templates/alias.mas:24
-#: src/templates/alias.mas:76 src/templates/alias.mas:77
-msgid "Delete"
-msgstr "Slet"
-
-#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
-#: src/templates/warnusermdsize.mas:26
-msgid "Cancel"
-msgstr "Fortryd"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
@@ -639,11 +640,25 @@ msgstr "Opret"
 msgid "Mail alias settings"
 msgstr "Mail alias indstillinger"
 
-#: src/templates/moduleDisabled.mas:5
+#: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
+#: src/templates/warnvd.mas:29 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:24
+#: src/templates/alias.mas:76 src/templates/alias.mas:77
+msgid "Delete"
+msgstr "Slet"
+
+#: src/templates/warnvd.mas:14
 msgid ""
-"The following settings only will take effect when the mail module is enabled"
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
 msgstr ""
-"Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
+"Det virtuelle domæne du prøvede at slette indeholder data i følgende "
+"moduler. Bekræft venligst at du ønsker at fjerne det og alle dets data"
+
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
+msgid "Cancel"
+msgstr "Fortryd"
 
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
@@ -705,39 +720,39 @@ msgstr "Meddelelse"
 msgid "Operate"
 msgstr "Betjen"
 
-#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
+#: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
 msgid "Requeue"
 msgstr "Genindlæs kø"
 
-#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
+#: src/templates/qmanager.mas:49 src/templates/qmanager.mas:50
 msgid "Show Info"
 msgstr "Vis info"
 
-#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
+#: src/templates/qmanager.mas:54 src/templates/qmanager.mas:55
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
+#: src/templates/qmanager.mas:67 src/templates/qmanager.mas:68
 msgid "Hide Info"
 msgstr "Skjul info"
 
-#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "first"
 msgstr "første"
 
-#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+#: src/templates/qmanager.mas:91 src/templates/qmanager.mas:92
 msgid "prev"
 msgstr "forrige"
 
-#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "next"
 msgstr "næste"
 
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+#: src/templates/qmanager.mas:115 src/templates/qmanager.mas:116
 msgid "last"
 msgstr "sidste"
 
-#: src/templates/qmanager.mas:122
+#: src/templates/qmanager.mas:126
 msgid "There is no messages in queue or the service is stopped"
 msgstr "Der er ingen meddelelser i køen eller servicen er stoppet"
 
@@ -749,8 +764,23 @@ msgstr "Mail konto"
 msgid "Click here to create a new mail virtual domain"
 msgstr "Klik her for at oprette et nyt virtuelt mail domæne"
 
-#~ msgid "Mail services"
-#~ msgstr "Mail services"
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr ""
+"Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
+
+#~ msgid "SSL Support"
+#~ msgstr "SSL Support"
+
+#~ msgid "No"
+#~ msgstr "Nej"
+
+#~ msgid "Optional"
+#~ msgstr "Optional/mulig"
+
+#~ msgid "Required"
+#~ msgstr "Krævet"
 
 #~ msgid "Mail system"
 #~ msgstr "Mail system"
@@ -883,9 +913,6 @@ msgstr "Klik her for at oprette et nyt virtuelt mail domæne"
 #, fuzzy
 #~ msgid "Unlimited"
 #~ msgstr "Ubegrænset størrelse"
-
-#~ msgid "Virtual domains list"
-#~ msgstr "Virtuel domæne liste"
 
 #~ msgid "Maildir Size"
 #~ msgstr "Maildir Størrelse"

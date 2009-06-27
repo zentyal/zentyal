@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:43+0100\n"
+"POT-Creation-Date: 2009-06-28 00:01+0200\n"
 "PO-Revision-Date: 2009-03-04 12:46+0000\n"
 "Last-Translator: Nilson Arcuri <nilson.arcuri@gmail.com>\n"
 "Language-Team: none\n"
@@ -26,52 +26,58 @@ msgid "Date"
 msgstr "Data"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-msgid "Antivirus database update status"
+#, fuzzy
+msgid "Antivirus Database Update Status"
 msgstr "Data da última atualização do Anti Vírus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed"
+"module was installed."
 msgstr ""
 "A base de dados não foi atualizada desde da instalação do módulo eBox's "
 "mailfilter "
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
-msgid "The last update failed"
+#, fuzzy
+msgid "The last update failed."
 msgstr "Falha na atualização"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher"
+"version {version} or higher."
 msgstr ""
-"Atualização bem sucedida, mas a versão do seu freshclam está desatualizada. \n"
+"Atualização bem sucedida, mas a versão do seu freshclam está "
+"desatualizada. \n"
 " O antivírus não serão capaz de utilizar todos as asinaturas. Por favor, "
 "instalar a versão versão {version} ou superior."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
-msgid "Last update successful"
+#, fuzzy
+msgid "Last update successful."
 msgstr "Atualização bem sucedida."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
-#, perl-brace-format
-msgid "Unknown event {event}"
+#, fuzzy, perl-brace-format
+msgid "Unknown event {event}."
 msgstr "Evento desconhecido : {event}"
 
-#: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
-#: src/EBox/AntiVirus.pm:339
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
+#: src/EBox/AntiVirus.pm:347
 msgid "Antivirus"
 msgstr "Anti Vírus"
 
-#: src/EBox/AntiVirus.pm:95
-msgid "Update status"
-msgstr "Status da Atualização."
+#: src/EBox/AntiVirus.pm:92
+msgid "UTM"
+msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
-msgid "To configure clamd daemon"
+#, fuzzy
+msgid " To configure clamd daemon"
 msgstr "Configuração do Clamd Daemon"
 
 #: src/EBox/AntiVirus.pm:182
@@ -81,3 +87,6 @@ msgstr "Configuração do atualizador freshclam"
 #: src/EBox/AntiVirus.pm:187
 msgid "To schedule the launch of the updater"
 msgstr "Agendar a atualização"
+
+#~ msgid "Update status"
+#~ msgstr "Status da Atualização."

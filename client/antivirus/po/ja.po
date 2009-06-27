@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:43+0100\n"
+"POT-Creation-Date: 2009-06-28 00:01+0200\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,17 +25,17 @@ msgid "Date"
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-msgid "Antivirus database update status"
+msgid "Antivirus Database Update Status"
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed"
+"module was installed."
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
-msgid "The last update failed"
+msgid "The last update failed."
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
@@ -43,29 +43,29 @@ msgstr ""
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher"
+"version {version} or higher."
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
-msgid "Last update successful"
+msgid "Last update successful."
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
-msgid "Unknown event {event}"
+msgid "Unknown event {event}."
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
-#: src/EBox/AntiVirus.pm:339
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
+#: src/EBox/AntiVirus.pm:347
 msgid "Antivirus"
 msgstr ""
 
-#: src/EBox/AntiVirus.pm:95
-msgid "Update status"
+#: src/EBox/AntiVirus.pm:92
+msgid "UTM"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
-msgid "To configure clamd daemon"
+msgid " To configure clamd daemon"
 msgstr ""
 
 #: src/EBox/AntiVirus.pm:182

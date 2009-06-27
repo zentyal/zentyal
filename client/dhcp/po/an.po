@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 09:59+0100\n"
+"POT-Creation-Date: 2009-06-28 00:03+0200\n"
 "PO-Revision-Date: 2007-01-31 23:34+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -15,6 +15,125 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
+
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
+#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429
+#: src/EBox/DHCP.pm:479 src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631
+#: src/EBox/DHCP.pm:692 src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139
+msgid "Interface"
+msgstr "Interfaz"
+
+#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/EBox/Model/RangeTable.pm:213 src/EBox/Model/FixedAddressTable.pm:210
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "Dende"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "Dica"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "estato d'o modulo"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:1140 src/EBox/DHCP.pm:1208
+#: src/EBox/Model/FixedAddressTable.pm:216 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "Adreza MAC"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:1208
+#: src/EBox/Model/FixedAddressTable.pm:222
+#: src/EBox/Model/ThinClientOptions.pm:242 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "Adreza IP"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Estato d'o modulo"
+
+#: src/EBox/DHCP.pm:164
+msgid "Infrastructure"
+msgstr ""
+
+#: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
+#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
+#, perl-brace-format
+msgid "{iface} is not static"
+msgstr "{iface} no ye estatica"
+
+#: src/EBox/DHCP.pm:569
+msgid "Not a valid action: add, set and del are available"
+msgstr ""
+
+#: src/EBox/DHCP.pm:684
+msgid "No valid action. Available ones are: add, set and del"
+msgstr ""
+
+#: src/EBox/DHCP.pm:923
+#, fuzzy, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
+"it before trying to add a virtual interface using it."
+msgstr ""
+"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
+"emplegata por o ran DHCP '{range}' en a interfaz '{iface}'. Por fabor, "
+"elimine o rango antis d'intentar adibir una interfaz birtual que emplegue "
+"ixa IP."
+
+#: src/EBox/DHCP.pm:942
+#, fuzzy, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you are trying to add is already "
+"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
+"remove it before trying to add a virtual interface using it."
+msgstr ""
+"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
+"emplegata por l'asinnazión estatica de DHCP '{fixed}' en a interfaz "
+"'{iface}'. Por fabor, elimine l'asinnazión estatica antis d'intentar adibir "
+"una interfaz birtual que emplegue ixa IP."
+
+#: src/EBox/DHCP.pm:1138
+msgid "Date"
+msgstr "Calendata"
+
+#: src/EBox/DHCP.pm:1141
+msgid "IP"
+msgstr "IP"
+
+#: src/EBox/DHCP.pm:1142
+msgid "Event"
+msgstr "Ebento"
+
+#: src/EBox/DHCP.pm:1145
+msgid "Leased"
+msgstr "Zedita"
+
+#: src/EBox/DHCP.pm:1145
+msgid "Released"
+msgstr "Liberata"
+
+#: src/EBox/DHCP.pm:1148
+msgid "DHCP"
+msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1208
+#, fuzzy
+msgid "Host name"
+msgstr "Nombre"
+
+#: src/EBox/DHCP.pm:1235
+#, fuzzy
+msgid "DHCP leases"
+msgstr "Rans DHCP"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
@@ -42,40 +161,24 @@ msgstr "O ran {from}-{to} no ye en o rete {net}"
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "O ran {new_from}-{new_to} encluye l'adreza IP d'a interfaz: {iface_ip}"
 
-#: src/EBox/Model/RangeTable.pm:163
+#: src/EBox/Model/RangeTable.pm:164
 #, fuzzy, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
 "O ran {new_from}-{new_to} coinzide con o ran '{range}': {old_from}-{old_to}"
 
-#: src/EBox/Model/RangeTable.pm:180
+#: src/EBox/Model/RangeTable.pm:182
 #, fuzzy, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 "O ran {new_from}-{new_to} encluye l'asinnazión estatica '{name}': {fixed_ip}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "Dende"
-
-#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "Dica"
-
-#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
+#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Rans"
 
-#: src/EBox/Model/RangeTable.pm:238
+#: src/EBox/Model/RangeTable.pm:240
 #, fuzzy
 msgid "range"
 msgstr "Rans"
@@ -183,30 +286,46 @@ msgstr "Adreza IP \"Dende\""
 msgid "Configured ones"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:385 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:382
+msgid ""
+"Setting \"eBox\" as default gateway will set the interface IP address as "
+"gateway"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:388 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Dominio de busca"
 
-#: src/EBox/Model/Options.pm:391 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:391
+msgid ""
+"The selected domain will complete on your clients those DNS queries which "
+"are not fully qualified"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:396 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Serbidor de nombres primario"
 
-#: src/EBox/Model/Options.pm:397 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:399
+msgid ""
+"If \"eBox DNS\" is present and selected, the eBox server will act as cache "
+"DNS server"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:404 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Serbidor de nombres secundario"
 
-#: src/EBox/Model/Options.pm:405
+#: src/EBox/Model/Options.pm:412
 msgid "Common options"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:410
+#: src/EBox/Model/Options.pm:417
 msgid ""
-"Setting \"eBox\" as default gateway will set as default gateway the "
-"interface address. If you set a \"name\", you may choose one the configured "
-"gateways. As \"search domain\" value, one of the configured DNS domains on "
-"eBox might be chosen. If you set the \"Primary nameserver\" the \"eBox DNS\" "
-"if installed, the eBox server may act as cache DNS server. All fields are "
-"optionals setting its value as \"None\" or leaving blank."
+"If you set a \"configured ones\" as default gateway, you may choose one the "
+"configured gateways. As \"search domain\" value, one of the configured DNS "
+"domains on eBox might be chosen. All fields are optionals setting its value "
+"as \"None\" or leaving blank."
 msgstr ""
 
 #: src/EBox/Model/FixedAddressTable.pm:120
@@ -219,53 +338,42 @@ msgstr "L'adreza IP {ip} no ye en o rete {net}"
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "A IP trigata ye l'adreza IP d'a interfaz: {iface_ip}"
 
-#: src/EBox/Model/FixedAddressTable.pm:147
+#: src/EBox/Model/FixedAddressTable.pm:148
 #, fuzzy, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "L'adreza {ip} ye en o ran '{range}': {old_from}-{old_to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:159
+#: src/EBox/Model/FixedAddressTable.pm:160
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:177
+#: src/EBox/Model/FixedAddressTable.pm:178
 #, fuzzy
 msgid "update"
 msgstr "Calendata"
 
-#: src/EBox/Model/FixedAddressTable.pm:179
+#: src/EBox/Model/FixedAddressTable.pm:180
 #, fuzzy
 msgid "add"
 msgstr "Adibir"
 
-#: src/EBox/Model/FixedAddressTable.pm:181
+#: src/EBox/Model/FixedAddressTable.pm:182
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
-#: src/EBox/DHCP.pm:1153 src/EBox/DHCP.pm:1221 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "Adreza MAC"
-
-#: src/EBox/Model/FixedAddressTable.pm:221
-#: src/EBox/Model/ThinClientOptions.pm:242 src/EBox/CGI/AddFixed.pm:44
-#: src/EBox/DHCP.pm:1221 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "Adreza IP"
-
-#: src/EBox/Model/FixedAddressTable.pm:224
+#: src/EBox/Model/FixedAddressTable.pm:225
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:231 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:232 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Asinnazions estaticas"
 
-#: src/EBox/Model/FixedAddressTable.pm:238
+#: src/EBox/Model/FixedAddressTable.pm:239
 #, fuzzy
 msgid "fixed address"
 msgstr "Asinnazions estaticas"
@@ -285,8 +393,7 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
-"You can only specify a file\n"
-"              name if you have a next server and it is not eBox"
+"You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:209
@@ -324,23 +431,6 @@ msgid ""
 "all the files you require under {path} directory"
 msgstr ""
 
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:412
-#: src/EBox/DHCP.pm:448 src/EBox/DHCP.pm:498 src/EBox/DHCP.pm:596
-#: src/EBox/DHCP.pm:650 src/EBox/DHCP.pm:710 src/EBox/DHCP.pm:766
-#: src/EBox/DHCP.pm:1152
-msgid "Interface"
-msgstr "Interfaz"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "estato d'o modulo"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Estato d'o modulo"
-
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
 msgid ""
@@ -373,78 +463,6 @@ msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
-
-#: src/EBox/DHCP.pm:418 src/EBox/DHCP.pm:454 src/EBox/DHCP.pm:504
-#: src/EBox/DHCP.pm:602 src/EBox/DHCP.pm:716 src/EBox/DHCP.pm:772
-#, perl-brace-format
-msgid "{iface} is not static"
-msgstr "{iface} no ye estatica"
-
-#: src/EBox/DHCP.pm:588
-msgid "Not a valid action: add, set and del are available"
-msgstr ""
-
-#: src/EBox/DHCP.pm:702
-msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
-
-#: src/EBox/DHCP.pm:939
-#, fuzzy, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
-"it before trying to add a virtual interface using it."
-msgstr ""
-"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
-"emplegata por o ran DHCP '{range}' en a interfaz '{iface}'. Por fabor, "
-"elimine o rango antis d'intentar adibir una interfaz birtual que emplegue "
-"ixa IP."
-
-#: src/EBox/DHCP.pm:957
-#, fuzzy, perl-brace-format
-msgid ""
-"The IP address of the virtual interface you are trying to add is already "
-"used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
-"remove it before trying to add a virtual interface using it."
-msgstr ""
-"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
-"emplegata por l'asinnazión estatica de DHCP '{fixed}' en a interfaz "
-"'{iface}'. Por fabor, elimine l'asinnazión estatica antis d'intentar adibir "
-"una interfaz birtual que emplegue ixa IP."
-
-#: src/EBox/DHCP.pm:1151
-msgid "Date"
-msgstr "Calendata"
-
-#: src/EBox/DHCP.pm:1154
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/DHCP.pm:1155
-msgid "Event"
-msgstr "Ebento"
-
-#: src/EBox/DHCP.pm:1158
-msgid "Leased"
-msgstr "Zedita"
-
-#: src/EBox/DHCP.pm:1158
-msgid "Released"
-msgstr "Liberata"
-
-#: src/EBox/DHCP.pm:1161
-msgid "DHCP"
-msgstr "DHCP"
-
-#: src/EBox/DHCP.pm:1221
-#, fuzzy
-msgid "Host name"
-msgstr "Nombre"
-
-#: src/EBox/DHCP.pm:1248
-#, fuzzy
-msgid "DHCP leases"
-msgstr "Rans DHCP"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"

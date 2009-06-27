@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"POT-Creation-Date: 2009-06-28 00:18+0200\n"
 "PO-Revision-Date: 2007-04-05 15:54+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -97,7 +97,7 @@ msgid "Destination object"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1559
+#: src/EBox/TrafficShaping.pm:1543
 msgid "Priority"
 msgstr "Priorytet"
 
@@ -106,7 +106,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1557
+#: src/EBox/TrafficShaping.pm:1541
 msgid "Guaranteed Rate"
 msgstr "Gwarantowana przepustowość"
 
@@ -118,11 +118,11 @@ msgstr "Kbit/s"
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unlimited rate."
+"bandwidth. 0 means unguaranteed rate."
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1558
+#: src/EBox/TrafficShaping.pm:1542
 msgid "Limited Rate"
 msgstr "Ograniczona przepustowość"
 
@@ -145,12 +145,12 @@ msgstr ""
 msgid "rule"
 msgstr "reguła"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:655
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:702
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -159,61 +159,22 @@ msgid ""
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:759
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:775
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:792
 msgid "Application based service"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:783
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:799
 msgid "Application based service group"
 msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, fuzzy, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W celu "
-"wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny interfejs "
-"poprzez wybranie {openhref}Network->Interfaces{closehref}"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, fuzzy, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
-"ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
-"przejdź do {openhref}Network->Gateways{closehref}"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-#, fuzzy
-msgid "Rules list per interface"
-msgstr "Lista reguł dla interfejsu"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-#, fuzzy
-msgid "Choose an interface to shape"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -273,42 +234,85 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W celu "
+"wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny interfejs "
+"poprzez wybranie {openhref}Network->Interfaces{closehref}"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
+"ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
+"przejdź do {openhref}Network->Gateways{closehref}"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#, fuzzy
+msgid "Rules list per interface"
+msgstr "Lista reguł dla interfejsu"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#, fuzzy
+msgid "Choose an interface to shape"
+msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+
 #: src/EBox/TC.pm:69
 msgid "options"
 msgstr "opcje"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:429
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:961
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:412
+#: src/EBox/TrafficShaping.pm:563 src/EBox/TrafficShaping.pm:945
 msgid "Interface"
 msgstr "Interfejs"
 
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:375
+#: src/EBox/TrafficShaping.pm:92 src/EBox/TrafficShaping.pm:356
 msgid "Traffic Shaping"
 msgstr "Kształtowanie Ruchu"
 
-#: src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:93
 #, fuzzy
 msgid "traffic shaping"
 msgstr "Kształtowanie Ruchu"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:131
 msgid "Add iptables rules to mangle table"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "To mark packets with different priorities and rates"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:136
 msgid "Add tc rules"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 #, fuzzy
 msgid "To implement the traffic shaping rules"
 msgstr "Reguły kierowania ruchu"
 
-#: src/EBox/TrafficShaping.pm:442
+#: src/EBox/TrafficShaping.pm:357
+msgid "Gateway"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:425
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -317,7 +321,7 @@ msgstr ""
 "Została osiągnięta maksymalna ( {max} ) ilość reguł. Aby dodać następną usuń "
 "jedną z istniejących."
 
-#: src/EBox/TrafficShaping.pm:978
+#: src/EBox/TrafficShaping.pm:962
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -325,11 +329,11 @@ msgstr ""
 "Kształtowanie ruchu może zostać uruchomione tylko na interfejsach "
 "zewnętrznych, które posiadają zdefiniowane w konfiguracji bramy."
 
-#: src/EBox/TrafficShaping.pm:1067
+#: src/EBox/TrafficShaping.pm:1051
 msgid "type"
 msgstr "typ"
 
-#: src/EBox/TrafficShaping.pm:1090
+#: src/EBox/TrafficShaping.pm:1074
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -338,11 +342,11 @@ msgstr ""
 "Interfejs {iface} powinien mieć ustawioną maksymalna przepustowość w celu "
 "wykonywania kształtowanie ruchu."
 
-#: src/EBox/TrafficShaping.pm:1555
+#: src/EBox/TrafficShaping.pm:1539
 msgid "Protocol"
 msgstr "Protokół"
 
-#: src/EBox/TrafficShaping.pm:1556
+#: src/EBox/TrafficShaping.pm:1540
 msgid "Port"
 msgstr "Port"
 

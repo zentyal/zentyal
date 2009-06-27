@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 09:58+0100\n"
+"POT-Creation-Date: 2009-06-28 00:03+0200\n"
 "PO-Revision-Date: 2008-11-14 06:52+0000\n"
 "Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -18,192 +18,131 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:43
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/Index.pm:39
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:43
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:42
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:42
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:41
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:43
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42
-msgid "Certification Authority Management"
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/ShowForm.pm:41
+#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/IssueCertificate.pm:46 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CA.pm:1701
+#, fuzzy
+msgid "Certification Authority"
 msgstr "Управление сертификатами подлинности"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:108
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
-#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
-msgid "CA passphrases do NOT match"
-msgstr "CA-пароли НЕ совпадают"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
-#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
-#, perl-brace-format
-msgid "CA Passphrase should be at least {length} characters"
-msgstr "CA-пароль должен содержать минимум {length} символов"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:88
-#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
-#: src/EBox/CGI/RenewCertificate.pm:88
-#, fuzzy, perl-brace-format
-msgid "Days to expire ({days}) must be a positive number"
-msgstr "Кол-во дней до истечения срока ДОЛЖНО быть натуральным числом"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:134
-#: src/EBox/CGI/CreateCA.pm:134
-msgid "Problems creating Certification Authority has happened"
-msgstr "Проблемы с созданием сертификата подлинности"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:69
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:74
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:76
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:62
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:438
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:516
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:642
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:706
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:872
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1187
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1229
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1328 src/EBox/CGI/ShowForm.pm:62
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:69
-#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
-#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
-#: src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706 src/EBox/CA.pm:872
-#: src/EBox/CA.pm:1187 src/EBox/CA.pm:1229 src/EBox/CA.pm:1328
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:43
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:28
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:23
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/ShowForm.pm:64
+#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/RevokeCertificate.pm:76
+#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/EBox/Model/Certificates.pm:231 src/EBox/CA.pm:746 src/EBox/CA.pm:909
+#: src/EBox/CA.pm:1236 src/EBox/CA.pm:1278 src/EBox/CA.pm:1372
 #: src/templates/formRenew.mas:43 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28
 msgid "Common Name"
 msgstr "Каноническое наименование"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:79
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:81
-#: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
+#: src/EBox/CGI/DownloadFiles.pm:79 src/EBox/CGI/ShowForm.pm:91
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Имя: {cn} отсутствует в базе данных"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:127
 #: src/EBox/CGI/DownloadFiles.pm:127
 msgid "Error creating file"
 msgstr "Ошибка создания файла"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:67
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:154
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:254
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:214
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:488
-#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA/TestStub.pm:154
-#: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:214 src/EBox/CA.pm:488
-#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:7
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:37
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:22
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:22
-#: src/templates/formRenew.mas:37 src/templates/createCA.mas:7
-#: src/templates/index.mas:22 src/templates/formRevoke.mas:22
-msgid "Organization Name"
-msgstr "Наименование организация"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:72
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
-#: src/EBox/CGI/IssueCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:69
-#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:9
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:13
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:28
-#: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
-#: src/templates/index.mas:28
-msgid "Days to expire"
-msgstr "Дни до истечения срока"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:108
-#: src/EBox/CGI/IssueCertificate.pm:108
+#: src/EBox/CGI/ShowForm.pm:68 src/EBox/CGI/IssueCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
+#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
+"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "Ввод содержит некорректные символы. Допустимы все буквенно-цифровые символы, "
 "а также символы: .?&+:\\\\@ и пробелы."
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:127
-#: src/EBox/CGI/IssueCertificate.pm:127
-msgid "The certificate has been issued"
+#: src/EBox/CGI/ShowForm.pm:74
+msgid "Action"
+msgstr "Действие"
+
+#: src/EBox/CGI/ShowForm.pm:83
+msgid "Only revoke and renew actions are performed"
+msgstr "Предусмотрены только аннулирование и обновление"
+
+#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
+msgid "CA passphrases do NOT match"
+msgstr "CA-пароли НЕ совпадают"
+
+#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:123
+#, perl-brace-format
+msgid "CA Passphrase should be at least {length} characters"
+msgstr "CA-пароль должен содержать минимум {length} символов"
+
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/IssueCertificate.pm:133
+#: src/EBox/CGI/RenewCertificate.pm:95
+#, fuzzy, perl-brace-format
+msgid "Days to expire ({days}) must be a positive number"
+msgstr "Кол-во дней до истечения срока ДОЛЖНО быть натуральным числом"
+
+#: src/EBox/CGI/CreateCA.pm:140
+msgid "Problems creating Certification Authority has happened"
+msgstr "Проблемы с созданием сертификата подлинности"
+
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA/TestStub.pm:154
+#: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:251 src/EBox/CA.pm:528
+#: src/templates/formRenew.mas:37 src/templates/index.mas:22
+#: src/templates/createCA.mas:7 src/templates/formRevoke.mas:22
+msgid "Organization Name"
+msgstr "Наименование организация"
+
+#: src/EBox/CGI/IssueCertificate.pm:162
+#, fuzzy
+msgid "The certificate has been issued."
 msgstr "Сертификат издан"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
-#: src/EBox/CGI/IssueCertificate.pm:128
-msgid "The new CA certificate has been issued"
+#: src/EBox/CGI/IssueCertificate.pm:163
+#, fuzzy
+msgid "The new CA certificate has been issued."
 msgstr "Новый CA-сертификат был издан"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:64
-#: src/EBox/CGI/RenewCertificate.pm:64
-msgid "The certificate has NOT been renewed"
-msgstr "Сертификат НЕ был обновлен"
+#: src/EBox/CGI/RevokeCertificate.pm:64
+#, fuzzy
+msgid "The certificate has NOT been revoked."
+msgstr "Сертификат НЕ был аннулирован"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:68
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:70
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Булевая индикация CA-сертификата"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:135
-#: src/EBox/CGI/RenewCertificate.pm:135
-msgid "The certificate CANNOT be renewed"
-msgstr "Сертификат НЕ МОЖЕТ быть обновлен"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:137
-#: src/EBox/CGI/RenewCertificate.pm:137
-msgid "The certificate has been renewed"
-msgstr "Сертификат был обновлен"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:138
-#: src/EBox/CGI/RenewCertificate.pm:138
-msgid "The new CA certificate has been renewed"
-msgstr "Новый CA-сертификат был обновлен"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:64
-#: src/EBox/CGI/RevokeCertificate.pm:64
-msgid "The certificate has NOT been revoked"
-msgstr "Сертификат НЕ был аннулирован"
-
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:71
-#: src/EBox/CGI/RevokeCertificate.pm:71
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:57
-#: src/templates/formRevoke.mas:57
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
 msgid "Reason"
 msgstr "Причина"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:131
-#: src/EBox/CGI/RevokeCertificate.pm:131
+#: src/EBox/CGI/RevokeCertificate.pm:138
 msgid "The certificate has been revoked"
 msgstr "Сертификат был аннулирован"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:132
-#: src/EBox/CGI/RevokeCertificate.pm:132
+#: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The CA certificate has been revoked"
 msgstr "CA-сертификат был аннулирован"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:63
-#: src/EBox/CGI/ShowForm.pm:63
-msgid "Action"
-msgstr "Действие"
+#: src/EBox/CGI/RenewCertificate.pm:64
+msgid "The certificate has NOT been renewed"
+msgstr "Сертификат НЕ был обновлен"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:73
-#: src/EBox/CGI/ShowForm.pm:73
-msgid "Only revoke and renew actions are performed"
-msgstr "Предусмотрены только аннулирование и обновление"
+#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
+#: src/templates/index.mas:52 src/templates/createCA.mas:19
+msgid "Days to expire"
+msgstr "Дни до истечения срока"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:259
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
-#: src/EBox/CA.pm:502
+#: src/EBox/CGI/RenewCertificate.pm:142
+msgid "The certificate CANNOT be renewed"
+msgstr "Сертификат НЕ МОЖЕТ быть обновлен"
+
+#: src/EBox/CGI/RenewCertificate.pm:144
+msgid "The certificate has been renewed"
+msgstr "Сертификат был обновлен"
+
+#: src/EBox/CGI/RenewCertificate.pm:145
+msgid "The new CA certificate has been renewed"
+msgstr "Новый CA-сертификат был обновлен"
+
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:542
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -211,45 +150,62 @@ msgstr ""
 "CA-сертификаты должны быть аннулированы или иметь истекший срок действия "
 "перед изданием нового сертификата"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:654
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "Пользователь {commonName} не существует"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:720
 #: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Дни установлены в максимально допустимое значение: Ошибка 2038 года"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:729
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:743
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
-#: src/EBox/CA.pm:743 src/EBox/CA.pm:1324
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2388
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Дата истечения срока позднее даты истечения срока CA-сертификата"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:255
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:723
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1303 src/EBox/CA.pm:255
-#: src/EBox/CA.pm:723 src/EBox/CA.pm:1303
+#: src/EBox/Model/Certificates.pm:92
+#, fuzzy
+msgid "You must create a Certification Authority."
+msgstr "Создать CA-сертификат"
+
+#: src/EBox/Model/Certificates.pm:213
+msgid "Module"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:225
+msgid "Service"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:237
+msgid "Enable"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:245 src/EBox/CA.pm:1709
+#, fuzzy
+msgid "Services Certificates"
+msgstr "Аннулирование сертификата"
+
+#: src/EBox/Model/Certificates.pm:246
+#, fuzzy
+msgid "certificate"
+msgstr "Файл сертификата"
+
+#: src/EBox/CA.pm:292 src/EBox/CA.pm:763 src/EBox/CA.pm:1351
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr ""
 "Дни установлены в максимально допустимое значение {days}: Ошибка 2038 года"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:347 src/EBox/CA.pm:347
+#: src/EBox/CA.pm:387
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Операция удаления не может быть завершена. Причина: "
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:885
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1198 src/EBox/CA.pm:885
-#: src/EBox/CA.pm:1198
+#: src/EBox/CA.pm:922 src/EBox/CA.pm:1247
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Сертификата с именем {cn} не существует"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:889 src/EBox/CA.pm:889
+#: src/EBox/CA.pm:926
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -258,28 +214,28 @@ msgstr ""
 "Причина {reason} НЕ является применимой причиной.\n"
 "Опции:"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1102 src/EBox/CA.pm:1102
+#: src/EBox/CA.pm:1151
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Текущее имя, отмеченное имя или серийный номер был сдан"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1329 src/EBox/CA.pm:1329
+#: src/EBox/CA.pm:1373
 msgid "or"
 msgstr "или"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1330 src/EBox/CA.pm:1330
+#: src/EBox/CA.pm:1374
 msgid "Certificate file"
 msgstr "Файл сертификата"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1352 src/EBox/CA.pm:1352
+#: src/EBox/CA.pm:1396
 msgid "The certificate to renew does NOT exist"
 msgstr "Обновляемый сертификат отсутствует"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1391 src/EBox/CA.pm:1391
+#: src/EBox/CA.pm:1436
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Сертификат с именем {cn} отсутствует в этом CA"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1419 src/EBox/CA.pm:1419
+#: src/EBox/CA.pm:1464
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -287,37 +243,41 @@ msgstr ""
 "Приватный ключ нуждается в создании нового запроса. Обновлений сделано не "
 "было. Издайте новый сертификат с новыми ключами"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1649 src/EBox/CA.pm:1649
-msgid "Certificate Manager"
-msgstr "Менеджер Сертификатов"
+#: src/EBox/CA.pm:1702
+msgid "Infrastructure"
+msgstr ""
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2173 src/EBox/CA.pm:2173
+#: src/EBox/CA.pm:1706
+msgid "General"
+msgstr ""
+
+#: src/EBox/CA.pm:2266
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Невозможно подписаться. Ошибочный CA-пароль или имеющийся приватный CA-ключ "
 "пропал?"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2175 src/EBox/CA.pm:2175
+#: src/EBox/CA.pm:2268
 msgid "Database corruption"
 msgstr "Повреждение базы данных"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2177 src/EBox/CA.pm:2177
+#: src/EBox/CA.pm:2270
 msgid "Identifier duplicated in Database"
 msgstr "Идентификатор скопирован в базе данных"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2179 src/EBox/CA.pm:2179
+#: src/EBox/CA.pm:2272
 msgid "Certificate already revoked"
 msgstr "Сертификат уже аннулирован"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2182 src/EBox/CA.pm:2182
+#: src/EBox/CA.pm:2275
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Слишком длинное поле ASN1. Максимальная длина:"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2184 src/EBox/CA.pm:2184
+#: src/EBox/CA.pm:2277
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Неизвестная ошибка. Полученный вывод OpenSSL:"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2257 src/EBox/CA.pm:2257
+#: src/EBox/CA.pm:2352
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -325,17 +285,17 @@ msgid ""
 msgstr ""
 "Создан CA с именем организации {orgName} и сроком действия на {days} дней"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2259 src/EBox/CA.pm:2259
+#: src/EBox/CA.pm:2354
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Уничтожен CA с именем организации {orgName}"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2261 src/EBox/CA.pm:2261
+#: src/EBox/CA.pm:2356
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "Аннулирован CA-сертификат по причине {reason} вызванной: {force}"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2263 src/EBox/CA.pm:2263
+#: src/EBox/CA.pm:2358
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -344,7 +304,7 @@ msgstr ""
 "Издан CA-сертификат с именем организации {orgName} и сроком действия на "
 "{days} дней"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2265 src/EBox/CA.pm:2265
+#: src/EBox/CA.pm:2360
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -353,98 +313,150 @@ msgstr ""
 "Обновлен CA-сертификат с именем организации {orgName} и сроком действия на "
 "{days} дней"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2267 src/EBox/CA.pm:2267
+#: src/EBox/CA.pm:2362
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Издан сертификат с именем {cn} и сроком действия на {days} дней"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2269 src/EBox/CA.pm:2269
+#: src/EBox/CA.pm:2364
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
 "Аннулирован сертификат с именем {cn} по причине {reason} вызванной: {force}"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2271 src/EBox/CA.pm:2271
+#: src/EBox/CA.pm:2366
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "Обновлен сертификат с именем {cn} и сроком действия на {days} дней"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2273 src/EBox/CA.pm:2273
+#: src/EBox/CA.pm:2368
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Обновлена база данных сертификатов. {number} сертификатов недействительны по "
 "сроку"
 
-#: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:2356 src/EBox/CA.pm:2356
+#: src/EBox/CA.pm:2476
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Не могу запустить оболочку OpenSSL. ({errval})"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:15
-#: src/templates/createCA.mas:15
-msgid "Create"
-msgstr "Создать"
+#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:65
+msgid "CA Passphrase"
+msgstr "CA-пароль"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/createCA.mas:23
-#: src/templates/createCA.mas:23
-msgid "Create Certification Authority Certificate"
-msgstr "Создать CA-сертификат"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:27
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:23
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:149
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:166
-#: src/templates/formRenew.mas:23 src/templates/index.mas:149
-#: src/templates/index.mas:166 src/templates/forceRenew.mas:27
+#: src/templates/formRenew.mas:23 src/templates/index.mas:160
+#: src/templates/index.mas:177 src/templates/forceRenew.mas:27
 msgid "Renew"
 msgstr "Обновить"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:42
-#: src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "Обновление CA-сертификата"
+#: src/templates/formRenew.mas:28
+msgid "Renew a certificate"
+msgstr "Обновить сертификат"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:44
-#: src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Обновление сертификата"
+#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
+msgid "Expiration Date"
+msgstr "Дата истечения срока"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:50
-#: src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
+#: src/templates/index.mas:41 src/templates/createCA.mas:9
+msgid "Country code"
 msgstr ""
-"Это обновление может сказаться на функциональности других модулей. Убедитесь "
-"в необходимости обновления всей сертификации подлинности от {on} и оставьте "
-"службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRenew.mas:53
-#: src/templates/forceRenew.mas:53
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
+#: src/templates/index.mas:44 src/templates/createCA.mas:13
+msgid "City"
 msgstr ""
-"Сертификат {cn}, который Вы пытаетесь обновить в данный момент некоторыми "
-"модулями. Убедитесь в необходимости обновления и оставьте службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:13
+#: src/templates/index.mas:47 src/templates/index.mas:84
+#: src/templates/createCA.mas:16
+msgid "State"
+msgstr "Состояние"
+
+#: src/templates/index.mas:57
+msgid "Issue"
+msgstr "Издать"
+
+#: src/templates/index.mas:62
+msgid "Certificate changes will take effect immediately"
+msgstr "Изменения в сертификате будут приняты немедленно"
+
+#: src/templates/index.mas:64
+msgid "The CA passphrase is optional"
+msgstr "CA-пароль опционален"
+
+#: src/templates/index.mas:68
+msgid "Issue the Certification Authority Certificate"
+msgstr "Издать CA-сертификат"
+
+#: src/templates/index.mas:70
+#, fuzzy
+msgid "Issue a New Certificate"
+msgstr "Издать новый сертификат"
+
+#: src/templates/index.mas:77
+msgid "Current Certificate List"
+msgstr "Список текущих сертификатов"
+
+#: src/templates/index.mas:79
+msgid ""
+"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+"Revoked certificates respectively"
+msgstr ""
+"Дата приближается к дате окончания действия / аннулирования сертификатов"
+
+#: src/templates/index.mas:83
+msgid "Name"
+msgstr "Имя"
+
+#: src/templates/index.mas:85
+msgid "Date"
+msgstr "Дата"
+
+#: src/templates/index.mas:86
+msgid "Actions"
+msgstr "Действия"
+
+#: src/templates/index.mas:97
+msgid "from"
+msgstr "от"
+
+#: src/templates/index.mas:108
+msgid "Valid"
+msgstr "Действительный"
+
+#: src/templates/index.mas:110
+msgid "Expired"
+msgstr "Недействительный"
+
+#: src/templates/index.mas:112
+msgid "Revoked"
+msgstr "Аннулированный"
+
+#: src/templates/index.mas:141 src/templates/index.mas:173
+#: src/templates/forceRevoke.mas:42 src/templates/formRevoke.mas:71
+msgid "Revoke"
+msgstr "Аннулировать"
+
+#: src/templates/index.mas:150 src/templates/index.mas:175
+msgid "Download Key(s) and Certificate"
+msgstr "Загрузить Ключ(и) и Сертификат"
+
+#: src/templates/createCA.mas:26
+msgid "Create"
+msgstr "Создать"
+
+#: src/templates/createCA.mas:34
+msgid "Create Certification Authority Certificate"
+msgstr "Создать CA-сертификат"
+
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
 msgstr "Аннулирование CA-сертификата"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:15
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
 msgstr "Аннулирование сертификата"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:21
 #: src/templates/forceRevoke.mas:21
 #, perl-brace-format
 msgid ""
@@ -456,7 +468,6 @@ msgstr ""
 "Убедитесь в необходимости аннулирования всей сертификации подлинности от "
 "{on} и оставьте службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:24
 #: src/templates/forceRevoke.mas:24
 #, perl-brace-format
 msgid ""
@@ -468,137 +479,53 @@ msgstr ""
 "некоторыми модулями. Убедитесь в необходимости аннулирования и оставьте "
 "службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:42
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:71
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:130
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:162
-#: src/templates/index.mas:130 src/templates/index.mas:162
-#: src/templates/forceRevoke.mas:42 src/templates/formRevoke.mas:71
-msgid "Revoke"
-msgstr "Аннулировать"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/forceRevoke.mas:45
 #: src/templates/forceRevoke.mas:45
 msgid "Cancel"
 msgstr "Отмена"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:17
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:65
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:34
-#: src/templates/formRenew.mas:17 src/templates/index.mas:34
-#: src/templates/formRevoke.mas:65
-msgid "CA Passphrase"
-msgstr "CA-пароль"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:28
-#: src/templates/formRenew.mas:28
-msgid "Renew a certificate"
-msgstr "Обновить сертификат"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRenew.mas:48
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:33
-#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
-msgid "Expiration Date"
-msgstr "Дата истечения срока"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:10
 #: src/templates/formRevoke.mas:10
-msgid "Revoke a certificate"
+#, fuzzy
+msgid "Revoke a Certificate"
 msgstr "Аннулировать сертификат"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:18
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Аннулировать выбранный сертификат"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:41
-#: src/templates/index.mas:41
-msgid "Re CA Passphrase"
-msgstr "Подтверждение CA-пароля"
+#: src/templates/forceRenew.mas:42
+msgid "Renewing CA certificate"
+msgstr "Обновление CA-сертификата"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:46
-#: src/templates/index.mas:46
-msgid "Issue"
-msgstr "Издать"
+#: src/templates/forceRenew.mas:44
+msgid "Renewing certificate"
+msgstr "Обновление сертификата"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:51
-#: src/templates/index.mas:51
-msgid "Certificate changes will take effect immediately"
-msgstr "Изменения в сертификате будут приняты немедленно"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:53
-#: src/templates/index.mas:53
-msgid "The CA passphrase is optional"
-msgstr "CA-пароль опционален"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:57
-#: src/templates/index.mas:57
-msgid "Issue the Certification Authority Certificate"
-msgstr "Издать CA-сертификат"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:59
-#: src/templates/index.mas:59
-msgid "Issue a new certificate"
-msgstr "Издать новый сертификат"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:66
-#: src/templates/index.mas:66
-msgid "Current Certificate List"
-msgstr "Список текущих сертификатов"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:68
-#: src/templates/index.mas:68
+#: src/templates/forceRenew.mas:50
+#, perl-brace-format
 msgid ""
-"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
-"Revoked certificates respectively"
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
 msgstr ""
-"Дата приближается к дате окончания действия / аннулирования сертификатов"
+"Это обновление может сказаться на функциональности других модулей. Убедитесь "
+"в необходимости обновления всей сертификации подлинности от {on} и оставьте "
+"службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:72
-#: src/templates/index.mas:72
-msgid "Name"
-msgstr "Имя"
+#: src/templates/forceRenew.mas:53
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Сертификат {cn}, который Вы пытаетесь обновить в данный момент некоторыми "
+"модулями. Убедитесь в необходимости обновления и оставьте службы отключенными"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:73
-#: src/templates/index.mas:73
-msgid "State"
-msgstr "Состояние"
+#~ msgid "Certificate Manager"
+#~ msgstr "Менеджер Сертификатов"
 
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:74
-#: src/templates/index.mas:74
-msgid "Date"
-msgstr "Дата"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:75
-#: src/templates/index.mas:75
-msgid "Actions"
-msgstr "Действия"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:86
-#: src/templates/index.mas:86
-msgid "from"
-msgstr "от"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:97
-#: src/templates/index.mas:97
-msgid "Valid"
-msgstr "Действительный"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:99
-#: src/templates/index.mas:99
-msgid "Expired"
-msgstr "Недействительный"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:101
-#: src/templates/index.mas:101
-msgid "Revoked"
-msgstr "Аннулированный"
-
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:139
-#: debian/ebox-ca/usr/share/ebox/templates/ca/index.mas:164
-#: src/templates/index.mas:139 src/templates/index.mas:164
-msgid "Download Key(s) and Certificate"
-msgstr "Загрузить Ключ(и) и Сертификат"
+#~ msgid "Re CA Passphrase"
+#~ msgstr "Подтверждение CA-пароля"
 
 #~ msgid "Passphrase"
 #~ msgstr "Пароль"

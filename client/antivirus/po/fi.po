@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-02 19:43+0100\n"
+"POT-Creation-Date: 2009-06-28 00:01+0200\n"
 "PO-Revision-Date: 2009-05-14 10:04+0200\n"
 "Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,53 +27,56 @@ msgstr "Päivämäärä"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 #, fuzzy
-msgid "Antivirus database update status"
+msgid "Antivirus Database Update Status"
 msgstr "Antivirus tietokannan päivityksen tila"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed"
+"module was installed."
 msgstr ""
 "Antiviruksen tietokantaa ei päivitetty, koska  mailfilter eBox moduuli on "
 "asennettu"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
-msgid "The last update failed"
+#, fuzzy
+msgid "The last update failed."
 msgstr "Viime päivitys epäonnistui"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher"
+"version {version} or higher."
 msgstr ""
 "Päivitys onnistui, mutta sinun freshclam versiosi on vanha.\n"
 "Antivirus ei pysty käyttämään kaikkia allekirjoituksia. Ole hyvä ja asenna "
 "versio {version} tai uudempi"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
-msgid "Last update successful"
+#, fuzzy
+msgid "Last update successful."
 msgstr "Viime päivitys onnistui"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
-#, perl-brace-format
-msgid "Unknown event {event}"
+#, fuzzy, perl-brace-format
+msgid "Unknown event {event}."
 msgstr "Tuntematon tapahtuma {event}"
 
-#: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
-#: src/EBox/AntiVirus.pm:339
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
+#: src/EBox/AntiVirus.pm:347
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: src/EBox/AntiVirus.pm:95
-msgid "Update status"
-msgstr "Päivityksen tila"
+#: src/EBox/AntiVirus.pm:92
+msgid "UTM"
+msgstr ""
 
 #: src/EBox/AntiVirus.pm:177
 #, fuzzy
-msgid "To configure clamd daemon"
+msgid " To configure clamd daemon"
 msgstr "Konfiguroimaan clamd daemon"
 
 #: src/EBox/AntiVirus.pm:182
@@ -84,3 +87,6 @@ msgstr "Konfiguroimaan freshclam updater"
 #: src/EBox/AntiVirus.pm:187
 msgid "To schedule the launch of the updater"
 msgstr "Ajasta päivitys"
+
+#~ msgid "Update status"
+#~ msgstr "Päivityksen tila"

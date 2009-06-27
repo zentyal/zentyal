@@ -8,23 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2008-11-10 08:47+0000\n"
+"POT-Creation-Date: 2009-06-28 00:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr ""
-
-#: src/EBox/WebServer/Composite/General.pm:82
-msgid ""
-"The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
-msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
@@ -73,11 +63,12 @@ msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server is hosted on a single physical server. Different host names "
 "will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot}/vHostName "
+"this is possible. The content must be placed under {docRoot} directory. Any "
+"particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:237
+#: src/EBox/WebServer/Model/VHostTable.pm:240
 msgid "virtual host"
 msgstr ""
 
@@ -117,31 +108,45 @@ msgstr ""
 msgid "General Web server configuration settings updated"
 msgstr ""
 
-#: src/EBox/WebServer.pm:97
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:82
+msgid ""
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
 msgstr ""
 
-#: src/EBox/WebServer.pm:102
+#: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
 msgstr ""
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
 msgstr ""
 
-#: src/EBox/WebServer.pm:132
+#: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
 msgstr ""
 
-#: src/EBox/WebServer.pm:193 src/EBox/WebServer.pm:217
+#: src/EBox/WebServer.pm:149
 msgid "Web"
 msgstr ""
 
-#: src/EBox/WebServer.pm:236
+#: src/EBox/WebServer.pm:150
+msgid "Infrastructure"
+msgstr ""
+
+#: src/EBox/WebServer.pm:171
 msgid "Web service status"
 msgstr ""
 
-#: src/EBox/WebServer.pm:409
+#: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""

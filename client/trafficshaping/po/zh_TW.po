@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"POT-Creation-Date: 2009-06-28 00:18+0200\n"
 "PO-Revision-Date: 2009-03-28 10:21+0100\n"
 "Last-Translator: Brian Huang <taiwuco@gmail.com>\n"
 "Language-Team: none\n"
@@ -24,12 +24,10 @@ msgstr "改變或移除 {contextName} 上的某些規則"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:270
 #, perl-brace-format
-#, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "{iface} (內部介面)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:273
-#, perl-brace-format
 #, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "{iface} (外部介面)"
@@ -95,7 +93,7 @@ msgid "Destination object"
 msgstr "目的物件"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1559
+#: src/EBox/TrafficShaping.pm:1543
 msgid "Priority"
 msgstr "優先順序"
 
@@ -104,7 +102,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "最低優先順序：7 最高優先順序：0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1557
+#: src/EBox/TrafficShaping.pm:1541
 msgid "Guaranteed Rate"
 msgstr "保證速率"
 
@@ -114,13 +112,14 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
+#, fuzzy
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unlimited rate."
+"bandwidth. 0 means unguaranteed rate."
 msgstr "請注意  所有保證速率的總和不得超過您的總頻寬。0 表示不限制速率。"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1558
+#: src/EBox/TrafficShaping.pm:1542
 msgid "Limited Rate"
 msgstr "限制的速率"
 
@@ -130,7 +129,6 @@ msgstr "流量不能超過這個速率。0 表示不限制速率。"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
-#, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "{printableIndex} 的規則清單"
 
@@ -138,18 +136,19 @@ msgstr "{printableIndex} 的規則清單"
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
-msgstr "注意: 如果介面為內部, 表示流量是從網際流入內部. 而外部介面則是相反的表示."
+msgstr ""
+"注意: 如果介面為內部, 表示流量是從網際流入內部. 而外部介面則是相反的表示."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
 msgstr "規則"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:655
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "移除 {modelName} 的 {num} 規則"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:702
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -157,60 +156,28 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
-"常態化速率: {limitNum}規則已減低其限制速率到{limitRate}, "
-"{guaranNum}規則已常態化其保證速率來依相同比率維持其先前所有之速率, 而{removeNum}已被刪除因為其保證速率之前低於所容許之最低值"
+"常態化速率: {limitNum}規則已減低其限制速率到{limitRate}, {guaranNum}規則已常"
+"態化其保證速率來依相同比率維持其先前所有之速率, 而{removeNum}已被刪除因為其保"
+"證速率之前低於所容許之最低值"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:759
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
-msgstr "基於連接埠的通訊協定使用埠號來比對服務，基於應用程式的通訊協定比較慢但更有效率，因為他們檢查任何封包的內容以比對服務。"
+msgstr ""
+"基於連接埠的通訊協定使用埠號來比對服務，基於應用程式的通訊協定比較慢但更有效"
+"率，因為他們檢查任何封包的內容以比對服務。"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:775
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:792
 msgid "Application based service"
 msgstr "基於應用程式的服務"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:783
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:799
 msgid "Application based service group"
 msgstr "基於應用程式的服務群組"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"流量控管只有當 eBox "
-"做為閘道器時才有用。要做為閘道器，您至少需要一個內部與一個外部介面。請在{openhref}網路->介面{closehref}檢查您的介面組態是否符合"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"流量控管只有在閘道器的外部介面有設定上傳速率時才有用。為了做到這點，請在{openhref}網路->閘道器{closehref}建立閘道器的外部介面設定"
-"值。"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-msgid "Rules list per interface"
-msgstr "每介面的規則清單"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr "選擇要加入流量控管的介面。請牢記在心當您控管一個內部介面時，您進行的是進入流量的控管。"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr "選擇要控管的介面"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -237,7 +204,9 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
-msgstr "限制的速率 {lR} kbit/s 應該低於 {maxLR}kbit/s ，或者您應該增加該閘道器在外部介面上的最大上傳流量"
+msgstr ""
+"限制的速率 {lR} kbit/s 應該低於 {maxLR}kbit/s ，或者您應該增加該閘道器在外部"
+"介面上的最大上傳流量"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
@@ -260,70 +229,108 @@ msgstr "憑證管理中心金鑰識別碼"
 msgid "Address"
 msgstr "位址"
 
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"流量控管只有當 eBox 做為閘道器時才有用。要做為閘道器，您至少需要一個內部與一"
+"個外部介面。請在{openhref}網路->介面{closehref}檢查您的介面組態是否符合"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"流量控管只有在閘道器的外部介面有設定上傳速率時才有用。為了做到這點，請在"
+"{openhref}網路->閘道器{closehref}建立閘道器的外部介面設定值。"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+msgid "Rules list per interface"
+msgstr "每介面的規則清單"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"選擇要加入流量控管的介面。請牢記在心當您控管一個內部介面時，您進行的是進入流"
+"量的控管。"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr "選擇要控管的介面"
+
 #: src/EBox/TC.pm:69
 msgid "options"
 msgstr "選項"
 
-#: src/EBox/TC.pm:107
-#: src/EBox/TrafficShaping.pm:429
-#: src/EBox/TrafficShaping.pm:579
-#: src/EBox/TrafficShaping.pm:961
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:412
+#: src/EBox/TrafficShaping.pm:563 src/EBox/TrafficShaping.pm:945
 msgid "Interface"
 msgstr "介面"
 
-#: src/EBox/TrafficShaping.pm:93
-#: src/EBox/TrafficShaping.pm:375
+#: src/EBox/TrafficShaping.pm:92 src/EBox/TrafficShaping.pm:356
 msgid "Traffic Shaping"
 msgstr "流量控管"
 
-#: src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:93
 msgid "traffic shaping"
 msgstr "流量控管"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:131
 msgid "Add iptables rules to mangle table"
 msgstr "加入 iptables 規則至 mangle 表"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "To mark packets with different priorities and rates"
 msgstr "將封包標記為不同的優先順序與速率"
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:136
 msgid "Add tc rules"
 msgstr "加入 tc 規則"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "To implement the traffic shaping rules"
 msgstr "實作流量控管規則"
 
-#: src/EBox/TrafficShaping.pm:442
+#: src/EBox/TrafficShaping.pm:357
+msgid "Gateway"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:425
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr "已達最大規則總數 {max} ，請至少刪除一條規則後才能加入新的規則"
 
-#: src/EBox/TrafficShaping.pm:978
+#: src/EBox/TrafficShaping.pm:962
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr "流量控管只能用已作為閘道器的外部介面中"
 
-#: src/EBox/TrafficShaping.pm:1067
+#: src/EBox/TrafficShaping.pm:1051
 msgid "type"
 msgstr "類型"
 
-#: src/EBox/TrafficShaping.pm:1090
+#: src/EBox/TrafficShaping.pm:1074
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr "介面 {iface} 應該有最大頻寬率才能進行流量控管"
 
-#: src/EBox/TrafficShaping.pm:1555
+#: src/EBox/TrafficShaping.pm:1539
 msgid "Protocol"
 msgstr "通訊協定"
 
-#: src/EBox/TrafficShaping.pm:1556
+#: src/EBox/TrafficShaping.pm:1540
 msgid "Port"
 msgstr "連接埠"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:19+0100\n"
+"POT-Creation-Date: 2009-06-28 00:19+0200\n"
 "PO-Revision-Date: 2009-01-23 23:12+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
@@ -16,12 +16,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
+#: src/EBox/Exceptions/DataNotFound.pm:35
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} não existe."
+
+#: src/EBox/Exceptions/DataExists.pm:36
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} já existe."
+
+#: src/EBox/Exceptions/InvalidData.pm:37
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Valor inválido para {data}: {value}."
+
+#: src/EBox/Exceptions/DataMissing.pm:36
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} está vazio."
+
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
 msgstr "Página não encontrada"
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:196
 #: src/EBox/CGI/Base.pm:196
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
@@ -30,18 +48,7 @@ msgstr ""
 "A entrada contém caracteres inválidos. Todos caracteres alfanuméricos, mais "
 "estes não-alfanuméricos:  /.?&+:-@ e espaços são aceitos."
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:333
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:562
-#: src/EBox/CGI/Base.pm:333 src/EBox/CGI/Base.pm:562
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Ocorreu um erro interno, este erro é provavelmente um BUG, informações "
-"importantes podem ser encontradas nos logs."
-
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:343
-#: src/EBox/CGI/Base.pm:343
+#: src/EBox/CGI/Base.pm:346
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -49,69 +56,72 @@ msgstr ""
 "Ocorreu um erro interno relativo ao template, isto é um BUG, informações "
 "importantes podem ser encontradas nos logs."
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:568
-#: src/EBox/CGI/Base.pm:568
+#: src/EBox/CGI/Base.pm:563
+#, fuzzy
 msgid ""
-"An unexpected internal error has ocurred. This is a bug, relevant "
+"An internal error has occurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Ocorreu um erro interno, este erro é provavelmente um BUG, informações "
+"importantes podem ser encontradas nos logs."
+
+#: src/EBox/CGI/Base.pm:569
+#, fuzzy
+msgid ""
+"An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 "Ocorreu um erro interno inesperado. Isto é um BUG, informações importantes "
 "podem ser encontradas nos logs."
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:574
-#: src/EBox/CGI/Base.pm:574
+#: src/EBox/CGI/Base.pm:575
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Você encontrou um BUG no eBox. Por favor procure o suporte técnico."
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:661
-#: src/EBox/CGI/Base.pm:661
+#: src/EBox/CGI/Base.pm:662
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "O seu pedido não pode ser processado porque tem parâmetros incorretos"
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:676
-#: src/EBox/CGI/Base.pm:676
+#: src/EBox/CGI/Base.pm:677
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "O seu pedido não pode ser processado porque faltam parametros necessários"
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:827
-#: src/EBox/CGI/Base.pm:827
+#: src/EBox/CGI/Base.pm:828
 msgid "Invalid uploaded file."
 msgstr "Arquivo inválido."
 
-#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:833
-#: src/EBox/CGI/Base.pm:833
+#: src/EBox/CGI/Base.pm:834
 msgid "Cannot create a temporally file for the upload"
 msgstr "Não foi possível criar o arquivo temporário"
 
-#: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:37
-#: src/EBox/Exceptions/InvalidData.pm:37
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Valor inválido para {data}: {value}."
+#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
+#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+msgid "Interface"
+msgstr "Interface"
 
-#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataExists.pm:36
-#: src/EBox/Exceptions/DataExists.pm:36
+#: src/EBox/Sudo.pm:241
 #, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} já existe."
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "A execução do comando '{cmd}' como usuário '{user}' falhou"
 
-#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataNotFound.pm:35
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Config.pm.in:75
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} não existe."
+msgid "Could not open the config file {file}."
+msgstr "Não foi possível abrir o arquivo de configuração {file}."
 
-#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataMissing.pm:36
-#: src/EBox/Exceptions/DataMissing.pm:36
+#: src/EBox/Config.pm.in:170
+msgid "The ebox user has not been set in the config file."
+msgstr "O usuário ebox não foi definido no arquivo de configuração."
+
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
 #, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} está vazio."
+msgid "Directory not found: {d}"
+msgstr "Diretório não encontrado: {d}"
 
-#: debian/libebox/usr/share/perl5/EBox/Validate.pm:689
 #: src/EBox/Validate.pm:689
 #, perl-brace-format
 msgid ""
@@ -121,14 +131,12 @@ msgstr ""
 "Não é possível utilizar o diretório: {dir}. Significa que ele não existe ou "
 "as permissões proíbem o acesso"
 
-#: debian/libebox/usr/share/perl5/EBox/Validate.pm:694
 #: src/EBox/Validate.pm:694
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "O diretório {dir} não é privativo; porque é de propriedade de outro usuário"
 
-#: debian/libebox/usr/share/perl5/EBox/Validate.pm:769
 #: src/EBox/Validate.pm:769
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
@@ -137,52 +145,18 @@ msgstr ""
 "O caminho indicado não é válido. (Atualmente nem todos os caracteres dos "
 "arquivos válidos são suportados) "
 
-#: debian/libebox/usr/share/perl5/EBox/Validate.pm:797
 #: src/EBox/Validate.pm:797
 msgid "The file path must be absolute"
 msgstr "O caminho do arquivo deve ser absoluto"
 
-#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:237 src/EBox/Sudo.pm:237
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "A execução do comando '{cmd}' como usuário '{user}' falhou"
-
-#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
-#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
-#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:164
-#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:266
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interface"
-
-#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:176
-#: debian/libebox/usr/share/perl5/EBox/FileSystem.pm:263
-#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr "Diretório não encontrado: {d}"
-
-#: debian/libebox/usr/share/perl5/EBox/Config.pm:75 src/EBox/Config.pm.in:75
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "Não foi possível abrir o arquivo de configuração {file}."
-
-#: debian/libebox/usr/share/perl5/EBox/Config.pm:169 src/EBox/Config.pm.in:169
-msgid "The ebox user has not been set in the config file."
-msgstr "O usuário ebox não foi definido no arquivo de configuração."
-
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:3
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
 msgstr "Site do eBox"
 
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:7
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
 msgstr "Se você digitou a URL manualmente, favor cheque-a"
 
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:8
 #: src/templates/ebox/pageNotFound.mas:8
 msgid ""
 "Maybe a change in eBox's configuration or software made no longer available "
@@ -191,135 +165,36 @@ msgstr ""
 "Talvez uma alteração na configuração do eBox ou de programa que não mais "
 "disponibiliza a página requisitada"
 
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:9
 #: src/templates/ebox/pageNotFound.mas:9
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"If you need more help, you may want visit {homepage} for\n"
-"   documentation and mailing lists"
+"If you need more help, you may want visit {homepage} for documentation and "
+"mailing lists"
 msgstr ""
 "Caso você precise de mais ajuda, visite o site {homepage}\n"
 "   para ver documentações e lista de emails"
 
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:13
-#: src/templates/ebox/pageNotFound.mas:13
+#: src/templates/ebox/pageNotFound.mas:12
 msgid "we're sorry"
 msgstr "desculpe-nos"
 
-#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:14
-#: src/templates/ebox/pageNotFound.mas:14
+#: src/templates/ebox/pageNotFound.mas:13
 msgid "The page cannot be found"
 msgstr "A página não foi encontrada"
 
-#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:20
-#: src/templates/ajax/setter/portRangeSetter.mas:20
-msgid "From"
-msgstr "De"
+#: src/templates/title.mas:12
+msgid "show help"
+msgstr "mostrar ajuda"
 
-#: debian/libebox/usr/share/ebox/templates/ajax/setter/portRangeSetter.mas:25
-#: src/templates/ajax/setter/portRangeSetter.mas:25
-msgid "To"
-msgstr "Para"
+#: src/templates/title.mas:13
+msgid "hide help"
+msgstr "esconder ajuda"
 
-#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-#: debian/libebox/usr/share/ebox/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
-msgid "Inverse match"
-msgstr "Pesquisa inversa"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/setter/serviceSetter.mas:23
-#: src/templates/ajax/setter/serviceSetter.mas:23
-msgid "port"
-msgstr "porta"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:22
-#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:33
-#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
-msgid "Download"
-msgstr "Baixar"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:26
-#: src/templates/ajax/viewer/file.mas:26
-msgid "Remove"
-msgstr "Remover"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/modelViewer.mas:231
-#: src/templates/ajax/modelViewer.mas:231
-msgid "Optional"
-msgstr "Opcional"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:14
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Escolha uma das opções para mostrar a tabela relacionada"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:32
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Escolha um..."
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:60
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:66
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
-msgid "first"
-msgstr "primeiro"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:62
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:67
-#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
-msgid "prev"
-msgstr "anterior"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:73
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:74
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:85
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:86
-#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
-#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
-msgid "next"
-msgstr "próximo"
-
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:79
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:80
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:89
-#: debian/libebox/usr/share/ebox/templates/ajax/tablePager.mas:90
-#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
-#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
-msgid "last"
-msgstr "último"
-
-#: debian/libebox/usr/share/ebox/templates/enable.mas:9
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr "Configuração do serviço"
-
-#: debian/libebox/usr/share/ebox/templates/enable.mas:21
-#: debian/libebox/usr/share/ebox/templates/enable.mas:24
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr "Desligado"
-
-#: debian/libebox/usr/share/ebox/templates/enable.mas:22
-#: debian/libebox/usr/share/ebox/templates/enable.mas:25
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
-msgstr "Ligado"
-
-#: debian/libebox/usr/share/ebox/templates/enable.mas:29
-#: debian/libebox/usr/share/ebox/templates/enable.mas:30
-#: debian/libebox/usr/share/ebox/templates/language.mas:23
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr "Alterar"
-
-#: debian/libebox/usr/share/ebox/templates/language.mas:10
 #: src/templates/language.mas:10
-msgid "Language selection"
+#, fuzzy
+msgid "Language Selection"
 msgstr "Seleção de linguagem"
 
-#: debian/libebox/usr/share/ebox/templates/language.mas:11
 #: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
@@ -328,15 +203,81 @@ msgstr ""
 "As mudanças de linguagem funcionam automaticamente e não é necessário salvar "
 "o arquivo de configuração."
 
-#: debian/libebox/usr/share/ebox/templates/title.mas:12
-#: src/templates/title.mas:12
-msgid "show help"
-msgstr "mostrar ajuda"
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
+msgid "Change"
+msgstr "Alterar"
 
-#: debian/libebox/usr/share/ebox/templates/title.mas:13
-#: src/templates/title.mas:13
-msgid "hide help"
-msgstr "esconder ajuda"
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr "Configuração do serviço"
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr "Desligado"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr "Ligado"
+
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr "Escolha uma das opções para mostrar a tabela relacionada"
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr "Escolha um..."
+
+#: src/templates/ajax/tableBody.mas:105
+msgid "Add new"
+msgstr ""
+
+#: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
+msgid "Download"
+msgstr "Baixar"
+
+#: src/templates/ajax/viewer/file.mas:26
+msgid "Remove"
+msgstr "Remover"
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr "porta"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr "De"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr "Para"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr "Pesquisa inversa"
+
+#: src/templates/ajax/modelViewer.mas:254
+msgid "Optional"
+msgstr "Opcional"
+
+#: src/templates/ajax/tablePager.mas:58 src/templates/ajax/tablePager.mas:64
+msgid "first"
+msgstr "primeiro"
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:65
+msgid "prev"
+msgstr "anterior"
+
+#: src/templates/ajax/tablePager.mas:71 src/templates/ajax/tablePager.mas:72
+#: src/templates/ajax/tablePager.mas:83 src/templates/ajax/tablePager.mas:84
+msgid "next"
+msgstr "próximo"
+
+#: src/templates/ajax/tablePager.mas:77 src/templates/ajax/tablePager.mas:78
+#: src/templates/ajax/tablePager.mas:87 src/templates/ajax/tablePager.mas:88
+msgid "last"
+msgstr "último"
 
 #~ msgid "Display help notes"
 #~ msgstr "Mostar Ajuda"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"POT-Creation-Date: 2009-06-28 00:18+0200\n"
 "PO-Revision-Date: 2009-01-14 15:32+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -93,7 +93,7 @@ msgid "Destination object"
 msgstr "شی مقصد"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:546
-#: src/EBox/TrafficShaping.pm:1559
+#: src/EBox/TrafficShaping.pm:1543
 msgid "Priority"
 msgstr "اولویت"
 
@@ -102,7 +102,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "پایین‌ترین اولویت: ۷ بالاترین محدودیت: ۰"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-#: src/EBox/TrafficShaping.pm:1557
+#: src/EBox/TrafficShaping.pm:1541
 msgid "Guaranteed Rate"
 msgstr "سرعت تضمین شده"
 
@@ -112,15 +112,16 @@ msgid "Kbit/s"
 msgstr "کیلوبیت/ثانیه"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
+#, fuzzy
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unlimited rate."
+"bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "توجه نمایید که مجموع تمامی سرعت‌های تضمین شده نمی‌تواند از پهنای باند کلی شما "
 "بیشتر شود. ۰ به معنی سرعت نامحدود است."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
-#: src/EBox/TrafficShaping.pm:1558
+#: src/EBox/TrafficShaping.pm:1542
 msgid "Limited Rate"
 msgstr "سرعت محدود"
 
@@ -145,12 +146,12 @@ msgstr ""
 msgid "rule"
 msgstr "قاعده"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:655
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "حذف {num} قاعده از {modelName}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:702
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -163,7 +164,7 @@ msgstr ""
 "داشته است نرمال‌سازی کرده است و {removeNum} به دلیل اینکه سرعت تضمین شده اش "
 "کمتر از کمینه مجاز بوده حذف شده است"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:759
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
@@ -173,56 +174,15 @@ msgstr ""
 "درحالیکه پروتکل‌های برمبنای برنامه کندتر هستند اما به دلیل بررسی محتوای هر "
 "بسته با یک سرویس بسیار کارا هستند."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:775
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:792
 msgid "Application based service"
 msgstr "سرویس برمبنای برنامه"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:783
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:799
 msgid "Application based service group"
 msgstr "گروه سرویس برمبنای برنامه"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
-"this, you need at least an internal and an external interface. Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"شکل‌دهی ترافیک هنگامیکه ای‌باکس به عنوان یک‌ گذرگاه عمل می‌کند، اعمال می‌گردد. "
-"برای رسیدن به این، شما نیاز دازید حداقل یک رابط داخلی و خارجی داشته باشید. "
-"پیکربندی رابط را برای تطابق با آن در {openhref}شبکه->رابط‌ها{closehref} بررسی "
-"نمایید"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only if there are gateways with an upload rate "
-"set associated with an external interface. In order to do so, create a "
-"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
-"external one."
-msgstr ""
-"شکل‌دهی ترافیک تنها اگر گذرگاه‌هایی با یک سرعت آپلود مربوط با یک رابط خارجی "
-"باشد اعمال می‌گردد. برای این کار، یک گذرگاه در {openhref}شبکه->گذرگاه‌ها"
-"{closehref} با تنظیم رابط به یک رابط خارجی ایجاد نمایید."
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
-msgid "Rules list per interface"
-msgstr "فهرست قواعد برای هر رابط"
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-"یک رابط برای افزودن قواعد شکل‌دهی ترافیک انتخاب نمایید. درنظر داشته باشید که "
-"اگر شما شکل‌دهی را در رابط داخلی انجام‌ می‌دهید، شما در حال شکل‌دهی ingress "
-"هستید."
-
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
-msgid "Choose an interface to shape"
-msgstr "انتخاب یک رابط برای شکل‌دهی"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -280,40 +240,85 @@ msgstr "شناسه کلاس برگ"
 msgid "Address"
 msgstr "نشانی"
 
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"شکل‌دهی ترافیک هنگامیکه ای‌باکس به عنوان یک‌ گذرگاه عمل می‌کند، اعمال می‌گردد. "
+"برای رسیدن به این، شما نیاز دازید حداقل یک رابط داخلی و خارجی داشته باشید. "
+"پیکربندی رابط را برای تطابق با آن در {openhref}شبکه->رابط‌ها{closehref} بررسی "
+"نمایید"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"شکل‌دهی ترافیک تنها اگر گذرگاه‌هایی با یک سرعت آپلود مربوط با یک رابط خارجی "
+"باشد اعمال می‌گردد. برای این کار، یک گذرگاه در {openhref}شبکه->گذرگاه‌ها"
+"{closehref} با تنظیم رابط به یک رابط خارجی ایجاد نمایید."
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+msgid "Rules list per interface"
+msgstr "فهرست قواعد برای هر رابط"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"یک رابط برای افزودن قواعد شکل‌دهی ترافیک انتخاب نمایید. درنظر داشته باشید که "
+"اگر شما شکل‌دهی را در رابط داخلی انجام‌ می‌دهید، شما در حال شکل‌دهی ingress "
+"هستید."
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+msgid "Choose an interface to shape"
+msgstr "انتخاب یک رابط برای شکل‌دهی"
+
 #: src/EBox/TC.pm:69
 msgid "options"
 msgstr "گزینه‌ها"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:429
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:961
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:412
+#: src/EBox/TrafficShaping.pm:563 src/EBox/TrafficShaping.pm:945
 msgid "Interface"
 msgstr "رابط"
 
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:375
+#: src/EBox/TrafficShaping.pm:92 src/EBox/TrafficShaping.pm:356
 msgid "Traffic Shaping"
 msgstr "شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:93
 msgid "traffic shaping"
 msgstr "شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:131
 msgid "Add iptables rules to mangle table"
 msgstr "افزودن قواعد iptables به جدول mangle"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "To mark packets with different priorities and rates"
 msgstr "نشان‌گذاری بسته‌ها با اولویت‌ها و سرعت‌های متفاوت"
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:136
 msgid "Add tc rules"
 msgstr "افزودن قواعد tc"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "To implement the traffic shaping rules"
 msgstr "برای پیاده‌سازی قواعد شکل‌دهی ترافیک"
 
-#: src/EBox/TrafficShaping.pm:442
+#: src/EBox/TrafficShaping.pm:357
+msgid "Gateway"
+msgstr ""
+
+#: src/EBox/TrafficShaping.pm:425
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -322,7 +327,7 @@ msgstr ""
 "بیشترین قاعده حساب {max} رسیده شد، لطفا حداقل برای افزودن یک نمونه دیگر یکی "
 "را حذف نمایید"
 
-#: src/EBox/TrafficShaping.pm:978
+#: src/EBox/TrafficShaping.pm:962
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -330,11 +335,11 @@ msgstr ""
 "شکل‌دهی ترافیک می‌تواند در رابط‌های خارجی که گذرگاه‌ها به‌ آنها مربوط هستند انجام "
 "شود"
 
-#: src/EBox/TrafficShaping.pm:1067
+#: src/EBox/TrafficShaping.pm:1051
 msgid "type"
 msgstr "نوع"
 
-#: src/EBox/TrafficShaping.pm:1090
+#: src/EBox/TrafficShaping.pm:1074
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -342,10 +347,10 @@ msgid ""
 msgstr ""
 "رابط {iface} بایستی یک پهنای باند بیشینه برای انجام شکل‌دهی ترافیک داشته باشد"
 
-#: src/EBox/TrafficShaping.pm:1555
+#: src/EBox/TrafficShaping.pm:1539
 msgid "Protocol"
 msgstr "پروتکل"
 
-#: src/EBox/TrafficShaping.pm:1556
+#: src/EBox/TrafficShaping.pm:1540
 msgid "Port"
 msgstr "پورت"

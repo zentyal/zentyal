@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-01-21 10:14+0100\n"
+"POT-Creation-Date: 2009-06-28 00:05+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,66 +17,219 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:31
-#: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:42
-#: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
+#: src/EBox/CGI/Filter.pm:28
 msgid "Packet filtering"
 msgstr "Filtrat de paquets"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall.pm:57
+msgid "firewall"
+msgstr ""
+
+#: src/EBox/Firewall.pm:125
+msgid "Flush previous firewall rules"
+msgstr ""
+
+#: src/EBox/Firewall.pm:126
+msgid ""
+"The eBox firewall will flush any previous firewall rules which have been "
+"added manually or by another tool"
+msgstr ""
+
+#: src/EBox/Firewall.pm:131
+msgid "Secure by default"
+msgstr ""
+
+#: src/EBox/Firewall.pm:132
+msgid ""
+"Just a few connections are allowed by default. Make sure you add the proper "
+"incoming and outcoming rules to make your system work as expected. Usually, "
+"all outcoming connections are denied by default, and only SSH and HTTPS "
+"incoming connections are allowed."
+msgstr ""
+
+#: src/EBox/Firewall.pm:304
+msgid "action"
+msgstr "acció"
+
+#: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr "El nom '{name}' és invàlid"
+
+#: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
+msgid "protocol"
+msgstr "protocol"
+
+#: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
+msgid "Firewall"
+msgstr ""
+
+#: src/EBox/Firewall.pm:814
+msgid "UTM"
+msgstr ""
+
+#: src/EBox/Firewall.pm:818
+#, fuzzy
+msgid "Packet Filter"
+msgstr "Filtrat de paquets"
+
+#: src/EBox/Firewall.pm:821
+#, fuzzy
+msgid "Redirects"
+msgstr "Redireccions de ports"
+
+#: src/EBox/Firewall.pm:832
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
+#, fuzzy
+msgid "Date"
+msgstr "Elimina"
+
+#: src/EBox/Firewall.pm:833
+#, fuzzy
+msgid "Input interface"
+msgstr "interfície de xarxa"
+
+#: src/EBox/Firewall.pm:834
+#, fuzzy
+msgid "Output interface"
+msgstr "interfície de xarxa"
+
+#: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
+#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#, fuzzy
+msgid "Source"
+msgstr "Servei"
+
+#: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#, fuzzy
+msgid "Destination"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
+msgid "Protocol"
+msgstr "Protocol"
+
+#: src/EBox/Firewall.pm:838
+#, fuzzy
+msgid "Source port"
+msgstr "Informe d'error"
+
+#: src/EBox/Firewall.pm:839
+#, fuzzy
+msgid "Destination port"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#, fuzzy
+msgid "Decision"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall.pm:845
+msgid "DROP"
+msgstr ""
+
+#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+msgid "LOG"
+msgstr ""
+
+#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr ""
+
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:843
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: src/EBox/Firewall.pm:843
-#, fuzzy
-msgid "Date"
-msgstr "Elimina"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 #, fuzzy
 msgid "Packet traffic"
 msgstr "Filtrat de paquets"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:10
-#: src/templates/filter.mas:10
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr ""
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr ""
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+msgid "Any"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
 #, fuzzy
-msgid "Filtering rules from internal networks to eBox"
+msgid "Source IP"
+msgstr "Servei"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#, fuzzy
+msgid "Source object"
+msgstr "Informe d'error"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#, fuzzy
+msgid "Destination IP"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+#, fuzzy
+msgid "Destination object"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Servei"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+#, fuzzy
+msgid "Description"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/templates/filter.mas:13
+#, fuzzy
+msgid "Filtering rules for internal networks"
 msgstr "Configura les regles predeterminades"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -85,368 +238,137 @@ msgstr "Configura les regles predeterminades"
 msgid "rule"
 msgstr "regla"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:17
-#: src/templates/filter.mas:17
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/templates/filter.mas:6
 #, fuzzy
-msgid "Filtering rules for internal networks"
+msgid "Filtering rules from internal networks to eBox"
 msgstr "Configura les regles predeterminades"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr ""
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr ""
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #, fuzzy
 msgid "Filtering rules from  external networks to eBox"
 msgstr "Configura les regles predeterminades"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:25
-#: src/templates/filter.mas:25
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:133
-#: src/EBox/Firewall/Model/RedirectsTable.pm:133
+#: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:237
-#: src/EBox/Firewall/Model/RedirectsTable.pm:237
+#: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"
 msgstr "Interfície"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:244
-#: src/EBox/Firewall/Model/RedirectsTable.pm:244
-msgid "External port"
-msgstr "Port extern"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:250
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:848
-#: src/EBox/Firewall/Model/RedirectsTable.pm:250 src/EBox/Firewall.pm:848
-msgid "Protocol"
-msgstr "Protocol"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:257
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:121
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:846
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
-#: src/EBox/Firewall/Model/RedirectsTable.pm:257 src/EBox/Firewall.pm:846
+#: src/EBox/Firewall/Model/RedirectsTable.pm:256
 #, fuzzy
-msgid "Source"
-msgstr "Servei"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:262
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:152
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-#: src/EBox/Firewall/Model/RedirectsTable.pm:262
-msgid "Any"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:265
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:129
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-#: src/EBox/Firewall/Model/RedirectsTable.pm:265
-#, fuzzy
-msgid "Source IP"
-msgstr "Servei"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:269
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:133
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-#: src/EBox/Firewall/Model/RedirectsTable.pm:269
-#, fuzzy
-msgid "Source object"
-msgstr "Informe d'error"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:280
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:155
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-#: src/EBox/Firewall/Model/RedirectsTable.pm:280
-#, fuzzy
-msgid "Destination IP"
+msgid "Original destination"
 msgstr "port de destinació"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:286
-#: src/EBox/Firewall/Model/RedirectsTable.pm:286
+#: src/EBox/Firewall/Model/RedirectsTable.pm:261
+msgid "eBox"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:264
+#, fuzzy
+msgid "IP Address"
+msgstr "Adreça IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:268
+msgid "Object"
+msgstr "Objecte"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:279
+#, fuzzy
+msgid "Original destination port"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
 msgstr "Port"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:291
-#: src/EBox/Firewall/Model/RedirectsTable.pm:291
+#: src/EBox/Firewall/Model/RedirectsTable.pm:326
 msgid "Same"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:294
-#: src/EBox/Firewall/Model/RedirectsTable.pm:294
+#: src/EBox/Firewall/Model/RedirectsTable.pm:329
 msgid "Other"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:311
-#: src/EBox/Firewall/Model/RedirectsTable.pm:311
+#: src/EBox/Firewall/Model/RedirectsTable.pm:346
 msgid "Port redirections"
 msgstr "Redireccions de ports"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:320
-#: src/EBox/Firewall/Model/RedirectsTable.pm:320
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
 #, fuzzy
 msgid "redirect"
 msgstr "Redireccions de ports"
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:44
-#: src/templates/filter.mas:44
-msgid "Filtering rules from external networks to internal networks"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:66
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:68
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:70
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:856
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:856
-msgid "LOG"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:112
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:851
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:112 src/EBox/Firewall.pm:851
-#, fuzzy
-msgid "Decision"
-msgstr "port de destinació"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:147
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:847
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:147 src/EBox/Firewall.pm:847
-#, fuzzy
-msgid "Destination"
-msgstr "port de destinació"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:160
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-#, fuzzy
-msgid "Destination object"
-msgstr "port de destinació"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:175
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Servei"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:179
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:185
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-#, fuzzy
-msgid "Description"
-msgstr "port de destinació"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:58
-#: src/EBox/Firewall.pm:58
-msgid "firewall"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:126
-#: src/EBox/Firewall.pm:126
-msgid "Flush previous firewall rules"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:127
-#: src/EBox/Firewall.pm:127
-msgid ""
-"The eBox firewall will flush any previous firewall rules which have been "
-"added manually or by another tool"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:132
-#: src/EBox/Firewall.pm:132
-msgid "Secure by default"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:133
-#: src/EBox/Firewall.pm:133
-msgid ""
-"Just a few connections are allowed by default. Make sure you add the proper "
-"incoming and outcoming rules to make your system work as expected. Usually, "
-"all outcoming connections are denied by default, and only SSH and HTTPS "
-"incoming connections are allowed."
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:319
-#: src/EBox/Firewall.pm:319
-msgid "action"
-msgstr "acció"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:438
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:483
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:507
-#: src/EBox/Firewall.pm:438 src/EBox/Firewall.pm:483 src/EBox/Firewall.pm:507
-#, perl-brace-format
-msgid "Name '{name}' is invalid"
-msgstr "El nom '{name}' és invàlid"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:439
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:617
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:642
-#: src/EBox/Firewall.pm:439 src/EBox/Firewall.pm:617 src/EBox/Firewall.pm:642
-msgid "port"
-msgstr "port"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:616
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:641
-#: src/EBox/Firewall.pm:616 src/EBox/Firewall.pm:641
-msgid "protocol"
-msgstr "protocol"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:825
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:859
-#: src/EBox/Firewall.pm:825 src/EBox/Firewall.pm:859
-msgid "Firewall"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:829
-#: src/EBox/Firewall.pm:829
-#, fuzzy
-msgid "Packet Filter"
-msgstr "Filtrat de paquets"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:832
-#: src/EBox/Firewall.pm:832
-#, fuzzy
-msgid "Redirects"
-msgstr "Redireccions de ports"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:844
-#: src/EBox/Firewall.pm:844
-#, fuzzy
-msgid "Input interface"
-msgstr "interfície de xarxa"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:845
-#: src/EBox/Firewall.pm:845
-#, fuzzy
-msgid "Output interface"
-msgstr "interfície de xarxa"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:849
-#: src/EBox/Firewall.pm:849
-#, fuzzy
-msgid "Source port"
-msgstr "Informe d'error"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:850
-#: src/EBox/Firewall.pm:850
-#, fuzzy
-msgid "Destination port"
-msgstr "port de destinació"
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:856
-#: src/EBox/Firewall.pm:856
-msgid "DROP"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:609
-#: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:641
-#: src/EBox/Iptables.pm:609 src/EBox/Iptables.pm:641
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:615
-#: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:647
-#: src/EBox/Iptables.pm:615 src/EBox/Iptables.pm:647
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
-
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:12
-#: src/templates/filter.mas:12
+#: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:14
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:22
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:30
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:41
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:52
-#: src/templates/filter.mas:14 src/templates/filter.mas:22
-#: src/templates/filter.mas:30 src/templates/filter.mas:41
-#: src/templates/filter.mas:52
+#: src/templates/filter.mas:10 src/templates/filter.mas:18
+#: src/templates/filter.mas:26 src/templates/filter.mas:37
+#: src/templates/filter.mas:48
 #, fuzzy
 msgid "Configure rules"
 msgstr "Configura les regles predeterminades"
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:19
-#: src/templates/filter.mas:19
+#: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:27
-#: src/templates/filter.mas:27
+#: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:33
-#: src/templates/filter.mas:33
+#: src/templates/filter.mas:29
 #, fuzzy
 msgid "Filtering rules from external networks to eBox"
 msgstr "Configura les regles predeterminades"
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:35
-#: src/templates/filter.mas:35
+#: src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:38
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:49
-#: src/templates/filter.mas:38 src/templates/filter.mas:49
+#: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
 
-#: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:46
-#: src/templates/filter.mas:46
+#: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
 
-#~ msgid "Object"
-#~ msgstr "Objecte"
+#~ msgid "External port"
+#~ msgstr "Port extern"
 
 #, fuzzy
 #~ msgid "Edit rule"
@@ -475,12 +397,6 @@ msgstr ""
 
 #~ msgid "destination address"
 #~ msgstr "adreça de destinació"
-
-#~ msgid "destination port"
-#~ msgstr "port de destinació"
-
-#~ msgid "IP address"
-#~ msgstr "Adreça IP"
 
 #~ msgid "Actions"
 #~ msgstr "Accions"
