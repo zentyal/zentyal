@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:19+0100\n"
-"PO-Revision-Date: 2007-03-15 15:30+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-05 18:33+0200\n"
+"Last-Translator: Nicola <register1@interfree.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
@@ -243,17 +243,17 @@ msgstr "porta"
 #: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:33
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "Scaricamento"
 
 #: debian/libebox/usr/share/ebox/templates/ajax/viewer/file.mas:26
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: debian/libebox/usr/share/ebox/templates/ajax/modelViewer.mas:231
 #: src/templates/ajax/modelViewer.mas:231
 msgid "Optional"
-msgstr ""
+msgstr "Facoltativo"
 
 #: debian/libebox/usr/share/ebox/templates/ajax/tableSelector.mas:14
 #: src/templates/ajax/tableSelector.mas:14
