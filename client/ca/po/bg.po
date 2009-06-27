@@ -8,12 +8,13 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 09:58+0100\n"
-"PO-Revision-Date: 2008-07-04 08:16+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-27 06:46+0200\n"
+"Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:43
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:42
@@ -27,20 +28,20 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42
 msgid "Certification Authority Management"
-msgstr ""
+msgstr "Управление на удостоверяващ орган"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:108
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:83
 #: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "Паролите на удостоверяващия орган не съвпадат."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:118
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:91
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "Паролата на удостоверяващ орган трябва да е поне {length} знака."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:123
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:101
@@ -49,12 +50,12 @@ msgstr ""
 #: src/EBox/CGI/RenewCertificate.pm:88
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr ""
+msgstr "Срокът на валидност в дни ({days}) трябва да е положително число."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/CreateCA.pm:134
 #: src/EBox/CGI/CreateCA.pm:134
 msgid "Problems creating Certification Authority has happened"
-msgstr ""
+msgstr "Възникна проблем при създаването на удостоверяващ орган."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:69
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:69
@@ -80,19 +81,19 @@ msgstr ""
 #: src/templates/formRenew.mas:43 src/templates/index.mas:23
 #: src/templates/formRevoke.mas:28
 msgid "Common Name"
-msgstr ""
+msgstr "Обичайно име"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:79
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:81
 #: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr ""
+msgstr "Обичайното име \"{cn}\" не съществува в базата данни."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/DownloadFiles.pm:127
 #: src/EBox/CGI/DownloadFiles.pm:127
 msgid "Error creating file"
-msgstr ""
+msgstr "Грешка при създаване на файл."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:67
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:154
@@ -108,7 +109,7 @@ msgstr ""
 #: src/templates/formRenew.mas:37 src/templates/createCA.mas:7
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 msgid "Organization Name"
-msgstr ""
+msgstr "Име на организация"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:72
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:69
@@ -119,7 +120,7 @@ msgstr ""
 #: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
 #: src/templates/index.mas:28
 msgid "Days to expire"
-msgstr ""
+msgstr "Срок на валидност в дни"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:108
 #: src/EBox/CGI/IssueCertificate.pm:108
@@ -127,74 +128,76 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
 msgstr ""
+"Въведен е недопустим знак. Допустими знаци са буквите, цифрите, .?&+:\\@ и "
+"интервал."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:127
 #: src/EBox/CGI/IssueCertificate.pm:127
 msgid "The certificate has been issued"
-msgstr ""
+msgstr "Удостоверението е издадено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/IssueCertificate.pm:128
 #: src/EBox/CGI/IssueCertificate.pm:128
 msgid "The new CA certificate has been issued"
-msgstr ""
+msgstr "Новото удостоверение на удостоверяващия орган е издадено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:64
 #: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
-msgstr ""
+msgstr "Удостоверението не е подновено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:68
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:70
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr ""
+msgstr "Булева променлива за удостоверението на удостоверяващия орган"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:135
 #: src/EBox/CGI/RenewCertificate.pm:135
 msgid "The certificate CANNOT be renewed"
-msgstr ""
+msgstr "Удостоверението не може да бъде подновено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:137
 #: src/EBox/CGI/RenewCertificate.pm:137
 msgid "The certificate has been renewed"
-msgstr ""
+msgstr "Удостоверението е подновено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RenewCertificate.pm:138
 #: src/EBox/CGI/RenewCertificate.pm:138
 msgid "The new CA certificate has been renewed"
-msgstr ""
+msgstr "Новото удостоверение на удостоверяващия орган е подновено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:64
 #: src/EBox/CGI/RevokeCertificate.pm:64
 msgid "The certificate has NOT been revoked"
-msgstr ""
+msgstr "Удостоверението не е отменено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:71
 #: src/EBox/CGI/RevokeCertificate.pm:71
 #: debian/ebox-ca/usr/share/ebox/templates/ca/formRevoke.mas:57
 #: src/templates/formRevoke.mas:57
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:131
 #: src/EBox/CGI/RevokeCertificate.pm:131
 msgid "The certificate has been revoked"
-msgstr ""
+msgstr "Удостоверението е отменено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/RevokeCertificate.pm:132
 #: src/EBox/CGI/RevokeCertificate.pm:132
 msgid "The CA certificate has been revoked"
-msgstr ""
+msgstr "Удостоверението на удостоверяващия орган е отменено."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:63
 #: src/EBox/CGI/ShowForm.pm:63
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CGI/CA/ShowForm.pm:73
 #: src/EBox/CGI/ShowForm.pm:73
 msgid "Only revoke and renew actions are performed"
-msgstr ""
+msgstr "Извършват се само отмяна и подновяване."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:259
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
@@ -203,17 +206,19 @@ msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
+"Удостоверението на удостоверяващия орган е отменено или валидността му е "
+"изтекла преди издаване на ново."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:654
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr ""
+msgstr "Потребителят {commonName} не съществува."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:720
 #: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr ""
+msgstr "Зададен е максимално допустимият брой дни: Проблем 2038 г."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA/TestStub.pm:729
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:743
@@ -221,6 +226,8 @@ msgstr ""
 #: src/EBox/CA.pm:743 src/EBox/CA.pm:1324
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
+"Крайната дата е по-късна от крайната дата на удостоверението на "
+"удостоверяващия орган."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:255
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:723
@@ -228,18 +235,18 @@ msgstr ""
 #: src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr ""
+msgstr "Зададен е максимално допустимият брой дни {days}: Проблем 2038 г."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:347 src/EBox/CA.pm:347
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
+msgstr "Действието премахване не може да бъде завършено. Причина: "
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:885
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1198 src/EBox/CA.pm:885
 #: src/EBox/CA.pm:1198
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr ""
+msgstr "Удостоверението с обичайно име {cn} не съществува."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:889 src/EBox/CA.pm:889
 #, perl-brace-format
@@ -247,27 +254,31 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
+"Причината {reason} не е приемлива.\n"
+"Възможности:"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1102 src/EBox/CA.pm:1102
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr ""
+msgstr "Подадено е едно тези неща: обичайно име, уникално име или сериен номер."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1329 src/EBox/CA.pm:1329
 msgid "or"
-msgstr ""
+msgstr "или"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1330 src/EBox/CA.pm:1330
 msgid "Certificate file"
-msgstr ""
+msgstr "Файл на удостоверението"
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1352 src/EBox/CA.pm:1352
 msgid "The certificate to renew does NOT exist"
-msgstr ""
+msgstr "Удостоверението за подновяване не съществува."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1391 src/EBox/CA.pm:1391
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
+"Удостоверението с обичайно име {cn} не съществува в този удостоверителен "
+"орган."
 
 #: debian/ebox-ca/usr/share/perl5/EBox/CA.pm:1419 src/EBox/CA.pm:1419
 msgid ""

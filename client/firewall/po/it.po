@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2007-04-09 16:49+0000\n"
-"Last-Translator: Andrea Fino <af@netzen.it>\n"
+"PO-Revision-Date: 2009-05-31 19:59+0200\n"
+"Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:31
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:42
@@ -27,7 +27,7 @@ msgstr "Filtraggio pacchetto"
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "pacchetti lasciati"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:843
@@ -39,28 +39,27 @@ msgstr "Data"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Pacchetti lasciati"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Dettagli traffico pacchetto"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "traffico"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Diagramma traffico pacchetto firewall"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-#, fuzzy
 msgid "Packet traffic"
-msgstr "Filtraggio pacchetto"
+msgstr "Traffico pacchetto"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
@@ -104,7 +103,7 @@ msgstr "Regole di filtro per il traffico proveniente da eBox"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:133
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Regola contrastante. Rimuovila"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:237
 #: src/EBox/Firewall/Model/RedirectsTable.pm:237
@@ -168,23 +167,22 @@ msgstr "Porta"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:291
 #: src/EBox/Firewall/Model/RedirectsTable.pm:291
 msgid "Same"
-msgstr ""
+msgstr "Uguale"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:294
 #: src/EBox/Firewall/Model/RedirectsTable.pm:294
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:311
 #: src/EBox/Firewall/Model/RedirectsTable.pm:311
 msgid "Port redirections"
-msgstr "Redirezione della porta"
+msgstr "Redirezioni della porta"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/RedirectsTable.pm:320
 #: src/EBox/Firewall/Model/RedirectsTable.pm:320
-#, fuzzy
 msgid "redirect"
-msgstr "Redirezioni"
+msgstr "redirezione"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
@@ -196,18 +194,18 @@ msgstr "Regole di filtro da reti esterne ad interne"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:66
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr "ACCEPT"
+msgstr "ACCETTA"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:68
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr "DENY"
+msgstr "NEGA"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:70
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:856
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:70 src/EBox/Firewall.pm:856
 msgid "LOG"
-msgstr ""
+msgstr "LOG"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:112
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:851
@@ -237,6 +235,8 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Se è impostato l'inverso, tutti i servizi tranne il selezionato seguiranno "
+"la regola"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Model/BaseRuleTable.pm:185
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
@@ -246,12 +246,12 @@ msgstr "Descrizione"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Report traffico pacchetto"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Report traffico pacchetto firewall"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:58
 #: src/EBox/Firewall.pm:58
@@ -261,7 +261,7 @@ msgstr "firewall"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:126
 #: src/EBox/Firewall.pm:126
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Pulisci le precedenti regole del firewall"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:127
 #: src/EBox/Firewall.pm:127
@@ -269,11 +269,13 @@ msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"eBox pulirà ogni regola precedente del firewall aggiunta manualmente o da "
+"un'altra applicazione"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:132
 #: src/EBox/Firewall.pm:132
 msgid "Secure by default"
-msgstr ""
+msgstr "Sicuro per default"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:133
 #: src/EBox/Firewall.pm:133
@@ -283,6 +285,10 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Poche connessioni sono consentite per dafault. Assicurati che regole "
+"appropriate di ingresso ed uscita rendano il sistema operativo come "
+"previsto. Di regola, tutte le connessioni in uscita sono negate per dafault "
+"e solo connessioni SSH e HTTPS in ingresso sono consentite"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:319
 #: src/EBox/Firewall.pm:319
@@ -344,12 +350,12 @@ msgstr "Porta sorgente"
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:850
 #: src/EBox/Firewall.pm:850
 msgid "Destination port"
-msgstr "Porta destinataria"
+msgstr "Porta di destinazione"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:856
 #: src/EBox/Firewall.pm:856
 msgid "DROP"
-msgstr "DROP"
+msgstr "LASCIA"
 
 #: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:609
 #: debian/ebox-firewall/usr/share/perl5/EBox/Iptables.pm:641

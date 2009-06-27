@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-03-15 12:54+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-03 02:40+0200\n"
+"Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:63
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:63
@@ -38,9 +38,8 @@ msgstr "Oggetti"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:83
 #: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
 msgid "Object list"
-msgstr "Oggetti"
+msgstr "Elenco oggetti"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:90
 #: src/EBox/Model/ObjectTable.pm:90
@@ -59,6 +58,9 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Gli oggetti sono un'astrazione di indirizzi di rete e di macchine che "
+"possono essere usati in altri moduli. Ogno modifica all'oggetto è "
+"automaticamente sincronizzato in tutti i moduli che ne fanno uso"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:70
 #: src/EBox/Model/MemberTable.pm:70

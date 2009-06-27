@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2008-11-05 16:32+0000\n"
-"Last-Translator: Christian Merlin <nuandavr@gmail.com>\n"
+"PO-Revision-Date: 2009-06-05 18:31+0200\n"
+"Last-Translator: Nicola <register1@interfree.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,7 +103,7 @@ msgstr "A"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
-msgstr "Configura mail dispatcher"
+msgstr "Configura le comunicazioni di servizio"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
@@ -123,9 +123,8 @@ msgid ""
 msgstr "L'utente deve essere autenticato per spedire posta con questo server"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:93
-#, fuzzy
 msgid "Authentication"
-msgstr "Errore di autenticazione"
+msgstr "Autenticazione"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:123
 msgid "Cannot require authentication when TLS is inactive"
@@ -146,12 +145,14 @@ msgstr "Permetti ritrasmissione"
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
-msgstr "L'utente deve essere autenticato per spedire posta con questo server"
+msgstr ""
+"spuntare qui per consentire alle macchine di inviare posta tramite questo "
+"servizio"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 #, fuzzy
 msgid "Relay policy for network objects"
-msgstr "Politica di relay per gli oggetti"
+msgstr "regolamentazione per oggetti di rete"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
@@ -211,15 +212,15 @@ msgstr "nessuno"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:99
 msgid "User and password"
-msgstr ""
+msgstr "Utente e password"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:105
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:123
 #, fuzzy
@@ -247,16 +248,19 @@ msgstr "Nome"
 #: src/EBox/Mail/Model/VDomains.pm:72
 #, fuzzy
 msgid "Mail virtual domains"
-msgstr "dominio virtuale"
+msgstr "dominio virtuale di posta"
 
 #: src/EBox/Mail/Model/VDomains.pm:83
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
+"Aggiunto il dominio virtuale. Devi salvare i dati per poterlo utilizzare"
 
 #: src/EBox/Mail/Model/VDomains.pm:113
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
+"Per poter usare il modulo della posta devi abilitarlo nella sezione stato "
+"moduli"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:87
 msgid "SSL Support"
@@ -265,7 +269,7 @@ msgstr "Supporto SSL"
 #: src/EBox/Mail/Model/RetrievalServices.pm:96
 #, fuzzy
 msgid "Mail retrieval services"
-msgstr "Servizi di Posta"
+msgstr "Servizio recupero Posta"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:114
 msgid "No"
@@ -285,30 +289,32 @@ msgstr "Abilitato"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:70
 msgid "Greylist duration (seconds)"
-msgstr ""
+msgstr "Durata greylist (seconds)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:78
 msgid "Retry window (hours)"
-msgstr ""
+msgstr "riprova (ore)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid ""
 "Time that will have the mail sender to retry before it will be greylisted "
 "again"
 msgstr ""
+"Tempo affinchè il server di posta possa riprovare prima di essere di nuovo "
+"nella greylist"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:87
 msgid "Entries time to live (days)"
-msgstr ""
+msgstr "Immetti il tempo di durata (giorni)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:88
 msgid "Period after that unseen entries will be deleted"
-msgstr ""
+msgstr "Periodo dopo il quale gli oggetti non visibili verranno cancellati"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:101
 #, fuzzy
 msgid "Greylist configuration"
-msgstr "Configurazione mail dispatcher aggiornata"
+msgstr "Configurazione del Greylist"
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 #: src/EBox/Mail/Composite/General.pm:77
@@ -318,7 +324,7 @@ msgstr "Impostazioni del servizio di posta"
 
 #: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
-msgstr ""
+msgstr "Per configurare la whitelist per la greylist"
 
 #: src/EBox/MailVDomainsLdap.pm:332
 msgid "Size quota"
@@ -330,7 +336,7 @@ msgstr "Dimensione della quota"
 #: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:793
 #: src/EBox/MailUserLdap.pm:799
 msgid "maildir size"
-msgstr "dimensione della maildir"
+msgstr "dimensione della cartella di posta"
 
 #: src/EBox/MailAliasLdap.pm:59 src/EBox/MailAliasLdap.pm:64
 #: src/EBox/MailAliasLdap.pm:97 src/EBox/MailAliasLdap.pm:102
@@ -342,7 +348,7 @@ msgstr "account della mail"
 #: src/EBox/MailAliasLdap.pm:163 src/EBox/MailAliasLdap.pm:193
 #: src/EBox/MailAliasLdap.pm:228
 msgid "mail alias account"
-msgstr "alias dell'account di mail"
+msgstr "alias dell'account di posta"
 
 #: src/EBox/Mail.pm:78
 #, fuzzy
@@ -351,13 +357,16 @@ msgstr "Posta"
 
 #: src/EBox/Mail.pm:112
 #, perl-brace-format
+#, fuzzy
 msgid "Add {user} to {group} group"
-msgstr ""
+msgstr "Aggiungi {nomeutente} a {nomegruppo} gruppo"
 
 #: src/EBox/Mail.pm:114
 #, perl-brace-format
 msgid "To allow {daemon} to connect with {otherDaemon} via unix socket"
 msgstr ""
+"Per consentire a {daemon} di connetersi con {otherDaemon} mediante socket "
+"unix"
 
 #: src/EBox/Mail.pm:120
 #, fuzzy
@@ -367,7 +376,7 @@ msgstr "Crea un alias di posta"
 #: src/EBox/Mail.pm:122
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr ""
+msgstr "eBox esegue {cmd}"
 
 #: src/EBox/Mail.pm:126
 msgid "Add LDAP schemas"
@@ -469,12 +478,12 @@ msgstr "Stato"
 #: src/EBox/Mail.pm:1072
 #, fuzzy
 msgid "Mail server's filter"
-msgstr "Impostazioni del servizio di posta"
+msgstr "Filtro del server di posta"
 
 #: src/EBox/Mail.pm:1081 src/EBox/Mail.pm:1088
 #, fuzzy
 msgid "Filter type"
-msgstr "Filtro"
+msgstr "Tipo di filtro"
 
 #: src/EBox/Mail.pm:1082
 msgid "Custom"
@@ -491,11 +500,11 @@ msgstr "Generale"
 #: src/EBox/Mail.pm:1122
 #, fuzzy
 msgid "Virtual mail domains"
-msgstr "Domini Virtuali"
+msgstr "Domini Virtuali di posta"
 
 #: src/EBox/Mail.pm:1128
 msgid "Greylist"
-msgstr ""
+msgstr "Greylist"
 
 #: src/EBox/Mail.pm:1156 src/templates/qmanager.mas:19
 msgid "Date"
@@ -564,11 +573,11 @@ msgstr "Errore di autenticazione"
 
 #: src/EBox/Mail.pm:1184
 msgid "Relay denied by the smarthost"
-msgstr ""
+msgstr "trasmissione negata dallo smarthost"
 
 #: src/EBox/Mail.pm:1185
 msgid "Greylisted"
-msgstr ""
+msgstr "Inserita nella Greylist"
 
 #: src/EBox/Mail.pm:1186
 msgid "Other events"
@@ -576,7 +585,7 @@ msgstr "Altri eventi"
 
 #: src/EBox/Mail.pm:1291
 msgid "Mailboxes"
-msgstr "Caselle"
+msgstr "Caselle di posta"
 
 #: src/EBox/MailUserLdap.pm:320
 msgid "This group has a mail alias"
@@ -589,15 +598,15 @@ msgstr "Questo utente ha un account di posta"
 #: migration/0001_add_firewall_services.pl:30
 #, fuzzy
 msgid "eBox Mail System"
-msgstr "Sistema di posta"
+msgstr "eBox sistema di posta"
 
 #: src/templates/warnvd.mas:14
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
-"Il dominio virtuale che stai provando a rimuovere contiene dati nel seguenti "
-"moduli. Per favore comferma che vuoi rimuoverlo e anche tutti i suoi dati "
+"Il dominio virtuale che stai provando a rimuovere contiene dati nei moduli "
+"seguenti. Per favore comferma che vuoi rimuoverlo e anche tutti i suoi dati "
 "correlati"
 
 #: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2009-04-19 17:37+0200\n"
-"Last-Translator: R. Hempel <ruben@hempelr.de>\n"
+"PO-Revision-Date: 2009-06-26 12:33+0200\n"
+"Last-Translator: Jörg Gronmayer <joerg@gronmayer.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -293,13 +293,12 @@ msgid "MIME type"
 msgstr "MIME-Typ"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
-#, fuzzy
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
-"MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt. MIME-Typen die "
-"nicht gefiltert werden."
+"MIME-Typen, die unten nicht aufgelistet sind, sind erlaubt. MIME-Typen "
+"werden vom transparenten POP-Proxy nicht verwendet"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -568,9 +567,8 @@ msgid "Filter spam"
 msgstr "Spam filtern"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-#, fuzzy
 msgid "ISP spam subject"
-msgstr "Betreffzeile bei Spam"
+msgstr "Internet Service Provider SPAM Betreffszeile"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
 msgid ""
@@ -583,13 +581,16 @@ msgstr ""
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #, fuzzy
 msgid "POP transparent proxy configuration"
-msgstr "Antispam-Konfiguration"
+msgstr "Konfiguration des Transparenten POP Proxys"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"Der Transparente POP-Proxy muss nach etwas sinnvollem scannen. Falls Sie "
+"weder Viren- noch Spam-Schutz benötigen, emfehlen wir Ihnen, den Proxy "
+"abzuschalten"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
 msgid "Virus policy"
@@ -601,17 +602,15 @@ msgstr "Vorgehen bei Spam"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
 msgid "Banned files policy"
-msgstr "Richtlinie bei verbotenen Dateien"
+msgstr "Regel bei nicht zugelassenen Dateien"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
-#, fuzzy
 msgid "Bad header policy"
-msgstr "Richtlinie für nicht konforme Kopfzeilen"
+msgstr "Regel für nicht konforme Kopfzeilen"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "SMTP filter policies"
-msgstr "Richtlinien des Mailfilters"
+msgstr "Regeln des Send-Mail Filters (SMTP)"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:67
 msgid "External connections"
@@ -622,13 +621,12 @@ msgid "Attached files filter"
 msgstr "Mailanhang-Filter"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:65
-#, fuzzy
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
-"Nachrichten entsprechend der angehängten Dateien filtern, Filter nur nach "
-"Erweiterung"
+"Nachrichten nach angehängten Dateien filtern. Der Transparente POP-Proxy "
+"filtert nur nach Datei-Erweiterungen."
 
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 #: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:352
@@ -647,13 +645,12 @@ msgstr "Mail-Filter Bericht"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Bericht des transparenten POP-Proxy"
 
 #: src/EBox/MailFilter/Composite/Amavis.pm:69
 #: src/EBox/MailFilter/POPProxy.pm:323 src/EBox/MailFilter.pm:584
-#, fuzzy
 msgid "SMTP filter"
-msgstr "MIME-Typ-Filter"
+msgstr "SMTP-Filter"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
 msgid "Write down a decimal number"
@@ -724,7 +721,7 @@ msgstr "Interner eBox Mailfilter"
 #: src/EBox/MailFilter/Amavis.pm:422 src/EBox/MailFilter.pm:734
 #: migration/0004_add_firewall_services.pl:32
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "Transparenter POP-Proxy"
 
 #: src/EBox/MailFilter/Amavis.pm:445 src/EBox/MailFilter/POPProxy.pm:343
 #: src/EBox/MailFilter.pm:741
@@ -732,14 +729,13 @@ msgid "Antivirus"
 msgstr "Antivirus"
 
 #: src/EBox/MailFilter/POPProxy.pm:47
-#, fuzzy
 msgid " To configure p3scan"
-msgstr "Amavis konfigurieren"
+msgstr "Um p3scan zu konfigurieren"
 
 #: src/EBox/MailFilter/POPProxy.pm:52
 #, fuzzy
 msgid "To configure renattach"
-msgstr "Um amavis zu konfigurieren"
+msgstr "Konfiguration des renattach Moduls"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Add clamav user to amavis group"
@@ -752,9 +748,8 @@ msgstr ""
 "überprüfen"
 
 #: src/EBox/MailFilter.pm:91
-#, fuzzy
 msgid "Add clamav user to p3scan group"
-msgstr "ClamAV-Benutzer zur Gruppe amavis hinzufügen"
+msgstr "Benutzer clamav zur Gruppe amavis hinzufügen"
 
 #: src/EBox/MailFilter.pm:92
 #, fuzzy
@@ -776,9 +771,8 @@ msgid "Cannot proceed because the filter is in use"
 msgstr "Kann nicht weitermachen, weil der Filter in Verwendung ist"
 
 #: src/EBox/MailFilter.pm:535
-#, fuzzy
 msgid "Mail filter"
-msgstr "Mailfilter"
+msgstr "E-Mail Filter"
 
 #: src/EBox/MailFilter.pm:558
 msgid "Action"
@@ -824,15 +818,16 @@ msgstr "Virus gefunden"
 msgid "Clean message"
 msgstr "Virenfreie Nachricht"
 
+# Würde ich so übersetzen da Account ein geb. Deutsches Wort für ein Benutzer Konto ist.
 #: src/EBox/MailFilter.pm:605
 #, fuzzy
 msgid "Account"
-msgstr "Konto"
+msgstr "Account"
 
 #: src/EBox/MailFilter.pm:606
 #, fuzzy
 msgid "Client's address"
-msgstr "Empfänger-Adresse"
+msgstr "Klient Adresse"
 
 #: src/EBox/MailFilter.pm:609
 msgid "Total messages"
@@ -851,7 +846,6 @@ msgid "Spam messages"
 msgstr "Spam-Nachrichten"
 
 #: src/EBox/MailFilter.pm:619
-#, fuzzy
 msgid "POP3 transmission complete"
 msgstr "POP3-Übertragung abgeschlossen"
 
@@ -860,16 +854,14 @@ msgid "POP3 transmission aborted"
 msgstr "POP3-Übertragung abgebrochen"
 
 #: src/EBox/MailFilter.pm:629
-#, fuzzy
 msgid "POP3 proxy"
-msgstr "POP3-Proxy / Filter"
+msgstr "POP3-Proxy"
 
 #: src/EBox/MailFilter.pm:721
 msgid "Mail Filter"
 msgstr "Mailfilter"
 
 #: src/EBox/MailFilter.pm:727
-#, fuzzy
 msgid "SMTP mail filter"
 msgstr "SMTP-Mailfilter"
 

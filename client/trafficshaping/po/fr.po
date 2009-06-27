@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-05-15 14:17+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-06-27 12:41+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -61,7 +61,7 @@ msgstr "Service"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
 msgid "Port based service"
-msgstr ""
+msgstr "Service basé sur les ports"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 msgid "Source"
@@ -103,7 +103,7 @@ msgstr "Priorité"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "La plus basse priorité: 7 La plus haute priorité: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #: src/EBox/TrafficShaping.pm:1557
@@ -120,6 +120,8 @@ msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unlimited rate."
 msgstr ""
+"Noter que la somme de tout les taux garantis ne peut excéder votre bande "
+"passante totale. 0 signifie un taux illimité."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:566
 #: src/EBox/TrafficShaping.pm:1558
@@ -128,7 +130,7 @@ msgstr "Taux limité"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:573
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr ""
+msgstr "Le trafic ne dépassera pas ce taux. 0 signifie un taux illimité."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:580
 #, perl-brace-format
@@ -136,10 +138,13 @@ msgid "Rules list for {printableIndex}"
 msgstr "Listes des règles pour {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:589
+#, fuzzy
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Notez que si l'interface est interne, le flux du trafique va de l'internet "
+"vers l'intérieur, tandis que si elle est externe, se sera l'inverse"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:594
 msgid "rule"
@@ -169,6 +174,10 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Les protocoles basés sur les ports utilisent les numéro de port lié à un "
+"service, tandis que les protocoles basé sur les applications sont plus lent "
+"mais plus efficace car ils contrôlent le contenu des paquets afin de "
+"vérifier s'il correspondent au service attendu."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:776
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:793

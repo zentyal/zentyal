@@ -6,80 +6,80 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-08 19:13+0200\n"
+"Last-Translator: Joaquim <j_lages@sapo.pt>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/GeneralSettings.pm:73
 msgid "Enable incoming calls"
-msgstr ""
+msgstr "Activar entrada de chamadas "
 
 #: src/EBox/Model/GeneralSettings.pm:79
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Activar saída de chamadas"
 
 #: src/EBox/Model/GeneralSettings.pm:88
 msgid "General configuration settings"
-msgstr ""
+msgstr "Definições de configuração gerais"
 
 #: src/EBox/Model/GeneralSettings.pm:92
 msgid "General Asterisk server configuration."
-msgstr ""
+msgstr "Definições gerais de configuração do servidor Asterisk"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
-msgstr ""
+msgstr "Definições gerais de configuração do servidor Asterisk actualizadas"
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/EBox/Model/Provider.pm:81
 msgid "Username"
-msgstr ""
+msgstr "Nome de utilizador"
 
 #: src/EBox/Model/Provider.pm:88
 msgid "Password"
-msgstr ""
+msgstr "Palavra passe"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Server"
-msgstr ""
+msgstr "Servidor"
 
 #: src/EBox/Model/Provider.pm:105
 msgid "SIP provider"
-msgstr ""
+msgstr "Fornecedor SIP"
 
 #: src/EBox/Model/Provider.pm:109
 msgid "SIP provider configuration."
-msgstr ""
+msgstr "Configuração do Fornecedor SIP"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
-msgstr ""
+msgstr "Definições do Fornecedor SIP Actualizadas"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "Nome de usuário "
 
 #: src/EBox/Composite/General.pm:64
 msgid "Asterisk module"
-msgstr ""
+msgstr "Modulo Asterisk"
 
 #: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
-msgstr ""
+msgstr "Configurar os módulos ligar e desligar do Asterisk."
 
 #: src/EBox/Asterisk.pm:91
 msgid "To configure the SIP trunk for local users and external providers."

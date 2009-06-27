@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-05-18 22:56+0200\n"
+"PO-Revision-Date: 2009-05-28 13:56+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,50 +26,52 @@ msgstr "Serverns adress"
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Du måste ange minst en adress för denna server {name}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:87
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:87
 msgid "Can't get address for this server: no external interfaces present"
 msgstr ""
+"Kan inte komma åt adressen för denna server: inget externt gränssnitt "
+"tillgängligt"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "Klientens certifikat kan inte vara samma som serverns."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "CA har ingen certifikatfil {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "Klient har ingen certifikatfil {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Certifikatet har ingen privat nyckelfil {p}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Filen som angetts som CA certifikat är inte giltig"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:84
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Filen som angetts som klientens certifikat är inte giltig"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:99
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:99
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Filen som angetts som klientens privata nyckelfil är inte giltig"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:112
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
@@ -77,6 +79,8 @@ msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Filen som angetts som klientcertifikat matchar inte med filen som angetts "
+"som CA certifikat"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Client/ValidateCertificate.pm:141
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
@@ -84,6 +88,8 @@ msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Filen som angetts som klientcertifikat matchar inte med filen som angetts "
+"som certifikatets privata nyckel"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:60
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Server.pm:694
@@ -113,7 +119,7 @@ msgstr "Konfiguration"
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
 #: src/EBox/OpenVPN/Model/Servers.pm:85
 msgid "Advertised networks"
-msgstr ""
+msgstr "Annonserade nätverk"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:94
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
@@ -125,18 +131,17 @@ msgstr "Ladda ner klientinställningar"
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:106
 #: src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
-msgstr ""
+msgstr "Serverlista"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:107
 #: src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
-msgstr ""
+msgstr "VPN servrar"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:113
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 #: src/EBox/OpenVPN/Model/Servers.pm:113
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
-#, fuzzy
 msgid "server"
 msgstr "Server"
 
@@ -149,11 +154,15 @@ msgid ""
 "manager module{closehref} and create new certificates.{closepar}{openpar}You "
 "will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
+"{openpar}Du kan inte skapa VPN servers eftersom det inte finns nog med "
+"certifikat {closepar}{openpar}Vänligen gå till {openhref}certificate manager "
+"module{closehref} och skapa nya certifikat.{closepar}{openpar}Du behöver "
+"minst ett CA och ett certifikat.{closepar}"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:173
 #: src/EBox/OpenVPN/Model/Servers.pm:173
 msgid "Server creation"
-msgstr ""
+msgstr "Skapa server"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:271
 #: src/EBox/OpenVPN/Model/Servers.pm:271
@@ -161,11 +170,13 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Kan inte skapa servern eftersom __ inte är fullt konfigurerad. Vänligen "
+"editera konfigurationen och försök igen."
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:278
 #: src/EBox/OpenVPN/Model/Servers.pm:278
 msgid "Server activation"
-msgstr ""
+msgstr "Server aktivering"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:305
 #: src/EBox/OpenVPN/Model/Servers.pm:305
@@ -174,6 +185,8 @@ msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
+"{act} är inte möjlig eftersom det inte finns några tillgängliga certifikat. "
+"Vänligen gå till CA modulen och skapa nya certifikat"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN/Model/Servers.pm:318
 #: src/EBox/OpenVPN/Model/Servers.pm:318

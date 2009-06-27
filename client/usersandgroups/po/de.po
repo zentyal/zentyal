@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-11-05 13:44+0000\n"
+"PO-Revision-Date: 2009-06-21 19:24+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -311,7 +311,6 @@ msgid "This group contains users"
 msgstr "Diese Gruppe enthält Benutzer"
 
 #: src/EBox/UsersAndGroups.pm:74
-#, fuzzy
 msgid ""
 "Your current openLDAP database will be replaced and backed up in /var/"
 "backups/slapd"
@@ -528,7 +527,6 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: src/templates/user.mas:73
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all the dependent "
 "data; such as mail accounts, user files, ..."

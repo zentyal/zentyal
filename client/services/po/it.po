@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2007-09-03 17:18+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-05-31 19:20+0200\n"
+"Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:107
 #: src/EBox/Model/ServiceTable.pm:107
@@ -43,6 +44,8 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Seleziona questo campo se c'è già un servizio che utilizza la porta "
+"configurata. Questo aiuterà eBox a conoscere le porte occupate"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:139
 #: src/EBox/Model/ServiceTable.pm:139
@@ -51,9 +54,8 @@ msgstr "Configurazione"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:151
 #: src/EBox/Model/ServiceTable.pm:151
-#, fuzzy
 msgid "List of services"
-msgstr "ebox-services"
+msgstr "Lista servizi"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceTable.pm:152
 #: debian/ebox-services/usr/share/perl5/EBox/Services.pm:47
@@ -74,6 +76,8 @@ msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Un servizio è un elemento astratto di uno o più protocolli di rete che può "
+"essere usato in altri modula come: firewall, traffic shaping..."
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:111
 #: src/EBox/Model/ServiceConfigurationTable.pm:111
@@ -88,7 +92,7 @@ msgstr "Porta sorgente"
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:119
 #: src/EBox/Model/ServiceConfigurationTable.pm:119
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Questo campo è di solito impostato"
 
 #: debian/ebox-services/usr/share/perl5/EBox/Services/Model/ServiceConfigurationTable.pm:123
 #: src/EBox/Model/ServiceConfigurationTable.pm:123

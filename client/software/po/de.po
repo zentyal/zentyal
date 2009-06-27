@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:16+0100\n"
-"PO-Revision-Date: 2008-11-24 00:46+0000\n"
+"PO-Revision-Date: 2009-06-21 19:26+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -215,9 +215,8 @@ msgid "eBox - Mail filter module"
 msgstr "eBox - Mail-Filter Modul"
 
 #: src/EBox/PackageDescriptions.pm:11
-#, fuzzy
 msgid "eBox - Monitoring module  "
-msgstr "eBox - Mail-Filter Modul"
+msgstr "eBox - Überwachungs-Modul"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - Network configuration module"

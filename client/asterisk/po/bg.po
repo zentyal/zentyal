@@ -6,121 +6,122 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-asterisk 1.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-26 01:50+0200\n"
+"Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/GeneralSettings.pm:73
 msgid "Enable incoming calls"
-msgstr ""
+msgstr "Допускане на входящи обаждания"
 
 #: src/EBox/Model/GeneralSettings.pm:79
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Допускане на изходящи обаждания"
 
 #: src/EBox/Model/GeneralSettings.pm:88
 msgid "General configuration settings"
-msgstr ""
+msgstr "Общи настройки"
 
 #: src/EBox/Model/GeneralSettings.pm:92
 msgid "General Asterisk server configuration."
-msgstr ""
+msgstr "Общи настройки за Астериск сървър"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
-msgstr ""
+msgstr "Общите настройки за Астериск сървър са записани."
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #: src/EBox/Model/Provider.pm:81
 msgid "Username"
-msgstr ""
+msgstr "Потребителско име"
 
 #: src/EBox/Model/Provider.pm:88
 msgid "Password"
-msgstr ""
+msgstr "Парола"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Server"
-msgstr ""
+msgstr "Сървър"
 
 #: src/EBox/Model/Provider.pm:105
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP доставчик"
 
 #: src/EBox/Model/Provider.pm:109
 msgid "SIP provider configuration."
-msgstr ""
+msgstr "Настройки за SIP доставчик"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
-msgstr ""
+msgstr "Настройките за SIP доставчик са записани."
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
-msgstr ""
+msgstr "потребителско име"
 
 #: src/EBox/Composite/General.pm:64
 msgid "Asterisk module"
-msgstr ""
+msgstr "Астериск модул"
 
 #: src/EBox/Asterisk.pm:38 src/EBox/Asterisk.pm:203
 msgid "Asterisk"
-msgstr ""
+msgstr "Астериск"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
-msgstr ""
+msgstr "Настройване на Астериск модули, включени и изключени"
 
 #: src/EBox/Asterisk.pm:91
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
+"Настройване на SIP свързаност за локални потребители и външни доставчици"
 
 #: src/EBox/Asterisk.pm:96
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "Настройване на интерфейс Реално време"
 
 #: src/EBox/Asterisk.pm:101
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "Настройване на драйвер Реално време LDAP"
 
 #: src/EBox/Asterisk.pm:106
 msgid "To configure the Asterisk dialplan."
-msgstr ""
+msgstr "Настройване на Астериск номерационен план"
 
 #: src/EBox/Asterisk.pm:111
 msgid "To add a new schema"
-msgstr ""
+msgstr "Добавяне на нова схема"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Астериск сметка"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Паролата за Астериск услуга е потребителската парола."
 
 #: src/templates/asterisk.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Потребителска сметка"
 
 #: src/templates/asterisk.mas:22 src/templates/asterisk.mas:25
 msgid "Disabled"
-msgstr ""
+msgstr "Изключено"
 
 #: src/templates/asterisk.mas:23 src/templates/asterisk.mas:26
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: src/templates/asterisk.mas:35 src/templates/asterisk.mas:36
 msgid "Change"
-msgstr ""
+msgstr "Промяна"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-08 15:16+0000\n"
-"PO-Revision-Date: 2009-05-06 11:44+0200\n"
-"Last-Translator: Marco Falger <mfalger@aon.at>\n"
+"PO-Revision-Date: 2009-06-01 18:40+0200\n"
+"Last-Translator: Rainer Trunk <Trunk.rainer@googlemail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Generelle Asterisk - Server konfiguration"
 
 #: src/EBox/Model/GeneralSettings.pm:94
 msgid "General Asterisk server configuration settings updated"
-msgstr ""
+msgstr "Generelle Asterisk Server Konfiguration Einstellungs Update"
 
 #: src/EBox/Model/Provider.pm:74
 msgid "Name"
@@ -63,7 +63,7 @@ msgstr "SIP - Provider Konfiguration"
 
 #: src/EBox/Model/Provider.pm:111
 msgid "SIP provider configuration settings updated"
-msgstr ""
+msgstr "SIP - Provider Konfigurations Einstellungen werden erneuert"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
@@ -79,23 +79,23 @@ msgstr "Asterisk"
 
 #: src/EBox/Asterisk.pm:86
 msgid "To configure Asterisk enabled and disabled modules."
-msgstr ""
+msgstr "Asterisk einstellungen zum Aktiveren und Deaktiviren von Modulen"
 
 #: src/EBox/Asterisk.pm:91
 msgid "To configure the SIP trunk for local users and external providers."
-msgstr ""
+msgstr "Die SIP - AMT Einstellungen für Locale Benutzer sowie Externe Provider"
 
 #: src/EBox/Asterisk.pm:96
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "Zum Einstellen des Realtime Interface"
 
 #: src/EBox/Asterisk.pm:101
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "Zum Einstellen des Reltime Treibers für den Verzeichnisdienst (LDAP) "
 
 #: src/EBox/Asterisk.pm:106
 msgid "To configure the Asterisk dialplan."
-msgstr ""
+msgstr "Zum Einstellen des Asterisk Wahl Plan (Dial Plan)"
 
 #: src/EBox/Asterisk.pm:111
 msgid "To add a new schema"
@@ -107,7 +107,7 @@ msgstr "Asterisk Account"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Das Passwort für die Asterisk Service ist Ihr Benutzer Passwort"
 
 #: src/templates/asterisk.mas:17
 msgid "User account"

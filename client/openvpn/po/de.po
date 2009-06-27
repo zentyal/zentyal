@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2008-12-05 19:33+0000\n"
+"PO-Revision-Date: 2009-06-21 19:32+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -824,14 +824,13 @@ msgstr "VPN-Adresse"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1487
 #: src/EBox/OpenVPN.pm:1490
-#, fuzzy
 msgid "Connected since"
-msgstr "Gegenstelle"
+msgstr "Verbunden seit"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1507
 #: src/EBox/OpenVPN.pm:1510
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Kein Benutzer ist zum VPN-Netzwerk verbunden"
 
 #: debian/ebox-openvpn/usr/share/perl5/EBox/OpenVPN.pm:1542
 #: src/EBox/OpenVPN.pm:1551

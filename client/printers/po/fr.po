@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2006-11-27 15:45+0100\n"
-"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"PO-Revision-Date: 2009-06-22 02:13+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/CGI/Printers/AddPrinterUI.pm:30
 #: src/EBox/CGI/AddPrinterUI.pm:30
@@ -309,62 +309,63 @@ msgstr "statut du module"
 #: debian/ebox-printers/usr/share/perl5/EBox/CGI/Printers/GeneralSettings.pm:90
 #: src/EBox/CGI/GeneralSettings.pm:90
 msgid "Standalone cups enabled"
-msgstr ""
+msgstr "Services d'impression locale activés"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/CGI/Printers/GeneralSettings.pm:92
 #: src/EBox/CGI/GeneralSettings.pm:92
 msgid "Standalone cups disabled"
-msgstr ""
+msgstr "Services d'impression locale désactivés"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:56
 #: src/EBox/Printers.pm:55
-#, fuzzy
 msgid "printers"
-msgstr "Imprimantes"
+msgstr "imprimantes"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:76
 #: src/EBox/Printers.pm:75
-#, fuzzy
 msgid "Create spool directory for printers"
-msgstr "Choisissez un driver pour l'imprimante"
+msgstr "Créer un répertoire tampon pour les imprimantes"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:77
 #: src/EBox/Printers.pm:76
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr ""
+msgstr "eBox va créer un répertoire tampon sous /var/spool/samba"
 
+# lpadmin est le groupe d'administration d'imprimante
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:82
 #: src/EBox/Printers.pm:81
 msgid "Add user ebox to lpadmin group"
-msgstr ""
+msgstr "Ajouter l'utilisateur ebox au groupe lpadmin"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:83
 #: src/EBox/Printers.pm:82
 msgid "In order to manage printers and queues from the eBox web interface"
 msgstr ""
+"Afin de gérer les imprimantes et les files d'attente d'impression à partir "
+"de l'interface web d'eBox"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:88
 #: src/EBox/Printers.pm:87
-#, fuzzy
 msgid "Create log table"
-msgstr "Heure de création"
+msgstr "Créer un historique"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:89
 #: src/EBox/Printers.pm:88
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr ""
+"eBox créera une nouvelle table dans sa base de données des historiques pour "
+"conserver ceux des imprimantes"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:105
 #: src/EBox/Printers.pm:104
-#, fuzzy
 msgid "To add and manage printers"
-msgstr "Administrer imprimantes"
+msgstr "Pour ajouter et gérer les imprimantes"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:110
 #: src/EBox/Printers.pm:109
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr ""
+msgstr "Pour activer le monitoring des imprimante locales "
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:256
 msgid "Printer sharing"
@@ -387,7 +388,7 @@ msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
-"Le nom de l'imprimante contient des caractères pas valids.Seulement des "
+"Le nom de l'imprimante contient des caractères invalides. Seuls les "
 "caractères alphanumériques sont permis"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:584
@@ -426,7 +427,7 @@ msgstr "Ce n'est pas une imprimante parallèle"
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:748
 #: src/EBox/Printers.pm:681
 msgid "It is not a network printer"
-msgstr "Ce n'est pas une imprimante de réseau"
+msgstr "Ce n'est pas une imprimante réseau"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:777
 #: src/EBox/Printers.pm:710
@@ -443,7 +444,7 @@ msgstr "n'est pas une option valide"
 #: src/EBox/Printers.pm:1064
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr "Paramètre '{name}' n'existe pas"
+msgstr "Le paramètre '{name}' n'existe pas"
 
 #: debian/ebox-printers/usr/share/perl5/EBox/Printers.pm:1278
 #: src/EBox/Printers.pm:1209
@@ -481,17 +482,17 @@ msgstr "Annulé"
 
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
-msgstr ""
+msgstr "Port du serveur d'impression"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/addprinter.mas:10
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
-msgstr "Établir nom et méthode du imprimante"
+msgstr "configure le nom de l'imprimante et son mode de connexion"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/addprinter.mas:28
 #: src/templates/addprinter.mas:28
 msgid "Parallel"
-msgstr "Parallèl"
+msgstr "Parallèle"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/addprinter.mas:29
 #: src/templates/addprinter.mas:29
@@ -506,17 +507,17 @@ msgstr "Samba"
 #: debian/ebox-printers/usr/share/ebox/templates/printers/manufacturer.mas:12
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
-msgstr "Choisissez fabricant"
+msgstr "Choisir le fabricant"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/models.mas:13
 #: src/templates/models.mas:13
 msgid "Choose a printer model"
-msgstr "Choisissez une modèle d'imprimante"
+msgstr "Choisir une modèle d'imprimante"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/driver.mas:12
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr "Choisissez un driver pour l'imprimante"
+msgstr "Choisir un driver pour l'imprimante"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/drvopts.mas:14
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
@@ -557,7 +558,7 @@ msgstr "Hôte"
 #: src/templates/samba.mas:50 src/templates/samba.mas:52
 #: src/templates/printerback.mas:138 src/templates/printerback.mas:140
 msgid "User/Password"
-msgstr "Usager/Mot de passe"
+msgstr "Utilisateur/Mot de passe"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/usb.mas:15
 #: src/templates/usb.mas:15
@@ -572,7 +573,7 @@ msgstr "Configuration d'imprimante parallèle locale"
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printers.mas:13
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
-msgstr ""
+msgstr "Activer le serveur d'impression local"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printers.mas:19
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printer.mas:32
@@ -588,7 +589,7 @@ msgstr "Changer"
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printers.mas:25
 #: src/templates/printers.mas:25
 msgid "General settings"
-msgstr ""
+msgstr "Configuration générale"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printers.mas:33
 #: src/templates/printers.mas:33
@@ -632,15 +633,14 @@ msgstr "Effacer"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printers.mas:75
 #: src/templates/printers.mas:75
-#, fuzzy
 msgid "There is no printer configured yet"
-msgstr "Configuration d'imprimante distante"
+msgstr "Il n'y a pas encore d'imprimante configurée"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/del.mas:12
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "Êtes-vous sûr vous voulez-effacer l'imprimante '{name} '?"
+msgstr "Êtes-vous sûr de vouloir effacer l'imprimante '{name} '?"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/del.mas:24
 #: src/templates/del.mas:24
@@ -650,7 +650,7 @@ msgstr "Annuler"
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printer.mas:61
 #: src/templates/printer.mas:61
 msgid "Job queue"
-msgstr "Queue de travaux"
+msgstr "File d'attente d'impression"
 
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printer.mas:70
 #: src/templates/printer.mas:70
@@ -670,7 +670,7 @@ msgstr "Action"
 #: debian/ebox-printers/usr/share/ebox/templates/printers/printer.mas:121
 #: src/templates/printer.mas:121
 msgid "This printer has no pending job in queue at the moment"
-msgstr "Cette imprimante n'a aucun travail en attente à ce moment"
+msgstr "Cette imprimante n'a aucun travail en attente en ce moment"
 
 #: src/templates/printerback.mas:47 src/templates/printerback.mas:48
 msgid "Go"

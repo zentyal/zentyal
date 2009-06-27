@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:14+0100\n"
-"PO-Revision-Date: 2007-03-16 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-03 02:24+0200\n"
+"Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/Index.pm:30
 #: debian/ebox-jabber/usr/share/perl5/EBox/CGI/Jabber/Index.pm:40
@@ -41,21 +41,21 @@ msgstr "nome utente"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:71 src/EBox/Jabber.pm:69
 msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr ""
+msgstr "Copia lo schema LDAP di Jabber in /etc/ldap/schemas"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:72 src/EBox/Jabber.pm:70
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "eBox necessita di questo schema per conservare gli utenti jabber"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:89
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:94 src/EBox/Jabber.pm:87
 #: src/EBox/Jabber.pm:92
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "Per configurare correttamente jabberd2"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:98 src/EBox/Jabber.pm:96
 msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
+msgstr "Per aggiungere lo schema LDAP usato da Jabber di eBox"
 
 #: debian/ebox-jabber/usr/share/perl5/EBox/Jabber.pm:356
 #: src/EBox/Jabber.pm:322

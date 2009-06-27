@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2007-04-12 09:14+0000\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-06-22 02:09+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/ObjectTable.pm:63
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:63
@@ -59,6 +59,9 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Les objets sont sont des abstractions de machines et d'adresses réseau qui "
+"peuvent-être utilisés dans d'autres modules. Tout changement dans un objet "
+"est automatiquement synchronisé dans tout les modules qui en font usage"
 
 #: debian/ebox-objects/usr/share/perl5/EBox/Objects/Model/MemberTable.pm:70
 #: src/EBox/Model/MemberTable.pm:70

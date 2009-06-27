@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
-"PO-Revision-Date: 2009-04-06 23:33+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2009-06-27 10:43+0200\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "Interfaces réseau"
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
-msgstr "Vous pouvez aussi accéder à cette page dans le menu Réseau/Interfaces"
+msgstr "Vous pourrez aussi accéder à cette page dans le menu Réseau/Interfaces"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Iface.pm:45
 #: src/EBox/CGI/FirstTime/Iface.pm:45
@@ -40,7 +40,7 @@ msgstr "Interface réseau configurée"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/DNS.pm:41
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Vous pouvez aussi accéder à cette page dans le menu Réseau/DNS"
+msgstr "Vous pourrez aussi accéder à cette page dans le menu Réseau/DNS"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Nameservers.pm:44
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
@@ -55,8 +55,7 @@ msgstr "Définir la passerelle par défaut"
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Routes.pm:43
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
-"Vous pouvez modifier par la suite la passerelle dans le menu Réseau/Routes"
+msgstr "Vous pourrez modifier la passerelle dans le menu Réseau/Routes"
 
 #: debian/ebox-network/usr/share/perl5/EBox/CGI/Network/FirstTime/Gateway.pm:41
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
@@ -364,7 +363,7 @@ msgstr "Téléchargement"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:116
 #: src/EBox/Model/GatewayTable.pm:116
 msgid "Download rate in Kbits/s for this gateway."
-msgstr "Taus de téléchargement en Kbits/s pour cette passerelle."
+msgstr "Taux de téléchargement en Kbits/s pour cette passerelle."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:120
 #: src/EBox/Model/GatewayTable.pm:120
@@ -431,10 +430,14 @@ msgstr "Protocole"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:103
 #: src/EBox/Model/MultiGwRulesDataTable.pm:103
+#, fuzzy
 msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"interface d'entrée correspondant à la règle. si vous  souhaitez appliquer "
+"une règle à un sous réseau complet, vous pouvez  sélectionner l'interface de "
+"ce sous réseau"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:109
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ByteRateGraphControl.pm:111
@@ -470,7 +473,7 @@ msgstr "Port"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:137
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Leave it blank  to select any port"
-msgstr "Laisser le vide  pour sélectionner tous les ports"
+msgstr "Laisser vide  pour sélectionner tous les ports"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:141
 #: src/EBox/Model/MultiGwRulesDataTable.pm:141
@@ -490,7 +493,7 @@ msgstr "Objet de destination"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:170
 #: src/EBox/Model/MultiGwRulesDataTable.pm:170
 msgid "Leave it blank if to select any port"
-msgstr "Laisser le vide pour sélectionner tous les ports"
+msgstr "Laisser vide pour sélectionner tous les ports"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/MultiGwRulesDataTable.pm:174
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/StaticRoute.pm:148
@@ -554,7 +557,7 @@ msgstr "Liste des interfaces physiques"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:81
 #: src/EBox/Model/PhysicalInterfaceTable.pm:81
 msgid "These are the physical interfaces which are available in your system."
-msgstr "Ce sont les interfaces physiques disponibles sur votre système"
+msgstr "Interfaces physiques disponibles sur votre système"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/PhysicalInterfaceTable.pm:83
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:94
@@ -578,7 +581,7 @@ msgstr "Liste des interfaces Vlan"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/VlanInterfaceTable.pm:92
 #: src/EBox/Model/VlanInterfaceTable.pm:92
 msgid "These are the vlan interfaces which are available in your system."
-msgstr "Ce sont les interfaces Vlan qui sont disponibles sur votre système"
+msgstr "Interfaces virtuelles (Vlan) disponibles sur votre système"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:83
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/ConfigurableInterfaceTable.pm:218
@@ -778,25 +781,22 @@ msgstr "Adresse IP du serveur DNS que eBox va utiliser pour résoudre les noms"
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:84
 #: src/EBox/Model/DNSResolver.pm:84
 msgid "Name server"
-msgstr "Nom du serveur"
+msgstr "Serveur de nom"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:93
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Name server resolver list"
-msgstr "Services actifs"
+msgstr "Liste des serveurs de résolution de nom"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:94
 #: src/EBox/Model/DNSResolver.pm:94
-#, fuzzy
 msgid "Name server resolver"
-msgstr "Services actifs"
+msgstr "Serveur de résolution de nom"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:100
 #: src/EBox/Model/DNSResolver.pm:100
-#, fuzzy
 msgid "name server"
-msgstr "Configurer les serveurs de nom"
+msgstr "serveur de nom"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/DNSResolver.pm:112
 #: src/EBox/Model/DNSResolver.pm:112
@@ -805,11 +805,16 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
+"<p>Ici, vous pouvez ajouter les serveurs de résolution de nom de domaine "
+"qu'eBox utilisera.</p><p>Notez que ces paramètres peuvent être écrasés si "
+"vous avez une interface réseau configurée via DHCP</p>"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:85
 #: src/EBox/Network.pm:85
 msgid "Add default routers to the default table"
 msgstr ""
+"Ajoute les routeurs utilisés par défaut à la table de routage utilisée par "
+"défaut"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:86
 #: src/EBox/Network.pm:86
@@ -817,11 +822,15 @@ msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
+"Ceci est nécessaire pour le fonctionnement d'un système configurer avec "
+"plusieurs passerelles. Notez que pour voir la liste des routes par défaut, "
+"vous devez exécuter:"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:92
 #: src/EBox/Network.pm:92
+#, fuzzy
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "Active le monitoring DHCP d'eBox"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:93
 #: src/EBox/Network.pm:93
@@ -829,11 +838,13 @@ msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr ""
+"Il fera attention d'ajouter la route par défaut donnée par un serveur DHCP à "
+"la table de routage par défaut. "
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:109
 #: src/EBox/Network.pm:109
 msgid "eBox will set your network configuration"
-msgstr ""
+msgstr "eBox configurera votre réseau"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:697
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:701
@@ -881,7 +892,7 @@ msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
-"L'opération demandée fera devenir un des routers configurés inaccessible. "
+"L'opération demandée rendra un des routeurs configurés inaccessible. "
 "Veuillez l'enlever d'abord si vous voulez vraiment faire ce changement."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2279
@@ -893,28 +904,33 @@ msgstr "Passerelle {gw} inatteignable"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2282
 #: src/EBox/Network.pm:2282
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr ""
-"La passerelle {gw} doit être accessible par une carte physique, pas par "
-"l'interface {iface} qui n'est pas statique"
+"La passerelle {gw} doit être accessible par une interface avec une adresse "
+"statique. Actuellement elle est accessible par {iface} qui n'est pas "
+"statique"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2513
 #: src/EBox/Network.pm:2513
 msgid "Host name"
 msgstr "Nom d'hôte"
 
+# If you mean the connection is down, so this is correct
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2562
 #: src/EBox/Network.pm:2562
+#, fuzzy
 msgid "down"
-msgstr "Descendre"
+msgstr "Déconnecté"
 
+# If you mean the connection is up, so this is correct
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2568
 #: src/EBox/Network.pm:2568
+#, fuzzy
 msgid "up"
-msgstr "Monter"
+msgstr "Connecté"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2572
 #: src/EBox/Network.pm:2572
@@ -934,12 +950,12 @@ msgstr "Adresse MAC"
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2599
 #: src/EBox/Network.pm:2599
 msgid "Tx bytes"
-msgstr ""
+msgstr "bytes transmis"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2608
 #: src/EBox/Network.pm:2608
 msgid "Rx bytes"
-msgstr ""
+msgstr "bytes reçus"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:2645
 #: src/EBox/Network.pm:2645
@@ -1042,7 +1058,7 @@ msgstr "Changer"
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:143
 #: src/templates/ifaces.mas:143
 msgid "VLAN List"
-msgstr "List VLAN"
+msgstr "Liste VLAN"
 
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:150
 #: debian/ebox-network/usr/share/ebox/templates/network/ifaces.mas:208
@@ -1113,8 +1129,8 @@ msgid ""
 "add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first"
 msgstr ""
 "Pour pouvoir utiliser cette fonctionnalité, vous devez avoir au minimum deux "
-"passerelles. Vous pouvez en ajouter une <a href=\"/ebox/Network/View/"
-"GatewayDataTable\">ici</a> "
+"passerelles. Vous pouvez les ajouter <a "
+"href=\"/ebox/Network/View/GatewayDataTable\">ici</a> d'abord "
 
 #: debian/ebox-network/usr/share/ebox/templates/network/gwrules.mas:25
 #: src/templates/gwrules.mas:25

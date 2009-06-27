@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-03-02 19:45+0100\n"
-"PO-Revision-Date: 2005-08-09 10:37+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-06-07 18:32+0200\n"
+"Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:40
 msgid " To configure spamassassin daemon"
-msgstr ""
+msgstr "Per configurare il demone di spamassassin"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:308
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
@@ -132,10 +132,14 @@ msgstr "Opzioni antispam"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
+"Devi definire la soglia di autoapprendimento dello spam quando l'opzione di "
+"autoapprendimento è attiva"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:174
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Devi definire la soglia di autoapprendimento dello ham quando l'opzione di "
+"autoapprendimento è attiva"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:180
 msgid ""
@@ -160,12 +164,12 @@ msgstr "Server di posta esterno"
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
 msgid "Allow connection"
-msgstr ""
+msgstr "Permetti connessione"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:82
 #, fuzzy
 msgid "External mail servers"
-msgstr "Server di posta esterno"
+msgstr "Server di posta esterni"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:94
 #, fuzzy
@@ -177,6 +181,8 @@ msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Qui puoi specificare quali mail server esterni possano collegarsi al filtro "
+"mail"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
@@ -195,12 +201,12 @@ msgstr "La casella contiene"
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:76
 #, fuzzy
 msgid "Train bayesian spam filter"
-msgstr "Usa classificator bayesiano"
+msgstr "Metti il filtro spam bayesiano in modalità di apprendimento"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:81
 #, fuzzy
 msgid "Learned from messages"
-msgstr "Appreso da file mailbox"
+msgstr "Appreso da messaggi"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:97
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
