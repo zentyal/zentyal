@@ -23,7 +23,7 @@
                 <name>eth2</name>
                 <address>192.168.3.1</address>
                 <netmask>255.255.255.0</netmask>
-                <gateway>192.168.3.254</gateway>
+                <gateway>192.168.3.253</gateway>
             </interface>
         </network>
 
@@ -40,7 +40,7 @@
         <network>
             <interface type="static">
                 <name>eth1</name>
-                <address>192.168.3.254</address>
+                <address>192.168.3.253</address>
                 <netmask>255.255.255.0</netmask>
             </interface>
         </network>
