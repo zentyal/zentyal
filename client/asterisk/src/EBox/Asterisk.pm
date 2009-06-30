@@ -157,13 +157,6 @@ sub usedFiles
                         'module' => 'asterisk',
                         'reason' => __('To configure the conferences.')
                       });
-
-    push (@usedFiles, {
-                        'file' => '/etc/ldap/slapd.conf',
-                        'reason' => __('To add the Asterisk schema and ACLs.'),
-                        'module' => 'users'
-                      });
-
     return \@usedFiles;
 }
 
@@ -177,6 +170,12 @@ sub usedFiles
 sub enableActions
 {
     my ($self) = @_;
+
+    $self->loadSchema(EBox::Config::share() . '/ebox-asterisk/asterisk.ldif');
+    $self->loadACL("to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach,AstAccountVMDelete " .
+                    "by dn.regex=\"" . $self->ldap->rootDn() . "\" write " .
+                    "by self write " .
+                    "by * none");
 
     EBox::Sudo::root(EBox::Config::share() .
                      '/ebox-asterisk/ebox-asterisk-enable');
@@ -240,8 +239,14 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my @params;
+    my $ldapConf = $self->ldap->ldapConf();
+    push (@params, dn => $ldapConf->{'dn'});
+
     $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
-    $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas");
+
+    $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas",
+        \@params);
     $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas");
     $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas");
     $self->_setRealTime();
@@ -259,10 +264,13 @@ sub _setRealTime
 
     my @params = ();
 
-    push (@params, url => EBox::Ldap->ldapConf->{'ldap'});
-    push (@params, dn => EBox::Ldap->ldapConf->{'dn'});
-    push (@params, rootdn => EBox::Ldap->ldapConf->{'rootdn'});
-    push (@params, password => EBox::Ldap->getPassword());
+    my $users = EBox::Global->modInstance('users');
+
+    my $ldapConf = $self->ldap->ldapConf();
+    push (@params, url => $ldapConf->{'ldap'});
+    push (@params, dn => $ldapConf->{'dn'});
+    push (@params, rootdn => $ldapConf->{'rootdn'});
+    push (@params, password => $self->ldap->getPassword());
 
     $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params,
                             { 'uid' => 0, 'gid' => 0, mode => '640' });

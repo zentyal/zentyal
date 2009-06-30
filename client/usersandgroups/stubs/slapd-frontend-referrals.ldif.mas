@@ -1,0 +1,27 @@
+<%args>
+$remote
+$remotedn
+$password
+</%args>
+<%init>
+my @parts = split(/,/, $remotedn);
+my $dc = (split(/=/, $parts[0]))[1];
+</%init>
+dn: <% $remotedn %>
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: <% $dc %>
+dc: <% $dc %>
+
+dn: ou=Users,<% $remotedn %>
+objectClass: referral
+objectClass: extensibleObject
+ou: Users
+ref: ldap://127.0.0.1:1390/ou=Users,<% $remotedn %>
+
+dn: ou=Groups,<% $remotedn %>
+objectClass: referral
+objectClass: extensibleObject
+ou: Groups
+ref: ldap://127.0.0.1:1390/ou=Groups,<% $remotedn %>

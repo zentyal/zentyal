@@ -1,0 +1,111 @@
+<%args>
+$remote
+$remotedn
+$password
+$schemadir
+</%args>
+# Global config:
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+# Where the pid file is put. The init.d script
+# will not stop the server if you change this.
+olcPidFile: /var/run/slapd/slapd-translucent.pid
+# List of arguments that were passed to the server
+olcArgsFile: /var/run/slapd/slapd-translucent.args
+# Read slapd.conf(5) for possible values
+olcLogLevel: none
+# The tool-threads parameter sets the actual amount of cpu's that is used
+# for indexing.
+olcToolThreads: 1
+
+# Load dynamic backend modules
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulepath: /usr/lib/ldap
+olcModuleload: back_hdb
+olcModuleload: back_ldap
+olcModuleload: translucent
+
+# Load schemas
+dn: cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: schema
+
+include: file:///etc/ldap/schema/core.ldif
+include: file:///etc/ldap/schema/cosine.ldif
+include: file:///etc/ldap/schema/nis.ldif
+include: file:///etc/ldap/schema/inetorgperson.ldif
+include: file://<% $schemadir %>/passwords.ldif
+
+
+# Frontend settings
+dn: olcDatabase={-1}frontend,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: {-1}frontend
+# The maximum number of entries that is returned for a search operation
+olcSizeLimit: 500
+
+# Config db settings
+dn: olcDatabase=config,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: config
+olcRootDN: cn=admin,cn=config
+olcRootPW: <% $password %>
+olcAccess: to * by dn="cn=ebox,<% $remotedn %>" read
+
+# Database settings
+dn: olcDatabase=hdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcHdbConfig
+olcDatabase: hdb
+# The base of your directory
+olcSuffix: <% $remotedn %>
+olcRootDN: cn=ebox,<% $remotedn %>
+olcRootPW: <% $password %>
+olcAccess: {0}to attrs=userPassword,shadowLastChange by dn="cn=ebox,<% $remotedn %>" write by anonymous auth by self write by * none
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn="cn=ebox,<% $remotedn %>" write by * read
+# Where the database file are physically stored
+olcDbDirectory: /var/lib/ldap-translucent
+# The dbconfig settings are used to generate a DB_CONFIG file the first
+# time slapd starts.  They do NOT override existing an existing DB_CONFIG
+# file.  You should therefore change these settings in DB_CONFIG directly
+# or remove DB_CONFIG and restart slapd for changes to take effect.
+# For the Debian package we use 2MB as default but be sure to update this
+# value if you have plenty of RAM
+olcDbConfig: set_cachesize 0 2097152 0
+# Sven Hartge reported that he had to set this value incredibly high
+# to get slapd running at all. See http://bugs.debian.org/303057 for more
+# information.
+# Number of objects that can be locked at the same time.
+olcDbConfig: set_lk_max_objects 1500
+# Number of locks (both requested and granted)
+olcDbConfig: set_lk_max_locks 1500
+# Number of lockers
+olcDbConfig: set_lk_max_lockers 1500
+# Indexing options
+olcDbIndex: objectClass eq
+olcDbIndex: entryUUID eq
+# Save the time that the entry gets modified
+olcLastMod: TRUE
+# Checkpoint the BerkeleyDB database periodically in case of system
+# failure and to speed slapd shutdown.
+olcDbCheckpoint: 512 30
+
+dn: olcOverlay=translucent,olcDatabase={1}hdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcTranslucentConfig
+olcOverlay: translucent
+olcTranslucentLocal: objectClass
+olcTranslucentRemote: uid,gidNumber,objectClass
+
+dn: olcDatabase=ldap,olcOverlay={0}translucent,olcDatabase={1}hdb,cn=config
+objectClass: olcLDAPConfig
+objectClass: olcTranslucentDatabase
+olcDatabase: ldap
+olcDbURI: "ldap://127.0.0.1:1389"
+olcDbIDAssertBind: mode=none flags=non-prescriptive bindmethod=simple timeout=0 ne
+ twork-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>"

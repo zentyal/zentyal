@@ -1,0 +1,13 @@
+<%args>
+$data
+</%args>
+%   if ( (defined ( $data->value())) and
+%        ($data->value() eq 'allow')) {
+		<img src="/data/images/allow-active.gif" 
+			alt="<% $data->printableValue() %>"
+			title="<% $data->printableValue() %>"/>
+%   } elsif ($data->value() eq 'block') {
+		<img src="/data/images/deny-active.gif" 
+			alt="<% $data->printableValue() %>"
+			title="<% $data->printableValue() %>"/>
+%   }

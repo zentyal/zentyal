@@ -67,8 +67,13 @@ sub _process
         my ($excep) = @_;
         $module->setConfigured(undef);
         $module->enableService(undef);
-        #throw EBox::Exceptions::Internal($excep->as_string());
-        throw EBox::Exceptions::Internal("Failed to enable");
+        if ($excep->isa("EBox::Exceptions::External")) {
+            throw EBox::Exceptions::External("Failed to enable: " .
+                $excep->stringify());
+        } else {
+            throw EBox::Exceptions::Internal("Failed to enable: " .
+                $excep->stringify());
+        }
     };
 
     $manager->updateModuleDigests($modName);

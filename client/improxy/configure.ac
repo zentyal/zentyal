@@ -58,6 +58,8 @@ src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/Model/Makefile
 src/templates/Makefile
+src/templates/ajax/Makefile
+src/templates/ajax/viewer/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

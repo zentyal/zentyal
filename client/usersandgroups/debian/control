@@ -4,12 +4,12 @@ Priority: optional
 Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
 XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
 Build-Depends: debhelper (>= 4.0.0), cdbs
-Standards-Version: 3.7.3
+Standards-Version: 3.8.0
 
 Package: ebox-usersandgroups
 Architecture: all
-Depends:  ebox (>= 1.1~svn), ebox (<< 1.2), slapd (>=2.2.23-5), ebox-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, ${misc:Depends}
-Conflicts: ebox (<< 0.10), ebox-samba (<< 0.7.0.99), ebox-mail (<< 0.7.0.99), ebox-jabber (<= 0.7.0.99)
+Depends:  ebox (>= 1.1~svn), ebox (<< 1.2), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ebox-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, ${misc:Depends}
+Conflicts: ebox (<< 0.10), ebox-samba (<< 0.7.0.99), ebox-mail (<< 0.7.0.99), ebox-jabber (<= 0.7.0.99), apparmor
 Description: eBox - User and Group management
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

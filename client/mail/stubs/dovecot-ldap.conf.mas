@@ -1,4 +1,5 @@
 <%args>
+$ldapport
 $usersDn
 </%args>
 # This file is opened as root, so it should be owned by root and mode 0600.
@@ -17,7 +18,7 @@ $usersDn
 #        by * none
 
 # Space separated list of LDAP hosts to use. host:port is allowed too.
-hosts = 127.0.0.1
+hosts = 127.0.0.1:<% $ldapport %>
 
 # LDAP URIs to use. You can use this instead of hosts list. Note that this
 # setting isn't supported by all LDAP libraries.

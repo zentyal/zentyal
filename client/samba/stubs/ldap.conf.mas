@@ -1,6 +1,6 @@
 <%args>
 	$basedc
-	$ldapi
+	$ldap
 	$binddn
 	$bindpw
 	$usersdn
@@ -17,7 +17,7 @@ base <% $basedc %>
 # Another way to specify your LDAP server is to provide an
 # uri with the server name. This allows to use
 # Unix Domain Sockets to connect to a local LDAP Server.
-uri <% $ldapi %>
+uri <% $ldap %>
 
 # The LDAP version to use (defaults to 3
 # if supported by client library)

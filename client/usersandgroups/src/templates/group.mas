@@ -3,6 +3,7 @@
 	@groupusers
 	@remainusers
 	@components
+	$slave => 1
 </%args>
 <%init>
 use EBox::Gettext;
@@ -19,9 +20,11 @@ use EBox::Gettext;
 	<span class="ftitle"><% __('Comment') %>: </span>
 	<input type="hidden" name="groupname" value="<% $groupinfo->{'groupname'} %>">
 	<input type='text' class='inputText' name='comment' value="<% $groupinfo->{'comment'} %>"> 
+%	unless ($slave) {
 	<input class='inputButton' type='submit' name='user' 
 					   value="<% __('Change') %>"
 					   alt="<% __('Change') %>">
+%	}
 </form>
 
 <table>
@@ -52,6 +55,8 @@ use EBox::Gettext;
 	</td>
 
 	<td>
+
+%	unless ($slave) {
 		<input 	class='inputButton' type='image' name='delfromgroup'
 				value="<%__('Remove')%>"
 				src='/data/images/right.gif'
@@ -59,15 +64,19 @@ use EBox::Gettext;
 				alt="<%__('Remove users from group')%>" />
 		<input 	type="hidden" name="group" 
 				value="<% $groupinfo->{'groupname'} %>"/>
+%	}
     </form>
 		<br />
 		<br />
+
+%	unless ($slave) {
     <form action='AddUserToGroup' method='post'>
 		<input 	class='inputButton' type='image' name='addtogroup'
 				value="<%__('Add users to group')%>"
 				src='/data/images/left.gif'
 				title="<%('Add users to group')%>"
 				alt="<%__('Add users to group')%>" />
+%	}
 	</td>
 
 	<td>
@@ -95,10 +104,12 @@ use EBox::Gettext;
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
 
+% unless ($slave) {
 <h3><% __("Delete group") %></h3>
 <div class='note'>
 	<% __('If you remove this group all its data within its shared directory will be deleted') %>
 </div>
+
 <br />
 <form action='Del' method='POST'>
 		<input type="hidden" name="objectname" value="<% $groupinfo->{'groupname'} %>">
@@ -108,3 +119,4 @@ use EBox::Gettext;
 			<td>
 		</tr>
 </form>
+% }

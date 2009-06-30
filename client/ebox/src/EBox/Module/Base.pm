@@ -240,7 +240,7 @@ sub makeBackup # (dir, %options)
 # default implementation: do nothing
 sub extendedBackup
 {
-  # my ($self, %params) = @_;
+  # my %params = @_;
   # my $dir = $params{dir};
 }
 
@@ -323,7 +323,7 @@ sub restoreBackup # (dir, %options)
 # default implementation: do nothing
 sub extendedRestore
 {
-  # my ($self, %params) = @_;
+  # my %params = @_;
   # my $dir = $params{dir};
 }
 
@@ -803,7 +803,7 @@ sub _regenConfig
 #    It executes a given mason component with the passed parameters over 
 #    a file. It becomes handy to set configuration files for services. 
 #    Also, its file permissions will be kept.
-#    It can be called as class method. (XXX: this design or is an implementation accident?)
+#    It is called as class method.
 #    XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
 #
 #
@@ -847,6 +847,56 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     $fh->close();
 
     open(STDERR,">&$old_stderr");
+
+    my $mode;
+    my $uid;
+    my $gid;
+    if ((not defined($defaults)) and (my $st = stat($file))) {
+        $mode= sprintf("%04o", $st->mode & 07777); 
+        $uid = $st->uid;
+        $gid = $st->gid;
+
+    } else {
+        defined $defaults or $defaults = {};
+        $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
+        $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
+        $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
+    }
+
+    EBox::Sudo::root("/bin/mv $tmpfile  '$file'");
+    EBox::Sudo::root("/bin/chmod $mode '$file'");
+    EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
+}
+
+# Method: writeFile
+#
+#    Writes a file with the given data, owner and permissions.
+#
+# Parameters:
+#
+#    file      - file name which will be overwritten with the execution output
+#    data      - data to write in the file
+#    defaults  - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
+#
+sub writeFile # (file, data, defaults)
+{
+    my ($file, $data, $defaults) = @_;
+
+    my $oldUmask = umask 0007;
+    my ($fh,$tmpfile);
+    try {
+        ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        unless($fh) {
+            throw EBox::Exceptions::Internal(
+                                             "Could not create temp file in " . EBox::Config::tmp);
+        }
+    }
+    finally {
+        umask $oldUmask;
+    };
+
+    $fh->print($data);
+    $fh->close();
 
     my $mode;
     my $uid;

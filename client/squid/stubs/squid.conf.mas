@@ -59,7 +59,7 @@ cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
 # <EBOX> TAG_ACL #
 auth_param basic realm eBox HTTP proxy
-auth_param basic program /usr/lib/squid/ldap_auth -b  ou=Users,dc=ebox  -u uid  -D cn=admin,dn=ebox -w /var/lib/ebox/conf/ebox-ldap.passwd       
+auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,dc=ebox  -u uid  -h ldap://127.0.0.1:1389  
 acl authorized  proxy_auth required
 
 <& .groupsACLs, 

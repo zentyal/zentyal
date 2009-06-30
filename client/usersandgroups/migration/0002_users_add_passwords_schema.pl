@@ -33,6 +33,7 @@ sub runGConf
     my $mod = $self->{'gconfmodule'};
 
     if ($mod->configured()) {
+        # FIXME: fix this for all cases
         EBox::Sudo::root('cp /usr/share/ebox-usersandgroups/passwords.schema /etc/ldap/schema/');
         $mod->writeLDAPConf();
         EBox::Sudo::root('invoke-rc.d slapd restart');

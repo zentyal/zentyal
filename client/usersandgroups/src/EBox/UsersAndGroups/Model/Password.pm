@@ -24,7 +24,9 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::UsersAndGroups::Types::Password;
 use EBox::UserCorner::Auth;
+
 use Apache2::RequestUtil;
+use File::Temp qw/tempfile/;
 
 use strict;
 use warnings;
@@ -96,8 +98,21 @@ sub _addTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
     my $userinfo = { 'username' => $user, 'password' => $pass1->value() };
-    $users->modifyUser($userinfo);
+    $users->modifyUserLocal($userinfo);
     EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
+
+    my $slaves = $users->listSlaves();
+    for my $slave (@{$slaves}) {
+        my $journaldir = EBox::UserCorner::usercornerdir() . "userjournal/$slave";
+        (-d $journaldir) or `mkdir -p $journaldir`;
+
+        my ($fh, $filename) = tempfile("modifyUser-XXXX", DIR => $journaldir);
+        print $fh "modifyUser\n";
+        print $fh "$user\n";
+        $fh->close();
+        rename($filename, "$filename.pending");
+        `chmod 644 $filename.pending`;
+    }
 
     $self->setMessage(__('Password successfully updated'));
 }

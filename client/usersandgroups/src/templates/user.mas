@@ -5,6 +5,7 @@
     @usergroups
     @remaingroups
     @components
+    $slave => 1
 </%args>
 <%init>
 use EBox::Gettext;
@@ -44,6 +45,7 @@ use EBox::Gettext;
                     <input type='text' class='inputText' name='comment' value="<% $user->{'comment'} %>">
                 </td>
             </tr>
+%   unless ($slave) {
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
@@ -71,12 +73,14 @@ use EBox::Gettext;
                     <input class='inputButton' type='submit' name='user'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
-                    </form>
                 <td>
             </tr>
+% }
         </tbody>
         </table>
+        </form>
 
+% unless ($slave) {
 <!-- Groups widget -->
 <table>
 <thead>
@@ -144,12 +148,13 @@ use EBox::Gettext;
 </tr>
 </tbody>
 </table>
-
-
+% }
 
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
+
+% unless ($slave) {
 
 <h3><%__('Delete user')%></h3>
 <div class='note'>
@@ -163,3 +168,4 @@ use EBox::Gettext;
                    alt="<% __('Delete user') %>">
 </p>
 </form>
+% }

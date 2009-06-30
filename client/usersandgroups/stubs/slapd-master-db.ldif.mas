@@ -1,0 +1,21 @@
+<%args>
+$dn
+$password
+</%args>
+dn: ou=Users,<% $dn %>
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=Groups,<% $dn %>
+objectClass: organizationalUnit
+ou: Groups
+
+dn: ou=slaves,<% $dn %>
+objectClass: organizationalUnit
+ou: slaves
+
+dn: cn=ebox,<% $dn %>
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+description: eBox admin account
+userPassword: <% $password %>

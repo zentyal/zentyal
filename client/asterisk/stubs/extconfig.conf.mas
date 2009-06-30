@@ -1,9 +1,12 @@
+<%args>
+$dn
+</%args>
 ;
 ; Asterisk Realtime configuration file
 ;
  
 [settings]
-sipusers => ldap,"dc=ebox",sip
-sippeers => ldap,"dc=ebox",sip
-extensions => ldap,"dc=ebox",extensions
-voicemail => ldap,"dc=ebox",voicemail
+sipusers => ldap,"<% $dn %>",sip
+sippeers => ldap,"<% $dn %>",sip
+extensions => ldap,"<% $dn %>",extensions
+voicemail => ldap,"<% $dn %>",voicemail

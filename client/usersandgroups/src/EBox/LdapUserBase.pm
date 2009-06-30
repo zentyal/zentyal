@@ -193,32 +193,4 @@ sub _groupAddOns($$)
 
 }
 
-# Method: _includeLDAPSchemas
-#   
-# 	Those modules which need to use their own LDAP schemas must implement 
-# 	this method. It must return an array with LDAP schemas.
-#
-# Returns:
-#
-#   	an array ref - containing in each element the full path of the schema 
-#   	schema file to be include
-sub _includeLDAPSchemas
-{
-	return [];	
-}
-
-# Method: _includeLDAPAcls
-#   
-# 	Those modules which need to include their own acls for the LDAP
-# 	configuration must implement this method. It must return an array
-# 	containing acl's
-#
-# Returns:
-#
-#   	an array ref - containing in each element an acl 
-sub _includeLDAPAcls
-{
-	return [];
-}
-
 1;

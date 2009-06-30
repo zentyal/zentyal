@@ -1,0 +1,7 @@
+<%args>
+$remote
+$remotedn
+$password
+</%args>
+olcSyncrepl: rid=110 provider=ldap://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Users,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"
+olcSyncrepl: rid=111 provider=ldap://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Groups,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"

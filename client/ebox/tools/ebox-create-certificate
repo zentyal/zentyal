@@ -165,7 +165,7 @@ sub _sslDir
   my $sslDir = "$destDir";
   if (not -d $sslDir) {
     print "Creating eBox's $destDir SSL directory\n";
-    mkdir $sslDir, 0600;
+    mkdir $sslDir, 0700;
   }
 
   return $sslDir;

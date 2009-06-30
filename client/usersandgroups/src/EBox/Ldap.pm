@@ -36,14 +36,12 @@ use Net::LDAP::Util qw(ldap_error_name);
 use Data::Dumper;
 use Encode qw( :all );
 use Error qw(:try);
-use File::Slurp qw(read_file);
+use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
 
-use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
-use constant ROOTDN        => 'cn=admin,' . DN;
 use constant INIT_SCRIPT   => '/etc/init.d/slapd';
 use constant DATA_DIR      => '/var/lib/ldap';
 use constant LDAP_USER     => 'openldap';
@@ -71,7 +69,7 @@ sub _new_instance
 #   object of class <EBox::Ldap>
 sub instance
 {
-    my ($self) = @_;
+    my ($self, %opts) = @_;
 
     unless(defined($_instance)) {
         $_instance = EBox::Ldap->_new_instance();
@@ -99,7 +97,7 @@ sub ldapCon
     my $reconnect;
     if ($self->{ldap}) {
         my $mesg = $self->{ldap}->search(
-                base   => 'dc=ebox',
+                base   => '',
                 scope => 'base',
                 filter => "(cn=*)",
                 );
@@ -108,7 +106,6 @@ sub ldapCon
             $reconnect = 1;
         }
     }
-
 
     if ((not defined $self->{ldap}) or $reconnect) {
         # We try to connect 5 times in 5 seconds, as we might need to
@@ -137,8 +134,8 @@ sub ldapCon
         } catch Error with {};
 
         if ((not defined($auth_type)) or ($auth_type eq 'EBox::Auth')) {
-            $dn = ROOTDN;
-            $pass = getPassword();
+            $dn = $self->rootDn();
+            $pass = $self->getPassword();
         } elsif ($auth_type eq 'EBox::UserCorner::Auth') {
             eval "use EBox::UserCorner::Auth";
             if ($@) {
@@ -148,6 +145,8 @@ sub ldapCon
             my $users = EBox::Global->modInstance('users');
             $dn = $users->userDn($credentials->{'user'});
             $pass = $credentials->{'pass'};
+            EBox::debug('dn: ' . $dn);
+            EBox::debug('pass: ' . $pass);
         } else {
             throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
         }
@@ -169,10 +168,31 @@ sub ldapCon
 #       Internal - If password can't be read
 sub getPassword
 {
+    my ($self) = @_;
+
+    unless (defined($self->{password})) {
+        my $path = EBox::Config->conf . "/ebox-ldap.passwd";
+        open(PASSWD, $path) or
+            throw EBox::Exceptions::Internal("Could not open $path to " .
+                    "get ldap password");
+
+        my $pwd = <PASSWD>;
+        close(PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{password} = $pwd;
+    }
+    return $self->{password};
+}
+
+sub getSlavePassword
+{
+    my ($self) = @_;
+
     my $path = EBox::Config->conf . "/ebox-ldap.passwd";
     open(PASSWD, $path) or
         throw EBox::Exceptions::Internal("Could not open $path to " .
-                "get ldap password");
+            "get ldap password");
 
     my $pwd = <PASSWD>;
     close(PASSWD);
@@ -182,18 +202,30 @@ sub getPassword
     return $pwd;
 }
 
-
 # Method: dn
 #
-#       Returns the dn
+#       Returns the base dn
 #
 # Returns:
 #
 #       string - dn
 #
-sub dn
-{
-    return DN;
+sub dn {
+    my ($self) = @_;
+    if(!defined($self->{dn})) {
+        $self->ldapCon();
+        my %args = (
+            'base' => '',
+            'scope' => 'base',
+            'filter' => '(objectclass=*)',
+            'attrs' => ['namingContexts']
+        );
+        my $result = $self->{ldap}->search(%args);
+        my $entry = ($result->entries)[0];
+        my $attr = ($entry->attributes)[0];
+        $self->{dn} = $entry->get_value($attr);
+    }
+    return $self->{dn};
 }
 
 # Method: rootDn
@@ -202,11 +234,14 @@ sub dn
 #
 # Returns:
 #
-#       string - rootdn
+#       string - eboxdn
 #
-sub rootDn
-{
-    return ROOTDN
+sub rootDn {
+    my ($self, $dn) = @_;
+    unless(defined($dn)) {
+        $dn = $self->dn();
+    }
+    return 'cn=ebox,' . $dn;
 }
 
 # Method: rootPw
@@ -219,7 +254,8 @@ sub rootDn
 #
 sub rootPw
 {
-    return getPassword();
+    my ($self) = @_;
+    return $self->getPassword();
 }
 
 # Method: slapdConfFile
@@ -243,15 +279,17 @@ sub slapdConfFile
 #
 #     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn'
 #
-sub ldapConf
-{
-    my ($class) = @_;
+sub ldapConf {
+    my ($self) = @_;
 
     my $conf = {
-        'dn'     => DN,
+        'dn'     => $self->dn(),
         'ldapi'  => LDAPI,
         'ldap'   => LDAP,
-        'rootdn' => ROOTDN,
+        'port' => 389,
+        'replicaport' => 1389,
+        'translucentport' => 1390,
+        'rootdn' => $self->rootDn(),
     };
     return $conf;
 }
@@ -272,15 +310,23 @@ sub search # (args)
     my ($self, $args) = @_;
 
     $self->ldapCon;
+    #FIXME: this was added to deal with a problem where an object wouldn't be
+    #returned if attributes were required but objectclass wasn't required too
+    #it's apparently working now, so it's commented, remove it if it works
+#    if (exists $args->{attrs}) {
+#        my %attrs = map { $_ => 1 } @{$args->{attrs}};
+#        unless (exists $attrs{objectClass}) {
+#                push (@{$args->{attrs}}, 'objectClass');
+#        }
+#    }
     my $result = $self->{ldap}->search(%{$args});
     _errorOnLdap($result, $args);
     return $result;
-
 }
 
 # Method: modify
 #
-#       Performs  a  modification in the LDAP directory using Net::LDAP.
+#       Performs a modification in the LDAP directory using Net::LDAP.
 #
 # Parameters:
 #
@@ -298,7 +344,6 @@ sub modify
     my $result = $self->{ldap}->modify($dn, %{$args});
     _errorOnLdap($result, $args);
     return $result;
-
 }
 
 # Method: delete
@@ -555,7 +600,32 @@ sub isObjectClass
     return undef;
 }
 
-sub _errorOnLdap
+# Method: objectClasses
+#
+#      return the object classes of an object
+#
+# Parameters:
+#          dn          - the object's dn
+#
+#  Returns:
+#    array - containing the object classes
+sub objectClasses
+{
+    my ($self, $dn) = @_;
+
+    my %attrs = (
+            base   => $dn,
+            filter => "(objectclass=*)",
+            attrs  => [ 'objectClass'],
+            scope  => 'base'
+            );
+
+    my $result = $self->search(\%attrs);
+
+    return [ $result->pop_entry()->get_value('objectClass') ];
+}
+
+sub _errorOnLdap 
 {
     my ($result, $args) = @_;
 
@@ -591,22 +661,24 @@ sub _utf8Attrs # (result)
     return $result;
 }
 
-
-
-sub  dataDir
+sub confDir
 {
-    my ($self) = @_;
-    return DATA_DIR;
-#   my @conf = read_file(slapdConfFile());
+    my ($slapd) = @_;
+    if ($slapd eq 'master') {
+        return "/etc/ldap/slapd.d";
+    } else {
+        return "/etc/ldap/slapd-$slapd.d";
+    }
+}
 
-#   @conf = map { my ($withoutComments) = split '#', $_; $withoutComments    } @conf;
-#   my ($directoryLine) = grep { m/^\s*directory\s+/ } @conf;
-#   chomp $directoryLine;
-#   my ($keyword, $value) = split '\s+', $directoryLine;
-
-#   $value or throw EBox::Exceptions::External((__('Can not get data directory path from ldap')));
-
-#   return $value;
+sub dataDir
+{
+    my ($slapd) = @_;
+    if ($slapd eq 'master') {
+        return "/var/lib/ldap/";
+    } else {
+        return "/var/lib/ldap-$slapd/";
+    }
 }
 
 sub stop
@@ -642,94 +714,224 @@ sub refreshLdap
 
 sub ldifFile
 {
-    my ($self, $dir) = @_;
-    return "$dir/ldap.ldif";
+    my ($self, $dir, $conf, $base) = @_;
+    return "$dir/$conf-$base.ldif";
 }
 
-# Method: dumpLdapData
+# Method: dumpLdap
 #
 #  dump the LDAP contents to a LDIF file in the given directory. The exact file
 #  path can be retrevied using the method ldifFile
 #
 #    Parameters:
 #       dir - directory in which put the LDIF file
-sub dumpLdapData
+sub _dumpLdap
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $slapd, $type) = @_;
 
-    my $ldapDir = EBox::Ldap::dataDir();
     my $user  = EBox::Config::user();
     my $group = EBox::Config::group();
-    my $ldifFile = $self->ldifFile($dir);
+    my $ldifFile = $self->ldifFile($dir, $slapd, $type);
 
-    my $slapcatCommand = $self->_slapcatCmd($ldifFile);
+    my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapd, $type);
     my $chownCommand = "/bin/chown $user.$group $ldifFile";
 
     $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
 }
 
-# Method: loadLdapData
+sub _dumpLdapData
+{
+    my ($self, $dir, $slapd) = @_;
+    $self->_dumpLdap($dir, $slapd, 'data');
+}
+
+sub _dumpLdapConfig
+{
+    my ($self, $dir, $slapd) = @_;
+    $self->_dumpLdap($dir, $slapd, 'config');
+}
+
+sub dumpLdapMaster
+{
+    my ($self, $dir) = @_;
+    $self->_dumpLdapData($dir, 'master');
+    $self->_dumpLdapConfig($dir, 'master');
+}
+
+sub dumpLdapReplica
+{
+    my ($self, $dir) = @_;
+    $self->_dumpLdapConfig($dir, 'replica');
+}
+
+sub dumpLdapTranslucent
+{
+    my ($self, $dir) = @_;
+    $self->_dumpLdapConfig($dir, 'translucent');
+    $self->_dumpLdapData($dir, 'translucent');
+}
+
+sub dumpLdapFrontend
+{
+    my ($self, $dir) = @_;
+    $self->_dumpLdapConfig($dir, 'frontend');
+    $self->_dumpLdapData($dir, 'frontend');
+}
+
+# Method: _loadLdap
 #
 #  load all the raw LDAP data found in the LDIF file
 #
 #    Parameters:
 #       dir - directory in which is the LDIF file
 # XXX: todo add on error sub
-sub loadLdapData
+sub _loadLdap
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $slapd, $type) = @_;
 
-    my $ldapDir  = EBox::Ldap::dataDir();
-    my $ldifFile = $self->ldifFile($dir);
+    my $ldapDir  = EBox::Ldap::dataDir($slapd);
+    my $ldifFile = $self->ldifFile($dir, $slapd, $type);
 
     my $backupCommand = $self->_backupSystemDirectory();
     my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
-    my $slapaddCommand = $self->_slapaddCmd($ldifFile);
-    my $chownDataCommand = $self->_chownDatadir;
+    my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapd, $type);
+    my $chownConfCommand = $self->_chownConfDir($slapd);
+    my $chownDataCommand = $self->_chownDataDir($slapd);
 
-    $self->_pauseAndExecute(
+    $self->_execute(
                 cmds => [$backupCommand, $rmCommand,
-                         $slapaddCommand, $chownDataCommand
+                         $slapaddCommand, $chownConfCommand, $chownDataCommand
                         ]);
 }
 
-# Method: importLdapData
+# Method: importLdap
 #
 #    import in eBox the data found in LDIF file. Import classes for the various
 #    modules are used to load the data
 #
 #    Parameters:
 #       dir - directory in which is the LDIF file
-sub importLdapData
+sub _importLdap
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $slapd, $base) = @_;
 
-    my $ldifFile = $self->ldifFile($dir);
+    my $ldifFile = $self->ldifFile($dir, $slapd, $base);
 
     EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
 }
 
-sub _chownDatadir
+sub _importLdapData
 {
-    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
+    my ($self, $dir, $slapd) = @_;
+    $self->_importLdap($dir, $slapd, $self->dn());
+}
+
+sub _loadLdapData
+{
+    my ($self, $dir, $slapd) = @_;
+    $self->_loadLdap($dir, $slapd, 'data');
+}
+
+sub _loadLdapConfig
+{
+    my ($self, $dir, $slapd) = @_;
+    EBox::Sudo::root("rm -rf " . confDir($slapd));
+    EBox::Sudo::root("mkdir " . confDir($slapd));
+
+    #set new password before restoring the config tree
+    my $ldifFile = $self->ldifFile($dir, $slapd, 'config');
+    my $content = read_file($ldifFile);
+    $content =~ s/\n //gms;
+    my $pass = $self->getPassword();
+    $content =~ s/credentials=".*?"/credentials="$pass"/g;
+    $content =~ s/^olcRootPW:.*$/olcRootPW: $pass/mg;
+    write_file($ldifFile, $content);
+    $self->_loadLdap($dir, $slapd, 'config');
+}
+
+sub restoreLdapMaster
+{
+    my ($self, $dir) = @_;
+    $self->_loadLdapConfig($dir, 'master');
+    my $ldifFile = $self->ldifFile($dir, 'master', 'data');
+    my $content = read_file($ldifFile);
+    my $passline = 'userPassword: ' . $self->getPassword();
+    $content =~ s/(^dn: cn=ebox,.*?)userPassword:.*?$/$1$passline/ms;
+    write_file($ldifFile, $content);
+    $self->_loadLdapData($dir, 'master');
+}
+
+sub restoreLdapReplica
+{
+    my ($self, $dir) = @_;
+    $self->_loadLdapConfig($dir, 'replica');
+}
+
+sub restoreLdapTranslucent
+{
+    my ($self, $dir) = @_;
+    $self->_loadLdapConfig($dir, 'translucent');
+    $self->_loadLdapData($dir, 'translucent');
+}
+
+sub restoreLdapFrontend
+{
+    my ($self, $dir) = @_;
+    $self->_loadLdapConfig($dir, 'frontend');
+    $self->_loadLdapData($dir, 'frontend');
+}
+
+sub _chownConfDir
+{
+    my ($self, $slapd) = @_;
+    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . confDir($slapd);
+}
+
+sub _chownDataDir
+{
+    my ($self, $slapd) = @_;
+    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir($slapd);
 }
 
 sub _slapcatCmd
 {
-    my ($self, $ldifFile) = @_;
-    return  "/usr/sbin/slapcat  > $ldifFile";
+    my ($self, $ldifFile, $slapd, $type) = @_;
+
+    my $base;
+    if ($type eq 'config') {
+        $base = 'cn=config';
+    } else {
+        $base = $self->dn();
+    }
+    return  "/usr/sbin/slapcat -F " . confDir($slapd) . " -b '$base' > $ldifFile";
 }
 
 sub _slapaddCmd
 {
-    my ($self, $ldifFile) = @_;
-    return  "/usr/sbin/slapadd  -c  < $ldifFile" ;
+    my ($self, $ldifFile, $slapd, $type) = @_;
+    my $base;
+    my $options = "";
+    #disable schema checking if we are loading a translucent dump
+    if ($slapd eq 'translucent') {
+        $options = "-s";
+    }
+    if ($type eq 'config') {
+        $base = 'cn=config';
+    } else {
+        my $fd;
+        open($fd, $ldifFile);
+        my $line = <$fd>;
+        chomp($line);
+        my @parts = split(/ /, $line);
+        $base = $parts[1];
+    }
+    return  "/usr/sbin/slapadd -c $options -F " . confDir($slapd) .  " -b '$base' < $ldifFile";
 }
 
 sub _rmLdapDirCmd
 {
     my ($self, $ldapDir)   = @_;
-    $ldapDir .= '/*' if  defined $ldapDir ;
+    $ldapDir .= '/*' if defined $ldapDir ;
 
     return "sh -c '/bin/rm -rf $ldapDir'";
 }
@@ -767,6 +969,26 @@ sub _pauseAndExecute
     };
 }
 
+sub _execute
+{
+    my ($self, %params) = @_;
+    my @cmds = @{ $params{cmds}  };
+    my $onError = $params{onError};
 
+    try {
+        foreach my $cmd (@cmds) {
+            EBox::Sudo::root($cmd);
+        }
+    }
+    otherwise {
+        my $ex = shift;
+
+        if ($onError) {
+            $onError->($self);
+        }
+
+        throw $ex;
+    };
+}
 
 1;

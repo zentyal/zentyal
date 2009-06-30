@@ -44,7 +44,7 @@ use EBox::Sudo;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
-use constant CA_DIR              => SERV_DIR . 'ssl-ca/';
+use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -401,7 +401,6 @@ sub _confSOAPService
             (soapHandler      => WS_DISPATCHER),
             (domainName       => $self->_confKeys()->{domain}),
             (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            (caPath           => CA_DIR),
             (confDirPath      => EBox::Config::conf()));
         EBox::Module::Base::writeConfFileNoCheck(
             $confFile,
@@ -419,12 +418,15 @@ sub _confSOAPService
         $apacheMod->addInclude($confFile);
     } else {
         unlink($confFile);
-        # Remove CA_DIR
         opendir(my $dir, CA_DIR);
         while(my $file = readdir($dir)) {
             # Check if it is a symbolic link file to remove it
             next unless (-l CA_DIR . $file);
-            unlink(CA_DIR . $file);
+            my $link = readlink (CA_DIR . $file);
+            # avoid removing the master CA certificate if this is a slavd
+            if ($link ne 'masterca.pem') {
+                unlink(CA_DIR . $file);
+            }
         }
         closedir($dir);
         try {

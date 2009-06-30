@@ -1,0 +1,17 @@
+dn: cn=eboxmail,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: eboxmail
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.3.1.1 NAME 'mailHomeDirectory' D
+ ESC 'Base directory to mail directory' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.
+ 1.4.1.1466.115.121.1.15 )
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.3.1.2 NAME 'userMaildirSize' DES
+ C 'User account default maildir size' EQUALITY integerMatch SYNTAX 1.3.6.1.4.
+ 1.1466.115.121.1.27 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.3.1.3 NAME 'vddftMaildirSize' DE
+ SC 'Virtual domain default maildir size' EQUALITY integerMatch SYNTAX 1.3.6.1
+ .4.1.1466.115.121.1.27 SINGLE-VALUE )
+olcObjectClasses: ( 1.3.6.1.4.1.31607.2.1.3.2.1 NAME 'usereboxmail' DESC 'E
+ xtra User Data to Mail Ebox Module' SUP posixAccount AUXILIARY MUST mailHomeD
+ irectory MAY userMaildirSize )
+olcObjectClasses: ( 1.3.6.1.4.1.31607.2.1.3.2.2 NAME 'vdeboxmail' DESC 'Ext
+ ra Virtual Domain Data to Mail Ebox Module' AUXILIARY MAY vddftMaildirSize )

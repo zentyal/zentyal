@@ -5,7 +5,6 @@ use strict;
 use EBox;
 use EBox::Global;
 use EBox::SambaLdapUser;
-use EBox::Ldap;
 use Error qw(:try);
 use EBox::Sudo qw( :all );
 use Crypt::SmbHash qw(nthash ntlmgen);
@@ -76,13 +75,11 @@ use constant DomainGroups =>
 
 EBox::init();
 
-my $global = EBox::Global->getInstance();
-my $users  = $global->modInstance('users');
-
+my $users  = EBox::Global->modInstance('users');
 
 sub populateLdap
 {
-        my $ldap = EBox::Ldap->instance();
+    my $ldap = $users->masterLdap;
 	my $sambaLdap = new EBox::SambaLdapUser;
 
 	my $sid = $sambaLdap->alwaysGetSID();
@@ -90,14 +87,43 @@ sub populateLdap
 
 	# Mandatory groups
 	foreach my $group (DomainGroups) {
-		my ($name, $gid, $gtype) = ($group->{'name'}, 
-					    $group->{'gid'}, $group->{'gtype'});
-		my %attrs = ( 
-				base => 'ou=Groups,dc=ebox',
+		my ($name, $gid) = ($group->{'name'}, $group->{'gid'});
+		my %attrs = (
+				base => $users->groupsDn(),
 				filter => "&(objectclass=*)(cn=$name)",
 				scope => 'one'
 			    );
-		next if ($ldap->search(\%attrs)->count() > 0);
+		next if ($ldap->search(%attrs)->count() > 0);
+
+		my %args = (
+			    attr => [
+				      'cn'		=> $name,
+				      'gidNumber'	=> $gid,
+				      'objectclass'	=> 'posixGroup'
+				    ]
+			    );
+
+		my $dn = "cn=$name," . $users->groupsDn();
+		$ldap->add($dn, %args);
+	}
+
+    $users->waitSync();
+
+    $ldap = $users->ldap();
+
+    my $basedn = $ldap->dn();
+
+	foreach my $group (DomainGroups) {
+		my ($name, $gid, $gtype) = ($group->{'name'}, 
+					    $group->{'gid'}, $group->{'gtype'});
+
+		my %attrs = (
+				base => $users->groupsDn(),
+				filter => "&(objectclass=sambaGroupMapping)(cn=$name)",
+				scope => 'one'
+			    );
+        my $result = $ldap->search(\%attrs);
+		next if ($result->count() > 0);
 
 		my $gsid;
 		if ($group->{'sid'}) {
@@ -107,27 +133,21 @@ sub populateLdap
 		}
 
 		my %args = (
-			    attr => [
-				      'cn'		=> $name,
-				      'gidNumber'	=> $gid,
-				      'sambaSID'	=> $gsid, 
+			    add => [
+				      'objectclass'	=> [ 'sambaGroupMapping', 'eboxGroup'],
+				      'sambaSID'	=> $gsid,
 				      'sambaGroupType'  => $gtype,
-				      'displayName'	=> $name, 
-				      'objectclass'	=> ['posixGroup',
-				      			   'sambaGroupMapping', 
-							   'eboxGroup']
+				      'displayName'	=> $name,
 				    ]
 			    );
 
-		my $dn = "cn=$name,ou=Groups,dc=ebox";
-		$ldap->add($dn, \%args);
-
+		my $dn = "cn=$name," . $users->groupsDn();
+		$ldap->modify($dn, \%args);
 	}
-	
+
 	# Computers
-        my %args = (base => "dc=ebox", filter => "&(ou=Computers)", 
-			scope => 'one');
-	unless ($ldap->search(\%args)->pop_entry()) {
+    my %args = (base => $basedn, filter => "&(ou=Computers)", scope => 'one');
+	unless ($ldap->search(\%args)->count() > 0) {
 		%args = (
 		    attr => [
 			      'ou'		=> 'Computers',
@@ -135,15 +155,15 @@ sub populateLdap
 			    ]
 		        );
 
-		my $dn = "ou=Computers,dc=ebox";
+		my $dn = "ou=Computers," . $users->ldap->dn();
 		$ldap->add($dn, \%args);
 	}
 
 	# Idmap 
-	%args = (base => "dc=ebox", filter => "&(ou=Idmap)", 
+	%args = (base => $users->ldap->dn(), filter => "&(ou=Idmap)",
 			scope => 'one');
 
-	unless ($ldap->search(\%args)->pop_entry()) {
+	unless ($ldap->search(\%args)->count() > 0) {
 		%args = (
 		    attr => [
 			      'ou'		=> 'Idmap',
@@ -151,10 +171,9 @@ sub populateLdap
 			    ]
 		    );
 
-		my $dn = "ou=Idmap,dc=ebox";
+		my $dn = "ou=Idmap," . $users->ldap->dn();
 		$ldap->add($dn, \%args);
 	}
-
 }
 
 sub _addPDCStuff 
@@ -166,7 +185,6 @@ sub _addPDCStuff
 
 sub _addSambaUnixIdPool
 {
-	my $users = EBox::Global->modInstance('users');	
 	my $lastUid = $users->lastUid;
 	my $lastGid = $users->lastGid;
 
@@ -201,9 +219,10 @@ sub _addSambaUnixIdPool
 sub clean 
 {
 	my $smb  = new EBox::SambaLdapUser;
-	my $ldap = EBox::Ldap->instance();
+	my $ldap = $users->ldap;
 
-	
+    my $basedn = $ldap->dn();
+
 	# clean users
 	foreach my $user ($users->users){
 		my $username = $user->{'username'};
@@ -223,9 +242,9 @@ sub clean
 	# remove groups
 	foreach my $group (DomainGroups) {
 		my $name = $group->{'name'}; 
-		my $dn = "cn=$name,ou=Groups,dc=ebox";
+		my $dn = "cn=$name," . $users->groupsDn();
 		my %attrs = (
-				base => 'ou=Groups,dc=ebox',
+				base => $users->groupsDn(),
 				filter => "&(objectclass=*)(cn=$name)",
 				scope => 'one'
 			    );
@@ -234,46 +253,43 @@ sub clean
 	}
 
 	# Idmap 
-	my %args = (base => "dc=ebox", filter => "&(ou=Idmap)", 
+	my %args = (base => $basedn, filter => "&(ou=Idmap)", 
 			scope => 'one');
 
 	if ($ldap->search(\%args)->pop_entry()) {
-		$ldap->delete ('ou=Idmap,dc=ebox');
+		$ldap->delete ("ou=Idmap,$basedn");
 	}
 
 
 	# SambaDomainName
 	%args = (
-                        base => "dc=ebox",
+                        base => $basedn,
                         filter => "(sambaDomainName=*)",
 			attrs => ['sambaDomainName'],
                         scope => "sub"
                     );
-	
+
 	foreach my $entry ($ldap->search(\%args)->entries()) {
 		my $dn = 'sambaDomainName=' . 
-			$entry->get_value('sambaDomainName') . ',dc=ebox';
+			$entry->get_value('sambaDomainName') . ',' . $basedn;
 		$ldap->delete($dn);
 	}
 
 	# Computers
-	%args = (base => "dc=ebox", filter => "&(ou=Computers)", 
+	%args = (base => $basedn, filter => "&(ou=Computers)", 
 			scope => 'sub');
 	if ($ldap->search(\%args)->pop_entry()) {
 		%args = (
-			base => "ou=Computers,dc=ebox",
+			base => "ou=Computers,$basedn",
 			filter => 'objectclass=*',
 			scope => "one",
 			attrs => ['cn']
-			
 		    );
-		
 		for my $entry ($ldap->search(\%args)->entries()) {
 			my $cn = $entry->get_value('cn');
-			$ldap->delete("uid=$cn,ou=Computers,dc=ebox");
+			$ldap->delete("uid=$cn,ou=Computers,$basedn");
 		}
 	}
-	
 }
 
 sub updateUsers
@@ -309,8 +325,7 @@ unless ($#ARGV == 0) {
 
 if ($ARGV[0] eq 'populate-ldap') {
 	populateLdap();
-}
-elsif ($ARGV[0] eq 'update-users') {
+} elsif ($ARGV[0] eq 'update-users') {
 	updateUsers();
 } elsif ($ARGV[0] eq 'update-pdc') {
 	_addPDCStuff();

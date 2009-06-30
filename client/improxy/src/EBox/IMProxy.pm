@@ -33,6 +33,8 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::IMProxyFirewall;
 
+use Storable qw(store);
+
 use constant IMSPECTOR_CONF_FILE => "/etc/imspector/imspector.conf";
 
 # Group: Protected methods
@@ -68,7 +70,14 @@ sub _create
 #
 sub _daemons
 {
-    return [ { 'name' => 'ebox.improxy.imspector' } ];
+    return [
+        {
+            'name' => 'ebox.improxy.imspector'
+        },
+        {
+            'name' => 'ebox.improxy.censord'
+        },
+    ];
 }
 
 # Method: _setConf
@@ -84,6 +93,9 @@ sub _setConf
     my ($self) = @_;
 
     $self->writeConfFile(IMSPECTOR_CONF_FILE, "improxy/imspector.conf.mas");
+
+    my $rules = $self->model('Rules')->rules();
+    store($rules, (EBox::Config::conf() . 'censord.conf'));
 }
 
 # Group: Public methods

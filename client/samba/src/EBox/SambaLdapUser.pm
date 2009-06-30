@@ -20,7 +20,6 @@ use warnings;
 
 use EBox::Sudo qw( :all );
 use EBox::Global;
-use EBox::Ldap;
 use EBox::Network;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -34,9 +33,6 @@ use Error qw(:try);
 
 use Crypt::SmbHash qw(nthash ntlmgen);
 
-# LDAP schema
-use constant SCHEMAS            => ('/etc/ldap/schema/samba.schema',
-                                    '/etc/ldap/schema/ebox.schema');
 # Default values for samba user
 use constant SMBLOGONTIME       => '0';
 use constant SMBLOGOFFTIME      => '2147483647';
@@ -74,7 +70,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Ldap->instance();
+    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
     $self->{samba} = EBox::Global->modInstance('samba');
     bless($self, $class);
     return $self;
@@ -139,6 +135,7 @@ sub _addUserLdapAttrs
     my $ldap = $self->{ldap};
     my $users = EBox::Global->modInstance('users');
 
+    my $dn = "uid=$user," .  $users->usersDn;
     my $rid = 2 * $unixuid + 1000;
 
     my $sid      = alwaysGetSID();
@@ -152,14 +149,13 @@ sub _addUserLdapAttrs
     } else {
         ($lm, $nt) = ntlmgen($password);
     }
-    my $dn = "uid=$user," .  $users->usersDn;
     my %userCommonAttrs =   %{ $self->_userCommonLdapAttrs() };
 
     unless ($self->_isSambaObject('sambaSamAccount', $dn)) {
         my %attrs = (
             changes => [
                     add => [
-                        objectClass          => 'sambaSamAccount',
+                        objectClass         => 'sambaSamAccount',
                         %userCommonAttrs,
 
                         sambaHomePath        => _smbHomes() . $user,
@@ -172,8 +168,8 @@ sub _addUserLdapAttrs
 
                         # gecos              => GECOS
                     ],
-                    replace => [ homeDirectory =>
-                        BASEPATH . "/users/$user"
+                    replace => [
+                        homeDirectory => BASEPATH . "/users/$user",
                     ]
             ]
         );
@@ -240,27 +236,25 @@ sub _modifyUser
     return unless ($self->{samba}->configured());
 
     my $users = EBox::Global->modInstance('users');
+    my $userInfo = $users->userInfo($user);
     my $dn = "uid=$user," .  $users->usersDn;
     my $ldap = $self->{ldap};
 
+    my $curNT =  $userInfo->{extra_passwords}->{nt};
+    my $curLM =  $userInfo->{extra_passwords}->{lm};
+    
     my %attrs = (
             base   => $dn,
             filter => "(objectclass=*)",
-            attrs  => [ 'sambaNTPassword', 'sambaLMPassword',
-                    'userPassword' ],
+            attrs  => [ 'sambaNTPassword', 'sambaLMPassword'],
             scope  => 'base'
             );
 
     my $result = $ldap->search(\%attrs);
 
     my $entry = $result->pop_entry();
-    # We are only interested in seeing if the pwd has changed
-    if ($password) {
-        my ($lm, $nt) = ntlmgen ($password);
-        $entry->replace( 'sambaNTPassword' => $nt ,
-                 'sambaLMPassword' => $lm );
-        $entry->update($ldap->ldapCon);
-    }
+    $entry->replace( sambaNTPassword => $curNT, sambaLMPassword => $curLM );
+    $entry->update($ldap->ldapCon);
 }
 
 sub _delUser($$)
@@ -485,31 +479,6 @@ sub _groupAddOns
     return { path => '/samba/samba.mas', params => $args };
 }
 
-sub _includeLDAPSchemas
-{
-    my ($self) = @_;
-
-    return [] unless ($self->{'samba'}->configured());
-
-    my @schemas = SCHEMAS;
-
-    return \@schemas;
-}
-
-sub _includeLDAPAcls
-{
-    my ($self) = @_;
-
-    return [] unless ($self->{'samba'}->configured());
-    my $ldapconf = $self->{ldap}->ldapConf;
-
-    my @acls = ("access to attrs=sambaNTPassword,sambaLMPassword\n" .
-            "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
-            "\tby * none\n");
-
-    return \@acls;
-}
-
 sub _createDir
 {
     my ($self, $path, $uid, $gid, $chmod) = @_;
@@ -677,8 +646,8 @@ sub getGroupSID
 
     my $usersAndGroups = EBox::Global->modInstance('users');
     $usersAndGroups->groupExists($group) or
-        throw EBox::Exceptions::External(__('{g} group does not exist'));
-
+        throw EBox::Exceptions::External(__x('{g} group does not exist',
+            'g' => $group));
     my $sidAttr = 'sambaSID';
 
     my $ldap    = $self->{ldap};
@@ -937,14 +906,13 @@ sub setUserSharing
 #
 sub sambaDomainName
 {
-    my ($self) = @_;
-    my $ldap = $self->{ldap};
-    my %attrs = (
-            base => "dc=ebox",
-            filter => "(objectclass=sambaDomain)",
-
-            scope => "sub"
-            );
+	my ($self) = @_;
+	my $ldap = $self->{ldap};
+	my %attrs = (
+			base => $ldap->dn(),
+			filter => "(objectclass=sambaDomain)",
+			scope => "sub"
+	);
     my $entry = $ldap->search(\%attrs)->pop_entry();
 
     if ($entry) {
@@ -991,15 +959,15 @@ sub setSambaDomainName
             ]
         );
 
-    my $dn = "sambaDomainName=$domain,dc=ebox";
-    $ldap->add($dn, \%attrs);
+	my $dn = "sambaDomainName=$domain," . $ldap->dn();
+	$ldap->add($dn, \%attrs);
 }
 
 sub _fetchDomainAttrs
 {
     my ($self, $domain) = @_;
 
-    my $ldap = EBox::Ldap->instance();
+    my $ldap = $self->{ldap};
 
     my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge sambaLockoutThreshold/;
     my $result = $ldap->search(
@@ -1025,7 +993,7 @@ sub deleteSambaDomainNameAttrs
 {
     my ($self) = @_;
 
-    my $ldap = EBox::Ldap->instance();
+    my $ldap = $self->{ldap};
 
     my $attr = 'sambaDomainName';
 
@@ -1049,15 +1017,15 @@ sub deleteSambaDomainNameAttrs
 
 #   my $ldap = $self->{ldap};
 #   my %searchParams = (
-#               base => "dc=ebox",
-#               filter => "(sambaDomainName=*)",
-#               attrs => ['sambaDomainName'],
-#               scope => "sub"
-#           );
+#				base => $ldap->dn(),
+#				filter => "(sambaDomainName=*)",
+#				attrs => ['sambaDomainName'],
+#				scope => "sub"
+#		    );
 
 #   foreach my $entry ($ldap->search(\%searchParams)->entries()) {
 #     my $dn = 'sambaDomainName=' .
-#       $entry->get_value('sambaDomainName') . ',dc=ebox';
+#       $entry->get_value('sambaDomainName') . ',' . $ldap->dn();
 #     $ldap->delete($dn);
 #   }
 }
@@ -1069,7 +1037,7 @@ sub deleteSambaDomains
 
     my $ldap = $self->{ldap};
     my %searchParams = (
-            base => "dc=ebox",
+            base => $ldap->dn(),
             filter => "objectClass=sambaDomain",
             scope => "sub"
             );
@@ -1169,15 +1137,16 @@ sub updateNetbiosName
     my $ldap = $self->{'ldap'};
 
     my %attrs = (
-            base   => $users->usersDn(),
-            filter => "(objectclass=sambaSamAccount)",
-            attrs => ['uid'],
-            scope  => 'sub'
-            );
+        base   => $users->usersDn(),
+        filter => "(objectclass=sambaSamAccount)",
+        attrs => ['uid'],
+        scope  => 'sub'
+    );
 
     for my $entry ($ldap->search(\%attrs)->entries()) {
         my $dn = $entry->dn();
         my $username = $entry->get_value('uid');
+
         $ldap->modifyAttribute($dn, 'sambaHomePath',
                 "\\\\$netbios\\homes\\$username");
         # XXX Check if we have to add or not, instead of
@@ -1189,7 +1158,6 @@ sub updateNetbiosName
                     [ sambaProfilePath => [] ]]);
             $ldap->modify($dn, \%attrs);
         }
-
     }
 }
 
@@ -1270,13 +1238,15 @@ sub _isSambaObject
             scope  => 'base'
             );
 
-    my $result = $ldap->search(\%attrs);
+    my $ret;
+    try {
+        my $result = $ldap->search(\%attrs);
+        if ($result->count ==  1) {
+            $ret = 1;
+        }
+    } otherwise {};
 
-    if ($result->count ==  1) {
-        return 1;
-    }
-
-    return undef;
+    return $ret;
 }
 
 # return a ref to a list of the paths of all (users and group) shared directories

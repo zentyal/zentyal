@@ -1,5 +1,6 @@
 <%args>
 	$domain
+    $ldapport
 	$basedc
 	$ssl
 </%args>
@@ -531,7 +532,7 @@
     <ldap>
       <!-- LDAP server host and port (default: 389) -->
       <host>localhost</host>
-      <port>389</port>
+      <port><% $ldapport %></port>
 
       <!-- Use LDAP v3 if possible. If disabled, v2 will be used.
            Encryption options are only available if v3 is enabled. -->

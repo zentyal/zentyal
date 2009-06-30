@@ -26,9 +26,10 @@ Parameters:
 	$user
 	$serverroot
 	$tmpdir
-        $debug => 'no'
-        @restrictedResources => ()
-        @includes => ()
+    $eboxconfdir
+    $debug => 'no'
+    @restrictedResources => ()
+    @includes => ()
 </%args>
 
 Timeout 300
@@ -246,3 +247,4 @@ RewriteRule ^/data(.*) $1 [L]
 RewriteRule ^/dynamic-data(.*) @DYNAMICWWWPATH@$1 [L]
 RewriteRule ^/ebox/(.*) @CGIPATH@ebox.cgi [E=script:$1,L]
 
+SSLCACertificatePath <% $eboxconfdir %>ssl-ca/

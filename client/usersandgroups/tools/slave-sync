@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Config;
+use EBox::Global;
+use EBox::UserCorner;
+
+use Error qw(:try);
+
+my $mode = 'run';
+if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
+    $mode = 'list';
+}
+
+my $users = EBox::Global->modInstance('users');
+
+EBox::init();
+
+sub processSlaveDir
+{
+    my ($journaldir, $slave) = @_;
+
+    if ($mode eq 'list') {
+        print "Slave: $slave\n";
+    }
+
+    my $dir = "$journaldir$slave/";
+
+    my $dh;
+    opendir($dh, $dir) or
+        die "Can't open the journal dir: $dir\n";
+
+    my %files;
+    while (defined(my $file = readdir($dh))) {
+        (-d "$dir$file" and next);
+        $files{$file}=(stat("$dir$file"))[9];
+    }
+    closedir($dh);
+
+    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files){
+        processFile($slave, "$dir$file");
+    }
+}
+
+sub processFile
+{
+    my ($slave, $file) = @_;
+
+    open(FILE, $file);
+    my ($method, $param) = <FILE>;
+    close(FILE);
+    chomp($method);
+    chomp($param);
+
+    my $client = $users->soapClient($slave);
+
+    if ($mode eq 'run') {
+        try {
+            $client->$method($param);
+            #remove with sudo because it can be a usercorner file
+            EBox::Sudo::root("rm -f $file");
+        } otherwise {
+            EBox::debug("Trying to run method $method with param $param on slave $slave failed");
+        };
+    } elsif ($mode eq 'list') {
+        print " * $method: $param\n";
+    }
+}
+
+sub processDir
+{
+    my ($journaldir) = @_;
+
+    my $jdir;
+    opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir\n";
+
+    while (defined(my $slave = readdir($jdir))) {
+        ($slave=~ m/^\./) and next;
+        processSlaveDir($journaldir, $slave);
+    }
+    closedir($jdir);
+}
+
+processDir(EBox::Config::conf() . "userjournal/");
+processDir(EBox::UserCorner::usercornerdir() . "userjournal/");

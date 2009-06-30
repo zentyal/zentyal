@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+sub usage
+{
+    print "Usage: $0 slave-hostname\n";
+}
+
+if ($#ARGV == -1) {
+    usage();
+    exit(1);
+}
+
+EBox::init();
+
+my $users = EBox::Global->modInstance('users');
+my $result = $users->deleteSlave($ARGV[0]);
+exit($result);

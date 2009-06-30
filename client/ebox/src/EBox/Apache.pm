@@ -175,10 +175,12 @@ sub _writeHttpdConfFile
 	push @confFileParams, ( group => EBox::Config::group());
 	push @confFileParams, ( serverroot => $self->serverroot());
 	push @confFileParams, ( tmpdir => EBox::Config::tmp());
-        push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
-        push @confFileParams, ( includes => $self->_includes() );
+    push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
-        my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
+    push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
+    push @confFileParams, ( includes => $self->_includes() );
+
+    my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
 	push @confFileParams, ( debug => $debugMode);
 
 	$interp->exec($comp, @confFileParams);

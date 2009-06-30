@@ -6,14 +6,12 @@
    $soapHandler
    $domainName
    $allowedClientCNs
-   $caPath
    $confDirPath
    $proxyHostName => 'cc'
 </%args>
 <%init>
   my $internalDomainName = "internal.$domainName";
 </%init>
-SSLCACertificatePath <% $caPath %>
 <Location /soap>
    SetHandler perl-script
    PerlHandler <% $soapHandler %>

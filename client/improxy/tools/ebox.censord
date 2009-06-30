@@ -2,10 +2,16 @@
 use strict;
 use warnings;
 
+use EBox::Config;
+
 use IO::Socket;
+use File::Slurp;
+use Net::IP;
+use Storable qw(retrieve);
+
 use constant CENSORD_SOCKET => "/tmp/.censord.sock";
 
-use File::Slurp;
+my $rules = retrieve(EBox::Config::conf . 'censord.conf');
 
 sub parse_packet
 {
@@ -34,6 +40,45 @@ sub parse_packet
     return $info;
 }
 
+sub match_condition {
+    my ($rule, $info) = @_;
+
+    my $match = 0;
+
+    my $addresses = $rule->{'address'};
+    my $clientnet = new Net::IP($info->{'client'});
+    for my $address (@{$addresses}) {
+        my $rulenet = new Net::IP($address);
+        if ($clientnet->overlaps($rulenet) != $IP_NO_OVERLAP) {
+            $match = 1;
+        }
+    }
+
+    $match or return 0;
+
+    return 1;
+}
+
+sub send_answer {
+    my ($client, $decision) = @_;
+
+    my $response;
+    if ($decision eq 'block') {
+        $response = 'BLCK';
+    } else {
+        $response = 'PASS';
+    }
+    print $client "$response";
+}
+
+sub apply_rule {
+    my ($client, $rule, $info) = @_;
+
+    if (match_condition($rule, $info)) {
+        send_answer($client, $rule->{'decision'});
+    }
+}
+
 unlink CENSORD_SOCKET;
 my $server = IO::Socket::UNIX->new(Local => CENSORD_SOCKET,
                                    Type  => SOCK_STREAM,
@@ -45,8 +90,10 @@ my $client;
 while ($client = $server->accept()) {
     my $data = read_file($client);
     my $info = parse_packet($data);
-    use Data::Dumper;
-    print Dumper($info);
+
+    for my $rule (@{$rules}) {
+        apply_rule($client, $rule, $info);
+    }
     close($data);
 }
 

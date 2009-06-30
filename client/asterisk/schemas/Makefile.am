@@ -2,7 +2,7 @@
 
 moduledir   = @DATADIR@/ebox/modules
 module_DATA = asterisk.yaml
-pkgdata_DATA = asterisk.schema
+pkgdata_DATA = asterisk.ldif
 
 EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 

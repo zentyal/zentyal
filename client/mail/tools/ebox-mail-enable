@@ -1,8 +1,5 @@
 #!/bin/bash -x
 
-# copy LDAP schemas
-cp /usr/share/ebox-mail/*.schema /etc/ldap/schema
-
 # Create certificates for smptd
 test -d /etc/postfix/sasl || mkdir -p /etc/postfix/sasl
 /usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl
@@ -24,17 +21,8 @@ chmod 0400 /etc/dovecot/ssl/*
 touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
 newaliases
 
-# regenerate slapd.conf
-/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
-
-# restart slapd
-invoke-rc.d slapd restart
-
 # populate ldap
 /usr/share/ebox-mail/ebox-mail-ldap update
 
-
 # restart mail to generate configuration files
 invoke-rc.d ebox mail restart
-
-

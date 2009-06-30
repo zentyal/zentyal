@@ -16,61 +16,71 @@ my $users = $global->modInstance('users');
 # Initialize the LDAP database
 sub init
 {
-    # Create a new LDAP password for our eBox admin
-    my $LDAP_PWD_FILE = EBox::Config::conf() . 'ebox-ldap.passwd';
-
-    my $pass;
-    my $newpass = undef;
-    if ( -s $LDAP_PWD_FILE ) {
-        my $pwdfile;
-        my $fd;
-        unless (open ($fd, "<$LDAP_PWD_FILE")) {
-            throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
-        }
-        $pass = <$fd>;
-        close($fd)
-    } else {
-        $pass = '';
-        my $letters = 'abcdefghijklmnopqrstuvwxyz';
-        my @chars= split(//, $letters . uc($letters) . '-_%#|0123456789');
-        for my $i (1..128) {
-            $pass .= $chars[int(rand (scalar(@chars)))];
-        }
-        $newpass = 1;
-    }
-
-    if ($newpass) {
-        my $fd;
-        unless (open ($fd, ">$LDAP_PWD_FILE")) {
-                throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
-        }
-        print $fd $pass;
-        close($fd);
-        unless (chmod (0400, $LDAP_PWD_FILE)) {
-                throw EBox::Exceptions::External("Can't chmod $LDAP_PWD_FILE");
-        }
-    }
-
-    root("cp " . EBox::Config::share() . "/ebox-usersandgroups/*.schema /etc/ldap/schema");
-
-    # Modify /etc/ldap/slapd.conf
-    gen_config();
-
-     # Add dc=ebox and cn=admin,dc=ebox with proper password
-    root(EBox::Config::share() . "/ebox-usersandgroups/ebox-ldap-admin");
-
-     # Restart slapd
+    root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
     root("invoke-rc.d slapd restart");
 
-    # Populate the database
     populate();
+    setupSyncProvider();
 }
 
+sub setupSyncProvider
+{
+	$users->ldap->ldapCon;
+	my $ldap = $users->ldap->{ldap};
+    my $dn;
+    my $result;
+
+    # enable the syncprov module
+    $dn = 'cn=module{0},cn=config';
+    my %args = (
+        add => [ 'olcModuleLoad' => 'syncprov' ]
+    );
+    $ldap->modify($dn, %args);
+
+    # add indexes for entryCNS and entryUUID
+    $dn = 'olcDatabase={1}hdb,cn=config';
+    my %args = (
+        replace => [ 'olcDbIndex' => ['objectclass eq',
+                                      'entryCSN eq',
+                                      'entryUUID eq'] ],
+    );
+    $ldap->modify($dn, %args);
+
+    %args = (
+        base => 'olcDatabase={0}config,cn=config',
+        filter => 'olcOverlay=syncprov'
+    );
+    $result = $ldap->search(%args);
+    if ($result->count() == 0) {
+        $dn = 'olcOverlay={0}syncprov,olcDatabase={0}config,cn=config';
+        $result = $ldap->add($dn, attr => [
+            'objectClass' => [ 'olcOverlayConfig', 'olcSyncProvConfig' ],
+            'olcOverlay' => '{0}syncprov',
+            'olcSpCheckpoint' => '10 60',
+            'olcSpSessionlog' => '100',
+        ]);
+    }
+
+    %args = (
+        base => 'olcDatabase={1}hdb,cn=config',
+        filter => 'olcOverlay=syncprov'
+    );
+    $result = $ldap->search(%args);
+    if ($result->count() == 0) {
+        $dn = 'olcOverlay={0}syncprov,olcDatabase={1}hdb,cn=config';
+        $result = $ldap->add($dn, attr => [
+            'objectClass' => [ 'olcOverlayConfig', 'olcSyncProvConfig' ],
+            'olcOverlay' => '{0}syncprov',
+            'olcSpCheckpoint' => '10 60',
+            'olcSpSessionlog' => '100',
+        ]);
+    }
+}
 
 sub populate
 {
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap}->{ldap};
+	$users->ldap->ldapCon;
+	my $ldap = $users->ldap->{ldap};
 	my $dn = $users->usersDn;
 	my $result = $ldap->add($dn, attr => [
                                         'ou' => 'Users',
@@ -88,6 +98,13 @@ sub populate
 
 	my $defaultGroup = $users->defaultGroup();
 	$users->addGroup($defaultGroup, 'All users', 1);
+
+    $dn = $users->slavesDn;
+    my $result = $ldap->add($dn, attr => [
+        'ou' => 'slaves',
+        'objectClass' => 'organizationalUnit'
+    ]);
+    ($result->is_error) and EBox::debug("Cant initialize Slaves");
 }
 
 sub clean 
@@ -103,11 +120,6 @@ sub clean
 		my $groupname = $group->{'account'};
 		$users->delGroup($groupname);		
 	}
-}
-
-sub gen_config
-{
-	$users->writeLDAPConf();
 }
 
 sub addSysUser
@@ -128,7 +140,7 @@ sub addSysGroup
 
 sub usage
 {
-	print "Usage: $0 (init | populate | genconfig | addSysUser name fullname pwd commet | addSysGroup name comment)\n";
+	print "Usage: $0 (init | populate | addSysUser name fullname pwd commet | addSysGroup name comment)\n";
 }
 
 #main 
@@ -141,8 +153,6 @@ if ($#ARGV == -1) {
 
 if ($ARGV[0] eq 'populate') {
 	populate();
-} elsif ($ARGV[0] eq 'genconfig') {
-	gen_config();
 } elsif ($ARGV[0] eq 'clean') {
 	clean();
 } elsif ($ARGV[0] eq 'addSysUser') {

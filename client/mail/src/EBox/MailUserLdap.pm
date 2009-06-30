@@ -31,7 +31,6 @@ use EBox::Gettext;
 use Perl6::Junction qw(any);
 
 # LDAP schema
-use constant SCHEMAS            => ('/etc/ldap/schema/authldap.schema', '/etc/ldap/schema/eboxmail.schema');
 use constant DIRVMAIL   =>      '/var/vmail/';
 use constant BYTES                              => '1048576';
 use constant MAXMGSIZE                          => '104857600';
@@ -587,19 +586,6 @@ sub _getActualMDSize
      
      return ($sum / $self->BYTES);
 }
-
-sub _includeLDAPSchemas 
-{
-    my ($self) = @_;
-
-    return [] unless (EBox::Global->modInstance('mail')->configured());
-
-    my @schemas = SCHEMAS;
-    
-    return \@schemas;
-}
-
-
 
 sub _checkMaildirNotExists
 {

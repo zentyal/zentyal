@@ -45,33 +45,4 @@ sub _delGroupWarning($$) {
 	return undef;
 }
 
-sub _includeLDAPSchemas
-{
-	my $users = EBox::Global->modInstance('users');
-
-    return [] unless ($users->configured());
-
-    return ['/etc/ldap/schema/passwords.schema'];
-}
-
-sub _includeLDAPAcls {
-    my ($self) = @_;
-
-	my $users = EBox::Global->modInstance('users');
-    my $ldap = EBox::Ldap->instance();
-    my $ldapconf = $ldap->ldapConf();
-
-    return [] unless ($users->configured());
-
-    my $passFormats = EBox::UsersAndGroups::Passwords::allPasswordFieldNames();
-    my $attrs = join(',', @{$passFormats});
-
-    my @acls = ("access to attrs=$attrs\n" .
-            "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
-            "\tby self write\n" .
-            "\tby * none\n");
-
-    return \@acls;
-}
-
 1;

@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use Carp;
+use Cwd qw(abs_path);
+use File::Basename;
+use File::Temp qw(:mktemp);
+use File::Path qw(rmtree);
+use File::Slurp qw(read_file);
+
+my $tmpfile = mktemp('/tmp/slaptest-XXXX');
+my $tmpdir = mkdtemp('/tmp/ldap-XXXX');
+
+my $ldapconf= <<END;
+include /etc/ldap/schema/core.schema
+include /etc/ldap/schema/cosine.schema
+include /etc/ldap/schema/inetorgperson.schema
+include /etc/ldap/schema/nis.schema
+include /etc/ldap/schema/openldap.schema
+END
+
+my @schemas;
+foreach my $schema (@ARGV) {
+    (-f $schema) or croak("$schema doesn't exist");
+    $ldapconf .= ('include' . ' ' . abs_path($schema) . "\n");
+}
+
+open LDAPCONF, ">$tmpfile";
+print LDAPCONF $ldapconf;
+close LDAPCONF; 
+
+system("slaptest -f $tmpfile -F $tmpdir");
+
+foreach my $schema (@ARGV) {
+    my $schema_name = $schema;
+    $schema_name =~ s/\.schema$//;
+    my $ldif = (glob("$tmpdir/cn=config/cn=schema/cn={*}$schema_name.ldif"))[0];
+    my $ldif_contents = read_file($ldif);
+    $ldif_contents =~ s/{\d*}//g;
+    $ldif_contents =~ s/structuralObjectClass.*//s;
+    my $dest = abs_path($schema);
+    $dest =~ s/\.schema$/.ldif/;
+    open LDIF, ">$dest";
+    print LDIF $ldif_contents;
+    close LDIF;
+}
+
+unlink($tmpfile);
+rmtree($tmpdir);

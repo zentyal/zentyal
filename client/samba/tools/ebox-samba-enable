@@ -11,9 +11,6 @@
 # stop samba 
 invoke-rc.d samba stop
 
-# Copy LDAP schemas
-cp /usr/share/ebox-samba/*.schema /etc/ldap/schema
-
 # restart users
 /etc/init.d/ebox users restart
 
@@ -27,15 +24,6 @@ test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 # Copy ldap.secret
 cp /var/lib/ebox/conf/ebox-ldap.passwd /etc/ldap.secret
 chmod 600 /etc/ldap.secret
-
-# regenerate slapd.conf
-/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
-        
-# restart slapd
-/etc/init.d/slapd restart
-
-# Give some time to ldap to start
-sleep 1
 
 # add mandatory items to domain database
 /usr/share/ebox-samba/ebox-samba-ldap populate-ldap
@@ -111,4 +99,7 @@ chown root.__USERS__  $QUARANTINE_DIR || true
 invoke-rc.d quota restart 
 
 invoke-rc.d ebox samba restart
+
+/usr/share/ebox-samba/ebox-samba-group-sync
+cp /usr/share/ebox-samba/ebox-samba-group-sync /etc/cron.hourly/
 

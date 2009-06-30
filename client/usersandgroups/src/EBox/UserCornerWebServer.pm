@@ -91,7 +91,7 @@ sub _setConf
     EBox::Module::Base::writeConfFileNoCheck(USERCORNER_APACHE,
         "usersandgroups/user-apache2.conf.mas",
         [ port => $settings->portValue() ],
-    )
+    );
 }
 
 # Method: menu

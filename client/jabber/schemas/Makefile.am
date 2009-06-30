@@ -4,7 +4,7 @@ moduledir   = @DATADIR@/ebox/modules
 module_DATA = jabber.yaml
 
 
-pkgdata_DATA = jabber.schema
+pkgdata_DATA = jabber.ldif
 
 EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 

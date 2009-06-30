@@ -31,8 +31,6 @@ use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Asterisk::Extensions;
 
-use constant SCHEMAS => ('/etc/ldap/schema/asterisk.schema');
-
 # Group: Public methods
 
 # Constructor: new
@@ -221,56 +219,6 @@ sub _removeVoicemail
         EBox::Sudo::root("/bin/rm -fr $vmpath");
     }
 }
-
-
-# Method: _includeLDAPSchemas
-#
-#      Those modules which need to use their own LDAP schemas must implement
-#      this method. It must return an array with LDAP schemas.
-#
-# Returns:
-#
-#       an array ref - containing in each element the full path of the schema
-#       schema file to be include.
-#
-sub _includeLDAPSchemas
-{
-    my ($self) = @_;
-
-    unless ($self->{'asterisk'}->configured()) {
-        return [];
-    }
-
-    my @schemas = SCHEMAS;
-
-    return \@schemas;
-}
-
-
-# Method: _includeLDAPAcls
-#
-#       Those modules which need to use their own LDAP ACLs must implement
-#       this method. It must return an array with LDAP ACLs.
-#
-# Returns:
-#
-#       an array ref - containing in each element an ACL for the LDAP
-#       database.
-#
-sub _includeLDAPAcls {
-        my $self = shift;
-
-        return [] unless ($self->{'asterisk'}->configured());
-        my $ldapconf = $self->{ldap}->ldapConf;
-
-        my @acls = ("access to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach,AstAccountVMDelete\n" .
-                    "\tby dn.regex=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
-                    "\tby self write\n" .
-                    "\tby * none\n");
-
-        return \@acls;
-}
-
 
 # Method: setHasAccount
 #

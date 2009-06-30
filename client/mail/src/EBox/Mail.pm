@@ -124,8 +124,8 @@ sub actions
             {
               'action' => __('Add LDAP schemas'),
               'reason' => __(
-                          'eBox will add two LDAP schemas: authldap.schema and '
-                            .'eboximail.schema.'
+                          'eBox will add two LDAP schemas: authldap.ldif and '
+                            .'eboximail.ldif.'
               ),
               'module' => 'mail'
             },
@@ -174,11 +174,6 @@ sub usedFiles
               'module' => 'mail'
             },
             {
-              'file' => '/etc/ldap/slapd.conf',
-              'reason' => __('To add the LDAP schemas used by eBox mail'),
-              'module' => 'users'
-            } ,
-            {
               'file' => SASL_PASSWD_FILE,
               'reason' => __('To configure smart host authentication'),
               'module' => 'mail'
@@ -193,6 +188,10 @@ sub usedFiles
 #
 sub enableActions
 {
+    my ($self) = @_;
+    $self->loadSchema(EBox::Config::share() . '/ebox-mail/authldap.ldif');
+    $self->loadSchema(EBox::Config::share() . '/ebox-mail/eboxmail.ldif');
+
     root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
 }
 
@@ -320,7 +319,11 @@ sub _setMailConf
     }
 
     push(@array, fqdn => $self->_fqdn());
-    push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
+    if ($users->isMaster()) {
+        push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
+    } else {
+        push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
+    }
     push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push(@array, 'relay', $self->relay());
     push(@array, 'relayAuth', $self->relayAuth());
@@ -362,6 +365,11 @@ sub _setMailConf
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@array);
 
     @array = ();
+    if ($users->isMaster()) {
+        push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
+    } else {
+        push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
+    }
     push @array, ('usersDn', $users->usersDn());
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@array);
 

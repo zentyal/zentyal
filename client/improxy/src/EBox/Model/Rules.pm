@@ -1,4 +1,4 @@
-# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -61,6 +61,21 @@ sub objectModel
     return EBox::Global->modInstance('objects')->{'objectModel'};
 }
 
+sub decision
+{
+    my @options = (
+        {
+            'value' => 'allow',
+            'printableValue' => __('Allow')
+        },
+        {
+            'value' => 'block',
+            'printableValue' => __('Block')
+        }
+    );
+    return \@options;
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -90,9 +105,11 @@ sub _table
             ],
             'unique' => 1,
             'editable' => 1),
-        new EBox::Types::Boolean (
-            'fieldName' => 'accept',
-            'printableName' => __('Accept'),
+        new EBox::Types::Select (
+            'fieldName' => 'decision',
+            'printableName' => __('Decision'),
+            'populate' => \&decision,
+            'HTMLViewer' => '/ajax/viewer/imDecisionViewer.mas',
             'editable' => 1
         ),
     );
@@ -101,14 +118,42 @@ sub _table
     {
         tableName          => 'Rules',
         printableTableName => __('Filtering rules'),
-        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        defaultActions     => [ 'add', 'del', 'move',
+                                'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         modelDomain        => 'IMProxy',
+        order              => 1,
         printableRowName   => __('rule'),
         help               => __('help message'),
     };
     return $dataTable;
+}
+
+sub rules
+{
+    my ($self) = @_;
+
+    my $objMod = EBox::Global->modInstance('objects');
+
+    my @rules = map {
+        my $row = $self->row($_);
+
+        my $rule = {};
+
+        my $obj = $row->valueByName('object');
+
+        if ($obj eq 'source_any') {
+            $rule->{'address'} = 'any';
+        } else {
+            my $addresses = $objMod->objectAddresses($obj);
+            $rule->{'address'} = $addresses;
+        }
+        $rule->{'decision'} = $row->valueByName('decision');
+        $rule;
+    } @{ $self->ids() };
+
+    return \@rules;
 }
 
 1;

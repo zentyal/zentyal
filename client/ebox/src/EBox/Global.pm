@@ -38,6 +38,7 @@ use File::Glob;
 use YAML::Tiny;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
+use Perl6::Junction qw(any all);
 
 use Digest::MD5;
 
@@ -299,28 +300,54 @@ sub modifiedModules
     my @names = @{$self->modNames};
     my @mods;
 
-        if ($self->modExists('firewall')) {
-                push(@mods, 'firewall');
-        }
-        foreach my $modname (@names) {
-                $self->modIsChanged($modname) or next;
+    if ($self->modExists('firewall')) {
+        push(@mods, 'firewall');
+    }
+    foreach my $modname (@names) {
+        $self->modIsChanged($modname) or next;
 
-                unless (grep(/^$modname$/, @mods)) {
-                        push(@mods, $modname);
-                }
-
-                my @deps = @{$self->modRevDepends($modname)};
-                foreach my $aux (@deps) {
-                        unless (grep(/^$aux$/, @mods)) {
-                                push(@mods, $aux);
-                        }
-                }
+        unless (grep(/^$modname$/, @mods)) {
+            push(@mods, $modname);
         }
 
-    return \@mods;
+        my @deps = @{$self->modRevDepends($modname)};
+        foreach my $aux (@deps) {
+            unless (grep(/^$aux$/, @mods)) {
+                push(@mods, $aux);
+            }
+        }
+    }
+
+    my $sorted = sortModulesEnableModDepends(\@mods);
+    return $sorted;
 }
 
+sub sortModulesEnableModDepends
+{
+    my ($mods) = @_;
 
+    my @modules = @{$mods};
+
+    my %anyDependencyByModule = map {
+        my $modname = $_;
+        my $mod = EBox::Global->modInstance($modname);
+        my $deps = [];
+        if ($mod->can('enableModDepends')) {
+            $deps = $mod->enableModDepends();
+        }
+        my $anyDependency = any( @{ $deps } );
+        ($modname => $anyDependency);
+    } @modules;
+
+    @modules = sort {
+        my $aDependsB =  $anyDependencyByModule{$a} eq $b ? 1 : 0;
+        my $bDependsA =  $anyDependencyByModule{$b} eq $a ? 1 : 0;
+
+        $aDependsB <=> $bDependsA;
+    } @modules;
+
+    return \@modules;
+}
 
 sub prepareSaveAllModules
 {

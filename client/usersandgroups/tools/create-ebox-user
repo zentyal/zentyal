@@ -1,0 +1,138 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox::Config;
+use EBox::Exceptions;
+use Debconf::Client::ConfModule qw(:all);
+
+use Net::LDAP;
+
+sub new_pass {
+    # Create a new LDAP password for our eBox admin
+    my $LDAP_PWD_FILE = EBox::Config::conf() . 'ebox-ldap.passwd';
+
+    my $pass;
+    my $newpass = undef;
+    if ( -s $LDAP_PWD_FILE ) {
+        my $pwdfile;
+        my $fd;
+        unless (open ($fd, "<$LDAP_PWD_FILE")) {
+            throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
+        }
+        $pass = <$fd>;
+        close($fd)
+    } else {
+        $pass = 'ebox' . rand((2**50));
+        $newpass = 1;
+    }
+
+    if ($newpass) {
+        my $fd;
+        unless (open ($fd, ">$LDAP_PWD_FILE")) {
+                throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
+        }
+        print $fd $pass;
+        close($fd);
+        unless (chmod (0400, $LDAP_PWD_FILE)) {
+                throw EBox::Exceptions::External("Can't chmod $LDAP_PWD_FILE");
+        }
+        my ($login,$pass,$uid,$gid) = getpwnam('ebox');
+        unless (chown($uid, $gid, $LDAP_PWD_FILE)) {
+                throw EBox::Exceptions::External("Can't chown $LDAP_PWD_FILE");
+        }
+    }
+    return $pass;
+}
+
+# Function stolen from slapd.config in slapd package
+sub GenRandom {
+      my ($len) = @_;
+      my $char;
+      my $data;
+      my @chars;;
+      @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                       . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
+      open(RD, "</dev/urandom") or die "Failed to open random source";
+      $data = "";
+      while ($len--) {
+        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        $data .= $chars[ord($char) % @chars];
+      }
+      close(RD);
+      return $data;
+}
+
+sub create_ebox_user {
+    my ($pass) = @_;
+
+    my $cryptpass = crypt($pass, GenRandom(2));
+
+    my $name = 'ebox-usersandgroups/password';
+    my ($status, $admin_pass) = Debconf::Client::ConfModule::get($name);
+
+    my $ldap = Net::LDAP->new('127.0.0.1');
+    my $basedn = baseDn($ldap);
+
+    use EBox;
+    use Data::Dumper;
+    
+    my $rootdn = 'cn=admin,' . $basedn;
+
+    $ldap->bind($rootdn, password => $admin_pass);
+    
+    my %args = (
+                attr => [
+                         'cn'            => 'ebox',
+                         'userPassword'  => ('{crypt}' . $cryptpass),
+                         'description'  => 'eBox administration account',
+                         'objectclass'   => ['simpleSecurityObject','organizationalRole']
+                        ]
+               );
+    my $eboxdn = "cn=ebox," . $basedn;
+    $ldap->add($eboxdn, %args);
+
+    $ldap->bind('cn=admin,cn=config', password => $admin_pass);
+
+    %args = (
+                attr => [
+                         'cn'            => 'ebox',
+                         'userPassword'  => ('{crypt}' . $cryptpass),
+                         'description'  => 'eBox administration account',
+                         'objectclass'   => ['simpleSecurityObject','organizationalRole']
+                        ]
+               );
+    my $eboxconfdn = "cn=ebox,cn=config";
+    $ldap->add($eboxconfdn, %args);
+
+    my $dn = 'olcDatabase={1}hdb,cn=config';
+    my $result = $ldap->search(
+        'base' => $dn,
+        'scope' => 'base',
+        'filter' => '(objectclass=*)',
+        'attrs' => ['olcAccess']
+    );
+    my $entry = ($result->entries)[0];
+    my $attr = ($entry->attributes)[0];
+    my @new_acls = map {
+        s/(by dn="$rootdn" write)/$1 by dn="$eboxdn" write/; $_
+    } $entry->get_value($attr);
+
+    %args = (
+        replace => [ 'olcAccess' => \@new_acls]
+    );
+    $ldap->modify($dn, %args);
+
+    $dn = 'olcDatabase={0}config,cn=config';
+    #TODO: try to use fine-grained access instead of *
+    %args = (
+        add => [
+            'olcAccess' => "to * by dn=\"$eboxdn\" write"
+            ]
+    );
+    $ldap->modify($dn, %args);
+}
+
+my $pass = new_pass();
+create_ebox_user($pass);
