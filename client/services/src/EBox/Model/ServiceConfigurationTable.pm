@@ -167,6 +167,7 @@ sub _table
                 'menuNamespace' => 'Services/View/ServiceConfigurationTable',
                 'class' => 'dataTable',
                 'help' => '', # FIXME
+                'rowUnique' => 1,
                 'printableRowName' => __('service'),
         };
 
