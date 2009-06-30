@@ -110,12 +110,6 @@ sub actions
             'password.'),
         'module' => 'samba'
     },
-    {
-        'action' => __('Set Samba LDAP admin dn password'),
-        'reason' => __('eBox will configure Samba to use the LDAP admin dn ' .
-            'password.'),
-        'module' => 'samba'
-    },
     ];
 }
 
