@@ -5,10 +5,6 @@ LABEL install
   menu label ^Install eBox Platform VERSION
   kernel /install/vmlinuz
   append  file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz quiet --
-LABEL autoinstall
-  menu label ^Install eBox Platform VERSION (experimental semi-automatic)
-  kernel /install/vmlinuz
-  append  file=/cdrom/preseed/ubuntu-server-auto.seed initrd=/install/initrd.gz quiet --
 LABEL linux
   menu hide
   kernel /install/vmlinuz
