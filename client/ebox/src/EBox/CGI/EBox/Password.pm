@@ -25,47 +25,46 @@ use EBox::Gettext;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	$self->{chain} = "EBox/General";
-	$self->{errorchain} = "EBox/General";
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{chain} = "EBox/General";
+    $self->{errorchain} = "EBox/General";
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
+        
+    if (defined($self->param('password'))) {
+        my $curpwd = $self->unsafeParam('currentpwd');
+        if (not $curpwd) {
+            throw EBox::Exceptions::DataMissing(data =>  __('Password'));
+        }
 
-	if (defined($self->param('password'))) {
-		my $curpwd = $self->unsafeParam('currentpwd');
-                if (not $curpwd) {
-                    throw EBox::Exceptions::DataMissing(data =>  __('Password'));
-                }
+        my $newpwd1 = $self->unsafeParam('newpwd1');
+        my $newpwd2 = $self->unsafeParam('newpwd2');
+        defined($newpwd1) or $newpwd1 = "";
+        defined($newpwd2) or $newpwd2 = "";
 
+        unless (EBox::Auth->checkPassword($curpwd)) {
+            throw EBox::Exceptions::External(__('Incorrect '.
+                                                    'password.'));
+        }
 
+        unless ($newpwd1 eq $newpwd2) {
+            throw EBox::Exceptions::External(__('New passwords do'.
+                                                    ' not match.'));
+        }
 
-		my $newpwd1 = $self->unsafeParam('newpwd1');
-		my $newpwd2 = $self->unsafeParam('newpwd2');
-		defined($newpwd1) or $newpwd1 = "";
-		defined($newpwd2) or $newpwd2 = "";
-
-		unless (EBox::Auth->checkPassword($curpwd)) {
-			throw EBox::Exceptions::External(__('Incorrect '.
-							'password.'));
-		}
-
-		unless ($newpwd1 eq $newpwd2) {
-			throw EBox::Exceptions::External(__('New passwords do'.
-							' not match.'));
-		}
-		unless (length($newpwd1) > 5) {
-			throw EBox::Exceptions::External(__('The password must'.
-					' be at least 6 characters long'));
-		}
-		EBox::Auth->setPassword($newpwd1);
-		$self->{msg} = __('The password was changed successfully.');
-	}
+        unless (length($newpwd1) > 5) {
+            throw EBox::Exceptions::External(__('The password must'.
+                                                    ' be at least 6 characters long'));
+        }
+        EBox::Auth->setPassword($newpwd1);
+        $self->{msg} = __('The password was changed successfully.');
+    }
 }
 
 1;
