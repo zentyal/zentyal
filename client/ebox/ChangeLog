@@ -5,7 +5,9 @@
 	+ Report graphics had a datapoints limit dependent on the active
 	time unit
 	+ Apache certificate can be replaced by CA module
-	+ Fixed regression in detailed report: total row now aggregates properly
+	+ Fixed regression in detailed report: total row now aggregates
+	properly
+	+ More characters allowed when changing password from web GUI
 	+ Fixed regression with already used values in select types
 	+ Do not a button to restart eBox's apache
 1.1.20

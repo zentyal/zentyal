@@ -38,10 +38,15 @@ sub _process
 	my $self = shift;
 
 	if (defined($self->param('password'))) {
-		$self->_requireParam("currentpwd", "Password");
-		my $curpwd = $self->param('currentpwd');
-		my $newpwd1 = $self->param('newpwd1');
-		my $newpwd2 = $self->param('newpwd2');
+		my $curpwd = $self->unsafeParam('currentpwd');
+                if (not $curpwd) {
+                    throw EBox::Exceptions::DataMissing(data =>  __('Password'));
+                }
+
+
+
+		my $newpwd1 = $self->unsafeParam('newpwd1');
+		my $newpwd2 = $self->unsafeParam('newpwd2');
 		defined($newpwd1) or $newpwd1 = "";
 		defined($newpwd2) or $newpwd2 = "";
 
