@@ -49,7 +49,7 @@ sub new
 
 sub gatewayModel
 {
-    return EBox::Global->modInstance('network')->gatewayModel();
+    return EBox::Global->modInstance('network')->model('GatewayTable');
 }
 
 
@@ -198,21 +198,6 @@ sub _table
     return $dataTable;
 }
 
-
-sub removeRulesUsingRouter
-{
-    my ($self, $router) = @_;
-
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
-        my $rowRouter = $row->valueByName('gateway');
-        if ($rowRouter eq $router) {
-            $self->removeRow($row->id());
-        }
-    }
-}
-
-
 sub iptablesRules
 {
     my $self = shift;
@@ -270,6 +255,11 @@ sub _buildIptablesRule
     my $dstType = $row->elementByName('destination')->selectedType();
     my $serviceConf = $services->serviceConfiguration($row->elementByName('service')->value());
     my $gw = $row->valueByName('gateway');
+
+    # Return if the gateway for this rule is disabled
+    my $gwRow = gatewayModel()->find('name' => $gw);
+    return unless (defined $gwRow);
+    return unless ($gwRow->valueByName('enabled'));
 
     my @ifaces = @{$self->_ifacesForRule($iface)};
 

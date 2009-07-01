@@ -2,6 +2,7 @@
     <name>eBox traffic balance Test Suite</name>
     <desc>Contains a set of tests to ensure
     that ebox traffic balance capabilities work ok.
+    (WAN failover included)
     </desc>
 
     <scenario>network/balance.xml</scenario>
@@ -27,6 +28,7 @@
         <var name="IFACE" value="eth2"/>
     </test>
 
+<!--
     <test type="selenium">
         <name>RemoveGateway</name>
         <desc>Remote the default gateway on the anste's communication
@@ -36,6 +38,7 @@
         <host>ebox-server</host>
         <dir>remove-default-gw</dir>
     </test>
+-->
 
     <test type="selenium">
         <name>AddGateways</name>
@@ -57,6 +60,195 @@
 
     <test>
         <name>TestBalance</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>client</host>
+        <dir>test-balance</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableFailoverEvent</name>
+        <desc>
+        Enable WAN failover watcher.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-failover</dir>
+    </test>
+
+    <test type="selenium">
+        <name>SetFailoverPeriod</name>
+        <desc>
+        Set period to 10 seconds.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-failover-period</dir>
+        <var name="PERIOD" value="10"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFailoverTestsA</name>
+        <desc>
+        Add failover tests to router A.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-failover-tests</dir>
+        <var name="GATEWAY" value="router-a"/>
+        <var name="HOST" value="ebox-platform.com"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFailoverTestsB</name>
+        <desc>
+        Add failover tests to router B.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-failover-tests</dir>
+        <var name="GATEWAY" value="router-b"/>
+        <var name="HOST" value="ebox-platform.com"/>
+    </test>
+
+    <test type="selenium">
+        <name>SaveChanges</name>
+        <desc>Save the changes.</desc>
+
+        <host>ebox-server</host>
+        <dir>save-changes</dir>
+    </test>
+
+    <test>
+        <name>Gateway-A-Down</name>
+        <desc>
+        Simulate a fail in router-a.
+        </desc>
+
+        <host>router-a</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="down"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-A-Disconnected</name>
+        <desc>
+        Checks event of A disconnected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-a disconnected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceWith-A-Down</name>
+        <desc>
+        Checks if the traffic goes through router B.
+        </desc>
+
+        <host>client</host>
+        <dir>test-trace</dir>
+        <var name="GATEWAY" value="192.168.3.3"/>
+    </test>
+
+    <test>
+        <name>Gateway-A-Up</name>
+        <desc>
+        Simulate recovery in router-a.
+        </desc>
+
+        <host>router-a</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="up"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-A-Connected</name>
+        <desc>
+        Checks event of A connected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-a connected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceAfter-A-Connected</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>client</host>
+        <dir>test-balance</dir>
+    </test>
+
+    <test>
+        <name>Gateway-B-Down</name>
+        <desc>
+        Simulate a fail in router-b.
+        </desc>
+
+        <host>router-b</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="down"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-B-Disconnected</name>
+        <desc>
+        Checks event of B disconnected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-b disconnected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceWith-B-Down</name>
+        <desc>
+        Checks if the traffic goes through router A.
+        </desc>
+
+        <host>client</host>
+        <dir>test-trace</dir>
+        <var name="GATEWAY" value="192.168.3.2"/>
+    </test>
+
+    <test>
+        <name>Gateway-B-Up</name>
+        <desc>
+        Simulate recovery in router-b.
+        </desc>
+
+        <host>router-b</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="up"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-B-Connected</name>
+        <desc>
+        Checks event of B connected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-b connected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceAfter-B-Connected</name>
         <desc>
         Checks if the traffic is balanced between
         the two gateways.

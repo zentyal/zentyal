@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -140,6 +141,8 @@ sub _table
 			'printableTableName' => __('Gateways List'),
 			'pageTitle'	=> __('Gateways'),
 			'automaticRemove' => 1,
+            'enableProperty' => 1,
+            'defaultEnabledValue' => 1,
 			'defaultController' =>
 				'/ebox/Network/Controller/GatewayTable',
 			'defaultActions' =>
@@ -166,9 +169,7 @@ sub _table
 #
 sub validateRow()
 {
-	my $self = shift;
-	my $action = shift;
-	my %params = @_;
+	my ($self, $action, %params) = @_;
 
 	my $network = EBox::Global->modInstance('network');
 	checkIP($params{'ip'}, __("ip address"));
@@ -186,6 +187,39 @@ sub validateRow()
 	}
 }
 
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    if ($row->valueByName('default')) {
+        my $network = $self->parentModule();
+        $network->storeSelectedDefaultGateway($row->id());
+    }
+}
+
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $oldRow, $force) = @_;
+
+    if ($newRow->valueByName('default')) {
+        my $network = $self->parentModule();
+        $network->storeSelectedDefaultGateway($newRow->id());
+    }
+}
+
+# Returns default gateway
 sub defaultGateway()
 {
 	my $self = shift;
@@ -226,13 +260,29 @@ sub marksForRouters()
 	return $marks;
 }
 
-sub gateways()
+# Returns only enabled gateways
+sub gateways
 {
-	my $self = shift;
+    my ($self) = @_;
+
+    $self->_gateways(0);
+}
+
+# Returns all gateways
+sub allGateways
+{
+	my ($self) = @_;
+
+    $self->_gateways(1);
+}
+
+sub _gateways # (all)
+{
+    my ($self, $all) = @_;
 
 	my @gateways;
 
-	foreach my $id (@{$self->ids()}) {
+	foreach my $id (@{$all ? $self->ids() : $self->enabledRows()}) {
 		my $gw = $self->row($id);
 		push (@gateways, {
 							id => $gw->id(),
@@ -253,7 +303,7 @@ sub gatewaysWithMac
 {
 	my ($self) = @_;
 
-	my @gateways = @{$self->gateways()};
+	my @gateways = @{$self->allGateways()};
 	foreach my $gw (@gateways) {
 		$gw->{'mac'} = _getRouterMac($gw->{'ip'});
 	}

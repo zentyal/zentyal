@@ -169,6 +169,8 @@ sub modelClasses
           'EBox::Network::Model::DNSResolver',
           'EBox::Network::Model::SearchDomain',
           'EBox::Network::Model::DynDNS',
+          'EBox::Network::Model::WANFailoverOptions',
+          'EBox::Network::Model::WANFailoverRules',
 
      ];
 }
@@ -179,6 +181,7 @@ sub compositeClasses
     return [
         'EBox::Network::Composite::MultiGw',
         'EBox::Network::Composite::DNS',
+        'EBox::Network::Composite::WANFailover',
 
 # XXX uncomment when DynLoader bug with locales is fixed
 #          'EBox::Network::Composite::ByteRate',
@@ -496,7 +499,7 @@ sub ifacesWithRemoved
 #
 # Returns:
 #
-#	an array ref - holding hashes with keys 'address' and 'netmask'
+#   an array ref - holding hashes with keys 'address' and 'netmask'
 sub ifaceAddresses # (interface)
 {
     my ($self, $iface) = @_;
@@ -1661,7 +1664,7 @@ sub gateway
 {
     my $self = shift;
 
-    return  $self->gatewayModel()->defaultGateway();
+    return  $self->model('GatewayTable')->defaultGateway();
 }
 
 # Method: routes
@@ -1868,7 +1871,7 @@ sub isDDNSEnabled
   my $self = shift;
   my $ddnsModel = $self->model('DynDNS');
   my $row = $ddnsModel->row();
-  return $row->valueByName('enableDDNS')
+  return $row->valueByName('enableDDNS');
 }
 
 # Generate the '/etc/ddclient.conf' configuration file for DynDNS
@@ -2000,9 +2003,7 @@ sub _removeRoutes
 
 sub _multigwRoutes
 {
-    my $self = shift;
-
-
+    my ($self) = @_;
 
     # Flush the rules
     #
@@ -2053,6 +2054,8 @@ sub _multigwRoutes
     my $defaultRouterMark;
     foreach my $router (@{$routers}) {
 
+        next unless $router->{'id'};
+
         if ($router->{'default'}) {
             $defaultRouterMark = $marks->{$router->{'id'}};
         }
@@ -2065,7 +2068,7 @@ sub _multigwRoutes
     }
 
 
-    for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
+    for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
         root("/sbin/iptables $rule");
     }
 
@@ -2191,11 +2194,10 @@ sub _setConf
 #   It will set up the network interfaces, routes, dns...
 sub _enforceServiceState
 {
-    my $self = shift;
+    my ($self) = @_;
     my %opts = @_;
     my $restart = delete $opts{restart};
 
-    my $gateway = $self->gateway;
     my $file = INTERFACES_FILE;
 
     my @ifups = ();
@@ -2223,15 +2225,14 @@ sub _enforceServiceState
         } catch EBox::Exceptions::Internal with {};
     }
 
-    my $multipathCmd = $self->_multipathCommand();
-    if ($gateway) {
+    my $cmd = $self->_multipathCommand();
+    if ($cmd) {
         try {
-            my $cmd = $self->_multipathCommand();
             root($cmd);
         } catch EBox::Exceptions::Internal with {
             throw EBox::Exceptions::External("An error happened ".
-            "trying to set the default gateway. Make sure the ".
-            "gateway you specified is reachable.");
+                    "trying to set the default gateway. Make sure the ".
+                    "gateway you specified is reachable.");
         };
     }
 
@@ -2310,7 +2311,7 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
         push(@gws, $route->{gateway});
     }
 
-    foreach my $gw (@{$self->gatewayModel()->gateways()}) {
+    foreach my $gw (@{$self->model('GatewayTable')->gateways()}) {
         push (@gws, $gw->{'ip'});
     }
 
@@ -2490,6 +2491,32 @@ sub DHCPCleanUp # (interface)
     }
 
     $self->st_delete_dir("dhcp/$iface");
+}
+
+# Method: selectedDefaultGateway
+#
+#   Returns the selected default gateway
+#
+sub selectedDefaultGateway
+{
+    my ($self) = @_;
+
+    return $self->st_get_string('default/gateway');
+}
+
+# Method: storeSelectedDefaultGateway
+#
+#   Store the selected default gateway
+#
+# Parameters:
+#
+#   gateway - gateway id
+#
+sub storeSelectedDefaultGateway # (gateway
+{
+    my ($self, $gateway) = @_;
+
+    return $self->st_set_string('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway
@@ -2800,6 +2827,8 @@ sub menu
                       'text' => __('Static Routes')));
     $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/MultiGw',
                       'text' => __('Balance Traffic')));
+    $folder->add(new EBox::Menu::Item('url' => 'Network/Composite/WANFailover',
+                      'text' => __('WAN Failover')));
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
                       'text' => __('Diagnostic Tools')));
 
@@ -2813,40 +2842,9 @@ sub menu
     $root->add($folder);
 }
 
-# Method: gatewayModel
-#
-#   Return the model associated to the gateway table
-#
-# Returns:
-#
-#   GatewayTableModel
-#
-#  XXX delete and replace calls with direct call to the 'model' method
-sub gatewayModel {
-    my $self = shift;
-    return $self->model('GatewayTable');
-}
-
-# Method: multigwrulesModel
-#
-#   Return the model associated to the multi gateway rules table
-#
-# Returns:
-#
-#   MultiGwRulesTableModel
-#
-#  XXX delete and replace calls with direct call to the 'model' method
-sub multigwrulesModel {
-
-    my $self = shift;
-
-    return $self->model('MultiGwRulesDataTable');
-}
-
-
 # Method: gateways
 #
-#   Return the gateways available
+#   Return the enabled gateways
 #
 # Returns:
 #
@@ -2865,21 +2863,20 @@ sub multigwrulesModel {
 #
 sub gateways
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my $gatewayModel = $self->gatewayModel();
+    my $gatewayModel = $self->model('GatewayTable');
 
     return $gatewayModel->gateways();
-
 }
 
 sub _defaultGwAndIface
 {
     my ($self) = @_;
 
-    my $gw = $self->gatewayModel()->find('default' => 1);
+    my $gw = $self->model('GatewayTable')->find('default' => 1);
 
-    if ($gw) {
+    if ($gw and $gw->valueByName('enabled')) {
         return ($gw->valueByName('interface'), $gw->valueByName('ip'));
     } else {
         return (undef, undef);
@@ -2890,7 +2887,7 @@ sub _defaultGwAndIface
 
 # Method: gatewaysWithMac
 #
-#   Return the gateways available and its mac address
+#   Return the enabled gateways and its mac address
 #
 # Returns:
 #
@@ -2909,9 +2906,9 @@ sub _defaultGwAndIface
 #
 sub gatewaysWithMac
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my $gatewayModel = $self->gatewayModel();
+    my $gatewayModel = $self->model('GatewayTable');
 
     return $gatewayModel->gatewaysWithMac();
 
@@ -2919,8 +2916,9 @@ sub gatewaysWithMac
 
 sub marksForRouters
 {
-    my $self = shift;
-    my $marks = $self->gatewayModel()->marksForRouters();
+    my ($self) = @_;
+
+    my $marks = $self->model('GatewayTable')->marksForRouters();
 }
 
 # Method: balanceTraffic
@@ -2933,12 +2931,12 @@ sub marksForRouters
 #
 sub balanceTraffic
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $multiGwOptions = $self->model('MultiGwRulesOptions');
-        my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
+    my $multiGwOptions = $self->model('MultiGwRulesOptions');
+    my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
 
-        return ($balanceTraffic and (@{$self->gateways} > 1));
+    return ($balanceTraffic and (@{$self->gateways} > 1));
 }
 
 # Method: setBalanceTraffic
@@ -2967,8 +2965,20 @@ sub _multipathCommand
 
     my @gateways = @{$self->gateways()};
 
-    unless (scalar(@gateways) > 0) {
-        return undef;
+    if (scalar(@gateways) == 0) {
+        # If WAN failover is enabled we put the default one
+        my $ev = EBox::Global->getInstance()->modInstance('events');
+        if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value()) {
+            my $row = $self->model('GatewayTable')->findValue(default => 1);
+            unless ($row) {
+                return undef;
+            }
+            my $ip = $row->valueByName('ip');
+            my $weight = $row->valueByName('weight');
+            push (@gateways, {ip => $ip, weight => $weight});
+        } else {
+            return undef;
+        }
     }
 
     my $cmd = 'ip route add table default default';

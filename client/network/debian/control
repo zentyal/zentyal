@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-network
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ebox-objects, ebox-services, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, rrdtool, librrds-perl, jnettop, traceroute, ddclient, debconf, ${misc:Depends}
+Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ebox-objects, ebox-services, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, rrdtool, librrds-perl, wget, jnettop, traceroute, ddclient, debconf, ${misc:Depends}
 Replaces: ebox (<< 0.6), ebox-firewall (<< 0.9.99)
 Conflicts: ebox (<< 0.9.99)
 Description: eBox - Network configuration module
@@ -17,5 +17,5 @@ Description: eBox - Network configuration module
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
  .
- This module adds network configuration, allowing to configure network 
+ This module adds network configuration, allowing to configure network
  interfaces, routes, and domain servers.

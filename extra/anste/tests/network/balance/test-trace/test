@@ -1,0 +1,28 @@
+#!/bin/bash
+
+LOG="/tmp/anste-traceroute-$(date +%y%m%d%H%M%S)"
+
+for i in `seq 1 20`
+do
+    traceroute -n -m 6 "192.168.45.$i" >> $LOG
+done
+
+cat $LOG
+
+CNT=$(grep $GATEWAY $LOG | wc -l)
+
+echo "Result $CNT went through $GATEWAY"
+
+test $CNT -ge 17
+
+RET=$?
+
+echo "Showing entire log..."
+cat $LOG
+
+echo "Showing ocurrences of $GATEWAY..."
+grep $GATEWAY $LOG
+
+rm $LOG
+
+exit $RET

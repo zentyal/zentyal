@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ifconfig eth1 $ACTION
+RET=$?
+
+sleep $WAIT
+
+exit $RET
