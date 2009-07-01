@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-07-01 09:30+0200\n"
 "PO-Revision-Date: 2009-01-21 14:36+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <es@li.org>\n"
@@ -246,79 +246,80 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} não está na rede atual"
 
 #: src/EBox/Model/Options.pm:169
+#, fuzzy
 msgid ""
-"DNS service must be active to as primary nameserver the local eBox DNS server"
+"DNS service must be active to be able to select eBox as primary DNS server"
 msgstr ""
 "Como servidor nomes primário deve estar ativo o servidor local eBox DNS"
 
-#: src/EBox/Model/Options.pm:315 src/EBox/Model/Options.pm:343
+#: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
 msgid "Custom"
 msgstr "Personalizar"
 
-#: src/EBox/Model/Options.pm:323
+#: src/EBox/Model/Options.pm:322
 msgid "eBox's domain"
 msgstr "domínio do eBox"
 
-#: src/EBox/Model/Options.pm:331
+#: src/EBox/Model/Options.pm:330
 msgid "local eBox DNS"
 msgstr "eBox DNS local"
 
-#: src/EBox/Model/Options.pm:338 src/EBox/Model/Options.pm:349
-#: src/EBox/Model/Options.pm:372 src/EBox/Model/ThinClientOptions.pm:236
+#: src/EBox/Model/Options.pm:337 src/EBox/Model/Options.pm:348
+#: src/EBox/Model/Options.pm:371 src/EBox/Model/ThinClientOptions.pm:236
 msgid "None"
 msgstr "Nenhum"
 
-#: src/EBox/Model/Options.pm:356 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:355 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Gateway padrão"
 
-#: src/EBox/Model/Options.pm:362 src/EBox/Model/ThinClientOptions.pm:239
+#: src/EBox/Model/Options.pm:361 src/EBox/Model/ThinClientOptions.pm:239
 msgid "eBox"
 msgstr "eBox"
 
-#: src/EBox/Model/Options.pm:366
+#: src/EBox/Model/Options.pm:365
 msgid "Custom IP address"
 msgstr "Endereço IP personalizado"
 
-#: src/EBox/Model/Options.pm:376
+#: src/EBox/Model/Options.pm:375
 msgid "Configured ones"
 msgstr "Configurado"
 
-#: src/EBox/Model/Options.pm:382
+#: src/EBox/Model/Options.pm:381
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:388 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Procurar domínio"
 
-#: src/EBox/Model/Options.pm:391
+#: src/EBox/Model/Options.pm:390
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:396 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:395 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "DNS primário"
 
-#: src/EBox/Model/Options.pm:399
+#: src/EBox/Model/Options.pm:398
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
 
-#: src/EBox/Model/Options.pm:404 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "DNS secundário"
 
-#: src/EBox/Model/Options.pm:412
+#: src/EBox/Model/Options.pm:411
 msgid "Common options"
 msgstr "Opções personalizadas"
 
-#: src/EBox/Model/Options.pm:417
+#: src/EBox/Model/Options.pm:416
 #, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
