@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-egroupware
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox-network (>= 0.12), ebox-usersandgroups (>= 0.12), ebox-mail (>= 0.12), ${misc:Depends}, egroupware (>= 1.6), egroupware (< 1.7), php5-mhash, ebox-webserver (>= 0.12)
+Depends: ebox (>= 1.3~svn), ebox-network (>= 0.12), ebox-usersandgroups (>= 0.12), ebox-mail (>= 0.12), ${misc:Depends}, egroupware (>= 1.6), egroupware (< 1.7), php5-mhash, ebox-webserver (>= 0.12)
 Description: eBox - eGroupware
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

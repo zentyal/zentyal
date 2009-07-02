@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-l7-protocols
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ebox-trafficshaping, l7-protocols, ${misc:Depends}
+Depends: ebox (>= 1.3~svn), ebox (<< 1.4), ebox-trafficshaping, l7-protocols, ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
 Description: eBox - layer 7 protocols

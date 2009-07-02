@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-ebackup
 Architecture: all
-Depends: ebox (>= 1.1~svn), rdiff-backup, ${misc:Depends}
+Depends: ebox (>= 1.3~svn), rdiff-backup, ${misc:Depends}
 Description: eBox - Backup
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

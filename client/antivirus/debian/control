@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-antivirus
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ebox-firewall, clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), ${misc:Depends}
+Depends: ebox (>= 1.3~svn), ebox (<< 1.4), ebox-firewall, clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
 Description: eBox - Antivirus module
  eBox is a framework for the development and deployment of security-wise

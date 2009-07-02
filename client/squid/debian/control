@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: ebox-squid
 Architecture: all
-Depends: ebox (>= 1.1~svn), ebox (<< 1.2), ebox-firewall, ebox-objects, ebox-usersandgroups, squid, dansguardian ( >= 2.9), adduser, clamav-daemon ( >= 0.94), ${misc:Depends}
+Depends: ebox (>= 1.3~svn), ebox (<< 1.4), ebox-firewall, ebox-objects, ebox-usersandgroups, squid, dansguardian ( >= 2.9), adduser, clamav-daemon ( >= 0.94), ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
 Description: eBox - Proxy cache and content filter
