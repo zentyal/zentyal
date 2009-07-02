@@ -69,7 +69,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
                                       name => 'mail',
-                                      printableName =>__('mail'),
+                                      printableName =>__('Mail'),
                                       domain => 'ebox-mail',
                                       @_
     );
@@ -1179,9 +1179,9 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Mail',
-                                        'text' => __('Mail'),
+                                        'text' => $self->printableName(),
                                         'separator' => __('Communications'),
-                                        'order' => 190
+                                        'order' => 610
     );
 
     $folder->add(

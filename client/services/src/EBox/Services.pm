@@ -471,7 +471,7 @@ sub menu
     'url' => 'Services/View/ServiceTable',
     'text' => __($self->title),
     'separator' => __('Core'),
-    'order' => 50);
+    'order' => 60);
     $root->add($item);
 }
 

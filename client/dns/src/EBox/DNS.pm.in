@@ -43,12 +43,12 @@ use constant BIND9INIT     => "@BIND9_INIT@";
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant NAMESERVER_HOST => 'ns';
 
-sub _create 
+sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'dns', 
+    my $self = $class->SUPER::_create(name => 'dns',
             domain => 'ebox-dns',
-            printableName => __('Domain Name System'),
+            printableName => __('DNS'),
             @_);
 
     bless($self, $class);
@@ -765,7 +765,7 @@ sub _setConf
 
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
-    $self->writeConfFile(BIND9CONFLOCALFILE, 
+    $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
 }
@@ -774,7 +774,7 @@ sub configureFirewall
 {
     my ($self) = @_;
 
-    my $fw = EBox::Global->modInstance('firewall'); 
+    my $fw = EBox::Global->modInstance('firewall');
 
     if ($self->isEnabled()) {
         $fw->addOutputRule('udp', 53);
@@ -785,7 +785,7 @@ sub configureFirewall
     }
 }
 
-# Method: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #
@@ -793,9 +793,9 @@ sub menu
 {
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'DNS/Composite/DNSComposite',
-                                    'text' => __('DNS'),
+                                    'text' => $self->printableName(),
                                     'separator' => __('Infrastructure'),
-                                    'order' => 110));
+                                    'order' => 420));
 }
 
 

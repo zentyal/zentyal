@@ -409,7 +409,7 @@ sub menu
                                     'url' => 'Objects/View/ObjectTable',
                                     'text' => __($self->title),
                                     'separator' => __('Core'),
-                                    'order' => 40);
+                                    'order' => 50);
     $root->add($item);
 }
 

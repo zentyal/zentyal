@@ -54,7 +54,7 @@ sub _create
     my $self = $class->SUPER::_create(
                                       name => 'logs',
                                       domain => 'ebox',
-                                      printableName => __('logs'),
+                                      printableName => __('Logs'),
                                      );
 
     bless($self, $class);
@@ -622,9 +622,9 @@ sub menu
 {
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Logs',
-                                        'text' => __('Logs'),
-                                        'separator' => __('Monitoring'),
-                                        'order' => 290);
+                                        'text' => $self->printableName(),
+                                        'separator' => __('Core'),
+                                        'order' => 80);
 
     $folder->add(new EBox::Menu::Item('url' => 'Logs/View/SelectLog',
                                       'text' => __('Query Logs')));

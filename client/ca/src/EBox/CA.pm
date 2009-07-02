@@ -112,6 +112,7 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ca',
 					  domain => 'ebox-ca',
+					  printableName => __('Certification Authority'),
 #					  title => __n('Certification Authority'),
 					  @_);
 
@@ -1698,9 +1699,9 @@ sub menu
   my ($self, $root) = @_;
 
   my $folder = new EBox::Menu::Folder('name' => 'CA',
-                    'text' => __('Certification Authority'),
+                    'text' => $self->printableName(),
                     'separator' => __('Infrastructure'),
-                    'order' => 120);
+                    'order' => 440);
 
   $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                     'text' => __('General')));

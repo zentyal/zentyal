@@ -73,7 +73,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
-            printableName => __('file sharing'),
+            printableName => __('File Sharing'),
             domain => 'ebox-samba',
             @_);
     bless($self, $class);
@@ -689,9 +689,9 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
-                                    'text' => __('File Sharing'),
+                                    'text' => $self->printableName(),
                                     'separator' => __('Office'),
-                                    'order' => 160));
+                                    'order' => 540));
 }
 
 #   Function: setFileService

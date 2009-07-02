@@ -40,7 +40,7 @@ use Net::CUPS;
 use Storable;
 
 use constant MAXPRINTERLENGHT 	=> 10;
-use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 
+use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network',
                                     'samba', 'lpd', 'ipp',
                                    );
 use constant CUPSPRINTERS     	=> '/etc/cups/printers.conf';
@@ -53,7 +53,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'printers',
-					  printableName => __('printers'),
+					  printableName => __('Printer Sharing'),
 					  domain => 'ebox-printers' );
 	bless($self, $class);
 	$self->{'cups'} = new Net::CUPS;
@@ -287,9 +287,9 @@ sub menu
 	my ($self, $root) = @_;
 
 	my $folder = new EBox::Menu::Folder('name' => 'Printers',
-					    'text' => __('Printers'),
+					    'text' => $self->printableName(),
                         'separator' => __('Office'),
-                        'order' => 170);
+                        'order' => 550);
 
 	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinterUI',
 					  'text' => __('Add Printer')));
@@ -549,11 +549,11 @@ sub _location ($$)
 	} elsif ($conf->{method} eq 'parallel') {
 		$location = "parallel:/dev/" . $conf->{dev};
        } elsif ($conf->{method} eq 'lpd') {
-           $location = "lpd://" . $conf->{host} . ":" . $conf->{port};  
+           $location = "lpd://" . $conf->{host} . ":" . $conf->{port};
        } elsif ($conf->{method} eq 'ipp') {
             $location = "ipp://" . $conf->{host} . ":" . $conf->{port};
        }
-        
+
 
 	return $location;
 }
@@ -721,10 +721,10 @@ sub setIPPPrinter
         throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
                                              'value' => "$id");
     }
-    
+
     checkIP($ip, __('IP'));
     checkPort($port, __('Port'));
-    
+
     my $method = $self->methodConf($id);
     unless ($method->{'method'} eq 'ipp') {
         throw EBox::Exceptions::External(
@@ -749,10 +749,10 @@ sub setLPDPrinter
         throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
                                              'value' => "$id");
     }
-    
+
     checkIP($ip, __('IP'));
     checkPort($port, __('Port'));
-    
+
     my $method = $self->methodConf($id);
     unless ($method->{'method'} eq 'lpd') {
         throw EBox::Exceptions::External(

@@ -48,7 +48,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'l7-protocols',
-            printableName => __('Layer-7 protocols'),
+            printableName => __('Application Protocols'),
             domain => 'ebox-l7-protocols',
             @_);
     bless($self, $class);
@@ -84,12 +84,16 @@ sub modelClasses
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item(
-    'url' => 'l7-protocols/View/Groups',
-    'text' => __('Application-based Protocols'),
-    'separator' => __('Gateway'),
-    'order' => 70);
-    $root->add($item);
+
+    # We add it under the traffic shaping menu
+    my $item = new EBox::Menu::Item('url' => 'l7-protocols/View/Groups',
+                                    'text' => $self->printableName());
+    my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
+                                        'text' => __('Traffic Shaping'),
+                                        'separator' => __('Gateway'),
+                                        'order' => 220);
+    $folder->add($item);
+    $root->add($folder);
 }
 
 # Method: populateProtocols

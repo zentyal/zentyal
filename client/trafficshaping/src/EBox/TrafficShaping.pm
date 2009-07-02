@@ -90,7 +90,7 @@ sub _create
     my $self = $class->SUPER::_create(name   => 'trafficshaping',
 				      domain => 'ebox-trafficshaping',
 				      title  => __('Traffic Shaping'),
-                                      printableName => __('traffic shaping'),
+                      printableName => __('Traffic Shaping'),
 				      @_);
 
     $self->{network} = EBox::Global->modInstance('network');
@@ -352,11 +352,22 @@ sub menu # (root)
 
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
-				                    'text' => __('Traffic Shaping'),
-                                    'separator' => __('Gateway'),
-                                    'order' => 80));
-
+    # We create a folder if l7-protocols if installed to group it
+    # in the same menu, or a separate entry if not
+    if (EBox::Global->getInstance()->modExists('l7-protocols')) {
+        my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
+                                            'text' => $self->printableName(),
+                                            'separator' => __('Gateway'),
+                                            'order' => 220);
+        $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
+                                          'text' => __('Rules')));
+        $root->add($folder);
+    } else {
+        $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
+                                        'text' => $self->printableName(),
+                                        'separator' => __('Gateway'),
+                                        'order' => 220));
+    }
 }
 
 # Method: checkRule

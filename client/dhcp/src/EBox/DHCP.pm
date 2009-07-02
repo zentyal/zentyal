@@ -88,7 +88,7 @@ sub _create
 {
 	my $class = shift;
 	my $self  = $class->SUPER::_create(name => 'dhcp',
-                                           printableName => 'dhcp server',
+                                           printableName => 'DHCP',
                                            domain => 'ebox-dhcp',
                                            @_);
 	bless ($self, $class);
@@ -160,9 +160,9 @@ sub menu
 {
         my ($self, $root) = @_;
         $root->add(new EBox::Menu::Item('url' => 'DHCP/Composite/General',
-                                        'text' => 'DHCP',
+                                        'text' => $self->printableName(),
                                         'separator' => __('Infrastructure'),
-                                        'order' => 100));
+                                        'order' => 410));
 }
 
 # Method: models

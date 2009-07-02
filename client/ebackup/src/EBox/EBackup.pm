@@ -47,7 +47,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ebackup',
-            printableName => __('EBackup'),
+            printableName => __('Backup'),
             domain => 'ebox-ebackup',
             @_);
 
@@ -207,8 +207,8 @@ sub menu
     $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/General',
             'separator' => __('Office'),
-            'order' => 175,
-            'text' => __('Backup')));
+            'order' => 570,
+            'text' => $self->printableName()));
 }
 
 1;

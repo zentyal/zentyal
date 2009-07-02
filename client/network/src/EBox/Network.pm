@@ -2813,7 +2813,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Network',
                                         'text' => __('Network'),
                                         'separator' => __('Core'),
-                                        'order' => 30);
+                                        'order' => 40);
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
                       'text' => __('Interfaces')));

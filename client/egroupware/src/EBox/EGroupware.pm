@@ -46,7 +46,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'egroupware',
-            printableName => __('eGroupware'),
+            printableName => __('Groupware'),
             domain => 'ebox-egroupware',
             @_);
 }
@@ -209,9 +209,9 @@ sub menu
 
     my $settings = new EBox::Menu::Item(
             'url' => 'EGroupware/Composite/General',
-            'text' => __('eGroupware'),
+            'text' => $self->printableName(),
             'separator' => __('Office'),
-            'order' => 180);
+            'order' => 560);
 
     $root->add($settings);
 }

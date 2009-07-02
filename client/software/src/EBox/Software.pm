@@ -50,6 +50,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'software',
+                        printableName => __('Software Management'),
 						domain => 'ebox-software',
 						@_);
 	bless($self, $class);
@@ -470,8 +471,9 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => __('Software Management'),
-                                           'order' => 400);
+                                           'text' => $self->printableName(),
+                                           'separator' => __('Core'),
+                                           'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
                                           'text' => __('eBox Components')));

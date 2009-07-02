@@ -74,7 +74,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
                                           name => 'webserver',
-                                          printableName => 'webserver',
+                                          printableName => __('Web Server'),
                                           domain => 'ebox-webserver',
                                           @_,
                                          );
@@ -146,10 +146,10 @@ sub menu
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
-                                      text  => __('Web'),
+                                      text  => $self->printableName(),
                                       separator => __('Infrastructure'),
                                       url   => 'WebServer/Composite/General',
-                                      order => 115
+                                      order => 430
                                      );
 
       $root->add($item);

@@ -54,7 +54,7 @@ sub _create
     my $self =$class->SUPER::_create(
                                      name => 'firewall',
                                      domain => 'ebox-firewall',
-                                     printableName => __('firewall'),
+                                     printableName => __('Firewall'),
                                      @_);
     $self->{'ToInternetRuleModel'} =
         new EBox::Firewall::Model::ToInternetRuleTable(
@@ -810,9 +810,9 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
-                                        'text' => __('Firewall'),
+                                        'text' => $self->printableName(),
                                         'separator' => __('UTM'),
-                                        'order' => 220);
+                                        'order' => 310);
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
                                       'text' => __('Packet Filter')));

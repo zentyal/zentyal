@@ -86,7 +86,7 @@ sub _create
 
       my $self = $class->SUPER::_create( name => 'events',
                                          domain => 'ebox-events',
-                                         printableName => __('events'),
+                                         printableName => __('Events'),
                                          @_
                                        );
 
@@ -146,10 +146,10 @@ sub menu
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'Events',
-                                      text  => __('Events'),
+                                      text  => $self->printableName(),
                                       url   => 'Events/Composite/GeneralComposite',
-                                      separator => __('Monitoring'),
-                                      order => 280);
+                                      separator => __('Core'),
+                                      order => 90);
 
       $root->add($item);
 

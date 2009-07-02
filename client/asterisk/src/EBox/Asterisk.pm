@@ -61,7 +61,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'asterisk',
-            printableName => __('Asterisk'),
+            printableName => __('VoIP'),
             domain => 'ebox-asterisk',
             @_);
 
@@ -449,10 +449,10 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
-                                        'text' => __('Asterisk'),
+    my $folder = new EBox::Menu::Folder('name' => 'VoIP',
+                                        'text' => $self->printableName(),
                                         'separator' => __('Communications'),
-                                        'order' => 200);
+                                        'order' => 630);
 
     $folder->add(new EBox::Menu::Item(
             'url' => 'Asterisk/Composite/General',

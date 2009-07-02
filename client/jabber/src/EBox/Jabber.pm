@@ -48,7 +48,7 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'jabber',
 					  domain => 'ebox-jabber',
-					  printableName => 'jabber',
+					  printableName => 'Jabber',
 					  @_);
 	bless($self, $class);
 	return $self;
@@ -86,27 +86,27 @@ sub usedFiles
 		{
 		 'file' => JABBERC2SCONFFILE,
 		 'module' => 'jabber',
- 	 	 'reason' => __('To properly configure jabberd2')
+		 'reason' => __('To properly configure jabberd2')
 		},
 		{
 		 'file' => JABBERSMCONFFILE,
 		 'module' => 'jabber',
- 	 	 'reason' => __('To properly configure jabberd2')
+		 'reason' => __('To properly configure jabberd2')
 		},
 		{
 		 'file' => JABBERDFLTFILE,
 		 'module' => 'jabber',
- 	 	 'reason' => __('To properly configure jabberd2')
+		 'reason' => __('To properly configure jabberd2')
 		},
 		{
 		 'file' => JABBERMUCCONFFILE,
 		 'module' => 'jabber',
- 	 	 'reason' => __('To properly configure jabberd2 muc')
+		 'reason' => __('To properly configure jabberd2 muc')
 		},
 		{
 		 'file' => JABBERMUCDFLTFILE,
 		 'module' => 'jabber',
- 	 	 'reason' => __('To properly configure jabberd2 muc')
+		 'reason' => __('To properly configure jabberd2 muc')
 		},
 		{
 		 'file' => '/etc/ldap/slapd.conf',
@@ -324,10 +324,10 @@ sub _setConf
 
 	@array = ();
 
-        if ($self->externalConnection) {
-        	push(@array, 'external' => 'yes')
+    if ($self->externalConnection) {
+        push(@array, 'external' => 'yes')
 	} else {
-        	push(@array, 'external' => 'no')
+        push(@array, 'external' => 'no')
 	}
 	$self->writeConfFile(JABBERDFLTFILE,
 			     "jabber/jabberd2.mas",
@@ -335,10 +335,10 @@ sub _setConf
 
 	@array = ();
 
-        if ($self->muc) {
-        	push(@array, 'muc' => 'yes')
+    if ($self->muc) {
+        push(@array, 'muc' => 'yes')
 	} else {
-        	push(@array, 'muc' => 'no')
+        push(@array, 'muc' => 'no')
 	}
 	$self->writeConfFile(JABBERMUCDFLTFILE,
 			     "jabber/jabber-muc.mas",
@@ -352,9 +352,9 @@ sub menu
 {
 	my ($self, $root) = @_;
 	$root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
-					                'text' => __('Jabber'),
+					                'text' => $self->printableName(),
                                     'separator' => __('Communications'),
-                                    'order' => 210));
+                                    'order' => 620));
 }
 
 sub _ldapModImplementation

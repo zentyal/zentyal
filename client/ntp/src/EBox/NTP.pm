@@ -35,7 +35,7 @@ use constant NTPCONFFILE => "/etc/ntp.conf";
 sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'ntp', printableName => 'ntp',
+	my $self = $class->SUPER::_create(name => 'ntp', printableName => 'NTP',
 						domain => 'ebox-ntp',
 						@_);
 	bless($self, $class);
