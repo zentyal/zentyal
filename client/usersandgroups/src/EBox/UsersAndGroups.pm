@@ -2080,15 +2080,15 @@ sub menu
 
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
-                                              'text' => __('Add user')));
+                                              'text' => __('Add User')));
         }
         $folder->add(new EBox::Menu::Item(
             'url' => '/Users/View/Users',
-            'text' => __('Edit user')));
+            'text' => __('Edit User')));
         if ($mode eq 'master') {
 	    $folder->add(new EBox::Menu::Item(
 		'url' => 'Users/Composite/SlaveInfo',
-		'text' => __('Slave status')));
+		'text' => __('Slave Status')));
          }
 
         $root->add($folder);
