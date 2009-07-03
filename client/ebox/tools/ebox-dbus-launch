@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+# Script: ebox-dbus-launch
+#
+# This script is used to launch dbus in order to be used by gconf
+# Since the gconf package shipped in Intrepid, gconf uses D-BUS instead
+# of a unix socket in /tmp
+#
+# Why do we need to use this script?
+#
+# The gconf library can be used for first time within apache. If we
+# don't wrap the call to dbus, the new dbus daemon spawned will inherit
+# the Apache's file descriptors, and it will prevent it from starting
+# as the listening socket will be busy.
+#
+# What we do here is closing all file descriptors and open the first
+# argument as STDOUT to dump the d-bus configuration.
+#
+#
+# Parameters:
+#
+# output - output file to store the d-bus configuration
+#
+use POSIX;
+
+use constant DBUS_CMD => 'dbus-launch';
+
+POSIX::setsid();
+
+opendir(my $dir, "/proc/$$/fd");
+while (defined(my $fd = readdir($dir))) {
+	next unless ($fd =~ /^\d+$/);
+	eval('POSIX::close($fd)');
+}
+open(STDOUT, '> ' . $ARGV[0]);
+open(STDERR, '> /dev/null');
+open(STDIN, '/dev/null');
+
+exec DBUS_CMD;
