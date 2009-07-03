@@ -114,7 +114,7 @@ sub _table
                                  [
                                   new EBox::Types::Select(
                                           fieldName     => 'ownerDomain',
-                                          printableName => __('Owner domain'),
+                                          printableName => __('This domain'),
                                           foreignModel  => \&_hostnameModel,
                                           foreignField  => 'hostname',
                                           editable      => 1,
