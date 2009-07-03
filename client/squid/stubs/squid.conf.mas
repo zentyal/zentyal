@@ -9,6 +9,8 @@
     $memory
 
     $cacheDirSize
+    $dn
+    $ldapport
 </%args>
 <%perl>
 sub _timeAclsInPolicy
@@ -59,7 +61,7 @@ cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
 # <EBOX> TAG_ACL #
 auth_param basic realm eBox HTTP proxy
-auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,dc=ebox  -u uid  -h ldap://127.0.0.1:1389  
+auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,<% $dn %>  -u uid  -h ldap://127.0.0.1:<% $ldapport %>
 acl authorized  proxy_auth required
 
 <& .groupsACLs, 

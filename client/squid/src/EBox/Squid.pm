@@ -630,6 +630,8 @@ sub _writeSquidConf
 
   my $cacheDirSize = $self->model('GeneralSettings')->cacheDirSizeValue();
 
+  my $users = EBox::Global->modInstance('users');
+
   my @writeParam = ();
   push @writeParam, ('port'  => $self->port);
   push @writeParam, ('transparent'  => $trans);
@@ -640,6 +642,12 @@ sub _writeSquidConf
   push @writeParam, ('memory' => $self->_cache_mem);
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
   push @writeParam, ('cacheDirSize'     => $cacheDirSize);
+  push @writeParam, ('dn'     => $users->ldap()->dn());
+  if ($users->isMaster()) {
+      push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
+  } else {
+      push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'replicaport'});
+  }
 
   $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 }
