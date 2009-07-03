@@ -2100,10 +2100,10 @@ sub menu
 
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
-                'text' => __('Add group')));
+                'text' => __('Add Group')));
         }
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Groups',
-            'text' => __('Edit group')));
+            'text' => __('Edit Group')));
         $root->add($folder);
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
