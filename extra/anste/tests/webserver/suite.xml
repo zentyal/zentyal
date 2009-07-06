@@ -6,7 +6,64 @@
     that the eBox WebServer module works properly.
     </desc>
 
-    <scenario>one-client.xml</scenario>
+    <scenario>webserver.xml</scenario>
+
+<!-- if (master/slave) -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>EnableUsersEboxMaster</name>
+        <desc>
+        Enable users module on ebox-master.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>enable-users</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetSlave</name>
+        <desc>
+        Configure eBox as LDAP slave of ebox-master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-slave</dir>
+        <var name="IP" value="192.168.2.169"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+<!-- else -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="0"/>
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+<!-- end if -->
 
     <test type="selenium">
         <name>EnableModules</name>
@@ -18,7 +75,25 @@
         <dir>enable-modules</dir>
     </test>
 
+<!-- if (master/slave) -->
     <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>AddUser</name>
+        <desc>
+        Adds an user.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>add-user</dir>
+
+        <var name="USERNAME" value="foobar"/>
+        <var name="PASSWORD" value="foobar"/>
+    </test>
+<!-- else -->
+    <test type="selenium">
+        <precondition var="master-slave" eq="0"/>
+
         <name>AddUser</name>
         <desc>
         Adds an user.
@@ -30,6 +105,7 @@
         <var name="USERNAME" value="foobar"/>
         <var name="PASSWORD" value="foobar"/>
     </test>
+<!-- end if -->
 
     <test type="selenium">
         <name>AddVirtualHost</name>
