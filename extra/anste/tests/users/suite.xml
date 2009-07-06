@@ -109,6 +109,7 @@
         <host>ebox-test</host>
         <dir>test-checkuser</dir>
         <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
 <!-- if (master/slave) -->
@@ -149,5 +150,6 @@
         <dir>test-checkgroup</dir>
         <var name="USERNAME" value="eboxtest"/>
         <var name="GROUP" value="foobar"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 </suite>
