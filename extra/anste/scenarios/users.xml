@@ -6,7 +6,7 @@
     </desc>
 
     <host>
-        <precondition var="master-slave" value="1"/>
+        <precondition var="master-slave" eq="1"/>
 
         <name>ebox-master</name>
         <desc>eBox LDAP master.</desc>
