@@ -28,7 +28,7 @@
         Enable users module on ebox-master.
         </desc>
 
-        <host>ebox-server</host>
+        <host>ebox-master</host>
         <dir>enable-users</dir>
     </test>
 
@@ -63,12 +63,12 @@
 <!-- end if -->
 
     <test type="selenium">
-        <name>EnableUsersEboxServer</name>
+        <name>EnableUsersEboxTest</name>
         <desc>
-        Enable users module on ebox-server.
+        Enable users module on ebox-test.
         </desc>
 
-        <host>ebox-server</host>
+        <host>ebox-test</host>
         <dir>enable-users</dir>
     </test>
 
