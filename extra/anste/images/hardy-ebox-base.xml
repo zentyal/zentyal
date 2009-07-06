@@ -3,9 +3,9 @@
     <name>baseimage-hardy-ebox</name>
     <desc>Ubuntu Hardy with ebox</desc>
 
-    <memory>768</memory>
+    <memory>2000</memory>
 
-    <size>950</size>
+    <size>2950</size>
 
     <install method="debootstrap">
         <dist>hardy</dist>
@@ -30,6 +30,7 @@
         <script>add-services-to-ebox-firewall</script>
         <script>ebox-non-ssl.sh</script>
         <script>ebox-set-debug-on.sh</script>
+        <script>set-ldap-pass.sh</script>
     </post-install>
 
 </image>
