@@ -42,7 +42,7 @@
 
         <host>ebox-test</host>
         <dir>set-slave</dir>
-        <var name="IP" value="192.168.1.169"/>
+        <var name="IP" value="192.168.2.169"/>
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
