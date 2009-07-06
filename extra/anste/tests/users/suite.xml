@@ -72,7 +72,24 @@
         <dir>enable-users</dir>
     </test>
 
+<!-- if (master/slave) -->
     <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>AddUser</name>
+        <desc>Adds an user through the ebox web interface
+        and checks if addedd correctly in LDAP database
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>test-adduser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+<!-- else -->
+    <test type="selenium">
+        <precondition var="master-slave" eq="0"/>
+
         <name>AddUser</name>
         <desc>Adds an user through the ebox web interface
         and checks if addedd correctly in LDAP database
@@ -83,6 +100,7 @@
         <var name="USERNAME" value="eboxtest"/>
         <var name="PASSWORD" value="eboxtest"/>
     </test>
+<!-- end if -->
 
     <test>
         <name>CheckUser</name>
@@ -93,7 +111,24 @@
         <var name="USERNAME" value="eboxtest"/>
     </test>
 
+<!-- if (master/slave) -->
     <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>AddGroup</name>
+        <desc>Adds a group through the ebox web interface.
+        And then adds the user created before to the group.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>test-addgroup</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="GROUP" value="foobar"/>
+    </test>
+<!-- else -->
+    <test type="selenium">
+        <precondition var="master-slave" eq="0"/>
+
         <name>AddGroup</name>
         <desc>Adds a group through the ebox web interface.
         And then adds the user created before to the group.
@@ -104,6 +139,7 @@
         <var name="USERNAME" value="eboxtest"/>
         <var name="GROUP" value="foobar"/>
     </test>
+<!-- end if -->
 
     <test>
         <name>CheckGroup</name>
