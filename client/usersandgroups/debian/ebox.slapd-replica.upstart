@@ -1,6 +1,0 @@
-pre-start script
-    /etc/init.d/slapd stop || true
-end script
-
-exec /usr/sbin/slapd -d 16384 -h ldap://127.0.0.1:1389/ -u openldap -g openldap -F /etc/ldap/slapd-replica.d 2>> /tmp/replica
-respawn

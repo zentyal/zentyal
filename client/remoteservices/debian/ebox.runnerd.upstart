@@ -1,9 +1,0 @@
-# eBox runner daemon
-#
-#
-
-description     "eBox runner daemon"
-author          "Enrique J. Hernández <quique@warp.es>"
-
-respawn
-exec  /usr/share/ebox/ebox-runnerd -f

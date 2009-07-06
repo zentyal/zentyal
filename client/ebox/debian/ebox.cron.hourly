@@ -1,3 +1,0 @@
-#!/bin/bash
-
-invoke-rc.d ebox events restart > /dev/null 2>&1
