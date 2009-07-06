@@ -1,5 +1,5 @@
 #!/bin/sh
-CONFIG_PASS="master-foobar"
+ADMIN_PASS="master-foobar"
 EBOX_PASS="ebox-foobar"
 
 # Stop ldap
@@ -7,7 +7,7 @@ EBOX_PASS="ebox-foobar"
 sleep 5;
 
 # Change config admin pass
-echo "olcRootPW: $CONFIG_PASS" >> /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
+echo "olcRootPW: $ADMIN_PASS" >> /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
 
 # Change eBox LDAP pass
 echo -n "$EBOX_PASS" > /var/lib/ebox/conf/ebox-ldap.passwd
@@ -28,7 +28,7 @@ objectClass: simpleSecurityObject
 objectClass: organizationalRole
 cn: admin
 description: LDAP administrator
-userPassword: foobar
+userPassword: $ADMIN_PASS
 structuralObjectClass: organizationalRole
 
 EOF
