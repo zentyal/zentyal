@@ -1,12 +1,16 @@
 #!/bin/sh
-PASS="foobar"
+CONFIG_PASS="master-foobar"
+EBOX_PASS="ebox-foobar"
 
 # Stop ldap
 /etc/init.d/slapd stop
 sleep 5;
 
 # Change config admin pass
-echo "olcRootPW: $PASS" >> /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
+echo "olcRootPW: $CONFIG_PASS" >> /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
+
+# Change eBox LDAP pass
+echo -n "$EBOX_PASS" > /var/lib/ebox/conf/ebox-ldap.passwd
 
 rm /var/lib/ldap/*
 
@@ -30,19 +34,8 @@ structuralObjectClass: organizationalRole
 EOF
 
 sleep 5;
-chown -R openldap.openldap /var/lib/ldap
+chown -R openldap:openldap /var/lib/ldap
 
 # Start ldap
 
 /etc/init.d/slapd start
-
-/etc/init.d/slapd start
-
-chown -R openldap.openldap /var/lib/ldap
-
-/etc/init.d/slapd stop
-
-chown -R openldap.openldap /var/lib/ldap
-
-/etc/init.d/slapd start
-

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <name>eBox users scenario</name>
+    <desc>This scenario could have only one ebox machine or two.
+    (master and slave) if the master-slave variable is set.
+    </desc>
+
+    <host>
+        <precondition var="master-slave" value="1"/>
+
+        <name>ebox-master</name>
+        <desc>eBox LDAP master.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.169</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.4.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
+
+    <host>
+        <name>ebox-test</name>
+        <desc>Host used to test that ebox works properly.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.3.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
+</scenario>
