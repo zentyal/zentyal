@@ -120,7 +120,7 @@
 
         <name>AddUser</name>
         <desc>
-        Adds an user and enable jabber account.
+        Adds an user.
         </desc>
 
         <host>ebox-server</host>
@@ -134,7 +134,7 @@
 
         <name>AddUser2</name>
         <desc>
-        Adds an user and enable jabber account.
+        Adds another user.
         </desc>
 
         <host>ebox-server</host>
@@ -144,6 +144,30 @@
         <var name="PASSWORD" value="bar"/>
     </test>
 <!-- end if -->
+
+    <test type="selenium">
+        <name>EnableJabberUser</name>
+        <desc>
+        Enable jabber account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-jabber-account</dir>
+
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableJabberUser2</name>
+        <desc>
+        Enable jabber account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-jabber-account</dir>
+
+        <var name="USERNAME" value="bar"/>
+    </test>
 
     <test type="selenium">
         <name>ConfigJabberNonSSL</name>
