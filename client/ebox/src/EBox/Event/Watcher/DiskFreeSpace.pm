@@ -66,7 +66,7 @@ sub new
 
       my $self = $class->SUPER::new(
                                     period      => 120,
-                                    domain      => 'ebox',
+                                    domain      => 'ebox-events',
                                    );
       bless( $self, $class);
 

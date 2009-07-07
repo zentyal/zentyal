@@ -76,7 +76,7 @@ sub new
 
     my ($class) = @_;
 
-    my $self = $class->SUPER::new('ebox');
+    my $self = $class->SUPER::new('ebox-events');
     bless( $self, $class );
 
     return $self;
