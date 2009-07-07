@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+#
+# Script to fetch the IP addresses of our
+# internal interfaces.
+#
+use strict;
+use warnings;
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $network = EBox::Global->modInstance('network');
+
+my $ok = 1;
+for my $iface (@{$network->InternalIfaces()}) {
+        for my $address (@{$network->ifaceAddresses($iface)}) {
+                print "$address->{address} ";
+                $ok = 0;
+        }
+}
+
+exit $ok;

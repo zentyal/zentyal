@@ -84,8 +84,7 @@ my $PASS_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
 my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
 my $FINAL_TITLE = __('Installation finished');
-my $FINAL_MESSAGE = __('Now you can access the eBox interface at ' .
-                       'https://$YOUR_IP/');
+my $FINAL_MESSAGE = __('Now you can access the eBox interface at: ');
 
 my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 
@@ -130,6 +129,13 @@ if (system ("$INSTALL_FILES/ebox-module-installed mail") == 0) {
 
 preconfiguration();
 
+# Fetch internal addresses
+my $output = `$INSTALL_FILES/ebox-get-addresses"`;
+if ( $? == 0 ) {
+    for my $address ( split(/ /, $output ) ) {
+        $FINAL_MESSAGE .= "https://$address ";
+    }
+}
 # Show instalation complete message with access instructions
 showDialog($FINAL_TITLE, $FINAL_MESSAGE);
 
