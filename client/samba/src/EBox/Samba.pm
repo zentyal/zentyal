@@ -182,7 +182,6 @@ sub enableActions
     if (not $users->isMaster()) {
         $users->waitSync();
         $users->rewriteObjectClassesTree($users->groupsDn());
-        $users->restoreState();
     }
 }
 
