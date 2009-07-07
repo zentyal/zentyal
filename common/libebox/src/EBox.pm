@@ -148,7 +148,7 @@ sub init
 #
 sub dbusInit
 {
-    my $gconfversion = `gconftool -v`;
+    my $gconfversion = `gconftool-2 -v`;
     $gconfversion =~ m/^(\d+)\.(\d+)\./;
     my $minor = $2;
     if ($minor <= 22) {
