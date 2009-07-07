@@ -26,36 +26,36 @@ EBox::Gettext::settextdomain('ebox-package-installer');
 #########################
 
 my @TASKS = (
-    ['gateway', __('Firewall, HTTP proxy, traffic shaping, ...')],
-    ['security', __('Firewall, content & mail filter, VPN, AV, IDS')],
-    ['infrastructure', __('DHCP, DNS, NTP, web server, ...')],
-    ['office', __('File sharing, printers, groupware')],
-    ['communication', __('Mail, mail filter, VoIP, instant messaging')],
+    ['gateway', __('Firewall, HTTP proxy, traffic shaping, etc.')],
+    ['security', __('Firewall, IDS, AV, VPN, content & mail filter, etc.')],
+    ['infrastructure', __('DHCP, DNS, NTP, HTTP server, etc.')],
+    ['office', __('File sharing and printing, groupware, etc.')],
+    ['communication', __('Mail, Jabber/XMPP, VoIP, etc.')],
 );
 
 my @PACKAGES = (
     ['network', __('Networking')],
     ['firewall', __('Firewall and redirections')],
     ['trafficshaping', __('Traffic shaping')],
-    ['samba', __('File sharing, PDC')],
-    ['dns', __('Domain Name Service')],
+    ['samba', __('File sharing server and Windows PDC')],
+    ['dns', __('DNS server')],
     ['dhcp', __('DHCP server')],
-    ['squid', __('HTTP Proxy and content filter')],
+    ['squid', __('HTTP proxy and content filter')],
     ['usersandgroups', __('LDAP users and groups management')],
-    ['monitor', __('Monitor CPU/mem/... with graphs & alerts')],
+    ['monitor', __('System monitor with graphs and alerts')],
     ['software', __('System and eBox package managmenet')],
-    ['ntp', __('Network Time Protocol server')],
-    ['printers', __('Printing service')],
-    ['jabber', __('XMPP server')],
+    ['ntp', __('NTP server')],
+    ['printers', __('Printing server')],
+    ['jabber', __('Jabber/XMPP server')],
     ['openvpn', __('VPN server')],
-    ['webserver', __('Web Server')],
-    ['mail', __('Mail system: SMTP, POP3, IMAP')],
-    ['mailfilter', __('Antispam, Antivirus, transparent POP proxy')],
+    ['webserver', __('HTTP server')],
+    ['mail', __('Mail system: SMTP, POP3, IMAP4')],
+    ['mailfilter', __('Antispam, antivirus, transparent POP3 proxy')],
     ['antivirus', __('Antivirus')],
-    ['egroupware', __('Calendar sharing, address book, webmail')],
+    ['egroupware', __('Shared calendar and address book, webmail, etc')],
     ['ids', __('Intrusion Detection System')],
 #    ['captiveportal', __('Captive Portal')],
-    ['asterisk', __('VoIP and PBX')],
+    ['asterisk', __('VoIP PBX')],
 #    ['improxy', __('Instant Messaging Proxy')],
 );
 
@@ -66,23 +66,23 @@ my @PACKAGES = (
 my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES = '/var/tmp';
 
-my $INSTALLER_TITLE = __('eBox Installer');
+my $INSTALLER_TITLE = __('eBox Platform Installer');
 my $SIMPLE_METHOD = __('simple');
-my $SIMPLE_DESC = __('Select sets of packages');
+my $SIMPLE_DESC = __('Select packages by task');
 my $ADVANCED_METHOD = __('advanced');
 my $ADVANCED_DESC = __('Select packages manually');
 my $TASK_TITLE = __('Select eBox tasks to install');
-my $TASK_MESSAGE = __('Choose a profile');
+my $TASK_MESSAGE = __('Select one or more tasks:');
 my $PACKAGE_TITLE = __('Select eBox packages to install');
-my $PACKAGE_MESSAGE = __('Choose eBox packages individually');
+my $PACKAGE_MESSAGE = __('Select the desired packages:');
 my $IFACES_TITLE = __('Select external interfaces');
-my $IFACES_MESSAGE = __('Strict default policies are applied to incoming traffic through external interfaces');
+my $IFACES_MESSAGE = __('Strict default policies are applied to incoming traffic through external interfaces.');
 my $PASS_TITLE = __('Enter password for eBox interface');
-my $PASS_MSG = __('You will need to use this password to log into the eBox interface');
+my $PASS_MSG = __('You will need to use this password to log into the eBox interface:');
 my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
 my $PASS_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
-my $MAIL_MESSAGE = __('Enter default virtual mail domain');
+my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
 my $FINAL_TITLE = __('Installation finished');
 my $FINAL_MESSAGE = __('Now you can access the eBox interface at ' .
                        'https://$YOUR_IP/');
