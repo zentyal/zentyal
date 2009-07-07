@@ -104,7 +104,12 @@ sub loadSchema
         my $ldap;
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
-            $ldap = Net::LDAP->new("127.0.0.1:$port");
+            for (0..4) {
+                $ldap = Net::LDAP->new("127.0.0.1:$port");
+                last if defined($ldap);
+                sleep(1);
+            }
+            defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
             $ldap->bind('cn=admin,cn=config', 'password' => $password);
             $self->_loadSchema($ldap, $ldiffile);
         }
@@ -166,7 +171,12 @@ sub loadACL
         my $ldap;
         my @ports = (389, 1389, 1390);
         for my $port (@ports) {
-            $ldap = Net::LDAP->new("127.0.0.1:$port");
+            for (0..4) {
+                $ldap = Net::LDAP->new("127.0.0.1:$port");
+                last if defined($ldap);
+                sleep(1);
+            }
+            defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
             $ldap->bind('cn=admin,cn=config', 'password' => $password);
             $self->_loadACL($ldap, $acl);
         }
