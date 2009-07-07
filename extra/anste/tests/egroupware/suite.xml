@@ -7,6 +7,49 @@
     <scenario>egroupware.xml</scenario>
 
     <test type="selenium">
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+<!-- if (master/slave) -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>EnableUsersEboxMaster</name>
+        <desc>
+        Enable users module on ebox-master.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>enable-users</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetSlave</name>
+        <desc>
+        Configure eBox as LDAP slave of ebox-master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-slave</dir>
+        <var name="IP" value="192.168.2.169"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+<!-- end if -->
+
+    <test type="selenium">
         <name>EnableModules</name>
         <desc>
         Enables network, webserver, users, mail and egroupware modules
@@ -23,18 +66,26 @@
         and checks if addedd correctly in LDAP database
         </desc>
 
-        <host>ebox-server</host>
-        <dir>test-adduser</dir>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
+        <dir>add-user</dir>
+
         <var name="USERNAME" value="eboxtest"/>
         <var name="PASSWORD" value="eboxtest"/>
     </test>
 
     <test>
         <name>CheckUser</name>
-        <desc>Checks if the user is added correctly on LDAP</desc>
+        <desc>
+        Checks if the user is added on LDAP with default template
+        </desc>
 
         <host>ebox-server</host>
         <dir>test-checkuser</dir>
+
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
     <test type="selenium">
