@@ -59,12 +59,37 @@
          </interface>
         </network>
 
-    	<packages>
+        <packages>
             <package>sendemail</package>
             <package>libmail-pop3client-perl</package>
             <package>libmail-imapclient-perl</package>
             <package>libio-socket-ssl-perl</package>
             <package>libnet-smtp-ssl-perl</package>
         </packages>
+    </host>
+
+    <host>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>ebox-master</name>
+        <desc>eBox LDAP master.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.169</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.4.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
     </host>
 </scenario>

@@ -8,12 +8,81 @@
 
     <scenario>mail/smtp.xml</scenario>
 
+<!-- if (master/slave) -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>EnableUsersEboxMaster</name>
+        <desc>
+        Enable users module on ebox-master.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>enable-users</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetSlave</name>
+        <desc>
+        Configure eBox as LDAP slave of ebox-master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-slave</dir>
+        <var name="IP" value="192.168.2.169"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+<!-- else -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="0"/>
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+<!-- end if -->
+
     <test type="selenium">
         <name>EnableModules</name>
         <desc>Enable network, users and mail modules.</desc>
 
         <host>ebox-server</host>
         <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>Adds an user</desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-test</host>
+
+        <dir>test-adduser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
     </test>
 
     <test type="selenium">
@@ -70,7 +139,7 @@
         <var name="TEXT" value="Cool"/>
         <var name="TSL" value="1"/>
 
-        <var name="LOOK_FOR" value="ERROR => TLS not possible"/> 
+        <var name="LOOK_FOR" value="ERROR => TLS not possible"/>
     </test>
 
    <test>
@@ -84,14 +153,14 @@
         <dir>test-smtp</dir>
         <var name="SERVER" value="192.168.2.1"/>
         <var name="FROM" value="eboxtest@foobar.mail"/>
-        <var name="TO" value="receiver@mail.ebox-smtp"/> 
+        <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
         <var name="TSL" value="0"/>
 
         <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
         <var name="AUTH_PASSWD" value="eboxtest"/>
 
-        <var name="LOOK_FOR" value="Relay access denied"/> 
+        <var name="LOOK_FOR" value="Relay access denied"/>
         <var name="SLEEP" value="0"/>
     </test>
 
@@ -142,7 +211,7 @@
         <var name="TEXT" value="Cool"/>
         <var name="TSL" value="1"/>
 
-        <var name="LOOK_FOR" value="Relay access denied"/> 
+        <var name="LOOK_FOR" value="Relay access denied"/>
 
         <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
         <var name="AUTH_PASSWD" value="eboxtest"/>
