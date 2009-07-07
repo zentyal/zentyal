@@ -60,13 +60,24 @@
     <test type="selenium">
         <name>AddUser</name>
         <desc>
-        Adds an user and enable jabber account.
+        Adds an user.
         </desc>
 
         <host>ebox-server</host>
         <dir>add-user</dir>
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableJaberAccount</name>
+        <desc>
+        Enable jabber account for the created user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-jabber-account</dir>
+        <var name="USERNAME" value="foo"/>
     </test>
 
     <test type="selenium">
