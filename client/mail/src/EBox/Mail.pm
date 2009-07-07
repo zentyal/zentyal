@@ -189,6 +189,11 @@ sub usedFiles
 sub enableActions
 {
     my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    if (not $users->isMaster()) {
+        $users->startIfRequired();
+    }
     $self->loadSchema(EBox::Config::share() . '/ebox-mail/authldap.ldif');
     $self->loadSchema(EBox::Config::share() . '/ebox-mail/eboxmail.ldif');
 
