@@ -129,9 +129,6 @@ sub enableActions
     }
     $self->loadSchema(EBox::Config::share() . '/ebox-jabber/jabber.ldif');
     root(EBox::Config::share() . '/ebox-jabber/ebox-jabber-enable');
-    if (not $users->isMaster()) {
-        $users->restoreState();
-    }
 }
 
 #  Method: _daemons
