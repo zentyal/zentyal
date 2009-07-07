@@ -79,7 +79,7 @@
         <host var="master-slave" eq="1">ebox-master</host>
         <host var="master-slave" eq="0">ebox-test</host>
 
-        <dir>test-adduser</dir>
+        <dir>add-user</dir>
         <var name="USERNAME" value="eboxtest"/>
         <var name="PASSWORD" value="eboxtest"/>
     </test>
