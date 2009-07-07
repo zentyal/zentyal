@@ -52,6 +52,43 @@ sub enableModDepends
 }
 
 
+# Method: actions
+#
+#       Override EBox::Module::Service::actions
+#
+sub actions
+{
+    return [
+            {
+             'action' => __('Migrate configured modules'),
+             'reason' => __('Required for usercorner access to configured modules'),
+             'module' => 'usercorner'
+        }
+    ];
+}
+
+# Method: enableActions
+#
+#       Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    (-d (EBox::Config::conf() . 'configured')) and return;
+
+    my $names = EBox::Global->modNames();
+    mkdir(EBox::Config::conf() . 'configured.tmp/');
+    foreach my $name (@{$names}) {
+        my $mod = EBox::Global->modInstance($name);
+        my $class = 'EBox::Module::Service';
+        if ($mod->isa($class) and $mod->configured()) {
+            EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured.tmp/" . $mod->name());
+        }
+    }
+    rename(EBox::Config::conf() . "configured.tmp", EBox::Config::conf() . "configured");
+}
+
 # Method: modelClasses
 #
 # Overrides:

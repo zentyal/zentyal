@@ -20,6 +20,7 @@ package EBox::Module::Service;
 # reworked
 use base qw(EBox::GConfModule);
 
+use EBox::Config;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
@@ -177,6 +178,10 @@ sub configured
         return 1;
     }
 
+    if (-d EBox::Config::conf() . "configured/") {
+        return -f (EBox::Config::conf() . "configured/" . $self->name());
+    }
+
     unless ($self->st_get_bool('_serviceConfigured')) {
         return undef;
     }
@@ -207,6 +212,14 @@ sub setConfigured
         $status = 0;
 
     return unless ($self->configured() xor $status);
+
+    if (-d EBox::Config::conf() . "configured/") {
+        if ($status) {
+            EBox::Sudo::command('touch ' . EBox::Config::conf() . "configured/" . $self->name());
+        } else {
+            EBox::Sudo::command('rm -f ' . EBox::Config::conf() . "configured/" . $self->name());
+        }
+    }
     return $self->st_set_bool('_serviceConfigured', $status);
 }
 

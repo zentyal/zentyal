@@ -16,7 +16,14 @@ my $global = EBox::Global->getInstance();
 
 unless ($global->modExists($module)) {
 	print "Module $module doesn't exists\n";
+    exit 1;
 }
 
 my $mod = $global->modInstance($module);
-$mod->st_set_bool('_serviceConfigured', undef);
+
+unless ($mod->isa('EBox::Module::Service')) {
+	print "Module $module is not a service\n";
+    exit 1;
+}
+
+$mod->setConfigured(undef);
