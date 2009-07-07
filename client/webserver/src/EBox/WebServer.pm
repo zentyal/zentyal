@@ -352,10 +352,10 @@ sub _setUserDir
         }
         # Manage configuration for mod_ldap_userdir apache2 module
         if ( $gl->modExists('samba') ) {
-            eval 'use EBox::Ldap; use EBox::UsersAndGroups;';
-            my $rootDN = EBox::Ldap::rootDn();
-            my $ldapPass = EBox::Ldap::getPassword();
             my $usersMod = $gl->modInstance('users');
+            my $ldap = $usersMod->ldap();
+            my $rootDN = $ldap->rootDn();
+            my $ldapPass = $ldap->getPassword();
             my $usersDN = $usersMod->usersDn();
             $self->writeConfFile( AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                                   'webserver/ldap_userdir.conf.mas',
