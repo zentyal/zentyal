@@ -48,7 +48,7 @@ sub new_pass {
         $pass = '';
         my $letters = 'abcdefghijklmnopqrstuvwxyz';
         my @chars= split(//, $letters . uc($letters) . 
-            '-_,.0123456789');
+            '-+/.0123456789');
         for my $i (1..128) {
             $pass .= $chars[int(rand (scalar(@chars)))];
         }
