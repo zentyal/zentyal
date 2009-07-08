@@ -5,8 +5,6 @@
     <scenario>samba.xml</scenario>
 
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
         <name>SetMaster</name>
         <desc>
         Configure eBox as LDAP master and set the password.
