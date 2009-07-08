@@ -76,7 +76,7 @@ sub modelClasses
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::compositeClasses>
-sub compositeClasses 
+sub compositeClasses
 {
     my ($self) = @_;
 

@@ -271,6 +271,7 @@ sub _schemas
             comp_file => STUBS_PATH .  '/schemas/yaml.mas',
             );
     ${$output} = '';
+
     $interp->exec($comp, ( mainClass => $mainClass));
     write_file($dir . "/$yaml", ${$output});
 }
