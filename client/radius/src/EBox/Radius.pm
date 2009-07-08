@@ -29,6 +29,8 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
+use EBox::Ldap;
+
 use constant LDAPATTRMAPCONFFILE => '/etc/freeradius/ldap.attrmap';
 use constant PAPCONFFILE => '/etc/freeradius/modules/pap';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
@@ -229,11 +231,12 @@ sub _setLDAP
 
     my $users = EBox::Global->modInstance('users');
 
-    my $ldapConf = $self->ldap->ldapConf();
+    my $ldap = EBox::Ldap->instance();
+    my $ldapConf = $ldap->ldapConf();
     push (@params, url => $ldapConf->{'ldap'});
     push (@params, dn => $ldapConf->{'dn'});
     push (@params, rootdn => $ldapConf->{'rootdn'});
-    push (@params, password => $self->ldap->getPassword());
+    push (@params, password => $ldap->getPassword());
 
     $self->writeConfFile(LDAPCONFFILE, "radius/ldap.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
@@ -247,7 +250,10 @@ sub _setClients
 
     my $model = $self->model('Clients');
 
-    $self->writeConfFile(CLIENTSCONFFILE, "radius/clients.conf.mas", $model->getClients(),
+    my @params = ();
+    push (@params, clients => $model->getClients());
+
+    $self->writeConfFile(CLIENTSCONFFILE, "radius/clients.conf.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
@@ -266,7 +272,7 @@ sub menu
             'url' => 'Radius/Composite/General',
             'separator' => __('Gateway'),
             'order' => 225,
-            'text' => __('Radius')));
+            'text' => __('RADIUS')));
 }
 
 1;

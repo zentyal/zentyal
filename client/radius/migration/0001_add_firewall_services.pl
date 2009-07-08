@@ -23,11 +23,11 @@ sub runGConf
     my $service = EBox::Global->getInstance()->modInstance('services');
     my $firewall = EBox::Global->getInstance()->modInstance('firewall');
 
-    my $serviceName = 'Radius';
+    my $serviceName = 'RADIUS';
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('eBox RADIUS'),
+                'description' => __d('eBox RADIUS system'),
                 'translationDomain' => 'ebox-radius',
                 'internal' => 1,
                 'services' => [
