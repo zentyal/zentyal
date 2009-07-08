@@ -87,7 +87,7 @@ whose code will look like this::
             'modelDomain' => 'Apache2',
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
-            'help' => *, # FIXME
+            'help' => '', # FIXME
         };
 
         return $dataTable;

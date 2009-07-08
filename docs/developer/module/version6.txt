@@ -90,7 +90,7 @@ The above command will create our model in *src/EBox/Model/ServerAliases*. We wi
             'modelDomain' => 'Apache2',
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
-            'help' => *, # FIXME
+            'help' => '', # FIXME
         };
 
         return $dataTable;
@@ -170,7 +170,7 @@ The whole file should be::
             'modelDomain' => 'Apache2',
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
-            'help' => *, # FIXME
+            'help' => '', # FIXME
         'orderedBy' => 'name',
         'enableProperty' => 1,
         };
@@ -210,7 +210,6 @@ Here is the script::
     for my $id (@{$modules->ids()}) {
             my $row = $modules->row($id);
             my $name = $row->valueByName('name');
-            my $enabled = $row->valueByName('enabled');
             print "Module: $name enabled $enabled\n";
             print "\tAliases:\n";
             for my $subId (@{$row->subModel('aliases')->ids()}) {
@@ -220,7 +219,12 @@ Here is the script::
 
     }
 
-Note that within the first loop we iterate over the virtual hosts, and the inner loop is used to iterate over each alias of the virtual host. To be able to fetch the *aliases* rows we call the method *subModel('aliases')* from the a virtual host row, *subModel* receives the name of a *EBox::Types::HasMany* field which exists in a given model and does the magic to return a submodel which can be used just like you were using a normal model; that's why we call *rows()*.
+Note that within the first loop we iterate over the virtual hosts, and the inner
+loop is used to iterate over each alias of the virtual host. To be able to fetch
+the *aliases* rows we call the method *subModel('aliases')* from the a virtual
+host row, *subModel* receives the name of a *EBox::Types::HasMany* field which
+exists in a given model and does the magic to return a submodel which can be
+used just like you were using a normal model; that's why we call *ids()*.
 
 Setting the Apache configuration
 ================================
@@ -236,9 +240,9 @@ We will have to slightly modify the template used to generate the virtual host c
 
             ServerName <% $name %>
 
-    %  for my $aliasName (@alias) {
+%           for my $aliasName (@alias) {
             ServerAlias <% $aliasName %>
-    %  }
+%           }
 
             DocumentRoot /var/www/<% $name %>
             <Directory />
@@ -283,7 +287,8 @@ If we add a new parameter to the template, we need to modify *src/EBox/Apache2.p
                     my $name = $row->valueByName('name');
                     my $enabled = $row->valueByName('enabled');
                     my @alias;
-                    for my $aliasRow (@{$row->subModel('aliases')->rows()}) {
+                    for my $aliasId (@{$row->subModel('aliases')->ids()}) {
+                            my $aliasRow = $row->subModel('aliases')->row($aliasId);
                             my $aliasName = $aliasRow->valueByName('name');
                             push (@alias, $aliasName);
                     }
