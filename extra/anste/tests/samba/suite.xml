@@ -4,8 +4,6 @@
 
     <scenario>samba.xml</scenario>
 
-<!-- if (master/slave) -->
-
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
 
@@ -14,10 +12,14 @@
         Configure eBox as LDAP master and set the password.
         </desc>
 
-        <host>ebox-master</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>set-master</dir>
         <var name="PASSWORD" value="master-foobar"/>
     </test>
+
+<!-- if (master/slave) -->
 
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
@@ -43,20 +45,6 @@
         <dir>set-slave</dir>
         <var name="IP" value="192.168.2.169"/>
         <var name="PASSWORD" value="ebox-foobar"/>
-    </test>
-
-<!-- else -->
-
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-        <name>SetMaster</name>
-        <desc>
-        Configure eBox as LDAP master and set the password.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>set-master</dir>
-        <var name="PASSWORD" value="master-foobar"/>
     </test>
 
 <!-- end if -->
@@ -106,28 +94,14 @@
     </test>
 
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
-        <name>AddUserFooOnMaster</name>
-        <desc>
-        Create a new user.
-        </desc>
-
-        <host>ebox-master</host>
-        <dir>add-user</dir>
-
-        <var name="USERNAME" value="foo"/>
-        <var name="PASSWORD" value="foo"/>
-    </test>
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-
         <name>AddUserFoo</name>
         <desc>
         Create a new user.
         </desc>
 
-        <host>ebox-server</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>add-user</dir>
 
         <var name="USERNAME" value="foo"/>
@@ -326,20 +300,6 @@
     </test>
 
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
-        <name>AddUserAdminOnMaster</name>
-        <desc>
-        Create a new user.
-        </desc>
-
-        <host>ebox-master</host>
-        <dir>add-user</dir>
-
-        <var name="USERNAME" value="admin"/>
-        <var name="PASSWORD" value="admin"/>
-    </test>
-    <test type="selenium">
         <precondition var="master-slave" eq="0"/>
 
         <name>AddUserAdmin</name>
@@ -347,7 +307,9 @@
         Create a new user.
         </desc>
 
-        <host>ebox-server</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>add-user</dir>
 
         <var name="USERNAME" value="admin"/>
