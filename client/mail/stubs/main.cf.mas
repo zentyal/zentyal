@@ -107,7 +107,7 @@ ldapvirtualmap_result_attribute = mailbox
 virtual_mailbox_domains = ldap:vmaildomains
 vmaildomains_server_host = 127.0.0.1
 vmaildomains_bind = no
-vmaildomains_search_base =  ou=postfix,dc=ebox
+vmaildomains_search_base =  ou=postfix,<% $ldap->{'dn'} %>
 vmaildomains_query_filter = (|(&(objectclass=domain)(domainComponent=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
 vmaildomains_result_attribute = dc, maildrop
 
