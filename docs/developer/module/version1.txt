@@ -131,6 +131,7 @@ Now our code should look like this::
             new EBox::Types::Port(
                 'fieldName' => 'listeningPort',
                 'printableName' => __('Listening port'),
+                'defaultValue' => 80,
                 'editable' => 1
             )
         );
@@ -142,7 +143,7 @@ Now our code should look like this::
             'modelDomain' => 'Apache2',
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
                'tableDescription' => \@tableHead,
-            'help' => *, # FIXME
+            'help' => '', # FIXME
         };
 
         return $dataTable;
@@ -308,7 +309,7 @@ The other method, *_daemons*, is used to let the service framework know which da
             {
                 'name' => 'apache2',
                 'type' => 'init.d',
-                'pidfile' => '/var/run/apache2.pid'
+                'pidfiles' => ['/var/run/apache2.pid']
             }
         ];
     }

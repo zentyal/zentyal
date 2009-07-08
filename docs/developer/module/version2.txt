@@ -21,7 +21,7 @@ The data model to manage modules is pretty simple, we will need a field to store
 
 We will use *ebox-moddev-model*, a tool that allows us to easily add new models to our eBox module. Within the apache2 directory run::
 
-    ebox-moddev-model  --main-class Apache2 --name Modules --field module:Select--field enabled:Boolean --model table
+    ebox-moddev-model  --main-class Apache2 --name Modules --field module:Select --field enabled:Boolean --model table
 
 The above command adds a new model called *Modules* which is composed of a *Select* type called *module* and a *Boolean* type called *enabled*. The type of model is a *table* instead of a *form* as we did in version 0.1. *main-class* is *Apache2* as you should recall from the initial module creation.
 
