@@ -1,0 +1,47 @@
+# /etc/freeradius/sites-enabled/default
+
+authorize {
+	preprocess
+	#auth_log
+	suffix
+	eap {
+		ok = return
+	}
+	expiration
+	logintime
+}
+
+authenticate {
+	eap
+}
+
+preacct {
+	preprocess
+	acct_unique
+	suffix
+	files
+}
+
+accounting {
+	detail
+	radutmp
+	attr_filter.accounting_response
+}
+
+session {
+	radutmp
+}
+
+post-auth {
+	exec
+	Post-Auth-Type REJECT {
+		attr_filter.access_reject
+	}
+}
+
+pre-proxy {
+}
+
+post-proxy {
+	eap
+}

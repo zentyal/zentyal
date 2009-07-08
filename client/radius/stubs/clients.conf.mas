@@ -1,0 +1,13 @@
+<%args>
+    @clients
+</%args>
+# /etc/freeradius/clients.conf
+%    foreach my $client (@clients) {
+
+# <% $client->{'name'} %>
+client <% $client->{'ipaddr'} %> {
+        ipaddr = <% $client->{'ipaddr'} %>
+        secret = <% $client->{'secret'} %>
+        nastype = other
+}
+%    }
