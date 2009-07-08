@@ -181,7 +181,7 @@ sub setTypedRow
 
     my $sambaLdap = new EBox::SambaLdapUser();
     my $domain = $sambaLdap->sambaDomainName();
-    my $dn = "sambaDomainName=$domain,dc=ebox";
+    my $dn = "sambaDomainName=$domain," . $ldap->dn();
 
     $ldap->setAttribute($dn, 'sambaMinPwdLength', $minPwdLength);
     $ldap->setAttribute($dn, 'sambaMaxPwdAge', $maxPwdAge);
@@ -206,7 +206,7 @@ sub row
 
     my $sambaLdap = new EBox::SambaLdapUser();
     my $domain = $sambaLdap->sambaDomainName();
-    my $dn = "sambaDomainName=$domain,dc=ebox";
+    my $dn = "sambaDomainName=$domain," . $ldap->dn();
 
     my $minPwdLengthField;
     my $minPwdLength = $ldap->getAttribute($dn, 'sambaMinPwdLength');
