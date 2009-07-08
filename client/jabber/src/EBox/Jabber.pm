@@ -108,13 +108,9 @@ sub usedFiles
 		 'module' => 'jabber',
 		 'reason' => __('To properly configure jabberd2 muc')
 		},
-		{
-		 'file' => '/etc/ldap/slapd.conf',
-		 'reason' => __('To add the LDAP schemas used by eBox jabber'),
-		 'module' => 'users'
-		}
        ];
 }
+
 # Method: enableActions
 #
 # 	Override EBox::Module::Service::enableActions
