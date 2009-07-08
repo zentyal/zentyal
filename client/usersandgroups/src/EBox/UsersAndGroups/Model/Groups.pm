@@ -130,11 +130,16 @@ sub preconditionFailMsg
         return __('You must enable the module Users in the module ' .
                 'status section in order to use it.');
     } else {
-        return __x('There are no groups at the moment. '
-                   . 'You may want to add some in {openhref}Add group section{closehref}.',
-                   openhref => '<a href="/ebox/UsersAndGroups/Groups">',
-                   closehref => '</a>');
-
+        my $users = EBox::Global->modInstance('users');
+        if ($users->isMaster()) {
+            return __x('There are no groups at the moment. '
+                . 'You may want to add some in {openhref}Add group section{closehref}.',
+                openhref => '<a href="/ebox/UsersAndGroups/Groups">',
+                closehref => '</a>');
+        } else {
+            return __('There are no groups at the moment. '
+                . 'You may want to add some in the master eBox');
+        }
     }
 }
 
