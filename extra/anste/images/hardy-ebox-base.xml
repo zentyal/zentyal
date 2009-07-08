@@ -3,9 +3,9 @@
     <name>baseimage-hardy-ebox</name>
     <desc>Ubuntu Hardy with ebox</desc>
 
-    <memory>2000</memory>
+    <memory>2500</memory>
 
-    <size>2950</size>
+    <size>1500</size>
 
     <install method="debootstrap">
         <dist>hardy</dist>
