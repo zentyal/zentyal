@@ -68,7 +68,7 @@ sub actions
 {
 	return [
 	{
-		'action' => __('Copy jabber ldap schema to /etc/ldap/schemas'),
+		'action' => __('Add Jabber LDAP schema'),
 		'reason' => __('eBox will need this schema to store jabber users'),
 		'module' => 'jabber'
 	},
