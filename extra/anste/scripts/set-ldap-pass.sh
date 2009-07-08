@@ -33,9 +33,12 @@ structuralObjectClass: organizationalRole
 
 EOF
 
-sleep 5;
 chown -R openldap:openldap /var/lib/ldap
 
 # Start ldap
-
 /etc/init.d/slapd start
+
+# Wait before shutdown
+sleep 3
+sync
+sleep 3
