@@ -17,20 +17,20 @@
         <var name="IFACE" value="eth2"/>
     </test>
 
-<!-- if (master/slave) -->
-
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
         <name>SetMaster</name>
         <desc>
         Configure eBox as LDAP master and set the password.
         </desc>
 
-        <host>ebox-master</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>set-master</dir>
         <var name="PASSWORD" value="master-foobar"/>
     </test>
+
+<!-- if (master/slave) -->
 
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
@@ -58,20 +58,6 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
-<!-- else -->
-
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-        <name>SetMaster</name>
-        <desc>
-        Configure eBox as LDAP master and set the password.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>set-master</dir>
-        <var name="PASSWORD" value="master-foobar"/>
-    </test>
-
 <!-- end if -->
 
     <test type="selenium">
@@ -84,66 +70,35 @@
         <dir>enable-modules</dir>
     </test>
 
-<!-- FIXME: separate enable jabber account? -->
-<!-- if (master/slave) -->
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
-        <name>AddUser</name>
-        <desc>
-        Adds an user and enable jabber account.
-        </desc>
-
-        <host>ebox-master</host>
-        <dir>add-user</dir>
-
-        <var name="USERNAME" value="foo"/>
-        <var name="PASSWORD" value="foo"/>
-    </test>
-    <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
-        <name>AddUser2</name>
-        <desc>
-        Adds an user and enable jabber account.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>add-user</dir>
-
-        <var name="USERNAME" value="bar"/>
-        <var name="PASSWORD" value="bar"/>
-    </test>
-<!-- else -->
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-
         <name>AddUser</name>
         <desc>
         Adds an user.
         </desc>
 
-        <host>ebox-server</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>add-user</dir>
 
         <var name="USERNAME" value="foo"/>
         <var name="PASSWORD" value="foo"/>
     </test>
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
 
+    <test type="selenium">
         <name>AddUser2</name>
         <desc>
         Adds another user.
         </desc>
 
-        <host>ebox-server</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>add-user</dir>
 
         <var name="USERNAME" value="bar"/>
         <var name="PASSWORD" value="bar"/>
     </test>
-<!-- end if -->
 
     <test type="selenium">
         <name>EnableJabberUser</name>
