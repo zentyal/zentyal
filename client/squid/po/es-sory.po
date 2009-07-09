@@ -1,0 +1,856 @@
+# translation of es.po to
+# translation of Ebox Squid.
+# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
+# <>, 2004.
+# Isaac Clerencia <isaac@sindominio.net>, 2004.
+# Jorge Arcas <jarcas@warp.es>, 2004, 2005.
+# Isaac Clerencia <isaac@warp.es>, 2005.
+# Javier Uruen Val <juruen@warp.es>, 2005.
+# Jorge Arcas <jorge@warp.es>, 2006.
+# Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-squid 0.12\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-01-21 10:16+0100\n"
+"PO-Revision-Date: 2009-03-19 10:10+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:48
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:97
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:58
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:97
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:58
+msgid "Requests"
+msgstr "Propuestas"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:52
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:102
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:62
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:52
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:102
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:62
+msgid "Accepted requests"
+msgstr "Propuestas aceptadas"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:56
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:107
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:56
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:107
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
+msgid "Accepted traffic size (Kb)"
+msgstr "Tamaño de tráfico aceptado (Kb)"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:61
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:113
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:69
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:61
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
+msgid "Denied requests"
+msgstr "Propuestas denegadas"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:65
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:118
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:65
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:118
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+msgid "Denied traffic size (Kb)"
+msgstr "Tamaño del tráfico denegado (Kb)"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:70
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:124
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:74
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:70
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
+msgid "Filtered requests"
+msgstr "Proposiciones de filtrado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:74
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:129
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:74
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:129
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
+msgid "Filtered traffic size (Kb))"
+msgstr "Tamaño del tráfico filtrado (Kb)"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:93
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:821
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:93 src/EBox/Squid.pm:789
+msgid "Date"
+msgstr "Fecha"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:138
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:138
+msgid "Web traffic details"
+msgstr "Detalles del tráfico web"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficDetails.pm:147
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:147
+msgid "traffic"
+msgstr "Tráfico"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:48
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
+msgid "Squid traffic requests graph"
+msgstr "Proposiciones de gráfico de tráfico Squid"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/RequestsGraph.pm:100
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
+msgid "Access requests"
+msgstr "Proposiciones de acceso"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
+msgid "Squid traffic size graph"
+msgstr "Tamaño de gráfico de tráfico Squid"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+msgid "Traffic size"
+msgstr "Tamaño de tráfico"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:79
+#: src/EBox/Squid/Model/GeneralSettings.pm:79
+msgid "Transparent Proxy"
+msgstr "Proxy transparente "
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:86
+#: src/EBox/Squid/Model/GeneralSettings.pm:86
+msgid "Port"
+msgstr "Puerto"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:92
+#: src/EBox/Squid/Model/GeneralSettings.pm:92
+msgid "Default policy"
+msgstr "Política global"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:100
+#: src/EBox/Squid/Model/GeneralSettings.pm:100
+msgid "General Settings "
+msgstr "Configuración general "
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:105
+#: src/EBox/Squid/Model/GeneralSettings.pm:105
+msgid "Settings changed"
+msgstr "Configuración cambiada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:140
+#: src/EBox/Squid/Model/GeneralSettings.pm:140
+#, perl-brace-format
+msgid "{port} is already in use. Please choose another"
+msgstr "{port} está siendo utilizado. Por favor, elije otro"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:149
+#: src/EBox/Squid/Model/GeneralSettings.pm:149
+msgid ""
+"<i>Filter</i> means that HTTP requests will go through the content filter "
+"and they might be rejected if the content is not considered valid."
+msgstr ""
+"<i>Filtro</i> significa que las propuestas HTTP pasarán por el filtro de contenido "
+"y serán rechazadas si el contenido no se considerase válido."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/GeneralSettings.pm:156
+#: src/EBox/Squid/Model/GeneralSettings.pm:156
+msgid ""
+"Note that you cannot proxy HTTPS transparently. You will need to add a "
+"firewall rule if you enable this mode."
+msgstr ""
+"Fíjate que no puedes reenviar HTTPS de manera transparente. Tendrás que añadir una "
+"regla de cortafuegos si habilitas este modo."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:69
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
+msgstr "Umbral"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:81
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:81
+msgid "Content filter threshold"
+msgstr "Umbral de filtrado de contenido"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:87
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:87
+msgid "Content filter threshold changed"
+msgstr "Umbral de filtrado de contenido cambiado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:102
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:772
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:102 src/EBox/Squid.pm:711
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:103
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103
+msgid "Very permissive"
+msgstr "Muy permisivo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:104
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:104
+msgid "Permissive"
+msgstr "Permisivo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:105
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:105
+msgid "Medium"
+msgstr "Medio"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:106
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:106
+msgid "Strict"
+msgstr "Estricto"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:107
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:107
+msgid "Very strict"
+msgstr "Muy estricto"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ContentFilterThreshold.pm:114
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:114
+msgid "This specifies how strict the content filter is."
+msgstr "Esto especifica lo estricto que es el contenido del filtro."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:75
+#: src/EBox/Squid/Model/ExtensionFilter.pm:75
+msgid "File extension"
+msgstr "Extensión del archivo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:133
+#: src/EBox/Squid/Model/ExtensionFilter.pm:133
+msgid "Extension"
+msgstr "Extensión"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:140
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:99
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:777
+#: src/EBox/Squid/Model/MIMEFilter.pm:99
+#: src/EBox/Squid/Model/ExtensionFilter.pm:140 src/EBox/Squid.pm:716
+msgid "Allow"
+msgstr "Permitir"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:151
+#: src/EBox/Squid/Model/ExtensionFilter.pm:151
+msgid "Configure allowed file extensions"
+msgstr "Configurar extensiones de archivo permitidas"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:164
+#: src/EBox/Squid/Model/ExtensionFilter.pm:164
+msgid "extension"
+msgstr "extensión"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:165
+#: src/EBox/Squid/Model/ExtensionFilter.pm:165
+msgid ""
+"Allow/Deny the HTTP traffic of the files which the given extensions.\n"
+"Extensions not listed here are allowed.\n"
+"The extension filter needs a 'filter' policy to be in effect"
+msgstr ""
+"Permitir/denegar el tráfico HTTP de los archivos con las extensiones dadas.\n"
+"Están permitidas las extensiones que no aparezcan en esta lista.\n"
+"El filtro de extensión necesita un política \"de filtro\" para estar activo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:168
+#: src/EBox/Squid/Model/ExtensionFilter.pm:168
+msgid "Extension added"
+msgstr "Extensión añadida"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:169
+#: src/EBox/Squid/Model/ExtensionFilter.pm:169
+msgid "Extension removed"
+msgstr "Extensión eliminada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ExtensionFilter.pm:170
+#: src/EBox/Squid/Model/ExtensionFilter.pm:170
+msgid "Extension updated"
+msgstr "Extensión actualizada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:92
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:196
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:205
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:216
+#: src/EBox/Squid/Model/MIMEFilter.pm:92
+#: src/EBox/Squid/Model/MIMEFilter.pm:196
+#: src/EBox/Squid/Model/MIMEFilter.pm:205
+#: src/EBox/Squid/Model/MIMEFilter.pm:216
+msgid "MIME Type"
+msgstr "Tipo MIME"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:111
+#: src/EBox/Squid/Model/MIMEFilter.pm:111
+msgid "Configure allowed MIME types"
+msgstr "Configurar tipos MIME permitidos"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:123
+#: src/EBox/Squid/Model/MIMEFilter.pm:123
+msgid "MIME type"
+msgstr "tipo MIME"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:124
+#: src/EBox/Squid/Model/MIMEFilter.pm:124
+msgid ""
+"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"types not listed here are allowed.\n"
+"The  filter needs a 'filter' policy to be in effect"
+msgstr ""
+"Permitir/denegar el tráfico HTTP de los archivos con los tipos MIME dados. Están "
+"permitidos los tipos MIME que no aparezcan en la lista.\n"
+"El filtro necesita una política \"de filtro\" para estar activo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:127
+#: src/EBox/Squid/Model/MIMEFilter.pm:127
+msgid "MIME type added"
+msgstr "tipo MIME añadido"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:128
+#: src/EBox/Squid/Model/MIMEFilter.pm:128
+msgid "MIME type removed"
+msgstr "tipo MIME eliminado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:129
+#: src/EBox/Squid/Model/MIMEFilter.pm:129
+msgid "MIME type updated"
+msgstr "tipo MIME actualizado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:198
+#: src/EBox/Squid/Model/MIMEFilter.pm:198
+msgid "A MIME Type must follows this syntax: type/subtype"
+msgstr "Añade un nuevo tipo MIME con la siguiente sintaxis: tipo/subtipo."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:208
+#: src/EBox/Squid/Model/MIMEFilter.pm:208
+#, perl-brace-format
+msgid "{type} is not a valid IANA type"
+msgstr "El tipo {type} no es un tipo IANA válido"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/MIMEFilter.pm:219
+#: src/EBox/Squid/Model/MIMEFilter.pm:219
+#, perl-brace-format
+msgid "{t} subtype has a wrong syntax"
+msgstr "El subtipo {t} tiene una sintaxis errónea"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:89
+#: src/EBox/Squid/Model/ObjectPolicy.pm:89
+msgid "Object"
+msgstr "Objeto"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:97
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:98
+#: src/EBox/Squid/Model/ObjectPolicy.pm:97
+#: src/EBox/Squid/Model/DomainFilter.pm:98
+msgid "Policy"
+msgstr "Política"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:104
+#: src/EBox/Squid/Model/ObjectPolicy.pm:104
+msgid "Configure network objects' policies"
+msgstr "Configurar la política de los objetos de red"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:105
+#: src/EBox/Squid/Model/ObjectPolicy.pm:105
+msgid "List of objects"
+msgstr "Lista de objetos"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:117
+#: src/EBox/Squid/Model/ObjectPolicy.pm:117
+msgid "object's policy"
+msgstr "política de objeto"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:118
+#: src/EBox/Squid/Model/ObjectPolicy.pm:118
+msgid "Here you can establish a custom policy per network object"
+msgstr "Aquí puedes establecer una política de costumbre por objeto de red"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:120
+#: src/EBox/Squid/Model/ObjectPolicy.pm:120
+msgid "Added object's policy"
+msgstr "Política de objeto añadida"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:121
+#: src/EBox/Squid/Model/ObjectPolicy.pm:121
+msgid "Removed object's policy"
+msgstr "Política de objeto eliminada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ObjectPolicy.pm:122
+#: src/EBox/Squid/Model/ObjectPolicy.pm:122
+msgid "Updated object's policy"
+msgstr "Política de objeto actualizada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:91
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:143
+#: src/EBox/Squid/Model/DomainFilter.pm:91
+#: src/EBox/Squid/Model/DomainFilter.pm:143
+msgid "Domain"
+msgstr "Dominio"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:106
+#: src/EBox/Squid/Model/DomainFilter.pm:106
+msgid "Domains list"
+msgstr "Lista de dominios"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:119
+#: src/EBox/Squid/Model/DomainFilter.pm:119
+msgid "internet domain"
+msgstr "Dominio de Internet"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:120
+#: src/EBox/Squid/Model/DomainFilter.pm:120
+msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+msgstr ""
+"Permitir/denegar el tráfico HTTP desde/hasta los dominios de Internet que aparecen "
+"en la lista."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:122
+#: src/EBox/Squid/Model/DomainFilter.pm:122
+msgid "Domain added"
+msgstr "Dominio añadido"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:123
+#: src/EBox/Squid/Model/DomainFilter.pm:123
+msgid "Domain removed"
+msgstr "Dominio eliminado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:124
+#: src/EBox/Squid/Model/DomainFilter.pm:124
+msgid "Domain updated"
+msgstr "Dominio actualizado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilter.pm:145
+#: src/EBox/Squid/Model/DomainFilter.pm:145
+msgid "You must not prefix the domain with www."
+msgstr "No es necesario que pongas www. delante del nombre del dominio"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilterSettings.pm:91
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:91
+msgid "Block not listed domains"
+msgstr "Bloque de dominios que no aparecen en la lista"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilterSettings.pm:93
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:93
+msgid ""
+"If this is enabled, any domain which is not allowed in the <i>Domains list</"
+"i> section below will be forbidden."
+msgstr ""
+"Si esta opción está habilitada, cualquier dominio que no esté permitido en la "
+"sección <i>Lista de dominios</i> "
+"que aparece más abajo quedará prohibido."
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilterSettings.pm:100
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:100
+msgid "Block sites specified only as IP"
+msgstr "Bloque de sitios web especificados sólo como IP"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilterSettings.pm:109
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:109
+msgid "Domain filter settings"
+msgstr "Configuración del filtro del dominio"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/DomainFilterSettings.pm:116
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:116
+msgid "Filtering settings changed"
+msgstr "Configuración del filtro cambiada"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
+msgid "elements"
+msgstr "elementos"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
+#, perl-brace-format
+msgid "Allow all {elements}"
+msgstr "Permitir a todos {elements}"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:78
+msgid "Use this field to change the value of  all the above rows at once"
+msgstr ""
+"Rellena este campo para cambiar de una sola vez el valor de todas las filas de "
+"arriba"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
+msgid "extensions"
+msgstr "extensiones"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
+msgid "Set policy for all extensions"
+msgstr "Configurar política para todas las extensiones"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
+msgid "MIME types"
+msgstr "tipos MIME"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
+msgid "Set policy for all MIME types"
+msgstr "Configurar política para todos los tipos MIME permitidos"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/Report/TrafficReport.pm:70
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/Report/TrafficReport.pm:71
+#: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
+#: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
+msgid "HTTP proxy traffic report"
+msgstr "Informe del tráfico Proxy HTTP"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/General.pm:75
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:750
+#: src/EBox/Squid/Composite/General.pm:75
+msgid "HTTP Proxy"
+msgstr "Proxy HTTP"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/Extensions.pm:91
+#: src/EBox/Squid/Composite/Extensions.pm:91
+msgid "File extensions filtering"
+msgstr "Filtrado de extensiones de archivo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/MIME.pm:91
+#: src/EBox/Squid/Composite/MIME.pm:91
+msgid "MIME types filtering"
+msgstr "Filtrado de Tipos MIME "
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/Domains.pm:91
+#: src/EBox/Squid/Composite/Domains.pm:91
+msgid "Domains filtering"
+msgstr "Filtrado de dominios"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Composite/FilterSettings.pm:76
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:812
+#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm:762
+msgid "Filter settings"
+msgstr "Configuración del filtro"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Types/Policy.pm:34
+#: src/EBox/Squid/Types/Policy.pm:34
+msgid "Always allow"
+msgstr "Permitir siempre"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Types/Policy.pm:35
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:781
+#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm:720
+msgid "Filter"
+msgstr "Filtrar"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Types/Policy.pm:36
+#: src/EBox/Squid/Types/Policy.pm:36
+msgid "Always deny"
+msgstr "Denegar siempre"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid/Types/Policy.pm:56
+#: src/EBox/Squid/Types/Policy.pm:56
+msgid "Squid's policy"
+msgstr "Política de Squid"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:284 src/EBox/Squid.pm:238
+msgid "You must set the cache_mem variable in the ebox configuration file"
+msgstr ""
+"Debes establecer la variable \"cache_mem\" en el fichero de configuración de eBox"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:764
+msgid "Proxy"
+msgstr "Proxy"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:770 src/EBox/Squid.pm:709
+msgid "Enabled"
+msgstr "Activado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:774 src/EBox/Squid.pm:713
+msgid "Transparent proxy"
+msgstr "Proxy transparente"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:779 src/EBox/Squid.pm:718
+msgid "Deny"
+msgstr "Denegar"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:784 src/EBox/Squid.pm:723
+msgid "Global policy"
+msgstr "Política global"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:786 src/EBox/Squid.pm:725
+msgid "Listening port"
+msgstr "Puerto de escucha"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:802
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:835 src/EBox/Squid.pm:737
+#: src/EBox/Squid.pm:752 src/EBox/Squid.pm:803
+msgid "HTTP proxy"
+msgstr "Proxy HTTP"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:805 src/EBox/Squid.pm:755
+msgid "General"
+msgstr "General"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:809 src/EBox/Squid.pm:759
+msgid "Objects' Policy"
+msgstr "Política de objetos"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:822 src/EBox/Squid.pm:790
+msgid "Host"
+msgstr "Máquina"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:823 src/EBox/Squid.pm:791
+msgid "URL"
+msgstr "Dirección URL"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:824 src/EBox/Squid.pm:792
+msgid "Bytes"
+msgstr "Bytes"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:825 src/EBox/Squid.pm:793
+msgid "Mime/type"
+msgstr "Mime/tipo"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:826 src/EBox/Squid.pm:794
+msgid "Event"
+msgstr "Evento"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:831 src/EBox/Squid.pm:799
+msgid "Accepted"
+msgstr "Aceptado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:832 src/EBox/Squid.pm:800
+msgid "Denied"
+msgstr "Denegado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:833 src/EBox/Squid.pm:801
+msgid "Filtered"
+msgstr "Filtrado"
+
+#: debian/ebox-squid/usr/share/perl5/EBox/Squid.pm:911 src/EBox/Squid.pm:879
+msgid "HTTP Proxy's cache files"
+msgstr "Archivos de cache proxy HTTP"
+
+#~ msgid "HTTP Proxy service status"
+#~ msgstr "Estado del servicio proxy HTTP"
+
+#~ msgid "module status"
+#~ msgstr "estado del módulo"
+
+#~ msgid "Attribute Name"
+#~ msgstr "Nombre del atributo"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#~ msgid "New {type} SHOULD be lower than {number} characters"
+#~ msgstr "El nuevo {type} DEBE ser menor de {number} caracteres"
+
+#~ msgid "The {type} SHOULD have the following syntax: \"word/word\""
+#~ msgstr "El {type} DEBERíA tener la siguiente sintaxis: \"word/word\""
+
+#~ msgid ""
+#~ "The {type} SHOULD be in IANA type. Check this link: {url} for details"
+#~ msgstr ""
+#~ "El {type} DEBERÍA ser un tipo IANA. Visita el enlace {url} para más "
+#~ "detalles"
+
+#~ msgid "File extension {name} added correctly"
+#~ msgstr "Extensión de fichero {name} añadida correctamente"
+
+#~ msgid "File extension {name} is already in the list"
+#~ msgstr "Extensión de fichero {name} ya se encuentra en la lista"
+
+#~ msgid "MIME type {name} added correctly"
+#~ msgstr "Tipo MIME {name} añadido correctamente"
+
+#~ msgid "MIME type {name} is already in the list"
+#~ msgstr "El tipo MIME {name} ya se encuentra en la lista"
+
+#~ msgid " or something starting with \"x-\"."
+#~ msgstr " o algo que comience con \"x-\""
+
+#~ msgid "Add a new file extension without dot. Like \"pdf\""
+#~ msgstr "Añade una nueva extensión de fichero sin punto. Por ejemplo \"pdf\""
+
+#~ msgid "content filter threshold"
+#~ msgstr "Umbral de filtrado de contenido"
+
+#~ msgid "transparent proxy"
+#~ msgstr "proxy transparente"
+
+#~ msgid "listening port"
+#~ msgstr "puerto de escucha"
+
+#~ msgid "{attr} has been deleted successfully"
+#~ msgstr "{attr} se ha borrado correctamente"
+
+#~ msgid "All file extensions have been deleted"
+#~ msgstr "Todas las extensiones de ficheros se han borrado"
+
+#~ msgid "All MIME types have been deleted"
+#~ msgstr "Todos los tipos MIME se han borrado"
+
+#~ msgid "action"
+#~ msgstr "Acción"
+
+#~ msgid "Allowed domains"
+#~ msgstr "Dominios permitidos"
+
+#~ msgid "Squid listening port"
+#~ msgstr "puerto de escucha de Squid"
+
+#~ msgid "DansGuardian listening port"
+#~ msgstr "puerto de escucha de DansGuardian"
+
+#~ msgid "Policy '{policy}' is invalid"
+#~ msgstr "La política {policy} no es válida"
+
+#~ msgid "domain"
+#~ msgstr "dominio"
+
+#~ msgid "Add here those domains which you want to allow access."
+#~ msgstr "Añada aquí los dominios a los que quiere permitir acceso"
+
+#~ msgid "Add here those domains which you do not want to allow access."
+#~ msgstr "Añada aquí los dominos a los que no quiere permitir acceso"
+
+#~ msgid ""
+#~ "Please note that if you set a configuration which prevents you from "
+#~ "connecting to the administration interface through the proxy, you must "
+#~ "then connect to it directly"
+#~ msgstr ""
+#~ "Por favor, tenga en cuenta que si establece una configuración que impida "
+#~ "que se conecte al interfaz de administración a través del proxy deberá "
+#~ "conectarse al mismo directamente."
+
+#~ msgid "Change"
+#~ msgstr "Cambiar"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filtrar"
+
+#~ msgid "Introduce domains in this way: "
+#~ msgstr "Introduzca los dominios de la siguiente forma:"
+
+#~ msgid "domain.com"
+#~ msgstr "dominio.com"
+
+#~ msgid "Action"
+#~ msgstr "Acción"
+
+#~ msgid "Add"
+#~ msgstr "Añadir"
+
+#~ msgid "Delete"
+#~ msgstr "Borrar"
+
+#~ msgid ""
+#~ "When the filter content is enabled you can select those file {name} which "
+#~ "are denied to download"
+#~ msgstr ""
+#~ "Cuando el filtro de contenidos está activado puedes seleccionar aquellas "
+#~ "{name} de fichero que están denegadas para descargar"
+
+#~ msgid "Actions"
+#~ msgstr "Acciones"
+
+#~ msgid "All MIME types"
+#~ msgstr "Todos los tipos MIME"
+
+#~ msgid "Delete them all"
+#~ msgstr "Borrarlos todos"
+
+#~ msgid "Are you sure you want to delete all file extensions?"
+#~ msgstr "¿Seguro que quieres borrar todas las extensiones de fichero?"
+
+#~ msgid "Are you sure you want to delete all MIME types?"
+#~ msgstr "¿Seguro que quieres borrar todos los tipos MIME?"
+
+#~ msgid ""
+#~ "Choose the object whose state you want to change and click in the arrow "
+#~ "to move it to the desired column."
+#~ msgstr ""
+#~ "Seleccione el objeto del cual desea cambiar su estado y presione en la "
+#~ "flecha que corresponda para moverlo a la columna contigua."
+
+#~ msgid "Allowed"
+#~ msgstr "Permitido"
+
+#~ msgid "Empty list"
+#~ msgstr "Lista vacía"
+
+#~ msgid "Move selected objects to the filtered column"
+#~ msgstr "Mover los objetos seleccionados a la columna de filtrados"
+
+#~ msgid "Ban"
+#~ msgstr "Prohibir"
+
+#~ msgid "Move selected objects to the banned column"
+#~ msgstr "Mover los objetos seleccionados a la columna de baneados"
+
+#~ msgid "Move selected objects to the unfiltered column"
+#~ msgstr "Mover los objetos seleccionados a la columna de no filtrados"
+
+#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+#~ msgstr ""
+#~ "Esta lista sólo tendrá efecto si {globalPolicy} está en estado {filter}"
+
+#~ msgid "File extension added correctly"
+#~ msgstr "Extensión de fichero añadida correctamente"
+
+#~ msgid "File extension is already in the list"
+#~ msgstr "Extensión de fichero ya está en la lista"
+
+#~ msgid "MIME type added correctly"
+#~ msgstr "Tipo MIME añadido correctamente"
+
+#~ msgid "MIME type is already in the list"
+#~ msgstr "El tipo MIME ya está en la lista"
+
+#~ msgid "Mime Type filter"
+#~ msgstr "Filtro de tipos MIME"
+
+#, fuzzy
+#~ msgid "Configure allowed internet domains"
+#~ msgstr "Configurar extensiones permitidas"
+
+#, fuzzy
+#~ msgid "Internet domain filter"
+#~ msgstr "Filtro de extensiones"
+
+#~ msgid "Extensions filter"
+#~ msgstr "Filtro de extensiones"
+
+#~ msgid "MIME Type filter"
+#~ msgstr "Filtro de Tipos MIME"
+
+#~ msgid ""
+#~ "Add a new MIME type with the following syntax: type/subtype Where type "
+#~ "can be: {types}"
+#~ msgstr ""
+#~ "Añade un nuevo tipo MIME con la siguiente sintaxis: tipo/subtipo. Donde "
+#~ "el tipo puede ser: {types}"
+
+#~ msgid "Configure allowed extensions"
+#~ msgstr "Configurar extensiones permitidas"
+
+#~ msgid "global policy"
+#~ msgstr "política global"
+
+#~ msgid "Banned domains"
+#~ msgstr "Dominios prohibidos"
+
+#~ msgid "object"
+#~ msgstr "objeto"
+
+#~ msgid "General Settings"
+#~ msgstr "Configuración general"
+
+#~ msgid "domain name"
+#~ msgstr "nombre de dominio"
+
+#~ msgid "All extensions"
+#~ msgstr "Todas las extensiones"

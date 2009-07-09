@@ -1,0 +1,197 @@
+# Spanish translations for eBox-webserver package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the eBox-webserver package.
+#
+# Automatically generated, 2007, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-webserver 0.12\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-01-21 10:17+0100\n"
+"PO-Revision-Date: 2009-03-23 14:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 0.3\n"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer/Composite/General.pm:80
+msgid "Web service"
+msgstr "Servicio web"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Composite/General.pm:83
+#: src/EBox/WebServer/Composite/General.pm:82
+msgid ""
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
+msgstr ""
+"El servicio web de eBox te permite albergar páginas web en HTML en máquinas "
+"virtuales diferentes"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:90
+#: src/EBox/WebServer/Model/GeneralSettings.pm:90
+msgid "listening port"
+msgstr "puerto de escucha"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+msgid "Listening port"
+msgstr "Puerto de escucha"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr "Habilitar por usuario {dirName}"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:168
+#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+msgid "General configuration settings"
+msgstr "Elementos generales de configuración"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be got from "
+"another service. If you enable user to publish their own html pages, the "
+"pages will be loaded from {dirName} directory from their samba home "
+"directories"
+msgstr ""
+"Configuración general del Servidor Web. El puerto de escucha no deberá ser "
+"utilizado por otro servicio. Si permites que los usuarios publiquen sus "
+"propias páginas html, las páginas se cargarán desde el directorio {dirName} de su "
+"directorio personal Samba "
+"directorio de sus directorios de inicio de samba"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/GeneralSettings.pm:178
+#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+msgid "General Web server configuration settings updated"
+msgstr "Actualizada la configuración general del servidor web"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:92
+#: src/EBox/WebServer/Model/VHostTable.pm:92
+msgid "Virtual host's name"
+msgstr "Nombre de la máquina virtual"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:140
+#: src/EBox/WebServer/Model/VHostTable.pm:142
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip} "
+msgstr ""
+"Máquina virtual {vhost} Agregada. Se ha creado el dominio {domain} con el "
+"nombre de mapeo {name} - Dirección IP {ip} "
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:158
+#: src/EBox/WebServer/Model/VHostTable.pm:160
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+"Máquina virtual {vhost} agregado. Se ha agregado al dominio {domain} un nombre de "
+"mapeo {name} - Dirección IP {ip}"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:172
+#: src/EBox/WebServer/Model/VHostTable.pm:174
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr ""
+"Máquina virtual {vhost} agregada como un alias {alias} a la máquina {hostname}"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:178
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:183
+#: src/EBox/WebServer/Model/VHostTable.pm:180
+#: src/EBox/WebServer/Model/VHostTable.pm:185
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr "Máquina virtual {vhost} agregada"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:188
+#: src/EBox/WebServer/Model/VHostTable.pm:190
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr ""
+"No hay interfaz interno estático para poner la dirección IP del servidor Web"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:214
+#: src/EBox/WebServer/Model/VHostTable.pm:216
+msgid "Name"
+msgstr "Nombre"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:224
+#: src/EBox/WebServer/Model/VHostTable.pm:226
+msgid "Virtual hosts"
+msgstr "Máquinas virtuales"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:228
+#: src/EBox/WebServer/Model/VHostTable.pm:230
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot}/vHostName "
+"directory"
+msgstr ""
+"Las máquinas virtuales son una forma de servicio de alojamiento web, donde muchos "
+"casos del mismo servidor web están alojados en un único servidor físico. "
+"Los diferentes nombres de máquinas llevan al mismo servidor web. La entrada de "
+"DNS se crea automáticamente, si es posible. El contenido debe ser puesto "
+"bajo el directorio {docRoot}/ vHostName"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Model/VHostTable.pm:235
+#: src/EBox/WebServer/Model/VHostTable.pm:237
+msgid "virtual host"
+msgstr "Máquina virtual"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer/Maintenance.pm:66
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "Protocolo de Transporte de Hipertexto"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:130
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:154
+#: src/EBox/WebServer.pm:176
+msgid "Web"
+msgstr "Web"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:173
+#: src/EBox/WebServer.pm:196
+msgid "Web service status"
+msgstr "Estado del servicio Web"
+
+#: debian/ebox-webserver/usr/share/perl5/EBox/WebServer.pm:365
+#: src/EBox/WebServer.pm:366
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "¡Falta el {userDirConfFile}! Por favor, recupéralo"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid ""
+"If you tick this field, each user is permitted to have a website in their "
+"home directory under public_html"
+msgstr ""
+"Si marcas este campo, cada usuario tendrá permiso para tener un sitio web en "
+"su propio directorio bajo public_html"
+
+#: src/EBox/WebServer.pm:96
+msgid "To set webserver listening port"
+msgstr "Configurar el puerto de escucha del servidor Web"
+
+#: src/EBox/WebServer.pm:101
+msgid "To configure the per-user public HTML directory"
+msgstr "Configurar el directorio HTML público por usuario"
+
+#: src/EBox/WebServer.pm:129
+msgid "Enable apache LDAP user module"
+msgstr "Habilitar el módulo de usuario apache LDAP"
+
+#: src/EBox/WebServer.pm:131
+msgid "To fetch home directories from LDAP"
+msgstr "Obtener los directorios personales desde LDAP"
+

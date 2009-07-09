@@ -1,0 +1,84 @@
+# Spanish translations for EBox-modulename package.
+# Copyright (C) 2009 Warp S.L.
+# This file is distributed under the same license as the EBox-modulename package.
+#
+# Automatically generated, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-antivirus 0.1\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-03-02 19:13+0100\n"
+"PO-Revision-Date: 2009-03-02 18:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 0.3\n"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+msgid "Status"
+msgstr "Estado"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+msgid "Antivirus database update status"
+msgstr "Estado de actualización de la base de datos de virus"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+msgid ""
+"The antivirus database has not been updated since the  mailfilter eBox's "
+"module was installed"
+msgstr ""
+"La base de datos del antivirus no se ha actualizado todavía desde la instalación "
+"del filtro de correo del módulo de eBox"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+msgid "The last update failed"
+msgstr "Fallo en la última actualización"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#, perl-brace-format
+msgid ""
+"Update successful but your freshclam version is outdated.\n"
+"The antivirus will not be able to use all the signatures.Please, install "
+"version {version} or higher"
+msgstr ""
+"La actualización ha terminado con éxito pero la versión de freshclam no está "
+"actualizada.\n El antivirus no podrá utilizar todas las claves. Instalar la "
+"versión {version} o posterior."
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+msgid "Last update successful"
+msgstr "Última actualización finalizada con éxito"
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#, perl-brace-format
+msgid "Unknown event {event}"
+msgstr "Evento desconocido {event}"
+
+#: src/EBox/AntiVirus.pm:70 src/EBox/AntiVirus.pm:334
+#: src/EBox/AntiVirus.pm:339
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/AntiVirus.pm:95
+msgid "Update status"
+msgstr "Actualizar estado"
+
+#: src/EBox/AntiVirus.pm:177
+msgid " To configure clamd daemon"
+msgstr "Configurar clamd daemon"
+
+#: src/EBox/AntiVirus.pm:182
+msgid "To configure freshclam updater"
+msgstr "Configurar la herramienta de actualización de freshclam"
+
+#: src/EBox/AntiVirus.pm:187
+msgid "To schedule the launch of the updater"
+msgstr "Programar el lanzamiento de la herramienta de actualización del sistema"
+
