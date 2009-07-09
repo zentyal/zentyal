@@ -128,6 +128,9 @@ sub master
     my ($ldappass) = @_;
 
     my $ldap = Net::LDAP->new("ldap://127.0.0.1");
+    if (not defined($ldap)) {
+        throw EBox::Exceptions::Internal("Can't connect to LDAP server");
+    }
     my $result = $ldap->bind('cn=admin,cn=config', 'password' => $ldappass);
     if ($result->is_error()) {
         throw EBox::Exceptions::External(__("Can't bind to LDAP with the provided password"));
