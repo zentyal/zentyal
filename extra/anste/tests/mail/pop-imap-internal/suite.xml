@@ -7,20 +7,21 @@
     </desc>
 
     <scenario>mail/only-internal.xml</scenario>
-<!-- if (master/slave) -->
 
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
         <name>SetMaster</name>
         <desc>
         Configure eBox as LDAP master and set the password.
         </desc>
 
-        <host>ebox-master</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
         <dir>set-master</dir>
         <var name="PASSWORD" value="master-foobar"/>
     </test>
+
+<!-- if (master/slave) -->
 
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
@@ -48,20 +49,6 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
-<!-- else -->
-
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-        <name>SetMaster</name>
-        <desc>
-        Configure eBox as LDAP master and set the password.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>set-master</dir>
-        <var name="PASSWORD" value="master-foobar"/>
-    </test>
-
 <!-- end if -->
 
     <test type="selenium">
@@ -77,7 +64,7 @@
         <desc>Adds an user</desc>
 
         <host var="master-slave" eq="1">ebox-master</host>
-        <host var="master-slave" eq="0">ebox-test</host>
+        <host var="master-slave" eq="0">ebox-server</host>
 
         <dir>add-user</dir>
         <var name="USERNAME" value="eboxtest"/>
