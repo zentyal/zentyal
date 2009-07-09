@@ -298,8 +298,6 @@
     </test>
 
     <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-
         <name>AddUserAdmin</name>
         <desc>
         Create a new user.
