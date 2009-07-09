@@ -28,6 +28,7 @@
         <script>ssl-cert-workaround.sh</script>
         <script>force-package-install.sh</script>
         <script>add-services-to-ebox-firewall</script>
+        <script>ebox-same-cert.sh</script>
         <script>ebox-no-login.sh</script>
         <script>ebox-set-debug-on.sh</script>
         <script>set-ldap-pass.sh</script>
