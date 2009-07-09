@@ -11,7 +11,7 @@
         <dist>hardy</dist>
         <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
     </install>
-    
+
     <packages>
         <package>ssl-cert</package>
         <package>postfix</package>
