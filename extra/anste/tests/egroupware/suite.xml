@@ -93,7 +93,7 @@
         <desc>Login with default-created eGroupware user.</desc>
 
         <host>ebox-server</host>
-        <port>80</port>
+        <protocol>http</protocol>
         <dir>egw-login</dir>
     </test>
 
@@ -112,7 +112,7 @@
         <desc>Login with the same user that is now an admin.</desc>
 
         <host>ebox-server</host>
-        <port>80</port>
+        <protocol>http</protocol>
         <dir>egw-admin-login</dir>
     </test>
 
@@ -131,7 +131,7 @@
         from inside egroupware.</desc>
 
         <host>ebox-server</host>
-        <port>80</port>
+        <protocol>http</protocol>
         <dir>test-mail</dir>
     </test>
 </suite>
