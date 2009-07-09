@@ -19,9 +19,9 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-			EBox::LdapModule
-			EBox::FirewallObserver
-			);
+            EBox::LdapModule
+            EBox::FirewallObserver
+            );
 
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
@@ -45,75 +45,75 @@ use constant JABBEREXTERNALPORT => '5269';
 
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'jabber',
-					  domain => 'ebox-jabber',
-					  printableName => 'Jabber',
-					  @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'jabber',
+                      domain => 'ebox-jabber',
+                      printableName => 'Jabber',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub domain
 {
-	return "ebox-jabber";
+    return "ebox-jabber";
 }
 
 
 # Method: actions
 #
-# 	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
-	return [
-	{
-		'action' => __('Add Jabber LDAP schema'),
-		'reason' => __('eBox will need this schema to store jabber users'),
-		'module' => 'jabber'
-	},
+    return [
+    {
+        'action' => __('Add Jabber LDAP schema'),
+        'reason' => __('eBox will need this schema to store jabber users'),
+        'module' => 'jabber'
+    },
 
     ];
 }
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::usedFiles
+#   Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
-	return [
-		{
-		 'file' => JABBERC2SCONFFILE,
-		 'module' => 'jabber',
-		 'reason' => __('To properly configure jabberd2')
-		},
-		{
-		 'file' => JABBERSMCONFFILE,
-		 'module' => 'jabber',
-		 'reason' => __('To properly configure jabberd2')
-		},
-		{
-		 'file' => JABBERDFLTFILE,
-		 'module' => 'jabber',
-		 'reason' => __('To properly configure jabberd2')
-		},
-		{
-		 'file' => JABBERMUCCONFFILE,
-		 'module' => 'jabber',
-		 'reason' => __('To properly configure jabberd2 muc')
-		},
-		{
-		 'file' => JABBERMUCDFLTFILE,
-		 'module' => 'jabber',
-		 'reason' => __('To properly configure jabberd2 muc')
-		},
+    return [
+        {
+         'file' => JABBERC2SCONFFILE,
+         'module' => 'jabber',
+         'reason' => __('To properly configure jabberd2')
+        },
+        {
+         'file' => JABBERSMCONFFILE,
+         'module' => 'jabber',
+         'reason' => __('To properly configure jabberd2')
+        },
+        {
+         'file' => JABBERDFLTFILE,
+         'module' => 'jabber',
+         'reason' => __('To properly configure jabberd2')
+        },
+        {
+         'file' => JABBERMUCCONFFILE,
+         'module' => 'jabber',
+         'reason' => __('To properly configure jabberd2 muc')
+        },
+        {
+         'file' => JABBERMUCDFLTFILE,
+         'module' => 'jabber',
+         'reason' => __('To properly configure jabberd2 muc')
+        },
        ];
 }
 
 # Method: enableActions
 #
-# 	Override EBox::Module::Service::enableActions
+#   Override EBox::Module::Service::enableActions
 #
 sub enableActions
 {
@@ -144,24 +144,24 @@ sub _daemons
 
 sub usesPort # (protocol, port, iface)
 {
-	my ($self, $protocol, $port, $iface) = @_;
+    my ($self, $protocol, $port, $iface) = @_;
 
-	return undef unless($self->isEnabled());
+    return undef unless($self->isEnabled());
 
-	return 1 if (($port eq JABBERPORT) and !($self->ssl eq 'required'));
-	return 1 if (($port eq JABBERPORTSSL) and !($self->ssl eq 'no'));
-	return 1 if (($port eq JABBEREXTERNALPORT) and ($self->externalConnection));
+    return 1 if (($port eq JABBERPORT) and !($self->ssl eq 'required'));
+    return 1 if (($port eq JABBERPORTSSL) and !($self->ssl eq 'no'));
+    return 1 if (($port eq JABBEREXTERNALPORT) and ($self->externalConnection));
 
-	return undef;
+    return undef;
 }
 
 sub firewallHelper
 {
-	my ($self) = @_;
-	if ($self->isEnabled()){
-		return new EBox::JabberFirewall();
-	}
-	return undef;
+    my ($self) = @_;
+    if ($self->isEnabled()){
+        return new EBox::JabberFirewall();
+    }
+    return undef;
 }
 
 # Method: setExternalConnection
@@ -263,13 +263,13 @@ sub ssl
 #
 sub setJabberDomain
 {
-	my ($self, $domain) = @_;
-	unless (checkDomainName($domain)){
-		throw EBox::Exceptions::InvalidData
-			('data' => __('domain'), 'value' => $domain);
-	}
-	($domain eq $self->jabberDomain) and return;
-	$self->set_string('domain', $domain);
+    my ($self, $domain) = @_;
+    unless (checkDomainName($domain)){
+        throw EBox::Exceptions::InvalidData
+            ('data' => __('domain'), 'value' => $domain);
+    }
+    ($domain eq $self->jabberDomain) and return;
+    $self->set_string('domain', $domain);
 }
 
 # Method: jabberDomain
@@ -281,8 +281,8 @@ sub setJabberDomain
 #       string. Current jabber service domain
 sub jabberDomain
 {
-	my $self = shift;
-	my $domain = $self->get_string('domain');
+    my $self = shift;
+    my $domain = $self->get_string('domain');
     if(not defined($domain)) {
         $domain = 'ebox';
     }
@@ -295,57 +295,58 @@ sub jabberDomain
 #
 sub _setConf
 {
-	my $self = shift;
-	my @array = ();
+    my $self = shift;
+    my @array = ();
 
-	my $net = EBox::Global->modInstance('network');
-	my $ldap = EBox::Ldap->instance();
-	my $ldapconf = $ldap->ldapConf;
-	my $jabberldap = new EBox::JabberLdapUser;
+    my $net = EBox::Global->modInstance('network');
+    my $ldap = EBox::Ldap->instance();
+    my $ldapconf = $ldap->ldapConf;
+    my $jabberldap = new EBox::JabberLdapUser;
 
-	push (@array, 'domain' => $self->jabberDomain);
-	#push (@array, 'binddn' => $ldapconf->{'rootdn'});
-	#push (@array, 'bindpw' => $ldap->rootPw);
-	push (@array, 'basedc' => $ldapconf->{'dn'});
-	push (@array, 'ssl' => $self->ssl);
-	$self->writeConfFile(JABBERC2SCONFFILE,
-			     "jabber/c2s.xml.mas",
-			     \@array, { 'uid' => 0, 'gid' => 0, mode => '644' });
+    push (@array, 'domain' => $self->jabberDomain);
+    #push (@array, 'binddn' => $ldapconf->{'rootdn'});
+    #push (@array, 'bindpw' => $ldap->rootPw);
+    push (@array, 'basedc' => $ldapconf->{'dn'});
+    push (@array, 'ssl' => $self->ssl);
+    push (@array, 'ldapport' => 389);
+    $self->writeConfFile(JABBERC2SCONFFILE,
+                 "jabber/c2s.xml.mas",
+                 \@array, { 'uid' => 0, 'gid' => 0, mode => '644' });
 
-	@array = ();
+    @array = ();
 
-	my @admins = ();
-	@admins = $jabberldap->getJabberAdmins();
-	push (@array, 'domain' => $self->jabberDomain);
-	push (@array, 'admins' => \@admins);
-	$self->writeConfFile(JABBERSMCONFFILE,
-			     "jabber/sm.xml.mas",
-			     \@array);
-	$self->writeConfFile(JABBERMUCCONFFILE,
-			     "jabber/muc.xml.mas",
-			     \@array);
+    my @admins = ();
+    @admins = $jabberldap->getJabberAdmins();
+    push (@array, 'domain' => $self->jabberDomain);
+    push (@array, 'admins' => \@admins);
+    $self->writeConfFile(JABBERSMCONFFILE,
+                 "jabber/sm.xml.mas",
+                 \@array);
+    $self->writeConfFile(JABBERMUCCONFFILE,
+                 "jabber/muc.xml.mas",
+                 \@array);
 
-	@array = ();
+    @array = ();
 
     if ($self->externalConnection) {
         push(@array, 'external' => 'yes')
-	} else {
+    } else {
         push(@array, 'external' => 'no')
-	}
-	$self->writeConfFile(JABBERDFLTFILE,
-			     "jabber/jabberd2.mas",
-			     \@array);
+    }
+    $self->writeConfFile(JABBERDFLTFILE,
+                 "jabber/jabberd2.mas",
+                 \@array);
 
-	@array = ();
+    @array = ();
 
     if ($self->muc) {
         push(@array, 'muc' => 'yes')
-	} else {
+    } else {
         push(@array, 'muc' => 'no')
-	}
-	$self->writeConfFile(JABBERMUCDFLTFILE,
-			     "jabber/jabber-muc.mas",
-			     \@array);
+    }
+    $self->writeConfFile(JABBERMUCDFLTFILE,
+                 "jabber/jabber-muc.mas",
+                 \@array);
 }
 
 # Method: menu
@@ -353,9 +354,9 @@ sub _setConf
 #       Overrides EBox::Module method.
 sub menu
 {
-	my ($self, $root) = @_;
-	$root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
-					                'text' => $self->printableName(),
+    my ($self, $root) = @_;
+    $root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
+                                    'text' => $self->printableName(),
                                     'separator' => __('Communications'),
                                     'order' => 620));
 }
