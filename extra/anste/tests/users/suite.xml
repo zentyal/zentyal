@@ -5,20 +5,20 @@
 
     <scenario>users.xml</scenario>
 
-<!-- if (master/slave) -->
-
     <test type="selenium">
-        <precondition var="master-slave" eq="1"/>
-
         <name>SetMaster</name>
         <desc>
         Configure eBox as LDAP master and set the password.
         </desc>
 
-        <host>ebox-master</host>
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-test</host>
+
         <dir>set-master</dir>
         <var name="PASSWORD" value="master-foobar"/>
     </test>
+
+<!-- if (master/slave) -->
 
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
@@ -46,20 +46,6 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
-<!-- else -->
-
-    <test type="selenium">
-        <precondition var="master-slave" eq="0"/>
-        <name>SetMaster</name>
-        <desc>
-        Configure eBox as LDAP master and set the password.
-        </desc>
-
-        <host>ebox-test</host>
-        <dir>set-master</dir>
-        <var name="PASSWORD" value="master-foobar"/>
-    </test>
-
 <!-- end if -->
 
     <test type="selenium">
@@ -81,7 +67,7 @@
         <host var="master-slave" eq="1">ebox-master</host>
         <host var="master-slave" eq="0">ebox-test</host>
 
-        <dir>test-adduser</dir>
+        <dir>add-user</dir>
         <var name="USERNAME" value="eboxtest"/>
         <var name="PASSWORD" value="eboxtest"/>
     </test>
@@ -118,6 +104,64 @@
         <dir>test-checkgroup</dir>
         <var name="USERNAME" value="eboxtest"/>
         <var name="GROUP" value="foobar"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>StopApache</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>AddUserWithSlaveDown</name>
+        <desc>Adds an user through the ebox web interface
+        and checks if addedd correctly in LDAP database
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-test</host>
+
+        <dir>add-user</dir>
+        <var name="USERNAME" value="slavedownuser"/>
+        <var name="PASSWORD" value="slavedownuser"/>
+    </test>
+
+<!-- TODO: check slave status resync pending -->
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>StartApache</name>
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+<!-- TODO: force resync test -->
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckUserWithSlaveDown</name>
+        <desc>Checks if the user is added correctly on LDAP</desc>
+
+        <host>ebox-test</host>
+        <dir>test-checkuser</dir>
+        <var name="USERNAME" value="slavedownuser"/>
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 </suite>
