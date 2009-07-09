@@ -100,7 +100,7 @@ function addNewRow(url, table, fields, directory)
 		  if (pars.length != 0) {
 				pars += '&';
 			}
-			pars += field + '=' + value;
+			pars += field + '=' + encodeURIComponent(value);
 		}
 	}
 
@@ -155,7 +155,7 @@ function changeRow(url, table, fields, directory, id, page, force)
 			if (pars.length != 0) {
 				pars += '&';
 			}
-			pars += field + '=' + value;
+			pars += field + '=' + encodeURIComponent(value);
 		}
 	}
 
