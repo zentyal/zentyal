@@ -1,3 +1,5 @@
+1.1.41
+	+ bugfix: Allow unsafe characters in smtp auth password
 1.1.30
 	+ SMTP and POP/iMAP certificates can be changed via  the CA module
 1.1.20

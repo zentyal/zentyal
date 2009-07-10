@@ -79,6 +79,9 @@ sub _table
                               printableName => 
                                 __('Smarthost authentication'),
                               editable => 1,
+# XXX Workaround to allow unsafe characters in Password.
+#     Union + Composite make difficult to call password method
+                              allowUnsafeChars => 1,
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'none',
