@@ -107,6 +107,32 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckSlavePresent</name>
+        <desc>
+        Check if ebox-test appears on the slave list.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-slave-present</dir>
+        <var name="SLAVE" value="ebox-test"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>EnableJabberOnSlave</name>
+        <desc>
+        Enable jabber module to test pending operations.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>enable-jabber</dir>
+    </test>
+
     <test>
         <precondition var="master-slave" eq="1"/>
 
@@ -136,7 +162,20 @@
         <var name="PASSWORD" value="slavedownuser"/>
     </test>
 
-<!-- TODO: check slave status resync pending -->
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckPendingSync</name>
+        <desc>
+        Check if slavedownuser has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-test"/>
+        <var name="USERNAME" value="slavedownuser"/>
+    </test>
 
     <test>
         <precondition var="master-slave" eq="1"/>
@@ -151,7 +190,18 @@
         <var name="ACTION" value="start"/>
     </test>
 
-<!-- TODO: force resync test -->
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>ForceSync</name>
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
 
     <test>
         <precondition var="master-slave" eq="1"/>
@@ -163,5 +213,20 @@
         <dir>test-checkuser</dir>
         <var name="USERNAME" value="slavedownuser"/>
         <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+<!-- TODO: verify jabber stuff? -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckNoPendingSync</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
     </test>
 </suite>
