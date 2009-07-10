@@ -13,17 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
-#   EBox::Squid::Model::ConfigureLogDataTable
-#
-#   This class is used as a model to describe a table which will be
-#   used to select the logs domains the user wants to enable/disable.
-#
-#   It subclasses <EBox::Model::DataTable>
-#
-#  
-# 
+
 
 package EBox::Mail::Model::SMTPOptions;
 use base 'EBox::Model::DataForm';
