@@ -1,4 +1,4 @@
-# Copyright (C) 2009 eBox technologies, S.L 
+# Copyright (C) 2009 eBox technologies, S.L
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,7 +18,7 @@ package EBox::UsersAndGroups::Model::Slaves;
 # Class: EBox::UsersAndGroups::Model::Slaves
 #
 #	This model is used to list the slaves that are subscribed to this master
-#       
+#
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -34,7 +34,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -47,8 +47,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text(
              'fieldName' => 'slave',
@@ -57,8 +57,8 @@ sub _table
              ),
         );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Slaves',
         'printableTableName' => __('List of slaves'),
         'defaultController' =>

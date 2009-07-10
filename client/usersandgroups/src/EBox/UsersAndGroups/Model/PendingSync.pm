@@ -19,7 +19,7 @@ package EBox::UsersAndGroups::Model::PendingSync;
 #
 #	This model is used to list those operations that need to be run by the slaves
 #	because the master failed to contact them.
-#       
+#
 # TODO:
 #	- Document methods
 #	- _processDir and _processFile are used in slave-sync too
@@ -38,7 +38,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -51,8 +51,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text(
              'fieldName' => 'slave',
@@ -69,11 +69,11 @@ sub _table
              'printableName' => __('Parameter'),
              'size' => '12',
              ),
- 
+
         );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'PendingSync',
         'printableTableName' => __('List of pending operations on slaves'),
         'defaultController' =>
@@ -157,7 +157,7 @@ sub ids
 
 # Method: row
 #
-#   Override <EBox::Model::DataTable::row> 
+#   Override <EBox::Model::DataTable::row>
 #
 sub row
 {

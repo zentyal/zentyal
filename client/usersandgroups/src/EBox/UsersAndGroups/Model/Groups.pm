@@ -20,9 +20,9 @@ package EBox::UsersAndGroups::Model::Groups;
 #
 #       This a class used as a proxy for the groups stored in LDAP.
 #       It is meant to improve the user experience when managing groups,
-#       but it's just an interim solution. An integral approach needs to 
+#       but it's just an interim solution. An integral approach needs to
 #       be done.
-#       
+#
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -38,7 +38,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -51,8 +51,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text(
              'fieldName' => 'name',
@@ -71,8 +71,8 @@ sub _table
 
         );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Groups',
         'printableTableName' => __('Groups'),
         'defaultController' =>
@@ -174,7 +174,7 @@ sub row
     my $groupInfo  = $users->groupInfo($gidName);
     my $desc = $groupInfo->{comment};
     my $link = "/ebox/UsersAndGroups/Group?group=$gidName";
-    my $row = $self->_setValueRow(name => $gidName, 
+    my $row = $self->_setValueRow(name => $gidName,
             description => defined($desc) ? $desc : '-',
             edit => $link);
     $row->setId($id);

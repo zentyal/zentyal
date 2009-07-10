@@ -1,4 +1,4 @@
-# Copyright  
+# Copyright (C) 2009 eBox technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,7 +14,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 # Class: EBox::UsersAndGroups::Model::Password
-#   
+#
 #   TODO: Document class
 #
 
@@ -33,7 +33,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -52,8 +52,8 @@ sub pageTitle
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::UsersAndGroups::Types::Password(
             'fieldName' => 'pass1',
             'printableName' => __('New password'),
@@ -69,8 +69,8 @@ sub _table
             'editable' => 1
         ),
     );
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Password',
         'printableTableName' => __('Password'),
         'modelDomain' => 'Users',
