@@ -108,6 +108,33 @@
     </test>
 
     <test type="selenium">
+        <name>DelUser</name>
+        <desc>Deletes an user through the ebox web interface
+        and checks if deleted correctly in LDAP
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-test</host>
+
+        <dir>delete-user</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+    <test>
+        <name>CheckDeletedUser</name>
+        <desc>Checks if the user is not in LDAP</desc>
+
+        <host>ebox-test</host>
+
+        <assert>failed</assert>
+
+        <dir>test-checkuser</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+    <test type="selenium">
         <precondition var="master-slave" eq="1"/>
 
         <name>CheckSlavePresent</name>
@@ -221,6 +248,104 @@
         <precondition var="master-slave" eq="1"/>
 
         <name>CheckNoPendingSync</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>StopApache2</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>DeleteUserWithSlaveDown</name>
+        <desc>Deletes an user through the ebox web interface
+        with slave's apache down.
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-test</host>
+
+        <dir>delete-user</dir>
+        <var name="USERNAME" value="slavedownuser"/>
+        <var name="PASSWORD" value="slavedownuser"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckPendingSync2</name>
+        <desc>
+        Check if slavedownuser has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-test"/>
+        <var name="USERNAME" value="slavedownuser"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>StartApache2</name>
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-test</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>ForceSync2</name>
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckDeletedUserWithSlaveDown</name>
+        <desc>Checks if the user is not in LDAP</desc>
+
+        <host>ebox-test</host>
+
+        <assert>failed</assert>
+
+        <dir>test-checkuser</dir>
+        <var name="USERNAME" value="slavedownuser"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>CheckNoPendingSync2</name>
         <desc>
         Check if there are no pending operations.
         </desc>
