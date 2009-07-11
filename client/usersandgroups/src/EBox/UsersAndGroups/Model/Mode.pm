@@ -112,13 +112,37 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     my $mode = $allFields->{mode};
-    if ($mode->value() eq 'client') {
+    if ($mode->value() eq 'slave') {
         my $remote = $allFields->{remote};
         my $password = $allFields->{password};
         if (($remote->value() eq '') or ($password->value() eq '')) {
             throw EBox::Exceptions::External(__('Missing fields to configure eBox as client'));
         }
     }
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to enable and disable the 'remote' field
+#   depending on the 'mode' value
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    my $fields = [ 'remote' ];
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions(
+            { mode =>
+                {
+                  master   => { disable => $fields },
+                  slave    => { enable  => $fields },
+                }
+            });
+    return $customizer;
 }
 
 1;
