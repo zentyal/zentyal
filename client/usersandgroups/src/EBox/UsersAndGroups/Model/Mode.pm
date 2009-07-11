@@ -116,7 +116,7 @@ sub validateTypedRow
         my $remote = $allFields->{remote};
         my $password = $allFields->{password};
         if (($remote->value() eq '') or ($password->value() eq '')) {
-            throw EBox::Exceptions::External(__('Missing fields to configure eBox as client'));
+            throw EBox::Exceptions::External(__('Missing fields to configure eBox as slave'));
         }
     }
 }
