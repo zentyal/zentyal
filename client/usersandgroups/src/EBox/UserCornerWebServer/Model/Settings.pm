@@ -98,6 +98,22 @@ sub validateTypedRow
                                                'value' => $portNumber,
                                               );
         }
+
+        my $services = $gl->modInstance('services');
+        if (not $services->serviceExists(name => 'usercorner')) {
+            $services->addService('name' => 'usercorner',
+                    'protocol' => 'tcp',
+                    'sourcePort' => 'any',
+                    'destinationPort' => $portNumber,
+                    'translationDomain' => 'ebox-usersandgroups',
+                    'internal' => 1,
+                    'readOnly' => 1
+                    );
+            my $firewall = $gl->modInstance('firewall');
+            $firewall->setInternalService('usercorner', 'accept');
+        } else {
+            $services->updateDestPort('usercorner/0', $portNumber);
+        }
     }
 }
 

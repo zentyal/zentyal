@@ -1,5 +1,6 @@
 1.3.0
 	+ eBox LDAP architecture now supports a master-slave configuration
+    + bugfix: Update usercorner service when there's a change on the port number
 1.1.30
 	+ Added widget to manage group belonging from Edit User page
 	+ Fixed backup/restore problem with paswords and given/last names
