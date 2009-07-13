@@ -1455,11 +1455,9 @@ sub ifaceNetmask # (interface)
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_string("interfaces/$name/netmask");
     } elsif ($self->ifaceMethod($name) eq 'dhcp') {
-        if (iface_is_up($name)) {
-            #return iface_netmask($name);
-                    return (values %{iface_addresses_with_netmask($name)})[0]
-        }
+        return $self->DHCPNetmask($name);
     }
+
     return undef;
 }
 
@@ -1633,7 +1631,7 @@ sub setNameservers # (one, two)
         }
 }
 
-# Method: setSearchDomain
+# Method: setSarchDomain
 #
 #   Set the search domain
 #

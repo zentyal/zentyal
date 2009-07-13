@@ -1,5 +1,9 @@
 1.2
 	+ Added support for WAN failover
+	+ ifaceNetmask method now uses DHCPNetmask to get the dhcp ifaces
+	netmask instead NetWrapper call this adds symethrie with
+	ifaceAdrress method and fixes a bug when changing a dhcp interface
+	with no lease to static interface
 1.1.30
 	+ Added support for all missing netmasks between /16 and /32
 	+ Added support for search domain in /etc/resolv.conf
