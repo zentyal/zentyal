@@ -171,15 +171,7 @@ sub enableActions
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    if (not $users->isMaster()) {
-        $users->startIfRequired();
-    }
-    $self->loadSchema(EBox::Config::share() . '/ebox-asterisk/asterisk.ldif');
-    $self->loadACL("to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach,AstAccountVMDelete " .
-                    "by dn.regex=\"" . $self->ldap->rootDn() . "\" write " .
-                    "by self write " .
-                    "by * none");
+    $self->performLDAPActions();
 
     EBox::Sudo::root(EBox::Config::share() .
                      '/ebox-asterisk/ebox-asterisk-enable');
