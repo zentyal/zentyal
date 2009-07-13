@@ -45,4 +45,22 @@ sub _delGroupWarning($$) {
 	return undef;
 }
 
+sub schemas
+{
+    return [
+        EBox::Config::share() . '/ebox-usersandgroups/passwords.ldif',
+        EBox::Config::share() . '/ebox-usersandgroups/master.ldif',
+        EBox::Config::share() . '/ebox-usersandgroups/slaves.ldif'
+    ];
+}
+
+sub acls
+{
+    my $users = EBox::Global->modInstance('users');
+    return [ "to attrs=" . join(',',
+            @{EBox::UsersAndGroups::Passwords::allPasswordFieldNames()}) . " " .
+            "by dn=\"" . $users->ldap()->rootDn() . "\" write by self write " .
+            "by * none" ];
+}
+
 1;

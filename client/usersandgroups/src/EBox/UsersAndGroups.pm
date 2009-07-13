@@ -145,13 +145,7 @@ sub enableActions
 
         EBox::UsersAndGroups::Setup::master($password);
 
-        $self->loadSchema(EBox::Config::share() . '/ebox-usersandgroups/passwords.ldif');
-        $self->loadSchema(EBox::Config::share() . '/ebox-usersandgroups/master.ldif');
-        $self->loadSchema(EBox::Config::share() . '/ebox-usersandgroups/slaves.ldif');
-        $self->loadACL("to attrs=" . join(',',
-            @{EBox::UsersAndGroups::Passwords::allPasswordFieldNames()}) . " " .
-            "by dn=\"" . $self->ldap->rootDn() . "\" write by self write " .
-            "by * none");
+        $self->performLDAPActions();
     } else {
         EBox::Sudo::root("invoke-rc.d slapd stop");
         EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
