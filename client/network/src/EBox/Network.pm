@@ -2192,8 +2192,7 @@ sub _setConf
 #   It will set up the network interfaces, routes, dns...
 sub _enforceServiceState
 {
-    my ($self) = @_;
-    my %opts = @_;
+    my ($self, %opts) = @_;
     my $restart = delete $opts{restart};
 
     my $file = INTERFACES_FILE;
