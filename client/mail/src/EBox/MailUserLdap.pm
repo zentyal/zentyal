@@ -830,4 +830,10 @@ sub _mdQuotaAccountAddonParams
   return @params;
 }
 
+sub schema
+{
+    return [ EBox::Config::share() . '/ebox-mail/authldap.ldif',
+             EBox::Config::share() . '/ebox-mail/eboxmail.ldif' ];
+}
+
 1;
