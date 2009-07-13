@@ -118,7 +118,6 @@
 
         <dir>delete-user</dir>
         <var name="USERNAME" value="eboxtest"/>
-        <var name="PASSWORD" value="eboxtest"/>
     </test>
 
     <test>
@@ -181,8 +180,7 @@
         and checks if addedd correctly in LDAP database
         </desc>
 
-        <host var="master-slave" eq="1">ebox-master</host>
-        <host var="master-slave" eq="0">ebox-test</host>
+        <host>ebox-master</host>
 
         <dir>add-user</dir>
         <var name="USERNAME" value="slavedownuser"/>
@@ -276,12 +274,10 @@
         with slave's apache down.
         </desc>
 
-        <host var="master-slave" eq="1">ebox-master</host>
-        <host var="master-slave" eq="0">ebox-test</host>
+        <host>ebox-master</host>
 
         <dir>delete-user</dir>
         <var name="USERNAME" value="slavedownuser"/>
-        <var name="PASSWORD" value="slavedownuser"/>
     </test>
 
     <test type="selenium">

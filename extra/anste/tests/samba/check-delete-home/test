@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR=/home/samba/users/$USERNAME
+
+echo "Checking if $DIR exists..."
+if [ -d $DIR ]
+then
+    echo "Test failed. $DIR exists."
+    exit 1
+else
+    echo "Test succeded. $DIR is deleted."
+fi

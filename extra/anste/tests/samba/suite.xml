@@ -574,8 +574,6 @@
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
 
-
-
 <!--     <test type="selenium"> -->
 <!--         <name>EnablePDC</name> -->
 <!--         <desc> -->
@@ -586,4 +584,193 @@
 <!--         <dir>toggle-pdc</dir> -->
 <!--         <var name="PDC_ACTION" value="check"/> -->
 <!--     </test> -->
+
+<!-- Aditional master-slave tests -->
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveStopApache</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <name>ChangePassword</name>
+        <desc>
+        Change a password of a user in the master while
+        the slave is down or change it in the only
+        ebox if we're not using master/slave.
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
+        <dir>change-password</dir>
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="bar"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveCheckPendingSync</name>
+        <desc>
+        Check if user foo has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-server"/>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveStartApache</name>
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveForceSync</name>
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveCheckNoPendingSync</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
+    </test>
+
+    <test>
+        <name>TestSambaAfterPasswordChanged</name>
+        <desc>Checks if the user is </desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveStopApache2</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <name>DeleteUser</name>
+        <desc>Deletes an user through the ebox web interface
+        </desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
+        <dir>delete-user</dir>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveCheckPendingSync2</name>MasterSlave
+        <desc>
+        Check if slavedownuser has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-server"/>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveStartApache2</name>MasterSlave
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveForceSync2</name>MasterSlave
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
+
+    <test>
+        <name>CheckDeleteHome</name>
+        <desc>Checks if the home directory has been removed
+        after deleting the user.
+        </desc>
+
+        <host>ebox-server</host>
+
+        <dir>check-delete-home</dir>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>MasterSlaveCheckNoPendingSync2</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
+    </test>
 </suite>
