@@ -3,7 +3,7 @@
 moduledir   = @DATADIR@/ebox/modules
 module_DATA = egroupware.yaml
 
-pkgdata_DATA = ebox-egw-account.schema
+pkgdata_DATA = ebox-egw-account.ldif
 
 EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 
