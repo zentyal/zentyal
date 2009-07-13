@@ -242,8 +242,6 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
-<!-- TODO: verify jabber stuff? -->
-
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
 
