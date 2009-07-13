@@ -119,11 +119,8 @@ sub enableActions
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    if (not $users->isMaster()) {
-        $users->startIfRequired();
-    }
-    $self->loadSchema(EBox::Config::share() . '/ebox-jabber/jabber.ldif');
+    $self->performLDAPActions();
+
     root(EBox::Config::share() . '/ebox-jabber/ebox-jabber-enable');
 }
 

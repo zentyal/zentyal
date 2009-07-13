@@ -26,8 +26,6 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::UsersAndGroups;
 
-use constant SCHEMAS => ('/etc/ldap/schema/jabber.schema');
-
 use base qw(EBox::LdapUserBase);
 
 sub new 
@@ -65,20 +63,19 @@ sub _userAddOns
 		 params => $args };
 }
 
-sub _includeLDAPSchemas
+sub schemas
 {
-    my $self = shift;
+	return [ EBox::Config::share() . 'ebox-jabber/jabber.ldif' ]
+}
 
-	my $jabber = EBox::Global->modInstance('jabber');
-	return [] unless ($jabber->configured());
-
-	my @schemas = SCHEMAS;
-	return \@schemas;
+sub localAttributes
+{
+	return [ 'jabberUid' ];
 }
 
 sub isAdmin #($username)
 {
-        my ($self, $username) = @_;
+    my ($self, $username) = @_;
 	my $global = EBox::Global->getInstance(1);
 	my $users = $global->modInstance('users');
 	my $dn = $users->usersDn;

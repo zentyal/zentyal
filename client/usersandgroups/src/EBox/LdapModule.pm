@@ -82,14 +82,14 @@ sub masterLdap
     return $ldap;
 }
 
-#   Method: loadSchema
+#   Method: _loadSchema
 #
 #      loads an LDAP schema from an LDIF file
 #
 # Parameters:
 #          file - LDIF file
 #
-sub loadSchema
+sub _loadSchema
 {
     my ($self, $ldiffile) = @_;
 
@@ -98,7 +98,7 @@ sub loadSchema
     if ($users->isMaster()) {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
-        $self->_loadSchema($ldap, $ldiffile);
+        $self->_loadSchemaDirectory($ldap, $ldiffile);
     } else {
         my $password = $self->ldap->getPassword();
         my $ldap;
@@ -111,12 +111,12 @@ sub loadSchema
             }
             defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
             $ldap->bind('cn=admin,cn=config', 'password' => $password);
-            $self->_loadSchema($ldap, $ldiffile);
+            $self->_loadSchemaDirectory($ldap, $ldiffile);
         }
     }
 }
 
-sub _loadSchema
+sub _loadSchemaDirectory
 {
     my ($self, $ldap, $ldiffile) = @_;
     my $ldif = Net::LDAP::LDIF->new($ldiffile, "r", onerror => 'undef' );
@@ -149,14 +149,14 @@ sub _loadSchema
     $ldif->done();
 }
 
-#   Method: loadACL
+#   Method: _loadACL
 #
 #      loads an ACL
 #
 # Parameters:
 #          acl - string with the ACL (it has to start with 'to')
 #
-sub loadACL
+sub _loadACL
 {
     my ($self, $acl) = @_;
 
@@ -165,7 +165,7 @@ sub loadACL
     if ($users->isMaster()) {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
-        $self->_loadACL($ldap, $acl);
+        $self->_loadACLDirectory($ldap, $acl);
     } else {
         my $password = $self->ldap->getPassword();
         my $ldap;
@@ -178,12 +178,12 @@ sub loadACL
             }
             defined($ldap) or throw EBox::Exceptions::Internal("Can't connect to LDAP on port $port");
             $ldap->bind('cn=admin,cn=config', 'password' => $password);
-            $self->_loadACL($ldap, $acl);
+            $self->_loadACLDirectory($ldap, $acl);
         }
     }
 }
 
-sub _loadACL
+sub _loadACLDirectory
 {
     my ($self, $ldap, $acl) = @_;
 
@@ -221,21 +221,53 @@ sub _loadACL
         };
     }
 }
-#   Method: addTranslucentLocalAttribute
+
+#   Method: _addTranslucentLocalAttribute
 #
 #      adds an attribute as local in the translucent LDAP
 #
 # Parameters:
 #          attribute - string with the attribute name
 #
-sub addTranslucentLocalAttribute
+sub _addTranslucentLocalAttribute
 {
     my ($self, $attribute) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
-    $users->stopIfRequired();
     EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: \\1,$attribute/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
+}
+
+#   Method: performLDAPActions
+#
+#      adds the schemas, acls and local attributes specified in the
+#      LdapUserImplementation
+#
+# Parameters:
+#          attribute - string with the attribute name
+#
+sub performLDAPActions
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    if (not $users->isMaster()) {
+        $users->startIfRequired();
+    }
+    my $ldapuser = $self->_ldapModImplementation();
+    my @schemas = @{ $ldapuser->schemas() };
+    for my $schema (@schemas) {
+        $self->_loadSchema($schema);
+    }
+    my @acls = @{ $ldapuser->acls() };
+    for my $acl (@acls) {
+        $self->_loadACL($acl);
+    }
+    if (not $users->isMaster()) {
+        $users->stopIfRequired();
+        my @attrs = @{ $ldapuser->localAttributes() };
+        for my $attr (@attrs) {
+            $self->_addTranslucentLocalAttribute($attr);
+        }
+    }
     $users->restoreState();
 }
 

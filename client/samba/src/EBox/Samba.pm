@@ -169,15 +169,8 @@ sub enableActions
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    if (not $users->isMaster()) {
-        $users->startIfRequired();
-    }
-    $self->loadSchema(EBox::Config::share() . '/ebox-samba/samba.ldif');
-    $self->loadSchema(EBox::Config::share() . '/ebox-samba/ebox.ldif');
-    $self->loadACL("to attrs=sambaNTPassword,sambaLMPassword " .
-            "by dn=\"" . $self->ldap->rootDn() . "\" write by self write " .
-            "by * none");
+    $self->performLDAPActions();
+
     root(EBox::Config::share() . '/ebox-samba/ebox-samba-enable');
     if (not $users->isMaster()) {
         $users->waitSync();
@@ -1076,8 +1069,6 @@ sub _printersForUser # (user)
 {
     my ($self, $user) = @_;
 
-    _checkUserExists($user);
-
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
@@ -1114,8 +1105,6 @@ sub _printersForGroup # (user)
 sub setPrintersForUser # (user, printers)
 {
     my ($self, $user, $newconf) = @_;
-
-    _checkUserExists($user);
 
     my %currconf;
     for my $conf (@{$self->_printersForUser($user)}) {

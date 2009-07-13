@@ -276,4 +276,19 @@ sub hasAccount #($username)
     return 0;
 }
 
+sub schemas
+{
+    return [ EBox::Config::share() . '/ebox-asterisk/asterisk.ldif' ];
+}
+
+sub acls
+{
+    return [
+        "to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach," .
+        "AstAccountVMDelete " .
+        "by dn.regex=\"" . $self->ldap->rootDn() . "\" write " .
+        "by self write " .
+        "by * none" ];
+}
+
 1;

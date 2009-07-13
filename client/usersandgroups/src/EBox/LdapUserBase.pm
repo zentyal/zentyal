@@ -193,4 +193,44 @@ sub _groupAddOns($$)
 
 }
 
+# Method: schemas
+#
+#	Returns the paths for the LDIF schemas that need to be loaded
+#
+# Returns:
+#
+#	array ref - Each element must be a string with a path to an LDIF schema
+#
+sub schemas
+{
+    return [];
+}
+
+# Method: acls
+#
+#	Returns the ACLs that need to be loaded into the LDAP configuration
+#
+# Returns:
+#
+#	array ref - Each element must be a string with an ACL
+#
+sub acls
+{
+    return [];
+}
+
+# Method: localAttributes
+#
+#	Returns the attributes that need to be accessed locally in a translucent
+#	LDAP
+#
+# Returns:
+#
+#	array ref - Each element must be a string with a path to an LDIF schema
+#
+sub localAttributes
+{
+    return [];
+}
+
 1;

@@ -1296,4 +1296,17 @@ sub _loginShell
     }
 }
 
+sub schemas
+{
+    return [ EBox::Config::share() . "ebox-samba/samba.ldif",
+             EBox::Config::share() . "ebox-samba/ebox.ldif" ];
+}
+
+sub acls
+{
+    return [ "to attrs=sambaNTPassword,sambaLMPassword " .
+            "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
+            "by * none" ];
+}
+
 1;
