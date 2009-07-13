@@ -1304,6 +1304,8 @@ sub schemas
 
 sub acls
 {
+    my ($self) = @_;
+
     return [ "to attrs=sambaNTPassword,sambaLMPassword " .
             "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
             "by * none" ];
