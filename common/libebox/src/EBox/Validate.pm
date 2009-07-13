@@ -361,7 +361,8 @@ sub checkPort # (port, name?)
 #
 # Function: checkVlanID
 #
-#       Checks if the given vlan identifier is valid
+#       Checks if the given vlan identifier is valid. The valid identifers are
+#       numbers betwwen 01 and 4096 (both included)
 #
 # Parameters:
 #
@@ -386,7 +387,11 @@ sub checkVlanID # (id, name?)
         unless($id =~/^\d+$/){
                 if ($name) {
                         throw EBox::Exceptions::InvalidData
-                                ('data' => $name, 'value' => $id);
+                                ('data' => $name, 
+                                 'value' => $id,
+                                 'advice' => 
+                                 __('Must be a number between 1 and 4096')
+                                );
                 } else {
                         return undef;
                 }
@@ -397,7 +402,10 @@ sub checkVlanID # (id, name?)
         } else {
                 if ($name) {
                         throw EBox::Exceptions::InvalidData
-                                ('data' => $name, 'value' => $id);
+                                ('data' => $name, 'value' => $id,
+                                 'advice' => 
+                                 __('Must be a number between 1 and 4096')
+                                );
                 } else {
                         return undef;
                 }
