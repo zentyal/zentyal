@@ -201,8 +201,7 @@ sub row
     my ($self) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    $users->uidList(); # XXX Force LDAP connection
-    my $ldap = $users->{ldap};
+    my $ldap = $users->ldap();
 
     my $sambaLdap = new EBox::SambaLdapUser();
     my $domain = $sambaLdap->sambaDomainName();
