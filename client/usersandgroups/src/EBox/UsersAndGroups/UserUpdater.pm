@@ -76,6 +76,16 @@ sub modifyUser
     return $class->_soapResult(0);
 }
 
+sub delUser
+{
+    my ($class, $user) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    $users->delUserSlave($user);
+
+    return $class->_soapResult(0);
+}
+
 # Method: URI
 #
 # Overrides:

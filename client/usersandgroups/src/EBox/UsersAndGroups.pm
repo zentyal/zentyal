@@ -828,11 +828,21 @@ sub updateUser
 
 sub _updateUserSlaves
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user) = @_;
 
     for my $slave (@{$self->listSlaves()}) {
         my $client = $self->soapClient($slave);
         $self->soapRun($slave, 'modifyUser', $user);
+    }
+}
+
+sub _delUserSlaves
+{
+    my ($self, $user) = @_;
+
+    for my $slave (@{$self->listSlaves()}) {
+        my $client = $self->soapClient($slave);
+        $self->soapRun($slave, 'delUser', $user);
     }
 }
 
@@ -907,11 +917,6 @@ sub _cleanUser
     foreach my $mod (@mods){
         $mod->_delUser($user);
     }
-
-    # Delete user from groups
-    foreach my $group (@{$self->groupsOfUser($user)}) {
-                $self->delUserFromGroup($user, $group);
-            }
 }
 
 # Method: delUser
@@ -933,8 +938,31 @@ sub delUser # (user)
     }
 
     $self->_cleanUser($user);
-    my $r = $self->ldap->delete("uid=" . $user . "," . $self->usersDn);
+    # Delete user from groups
+    foreach my $group (@{$self->groupsOfUser($user)}) {
+        $self->delUserFromGroup($user, $group);
+    }
 
+    # Remove data added by modules
+    $self->_delUserSlaves($user);
+
+    # Delete user
+    my $r = $self->ldap->delete("uid=" . $user . "," . $self->usersDn);
+}
+
+# Method: delUserSlave
+#
+#       Removes a given user in a slave
+#
+# Parameters:
+#
+#       user - user name to be deleted
+#
+sub delUserSlave # (user)
+{
+    my ($self, $user) = @_;
+
+    $self->_cleanUser($user);
 }
 
 # Method: userInfo
