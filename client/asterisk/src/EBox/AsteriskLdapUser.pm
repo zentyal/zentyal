@@ -283,10 +283,12 @@ sub schemas
 
 sub acls
 {
+    my ($self) = @_;
+
     return [
         "to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach," .
         "AstAccountVMDelete " .
-        "by dn.regex=\"" . $self->ldap->rootDn() . "\" write " .
+        "by dn.regex=\"" . $self->{ldap}->rootDn() . "\" write " .
         "by self write " .
         "by * none" ];
 }
