@@ -299,7 +299,8 @@ sub _setConf
     my @array = ();
 
     my $net = EBox::Global->modInstance('network');
-    my $ldap = EBox::Ldap->instance();
+    my $users = EBox::Global->modInstance('users');
+    my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
     my $jabberldap = new EBox::JabberLdapUser;
 
@@ -308,7 +309,11 @@ sub _setConf
     #push (@array, 'bindpw' => $ldap->rootPw);
     push (@array, 'basedc' => $ldapconf->{'dn'});
     push (@array, 'ssl' => $self->ssl);
-    push (@array, 'ldapport' => 389);
+    if ($users->isMaster()) {
+        push(@array, 'ldapport', $ldapconf->{'port'});
+    } else {
+        push(@array, 'ldapport', $ldapconf->{'translucentport'});
+    }
     $self->writeConfFile(JABBERC2SCONFFILE,
                  "jabber/c2s.xml.mas",
                  \@array, { 'uid' => 0, 'gid' => 0, mode => '644' });
