@@ -28,7 +28,6 @@ use EBox::Validate;
 use EBox::Util::Lock;
 
 use Error qw(:try);
-use Net::DNS;
 
 # Group: Public methods
 
