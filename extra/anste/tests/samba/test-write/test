@@ -8,7 +8,7 @@ dd if=/dev/zero of=test.bin bs=4096 count=1000
 sleep 5
 
 echo "Trying to put test.bin"
-smbclient "\\\\192.168.2.1\\$SHARE" $USER -U $PASS -c 'put test.bin' > $LOG 2>&1
+smbclient "\\\\192.168.2.1\\$SHARE" $PASS -U $USER -c 'put test.bin' > $LOG 2>&1
 
 cat $LOG
 

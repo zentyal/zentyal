@@ -7,7 +7,7 @@ LOG=/tmp/smbclient-test-$$.log
 sleep 5
 
 echo "Trying to get test.bin"
-smbclient "\\\\192.168.2.1\\$SHARE" $USER -U $PASS -c 'get test.bin' > $LOG 2>&1
+smbclient "\\\\192.168.2.1\\$SHARE" $PASS -U $USER -c 'get test.bin' > $LOG 2>&1
 
 cat $LOG
 

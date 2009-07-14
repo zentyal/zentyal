@@ -1,5 +1,0 @@
-#!/bin/bash
-
-rm test.sum test.bin
-
-smbclient '\\192.168.2.1\foo' foo -U foo -c 'del test.bin'
