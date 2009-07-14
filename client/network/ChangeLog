@@ -1,5 +1,5 @@
 1.3.1
-	+ bugfix: do use Net::DNS
+	+ bugfix: do not use Net::DNS
 1.3.0
 	+ bugfix: restart network interfaces properly
 1.2
