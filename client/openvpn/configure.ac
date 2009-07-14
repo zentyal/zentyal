@@ -1,4 +1,4 @@
-AC_INIT([EBox-openvpn], [1.3.0])
+AC_INIT([EBox-openvpn], [1.3.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/OpenVPN.pm])
