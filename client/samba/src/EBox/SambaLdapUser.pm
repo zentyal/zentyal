@@ -969,7 +969,8 @@ sub _fetchDomainAttrs
 
     my $ldap = $self->{ldap};
 
-    my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge sambaLockoutThreshold/;
+    my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge 
+                  sambaMinPwdLength sambaLockoutThreshold/;
     my $result = $ldap->search(
             {
             base => $ldap->dn(),
