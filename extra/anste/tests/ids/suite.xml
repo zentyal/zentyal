@@ -87,6 +87,15 @@
     </test>
 
     <test>
+        <name>TestIDSRunning</name>
+        <desc>Check if IDS module is running.</desc>
+
+        <host>ebox-server</host>
+        <dir>service-running</dir>
+        <var name="SERVICE" value="ids"/>
+    </test>
+
+    <test>
         <name>TestPortScanFail</name>
         <desc>Execute nmap on the external attacker.</desc>
 
