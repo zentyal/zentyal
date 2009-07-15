@@ -423,11 +423,8 @@ sub _packageDepends
 #	boolean - true if it's enabled, otherwise false
 sub getAutomaticUpdates
 {
-	my $self = shift;
-	my $auto = $self->get_bool('automatic');
-    if ($auto == 0) {
-        $auto = undef;
-    }
+    my ($self) = @_;
+    my $auto = $self->get_bool('automatic');
     return $auto;
 }
 
