@@ -174,10 +174,6 @@ sub enableActions
     my $users = EBox::Global->modInstance('users');
 
     root(EBox::Config::share() . '/ebox-samba/ebox-samba-enable');
-    if (not $users->isMaster()) {
-        $users->waitSync();
-        $users->rewriteObjectClassesTree($users->groupsDn());
-    }
 }
 
 # Method: modelClasses

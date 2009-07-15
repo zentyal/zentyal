@@ -107,7 +107,10 @@ sub populateLdap
 		$ldap->add($dn, %args);
 	}
 
-    $users->waitSync();
+    if (not $users->isMaster()) {
+        $users->waitSync();
+        $users->rewriteObjectClassesTree($users->groupsDn());
+    }
 
     $ldap = $users->ldap();
 
