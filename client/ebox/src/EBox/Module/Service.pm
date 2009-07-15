@@ -290,7 +290,7 @@ sub _isDaemonRunning
         my $status = @{$output}[0];
         if ($status =~ m{$dname .* running}) {
             return 1;
-        } elsif ($status =~ m{$dname .* \[OK\]}) {
+        } elsif ($status =~ m{$dname .* [ OK ]}) {
             return 1;
         } else {
             return 0;
