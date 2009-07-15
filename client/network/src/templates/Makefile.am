@@ -2,8 +2,9 @@
 
 templatedir = @TEMPLATESPATH@/network
 
-template_DATA = confirm.mas confirmremove.mas ifaces.mas iftabs.mas \
-	diag.mas 
+template_DATA =  ifaces.mas iftabs.mas \
+	diag.mas \
+	confirm.mas confirmremove.mas confirmVlanDel.mas 
 
 EXTRA_DIST = $(template_DATA)
 

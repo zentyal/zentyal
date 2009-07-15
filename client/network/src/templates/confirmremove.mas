@@ -11,7 +11,7 @@ use EBox::Gettext;
 <% __('The change you are trying to make will affect the configuration of one or more modules that use references to this network interface.') %>
 <br/>
 <br/>
-<% __('If you choose to continue, all modules that make use of the current configuration of this network interface will delete the relevant parts of their configuration. Choose "Cancel" if you are not sure about this.') %>
+<% __('If you choose to continue, all modules that make use of this network interface will delete the relevant parts of their configuration. Choose "Cancel" if you are not sure about this.') %>
 </div>
 
 <p>

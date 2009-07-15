@@ -1258,10 +1258,10 @@ sub createVlan # (id, name, iface)
 #
 sub removeVlan # (id)
 {
-    my ($self, $id) = @_;
+    my ($self, $id, $force) = @_;
     checkVlanID($id, __('VLAN Id'));
     $self->dir_exists("vlans/$id") or return;
-    $self->unsetIface("vlan$id");
+    $self->unsetIface("vlan$id", $force);
     $self->delete_dir("vlans/$id");
 }
 

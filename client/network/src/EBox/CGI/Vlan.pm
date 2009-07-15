@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use Error qw(:try);
 
 sub new # (cgi=?)
 {
@@ -39,19 +40,35 @@ sub _process
 
 	$self->_requireParam("ifname", __("network interface"));
 	my $iface = $self->param("ifname");
+        $self->_requireParam("vlanid", __("VLAN Id"));
+        my $vlanId = $self->param('vlanid');
 
 	$self->{redirect} = "Network/Ifaces?iface=$iface";
 	$self->{errorchain} = "Network/Ifaces";
 
 	$self->keepParam('iface');
 	$self->cgi()->param(-name=>'iface', -value=>$iface);
+        
+        if ($self->param('cancel')) {
+            return;
+        }
+
 	
 	if (defined($self->param('del'))) {
-		$self->_requireParam("vlanid", __("VLAN Id"));
-		$net->removeVlan($self->param('vlanid'));
+            try {
+                my $force = $self->param('force');
+                $net->removeVlan($vlanId, $force);
+           } catch EBox::Exceptions::DataInUse with {
+               $self->{template} = 'network/confirmVlanDel.mas';
+               $self->{redirect} = undef;
+               my @masonParams = ();
+               push@masonParams, ('iface' => $iface);
+               push @masonParams, (vlanid => $vlanId);
+               $self->{params} = \@masonParams;
+           };
+
 	} elsif (defined($self->param('add'))) {
-		$self->_requireParam("vlanid", __("VLAN Id"));
-		$net->createVlan($self->param('vlanid'),
+		$net->createVlan($vlanId,
 				 $self->param('vlandesc'),
 				 $iface);
 	} 
