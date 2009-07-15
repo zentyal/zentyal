@@ -34,7 +34,7 @@ use constant DomainGroups =>
 			},
 			{
 				name => 'Domain Computers',
-				gid => 544,
+				gid => 515,
 				gtype => 2,
 			},
 			{
