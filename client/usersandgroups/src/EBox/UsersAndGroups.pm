@@ -2466,6 +2466,10 @@ sub waitSync
 {
     my ($self) = @_;
 
+    if ($self->isMaster()) {
+        return;
+    }
+
     my $times = 10;
     while(1) {
         sleep(3);
