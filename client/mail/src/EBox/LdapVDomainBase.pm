@@ -29,19 +29,19 @@ sub new
 }
 
 # Method: _addVdomain
-# 	
+#
 # 	When a new virtual domain is created this method is called
 #
-# Parameters: 
+# Parameters:
 #
-#   	vdomain - virtual domain name to be created 
+#   	vdomain - virtual domain name to be created
 sub _addVDomain($$) # (vdomain)
 {
 
 }
 
 # Method: _delVDomain
-#   
+#
 # 	When a virtual domain is deleted this method is called
 #
 # Parameters:
@@ -53,7 +53,7 @@ sub _delVDomain($$) # (vdomain)
 }
 
 # Method: _modifyVDomain
-#   
+#
 #	 When a virtual domain is modified this method is called
 #
 # Parameters:
@@ -65,7 +65,7 @@ sub _modifyVDomain($$) # (vdomain)
 }
 
 # Method: _delVDomainWarning
-#   
+#
 # 	When a virtual domain is to be deleted, modules should warn the sort of data
 # 	(if any) is going to be removed
 #
@@ -76,7 +76,7 @@ sub _modifyVDomain($$) # (vdomain)
 # Returns:
 #
 #   	array ref - Each element must be a string describing the sort of data
-#   	is going to be removed if the virtual domain is deleted. If nothing is 
+#   	is going to be removed if the virtual domain is deleted. If nothing is
 #   	going to removed you must not return anything
 sub _delVDomainWarning($$) # (vdomain)
 {

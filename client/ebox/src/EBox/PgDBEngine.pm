@@ -133,26 +133,26 @@ sub _prepare {
 #   $values: A hash ref with database fields name and values pairs that do you
 #   want to insert to.the table name passed as parameter too.
 #
-sub insert 
+sub insert
 {
     my ($self, $table, $values) = @_;
     my $sql = "INSERT INTO $table ( ";
-    
+
     my @keys = ();
     my @vals = ();
     while(my ($key, $value) = each %$values ) {
         push(@keys, $key);
         push(@vals, $value);
     }
-    
+
     $sql .= join(", ", @keys);
     $sql .= ") VALUES (";
-    
+
     foreach (@vals) {
         $sql .= " ?,";
     }
     $sql = (substr($sql, 0, -1)).')';
-    
+
 
     $self->_prepare($sql);
     my $err = $self->{'sthinsert'}->execute(@vals);
@@ -181,14 +181,14 @@ sub insert
 #   $sql: A string that contains the SQL query.
 #   @values: An array with the values to substitute in the query.
 #
-sub query 
+sub query
 {
     my ($self, $sql, @values) = @_;
-        
+
     my $ret;
     my $err;
 
-        
+
     $self->_prepare($sql);
     if (@values) {
         $err = $self->{'sthinsert'}->execute(@values);
@@ -202,7 +202,7 @@ sub query
     }
     $ret = $self->{'sthinsert'}->fetchall_arrayref({});
     $self->{'sthinsert'}->finish();
-    
+
     return $ret;
 }
 
@@ -210,16 +210,16 @@ sub query
 
 # Method: do
 #
-#   Prepare and execute a single statement. 
+#   Prepare and execute a single statement.
 #
 #
 # Parameters:
 #   $sql: A string that contains the SQL stament.
-#   $attr: 
+#   $attr:
 #   @bind_values
 #
 #
-# Returns : the number of rows affected  
+# Returns : the number of rows affected
 sub do
 {
     my ($self, $sql, $attr, @bindValues) = @_;
@@ -293,11 +293,11 @@ sub restoreDB
   my $dbuser = _dbuser();
   my $eboxHome = EBox::Config::home();
 
-  my $restoreCommand = "HOME=$eboxHome /usr/bin/psql " 
+  my $restoreCommand = "HOME=$eboxHome /usr/bin/psql "
                        . " --file $file  -U $dbuser $dbname";
   EBox::Sudo::command($restoreCommand);
   EBox::info('Database ' . _dbname() . ' restored' );
-}  
+}
 
 
 sub DESTROY

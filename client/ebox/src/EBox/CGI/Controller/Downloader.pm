@@ -105,7 +105,7 @@ sub _process
     unless ( defined ( $fileType )) {
         throw EBox::Exceptions::Internal("$fieldName does not exist"
                                          . 'in model ' . $model->name()
-                                         . '.Possible values: ' 
+                                         . '.Possible values: '
                                          . join(', ', keys(%{$row->{valueHash}})));
     }
     unless ( $fileType->allowDownload() ) {

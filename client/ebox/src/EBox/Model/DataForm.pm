@@ -875,7 +875,7 @@ sub _setTypedRow
     $self->validateTypedRow('update', $changedData, $allData);
 
     # If force != true atomaticRemove is enabled it means
-    # the model has to automatically check if the row which is 
+    # the model has to automatically check if the row which is
     # about to be changed is referenced elsewhere and this change
     # produces an inconsistent state
     if ((not $force) and $self->table()->{'automaticRemove'}) {

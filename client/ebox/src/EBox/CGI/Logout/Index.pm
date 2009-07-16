@@ -33,7 +33,7 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-sub _process 
+sub _process
 {
 	my $self = shift;
 	my $global = EBox::Global->getInstance();
@@ -44,7 +44,7 @@ sub _process
 	}
 }
 
-sub _loggedIn 
+sub _loggedIn
 {
 	return 1;
 }

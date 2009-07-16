@@ -29,19 +29,19 @@ sub new
 }
 
 # Method: _addUser
-# 	
+#
 # 	When a new user is created this method is called
 #
-# Parameters: 
+# Parameters:
 #
-#   	user - user name to be created 
+#   	user - user name to be created
 sub _addUser($$) # (user)
 {
 
 }
 
 # Method: _delUser
-#   
+#
 # 	When a user is deleted this method is called
 #
 # Parameters:
@@ -53,7 +53,7 @@ sub _delUser($$) # (user)
 }
 
 # Method: _modifyUser
-#   
+#
 #	 When a user is modified this method is called
 #
 # Parameters:
@@ -65,7 +65,7 @@ sub _modifyUser($$) # (user)
 }
 
 # Method: _delUserWarning
-#   
+#
 # 	When a user is to be deleted, modules should warn the sort of  data
 # 	(if any) is going to be removed
 #
@@ -84,19 +84,19 @@ sub _delUserWarning($$) # (user)
 }
 
 # Method: _addGroup
-# 	
+#
 # 	When a new user is created this method is called
 #
-# Parameters: 
+# Parameters:
 #
-#   	user - user name to be created 
+#   	user - user name to be created
 sub _addGroup($$) # (group)
 {
 
 }
 
 # Method: _modifyGroup
-#   
+#
 #	 When a group is modified this method is called
 #
 # Parameters:
@@ -108,7 +108,7 @@ sub _modifyGroup($$) # (group)
 }
 
 # Method: _delGroup
-#   
+#
 # 	When a group is deleted this method is called
 #
 # Parameters:
@@ -121,7 +121,7 @@ sub _delGroup($$) # (group)
 }
 
 # Method: _delGroupWarning
-#   
+#
 # 	When a group is to be deleted, modules should warn the sort of  data
 # 	(if any) is going to be removed
 #
@@ -140,7 +140,7 @@ sub _delGroupWarning($$) # (group)
 }
 
 # Method: _userAddOns
-#   
+#
 # 	When a user is to be edited, this method is called to get customized
 # 	mason components from modules depending on users stored in LDAP.
 # 	Thus, these components will be showed below the basic user data
@@ -170,7 +170,7 @@ sub _userAddOns($$)
 }
 
 # Method: _groupAddOns
-#   
+#
 # 	When a group is to be edited, this method is called to get customized
 # 	mason components from modules depending on groups stored in LDAP.
 # 	Thus, these components will be showed below the basic group data

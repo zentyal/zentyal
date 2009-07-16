@@ -37,7 +37,7 @@ use EBox::Exceptions::Base;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( @_);
@@ -60,7 +60,7 @@ sub _process
     $module->setConfigured(1);
     $module->enableService(1);
     $manager->updateModuleDigests($modName);
-    
+
     try {
         $module->enableActions();
     } otherwise {

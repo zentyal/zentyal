@@ -28,7 +28,7 @@ use constant {
 
 
 
-sub new 
+sub new
 {
   my $class = shift @_;
 
@@ -59,7 +59,7 @@ sub usedFiles
 sub doDaemon
 {
     my ($self, $mailfilterService) = @_;
- 
+
     my $enabled = $self->isEnabled();
     my $running = $self->isRunning();
 
@@ -68,7 +68,7 @@ sub doDaemon
             $self->_daemon('restart');
         }
         else {
-            $self->_daemon('start');            
+            $self->_daemon('start');
         }
     }
     elsif ($self->isRunning()) {
@@ -99,11 +99,11 @@ sub pidFile
 #   if (($action eq 'stop') or ($action eq 'restart')) {
 #       my $pid;
 #       my $pidFile = $self->pidFile();
-      
+
 #       if (EBox::Sudo::fileTest('-e', $pidFile)) {
 #           ($pid)     = @{ EBox::Sudo::root("/bin/cat $pidFile")   };
 #           chomp $pid;
-          
+
 #           if ($pid) {
 #               my $cmd = "kill $pid";
 #               EBox::Sudo::root($cmd);
@@ -120,7 +120,7 @@ sub pidFile
 
 #       EBox::Sudo::root(P3SCAN_BIN);
 #   }
-  
+
 #  # XXX we cannot use services bz p3scan is unable to run in foreground for now
 # #  EBox::Service::manage(P3SCAN_SERVICE, $action);
 # }
@@ -142,11 +142,11 @@ sub _daemon
   if (($action eq 'stop') or ($action eq 'restart')) {
       my $pid;
       my $pidFile = $self->pidFile();
-      
+
       if (EBox::Sudo::fileTest('-e', $pidFile)) {
           ($pid)     = @{ EBox::Sudo::root("/bin/cat $pidFile")   };
           chomp $pid;
-          
+
           if ($pid) {
               my $cmd = "kill $pid";
               EBox::Sudo::root($cmd);
@@ -191,7 +191,7 @@ sub _daemon
 
       EBox::Sudo::_commandError(P3SCAN_BIN, $?, \@output, \@error);
     }
-  
+
   }
 
 
@@ -270,11 +270,11 @@ sub antispam
 sub writeConf
 {
   my ($self) = @_;
-  
 
-  EBox::Module::Base::writeConfFileNoCheck(P3SCAN_CONF_FILE, 
-                              "mailfilter/p3scan.conf.mas", 
-                              [ 
+
+  EBox::Module::Base::writeConfFileNoCheck(P3SCAN_CONF_FILE,
+                              "mailfilter/p3scan.conf.mas",
+                              [
                                antivirus => $self->antivirus(),
                                antispam  => $self->antispam(),
 
@@ -284,12 +284,12 @@ sub writeConf
                               ]
                              );
 
-  
+
   my $mailfilter = EBox::Global->modInstance('mailfilter');
   my $badExtensions = $mailfilter->model('FileExtensionACL')->banned();
 
-  EBox::Module::Base::writeConfFileNoCheck(RENATTACH_CONF_FILE, 
-                              "mailfilter/renattach.conf.mas", 
+  EBox::Module::Base::writeConfFileNoCheck(RENATTACH_CONF_FILE,
+                              "mailfilter/renattach.conf.mas",
                               [
                                badExtensions =>  $badExtensions,
                               ]

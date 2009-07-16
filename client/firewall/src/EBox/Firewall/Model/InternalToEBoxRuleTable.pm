@@ -17,7 +17,7 @@
 #
 # This class describes the model used to store rules to access
 # services running on eBox from internal networks
-# 	
+#
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
 # the field description
 #
@@ -45,7 +45,7 @@ use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
 
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -59,10 +59,10 @@ sub new
 
 sub _table
 {
-    my ($self) = @_;	
-    
-    my $dataTable = 
-    { 
+    my ($self) = @_;
+
+    my $dataTable =
+    {
         'tableName' => 'InternalToEBoxRuleTable',
         'printableTableName' =>
           __('Filtering rules from internal networks to eBox'),

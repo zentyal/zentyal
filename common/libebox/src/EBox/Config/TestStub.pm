@@ -1,6 +1,6 @@
 package EBox::Config::TestStub;
 # Description:
-# 
+#
 use strict;
 use warnings;
 
@@ -20,7 +20,7 @@ sub _defaultConfig
 {
     my @defaultConfig;
 
-    my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images package version lang ); 
+    my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images package version lang );
     foreach my $key (@configKeys) {
 	my $configKeySub_r = EBox::Config->can($key);
 	defined $configKeySub_r or die "Can not find $key sub in EBox::Config module";
@@ -57,7 +57,7 @@ sub fake
 sub _checkFakeParams
 {
     my %params = @_;
-    
+
 
 }
 
@@ -93,7 +93,7 @@ sub setConfigKeys
 
     print "checkConfigKey\n\n";
     _checkConfigKeysParameters(@_);
- 
+
     my @fakeSubs;;
     while ( my ($configKey, $fakedResult) = each %fakedConfig ) {
       push @fakeSubs, ($configKey => sub { return $fakedResult });

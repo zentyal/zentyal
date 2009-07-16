@@ -20,7 +20,7 @@ use warnings;
 #
 #   A reference to a hash which ocntains the used filesystem as keys
 #   and a hash with the disk usage by facility or pseudo-facilty.
-#     The facilities are named with his printable name 
+#     The facilities are named with his printable name
 #
 #  Bugs:
 #    doesn't take account symbolic links
@@ -29,7 +29,7 @@ sub diskUsage
 {
   my ($self, %params) = @_;
   my $blockSize = $params{blockSize};
-  defined $blockSize or 
+  defined $blockSize or
     throw EBox::Exceptions::MissingArgument('blockSize');
   my ($fileSystemToScan) = $params{fileSystem};
 
@@ -40,7 +40,7 @@ sub diskUsage
 
   while (my ($facility, $dirs_r) = each %facilities) {
     foreach my $dir (@{ $dirs_r }) {
-      (-d $dir) or 
+      (-d $dir) or
           next;
 
       my $filesys = EBox::FileSystem::dirFileSystem($dir);
@@ -67,15 +67,15 @@ sub diskUsage
 #
 #   This method will be overriden by almost subclasses to notify which
 #   facilities and directories need to be included in the report
-#   
-# Returns: 
+#
+# Returns:
 #   A hash reference with the printable name of the facilities as keys
 #    and a reference to the list of directories included in each facility
 #
 # Warning:
 #   if the directories overlap some files will be counted twice
-#   any directory specified shouldn't have a directory in another filesystem or 
-#   we will have a bad filesystem usage count 
+#   any directory specified shouldn't have a directory in another filesystem or
+#   we will have a bad filesystem usage count
 sub _facilitiesForDiskUsage
 {
   return {};

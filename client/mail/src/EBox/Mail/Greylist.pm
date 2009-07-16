@@ -29,7 +29,7 @@ use EBox::Module::Base;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 
-use constant { 
+use constant {
     EVENTD_DIR       => '/etc/event.d',
     GREYLIST_SERVICE => 'ebox.postgrey',
     WHITELIST_CLIENTS_FILE => '/etc/postgrey/whitelist_clients',
@@ -142,7 +142,7 @@ sub writeUpstartFile
    EBox::Module::Base::writeConfFileNoCheck(
                                     $path,
                                     '/mail/ebox.postgrey.mas',
-                                    [ 
+                                    [
                                      address  => $self->address(),
                                      port => $self->port(),
 
@@ -153,7 +153,7 @@ sub writeUpstartFile
 
                                     $fileAttrs
                                    );
-  
+
 }
 
 sub upstartFile
@@ -180,7 +180,7 @@ sub writeConf
         else {
             ()
         }
-        
+
     } @internalIf;
 
 
@@ -196,7 +196,7 @@ sub writeConf
    EBox::Module::Base::writeConfFileNoCheck(
                                     WHITELIST_CLIENTS_FILE,
                                     '/mail/whitelist_clients.mas',
-                                    [ 
+                                    [
                                      whitelist => [
                                                    @internalNets,
                                                    @{ $self->_antispamWhitelist() },
@@ -205,7 +205,7 @@ sub writeConf
                                     ],
 
                                     $fileAttrs
-                                   );   
+                                   );
 }
 
 
@@ -213,7 +213,7 @@ sub writeConf
 sub _antispamWhitelist
 {
     my ($self) = @_;
-    
+
     # TODO: use a interface when we have more than one module with spam ACL
     my $global = EBox::Global->getInstance();
 
@@ -229,7 +229,7 @@ sub _antispamWhitelist
 
     my @wl = @{ $mailfilter->antispam()->whitelist() };
     # the format for domains is @domain_name, however postgrey uses domainname
-    # format 
+    # format
     @wl = map {
         $_ =~ s/^@//;
         $_
@@ -244,7 +244,7 @@ sub port
     return 60000;
 }
 
-sub address 
+sub address
 {
     my ($self) = @_;
     return '127.0.0.1';
@@ -275,10 +275,10 @@ sub serviceWidget
     my ($self) = @_;
 
     my $widget = new EBox::Dashboard::ModuleStatus(
-                                                module => 'mail', 
+                                                module => 'mail',
                                                 printableName => __('Greylist service'),
                                                 running => $self->isRunning(),
-                                                enabled => $self->isEnabled(), 
+                                                enabled => $self->isEnabled(),
                                                );
 
     return $widget;

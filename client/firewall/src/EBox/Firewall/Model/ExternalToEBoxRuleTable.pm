@@ -20,7 +20,7 @@
 #
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
 # the field description
-# 	
+#
 package EBox::Firewall::Model::ExternalToEBoxRuleTable;
 
 use EBox::Global;
@@ -45,7 +45,7 @@ use warnings;
 use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -59,10 +59,10 @@ sub new
 
 sub _table
 {
-    my ($self) = @_;	
+    my ($self) = @_;
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'ExternalToEBoxRuleTable',
         'printableTableName' =>
           __('Filtering rules from  external networks to eBox'),

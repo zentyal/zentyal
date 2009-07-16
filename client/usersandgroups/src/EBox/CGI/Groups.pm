@@ -48,7 +48,7 @@ sub _process($) {
 		my @groups = $usersandgroups->groups();
 		push(@args, 'groups' => \@groups);
 	} else  {
-		$self->setTemplate('/notConfigured.mas'); 
+		$self->setTemplate('/notConfigured.mas');
 		push(@args, 'module' => __('Users'));
 	}
 

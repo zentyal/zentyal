@@ -34,7 +34,7 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('template' => '/moduleStatusTable.mas', @_);
@@ -56,7 +56,7 @@ sub _process
         if (@params > 1) {
             $enabled = 1;
         }
-        $modules{$mod} = $enabled; 
+        $modules{$mod} = $enabled;
     }
 
 #     use Data::Dumper;
@@ -67,7 +67,7 @@ sub _process
 
     my $modules = $manager->moduleStatus();
     my @params;
-    push @params, (modules => $modules, 
+    push @params, (modules => $modules,
                    hasChanged => EBox::Global->getInstance()->unsaved());
 
     $self->{params} = \@params;

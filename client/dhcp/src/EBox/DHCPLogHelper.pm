@@ -38,7 +38,7 @@ sub domain {
 }
 
 
-# Method: logFiles 
+# Method: logFiles
 #
 #       This function must return the file or files to be read from.
 #
@@ -51,7 +51,7 @@ sub logFiles
     return [DHCPLOGFILE];
 }
 
-# Method: processLine 
+# Method: processLine
 #
 #       This fucntion will be run every time a new line is recieved in
 #       the associated file. You must parse the line, and generate
@@ -64,7 +64,7 @@ sub logFiles
 #       line - string containing the log line
 #       dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
-sub processLine # (file, line, logger) 
+sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
@@ -89,9 +89,9 @@ sub processLine # (file, line, logger)
     my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
     my $data = {
         'timestamp' => $timestamp, '
-                        ip' => $ip, 'mac' => $mac, 
-        'interface' => $iface, 
-        'event' => $event 
+                        ip' => $ip, 'mac' => $mac,
+        'interface' => $iface,
+        'event' => $event
        };
     $dbengine->insert('leases', $data);
 

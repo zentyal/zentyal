@@ -51,16 +51,16 @@ sub new
 sub _paramIsValid
 {
     my ($self, $params) = @_;
-    
+
     my $value = $params->{$self->fieldName()};
-    
+
     unless ($value =~ m/^[a-zA-Z\d]+$/) {
         throw EBox::Exceptions::InvalidData (
                                              data => __x('file extension'),
                                              value =>  $value,
                                             );
     }
-    
+
     return 1;
 }
 

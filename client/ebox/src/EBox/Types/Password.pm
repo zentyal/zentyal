@@ -50,7 +50,7 @@ sub new
 	unless (exists $opts{'HTMLViewer'}) {
 		$opts{'HTMLViewer'} ='/ajax/viewer/passwordViewer.mas';
 	}
-	
+
         $opts{'type'} = 'password';
         my $self = $class->SUPER::new(%opts);
 
@@ -160,7 +160,7 @@ sub _paramIsValid
 #
 #  Overrides:
 #  <EBox::Types::Text::cmp>
-sub cmp 
+sub cmp
 {
     my ($self, $other) = @_;
 

@@ -29,12 +29,12 @@ use EBox::Types::Select;
 
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
 
 # XXX TODO: disable ssl options when no service is enabled
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -52,15 +52,15 @@ sub new
 #
 # This table is composed of two fields:
 #
-#   domain (<EBox::Types::Text>)    
+#   domain (<EBox::Types::Text>)
 #   enabled (EBox::Types::Boolean>)
-# 
+#
 # The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                                   fieldName => 'pop3',
                                   printableName => 'POP3 service enabled',

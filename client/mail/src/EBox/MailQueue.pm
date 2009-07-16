@@ -24,7 +24,7 @@ use EBox::Sudo qw( :all );
 BEGIN {
     use Exporter ();
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
-    
+
     @ISA = qw(Exporter);
     @EXPORT = qw();
         %EXPORT_TAGS  = (all => [qw{
@@ -54,7 +54,7 @@ BEGIN {
 #
 #  array ref: mail queue list
 #
-sub mailQueueList 
+sub mailQueueList
 {
     my ($class) =  @_;
 
@@ -63,16 +63,16 @@ sub mailQueueList
                 };
     my @mqarray = ();
 #    use Data::Dumper;
-    
+
     my $mailqOutput = EBox::Sudo::root('/usr/bin/mailq');
-    
+
 
     foreach my $line (@{ $mailqOutput  }) {
         if ($line =~ m/^-/) {
             next;
         } elsif ($line =~ m/^\w+\s/) {
             # this is the id + info line
-            my ($qid, $size, $dweek, $month, $day, $time, $sender) = 
+            my ($qid, $size, $dweek, $month, $day, $time, $sender) =
                 split '\s+', $line;
             $entry->{'qid'} = $qid;
             $entry->{'size'} = $size;
@@ -121,7 +121,7 @@ sub removeMail {
 #
 #  qid: queue id.
 #
-sub requeueMail 
+sub requeueMail
 {
     my ($qid) = @_;
 
@@ -140,7 +140,7 @@ sub requeueMail
 # Returns:
 #
 #  string: Extra mail information
-sub infoMail 
+sub infoMail
 {
     my ($qid) = @_;
 
@@ -153,7 +153,7 @@ sub infoMail
         if ($_ =~ m/^\*\*\* HEADER EXTRACTED.*$/) { $writeon    = 0; }
     }
     pop(@info);
-        
+
     return \@info;
 }
 

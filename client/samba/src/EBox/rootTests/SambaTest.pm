@@ -104,7 +104,7 @@ sub fullBackupWithoutSharesTest : Test(2)
 sub fullBackupTest : Test(7)
 {
   my $status = _setConfig();
-  
+
   _checkBackup($FULL_BACKUP_DIR,  1);
 
   _messConfig();
@@ -122,7 +122,7 @@ sub _checkBackup
   my $samba = EBox::Global->modInstance('samba');
   my $users = EBox::Global->modInstance('users');
 
-  lives_ok { 
+  lives_ok {
 #    $users->makeBackup($dir, fullBackup => $fullBackup);
     $samba->makeBackup($dir, fullBackup => $fullBackup) ;
   } 'Backup data in ' . $fullBackup ? 'full backup mode' : 'configuration backup mode' ;
@@ -136,7 +136,7 @@ sub _checkRestore
   my $samba = EBox::Global->modInstance('samba');
   my $users = EBox::Global->modInstance('users');
 
-  lives_ok { 
+  lives_ok {
 #    $users->restoreBackup($dir, fullRestore => $fullRestore);
     $samba->restoreBackup($dir, fullRestore => $fullRestore) ;
   } 'Restore data in ' . $fullRestore ? 'full restore mode' : 'configuration restore mode' ;
@@ -213,25 +213,25 @@ sub _checkRestoredDir
 }
 
 # this counts for 49 tests
-sub _leftoversTest 
+sub _leftoversTest
 {
   my ($backupDir, $fullBackup) = @_;
 
   my $samba = EBox::Global->modInstance('samba');
   my $users = EBox::Global->modInstance('users');
-  
+
   my $leftoversBase = $samba->leftoversDir();
   EBox::Sudo::root("/bin/rm -rf $leftoversBase");
 
 
   my $status = _setConfig();
-  
+
   _checkBackup($backupDir, $fullBackup);
 
   _messConfig();
 
-  
-  # simulate leftover bits from user 
+
+  # simulate leftover bits from user
   my $homedir = EBox::SambaLdapUser::usersPath() . '/leftoverUserTest';
   _simulateLeftoverDir($homedir);
   # simulate leftover bits from group
@@ -283,13 +283,13 @@ sub _checkLeftoverDirAfterBackup
   ok !(-d $previousDir), 'Checking if homedir was not left in his previous place';
 
 
-  my $stDir = EBox::Sudo::stat($leftoverDir);  
+  my $stDir = EBox::Sudo::stat($leftoverDir);
   ok $stDir, 'Checking if homedir was moved to leftover dir';
  SKIP:{
     skip 3, "Home dir not moved so ownership and permissions tests skipped" unless defined $stDir;
     is $stDir->uid, 0, 'Checking that file now is owner by root';
     is $stDir->gid, 0, 'Checking that file now is owner by root group';
-	
+
     my $permissions = EBox::FileSystem::permissionsFromStat($stDir);
     is $permissions,  '0755', 'Checking that user leftover dir has restricitive permissions';
   }
@@ -300,7 +300,7 @@ sub _checkLeftoverDirAfterBackup
     skip 3, "Canary file lost so ownership and permissions tests skipped" unless  $stCanary;
     is $stCanary->uid, 0, 'Checking that file now is owner by root';
     is $stCanary->gid, 0, 'Checking that file now is owner by root group';
-	
+
     my $filePermissions = EBox::FileSystem::permissionsFromStat($stCanary);
     is $filePermissions,  '0600', 'Checking that canary file has restricitive permissions';
   }

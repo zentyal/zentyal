@@ -23,7 +23,7 @@ use base 'EBox::GConfHelper';
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;
@@ -71,7 +71,7 @@ sub key # (key)
 
 
 # ! this also marks the module as changed
-sub backup 
+sub backup
 {
 	my $self = shift;
 	if ($self->isReadOnly) {

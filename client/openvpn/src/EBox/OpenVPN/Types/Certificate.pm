@@ -42,7 +42,7 @@ sub new
     $opts{allowUnsafeChars} = 1;
 
     my $self = $class->SUPER::new(%opts);
-    
+
 
     bless($self, $class);
     return $self;

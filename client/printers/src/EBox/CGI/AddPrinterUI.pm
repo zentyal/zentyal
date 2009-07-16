@@ -42,7 +42,7 @@ sub domain
 
 sub _process($) {
 	my $self = shift;
-	
+
 	my @array;
 	$self->{params} = \@array;
 }

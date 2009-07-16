@@ -306,7 +306,7 @@ sub EndBuild #(hasChanged)
             $changed = 1;
             };
         };
-        
+
 
     my $deleteFrom;
 

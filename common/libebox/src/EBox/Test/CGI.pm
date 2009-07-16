@@ -15,7 +15,7 @@ my $Test = Test::Builder->new;
 sub runCgi
 {
     my ($cgi, @params) = @_;
-    
+
     setCgiParams($cgi, @params);
 
     $cgi->run();
@@ -78,9 +78,9 @@ sub muteHtmlOutput
   if ($@) {
     die "Error when overriding _printHtml with a muted version: $@";
   }
-          
+
 }
-  
+
 
 
 
@@ -95,7 +95,7 @@ sub checkMasonParameters
 
    # we convert to hash to eliminate order issues
     my $masonParameters = $cgi->{params};
-    my $params = defined $masonParameters ?  { @{ $masonParameters } } : {}; 
+    my $params = defined $masonParameters ?  { @{ $masonParameters } } : {};
 
     eq_or_diff $params, $wantedParameters, $testName;
 }

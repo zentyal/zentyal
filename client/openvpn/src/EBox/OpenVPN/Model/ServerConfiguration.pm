@@ -14,10 +14,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #
 
-#   
+#
 package EBox::OpenVPN::Model::ServerConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -50,7 +50,7 @@ use EBox::View::Customizer;
 use constant ALL_INTERFACES => '_ALL';
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -65,8 +65,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
          new EBox::OpenVPN::Types::PortAndProtocol(
 
              fieldName => 'portAndProtocol',
@@ -104,40 +104,40 @@ sub _table
                  help => __('Enable it if you only have one network interface')
                  ),
          new EBox::Types::Boolean(
-                 fieldName => 'clientToClient',  
-                 printableName => __('Allow client-to-client connections'), 
+                 fieldName => 'clientToClient',
+                 printableName => __('Allow client-to-client connections'),
                  editable => 1,
                  defaultValue => 0,
                  help => __('Enable it to allow client machines of this VPN ' .
                             'to see each other')
                  ),
          new EBox::Types::Boolean(
-                 fieldName => 'pullRoutes', 
-                 printableName => __('Allow eBox-to-eBox tunnels'), 
+                 fieldName => 'pullRoutes',
+                 printableName => __('Allow eBox-to-eBox tunnels'),
                  editable => 1,
                  defaultValue => 0,
                  help => __('Enable it if this VPN is used to connect to ' .
                             'another eBox')
                  ),
          new EBox::Types::Password(
-                 fieldName => 'ripPasswd', 
-                 printableName => __('eBox-to-eBox tunnel password'), 
+                 fieldName => 'ripPasswd',
+                 printableName => __('eBox-to-eBox tunnel password'),
                  minLength => 6,
                  editable => 1,
                  optional => 1,
 
-                 ), 
+                 ),
          new EBox::Types::Select(
-                 fieldName  => 'local', 
-                 printableName => __('Interface to listen on'), 
+                 fieldName  => 'local',
+                 printableName => __('Interface to listen on'),
                  editable => 1,
                  populate      => \&_populateLocal,
                  defaultValue => ALL_INTERFACES,
                  ),
          );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName'               => __PACKAGE__->nameFromClass(),
         'printableTableName' => __('Server configuration'),
         'automaticRemove' => 1,
@@ -197,9 +197,9 @@ sub _populateLocal
     @options = map { { value => $_ } }  @enabledIfaces;
 
 
-    push @options,  { 
-                     value => ALL_INTERFACES, 
-                      printableValue => __('All network interfaces'), 
+    push @options,  {
+                     value => ALL_INTERFACES,
+                      printableValue => __('All network interfaces'),
                     };
 
     return \@options;
@@ -234,7 +234,7 @@ sub _checkRipPasswd
     my ($self, $action, $params_r, $actual_r) = @_;
 
     return unless (
-                   (exists $params_r->{ripPasswd}) or 
+                   (exists $params_r->{ripPasswd}) or
                    (exists $params_r->{pullRoutes})
                   );
 
@@ -247,7 +247,7 @@ sub _checkRipPasswd
 
     return if (not $pullRoutes); # only ripPasswd is needed when pullRoutes
                                  #  is on
-        
+
     $ripPasswd or
         throw EBox::Exceptions::External(
           __('eBox to eBox tunel option requieres a RIP password')
@@ -258,7 +258,7 @@ sub _uniqPortAndProtocol
 {
     my ($self, $action, $params_r) = @_;
 
-    exists $params_r->{portAndProtocol} 
+    exists $params_r->{portAndProtocol}
     or return;
 
     my $portAndProtocol = $params_r->{portAndProtocol};
@@ -306,7 +306,7 @@ sub _checkPortIsAvailable
                     $actual_r->{local}->value();
 
 
-    return if $self->_alreadyCheckedAvailablity($proto, 
+    return if $self->_alreadyCheckedAvailablity($proto,
                 $port, $local, $actual_r);
 
 
@@ -356,7 +356,7 @@ sub _alreadyCheckedAvailablity
         if ($sameProto and $samePort and $sameLocal) {
             # we have already checked,
             return 1;
-        } 
+        }
     }
 
     return 0;
@@ -383,7 +383,7 @@ sub _checkIface
     if (not $network->ifaceExists($iface) ) {
         throw EBox::Exceptions::External(
             __x('The interface {iface} does not exist'), iface => $iface);
-    } 
+    }
 
     if ( $network->ifaceMethod($iface) eq 'notset') {
         throw EBox::Exceptions::External(
@@ -424,7 +424,7 @@ sub _checkMasqueradeIsAvailable
 sub _checkIfaceAndMasquerade
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-    
+
     my $masquerade = exists $params_r->{masquerade} ?
                                  $params_r->{masquerade}->value() :
                                  $actual_r->{masquerade}->value();
@@ -438,7 +438,7 @@ sub _checkIfaceAndMasquerade
 
     my $local   = exists $params_r->{local} ?
                                  $params_r->{local}->value() :
-                                 $actual_r->{local}->value(); 
+                                 $actual_r->{local}->value();
 
     my $network = EBox::Global->modInstance('network');
 
@@ -456,7 +456,7 @@ sub _checkIfaceAndMasquerade
         my $external = $network->ifaceIsExternal($local);
         if (not $external) {
             throw EBox::Exceptions::External(
-              __('The interface must be a external interface, unless ' . 
+              __('The interface must be a external interface, unless ' .
               'masuqerade option is on')
                                             )
         }
@@ -468,7 +468,7 @@ sub _checkIfaceAndMasquerade
 sub _checkServerCertificate
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-    
+
     (exists $params_r->{certificate}) or
         return;
 
@@ -481,12 +481,12 @@ sub _checkTlsRemote
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-    
+
     (exists $params_r->{tlsRemote}) or
         return;
 
     my $cn = $params_r->{tlsRemote}->value();
-    
+
     if ($cn == 0) {
         # TLS rmeote option disabled, nothing to check
         return;

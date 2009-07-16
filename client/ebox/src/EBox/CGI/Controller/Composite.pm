@@ -77,7 +77,7 @@ sub _process
     my $composite = $self->{composite};
 
     my $directory = $self->param('directory');
-    
+
     if (defined $directory) {
         $composite->setDirectory($directory);
     }

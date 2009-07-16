@@ -1,5 +1,5 @@
 package EBox::CGI::ProgressClient;
-#  this class is to provide helper method for any CGI which must 
+#  this class is to provide helper method for any CGI which must
 #
 use strict;
 use warnings;
@@ -19,8 +19,8 @@ sub new
 #                         to drive the progress screen (mandatory)
 #
 #   title              - title of the page
-#   currentItemCaption - caption before the actual item value 
-#   itemsLeftMessage   - text after the 'x of y' 
+#   currentItemCaption - caption before the actual item value
+#   itemsLeftMessage   - text after the 'x of y'
 #   endNote            - text of the note showed when the operation ends
 #
 #   errorNote - String text showed when operation has not finished
@@ -39,7 +39,7 @@ sub new
 sub showProgress
 {
   my ($self, %params) =@_;
-  $params{progressIndicator} or 
+  $params{progressIndicator} or
     throw EBox::Exceptions::MissingArgument('progressIndicator');
   $params{url} or $params{url} = '/Progress';
 

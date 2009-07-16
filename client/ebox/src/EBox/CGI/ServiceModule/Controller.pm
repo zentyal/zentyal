@@ -16,7 +16,7 @@
 
 # package EBox::CGI::ServiceModule::Controller
 #
-#  This class is to gather the files which have been accepted to modify 
+#  This class is to gather the files which have been accepted to modify
 #  by the user
 #
 package EBox::CGI::ServiceModule::Controller;
@@ -34,7 +34,7 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( @_);

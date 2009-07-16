@@ -8,18 +8,18 @@ use warnings;
 # Method: mailFilter
 #
 #  return thes filter name and specifications. The specifications are a
-#  reference to a hash with the following fields: 
+#  reference to a hash with the following fields:
 #    - active
-#    - prettyName 
+#    - prettyName
 #    - address
 #    - port
 #    - forwardPort
-#    - instance 
+#    - instance
 #    - module
 #
 #   if there is no filter available undef will be returned instead
 #
-# Returns: 
+# Returns:
 #        - (name, specifications) of the available filter
 #        - undef if there is not filter  avaialbe
 #

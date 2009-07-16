@@ -35,7 +35,7 @@ sub new {
 sub _process($){
 	my $self = shift;
 	my $dhcp = EBox::Global->modInstance('dhcp');
-	
+
 	$self->_requireParam("iface", __("Interface"));
 	my $iface= $self->param("iface");
 	$self->{redirect} = "DHCP/Index?iface=$iface";

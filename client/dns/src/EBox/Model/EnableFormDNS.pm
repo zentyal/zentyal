@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::DNS::Model::EnableFormDNS 
+# Class: EBox::DNS::Model::EnableFormDNS
 #
 # This class extends <EBox::Common::EnableForm> to be used within the
 # DNS module.
@@ -56,7 +56,7 @@ sub new
 # Method: _table
 #
 # 	Overrides <EBox::Common::EnableForm::_table to change its name
-# 	
+#
 sub _table
 {
 
@@ -85,7 +85,7 @@ sub formSubmitted
     } else {
         $self->setMessage(__('Service disabled'));
     }
-    
+
     $dns->configureFirewall();
 
 }

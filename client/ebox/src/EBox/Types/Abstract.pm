@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# TODO 
+# TODO
 #       Document this class
 #       Fix the method naming, some names such as
 #       setMemValue and memValue are so broken!!!
@@ -42,11 +42,11 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $self = {@_};
-    
+
     if (not $self->{fieldName}) {
         throw EBox::Exceptions::MissingArgument('fieldName');
     }
-    
+
     if (not $self->{printableName}) {
         $self->{printableName} = $self->{fieldName};
     }
@@ -57,7 +57,7 @@ sub new
         $self->{'HTMLSetter'} = undef;
     }
     bless($self, $class);
-    
+
     if ( defined ( $self->{'defaultValue'} )) {
         if ( $self->optional() ) {
             throw EBox::Exceptions::Internal(
@@ -163,7 +163,7 @@ sub editable
 sub fieldName
 {
     my ($self) = @_;
-    
+
     return $self->{'fieldName'};
 }
 
@@ -193,7 +193,7 @@ sub printableValue
 #       This method is used to filter the output of printableValue
 #
 # Returns:
-#       
+#
 #       Output filtered
 sub filter
 {
@@ -240,10 +240,10 @@ sub defaultValue
 #
 #     string
 #
-sub help 
+sub help
 {
     my ($self) = @_;
-    
+
     if (defined($self->{help})) {
         return $self->{help};
     } else {
@@ -341,7 +341,7 @@ sub paramExist
 sub storeInGConf
 {
     my ($self, @params) = @_;
-    
+
     if ( $self->volatile() ) {
         if ( $self->storer() ) {
               my $storerProc = $self->storer();
@@ -350,7 +350,7 @@ sub storeInGConf
     } else {
         $self->_storeInGConf(@params);
     }
-    
+
 }
 
 
@@ -504,7 +504,7 @@ sub acquirer
     my ($self) = @_;
 
     return $self->{acquirer};
-    
+
 }
 
 # Method: storer
@@ -531,7 +531,7 @@ sub storer
 #  returns if a type object is equal to another
 #  default implementation uses the cmp method
 #  soon to be deprecated.
-sub isEqualTo 
+sub isEqualTo
 {
     my ($self, $other) = @_;
     return $self->cmp($other) == 0;
@@ -733,7 +733,7 @@ sub _fetchFromCache
     my ($self) = @_;
     my $row = $self->row();
     return undef unless ($row);
-    my $id = $self->_path(); 
+    my $id = $self->_path();
     my $name = $self->fieldName();
     my $model = $self->model();
     if (exists $model->{dataCache}->{$id}->{$name}) {

@@ -65,11 +65,11 @@ sub help
 sub _imageModel
 {
   my ($self) = @_;
-  
+
   my $network = EBox::Global->modInstance('network');
   return $network->model('ByteRateGraph');
 }
- 
+
 sub _tableDesc
 {
   my @tableHead
@@ -136,7 +136,7 @@ sub _tableDesc
 sub _setTypedRow
 {
   my ($self, @params) = @_;
-    
+
   my $global   = EBox::Global->getInstance();
   my $networkChanged = $global->modIsChanged('network');
 

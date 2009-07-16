@@ -37,10 +37,10 @@ sub new
 #
 # Returns:
 #
-#	An object implementing EBox::LdapVDomainsBase 
-sub _vdomainModImplementation 
+#	An object implementing EBox::LdapVDomainsBase
+sub _vdomainModImplementation
 {
-	throw EBox::Exceptions::NotImplemented();	
+	throw EBox::Exceptions::NotImplemented();
 }
 
 1

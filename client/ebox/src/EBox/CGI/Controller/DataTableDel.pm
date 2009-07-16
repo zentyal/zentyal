@@ -27,7 +27,7 @@ sub new # (cgi=?)
 {
 	my $class = shift;
 	my %params = @_;
-	my $tableModel = $params{'tableModel'};	
+	my $tableModel = $params{'tableModel'};
 	my $self = $class->SUPER::new(@_);
 	$self->{'tableModel'} = $tableModel;
 	bless($self, $class);
@@ -37,7 +37,7 @@ sub new # (cgi=?)
 sub _process
 {
 	my $self = shift;
-	
+
 	$self->removeRow();
 	$self->refreshTable();
 

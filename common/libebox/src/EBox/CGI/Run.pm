@@ -85,12 +85,12 @@ sub classFromUrl
 sub run # (url, namespace)
 {
         my ($self, $url, $namespace) = @_;
-        
+
         my $classname = classFromUrl($url, $namespace);
         settextdomain('ebox');
 
         my $cgi;
-        eval "use $classname"; 
+        eval "use $classname";
         if ($@) {
                 try {
                   $cgi = _lookupViewController($classname, $namespace);
@@ -99,20 +99,20 @@ sub run # (url, namespace)
                   # path not valid
                   $cgi = undef;
                 };
-                
+
                 if (not $cgi) {
                         my $log = EBox::logger;
-                        $log->error("Unable to import cgi: " 
+                        $log->error("Unable to import cgi: "
                                 . "$classname Eval error: $@");
 
                         my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
                         eval "use $error_cgi";
                         $cgi = new $error_cgi('namespace' => $namespace);
                 } else {
-                      #  EBox::debug("$classname mapped to " 
+                      #  EBox::debug("$classname mapped to "
                       #  . " Controller/Viewer CGI");
                 }
-        } 
+        }
         else {
                 $cgi = new $classname();
         }
@@ -180,7 +180,7 @@ sub lookupModel
             if (($modelName) ne '') {
                 $model = $manager->model($modelName);
             } else {
-                throw EBox::Exceptions::DataNotFound(q{model's name});	
+                throw EBox::Exceptions::DataNotFound(q{model's name});
             }
         };
     } elsif ( $namespace eq 'Composite' ) {
@@ -224,7 +224,7 @@ sub _lookupViewController
         my ($cgi, $menuNamespace) = (undef, undef);
 
         my ($model, $action) = lookupModel($classname);
-    
+
         if($model) {
             my @namespaces = split ( '::', $classname);
             my $pos = _posAfterCGI(\@namespaces);

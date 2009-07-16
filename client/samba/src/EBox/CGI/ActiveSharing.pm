@@ -30,7 +30,7 @@ sub new {
         my $class = shift;
         my $self = $class->SUPER::new('title' => 'Users and Groups',
                                       @_);
-	$self->{domain} = "ebox-samba";	
+	$self->{domain} = "ebox-samba";
 
         bless($self, $class);
         return $self;
@@ -38,11 +38,11 @@ sub new {
 
 sub _group {
 	my $self = shift;
-	
+
 	my $samba = new EBox::SambaLdapUser;
-	
+
 	$self->_requireParam('group', __('group name'));
-	$self->keepParam('group');	
+	$self->keepParam('group');
 	$self->{errorchain} =  "UsersAndGroups/Group";
 	$self->_requireParamAllowEmpty('sharename', __('sharing name'));
 	my $name =  $self->param('sharename');
@@ -58,11 +58,11 @@ sub _group {
 
 sub _user {
 	my $self = shift;
-	
+
 	my $smbldap = new EBox::SambaLdapUser;
 	my $smb = EBox::Global->modInstance('samba');
 	my $users = EBox::Global->modInstance('users');
-	
+
 
 	$self->_requireParam('user', __('user name'));
 	$self->keepParam('user');
@@ -72,7 +72,7 @@ sub _user {
 	my $user = $self->param('user');
 	my $active = $self->param('active');
 	my $uid = $users->userInfo($user)->{'uid'};
-	
+
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
 
 	$smbldap->setUserSharing($user, $active);
@@ -83,10 +83,10 @@ sub _user {
 sub _process($) {
         my $self = shift;
 
-	if ($self->param('user')) {	
+	if ($self->param('user')) {
 		$self->_user;
 	} else {
-		$self->_group;	
+		$self->_group;
 	}
 }
 

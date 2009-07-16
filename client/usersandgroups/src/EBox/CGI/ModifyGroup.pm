@@ -36,24 +36,24 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	
+
 	$self->_requireParam('groupname', __('group name'));
-	my $group = $self->param('groupname');	
+	my $group = $self->param('groupname');
 	$self->{errorchain} = "UsersAndGroups/Group";
-	
+
 	$self->cgi()->param(-name=>'group', -value=>$group);
 	$self->keepParam('group');
 
 	$self->_requireParamAllowEmpty('comment', __('comment'));
-	
-	my $groupdata   = { 
+
+	my $groupdata   = {
 				'groupname' => $group,
 				'comment'  => $self->param('comment')
 			 };
-	
+
 	my $usersandgroups = EBox::Global->modInstance('users');
 	$usersandgroups->modifyGroup($groupdata);
-	
+
 	$self->{redirect} = "UsersAndGroups/Group?group=$group";
 }
 

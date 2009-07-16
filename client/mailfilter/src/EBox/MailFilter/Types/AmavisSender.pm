@@ -57,7 +57,7 @@ sub new
 sub _paramIsValid
 {
     my ($self, $params) = @_;
-    
+
     my $sender = $params->{$self->fieldName()};
     $self->validate($sender);
 
@@ -66,8 +66,8 @@ sub _paramIsValid
 
 #  Method: validate
 #
-#    validates wether we have a valid sender either in the form 
-#     user@domain or @domain 
+#    validates wether we have a valid sender either in the form
+#     user@domain or @domain
 #
 sub validate
 {

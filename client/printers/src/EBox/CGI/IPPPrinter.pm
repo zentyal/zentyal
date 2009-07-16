@@ -25,7 +25,7 @@ use EBox::Gettext;
 
 ## arguments:
 ##      title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
@@ -45,18 +45,18 @@ sub _process
     my $id = $self->param('printerid');
     my $ip = $self->param('ip');
     my $port = $self->param('port');
-        
+
     my $printers = EBox::Global->modInstance('printers');
-        
+
     $printers->setIPPPrinter($id, $ip, $port);
     $self->keepParam('printerid');
-    if ($self->param('ippconfui')) {        
+    if ($self->param('ippconfui')) {
         $self->{chain} = "Printers/ManufacturerUI";
     } elsif ($self->param('manageprinterui')) {
         $self->{chain} = "Printers/ManagePrinterUI";
         $self->keepParam('selected');
     }
-        
+
 }
 
 1;

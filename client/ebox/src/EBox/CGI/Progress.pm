@@ -16,7 +16,7 @@
 
 # package EBox::CGI::Progress
 #
-#  This class is to used to show the progress of a long operation 
+#  This class is to used to show the progress of a long operation
 #
 #  This CGI is not intended to be caled directly, any CGI whom wants to switch
 #   to a progress view must inherit from ProgressClient and call to the method showProgress
@@ -32,12 +32,12 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
   my $class = shift;
   my $self = $class->SUPER::new( 'template' => '/progress.mas',
 				 @_);
-  
+
   bless($self, $class);
   return $self;
 }

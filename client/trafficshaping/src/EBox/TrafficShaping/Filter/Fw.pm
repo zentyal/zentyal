@@ -60,11 +60,11 @@ use constant LOWEST_PRIORITY => 200;
 #
 #     - Following are *iptables* arguments to do filtering:
 #
-#       service   - undef or <EBox::Types::Union> from 
+#       service   - undef or <EBox::Types::Union> from
 #                   <EBox::TrafficShaping::Model::RuleTable> that can contains
 #                   a port based service, l7 protocol service or a group
 #                   of l7 protocol services.
-#                   
+#
 #                   If undef, any service is assumed
 #
 #       srcAddr   - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the
@@ -122,7 +122,7 @@ sub new
 					   'EBox::TrafficShaping::QDisc::Base' );
     }
     # Check the service
-#    if ( defined ( $args{service} ) and 
+#    if ( defined ( $args{service} ) and
 #	 not $args{service}->isa( 'EBox::Types::Service' ) ) {
 #      throw EBox::Exceptions::InvalidType( 'service',
 #					   'EBox::Types::Service');
@@ -372,7 +372,7 @@ sub dumpIptablesCommands
       if (not defined ($self->{service})) {
         my $serviceMod = EBox::Global->modInstance('services');
         $ipTablesRule->setService($serviceMod->serviceId('any'));
-      } elsif ($self->{service}->selectedType() eq 'service_port') { 
+      } elsif ($self->{service}->selectedType() eq 'service_port') {
          my $iface = $self->{parent}->getInterface();
          my $network = EBox::Global->modInstance('network');
          if ($network->ifaceIsExternal($iface)) {
@@ -390,7 +390,7 @@ sub dumpIptablesCommands
     # FIXME Comment out because it messes up with multipath marks
     #else {
       # Set redundant mark to send to default one
-    
+
       # push(@ipTablesCommands,
 	#   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
 	#   "-j MARK --set-mark $mark"

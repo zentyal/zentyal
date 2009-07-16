@@ -15,7 +15,7 @@
 
 # Class: ModelManager
 #
-#   This class is used to coordinate all the available models 
+#   This class is used to coordinate all the available models
 #   along eBox. It allows us to do things like specifiying relations
 #   amongst different models.
 #
@@ -48,7 +48,7 @@ sub _new
 
     my $self = {};
 
-    $self->{'notifyActions'} = {}; 
+    $self->{'notifyActions'} = {};
     bless($self, $class);
 
     $self->{'version'} = $self->_version();
@@ -124,7 +124,7 @@ sub model
     }
 
     my ($moduleName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
-    
+
     if (not $moduleName) {
         throw EBox::Exceptions::Internal('Invalid path');
     }
@@ -159,7 +159,7 @@ sub model
             if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
                 return $self->{'models'}->{$moduleName}->{$modelName};
             } else {
-                return 
+                return
                     $self->{'models'}->{$moduleName}->{$modelName}->[0];
             }
         }
@@ -255,29 +255,29 @@ sub removeModel
 }
 
 
-# Method: modelsUsingId 
+# Method: modelsUsingId
 #
 #   Given a row id of a model, it returns the models which
 #   are currently referencing it
 #
-# Parameters: 
+# Parameters:
 #
 #   (POSITIONAL)
 #
-#   model - model string 
+#   model - model string
 #   rowId - string containing the row's id
 #
 # Returns:
 #
-#   
+#
 #
 # Exceptions:
 #
 # <EBox::Exceptions::DataNotFound> if the model does not exist
-sub modelsUsingId 
+sub modelsUsingId
 {
     my ($self, $modelName, $rowId) =  @_;
-    
+
     my $model = $self->model($modelName);
     unless (defined($model)) {
         throw EBox::Exceptions::DataNotFound(
@@ -295,7 +295,7 @@ sub modelsUsingId
 
         for my $fieldName (@{$modelDepHash->{$modelDepName}}) {
             if (defined($modelDep->findValue($fieldName => $rowId))) {
-                $models{$modelDepName} = 
+                $models{$modelDepName} =
                     $modelDep->table()->{'printableTableName'};
             }
         }
@@ -317,21 +317,21 @@ sub modelsUsingId
     return \%models;
 }
 
-# Method: modelActionTaken 
+# Method: modelActionTaken
 #
 #	This method is used to let models know when other model has
-#	taken an action. 
+#	taken an action.
 #
 #	It will automatically call the model in which descrption they
 #	request to be warned about the current action and model.
-#	
 #
-# Parameters: 
+#
+# Parameters:
 #
 #   (POSITIONAL)
 #
-#   model - <EBox::Model::DataTable> model name where the action took place 
-#   action - string represting the action: 
+#   model - <EBox::Model::DataTable> model name where the action took place
+#   action - string represting the action:
 #   	     [ add, del, edit, moveUp, moveDown ]
 #
 #   row  - <EBox::Model::Row> row modified
@@ -376,15 +376,15 @@ sub modelActionTaken
 
 }
 
-# Method: removeRowsUsingId 
+# Method: removeRowsUsingId
 #
-#   Given a row id of a model, remove rows from models referencing it 
+#   Given a row id of a model, remove rows from models referencing it
 #
-# Parameters: 
+# Parameters:
 #
 #   (POSITIONAL)
 #
-#   model - model object 
+#   model - model object
 #   rowId - string containing the row's id
 #
 # Returns:
@@ -395,7 +395,7 @@ sub modelActionTaken
 # Exceptions:
 #
 # <EBox::Exceptions::DataNotFound> if the model does not exist
-sub removeRowsUsingId 
+sub removeRowsUsingId
 {
     my ($self, $modelName, $rowId) =  @_;
 
@@ -585,11 +585,11 @@ sub _setRelationship
 
         my $child;
         if ($childIsComposite) {
-            $child = $compositeManager->composite($childName);     
+            $child = $compositeManager->composite($childName);
         } else {
-            $child = $self->model($childName);            
+            $child = $self->model($childName);
         }
-        
+
         $child->setParent($parent);
     }
 
@@ -615,7 +615,7 @@ sub _setUpModelsFromProvider
     for my $model (@{$provider->models()}) {
         my $moduleName = $provider->name();
         my $modelName = $model->tableName();
-        $modelName or 
+        $modelName or
             throw EBox::Exceptions::Internal("Invalid model name $modelName");
 
             push ( @{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
@@ -702,7 +702,7 @@ sub _setUpModelsFromProvider
 sub _modelsWithHasOneRelation
 {
     my ($self, $modelName) = @_;
-    
+
     return {} unless (exists($self->{'hasOneReverse'}->{$modelName}));
 
     return $self->{'hasOneReverse'}->{$modelName};
@@ -722,9 +722,9 @@ sub _modelsWithHasOneRelation
 # Parameters:
 #
 #   (POSITIONAL)
-#   
+#
 #   tableDescription - ref containing the table description
-#   
+#
 # Return:
 #
 #   Array ref containing the types
@@ -735,7 +735,7 @@ sub _fetchDependentTypes
 
     my @selectTypes;
     my @hasManyTypes;
-    foreach my $type (@{$tableDescription}) { 
+    foreach my $type (@{$tableDescription}) {
         if ($type->type() eq 'union') {
             for my $subtype (@{$type->subtypes()}) {
                  if ($subtype->type() eq 'select') {
@@ -751,7 +751,7 @@ sub _fetchDependentTypes
             push (@hasManyTypes, $type);
         }
     }
-    
+
     return { 'select' => \@selectTypes,
              'hasMany' => \@hasManyTypes };
 }
@@ -767,9 +767,9 @@ sub _fetchDependentTypes
 # Parameters:
 #
 #   (POSITIONAL)
-#   
-#   model - model's name 
-#   
+#
+#   model - model's name
+#
 # Return:
 #
 #  hash refs containing pairs of:
@@ -781,7 +781,7 @@ sub _oneToOneDependencies
     my ($self, $model) = @_;
 
     unless (exists $self->{'hasOneReverse'}->{$model}) {
-        return {};    
+        return {};
     }
 
     return $self->{'hasOneReverse'}->{$model};
@@ -890,7 +890,7 @@ sub _chooseModelUsingParameters
 # 	(PRIVATE)
 #
 #   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency. 
+#   done in the models to allow interprocess coherency.
 #
 #
 sub _hasChanged

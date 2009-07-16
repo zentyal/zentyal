@@ -16,7 +16,7 @@
 
 package EBox::Squid::Model::Report::RequestsGraph;
 use base 'EBox::Logs::Model::Report::Graph';
-# 
+#
 use strict;
 use warnings;
 
@@ -28,10 +28,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -55,25 +55,25 @@ sub dbFields
 
    return  {
         requests => {
-                     printableName => __('Requests') 
+                     printableName => __('Requests')
                     },
 
         accepted => {
-                     printableName => __('Accepted requests') 
+                     printableName => __('Accepted requests')
                     },
 
 
 
 
         denied   => {
-                     printableName => __('Denied requests') 
+                     printableName => __('Denied requests')
                     },
 
 
         filtered => {
-                     printableName => __('Filtered requests') 
+                     printableName => __('Filtered requests')
                     },
-            
+
 
            }
 
@@ -106,7 +106,7 @@ sub _table
                                      'editField',
                                      'changeView',
                                     ],
-                   
+
                    messages => {
                                 'add'       => undef,
                                 'del'       => undef,

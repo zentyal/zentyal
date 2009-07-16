@@ -43,10 +43,10 @@ sub _process($) {
 
 	$self->_requireParam('username', __('username'));
 	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=$username";	
+	$self->{redirect} = "UsersAndGroups/User?username=$username";
 
 	$self->keepParam('username');
-	
+
 	if ($self->param('active') eq 'yes'){
 	    $jabberldap->setHasAccount($username, 1);
 	    if (defined($self->param('is_admin')))

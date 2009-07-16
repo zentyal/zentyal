@@ -35,15 +35,15 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	
+
 	$self->_requireParam('printerid', __('Printer'));
 	$self->_requireParam('model', __('Model'));
 	my $id = $self->param('printerid');
 	my $model = $self->param('model');
-	
+
 	my $printers = EBox::Global->modInstance('printers');
 	$printers->setModel($id, $model);
-	if ($self->param('modelui')) {	
+	if ($self->param('modelui')) {
 		$self->keepParam('printerid');
 		$self->{chain} = "Printers/DriverUI";
 	}

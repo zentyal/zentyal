@@ -35,15 +35,15 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	
+
 	$self->_requireParam('printerid', __('Printer'));
 	$self->_requireParam('manufacturer', __('Manufacturer'));
 	my $id = $self->param('printerid');
 	my $maker = $self->param('manufacturer');
-	
+
 	my $printers = EBox::Global->modInstance('printers');
 	$printers->setManufacturer($id, $maker);
-	if ($self->param('manufacturerui')) {	
+	if ($self->param('manufacturerui')) {
 		$self->keepParam('printerid');
 		$self->{chain} = "Printers/ModelUI";
 	}

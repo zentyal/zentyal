@@ -37,7 +37,7 @@ use constant TABLENAME => "message";
 #        message TEXT NOT NULL,
 #        postfix_date TIMESTAMP NOT NULL
 #);
- 
+
 my %temp;
 
 sub new
@@ -49,12 +49,12 @@ sub new
 }
 
 # Method: domain
-#       
+#
 #       Must return the text domain which the package belongs to
 #
-sub domain 
+sub domain
 {
-    return 'ebox-mail'; 
+    return 'ebox-mail';
 }
 
 sub logFiles {
@@ -73,10 +73,10 @@ sub _getDate
     my ($self, $line) = @_;
 
     my @date = localtime(time);
-    
+
     my $year = $date[5] + 1900;
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..).*$/;
-    
+
     return "$year-$month-$day $hour:$min:$sec";
 }
 
@@ -92,7 +92,7 @@ sub processLine
     if ($line =~ m/NOQUEUE/) {
         my ($who, $hostname, $clientip, $msg, $line2) = $line =~ m/.*NOQUEUE: reject: (.*) from (.*)\[(.*)\]: (.*); (.*)$/;
         my ($from, $to) = $line2 =~ m/.*from=<(.*)> to=<(.*)> .*/;
-        
+
         my $event = 'other';
         if ($msg =~ m/.*550.*$/) {
             $event = 'noaccount';
@@ -101,7 +101,7 @@ sub processLine
         } elsif ($msg =~ m/.*552.*$/) {
             $event = 'maxmsgsize';
             }
-        
+
         my $values = {
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
@@ -114,10 +114,10 @@ sub processLine
                      };
 
         $dbengine->insert(TABLENAME, $values);
-                
+
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         my ($hostname, $clientip) = $line =~ m/.*postfix\/.*: warning: (.*)\[(.*)\]: .*$/;
-                        
+
         my $values = {
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
@@ -128,8 +128,8 @@ sub processLine
         $dbengine->insert(TABLENAME, $values);
     } elsif ($line =~ m/client=/) {
         my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: (.*): client=(.*)\[(.*)\]/);
-        
-  
+
+
         $temp{$qid}{'hostname'} = $hostname;
         $temp{$qid}{'clientip'} = $clientip;
     } elsif ($line =~ m/cleanup.*message-id=/) {
@@ -148,7 +148,7 @@ sub processLine
         $temp{$qid}{'date'} = $self->_getDate($line);
     } elsif ($line =~ m/.*removed.*/) {
         my ($qid) = $line =~ m/.*qmgr.*: (.*): removed/;
-                
+
         my $event = 'msgsent';
         if ($temp{$qid}{'msg'} =~ m/.*maildir has overdrawn his diskspace quota.*/) {
             $event = 'maxusrsize';
@@ -172,7 +172,7 @@ sub processLine
         $temp{$qid} = ();
     } elsif ($line =~ m/.*status=deferred.*/) {
         my ($qid, $to, $relay, $status, $msg) = $line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/;
-                        
+
         my $values = {
                       message_id => $temp{$qid}{'msgid'},
                       client_host_ip => $temp{$qid}{'clientip'},
@@ -190,7 +190,7 @@ sub processLine
         $dbengine->insert(TABLENAME, $values);
 
         $temp{$qid} = ();
-                        
+
     }
 
 }

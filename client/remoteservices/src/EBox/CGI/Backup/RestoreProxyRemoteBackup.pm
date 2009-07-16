@@ -65,7 +65,7 @@ sub actuate
   my $cn     = $self->param('cn');
   my $name   = $self->param('name');
 
- 
+
   my $progress = $backup->prepareRestoreRemoteBackup($cn, $name);
 
 

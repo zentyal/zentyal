@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Global;
 use Apache2::RequestUtil;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
@@ -44,7 +44,7 @@ sub _process
 
 	$self->{redirect} = "/Login/Index";
 	$self->{errorchain} = "/Logout/Index";
-	
+
 	my $global = EBox::Global->getInstance();
 	$global->revokeAllModules;
 

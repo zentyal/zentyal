@@ -24,7 +24,7 @@ use base 'EBox::Exceptions::Internal';
 use Log::Log4perl;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
     my $class = shift;
 
@@ -43,7 +43,7 @@ sub new
 
     }
 
-    my $errorTxt = 
+    my $errorTxt =
         "Call to deprecated method $subroutine in $filename line $line";
 
     $Log::Log4perl::caller_depth += 3;

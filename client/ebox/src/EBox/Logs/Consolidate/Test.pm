@@ -25,7 +25,7 @@ sub weeklyDateTest #: Test(6)
     my %cases = (
                  "2008-01-02 13:42:12" => "2007-12-31 00:00:00", # year leap
                  "2008-03-01 12:12:00" => "2008-2-25 00:00:00", # month leap
-                 "2008-02-17 12:12:00" => "2008-2-11 00:00:00", # sunday  
+                 "2008-02-17 12:12:00" => "2008-2-11 00:00:00", # sunday
                  "2008-02-18 12:12:00" => "2008-2-18 00:00:00", # monday
                  "2008-02-27 12:12:00" => "2008-2-25 00:00:00", # thursday
                  "2008-02-29 12:12:00" => "2008-2-25 00:00:00", # friday
@@ -101,18 +101,18 @@ sub fakeDBEngine
     $dbengine = Test::MockObject->new();
     $dbengine->mock('insert' => sub {
                         my ($self, $table, $row) = @_;
-                        
+
                         if (not exists $fakeDB{$table}) {
                             $fakeDB{$table} = [];
                         }
 
-                        
-                        push @{ $fakeDB{$table} },  $row; 
+
+                        push @{ $fakeDB{$table} },  $row;
                     }
                    );
     $dbengine->mock('do' => sub {
                         my ($self, $query) = @_;
-                        
+
                         if (not $query =~ /^UPDATE/) {
                             if ($query =~ /^DELETE/) {
                                 return;
@@ -142,8 +142,8 @@ sub fakeDBEngine
 
                         $query =~ s/^UPDATE.*WHERE.*\(//;
                         $query =~ s/\).*$//;
-                     
-                        
+
+
                         my %row;
 
                         foreach my $pair (split ' AND ', $query) {
@@ -257,27 +257,27 @@ sub _setupDB
 #        my %titles =  map {  $_ => $_ } @{ $dbColumns_r };
         my %titles = ();
 
-  
+
         $tableInfo = {
                      name => $modName,
                      index => $modName,
 
                      titles => \%titles,
                      order => [  keys %titles ],
-                     
+
                      tablename => 'testTable',
 
                      timecol => 'date',
                      filter => [],
-                      
+
                      events => { eventOne => 'eventOne', eventTwo => 'eventTwo'},
                      eventcol => 'event',
 
-                     consolidate => $consolidate, 
-                      
+                     consolidate => $consolidate,
+
                      };
     }
-    
+
     my @dbRows    = @{ $dbRows_r };
 
 
@@ -293,7 +293,7 @@ sub _standardDbContent
 {
     return   [
               {
-               date => '2008-08-24 13:12:36', 
+               date => '2008-08-24 13:12:36',
                event => 'eventOne',
                sender => 'bee@insects.com',
                recipient => 'macaco@monos.org',
@@ -308,45 +308,45 @@ sub _standardDbContent
               { date => '2008-08-24 13:21:36',
                 event => 'eventTwo',
                 sender => 'snake@reptiles.net',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 21,
               },
               { date => '2008-08-24 14:21:12',
                 event => 'eventOne',
                 sender => 'wasp@insects.com',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 521,
               },
               { date => '2008-08-24 19:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 821,
               },
-                                
+
               { date => '2008-08-25 13:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 121,
               },
-                                
+
               { date => '2008-08-26 19:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 321,
               },
               { date => '2008-08-26 20:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
-                recipient => 'mandrill@monos.org', 
+                recipient => 'mandrill@monos.org',
                 size => 721,
               },
               { date => '2008-08-26 20:12:36',
                 event => 'eventOne',
                 sender => 'bee@insects.com',
-                recipient => 'macaco@monos.org', 
+                recipient => 'macaco@monos.org',
                 size => 121,
               },
              ];
@@ -372,7 +372,7 @@ sub consolidateTest : Test(32)
 sub runCases
 {
     my ($self) = @_;
-    
+
     my $cases = $self->cases();
 
     foreach my $case_r (@{ $cases }) {
@@ -381,7 +381,7 @@ sub runCases
 
 }
 
-sub _checkConsolidate 
+sub _checkConsolidate
 {
      my ($self, $case) = @_;
 
@@ -452,7 +452,7 @@ sub _rowsToCompare
     my %rtc = map {
         my @val = ($_->{table}, sort values %{ $_->{value} } );
         my $valStr = join '-', @val;
-        
+
         ($valStr => $_)
     } @{ $rows_r };
 
@@ -471,57 +471,57 @@ sub cases
                   name => 'simple case',
                   dbColumns =>  [qw(date event sender recipient comments)],
                   dbRows =>    [
-                                { 
-                                 date => '2008-08-24 13:12:36', 
-                                 event => 'eventOne', 
-                                 sender => 'bee@insects.com', 
-                                 recipient => 'macaco@monos.org', 
+                                {
+                                 date => '2008-08-24 13:12:36',
+                                 event => 'eventOne',
+                                 sender => 'bee@insects.com',
+                                 recipient => 'macaco@monos.org',
                                  comments => '11faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
-                                 date => '2008-08-24 13:21:36', 
-                                 event => 'eventTwo', 
-                                 sender => 'bee@insects.com', 
-                                 recipient => 'macaco@monos.org', 
+                                {
+                                 date => '2008-08-24 13:21:36',
+                                 event => 'eventTwo',
+                                 sender => 'bee@insects.com',
+                                 recipient => 'macaco@monos.org',
                                  comments => '222faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
+                                {
                                  date => '2008-08-24 14:21:12',
                                  event => 'eventOne',
                                  sender => 'wasp@insects.com',
-                                 recipient => 'macaco@monos.org', 
+                                 recipient => 'macaco@monos.org',
                                  comments => '33faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
+                                {
                                  date => '2008-08-24 19:12:36',
                                  event => 'eventOne',
-                                 sender => 'bee@insects.com', 
-                                 recipient => 'macaco@monos.org', 
+                                 sender => 'bee@insects.com',
+                                 recipient => 'macaco@monos.org',
                                  comments => '444faas sfa aa4 ge eqf efw4 w',
                                 },
-                                
+
                                 {
-                                 date => '2008-08-25 13:12:36', 
-                                 event => 'eventOne', 
-                                 sender => 'bee@insects.com', 
-                                 recipient => 'macaco@monos.org', 
+                                 date => '2008-08-25 13:12:36',
+                                 event => 'eventOne',
+                                 sender => 'bee@insects.com',
+                                 recipient => 'macaco@monos.org',
                                  comments => '55faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
+                                {
                                   date => '2008-08-26 19:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
                                   recipient => 'macaco@monos.org',
                                   comments => '666faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
+                                {
                                  date => '2008-08-26 20:12:36',
                                  event => 'eventOne',
                                  sender => 'bee@insects.com',
                                  recipient => 'madrill@monos.org',
                                  comments => '777faas sfa aa4 ge eqf efw4 w',
                                 },
-                                { 
+                                {
                                  date => '2008-08-26 20:12:36',
                                  event => 'eventOne',
                                  sender => 'bee@insects.com',
@@ -557,7 +557,7 @@ sub cases
                                                           sender => 'bee@insects.com',
                                                           count => 1,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -599,7 +599,7 @@ sub cases
                   dbColumns =>  [qw(date event sender recipient comments)],
                   dbRows =>    [
                                 {
-                                 date => '2008-08-24 13:12:36', 
+                                 date => '2008-08-24 13:12:36',
                                  event => 'eventOne',
                                  sender => 'bee@insects.com',
                                  recipient => 'macaco@monos.org',
@@ -614,45 +614,45 @@ sub cases
                                 { date => '2008-08-24 13:21:36',
                                   event => 'eventTwo',
                                   sender => 'snake@reptiles.net',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '222faas sfa aa4 ge eqf efw4 w'
                                 },
                                 { date => '2008-08-24 14:21:12',
                                   event => 'eventOne',
                                   sender => 'wasp@insects.com',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '33faas sfa aa4 ge eqf efw4 w'
                                 },
                                 { date => '2008-08-24 19:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '444faas sfa aa4 ge eqf efw4 w'
                                 },
-                                
+
                                 { date => '2008-08-25 13:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '55faas sfa aa4 ge eqf efw4 w'
                                 },
-                                
+
                                 { date => '2008-08-26 19:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '666faas sfa aa4 ge eqf efw4 w'
                                 },
                                 { date => '2008-08-26 20:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
-                                  recipient => 'madrill@monos.org', 
+                                  recipient => 'madrill@monos.org',
                                   comments => '777faas sfa aa4 ge eqf efw4 w'
                                 },
                                 { date => '2008-08-26 20:12:36',
                                   event => 'eventOne',
                                   sender => 'bee@insects.com',
-                                  recipient => 'macaco@monos.org', 
+                                  recipient => 'macaco@monos.org',
                                   comments => '888faas sfa aa4 ge eqf efw4 w'
                                 },
                                ],
@@ -664,7 +664,7 @@ sub cases
                                                               my ($value) = @_;
                                                               my ($addr, $domain) = split '@', $value;
                                                               return $domain;
-                                                              
+
                                                           },
                                                          },
                                                 },
@@ -688,7 +688,7 @@ sub cases
                                                           sender => 'insects.com',
                                                                  count => 1,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -699,7 +699,7 @@ sub cases
                                                           sender => 'reptiles.net',
                                                                  count => 1,
                                                          },
-                           
+
                                                },
 
 
@@ -731,7 +731,7 @@ sub cases
                   name => 'case with accumulation (size by sender)',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  testTable => {
                                         accummulateColumns => {'size' => 0 },
@@ -760,7 +760,7 @@ sub cases
                                                           sender => 'wasp@insects.com',
                                                           size => 521,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -770,7 +770,7 @@ sub cases
                                                           sender => 'snake@reptiles.net',
                                                           size => 21,
                                                          },
-                           
+
                                                },
 
 
@@ -799,7 +799,7 @@ sub cases
                   name => 'case with two accumulation (n messages and size by sender)',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  testTable => {
                                         accummulateColumns => {
@@ -833,7 +833,7 @@ sub cases
                                                           size => 521,
                                                           messages => 1,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -844,7 +844,7 @@ sub cases
                                                           size => 21,
                                                           messages => 1,
                                                          },
-                           
+
                                                },
 
 
@@ -876,7 +876,7 @@ sub cases
                   name => 'case with filtered out rows',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  testTable => {
                                        filter => sub {
@@ -905,7 +905,7 @@ sub cases
                                                           sender => 'wasp@insects.com',
                                                           count => 1,
                                                          },
-                           
+
                                                },
 
 
@@ -937,7 +937,7 @@ sub cases
                   name => 'case with two tables',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  senderTable => {
                                       consolidateColumns => {
@@ -967,7 +967,7 @@ sub cases
                                                           sender => 'wasp@insects.com',
                                                           count => 1,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -1039,12 +1039,12 @@ sub cases
                                               ]
                  },
 #                 end case
-                 
+
                  {
                   name => 'case with two accumulation from the same columnn',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  testTable => {
                                         accummulateColumns => {
@@ -1056,7 +1056,7 @@ sub cases
                                                                   conversor => sub {
                                                                       return 1;
                                                                   },
-                                                                 accummulate => 
+                                                                 accummulate =>
                                                                  sub {
                                                                      my ($v) = @_;
                                                                      return $v;
@@ -1101,7 +1101,7 @@ sub cases
                   name => 'case with hourly consolodation and daily reconsolidation',
                   dbColumns =>  [qw(date event sender recipient size)],
                   dbRows =>  _standardDbContent(),
-                 
+
                  consolidate => {
                                  testTable => {
                                          timePeriods => ['hourly', 'daily'],
@@ -1191,7 +1191,7 @@ sub cases
                                                           sender => 'wasp@insects.com',
                                                           size => 521,
                                                          },
-                           
+
                                                },
 
                                                {
@@ -1201,7 +1201,7 @@ sub cases
                                                           sender => 'snake@reptiles.net',
                                                           size => 21,
                                                          },
-                           
+
                                                },
 
 

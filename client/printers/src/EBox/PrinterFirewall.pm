@@ -26,7 +26,7 @@ use EBox::Firewall;
 use EBox::Gettext;
 
 
-sub new 
+sub new
 {
         my $class = shift;
         my %opts = @_;
@@ -39,9 +39,9 @@ sub output
 {
 	my $self = shift;
 	my @rules = ();
-	
+
 	my $printers = EBox::Global->modInstance('printers');
-	
+
 	foreach my $id (@{$printers->networkPrinters()}){
 		my $conf = $printers->methodConf($id);
 		my $host = $conf->{host};
@@ -50,7 +50,7 @@ sub output
 			"-j ACCEPT";
 		push (@rules, $r);
 	}
-	
+
 	return \@rules;
 }
 

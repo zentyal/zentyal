@@ -45,7 +45,7 @@ sub _tableHeader
                                    'any domain which is not allowed in the ' .
                                 '<i>Domains list</i> section below will be ' .
                                 'forbidden.'),
-                                 
+
                               ),
         new EBox::Types::Boolean(
             fieldName     => 'blockIp',

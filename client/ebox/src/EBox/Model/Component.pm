@@ -49,12 +49,12 @@ sub setParentComposite
 
     unless ( $composite->isa('EBox::Model::Composite') ) {
         throw EBox::Exceptions::InvalidType( $composite,
-                'EBox::Model::DataTable ' 
+                'EBox::Model::DataTable '
                 );
     }
 
     $self->{'parentComposite'} = $composite;
-}   
+}
 
 # Method: parentComposite
 #
@@ -78,7 +78,7 @@ sub parentComposite
 # Method: topParentComposite
 #
 #   Return the top parent of the composite hierarchy where this component is
-#   containded 
+#   containded
 #
 # Returns:
 #
@@ -166,11 +166,11 @@ sub keywords
 
 # Method: parent
 #
-#   Return component's parent. 
+#   Return component's parent.
 #   If the component is child of a composite the parent is the top's composite parent
 #
 # Returns:
-#      
+#
 #   An instance of a class implementing <EBox::Model::DataTable>
 #
 #  Warning: there are bug with this method for composites which are submodel of
@@ -199,12 +199,12 @@ sub parent
 # Exceptions:
 #
 #   <EBox::Exceptions::InvalidType>
-sub setParent 
+sub setParent
 {
     my ($self, $parent) = @_;
 
     if (defined($parent) and (not $parent->isa('EBox::Model::DataTable'))) {
-        throw EBox::Exceptions::InvalidType( 'argument' => 'parent', 
+        throw EBox::Exceptions::InvalidType( 'argument' => 'parent',
                                              'type' => ref $parent);
     }
 

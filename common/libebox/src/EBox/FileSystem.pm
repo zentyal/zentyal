@@ -28,7 +28,7 @@ use constant MTAB_PATH => '/etc/mtab';
 # Exceptions:
 #
 #	Internal & External - The path exists and is not a directory or has wrong
-#		   ownership or permissions. Or it does not exist and 
+#		   ownership or permissions. Or it does not exist and
 #		   cannot be created.
 sub makePrivateDir # (path)
 {
@@ -38,7 +38,7 @@ sub makePrivateDir # (path)
   if (-e $dir) {
     if (  not -d $dir) {
       throw EBox::Exceptions::Internal( "Cannot create private directory $dir: file exists");
-    } 
+    }
     else {
       return EBox::Validate::isPrivateDir($dir, 1);
     }
@@ -65,7 +65,7 @@ sub cleanDir
     throw EBox::Exceptions::Internal('cleanDir must be supplied at least a dir as parameter');
   }
 
-  EBox::Validate::checkFilePath($_, 'directory')  foreach  (@dirs);  
+  EBox::Validate::checkFilePath($_, 'directory')  foreach  (@dirs);
 
   foreach my $d (@dirs) {
     my $dir;
@@ -88,9 +88,9 @@ sub cleanDir
       if ($? != 0) {
 	throw EBox::Exceptions::Internal "Error cleaning $dir: $!";
       }
-    } 
+    }
     else {
-      mkdir ($dir, $mode) or  throw EBox::Exceptions::Internal("Could not create directory: $dir");      
+      mkdir ($dir, $mode) or  throw EBox::Exceptions::Internal("Could not create directory: $dir");
     }
 
   }
@@ -120,7 +120,7 @@ sub isSubdir
   foreach ($subDir, $parentDir) {
     if (! EBox::Validate::checkAbsoluteFilePath($_)) {
       throw EBox::Exceptions::Internal("isSubdir can only called with absolute paths. Argumentes were ($subDir, $parentDir)))");
-    } 
+    }
   }
 
 
@@ -131,22 +131,22 @@ sub isSubdir
   $parentDir =~ s{/+}{/}g;
 
   return $subDir =~ m/^$parentDir/;
-  
+
 }
 
 # Function: permissionsFromStat
 #     examines a File::stat  result object and extract the permissions value
-#   		
+#
 # Parameters:
 #      $stat - stat result object
 #
 # Returns:
 #	the permissions as string
-# 
+#
 sub permissionsFromStat
 {
   my ($stat) = @_;
-  return sprintf("%04o", $stat->mode & 07777); 
+  return sprintf("%04o", $stat->mode & 07777);
 }
 
 
@@ -163,11 +163,11 @@ sub permissionsFromStat
 # Returns:
 #
 #	Int - the space used in block size units
-# 
+#
 sub dirDiskUsage
 {
   my ($dir, $blockSize) = @_;
-  defined $dir or 
+  defined $dir or
     throw EBox::Exceptions::MissingArgument('dir');
   defined $blockSize or
     $blockSize = 1024;
@@ -188,7 +188,7 @@ sub dirDiskUsage
 #
 #   return static file systems information as seen in /etc/fstab
 #
-# Returns: 
+# Returns:
 #      a hash reference with the file system as key and a hash with his
 #      properties as value.
 #      The properties are: mountPoint, type, options, dump and pass
@@ -203,7 +203,7 @@ sub staticFileSystems
 #
 #   return mounted file systems information as seen in /etc/mtab
 #
-# Returns: 
+# Returns:
 #      a hash reference with the file system as key and a hash with his
 #      properties as value.
 #      The properties are: mountPoint, type, options, dump and pass
@@ -220,7 +220,7 @@ sub _fileSystems
   my ($tabFile) = @_;
 
   my %fileSystems;
-  
+
   my $FH;
   open $FH, $tabFile or
     throw EBox::Exceptions::Internal($tabFile . ' cannot be opened');
@@ -234,7 +234,7 @@ sub _fileSystems
 
     my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
 
-    
+
     $fileSystems{$fsys}->{mountPoint} = $mpoint;
     $fileSystems{$fsys}->{type} = $type;
     $fileSystems{$fsys}->{options} = $options;
@@ -265,8 +265,8 @@ sub dirFileSystem
   my %fileSystems = %{  fileSystems() };
 
   my $fsMatch     = undef;
-  my $matchPoints = 0; 
-  
+  my $matchPoints = 0;
+
 
   while (my ($fs, $attrs) = each %fileSystems) {
     my $mp = $attrs->{mountPoint};
@@ -275,14 +275,14 @@ sub dirFileSystem
     if (isSubdir($dir, $mp)) {
       my $points = length $mp; # lengt of mount point == more components in
                                # common. (Remember we don't follow symlinks)
-      
+
       if ($points > $matchPoints) {
 	$matchPoints = $points;
 	$fsMatch     = $fs;
       }
-      
+
     }
-    
+
   }
 
   defined $fsMatch or

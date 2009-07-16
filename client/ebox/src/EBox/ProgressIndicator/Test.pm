@@ -91,7 +91,7 @@ sub basicUseCaseTest : Test(13)
 
   $progress->setAsFinished();
 
-  ok $progress->finished(), 'checking wether object is marked as finished after marked as finished';  
+  ok $progress->finished(), 'checking wether object is marked as finished after marked as finished';
   ok $progress->started, 'Checking started propierty after object is marked as finished';
 }
 

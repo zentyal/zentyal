@@ -142,7 +142,7 @@ sub changeRowJS
     $fields =~ s/'/"/g;
 
     my $onCompleteJS =  <<END;
-    function(t) { 
+    function(t) {
         highlightRow( id, false);
         stripe("dataTable", "#ecf5da", "#ffffff");
         $changeViewListJS;
@@ -150,7 +150,7 @@ sub changeRowJS
 END
 
 
-    my $JS = sprintf ($function, 
+    my $JS = sprintf ($function,
             $table->{'actions'}->{'editField'},
             $table->{'tableName'},
             $fields,

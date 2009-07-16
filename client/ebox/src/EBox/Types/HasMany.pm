@@ -19,18 +19,18 @@
 #       When used in a model, it basically tells you that this field is
 #       referencing another model which has more than one entry.
 #
-#       For example, let's say we have a model which represents a table 
+#       For example, let's say we have a model which represents a table
 #       of internet domains. Each domain is composed of several hosts.
 #       The relation between the domain and the hosts can be expressed
 #       by means of this type.
 #
 #
-#	TODO 
+#	TODO
 #
 #		- Review which methods are necessary and document them
 #		- Implement backview correctly to allow the user to go back
 #		  when he is done with the spawned table
-#		
+#
 package EBox::Types::HasMany;
 
 use strict;
@@ -58,14 +58,14 @@ sub new
     unless (exists $opts{'HTMLViewer'}) {
         $opts{'HTMLViewer'} ='/ajax/viewer/hasManyViewer.mas';
     }
-    
+
     $opts{'type'} = 'hasMany';
     $opts{'unique'} = undef;
     $opts{'editable'} = undef;
     $opts{'optional'} = 1;
 
     my $self = $class->SUPER::new(%opts);
-       
+
     bless($self, $class);
     return $self;
 }
@@ -82,7 +82,7 @@ sub value
     my ($self) = @_;
 
     return '' unless (exists $self->{'foreignModel'});
-    return { 'model' => $self->{'foreignModel'}, , 
+    return { 'model' => $self->{'foreignModel'}, ,
              'directory' => $self->directory() };
 
 }
@@ -143,9 +143,9 @@ sub foreignModelInstance
 
     my $model;
     if ($self->foreignModelIsComposite()) {
-        $model = EBox::Model::CompositeManager->Instance()->composite($modelName);                
+        $model = EBox::Model::CompositeManager->Instance()->composite($modelName);
     } else {
-        $model = EBox::Model::ModelManager->instance()->model($modelName);        
+        $model = EBox::Model::ModelManager->instance()->model($modelName);
     }
 
 
@@ -165,7 +165,7 @@ sub foreignModelInstance
 sub setDirectory
 {
     my ($self, $directory) = @_;
-    
+
     $self->{'directory'} = $directory;
 }
 
@@ -175,7 +175,7 @@ sub setDirectory
 #
 # Returns:
 #
-#   stirng - directory or undef if there isn't any 
+#   stirng - directory or undef if there isn't any
 sub directory
 {
     my ($self) = @_;
@@ -191,17 +191,17 @@ sub directory
     return $directory;
 }
 
-# Method: view 
+# Method: view
 #
 #   Return the view for the foreing model
 #
 # Returns:
 #
-#   string - view's url 
-sub view 
+#   string - view's url
+sub view
 {
     my ($self) = @_;
-    
+
    if (exists $self->{'view'}) {
         return $self->{'view'};
    } else {
@@ -209,17 +209,17 @@ sub view
    }
 }
 
-# Method: backView 
+# Method: backView
 #
 #   Return the back view for the foreing model
 #
 # Returns:
 #
-#   stirng - view's url 
-sub backView 
+#   stirng - view's url
+sub backView
 {
     my ($self) = @_;
-    
+
    if (exists $self->{'backView'}) {
         return $self->{'backView'};
    } else {
@@ -234,7 +234,7 @@ sub backView
 # Returns:
 #
 #   string - containing the link
-#   
+#
 sub linkToView
 {
     my ($self) = @_;
@@ -244,7 +244,7 @@ sub linkToView
 
     my $backview = $self->backView();
     my $params="?directory=$directory" . "&backview=$backview";
-    
+
     my $printableName = $self->printableName();
     my $url = $view . $params;
 
@@ -301,7 +301,7 @@ sub isEqualTo
 sub modelView
 {
     my ($self) = @_;
-    return $self->{'modelView'};	
+    return $self->{'modelView'};
 }
 
 # Group: Protected methods
@@ -461,7 +461,7 @@ sub model
     my $module =  EBox::Global->modInstance($self->{moduleName});
     if (not $module->can('model')) {
         EBox::warning(
-        'cannot recreate row for ' .  $self->{fieldName} . 
+        'cannot recreate row for ' .  $self->{fieldName} .
        ' because moduel has not model method'
 
                      );
@@ -499,7 +499,7 @@ sub row
     if (defined $row) {
         return $row;
     }
-    
+
     if (not ($self->{rowId})) {
         return undef;
     }
@@ -515,4 +515,4 @@ sub row
 }
 
 1;
- 
+

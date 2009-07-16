@@ -28,7 +28,7 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
-	$self->{redirect} = "Software/Config";	
+	$self->{redirect} = "Software/Config";
 	$self->{domain} = 'ebox-software';
 	bless($self, $class);
 	return $self;

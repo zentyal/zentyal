@@ -28,10 +28,10 @@ use EBox::Types::Boolean;
 
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -48,11 +48,11 @@ sub new
 # a table model description.
 #
 
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                   fieldName => 'useDefault',
                   printableName => __('Use default profile configuration'),

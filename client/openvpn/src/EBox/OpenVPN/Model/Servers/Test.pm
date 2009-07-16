@@ -142,7 +142,7 @@ sub _newServers
                       directory   => 'Servers'
                                                          );
 
-    
+
 }
 
 
@@ -169,13 +169,13 @@ sub ifaceNumbersTest : Test(2)
     my %numbers;
     foreach my $id (@{ $servers->ids()  }) {
         my $row  = $servers->row($id);
-        my $name = $row->elementByName('name')->value();       
+        my $name = $row->elementByName('name')->value();
         my $number = $row->elementByName('interfaceNumber')->value();
         if ($number < 0) {
             $numbersOk = 0;
             diag "Server $name has not a interface number assigned";
         }
-        
+
         if (exists $numbers{$number}) {
             $numbersOk = 0;
             my $other = $numbers{$number};
@@ -183,7 +183,7 @@ sub ifaceNumbersTest : Test(2)
             my @allNumbers = keys %numbers;
             diag "All numbers in list: @allNumbers";
         }
-        
+
         $numbers{$number} = $name;
     }
 

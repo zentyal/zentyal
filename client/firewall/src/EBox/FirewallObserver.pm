@@ -20,7 +20,7 @@ use warnings;
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -28,9 +28,9 @@ sub new
 	return $self;
 }
 
-# Method: firewallHelper 
+# Method: firewallHelper
 #
-#       All modules using any of the functions in FirewallHelper.pm 
+#       All modules using any of the functions in FirewallHelper.pm
 #       should override this method to return the implementation
 #       of that interface.
 #
@@ -42,15 +42,15 @@ sub firewallHelper
 	return undef;
 }
 
-# Method: usesPort 
+# Method: usesPort
 #
 #	This method is used by the firewall to find out if a given port
-#	is available or not. So if your module implements the 
+#	is available or not. So if your module implements the
 #	EBox::FirewallHelper to allow some ports for the service it manages,
 #	you must implement this method to inform about this when requested.
 #	This means you should check if the requested port is used by your
 #	service.
-#	
+#
 # Parameters:
 #
 #   	protocol - protocol (tcp|udp)

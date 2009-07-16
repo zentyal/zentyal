@@ -32,11 +32,11 @@ use EBox::Model::ModelManager;
 use EBox::Exceptions::MissingArgument;
 use Perl6::Junction qw( any );
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = {}; 
+    my $self = {};
     $self->{'table'} = delete $opts{'table'};
     $self->{'chain'} = delete $opts{'chain'};
     $self->{'source'} = [''];
@@ -51,7 +51,7 @@ sub new
 # Method: strings
 #
 #   Return the iptables rules built as a string
-#   
+#
 # Returns:
 #
 #   Array ref of strings containing a iptables rule
@@ -88,7 +88,7 @@ sub strings
 #   (POSITIONAL)
 #
 #   service - a service id from <EBox::Service::Model::ServiceTable>
-#   inverseMatch - inverse match  
+#   inverseMatch - inverse match
 sub setService
 {
     my ($self, $service, $inverseMatch) = @_;
@@ -120,22 +120,22 @@ sub setService
         }
 
         if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
-        
+
             if ($srcPort ne 'any') {
                 $iptables .= " --source-port $inverse $srcPort ";
             }
 
-   
+
             if ($dstPort ne 'any') {
                 $iptables .= " --destination-port $inverse $dstPort ";
             }
 
             if ($protocol eq 'tcp/udp') {
                 push (@{$self->{'service'}}, " -p $invProto udp " . $iptables);
-                push (@{$self->{'service'}}, " -p $invProto tcp " . $iptables);    
+                push (@{$self->{'service'}}, " -p $invProto tcp " . $iptables);
             } else {
-                push (@{$self->{'service'}}, " -p $invProto $protocol " 
-                                             . $iptables);    
+                push (@{$self->{'service'}}, " -p $invProto $protocol "
+                                             . $iptables);
             }
 
         } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
@@ -149,14 +149,14 @@ sub setService
 
 # Method: setChain
 #
-#   Set chain for rules 
-#   
+#   Set chain for rules
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
 #   chain - it can be any valid chain or chain like accept, drop, reject
-#   
+#
 sub setChain
 {
     my ($self, $chain) = @_;
@@ -166,12 +166,12 @@ sub setChain
 
 # Method: chain
 #
-#   Return chain for rules 
-#   
+#   Return chain for rules
+#
 # Returns:
-#   
+#
 #   chain - it can be any valid chain or chain like accept, drop, reject
-#   
+#
 sub chain
 {
     my ($self) = @_;
@@ -185,15 +185,15 @@ sub chain
 
 # Method: setState
 #
-#   Set state for rules 
-#   
+#   Set state for rules
+#
 # Parameters:
-#   
+#
 #   (NAMED)
 #
 #   Set those states  which you wish to use. Do not set them to remove them
-#   
-#   new 
+#
+#   new
 #   established
 #   related
 sub setState
@@ -204,19 +204,19 @@ sub setState
         if (exists $params{$stateKey} and $params{$stateKey}) {
             $self->{"state_$stateKey"} = 1;
         } else {
-            $self->{"state_$stateKey"} = 0; 
+            $self->{"state_$stateKey"} = 0;
         }
     }
 }
 
 # Method: state
 #
-#   Return state for rules 
-#   
+#   Return state for rules
+#
 # Returns:
-#   
+#
 #   state - it can be any valid state or state like accept, drop, reject
-#   
+#
 sub state
 {
     my ($self) = @_;
@@ -224,7 +224,7 @@ sub state
     my $states = undef;
     for my $stateKey (qw(new established related)) {
         next unless ($self->{"state_$stateKey"});
-        $states .= ', ' if ($states); 
+        $states .= ', ' if ($states);
         $states .= uc($stateKey);
     }
     return '' unless ($states);
@@ -233,14 +233,14 @@ sub state
 
 # Method: setDecision
 #
-#   Set decision for rules 
-#   
+#   Set decision for rules
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
 #   decision - it can be any valid chain or decision like accept, drop, reject
-#   
+#
 sub setDecision
 {
     my ($self, $decision) = @_;
@@ -250,12 +250,12 @@ sub setDecision
 
 # Method: decision
 #
-#   Return decision for rules 
-#   
+#   Return decision for rules
+#
 # Returns:
-#   
+#
 #   decision - it can be any valid chain or decision like accept, drop, reject
-#   
+#
 sub decision
 {
     my ($self) = @_;
@@ -269,15 +269,15 @@ sub decision
 
 # Method: setTable
 #
-#   Set table to insert rules into 
-#   
+#   Set table to insert rules into
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
-#   table - it can be one of these: filter, nat, mangle 
+#   table - it can be one of these: filter, nat, mangle
 #
-#   
+#
 sub setTable
 {
     my ($self, $table) = @_;
@@ -292,13 +292,13 @@ sub setTable
 
 # Method: decision
 #
-#   Return decision for rules 
-#   
+#   Return decision for rules
+#
 # Returns:
-#   
+#
 #   decision - it can be any valid chain or decision like accept, drop, reject
-#   
-sub table 
+#
+sub table
 {
     my ($self) = @_;
 
@@ -312,18 +312,18 @@ sub table
 # Method: setSourceAddress
 #
 #   Set the source address/es to build the rule
-#   
+#
 # Parameters:
-#   
+#
 #   (NAMED)
 #
 #   inverseMatch - whether or not to do inverse match
 #   The source it can either:
 #   sourceAdddress - <EBox::Types::IPAddr>
 #   sourceObject - object's id
-#   
 #
-#   
+#
+#
 sub setSourceAddress
 {
     my ($self, %params) = @_;
@@ -332,15 +332,15 @@ sub setSourceAddress
     $self->_setAddress(%params);
 }
 
-# Method: sourceAddress 
+# Method: sourceAddress
 #
-#   Return source address 
-#   
+#   Return source address
+#
 # Returns:
-#   
+#
 #   Array ref containing source adddresses
-#   
-sub sourceAddress 
+#
+sub sourceAddress
 {
     my ($self) = @_;
 
@@ -354,9 +354,9 @@ sub sourceAddress
 # Method: setDestinationAddress
 #
 #   Set the destination address/es to build the rule
-#   
+#
 # Parameters:
-#   
+#
 #   (NAMED)
 #
 #   inverseMatch - whether or not to do inverse match
@@ -364,7 +364,7 @@ sub sourceAddress
 #   destinationAdddress - <EBox::Types::IPAddr>
 #   destinationObject - object's id
 #
-#   
+#
 sub setDestinationAddress
 {
     my ($self, %params) = @_;
@@ -373,15 +373,15 @@ sub setDestinationAddress
     $self->_setAddress(%params);
 }
 
-# Method: destinationAddress 
+# Method: destinationAddress
 #
-#   Return destination address 
-#   
+#   Return destination address
+#
 # Returns:
-#   
+#
 #   Array ref containing destination adddresses
-#   
-sub destinationAddress 
+#
+sub destinationAddress
 {
     my ($self) = @_;
 

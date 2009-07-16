@@ -44,7 +44,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -57,8 +57,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
             new EBox::Types::DomainName
                             (
@@ -95,8 +95,8 @@ sub _table
                             ),
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'DomainTable',
             'printableTableName' => __('Domains'),
             'automaticRemove' => 1,
@@ -125,7 +125,7 @@ sub _table
 #   hostnames  - array ref containing the following hash ref in each value:
 #
 #                name        - host's name
-#                ip          - hostr's ipaddr 
+#                ip          - hostr's ipaddr
 #                aliases     - array ref containing alias names;
 #
 #   Example:

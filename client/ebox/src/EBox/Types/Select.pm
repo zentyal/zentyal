@@ -92,9 +92,9 @@ sub size
 #
 # Returns:
 #
-#   boolean - true means it mustn't cache,  false it will cache 
+#   boolean - true means it mustn't cache,  false it will cache
 #             By default, it will return false
-#   
+#
 sub disableCache
 {
     my ($self) = @_;
@@ -106,12 +106,12 @@ sub disableCache
 #
 #   Set if we must disable the options cache.
 #   For performance reasons, eBox caches the options given for a select type
-#   By default, it will cache 
+#   By default, it will cache
 #
 # Parameters:
 #
-#   boolean - true means it mustn't cache,  false it will cache 
-#      
+#   boolean - true means it mustn't cache,  false it will cache
+#
 sub setDisableCache
 {
     my ($self, $disable) = @_;
@@ -234,7 +234,7 @@ sub populate
                                          'defined and it is required to fill ' .
                                          'the select options');
     }
-    
+
     return $self->{'populate'};
 
 }
@@ -243,8 +243,8 @@ sub populate
 #
 #
 #  Warning:
-#  We compare printableValues because it has more sense for the user 
-#  (especially when we have a foreignModel and the values are row Ids). 
+#  We compare printableValues because it has more sense for the user
+#  (especially when we have a foreignModel and the values are row Ids).
 #  However there may be many cases when this would not be appropiate.
 #
 #  Overrides:
@@ -261,7 +261,7 @@ sub cmp
 
 }
 
-# Method: isValueSet 
+# Method: isValueSet
 #
 #   Check if the type has been set. You can't use value to do this because
 #   it always defaults to the first value of options
@@ -338,7 +338,7 @@ sub _paramIsValid
     unless ( grep { $_ eq $value } @allowedValues ) {
         throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                              value  => $value,
-                                             advice => 
+                                             advice =>
                       __x('Choose a value within the value set: {set}',
                                  set => join(', ', @allowedValues))
                                            );
@@ -356,12 +356,12 @@ sub _paramIsValid
 sub _paramIsSet
 {
     my ($self, $params) = @_;
-    
+
     # Check if the parameter exist
     my $param =  $params->{$self->fieldName()};
-    
+
     return defined ( $params->{$self->fieldName()} );
-    
+
 }
 
 # Method: _setValue
@@ -462,5 +462,5 @@ sub _filterOptions
 
 }
 
- 
+
 1;

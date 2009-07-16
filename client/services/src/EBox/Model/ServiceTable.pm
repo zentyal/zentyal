@@ -24,7 +24,7 @@
 #   description - service's description (optional)
 #   configuration - hasMany relation with model
 #                   <EBox::Services::ModelServiceConfigurationTable>
-#   
+#
 #
 #   Let's see an example of the structure returned by printableValueRows()
 #
@@ -45,8 +45,8 @@
 #            }
 #           ],
 #       },
-#            
-#            
+#
+#
 #     },
 #     {
 #        'id' => 'serv7867',
@@ -86,7 +86,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -100,8 +100,8 @@ sub new
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Text(
             'fieldName' => 'translationDomain',
             'printableName' => __('Domain'),
@@ -144,8 +144,8 @@ sub _table
 
 
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'ServiceTable',
         'automaticRemove' => 1,
         'printableTableName' => __('List of services'),
@@ -176,7 +176,7 @@ sub _tailoredOrder # (rows)
     my ($self, $rows_ref) = @_;
 
     # Order rules per priority
-    my @orderedRows = sort { 
+    my @orderedRows = sort {
                             $a->valueByName('name') cmp $b->valueByName('name')
                             }
                             @{$rows_ref};
@@ -220,14 +220,14 @@ sub availablePort
             return undef if ($conf->valueByName('protocol') eq $protocol);
         }
     }
-    
+
     return 1;
 }
 
-# Method: addService 
+# Method: addService
 #
 #   Add service to the services table. Note this method must exist
-#   because we add services manually from other modules	
+#   because we add services manually from other modules
 #
 # Parameters:
 #
@@ -235,10 +235,10 @@ sub availablePort
 #   name       - service's name
 #   description - service's description
 #   protocol   - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#   sourcePort - it can take: 
+#   sourcePort - it can take:
 #               "any"
 #               An integer from 1 to 65536 -> 22
-#               Two integers separated by colons -> 22:25 
+#               Two integers separated by colons -> 22:25
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
@@ -249,12 +249,12 @@ sub availablePort
 #       'protocol' => 'tcp',
 #       'source' => 'any',
 #       'destination' => '21:22',
-sub addService 
+sub addService
 {
     my ($self, %params) = @_;
-    
 
-    my $id = $self->addRow(_serviceParams(%params)); 
+
+    my $id = $self->addRow(_serviceParams(%params));
 
     unless (defined($id)) {
         throw EBox::Exceptions::Internal("Couldn't add name and description");
@@ -276,7 +276,7 @@ sub addService
     return $id;
 }
 
-# Method: setService 
+# Method: setService
 #
 #   Add service to the services table. Note this method must exist
 #   because we set services manually from other modules.
@@ -289,10 +289,10 @@ sub addService
 #   name       - service's name
 #   description - service's description
 #   protocol   - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#   sourcePort - it can take: 
+#   sourcePort - it can take:
 #               "any"
 #               An integer from 1 to 65536 -> 22
-#               Two integers separated by colons -> 22:25 
+#               Two integers separated by colons -> 22:25
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
@@ -302,7 +302,7 @@ sub addService
 #       'protocol' => 'tcp',
 #       'source' => 'any',
 #       'destination' => '21:22',
-sub setService 
+sub setService
 {
     my ($self, %params) = @_;
 
@@ -311,9 +311,9 @@ sub setService
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $row = $self->findValue('name' => $name); 
+    my $row = $self->findValue('name' => $name);
     unless (defined($row)) {
-       throw EBox::Exceptions::DataNotFound('data' => 'service', 
+       throw EBox::Exceptions::DataNotFound('data' => 'service',
                                             'value' => 'name');
     }
 
@@ -337,22 +337,22 @@ sub setService
     }
 
     my $idConf = $ids[0];
-    
-    
+
+
     my %confParams = _serviceConfParams(%params);
     $confParams{'id'} = $idConf;
     $serviceConf->setRow(1, %confParams);
 
 }
 
-# Method: addMultipleService 
+# Method: addMultipleService
 #
-#   Add a multi protocol service to the services table	
+#   Add a multi protocol service to the services table
 #
 # Parameters:
 #
 #   (NAMED)
-#   
+#
 #   name        - service's name
 #   description - service's description
 #   internal - boolean, internal services can't be modified from the UI
@@ -360,11 +360,11 @@ sub setService
 #
 #   services - array ref of hash ref containing:
 #
-#	    protocol    - it can take one of these: any, tcp, udp, 
+#	    protocol    - it can take one of these: any, tcp, udp,
 #	                                            tcp/udp, grep, icmp
 #	    sourcePort  - it can take:  "any"
 #                                   An integer from 1 to 65536 -> 22
-#                                   Two integers separated by colons -> 22:25 
+#                                   Two integers separated by colons -> 22:25
 #	    destinationPort - same as source
 #
 #
@@ -372,7 +372,7 @@ sub setService
 #
 #       'name' => 'ssh',
 #       'description' => 'secure shell'.
-#       'services' => [ 
+#       'services' => [
 #                       {
 #	                        'protocol' => 'tcp',
 #	                        'sourcePort' => 'any',
@@ -387,12 +387,12 @@ sub setService
 #
 #   Returns:
 #
-#   string - id of the new created row  
-sub addMultipleService 
+#   string - id of the new created row
+sub addMultipleService
 {
     my ($self, %params) = @_;
 
-    my $id = $self->addRow(_serviceParams(%params)); 
+    my $id = $self->addRow(_serviceParams(%params));
 
     unless (defined($id)) {
         throw EBox::Exceptions::Internal("Couldn't add name and description");
@@ -410,7 +410,7 @@ sub addMultipleService
 
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
 
-    for my $service (@{$params{'services'}}) {    
+    for my $service (@{$params{'services'}}) {
         $service->{'internal'} = $params{'internal'};
         $service->{'readOnly'} = $params{'readOnly'};
         $serviceConf->addRow(_serviceConfParams(%{$service}));
@@ -423,9 +423,9 @@ sub addMultipleService
 #        throw EBox::Exceptions::MissingArgument('name');
 #    }
 #
-#    my $row = $self->findValue('name' => $name); 
+#    my $row = $self->findValue('name' => $name);
 #    unless (defined($row)) {
-#       throw EBox::Exceptions::DataNotFound('data' => 'service', 
+#       throw EBox::Exceptions::DataNotFound('data' => 'service',
 #                                            'value' => 'name');
 #    }
 #
@@ -449,9 +449,9 @@ sub addMultipleService
 #    }
 #
 #    my $idConf = $rows[0]->{'id'};
-#    
+#
 #    my $rowId = 1;
-#    for my $service (@{$params{'service'}}) {    
+#    for my $service (@{$params{'service'}}) {
 #        $service->{'internal'} = $params{'internal'};
 #        $service->{'readOnly'} = $params{'readOnly'};
 #        my %confParams = _serviceConfParams(%{$service});
@@ -474,11 +474,11 @@ sub _serviceParams
     if (exists $params{'translationDomain'}) {
         $translationDomain = $params{'translationDomain'};
     }
-    
+
    return ('name' => $name, 'description' => $description,
            'internal' => $internal, 'readOnly' => $readonly,
            'translationDomain' => $translationDomain);
- 
+
 }
 
 sub _serviceConfParams
@@ -490,13 +490,13 @@ sub _serviceConfParams
      my $destinationPort = delete $params{'destinationPort'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};
-   
-    
+
+
     my $sourcePortType;
     my $sourcePortFrom;
     my $sourcePortTo;
     my $sourceSinglePort;
-    
+
     if ($sourcePort eq 'any') {
         $sourcePortType  = 'any';
     } elsif ($sourcePort =~ /^\d+$/) {
@@ -511,7 +511,7 @@ sub _serviceConfParams
     my $destinationPortFrom;
     my $destinationPortTo;
     my $destinationSinglePort;
-    
+
     if ($destinationPort eq 'any') {
         $destinationPortType  = 'any';
     } elsif ($destinationPort =~ /^\d+$/) {
@@ -519,11 +519,11 @@ sub _serviceConfParams
         $destinationSinglePort = $destinationPort;
     } elsif ($destinationPort =~ /^\d+:\d+/) {
         $destinationPortType = 'range';
-        ($destinationPortFrom, $destinationPortTo) = 
+        ($destinationPortFrom, $destinationPortTo) =
                           split (/:/, $destinationPort);
     }
 
-    return ('protocol' => $protocol, 
+    return ('protocol' => $protocol,
            'source_range_type' => $sourcePortType,
            'source_single_port' => $sourceSinglePort,
            'source_from_port' => $sourcePortFrom,

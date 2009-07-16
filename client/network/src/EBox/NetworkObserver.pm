@@ -20,7 +20,7 @@ use warnings;
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -31,11 +31,11 @@ sub new
 #
 # Method: staticIfaceAddressChanged
 #
-#	Invoked when the address of an static network interface is going to 
-#	be changed, this method receives the old and new addresses and masks 
-#	as arguments. Returning a true value means that this 
+#	Invoked when the address of an static network interface is going to
+#	be changed, this method receives the old and new addresses and masks
+#	as arguments. Returning a true value means that this
 #	module's configuration would become inconsistent if such a change
-#	was made. In that case the network module will not make the change, 
+#	was made. In that case the network module will not make the change,
 #	but warn the user instead. You should override this method if you need
 #	to.
 #
@@ -59,10 +59,10 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 #
 # Method: ifaceMethodChanged
 #
-# 	Invoked when the configuration method for a network interface is 
-#	going to change. Both the old and new methods are passed as 
+# 	Invoked when the configuration method for a network interface is
+#	going to change. Both the old and new methods are passed as
 #	arguments to this function. They are strings: static, dhcp,
-#	trunk or notset. As with the previous function, a return value of 
+#	trunk or notset. As with the previous function, a return value of
 #	true will prevent the change from being made. You should override this
 #	method if you need to.
 #
@@ -109,10 +109,10 @@ sub ifaceExternalChanged # (iface)
 #
 # Method: vifaceDelete
 #
-#	Invoked when a  virtual interface is going to be removed. Its 
-#	arguments are the real interface  which it's going to be removed from, 
+#	Invoked when a  virtual interface is going to be removed. Its
+#	arguments are the real interface  which it's going to be removed from,
 #	the name of the  interface to remove, its ip address and its netmask. It
-#	works the same way: return true if the removal of the virtual 
+#	works the same way: return true if the removal of the virtual
 #	interface is incompatible with your module's current configuration.
 #
 #   Parameteres:
@@ -132,10 +132,10 @@ sub vifaceDelete # (iface, viface)
 #
 # Method: vifaceAdded
 #
-#	Invoked when a new virtual interface is going to be created. Its 
-#	arguments are the real interface to which it's going to be added, 
+#	Invoked when a new virtual interface is going to be created. Its
+#	arguments are the real interface to which it's going to be added,
 #	the name of the new interface, its ip address and its netmask. It
-#	works the same way: return true if the creation of the virtual 
+#	works the same way: return true if the creation of the virtual
 #	interface is incompatible with your module's current configuration.
 #
 #   Parameteres:

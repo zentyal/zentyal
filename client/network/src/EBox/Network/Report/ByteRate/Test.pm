@@ -42,8 +42,8 @@ sub addBpsTest : Test(5)
 
   my $wwwPort = 80;
   my $wwwRRD  =  EBox::Network::Report::ByteRate::serviceRRD('www');
-  my $sshPort = 22; 
-  my $sshRRD  =  EBox::Network::Report::ByteRate::serviceRRD('ssh'); 
+  my $sshPort = 22;
+  my $sshRRD  =  EBox::Network::Report::ByteRate::serviceRRD('ssh');
 
   my $src1    = '192.168.45.3';
   my $src1RRD = EBox::Network::Report::ByteRate::srcRRD($src1);
@@ -54,7 +54,7 @@ sub addBpsTest : Test(5)
   my $escapedSrcIp6 =  EBox::Network::Report::ByteRate::escapeAddress($srcIp6);
   my $srcIp6RRD     =   EBox::Network::Report::ByteRate::srcRRD($escapedSrcIp6);
 
-  
+
   my $src1WwwRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src1, 'www');
   my $src2WwwRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src2, 'www');
   my $src1SshRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src1, 'ssh');
@@ -69,9 +69,9 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $wwwPort,
 					 bps => 1,
-					); 
+					);
 
-  
+
 
   $expectedRRDs{$src1RRD} +=  1;
   $expectedRRDs{$wwwRRD} += 1;
@@ -92,11 +92,11 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $wwwPort,
 					 bps => 1,
-					); 
+					);
   $expectedRRDs{$src2RRD} += 1;
   $expectedRRDs{$wwwRRD}  += 1;
   $expectedRRDs{$src2WwwRRD} += 1;
-  
+
 
   EBox::Network::Report::ByteRate::addBps(
 					 proto => 'tcp',
@@ -105,7 +105,7 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $wwwPort,
 					 bps => 1,
-					); 
+					);
 
   $expectedRRDs{$src1RRD} += 1;
   $expectedRRDs{$wwwRRD}  += 1;
@@ -122,11 +122,11 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $sshPort,
 					 bps => 2,
-					); 
+					);
   $expectedRRDs{$src2RRD} += 2;
   $expectedRRDs{$sshRRD}  += 2;
   $expectedRRDs{$src2SshRRD} += 2;
-  
+
 
   EBox::Network::Report::ByteRate::addBps(
 					 proto => 'tcp',
@@ -135,12 +135,12 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $sshPort,
 					 bps => 1,
-					); 
+					);
 
   $expectedRRDs{$src1RRD} += 1;
   $expectedRRDs{$sshRRD}  += 1;
   $expectedRRDs{$src1SshRRD} += 1;
-  
+
   EBox::Network::Report::ByteRate->flushBps();
 
   is_deeply \%bpsByRRD, \%expectedRRDs, 'checking data after two more adds of another service';
@@ -153,7 +153,7 @@ sub addBpsTest : Test(5)
 					 dst   => '45.23.12.12',
 					 dport => $wwwPort,
 					 bps => 1,
-					); 
+					);
   EBox::Network::Report::ByteRate->flushBps();
 
   $expectedRRDs{$srcIp6RRD} += 1;
@@ -174,7 +174,7 @@ sub addDeviantBpsTest : Test(12)
 		  sport => 10000,
 		  dst   => '45.23.12.12',
 		  dport => 70,
-		  bps => 2,	  
+		  bps => 2,
 		 };
 
   my %badValues = (
@@ -197,7 +197,7 @@ sub addDeviantBpsTest : Test(12)
 
   foreach my $case (@deviantCases) {
     lives_ok {
-      EBox::Network::Report::ByteRate::addBps( @{ $case }); 
+      EBox::Network::Report::ByteRate::addBps( @{ $case });
     } 'adding incorrect bps data';
     is keys %bpsByRRD, 0, 'checking that no bps data has been added when supplied bad data';
   }
@@ -217,7 +217,7 @@ sub escapeAddressTest : Test(2)
     my $escaped = EBox::Network::Report::ByteRate::escapeAddress($addr);
     my $unescaped = EBox::Network::Report::ByteRate::unescapeAddress($escaped);
     is $unescaped, $addr, 'Checking wether unescaping a escaped address turn it back to the original';
-    
+
   }
 
 }

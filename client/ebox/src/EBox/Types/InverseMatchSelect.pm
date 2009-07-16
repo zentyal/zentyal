@@ -20,7 +20,7 @@
 #
 #   FIXME: This package shouldn't exist as we should provide inverse match
 #   feature form abstract types and provide a real OO approach, not this
-#   ugly repetition of code in InverseMatch* types. 
+#   ugly repetition of code in InverseMatch* types.
 #
 #   We are repeating ourselves, this sucks so freaking much.
 #
@@ -66,7 +66,7 @@ sub compareToHash
 {
     my ($self, $hash) = @_;
 
-    unless  ($self->inverseMatch() 
+    unless  ($self->inverseMatch()
             eq $hash->{$self->inverseMatchField()}) {
 
         return undef;
@@ -107,7 +107,7 @@ sub fields
     return ($self->inverseMatchField(), $self->SUPER::fields());
 }
 
-sub inverseMatch 
+sub inverseMatch
 {
     my ($self) = @_;
 

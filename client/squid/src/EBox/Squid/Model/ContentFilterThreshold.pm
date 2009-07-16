@@ -22,8 +22,8 @@
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#  
-# 
+#
+#
 
 package EBox::Squid::Model::ContentFilterThreshold;
 use base 'EBox::Model::DataForm';
@@ -38,10 +38,10 @@ use EBox::Gettext;
 use  EBox::Squid::Types::WeightedPhrasesThreshold;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -58,17 +58,17 @@ sub new
 # a table model description.
 #
 
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
 
          new  EBox::Squid::Types::WeightedPhrasesThreshold(
              fieldName => 'contentFilterThreshold',
              printableName => __('Threshold'),
              editable => 1,
-             ), 
+             ),
 
 
         );

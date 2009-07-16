@@ -36,7 +36,7 @@ my $old_domain;
 
 # Method: settextdomain
 #
-#	Sets the curent message domain   
+#	Sets the curent message domain
 #
 # Parameters:
 #
@@ -53,13 +53,13 @@ sub settextdomain # (domain)
 }
 
 #
-# Method: gettextdomain 
+# Method: gettextdomain
 #
-# 	Gathers  the curent message domain   
+# 	Gathers  the curent message domain
 #
 # Returns:
 #
-#      The current message domain 
+#      The current message domain
 #
 sub gettextdomain
 {
@@ -110,11 +110,11 @@ sub __expand # (translation, %arguments)
 }
 
 # Method: _set_packagedomain
-# 
+#
 # 	Fetch and set the module's domain.
 # 	Tries to call $PACKAGE::domain function
 # 	to fetch the domain
-# 	
+#
 sub _set_packagedomain
 {
 	my ($package, $filename, $line) = caller 1;
@@ -167,9 +167,9 @@ $langs->{'zh_TW.UTF-8'} = '繁體中文';
 #   	Gathers the current set language
 #
 # Returns:
-#	
+#
 #	the current domain language
-#       
+#
 sub langname # (locale)
 {
 	my ($locale) = @_;
@@ -178,14 +178,14 @@ sub langname # (locale)
 }
 
 # Method: langs
-#  	gathers the available languages 
+#  	gathers the available languages
 #
 # Returns:
 #
-#	hash reference -  containing the available languages. Each key 
-#	represents a *locale* and its value contains the associated 
-#	language	 
-#		
+#	hash reference -  containing the available languages. Each key
+#	represents a *locale* and its value contains the associated
+#	language
+#
 sub langs
 {
 	return $langs;

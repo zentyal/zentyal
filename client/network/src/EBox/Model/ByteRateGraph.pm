@@ -65,7 +65,7 @@ sub _table
 		    'editField',
 		    'changeView',
 		   ],
-		   
+
 		   messages => {
 				'add'       => undef,
 				'del'       => undef,
@@ -162,7 +162,7 @@ sub _graphSubArguments
 sub _controlModel
 {
   my ($self) = @_;
-  
+
   my $network = EBox::Global->modInstance('network');
   return $network->model('ByteRateGraphControl');
 }

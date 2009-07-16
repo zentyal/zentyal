@@ -40,7 +40,7 @@ sub cleanTestDir : Test(startup)
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-   
+
 
     my @config = (
                   '/ebox/modules/mail/active'  => 1,
@@ -53,7 +53,7 @@ sub setUpConfiguration : Test(setup)
 
     EBox::TestStubs::fakeEBoxModule(name => 'firewall',
                                     subs => [
-                                             availablePort => sub { 
+                                             availablePort => sub {
                                                return 1
                                              },
                                              ]
@@ -63,7 +63,7 @@ sub setUpConfiguration : Test(setup)
 
 # we fake this to returns that always are one interface. (this is for the
 # setIpFilter method)
-sub fakeGetIfacesForAddress 
+sub fakeGetIfacesForAddress
 {
   Test::MockObject->fake_module('EBox::Mail',
                                 '_getIfacesForAddress' => sub { return ['eth0']  },
@@ -84,7 +84,7 @@ sub _moduleTest : Test(4)
 
   my $mail = EBox::Global->modInstance('mail');
     EBox::Test::checkModels($mail,
-                            qw(SMTPAuth SMTPOptions RetrievalServices 
+                            qw(SMTPAuth SMTPOptions RetrievalServices
                                ObjectPolicy VDomains ExternalFilter
                                GreylistConfiguration MailDispatcherConfiguration
                                )
@@ -128,7 +128,7 @@ sub extendedRestoreTest : Test(7)
       is @nFiles, 0, "Checking wether contents of restored dir $d were replaced with the contents of the archive (no mailboxes)";
     }
     else {
-      ok 0, "$d must exist";  
+      ok 0, "$d must exist";
     }
   }
 
@@ -144,7 +144,7 @@ sub extendedRestoreTest : Test(7)
                                'monos.org' => {
                                                macaco => {
                                                           tmp => {},
-                                                          new => { 
+                                                          new => {
                                                                   '1177498277.V801Id1438.localhost.localdomain,S=690' => 'fake mail',
                                                                  },
                                                           cur => {},
@@ -164,7 +164,7 @@ sub extendedRestoreTest : Test(7)
                                'monos.org' => {
                                                macaco => {
                                                           tmp => {},
-                                                          new => { 
+                                                          new => {
                                                                  },
                                                           cur => {
                                                                   '1177498277.V801Id1438.localhost.localdomain,S=690' => 'fake mail',
@@ -185,7 +185,7 @@ sub extendedRestoreTest : Test(7)
   # setup restore dirs
   spew_tree($varDir => $afterBackup );
   lives_ok { $mail->extendedRestore( dir => $self->testDir )  } 'Running extendedRestore';
-  
+
   my $afterRestore = slurp_tree($varDir);
   is_deeply $afterRestore, $beforeBackup, 'Checking restored mail archives';
 }

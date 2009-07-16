@@ -71,7 +71,7 @@ sub new
           q{PortRange type cannot be optional. You should select 'any' value}
                                         );
     }
-    
+
     $opts{'type'} = 'portrange';
 
     my $self = $class->SUPER::new(%opts);
@@ -94,18 +94,18 @@ sub paramExist
     my $type = $params->{$name . '_range_type'};
 
     return undef unless($type);
-    
+
     return 1 if ($type eq 'any');
 
     if ($type eq 'range') {
-        return undef unless(exists $params->{$name . '_from_port'} 
+        return undef unless(exists $params->{$name . '_from_port'}
                             and exists $params->{$name . '_to_port'});
     } else {
         return undef unless (exists $params->{$name . '_single_port'});
     }
 }
 
-# Method: value 
+# Method: value
 #
 #    Overrides <EBox::Types::Abstract::Value> method
 #
@@ -227,42 +227,42 @@ sub rangeType
     return $self->{'range_type'};
 }
 
-# Method: from 
+# Method: from
 #
-#   Return the "from" port 
+#   Return the "from" port
 #
 # Returns:
 #
 #   string - containing the port
-sub from 
+sub from
 {
     my ($self) = @_;
 
     return $self->{'from'};
 }
 
-# Method: to 
+# Method: to
 #
-#   Return the "to" port 
+#   Return the "to" port
 #
 # Returns:
 #
 #   string - containing the port
-sub to 
+sub to
 {
     my ($self) = @_;
 
     return $self->{'to'};
 }
 
-# Method: single 
+# Method: single
 #
-#   Return the single port 
+#   Return the single port
 #
 # Returns:
 #
 #   string - containing the port
-sub single 
+sub single
 {
     my ($self) = @_;
 
@@ -297,7 +297,7 @@ sub rangeTypes
                        printableValue => 'Port range',
                       },
                      );
-    
+
     return \@rangeTypes;
 }
 
@@ -372,7 +372,7 @@ sub _restoreFromHash
     my $value;
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path(); 
+        my $path = $self->_path();
         $value->{range} =  $gconf->get_string($path . '/' . $range);
         $value->{from} =  $gconf->get_string($path . '/' . $from);
         $value->{to} =  $gconf->get_string($path . '/' . $to);
@@ -380,10 +380,10 @@ sub _restoreFromHash
         $self->_addToCache($value);
     }
 
-    $self->{'range_type'} = $value->{range}; 
-    $self->{'from'} = $value->{from}; 
+    $self->{'range_type'} = $value->{range};
+    $self->{'from'} = $value->{from};
     $self->{'to'} = $value->{to};
-    $self->{'single'} = $value->{single}; 
+    $self->{'single'} = $value->{single};
 
 }
 
@@ -440,7 +440,7 @@ sub _paramIsSet
     return 1 if ($type eq 'any');
 
     if ($type eq 'range') {
-        return undef unless(exists $params->{$name . '_from_port'} 
+        return undef unless(exists $params->{$name . '_from_port'}
                             and ($params->{$name . '_from_port'} ne '')
                             and exists $params->{$name . '_to_port'}
                             and ($params->{$name . '_to_port'}) ne '');

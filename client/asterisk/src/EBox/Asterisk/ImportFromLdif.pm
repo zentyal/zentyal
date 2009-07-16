@@ -62,7 +62,7 @@ sub processPosixAccount
     if ($isSIPUser) {
         my $extensions  = EBox::Asterisk::Extensions->new();
         my $extn     = $entry->get_value('AstAccountCallerID');
-        
+
         if (not $extensions->extensionExists($extn)) {
             $extensions->modifyUserExtension($username, $extn);
         }
@@ -97,11 +97,11 @@ sub processAsteriskExtension
 
     if (not ($ext =~ m/^\d*-?\d+$/)) {
         # this mean that is a user extension bz the vlaue of the extension is
-        # the username 
+        # the username
 
         # XXX in the future we will use non-nuemric extensions which will not be
         # user extensions. We wil have to look to extension type, app data or
-        # something to bette discriminate 
+        # something to bette discriminate
         return;
     }
 
@@ -134,9 +134,9 @@ sub processAsteriskExtension
 
 #     my $result = $extensions->{ldap}->search(\%args);
 
-#     my @extns = map { 
+#     my @extns = map {
 #         if ($_->get_value('AstExtension') > $maxUserExtension) {
-#             $_->get_value('cn')                         
+#             $_->get_value('cn')
 #         } else {
 #             ()
 #         }

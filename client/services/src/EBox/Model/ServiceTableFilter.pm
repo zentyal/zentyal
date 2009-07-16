@@ -24,7 +24,7 @@
 #   description - service's description (optional)
 #   configuration - hasMany relation with model
 #                   <EBox::Services::ModelServiceConfigurationTable>
-#   
+#
 #
 #   Let's see an example of the structure returned by printableValueRows()
 #
@@ -45,8 +45,8 @@
 #            }
 #           ],
 #       },
-#            
-#            
+#
+#
 #     },
 #     {
 #        'id' => 'serv7867',
@@ -86,7 +86,7 @@ use warnings;
 
 use base 'EBox::Services::Model::ServiceTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -103,11 +103,11 @@ sub _table
 
     my $table = clone $self->SUPER::_table();
     $table->{'tableName'} = 'ServiceTableFilter';
-    
+
     my @header = grep {
                         $_->fieldName() ne 'internal'
                      } @{$table->{'tableDescription'}};
-                     
+
     $table->{'tableDescription'} = \@header;
 
     $table->{'defaultController'} =
@@ -117,7 +117,7 @@ sub _table
 
 sub rows
 {
-    my ($self) = @_;	
+    my ($self) = @_;
 
     my $model = EBox::Model::ModelManager->instance()->model('ServiceTable');
     my @rows;
@@ -132,7 +132,7 @@ sub rows
             $newRow{'values'} = \@values;
 	    push (@rows, \%newRow);
         }
-	
+
     }
 
     return \@rows;

@@ -72,14 +72,14 @@ sub _tableHeader
                                optional      => 1,
                                allowDownload => 1,
                                dynamicPath   => \&_listFilePath,
-                               
+
                                user   => 'root',
                                group  => 'root',
                               ),
-         
+
 
         );
-      
+
       return \@tableHeader;
 }
 
@@ -93,12 +93,12 @@ sub _listFilePath
 
 
     my $model = $file->model();
-    
+
 
 
     my $id = $model->_fileId($row);
 
-    my $path = $model->listFileDir(); 
+    my $path = $model->listFileDir();
     $path .= '/' . $id;
 
 #    EBox::debug("File path $path");
@@ -142,7 +142,7 @@ sub archiveContentsDir
 sub addedRowNotify
 {
   my ($self, $row) = @_;
-  
+
   $self->_checkRow($row);
 }
 
@@ -235,7 +235,7 @@ sub _setUpArchive
 sub _checkFileList
 {
     my ($self, $path) = @_;
-    
+
     # XXX to speed up the release we dont support plain lists yet i nthe next
     # version we will acommodate them to gui (maybe given it a bogus 'all'
     # cathegory or whatever'
@@ -243,7 +243,7 @@ sub _checkFileList
  __('Plain lists not allowed: is only allowed compressed archives of classified black lists')
        );
 
-    # XXX commented out bz there a lot of 'domains' list that are in 
+    # XXX commented out bz there a lot of 'domains' list that are in
     # reality 'url' lsits (in DG lingo). so we cannot afford be too strict
 
 #     my @lines = @{ EBox::Sudo::root("/bin/cat $path")  };
@@ -266,7 +266,7 @@ sub _checkFileList
 #         if (not EBox::Validate::checkDomainName($line)) {
 #             throw EBox::Exceptions::External(
 #            __x(
-#               q{Invalid line: {li}} . 
+#               q{Invalid line: {li}} .
 #               qq{\n It must be either a domain name or a IP address},
 #                li => $line
 #               )
@@ -277,7 +277,7 @@ sub _checkFileList
 #          if (not EBox::Validate::checkFilePath($path)) {
 #               throw EBox::Exceptions::External(
 #             __x(
-#                q{Invalid line: {li}} . 
+#                q{Invalid line: {li}} .
 #                qq{\n It must be either a domain name or a IP address},
 #                 li => $line
 #                )
@@ -383,9 +383,9 @@ sub _filesByPolicy
   foreach my $id (@{$self->ids()}) {
       my $row = $self->row($id);
       my $file = $row->elementByName('fileList');
-      $file->exist() or 
+      $file->exist() or
           next;
-      
+
       my $path = $file->path();
       if ($self->_fileIsArchive($path)) {
           push @files,  @{ $self->_archiveFiles($row, $policy, $scope)  };
@@ -397,9 +397,9 @@ sub _filesByPolicy
           }
 
           if ($row->valueByName('policy') eq $policy) {
-              push @files, $path;                
-          } 
-          
+              push @files, $path;
+          }
+
       }
 
   }
@@ -437,7 +437,7 @@ sub _extractArchive
     my $dir = $self->archiveContentsDir($id);
     EBox::Sudo::root("mkdir -p $dir");
 
-    my $cmd = "tar  xzf $path -C $dir --keep-old-files "; 
+    my $cmd = "tar  xzf $path -C $dir --keep-old-files ";
       # --keep-old-files -> the archive wil be extracted serveral time so we try
       # to keep the proceess fast
     EBox::Sudo::root($cmd);
@@ -474,9 +474,9 @@ sub _archiveFiles
 sub _populateCategories
 {
     my ($self, $row) = @_;
-    
+
     my %categories;
-    
+
     my $id = $self->_fileId($row);
     my $dir = $self->archiveContentsDir($id);
     my @files =  @{ EBox::Sudo::root("find $dir") };
@@ -486,18 +486,18 @@ sub _populateCategories
         my $dirname  = $1 .'/' . $2;
         my $category = $2;
         my $basename = $3;
-        
+
         if ($basename eq $anyArchiveFilesScopes) {
             $categories{$category} = $dirname;
          }
-        
+
     }
-    
-    
+
+
     my $domainFilterCategories = $row->subModel('categories');
 
-    my %categoriesInModel = map { 
-                                     ($_ => 1)  
+    my %categoriesInModel = map {
+                                     ($_ => 1)
                               } @{ $domainFilterCategories->categories() };
 
     # add new categories
@@ -507,13 +507,13 @@ sub _populateCategories
             next;
         }
 
-        $domainFilterCategories->addRow( 
-                                        category => $category, 
-                                        policy => 'ignore', 
+        $domainFilterCategories->addRow(
+                                        category => $category,
+                                        policy => 'ignore',
                                         dir    => $dir,
                                        );
     }
-        
+
     # remov categories not longer existent
     foreach my $category (keys %categoriesInModel) {
         $domainFilterCategories->deleteCategory($category);
@@ -580,7 +580,7 @@ sub cleanOrphanedFiles
 
     my %expectedFiles = %{ $self->_expectedArchiveFiles() };
 
-    my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") }; 
+    my @listFiles = @{ EBox::Sudo::root("find $dir -maxdepth 1 -type f") };
     foreach my $file (@listFiles) {
         chomp $file;
 
@@ -613,7 +613,7 @@ sub cleanOrphanedFiles
 
         EBox::debug("Orphaned content dir $archDir. (Looked for file $archiveFile. Will be removed");
         EBox::Sudo::root("rm -rf $archDir");
-        
+
     }
 }
 
@@ -637,7 +637,7 @@ sub cleanOrphanedFiles
 #   my $trace = Devel::StackTrace->new;
 #     EBox::debug($trace->as_string);
 
-    
+
 #     $self->SUPER::parentRow(@p);
 # }
 
@@ -651,13 +651,13 @@ sub cleanOrphanedFiles
 #   my $trace = Devel::StackTrace->new;
 #     EBox::debug($trace->as_string);
 
-    
+
 #     $self->SUPER::setParentComposite(@p);
 # }
 
 
 # XXX ad-hack reimplementation until the bug in coposite's parent would be
-# solved 
+# solved
 use EBox::Global;
 sub parent
 {
@@ -694,12 +694,12 @@ sub dumpConfig
             next;
         print $fh $fileField->path() . "\n";
     }
-    
+
     close $fh or
          throw EBox::Exceptions::Internal("$!");
 
 
-    
+
     my $archiveFile = $self->_backupFilterFilesArchive($dir);
 
     my $tarCmd;
@@ -738,7 +738,7 @@ sub restoreConfig
 # this two methods ar empty until automatic files backup/restore is fixed
 # until then we wil l use the custom dumpConfig and restoreConfig methods
 sub backupFiles
-{} 
+{}
 
 sub restoreFiles
 {}

@@ -48,7 +48,7 @@ sub _process
 	my $r = Apache2::RequestUtil->request;
 	my $envre;
 	my $authreason;
-	
+
 	if ($r->prev){
 		$envre = $r->prev->subprocess_env("LoginReason");
 		$authreason = $r->prev->subprocess_env('AuthCookieReason');
@@ -62,16 +62,16 @@ sub _process
 		       'Please, wait patiently until it is done');
 	}
 	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-		$reason = __('Incorrect password');	
+		$reason = __('Incorrect password');
 	}
 	elsif ((defined $envre) and ($envre eq 'Expired')){
 		$reason = __('For security reasons your session ' .
 			     'has expired due to inactivity');
 	}elsif ((defined $envre and $envre eq 'Already')){
-		$reason = __('You have been logged out because ' . 
+		$reason = __('You have been logged out because ' .
 			     'a new session has been opened');
 	}
-	
+
 
 	my @htmlParams = (
 			  'destination' => $destination,
@@ -95,15 +95,15 @@ sub _requestDestination
   my $method  = $r->method;
   my $protocol = $r->protocol;
 
-  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  ); 
+  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
 
-  defined $destination or return $DEFAULT_DESTINATION;	       
-  		       
-  if ($destination =~ m{^/*ebox/+Login/+Index$}) { 
+  defined $destination or return $DEFAULT_DESTINATION;
+
+  if ($destination =~ m{^/*ebox/+Login/+Index$}) {
     # /Login/Index is the standard location from login, his destination must be the default destination
     return $DEFAULT_DESTINATION;
-  }		       
-  elsif (not $destination =~ m{^/*ebox}) { 
+  }
+  elsif (not $destination =~ m{^/*ebox}) {
     # url wich does not follow the normal ebox pattern must use the default destination
     return $DEFAULT_DESTINATION;
   }
@@ -115,12 +115,12 @@ sub _top
 {
 }
 
-sub _loggedIn 
+sub _loggedIn
 {
 	return 1;
 }
 
-sub _menu 
+sub _menu
 {
 	return;
 }

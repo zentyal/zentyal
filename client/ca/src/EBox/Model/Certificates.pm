@@ -262,7 +262,7 @@ sub updatedRowNotify
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);
     $mod->setAsChanged();
-    
+
 }
 
 1;

@@ -20,7 +20,7 @@ use warnings;
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -29,7 +29,7 @@ sub new
 }
 
 # Method: chains
-# 
+#
 # 	The chains specified here are created.
 #
 # Returns:
@@ -42,7 +42,7 @@ sub chains
 
 
 # Method: prerouting
-# 
+#
 # 	Rules returned by this method are added to the PREROUTING chain in
 #	the NAT table. You can use them to do NAT on the destination
 #	address of packets.
@@ -99,8 +99,8 @@ sub input
 
 # Method: output
 #
-# 	Rules returned by this method are added to the OUTPUT chain in 
-#	the filter table. You can use them to filter packets originated 
+# 	Rules returned by this method are added to the OUTPUT chain in
+#	the filter table. You can use them to filter packets originated
 #	within the firewall.
 #
 # Returns:

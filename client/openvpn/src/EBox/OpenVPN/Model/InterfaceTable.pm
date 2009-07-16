@@ -102,7 +102,7 @@ sub _nextInterfaceNumber
         if ($number != $expectedNumber) {
             return $expectedNumber;
         }
-        
+
         $lastNumber = $number;
     }
 

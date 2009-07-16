@@ -13,12 +13,12 @@ my $allPolicies = all qw(D_PASS D_REJECT D_BOUNCE D_DISCARD);
 sub new
 {
     my ($class, %params) = @_;
-    
+
     $params{editable} = 1;
     $params{populate} = \&_populate;
-    
+
     my $self = $class->SUPER::new(%params);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -32,7 +32,7 @@ sub _populate
                     { value => 'D_BOUNCE',  printableValue => __('Bounce') },
                     { value => 'D_DISCARD', printableValue => __('Discard') },
                    );
-    
+
     return \@elements;
 }
 
@@ -40,7 +40,7 @@ sub _populate
 sub _paramIsValid
 {
     my ($self, $params) = @_;
-    
+
     my $value = $params->{$self->fieldName()};
     $self->checkPolicy($value);
 }

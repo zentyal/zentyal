@@ -26,7 +26,7 @@ use EBox::Sudo qw( :all );
 #	Manage daemons
 #
 #   Parameters:
-#   	
+#
 #   	daemon - name of the daemon
 #   	action - [start|stop|restart]
 #
@@ -61,7 +61,7 @@ sub manage # (daemon,action)
 #	Check if a daemon is running
 #
 #   Parameters:
-#   	
+#
 #   	daemon - name of the daemon
 #
 #   Exceptions:

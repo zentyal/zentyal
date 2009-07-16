@@ -49,7 +49,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -58,7 +58,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -92,16 +92,16 @@ sub _table
                             editable  => 1,
                             subtypes => [
                                          new EBox::Types::Union::Text(
-                                                               'fieldName' => 
+                                                               'fieldName' =>
                                                               'defaultThreshold',
                                                                'printableName' =>
                                                                   __('default'),
                                                               ),
                                 new EBox::MailFilter::Types::AntispamThreshold (
-                                          'fieldName' => 'customThreshold', 
-                                          'printableName' => __('custom threshold'), 
+                                          'fieldName' => 'customThreshold',
+                                          'printableName' => __('custom threshold'),
                                            'editable' => 1,
-               
+
                                                                                ),
 
 
@@ -115,10 +115,10 @@ sub _table
                                 'created for this domain, ham messages ' .
                                 'incorrectly classified as spam may be ' .
                                 'forwarded to this addres to train the filter'),
-                              
+
                               defaultValue => 0,
                               editable     => 1,
-                              
+
                              ),
      new EBox::Types::Boolean(
                               fieldName     => 'spamAccount',
@@ -127,10 +127,10 @@ sub _table
                                 'created for this domain, spam messages ' .
                                 'incorrectly classified as ham may be ' .
                                 'forwarded to this addres to train the filter'),
-                              
+
                               defaultValue => 0,
                               editable     => 1,
-                              
+
                              ),
             new EBox::Types::HasMany (
                                       'fieldName' => 'acl',
@@ -148,7 +148,7 @@ sub _table
      printableTableName => __(q{Virtual domains configuration}),
      modelDomain        => 'mail',
      'defaultController' => '/ebox/MailFilter/Controller/VDomains',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -175,7 +175,7 @@ sub _vdomainModel
 sub _findRowByVDomain
 {
     my ($self, $vdomain) = @_;
-    
+
     my $id = $self->_vdomainId($vdomain);
     return $self->findRow(vdomain => $id);
 }
@@ -222,7 +222,7 @@ sub vdomainRow
     my ($self, $vdomain) = @_;
 
     my $vdRow;
-  
+
     $vdRow = $self->_findRowByVDomain($vdomain);
     if (not $vdRow) {
         my $vdomainId      = $self->_vdomainId($vdomain);
@@ -231,12 +231,12 @@ sub vdomainRow
                    vdomain => $vdomainId,
 #                    antivirus => 1,
 #                    antispam  => 1,
-                   
+
                    spamThreshold => { defaultThreshold => '' },
 
    #                 hamAccount  => 0,
 #                    spamAccount => 0,
-                   
+
 
                   );
 

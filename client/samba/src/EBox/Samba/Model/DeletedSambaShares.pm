@@ -115,7 +115,7 @@ sub _table
                                editable      => 1,
                                unique        => 1,
                               ),
- 
+
       );
 
     my $dataTable = {

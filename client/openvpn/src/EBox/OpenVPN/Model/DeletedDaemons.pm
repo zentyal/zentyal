@@ -22,7 +22,7 @@ use warnings;
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -35,7 +35,7 @@ sub new
 
 sub _table
 {
-    my @tableHead = ( 
+    my @tableHead = (
                      new EBox::Types::Text
                      (
                       'fieldName' => 'name',
@@ -50,9 +50,9 @@ sub _table
                       editable  => 1,
                      ),
                     );
-    
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('Deleted daemons'),
             'automaticRemove' => 1,

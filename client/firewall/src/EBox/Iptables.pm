@@ -128,7 +128,7 @@ sub _clearTables # (policy)
             pf("-t nat -F"),
             pf("-t nat -X"),
         );
-# Allow loopback 
+# Allow loopback
     if (($policy eq 'DROP') or ($policy eq 'REJECT')) {
         push(@commands,
                 pf('-A INPUT -i lo -j ACCEPT'),
@@ -256,11 +256,11 @@ sub _setDNS # (dns)
 
 # Method: _setDHCP
 #
-#       Set output DHCP traffic 
+#       Set output DHCP traffic
 #
 # Parameters:
 #
-#       interface - 
+#       interface -
 #
 sub _setDHCP
 {
@@ -329,7 +329,7 @@ sub _setRemoteServices
 #
 # Parameters:
 #
-# interface - the allowed interface for the addresses 
+# interface - the allowed interface for the addresses
 # addresses - An array ref with the address to allow traffic from
 #             the given interface. Each slot has the following
 #             fields:
@@ -522,7 +522,7 @@ sub start
     push(@commands, @{_startIPForward()});
 
     my $global = EBox::Global->getInstance();
-    my @modNames = @{$global->modNames}; 
+    my @modNames = @{$global->modNames};
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
     my @modRules;
     foreach my $mod (@mods) {
@@ -720,7 +720,7 @@ sub _redirects
 # Method: _drop
 #
 #	Set up drop chain. Log rule and drop rule
-#	
+#
 sub _drop
 {
     my ($self) = @_;
@@ -747,8 +747,8 @@ sub _drop
         }
         push(@commands,
             pf("-I drop -j LOG -m limit --limit $limit/min " .
-            "--limit-burst $burst" . 
-            ' --log-level ' . SYSLOG_LEVEL . 
+            "--limit-burst $burst" .
+            ' --log-level ' . SYSLOG_LEVEL .
             ' --log-prefix "ebox-firewall drop "')
         );
     }
@@ -784,8 +784,8 @@ sub _log
         }
         push(@commands,
             pf("-I log -j LOG -m limit --limit $limit/min " .
-            "--limit-burst $burst" . 
-            ' --log-level ' . SYSLOG_LEVEL . 
+            "--limit-burst $burst" .
+            ' --log-level ' . SYSLOG_LEVEL .
             ' --log-prefix "ebox-firewall log "')
         );
     }

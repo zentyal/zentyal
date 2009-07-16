@@ -45,7 +45,7 @@ use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -151,8 +151,8 @@ sub validateTypedRow
 #
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
             new EBox::Types::DomainName
                             (
                                 'fieldName' => 'hostname',
@@ -180,7 +180,7 @@ sub _table
                              )
           );
 
-    my $dataTable = 
+    my $dataTable =
         {
             'tableName' => 'HostnameTable',
             'printableTableName' => __('Host names'),
@@ -202,7 +202,7 @@ sub _table
 # 	Overrides <EBox::Model::DataTable::deletedRowNotify> to remove
 # 	mail exchangers referencing the deleted host name.
 #
-sub deletedRowNotify 
+sub deletedRowNotify
 {
     my ($self, $row) = @_;
 

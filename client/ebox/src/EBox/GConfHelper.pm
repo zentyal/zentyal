@@ -21,7 +21,7 @@ use warnings;
 use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -47,7 +47,7 @@ sub key # (key)
 }
 
 # empty, may be implemented by subclasses
-sub backup 
+sub backup
 {
 }
 

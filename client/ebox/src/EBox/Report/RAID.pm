@@ -79,7 +79,7 @@ sub enabled
 #                             No present if there isn't any operation active
 #       raidDevices        - reference to a hash with information of the devices
 #                            which comprise the array.
-#                            The RAID device numbers are used as keys and the 
+#                            The RAID device numbers are used as keys and the
 #                            values are a reference to a hash which the following
 #                            fields:
 #                                     device - device file of the RAID device
@@ -165,7 +165,7 @@ sub _calculateDevicesStatus
   my @devNumbers = sort keys  %{ $raidDevices };
   foreach my $number (@devNumbers) {
     my $devAttrs = $raidDevices->{$number};
-    
+
     my $spare = 0;
     my $up    = 0;
 
@@ -253,14 +253,14 @@ sub _processSection
   my @sectionLines = @{ $sectionLines_r };
 
   my @sectionInfo; # contains the pairs of keys and values which will be
-                   # returned 
+                   # returned
 
   my $sectionSub;
   $sectionSub = exists $processBySection{$sectionName}  ?
                                           $processBySection{$sectionName}
                                           : \&_processDeviceSection;
 
-  
+
 
   return $sectionSub->(@_);
 
@@ -285,7 +285,7 @@ sub _processUnusedDevicesSection
   if ($unusedDevices[0] eq '<none>') {
     @unusedDevices = (); # none means none
   }
-  
+
 
   return [
 	  unusedDevices => \@unusedDevices
@@ -308,7 +308,7 @@ sub _processDeviceSection
 		 %deviceInfo,
 		_processDeviceMainLine(shift @lines)
 	       );
- 
+
 
   my $processDeviceArrayLineSub = __PACKAGE__->can('_processDeviceArrayLineOfType' . ucfirst $deviceInfo{type});
   if ($processDeviceArrayLineSub) {
@@ -328,8 +328,8 @@ sub _processDeviceSection
 		);
 
 
- 
-  
+
+
   return [$device => \%deviceInfo];
 }
 
@@ -343,7 +343,7 @@ sub _processDeviceMainLine
 
 
   my ($activeTag, $raidType, @raidDevicesTags) = split '\s', $line;
-  
+
   $deviceInfo{active}= ($activeTag eq 'active') ? 1 : 0;
   $deviceInfo{type}= $raidType;
 
@@ -393,7 +393,7 @@ sub _processDeviceArrayLineOfTypeRaid1
     $deviceInfo{activeDevicesNeeded}= $2;
     $deviceInfo{activeDevices}=  $3;
     $deviceInfo{statusArray}= [ split //, $4  ];
-   }  
+   }
   else {
     EBox::debug("not match for RAID1 regex: $line");
    }
@@ -426,7 +426,7 @@ sub _processDeviceArrayLineOfTypeRaid5
     $deviceInfo{activeDevicesNeeded}= $4;
     $deviceInfo{activeDevices}=  $5;
     $deviceInfo{statusArray}= [ split //, $6  ];
-   }  
+   }
   else {
     EBox::debug("not match for RAID5 regex: $line");
    }
@@ -488,11 +488,11 @@ sub _processRaidDevicesTags
       $device = $1;
       $raidDevice =$2;
 
-      if (not $device =~ m{/}) { 
+      if (not $device =~ m{/}) {
           # if it is 'relative' device we may infer that it is in the /dev dir
           $device = '/dev/' . $device;
-      }   
-      
+      }
+
     }
     else {
       EBox::error("Cannot extract device from tag $tag. Skipping tag");
@@ -514,7 +514,7 @@ sub _processRaidDevicesTags
      }
 
   }
-  
+
   return (raidDevices => \%devices);
 }
 

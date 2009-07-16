@@ -41,7 +41,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -63,7 +63,7 @@ sub _table
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/DomainFilterCategories',
           'defaultActions' =>
-              [	
+              [
               'editField',
               'changeView'
               ],
@@ -80,7 +80,7 @@ sub _table
 
 
 # # # XXX ad-hack reimplementation until the bug in coposite's parent would be
-# # # solved 
+# # # solved
 # # use EBox::Global;
 # sub parent
 # {
@@ -90,7 +90,7 @@ sub _table
 
 
 #     my $defaultFilterGroup = $squid->composite('FilterSettings');
-    
+
 #     my $parent =  $defaultFilterGroup->componentByName('DomainFilterFiles', 1);
 
 #     EBox::debug("PPARENT $parent");

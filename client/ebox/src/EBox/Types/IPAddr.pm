@@ -35,7 +35,7 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
-        
+
         $opts{'type'} = 'ipaddr';
         my $self = $class->SUPER::new(%opts);
 
@@ -51,7 +51,7 @@ sub paramExist
 
         my $ip =  $self->fieldName() . '_ip';
         my $mask =  $self->fieldName() . '_mask';
-        
+
         return (defined($params->{$ip}) and defined($params->{$mask}));
 
 }
@@ -66,7 +66,7 @@ sub printableValue
         } else   {
                 return "";
         }
-        
+
 }
 
 # Method: cmp
@@ -109,7 +109,7 @@ sub compareToHash
         my ($oldIp, $oldMask) = $self->_ipNetmask();
         my $ip = $self->fieldName() . '_ip';
         my $mask = $self->fieldName() . '_mask';
-        
+
         if ($oldIp ne $hash->{$ip}) {
                 return 0;
         }
@@ -125,10 +125,10 @@ sub compareToHash
 sub fields
 {
         my ($self) = @_;
-        
+
         my $ip = $self->fieldName() . '_ip';
         my $mask = $self->fieldName() . '_mask';
-        
+
         return ($ip, $mask);
 }
 
@@ -139,7 +139,7 @@ sub ip
         return $self->{'ip'};
 }
 
-sub mask 
+sub mask
 {
         my ($self) = @_;
 
@@ -230,7 +230,7 @@ sub _paramIsValid
       my $mask =  $self->fieldName() . '_mask';
 
       checkIP($params->{$ip}, __($self->printableName()));
-      checkCIDR($params->{$ip} . "/$params->{$mask}", 
+      checkCIDR($params->{$ip} . "/$params->{$mask}",
                 __($self->printableName()));
 
       return 1;

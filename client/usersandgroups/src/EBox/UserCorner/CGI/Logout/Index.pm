@@ -25,7 +25,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use Apache2::RequestUtil;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);

@@ -67,7 +67,7 @@ sub addArchiveTest : Test(2)
         my $row = $catModel->row($id);
         my $policy = $row->valueByName('policy');
         if ($policy ne 'ignore') {
-            diag 'Bad policy in category ' . 
+            diag 'Bad policy in category ' .
                   $row->valueByName('category');
             $allCorrectPolicy = 0;
         }
@@ -117,10 +117,10 @@ sub discardTest : Test(3)
     my $dir  = $filterFiles->archiveContentsDir($id);
 
     # sanity test!
-    (-e $file) or 
+    (-e $file) or
         die "archive fiel was not added";
     system "ls $dir/* > /dev/null";
-    ($? == 0) or 
+    ($? == 0) or
         die "no archive dir contents";
 
      my $squid = EBox::Global->modInstance('squid');
@@ -132,9 +132,9 @@ sub discardTest : Test(3)
         $squid->revokeConfig();
     } 'configuration revoked';
 
-    file_not_exists_ok($file, 
+    file_not_exists_ok($file,
           'checking that revokation deleted archive file');
-    file_not_exists_ok($dir, 
+    file_not_exists_ok($dir,
            'whether revokation removed archives direcotory');
 }
 
@@ -166,7 +166,7 @@ sub dumpAndRestoreConfigTest : Test(11)
     system "mkdir -p $backupDir";
 
     my $filterFiles = $self->_newInstance();
-    
+
     lives_ok {
         $filterFiles->dumpConfig($backupDir);
     } 'backing up a empty model';
@@ -197,7 +197,7 @@ sub dumpAndRestoreConfigTest : Test(11)
             id          => $id,
            );
     }
-    
+
 
     lives_ok {
         $filterFiles->dumpConfig($backupDir);
@@ -207,7 +207,7 @@ sub dumpAndRestoreConfigTest : Test(11)
     system "rm @filesToNotSave";
 
     # mess a little with the files
-    
+
     my $fileDeleted = "$dir/archives/save1/BL/dynamic/domains";
     my $dirThatMustNotExist =  "$dir/archives/mustNotExist";
 
@@ -238,12 +238,12 @@ sub dumpAndRestoreConfigTest : Test(11)
         'Checking that superfluous directoy has been deleted');
 
     foreach my $file  (@filesToNotSave) {
-        file_not_exists_ok($file, 
+        file_not_exists_ok($file,
       "Checking that files in the direcory but not in the model were not restored"
                           );
     }
 
-    
+
 }
 
 sub _shallalistPath
@@ -358,7 +358,7 @@ sub setupListFileDir : Test(setup)
 sub _newInstance
 {
     my ($self) = @_;
-    
+
     my $squid = EBox::Squid->_create();
 
 
@@ -370,10 +370,10 @@ sub _newInstance
     my $instance = Test::MockObject::Extends->new($base);
     $instance->mock('listFileDir', \&_listFileDir);
     $instance->mock('_table', \&_table);
-    $instance->mock('_archiveFilesOwner', sub { 
+    $instance->mock('_archiveFilesOwner', sub {
                         my ($gid) = split '\s', $GID;
-                        return "$UID.$gid" 
-                       } 
+                        return "$UID.$gid"
+                       }
          );
 
 
@@ -404,7 +404,7 @@ sub _table
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/DomainFilterFiles',
           'defaultActions' =>
-              [	
+              [
               'add', 'del',
               'editField',
               'changeView'
@@ -434,28 +434,28 @@ sub _table
     {
         return 'DomainFilterCategories';
     }
-    
+
     sub EBox::Squid::Model::DomainFilterFilesBase::categoryForeignModelView
     {
         return '/ebox/Squid/View/DomainFilterCategories';
     }
-    
-    
+
+
     sub EBox::Squid::Model::DomainFilterFilesBase::categoryBackView
     {
         return '/ebox/Squid/Composite/FilterSettings';
     }
-    
-    
-    
+
+
+
     sub EBox::Types::Abstract::setRow
     {
         my ($self, $row) = @_;
         $self->{'row'} = $row;
     }
-    
-    
-    
+
+
+
     sub EBox::Squid::Model::DomainFilterFiles::listFileDir
     {
         return _listFileDir(@_);
@@ -477,12 +477,12 @@ sub _table
 
     sub EBox::Squid::_domainFilterFilesComponents
      {
-         return 
+         return
  EBox::Squid::Model::DomainFilterFilesBase::Test::fakeDomainFilterFilesComponents();
 
 
      }
-    
+
 }
 
 1;

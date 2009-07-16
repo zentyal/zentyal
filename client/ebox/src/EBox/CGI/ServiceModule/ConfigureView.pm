@@ -34,7 +34,7 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( 'template' => '/configureView.mas',
@@ -53,7 +53,7 @@ sub _process
     my $mod = $self->param('module');
     my $modInstance = EBox::Global->modInstance($mod);
 
-    my @params; 
+    my @params;
     push (@params, (files => $modInstance->usedFiles(),
                     actions => $modInstance->actions(),
                     module => $mod));

@@ -94,7 +94,7 @@ sub newCompositeInstance
 #   add a instance of a provided composite class which can have multiple
 #   instances.  If the class can't have multiple instances a exeception will be
 #   raised
-#   
+#
 #  Parameters:
 #     path - path to the instance. It must contain the index to identifiy the instance
 #   instance - composite instance to add
@@ -109,10 +109,10 @@ sub addCompositeInstance
 #   remove a instance of a provided composite class which can have multiple
 #   instances.  If the class can't have multiple instances a exeception will be
 #   raised
-#   
+#
 #  Parameters:
 #     path - path to the instance. It must contain the index to identifiy the instance
-#   
+#
 sub removeCompositeInstance
 {
   my ($self, $path, $instance) = @_;
@@ -140,7 +140,7 @@ sub removeAllCompositeInstances
 #  -  the names of all composite classes which does not require additional parameters
 #  -  hash reference for other composites with the following fields:
 #         class      - the name of the class
-#         parameters - reference to the list of parameters which we want to 
+#         parameters - reference to the list of parameters which we want to
 #                      pass to the composite's constructor
 sub compositeClasses
 {

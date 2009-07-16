@@ -23,8 +23,8 @@
 #
 # You must use _fieldDescription to decide if you want to have
 # a destination field.
-# 
-# 	
+#
+#
 package EBox::Firewall::Model::BaseRuleTable;
 
 use EBox::Global;
@@ -49,7 +49,7 @@ use warnings;
 use base 'EBox::Model::DataTable';
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -60,21 +60,21 @@ sub new
     return $self;
 }
 
-sub decision 
+sub decision
 {
-    my @options = ({ 'value' => 'accept', 
-             'printableValue' => __('ACCEPT') }, 
+    my @options = ({ 'value' => 'accept',
+             'printableValue' => __('ACCEPT') },
                { 'value' => 'deny',
              'printableValue' => __('DENY') },
                { 'value' => 'log',
              'printableValue' => __('LOG') });
- 
+
     return \@options;
 }
 
 sub serviceModel
 {
-   return  EBox::Global->modInstance('services')->{'serviceModel'};  
+   return  EBox::Global->modInstance('services')->{'serviceModel'};
 }
 
 sub objectModel
@@ -94,19 +94,19 @@ sub objectModel
 #
 #   destination - boolean to indicate you need a destination field
 #   source - boolean to indicate you need a source field
-#   
+#
 # Returns:
 #
-#   Array ref of objects derivated of <EBox::Types::Abstract>	
+#   Array ref of objects derivated of <EBox::Types::Abstract>
 sub _fieldDescription
 {
     my ($self, %params) = @_;
-    
-    
-    
-    my @tableHead = 
-        ( 
-       
+
+
+
+    my @tableHead =
+        (
+
         new EBox::Types::Select(
              'fieldName' => 'decision',
              'printableName' => __('Decision'),
@@ -114,8 +114,8 @@ sub _fieldDescription
              'HTMLViewer' => '/ajax/viewer/fwDecisionViewer.mas',
              'editable' => 1
              ));
-             
-    if ($params{'source'}) {             
+
+    if ($params{'source'}) {
         my $source = new EBox::Types::InverseMatchUnion(
                          'fieldName' => 'source',
                          'printableName' => __('Source'),
@@ -169,10 +169,10 @@ sub _fieldDescription
         push (@tableHead, $dest);
     }
 
-    push (@tableHead, 
+    push (@tableHead,
             new EBox::Types::InverseMatchSelect(
                 'fieldName' => 'service',
-                'printableName' => __('Service'), 
+                'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
                 'foreignField' => 'name',
                 'editable' => 1,
@@ -194,7 +194,7 @@ sub _fieldDescription
 #                 )
 
              );
-    
+
     return \@tableHead;
 }
 1;

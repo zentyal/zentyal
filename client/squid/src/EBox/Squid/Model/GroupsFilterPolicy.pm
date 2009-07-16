@@ -41,7 +41,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -49,7 +49,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -75,7 +75,7 @@ sub _table
                                       'printableName' => __('Filter configuration'),
                                       'foreignModel' => 'FilterSettings',
                                       'view' => '/ebox/Squid/Composite/FilterSettings',
-                                      'backView' => '/ebox/Squid/View/GroupsFilterPolicy', 
+                                      'backView' => '/ebox/Squid/View/GroupsFilterPolicy',
                                       'editable'  => 1,
                             ),
     );
@@ -86,7 +86,7 @@ sub _table
      printableTableName => __(q{User groups configuration}),
      modelDomain        => 'squid',
      'defaultController' => '/ebox/Squid/Controller/GroupsFilterPolicy',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -104,9 +104,9 @@ sub _table
 sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map ( 
-                { 
-                    value => $_->{gid}, 
+    my @groups = map (
+                {
+                    value => $_->{gid},
                     printableValue => $_->{account}
                 }, $userMod->groups()
             );
@@ -121,10 +121,10 @@ sub _groupModel
 }
 
 
-sub _findRowByGroup 
+sub _findRowByGroup
 {
     my ($self, $group) = @_;
-    
+
     my $id = $self->_groupId($group);
     return $self->findRow(group => $id);
 }

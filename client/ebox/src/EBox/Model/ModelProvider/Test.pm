@@ -43,7 +43,7 @@ sub _classesProvidedByName
 sub modelTest : Test(9)
 {
   my ($self) = @_;
-  $self->SUPER::providedInstanceTest('model', 'addModelInstance');  
+  $self->SUPER::providedInstanceTest('model', 'addModelInstance');
 }
 
 

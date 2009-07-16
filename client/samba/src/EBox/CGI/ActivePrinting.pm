@@ -29,7 +29,7 @@ use EBox::Exceptions::External;
 sub new {
         my $class = shift;
         my $self = $class->SUPER::new( @_);
-	$self->{domain} = "ebox-samba";	
+	$self->{domain} = "ebox-samba";
 
         bless($self, $class);
         return $self;

@@ -115,7 +115,7 @@ my @ianaMimeTypes = ("application",
         "video",
         "[Xx]-.*" );
 my $allIanaMimeType = all @ianaMimeTypes;
-  
+
 
 sub checkMimeType
 {

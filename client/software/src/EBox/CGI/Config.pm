@@ -27,7 +27,7 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title'    => 
+	my $self = $class->SUPER::new('title'    =>
 					__('Automatic software updates'),
 				      'template' => 'software/config.mas',
 				      @_);

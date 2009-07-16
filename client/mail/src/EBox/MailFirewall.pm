@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::Validate qw( :all );
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
@@ -57,7 +57,7 @@ sub output
             @conf = @{$net->ifaceAddresses($ifc)};
 
             foreach my $c (@conf) {
-                if(isIPInNetwork($$c{'address'}, 
+                if(isIPInNetwork($$c{'address'},
                             $$c{'netmask'},
                             $mail->ipfilter())) {
 

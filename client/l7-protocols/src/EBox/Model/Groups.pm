@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::L7Protocols::Protocols
-#   
+#
 #   FIXME
 #
 
@@ -30,7 +30,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -44,8 +44,8 @@ sub new
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Text(
             'fieldName' => 'group',
             'printableName' => __('Group'),
@@ -62,8 +62,8 @@ sub _table
 
     );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Groups',
         'automaticRemove' => 1,
         'pageTitle' => __('Application content based grouped protocols'),
@@ -81,7 +81,7 @@ sub _table
     return $dataTable;
 }
 
-sub _helpL7 
+sub _helpL7
 {
     return __('Here you can modify and create new groups of application ' .
               'content based protocols');

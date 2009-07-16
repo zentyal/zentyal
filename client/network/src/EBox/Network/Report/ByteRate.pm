@@ -158,12 +158,12 @@ sub startService
 
   my $cmd = MONITOR_DAEMON . ' time ' . MONITOR_PERIOD;
   $cmd  .= ' conffile ' . CONF_FILE;
-  
+
     my $iface = _ifaceToListenOn();
   if ($iface ne 'all') {
     $cmd .= " iface $iface";
   }
-  
+
   EBox::Sudo::root($cmd);
 }
 
@@ -275,9 +275,9 @@ sub addBps
 
 #  Method: flushBps
 #
-#    flush the stored traffic data and write it to the various rrdtool databases   
+#    flush the stored traffic data and write it to the various rrdtool databases
 #
-# Warning: 
+# Warning:
 #   we trust in rrdtool extrapolation feature however to be sure we have
 #   accurate rate is advised to have a flush frequency the closer possible to a
 #   second
@@ -290,12 +290,12 @@ sub flushBps
   while (my ($service, $bps) = each %serviceBps) {
     addBpsToServiceRRD($service, $bps);
   }
-  
+
   while (my ($id, $bps) = each %srcAndServiceBps) {
     my ($src, $service) = split '\|', $id, 2;
     addBpsToSrcAndServiceRRD($src, $service, $bps);
   }
-  
+
   %srcBps     = ();
   %serviceBps = ();
   %srcAndServiceBps = ();
@@ -304,7 +304,7 @@ sub flushBps
 
 # Method: _service
 #
-#   try to guess the traffic service's name. Wether a name is not found, the 
+#   try to guess the traffic service's name. Wether a name is not found, the
 #   concatenation of the protocol and the destination port is used.
 #
 #  Parameters:
@@ -357,7 +357,7 @@ sub _rrdDir
 
 # Method: srcRRD
 #
-#    get the RRD database file for the given source 
+#    get the RRD database file for the given source
 #
 #  Parameters:
 #    src - source address (escaped)
@@ -367,7 +367,7 @@ sub _rrdDir
 sub srcRRD
 {
   my ($src) = @_;
-  
+
   my $rrd =  _rrdDir() . 'src-' . $src . '.rrd';
 
   return $rrd;
@@ -375,10 +375,10 @@ sub srcRRD
 
 # Method: serviceRRD
 #
-#    get the RRD database file for the given service 
+#    get the RRD database file for the given service
 #
 #  Parameters:
-#    service - network service 
+#    service - network service
 #
 #  Returns:
 #       RRD  file full path
@@ -395,7 +395,7 @@ sub serviceRRD
 #
 #  Parameters:
 #    src - source address (escaped)
-#    service - network service 
+#    service - network service
 #
 #  Returns:
 #       RRD  file full path
@@ -512,7 +512,7 @@ sub _checkAddr
 
   my $valid = 0;
 
-  if (EBox::Validate::checkIP($addr)) {   
+  if (EBox::Validate::checkIP($addr)) {
     $valid = 1;
   }
   elsif (EBox::Validate::checkIP6($addr)) {
@@ -533,7 +533,7 @@ sub _checkAddr
 sub _checkPort
 {
   my ($port) = @_;
-  
+
   if (EBox::Validate::checkPort($port)) {  # normal port
     return 1;
   }
@@ -600,7 +600,7 @@ sub _warnIfDebug
 #  Returns:
 #     escaped address
 #
-# Note: 
+# Note:
 #    the problematic character is ':' for rrdtool. Other option would be to
 #    take care to escape the address in rrdtool's invokations
 sub escapeAddress
@@ -668,7 +668,7 @@ sub _removeRRD
   my $relatedGlob = basename $rrd;
   $relatedGlob =~ s{\.rrd$}{};
   $relatedGlob = "$dir/*" . $relatedGlob . '*.rrd';
-  
+
   my @relatedFiles = bsd_glob($relatedGlob);
   foreach (@relatedFiles) {
     unlink $_;
@@ -679,12 +679,12 @@ sub _removeRRD
 
 #  Method: activeServiceRRDs
 #
-#    return all the active service RRRDs 
+#    return all the active service RRRDs
 #
 #   Returns:
 #     reference to list of all service RRDs
 #
-# Warning: 
+# Warning:
 #  this function cleans up all the inactive service RRDs (hence the
 #  'active' in the name)
 #
@@ -700,12 +700,12 @@ sub activeServiceRRDs
 
 #  Method: activeSrcsRRDs
 #
-#    return all the active sources RRRDs 
+#    return all the active sources RRRDs
 #
 #   Returns:
 #     reference to list of all sources RRDs
 #
-# Warning: 
+# Warning:
 #  this function cleans up all the inactive sources RRDs (hence the
 #  'active' in the name)
 #
@@ -873,7 +873,7 @@ sub serviceGraph
 
   my $rrd = serviceRRD($service);
   if (not -f $rrd) {
-    throw EBox::Exceptions::DataNotFound( 
+    throw EBox::Exceptions::DataNotFound(
            data => __( 'Traffic data not found for service'),
 	   value => $service,
 	);
@@ -925,13 +925,13 @@ sub srcAndServiceGraph
 
   my $srcRRD = srcRRD($src);
   if (not -f $srcRRD) {
-    throw EBox::Exceptions::DataNotFound( 
+    throw EBox::Exceptions::DataNotFound(
 					 data  => __('Traffic data for source'),
 					 value => $printableSrc,
 				    );
   }
 
-  my $serviceRRD  = serviceRRD($service);  
+  my $serviceRRD  = serviceRRD($service);
   if (not -f $serviceRRD) {
     throw EBox::Exceptions::DataNotFound(
 				     data => __( 'Traffic data for service'),
@@ -941,7 +941,7 @@ sub srcAndServiceGraph
 
   my $srcAndServiceRRD = srcAndServiceRRD($src, $service);
   if (not -f $srcAndServiceRRD) {
-    throw EBox::Exceptions::DataNotFound( 
+    throw EBox::Exceptions::DataNotFound(
 				     data =>
 				     __( 'Traffic data not found for source and service pair'),
 				     value => __x(
@@ -988,7 +988,7 @@ sub activeServicesGraph
 
   my $title = __('All active services');
 
-  my @services = @{  activeServiceRRDs()  };  
+  my @services = @{  activeServiceRRDs()  };
   @services or
     throw EBox::Exceptions::DataNotFound(
 					 data => __('Traffic data for '),
@@ -1011,10 +1011,10 @@ sub activeServicesGraph
 	      legend => $legend,
 	      colour => pop @colours,
 	     };
-    
+
     push @dataset, $ds;
   }
-  
+
   graph(
 	dataset => \@dataset,
 	title   => $title,
@@ -1039,7 +1039,7 @@ sub activeSrcsGraph
 
   my $title = __('All active sources');
 
-  my @srcs = @{  activeSrcRRDs()  };  
+  my @srcs = @{  activeSrcRRDs()  };
   @srcs or
     throw EBox::Exceptions::DataNotFound(
 				     data => __('Traffic data for'),
@@ -1059,11 +1059,11 @@ sub activeSrcsGraph
 		  legend => $legend,
 		  colour => pop @colours,
 		 };
-	
+
 	push @dataset, $ds;
       }
 
-      
+
       graph(
 	    dataset => \@dataset,
 	    title   => $title,
@@ -1072,7 +1072,7 @@ sub activeSrcsGraph
   }
 
 
-  
+
 
 }
 
@@ -1120,7 +1120,7 @@ sub _srcAndServiceDatasetElement
           $legend =~ s:(\D)(\d):$1/$2:;
       }
   } else {
-      $legend = __x("Traffic rate from {src} for {service}", 
+      $legend = __x("Traffic rate from {src} for {service}",
                     src     => $printableSrc,
                     service => $service,
                    );

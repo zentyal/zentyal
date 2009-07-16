@@ -28,8 +28,8 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
-	$self->{domain} = "ebox-ntp";	
-	$self->{redirect} = "NTP/Timezone";	
+	$self->{domain} = "ebox-ntp";
+	$self->{redirect} = "NTP/Timezone";
 	bless($self, $class);
 	return $self;
 }
@@ -37,10 +37,10 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $ntp = EBox::Global->modInstance('ntp');
- 
+
 	$self->_requireParam('country', __('country'));
 	$self->_requireParam('continent', __('continent'));
-	
+
 	my $continent = $self->param('continent');
 	my $country = $self->param('country');
 

@@ -25,7 +25,7 @@ use EBox::Gettext;
 
 use constant CUPSLOGFILE => '/var/log/cups/page_log';
 
-sub new 
+sub new
 {
         my $class = shift;
         my $self = {};
@@ -33,12 +33,12 @@ sub new
         return $self;
 }
 
-sub domain { 
+sub domain {
         return 'ebox-printers';
 }
 
 
-# Method: logFiles 
+# Method: logFiles
 #
 #	This function must return the file or files to be read from.
 #
@@ -48,10 +48,10 @@ sub domain {
 #
 sub logFiles
 {
-	return [CUPSLOGFILE];	
+	return [CUPSLOGFILE];
 }
 
-# Method: processLine 
+# Method: processLine
 #
 #	This fucntion will be run every time a new line is recieved in
 #	the associated file. You must parse the line, and generate
@@ -63,8 +63,8 @@ sub logFiles
 #	file - file name
 # 	line - string containing the log line
 #	dbengine- An instance of class implemeting AbstractDBEngineinterface
-# 	
-sub processLine # (file, line, logger) 
+#
+sub processLine # (file, line, logger)
 {
 	my ($self, $file, $line, $dbengine, $event) = @_;
 
@@ -72,11 +72,11 @@ sub processLine # (file, line, logger)
 		return;
 	}
 
-	my $data = { 'timestamp' => $4, 'job' => $3, 
+	my $data = { 'timestamp' => $4, 'job' => $3,
 		     'printer' => $1, 'owner' => $2,
 		     'event' => 'queued' };
 	$dbengine->insert('jobs', $data);
-	
+
 }
 
 1;

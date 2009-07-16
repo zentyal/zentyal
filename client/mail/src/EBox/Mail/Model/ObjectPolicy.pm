@@ -64,19 +64,19 @@ sub new
 # Method: headTitle
 #
 # Overrides:
-#   
+#
 #   <EBox::Model::Component::headTitle>
 #
 sub headTitle
 {
-    return undef; 
+    return undef;
 }
 
 # Group: Protected methods
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -108,7 +108,7 @@ sub _table
      printableTableName => __(q{Relay policy for network objects}),
      modelDomain        => 'Mail',
      'defaultController' => '/ebox/Mail/Controller/ObjectPolicy',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -135,11 +135,11 @@ sub objectModel
 #
 # Returns:
 #   - reference to a list of addresses for which relay is allowed
-# 
+#
 sub allowedAddresses
 {
     my ($self) = @_;
-    
+
     my $objects = EBox::Global->modInstance('objects');
     my @addr = map {
         @{ $objects->objectAddresses($_)  }
@@ -189,7 +189,7 @@ sub isAllowed
 sub freeObject
 {
     my ($self, $object) = @_;
-    
+
     my $row = $self->_findRowByObjectName($object);
     my $id = $row->id();
     $self->removeRow($id, 1);

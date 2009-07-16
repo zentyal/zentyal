@@ -1,6 +1,6 @@
 package EBox::Global::TestStub;
 # Description:
-# 
+#
 use strict;
 use warnings;
 
@@ -14,8 +14,8 @@ my %modulesInfo;
 
 sub setAllEBoxModules
 {
-  my (%modulesByName) = @_;  
-  
+  my (%modulesByName) = @_;
+
   while (my ($name, $module)  = each %modulesByName) {
       setEBoxModule($name, $module);
   }
@@ -29,7 +29,7 @@ sub setEBoxModule
 
     defined $depends or
         $depends = [];
-        
+
 
     $modulesInfo{$name} = {
         class => $class,
@@ -81,7 +81,7 @@ sub fake
                                   modNames     => \&_fakedModNames,
                               );
 
-    
+
 }
 
 # only for interface completion

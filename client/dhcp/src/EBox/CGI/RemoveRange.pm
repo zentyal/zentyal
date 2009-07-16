@@ -39,7 +39,7 @@ sub _process($){
 	$self->_requireParam("iface", __("Interface"));
 	my $iface = $self->param("iface");
 	$self->{redirect} = "DHCP/Index?iface=$iface";
-	
+
 	$self->_requireParam("id", "id");
 	my $id = $self->param("id");
 

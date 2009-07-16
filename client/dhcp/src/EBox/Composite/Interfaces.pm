@@ -57,14 +57,14 @@ sub new
 # Method: pageTitle
 #
 #   Overrides:
-#       
+#
 #       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
 #
 #   undef
-sub pageTitle 
+sub pageTitle
   {
     return undef;
   }
@@ -72,14 +72,14 @@ sub pageTitle
 # Method: pageTitle
 #
 #   Overrides:
-#       
+#
 #       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
 #
 #   undef
-sub headTitle 
+sub headTitle
   {
     my ($self) = @_;
     $self->printableName();

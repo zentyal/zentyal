@@ -14,10 +14,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #
 
-#   
+#
 package EBox::OpenVPN::Model::AdvertisedNetworks;
 use base 'EBox::Model::DataTable';
 
@@ -34,7 +34,7 @@ use EBox::Types::IPNetwork;
 
 # Group: Public methods
 
-sub new 
+sub new
 {
     my $class = shift;
 
@@ -53,8 +53,8 @@ sub name
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
           new EBox::Types::IPNetwork(
                                      fieldName => 'network',
                                      printableName => __('Advertised network'),
@@ -63,8 +63,8 @@ sub _table
                                     ),
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('List of networks'),
             'pageTitle' => __('Advertised networks'),

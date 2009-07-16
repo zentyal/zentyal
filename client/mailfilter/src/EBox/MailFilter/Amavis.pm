@@ -28,7 +28,7 @@ use constant {
 };
 
 
-sub new 
+sub new
 {
   my $class = shift @_;
 
@@ -42,7 +42,7 @@ sub new
 sub usedFiles
 {
     my @usedFiles = (
-                     {    
+                     {
                       'file' =>   AMAVIS_CONF_FILE,
                       'reason' => __('To configure amavis'),
                       'module' => 'mailfilter'
@@ -64,10 +64,10 @@ sub doDaemon
 
     if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
       $self->_daemon('restart');
-    } 
+    }
     elsif ($mailfilterService and $self->isEnabled()) {
       $self->_daemon('start');
-    } 
+    }
     elsif ($self->isRunning()) {
       $self->_daemon('stop');
     }
@@ -113,36 +113,36 @@ sub writeConf
 {
     my ($self) = @_;
 
-    my $antivirus   = EBox::Global->modInstance('antivirus');    
+    my $antivirus   = EBox::Global->modInstance('antivirus');
     my $mailfilter  = EBox::Global->modInstance('mailfilter');
     my $antispam   = $mailfilter->antispam();
 
     my @masonParams;
-    
+
     push @masonParams, ( myhostname => $self->_fqdn());
     push @masonParams, ( mydomain => $self->_domain());
     push @masonParams, ( localDomains => $self->_localDomains());
-    
+
     push @masonParams, (port => $self->port);
-    
+
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
     push @masonParams, ( ldapBase         =>  EBox::Ldap->dn );
     push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
     push @masonParams, ( ldapBindDn       =>  EBox::Ldap->rootDn );
     push @masonParams, ( ldapBindPasswd   =>  EBox::Ldap->rootPw );
-    
+
     push @masonParams, ( antivirusActive  => $self->antivirus());
     push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
     push @masonParams, ( clamdSocket     => $antivirus->localSocket());
-    
+
     push @masonParams, ( antispamActive     => $self->antispam());
     push @masonParams, ( spamThreshold => $antispam->spamThreshold());
     push @masonParams, ( spamSubject   =>  $antispam->spamSubjectTag);
     push @masonParams, ( spamPolicy         => $self->filterPolicy('spam'));
-    push @masonParams, 
+    push @masonParams,
         ( antispamWhitelist  => $antispam->whitelistForAmavisConf());
-    push @masonParams, 
+    push @masonParams,
         ( antispamBlacklist  => $antispam->blacklistForAmavisConf());
 
     push @masonParams, ( bannedPolicy      => $self->filterPolicy('banned'));
@@ -206,7 +206,7 @@ sub fwport
     my ($self) = @_;
 
     # if $relayhost_is_client is true,
-    #  The static port number is also overridden, and cally 
+    #  The static port number is also overridden, and cally
     # calculated  as being one above the incoming SMTP/LMTP session port number.
     my $fwport = $self->port() + 1;
     return $fwport;
@@ -277,7 +277,7 @@ sub _localDomains
 
     my @vdomains =   EBox::MailVDomainsLdap->new->vdomains();
     push @vdomains, @{ $self->externalDomains() };
-    
+
     return [@vdomains];
 }
 
@@ -328,7 +328,7 @@ sub bannedFilesRegexes
   my $extensionACL = $mailfilter->model('FileExtensionACL');
   push @bannedRegexes, @{ $extensionACL->bannedRegexes() };
 
-  
+
   my $mimeACL = $mailfilter->model('MIMETypeACL');
   push @bannedRegexes, @{ $mimeACL->bannedRegexes() };
 
@@ -351,9 +351,9 @@ sub bannedFilesRegexes
 #       - D_DISCARD
 #
 # Parameters:
-# 
+#
 #  ftype - A string with filter type.
-#   
+#
 # Returns:
 #
 #  string - The string with the policy established to the filter type.
@@ -362,7 +362,7 @@ sub filterPolicy
 {
     my ($self, $ftype) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter'); 
+    my $mailfilter  = EBox::Global->modInstance('mailfilter');
     my $model = $mailfilter->model('AmavisPolicy');
 
     my $methodValue = $ftype . 'Value';
@@ -378,7 +378,7 @@ sub usesPort
     return undef;
   }
 
-  # if we have a interface specified we can check if we don't use it. 
+  # if we have a interface specified we can check if we don't use it.
   if ((defined $iface) and ($iface ne 'lo')) {
     # see if we need to listen in normal interfaces
     my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
@@ -424,7 +424,7 @@ sub mailFilter
   if (not $module->isEnabled()) {
       $active = 0;
   }  else {
-      $active = $self->isEnabled() ? 1 : 0;      
+      $active = $self->isEnabled() ? 1 : 0;
   }
 
   my %properties = (
@@ -436,7 +436,7 @@ sub mailFilter
                      active      => $active,
                     );
 
-  
+
   return ($name, \%properties);
 }
 

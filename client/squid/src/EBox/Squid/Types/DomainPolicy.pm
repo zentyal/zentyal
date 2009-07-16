@@ -43,7 +43,7 @@ sub _populate
 sub _paramIsValid
 {
   my ($self, $params) = @_;
-  
+
   my $value = $params->{$self->fieldName()};
   $self->checkPolicy($value);
 }

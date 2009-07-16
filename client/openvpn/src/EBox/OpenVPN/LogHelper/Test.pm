@@ -45,7 +45,7 @@ sub fakeConfig : Test(setup)
   EBox::Module::Service::TestStub::setConfig(@config);
 }
 
-# XXX this  must be deleted if #848 is fixed 
+# XXX this  must be deleted if #848 is fixed
 sub fakePopulateConfFiles : Test(startup)
 {
   Test::MockObject->fake_module('EBox::OpenVPN::LogHelper',
@@ -87,7 +87,7 @@ sub processLineTest : Test(24)
 		line => 'Tue Aug 21 09:32:09 2007 Diffie-Hellman initialized with 1024 bit key',
 		file => $macacoServer->logFile(),
 		expected => undef,
-	       
+
 	       },
 
 	       # server initialized
@@ -126,7 +126,7 @@ sub processLineTest : Test(24)
 		expected => undef,
 	       },
 
-	       
+
 	       # verification error: unknown ca
 	       {
 		line => 'Tue Aug 21 11:52:03 2007 192.168.45.184:60488 VERIFY ERROR: depth=0, error=unable to get local issuer certificate: /C=ES/ST=Nation/L=Nowhere/O=pajaros/CN=golondrina',
@@ -158,7 +158,7 @@ sub processLineTest : Test(24)
 			    },
 	       },
 	       # verification error: forged error to check non-defined error
-	       # behaviour 
+	       # behaviour
 	       {
 		line => 'Tue Aug 21 11:47:58 2007 192.168.45.184:52283 VERIFY UNKNOWN ERROR: the certificate was /C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandrill, this a forged error to test default behaviour',
 		file => $baboonServer->logFile(),
@@ -187,7 +187,7 @@ sub processLineTest : Test(24)
 
 			     from_ip => '192.168.45.184',
 			     from_cert => 'mandrill',
-			    },		
+			    },
 	       },
 
 	       #  connection to server initialized
@@ -203,7 +203,7 @@ sub processLineTest : Test(24)
 
 			     from_ip => '192.168.45.126',
 			     from_cert => 'server',
-			    },		
+			    },
 	       },
 
 	       # client connection terminated
@@ -219,7 +219,7 @@ sub processLineTest : Test(24)
 
 			     from_ip => '192.168.45.184',
 			     from_cert => 'mandrill',
-			    },		
+			    },
 	       },
 
 	       # server connection terminated
@@ -232,7 +232,7 @@ sub processLineTest : Test(24)
 
 			     daemon_name => 'gibon',
 			     daemon_type => 'client',
-			    },		
+			    },
 	       },
 
 
@@ -253,13 +253,13 @@ sub processLineTest : Test(24)
 	exists $expected->{$field} or
 	  $expected->{$field} = undef;
       }
-      
+
     }
 
     lives_ok {
       $logHelper->processLine($file, $line, $dbEngine);
     } 'processing line';
-    
+
     is_deeply $dbEngine->lastInsert, $expected, 'checking wether inserted data was the expected';
   }
 
@@ -272,7 +272,7 @@ sub processLineTest : Test(24)
 
 package FakeDBEngine;
 
-sub new 
+sub new
 {
   my $class = shift;
 

@@ -28,8 +28,8 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
-	$self->{redirect} = "NTP/ChangeDate";	
-	$self->{domain} = "ebox-ntp";	
+	$self->{redirect} = "NTP/ChangeDate";
+	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
@@ -37,21 +37,21 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $ntp= EBox::Global->modInstance('ntp');
-	
+
 	$self->_requireParam('day', __('Day'));
 	$self->_requireParam('month', __('Month'));
 	$self->_requireParam('year', __('Year'));
 	$self->_requireParam('hour', __('Hour'));
 	$self->_requireParam('minute', __('Minutes'));
 	$self->_requireParam('second', __('Seconds'));
-	
+
 	my $day = $self->param('day');
 	my $month = $self->param('month');
 	my $year = $self->param('year');
 	my $hour = $self->param('hour');
 	my $minute = $self->param('minute');
 	my $second = $self->param('second');
-	
+
 	$ntp->setNewDate($day, $month, $year, $hour, $minute, $second);
 }
 

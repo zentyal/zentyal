@@ -25,10 +25,10 @@ use EBox::PgDBEngine;
 # Function: DBEngine
 #
 # Returns:
-#   a instance of the DBEngine to be used	
+#   a instance of the DBEngine to be used
 #
-# 
-sub DBEngine 
+#
+sub DBEngine
 {
 	return new EBox::PgDBEngine;
 }

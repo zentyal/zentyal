@@ -30,7 +30,7 @@ BEGIN {
 
 	@ISA = qw(Exporter);
 	@EXPORT = qw();
-	%EXPORT_TAGS  = (all => [qw{    list_ifaces iface_exists iface_is_up 
+	%EXPORT_TAGS  = (all => [qw{    list_ifaces iface_exists iface_is_up
 					iface_netmask iface_addresses iface_addresses_with_netmask iface_by_address
 					iface_mac_address list_routes
 					list_local_addresses list_local_addresses_with_netmask
@@ -44,9 +44,9 @@ BEGIN {
 	$VERSION = EBox::Config::version;
 }
 
-# Function: iface_exists 
+# Function: iface_exists
 #
-#    Check if a given interface exists in the system using *ifconfig*	 
+#    Check if a given interface exists in the system using *ifconfig*
 #
 # Parameters:
 #
@@ -64,13 +64,13 @@ sub iface_exists #(iface)
 }
 
 #
-# Function: list_ifaces 
+# Function: list_ifaces
 #
 #   	Return a list of all real interfaces in the machine via */proc/net/dev*
 #
 # Returns:
 #
-#      	An array containg the interfaces 
+#      	An array containg the interfaces
 #
 sub list_ifaces
 {
@@ -87,7 +87,7 @@ sub list_ifaces
 #
 # Parameters:
 #
-#       iface - Interface's name 
+#       iface - Interface's name
 #
 # Returns:
 #
@@ -111,7 +111,7 @@ sub iface_is_up
 #
 # Function: iface_netmask
 #
-# 	Returns the netmask for a given interface (dot format)	
+# 	Returns the netmask for a given interface (dot format)
 #
 # Parameters:
 #
@@ -143,7 +143,7 @@ sub iface_netmask
 #
 # Function: iface_mac_address
 #
-# 	Returns the mac address for a given interface 
+# 	Returns the mac address for a given interface
 #
 # Parameters:
 #
@@ -151,7 +151,7 @@ sub iface_netmask
 #
 # Returns:
 #
-#       A string containing the mac address 
+#       A string containing the mac address
 #
 # Exceptions:
 #
@@ -206,7 +206,7 @@ sub iface_addresses
 #  Assumption/Limitation: It assumes that we have not repeated addresses
 #
 #  Returns:
-#    
+#
 #     The iface or undef if there are not any iface with this address
 sub iface_by_address
 {
@@ -227,7 +227,7 @@ sub iface_by_address
 #
 # Function: iface_addresses_with_netmask
 #
-# 	Returns the  addresses for a given interface (dot format)	
+# 	Returns the  addresses for a given interface (dot format)
 #
 # Parameters:
 #
@@ -248,8 +248,8 @@ sub iface_addresses_with_netmask
 
   my @addrs = _ifaceShowAddress($if);
   foreach my $addr (@addrs) {
-    $addr =~ /^(.*)\/(.*)$/  ; 
-    my $ip = $1; 
+    $addr =~ /^(.*)\/(.*)$/  ;
+    my $ip = $1;
     my $netmask = mask_from_bits($2);
     $netmaskByAddr{$ip} = $netmask;
   }
@@ -271,16 +271,16 @@ sub _ifaceShowAddress
 
  my @output = `/bin/ip -f inet -o address show $if 2> /dev/null`;
 
-  my @addrs = map {  
+  my @addrs = map {
     my ($number, $iface, $family,  $ip) =  split /\s+/, $_, 5;
     $ip;
   }  @output;
-	
+
   return @addrs;
 }
 
 #
-# Function: list_routes 
+# Function: list_routes
 #
 #   	Rertuns the list of current routes
 #
@@ -290,9 +290,9 @@ sub _ifaceShowAddress
 #
 # Returns:
 #
-#      	An array containing hash references. Each hash contains a route 
+#      	An array containing hash references. Each hash contains a route
 #      	and consists of:
-#	
+#
 #	network -  network destination
 #	router  -  router used to reach the above network if used
 #       source  -  local ip used to reach the above network if used
@@ -317,16 +317,16 @@ sub list_routes
 
   }
 
-  # get no-gateway routes if instructed to do 
+  # get no-gateway routes if instructed to do
   if ($localSource) {
-    my @srcRoutes = grep { $_ =~ m{src}  } @ipOutput; 
+    my @srcRoutes = grep { $_ =~ m{src}  } @ipOutput;
     foreach my $r (@srcRoutes) {
       $r =~ m/^(.*?)\sdev.*?src\s(.*?)$/;
       my $net = $1;
       my $source = $2;
       my $route = { network => $net, source => $source };
       push(@routes, $route);;
-  } 
+  }
   }
 
 
@@ -335,7 +335,7 @@ sub list_routes
 
 
 # Function: route_to_reach_network
-# 
+#
 #  Returns the route to reach network (it may be the default route)
 #
 # Parameters:
@@ -359,7 +359,7 @@ sub route_to_reach_network
     elsif ($route->{network} eq 'default') {
       $defaultRoute = $route;
     }
-  } 
+  }
 
 
   if (network_is_private_class($network)) {
@@ -371,7 +371,7 @@ sub route_to_reach_network
 
 
 # Function: local_ip_to_reach_network
-# 
+#
 #  Searchs for the local ip used to communicate with the given network
 #
 # Parameters:
@@ -401,10 +401,10 @@ sub local_ip_to_reach_network
   while (my ($localAddr, $netmask) = each %localAddresses) {
     my $localNetwork = ip_network($localAddr, $netmask);
     if (EBox::Validate::isIPInNetwork($localNetwork, $netmask, $gw)) {
-      return $localAddr; 
+      return $localAddr;
     }
   }
-  
+
   return undef;
 }
 
@@ -412,7 +412,7 @@ sub local_ip_to_reach_network
 
 
 #
-# Function: route_is_up 
+# Function: route_is_up
 #
 #	Checks if a given route is already up.
 #
@@ -441,7 +441,7 @@ sub route_is_up # (network, router)
 #
 # Function: ip_network
 #
-# 	Returns the network for an address and netmask	
+# 	Returns the network for an address and netmask
 #
 # Parameters:
 #
@@ -463,7 +463,7 @@ sub ip_network # (address, netmask)
 #
 # Function: ip_broadcast
 #
-# 	Returns the broadcast address  for an address and netmask	
+# 	Returns the broadcast address  for an address and netmask
 #
 # Parameters:
 #
@@ -483,17 +483,17 @@ sub ip_broadcast # (address, netmask)
 }
 
 #
-# Function: bits_from_mask 
+# Function: bits_from_mask
 #
-# 	Given a network mask it returns it in binary format 	
+# 	Given a network mask it returns it in binary format
 #
 # Parameters:
 #
-#	netmask - network mask 
+#	netmask - network mask
 #
 # Returns:
 #
-#      Network mask in binary format 
+#      Network mask in binary format
 #
 sub bits_from_mask # (netmask)
 {
@@ -502,13 +502,13 @@ sub bits_from_mask # (netmask)
 }
 
 #
-# Function: mask_from_bits 
+# Function: mask_from_bits
 #
-# 	Given a network mask in binary format it returns it in decimal dot notation	
+# 	Given a network mask in binary format it returns it in decimal dot notation
 #
 # Parameters:
 #
-#	netmask - network mask 
+#	netmask - network mask
 #
 # Returns:
 #
@@ -532,7 +532,7 @@ sub mask_from_bits # (bits)
 # Parameters:
 #
 #       network - network address
-#	netmask - network mask 
+#	netmask - network mask
 #
 # Returns:
 #
@@ -586,8 +586,8 @@ sub list_local_addresses
 # Function: list_local_addresses_with_netmask
 #
 # Returns:
-# 	a flat list with pairs of all local ipv4 addresses 
-#       and their netmask 
+# 	a flat list with pairs of all local ipv4 addresses
+#       and their netmask
 sub list_local_addresses_with_netmask
 {
     my @ifaces = list_ifaces();

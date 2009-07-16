@@ -37,7 +37,7 @@ use Error qw(:try);
 #
 #   We simply create an id array using an integer for every
 #   row.
-#   
+#
 #   The last row uses 'total' as its identifier. This is
 #   a special case to compute the agreggation of the other
 #   rows.
@@ -73,7 +73,7 @@ sub ids
 #   a special case to compute the agreggation of the other
 #   rows.
 #
-sub row 
+sub row
 {
     my ($self, $id) = @_;
     my $dbRows = $self->reportRows($self->timePeriod());
@@ -97,7 +97,7 @@ sub row
 # Method: message
 #
 #   overriden method to ignore add messages, bz we re always adding rows when
-#   refreshing 
+#   refreshing
 #
 #   Overriden:
 #   <EBox::Model::DataTable::message>
@@ -141,9 +141,9 @@ sub _needUpdate
     my ($self, $timePeriod) = @_;
 
     my $last = exists $self->{lastUpdate} ? $self->{lastUpdate} : 0;
-                      
+
     my $now = time();
-    
+
     if ($now <  ($last + $secondsByTimePeriod{$timePeriod} )) {
         return 0;
     }
@@ -186,7 +186,7 @@ sub _tableHead
         my $printableName = exists $spec->{printableName} ?
                                    $spec->{printableName} :
                                        $name;
-                                  
+
         push @tableHead, $type->new(
                                     fieldName => $name,
                                     printableName => $printableName,
@@ -269,9 +269,9 @@ sub _tailoredOrder # (rows)
     my $allString = __('All');
 
     my @sortedRows = sort {
-        _compareDates($a, $b, $allString);            
+        _compareDates($a, $b, $allString);
     } @{$rows};
-    
+
 
     return \@sortedRows;
 }
@@ -283,7 +283,7 @@ sub _compareDates
 
     my $aDate = $a->valueByName('date');
     my $bDate = $b->valueByName('date');
-    
+
     if ($aDate eq $allString) {
         return -1;
     }
@@ -296,7 +296,7 @@ sub _compareDates
 
     my ($bDatePortion, $bTimePortion) = split '\s', $bDate;
     my @bDateParts = split '-', $bDatePortion;
-    
+
     while (@aDateParts) {
         my $aP = pop @aDateParts;
         my $bP = pop @bDateParts;

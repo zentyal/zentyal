@@ -89,7 +89,7 @@ sub downloadRemoteBackup
 # Method: restoreRemoteBackup
 #
 #    restore a remote backup
-# 
+#
 # Parameters:
 #     registeredEBox - name of the eBox which made the backup
 #     backupName     - name of the backup itself
@@ -122,7 +122,7 @@ sub prepareRestoreRemoteBackup
 
   try {
     $progress = EBox::Backup->prepareRestoreBackup(
-						   $archiveFile, 
+						   $archiveFile,
 						   fullRestore => 0,
 						   deleteBackup => 1,
 						  );
@@ -238,7 +238,7 @@ sub serviceHostName
 {
   my $host = EBox::Config::configkeyFromFile('ebox_services_www',
                                              EBox::Config::etc() . SERV_CONF_FILE);
-  $host or 
+  $host or
     throw EBox::Exceptions::External(
             __('Key for proxy backup service not found')
 				    );

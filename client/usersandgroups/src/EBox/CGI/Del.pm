@@ -39,12 +39,12 @@ sub _warnUser($$) {
 	my $self = shift;
 	my $object = shift;
 	my $name = shift;
-	
+
 	my $usersandgroups = EBox::Global->modInstance('users');
 	my $warns = $usersandgroups->allWarnings($object, $name);
 
 	if (@{$warns}) { # If any module wants to warn user
-		 $self->{template} = 'usersandgroups/del.mas';	
+		 $self->{template} = 'usersandgroups/del.mas';
 		 $self->{redirect} = undef;
 		 my @array = ();
 		 push(@array, 'object' => $object);
@@ -59,13 +59,13 @@ sub _warnUser($$) {
 
 sub _process($) {
 	my $self = shift;
-	
+
 	my $usersandgroups = EBox::Global->modInstance('users');
 
 	$self->_requireParam('objectname', __('object name'));
 	my $name = $self->param('objectname');
 	my ($deluser, $delgroup);
-	
+
 	if ($self->param('cancel')) {
 		$self->_requireParam('object', __('object type'));
 	        my $object = $self->param('object');
@@ -82,7 +82,7 @@ sub _process($) {
 		$deluser = not $self->_warnUser('user', $name);
 	} elsif ($self->param('delgroup')) {
 		$delgroup = not $self->_warnUser('group', $name);
-	} 	
+	}
 
 	if ($deluser) {
       		$usersandgroups->delUser($name);
@@ -93,7 +93,7 @@ sub _process($) {
        	      	$self->{chain} = "UsersAndGroups/Groups";
 		$self->{msg} = __('Group removed successfully');
 	}
-	
+
 }
 
 1;

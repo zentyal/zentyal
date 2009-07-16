@@ -127,7 +127,7 @@ sub editField
 
     my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
     foreach my $field (@{$tableDesc}) {
-        my $fieldName = $field->{'fieldName'};	
+        my $fieldName = $field->{'fieldName'};
         if ($editField ne $fieldName) {
             next;
         }
@@ -148,7 +148,7 @@ sub refreshTable
     my $self = shift;
 
     my $model = $self->{'tableModel'};
-    my $global = EBox::Global->getInstance(); 
+    my $global = EBox::Global->getInstance();
 
     my $filter = $self->param('filter');
     my $page = $self->param('page');

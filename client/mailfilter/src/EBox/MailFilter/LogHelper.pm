@@ -28,7 +28,7 @@ use constant SMTP_FILTER_TABLE => 'message_filter';
 use constant POP_PROXY_TABLE   => 'pop_proxy_filter';
 
 
- 
+
 
 sub new
 {
@@ -41,12 +41,12 @@ sub new
 }
 
 # Method: domain
-#       
+#
 #       Must return the text domain which the package belongs to
 #
-sub domain 
+sub domain
 {
-    return 'ebox-mailfilter'; 
+    return 'ebox-mailfilter';
 }
 
 sub logFiles {
@@ -67,10 +67,10 @@ sub _getDate
     my ($self, $line) = @_;
 
     my @date = localtime(time);
-    
+
     my $year = $date[5] + 1900;
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..)/;
-    
+
     return "$year-$month-$day $hour:$min:$sec";
 }
 
@@ -117,7 +117,7 @@ sub _processAmavisLine
     if ($event eq 'CLEAN') {
         $event = 'CLEAN';
     }
-    
+
     if (($hits eq '-') and ($event eq 'SPAM')) {
         $event = 'BLACKLISTED';
     }
@@ -179,7 +179,7 @@ sub _processPOPProxyLine
         }
         else { # $status ~= m/abort/
             $event = 'pop3_fetch_failed';
-            
+
         }
 
 
@@ -191,15 +191,15 @@ sub _processPOPProxyLine
         my $values = {
                       event => $event,
                       address => $p3scanAddress,
-                      
+
                       mails  => $mails,
                       clean   => $cleanMails,
                       virus  => $p3scanVirus,
                       spam   => $p3scanSpam,
-                      
+
                       clientConn => $p3scanClientConn,
 
-                      
+
                       date => $date,
                      };
 

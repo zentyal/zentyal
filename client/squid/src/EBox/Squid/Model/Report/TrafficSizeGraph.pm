@@ -16,7 +16,7 @@
 
 package EBox::Squid::Model::Report::TrafficSizeGraph;
 use base 'EBox::Logs::Model::Report::Graph';
-# 
+#
 use strict;
 use warnings;
 
@@ -28,10 +28,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -57,19 +57,19 @@ sub dbFields
 
 
         accepted_size => {
-                          printableName => __('Accepted traffic size (Kb)') 
+                          printableName => __('Accepted traffic size (Kb)')
                          },
 
 
 
         denied_size => {
-                        printableName => __('Denied traffic size (Kb)') 
+                        printableName => __('Denied traffic size (Kb)')
                        },
 
 
-            
+
         filtered_size => {
-                          printableName => __('Filtered traffic size (Kb))') 
+                          printableName => __('Filtered traffic size (Kb))')
                          },
 
 
@@ -104,7 +104,7 @@ sub _table
                                      'editField',
                                      'changeView',
                                     ],
-                   
+
                    messages => {
                                 'add'       => undef,
                                 'del'       => undef,

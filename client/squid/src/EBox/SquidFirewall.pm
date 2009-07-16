@@ -27,7 +27,7 @@ use EBox::Gettext;
 
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
@@ -61,12 +61,12 @@ sub _normal_prerouting
     foreach my $ifc (@ifaces) {
         my $addr = $net->ifaceAddress($ifc);
         (defined($addr) && $addr ne "") or next;
-        
+
         foreach my $obPolicy (@objsPolicies) {
             push @rules,
                 @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
-        }       
-    
+        }
+
 
         if ($sq->globalPolicyUsesFilter()) {
             my $r = "-i $ifc -d $addr -p tcp --dport $sqport ".
@@ -93,14 +93,14 @@ sub _normal_prerouting_object_rules
 
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
+            my $r = "-i $ifc -d $addr -s $client -p tcp " .
                 "--dport $sqport -j RETURN";
             push @rules, $r;
         }
     }
     else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " . 
+            my $r = "-i $ifc -d $addr -s $client -p tcp " .
                 "--dport $sqport -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
@@ -117,14 +117,14 @@ sub _trans_prerouting
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
-    
+
     my @objsPolicies = @{ $self->_objectsPolicies() };
 
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $addr = $net->ifaceAddress($ifc);
         (defined($addr) && $addr ne "") or next;
-        
+
         foreach my $obPolicy (@objsPolicies) {
             push @rules,
                 @{ $self->_normal_trans_prerouting_object_rules(
@@ -162,14 +162,14 @@ sub _normal_trans_prerouting_object_rules
     my $policy = $obPolicy->{policy};
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
+            my $r = "-i $ifc -d ! $addr -s $client -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $sqport";
             push @rules, $r;
         }
     }
     else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " . 
+            my $r = "-i $ifc -d ! $addr -s $client -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
@@ -199,14 +199,14 @@ sub input
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
 
-    my @objsPolicies = @{ $self->_objectsPolicies() };    
+    my @objsPolicies = @{ $self->_objectsPolicies() };
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         foreach my $obPolicy (@objsPolicies) {
             push @rules,
                 @{ $self->_input_object_rules($obPolicy, $ifc ) };
         }
-        
+
         if ($sq->globalPolicyUsesFilter()) {
             my $r = "-m state --state NEW -i $ifc ".
                 "-p tcp --dport $dgport -j ACCEPT";
@@ -239,7 +239,7 @@ sub _input_object_rules
             my $r = "-m state --state NEW -i $ifc -s $client ".
                 "-p tcp --dport $sqport -j ACCEPT";
             push @rules, $r;
-            
+
             $r = "-m state --state NEW -i $ifc -s $client ".
                 "-p tcp --dport $dgport -j DROP";
             push @rules, $r;
@@ -250,7 +250,7 @@ sub _input_object_rules
             my $r = "-m state --state NEW -i $ifc -s $client ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push @rules, $r;
-            
+
             $r = "-m state --state NEW -i $ifc -s $client ".
                 "-p tcp --dport $sqport -j DROP";
             push @rules, $r;

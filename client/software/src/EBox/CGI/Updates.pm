@@ -41,7 +41,7 @@ sub _process($) {
 	my $software = EBox::Global->modInstance('software');
 
 	if ($software->getAutomaticUpdates()) {
-		$self->{msg} = 
+		$self->{msg} =
 			__('Software updates are being handled automatically');
 		return;
 	}

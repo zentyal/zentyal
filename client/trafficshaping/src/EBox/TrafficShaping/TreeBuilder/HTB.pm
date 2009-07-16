@@ -371,7 +371,7 @@ sub updateRule
 
 #    if ( not( defined( $leafClassId->{minor} ) and
 #	      defined( $leafClassId->{major} ) )) {
-#      throw EBox::Exceptions::InvalidType( 'leafClass', 
+#      throw EBox::Exceptions::InvalidType( 'leafClass',
 #			 'a hash with major and minor as arguments');
 #    }
 
@@ -486,7 +486,7 @@ sub destroyRule # (leafClassId)
 
 #    if ( not( defined( $leafClassId->{minor} ) and
 #	      defined( $leafClassId->{major} ) )) {
-#      throw EBox::Exceptions::InvalidType( 'leafClass', 
+#      throw EBox::Exceptions::InvalidType( 'leafClass',
 #			 'a hash with major and minor as arguments');
 #    }
 
@@ -586,11 +586,11 @@ sub findLeafClassId
 #    priority    - Int the filter priority
 #    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
 #    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
-#    service   - undef or <EBox::Types::Union> from 
+#    service   - undef or <EBox::Types::Union> from
 #                <EBox::TrafficShaping::Model::RuleTable> that can contains
 #                 a port based service, l7 protocol service or a group
 #                 of l7 protocol services.
-#                  
+#
 #                 If undef, any service is assumed
 #
 #    id      - the filter identifier *(Optional)*

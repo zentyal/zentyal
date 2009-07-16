@@ -43,7 +43,7 @@ use constant MAX_SCRIPT_SESSION => 10; # In seconds
 use constant CC_COOKIE_NAME => 'EBox_Services_Remote_Access';
 use constant CC_DOMAIN => 'dynamic.ebox-services.com';
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -96,7 +96,7 @@ sub _savesession # (session_id)
 # Exceptions:
 #
 #       <EBox::Exceptions::Internal> - when password's file cannot be opened
-sub checkPassword # (password) 
+sub checkPassword # (password)
 {
     my ($self, $passwd) = @_;
 
@@ -135,7 +135,7 @@ sub checkPassword # (password)
 #       opened
 #	<EBox::Exceptions::External> - when password length is no
 #	longer than 6 characters
-sub setPassword # (password) 
+sub setPassword # (password)
 {
     my ($self, $passwd) = @_;
 
@@ -271,7 +271,7 @@ sub alreadyLogged
 {
     my ($self) = @_;
     my ($sid, $lastime) = _currentSessionId();
-    
+
     return 0 if !defined $sid;
     return 0 if _timeExpired($lastime);
 
@@ -301,7 +301,7 @@ sub _currentSessionId
     unless( -e EBox::Config->sessionid()){
 	unless  (open ($SID_F,  ">". EBox::Config->sessionid())){
 	    throw EBox::Exceptions::Internal(
-					     "Could not create  ". 
+					     "Could not create  ".
 					     EBox::Config->sessionid);
 	}
 	close($SID_F);

@@ -90,7 +90,7 @@ sub cleanupForExec
 
 # restarting apache from inside apache could be problematic, so we fork() and
 # detach the child from the process group.
-sub _daemon # (action) 
+sub _daemon # (action)
 {
 	my $self = shift;
 	my $action = shift;
@@ -102,12 +102,12 @@ sub _daemon # (action)
 		unless (defined($pid = fork())) {
 			throw EBox::Exceptions::Internal("Cannot fork().");
 		}
-	
-		if ($pid) { 
+
+		if ($pid) {
 			return; # parent returns inmediately
 		}
 		cleanupForExec();
-	} 
+	}
 
 	if ($action eq 'stop') {
 		EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl stop');
@@ -215,7 +215,7 @@ sub _httpdConfFile
 
 sub _startupFile
 {
-  
+
     return '/var/lib/ebox/conf/startup.pl';
 }
 
@@ -235,7 +235,7 @@ sub port
 #
 #     port - Int the new listening port
 #
-sub setPort # (port) 
+sub setPort # (port)
 {
 	my ($self, $port) = @_;
 

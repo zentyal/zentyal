@@ -29,7 +29,7 @@ sub expires {
 
 # -- expire_calc() shamelessly taken from CGI::Util
 # This internal routine creates an expires time exactly some number of
-# hours from the current time.  It incorporates modifications from 
+# hours from the current time.  It incorporates modifications from
 # Mark Fisher.
 sub expire_calc {
     my($time) = @_;
@@ -105,7 +105,7 @@ sub expires {
 
 # -- expire_calc() shamelessly taken from CGI::Util
 # This internal routine creates an expires time exactly some number of
-# hours from the current time.  It incorporates modifications from 
+# hours from the current time.  It incorporates modifications from
 # Mark Fisher.
 sub expire_calc {
     my($time) = @_;

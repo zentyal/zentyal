@@ -29,8 +29,8 @@ use EBox::Validate qw( :all );
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
-	$self->{redirect} = "NTP/Datetime";	
-	$self->{domain} = "ebox-ntp";	
+	$self->{redirect} = "NTP/Datetime";
+	$self->{domain} = "ebox-ntp";
 	bless($self, $class);
 	return $self;
 }
@@ -38,19 +38,19 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $ntp= EBox::Global->modInstance('ntp');
-	
+
 	$self->_requireParam('server1', __('first ntp server'));
 
 	my $s1 = $self->param('server1');
 	checkDomainName($s1, __('Primary server'));
-	
+
 	my $s2 = $self->param('server2');
 	my $s3 = $self->param('server3');
-	
+
 	if (defined($s2) and ($s2 ne "")) {
 		checkDomainName($s2, __('Secondary server'));
 	}
-	
+
 	if (defined($s3) and ($s3 ne "")) {
 		checkDomainName($s3, __('Tertiary server'));
 	}

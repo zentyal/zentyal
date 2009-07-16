@@ -132,7 +132,7 @@ sub pendingActions
 			my $domain = settextdomain($mod->domain);
 			$action->{'modtitle'} = __d($mod->title(), $mod->domain());
 			#TODO: create a function out of these lines and put it
-			#somewhere where it can be used from here and as a 
+			#somewhere where it can be used from here and as a
 			#filter for logviewer for the admin table
 			my $action = $action->{'action'};
 			my @params = split(',', $action->{'params'});

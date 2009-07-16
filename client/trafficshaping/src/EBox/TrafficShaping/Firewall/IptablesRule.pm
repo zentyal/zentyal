@@ -37,11 +37,11 @@ use Perl6::Junction qw( any );
 
 use base 'EBox::Firewall::IptablesRule';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_); 
+    my $self = $class->SUPER::new(@_);
     bless($self, $class);
     return $self;
 
@@ -50,7 +50,7 @@ sub new
 # Method: setReverseService
 #
 #   This method reverse port service:
-#       
+#
 #       destination -> source, source -> destination
 #
 #   It's meant to be used for ingress rules by the traffic shaping module
@@ -60,7 +60,7 @@ sub new
 #   (POSITIONAL)
 #
 #   service - a service id from <EBox::Service::Model::ServiceTable>
-#   inverseMatch - inverse match  
+#   inverseMatch - inverse match
 sub setReverseService
 {
     my ($self, $service, $inverseMatch) = @_;
@@ -93,22 +93,22 @@ sub setReverseService
         }
 
         if ($protocol eq any ('tcp', 'udp', 'tcp/udp')) {
-        
+
             if ($srcPort ne 'any') {
                 $iptables .= " --source-port $inverse $srcPort ";
             }
 
-   
+
             if ($dstPort ne 'any') {
                 $iptables .= " --destination-port $inverse $dstPort ";
             }
 
             if ($protocol eq 'tcp/udp') {
                 push (@{$self->{'service'}}, " -p $invProto udp " . $iptables);
-                push (@{$self->{'service'}}, " -p $invProto tcp " . $iptables);    
+                push (@{$self->{'service'}}, " -p $invProto tcp " . $iptables);
             } else {
-                push (@{$self->{'service'}}, " -p $invProto $protocol " 
-                                             . $iptables);    
+                push (@{$self->{'service'}}, " -p $invProto $protocol "
+                                             . $iptables);
             }
 
         } elsif ($protocol eq any ('gre', 'icmp')) {
@@ -152,9 +152,9 @@ sub setL7Service
 # Parameters:
 #
 #   (POSITIONAL)
-#   
+#
 #   l7 grouped service id
-#   
+#
 sub setL7GroupedService
 {
     my ($self, $service, $inverseMatch) = @_;

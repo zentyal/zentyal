@@ -27,7 +27,7 @@ use EBox::Gettext;
 
 use constant SMBPORTS => qw(137 138 139 445);
 
-sub new 
+sub new
 {
         my $class = shift;
         my %opts = @_;
@@ -40,7 +40,7 @@ sub output
 {
     my ($self) = @_;
     my @rules = ();
-        
+
     my $samba = EBox::Global->modInstance('samba');
     my @ifaces = @{ $samba->sambaInterfaces() };
     foreach my $ifc (@ifaces) {
@@ -60,7 +60,7 @@ sub output
             push(@rules, $r);
         }
     }
-        
+
     return \@rules;
 }
 

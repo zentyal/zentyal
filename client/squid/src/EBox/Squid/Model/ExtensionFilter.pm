@@ -83,7 +83,7 @@ sub validateTypedRow
 sub banned
 {
   my ($self) = @_;
-  
+
   my @bannedExtensions;
 
   for my $id (@{$self->ids()}) {
@@ -112,7 +112,7 @@ sub _table
      modelDomain        => 'Squid',
      defaultController  => '/ebox/Squid/Controller/ExtensionFilter',
      defaultActions     =>
-     [	
+     [
       'add', 'del',
       'editField',
       'changeView'

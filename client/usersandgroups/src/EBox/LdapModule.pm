@@ -42,15 +42,15 @@ sub new
 #
 # Returns:
 #
-#	An object implementing EBox::LdapUserBase 
-sub _ldapModImplementation 
+#	An object implementing EBox::LdapUserBase
+sub _ldapModImplementation
 {
-	throw EBox::Exceptions::NotImplemented();	
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: ldap
 #
-#   Provides an EBox::Ldap object with the proper configuration for the 
+#   Provides an EBox::Ldap object with the proper configuration for the
 #   LDAP setup of this ebox
 sub ldap
 {

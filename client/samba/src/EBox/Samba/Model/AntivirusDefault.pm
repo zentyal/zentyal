@@ -29,7 +29,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -48,8 +48,8 @@ sub pageTitle
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Boolean(
             'fieldName' => 'scan',
             'printableName' => __('Scan'),
@@ -57,8 +57,8 @@ sub _table
             'defaultValue' => 0
         ),
     );
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'AntivirusDefault',
         'printableTableName' => __('Antivirus default settings'),
         'modelDomain' => 'Samba',

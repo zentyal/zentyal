@@ -68,7 +68,7 @@ sub notice : Test(startup)
 # needed for progress indicator stuff
 sub setupProgressIndicatorHostModule : Test(setup)
 {
-  
+
    fakeEBoxModule(name => 'apache',
                   subs => [
                            _regenConfig => sub {},
@@ -86,7 +86,7 @@ sub setupDirs : Test(setup)
   return if !exists $INC{'EBox/Backup.pm'};
 
   EBox::TestStubs::setEBoxConfigKeys(
-                                     conf => testDir(), 
+                                     conf => testDir(),
                                      tmp => $self->testDir(),
                                      group => 'ebox',
                                     );
@@ -133,7 +133,7 @@ sub setupExtendedCanary
 		 subs => [
 			  setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
 			  canary => sub { my ($self) = @_; return $self->{canary} },
-		
+
 			  extendedBackup => sub {
 			    my ($self, %params) = @_;
 			    my $dir = $params{dir};
@@ -171,7 +171,7 @@ sub setupMixedConfCanary
 			      write_file ("$dir/canary", BUG_BACKUP_VALUE );
 			    }
 			    else {
-			      write_file ("$dir/canary", $self->{canary} );			      
+			      write_file ("$dir/canary", $self->{canary} );
 			    }
 
 			  },
@@ -188,7 +188,7 @@ sub setupMixedConfCanary
 		);
 
 }
- 
+
 
 sub setCanaries
 {
@@ -221,7 +221,7 @@ sub setExtendedCanary
 
   die 'canary not changed' if $extendedCanary->canary() ne $value;
 }
- 
+
 
 sub setMixedConfCanary
 {
@@ -262,7 +262,7 @@ sub _setGConfString
 
 sub checkCanaries
 {
-  my ($expectedValue, $fullRestore) = @_;  
+  my ($expectedValue, $fullRestore) = @_;
 
   checkGConfCanary($expectedValue);
   checkExtendedCanary($expectedValue, $fullRestore);
@@ -311,7 +311,7 @@ sub checkExtendedCanaryGConf
 sub checkExtendedCanary
 {
   my ($expectedValue, $fullRestore) = @_;
-  
+
   checkExtendedCanaryGConf($expectedValue);
   checkExtendedCanaryData($expectedValue, $fullRestore);
 
@@ -322,7 +322,7 @@ sub checkExtendedCanary
 sub checkExtendedCanaryData
 {
   my ($expectedValue, $dataRestored) = @_;
-  
+
   my $value;
   my $extendedCanary = EBox::Global->modInstance('extendedCanary');
   $value = $extendedCanary->canary();
@@ -371,15 +371,15 @@ sub checkMixedConfCanary
 sub teardownGConfCanary : Test(teardown)
 {
   my $client = Gnome2::GConf::Client->get_default;
-  $client->unset($GCONF_CANARY_KEY);  
-  $client->unset($GCONF_EXTENDED_CANARY_KEY);  
-  $client->unset($GCONF_MIXEDCONF_CANARY_KEY);  
+  $client->unset($GCONF_CANARY_KEY);
+  $client->unset($GCONF_EXTENDED_CANARY_KEY);
+  $client->unset($GCONF_MIXEDCONF_CANARY_KEY);
 }
 
 sub teardownCanaryModule : Test(teardown)
 {
   my ($self) = @_;
-  EBox::TestStubs::setConfig(); 
+  EBox::TestStubs::setConfig();
 }
 
 # this counts for 7 tests
@@ -395,7 +395,7 @@ sub checkStraightRestore
   checkCanaries(BEFORE_BACKUP_VALUE, $options{fullRestore});
 
   checkModulesChanged(
-	name => 'Checking wether all restored modules have the changed state set' 
+	name => 'Checking wether all restored modules have the changed state set'
 		     );
 }
 
@@ -450,7 +450,7 @@ sub checkMakeBackup
   my $backupArchive;
   my $b = new EBox::Backup;
   lives_ok { $backupArchive = $b->makeBackup(@backupParams)  } 'Checking wether backup is correctly done';
-  
+
   return $backupArchive;
 }
 
@@ -480,7 +480,7 @@ sub invalidArchiveTest : Test(30)
   }
 }
 
-sub _testdataDir 
+sub _testdataDir
 {
   my $dir = __FILE__;
   $dir =~ s/Test\.pm/testdata/;
@@ -491,7 +491,7 @@ sub _testdataDir
 sub restoreConfigurationBackupTest : Test(16)
 {
   my ($self) = @_;
- 
+
   my $configurationBackup;
   setCanaries(BEFORE_BACKUP_VALUE);
   $configurationBackup = checkMakeBackup(description => 'test configuration backup');
@@ -510,7 +510,7 @@ sub restoreBugreportTest : Test(13)
 
   my $backup = new EBox::Backup();
   my $bugReportBackup;
- 
+
   setCanaries(BEFORE_BACKUP_VALUE);
   lives_ok { $bugReportBackup = $backup->makeBugReport() } 'make a bug report';
 
@@ -567,7 +567,7 @@ sub partialRestoreTest : Test(15)
   # bad case: inexistent module
   dies_ok {
     EBox::Backup->restoreBackup(
-				$configurationBackup, 
+				$configurationBackup,
 				modsToRestore => ['gConfCanary', 'inexistent'],
 			       );
   } 'called restoreBackup with a list of modules t orestore which contains inexistent modules';
@@ -605,13 +605,13 @@ sub partialRestoreTest : Test(15)
 # and in the global module list will be restored
 
 # sub restoreWithModulesMissmatchTest : Test(46) { my ($self) = @_;
- 
+
 #   setCanaries(BEFORE_BACKUP_VALUE);
 #   my $global       = EBox::Global->getInstance();
 #   my @modsInBackup = @{ $global->modNames() };
-  
-#   my $backupFile = checkMakeBackup( fullBackup => 0 );  
-  
+
+#   my $backupFile = checkMakeBackup( fullBackup => 0 );
+
 #   my @straightCases;
 
 #   # one more module
@@ -621,7 +621,7 @@ sub partialRestoreTest : Test(15)
 
 #   # additional module with met dependencies
 #   push @straightCases, sub {
-#     fakeEBoxModule( name => 'superfluousModule', 
+#     fakeEBoxModule( name => 'superfluousModule',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['gConfCanary'] },
 # 			    ],
@@ -631,7 +631,7 @@ sub partialRestoreTest : Test(15)
 #   # two additional modules with met dependencies between them
 #   push @straightCases, sub {
 #     fakeEBoxModule( name => 'superfluousModule1', );
-#     fakeEBoxModule( name => 'superfluousModule2', 
+#     fakeEBoxModule( name => 'superfluousModule2',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['superfluousModule1'] },
 # 			    ],
@@ -643,7 +643,7 @@ sub partialRestoreTest : Test(15)
 
 #   # with a additional module with unmet dependencies
 #   push @deviantCases, sub {
-#     fakeEBoxModule( name => 'unmetDepModule', 
+#     fakeEBoxModule( name => 'unmetDepModule',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['inexistentModule'] },
 # 			    ],
@@ -651,12 +651,12 @@ sub partialRestoreTest : Test(15)
 #   };
 #   # with a recursive dependency
 #   push @deviantCases, sub {
-#     fakeEBoxModule( name => 'recursiveDepModule1', 
+#     fakeEBoxModule( name => 'recursiveDepModule1',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['recursiveDepModule2'] },
 # 			    ],
 # 		  );
-#     fakeEBoxModule( name => 'recursiveDepModule2', 
+#     fakeEBoxModule( name => 'recursiveDepModule2',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['recursiveDepModule1'] },
 # 			    ],
@@ -664,13 +664,13 @@ sub partialRestoreTest : Test(15)
 #   };
 #   # with a module which depends on itself
 #   push @deviantCases, sub {
-#     fakeEBoxModule( name => 'depOnItselfModule', 
+#     fakeEBoxModule( name => 'depOnItselfModule',
 # 		    subs => [
 # 			     restoreDependencies => sub { return ['depOnItselfModule'] },
 # 			    ],
 # 		  );
 #   };
-  
+
 
 #   my $backup = new EBox::Backup();
 #   foreach my $case (@straightCases) {
@@ -686,18 +686,18 @@ sub partialRestoreTest : Test(15)
 
 
 
-#     lives_ok { 
-#       $backup->restoreBackup($backupFile, fullRestore => 0) 
+#     lives_ok {
+#       $backup->restoreBackup($backupFile, fullRestore => 0)
 #     } 'checking restore without dependencies problems'   ;
-    
+
 #     # check after backup state
 #     checkCanaries(BEFORE_BACKUP_VALUE, 0);
 #     checkModulesChanged(
 # 			name => 'Checking wether restored modules are marked as changed',
 # 			modules => \@modsInBackup,
 # 		       );
-    
-  
+
+
 #     teardownCanaryModule();
 #     teardownGConfCanary();
 #   }
@@ -716,7 +716,7 @@ sub partialRestoreTest : Test(15)
 
 #     teardownGConfCanary();
 #   }
-  
+
 
 # }
 
@@ -746,12 +746,12 @@ sub listBackupsTest : Test(5)
 
   my $backup = new EBox::Backup();
   my @backupParams = (
-		      [description => 'configuration backup', fullBackup => 0], 
+		      [description => 'configuration backup', fullBackup => 0],
 		      [description => 'full backup', fullBackup => 1],
 		      );
- 
+
   setCanaries('indiferent configuration');
-  
+
 
 
   foreach (@backupParams) {
@@ -780,7 +780,7 @@ sub listBackupsTest : Test(5)
     is $backup->{type}, $awaitedType, 'Checking backup type';
   }
 
-  
+
 }
 
 
@@ -793,7 +793,7 @@ sub backupDetailsFromArchiveTest : Test(9)
   my $global = EBox::Global->getInstance();
   $global->saveAllModules();
 
-  
+
   my $configurationBackupDescription = 'test configuration backup for detail test';
   my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription, fullBackup => 0) ;
 
@@ -822,7 +822,7 @@ sub backupDetailsFromArchiveTest : Test(9)
   foreach my $file (keys %detailsExpectedByFile) {
     my $details_r;
     lives_ok { $details_r = EBox::Backup->backupDetailsFromArchive($file)  } 'Getting details from file';
-    
+
     my $detailsExpected_r = $detailsExpectedByFile{$file};
     while (my ($detail, $value) = each %{ $detailsExpected_r }) {
       is $details_r->{$detail}, $value, "Checking value of backup detail $detail";
@@ -837,7 +837,7 @@ sub backupForbiddenWithChangesTest : Test(7)
   my ($self) = @_;
 
   setCanaries(BEFORE_BACKUP_VALUE);
-  
+
   setCanaries(AFTER_BACKUP_VALUE);
 
   my $global = EBox::Global->getInstance();
@@ -854,7 +854,7 @@ sub backupForbiddenWithChangesTest : Test(7)
 
   checkCanaries(AFTER_BACKUP_VALUE, 1);
 
-  
+
 
   checkModulesChanged(
 		      name => 'Check wether module changed state has not be changed',
@@ -863,7 +863,7 @@ sub backupForbiddenWithChangesTest : Test(7)
 }
 
 
-sub restoreFailedTest #: Test(6) 
+sub restoreFailedTest #: Test(6)
 {
   my ($self) = @_;
 
@@ -894,11 +894,11 @@ sub restoreFailedTest #: Test(6)
                             # revoked modules
   }
 
-  throws_ok {   
+  throws_ok {
     my $b = new EBox::Backup;
     $b->restoreBackup($backupArchive);
 
-  } qr /$forcedFailureMsg/, 
+  } qr /$forcedFailureMsg/,
     'Checking wether restore failed as expected';
 
 
@@ -912,7 +912,7 @@ sub restoreFailedTest #: Test(6)
 
   my @modulesNotChanged =  grep {  (not $global->modIsChanged($_)) } @modules;
 
-  ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' . 
+  ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' .
   ' some  modules not longer a changed state (this is a clue of revokation)' ;
 
 #  setupMixedConfCanary();
@@ -939,7 +939,7 @@ sub dataRestoreTest : Test(7)
   checkGConfCanary(AFTER_BACKUP_VALUE);
   # mixed conf canary shouldn't changed
   checkMixedConfCanary(AFTER_BACKUP_VALUE);
-  
+
   # extended canary configuration should not be changed ..
   checkExtendedCanaryGConf(AFTER_BACKUP_VALUE);
   # .. but data must be restored

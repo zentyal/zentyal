@@ -28,7 +28,7 @@ use EBox::UsersAndGroups;
 
 use base qw(EBox::LdapUserBase);
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self  = {};
@@ -51,10 +51,10 @@ sub _userAddOns
 	$is_admin = 1 if ($self->isAdmin($username));
 
 	my @args;
-	my $args = { 
+	my $args = {
 		    'username' => $username,
 	             'active'   => $active,
-		     'is_admin' => $is_admin, 
+		     'is_admin' => $is_admin,
 
 		     'service' => $jabber->isEnabled(),
 		   };
@@ -114,33 +114,33 @@ sub setIsAdmin #($username, [01]) 0=disable, 1=enable
 
 	if ($mesg->count != 0){
 	    if ($option){
-	    	my %attrs = ( 
-		      changes => [ 
+	    	my %attrs = (
+		      changes => [
 				   replace => [
 					       jabberAdmin => 'TRUE'
 					       ]
 				   ]
 		      );
-		my $result = $ldap->modify($dn, \%attrs ); 
+		my $result = $ldap->modify($dn, \%attrs );
 		($result->is_error) and
 		    throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
 		$global->modChange('jabber');
 	    } else {
-	        my %attrs = ( 
-			      changes => [ 
+	        my %attrs = (
+			      changes => [
 					   replace => [
 						       jabberAdmin => 'FALSE'
 						       ]
 					   ]
 			      );
-		my $result = $ldap->modify($dn, \%attrs ); 
-		($result->is_error) and 
+		my $result = $ldap->modify($dn, \%attrs );
+		($result->is_error) and
 		    throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
 		$global->modChange('jabber');
 	    }
 	}
-	
-	return 0;     
+
+	return 0;
 }
 
 sub hasAccount #($username)
@@ -176,8 +176,8 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 	my $mesg = $ldap->search(\%args);
 
 	if (!$mesg->count && $option){
-	    my %attrs = ( 
-			  changes => [ 
+	    my %attrs = (
+			  changes => [
 				       add => [
 					       objectClass => 'userJabberAccount',
 					       jabberUid   => $username,
@@ -185,12 +185,12 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 					       ]
 				       ]
 			  );
-	    my $result = $ldap->modify($dn, \%attrs ); 
+	    my $result = $ldap->modify($dn, \%attrs );
 	    ($result->is_error) and
 		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
 	} elsif ($mesg->count && !$option) {
-	    my %attrs = ( 
-			  changes => [ 
+	    my %attrs = (
+			  changes => [
 				       delete => [
 						  objectClass => ['userJabberAccount'],
 						  jabberUid   => [$username],
@@ -198,16 +198,16 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 						  ]
 				       ]
 			  );
-	    my $result = $ldap->modify($dn, \%attrs ); 
+	    my $result = $ldap->modify($dn, \%attrs );
 	    ($result->is_error) and
 		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
 	} elsif ($mesg->count && $option){
-	    
+
 	} else {
 	    throw EBox::Exceptions::Internal ('Unknown error');
 	}
-	
-	return 0;     
+
+	return 0;
 }
 
 sub getJabberAdmins
@@ -224,7 +224,7 @@ sub getJabberAdmins
 	my %args = (base => $dn,
 		    filter => "jabberAdmin=TRUE");
 	my $mesg = $ldap->search(\%args);
-	
+
 	foreach my $entry ($mesg->entries) {
 	    foreach my $attrib (@{$entry->{'asn'}->{'attributes'}}){
 		if ($attrib->{'type'} eq 'jabberUid'){
@@ -232,7 +232,7 @@ sub getJabberAdmins
 		}
 	    }
 	}
-	
+
 	return @admins;
 }
 1;

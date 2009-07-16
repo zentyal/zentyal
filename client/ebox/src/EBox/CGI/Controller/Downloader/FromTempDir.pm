@@ -107,7 +107,7 @@ sub _process
         throw EBox::Exceptions::Internal("$normalized can't be read");
     }
     $self->{path} = $normalized;
- 
+
     $self->SUPER::_process(@_);
 }
 

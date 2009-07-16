@@ -34,7 +34,7 @@ use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
 use constant BYTES                              => '1048576';
 use constant MAXMGSIZE                          => '104857600';
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self  = {};
@@ -53,37 +53,37 @@ sub new
 #               dftmdsize - Default maildir size for the vdomain
 sub addVDomain { #vdomain
     my ($self, $vdomain, $dftmdsize) = @_;
-        
+
 
     my $ldap = $self->{ldap};
-    
+
     checkDomainName($vdomain, 'Virtual domain name');
-        
+
     # Verify vdomain exists
     if ($self->vdomainExists($vdomain)) {
         throw EBox::Exceptions::DataExists('data' => __('virtual domain'),
                                            'value' => $vdomain);
     }
-    
-    
-        
+
+
+
     my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
-    my %attrs = ( 
+    my %attrs = (
                  attr => [
                           'domainComponent' => $vdomain,
                           'objectclass'    => 'domain',
                           'objectclass'     => 'vdeboxmail'
                          ]
                 );
-    
+
     my $r = $self->{'ldap'}->add($dn, \%attrs);
-    
+
     my $mail = EBox::Global->modInstance('mail');
     if ($mail->mdQuotaAvailable) {
         $self->_addVDomainWiithMdQuota($dn, $dftmdsize);
     }
-    
-    
+
+
     $self->_initVDomain($vdomain);
 }
 
@@ -94,12 +94,12 @@ sub addVDomain { #vdomain
 # Parameters:
 #
 #     vdomain - The virtual domain name
-sub _initVDomain 
+sub _initVDomain
 {
     my ($self, $vdomain) = @_;
-    
+
     my @mods = @{$self->_modsVDomainModule()};
-    
+
     foreach my $mod (@mods){
         $mod->_addVDomain($vdomain);
     }
@@ -112,24 +112,24 @@ sub _initVDomain
 # Parameters:
 #
 #     vdomain - The virtual domain name
-sub delVDomain 
-{ 
+sub delVDomain
+{
     my ($self, $vdomain) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    
+
     # Verify vdomain exists
     unless ($self->vdomainExists($vdomain)) {
         throw EBox::Exceptions::DataNotFound('data' => __('virtual domain'),
                                              'value' => $vdomain);
     }
-    
+
     # We Should warn about users whose mail account belong to this vdomain.
     $mail->{malias}->delAliasesFromVDomain($vdomain);
     $mail->{musers}->delAccountsFromVDomain($vdomain);
-    
+
     $self->_cleanVDomain($vdomain);
-    
+
     my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
                                     $self->vdomainDn);
 }
@@ -146,7 +146,7 @@ sub _cleanVDomain
      my ($self, $vdomain) = @_;
 
      my @mods = @{$self->_modsVDomainModule()};
-     
+
      foreach my $mod (@mods){
          $mod->_delVDomain($vdomain);
      }
@@ -169,11 +169,11 @@ sub vdomains
                 scope => 'one',
                 attrs => ['domainComponent']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
 
     my @vdomains = map { $_->get_value('dc')} $result->sorted('domainComponent');
-    
+
     return @vdomains;
 }
 
@@ -188,9 +188,9 @@ sub vdomains
 sub _updateVDomain
  {
      my ($self, $vdomain) = @_;
-     
+
         my @mods = @{$self->_modsVDomainModule()};
-     
+
      foreach my $mod (@mods){
          $mod->_modifyVDomain($vdomain);
      }
@@ -221,7 +221,7 @@ sub vdomainDn
 #
 #               boolean - true if the virtual domain exists, false otherwise
 sub vdomainExists
-{ 
+{
     my ($self, $vdomain) = @_;
 
     my %attrs = (
@@ -229,9 +229,9 @@ sub vdomainExists
                  filter => "&(objectclass=*)(dc=$vdomain)",
                  scope => 'one'
         );
-    
+
     my $result = $self->{'ldap'}->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 
@@ -241,14 +241,14 @@ sub vdomainExists
 #
 # Returns:
 #
-#  
-sub _modsVDomainModule 
+#
+sub _modsVDomainModule
 {
     my ($self) = @_;
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
-    
+
     my @modules;
     foreach my $name (@names) {
         my $mod = EBox::Global->modInstance($name);
@@ -256,14 +256,14 @@ sub _modsVDomainModule
                     push (@modules, $mod->_vdomainModImplementation);
                 }
     }
-    
+
     return \@modules;
 }
 
 # Method: allWarning
 #
 #  Returns all the the warnings provided by the modules when a certain
-#  virtual domain is going to be deleted. Function _delVDomainWarning 
+#  virtual domain is going to be deleted. Function _delVDomainWarning
 #  is called in all module implementing them.
 #
 # Parameters:
@@ -277,16 +277,16 @@ sub _modsVDomainModule
 sub allWarnings
 {
     my ($self, $name) = @_;
-    
+
     my @modsFunc = @{$self->_modsVDomainModule()};
     my @allWarns;
-    
+
         foreach my $mod (@modsFunc) {
             my $warn = undef;
             $warn = $mod->_delVDomainWarning($name);
             push (@allWarns, $warn) if ($warn);
         }
-    
+
     return \@allWarns;
 }
 
@@ -331,21 +331,21 @@ sub regenConfig
 sub _mdQuotaAddOn
 {
     my ($self, $vdomain) = @_;
-    
+
     my $mail =  EBox::Global->modInstance('mail');
-    
+
     my @params;
     push @params, ('vdomain' => $vdomain);
     push @params, ('mdsize' => $mail->{vdomains}->getMDSize($vdomain));
-    
+
     my $addon = {
                  name => __('Size quota'),
                  path => '/mail/editVDomainSizeQuota.mas',
                  params => \@params,
-                 
+
                 };
-    
-    
+
+
     return $addon;
 }
 
@@ -365,19 +365,19 @@ sub vdandmaxsizes()
 
     my $mail = EBox::Global->modInstance('mail');
     $mail->assureMdQuotaIsAvailable();
-    
+
     my %args = (
                 base => $self->vdomainDn,
                 filter => 'objectclass=*',
                 scope => 'one',
                 attrs => ['domainComponent', 'vddftMaildirSize']
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-    
+
     my %vdomains = map { $_->get_value('dc'), ($_->get_value('vddftMaildirSize') / $self->BYTES)}
         $result->sorted('domainComponent');
-    
+
     return %vdomains;
 }
 
@@ -390,27 +390,27 @@ sub vdandmaxsizes()
 #     vdomain - The virtual domain name
 #
 # Returns:
-# 
+#
 #               dftmdsize - Default maildir size for the vdomain
 sub getMDSize
  {
      my ($self, $vdomain) = @_;
-     
+
      my $mail = EBox::Global->modInstance('mail');
      $mail->assureMdQuotaIsAvailable();
-     
+
      my %args = (
                  base => $self->vdomainDn,
                  filter => 'domainComponent='.$vdomain,
                  scope => 'one',
                  attrs => ['vddftMaildirSize']
                 );
-        
+
      my $result = $self->{ldap}->search(\%args);
      my $entry = $result->entry(0);
-     
+
      my $mdsize = $entry->get_value('vddftMaildirSize');
-     
+
      return ($mdsize / $self->BYTES);
 }
 
@@ -425,26 +425,26 @@ sub getMDSize
 sub setMDSize
  {
      my ($self, $vdomain, $mdsize) = @_;
-     
+
      my $mail = EBox::Global->modInstance('mail');
      $mail->assureMdQuotaIsAvailable();
-     
+
      unless (isAPositiveNumber($mdsize)) {
          throw EBox::Exceptions::InvalidData(
                                              'data'  => __('maildir size'),
                                              'value' => $mdsize);
      }
-     
+
      if($mdsize > MAXMGSIZE) {
          throw EBox::Exceptions::InvalidData(
                                              'data'  => __('maildir size'),
                                              'value' => $mdsize);
      }
-     
+
      my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
-     
+
      $self->_updateVDomain($vdomain);
-     
+
      my $r = $self->{'ldap'}->modify($dn, {
                                            replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
  }
@@ -461,12 +461,12 @@ sub setMDSize
 sub updateMDSizes
  {
      my ($self, $vdomain, $mdsize) = @_;
-     
+
      my $mail = EBox::Global->modInstance('mail');
      $mail->assureMdQuotaIsAvailable();
-     
+
      my %accounts = %{$mail->{musers}->allAccountsFromVDomain($vdomain)};
-     
+
      foreach my $uids (keys %accounts) {
          $mail->{musers}->setMDSize($uids, $mdsize);
      }
@@ -484,27 +484,27 @@ sub _addVDomainWiithMdQuota
                                             'data'  => __('maildir size'),
                                             'value' => $dftmdsize);
     }
-    
+
     if($dftmdsize > MAXMGSIZE) {
         throw EBox::Exceptions::InvalidData(
                                             'data'  => __('maildir size'),
                                             'value' => $dftmdsize);
     }
-    
-    
+
+
     my $ldap = $self->{ldap};
-    
-    my %modificationParams = ( 
+
+    my %modificationParams = (
                               changes => [
                                         add => [
                                                 'vddftMaildirSize'=> ($dftmdsize * $self->BYTES),
-                                                
+
                                                ]
                                          ],
                              );
-    
+
     $ldap->modify($dn, \%modificationParams);
-    
+
 }
 
 

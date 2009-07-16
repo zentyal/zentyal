@@ -43,7 +43,7 @@ sub _process($) {
 	my @args = ();
 
 	$self->_requireParam('group', __('group'));
-	
+
 	my $group       = $self->param('group');
 	my $groupinfo   = $usersandgroups->groupInfo($group);
 	my $grpusers    = $usersandgroups->usersInGroup($group);

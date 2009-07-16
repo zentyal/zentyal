@@ -20,7 +20,7 @@ use base 'Exporter';
 #
 #  Contains specifically-ebox checks and helper.
 #
-# deprecated:  
+# deprecated:
 #     activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys
 #     this was moved to EBox::TestStub
 
@@ -42,7 +42,7 @@ my $Test = Test::Builder->new;
 #
 #    Checks we can use the module package correctly (like Test::More::use_ok) and that we can instantiate correctly using the methods from EBox::Global.
 #   That counts as 1 test for the plan.
-#   		
+#
 #
 # Parameters:
 #         $moduleName    - name of the module
@@ -51,7 +51,7 @@ my $Test = Test::Builder->new;
 # Usage example:
 #    checkModuleInstantiation('dhcp', 'EBox::DHCP');
 #
-sub checkModuleInstantiation 
+sub checkModuleInstantiation
 {
     my ($moduleName, $modulePackage) = @_;
     validate_pos(@_, 1, 1);
@@ -61,10 +61,10 @@ sub checkModuleInstantiation
         $Test->ok(0, "$modulePackage failed to load: $@");
         return;
     }
- 
+
     my $global = EBox::Global->getInstance();
     defined $global or die "Cannot get a instance of the global module";
-        
+
     my $instance;
     my $modInstanceError = 0;
 
@@ -74,7 +74,7 @@ sub checkModuleInstantiation
     otherwise {
         $modInstanceError = 1;;
     };
-    
+
     if ($modInstanceError or !defined $instance) {
         $Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
         return;

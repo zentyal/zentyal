@@ -1,6 +1,6 @@
 package EBox::GConfModule::TestStub;
 # Description:
-# 
+#
 use strict;
 use warnings;
 
@@ -14,7 +14,7 @@ my %config;
 
 # TODO:
 # -defaults and schemas not supported
-# -gconf types not supported 
+# -gconf types not supported
 
 
 
@@ -24,7 +24,7 @@ sub fake
 		 '_gconf_wrapper' => \&_mockedGConfWrapper,
 		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
 		 '_backup' => sub {} ,
-		 'hash_from_dir' => \&_mockedHashFromDir,  
+		 'hash_from_dir' => \&_mockedHashFromDir,
 		 '_all_entries'    => sub {
 		                         my ($self, $key) = @_;
 					 $key = $self->_key($key);
@@ -59,7 +59,7 @@ my %subByGConfMethod = (
                                       returnValueHash => 0,
                                      },
                         get_int   => {
-                                      sub_r =>  \&_getEntry, 
+                                      sub_r =>  \&_getEntry,
                                       type  => 'int',
                                       returnValueHash => 1,
                                      },
@@ -83,7 +83,7 @@ my %subByGConfMethod = (
                                       returnValueHash => 0,
                                      },
 
-                
+
                         get_list  => {
                                       sub_r =>  \&_getEntry,
                                       type  => 'list',
@@ -133,7 +133,7 @@ sub _mockedGConfWrapper
     # the equivalent calelr so we don't lose type information
     if ($method eq 'get') {
         my ($package, $filename, $line, $parentMethod) = caller(1);
-        
+
         if ($parentMethod =~ m/^EBox::GConfModule::_get_/) {
             $method = $parentMethod;
             $method =~ s/^EBox::GConfModule::_//;
@@ -147,14 +147,14 @@ sub _mockedGConfWrapper
     my $value;
     my $wantarray = wantarray();
 
-    eval { 
+    eval {
         if ($wantarray){
             my @array = $methodSub_r->(@params);
             $value = \@array;
         } else {
             my $scalar = $methodSub_r->(@params);
             $value = $scalar;
-        }       
+        }
     };
     if ($@) {
         throw EBox::Exceptions::Internal("gconf error using function "
@@ -163,10 +163,10 @@ sub _mockedGConfWrapper
     }
 
 
-    
+
     if (not $returnValueHash) {
         return $wantarray ? @{ $value } : $value;
-    } 
+    }
 
 
     # undef must have some special tratment for some types...
@@ -181,11 +181,11 @@ sub _mockedGConfWrapper
             # do nothing, undef is a vlaid bool value
         }
         else {
-            return undef;            
+            return undef;
         }
 
     }
-    
+
 
     my $resHash = {
                      value => $value,
@@ -237,17 +237,17 @@ sub _setList
 sub _allEntries
 {
     my ($key) = @_;
-    my @entries = grep { m{^$key/[^/\s]+$}   } keys %config;  
+    my @entries = grep { m{^$key/[^/\s]+$}   } keys %config;
     @entries = _removeModulePrefix($key, @entries);
- 
+
     return @entries;
 }
 
 sub _allDirs
 {
     my ($key) = @_;
-    my @dirs    = map  { 
-	if ( m{^($key/[^/\s]+)/[^/\s]+}  ) {    
+    my @dirs    = map  {
+	if ( m{^($key/[^/\s]+)/[^/\s]+}  ) {
 	     $1;
 	}
 	else {
@@ -271,14 +271,14 @@ sub _removeModulePrefix
 
    my $prefix = undef;
     foreach my $possiblePrefix (qw(modules state)) {
-	if ($dir =~ m{^/ebox(-ro)?/$possiblePrefix}) {	
+	if ($dir =~ m{^/ebox(-ro)?/$possiblePrefix}) {
 	    $prefix = $possiblePrefix;
 	}
     }
 
     defined $prefix or die "Not correct prefix found in key $dir";
 
-    @entries = map { s{^/ebox(-ro)?/$prefix/[^/\s]+/}{}; $_  } @entries;   
+    @entries = map { s{^/ebox(-ro)?/$prefix/[^/\s]+/}{}; $_  } @entries;
 
     return @entries;
 }
@@ -288,7 +288,7 @@ sub _dirExists
     my ($key) = @_;
 
     my $dirExists;
-    $dirExists = first { m{$key/[^/\s]+}  } keys %config;  
+    $dirExists = first { m{$key/[^/\s]+}  } keys %config;
 
     return defined $dirExists ? 1 : 0;
 }

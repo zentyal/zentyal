@@ -63,7 +63,7 @@ sub populateUser
     my $userMod = EBox::Global->modInstance('users');
     my @users = map (
                 {
-                    value => $_->{uid}, 
+                    value => $_->{uid},
                     printableValue => $_->{user}
                 }, @{$userMod->usersList()}
             );
@@ -73,9 +73,9 @@ sub populateUser
 sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map ( 
-                { 
-                    value => $_->{gid}, 
+    my @groups = map (
+                {
+                    value => $_->{gid},
                     printableValue => $_->{account}
                 }, $userMod->groups()
             );
@@ -86,15 +86,15 @@ sub populateGroup
 sub populatePermissions
 {
     return [
-            { 
+            {
                 value => 'readOnly',
                 printableValue => __('Read only')
             },
-            { 
+            {
                 value => 'readWrite',
                 printableValue => __('Read and write')
             },
-            { 
+            {
                 value => 'administrator',
                 printableValue => __('Administrator')
             }

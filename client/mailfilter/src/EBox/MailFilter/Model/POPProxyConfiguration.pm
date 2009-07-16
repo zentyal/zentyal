@@ -29,7 +29,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Port;
 use EBox::Types::Text;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -48,11 +48,11 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                                   fieldName => 'enabled',
                                   printableName => __('Enabled'),
@@ -65,14 +65,14 @@ sub _table
 #                              defaultValue => 8110,
 #                              editable     => 1,
 #                             ),
-         new EBox::Types::Boolean ( 
-                                fieldName => 'antivirus', 
+         new EBox::Types::Boolean (
+                                fieldName => 'antivirus',
                                 printableName => __('Filter virus'),
                                 editable => 1,
                                 defaultValue => 1,
                                ),
-         new EBox::Types::Boolean ( 
-                                fieldName => 'antispam', 
+         new EBox::Types::Boolean (
+                                fieldName => 'antispam',
                                 printableName => __('Filter spam'),
                                 editable => 1,
                                 defaultValue => 1,
@@ -98,7 +98,7 @@ it processes your email for SPAM.'),
                      };
 
 
-  
+
     return $dataForm;
 }
 
@@ -123,11 +123,11 @@ sub _attrValue
 
     if (exists $params_r->{$attr}) {
         return $params_r->{$attr}->value();
-    }  
+    }
 
     if (exists $actual_r->{$attr}) {
         return $actual_r->{$attr}->value();
-    }  
+    }
 
     throw EBox::Exceptions::Internal("Bad attribute $attr");
 

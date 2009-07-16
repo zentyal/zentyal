@@ -30,7 +30,7 @@ use Error qw(:try);
 
 use constant HOST_MODULE => 'apache';
 
-sub create 
+sub create
 {
   my ($class, %params) = @_;
   # check parameter correctness..
@@ -65,7 +65,7 @@ sub create
   $class->_cleanupFinished();
 
   my $self = $class->retrieve($id);
-  
+
   # store data
   $self->setConfString('executable', $params{executable});
   $self->setConfInt('totalTicks',    $params{totalTicks});
@@ -98,7 +98,7 @@ sub retrieve
 
   unless ( $hostMod->st_dir_exists($baseDir) ) {
       throw EBox::Exceptions::External(
-        __x('Progress indicator with id {id} not found', id => $id,  ) 
+        __x('Progress indicator with id {id} not found', id => $id,  )
                                       );
   }
 
@@ -432,7 +432,7 @@ sub _childExec
     my $cmd = $self->_executable() .
         ' ' .
         $self->execProgressIdParamName() .
-        ' ' . 
+        ' ' .
         $self->id();
 
     EBox::Apache::cleanupForExec();

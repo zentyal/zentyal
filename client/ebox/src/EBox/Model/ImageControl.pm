@@ -31,8 +31,8 @@ sub _table
 
     my $tableDesc   = $self->_tableDesc();
     my $modelDomain = $self->_modelDomain();
-  
-  
+
+
     my $dataForm = {
                     tableName          => $self->nameFromClass,
                     printableTableName => $self->printableTableName,
@@ -42,7 +42,7 @@ sub _table
                     messages           => $self->_messages(),
                     #                      class              => 'dataForm',
                    };
-  
+
     return $dataForm;
 }
 
@@ -69,10 +69,10 @@ sub _tableDesc
 sub _modelDomain
 {
     my ($self) = @_;
-    
+
     my $imageModel = $self->_imageModel();
     my $imageTable = $imageModel->_table();
-    
+
     return  $imageTable->{modelDomain};
 }
 
@@ -88,28 +88,28 @@ sub Viewer
 sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
-    
+
     my $functionName = $self->name . 'Update';
-    
+
     my $superJS = $self->SUPER::changeRowJS($editId, $page);
-    
+
     my  $function = 'applyChangeToImage("%s", "%s", %s, "%s")';
 
 
     my $table = $self->_imageModel->table();
     my $fields = $self->_paramsWithSetterJS();
-    
-    $fields =~ s/'/"/g; 
-    
-    
-    my $ownJS = sprintf ($function, 
+
+    $fields =~ s/'/"/g;
+
+
+    my $ownJS = sprintf ($function,
                          $table->{'actions'}->{'editField'},
                          $table->{'tableName'},
                          $fields,
                          $table->{'gconfdir'},
                          0, # force
                         );
-    
+
 
     my $JS = "var $functionName = function() { $superJS; $ownJS; return false   }; $functionName()";
 
@@ -128,6 +128,6 @@ sub _imageModel
 {
     throw EBox::Exceptions::NotImplemented;
 }
- 
+
 
 1;

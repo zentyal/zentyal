@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::L7Protocols::Protocols
-#   
+#
 #   FIXME
 #
 
@@ -29,7 +29,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -43,8 +43,8 @@ sub new
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Text(
             'fieldName' => 'protocol',
             'printableName' => __('Protocol'),
@@ -54,8 +54,8 @@ sub _table
         ),
     );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Protocols',
         'automaticRemove' => 1,
         'printableTableName' => __('Layer 7 protocols'),

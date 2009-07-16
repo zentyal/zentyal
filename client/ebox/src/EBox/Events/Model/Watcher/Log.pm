@@ -106,7 +106,7 @@ sub subModels
 #   - We check if we have to add/remove one the log domains. That happens
 #   when a new module is installed or an existing one is removed.
 #
-sub syncRows 
+sub syncRows
 {
     my ($self, $currentIds) = @_;
 

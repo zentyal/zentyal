@@ -456,7 +456,7 @@ sub send_cookie {
 #    key
 #    value
 #    expires
-# 
+#
 sub cookie_string {
     my $self = shift;
     my %p = @_;
@@ -974,7 +974,7 @@ sub send_cookie {
 #    key
 #    value
 #    expires
-# 
+#
 sub cookie_string {
     my $self = shift;
     my %p = @_;

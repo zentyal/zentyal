@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# 
+#
 
 package EBox::Squid::Model::AntiVirusBase;
 use base 'EBox::Model::DataForm';
@@ -26,10 +26,10 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -43,15 +43,15 @@ sub new
 
 sub _tableDescription
 {
-    my @tableDescription = 
-        ( 
+    my @tableDescription =
+        (
 
          new  EBox::Types::Boolean(
              fieldName => 'avActive',
              printableName => __('Use antivirus'),
              editable => 1,
              defaultValue => 1
-             ), 
+             ),
 
 
         );
@@ -80,7 +80,7 @@ sub precondition
         return undef;
 
     return $antivirus->isEnabled();
-}  
+}
 
 
 sub  preconditionFailMsg
@@ -91,15 +91,15 @@ sub  preconditionFailMsg
     if ($antivirus) {
         $msg = __x(
 'You cannot activate antivirus filter because the antivirus module is disabled. If you want to filter virus, first {openhref}activate the module{closehref} and come back here',
-openhref => qq{<a href='/ebox/ServiceModule/StatusView'>}, 
+openhref => qq{<a href='/ebox/ServiceModule/StatusView'>},
 closehref => qq{</a>},
 );
     } else {
         $msg = __x(
 'You cannot activate antivirus filter because the antivirus module is not installed. If you want to filter virus, first install it and then {openhref}activate the module{closehref} and come back here',
-openhref => qq{<a href='/ebox/ServiceModule/StatusView'>}, 
+openhref => qq{<a href='/ebox/ServiceModule/StatusView'>},
 closehref => qq{</a>},
-);        
+);
     }
 
 

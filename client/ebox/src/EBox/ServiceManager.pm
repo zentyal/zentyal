@@ -103,10 +103,10 @@ sub moduleStatus
     return \@mods;
 }
 
-# Method: printableDepends 
+# Method: printableDepends
 #
 #   Return the printable dependencies for a given module, that is: i18ized
-#  
+#
 # Parameters:
 #
 #   module - module's name
@@ -114,7 +114,7 @@ sub moduleStatus
 # Returns:
 #
 #   Array ref
-sub printableDepends 
+sub printableDepends
 {
     my ($self, $module) = @_;
 
@@ -148,7 +148,7 @@ sub dependencyEnabled
         }
 
         next unless ($instance->isa(CLASS));
-        
+
         return undef unless ($instance->isEnabled());
     }
 
@@ -220,13 +220,13 @@ sub checkFiles
     my %files;
     for my $mod (@mods) {
         next unless ($mod->configured());
-        for my $file (@{$mod->usedFiles()}) { 
+        for my $file (@{$mod->usedFiles()}) {
             $file->{'id'} = $self->_fileId($file);
             $file->{'globalId'} = $file->{'module'} . '_' . $file->{'id'};
             my $mod = $file->{'module'};
             my $path = $file->{'file'};
             next if (exists $files{$path});
-            if  ($self->_fileModified($file) 
+            if  ($self->_fileModified($file)
                  or (not $self->modificationAllowed($mod, $path))) {
                 push (@modified, $file);
                 $files{$path} = 1;
@@ -247,7 +247,7 @@ sub checkFiles
 #
 #   array ref - containing the global identifiers of the files
 #
-sub setAcceptedFiles 
+sub setAcceptedFiles
 {
     my ($self, $accept, $reject) = @_;
 
@@ -282,11 +282,11 @@ sub setAcceptedFiles
 #   boolean - true if the user allows the modification, false otherwise.
 #             False indicates that either the user has rejected the modification
 #             or has not established any policy yet
-# 
-sub modificationAllowed 
+#
+sub modificationAllowed
 {
     my ($self, $module, $file) = @_;
-    
+
     my $gconf = $self->{'gconfmodule'};
 
     my $fileEntry = {'module' => $module, 'file' => $file};
@@ -312,13 +312,13 @@ sub modificationAllowed
 # Return:
 #
 #   boolean - true if we must skip the modification, false otherwise
-# 
-sub skipModification 
+#
+sub skipModification
 {
     my ($self, $module, $file) = @_;
 
     return 0 unless ($self->checkUserModifications());
- 
+
     my $gconf = $self->{'gconfmodule'};
 
     return 1 unless ($self->modificationAllowed($module, $file));
@@ -331,7 +331,7 @@ sub skipModification
     return $self->_fileModified($fileEntry);
 }
 
-# Method: updateFileDigest 
+# Method: updateFileDigest
 #
 #   This method is used to update a file digests. It should be used as soon
 #   as eBox modifies a file.
@@ -341,30 +341,30 @@ sub skipModification
 #   module - module's name
 #   file   - file's path
 #
-sub updateFileDigest 
+sub updateFileDigest
 {
     my ($self, $module, $file) = @_;
-    
+
     my $gconf = $self->{'gconfmodule'};
 
     my $fileEntry = {'module' => $module, 'file' => $file};
     $self->_updateMD5($fileEntry);
 }
 
-# Method: updateDigests 
+# Method: updateDigests
 #
 #   This method must be called once changes have been saved to
 #   update the digests.
 #
-sub updateDigests 
+sub updateDigests
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
     my $class = 'EBox::Module::Service';
-    
+
     for my $mod (@{$global->modInstancesOfType($class)}) {
-        for my $file (@{$mod->usedFiles()}) { 
+        for my $file (@{$mod->usedFiles()}) {
             next unless ($self->modificationAllowed($file->{'module'},
                          $file->{'file'}));
             $self->_updateMD5($file);
@@ -372,7 +372,7 @@ sub updateDigests
     }
 }
 
-# Method: updateModuleDigests 
+# Method: updateModuleDigests
 #
 #   This method must be called when the user configures a module
 #   for first time. Note this function updates digest for a
@@ -384,7 +384,7 @@ sub updateDigests
 #
 #   module - module name
 #
-sub updateModuleDigests 
+sub updateModuleDigests
 {
     my ($self, $modName) = @_;
 
@@ -396,7 +396,7 @@ sub updateModuleDigests
         throw EBox::Exceptions::Internal("Can't instance $modName");
     }
     my @files;
-    for my $file (@{$mod->usedFiles()}) { 
+    for my $file (@{$mod->usedFiles()}) {
         $self->_updateMD5($file);
         my $module = $file->{'module'};
         push (@files, "${module}_" . $self->_fileId($file));
@@ -536,7 +536,7 @@ sub _idToPath
     $gconf->st_get_string(GCONF_DIR . "$module/$id/file");
 }
 
-sub _fileModified 
+sub _fileModified
 {
     my ($self, $file) = @_;
 
@@ -578,7 +578,7 @@ sub _updateMD5
     }
 
     my $gconf = $self->{'gconfmodule'};
-    my $currDigest = $self->_getMD5($file->{'file'});  
+    my $currDigest = $self->_getMD5($file->{'file'});
 
     my $modPath = GCONF_DIR. $file->{'module'};
     for my $dir ($gconf->st_all_dirs($modPath)) {

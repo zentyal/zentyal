@@ -5,19 +5,19 @@ use base 'EBox::Exceptions::Sudo::Base';
 use strict;
 use warnings;
 
-sub new 
+sub new
 {
   my $class = shift @_;
 
   local $Error::Depth = $Error::Depth + 1;
   local $Error::Debug = 1;
-  
+
   $Log::Log4perl::caller_depth += 1;
   my $self = $class->SUPER::new(@_);
   $Log::Log4perl::caller_depth -= 1;
-  
+
   bless ($self, $class);
-  
+
   return $self;
 }
 

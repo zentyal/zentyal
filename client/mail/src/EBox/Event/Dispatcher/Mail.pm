@@ -206,7 +206,7 @@ sub _confParams
 
     my ($self) = @_;
 
-    my $model = $self->configurationSubModel(__PACKAGE__); 
+    my $model = $self->configurationSubModel(__PACKAGE__);
 
     my $row = $model->row();
 

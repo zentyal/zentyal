@@ -65,15 +65,15 @@ sub _table
 {
     my ($self) = @_;
 
-    
+
     my $dataForm = {
                     tableName          => 'DomainFilterSettings',
                     printableTableName => __('Domain filter settings'),
                     modelDomain        => 'Squid',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => $self->_tableHeader(),
-                    
-                    
+
+
                     messages           => {
                                 update => __('Filtering settings changed'),
                                           },

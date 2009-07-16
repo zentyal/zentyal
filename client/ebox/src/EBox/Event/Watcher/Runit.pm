@@ -110,10 +110,10 @@ sub run
 
       my @modules = $self->_runningAlertServices();
       if (@modules) {
-          $msg = __x("The following modules are not running: {modules}\n", 
+          $msg = __x("The following modules are not running: {modules}\n",
                   modules => "@modules");
 
-          return [ new EBox::Event( 
+          return [ new EBox::Event(
                   message => $msg,
                   level   => 'error',
                   source  => $self->name(),
@@ -173,7 +173,7 @@ sub _runningAlertServices
     my @mods;
     for my $mod (@{$gl->modInstancesOfType($class)}) {
         next unless ($mod->can('isRunning'));
-        my $enabled = $mod->isEnabled(); 
+        my $enabled = $mod->isEnabled();
         my $running = $mod->isRunning();
         if (not $running and $enabled) {
             my $name = $mod->printableName();

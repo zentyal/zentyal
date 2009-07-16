@@ -90,7 +90,7 @@ sub _table
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/NoCacheDomains',
           'defaultActions' =>
-              [	
+              [
               'add', 'del',
               'editField',
               'changeView'
@@ -120,7 +120,7 @@ sub notCachedDomains
   my ($self, $policy) = @_;
 
   my @domains = map {
-      my $row = $self->row($_); 
+      my $row = $self->row($_);
       if ($row->valueByName('noCache')) {
           $row->valueByName('domain');
       }

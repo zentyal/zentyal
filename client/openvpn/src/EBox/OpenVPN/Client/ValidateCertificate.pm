@@ -18,11 +18,11 @@ use constant DIFF_PATH    => '/usr/bin/diff';
 sub check
 {
   my ($caPath, $certPath, $privKeyPath) = @_;
-  defined $caPath or 
+  defined $caPath or
     throw EBox::Exceptions::MissingArgument('caPath');
-  defined $certPath or 
+  defined $certPath or
     throw EBox::Exceptions::MissingArgument('certPath');
-  defined $privKeyPath or 
+  defined $privKeyPath or
     throw EBox::Exceptions::MissingArgument('privKeyPath');
 
   EBox::Sudo::fileTest('-f', $caPath) or
@@ -58,9 +58,9 @@ sub check
 
 
 
-sub _verifyCaCert 
+sub _verifyCaCert
 {
-  my ($caPath) = @_; 
+  my ($caPath) = @_;
   my $verifyOk = _opensslVerify($caPath);
 
   unless ($verifyOk) {
@@ -71,9 +71,9 @@ sub _verifyCaCert
 }
 
 
-sub _verifyCert 
+sub _verifyCert
 {
-  my ($certPath) = @_;  
+  my ($certPath) = @_;
 
   my $cmd =  OPENSSL_PATH . ' x509 -noout -in ' . $certPath;
   try {
@@ -87,8 +87,8 @@ sub _verifyCert
 }
 
 
-sub _verifyPrivKey {  
-  my ($privKeyPath) = @_;  
+sub _verifyPrivKey {
+  my ($privKeyPath) = @_;
 
   my $cmd = OPENSSL_PATH . ' rsa -noout -in ' . $privKeyPath;
   try {
@@ -102,7 +102,7 @@ sub _verifyPrivKey {
 }
 
 sub  _verifyCertWithCa
-{ 
+{
   my($certPath, $caPath) = @_;
   my $verifyParams = " -CAfile $caPath $certPath";
 
@@ -117,8 +117,8 @@ sub  _verifyCertWithCa
 sub _verifyCertWithPrivKey
 {
   my ($certPath, $privKeyPath) = @_;
-  
-  # prepare files 
+
+  # prepare files
   my ($fhPubCert, $pubCert) = tempfile(DIR => EBox::Config::tmp);
   my ($fhPubKey, $pubKey) = tempfile(DIR => EBox::Config::tmp);
 

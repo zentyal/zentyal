@@ -116,8 +116,8 @@ sub _populateScript
     use strict;
     use warnings;
     use EBox;
-    use EBox::Global; 
-  
+    use EBox::Global;
+
      EBox::init();
     my $openvpn = EBox::Global->modInstance("openvpn");
     my $logHelper = $openvpn->logHelper(noPopulate => 1);

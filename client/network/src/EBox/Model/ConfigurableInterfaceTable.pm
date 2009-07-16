@@ -44,7 +44,7 @@ use warnings;
 
 use base qw(EBox::Model::DataTable EBox::NetworkObserver);
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -57,8 +57,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Text(
              'fieldName' => 'interface',
@@ -67,7 +67,7 @@ sub _table
              'type' => 'text',
              'size' => '5',
              'unique' => 1,
-             'editable' => 0 
+             'editable' => 0
              ),
          new EBox::Types::Text(
              'fieldName' => 'name',
@@ -85,7 +85,7 @@ sub _table
              'type' => 'text',
              'size' => '8',
              'unique' => 1,
-             'editable' => 0 
+             'editable' => 0
              ),
          new EBox::Types::Boolean(
                  'fieldName' => 'external',
@@ -94,16 +94,16 @@ sub _table
                  'type' => 'boolean',
                  'size' => '8',
                  'unique' => 1,
-                 'editable' => 0 
+                 'editable' => 0
                  ),
 
          );
 
-    my $defaultController = 
+    my $defaultController =
         '/ebox/Network/Controller/ConfigurableInterfaceTable';
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'ConfigurableInterfaceTable',
         'printableTableName' => __('Configurable interface list'),
         'automaticRemove' => 1,
@@ -120,11 +120,11 @@ sub _table
     return $dataTable;
 }
 
-# Method: rows 
+# Method: rows
 #
 #       Override <EBox::Model::DataTable>
 #
-#   It is overriden because this table is kind of different in 
+#   It is overriden because this table is kind of different in
 #   comparation to the normal use of generic data tables.
 #
 #   - The user does not add rows. When we detect the table is
@@ -133,14 +133,14 @@ sub _table
 #   - We check if we have to add/remove interfaces. That happens
 #     when an interface is physically removed
 #
-#   
+#
 sub rows()
 {
     my $self = shift;
 
     my $network = EBox::Global->modInstance('network');
 
-# Fetch the current interfaces stored in gconf 
+# Fetch the current interfaces stored in gconf
     my $currentRows = $self->SUPER::rows();
     my %storedIfaces = map {
         $_->{'plainValueHash'}->{'name'} => 1
@@ -152,9 +152,9 @@ sub rows()
     foreach my $name (keys %currentIfaces) {
         next if (exists $storedIfaces{$name});
         $self->addRow('id' => $name,
-                'interface' => $name, 
+                'interface' => $name,
                 'name' => $network->ifaceAlias($name),
-                'method' => $network->ifaceMethod($name), 
+                'method' => $network->ifaceMethod($name),
                 'external' => $network->ifaceIsExternal($name));
     }
 
@@ -174,10 +174,10 @@ sub _currentInterfaces
     my $phyModel = $network->physicalInterfaceModel();
     my $vlanModel = $network->vlanInterfaceModel();
 
-    my %ifaces = map 
-    { 
+    my %ifaces = map
+    {
 
-        $_->{'plainValueHash'}->{'name'} => 1 
+        $_->{'plainValueHash'}->{'name'} => 1
 
     } @{$phyModel->rows()};
 
@@ -252,7 +252,7 @@ sub ifaceExternalChanged
             'type' => 'boolean',
             'size' => '8',
             'unique' => 1,
-            'editable' => 0 
+            'editable' => 0
             );
     $changedData->setMemValue({external => $external});
 

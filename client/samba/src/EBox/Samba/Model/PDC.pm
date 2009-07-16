@@ -246,7 +246,7 @@ sub row
 
 # Method: headTile
 #
-#   Overrides <EBox::Model::DataTable::headTitle> 
+#   Overrides <EBox::Model::DataTable::headTitle>
 #
 #
 sub headTitle

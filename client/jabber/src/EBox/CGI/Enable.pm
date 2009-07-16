@@ -28,7 +28,7 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Jabber', @_);
-	$self->{redirect} = "Jabber/Index";	
+	$self->{redirect} = "Jabber/Index";
 	$self->{domain} = "ebox-jabber";
 	bless($self, $class);
 	return $self;

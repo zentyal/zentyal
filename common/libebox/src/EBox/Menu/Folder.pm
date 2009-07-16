@@ -22,7 +22,7 @@ use base 'EBox::Menu::TextNode';
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;
@@ -62,7 +62,7 @@ sub html
 	} else {
 		$html .= "<a title='$text' href='' class='navarrow' ";
 		$html .= "onclick=\"showMenu('menu$self->{name}');return false;\"";
-	} 
+	}
 
 	$html .= " target='_parent'>$text</a>\n";
 
@@ -109,7 +109,7 @@ sub _merge # (node)
 	if (defined($self->{text}) and (length($self->{text}) != 0)) {
 		$node->{text} = $self->{text};
 	}
-    foreach my $item (@{$node->{items}}) { 
+    foreach my $item (@{$node->{items}}) {
         $self->add($item);
     }
 }

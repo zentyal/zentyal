@@ -56,7 +56,7 @@ sub _setupEBoxConf : Test(setup)
 		  );
 
     EBox::GConfModule::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP'); 
+    EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
     EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
     EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
 
@@ -70,7 +70,7 @@ sub setupFiles : Test(setup)
 {
     my ($self) = @_;
     my $confDir = $self->_confDir();
-   
+
     system "/bin/mkdir -p $confDir";
     ($? == 0) or  die "mkdir -p $confDir: $!";
 
@@ -84,7 +84,7 @@ sub setupStubDir : Test(setup)
 
     system ("/bin/mkdir -p $stubDir/dhcp");
     ($? == 0) or die "Error creating  temp test subdir $stubDir: $!";
-    
+
     system "/bin/cp ../../../stubs/*.mas $stubDir/dhcp";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
 
@@ -116,7 +116,7 @@ sub clearFiles : Test(teardown)
 {
     my ($self) = @_;
     my $confDir = $self->_confDir();
-   
+
     system "/bin/rm -rf $confDir";
     if ($? != 0) {
 	die "Can not clear test dir $confDir: $!";
@@ -127,7 +127,7 @@ sub clearFiles : Test(teardown)
 sub setupNetwork : Test(setup)
 {
   EBox::NetWrappers::TestStub::setFakeIfaces( { $TEST_IFACE => { up => 1, address => $TEST_ADDRESS, netmask => $TEST_NETMASK }  }  );
-  
+
   EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
   my $net = EBox::Global->modInstance('network');
   $net->setIfaceStatic($TEST_IFACE, $TEST_ADDRESS, $TEST_NETMASK, 0, 0);
@@ -147,7 +147,7 @@ sub daemonTestWithStaticRoutes : Test(10)
   # setup static route provider modules..
   my @macacoStaticRoutes = (
 			    '192.168.32.0/24' => { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.32.4' },
-			    '10.0.4.0/8'  => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },  
+			    '10.0.4.0/8'  => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },
 			   );
 
   my @gibonStaticRoutes = (

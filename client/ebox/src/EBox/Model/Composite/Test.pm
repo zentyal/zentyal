@@ -55,7 +55,7 @@ use EBox::Types::Text;
         elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
-       
+
     }
 
     sub EBox::Model::ModelManager::warnOnChangeOnId
@@ -99,7 +99,7 @@ use EBox::Types::Text;
         return $model;
     }
 
-    
+
     sub setModelForPath
     {
         my ($path, $model) = @_;
@@ -137,18 +137,18 @@ use EBox::Types::Text;
         return $composite;
     }
 
-    
+
     sub setCompositeForPath
     {
         my ($path, $composite) = @_;
         $composites{$path} = $composite;
     }
- 
+
     sub clearCompositesForPath
     {
         %composites = ();
     }
-   
+
 }
 
 sub setEBoxModules : Test(setup)
@@ -203,19 +203,19 @@ sub standardSetupForModelsAndComposites
                         );
         $composite->mock('addComponent' => sub {
                              my ($self, $comp) = @_;
-                             push @{ $self->{components} }, $comp, 
+                             push @{ $self->{components} }, $comp,
                          }
                         );
         $composite->mock('components' => sub {
                              my ($self) = @_;
-                             return  $self->{components} ; 
+                             return  $self->{components} ;
                            }
                          ),
         $composite->mock('componentByName' => sub {
                              my ($self, $name, $recursive) = @_;
                              # XXX recursive otpion not supproted
                              my @comps = @{ $self->components() };
-                             my ($comp) = grep { 
+                             my ($comp) = grep {
                                  $name eq $_->name()
                              } @comps;
                              return $comp;
@@ -280,7 +280,7 @@ sub deviantDescriptionTest : Test(2)
                  'empty name' =>  {
                                         name => '',
                                         printableName => 'ctest',
-                                                                   
+
                                        },
                 );
 
@@ -292,7 +292,7 @@ sub deviantDescriptionTest : Test(2)
             $composite = new CompositeSubclass();
         } $testName
 
-        
+
     }
 
 }
@@ -316,7 +316,7 @@ sub descriptionTest : Test(2)
         lives_ok {
             $composite = new CompositeSubclass();
         } $testName;
-        
+
     }
 
 }
@@ -337,13 +337,13 @@ sub componentsTest  : Test(17)
     is @components, 4, 'checking number of components';
 
     foreach my $comp (@components) {
-        isa_ok $comp, 'EBox::Model::Component', 
+        isa_ok $comp, 'EBox::Model::Component',
             'Checking class of value form the list returned in components()';
     }
 
     # check componentByName
     # @componentByName from setStandardDescriptionWithComponents
-    my @componentNames = qw(model1 model2 composite1 composite2); 
+    my @componentNames = qw(model1 model2 composite1 composite2);
     foreach my $name (@componentNames) {
         my $component = $composite->componentByName($name);
         is $component->name(), $name,
@@ -355,14 +355,14 @@ sub componentsTest  : Test(17)
         is $component->name(), $name,
  'checking component fetched with componentByName with recursive option';
     }
-    
+
     is $composite->componentByName('sdfd'), undef,
    'checking that componentByName for inexistent component returns undef';
 
     my $composite1 = $composite->componentByName('composite1');
     my $nestedComponentName = 'nested1';
     $self->_setMockModel($nestedComponentName);
-    
+
     my $modelManager =  EBox::Model::ModelManager->instance();
     my $nestedModel = $modelManager->model($nestedComponentName);
     $composite1->addComponent($nestedModel);
@@ -378,7 +378,7 @@ sub componentsTest  : Test(17)
     my $fetchedNestedModel = $composite->componentByName($nestedComponentName, 1);
     is $fetchedNestedModel->name(), $nestedComponentName,
     'checking name of nested model fetched with componentByName with resursive option';
-    
+
 }
 
 
@@ -387,7 +387,7 @@ sub setDirectoryTest : Test(10)
     my ($self) = @_;
 
     CompositeSubclass->setStandardDescription();
-    
+
     my $composite = new CompositeSubclass();
     is '', $composite->directory(),
         'checking that default directory is root (empty string))';
@@ -469,14 +469,14 @@ sub parentTest  : Test(13)
         'checking that default parent is undef';
     is $composite->parentRow(), undef,
      'checkign that parentRow without parent returns undef';
-    
+
     lives_ok {
         $composite->setParent($parent);
     } 'Setting parent for composite';
 
     is $composite->parent(), $parent,
         'checking that parent was correctly setted';
-    
+
     my $parentRow = $composite->parentRow();
     is $parentRow->id(),
         $parentRowId,
@@ -491,7 +491,7 @@ sub parentTest  : Test(13)
 
         is $component->parent(), $parent,
             'checking that parent was correctly setted in component';
-        
+
         $parentRow = $component->parentRow();
         is $parentRow->id(),
             $parentRowId,

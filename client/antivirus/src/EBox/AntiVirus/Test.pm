@@ -51,7 +51,7 @@ sub clearConfiguration : Test(teardown)
 }
 
 
-sub testDir 
+sub testDir
 {
   return '/tmp/ebox.antivirus.test';
 }
@@ -75,9 +75,9 @@ sub freshclamEventTest : Test(14)
   # first time test
   my $state_r = $clam->freshclamState();
   is_deeply($state_r, { date => undef, update => undef, error => undef, outdated => undef,  }, 'Checking freshclamState when no update has been done');
-  
+
   my @allFields     = qw(update error outdated);
-  my @straightCases = ( 
+  my @straightCases = (
                        # { params => [], activeFields => [] }
                        {
                         params         => [ 'update'],
@@ -109,7 +109,7 @@ sub freshclamEventTest : Test(14)
         is $freshclamState->{$field}, 0, "Checking the value of a inactive state field '$field'"
       }
     }
-    
+
   }
 }
 

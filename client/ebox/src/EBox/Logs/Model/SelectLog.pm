@@ -25,7 +25,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Logs::Consolidate;
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -92,7 +92,7 @@ sub row
             $idx++;
         }
     }
-    return undef; 
+    return undef;
 }
 
 sub logRows
@@ -159,8 +159,8 @@ sub _table
 
         );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'SelectLog',
 #            'printableTableName' => undef,
             'pageTitle' => __('Select report'),

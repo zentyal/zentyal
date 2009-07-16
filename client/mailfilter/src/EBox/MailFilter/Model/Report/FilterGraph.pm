@@ -16,7 +16,7 @@
 
 package EBox::MailFilter::Model::Report::FilterGraph;
 use base 'EBox::Logs::Model::Report::Graph';
-# 
+#
 use strict;
 use warnings;
 
@@ -31,10 +31,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -59,23 +59,23 @@ sub dbFields
                   'clean' => {
                    printableName => __('clean messages'),
                   },
-                  
+
                   'spam' => {
                              printableName => __('spam'),
                             },
-                  
+
                   'banned' => {
                                printableName => __('banned files'),
                               },
-                  
+
                   'infected' => {
                                  printableName => __('infected'),
                                 },
-                  
+
                   'bad_header' => {
                                    printableName => __('bad header'),
                                   },
-                  
+
                   'blacklisted' => {
                                     printableName => __('blacklisted'),
                                    },
@@ -109,7 +109,7 @@ sub _table
                                      'editField',
                                      'changeView',
                                     ],
-                   
+
                    messages => {
                                 'add'       => undef,
                                 'del'       => undef,

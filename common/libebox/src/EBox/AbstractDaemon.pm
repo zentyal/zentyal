@@ -47,14 +47,14 @@ use constant PIDPATH => EBox::Config::tmp . '/pids/';
 #
 #        <EBox::AbstractDaemon> - the newly created object instance
 #
-sub new 
+sub new
 {
         my $class = shift;
 	my %opts = @_;
 	my $name = delete $opts{'name'};
         my $self = {
 		    'name' => $name
-		    
+
 		   };
         bless($self, $class);
         return $self;
@@ -69,7 +69,7 @@ sub new
 sub init {
 	my $self =  shift;
 	my ($pid);
-	
+
 	if ($pid = fork()) {
 		exit 0;
 	}
@@ -109,7 +109,7 @@ sub pidFile
   my ($self, $name) = @_;
 
   if (ref $self) {
-    $name and 
+    $name and
       throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
     $name = $self->{'name'};
   }
@@ -124,7 +124,7 @@ sub pid
   my $pidFile;
 
   if (ref $self) {
-    $name and 
+    $name and
       throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
     $pidFile = $self->pidFile();
   }

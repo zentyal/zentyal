@@ -209,7 +209,7 @@ sub _filesysToMonitor
     if (not $fs =~ m{^/dev/}) {
       delete $fileSys{$fs};
       next;
-    } 
+    }
 
   # remove removable media filesystems
     my $mpoint = $fileSys{$fs}->{mountPoint};

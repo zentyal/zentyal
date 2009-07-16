@@ -446,7 +446,7 @@ sub _chooseCompositeUsingIndex
 # 	(PRIVATE)
 #
 #   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency. 
+#   done in the models to allow interprocess coherency.
 #
 #
 sub _hasChanged

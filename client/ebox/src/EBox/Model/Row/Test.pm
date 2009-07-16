@@ -103,13 +103,13 @@ sub elementsTest : Test(35)
     } 'Adding elements to the row';
 
 
-    is scalar @elementsToAdd, $row->size(), 
+    is scalar @elementsToAdd, $row->size(),
         'checking size of row after addition of elements';
 
     is_deeply $row->elements(), \@elementsToAdd,
         'checkign contents of the wor using elements() method';
-    
-    my %expectedHashElements = map {  
+
+    my %expectedHashElements = map {
         ( $_->fieldName => $_)
     } @elementsToAdd;
     is_deeply $row->hashElements, \%expectedHashElements,
@@ -125,20 +125,20 @@ sub elementsTest : Test(35)
         my $value = $el->value();
         my $printableValue = $el->printableValue();
 
-        ok $row->elementExists($name), 
+        ok $row->elementExists($name),
             "checking elementExists on existent element $name";
 
         is_deeply $row->elementByName($name), $el,
-            "checking elementByName in a existent element $name";  
+            "checking elementByName in a existent element $name";
         is_deeply $row->elementByIndex($index), $el,
-            "checking elementByIndex in a existent element $name";      
+            "checking elementByIndex in a existent element $name";
 
-        is $row->valueByName($name), $value, 
+        is $row->valueByName($name), $value,
             "checking valueByName in a existent element $name";
         is $row->printableValueByName($name), $printableValue,
             "checking printableValueByName in a existent element $name";
     }
-    
+
 
 }
 
@@ -197,7 +197,7 @@ sub parentRowTest : Test(3)
     $row->setId('FAKE_ID');
     $row->setModel($childModel);
     $childModel->setParent($parentModel);
-    
+
     my $parentRow;
     lives_ok {
         $parentRow = $row->parentRow()
@@ -228,7 +228,7 @@ sub subModelTest : Test(3)
                                                       fieldName => $hasManyName,
                                                       printableName =>
                                                               $hasManyName,
-                                                                                 
+
                                                                                 )
 
                                                       );
@@ -264,12 +264,12 @@ sub unionTest : Test(6)
     my $selectedUnionSubtype = 'selected';
     my $selectedUnionSubtypeObject =   EBox::Types::Abstract->new(
                                          fieldName => $selectedUnionSubtype,
-                                         printableName => $selectedUnionSubtype, 
+                                         printableName => $selectedUnionSubtype,
                                                                  );
     my $unselectedUnionSubtype = 'unselected';
     my $unselectedUnionSubtypeObject =   EBox::Types::Abstract->new(
                                          fieldName => $unselectedUnionSubtype,
-                                         printableName => $unselectedUnionSubtype, 
+                                         printableName => $unselectedUnionSubtype,
                                                                  );
 
     my $unionObject = new Test::MockObject();
@@ -284,16 +284,16 @@ sub unionTest : Test(6)
 
     $row->addElement($unionObject);
 
-    ok $row->elementExists($unionName), 
+    ok $row->elementExists($unionName),
         'checking that union object exists using elementExists';
-    ok $row->elementExists($selectedUnionSubtype), 
+    ok $row->elementExists($selectedUnionSubtype),
         'checking that selected union-subtype object exists using elementExists';
-    ok ( not $row->elementExists($unselectedUnionSubtype) ), 
+    ok ( not $row->elementExists($unselectedUnionSubtype) ),
         'checking that unselected union-subtype object does not exists for elementExists';
 
     is_deeply $row->elementByName($unionName), $unionObject,
    'checking that elementByName can return the union object itself if requested';
-    
+
     is_deeply(
               $row->elementByName($selectedUnionSubtype),
               $selectedUnionSubtypeObject,
@@ -309,10 +309,10 @@ sub filesToRemoveTest : Test(3)
 {
     my ($self) = @_;
     my $row    = $self->_newRow();
-    
+
     my $element1 = _filesPaths('element1');
     my $element2 = _filesPaths('element2');
-    
+
 
     $row->addElement(
                      new EBox::Types::Abstract(
@@ -327,7 +327,7 @@ sub filesToRemoveTest : Test(3)
                                               )
                     );
     $row->addElement($element1);
-    
+
     $row->addElement(
                      new EBox::Types::Abstract(
                                                fieldName => "5",
@@ -358,8 +358,8 @@ sub filesToRemoveTest : Test(3)
  'Checking filesPaths when there are toe element with files to remove'
              );
 
-    
-    
+
+
 }
 
 
@@ -374,7 +374,7 @@ sub _filesPaths
     $object = Test::MockObject::Extends->new( $object );
 
     $object->mock('_setFilesToRemoveIfDeleted',
-                  sub {  
+                  sub {
                       my ($self, $f) = @_;
                       $self->{_filesToRemove} = $f;
                   }
@@ -382,7 +382,7 @@ sub _filesPaths
 
 
     $object->mock('filesPaths',
-                  sub {  
+                  sub {
                       my ($self) = @_;
                       return exists $self->{_filesToRemove} ?
                                     $self->{_filesToRemove} :
@@ -392,7 +392,7 @@ sub _filesPaths
 
     $object->can('filesPaths') or die 'AAAAAAAa';
 
-    
+
     return $object;
 }
 

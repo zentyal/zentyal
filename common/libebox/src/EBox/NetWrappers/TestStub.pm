@@ -1,6 +1,6 @@
 package EBox::NetWrappers::TestStub;
 # Description:
-# 
+#
 use strict;
 use warnings;
 use Test::MockObject;

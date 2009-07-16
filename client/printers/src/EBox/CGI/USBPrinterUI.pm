@@ -45,7 +45,7 @@ sub _process($) {
 
 	$self->_requireParam('printerid', __('Printer'));
 	my $id = $self->param('printerid');
-	
+
 	my $printers = EBox::Global->modInstance('printers');
 
 	my @array;

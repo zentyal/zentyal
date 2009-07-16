@@ -54,10 +54,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -83,11 +83,11 @@ sub tableHeader
          printableName => __('Policy'),
          populate => sub {
                          return [
-                                 { 
-                                  value => 'allow', 
-                                  printableValue => __('Allow') 
+                                 {
+                                  value => 'allow',
+                                  printableValue => __('Allow')
                                  },
-                                 { 
+                                 {
                                   value => 'deny',
                                   printableValue => __('Deny')
 
@@ -110,8 +110,8 @@ sub tableHeader
 sub populateGroups
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map ( 
-                { 
+    my @groups = map (
+                {
                     value            => $_->{account},
                     printableValue   => $_->{account},
                 }, $userMod->groups()
@@ -119,7 +119,7 @@ sub populateGroups
     return \@groups;
 }
 
-sub syncRows 
+sub syncRows
 {
     my ($self, $currentIds) = @_;
 
@@ -154,7 +154,7 @@ sub groupsPolicies
 {
   my ($self) = @_;
 
-  my $userMod = EBox::Global->modInstance('users');  
+  my $userMod = EBox::Global->modInstance('users');
 
   my @groupsPol = map {
     my $row = $self->row($_);

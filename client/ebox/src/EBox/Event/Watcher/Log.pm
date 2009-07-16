@@ -119,13 +119,13 @@ sub run
         my $timeCol = $logs->getTableInfo($logger)->{timecol};
         foreach my $filter (@{$self->_filters($logger)}) {
             # Copy filter in filterCpy to workaround nasty
-            # issues with the garbage collector. 
+            # issues with the garbage collector.
             my $filterCpy;
             if (%{$filter}) {
             $filterCpy = $filter;
             } else {
             $filterCpy = undef;
-            }	
+            }
             my $finished = 0;
             my $page = 0;
             do {
@@ -300,7 +300,7 @@ sub _isLoggerEnabled
     my ($self, $logger) = @_;
 
     unless (exists $self->{logger}->{$logger}) {
-        my $confModel = $self->_logSubModel(); 
+        my $confModel = $self->_logSubModel();
         my $row = $confModel->find(domain => $logger);
         $self->{logger}->{$logger} = $row->valueByName('enabled');
     }
@@ -315,10 +315,10 @@ sub _filters
     my ($self, $logger) = @_;
 
     unless ($self->{filters}->{$logger}) {
-        my $logConfModel = $self->_logSubModel(); 
+        my $logConfModel = $self->_logSubModel();
 
         my $loggerConfRow = $logConfModel->findValue(domain => $logger);
-        my $filterModel = $loggerConfRow->subModel('filters'); 
+        my $filterModel = $loggerConfRow->subModel('filters');
 
         my @filterSearchs = ();
         foreach my $id (@{$filterModel->ids()}) {

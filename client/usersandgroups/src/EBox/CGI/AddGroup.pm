@@ -43,10 +43,10 @@ sub _process($) {
 	my @args = ();
 
 	$self->_requireParam('groupname', __('group name'));
-	
+
 	my $group = $self->param('groupname');
 	my $comment = $self->param('comment');
-	
+
 
 	$usersandgroups->addGroup($group, $comment);
 

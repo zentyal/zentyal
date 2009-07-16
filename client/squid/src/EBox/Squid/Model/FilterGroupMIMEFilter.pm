@@ -40,7 +40,7 @@ sub new
 sub _table
 {
     my ($self) = @_;
-    
+
   my $dataTable =
     {
      tableName          => 'FilterGroupMIMEFilter',
@@ -48,7 +48,7 @@ sub _table
      printableTableName => __('Configure allowed MIME types'),
      'defaultController' => '/ebox/Squid/Controller/FilterGroupMIMEFilter',
      'defaultActions' =>
-     [	
+     [
       'add', 'del',
       'editField',
       'changeView'

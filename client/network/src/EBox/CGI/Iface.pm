@@ -52,7 +52,7 @@ sub setIface
     my ($self) = @_;
 
     my $net = EBox::Global->modInstance('network');
-	
+
     my $force = undef;
 
     $self->_requireParam("method", __("method"));
@@ -88,7 +88,7 @@ sub setIface
 	$self->_requireParam("if_netmask", __("netmask"));
 	$address = $self->param("if_address");
 	$netmask = $self->param("if_netmask");
-	$net->setIfaceStatic($iface, $address, $netmask, 
+	$net->setIfaceStatic($iface, $address, $netmask,
 			     $external, $force);
       } elsif ($method eq 'dhcp') {
 	$net->setIfaceDHCP($iface, $external, $force);

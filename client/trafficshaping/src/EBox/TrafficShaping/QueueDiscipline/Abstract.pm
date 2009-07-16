@@ -21,7 +21,7 @@ use warnings;
 use EBox::Exceptions::NotImplemented;
 
 #       QueueDiscipline::Abstract is an abstract class which contains the
-#       attributes from an specific qdisc implemented by Linux Kernel. 
+#       attributes from an specific qdisc implemented by Linux Kernel.
 
 # Method: attribute
 #

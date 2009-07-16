@@ -61,7 +61,7 @@ sub actuate
   # return to index page with a message
   my $cgi = $self->{cgi};
   $cgi->delete_all();
-  
+
   $self->setMsg(__('Backup deleted'));
   $self->setChain("RemoteServices/Backup/Index");
 }

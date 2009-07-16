@@ -56,7 +56,7 @@ sub clearFiles : Test(setup)
 
     my $file = newFile();
     my @toDelete = ($file->tmpPath, $file->path, $file->backupPath, $file->noPreviousFilePath);
-    system (" rm -f @toDelete"); 
+    system (" rm -f @toDelete");
 }
 
 sub newTest : Test(1)
@@ -78,7 +78,7 @@ sub restoreWithoutBackup : Test(2)
         $file->restoreFiles()
     } ' restore without previous backup or file';
     write_file($path, $content);
-    
+
     file_exists_ok($path, 'Checking that restore without previous file deletes ');
 }
 
@@ -93,7 +93,7 @@ sub restoreWithoutBackup: Test(4)
     } ' restore with backup of no existent file';
 
     my $actualContent = read_file($path);
-    is $actualContent, $content, 
+    is $actualContent, $content,
         'Checking that restore without backup does not alter the existent file';
 
     unlink $path;
@@ -111,12 +111,12 @@ sub restoreWithoutPreviousFile : Test(3)
     my $file = newFile();
 
 
-    
+
     # backup of a not existent file
     lives_ok {
         $file->backupFiles()
     } 'backup of a not existent file';
-    
+
 
     write_file($path, $content);
     lives_ok {
@@ -142,7 +142,7 @@ sub restoreWithPreviousFile : Test(5)
         $file->restoreFiles();
     } 'restore after deleting file';
     my $actualContent = read_file($path);
-    is $actualContent, $content, 
+    is $actualContent, $content,
          'Checking if the restored file after removal has the right content';
 
 
@@ -150,7 +150,7 @@ sub restoreWithPreviousFile : Test(5)
     lives_ok {
         $file->restoreFiles();
     } 'restore after replacing file with another';
-    is $actualContent, $content, 
+    is $actualContent, $content,
         'Checking if the restored file after being replaced has the right content';
 
 }
@@ -172,8 +172,8 @@ sub isEqualToTest : Test(5)
     write_file($path, $content);
     write_file($file2->tmpPath(), $content);
     ok $file->isEqualTo($file2), 'Checking equalTo in identical files objects with the same file already in place and upload file';
-    
-    
+
+
     my $notEqual;
 
     clearFiles();
@@ -239,19 +239,19 @@ sub filesPaths : Test(2)
                                       fieldName => 'fileTest',
                                      );
 
-    is_deeply( 
-              $file->filesPaths(), 
+    is_deeply(
+              $file->filesPaths(),
               [],
      'Checking return value of filesPaths when no file is present '
              );
 
     write_file($path, $content);
     is_deeply (
-               $file->filesPaths(), 
+               $file->filesPaths(),
                [ $path ],
         'Checking return value of filesPaths when file is present '
               );
-    
+
 
 }
 
@@ -263,7 +263,7 @@ sub newFile
                                       filePath => $path,
                                       fieldName => 'fileTest',
                                      );
-    
+
     # remove previous backup path
     my $backupPath = $file->backupPath();
     system "rm -f $backupPath";

@@ -94,7 +94,7 @@ sub _assureTypeIsPopulated
 sub _populate
 {
   my ($self, $type) = @_;
-  
+
   my @classes = @{  $self->_providedClasses($type) };
 
   $self->{$type} = {};
@@ -114,7 +114,7 @@ sub _populate
       exists $classSpec->{class} or
 	throw EBox::Exceptions::Internal('Missing class field in provided class specification');
       $multiple = $classSpec->{multiple};
-      
+
       $class = $classSpec->{class};
 
       if (exists $classSpec->{parameters}) {
@@ -126,34 +126,34 @@ sub _populate
 	throw EBox::Exceptions::External('A provided class with has multiple instances cannot have construction parameters specified'
 					);
       }
-    } 
+    }
     else {
       throw EBox::Exceptions::Internal("Bad reference type in _providedClasses: $refType")
-    } 
+    }
 
     # load class
     eval "use $class";
     if ($@) {
       throw EBox::Exceptions::Internal("Error loading provided class $class: $@");
     }
-  
+
     if (not $multiple) {
       my $name =   $class->nameFromClass(); # XXX change to $class->name when possible
       # Set name from directory if exists
       my %constructionParams = @constructionParams;
       $name = $constructionParams{directory} if exists ($constructionParams{directory});
       push @constructionParams, (name => $name);
-      
+
       # construct instance
       my $instance =  $self->_newInstance($type, $class, @constructionParams);
-      
+
       $name = $instance->name(); # XXX remove when nameFromClass its changed to
                                  # name
 
       $self->{$type}->{$name} =  {
 				  $defaultIndex =>  $instance,
 				 };
-      
+
     }
 
   }
@@ -164,7 +164,7 @@ sub _populate
 #  Method: providedClassIsMultiple
 #
 #  Parameters:
-#      
+#
 #     type - type of the provided class
 #     name - short name of the provided class
 #
@@ -179,7 +179,7 @@ sub providedClassIsMultiple
   my $defaultIndex = DEFAULT_INDEX;
   if (  exists $self->{$type}->{$provided}->{$defaultIndex} ) {
     return 0;
-  } 
+  }
   else {
     return 1;
   }
@@ -193,7 +193,7 @@ sub providedClassIsMultiple
 #
 #   add a instance of a provided class which can have multiple instances.
 #   If the class can't have multiple instances a exeception will be raised
-#   
+#
 #  Parameters:
 #     type - type of provided classes
 #     path - path to the instance. It must contain the index to identifiy the instance
@@ -209,7 +209,7 @@ sub addInstance
   $self->_assureTypeIsPopulated($type);
 
   my ($providedName, $index) = $self->decodePath($path);
-  
+
   $self->_checkIsMultiple($type, $providedName, $index);
 
 
@@ -220,7 +220,7 @@ sub addInstance
 #
 #   remove a instance of a provided class which can have multiple instances.
 #   If the class can't have multiple instances a exeception will be raised
-#   
+#
 #  Parameters:
 #     type - type of provided classes
 #     path - path for the instance to remove.
@@ -235,7 +235,7 @@ sub removeInstance
   $self->_assureTypeIsPopulated($type);
 
   my ($providedName, $index) = $self->decodePath($path);
-  
+
   $self->_checkIsMultiple($type, $providedName, $index);
 
   if (exists $self->{$type}->{$providedName}->{$index}) {
@@ -286,7 +286,7 @@ sub _checkIsMultiple
 		"$provided cannot have multiple instances of itself"
 				    );
   }
- 
+
   if ($index eq DEFAULT_INDEX) {
     thriw EBox::Exceptions::Internal('Invalid index for a multiple instance')
   }
@@ -308,10 +308,10 @@ sub _checkIsMultiple
 sub decodePath
 {
   my ($self, $path) = @_;
-  $path or 
+  $path or
     throw EBox::Exceptions::MissingArgument('path');
 
-  
+
 
   my $moduleName = $self->name();
   my $leadingModuleNameRe = "^$moduleName/+";
@@ -320,12 +320,12 @@ sub decodePath
 
   my ($provided, $index) = split '/', $path, 2;;
 
-  if (not defined $index) { 
+  if (not defined $index) {
     $index = DEFAULT_INDEX;
   }
-  
+
   $provided =~ s{/+$}{};
-  $index =~ s{/+$}{};  
+  $index =~ s{/+$}{};
 
   return wantarray ? ($provided, $index) : {name => $provided, index => $index};
 }
@@ -360,4 +360,4 @@ sub _providedClasses
 
 
 1;
- 
+

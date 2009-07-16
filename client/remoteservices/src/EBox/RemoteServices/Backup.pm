@@ -125,7 +125,7 @@ sub prepareRestoreRemoteBackup
 
     try {
         $progress = EBox::Backup->prepareRestoreBackup(
-            $archiveFile, 
+            $archiveFile,
             fullRestore => 0,
             deleteBackup => 1,
            );

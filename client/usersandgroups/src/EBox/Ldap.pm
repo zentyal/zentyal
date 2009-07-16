@@ -625,7 +625,7 @@ sub objectClasses
     return [ $result->pop_entry()->get_value('objectClass') ];
 }
 
-sub _errorOnLdap 
+sub _errorOnLdap
 {
     my ($result, $args) = @_;
 

@@ -1,6 +1,6 @@
 package EBox::Test::Class;
 # class: EBox::Test::Class
-# 
+#
 #  This class is intended to use as base, replacing Test:Class, to build eBox's test classes
 #
 use strict;

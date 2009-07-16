@@ -55,10 +55,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -100,7 +100,7 @@ sub _table
       'backView' => '/ebox/Squid/View/ObjectGroupPolicy',
       'size' => '1',
      ),
-     
+
     );
 
   my $dataTable =
@@ -110,7 +110,7 @@ sub _table
       printableTableName => __('List of objects'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
-      'defaultActions' => [     
+      'defaultActions' => [
           'add', 'del',
       'editField',
       'changeView',
@@ -229,7 +229,7 @@ sub objectsPolicies
   my ($self) = @_;
 
   my $objectMod = EBox::Global->modInstance('objects');
-  
+
   my @obsPol = map {
       my $row = $self->row($_);
 
@@ -245,9 +245,9 @@ sub objectsPolicies
       my $groupPolicy   = $row->subModel('groupPolicy');
 
     if (@{ $addresses }) {
-      my $obPol = { 
-                   object    => $obj, 
-                   addresses => $addresses, 
+      my $obPol = {
+                   object    => $obj,
+                   addresses => $addresses,
                    auth      => $auth,
                    allowAll  => $allowAll,
                    filter    => $filter,
@@ -267,7 +267,7 @@ sub objectsPolicies
       $obPol->{groupsPolicies} = $groupPolicy->groupsPolicies();
 
       $obPol;
-    } 
+    }
     else {
       ()
     }
@@ -315,34 +315,34 @@ sub existsFilteredObjects
 sub _objectsByPolicy
 {
     my ($self, $policy) = @_;
-    
+
     EBox::Squid::Types::Policy->checkPolicy($policy);
-    
+
 
     my @objects = map {
         my $row = $self->row($_);
         my $obPolicy = $row->valueByName('policy');
         ($obPolicy eq $policy) ? $row->valueByName('object') : ()
-        
+
     } @{ $self->ids()  };
 
 
-    
+
     return \@objects;
 }
 
 sub _objectHasPolicy
 {
     my ($self, $object, $policy) = @_;
-    
+
     EBox::Squid::Types::Policy->checkPolicy($policy);
-    
+
 
     my $objectRow = $self->_findRowByObjectName($object);
     if (not defined $objectRow) {
         throw EBox::Exceptions::External('{o} does not exists', o => $object );
     }
-    
+
     return $objectRow->valueByName('policy') eq $policy;
 }
 

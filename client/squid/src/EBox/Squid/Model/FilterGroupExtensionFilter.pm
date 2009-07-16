@@ -55,7 +55,7 @@ sub _table
      modelDomain        => 'Squid',
      defaultController  => '/ebox/Squid/Controller/FilterGroupExtensionFilter',
      defaultActions     =>
-     [	
+     [
       'add', 'del',
       'editField',
       'changeView'

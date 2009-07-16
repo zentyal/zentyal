@@ -30,14 +30,14 @@ use EBox::Types::Text;
 use EBox::MailFilter::Types::AntispamThreshold;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
 
 # XX TODO:
 #  disable autolearnSpamThreshold and autolearnHamThreshold when autolearn is off
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -53,11 +53,11 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::MailFilter::Types::AntispamThreshold  (
              fieldName     => 'spamThreshold',
              printableName => __('Spam threshold'),
@@ -66,36 +66,36 @@ sub _table
              defaultValue => 5,
              help         => __('The score threshold to mark a message as spam'),
                                ),
-         new EBox::Types::Text ( 
-             fieldName => 'spamSubjectTag', 
+         new EBox::Types::Text (
+             fieldName => 'spamSubjectTag',
              printableName => __('Spam subject tag'),
              editable => 1,
              optional => 1,
              help  => __('Tag which will be added to the spam mail subject'),
                                ),
-         new EBox::Types::Boolean ( 
-                                fieldName => 'bayes', 
+         new EBox::Types::Boolean (
+                                fieldName => 'bayes',
                                 printableName => __('Use bayesian classifier'),
                                 editable => 1,
                                 defaultValue => 1,
                                ),
-         new EBox::Types::Boolean ( 
-          fieldName => 'autoWhitelist', 
+         new EBox::Types::Boolean (
+          fieldName => 'autoWhitelist',
           printableName => __('Auto-whitelist'),
           editable => 1,
           defaultValue => 1,
           help => __('Change the score of mail according to the sender history'),
                                ),
-         new EBox::Types::Boolean ( 
-            fieldName => 'autolearn', 
+         new EBox::Types::Boolean (
+            fieldName => 'autolearn',
             printableName => __('Auto-learn'),
             editable => 1,
             defaultValue => 1,
  help => __('Feedback the learning system with messages that reach the threshold'
  ),
                                   ),
-         new EBox::MailFilter::Types::AntispamThreshold ( 
-         fieldName => 'autolearnSpamThreshold', 
+         new EBox::MailFilter::Types::AntispamThreshold (
+         fieldName => 'autolearnSpamThreshold',
          printableName => __('Autolearn spam threshold'),
          positive => 1,
          editable => 1,
@@ -103,7 +103,7 @@ sub _table
          help  => __('Spam messages with a score equal or greater than this threshold will be added to the learning system '),
                                ),
          new EBox::MailFilter::Types::AntispamThreshold (
-             fieldName => 'autolearnHamThreshold', 
+             fieldName => 'autolearnHamThreshold',
              printableName => __('Autolearn ham threshold'),
              editable => 1,
              defaultValue => -1,
@@ -142,7 +142,7 @@ sub _checkThresholds
               (exists $params_r->{spamThreshold}) or
               (exists $params_r->{autolearn}) or
               (exists $params_r->{autolearnSpamThreshold}) or
-              (exists $params_r->{autolearnHamThreshold}) 
+              (exists $params_r->{autolearnHamThreshold})
              )
        ) {
         # no thresholds conflicts possibe
@@ -159,7 +159,7 @@ sub _checkThresholds
     my $spamThreshold = _attrValue('spamThreshold', $params_r, $actual_r);
     my $autolearnSpamThreshold = _attrValue('autolearnSpamThreshold', $params_r, $actual_r);
     my $autolearnHamThreshold = _attrValue('autolearnHamThreshold', $params_r, $actual_r);
-    
+
     EBox::debug("THTH $spamThreshold $autolearnSpamThreshold $autolearnHamThreshold");
 
 
@@ -197,11 +197,11 @@ sub _attrValue
 
     if (exists $params_r->{$attr}) {
         return $params_r->{$attr}->value();
-    }  
+    }
 
     if (exists $actual_r->{$attr}) {
         return $actual_r->{$attr}->value();
-    }  
+    }
 
     throw EBox::Exceptions::Internal("Bad attribute $attr");
 

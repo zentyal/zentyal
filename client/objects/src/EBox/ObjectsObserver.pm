@@ -20,7 +20,7 @@ use warnings;
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -32,30 +32,30 @@ sub new
 #
 #   	Used to check if your module uses the given object. You should override
 #   	this methods if your module uses objects.
-#   	
+#
 # Parameters:
-#   
+#
 #       object - the name of an Object
 #
 # Returns
 #
 #      booelan  - true if this module currently uses the object, otherwise false
-sub usesObject # (object) 
+sub usesObject # (object)
 {
         # default implementation: always returns false. Subclasses should
         # override this as needed.
         return undef;
 }
 
-# Method: freeObject 
+# Method: freeObject
 #
-# 	Tells this module that an object is going to be removed, so that it can 
+# 	Tells this module that an object is going to be removed, so that it can
 #  	remove it from its configuration.
-#    	
+#
 # Parameters:
-#   
+#
 #       object - the name of an Object
-sub freeObject # (object) 
+sub freeObject # (object)
 {
         # default empty implementation. Subclasses should override this as
         # needed.

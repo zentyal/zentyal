@@ -14,10 +14,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #
 
-#   
+#
 package EBox::OpenVPN::Model::ClientConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -41,7 +41,7 @@ use EBox::OpenVPN::Types::PortAndProtocol;
 
 use EBox::OpenVPN::Client::ValidateCertificate;
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -56,13 +56,13 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
          new EBox::Types::File(
                                fieldName => 'configurationBundle',
-                               printableName => 
+                               printableName =>
                                   __(q{Upload configuration's bundle}),
-                               editable => 1,        
+                               editable => 1,
                                dynamicPath => \&_bundlePath,
 #                               showFileWhenEditing => 1,
 #                               allowDownload => 1,
@@ -84,7 +84,7 @@ sub _table
          new EBox::Types::File(
                                fieldName => 'caCertificate',
                                printableName => __("CA's certificate"),
-                               editable => 1,      
+                               editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
                                allowDownload => 1,
@@ -95,7 +95,7 @@ sub _table
          new EBox::Types::File(
                                fieldName => 'certificate',
                                printableName => __("Client's certificate"),
-                               editable => 1,                   
+                               editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
                                allowDownload => 1,
@@ -106,7 +106,7 @@ sub _table
          new EBox::Types::File(
                                fieldName => 'certificateKey',
                                printableName => __("Client's private key"),
-                               editable => 1,        
+                               editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
                                allowDownload => 1,
@@ -115,17 +115,17 @@ sub _table
                                allowUnsafeChars => 1,
                               ),
         new EBox::Types::Password(
-                                  fieldName => 'ripPasswd', 
-                                  printableName => __('Server tunnel password'), 
+                                  fieldName => 'ripPasswd',
+                                  printableName => __('Server tunnel password'),
                                   minLength => 6,
                                   editable => 1,
                                   optional => 1,
-                                 ), 
+                                 ),
 
         );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName'               => __PACKAGE__->nameFromClass(),
             'printableTableName' => __('Client configuration'),
             'automaticRemove' => 1,
@@ -182,7 +182,7 @@ sub validateTypedRow
             return;
         }
     }
-    
+
     $self->_validateManualParams($action, $params_r, $actual_r);
     $self->_validateCerts($action, $params_r, $actual_r);
 }
@@ -219,7 +219,7 @@ sub _validateCerts
     my $noChanges = 1;
     my @fieldNames = qw(caCertificate certificate certificateKey);
     foreach my $fieldName (@fieldNames) {
-        my $certPath; 
+        my $certPath;
         if ( exists $params_r->{$fieldName} ) {
             $noChanges = 0;
             $certPath =  $params_r->{$fieldName}->tmpPath();
@@ -267,7 +267,7 @@ sub _privateFilePath
     my $clientName = __PACKAGE__->_clientName($row);
     $clientName or
         return;
-  
+
     my $dir      = EBox::OpenVPN::Client->privateDirForName($clientName);
     my $fileName = $file->fieldName();
 
@@ -297,9 +297,9 @@ sub _bundlePath
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-    
+
     die 'ADDED';
-    
+
     $self->updatedRowNotify($row);
 
 }
@@ -310,7 +310,7 @@ sub updatedRowNotify
 
 
    my $bundleField  = $row->elementByName('configurationBundle');
-    $bundleField or 
+    $bundleField or
         return;
 
     my $bundle = $bundleField->path();
@@ -347,7 +347,7 @@ sub updatedRowNotify
 
 
 #     my $bundleField  = $row->elementByName('configurationBundle');
-#     $bundleField or 
+#     $bundleField or
 #         return;
 
 #     my $bundle = $bundleField->value();

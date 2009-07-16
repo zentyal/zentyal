@@ -242,7 +242,7 @@ sub _modifyUser
 
     my $curNT =  $userInfo->{extra_passwords}->{nt};
     my $curLM =  $userInfo->{extra_passwords}->{lm};
-    
+
     my %attrs = (
             base   => $dn,
             filter => "(objectclass=*)",
@@ -969,7 +969,7 @@ sub _fetchDomainAttrs
 
     my $ldap = $self->{ldap};
 
-    my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge 
+    my @attrs = qw/sambaPwdHistoryLength sambaMaxPwdAge
                   sambaMinPwdLength sambaLockoutThreshold/;
     my $result = $ldap->search(
             {

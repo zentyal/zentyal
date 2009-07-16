@@ -16,7 +16,7 @@
 package EBox::ProgressIndicator::Dummy;
 use base 'EBox::ProgressIndicator';
 
-# class: EBox::ProgressIndicator::Dummy 
+# class: EBox::ProgressIndicator::Dummy
 #
 #  dummy progress indicator class. Useful
 #  when we want to have a method where the progress indicator is optional, in

@@ -42,7 +42,7 @@ sub _classesProvidedByName
 sub compositeTest : Test(9)
 {
   my ($self) = @_;
-  $self->SUPER::providedInstanceTest('composite','addCompositeInstance');  
+  $self->SUPER::providedInstanceTest('composite','addCompositeInstance');
 }
 
 

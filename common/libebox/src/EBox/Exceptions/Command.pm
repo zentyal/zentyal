@@ -52,7 +52,7 @@ use Params::Validate qw(validate SCALAR ARRAYREF);
 #
 #     The newly created <EBox::Exceptions::InvalidType> exception
 #
-sub new 
+sub new
 {
   my $class  = shift @_;
   validate (@_, {
@@ -61,7 +61,7 @@ sub new
 		 error =>  { type => ARRAYREF, default => []},
 		 exitValue => { type => SCALAR },
 		 cmdType => { type => SCALAR,  default => 'eBox command'},
-		} 
+		}
 	   );
 
   my %params = @_;
@@ -72,11 +72,11 @@ sub new
   my $error = $params{error};
   my $exitValue = $params{exitValue};
   my $cmdType = $params{cmdType};
-  
+
 
   local $Error::Depth = $Error::Depth + 1;
   local $Error::Debug = 1;
-  
+
 # we need this ugly workaround because Exceptions::Internal constructor logs the error parameter
   my $errorMsg = _errorMsg($cmdType, $cmd, $error, $output, $exitValue);
 

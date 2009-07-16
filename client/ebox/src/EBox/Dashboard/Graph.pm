@@ -39,7 +39,7 @@ sub new
         $self->{height} = 200;
     }
     bless($self, $class);
-    
+
     return $self;
 }
 

@@ -33,7 +33,7 @@ use EBox::Gettext;
 #
 #      arg - the argument name
 #
-sub new 
+sub new
 {
 	my $class = shift;
 	my $arg = shift;

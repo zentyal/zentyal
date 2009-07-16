@@ -31,7 +31,7 @@ use POSIX;
 
 use constant BUFFER => 64000;
 
-# Safe signal usage 
+# Safe signal usage
 my ($piperd, $pipewr);
 
 sub int_handler
@@ -39,21 +39,21 @@ sub int_handler
     syswrite $pipewr, 1, 1;
 }
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self = {};
     my %opts = @_;
-    $self->{'filetails'} = [] ; 
+    $self->{'filetails'} = [] ;
     bless($self, $class);
     return $self;
 }
 
-sub run 
+sub run
 {
     my ($self) = @_;
 
-    $self->initDaemon();   
+    $self->initDaemon();
     EBox::init();
 
     my $global = EBox::Global->getInstance();
@@ -68,21 +68,21 @@ sub run
 sub initDaemon
 {
     my ($self) = @_;
-    
+
     unless (POSIX::setsid) {
         EBox::debug ('Cannot start new session for ', $self->{'name'});
         exit 1;
     }
-    
+
     foreach my $fd (0 .. 64) { POSIX::close($fd); }
-    
+
     my $tmp = EBox::Config::tmp();
     open(STDIN,  "+<$tmp/stdin");
     if (EBox::Config::configkey('debug') eq 'yes') {
         open(STDOUT, "+>$tmp/stout");
         open(STDERR, "+>$tmp/stderr");
     }
-    
+
 }
 
 
@@ -95,16 +95,16 @@ sub initDaemon
 sub _prepare # (fifo)
 {
     my ($self) = @_;
-    
+
     pipe $piperd, $pipewr;
     $SIG{"INT"} = \&int_handler;
-    
+
     my @loghelpers = @{$self->{'loghelpers'}};
     for my $obj (@loghelpers) {
         for my $file (@{$obj->logFiles()}) {
             my $tail;
-            eval { 
-                $tail = File::Tail->new(name => $file, 
+            eval {
+                $tail = File::Tail->new(name => $file,
                                         interval => 1, maxinterval => 1,
                                         ignore_nonexistant => 1)
                };
@@ -124,7 +124,7 @@ sub _mainloop
 {
     my ($self) = @_;
     my $rin;
-    
+
     my @files = @{$self->{'filetails'}};
     while(@files) {
         vec($rin, fileno($piperd), 1) = 1;
@@ -140,15 +140,15 @@ sub _mainloop
             if (defined($buffer) and length ($buffer) > 0) {
                 for my $obj (@{$self->{'objects'}->{$path}}) {
                     foreach my $line (split(/\n/, $buffer)) {
-                        eval {$obj->processLine($path, $line, 
-                                                $self->{'dbengine'})}; 
+                        eval {$obj->processLine($path, $line,
+                                                $self->{'dbengine'})};
                                         }
                 }
             }
         }
-        
+
     }
-    
+
 }
 
 

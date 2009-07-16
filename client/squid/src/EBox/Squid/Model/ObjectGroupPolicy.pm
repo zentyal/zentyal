@@ -54,10 +54,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -76,7 +76,7 @@ sub _table
       printableTableName => __('List of groups'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/ObjectGroupPolicy',
-      'defaultActions' => [     
+      'defaultActions' => [
           'add', 'del',
       'editField',
       'changeView',
@@ -164,7 +164,7 @@ sub pageTitle
                     ob => $objectPrintableName,
                    );
 
-    
+
     return $title;
 }
 

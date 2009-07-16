@@ -94,7 +94,7 @@ sub pageTitle
                     p => $profile,
                    );
 
-    
+
     return $title;
 }
 

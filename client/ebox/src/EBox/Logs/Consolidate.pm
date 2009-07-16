@@ -32,7 +32,7 @@ use constant TIME_PERIODS => qw(hourly daily weekly monthly);
 #          consolidate data tables
 #
 #   Parameters:
-#        modName - name of the module to consolidate or 'all' to consolidate 
+#        modName - name of the module to consolidate or 'all' to consolidate
 #                  all modules
 sub consolidate
 {
@@ -49,8 +49,8 @@ sub consolidate
         @modNames = ( $modName );
     }
 
-    
-    
+
+
 
     foreach my $name (@modNames) {
         my @tableInfos = @{ $self->_tableInfosFromMod($name) };
@@ -58,36 +58,36 @@ sub consolidate
 
             while (my ($destTable, $configuration) = each %{ $tableInfo->{consolidate} }) {
                 my @timePeriods = TIME_PERIODS;
-                
+
                 my $firstTimePeriod = shift @timePeriods;
-                
-                
+
+
                 $self->_consolidateTable(
                                          destinationTable => $destTable,
                                          configuration    => $configuration,
-                                         
+
                                          tableInfo        => $tableInfo,
-                                         
+
                                          timePeriod       => $firstTimePeriod,
                                         );
-                
+
 
                 my $prevTimePeriod = $firstTimePeriod;
                 foreach my $timePeriod (@timePeriods) {
                     $self->_reconsolidateTable(
                                      destinationTable => $destTable,
                                      configuration    => $configuration,
-                                     
+
                                      timePeriod       => $timePeriod,
                                      sourceTimePeriod => $prevTimePeriod,
 
                                               );
-                    
+
                     $prevTimePeriod = $timePeriod;
                 }
 
             }
-            
+
         }
     }
 
@@ -158,13 +158,13 @@ sub _consolidateTable
 
     my $sourceTable  = $tableInfo->{tablename};;
 
-    
+
     my $dateCol = $tableInfo->{timecol};
     my $consDateSub = "_$timePeriod" . 'Date';
 
     my %consColumns = %{ $self->_columnsSpec($conf->{consolidateColumns}) };
 
-    my %accummulateColumns; 
+    my %accummulateColumns;
     if (exists $conf->{accummulateColumns} ) {
         %accummulateColumns =   %{  $conf->{accummulateColumns} };
     }
@@ -189,7 +189,7 @@ sub _consolidateTable
 
        my %consRow;
        my %accummulator = %accummulateColumns;
-       
+
 
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
@@ -201,7 +201,7 @@ sub _consolidateTable
                next;
 
            my $dest      = $consColumns{$column}->{destination};
-      
+
            my $accummulateColumn = undef;
            if ( $consColumns{$column}->{accummulate}) {
                $accummulateColumn = $consColumns{$column}->{accummulate}->($value, $row);
@@ -210,7 +210,7 @@ sub _consolidateTable
 
            my $conversor = $consColumns{$column}->{conversor};
            my $consValue = $conversor->($value, $row);
-           
+
            if (not defined $accummulateColumn) {
                $consRow{$dest} = $consValue;
            }
@@ -223,16 +223,16 @@ sub _consolidateTable
            }
 
         }
-       
-        $self->_addConsolidatedRow($dbengine, $table, 
-                                   \%consRow, 
+
+        $self->_addConsolidatedRow($dbengine, $table,
+                                   \%consRow,
                                    \%accummulator);
     }
 
     $self->_clearRows(
-                      dbengine => $dbengine, 
-                      table    => $sourceTable, 
-                      dateCol  => $dateCol, 
+                      dbengine => $dbengine,
+                      table    => $sourceTable,
+                      dateCol  => $dateCol,
                       time     => $tsGetRows,
                       timePeriod => $timePeriod,
                      );
@@ -249,11 +249,11 @@ sub _reconsolidateTable
 
     my $table       = $destinationTable . '_' . $timePeriod;
     my $sourceTable = $destinationTable . '_' . $sourceTimePeriod;
-    
+
     my $dateCol = 'date';
     my $consDateSub = "_$timePeriod" . 'Date';
 
-    my %accummulateColumns; 
+    my %accummulateColumns;
     if (exists $conf->{accummulateColumns} ) {
         %accummulateColumns =    map {
             ($_ => 0)
@@ -273,7 +273,7 @@ sub _reconsolidateTable
    foreach my $row (@{ $rows_r }) {
        my %consRow;
        my %accummulator = %accummulateColumns;
-       
+
 
        while (my ($column, $value) = each %{ $row}) {
            if ($column eq $dateCol) {
@@ -289,16 +289,16 @@ sub _reconsolidateTable
            }
 
         }
-       
-        $self->_addConsolidatedRow($dbengine, $table, 
-                                   \%consRow, 
+
+        $self->_addConsolidatedRow($dbengine, $table,
+                                   \%consRow,
                                    \%accummulator);
     }
 
     $self->_clearRows(
-                      dbengine => $dbengine, 
-                      table    => $sourceTable, 
-                      dateCol  => $dateCol, 
+                      dbengine => $dbengine,
+                      table    => $sourceTable,
+                      dateCol  => $dateCol,
                       time     => $tsGetRows,
                       timePeriod => $timePeriod,
                      );
@@ -325,7 +325,7 @@ sub _columnsSpec
         elsif (not ref $oldSpec) {
             if ($oldSpec != 1) {
                 $newSpec->{dest} = $oldSpec;
-                
+
             }
         }
 
@@ -333,7 +333,7 @@ sub _columnsSpec
             $newSpec->{destination} = $column;
         exists $newSpec->{conversor} or
             $newSpec->{conversor} = $identitySub_r;
-      
+
         if (exists $newSpec->{accummulate}) {
             my $accummulate=  $newSpec->{accummulate};
             my $refType = ref $accummulate;
@@ -345,8 +345,8 @@ sub _columnsSpec
                    "Bad reference type for accummulate field: $refType"
                                                 );
             }
-            
-        } 
+
+        }
         else {
             $newSpec->{accummulate} = undef;
         }
@@ -355,7 +355,7 @@ sub _columnsSpec
         $spec{$column} =  $newSpec;
     }
 
-    
+
     return \%spec;
 }
 
@@ -365,7 +365,7 @@ my %ttlByTimePeriod = (
                        monthly => 0,
                        weekly => 0,
                        daily => 0,
-                       
+
                        # XXX DEBUG!
                        hourly => 0,
 #                       hourly => 3600*48,
@@ -393,7 +393,7 @@ sub _clearRows
     $mon +=1;
     my $deadlineDate = "$year-$mon-$mday $hour:$min:$sec";
 
-    my $deleteStatement = 
+    my $deleteStatement =
           "DELETE FROM $table WHERE $dateCol < '$deadlineDate'";
 
 
@@ -416,7 +416,7 @@ sub _tableInfosFromMod
     my $ti = $mod->tableInfo();
 
     if (ref $ti eq 'HASH') {
-        EBox::warn('tableInfo() in ' . $mod->name .  
+        EBox::warn('tableInfo() in ' . $mod->name .
                    'must return a reference to a list of hashes not the hash itself');
         @tableInfos = ( $ti );
     }
@@ -424,7 +424,7 @@ sub _tableInfosFromMod
         @tableInfos = @{ $ti };
     }
 
-    
+
     @tableInfos = grep { exists $_->{consolidate} } @tableInfos;
 
     if (not @tableInfos and (not $noThrowsException)) {
@@ -464,9 +464,9 @@ sub _weeklyDate
         $daysToMonday = $dweek - 1; # monday is day nubmer one;
     }
 
-    $t -= $daysToMonday * ONE_DAY; 
+    $t -= $daysToMonday * ONE_DAY;
 
-    
+
     return  $t->year() .'-'. $t->mon() . '-' . $t->mday() . ' 00:00:00';
 }
 
@@ -485,7 +485,7 @@ sub _hourlyDate
     my ($self, $timeStamp) = @_;
 
      $timeStamp =~ s/\:\d\d?:\d\d?$/:00:00/;
-    return $timeStamp; 
+    return $timeStamp;
 }
 
 
@@ -501,7 +501,7 @@ sub _addConsolidatedRow
         if ($amount == 0) {
             next;
         }
-        
+
         $setPortion .= "$column = $column + $amount,";
     }
     $setPortion =~ s/,$//; # remove last comma
@@ -521,7 +521,7 @@ sub _addConsolidatedRow
 
 
     my $updateStatement = "UPDATE $table SET $setPortion WHERE $wherePortion";
-    
+
 
     my $res = $dbengine->do($updateStatement);
 
@@ -610,7 +610,7 @@ sub _updateLastConsolidationDate
     my $updateSt = "UPDATE consolidation SET lastdate ='$lastDate' " .
                    "WHERE consolidatedTable = '$table'";
 
-    
+
     my $updateRes = $dbengine->do($updateSt);
     if ($updateRes == 0) {
         my $row = {  lastDate => $lastDate, consolidatedTable => $table  };

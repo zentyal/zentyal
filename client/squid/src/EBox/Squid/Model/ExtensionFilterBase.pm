@@ -33,9 +33,9 @@ use EBox::Types::Text;
 sub new
 {
     my $class = shift;
-    
+
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -68,7 +68,7 @@ sub validateTypedRow
 sub banned
 {
   my ($self) = @_;
-  
+
   my @bannedExtensions;
 
   for my $id (@{$self->ids()}) {
@@ -98,7 +98,7 @@ sub _tableHeader
      new EBox::Types::Boolean(
                               fieldName     => 'allowed',
                               printableName => __('Allow'),
- 
+
                               optional      => 0,
                               editable      => 1,
                               defaultValue  => 1,

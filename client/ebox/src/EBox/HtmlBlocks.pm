@@ -45,7 +45,7 @@ sub title
     return EBox::Html::title();
 }
 
-# Method: menu 
+# Method: menu
 #
 #	Returns the html code for the menu
 #
@@ -59,7 +59,7 @@ sub menu
 	return EBox::Html::menu($current);
 }
 
-# Method: footer 
+# Method: footer
 #
 #	Returns the html code for the footer page
 #

@@ -40,7 +40,7 @@ sub startupPosixAccount
     # we remove all users and groups to have a clean state
 
     my $usersMod = EBox::Global->modInstance('users');
-    
+
     foreach my $user_r ($usersMod->users(1)) {
         $usersMod->delUser( $user_r->{username} );
     }
@@ -63,7 +63,7 @@ sub processPosixAccount
 
     my $usersMod = EBox::Global->modInstance('users');
     defined $usersMod or die 'Cannot instantiate users and groups module';
-    
+
     my $name = $entry->get_value('uid');
     if ($name =~ m{\$$}) {
         # windows domain machine name, don't process here
@@ -93,15 +93,15 @@ sub processPosixAccount
                 fullname => $fullName,
                 givenname => $givenName,
                 surname  => $surName,
-                password => $passwd, 
+                password => $passwd,
                 commentary => $commentary,
                };
 
     my @additionalPasswordsParams = @additionalPasswords ?
         (additionalPasswords => \@additionalPasswords)  : ();
-                                          
 
-    $usersMod->addUser($user, $system, 
+
+    $usersMod->addUser($user, $system,
                        uidNumber => $uidNumber,
                        @additionalPasswordsParams
                       );
@@ -140,7 +140,7 @@ sub processPosixGroup
         # startupPosixAccount that means it has been added by another startup
         # method so we left it alone
         return;
-    }  
+    }
 
     my $gidNumber = $entry->get_value('gidNumber');
     my $comment = $entry->get_value('description');
@@ -148,7 +148,7 @@ sub processPosixGroup
 
     my $system = ($gidNumber < $usersMod->minGid); # if the gid is lesser or equal
                                                 # than the last gid of system
-                                                 # user, we have a system user 
+                                                 # user, we have a system user
 
     $usersMod->addGroup($group, $comment, $system, gidNumber => $gidNumber);
 

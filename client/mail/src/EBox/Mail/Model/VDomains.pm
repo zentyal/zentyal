@@ -24,9 +24,9 @@ use base 'EBox::Model::DataTable';
 #
 #       This a class used it as a proxy for the vodmains stored in LDAP.
 #       It is meant to improve the user experience when managing vdomains,
-#       but it's just a interim solution. An integral approach needs to 
+#       but it's just a interim solution. An integral approach needs to
 #       be done.
-#       
+#
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -36,21 +36,21 @@ use EBox::Mail::Types::WriteOnceDomain;
 use EBox::Types::HasMany;
 
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
-        
+
         my $self = $class->SUPER::new(@_);
         bless($self, $class);
-        
+
         return $self;
 }
 
 sub _table
 {
-        my @tableHead = 
-         ( 
+        my @tableHead =
+         (
 
                 new EBox::Mail::Types::WriteOnceDomain(
                                         'fieldName' => 'vdomain',
@@ -72,8 +72,8 @@ sub _table
 
          );
 
-        my $dataTable = 
-                { 
+        my $dataTable =
+                {
                         'tableName' => 'VDomains',
                         'printableTableName' => __('Mail virtual domains'),
                         'defaultController' =>
@@ -95,7 +95,7 @@ sub _table
 }
 
 # Method: precondition
-#       
+#
 #       Check if the module is configured
 #
 # Overrides:
@@ -108,7 +108,7 @@ sub precondition
 }
 
 # Method: preconditionFailMsg
-#       
+#
 #       Check if the module is configured
 #
 # Overrides:

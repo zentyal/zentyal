@@ -355,7 +355,7 @@ sub backupCertificates
             $dirEmpty = 1;
             last;
         }
-        
+
     }
 
     if ($dirEmpty) {
@@ -364,7 +364,7 @@ sub backupCertificates
         EBox::Sudo::root("rm -rf $d");
         return;
     }
-    
+
     EBox::Sudo::root("chown ebox.ebox $d/*");
 }
 

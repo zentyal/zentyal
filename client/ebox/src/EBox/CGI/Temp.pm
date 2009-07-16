@@ -20,7 +20,7 @@ sub urlImagesDir
 #  Function: newImage
 #
 #   create a empty temporal file in the images directory. The file is empty and
-#   the user must overwrite it with a image file. 
+#   the user must overwrite it with a image file.
 #    Before creating the files the
 #   clean() function is called to cleanup old files
 #
@@ -34,8 +34,8 @@ sub newImage
   cleanImages();
 
   my ($fh, $file) = File::Temp::tempfile(DIR => EBox::Config::dynamicimages());
-  close $fh;  
- 
+  close $fh;
+
   my  $url = urlImagesDir() . basename $file;
 
   return {

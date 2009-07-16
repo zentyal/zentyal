@@ -47,7 +47,7 @@ sub new # (error=?, msg=?, cgi=?)
 sub _setErrorChain
 {
   my ($self) = @_;
-  
+
   my $errorchain;
   if ($self->param('action') eq 'restoreProxy') {
     $errorchain = "RemoteServices/Backup/Proxy";

@@ -67,7 +67,7 @@ sub new
 #
 sub _table
 {
-    my @tableHead = 
+    my @tableHead =
         (
          new EBox::Types::IPAddr(
                                  'fieldName' => 'compulsory_addr',

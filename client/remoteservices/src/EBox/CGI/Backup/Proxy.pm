@@ -100,7 +100,7 @@ sub masonParameters
   push @params, (selected => 'proxy');
 
 
-  my $remoteServicesActive = EBox::RemoteServices::Base->remoteServicesActive(); 
+  my $remoteServicesActive = EBox::RemoteServices::Base->remoteServicesActive();
   # my $user               = EBox::RemoteServices::Base->user();
 
   push @params, (

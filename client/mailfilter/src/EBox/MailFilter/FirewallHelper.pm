@@ -8,12 +8,12 @@ use base 'EBox::FirewallHelper';
 use EBox::Exceptions::MissingArgument;
 use EBox::Global;
 
-sub new 
+sub new
 {
     my ($class, %params) = @_;
     my $self = $class->SUPER::new(%params);
 
-    my @paramNames = qw(smtpFilter  port externalMTAs fwport 
+    my @paramNames = qw(smtpFilter  port externalMTAs fwport
             POPProxy POPProxyPort
             );
     foreach my $p (@paramNames) {
@@ -40,14 +40,14 @@ sub input
     my @externalMTAs = @{ $self->{externalMTAs} };
     if (@externalMTAs ) {
         my $port = $self->{port};
-        push (@rules, 
+        push (@rules,
                 "--protocol tcp --dport $port   -j ACCEPT");
 
     }
 
     if ($self->{POPProxy}) {
         my $port = $self->{POPProxyPort};
-        push (@rules, 
+        push (@rules,
                 "-m state --state NEW --protocol tcp --dport $port -j ACCEPT");
     }
 
@@ -83,7 +83,7 @@ sub prerouting
         return [];
     }
 
-    # we will redirect all POP conenctions, which came from 
+    # we will redirect all POP conenctions, which came from
     # a internal interface (no POP proxy for external networks)
     # and that aren't  aimed to a local POP server
     # (we do not proxy ourselves)
@@ -111,7 +111,7 @@ sub prerouting
         }
     }
     foreach my $int (@internals) {
-        push (@rules, "-p tcp -i $int --dport $popPort -j REDIRECT --to $port");  
+        push (@rules, "-p tcp -i $int --dport $popPort -j REDIRECT --to $port");
     }
 
     return \@rules;

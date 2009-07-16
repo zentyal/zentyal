@@ -15,7 +15,7 @@
 
 # Class: EBox::Model::DataFormDownload
 #
-# An specialized model from <EBox::Model::DataForm::Action> 
+# An specialized model from <EBox::Model::DataForm::Action>
 # which is used to download a file from an action form.
 #
 # It redirects the response to <EBox::CGI::Controller::Downloader::FromTempDir>
@@ -25,7 +25,7 @@
 #
 #   Extends this model with your custom model.
 #
-#   Implement formSubmitted(). Do your stuff and create a file in  
+#   Implement formSubmitted(). Do your stuff and create a file in
 #   EBox::Config::tmp() . '/downloads/' . your_file_name
 #
 #   At the end of this method call pushFileToDownload(your_file_name);
@@ -76,7 +76,7 @@ sub new
 #   '/downloads', typically /var/lib/ebox/tmp/downloads/
 #
 #   You do not have to use the whole path, only the file name
-sub pushFileToDownload 
+sub pushFileToDownload
 {
     my ($self, $file) = @_;
 

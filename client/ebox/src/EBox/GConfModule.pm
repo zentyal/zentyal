@@ -86,11 +86,11 @@ sub initChangedState
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    $global->modIsChanged($self->name) and 
-        throw EBox::Exceptions::Internal($self->name . 
+    $global->modIsChanged($self->name) and
+        throw EBox::Exceptions::Internal($self->name .
                                           ' module already has changed state');
-    
-    
+
+
    $self->_dump_to_file();
 }
 
@@ -101,19 +101,19 @@ sub aroundRestoreConfig
 {
   my ($self, $dir) = @_;
 
-  $self->_load_from_file($dir);  
+  $self->_load_from_file($dir);
 
   if ($self->isa('EBox::Model::ModelProvider')) {
     $self->restoreFilesFromArchive($dir);
   }
 
 
-  $self->restoreConfig($dir);     
+  $self->restoreConfig($dir);
 }
 
 
 # load GConf entries from a file
-sub _load_from_file # (dir?, key?) 
+sub _load_from_file # (dir?, key?)
 {
   my ($self, $dir, $key) = @_;
   ($dir) or $dir = EBox::Config::conf;
@@ -143,17 +143,17 @@ sub aroundDumpConfig
 {
   my ($self, $dir, @options) = @_;
 
-  $self->_dump_to_file($dir); 
-  
+  $self->_dump_to_file($dir);
+
   if ($self->isa('EBox::Model::ModelProvider')) {
     $self->backupFilesInArchive($dir);
   }
 
-  $self->dumpConfig($dir, @options);     
+  $self->dumpConfig($dir, @options);
 }
 
 # dumps GConf entries to a file in the dir specified
-sub _dump_to_file # (dir?) 
+sub _dump_to_file # (dir?)
 {
     my ($self, $dir) = @_;
     $self->_config();
@@ -225,13 +225,13 @@ sub _saveConfig
         throw EBox::Exceptions::Internal("tried to save a read-only"
                                          . " module: " . $self->name() . "\n");
     }
-    
+
     $self->_dump_to_file();
 
     if ($self->isa('EBox::Model::ModelProvider')) {
         $self->modelsSaveConfig();
     }
-    
+
     $self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
     $self->_saveConfigFiles();
 }
@@ -243,10 +243,10 @@ sub _backup
 }
 
 #
-# Method: gconf 
+# Method: gconf
 #
 #       Returns the current instance of gconf
-#       
+#
 # Returns:
 #
 #       Gnome2::GConf object
@@ -257,7 +257,7 @@ sub gconf
     return $self->{gconf};
 }
 
-sub _key # (key) 
+sub _key # (key)
 {
     my ($self, $key) = @_;
     return $self->_helper->key($key);
@@ -272,15 +272,15 @@ sub _gconf_wrapper # (method, @params?)
     my @parms  = @_;
     my $scalar;
     my @array;
-    
+
     my $code = $self->gconf->can($method);
     unless ($code){
         throw EBox::Exceptions::Internal("method $method  doesnt exists"
                                          . " in EBox::GConfModule\n");
     }
-    
+
     my $ret = wantarray;
-    eval { 
+    eval {
         if ($ret){
             @array = &$code($self->gconf, @parms);
         } else {
@@ -290,19 +290,19 @@ sub _gconf_wrapper # (method, @params?)
                 no warnings;
                 $scalar = &$code($self->gconf, @parms);
             }
-        }       
+        }
     };
     if ($@) {
         throw EBox::Exceptions::Internal("gconf error using function "
                                          . "$method and params @parms"
                                          . "\n $@");
     }
-    
-    return wantarray ? @array : $scalar;    
+
+    return wantarray ? @array : $scalar;
 }
 
 
-sub _dir_exists # (key) 
+sub _dir_exists # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -310,7 +310,7 @@ sub _dir_exists # (key)
 }
 
 #
-# Method: dir_exists 
+# Method: dir_exists
 #
 #       Given a key referencing a directory tells you if it exists
 #
@@ -322,14 +322,14 @@ sub _dir_exists # (key)
 #
 #       boolean - True if it exists
 #
-sub dir_exists # (key) 
+sub dir_exists # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_dir_exists($key);
 }
 
-sub st_dir_exists # (key) 
+sub st_dir_exists # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -338,7 +338,7 @@ sub st_dir_exists # (key)
 
 #############
 
-sub _all_dirs_base # (key) 
+sub _all_dirs_base # (key)
 {
     my ($self, $key) = @_;
     my @array = $self->_all_dirs($key);
@@ -349,14 +349,14 @@ sub _all_dirs_base # (key)
     return \@names;
 }
 
-sub all_dirs_base # (key) 
+sub all_dirs_base # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_all_dirs_base($key);
 }
 
-sub st_all_dirs_base # (key) 
+sub st_all_dirs_base # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -365,7 +365,7 @@ sub st_all_dirs_base # (key)
 
 #############
 
-sub _all_entries_base # (key) 
+sub _all_entries_base # (key)
 {
     my ($self, $key) = @_;
     my @array = $self->_all_entries($key);
@@ -377,7 +377,7 @@ sub _all_entries_base # (key)
 }
 
 #
-# Method: all_entries_base 
+# Method: all_entries_base
 #
 #       Given a key it returns all directories within, removing
 #       any leading directory component.
@@ -390,14 +390,14 @@ sub _all_entries_base # (key)
 #
 #       ref to an array of strings - each string represents an entry
 #
-sub all_entries_base # (key) 
+sub all_entries_base # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_all_entries_base($key);
 }
 
-sub st_all_entries_base # (key) 
+sub st_all_entries_base # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -406,7 +406,7 @@ sub st_all_entries_base # (key)
 
 #############
 
-sub _all_dirs # (key) 
+sub _all_dirs # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -418,9 +418,9 @@ sub _all_dirs # (key)
 }
 
 #
-# Method: all_dirs 
+# Method: all_dirs
 #
-#       Given a key it returns all directories within.  
+#       Given a key it returns all directories within.
 #
 # Parameters:
 #
@@ -430,14 +430,14 @@ sub _all_dirs # (key)
 #
 #       array  of strings - Each string contains a directory
 #
-sub all_dirs # (key) 
+sub all_dirs # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_all_dirs($key);
 }
 
-sub st_all_dirs # (key) 
+sub st_all_dirs # (key)
 {
     my ($self, $key) = @_;
         $self->_state;
@@ -446,7 +446,7 @@ sub st_all_dirs # (key)
 
 #############
 
-sub _all_entries # (key) 
+sub _all_entries # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -456,7 +456,7 @@ sub _all_entries # (key)
 }
 
 #
-# Method: all_entries 
+# Method: all_entries
 #
 #       Given a key it returns all entries within. Entries are all
 #       those keys which are not directories, hence they contain a value
@@ -470,14 +470,14 @@ sub _all_entries # (key)
 #       A ref to an array of strings - Each string contains an entry
 #
 #
-sub all_entries # (key) 
+sub all_entries # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_all_entries($key);
 }
 
-sub st_all_entries # (key) 
+sub st_all_entries # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -486,7 +486,7 @@ sub st_all_entries # (key)
 
 #############
 
-sub _get_bool # (key) 
+sub _get_bool # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -503,7 +503,7 @@ sub _get_bool # (key)
 }
 
 #
-# Method: get_bool 
+# Method: get_bool
 #
 #       Returns the value of a boolean key.
 #
@@ -515,7 +515,7 @@ sub _get_bool # (key)
 #
 #       boolean - key's value#
 #
-sub get_bool # (key) 
+sub get_bool # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
@@ -524,7 +524,7 @@ sub get_bool # (key)
 
 
 
-sub st_get_bool # (key) 
+sub st_get_bool # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -533,7 +533,7 @@ sub st_get_bool # (key)
 
 #############
 
-sub _set_bool # (key, value) 
+sub _set_bool # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
@@ -543,23 +543,23 @@ sub _set_bool # (key, value)
 }
 
 #
-# Method: set_bool 
+# Method: set_bool
 #
-#       Sets a boolean key      
+#       Sets a boolean key
 #
 # Parameters:
 #
 #       key - key to set
 #       value - value
 #
-sub set_bool # (key, value) 
+sub set_bool # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_bool($key, $val);
 }
 
-sub st_set_bool # (key, value) 
+sub st_set_bool # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_state;
@@ -568,7 +568,7 @@ sub st_set_bool # (key, value)
 
 #############
 
-sub _get_int # (key) 
+sub _get_int # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -600,7 +600,7 @@ sub get_int # (key)
     return $self->_get_int($key);
 }
 
-sub st_get_int # (key) 
+sub st_get_int # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -609,7 +609,7 @@ sub st_get_int # (key)
 
 #############
 
-sub _set_int # (key, value) 
+sub _set_int # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
@@ -621,21 +621,21 @@ sub _set_int # (key, value)
 #
 # Method: set_int
 #
-#       Sets an integer key     
+#       Sets an integer key
 #
 # Parameters:
 #
 #       key - key to set
 #       value - value
 #
-sub set_int # (key, value) 
+sub set_int # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_int($key, $val);
 }
 
-sub st_set_int # (key, value) 
+sub st_set_int # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_state;
@@ -644,7 +644,7 @@ sub st_set_int # (key, value)
 
 #############
 
-sub _get_string # (key) 
+sub _get_string # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -665,14 +665,14 @@ sub _get_string # (key)
 #
 #       string - key's value
 #
-sub get_string # (key) 
+sub get_string # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_get_string($key);
 }
 
-sub st_get_string # (key) 
+sub st_get_string # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -681,7 +681,7 @@ sub st_get_string # (key)
 
 #############
 
-sub _set_string # (key, value) 
+sub _set_string # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
@@ -693,21 +693,21 @@ sub _set_string # (key, value)
 #
 # Method: set_string
 #
-#       Sets a string  key      
+#       Sets a string  key
 #
 # Parameters:
 #
 #       key - key to set
 #       value - value
 #
-sub set_string # (key, value) 
+sub set_string # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_string($key, $val);
 }
 
-sub st_set_string # (key, value) 
+sub st_set_string # (key, value)
 {
     my ($self, $key, $val) = @_;
     $self->_state;
@@ -716,7 +716,7 @@ sub st_set_string # (key, value)
 
 #############
 
-sub _get_list # (key) 
+sub _get_list # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -739,19 +739,19 @@ sub _get_list # (key)
 #       key -
 #
 # Returns:
-#       
+#
 #       It returns the list of values stored in the key .
 #
-#       ref to an array  - the list of values 
+#       ref to an array  - the list of values
 #
-sub get_list # (key) 
+sub get_list # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     return $self->_get_list($key);
 }
 
-sub st_get_list # (key) 
+sub st_get_list # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -767,10 +767,10 @@ sub st_get_list # (key)
 #       key -
 #
 # Returns:
-#       
+#
 #   Returns a <Gnome2::Gconf2::value>
 #
-sub get # (key) 
+sub get # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
@@ -786,10 +786,10 @@ sub get # (key)
 #       key -
 #
 # Returns:
-#       
+#
 #   Returns a <Gnome2::Gconf2::value>
 #
-sub st_get# (key) 
+sub st_get# (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -804,7 +804,7 @@ sub st_get# (key)
 #
 #       key -
 #
-sub set # (key) 
+sub set # (key)
 {
     my ($self, $key, $value) = @_;
     $self->_config;
@@ -819,7 +819,7 @@ sub set # (key)
 #
 #       key -
 #
-sub st_set# (key) 
+sub st_set# (key)
 {
     my ($self, $key, $value) = @_;
     $self->_state;
@@ -828,7 +828,7 @@ sub st_set# (key)
 
 #############
 
-sub _get # (key) 
+sub _get # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -836,7 +836,7 @@ sub _get # (key)
     return $self->_gconf_wrapper("get", $key);
 }
 
-sub _set # 
+sub _set #
 {
     my ($self, $key, $value) = @_;
     $key = $self->_key($key);
@@ -846,7 +846,7 @@ sub _set #
 
 #############
 
-sub _unset # (key) 
+sub _unset # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
@@ -856,23 +856,23 @@ sub _unset # (key)
 }
 
 #
-# Method: unset 
+# Method: unset
 #
-#       Unset a given key       
+#       Unset a given key
 #
 # Parameters:
 #
 #       key -
 #
 #
-sub unset # (key) 
+sub unset # (key)
 {
     my ($self, $key) = @_;
     $self->_config;
     $self->_unset($key);
 }
 
-sub st_unset # (key) 
+sub st_unset # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
@@ -881,7 +881,7 @@ sub st_unset # (key)
 
 #############
 
-sub _set_list # (key, type, value) 
+sub _set_list # (key, type, value)
 {
     my ($self, $key, $type, $val) = @_;
     $key = $self->_key($key);
@@ -891,9 +891,9 @@ sub _set_list # (key, type, value)
 }
 
 #
-# Method: set_list 
+# Method: set_list
 #
-#       Sets a list of valueis. The type for the values is also specified       
+#       Sets a list of valueis. The type for the values is also specified
 #
 # Parameters:
 #
@@ -901,14 +901,14 @@ sub _set_list # (key, type, value)
 #       type - type for each value
 #       values - (ref to an array) proper list of values
 #
-sub set_list # (key, type, value) 
+sub set_list # (key, type, value)
 {
     my ($self, $key, $type, $val) = @_;
     $self->_config;
     $self->_set_list($key, $type, $val);
 }
 
-sub st_set_list # (key, type, value) 
+sub st_set_list # (key, type, value)
 {
     my ($self, $key, $type, $val) = @_;
     $self->_state;
@@ -917,7 +917,7 @@ sub st_set_list # (key, type, value)
 
 #############
 
-sub _hash_from_dir # (key) 
+sub _hash_from_dir # (key)
 {
     my ($self, $dir) = @_;
     my $hash = {};
@@ -930,7 +930,7 @@ sub _hash_from_dir # (key)
 }
 
 #
-# Method: hash_from_dir 
+# Method: hash_from_dir
 #
 #       It returns a hash containing all the entries in the directory
 #       referenced by the key
@@ -942,14 +942,14 @@ sub _hash_from_dir # (key)
 # Returns:
 #
 #       hash ref - it contains entries/values
-sub hash_from_dir # (key) 
+sub hash_from_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_config;
     return $self->_hash_from_dir($dir);
 }
 
-sub st_hash_from_dir # (key) 
+sub st_hash_from_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_state;
@@ -958,7 +958,7 @@ sub st_hash_from_dir # (key)
 
 #############
 
-sub _array_from_dir # (key) 
+sub _array_from_dir # (key)
 {
     my ($self, $dir) = @_;
     my @array = ();
@@ -1003,7 +1003,7 @@ sub st_array_from_dir # (key)
 
 #############
 
-sub _delete_dir # (key) 
+sub _delete_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_backup;
@@ -1013,7 +1013,7 @@ sub _delete_dir # (key)
 }
 
 #
-# Method: delete_dir 
+# Method: delete_dir
 #
 #       Removes a whole directory
 #
@@ -1021,14 +1021,14 @@ sub _delete_dir # (key)
 #
 #       key - directory to be removed
 #
-sub delete_dir # (key) 
+sub delete_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_config;
     $self->_delete_dir($dir);
 }
 
-sub st_delete_dir # (key) 
+sub st_delete_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_state;
@@ -1037,7 +1037,7 @@ sub st_delete_dir # (key)
 
 #############
 
-sub _delete_dir_internal # (key) 
+sub _delete_dir_internal # (key)
 {
     my ($self, $dir) = @_;
     my @keys = $self->_gconf_wrapper("all_entries", $dir);
@@ -1053,7 +1053,7 @@ sub _delete_dir_internal # (key)
 }
 
 #
-# Method: get_unique_id 
+# Method: get_unique_id
 #
 #       It generates a unique random identifier with a leading
 #       prefix in the root of the module's
@@ -1078,7 +1078,7 @@ sub get_unique_id # (prefix, directory?)
 }
 
 #
-# Method: st_get_unique_id 
+# Method: st_get_unique_id
 #
 #       It generates a unique random identifier with a leading
 #       prefix in the root of the module's state
@@ -1127,14 +1127,14 @@ sub _filesToRemoveIfCommittedDir
 {
   my ($self) = @_;
   return 'filesToRemoveIfComitted';
-} 
+}
 
 
 sub _filesToRemoveIfRevokedDir
 {
   my ($self) = @_;
   return 'filesToRemoveIfRevoked';
-} 
+}
 
 
 
@@ -1163,7 +1163,7 @@ sub _fileListDirs
                 $self->_filesToRemoveIfCommittedDir(),
                 $self->_filesToRemoveIfRevokedDir(),
              );
-    
+
     return \@dirs;
 }
 
@@ -1186,7 +1186,7 @@ sub _addFileToList
     $self->set_string($fullKey, $file);
 }
 
-sub _fileList 
+sub _fileList
 {
     my ($self, $dir) = @_;
 

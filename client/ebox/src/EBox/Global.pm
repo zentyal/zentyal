@@ -51,7 +51,7 @@ use constant {
 
 #redefine inherited method to create own constructor
 #for Singleton pattern
-sub _new_instance 
+sub _new_instance
 {
         my $class = shift;
         my $self = $class->SUPER::_create(name => 'global', @_);
@@ -106,14 +106,14 @@ sub _writeModInfo
 #
 #       boolean - True if the module exists, otherwise false
 #
-sub modExists # (module) 
+sub modExists # (module)
 {
         my ($self, $name) = @_;
         return defined($self->_className($name));
 }
 
 #
-# Method: modIsChanged 
+# Method: modIsChanged
 #
 #      Check if the module config has changed
 #
@@ -128,7 +128,7 @@ sub modExists # (module)
 #       boolean - True if the module config has changed , otherwise false
 #
 
-sub modIsChanged # (module) 
+sub modIsChanged # (module)
 {
         my ($self, $name) = @_;
 
@@ -142,7 +142,7 @@ sub modIsChanged # (module)
 }
 
 #
-# Method: modChange 
+# Method: modChange
 #
 #       Set a module as changed
 #
@@ -152,7 +152,7 @@ sub modIsChanged # (module)
 #
 #       module -  module's name to set
 #
-sub modChange # (module) 
+sub modChange # (module)
 {
         my ($self, $name) = @_;
         defined($name) or return;
@@ -175,9 +175,9 @@ sub modChange # (module)
 #
 # Parameters:
 #
-#       module -  module's name to set 
+#       module -  module's name to set
 #
-sub modRestarted # (module) 
+sub modRestarted # (module)
 {
         my ($self, $name) = @_;
         defined($name) or return;
@@ -253,7 +253,7 @@ sub prepareRevokeAllModules
 }
 
 #
-# Method: revokeAllModules 
+# Method: revokeAllModules
 #
 #       Revoke the changes made in the configuration for all the modules
 #
@@ -284,13 +284,13 @@ sub revokeAllModules
         }
 
         if ($failed eq "") {
-            $progress->setAsFinished();   
+            $progress->setAsFinished();
             return;
         }
 
         my $errorText = "The following modules failed while ".
                 "revoking their changes, their state is unknown: $failed";
-        $progress->setAsFinished(1, $errorText);  
+        $progress->setAsFinished(1, $errorText);
         throw EBox::Exceptions::Internal($errorText);
 }
 
@@ -459,9 +459,9 @@ sub saveAllModules
 }
 
 #
-# Method: restartAllModules 
+# Method: restartAllModules
 #
-#       Force a restart for all the modules     
+#       Force a restart for all the modules
 #
 sub restartAllModules
 {
@@ -493,7 +493,7 @@ sub restartAllModules
 }
 
 #
-# Method: stopAllModules 
+# Method: stopAllModules
 #
 #       Stops all the modules
 #
@@ -540,7 +540,7 @@ sub stopAllModules
 #
 #       <EBox::Global> instance - It will be read-only if it's required
 #
-sub getInstance # (read_only?) 
+sub getInstance # (read_only?)
 {
         my $tmp = shift;
         if (!$tmp or ($tmp ne 'EBox::Global')) {
@@ -560,13 +560,13 @@ sub getInstance # (read_only?)
         return $global;
 }
 
-# 
-# Method: modInstances 
+#
+# Method: modInstances
 #
 #       Return an array ref with an instance of every module
 #
 # Returns:
-#   
+#
 #       array ref - the elements contains the instance of modules
 #
 sub modInstances
@@ -582,18 +582,18 @@ sub modInstances
         return \@array;
 }
 
-# 
-# Method: modInstancesOfType 
+#
+# Method: modInstancesOfType
 #
 #       Return an array ref with an instance of every module that extends
 #       a given classname
 #
 #   Parameters:
 #
-#       classname - the class base you are interested in 
+#       classname - the class base you are interested in
 #
 # Returns:
-#   
+#
 #       array ref - the elments contains the instance of the modules
 #                   extending the classname
 #
@@ -615,7 +615,7 @@ sub modInstancesOfType # (classname)
 }
 
 
-# 
+#
 # Method: modInstance
 #
 #       Build an instance of a module. Can be called as a class method or as an
@@ -692,18 +692,18 @@ sub modInstance # (module)
 }
 
 
-# 
-# Method: logger 
+#
+# Method: logger
 #
 #       Initialise Log4perl if necessary, returns the logger for the i
 #       caller package
 #
-#   Parameters: 
+#   Parameters:
 #
-#       caller - 
+#       caller -
 #
 # Returns:
-#   
+#
 #       If everything goes ok:
 #
 #       <EBox::Module> - A instance of the requested module
@@ -711,27 +711,27 @@ sub modInstance # (module)
 #       Otherwise
 #
 #       undef
-sub logger # (caller?) 
+sub logger # (caller?)
 {
         shift;
         EBox::deprecated();
         return EBox::logger(shift);
 }
 
-# Method: modDepends 
+# Method: modDepends
 #
 #       Return an array ref with the names of the modules that the requested
 #       module deed on
 #
-#   Parameters: 
+#   Parameters:
 #
 #       module - requested module
 #
 # Returns:
-#   
+#
 #       undef -  if the module does not exist
 #       array ref - holding the names of the modules that the requested module
-sub modDepends # (module) 
+sub modDepends # (module)
 {
         my ($self, $name) = @_;
         $self->modExists($name) or return undef;
@@ -744,23 +744,23 @@ sub modDepends # (module)
         }
 }
 
-# 
-# Method: modRevDepends 
+#
+# Method: modRevDepends
 #
 #       Return an array ref with the names of the modules which depend on a given
 #       module
 #
-#   Parameters: 
+#   Parameters:
 #
 #       module - requested module
 #
 # Returns:
-#   
+#
 #       undef -  if the module does not exist
-#       array ref - holding the names of the modules which depend on the 
+#       array ref - holding the names of the modules which depend on the
 #       requested module
 #
-sub modRevDepends # (module) 
+sub modRevDepends # (module)
 {
         my ($self, $name) = @_;
         $self->modExists($name) or return undef;
@@ -779,31 +779,31 @@ sub modRevDepends # (module)
         return \@revdeps;
 }
 
-# 
-# Method: setLocale 
+#
+# Method: setLocale
 #
 #       *deprecated*
 #
-sub setLocale # (locale) 
+sub setLocale # (locale)
 {
         shift;
         EBox::deprecated();
         EBox::setLocale(shift);
 }
 
-# 
-# Method: setLocale 
+#
+# Method: setLocale
 #
 #       *deprecated*
 #
-sub locale 
+sub locale
 {
         EBox::deprecated();
         return EBox::locale();
 }
 
-# 
-# Method: setLocale 
+#
+# Method: setLocale
 #
 #       *deprecated*
 #
@@ -887,7 +887,7 @@ sub _runExecFromDir
 # Parameters:
 #
 #     array - the dir path to count executable files
-# 
+#
 # Returns:
 #
 #     Integer - number of executable scripts in pre/post dirs

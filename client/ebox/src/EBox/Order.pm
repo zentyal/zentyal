@@ -33,7 +33,7 @@ use warnings;
 #
 #       EBox::Order object
 #
-sub new # (module, key) 
+sub new # (module, key)
 {
 	my $class = shift;
 	my $self = {};
@@ -44,8 +44,8 @@ sub new # (module, key)
 }
 
 #
-# Method: mod 
-#	
+# Method: mod
+#
 #	Returns the module which this class operates in
 #
 # Returns:
@@ -60,7 +60,7 @@ sub mod
 
 #
 # Method: key
-#	
+#
 #	Returns the key which entries are oredered
 #
 # Returns:
@@ -74,8 +74,8 @@ sub key
 }
 
 #
-# Method: highest 
-#	
+# Method: highest
+#
 #	Returns the highest ordered entry
 #
 # Returns:
@@ -97,8 +97,8 @@ sub highest
 }
 
 #
-# Method: lowest 
-#	
+# Method: lowest
+#
 #	Returns the lowest ordered entry
 #
 # Returns:
@@ -120,7 +120,7 @@ sub lowest
 }
 
 #
-# Method: nextn 
+# Method: nextn
 #
 #	Given a number of an entry it returns the next available entry
 #
@@ -132,7 +132,7 @@ sub lowest
 #
 #       scalar - containig the next entry after the given one
 
-sub nextn # (n) 
+sub nextn # (n)
 {
 	my ($self, $n) = @_;
 	my $next = $self->highest;
@@ -150,7 +150,7 @@ sub nextn # (n)
 }
 
 #
-# Method: prevn 
+# Method: prevn
 #
 #	Given a number of an entry it returns the previous available entry
 #
@@ -161,7 +161,7 @@ sub nextn # (n)
 # Returns:
 #
 #       scalar - containing the entry before the given one
-sub prevn # (n) 
+sub prevn # (n)
 {
 	my ($self, $n) = @_;
 	my $prev = $self->lowest;
@@ -179,7 +179,7 @@ sub prevn # (n)
 }
 
 #
-# Method: get 
+# Method: get
 #
 #	Returns the given entry
 #
@@ -190,7 +190,7 @@ sub prevn # (n)
 # Returns:
 #
 #       The entry whose number matches the given one
-sub get # (n) 
+sub get # (n)
 {
 	my ($self, $n) = @_;
 	my @keys = $self->mod->all_dirs($self->key);
@@ -203,16 +203,16 @@ sub get # (n)
 }
 
 #
-# Method: swap 
+# Method: swap
 #
-# 	Exchange two given entries	
+# 	Exchange two given entries
 #
 # Parameters:
 #
 #       n - entry number
 #	m - entry number to exchange
 #
-sub swap # (n, m) 
+sub swap # (n, m)
 {
 	my ($self, $n, $m) = @_;
 	my @keys = $self->mod->all_dirs($self->key);
@@ -227,11 +227,11 @@ sub swap # (n, m)
 }
 
 #
-# Method: list 
+# Method: list
 #
 # 	Returns a list of ordered entries
 #
-#  Returns: 
+#  Returns:
 #
 #	array ref - a list of ordered entries
 #

@@ -32,7 +32,7 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    
+
     unless (exists $opts{'HTMLSetter'}) {
         $opts{'HTMLSetter'} = '/ajax/setter/ipnetworkSetter.mas';
     }
@@ -40,9 +40,9 @@ sub new
     my $self = $class->SUPER::new(%opts);
 
     $self->{'type'} = 'ipnetwork';
-    
+
     bless($self, $class);
-    
+
     return $self;
 }
 
@@ -63,7 +63,7 @@ sub _paramIsValid
 
     my $ip =    $params->{$ipParam};
     my $mask =  $params->{$maskParam};
-    
+
     my $printableName =  __($self->printableName());
 
     checkCIDR($ip . "/$mask",  $printableName);
@@ -79,7 +79,7 @@ sub _paramIsValid
 
 # Function : checkIPIsNetwork
 #
-#       Checks if the IP and the mask are valid and that the IP is  a 
+#       Checks if the IP and the mask are valid and that the IP is  a
 #       network  with the given mask.
 #
 #       Note that both name_ip and name_mask should be set, or not set at all
@@ -88,17 +88,17 @@ sub _paramIsValid
 # Parameters:
 #
 #       ip - IPv4 address
-#       mask -  network mask address 
+#       mask -  network mask address
 #       name_ip - Data's name to be used when throwing an Exception
 #       name_mask - Data's name to be used when throwing an Exception
 #
 # Returns:
-#       
-#       boolean - True if it is a valid IPv4 address and network, false otherwise 
+#
+#       boolean - True if it is a valid IPv4 address and network, false otherwise
 #
 # Exceptions:
 #
-#       If name is passed an exception could be raised  
+#       If name is passed an exception could be raised
 #
 #       InvalidData - ip/mask is incorrect
 #   check that a given IP and netmask correspond to a IP networ

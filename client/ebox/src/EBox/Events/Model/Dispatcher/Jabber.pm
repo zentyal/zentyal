@@ -46,7 +46,7 @@ use EBox::Validate;
 ################
 use Net::Jabber::JID;
 
-# Constants 
+# Constants
 # use constant JABBER_DISPATCHER_SERVICE_NAME => 'Jabber dispatcher client';
 
 # Group: Public methods
@@ -139,7 +139,7 @@ sub formSubmitted
 #                            description     => __x('To be updated at {href}' .
 #                                                   'Jabber dispatcher configuration' .
 #                                                   '{endHref}',
-#                                                  href => '<a href="/ebox/' . $self->menuNamespace() 
+#                                                  href => '<a href="/ebox/' . $self->menuNamespace()
 #                                                   . '?directory=' . $self->directory() . '">',
 #                                                  endHref => '</a>'),
 #                           );

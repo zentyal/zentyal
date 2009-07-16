@@ -21,14 +21,14 @@ use EBox::MailFilter::VDomainsLdap;
 #   CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
 #   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
-#   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',  
+#   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
 #   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
 # };
 
 
 
 
-sub new 
+sub new
 {
   my $class = shift @_;
 

@@ -32,12 +32,12 @@ sub modNameAndClass
 sub _standardDbContent
 {
     return   [
-              { 
-               date => '2008-08-25 09:59:40', 
-               event => 'CLEAN', 
-               action => 'Passed', 
-               from_address => 'spam@warp.es', 
-               to_address => 'macaco@monos.org', 
+              {
+               date => '2008-08-25 09:59:40',
+               event => 'CLEAN',
+               action => 'Passed',
+               from_address => 'spam@warp.es',
+               to_address => 'macaco@monos.org',
                spam_hits => 3.564,
               },
               {
@@ -134,7 +134,7 @@ sub cases
                                                          },
 
                                                },
-                                    
+
                                               ]
                  },
                 );

@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::L7Protocols::GroupProtocols
-#   
+#
 #   FIXME
 #
 
@@ -30,7 +30,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -47,7 +47,7 @@ sub protocols
     my @protocols;
     for my $id (@{$model->ids()}) {
         my $protocol = $model->row($id);
-        push (@protocols, { value => $protocol->id(), 
+        push (@protocols, { value => $protocol->id(),
                             printableValue => $protocol->valueByName('protocol')
                           });
     }
@@ -57,8 +57,8 @@ sub protocols
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Select(
                     'fieldName' => 'protocol',
                     'printableName' => __('Protocol'),
@@ -69,8 +69,8 @@ sub _table
 
     );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'GroupProtocols',
         'automaticRemove' => 1,
         'printableTableName' => __('Layer 7 grouped protocols'),

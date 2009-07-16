@@ -40,7 +40,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -61,7 +61,7 @@ sub _table
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/FilterGroupDomainFilterCategories',
           'defaultActions' =>
-              [	
+              [
               'editField',
               'changeView'
               ],

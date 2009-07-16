@@ -54,7 +54,7 @@ sub _paramIsValid
 
     my $value = $params->{$self->fieldName()};
     EBox::Validate::checkEmailAddress($value, $self->printableName());
-    
+
    return 1;
 }
 

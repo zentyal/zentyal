@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 use HTML::Mason;
-use HTML::Mason::Exceptions; 
+use HTML::Mason::Exceptions;
 use CGI;
 use EBox::Gettext;
 use EBox;
@@ -83,7 +83,7 @@ sub _title
 {
 	my $self = shift;
 
-	my $title = $self->{title}; 
+	my $title = $self->{title};
 	defined $title or $title = '';
 
 	my $filename = EBox::Config::templates . '/title.mas';
@@ -148,7 +148,7 @@ MASON_INTERP: {
   sub _masonInterp
     {
       my ($self) = @_;
-     
+
       return $masonInterp if defined $masonInterp;
 
       $masonInterp = HTML::Mason::Interp->new(
@@ -211,7 +211,7 @@ sub _loggedIn
 	return 1;
 }
 
-sub _urlToChain # (url) 
+sub _urlToChain # (url)
 {
 	my $str = shift;
 	$str =~ s/\?.*//g;
@@ -224,7 +224,7 @@ sub _urlToChain # (url)
 # arguments
 # 	- name of the required parameter
 # 	- display name for the parameter (as seen by the user)
-sub _requireParam # (param, display) 
+sub _requireParam # (param, display)
 {
 	my ($self, $param, $display) = @_;
 
@@ -236,14 +236,14 @@ sub _requireParam # (param, display)
 # arguments
 # 	- name of the required parameter
 # 	- display name for the parameter (as seen by the user)
-sub _requireParamAllowEmpty # (param, display) 
+sub _requireParamAllowEmpty # (param, display)
 {
 	my ($self, $param, $display) = @_;
 
         foreach my $cgiparam (@{$self->params}){
                 return if ($cgiparam =~ /^$param$/);
         }
-       
+
         throw EBox::Exceptions::DataMissing(data => $display);
 
 }
@@ -255,14 +255,14 @@ sub run
 	if (not $self->_loggedIn) {
 		$self->{redirect} = "/ebox/Login/Index";
 	}
-	else { 
+	else {
 	  try {
 	    settextdomain($self->domain());
 	    $self->_process();
-	  } 
+	  }
 	  catch EBox::Exceptions::Internal with {
 	    my $e = shift;
-	    throw $e; 
+	    throw $e;
 	  }
 	  catch EBox::Exceptions::Base with {
 	    my $e = shift;
@@ -270,13 +270,13 @@ sub run
 	    if (defined($self->{redirect})) {
 	      $self->{chain} = $self->{redirect};
 	    }
-	  } 
+	  }
 	  otherwise {
 	    my $e = shift;
         throw $e;
 	  };
 	}
-	
+
 	if (defined($self->{error})) {
 		#only keep the parameters in paramsKept
 		my $params = $self->params;
@@ -305,7 +305,7 @@ sub run
 		  $chain->run;
 		  return;
 		}
-	} 
+	}
 
 	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
 		my $request = Apache2::RequestUtil->request();
@@ -313,7 +313,7 @@ sub run
 		my $via = $headers->{'Via'};
 		my $host= $headers->{'Host'};
 		my $fwhost = $headers->{'X-Forwarded-Host'};
-		# If the connection comes from a Proxy, 
+		# If the connection comes from a Proxy,
 		# redirects with the Proxy IP address
 		if (defined($via) and defined($fwhost)) {
 			$host = $fwhost;
@@ -330,21 +330,21 @@ sub run
 	}
 
 
-	try  { 
+	try  {
 	  settextdomain('ebox');
-	  $self->_print 
+	  $self->_print
 	} catch EBox::Exceptions::Internal with {
 	  my $ex = shift;
 	  $self->setErrorFromException($ex);
 	  $self->_print_error($self->{error});
-	} 
+	}
 	otherwise {
 	    my $ex = shift;
 	    my $logger = EBox::logger;
 	    if (isa_mason_exception($ex)) {
 	      $logger->error($ex->as_text);
 	      my $error = __("An internal error related to ".
-			     "a template has occurred. This is ". 
+			     "a template has occurred. This is ".
 			     "a bug, relevant information can ".
 			     "be found in the logs.");
 	      $self->_print_error($error);
@@ -352,7 +352,7 @@ sub run
 	      if ($ex->can('text')) {
 		$logger->error('Exception: ' . $ex->text());
 	      } else {
-		$logger->error("Unknown exception");			    
+		$logger->error("Unknown exception");
 	      }
 
 	      throw $ex;
@@ -380,7 +380,7 @@ sub run
 #     array - containing the string values for the given parameter if
 #     the context is an array
 #
-sub unsafeParam # (param) 
+sub unsafeParam # (param)
 {
 	my ($self, $param) = @_;
 	my $cgi = $self->cgi;
@@ -407,7 +407,7 @@ sub unsafeParam # (param)
 	}
 }
 
-sub param # (param) 
+sub param # (param)
 {
 	my ($self, $param) = @_;
 	my $cgi = $self->cgi;
@@ -520,7 +520,7 @@ sub _process
 #   sets the message attribute
 #
 # Parameters:
-#   $msg - message to be setted 
+#   $msg - message to be setted
 sub setMsg
 {
     my ($self, $msg) = @_;
@@ -528,10 +528,10 @@ sub setMsg
 }
 
 # Method: setError
-#   set the error message 
+#   set the error message
 #
 # Parameters:
-#   $error - message to be setted 
+#   $error - message to be setted
 sub setError
 {
   my ($self, $error) = @_;
@@ -555,7 +555,7 @@ sub setErrorFromException
       $self->{error} .= Dumper($ex);
       $self->{error} .= '</pre>\n';
       $self->{error} .= '<br/>\n';
-    } 
+    }
     elsif ($ex->isa('EBox::Exceptions::External')) {
       $self->{error} = $ex->stringify();
     }
@@ -628,7 +628,7 @@ sub setErrorchain
 }
 
 # Method: paramsAsHash
-#  		
+#
 # Returns: a reference to a hash which contains the CGI parameters and
 #    its values as keys and values of the hash
 #
@@ -639,10 +639,10 @@ sub paramsAsHash
     my ($self) = @_;
 
     my @names = @{ $self->params() };
-    my %params = map { 
+    my %params = map {
       my $value = $self->param($_) ;
       $_ => $value
-    } @names; 
+    } @names;
 
     return \%params;
 }
@@ -655,7 +655,7 @@ sub _validateParams
     my $params_r    = $self->params();
     $params_r       = $self->_validateRequiredParams($params_r);
     $params_r       = $self->_validateOptionalParams($params_r);
-    
+
     my @paramsLeft = @{ $params_r };
     if (@paramsLeft ) {
       EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
@@ -690,7 +690,7 @@ sub _validateOptionalParams
     my ($self, $params_r) = @_;
 
     my $matchResult_r = _matchParams($self->optionalParameters(), $params_r);
-    
+
     my $allMatches = all  @{ $matchResult_r->{matches} };
     my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
     return \@newParams;
@@ -757,7 +757,7 @@ sub requiredParameters
 
 
 # Method:  actuate
-#  		
+#
 #  This method is the workhouse of the CGI it must be overriden by the different CGIs to achieve their objectives
 sub actuate
 {}
@@ -769,7 +769,7 @@ sub actuate
 #
 # Returns:
 #  a  reference to a list which contains the names and values of the different mason parameters
-# 
+#
 sub masonParameters
 {
   my ($self) = @_;
@@ -873,7 +873,7 @@ sub upload
 # 	the namespace used will be the one the base cgi belongs to.
 #
 # Parameters:
-# 
+#
 # 	(POSITIONAL)
 # 	namespace - string represeting the namespace in URL format. Example:
 # 			"EBox/Network"
@@ -881,7 +881,7 @@ sub upload
 sub setMenuNamespace
 {
 	my ($self, $namespace) = @_;
-	
+
 	$self->{'menuNamespace'} = $namespace;
 
 }
@@ -903,7 +903,7 @@ sub setMenuNamespace
 sub menuNamespace
 {
 	my ($self) = @_;
-	
+
 	if (exists $self->{'menuNamespace'}) {
 		return $self->{'menuNamespace'};
 	} else {

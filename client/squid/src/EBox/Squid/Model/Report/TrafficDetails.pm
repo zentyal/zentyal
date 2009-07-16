@@ -24,7 +24,7 @@ use warnings;
 use EBox::Gettext;
 
 
-sub new 
+sub new
 {
     my $class = shift @_;
 
@@ -45,35 +45,35 @@ sub dbFields
 
    return  {
         requests => {
-                     printableName => __('Requests') 
+                     printableName => __('Requests')
                     },
        rfc931 => {
-                  printableName => __('User') 
+                  printableName => __('User')
                   },
         accepted => {
-                     printableName => __('Accepted requests') 
+                     printableName => __('Accepted requests')
                     },
 
         accepted_size => {
-                          printableName => __('Accepted traffic size (Kb)') 
+                          printableName => __('Accepted traffic size (Kb)')
                          },
 
 
         denied   => {
-                     printableName => __('Denied requests') 
+                     printableName => __('Denied requests')
                     },
 
         denied_size => {
-                        printableName => __('Denied traffic size (Kb)') 
+                        printableName => __('Denied traffic size (Kb)')
                        },
 
 
         filtered => {
-                     printableName => __('Filtered requests') 
+                     printableName => __('Filtered requests')
                     },
-            
+
         filtered_size => {
-                          printableName => __('Filtered traffic size (Kb))') 
+                          printableName => __('Filtered traffic size (Kb))')
                          },
 
 
@@ -92,54 +92,54 @@ sub _table
     my $tableHead = [
                      new EBox::Types::Text (
                                             fieldName => 'date',
-                                            printableName => __('Date') 
+                                            printableName => __('Date')
                                            ),
                      new EBox::Types::Text (
                                             fieldName => 'rfc931',
-                                            printableName => __('User') 
+                                            printableName => __('User')
                                            ),
                      new EBox::Types::Text (
                                             fieldName => 'requests',
-                                            printableName => __('Requests') 
+                                            printableName => __('Requests')
                                            ),
 
                      new EBox::Types::Text (
                                             fieldName => 'accepted',
-                                            printableName => __('Accepted requests') 
+                                            printableName => __('Accepted requests')
                                            ),
 
                      new EBox::Types::Text (
                                             fieldName => 'accepted_size',
-                                            printableName => __('Accepted traffic size (Kb)') 
+                                            printableName => __('Accepted traffic size (Kb)')
                                            ),
 
 
-                     new EBox::Types::Text ( 
+                     new EBox::Types::Text (
                                             fieldName => 'denied',
-                                            printableName => __('Denied requests') 
+                                            printableName => __('Denied requests')
                                            ),
-                     
-                     new EBox::Types::Text ( 
+
+                     new EBox::Types::Text (
                                             fieldName => 'denied_size',
-                                            printableName => __('Denied traffic size (Kb)') 
+                                            printableName => __('Denied traffic size (Kb)')
                                            ),
 
 
-                     new EBox::Types::Text ( 
+                     new EBox::Types::Text (
                                             fieldName => 'filtered',
-                                            printableName => __('Filtered requests') 
+                                            printableName => __('Filtered requests')
                                            ),
-            
-                     new EBox::Types::Text ( 
+
+                     new EBox::Types::Text (
                                             fieldName => 'filtered_size',
-                                            printableName => __('Filtered traffic size (Kb))') 
+                                            printableName => __('Filtered traffic size (Kb))')
                                            ),
 
                     ];
 
-     
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Web traffic details'),
             'defaultController' => '/ebox/Squid/Controller/TrafficDetails',

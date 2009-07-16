@@ -18,7 +18,7 @@
 # Class that inherits from <EBox::Type::Text>
 
 #
-# Text can only be written once. 
+# Text can only be written once.
 #
 # The need of this arose because the way that
 # the module manages the VPN files. To avoid nasty stuff, we don't allow to

@@ -159,11 +159,11 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     my $fields = [qw/roaming drive/];
     $customizer->setModel($self);
-    $customizer->setOnChangeActions( 
-            { pdc => 
-                { 
-                on  => { enable => $fields }, 
-                off => { disable => $fields }, 
+    $customizer->setOnChangeActions(
+            { pdc =>
+                {
+                on  => { enable => $fields },
+                off => { disable => $fields },
                 }
             });
     return $customizer;
@@ -183,7 +183,7 @@ sub _drive_letters
 
 # Method: headTile
 #
-#   Overrides <EBox::Model::DataTable::headTitle> 
+#   Overrides <EBox::Model::DataTable::headTitle>
 #
 #
 sub headTitle

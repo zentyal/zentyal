@@ -56,7 +56,7 @@ my %_notNullsByTable = (
                         'message_filter' => [ qw( event action date
                                                  from_address to_address)
                                              ],
-                        'pop_proxy_filter'  => [ qw(date event  mails 
+                        'pop_proxy_filter'  => [ qw(date event  mails
                                                  clean virus spam clientConn)
                                              ],
                        );
@@ -105,7 +105,7 @@ sub checkInsert
             $insertCalls +=1;
         }
     }
-    
+
     is $insertCalls, 1, 'Checking  insert was called and was called only one time';
 
 
@@ -113,7 +113,7 @@ sub checkInsert
     my $table = delete $dbengine->{insertedTable};
     is $table, $self->tablename,
         'checking that the insert was made in the appropiate log table';
-    
+
     my $data = delete $dbengine->{insertedData};
     if ($self->dumpInsertedData()) {
         diag "Inserted Data:\n" . Dumper $data;
@@ -128,7 +128,7 @@ sub checkInsert
             last;
         }
     }
-    
+
     if (not $failed) {
         pass "All NOT-NULL fields don't contain NULLs";
     }
@@ -153,16 +153,16 @@ sub testProcessLine
 
     foreach my $case (@{ $cases_r }) {
         diag $case->{name};
-        
+
         my @lines = @{ $case->{lines} };
-        
+
         my $dbEngine = $self->newFakeDBEngine();
         lives_ok {
             foreach my $line (@lines) {
-                $logHelper->processLine($file, $line, $dbEngine); 
+                $logHelper->processLine($file, $line, $dbEngine);
             }
         } 'processing lines';
-        
+
         $self->checkInsert($dbEngine, $case->{expectedData});
     }
 
@@ -226,7 +226,7 @@ sub smtpFilterLogTest : Test(65)
                   name => 'Virus detected, discard policy',
                   lines => [
                             'Aug 27 05:32:12 intrepid amavis[13093]: (13093-02) Blocked INFECTED (Eicar-Test-Signature), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
-                            
+
                            ],
                   expectedData => {
                                    event => 'INFECTED',
@@ -256,7 +256,7 @@ sub smtpFilterLogTest : Test(65)
                   name => 'Forbidden MIME type , bounce policy',
                   lines => [
                             'Aug 27 06:03:13 intrepid amavis[16115]: (16115-01) Blocked BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0',
-                            
+
                            ],
                   expectedData => {
                                    event => 'BANNED',
@@ -271,7 +271,7 @@ sub smtpFilterLogTest : Test(65)
                   name => 'Forbidden MIME type , pass policy',
                   lines => [
                             'Aug 27 06:09:44 intrepid amavis[17590]: (17590-01) Passed BANNED (multipart/mixed | application/x-zip,.zip,putty.zip | .exe,.exe-ms,PAGEANT.EXE), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, queued_as: B8797307BD, L/Y/0/0',
-                            
+
                            ],
                   expectedData => {
                                    event => 'BANNED',
@@ -287,7 +287,7 @@ sub smtpFilterLogTest : Test(65)
                   lines => [
                             'Aug 27 06:00:52 intrepid amavis[16114]: (16114-01) Blocked BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@warp.es> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0'
 
-                            
+
                            ],
                   expectedData => {
                                    event => 'BANNED',
@@ -409,10 +409,10 @@ q{Oct 30 11:26:46 ebox011101 p3scan[25124]: Session done (Clean Exit). Mails: 0 
                       clean  => 0,
                       virus  => 0,
                       spam   => 0,
-                      
+
                       clientConn => '192.168.9.1',
 
-                      
+
                       date => '2008-Oct-30 11:26:46',
                      },
                },
@@ -440,10 +440,10 @@ q{Oct 30 11:25:33 ebox011101 p3scan[25070]: Session done (Clean Exit). Mails: 1 
                       clean  => 1,
                       virus  => 0,
                       spam   => 0,
-                      
+
                       clientConn => '192.168.9.1',
 
-                      
+
                       date => '2008-Oct-30 11:25:33',
                      },
                },
@@ -472,10 +472,10 @@ q{Oct 30 11:24:25 ebox011101 p3scan[24992]: Session done (Clean Exit). Mails: 2 
                       clean  => 1,
                       virus  => 1,
                       spam   => 0,
-                      
+
                       clientConn => '192.168.9.1',
 
-                      
+
                       date => '2008-Oct-30 11:24:25',
                      },
                },
@@ -502,10 +502,10 @@ q{Oct 30 11:34:31 ebox011101 p3scan[26596]: Session done (Clean Exit). Mails: 1 
                       clean  => 0,
                       virus  => 0,
                       spam   => 1,
-                      
+
                       clientConn => '192.168.9.1',
 
-                      
+
                       date => '2008-Oct-30 11:34:31',
                      },
                },
@@ -526,9 +526,9 @@ q{Oct 30 11:34:31 ebox011101 p3scan[26596]: Session done (Clean Exit). Mails: 1 
                       clean  => 0,
                       virus  => 0,
                       spam   => 0,
-                      
+
                       clientConn => '192.168.9.1',
-                      
+
                       date => '2008-Oct-30 11:27:55',
                      },
                },

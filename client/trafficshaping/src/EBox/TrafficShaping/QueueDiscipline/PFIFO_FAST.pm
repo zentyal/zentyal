@@ -26,7 +26,7 @@ use base 'EBox::TrafficShaping::QueueDiscipline::Abstract';
 #       Constructor for PFIFO_FAST (Packet First In First Out) class. This
 #       queue discipline has 3 bands with priorities. Band 0 is for interactive
 #       traffic (+ priority) and band 3 for bulk traffic (- priority). All
-#       bands acts as packet-limited FIFO queue. This is the default discipline 
+#       bands acts as packet-limited FIFO queue. This is the default discipline
 #       used by Linux Kernel.
 #
 # Parameters :

@@ -101,7 +101,7 @@ sub _print_error
 	my $r = Apache2::RequestUtil->request();
 	my $filename = EBox::Config::templates . '/error.mas';
 	my $output;
-	my $interp = HTML::Mason::Interp->new(comp_root => 
+	my $interp = HTML::Mason::Interp->new(comp_root =>
 						EBox::Config::templates,
 						out_method => \$output);
 	my $comp = $interp->make_component(comp_file => $filename);
@@ -120,17 +120,17 @@ sub _print_warning
 	$text or return;
 	($text ne "") or return;
 
-	# We send a WARNING_STATUS code. 
+	# We send a WARNING_STATUS code.
 	my $r = Apache2::RequestUtil->request();
 	$r->status(DATA_IN_USE_STATUS);
 	$r->custom_response(DATA_IN_USE_STATUS, "");
 
 	my $filename = EBox::Config::templates . '/dataInUse.mas';
 	my $output;
-	my $interp = HTML::Mason::Interp->new(comp_root => 
+	my $interp = HTML::Mason::Interp->new(comp_root =>
 						EBox::Config::templates,
 						out_method => \$output);
-					
+
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	push(@params, 'warning' => $text);
@@ -165,7 +165,7 @@ sub run
 	if (not $self->_loggedIn) {
 		$self->{redirect} = "/ebox/Login/Index";
 	}
-	else { 
+	else {
 	  try {
 	    settextdomain($self->domain());
 	    $self->_process();
@@ -183,7 +183,7 @@ sub run
 		$finish = 1;
 	  } catch EBox::Exceptions::Base with {
 		  my $e = shift;
-		  $self->setErrorFromException($e);	 
+		  $self->setErrorFromException($e);
 		  $self->_error();
 	  	  $finish = 1;
 	  } otherwise {
@@ -191,23 +191,23 @@ sub run
 		  throw $e;
 	  };
 	}
-	
+
 	return if ($finish == 1);
 
-	try  { 
+	try  {
 	  settextdomain('ebox');
-	  $self->_print 
+	  $self->_print
 	} catch EBox::Exceptions::Internal with {
 	  my $ex = shift;
 	  $self->_print_error($ex->stacktrace());
-	} 
+	}
 	otherwise {
 	    my $ex = shift;
 	    my $logger = EBox::logger;
 	    if (isa_mason_exception($ex)) {
 	      $logger->error($ex->as_text);
 	      my $error = __("An internal error related to ".
-			     "a template has occurred. This is ". 
+			     "a template has occurred. This is ".
 			     "a bug, relevant information can ".
 			     "be found in the logs.");
 	      $self->_print_error($error);
@@ -215,7 +215,7 @@ sub run
 	      if ($ex->can('text')) {
 		$logger->error('Exception: ' . $ex->text());
 	      } else {
-		$logger->error("Unknown exception");			    
+		$logger->error("Unknown exception");
 	      }
 
 	      throw $ex;

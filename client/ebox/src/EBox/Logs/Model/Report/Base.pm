@@ -35,7 +35,7 @@ sub _printableDate
     my ($daysPortion, $hoursPortion) = split '\s', $date;
     my ($year, $month, $day) = split '-', $daysPortion;
     my ($hour)               = split ':', $hoursPortion;
-    
+
     if ($timePeriod eq 'hourly') {
         return "$day-$month-$year $hour:00";
     }
@@ -43,7 +43,7 @@ sub _printableDate
         return "$day-$month-$year";
     }
     elsif ($timePeriod eq 'weekly') {
-        return "$day-$month-$year"; 
+        return "$day-$month-$year";
     }
     elsif ($timePeriod eq 'monthly') {
         return "$month-$year";
@@ -74,7 +74,7 @@ sub _checkTimePeriod
 #
 #  Abstract method to ve overriden.
 #
-# Returns: 
+# Returns:
 #    the name of the table used to generate the report minus the time
 #       period suffix
 sub dbTableName
@@ -88,7 +88,7 @@ sub dbTableName
 #    the specific dbTable that will be used for the time period specified
 #
 #   Parameters:
-#     $timePeriod - the time period 
+#     $timePeriod - the time period
 sub dbTable
 {
     my ($self, $timePeriod) = @_;
@@ -106,13 +106,13 @@ sub dbTable
 #    this must be return information about the data base field used for the
 #    report.  The information must be returning as a hash ref with the name of
 #    the column as key and the following configuration hash ref with this
-#    format: 
+#    format:
 #              - printableName
 #              - totalSub: for the detail table this sub reference will be used
 #                           to get the total for the field instead of adding
 #                           the values of all rows. The function will be called
 #                           passing a reference to all rows.
-#      
+#
 sub dbFields
 {
     throw EBox::Exceptions::NotImplemented('dbFields');
@@ -137,7 +137,7 @@ sub reportRows
     my @fields = keys %{ $self->dbFields()  };
 
     my $dbEngine =  EBox::DBEngineFactory::DBEngine();
-    
+
     my $orderMode = $limit ? 'DESC' : 'ASC';
     my $columns = join ',', ('date', @fields);
     my $query = "SELECT $columns FROM $table ORDER BY date $orderMode";

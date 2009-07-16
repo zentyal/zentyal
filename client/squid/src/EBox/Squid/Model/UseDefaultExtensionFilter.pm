@@ -27,10 +27,10 @@ use EBox::Types::Boolean;
 
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -47,11 +47,11 @@ sub new
 # a table model description.
 #
 
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                   fieldName => 'useDefault',
                   printableName => __('Use default profile configuration'),
@@ -82,7 +82,7 @@ sub modelsToUpdate
     my ($self) = @_;
 
     my @modelNames = (
-                      'FilterGroupExtensionFilter', 
+                      'FilterGroupExtensionFilter',
                       'FilterGroupApplyAllowToAllExtensions'
                      );
 
@@ -126,7 +126,7 @@ sub changeRowJS
     $fields =~ s/'/"/g;
 
     my $onCompleteJS =  <<END;
-    function(t) { 
+    function(t) {
         highlightRow( id, false);
         stripe("dataTable", "#ecf5da", "#ffffff");
 END
@@ -139,7 +139,7 @@ END
 
     my  $function = 'applyAllChangeRows("%s", "%s", %s, "%s",'.
             '"%s", %s, %s, %s)';
-    my $JS = sprintf ($function, 
+    my $JS = sprintf ($function,
             $table->{'actions'}->{'editField'},
             $table->{'tableName'},
             $fields,

@@ -21,7 +21,7 @@ use warnings;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = {};

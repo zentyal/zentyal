@@ -444,7 +444,7 @@ sub nameFromClass
   else {
     $class = $self;
   }
-  
+
 
   my @parts = split '::', $class;
   my $name = pop @parts;
@@ -477,7 +477,7 @@ sub printableName
 #
 #   string
 #
-sub pageTitle 
+sub pageTitle
   {
 
       my ($self) = @_;
@@ -898,7 +898,7 @@ sub _lookupComponent
           $self->setComponentDirectory($components);
           $components->setParentComposite($self);
       }
-      
+
       return $components;
   }
 
@@ -984,7 +984,7 @@ sub setDirectory
 
 # Method: directory
 #
-#        Get the current directory. 
+#        Get the current directory.
 #
 # Returns:
 #
@@ -1025,11 +1025,11 @@ sub setComponentDirectory
         $compDir = $compositeDir . '/' . $comp->name();
     }
     else {
-        $compDir =  $comp->name();        
+        $compDir =  $comp->name();
     }
 
     $comp->setDirectory($compDir);
-    
+
 
 }
 
@@ -1042,7 +1042,7 @@ sub setComponentDirectory
 #    return the row where the submodel resides
 #
 #   Returns:
-#       row object or undef if there is not 
+#       row object or undef if there is not
 #
 #   Warning:
 #      this method is affected fby the bug in ::Composite::parent()

@@ -145,7 +145,7 @@ sub cmp
 {
     my ($self, $compared) = @_;
 
-    $compared->isa(__PACKAGE__) or 
+    $compared->isa(__PACKAGE__) or
         return undef;
 
     my $portA = $self->port();
@@ -381,16 +381,16 @@ sub _restoreFromHash
     my $value;
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path(); 
+        my $path = $self->_path();
         $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
         $value->{port} =  $gconf->get_int($path . '/' . $port);
 #	EBox::debug($path . '/' . $port);
         $self->_addToCache($value);
     }
 
-    $self->{'protocol'} = $value->{protocol}; 
-    $self->{'port'} = $value->{port}; 
-    
+    $self->{'protocol'} = $value->{protocol};
+    $self->{'port'} = $value->{port};
+
 }
 
 # Method: _paramIsValid

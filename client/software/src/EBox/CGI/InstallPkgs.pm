@@ -54,7 +54,7 @@ sub _process($) {
 		$action = 'install';
 		$doit = 'yes';
 	} elsif (defined($self->param('ebox-install'))) {
-		$action = 'install';	
+		$action = 'install';
 	} elsif (defined($self->param('ebox-remove'))) {
 		$action = 'remove';
 	} else {
@@ -103,7 +103,7 @@ sub _goAhead
     if ($action eq 'install') {
 	my $progress = $software->installPkgs(@{ $packages_r });
 	$self->showInstallProgress($progress);
-	
+
     } elsif ($action eq 'remove') {
 	my $progress = $software->removePkgs(@{  $packages_r  });
 	$self->showRemoveProgress($progress);
@@ -126,7 +126,7 @@ sub showConfirmationPage
     }  else {
 	throw EBox::Exceptions::Internal("Bad action: $action");
     }
-    
+
     $self->{'template'} = 'software/del.mas',
 
     my @array;

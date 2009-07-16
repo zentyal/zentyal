@@ -1,4 +1,4 @@
-# Copyright  
+# Copyright
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -43,15 +43,15 @@ sub new
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Text(
             'fieldName' => 'interface',
             'printableName' => __('Interface'),
             'editable' => 0,
         ),
     );
-    my $dataTable = 
+    my $dataTable =
     {
         'tableName' => 'Interfaces',
         'printableTableName' => __('Interfaces'),

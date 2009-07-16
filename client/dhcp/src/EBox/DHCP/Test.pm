@@ -23,7 +23,7 @@ sub _moduleInstantiationTest : Test
   checkModuleInstantiation('dhcp', 'EBox::DHCP');
 
   Test::MockObject->fake_module('EBox::DHCP',
-			       nStaticIfaces => sub {  return $nStaticIfacesReturnValue }, 
+			       nStaticIfaces => sub {  return $nStaticIfacesReturnValue },
 				_configureFirewall => sub {},
 			       );
 }
@@ -90,7 +90,7 @@ sub staticRoutes : Test(2)
 			   );
 
   my @gibonStaticRoutes = (
-			    '192.168.30.0/24'    => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },  
+			    '192.168.30.0/24'    => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },
 			   );
 
   fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);

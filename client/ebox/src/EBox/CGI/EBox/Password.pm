@@ -36,7 +36,7 @@ sub new # (cgi=?)
 sub _process
 {
     my $self = shift;
-        
+
     if (defined($self->param('password'))) {
         my $curpwd = $self->unsafeParam('currentpwd');
         if (not $curpwd) {

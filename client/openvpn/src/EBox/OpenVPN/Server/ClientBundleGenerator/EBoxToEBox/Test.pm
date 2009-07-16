@@ -52,7 +52,7 @@ sub createTestDir : Test(setup)
 {
   my ($self) = @_;
   my $d = $self->testDir();
-  mkdir $d;  
+  mkdir $d;
 }
 
 sub removeTestDir #: Test(teardown)
@@ -116,7 +116,7 @@ sub fakeCA : Test(startup)
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-   
+
     # openvpn module basic configuration
     my @config = (
 		  '/ebox/modules/openvpn/userActive'  => 1,
@@ -142,11 +142,11 @@ sub setUpConfiguration : Test(setup)
 
     my $server = $openvpn->newServer(
 					 'serverName',
-					 service => 1, 
-					 subnet => '10.8.0.0', 
-					 subnetNetmask => '255.255.255.0', 
-					 port => 3000, 
-					 proto => 'tcp',  
+					 service => 1,
+					 subnet => '10.8.0.0',
+					 subnetNetmask => '255.255.255.0',
+					 port => 3000,
+					 proto => 'tcp',
 					 certificate => 'serverCertificate',
 				         masquerade => 0,
 					);
@@ -173,7 +173,7 @@ sub createBundleTest : Test(11)
 
   my $bundle;
   lives_ok {
-    
+
     $bundle = EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox->clientBundle(
        server => $server,
        clientCertificate => $cert,
@@ -186,7 +186,7 @@ sub createBundleTest : Test(11)
   lives_ok {
     %paramsFromBundle = EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox->initParamsFromBundle($bundle->{file});
   } 'getting config parameters from bundle';
-  
+
   is $paramsFromBundle{proto}, $server->proto(), 'Checking protocol parameter extracted from bundle';
   is $paramsFromBundle{ripPasswd}, $server->ripPasswd(), 'Checking RIP password parameter extracted from bundle';
 
@@ -200,7 +200,7 @@ sub createBundleTest : Test(11)
   foreach my $certParam (@certificateParams) {
     my $path = $paramsFromBundle{$certParam};
     ok ( -r $path), 'cjhecking existance of certificate file in the bundle';
-    
+
     is read_file($path), $certParam, 'checking contents of file in the bundle';
   }
 }

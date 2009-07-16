@@ -31,7 +31,7 @@
 #               'id' => 'serv16'
 #            }
 #      ],
-#   
+#
 package EBox::Services::Model::ServiceConfigurationTable;
 
 use EBox::Global;
@@ -51,7 +51,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -62,7 +62,7 @@ sub new
         return $self;
 }
 
-sub protocols 
+sub protocols
 {
         my ($self) = @_;
 
@@ -115,13 +115,13 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    $customizer->setOnChangeActions( 
-            { protocol => 
-                { 
-                any => { disable => [qw/source destination/] }, 
-                icmp => { disable => [qw/source destination/] }, 
-                gre => { disable => [qw/source destination/] }, 
-                esp => { disable => [qw/source destination/] }, 
+    $customizer->setOnChangeActions(
+            { protocol =>
+                {
+                any => { disable => [qw/source destination/] },
+                icmp => { disable => [qw/source destination/] },
+                gre => { disable => [qw/source destination/] },
+                esp => { disable => [qw/source destination/] },
                 tcp => { enable => [qw/source destination/] },
                 udp => { enable => [qw/source destination/] },
                 'tcp/udp' => { enable => [qw/source destination/] },
@@ -132,8 +132,8 @@ sub viewCustomizer
 
 sub _table
 {
-        my @tableHead = 
-                ( 
+        my @tableHead =
+                (
                  new EBox::Types::Select(
                          'fieldName' => 'protocol',
                          'printableName' => __('Protocol'),
@@ -155,8 +155,8 @@ sub _table
 
 
 
-        my $dataTable = 
-        { 
+        my $dataTable =
+        {
                 'tableName' => 'ServiceConfigurationTable',
                 'printableTableName' => __('Service configuration'),
                 'defaultController' =>

@@ -29,12 +29,12 @@ use EBox::Global;
 sub cloneTest
 {
     my ($instance) = @_;
-    
+
     my $clone;
     lives_ok {
         $clone = $instance->clone();
     } 'cloning instance';
-    
+
 
     is_deeply $instance, $clone,
         'checking tht data is the same in original and clone';
@@ -124,8 +124,8 @@ sub _createTest
 
     $failed and
         return;
-    
-    
+
+
     try {
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
@@ -168,7 +168,7 @@ sub storeAndRestoreGConfTest
         die "you ,must suply a correct base value";
 
     EBox::TestStubs::fakeEBoxModule(name => 'store');
-    
+
     my $mod = EBox::Global->modInstance('store');
     my $dir = 'storeAndRestoreTest';
 
@@ -196,11 +196,11 @@ sub storeAndRestoreGConfTest
             my $ex = shift;
             die "Cannot set value $value: $ex";
         };
-        
+
         lives_ok {
             $instance->storeInGConf($mod, $dir);
         } "storing in GConf $class with value $value";
-        
+
 
         try {
             $instance->setValue($otherValue);
@@ -217,7 +217,7 @@ sub storeAndRestoreGConfTest
 
         is $instance->value(), $value,
             'checking that the value was restored';
-        
+
     }
 }
 

@@ -32,10 +32,10 @@ use EBox::Types::Select;
 use EBox::Config;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -50,11 +50,11 @@ sub new
 #
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
            new EBox::Types::File(
                                  fieldName => 'mailbox',
                                  printableName => __('Mailbox'),
@@ -114,12 +114,12 @@ sub formSubmitted
 
     my $mailboxFile    = $self->mailboxType->tmpPath();
     my $mailboxContent = $self->mailboxContent;
-    
+
 
     my $mailfilter= EBox::Global->modInstance('mailfilter');
     my $antispam  = $mailfilter->antispam;
-        
-        
+
+
     my $isSpam;
     if ($mailboxContent eq 'spam') {
         $isSpam = 1;
@@ -132,7 +132,7 @@ sub formSubmitted
                                              )
                                         );
     }
-        
+
     $antispam->learn(
                      isSpam => $isSpam,
                      format => 'mbox',

@@ -53,7 +53,7 @@ use EBox::Types::Text;
         elsif ($rowIdUsed eq $id) {
             throw EBox::Exceptions::DataInUse('fake warnIfIdIsUsed: row in use');
         }
-       
+
     }
 
     sub EBox::Model::ModelManager::warnOnChangeOnId
@@ -124,12 +124,12 @@ sub deviantFormTest : Test(6)
                                                                           ),
                                                  new EBox::Types::Abstract(
                                                        fieldName => 'repeated',
-                                                                          ),                                                                    
+                                                                          ),
                                                                    ],
 
                                                 tableName => 'test',
                                               }
-                  
+
                  ];
     push @cases, [
                   'no table name' => {
@@ -137,12 +137,12 @@ sub deviantFormTest : Test(6)
                                                  new EBox::Types::Abstract(
                                                        fieldName => 'field1',
                                                                           ),
-                                                                   
+
                                                                    ],
 
 
                                               }
-                  
+
                  ];
 
     push @cases, [
@@ -151,12 +151,12 @@ sub deviantFormTest : Test(6)
                                                  new EBox::Types::Abstract(
                                                        fieldName => 'field1',
                                                                           ),
-                                                                   
+
                                                                    ],
                                                 order => 1,
 
                                               }
-                  
+
                  ];
 
    push @cases, [
@@ -165,16 +165,16 @@ sub deviantFormTest : Test(6)
                                                  new EBox::Types::Abstract(
                                                        fieldName => 'field1',
                                                                           ),
-                                                                   
+
                                                                    ],
 
                                                    sortedBy => 'field1',
                                               }
-                  
+
                  ];
 
 
-    
+
     foreach my $case_r (@cases) {
         my ($caseName, $table) = @{ $case_r };
         my $dataForm = $self->_newDataForm($table);
@@ -197,7 +197,7 @@ sub formTest : Test(2)
                                                  new EBox::Types::Abstract(
                                                        fieldName => 'field1',
                                                                           ),
-                                                                   
+
                                                                    ],
                                                    tableName => 'test',
                          }
@@ -231,7 +231,7 @@ sub deviantSetTest : Test(2)
                  {
                   secondField => 'aaa',
                  },
-                 
+
                 );
 
     foreach my $case (@cases) {
@@ -346,13 +346,13 @@ sub _tableDescription4fields
                                                 printableName => 'defaultField',
                                                 defaultValue    => 'defaultText',
                                                                 ),
-                                       
+
                                        new EBox::Types::Text(
                                                 fieldName => 'optionalField',
                                                 printableName => 'optionalField',
                                                 optional      => 1,
                                                                 ),
-                                                                   
+
                                       ],
                             tableName => 'test',
 

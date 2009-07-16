@@ -20,7 +20,7 @@ sub setModuleGlobalConf : Test(startup)
     EBox::Global::TestStub::setAllEBoxModules('ntp' => 'EBox::NTP');
 }
 
-sub _useAndCreationTest : Test  
+sub _useAndCreationTest : Test
 {
     checkModuleInstantiation('ntp', 'EBox::NTP');
 }

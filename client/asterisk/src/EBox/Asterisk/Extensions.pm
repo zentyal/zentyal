@@ -112,7 +112,7 @@ sub extensions
 #
 #  Assumptions:
 #    - non-numeric extension are ignored
-#   
+#
 sub firstFreeExtension
 {
     my ($self) = @_;
@@ -126,7 +126,7 @@ sub firstFreeExtension
     my $result = $self->{ldap}->search(\%args);
 
     my $lastSeen = 0;
-    my @extns = map { 
+    my @extns = map {
         my $cn = $_->get_value('cn') ;
         if ($cn =~  m/^\d*-?\d+$/)  {
             my ($ext) = split('-', $cn);
@@ -151,7 +151,7 @@ sub firstFreeExtension
             $candidate = $expectedNumber;
             last;
         }
-        
+
         $lastNumber = $number;
     }
 

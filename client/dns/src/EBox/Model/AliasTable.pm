@@ -14,14 +14,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #   EBox::DNS::Model::AliasTable
 #
 #   This class inherits from <EBox::Model::DataTable> and represents the
 #   object table which basically contains domains names and a reference
 #   to a member <EBox::DNS::Model::AliasTable>
 #
-#   
+#
 package EBox::DNS::Model::AliasTable;
 
 use EBox::Global;
@@ -42,7 +42,7 @@ use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -122,7 +122,7 @@ sub validateTypedRow
 sub _table
 {
     my @tableHead =
-        ( 
+        (
 
             new EBox::Types::DomainName
                             (
@@ -134,8 +134,8 @@ sub _table
                              )
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'AliasTable',
             'printableTableName' => __('Alias'),
             'automaticRemove' => 1,

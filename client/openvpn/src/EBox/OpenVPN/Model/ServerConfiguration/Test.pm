@@ -50,7 +50,7 @@ sub fakeCA : Test(startup)
   EBox::CA::TestStub::fake();
 }
 
-sub fakeFirewall 
+sub fakeFirewall
 {
   fakeEBoxModule(
                  name => 'firewall',
@@ -77,7 +77,7 @@ sub ignoreChownRootCommand : Test(startup)
     my ($cmd) = @_;
     my ($cmdWithoutParams) = split '\s+', $cmd;
     if (($cmdWithoutParams eq 'chown') or ($cmdWithoutParams eq '/bin/chown')) {
-      return [];  
+      return [];
     }
 
     return $root_r->($cmd);
@@ -176,7 +176,7 @@ sub _newServerConfiguration
                       directory   => 'ServerConfiguration'
                                                          );
 
-    
+
 }
 
 
@@ -235,7 +235,7 @@ sub certificateTest : Test(1)
       $_->{value}
   } @{ $certificate->options() };
 
-  is_deeply \@optionsValues, \@expectedOptionsValues, 
+  is_deeply \@optionsValues, \@expectedOptionsValues,
             'Checking values of the certificate control';
 
 }
@@ -253,7 +253,7 @@ sub tlsRemoteTest : Test(1)
 
 
 
-  
+
   my @expectedOptionsValues = sort qw(certificate1 certificate2 0);
 
   my $row = $serverConfiguration->row();
@@ -262,7 +262,7 @@ sub tlsRemoteTest : Test(1)
       $_->{value}
   } @{ $tls->options() };
 
-  is_deeply \@optionsValues, \@expectedOptionsValues, 
+  is_deeply \@optionsValues, \@expectedOptionsValues,
             'Checking values of the TlsRemote control';
 }
 
@@ -296,10 +296,10 @@ sub pullRoutesAndRipPasswdTest : Test(6)
             name =>
             "Checking correct combination of pullRoutes and ripPasswd: ($pull, $passwd)"
            )
-      
+
 
   }
-  
+
   my %values = $self->_serverConfigurationValues();
   $values{pullRoutes} = 1;
 
@@ -393,20 +393,20 @@ sub ifaceAndMasqueradeTest : Test(6)
         while (my($at, $vl) = each %{ $case->{values} }) {
             $values{$at} = $vl;
         }
-        
+
         my @params = (
                       dataTable => $serverConfiguration,
                       values => \%values,
                       name => $name
                      );
-        
+
         if (not $deviant) {
             setOk(@params);
         }
         else {
             setNotOk(@params);
         }
-        
+
     }
 
 
@@ -438,9 +438,9 @@ sub _setTest
 
 
     my $error = 0;
-    
+
     my $row;
-    
+
     $row = $dataTable->row();
 
     try {

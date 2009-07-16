@@ -36,7 +36,7 @@ use constant {
   CONF_USER          => 'amavis',
 };
 
-sub new 
+sub new
 {
     my $class = shift @_;
 
@@ -55,7 +55,7 @@ sub usedFiles
              reason => __(' To configure spamassassin daemon'),
              module => 'mailfilter',
             },
-            
+
            );
 }
 
@@ -97,13 +97,13 @@ sub _manageServices
 sub doDaemon
 {
     my ($self, $mailfilterService) = @_;
-    
+
     if ($mailfilterService and $self->isEnabled() and $self->isRunning()) {
         $self->_manageServices('restart');
-    } 
+    }
     elsif ($mailfilterService and $self->isEnabled()) {
         $self->_manageServices('start');
-    } 
+    }
     elsif ($self->isRunning()) {
         $self->_manageServices('stop');
     }
@@ -114,7 +114,7 @@ sub stopService
 {
     my ($self) = @_;
     if ($self->isRunning) {
-        $self->_manageServices('stop');   
+        $self->_manageServices('stop');
     }
 }
 
@@ -144,7 +144,7 @@ sub isEnabled
 sub setVDomainService
 {
     my ($self, $vdomain, $service) = @_;
-    
+
     my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
     $vdomainsLdap->checkVDomainExists($vdomain);
     $vdomainsLdap->setAntispam($vdomain, $service);
@@ -154,7 +154,7 @@ sub setVDomainService
 sub vdomainService
 {
     my ($self, $vdomain) = @_;
-    
+
     my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
     $vdomainsLdap->checkVDomainExists($vdomain);
     $vdomainsLdap->antispam($vdomain);
@@ -186,7 +186,7 @@ sub writeConf
 
 
     EBox::Module::Base::writeConfFileNoCheck(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
-    
+
 #    $self->_vdomains->updateControlAccounts();
 }
 
@@ -279,7 +279,7 @@ sub autoWhitelist
 #
 #  Returns the string to add to the subject of a spam message (if this option is
 #  active)
-#  
+#
 # Returns:
 #
 #  string - The string to add.
@@ -332,7 +332,7 @@ sub _checkSpamThreshold
     if (not ($threshold =~ m/^\d+\.?\d*$/  )) {
         throw EBox::Exceptions::InvalidData(data => __('Spam threshold'), value => $threshold, advice => __('It must be a number(decimal point allowed)') );
     }
-  
+
     if ($threshold <= 0) {
         throw EBox::Exceptions::Internal("The spam threshold must be greter than zero (was $threshold)");
     }
@@ -382,7 +382,7 @@ sub learn
   my $saRO   = $eboxRO->modInstance('mailfilter')->antispam();
   if (not $saRO->bayes()) {
     throw EBox::Exceptions::External(__('Cannot learn because bayesian filter is disabled in the' .
-                                        ' current configuration. ' . 
+                                        ' current configuration. ' .
                                         'In order to be able to learn enable the bayesian filter and save changes')
                                     );
   }
@@ -393,10 +393,10 @@ sub learn
   my $formatArg = '';
   # currently only mbox supported
   if ($params{format} eq 'mbox') {
-    $formatArg = '--mbox'; 
+    $formatArg = '--mbox';
   }
   elsif  (exists $params{format}) {
-    throw EBox::Exceptions::External(__x('Unsupported or incorrect input source fonrmat: {format}', format => $params{format}))    
+    throw EBox::Exceptions::External(__x('Unsupported or incorrect input source fonrmat: {format}', format => $params{format}))
   }
 
 
@@ -568,7 +568,7 @@ sub trustedNetworks
       my $networkAddress = EBox::NetWrappers::ip_network($address, $netmask);
 
       my $cidrNetwork = EBox::NetWrappers::to_network_with_mask($networkAddress, $netmask);
-      
+
     } @ifacesAddresses;
 
 
@@ -605,7 +605,7 @@ sub aclChanged
         if ($mod->can($notifyMethod)) {
             $mod->$notifyMethod();
         }
-    } 
+    }
 }
 
 1;

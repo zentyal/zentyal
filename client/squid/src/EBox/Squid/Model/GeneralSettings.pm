@@ -34,10 +34,10 @@ use EBox::Types::Port;
 use EBox::Squid::Types::Policy;
 use EBox::Sudo;
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -51,14 +51,14 @@ sub new
 
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
             new EBox::Types::Boolean(
                     fieldName => 'transparentProxy',
                     printableName => __('Transparent Proxy'),
                     editable => 1,
                     defaultValue   => 0,
-                    help => _transparentHelp() 
+                    help => _transparentHelp()
                 ),
             new EBox::Types::Port(
                     fieldName => 'port',
@@ -78,7 +78,7 @@ sub _table
                fieldName => 'globalPolicy',
                printableName => __('Default policy'),
                defaultValue => 'deny',
-               help => _policyHelp(), 
+               help => _policyHelp(),
                ),
         );
 
@@ -106,7 +106,7 @@ sub validateTypedRow
     $self->_checkPortAvailable($params_r->{port}->value());
   }
 
-  if (exists $params_r->{transparentProxy} or 
+  if (exists $params_r->{transparentProxy} or
       exists $params_r->{globalPolicy}) {
 
     $self->_checkPolicyWithTransProxy($params_r, $actual_r);
@@ -191,8 +191,8 @@ sub _checkNoAuthPolicy
 
 sub _policyHelp
 {
-    return __('<i>Filter</i> means that HTTP requests will go through the ' . 
-              'content filter and they might be rejected if the content is ' .   
+    return __('<i>Filter</i> means that HTTP requests will go through the ' .
+              'content filter and they might be rejected if the content is ' .
               'not considered valid.');
 }
 
@@ -201,7 +201,7 @@ sub _transparentHelp
     return  __('Note that you cannot proxy HTTPS ' .
                'transparently. You will need to add ' .
                'a firewall rule if you enable this mode.');
-               
+
  }
 
 1;

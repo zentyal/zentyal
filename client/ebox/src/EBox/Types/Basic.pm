@@ -29,7 +29,7 @@ sub new
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
-    
+
     return $self;
 }
 
@@ -62,10 +62,10 @@ sub compareToHash
 sub isEqualTo
 {
     my ($self, $newObject) = @_;
-    
+
     my $oldValue = $self->{'value'};
     my $newValue = $newObject->memValue();
-    
+
     # A great dilemma
     if ( not defined ( $oldValue ) and
          not defined ( $newValue )) {
@@ -133,7 +133,7 @@ sub _setValue # (value)
     my $params = {
                   $self->fieldName() => $value,
                  };
-    
+
     $self->setMemValue($params);
 
 }

@@ -45,18 +45,18 @@ sub _process
     my $id = $self->param('printerid');
     my $ip = $self->param('ip');
     my $port = $self->param('port');
-	
+
     my $printers = EBox::Global->modInstance('printers');
-	
+
     $printers->setLPDPrinter($id, $ip, $port);
     $self->keepParam('printerid');
-    if ($self->param('lpdconfui')) {	
+    if ($self->param('lpdconfui')) {
         $self->{chain} = "Printers/ManufacturerUI";
     } elsif ($self->param('manageprinterui')) {
         $self->{chain} = "Printers/ManagePrinterUI";
         $self->keepParam('selected');
     }
-	
+
 }
 
 1;

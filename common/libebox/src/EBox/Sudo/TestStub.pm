@@ -1,6 +1,6 @@
 package EBox::Sudo::TestStub;
 # Description:
-# 
+#
 use strict;
 use warnings;
 

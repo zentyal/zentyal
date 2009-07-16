@@ -35,7 +35,7 @@ use constant SCHEMAS            => ('/etc/ldap/schema/amavis.schema', '/etc/ldap
 
 
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self  = {};
@@ -48,26 +48,26 @@ sub _moduleConfigured
 {
     my ($self) = @_;
     my $mf =  EBox::Global->modInstance('mailfilter');
-    
+
     return $mf->configured();
 }
 
 sub _vdomainAttr
 {
     my ($self, $vdomain, $attr) = @_;
-    
+
     my %args = (
                 base => $self->vdomainTreeDn($vdomain),
                 filter => 'domainComponent=' . $vdomain,
                 scope => 'one',
                 attrs => ["$attr"],
                );
-    
+
     my $result = $self->{ldap}->search(\%args);
-  
+
     my $entry = $result->entry(0);
     defined $entry or return undef;
-    
+
     my @values = $entry->get_value($attr);
     if (wantarray) {
         return @values;
@@ -81,7 +81,7 @@ sub _vdomainAttr
 sub _vdomainBoolAttr
 {
     my $value = _vdomainAttr(@_);
-    
+
     if (defined $value) {
         if ($value eq 'TRUE') {
             return 1;
@@ -92,8 +92,8 @@ sub _vdomainBoolAttr
         else {
             throw EBox::Exceptions::Internal ("A bool attr must return either FALSE or TRUE (waas $value)");
         }
-        
-        
+
+
     }
     else {
         return undef;
@@ -115,7 +115,7 @@ sub _setVDomainAttr
     else {
         $self->_deleteVDomainAttr($vdomain, $attr);
     }
-    
+
     $self->_updateVDomain($vdomain);
 }
 
@@ -123,11 +123,11 @@ sub _setVDomainAttr
 sub _setVDomainBoolAttr
 {
     my ($self, $vdomain, $attr, $value) = @_;
-  
+
     if (defined $value) {
         $value = $value ? 'TRUE' : 'FALSE';
     }
-    
+
     $self->_setVDomainAttr($vdomain, $attr, $value);
 }
 
@@ -135,11 +135,11 @@ sub _setVDomainBoolAttr
 sub _addVDomainAttr
 {
     my ($self, $vdomain, $attr, @values) = @_;
-    
+
     my $dn =  $self->vdomainDn($vdomain);
     my $ldap = $self->{'ldap'};
-    
-    
+
+
     my @addList;
     if (@values == 1) {
         @addList = ($attr => $values[0]);
@@ -147,7 +147,7 @@ sub _addVDomainAttr
     else {
         @addList = ($attr => \@values)
     }
-    
+
     $ldap->modify(
                   $dn,
                   {
@@ -156,7 +156,7 @@ sub _addVDomainAttr
                           ],
                   }
                  );
-    
+
     $self->_updateVDomain($vdomain);
 }
 
@@ -164,10 +164,10 @@ sub _addVDomainAttr
 sub _deleteVDomainAttr
 {
     my ($self, $vdomain, $attr, @values) = @_;
-    
+
     my $dn =  $self->vdomainDn($vdomain);
     my $ldap = $self->{'ldap'};
-    
+
     my @deleteParams;
     if (@values == 0) {
         @deleteParams = ($attr);
@@ -187,7 +187,7 @@ sub _deleteVDomainAttr
                              ],
                   }
                  );
-    
+
     $self->_updateVDomain($vdomain);
 }
 
@@ -235,7 +235,7 @@ sub _setSenderList
     if ($self->_vdomainAttr($vdomain, $listName)) {
         $self->_deleteVDomainAttr($vdomain, $listName);
     }
-    
+
     # set new list
     if (@senderList) {
         $self->_addVDomainAttr($vdomain, $listName, @senderList);
@@ -266,9 +266,9 @@ sub setSpamThreshold
     my ($self, $vdomain, $threshold) = @_;
 
     my $dn =  $self->vdomainDn($vdomain);
-    
+
     $self->_updateVDomain($vdomain);
-    
+
     my $ldap = $self->{'ldap'};
     if (defined $threshold) {
         $ldap->modifyAttribute($dn,  'amavisSpamTag2Level' => $threshold);
@@ -331,7 +331,7 @@ sub antivirus
 sub setAntivirus
 {
     my ($self, $vdomain, $value) = @_;
-  
+
     $value = $value ? 0 : 1;  # the ldap attribute has reverse logic..
 
     $self->_setVDomainBoolAttr($vdomain, 'amavisBypassVirusChecks', $value);
@@ -341,23 +341,23 @@ sub setAntivirus
 sub _addVDomain
 {
     my ($self, $vdomain) = @_;
-    
+
     return unless ($self->_moduleConfigured());
-    
+
     my $ldap = $self->{ldap};
     my $dn =  $self->vdomainDn($vdomain);
-    
+
     if (not $ldap->isObjectClass($dn, 'vdmailfilter')) {
-        my %attrs = ( 
-                     changes => [ 
+        my %attrs = (
+                     changes => [
                                  add => [
-                                         objectClass       => 'vdmailfilter',    
+                                         objectClass       => 'vdmailfilter',
                                          domainMailPortion => "\@$vdomain",
                                         ],
                                 ],
                     );
-        
-        my $add = $ldap->modify($dn, \%attrs ); 
+
+        my $add = $ldap->modify($dn, \%attrs );
     }
 
     $self->_vdomainsListChanged();
@@ -408,14 +408,14 @@ sub _hasAccount
         # control account not defined in any domain
         return 0;
     }
-    
+
     my ($lh, $accountVdomain) = split '@', $account;
-        
+
     if ($vdomain eq $accountVdomain) {
         # this domain has the control account itseldf
         return 1;
     }
-        
+
     my $alias = $user . '@' . $vdomain;
     if ($mailAliasLdap->aliasExists($alias)) {
         return 1;
@@ -469,22 +469,22 @@ sub _addAccount
     my $mailAliasLdap = new EBox::MailAliasLdap;
 
     my $account = $mailUserLdap->userAccount($user);
-    
+
     if (defined $account) {
         my ($lh, $accountVdomain) = split '@', $account;
-        
+
         if ($vdomain eq $accountVdomain) {
             # this domain has the account so we haven't nothing to do
             return;
         }
-        
+
         my $alias = $user . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
             $mailAliasLdap->addAlias($alias, $account, $user);
             }
     }
     else {
-        $mailUserLdap->setUserAccount($user, $user, $vdomain);      
+        $mailUserLdap->setUserAccount($user, $user, $vdomain);
     }
 }
 
@@ -501,7 +501,7 @@ sub _removeAccount
         return;
 
     my @vdomains = grep {
-        ($_ ne $vdomain) and $self->_hasAccount($_, $user) 
+        ($_ ne $vdomain) and $self->_hasAccount($_, $user)
     } $self->vdomains();
 
 
@@ -511,15 +511,15 @@ sub _removeAccount
     foreach my $vd (@vdomains) {
         $self->_addAccount($vd, $user);
     }
-    
+
 }
 
 sub _delVDomain
 {
     my ($self, $vdomain) = @_;
-    
+
     return unless ($self->_moduleConfigured());
-    
+
 
     # remove ham and spam accounts
     $self->setSpamAccount($vdomain, 0);
@@ -533,7 +533,7 @@ sub _delVDomain
     if ( $ldap->isObjectClass($dn, 'vdmailfilter')) {
         $ldap->delObjectclass($dn, 'vdmailfilter');
     }
-    
+
     $self->_vdomainsListChanged();
 }
 
@@ -558,12 +558,12 @@ sub _vdomainsListChanged
 }
 
 
-sub _includeLDAPSchemas 
+sub _includeLDAPSchemas
 {
     my ($self) = @_;
 
     return [] unless ($self->_moduleConfigured());
-    
+
     my @schemas = SCHEMAS;
     return \@schemas;
 }
@@ -601,7 +601,7 @@ sub checkVDomainExists
     my ($self, $vdomain) = @_;
     my $mailvdomains = EBox::MailVDomainsLdap->new();
     if (not $mailvdomains->vdomainExists($vdomain)) {
-        throw EBox::Exceptions::External(__x(q{Virtual mail domain {vd} does not exist}, 
+        throw EBox::Exceptions::External(__x(q{Virtual mail domain {vd} does not exist},
                                              vd => $vdomain));
     }
 }
@@ -613,36 +613,36 @@ sub checkVDomainExists
 sub resetVDomain
 {
     my ($self, $vdomain) = @_;
-    
+
     my $ldap = $self->{ldap};
     my $dn =  $self->vdomainDn($vdomain);
 
-    $ldap->isObjectClass($dn, 'vdmailfilter') or 
+    $ldap->isObjectClass($dn, 'vdmailfilter') or
         throw EBox::Exceptions::Internal("Bad objectclass");
-    
-    # reset booleans to false 
+
+    # reset booleans to false
     my @boolMethods = qw(setAntivirus setAntispam);
     foreach my $method (@boolMethods) {
-        $self->$method($vdomain, 1); 
+        $self->$method($vdomain, 1);
     }
-    
+
     # clear non-boolean atributtes
-    my @delAttrs = ( 
+    my @delAttrs = (
                     'amavisVirusLover', 'amavisBannedFilesLover', 'amavisSpamLover',
                     'amavisSpamTagLevel', 'amavisSpamTag2Level',
                   'amavisSpamKillLevel', 'amavisSpamModifiesSubj',
                     'amavisSpamQuarantineTo',
                  );
     # use only setted attributes
-  @delAttrs = grep { 
+  @delAttrs = grep {
       my $value = $self->_vdomainAttr($vdomain, $_) ;
       defined $value;
   } @delAttrs;
-  my %delAttrs = ( 
-                  delete => \@delAttrs, 
+  my %delAttrs = (
+                  delete => \@delAttrs,
                  );
-        
-    $ldap->modify($dn, \%delAttrs ); 
+
+    $ldap->modify($dn, \%delAttrs );
 
     # remove ham/spam ocntrol accounts
     $self->setSpamAccount($vdomain, 0);
@@ -668,11 +668,11 @@ sub regenConfig
         my $hamAccount  = $vdRow->elementByName('hamAccount')->value();
         my $spamAccount = $vdRow->elementByName('spamAccount')->value();
 
-        $self->setAntivirus($vdomain, $antivirus);        
+        $self->setAntivirus($vdomain, $antivirus);
         $self->setAntispam($vdomain, $antispam);
         $self->setSpamThreshold($vdomain, $threshold);
 
-        
+
         $self->setHamAccount($vdomain, $hamAccount);
         $self->setSpamAccount($vdomain, $spamAccount);
 

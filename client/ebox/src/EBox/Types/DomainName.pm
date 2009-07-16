@@ -113,7 +113,7 @@ sub _paramIsValid
         my $seemsIp = EBox::Validate::checkIP($value);
         if ($seemsIp) {
             throw EBox::Exceptions::InvalidData
-                ('data' => $self->printableName(), 
+                ('data' => $self->printableName(),
                  'value' => $value,
                  'advice' => __('IP addresses are not allowed'),
                 );

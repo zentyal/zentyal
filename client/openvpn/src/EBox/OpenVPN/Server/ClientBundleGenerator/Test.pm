@@ -126,19 +126,19 @@ sub serversAddrStraighTest : Test(8)
     my $pageContentEth0 = <<END;
 83.52.31.220 (ES-Spain) http://www.ippages.com Tue, 18 Sep 2007 09:53:17 UTC/GMT
 (1 of 199 allowed today)
-alternate access in XML format at: http://www.ippages.com/xml 
-alternate access via SOAP at: http://www.ippages.com/soap/server.php 
-alternate access via RSS feed at: http://www.ippages.com/rss.php 
-alternate access in VoiceXML format at: http://www.ippages.com/voicexml 
+alternate access in XML format at: http://www.ippages.com/xml
+alternate access via SOAP at: http://www.ippages.com/soap/server.php
+alternate access via RSS feed at: http://www.ippages.com/rss.php
+alternate access in VoiceXML format at: http://www.ippages.com/voicexml
 END
 
     my $pageContentEth2 = <<END;
 83.92.31.224 (ES-Spain) http://www.ippages.com Tue, 18 Sep 2007 09:53:17 UTC/GMT
 (1 of 199 allowed today)
-alternate access in XML format at: http://www.ippages.com/xml 
-alternate access via SOAP at: http://www.ippages.com/soap/server.php 
-alternate access via RSS feed at: http://www.ippages.com/rss.php 
-alternate access in VoiceXML format at: http://www.ippages.com/voicexml 
+alternate access in XML format at: http://www.ippages.com/xml
+alternate access via SOAP at: http://www.ippages.com/soap/server.php
+alternate access via RSS feed at: http://www.ippages.com/rss.php
+alternate access in VoiceXML format at: http://www.ippages.com/voicexml
 END
 
     my $pageContentEth13 = "eth13 does not porive any external address";

@@ -12,7 +12,7 @@ sub new
 
     my $self = $class->SUPER::new(@_);
     $self->{type} = 'port';
-    
+
     bless($self, $class);
     return $self;
 }
@@ -52,15 +52,15 @@ sub size
 sub _paramIsValid
 {
     my ($self, $params) = @_;
-    
+
     my $value = $params->{$self->fieldName()};
-    
+
     if (defined ( $value )) {
         EBox::Validate::checkPort($value, $self->printableName());
       }
-    
+
     return 1;
-    
+
 }
 
 

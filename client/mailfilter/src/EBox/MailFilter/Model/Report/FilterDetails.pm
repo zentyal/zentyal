@@ -24,7 +24,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Int;
 
-sub new 
+sub new
 {
     my $class = shift @_;
 
@@ -75,8 +75,8 @@ sub _table
                                            'size' => '12',
                                            editable => 0,
                               ),
-                     new EBox::Types::Int(  
-                                          fieldName => 'clean', 
+                     new EBox::Types::Int(
+                                          fieldName => 'clean',
                                           printableName =>  __('clean messages'),
                                           editable => 0,
                                          ),
@@ -95,7 +95,7 @@ sub _table
                                           printableName =>  __('banned files'),
                                           editable => 0,
                                          ),
- 
+
                      new EBox::Types::Int(
                                           fieldName => 'blacklisted',
                                           printableName =>  __('blacklisted senders'),
@@ -110,9 +110,9 @@ sub _table
                     ];
 
 
-     
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Filter traffic details'),
             'defaultController' => '/ebox/Mail/Controller/FilterTraffic',

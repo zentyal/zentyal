@@ -68,7 +68,7 @@ sub populateSelect
 sub _standardTablehead
 {
     my ($package) = @_;
-    my $populateSelect = sub { 
+    my $populateSelect = sub {
         return $package->populateSelect()
     };
 
@@ -92,11 +92,11 @@ sub _standardTablehead
 sub _table
 {
     my ($package) = @_;
-    
+
     my $tableHead = $package->_standardTablehead();
-     
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName' => $package->tableName(),
             'printableTableName' => __('Report options'),
             'defaultActions' => [ 'changeView', 'editField' ],
@@ -128,7 +128,7 @@ sub setTypedRow
 
     my $global  = EBox::Global->getInstance();
     my $modName = $self->{gconfmodule}->name();
-    
+
     my $alreadyChanged = $global->modIsChanged($modName);
 
     try {

@@ -43,13 +43,13 @@ sub new # (error=?, msg=?, cgi=?)
 sub _getTime
 {
     my ($self, $module, $tmpl) = @_;
-    
+
     foreach my $mod (@{$tmpl}) {
         if ($mod->{'name'} eq $module) {
             return $mod->{'timecol'};
         }
     }
-    
+
     return undef;
 }
 
@@ -59,26 +59,26 @@ sub _actualPage
     my ($self, $tpages) = @_;
 
     my $page = $self->param('page');
-    
+
     unless (defined($self->param('page'))) {
         $page = 0;
     }
 
-    if (defined($self->param('tofirst'))) { 
-        $page = 0; 
+    if (defined($self->param('tofirst'))) {
+        $page = 0;
     }
-    if (defined($self->param('toprev'))) { 
-        if ($page > 0) { 
-            $page = $page -1; 
-        } 
-    }
-    if (defined($self->param('tonext'))) { 
-        if ($page < $tpages) {
-            $page = $page + 1; 
+    if (defined($self->param('toprev'))) {
+        if ($page > 0) {
+            $page = $page -1;
         }
     }
-    if (defined($self->param('tolast'))) { 
-        $page = $tpages; 
+    if (defined($self->param('tonext'))) {
+        if ($page < $tpages) {
+            $page = $page + 1;
+        }
+    }
+    if (defined($self->param('tolast'))) {
+        $page = $tpages;
     }
 
     return $page;
@@ -88,7 +88,7 @@ sub _actualPage
 sub addToMasonParameters
 {
     my ($self, @masonParams) = @_;
-    
+
 
     defined $self->{params} or $self->{params} = [];
     my $oldParams_r= $self->{params};
@@ -97,8 +97,8 @@ sub addToMasonParameters
     }
 
 
-    
-    
+
+
     $self->{params}  = \@masonParams;
 }
 
@@ -115,16 +115,16 @@ sub _fromDate
 sub _toDate
 {
     my ($self) = @_;
-    
+
     my $toDate;
     my $refresh = $self->refresh();
 
     if ($refresh) {
         # 86400 second -> one day
-        $toDate = $self->_getDateArray('to', 86400, 0);        
+        $toDate = $self->_getDateArray('to', 86400, 0);
     }
     else {
-        $toDate = $self->_getDateArray('to');        
+        $toDate = $self->_getDateArray('to');
     }
 
 
@@ -147,7 +147,7 @@ sub _getDateArray
     $time{$prefix . 'day'}   = $localtime[3];
     $time{$prefix . 'month'} = $localtime[4] + 1;
     $time{$prefix . 'year'}  = $localtime[5]  + 1900;
-    
+
 
     if ($useParamsValue) {
         foreach my $key (keys %time) {
@@ -178,19 +178,19 @@ sub _searchLogs
 
     my $tpages = ceil($logs->totalRecords($table) / PAGESIZE) - 1;
     my $page = $self->_actualPage($tpages);
-    
+
     my @fromdate = @{ $self->_fromDate() };
     my @todate   = @{ $self->_toDate() };
 
     $hfilters = $self->_paramFilters();
     %hret = %{$logs->search($fromdate[2].'-'.$fromdate[1].'-'.$fromdate[0].' '.$fromdate[3].':'.$fromdate[4].':0',
                             $todate[2].'-'.$todate[1].'-'.$todate[0].' '.$todate[3].':'.$todate[4].':0',
-                            $selected, 
+                            $selected,
                             PAGESIZE,
                             $page,
                             $timecol,
                             $hfilters)};
-    
+
     $tpages = ceil ($hret{'totalret'} / PAGESIZE) -1;
     $page = $self->_actualPage($tpages);
 
@@ -203,7 +203,7 @@ sub _searchLogs
     push(@masonParameters, 'data' => $hret{'arrayret'});
     push(@masonParameters, 'fromdate' => \@fromdate);
     push(@masonParameters, 'todate' => \@todate);
-        
+
     $self->addToMasonParameters(@masonParameters);
 
 }
@@ -211,9 +211,9 @@ sub _searchLogs
 sub _encode_filters {
         my ($par) = @_;
 
-        my %encoded = map { $par->{$_} =~ s/'/&#39;/g; $_ => $par->{$_}  } 
+        my %encoded = map { $par->{$_} =~ s/'/&#39;/g; $_ => $par->{$_}  }
                         keys %{$par};
-        
+
         return \%encoded;
 }
 

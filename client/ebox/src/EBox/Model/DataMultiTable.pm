@@ -115,7 +115,7 @@ sub multiTable
 # Returns:
 #
 # 	table description. See example on
-# 	<EBox::TrafficShaping::Model::RuleDataMultiTable::_multiTable>. 
+# 	<EBox::TrafficShaping::Model::RuleDataMultiTable::_multiTable>.
 #
 sub _multiTable
 {

@@ -20,8 +20,8 @@
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#  
-# 
+#
+#
 
 package EBox::Mail::Model::ExternalFilter;
 use base 'EBox::Model::DataForm';
@@ -44,10 +44,10 @@ use EBox::Types::HostIP;
 
 # XXX TODO: disable custom filter controls when custom filter is not selected
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -60,12 +60,12 @@ sub new
 # Method: headTitle
 #
 # Overrides:
-#   
+#
 #   <EBox::Model::Component::headTitle>
 #
 sub headTitle
 {
-    return undef; 
+    return undef;
 }
 
 # Method:  _table
@@ -75,15 +75,15 @@ sub headTitle
 #
 # This table is composed of two fields:
 #
-#   domain (<EBox::Types::Text>)    
+#   domain (<EBox::Types::Text>)
 #   enabled (EBox::Types::Boolean>)
-# 
+#
 # The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Select(
                                  fieldName => 'externalFilter',
                                  printableName => __('Filter in use'),
@@ -94,7 +94,7 @@ sub _table
                                 ),
          new EBox::Types::Port(
                                fieldName => 'fwport',
-                               printableName => __("Custom filter's mail forward port"), 
+                               printableName => __("Custom filter's mail forward port"),
                                editable => 1,
                                defaultValue => 10025,
                               ),
@@ -102,7 +102,7 @@ sub _table
                                  fieldName => 'ipfilter',
                                  printableName =>  __("Custom filter's IP address"),
                                  editable => 1,
-                                 defaultValue => '127.0.0.1',  
+                                 defaultValue => '127.0.0.1',
                                 ),
          new EBox::Types::Port(
                                fieldName => 'portfilter',
@@ -160,7 +160,7 @@ sub _availableFilters
     my @options = (
                        { value => 'none' , printableValue => __('none') },
                        { value => 'custom'   , printableValue => __('custom')},
-                  ); 
+                  );
 
     my $mail = EBox::Global->modInstance('mail');
     my %availableFilters = %{ $mail->externalFiltersFromModules() };
@@ -173,9 +173,9 @@ sub _availableFilters
         if (not $properties->{active}) {
             $option->{disabled} = 'disabled';
         }
-        
+
         push @options, $option;
-        
+
     };
 
     return \@options;

@@ -37,13 +37,13 @@ sub _confDir
 # we dont want to test certificate validation here
 sub EBox::OpenVPN::Client::ValidateCertificate::check
 {
-    return 1 
+    return 1
 }
 
 
 
 
-sub mockNetworkModule 
+sub mockNetworkModule
 {
   my ($self, $ifaces_r) = @_;
   my @ifaces = defined $ifaces_r ? @{ $ifaces_r } : ('eth1', 'eth2') ;
@@ -68,7 +68,7 @@ sub ignoreChownRootCommand : Test(startup)
     my ($cmd) = @_;
     my ($cmdWithoutParams) = split '\s+', $cmd;
     if (($cmdWithoutParams eq 'chown') or ($cmdWithoutParams eq '/bin/chown')) {
-      return [];  
+      return [];
     }
 
     return $root_r->($cmd);
@@ -136,7 +136,7 @@ sub _newClient
                    );
 
     while (my ($attr, $value) = each %defaults) {
-        exists $conf{$attr} and 
+        exists $conf{$attr} and
             next;
         $conf{$attr} = $value;
     }
@@ -148,7 +148,7 @@ sub _newClient
     my $openvpnMod = $self->{openvpnModInstance};
     my $clients =  $openvpnMod->model('Clients');
 
-    my @ifaceParams; 
+    my @ifaceParams;
     if (defined $ifaceNumber) {
         @ifaceParams = (
                         interfaceNumber => $ifaceNumber,
@@ -183,7 +183,7 @@ sub _newClient
     $clientConfRow->store();
 
 
-    
+
     if ($service) {
         $clientRow->elementByName('service')->setValue(1);
         $clientRow->store();
@@ -231,15 +231,15 @@ sub writeConfFileTest : Test(2)
         system ("mkdir -p $testSubdir");
         ($? == 0) or die "Error creating  temp test subdir $testSubdir: $!";
     }
-    
-    
+
+
     system "cp ../../../../stubs/openvpn-client.conf.mas $stubDir/openvpn";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
     EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir, tmp => '/tmp/');
 
-  
+
     my $client = $self->_newClient(
-                                   name => 'client1' , 
+                                   name => 'client1' ,
                                    service => 1,
                                    ifaceNumber => 0,
                                   );

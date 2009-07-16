@@ -16,7 +16,7 @@
 
 package EBox::Firewall::Model::Report::PacketTrafficGraph;
 use base 'EBox::Logs::Model::Report::Graph';
-# 
+#
 use strict;
 use warnings;
 
@@ -31,10 +31,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -92,7 +92,7 @@ sub _table
                                      'editField',
                                      'changeView',
                                     ],
-                   
+
                    messages => {
                                 'add'       => undef,
                                 'del'       => undef,

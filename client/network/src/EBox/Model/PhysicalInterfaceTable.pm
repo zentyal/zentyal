@@ -39,7 +39,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -52,8 +52,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
         	 new EBox::Types::Text(
                      'fieldName' => 'name',
@@ -68,8 +68,8 @@ sub _table
 
     my $defaultController = '/ebox/Network/Controller/PhysicalInterfaceTable';
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'PhysicalInterfaceTable',
         'printableTableName' => __('Physical interface list'),
         'automaticRemove' => 1,
@@ -86,11 +86,11 @@ sub _table
     return $dataTable;
 }
 
-# Method: rows 
+# Method: rows
 #
 #       Override <EBox::Model::DataTable>
 #
-#   It is overriden because this table is kind of different in 
+#   It is overriden because this table is kind of different in
 #   comparation to the normal use of generic data tables.
 #
 #   - The user does not add rows. When we detect the table is
@@ -99,20 +99,20 @@ sub _table
 #   - We check if we have to add/remove interfaces. That happens
 #     when an interface is physically removed
 #
-#   
+#
 sub rows()
 {
     my $self = shift;
 
     my $network = EBox::Global->modInstance('network');
 
-    # Fetch the current interfaces stored in gconf 
+    # Fetch the current interfaces stored in gconf
     my $currentRows = $self->SUPER::rows();
     my %storedInterfaces = map {
                                     $_->{'plainValueHash'}->{'name'} => 1
                                } @{$currentRows};
 
-    # Fetch the current interfaces 
+    # Fetch the current interfaces
     my %currentInterfaces = map { $_ => 1  } @{$network->_ifaces};
 
     # Add new interface to gconf

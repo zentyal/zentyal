@@ -30,7 +30,7 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Mail',
                                       @_);
-	$self->{domain} = "ebox-mail";	
+	$self->{domain} = "ebox-mail";
 	$self->{redirect} = "/Mail/QueueManager";
 	bless($self, $class);
 	return $self;

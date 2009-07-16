@@ -671,7 +671,7 @@ sub getKeys
 #       stateName - state or province name (eg, Zaragoza) (Optional)
 #       localityName - locality name (eg, Zaragoza) (Optional)
 #
-#       orgName - organization name (eg, company) (Optional) 
+#       orgName - organization name (eg, company) (Optional)
 #
 #       orgNameUnit - organizational unit name (eg, section)
 #                     (Optional)
@@ -742,7 +742,7 @@ sub renewCertificate
       $dnFieldHasChanged = "1";
       $userDN->attribute('countryName', $args{countryName});
     }
-    if (defined($args{stateName}) 
+    if (defined($args{stateName})
 	and $args{stateName} ne $userDN->attribute('stateName')) {
       $dnFieldHasChanged = "1" ;
       $userDN->attribute('stateName', $args{stateName});

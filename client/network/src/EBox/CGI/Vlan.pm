@@ -48,12 +48,12 @@ sub _process
 
 	$self->keepParam('iface');
 	$self->cgi()->param(-name=>'iface', -value=>$iface);
-        
+
         if ($self->param('cancel')) {
             return;
         }
 
-	
+
 	if (defined($self->param('del'))) {
             try {
                 my $force = $self->param('force');
@@ -71,7 +71,7 @@ sub _process
 		$net->createVlan($vlanId,
 				 $self->param('vlandesc'),
 				 $iface);
-	} 
+	}
 }
 
 1;

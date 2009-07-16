@@ -226,9 +226,9 @@ sub RedirectsRuleTable
     return \@rules;
 }
 
-sub _addOrigAddressToRule                                                                          
-{                                                                                                  
-    my ($self, $rule, $row) = @_;                                                                  
+sub _addOrigAddressToRule
+{
+    my ($self, $rule, $row) = @_;
 
     my %params;
     my $addr = $row->elementByName('origDest');

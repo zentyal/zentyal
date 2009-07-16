@@ -41,10 +41,10 @@ sub _process($) {
 
 	my $printers = EBox::Global->modInstance('printers');
 	my $id = $self->param('printerid');
-	
+
 	$self->keepParam('printerid');
         $self->cgi()->param(-name=>'printerid', -value=>$id);
-	if (defined($self->param('delete'))) {	
+	if (defined($self->param('delete'))) {
 		$self->{chain} = "Printers/DeleteUI";
 	} elsif (defined($self->param('delforce'))){
 		$printers->removePrinter($id);
@@ -52,7 +52,7 @@ sub _process($) {
 		$self->{chain} = "Printers/ShowPrintersUI";
 	} elsif (defined($self->param('edit'))) {
 		$self->{chain} = "Printers/ManagePrinterUI";
-	} elsif (defined($self->param('cancel'))) {	
+	} elsif (defined($self->param('cancel'))) {
 		$self->{chain} = "Printers/ShowPrintersUI";
 	}
 }

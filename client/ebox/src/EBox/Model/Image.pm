@@ -16,7 +16,7 @@
 # Class: EBox::Model::Image
 #
 #       An specialized model from <EBox::Model::DataForm> which
-#       includes a image or a graphic. 
+#       includes a image or a graphic.
 
 package EBox::Model::Image;
 
@@ -31,15 +31,15 @@ sub new
 {
 
   my ($class, @params) =  @_;
-  
-  my $self = $class->SUPER::new(@params);
-  
-  bless ( $self, $class );
-  
 
-  
+  my $self = $class->SUPER::new(@params);
+
+  bless ( $self, $class );
+
+
+
   return $self;
-  
+
 }
 
 
@@ -52,9 +52,9 @@ sub Viewer
 
 # returns a hash with the following:
 #      uri - image uri
-#      alt - alt text for image 
+#      alt - alt text for image
 #        - or -
-#      error - error message to print instead of image  
+#      error - error message to print instead of image
 sub image
 {
   my ($self) = @_;
@@ -62,9 +62,9 @@ sub image
   my $imageFile_r = EBox::CGI::Temp::newImage();
 
   my $generatedImage_r =   $self->_generateImage($imageFile_r->{file});
-  
+
   # add default alt if needed
-  exists $generatedImage_r->{alt} or 
+  exists $generatedImage_r->{alt} or
     $generatedImage_r->{alt} = '';
   exists $generatedImage_r->{error} or
     $generatedImage_r->{error} = 'No image available';
@@ -91,7 +91,7 @@ sub image
 #      image - wether the image was created or not
 #      alt - alt text for image (optional)
 #      error - error message to print instead of image  (optional)
-#     
+#
 sub _generateImage
 {
   throw EBox::Exceptions::NotImplemented();
@@ -133,7 +133,7 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
 
-    
+
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -149,7 +149,7 @@ sub checkTable
     }
 
 
-    
+
 }
 
 # Method: refreshImage

@@ -134,7 +134,7 @@ sub fakeNetworkModule
 
         ],
     );
-    
+
 }
 
 sub fakeFirewall
@@ -295,7 +295,7 @@ sub _checkDeleteDaemon
     my $daemon = $openVPN->$type($name);
     my $expectedDeletedData = _expectedDeletedDaemonData($daemon);
 
-    
+
 
     lives_ok {
         $openVPN->$deleteMethod($name);
@@ -342,7 +342,7 @@ sub _checkDeletedDaemonData
         $_->{name} eq $daemonName;
     } @{  $deletedDaemons->daemons() };
 
-    is_deeply $deletedData, $expectedDeleted, 
+    is_deeply $deletedData, $expectedDeleted,
         'checking wether deleted data is correct';
 
 

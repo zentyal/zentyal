@@ -25,7 +25,7 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
@@ -41,14 +41,14 @@ sub _trans_prerouting
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my @rules = ();
-    
+
     my @ifaces = @{$net->InternalIfaces()};
     my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $addr = $net->ifaceAddress($ifc);
         (defined($addr) && $addr ne "") or next;
-        
-        my $r = "-i $ifc -d ! $addr -p tcp " . 
+
+        my $r = "-i $ifc -d ! $addr -p tcp " .
             "--dport 80 -j REDIRECT --to-ports $sqport";
         push(@rules, $r);
     }
@@ -74,7 +74,7 @@ sub input
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my @rules = ();
-    
+
     my @ifaces = @{$net->InternalIfaces()};
     my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {

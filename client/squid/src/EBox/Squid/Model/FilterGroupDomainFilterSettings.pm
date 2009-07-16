@@ -34,7 +34,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -47,7 +47,7 @@ sub new
 sub _table
 {
     my ($self) = @_;
- 
+
 
     my $dataForm = {
         tableName          => 'FilterGroupDomainFilterSettings',

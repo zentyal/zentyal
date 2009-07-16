@@ -34,7 +34,7 @@ use EBox::Gettext;
 
 ## arguments:
 ## 	title [required]
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( 'template' => '/configurationFiles.mas',

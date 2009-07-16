@@ -16,7 +16,7 @@ sub new
      return $self;
 }
 
-# we do nothing, 
+# we do nothing,
 # we can not even valdiate params because this a page not found error (any parameter can be in)
 sub _process
 {}

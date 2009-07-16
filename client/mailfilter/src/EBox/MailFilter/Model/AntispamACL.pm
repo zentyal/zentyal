@@ -42,7 +42,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -51,7 +51,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -77,7 +77,7 @@ sub _table
      printableTableName => __(q{Sender policy}),
      modelDomain        => 'MailFilter',
      'defaultController' => '/ebox/MailFilter/Controller/AntispamACL',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -103,13 +103,13 @@ sub _populatePolicy
 }
 
 
-sub addedRowNotify 
+sub addedRowNotify
 {
     my ($self) = @_;
     $self->_aclChanged();
 }
 
-sub deletedRowNotify 
+sub deletedRowNotify
 {
     my ($self) = @_;
     $self->_aclChanged();
@@ -134,7 +134,7 @@ sub _aclChanged
 #
 # Returns:
 #   - reference to a list of whitelisted extensions
-# 
+#
 sub whitelist
 {
     my ($self) = @_;
@@ -147,7 +147,7 @@ sub whitelist
 #
 # Returns:
 #   - reference to a list of blacklisted extensions
-# 
+#
 sub blacklist
 {
     my ($self) = @_;

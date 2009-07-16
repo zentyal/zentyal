@@ -48,7 +48,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -57,7 +57,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -82,7 +82,7 @@ sub _table
      printableTableName => __(q{File extensions}),
      modelDomain        => 'mail',
      'defaultController' => '/ebox/MailFilter/Controller/FileExtensionACL',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -104,7 +104,7 @@ sub _table
 #
 # Returns:
 #   - reference to a list of banned extensions
-# 
+#
 sub banned
 {
     my ($self) = @_;
@@ -114,7 +114,7 @@ sub banned
         unless ($row->valueByName('allow')) {
             push (@banned, $row->valueByName('extension'));
         }
-    } 
+    }
     return \@banned;
 }
 

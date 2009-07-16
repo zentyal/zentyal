@@ -1,4 +1,4 @@
-# Copyright  
+# Copyright
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
-sub new 
+sub new
 {
         my $class = shift;
         my %parms = @_;
@@ -48,8 +48,8 @@ sub pageTitle
 sub _table
 {
 
-    my @tableHead = 
-    ( 
+    my @tableHead =
+    (
         new EBox::Types::Port(
             'fieldName' => 'port',
             'printableName' => __('Port'),
@@ -57,8 +57,8 @@ sub _table
             'defaultValue' => 8889
         ),
     );
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName' => 'Settings',
         'printableTableName' => __('General settings'),
         'modelDomain' => 'CaptivePortal',

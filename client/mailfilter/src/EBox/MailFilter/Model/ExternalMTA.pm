@@ -48,7 +48,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -57,7 +57,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -82,7 +82,7 @@ sub _table
      printableTableName => __(q{External mail servers}),
      modelDomain        => 'Mail',
      'defaultController' => '/ebox/MailFilter/Controller/ExternalMTA',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -103,7 +103,7 @@ sub _table
 #
 # Returns:
 #   - reference to a list of MTA for which connection is allowed
-# 
+#
 sub allowed
 {
     my ($self) = @_;
@@ -128,7 +128,7 @@ sub validateTypedRow
   }
 
   my $mta = $params_r->{mta}->value();
-  
+
   # check that mta sin't internal
   my $internal;
   if ( $mta =~ m/^[\d.]+$/ ) {
@@ -136,7 +136,7 @@ sub validateTypedRow
   } else {
       $internal = $mta eq 'localhost';
   }
-  
+
   if ($internal) {
       throw EBox::Exceptions::External(
                                        __x('Invalid external MTA {mta}. Local network addresses are not allowed', mta => $mta)

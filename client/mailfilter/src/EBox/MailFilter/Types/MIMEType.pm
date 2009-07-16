@@ -51,18 +51,18 @@ sub new
 sub _paramIsValid
 {
     my ($self, $params) = @_;
-    
+
     my $value = $params->{$self->fieldName()};
-    
+
     my $portionRegex = '[a-zA-Z\d\-]+';
-    
+
     unless ($value =~ m{^$portionRegex\/$portionRegex$}) {
         throw EBox::Exceptions::InvalidData (
                                              data => __x('MIME type'),
                                              value =>  $value,
-                                            );    
+                                            );
     }
-    
+
     return 1;
 }
 

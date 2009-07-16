@@ -41,18 +41,18 @@ sub _process($) {
 	$self->_requireParam('dev', __('Device'));
 	my $id = $self->param('printerid');
 	my $dev = $self->param('dev');
-	
+
 	my $printers = EBox::Global->modInstance('printers');
-	
+
  	$printers->setUSBPrinter($id, $dev);
 	$self->keepParam('printerid');
-	if ($self->param('usbconfui')) {	
+	if ($self->param('usbconfui')) {
 		$self->{chain} = "Printers/ManufacturerUI";
 	} elsif ($self->param('manageprinterui')) {
 		$self->{chain} = "Printers/ManagePrinterUI";
 	        $self->keepParam('selected');
 	}
-	
+
 }
 
 1;

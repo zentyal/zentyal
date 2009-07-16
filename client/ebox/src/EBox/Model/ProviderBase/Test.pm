@@ -100,7 +100,7 @@ sub _fakeProvidedClasses
 				      foreach my $param (@classParams) {
 					if (not ($param eq $anyParam)) {
 					  die "Missing constructor parameter: $param";
-					} 
+					}
 				      }
 
 				    }
@@ -109,14 +109,14 @@ sub _fakeProvidedClasses
 
 
 				    bless $self, $class;
-                                      
+
 
 
 				    return $self;
 				  }, # end new
-				  name => sub {   
+				  name => sub {
 				    my ($class) = @_;
-				    return $class->nameFromClass(@_) 
+				    return $class->nameFromClass(@_)
 				  },
 
 				 );
@@ -147,7 +147,7 @@ sub _multipleInstanceClassesProvidedByName
 {
   my ($self) = @_;
   return $self->_filterInstanceClassesByMultiple(1);
- 
+
 }
 
 
@@ -166,7 +166,7 @@ sub _filterInstanceClassesByMultiple
     }
     elsif (ref $classSpec eq 'HASH') {
       $multiple = $classSpec->{multiple} ? 1 : 0;
-    } 
+    }
     else {
       die 'incorrect class spec';
     }
@@ -180,7 +180,7 @@ sub _filterInstanceClassesByMultiple
 }
 
 
-sub addAndRemoveInstancesTest 
+sub addAndRemoveInstancesTest
 {
   my ($self, %params) = @_;
   my $getterMethod = $params{getterMethod};
@@ -223,7 +223,7 @@ sub _addAndRemoveInstancesTestForUnique
 
   my $instance = $self->_providedInstance($provider, $class);
 
-  my $path = "$name/" . $indexes[0]; 
+  my $path = "$name/" . $indexes[0];
 
   dies_ok {
     $provider->$addMethod($path, $instance)
@@ -242,7 +242,7 @@ sub _addAndRemoveInstancesTestForMultiple
   my @indexes      = @{ $params{indexes}  };
 
   my $moduleName = $provider->name;
-  
+
   my %multipleClasses = %{ $self->_multipleInstanceClassesProvidedByName };
   while (my ($name, $classSpec) = each %multipleClasses) {
     my $class = $self->className($classSpec);
@@ -250,19 +250,19 @@ sub _addAndRemoveInstancesTestForMultiple
       my $path = "$name/$index";
       dies_ok {  $provider->$getterMethod($path) }
 	'checking wether request for a non-added component raises exception';
-      
+
       my $instance = $self->_providedInstance($provider, $class);
 
       lives_ok {
 	$provider->$addMethod($path, $instance)
       } 'adding new instance';
 
-      my $retreviedInstance; 
+      my $retreviedInstance;
       lives_ok {
-	$retreviedInstance = $provider->$getterMethod($path);      
+	$retreviedInstance = $provider->$getterMethod($path);
       } 'getting new inserted instance';
       is $retreviedInstance, $instance, 'checking the retrevied instance';
-      
+
     }
   }
 
@@ -285,7 +285,7 @@ sub _addAndRemoveInstancesTestForMultiple
     }
   }
 
-  
+
 }
 
 
@@ -298,7 +298,7 @@ sub removeAllInstancesTest
 
   my $provider = $self->_providerInstance();
   my $moduleName = $provider->name;
-  
+
   # add instances
   my %multipleClasses = %{ $self->_multipleInstanceClassesProvidedByName };
 
@@ -359,9 +359,9 @@ sub providedInstancesTest
     my $class = $self->className($spec);
 
     my @paths = map { "$name/$_" } @indexes;
-    
+
     foreach my $path (@paths) {
-      # add instance 
+      # add instance
       my $instance = $self->_providedInstance($provider, $class);
       $provider->$addMethod($path, $instance);
     }
@@ -376,27 +376,27 @@ sub providedInstancesTest
   lives_ok {
     @instances = @{ $provider->$methodName };
   } "getting instances from provider with method $methodName";
-  
-  
+
+
   my  $totalInstances = 0;
   foreach (values %expectedClasses) {
     $totalInstances += $_;
   }
-  
+
   is @instances, $totalInstances, 'checking wether the number of instances matches the number of provided classes';
 
-  
+
   foreach my $class (keys %expectedClasses) {
     my $n = grep { $_->isa($class)  } @instances;
-    is $n, $expectedClasses{$class}, 
+    is $n, $expectedClasses{$class},
       "checking there is the expected number of instances of  the provided class $class";
-    
+
   }
 
-    
 
 
-  
+
+
 }
 
 
@@ -421,9 +421,9 @@ sub providedInstanceTest
     my @p = map {
       "$name/$_"
     } @indexes;
-    
+
     foreach my $path (@p) {
-      # add instance 
+      # add instance
       my $instance = $self->_providedInstance($provider, $class);
       $provider->$addMethod($path, $instance);
       # update path array
@@ -437,20 +437,20 @@ sub providedInstanceTest
     $provider->$methodName('inexistent');
   }'Expecitng failure when tryng to retrieve a inexistent provided instance';
 
-  
+
   # straight tests
   my %allClassesByName = %{ $self->_classesProvidedByName };
 
   foreach my $path (@paths) {
     my ($name, $index) = $provider->decodePath($path);
     my $class = $self->className($allClassesByName{$name});
-    
+
     my $instance;
-    
+
     lives_ok {
       $instance = $provider->$methodName($path);
     } "getting a instance for provided class id $name";
-    
+
     isa_ok($instance, $class);
   }
 
@@ -492,13 +492,13 @@ sub decodePathTest :Test(26)
 
     is $name, $expectedName, "Checking decoded provided name for path $path";
     is $index, $expectedIndex, "Checking decoded provided index for path $path";
-    
+
   }
 
 }
 
 
-sub providedClassIsMultipleTest 
+sub providedClassIsMultipleTest
 {
   my ($self, $type) = @_;
 

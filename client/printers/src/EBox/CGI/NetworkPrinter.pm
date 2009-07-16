@@ -43,19 +43,19 @@ sub _process($) {
 	my $id = $self->param('printerid');
 	my $ip = $self->param('ip');
 	my $port = $self->param('port');
-	
+
 	my $printers = EBox::Global->modInstance('printers');
-		
+
 	$self->keepParam('printerid');
  	$printers->setNetworkPrinter($id, $ip, $port);
 
-	if ($self->param('networkconfui')) {	
+	if ($self->param('networkconfui')) {
 		$self->{chain} = "Printers/ManufacturerUI";
 	} elsif ($self->param('manageprinterui')) {
 		$self->{chain} = "Printers/ManagePrinterUI";
 	        $self->keepParam('selected');
 	}
-	
+
 }
 
 1;

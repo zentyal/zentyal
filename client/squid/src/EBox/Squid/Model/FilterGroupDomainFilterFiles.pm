@@ -70,7 +70,7 @@ sub _table
 {
     my ($self) = @_;
       my $tableHeader = $self->_tableHeader();
-  
+
 
       my $dataTable =
       {
@@ -79,7 +79,7 @@ sub _table
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/FilterGroupDomainFilterFiles',
           'defaultActions' =>
-              [	
+              [
               'add', 'del',
               'editField',
               'changeView'

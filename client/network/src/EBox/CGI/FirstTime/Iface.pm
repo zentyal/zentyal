@@ -39,7 +39,7 @@ sub _process
 
 
     $self->{errorchain} = "Network/FirstTime/Ifaces";
-	
+
     $self->setIface();
 
     my $msg = __('Network interface configured');

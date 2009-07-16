@@ -29,18 +29,18 @@ use EBox::Model::ModelManager;
 use constant TYPE => 'model';
 use constant DEFAULT_SEPARATOR => '/';
 
-# Method: models 
-# 
+# Method: models
+#
 #   This method must be overriden in case your module needs no
 #   standard-behaviour when creating model instances. In that case the method
 #   modelClasses is ignored.
-#   
+#
 #   In most cases you will not need to override it
 #
 # Returns:
 #
 #	array ref - containing instances of the models
-sub models 
+sub models
 {
   my ($self) = @_;
   return $self->providedInstances(TYPE);
@@ -105,7 +105,7 @@ sub newModelInstance
 #   add a instance of a provided model class which can have multiple
 #   instances.  If the class can't have multiple instances a exeception will be
 #   raised
-#   
+#
 #  Parameters:
 #     path - path to the instance. It must contain the index to identifiy the instance
 #   instance - model instance to add
@@ -120,10 +120,10 @@ sub addModelInstance
 #   remove a instance of a provided model class which can have multiple
 #   instances.  If the class can't have multiple instances a exeception will be
 #   raised
-#   
+#
 #  Parameters:
 #     path - path to the instance. It must contain the index to identifiy the instance
-#   
+#
 sub removeModelInstance
 {
   my ($self, $path, $instance) = @_;
@@ -153,7 +153,7 @@ sub removeAllModelInstances
 #  -  the names of all model classes which does not require additional parameters
 #  -  hash reference for other models with the following fields:
 #         class      - the name of the class
-#         parameters - reference to the list of parameters which we want to 
+#         parameters - reference to the list of parameters which we want to
 #                      pass to the model's constructor
 sub modelClasses
 {
@@ -346,10 +346,10 @@ sub _callExposedMethod
                   $separator = $methodDesc->{'separator'};
               } else {
                   $separator = DEFAULT_SEPARATOR;
-              } 
-              @indexValues = grep { $_ ne '' } 
-                                            split ( $separator, 
-                                                    $paramsRef->[0], 
+              }
+              @indexValues = grep { $_ ne '' }
+                                            split ( $separator,
+                                                    $paramsRef->[0],
                                                     scalar(@indexes) + 1 );
               # Remove the index param if any
               shift ( @{$paramsRef} );
@@ -470,7 +470,7 @@ sub backupFilesInArchive
   foreach my $file (@filesToBackup) {
     $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
     EBox::Sudo::root($archiveCmd);
-    
+
   }
 }
 

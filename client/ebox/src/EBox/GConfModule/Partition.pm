@@ -1,4 +1,4 @@
-package EBox::GConfModule::Partition; 
+package EBox::GConfModule::Partition;
 # package: create a kind of pseudo-partition in the configuration tree of a module
 use strict;
 use warnings;
@@ -19,9 +19,9 @@ use EBox::GConfModule;
 sub new
 {
     my ($class, $base, $fullModule) = @_;
-    defined $base or 
+    defined $base or
       throw EBox::Exceptions::MissingArgument('base');
-    defined $fullModule or 
+    defined $fullModule or
       throw EBox::Exceptions::MissingArgument('fullModule');
     $fullModule->isa('EBox::GConfModule') or
       throw EBox::Exceptions::InvalidData(
@@ -29,15 +29,15 @@ sub new
 				      value => $fullModule,
 				      advice => 'A instance of a subclass of EBox::GConfModule is expected',
 				     );
-    
+
     my $dirExists = $class->_checkBaseDirExists($fullModule, $base);
 
     if (not $dirExists ) {
 	throw EBox::Exceptions::Internal("Tried to instantiate a module partition with a space not found in module configuration: $base");
     }
 
-    my $self = { 
-		fullModule   => $fullModule, 
+    my $self = {
+		fullModule   => $fullModule,
 		confKeysBase => $base,
 	       };
     bless $self, $class;

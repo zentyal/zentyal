@@ -22,8 +22,8 @@
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#  
-# 
+#
+#
 
 package EBox::Squid::Model::FilterGroupContentFilterThreshold;
 use base 'EBox::Model::DataForm';
@@ -39,10 +39,10 @@ use EBox::Types::Boolean;
 use  EBox::Squid::Types::WeightedPhrasesThreshold;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -59,11 +59,11 @@ sub new
 # a table model description.
 #
 
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Boolean(
                   fieldName => 'useDefault',
                   printableName => __('Use default profile threshold'),
@@ -74,7 +74,7 @@ sub _table
              fieldName => 'contentFilterThreshold',
              printableName => __('Threshold'),
              editable => 1,
-             ), 
+             ),
 
 
         );

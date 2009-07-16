@@ -62,9 +62,9 @@ use Error qw(:try);
 #     Create a row
 #
 # Parameters:
-#   
+#
 #   (NAMED)
-#   
+#
 #   dir - row's directory
 #   gconfmodule - gconfmodule
 #
@@ -123,7 +123,7 @@ sub model
 #   set the model
 #
 # Parameters:
-#   
+#
 #   (Positional)
 #
 #   model - An instance of a class implementing <EBox::Model::DataTable>
@@ -141,7 +141,7 @@ sub setModel
     }
 
     unless ($model->isa('EBox::Model::DataTable')) {
-        throw EBox::Exceptions::InvalidType(arg => 'model', 
+        throw EBox::Exceptions::InvalidType(arg => 'model',
                                             type => 'EBox::Model::DataTable' );
     }
 
@@ -150,7 +150,7 @@ sub setModel
 
 # Method: id
 #
-#   row's id 
+#   row's id
 #
 # Returns:
 #
@@ -180,13 +180,13 @@ sub setId
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument('id');
     }
- 
+
     $self->{id} = $id;
 }
 
 # Method: readOnly
 #
-#   row's readOnly 
+#   row's readOnly
 #
 # Returns:
 #
@@ -212,7 +212,7 @@ sub readOnly
 sub setReadOnly
 {
     my ($self, $readOnly) = @_;
- 
+
     $self->{readOnly} = $readOnly;
 }
 
@@ -250,7 +250,7 @@ sub parentRow
         return undef;
     }
     my $parentModel = $self->model()->parent();
-    
+
     unless (defined ($parentModel)) {
         return undef;
         }
@@ -264,13 +264,13 @@ sub parentRow
     if (length($directory) > 1) {
         $parentModel->setDirectory($directory);
     }
-        
+
     return $parentModel->row($parentId);
 }
 
 # Method: order
 #
-#   row's order 
+#   row's order
 #
 # Returns:
 #
@@ -300,7 +300,7 @@ sub setOrder
     unless (defined($order)) {
         return;
     }
- 
+
     $self->{order} = $order;
 }
 
@@ -339,7 +339,7 @@ sub addElement
         throw EBox::Exceptions::Internal('element is not a valid type');
     }
 
-    
+
     my $fieldName = $element->fieldName();
     if (not $fieldName) {
         throw EBox::Exceptions::Internal('element has not field name or has a empty one');
@@ -373,7 +373,7 @@ sub addElement
 sub elementExists
 {
     my ($self, $element) = @_;
-    
+
     unless ($element) {
         throw EBox::Exceptions::MissingArgument('element');
     }
@@ -391,7 +391,7 @@ sub elementExists
 
 # Method: elementByName
 #
-#  Retreive an element from a row 
+#  Retreive an element from a row
 #
 # Parameters:
 #
@@ -404,7 +404,7 @@ sub elementExists
 #   <EBox::Exceptions::DataNotFound> if the element does not exist
 #
 #
-sub elementByName 
+sub elementByName
 {
     my ($self, $element) = @_;
 
@@ -491,7 +491,7 @@ sub hashElements
 # Method: valueByName
 #
 #   Return the value of a given element.
-#   This method will fecth the element and will 
+#   This method will fecth the element and will
 #   return element->value().
 #
 #   Element is a subclass of <EBox::Types::Abstract>
@@ -515,7 +515,7 @@ sub valueByName
 # Method: printableValueByName
 #
 #   Return the printableValue of a given element.
-#   This method will fecth the element and will 
+#   This method will fecth the element and will
 #   return element->printableBalue().
 #
 #   Element is a subclass of <EBox::Types::Abstract>
@@ -560,7 +560,7 @@ sub size
 # Method: store
 #
 #   This method is used to synchronize the elements of a row with usually disk.
-#   
+#
 # Exceptions:
 #
 #   <EBox::Exceptions::Internal>
@@ -570,24 +570,24 @@ sub store
     my ($self) = @_;
 
     my $model = $self->model();
-    
+
     unless (defined($model)) {
         throw EBox::Exceptions::Internal('Cannot store a row without a model');
     }
 
     $model->setTypedRow($self->id(),
-                        $self->{'valueHash'}, 
+                        $self->{'valueHash'},
                         readOnly => $self->readOnly(),
                         force => 1);
 }
 
 # Method: storeElementByName
 #
-#   This method is used to synchronize a given element of a row with 
+#   This method is used to synchronize a given element of a row with
 #   usually disk.
 #
 #   Use this method if you just want to store one element
-#   
+#
 # Parameters:
 #
 #   element - element's name
@@ -605,10 +605,10 @@ sub storeElementByName
     }
 
     my $model = $self->model();
- 
-    $model->setTypedRow($self->id(), 
-                        {$element => $self->elementByName($element)}, 
-                        readOnly => $self->readOnly(), 
+
+    $model->setTypedRow($self->id(),
+                        {$element => $self->elementByName($element)},
+                        readOnly => $self->readOnly(),
                         force => 1);
 }
 
@@ -655,7 +655,7 @@ sub subModel
 
 # Method: matchFilter
 #
-#  Check if any of the printable values of the row matches a given filter 
+#  Check if any of the printable values of the row matches a given filter
 #
 # Parameters:
 #
@@ -726,7 +726,7 @@ sub restoreFiles
   foreach my $element ( @{ $self->elements() } ) {
       if ($element->can('restoreFiles')) {
           $element->restoreFiles();
-      } 
+      }
   }
 
 }

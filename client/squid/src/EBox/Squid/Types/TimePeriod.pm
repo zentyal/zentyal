@@ -12,7 +12,7 @@ my @days = qw(monday tuesday wednesday thursday friday saturday sunday);
 use constant ALL_DAYS => 'MTWHFAS';
 
 my %daysToLetters = (
-                     monday    => 'M', 
+                     monday    => 'M',
                      tuesday   => 'T',
                      wednesday => 'W',
                      thursday  => 'H',
@@ -23,7 +23,7 @@ my %daysToLetters = (
 
 
 my %daysToPrintableLetters = (
-                     monday    => __('M'), 
+                     monday    => __('M'),
                      tuesday   => __('T'),
                      wednesday => __('W'),
                      thursday  => __('H'),
@@ -33,7 +33,7 @@ my %daysToPrintableLetters = (
                     );
 
 my %printableDays = (
-                     monday    => __('Monday'), 
+                     monday    => __('Monday'),
                      tuesday   => __('Tuesday'),
                      wednesday => __('Wednesday'),
                      thursday  => __('Thursday'),
@@ -73,7 +73,7 @@ sub value
     my ($self) = @_;
 
     my $st = '';
-    
+
     my $hourlyPeriod = $self->hourlyPeriod();
     if ($hourlyPeriod) {
         $st .= $hourlyPeriod;
@@ -108,14 +108,14 @@ sub printableValue
     my ($self) = @_;
 
     my $st = '';
-    
+
     my $hourlyPeriod = $self->hourlyPeriod();
     if ($hourlyPeriod) {
         $st .= $hourlyPeriod;
     }
     elsif ($self->weekDays() eq ALL_DAYS) {
         return  __('All time');
-    } 
+    }
 
     my $weekDays = $self->printableWeekDays();
     if ($weekDays) {
@@ -227,7 +227,7 @@ sub hourlyPeriod
     my ($self) = @_;
     my $from = $self->from();
     my $to   = $self->to();
-    
+
     if ((not $from) and (not $to)) {
         return '';
     }
@@ -269,35 +269,35 @@ sub fields
 
     push @fields, map {
         $name . '_' . $_
-     } @days; 
+     } @days;
 
 
     return @fields;
 }
 
 
-# Method: from 
+# Method: from
 #
 #   Return the "from" hour
 #
 # Returns:
 #
 #   string - containing the hour
-sub from 
+sub from
 {
     my ($self) = @_;
 
     return $self->{'from'};
 }
 
-# Method: to 
+# Method: to
 #
 #   Return the "to" hour
 #
 # Returns:
 #
 #   string - containing the hour
-sub to 
+sub to
 {
     my ($self) = @_;
 
@@ -318,14 +318,14 @@ sub tuesday
     return $self->{'tuesday'};
 }
 
-sub wednesday 
+sub wednesday
 {
     my ($self) = @_;
 
     return $self->{'wednesday'};
 }
 
-sub thursday 
+sub thursday
 {
     my ($self) = @_;
 
@@ -339,14 +339,14 @@ sub friday
     return $self->{'friday'};
 }
 
-sub saturday 
+sub saturday
 {
     my ($self) = @_;
 
     return $self->{'saturday'};
 }
 
-sub sunday 
+sub sunday
 {
     my ($self) = @_;
 
@@ -473,7 +473,7 @@ sub _hoursParamsAreValid
     elsif ($to eq $from) {
         throw EBox::Exceptions::External(
              __('You must specify two diffrent hours to the range')
-                                        ); 
+                                        );
     }
 
     my @hourParams = ($name . '_from', $name . '_to');
@@ -607,7 +607,7 @@ sub _setValue # (defaultValue)
             $days = $value;
         }
     }
-    
+
     if ($hours) {
         my ($from, $to) = split '-', $hours;
         $memValueParams{$name . '_from'} = $from;
@@ -621,15 +621,15 @@ sub _setValue # (defaultValue)
         my $day = delete $lettersToDays{$letter};
         $memValueParams{$name . '_' . $day} = 1;
     }
-    
+
     # days not used are false
     foreach my $day (values %lettersToDays) {
         $memValueParams{$name . '_' . $day} = 0;
     }
-    
-    
 
-    
+
+
+
 #     use Data::Dumper;
 #     print Dumper \%memValueParams;
     $self->setMemValue(\%memValueParams);

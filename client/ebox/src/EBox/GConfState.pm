@@ -23,7 +23,7 @@ use base 'EBox::GConfHelper';
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;
@@ -38,7 +38,7 @@ sub isReadOnly
 	return $self->{ro};
 }
 
-sub key # (key) 
+sub key # (key)
 {
 	my ($self, $key) = @_;
 

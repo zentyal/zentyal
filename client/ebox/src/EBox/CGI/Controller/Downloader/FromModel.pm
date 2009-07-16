@@ -119,7 +119,7 @@ sub _process
     }
 
     $self->{path} = $type->path();
- 
+
     $self->SUPER::_process(@_);
 }
 1;

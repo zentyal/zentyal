@@ -65,7 +65,7 @@ sub _addDomainUsersAccount
     my $name = DEFAULT_USERS_GROUP;
 
     my $usersMod = EBox::Global->modInstance('users');
-    $usersMod->groupExists($name) and 
+    $usersMod->groupExists($name) and
         return;
 
 
@@ -76,15 +76,15 @@ sub _addDomainUsersAccount
                 attr => [
                          'cn'           => $name,
                          'gidNumber'    => 512,
-                         'sambaSID'     =>  $sambaLdap->getSID(), 
+                         'sambaSID'     =>  $sambaLdap->getSID(),
                          'sambaGroupType'  => 2,
-                         'displayName'  => $name, 
+                         'displayName'  => $name,
                          'objectclass'  => ['posixGroup',
-                                            'sambaGroupMapping', 
+                                            'sambaGroupMapping',
                                             'eboxGroup']
                         ]
                );
-    
+
     my $dn = "cn=$name,ou=Groups,dc=ebox";
     $ldap->add($dn, \%args);
 }
@@ -111,12 +111,12 @@ sub processSambaDomain
     $generalSettingsRow->store();
 
 
-    
+
     $samba->setNetSID($sambaSID);
 
     print "Restarting samba module..\n";
 
- #   $samba->fixSIDs(); 
+ #   $samba->fixSIDs();
 # fixSiDs restrts samba service so a call to _regenConfig call is not neccesary
     $samba->restartService();
 }
@@ -170,7 +170,7 @@ sub _processUserAccount
     my ($package, $entry) = @_;
 
     my $username = $entry->get_value('uid');
- 
+
     my $samba = EBox::Global->modInstance('samba');
     my $sambaUser = $samba->_ldapModImplementation();
 
@@ -275,7 +275,7 @@ sub _copyMissingFields
         if ($attr eq $anyControlAttr) {
             next;
         }
-        
+
 
         my @values = $ldifEntry->get_value($attr);
         @values or
@@ -300,7 +300,7 @@ sub _delComputerAccount
 
     my $accountDelCmd = "/usr/sbin/smbldap-userdel  $account";
     EBox::Sudo::root($accountDelCmd);
-}       
+}
 
 
 
@@ -351,7 +351,7 @@ sub _existsComputerAccount
 
     my $ldap   = EBox::Ldap->instance();
     my $result = $ldap->search(\%attrs);
-    
+
     return ($result->count > 0);
 }
 

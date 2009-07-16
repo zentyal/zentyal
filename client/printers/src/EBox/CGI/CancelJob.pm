@@ -45,14 +45,14 @@ sub _process($) {
 	my $name = $self->param('printername');
 	my $id = $self->param('printerid');
 	my $jobid = $self->param('jobid');
-	
+
 	$printers->cancelJob($name, $jobid);
 
 	$self->keepParam('printerid');
 	$self->keepParam('selected');
 	$self->{chain} = "Printers/ManagePrinterUI";
-	$self->{msg} = __('Job was successfully canceled'); 
-	
+	$self->{msg} = __('Job was successfully canceled');
+
 }
 
 1;

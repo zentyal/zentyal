@@ -25,7 +25,7 @@ use base 'EBox::Exceptions::Internal';
 use Log::Log4perl;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $method = shift;

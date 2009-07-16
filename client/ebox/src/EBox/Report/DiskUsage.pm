@@ -49,7 +49,7 @@ sub charts
 #  Parametes:
 #     partition - path to the partition device file
 #
-# Returns: 
+# Returns:
 #  the url needed to embed the chart in a web page as value
 sub chart
 {
@@ -71,11 +71,11 @@ sub _chart
   my ($datasets) = @_;
 
   my $imageLocation = EBox::CGI::Temp::newImage();
- 
+
   my $labelFont  = GD::Font->Large;
   my $legendFont = GD::Font->Small;
   my $textSpace  = 2;
- 
+
   my %colors = (
                 dataset0 => [18, 130, 76],
                );
@@ -83,9 +83,9 @@ sub _chart
   my $chartParams = {
                      transparent => 'true',
                      grey_background => 'false',
-                     
+
                      precision       => 2,
-                     
+
                      legend          => 'bottom',
                      colors => \%colors,
                      label_font => $labelFont,
@@ -141,13 +141,13 @@ sub _calcGraphSize
   my $fHeight = $params->{label_font}->height;
 
   $max_label_len *= $fWidth;
-  
+
   my $labeldistance = 2*($fWidth > $fHeight ? $fWidth : $fHeight);
   my $pieLabelsSize =    2*$max_label_len + $labeldistance;
 
   # graph width
   $graphWidth = $pieLabelsSize + PIE_RADIUS;
-  
+
   $graphWidth += $params->{text_space} *2;
 
   if ($graphWidth < MIN_GRAPH_WIDTH) {
@@ -189,7 +189,7 @@ sub _calcGraphSize
 #     fileSystem - if this parameter is supplied, it only scan the supplied
 #     file system. Only disk and non-media filesystems are accepted.
 #
-# Returns: 
+# Returns:
 #    reference to a hash with the filesystem  as keys
 #    and a hash with the disk usage in blocks by facility or pseudo-facility  as
 #    value. Block's size unit is 1Mb
@@ -224,7 +224,7 @@ sub usage
   my @modUsageParams = ( blockSize => $blockSize, );
   if (defined $fileSystemToScan) {
     push @modUsageParams, ( fileSystems => $fileSystemToScan);
-  }  
+  }
 
   my $global = EBox::Global->getInstance();
   foreach my $mod (@{ $global->modInstancesOfType('EBox::Report::DiskUsageProvider' )}) {
@@ -236,10 +236,10 @@ sub usage
         $usageByFilesys{$filesys}->{$facility}       += $blocks;
       }
     }
-    
+
   }
 
- 
+
   # calcualte system usage and free space for each file system
   foreach my $fileSys (keys %usageByFilesys) {
     exists $fileSystems->{$fileSys} or
@@ -247,7 +247,7 @@ sub usage
 
     my $mountPoint = $fileSystems->{$fileSys}->{mountPoint};
 
-    my $df = df($mountPoint, $blockSize ); 
+    my $df = df($mountPoint, $blockSize );
 
     my $facilitiesUsage = delete $usageByFilesys{$fileSys}->{facilitiesUsage};
     my $totalUsage      = sprintf ("%.2f", $df->{used});
@@ -266,11 +266,11 @@ sub usage
     }
 
     my $freeSpace       = sprintf ("%.2f", $df->{bfree});
-    
+
     $usageByFilesys{$fileSys}->{system} = $systemUsage;
     $usageByFilesys{$fileSys}->{free}   = $freeSpace;
   }
-                   
+
 
 
   return \%usageByFilesys;
@@ -281,7 +281,7 @@ sub usage
 #
 #   return the file system data for mounted disk partitions
 #
-# Returns: 
+# Returns:
 #      a hash reference with the file system as key and a hash with his
 #      properties as value.
 #      The properties are: mountPoint, type, options, dump and pass
@@ -296,7 +296,7 @@ sub partitionsFileSystems
     if (not $fs =~ m{^/dev/}) {
       delete $fileSys{$fs};
       next;
-    } 
+    }
 
   # remove removable media files
     my $mpoint = $fileSys{$fs}->{mountPoint};

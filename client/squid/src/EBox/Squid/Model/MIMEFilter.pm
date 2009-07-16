@@ -52,7 +52,7 @@ sub _table
      printableTableName => __('Configure allowed MIME types'),
      'defaultController' => '/ebox/Squid/Controller/MIMEFilter',
      'defaultActions' =>
-     [	
+     [
       'add', 'del',
       'editField',
       'changeView'

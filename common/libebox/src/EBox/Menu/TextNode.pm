@@ -23,7 +23,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %opts = @_;

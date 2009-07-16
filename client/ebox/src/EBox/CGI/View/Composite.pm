@@ -80,7 +80,7 @@ sub _process
         $composite->setDirectory('');
     }
 
-    
+
     $self->{params} = $self->masonParameters();
 }
 

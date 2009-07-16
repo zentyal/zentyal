@@ -101,11 +101,11 @@ sub _table
        new EBox::Types::Union(
                                fieldName => 'path',
                                printableName => __('Share path'),
-                               subtypes => 
+                               subtypes =>
                                 [
                                      new EBox::Types::Text(
                                        fieldName     => 'ebox',
-                                       printableName => 
+                                       printableName =>
                                             __('Directory under eBox'),
                                        editable      => 1,
                                        unique        => 1,
@@ -130,7 +130,7 @@ sub _table
                                'view' =>
                                    '/ebox/Samba/View/SambaSharePermissions'
                               )
- 
+
       );
 
     my $dataTable = {
@@ -154,9 +154,9 @@ sub _table
 }
 
 # Method: validateRow
-# 
+#
 #       Override <EBox::Model::DataTable::validateRow> method
-# 
+#
 #   Check if the share path is allowed or not
 sub validateTypedRow()
 {
@@ -164,7 +164,7 @@ sub validateTypedRow()
 
     return unless ($action eq 'add' or $action eq 'update');
     return unless (exists $parms->{'path'});
-    
+
     my $path = $parms->{'path'}->selectedType();
 
     if ($path eq 'system') {
@@ -231,12 +231,12 @@ sub removeRow
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    
-    my $path = $row->elementByName('path'); 
+
+    my $path = $row->elementByName('path');
 
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'ebox');
-    
+
     my $mgr = EBox::Model::ModelManager->instance();
     my $deletedModel = $mgr ->model('DeletedSambaShares');
     $deletedModel->addRow('path' => $path->value());
@@ -274,7 +274,7 @@ sub createDirs
 sub _pathHelp
 {
     return __( '<i>Directory under eBox</i> will ' .
-            'automatically create the share.' . 
+            'automatically create the share.' .
             'directory in /home/samba/shares <br>' .
             '<i>File system path</i> will allow you to share '.
             'an existing directory within your file system. ');
@@ -283,7 +283,7 @@ sub _pathHelp
 
 sub _sharesHelp
 {
-    return __('Here you can create shares with more fine-grained permission ' . 
+    return __('Here you can create shares with more fine-grained permission ' .
               'control. ' .
               'You can use an existing directory or pick a name and let eBox ' .
               'create it for you.');
@@ -291,7 +291,7 @@ sub _sharesHelp
 
 # Method: headTile
 #
-#   Overrides <EBox::Model::DataTable::headTitle> 
+#   Overrides <EBox::Model::DataTable::headTitle>
 #
 #
 sub headTitle

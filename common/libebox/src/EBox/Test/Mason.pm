@@ -30,8 +30,8 @@ sub checkTemplateExecution
   my $templateError;
 
   my $templateExecutionOk = 0;
-  try { 
-    $templateOutput = executeTemplate(template       => $template, 
+  try {
+    $templateOutput = executeTemplate(template       => $template,
 				      templateParams => $templateParams,
 				      compRoot       => $compRoot,
 				     );
@@ -44,7 +44,7 @@ sub checkTemplateExecution
   };
 
   ok $templateExecutionOk, $testName;
-  
+
   if ($printOutput || $templateError) {
     diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
   }
@@ -72,7 +72,7 @@ sub executeTemplate
 
 
   $interp->exec($comp, @params);
-  
+
   return \$templateOutput;
 }
 
@@ -82,14 +82,14 @@ sub _comp_root
 {
   my ($template, $root_paths_r) = @_;
   my @root_paths = @{ $root_paths_r } ;
-  
+
   my $main_root = abs_path ($template);
   $main_root = dirname $main_root;
- 
+
   my $i = 0; # counter to generate comp_root ids
-  my @roots = map { 
-    $i++;  
-    [ "user-$i" => $_ ] } 
+  my @roots = map {
+    $i++;
+    [ "user-$i" => $_ ] }
     @root_paths;
 
   unshift @roots, [ MAIN => $main_root ];
@@ -102,14 +102,14 @@ sub _printOutputFile
 {
   my ($outputFile, $data) = @_;
   my $separator;
-  
+
   if ($outputFile =~ m/\.html?$/) {
-    $separator = '<hr/>';    
+    $separator = '<hr/>';
   }
   else {
     $separator = "---------------\n";
   }
-  
+
   write_file($outputFile, { append => 1}, $separator );
   write_file($outputFile, {append =>  1 }, $data );
 }

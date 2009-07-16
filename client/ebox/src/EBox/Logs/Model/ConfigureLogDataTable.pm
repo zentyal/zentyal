@@ -22,8 +22,8 @@
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#  
-# 
+#
+#
 
 package EBox::Logs::Model::ConfigureLogDataTable;
 
@@ -43,7 +43,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Sudo;
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
 # Core modules
@@ -53,7 +53,7 @@ use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -74,10 +74,10 @@ sub new
 #   Hashref containing the enabled logs.
 #
 #   Example:
-#   
+#
 #       { 'squid' =>  1, 'dhcp' => 1 }
 #
-#   
+#
 sub enabledLogs
 {
     my ($self) = @_;
@@ -95,7 +95,7 @@ sub enabledLogs
 #
 #       Override <EBox::Model::DataTable::syncRows>
 #
-#   It is overriden because this table is kind of different in 
+#   It is overriden because this table is kind of different in
 #   comparation to the normal use of generic data tables.
 #
 #   - The user does not add rows. When we detect the table is
@@ -104,15 +104,15 @@ sub enabledLogs
 #   - We check if we have to add/remove one the log domains. That happens
 #   when a new module is installed or an existing one is removed.
 #
-#   
-sub syncRows 
+#
+sub syncRows
 {
     my ($self, $currentRows) = @_;
 
     my $logs = EBox::Global->modInstance('logs');
     my $changed = undef;
 
-    # Fetch the current log domains stored in gconf 
+    # Fetch the current log domains stored in gconf
     my %storedLogDomains;
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
@@ -132,9 +132,9 @@ sub syncRows
         my @tableInfos;
         my $mod = $currentLogDomains{$domain};
         my $ti = $mod->tableInfo();
-        
+
         if (ref $ti eq 'HASH') {
-            EBox::warn('tableInfo() in ' . $mod->name .  
+            EBox::warn('tableInfo() in ' . $mod->name .
              'must return a reference to a list of hashes not the hash itself');
             @tableInfos = ( $ti );
         }
@@ -143,13 +143,13 @@ sub syncRows
         }
 
         my $enabled = not grep {
-          $_->{'disabledByDefault'}  
+          $_->{'disabledByDefault'}
         } @tableInfos;
 
 
 
-        $self->addRow(domain => $domain, 
-                      enabled => $enabled, 
+        $self->addRow(domain => $domain,
+                      enabled => $enabled,
                       lifeTime => 168);
         $changed = 1;
     }
@@ -162,7 +162,7 @@ sub syncRows
         $self->removeRow($row->id());
         $changed = 1;
     }
-    
+
     return $changed;
 
 }
@@ -171,20 +171,20 @@ sub syncRows
 #
 #   Override <EBox::Model::DataTable::validateTypedRow>
 #
-sub updatedRowNotify 
+sub updatedRowNotify
 {
   my ($self, $row) = @_;
 
   my $domain = $row->valueByName('domain');
   my $enabled = $row->valueByName('enabled');
- 
+
   my $logs = EBox::Global->modInstance('logs');
   my $tables = $logs->getAllTables();
 
   unless (exists $tables->{$domain}) {
       EBox::warn("Domain: $domain does not exist in logs");
   }
-  
+
 
   my $helper = $tables->{$domain}->{'helper'};
   $helper->enableLog($enabled);
@@ -360,8 +360,8 @@ sub _table
 #                              ),
         );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Current configuration'),
             'pageTitle' => __('Logs configuration'),

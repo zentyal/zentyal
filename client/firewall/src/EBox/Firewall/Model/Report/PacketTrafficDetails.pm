@@ -24,7 +24,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Int;
 
-sub new 
+sub new
 {
     my $class = shift @_;
 
@@ -61,8 +61,8 @@ sub _table
                                            'size' => '12',
                                            editable => 0,
                               ),
-                     new EBox::Types::Int(  
-                                          fieldName => 'drop', 
+                     new EBox::Types::Int(
+                                          fieldName => 'drop',
                                           printableName =>  __('Packets dropped'),
                                           editable => 0,
                                          ),
@@ -71,9 +71,9 @@ sub _table
                     ];
 
 
-     
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Packet traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],

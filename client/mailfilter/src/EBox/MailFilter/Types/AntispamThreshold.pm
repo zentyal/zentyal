@@ -42,7 +42,7 @@ sub new
         unless (exists $opts{'HTMLViewer'}) {
             $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
         }
-        
+
 
         $opts{'localizable'} = 0;
         my $self = $class->SUPER::new(%opts);
@@ -116,7 +116,7 @@ sub _paramIsValid
 
     my $value = $params->{$self->fieldName()};
 
-    
+
     my $numberOk = 0;
     if ($value =~ m{\.$}) {
         # the number cannot end with decimal point

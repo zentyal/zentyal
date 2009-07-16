@@ -14,10 +14,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class:
-# 
+#
 #
 
-#   
+#
 package EBox::OpenVPN::Model::Servers;
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
 
@@ -53,8 +53,8 @@ sub new
 
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
             new EBox::Types::Boolean (
                                       fieldName => 'service',
                                       printableName => __('Enabled'),
@@ -100,8 +100,8 @@ sub _table
                              __PACKAGE__->interfaceFields(),
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('List of servers'),
             'pageTitle' => __('VPN servers'),
@@ -186,7 +186,7 @@ sub servers
                                     $self->row($_)
                                   )
     } @{  $self->ids() };
-    
+
     return \@servers;
 
 }
@@ -219,11 +219,11 @@ sub serverExists
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-    
+
     EBox::OpenVPN::Model::InterfaceTable::addedRowNotify($self, $row);
 
     my $service = $row->elementByName('service');
-    
+
     if ($service->value()) {
         my $openvpn = EBox::Global->modInstance('openvpn');
         $openvpn->notifyLogChange();

@@ -246,7 +246,7 @@ sub _enable
     my ($self) = @_;
 
     # Check how the public access is done
-    my $confModel = $self->configurationSubModel(__PACKAGE__); 
+    my $confModel = $self->configurationSubModel(__PACKAGE__);
 
     my $allowedType = $confModel->allowedType();
 
@@ -265,7 +265,7 @@ sub _addEventToRSS
 
     my ($self, $event) = @_;
 
-    my $confModel = $self->configurationSubModel(__PACKAGE__); 
+    my $confModel = $self->configurationSubModel(__PACKAGE__);
 
     my $rss = new XML::RSS(version => '2.0');
     # Locking exclusively

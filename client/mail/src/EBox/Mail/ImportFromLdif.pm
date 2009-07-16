@@ -43,7 +43,7 @@ sub processPosixAccount
     my $username = $entry->get_value('uid');
 
     my $email = $entry->get_value('mail');
-    
+
     $email or return; # if email is not configured in this user we left the user
                       # alone
 
@@ -80,9 +80,9 @@ sub processCourierMailAlias
     my ($package, $entry) = @_;
 
     my $alias    = $entry->get_value('mail');
-    my $maildrop = $entry->get_value('maildrop');    
+    my $maildrop = $entry->get_value('maildrop');
     my $uid       = $entry->get_value('uid');
-    
+
     my $aliasLdap = EBox::MailAliasLdap->new();
     $aliasLdap->addAlias($alias, $maildrop, $uid);
 }
@@ -95,7 +95,7 @@ sub processDomain
     my $vdomain = $entry->get_value('dc');
 
     my $vdomainsLdap = EBox::MailVDomainsLdap->new();
-    
+
     # we add it to LDAP because until we have changed users to use gconf, things
     # may became inconsistent with mail accounts
     $vdomainsLdap->addVDomain($vdomain);
@@ -134,7 +134,7 @@ sub processVdeboxmail
 
     my $dftmdsize = $entry->get_value('vddftMaildirSize');
 
-    $dftmdsize or 
+    $dftmdsize or
         return;
 
     my $mailMod = EBox::Global->modInstance('mail');

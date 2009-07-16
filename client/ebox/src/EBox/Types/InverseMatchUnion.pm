@@ -23,7 +23,7 @@
 #   ugly repetition of code in InverseMatch* types.
 #
 #   We are repeating ourselves, this sucks so freaking much.
-#   
+#
 #
 package EBox::Types::InverseMatchUnion;
 
@@ -43,7 +43,7 @@ sub new
 		$opts{'HTMLSetter'} ='/ajax/setter/inverseMatchUnionSetter.mas';
 	}
 	$opts{'type'} = 'union';
-	
+
 	my $self = $class->SUPER::new(%opts);
 	bless($self, $class);
 	return $self;
@@ -79,7 +79,7 @@ sub compareToHash
 {
     my ($self, $hash) = @_;
 
-    unless  ($self->inverseMatch() 
+    unless  ($self->inverseMatch()
             eq $hash->{$self->inverseMatchField()}) {
 
         return undef;
@@ -120,7 +120,7 @@ sub fields
     return ($self->inverseMatchField(), $self->SUPER::fields());
 }
 
-sub inverseMatch 
+sub inverseMatch
 {
     my ($self) = @_;
 

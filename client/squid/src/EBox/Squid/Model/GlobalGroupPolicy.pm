@@ -57,10 +57,10 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
-    
+
 }
 
 
@@ -79,7 +79,7 @@ sub _table
       printableTableName => __('List of groups'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/GlobalGroupPolicy',
-      'defaultActions' => [     
+      'defaultActions' => [
           'add', 'del',
       'editField',
       'changeView',
@@ -112,10 +112,10 @@ sub tableHeader
                           new EBox::Types::Select(
                               fieldName => 'filterGroup',
                               printableName => __('Filter profile'),
-                      
+
                               foreignModel  => \&filterGroupModel,
                               foreignField  => 'name',
-                              
+
                                defaultValue  => 'default',
                                editable      => 1,
                                                  ),
@@ -123,7 +123,7 @@ sub tableHeader
                          );
 
     push @{ $header }, @policyElements;
-       
+
     return $header;
 }
 
@@ -173,7 +173,7 @@ sub _checkGlobalPolicy
     if (not $squid->globalPolicyUsesAuth()) {
     throw EBox::Exceptions::External(
        __('Global group policy need a global policy with authentication')
-                                    );        
+                                    );
     }
 }
 
@@ -211,7 +211,7 @@ sub usersByFilterGroup
         if ($filterGroup eq 'default') {
             next;
         }
-        
+
 
         if (not exists $usersByFilterGroup{$filterGroup}) {
             $usersByFilterGroup{$filterGroup} = \@users;

@@ -40,15 +40,15 @@ sub _process($) {
 	my $usersandgroups = EBox::Global->modInstance('users');
 
 	my @args = ();
-	
+
 	$self->_requireParam('group' , __('group'));
 	my $group = $self->param('group');
 	 $self->{errorchain} = "UsersAndGroups/Group";
 	$self->keepParam('group');
-	
+
 	$self->_requireParam('adduser', __('user'));
 	my @users = $self->param('adduser');
-       
+
 	foreach my $us (@users){
 		$usersandgroups->addUserToGroup($us, $group);
 	}

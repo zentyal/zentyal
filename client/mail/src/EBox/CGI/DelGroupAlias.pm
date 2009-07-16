@@ -29,7 +29,7 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Mail',
                                       @_);
-	$self->{domain} = "ebox-mail";	
+	$self->{domain} = "ebox-mail";
 
 	bless($self, $class);
 	return $self;
@@ -38,15 +38,15 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
-	
+
 	$self->_requireParam('group', __('group'));
 	my @group = $self->param('group');
-	
+
 	$self->{redirect} = "UsersAndGroups/Group?group=".$group[0];
-	
+
 	$self->_requireParam('alias', __('group alias mail'));
 	my $alias = $self->param('alias');
-	
+
 	$self->keepParam('group');
 
 	$mail->{malias}->delAlias($alias);

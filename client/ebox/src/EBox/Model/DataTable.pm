@@ -49,7 +49,7 @@ use Perl6::Junction qw(all any);
 use base 'EBox::Model::Component';
 
 # TODO
-#     
+#
 #    Factor findValue, find, findAll and findAllValue
 #
 #     Use EBox::Model::Row all over the place
@@ -60,7 +60,7 @@ use base 'EBox::Model::Component';
 
 #
 # Caching:
-#     
+#
 #     To speed up the process of returning rows, the access to the
 #     data stored in gconf is now cached. To keep data coherence amongst
 #     the several apache processes, we add a mark in the gconf structure
@@ -90,7 +90,7 @@ sub new
             'gconfmodule' => $gconfmodule,
             'gconfdir' => $directory,
             'directory' => "$directory/keys",
-            'order' => "$directory/order", 
+            'order' => "$directory/order",
             'table' => undef,
             'cachedVersion' => 0,
             'domain' => $domain,
@@ -128,11 +128,11 @@ sub _setupTable
     my ($self) = @_;
 
     $self->_setDomain();
-    
+
     my $table = $self->_table();
     $self->checkTable($table);
     $self->{'table'} = $table;
-    
+
     $self->_restoreDomain();
 
     # Set the needed controller and undef setters
@@ -221,7 +221,7 @@ sub checkTable
 #                                               );
 #         }
 #     }
-    
+
 }
 
 # Method: _table
@@ -240,7 +240,7 @@ sub _table
 
 }
 
-# Method: modelName 
+# Method: modelName
 #
 #    Return the model name which is set by the key 'tableName' when
 #    a model table is described
@@ -278,7 +278,7 @@ sub nameFromClass
   else {
     $class = $self;
   }
-  
+
 
   my @parts = split '::', $class;
   my $name = pop @parts;
@@ -514,7 +514,7 @@ sub fieldHeader
     return $self->table()->{'tableDescriptionByName'}->{$name};
 }
 
-# Method: optionsFromForeignModel 
+# Method: optionsFromForeignModel
 #
 #    This method is used to fetch an array of hashes containing
 #    pairs of value and printableValue.
@@ -527,18 +527,18 @@ sub fieldHeader
 #
 # Arguments:
 #
-#     field - field's name  
+#     field - field's name
 #
 # Returns:
 #
 #    Array ref of hashes containing:
-#        
+#
 #    value - row's id
 #    printableValue - field's printableValue
 #
 #    Example:
 #    [{ 'value' => 'obj001', 'printableValue' => 'administration'}]
-sub optionsFromForeignModel 
+sub optionsFromForeignModel
 {
     my ($self, $field) = @_;
 
@@ -583,11 +583,11 @@ sub optionsFromForeignModel
 #
 #    example:
 #
-#    [ 
+#    [
 #      { value => '1', printableValue => '1'},
-#         { value => '2', printableValue => '2'} 
+#         { value => '2', printableValue => '2'}
 #    ]
-sub selectOptions 
+sub selectOptions
 {
 
     throw EBox::Exceptions::DeprecatedMethod();
@@ -639,7 +639,7 @@ sub validateRow
 #              Current options: 'add', 'update'
 #
 #    changedFields - hash ref containing the typed parameters
-#                    subclassing from <EBox::Types::Abstract> 
+#                    subclassing from <EBox::Types::Abstract>
 #                    that has changed, the key will be the field's name
 #
 #    allFields - hash ref containing the typed parameters
@@ -676,9 +676,9 @@ sub addedRowNotify
 }
 
 # Method: deletedRowNotify
-#    
+#
 #    Override this method to be notified whenever
-#    a new row is deleted 
+#    a new row is deleted
 #
 # Arguments:
 #
@@ -689,27 +689,27 @@ sub addedRowNotify
 #    force - boolean indicating whether the delete is forced or not
 #
 #
-sub deletedRowNotify 
+sub deletedRowNotify
 {
 
 }
 
 # Method: movedUpRowNotify
-#    
+#
 #    Override this method to be notified whenever
-#    a  row is moved up 
+#    a  row is moved up
 #
 # Arguments:
 #
 #     row - hash ref containing fields and values of the moved row
 #
-sub movedUpRowNotify 
+sub movedUpRowNotify
 {
 
 }
 
 # Method: movedDownRowNotify
-#    
+#
 #    Override this method to be notified whenever
 #    a  row is moved down
 #
@@ -717,7 +717,7 @@ sub movedUpRowNotify
 #
 #     row - hash ref containing fields and values of the moved row
 #
-sub movedDownRowNotify 
+sub movedDownRowNotify
 {
 
 }
@@ -742,8 +742,8 @@ sub updatedRowNotify
 
 }
 
-# Method: notifyForeignModelAction 
-#    
+# Method: notifyForeignModelAction
+#
 #    This method is used to let models know when other model has
 #    taken an action.
 #
@@ -756,15 +756,15 @@ sub updatedRowNotify
 #    override this method to take the actions you need on response to
 #    the foreign module action
 #
-# Parameters: 
+# Parameters:
 #
 #   (POSITIONAL)
 #
-#   model - model name where the action took place 
-#   action - string represting the action: 
+#   model - model name where the action took place
+#   action - string represting the action:
 #            [ add, del, edit, moveUp, moveDown ]
 #
-#   row  - row modified 
+#   row  - row modified
 #
 # Returns:
 #
@@ -926,7 +926,7 @@ sub addTypedRow
 #
 # Returns:
 #
-#   An object of  <EBox::Model::Row> 
+#   An object of  <EBox::Model::Row>
 #
 sub row
 {
@@ -1073,7 +1073,7 @@ sub _reorderCachedRows
 # Parameters:
 #
 #    (POSITIONAL)
-#    
+#
 #     'id' - row id
 #    'force' - boolean to skip integrations checks of the row to remove
 #
@@ -1092,7 +1092,7 @@ sub removeRow
     }
 
     # If force != true and automaticRemove is enabled it means
-    # the model has to automatically check if the row which is 
+    # the model has to automatically check if the row which is
     # about to removed is referenced elsewhere. In that
     # case throw a DataInUse exceptions to iform the user about
     # the effects its actions will have.
@@ -1177,7 +1177,7 @@ sub removeAll
 
 }
 
-# Method: warnIfIdUsed 
+# Method: warnIfIdUsed
 #
 #    This method must be overriden in case you want to warn the user
 #    when a row is going to be deleted. Note that models manage this
@@ -1199,7 +1199,7 @@ sub warnIfIdUsed
 
 }
 
-# Method: warnOnChangeOnId 
+# Method: warnOnChangeOnId
 #
 #       This method must be overriden in case you want to advise the
 #       eBox user about the change on a observable model. Note that
@@ -1232,12 +1232,12 @@ sub warnOnChangeOnId
 
 }
 
-# Method: isIdUsed 
+# Method: isIdUsed
 #
 #    TODO
 #
 #    (POSITIONAL)
-#    
+#
 #    'modelName' - model's name
 #     'id' - row id
 sub isIdUsed
@@ -1351,7 +1351,7 @@ sub setTypedRow
       $self->validateTypedRow('update', $changedElements, $allHashElements);
 
       # If force != true automaticRemove is enabled it means
-      # the model has to automatically check if the row which is 
+      # the model has to automatically check if the row which is
       # about to be changed is referenced elsewhere and this change
       # produces an inconsistent state
       if ((not $force) and $self->table()->{'automaticRemove'}) {
@@ -1415,13 +1415,13 @@ sub _cachedVersion
 
 # Method: rows
 #
-#     Return a list containing the table rows     
+#     Return a list containing the table rows
 #
 # Parameters:
 #
 #     filter - string to filter result
 #       page   - int the page to show the result from
-#     
+#
 # Returns:
 #
 #    Array ref containing the rows
@@ -1435,14 +1435,14 @@ sub rows
         throw EBox::Exceptions::InvalidData(
                                             data => __('page'),
                                             value => $page,
-                                            advice => 
+                                            advice =>
                           __('Page must be a number equal or greater than zero')
 
                                            )
     }
 
     # The method which takes care of loading the rows
-    # from gconf is _rows(). 
+    # from gconf is _rows().
     #
     # rows() tries to cache the data to avoid extra access
     # to gconf
@@ -1529,7 +1529,7 @@ sub size
 #
 #	(POSITIONAL)
 #
-# 	currentIds - array ref containing the current row indentifiers 
+# 	currentIds - array ref containing the current row indentifiers
 #
 # Returns:
 #
@@ -1600,7 +1600,7 @@ sub _ids
         if (@{$ids} and $sortedBy) {
             for my $id (@{$ids}) {
                 $idsToOrder{$id} = $self->row($id)
-                        ->printableValueByName($sortedBy); 
+                        ->printableValueByName($sortedBy);
             }
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
         }
@@ -1608,8 +1608,8 @@ sub _ids
         my $modChanged = $global->modIsChanged($gconfmod->name());
         if ( not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
             $gconfmod->set_list($self->{'order'}, 'string', $ids);
-        } 
-    } 
+        }
+    }
     return $ids;
 }
 
@@ -1621,7 +1621,7 @@ sub _rows
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};    
+        my @order = @{$gconfmod->get_list($self->{'order'})};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -1632,8 +1632,8 @@ sub _rows
     my @rows;
     for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
         my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-    # Workaround: It seems that deleting a dir in gconf 
-    # doesn't work  ok sometimes and it keeps available after 
+    # Workaround: It seems that deleting a dir in gconf
+    # doesn't work  ok sometimes and it keeps available after
     # deleting it for a while.
     # To workaround this issue we skip those rows marked with
     # "removed" key
@@ -1849,7 +1849,7 @@ sub printableName
 #
 #   string
 #
-sub pageTitle 
+sub pageTitle
   {
 
       my ($self) = @_;
@@ -1866,7 +1866,7 @@ sub pageTitle
 #
 #   string
 #
-sub headTitle 
+sub headTitle
   {
 
       my ($self) = @_;
@@ -1896,15 +1896,15 @@ sub directory
   }
 
 
-# Method: menuNamespace 
+# Method: menuNamespace
 #
 #    Fetch the menu namespace which this model belongs to
 #
 # Returns:
 #
-#        String - Containing namespace 
+#        String - Containing namespace
 #
-sub menuNamespace 
+sub menuNamespace
 {
     my ($self) = @_;
 
@@ -2004,7 +2004,7 @@ sub indexField
             throw EBox::Exceptions::Internal('Declared index field ' .
                     $indexField . ' is not unique.' .
                     'Please, declare an index which ' .
-                    'is unique at ' . $self->tableName() . 
+                    'is unique at ' . $self->tableName() .
                     'description');
         }
     }
@@ -2195,9 +2195,9 @@ sub modelDomain
     return $self->{'table'}->{'modelDomain'};
 }
 
-# Method: fields 
+# Method: fields
 #
-#     Return a list containing the fields which compose each row    
+#     Return a list containing the fields which compose each row
 #
 # Returns:
 #
@@ -2224,7 +2224,7 @@ sub fields
 
 # Method: fieldsWithUndefSetter
 #
-#     Return a hash containing the fields which compose each row    
+#     Return a hash containing the fields which compose each row
 #    and dont have a defined Setter
 #
 # Returns:
@@ -2248,9 +2248,9 @@ sub fieldsWithUndefSetter
     return \%tableFields;
 }
 
-# Method: setterTypes 
+# Method: setterTypes
 #
-#     Return a list containing those fields which have defined setters 
+#     Return a list containing those fields which have defined setters
 #
 # Returns:
 #
@@ -2294,9 +2294,9 @@ sub filter
 {
     my ($self) = @_;
     return $self->{'filter'};
-}  
+}
 
-# Method: pages 
+# Method: pages
 #
 #    Return the number of pages
 #
@@ -2307,7 +2307,7 @@ sub filter
 # Returns:
 #
 #    integer - containing the value
-sub pages 
+sub pages
 {
     my ($self, $filter) = @_;
     return 1;
@@ -2358,7 +2358,7 @@ sub find
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
@@ -2399,7 +2399,7 @@ sub findAll
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
@@ -2437,7 +2437,7 @@ sub findValue
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
@@ -2481,7 +2481,7 @@ sub findAllValue
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
@@ -2520,7 +2520,7 @@ sub findId
     my ($self, $fieldName, $value) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     foreach my $id (@{$self->ids()}) {
@@ -2528,7 +2528,7 @@ sub findId
         my $element = $row->elementByName($fieldName);
         my $plainValue = $element->value();
         my $printableValue = $element->printableValue();
-        if ((defined($plainValue) and $plainValue eq $value) 
+        if ((defined($plainValue) and $plainValue eq $value)
             or (defined($printableValue) and $printableValue eq $value)) {
 
             return $id;
@@ -2750,11 +2750,11 @@ sub automaticRemoveMsg
 }
 
 # Method: pageSize
-#     
+#
 #     Return the number of rows per page
 #
 # Returns:
-#    
+#
 #    int - page size
 sub pageSize
 {
@@ -2770,12 +2770,12 @@ sub pageSize
 
 
 # Method: defaultPageSize
-#     
+#
 #     Return the default number of rows per page. This value must be defined in
 #     the table description. If it is not defined it defaults to 10
 #
 # Returns:
-#    
+#
 #    int - default page size
 sub defaultPageSize
 {
@@ -2792,29 +2792,29 @@ sub defaultPageSize
 
 
 # Method: setPageSize
-#     
+#
 #     set the number of rows per page
 #
 # Parameters:
 #
 #     rows - number of rows per page
-#     
+#
 # Returns:
-#    
+#
 #    int - page size
 sub setPageSize
 {
     my ($self, $rows) = @_;
 
     unless (defined ($rows)) {
-        throw EBox::Exceptions::MissingArgument("Missing field rows"); 
+        throw EBox::Exceptions::MissingArgument("Missing field rows");
     }
 
     if ($rows < 0) {
         throw EBox::Exceptions::InvalidData(
                                             data => __('Page size'),
                                             value => $rows,
-                                            advice => 
+                                            advice =>
                                  __('Must be either a positive number or zero')
                                            )
     }
@@ -2831,7 +2831,7 @@ sub setPageSize
 # Parameters:
 #
 #    (NAMED)
-#    changeType - changeAdd or changeList    
+#    changeType - changeAdd or changeList
 #    editId - edit id
 #     page - page number
 #       isFilter - boolean indicating if comes from filtering
@@ -2854,7 +2854,7 @@ sub changeViewJS
             '"%s", %s, %s)';
 
     my $table = $self->table();
-    return  sprintf ($function, 
+    return  sprintf ($function,
             $table->{'actions'}->{'changeView'},
             $table->{'tableName'},
             $table->{'gconfdir'},
@@ -2870,7 +2870,7 @@ sub changeViewJS
 #     Return the javascript function for addNewRow
 #
 # Parameters:
-#    
+#
 #    (POSITIONAL)
 #     page - page number
 #
@@ -2886,7 +2886,7 @@ sub addNewRowJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
     $fields =~ s/'/\"/g;
-    return  sprintf ($function, 
+    return  sprintf ($function,
             $table->{'actions'}->{'add'},
             $table->{'tableName'},
             $fields,
@@ -2896,10 +2896,10 @@ sub addNewRowJS
 
 # Method: changeRowJS
 #
-#     Return the javascript function for changeRow 
+#     Return the javascript function for changeRow
 #
 # Parameters:
-#    
+#
 #    (POSITIONAL)
 #    editId - row id to edit
 #     page - page number
@@ -2917,7 +2917,7 @@ sub changeRowJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
     $fields =~ s/'/\"/g;
-    return  sprintf ($function, 
+    return  sprintf ($function,
             $table->{'actions'}->{'editField'},
             $table->{'tableName'},
             $fields,
@@ -2926,12 +2926,12 @@ sub changeRowJS
             $page);
 }
 
-# Method: actionClicked 
+# Method: actionClicked
 #
 #     Return the javascript function for actionClicked
 #
 # Parameters:
-#    
+#
 #    (POSITIONAL)
 #    action - move or del
 #    editId - row id to edit
@@ -2949,7 +2949,7 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    if ($action eq 'move' 
+    if ($action eq 'move'
             and not ($direction eq 'up' or $direction eq 'down')) {
 
         throw EBox::Exceptions::External("Wrong action $direction");
@@ -2962,12 +2962,12 @@ sub actionClickedJS
         $direction = "dir=$direction";
     } else {
         $direction = "";
-    }    
+    }
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
     $fields =~ s/'/\"/g;
-    return  sprintf ($function, 
+    return  sprintf ($function,
             $table->{'actions'}->{$action},
             $table->{'tableName'},
             $action,
@@ -3027,7 +3027,7 @@ sub restoreFiles
 sub _hasFileFields
 {
     my ($self) = @_;
- 
+
     my $tableDesc = $self->table()->{tableDescription};
     foreach my $header  (  @{ $tableDesc } ) {
         if ($header->can('filesPaths')) {
@@ -3066,7 +3066,7 @@ sub reloadTable
 # Method: _prepareRow
 #
 #     Returns a new row instance with all its elements cloned
-#     and ready to be set 
+#     and ready to be set
 #
 sub _prepareRow
 {
@@ -3092,7 +3092,7 @@ sub _prepareRow
 #   (NAMED)
 #
 #     Hash containing field names as keys, and values that will
-#     be passed to setValue for every element.    
+#     be passed to setValue for every element.
 #
 sub _setValueRow
 {
@@ -3161,18 +3161,18 @@ sub _volatile
 # Method: _find
 #
 #    (PRIVATE)
-#    
-#    Used by find and findAll to find rows in a table    
+#
+#    Used by find and findAll to find rows in a table
 #
 # Parameters:
 #
 #    (POSITIONAL)
-#    
+#
 #    fieldName - the name of the field to match
 #    value - value we want to match
 #    allMatches -   1 or undef to tell the method to return just the
 #        first match or all of them
-#	
+#
 #    kind - String if 'printableValue' match against
 #    printableValue, if 'value' against value, 'row' match against
 #    value returning the row *(Optional)* Default value: 'value'
@@ -3191,7 +3191,7 @@ sub _find
     my ($self, $fieldName, $value, $allMatches, $kind) = @_;
 
     unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+        throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
     $kind = 'value' unless defined ( $kind );
@@ -3211,7 +3211,7 @@ sub _find
         }
         next unless ($eValue eq $value);
         my $match;
-        
+
         push (@matched, $id);
         return (\@matched) unless ($allMatches);
     }
@@ -3260,7 +3260,7 @@ sub _checkRowIsUnique # (rowId, row_ref)
         my @fieldsWithoutEnabled = grep { $_ ne 'enabled' } @{$fields};
         $fields = \@fieldsWithoutEnabled;
     }
-    
+
     foreach my $id (@{$self->_ids()}) {
         my $row = $self->row($id);
         # Compare if the row identifier is different
@@ -3406,7 +3406,7 @@ sub _orderHash
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};    
+        my @order = @{$gconfmod->get_list($self->{'order'})};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -3465,11 +3465,11 @@ sub _removeHasManyTables
 #sub _warnIfIdIsUsed
 #{
 #    my ($self, $id) = @_;
-#    
+#
 #    my $manager = EBox::Model::ModelManager->instance();
 #    my $modelName = $self->modelName();
 #    my $tablesUsing;
-#    
+#
 #    for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
 #        $tablesUsing .= '<br> - ' .  $name ;
 #    }
@@ -3482,14 +3482,14 @@ sub _removeHasManyTables
 #}
 #
 ## FIXME This method must be in ModelManager
-#sub _warnOnChangeOnId 
+#sub _warnOnChangeOnId
 #{
 #    my ($self, $id, $changeData, $oldRow) = @_;
-#    
+#
 #    my $manager = EBox::Model::ModelManager->instance();
 #    my $modelName = $self->modelName();
 #    my $tablesUsing;
-#    
+#
 #    for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
 #        my $model = $manager->model($name);
 #        my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
@@ -3572,13 +3572,13 @@ sub _filterRows
         my $totalWords = scalar(@words);
         for my $row (@{$rows}) {
             my $nwords = $totalWords;
-            my %wordFound;        
+            my %wordFound;
             for my $element (@{$row->elements()}) {
                 my $printableVal = $element->printableValue();
                 next unless defined($printableVal);
                 my $rowFound;
                 for my $regExp (@words) {
-                    if (not exists $wordFound{$regExp} 
+                    if (not exists $wordFound{$regExp}
                             and $printableVal =~ /$regExp/) {
                         $nwords--;
                         $wordFound{$regExp} = 1;
@@ -3715,7 +3715,7 @@ sub _isOptionsCacheDirty
 
     return 1 unless (exists $self->{'optionsCache'}->{$field});
 
-    my $cachedVersion = 
+    my $cachedVersion =
         $self->{'optionsCache'}->{$field}->{'cachedVersion'};
     return ($cachedVersion ne $self->_storedVersion());
 }
@@ -4376,8 +4376,8 @@ sub _filterFields
     unless ( defined ( $fieldNames ) ){
         return $row;
     }
-    
-    my $newRow = EBox::Model::Row->new(dir => $row->dir(), 
+
+    my $newRow = EBox::Model::Row->new(dir => $row->dir(),
                                        gconfmodule => $row->GConfModule());
     $newRow->setId($row->id());
     $newRow->setOrder($row->order());
@@ -4482,7 +4482,7 @@ sub keywords
 }
 
 
-  
+
 
 
 
@@ -4495,7 +4495,7 @@ sub keywords
 sub filesPaths
 {
     my ($self) = @_;
-    
+
     $self->_hasFileFields() or
         return [];
 
@@ -4508,7 +4508,7 @@ sub filesPaths
 }
 
 
-#  Method: filesPathsForRow 
+#  Method: filesPathsForRow
 #
 #   returns the file paths for a given row.
 #
@@ -4529,7 +4529,7 @@ sub filesPathsForRow
 #    submodel resides
 #
 #   Returns:
-#       row object or undef if there is not 
+#       row object or undef if there is not
 #
 # Warning: this method is affected fby the bug in ::Composite::parent() in case
 #      that the datatable is contained in a Composite

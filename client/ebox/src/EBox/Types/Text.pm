@@ -66,7 +66,7 @@ sub printableValue
     if ($self->{'localizable'}) {
         return $self->_i18filter();
     } else {
-        return $self->SUPER::printableValue(); 
+        return $self->SUPER::printableValue();
     }
 }
 

@@ -35,13 +35,13 @@ use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
 use constant MAX_MSG_SIZE                          => '100';
 
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -59,15 +59,15 @@ sub new
 #
 # This table is composed of two fields:
 #
-#   domain (<EBox::Types::Text>)    
+#   domain (<EBox::Types::Text>)
 #   enabled (EBox::Types::Boolean>)
-# 
+#
 # The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::Types::Host(
                                fieldName => 'smarthost',
                                printableName => __('Smarthost to send mail'),
@@ -76,7 +76,7 @@ sub _table
                               ),
          new EBox::Types::Union(
                               fieldName => 'smarthostAuth',
-                              printableName => 
+                              printableName =>
                                 __('Smarthost authentication'),
                               editable => 1,
 # XXX Workaround to allow unsafe characters in Password.
@@ -103,7 +103,7 @@ sub _table
                                               fieldName => 'password',
                                               printableName => __('Password'),
                                               size => 12,
-                                              editable => 1,                                            
+                                              editable => 1,
                                                                   ),
 
                                             ],
@@ -112,7 +112,7 @@ sub _table
              ),
          new EBox::Types::Union(
                               fieldName => 'maxSize',
-                              printableName => 
+                              printableName =>
                                 __('Maximum message size accepted'),
                               subtypes => [
                               new EBox::Types::Union::Text(
@@ -123,11 +123,11 @@ sub _table
                                   'fieldName' => 'size',
                                   'printableName' => __('size in Mb'),
                                   'editable'  => 1,
-                                  'max'       => MAX_MSG_SIZE, 
+                                  'max'       => MAX_MSG_SIZE,
                                       ),
                                   ],
              ),
-         
+
 
         );
 

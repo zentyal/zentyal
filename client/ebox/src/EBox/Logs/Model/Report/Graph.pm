@@ -98,7 +98,7 @@ sub reportRows
     } else {
         $limit = 30;
     }
-    
+
     return $self->SUPER::reportRows($limit);
 }
 
@@ -106,7 +106,7 @@ sub datasetsLabels
 {
     my ($self) = @_;
     my $dbFields = $self->dbFields();
-    
+
     my @labels = map { $_->{printableName}  } values %{ $dbFields };
     return \@labels;
 }
@@ -125,7 +125,7 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
 
-    
+
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -141,7 +141,7 @@ sub checkTable
     }
 
 
-    
+
 }
 
 

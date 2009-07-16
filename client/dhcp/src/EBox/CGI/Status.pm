@@ -30,7 +30,7 @@ sub new {
 	my $self = $class->SUPER::new('title' => 'DHCP',
 				      @_);
 	$self->{domain} = 'ebox-dhcp';
-	$self->{redirect} = "DHCP/Index";	
+	$self->{redirect} = "DHCP/Index";
 	bless($self, $class);
 	return $self;
 }
@@ -41,7 +41,7 @@ sub _process($) {
 
 	$self->_requireParam('active', __('Module Status'));
 	$dhcp->setService($self->param("active"));
-	
+
 }
 
 1;

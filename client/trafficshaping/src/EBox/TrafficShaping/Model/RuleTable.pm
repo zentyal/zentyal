@@ -95,7 +95,7 @@ sub new
 
 # Method: priority
 #
-#	Return select options for the priority field 
+#	Return select options for the priority field
 #
 # Returns:
 #
@@ -181,7 +181,7 @@ sub isUsingId
             my $gatewayIface = $gateway->valueByName('interface');
             return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
         } else {
-            # Every time a gateway is changed, 
+            # Every time a gateway is changed,
             # call a warning from an internal interface
             return ($self->size() > 0);
         }
@@ -335,10 +335,10 @@ sub validateTypedRow
     if ($service->fieldName() eq 'port') {
         my $servMod = EBox::Global->modInstance('services');
         # Check if service is any, any source or destination is given
-        if ($service->value() eq 'any' 
-           and $params->{source}->subtype()->isa('EBox::Types::Union::Text') 
+        if ($service->value() eq 'any'
+           and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
            and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
-            
+
             throw EBox::Exceptions::External(
                 __('If service is any, some source or' .
                    'destination should be provided'));
@@ -575,7 +575,7 @@ sub _table
               ),
       );
 
-    my $dataTable = { 
+    my $dataTable = {
         'tableName'          => 'tsTable',
         'printableTableName' => __x('Rules list for {printableIndex}',
                                     printableIndex => $self->printableIndex()),
@@ -624,7 +624,7 @@ sub _serviceModel
 }
 
 # Get the object model from l7-protocol
-sub _l7Protocol 
+sub _l7Protocol
 {
     my $global = EBox::Global->getInstance();
     return $global->modInstance('l7-protocols')->model('Protocols');
@@ -679,7 +679,7 @@ sub _normalize
             }
             # Normalize guaranteed rate
             if ( $guaranteedRate != 0 ) {
-                $guaranteedRate = ( $guaranteedRate * $currentLimitRate ) 
+                $guaranteedRate = ( $guaranteedRate * $currentLimitRate )
                                   / $oldLimitRate;
                 $guaranNum++;
             }
@@ -700,7 +700,7 @@ sub _normalize
 
     if ( $limitNum > 0 or $guaranNum > 0 ){
         return __x( 'Normalizing rates: {limitNum} rules have decreased its ' .
-            'limit rate to {limitRate}, {guaranNum} rules have normalized ' . 
+            'limit rate to {limitRate}, {guaranNum} rules have normalized ' .
             'its guaranteed rate to maintain ' .
             'the same proportion that it has previously and {removeNum} ' .
             'have been deleted because its guaranteed rate was lower than ' .
@@ -761,7 +761,7 @@ sub _serviceHelp
               'effective as they check the content of any ' .
               'packet to match a service.');
 
-              
+
 }
 
 # If l7filter capabilities are not enabled return dummy types which
@@ -779,7 +779,7 @@ sub _l7Types
                     ),
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Group',
-                    printableName   => 
+                    printableName   =>
                     __('Application based service group'),
                     foreignModel    => \&_l7Group,
                     foreignField    => 'group',
@@ -792,14 +792,14 @@ sub _l7Types
                     printableName   => __('Application based service'),
                     options	    => [],
                     editable        => 1,
-                    disabled	    => 1, 
+                    disabled	    => 1,
                     ),
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Group',
                     printableName   => __('Application based service group'),
                     options	    => [],
                     editable        => 1,
-                    disabled	    => 1, 
+                    disabled	    => 1,
                     ));
     }
 }

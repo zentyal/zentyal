@@ -70,12 +70,12 @@ sub backupService
   }
 
 
-  
+
   $self->{backupService} =  new EBox::RemoteServices::ProxyBackup(
 								user => $user,
 								password => $password
 							       );
-  
+
   return $self->{backupService}
 }
 

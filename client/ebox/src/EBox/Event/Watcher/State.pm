@@ -23,7 +23,7 @@ use base 'EBox::Event::Watcher::Base';
 
 # Constants:
 #
-use IO::Socket; 
+use IO::Socket;
 
 # eBox uses
 use EBox::Event;

@@ -46,7 +46,7 @@ sub _saveGConfChanges
 	$self->{'gconfmodule'}->saveConfigRecursive();
 }
 
-sub executeGConf 
+sub executeGConf
 {
 	my $self = shift;
 
@@ -133,7 +133,7 @@ sub _addService
         $params{sourcePort} = 'any';
     exists $params{destinationPort} or
         $params{destinationPort} = 'any';
-   
+
     my $serviceMod = EBox::Global->modInstance('services');
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {

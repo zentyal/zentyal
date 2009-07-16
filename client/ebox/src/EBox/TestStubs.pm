@@ -31,7 +31,7 @@ our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 #   one place. Please notice test classes created using
 #   EBox::Test::Class automatically call this function
 #
-# Parameters: 
+# Parameters:
 #     There are optional parameters only intended for advanced
 #     usage; each of the test stub may be controlled with two
 #     parameters.
@@ -39,12 +39,12 @@ our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 #        "fake$componentName" - whether to activate the teststub for
 #        this component or not (default: true)
 #        "$componentName" - an array ref with extra parameters for the
-#        component. (optional) 
+#        component. (optional)
 #
 # See also:
 #     <EBox::Test::Class>
 #
-# 
+#
 sub activateTestStubs
 {
     my %params = @_;
@@ -54,7 +54,7 @@ sub activateTestStubs
       my $fakeSwitch = "fake$stub";
       $params{$fakeSwitch} = 1   if (!exists $params{$fakeSwitch});
       $params{$stub}       = []  if (!exists $params{$stub});
-	 
+
     }
 
     my %fakeByComponent = (
@@ -97,11 +97,11 @@ sub activateTestStubs
 # 		  '/ebox/modules/openvpn/group' =>  $gids[0],
 # 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
 # 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
-#                ); # set some keys	
+#                ); # set some keys
 #
 sub setConfig
 {
-  return EBox::GConfModule::TestStub::setConfig(@_); 
+  return EBox::GConfModule::TestStub::setConfig(@_);
 }
 
 #
@@ -119,7 +119,7 @@ sub setConfig
 #       setConfigKey( '/ebox/modules/openvpn/user'  => $UID)
 sub setConfigKey
 {
-  return EBox::GConfModule::TestStub::setEntry(@_); 
+  return EBox::GConfModule::TestStub::setEntry(@_);
 }
 
 #
@@ -159,7 +159,7 @@ sub setEBoxModule
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/www/css', lang => 'cat') 
+#    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/www/css', lang => 'cat')
 sub setEBoxConfigKeys
 {
   return EBox::Config::TestStub::setConfigKeys(@_);
@@ -190,8 +190,8 @@ sub setEBoxConfigKeys
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
 #	fakeEBoxModule(name => 'idleModule');
-#       fakeEBoxModules( 
-#                name => 'macaco', package => 'EBox::Macaco', 
+#       fakeEBoxModules(
+#                name => 'macaco', package => 'EBox::Macaco',
 #                subs => [ sayHello => sub { print 'hi'  }  ],
 #       );
 #
@@ -200,7 +200,7 @@ sub fakeEBoxModule
   my %params = @_;
   exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
 
-  
+
   exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
 
   my @isa = ('EBox::GConfModule');
@@ -213,7 +213,7 @@ sub fakeEBoxModule
   eval $createIsaCode;
   die "When creating ISA array $@" if  $@;
 
- 
+
 
 
   my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
@@ -250,7 +250,7 @@ sub fakeEBoxModule
 #     attributes. The name is a string and the attributes is a hash
 #     ref with the following elements:
 #
-#       up - boolean value 
+#       up - boolean value
 #       address - hash reference to a hash with IP
 #                 addresses as keys and netmasks as values
 #       mac_address - string with the mac address
@@ -299,7 +299,7 @@ sub setFakeIfaces
 # Function: setFakeRoutes
 #
 #   Set fake computer network routes. This fake routes will used by
-#   EBox::NetWrappers functions 
+#   EBox::NetWrappers functions
 #
 # Parameters:
 #     a list with pairs of network destination and gateways

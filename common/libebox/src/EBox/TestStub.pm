@@ -1,7 +1,7 @@
 package EBox::TestStub;
 # Description: Test stub for EBox perl package.
 # It changes the log process to use stdout instead of a file just writable by ebox
-# 
+#
 use strict;
 use warnings;
 
@@ -25,7 +25,7 @@ sub fake
 		     'fatal'  => $FATAL,
 		     );
 
-    (exists $logLevelsByName{$minLogLevel}) or die "Incorrect log level: $minLogLevel";    
+    (exists $logLevelsByName{$minLogLevel}) or die "Incorrect log level: $minLogLevel";
     $logLevel = $logLevelsByName{$minLogLevel};
 
 

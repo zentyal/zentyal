@@ -132,7 +132,7 @@ sub validateTypedRow
 
     if ( $allFields->{nextServer}->selectedType() eq 'nextServerEBox' ) {
         if ( not -f $allFields->{filename}->path()
-             and 
+             and
              not ($changedFields->{filename} and
               -f $changedFields->{filename}->tmpPath() and
               $changedFields->{filename}->userPath())) {
@@ -140,7 +140,7 @@ sub validateTypedRow
                 . 'image to eBox if you set it as next server'));
         }
     } else {
-        if ( $changedFields->{filename} and 
+        if ( $changedFields->{filename} and
              $changedFields->{filename}->userPath() and
              -f $changedFields->{filename}->tmpPath()) {
                 throw EBox::Exceptions::External(__('In order to upload a boot '
@@ -150,7 +150,7 @@ sub validateTypedRow
     if ( $allFields->{nextServer}->selectedType() eq 'nextServerIP' or
         ( $allFields->{nextServer}->selectedType() eq 'nextServerName' )) {
         if ( $allFields->{remoteFilename}->value() eq '') {
-            throw EBox::Exceptions::External(__('You need to specify a path ' 
+            throw EBox::Exceptions::External(__('You need to specify a path '
             . 'to the boot image in the remote server'));
         }
     } else {

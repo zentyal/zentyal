@@ -24,7 +24,7 @@ use EBox;
 use EBox::Gettext;
 use EBox::Global;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);

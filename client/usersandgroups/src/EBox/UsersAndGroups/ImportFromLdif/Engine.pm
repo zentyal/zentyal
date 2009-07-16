@@ -34,7 +34,7 @@ my $minPriority;
 sub importLdif
 {
     my ($ldifPath, @extraOptions) = @_;
-    
+
     _loadClientClasses();
 
     my @entries = @{ _entries($ldifPath)  };
@@ -97,14 +97,14 @@ sub _loadClientClasses
                 defined $ldifClass or
                     die "Not class specified in $importClass::classesToProcess()";
                 if (exists $ldifClassSpec->{priority}) {
-                    $priority  = $ldifClassSpec->{priority} 
+                    $priority  = $ldifClassSpec->{priority}
                 }
             }
             else {
                 $ldifClass = $ldifClassSpec;
             }
 
-            
+
 
             my $importClassElement =  {
                                        importClass => $importClass,
@@ -114,7 +114,7 @@ sub _loadClientClasses
             if (not exists  $classesToProcess{$ldifClass}) {
                  $classesToProcess{$ldifClass} = [];
             }
-            push @{ $classesToProcess{$ldifClass} }, $importClassElement; 
+            push @{ $classesToProcess{$ldifClass} }, $importClassElement;
 
             if (not exists $classStartup{$ldifClass}) {
                 $classStartup{$ldifClass} = [];
@@ -140,10 +140,10 @@ sub _processEntry
 {
     my ($entry, %params) = @_;
 
-    
+
     my @objectClasses = $entry->get_value('objectClass');
     my $priority      = delete $params{priority};
-    
+
     my $entryNotFullyProcessed = 0;
 
     foreach my $class (@objectClasses) {
@@ -184,7 +184,7 @@ sub _startupClass
     return if not exists $classStartup{$oclass};
 
     # sort by priority
-    my @importClasses = sort {  
+    my @importClasses = sort {
         $a->{priority} <=> $b->{priority}
     } @{ $classStartup{$oclass} };
 

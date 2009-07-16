@@ -137,7 +137,7 @@ sub isEqualTo
             # diff command failed, we assume that they ar different (cannot find
             # a reliable docuentation of diff's return values)
             $equal = 0;
-            
+
         };
 
         return $equal;
@@ -190,7 +190,7 @@ sub path
 # Method: user
 #
 # Returns:
-#         - the user which will own the file  
+#         - the user which will own the file
 sub user
 {
     my ($self) = @_;
@@ -205,7 +205,7 @@ sub user
 # Method: group
 #
 # Returns:
-#         - the group which will own the file  
+#         - the group which will own the file
 sub group
 {
     my ($self) = @_;
@@ -243,13 +243,13 @@ sub exist
     }
 }
 
-# Method: toRemove 
+# Method: toRemove
 #
 #    Check if the file has been marked to be removed
 #
 # Returns:
 #
-#    boolean -  
+#    boolean -
 #
 sub toRemove
 {
@@ -334,7 +334,7 @@ sub linkToDownload
     $link .= "/$modelName" if ($modelName);
     $link .= "/$index" if ($index);
     $link .= '&dir=' . $self->model()->directory();
-    $link .= '&id=' . $self->row()->id(); 
+    $link .= '&id=' . $self->row()->id();
     $link .= '&field='  . $self->fieldName();
 
     return $link;
@@ -378,8 +378,8 @@ sub userPath
 #  Method: backupPath
 #
 #   return the path to the actual configuration backup
-# 
-# Parameters: 
+#
+# Parameters:
 #   path - path of the file which owns the backup, if it is not
 #       provided the path() method will be used
 sub backupPath
@@ -398,8 +398,8 @@ sub backupPath
 #
 #   return the path to the file to signals to the actual configuration backup
 #   that there wasn't any file before
-# 
-# Parameters: 
+#
+# Parameters:
 #   path - path of the file which owns the backup, if it is not
 #       provided the path() method will be used
 sub noPreviousFilePath
@@ -407,7 +407,7 @@ sub noPreviousFilePath
     my ($self, $path) = @_;
     defined $path or
       $path = $self->path();
-    $path or 
+    $path or
       return undef;
 
     my $backupPath = $path . '.noprevious.bak';
@@ -419,7 +419,7 @@ sub noPreviousFilePath
 #   Make an actual configuration backup of the file.. This backup will used to
 #   discard changes when revoking the configuration
 #
-# Parameters: 
+# Parameters:
 #   path - path of the file which owns the backup, if it is not
 #       provided the path() method will be used
 sub backupFiles
@@ -449,9 +449,9 @@ sub backupFiles
 # Method: restoreFiles
 #
 #  Restores the actual configuration backup of the file, thus discarding last
-#  changes 
+#  changes
 #
-# Parameters: 
+# Parameters:
 #   path - path of the file which owns the backup, if it is not
 #       provided the path() method will be used
 sub restoreFiles
@@ -466,12 +466,12 @@ sub restoreFiles
         EBox::Sudo::root("cp -p $backupPath $path");
         return;
     }
-  
+
     my $noPreviousFilePath = $self->noPreviousFilePath($path);
     if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
         EBox::Sudo::root("rm -f $path");
     }
-  
+
 
 
 }

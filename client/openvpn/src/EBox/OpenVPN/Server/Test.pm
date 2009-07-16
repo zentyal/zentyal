@@ -576,7 +576,7 @@ sub setServiceTest : Test(56)
   $server->setService(0);
 
   my @serviceStates = ('0', '1', '1', '0');
-  
+
   diag 'Server in correct state';
   foreach my $newService (@serviceStates) {
     lives_ok { $server->setService($newService) } "Setting server service to $newService";
@@ -612,7 +612,7 @@ sub setServiceTest : Test(56)
 		      },
 		     );
   $ca->setInitialState(\@certificates);
-  
+
 
   diag 'Setting server to use a inexistent certificate';
   $server->setConfString('inexistent');

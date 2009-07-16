@@ -17,7 +17,7 @@
 #
 #	This class exposes the interface to be implemented by a new database backend
 #	module.
-#	
+#
 package EBox::AbstractDBEngine;
 
 use strict;
@@ -38,7 +38,7 @@ sub new {
 #  This function returns the database name.
 #
 sub _dbname {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _dbuser
@@ -46,7 +46,7 @@ sub _dbname {
 #  This function returns the database user.
 #
 sub _dbuser {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _dbpass
@@ -54,7 +54,7 @@ sub _dbuser {
 #  This function returns the database user password.
 #
 sub _dbpass {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _connect
@@ -63,7 +63,7 @@ sub _dbpass {
 #	database.
 #
 sub _connect  {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _disconnect
@@ -72,7 +72,7 @@ sub _connect  {
 #	database.
 #
 sub _disconnect {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: insert
@@ -85,8 +85,8 @@ sub _disconnect {
 #   $values: A hash ref with database fields name and values pairs that do you
 #   want to insert to.the table name passed as parameter too.
 #
-sub insert {	
-	throw EBox::Exceptions::NotImplemented();		  
+sub insert {
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: query
@@ -95,7 +95,7 @@ sub insert {
 #	operation to a table form the database.
 #
 sub query {
-	throw EBox::Exceptions::NotImplemented();		  
+	throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: dumpDB
@@ -106,20 +106,20 @@ sub query {
 #   $outputFike : the output database dump file
 sub  dumpDB
 {
-  throw EBox::Exceptions::NotImplemented();		  
+  throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: restoreDB
 #
 # restore a database from a dump file.
-# 
+#
 # Parameters:
 #   $file - the dump file
 
 sub restoreDB
 {
-  throw EBox::Exceptions::NotImplemented(); 
-}  
+  throw EBox::Exceptions::NotImplemented();
+}
 
 
 1;

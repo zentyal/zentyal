@@ -31,10 +31,10 @@ use EBox::OpenVPN::Types::Certificate;
 # XXX TODO
 #   - client type must hid unavailable types
 #  - certificates select must not show the certificate of the server
-#   - addresses must be filled with the dafault addresses obtained from 
+#   - addresses must be filled with the dafault addresses obtained from
 #    the serversAddr class method in EBox::OpenVPN::Server::ClientBundleGenerator
 #   - installer option should be only availble for windows clients
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -51,12 +51,12 @@ sub _table
 {
 #    my ($self) = @_;
 
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
          new EBox::Types::Select(
-             fieldName => 'clientType', 
-             printableName => __(q{Client's type}), 
+             fieldName => 'clientType',
+             printableName => __(q{Client's type}),
              editable => 1,
              populate => \&_clientTypeOptions,
 #                                  populate => sub {
@@ -97,8 +97,8 @@ sub _table
                  ),
          );
 
-    my $dataTable = 
-    { 
+    my $dataTable =
+    {
         'tableName'               => __PACKAGE__->nameFromClass(),
         'printableTableName' => __('Configure bundle'),
         'pageTitle' => __('Download client bundle'),
@@ -126,22 +126,22 @@ sub _clientTypeOptions
 #     my @disabledAttr = (disabled => 'disabled');
 
     my @options = (
-                   { 
-                    value => 'windows', 
-                    printableValue =>'Windows', 
+                   {
+                    value => 'windows',
+                    printableValue =>'Windows',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
-                   }, 
-                   { 
-                    value => 'linux',   
+                   },
+                   {
+                    value => 'linux',
                     printableValue =>'Linux',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
-                   { 
-                    value => 'EBoxToEBox', 
+                   {
+                    value => 'EBoxToEBox',
                     printableValue => __('EBox to EBox tunnel') ,
 #                    $EBoxToEBoxTunnel ? () : @disabledAttr,
                    },
-                   
+
                   );
 
     return \@options;
@@ -200,7 +200,7 @@ sub _validateClientType
     my ($self, $action, $params_r, $actual_r) = @_;
     my $clientType = $params_r->{clientType}->value();
 
-    
+
     my $confRow = $self->_serverConfRow();
     my $pullRoutes = $confRow->elementByName('pullRoutes')->value();
 
@@ -254,27 +254,27 @@ sub _validateInstaller
 sub formSubmitted
 {
     my ($self, $row) =  @_;
-     
 
-    my $type = $row->elementByName('clientType')->value(); 
+
+    my $type = $row->elementByName('clientType')->value();
     my $certificate = $row->elementByName('certificate')->value();
-    my $installer = $row->elementByName('installer')->value();    
+    my $installer = $row->elementByName('installer')->value();
 
 
     my @serverAddr;
     foreach my $field (qw(addr1 addr2 addr3)) {
         my $addr = $row->elementByName($field)->value();
-        $addr or 
+        $addr or
             next;
 
         push @serverAddr, $addr;
     }
-    
+
 
     my $server = $self->_server();
     my $bundle= $server->clientBundle(
-                                      clientType => $type, 
-                                      clientCertificate => $certificate, 
+                                      clientType => $type,
+                                      clientCertificate => $certificate,
                                       addresses => \@serverAddr,
                                       installer => $installer,
                                          );

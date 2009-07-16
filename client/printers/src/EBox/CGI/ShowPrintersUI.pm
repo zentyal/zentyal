@@ -35,14 +35,14 @@ sub new {
 	return $self;
 }
 
-sub domain 
+sub domain
 {
 	return 'ebox-printers';
 }
 
 sub _process($) {
 	my $self = shift;
-	
+
 	my $printers = EBox::Global->modInstance('printers');
 	my $active;
 	if ($printers->isEnabled()) {
@@ -51,7 +51,7 @@ sub _process($) {
 		$active = 'no';
 	}
 	my @array;
-	
+
 	push (@array, 'printers' => $printers->printers());
 	push (@array, 'active' => $active);
         push (@array, 'standaloneCups' => $printers->isStandaloneCupsEnabled());

@@ -52,7 +52,7 @@ sub _process($) {
         if ($newextn ne $myextn) {
             $extensions->modifyUserExtension($username, $newextn);
         }
-    } else { 
+    } else {
             $astldap->setHasAccount($username, 0);
     }
 }

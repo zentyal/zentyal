@@ -48,7 +48,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -57,7 +57,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -82,7 +82,7 @@ sub _table
      printableTableName => __(q{MIME types}),
      modelDomain        => 'mail',
      'defaultController' => '/ebox/MailFilter/Controller/MIMETypeACL',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -104,7 +104,7 @@ sub _table
 #
 # Returns:
 #   - reference to a list of banned MIME types
-# 
+#
 sub banned
 {
     my ($self) = @_;
@@ -126,10 +126,10 @@ sub bannedRegexes
   my @bannedMimeTypes = @{  $self->banned() };
   @bannedMimeTypes = map {
     $_ =~ s{/}{\/};
-    '^' . $_ . '$'  
+    '^' . $_ . '$'
 
   } @bannedMimeTypes;
- 
+
 
   return \@bannedMimeTypes;
 }

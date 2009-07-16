@@ -38,7 +38,7 @@ sub new
         $self->{height} = 200;
     }
     bless($self, $class);
-    
+
     $self->update();
     return $self;
 }
@@ -57,7 +57,7 @@ sub update
     my $secs;
     my $value = 0;
     if(-f $counterfile) {
-        my $olddate = (stat $counterfile)[9]; 
+        my $olddate = (stat $counterfile)[9];
         if($olddate < $startdate) {
             unlink($counterfile);
         } else {
@@ -67,7 +67,7 @@ sub update
             close COUNTERFILE;
             chomp($oldcounter);
             if($secs != 0) {
-                $value = ($self->{value}-$oldcounter)/$secs; 
+                $value = ($self->{value}-$oldcounter)/$secs;
             }
         }
     }

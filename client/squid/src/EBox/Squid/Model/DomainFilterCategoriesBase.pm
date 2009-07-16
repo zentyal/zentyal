@@ -55,7 +55,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -136,7 +136,7 @@ sub filesPerPolicy
             next;
         }
 
- 
+
         my $dir = $row->valueByName('dir');
         my @dirFiles =  @{ EBox::Sudo::root("find $dir") };
         foreach my $file (@dirFiles) {
@@ -146,7 +146,7 @@ sub filesPerPolicy
             if ($basename ne $scope) {
                 next;
             }
-            
+
             push @files, $file;
         }
 
@@ -182,7 +182,7 @@ sub deleteCategory
 }
 
 # # XXX ad-hack reimplementation until the bug in coposite's parent would be
-# # solved 
+# # solved
 # use EBox::Global;
 sub parent
 {
@@ -192,7 +192,7 @@ sub parent
 
     if ($self->isa('EBox::Squid::Model::DomainFilterCategories')) {
         my $defaultFilterGroup = $squid->composite('FilterSettings');
-    
+
         my $defaultParent =  $defaultFilterGroup->componentByName('DomainFilterFiles', 1);
 
 
@@ -209,7 +209,7 @@ sub parent
     my $granparentRow = $filterProfiles->row($rowId);
     my $filterPolicy  = $granparentRow->elementByName('filterPolicy')->foreignModelInstance();
 
-    
+
     my $parent =  $filterPolicy->componentByName('FilterGroupDomainFilterFiles', 1);
 
 

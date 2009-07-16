@@ -28,10 +28,10 @@ use EBox::Gettext;
 use EBox::MailFilter::Types::Policy;
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -49,15 +49,15 @@ sub new
 #
 # This table is composed of two fields:
 #
-#   domain (<EBox::Types::Text>)    
+#   domain (<EBox::Types::Text>)
 #   enabled (EBox::Types::Boolean>)
-# 
+#
 # The only avaiable action is edit and only makes sense for 'enabled'.
-# 
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
+    my @tableDesc =
+        (
          new EBox::MailFilter::Types::Policy(
                                              fieldName => 'virus',
                                              printableName => __('Virus policy'),

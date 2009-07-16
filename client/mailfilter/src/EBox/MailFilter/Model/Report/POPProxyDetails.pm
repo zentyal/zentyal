@@ -24,7 +24,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Int;
 
-sub new 
+sub new
 {
     my $class = shift @_;
 
@@ -70,13 +70,13 @@ sub _table
                                            'size' => '12',
                                            editable => 0,
                               ),
-                     new EBox::Types::Int(  
-                                          fieldName => 'mails', 
+                     new EBox::Types::Int(
+                                          fieldName => 'mails',
                                           printableName =>  __('total messages'),
                                           editable => 0,
                                          ),
-                     new EBox::Types::Int(  
-                                          fieldName => 'clean', 
+                     new EBox::Types::Int(
+                                          fieldName => 'clean',
                                           printableName =>  __('clean messages'),
                                           editable => 0,
                                          ),
@@ -90,14 +90,14 @@ sub _table
                                           printableName =>  __('spam messages'),
                                           editable => 0,
                                          ),
-          
+
 
                     ];
 
 
-     
-    my $dataTable = 
-        { 
+
+    my $dataTable =
+        {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Transparent POP proxy traffic details'),
             'defaultController' => '/ebox/Mail/Controller/POPProxyTraffic',

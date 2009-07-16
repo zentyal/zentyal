@@ -46,13 +46,13 @@ sub _process($) {
 	$printers->cleanTempPrinters();
 	my $name = $self->param('printername');
 	my $method = $self->param('method');
-	
-	
+
+
 	my $id = $printers->addPrinter($name, $method);
 
 	$self->keepParam('printerid');
         $self->cgi()->param(-name=>'printerid', -value=>$id);
-	if ($method eq 'network') {	
+	if ($method eq 'network') {
 		$self->{chain} = "Printers/NetworkPrinterUI";
 	} elsif ($method eq 'samba') {
 		$self->{chain} = "Printers/SambaPrinterUI";
@@ -65,7 +65,7 @@ sub _process($) {
         } elsif ($method eq 'lpd') {
                 $self->{chain} = "Printers/LPDPrinterUI";
         }
-        
+
 }
 
 1;

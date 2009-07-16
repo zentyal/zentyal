@@ -87,7 +87,7 @@ sub preconditionFailMsg
 # Method: pageTitle
 #
 # Overrides:
-#   
+#
 #   <EBox::Model::Component::pageTitle>
 #
 sub pageTitle

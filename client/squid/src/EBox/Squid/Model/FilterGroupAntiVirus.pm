@@ -28,10 +28,10 @@ use EBox::Gettext;
 
 
 
-# eBox exceptions used 
+# eBox exceptions used
 use EBox::Exceptions::External;
 
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -48,7 +48,7 @@ sub new
 # a table model description.
 #
 
-# 
+#
 sub _table
 {
     my ($self) = @_;

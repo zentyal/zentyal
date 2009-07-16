@@ -49,7 +49,7 @@ sub title
     return EBox::Html::makeHtml('usersandgroups/usercorner/headTitle.mas');
 }
 
-# Method: menu 
+# Method: menu
 #
 #	Returns the html code for the menu
 #

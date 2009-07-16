@@ -99,7 +99,7 @@ sub dumpTcCommands
     # Class and qdisc commands
     my @tcCommands;
     # Filter commands attached to the qdisc
-    my @tcFilterCommands; 
+    my @tcFilterCommands;
     foreach my $node (@nodes) {
       # Run dumpTcCommands
       my @newTcCommands = @{$node->value()->dumpTcCommands()};

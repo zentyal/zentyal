@@ -33,7 +33,7 @@ sub new # (text)
 	return $self;
 }
 
-sub toStderr 
+sub toStderr
 {
 	$self = shift;
 	print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
@@ -45,7 +45,7 @@ sub _logfunc # (logger, msg)
 	$logger->debug($msg);
 }
 
-sub log 
+sub log
 {
 	$self = shift;
 	my $log = EBox::logger();

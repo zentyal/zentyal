@@ -50,7 +50,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    
+
     bless $self, $class;
     return $self;
 }
@@ -59,7 +59,7 @@ sub new
 
 # Method: _table
 #
-#       The table description 
+#       The table description
 #
 sub _table
 {
@@ -84,7 +84,7 @@ sub _table
      printableTableName => __(q{External mail domains}),
      modelDomain        => 'Mail',
      'defaultController' => '/ebox/MailFilter/Controller/ExternalDomain',
-     'defaultActions' => [      
+     'defaultActions' => [
                           'add', 'del',
                           'editField',
                           'changeView'
@@ -125,7 +125,7 @@ sub validateTypedRow
 #
 # Returns:
 #   - reference to a list of external mail domains for which connection is allowed
-# 
+#
 sub allowed
 {
     my ($self) = @_;

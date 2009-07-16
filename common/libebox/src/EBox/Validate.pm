@@ -387,9 +387,9 @@ sub checkVlanID # (id, name?)
         unless($id =~/^\d+$/){
                 if ($name) {
                         throw EBox::Exceptions::InvalidData
-                                ('data' => $name, 
+                                ('data' => $name,
                                  'value' => $id,
-                                 'advice' => 
+                                 'advice' =>
                                  __('Must be a number between 1 and 4096')
                                 );
                 } else {
@@ -403,7 +403,7 @@ sub checkVlanID # (id, name?)
                 if ($name) {
                         throw EBox::Exceptions::InvalidData
                                 ('data' => $name, 'value' => $id,
-                                 'advice' => 
+                                 'advice' =>
                                  __('Must be a number between 1 and 4096')
                                 );
                 } else {

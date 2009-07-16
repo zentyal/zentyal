@@ -37,11 +37,11 @@ use Perl6::Junction qw( any );
 
 use base 'EBox::Firewall::IptablesRule';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_); 
+    my $self = $class->SUPER::new(@_);
     $self->{service} = [];
     bless($self, $class);
     return $self;
@@ -51,7 +51,7 @@ sub new
 # Method: strings
 #
 #   Return the iptables rules built as a string
-#   
+#
 # Returns:
 #
 #   Array ref of strings containing a iptables rule
@@ -87,14 +87,14 @@ sub strings
 
 # Method: setInterface
 #
-#   Set interface for rules 
-#   
+#   Set interface for rules
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
 #   interface - interface name
-#   
+#
 sub setInterface
 {
     my ($self, $interface) = @_;
@@ -104,12 +104,12 @@ sub setInterface
 
 # Method: interface
 #
-#   Return interface for rules 
-#   
+#   Return interface for rules
+#
 # Returns:
-#   
+#
 #   interface - it can be any valid chain or interface like accept, drop, reject
-#   
+#
 sub interface
 {
     my ($self) = @_;
@@ -123,15 +123,15 @@ sub interface
 
 # Method: setDestination
 #
-#   Set destination for rules 
-#   
+#   Set destination for rules
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
 #   addr - destination address
 #   port - destination port (optional: can be undef)
-#   
+#
 sub setDestination
 {
     my ($self, $addr, $port) = @_;
@@ -188,8 +188,8 @@ sub setCustomService
             push (@{$self->{'service'}}, ["-p udp $nat", "-p udp $filter"]);
             push (@{$self->{'service'}}, ["-p tcp $nat", "-p tcp $filter"]);
         } else {
-            push (@{$self->{'service'}}, [" -p $protocol $nat", 
-                                          " -p $protocol $filter"]); 
+            push (@{$self->{'service'}}, [" -p $protocol $nat",
+                                          " -p $protocol $filter"]);
         }
     } elsif ($protocol eq any ('gre', 'icmp', 'esp', 'ah', 'all')) {
         my $iptables = " -p $protocol";
