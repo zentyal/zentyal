@@ -5,7 +5,7 @@
 #	In version 1, a new model has been created to store firewall rules and it
 #	lives in another module called services. In previous versions
 #	servies were stored in firewall.
-#	
+#
 #	This migration script tries to populate the services model with the
 #	stored services in firewall
 #
@@ -36,7 +36,7 @@ sub _setDefaultInternalServices
     # this safe with previous version that used the onInstall method
     $fw->setInternalService('eBox administration', 'accept');
     $fw->setInternalService('ssh', 'accept');
-    
+
     $fw->saveConfigRecursive();
 }
 
@@ -50,7 +50,7 @@ sub runGConf
 EBox::init();
 
 my $fwMod = EBox::Global->modInstance('firewall');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				    'gconfmodule' => $fwMod,
 				    'version' => 2,
 				   );

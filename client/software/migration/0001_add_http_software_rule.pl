@@ -33,13 +33,13 @@ sub _addFirewallRule
                 description => $description,
                 translationDomain => 'ebox-services');
 
-    } else { 
+    } else {
         $servId = $servMod->serviceId($name);
     }
 
     return unless ($global->modExists('firewall'));
     my $fwMod = EBox::Global->modInstance('firewall');
-    $fwMod->addOutputService( decision => 'accept', 
+    $fwMod->addOutputService( decision => 'accept',
             destination =>  {destination_any => 'any'},
             service => { inverse => 0, value => $servId},
             description => __d('rule to allow apt updates'));
@@ -65,7 +65,7 @@ sub runGConf
 EBox::init();
 
 my $softwareMod = EBox::Global->modInstance('software');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
     'gconfmodule' => $softwareMod,
     'version' => 1
 );

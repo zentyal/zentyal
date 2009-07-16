@@ -66,10 +66,10 @@ sub _migrateKeys
 					 setter => 'set_int',
 					 getter => 'get_int',
 					},
-			
+
 			# to another model
 			threshold => {
-				      newKey => 
+				      newKey =>
 				      'ContentFilterThreshold/contentFilterThreshold',
 				      setter => 'set_int',
 				      getter => 'get_int',
@@ -88,7 +88,7 @@ sub _migrateSimpleKeys
 {
   my ($self, $squid, $deprecatedKeys_r) = @_;
 
-  my $entries = $squid->all_entries_base('') ;  
+  my $entries = $squid->all_entries_base('') ;
   my $allExistentKeys = all  @{ $entries };
   while (my ($oldKey, $migrationSpec) = each %{ $deprecatedKeys_r }) {
     if ( $oldKey ne $allExistentKeys ) {
@@ -102,7 +102,7 @@ sub _migrateSimpleKeys
 
     my $oldValue  = $squid->$getter($oldKey);
     $squid->$setter($newKey, $oldValue);
-    
+
     $squid->unset($oldKey);
   }
 }
@@ -123,7 +123,7 @@ sub _migrateDomains
   }
   $squid->unset('allowed_sites');
 
-  
+
   my $bannedSites_r = $squid->get_list('banned_sites');
   foreach my $domain (@{ $bannedSites_r }) {
     $domainFilter->addRow(
@@ -131,8 +131,8 @@ sub _migrateDomains
 			  policy => 'deny',
 			 );
   }
-  $squid->unset('banned_sites');					 
-					
+  $squid->unset('banned_sites');
+
 
 
   $self->_listsToTable('allowed_sites', 'banned_sites', $domainFilter, 'domain');
@@ -144,7 +144,7 @@ sub _migrateExtensions
 
   $self->_migrateAllowAndBanList(
 				 populateMethod => '_populateExtensions',
-				 
+
 				 newModelName => 'ExtensionFilter',
 				 newModelDir  =>  'EBox::Squid::Model::ExtensionsFilter',
 				 newModelElementType => 'extension',
@@ -163,7 +163,7 @@ sub _migrateAllowAndBanList
   my $newModelName = $args{newModelName};
   my $newModelDir  = $args{newModelDir};
   my $newModelElementType = $args{newModelElementType};
-  
+
   my $allowListKey   = $args{allowListKey};
   my $banListKey     = $args{banListKey};
 
@@ -171,9 +171,9 @@ sub _migrateAllowAndBanList
   if ( $status->{populated} eq 'no' ) {
     return $self->$populateMethod();
   }
- 
+
   my $squid = $self->{gconfmodule};
-  my $newModel = $squid->model($newModelName);  
+  my $newModel = $squid->model($newModelName);
 
   if ($status->{populated} eq 'yes') {
     $self->_listsToTable($allowListKey, $banListKey, $newModel, $newModelElementType);
@@ -228,12 +228,12 @@ sub _populateExtensions
   }
 
   my @extensions = qw(
-                     ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp 
-                     ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi 
-                     msp mst pcd pif prf reg scf scr sct sh shs shb sys url vb 
-                     be vbs vxd wsc wsf wsh otf ops doc xls gz tar zip tgz bz2 
-                     cdr dmg smi sit sea bin hqx rar mp3 mpeg mpg avi asf iso 
-                     ogg wmf  cue sxw stw stc sxi sti sxd sxg odt ott ods 
+                     ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp
+                     ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi
+                     msp mst pcd pif prf reg scf scr sct sh shs shb sys url vb
+                     be vbs vxd wsc wsf wsh otf ops doc xls gz tar zip tgz bz2
+                     cdr dmg smi sit sea bin hqx rar mp3 mpeg mpg avi asf iso
+                     ogg wmf  cue sxw stw stc sxi sti sxd sxg odt ott ods
                      ots odp otp odg otg odm odf odc odb odi pdf
                    );
 
@@ -260,14 +260,14 @@ sub _populatedStatus
 {
   my ($self, $dir, $allowList, $banList) = @_;
 
-  my $squid = $self->{gconfmodule};  
+  my $squid = $self->{gconfmodule};
 
   if ($squid->dir_exists($dir)) {
     return {
 	    populated => 'yes',
 	   };
   }
-  
+
 
 
 
@@ -289,7 +289,7 @@ sub _populatedStatus
   elsif (not $allowPopulated and $banPopulated) {
     return {
 	    populated => 'partial',
-	    missing  => 1,  
+	    missing  => 1,
 	   }
   }
 
@@ -302,7 +302,7 @@ sub _migrateMIMETypes
 
   $self->_migrateAllowAndBanList(
 				 populateMethod => '_populateMIMETypes',
-				 
+
 				 newModelName => 'MIMEFilter',
 				 newModelDir  =>  'EBox::Squid::Model::MIMEFilter',
 				 newModelElementType => 'MIMEType',
@@ -331,10 +331,10 @@ sub _populateMIMETypes
 
 
   my @mimeTypes = qw(
-                    audio/mpeg audio/x-mpeg audio/x-pn-realaudio audio/x-wav 
-                    video/mpeg video/x-mpeg2 video/acorn-replay video/quicktime 
-                    video/x-msvideo video/msvideo application/gzip 
-                    application/x-gzip application/zip application/compress 
+                    audio/mpeg audio/x-mpeg audio/x-pn-realaudio audio/x-wav
+                    video/mpeg video/x-mpeg2 video/acorn-replay video/quicktime
+                    video/x-msvideo video/msvideo application/gzip
+                    application/x-gzip application/zip application/compress
                    application/x-compress application/java-vm
                   );
 
@@ -411,11 +411,11 @@ sub _migrateObjects
 
 EBox::init();
 my $squid = EBox::Global->modInstance('squid');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $squid,
 				     'version' => 1,
 				    );
-$migration->execute();				     
+$migration->execute();
 
 
 1;

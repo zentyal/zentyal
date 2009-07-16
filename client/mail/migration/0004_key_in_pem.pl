@@ -52,7 +52,7 @@ sub _toKeyInPem
     };
 
     EBox::Sudo::root("chown root:root $tmpFile");
-    EBox::Sudo::root("chmod 0400 $tmpFile");       
+    EBox::Sudo::root("chmod 0400 $tmpFile");
     EBox::Sudo::root("mv $tmpFile $pemFile");
     EBox::Sudo::root("rm $keyFile");
 }
@@ -62,7 +62,7 @@ sub _toKeyInPem
 EBox::init();
 
 my $mailMod = EBox::Global->modInstance('mail');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailMod,
         'version' => 4,
         );

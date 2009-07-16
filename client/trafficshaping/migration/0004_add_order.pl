@@ -63,7 +63,7 @@ sub runGConf
     my $ifaces = $ts->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
 	my $userRulesDir  = "$iface/user_rules";
-	
+
         my $keys_ref = $ts->array_from_dir("$userRulesDir/keys");
 
 	my @order = map {
@@ -76,10 +76,10 @@ sub runGConf
 	    $ord = $a->{priority} <=> $b->{priority};
 
 	    if ($ord == 0) {
-		$ord = $b->{guaranteed_rate} <=> $a->{guaranteed_rate};	
+		$ord = $b->{guaranteed_rate} <=> $a->{guaranteed_rate};
 
 		if ($ord == 0) {
-		    $ord = $b->{limited_rate} <=> $a->{limited_rate};	
+		    $ord = $b->{limited_rate} <=> $a->{limited_rate};
 		}
 	    }
 

@@ -2,7 +2,7 @@
 
 #	Migration between gconf data version 3 to 4
 #
-#	
+#
 #   This migration script just tries to add a rule to allow outcoming
 #   connections by eBox.
 #
@@ -49,7 +49,7 @@ sub runGConf
 EBox::init();
 
 my $fwMod = EBox::Global->modInstance('firewall');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				    'gconfmodule' => $fwMod,
 				    'version' => 4,
 				   );

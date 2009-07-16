@@ -33,7 +33,7 @@ my $mboxArchive = '/var/local/anste/spam-mbox.tar.gz2';
 my $mboxDir     = '/var/mail/' . $dovecotUser;
 my $mboxCurDir  = "$mboxDir/cur";
 # system "mkdir -p $mboxDir";
-# system "chown -R $dovecotUser.$dovecotUser $mboxDir"; 
+# system "chown -R $dovecotUser.$dovecotUser $mboxDir";
 # system "chmod -R 0755 $mboxDir";
 system "maildirmake.dovecot $mboxDir  $dovecotUser";
 
@@ -68,7 +68,7 @@ __DATA__
 # Protocols we want to be serving: imap imaps pop3 pop3s
 # If you only want to use dovecot-auth, you can set this to "none".
 #protocols = imap imaps
-protocols = pop3 
+protocols = pop3
 
 # IP or host address where to listen in for connections. It's not currently
 # possible to specify multiple addresses. "*" listens in all IPv4 interfaces.
@@ -109,11 +109,11 @@ disable_plaintext_auth = no
 
 # Log file to use for error messages, instead of sending them to syslog.
 # /dev/stderr can be used to log into stderr.
-#log_path = 
+#log_path =
 
 # Log file to use for informational and debug messages.
 # Default is the same as log_path.
-#info_log_path = 
+#info_log_path =
 
 # Prefix for each line written to log file. % codes are in strftime(3)
 # format.
@@ -149,7 +149,7 @@ ssl_disable = yes
 # File containing trusted SSL certificate authorities. Set this only if you
 # intend to use ssl_verify_client_cert=yes. The CAfile should contain the
 # CA-certificate(s) followed by the matching CRL(s).
-#ssl_ca_file = 
+#ssl_ca_file =
 
 # Request client to send a certificate. If you also want to require it, set
 # ssl_require_client_cert=yes in auth section.
@@ -208,7 +208,7 @@ ssl_disable = yes
 # of them are used at the time, we double their amount until the limit set by
 # this setting is reached.
 # Be warned that some clients open a lot of imap connections simultaneously
-# and that the login process also handles ssl connections 
+# and that the login process also handles ssl connections
 # (one login process per ssl connection is needed).
 #login_max_processes_count = 128
 
@@ -261,7 +261,7 @@ ssl_disable = yes
 #
 # <doc/wiki/MailLocation.txt>
 #
-#mail_location = 
+#mail_location =
 #mail_location = mbox:~/mail:INBOX=/var/mail/%u
 mail_location = maildir:/var/mail/%u
 
@@ -284,11 +284,11 @@ mail_location = maildir:/var/mail/%u
    # Hierarchy separator to use. You should use the same separator for all
    # namespaces or some clients get confused. '/' is usually a good one.
    # The default however depends on the underlying mail storage format.
-   #separator = 
+   #separator =
 
    # Prefix required to access this namespace. This needs to be different for
    # all namespaces. For example "Public/".
-   #prefix = 
+   #prefix =
 
    # Physical location of the mailbox. This is in same format as
    # mail_location, which is also the default for it.
@@ -409,14 +409,14 @@ mail_privileged_group = mail
 # WARNING: Never add directories here which local users can modify, that
 # may lead to root exploit. Usually this should be done only if you don't
 # allow shell access for users. <doc/wiki/Chrooting.txt>
-#valid_chroot_dirs = 
+#valid_chroot_dirs =
 
 # Default chroot directory for mail processes. This can be overridden for
 # specific users in user database by giving /./ in user's home directory
 # (eg. /home/./user chroots into /home). Note that usually there is no real
 # need to do chrooting, Dovecot doesn't allow users to access files outside
 # their mail directory anyway. <doc/wiki/Chrooting.txt>
-#mail_chroot = 
+#mail_chroot =
 
 ##
 ## Mailbox handling optimizations
@@ -442,12 +442,12 @@ mail_privileged_group = mail
 #
 # Usually you should just leave this field alone. The potential benefits are
 # typically unnoticeable.
-#mail_cache_fields = 
+#mail_cache_fields =
 
 # Space-separated list of fields that Dovecot should never save to cache file.
 # Useful if you want to save disk space at the cost of more I/O when the fields
 # needed.
-#mail_never_cache_fields = 
+#mail_never_cache_fields =
 
 # The minimum number of mails in a mailbox before updates are done to cache
 # file. This allows optimizing Dovecot's behavior to do less disk writes at
@@ -523,7 +523,7 @@ mail_privileged_group = mail
 # fallbacks to re-reading the whole mbox file whenever something in mbox isn't
 # how it's expected to be. The only real downside to this setting is that if
 # some other MUA changes message flags, Dovecot doesn't notice it immediately.
-# Note that a full sync is done with SELECT, EXAMINE, EXPUNGE and CHECK 
+# Note that a full sync is done with SELECT, EXAMINE, EXPUNGE and CHECK
 # commands.
 #mbox_dirty_syncs = yes
 
@@ -583,7 +583,7 @@ protocol imap {
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  #mail_plugins = 
+  #mail_plugins =
   #mail_plugin_dir = /usr/lib/dovecot/modules/imap
 
   # Send IMAP capabilities in greeting message. This makes it unnecessary for
@@ -592,7 +592,7 @@ protocol imap {
   #login_greeting_capability = no
 
   # Override the IMAP CAPABILITY response.
-  #imap_capability = 
+  #imap_capability =
 
   # Workarounds for various client bugs:
   #   delay-newmail:
@@ -620,7 +620,7 @@ protocol imap {
   # The list is space-separated.
   #imap_client_workarounds = outlook-idle
 }
-  
+
 ##
 ## POP3 specific settings
 ##
@@ -690,7 +690,7 @@ protocol pop3 {
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  #mail_plugins = 
+  #mail_plugins =
   #mail_plugin_dir = /usr/lib/dovecot/modules/pop3
 
   # Workarounds for various client bugs:
@@ -701,7 +701,7 @@ protocol pop3 {
   #     Outlook Express and Netscape Mail breaks if end of headers-line is
   #     missing. This option simply sends it if it's missing.
   # The list is space-separated.
-  #pop3_client_workarounds = 
+  #pop3_client_workarounds =
 }
 
 ##
@@ -714,11 +714,11 @@ protocol pop3 {
 
   # Hostname to use in various parts of sent mails, eg. in Message-Id.
   # Default is the system's real hostname.
-  #hostname = 
+  #hostname =
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  #mail_plugins = 
+  #mail_plugins =
   #mail_plugin_dir = /usr/lib/dovecot/modules/lda
 
   # Binary to use for sending mails.
@@ -760,7 +760,7 @@ protocol pop3 {
 
 # Default realm/domain to use if none was specified. This is used for both
 # SASL realms and appending @domain to username in plaintext logins.
-#auth_default_realm = 
+#auth_default_realm =
 
 # List of allowed characters in username. If the user-given username contains
 # a character not listed in here, the login automatically fails. This is just
@@ -811,9 +811,9 @@ protocol pop3 {
 # name returned by gethostname().
 #auth_gssapi_hostname =
 
-# Kerberos keytab to use for the GSSAPI mechanism. Will use the system 
+# Kerberos keytab to use for the GSSAPI mechanism. Will use the system
 # default (usually /etc/krb5.keytab) if not specified.
-#auth_krb5_keytab = 
+#auth_krb5_keytab =
 
 auth default {
   # Space separated list of wanted authentication mechanisms:
@@ -846,7 +846,7 @@ auth default {
     #deny = yes
   #}
 
-  # PAM authentication. Preferred nowadays by most systems. 
+  # PAM authentication. Preferred nowadays by most systems.
   # Note that PAM can only be used to verify if user's password is correct,
   # so it can't be used as userdb. If you don't want to use a separate user
   # database (passwd usually), you can use static userdb.
@@ -877,7 +877,7 @@ auth default {
     #   %u - Username must match. Probably sufficient for most uses.
     #   %u%r - Username and remote IP address must match.
     #   %u%s - Username and service (ie. IMAP, POP3) must match.
-    # 
+    #
     # If service name is "*", it means the authenticating service name
     # is used, eg. pop3 or imap (/etc/pam.d/pop3, /etc/pam.d/imap).
     #
@@ -892,7 +892,7 @@ auth default {
   # configured in /etc/nsswitch.conf. <doc/wiki/AuthDatabase.Passwd.txt>
   #passdb passwd {
     # [blocking=yes] - See userdb passwd for explanation
-    #args = 
+    #args =
   #}
 
   # Shadow passwords for system users (NSS, /etc/shadow or similiar).
@@ -900,7 +900,7 @@ auth default {
   # <doc/wiki/PasswordDatabase.Shadow.txt>
   #passdb shadow {
     # [blocking=yes] - See userdb passwd for explanation
-    #args = 
+    #args =
   #}
 
   # PAM-like authentication for OpenBSD.
@@ -914,7 +914,7 @@ auth default {
   # <doc/wiki/AuthDatabase.PasswdFile.txt>
   #passdb passwd-file {
     # Path for passwd-file
-    #args = 
+    #args =
   #}
 
   # checkpassword executable authentication
@@ -922,7 +922,7 @@ auth default {
   # <doc/wiki/PasswordDatabase.CheckPassword.txt>
   #passdb checkpassword {
     # Path for checkpassword binary
-    #args = 
+    #args =
   #}
 
   # SQL database <doc/wiki/AuthDatabase.SQL.txt>
@@ -959,7 +959,7 @@ auth default {
     # proceses. Useful with remote NSS lookups that may block.
     # NOTE: Be sure to use this setting with nss_ldap or users might get
     # logged in as each others!
-    #args = 
+    #args =
   }
 
   # passwd-like file with specified location
@@ -1021,7 +1021,7 @@ auth default {
   # Directory where to chroot the process. Most authentication backends don't
   # work if this is set, and there's no point chrooting if auth_user is root.
   # Note that valid_chroot_dirs isn't needed to use this setting.
-  #chroot = 
+  #chroot =
 
   # Number of authentication processes to create
   #count = 1
@@ -1029,9 +1029,9 @@ auth default {
   # Require a valid SSL client certificate or the authentication fails.
   #ssl_require_client_cert = no
 
-  # Take the username from client's SSL certificate, using 
+  # Take the username from client's SSL certificate, using
   # X509_NAME_get_text_by_NID() which returns the subject's DN's
-  # CommonName. 
+  # CommonName.
   #ssl_username_from_cert = no
 
   # It's possible to export the authentication interface to other programs:
@@ -1043,8 +1043,8 @@ auth default {
       #path = /var/run/dovecot/auth-master
       #mode = 0600
       # Default user/group is the one who started dovecot-auth (root)
-      #user = 
-      #group = 
+      #user =
+      #group =
     #}
     #client {
       # The client socket is generally safe to export to everyone. Typical use
@@ -1092,7 +1092,7 @@ auth default {
 # referenced using URIs in format "proxy:<name>".
 
 dict {
-  #quota = mysql:/etc/dovecot-dict-quota.conf 
+  #quota = mysql:/etc/dovecot-dict-quota.conf
 }
 
 ##

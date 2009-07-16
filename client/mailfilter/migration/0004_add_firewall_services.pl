@@ -61,8 +61,8 @@ sub runGConf
     setFirewallService($firewall, 'ToInternetRuleModel', $popServiceName, 'accept', 1);
     setFirewallService($firewall, 'EBoxOutputRuleModel', $popServiceName, 'accept', 0);
 
-    
-    $firewall->saveConfigRecursive(); 
+
+    $firewall->saveConfigRecursive();
 }
 
 
@@ -76,13 +76,13 @@ sub setFirewallService
     unless (defined($service)) {
         throw EBox::Exceptions::MissingArgument('service');
     }
-    
+
     unless (defined($decision)) {
         throw EBox::Exceptions::MissingArgument('decision');
     }
 
     unless ($decision eq 'accept' or $decision eq 'deny') {
-        throw EBox::Exceptions::InvalidData('data' => 'decision', 
+        throw EBox::Exceptions::InvalidData('data' => 'decision',
                         value => $decision, 'advice' => 'accept or deny');
     }
 
@@ -94,7 +94,7 @@ sub setFirewallService
     }
 
     my $rulesModel = $firewall->{$model};
-    
+
     # Do not add rule if there is already a rule
     if ($rulesModel->findValue('service' => $serviceId)) {
         EBox::info("Existing rule for $service overrides default rule");
@@ -109,16 +109,16 @@ sub setFirewallService
 
     $params{'destination_selected'} = 'destination_any';
     $params{'service'} = $serviceId;
-    
+
     $rulesModel->addRow(%params);
-    
+
     return 1;
 }
 
 EBox::init();
 
 my $mailfilterMod = EBox::Global->modInstance('mailfilter');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailfilterMod,
         'version' => 4,
         );

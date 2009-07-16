@@ -5,7 +5,7 @@
 #	In version 1, a new model has been created to store firewall rules and it
 #	lives in another module called services. In previous versions
 #	servies were stored in firewall.
-#	
+#
 #	This migration script tries to populate the services model with the
 #	stored services in firewall
 #
@@ -94,12 +94,12 @@ sub _addService
     my $serviceName = getservbyport ($rule->{'port'}, $rule->{'protocol'});
     my $description  =  $rule->{'port'} . '/' . $rule->{'protocol'};
     unless (defined($serviceName)) {
-        $serviceName = $description; 
+        $serviceName = $description;
     }
     my $serviceId = $serviceMod->serviceId($serviceName);
     unless (defined($serviceId))  {
         $serviceId = $serviceMod->addService('name' => $serviceName,
-            'description' => $description,				
+            'description' => $description,
             'protocol' => $rule->{'protocol'},
             'sourcePort' => 'any',
             'destinationPort' => $rule->{'port'},
@@ -135,7 +135,7 @@ sub _addNamedServices
 sub _prepareRuleToAddInternalToInternet
 {
     my ($rule, $object) = @_;
-    
+
     my $serviceId = _addService($rule);
     use Data::Dumper;
     EBox::info("Adding service $serviceId for rule: " . Dumper($rule));
@@ -157,7 +157,7 @@ sub _prepareRuleToAddInternalToInternet
     if ($rule->{'address'}) {
         $params{'destination_ipaddr_ip'} =  $rule->{'address'};
         $params{'destination_selected'} = 'destination_ipaddr';
-    } else { 
+    } else {
         $params{'destination_selected'} = 'destination_any';
     }
 
@@ -181,14 +181,14 @@ sub _prepareRuleToAddInternalToEBox
     } else {
         $params{'decision'} = 'deny';
     }
-    
+
     if ($object->{'name'} eq '_global') {
         $params{'source_selected'} = 'source_any';
     } else {
         $params{'source_selected'} = 'source_object';
         $params{'source_object'} = $object->{'name'};
     }
-    
+
     $params{'service'} = $serviceId;
     $params{'log'} = 0;
 
@@ -202,7 +202,7 @@ sub _prepareObjectPolicy
     my $rule = {};
     my $serviceId = _addService($rule);
     my %params;
-    if ($object->{'policy'} eq 'global') { 
+    if ($object->{'policy'} eq 'global') {
         $object->{'policy'} = $self->{'globalPolicy'};
     }
 
@@ -223,7 +223,7 @@ sub _prepareObjectPolicy
 sub _prepareGlobalPolicy
 {
     my ($self) = @_;
-    
+
     my $rule = {};
     my $serviceMod = EBox::Global->modInstance('services');
     my $serviceId = $serviceMod->serviceId('any');
@@ -297,10 +297,10 @@ sub _addInternalToEBoxRuleTable
     if ($global) {
         for my $rule (@{$global->{'services'}}) {
 	    @rules = (_prepareRuleToAddInternalToEBox($rule, $global), @rules);
-                  
+
         }
     }
-    
+
     for my $rule(@rules) {
         try {
             $model->addRow(%{$rule});
@@ -316,12 +316,12 @@ sub runGConf
     my ($self) = @_;
 
     $self->{'globalPolicy'} =
-        $self->{'gconfmodule'}->get_string('objects/_global/policy');    
+        $self->{'gconfmodule'}->get_string('objects/_global/policy');
 
     $self->_addNamedServices();
     $self->_addInternalToEBoxRuleTable();
     $self->_addToInternetRuleTable();
-     
+
     my $serviceMod = EBox::Global->modInstance('services');
     $serviceMod->saveConfig();
 }
@@ -329,7 +329,7 @@ sub runGConf
 EBox::init();
 
 my $fw = EBox::Global->modInstance('firewall');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $fw,
     'version' => 1
 );

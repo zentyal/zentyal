@@ -48,7 +48,7 @@ sub runGConf
 EBox::init();
 
 my $module = EBox::Global->modInstance('users');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
         'gconfmodule' => $module,
         'version' => 3,
         );

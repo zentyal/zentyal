@@ -19,7 +19,7 @@ use Error qw(:try);
 
 use base 'EBox::MigrationBase';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -96,7 +96,7 @@ sub _objectsArray
 
 EBox::init();
 my $objects = EBox::Global->modInstance('objects');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $objects,
     'version' => 1
 );

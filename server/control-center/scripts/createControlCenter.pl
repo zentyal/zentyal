@@ -166,7 +166,7 @@ sub _issueCert
   {
 
       my (%args) = @_;
-      my ( $days, $orgName, $commonName, $confFile ) = 
+      my ( $days, $orgName, $commonName, $confFile ) =
         ( $args{days}, $args{orgName}, $args{commonName}, $args{confFile});
 
       my $dnString = qq{/CN=$commonName/O=$orgName/};

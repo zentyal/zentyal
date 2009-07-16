@@ -44,7 +44,7 @@ sub _migrateThreshold
 
   if ($squid->dir_exists($oldDir)) {
       $self->_moveGConfDir($squid, $oldDir, $newDir);
-  } 
+  }
 }
 
 
@@ -81,13 +81,13 @@ sub _migrateDomains
 
   if ($squid->dir_exists($oldDir)) {
       $self->_moveGConfDir($squid, $oldDir, $newDir);
-  } 
+  }
 
   my $oldSettingsDir = 'DomainFilterSettings';
   my $newSettingsDir =  "$defaultProfileDir/DomainFilterSettings/keys";
   if ($squid->dir_exists($oldSettingsDir)) {
       $self->_moveGConfDir($squid, $oldSettingsDir, $newSettingsDir);
-  } 
+  }
 }
 
 sub _migrateExtensions
@@ -100,7 +100,7 @@ sub _migrateExtensions
 
   if ($squid->dir_exists($oldDir)) {
       $self->_moveGConfDir($squid, $oldDir, $newDir);
-  } 
+  }
 }
 
 
@@ -110,7 +110,7 @@ sub _migrateMIMETypes
 {
   my ($self) = @_;
 
-  my $squid = $self->{gconfmodule};  
+  my $squid = $self->{gconfmodule};
 
   my $oldDir = 'MIMEFilter';
   my $newDir =  "$defaultProfileDir/MIMEFilter";
@@ -126,11 +126,11 @@ sub _migrateMIMETypes
 
 EBox::init();
 my $squid = EBox::Global->modInstance('squid');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $squid,
                                      'version' => 3,
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

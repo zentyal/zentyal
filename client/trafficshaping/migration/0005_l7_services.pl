@@ -97,7 +97,7 @@ sub runGConf
 EBox::init();
 
 my $ts = EBox::Global->modInstance('trafficshaping');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
         'gconfmodule' => $ts,
         'version' => 5
         );

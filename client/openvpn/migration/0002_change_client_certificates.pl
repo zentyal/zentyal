@@ -69,7 +69,7 @@ sub _updateCertificatePath
     # nothing more to do
     return;
   }
-  
+
   if (not EBox::Sudo::fileTest('-f', $pathValue)) {
     # no old file, so nothing to do
     EBox::warning("Certificate file $pathValue not found for openvpn client.");
@@ -80,7 +80,7 @@ sub _updateCertificatePath
     EBox::warning("Certificate file $newPath for openvpn client already exists" );
     return;
   }
-  
+
 
   my $mvCommand = "/bin/mv $pathValue $newPath";
   EBox::Sudo::root($mvCommand);
@@ -139,11 +139,11 @@ sub _changeLogFiles
 
 EBox::init();
 my $openvpn = EBox::Global->modInstance('openvpn');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $openvpn,
 				     'version' => 2
 				    );
-$migration->execute();				     
+$migration->execute();
 
 
 1;

@@ -17,7 +17,7 @@ use Error qw(:try);
 
 use base 'EBox::MigrationBase';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -34,14 +34,14 @@ sub new
 sub runGConf
 {
     my $self = shift;
-    
+
     $self->{'gconfmodule'}->populateProtocols();
-    
+
 }
 
 EBox::init();
 my $l7Module = EBox::Global->modInstance('l7-protocols');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $l7Module,
     'version' => 1
 );

@@ -36,7 +36,7 @@ sub _removeKeys
   my ($self) = @_;
 
   my $mod = $self->{gconfmodule};
-  my @deprecatedKeys = qw( 
+  my @deprecatedKeys = qw(
                            AntispamConfiguration/enabled
                          );
 
@@ -59,7 +59,7 @@ sub _removeKeys
           next;
       $mod->delete_dir($dir);
   }
-  
+
 
 }
 
@@ -79,7 +79,7 @@ sub _migrateNotification
                                   },
                     );
 
-    
+
     if ((defined $selected) and ($selected eq 'address')) {
         $migration{'General/address'} =  {
                                    newKey => 'AmavisConfiguration/address',
@@ -170,7 +170,7 @@ sub _applyAmavisConfigurationDefaults
 sub _migrateSimpleKeys
 {
   my ($self, $mod, $deprecatedKeys_r) = @_;
-  
+
   my %allExistentKeysByDir = ();
 
 
@@ -200,18 +200,18 @@ sub _migrateSimpleKeys
       if ( $oldKey ne $allExistentKeys ) {
           next;
       }
-      
+
 
 
 
       my $newKey = $migrationSpec->{newKey};
       my $getter = $migrationSpec->{getter};
       my $setter = $migrationSpec->{setter};
-      
-      
+
+
       my $oldValue  = $mod->$getter($oldKey);
       $mod->$setter($newKey, $oldValue);
-    
+
       $mod->unset($oldKey);
   }
 }
@@ -222,7 +222,7 @@ sub _migrateSimpleKeys
 EBox::init();
 
 my $mailfilterMod = EBox::Global->modInstance('mailfilter');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailfilterMod,
         'version' => 5,
         );

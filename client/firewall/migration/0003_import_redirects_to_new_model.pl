@@ -3,7 +3,7 @@
 #	Migration between gconf data version 2 to 3
 #
 #	In version 3, a new model has been created to store firewall redirects.
-#	
+#
 #	This migration script tries to populate the redirects model with the
 #	stored redirects in old firewall
 #
@@ -38,7 +38,7 @@ sub _oldFirewallRedirects
 sub _prepareNewRedirect
 {
     my ($redirect, $object) = @_;
-    
+
     use Data::Dumper;
     EBox::info("Adding service new redirection for old redirection: " . Dumper($redirect));
 
@@ -85,7 +85,7 @@ sub runGConf
     my ($self) = @_;
 
     $self->_addRedirectsRuleTable();
-     
+
     my $fwMod = EBox::Global->modInstance('firewall');
     $fwMod->saveConfig();
 }
@@ -93,7 +93,7 @@ sub runGConf
 EBox::init();
 
 my $fw = EBox::Global->modInstance('firewall');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $fw,
     'version' => 3
 );

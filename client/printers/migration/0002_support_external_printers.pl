@@ -18,8 +18,8 @@ sub runGConf
     my ($self) = @_;
 
     my @conf;
-    
-    my $printers = EBox::Global->modInstance('printers'); 
+
+    my $printers = EBox::Global->modInstance('printers');
     my @idprinters = $printers->all_dirs("printers");
     for my $dirid (@idprinters){
         my $id = $dirid;
@@ -34,8 +34,8 @@ sub runGConf
         push (@conf, $printer );
     }
 
-    $printers->writeConfFile(EBox::Printers::CUPSPRINTERS, 
-            'printers/printers.conf.mas', 
+    $printers->writeConfFile(EBox::Printers::CUPSPRINTERS,
+            'printers/printers.conf.mas',
             ['printers' => \@conf]);
 
 }
@@ -44,8 +44,8 @@ sub runGConf
 EBox::init();
 
 my $printersMod = EBox::Global->modInstance('printers');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
     'gconfmodule' => $printersMod,
-    'version' => 2 
+    'version' => 2
 );
 $migration->execute();

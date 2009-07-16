@@ -36,14 +36,14 @@ sub _removeDeprecatedConfig
 {
     my ($self) = @_;
     my $openvpn = $self->{gconfmodule};
-    
+
     my @deprecatedKeys = qw(user group dh openvpn_bin interface_count conf_dir
                             userActive internalActive
                            );
     foreach my $key (@deprecatedKeys) {
         $openvpn->unset($key);
     }
-    
+
 }
 
 
@@ -56,7 +56,7 @@ sub _migrateServers
 
         # fetch all server config
         my $active = $openvpn->get_bool("$dir/active");
-        my $internal  = $openvpn->get_bool("$dir/internal");   
+        my $internal  = $openvpn->get_bool("$dir/internal");
 
         my $ifaceNumber = $openvpn->get_int("$dir/iface_number");
 
@@ -71,7 +71,7 @@ sub _migrateServers
 
         $self->_setServerConf($name, $dir);
         $self->_setAdvertisedNetworks($name, $dir);
- 
+
         if ($active) {
             # we have the server confiugred so we can change the service value
             my $row = $servers->findRow(name => $name);
@@ -101,11 +101,11 @@ sub _setServerConf
     my $vpnNetmask  = $openvpn->get_string("$dir/vpn_netmask");
     my $mask = EBox::NetWrappers::bits_from_mask($vpnNetmask);
     my $vpn = "$vpnNet/$mask";
-    
+
     my $serverCertificate  = $openvpn->get_string("$dir/server_certificate");
     my $tlsRemote          = $openvpn->get_string("$dir/tls_remote");
     defined $tlsRemote or $tlsRemote = 0;
-    
+
     my $pullRoutes  = $openvpn->get_bool("$dir/pull_routes");
     my $ripPasswd   = $openvpn->get_string("$dir/ripPasswd");
 
@@ -114,7 +114,7 @@ sub _setServerConf
 	# where there was just one password...
 	$ripPasswd = 'eboxebox';
    }
-    
+
 
     my $masquerade  = $openvpn->get_bool("$dir/masquerade");
     my $clientToClient  = $openvpn->get_bool("$dir/client_to_client");
@@ -170,7 +170,7 @@ sub _setAdvertisedNetworks
     my $row = $servers->findRow(name => $name);
     my $advertisedNetworks = $row->subModel('advertisedNetworks');
     # set server advertised networks
-    
+
     while (my ($net, $mask) = each %advertised) {
         $mask = EBox::NetWrappers::bits_from_mask($mask);
         $advertisedNetworks->addRow(network_ip => $net , network_mask => $mask );
@@ -187,7 +187,7 @@ sub _migrateClients
 
         # fetch all client config
         my $active = $openvpn->get_bool("$dir/active");
-        my $internal  = $openvpn->get_bool("$dir/internal");   
+        my $internal  = $openvpn->get_bool("$dir/internal");
 
         my $ifaceNumber = $openvpn->get_int("$dir/iface_number");
 
@@ -202,7 +202,7 @@ sub _migrateClients
                         );
 
         my $confOk = $self->_setClientConf($name, $dir);
- 
+
         if ($active) {
             if ($confOk) {
                 # we have the client configured so we can change the service value
@@ -287,11 +287,11 @@ sub _setClientConf
 
 EBox::init();
 my $openvpn = EBox::Global->modInstance('openvpn');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $openvpn,
                                      'version' => 3,
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

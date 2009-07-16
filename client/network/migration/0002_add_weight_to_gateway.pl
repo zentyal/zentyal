@@ -2,7 +2,7 @@
 
 #	Migration between gconf data version 1 to 2
 #
-#	In version 2, a new field to set gateway's weight has been added 
+#	In version 2, a new field to set gateway's weight has been added
 #	This migration scripts adds the weight field to existing gateways,
 #	setting their value to 1
 #
@@ -20,7 +20,7 @@ use constant DEFAULT_WEIGHT => '1';
 use constant DEFAULT_NAME => 'default';
 use constant BASE_KEY => 'gatewaytable/keys';
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %parms = @_;
@@ -49,8 +49,8 @@ sub runGConf
 
 EBox::init();
 my $network = EBox::Global->modInstance('network');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $network,
-				     'version' => 2 
+				     'version' => 2
 				    );
-$migration->execute();				     
+$migration->execute();

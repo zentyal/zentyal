@@ -148,7 +148,7 @@ sub _is_selected
     my $selKey = $target . '_selected';
     my $ipKey = $target . '_ipaddr_ip';
     my $anyVal = $target . '_any';
-    if (($rule->{$selKey} eq $target .'_ipaddr') 
+    if (($rule->{$selKey} eq $target .'_ipaddr')
          and defined($rule->{$ipKey})) {
         return 1;
     } elsif (defined($rule->{$selKey}) or $rule->{$selKey} eq $anyVal) {

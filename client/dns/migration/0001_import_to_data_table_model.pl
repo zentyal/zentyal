@@ -16,7 +16,7 @@ use EBox::Validate qw(:all);
 
 use base 'EBox::MigrationBase';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -34,12 +34,12 @@ sub runGConf
 {
     my $self = shift;
     my $dns = $self->{'gconfmodule'};
-    
+
     my @dirs_to_delete;
     foreach my $domain (@{$self->_getGConfData()}) {
 	push(@dirs_to_delete, $domain->{'id'});
         $dns->addDomain($domain);
-	
+
     }
 
     foreach my $dir (@dirs_to_delete)
@@ -59,25 +59,25 @@ sub _getGConfData
 		my $domain;
 		$domain->{'domain_name'} = $domainData->{'name'};
 		$domain->{'id'} = $domainData->{'id'};
-		
+
 		my @members;
 		foreach my $member (@{$domainData->{'member'}})
 		{
 			my $hostnames;
-			
+
 			$hostnames->{'hostname'} = $member->{'name'};
 			$hostnames->{'ip'} = $member->{'ip'};
-			
+
 			my @aliases;
 			foreach my $alias (@{$member->{'aliases'}})
 			{
 				push(@aliases, $alias->{'name'});
 			}
-			
+
 			$hostnames->{'aliases'} = \@aliases;
 			push (@members, $hostnames);
 		}
-		
+
 		$domain->{'hostnames'} = \@members;
 
 		push(@domains, $domain);
@@ -96,10 +96,10 @@ sub _domainDataArray
 	foreach my $domData (@domainData)
 	{
 		my $hash = $gconf->hash_from_dir($domData);
-		
+
 		$hash->{id} = $domData;
 		$hash->{member} = $gconf->array_from_dir($domData);
-		
+
 		my $parentdir = $domData;
 		foreach my $alias (@{$hash->{member}})
 		{
@@ -115,7 +115,7 @@ sub _domainDataArray
 
 EBox::init();
 my $dns = EBox::Global->modInstance('dns');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $dns,
     'version' => 1
 );

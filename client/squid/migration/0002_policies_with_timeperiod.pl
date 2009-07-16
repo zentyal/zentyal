@@ -72,11 +72,11 @@ sub _enableUsersAndGroups
 
 EBox::init();
 my $squid = EBox::Global->modInstance('squid');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $squid,
                                      'version' => 2,
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

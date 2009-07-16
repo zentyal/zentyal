@@ -82,7 +82,7 @@ sub _retrievalServicesMigration
     my $entriesChanged = grep {
         ($_ eq $oldPopKey ) or
         ($_ eq $oldImapKey ) or
-        ($_ eq $oldTlsKey ) 
+        ($_ eq $oldTlsKey )
     }  $mail->all_entries($dir) ;
 
     if ($entriesChanged) {
@@ -91,7 +91,7 @@ sub _retrievalServicesMigration
 
     # get the old values and delete it form gconf
     my $oldPopValue   = $mail->get_bool($oldPopKey);
-    my $oldImapValue  = $mail->get_bool($oldImapKey); 
+    my $oldImapValue  = $mail->get_bool($oldImapKey);
     my $oldTlsValue   = $mail->get_string($oldTlsKey);
     $mail->unset($oldPopKey);
     $mail->unset($oldImapKey);
@@ -147,7 +147,7 @@ sub _mailboxesMigration
 EBox::init();
 
 my $mailMod = EBox::Global->modInstance('mail');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailMod,
         'version' => 3
         );

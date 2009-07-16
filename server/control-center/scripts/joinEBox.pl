@@ -172,11 +172,11 @@ sub _obtain # (certFile, attribute)
     elsif ($attribute eq 'serial' ) {
       return $output;
     } elsif ($attribute eq 'endDate' ) {
-      my ($monthStr, $day, $hour, $min, $sec, $yyyy) = 
+      my ($monthStr, $day, $hour, $min, $sec, $yyyy) =
 	($output =~ /(.+) (\d+) (\d+):(\d+):(\d+) (\d+) (.+)/);
 
       $monthStr =~ s/ +//g;
-      my $dateObj = Date::Calc->new($yyyy, 
+      my $dateObj = Date::Calc->new($yyyy,
 				    Decode_Month($monthStr),
 				    $day, $hour, $min, $sec);
       return $dateObj;

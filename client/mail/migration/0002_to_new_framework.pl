@@ -23,7 +23,7 @@ use Error qw(:try);
 sub runGConf
 {
     my ($self) = @_;
-    
+
     $self->_migrateSmtpAuth();
     $self->_migrateSmtpOptions();
     $self->_migrateRetrievalServices();
@@ -32,7 +32,7 @@ sub runGConf
     $self->_migrateDomains();
 }
 
-sub _migrateSmtpAuth 
+sub _migrateSmtpAuth
 {
     my ($self) = @_;
 
@@ -52,7 +52,7 @@ sub _migrateSmtpAuth
                                     formElement => 'sasl',
                                    },
                        );
- 
+
 }
 
 
@@ -74,7 +74,7 @@ sub _migrateSmtpOptions
                                               if ($size == 0) {
                                                  return { unlimited => '' } ;
                                               }
-                                              
+
                                               return { size => $size }
                                           },
                                          },
@@ -82,7 +82,7 @@ sub _migrateSmtpOptions
 }
 
 
-sub _migrateRetrievalServices 
+sub _migrateRetrievalServices
 {
     my ($self) = @_;
 
@@ -129,16 +129,16 @@ sub _migrateRetrievalServices
     $mail->unset('imapssl');
 }
 
-sub _migrateObjectPolicy 
+sub _migrateObjectPolicy
 {
-    # XXX this is a weak migration it depends on the existence of 
+    # XXX this is a weak migration it depends on the existence of
     # object policy model
     my ($self) = @_;
     my $mail = $self->{gconfmodule};
     my $objectPolicy = $mail->model('ObjectPolicy');
 
     my @allowedObjects = @{ $mail->get_list('allowed') };
-    
+
     foreach my $object (@allowedObjects) {
         $objectPolicy->addRow(
                               object => $object,
@@ -158,7 +158,7 @@ sub _migrateExternalFilter
                         'ExternalFilter',
 #   Comment out as old configurations can
 #   have set ebox as mailfilter and current
-#   model won't allow to add this configuration 
+#   model won't allow to add this configuration
 #   making the migration fail
 #                        external_filter_name => {
 #                                    keyGetter => 'get_string',
@@ -199,9 +199,9 @@ sub _migrateDomains
         $vdomainsTable->add(
                             vdomain => $vdomain,
                            );
-        
+
     }
-    
+
 }
 
 sub _migrateToForm
@@ -251,7 +251,7 @@ sub _migrateToForm
 EBox::init();
 
 my $mailMod = EBox::Global->modInstance('mail');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailMod,
         'version' => 2
         );

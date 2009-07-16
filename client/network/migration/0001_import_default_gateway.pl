@@ -22,7 +22,7 @@ use constant DEFAULT_DOWNLOAD => '1024';
 use constant DEFAULT_NAME => 'default';
 use constant BASE_KEY => 'gatewaytable/keys/todo1111';
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my %parms = @_;
@@ -43,12 +43,12 @@ sub runGConf
 
 	my $gw = $network->get_string('gateway');
 	return unless ($gw);
-	
+
 	my $iface = $self->_getIfaceForGw($gw);
 	unless (defined($iface)) {
 		$iface = DEFAULT_IFACE;
 	}
-	
+
 	$network->set_string(BASE_KEY . '/ip', $gw);
 	$network->set_string(BASE_KEY . '/interface', $gw);
 	$network->set_bool(BASE_KEY . '/default', 1);
@@ -61,7 +61,7 @@ sub _getIfaceForGw
 {
 	my $self = shift;
 	my $gw   = shift;
-	
+
 	my $network = $self->{'gconfmodule'};
 	my $cidr_gw = "$gw/32";
 	foreach my $iface (@{$network->allIfaces()}) {
@@ -81,8 +81,8 @@ sub _getIfaceForGw
 
 EBox::init();
 my $network = EBox::Global->modInstance('network');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $network,
 				     'version' => 1
 				    );
-$migration->execute();				     
+$migration->execute();

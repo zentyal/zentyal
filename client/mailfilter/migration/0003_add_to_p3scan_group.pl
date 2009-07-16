@@ -24,7 +24,7 @@ sub runGConf
   # if module is not configured we will add the clamav user to the group p3scan
   # in the module configuration stage
   my $mailfilter = $self->{gconfmodule};
-  return if not $mailfilter->configured(); 
+  return if not $mailfilter->configured();
 
 
   EBox::Sudo::root('addgroup clamav p3scan');
@@ -32,11 +32,11 @@ sub runGConf
 
 EBox::init();
 my $mailfilter = EBox::Global->modInstance('mailfilter');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $mailfilter,
                                      'version' => 3,
                                     );
-$migration->execute();          		     
+$migration->execute();
 
 
 1;

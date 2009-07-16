@@ -82,11 +82,11 @@ sub _changeLogFiles
 
 EBox::init();
 my $openvpn = EBox::Global->modInstance('openvpn');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $openvpn,
 				     'version' => 1
 				    );
-$migration->execute();				     
+$migration->execute();
 
 
 1;

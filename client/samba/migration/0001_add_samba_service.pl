@@ -74,7 +74,7 @@ sub _addService
 			    'internal' => 1,
 			    'readOnly' => 1
 			   );
-    
+
   } else {
     $serviceMod->setService('name' => $params{name},
 			    'protocol' => $params{protocol},
@@ -82,7 +82,7 @@ sub _addService
 			    'destinationPort' => $params{destinationPort},
                             'internal' => 1,
 			    'readOnly' => 1);
-    
+
     EBox::info("Not adding $params{name} service as it already exists instead");
   }
 
@@ -103,12 +103,12 @@ sub _addSambaService
   if (not $serviceMod->serviceExists('name' => 'samba')) {
     my @services;
     for my $port (qw(137 138 139 445)) {
-      push (@services, { 'protocol' => 'tcp/udp', 
+      push (@services, { 'protocol' => 'tcp/udp',
 			 'sourcePort' => 'any',
 			 'destinationPort' => $port });
     }
     $serviceMod->addMultipleService(
-				    'name' => 'samba', 
+				    'name' => 'samba',
 				    'internal' => 1,
 				    'description' =>  __d('File sharing (Samba) protocol'),
 				    'translationDomain' => 'ebox-samba',
@@ -139,7 +139,7 @@ sub runGConf
 EBox::init();
 
 my $sambaMod = EBox::Global->modInstance('samba');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
     'gconfmodule' => $sambaMod,
     'version' => 1
 );

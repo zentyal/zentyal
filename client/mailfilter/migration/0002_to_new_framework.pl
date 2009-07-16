@@ -29,7 +29,7 @@ sub runGConf
 
   $self->_migrateToExternalMTA();
   $self->_migrateToExternalDomain();
-      
+
 
   $self->_migrateToBadHeadersPolicy();
   $self->_migrateToBannedFilesPolicy();
@@ -53,7 +53,7 @@ sub _migrateToGeneral
     my ($self) = @_;
 
     my $mailfilter = $self->{gconfmodule};
-    
+
     my $generalModelExists = $self->_modelExists('General');
 
     if ($generalModelExists) {
@@ -72,7 +72,7 @@ sub _migrateToGeneral
                                                          return { disabled => ''} ;
                                                      }
                                                      return { address=> $addr }
-                                                 }           
+                                                 }
                                                 },
                          );
     } else {
@@ -143,7 +143,7 @@ sub _migrateToFileExtensionsACL
 
 sub _migrateToExternalMTA
 {
-    my ($self) = @_;  
+    my ($self) = @_;
     $self->_migrateToExternalConnectionsList(
                           'ExternalMTA',
                           key => 'allowed_external_mtas',
@@ -154,8 +154,8 @@ sub _migrateToExternalMTA
 
 
 sub _migrateToExternalDomain
-{ 
-    my ($self) = @_;  
+{
+    my ($self) = @_;
     $self->_migrateToExternalConnectionsList(
                           'ExternalDomain',
                           key => 'external_domains',
@@ -166,7 +166,7 @@ sub _migrateToExternalDomain
 
 sub _migrateToAntivirusConfiguration
 {
-    my ($self) = @_;   
+    my ($self) = @_;
 
     my $modelExists = $self->_modelExists('AntivirusConfiguration');
 
@@ -184,7 +184,7 @@ sub _migrateToAntivirusConfiguration
                          );
   } else {
       $self->_migrateKey(
-                         oldKey => 'clamav/active', 
+                         oldKey => 'clamav/active',
                          newKey => 'AntivirusConfiguration/enabled',
                          type  => 'bool',
                         );
@@ -192,9 +192,9 @@ sub _migrateToAntivirusConfiguration
   }
 }
 
-sub _migrateToAntispamConfiguration 
+sub _migrateToAntispamConfiguration
 {
-    my ($self) = @_;  
+    my ($self) = @_;
 
     $self->_migrateToForm(
                           'AntispamConfiguration',
@@ -241,16 +241,16 @@ sub _migrateToAntispamConfiguration
                          oldKey => 'spamassasin/active',
                          newKey => 'AntispamConfiguration/enabled',
                          type   => 'bool',
-                        );                                      
+                        );
 }
 
 
-sub _migrateToAntispamACL 
+sub _migrateToAntispamACL
 {
-    my ($self) = @_;   
+    my ($self) = @_;
     my $mailf = $self->{gconfmodule};
     my $acl = $mailf->model('AntispamACL');
-    
+
 
     my @whitelist = @{ $mailf->get_list('spamassassin/whitelist') };
     foreach my $sender (@whitelist) {
@@ -260,7 +260,7 @@ sub _migrateToAntispamACL
                     )
     }
 
-    
+
     my @blacklist = @{ $mailf->get_list('spamassassin/blacklist') };
     foreach my $sender (@blacklist) {
         $acl->addRow(
@@ -277,7 +277,7 @@ sub _migrateToAntispamACL
 
 sub _migrateLearnAccounts
 {
-    my ($self) = @_;   
+    my ($self) = @_;
     my $mailf = $self->{gconfmodule};
     $mailf->configured() or
         return;
@@ -318,7 +318,7 @@ sub _migrateToForm
     my ($self, $formName, %migrate) = @_;
     my $mail = $self->{gconfmodule};
     my $form = $mail->model($formName);
-    
+
     my $row = $form->row();
 
     my $changed = 0;
@@ -421,7 +421,7 @@ sub _migrateToAllowTable
 
 
 
-sub _modelExists 
+sub _modelExists
 {
     my ($self, $model) = @_;
     my $mailfilter = $self->{gconfmodule};
@@ -500,7 +500,7 @@ sub _migrateKey
 sub _migrateSimpleKeys
 {
   my ($self, $mod, $deprecatedKeys_r) = @_;
-  
+
   my %allExistentKeysByDir = ();
 
 
@@ -530,18 +530,18 @@ sub _migrateSimpleKeys
       if ( $oldKey ne $allExistentKeys ) {
           next;
       }
-      
+
 
 
 
       my $newKey = $migrationSpec->{newKey};
       my $getter = $migrationSpec->{getter};
       my $setter = $migrationSpec->{setter};
-      
-      
+
+
       my $oldValue  = $mod->$getter($oldKey);
       $mod->$setter($newKey, $oldValue);
-    
+
       $mod->unset($oldKey);
   }
 }
@@ -550,11 +550,11 @@ sub _migrateSimpleKeys
 
 EBox::init();
 my $mailfilter = EBox::Global->modInstance('mailfilter');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $mailfilter,
                                      'version' => 2
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

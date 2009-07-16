@@ -24,7 +24,7 @@ sub runGConf
 
   # if module is not configured we will add the accounts in the configuration stage
   my $mailfilter = $self->{gconfmodule};
-  return if not $mailfilter->configured(); 
+  return if not $mailfilter->configured();
 
   # run ebox-mailfilter-ldap to add the user accounts and the mail accounts to
   # the vdomains
@@ -33,11 +33,11 @@ sub runGConf
 
 EBox::init();
 my $mailfilter = EBox::Global->modInstance('mailfilter');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $mailfilter,
                                      'version' => 1
                                     );
-$migration->execute();          		     
+$migration->execute();
 
 
 1;

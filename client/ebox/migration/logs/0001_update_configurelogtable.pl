@@ -41,7 +41,7 @@ sub runGConf
 {
   my ($self) = @_;
 
-  # add default values to the ConfigureLogTable's keys gconf branch 
+  # add default values to the ConfigureLogTable's keys gconf branch
   my $log = $self->{gconfmodule};
 
   foreach my $confDir ($log->all_dirs('configureLogTable/keys')) {
@@ -54,7 +54,7 @@ sub runGConf
 
 EBox::init();
 my $logs = EBox::Global->modInstance('logs');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
 				     'gconfmodule' => $logs,
 				     'version' => 1
 				    );

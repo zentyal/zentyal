@@ -30,7 +30,7 @@ sub runGConf
                 'description' => __d('eBox Mail System'),
                 'translationDomain' => 'ebox-mail',
                 'internal' => 1,
-                'services' => [ 
+                'services' => [
                                 {
                                     'protocol' => 'tcp',
                                     'sourcePort' => 'any',
@@ -66,13 +66,13 @@ sub runGConf
 
    $firewall->setExternalService($serviceName, 'deny');
    $firewall->setInternalService($serviceName, 'accept');
-   $firewall->saveConfigRecursive(); 
+   $firewall->saveConfigRecursive();
 }
 
 EBox::init();
 
 my $mailMod = EBox::Global->modInstance('mail');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
         'gconfmodule' => $mailMod,
         'version' => 1
         );

@@ -186,9 +186,9 @@ sub read_courier_pop3 {
 
     do {
         chomp $_;
-        
+
         my ( $full_fname, $fsize, $uid, $uidv );
-        
+
         if ( /^([^ ]+) (\d+) (\d+):(\d+)$/ ) {
             # v2
             ( $full_fname, $fsize, $uid, $uidv ) = ( $1, $2, $3, $4 );
@@ -291,14 +291,14 @@ sub read_courier_imap {
 
 sub write_dovecot_uidlist {
     my ( $dir, $uidv, $nextuid, $owner_uid, $owner_gid, $filename_map ) = @_;
-    
+
     my $uidlist_fname = "$dir/$dovecot_uidfile";
     if ( !$overwrite && -f $uidlist_fname ) {
         print "$uidlist_fname already exists, not overwritten\n" if ( !$quiet );
         return;
     }
     return if (scalar keys %{$filename_map} == 0);
-    
+
     return if ( !$do_conversion );
 
     if ($uidv <= 0) {

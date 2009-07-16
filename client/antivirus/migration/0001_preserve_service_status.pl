@@ -45,7 +45,7 @@ sub runGConf
 
 
   foreach my $mod ($mailfilter, $squid) {
-      $mod or 
+      $mod or
           next;
 
       $mod->setAsChanged();
@@ -75,11 +75,11 @@ sub _moduleService
 
 EBox::init();
 my $antivirus = EBox::Global->modInstance('antivirus');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $antivirus,
                                      'version' => 1
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

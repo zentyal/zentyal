@@ -58,7 +58,7 @@ sub _migrateToServices
             $id = $serviceIdByDescription{$description};
         }
         else {
-            # make a custom service 
+            # make a custom service
             my $name;
             if (($dstPort ne 'any') and ($protocol ne 'any') and ($srcPort eq 'any')) {
                 $name  = getservbyport($dstPort, $protocol);
@@ -69,7 +69,7 @@ sub _migrateToServices
             }
             elsif ($services->serviceExists('name' => $name)) {
                 $name = $description;
-            } 
+            }
             $id = $services->addService(
                 'name' => $name,
                 'description' => 'Service generated from migration scripts',
@@ -78,7 +78,7 @@ sub _migrateToServices
                 'destinationPort' => $dstPort,
                 'internal' => 0
                );
-            
+
         }
 
         $network->set_string("multigwrulestable/keys/$row/service", $id);

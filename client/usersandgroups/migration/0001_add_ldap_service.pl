@@ -74,7 +74,7 @@ sub _addService
 			    'internal' => 1,
 			    'readOnly' => 1
 			   );
-    
+
   } else {
     $serviceMod->setService('name' => $params{name},
 			    'protocol' => $params{protocol},
@@ -82,7 +82,7 @@ sub _addService
 			    'destinationPort' => $params{destinationPort},
                             'internal' => 1,
 			    'readOnly' => 1);
-    
+
     EBox::info("Not adding $params{name} service as it already exists instead");
   }
 
@@ -109,7 +109,7 @@ sub runGConf
 EBox::init();
 
 my $usersMod = EBox::Global->modInstance('users');
-my $migration =  __PACKAGE__->new( 
+my $migration =  __PACKAGE__->new(
     'gconfmodule' => $usersMod,
     'version' => 1
 );

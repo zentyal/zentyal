@@ -73,7 +73,7 @@ sub _migrateTables
             my $cmd = qq{echo "$sql" | sudo su postgres -c'psql eboxlogs' > /dev/null 2>&1};
             system $cmd;
         }
-           
+
 
     }
 }
@@ -81,11 +81,11 @@ sub _migrateTables
 
 EBox::init();
 my $squid = EBox::Global->modInstance('squid');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
                                      'gconfmodule' => $squid,
                                      'version' => 4,
                                     );
-$migration->execute();                               
+$migration->execute();
 
 
 1;

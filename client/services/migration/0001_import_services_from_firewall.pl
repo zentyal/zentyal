@@ -5,7 +5,7 @@
 #	In version 1, a new model has been created to store services and it
 #	lives in another module called services. In previous versions
 #	servies were stored in firewall.
-#	
+#
 #	This migration script tries to populate the services model with the
 #	stored services in firewall
 #
@@ -22,7 +22,7 @@ use Error qw(:try);
 
 use base 'EBox::MigrationBase';
 
-sub new 
+sub new
 {
     my $class = shift;
     my %parms = @_;
@@ -39,11 +39,11 @@ sub new
 sub runGConf
 {
     my $self = shift;
-    
+
     my $servicesModule = EBox::Global->modInstance('services');
-    
+
     $self->_addBaseServices($servicesModule);
-    
+
     return unless (EBox::Global->instance()->modExists('firewall'));
 
     foreach my $service (@{$self->_firewallServices()}) {
@@ -53,7 +53,7 @@ sub runGConf
                 'sourcePort' => 'any',
                 'destinationPort' => $service->{'port'},
                 'internal' => $service->{'internal'});
-                                    
+
     }
 
 
@@ -69,7 +69,7 @@ sub _addBaseServices
         $serviceMod->addService('name' => __d('any'),
                 'description' => __d('any protocol and port'),
                 'domain' => __d('ebox-services'),
-                'protocol' => 'any', 
+                'protocol' => 'any',
                 'sourcePort' => 'any',
                 'destinationPort' => 'any',
                 'internal' => 0,
@@ -80,7 +80,7 @@ sub _addBaseServices
         $serviceMod->addService('name' => __d('any UDP'),
                 'description' => __d('any UDP port'),
                 'domain' => __d('ebox-services'),
-                'protocol' => 'udp', 
+                'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 'any',
                 'internal' => 0,
@@ -92,13 +92,13 @@ sub _addBaseServices
         $serviceMod->addService('name' => __d('any TCP'),
                 'description' => __d('any TCP port'),
                 'domain' => __d('ebox-services'),
-                'protocol' => 'tcp', 
+                'protocol' => 'tcp',
                 'sourcePort' => 'any',
                 'destinationPort' => 'any',
                 'internal' => 0,
                 'readOnly' => 1);
     }
-    
+
     my $apachePort;
     try {
         $apachePort = EBox::Global->modInstance('apache')->port();
@@ -108,7 +108,7 @@ sub _addBaseServices
     my %adminService = ('name' => __d('eBox administration'),
                         'description' => __d('eBox Administration port'),
                         'domain' => __d('ebox-services'),
-                        'protocol' => 'tcp', 
+                        'protocol' => 'tcp',
                         'sourcePort' => 'any',
                         'destinationPort' => $apachePort,
                         'internal' => 1,
@@ -123,7 +123,7 @@ sub _addBaseServices
         $serviceMod->addService('name' => 'ssh',
                 'description' => 'ssh',
                 'domain' => __d('ebox-services'),
-                'protocol' => 'tcp', 
+                'protocol' => 'tcp',
                 'sourcePort' => 'any',
                 'destinationPort' => '22',
                 'internal' => 0,
@@ -147,7 +147,7 @@ sub _firewallServices
 
 EBox::init();
 my $services = EBox::Global->modInstance('services');
-my $migration = new EBox::Migration( 
+my $migration = new EBox::Migration(
     'gconfmodule' => $services,
     'version' => 1
 );
