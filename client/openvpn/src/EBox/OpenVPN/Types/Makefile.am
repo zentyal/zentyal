@@ -2,10 +2,10 @@
 
 perldir = @PERLPATH@/EBox/OpenVPN/Types
 
-nobase_perl_DATA = PortAndProtocol.pm Certificate.pm TlsRemote.pm 
+nobase_perl_DATA = PortAndProtocol.pm Certificate.pm TlsRemote.pm
 
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

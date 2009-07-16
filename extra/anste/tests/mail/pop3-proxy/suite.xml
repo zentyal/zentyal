@@ -22,11 +22,11 @@
     <desc>
     The client tries to retrieve mail from a emty mailbox
     </desc>
-        <host>pop3-client</host>        
+        <host>pop3-client</host>
         <dir>fetchmail</dir>
         <var name="NMAILS" value ="0" />
         <var name="NHAM" value ="0" />
-        <var name="NSPAM" value ="0" /> 
+        <var name="NSPAM" value ="0" />
 
         <var name="SERVER" value ="192.168.3.2" />
         <var name="USER" value ="ubuntu" />

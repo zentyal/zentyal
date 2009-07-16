@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/QDisc
 
 nobase_perl_DATA = Base.pm Root.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

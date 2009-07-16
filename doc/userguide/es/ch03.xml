@@ -7,7 +7,7 @@
 		<title>Interfaces de red</title>
 
 		<para>
-		Se accede a la configuración de los interfaces de red a través de 
+		Se accede a la configuración de los interfaces de red a través de
 			<menuchoice>
 				<guimenu>Red</guimenu>
 				<guimenuitem>Interfaces</guimenuitem>
@@ -16,8 +16,8 @@
 		</para>
 
 		<para>
-		Para cada interfaz de red podemos establecer un nuevo nombre útil para 
-		diferenciarla y el método de configuración de la misma. Los métodos de 
+		Para cada interfaz de red podemos establecer un nuevo nombre útil para
+		diferenciarla y el método de configuración de la misma. Los métodos de
 		configuración son:
 		</para>
 
@@ -38,7 +38,7 @@
 					pública y estática. Sin
 					embargo, un interfaz interno
 					es aquel donde los clientes de
-					la red interna se conectan.</para></footnote>, 
+					la red interna se conectan.</para></footnote>,
 					su dirección IP y su máscara de red.
 					</para>
 				</listitem>
@@ -47,8 +47,8 @@
 				<term>DHCP</term>
 				<listitem>
 					<para>
-					Al seleccionar este método la interfaz de red se configurará 
-					de forma automática si hay un	servidor DHCP en la red. El único 
+					Al seleccionar este método la interfaz de red se configurará
+					de forma automática si hay un	servidor DHCP en la red. El único
 					parámetro configurable es la elección del interfaz como externo.
 					</para>
 				</listitem>
@@ -87,8 +87,8 @@
 		<section>
 			<title>Interfaces virtuales</title>
 			<para>
-			Una interfaz virtual es aquella que se adjunta a una interfaz real, 
-			y se utiliza para escuchar o servir una dirección IP extra a la real, 
+			Una interfaz virtual es aquella que se adjunta a una interfaz real,
+			y se utiliza para escuchar o servir una dirección IP extra a la real,
 			es decir podemos hacer que nuestra interfaz
 			real atienda dos o más redes diferentes con
 			sólo crear o agregar tantas
@@ -119,10 +119,10 @@
                 disponible, el secundario en cambio será usado y así
                 sucesivamente.
 		</para>
-		
+
 		<warning>
 			<para>
-			Se debe tener en cuenta que, si sus interfaces de red están 
+			Se debe tener en cuenta que, si sus interfaces de red están
 			configuradas por DHCP, esta configuración puede ser sobreescrita.
 			</para>
 		</warning>
@@ -133,12 +133,12 @@
 		<title>Herramientas de diagnóstico</title>
 
 		<para>
-		Se pueden usar estas herramientas para comprobar que la 
+		Se pueden usar estas herramientas para comprobar que la
 		configuración de red es correcta.
 		</para>
 
 		<para>
-		Desde 
+		Desde
 			<menuchoice>
 				<guimenu>Red</guimenu>
 				<guimenuitem>Diagnóstico</guimenuitem>
@@ -157,7 +157,7 @@
 	<section id='sect-gateways'>
 	  <!-- Network->Routers -->
 	  <title>Routers</title>
-	  
+
 	  <para>
 	    A través de esta sección puede establecer los routers
 	    donde se dirige tu tráfico de red. Esto puede ser muy
@@ -165,7 +165,7 @@
 	  </para>
 
 	  <para>
-	    Eligiendo 
+	    Eligiendo
 	    <menuchoice>
 	      <guimenu>Red</guimenu>
 	      <guimenuitem>Routers</guimenuitem>
@@ -249,7 +249,7 @@
 	      </listitem>
 	    </varlistentry>
 	  </variablelist>
-	  
+
 	  <warning>
 	    <para>
 	      Cada router debe ser alcanzable desde al menos un
@@ -262,8 +262,8 @@
 
 	  <para>
 	    Los valores correctos para tasas de subida y bajada son
-	    críticos para asegurar el correcto funcionamiento del 
-	    <!-- FIXME: when it's done <link linkend="ch-trafficshaping"> --> 
+	    críticos para asegurar el correcto funcionamiento del
+	    <!-- FIXME: when it's done <link linkend="ch-trafficshaping"> -->
 	    módulo de moldeado de tráfico
 	    <!-- </link> -->.
 	  </para>
@@ -284,7 +284,7 @@
 	    <title>Requisitos</title>
 	    <para>
 	      Para utilizar estas dos características, se necesitan
-	      tener configurados al menos dos routers. Visita 
+	      tener configurados al menos dos routers. Visita
 	      <link linkend="sect-gateways">esta sección</link> para
 	      saber como crearlos.
 	    </para>
@@ -317,7 +317,7 @@
 	      el del router B a 1.
 	    </para>
 	  </section>
-	  
+
 	  <section id="sect-multigateway-rules">
 	    <title>Reglas multirouter</title>
 	    <para>
@@ -408,7 +408,7 @@
         <section id="sect-routers">
           <!-- Network->Routers -->
           <title>Rutas</title>
-          
+
           <para>
             En configuraciones avanzadas, definir una conjunto de
             <link linkend="sect-gateways">routers</link> y de <link

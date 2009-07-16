@@ -7,7 +7,7 @@
 #
 
 templatedir = $(datadir)/ebox/templates/ajax/viewer
-template_DATA = fwDecisionViewer.mas 
+template_DATA = fwDecisionViewer.mas
 
 EXTRA_DIST = $(template_DATA)
 

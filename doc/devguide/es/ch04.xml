@@ -3,15 +3,15 @@
 <chapter id="ch-interacting">
 
 	<title>Interactuando con otros componentes</title>
-	
+
 	<section id="sect-interacting-intro">
 		<title>Introducción</title>
-		
+
 		<para>Hay tres razones diferentes por las cuales tu módulo puede
 		necesitar interactuar con otros módulos:</para>
-			
+
 		<itemizedlist>
-			
+
 			<listitem>
 
 				<para>El caso más simple es sólo la necesidad de
@@ -49,9 +49,9 @@
 				explicada en <xref linkend='sect-schemas'/></para>
 
 			</listitem>
-			
+
 			<listitem>
-				
+
 				<para>Finalmente, la situación más compleja es cuando
 				alguna información de la configuración del módulo en
 				desarrollo depende de la configuración de otros. En el
@@ -70,10 +70,10 @@
         </listitem>
 
 		</itemizedlist>
-		
+
 		<section id='sect-observers-intro'>
 			<title>Observers</title>
-			
+
 			<para>Suponga que está escribiendo un módulo DHCP y desea
 			configurar el servicio DHCP con una base distinta por cada
 			interfaz de red. Sin embargo, no a todos los interfaces se les
@@ -96,40 +96,40 @@
 			propósito. Esta clase tiene varias funciones abstractas, por
 			lo que el módulo podría implementar cualquiera de estas
 			funciones y ser notificado cuando un evento relevante sucediera.</para>
-			
+
 			<!-- FIXME - example? diagram? -->
 
 		</section>
-		
+
 	</section>
-	
+
 	<section id="sect-objectsmod">
 		<title>Módulo objects</title>
-		
+
 		<para>El módulo objects mantiene una lista de objetos de red creada
 		por el usuario. Estos objetos pueden contener cualquier número de
 		direcciones IP y bloques CIDR.</para>
-		
+
 		<para>Su interfaz es muy simple. La clase
 		<classname>EBox::ObjectObserver</classname> tiene dos funciones
 		abstractas que deben ser implementadas por los módulos que hacen uso
 		del módulo objects:</para>
 
 		<variablelist>
-			
+
 			<varlistentry>
 				<term><methodname>usesObject</methodname></term>
 				<listitem>
-					
+
 					<para>Recibe el nombre de un objeto como
 					argumento y devuelve <literal>true</literal>
 					si el módulo está haciendo uso del objeto dado
 					en su configuración, y
 					<literal>false</literal> en caso contrario.</para>
-					
+
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>freeObject</methodname></term>
 				<listitem>
@@ -142,20 +142,20 @@
 					borrar todas las referencias al objeto en su
 					configuración cuando se llame a
 					<methodname>freeObject</methodname>.</para>
-					
+
 				</listitem>
 			</varlistentry>
-			
+
 		</variablelist>
 
 		<para>Como ejemplo, aquí está la implementación de ambas funciones en
 		el módulo firewall:</para>
-		
+
 		<example>
 			<title>Implementación de la clase
 				<classname>EBox::ObjectsObserver</classname></title>
-			
-			<programlisting><![CDATA[sub usesObject # (object) 
+
+			<programlisting><![CDATA[sub usesObject # (object)
 {
 	my ($self, $object) = @_;
 	defined($object) or return undef;
@@ -163,7 +163,7 @@
 	return $self->dir_exists("objects/$object");
 }
 
-sub freeObject # (object) 
+sub freeObject # (object)
 {
 	my ($self, $object) = @_;
 	defined($object) or return;
@@ -172,9 +172,9 @@ sub freeObject # (object)
 }]]></programlisting>
 
 		</example>
-		
+
 	</section>
-	
+
 	<section id="sect-networkmod">
 		<title>Módulo network</title>
 
@@ -185,13 +185,13 @@ sub freeObject # (object)
 		tipos de cambios, y dos funciones que avisan a los módulos para que
 		eliminen las referencias a ciertos interfaces de red de sus
 		configuraciones:</para>
-		
+
 		<variablelist>
-			
+
 			<varlistentry>
 				<term><methodname>staticIfaceAddressChanged</methodname></term>
 				<listitem>
-					
+
 					<para>Se llama cuando la dirección de un
 					interfaz estático de red va a cambiarse. Este
 					método recibe las direcciones antigua y nueva
@@ -205,11 +205,11 @@ sub freeObject # (object)
 
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>ifaceMethodChanged</methodname></term>
 				<listitem>
-					
+
 					<para>Se le llama cuando la forma de
 					configurar un interfaz va a cambiar. Tanto la
 					forma anterior como la nueva, son pasadas como
@@ -224,11 +224,11 @@ sub freeObject # (object)
 
 					</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>vifaceAdded</methodname></term>
 				<listitem>
-				
+
 					<para>Se llama cuando un nuevo interfaz
 					virtual se va a crear. Sus argumentos son el
 					interfaz real al cual se le va a añadir, el
@@ -237,10 +237,10 @@ sub freeObject # (object)
 					devolverá <literal>true</literal> si la
 					creación del interfaz virtual es incompatible
 					con la configuración actual del módulo.</para>
-	
+
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>vifaceDelete</methodname></term>
 				<listitem>
@@ -258,7 +258,7 @@ sub freeObject # (object)
 			<varlistentry>
 				<term><methodname>freeIface</methodname></term>
 				<listitem>
-					
+
 					<para>Le pide eliminar todas las referencias a
 					un interfaz de red, de la configuración. Es
 					normalmente llamada después de devolver
@@ -273,24 +273,24 @@ sub freeObject # (object)
 			<varlistentry>
 				<term><methodname>freeViface</methodname></term>
 				<listitem>
-					
+
 					<para>Idéntica situación que en
 					<methodname>freeIface</methodname>, pero para
 					los interfaces virtuales.</para>
 
 				</listitem>
 			</varlistentry>
-			
+
 		</variablelist>
 
 		<para><xref linkend='ex-network-observer'/> muestra la implementación
 		de las funciones <classname>EBox::NetworkObserver</classname> en el
 		módulo firewall.</para>
-		
+
 		<example id='ex-network-observer'>
-			
+
 			<title>Implementando un	<classname>EBox::NetworkObserver</classname></title>
-			
+
 			<programlisting><![CDATA[sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 {
 	 my ($self, $iface, $oldm, $newm) = @_;
@@ -332,12 +332,12 @@ sub freeViface # (iface, viface)
 }]]></programlisting>
 
 		</example>
-		
+
 	</section>
-	
+
 	<section id="sect-firewallmod">
 		<title>Módulo firewall</title>
-		
+
 		<para>Los módulos firewall necesitan permitir que otros módulos
 		inserten reglas NAT y de filtrado a medida. Tiene un API limitado que
 		permite a los módulos modificar las reglas de filtrado. Por ejemplo,
@@ -348,7 +348,7 @@ sub freeViface # (iface, viface)
 		<para>Sin embargo, este mecanismo no es muy flexible desde que hay
 		módulos con necesidades muy específicas. El módulo squid necesita
 		configurar varias reglas NAT y de filtrado para su funcionar
-		transparentemente.</para> 
+		transparentemente.</para>
 
 		<para>La clase <classname>EBox::FirewallObserver</classname> fue
 		creada para estos casos más complejos. Cuando el firewall se reinicia
@@ -362,7 +362,7 @@ sub freeViface # (iface, viface)
 		y tablas donde ponen estas reglas a medida.</para>
 
 		<para><classname>EBox::FirewallObserver</classname> define dos
-			funciones:</para> 
+			funciones:</para>
 
 		<itemizedlist>
 			<listitem>
@@ -372,7 +372,7 @@ sub freeViface # (iface, viface)
 				<para><methodname>usesPort</methodname></para>
 			</listitem>
 		</itemizedlist>
-		
+
 		<para><methodname>firewallHelper</methodname> debería devolver
 		<literal>undef</literal> (el comportamiento por defecto) o un objeto
 		de tipo <classname>EBox::FirewallHelper</classname>. Esta clase define
@@ -400,10 +400,10 @@ sub freeViface # (iface, viface)
 					<literal>PREROUTING</literal> en la tabla
 					<literal>nat</literal>. Puedes usarlas para
 					hacer NAT en la dirección de destino de los paquetes.</para>
-					
+
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>postrouting</methodname></term>
 				<listitem>
@@ -416,7 +416,7 @@ sub freeViface # (iface, viface)
 
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>forward</methodname></term>
 				<listitem>
@@ -426,27 +426,27 @@ sub freeViface # (iface, viface)
 					<literal>FORWARD</literal> en la tabla
 					<literal>filter</literal>. Puedes usarlas para
 					filtrar paquetes a través del firewall.</para>
-					
+
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>input</methodname></term>
 				<listitem>
-				
+
 					<para>Las reglas devueltas por esta función
 					son añadidas a la cadena
 					<literal>INPUT</literal> en la tabla
 					<literal>filter</literal>. Puedes usarlas para
 					filtrar paquetes dirigidos directamente al firewall.</para>
-	
+
 				</listitem>
 			</varlistentry>
-			
+
 			<varlistentry>
 				<term><methodname>output</methodname></term>
 				<listitem>
-					
+
 					<para>Las reglas devueltas por este método son
 					añadidas a la cadena <literal>OUTPUT</literal>
 					en la tabla <literal>filter</literal>. Puedes
@@ -455,9 +455,9 @@ sub freeViface # (iface, viface)
 
 				</listitem>
 			</varlistentry>
-			
+
 		</variablelist>
-		
+
 		<warning>
 			<para>Debe ser cauteloso con las reglas del firewall que se
 			escriban, ya que pueden abrir importantes agujeros de
@@ -499,7 +499,7 @@ sub freeViface # (iface, viface)
 		<literal>undef</literal> en otro caso.</para>
 
 	</section>
-	
+
 	<section id="sect-observers">
 		<title>Definiendo nuevos observers</title>
 
@@ -507,7 +507,7 @@ sub freeViface # (iface, viface)
 		para dominios virtuales, y queremos permitir a otros módulos saber
 		cuando se borra un dominio virtual. Podríamos definir una clase
 		abstracta llamada <classname>EBox::MailObserver</classname>, como esta:</para>
-		
+
 		<example>
 			<title>Definiendo un observer que pueda ser implementado por
 			otros módulos</title>

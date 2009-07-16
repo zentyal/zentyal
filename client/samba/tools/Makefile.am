@@ -7,4 +7,4 @@ pkgdata_SCRIPTS =  ebox-samba-ldap ebox-fix-sid ebox-samba-enable \
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS)

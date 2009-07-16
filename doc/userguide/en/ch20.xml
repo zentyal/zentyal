@@ -71,7 +71,7 @@
       eBox must have a private element, known here as
       <emphasis>bundle</emphasis>, to subscribe.
     </para>
-    
+
     <section id="cc-setup-sect">
       <title>Control center setup</title>
       <para>
@@ -132,7 +132,7 @@
         Certification Authority to sow the bases to join/quit eBoxes.
       </para>
     </section>
-    
+
     <section id="join-quit-ebox-sect">
       <title>Join and quit eBoxes</title>
       <para>
@@ -308,7 +308,7 @@ The client bundle *Foo.tar.gz* is ready to be uploaded in your eBox to communica
     </section>
 
   </section>
-  
+
   <section id="cc-scripts-sect">
     <title>Control center configuration scripts</title>
     <para>

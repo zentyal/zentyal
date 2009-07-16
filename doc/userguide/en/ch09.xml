@@ -5,7 +5,7 @@
 	<section id='sect-time-ntp'>
           <!-- NTP->Server -->
           <title>NTP Server</title>
-          
+
           <para>NTP server can only be enabled or disabled at
           <menuchoice><guimenu>Module status</guimenu></menuchoice> by
           clicking on "enable" at its row as it is explained in <xref

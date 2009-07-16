@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/IMProxy/Model
 
-SUBDIRS = 
+SUBDIRS =
 
 mods = Rules.pm Composite.pm
 

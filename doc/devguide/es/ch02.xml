@@ -237,7 +237,7 @@ sub foo
 		coma después de la última sección (el <quote>catch</quote> en el
 		ejemplo). No hacerlo puede producir resultados inesperados, esto se
 		debe a la magia negra que es utilizada en la implementación del
-		try-catch en perl.</para>               
+		try-catch en perl.</para>
 	</section>
 
 	<section id="sect-validate">
@@ -251,7 +251,7 @@ sub foo
 		fichero de configuración generado por el módulo. La validación de
 		datos también ayuda a encontrar errores en la GUI, y cualquier otro
 		código que utilice el módulo.</para>
-		
+
 		<para>El módulo de perl <classname>EBox::Validate</classname> provee
 		de una serie de funciones para validar diferentes tipos de
 		datos. Todas estas funciones funcionan de la misma manera, su primer
@@ -365,7 +365,7 @@ print __($options[$index]);
 			de los módulos conteniendo todas las cadenas incluidas en los
 			mismos. Estos ficheros podrán ser traducidos comodamente por los
 			traductores, como se explica en la siguiente subsección.</para>
-			
+
 		</section>
 
 		<section id="sect-i18n-translators">
@@ -410,7 +410,7 @@ msgstr ""
 msgid "Edit {group} members"
 			</programlisting>
 			En este caso simplemente se debe reescribir la frase recolocando el
-			nombre de la variable (entre llaves) en el lugar necesario, pero sin 
+			nombre de la variable (entre llaves) en el lugar necesario, pero sin
 			ser traducido. La traducción correcta de la cadena en este caso
 			sería:
 			<programlisting>

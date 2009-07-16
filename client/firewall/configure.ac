@@ -31,7 +31,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	if test -z "$perlpath" ; then
 	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
 	fi
-	
+
 	AM_GCONF_SOURCE_2
 
 

@@ -1,4 +1,4 @@
-SUBDIRS = Sudo 
+SUBDIRS = Sudo
 ## Process this file with automake to produce Makefile.in
 
 perldir = @PERLPATH@/EBox/Exceptions

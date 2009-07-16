@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/DHCP
 
 nobase_perl_DATA = StaticRouteProvider.pm Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

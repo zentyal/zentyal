@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/TreeBuilder
 
 nobase_perl_DATA = HTB.pm Default.pm Abstract.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

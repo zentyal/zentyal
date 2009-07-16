@@ -9,7 +9,7 @@ nobase_perl_DATA = InterfaceTable.pm \
                    Clients.pm ClientConfiguration.pm \
                    DeletedDaemons.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

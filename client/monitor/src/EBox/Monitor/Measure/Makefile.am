@@ -6,7 +6,7 @@ nobase_perl_DATA = Base.pm CPU.pm Df.pm Load.pm Manager.pm \
 
 SUBDIRS = t
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

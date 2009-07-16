@@ -27,10 +27,10 @@
             <script>ebox-import-network.sh</script>
             <script>ebox-wait-start.sh</script>
         </post-install>
-        
+
         <packages>
             <package>netcat</package>
-        </packages>            
+        </packages>
     </host>
 
     <host>
@@ -47,7 +47,7 @@
         </network>
         <packages>
             <package>netcat</package>
-        </packages>            
+        </packages>
     </host>
 
     <host>
@@ -64,7 +64,7 @@
         </network>
         <packages>
             <package>netcat</package>
-        </packages>            
+        </packages>
     </host>
 
 </scenario>

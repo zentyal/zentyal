@@ -12,13 +12,13 @@
      rate for certain services such as ssh, http and so forth.
     </para>
   </section>
-  
+
   <section id="sect-ts-requirements">
    <title>Requirements</title>
     <para>
      In order to use the traffic shaping module, eBox must be placed as your
      gateway in your network. That means your installation will have to fulfil
-     the following requirements: 
+     the following requirements:
      <itemizedlist>
      	<listitem>
 	At least two network interfaces. One of them connected your local
@@ -42,8 +42,8 @@
     <para>
       Traffic shaping is applied on a per-interface basis. The behaviour depends
       on the sort of interface you shape on. If we select  external interfaces,
-      the shaping takes place on the traffic coming out from eBox 
-      to the Internet.  On the other hand, shaping on internal interfaces 
+      the shaping takes place on the traffic coming out from eBox
+      to the Internet.  On the other hand, shaping on internal interfaces
       affects to traffic coming in from the Internet. This is very
       important when the source and destination values are set. For
       example, if you want to shape the downloading from a single
@@ -61,7 +61,7 @@
       which traffic you would like to shape. To do so, we will add rules.
      </para>
      <para>
-      The first three lines of the rule will be used to match traffic. 
+      The first three lines of the rule will be used to match traffic.
       That is, they will be used as a selector for traffic.
      </para>
       <variablelist>
@@ -88,17 +88,17 @@
 		 options:
 		</para>
 		<formalpara>
-		 <title>Source IP</title> 
+		 <title>Source IP</title>
 		 <para>
 		  You can introduce an IP or leave it blank to match any IP.
 		 </para>
 		</formalpara>
 		<formalpara>
-		 <title>Source object</title> 
+		 <title>Source object</title>
 		  <para>
 		   You can select one of the
 		    objects available in eBox. The different members which
-		    compose an object will be used to match traffic. 
+		    compose an object will be used to match traffic.
 		  </para>
 		</formalpara>
 		<formalpara>
@@ -107,7 +107,7 @@
 		   You can introduce a MAC
 		   address to match traffic. Note that this option only makes
 		   sense when you are adding rules to an external interface, as
-		   you have information about your MAC source addresses 
+		   you have information about your MAC source addresses
 		   belonging to your local network.
 		  </para>
 		</formalpara>
@@ -125,17 +125,17 @@
 		 will be used to carry out the match for the current rule.
 		</para>
 		<formalpara>
-		 <title>Destination IP</title> 
+		 <title>Destination IP</title>
 		 <para>
 		  You can introduce an IP or leave it blank to match any IP.
 		 </para>
 		</formalpara>
 		<formalpara>
-		 <title>Destination object</title> 
+		 <title>Destination object</title>
 		  <para>
 		   You can select one of the
-		    objects available in eBox. The different members which 
-		    compose an object will be used to match traffic. 
+		    objects available in eBox. The different members which
+		    compose an object will be used to match traffic.
 		  </para>
 		</formalpara>
 	 </listitem>
@@ -180,13 +180,13 @@
        <para>
         This field tells eBox which should be the minimum rate for the traffic
 	matching the current rule. The rate ranges from 60 kbits to your
-	connection bandwidth. 
+	connection bandwidth.
 	<para>
 	You have to take into account two important things. eBox will not allow
 	you to set a guaranteed rate which is impossible to achieve given your
 	connection bandwidth, as usual, if you are adding rules to your external
 	interface you are dealing with your upload capacity, in case of your
-	internal interface, download capacity. 
+	internal interface, download capacity.
 	If you set the guaranteed rate to zero, you are
 	telling eBox not to assure anything, and it will just do a best-effort
 	for that kind of traffic.
@@ -198,7 +198,7 @@
       <term>Maximum rate</term>
       <listitem>
        <para>
-        If the <emphasis>guaranteed rate</emphasis> field sets a lower 
+        If the <emphasis>guaranteed rate</emphasis> field sets a lower
 	boundary for the rate, this field can be used to put a ceiling on
 	the upload or download rate that (your matched by the rule) traffic can
 	reach.

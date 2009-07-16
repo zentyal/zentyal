@@ -39,7 +39,7 @@
 		Once we have the gzipped tar files of the latest eBox version we should
 		be able to start installing them. To extract the contents of a tarball
 		you just need to run:
-		<screen>	
+		<screen>
 		tar zxvf ebox-&lt;module&gt;-&lt;version&gt;.tar.gz
 		</screen>
 		</para>
@@ -152,9 +152,9 @@
 				<screen>
 				# addgroup --system ebox
 				# adduser --system --home /var/lib/ebox/ --no-create-home \
-					 --disabled-password --ingroup ebox ebox 
+					 --disabled-password --ingroup ebox ebox
 				</screen>
-				</para>	
+				</para>
 
 				<para>eBox needs several directories inside its home to work properly,
 				we will create a <filename>log</filename> directory to hold the eBox
@@ -174,7 +174,7 @@
 				# cp conf/.gconf.path /var/lib/ebox
 				</screen>
 				</para>
-				
+
 				<para>
 				Now we should change the owner of the /var/lib/ebox directory to the
 				ebox user, including every subdirectory:
@@ -350,8 +350,8 @@
 
 			</section>
 		</section>
-		
-		<section id='installing-LDAP-modules'>	
+
+		<section id='installing-LDAP-modules'>
 			<title>Installing LDAP modules</title>
 			<para>
 			There are several eBox modules that use the concept of users and

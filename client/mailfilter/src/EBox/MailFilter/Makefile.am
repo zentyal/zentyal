@@ -10,7 +10,7 @@ nobase_perl_DATA =  Amavis.pm  VDomainsLdap.pm  SpamAssassin.pm  \
 test_classes = Test.pm ConsolidationTest.pm
 
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA) $(test_classes)
 

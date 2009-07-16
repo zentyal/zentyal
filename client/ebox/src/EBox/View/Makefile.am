@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/View
 
-mods = Customizer.pm 
+mods = Customizer.pm
 
 nobase_perl_DATA = $(mods)
 

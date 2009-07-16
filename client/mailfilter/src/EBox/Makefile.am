@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox
 
 nobase_perl_DATA = MailFilter.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

@@ -2,8 +2,8 @@
 bin_SCRIPTS = ebox-moddev-create ebox-moddev-model ebox-moddev-type \
 	ebox-moddev-migration ebox-moddev-stub ebox-moddev-composite
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
-EXTRA_DIST = 
+EXTRA_DIST =
 
 MAINTAINERCLEANFILES = Makefile.in

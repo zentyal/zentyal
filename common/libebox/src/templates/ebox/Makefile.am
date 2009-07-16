@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = 
+SUBDIRS =
 templatedir = $(datadir)/ebox/templates/ebox
 template_DATA = pageNotFound.mas
 

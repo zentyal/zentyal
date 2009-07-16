@@ -2,8 +2,8 @@
 
 pkgdata_SCRIPTS = ebox-apache2-start
 
-SUBDIRS = 
+SUBDIRS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS)

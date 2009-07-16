@@ -4,8 +4,8 @@ Etcdir = $(sysconfdir)/ebox
 Etc_DATA = 80samba.conf
 
 
-EXTRA_DIST = $(Etc_DATA) 
+EXTRA_DIST = $(Etc_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
-DISTCLEANFILES = 
+DISTCLEANFILES =

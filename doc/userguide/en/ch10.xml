@@ -26,14 +26,14 @@
                   <guimenu>Users</guimenu>
                   <guimenuitem>Edit User</guimenuitem>
                 </menuchoice>
-                and click on <guiicon>Pencil</guiicon> icon.</para> 
+                and click on <guiicon>Pencil</guiicon> icon.</para>
 
 		<para>User edit window is dynamic, which means that its content can
 		change depending on the eBox modules installed. There are two parts
 		that will ever exist: on the upper zone, general user information will
 		be shown to give the chance to modify it, including its comment, name
 		and password (with confirmation); on the bottom you
-		can see a 
+		can see a
                 <guibutton>Delete</guibutton>
 		button that you can click to remove the eBox user, and its
 		dependencies with the installed modules. Between these parts, new

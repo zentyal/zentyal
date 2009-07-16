@@ -4,7 +4,7 @@
   <section id="sect-ca-prereq">
     <title>Prerequisites</title>
     <para>
-      A basic knowledge of public key infrastructure is needed to 
+      A basic knowledge of public key infrastructure is needed to
       understand and use this module.
       You can find a good introduction at <ulink
       url="http://en.wikipedia.org/wiki/Public_key_infrastructure">the Wikipedia article
@@ -16,7 +16,7 @@
   <section id="sect-ca-overview">
     <title>Overview of Certification Authority Management</title>
     <para>
-      You can get to Certification Authority (<acronym>CA</acronym>) 
+      You can get to Certification Authority (<acronym>CA</acronym>)
       Management at
       <menuchoice>
 	<guimenu>Certificate Manager</guimenu>
@@ -24,7 +24,7 @@
     </para>
 
     <para>
-      The CA Management purpose is to allow the issue of certificates, 
+      The CA Management purpose is to allow the issue of certificates,
       which can be used by another eBox modules or external applications.
     </para>
     <para>
@@ -32,7 +32,7 @@
       certificate which will be created with this module.
     </para>
   </section>
-  <section id="sect-create-ca">				      
+  <section id="sect-create-ca">
     <title>CA's certificate creation</title>
     <para>
       Firstly, in order to use certificate, issuing the CA's certificate
@@ -40,7 +40,7 @@
       issue 'normal' certificates, so the other module's features would
       not be available until it exists.
     </para>
-    
+
     <para>
        To achieve so, we enter in the module's page and we find
        a form to create the CA's certificate.
@@ -53,9 +53,9 @@
 	mind that its expiration will also expire any certificate
 	issued with it.
 	This would stop any service which depends on the revoked certificates.
-      </para> 
+      </para>
     </warning>
-    
+
   </section>
 
   <section id="sect-create-certificate">
@@ -77,14 +77,14 @@
       modules to use it.
     </para>
   </section>
-      
+
   <section id="sect-certificate-actions">
     <title>Actions upon certificates</title>
     <para>
       Through the certificate's list we can access to actions which can
       be done upon each certificate.
-      The actions available are <link linkend="sect-certificate-actions-download">download files</link>, 
-      <link linkend="sect-certificate-actions-revoke">revoke</link> 
+      The actions available are <link linkend="sect-certificate-actions-download">download files</link>,
+      <link linkend="sect-certificate-actions-revoke">revoke</link>
       and <link linkend="sect-certificate-actions-renew">renew</link>.
     </para>
 
@@ -98,7 +98,7 @@
 	private key is not supplied in the archive.
       </para>
     </section>
-      
+
     <section id="sect-certificate-actions-revoke">
       <title>Revoke</title>
       <para>
@@ -113,8 +113,8 @@
       </para>
       <warning>
 	<para>
-	  In case the revoked certificate is the CA's certificate, 
-	  all certificates generated with the certificate will be 
+	  In case the revoked certificate is the CA's certificate,
+	  all certificates generated with the certificate will be
 	  automatically revoked.
 	</para>
       </warning>

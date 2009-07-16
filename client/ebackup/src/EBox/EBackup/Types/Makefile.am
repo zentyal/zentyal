@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/EBackup/Types
 
-nobase_perl_DATA = 
+nobase_perl_DATA =
 
 DISTCLEANFILES =
 

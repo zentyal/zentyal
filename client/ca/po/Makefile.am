@@ -14,7 +14,7 @@ POTFILES_TMPL = \
  ./src/templates/index.mas \
  ./src/templates/forceRevoke.mas \
  ./src/templates/forceRenew.mas \
- ./src/templates/formRevoke.mas 
+ ./src/templates/formRevoke.mas
 
 POTFILES_PL = \
  ./src/EBox/CGI/ShowForm.pm \
@@ -28,7 +28,7 @@ POTFILES_PL = \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
  ./src/EBox/CA.pm \
- ./migration/0001_add_password_aware.pl 
+ ./migration/0001_add_password_aware.pl
 
 POTFILES = \
  ./src/EBox/CGI/ShowForm.pm \
@@ -48,7 +48,7 @@ POTFILES = \
  ./src/templates/forceRevoke.mas \
  ./src/templates/forceRenew.mas \
  ./src/templates/formRevoke.mas \
- ./migration/0001_add_password_aware.pl 
+ ./migration/0001_add_password_aware.pl
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)

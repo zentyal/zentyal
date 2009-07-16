@@ -63,7 +63,7 @@
       </itemizedlist>
 
     </simplesect>
-    
+
     <section id='sect-example-define'>
       <title>Studying the NTP service and its features</title>
 
@@ -176,10 +176,10 @@
 
       <example id="constructor-example">
         <title><classname>EBox::NTP</classname> constructor</title>
-        <programlisting><![CDATA[sub _create 
+        <programlisting><![CDATA[sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'ntp', 
+    my $self = $class->SUPER::_create(name => 'ntp',
                                       domain => 'ebox-ntp',
                                       @_);
     bless($self, $class);
@@ -224,7 +224,7 @@
       </itemizedlist>
 
       <variablelist>
-        
+
         <varlistentry>
           <term><methodname>setService</methodname></term>
           <listitem>
@@ -234,10 +234,10 @@
             synchronise their time and date with eBox.</para>
 
             <para>Here is its implementation:</para>
-            
+
             <example id="enable-NTP-example">
               <title>Enabling the NTP server</title>
-              <programlisting><![CDATA[sub setService 
+              <programlisting><![CDATA[sub setService
 {
     my ($self, $active) = @_;
     if ($active xor $self->service) {
@@ -268,11 +268,11 @@
 
             <example id="state-example">
               <title>Reading the state of the NTP server</title>
-              <programlisting><![CDATA[sub service 
+              <programlisting><![CDATA[sub service
 {
     my $self = shift;
     return $self->get_bool('active');
-} ]]> 
+} ]]>
               </programlisting>
             </example>
 
@@ -317,8 +317,8 @@
               <title>Fetching the configuration for external
               synchronization</title>
 
-              <programlisting><![CDATA[sub synchronized 
-{ 
+              <programlisting><![CDATA[sub synchronized
+{
     my $self = shift;
     return $self->getbool('synchronized');
 } ]]>
@@ -346,7 +346,7 @@
 
             <example id="setting-external-NTP-example">
               <title>Setting the external NTP servers</title>
-              <programlisting><![CDATA[sub setServers # (server1, server2, server3) 
+              <programlisting><![CDATA[sub setServers # (server1, server2, server3)
 {
     my ($self, $s1, $s2, $s3) = @_;
 
@@ -364,7 +364,7 @@
             $self->set_string('server2', $s2);
         } else {
 
-        ...]]> 
+        ...]]>
               </programlisting>
             </example>
           </listitem>
@@ -379,7 +379,7 @@
 
             <example id="getting-external-NTP-example">
               <title>Getting the list of external NTP servers</title>
-              <programlisting><![CDATA[sub servers 
+              <programlisting><![CDATA[sub servers
 {
     my $self = shift;
     my @servers;
@@ -388,19 +388,19 @@
     $self->get_string('server3'));
 
     return @servers;
-} ]]> 
+} ]]>
               </programlisting>
             </example>
           </listitem>
         </varlistentry>
-        
+
         <varlistentry>
           <term><methodname>setNewDate</methodname></term>
           <listitem>
 
             <para>This method changes the system's date and time. This is its
             implementation:</para>
-            
+
             <example id="setting-time-date-example">
               <title>Setting a new system time and date</title>
               <programlisting><![CDATA[sub setNewDate # (day, month, year, hour, minute, second)
@@ -412,8 +412,8 @@
     root($command);
 
     $self->_restartAllServices;
-    
-} ]]> 
+
+} ]]>
               </programlisting>
             </example>
 
@@ -431,13 +431,13 @@
             modules need to be restarted. This is implemented in the
             <methodname>_restartAllServices</methodname> method seen in <xref
             linkend='ex-ntp-restart-all'/>.</para>
-          </listitem> 
+          </listitem>
         </varlistentry>
 
         <varlistentry>
           <term><methodname>setNewTimeZone</methodname></term>
           <listitem>
-            
+
             <para>Along with the time and date, the time zone may be changed too.
             For this purpose we implemented this method:</para>
 
@@ -496,7 +496,7 @@
     my $log = $global->logger;
     my $failed = "";
     $log->info("Restarting all modules");
-              
+
     foreach my $name (@names) {
         my $mod = $global->modInstance($name);
         try {
@@ -505,7 +505,7 @@
             $failed .= "$name ";
         };
     }
-              
+
     if ($failed ne "") {
         throw EBox::Exceptions::Internal("The following modules ".
                                          "failed while being restarted, their state is ".
@@ -560,7 +560,7 @@
       implements a constructor that sets the title for our page and the name
       of the template associated to this CGI. This is the constructor:</para>
 
-      <example id="cgi-constructor-example"> 
+      <example id="cgi-constructor-example">
         <title>Constructor for <classname>EBox::CGI::NTP::Index</classname>
         </title>
         <programlisting><![CDATA[package EBox::CGI::NTP::Index;
@@ -641,7 +641,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'NTP', @_);
@@ -689,14 +689,14 @@ sub _process
       <para>It is very easy to use it. We create a template that receives an
       argument with the current configuration of the server. As explained
       in <xref linkend='sect-mason'/> we can include an external template
-      by writing: 
+      by writing:
       <programlisting><![CDATA[<& template.mas, @arguments &>]]></programlisting>.
       We are going to include <filename>enable.mas</filename> and we give it two
       arguments, the title and the current configuration of the NTP server. It
       looks like this:</para>
 
-      <example id="mason-template-NTP-example"> 
-        <title>Mason template for enabling the NTP server</title> 
+      <example id="mason-template-NTP-example">
+        <title>Mason template for enabling the NTP server</title>
         <programlisting><![CDATA[<%args> $active </%args>
 <%init> use EBox::Gettext; </%init>
 
@@ -840,7 +840,7 @@ sub _process
       <classname>EBox::NTP</classname>:</para>
 
       <example id="ntp-summary-example">
-        <title><methodname>statusSummary</methodname> in 
+        <title><methodname>statusSummary</methodname> in
         <classname>EBox::NTP</classname></title>
 
         <programlisting><![CDATA[sub statusSummary
@@ -889,7 +889,7 @@ sub _process
     push(@array, 'active'   => $active);
     push(@array, 'synchronized'  => $synch);
     push(@array, 'servers'  => \@servers);
-    
+
     $self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 }]]>
         </programlisting>
@@ -927,7 +927,7 @@ sub _process
       <para>After building the array with the arguments we call
       <methodname>writeConfFile</methodname>, which generates the configuration
       file with proper permissions and needs these arguments:</para>
-      
+
       <itemizedlist>
         <listitem>
           <para>The absolute path to the configuration file. In our case it is the
@@ -1046,7 +1046,7 @@ restrict 127.0.0.1 nomodify]]>
                  EBox::Service::manage('ntpd','start');
             } elsif ($self->isRunning) {
                  EBox::Service::manage('ntpd','stop');
-                 if ($self->synchronized) { 
+                 if ($self->synchronized) {
                      EBox::Service::manage('ntpd','start');
                  }
            }
@@ -1054,7 +1054,7 @@ restrict 127.0.0.1 nomodify]]>
       </example>
 
       <para>This method is invoked:</para>
-      
+
       <itemizedlist>
         <listitem>
           <para>To launch the server if it was stopped.</para>
@@ -1113,7 +1113,7 @@ exec /usr/sbin/ntpd -n -g]]>
     if ($self->isRunning) {
         $self->_daemon('stop');
     }
-}]]> 
+}]]>
         </programlisting>
       </example>
 
@@ -1123,7 +1123,7 @@ exec /usr/sbin/ntpd -n -g]]>
 {
    my $self = shift;
    return $self->pidFileRunning(PIDFILE);
-}]]> 
+}]]>
         </programlisting>
       </example>
     </section>
@@ -1179,7 +1179,7 @@ exec /usr/sbin/ntpd -n -g]]>
       <methodname>removeService</methodname>.</para>
 
     </section>
-    
+
     <section id='sect-example-conclusion'>
       <title>Conclusion</title>
 
@@ -1194,11 +1194,11 @@ exec /usr/sbin/ntpd -n -g]]>
   </section>
 
   <section id="sect-short-way">
-    
+
     <title>Short way to create a small module</title>
 
     <para>
-      Previously in <xref linkend="long-way-sect"/>, a long way to create an 
+      Previously in <xref linkend="long-way-sect"/>, a long way to create an
       eBox module has been explained, however in this section we are going to
       use the MVC framework described in <xref linkend="sect-a-mvc-module"/>.
       This will reduce our development time turning into a less
@@ -1212,7 +1212,7 @@ exec /usr/sbin/ntpd -n -g]]>
 
     <para>
       As it was done in <xref linkend="long-way-sect"/>, we have
-      chosen a service, in this case, the 
+      chosen a service, in this case, the
       <ulink url="http://www.w3.org/Protocols/">HyperText Transfer Protocol</ulink> server.
       We have selected the <ulink url="http://httpd.apache.org">Apache
       HTTP server version 2</ulink> to provide a simple glance of how
@@ -1220,7 +1220,7 @@ exec /usr/sbin/ntpd -n -g]]>
       correctly. The web server eBox module has these following
       requirements:
     </para>
-    
+
     <itemizedlist>
       <listitem>
         <para>Enable and disable the service as other eBox modules do</para>
@@ -1231,7 +1231,7 @@ exec /usr/sbin/ntpd -n -g]]>
         subdirectory.</para>
       </listitem>
       <listitem>
-        <para>Virtual host creation and configuration giving automatic 
+        <para>Virtual host creation and configuration giving automatic
         name resolution management using our DNS module.</para>
       </listitem>
     </itemizedlist>
@@ -1245,14 +1245,14 @@ exec /usr/sbin/ntpd -n -g]]>
         <para>Define the <emphasis>data model</emphasis> to accomplish
         the requested features</para>
       </listitem>
-      
+
       <listitem>
         <para>Define the graphical user interface using
         <emphasis>Composites</emphasis></para>
       </listitem>
 
       <listitem>
-        <para>Create the new module from a template publishing the data 
+        <para>Create the new module from a template publishing the data
         model and composites</para>
       </listitem>
 
@@ -1341,8 +1341,8 @@ sub _table
       </para>
 
       <para>
-        Once the general configuration is done, we are going to generate a list 
-        of virtual hosts to live inside our web server. As the module is 
+        Once the general configuration is done, we are going to generate a list
+        of virtual hosts to live inside our web server. As the module is
         a proof concept, only a name will be provided to generate a virtual host
         and additional check box to enable/disable the site.
         The document root is fixed and it is related to the virtual host's name
@@ -1389,7 +1389,7 @@ sub _table
 
     return $dataTable;
 }]]>
-            
+
           </programlisting>
         </example>
         As you may see, the <parameter>enabled</parameter> field is
@@ -1544,7 +1544,7 @@ sub _guessWebIPAddr
         static internal interface has been set up.
       </para>
     </section>
-        
+
     <section id="define-composite-sect">
 
       <title>Define module web GUI using Composites</title>
@@ -1600,15 +1600,15 @@ sub _description
       <title>Publishing model and composite from this module</title>
       <para>
         In order to let eBox see the models and composites defined
-        above, i.e. publish them on eBox framework, so 
+        above, i.e. publish them on eBox framework, so
         that they access and manipulate their data. Let's edit the
         main module class <classname>EBox::WebServer</classname>. To publish
         models and composites, we must override <methodname>modelsClasses</methodname> and
         <methodname>compositeClasses</methodname> methods from
         <classname>EBox::Model::ModelProvider</classname> and
-        <classname>EBox::Model::CompositeProvider</classname> respectively as 
+        <classname>EBox::Model::CompositeProvider</classname> respectively as
         <xref linkend="model-access-sect"/> describes.
-        
+
         <example id="webserver-publish-example">
           <title>Publishing models and composites from web server module</title>
           <programlisting><![CDATA[
@@ -1652,7 +1652,7 @@ sub compositeClasses
         modules to enable/disable a service. Because of that, its
         construction is a bit different from the other ones, since the
         model is parametrised with the gettext domain
-        (<parameter>domain</parameter>), its title 
+        (<parameter>domain</parameter>), its title
         (<parameter>enableTitle</parameter>) and the model domain
         (<parameter>modelDomain</parameter>). The remainder two methods
         are general ones used along eBox the code.
@@ -1692,7 +1692,7 @@ sub compositeClasses
             Web service in eBox.</para>
           </listitem>
         </itemizedlist>
-        Taking a look to the 
+        Taking a look to the
         <link linkend="long-steps-creating-module-list">long way of a module creation</link>,
         we can observe as we have removed any CGI or mason development. Inside
         this section the two steps of the three steps are going to be described
@@ -1744,7 +1744,7 @@ sub _regenConfig
         processes that develop the web services, are explained in the
         below sections and it is known as the module "backend".
       </para>
-      
+
       <section id="configuring-apache2-service">
 
         <title>Configuring Apache2 service</title>
@@ -1956,7 +1956,7 @@ sub _setVHosts
           logic creates every virtual host configuration from a single template
           and it is written under <filename>sites-available</filename> directory
           using the pattern: <emphasis>ebox-$virtualHostName</emphasis>. If the
-          virtual host is enabled, a symbolic link is created under 
+          virtual host is enabled, a symbolic link is created under
           <filename>sites-enabled</filename> directory.
         </para>
 
@@ -1983,7 +1983,7 @@ sub _setVHosts
 Listen <% $portNumber %>]]>
             </programlisting>
           </example>
-          Regarding to <filename>vhost.mas</filename>, its content is almost as 
+          Regarding to <filename>vhost.mas</filename>, its content is almost as
           simple as the ports one as we see in <xref linkend="vhost-example"/>.
           <example id="vhost-example">
             <title><filename>vhost.mas</filename> template</title>
@@ -1991,7 +1991,7 @@ Listen <% $portNumber %>]]>
 <%doc>
    Template to configure a simple named virtual host using the default
    site given with the apache2 debian package
-   
+
    Parameters:
 
    vHostName - String the virtual host's name
@@ -2082,7 +2082,7 @@ sub _doDaemon
           done in any part of development or an incorrect daemon
           working. The <command>ebox-runit-finisher</command> requires
           two arguments:
-          
+
           <variablelist>
             <varlistentry>
               <term><parameter>eBoxModule</parameter></term>
@@ -2097,8 +2097,8 @@ sub _doDaemon
               </listitem>
             </varlistentry>
           </variablelist>
-          The finisher script must follow this pattern: 
-          <filename>${serviceName}.finish</filename>. In our example, the 
+          The finisher script must follow this pattern:
+          <filename>${serviceName}.finish</filename>. In our example, the
           shell script <filename>tools/runit/apache2.finish</filename> lists as following:
           <example id="apache2-runit-finisher-example">
             <title><filename>tools/runit/apache2.finish</filename> file</title>
@@ -2108,7 +2108,7 @@ sub _doDaemon
             </programlisting>
           </example>
           Whenever the web service is asked to stop by command line, i.e.
-          <command>/etc/init.d/ebox web stop</command>, the 
+          <command>/etc/init.d/ebox web stop</command>, the
           <methodname>_stopService</methodname> is called to stop the service as
           we do using the <methodname>EBox::Service::manage</methodname> class method.
           <example id="stop-web-example">
@@ -2132,8 +2132,8 @@ sub _stopService
         <para>
           In order to show up the web server in the menu, it is almost the same procedure than
           <xref linkend="sect-example-menu"/>. However, in this case we just add an
-          item. The URL to set is going to show the view from the composite 
-          <classname>GeneralComposite</classname> that we have defined in 
+          item. The URL to set is going to show the view from the composite
+          <classname>GeneralComposite</classname> that we have defined in
           <xref linkend="composite-desc-example"/>. To do so, the URL value must
           follow this pattern: <emphasis>$compositeDomain/Composite/$compositeName</emphasis>
           as <xref linkend="menu-webserver-example"/> describes.
@@ -2156,7 +2156,7 @@ sub menu
             </programlisting>
           </example>
           Regarding to status summary, the <methodname>statusSummary</methodname> method
-          implementation is analogous to the one defined in 
+          implementation is analogous to the one defined in
           <xref linkend="ntp-summary-example"/> but swapping every NTP reference to
           Web.
         </para>
@@ -2164,7 +2164,7 @@ sub menu
       </section>
 
       <section id="apache-firewall-sect">
-        <title>Establish rules through services and firewall modules to use Web service 
+        <title>Establish rules through services and firewall modules to use Web service
         in eBox</title>
 
         <para>
@@ -2186,7 +2186,7 @@ sub menu
           <example id="on-install-remove-example">
             <title><methodname>onInstall</methodname> and <methodname>onRemove</methodname>
             methods to configure web service</title>
-            
+
             <programlisting><![CDATA[
 sub onInstall
 {
@@ -2268,7 +2268,7 @@ sub onRemove
           both are called on the installation scripts. This
           is not done automatically and it is required to be called
           explicitly as <xref linkend="pre-post-script-example"/>
-          shows on <filename>debian/ebox-web.postinst</filename> and 
+          shows on <filename>debian/ebox-web.postinst</filename> and
           <filename>debian/ebox-web.prerm</filename>.
 
           <example id="pre-post-script-example">
@@ -2287,7 +2287,7 @@ case "$1" in
 	configure)
                 ...
 
-		# don't start Web server with its script	
+		# don't start Web server with its script
 		update-rc.d -f apache2 remove
 
 		onInstall
@@ -2318,7 +2318,7 @@ case "$1" in
 		onRemove
 		/etc/init.d/ebox webserver stop || true
 		remove_gconf_schemas
-		;;	
+		;;
 esac]]>
             </programlisting>
           </example>
@@ -2340,7 +2340,7 @@ esac]]>
       </para>
 
       <para>
-        It seems useful to have a method to get the virtual hosts that already 
+        It seems useful to have a method to get the virtual hosts that already
         exist in eBox, this is done by <methodname>virtualHosts</methodname> method.
         <example id="vHosts-method-example">
           <title><methodname>virtualHosts</methodname> method</title>
@@ -2520,7 +2520,7 @@ $webMod->removeVHost( 'devendra.banhart.com' );
         model management easily and human-readable way, making eBox
         framework powerful and completely scriptable.
       </para>
-      
+
     </section>
 
     <section id='sect-short-way-conclusion'>
@@ -2534,7 +2534,7 @@ $webMod->removeVHost( 'devendra.banhart.com' );
         your own services and needs.
       </para>
     </section>
-    
+
   </section>
 
 </chapter>

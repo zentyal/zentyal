@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/Model/CompositeProvider
 
 test_classes = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(test_classes)
 

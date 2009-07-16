@@ -8,7 +8,7 @@
 
 	  <para>
 	    Se accede a la configuración de la compartición de ficheros
-	    a través de 
+	    a través de
 	    <menuchoice>
 	      <guimenu>Compartir ficheros</guimenu>
 	    </menuchoice>
@@ -16,7 +16,7 @@
 	    Para activar la compartición de ficheros, visita la <xref
             linkend="sect-mod-status"/> para saber como hacerlo.
 	  </para>
-	  
+
 	  <para>
 	    Hay dos modos de funcionamiento para este módulo. Se puede
 	    comportar como un simple servidor de ficheros usando el
@@ -64,7 +64,7 @@
 		<term>Límite de couta</term>
 		<listitem>
 		  <para>
-		    Límite de tamaño de disco en MB a usar por cada uno 
+		    Límite de tamaño de disco en MB a usar por cada uno
 		    de los usuarios. Si no se quieren imponer restricciones
 		    de tamaño es suficiente poner en este campo un cero.
 		  </para>
@@ -104,7 +104,7 @@
 	    Si el módulo de compartir ficheros está instalado y
 	    habilitado en eBox, quizá quieras compartir ficheros entre
 	    usuarios del mismo grupo o publicar ficheros dentro de la
-	    red de área local. Para conseguirlo, deberías ir a 
+	    red de área local. Para conseguirlo, deberías ir a
 	    <menuchoice>
 	      <guimenu>Usuarios</guimenu>
 	    </menuchoice>
@@ -120,7 +120,7 @@
 
 	  <para>
 	    Si quieres compartir un directorio entre los usuarios
-	    dentro de un mismo grupo, debes ir a 
+	    dentro de un mismo grupo, debes ir a
 	    <menuchoice>
 	      <guimenu>Grupos</guimenu>
 	    </menuchoice>
@@ -139,5 +139,5 @@
 	    </para>
 	  </note>
 	</section>
-	
+
 </chapter>

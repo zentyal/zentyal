@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/Filter
 
 nobase_perl_DATA = Fw.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

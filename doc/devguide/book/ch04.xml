@@ -141,7 +141,7 @@
 				<title><classname>EBox::ObjectsObserver</classname> subclass
 				implementation</title>
 
-				<programlisting><![CDATA[sub usesObject # (object) 
+				<programlisting><![CDATA[sub usesObject # (object)
 {
 	my ($self, $object) = @_;
 	defined($object) or return undef;
@@ -149,7 +149,7 @@
 	return $self->dir_exists("objects/$object");
 }
 
-sub freeObject # (object) 
+sub freeObject # (object)
 {
 	my ($self, $object) = @_;
 	defined($object) or return;
@@ -336,7 +336,7 @@ sub freeViface # (iface, viface)
 			where it will put these custom rules.</para>
 
 			<para><classname>EBox::FirewallObserver</classname> defines two
-			methods:</para> 
+			methods:</para>
 
 			<itemizedlist>
 				<listitem>

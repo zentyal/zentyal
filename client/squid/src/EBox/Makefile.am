@@ -1,13 +1,13 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Squid 
+SUBDIRS = Squid
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Squid.pm SquidFirewall.pm SquidOnlyFirewall.pm 
+nobase_perl_DATA = Squid.pm SquidFirewall.pm SquidOnlyFirewall.pm
 
 SOURCES = $(nobase_perl_DATA)
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

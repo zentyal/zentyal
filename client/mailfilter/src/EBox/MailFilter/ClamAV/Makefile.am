@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/MailFilter/ClamAV
 
 nobase_perl_DATA =  Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

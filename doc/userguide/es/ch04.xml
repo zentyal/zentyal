@@ -6,17 +6,17 @@
 		<title>¿Qué son los objetos de red?</title>
 
 		<para>
-		Los objetos de red son una manera de poner nombre a un 
-		elemento de una red o a un conjunto de ellos. Sirven para 
-		simplificar la gestión de la configuración de la red pudiendo 
-		elegir comportamientos para elementos individuales o conjuntos 
+		Los objetos de red son una manera de poner nombre a un
+		elemento de una red o a un conjunto de ellos. Sirven para
+		simplificar la gestión de la configuración de la red pudiendo
+		elegir comportamientos para elementos individuales o conjuntos
 		de elementos con un sólo nombre explicativo.
 		</para>
 
 		<para>
 		Por ejemplo, pueden servir para ponerle un nombre a una direccion IP
-		o a un grupo de direcciones IP. En el caso de ser un grupo de 
-		direcciones IP, en lugar de definir reglas de acceso cada una de las 
+		o a un grupo de direcciones IP. En el caso de ser un grupo de
+		direcciones IP, en lugar de definir reglas de acceso cada una de las
 		direcciones, bastaría simplemente con definirlas para el objeto de red
 		para que todas las direcciones pertenecientes al objeto adquirieran dicha
 		configuración.
@@ -50,8 +50,8 @@
                   </para></listitem>
                   <!-- FIXME: poner equivalencias entre notación CIDR y dotted
                        subnet -->
-                  <listitem><para><guilabel>MAC</guilabel> 
-                  (opcional): la dirección hardware -o dirección MAC- del 
+                  <listitem><para><guilabel>MAC</guilabel>
+                  (opcional): la dirección hardware -o dirección MAC- del
                   interfaz de red correspondiente a la dirección IP
                   </para></listitem>
                 </itemizedlist>
@@ -65,5 +65,5 @@
                 </para>
 
 	</section>
-	
+
 </chapter>

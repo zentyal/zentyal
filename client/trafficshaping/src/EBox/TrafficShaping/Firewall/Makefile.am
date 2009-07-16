@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/Firewall
 
 nobase_perl_DATA = IptablesRule.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

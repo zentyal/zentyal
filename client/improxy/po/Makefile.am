@@ -9,18 +9,18 @@ MAINTAINERCLEANFILES = Makefile.in ebox-improxy.pot
 
 # List of files which contain translatable strings.
 POTFILES_TMPL = \
- ./stubs/imspector.conf.mas 
+ ./stubs/imspector.conf.mas
 
 POTFILES_PL = \
  ./src/EBox/Model/Model.pm \
  ./src/EBox/Model/Composite.pm \
- ./src/EBox/IMProxy.pm 
+ ./src/EBox/IMProxy.pm
 
 POTFILES = \
  ./stubs/imspector.conf.mas \
  ./src/EBox/Model/Model.pm \
  ./src/EBox/Model/Composite.pm \
- ./src/EBox/IMProxy.pm 
+ ./src/EBox/IMProxy.pm
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)

@@ -6,5 +6,5 @@ scripts_SCRIPTS = learnspamd
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(scripts_SCRIPTS) 
+EXTRA_DIST = $(scripts_SCRIPTS)
 

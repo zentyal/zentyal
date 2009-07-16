@@ -2,8 +2,8 @@
 
 scriptsdir = @DATADIR@/ebox-antivirus
 
-scripts_SCRIPTS = 
+scripts_SCRIPTS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS)

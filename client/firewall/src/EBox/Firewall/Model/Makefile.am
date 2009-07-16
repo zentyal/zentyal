@@ -7,7 +7,7 @@ nobase_perl_DATA = InternalToEBoxRuleTable.pm ToInternetRuleTable.pm \
 		ExternalToEBoxRuleTable.pm EBoxOutputRuleTable.pm RedirectsTable.pm \
 		ExternalToInternalRuleTable.pm BaseRuleTable.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

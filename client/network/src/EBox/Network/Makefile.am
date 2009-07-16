@@ -4,9 +4,9 @@ SUBDIRS = Report Composite
 perldir = @PERLPATH@/EBox/Network
 
 
-nobase_perl_DATA = 
+nobase_perl_DATA =
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

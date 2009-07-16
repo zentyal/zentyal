@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/IMProxy
 
-nobase_perl_DATA = 
+nobase_perl_DATA =
 
 MAINTAINERCLEANFILES = Makefile.in
 

@@ -3,13 +3,13 @@
 <chapter id="ch-jabber">
 
 	<title>Servidor Jabber</title>
-	
+
 	<section>
 		<title>Servidor Jabber</title>
-	
+
 		<para>
 		Se puede acceder a la configuración del servidor Jabber
-		a través de 
+		a través de
 			<menuchoice>
 				<guimenu>Jabber</guimenu>
 			</menuchoice>
@@ -20,7 +20,7 @@
 		mensajería, para una red local o que pueda tener también acceso
 		externo. Controla además el acceso por cada usuario, pudiendo
 		aceptarles o denegarles la conexión a cada uno de ellos.</para>
-		
+
 		<para>Para activar el servidor Jabber, visite la <xref linkend="sect-mod-status"/>
                 para obtener detalles de como hacerlo.</para>
 
@@ -107,5 +107,5 @@
 			</variablelist>
 		</para>
 		</section>
-	
+
 </chapter>

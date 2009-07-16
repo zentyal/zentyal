@@ -30,7 +30,7 @@
 		los aspectos de un módulo completo.</para>
 
 
-		
+
 	</section>
 
 	<section id="sect-whatis">
@@ -338,7 +338,7 @@ debian/     m4/           po/         src/         www/
 		<filename>stubs/</filename>.</para>
 
 		<para>El directorio <filename>src/</filename> contiene el código fuente
-		del módulo. Dentro de él encontramos dos subdirectorios: 
+		del módulo. Dentro de él encontramos dos subdirectorios:
 		<filename>EBox</filename> y <filename>templates</filename>.
 		En el directorio <filename>EBox</filename> se encuentran los ficheros
 		fuente Perl, incluyendo el subdirectorio CGI con la interfaz web del

@@ -8,13 +8,13 @@
 
 		<para>
 		Para acceder a la configuración general del servidor de
-		correo de eBox hay que entrar en 
+		correo de eBox hay que entrar en
 		<menuchoice>
 			<guimenu>Correo</guimenu>
 			<guimenuitem>General</guimenuitem>
 		</menuchoice>
-		. En la ventana de configuración, en la parte superior, 
-		aparecerán varias pestañas referentes a distintos aspectos 
+		. En la ventana de configuración, en la parte superior,
+		aparecerán varias pestañas referentes a distintos aspectos
 		de configuración del servidor de correo:
 		<variablelist>
 			<varlistentry>
@@ -23,7 +23,7 @@
 					<para>
 					En la pestaña de servicios se permite requerir autenticación para los usuarios
 					que se conecten al servidor de correo o permitir acceso libre y
-					utilizar o no TLS para cifrar la comunicación SMTP con el servidor. 
+					utilizar o no TLS para cifrar la comunicación SMTP con el servidor.
 					También se permite desde aquí habilitar POP3 e IMAP así como
 					obligar al usuario a utilizar SSL, permitirselo o prohibirselo.
 					</para>
@@ -48,8 +48,8 @@
 				<term>Filtro externo</term>
 				<listitem>
 					<para>
-					Desde esta pestaña podemos habilitar un filtro externo para 
-					filtrar los mensajes de correo de eBox. Para ello se debe fijar 
+					Desde esta pestaña podemos habilitar un filtro externo para
+					filtrar los mensajes de correo de eBox. Para ello se debe fijar
 					un puerto en la máquina de eBox para poder establecer
 					la comunicación y conocer la direccion IP y el puerto donde se
 					encuentra el filtro.
@@ -65,14 +65,14 @@
 		<title>Gestión de dominios</title>
 
 		<para>
-		En 
+		En
 		<menuchoice>
 			<guimenu>Correo</guimenu>
 			<guimenuitem>Dominio Virtual</guimenuitem>
 		</menuchoice>
 		se pueden administrar los dominios virtuales, que dan nombre
 		de dominio a las cuentas de correo de los distintos
-		usuarios de eBox. 
+		usuarios de eBox.
 		</para>
 
 		<para>
@@ -80,10 +80,10 @@
 		dominio y un tamaño por defecto para los buzones de correo
 		de los usuarios de eBox que pertenezcan al dominio. Posteriormente
 		se puede modificar el tamaño por defecto de los buzones e incluso
-		forzar el cambio de los buzones ya existentes a ese tamaño desde el 
-		menú al que se accede utilizando el boton de accion 
-		<guibutton>Editar</guibutton> del dominio correspondiente. 
-		Si se desea borrar uno de los dominios existentes simplemente se 
+		forzar el cambio de los buzones ya existentes a ese tamaño desde el
+		menú al que se accede utilizando el boton de accion
+		<guibutton>Editar</guibutton> del dominio correspondiente.
+		Si se desea borrar uno de los dominios existentes simplemente se
 		debe pulsar el boton de acción correspondiente a borrar de dicho dominio.
 		</para>
 	</section>
@@ -92,26 +92,26 @@
 		<title>Cuentas y alias de correo</title>
 
 		<para>
-		Si el módulo de correo está instalado y activado en eBox y se desea 
-		crear una cuenta de correo para un determinado usuario, habrá que 
+		Si el módulo de correo está instalado y activado en eBox y se desea
+		crear una cuenta de correo para un determinado usuario, habrá que
 		hacerlo a través de
 		<menuchoice>
 			<guimenu>Usuarios</guimenu>
 		</menuchoice>
 		editando el usuario correspondiente, donde también se podrá fijar un
-		alias para la dirección de correo. Ver 
+		alias para la dirección de correo. Ver
 		<link linkend='sect-users-users'>Cuentas de usuario</link> para saber
 		cómo acceder a la configuración de un usuario de eBox.
 		</para>
 
 		<para>
 		Para poner alias a grupos de usuarios hay que acceder a la configuración
-		del grupo usando 
+		del grupo usando
 		<menuchoice>
 			<guimenu>Grupos</guimenu>
 		</menuchoice>
 		. Si el módulo de correo está activado se podrá fijar un alias para
-		todos los miembros del grupo. Ver 
+		todos los miembros del grupo. Ver
 		<link linkend='sect-users-groups'>Grupos de usuarios</link> para saber cómo
 		se accede a la configuración de un grupo.
 		</para>

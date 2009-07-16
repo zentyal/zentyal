@@ -11,13 +11,13 @@
   <section id='sect-dns-cache'>
     <!-- DNS Cache -->
     <title>Caché DNS</title>
-    
+
     <para>
       Si se encuentra el servicio DNS activado actuará
       automáticamente como un servicio de DNS
-      caché. Permitirá que varias peticiones DNS iguales 
+      caché. Permitirá que varias peticiones DNS iguales
       a eBox se resuelvan con una sola petición DNS externa, reduciendo así
-      el tiempo de respuesta y el tráfico por la red para los sitios más 
+      el tiempo de respuesta y el tráfico por la red para los sitios más
       frecuentados.
     </para>
   </section>

@@ -6,7 +6,7 @@ nobase_perl_DATA = Linux.pm Windows.pm  EBoxToEBox.pm
 
 test_classes     = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)  $(test_classes)
 

@@ -1,5 +1,5 @@
 AC_INIT([ebox-control-center], [0.11])
-		   
+
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/ControlCenter/Common.pm.in])
 
@@ -18,7 +18,7 @@ AC_ARG_ENABLE([runtime-tests],
 	enable_runtime_tests=yes)
 
 if test "x$enable_runtime_tests" = "xyes" ; then
-	
+
 	AC_CHECK_PROG(PERL, perl, perl, none)
 
 	if test "$PERL" = "none" ; then
@@ -35,7 +35,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
         AC_CONF_EBOX_CC
 
-fi  
+fi
 
 if test -z "$perlpath" ; then
 	perlpath="$DATADIR/perl5/"

@@ -2,9 +2,9 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices/Composite
 
-nobase_perl_DATA = Composite.pm 
+nobase_perl_DATA = Composite.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

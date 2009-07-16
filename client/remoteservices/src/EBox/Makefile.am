@@ -3,9 +3,9 @@ SUBDIRS = CGI Event RemoteServices
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = RemoteServices.pm 
+nobase_perl_DATA = RemoteServices.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

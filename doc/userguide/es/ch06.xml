@@ -8,7 +8,7 @@
 		<para>
                   Una de las características más importantes de eBox
                   es su módulo de cortafuegos. Puedes acceder a través
-                  de 
+                  de
                   <menuchoice>
                     <guimenu>Cortafuegos</guimenu>
                   </menuchoice>. Allí puedes hacer filtrado de tráfico
@@ -24,7 +24,7 @@
                   aplican a los interfaces externos.
                   <!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
-                
+
                 <para>
                   Los interfaces externos se conectan a las redes
                   externas y eBox sólo permite las redirecciones desde
@@ -34,7 +34,7 @@
 		<para>
 		<!--TODO: qué tráficos se aplican para objetos y reglas-->
 		</para>
-		
+
 		<para>
 		<!--TODO: qué diferencias hay entre objetos y reglas-->
 		</para>
@@ -48,7 +48,7 @@
 		Las redirecciones de puertos permiten llevar un tráfico
 		procedente del exterior de la red hacia una máquina detrás de un
 		cortafuegos equipado con eBox. Se puede acceder a la configuración de las
-		redirecciones de puertos a través de 
+		redirecciones de puertos a través de
 		<menuchoice>
 			<guimenu>Cortafuegos</guimenu>
 			<guimenuitem>Redirecciones</guimenuitem>

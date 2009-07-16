@@ -8,21 +8,21 @@
 MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 
 # List of files which contain translatable strings.
-POTFILES_TMPL = 
+POTFILES_TMPL =
 
 POTFILES_PL = \
  ./src/EBox/Model/ServiceTable.pm \
  ./src/EBox/Model/ServiceTableFilter.pm \
  ./src/EBox/Model/ServiceConfigurationTable.pm \
  ./src/EBox/Services.pm \
- ./migration/0001_import_services_from_firewall.pl 
+ ./migration/0001_import_services_from_firewall.pl
 
 POTFILES = \
  ./src/EBox/Model/ServiceTable.pm \
  ./src/EBox/Model/ServiceTableFilter.pm \
  ./src/EBox/Model/ServiceConfigurationTable.pm \
  ./src/EBox/Services.pm \
- ./migration/0001_import_services_from_firewall.pl 
+ ./migration/0001_import_services_from_firewall.pl
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)

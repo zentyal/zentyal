@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/modulename
 
-template_DATA = 
+template_DATA =
 
 EXTRA_DIST = $(template_DATA)
 

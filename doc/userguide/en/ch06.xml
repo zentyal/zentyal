@@ -17,7 +17,7 @@
 		</para>
 
 		<para>
-                 The firewall has different behaviour with 
+                 The firewall has different behaviour with
 		external or internal network interfaces.
 		<!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
@@ -36,7 +36,7 @@
 		<para>
 		<!--TODO: qué tráficos se aplican para objetos y reglas-->
 		</para>
-		
+
 		<para>
 		<!--TODO: qué diferencias hay entre objetos y reglas-->
 		</para>
@@ -71,12 +71,12 @@
 		<guilabel>IP address</guilabel> and its
 		<guilabel>Port</guilabel> where packets would go
 		on.</para>
-	        
+
 		<para>Once you have selected this data, you just need
 		to select between the different
 		<guilabel>Actions</guilabel>, the
 		<guilabel>Add</guilabel> one, and click on it.</para>
-				
+
 		<para>To remove a rule, you should select remove
 		between the available <guilabel>Actions</guilabel>,
 		and click on it.</para>

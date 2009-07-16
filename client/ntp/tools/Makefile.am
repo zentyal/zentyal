@@ -4,4 +4,4 @@ pkgdata_SCRIPTS =  ebox-timezone-import ebox-ntp-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS)

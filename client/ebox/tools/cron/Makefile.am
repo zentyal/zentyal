@@ -4,7 +4,7 @@ crondir = @SYSCONFDIR@/cron.hourly
 
 nobase_cron_SCRIPTS =  90manageEBoxLogs
 
-crondaily = 
+crondaily =
 
 
 #SOURCES = $(nobase_cron_SCRIPTS)

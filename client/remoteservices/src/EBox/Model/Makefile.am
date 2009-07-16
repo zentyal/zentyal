@@ -2,9 +2,9 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices/Model
 
-nobase_perl_DATA = Settings.pm 
+nobase_perl_DATA = Settings.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

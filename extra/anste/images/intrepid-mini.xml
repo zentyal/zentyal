@@ -4,10 +4,10 @@
     <desc>Ubuntu Intrepid Ibex</desc>
 
     <memory>128</memory>
-    
+
     <size>500M</size>
 
     <install method="debootstrap">
         <dist>intrepid</dist>
-    </install>        
+    </install>
 </image>

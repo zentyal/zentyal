@@ -8,7 +8,7 @@ mods = AuthCookie.pm
 nobase_perl_DATA = $(mods)
 
 
-SUBDIRS = AuthCookie 
+SUBDIRS = AuthCookie
 
 SOURCES = $(nobase_perl_DATA)
 
@@ -25,7 +25,7 @@ mods = AuthCookie.pm
 nobase_perl_DATA = $(mods)
 
 
-SUBDIRS = AuthCookie 
+SUBDIRS = AuthCookie
 
 SOURCES = $(nobase_perl_DATA)
 

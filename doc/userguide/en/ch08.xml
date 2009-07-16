@@ -52,7 +52,7 @@
                   </varlistentry>
 		</variablelist>
 		</para>
-		
+
 		<warning>
 		<para>If you establish a configuration which denies access to
 		administration interface from the machines connected to eBox, you
@@ -137,13 +137,13 @@
                     </varlistentry>
                   </variablelist>
                 </para>
-		
+
 	</section>
 
 	<section id='sect-proxy-content-policy'>
           <!-- Proxy->Objects' Policy -->
           <title>Policy establishment</title>
-          <para>Through 
+          <para>Through
           <menuchoice>
             <guimenu>HTTP Proxy</guimenu>
             <guimenuitem>Objects' Policy</guimenuitem>

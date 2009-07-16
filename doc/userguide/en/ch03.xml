@@ -7,7 +7,7 @@
 		<title>Network interfaces</title>
 
 		<para>You can enter into network interfaces
-		configuration at 
+		configuration at
 			<menuchoice>
 				<guimenu>Network</guimenu>
 				<guimenuitem>Interfaces</guimenuitem>
@@ -29,8 +29,8 @@
 					this network interface is
 					external<footnote><para>On eBox, an interface is
 					defined as external when its connection is directed
-					to Internet. For instance, its IP address can be 
-					an static public one. However, internal interface 
+					to Internet. For instance, its IP address can be
+					an static public one. However, internal interface
 					is those where clients from your internal network
 					are connected.</para></footnote>,
 					its IP address and its network mask.</para>
@@ -129,14 +129,14 @@
 	<section id='sect-gateways'>
 	  <!-- Network->Gateways -->
 	  <title>Gateways</title>
-	  
+
 	  <para>
 	    Through this section you can set the gateways where your network traffic is
 	    directed. It is very useful in order to split or do balance your Internet traffic.
 	  </para>
 
 	  <para>
-	    Choosing 
+	    Choosing
 	    <menuchoice>
 	      <guimenu>Network</guimenu>
 	      <guimenuitem>Gateways</guimenuitem>
@@ -194,7 +194,7 @@
 	      <term>Weight</term>
 	      <listitem>
 		<para>
-		  It is the weight associated to this gateway. It is used by 
+		  It is the weight associated to this gateway. It is used by
 		  <link linkend="subsect-balance-traffic">balance traffic section</link> to apply
 		  special rules applied to multiple gateways.
 		</para>
@@ -213,7 +213,7 @@
 	      </listitem>
 	    </varlistentry>
 	  </variablelist>
-	  
+
 	  <warning>
 	    <para>
 	      Each gateway should be reachable from at least one interface. eBox checks so
@@ -257,7 +257,7 @@
 		<guimenuitem>Balance traffic</guimenuitem>
 	      </menuchoice>
 	      in order to share your traffic through different routes. The traffic distribution
-	      relies on a weighted sum from the gateway weights which are set on gateway attributes 
+	      relies on a weighted sum from the gateway weights which are set on gateway attributes
 	      (See <link linkend="sect-gateways">Gateways section</link> to know how configured them).
 	    </para>
 
@@ -271,7 +271,7 @@
 	      gateway B will have weight set to 1.
 	    </para>
 	  </section>
-	  
+
 	  <section id="sect-multigateway-rules">
 	    <title>Multigateway rules</title>
 	    <para>
@@ -291,7 +291,7 @@
 		<term>Protocol</term>
 		<listitem>
 		  <para>
-		    It could be TCP, UDP or any. 
+		    It could be TCP, UDP or any.
 		  </para>
 		</listitem>
 	      </varlistentry>
@@ -360,7 +360,7 @@
         <section id="sect-routes">
           <!-- Network->Routes -->
           <title>Routes</title>
-          
+
           <para>
             In advanced configurations, defining a set of <link
             linkend="sect-gateways">gateways</link> and <link

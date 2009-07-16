@@ -3,9 +3,9 @@
 perldir = @PERLPATH@/EBox/CGI/EBox
 
 nobase_perl_DATA = Backup.pm Bug.pm ConfirmBackup.pm CurrentProgress.pm \
-         General.pm Halt.pm Password.pm Port.pm RestartService.pm 
+         General.pm Halt.pm Password.pm Port.pm RestartService.pm
 
-SUBDIRS = 
+SUBDIRS =
 
 SOURCES = $(nobase_perl_DATA)
 

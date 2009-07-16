@@ -3,9 +3,9 @@ SUBDIRS = CGI NTP t
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = NTP.pm 
+nobase_perl_DATA = NTP.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 MAINTAINERCLEANFILES = Makefile.in
 

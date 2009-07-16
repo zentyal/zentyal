@@ -6,7 +6,7 @@ perldir = @PERLPATH@/EBox/UsersAndGroups
 nobase_perl_DATA = ImportFromLdif.pm Passwords.pm UserUpdater.pm \
     WSDispatcher.pm Setup.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = ${nobase_perl_DATA}
 

@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox/Logs/Consolidate
 
 nobase_perl_DATA = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 
 

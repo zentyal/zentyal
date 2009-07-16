@@ -39,7 +39,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AM_GCONF_SOURCE_2
 
         AC_CONF_EBOX
-	
+
 	AC_PROG_PERL_MODULES(Gnome2::GConf, ,
 	  AC_MSG_ERROR(Missing Gnome2::GConf))
 
@@ -54,10 +54,10 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_PROG_PERL_MODULES(Error, ,
 	  AC_MSG_ERROR(Missing Error))
-	  
+
 	AC_PROG_PERL_MODULES(Apache::Singleton, ,
 	  AC_MSG_ERROR(Missing Apache::Singleton))
-	  
+
 #	AC_PROG_PERL_MODULES(Apache::AuthCookie, ,
 #	  AC_MSG_ERROR(Missing Apache::AuthCookie))
 #
@@ -76,7 +76,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
-fi  
+fi
 
 if test -z "$perlpath" ; then
 perlpath="$DATADIR/perl5/"

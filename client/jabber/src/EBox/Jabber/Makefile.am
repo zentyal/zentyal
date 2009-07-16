@@ -5,8 +5,8 @@ regular_packages = ImportFromLdif.pm
 
 nobase_perl_DATA=  $(regular_packages)
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
-EXTRA_DIST = $(regular_packages) 
+EXTRA_DIST = $(regular_packages)
 
 MAINTAINERCLEANFILES = Makefile.in

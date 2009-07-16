@@ -9,7 +9,7 @@ test_packages = Test.pm
 
 nobase_perl_DATA=  $(regular_packages)
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(regular_packages) $(test_packages)
 

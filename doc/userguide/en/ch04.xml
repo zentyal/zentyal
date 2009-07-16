@@ -47,7 +47,7 @@
                     </para></listitem>
                     <!-- FIXME: poner equivalencias entre notación CIDR y dotted
                          subnet -->
-                    <listitem><para><guilabel>MAC</guilabel> 
+                    <listitem><para><guilabel>MAC</guilabel>
                     (optional): hardware address -or MAC
                     address- of the network interface
                     corresponding to that IP address.
@@ -62,5 +62,5 @@
                 </para>
 
 	</section>
-	
+
 </chapter>

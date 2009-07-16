@@ -60,13 +60,13 @@
 
         <pre-install>
             <script>ssl-cert-workaround.sh</script>
-        </pre-install>        
+        </pre-install>
 
 
-         <post-install> 
+         <post-install>
 
-             <script>configure-dovecot.pl</script> 
-         </post-install> 
+             <script>configure-dovecot.pl</script>
+         </post-install>
     </host>
 
     <host>

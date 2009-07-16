@@ -26,7 +26,7 @@
 		of the <filename>smb.conf</filename> file as an example:</para>
 
 		<programlisting><![CDATA[passsdb backend = ldapsam:ldap://127.0.0.1
-ldap suffix = dc=ebox 
+ldap suffix = dc=ebox
 ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 
 		<para>In this case we are configuring the
@@ -39,12 +39,12 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 		<classname>EBox::LDAP</classname> offers a number of functions.</para>
 
 		<variablelist>
-			
+
 			<varlistentry>
 				<term><methodname>ldapConf</methodname></term>
 				<listitem>
 					<para>Returns a hash with the LDAP configuration.</para>
-					
+
 					<formalpara><title>dn</title>
 						<para>
 							base dn
@@ -64,7 +64,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 					</formalpara>
 				</listitem>
 			</varlistentry>
-		
+
 			<varlistentry>
 				<term><methodname>getPassword</methodname></term>
 				<listitem>
@@ -73,7 +73,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 			</varlistentry>
 
 		</variablelist>
-	</section> 
+	</section>
 
 	<section id="sect-ldap-access">
 		<title>Access to the LDAP server</title>
@@ -87,12 +87,12 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 		<para><classname>EBox::LDAP</classname> provides 4 basic methods: </para>
 
 		<itemizedlist>
-		
-		<listitem><para>search</para></listitem> 
+
+		<listitem><para>search</para></listitem>
 		<listitem><para>modify</para></listitem>
 		<listitem><para>add</para></listitem>
 		<listitem><para>delete</para></listitem>
-		
+
 		</itemizedlist>
 		<para>Each time one of the above methods is invoked, a check is
 		performed on the result of the query. In case of an error, and
@@ -106,7 +106,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 
 	<section id="sect-ldap-impl">
 		<title>Implementing an LDAP based module</title>
-		
+
 		<para>The main idea in the design of modules that use the concept of
 		user and/or groups on top of LDAP is to offer a common user interface
 		inside the <emphasis>Users</emphasis> and <emphasis>Groups</emphasis>
@@ -160,7 +160,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 
 					<para>Invoked when a new user is created, it receives the
 					<parameter>username</parameter> as an argument.</para>
-					
+
 				</listitem>
 			</varlistentry>
 
@@ -385,20 +385,20 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 			<programlisting><![CDATA[sub _includeLDAPSchemas {
 	my $self = shift;
 
-	return ['/etc/ldap/schema/samba.schema'];	
+	return ['/etc/ldap/schema/samba.schema'];
 } ]]> </programlisting>
 		</example>
-		
+
 		<para>The resulting <filename>slapd.conf</filename> file is as
 		follows:</para>
-		
+
 		<programlisting><![CDATA[# Schema and objectClass definitions
 include		/etc/ldap/schema/core.schema
 include		/etc/ldap/schema/cosine.schema
 include		/etc/ldap/schema/nis.schema
 include		/etc/ldap/schema/inetorgperson.schema
 include		/etc/ldap/schema/samba.schema ]]> </programlisting>
-		
+
 	</section>
 
 	<section id="sect-ldap-acls">

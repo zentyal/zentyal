@@ -6,4 +6,4 @@ pkgdata_SCRIPTS = ebox-mailfilter-ldap ebox-mailfilter-populate-filefilter \
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS)

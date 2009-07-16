@@ -2,9 +2,9 @@
 
 scriptsdir = @DATADIR@/ebox-antivirus
 
-scripts_SCRIPTS = freshclam-observer 
+scripts_SCRIPTS = freshclam-observer
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(scripts_SCRIPTS) 
+EXTRA_DIST = $(scripts_SCRIPTS)
 

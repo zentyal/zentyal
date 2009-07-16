@@ -6,6 +6,6 @@ module_DATA = mail.yaml
 pkgdata_DATA = authldap.ldif eboxmail.ldif
 
 
-EXTRA_DIST = $(module_DATA) $(pkgdata_DATA) 
+EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

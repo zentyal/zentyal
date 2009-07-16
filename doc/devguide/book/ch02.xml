@@ -187,7 +187,7 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
                 <variablelist>
                   <varlistentry>
                     <term><classname>EBox::Exceptions::Command</classname></term>
-                    <listitem><para>Exception raised when there was an error 
+                    <listitem><para>Exception raised when there was an error
                     launching a command, that is, its returned value is different
                     from zero. <classname>EBox::Exceptions::Command::Sudo</classname>
                     does the same but with a sudo command.</para>
@@ -196,7 +196,7 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
                   <varlistentry>
                     <term><classname>EBox::Exceptions::DataInUse</classname></term>
                     <listitem><para>Exception raised when there is a data in eBox
-                    which it is about to be removed which it is being used by 
+                    which it is about to be removed which it is being used by
                     another part of eBox.</para>
                     </listitem>
                   </varlistentry>
@@ -227,7 +227,7 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
                   <varlistentry>
                     <term><classname>EBox::Exceptions::NotImplemented</classname></term>
                     <listitem><para>Exception raised when a method is not yet implemented.
-                    It could be used in an Abstract class in order to simulate its 
+                    It could be used in an Abstract class in order to simulate its
                     behaviour.</para>
                     </listitem>
                   </varlistentry>
@@ -419,7 +419,7 @@ my $options = [__n('Foo'), __n('Bar'), __n('Foobaz') ]; # As many as you want
 print __($options[$index]);
 			  </programlisting>
 			</example>
-			
+
 			<para>The example showed above gives the chance to translator
 			to translate only the option selected leaving the remainder
 			(a high number normally) without a translation.</para>
@@ -493,7 +493,7 @@ msgstr "Editar miembros de {group}"
                           task, such as <ulink url='http://i18n.kde.org/tools/kbabel/'>KBabel</ulink>
                           (*nix) or <ulink url='http://www.poedit.org/'>poEdit</ulink> (multi-platform).
                           This is the unrecommended way to translate, however, it could be useful
-                          for translators which have to start its home localisation from scratch sending 
+                          for translators which have to start its home localisation from scratch sending
                           the po files to the eBox team after editing with these tools.
 			</para>
 

@@ -6,7 +6,7 @@ perldir = @PERLPATH@/EBox
 nobase_perl_DATA = FirewallHelper.pm Firewall.pm Iptables.pm \
 	FirewallObserver.pm FirewallLogHelper.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

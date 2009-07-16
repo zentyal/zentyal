@@ -37,7 +37,7 @@
 		kept in the client, and it is the class you should inherit from:
 		<classname>EBox::CGI::ClientBase</classname>.</para>
 
-		<!--+ FIXME - "the client side of ebox" and libebox are 
+		<!--+ FIXME - "the client side of ebox" and libebox are
 		    | not mentioned anywhere else.
 				|
 				| explanation should be in chapter 1
@@ -67,7 +67,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Hello World!'), @_);
@@ -108,10 +108,10 @@ sub new
 			<title>Setting the mason template for a CGI</title>
 
 			<programlisting><![CDATA[# Setting the template in the constructor
-sub new 
+sub new
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Hello World!'), 
+	my $self = $class->SUPER::new('title' => __('Hello World!'),
 					'template' => 'hello/world.mas',
 					@_);
 	bless($self, $class);
@@ -169,7 +169,7 @@ sub _process
 
   my $backup = new EBox::Backup;
   my $id     = $self->param('id');
-  
+
   $backup->writeBackupToDisc($id);
 
   $self->setMsg(__('Backup was written to CD/DVD disk'));
@@ -290,7 +290,7 @@ sub _process
 		<example id='ex-cgi-domain'>
 			<title>Setting the gettext domain in a CGI</title>
 
-			<programlisting><![CDATA[sub new 
+			<programlisting><![CDATA[sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Hello World!'), @_);
@@ -329,7 +329,7 @@ $self->{title} = __('Hello world');
 		<para>The first thing your mason template will have is the declarations
 		of the arguments it expects. Just write the name of the variables, one
 		per line and you are done. Arguments declared as arrays in the template
-		will be passed as array references by your CGI.</para> 
+		will be passed as array references by your CGI.</para>
 
 		<para> In our example we are going to give the template an array with
 		names, and the template will say hello to each one of them separately.
@@ -429,7 +429,7 @@ use EBox::Gettext;
 				<title>CSS class names for informational messages</title>
 
 				<varlistentry>
-					<term><emphasis>help</emphasis></term>	
+					<term><emphasis>help</emphasis></term>
 
 					<listitem>
 						<para>For help information. Remember that information displayed
@@ -439,7 +439,7 @@ use EBox::Gettext;
 				</varlistentry>
 
 				<varlistentry>
-					<term><emphasis>note</emphasis></term>	
+					<term><emphasis>note</emphasis></term>
 
 					<listitem>
 						<para>Displays help or other useful information in a persistent
@@ -450,7 +450,7 @@ use EBox::Gettext;
 				</varlistentry>
 
 				<varlistentry>
-					<term><emphasis>warning</emphasis></term>	
+					<term><emphasis>warning</emphasis></term>
 
 					<listitem>
 						<para>Displays a warning, e.g. if you want to make sure the
@@ -460,7 +460,7 @@ use EBox::Gettext;
 
 				<varlistentry>
 
-					<term><emphasis>error</emphasis></term>	
+					<term><emphasis>error</emphasis></term>
 
 					<listitem>
 						<para>For error notifications.</para>
@@ -548,7 +548,7 @@ use EBox::Gettext;
 				<programlisting><![CDATA[<table class='formTable'>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Name') %>:</span>	
+			<span class='ftitle'><% __('Name') %>:</span>
 		</td>
 		<td>
 			<input class='inputText' type='text' name='name' />

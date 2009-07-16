@@ -2,7 +2,7 @@
 
 wwwdir = $(datadir)/ebox/www
 
-nobase_www_DATA = 
+nobase_www_DATA =
 
 EXTRA_DIST = $(nobase_www_DATA)
 

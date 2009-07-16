@@ -18,7 +18,7 @@
 		<para>
 		Desde esta sección se pueden hacer tres cambios:
 		</para>
-		
+
 		<variablelist>
 			<varlistentry>
 				<term>Cambiar contraseña</term>
@@ -48,16 +48,16 @@
 			</varlistentry>
 		</variablelist>
 
-		
+
 		<section>
 			<title>Cambiar contraseña</title>
 			<para>
-			Para cambiar la contraseña se debe introducir la contraseña actual, 
-			por motivos de seguridad,	y la contraseña nueva, confirmando dicha 
-			contraseña, es decir, introduciéndola dos veces en líneas sucesivas. 
-			Seguidamente es necesario aceptar el formulario sin olvidar que 
-			para hacer efectivos los cambios debe guardar su configuración de 
-			forma definitiva usando la opción	correspondiente del menú 
+			Para cambiar la contraseña se debe introducir la contraseña actual,
+			por motivos de seguridad,	y la contraseña nueva, confirmando dicha
+			contraseña, es decir, introduciéndola dos veces en líneas sucesivas.
+			Seguidamente es necesario aceptar el formulario sin olvidar que
+			para hacer efectivos los cambios debe guardar su configuración de
+			forma definitiva usando la opción	correspondiente del menú
 			horizontal superior.
 			</para>
 		</section>
@@ -85,9 +85,9 @@
 
 			<note>
 				<para>
-				Se ha de tener en cuenta que después de guardar los cambios 
-				realizados sobre el puerto del interfaz de administración, 
-				pasarán unos segundos	antes de que sea posible acceder usando 
+				Se ha de tener en cuenta que después de guardar los cambios
+				realizados sobre el puerto del interfaz de administración,
+				pasarán unos segundos	antes de que sea posible acceder usando
 				el nuevo puerto.
 				</para>
 			</note>
@@ -99,17 +99,17 @@
 		<title>Backups</title>
 
 		<para>
-		Se accede a la gestión de copias de respaldo (backups) de eBox a través de 
+		Se accede a la gestión de copias de respaldo (backups) de eBox a través de
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Backup</guimenuitem>
 			</menuchoice>
-		del menú que se encuentra en el lateral izquierdo. 
+		del menú que se encuentra en el lateral izquierdo.
 		</para>
 
 		<para>
 		Desde el interfaz de backup se permitirá hacer una copia
-		de seguridad del último estado guardado de eBox o 
+		de seguridad del último estado guardado de eBox o
 		restaurar copias de seguridad anteriores. Existen dos
 		tipos de copias de seguridad que se explican en
 		detalle a continuación.
@@ -154,19 +154,19 @@
                         en un CD o DVD.
                         </para>
                         <para>
-			En el primer caso en el formulario aparecerá una nueva entrada en 
+			En el primer caso en el formulario aparecerá una nueva entrada en
                         la lista de backups, indicando la descripción y la
-                        fecha de realización de la copia de seguridad. 
+                        fecha de realización de la copia de seguridad.
                         </para>
                         <para>
                         Si guardamos la copia en un CD o DVD tendremos que disponer de
                         una grabadora en el servidor donde esté instalado eBox e introducir
-                        un disco virgen o regrabable. La copia de seguridad residirá en el 
+                        un disco virgen o regrabable. La copia de seguridad residirá en el
 			disco y no aparecerá entrada alguna en la lista de backups.
 			</para>
 
 			<note>
-			  <para>Es importante recordar que la configuración de la que se hace 
+			  <para>Es importante recordar que la configuración de la que se hace
 			  copia de seguridad es la última guardada a través del enlace
 			  correspondiente en el menú horizontal superior.</para>
 			  <para>Si insertas un CD/DVD regrabable, el
@@ -228,10 +228,10 @@
 		<section id="listaBackup">
 			<title>Lista de backups</title>
 			<para>
-			La lista de backups contiene las copias de seguridad de eBox realizadas 
-			durante	el período de funcionamiento. Las acciones de esta lista, 
+			La lista de backups contiene las copias de seguridad de eBox realizadas
+			durante	el período de funcionamiento. Las acciones de esta lista,
 			situadas a la derecha de cada elemento, permiten restaurar un backup,
-			descargar un fichero con el backup a su disco duro, grabarlo en 
+			descargar un fichero con el backup a su disco duro, grabarlo en
                         un disco CD/DVD o eliminar un backup de la lista.
 			</para>
 		</section>
@@ -242,8 +242,8 @@
 		<title>Reinicio/Apagado del sistema</title>
 
 		<para>
-		El interfaz para apagar o reiniciar el computador	sobre el que funciona 
-		su sistema eBox es accesible a través de 
+		El interfaz para apagar o reiniciar el computador	sobre el que funciona
+		su sistema eBox es accesible a través de
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Apagar</guimenuitem> o <guimenuitem>reiniciar</guimenuitem>
@@ -252,7 +252,7 @@
 
 		<para>
 		No se debe olvidar que si el sistema eBox es la puerta de enlace
-		para la conexión a Internet, se perderá dicha conexión mientras 
+		para la conexión a Internet, se perderá dicha conexión mientras
 		la máquina esté	apagada o reiniciándose.
 		</para>
 	</section>
@@ -263,7 +263,7 @@
 
 		<para>
 		Si se encuentra alguna anomalía durante el funcionamiento de eBox
-		se puede generar un fichero con el informe de error correspondiente en 
+		se puede generar un fichero con el informe de error correspondiente en
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Informe de error</guimenuitem>
@@ -277,7 +277,7 @@
 		<title>Configuración horaria</title>
 
 		<para>
-		Se accede a la configuración horaria a través de 
+		Se accede a la configuración horaria a través de
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Fecha/hora</guimenuitem>
@@ -286,7 +286,7 @@
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Zona horaria</guimenuitem>
-			</menuchoice>	
+			</menuchoice>
 		</para>
 
 		<para>
@@ -305,7 +305,7 @@
 				<listitem>
 					<para>
 					Si la sincronización con otro servidor NTP está desactivada, el ajuste de
-					fecha y hora será manual, seleccionando los valores correspondientes a 
+					fecha y hora será manual, seleccionando los valores correspondientes a
 					través de las listas desplegables que se muestran en la pantalla tanto para
 					la fecha como para la hora del sistema.
 					</para>
@@ -331,7 +331,7 @@
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Zona horaria</guimenuitem>
 			</menuchoice>
-		se puede configurar la zona horaria en la que se encuentra el sistema, 
+		se puede configurar la zona horaria en la que se encuentra el sistema,
 		sólo tiene que seleccionar una zona geográfica de la lista desplegable
 		de la izquierda y una ciudad de la lista desplegable de la derecha que
 		pertenezcan a su huso horario y aceptar la configuración.
@@ -398,5 +398,5 @@
             también se deshabilitarán.
           </para>
         </section>
-	
+
 </chapter>

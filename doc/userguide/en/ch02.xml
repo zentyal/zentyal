@@ -15,7 +15,7 @@
 
 		<para>From this section you can make three major changes over
 		the eBox management interface:</para>
-			
+
 		<variablelist>
 			<varlistentry>
 				<term>Password change</term>
@@ -41,7 +41,7 @@
 			</varlistentry>
 		</variablelist>
 
-		
+
 		<section id="passwd-change-sect">
 			<title>Password change</title>
 			<para>To change your password, you should enter current
@@ -123,7 +123,7 @@
 			<para>Both backup modes need a description and
 			can be stored in hard disk or in a removable
 			device such as CD and DVD.</para>
-			
+
 			<para>In first case, when backup is done,
 			a new entry will appear on the backups'
 			list, showing date, description and possible
@@ -148,7 +148,7 @@
 			</note>
 		</section>
 		<section id="backup-restore-sect">
-			<title>Backup Restore</title> 
+			<title>Backup Restore</title>
 			<para>There are three different ways to
 			restore a backup.</para>
 			<orderedlist>
@@ -239,7 +239,7 @@
 		<!-- System->Date/Time -->
 		<title>Date/Time Configuration</title>
 
-		<para>You can access to date/time configuration in 
+		<para>You can access to date/time configuration in
 			<menuchoice>
 				<guimenu>System</guimenu>
 				<guimenuitem>Date/Time</guimenuitem>
@@ -251,7 +251,7 @@
 			</menuchoice>
 		.
 		</para>
-			
+
 		<para>At
 			<menuchoice>
 				<guimenu>System</guimenu>

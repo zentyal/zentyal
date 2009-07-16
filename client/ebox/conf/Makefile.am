@@ -14,7 +14,7 @@ Postsave_DATA =
 Passwddir = $(localstatedir)/lib/ebox/conf
 Passwd_DATA = ebox.passwd
 
-EXTRA_DIST = $(Passwd_DATA) $(Etc_DATA)  
+EXTRA_DIST = $(Passwd_DATA) $(Etc_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 

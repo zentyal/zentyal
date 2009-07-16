@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox/MailFilter/LogHelper
 
 test_classes = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

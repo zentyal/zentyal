@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping
 
 nobase_perl_DATA = Class.pm Node.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

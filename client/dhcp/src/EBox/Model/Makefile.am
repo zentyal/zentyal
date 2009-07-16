@@ -4,7 +4,7 @@ SUBDIRS = t
 perldir = @PERLPATH@/EBox/DHCP/Model
 
 nobase_perl_DATA = LeaseTimes.pm FixedAddressTable.pm \
-	ThinClientOptions.pm Options.pm RangeInfo.pm RangeTable.pm 
+	ThinClientOptions.pm Options.pm RangeInfo.pm RangeTable.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

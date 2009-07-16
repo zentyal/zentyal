@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/ModuleName/Model
 
-SUBDIRS = 
+SUBDIRS =
 
 mods = Model.pm Composite.pm
 

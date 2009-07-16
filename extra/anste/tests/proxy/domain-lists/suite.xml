@@ -108,7 +108,7 @@
 
         <host>test-client</host>
         <dir>test-domain</dir>
-        <var name="HOST" value="http://www.playboy.com"/> 
+        <var name="HOST" value="http://www.playboy.com"/>
     </test>
 
     <test>

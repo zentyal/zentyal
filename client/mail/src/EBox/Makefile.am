@@ -7,7 +7,7 @@ nobase_perl_DATA = Mail.pm MailVDomainsLdap.pm MailUserLdap.pm\
 	MailAliasLdap.pm MailFirewall.pm LdapVDomainBase.pm \
 	VDomainModule.pm MailLogHelper.pm MailQueue.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 MAINTAINERCLEANFILES = Makefile.in
 

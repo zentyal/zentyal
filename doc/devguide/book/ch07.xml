@@ -7,10 +7,10 @@
     <title></title>
 
     <para>
-      The main aim from this chapter is getting into the guts of the 
+      The main aim from this chapter is getting into the guts of the
       <link linkend="sect-a-mvc-module">Model-View-Controller framework</link>. From an
       eBox developer is not required to get into if it is not strictly necessary.
-      However, it could be useful to use it properly, to enhance it in some way or, 
+      However, it could be useful to use it properly, to enhance it in some way or,
       what is more, to add features not already addressed before.
     </para>
 
@@ -26,11 +26,11 @@
       domain which normally match with the GConf module one. The
       <link linkend="model-creation-sect">model description</link> is instanced
       just one using the Singleton method pattern at <methodname>table</methodname> method.
-      As the <xref linkend="model-class-diagram-fig"/> depicts, there are 
-      two main data model <classname>DataTable</classname> and 
-      <classname>DataForm</classname> which represents the template system to be 
-      used by real data models such as <classname>EnableForm</classname> or 
-      <classname>ConfigureLogTable</classname>. 
+      As the <xref linkend="model-class-diagram-fig"/> depicts, there are
+      two main data model <classname>DataTable</classname> and
+      <classname>DataForm</classname> which represents the template system to be
+      used by real data models such as <classname>EnableForm</classname> or
+      <classname>ConfigureLogTable</classname>.
     </para>
 
     <figure id="model-class-diagram-fig">
@@ -71,7 +71,7 @@ $model->addRow( ( name => 'admin',
 
     <example id="gconf-struct-model-example">
       <title>GConf structure from a model</title>
-     
+
       <screen>
  data_version = 1
  /ebox/modules/objects/objectTable:
@@ -115,10 +115,10 @@ $model->addRow( ( name => 'admin',
       As you may see, the object data model stores two objects <emphasis>RRHH</emphasis>
       and <emphasis>MKT</emphasis>, which the former saves one and the latter three members.
       The <varname>data_version</varname> indicates the data structure version in the same
-      sense as <xref linkend="migration-scripts-sect"/> explains. Each data model stores 
+      sense as <xref linkend="migration-scripts-sect"/> explains. Each data model stores
       their values under <varname>keys/id</varname> directory, the id is obtained using
-      <methodname>get_unique_id</methodname> as <xref linkend="sect-gconf"/> describes. 
-      <property>Version</property> property is used by caching scheme, as you might guess, 
+      <methodname>get_unique_id</methodname> as <xref linkend="sect-gconf"/> describes.
+      <property>Version</property> property is used by caching scheme, as you might guess,
       which is currently done per data model basis. As each object data model row has several members using
       the member data model, they are stored within the object directory as if another model.
       Each type has its value stored in GConf, for instance the field <parameter>name</parameter>
@@ -136,9 +136,9 @@ $model->addRow( ( name => 'admin',
       <title>Model relationship</title>
       <para>
         Model relationship is describe through <classname>EBox::Types::HasMany</classname> and
-        through <classname>EBox::Types::Select</classname> and whose management is done by 
-        <classname>EBox::Model::ModelManager</classname> and 
-        <classname>EBox::Model::DataTable</classname>. The former <emphasis>singleton</emphasis> 
+        through <classname>EBox::Types::Select</classname> and whose management is done by
+        <classname>EBox::Model::ModelManager</classname> and
+        <classname>EBox::Model::DataTable</classname>. The former <emphasis>singleton</emphasis>
         class coordinates all the available models along eBox, see
         <xref linkend="internal-publishing-sect"/> for details. Currently, there are two kind
         of relationships:
@@ -150,25 +150,25 @@ $model->addRow( ( name => 'admin',
               options from a foreign model, that is, from a value which is stored
               in a field in another model. To describe so, the
               <parameter>foreignModel</parameter> and <parameter>foreignField</parameter>
-              must be set at table description. The model manager will store the 
+              must be set at table description. The model manager will store the
               one-to-one relationship to maintain the referential integrity.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>HasMany</term>
             <listitem>
-              <para>The HasMany relationship represents that a single field from 
+              <para>The HasMany relationship represents that a single field from
               a data model stores another data model. The inner model looks like
               a submodel within the outer model and thus the <methodname>rows</methodname>
               and <methodname>printableValueRows</methodname> methods must return
               the information within that model per row. Likewise, when a row
-              with a HasMany type is removed, the inner data model content is 
+              with a HasMany type is removed, the inner data model content is
               deleted as well.</para>
             </listitem>
           </varlistentry>
         </variablelist>
       </para>
-      
+
       <para>
         Furthermore, the <ulink url="http://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</ulink>
         is applied to the data models as well. The models can subscribe to actions performed
@@ -216,7 +216,7 @@ $model->addRow( ( name => 'admin',
         As we can see <classname>Abstract</classname> manages the essential information for every
         eBox type. That is, their common attributes such as <parameter>optional</parameter>,
         <parameter>editable</parameter>, <parameter>printableValue</parameter>, etc. It also provides
-        the main methods not to be overridden such as <methodname>setMemValue</methodname>, 
+        the main methods not to be overridden such as <methodname>setMemValue</methodname>,
         <methodname>restoreFromHash</methodname> and so on. Basically, an eBox type allows the
         developer abstracting from GConf storage and user input correctness since their handling
         is automatic. Furthermore, an eBox type is responsible for determining which setter
@@ -365,7 +365,7 @@ $model->addRow( ( name => 'admin',
 &>]]>
           </programlisting>
         </example>
-        <classname>modelViewer.mas</classname> has different elements to be overridden, a sub 
+        <classname>modelViewer.mas</classname> has different elements to be overridden, a sub
         component must implement <methodname>_body</methodname> "protected" method.
       </para>
 
@@ -373,7 +373,7 @@ $model->addRow( ( name => 'admin',
         The view interaction with the controller is done via JavaScript. Mason templates
         generates actions to be performed by the server, setting URL to be called using
         HTTP GET and POST methods. The JavaScript helper function calls are generated by
-        the model itself through <methodname>changeRowJS</methodname>, 
+        the model itself through <methodname>changeRowJS</methodname>,
         <methodname>addRowJS</methodname> and every method has "JS" as suffix.
       </para>
 
@@ -399,9 +399,9 @@ $model->addRow( ( name => 'admin',
       to develop a simple and elegant way to manage exceptions within the application flow.
       The View CGI is called when the whole page loading is required, for instance clicking
       on a menu item and the Controller CGIs are called whenever an action (add, del, edit,
-      move...) is done to a data model. This adaption is done allowing AJAX requests. This 
+      move...) is done to a data model. This adaption is done allowing AJAX requests. This
       MVC scheme now relies on <ulink url="http://prototypejs.org">Prototype JavaScript framework</ulink>
-      to handle DOM and AJAX requests making eBox web application cross browser as far as 
+      to handle DOM and AJAX requests making eBox web application cross browser as far as
       prototypeJS ensures it.
     </para>
 
@@ -419,11 +419,11 @@ $model->addRow( ( name => 'admin',
 
     <para>
        Models and composite publishing is done by <classname>EBox::Model::ModelManager</classname>
-       and <classname>EBox::Model::CompositeManager</classname> classes respectively. They 
+       and <classname>EBox::Model::CompositeManager</classname> classes respectively. They
        are <ulink url="http://en.wikipedia.org/wiki/Singleton_pattern">Singleton</ulink>
        classes, both follows the same logic. Once the instance is created, it sets up the
        models or composite by searching for implementation of the interfaces
-       <classname>EBox::Model::ModelProvider</classname> and 
+       <classname>EBox::Model::ModelProvider</classname> and
        <classname>EBox::Model::CompositeProvider</classname> among the eBox modules using
        <methodname>modInstancesOfType</methodname> from <classname>Global</classname> singleton
        class. Thus every instanced model and composite may be found in their managers.
@@ -432,7 +432,7 @@ $model->addRow( ( name => 'admin',
     <para>
       As you may notice, write a CGI for every model is not required anymore since there are
       general CGI to complete these tasks. Thus when a CGI is not found when the user
-      asks for it by entering an URL, a look up inside the model and composite manager 
+      asks for it by entering an URL, a look up inside the model and composite manager
       is done. The URL to map must follow one these patterns:
 
       <variablelist>
@@ -478,7 +478,7 @@ $model->addRow( ( name => 'admin',
               <varlistentry>
                 <term><varname>$compositeName</varname></term>
                 <listitem>
-                  <para>The composite name, its value must match with the 
+                  <para>The composite name, its value must match with the
                   <property>name</property> attribute set at the composite definition.</para>
                 </listitem>
               </varlistentry>
@@ -487,7 +487,7 @@ $model->addRow( ( name => 'admin',
                 <listitem>
                   <para>This optional part of the URL is used to determine if the CGI to call
                   is the View one, when no action name is provided, or the Controller one, when
-                  the action name is determined, the action to perform is given to the 
+                  the action name is determined, the action to perform is given to the
                   controller at the creation time.</para>
                 </listitem>
               </varlistentry>
@@ -505,7 +505,7 @@ $model->addRow( ( name => 'admin',
     <para>
       Regarding to submodels, the CGI mapping is done by setting the directory on HTTP GET request
       as a parameter. By doing so, it is possible to know from where to get the data from. For instance,
-      to view the members from the object whose identifier is <parameter>obje9972</parameter> the View 
+      to view the members from the object whose identifier is <parameter>obje9972</parameter> the View
       CGI URL must follow this pattern
       <filename>/ebox/CGI/Objects/View/MemberTable?directory=objectTable/keys/obje9972/members&amp;backview=/ebox/Object/View/MemberTable</filename>
       . The <parameter>backview</parameter> parameter is currently not implemented but its behaviour

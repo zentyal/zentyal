@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Login
 
-nobase_perl_DATA = Index.pm 
+nobase_perl_DATA = Index.pm
 
 SOURCES = $(nobase_perl_DATA)
 

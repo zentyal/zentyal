@@ -12,7 +12,7 @@
 		elegir el servicio de sincronización horaria ya que es uno de los
 		módulos mas sencillos que existen dentro de eBox. Gracias a este
 		servicio vamos a permitir a eBox:</para>
-		<itemizedlist> 
+		<itemizedlist>
 			<listitem>
 				<para>Sincronizar su fecha y hora mediante un servidor NTP
 				externo.</para>
@@ -22,7 +22,7 @@
 				ella.</para>
 			</listitem>
 		</itemizedlist>
-		
+
 		<para>Los pasos que vamos a seguir para la creación del módulo son:</para>
 		<itemizedlist>
 			<listitem>
@@ -48,9 +48,9 @@
 				<para>Establecer reglas a medida en el firewall.</para>
 			</listitem>
 		</itemizedlist>
-		
+
 	</simplesect>
-	
+
 	<section id='sect-example-define'>
 		<title>Estudio del servicio y evaluación de características</title>
 
@@ -171,10 +171,10 @@
 
 		<example>
 			<title>Constructor de <classname>EBox::NTP</classname></title>
-			<programlisting><![CDATA[sub _create 
+			<programlisting><![CDATA[sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'ntp', 
+	my $self = $class->SUPER::_create(name => 'ntp',
 						domain => 'ebox-ntp',
 						@_);
 	bless($self, $class);
@@ -218,7 +218,7 @@
 		</itemizedlist>
 
 		<variablelist>
-			
+
 			<varlistentry>
 				<term><methodname>setService</methodname></term>
 				<listitem>
@@ -230,10 +230,10 @@
 
 					<para>Veamos mas a fondo cómo está implementado este
 					método:</para>
-					
+
 					<example>
 						<title>Activación del servicio de sincronización</title>
-						<programlisting><![CDATA[sub setService 
+						<programlisting><![CDATA[sub setService
 {
 	my ($self, $active) = @_;
 	if ($active xor $self->service) {
@@ -264,10 +264,10 @@
 					método es trivial, tan solo retornamos el valor del parámetro
 					<parameter>active</parameter> de la configuración del módulo
 					almacenada en gconf.</para>
-					
+
 					<example>
 						<title>Obtención el estado del servicio NTP</title>
-						<programlisting><![CDATA[sub service 
+						<programlisting><![CDATA[sub service
 {
 	my $self = shift;
 	return $self->getbool('active');
@@ -316,8 +316,8 @@
 
 					<example>
 						<title>Obtener el estado de la sincronización externa</title>
-						<programlisting><![CDATA[sub synchronized 
-{ 
+						<programlisting><![CDATA[sub synchronized
+{
 	my $self = shift;
 	return $self->getbool('synchronized');
 } ]]> </programlisting>
@@ -348,7 +348,7 @@
 
 					<example>
 						<title>Establecer servidores ntp externos</title>
-						<programlisting><![CDATA[sub setServers # (server1, server2, server3) 
+						<programlisting><![CDATA[sub setServers # (server1, server2, server3)
 {
 	my ($self, $s1, $s2, $s3) = @_;
 
@@ -379,10 +379,10 @@
 					<para>Éste método nos retorna un array con los servidores ntp
 					externos que tengamos almacenados en gconf. Su implementación es
 					como sigue:</para>
-					
+
 					<example>
 						<title>Obtener la lista de servidores ntp externos</title>
-						<programlisting><![CDATA[sub servers 
+						<programlisting><![CDATA[sub servers
 {
 	my $self = shift;
 	my @servers;
@@ -395,7 +395,7 @@
 					</example>
 				</listitem>
 			</varlistentry>
-		
+
 			<varlistentry>
 				<term><methodname>setNewDate</methodname></term>
 				<listitem>
@@ -403,7 +403,7 @@
 					<para>Con este método vamos a ofrecer la posibilidad de
 					cambiar manualmente la fecha y hora del sistema. Veamos su
 					implementación:</para>
-					
+
 					<example>
 						<title>Establecer una nueva fecha y hora en el sistema</title>
 						<programlisting><![CDATA[sub setNewDate # (day, month, year, hour, minute, second)
@@ -434,7 +434,7 @@
 					<methodname>_restartAllServices</methodname> del que veremos su
 					implementación mas adelante.</para>
 
-				</listitem> 
+				</listitem>
 			</varlistentry>
 
 			<varlistentry>
@@ -504,7 +504,7 @@
 	my $log = $global->logger;
 	my $failed = "";
  	$log->info("Restarting all modules");
-	
+
 	foreach my $name (@names) {
 		my $mod = $global->modInstance($name);
 		try {
@@ -513,7 +513,7 @@
 			$failed .= "$name ";
 		};
 	}
-	
+
 	if ($failed ne "") {
 		throw EBox::Exceptions::Internal("The following modules ".
 			"failed while being restarted, their state is ".
@@ -565,7 +565,7 @@
 		el título y la plantilla en mason a utilizar. Veamos la
 		implementación:</para>
 
-		<example> 
+		<example>
 			<title>Constructor del CGI <classname>EBox::CGI::NTP::Index</classname>
 			</title>
       <programlisting><![CDATA[package EBox::CGI::NTP::Index;
@@ -648,7 +648,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'NTP', @_);
@@ -703,8 +703,8 @@ sub _process
 		y el estado del servicio de sincronización. Veamos como quedaría su
 		implementación:</para>
 
-    <example> 
-			<title>Plantilla mason para habilitar el servicio NTP</title> 
+    <example>
+			<title>Plantilla mason para habilitar el servicio NTP</title>
 			<programlisting><![CDATA[<%args> $active </%args>
 <%init> use EBox::Gettext; </%init>
 
@@ -739,7 +739,7 @@ sub _process
 		<para>Tenemos dos partes bien diferenciadas, por un lado vamos
 		a poder cambiar la zona horaria del sistema cuya gestión la
 		realizaremos mediante dos CGIs.</para>
-		
+
 		<itemizedlist>
 			<listitem>
 				<para><filename>Timezone</filename> que será el
@@ -900,7 +900,7 @@ synchronized => $synchronized &>
 		configuración del demonio. Su implementación es la siguiente:</para>
 
 		<example>
-			<title>Generar el fichero de configuración 
+			<title>Generar el fichero de configuración
 			<filename>/etc/ntp.conf</filename></title>
 			<programlisting><![CDATA[sub _setNTPConf
 {
@@ -920,7 +920,7 @@ synchronized => $synchronized &>
 	$self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 }]]></programlisting>
 		</example>
-		
+
 		<para>Como podemos ver su implementación es sencilla, simplemente
 		añadimos a la variable <varname>array</varname> los parámetros que
 		queremos pasar a la plantilla mason, en nuestro caso le pasamos el
@@ -960,7 +960,7 @@ synchronized => $synchronized &>
 		la misma manera que cuando generamos las plantillas mason HTML.</para>
 
 		<example>
-			<title>Plantilla mason para generar el fichero 
+			<title>Plantilla mason para generar el fichero
 			<filename>/etc/ntp.conf</filename></title>
 			<programlisting><![CDATA[<%args>
 	$active
@@ -1064,7 +1064,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		</example>
 
 		<para>Este método será llamado para:</para>
-		
+
 		<itemizedlist>
 			<listitem>
 				<para>Lanzar el servicio porque estaba parado.</para>
@@ -1208,7 +1208,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		<methodname>removeService</methodname>.</para>
 
   </section>
-	
+
 	<section id='sect-example-conclusion'>
 		<title>Finalizando</title>
 

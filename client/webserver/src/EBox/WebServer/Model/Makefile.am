@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/WebServer/Model
 
-SUBDIRS = 
+SUBDIRS =
 
 mods = GeneralSettings.pm VHostTable.pm
 

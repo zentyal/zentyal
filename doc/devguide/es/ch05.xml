@@ -63,7 +63,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 
-sub new 
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Hola Mundo!'), @_);
@@ -106,10 +106,10 @@ sub new
 			<title>Configurando la plantilla mason para un CGI</title>
 
 			<programlisting><![CDATA[# Configurando la plantilla en el constructor
-sub new 
+sub new
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Hola Mundo!'), 
+	my $self = $class->SUPER::new('title' => __('Hola Mundo!'),
 					'template' => 'hello/world.mas',
 					@_);
 	bless($self, $class);
@@ -167,10 +167,10 @@ sub _process
 			<programlisting><![CDATA[sub _writeBackupToDiscAction
 {
   my ($self) = @_;
- 
+
   my $backup = new EBox::Backup;
   my $id     = $self->param('id');
-  
+
   $backup->writeBackupToDisc($id);
 
   $self->setMsg(__('Backup was written to CD/DVD disk'));
@@ -299,7 +299,7 @@ sub _process
 		<example id='ex-cgi-domain'>
 			<title>Configurando el dominio gettext en un CGI</title>
 
-			<programlisting><![CDATA[sub new 
+			<programlisting><![CDATA[sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Hola mundo!'),
@@ -321,7 +321,7 @@ sub _process
 		<para>Por otra parte, note que no debería utilizar nunca
 		<function>__</function> con cadenas no traducibles, como nombres de
 		protocolo (p. ej., DHCP, NTP, ...).</para>
-		       
+
 	</section>
 
 	<section id="sect-mason">
@@ -334,13 +334,13 @@ sub _process
 		url='http://www.masonhq.com/'>documentación de mason</ulink> o el
 		<ulink url='http://www.masonbook.com/'>libro de mason</ulink>. Más
 		ejemplos se pueden encontrar en <xref linkend='ch-examplemod'/>.</para>
-			
+
 		<para>La primera cosa que la plantilla de mason debe tener es la
 		declaración de los argumentos que espera. Únicamente se ha de escribir
 		el nombre de las variables, una por línea y nada más. Los argumentos
 		declarados como arrays en la plantilla serán pasados como la
 		referencia a un array por el CGI.</para>
-		
+
 		<para>En nuestro ejemplo vamos a enviar un array con nombres a la
 		plantilla, y la plantilla saludará a cada uno de ellos por
 		separado. Utilizamos un array vacío como valor por defecto para la
@@ -413,8 +413,8 @@ use EBox::Gettext;
 		<filename>world.mas</filename> en él.</para>
 
 		<section id='sect-gui-style'>
-			<title>Elementos estándar de la GUI</title>	
-			
+			<title>Elementos estándar de la GUI</title>
+
 			<para>Hay unos pocos elementos de la GUI que son mostrados de
 			la misma forma en todos los módulos de eBox. Cosas como
 			consejos, mensajes, avisos, errores, tablas y formularios
@@ -431,7 +431,7 @@ use EBox::Gettext;
 			<para>Toda información que queramos mostrar al usuario, ya sea para
 			advertirle que una operación tiene riesgo, notificarle un error,
 			mostrarle ayuda o darle una información relevante la escribiremos
-			siguiendo el mismo esquema en html pero usando diferentes estilos 
+			siguiendo el mismo esquema en html pero usando diferentes estilos
 			CSS.</para>
 
 			<example>
@@ -442,12 +442,12 @@ use EBox::Gettext;
 			</example>
 
 			<variablelist>
-				
+
 				<title>Nombres de clases CSS para mostrarle información al usuario</title>
 
 				<varlistentry>
 
-					<term><emphasis>help</emphasis></term>	
+					<term><emphasis>help</emphasis></term>
 
 					<listitem>
 						<para>Para mostrar ayuda al usuario. Recordemos que al usar este
@@ -459,7 +459,7 @@ use EBox::Gettext;
 
 				<varlistentry>
 
-					<term><emphasis>error</emphasis></term>	
+					<term><emphasis>error</emphasis></term>
 
 					<listitem>
 						<para>Para notificar un error al usuario.</para>
@@ -469,7 +469,7 @@ use EBox::Gettext;
 
 				<varlistentry>
 
-					<term><emphasis>note</emphasis></term>	
+					<term><emphasis>note</emphasis></term>
 
 					<listitem>
 						<para>Para notificar al usuario ayuda de forma permanente. Cuando
@@ -481,7 +481,7 @@ use EBox::Gettext;
 
 				<varlistentry>
 
-					<term><emphasis>warning</emphasis></term>	
+					<term><emphasis>warning</emphasis></term>
 
 					<listitem>
 						<para>Para mostrar advertencias al usuario, por ejemplo, si queremos
@@ -495,7 +495,7 @@ use EBox::Gettext;
 			<para>Si queremos mostrar un listado de datos, por ejemplo un listado de
 			usuarios, usamos una tabla con los elementos <sgmltag>thead</sgmltag> y
 			<sgmltag>tbody</sgmltag> para mostrar la cabecera del listado y su
-			contenido respectivamente. El estilo CSS para esta tabla es 
+			contenido respectivamente. El estilo CSS para esta tabla es
 			<emphasis>dataTable</emphasis>.</para>
 
 			<example>
@@ -528,11 +528,11 @@ use EBox::Gettext;
 			obligatorio pero es de ayuda para identificar el tipo de datos que estamos
 			listando.</para>
 
-			<para>El resto de estilos CSS se usan para alinear el texto de las 
+			<para>El resto de estilos CSS se usan para alinear el texto de las
 			columnas:</para>
 
 			<variablelist>
-				
+
 				<varlistentry>
 
 					<term><emphasis>tleft</emphasis></term>
@@ -540,7 +540,7 @@ use EBox::Gettext;
 					<listitem>
 						<para>Las columnas de cabecera (<emphasis>thead</emphasis>) tienen
 						por defecto la alineación en el centro, nosotros obligamos a que sea
-						a la izquierda para facilitar la lectura en los listados de 
+						a la izquierda para facilitar la lectura en los listados de
 						datos.</para>
 					</listitem>
 
@@ -578,7 +578,7 @@ use EBox::Gettext;
 				<programlisting><![CDATA[<table class='formTable'>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Name') %>:</span>	
+			<span class='ftitle'><% __('Name') %>:</span>
 		</td>
 		<td>
 			<input class='inputText' type='text' name='name' />
@@ -593,18 +593,18 @@ use EBox::Gettext;
 </table>]]></programlisting>
 			</example>
 
-			<para>La primera columna contiene la descripción correspondiente al dato 
-			que vamos a introducir. Alineamos la columna de la descripción a la 
-			derecha usando la clase <emphasis>tright</emphasis>, y el texto lo 
+			<para>La primera columna contiene la descripción correspondiente al dato
+			que vamos a introducir. Alineamos la columna de la descripción a la
+			derecha usando la clase <emphasis>tright</emphasis>, y el texto lo
 			escribimos dentro de la etiqueta <sgmltag>span</sgmltag> con la clase
 			<emphasis>ftitle</emphasis> para resaltarlo más.</para>
 
 			<para>La entrada de texto en la columna derecha tiene la clase
-			<emphasis>inputText</emphasis> para decorar la caja de entrada de 
+			<emphasis>inputText</emphasis> para decorar la caja de entrada de
 			texto.</para>
 
 			<para>El botón del formulario tiene el estilo
-			<emphasis>inputButton</emphasis> con un propósito meramente 
+			<emphasis>inputButton</emphasis> con un propósito meramente
 			decorativo.</para>
 
 		</section>
@@ -648,7 +648,7 @@ use EBox::Gettext;
 		<methodname>menu</methodname> en el módulo. Esta función toma una
 		instancia <classname>EBox::Menu::Root</classname> como argumento, y
 		puede añadir tantos elementos y carpetas como se quieran. Ésta es la
-		función <methodname>menu</methodname> para el módulo firewall:</para>		
+		función <methodname>menu</methodname> para el módulo firewall:</para>
 
 		<example>
 			<title>Añadiendo carpetas y elementos al menú</title>
@@ -819,7 +819,7 @@ return $item;]]></programlisting>
 		linkend='ex-squid-status'/> muestra la implementación de la función
 		<methodname>statusSummary</methodname> en el módulo squid, además de
 		algunas funciones relacionadas.</para>
-				
+
 		<example id='ex-squid-status'>
 
 			<title>Ejemplo de implementación de
@@ -845,7 +845,7 @@ sub service
 }]]></programlisting>
 
 		</example>
-		
+
 		<para>De nuevo, se puede comprobar como se ve en la página de Resumen
 		en una instalación de eBox que tiene el módulo squid incluido.</para>
 

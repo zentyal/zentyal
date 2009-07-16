@@ -6,7 +6,7 @@
     <para>
       Es necesario un conocimiento básico de la infraestructura de clave
       pública (<acronym>PKI</acronym>) para el uso del módulo de
-      Gestión de Certificados. 
+      Gestión de Certificados.
       Un buen sitio para empezar a iniciarse en el tema puede ser
       <ulink  url="http://es.wikipedia.org/wiki/PKI">el artículo de Wikipedia sobre PKI</ulink>
     </para>
@@ -16,7 +16,7 @@
     <title>Gestión de la Autoridad de Certificados</title>
     <para>
       Puedes acceder a la Gestión de la Autoridad de Certificados a
-      través de 
+      través de
       <menuchoice>
 	<guimenu>Gestor de Certificados</guimenu>
       </menuchoice>
@@ -24,7 +24,7 @@
 
     <para>
      El propósito del módulo de Gestión de la Autoridad de Certificados es permitir la creación
-     de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
+     de certificados para su uso por otros módulos eBox o por aplicaciones externas.
     </para>
     <para>
      Los certificados se crean usando un certificado de la autoridad
@@ -33,7 +33,7 @@
     </para>
   </section>
 
-  <section id="sect-create-ca">				
+  <section id="sect-create-ca">
     <title>Creación del certificado de la autoridad de certificación</title>
     <para>
       Primero, es necesario expedir el certificado de la CA, que es
@@ -57,9 +57,9 @@
 	Esto supondrá la parada de los servicios
 	dependientes de la infraestructura de certificación hasta que
 	sea restablecida.
-      </para>				
+      </para>
     </warning>
-    
+
   </section>
 
   <section id="sect-create-certificate">
@@ -83,15 +83,15 @@
       usen certificados y las demás aplicaciones externas.
     </para>
   </section>
-      
+
   <section id="sect-certificate-actions">
     <title>Acciones sobre certificados</title>
     <para>
       A través de la lista de certificados podemos acceder a distintas
-      acciones que realizar con ellas. 
+      acciones que realizar con ellas.
       Las acciones disponibles son <link
-      linkend="sect-certificate-actions-download">descargar archivos</link>, 
-      <link linkend="sect-certificate-actions-revoke">revocar</link> 
+      linkend="sect-certificate-actions-download">descargar archivos</link>,
+      <link linkend="sect-certificate-actions-revoke">revocar</link>
       y <link linkend="sect-certificate-actions-renew">renovar.</link>
     </para>
 
@@ -105,12 +105,12 @@
 	certificación, la clave privada no se encontrará en el archivo.
       </para>
     </section>
-      
+
     <section id="sect-certificate-actions-revoke">
       <title>Revocar</title>
       <para>
 	Mediante el icono de revocar, podemos revocar cualquier
-	certificado. 
+	certificado.
 	Tras pulsar en la opción correspondiente nos
 	encontraremos en una pantalla donde podremos indicar la razón
 	que nos ha llevado a revocarlo o cancelar la acción.
@@ -122,7 +122,7 @@
       </para>
       <warning>
 	<para>
-	  Si el certificado revocado es el certificado de la CA, 
+	  Si el certificado revocado es el certificado de la CA,
 	  todos los certificados generados con él serán
 	  automáticamente revocados
 	</para>

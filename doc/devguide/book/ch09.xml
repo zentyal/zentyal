@@ -11,13 +11,13 @@
       new events and a transport way to do it easily. This event
       architecture is split in two components:
       <emphasis>watchers</emphasis> and
-      <emphasis>dispatchers</emphasis>. 
+      <emphasis>dispatchers</emphasis>.
     </para>
 
   </simplesect>
 
   <section id='watch-sect'>
-   
+
     <title>Event watchers</title>
 
     <para>
@@ -131,9 +131,9 @@ sub new
             </para>
           </listitem>
         </varlistentry>
-      
+
       </variablelist>
-      
+
       <para>
         Once you have developed and deployed it, you may enable it at
         <menuchoice><guimenu>Events</guimenu><guiicon>Configure
@@ -171,7 +171,7 @@ sub new
         The following methods are required to be overridden in order
         to have a dispatcher ready to send messages:
       </para>
-      
+
       <variablelist>
         <varlistentry>
           <term><methodname>configured</methodname></term>
@@ -218,7 +218,7 @@ sub new
                       Dispatcher, in this case, is configured in a
                       more complex way. So a URL link points to the
                       where the configuration is made should be
-                      served. This link is provided by 
+                      served. This link is provided by
                       <methodname>ConfigureURL</methodname> which
                       must be overridden by those dispatchers that
                       configure themselves with a link. For example,
@@ -284,7 +284,7 @@ sub new
         module if needed and finally "Save changes" to restart
         ebox-events module.
       </para>
-      
+
     </section>
 
 </chapter>

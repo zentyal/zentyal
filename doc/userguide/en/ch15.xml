@@ -35,7 +35,7 @@
       features such as zone transfers, subdomains and so
       forth. Those add-ons will be added in the future.
     </para>
-    
+
     <variablelist>
       <varlistentry>
         <term>Domains</term>
@@ -45,9 +45,9 @@
             your hosts will be added taking a domain as a root.
           </para>
           <para>
-            To add a domain, go to 
-            <menuchoice><guimenu>DNS</guimenu></menuchoice>, 
-            and just type a domain's name in the table placed below 
+            To add a domain, go to
+            <menuchoice><guimenu>DNS</guimenu></menuchoice>,
+            and just type a domain's name in the table placed below
             the title. As we mentioned you can add as many domains as
             you need.
           </para>
@@ -58,9 +58,9 @@
         <term>Hosts</term>
         <listitem>
           <para>
-            The next step, after creating a domain, is adding 
-            host names to the domain. What you are doing here 
-            is binding an IP address to a host name. 
+            The next step, after creating a domain, is adding
+            host names to the domain. What you are doing here
+            is binding an IP address to a host name.
           </para>
 
           <para>

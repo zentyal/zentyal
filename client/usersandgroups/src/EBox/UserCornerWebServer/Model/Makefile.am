@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/UserCornerWebServer/Model
 
 nobase_perl_DATA = Settings.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

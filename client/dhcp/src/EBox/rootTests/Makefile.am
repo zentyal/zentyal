@@ -1,4 +1,4 @@
-SUBDIRS = lib 
+SUBDIRS = lib
 
 test_scripts = DaemonTest.t
 

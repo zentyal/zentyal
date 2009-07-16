@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/Network/Composite
 
 nobase_perl_DATA = ByteRate.pm MultiGw.pm DNS.pm WANFailover.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

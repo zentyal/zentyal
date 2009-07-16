@@ -9,7 +9,7 @@
 		<para>La plataforma eBox ofrece unos módulos con ciertas
 		funcionalidades que están disponibles a través de una API orientada a
 		objetos en su mayor parte. No todo está orientado a objetos,
-		interfaces procedurales se han usado cuando tenía sentido hacerlo.</para> 
+		interfaces procedurales se han usado cuando tenía sentido hacerlo.</para>
 
 		<para>Algunas de las características de la API funcionan a través de
 		herencia, éstas normalmente ofrecen un medio para que el módulo
@@ -97,7 +97,7 @@
 		dedicado. El usuario es normalmente llamado <quote>ebox</quote>. Los
 		módulos de eBox necesitan ejecutar ciertos comandos y escribir ciertos
 		ficheros con privilegios de root, esto se hace usando
-		<application>sudo</application>. 
+		<application>sudo</application>.
                  </para>
 
 
@@ -124,10 +124,10 @@ catch EBox::Exceptions::Sudo::Command with {
 ]]></programlisting>
 			</example>
 
-                <para> 
+                <para>
                  <classname>EBox::Sudo</classname> provee funciones de interfaz con comandos
                   frecuentemente ejecutados con privilegios de superusuario.
-                 <methodname>stat</methodname> propociona interfaz con el programa stat, resulta 
+                 <methodname>stat</methodname> propociona interfaz con el programa stat, resulta
                  util para obtener informacion sobre cualquier archivo. Si necesitas una infromacion mas concisa sobre el archivo puedes usar <methodname>fileTest</methodname> para
                  realizar comprobaciones simples sobre archivos, como hace el programa <application>/usr/bin/test</application>.
 
@@ -274,7 +274,7 @@ catch EBox::Exceptions::Sudo::Command with {
 
 					<para>Dada una clave, devuelve todos los
 					directorios de su interior.</para>
-				
+
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -284,7 +284,7 @@ catch EBox::Exceptions::Sudo::Command with {
 					<para>Dada una clave, devuelve todos los
 					directorios de su interior, eliminando
 					cualquier directorio que aparezca por delante.</para>
-				
+
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -295,7 +295,7 @@ catch EBox::Exceptions::Sudo::Command with {
 					entradas de su interior. Estas entradas son
 					todas aquellas claves que no son directorios,
 					por lo que contendrán un valor.</para>
-					
+
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -369,7 +369,7 @@ catch EBox::Exceptions::Sudo::Command with {
 			<varlistentry>
 				<term><methodname>get_unique_id</methodname></term>
 				<listitem>
-					
+
 					<para>General un identificado único aleatorio
 					con un <parameter>prefix</parameter> delante
 					en la raíz del nombre del espacio del
@@ -384,7 +384,7 @@ catch EBox::Exceptions::Sudo::Command with {
 			<varlistentry>
 				<term><methodname>hash_from_dir</methodname></term>
 				<listitem>
-					
+
 					<para>Devuelve un hash conteniendo todas las
 					entradas del directorio referenciado por la clave.</para>
 
@@ -424,7 +424,7 @@ catch EBox::Exceptions::Sudo::Command with {
 
 					<para>Todos los cambios hechos desde que se
 					escribió o eliminó algo serán descartados.</para>
-					
+
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -454,7 +454,7 @@ catch EBox::Exceptions::Sudo::Command with {
 					<parameter>valores</parameter> de un
 					<parameter>tipo</parameter> en un
 					<parameter>valor</parameter>.</para>
-				
+
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -469,7 +469,7 @@ catch EBox::Exceptions::Sudo::Command with {
 		</variablelist>
 
 		<para>Veamos algunos ejemplos de las funciones anteriormente descritas.</para>
-		
+
 		<example>
 			<title>Asignando un valor de tipo cadena</title>
 			<programlisting> <![CDATA[$self->set_string("printers/x4235/name", "fooprinter"); ]]></programlisting>
@@ -498,7 +498,7 @@ $self->set_bool("printers/$id/configured", undef);
 		necesitan ser aplicadas en un cierto orden, y el usuario ha de
 		poderles cambiar su orden. La clase <classname>EBox::Order</classname>
 		resuelve justamente este problema.</para>
-		
+
 		<para>La idea es dar un directorio a cada objeto que se quiere
 		mantener ordenado. Siguiendo con el ejemplo del firewall, podríamos
 		tener el directorio <filename>rules/</filename> y, por debajo, un
@@ -563,9 +563,9 @@ $self->set_bool("printers/$id/configured", undef);
 				<term><methodname>prevn</methodname></term>
 				<listitem>
 
-					<para>Dado un número, devuelve la clave 
+					<para>Dado un número, devuelve la clave
 					<structfield>order</structfield> del objeto
-					anterior.</para> 
+					anterior.</para>
 
 				</listitem>
 			</varlistentry>
@@ -613,7 +613,7 @@ $self->set_bool("printers/$id/configured", undef);
 			mantener sus reglas de forwarding ordenadas. La función
 			<methodname>_fwdRulesOrder</methodname> devuelve la instancia
 			de <classname>EBox::Order</classname> de las reglas del firewall:</para>
-			
+
 			<programlisting><![CDATA[sub _fwdRulesOrder
 {
 	my $self = shift;
@@ -705,7 +705,7 @@ $self->set_int("fwdrules/$id/order", $order);]]></programlisting>
 			<filename>Makefile.am</filename> del directorio
 			<filename>stubs</filename> para el módulo dnscache tiene esta
 			forma:</para>
-			
+
 			<programlisting><![CDATA[Stubdir = @STUBSPATH@/dns-cache
 
 nobase_Stub_DATA = named.conf.mas named.conf.options.mas \
@@ -721,12 +721,12 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 			por lo que sólo se necesita crear un directorio para el módulo
 			en dicha ruta y colocar las plantilla de mason en su
 			interior.</para>
-			
+
 			<para>Hay un método en <classname>EBox::Module</classname> que
 			ofrece ayuda con los permisos de los ficheros y otros
 			detalles. Se llama <methodname>writeConfFile</methodname> y
 			necesita tres argumentos:</para>
-			
+
 			<itemizedlist>
 				<listitem>
 					<para>La ruta del fichero de configuración que
@@ -784,7 +784,7 @@ $self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 	$active
 	$synchronized
 	@servers
-</%args>	
+</%args>
 # /etc/ntp.conf, configuration for ntpd
 # Generated by EBox
 
@@ -813,7 +813,7 @@ restrict 127.0.0.1 nomodify
 ]]>
 				</programlisting>
 			</example>
-	
+
 		</section>
 
 		<section>
@@ -903,7 +903,7 @@ sub _daemon # (action)
 			"Bad argument: $action");
 	}
 }]]></programlisting>
-				
+
 			</example>
 
 			<para>Parar el servicio es similar. Se puede comprobar si está
@@ -938,7 +938,7 @@ sub _daemon # (action)
 	<section id='sect-schemas'>
 		<title>Esquemas de GConf</title>
 
-			<section id='sect-schemas-minimal'> 
+			<section id='sect-schemas-minimal'>
 			<title>Esquema de GConf mínimo</title>
 
 			<para>Un esquema de GConf es una clave especial de GConf que
@@ -952,7 +952,7 @@ sub _daemon # (action)
 			instanciado. Por tanto, la primera cosas que se deberá hacer
 			es asociar el nombre dado para el módulo y su módulo de
 			perl. Veamos el ejemplo para clarificar un poco más esta idea:</para>
-			
+
 			<para>Digamos que tenemos un módulo llamado
 			<emphasis>foobar</emphasis> y la implementación para este
 			módulo recae en <classname>EBox::Foobar</classname>. El
@@ -986,7 +986,7 @@ sub _daemon # (action)
 			<programlisting><![CDATA[my $foobar = EBox::Global->modInstance('foobar');
 $foobar->some_method();]]></programlisting>
 			</example>
-			
+
 		</section>
 
 		<section id='sect-schemas-default'>
@@ -1023,8 +1023,8 @@ $foobar->some_method();]]></programlisting>
 </schema>]]></programlisting>
 			</example>
 		</section>
-			
-		<section id='sect-schemas-dependence'> 
+
+		<section id='sect-schemas-dependence'>
 		<title>Dependencias de módulos</title>
 
 			<para>Es cuestión de la configuración de su módulo que pueda
@@ -1094,7 +1094,7 @@ $foobar->some_method();]]></programlisting>
 		<methodname>extendedRestore</methodname>. Recuerde que
 		este tipo de información sólo será guardada y
 		restaurada si el usuario lo solicita
-		explícitamente. </para> 
+		explícitamente. </para>
 
 		<para>El módulo <emphasis>usersandgroups</emphasis>
 		almacena su configuración (usuarios, grupos,
@@ -1103,14 +1103,14 @@ $foobar->some_method();]]></programlisting>
 		información guardada en <emphasis>openldap</emphasis>
 		para poder realizar copias de seguridad de este módulo
 		correctamente. Veamos como podemos hacerlo:</para>
-		
+
 		<example>
 			<title>Sobreescribiendo funciones para las copias de seguridad</title>
 				<programlisting><![CDATA[
 sub dumpConfig
 {
   my ($self, $dir) = @_;
- 
+
   $self->{ldap}->dumpLdapData($dir);
 }
 
@@ -1145,7 +1145,7 @@ sub extendedBackup
 {
   my ($self, %params) = @_;
   my $dir    = $params{dir};
-  
+
   my $dbengine = EBox::DBEngineFactory::DBEngine();
   my $dumpFile = "$dir/eboxlogs.dump";
 
@@ -1165,13 +1165,13 @@ sub extendedRestore
 }
          	]]></programlisting>
 	</example>
-	</section>	
+	</section>
 	<section id="sect-logAdmin">
 	  <title>Registro administrativo</title>
-	  
+
 	  <para>
 	    eBox puede registrar cada cambio realizado a través de interfaz
-	    administrativo, lo que es útil para saber cuando se ha cambiado o 
+	    administrativo, lo que es útil para saber cuando se ha cambiado o
 	    quién lo ha hecho. Cada módulo eBox debería dar parte de cada mensaje
 	    de registro para dar un soporte completo al registro administrativo.
 	  </para>
@@ -1180,7 +1180,7 @@ sub extendedRestore
 	    Para conseguirlo, debes incluir un nuevo paquete del núcleo eBox
 	    <classname>EBox::LogAdmin</classname> en tu módulo.
 	  </para>
-	  
+
 	  <example>
 	    <title>Incluyendo el paquete LogAdmin</title>
 	    <programlisting><![CDATA[
@@ -1192,7 +1192,7 @@ use EBox::LogAdmin qw ( :all );
 	    Se usa un nuevo atributo del módulo, <emphasis>title</emphasis>,
 	    debes añadirlo a la llamada de creación del módulo. Por ejemplo:
 	  </para>
-	  
+
 	  <example>
 	    <title>Creando un objeto con soporte a registro administrativo</title>
 	    <programlisting><![CDATA[
@@ -1204,11 +1204,11 @@ my $self = $class->SUPER::_create(name => 'objects',
 	  </example>
 
 	  <para>
-	    Además, se necesita una tabla hash en el constructor con las actiones que 
+	    Además, se necesita una tabla hash en el constructor con las actiones que
 	    tu módulo reportará con una formato de mensaje bonito.
 	    Siguiendo el mismo ejemplo en el módulo <classname>EBox::Objects</classname>:
 	  </para>
-	  
+
 	  <example>
 	    <title>Añadiendo acciones para el registro</title>
 	    <programlisting>
@@ -1221,12 +1221,12 @@ $self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
 ]]>
 	    </programlisting>
 	  </example>
-		  
+
 	  <para>
 	    Para cada acción que quieras registrar, que debería ser todas que puedan
 	    hacerse desde el interfaz web, deberás seguir estos pasos:
 	  </para>
-	  
+
 	  <orderedlist>
 	    <listitem>
 	      <para>
@@ -1240,9 +1240,9 @@ sub addObject # (description)
 	    </listitem>
 	    <listitem>
 	      <para>
-		Llama los métodos <methodname>logAdminDeferred</methodname> or 
+		Llama los métodos <methodname>logAdminDeferred</methodname> or
 		<methodname>logAdminNow</methodname>. <methodname>logAdminDeferred</methodname>
-		pone la acción en la base de datos con el campo <emphasis>confirmado</emphasis> a 
+		pone la acción en la base de datos con el campo <emphasis>confirmado</emphasis> a
 		<emphasis>falso</emphasis>, y debería ser llamado para acciones que no tengan
 		lugar hasta que los cambios sean guardados, esto es, todo que se guarda
 		en gconf. Cuando salves los cambios, las acciones se marcan como confirmadas,
@@ -1274,7 +1274,7 @@ return $id;
                 </programlisting>
 	      </example>
 	      <para>
-		Como se muestra, la base de datos guarda <emphasis>addObject</emphasis>, 
+		Como se muestra, la base de datos guarda <emphasis>addObject</emphasis>,
 		<emphasis>object=objname"</emphasis>, el código mostrado crea la cadena
 		que debería mostrarse y traducirse al lenguaje concreto.
 	      </para>
@@ -1284,5 +1284,5 @@ return $id;
 
 </chapter>
 
- 
+
 

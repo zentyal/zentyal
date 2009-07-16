@@ -5,7 +5,7 @@ perldir = @PERLPATH@/EBox
 
 nobase_perl_DATA = Objects.pm ObjectsObserver.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

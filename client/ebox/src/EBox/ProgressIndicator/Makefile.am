@@ -5,7 +5,7 @@ packages = Dummy.pm
 
 test_classes = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST =  $(test_classes) $(packages)
 

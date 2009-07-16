@@ -14,7 +14,7 @@
     <para>
     Para crear el servicio VPN, se necesita primero configurar una
     autoridad de certificación. eBox también da cobertura a este
-    servicio que puedes crear a través de 
+    servicio que puedes crear a través de
       <menuchoice>
 	<guimenu>Autoridad de Certificación</guimenu>
       </menuchoice>
@@ -37,7 +37,7 @@
 	<para>
 	  Se puede configurar a eBox para dar soporte a "Road
           Warriors". Esto es, una máquina eBox trabajando como puerta
-	  de enlace y como servidor OpenVPN, que tiene una red de 
+	  de enlace y como servidor OpenVPN, que tiene una red de
 	  área local (LAN) detrás, permitiendo a clientes en Internet
 	  (road warriors) conectarse a dicha red local vía servicio
 	  VPN. La siguiente figura puede dar una mejor visión:
@@ -52,7 +52,7 @@
 	  </mediaobject>
 	</figure>
 	<para>
-	  Nuestro objetivo es conectar al cliente 3 con los otros 2 
+	  Nuestro objetivo es conectar al cliente 3 con los otros 2
 	  clientes lejanos (1 y 2) y estos últimos entre sí.
 	</para>
 	<para>
@@ -65,7 +65,7 @@
 	</para>
 	<note>
 	  <para>
-	    Para obtener información detallada sobre el módulo de 
+	    Para obtener información detallada sobre el módulo de
 	    Autoridad de Certificación, <link linkend="ch-ca">visitar su propia parte del manual </link>
 	  </para>
 	</note>
@@ -74,7 +74,7 @@
 	  el servidor OpenVPN en eBox en <guilabel>Crear un nuevo
 	  servidor</guilabel>. Se deben dar un nombre, un par
 	  protocolo/puerto, un certificado (aquel que acabamos de
-	  crear previamente) y una subred donde trabajar. Para los 
+	  crear previamente) y una subred donde trabajar. Para los
 	  demás elementos se pueden dejar los valores por
           defecto. Como vemos, el servidor OpenVPN estará escuchando
 	  en todas las interfaces externas, por tanto debemos poner
@@ -88,21 +88,21 @@
 	  Internet.
 	</para>
 	<para>
-	  Tras crear el servidor OpenVPN, debemos habilitar el 
+	  Tras crear el servidor OpenVPN, debemos habilitar el
 	  servicio y guardar los cambios. Luego, comprobar en
 	  <guilabel>Estado</guilabel> que un servidor OpenVPN
 	  está funcionando.
 	</para>
 	<para>
 	  Tras ello, debemos anunciar redes, dichas redes serán
-	  accesibles por los clientes OpenVPN autorizados. Para 
+	  accesibles por los clientes OpenVPN autorizados. Para
 	  conseguirlo, necesitamos redes que sean accesibles desde
 	  la máquina eBox. En nuestro escenario, deberemos añadir
 	  la red local para hacer visible el cliente 3 a los
 	  otros dos clientes.
 	</para>
 	<para>
-	  Es momento de configurar los clientes. Un cliente OpenVPN 
+	  Es momento de configurar los clientes. Un cliente OpenVPN
 	  puede configurarse con nuestros paquetes que están
           disponibles en la tabla <guilabel>Servidores</guilabel> y
           pinga en el icono <guiicon>Flecha para abajo</guiicon>. Dos
@@ -121,15 +121,15 @@
           Este paquete incluye el fichero de configuración y los
           ficheros necesarios para comenzar una conexión VPN. Por
           ejemplo, en Linux, simplemente descomprime el archivo y
-          ejecuta dentro del recientemente creado directorio el 
+          ejecuta dentro del recientemente creado directorio el
           el siguiente comando: <command>openvpn --config
-	  filename</command>. Ahora tenemos acceso al cliente 3 desde 
+	  filename</command>. Ahora tenemos acceso al cliente 3 desde
 	  los dos clientes remotos. Para conectar entre sí los clientes
 	  remotos, necesitamos activar la opción <guilabel>
 	  Habilitar conexiones cliente-a-cliente</guilabel> dentro de la configuración
 	  del servidor OpenVPN. Para comprobar que la configuración es
 	  correcta, observar la tabla de rutas donde las nuevas red
-	  anunciadas se han añadido al interfaz virtual   
+	  anunciadas se han añadido al interfaz virtual
 	  <literal>tapX</literal>.
 	</para>
     </section>
@@ -137,10 +137,10 @@
       <title>Conectar dos oficinas con eBox y OpenVPN</title>
       <para>
 	Este segundo escenario trata de mostrar un caso de uso común
-	para eBox. Dos oficinas en diferentes redes necesitan estar 
+	para eBox. Dos oficinas en diferentes redes necesitan estar
 	conectadas a través de una red privada. Para hacerlo, usaremos
 	eBox en ambas como puertas de enlace y una como cliente
-	OpenVPN y otra como servidora. La siguiente imagen trata de 
+	OpenVPN y otra como servidora. La siguiente imagen trata de
 	aclarar la situación:
       </para>
       <figure id="fig-ebox-vs-ebox">

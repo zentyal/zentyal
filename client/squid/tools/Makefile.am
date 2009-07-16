@@ -4,6 +4,6 @@ SUBDIRS = sqllog
 
 pkgdata_SCRIPTS =  ebox-squid-enable
 
-MAINTAINERCLEANFILES = Makefile.in 
+MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(pkgdata_SCRIPTS)

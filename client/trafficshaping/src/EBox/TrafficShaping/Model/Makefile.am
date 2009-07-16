@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/Model
 
 nobase_perl_DATA = RuleTable.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

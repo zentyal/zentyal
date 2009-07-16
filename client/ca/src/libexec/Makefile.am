@@ -5,5 +5,5 @@ scripts_SCRIPTS = updateDB.pl
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(scripts_SCRIPTS) 
+EXTRA_DIST = $(scripts_SCRIPTS)
 

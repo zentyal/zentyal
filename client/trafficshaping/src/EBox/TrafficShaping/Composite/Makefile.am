@@ -3,7 +3,7 @@ perldir = @PERLPATH@/EBox/TrafficShaping/Composite
 
 nobase_perl_DATA = DynamicGeneral.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

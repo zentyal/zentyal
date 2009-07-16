@@ -7,21 +7,21 @@ stubsdebiandir = $(datadir)/emoddev/stubs/debian
 
 stubsdebian_DATA = debian/prerm debian/changelog.mas debian/cdbs/ebox.mk \
 	debian/compat debian/postrm.mas debian/rules debian/postinst.mas \
-	debian/control.mas 
+	debian/control.mas
 
 stubsdebiancdbsdir = $(datadir)/emoddev/stubs/debian/cdbs
 
-stubsdebiancdbs_DATA = debian/cdbs/ebox.mk 
+stubsdebiancdbs_DATA = debian/cdbs/ebox.mk
 
 
 stubsm4dir = $(datadir)/emoddev/stubs/m4
 
-stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4 
+stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4
 	m4/nls.m4  m4/perlmodules.m4  m4/po.m4
 
 stubsmigrationdir = $(datadir)/emoddev/stubs/migration
 
-stubsmigration_DATA = migration/Makefile.am.mas 
+stubsmigration_DATA = migration/Makefile.am.mas
 
 stubsschemasdir = $(datadir)/emoddev/stubs/schemas
 
@@ -65,7 +65,7 @@ stubsstubsdir = $(datadir)/emoddev/stubs/stubs/
 stubsstubs_DATA = stubs/Makefile.am.mas stubs/service.conf.mas
 
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(stubs_DATA) $(stubsdebian_DATA) $(stubsm4_DATA) \
 	$(stubsmigration_DATA) $(stubsschemas_DATA) $(stubssrc_DATA) \

@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/Mail/Types
 
 nobase_perl_DATA = WriteOnceDomain.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

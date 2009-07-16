@@ -9,22 +9,22 @@
 		<title>Creación de una impresora</title>
 
 		<para>
-		Se pueden crear impresoras en eBox a través de 
+		Se pueden crear impresoras en eBox a través de
 			<menuchoice>
 				<guimenu>Impresoras</guimenu>
 				<guimenuitem>Añadir impresora</guimenuitem>
 			</menuchoice>
 		. Cada impresora creada podrá ser compartida en la red,
-		permitiendo	o denegando el acceso a usuarios y grupos de 
+		permitiendo	o denegando el acceso a usuarios y grupos de
 		usuarios para su uso.
 		</para>
 
 		<para>
 		La creación una impresora en eBox requiere conocer información
-		acerca de qué tipo de conexión tiene con eBox, fabricante, 
-		modelo y driver si se quiere asegurar	un correcto funcionamiento. 
-		El sistema irá solicitando los datos y ofreciendo las 
-		posibilidades existentes al usuario	para que configure 
+		acerca de qué tipo de conexión tiene con eBox, fabricante,
+		modelo y driver si se quiere asegurar	un correcto funcionamiento.
+		El sistema irá solicitando los datos y ofreciendo las
+		posibilidades existentes al usuario	para que configure
 		la impresora de una manera sencilla e	intuitiva.
 		</para>
 	</section>
@@ -34,7 +34,7 @@
 		<title>Gestión de impresoras</title>
 
 		<para>
-		Por medio de 
+		Por medio de
 			<menuchoice>
 				<guimenu>Impresoras</guimenu>
 				<guimenuitem>Administrar impresoras</guimenuitem>
@@ -44,20 +44,20 @@
 
 		<para>
 		Desde aquí es posible consultar y modificar el estado actual
-		de la compartición de impresoras en el sistema y visualizar 
+		de la compartición de impresoras en el sistema y visualizar
 		la lista de dispositivos de impresión configuradas en el sistema,
 		así como eliminarlas de eBox o modificar su estado y parámetros actuales.
 		</para>
 
 		<para>
-		En cualquier momento después de la creación de una impresora, 
-		es posible borrarla pinchando en la acción correspondiente de 
+		En cualquier momento después de la creación de una impresora,
+		es posible borrarla pinchando en la acción correspondiente de
 		la impresora seleccionada, o acceder a su configuración específica
-		con la acción editar de dicha impresora. 
+		con la acción editar de dicha impresora.
 		</para>
 
 		<para>
-		Si se decide editar la configuración de una impresora, aparecerá 
+		Si se decide editar la configuración de una impresora, aparecerá
 		una ventana de configuración con cuatro pestañas que darán acceso
 		a cada uno de los aspectos de administración de la impresora:
 		<variablelist>
@@ -75,8 +75,8 @@
 				<listitem>
 					<para>
 					Las opciones configurables dependerán del driver instalado.
-					eBox mostrará, en la mayoría de los casos, una lista con los 
-					posibles valores para cada una de las opciones facilitando 
+					eBox mostrará, en la mayoría de los casos, una lista con los
+					posibles valores para cada una de las opciones facilitando
 					el proceso de configuración y evitando valores incorrectos de
 					los parámetros configurados.
 					</para>
@@ -88,7 +88,7 @@
 					<para>
 					En este apartado se permite modificar el método de conexión
 					de la impresora con eBox. Dependiendo de si es USB, paralelo,
-					impresora de red o samba, las opciones configurables serán 
+					impresora de red o samba, las opciones configurables serán
 					distintas.
 					</para>
 				</listitem>
@@ -100,7 +100,7 @@
 					Se muestran los trabajos que tiene pendientes la impresora
 					seleccionada. De cada trabajo se muestra identificador,
 					propietario, nombre, tamaño y fecha de creacion. Un trabajo
-					también puede ser cancelado utilizando el botón de acción 
+					también puede ser cancelado utilizando el botón de acción
 					correspondiente, eliminándolo así de la cola de trabajos de
 					la impresora.
 					</para>

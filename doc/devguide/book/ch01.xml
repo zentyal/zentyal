@@ -319,7 +319,7 @@ debian/     m4/           po/         src/         www/     migration/
 		<para>The <filename>stubs/</filename> is used to store Mason templates
 		to generate configuration files for the module services.</para>
 
-                <para>The <filename>migration/</filename> stores the 
+                <para>The <filename>migration/</filename> stores the
                 <link linkend="migration-scripts-sect">migration perl scripts</link>
                 to upgrade from an eBox module version to a newer one.</para>
 
@@ -330,13 +330,13 @@ debian/     m4/           po/         src/         www/     migration/
 
     <para>
       Bear <xref linkend="sect-amodule"/> in mind, a new way to develop
-      eBox modules have been developed. It relies on 
+      eBox modules have been developed. It relies on
       <ulink url="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller</ulink>
       design pattern, which an architectural pattern used in large software projects to
       decouple highly data (<emphasis>model</emphasis>) and user interface
       (<emphasis>view</emphasis>) so that developer can change the data architecture
       wihout changing the user interface and vice versa. A new component is added,
-      the <emphasis>controller</emphasis>, which manages data access and business 
+      the <emphasis>controller</emphasis>, which manages data access and business
       logic acting as an intermediate between them.
     </para>
 
@@ -349,7 +349,7 @@ debian/     m4/           po/         src/         www/     migration/
         <term>Model</term>
         <listitem>
           <para>
-            Our model is defined as a perl module which is a subclass of 
+            Our model is defined as a perl module which is a subclass of
             <classname>EBox::Model::DataTable</classname> or one of the subclasses.
           </para>
         </listitem>
@@ -358,7 +358,7 @@ debian/     m4/           po/         src/         www/     migration/
         <term>View</term>
         <listitem>
           <para>
-            The already defined Mason templates are used to show the information to 
+            The already defined Mason templates are used to show the information to
             the user.
           </para>
         </listitem>
@@ -379,11 +379,11 @@ debian/     m4/           po/         src/         www/     migration/
       explanation about how it works internally. Below we are only going to introduce the main
       components which an eBox developer requires to know to build up an eBox MVC's module.
     </para>
-    
+
     <para>
       A basic MVC based module should have, at least, these three main parts:
     </para>
-    
+
     <itemizedlist>
       <listitem>
         <para>
@@ -452,7 +452,7 @@ debian/     m4/           po/         src/         www/     migration/
       </variablelist>
 
       <para>
-        The data storage is managed automatically by the model itself. A model stores its information 
+        The data storage is managed automatically by the model itself. A model stores its information
         under a GConf directory which must set explicitly at the model creation. However, you can set
         dynamically which becomes the model instance in a submodel. The submodels are model instances
         whose GConf directory is set dynamically, not only at the runtime. Its usage is intimately with
@@ -471,8 +471,8 @@ debian/     m4/           po/         src/         www/     migration/
         <programlisting><![CDATA[
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
             new EBox::Types::Text
                             (
@@ -494,8 +494,8 @@ sub _table
 
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'ObjectTable',
             'printableTableName' => __('Objects'),
             'automaticRemove' => 1,
@@ -523,8 +523,8 @@ sub _table
         <programlisting><![CDATA[
 sub _table
 {
-    my @tableHead = 
-        ( 
+    my @tableHead =
+        (
 
             new EBox::Types::Text
                             (
@@ -551,8 +551,8 @@ sub _table
 
           );
 
-    my $dataTable = 
-        { 
+    my $dataTable =
+        {
             'tableName' => 'MemberTable',
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
@@ -567,7 +567,7 @@ sub _table
     return $dataTable;
 }]]>
         </programlisting>
-        
+
       </example>
 
       <para>
@@ -575,7 +575,7 @@ sub _table
         note the actions are the allowed actions to apply to that model. For instance, you
         can add, delete rows, edit fields... Several attributes are allowed for every type
         and model, if they are not explicitly set at the model definition, they are treated
-        as false value. That is, if it is a boolean type or empty string if the type is an 
+        as false value. That is, if it is a boolean type or empty string if the type is an
         string.
       </para>
 
@@ -654,11 +654,11 @@ sub _table
 
   }]]>
           </programlisting>
-          
+
         </example>
-       
+
         <para>
-          As you may notice, fields at a form can contain default values. This is done due to 
+          As you may notice, fields at a form can contain default values. This is done due to
           have default eBox configuration working. For example, you may want to enable a service
           to a specific port whose value does not modify the service if the default value is
           set.
@@ -694,7 +694,7 @@ sub _table
       <para>
         This section explains how the data model is shown at eBox user interface. If you just
         want to show a data model in eBox, a new menu entry is required. Its URL must have
-        this pattern: <emphasis>${modelDomain}/View/${tableName}</emphasis>. The 
+        this pattern: <emphasis>${modelDomain}/View/${tableName}</emphasis>. The
         <property>modelDomain</property> and <property>tableName</property> are attributes
         which have been already set at the data model definition. A table model will show up
         an empty table and a HTML form will appear if a form model is defined, they are named
@@ -708,7 +708,7 @@ sub _table
         to find the more usable and adapted user interface for your needs. The current
         available layouts are:
       </para>
-      
+
       <variablelist>
         <varlistentry>
           <term>top-bottom</term>
@@ -726,7 +726,7 @@ sub _table
       </variablelist>
 
       <para>
-        Define a model composite is even simpler than a model one as it depicts in 
+        Define a model composite is even simpler than a model one as it depicts in
         this example:
       </para>
 
@@ -758,11 +758,11 @@ sub _description
         </programlisting>
 
       </example>
-   
+
       <para>
         The components are referenced using its name, <property>tableName</property> at
         models and <property>name</property> at composites. In order to display a
-        composite based page, it is required to change the menu entry. In this case, 
+        composite based page, it is required to change the menu entry. In this case,
         the URL to call must follow this pattern
         <emphasis>${compositeDomain}/Composite/${name}</emphasis>. That's all you need
         to display your models together in a single page.
@@ -777,8 +777,8 @@ sub _description
       <para>
         Just get the magic done, it is required to publish the models and composites.
         To achieve so, the eBox modules, which are subclasses of
-        <classname>EBox::GConfModule</classname>, must inherit from 
-        <classname>EBox::Model::ModelProvider</classname> and 
+        <classname>EBox::GConfModule</classname>, must inherit from
+        <classname>EBox::Model::ModelProvider</classname> and
         <classname>EBox::Model::CompositeProvider</classname> interfaces, implementing
         its respectively methods <methodname>models</methodname> and
         <methodname>composites</methodname>, which returns an array reference of model and
@@ -815,7 +815,7 @@ sub composites
       <para>
         Once the models are published and ready to be displayed, they actually have to do something to manage
         its service. Current data model API is quite experimental in the way it is constantly
-        evolving to satisfy the client needs. The main components that use data model are 
+        evolving to satisfy the client needs. The main components that use data model are
         <link linkend="migration-scripts-sect">migration scripts</link> and eBox module itself
         to obtain the required data to configure the service.
       </para>
@@ -823,9 +823,9 @@ sub composites
       <para>
         The main method to retrieve the data model is <methodname>rows</methodname> which
         returns an array reference which contains the rows from that data model. You can filter
-        the result using a <parameter>filter</parameter> string or get the result from 
-        a defined <parameter>page</parameter>, since data model allows filtering and paging. Each 
-        array component contains the return value from <methodname>row</methodname> which is a 
+        the result using a <parameter>filter</parameter> string or get the result from
+        a defined <parameter>page</parameter>, since data model allows filtering and paging. Each
+        array component contains the return value from <methodname>row</methodname> which is a
         hash reference containing the following key - value pairs:
       </para>
 
@@ -834,7 +834,7 @@ sub composites
           <term><returnvalue>id</returnvalue></term>
           <listitem>
             <para>
-              Each row has an identifier which allows distinguishing from the others 
+              Each row has an identifier which allows distinguishing from the others
               inside the data model. You can use it as well as indexer calling the
               <methodname>row</methodname> method.
             </para>
@@ -881,7 +881,7 @@ sub composites
           <term><returnvalue>printableValueHash</returnvalue></term>
           <listitem>
             <para>
-              Similar to the previous one, it returns a hash reference containing 
+              Similar to the previous one, it returns a hash reference containing
               field name - printable value pairs.
             </para>
           </listitem>
@@ -959,18 +959,18 @@ sub composites
         With the ease of use in mind, form data model allows accessing directly to the value,
         printable value attributes or the whole type using as method name the field name. For instance,
         at <link linkend="jabber-model-definition">jabber dispatcher configuration form data model</link>,
-        you can access to the value, printable value and the instanced type itself of 
-        <property>user</property> property calling <methodname>userValue</methodname>, 
+        you can access to the value, printable value and the instanced type itself of
+        <property>user</property> property calling <methodname>userValue</methodname>,
         <methodname>userPrintableValue</methodname> and <methodname>userType</methodname> respectively.
       </para>
 
       <para>
         Nevertheless, you may search for rows which match a fixed criterion, this implies the
         match is done against the field value. Four methods make the
-        work for you, <methodname>find</methodname>, <methodname>findAll</methodname>, 
+        work for you, <methodname>find</methodname>, <methodname>findAll</methodname>,
         <methodname>findValue</methodname> and <methodname>findValueAll</methodname>. They are divided
-        in two groups, the ones which returns the <returnvalue>valueHash</returnvalue> and the ones 
-        which returns the <returnvalue>printableValueHash</returnvalue> and has the 'Value' word in their names. 
+        in two groups, the ones which returns the <returnvalue>valueHash</returnvalue> and the ones
+        which returns the <returnvalue>printableValueHash</returnvalue> and has the 'Value' word in their names.
         Moreover, if the method ends with 'All' words, returns not just the first row which matchs
         but also the possible remainder rows which match the criterion as well. Taking the previous
         data model a search with <varname>$model->find( 'name' => 'RHHH' )</varname>, the dumped return value
@@ -1000,7 +1000,7 @@ sub composites
         modules, perl scripts and SOAP clients. Two main options are probable, just disclose
         the instanced data model allowing full access to the model using in the way we used
         above or integrate some helper methods to access to the most important features which
-        clients use most. The latter is likely the chosen if the data model rises in its 
+        clients use most. The latter is likely the chosen if the data model rises in its
         complexity. A module which consists of several data models connected with each other
         indicates that a simple API may help the module's clients.
       </para>

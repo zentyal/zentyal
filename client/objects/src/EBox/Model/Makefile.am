@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/Objects/Model
 
 nobase_perl_DATA = ObjectTable.pm MemberTable.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

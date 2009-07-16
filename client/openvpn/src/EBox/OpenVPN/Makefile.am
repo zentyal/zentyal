@@ -7,7 +7,7 @@ nobase_perl_DATA = Server.pm FirewallHelper.pm  Daemon.pm Client.pm LogHelper.pm
 
 test_classes = Test.pm
 
-DISTCLEANFILES = 
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA) $(test_classes)
 

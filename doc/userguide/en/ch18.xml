@@ -3,7 +3,7 @@
   <section id="sect-vpn">
     <title>Virtual Private Network service</title>
     <para>
-      You can get to Virtual Private Network (VPN) configuration at 
+      You can get to Virtual Private Network (VPN) configuration at
       <menuchoice>
 	<guimenu>OpenVPN</guimenu>
       </menuchoice>
@@ -12,7 +12,7 @@
     <para>
       In order to set up VPN service, you first need to configure a
       Certification Authority. eBox also provides this service so you
-      can build it up via 
+      can build it up via
       <link linkend="ch-ca">
 	<menuchoice>
 	  <guimenu>Certification Authority</guimenu>
@@ -68,7 +68,7 @@
 	<note>
 	  <para>
 	    To obtain detail information about eBox Certification Authority
-	    module,<link linkend="ch-ca">check its own part in the manual.</link> 
+	    module,<link linkend="ch-ca">check its own part in the manual.</link>
 	  </para>
 	</note>
 	<para>
@@ -124,7 +124,7 @@
           files to start the VPN connection. For instance, in Linux,
           just decompress the archive and run into the newly created
           directory the following command: <command>openvpn --config
-	  filename</command>. Now you have access to client 3 from 
+	  filename</command>. Now you have access to client 3 from
 	  two remote clients. Connecting each other remote clients is
 	  necessary to to set <guilabel>Allow client-to-client
 	  connections</guilabel>  check-box within OpenVPN
@@ -161,7 +161,7 @@
 	Our aim is to connect client 1 in LAN 1 with client 2 in LAN 2
 	as if they were under the same local network. Therefore we need
 	to set up the OpenVPN server as we do in
-	<xref linkend="sect-roadwarrior" />. However, just a pair of changes 
+	<xref linkend="sect-roadwarrior" />. However, just a pair of changes
 	is needed setting on option <literal>Allow eBox-to-eBox tunnels</literal> to exchange routes
 	among eBox machines and <literal>eBox-to-eBox-tunnel
         password</literal> to perform a little more secure

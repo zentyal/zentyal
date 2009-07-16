@@ -4,7 +4,7 @@ SUBDIRS = ajax
 
 templatedir = @TEMPLATESPATH@/improxy
 
-template_DATA = 
+template_DATA =
 
 EXTRA_DIST = $(template_DATA)
 

@@ -7,7 +7,7 @@
 		<para>eBox is available as Debian packages which can be easily
 		installed using apt-get.</para>
 
-		<para>First of all you should have a clean Debian Sarge installation 
+		<para>First of all you should have a clean Debian Sarge installation
 		with a 2.6 kernel. Then you just need to add the following line to your
 		<filename>/etc/apt/sources.list</filename>:
 		<screen>
