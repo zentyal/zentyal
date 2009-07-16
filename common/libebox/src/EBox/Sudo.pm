@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -72,7 +73,7 @@ Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Returns:
 #
-# 	array ref - Returns the output of the command in an array
+#	array ref - Returns the output of the command in an array
 #
 sub command # (command)
 {
@@ -110,7 +111,6 @@ sub _commandError
     throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
 }
 
-#
 # Procedure: root
 #
 #	Executes the commands provided through sudo. Use this to execute privileged
@@ -134,7 +134,30 @@ sub _commandError
 #
 sub root
 {
-    my @cmds = @_;
+    _root(1, @_);
+}
+
+# Procedure: silentRoot
+#
+#	Executes the commands provided through sudo. Use this to execute privileged
+#	commands. Doesn't throw exceptions, only returns the output and the exit
+#   status in the $? variable.
+#
+# Parameters:
+#
+#       commands - strings with the commands to execute
+#
+# Returns:
+#	array ref - Returns the output of the command in an array
+#
+sub silentRoot
+{
+    _root(0, @_);
+}
+
+sub _root
+{
+    my ($wantError, @cmds) = @_;
 
     my $commands = join("\n", @cmds);
 
@@ -147,20 +170,22 @@ sub root
     my $sudocmd = "$SUDO_PATH $cmdFile 2> $STDERR_FILE";
 
     my @output = `$sudocmd`;
+    my $ret = $?;
 
-    if ($? != 0) {
-        my @error;
-        if ( -r $STDERR_FILE) {
-            @error = read_file($STDERR_FILE);
+    if ($ret != 0) {
+        if ($wantError) {
+            my @error;
+            if ( -r $STDERR_FILE) {
+                @error = read_file($STDERR_FILE);
+            }
+            _rootError($sudocmd, $commands, $ret, \@output, \@error);
         }
-        _rootError($sudocmd, $commands, $?, \@output, \@error);
     } else {
         unlink($cmdFile);
     }
 
     return \@output;
 }
-
 
 sub _rootError
 {
@@ -198,7 +223,7 @@ sub _rootError
 #       command - string with the command to execute
 #
 # Returns:
-# 	array ref - Returns the output of the command in an array
+#	array ref - Returns the output of the command in an array
 sub rootWithoutException
 {
     my ($cmd) = @_;
@@ -208,10 +233,10 @@ sub rootWithoutException
     try {
         $output =  root($cmd);
     }
-      catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
-          my $ex = shift @_;
-          $output = $ex->output();
-      };
+    catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
+        my $ex = shift @_;
+        $output = $ex->output();
+    };
 
     return $output;
 }
@@ -264,10 +289,9 @@ sub stat
     try {
         $statOutput = root($statCmd);
     }
-      catch EBox::Exceptions::Sudo::Command with {
-          $statOutput = undef;
-      };
-
+    catch EBox::Exceptions::Sudo::Command with {
+        $statOutput = undef;
+    };
 
     return undef if !defined $statOutput;
 
