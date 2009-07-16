@@ -36,7 +36,7 @@ use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
 use Error qw(:try);
 
-# Method: _create 
+# Method: _create
 #
 #   	Base constructor for a module
 #
@@ -84,10 +84,10 @@ sub info
     return EBox::Global::readModInfo($self->{name});
 }
 
-# Method: revokeConfig 
+# Method: revokeConfig
 #
 #   	Base method to revoke config. It just notifies that he module has been
-#   	restarted. 
+#   	restarted.
 #       It should be overriden by subclasses as needed
 #
 sub revokeConfig
@@ -99,9 +99,9 @@ sub revokeConfig
 	$global->modRestarted($self->name);
 }
 
-# Method: _saveConfig 
+# Method: _saveConfig
 #
-#   	Base method to save configuration. It should be overriden 
+#   	Base method to save configuration. It should be overriden
 #	by subclasses as needed
 #
 sub _saveConfig
@@ -112,7 +112,7 @@ sub _saveConfig
 
 # Method: save
 #
-#	Sets a module as saved. This implies a call to _regenConfig and set 
+#	Sets a module as saved. This implies a call to _regenConfig and set
 #	the module as saved and unlock it.
 #
 sub save
@@ -173,7 +173,7 @@ sub _saveConfigRecursive
 
     my $global = EBox::Global->getInstance();
     for my $dependency (@{$global->modDepends($module)}) {
-        $self->_saveConfigRecursive($dependency); 
+        $self->_saveConfigRecursive($dependency);
     }
 
     my $modInstance = EBox::Global->modInstance($module);
@@ -214,14 +214,14 @@ sub setAsChanged
 #
 # Method: makeBackup
 #
-#   restores the module state from a backup	
+#   restores the module state from a backup
 #
 # Parameters:
 #  dir - directory used for the backup operation
 #  (named parameters following)
 #  fullBackup - wether we want to do a full restore as opposed a configuration-only restore (default: false)
-# bug - wether we are making a bug report instead of a normal backup 
-sub makeBackup # (dir, %options) 
+# bug - wether we are making a bug report instead of a normal backup
+sub makeBackup # (dir, %options)
 {
   my ($self, $dir, %options) = @_;
   defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
@@ -249,9 +249,9 @@ sub extendedBackup
 # Parameters:
 #    $dir - directory used for the restore/backup operation
 #
-# Returns: 
+# Returns:
 #    the path to the directory used by the module to dump or restore his state
-# 
+#
 sub backupDir
 {
   my ($self, $dir) = @_;
@@ -267,7 +267,7 @@ sub backupDir
 
 # Private method: _createBackupDir
 #   creates a directory to dump or restore files containig the module state. If there are already a apropiate directory, it simply returns the path of this directory
-#   		
+#
 #
 # Parameters:
 #     $dir - directory used for the restore/backup operation
@@ -294,14 +294,14 @@ sub _createBackupDir
 #
 # Method: restoreBackup
 #
-#   restores the module state from a backup	
+#   restores the module state from a backup
 #
 # Parameters:
-#  dir - directory used for the restore operation 
+#  dir - directory used for the restore operation
 #  (named parameters following)
 #  fullRestore - wether we want to do a full restore as opposed a configuration-only restore (default: false)
 #
-sub restoreBackup # (dir, %options) 
+sub restoreBackup # (dir, %options)
 {
   my ($self, $dir, %options) = @_;
   defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
@@ -340,12 +340,12 @@ sub _bak_file_from_dir
 #
 # Method: restoreDependencies
 #
-#   this method should be override by any module that depends on another module/s  to be restored from a backup 
+#   this method should be override by any module that depends on another module/s  to be restored from a backup
 #
 # Returns:
 #	a reference to a list with the names of required eBox modules for a sucesful restore. (default: none)
 #
-# 
+#
 sub restoreDependencies
 {
   my ($self) = @_;
@@ -396,7 +396,7 @@ sub aroundDumpConfig
 #   from the backup file. Those files are the same were created with
 #   dumpConfig
 #
-# Parameters: 
+# Parameters:
 #  dir - Directory where are located the backup files
 #        (without the trailing slash)
 #
@@ -410,7 +410,7 @@ sub restoreConfig
 #
 # wraps the restoreConfig call; the purpose of this sub is to allow specila
 # types of modules (GConfModule p.e) to call another method alongside with
-# restoreConfig transparently 
+# restoreConfig transparently
 # normally ebox modules does not need to override this
 #
 # Parameters:
@@ -425,13 +425,13 @@ sub aroundRestoreConfig
 
 # Method: initChangedState
 #
-#    called before module is in the changed state. 
+#    called before module is in the changed state.
 sub initChangedState
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    $global->modIsChanged($self->name) and 
+    $global->modIsChanged($self->name) and
         throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
 }
 
@@ -459,7 +459,7 @@ sub name
 #
 #      	name - module name
 #
-sub setName # (name) 
+sub setName # (name)
 {
 	my $self = shift;
 	my $name = shift;
@@ -510,7 +510,7 @@ sub setPrintableName
 #
 # Method: title
 #
-#	Returns the module title of the current module instance   
+#	Returns the module title of the current module instance
 #
 # Returns:
 #
@@ -535,7 +535,7 @@ sub title
 #
 #      	title - module title
 #
-sub setTitle # (title) 
+sub setTitle # (title)
 {
 	my ($self,$title) = @_;
 	$self->{title} = $title;
@@ -560,10 +560,10 @@ sub actionMessage
 }
 
 #
-# Method: menu 
+# Method: menu
 #
-#	This method returns the menu for the module. What it returns 
-#	it will be added up to the interface's menu. It should be 
+#	This method returns the menu for the module. What it returns
+#	it will be added up to the interface's menu. It should be
 #	overriden by subclasses as needed
 sub menu
 {
@@ -574,7 +574,7 @@ sub menu
 #
 # Method: widgets
 #
-#	Return the widget names for the module. It should be overriden by 
+#	Return the widget names for the module. It should be overriden by
 #	subclasses as needed
 #
 # Returns:
@@ -646,9 +646,9 @@ sub statusSummary
 }
 
 #
-# Method: domain 
+# Method: domain
 #
-#	Returns the locale domain for the current module instance 
+#	Returns the locale domain for the current module instance
 #
 # Returns:
 #
@@ -665,13 +665,13 @@ sub domain
 	}
 }
 
-# Method: package 
+# Method: package
 #
-#	Returns the package name 
+#	Returns the package name
 #
 # Returns:
 #
-#      	strings - package name 
+#      	strings - package name
 #
 # TODO Change domain  for package which
 # is more general. But we must ensure no module uses it directly
@@ -683,13 +683,13 @@ sub package
 }
 
 #
-# Method: pidRunning 
+# Method: pidRunning
 #
 #	Checks if a PID is running
 #
 # Parameters:
-#	
-#	pid - PID number 
+#
+#	pid - PID number
 #
 # Returns:
 #
@@ -705,12 +705,12 @@ sub pidRunning
 }
 
 #
-# Method: pidFileRunning 
+# Method: pidFileRunning
 #
 #	Given a file holding a PID, it gathers it and checks if it's running
 #
 # Parameters:
-#	
+#
 #	file - file name
 #
 # Returns:
@@ -800,8 +800,8 @@ sub _regenConfig
 
 # Method: writeConfFileNoCheck
 #
-#    It executes a given mason component with the passed parameters over 
-#    a file. It becomes handy to set configuration files for services. 
+#    It executes a given mason component with the passed parameters over
+#    a file. It becomes handy to set configuration files for services.
 #    Also, its file permissions will be kept.
 #    It is called as class method.
 #    XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
@@ -833,8 +833,15 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
 
     my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::stubs,
                                           out_method => sub { $fh->print($_[0]) });
-    my $comp = $interp->make_component(comp_file =>
+    my $comp;
+
+    try {
+        $comp = $interp->make_component(comp_file =>
                                          EBox::Config::stubs . "/" . $compname);
+    } otherwise {
+        my $ex = shift;
+        throw EBox::Exceptions::Internal("Template $compname failed with $ex");
+    };
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not
     # scare users. New mason version fixes this issue
@@ -852,7 +859,7 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     my $uid;
     my $gid;
     if ((not defined($defaults)) and (my $st = stat($file))) {
-        $mode= sprintf("%04o", $st->mode & 07777); 
+        $mode= sprintf("%04o", $st->mode & 07777);
         $uid = $st->uid;
         $gid = $st->gid;
 
@@ -902,7 +909,7 @@ sub writeFile # (file, data, defaults)
     my $uid;
     my $gid;
     if ((not defined($defaults)) and (my $st = stat($file))) {
-        $mode= sprintf("%04o", $st->mode & 07777); 
+        $mode= sprintf("%04o", $st->mode & 07777);
         $uid = $st->uid;
         $gid = $st->gid;
 
