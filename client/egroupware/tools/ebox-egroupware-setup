@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
 
@@ -12,7 +12,7 @@ cd /usr/share/egroupware/setup
 ./setup-cli.php --config default,ebox --backup-dir /var/lib/egroupware/default/backup
 ./setup-cli.php --config default,ebox --temp-dir /tmp
 
-./setup-cli.php --config default,ebox --account-auth ldap,ldap --ldap-host 127.0.0.1 --ldap-root-dn "cn=admin,dc=ebox" --ldap-root-pw $LDAP_PASS --ldap-context "ou=Users,dc=ebox" --ldap-group-context "ou=Groups,dc=ebox"
+./setup-cli.php --config default,ebox --account-auth ldap,ldap --ldap-host 127.0.0.1 --ldap-root-dn $ROOT_DN --ldap-root-pw $LDAP_PASS --ldap-context $USERS_DN --ldap-group-context $GROUPS_DN
 
 ./setup-cli.php --config default,ebox --smtpserver localhost --postfix yes
 

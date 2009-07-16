@@ -25,8 +25,6 @@ use EBox::MailUserLdap;
 
 use base qw(EBox::LdapUserBase);
 
-use constant SCHEMAS => ('/etc/ldap/schema/ebox-egw-account.schema');
-
 sub new
 {
     my $class = shift;
@@ -233,26 +231,9 @@ sub _delGroup
     # TODO: Implement also _delGroupWarning ??
 }
 
-# Method: _includeLDAPSchemas
-#
-#   Those modules which need to use their own LDAP schemas must implement
-#   this method. It must return an array with LDAP schemas.
-#
-# Returns:
-#
-#       an array ref - containing in each element the full path of the schema
-#       schema file to be include
-sub _includeLDAPSchemas
+sub schemas
 {
-    my ($self) = @_;
-
-    unless ($self->{'egroupware'}->configured()) {
-        return [];
-    }
-
-    my @schemas = SCHEMAS;
-
-    return \@schemas;
+    return [ EBox::Config::share() . "ebox-egroupware/ebox-egw-account.ldif" ];
 }
 
 sub setHasAccount #($username, [01]) 0=disable, 1=enable

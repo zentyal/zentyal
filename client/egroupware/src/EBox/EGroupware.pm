@@ -125,12 +125,6 @@ sub usedFiles
                         'reason' => __('To allow local access to egroupware database')
                       });
 
-    push (@usedFiles, {
-                        'file' => '/etc/ldap/slapd.conf',
-                        'reason' => __('To add a new schema'),
-                        'module' => 'users'
-                      });
-
     return \@usedFiles;
 }
 
@@ -142,6 +136,8 @@ sub enableActions
 {
     my ($self) = @_;
 
+    $self->performLDAPActions();
+
     # Generate password
     EBox::Sudo::root(EBox::Config::share() .
                     '/ebox-egroupware/ebox-init-egroupware init');
@@ -149,8 +145,13 @@ sub enableActions
     # Write the generated password
     $self->_setConf();
 
+    my $users = EBox::Global->modInstance('users');
+    my $usersDn = $users->usersDn();
+    my $groupsDn = $users->groupsDn();
+    my $rootDn = $self->ldap->rootDn();
+
     EBox::Sudo::root(EBox::Config::share() .
-                     '/ebox-egroupware/ebox-egroupware-enable');
+                     "/ebox-egroupware/ebox-egroupware-enable $rootDn $usersDn $groupsDn");
 
     # Install all languages by default
     EBox::Sudo::root(EBox::Config::share() .
