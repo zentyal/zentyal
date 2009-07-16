@@ -145,19 +145,8 @@ sub enableActions
     # Write the generated password
     $self->_setConf();
 
-    my $users = EBox::Global->modInstance('users');
-    my $usersDn = $users->usersDn();
-    my $groupsDn = $users->groupsDn();
-    my $rootDn = $self->ldap->rootDn();
-    my $ldapHost = '127.0.0.1:';
-    if ($users->isMaster()) {
-        $ldapHost .= $self->ldap->ldapConf->{'port'};
-    } else {
-        $ldapHost .= $self->ldap->ldapConf->{'replicaport'};
-    }
-
     EBox::Sudo::root(EBox::Config::share() .
-                     "/ebox-egroupware/ebox-egroupware-enable $ldapHost $rootDn $usersDn $groupsDn");
+                     '/ebox-egroupware/ebox-egroupware-enable');
 
     # Install all languages by default
     EBox::Sudo::root(EBox::Config::share() .

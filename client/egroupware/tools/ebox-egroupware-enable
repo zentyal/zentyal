@@ -1,10 +1,5 @@
 #!/bin/sh
 
-export LDAP_HOST=$1
-export ROOT_DN=$2
-export USERS_DN=$3
-export GROUPS_DN=$4
-
 EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
 
 PASS=`cat $EGROUPWARE_DB_PASS`

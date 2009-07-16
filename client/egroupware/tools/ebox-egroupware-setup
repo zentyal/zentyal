@@ -1,27 +1,72 @@
-#!/bin/bash
+#!/usr/bin/perl
 
-LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-cd /usr/share/egroupware/setup
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
 
-./setup-cli.php --install default,ebox
+use strict;
+use warnings;
 
-./setup-cli.php --config default,ebox --webserver-url /egroupware
+chdir ('/usr/share/egroupware/setup');
 
-./setup-cli.php --config default,ebox --files-dir /var/lib/egroupware/default/files
-./setup-cli.php --config default,ebox --backup-dir /var/lib/egroupware/default/backup
-./setup-cli.php --config default,ebox --temp-dir /tmp
+EBox::Sudo::root('./setup-cli.php --install default,ebox');
 
-./setup-cli.php --config default,ebox --account-auth ldap,ldap --ldap-host "$LDAP_HOST" --ldap-root-dn "$ROOT_DN" --ldap-root-pw "$LDAP_PASS" --ldap-context "$USERS_DN" --ldap-group-context "$GROUPS_DN"
+my $configCmd = './setup-cli.php --config default,ebox';
+my @cmds;
+push (@cmds, "$configCmd --webserver-url /egroupware");
+push (@cmds, "$configCmd --files-dir /var/lib/egroupware/default/files");
+push (@cmds, "$configCmd --backup-dir /var/lib/egroupware/default/backup");
+push (@cmds, "$configCmd --backup-dir /var/lib/egroupware/default/backup");
+push (@cmds, "$configCmd --temp-dir /tmp");
+push (@cmds, "$configCmd --smtpserver localhost --postfix yes");
+EBox::Sudo::root(@cmds);
 
-./setup-cli.php --config default,ebox --smtpserver localhost --postfix yes
+my $users = EBox::Global->modInstance('users');
+my $ldap = $users->ldap();
+my $usersDn = $users->usersDn();
+my $groupsDn = $users->groupsDn();
+my $rootDn = $ldap->rootDn();
+my $ldapPass = $ldap->getPassword();
+my $ldapHost = '127.0.0.1:';
+if ($users->isMaster()) {
+    $ldapHost .= $ldap->ldapConf->{'port'};
+} else {
+    $ldapHost .= $ldap->ldapConf->{'replicaport'};
+}
 
-# Back to the previous directory
-cd -
+my $ldapCmd = "$configCmd --account-auth ldap,ldap "
+            . "--ldap-host $ldapHost "
+            . "--ldap-root-dn $rootDn "
+            . "--ldap-root-pw $ldapPass "
+            . "--ldap-context $usersDn "
+            . "--ldap-group-context $groupsDn";
+my $output = EBox::Sudo::silentRoot($ldapCmd);
+unless ($? == 0) {
+    my $error = join ("\n", @{$output});
+    EBox::error("ebox-egroupware LDAP config error\n: $error");
+}
 
 # Set minimum account id
-su postgres -c "psql egroupware -c \"INSERT INTO egw_config VALUES ('phpgwapi','account_min_id',2001)\""
+my $psqlCmd = "psql egroupware -c \"INSERT INTO egw_config VALUES ('phpgwapi','account_min_id',2001)\"";
+EBox::Sudo::sudo($psqlCmd, 'postgres');
 
 # Set default preferences (some egroupware apps doesn't work if they are not set)
-su postgres -c "psql egroupware -c \"INSERT INTO egw_preferences VALUES (-2, 'common', 'a:6:{s:12:\\\"template_set\\\";s:6:\\\"jerryr\\\";s:5:\\\"theme\\\";s:6:\\\"jerryr\\\";s:9:\\\"tz_offset\\\";s:1:\\\"0\\\";s:10:\\\"dateformat\\\";s:5:\\\"m/d/Y\\\";s:10:\\\"timeformat\\\";s:2:\\\"24\\\";s:11:\\\"default_app\\\";s:4:\\\"home\\\";}');\""
+$psqlCmd = "psql egroupware -c \"INSERT INTO egw_preferences VALUES (-2, 'common', 'a:6:{s:12:\\\"template_set\\\";s:6:\\\"jerryr\\\";s:5:\\\"theme\\\";s:6:\\\"jerryr\\\";s:9:\\\"tz_offset\\\";s:1:\\\"0\\\";s:10:\\\"dateformat\\\";s:5:\\\"m/d/Y\\\";s:10:\\\"timeformat\\\";s:2:\\\"24\\\";s:11:\\\"default_app\\\";s:4:\\\"home\\\";}');\"";
+EBox::Sudo::sudo($psqlCmd, 'postgres');
 
+1;
