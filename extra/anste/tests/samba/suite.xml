@@ -613,6 +613,17 @@
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
 
+    <test type="selenium">
+        <name>SetPDCAdmin</name>
+        <desc>
+        Set administration rights to admin user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-admin</dir>
+        <var name="USERNAME" value="admin"/>
+    </test>
+
     <test>
         <name>TestJoinWithDisabledPDC</name>
         <desc>Test net join with PDC disabled</desc>
@@ -621,8 +632,8 @@
         <dir>test-join</dir>
 
         <assert>failed</assert>
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
     </test>
 
     <test type="selenium">
@@ -637,14 +648,27 @@
     </test>
 
     <test>
+        <name>TestJoinWithNonAdminUser</name>
+        <desc>Test net join with a non-admin user</desc>
+
+        <host>ebox-server</host>
+        <dir>test-join</dir>
+
+        <assert>failed</assert>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
+
+    <test>
         <name>TestJoinWithEnabledPDC</name>
         <desc>Test net join with PDC enabled</desc>
 
         <host>ebox-server</host>
         <dir>test-join</dir>
 
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
     </test>
 
 <!-- Aditional master-slave tests -->
@@ -1474,6 +1498,20 @@
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
 
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveSetPDCAdmin</name>
+        <desc>
+        Set administration rights to admin user.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-admin</dir>
+        <var name="USERNAME" value="admin"/>
+    </test>
+
     <test>
         <precondition var="master-slave" eq="1"/>
         <precondition var="multi-slave" eq="1"/>
@@ -1485,8 +1523,8 @@
         <dir>test-join</dir>
 
         <assert>failed</assert>
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
     </test>
 
     <test type="selenium">
@@ -1507,14 +1545,30 @@
         <precondition var="master-slave" eq="1"/>
         <precondition var="multi-slave" eq="1"/>
 
+        <name>MultiSlaveTestJoinWithNonAdminUser</name>
+        <desc>Test net join with a non-admin user</desc>
+
+        <host>ebox-server</host>
+        <dir>test-join</dir>
+
+        <assert>failed</assert>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
         <name>MultiSlaveTestJoinWithEnabledPDC</name>
         <desc>Test net join with PDC enabled</desc>
 
         <host>ebox-slave2</host>
         <dir>test-join</dir>
 
-        <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
     </test>
 
 <!-- Aditional master-slave tests -->
