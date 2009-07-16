@@ -574,16 +574,39 @@
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
 
-<!--     <test type="selenium"> -->
-<!--         <name>EnablePDC</name> -->
-<!--         <desc> -->
-<!--         Enable PDC. -->
-<!--         </desc> -->
+    <test>
+        <name>TestJoinWithDisabledPDC</name>
+        <desc>Test net join with PDC disabled</desc>
 
-<!--         <host>ebox-server</host> -->
-<!--         <dir>toggle-pdc</dir> -->
-<!--         <var name="PDC_ACTION" value="check"/> -->
-<!--     </test> -->
+        <host>ebox-server</host>
+        <dir>test-join</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnablePDC</name>
+        <desc>
+        Enable PDC.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>toggle-pdc</dir>
+        <var name="PDC_ACTION" value="check"/>
+    </test>
+
+    <test>
+        <name>TestJoinWithEnabledPDC</name>
+        <desc>Test net join with PDC enabled</desc>
+
+        <host>ebox-server</host>
+        <dir>test-join</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
 
 <!-- Aditional master-slave tests -->
 

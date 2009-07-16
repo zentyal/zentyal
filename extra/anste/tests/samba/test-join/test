@@ -1,0 +1,3 @@
+#!/bin/sh
+
+net join -U "$USER%$PASS"
