@@ -71,4 +71,29 @@
             <script>ebox-wait-start.sh</script>
         </post-install>
     </host>
+
+    <host>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>ebox-slave2</name>
+        <desc>eBox second slave.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <address>192.168.2.100</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="static">
+                <name>eth2</name>
+                <address>192.168.3.100</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
 </scenario>

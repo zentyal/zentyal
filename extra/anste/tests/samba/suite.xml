@@ -45,6 +45,21 @@
         <var name="PASSWORD" value="ebox-foobar"/>
     </test>
 
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>SetSlave2</name>
+        <desc>
+        Configure eBox as LDAP slave of ebox-master and set the password.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>set-slave</dir>
+        <var name="IP" value="192.168.2.169"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
 <!-- end if -->
 
     <test type="selenium">
@@ -749,7 +764,7 @@
     <test>
         <precondition var="master-slave" eq="1"/>
 
-        <name>MasterSlaveStartApache2</name>MasterSlave
+        <name>MasterSlaveStartApache2</name>
         <desc>
         Start ebox apache on the slave.
         </desc>
@@ -762,7 +777,7 @@
     <test type="selenium">
         <precondition var="master-slave" eq="1"/>
 
-        <name>MasterSlaveForceSync2</name>MasterSlave
+        <name>MasterSlaveForceSync2</name>
         <desc>
         Force sync of operations pending.
         </desc>
@@ -788,6 +803,871 @@
         <precondition var="master-slave" eq="1"/>
 
         <name>MasterSlaveCheckNoPendingSync2</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
+    </test>
+
+<!-- multi-slave tests (all tests repeated on the second slave) -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveEnableModules</name>
+        <desc>
+        Enables network, firewall, users and samba modules.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveConfigNetwork</name>
+        <desc>
+        Set the interface as external.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveDisablePDC</name>
+        <desc>
+        Disable PDC.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>toggle-pdc</dir>
+        <var name="PDC_ACTION" value="uncheck"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveChangeDefaultQuota</name>
+        <desc>
+        Changes the default quota to 1MB.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>change-default-quota</dir>
+
+        <var name="QUOTA" value="1"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestQuota</name>
+        <desc>Try to put a 4MB file in the user share and ensure
+        this cannot be done.
+        </desc>
+
+        <assert>failed</assert>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_DISK_FULL"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveChangeUserQuota</name>
+        <desc>
+        Changes the user quota to 15MB.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>set-user-quota</dir>
+
+        <var name="USERNAME" value="foo"/>
+        <var name="QUOTA" value="15"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestUserShareWrite</name>
+        <desc>Puts a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestUserShareRead</name>
+        <desc>Gets a file into the created user account</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveAddEboxShare</name>
+        <desc>
+        Adds a share under ebox directory and
+        restore quota to 100mb.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-ebox-share</dir>
+        <var name="SHARE" value="foobar"/>
+        <var name="SHARE_PATH" value="foobar"/>
+        <var name="TYPE" value="ebox"/>
+        <var name="TYPE_LABEL" value="Directory under eBox"/>
+        <var name="QUOTA" value="100"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareWriteNoPerm</name>
+        <desc>Write to a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+        <var name="SHARE" value="foobar"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadNoPerm</name>
+        <desc>Read from a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantEboxShareReadWrite</name>
+        <desc>
+        Grant read/write perms to the created user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Read and write"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareWriteWithReadWrite</name>
+        <desc>Write to a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadWithReadWrite</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantEboxShareReadOnly</name>
+        <desc>
+        Grant read only perms to the created user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>update-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Read only"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareWriteWithReadOnly</name>
+        <desc>Write to a share with ReadOnly perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadWithReadOnly</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadWithReadOnlyBadLogin</name>
+        <desc>
+        Try to read from a share with read/write perms
+        with incorrect password.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantEboxShareAdmin</name>
+        <desc>
+        Grant administrator perms to the new user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="PERM_LABEL" value="Administrator"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareWriteAdmin</name>
+        <desc>Write to a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadAdmin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareReadAdminBadLogin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="badpass"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveAddFileSystemShare</name>
+        <desc>
+        Adds a file system share.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-fs-share</dir>
+        <var name="SHARE" value="myshare"/>
+        <var name="SHARE_PATH" value="/myshare"/>
+        <var name="TYPE" value="system"/>
+        <var name="TYPE_LABEL" value="File system path"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareWriteNoPerm</name>
+        <desc>Write to a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+        <var name="SHARE" value="myshare"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareReadNoPerm</name>
+        <desc>Read from a share without perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantFileSystemShareReadWrite</name>
+        <desc>
+        Grant read/write perms to the created user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Read and write"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareWriteWithReadWrite</name>
+        <desc>Write to a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareWriteWithReadWriteBadLogin</name>
+        <desc>Write to a share with read/write perms with bad password</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="bar"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_LOGON_FAILURE"/>
+
+        <assert>failed</assert>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareReadWithReadWrite</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantFileSystemShareReadOnly</name>
+        <desc>
+        Grant read only perms to the created user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>update-share-perms</dir>
+        <var name="USER" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Read only"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareWriteWithReadOnly</name>
+        <desc>Write to a share with ReadOnly perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareReadWithReadOnly</name>
+        <desc>Read from a share with read/write perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveGrantFileSystemShareAdmin</name>
+        <desc>
+        Grant administrator perms to the new user.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>add-share-perms</dir>
+        <var name="USER" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="PERM_LABEL" value="Administrator"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareWriteAdmin</name>
+        <desc>Write to a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientFileSystemShareReadAdmin</name>
+        <desc>Read from a share with admin perms</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <var name="USER" value="admin"/>
+        <var name="PASS" value="admin"/>
+        <var name="SHARE" value="myshare"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveDeleteEboxShare</name>
+        <desc>
+        Delete share under eBox and expect confirmation because
+        directory is not empty.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>delete-ebox-share</dir>
+        <var name="SHARE" value="foobar"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareDeletedWrite</name>
+        <desc>Write to a share that has been deleted</desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSmbClientEboxShareDeletedRead</name>
+        <desc>Read from a share that has been deleted</desc>
+
+        <host>test-client</host>
+        <dir>test-read</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+        <var name="SHARE" value="foobar"/>
+        <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestJoinWithDisabledPDC</name>
+        <desc>Test net join with PDC disabled</desc>
+
+        <host>ebox-slave2</host>
+        <dir>test-join</dir>
+
+        <assert>failed</assert>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveEnablePDC</name>
+        <desc>
+        Enable PDC.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>toggle-pdc</dir>
+        <var name="PDC_ACTION" value="check"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestJoinWithEnabledPDC</name>
+        <desc>Test net join with PDC enabled</desc>
+
+        <host>ebox-slave2</host>
+        <dir>test-join</dir>
+
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="foo"/>
+    </test>
+
+<!-- Aditional master-slave tests -->
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveStopApache</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveChangePassword</name>
+        <desc>
+        Change a password of a user in the master while
+        the slave is down or change it in the only
+        ebox if we're not using master/slave.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>change-password</dir>
+        <var name="USERNAME" value="foo"/>
+        <var name="PASSWORD" value="baz"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveCheckPendingSync</name>
+        <desc>
+        Check if user foo has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-slave2"/>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveStartApache</name>
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveForceSync</name>
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveCheckNoPendingSync</name>
+        <desc>
+        Check if there are no pending operations.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-no-pending</dir>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveTestSambaAfterPasswordChanged</name>
+        <desc>Checks if the user is </desc>
+
+        <host>test-client</host>
+        <dir>test-write</dir>
+        <var name="USER" value="foo"/>
+        <var name="PASS" value="baz"/>
+        <var name="SHARE" value="foo"/>
+        <var name="ERROR" value="NT_"/>
+    </test>
+
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveStopApache2</name>
+        <desc>
+        Stop ebox apache on the slave.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="stop"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveDeleteUser</name>
+        <desc>Deletes an user through the ebox web interface
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>delete-user</dir>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveCheckPendingSync2</name>MasterSlave
+        <desc>
+        Check if slavedownuser has operation pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>check-operation-pending</dir>
+        <var name="SLAVE" value="ebox-slave2"/>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveStartApache2</name>
+        <desc>
+        Start ebox apache on the slave.
+        </desc>
+
+        <host>ebox-slave2</host>
+        <dir>apache-updown</dir>
+        <var name="ACTION" value="start"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveForceSync2</name>
+        <desc>
+        Force sync of operations pending.
+        </desc>
+
+        <host>ebox-master</host>
+
+        <dir>force-sync</dir>
+    </test>
+
+    <test>
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveCheckDeleteHome</name>
+        <desc>Checks if the home directory has been removed
+        after deleting the user.
+        </desc>
+
+        <host>ebox-slave2</host>
+
+        <dir>check-delete-home</dir>
+        <var name="USERNAME" value="foo"/>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+        <precondition var="multi-slave" eq="1"/>
+
+        <name>MultiSlaveCheckNoPendingSync2</name>
         <desc>
         Check if there are no pending operations.
         </desc>
