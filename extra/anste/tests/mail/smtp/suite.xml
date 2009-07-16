@@ -85,7 +85,7 @@
     </test>
 
     <test type="selenium">
-        <name>SetTSLOff</name>
+        <name>SetTLSOff</name>
         <desc>
         Disable tls checkbox.
         </desc>
@@ -98,7 +98,7 @@
 <!-- Tests without either TLS or authorization -->
 
     <test>
-        <name>Test-SMTP-NoAuth-NoTSL</name>
+        <name>Test-SMTP-NoAuth-NoTLS</name>
         <desc>Checks if mail reception for a domain account works.</desc>
 
         <host>test-client</host>
@@ -107,13 +107,13 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="0"/>
+        <var name="TLS" value="0"/>
     </test>
 
     <test>
-        <name>Test-SMTP-NoAuth-NoTSL-NoTSLAllowed</name>
+        <name>Test-SMTP-NoAuth-NoTLS-NoTLSAllowed</name>
         <desc>
-        Checks if mail reception with TSL for a domain account fails when TSL is disabled
+        Checks if mail reception with TLS for a domain account fails when TLS is disabled
 
         </desc>
 
@@ -123,15 +123,15 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
 
         <var name="LOOK_FOR" value="ERROR => TLS not possible"/>
     </test>
 
    <test>
-        <name>Test-SMTP-NoAuth-NoTSL-NoAuthAllowed</name>
+        <name>Test-SMTP-NoAuth-NoTLS-NoAuthAllowed</name>
         <desc>
-        Checks if mail relaying using authorization  fails when TSL is disabled
+        Checks if mail relaying using authorization  fails when TLS is disabled
 
         </desc>
 
@@ -141,7 +141,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="0"/>
+        <var name="TLS" value="0"/>
 
         <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
         <var name="AUTH_PASSWD" value="eboxtest"/>
@@ -154,7 +154,7 @@
 <!-- Tests with TLS and no authorization -->
 
     <test type="selenium">
-        <name>SetTSLOn</name>
+        <name>SetTLSOn</name>
         <desc>
         Toggles authentication checkbox.
         </desc>
@@ -165,9 +165,9 @@
     </test>
 
         <test>
-        <name>Test-SMTP-NoAuth-TSL-NeedTSL</name>
+        <name>Test-SMTP-NoAuth-TLS-NeedTLS</name>
         <desc>
-        Checks if mail reception for a domain account requires TSL when TSL isoption is enabled
+        Checks if mail reception for a domain account requires TLS when TLS isoption is enabled
         </desc>
 
         <host>test-client</host>
@@ -176,16 +176,16 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="0"/>
+        <var name="TLS" value="0"/>
 
 
         <assert>failed</assert>
     </test>
 
    <test>
-        <name>Test-SMTP-NoAuthTSL-NoAuthAllowed</name>
+        <name>Test-SMTP-NoAuthTLS-NoAuthAllowed</name>
         <desc>
-        Checks if mail relay with authorization for a domain account fails when TSL is enabled and authorizartion disabled
+        Checks if mail relay with authorization for a domain account fails when TLS is enabled and authorizartion disabled
 
         </desc>
 
@@ -195,7 +195,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
 
         <var name="LOOK_FOR" value="Relay access denied"/>
 
@@ -207,7 +207,7 @@
 
 
     <test>
-        <name>Test-SMTP-NoAuth-TSL</name>
+        <name>Test-SMTP-NoAuth-TLS</name>
         <desc>Checks if mail reception for a domain account works.</desc>
 
         <host>test-client</host>
@@ -216,7 +216,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
 
         <var name="SLEEP" value="0"/>
     </test>
@@ -236,7 +236,7 @@
     </test>
 
     <test>
-        <name>Test-SMTP-Auth-TSL</name>
+        <name>Test-SMTP-Auth-TLS</name>
         <desc>Checks if mail domain account can receive mail
               after the authorization is enabled
         </desc>
@@ -247,7 +247,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
     </test>
 
     <test type="selenium">
@@ -272,7 +272,7 @@
     </test>
 
  <!--    <test type="selenium"> -->
-<!--         <name>SetTSLOffSMTP</name> -->
+<!--         <name>SetTLSOffSMTP</name> -->
 <!--         <desc> -->
 <!--         Toggles tls checkbox. -->
 <!--         </desc> -->
@@ -313,7 +313,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
 
         <var name="LOOK_FOR" value="Relay access denied" />
 
@@ -332,7 +332,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
         <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
         <var name="AUTH_PASSWD" value="eboxtest"/>
     </test>
@@ -349,7 +349,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
         <var name="AUTH_USER"   value="eboxtest@foobar.mail"/>
         <var name="AUTH_PASSWD" value="wrongPassword"/>
 
@@ -379,7 +379,7 @@
         <var name="FROM" value="eboxtest@foobar.mail"/>
         <var name="TO" value="receiver@mail.ebox-smtp"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="1"/>
+        <var name="TLS" value="1"/>
     </test>
 
     <test>
@@ -438,7 +438,7 @@
         <var name="FROM" value="spamer@foo.bar"/>
         <var name="TO" value="eboxtest@foobar.mail"/>
         <var name="TEXT" value="Cool"/>
-        <var name="TSL" value="0"/>
+        <var name="TLS" value="0"/>
     </test>
 
     <test>

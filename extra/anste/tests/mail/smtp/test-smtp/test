@@ -4,7 +4,7 @@
 my $TO     = $ENV{TO};
 my $FROM   = $ENV{FROM};
 my $TEXT   = $ENV{TEXT};
-my $TSL    = $ENV{TSL};
+my $TLS    = $ENV{TLS};
 my $SERVER = $ENV{SERVER};
 my $AUTH_USER   = $ENV{AUTH_USER};
 my $AUTH_PASSWD = $ENV{AUTH_PASSWD};
@@ -20,10 +20,10 @@ defined $SLEEP or
     $SLEEP = 100;
 
 my $cmd = "sendEmail -v -f $FROM -t $TO -u '$TEXT' -m '$TEXT' -s $SERVER ";
-if ($TSL) {
+if ($TLS) {
     $cmd .= ' -o tls=yes';
 } else {
-    $cmd .= ' -o tls=no';    
+    $cmd .= ' -o tls=no';
 }
 
 if ($AUTH_USER) {
