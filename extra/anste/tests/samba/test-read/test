@@ -7,14 +7,14 @@ LOG=/tmp/smbclient-test-$$.log
 sleep 5
 
 echo "Trying to get test.bin"
-smbclient "\\\\192.168.2.1\\$SHARE" $PASS -U $USER -c 'get test.bin' > $LOG 2>&1
+smbclient "\\\\$SERVER\\$SHARE" $PASS -U $USER -c 'get test.bin' > $LOG 2>&1
 
 cat $LOG
 
 echo "Checking for error $ERROR:"
 grep $ERROR $LOG
 
-if [ $? != 0 -a -f test.bin ] 
+if [ $? != 0 -a -f test.bin ]
 then
     echo "Test ok."
     exit 0

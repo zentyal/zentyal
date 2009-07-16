@@ -131,6 +131,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -156,6 +157,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -167,6 +169,7 @@
 
         <host>test-client</host>
         <dir>test-read</dir>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -197,6 +200,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
@@ -210,6 +214,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -236,6 +241,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -248,6 +254,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -275,6 +282,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -288,6 +296,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -304,6 +313,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
@@ -347,6 +357,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="foobar"/>
@@ -359,6 +370,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="foobar"/>
@@ -371,6 +383,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="badpass"/>
         <var name="SHARE" value="foobar"/>
@@ -401,6 +414,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
@@ -414,6 +428,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -440,6 +455,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -452,6 +468,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
@@ -466,6 +483,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -493,6 +511,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -505,6 +524,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -531,6 +551,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="myshare"/>
@@ -543,6 +564,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="myshare"/>
@@ -569,6 +591,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -583,6 +606,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -714,6 +738,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.1"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="bar"/>
         <var name="SHARE" value="foo"/>
@@ -883,6 +908,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -914,6 +940,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -928,6 +955,7 @@
 
         <host>test-client</host>
         <dir>test-read</dir>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foo"/>
@@ -964,6 +992,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
@@ -980,6 +1009,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1012,6 +1042,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1027,6 +1058,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1060,6 +1092,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1076,6 +1109,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1095,6 +1129,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
@@ -1129,6 +1164,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="foobar"/>
@@ -1144,6 +1180,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="foobar"/>
@@ -1159,6 +1196,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="badpass"/>
         <var name="SHARE" value="foobar"/>
@@ -1195,6 +1233,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
@@ -1211,6 +1250,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -1243,6 +1283,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -1258,6 +1299,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
@@ -1275,6 +1317,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -1308,6 +1351,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -1323,6 +1367,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="myshare"/>
@@ -1355,6 +1400,7 @@
         <host>test-client</host>
         <dir>test-write</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="myshare"/>
@@ -1370,6 +1416,7 @@
         <host>test-client</host>
         <dir>test-read</dir>
 
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="admin"/>
         <var name="PASS" value="admin"/>
         <var name="SHARE" value="myshare"/>
@@ -1402,6 +1449,7 @@
         <dir>test-write</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1419,6 +1467,7 @@
         <dir>test-read</dir>
 
         <assert>failed</assert>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="foo"/>
         <var name="SHARE" value="foobar"/>
@@ -1569,6 +1618,7 @@
 
         <host>test-client</host>
         <dir>test-write</dir>
+        <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
         <var name="PASS" value="baz"/>
         <var name="SHARE" value="foo"/>
