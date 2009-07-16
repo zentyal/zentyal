@@ -444,14 +444,7 @@ sub _setConf
 
     @array = ();
     push(@array, 'basedc'    => $ldapconf->{'dn'});
-    if ($users->isMaster()) {
-        push(@array, 'ldap'     => $ldapconf->{'ldapi'});
-    } else {
-        #use the translucent for NSS configuration
-        #frontend doesn't allow binding because of referrals
-        #replica lacks the updated homeDirectory
-        push(@array, 'ldap'     => ($ldapconf->{'ldap'} . ':1390'));
-    }
+    push(@array, 'ldap'     => $ldapconf->{'ldapi'});
     push(@array, 'binddn'     => $ldapconf->{'rootdn'});
     push(@array, 'bindpw'    => $ldap->getPassword());
     push(@array, 'usersdn'   => $users->usersDn);
