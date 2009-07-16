@@ -934,7 +934,7 @@
         <dir>test-write</dir>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foo"/>
         <var name="ERROR" value="NT_STATUS_DISK_FULL"/>
     </test>
@@ -966,7 +966,7 @@
         <dir>test-write</dir>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foo"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -981,7 +981,7 @@
         <dir>test-read</dir>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foo"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1018,7 +1018,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
         <var name="SHARE" value="foobar"/>
     </test>
@@ -1035,7 +1035,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
@@ -1068,7 +1068,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1084,7 +1084,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1118,7 +1118,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
     </test>
@@ -1135,7 +1135,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1259,7 +1259,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
         <var name="SHARE" value="myshare"/>
     </test>
@@ -1276,7 +1276,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
@@ -1309,7 +1309,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1343,7 +1343,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1377,7 +1377,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
         <var name="ERROR" value="NT_STATUS_ACCESS_DENIED"/>
     </test>
@@ -1393,7 +1393,7 @@
 
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="myshare"/>
         <var name="ERROR" value="NT_"/>
     </test>
@@ -1475,7 +1475,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
@@ -1493,7 +1493,7 @@
         <assert>failed</assert>
         <var name="SERVER" value="192.168.2.100"/>
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
         <var name="SHARE" value="foobar"/>
         <var name="ERROR" value="NT_STATUS_BAD_NETWORK_NAME"/>
     </test>
@@ -1554,7 +1554,7 @@
         <assert>failed</assert>
 
         <var name="USER" value="foo"/>
-        <var name="PASS" value="foo"/>
+        <var name="PASS" value="bar"/>
     </test>
 
     <test>
