@@ -16,6 +16,19 @@
 #As of DansGuardian 2.7.3 you can now include
 #.tld so for example you can match .gov for example
 
+
+# Blanket SSL/CONNECT exception.  To allow all SSL 
+# and CONNECT tunnels except to addresses in the
+# exceptionsitelist and greysitelist files, remove
+# the # from the next line to leave only a '**s':
+**s
+
+# Blanket SSL/CONNECT IP exception.  To allow all SSL and CONNECT
+# tunnels to sites specified only as an IP,
+# remove the # from the next line to leave only a '*ips':
+*ips
+
+
 % foreach my $domain (@domains) {
 <% $domain %>
 	
