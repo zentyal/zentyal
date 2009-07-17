@@ -1,7 +1,7 @@
 1.1.30
 	+ Added to Traffic details report _noAggregateFileds and fixed bug
 	with defaultController
-
+	+ Bugfix: HTTPS traffic tunneled correctly 
 1.1.20
 	+ Disable PICs ratings by default
 	+ logs are sesrchable by user
