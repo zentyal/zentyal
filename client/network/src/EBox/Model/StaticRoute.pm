@@ -79,6 +79,15 @@ sub validateTypedRow
         $netMod->gatewayReachable($changedFields->{gateway}->value(),
                                   $changedFields->{gateway}->printableName());
     }
+    # As we cannot clone the oldRow, we just keep the old params here
+    if ( $action eq 'update' ) {
+        my $oldRow = $self->row($changedFields->{id});
+        unless ( ($allFields->{gateway}->cmp($oldRow->elementByName('gateway')) == 0)
+                 and ($allFields->{network}->cmp($oldRow->elementByName('network')) == 0)) {
+            $self->{toDelete} = { network => $oldRow->printableValueByName('network'),
+                                  gateway => $oldRow->printableValueByName('gateway') };
+        }
+    }
 
 }
 
@@ -90,14 +99,17 @@ sub validateTypedRow
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $oldRow, $force) = @_;
+    my ($self, $newRow, $force) = @_;
 
     # Check if network or gateway values have changed to delete
     # current route from routing table
-    unless ( $newRow->elementByName('gateway')->cmp($oldRow->elementByName('gateway')) == 0
-             and $newRow->elementByName('network')->cmp($oldRow->elementByName('network')) == 0 ){
-        $self->_addToDelete($oldRow->elementByName('network')->printableValue(),
-                            $oldRow->elementByName('gateway')->printableValue());
+    # The check is done in validateTypedRow
+    if ( exists $self->{toDelete} ) {
+        my $netMod = EBox::Global->modInstance('network');
+        $netMod->gatewayDeleted($self->{toDelete}->{gateway});
+        $self->_addToDelete( $self->{toDelete}->{network},
+                             $self->{toDelete}->{gateway} );
+        delete($self->{toDelete});
     }
 
 }

@@ -1960,15 +1960,15 @@ sub _generateRoutes
 {
     my ($self) = @_;
     # Delete those routes which are not useful anymore
-    $self->_removeRoutes();
     my @routes = @{$self->routes()};
+    $self->_removeRoutes(\@routes);
     (@routes) or return;
     foreach (@routes) {
         my $net = $_->{network};
         my $router = $_->{gateway};
-        if (route_is_up($net, $router)) {
-            root("/sbin/ip route del $net via $router");
-        }
+#         if (route_is_up($net, $router)) {
+#             root("/sbin/ip route del $net via $router");
+#         }
         root("/sbin/ip route add $net via $router table main || true");
     }
 
@@ -1977,8 +1977,29 @@ sub _generateRoutes
 # Remove those static routes which user has marked as deleted
 sub _removeRoutes
 {
-    my ($self) = @_;
+    my ($self, $storedRoutes) = @_;
 
+    # Delete those routes which are not defined by eBox
+    my @currentRoutes = list_routes('viaGateway');
+    foreach my $currentRoute (@currentRoutes) {
+        my $found = 0;
+        foreach my $storedRoute (@{$storedRoutes}) {
+            if ($currentRoute->{network} eq $storedRoute->{network}
+                and $currentRoute->{router} eq $storedRoute->{gateway}) {
+                $found = 1;
+                last;
+            }
+        }
+        # If not found, delete it
+        unless ( $found ) {
+            if ( route_is_up($currentRoute->{network}, $currentRoute->{router}) ) {
+                root('/sbin/ip route del ' . $currentRoute->{network}
+                     . ' via ' . $currentRoute->{router});
+            }
+        }
+    }
+
+    # Return here since we are not able to modify our data
     return if ($self->isReadOnly());
     my $deletedModel = $self->model('DeletedStaticRoute');
     foreach my $id (@{$deletedModel->ids()}) {

@@ -1,3 +1,6 @@
+1.3.2
+	+ Bugfix: Edition and removal routes is working again
+	+ Remove those static routes that they have been manually added
 1.3.1
 	+ bugfix: do not use Net::DNS
 	+ bugfix: used vlan interface can be removed	

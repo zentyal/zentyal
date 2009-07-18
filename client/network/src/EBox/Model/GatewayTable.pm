@@ -211,7 +211,7 @@ sub addedRowNotify
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $oldRow, $force) = @_;
+    my ($self, $newRow, $force) = @_;
 
     if ($newRow->valueByName('default')) {
         my $network = $self->parentModule();
