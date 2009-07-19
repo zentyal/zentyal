@@ -1,0 +1,27 @@
+#!/bin/bash
+
+OUTPUT=/tmp/ldap-foo-$$
+
+echo "Showing LDAP info for domain $DOMAIN..."
+ldapsearch -D 'cn=ebox,dc=localdomain' -w $PASSWORD -b "sambaDomainName=$DOMAIN,dc=localdomain" > $OUTPUT
+cat $OUTPUT
+
+ERRORS=0
+
+echo "Checking if minPwdLength == $MIN_PWD_LEN"
+grep "^sambaMinPwdLength: $MIN_PWD_LEN" $OUTPUT
+ERRORS=$(($ERRORS +  $?))
+
+echo "Checking if maxPwdAge == $MAX_PWD_AGE"
+grep "^sambaMaxPwdAge: $MAX_PWD_AGE" $OUTPUT
+ERRORS=$(($ERRORS +  $?))
+
+echo "Checking if pwdHistoryLength == $PWD_HIST_LEN"
+grep "^sambaPwdHistoryLength: $PWD_HIST_LEN" $OUTPUT
+ERRORS=$(($ERRORS +  $?))
+
+rm $OUTPUT
+
+echo "Number of errors: $ERRORS"
+
+test $ERRORS -eq 0

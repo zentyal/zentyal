@@ -83,6 +83,61 @@
         <var name="IFACE" value="eth2"/>
     </test>
 
+<!-- PDC change attritbutes test (reported bug) -->
+
+    <test type="selenium">
+        <name>SetPDCAttrs</name>
+        <desc>
+        Set PDC password attributes.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-pdc-attrs</dir>
+        <var name="MIN_PWD_LEN" value="4"/>
+        <var name="MAX_PWD_AGE" value="10"/>
+        <var name="PWD_HIST_LEN" value="666"/>
+    </test>
+
+    <test>
+        <name>CheckPDCAttrsBeforeRestart</name>
+        <desc>
+        Check PDC password attributes in LDAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>check-pdc-attrs</dir>
+        <var name="DOMAIN" value="EBOX"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+        <var name="MIN_PWD_LEN" value="4"/>
+        <var name="MAX_PWD_AGE" value="864000"/>
+        <var name="PWD_HIST_LEN" value="666"/>
+    </test>
+
+    <test>
+        <name>SambaRestart</name>
+        <desc>Restart samba to check PDC settings disappearing bug</desc>
+
+        <host>ebox-server</host>
+        <dir>restart-samba</dir>
+    </test>
+
+    <test>
+        <name>CheckPDCAttrsAfterRestart</name>
+        <desc>
+        Check PDC password attributes in LDAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>check-pdc-attrs</dir>
+        <var name="DOMAIN" value="EBOX"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+        <var name="MIN_PWD_LEN" value="4"/>
+        <var name="MAX_PWD_AGE" value="864000"/>
+        <var name="PWD_HIST_LEN" value="666"/>
+    </test>
+
+<!-- End of PDC change attributes test -->
+
     <test type="selenium">
         <name>DisablePDC</name>
         <desc>
