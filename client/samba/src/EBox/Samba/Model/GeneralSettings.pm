@@ -132,6 +132,14 @@ sub _table
             'populate' => \&_drive_letters,
             'editable' => 1,
         ),
+        new EBox::Types::Select(
+                'fieldName' => 'sambaGroup',
+                'printableName' => __('Samba group'),
+                'populate' => \&_samba_group,
+                'editable' => 1,
+                'noCache' => 1,
+                'help' => __('Only users belonging to this group will have a samba account. Sync happens every 15 minutes')
+                ),
     );
     my $dataTable =
     {
@@ -189,6 +197,21 @@ sub _drive_letters
 sub headTitle
 {
         return undef;
+}
+
+sub _samba_group
+{
+    my @groups = ( { value => 1901, printableValue => __('All users') });
+    my $users = EBox::Global->modInstance('users');
+
+    return \@groups unless ($users->configured());
+
+    my @sortedGroups = sort { $a->{account} cmp $b->{account} }  $users->groups();
+    for my $group (@sortedGroups) {
+        push (@groups, { value => $group->{gid}, 
+                printableValue => $group->{account} });
+    }
+    return \@groups;
 }
 
 1;
