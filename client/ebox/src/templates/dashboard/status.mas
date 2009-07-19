@@ -5,29 +5,37 @@
 use EBox::Gettext;
 my $domain = settextdomain('ebox');
 my $status_str;
+my $status_tip_str;
 my $status_class;
 my $restart = __('Restart');
 
 if ( $item->{statusStr} ) {
     $status_str = $item->{statusStr};
 } else {
-    if ($item->{running}) {
+    if ($item->{enabled} and $item->{running}) {
         $status_str = __('Running');
+        $status_tip_str = __('The service is enabled and running');
         $status_class = 'summaryRunning';
-    } elsif ($item->{enabled}) {
+    } elsif ($item->{enabled} and not $item->{running}) {
         $status_str = __('Stopped');
+        $status_tip_str = __('The service is enabled, but not running');
         $status_class = 'summaryStopped';
         $restart = __('Start');
+    } elsif ((not $item->{enabled}) and $item->{running}) {
+        $status_str = __('Running unmanaged');
+        $status_tip_str = __('The service is running, but not enabled in eBox');
+        $status_class = 'summaryDisabled';
     } else {
         $status_str = __('Disabled');
+        $status_tip_str = __('The service is not enabled in eBox');
         $status_class = 'summaryDisabled';
     }
 }
 </%init>
 <tr>
 <td class='summaryKey'><% $item->{printableName} %></td>
-<td class='summaryValue'><span class='sleft'><% $status_str %></span>
-% if (($item->{running} or $item->{enabled}) and not($item->{nobutton})) {
+<td class='summaryValue'><span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
+% if ($item->{enabled} and not $item->{nobutton}) {
 <form action='/ebox/EBox/RestartService'>
     <input type='hidden' name='module' value='<% $item->{module} %>'/>
     <span class='sright'>
