@@ -71,7 +71,7 @@ sub _description
           name            => 'General',
           compositeDomain => 'RemoteServices',
           printableName   => __('Remote services'),
-          help            => __('Remote services from eBox are paid services to '
+          help            => __('eBox Control Center is paid services to '
                                 . 'enhance your eBox experience'),
       };
 

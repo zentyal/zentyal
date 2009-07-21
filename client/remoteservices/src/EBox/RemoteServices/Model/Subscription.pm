@@ -52,7 +52,7 @@ use Error qw(:try);
 
 # Constants
 use constant {
-    EBOX_SERVICES_URL => 'https://www.ebox-services.com',
+    EBOX_SERVICES_URL => 'https://www.ebox-controlcenter.com',
     MAX_LENGTH => 20,
 };
 
