@@ -93,7 +93,7 @@ sub _table
       (
        new EBox::Types::Union(
                                 fieldName     => 'behindNAT',
-                                printableName => __('Asterisk is behind NAT'),
+                                printableName => __('eBox is behind NAT'),
                                 editable      => 1,
                                 subtypes => [
                                     new EBox::Types::Union::Text(
