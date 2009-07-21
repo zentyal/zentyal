@@ -8,13 +8,14 @@ use EBox::Global;
 use EBox::EBackup;
 use EBox::Event;
 use EBox::Config;
+use EBox::Sudo;
 
 use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 
 EBox::init();
 
 my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
-if ( $ebackup->isEnabled() ) {
+if (not $ebackup->isEnabled() ) {
     print "Backup module is disabled\n";
     exit 0;
 
@@ -43,7 +44,8 @@ if ($global->modExists('events')) {
 
 my $path = $model->backupPathValue();
 my $keep = $model->backupKeepValue();
-system("/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep");
+my $backupCmd = "/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep";
+EBox::Sudo::root($backupCmd);
 
 if ($? != 0) {
     if ($watcherActive) {
