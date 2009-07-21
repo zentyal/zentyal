@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image>
+    <name>baseimage-jaunty-ebox</name>
+    <desc>Ubuntu Jaunty with ebox</desc>
+
+    <memory>2000</memory>
+
+    <size>1500</size>
+
+    <install method="debootstrap">
+        <dist>jaunty</dist>
+        <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
+    </install>
+
+    <packages>
+        <package>ssl-cert</package>
+        <package>postfix</package>
+        <package>postgresql</package>
+        <package>apache2-mpm-prefork</package>
+        <profile>ebox</profile>
+    </packages>
+
+    <pre-install>
+        <script>write-jaunty-ebox-sources.sh</script>
+    </pre-install>
+
+    <post-install>
+        <script>ssl-cert-workaround.sh</script>
+        <script>force-package-install.sh</script>
+        <script>add-services-to-ebox-firewall</script>
+        <script>ebox-same-cert.sh</script>
+        <script>ebox-no-login.sh</script>
+        <script>ebox-set-debug-on.sh</script>
+        <script>set-ldap-pass.sh</script>
+    </post-install>
+
+</image>
