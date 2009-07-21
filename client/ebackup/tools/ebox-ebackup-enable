@@ -1,4 +1,0 @@
-#!/bin/bash -x
-
-# install cronjob
-install -m 0755 -o root -g root /usr/share/ebox-ebackup/ebox-ebackup-cron /etc/cron.daily/

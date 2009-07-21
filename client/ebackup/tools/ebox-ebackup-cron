@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-
 use strict;
+use warnings;
 
 use Data::Dumper;
 
@@ -14,28 +14,53 @@ use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 EBox::init();
 
 my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
-my $events = EBox::Global->getInstance(1)->modInstance('events');
+if ( $ebackup->isEnabled() ) {
+    print "Backup module is disabled\n";
+    exit 0;
+
+}
 
 my $model = $ebackup->model('Local');
+if (not $model->backupEnableValue()) {
+    print "local backup not enabled\n";
+    exit 0;
+}
 
-exit unless $events->isRunning();
-exit unless $events->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
 
-if ( $ebackup->configured() and $model->backupEnableValue()) {
-    my $path = $model->backupPathValue();
-    my $keep = $model->backupKeepValue();
-    system("/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep");
+my $watcherActive = 0;
 
-    if ($? != 0) {
+my $global = EBox::Global->getInstance(1);
+if ($global->modExists('events')) {
+    my $events = $global->modInstance('events');
+    if ((defined $events)  and ($events->isRunning())) {
+        $watcherActive = 
+            $events->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
+    }
 
+}
+
+
+
+my $path = $model->backupPathValue();
+my $keep = $model->backupKeepValue();
+system("/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep");
+
+if ($? != 0) {
+    if ($watcherActive) {
         my $event = new EBox::Event(
-                                   message => 'eBox backup failed.',
-                                   source => 'EBackup',
-                                   level => 'error',
-                                   );
+                message => 'eBox backup failed.',
+                source => 'EBackup',
+                level => 'error',
+               );
+        
         open(my $fifo, '+<', EVENTS_FIFO) or die;
         print $fifo Dumper($event);
         close($fifo);
-
+        
     }
+    
+    
+        die 'eBox backup failed';
 }
+
+1;

@@ -1,0 +1,6 @@
+1.3.2
+	+ an active event's  watcher is not longer needed for
+	the cron job
+	+ cron job is written on config regeneration
+
+

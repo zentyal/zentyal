@@ -120,36 +120,6 @@ sub actions
 #    return \@usedFiles;
 #}
 
-
-# Method: enableActions
-#
-# Overrides:
-#
-#      <EBox::ServiceModule::ServiceInterface::enableActions>
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    EBox::Sudo::root(EBox::Config::share() .
-                     '/ebox-ebackup/ebox-ebackup-enable');
-}
-
-
-# Method: enableService
-#
-# Overrides:
-#
-#      <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-}
-
-
 # Method: _setConf
 #
 # Overrides:
@@ -159,6 +129,9 @@ sub enableService
 sub _setConf
 {
     my ($self) = @_;
+    # install cronjob
+    my $cronFile = EBox::Config::share() . '/ebox-ebackup/ebox-ebackup-cron';
+    EBox::Sudo::root("install -m 0755 -o root -g root $cronFile /etc/cron.daily/");
 }
 
 

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = ebox-ebackup-enable ebox-ebackup-local ebox-ebackup-cron
+pkgdata_SCRIPTS =  ebox-ebackup-local ebox-ebackup-cron
 
 MAINTAINERCLEANFILES = Makefile.in
 
