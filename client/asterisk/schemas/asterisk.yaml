@@ -1,3 +1,4 @@
 class: 'EBox::Asterisk'
 enabledepends:
+    - network
     - users
