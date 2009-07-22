@@ -62,6 +62,15 @@ sub masonParameters
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
+    if ( not $mon->configured() ) {
+        $self->setTemplate('/msg.mas');
+        return [ msg => __x('You must enable monitor module to see monitor graphs '
+                            . 'in {openhref}Module Status section{closehref}',
+                            openhref  => qq{<a href="/ebox/ServiceModule/StatusView">},
+                            closehref => qq{</a>}),
+                 class => 'note' ];
+    }
+
     my $measuredData = $mon->allMeasuredData();
 
     return [

@@ -1,3 +1,5 @@
+1.3.2
+	+ Bugfix: Do not show graphs if the module is not configured
 1.1.10
 	+ Bugfix: Monitor graph updates don't glitch anymore
 	+ Bugfix: Set a fixed hostname in order not to let collectd daemon
