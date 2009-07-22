@@ -389,12 +389,10 @@ sub _setMeetings
         my $exten = $row->valueByName('exten');
         #my $alias = $row->valueByName('alias'); FIXME not implemented yet
         my $pin = $row->valueByName('pin');
-        my $adminpin = $row->valueByName('adminpin');
         my $options = ",s";
         my $data = $exten . $options;
         push (@meetings, { exten => $exten,
                            pin => $pin,
-                           adminpin => $adminpin,
                          });
         #$extns->addExtension($alias, 1, 'GoTo', $exten); #FIXME when we delete these extensions? XXX
         $extns->addExtension($exten, 1, 'MeetMe', $data);

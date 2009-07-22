@@ -168,14 +168,6 @@ sub _table
                                 editable      => 1,
                                 optional      => 1,
                                ),
-       new EBox::Types::Password(
-                                fieldName     => 'adminpin',
-                                printableName => __('Administrator password'),
-                                size          => 8,
-                                unique        => 0,
-                                editable      => 1,
-                                optional      => 1,
-                               ),
        new EBox::Types::Text(
                                 fieldName     => 'desc',
                                 printableName => __('Description'),
