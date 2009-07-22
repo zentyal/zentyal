@@ -28,6 +28,7 @@ use EBox::Gettext;
  interfaces = <% $ifaces %>
  bind interfaces only = Yes
  passdb backend = ldapsam:<% $ldap->{'ldapi'} %>
+ ldap ssl = Off
  log level = 1
  syslog = 0
  log file = /var/log/samba/%m
