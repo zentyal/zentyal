@@ -89,7 +89,10 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must create a Certification Authority.');
+    return __x('You must create a Certification Authority. '
+              . 'Go to {openhref}Certification Authority{closehref} to do so',
+              openhref  => qq{<a href='/ebox/CA/Index'>},
+              closehref => qq{</a>});
 }
 
 
