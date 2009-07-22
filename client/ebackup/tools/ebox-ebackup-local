@@ -4,10 +4,12 @@ set -e
 
 # the path where your backups are (without trailing slash)
 BACKUP=$1
-# the path where your backups logs are
-LOG=$BACKUP/ebox-backup.log
 # how many days do you want to keep rotated incremental backups
 MAXAGE=$2
+
+
+# the path where your backups logs are
+LOG=/var/log/ebox/ebox-backup.log
 
 ## pre-commands
 #mkdir -p /mnt/backup
