@@ -14,6 +14,7 @@ use warnings;
 use EBox::Global;
 use EBox;
 use EBox::Sudo;
+use File::Slurp;
 use Error qw(:try);
 
 EBox::init();
@@ -84,7 +85,9 @@ sub moduleAction
 
   if ($actionName eq 'start' and $modname eq 'network' and $mod->isEnabled()) {
       try {
+        workaroundDHCPIssue();
         EBox::Sudo::root("/etc/init.d/networking stop");
+        workaroundDHCPIssue();
       } otherwise {};
   }
 
@@ -202,5 +205,56 @@ sub main
   }
 }
 
+# This two methods are used to workaround an issue
+# with DHCP configured interfaces when the machine boots.
+#
+# - System boots
+# - /etc/init.d/networking is run asynchronously
+# - eBox starts
+# - eBox network stops /etc/init.d/networking to take care of the net conf
+# - Problem: we can run into race conditions because the way ubuntu starts
+#   networking in hardy
+# 
+# - Approach: we make sure that there isnt any dhclient running before
+#   taking care of the network configuration
+sub workaroundDHCPIssue() 
+{
+    my $network = $global->modInstance('network');
+    my $dhcp = 0;
+    for my $iface (@{$network->allIfaces()}) {
+        next unless ($network->ifaceMethod($iface) eq 'dhcp');
+        $dhcp = 1;
+    }
+    # Let's see if there's any ifup running
+    if ($dhcp) {
+        for (1..200) {
+            my $pid = `pgrep  -f "^dhclient3 .*"`;
+            my $dhclient;
+            if ($? ==  0) {
+                EBox::Sudo::root("kill $pid");	
+                $dhclient = 1;
+            }
+            if ($dhclient or anyDhclientPid()) { 
+                sleep(5);
+            }
+        }
+    }
+
+}
+
+sub anyDhclientPid
+{
+
+    for my $file (read_dir('/var/run')) {
+        next unless ($file =~ /dhclient\..*\.pid/);
+        if ( -s $file ) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 main();
+
 1;
