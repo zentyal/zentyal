@@ -7,9 +7,9 @@ options {
 	// questions using port 53, but BIND 8.1 and later use an unprivileged
 	// port by default.
 
-		query-source address * port 53;
-		transfer-source * port 53;
-		notify-source * port 53;
+	//query-source address * port 53;
+	//transfer-source * port 53;
+	//notify-source * port 53;
 
 	// If your ISP provided one or more IP addresses for stable 
 	// nameservers, you probably want to use them as forwarders.  
