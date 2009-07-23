@@ -22,10 +22,10 @@ if (not $ebackup->isEnabled() ) {
 }
 
 my $model = $ebackup->model('Local');
-if (not $model->backupEnableValue()) {
-    print "local backup not enabled\n";
-    exit 0;
-}
+# if (not $model->backupEnableValue()) {
+#     print "local backup not enabled\n";
+#     exit 0;
+# }
 
 
 my $watcherActive = 0;

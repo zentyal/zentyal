@@ -98,11 +98,12 @@ sub _table
 
     my @tableHeader =
       (
-       new EBox::Types::Boolean(
-                                fieldName     => 'backupEnable',
-                                printableName => __('Enable local backup'),
-                                editable      => 1,
-                               ),
+#  .. disabled until w have more than a backup mode
+#        new EBox::Types::Boolean(
+#                                 fieldName     => 'backupEnable',
+#                                 printableName => __('Enable local backup'),
+#                                 editable      => 1,
+#                                ),
        new EBox::Types::Text(
                                 fieldName     => 'backupPath',
                                 printableName => __('Backup destination'),
