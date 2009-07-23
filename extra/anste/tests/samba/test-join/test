@@ -1,3 +1,3 @@
 #!/bin/sh
 
-net join -U "$USER%$PASS"
+net rpc join -U "$USER%$PASS"
