@@ -144,7 +144,7 @@
     <!-- or the default host
     <id password-change='true' /> -->
 
-    <id realm='ebox'
+    <id realm='<% $domain %>'
 %       if (!($ssl eq 'no')) {
         pemfile='/etc/jabberd2/ebox.pem'
 %         if ($ssl eq 'required') {
@@ -482,7 +482,7 @@
     <ldapfull>
       <!-- LDAP server host and port (default: 389) -->
       <uri>ldap://localhost/ ldaps://ldap.example.com/</uri>
-      
+
       <!-- DN to bind as for searches. If unspecified, the searches
            will be done anonymously. -->
       <!--
@@ -588,7 +588,7 @@
       <!--
       <basedn realm='company'>o=Company.com</basedn>
       -->
-      <basedn realm='ebox'><% $basedc %></basedn>
+      <basedn realm='<% $domain %>'><% $basedc %></basedn>
     </ldap>
     <!-- if you want to configure more than one LDAP server
          create ldap1, ldap2 etc. sections
