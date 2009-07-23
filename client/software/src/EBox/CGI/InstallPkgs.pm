@@ -99,6 +99,7 @@ sub _goAhead
     my $software = EBox::Global->modInstance('software');
 
     $self->{chain} = "Software/EBox";
+    $self->{errorchain} = "Software/EBox";
 
     if ($action eq 'install') {
 	my $progress = $software->installPkgs(@{ $packages_r });
@@ -117,6 +118,8 @@ sub showConfirmationPage
 {
     my ($self, $action, $packages_r) = @_;
     my $software = EBox::Global->modInstance('software');
+
+    $self->{errorchain} = 'Software/EBox';
 
     my $actpackages;
     if($action eq 'install') {

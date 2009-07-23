@@ -148,6 +148,12 @@ sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
 
+        if (not $self->isEnabled()) {
+            throw EBox::Exceptions::External(
+ __('The software management module must be enabled to be able to install packages')
+               );
+        }
+
         $self->_isModLocked();
 
 	if (not @pkgs) {
@@ -185,6 +191,12 @@ sub installPkgs # (@pkgs)
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
+
+        if (not $self->isEnabled()) {
+            throw EBox::Exceptions::External(
+ __('The software management module must be enabled to be able to remove packages')
+               );
+        }
 
 	$self->_isModLocked();
 
@@ -339,6 +351,12 @@ sub listPackageInstallDepends
 {
 	my ($self, $packages) = @_;
 
+        if (not $self->isEnabled()) {
+            throw EBox::Exceptions::External(
+ __('The software management module must be enabled to be able to install packages')
+               );
+        }
+
         $self->_isModLocked();
 
 	return $self->_packageDepends('install', $packages);
@@ -366,6 +384,12 @@ sub listPackageInstallDepends
 sub listPackageRemoveDepends
 {
 	my ($self, $packages) = @_;
+
+        if (not $self->isEnabled()) {
+            throw EBox::Exceptions::External(
+ __('The software management module must be enabled to be able to remove packages')
+               );
+        }
 
         $self->_isModLocked();
 
