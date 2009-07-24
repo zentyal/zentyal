@@ -525,6 +525,11 @@ sub rewriteObjectClasses
 
     my $classes = [ $result->pop_entry()->get_value('objectClass') ];
 
+    # delete old user data if it's there
+    try {
+        $self->ldap->delete($dn);
+    } otherwise {};
+
     $self->ldap->modify($dn,
         { 'changes' => [ 'replace' => [ 'objectClass' => $classes ] ]} );
 }
