@@ -29,8 +29,6 @@ if ($userMod->gidExists($currentGroup)) {
     $groupName = $userMod->gidGroup($currentGroup);
 }
 
-print STDERR "Current group: $currentGroup ($groupName) \n";
-
 if ((not defined ($currentGroup)) or $currentGroup eq '1901') {
     exit (0);
 }
@@ -38,26 +36,15 @@ if ((not defined ($currentGroup)) or $currentGroup eq '1901') {
 my %usersToDel = map { $_ => 1 } $userMod->usersNotInGroup($groupName);
 my @currentHomes = File::Slurp::read_dir('/home/samba/users');
 
-print STDERR "Checking homes to delete:\n";
-
 for my $home (@currentHomes) {
-    print "\t$home";
     if ( exists $usersToDel{$home}) {
-        print "\t Yes\n";
         EBox::Sudo::root("rm -rf /home/samba/users/$home");
-    } else {
-        print "\t No\n";
     }
 }
 
-print STDERR "Checking homes to create:\n";
 my @usersInGroup =  @{$userMod->usersInGroup($groupName)};
 for my $user (@usersInGroup) {
-    print "\t$user";
-    if (EBox::Sudo::fileTest('-d', "/home/samba/users/$user" )) {
-        print "\t No\n";
-    } else {
-        print "\t Yes\n";
+    unless (EBox::Sudo::fileTest('-d', "/home/samba/users/$user" )) {
         try {
             EBox::Sudo::root("mkdir \'/home/samba/users/$user\'");
             EBox::Sudo::root("chown \'$user\':513 \'/home/samba/users/$user\'");
@@ -66,5 +53,3 @@ for my $user (@usersInGroup) {
         };
     }
 }
-
-
