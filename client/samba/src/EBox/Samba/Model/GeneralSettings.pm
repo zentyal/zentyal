@@ -138,7 +138,7 @@ sub _table
                 'populate' => \&_samba_group,
                 'editable' => 1,
                 'noCache' => 1,
-                'help' => __('Only users belonging to this group will have a samba account. Sync happens every 15 minutes')
+                'help' => __('Only users belonging to this group will have a samba account. Sync happens every hour')
                 ),
     );
     my $dataTable =
