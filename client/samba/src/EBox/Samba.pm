@@ -1185,12 +1185,16 @@ sub existsShareResource # (resource)
     my ($self, $name) = @_;
 
     my $usermod = EBox::Global->modInstance('users');
-    if ($usermod->userExists($name)) {
-        return __('user');
+    if ($usermod->configured()) {
+        if ($usermod->userExists($name)) {
+            return __('user');
+        }
+
+        if ($usermod->groupExists($name)) {
+            return __('group');
+        }
     }
-    if ($usermod->groupExists($name)) {
-        return __('group');
-    }
+
     for my $printer (@{$self->printers()}) {
         return __('printer') if ($name eq $printer);
     }
