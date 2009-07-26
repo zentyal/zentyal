@@ -1376,6 +1376,7 @@ sub setTypedRow
 
       if ($modified) {
           $self->_setCacheDirty();
+          $self->{'dataCache'} = undef;
           $self->setMessage($self->message('update'));
           # Dependant models may return some message to inform the user
           my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));

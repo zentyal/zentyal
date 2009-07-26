@@ -132,6 +132,8 @@ sub syncRows
           return undef;
       }
 
+      my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
+
       my %storedEventDispatchers;
       my %currentEventDispatchers;
       my $dispatchersRef = $self->_fetchDispatchers();
@@ -165,13 +167,19 @@ sub syncRows
           next if ( exists ( $storedEventDispatchers{$dispatcher} ));
           # Create a new instance from this dispatcher
           eval "use $dispatcher";
-
+          my $enabled = ! $dispatcher->DisabledByDefault();
+          # XXX Enable Log dispatcher by default and not allow user
+          # to disable it
+          if ( $dispatcher eq 'EBox::Event::Dispatcher::Log' ) {
+              $self->{'gconfmodule'}->enableEventElement('dispatcher', 
+                      'EBox::Event::Dispatcher::Log', 1);
+          }
           my %params = (
                         'eventDispatcher'        => $dispatcher,
                         # The value is obtained dynamically
                         'receiver'               => '',
                         # The dispatchers are disabled by default
-                        'enabled'                => 0,
+                        'enabled'                => $enabled,
                         'configuration_selected' => 'configuration_' .
                                                     $dispatcher->ConfigurationMethod(),
                         'readOnly'               => not $dispatcher->EditableByUser(),
@@ -183,6 +191,11 @@ sub syncRows
 
           $self->addRow(%params);
           $modified = 1;
+      }
+
+      if ($modified and not $modIsChanged) {
+          $self->{'gconfmodule'}->_saveConfig();
+          EBox::Global->getInstance()->modRestarted('events');
       }
 
       return $modified;
@@ -210,10 +223,12 @@ sub updatedRowNotify
 
       # Get whether the event watcher is enabled or not
       my $newRow = $self->row($rowRef->id());
-      my $enabled = $newRow->valueByName('enabled');
+      my $enabled = $rowRef->valueByName('enabled');
       my $className = $newRow->valueByName('eventDispatcher');
 
       # Set to move
+      use Data::Dumper;
+      EBox::debug("$className to $enabled");
       $self->{gconfmodule}->enableEventElement('dispatcher', $className, $enabled);
 
   }

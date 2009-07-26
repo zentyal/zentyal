@@ -54,6 +54,26 @@ sub new
 
   }
 
+# Method: DisabledByDefault
+#
+#   Overrides <EBox::Event::Component::DisabledByDefault>
+#   to enable it by default
+#
+sub DisabledByDefault
+{
+    return 0;
+}
+
+# Method: EditableByUser
+#
+#   Overrides <EBox::Event::Componet::EditableByUser>
+#   to not allow the user to disable it
+sub EditableByUser
+{
+    return 0;
+}
+
+
 # Method: ConfigurationMethod
 #
 # Overrides:

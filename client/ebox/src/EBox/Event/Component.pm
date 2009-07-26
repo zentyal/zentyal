@@ -144,6 +144,22 @@ sub ConfigureModel
 
 }
 
+# Method: DisabledByDefault
+#
+#   This method is used to enable or disable the component
+#   when is added to a table for first time.
+#
+#   Returns true by default. That means the component will be disabled
+#
+# Returns:
+#
+#       Boolean - indicating if it's disabled by default or not
+#
+sub DisabledByDefault 
+{
+    return 1;
+}
+
 # Method: EditableByUser
 #
 #       Check if the given event component is editable

@@ -112,6 +112,7 @@ sub syncRows
       if ( $self->{'gconfmodule'}->isReadOnly() ) {
           return undef;
       }
+      my $modIsChanged = EBox::Global->getInstance()->modIsChanged('events');
 
       my %storedEventWatchers;
       my %currentEventWatchers;
@@ -138,7 +139,7 @@ sub syncRows
           if ( exists ( $currentEventWatchers{$stored} )) {
               # Check its ability
               my $able = $self->_checkWatcherAbility($stored);
-              $self->setTypedRow($id, undef, readOnly => ! $able);
+              $self->setTypedRow($id, undef, readOnly => not $able);
           } else {
               $self->removeRow( $id );
           }
@@ -156,7 +157,7 @@ sub syncRows
                          'enabled'      => 0,
                          'configuration_selected' => 'configuration_'
                                                     . $watcher->ConfigurationMethod(),
-                         'readOnly'     => $self->_checkWatcherAbility($watcher),
+                         'readOnly'     => not $self->_checkWatcherAbility($watcher),
                        );
           if ( $watcher->ConfigurationMethod() eq 'none' ) {
               $params{configuration_none} = '';
@@ -165,6 +166,10 @@ sub syncRows
           $modified = 1;
       }
 
+      if ($modified and not $modIsChanged) {
+          $self->{'gconfmodule'}->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('events');
+      }
       return $modified;
 
   }
