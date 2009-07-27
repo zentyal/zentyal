@@ -4,13 +4,13 @@
 for i in `seq 1 60`
 do
     rm index.html
-    wget http://localhost:1666
+    wget https://localhost
     if [ -f index.html ]
     then
         rm index.html
         exit 0
     else
-        sleep 1 
+        sleep 1
     fi
 done
 exit 1
