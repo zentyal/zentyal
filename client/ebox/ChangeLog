@@ -1,6 +1,8 @@
 1.3.4
 	+ bugfix: empty cache before calling updatedRowNotify
 	+ enable Log dispatcher by default and not allow users to disable it
+	+ bugfix: Save Changes button doesn't turn red when accessing events for
+	first time
 1.3.2
 	+ bugfix: workaround issue with dhcp configured interfaces at boot time
 1.3.1
