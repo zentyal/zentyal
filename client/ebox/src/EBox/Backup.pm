@@ -333,6 +333,7 @@ sub _bug # (dir)
     system "/bin/netstat -n -a --inet > $dir/sockets";
     system "/sbin/ifconfig -a > $dir/interfaces";
     system "cp /etc/resolv.conf  $dir/resolv.conf";
+    system "dpkg -l > $dir/debpackages";
 
     try {
         root("/sbin/iptables -nvL > $dir/iptables-filter");
