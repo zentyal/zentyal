@@ -347,7 +347,7 @@ sub _nospoof # (interface, \@addresses)
         push(@commands,
                 pf("-A fnospoof -s $addr/$mask -i ! $iface -j fdrop"),
                 pf("-A inospoof -s $addr/$mask -i ! $iface -j idrop"),
-                pf("-A inospoof -i ! $iface -d $addr -j idrop"),
+               # pf("-A inospoof -i ! $iface -d $addr -j idrop"),
             );
     }
     return \@commands;

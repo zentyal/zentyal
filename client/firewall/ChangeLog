@@ -1,3 +1,6 @@
+HEAD
+	+ bugfix: inospoof chain was buggy and didn't allow traffic
+	  to internal eBox addresses from other internal networks
 1.1.30
 	+ Add all and ah protocols to redirections
 1.1.20
