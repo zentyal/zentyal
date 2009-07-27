@@ -170,9 +170,9 @@ sub syncRows
           my $enabled = ! $dispatcher->DisabledByDefault();
           # XXX Enable Log dispatcher by default and not allow user
           # to disable it
-          if ( $dispatcher eq 'EBox::Event::Dispatcher::Log' ) {
+          if ( $enabled ) {
               $self->{'gconfmodule'}->enableEventElement('dispatcher', 
-                      'EBox::Event::Dispatcher::Log', 1);
+                $dispatcher, 1);
           }
           my %params = (
                         'eventDispatcher'        => $dispatcher,
