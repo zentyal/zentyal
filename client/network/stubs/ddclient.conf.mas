@@ -15,22 +15,22 @@ password='<% $password %>'
 % if ($service eq 'dyndns') {
 protocol=dyndns2
 server=members.dyndns.org
-web=checkip.dyndns.com, web-skip='Current IP Address:'
+use=web, web=checkip.dyndns.com, web-skip='Current IP Address:'
 % } elsif ($service eq 'zoneedit') {
 protocol=zoneedit1
 server=dynamic.zoneedit.com
-web=www.zoneedit.com/checkip.html, web-skip='Current IP Address:'
+use=web, web=www.zoneedit.com/checkip.html, web-skip='Current IP Address:'
 % } elsif ($service eq 'easydns') {
 protocol=easydns
 server=members.easydns.com
-web=checkip.dyndns.com, web-skip='Current IP Address:'
+use=web, web=checkip.dyndns.com, web-skip='Current IP Address:'
 % } elsif ($service eq 'dnspark') {
 protocol=dnspark
 server=www.dnspark.com
-web=ipdetect.dnspark.com, web-skip='Current Address:'
+use=web, web=ipdetect.dnspark.com, web-skip='Current Address:'
 % } elsif ($service eq 'joker') {
 protocol=dyndns2
 server=svc.joker.com
-web=svc.joker.com/nic/checkip, web-skip='Current IP Address:'
+use=web, web=svc.joker.com/nic/checkip, web-skip='Current IP Address:'
 % }
 <% $hostname %>
