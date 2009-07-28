@@ -1,3 +1,5 @@
+HEAD
+	+ tableInfo returns an array of hash refs
 1.1.41
 	+ bugfix: Allow unsafe characters in smtp auth password
 1.1.30

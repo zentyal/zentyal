@@ -1258,7 +1258,7 @@ sub tableInfo
                    'other' => __('Other events')
     };
 
-    return {
+    return [{
             'name' => __('Mail'),
             'index' => 'mail',
             'titles' => $titles,
@@ -1268,7 +1268,7 @@ sub tableInfo
             'filter' => ['from_address', 'to_address', 'status'],
             'events' => $events,
             'eventcol' => 'event'
-    };
+    }];
 }
 
 sub logHelper
