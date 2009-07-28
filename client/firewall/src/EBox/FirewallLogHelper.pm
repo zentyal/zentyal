@@ -88,7 +88,7 @@ sub processLine # (file, line, logger)
 		if (exists $fields{$uName}) {
 			$dataToInsert{'fw_' . $name} = $fields{$uName};
 		} else {
-			$dataToInsert{'fw_' . $name} = '';
+			$dataToInsert{'fw_' . $name} = undef;
 		}
 	}
 
