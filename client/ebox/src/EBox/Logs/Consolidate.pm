@@ -43,7 +43,7 @@ sub consolidate
         @modNames = @{  $self->_allModulesWithConsolidation() };
     }
     else {
-        if (not EBox::Global->modInstance($modName)->isEnabled()) {
+        if (not EBox::Global->modInstance($modName)->configured()) {
             return;
         }
         @modNames = ( $modName );
@@ -126,7 +126,7 @@ sub _allModulesWithConsolidation
     my @mods =  @{  $global->modInstancesOfType('EBox::LogObserver')  };
 
     foreach my $mod (@mods) {
-        if (not $mod->isEnabled()) {
+        if (not $mod->configured()) {
             next;
         }
 
