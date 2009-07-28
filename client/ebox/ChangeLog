@@ -1,4 +1,5 @@
 HEAD
+	+ Updated company name in the footer
 	+ Bugfix: humanEventMessage works with multiple tableInfos now
 1.3.4
 	+ bugfix: empty cache before calling updatedRowNotify
