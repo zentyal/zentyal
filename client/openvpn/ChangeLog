@@ -1,3 +1,5 @@
+HEAD
+	+ tableInfo returns an array of hash refs
 1.1.20
 	+ Bugfix: Allow VPN clients with spaces in its common name
 	+ Enable/disable rip password depending on eBox-to-eBox conf

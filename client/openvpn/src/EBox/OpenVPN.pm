@@ -1640,7 +1640,7 @@ sub tableInfo
                   connectionResetByServer => __('Server connection terminated'),
                  };
 
-    return {
+    return [{
             name => __('OpenVPN'),
             index => 'openvpn',
             titles => $titles,
@@ -1650,7 +1650,7 @@ sub tableInfo
             'filter' => ['daemon_name', 'from_ip', 'from_cert'],
             'events' => $events,
             'eventcol' => 'event'
-           };
+           }];
 
 }
 
