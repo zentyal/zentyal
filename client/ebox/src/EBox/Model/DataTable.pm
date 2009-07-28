@@ -732,9 +732,6 @@ sub movedDownRowNotify
 #     row - <EBox::Model::Row> row containing fields and values of the
 #           updated row
 #
-#     oldRow - <EBox::Model::Row> row containing the values of the old
-#              row
-#
 #     force - boolean indicating whether the delete is forced or not
 #
 sub updatedRowNotify
