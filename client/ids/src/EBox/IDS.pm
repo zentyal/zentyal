@@ -297,11 +297,11 @@ sub _consolidate
     my $table = 'ids_alert';
 
     my $spec = {
-        accumulateColumns  => { alert => 0 },
+        accummulateColumns  => { alert => 0 },
         consolidateColumns => {
                                 event => {
                                           conversor => sub { return 1; },
-                                          accumulate => sub { return 'alert'; }
+                                          accummulate => 'alert',
                                          },
                               },
     };
