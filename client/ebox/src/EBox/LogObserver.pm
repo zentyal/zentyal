@@ -69,7 +69,9 @@ sub enableLog
 
 # Method: tableInfo
 #
-#       This function returns a hash ref with these fields.
+#       This function returns an array of hash ref or a single hash
+#       ref with these fields:
+#
 #        - name: A string with the module name.
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
@@ -139,17 +141,30 @@ sub humanEventMessage
 {
     my ($self, $row) = @_;
 
-    my $tableInfo = $self->tableInfo();
+    my @tableInfos;
+    my $tI = $self->tableInfo();
+    if ( ref($tI) eq 'HASH' ) {
+        EBox::warn('tableInfo() in ' . $self->name()
+                   . ' must return a reference to a '
+                   . 'list of hashes not the hash itself');
+
+        @tableInfos = ( $tI );
+    } else {
+        @tableInfos = @{ $tI };
+    }
     my $message = q{};
-    foreach my $field (@{$tableInfo->{order}}) {
-        if ( $field eq $tableInfo->{eventcol} ) {
-            $message .= $tableInfo->{titles}->{$tableInfo->{eventcol}}
-              . ': ' . $tableInfo->{events}->{$row->{$field}} . ' ';
-        } else {
-            my $rowContent = $row->{$field};
-            # Delete trailing spaces
-            $rowContent =~ s{ \s* \z}{}gxm;
-            $message .= $tableInfo->{titles}->{$field} . ": $rowContent ";
+    foreach my $tableInfo (@tableInfos) {
+        next unless (exists($tableInfo->{events}->{$row->{event}}));
+        foreach my $field (@{$tableInfo->{order}}) {
+            if ( $field eq $tableInfo->{eventcol} ) {
+                $message .= $tableInfo->{titles}->{$tableInfo->{eventcol}}
+                  . ': ' . $tableInfo->{events}->{$row->{$field}} . ' ';
+            } else {
+                my $rowContent = $row->{$field};
+                # Delete trailing spaces
+                $rowContent =~ s{ \s* \z}{}gxm;
+                $message .= $tableInfo->{titles}->{$field} . ": $rowContent ";
+            }
         }
     }
     return $message;
