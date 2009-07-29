@@ -248,7 +248,7 @@ sub rootWithoutException
 #
 # Parameters:
 #
-#       command - string with the command to execute
+#   command - string with the command to execute
 #	user - user to run the command as
 #
 #
@@ -261,7 +261,8 @@ sub sudo # (command, user)
     my ($cmd, $user) = @_;
     validate_pos(@_, 1 ,1);
 
-    unless (system("$SUDO_PATH -u " . $user . " " . $cmd) == 0) {
+    root("$SUDO_PATH -u $user $cmd");
+    unless ($? == 0) {
         throw EBox::Exceptions::Internal(
             __x("Running command '{cmd}' as {user} failed",
                 cmd => $cmd, user => $user));
