@@ -60,7 +60,15 @@ use constant APPS => (
                       'bookmarks',
                       'wiki',
 #                      'sitemgr-link',
-                      'manual'
+                      'manual',
+                      'groupdav',
+                      'egw-pear',
+                      'phpsysinfo',
+                      'notifications',
+                      'developer_tools',
+                      'phpgwapi',
+                      'syncml',
+                      'tracker',
                      );
 
 sub new

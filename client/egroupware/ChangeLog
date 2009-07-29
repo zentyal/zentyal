@@ -1,11 +1,13 @@
+HEAD
+    + Added support for the following missing applications: groupdav, egw-pear, phpsysinfo, developer_tools, phpgwapi, syncml, tracker, notifications
 1.1.30
     + Changed from eGroupware 1.4 to eGroupware 1.6
     + eGroupware backup is now integrated in eBox full backup
     + Added support for bookmarks eGroupware application
 1.1
-	+ Bugfix: setting permissions template on a group casued an error
-	+ Bugfix: restart postgresql in a safer way during the enable process
+    + Bugfix: setting permissions template on a group casued an error
+    + Bugfix: restart postgresql in a safer way during the enable process
 0.12.101
-	+ Bugfix: do not remove objectClass fields when deleting a user or group
+    + Bugfix: do not remove objectClass fields when deleting a user or group
 0.12.100
-	+ Initial release
+    + Initial release
