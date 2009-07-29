@@ -18,17 +18,20 @@
 use EBox;
 use EBox::Global;
 use EBox::Sudo;
+use EBox::EGroupware;
 
 use strict;
 use warnings;
 
 EBox::init();
 
+my $pass = EBox::EGroupware::getPassword();
+
 chdir ('/usr/share/egroupware/setup');
 
-EBox::Sudo::root('./setup-cli.php --install default,ebox');
+EBox::Sudo::root("./setup-cli.php --install default,ebox,$pass");
 
-my $configCmd = './setup-cli.php --config default,ebox';
+my $configCmd = "./setup-cli.php --config default,ebox,$pass";
 my @cmds;
 push (@cmds, "$configCmd --webserver-url /egroupware");
 push (@cmds, "$configCmd --files-dir /var/lib/egroupware/default/files");
