@@ -39,7 +39,9 @@ sub _addNewApps
         my $row = $model->row($id);
         my $apps = $row->subModel('applications');
         foreach my $app (NEW_APPS) {
-            $apps->add(app => $app, enabled => 0);
+            try {
+                $apps->add(app => $app, enabled => 0);
+            } catch Error with {};
         }
     }
 
@@ -48,7 +50,9 @@ sub _addNewApps
     # rest of the applications are already added
     if (@{$default->ids()}) {
         foreach my $app (NEW_APPS) {
-            $default->add(app => $app, enabled => 0);
+            try {
+                $default->add(app => $app, enabled => 0);
+            } catch Error with {};
         }
     }
 }
@@ -58,7 +62,6 @@ sub runGConf
     my ($self) = @_;
 
     $self->_addNewApps();
-
     my $egwMod = EBox::Global->modInstance('egroupware');
     $egwMod->saveConfig();
 }

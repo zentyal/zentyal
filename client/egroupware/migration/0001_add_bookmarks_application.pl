@@ -44,10 +44,11 @@ sub runGConf
 {
     my ($self) = @_;
 
-    $self->_addBookmarks();
-
-    my $egwMod = EBox::Global->modInstance('egroupware');
-    $egwMod->saveConfig();
+    try {
+        $self->_addBookmarks();
+        my $egwMod = EBox::Global->modInstance('egroupware');
+        $egwMod->saveConfig();
+    } catch Error with {};
 }
 
 EBox::init();

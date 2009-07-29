@@ -22,10 +22,12 @@ sub runGConf
     my ($self) = @_;
 
     my $egw = $self->{gconfmodule};
-    $egw->save();
 
-    my $command = "ebox-egroupware-regen-db";
-    EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
+    my $command = 'ebox-egroupware-regen-db';
+    try {
+        $egw->save();
+        EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
+    } catch Error with {};
 }
 
 EBox::init();
