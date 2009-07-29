@@ -22,6 +22,8 @@ use EBox::Sudo;
 use strict;
 use warnings;
 
+EBox::init();
+
 chdir ('/usr/share/egroupware/setup');
 
 EBox::Sudo::root('./setup-cli.php --install default,ebox');
