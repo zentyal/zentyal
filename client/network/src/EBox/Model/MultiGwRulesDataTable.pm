@@ -257,7 +257,7 @@ sub _buildIptablesRule
     my $gw = $row->valueByName('gateway');
 
     # Return if the gateway for this rule is disabled
-    my $gwRow = gatewayModel()->find('name' => $gw);
+    my $gwRow = gatewayModel()->row($gw);
     return unless (defined $gwRow);
     return unless ($gwRow->valueByName('enabled'));
 

@@ -2192,7 +2192,7 @@ sub _setConf
     my ($self) = @_;
 
     $self->generateInterfaces();
-
+    $self->_generateDDClient;
     unless ($self->{'skipdns'}) {
         # FIXME: there is a corner case when this won't be enough:
         # if the dhcp server serves some dns serves, those will be used,
@@ -2202,7 +2202,6 @@ sub _setConf
         # If the server never gives dns servers, everything should work
         # Ok.
         $self->_generateResolver;
-        $self->_generateDDClient;
     }
 
 }
