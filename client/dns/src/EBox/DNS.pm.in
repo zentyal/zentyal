@@ -588,6 +588,12 @@ sub switchToReverseInfoData
     {
         my $domain = $domainData->{'name'};
 
+        # Check for IP address in domain
+        if ($domainData->{'ipaddr'}) {
+            push(@{$domainData->{'hosts'}},
+                 { 'name' => '', 'ip' => $domainData->{'ipaddr'} });
+        }
+
         foreach my $hostData (@{$domainData->{'hosts'}})
         {
             my @ipblocks = split(/\./, $hostData->{'ip'});

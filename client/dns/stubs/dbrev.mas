@@ -20,9 +20,11 @@ $TTL 3D
 ;
 % foreach my $groupItem(@{$rdata{'domain'}})
 % {
-% 	foreach my $host(@{$groupItem->{'hosts'}})
-% 	{
-<% $host->{'ip'} %>	PTR	<% $host->{'name'} . "." . $groupItem->{'name'}
-%>.
+% 	foreach my $host(@{$groupItem->{'hosts'}}) {
+%            my $prefix = '';
+% 	     if ( $host->{'name'} ) {
+%                $prefix .= $host->{'name'} . '.';
+%            }
+<% $host->{'ip'} %>	PTR	<% $prefix . $groupItem->{'name'} %>.
 % 	}
 % }
