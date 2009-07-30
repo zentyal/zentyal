@@ -457,7 +457,7 @@ sub _checkIfaceAndMasquerade
         if (not $external) {
             throw EBox::Exceptions::External(
               __('The interface must be a external interface, unless ' .
-              'masuqerade option is on')
+              'Network Address Translation option is on')
                                             )
         }
     }
