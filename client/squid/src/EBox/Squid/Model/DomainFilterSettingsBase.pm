@@ -42,8 +42,8 @@ sub _tableHeader
             defaultValue     => 0,
             editable         => 1,
             help         => __('If this is enabled, ' .
-                                   'any domain which is not allowed in the ' .
-                                '<i>Domains list</i> section below will be ' .
+                                   'any domain which is not present either in the ' .
+                                '<i>Domains rules</i> or in the <i>Domain list files</i> sections below will be ' .
                                 'forbidden.'),
 
                               ),
