@@ -26,7 +26,8 @@ sub runGConf
     my $command = 'ebox-egroupware-regen-db';
     try {
         $egw->save();
-        EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
+# Disable this for avoid risk of losing data after broken migration
+#        EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
     } catch Error with {};
 }
 
