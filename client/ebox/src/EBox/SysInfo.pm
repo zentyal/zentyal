@@ -219,8 +219,8 @@ sub menu
 		    );
 
 
-#	$folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
-#					  'text' => __('Backup')));
+	$folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
+					  'text' => __('Backup')));
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/Halt',
 					  'text' => __('Halt/Reboot')));
