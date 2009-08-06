@@ -207,7 +207,8 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $mailExModel = $row->parentRow()->subModel('mailExchangers');
-    for my $mailRow (@{$mailExModel->rows()}) {
+    for my $id(@{$mailExModel->ids()}) {
+        my $mailRow = $mailExModel->row($id);
         my $hostname = $mailRow->elementByName('hostName');
         next unless ($hostname->selectedType() eq 'ownerDomain');
         if ($hostname->value() eq $row->id()) {
