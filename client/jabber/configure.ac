@@ -1,4 +1,4 @@
-AC_INIT([EBox-jabber], [1.3.3])
+AC_INIT([EBox-jabber], [1.3.4])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Jabber.pm])
