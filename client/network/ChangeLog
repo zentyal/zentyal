@@ -1,4 +1,4 @@
-HEAD
+1.3.4
 	+ bugfix: add use=web to guess the public address
 	+ bugfix: make ddclient work with dhcp configured interfaces
 	+ bugfix: multi gateway rules work again

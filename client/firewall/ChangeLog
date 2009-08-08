@@ -1,4 +1,4 @@
-HEAD
+1.3.4
 	+ bugfix: inospoof chain was buggy and didn't allow traffic
 	  to internal eBox addresses from other internal networks
 	+ bugfix: insert missing port data using NULL in logs data base

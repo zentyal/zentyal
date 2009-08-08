@@ -1,4 +1,4 @@
-HEAD
+1.3.4
 	+ bugfix: EBox::Sudo::sudo wasn't working properly
 	+ use ebox-dbus-check to test if we can actually connect to dbus
 1.1.41
