@@ -1,5 +1,7 @@
+HEAD
+	+ bugfix: some samba actions never appeared in the access log
 1.3.3
-        + bugfix: we dont consults users when users is not configured in EBox::Samba::existsShareResource
+	+ bugfix: we dont consults users when users is not configured in EBox::Samba::existsShareResource
 1.3.1
 	+ bugfix: use right number for Domain Computers group
 1.3.0
