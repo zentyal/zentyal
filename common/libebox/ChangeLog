@@ -1,5 +1,6 @@
 HEAD
 	+ bugfix: EBox::Sudo::sudo wasn't working properly
+	+ use ebox-dbus-check to test if we can actually connect to dbus
 1.1.41
 	+ bugfix: use encodeURIComponent to fetch data from fields using Ajax
 1.1.30

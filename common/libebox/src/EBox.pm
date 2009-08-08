@@ -23,7 +23,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
 use English;
 
-use constant DBUS_CMD => 'ebox-dbus-launch';
+use constant CHECK_DBUS_CMD =>'ebox-dbus-check';
 use constant LOGGER_CAT => 'EBox';
 
 my $loginit = 0;
@@ -148,36 +148,28 @@ sub init
 #
 sub dbusInit
 {
-    my $gconfversion = `gconftool-2 -v`;
-    $gconfversion =~ m/^(\d+)\.(\d+)\./;
-    my $minor = $2;
-    if ($minor <= 22) {
-        return;
-    }
+	my $gconfversion = `gconftool-2 -v`;
+	$gconfversion =~ m/^(\d+)\.(\d+)\./;
+	my $minor = $2;
+	if ($minor <= 22) {
+		return;
+	}
 
-    my $confFile;
-    if ( POSIX::getuid() == 0) {
-        $confFile = EBox::Config::conf() . 'dbus-root-session.conf';
-    } else {
-        $confFile = EBox::Config::conf() . 'dbus-ebox-session.conf';
-    }
-    my ($dbusAddress, $dbusDaemonPid, $launchNew) = (0, 0, 1);
+	my $confFile;
+	if ( POSIX::getuid() == 0) {
+		$confFile = EBox::Config::conf() . 'dbus-root-session.conf';
+	} else {
+		$confFile = EBox::Config::conf() . 'dbus-ebox-session.conf';
+	}
 
-    if ( -r $confFile ) {
-        $dbusAddress = EBox::Config::configkeyFromFile(
-            'DBUS_SESSION_BUS_ADDRESS', $confFile);
-        $dbusDaemonPid = EBox::Config::configkeyFromFile(
-            'DBUS_SESSION_BUS_PID', $confFile);
-    }
-
-    # TODO: dbus-send would be cooler than kill
-    unless ( $dbusDaemonPid and (kill 0, $dbusDaemonPid) ) {
-        system( EBox::Config::pkgdata() .  DBUS_CMD . " $confFile");
-        chmod(0660, $confFile);
-        $dbusAddress = EBox::Config::configkeyFromFile('DBUS_SESSION_BUS_ADDRESS', $confFile);
-    }
-
-    $ENV{DBUS_SESSION_BUS_ADDRESS} = $dbusAddress;
+	for my $i (1..30) {
+		# Check we actually can connect to dbus
+        system( EBox::Config::pkgdata() .  CHECK_DBUS_CMD);
+		last if ( $? == 0 );
+		sleep(1);
+	}
+	my $dbusAddress = EBox::Config::configkeyFromFile('DBUS_SESSION_BUS_ADDRESS', $confFile);
+	$ENV{DBUS_SESSION_BUS_ADDRESS} = $dbusAddress;
 }
 
 1;
