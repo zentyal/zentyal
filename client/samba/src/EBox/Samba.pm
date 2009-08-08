@@ -1740,7 +1740,7 @@ sub tableInfo
         'client' => __('Client address'),
         'username' => __('User'),
         'event' => __('Action'),
-        'resource' => __('Recurso'),
+        'resource' => __('Resource'),
     };
     my @access_order = qw(timestamp client username event resource);;
     my $access_events = {
