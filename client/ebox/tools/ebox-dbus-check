@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use EBox;
+use Gnome2::GConf;
+
+use constant DBUS_CMD => 'ebox-dbus-launch';
+
+my $confFile;
+if ( POSIX::getuid() == 0) {
+$confFile = EBox::Config::conf() . 'dbus-root-session.conf';
+} else {
+$confFile = EBox::Config::conf() . 'dbus-ebox-session.conf';
+}
+my ($dbusAddress, $dbusDaemonPid, $launchNew) = (0, 0, 1);
+
+if ( -r $confFile ) {
+$dbusAddress = EBox::Config::configkeyFromFile(
+    'DBUS_SESSION_BUS_ADDRESS', $confFile);
+$dbusDaemonPid = EBox::Config::configkeyFromFile(
+    'DBUS_SESSION_BUS_PID', $confFile);
+}
+
+$ENV{DBUS_SESSION_BUS_ADDRESS} = $dbusAddress;
+
+eval "use Gnome2::GConf; 
+      Gnome2::GConf::Client->get_default->suggest_sync();";
+
+if ($@) {
+	system("echo $@ >> /tmp/fok");
+	system( EBox::Config::pkgdata() .  DBUS_CMD . " $confFile");
+	chmod(0660, $confFile);
+	exit 1;
+} else {
+	exit 0;
+}
+
+
