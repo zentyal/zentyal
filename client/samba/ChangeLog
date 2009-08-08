@@ -1,4 +1,4 @@
-HEAD
+1.3.4
 	+ bugfix: some samba actions never appeared in the access log
 1.3.3
 	+ bugfix: we dont consults users when users is not configured in EBox::Samba::existsShareResource
