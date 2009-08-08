@@ -1019,7 +1019,7 @@ sub tableInfo
     my $events = { 'accepted' => __('Accepted'),
                    'denied' => __('Denied'),
                    'filtered' => __('Filtered') };
-    return {
+    return [{
             'name' => __('HTTP Proxy'),
             'index' => 'squid',
             'titles' => $titles,
@@ -1030,7 +1030,7 @@ sub tableInfo
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->_consolidateConfiguration(),
-           };
+           }];
 }
 
 
