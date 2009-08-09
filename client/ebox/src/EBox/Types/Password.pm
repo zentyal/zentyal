@@ -41,24 +41,24 @@ use EBox::Gettext;
 #
 sub new
 {
-        my $class = shift;
-    	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-	unless (exists $opts{'HTMLSetter'}) {
-		$opts{'HTMLSetter'} ='/ajax/setter/passwordSetter.mas';
-	}
-	unless (exists $opts{'HTMLViewer'}) {
-		$opts{'HTMLViewer'} ='/ajax/viewer/passwordViewer.mas';
-	}
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/passwordSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/passwordViewer.mas';
+    }
 
-        $opts{'type'} = 'password';
-        my $self = $class->SUPER::new(%opts);
+    $opts{'type'} = 'password';
+    my $self = $class->SUPER::new(%opts);
 
-        $self->{'minLength'} = 0 unless defined ( $self->{'minLength'} );
-        $self->{'maxLength'} = 0 unless defined ( $self->{'maxLength'} );
-        $self->{'allowUnsafeChars'} = 1;
-        bless($self, $class);
-        return $self;
+    $self->{'minLength'} = 0 unless defined ( $self->{'minLength'} );
+    $self->{'maxLength'} = 0 unless defined ( $self->{'maxLength'} );
+    $self->{'allowUnsafeChars'} = 1;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: minLength
@@ -121,34 +121,36 @@ sub maxLength
 #
 sub _paramIsValid
 {
-	my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-	my $value = $params->{$self->fieldName()};
+    my $value = $params->{$self->fieldName()};
 
-	if (defined ( $value )) {
-            if ( $self->{'minLength'} != 0 ) {
-                if ( length ( $value ) < $self->{'minLength'} ) {
-                    throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
-                                                         value  => '****',
-                                                         advice => __x('The password should have at ' .
-                                                                      'least {minLength} characters',
-                                                                       minLength => $self->{'minLength'})
-                                                       );
-                }
+    if (defined ( $value )) {
+        if ( $self->{'minLength'} != 0 ) {
+            if ( length ( $value ) < $self->{'minLength'} ) {
+                throw EBox::Exceptions::InvalidData(
+                    data   => $self->printableName(),
+                    value  => '****',
+                    advice => __x('The password should have at ' .
+                            'least {minLength} characters',
+                            minLength => $self->{'minLength'})
+                 );
             }
-            if ( $self->{'maxLength'} != 0 ) {
-                if ( length ( $value ) > $self->{'maxLength'} ) {
-                    throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
-                                                         value  => '****',
-                                                         advice => __x('The password should have at ' .
-                                                                       'most {maxLength} characters',
-                                                                       maxLength => $self->{'maxLength'})
-                                                       );
-                }
+        }
+        if ( $self->{'maxLength'} != 0 ) {
+            if ( length ( $value ) > $self->{'maxLength'} ) {
+                throw EBox::Exceptions::InvalidData(
+                     data   => $self->printableName(),
+                     value  => '****',
+                     advice => __x('The password should have at ' .
+                            'most {maxLength} characters',
+                            maxLength => $self->{'maxLength'})
+                );
             }
-	}
+        }
+    }
 
-	return 1;
+    return 1;
 
 }
 
