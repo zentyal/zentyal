@@ -454,7 +454,7 @@ sub showModuleStatus
 
 # Method: _supportActions
 #
-#   Overrides <EBox::Module::ServiceBase>
+#   Overrides <EBox::Module::Service>
 #
 #   This method determines if the service will have a button to start/restart
 #   it in the module status widget. By default services will have the button
