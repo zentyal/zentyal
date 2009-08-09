@@ -157,35 +157,6 @@ sub enableActions
                     '/ebox-egroupware/ebox-init-egroupware migrate');
 }
 
-# Method: serviceModuleName
-#
-#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'egroupware';
-}
-
-# Method: statusSummary
-#
-#       Show the event status summary
-#
-# Overrides:
-#
-#       <EBox::Module::statusSummary>
-#
-sub statusSummary
-{
-    my ($self) = @_;
-
-    # It's not easy to determine if eGroupware is running, so we
-    # assume it's running if it's enabled.
-    my $running = $self->isEnabled();
-
-    return new EBox::Summary::Status('egroupware', __('eGroupware'),
-                                     $running, $self->isEnalbed());
-}
-
 # Method: addModuleStatus
 #
 #   Overrides EBox::Module::Service::addModuleStatus

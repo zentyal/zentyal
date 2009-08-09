@@ -295,16 +295,6 @@ sub enableModDepends
 }
 
 
-# Method: serviceModuleName
-#
-#       Override EBox::ServiceModule::ServiceInterface::serviceModuleName
-#
-sub serviceModuleName
-{
-    return 'squid';
-}
-
-
 sub _cache_mem
 {
     my $cache_mem = EBox::Config::configkey('cache_mem');
