@@ -56,6 +56,7 @@ sub new
 
         $self->{'minLength'} = 0 unless defined ( $self->{'minLength'} );
         $self->{'maxLength'} = 0 unless defined ( $self->{'maxLength'} );
+        $self->{'allowUnsafeChars'} = 1;
         bless($self, $class);
         return $self;
 }
