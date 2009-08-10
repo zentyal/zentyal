@@ -50,14 +50,21 @@ sub _installerCmd
 
 sub _windowsClientInstaller
 {
-    my $dir = EBox::Config::share() . '/ebox/openvpn';
+    my $dir = EBox::Config::share() . 'ebox/openvpn';
 
-    my @candidates =
-      sort bsd_glob("$dir/openvpn*install*exe");   # the sort is to
+    my @candidates = bsd_glob("$dir/openvpn*install*exe");   # the sort is to
+    if (not @candidates) {
+        throw EBox::Exceptions::Internal("No windows installer found");
+    }
+
+
     # (hopefully ) to sort
     # by version number
 
-    my ($installer) = pop @candidates;
+    my ($installer) = sort @candidates;
+
+
+
     return $installer;
 }
 

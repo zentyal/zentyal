@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: bsd_glob returned wrong file in EBox::OpenVPN::Server::ClientBundleGenerator::Windows::_windowsClientInstaller
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.20
