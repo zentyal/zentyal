@@ -1,76 +1,77 @@
 <!-- vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
-	@eboxpkgs => ()
+    @eboxpkgs => ()
 </%args>
 <%init>
 use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 </%init>
-	<table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class='tleft'><%__('Component')%></th>
-			<th class='tleft'><%__('Installed version ')%></th>
-			<th class='tleft'><%__('Latest version')%></th>
-			<th class='thOptions'><%__('Actions')%></th>
-		</tr>
-	</thead>
-	<tbody>
-% 	foreach my $pkg (@eboxpkgs) {
-% 		my $eboxupg = 'no';
-		<tr class='border'>
-			<td><%__($pkg->{description})%></td>
-% 		if ($pkg->{version}) {
-% 			if ($pkg->{version} ne $pkg->{avail}) {
-%				$eboxupg = __('Update');
-%				$eboxupgbutton = 'yes';
-%				$upgpkgs = 1;
-% 			}
-			<td><%$pkg->{version}%></td>
-% 		} else {
-%			$eboxupg = __('Install');
-%			$eboxupgbutton = 'yes';
-			<td><%__('none')%></td>
-% 		}
-			<td><%$pkg->{avail}%></td>
-			<form action='InstallPkgs' method='post'>
-			<input type='hidden' value='yes' 
-					name="pkg-<%$pkg->{name}%>"/>
-			<td class='tcenter'>
-% 		if ($eboxupg ne 'no' and $pkg->{avail} ne '') {
-				<input type='image' name='ebox-install' 
-						class='inputButton'
-						src='/data/images/install.gif'
-						value="<%$eboxupg%>"/>
-% 		}
+    <table class='dataTable' cellspacing='0'>
+    <thead>
+        <tr>
+            <th class='tleft'><%__('Component')%></th>
+            <th class='tleft'><%__('Installed version ')%></th>
+            <th class='tleft'><%__('Latest version')%></th>
+            <th class='thOptions'><%__('Actions')%></th>
+        </tr>
+    </thead>
+    <tbody>
+%   foreach my $pkg (@eboxpkgs) {
+%       my $eboxupg = 'no';
+        <tr class='border'>
+%           $pkg->{description} =~ s/^eBox - //;
+            <td><%__($pkg->{description})%></td>
+%       if ($pkg->{version}) {
+%           if ($pkg->{version} ne $pkg->{avail}) {
+%               $eboxupg = __('Update');
+%               $eboxupgbutton = 'yes';
+%               $upgpkgs = 1;
+%           }
+            <td><%$pkg->{version}%></td>
+%       } else {
+%           $eboxupg = __('Install');
+%           $eboxupgbutton = 'yes';
+            <td><%__('none')%></td>
+%       }
+            <td><%$pkg->{avail}%></td>
+            <form action='InstallPkgs' method='post'>
+            <input type='hidden' value='yes'
+                    name="pkg-<%$pkg->{name}%>"/>
+            <td class='tcenter'>
+%       if ($eboxupg ne 'no' and $pkg->{avail} ne '') {
+                <input type='image' name='ebox-install'
+                        class='inputButton'
+                        src='/data/images/install.gif'
+                        value="<%$eboxupg%>"/>
+%       }
 
-% 		if ($pkg->{version} and $pkg->{removable} and $eboxupg ne 'no') {
-				<img src='/data/images/sep.gif' alt='-'/>
-% 		}
-% 		if ($pkg->{version} and $pkg->{removable}) {
-				<input type='image' name='ebox-remove' 
-						src='/data/images/delete.gif'
-						title=''
-						class='inputButton'
-						value="<%__('Remove')%>"/>
-% 		}
-			</td>
-			</form>
-		</tr>
-% 	}
-	</tbody>
-	</table>
-	<br style="clear:both;"/>
-%	if($upgpkgs) {
-	<form action='InstallPkgs' method='post'>
-%	foreach my $pkg (@eboxpkgs) {
-%		if ($pkg->{version} ne $pkg->{avail}) {
-		<input type='hidden' value='yes' name='pkg-<%$pkg->{name}%>'/>
-%		}
-%	}
-		<input type='submit' name='ebox-install'
-			value="<%__("Update all packages")%>"/>
-	</form>
-%	}
+%       if ($pkg->{version} and $pkg->{removable} and $eboxupg ne 'no') {
+                <img src='/data/images/sep.gif' alt='-'/>
+%       }
+%       if ($pkg->{version} and $pkg->{removable}) {
+                <input type='image' name='ebox-remove'
+                        src='/data/images/delete.gif'
+                        title=''
+                        class='inputButton'
+                        value="<%__('Remove')%>"/>
+%       }
+            </td>
+            </form>
+        </tr>
+%   }
+    </tbody>
+    </table>
+    <br style="clear:both;"/>
+%   if($upgpkgs) {
+    <form action='InstallPkgs' method='post'>
+%   foreach my $pkg (@eboxpkgs) {
+%       if ($pkg->{version} ne $pkg->{avail}) {
+        <input type='hidden' value='yes' name='pkg-<%$pkg->{name}%>'/>
+%       }
+%   }
+        <input type='submit' name='ebox-install'
+            value="<%__("Update all packages")%>"/>
+    </form>
+%   }
