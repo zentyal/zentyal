@@ -1,5 +1,7 @@
 HEAD
 	+ Bugfix: Allow unsafe characters in password type
+	+ Add FollowSymLinks in eBox apache configuration. This is useful
+	  if we use js libraries provided by packages
 1.3.4
 	+ Updated company name in the footer
 	+ Bugfix: humanEventMessage works with multiple tableInfos now
