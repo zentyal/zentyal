@@ -9,7 +9,7 @@ Standards-Version: 3.7.3
 Package: ebox-all
 Architecture: all
 Depends: ebox-gateway, ebox-security, ebox-infrastructure, ebox-office, ebox-communication
-Description: eBox Platform - all modules
+Description: eBox - All Modules
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
@@ -20,7 +20,7 @@ Description: eBox Platform - all modules
 Package: ebox-gateway
 Architecture: all
 Depends: ebox-network, ebox-squid, ebox-firewall, ebox-trafficshaping, ebox-l7-protocols, ebox-ebackup, ebox-software, ebox-monitor
-Description: eBox Platform - gateway suite
+Description: eBox - Gateway Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
@@ -31,7 +31,7 @@ Description: eBox Platform - gateway suite
 Package: ebox-security
 Architecture: all
 Depends: ebox-firewall, ebox-ids, ebox-squid, ebox-openvpn, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor
-Description: eBox Platform - security suite
+Description: eBox - UTM Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
@@ -41,8 +41,8 @@ Description: eBox Platform - security suite
 
 Package: ebox-infrastructure
 Architecture: all
-Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor 
-Description: eBox Platform - network infrastructure suite
+Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor
+Description: eBox - Network Infrastructure Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
@@ -52,8 +52,8 @@ Description: eBox Platform - network infrastructure suite
 
 Package: ebox-office
 Architecture: all
-Depends:ebox-samba, ebox-printers, ebox-egroupware, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor 
-Description: eBox Platform - office suite
+Depends:ebox-samba, ebox-printers, ebox-egroupware, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor
+Description: eBox - Office Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
@@ -64,7 +64,7 @@ Description: eBox Platform - office suite
 Package: ebox-communication
 Architecture: all
 Depends: ebox-mail, ebox-jabber, ebox-asterisk, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor
-Description: eBox Platform - communication server suite
+Description: eBox - Communications Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
