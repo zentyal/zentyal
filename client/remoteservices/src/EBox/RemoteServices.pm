@@ -71,7 +71,7 @@ sub _create
 
     my $self = $class->SUPER::_create( name => 'remoteservices',
                                        domain => 'ebox-remoteservices',
-                                       printableName => __('eBox remote services'),
+                                       printableName => __('Control Center Client'),
                                        @_
                                       );
 
@@ -188,7 +188,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                     'name' => 'Subscription',
-                                    'text' => __('Remote Services Subscription'),
+                                    'text' => __('Control Center'),
                                     'order' => 80,
                                    )
               );
