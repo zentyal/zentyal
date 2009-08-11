@@ -80,6 +80,7 @@ sub _table
                       messages           => {
                           update => __('Learned from messages')
                       },
+                      printableActionName => __('Train'),
                      };
 
 
