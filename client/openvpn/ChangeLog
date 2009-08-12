@@ -1,5 +1,8 @@
-1.3.5
-	+ Bugfix: bsd_glob returned wrong file in EBox::OpenVPN::Server::ClientBundleGenerator::Windows::_windowsClientInstaller
+HEAD
+	+ Add "configuration" field to Client model to select manual  or
+	  bundle configuration mode
+	+ Bugfix: bundle configuration mode works again
+	+ Bugfix: windows bundle works again
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.20
@@ -11,8 +14,8 @@
 	+ Using EBox::Types::Text::WriteOnce instead of EBox::Types::OpenVPN::WriteOnceText
 	+ Use the new rows() and ids() API
 0.12.100
-        + Daemon names are restricted to alphanumerics and '-'. '_', '.'
-	characters
+	+ Daemon names are restricted to alphanumerics and '-'. '_', '.'
+	  characters
 	+ Bugfix: servers and clients cannto get any longer the same
 	interface number
 	+ Added log rotation using logrotate

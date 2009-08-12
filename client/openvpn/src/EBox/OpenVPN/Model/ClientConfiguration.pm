@@ -33,6 +33,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
 
+use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Password;
 use EBox::Types::File;
@@ -58,6 +59,19 @@ sub _table
 {
     my @tableHead =
         (
+         new EBox::Types::Select(
+                                 fieldName => 'configuration',
+                                 printableName => __('Configuration'),
+                                 editable => 1,
+                                 options => [
+                                     { value => 'manual',
+                                       printableValue =>
+                                        __('Manual Configuration'),
+                                     },
+                                     { value => 'bundle',
+                                      printableValue => __('eBox bundle')
+                                     }]
+                                 ),
          new EBox::Types::File(
                                fieldName => 'configurationBundle',
                                printableName =>
@@ -140,6 +154,34 @@ sub _table
     return $dataTable;
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to enable and disable fields
+#   depending on the 'Configuration' value
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    my $fields = [qw/server serverPortAndProtocol caCertificate
+        certificate certificateKey ripPasswd/];
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions(
+            { configuration =>
+                {
+                  manual => { enable => $fields,
+                  disable => ['configurationBundle'] },
+                  bundle => { disable => $fields,
+                  enable => ['configurationBundle'] },
+                }
+            });
+    return $customizer;
+}
+
+
 
 sub name
 {
@@ -166,11 +208,6 @@ sub configured
     return 1;
 }
 
-
-
-
-
-
 sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -191,7 +228,7 @@ sub validateTypedRow
 sub _validateManualParams
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-    my @mandatoryParams = qw( server serverPortAndProtocol ripPasswd);
+    my @mandatoryParams = qw(server serverPortAndProtocol ripPasswd);
     foreach my $param (@mandatoryParams) {
         my $paramChanged = exists $params_r->{$param};
         if ( $paramChanged and $params_r->{$param}->printableValue()) {
@@ -209,48 +246,51 @@ sub _validateManualParams
 
 }
 
-
 sub _validateCerts
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
     my %path;
 
-    my $noChanges = 1;
-    my @fieldNames = qw(caCertificate certificate certificateKey);
-    foreach my $fieldName (@fieldNames) {
-        my $certPath;
-        if ( exists $params_r->{$fieldName} ) {
-            $noChanges = 0;
-            $certPath =  $params_r->{$fieldName}->tmpPath();
-        }
-        else {
-            my $file =  $actual_r->{$fieldName};
-            if (not $file->exist()) {
-                throw EBox::Exceptions::External(
-                   __x(
-                       'No file supplied or already setted for {f}',
-                       f => $file->printableName
-                      )
-                                                );
-            }
-
-            $certPath = $file->path();
-        }
-
-
-        $path{$fieldName} = $certPath;
+    my $conf;
+    if (exists $params_r->{'configuration'}) {
+        $conf = $params_r->{'configuration'}->value();
+    } else {
+        $conf = $actual_r->{'configuration'}->value();
     }
 
+    my $path;
+    my $noChanges = 1;
+    if ($conf eq 'manual') {
+        my @fieldNames = qw(caCertificate certificate certificateKey);
+        foreach my $fieldName (@fieldNames) {
+            my $certPath;
+            if ( exists $params_r->{$fieldName} ) {
+                $noChanges = 0;
+                $certPath =  $params_r->{$fieldName}->tmpPath();
+            } else {
+                my $file =  $actual_r->{$fieldName};
+                if (not $file->exist()) {
+                    throw EBox::Exceptions::External(
+                            __x(
+                                'No file supplied or already setted for {f}',
+                                f => $file->printableName
+                               )
+                            );
+                }
+                $certPath = $file->path();
+            }
+            $path{$fieldName} = $certPath;
+        }
+    }
 
-    return if $noChanges;
-
+    return if ($noChanges);
 
     EBox::OpenVPN::Client::ValidateCertificate::check(
-                                                      $path{caCertificate},
-                                                      $path{certificate},
-                                                      $path{certificateKey}
-                                                     );
+            $path{caCertificate},
+            $path{certificate},
+            $path{certificateKey}
+            );
 }
 
 
@@ -279,7 +319,6 @@ sub _privateFilePath
 sub _bundlePath
 {
     my ($file) = @_;
-
     return unless (defined($file));
     return unless (defined($file->model()));
 
