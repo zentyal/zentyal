@@ -122,11 +122,7 @@ sub banned
 sub bannedRegexes
 {
   my ($self) = @_;
-
-  my @bannedExtensions = @{  $self->banned };
-  @bannedExtensions = map { '^.' . $_ . '$'  } @bannedExtensions;
-
-  return \@bannedExtensions;
+  return $self->banned();
 }
 
 

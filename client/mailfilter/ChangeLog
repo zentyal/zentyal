@@ -1,5 +1,6 @@
 HEAD
         + Bugfix: adapted to changes in EBox::Ldap API
+	+ Bugfix: banned extension regex broke, fixed with a simpler expression
 1.1.30
 	+ Bugfix: when the user spam/ham does not exist do not try to
 	remove its account
