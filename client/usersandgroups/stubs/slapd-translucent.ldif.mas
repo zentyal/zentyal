@@ -100,7 +100,7 @@ objectClass: olcOverlayConfig
 objectClass: olcTranslucentConfig
 olcOverlay: translucent
 olcTranslucentLocal: objectClass
-olcTranslucentRemote: uid,gidNumber,objectClass
+olcTranslucentRemote: uid,uidNumber,gidNumber,objectClass
 
 dn: olcDatabase=ldap,olcOverlay={0}translucent,olcDatabase={1}hdb,cn=config
 objectClass: olcLDAPConfig
