@@ -16,6 +16,7 @@ use EBox::Dashboard::Section;
 use EBox::MailFilter::VDomainsLdap;
 use EBox::MailVDomainsLdap;
 
+use EBox::Ldap;
 
 use constant {
   AMAVIS_SERVICE                 => 'ebox.amavisd-new',
@@ -113,6 +114,8 @@ sub writeConf
 {
     my ($self) = @_;
 
+    my $ldap = EBox::Ldap->instance();
+
     my $antivirus   = EBox::Global->modInstance('antivirus');
     my $mailfilter  = EBox::Global->modInstance('mailfilter');
     my $antispam   = $mailfilter->antispam();
@@ -127,10 +130,10 @@ sub writeConf
 
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-    push @masonParams, ( ldapBase         =>  EBox::Ldap->dn );
+    push @masonParams, ( ldapBase         =>  $ldap->dn );
     push @masonParams, ( ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, ( ldapBindDn       =>  EBox::Ldap->rootDn );
-    push @masonParams, ( ldapBindPasswd   =>  EBox::Ldap->rootPw );
+    push @masonParams, ( ldapBindDn       =>  $ldap->rootDn );
+    push @masonParams, ( ldapBindPasswd   =>  $ldap->rootPw );
 
     push @masonParams, ( antivirusActive  => $self->antivirus());
     push @masonParams, ( virusPolicy      => $self->filterPolicy('virus'));
