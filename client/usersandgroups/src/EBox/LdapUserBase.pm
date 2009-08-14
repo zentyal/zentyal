@@ -75,7 +75,7 @@ sub _modifyUser($$) # (user)
 #
 # Returns:
 #
-#   	array ref - Each element must be a string describing the sort of data
+#   	array - Each element must be a string describing the sort of data
 #   	is going to be removed if the user is deleted. If nothing is going to
 #   	removed you must not return anything
 sub _delUserWarning($$) # (user)
@@ -131,7 +131,7 @@ sub _delGroup($$) # (group)
 #
 # Returns:
 #
-#   	array ref - Each element must be a string describing the sort of data
+#   	array  - Each element must be a string describing the sort of data
 #   	is going to be removed if the group is deleted. If nothing is going to
 #   	removed you must not return anything
 sub _delGroupWarning($$) # (group)
