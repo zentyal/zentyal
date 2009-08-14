@@ -20,7 +20,7 @@ use warnings;
 use base qw(
                 EBox::Module::Service
                 EBox::Model::ModelProvider EBox::Model::CompositeProvider
-                EBox::FirewallObserver  EBox::LogObserver
+                EBox::FirewallObserver  EBox::LogObserver EBox::LdapModule
                 EBox::Report::DiskUsageProvider
                 );
 
@@ -33,9 +33,12 @@ use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
+
 use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::SquidOnlyFirewall;
+use EBox::Squid::LdapUserImplementation;
+
 use EBox::Dashboard::Value;
 use EBox::Dashboard::Section;
 use EBox::Menu::Item;
@@ -45,6 +48,7 @@ use EBox::Gettext;
 use EBox;
 use Error qw(:try);
 use HTML::Mason;
+
 
 
 #Module local conf stuff
@@ -610,6 +614,19 @@ sub _antivirusNeeded
     return 0;
 }
 
+
+# sub notifyAntivirusEnabled
+# {
+#     my ($self) = @_;
+#     $self->_dgNeeded() or 
+#         return;
+
+#     if ($self->_antivirusNeeded()) {
+#         $self->setAsChanged();
+#     }
+
+# }
+
 sub _writeSquidConf
 {
   my ($self) = @_;
@@ -1130,11 +1147,23 @@ sub dumpConfig
     $filterGroups->dumpConfig($dir);
 }
 
+
+
+
 sub restoreConfig
 {
     my ($self, $dir) = @_;
     my $filterGroups = $self->model('FilterGroup');
     $filterGroups->restoreConfig($dir);
 }
+
+
+
+# LdapModule implementation
+sub _ldapModImplementation
+{
+    return new EBox::Squid::LdapUserImplementation();
+}
+
 
 1;

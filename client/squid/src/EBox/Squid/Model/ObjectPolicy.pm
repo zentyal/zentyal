@@ -403,6 +403,30 @@ sub _findRowByObjectName
 }
 
 
+sub existsPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $groupPolicy   = $row->subModel('groupPolicy');
+        if ($groupPolicy->existsPoliciesForGroup($group)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub delPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $groupPolicy   = $row->subModel('groupPolicy');
+        $groupPolicy->delPoliciesForGroup($group)
+    }
+}
+
 
 
 1;

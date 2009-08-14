@@ -188,6 +188,32 @@ sub groupsPolicies
 }
 
 
+sub existsPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $userGroup   = $row->elementByName('group')->printableValue();
+        if ($group eq $userGroup) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub delPoliciesForGroup
+{
+    my ($self, $group) = @_;
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        my $userGroup   = $row->elementByName('group')->printableValue();
+        if ($group eq $userGroup) {
+            $self->removeRow($id);
+        }
+    }    
+}
 
 
 

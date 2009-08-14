@@ -3,7 +3,7 @@ SUBDIRS = Model Composite Types
 
 perldir = @PERLPATH@/EBox/Squid
 
-nobase_perl_DATA = LogHelper.pm
+nobase_perl_DATA = LogHelper.pm LdapUserImplementation.pm
 
 SOURCES = $(nobase_perl_DATA)
 
