@@ -615,17 +615,17 @@ sub _antivirusNeeded
 }
 
 
-# sub notifyAntivirusEnabled
-# {
-#     my ($self) = @_;
-#     $self->_dgNeeded() or 
-#         return;
+sub notifyAntivirusEnabled
+{
+    my ($self) = @_;
+    $self->_dgNeeded() or 
+        return;
 
-#     if ($self->_antivirusNeeded()) {
-#         $self->setAsChanged();
-#     }
+    if ($self->_antivirusNeeded()) {
+        $self->setAsChanged();
+    }
 
-# }
+}
 
 sub _writeSquidConf
 {

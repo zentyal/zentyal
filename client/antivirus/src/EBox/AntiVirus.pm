@@ -140,6 +140,41 @@ sub actions
     return [];
 }
 
+
+# Method: enableService
+#
+#   Used to enable a service We have to verride this because squid needs a
+#   notification of when the antivirus is enabled
+#
+# Parameters:
+#
+#   boolean - true to enable, false to disable
+#
+#  Overrides:
+#      <EBox::Module::Service::enableService>
+sub enableService
+{
+    my ($self, $status) = @_;
+    defined $status or
+        $status = 0;
+
+    return unless ($self->isEnabled() xor $status);
+
+    $self->SUPER::enableService($status);
+
+
+    # notify squid of changes..
+    #  this must be after status has chenged..
+    my $global = EBox::Global->instance();
+    if ($global->modExists('squid')) {
+        my $squid = $global->modInstance('squid');
+        $squid->notifyAntivirusEnabled();
+    }
+
+
+
+}
+
 # Method: enableActions
 #
 #        Run those actions explain by <actions> to enable the module

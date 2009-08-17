@@ -1,5 +1,7 @@
 HEAD
 	+ Bugfix: group policies are deleted when the group is deleted
+	+ Bugfix: added notification when antivirus is enabled to assure
+	that we have a correct configuration
 1.1.30
 	+ Added to Traffic details report _noAggregateFileds and fixed bug
 	with defaultController

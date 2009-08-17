@@ -1,3 +1,6 @@
+HEAD
+	+ bugfix: notify squid module when antivirus is enabled, so it
+	could change its configuration if needed
 1.1.20
 	+  run it as root for now to make it work samba-vscan
 	+  do not use upstart for clamd
