@@ -145,8 +145,6 @@ sub ldapCon
             my $users = EBox::Global->modInstance('users');
             $dn = $users->userDn($credentials->{'user'});
             $pass = $credentials->{'pass'};
-            EBox::debug('dn: ' . $dn);
-            EBox::debug('pass: ' . $pass);
         } else {
             throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
         }
