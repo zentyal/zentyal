@@ -31,7 +31,7 @@ chown $OWNER:$GROUP $DUMP
 slapcat 2>/dev/null | gzip -c > $DUMP/slapd.ldif.gz
 sudo -u ebox pg_dump eboxlogs | gzip -c > $DUMP/pg.sql.gz
 
-rdiff-backup --exclude $BACKUP --exclude /dev --exclude /proc --exclude /sys / $BACKUP/ > $LOG
+rdiff-backup --exclude $BACKUP --exclude /dev --exclude /proc --exclude /sys --exclude /mnt --exclude /media / $BACKUP/ > $LOG
 if [ $? -eq 0 ]; then
     rdiff-backup --remove-older-than $MAXAGE --force $BACKUP/ > $LOG 2> $LOG
     rm -f $BACKUP/rdiff-backup.err

@@ -43,7 +43,7 @@ if ($global->modExists('events')) {
 
 
 my $path = $model->backupPathValue();
-my $keep = $model->backupKeepValue();
+my $keep = $model->backupKeepValue() . "D";
 my $backupCmd = "/usr/share/ebox-ebackup/ebox-ebackup-local $path $keep";
 EBox::Sudo::root($backupCmd);
 
