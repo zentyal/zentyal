@@ -130,7 +130,7 @@ if (system ("$INSTALL_FILES/ebox-module-installed mail") == 0) {
 preconfiguration();
 
 # Fetch internal addresses
-my $output = `$INSTALL_FILES/ebox-get-addresses"`;
+my $output = `$INSTALL_FILES/ebox-get-addresses`;
 if ( $? == 0 ) {
     for my $address ( split(/ /, $output ) ) {
         $FINAL_MESSAGE .= "https://$address ";
