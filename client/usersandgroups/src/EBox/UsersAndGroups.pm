@@ -97,13 +97,21 @@ sub actions
             }
         ];
     } else {
-        return [
+        my @actions = (
                 {
                  'action' => __('Your eBox will be registered as a slave in the eBox master specified'),
                  'reason' => __('This eBox needs to have remote access to the users in the eBox master'),
                 'module' => 'users'
             }
-        ];
+        );
+        if ( -f '/etc/init.d/apparmor' ) {
+            push (@actions, {
+               'action' => __('Apparmor profile will be disabled'),
+                'reason' => __('It is not ready to work with more than one slapd'),
+                'module' => 'users'
+            });
+        }
+        return \@actions;
     }
 }
 
@@ -147,6 +155,13 @@ sub enableActions
 
         $self->performLDAPActions();
     } else {
+        if ( -f '/etc/init.d/apparmor' ) {
+            my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
+                      '/etc/apparmor.d/disabled/usr.sbin.slapd"';
+            EBox::Sudo::root($cmd);
+            EBox:Sudo::root('invoke-rc.d apparmor restart');
+        }
+
         EBox::Sudo::root("invoke-rc.d slapd stop");
         EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
 
@@ -717,6 +732,12 @@ sub addUser # (user, system)
     unless ($system) {
         $self->initUser($user->{'user'}, $user->{'password'});
         $self->_initUserSlaves($user->{'user'}, $user->{'password'});
+    }
+
+    if ( -f '/etc/init.d/nscd' ) {
+        try {
+            EBox::Sudo::root('/etc/init.d/nscd reload');
+        } otherwise {};
     }
 }
 
@@ -1313,6 +1334,13 @@ sub addGroup # (group, comment, system)
         $self->initGroup($group);
         $self->_initGroupSlaves($group);
     }
+
+    if ( -f '/etc/init.d/nscd' ) {
+        try {
+            EBox::Sudo::root('/etc/init.d/nscd reload');
+        } otherwise {};
+    }
+
 }
 
 sub initGroup
