@@ -1,8 +1,9 @@
 <%args>
-$save
-$logout
-$finishClass
-$remoteServicesURL => ''
+    $save
+    $logout
+    $finishClass
+    $remoteServicesURL => ''
+    $image_title
 </%args>
 <%init>
 use EBox::Gettext;
@@ -10,11 +11,11 @@ use EBox::Gettext;
 <div id="top"></div>
 	<div id="header">
           <a href="/ebox">
-            <img src="/data/images/title.gif" alt="title"/>
+            <img src="<% $image_title %>" alt="title"/>
           </a>
         </div>
 	<div id="hmenu">
-% if ( $remoteServicesURL ne '' ) {          
+% if ( $remoteServicesURL ne '' ) {
           <a id="remote_services_link" href="<% $remoteServicesURL %>">
             <% __('Remote services control panel') %>
           </a>

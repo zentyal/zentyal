@@ -47,20 +47,22 @@ sub title
 		$finishClass = "notchanged";
 	}
 
-        # Display control panel button only if the eBox is subscribed
-        my $remoteServicesURL = '';
-        if ( $global->modExists('remoteservices') ) {
-            my $remoteServicesMod = $global->modInstance('remoteservices');
-            if ( $remoteServicesMod->eBoxSubscribed() ) {
-                $remoteServicesURL = $remoteServicesMod->controlPanelURL();
-            }
+    # Display control panel button only if the eBox is subscribed
+    my $remoteServicesURL = '';
+    if ( $global->modExists('remoteservices') ) {
+        my $remoteServicesMod = $global->modInstance('remoteservices');
+        if ( $remoteServicesMod->eBoxSubscribed() ) {
+            $remoteServicesURL = $remoteServicesMod->controlPanelURL();
         }
+    }
+    my $image_title = $global->theme()->{'image_title'};
 
 	my $html = makeHtml('headTitle.mas',
                              save => $save,
                              logout => $logout,
                              finishClass => $finishClass,
                              remoteServicesURL => $remoteServicesURL,
+                             image_title => $image_title,
                             );
 	return $html;
 }
@@ -103,7 +105,11 @@ sub menu
 #
 sub footer
 {
-    my $html = makeHtml('footer.mas');
+    my $global = EBox::Global->getInstance();
+    my $copyright = $global->theme()->{'copyright_footer'};
+
+    my $html = makeHtml('footer.mas',
+                        'copyright_footer' => $copyright);
     return $html;
 }
 

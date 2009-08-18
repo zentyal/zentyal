@@ -44,7 +44,8 @@ sub _print
 
 sub _process
 {
-	my $self = shift;
+	my ($self) = @_;
+
 	my $r = Apache2::RequestUtil->request;
 	my $envre;
 	my $authreason;
@@ -72,10 +73,12 @@ sub _process
 			     'a new session has been opened');
 	}
 
+    my $global = EBox::Global->getInstance();
 
 	my @htmlParams = (
-			  'destination' => $destination,
-			  'reason'      => $reason,
+			  'destination'       => $destination,
+			  'reason'            => $reason,
+		          %{ $global->theme() }
 			 );
 
 	$self->{params} = \@htmlParams;

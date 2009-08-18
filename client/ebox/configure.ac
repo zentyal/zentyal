@@ -93,6 +93,7 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
+stubs/css/Makefile
 tools/Makefile
 tools/sqllog/Makefile
 tools/cron/Makefile

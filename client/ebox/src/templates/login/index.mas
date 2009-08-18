@@ -1,6 +1,9 @@
 <%args>
   $reason => ""
-  $destination 
+  $destination
+  $image_login_logo
+  $alt_logo
+  $created_by_footer
 </%args>
 <%init>
 use EBox::Gettext;
@@ -16,22 +19,22 @@ use EBox::Gettext;
 <center>
 	<div id='login'>
 	<div id='loginin'>
-	<img src="/data/images/title-login.png" alt="eBox Logo" id="logo"/>
-% 		if(length($reason)){
+	<img src="<% $image_login_logo %>" alt="<% $alt_logo %>" id="logo"/>
+%		if(length($reason)){
 			<div id='reason'><% $reason %></div>
 %		}
-	
+
 	<form name='login' action='/LOGIN' method='post'>
                 <div class="warning" id="capsWarning" style="display: none">
                   <% __('Warning: Caps Lock is enabled')%>
                 </div>
 		<dl>
 			<dt><% __('Password') %>:</dt>
-			<dd><input  class='inputTextLogin' type='password' 
-					name='credential_0' 
+			<dd><input  class='inputTextLogin' type='password'
+					name='credential_0'
 					id='credential_0'
 					size='14' /></dd>
-				<input  type='hidden' name='destination' 
+				<input  type='hidden' name='destination'
 					value='<% $destination %>' />
 		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
 		</dl>
@@ -39,7 +42,7 @@ use EBox::Gettext;
 	</div>
 	</div>
 </center>
-<div id="footer"><% __x("Created by {href}", href => "<a href='http://www.ebox-technologies.com/'>eBox Technologies</a>") %></div>
+<div id="footer"><% $created_by_footer %></div>
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
 </html>

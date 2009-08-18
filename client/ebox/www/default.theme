@@ -1,0 +1,37 @@
+main_color: "#A6C733"
+secondary_color: "#A3BD5B"
+third_color: "#BBDF39"
+
+# login.css
+logo_style: "float: left;"
+body_background_color: "#DFF0A4"
+loginin_padding_style: "15px 20px 10px 20px"
+
+# public.css
+header_img_padding: "padding-top: 3px; padding-left: 3px;"
+hmenu_bg_color: "#B5D448"
+hmenu_hover_bg_color: "#C5E64E"
+remote_svcs_bg_color: "#BBE03A"
+remote_svcs_hover_bg_color: "#CCE86C"
+footer_custom_style: "text-align: center;"
+data_table_border_color: "#D6DBBE"
+data_table_inner_border_color: "#658037"
+data_table_color: "#D8DAC1"
+msg_bg_color: "#06BC06"
+helpbutton_color: "#859E83"
+nav_li_color: "#5E695D"
+a_notchanged_hover_color: "#CBF23E"
+data_table_bg_color: "#EFF4DD"
+additional_footer_style: ""
+
+# headTitle.mas
+image_title: "/data/images/title.gif"
+
+# login/index.mas
+image_login_logo: "/data/images/title-login.png"
+alt_logo: "eBox Logo"
+created_by_footer: "Created by <a href='http://www.ebox-technologies.com/'>eBox Technologies</a>"
+
+# footer.mas
+copyright_footer: "<a href='http://ebox-platform.com/'>eBox</a> created by <a href='http://ebox-technologies.com/'>eBox Technologies S.L.</a>"
+

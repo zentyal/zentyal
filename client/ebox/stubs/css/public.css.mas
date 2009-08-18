@@ -1,6 +1,27 @@
+<%args>
+    $main_color
+    $secondary_color
+    $third_color
+    $header_img_padding
+    $hmenu_bg_color
+    $hmenu_hover_bg_color
+    $remote_svcs_bg_color
+    $remote_svcs_hover_bg_color
+    $footer_custom_style
+    $data_table_border_color
+    $data_table_inner_border_color
+    $data_table_color
+    $msg_bg_color
+    $helpbutton_color
+    $nav_li_color
+    $a_notchanged_hover_color
+    $data_table_bg_color
+    $additional_footer_style
+</%args>
+
 #header {
 	height: 46px;
-	background: #a6c733 url('/data/images/bkgwhite.png') top left no-repeat;
+	background: <% $main_color %> url('/data/images/bkgwhite.png') top left no-repeat;
 	padding:0;
 	margin: 0;
 	color: transparent;
@@ -8,13 +29,12 @@
 
 
 #header a:hover {
- 	background: transparent;
- 	color: black;
+	background: transparent;
+	color: black;
 }
 
 #header img {
-	padding-top: 3px;
-	padding-left: 3px;
+    <% $header_img_padding %>
 	padding-bottom: 0;
 	margin:0;
 }
@@ -30,21 +50,21 @@
 #hmenu a {
 	display: block;
 	float:left;
-   	color: #fff;
-   	font-size: 11px;
+	color: #fff;
+	font-size: 11px;
 	line-height: 16px;
 	padding: 25px 15px 5px 15px;
-   	text-decoration: none;
+	text-decoration: none;
 }
 
-#hmenu #m { background-color: #b5d448; }
-#hmenu #m:hover { background-color: #C5E64E; }
+#hmenu #m { background-color: <% $hmenu_bg_color %>; }
+#hmenu #m:hover { background-color: <% $hmenu_hover_bg_color %>; }
 
 #hmenu #remote_services_link {
-        background-color: #bbe03a;
+        background-color: <% $remote_svcs_bg_color %>;
 }
 #hmenu #remote_services_link:hover {
-        background-color: #cce86c;
+        background-color: <% $remote_svcs_hover_bg_color %>;
 }
 
 
@@ -70,28 +90,30 @@
 	color: #888;
 	clear: both;
 	font-size: 11px;
-	text-align: center;
+    <% $footer_custom_style %>
 	width: 100%;
 	margin-top: 20px;
 	margin-left: 0px;
 	padding: 3px;
 }
 
-#footer a { 
-	text-decoration: underline; 
+#footer a {
+	text-decoration: underline;
 	color: #888;
 }
 
-#footer a:active { 
-	text-decoration: underline; 
+#footer a:active {
+	text-decoration: underline;
 	color: #888;
 }
 
-#footer a:hover { 
+#footer a:hover {
 	text-decoration: none;
 	background: #888;
 	color: #fff;
 }
+
+<% $additional_footer_style %>
 
 #module_list {
     margin-left: 20px;
@@ -188,7 +210,7 @@
 .summarySection {
 	width: 100%;
 	margin-bottom: 15px;
-	margin-left:0px; 
+	margin-left:0px;
 }
 
 .summarySection tr {
@@ -213,7 +235,7 @@
 }
 
 .legend {
-	float:left; 
+	float:left;
 	margin-bottom: 15px;
 }
 
@@ -222,27 +244,27 @@
 	/*float: left;*/
 	color:#000000;
 	font-size: 11px;
-	border: 1px solid #99cc66;
+    border: 1px solid <% $data_table_border_color %>;
 	border-collapse: collapse;
 	border-bottom:0;
 	/*margin-bottom: 20px; */
 }
 .dataTable thead {
-        background:#a3bd5b;
-        color: white;
+    background: <% $secondary_color %>;
+    color: white;
 }
 .dataTable th {
 	font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
-        padding: 8px 6px 8px 6px;
+    padding: 8px 6px 8px 6px;
 	font-weight: bold;
-        vertical-align: middle;
-        border: 1px solid #658037;
+    vertical-align: middle;
+    border: 1px solid <% $data_table_inner_border_color %>;
 }
 .dataTable td {
-        padding: 8px 8px 8px 8px;
-        border-bottom: 1px solid #658037;
-        border-left: 1px solid #d8dac1;
-        border-right: 1px solid #d8dac1;
+    padding: 8px 8px 8px 8px;
+    border-bottom: 1px solid <% $data_table_inner_border_color %>;
+    border-left: 1px solid <% $data_table_color %>;
+    border-right: 1px solid <% $data_table_color %>;
 }
 
 .dataTable td a {
@@ -251,10 +273,10 @@
 	text-decoration: none;
 }
 
-.dataTable td a:hover { 
+.dataTable td a:hover {
     background: none;
     text-decoration: underline;
-    color: #A3BD5B;
+    color: <% $secondary_color %>;
 }
 
 .dataTable tr.highlight { background: #E58A22; }
@@ -331,13 +353,13 @@ select {
 .msg {
 	color: #FFFFFF;
 	padding: 10px;
-	background-color: #06BC06;
+    background-color: <% $msg_bg_color %>;
 }
 
 .logout {
 	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	border-top: 1px solid #ccc; 
+	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #4c4c4c;
 	border-bottom: 1px solid #4c4c4c;
@@ -373,7 +395,7 @@ h3 {
 	font-family: Trebuchet MS, Verdana, sans-serif;
 	font-weight: bold;
 	margin-bottom: 8px;
-	color: #a6c733;
+    color: <% $main_color %>;
 }
 
 h4 {
@@ -472,7 +494,7 @@ input {
 }
 
 .tabs li a.current{
-	background: #fff; 
+	background: #fff;
 	font-weight: bold;
 	border: 1px solid #989898;
 	border-bottom: 1px solid white;
@@ -484,7 +506,7 @@ input {
 	border-right: 1px solid #787878;
 	border-bottom: 1px solid #fff;
 	padding: 5px 10px 5px 10px;
-	background: #fff; 
+	background: #fff;
 	color:  #787878;
 	font-weight: bold;
 }
@@ -516,7 +538,7 @@ input {
 	margin-left: 10px;
 }
 
-#helpbutton a { color: #859E83; }
+#helpbutton a { color: <% $helpbutton_color %>; }
 
 #helpbutton a:hover { color: #ffffff; }
 
@@ -531,14 +553,14 @@ input {
 	list-style: none;
 }
 
-#nav { margin-bottom: 0em; }	
+#nav { margin-bottom: 0em; }
 
 #nav li, #nav li li {
 	display: inline;
 	padding: 0;
 	margin: 0;
 }
-	
+
 #nav li li { display: none; }
 
 #nav li a {
@@ -548,7 +570,7 @@ input {
 	padding-left: 4px;
 	margin: 0px;
 	margin-right: 0px;
-	color: #5E695D;
+    color: <% $nav_li_color %>;
 	font-weight: bold;
 	border:0;
 	background-color: #ffffff;
@@ -565,7 +587,7 @@ input {
 	border-top:0;
 	font-weight: normal;
 }
-	
+
 #nav {
 	line-height: 1em;
 	width: 160px;
@@ -596,19 +618,19 @@ pre {
 }
 
 .notchanged {
-	background-color: #BBDF39; 
+    background-color: <% $third_color %>;
 }
 
-a.notchanged:hover { 
-	background-color: #CBF23E; 
+a.notchanged:hover {
+    background-color: <% $a_notchanged_hover_color %>;
 }
 
 .changed {
-	background-color: #F60000; 
+	background-color: #F60000;
 }
 
-a.changed:hover { 
-        background-color: #FF2424; 
+a.changed:hover {
+        background-color: #FF2424;
 }
 
 .comment {
@@ -630,24 +652,21 @@ a.changed:hover {
        border: 1px solid #FFCC99;
        margin: 5px 0 5px 0;
 }
-.bold { font-weight: bold; } 
+.bold { font-weight: bold; }
 
-.legendName { 
+.legendName {
               padding-right: 10px;
               }
 
-.hidden { 
+.hidden {
           display: none;
 }
 
 .eDataTable, .bDataTable {
 	width: 100%;
 	font-size: 11px;
-	background: #eff4dd;
-	border-left: 1px solid #d8dac1;
-	border-right: 1px solid #d8dac1;
-	border-bottom: 1px solid #d8dac1;
-	border-top: 1px solid #d8dac1;
+    background: <% $data_table_bg_color %>;
+    border: 1px solid <% $data_table_color %>;
 	border-collapse: collapse;
 }
 .eDataTable td, .bDataTable td {
@@ -662,8 +681,8 @@ a.changed:hover {
 }
 
 .bDataTable {
-	border-bottom: 1px solid #d6dbbe;
-	border-top: 1px solid #d6dbbe;
+    border-bottom: 1px solid <% $data_table_border_color %>;
+    border-top: 1px solid <% $data_table_border_color %>;
 }
 .button {
 	cursor: pointer;
@@ -676,7 +695,7 @@ a.changed:hover {
 }
 
 .addNew {
-	background: #fff url('/data/images/add.gif') left no-repeat; 
+	background: #fff url('/data/images/add.gif') left no-repeat;
 	padding-left: 18px;
 }
 
@@ -823,7 +842,7 @@ a.changed:hover {
 }
 
 .widgetTopBackground {
-        background: #BBDF39;
+        background: <% $third_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
@@ -878,7 +897,7 @@ a.minBox, a.maxBox {
 }
 
 .widgetBoxIn {
-        border:1px solid #BBDF39;
+        border:1px solid <% $third_color %>;
 }
 
 .sectionContent {
@@ -966,19 +985,19 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 	text-decoration: none;
 }
 
-.dashboardTable td a:hover { 
+.dashboardTable td a:hover {
     background: none;
     text-decoration: underline;
-    color: #A3BD5B;
+    color: <% $secondary_color %>;
 }
 
 .dashboardTable tr.highlight { background: #E58A22; }
 
 .separator {
     color: white;
-    font-weight: bold; 
-    font-size: 0.9em; 
-    background: #BBDF39;
+    font-weight: bold;
+    font-size: 0.9em;
+    background: <% $third_color %>;
     padding: 3px 18px 3px 10px;
     margin-left: -10px;
 }

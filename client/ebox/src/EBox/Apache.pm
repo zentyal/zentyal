@@ -141,6 +141,7 @@ sub _setConf
 
 	$self->_writeHttpdConfFile();
 	$self->_writeStartupFile();
+	$self->_writeCSSFiles();
 }
 
 sub _enforceServiceState
@@ -204,6 +205,28 @@ sub _writeStartupFile
     my ($primaryGid) = split / /, $GID, 2;
     EBox::Module::Base::writeConfFileNoCheck($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $primaryGid});
 
+}
+
+sub _writeCSSFiles
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::share() . 'ebox/www/css';
+
+    my ($primaryGid) = split / /, $GID, 2;
+
+    my $global = EBox::Global->getInstance();
+    my $theme = $global->theme();
+    my %params = %{ $theme };
+
+    foreach my $file ('public.css', 'login.css') {
+        EBox::Module::Base::writeConfFileNoCheck("$path/$file",
+                                                 "css/$file.mas",
+                                                 [ %params ],
+                                                 { mode => '0600',
+                                                   uid => $UID,
+                                                   gid => $primaryGid});
+    }
 }
 
 

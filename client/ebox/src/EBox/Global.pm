@@ -78,6 +78,33 @@ sub readModInfo # (module)
     return $yaml->[0];
 }
 
+#Method: theme
+#
+#   Returns the information found in custom.theme if exists
+#   exists or default.theme if not.
+#
+sub theme
+{
+    my ($self) = @_;
+
+    unless (defined $self->{theme}) {
+        $self->{theme} = _readTheme();
+    }
+
+    return $self->{theme};
+}
+
+sub _readTheme
+{
+    my $path = EBox::Config::share() . 'ebox/www';
+    my $theme = "$path/custom.theme";
+    unless (-f $theme) {
+        $theme = "$path/default.theme";
+    }
+    my $yaml = YAML::Tiny->read($theme);
+    return $yaml->[0];
+}
+
 sub _className
 {
     my ($self, $name) = @_;
