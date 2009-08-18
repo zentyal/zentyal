@@ -11,11 +11,6 @@ if [ ! -d "$BACKUPDIR" ]; then
   mkdir -p -m 0700 "$BACKUPDIR"
 fi
 
-# Load default settings.
-if [ -e "$DEFAULTS" ]; then
-  . "$DEFAULTS"
-fi
-
 date=$(date +%C%y%m%d-%H%M%S)
 DESTDIR="$BACKUPDIR/slapd-preebox-$date"
 mkdir -p -m 0700 $DESTDIR
