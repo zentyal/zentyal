@@ -159,7 +159,7 @@ sub enableActions
             my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
                       '/etc/apparmor.d/disabled/usr.sbin.slapd';
             EBox::Sudo::root($cmd);
-            EBox:Sudo::root('invoke-rc.d apparmor restart');
+            EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
 
         EBox::Sudo::root("invoke-rc.d slapd stop");
