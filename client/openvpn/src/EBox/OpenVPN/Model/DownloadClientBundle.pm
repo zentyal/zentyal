@@ -297,4 +297,42 @@ sub _help
     return __('A client bundle is a file which contains a ready to use ' .
               'configuration for your clients');
 }
+
+# Method: precondition
+#
+#   Overrides <EBox::Model::DataTable::precondition> to check if the server is
+#   properly configured if it is not we could not download any bundle file
+#
+# Returns:
+#
+#       Boolean - true if the precondition is accomplished, false
+#       otherwise
+sub precondition
+{
+    my ($self) = @_;
+
+    my $configuration = $self->row()->parentRow()->subModel('configuration');
+    defined $configuration or
+        return undef;
+
+    return  $configuration->configured();
+}
+
+
+
+# Method: preconditionFailMsg
+#
+#   Overrides <EBox::Model::DataTable::preconditionFailMsg
+#
+# Returns:
+#
+#       String - the i18ned message to inform user why this model
+#       cannot be handled
+#
+#
+sub preconditionFailMsg
+{
+  __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry');
+}
+
 1;

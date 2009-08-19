@@ -3,6 +3,7 @@ HEAD
 	  bundle configuration mode
 	+ Bugfix: bundle configuration mode works again
 	+ Bugfix: windows bundle works again
+        + DownloadClient bundle form is only showed when server 	configuration is complete	
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.20
