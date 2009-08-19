@@ -86,7 +86,7 @@ sub _table
             printableName => __('Password'),
             editable => 1,
             optional => 1,
-            help => __('Master: LDAP admin password. Slave: eBox LDAP user password')
+            help => __('Only for slave configuration: Master eBox LDAP user password')
         )
     );
 
