@@ -157,7 +157,7 @@ sub enableActions
     } else {
         if ( -f '/etc/init.d/apparmor' ) {
             my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
-                      '/etc/apparmor.d/disabled/usr.sbin.slapd"';
+                      '/etc/apparmor.d/disabled/usr.sbin.slapd';
             EBox::Sudo::root($cmd);
             EBox:Sudo::root('invoke-rc.d apparmor restart');
         }
