@@ -83,6 +83,15 @@
         <var name="IFACE" value="eth2"/>
     </test>
 
+    <test type="selenium">
+        <name>SaveChanges</name>
+        <desc>Save changes.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>save-changes</dir>
+    </test>
+
 <!-- PDC change attritbutes test (reported bug) -->
 
     <test type="selenium">
