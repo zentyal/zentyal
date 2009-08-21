@@ -27,6 +27,8 @@ package EBox::Firewall::IptablesRule;
 use warnings;
 use strict;
 
+use Clone;
+
 use EBox::Validate qw( checkCIDR );
 use EBox::Model::ModelManager;
 use EBox::Exceptions::MissingArgument;
@@ -61,7 +63,10 @@ sub strings
 
     my @rules;
     my $table = ' -t ' . $self->table();
-    my $decision = ' -j ' . $self->decision();
+    my $decision = '';
+    if ($self->decision()) {
+        $decision = ' -j ' . $self->decision();
+    }
     my $chain = ' -A ' .  $self->chain();
     my $state = $self->state();
     my $modulesConf = $self->modulesConf();
@@ -578,6 +583,34 @@ sub _setAddress
             $self->{$addressType} = [''];
         }
     }
+}
+
+# Method: clone
+#
+#   Clone this rule
+#
+# Returns:
+#
+#     <EBox::Types::Abstract> - the cloned object
+#
+sub clone
+{
+    my ($self) = @_;
+
+    my $clonedRule = {};
+    bless($clonedRule, ref($self));
+
+    my @skipKeys = qw/services objects/;
+    foreach my $key (keys %{$self}) {
+        unless ($key eq any @skipKeys) {
+            $clonedRule->{$key} = Clone::clone($self->{$key});
+        }
+    }
+    for my $key (@skipKeys) {
+        $clonedRule->{$key} = $self->{$key};
+    }
+
+    return $clonedRule;
 }
 
 1;
