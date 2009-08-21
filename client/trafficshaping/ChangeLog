@@ -1,6 +1,8 @@
 HEAD
 	+ bug fix: l7 filter rules need to be added to both external and internal
 	interfaces to be able to detect traffic properly
+	+ Add model to set upload/download rate fields for gateways. This allows
+	users to use this module with DHCP configured gateways
 1.1.20
 	+ fix regression introduced when firewall was changed to execute iptables command
 at once

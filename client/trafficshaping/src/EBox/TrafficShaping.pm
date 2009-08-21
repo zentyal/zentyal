@@ -65,6 +65,7 @@ use EBox::TrafficShaping::TreeBuilder::HTB;
 
 # Rule model
 use EBox::TrafficShaping::Model::RuleTable;
+use EBox::TrafficShaping::Model::InterfaceRate;
 
 # Model managers
 use EBox::Model::ModelManager;
@@ -173,7 +174,7 @@ sub _enforceServiceState
     $self->_createBuilders(regenConfig => 1);
 
     # Called every time a Save Changes is done
-    my $ifaces_ref = $self->all_dirs_base('');
+    my $ifaces_ref = $self->_configuredInterfaces();
     # Build a tree for each interface
 
     $self->_createPostroutingChain();
@@ -207,7 +208,7 @@ sub models
 
     my $netMod = $self->{'network'};
 
-    my @currentModels = ();
+    my @currentModels = ($self->interfaceRateModel());
     my @extIfaces = @{$netMod->ExternalIfaces()};
     my @intIfaces = @{$netMod->InternalIfaces()};
 
@@ -323,7 +324,7 @@ sub _stopService
 
     $self->startUp() unless ($self->{'started'});
 
-    my $ifaces_ref = $self->all_dirs_base('');
+    my $ifaces_ref = $self->_configuredInterfaces();
 
     $self->_deletePostroutingChain();
     foreach my $iface (@{$ifaces_ref}) {
@@ -354,22 +355,16 @@ sub menu # (root)
 
     my ($self, $root) = @_;
 
-    # We create a folder if l7-protocols if installed to group it
-    # in the same menu, or a separate entry if not
-    if (EBox::Global->getInstance()->modExists('l7-protocols')) {
-        my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
-                                            'text' => $self->printableName(),
-                                            'separator' => __('Gateway'),
-                                            'order' => 220);
-        $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
-                                          'text' => __('Rules')));
-        $root->add($folder);
-    } else {
-        $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
+    my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'text' => $self->printableName(),
                                         'separator' => __('Gateway'),
-                                        'order' => 220));
-    }
+                                        'order' => 220);
+    $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
+                                      'text' => __('Rules')));
+    $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/View/InterfaceRate',
+                                      'text' => __('Interface Rates')));
+
+    $root->add($folder);
 }
 
 # Method: checkRule
@@ -597,6 +592,30 @@ sub ruleModel # (iface)
 
 }
 
+# Method:   interfaceRateModel 
+#
+#   Returns a <EBox::TrafficShaping::Model::InterfaceRate> model
+#
+# Returns:
+#
+#       <EBox::TrafficShaping::Model::InterfaceRate>
+#
+sub interfaceRateModel
+{
+    my ($self) = @_;
+
+    if ( not defined ($self->{rateModel})) {
+        $self->{rateModel}
+            = new EBox::TrafficShaping::Model::InterfaceRate(
+                gconfmodule => $self,
+                directory   => 'InterfaceRate',
+                tablename   => 'InterfaceRate',
+        );
+    };
+
+    return $self->{rateModel};
+}
+
 # Method: ShaperChain
 #
 #      Class method which returns the iptables chain used by Traffic
@@ -765,22 +784,11 @@ sub freeIface # (iface)
 #
 sub uploadRate # (iface)
 {
-
-    # FIXME: Change when the ticket #373
-
     my ($self, $iface) = @_;
 
-    my $gateways_ref = $self->{'network'}->gateways();
-
-    my $sumUpload = 0;
-    foreach my $gateway_ref (@{$gateways_ref}) {
-        if ($gateway_ref->{interface} eq $iface) {
-            $sumUpload += $gateway_ref->{upload};
-        }
-    }
-
-    return $sumUpload;
-
+    my $rates = $self->interfaceRateModel();
+    my $row = $rates->findRow(interface => $iface);
+    return $row->valueByName('upload');
 }
 
 # Method: totalDownloadRate
@@ -799,20 +807,13 @@ sub totalDownloadRate
 
     my ($self) = @_;
 
-    my $net = $self->{'network'};
-
-    my $gateways_ref = $net->gateways();
-
     my $sumDownload = 0;
-
-    foreach my $gateway_ref (@{$gateways_ref}) {
-        if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
-            $sumDownload += $gateway_ref->{download};
-        }
+    my $rates = $self->interfaceRateModel();
+    foreach my $iface (@{$rates->ids()}) {
+        $sumDownload += $rates->row($iface)->valueByName('download');
     }
 
     return $sumDownload;
-
 }
 
 # Method: enoughInterfaces
@@ -959,26 +960,6 @@ sub _checkInterface # (iface)
 					    value => $iface
 					  );
     }
-
-    # If it's an external interface, check the gateway
-    if ( $network->ifaceIsExternal( $iface )) {
-      # Check it has gateways associated
-      my $gateways_ref = $network->gateways();
-
-      my @gatewaysIface = grep { $_->{interface} eq $iface } @{$gateways_ref};
-
-      if ( scalar (@gatewaysIface) <= 0 ) {
-          use Devel::StackTrace;
-          my $trace = Devel::StackTrace->new;
-          EBox::debug($trace->as_string());
-          throw EBox::Exceptions::External(
-                                           __('Traffic shaping can be only done in external interfaces ' .
-                                              'which have gateways associated to')
-                                          );
-      }
-    }
-
-    return;
 
   }
 
@@ -1731,5 +1712,16 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
       EBox::Sudo::root("/sbin/iptables $cmd");
    }
 
+# Fetch configured interfaces in this module
+sub _configuredInterfaces
+{
+    my ($self) = @_;
+
+    my @ifaces;
+    for my $iface (@{ $self->all_dirs_base('')}) {
+        push (@ifaces, $iface) if ($iface ne 'InterfaceRate');
+    }
+    return \@ifaces;
+}
 1;
 
