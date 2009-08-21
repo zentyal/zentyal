@@ -178,6 +178,9 @@ sub _enforceServiceState
 
     $self->_createPostroutingChain();
     foreach my $iface (@{$ifaces_ref}) {
+            $self->_resetChain($iface);
+    }
+    foreach my $iface (@{$ifaces_ref}) {
         if ( defined ( $self->{builders}->{$iface} ) ) {
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
@@ -186,7 +189,6 @@ sub _enforceServiceState
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
             # Execute iptables commands
-            $self->_resetChain($iface);
             $self->_executeIptablesCmds($ipTablesCommands_ref);
         }
     }

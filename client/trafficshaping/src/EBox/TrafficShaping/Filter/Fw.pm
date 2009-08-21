@@ -22,10 +22,10 @@ use EBox::Global;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
-
 use EBox::TrafficShaping::Firewall::IptablesRule;
-
 use EBox::TrafficShaping;
+
+use Perl6::Junction qw( any );
 
 use constant MARK_MASK => '0xFF00';
 # The highest found is 7
@@ -369,6 +369,7 @@ sub dumpIptablesCommands
                                                 destinationAddress => $self->{dstAddr} );
       }
 
+      my $l7Rule = 0;
       if (not defined ($self->{service})) {
         my $serviceMod = EBox::Global->modInstance('services');
         $ipTablesRule->setService($serviceMod->serviceId('any'));
@@ -382,10 +383,15 @@ sub dumpIptablesCommands
          }
       } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
         $ipTablesRule->setL7Service($self->{service}->value());
+        $l7Rule = 1;
       } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
         $ipTablesRule->setL7GroupedService($self->{service}->value());
+        $l7Rule = 1;
       }
       push(@ipTablesCommands, @{$ipTablesRule->strings()});
+      if ($l7Rule) {
+        push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
+      }
     }
     # FIXME Comment out because it messes up with multipath marks
     #else {
@@ -400,5 +406,29 @@ sub dumpIptablesCommands
     return \@ipTablesCommands;
 
   }
+
+sub _extraL7Commands
+{
+    my ($self, $rule) = @_;
+
+    my  $network = EBox::Global->modInstance('network');
+    my $iface = $self->{parent}->getInterface();
+    my @ifaces;
+    if ($network->ifaceIsExternal($iface)) {
+        @ifaces = @{$network->InternalIfaces()};
+    } else {
+        @ifaces = @{$network->ExternalIfaces()};
+    }
+
+    my @cmds;
+    for my $interface (@ifaces) {
+        my $newRule = $rule->clone();
+        $rule->setChain("EBOX-SHAPER-$interface");
+        $rule->setDecision(undef);
+        push (@cmds, @{$rule->strings()});
+    }
+
+    return @cmds;
+}
 
 1;
