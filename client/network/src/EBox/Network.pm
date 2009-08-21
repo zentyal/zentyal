@@ -2865,7 +2865,7 @@ sub menu
 #
 # Returns:
 #
-#   array ref of hash refs containing name, ip, upload/download link,
+#   array ref of hash refs containing name, ip, 
 #   if it is the default gateway or not and the id  for the gateway.
 #
 #   Example:
@@ -2873,8 +2873,7 @@ sub menu
 #   [
 #     {
 #       name => 'gw1', ip => '192.168.1.1' , interface => 'eth0',
-#       upload => '128',  download => '1024', default => '1',
-#       id => 'foo1234'
+#       default => '1', id => 'foo1234'
 #     }
 #   ]
 #
@@ -2908,7 +2907,7 @@ sub _defaultGwAndIface
 #
 # Returns:
 #
-#   array ref of hash refs containing name, ip, upload/download link,
+#   array ref of hash refs containing name, ip,
 #   if it is the default gateway or not and the id  for the gateway.
 #
 #   Example:
@@ -2916,8 +2915,7 @@ sub _defaultGwAndIface
 #   [
 #     {
 #       name => 'gw1', ip => '192.168.1.1' ,
-#       upload => '128',  download => '1024', defalut => '1',
-#       id => 'foo1234', mac => '00:00:fa:ba:da'
+#       defalut => '1', id => 'foo1234', mac => '00:00:fa:ba:da'
 #     }
 #   ]
 #

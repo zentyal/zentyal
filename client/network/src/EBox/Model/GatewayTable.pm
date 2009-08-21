@@ -99,23 +99,6 @@ sub _table
 					'editable' => 1,
 					'help' => __('Interface connected to this gateway')
 				),
-		new EBox::Types::Int(
-					'fieldName' => 'upload',
-					'printableName' => __('Upload'),
-					'size' => '3',
-					'editable' => 1,
-					'trailingText' => 'Kb/s',
-					'help' => __('Upload rate in Kbits/s for this gateway.')
-
-				),
-		new EBox::Types::Int(
-					'fieldName' => 'download',
-					'printableName' => __('Download'),
-					'size' => '3',
-					'editable' => 1,
-					'trailingText' => 'Kb/s',
-					'help' => __('Download rate in Kbits/s for this gateway.')
-				),
 		new EBox::Types::Select(
 					'fieldName' => 'weight',
 					'printableName' => __('Weight'),
@@ -155,7 +138,7 @@ sub _table
 			'menuNamespace' => 'Network/View/GatewayTable',
 			'class' => 'dataTable',
 			'order' => 0,
-			'help' => __x('You can add as many gateways as you want. This is very useful if you want to split your Internet traffic through several links.{br}The download and upload fields must be set as much rate as you have to your connection towards the gateway. The correct value of these fields is critical to ensure a correct functionality of the traffic shaping module', br => '<br>'),
+			'help' => __x('You can add as many gateways as you want. This is very useful if you want to split your Internet traffic through several links.'),
 		        'rowUnique' => 0,
 		        'printableRowName' => __('gateway'),
 		};
@@ -290,8 +273,6 @@ sub _gateways # (all)
 							ip => $gw->valueByName('ip'),
 							weight => $gw->valueByName('weight'),
 							default => $gw->valueByName('default'),
-							upload => $gw->valueByName('upload'),
-							download => $gw->valueByName('download'),
 							interface => $gw->valueByName('interface'),
 						 });
 	}

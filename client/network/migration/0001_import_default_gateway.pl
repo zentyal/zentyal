@@ -17,8 +17,6 @@ use EBox::Validate qw(:all);
 use base 'EBox::MigrationBase';
 
 use constant DEFAULT_IFACE => 'eth0';
-use constant DEFAULT_UPLOAD => '1024';
-use constant DEFAULT_DOWNLOAD => '1024';
 use constant DEFAULT_NAME => 'default';
 use constant BASE_KEY => 'gatewaytable/keys/todo1111';
 
@@ -52,8 +50,6 @@ sub runGConf
 	$network->set_string(BASE_KEY . '/ip', $gw);
 	$network->set_string(BASE_KEY . '/interface', $gw);
 	$network->set_bool(BASE_KEY . '/default', 1);
-	$network->set_int(BASE_KEY . '/upload', DEFAULT_UPLOAD);
-	$network->set_int(BASE_KEY . '/download', DEFAULT_DOWNLOAD);
 
 }
 
