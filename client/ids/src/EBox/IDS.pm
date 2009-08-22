@@ -73,7 +73,48 @@ sub _create
 #
 sub _daemons
 {
-    return [ { 'name' => 'snort', 'type' => 'init.d' } ];
+    return [
+            {
+             'name' => 'snort',
+             'type' => 'init.d',
+             'precondition' => \&_snortNeeded
+            }
+           ];
+}
+
+# Method: _snortNeeded
+#
+#     Returns true if there are interfaces to listen, false otherwise.
+#
+sub _snortNeeded
+{
+    my ($self) = @_;
+
+    my @validIfaces = @{$self->_validIfaces()};
+
+    return (scalar(@validIfaces) > 0);
+}
+
+# Method: _validIfaces
+#
+#   Returns array reference with the enabled interfaces that
+#   are not unset or trunk.
+#
+sub _validIfaces
+{
+    my ($self) = @_;
+
+    my $net = EBox::Global->modInstance('network');
+    my $ifacesModel = $self->model('Interfaces');
+    my @ifaces;
+    foreach my $row (@{$ifacesModel->enabledRows()}) {
+        my $iface = $ifacesModel->row($row)->valueByName('iface');
+        my $method = $net->ifaceMethod($iface);
+        next if ($method eq 'notset' or $method eq 'trunk');
+        push (@ifaces, $iface);
+    }
+
+    return \@ifaces;
 }
 
 # Method: _preSetConf
@@ -107,18 +148,8 @@ sub _setConf
     $self->writeConfFile(SNORT_CONF_FILE, 'ids/snort.conf.mas',
                          [ rules => \@rules ]);
 
-    my $net = EBox::Global->modInstance('network');
-    my $ifacesModel = $self->model('Interfaces');
-    my @ifaces;
-    foreach my $row (@{$ifacesModel->enabledRows()}) {
-        my $iface = $ifacesModel->row($row)->valueByName('iface');
-        my $method = $net->ifaceMethod($iface);
-        next if ($method eq 'notset' or $method eq 'trunk');
-        push (@ifaces, $iface);
-    }
-
     $self->writeConfFile(SNORT_DEBIAN_CONF_FILE, 'ids/snort.debian.conf.mas',
-                         [ ifaces => \@ifaces ]);
+                         [ ifaces => $self->_validIfaces() ]);
 }
 
 # Group: Public methods

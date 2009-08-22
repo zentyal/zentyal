@@ -64,6 +64,13 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
+    # If the GConf module is readonly, return current rows
+    if ( $self->{'gconfmodule'}->isReadOnly() ) {
+        return undef;
+    }
+
+    my $modIsChanged = EBox::Global->getInstance()->modIsChanged('ids');
+
     my @files = </etc/snort/rules/*.rules>;
 
     my @names;
@@ -93,6 +100,11 @@ sub syncRows
         next if exists $newNames{$name};
         $self->removeRow($id);
         $modified = 1;
+    }
+
+    if ($modified and not $modIsChanged) {
+        $self->{'gconfmodule'}->_saveConfig();
+        EBox::Global->getInstance()->modRestarted('ids');
     }
 
     return $modified;
