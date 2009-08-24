@@ -617,8 +617,10 @@ sub resetVDomain
     my $ldap = $self->{ldap};
     my $dn =  $self->vdomainDn($vdomain);
 
-    $ldap->isObjectClass($dn, 'vdmailfilter') or
-        throw EBox::Exceptions::Internal("Bad objectclass");
+    if (not $ldap->isObjectClass($dn, 'vdmailfilter')) {
+        $self->_addVDomain($vdomain);
+    }
+
 
     # reset booleans to false
     my @boolMethods = qw(setAntivirus setAntispam);
@@ -705,6 +707,15 @@ sub regenConfig
         $self->resetVDomain($vdomain);
     }
 }
+
+
+sub schemas
+{
+    return [ 
+        EBox::Config::share() . 'ebox-mailfilter/amavis.ldif',
+        EBox::Config::share() . 'ebox-mailfilter/eboxfilter.ldif' ];
+}
+
 
 
 1;

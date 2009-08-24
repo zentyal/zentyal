@@ -1,0 +1,10 @@
+dn: cn=eboxfilter,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: eboxfilter
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.4.1.1 NAME 'domainMailPortion' D
+ ESC 'right-hand portion of the mail user portion. Needed for amavis matching'
+  EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6
+ .1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcObjectClasses: ( 1.3.6.1.4.1.31607.2.1.4.2.1 NAME 'vdmailfilter' DESC 'F
+ iltering properties for a virtual domain' SUP amavisAccount AUXILIARY MAY dom
+ ainMailPortion )

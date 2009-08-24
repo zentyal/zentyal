@@ -122,6 +122,8 @@ sub enableActions
 {
     my ($self) = @_;
 
+    $self->performLDAPActions();
+
     root(EBox::Config::share() . '/ebox-mailfilter/ebox-mailfilter-enable');
 }
 
@@ -419,9 +421,10 @@ sub firewallHelper
 #  An object implementing EBox::LdapUserBase
 sub _ldapModImplementation
 {
-        my $self = shift;
-
-        return new EBox::MailFilter::VDomainsLdap();
+    my ($self) = @_;
+    # note that we dont really any user-related stuff but we need this to
+    # use common ldap features like the method schemas()
+    return new EBox::MailFilter::VDomainsLdap();
 }
 
 # Method: _vdomainModImplementation
@@ -436,9 +439,8 @@ sub _ldapModImplementation
 
 sub _vdomainModImplementation
 {
-        my $self = shift;
-
-        return new EBox::MailFilter::VDomainsLdap();
+    my ($self) = @_;
+    return new EBox::MailFilter::VDomainsLdap();
 }
 
 

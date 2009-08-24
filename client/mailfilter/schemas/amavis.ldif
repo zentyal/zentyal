@@ -1,0 +1,119 @@
+dn: cn=amavis,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: amavis
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.1 NAME 'amavisVirusLover' DESC
+  'Virus Lover' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SING
+ LE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.2 NAME 'amavisBannedFilesLover
+ ' DESC 'Banned Files Lover' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115
+ .121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.3 NAME 'amavisBypassVirusCheck
+ s' DESC 'Bypass Virus Check' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.11
+ 5.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.4 NAME 'amavisBypassSpamChecks
+ ' DESC 'Bypass Spam Check' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.
+ 121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.5 NAME 'amavisSpamTagLevel' DE
+ SC 'Spam Tag Level' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Substring
+ sMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.6 NAME 'amavisSpamTag2Level' D
+ ESC 'Spam Tag2 Level' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Substri
+ ngsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.7 NAME 'amavisSpamKillLevel' D
+ ESC 'Spam Kill Level' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Substri
+ ngsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.8 NAME 'amavisSpamModifiesSubj
+ ' DESC 'Modifies Subject on spam' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.14
+ 66.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.9 NAME 'amavisWhitelistSender'
+  DESC 'White List Sender' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Sub
+ stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.10 NAME 'amavisBlacklistSender
+ ' DESC 'Black List Sender' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Su
+ bstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.11 NAME 'amavisSpamQuarantine
+ To' DESC 'Spam Quarantine to' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA
+ 5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.12 NAME 'amavisSpamLover' DES
+ C 'Spam Lover' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SING
+ LE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.13 NAME 'amavisBadHeaderLover
+ ' DESC 'Bad Header Lover' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.1
+ 21.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.14 NAME 'amavisBypassBannedCh
+ ecks' DESC 'Bypass Banned Files Check' EQUALITY booleanMatch SYNTAX 1.3.6.1.4
+ .1.1466.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.15 NAME 'amavisBypassHeaderCh
+ ecks' DESC 'Bypass Header Check' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.146
+ 6.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.16 NAME 'amavisVirusQuarantin
+ eTo' DESC 'Virus quarantine location' EQUALITY caseIgnoreIA5Match SUBSTR case
+ IgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VAL
+ UE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.17 NAME 'amavisBannedQuaranti
+ neTo' DESC 'Banned Files quarantine location' EQUALITY caseIgnoreIA5Match SUB
+ STR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SI
+ NGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.18 NAME 'amavisBadHeaderQuara
+ ntineTo' DESC 'Bad Header quarantine location' EQUALITY caseIgnoreIA5Match SU
+ BSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 S
+ INGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.19 NAME 'amavisLocal' DESC 'I
+ s user considered local' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.12
+ 1.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.20 NAME 'amavisMessageSizeLim
+ it' DESC 'Message size limit' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA
+ 5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.21 NAME 'amavisWarnVirusRecip
+ ' DESC 'Notify virus recipients' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.146
+ 6.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.22 NAME 'amavisWarnBannedReci
+ p' DESC 'Notify banned file recipients' EQUALITY booleanMatch SYNTAX 1.3.6.1.
+ 4.1.1466.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.23 NAME 'amavisWarnBadHeaderR
+ ecip' DESC 'Notify bad header recipients' EQUALITY booleanMatch SYNTAX 1.3.6.
+ 1.4.1.1466.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.24 NAME 'amavisVirusAdmin' DE
+ SC 'Virus admin' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5SubstringsMa
+ tch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.25 NAME 'amavisNewVirusAdmin'
+  DESC 'New virus admin' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Subst
+ ringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.26 NAME 'amavisSpamAdmin' DES
+ C 'Spam admin' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5SubstringsMatc
+ h SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.27 NAME 'amavisBannedAdmin' D
+ ESC 'Banned file admin' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Subst
+ ringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.28 NAME 'amavisBadHeaderAdmin
+ ' DESC 'Bad header admin' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Sub
+ stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.29 NAME 'amavisBannedRuleName
+ s' DESC 'Banned rule names' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5S
+ ubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.30 NAME 'amavisSpamDsnCutoffL
+ evel' DESC 'Spam DSN Cutoff Level' EQUALITY caseIgnoreIA5Match SUBSTR caseIgn
+ oreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE 
+ )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.31 NAME 'amavisSpamQuarantine
+ CutoffLevel' DESC 'Spam Quarantine Cutoff Level' EQUALITY caseIgnoreIA5Match 
+ SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.32 NAME 'amavisSpamSubjectTag
+ ' DESC 'Spam Subject Tag' EQUALITY caseExactIA5Match SUBSTR caseExactSubstrin
+ gsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.15312.2.2.1.33 NAME 'amavisSpamSubjectTag
+ 2' DESC 'Spam Subject Tag2' EQUALITY caseExactIA5Match SUBSTR caseExactSubstr
+ ingsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcObjectClasses: ( 1.3.6.1.4.1.15312.2.2.2.1 NAME 'amavisAccount' DESC 'Am
+ avisd Account' SUP top AUXILIARY MAY ( amavisVirusLover $ amavisBypassVirusCh
+ ecks $ amavisSpamLover $ amavisBypassSpamChecks $ amavisBannedFilesLover $ am
+ avisBypassBannedChecks $ amavisBadHeaderLover $ amavisBypassHeaderChecks $ am
+ avisSpamTagLevel $ amavisSpamTag2Level $ amavisSpamKillLevel $ amavisWhitelis
+ tSender $ amavisBlacklistSender $ amavisSpamQuarantineTo $ amavisVirusQuarant
+ ineTo $ amavisBannedQuarantineTo $ amavisBadHeaderQuarantineTo $ amavisSpamMo
+ difiesSubj $ amavisLocal $ amavisMessageSizeLimit $ amavisWarnVirusRecip $ am
+ avisWarnBannedRecip $ amavisWarnBadHeaderRecip $ amavisVirusAdmin $ amavisNew
+ VirusAdmin $ amavisSpamAdmin $ amavisBannedAdmin $ amavisBadHeaderAdmin $ ama
+ visBannedRuleNames $ amavisSpamDsnCutoffLevel $ amavisSpamQuarantineCutoffLev
+ el $ amavisSpamSubjectTag $ amavisSpamSubjectTag2 $ cn $ description ) )

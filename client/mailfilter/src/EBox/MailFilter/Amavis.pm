@@ -48,11 +48,6 @@ sub usedFiles
                       'reason' => __('To configure amavis'),
                       'module' => 'mailfilter'
                      },
-                     {
-                      'file' => '/etc/ldap/slapd.conf',
-            'reason' => __('To add the LDAP schemas used by eBox mailfilter'),
-                      'module' => 'users'
-                     }
                     );
 
     return \@usedFiles;

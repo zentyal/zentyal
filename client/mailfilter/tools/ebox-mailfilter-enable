@@ -20,11 +20,11 @@ addgroup clamav amavis
 addgroup clamav p3scan
 
 
-# copy LDAP schemas
-cp /usr/share/ebox-mailfilter/*.schema /etc/ldap/schema
-# update ldap
-/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
-/etc/init.d/slapd restart
+## copy LDAP schemas
+#cp /usr/share/ebox-mailfilter/*.schema /etc/ldap/schema
+## update ldap
+#/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+#/etc/init.d/slapd restart
 /usr/share/ebox-mailfilter/ebox-mailfilter-ldap update
 
 

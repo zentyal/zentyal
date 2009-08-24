@@ -22,12 +22,14 @@ sub update
                          user => 'spam',
                          givenname => 'Spam',
                          surname => 'account',
+                         surname  => 'sapm',
                          password => '',
                         },
                         {
                          user => 'ham',
                          givenname => 'Ham',
                          surname => 'account',
+                         surname => 'ham',
                          password => '',
                         },
                      );
