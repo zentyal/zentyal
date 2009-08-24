@@ -223,7 +223,7 @@ sub _writeCSSFiles
         EBox::Module::Base::writeConfFileNoCheck("$path/$file",
                                                  "css/$file.mas",
                                                  [ %params ],
-                                                 { mode => '0600',
+                                                 { mode => '0644',
                                                    uid => $UID,
                                                    gid => $primaryGid});
     }
