@@ -75,6 +75,7 @@ sub tableHeader
          unique        => 1,
          editable      => 1,
          optional      => 0,
+         disableCache  => 1,
 
          ),
 

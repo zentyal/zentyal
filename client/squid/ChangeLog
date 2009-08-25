@@ -1,4 +1,7 @@
 HEAD
+	+ Bug fix: Disable cache in Group Policy base to be able to fetch new groups in
+	  "Group" select
+1.3.5
 	+ tableInfo returns an array of hash refs
 	+ Bugfix: group policies are deleted when the group is deleted
 	+ Bugfix: added notification when antivirus is enabled to assure
