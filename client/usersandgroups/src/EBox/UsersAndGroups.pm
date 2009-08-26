@@ -2360,7 +2360,7 @@ sub defaultPasswordHash
 
     my $format = EBox::Config::configkey('default_password_format');
     if (not defined($format)) {
-        $format = 'shashaHa';
+        $format = 'sha1';
     }
     my $hasher = passwordHasher($format);
     my $hash = $hasher->($password);
