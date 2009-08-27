@@ -30,6 +30,8 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Dashboard::Widget;
+use EBox::Dashboard::List;
 use EBox::AsteriskLdapUser;
 use EBox::AsteriskFirewall;
 use EBox::Asterisk::Extensions;
@@ -475,6 +477,135 @@ sub userMenu
                                     'text' => __('Voicemail')));
 }
 
+
+sub onlineUsersWidget
+{
+    my ($self, $widget) = @_;
+
+    my $section = new EBox::Dashboard::Section('onlineusers');
+    $widget->add($section);
+    my $titles = [__('User'),  __('Address'), __('NAT'), __('Status')];
+
+    my $users = $self->_sipShowPeers();
+
+    my $rows = {};
+    foreach my $user (@{$users}) {
+        if ( $user->{'status'} =~m/OK/ or $user->{'status'} =~m/UNREACHABLE/ ) {
+            my $id = $user->{'username'} . '_' . $user->{'addr'};
+            $rows->{$id} = [$user->{'username'}, $user->{'addr'},
+                            $user->{'nat'}, $user->{'status'}];
+        }
+    }
+    my $ids = [sort keys %{$rows}];
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
+                  __('No users connected.')));
+}
+
+
+sub _sipShowPeers
+{
+    my ($self) = @_;
+
+    my $peers = [];
+    my @output = @{ EBox::Sudo::root("asterisk -rx 'sip show peers'") };
+    for my $line (@output) {
+        chomp($line);
+        # jbernal/jbernal            87.218.95.20     D   N      1050     OK (214 ms) Cached RT
+        if ( $line =~ m/\S+\/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S.+) Cached RT/ ) {
+            my ($username, $addr, $nat, $status) = ($1, $2, $4, $6);
+            my $user = {};
+            $user->{'username'} = $username;
+            $user->{'addr'} = $addr;
+            $user->{'nat'} = $nat;
+            $user->{'status'} = $status;
+            push(@{$peers}, $user);
+        }
+    }
+
+    return $peers;
+}
+
+
+sub _meetmeList
+{
+    my ($self) = @_;
+
+    my $rooms = [];
+    my @output = @{ EBox::Sudo::root("asterisk -rx 'meetme list'") };
+    for my $line (@output) {
+        chomp($line);
+        # 8989           0001           N/A        02:03:32  Static    No
+        if ( $line =~ m/(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/ ) {
+            my ($extn, $time) = ($1, $4);
+            my $room = {};
+            $room->{'users'} = [];
+            $room->{'name'} = $extn;
+            $room->{'time'} = $time;
+            my @output2 = @{ EBox::Sudo::root("asterisk -rx 'meetme list $extn'") };
+            for my $line2 (@output2) {
+                chomp($line2);
+                # User #: 02         1003 <no name>            Channel: SIP/juruen-08293ff8     (unmonitored) 02:37:32
+                if ( $line2 =~ m/.*Channel: (\S+)\s+(\S+)\s+(\S+)/ ) {
+                    my ($username, $utime) = ($1, $3);
+                    my $user = {};
+                    $user->{'username'} = $username;
+                    $user->{'utime'} = $utime;
+                    push(@{$room->{'users'}}, $user);
+                }
+            }
+            push(@{$rooms}, $room);
+        }
+    }
+
+    return $rooms;
+}
+
+
+sub usersByMeetingsWidget
+{
+    my ($self, $widget) = @_;
+
+    my $usersByConference = $self->_meetmeList();
+
+    for my $room (@{$usersByConference}) {
+        my $title = __x("Room {name} active for {rtime}", name => $room->{'name'}, rtime => $room->{'time'});
+        my $section = new EBox::Dashboard::Section($room->{'name'}, $title);
+        $widget->add($section);
+        my $titles = [__('User'), __('Time Connected')];
+
+        my $rows = {};
+        foreach my $user (@{$room->{'users'}}) {
+            my $id = $user->{'username'};
+            $rows->{$id} = [$user->{'username'}, $user->{'utime'}];
+        }
+        my $ids = [sort keys %{$rows}];
+        $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
+                  __('No users connected.')));
+    }
+}
+
+
+# Method: widgets
+#
+# Overrides:
+#
+#      <EBox::Module::widgets>
+#
+sub widgets
+{
+    return {
+        'onlineusers' => {
+            'title' => __("VoIP Online Users"),
+                'widget' => \&onlineUsersWidget,
+                'default' => 1
+        },
+        'usersbyconference' => {
+            'title' => __("VoIP Users in Meetings"),
+                'widget' => \&usersByMeetingsWidget,
+                'default' => 1
+        }
+    };
+}
 
 
 sub _backupArchiveFile
