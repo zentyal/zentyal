@@ -833,7 +833,7 @@ sub allowedAddresses
 #
 #  boolean - true if it's set as allowed, otherwise false
 #
-sub isAllowedxb
+sub isAllowed
 {
     my ($self, $object)  = @_;
     my $objectPolicy = $self->model('ObjectPolicy');
