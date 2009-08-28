@@ -181,7 +181,7 @@ use Data::Dumper;
 
 	<tr>
 	<td class='tright'><% __('Event') %>:</td>
-	<td><select name='filter-event'>
+	<td><select name='filter-<% $tableinfo->{eventcol} %>'>
 		<option value=''><% __('Any') %></option>
 %	foreach my $ev (keys %{$tableinfo->{'events'}}) {
 %		if ($filters->{'event'} and $filters->{'event'} eq $ev) {
