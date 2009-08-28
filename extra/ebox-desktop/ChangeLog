@@ -1,0 +1,2 @@
+HEAD
+	+ bugfix: added pam_group.so to common-auth, so useres are now placed in local groups

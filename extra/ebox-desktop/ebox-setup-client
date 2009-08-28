@@ -44,6 +44,10 @@ if ! grep -v ^# $AUTH_CONF | grep -q "auth sufficient pam_ldap.so"
 then
     sed -i "1 i auth sufficient pam_ldap.so" $AUTH_CONF
 fi
+if ! grep -v ^# $AUTH_CONF | grep -q "auth required pam_group.so"
+then
+    sed -i "1 i auth required pam_group.so" $AUTH_CONF
+fi
 
 sed -i 's/nullok_secure$/nullok_secure use_first_pass/' $AUTH_CONF
 
