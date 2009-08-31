@@ -68,7 +68,7 @@ sub _table
 {
     my @tableDesc =
         (
-         new EBox::Types::Host(
+         new EBox::Types::Text(
                                fieldName => 'smarthost',
                                printableName => __('Smarthost to send mail'),
                                optional => 1,
@@ -104,6 +104,7 @@ sub _table
                                               printableName => __('Password'),
                                               size => 12,
                                               editable => 1,
+                                              allowUnsafeChars => 1,
                                                                   ),
 
                                             ],
@@ -166,6 +167,40 @@ sub maxMsgSize
     return $size;
 }
 
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+    if (exists $changedFields->{smarthost}) {
+        $self->_validateSmarthost($changedFields);
+    }
+
+}
+
+
+sub _validateSmarthost
+{
+    my ($self, $changedFields) = @_;
+
+    my $smarthost = $changedFields->{smarthost}->value();
+    if (not $smarthost) {
+        # no smarthost, correct..
+        return undef;
+    }
+
+
+    if ($smarthost =~ m/:/) {
+        my ($host, $port) = split ':', $smarthost;
+        EBox::Validate::checkHost($host, __(q{Smarthost's address}));
+        EBox::Validate::checkPort($port, __(q{Smarthost's port}));
+        
+    }else {
+        EBox::Validate::checkHost($smarthost, __(q{Smarthost's address}));
+        
+    }
+
+
+}
 
 1;
 
