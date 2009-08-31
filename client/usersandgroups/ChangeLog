@@ -1,6 +1,7 @@
 HEAD
 	+ Disable slapd apparmor profile in enableActions
 	+ Reload nscd when adding users and groups
+	+ Bugfix: backup bug report now works again
 1.3.0
 	+ eBox LDAP architecture now supports a master-slave configuration
 	+ bugfix: Update usercorner service when there's a change on the port number

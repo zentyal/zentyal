@@ -2192,7 +2192,7 @@ sub dumpConfig
     if (isMaster()) {
         $self->ldap->dumpLdapMaster($dir);
         if ($options{bug}) {
-            my $file = $self->ldap->ldifFile($dir, 'slapd.d');
+            my $file = $self->ldap->ldifFile($dir, 'master', 'data');
             $self->_removePasswds($file);
         }
     } else {
