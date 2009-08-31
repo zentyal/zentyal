@@ -1,6 +1,6 @@
 HEAD
         + now you can specify a port for the smarthost (if not specified
-	the defualt port ocntinues to be 25)
+	the default port continues to be 25)
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.41
@@ -20,20 +20,20 @@ HEAD
 	+ Bugfix: when already exists the maildir, create a new account is
 	not allowed
 	+ Bugfix: fixed error in mail queue template: avoid to reference a
-	possible udefined value
+	possible undefined value
 	+ Bugfix: running method in Greylist does not fail if there is not
 	eventd fil
 	+ Bugfix: force removal of previous data in backup
-	+Bugfix: removed bad suprefluous call that was the source of
+	+Bugfix: removed bad superfluous call that was the source of
 	, at least, restore errors
-	+ Mailqueque parsing error fixed and more robust mailqueue template
+	+ Mail queue parsing error fixed and more robust mail queue template
 0.12.101
 	+ Bugfix: Postgrey daemon is disabled by default
 0.12.100
 	+ EBox::MailUserLdap::userAccount and
-	EBox::MailUserLdap::getUserLdapValue  dont longer assumme that the
+	EBox::MailUserLdap::getUserLdapValue  don't longer assume that the
 	user exists
-	+ Bugfix: MDSize attribute should not be restored in sytems with
+	+ Bugfix: MDSize attribute should not be restored in systems with
 	MDSize feature disabled
 	+ Bugfix in logs: mail relayed to external smarthost is now
 	logged, external smarthost relay denied action also logged, relay
@@ -69,7 +69,7 @@ HEAD
 	+ Disabled filter appears in the filter lists as disabled
 	(previously they don't appear at all)
 	+ Module activation dependency with module which provides the
-	acitve filter
+	active filter
 0.11.99
 	+ Add mail dispatcher to notify eBox events using this SMTP server
 	+ Enhanced strings
@@ -106,7 +106,7 @@ HEAD
 	+ New release
 0.7.1
 	+ GUI improvements
-	+ Added queue managment support
+	+ Added queue management support
 	+ Use EBox::LDAP singleton
 	+ Added update/clean actions to ebox-mail-ldap
 	+ Use of ebox-sudoers-friendly 

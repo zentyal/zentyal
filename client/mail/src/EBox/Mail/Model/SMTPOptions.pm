@@ -73,6 +73,8 @@ sub _table
                                printableName => __('Smarthost to send mail'),
                                optional => 1,
                                editable => 1,
+                               help     => __('The format is host[:port] being '
+                                              . 'port set to 25 if none is supplied'),
                               ),
          new EBox::Types::Union(
                               fieldName => 'smarthostAuth',
