@@ -73,16 +73,16 @@ sub _description
             push(@typeInstances, $mountPoint);
             $printableTypeInstances{$mountPoint} = $fileSysS->{$fileSys}->{mountPoint};
         }
-        push(@printableLabels, __x('free in {partition}',
-                                   partition => $fileSysS->{$fileSys}->{mountPoint}));
         push(@printableLabels, __x('used in {partition}',
+                                   partition => $fileSysS->{$fileSys}->{mountPoint}));
+        push(@printableLabels, __x('free in {partition}',
                                    partition => $fileSysS->{$fileSys}->{mountPoint}));
     }
 
     return {
         printableName   => __('File system usage'),
         help            => __('Collect the mounted file system usage information as "df" command does'),
-        dataSources     => [ 'free', 'used' ],
+        dataSources     => [ 'used', 'free' ],
         printableLabels => \@printableLabels,
         printableTypeInstances => \%printableTypeInstances,
         typeInstances   => \@typeInstances,
