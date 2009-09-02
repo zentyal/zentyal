@@ -114,7 +114,6 @@ use EBox::NetWrappers qw(:all);
 %		$netmask = '255.255.255.0';
 %	}
 				<option selected value='<% $netmask %>'><% $netmask %></option>
-				<option value='255.255.255.254'>255.255.255.254</option>
 				<option value='255.255.255.252'>255.255.255.252</option>
 				<option value='255.255.255.248'>255.255.255.248</option>
 				<option value='255.255.255.240'>255.255.255.240</option>
@@ -234,7 +233,6 @@ use EBox::NetWrappers qw(:all);
 			<td>
 				<select name="vif_netmask">
 				<option selected value="255.255.255.0">255.255.255.0</option>
-				<option value='255.255.255.254'>255.255.255.254</option>
 				<option value='255.255.255.252'>255.255.255.252</option>
 				<option value='255.255.255.248'>255.255.255.248</option>
 				<option value='255.255.255.240'>255.255.255.240</option>
