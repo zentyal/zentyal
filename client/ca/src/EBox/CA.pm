@@ -1048,8 +1048,12 @@ sub generateCRL
 #       - path       - certificate path
 #       - serialNumber - serial number within CA
 #
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the CA is not created
+#
 sub listCertificates
-  {
+{
 
     my ($self, %args) = @_;
 
@@ -1059,6 +1063,12 @@ sub listCertificates
     # Check parameter state is correct (R, V or E)
     if (defined($state) and $state !~ m/[RVE]/ ) {
       throw EBox::Exceptions::Internal("State should be R, V or E");
+    }
+
+    unless (-f INDEXFILE) {
+        throw EBox::Exceptions::External(
+            __('The Certification Authority Infrastructure is not available, create it first')
+           );
     }
 
     my @lines = read_file( INDEXFILE );
